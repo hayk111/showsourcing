@@ -24,7 +24,9 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
   private _task: Task;
   get task(): Task {
     return this._task;
-  }
+	}
+	 
+	@Output() udateTask = new EventEmitter<Task>();
 
   @Input('task')
   set task(value: Task) {
@@ -75,16 +77,25 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
   // 			distinctUntilChanged()
   // 		).subscribe(product => this.updateProduct(product));
   // }
-  updateTask(task: any) {
+  updateTaskServer(task: any) {
 		task.id = this.task.id;
 		this.featureSrv.update(task).subscribe();
   }
 
   updateTaskDescription(description: string) {
     this._task.description = description;
-		this.updateTask({ description });
+		this.updateTaskServer({ description });
   }
 
+
+  updateTaskName(name: string) {
+    this._task.name = name;
+		this.updateTaskServer({ name });
+  }
+  updateTaskDueDate(dueDate: Date) {
+    this._task.dueDate = dueDate;
+		this.updateTaskServer({ dueDate });
+  }
   // openRfq() {
   // 	// we add manually the supplier self email, since it is not on the contacts
   // 	if (this.contacts && this.product.supplier.officeEmail) {

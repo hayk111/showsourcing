@@ -14,22 +14,40 @@
 
   <ng-container>
     <div class="task-name">
-      {{task?.name ? task?.name : 'Unnamed task'}}
+      <editable-text-app #editable [closeOnOutsideClick]="true"  (saved)="updateTaskName(txtName.value)" [hasAction]="true">
+        <editable-label-app class="task-name">
+          {{task?.name ? task?.name : 'Unnamed task'}}
+        </editable-label-app>
+        <input inputApp class="task-name" #txtName [value]="task?.name || ''">
+      </editable-text-app>
     </div>
     <div class="descripton-container">
       <div class="section-title">
         Description
       </div>
 
-      <editable-text-app #editable [closeOnOutsideClick]="true"  (saved)="updateTaskDescription(txt.value)" [hasAction]="true">
+      <editable-text-app #editable [closeOnOutsideClick]="true"  (saved)="updateTaskDescription(txtDescription.value)" [hasAction]="true">
         <editable-label-app class="description-text" *ngIf="task?.description; else noDesc">
           {{task?.description}}
         </editable-label-app>
-        <textarea inputApp class="description-text" #txt [value]="task?.description || ''"></textarea>
+        <textarea inputApp class="description-text" #txtDescription [value]="task?.description || ''"></textarea>
       </editable-text-app>
 
     </div>
 
+    <div class="descripton-container">
+      <div class="section-title">
+        Due date
+      </div>
+
+      <editable-text-app #editable [closeOnOutsideClick]="true"  (saved)="updateTaskDueDate(txtDuaDate.value)" [hasAction]="true">
+        <editable-label-app class="description-text" >
+          {{task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date'}}
+        </editable-label-app>
+        <input inputApp class="description-text" type="date" placeholder="Select a due date" #txtDuaDate [value]="(task?.dueDate | date:'dd-MM-yyyy')|| ''">
+      </editable-text-app>
+
+    </div>
 
     <div class="assigned-container">
       <div class="section-title">
@@ -41,6 +59,7 @@
               <user-picture-app [user]="task?.assignee" [size]="30" [border]="true"></user-picture-app>
               <div class="user-name">{{ task?.assignee ? task.assignee.firstName+' '+ task.assignee.lastName  : 'Unassigned' }}</div>
             </div>
+ 
       </div>
     </div>
 
