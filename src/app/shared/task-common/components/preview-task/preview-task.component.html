@@ -55,7 +55,7 @@
       </div>
 
       <div class="assigned-list">
-        <div class="flex task-user" (click)="toggleSelector(true)">
+        <div class="flex task-user pointer" (click)="toggleSelector(true)">
           <selector-entity-app #selector *ngIf="selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app>
           <user-picture-app  *ngIf="!selectorVisible"  [user]="task?.assignee" [size]="30" [border]="true"></user-picture-app>
           <div  *ngIf="!selectorVisible" class="user-name">{{ task?.assignee ? task.assignee.firstName+' '+task.assignee.lastName  : 'Unassigned' }}</div>

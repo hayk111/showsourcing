@@ -5,8 +5,11 @@
 	margin-bottom: var(--spacing-ms);
 }
 
-user-picture-app {
-	font-size: var(--font-size-huge);
+.top {
+	user-picture-app {
+		margin-bottom: var(--spacing-ms);
+		font-size: var(--font-size-huge);
+	}
 }
 
 h2 {
@@ -24,6 +27,10 @@ h3 {
 
 .secondBlock {
 	padding: 18px;
+
+	& > *:not(:last-child) {
+		margin-bottom: var(--spacing-ms);
+	}
 
 	.amount {
 		font-family: 'Source Sans Pro', sans-serif;
@@ -53,10 +60,26 @@ rating-cylinder-app {
 	margin-bottom: var(--spacing-l);
 }
 
-checkbox-app {
-	margin: var(--spacing-ms);
+.user-tasks {
+
+	 &:not(.last) {
+		 margin-bottom: var(--spacing-ms);
+	 }
+
+	icon-app {
+		margin-right: var(--spacing-s);
+		font-size: var(--font-size-l);
+	}
 	user-picture-app {
-		margin-right: var(--spacing-xs);
-		font-size: 8px;
+		margin-right: var(--spacing-s);
+		font-size: var(--font-size-xxs);
+	}
+}
+
+card-footer-app {
+	button {
+		width: 100%;
+		font-weight: 600;
+		line-height: 1.43;
 	}
 }

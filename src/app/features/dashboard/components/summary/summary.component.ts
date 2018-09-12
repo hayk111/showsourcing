@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { UserService } from '~global-services';
 import { User } from '~models/user.model';
 import { Observable } from 'rxjs';
@@ -18,10 +18,11 @@ export class SummaryComponent extends TrackingComponent {
 	@Input() user: User;
 	@Input() counters: DashboardCounters;
 	@Input() tasks: Task[] = [];
+	@Output() updateTask = new EventEmitter<Task>();
 
 	constructor(private router: Router) {
-    super();
-  }
+		super();
+	}
 
 	goToWorkspace() {
 		this.router.navigate(['workspace', 'my-tasks']);
@@ -29,5 +30,10 @@ export class SummaryComponent extends TrackingComponent {
 
 	get taskScore() {
 		return this.counters ? (this.counters.tasksDone / this.counters.totalTasks) * 100 : 0;
+	}
+
+	toggleDoneStatus(task: Task) {
+		const done = !task.done;
+		this.updateTask.emit({ ...task, done });
 	}
 }

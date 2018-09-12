@@ -27,6 +27,7 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 	@Output() openProduct = new EventEmitter<string>();
 	@Output() openSupplier = new EventEmitter<string>();
 	@Output() updateTask = new EventEmitter<Task>();
+	@Output() previewClicked = new EventEmitter<Task>();
 	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 
 	defaultImg = DEFAULT_IMG;
