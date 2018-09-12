@@ -1,4 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateRef, ComponentFactoryResolver } from '@angular/core';
+import {
+	Component, OnInit, ChangeDetectionStrategy, Input,
+	ViewChild, TemplateRef, ComponentFactoryResolver,
+	Output, EventEmitter
+} from '@angular/core';
 
 
 export type MenuPositionX = 'before' | 'after';
@@ -25,7 +29,7 @@ export class ContextMenuComponent {
 	/** width of the menu */
 	@Input() width = 200;
 	@Input() menuOpen = false;
-
+	@Output() menuClosed = new EventEmitter<any>();
 
 
 	/** Toggles the menu between the open and closed states. */
@@ -39,8 +43,11 @@ export class ContextMenuComponent {
 	}
 
 	/** Closes the menu. */
-	closeMenu(): void {
+	closeMenu(emit = false): void {
 		this.menuOpen = false;
+		if (emit) {
+			this.menuClosed.emit();
+		}
 	}
 
 	/** Disable defaut drag for element */

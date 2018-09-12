@@ -27,7 +27,7 @@
 
 <ng-template #userTemplate let-item="item">
 	<div class="flex">
-		<img *ngIf="item | logo:type" [src]="item | logo:type"/>
+		<user-picture-app [user]="item" [size]="18" [border]="true"></user-picture-app>
 		<span>{{ item?.firstName }} {{ item?.lastName }}</span>
 	</div>
 </ng-template>

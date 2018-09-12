@@ -22,7 +22,9 @@
 
 
 		<input type="submit" class="fullWidth submitBtn" value="create team" [disabled]="!form.valid" />
-		<a class="button light fullWidth flexCenter" *ngIf="hasTeam$ | async">Select Team Instead</a>
+		<a class="button light fullWidth flexCenter"
+			routerLink="../pick-a-team"
+			*ngIf="hasTeam$ | async">Select Team Instead</a>
 	</form>
 
 </ng-container>

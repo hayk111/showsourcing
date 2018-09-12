@@ -19,6 +19,7 @@
 
 .category-section {
   width: 1057px;
+  margin-bottom: 35px;
   &:hover {
     background-color: var(--color-bg-secondary);
     box-shadow: 0 2px 8px 0 rgba(93, 109, 139, 0.1);
@@ -27,6 +28,10 @@
       background-color: #fff;
 
       .mini.image {
+        display: none;
+      }
+
+      .imgSubCtnr {
         display: none;
       }
 
@@ -42,7 +47,9 @@
 }
 
 kanban-item-card-app {
-  width: 332px;
+  width: 324px;
+  margin-left: 12px !important;
+  margin-right: 12px !important;
 }
 
 .category-header {
@@ -65,6 +72,24 @@ kanban-item-card-app {
       display: block;
       width: 32px;
       height: 32px;
+    }
+
+    .imgSubCtnr {
+      border-radius: 2px;
+      background-color: var(--color-accent);
+      margin: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      .mini.image.category {
+        display: block;
+        width: 16px;
+        height: 16px;
+        color: #fff;
+      }
     }
 
     checkbox-app {
@@ -204,6 +229,7 @@ kanban-item-card-app {
   white-space: nowrap;
   text-align: center;
   transition: background 0.3s;
+  padding-right: 5px;
 
   .button-icon {
     border-left: solid 0.5px rgba(255, 255, 255, 0.3);
@@ -219,7 +245,7 @@ kanban-item-card-app {
     margin-top: 10px;
 
     .button-icon {
-      padding-left: 10px;
+      padding-left: 5px;
       display: flex;
       align-items: center;
     }
@@ -233,9 +259,14 @@ kanban-item-card-app {
     color: #fff;
     background-color: #45adff;
     margin-bottom: 10px;
+    padding-right: 5px;
 
     icon-app {
-    color: #fff;
+      color: #fff;
     }
   }
+}
+
+.pendingCtnr {
+	padding: var(--spacing-xl);
 }

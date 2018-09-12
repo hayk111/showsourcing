@@ -11,7 +11,10 @@ export class Filter {
 	constructor() { }
 }
 
-/** when a filter type is plural you can select many of them */
+/** when a filter type is plural you can select many of them
+ * if a new filter is added, check to add the correspondong filter condition
+ * on filter-list.class.ts
+*/
 export enum FilterType {
 	SUPPLIER = 'supplier',
 	SUPPLIERS = 'suppliers',
@@ -33,5 +36,7 @@ export enum FilterType {
 	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',
 	ASSIGNEE = 'assignee',
-	PRODUCT = 'product'
+	PRODUCT = 'product',
+	DONE = 'done',
+	DUE_DATE = 'dueDate'
 }

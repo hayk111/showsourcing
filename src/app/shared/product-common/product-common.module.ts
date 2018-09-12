@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import {
 	ProductsCardViewDialogComponent
 } from '~shared/product-common/components/products-card-view-dialog/products-card-view-dialog.component';
 import { SharedModule } from '~shared/shared.module';
 import { DialogModule } from '~shared/dialog/dialog.module';
+import { DynamicFormsModule } from '~shared/dynamic-forms';
+import { CarouselModule } from '~shared/carousel';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { TableModule } from '~shared/table/table.module';
@@ -19,6 +22,8 @@ import { ProductsListViewComponent } from '~shared/product-common/components/pro
 import { ProductsCardViewComponent } from '~shared/product-common/components/products-card-view/products-card-view.component';
 import { ProductGridCardComponent } from '~shared/product-common/components/product-grid-card/product-grid-card.component';
 import { ProductSortingMenuComponent } from '~shared/product-common/components/product-sorting-menu/product-sorting-menu.component';
+import { ProductPreviewComponent } from '~shared/product-common/containers/product-preview/product-preview.component';
+import { KanbanItemCardComponent } from '~shared/product-common/components/kanban-item-card/kanban-item-card.component';
 
 
 @NgModule({
@@ -34,7 +39,10 @@ import { ProductSortingMenuComponent } from '~shared/product-common/components/p
 		WorkflowActionModule,
 		ActionBarModule,
 		StatusModule,
-		FiltersModule
+		FiltersModule,
+		DynamicFormsModule,
+		ReactiveFormsModule,
+		CarouselModule
 	],
 	declarations: [
 		FindProductsDialogComponent,
@@ -42,14 +50,18 @@ import { ProductSortingMenuComponent } from '~shared/product-common/components/p
 		ProductsListViewComponent,
 		ProductsCardViewComponent,
 		ProductGridCardComponent,
-		ProductSortingMenuComponent
+		ProductSortingMenuComponent,
+		ProductPreviewComponent,
+		KanbanItemCardComponent
 	],
 	exports: [
 		FindProductsDialogComponent,
 		ProductsListViewComponent,
 		ProductsCardViewComponent,
 		ProductGridCardComponent,
-		ProductSortingMenuComponent
+		ProductSortingMenuComponent,
+		ProductPreviewComponent,
+		KanbanItemCardComponent
 	],
 	entryComponents: [FindProductsDialogComponent],
 	providers: []

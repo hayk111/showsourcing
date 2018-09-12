@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, Input, EventEmitter, TemplateRef, HostBinding } from '@angular/core';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 import { Observable } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
 import { ProductStatus } from '~models';
 import { BaseComponent } from '~shared/base-component/base-component';
+import { HeaderModule } from '~shared/header';
 
 /** Drag'n drop workflow */
 
@@ -13,19 +13,23 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	templateUrl: './workflow-kanban.component.html',
 	styleUrls: ['./workflow-kanban.component.scss']
 })
-export class WorkflowKanbanComponent extends BaseComponent implements OnInit {
+export class WorkflowKanbanComponent extends BaseComponent {
 	/** The list of statuses included associated products */
 	@Input() statuses;
 	/** A reference to the contextual menu template */
 	@Input() contextualMenu: TemplateRef<any>;
+	/** A reference to the contextual menu template */
+	@Input() card: TemplateRef<any>;
 	/** The selected items */
 	@Input() selectedItems: any[];
 	/** Whether a sidenav is displayed */
 	@Input() withoutSidenav: boolean;
 	/** Whether the kaban takes the full width */
 	@Input() @HostBinding('class.full-width') fullWidth: boolean;
-	/** The height of the header */
-	@Input() heightOffset = 0;
+	/** The height of the offset regarding the header */
+	@Input() kanbanHeightOffset = 167;
+	/** The height of the column offset regarding the header */
+	@Input() kanbanColumnHeightOffset = 206;
 	/** The dropped item event including data associated with the target and the element */
 	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
 	/** Triggers when the item is selected */
@@ -37,20 +41,14 @@ export class WorkflowKanbanComponent extends BaseComponent implements OnInit {
 	/** Triggers when all items are unselected for a status */
 	@Output() unselectAllItems = new EventEmitter<any[]>();
 
-	@HostBinding('style') style: SafeStyle;
-
 	separatorColor: string;
 	dragInProgress = false;
 
-	constructor(private kanbanSrv: KanbanService, private sanitizer: DomSanitizer) {
-    super();
-	}
 
-	ngOnInit() {
-		if (this.heightOffset) {
-			this.style = this.sanitizer.bypassSecurityTrustStyle(`height: calc(100vh - ${161 + this.heightOffset}px)`);
-		}
-	}
+
+  constructor(private kanbanSrv: KanbanService) {
+    super();
+  }
 
 	trackByFn(index, product) {
 		return product.id;
@@ -75,21 +73,16 @@ export class WorkflowKanbanComponent extends BaseComponent implements OnInit {
 	}
 
 	/**
-	 * Detect when an item is dropped and locally update ui (optimistic ui)
-	 * before the request completes
+  * Detect when an item is dropped and locally update ui (optimistic ui)
+  * before the request completes
 	*/
 	onItemDropped({ target, droppedElement }) {
 		this.refreshStatusesInternally(target, droppedElement);
-		console.log('>> this.statuses = ', this.statuses);
 		this.itemDropped.next({ target, droppedElement });
 	}
 
 	/** Simulate the optimistic cache to directly update the UI */
 	refreshStatusesInternally(target, droppedElement) {
-		console.log('>> refreshStatusesInternally');
-		console.log('  statuses = ', this.statuses);
-		console.log('  droppedElement = ', droppedElement);
-		console.log('  target = ', target);
 		const newStatus = new ProductStatus({ status: { id: target.id } });
 		const updatedProduct = { ...droppedElement, status: newStatus };
 
@@ -97,11 +90,9 @@ export class WorkflowKanbanComponent extends BaseComponent implements OnInit {
 		if (!currentStatusTypeId) {
 			currentStatusTypeId = -1;
 		}
-		console.log('  >> currentStatusTypeId = ', currentStatusTypeId);
 
 		// Remove for old status
 		const currentStatus = this.statuses.find(status => status.id === currentStatusTypeId);
-		console.log('  >> currentStatus = ', currentStatus);
 		if (currentStatus) {
 			const products = currentStatus.products;
 			const productIndex = products.findIndex(p => p.id === droppedElement.id);
@@ -114,7 +105,6 @@ export class WorkflowKanbanComponent extends BaseComponent implements OnInit {
 
 		// Add to new status
 		const targetStatus = this.statuses.find(status => status.id === target.id);
-		console.log('  >> targetStatus = ', targetStatus);
 		if (targetStatus) {
 			// const products = targetStatus.products;
 			// const productIndex = products.findIndex(p => p.id === droppedElement);

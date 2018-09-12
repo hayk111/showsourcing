@@ -37,9 +37,9 @@ export class TeamService extends GlobalService<Team> {
 	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
 		filter(team => !!team),
 		shareReplay(1),
+
 	);
 	selectedTeamSync;
-	teams$: Observable<Team[]>;
 
 
 	constructor(
@@ -52,25 +52,19 @@ export class TeamService extends GlobalService<Team> {
 
 	init() {
 		this.restoreSelectedTeamId();
-		// when we created this service the user client could be undefined
-		// because the team service is injected in guards
-		// 1. when the user client is ready we get the user's teams
-		this.teams$ = this.apolloState.getClientStatus(Client.USER).pipe(
-			filter(state => state === ClientStatus.READY),
-			switchMap(_ => this.selectAll()),
-		);
 
 		// 2. When we have teams we find out what the selected team is
 		combineLatest(
 			this._selectedTeamId$,
-			this.teams$,
+			this.selectAll(),
 			(id, teams) => this.getSelectedTeam(id, teams)
 		).subscribe(this._selectedTeam$);
 
 		// when logging out let's clear the current selected team
 		this.authSrv.authStatus$.subscribe(status => {
-			if (status === AuthStatus.NOT_AUTHENTICATED)
+			if (status === AuthStatus.NOT_AUTHENTICATED) {
 				this.resetSelectedTeam();
+			}
 		});
 
 		// putting a sync version of team

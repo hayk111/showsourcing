@@ -42,6 +42,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		const teamSelected$ = this.teamSrv.selectedTeamId$
 			.pipe(
 				filter(id => !!id),
+				tap(_ => this.apolloState.setClientPending(Client.TEAM)),
 				switchMap(id => this.teamSrv.selectedTeam$.pipe(first())),
 				shareReplay(1)
 			);
@@ -59,7 +60,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		);
 
 		// combine tokens & uri
-		combineLatest(accessToken$, uri$)
+		zip(accessToken$, uri$)
 			.subscribe(([token, uri]) => super.initClient(uri, Client.TEAM, token));
 
 		// when no team selected we also destroy the client

@@ -31,6 +31,11 @@
             "styles": [
               "src/app/theming/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/theming"
+              ]
+            },
             "scripts": []
           },
           "configurations": {

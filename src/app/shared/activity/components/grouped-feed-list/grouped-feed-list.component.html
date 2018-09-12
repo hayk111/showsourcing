@@ -12,11 +12,12 @@
 				(createComment)="createComment($event)"
         (update)="updateProduct($event)"></one-product-activity-card-app>
 
-      <!-- product created -->
-      <one-product-activity-card-app
+				<!-- product created -->
+				<one-product-activity-card-app
         *ngSwitchCase="'product_one_created'"
 				[groupFeed]="feed"
 				title="created a new product"
+				(createComment)="createComment($event)"
         (update)="updateProduct($event)"></one-product-activity-card-app>
 
       <multiple-products-activity-card-app

@@ -19,12 +19,13 @@ export class TaskListComponent extends BaseComponent implements OnInit {
 	@Output() taskUnselect = new EventEmitter<Task>();
 	@Output() openCreateDlg = new EventEmitter<null>();
 	@Output() bottomReached = new EventEmitter<null>();
+	@Output() previewClicked =  new EventEmitter<Task>();
 
 	hoverIndex: number;
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}

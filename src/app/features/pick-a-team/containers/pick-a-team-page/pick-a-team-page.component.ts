@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Team } from '~models';
 import { TeamService } from '~global-services';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { BaseComponent } from '~shared/base-component/base-component';
+
 
 @Component({
 	selector: 'pick-a-team-page-app',
@@ -15,6 +16,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 })
 export class PickATeamPageComponent extends BaseComponent implements OnInit {
 	teams$: Observable<Team[]>;
+	pending$ = new BehaviorSubject<boolean>(false);
 	form: FormGroup;
 	private returnUrl: string;
 
@@ -23,16 +25,17 @@ export class PickATeamPageComponent extends BaseComponent implements OnInit {
   }
 
 	ngOnInit() {
-		this.teams$ = this.teamSrv.teams$;
+		this.teams$ = this.teamSrv.selectAll();
 		// get return url from route parameters or default to '/'
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 		// go home when team selected
 		this.teamSrv.selectedTeam$.pipe(
 			switchMap(team => this.router.navigateByUrl(this.returnUrl))
-		);
+		).subscribe(team => this.router.navigateByUrl(this.returnUrl));
 	}
 
 	pickTeam(team: Team) {
+		this.pending$.next(true);
 		this.teamSrv.pickTeam(team);
 	}
 }

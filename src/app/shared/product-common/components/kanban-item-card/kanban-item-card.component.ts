@@ -19,6 +19,7 @@ import { ContextMenuComponent } from '~shared/context-menu/components/context-me
 import { Price, Product, ProductVote } from '~models';
 import { UserService } from '~global-services';
 import { BaseComponent } from '~shared/base-component/base-component';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'kanban-item-card-app',
@@ -67,6 +68,9 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 	/** Whether a new content is displayed on hover */
 	@Input() enabledHoverContent: boolean;
 
+	@Input() showCheckbox ? = true;
+	@Input() clickable ? = false;
+
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
 	/** Trigger the event when the element is selected via the checkbox */
@@ -77,6 +81,7 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 	@Output() cardEnter = new EventEmitter<any>();
 	/** Trigger the event when the mouse enters the card */
 	@Output() cardLeave = new EventEmitter<any>();
+	@Output() clickImage = new EventEmitter<any>();
 
 	@ContentChild(ContextMenuComponent) contextMenu: ContextMenuComponent;
 
@@ -96,7 +101,7 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 	dislike = false;
 	thumbsName = 'thumbs-up-white';
 
-	constructor(private userSrv: UserService, private elementRef: ElementRef, private renderer: Renderer2) {
+	constructor(private userSrv: UserService, private elementRef: ElementRef, private renderer: Renderer2, private router: Router) {
     super();
   }
 
@@ -142,7 +147,7 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 		event.stopPropagation();
 	}
 
-	/** Toogle the drag'n drop enable state */
+	/** Toggle the drag'n drop enable state */
 	toggleDragDropEnable(from, event) {
 		if (from === 'checkbox') {
 			this.onToggleCheckbox(event);
@@ -222,7 +227,13 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 	leaveMenuTrigger() {
 		this.dragDropEnabled = true;
 		this.dragDropEnable.emit(this.dragDropEnabled);
-	}
+  }
+
+  openProduct() {
+    if (this.clickable && this.link) {
+			this.router.navigate([this.link]);
+    }
+  }
 
 	enterMenuTrigger() {
 		this.dragDropEnabled = false;

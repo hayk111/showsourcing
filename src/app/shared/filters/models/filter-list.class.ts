@@ -110,11 +110,14 @@ export class FilterList {
 	 */
 	private static getFieldCondition(type, value) {
 		switch (type) {
+			case FilterType.DONE:
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
 				return `${type} == ${value}`;
 			case FilterType.CREATED_BY:
 				return `createdBy == "${value}"`;
+			case FilterType.DUE_DATE:
+				return `dueDate >= ${value}`;
 			// most of the filters from the panel filter by id
 			default:
 				return `${type}.id == "${value}"`;

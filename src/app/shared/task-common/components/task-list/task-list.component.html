@@ -10,13 +10,22 @@
 			(uncheck)="taskUnselect.emit(task)">
 		</checkbox-app>
 		<task-app
+			(previewClicked)="previewClicked.emit(task)"
 			[hasProduct]="hasProduct"
 			[hasSupplier]="hasSupplier"
 			[task]="task"
 			[fullUser]="fullUser"
-			[ngClass]="{'border-top': first, 'no-border': last}">
+			[ngClass]="{'border-top': first, 'no-border': last}"
+			(openProduct)="openProduct($event)"
+			(openSupplier)="openSupplier($event)"
+			(updateTask)="updateTask.emit($event)">
 		</task-app>
 	</div>
 	<divider-app></divider-app>
 </div>
-<button class="light" (click)="openCreateDlg.emit()">+ Create a new task</button>
+<div class="flexBetween create-task">
+	<textarea inputApp type="text" [formControl]="taskCtrl"
+		placeholder="+ Create a new task" (keydown.enter)="onEnter($event)"></textarea>
+	<button *ngIf="inp?.focussed || taskCtrl.value"class="secondary-light" (click)="onSubmit()">Create</button>
+</div>
+<!-- <button class="light" (click)="openCreateDlg.emit()">+ Create a new task</button> -->

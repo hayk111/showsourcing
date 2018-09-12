@@ -2,7 +2,23 @@
 	display: block;
 }
 
+.show-my-tasks, .show-tasks-done {
+	font-weight: 600;
+	line-height: 1.43;
+
+	&:not(.show-tasks-done) {
+		margin-right: var(--spacing-ms);
+	}
+}
+
 task-list-app {
 	margin-right: var(--spacing-m);
 	margin-left: var(--spacing-m);
+}
+
+selection-bar-app {
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
 }

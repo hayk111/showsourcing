@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { DEFAULT_IMG } from '~utils';
 import { Task } from '~models';
 
@@ -14,6 +14,7 @@ export class TaskComponent implements OnInit {
 	@Input() task: Task;
 	@Input() hasSupplier: boolean;
 	@Input() hasProduct: boolean;
+	@Output() previewClicked =  new EventEmitter<Task>();
 
 	defaultImg = DEFAULT_IMG;
 

@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { debounceTime, takeUntil, tap, take } from 'rxjs/operators';
+import { debounceTime, takeUntil, tap, take, switchMap } from 'rxjs/operators';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { AutoUnsub } from '~utils';
 import { Filter, FilterType } from '~shared/filters/models';
 import { EntityMetadata, ERM } from '~models';
 import { ERMService } from '~global-services/_global/erm.service';
-import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { ListQuery } from '~global-services/_global/list-query.interface';
 
 // this is the entity panel that appears once a filter button has been clicked
 // a list of choices is displayed and the user can pick through those choices
@@ -23,7 +23,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	@Input() type: FilterType;
 	pending$ = new BehaviorSubject(true);
 	/** List result */
-	listResult: SelectListResult<any>;
+	listResult: ListQuery<any>;
 	/** Different choices that are displayed in the view */
 	choices$: Observable<any[]>;
 	/** obs of the searched string */
@@ -82,19 +82,19 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	filterChoices(value: string) {
 		switch (this.type) {
 			case FilterType.CREATED_BY:
-				this.listResult.queryRef.refetch({
+				this.listResult.refetch({
 					query: `firstName CONTAINS[c] "${value}" OR lastName CONTAINS[c] "${value}"`
-				});
+				}).subscribe();
 				break;
 			default:
-				this.listResult.queryRef.refetch({ query: `name CONTAINS[c] "${value}"` });
+				this.listResult.refetch({ query: `name CONTAINS[c] "${value}"` }).subscribe();
 		}
 	}
 
 	loadMore() {
-		this.choices$.pipe(take(1)).subscribe(choices => {
-			this.listResult.fetchMore(choices.length);
-		});
+		this.choices$.pipe(take(1)).pipe(
+			switchMap(choices => this.listResult.fetchMore(choices.length))
+		);
 	}
 
 	onItemAdded(entity) {
