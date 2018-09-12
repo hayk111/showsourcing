@@ -25,22 +25,12 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
   get task(): Task {
     return this._task;
 	}
-	 
+
 	@Output() udateTask = new EventEmitter<Task>();
 
   @Input('task')
   set task(value: Task) {
     this._task = value;
-    // this._task = Object.assign(new Task(), value);
-    // if (this._task.product) {
-    //   this.product$ = this.productService.selectOne(this._task.product.id);
-    //   this.product$.pipe(
-    //     takeUntil(this._destroy$),
-    //     map(product => {
-    //       console.log(product);
-    //     }
-    //   ));
-    // }
   }
 
 
@@ -76,17 +66,6 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 
   ngAfterViewInit() {
   }
-
-	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
-	 * update the product
-	 */
-  // onFormCreated(form: FormGroup) {
-  // 	form.valueChanges
-  // 		.pipe(
-  // 			takeUntil(this._destroy$),
-  // 			distinctUntilChanged()
-  // 		).subscribe(product => this.updateProduct(product));
-  // }
   updateTaskServer(task: any) {
 		task.id = this.task.id;
 		this.featureSrv.update(task).subscribe();
