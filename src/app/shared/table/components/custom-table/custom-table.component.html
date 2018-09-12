@@ -11,7 +11,7 @@
 	[pending]="pending"
 	(sort)="sort.emit($event)">
 		<ng-template
-			*ngFor="let column of descriptor"
+			*ngFor="let column of descriptor;trackBy: trackByFn"
 			[columnApp]="column.title"
 			[type]="column.type"
 			[sortable]="column.sortable !== undefined ? column.sortable : true"

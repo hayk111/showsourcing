@@ -17,7 +17,7 @@
 			[label]="status.name | const:'status':'name'"
 			borderColor="{{ status.id }}"
 			[namespace]="status.id"
-			*ngFor="let status of statuses; let i = index">
+			*ngFor="let status of statuses; let i = index;trackBy: trackByFn">
 				<div class="card-container" *ngFor="let product of status.products; let j = index; trackBy:trackByFn">
 					<kanban-item-app
 							class="item"

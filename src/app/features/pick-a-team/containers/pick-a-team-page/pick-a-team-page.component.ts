@@ -5,6 +5,8 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Team } from '~models';
 import { TeamService } from '~global-services';
 import { switchMap, tap } from 'rxjs/operators';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+
 
 @Component({
 	selector: 'pick-a-team-page-app',
@@ -12,13 +14,15 @@ import { switchMap, tap } from 'rxjs/operators';
 	styleUrls: ['./pick-a-team-page.component.scss', '../../../auth/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PickATeamPageComponent implements OnInit {
+export class PickATeamPageComponent extends TrackingComponent implements OnInit {
 	teams$: Observable<Team[]>;
 	pending$ = new BehaviorSubject<boolean>(false);
 	form: FormGroup;
 	private returnUrl: string;
 
-	constructor(private teamSrv: TeamService, private router: Router, private route: ActivatedRoute) { }
+	constructor(private teamSrv: TeamService, private router: Router, private route: ActivatedRoute) {
+    super();
+  }
 
 	ngOnInit() {
 		this.teams$ = this.teamSrv.selectAll();

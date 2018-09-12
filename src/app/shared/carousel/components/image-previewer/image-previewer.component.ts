@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AppImage } from '~models';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'image-previewer-app',
@@ -9,7 +10,7 @@ import { AppImage } from '~models';
 		'[class.overflow]': 'showOneLine'
 	}
 })
-export class ImagePreviewerComponent {
+export class ImagePreviewerComponent extends TrackingComponent {
 	/** size of the image box */
 	@Input() size = '52';
 	// array of images displayed
@@ -22,7 +23,9 @@ export class ImagePreviewerComponent {
 	@Output() imageClick = new EventEmitter<number>();
 	@Output() plusClick = new EventEmitter<any>();
 
-	constructor() { }
+	constructor() {
+    super();
+  }
 
 	getImg(i) {
 		return this.images[i];

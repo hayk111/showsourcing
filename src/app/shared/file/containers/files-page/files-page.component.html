@@ -19,7 +19,7 @@
 			</thead>
 
 			<tbody>
-				<tr *ngFor="let file of files" class="pointer">
+				<tr *ngFor="let file of files;trackBy: trackByFn" class="pointer">
 					<td>
 						<ng-container *ngIf="!file.pending; else spinner">
 							<i class="fa fa-download pointer" (click)="download(file)" aria-hidden="true"></i>

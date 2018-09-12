@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { FormGroup } from '@angular/forms';
 import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'dynamic-form-app',
@@ -9,7 +10,7 @@ import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-form
 	styleUrls: ['./dynamic-form.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent extends TrackingComponent implements OnInit {
 	@Input() descriptor: FormDescriptor;
 	/** number of columns */
 	@Input() colAmount = 1;
@@ -17,11 +18,13 @@ export class DynamicFormComponent implements OnInit {
 	@Input() editable = false;
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;
+	@Input() isShowLabel = true;
 	@Output() formCreated = new EventEmitter<FormGroup>();
 	form: FormGroup;
 	cols: CustomField[][];
 
 	constructor(private dfSrv: DynamicFormsService) {
+    super();
 	}
 
 	ngOnInit() {

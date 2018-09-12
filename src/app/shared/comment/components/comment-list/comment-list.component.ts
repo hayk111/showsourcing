@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, AfterViewInit } from '@angular/core';
 import { Comment } from '~models';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'comment-list-app',
@@ -7,13 +8,15 @@ import { Comment } from '~models';
 	styleUrls: ['./comment-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentListComponent implements OnInit {
+export class CommentListComponent extends TrackingComponent implements OnInit {
 
 	@Input() comments: Comment[];
 	/** index to keep track of which comments we display */
 	indexShow = 0;
 
-	constructor() { }
+	constructor() {
+    super();
+  }
 
 	ngOnInit() {
 		if (this.comments && this.comments.length > 0) {

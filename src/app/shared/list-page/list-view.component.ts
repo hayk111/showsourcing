@@ -1,8 +1,9 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
-export class ListViewComponent<T> {
+export class ListViewComponent<T> extends TrackingComponent {
 	/** current selection */
 	@Input() selection: Map<string, boolean>;
 	/** entities displayed */
@@ -25,7 +26,9 @@ export class ListViewComponent<T> {
 	@Output() next = new EventEmitter<undefined>();
 
 
-	constructor() { }
+	constructor() {
+    super();
+  }
 
 	previousPage() {
 		this.previous.emit();

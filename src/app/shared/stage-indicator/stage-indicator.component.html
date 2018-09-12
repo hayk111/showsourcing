@@ -1,5 +1,5 @@
 <div class="flexCenter">
-	<div *ngFor="let title of titles; index as i" [class.selected]="index == i" [class.visited]="index > i">
+	<div *ngFor="let title of titles; index as i;trackBy: trackByFn" [class.selected]="index == i" [class.visited]="index > i">
 		<div class="flex">
 			<div class="horizontal flexGrow"></div>
 			<div class="oval-empty"></div>

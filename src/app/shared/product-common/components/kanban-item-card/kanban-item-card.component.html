@@ -1,6 +1,7 @@
 <div class="kanban__item cell ng-star-inserted main flexBetween"
-     [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked) }"
+     [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked), 'clickable' : clickable }"
      (clickOutside)="onClickOutsideCard()"
+	 (click)="clickable && openProduct()"
      (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
   <div class="mainCellWrapper ellipsis ng-star-inserted" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
     <div class="mainCell">
@@ -12,7 +13,7 @@
              (click)="clickImage.emit()"
              (dragstart)="preventDrag($event)">
         <div class="preview" (click)="clickImage.emit()"><div>Preview</div></div>
-        <div class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
+        <div  *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
           <checkbox-app [checked]="checked"
                         (check)="onChecked()"
                         (uncheck)="onUnchecked()"
@@ -45,7 +46,7 @@
           </div>
         </div>
         <div class="descriptionBottomCtnr">
-          <badge-app size="xs" type="secondary-light" *ngFor="let tag of tags | slice:0:1">{{tag.name}}</badge-app>
+          <badge-app size="xs" type="secondary-light" *ngFor="let tag of tags | slice:0:1;trackBy: trackByFn">{{tag.name}}</badge-app>
         </div>
       </div>
       <div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">

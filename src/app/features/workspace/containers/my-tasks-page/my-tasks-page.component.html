@@ -25,6 +25,7 @@
 		[selection]="selected$ | async"
 		[hasProduct]="true"
 		[hasSupplier]="true"
+		(previewClicked)="openPreview($event)"
 		(taskSelect)="onItemSelected($event)"
 		(taskUnselect)="onItemUnselected($event)"
 		(openCreateDlg)="openCreateDlg()"
@@ -32,6 +33,14 @@
 		(updateTask)="updateTask($event)"
 		(createTask)="createTask($event)">
 	</task-list-app>
+
+	<preview-task-app
+		*ngIf="previewOpen"
+		[task]="previewed"
+		(close)="closePreview()"
+		(clickOutside)="closePreview()">
+
+	</preview-task-app>
 </div>
 
 <selection-bar-app

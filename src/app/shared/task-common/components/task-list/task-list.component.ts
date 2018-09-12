@@ -3,6 +3,7 @@ import { Task, Product, Supplier, ERM } from '~models';
 import { Router } from '@angular/router';
 import { InputDirective } from '~shared/inputs';
 import { FormControl } from '@angular/forms';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'task-list-app',
@@ -10,7 +11,7 @@ import { FormControl } from '@angular/forms';
 	styleUrls: ['./task-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent extends TrackingComponent implements OnInit {
 
 	@Input() tasks: Task[];
 	@Input() selection: Map<string, boolean>;
@@ -26,13 +27,13 @@ export class TaskListComponent implements OnInit {
 
 	@ViewChild(InputDirective) inp: InputDirective;
 	taskCtrl = new FormControl('');
-	hoverIndex: number;
-
-	trackByFn = (index, item) => item.id;
+  hoverIndex: number;
 
 	constructor(
 		protected router: Router,
-	) { }
+	) {
+    super();
+  }
 
 	ngOnInit() {
 	}

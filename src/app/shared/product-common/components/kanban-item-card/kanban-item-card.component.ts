@@ -18,6 +18,8 @@ import {
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { Price, Product, ProductVote } from '~models';
 import { UserService } from '~global-services';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'kanban-item-card-app',
@@ -25,7 +27,7 @@ import { UserService } from '~global-services';
 	styleUrls: ['./kanban-item-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KanbanItemCardComponent implements OnInit, AfterViewInit {
+export class KanbanItemCardComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	/** The main title */
 	@Input() title: string;
@@ -66,6 +68,9 @@ export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 	/** Whether a new content is displayed on hover */
 	@Input() enabledHoverContent: boolean;
 
+	@Input() showCheckbox ? = true;
+	@Input() clickable ? = false;
+
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
 	/** Trigger the event when the element is selected via the checkbox */
@@ -96,7 +101,9 @@ export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 	dislike = false;
 	thumbsName = 'thumbs-up-white';
 
-	constructor(private userSrv: UserService, private elementRef: ElementRef, private renderer: Renderer2) { }
+	constructor(private userSrv: UserService, private elementRef: ElementRef, private renderer: Renderer2, private router: Router) {
+    super();
+  }
 
 	ngOnInit() {
 		if (this.product) {
@@ -220,7 +227,13 @@ export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 	leaveMenuTrigger() {
 		this.dragDropEnabled = true;
 		this.dragDropEnable.emit(this.dragDropEnabled);
-	}
+  }
+
+  openProduct() {
+    if (this.clickable && this.link) {
+			this.router.navigate([this.link]);
+    }
+  }
 
 	enterMenuTrigger() {
 		this.dragDropEnabled = false;

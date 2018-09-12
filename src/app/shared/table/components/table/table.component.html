@@ -3,7 +3,7 @@
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
 			<div class="header"></div>
-			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
+			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)"></div>
 		</div>
@@ -15,7 +15,7 @@
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
 				</ng-container>
 			</div>
-			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
+			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 				<ng-container *ngIf="!selectionDisabled">
@@ -33,7 +33,7 @@
 			</div>
 			<div class="cell menuCell"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-				*ngFor="let row of rows; index as i; trackBy: trackByFn"
+				*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				(mouseenter)="hoverRow(i)"
 				(mouseleave)="hoverRow(-1)">
 				<context-menu-app
@@ -68,7 +68,7 @@
 			</div>
 
 			<!-- cells -->
-			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
+			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 				<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->

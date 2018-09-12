@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Supplier } from '~models/supplier.model';
 import { Product } from '~models';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { Product } from '~models';
 	styleUrls: ['./supplier-images.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierImagesComponent implements OnInit {
+export class SupplierImagesComponent extends TrackingComponent implements OnInit {
 	@Input() supplier: Supplier = {};
 	@Input() products: Product[] = [];
 	modalOpen = false;
@@ -18,7 +19,9 @@ export class SupplierImagesComponent implements OnInit {
 	// max number of images displayed
 	private readonly MAX_NUMBER_OF_IMAGES = 6;
 
-	constructor() { }
+	constructor() {
+    super();
+  }
 
 	ngOnInit() {
 	}

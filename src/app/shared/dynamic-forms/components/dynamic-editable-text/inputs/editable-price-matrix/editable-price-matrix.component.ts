@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PriceMatrix, PriceMatrixRow } from '~models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'editable-price-matrix-app',

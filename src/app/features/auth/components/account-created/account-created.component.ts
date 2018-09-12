@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'account-created-app',
 	templateUrl: './account-created.component.html',
 	styleUrls: ['./account-created.component.scss']
 })
-export class AccountCreatedComponent implements OnInit {
+export class AccountCreatedComponent extends TrackingComponent implements OnInit {
 
 	form: FormArray;
 
 	constructor(private fb: FormBuilder,
-		private router: Router) { }
+		private router: Router) {
+      super();
+    }
 
 	ngOnInit() {
 		this.form = new FormArray([]);

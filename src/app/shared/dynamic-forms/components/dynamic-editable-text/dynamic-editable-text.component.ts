@@ -40,6 +40,8 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	/** editable field ref, used to close it programmatically */
 	@ViewChild('editable') editable: EditableTextComponent;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
+
+	@Input() isShowLabel = true;
 	accumulator: string;
 	/** whether the editable is open */
 	isOpen = false;

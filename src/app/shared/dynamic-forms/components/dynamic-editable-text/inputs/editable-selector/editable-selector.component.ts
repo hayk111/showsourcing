@@ -20,6 +20,7 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 export class EditableSelectorComponent extends AbstractInput {
 
 	@Input() isOpen: boolean;
+	@Input() isShowLabel: true;
 	@Input() inlineLabel: string;
 	@Input() customField: CustomField;
 	@Output() opened = new EventEmitter();

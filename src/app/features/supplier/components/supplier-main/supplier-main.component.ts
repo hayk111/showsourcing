@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Supplier } from '~models';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'supplier-main-app',
@@ -10,14 +11,16 @@ import { Supplier } from '~models';
 		class: 'z-2 mg-m border-radius'
 	}
 })
-export class SupplierMainComponent implements OnInit {
+export class SupplierMainComponent extends TrackingComponent implements OnInit {
 	@Input() supplier: Supplier;
 	@Input() productCount: number;
 	@Input() taskCount: number;
 	@Input() contactCount: number;
 	@Output() update = new EventEmitter<Supplier>();
 
-	constructor() { }
+	constructor() {
+    super();
+  }
 
 	ngOnInit() { }
 }

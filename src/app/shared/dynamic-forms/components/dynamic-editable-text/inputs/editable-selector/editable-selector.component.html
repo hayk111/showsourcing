@@ -1,5 +1,5 @@
-<field-cell-app [isOpen]="!isOpen" [inlineLabel]="inlineLabel" [canGrow]="customField.multiple">
-	<label-app>{{ customField.label || customField.name }}</label-app>
+<field-cell-app [isOpen]="!isOpen" [isShowLabel]="isShowLabel" [inlineLabel]="inlineLabel" [canGrow]="customField.multiple">
+	<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 	<!-- entity selector -->
 	<ng-container *ngIf="customField.metadata.type === 'entity'">
 		<editable-text-app #editable
@@ -10,7 +10,7 @@
 				<ng-container	*ngIf="!isEmpty(value); else none">
 					<info-badge-app
 						class="tag"
-						*ngFor="let tag of value"
+						*ngFor="let tag of value;trackBy: trackByFn"
 						[type]="customField.metadata.target">
 						{{ tag.name }}
 					</info-badge-app>
@@ -45,7 +45,6 @@
 
 				</editable-label-app>
 			</ng-template>
-
 			<selector-entity-app
 				#selector
 				[multiple]="customField.multiple"

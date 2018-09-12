@@ -6,6 +6,7 @@ import { DialogService } from '~shared/dialog';
 import { ProjectService, ProductService } from '~global-services';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
 
@@ -15,7 +16,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 	styleUrls: ['./product-add-to-project-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductAddToProjectDlgComponent implements OnInit {
+export class ProductAddToProjectDlgComponent extends TrackingComponent implements OnInit {
 	projects$: Observable<Project[]>;
 	selected = {};
 	hasSelection = false;
@@ -25,7 +26,9 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 	constructor(
 		private dlgSrv: DialogService,
 		private productDlgSrv: ProductDialogService,
-		private notifSrv: NotificationService) { }
+		private notifSrv: NotificationService) {
+      super();
+    }
 
 	ngOnInit() {
 		this.projects$ = this.productDlgSrv.selectProjects();

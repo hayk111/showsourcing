@@ -1,6 +1,6 @@
 <h1 class="title">Task</h1>
 <div class="container" infiniScroll (bottomReached)="bottomReached.emit()">
-	<div *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackByFn"
+	<div *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackById"
 		[ngClass]="{'hovered': hoverIndex === i}" class="flex task-container"
 		(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 		<checkbox-app
@@ -10,6 +10,7 @@
 			(uncheck)="taskUnselect.emit(task)">
 		</checkbox-app>
 		<task-app
+			(previewClicked)="previewClicked.emit(task)"
 			[hasProduct]="hasProduct"
 			[hasSupplier]="hasSupplier"
 			[task]="task"

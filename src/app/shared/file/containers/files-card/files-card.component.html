@@ -7,7 +7,7 @@
 			<!-- file list -->
 			<list-app>
 
-				<list-item-app *ngFor="let file of files; let last = last" [border]="!last">
+				<list-item-app *ngFor="let file of files; let last = last;trackBy: trackByFn" [border]="!last">
 					<div class="flex">
 						<spinner-app size="51" width="3" *ngIf="file.pending"></spinner-app>
 

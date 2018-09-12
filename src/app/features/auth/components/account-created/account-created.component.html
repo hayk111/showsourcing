@@ -7,7 +7,7 @@
 			<p>Now invite your team members</p>
 
 			<form [formGroup]="form">
-				<div *ngFor="let c of form.controls; let i = index">
+				<div *ngFor="let c of form.controls; let i = index;trackBy: trackByFn">
 					<div class="flex members" [formGroupName]="i">
 						<!-- email -->
 						<form-field-app>

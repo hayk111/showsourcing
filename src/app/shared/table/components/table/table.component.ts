@@ -14,6 +14,7 @@ import {
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { nextTick } from 'q';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'table-app',
@@ -24,7 +25,7 @@ import { nextTick } from 'q';
 		class: 'fullWidth'
 	}
 })
-export class TableComponent implements OnChanges {
+export class TableComponent extends TrackingComponent implements OnChanges {
 	// display the dot option
 	@Input() dotsOption = true;
 	// whether the table is currently loading
@@ -73,10 +74,14 @@ export class TableComponent implements OnChanges {
 	@Input() isSelectable = (item) => true;
 
 	// function used by the ng for, using an arrow to not lose this context
-	trackByFn = (index, item) => this.identify(index, item);
+	trackByIdentify = (index, item) => this.identify(index, item);
 
 	// track by for column
 	columnTrackByFn = (index) => index;
+
+  constructor() {
+    super();
+  }
 
 	ngOnChanges(changes) {
 		if (changes.currentSort && changes.currentSort.currentValue) {

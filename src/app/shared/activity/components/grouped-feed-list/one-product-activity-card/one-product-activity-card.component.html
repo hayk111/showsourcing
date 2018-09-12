@@ -59,8 +59,8 @@
 					[status]="product?.status?.status">
 				</status-badge-app>
 				<info-badge-app *ngIf="product?.category?.name" type="category">{{ product.category.name }}</info-badge-app>
-				<info-badge-app *ngFor="let tag of product?.tags" type="tag">{{ tag.name }}</info-badge-app>
-				<info-badge-app *ngFor="let project of product?.projects" type="project">{{ project.name }}</info-badge-app>
+				<info-badge-app *ngFor="let tag of product?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
+				<info-badge-app *ngFor="let project of product?.projects;trackBy: trackByFn" type="project">{{ project.name }}</info-badge-app>
 			</div>
 		</div>
 

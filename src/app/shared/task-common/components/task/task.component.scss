@@ -9,7 +9,17 @@
 		icon-app {
 			font-size: var(--spacing-m);
 			margin-right: var(--spacing-s);
-		}
+    }
+
+    &:hover {
+      .task-preview {
+        opacity: 1;
+      }
+    }
+
+    .task-preview {
+      opacity: 0;
+    }
 	}
 
 	.task-product {

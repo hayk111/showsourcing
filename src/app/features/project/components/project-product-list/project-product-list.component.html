@@ -118,7 +118,7 @@
 <!-- projects -->
 <ng-template #projects let-row="row">
 	<div class="flexCenter">
-		<span *ngFor="let project of row.projects">{{ project.name }}</span>
+		<span *ngFor="let project of row.projects;trackBy: trackByFn">{{ project.name }}</span>
 	</div>
 </ng-template>
 

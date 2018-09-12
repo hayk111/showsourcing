@@ -27,8 +27,8 @@
 			"~shared/*": ["app/shared/*"],
 			"~shared": ["app/shared/index"],
 			"~global-services/*": ["app/global-services/*"],
-			"~global-services": ["app/global-services/index"],
-			"~utils/*": ["app/utils/*"],
+      "~global-services": ["app/global-services/index"],
+      "~utils/*": ["app/utils/*"],
 			"~utils": ["app/utils/index"]
     }
   }

@@ -3,6 +3,8 @@ import { Component, OnInit, Output, Input, EventEmitter, TemplateRef, HostBindin
 import { Observable } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
 import { ProductStatus } from '~models';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { HeaderModule } from '~shared/header';
 
 /** Drag'n drop workflow */
 
@@ -11,7 +13,7 @@ import { ProductStatus } from '~models';
 	templateUrl: './workflow-kanban.component.html',
 	styleUrls: ['./workflow-kanban.component.scss']
 })
-export class WorkflowKanbanComponent {
+export class WorkflowKanbanComponent extends TrackingComponent {
 	/** The list of statuses included associated products */
 	@Input() statuses;
 	/** A reference to the contextual menu template */
@@ -42,8 +44,11 @@ export class WorkflowKanbanComponent {
 	separatorColor: string;
 	dragInProgress = false;
 
-	constructor(private kanbanSrv: KanbanService) {
-	}
+
+
+  constructor(private kanbanSrv: KanbanService) {
+    super();
+  }
 
 	trackByFn(index, product) {
 		return product.id;
@@ -68,8 +73,8 @@ export class WorkflowKanbanComponent {
 	}
 
 	/**
-	 * Detect when an item is dropped and locally update ui (optimistic ui)
-	 * before the request completes
+  * Detect when an item is dropped and locally update ui (optimistic ui)
+  * before the request completes
 	*/
 	onItemDropped({ target, droppedElement }) {
 		this.refreshStatusesInternally(target, droppedElement);

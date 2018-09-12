@@ -1,15 +1,18 @@
 import { Component, OnInit, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { TabComponent } from '~shared/tabs/components/tab/tab.component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'tabs-app',
 	templateUrl: './tabs.component.html',
 	styleUrls: ['./tabs.component.scss']
 })
-export class TabsComponent implements OnInit, AfterContentInit {
+export class TabsComponent extends TrackingComponent implements OnInit, AfterContentInit {
 	@ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
 
-	constructor() { }
+	constructor() {
+    super();
+  }
 
 	ngOnInit() {
 	}

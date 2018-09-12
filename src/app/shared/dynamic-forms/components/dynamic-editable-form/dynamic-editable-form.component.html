@@ -1,10 +1,10 @@
 <div [formGroup]="form" class="form" [ngClass]="{ multiple: (cols.length > 0) }">
 
-	<div *ngFor="let col of cols; let last = last" class="col"
+	<div *ngFor="let col of cols; let last = last;trackBy: trackByFn" class="col"
 		[ngClass]="{ 'last': last }"
 		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
 		<dynamic-input-text-app
-			*ngFor="let field of col"
+			*ngFor="let field of col;trackBy: trackByFn"
 			[customField]="field"
 			[formControlName]="field.name"
 			[inlineLabel]="inlineLabel"

@@ -3,7 +3,7 @@
 	<h2 i18n="header 2|Supplier latest products card@@supplierLatestProducts_products">Latest Products</h2>
 
 	<div class="flex" *ngIf="products?.length > 0; else noProduct">
-		<a *ngFor="let product of products"
+		<a *ngFor="let product of products;trackBy: trackByFn"
 			[routerLink]="['/product', 'details', product.id, 'general']"
 			class="imgCtnr">
 			<img [src]="product | image:'m'"/>

@@ -6,6 +6,7 @@ import { Input } from '@angular/core';
 import { Task } from '~models';
 import { DashboardCounters } from '~features/dashboard/services/dashboard.service';
 import { Router } from '@angular/router';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'dashboard-summary-app',
@@ -13,12 +14,14 @@ import { Router } from '@angular/router';
 	styleUrls: ['./summary.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SummaryComponent {
+export class SummaryComponent extends TrackingComponent {
 	@Input() user: User;
 	@Input() counters: DashboardCounters;
 	@Input() tasks: Task[] = [];
 
-	constructor(private router: Router) { }
+	constructor(private router: Router) {
+    super();
+  }
 
 	goToWorkspace() {
 		this.router.navigate(['workspace', 'my-tasks']);

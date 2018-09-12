@@ -1,7 +1,7 @@
 <card-app>
   <h2>Exhibitors</h2>
 
-  <div *ngFor="let booth of booths" class="flex exhibitor">
+  <div *ngFor="let booth of booths;trackBy: trackByFn" class="flex exhibitor">
 
     <div class="flexCenter">
       <img-app class="logo" [image]="booth.supplier.supplierImage" type="supplier"></img-app>

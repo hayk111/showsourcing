@@ -1,5 +1,5 @@
 <editable-price-matrix-row-app
-	*ngFor="let row of value.rows; let i = index"
+	*ngFor="let row of value.rows; let i = index;trackBy: trackByFn"
 	[(ngModel)]="value.rows[i]"
 	(change)="onChange()"
 	(blur)="onBlur()">

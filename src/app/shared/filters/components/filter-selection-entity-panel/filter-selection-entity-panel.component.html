@@ -10,7 +10,7 @@
 
 	<section class="choiceCtnr" infiniScroll (bottomReached)="loadMore()">
 		<checkbox-app
-			*ngFor="let choice of choices$ | async; trackBy: trackByFn"
+			*ngFor="let choice of choices$ | async; trackBy: trackById"
 			[checked]="selected.has(choice.id)"
 			(check)="onItemAdded(choice)"
 			(uncheck)="onItemRemoved(choice)">

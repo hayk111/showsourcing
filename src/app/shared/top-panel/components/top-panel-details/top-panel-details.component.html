@@ -31,5 +31,5 @@
 
 
 <nav class="flex">
-	<a *ngFor="let link of links" [routerLink]="'./' + link" routerLinkActive="active">{{ toDisplayString(link) }}</a>
+	<a *ngFor="let link of links;trackBy: trackByFn" [routerLink]="'./' + link" routerLinkActive="active">{{ toDisplayString(link) }}</a>
 </nav>

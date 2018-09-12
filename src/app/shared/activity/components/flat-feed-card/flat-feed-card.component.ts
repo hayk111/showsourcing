@@ -73,3 +73,9 @@ export class FlatFeedCardComponent extends AutoUnsub implements OnInit {
 	}
 
 }
+
+/*
+Using in :
+- flat-feed-list
+
+*/
