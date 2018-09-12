@@ -82,8 +82,12 @@ export class QueryBuilder {
 		}`)
 
 	queryAll = (str: string) => gql(`
-		query ${this.plural} {
-			${this.plural} {
+		query ${this.plural}(
+			$query: String!,
+			$sortBy: String,
+			$descending: Boolean
+			) {
+			${this.plural}(query: $query, sortBy: $sortBy, descending: $descending) {
 				id
 				${str}
 			}

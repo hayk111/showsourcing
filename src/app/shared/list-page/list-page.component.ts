@@ -48,7 +48,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	view: 'list' | 'card' = 'list';
 	/** whether the filter panel is visible */
 	filterPanelOpen: boolean;
-	/** if all the selected items are favorite or not */
+	/** if all the selected items are favorite or not, to display a heart */
 	allSelectedFavorite = true; // true by default for convenience, doesn't affect end result
 	/** whether the preview panel is visible, the preview panel is the panel that opens
 	 * when clicking an item in the table
