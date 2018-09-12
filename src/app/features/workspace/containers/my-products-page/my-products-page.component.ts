@@ -43,7 +43,6 @@ export class MyProductsPageComponent extends ListPageComponent<Product, Workspac
 	}
 
 	ngOnInit() {
-		console.log('ngOnInit');
 		this.selectionSrv.unselectAll();
 
 		this.workspaceSrv.getStatuses().pipe(
@@ -92,7 +91,11 @@ export class MyProductsPageComponent extends ListPageComponent<Product, Workspac
 
 	/** Unselects a entity */
 	onAllItemsUnselected(entity: any) {
-		this.selectionSrv.unselectOne(entity);
+		if (Array.isArray(entity)) {
+			entity.forEach(e => this.selectionSrv.unselectOne(e));
+		} else {
+			this.selectionSrv.unselectOne(entity);
+		}
 	}
 
 	/**

@@ -20,12 +20,9 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	@Input() hasText = false;
 	/** list of all votes */
 	@Input() set votes(votes: ProductVote[]) {
-		console.log('>> set votes = ', votes);
 		this.userVoteIndex = (votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
-		console.log('  >> userVoteIndex = ', this.userVoteIndex);
 		if (~this.userVoteIndex)
 			this.userVote = votes[this.userVoteIndex];
-		console.log('  >> userVote = ', this.userVote);
 		this._votes = votes || [];
 	}
 	get votes() {

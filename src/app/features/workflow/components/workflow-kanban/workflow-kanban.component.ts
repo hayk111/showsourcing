@@ -73,16 +73,11 @@ export class WorkflowKanbanComponent {
 	*/
 	onItemDropped({ target, droppedElement }) {
 		this.refreshStatusesInternally(target, droppedElement);
-		console.log('>> this.statuses = ', this.statuses);
 		this.itemDropped.next({ target, droppedElement });
 	}
 
 	/** Simulate the optimistic cache to directly update the UI */
 	refreshStatusesInternally(target, droppedElement) {
-		console.log('>> refreshStatusesInternally');
-		console.log('  statuses = ', this.statuses);
-		console.log('  droppedElement = ', droppedElement);
-		console.log('  target = ', target);
 		const newStatus = new ProductStatus({ status: { id: target.id } });
 		const updatedProduct = { ...droppedElement, status: newStatus };
 
@@ -90,11 +85,9 @@ export class WorkflowKanbanComponent {
 		if (!currentStatusTypeId) {
 			currentStatusTypeId = -1;
 		}
-		console.log('  >> currentStatusTypeId = ', currentStatusTypeId);
 
 		// Remove for old status
 		const currentStatus = this.statuses.find(status => status.id === currentStatusTypeId);
-		console.log('  >> currentStatus = ', currentStatus);
 		if (currentStatus) {
 			const products = currentStatus.products;
 			const productIndex = products.findIndex(p => p.id === droppedElement.id);
@@ -107,7 +100,6 @@ export class WorkflowKanbanComponent {
 
 		// Add to new status
 		const targetStatus = this.statuses.find(status => status.id === target.id);
-		console.log('  >> targetStatus = ', targetStatus);
 		if (targetStatus) {
 			// const products = targetStatus.products;
 			// const productIndex = products.findIndex(p => p.id === droppedElement);
