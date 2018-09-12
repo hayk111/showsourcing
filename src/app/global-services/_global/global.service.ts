@@ -368,15 +368,16 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	selectAll(fields?: string | string[], clientName: Client = this.defaultClient): Observable<T[]> {
+	selectAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, clientName: Client = this.defaultClient): Observable<T[]> {
 		const title = 'Select All ' + this.typeName;
 		fields = this.getFields(fields, this.fields.all);
 		const gql = this.queryBuilder.selectAll(fields);
 		const queryName = this.getQueryName(gql);
+		const variables = new SelectAllParams(paramsConfig);
 
 		return this.getClient(clientName).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName)),
-			switchMap(client => client.subscribe({ query: gql })),
+			switchMap(client => client.subscribe({ query: gql, variables })),
 			// extracting the result
 			map((r: any) => {
 				if (!r.data)
@@ -410,7 +411,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 		return this.getClient(clientName).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
-			switchMap(client => client.watchQuery({ query: gql }).valueChanges),
+			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			// extracting the result
 			map((r) => {
 				if (!r.data)
