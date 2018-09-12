@@ -50,7 +50,7 @@ import { ActivityModule } from '~shared/activity/activity.module';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
-import { TaskModule } from '~shared/task';
+import { TaskCommonModule } from '~shared/task-common';
 
 @NgModule({
 	imports: [
@@ -74,7 +74,7 @@ import { TaskModule } from '~shared/task';
 		ActivityModule,
 		ActionBarModule,
 		ProductCommonModule,
-		TaskModule
+		TaskCommonModule
 	],
 	declarations: [
 		SupplierDetailsComponent,

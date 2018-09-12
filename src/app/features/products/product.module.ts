@@ -47,7 +47,7 @@ import { ActivityModule } from '~shared/activity/activity.module';
 import { StatusModule } from '~shared/status/status.module';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
 import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
-import { TaskModule } from '~shared/task';
+import { TaskCommonModule } from '~shared/task-common';
 
 @NgModule({
 	imports: [
@@ -73,7 +73,7 @@ import { TaskModule } from '~shared/task';
 		StatusModule,
 		ProductCommonModule,
 		UtilsModule,
-		TaskModule
+		TaskCommonModule
 	],
 	declarations: [
 		ProductSmallCardComponent,

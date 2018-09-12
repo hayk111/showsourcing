@@ -71,7 +71,7 @@
 		<div class="flexBetween">
 			<textarea inputApp type="text" [formControl]="commentCtrl"
 			placeholder="Leave a comment" (keydown.enter)="onEnter($event)"></textarea>
-			<button *ngIf="inp?.focussed" class="secondary-light" (click)="onSubmit()">Send</button>
+			<button *ngIf="inp?.focussed || commentCtrl.value" class="secondary-light" (click)="onSubmit()">Send</button>
 		</div>
 	</card-footer-app>
 

@@ -3,10 +3,10 @@ import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
 export abstract class TaskQueries extends GlobalQueries {
 
-	static readonly type = `type { name }`;
-	static readonly supplier = `supplier { id, name, logoImage { fileName }}`;
-	static readonly product = `product { id, name, images { fileName }}`;
-	static readonly assignee = `assignee { id, firstName, lastName, avatar { fileName } }`;
+	static readonly type = `type { id, name }`;
+	static readonly supplier = `supplier { id, name, logoImage { id, fileName }}`;
+	static readonly product = `product { id, name, images { id, fileName }}`;
+	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, fileName } }`;
 
 	static one = `
 		${TaskQueries.type}

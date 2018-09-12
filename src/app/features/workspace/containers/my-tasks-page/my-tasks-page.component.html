@@ -6,20 +6,31 @@
 		(smartSearch)="smartSearch($event)">
 		<div class="flex show-my-tasks">
 			<checkbox-app
-				(check)="toggleFilter(true)"
-				(uncheck)="toggleFilter(false)">
+				(check)="toggleMyTasks(true)"
+				(uncheck)="toggleMyTasks(false)">
 			</checkbox-app>
 			Show my tasks only
+		</div>
+		<div class="flex show-tasks-done">
+			<checkbox-app
+				(check)="toggleDoneTasks(true)"
+				(uncheck)="toggleDoneTasks(false)">
+			</checkbox-app>
+			Show all tasks
 		</div>
 	</sub-panel-app>
 
 	<task-list-app
 		[tasks]="items$ | async"
 		[selection]="selected$ | async"
+		[hasProduct]="true"
+		[hasSupplier]="true"
 		(taskSelect)="onItemSelected($event)"
 		(taskUnselect)="onItemUnselected($event)"
 		(openCreateDlg)="openCreateDlg()"
-		(bottomReached)="loadMore()">
+		(bottomReached)="loadMore()"
+		(updateTask)="updateTask($event)"
+		(createTask)="createTask($event)">
 	</task-list-app>
 </div>
 
