@@ -6,7 +6,7 @@
       </div>
       <div class="status-task-text">{{task?.done ? 'Mark as done' : 'Pending'}}</div>
     </div> -->
-    <div class="status-task status-done clickable" (click)="markAsDone()">
+    <div class="status-task status-done clickable" (click)="markAsDone()" *ngIf="!(task$ | async)?.done">
       <div class="status-task-icon ">
         <icon-app  fontSet="fa" name="check"></icon-app>
       </div>
@@ -74,7 +74,7 @@
       </div>
     </div>
 
-   
+
 
     <div class="linked-product-container">
       <div class="section-title">
