@@ -124,12 +124,12 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	 * refetchs the query and will merge with existing config
 	 */
 	refetch(config?: SelectParamsConfig) {
-		this.listResult.refetch(config);
+		this.listResult.refetch(config).subscribe();
 	}
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
-		this.listResult.fetchMore(this.items.length);
+		this.listResult.fetchMore(this.items.length).subscribe();
 	}
 
 	/** Sorts items based on sort.sortBy */

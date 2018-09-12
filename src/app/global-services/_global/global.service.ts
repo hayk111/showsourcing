@@ -1,7 +1,7 @@
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloBase, QueryRef } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError } from 'rxjs';
-import { catchError, filter, first, map, shareReplay, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError, pipe } from 'rxjs';
+import { catchError, filter, first, map, shareReplay, tap, switchMap } from 'rxjs/operators';
 import { SelectParams, SelectParamsConfig } from '~global-services/_global/select-params';
 import { log, LogColor } from '~utils';
 import { FetchResult } from 'apollo-link';
@@ -74,7 +74,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones (TypeQueries.one) are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
-	selectOne(id: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+	selectOne(id: string, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T> {
 
 		const title = 'Selecting One ' + this.typeName;
 		// fields will either be the ones given by fields, or if none is supplied it will take the one
@@ -83,8 +83,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const gql = this.queryBuilder.selectOne(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: `id == "${id}"` };
-		const cacheKey = `${id}-${client}`;
-		this.log(title, gql, queryName, client, variables);
+		const cacheKey = `${id}-${clientName}`;
 
 		// this uses a subscription under the hood which doesn't have the benefit of listening for value changes.
 		// Therefor we will create a subject where we can push new changes to see those in the view in real time
@@ -92,15 +91,16 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		if (this.selectOneCache.has(cacheKey))
 			return this.selectOneCache.get(cacheKey).result;
 
-		const obs = this.getClient(client).subscribe({ query: gql, variables })
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName][0]),
-				tap(data => this.logResult(title, queryName, data)),
-				shareReplay(1)
-			);
+		const obs = this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.subscribe({ query: gql, variables })),
+			filter((r: any) => this.checkError(r)),
+			// extracting the result
+			// since we are getting an array back we only need the first one
+			map(({ data }) => data[queryName][0]),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
 		const subj = new BehaviorSubject({});
 		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
 		this.selectOneCache.set(cacheKey, { subj, obs, result });
@@ -117,22 +117,23 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
-	queryOne(id: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+	queryOne(id: string, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T> {
 		const title = 'Query one ' + this.typeName;
 		fields = this.getFields(fields, this.fields.one);
 		const gql = this.queryBuilder.queryOne(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { id };
-		this.log(title, gql, queryName, client, variables);
-		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName]),
-				tap(data => this.logResult(title, queryName, data)),
-				shareReplay(1)
-			);
+
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
+			filter((r: any) => this.checkError(r)),
+			// extracting the result
+			// since we are getting an array back we only need the first one
+			map(({ data }) => data[queryName]),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
 	}
 
 	///////////////////////////////
@@ -146,22 +147,23 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
-	selectOneByPredicate(predicate: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+	selectOneByPredicate(predicate: string, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T> {
 		const title = 'Selecting One By Query ' + this.typeName;
 		fields = this.getFields(fields, this.fields.one);
 		const gql = this.queryBuilder.selectOne(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
-		this.log(title, gql, queryName, client, variables);
-		return this.getClient(client).subscribe({ query: gql, variables })
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName][0]),
-				tap(data => this.logResult(title, queryName, data)),
-				shareReplay(1)
-			);
+
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.subscribe({ query: gql, variables })),
+			filter((r: any) => this.checkError(r)),
+			// extracting the result
+			// since we are getting an array back we only need the first one
+			map(({ data }) => data[queryName][0]),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
 	}
 
 	///////////////////////////////
@@ -174,22 +176,23 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
-	queryOneByPredicate(predicate: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+	queryOneByPredicate(predicate: string, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T> {
 		const title = 'Querying One By Query ' + this.typeName;
 		fields = this.getFields(fields, this.fields.one);
 		const gql = this.queryBuilder.queryMany(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
-		this.log(title, gql, queryName, client, variables);
-		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName][0]),
-				tap(data => this.logResult(title, queryName, data)),
-				shareReplay(1)
-			);
+
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
+			filter((r: any) => this.checkError(r)),
+			// extracting the result
+			// since we are getting an array back we only need the first one
+			map(({ data }) => data[queryName][0]),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
 	}
 
 	/////////////////////////////
@@ -202,25 +205,26 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	waitForOne(predicate: string, fields?: string | string[], client: string = this.defaultClient) {
+	waitForOne(predicate: string, fields?: string | string[], clientName: Client = this.defaultClient) {
 		const title = 'Wait For One ' + this.typeName;
 		fields = this.getFields(fields, this.fields.one);
 		const gql = this.queryBuilder.selectOne(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
-		this.log(title, gql, queryName, client, variables);
-		return this.getClient(client).subscribe({ query: gql, variables })
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName][0]),
-				// we are only interested when there is an item
-				filter(item => !!item),
-				first(),
-				tap(data => this.logResult(title, queryName, data)),
-				shareReplay(1)
-			);
+
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.subscribe({ query: gql, variables })),
+			filter((r: any) => this.checkError(r)),
+			// extracting the result
+			// since we are getting an array back we only need the first one
+			map(({ data }) => data[queryName][0]),
+			// we are only interested when there is an item
+			filter(item => !!item),
+			first(),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
 	}
 
 
@@ -263,23 +267,22 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	queryMany(paramsConfig: SelectParamsConfig, fields?: string | string[], client = this.defaultClient): Observable<T[]> {
+	queryMany(paramsConfig: SelectParamsConfig, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T[]> {
 		const title = 'Query Many ' + this.typeName;
 		fields = this.getFields(fields, this.fields.many);
 		const gql = this.queryBuilder.queryMany(fields);
 		const variables = new SelectParams(paramsConfig);
 		const queryName = this.getQueryName(gql);
 
-		this.log(title, gql, queryName, client, variables);
-
-		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				map((r) => r.data[queryName]),
-				tap(data => this.logResult(title, queryName, data)),
-				catchError(errors => of(log.table(errors)))
-			);
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
+			filter((r: any) => this.checkError(r)),
+			// extracting the result
+			map((r) => r.data[queryName]),
+			tap(data => this.logResult(title, queryName, data)),
+			catchError(errors => of(log.table(errors)))
+		);
 	}
 
 	/////////////////////////////
@@ -294,23 +297,29 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 * @returns ListQuery that items$ and also allows you to fetchMore and refetch
 	*/
-	getListQuery(paramsConfig: SelectParamsConfig, fields?: string | string[], client = this.defaultClient): ListQuery<T> {
+	getListQuery(paramsConfig: SelectParamsConfig, fields?: string | string[], clientName: Client = this.defaultClient)
+		: ListQuery<T> {
 		const title = 'Query List';
 		fields = this.getFields(fields, this.fields.many);
 		const gql = this.queryBuilder.queryMany(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = new SelectParams(paramsConfig);
-		this.log(title, gql, queryName, client, variables);
 
-		// add query ref in case we need it.
-		const queryRef = this.getClient(client).watchQuery<any>({
-			query: gql,
-			variables
-		});
+
+		// get query ref
+		const queryRef$: Observable<QueryRef<any>> = this.getClient(clientName).pipe(
+			map(client => client.watchQuery<any>({
+				query: gql,
+				variables
+			})),
+			shareReplay(1)
+		);
 
 
 		// add items$ wich are the actual items requested
-		const items$: Observable<T[]> = queryRef.valueChanges.pipe(
+		const items$: Observable<T[]> = queryRef$.pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(queryRef => queryRef.valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			map((r) => r.data[queryName]),
@@ -320,30 +329,33 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
 		// (will be reflected in items$)
-		const fetchMore = (skip: number) => {
+		const fetchMore = (skip: number): Observable<any> => {
 			const fetchMoreTitle = 'Selecting List Fetch More ' + this.typeName;
-			this.log(fetchMoreTitle, gql, queryName, client, { skip });
-			return queryRef.fetchMore({
-				variables: { skip },
-				updateQuery: (prev, { fetchMoreResult }) => {
-					if (!fetchMoreResult[queryName]) { return prev; }
-					this.logResult(fetchMoreTitle, queryName, fetchMoreResult.data);
-					return Object.assign({}, prev, {
-						[queryName]: [...prev[queryName], ...fetchMoreResult[queryName]],
-					});
-				}
-			});
+			this.log(fetchMoreTitle, gql, queryName, clientName, { skip });
+			return queryRef$.pipe(
+				map(queryRef => queryRef.fetchMore({
+					variables: { skip },
+					updateQuery: (prev, { fetchMoreResult }) => {
+						if (!fetchMoreResult[queryName]) { return prev; }
+						this.logResult(fetchMoreTitle, queryName, fetchMoreResult.data);
+						return Object.assign({}, prev, {
+							[queryName]: [...prev[queryName], ...fetchMoreResult[queryName]],
+						});
+					}
+				})));
 		};
 
 		// add refetch query so we can tell apollo to that the variables have changed
 		// (will be reflected in items$)
-		const refetch = (config: SelectParamsConfig) => {
+		const refetch = (config: SelectParamsConfig): Observable<any> => {
 			const refetchTitle = 'Selecting List Refetch' + this.typeName;
-			this.log(refetchTitle, gql, queryName, client, config);
-			queryRef.refetch(config);
+			this.log(refetchTitle, gql, queryName, clientName, config);
+			return queryRef$.pipe(
+				map(queryRef => queryRef.refetch(config))
+			);
 		};
 
-		return { queryName, queryRef, items$, fetchMore, refetch };
+		return { queryName, items$, fetchMore, refetch };
 	}
 
 	/////////////////////////////
@@ -356,25 +368,25 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	selectAll(fields?: string | string[], client: string = this.defaultClient): Observable<T[]> {
+	selectAll(fields?: string | string[], clientName: Client = this.defaultClient): Observable<T[]> {
 		const title = 'Select All ' + this.typeName;
 		fields = this.getFields(fields, this.fields.all);
 		const gql = this.queryBuilder.selectAll(fields);
 		const queryName = this.getQueryName(gql);
-		this.log(title, gql, queryName, client);
 
-		return this.getClient(client).subscribe({ query: gql })
-			.pipe(
-				// extracting the result
-				map((r: any) => {
-					if (!r.data)
-						throwError(r.errors);
-					return r.data[queryName];
-				}),
-				catchError(errors => of(log.table(errors))),
-				tap(data => this.logResult(title, queryName, data)),
-				shareReplay(1)
-			);
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName)),
+			switchMap(client => client.subscribe({ query: gql })),
+			// extracting the result
+			map((r: any) => {
+				if (!r.data)
+					throwError(r.errors);
+				return r.data[queryName];
+			}),
+			catchError(errors => of(log.table(errors))),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
 	}
 
 
@@ -388,26 +400,27 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	queryAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client: string = this.defaultClient): Observable<T[]> {
+	queryAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, clientName: Client = this.defaultClient): Observable<T[]> {
 		const title = 'Query All ' + this.typeName;
 		fields = this.getFields(fields, this.fields.all);
 		const gql = this.queryBuilder.queryAll(fields);
 		const queryName = this.getQueryName(gql);
-		const variables = new SelectAllParams(paramsConfig);
-		this.log(title, gql, queryName, client);
 
-		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
-			.pipe(
-				// extracting the result
-				map((r) => {
-					if (!r.data)
-						throwError(r.errors);
-					return r.data[queryName];
-				}),
-				catchError(errors => of(log.table(errors))),
-				tap(data => this.logResult(title, queryName, data)),
-				shareReplay(1)
-			);
+		const variables = new SelectAllParams(paramsConfig);
+
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.watchQuery({ query: gql }).valueChanges),
+			// extracting the result
+			map((r) => {
+				if (!r.data)
+					throwError(r.errors);
+				return r.data[queryName];
+			}),
+			catchError(errors => of(log.table(errors))),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
 	}
 
 	/////////////////////////////
@@ -418,26 +431,25 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param predicate : string  realm predicate / query to filter items
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	queryCount(predicate: string, client: string = this.defaultClient): Observable<number> {
+	queryCount(predicate: string, clientName: Client = this.defaultClient): Observable<number> {
 		const title = 'Query Count ' + this.typeName;
 		const gql = this.queryBuilder.queryCount();
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 
-		this.log(title, gql, queryName, client, variables);
-
-		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
-			.pipe(
-				// extracting the result
-				map((r) => {
-					if (!r.data)
-						throwError(r.errors);
-					return r.data[queryName];
-				}),
-				catchError(errors => of(log.table(errors))),
-				tap(data => this.logResult(title, queryName, data)),
-				shareReplay(1)
-			);
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
+			// extracting the result
+			map((r) => {
+				if (!r.data)
+					throwError(r.errors);
+				return r.data[queryName];
+			}),
+			catchError(errors => of(log.table(errors))),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
 	}
 
 
@@ -451,16 +463,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	update(entity: T, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+	update(entity: T, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T> {
 		const title = 'Update ' + this.typeName;
 		fields = this.getFields(fields, this.fields.update);
 		const gql = this.queryBuilder.update(fields);
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
-		const cacheKey = `${entity.id}-${client}`;
-
-		this.log(title, gql, queryName, client, variables);
+		const cacheKey = `${entity.id}-${clientName}`;
 
 		this.addOptimisticResponse(options, gql, entity, this.typeName);
 		// updating select one cache so changes are reflected when using selectOne(id)
@@ -468,7 +478,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			this.selectOneCache.get(cacheKey).subj.next(entity);
 		}
 
-		return this.getClient(client).mutate(options).pipe(
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.mutate(options)),
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -487,8 +499,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	updateMany(entities: T[], fields?: string | string[], client: string = this.defaultClient): Observable<T[]> {
-		return forkJoin(entities.map(entity => this.update(entity, fields, client)));
+	updateMany(entities: T[], fields?: string | string[], clientName: Client = this.defaultClient): Observable<T[]> {
+		return forkJoin(entities.map(entity => this.update(entity, fields, clientName)));
 	}
 
 
@@ -501,15 +513,16 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	create(entity: T, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+	create(entity: T, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T> {
 		const title = 'Create one ' + this.typeName;
 		fields = this.getFields(fields, this.fields.create);
 		const gql = this.queryBuilder.create(fields);
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
-		this.log(title, gql, queryName, client, variables);
 
-		return this.getClient(client).mutate({ mutation: gql, variables }).pipe(
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.mutate({ mutation: gql, variables })),
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -527,8 +540,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	createMany(entities: T[], fields?: string | string[], client: string = this.defaultClient): Observable<T[]> {
-		return forkJoin(entities.map(entity => this.create(entity, fields, client)));
+	createMany(entities: T[], fields?: string | string[], clientName: Client = this.defaultClient): Observable<T[]> {
+		return forkJoin(entities.map(entity => this.create(entity, fields, clientName)));
 	}
 
 	/////////////////////////////
@@ -539,7 +552,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param id : id of the entity to delete
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	delete(id: string, client = this.defaultClient): Observable<any> {
+	delete(id: string, clientName: Client = this.defaultClient): Observable<any> {
 		const title = 'Delete one ' + this.typeName;
 		const gql = this.queryBuilder.deleteOne();
 		const options = {
@@ -547,9 +560,10 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			variables: { id }
 		};
 		const queryName = this.getQueryName(gql);
-		this.log(title, gql, queryName, client, options.variables);
 
-		return this.getClient(client).mutate(options).pipe(
+		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, options.variables)),
+			switchMap(client => client.mutate(options)),
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -603,12 +617,8 @@ Deleting everything.. so watchout. `);
 	/////////////////////////////
 
 	/** to use another named apollo client */
-	private getClient(clientName: string) {
-		const client = clientName ? this.apolloState.apollo.use(clientName) : this.apolloState.apollo;
-		if (!client) {
-			throw Error(`no client found for ${clientName}`);
-		}
-		return client;
+	private getClient(clientName: Client): Observable<ApolloBase> {
+		return this.apolloState.getClientWhenReady(clientName);
 	}
 
 	/** create appollo mutationOptions from our updateOptions */
@@ -649,10 +659,10 @@ Deleting everything.. so watchout. `);
 	}
 
 	/** logs request that is about to being made to the console */
-	private log(type: string, gql: DocumentNode, queryName: string, client: string, variables?: any) {
+	private log(type: string, gql: DocumentNode, queryName: string, clientName: Client, variables?: any) {
 		// logging for each request
 		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
-		log.debug(`%c client: ${client}`, LogColor.APOLLO_CLIENT_PRE);
+		log.debug(`%c client: ${clientName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c trace`, LogColor.APOLLO_CLIENT_PRE);
 		log.trace();
 		log.groupEnd();

@@ -57,7 +57,7 @@ export class TokenService {
 			tap(refreshToken => this.storeRefreshToken(refreshToken)),
 			catchError(err => {
 				this._refreshToken$.next();
-				return of(err);
+				return throwError(err);
 			})
 		);
 	}
