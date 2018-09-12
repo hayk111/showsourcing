@@ -68,11 +68,11 @@ export class CarouselComponent implements OnInit {
 	/** deletes the image */
 	delete() {
 		const img = this.getImg();
-		this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : 0;
 
 		this.dlgSrv.open(ConfirmDialogComponent, {
 			text: 'Are you sure you want to remove this image ?',
 			callback: () => {
+				this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : 0;
 				this.deleted.emit(img);
 				this.imageSrv.delete(img.id).subscribe();
 			}
