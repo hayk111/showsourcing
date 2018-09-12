@@ -99,7 +99,7 @@ export class FilterList {
 	 * we want every filter of the same type to be joined with OR
 	 * while when the type differ it's a AND.
 	 *
-	 * So if we have to supplier filter and one category filter the
+	 * So if we have two supplier filter and one category filter the
 	 * predicate will be : (supplier.id == x OR supplier.id == y AND category.id == z)
 	*/
 	static filtersToPredicate(byType: FilterByType) {
