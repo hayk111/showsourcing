@@ -48,7 +48,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	view: 'list' | 'card' = 'list';
 	/** whether the filter panel is visible */
 	filterPanelOpen: boolean;
-	/** if all the selected items are favorite or not */
+	/** if all the selected items are favorite or not, to display a heart */
 	allSelectedFavorite = true; // true by default for convenience, doesn't affect end result
 	/** whether the preview panel is visible, the preview panel is the panel that opens
 	 * when clicking an item in the table
@@ -124,12 +124,12 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	 * refetchs the query and will merge with existing config
 	 */
 	refetch(config?: SelectParamsConfig) {
-		this.listResult.refetch(config);
+		this.listResult.refetch(config).subscribe();
 	}
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
-		this.listResult.fetchMore(this.items.length);
+		this.listResult.fetchMore(this.items.length).subscribe();
 	}
 
 	/** Sorts items based on sort.sortBy */
@@ -245,8 +245,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	/** Update a entity */
-	update(entity: T) {
-		this.featureSrv.update(entity).subscribe();
+	update(entity: T, fields?: string | string[]) {
+		this.featureSrv.update(entity, fields).subscribe();
 	}
 
 	/** Will show a confirm dialog to delete items selected */
@@ -285,11 +285,13 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** When a product heart is clicked to unfavorite it */
 	onItemUnfavorited(id: string) {
+		console.log('  >> onItemUnfavorited');
 		this.update({ id, favorite: false } as any);
 	}
 
 	/** When we favorite all selected items, the items that are already favorited will stay the same */
 	onFavoriteAllSelected() {
+		console.log('>> onFavoriteAllSelected');
 		this.selectionItems().forEach(item => this.onItemFavorited(item.id));
 		this.allSelectedFavorite = true;
 	}

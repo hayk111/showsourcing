@@ -18,7 +18,7 @@
 	</context-menu-app>
 
 	<ng-template #noStatus>
-		<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}">
+		<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}" (menuClosed)="statusUpdated.emit()">
 
 			<context-menu-trigger-app class="flex {{selectSize}}">
 				<status-badge-app  *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [size]="selectSize" [typeEntity]="typeEntity"></status-badge-app>

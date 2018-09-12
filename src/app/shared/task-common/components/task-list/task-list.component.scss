@@ -14,7 +14,7 @@
 }
 
 .container {
-	max-height: 490px;
+	max-height: 505px;
 
 	.task-container {
 
@@ -36,7 +36,28 @@
 			}
 		}
 	}
+}
 
+.create-task {
+	margin-top: var(--spacing-l);
+	margin-left: var(--spacing-ms);
+
+	input, textarea {
+		height: 36px;
+		resize: none;
+		border: none;
+		background: none;
+
+		&:focus {
+			border-radius: 500px;
+			border: 1px solid var(--color-secondary);
+			background: var(--color-secondary-light);
+		}
+	}
+
+	button {
+		margin-left: var(--spacing-ms);
+	}
 }
 
 button.light {

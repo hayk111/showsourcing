@@ -10,8 +10,9 @@ import { SelectionBarModule } from '~shared/selection-bar';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { WorkflowModule } from '~features/workflow/workflow.module';
-import { TaskModule } from '~shared/task';
+import { TaskCommonModule } from '~shared/task-common';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
+import { CustomDialogModule } from '~shared/custom-dialog';
 
 
 @NgModule({
@@ -22,9 +23,10 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 		SelectionBarModule,
 		ActionBarModule,
 		WorkflowModule,
-		TaskModule,
+		TaskCommonModule,
 		ProductCommonModule,
-		WorkflowActionModule
+		WorkflowActionModule,
+		CustomDialogModule
 	],
 	declarations: [
 		WorkspaceComponent,

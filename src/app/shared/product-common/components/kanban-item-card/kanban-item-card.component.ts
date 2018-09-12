@@ -81,6 +81,7 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 	@Output() cardEnter = new EventEmitter<any>();
 	/** Trigger the event when the mouse enters the card */
 	@Output() cardLeave = new EventEmitter<any>();
+	@Output() clickImage = new EventEmitter<any>();
 
 	@ContentChild(ContextMenuComponent) contextMenu: ContextMenuComponent;
 
@@ -146,7 +147,7 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 		event.stopPropagation();
 	}
 
-	/** Toogle the drag'n drop enable state */
+	/** Toggle the drag'n drop enable state */
 	toggleDragDropEnable(from, event) {
 		if (from === 'checkbox') {
 			this.onToggleCheckbox(event);

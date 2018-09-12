@@ -9,13 +9,15 @@ import { shareReplay, share } from 'rxjs/operators';
 })
 export class WorkflowActionService {
 
+	// if we dont want to see all at once and use a scroll for this, instead of query all
+	// we need queryList, so we can refetch. And the workflow.html need infiniteScroll
 	private productStatusTypes$: Observable<ProductStatusType[]> = this.ermSrv.getStatusService(ERM.PRODUCT)
-		.queryAll('id, name, category, step, inWorkflow').pipe(
+		.queryAll('name, category, step, inWorkflow', { sortBy: 'step' }).pipe(
 			shareReplay(1)
 		);
 	supplierStatusTypes$: Observable<SupplierStatusType[]> = this.ermSrv.getStatusService(ERM.SUPPLIER)
-		.queryAll('id, name, category, step, inWorkflow').pipe(
-			share()
+		.queryAll('name, category, step, inWorkflow', { sortBy: 'step' }).pipe(
+			shareReplay(1)
 		);
 
 	constructor(

@@ -8,10 +8,15 @@
 	margin-right: auto;
 }
 
-.show-my-tasks {
+.show-my-tasks, .show-tasks-done {
 	font-weight: 600;
 	line-height: 1.43;
+
+	&:not(.show-tasks-done) {
+		margin-right: var(--spacing-ms);
+	}
 }
+
 
 task-list-app {
 	margin-right: var(--spacing-l);

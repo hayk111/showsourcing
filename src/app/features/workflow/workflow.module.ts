@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CardModule } from '~shared/card/card.module';
+import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { IconsModule } from '~shared/icons/icons.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SharedModule } from '~shared/shared.module';
@@ -16,6 +17,7 @@ import { KanbanService } from '~features/workflow/services/kanban.service';
 		SharedModule,
 		TopPanelModule,
 		CardModule,
+		ProductCommonModule,
 		IconsModule,
 		DndModule
 	],

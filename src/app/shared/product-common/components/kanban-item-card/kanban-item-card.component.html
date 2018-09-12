@@ -1,16 +1,19 @@
 <div class="kanban__item cell ng-star-inserted main flexBetween"
      [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked), 'clickable' : clickable }"
      (clickOutside)="onClickOutsideCard()"
-     (click)="clickable && openProduct()"
+	 (click)="clickable && openProduct()"
      (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
   <div class="mainCellWrapper ellipsis ng-star-inserted" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
     <div class="mainCell">
       <div class="imgCtnr">
         <img class="mini image ng-star-inserted" *ngIf="image" [src]="image"
+             (click)="clickImage.emit()"
              (dragstart)="preventDrag($event)">
         <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'"
+             (click)="clickImage.emit()"
              (dragstart)="preventDrag($event)">
-        <div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
+        <div class="preview" (click)="clickImage.emit()"><div>Preview</div></div>
+        <div  *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
           <checkbox-app [checked]="checked"
                         (check)="onChecked()"
                         (uncheck)="onUnchecked()"
@@ -38,12 +41,12 @@
             </div>
             <div class="descriptionCtnr-last flex">
               <icon-app [name]="thumbsName" *ngIf="thumbsName" fontSet="svg"></icon-app>
-              <span *ngIf="product?.score" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
+              <span *ngIf="product?.score !== undefined && product?.score != null" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
             </div>
           </div>
         </div>
         <div class="descriptionBottomCtnr">
-          <badge-app size="xs" type="secondary-light" *ngFor="let tag of tags | slice:0:1;trackBy: trackByFn">{{tag.name}}</badge-app>
+          <badge-app size="xs" type="secondary-light" *ngFor="let tag of tags | slice:0:1;trackBy: trackByFn"">{{tag.name}}</badge-app>
         </div>
       </div>
       <div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
