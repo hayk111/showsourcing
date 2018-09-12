@@ -40,7 +40,6 @@ export class TeamService extends GlobalService<Team> {
 
 	);
 	selectedTeamSync;
-	teams$: Observable<Team[]>;
 
 
 	constructor(
@@ -54,12 +53,10 @@ export class TeamService extends GlobalService<Team> {
 	init() {
 		this.restoreSelectedTeamId();
 
-		this.teams$ = this.selectAll();
-
 		// 2. When we have teams we find out what the selected team is
 		combineLatest(
 			this._selectedTeamId$,
-			this.teams$,
+			this.selectAll(),
 			(id, teams) => this.getSelectedTeam(id, teams)
 		).subscribe(this._selectedTeam$);
 
