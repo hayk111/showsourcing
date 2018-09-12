@@ -27,7 +27,7 @@
 			</div>
 		</div>
 
-		<div class="col dotCol" *ngIf="dotsOption">
+		<!-- <div class="col dotCol" *ngIf="dotsOption">
 			<div class="header">
 			</div>
 			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
@@ -44,7 +44,7 @@
 					</ng-container>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- content columns -->
 		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'"
