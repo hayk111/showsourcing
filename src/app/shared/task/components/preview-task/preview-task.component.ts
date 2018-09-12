@@ -49,7 +49,13 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
   comment$: Observable<Comment>;
   task$: Observable<Task>;
   product$: Observable<Product>;
-
+	descriptor$: Observable<FormDescriptor>;
+	customFields: CustomField[] = [
+		{
+			name: 'assignee', label: 'Assignee To', type: 'selector',
+			metadata: { target: 'user', type: 'entity', labelName: 'name' }
+		},
+	];
   constructor(
     private featureSrv: TaskService,
     private productService: ProductService,
@@ -63,6 +69,9 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
     this.product$ = this.productService.selectOne(this.task.product.id);
     this.task$ = this.featureSrv.selectOne(this.task.id);
 
+		this.descriptor$ = this.task$.pipe(
+			map(task => new FormDescriptor(this.customFields, task))
+		);
   }
 
   ngAfterViewInit() {
@@ -97,34 +106,12 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
   updateTaskDueDate(dueDate: Date) {
 		this.updateTaskServer({ dueDate });
   }
-  // openRfq() {
-  // 	// we add manually the supplier self email, since it is not on the contacts
-  // 	if (this.contacts && this.product.supplier.officeEmail) {
-  // 		this.contacts.push({
-  // 			name: this.product.supplier.name || 'Unnamed',
-  // 			email: this.product.supplier.officeEmail,
-  // 			jobTitle: null
-  // 		});
-  // 	} else if (!this.contacts && this.product.supplier.officeEmail) {
-  // 		this.contacts = [{
-  // 			name: this.product.supplier.name || 'Unnamed',
-  // 			email: this.product.supplier.officeEmail,
-  // 			jobTitle: null
-  // 		}];
-  // 	}
-  // 	this.dlgSrv.openFromModule(RfqDialogComponent, this.module,
-  // 		{
-  // 			product: this.product,
-  // 			contacts: this.contacts
-  // 		});
-  // }
 
-  // onViewProduct() {
-  // 	this.router.navigate(['product', 'details', this.product.id]);
-  // }
-
-  // openAddToProject() {
-  // 	this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
-  // }
-
+	onFormCreated(form: FormGroup) {
+		form.valueChanges
+			.pipe(
+				takeUntil(this._destroy$),
+				distinctUntilChanged()
+			).subscribe(task => this.updateTaskServer(task));
+	}
 }

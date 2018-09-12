@@ -61,13 +61,20 @@
       </div>
 
       <div class="assigned-list">
-          <div *ngIf="task?.assignee" class="flex task-user ellipsis">
-              <user-picture-app [user]="task?.assignee" [size]="30" [border]="true"></user-picture-app>
-              <div class="user-name">{{ task?.assignee ? task.assignee.firstName+' '+ task.assignee.lastName  : 'Unassigned' }}</div>
-            </div>
- 
+        <ng-container *ngIf="descriptor$ | async as descriptor">
+          <dynamic-form-app
+            [inlineLabel]="false"
+            (formCreated)="onFormCreated($event)"
+            [descriptor]="descriptor"
+            [editable]="true"
+            [isShowLabel]="false"
+            [colAmount]="1">
+          </dynamic-form-app>
+        </ng-container>
       </div>
     </div>
+
+   
 
     <div class="linked-product-container">
       <div class="section-title">

@@ -4,7 +4,7 @@
 	<!-- hint: field cell is used for almost every field, but options differs (packaging) -->
 	<!-- hint: when the field is open the border bottom should disappear -->
 	<field-cell-app *ngSwitchDefault [isOpen]="!isOpen" [inlineLabel]="inlineLabel">
-		<label-app>{{ customField.label || customField.name }}</label-app>
+		<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-text-app #editable (closed)="onSave()" (opened)="onOpen()">
 			<editable-label-app>{{ customField.value || '-' }}</editable-label-app>
@@ -22,7 +22,7 @@
 
 	<!-- tel (restricted input)-->
 	<field-cell-app *ngSwitchCase="'tel'" [isOpen]="!isOpen" [inlineLabel]="inlineLabel">
-		<label-app>{{ customField.label || customField.name }}</label-app>
+		<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 		<editable-text-app #editable (closed)="onSave()" (opened)="onOpen()">
 			<editable-label-app>{{ customField.value || '-' }}</editable-label-app>
 			<form-field-app>
@@ -40,7 +40,7 @@
 
 	<!-- number -->
 	<field-cell-app *ngSwitchCase="'number'" [isOpen]="!isOpen" [inlineLabel]="inlineLabel">
-		<label-app>{{ customField.label || customField.name }}</label-app>
+		<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 		<editable-text-app #editable (closed)="onSave()" (opened)="onOpen()">
 			<editable-label-app>{{ customField.value || '-' }}</editable-label-app>
 			<form-field-app>
@@ -58,7 +58,7 @@
 
 	<!-- decimal -->
 	<field-cell-app *ngSwitchCase="'decimal'" [isOpen]="!isOpen" [inlineLabel]="inlineLabel">
-		<label-app>{{ customField.label || customField.name }}</label-app>
+		<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 		<editable-text-app #editable (closed)="onSave()" (opened)="onOpen()">
 			<editable-label-app>{{ customField.value || '-' }}</editable-label-app>
 			<form-field-app>
@@ -76,7 +76,7 @@
 
 	<!-- days -->
 	<field-cell-app *ngSwitchCase="'days'" [isOpen]="!isOpen" [inlineLabel]="inlineLabel">
-		<label-app>{{ customField.label || customField.name }}</label-app>
+		<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 		<editable-text-app #editable (closed)="onSave()" (opened)="onOpen()">
 			<editable-label-app>{{ customField.value || '-' }} days</editable-label-app>
 			<form-field-app>
@@ -93,7 +93,7 @@
 
 	<!-- textarea -->
 	<field-cell-app [canGrow]="true" *ngSwitchCase="'textarea'" [isOpen]="!isOpen" [inlineLabel]="inlineLabel">
-		<label-app>{{ customField.label || customField.name }}</label-app>
+		<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 		<editable-text-app #editable (closed)="onSave()" (opened)="onOpen()">
 			<editable-label-app style="white-space: pre-line">{{ customField.value || '-' }}</editable-label-app>
 			<form-field-app>
@@ -109,13 +109,13 @@
 
 	<!-- yesNo -->
 	<field-cell-app *ngSwitchCase="'yesNo'" [isOpen]="true" [inlineLabel]="inlineLabel">
-		<label-app>{{ customField.label || customField.name }}</label-app>
+		<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 		<span class="txtBtn" (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span>
 	</field-cell-app>
 
 	<!-- price -->
 	<field-cell-app	*ngSwitchCase="'price'"	[isOpen]="!isOpen" [inlineLabel]=" inlineLabel">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-price-app
 				[(ngModel)]="value"
 				(change)="onChange()"
@@ -127,7 +127,7 @@
 
 	<!-- price matrix -->
 	<ng-container *ngSwitchCase="'priceMatrix'">
-		<label class="strong">{{ customField.label || customField.name }}</label>
+		<label class="strong" *ngIf="isShowLabel">{{ customField.label || customField.name }}</label>
 		<div class="inputCtnr">
 			<editable-price-matrix-app
 				[(ngModel)]="value"
@@ -138,7 +138,7 @@
 
 	<!-- packaging -->
 	<ng-container *ngSwitchCase="'packaging'">
-		<label class="strong">{{ customField.label || customField.name }}</label>
+		<label class="strong" *ngIf="isShowLabel">{{ customField.label || customField.name }}</label>
 		<div class="inputCtnr">
 			<editable-packaging-app
 				[(ngModel)]="value"
@@ -147,10 +147,10 @@
 				[customField]="customField"></editable-packaging-app>
 		</div>
 	</ng-container>
-
 	<!-- selector -->
 	<editable-selector-app
 		*ngSwitchCase="'selector'"
+		[isShowLabel]="isShowLabel"
 		[customField]="customField"
 		[(ngModel)]="value"
 		(change)="onChange()"

@@ -23,6 +23,7 @@ export class FieldCellComponent implements OnInit {
 	@Input() isOpen = true;
 	// whether the input has a fixed size
 	@Input() canGrow = false;
+	@Input() isShowLabel = true;
 
 	constructor() { }
 

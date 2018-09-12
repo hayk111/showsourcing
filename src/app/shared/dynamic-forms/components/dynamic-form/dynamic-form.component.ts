@@ -18,6 +18,7 @@ export class DynamicFormComponent extends BaseComponent implements OnInit {
 	@Input() editable = false;
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;
+	@Input() isShowLabel = true;
 	@Output() formCreated = new EventEmitter<FormGroup>();
 	form: FormGroup;
 	cols: CustomField[][];

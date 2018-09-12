@@ -11,11 +11,13 @@ import { CreateTaskDialogComponent } from './components/create-task-dialog/creat
 import { PreviewTaskComponent } from '~shared/task/components/preview-task/preview-task.component';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
+import { DynamicFormsModule } from '~shared/dynamic-forms';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		UserPictureModule,
+		DynamicFormsModule,
 		UtilsModule,
 		ImageModule,
 		InputsModule,

@@ -1,4 +1,4 @@
-	<div class="labelCtnr label2">
+	<div class="labelCtnr label2" *ngIf="isShowLabel">
 		<ng-content select="label-app"></ng-content>
 	</div>
 	<div class="content flex" [ngClass]="{'txtBtn': (inlineLabel && isOpen) }">
