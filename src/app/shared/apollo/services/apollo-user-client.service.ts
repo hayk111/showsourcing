@@ -59,7 +59,6 @@ export class UserClientInitializer extends AbstractApolloClient {
 		this.authSrv.authStatus$.pipe(
 			filter(status => status === AuthStatus.NOT_AUTHENTICATED),
 		).subscribe(_ => this.destroyClient(Client.USER, 'not authenticated'));
-
 	}
 
 	/** will emit once when all user and global constant are ready */
