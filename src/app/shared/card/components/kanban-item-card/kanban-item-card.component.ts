@@ -18,6 +18,7 @@ import {
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { Price, Product, ProductVote } from '~models';
 import { UserService } from '~global-services';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 @Component({
 	selector: 'kanban-item-card-app',
@@ -25,7 +26,7 @@ import { UserService } from '~global-services';
 	styleUrls: ['./kanban-item-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KanbanItemCardComponent implements OnInit, AfterViewInit {
+export class KanbanItemCardComponent extends BaseComponent implements OnInit, AfterViewInit {
 
 	/** The main title */
 	@Input() title: string;
@@ -95,7 +96,9 @@ export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 	dislike = false;
 	thumbsName = 'thumbs-up-white';
 
-	constructor(private userSrv: UserService, private elementRef: ElementRef, private renderer: Renderer2) { }
+	constructor(private userSrv: UserService, private elementRef: ElementRef, private renderer: Renderer2) {
+    super();
+  }
 
 	ngOnInit() {
 		if (this.product) {

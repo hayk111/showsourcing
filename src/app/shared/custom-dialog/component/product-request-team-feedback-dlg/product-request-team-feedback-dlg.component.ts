@@ -7,6 +7,7 @@ import { TeamService } from '~global-services';
 import { take, map, switchMap, first } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { ProductDialogService } from '~shared/custom-dialog/services/product-dia
 	styleUrls: ['./product-request-team-feedback-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
+export class ProductRequestTeamFeedbackDlgComponent extends BaseComponent implements OnInit {
 	teamMembers$: Observable<User[]>;
 	private selected = {};
 	@Input() selectedProducts: Product[];
@@ -24,7 +25,9 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 		return this.selectedProducts;
 	}
 
-	constructor(private dlgSrv: DialogService, private productDlgSrv: ProductDialogService) { }
+	constructor(private dlgSrv: DialogService, private productDlgSrv: ProductDialogService) {
+    super();
+  }
 
 	ngOnInit() {
 		this.teamMembers$ = this.productDlgSrv.selectTeamUsers();

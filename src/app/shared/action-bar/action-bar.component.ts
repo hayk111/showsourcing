@@ -34,3 +34,15 @@ export class ActionBarComponent implements OnInit {
 	}
 
 }
+/*
+Using in :
+- product-carousel
+- product-preview
+- products-page
+- project-workflow
+- supliers-page
+- my-products-page
+- one-product-activity-card
+- product-grid
+
+*/

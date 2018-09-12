@@ -7,6 +7,7 @@ import {
 	EventEmitter,
 } from '@angular/core';
 import { Project } from '~models';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 @Component({
 	selector: 'project-card-app',
@@ -14,11 +15,13 @@ import { Project } from '~models';
 	styleUrls: ['./project-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectCardComponent implements OnInit {
+export class ProjectCardComponent extends BaseComponent implements OnInit {
 	@Input() projects: Project[];
 	@Output() removeProject = new EventEmitter<Project>();
 	@Output() addProjectClick = new EventEmitter<null>();
 
-	constructor() { }
+	constructor() {
+    super();
+  }
 	ngOnInit() { }
 }

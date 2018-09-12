@@ -5,7 +5,7 @@
 
 	<ul *ngIf="contacts.length > 0; else noContact">
 		<supplier-contact-app
-			*ngFor="let contact of contacts; let last = last"
+			*ngFor="let contact of contacts; let last = last;trackBy: trackByFn"
 			[border]="!last"
 			(edit)="openContact.emit(contact)"
 			(delete)="deleteContact.emit(contact)"

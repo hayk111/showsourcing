@@ -4,7 +4,7 @@
 <img-app class="square pointer"
 	[ngStyle]="styleBox"
 	[ngClass]="{ 'pending': image.pending }"
-	*ngFor="let image of images; let i = index"
+	*ngFor="let image of images; let i = index;trackBy: trackByFn"
 	[image]="image"
 	size="s"
 	(click)="imageClick.emit(i)"></img-app>

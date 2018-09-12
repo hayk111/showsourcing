@@ -24,7 +24,6 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 	@Output() addToProject = new EventEmitter<string>();
 	@Output() update = new EventEmitter<Product>();
 
-	trackByFn = (index, item) => item.id;
 
 	getGroupedProducts(sort: Sort) {
 		const fieldSortyBy = sort.sortBy;

@@ -3,7 +3,7 @@
 
 	<side-menu-item-app
 		[selected]="isSelected(project)"
-		*ngFor="let project of projects"
+		*ngFor="let project of projects;trackBy: trackByFn"
 		(click)="select.emit(project)">
 
 		<span class="name">{{ project.name }}</span>

@@ -6,7 +6,7 @@
 
 	<main *ngIf="projects$ | async as projects" class="scrollable">
 		<list-app>
-			<list-item-app *ngFor="let project of projects" (click)="checkbox.onClick()">
+			<list-item-app *ngFor="let project of projects;trackBy: trackByFn" (click)="checkbox.onClick()">
 				<div class="flex" (click)="checkbox.onClick()">
 					<checkbox-app
 						#checkbox

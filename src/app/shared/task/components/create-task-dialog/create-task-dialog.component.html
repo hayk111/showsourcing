@@ -30,7 +30,7 @@
 			<label-app> Type </label-app>
 			<select inputApp formControlName="type" type="text" placeholder="Select a type">
 				<option *ngIf="group.get('type').pristine" value="">Select</option>
-				<option *ngFor="let option of options" [value]="option"> {{option}}</option>
+				<option *ngFor="let option of options;trackBy: trackByFn" [value]="option"> {{option}}</option>
 			</select>
 		</form-field-app>
 		<!-- product -->

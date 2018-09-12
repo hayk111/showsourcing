@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { AppImage } from '~models';
 import { Location } from '@angular/common';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 @Component({
 	selector: 'top-panel-details-app',
@@ -8,7 +9,7 @@ import { Location } from '@angular/common';
 	styleUrls: ['./top-panel-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopPanelDetailsComponent implements OnInit {
+export class TopPanelDetailsComponent extends BaseComponent implements OnInit {
 	/** logo displayed */
 	@Input() logo: AppImage;
 	/** sometimes we use logos with alpha channels where we want to have a gradient background */
@@ -25,7 +26,9 @@ export class TopPanelDetailsComponent implements OnInit {
 
 	constructor(
 		private location: Location
-	) { }
+	) {
+    super();
+  }
 
 	ngOnInit() {
 	}

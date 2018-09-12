@@ -5,7 +5,7 @@
 			<div class="caretCtnr" *ngIf="isSendToWorkFlow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 		</context-menu-trigger-app>
 
-		<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}}">
+		<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
 			<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatus(stat)"></status-badge-app>
 		</context-menu-item-app>
 
@@ -25,7 +25,7 @@
 				<div class="caretCtnr" *ngIf="isSendToWorkFlow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 			</context-menu-trigger-app>
 
-			<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}}">
+			<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
 				<status-badge-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)"></status-badge-app>
 			</context-menu-item-app>
 

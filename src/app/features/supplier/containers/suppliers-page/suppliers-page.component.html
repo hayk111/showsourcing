@@ -15,7 +15,7 @@
 	(search)="search($event)"
 	(smartSearch)="smartSearch($event)">
 	<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
-		<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async)">
+		<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async);trackBy: trackByFn">
 			<search-autocomplete-item-content-app
 				[selectable]="true" [title]="element.name" [subtitle]="element.type"
 				[checked]="element.checked" [icon]="element.type"

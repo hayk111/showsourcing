@@ -4,6 +4,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
 import { ProductStatus } from '~models';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 /** Drag'n drop workflow */
 
@@ -12,7 +13,7 @@ import { ProductStatus } from '~models';
 	templateUrl: './workflow-kanban.component.html',
 	styleUrls: ['./workflow-kanban.component.scss']
 })
-export class WorkflowKanbanComponent implements OnInit {
+export class WorkflowKanbanComponent extends BaseComponent implements OnInit {
 	/** The list of statuses included associated products */
 	@Input() statuses;
 	/** A reference to the contextual menu template */
@@ -42,6 +43,7 @@ export class WorkflowKanbanComponent implements OnInit {
 	dragInProgress = false;
 
 	constructor(private kanbanSrv: KanbanService, private sanitizer: DomSanitizer) {
+    super();
 	}
 
 	ngOnInit() {

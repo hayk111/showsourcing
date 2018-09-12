@@ -3,7 +3,7 @@
 
 	<ul>
 		<li class="flex pointer"
-			*ngFor="let team of teams$ | async; let last = last"
+			*ngFor="let team of (teams$ | async); let last = last;trackBy: trackByFn"
 			[ngClass]="{'border': !last}"
 			(click)="pickTeam(team)">
 			<icon-app name="group-4" fontSet="svg"></icon-app>

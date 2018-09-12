@@ -1,5 +1,5 @@
 <nav class="flex">
-	<div *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active" class="pointer flexCenter tab">
+	<div *ngFor="let tab of tabs;trackBy: trackByFn" (click)="selectTab(tab)" [class.active]="tab.active" class="pointer flexCenter tab">
 		{{ tab.title }}
 	</div>
 </nav>

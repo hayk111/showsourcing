@@ -21,7 +21,7 @@
   <search-autocomplete-app #searchAutocomplete [xPosition]="0" [yPosition]="35"
                           [width]="400" [closeOnDisplay]="true"
                           (close)="searchBar.shrinkSearch()">
-    <search-autocomplete-item-app *ngFor="let result of (searchResults$ | async)">
+    <search-autocomplete-item-app *ngFor="let result of (searchResults$ | async);trackBy: trackByFn">
       <search-autocomplete-item-content-app
         *ngIf="result.type === 'product'"
         [selectable]="false"
