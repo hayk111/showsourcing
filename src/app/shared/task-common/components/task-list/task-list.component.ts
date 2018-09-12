@@ -56,5 +56,6 @@ export class TaskListComponent implements OnInit {
 
 	onSubmit() {
 		this.createTask.emit(this.taskCtrl.value);
+		this.taskCtrl.reset();
 	}
 }

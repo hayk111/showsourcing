@@ -25,12 +25,13 @@
 		[tasks]="items$ | async"
 		[selection]="selected$ | async"
 		[fullUser]="true"
-		[hasSupplier]="false"
+		[hasProduct]="true"
 		(taskSelect)="onItemSelected($event)"
 		(taskUnselect)="onItemUnselected($event)"
 		(openCreateDlg)="openCreateDlg()"
 		(bottomReached)="loadMore()"
-		(updateTask)="updateTask($event)">
+		(updateTask)="updateTask($event)"
+		(createTask)="createTask($event)">
 	</task-list-app>
 </div>
 

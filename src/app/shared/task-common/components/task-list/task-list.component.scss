@@ -39,7 +39,8 @@
 }
 
 .create-task {
-	margin-top: var(--spacing-ms);
+	margin-top: var(--spacing-l);
+	margin-left: var(--spacing-ms);
 
 	input, textarea {
 		height: 36px;

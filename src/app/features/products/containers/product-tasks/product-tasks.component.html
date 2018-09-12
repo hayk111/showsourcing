@@ -24,12 +24,13 @@
 	[tasks]="items$ | async"
 	[selection]="selected$ | async"
 	[fullUser]="true"
-	[hasSupplier]="false"
+	[hasSupplier]="true"
 	(taskSelect)="onItemSelected($event)"
 	(taskUnselect)="onItemUnselected($event)"
 	(openCreateDlg)="openCreateDlg()"
 	(bottomReached)="loadMore()"
-	(updateTask)="updatTask($event)">
+	(updateTask)="updateTask($event)"
+	(createTask)="createTask($event)">
 </task-list-app>
 
 <selection-bar-app

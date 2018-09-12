@@ -12,8 +12,12 @@
 		}
 	}
 
+	.task-product {
+		margin-right: var(--spacng-ms);
+	}
+
 	.task-product, .task-supplier {
-		width: 40%;
+		width: 30%;
 		img-app {
 			margin-right: var(--spacing-s);
 			height: 20px;
@@ -21,12 +25,8 @@
 		}
 	}
 
-	// .task-supplier {
-	// 	width: 40%;
-	// }
 
 	.task-user-status, .task-user {
-		width: 35%;
 
 		user-picture-app, selector-entity-app {
 			margin-right: var(--spacing-s);
@@ -42,7 +42,17 @@
 		}
 	}
 
+	.task-user {
+		width: 40%;
+		margin-left: var(--spacing-ms);
+
+		& ~ div.task-user-status {
+			width: 25%;
+		}
+	}
+
 	.task-user-status {
+		width: 40%;
 
 		.task-status {
 			padding-top: 2px;
