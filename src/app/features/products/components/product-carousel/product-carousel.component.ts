@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { AppImage, User } from '~models';
 import { PendingImage, AutoUnsub, DEFAULT_IMG } from '~utils';
 import { UploaderService } from '~shared/file/services/uploader.service';
@@ -51,7 +51,8 @@ export class ProductCarouselComponent extends AutoUnsub {
 	constructor(
 		private uploader: UploaderService,
 		private imageSrv: ImageService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private cd: ChangeDetectorRef
 	) {
 		super();
 	}
@@ -67,7 +68,7 @@ export class ProductCarouselComponent extends AutoUnsub {
 			return;
 
 		const uuids: string[] = await this.addPendingImg(files);
-
+		this.cd.markForCheck();
 		this.uploader.uploadImages(files).pipe(
 			first()
 		).subscribe(imgs => {

@@ -12,7 +12,7 @@ export abstract class ProductQueries extends GlobalQueries {
 
 	// the goal is to use those utilities a bit everywhere even if they don't match exactly the data we need
 	// it makes the code easier to read. It means tho, that those sub queries must be quite exhaustive.
-	static readonly images = `images { id, fileName }`;
+	static readonly images = `images { id, fileName, orientation }`;
 	static readonly supplier = `supplier {
 		id, name, address, country, favorite, officeEmail,
 		logoImage { id, fileName }

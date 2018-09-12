@@ -108,9 +108,12 @@ export class UploaderService {
 		if (request instanceof ImageUploadRequest) {
 			return this.queryImage(request).pipe(
 				retryWhen(errors => errors.pipe(
-					delay(500),
+					delay(1000),
 					take(20)
 				)),
+				// we still need to delay after for some reason because the image is still unavailable
+				// for a short while...
+				delay(1000)
 			);
 		} else {
 			// files are ready instantly
