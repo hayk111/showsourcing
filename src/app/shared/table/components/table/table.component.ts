@@ -14,7 +14,7 @@ import {
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { nextTick } from 'q';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'table-app',
@@ -25,7 +25,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 		class: 'fullWidth'
 	}
 })
-export class TableComponent extends BaseComponent implements OnChanges {
+export class TableComponent extends TrackingComponent implements OnChanges {
 	// display the dot option
 	@Input() dotsOption = true;
 	// whether the table is currently loading

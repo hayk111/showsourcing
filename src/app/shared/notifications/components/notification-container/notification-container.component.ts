@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { NotificationService } from '~shared/notifications/services/notification.service';
 import { Notification } from '~shared/notifications/model/notification.interface';
 import { Observable } from 'rxjs';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 // container component to show notifications
 @Component({
@@ -11,7 +11,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./notification-container.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotificationContainerComponent extends BaseComponent implements OnInit {
+export class NotificationContainerComponent extends TrackingComponent implements OnInit {
 	notifications$: Observable<Array<Notification>>;
 
 	constructor(private srv: NotificationService) {

@@ -5,7 +5,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Team } from '~models';
 import { TeamService } from '~global-services';
 import { switchMap, tap } from 'rxjs/operators';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./pick-a-team-page.component.scss', '../../../auth/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PickATeamPageComponent extends BaseComponent implements OnInit {
+export class PickATeamPageComponent extends TrackingComponent implements OnInit {
 	teams$: Observable<Team[]>;
 	pending$ = new BehaviorSubject<boolean>(false);
 	form: FormGroup;

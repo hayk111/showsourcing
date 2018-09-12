@@ -18,7 +18,7 @@ import {
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { Price, Product, ProductVote } from '~models';
 import { UserService } from '~global-services';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
 	styleUrls: ['./kanban-item-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KanbanItemCardComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class KanbanItemCardComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	/** The main title */
 	@Input() title: string;

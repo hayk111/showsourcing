@@ -3,7 +3,7 @@ import { Component, OnInit, Output, Input, EventEmitter, TemplateRef, HostBindin
 import { Observable } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
 import { ProductStatus } from '~models';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { HeaderModule } from '~shared/header';
 
 /** Drag'n drop workflow */
@@ -13,7 +13,7 @@ import { HeaderModule } from '~shared/header';
 	templateUrl: './workflow-kanban.component.html',
 	styleUrls: ['./workflow-kanban.component.scss']
 })
-export class WorkflowKanbanComponent extends BaseComponent {
+export class WorkflowKanbanComponent extends TrackingComponent {
 	/** The list of statuses included associated products */
 	@Input() statuses;
 	/** A reference to the contextual menu template */

@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Contact } from '~models';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 @Component({
 	selector: 'email-list-app',
 	templateUrl: './email-list.component.html',
 	styleUrls: ['./email-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EmailListComponent extends BaseComponent implements OnInit {
+export class EmailListComponent extends TrackingComponent implements OnInit {
 
 	@Input() contacts: Array<Contact>;
 	@Input() supplierId: string;

@@ -7,7 +7,7 @@ import {
 	EventEmitter,
 } from '@angular/core';
 import { Project } from '~models';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'project-card-app',
@@ -15,7 +15,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./project-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectCardComponent extends BaseComponent implements OnInit {
+export class ProjectCardComponent extends TrackingComponent implements OnInit {
 	@Input() projects: Project[];
 	@Output() removeProject = new EventEmitter<Project>();
 	@Output() addProjectClick = new EventEmitter<null>();
