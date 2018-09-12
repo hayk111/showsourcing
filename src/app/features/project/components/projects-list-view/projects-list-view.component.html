@@ -1,17 +1,19 @@
-<ng-template #contextualMenu let-row="row">
-	<menu class="z-4">
-		<menuitem class="pointer flexCenter"
-			(click)="delete.emit(row)">
-			Delete
-		</menuitem>
-	</menu>
+
+<!-- contextual menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		class="pointer flexCenter"
+		(click)="delete.emit(row.id)"
+		i18n="supplier menu | delete">
+		Delete
+	</context-menu-item-app>
 </ng-template>
 
 <table-app
 	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
-	[contextualMenu]="contextualMenu"
+	[contextualMenu]="contextualMenuTemplate"
 	class="z-2"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -19,6 +21,8 @@
 	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)">
+
+
 
 	<!-- name -->
 	<ng-template
