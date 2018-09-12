@@ -40,8 +40,8 @@ export class WorkspaceFeatureService extends ProductService {
 		if (refresh && this.productsResult) {
 			this.productsResult.refetch({
 				query: search ?
-					`status.id != null && name CONTAINS[c] "${search}"` :
-					`status.id != null`,
+					`status.id != null && status.status.inWorkflow == true AND status.status.name != 'Inspiration' && name CONTAINS[c] "${search}"` :
+					`status.id != null && status.status.inWorkflow == true AND status.status.name != 'Inspiration'`,
 				sortBy: 'lastUpdatedDate'
 			});
 		}
@@ -49,8 +49,8 @@ export class WorkspaceFeatureService extends ProductService {
 		if (!this.productsResult) {
 			this.productsResult = this.productSrv.getListQuery({
 				query: search ?
-					`status.id != null && name CONTAINS[c] "${search}"` :
-					`status.id != null`,
+					`status.id != null && status.status.inWorkflow == true AND status.status.name != 'Inspiration' && name CONTAINS[c] "${search}"` :
+					`status.id != null && status.status.inWorkflow == true AND status.status.name != 'Inspiration'`,
 				sortBy: 'lastUpdatedDate'
 			});
 		}
@@ -73,7 +73,7 @@ export class WorkspaceFeatureService extends ProductService {
 	}
 
 	getFirstStatus() {
-		return this.productStatusTypeService.queryAll().pipe(
+		return this.productStatusTypeService.queryMany({ query: 'inWorkflow == true' }).pipe(
 			map(statuses => statuses.slice().sort((s1, s2) => (s1.step - s2.step))),
 			map(statuses => statuses.length > 0 ? statuses[0] : null)
 		);
@@ -94,7 +94,7 @@ export class WorkspaceFeatureService extends ProductService {
 			query: `status.id == null && name CONTAINS[c] "${search}"`,
 			sortBy: sort ? sort.sortBy : null
 		} : {
-			query: `status.id == null`,
+			query: `status.id == null && status.status.inWorkflow == true AND status.status.name != 'Inspiration'`,
 			sortBy: sort ? sort.sortBy : null
 		};
 

@@ -81,6 +81,7 @@ export class KanbanItemCardComponent extends TrackingComponent implements OnInit
 	@Output() cardEnter = new EventEmitter<any>();
 	/** Trigger the event when the mouse enters the card */
 	@Output() cardLeave = new EventEmitter<any>();
+	/** Trigger the event when the left image is clicked (to display preview for example) */
 	@Output() clickImage = new EventEmitter<any>();
 
 	@ContentChild(ContextMenuComponent) contextMenu: ContextMenuComponent;
