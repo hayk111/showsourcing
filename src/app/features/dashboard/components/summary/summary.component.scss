@@ -5,9 +5,11 @@
 	margin-bottom: var(--spacing-ms);
 }
 
-user-picture-app {
-	font-size: var(--font-size-huge);
-	margin-bottom: var(--spacing-ms);
+.top {
+	user-picture-app {
+		margin-bottom: var(--spacing-ms);
+		font-size: var(--font-size-huge);
+	}
 }
 
 h2 {
