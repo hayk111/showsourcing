@@ -1,10 +1,16 @@
 <side-panel-app>
   <side-panel-title-app>
-    <div class="status-task " [ngClass]="task?.done ? 'status-done' : 'status-pending'">
+    <!-- <div class="status-task " [ngClass]="task?.done ? 'status-done' : 'status-pending'">
       <div class="status-task-icon ">
         <icon-app  fontSet="fa" [name]="task?.done ? 'check' : 'circle'"></icon-app>
       </div>
       <div class="status-task-text">{{task?.done ? 'Mark as done' : 'Pending'}}</div>
+    </div> -->
+    <div class="status-task status-done clickable" (click)="markAsDone()">
+      <div class="status-task-icon ">
+        <icon-app  fontSet="fa" name="check"></icon-app>
+      </div>
+      <div class="status-task-text">Mark as done</div>
     </div>
   </side-panel-title-app>
 

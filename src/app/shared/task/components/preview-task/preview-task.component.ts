@@ -87,6 +87,9 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 		this.updateTaskServer({ description });
   }
 
+  markAsDone() {
+		this.updateTaskServer({ done: true });
+  }
 
   updateTaskName(name: string) {
 		this.updateTaskServer({ name });
