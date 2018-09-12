@@ -109,14 +109,12 @@ export class UploaderService {
 	/** checks when an image is ready */
 	private emitWhenFileReady(request: ImageUploadRequest | FileUploadRequest) {
 		if (request instanceof ImageUploadRequest) {
+			// query image, when error retries every 1s
 			return this.queryImage(request).pipe(
 				retryWhen(errors => errors.pipe(
 					delay(1000),
 					take(20)
-				)),
-				// we still need to delay after for some reason because the image is still unavailable
-				// for a short while...
-				delay(3000)
+				))
 			);
 		} else {
 			// files are ready instantly
@@ -125,7 +123,8 @@ export class UploaderService {
 	}
 
 	private queryImage(r: ImageUploadRequest) {
-		return this.http.get(ImageUrls.s + '/' + r.image.fileName, { responseType: 'blob' }).pipe(
+		// xl image is the last that is ready
+		return this.http.get(ImageUrls.xl + '/' + r.image.fileName, { responseType: 'blob' }).pipe(
 			first()
 		);
 	}
