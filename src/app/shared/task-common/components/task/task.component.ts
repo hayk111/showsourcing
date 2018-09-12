@@ -51,12 +51,13 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 	}
 
 	toggleSelector(is: boolean) {
-		this.selectorVisible = is;
+		if (this.selector) { // when we select an option on the selector, so the selector gets closed
+			this.selectorVisible = false;
+		} else this.selectorVisible = is;
 	}
 
 	updateAssignee(user: User) {
 		this.updateTask.emit({ ...this.task, assignee: user });
-		this.toggleSelector(false);
 	}
 
 	toggleDoneStatus() {
