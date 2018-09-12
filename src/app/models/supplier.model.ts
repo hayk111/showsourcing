@@ -1,4 +1,4 @@
-import { AppImage, Contact } from '~models';
+import { AppImage, Contact, Attachment } from '~models';
 
 import { EntityWithAudit } from '~models/_entity.model';
 import { Category } from '~models/category.model';
@@ -11,6 +11,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	fullName?: string;
 	description?: string;
 	images?: AppImage[];
+	attachments?: Attachment[];
 	logoImage?: AppImage;
 	supplierType?: SupplierType;
 	website?: string;

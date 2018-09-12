@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Supplier } from '~models/supplier.model';
 import { Contact } from '~models/contact.model';
-import { Product } from '~models';
+import { Product, Attachment } from '~models';
 import { AutoUnsub } from '~utils';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { DialogService } from '~shared/dialog';
@@ -76,5 +76,17 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 
 	deleteContact(contact: Contact) {
 		this.featureSrv.deleteContact(contact).subscribe();
+	}
+
+	/** when file has been uploaded we link it */
+	onFileAdded(added: Attachment[]) {
+		const attachments = [...this.supplier.attachments, ...added];
+		this.featureSrv.update({ id: this.supplier.id, attachments }).subscribe();
+	}
+
+	/** when file has been removed we remove link */
+	onFileRemoved(attachment: Attachment) {
+		const attachments = this.supplier.attachments.filter(atc => atc.id !== attachment.id);
+		this.featureSrv.update({ id: this.supplier.id, attachments }).subscribe();
 	}
 }
