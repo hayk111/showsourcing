@@ -1,10 +1,10 @@
 <side-panel-app>
   <side-panel-title-app>
-    <div class="status-task status-done clickable" (click)="markAsDone()" *ngIf="!(task$ | async)?.done">
+    <div class="status-task clickable" [ngClass]="(task$ | async)?.done ? 'status-done' : ''" (click)="markAsDone()">
       <div class="status-task-icon ">
         <icon-app  fontSet="fa" name="check"></icon-app>
       </div>
-      <div class="status-task-text">Mark as done</div>
+      <div class="status-task-text">{{(task$ | async)?.done ? 'Done' : 'Mark as done'}}</div>
     </div>
   </side-panel-title-app>
 
@@ -57,8 +57,8 @@
       <div class="assigned-list">
         <div class="flex task-user" (click)="toggleSelector(true)">
           <selector-entity-app #selector *ngIf="selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app>
-          <user-picture-app *ngIf="!selectorVisible" [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
-          <p *ngIf="!selectorVisible">{{ task?.assignee ? task.assignee.firstName+' '+task.assignee.lastName : 'Unassigned' }}</p>
+          <user-picture-app  *ngIf="!selectorVisible"  [user]="task?.assignee" [size]="30" [border]="true"></user-picture-app>
+          <div  *ngIf="!selectorVisible" class="user-name">{{ task?.assignee ? task.assignee.firstName+' '+task.assignee.lastName  : 'Unassigned' }}</div>
         </div>
       </div>
     </div>

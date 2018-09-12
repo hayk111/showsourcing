@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule, AfterViewInit, ViewChild, AfterViewChecked } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
@@ -21,21 +21,21 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
   styleUrls: ['./preview-task.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterViewInit, AfterViewChecked {
 
   private _task: Task;
   get task(): Task {
     return this._task;
-	}
+  }
 
-	@Output() udateTask = new EventEmitter<Task>();
+  @Output() udateTask = new EventEmitter<Task>();
 
   @Input('task')
   set task(value: Task) {
     this._task = value;
   }
 
-	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
+  @ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 
   @Output() close = new EventEmitter<any>();
 
@@ -46,12 +46,12 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 
   selectorVisible = false;
 
-	customFields: CustomField[] = [
-		{
-			name: 'assignee', label: 'Assignee To', type: 'selector',
-			metadata: { target: 'user', type: 'entity', labelName: 'name' }
-		},
-	];
+  customFields: CustomField[] = [
+    {
+      name: 'assignee', label: 'Assignee To', type: 'selector',
+      metadata: { target: 'user', type: 'entity', labelName: 'name' }
+    },
+  ];
   constructor(
     private featureSrv: TaskService,
     private productService: ProductService,
@@ -67,44 +67,50 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
     }
     this.task$ = this.featureSrv.selectOne(this.task.id);
   }
-
+  ngAfterViewChecked() {
+    if (this.selectorVisible)
+      this.selector.selector.ngSelect.open();
+  }
   ngAfterViewInit() {
   }
   updateTaskServer(task: any) {
-		task.id = this.task.id;
-		this.featureSrv.update(task).subscribe();
+    task.id = this.task.id;
+    this.featureSrv.update(task).subscribe();
   }
 
   updateTaskDescription(description: string) {
-		this.updateTaskServer({ description });
+    this.updateTaskServer({ description });
   }
 
   markAsDone() {
-		this.updateTaskServer({ done: true });
+    this.updateTaskServer({ done: true });
   }
 
   updateTaskName(name: string) {
-		this.updateTaskServer({ name });
+    this.updateTaskServer({ name });
   }
   updateTaskDueDate(dueDate: Date) {
-		this.updateTaskServer({ dueDate });
+    this.updateTaskServer({ dueDate });
   }
 
   updateAssignee(assignee: any) {
-		this.updateTaskServer({ assignee });
+    this.updateTaskServer({ assignee });
+    setTimeout(() => {
+      this.selectorVisible = false;
+    });
   }
 
   toggleSelector(is: boolean) {
-		if (this.selector) {
+    if (this.selector) {
 			this.selectorVisible = false;
 		} else this.selectorVisible = is;
   }
 
-	onFormCreated(form: FormGroup) {
-		form.valueChanges
-			.pipe(
-				takeUntil(this._destroy$),
-				distinctUntilChanged()
-			).subscribe(task => this.updateTaskServer(task));
-	}
+  onFormCreated(form: FormGroup) {
+    form.valueChanges
+      .pipe(
+        takeUntil(this._destroy$),
+        distinctUntilChanged()
+      ).subscribe(task => this.updateTaskServer(task));
+  }
 }

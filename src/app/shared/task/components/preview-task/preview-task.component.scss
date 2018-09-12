@@ -9,14 +9,17 @@
   height: var(--spacing-xl);
   border-radius: var(--border-radius-s);
   display: inline-block;
+  background-color: var(--color-success);
+  color: var(--color-primary-contrast);
 
   .status-task-icon {
     display: inline-block;
     font-size: var(--font-size-l);
-    margin: var(--spacing-s) var(--spacing-task-icon) ;
+    margin: var(--spacing-s) var(--spacing-task-icon);
   }
   .status-task-text {
     display: inline-block;
+    margin-left: -5px;
     height: var(--spacing-ml);
     font-family: $ss-font-normal;
     font-size: var(--font-size-m);
@@ -32,8 +35,7 @@
 }
 
 .status-done {
-  background-color: var(--color-success);
-  color: var(--color-primary-contrast);
+  width: 76px;
 }
 
 .status-pending {
