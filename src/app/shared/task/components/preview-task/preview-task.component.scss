@@ -1,98 +1,98 @@
-@import 'variables';
+@import 'fontName';
 
 .close {
-	color: var(--color-txt-secondary);
+  color: var(--color-txt-secondary);
 }
 
 .status-task {
   width: 136px;
-  height: 32px;
-  border-radius: 2px;
+  height: var(--spacing-xl);
+  border-radius: var(--border-radius-s);
   display: inline-block;
 
   .status-task-icon {
     display: inline-block;
-    font-size: 16px;
-    margin: 8px 10px ;
+    font-size: var(--font-size-l);
+    margin: var(--spacing-s) var(--spacing-task-icon) ;
   }
   .status-task-text {
     display: inline-block;
-    height: 20px;
+    height: var(--spacing-ml);
     font-family: $ss-font-normal;
-    font-size: 14px;
+    font-size: var(--font-size-m);
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
     vertical-align: middle;
     letter-spacing: normal;
     text-align: center;
-    height: 32px;
-    line-height: 24px;
+    height: var(--spacing-xl);
+    line-height: var(--spacing-l);
   }
 }
 
 .status-done {
-  background-color: #71e591;
-  color: #ffffff;
+  background-color: var(--color-success);
+  color: var(--color-primary-contrast);
 }
 
 .status-pending {
   background: var(--color-secondary);
-  color: #000000;
+  color: var(--color-black);
 }
 
 .task-name {
   height: 31px;
   font-family: $ss-font-normal;
-  font-size: 24px;
+  font-size: var(--spacing-l);
   font-weight: 600;
-  padding: 5px 0px;
+  padding: var(--spacing-task-name-top-bottom) 0px;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #182844;
+  color: var(--color-txt-strong);
 }
 
 .section-title {
   height: 18px;
   font-family: $ss-font-normal;
-  font-size: 14px;
+  font-size: var(--font-size-m);
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  padding: 20px 0px 5px 0px;
-  color: #a3afc6;
+  padding: var(--spacing-ml) 0px var(--spacing-task-name-top-bottom) 0px;
+  color: var(--color-secondary-dark);
 }
 
 .descripton-container {
   .description-text {
     font-family: $ss-font-normal;
-    font-size: 16px;
+    font-size: var(--font-size-l);
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #182844;
+    color: var(--color-txt-strong);
   }
 }
 
 .assigned-container {
   .assigned-list {
     .user-name {
-      height: 20px;
-      margin: 5px 5px;
+      height: var(--spacing-ml);
+      margin: var(--spacing-task-name-top-bottom) var(--spacing-task-name-top-bottom);
       font-family: $ss-font-normal;
-      font-size: 16px;
+      font-size: var(--font-size-l);
       font-weight: normal;
       font-style: normal;
       font-stretch: normal;
       line-height: normal;
       letter-spacing: normal;
-      color: #182844;
+      color: var(--color-txt-strong);
     }
   }
 }
@@ -116,18 +116,13 @@
 .comment-container {
 
   .show-previous-comment-link {
-    margin-top: 10px;
-    padding: 10px 0px;
-    border-top: 1px solid #e6ebf5;
-    height: 18px;
+    margin-top: var(--spacing-task-icon);
+    padding: var(--spacing-task-icon) 0px;
+    border-top: 1px solid var(--color-divider);
+    height: var(--height-task-link);
     font-family: $ss-font-normal;
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: -0.3px;
-    color: #45adff;
+    font-size: var(--font-size-m);
+    color: var(--color-primary);
   }
 
   .comment-list {

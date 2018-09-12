@@ -55,16 +55,11 @@
       </div>
 
       <div class="assigned-list">
-        <ng-container *ngIf="descriptor$ | async as descriptor">
-          <dynamic-form-app
-            [inlineLabel]="false"
-            (formCreated)="onFormCreated($event)"
-            [descriptor]="descriptor"
-            [editable]="true"
-            [isShowLabel]="false"
-            [colAmount]="1">
-          </dynamic-form-app>
-        </ng-container>
+        <div class="flex task-user" (click)="toggleSelector(true)">
+          <selector-entity-app #selector *ngIf="selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app>
+          <user-picture-app *ngIf="!selectorVisible" [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
+          <p *ngIf="!selectorVisible">{{ task?.assignee ? task.assignee.firstName+' '+task.assignee.lastName : 'Unassigned' }}</p>
+        </div>
       </div>
     </div>
 

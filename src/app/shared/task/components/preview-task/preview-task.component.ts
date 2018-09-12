@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule, AfterViewInit, ViewChild } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
@@ -12,6 +12,8 @@ import { NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, switchMap } from 'rxjs/operators';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
+import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
+
 
 @Component({
   selector: 'preview-task-app',
@@ -33,13 +35,17 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
     this._task = value;
   }
 
+	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 
   @Output() close = new EventEmitter<any>();
 
   comment$: Observable<Comment>;
   task$: Observable<Task>;
   product$: Observable<Product>;
-	descriptor$: Observable<FormDescriptor>;
+  descriptor$: Observable<FormDescriptor>;
+
+  selectorVisible = false;
+
 	customFields: CustomField[] = [
 		{
 			name: 'assignee', label: 'Assignee To', type: 'selector',
@@ -56,12 +62,10 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
   }
 
   ngOnInit() {
-    this.product$ = this.productService.selectOne(this.task.product.id);
+    if (this.task.product) {
+      this.product$ = this.productService.selectOne(this.task.product.id);
+    }
     this.task$ = this.featureSrv.selectOne(this.task.id);
-
-		this.descriptor$ = this.task$.pipe(
-			map(task => new FormDescriptor(this.customFields, task))
-		);
   }
 
   ngAfterViewInit() {
@@ -84,6 +88,16 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
   }
   updateTaskDueDate(dueDate: Date) {
 		this.updateTaskServer({ dueDate });
+  }
+
+  updateAssignee(assignee: any) {
+		this.updateTaskServer({ assignee });
+  }
+
+  toggleSelector(is: boolean) {
+		if (this.selector) {
+			this.selectorVisible = false;
+		} else this.selectorVisible = is;
   }
 
 	onFormCreated(form: FormGroup) {
