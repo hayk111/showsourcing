@@ -27,24 +27,30 @@
 			</div>
 		</div>
 
-		<!-- <div class="col dotCol" *ngIf="dotsOption">
+		<!-- contextual menu -->
+		<div class="col" *ngIf="hasMenu">
 			<div class="header">
 			</div>
-			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
+			<div class="cell menuCell"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-				<div class="dotSeparator pointer"
-				  *ngIf="contextualMenu"
+				*ngFor="let row of rows; index as i; trackBy: trackByFn"
+				(mouseenter)="hoverRow(i)"
+				(mouseleave)="hoverRow(-1)">
+				<context-menu-app
+					[xPosition]="-19"
+					[yPosition]="27"
 					[ngClass]="{ hover: (i === hoverIndex) }"
-					[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
-					(click)="onToggleContextualMenu($event, i)"></div>
-				<div *ngIf="contextualMenuOpened[i]" (click)="onToggleContextualMenu($event, i, false)">
+					[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }">
+					<context-menu-trigger-app>
+						<div class="dotSeparator pointer"></div>
+					</context-menu-trigger-app>
 					<ng-container
 						*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
 					</ng-container>
-				</div>
+				</context-menu-app>
 			</div>
-		</div> -->
+		</div>
+
 
 		<!-- content columns -->
 		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'"
