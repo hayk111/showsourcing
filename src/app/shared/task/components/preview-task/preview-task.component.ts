@@ -68,8 +68,11 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
     this.task$ = this.featureSrv.selectOne(this.task.id);
   }
   ngAfterViewChecked() {
-    if (this.selectorVisible)
-      this.selector.selector.ngSelect.open();
+    setTimeout(() => {
+      if (this.selectorVisible && this.selector) {
+        this.selector.selector.ngSelect.open();
+      }
+    });
   }
   ngAfterViewInit() {
   }
