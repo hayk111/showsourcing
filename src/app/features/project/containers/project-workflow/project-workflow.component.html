@@ -69,11 +69,11 @@
 		(delete)="deleteSelected()">
 
 		<action-bar-app
-	    [favorite]="allSelectedFavorite"
-  	  [products]="selected$ | async"
-    	(onFavorite)="onFavoriteAllSelected()"
-    	(onUnfavorite)="onUnfavoriteAllSelected()"
-    	(multipleVotes)="multipleVotes($event)">
+			[favorite]="allSelectedFavorite"
+			[products]="selected$ | async"
+			(onFavorite)="onFavoriteAllSelected()"
+			(onUnfavorite)="onUnfavoriteAllSelected()"
+			(multipleVotes)="multipleVotes($event)">
 
 			<button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>

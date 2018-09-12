@@ -87,20 +87,6 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		}
 	}
 
-	/** Selects an entity */
-	/* onAllItemsSelected(entity: any) {
-		this.selectionSrv.selectAll(entity);
-	} */
-
-	/** Unselects a entity */
-	/* onAllItemsUnselected(entity: any) {
-		if (Array.isArray(entity)) {
-			entity.forEach(e => this.selectionSrv.unselectOne(e));
-		} else {
-			this.selectionSrv.unselectOne(entity);
-		}
-	} */
-
 	/**
 	 * Selection bar actions
 	 *

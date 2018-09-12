@@ -194,7 +194,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** Selects a an entity
 	*  checkFavorite is used when you select a entity with favorite field
 	*  and want to check if the selection bar should display a colorful heart or not */
-	onItemSelected(entity: any, checkFavorite = true) {
+	onItemSelected(entity: any, checkFavorite = false) {
 		// we check only if the status is true since we only need to check if the next item will convert the select heart
 		// into false
 		if (checkFavorite && this.allSelectedFavorite)

@@ -26,8 +26,6 @@ export class KanbanItemComponent extends AutoUnsub implements OnInit, AfterConte
 	/** The drag'n drop ended */
 	@Output() dragEnd = new EventEmitter<any>();
 
-	// @ContentChild(KanbanItemCardComponent) card: KanbanItemCardComponent;
-
 	dragDropEnabled = true;
 
 
@@ -39,13 +37,6 @@ export class KanbanItemComponent extends AutoUnsub implements OnInit, AfterConte
 	ngOnInit() {}
 
 	ngAfterContentInit() {
-		/* if (this.card) {
-			this.card.dragDropEnable.pipe(
-				takeUntil(this._destroy$)
-			).subscribe(dragDropEnabled => {
-				this.dragDropEnabled = dragDropEnabled;
-			});
-		} */
 		if (this.dragDropEnable$) {
 			this.dragDropEnable$.pipe(
 				takeUntil(this._destroy$)

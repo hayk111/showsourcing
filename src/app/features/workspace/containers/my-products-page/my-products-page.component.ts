@@ -76,30 +76,6 @@ export class MyProductsPageComponent extends ListPageComponent<Product, Workspac
 			});
 	}
 
-	/** Selects a an entity */
-	/* onItemSelected(entity: any) {
-		this.selectionSrv.selectOne(entity);
-	} */
-
-	/** Unselects a entity */
-	/* onItemUnselected(entity: any) {
-		this.selectionSrv.unselectOne(entity);
-	} */
-
-	/** Selects an entity */
-	/* onAllItemsSelected(entity: any) {
-		this.selectionSrv.selectAll(entity);
-	} */
-
-	/** Unselects a entity */
-	/* onAllItemsUnselected(entity: any) {
-		if (Array.isArray(entity)) {
-			entity.forEach(e => this.selectionSrv.unselectOne(e));
-		} else {
-			this.selectionSrv.unselectOne(entity);
-		}
-	} */
-
 	/**
 	 * Selection bar actions
 	 *
