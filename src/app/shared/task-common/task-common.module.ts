@@ -17,8 +17,8 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 @NgModule({
 	imports: [
 		CommonModule,
-    UserPictureModule,
-    ProductCommonModule,
+		UserPictureModule,
+		ProductCommonModule,
 		DynamicFormsModule,
 		UtilsModule,
 		ImageModule,
