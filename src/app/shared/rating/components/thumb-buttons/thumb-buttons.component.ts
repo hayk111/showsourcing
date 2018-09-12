@@ -23,7 +23,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.userVoteIndex = (votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
 		if (~this.userVoteIndex)
 			this.userVote = votes[this.userVoteIndex];
-		this._votes = votes;
+		this._votes = votes || [];
 	}
 	get votes() {
 		return this._votes;
@@ -131,7 +131,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateEmitVote() {
-		const value = this.userVote.value === 100 ? 0 : 100;
+		const value = (!this.userVote || this.userVote.value === 100) ? 0 : 100;
 		this.userVote = { ...this.userVote, value };
 		this._votes = [...this._votes];
 		this._votes[this.userVoteIndex] = this.userVote;

@@ -6,7 +6,6 @@ import { CardFooterComponent } from '~shared/card/components/card-footer/card-fo
 import { DividerModule } from '~shared/divider/divider.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import { BadgeModule } from '~shared/badge/badge.module';
-import { KanbanItemCardComponent } from '~shared/card/components/kanban-item-card/kanban-item-card.component';
 import { StatusModule } from '~shared/status/status.module';
 import { IconsModule } from '~shared/icons/icons.module';
 
@@ -19,7 +18,7 @@ import { IconsModule } from '~shared/icons/icons.module';
 		StatusModule,
 		IconsModule
 	],
-	declarations: [CardComponent, CardHeaderComponent, CardFooterComponent, KanbanItemCardComponent],
-	exports: [CardComponent, CardHeaderComponent, CardFooterComponent, KanbanItemCardComponent]
+	declarations: [CardComponent, CardHeaderComponent, CardFooterComponent],
+	exports: [CardComponent, CardHeaderComponent, CardFooterComponent]
 })
 export class CardModule { }

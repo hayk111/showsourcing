@@ -6,9 +6,12 @@
     <div class="mainCell">
       <div class="imgCtnr">
         <img class="mini image ng-star-inserted" *ngIf="image" [src]="image"
+             (click)="clickImage.emit()"
              (dragstart)="preventDrag($event)">
         <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'"
+             (click)="clickImage.emit()"
              (dragstart)="preventDrag($event)">
+        <div class="preview" (click)="clickImage.emit()"><div>Preview</div></div>
         <div class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
           <checkbox-app [checked]="checked"
                         (check)="onChecked()"
@@ -37,7 +40,7 @@
             </div>
             <div class="descriptionCtnr-last flex">
               <icon-app [name]="thumbsName" *ngIf="thumbsName" fontSet="svg"></icon-app>
-              <span *ngIf="product?.score" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
+              <span *ngIf="product?.score !== undefined && product?.score != null" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
             </div>
           </div>
         </div>
