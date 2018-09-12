@@ -11,8 +11,9 @@
 			[user]="user$ | async"
 			[counters]="counters$ | async"
 			[tasks]="tasks$ | async"></dashboard-summary-app>
-		<team-card-app></team-card-app>
-		<events-card-app></events-card-app>
+		<team-card-app
+			(inviteTeam)="redirInviteTeam()"></team-card-app>
+		<!-- <events-card-app></events-card-app> -->
 	</div>
 </div>
 

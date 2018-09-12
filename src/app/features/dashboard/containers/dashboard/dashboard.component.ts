@@ -37,5 +37,9 @@ export class DashboardComponent implements OnInit {
 		this.counters$ = this.dashboardSrv.getCounters();
 		this.tasks$ = this.dashboardSrv.getFirstFewTasks();
 	}
+
+	redirInivteTeam() {
+
+	}
 }
 

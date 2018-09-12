@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { TeamService, TeamUserService } from '~global-services';
 import { TeamUser, Team } from '~models';
 import { Observable } from 'rxjs';
@@ -13,6 +13,8 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 export class TeamCardComponent extends TrackingComponent implements OnInit {
 	members$: Observable<TeamUser[]>;
 	team$: Observable<Team>;
+
+	@Output() inviteTeam = new EventEmitter<null>();
 
 	constructor(
 		private teamUserSrv: TeamUserService,

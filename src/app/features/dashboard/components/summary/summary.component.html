@@ -50,13 +50,11 @@
 
   <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
 
-  <ng-container *ngFor="let task of tasks;trackBy: trackByFn">
-    <checkbox-app>
-      <div class="flex flexVAlign">
-      <user-picture-app [size]="14" [user]="task.createdBy"></user-picture-app>
-      <span>{{ task.description }}</span>
-      </div>
-    </checkbox-app>
+  <ng-container *ngFor="let task of tasks; trackBy: trackByFn">
+		<div class="flex flexVAlign">
+		<user-picture-app [size]="14" [user]="task.createdBy"></user-picture-app>
+		<span>{{ task.description }}</span>
+		</div>
   </ng-container>
 
   <card-footer-app paddingSide="l">
