@@ -23,28 +23,12 @@
 							class="item"
 							[namespace]="getCurrentStatusTypeId(product)"
 							[data]="product"
+							[dragDropEnable$]="dragDropEnable$"
 							(dragStart)="dragStart()"
 							(dragEnd)="dragEnd()">
-						<kanban-item-card-app class="marginSmall" [title]="product.name"
-							[status]="product.status?.name"
-							[favorite]="product.favorite"
-							[tags]="product.tags"
-							[price]="product.price"
-							[minimumOrderQuantity]="product.minimumOrderQuantity"
-							[category]="status.category"
-							[description]="product.description ? product.description : 'No description'"
-							[image]="product.images?.length > 0 ? (product | image:'m') : null"
-							[person]="product.createdBy"
-							[link]="'/product/details/' + product.id + '/general'"
-							[checked]="isSelected(selectedItems, product.id)"
-							[product]="product"
-							[dragInProgress]="dragInProgress"
-							(select)="selectItem.emit(product)"
-							(unselect)="unselectItem.emit(product)">
-						</kanban-item-card-app>
-						<!-- ng-container
-							*ngTemplateOutlet="card; context: { column: column, row: row, status: status, dragInProgress: dragInProgress }">
-						</ng-container -->
+						<ng-container
+							*ngTemplateOutlet="card; context: { column: column, row: product, checked: isSelected(selectedItems, product.id), status: status, dragInProgress: dragInProgress, selectItem: selectItem, unselectItem: unselectItem, dragDropEnable$: dragDropEnable$ }">
+						</ng-container>
 					</kanban-item-app>
 					<div class="contextual-menu" [ngClass]="{ 'drag-in-progress':	dragInProgress }">
 						<ng-container

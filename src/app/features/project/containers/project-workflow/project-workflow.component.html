@@ -12,13 +12,13 @@
 		[card]="card"
 		[selectedItems]="selected$ | async"
 		(itemDropped)="onUpdateProductStatus($event)"
-		(selectItem)="onItemSelected($event)"
-		(unselectItem)="onItemUnselected($event)"
-		(selectAllItems)="onAllItemsSelected($event)"
-		(unselectAllItems)="onAllItemsUnselected($event)">
+		(selectItem)="onItemSelected($event, true)"
+		(unselectItem)="onItemUnselected($event, true)"
+		(selectAllItems)="selectAll($event, true)"
+		(unselectAllItems)="resetSelection()">
 	</workflow-kanban-app>
 
-	<ng-template #card let-row="row" let-status="status" let-dragInProgress="dragInProgress">
+	<ng-template #card let-row="row" let-status="status" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-dragDropEnable$="dragDropEnable$">
 		<kanban-item-card-app class="marginSmall" [title]="row?.name"
 			[status]="row?.status?.name"
 			[favorite]="row?.favorite"
@@ -31,7 +31,11 @@
 			[person]="row?.createdBy"
 			[link]="'/product/details/' + row?.id + '/general'"
 			[product]="row"
-			[dragInProgress]="dragInProgress">
+			[dragInProgress]="dragInProgress"
+			[checked]="checked"
+			(dragDropEnable)="dragDropEnable$.next()"
+			(select)="selectItem.emit(row)"
+			(unselect)="unselectItem.emit(row)">
 		</kanban-item-card-app>
   </ng-template>
 
@@ -64,7 +68,13 @@
 		(close)="resetSelection()"
 		(delete)="deleteSelected()">
 
-		<action-bar-app>
+		<action-bar-app
+			[favorite]="allSelectedFavorite"
+			[products]="selected$ | async"
+			(onFavorite)="onFavoriteAllSelected()"
+			(onUnfavorite)="onUnfavoriteAllSelected()"
+			(multipleVotes)="multipleVotes($event)">
+
 			<button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
 			</button>

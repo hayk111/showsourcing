@@ -1,5 +1,6 @@
 import { Component, ElementRef, Injectable, Input, OnInit, ContentChild, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { KanbanService } from '~features/workflow/services/kanban.service';
@@ -19,14 +20,15 @@ export class KanbanItemComponent extends AutoUnsub implements OnInit, AfterConte
 	@Input() index;
 	/** The namespace associated with the item */
 	@Input() namespace;
+	@Input() dragDropEnable$: Subject<any>;
 	/** The drag'n drop started */
 	@Output() dragStart = new EventEmitter<any>();
 	/** The drag'n drop ended */
 	@Output() dragEnd = new EventEmitter<any>();
 
-	@ContentChild(KanbanItemCardComponent) card: KanbanItemCardComponent;
-
 	dragDropEnabled = true;
+
+
 
 	constructor(private kanbanSrv: KanbanService, private el: ElementRef) {
 		super();
@@ -35,8 +37,8 @@ export class KanbanItemComponent extends AutoUnsub implements OnInit, AfterConte
 	ngOnInit() {}
 
 	ngAfterContentInit() {
-		if (this.card) {
-			this.card.dragDropEnable.pipe(
+		if (this.dragDropEnable$) {
+			this.dragDropEnable$.pipe(
 				takeUntil(this._destroy$)
 			).subscribe(dragDropEnabled => {
 				this.dragDropEnabled = dragDropEnabled;

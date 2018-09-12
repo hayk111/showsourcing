@@ -1,15 +1,17 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project, ProductStatus } from '~models';
+import { ERM, Product, Project, ProductStatus, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SearchService, FilterType, Filter } from '~shared/filters';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { SelectionService } from '~shared/list-page/selection.service';
@@ -23,7 +25,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './project-workflow.component.html',
 	styleUrls: ['./project-workflow.component.scss'],
 })
-export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
+export class ProjectWorkflowComponent extends ListPageComponent<Product, ProductService>  implements OnInit {
 	project$: Observable<Project>;
 	statuses$ = new Subject<ProductStatus[]>();
 	id: string;
@@ -32,18 +34,20 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	selected$: Observable<Map<string, boolean>>;
 
 	constructor(
-		private route: ActivatedRoute,
-		private projectSrv: ProjectService,
-		private productSrv: ProductService,
-		private workflowService: ProjectWorkflowFeatureService,
-		private selectionSrv: SelectionService,
-		private cdr: ChangeDetectorRef,
+		protected router: Router,
+		protected route: ActivatedRoute,
+		protected projectSrv: ProjectService,
+		protected productSrv: ProductService,
+		protected workflowService: ProjectWorkflowFeatureService,
+		protected searchSrv: SearchService,
+		protected selectionSrv: SelectionService,
+		protected cdr: ChangeDetectorRef,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>,
 		protected featureSrv: ProjectWorkflowFeatureService,
-		private notifSrv: NotificationService
+		protected notifSrv: NotificationService
 	) {
-		super();
+		super(router, productSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
 	}
 
 	ngOnInit() {
@@ -64,14 +68,9 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			.subscribe(() => this.cdr.detectChanges());
 	}
 
-	/** Selects a an entity */
-	onItemSelected(entity: any) {
-		this.selectionSrv.selectOne(entity);
-	}
-
-	/** Unselects a entity */
-	onItemUnselected(entity: any) {
-		this.selectionSrv.unselectOne(entity);
+	/** updates the products with the new value votes */
+	multipleVotes(votes: Map<string, ProductVote[]>) {
+		votes.forEach((v, k) => this.update({ id: k, votes: v }));
 	}
 
 	/** Open the find products dialog and passing selected products to it */
@@ -85,20 +84,6 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 					submitCallback: this.associateProductsWithProject.bind(this)
 				});
 			});
-		}
-	}
-
-	/** Selects an entity */
-	onAllItemsSelected(entity: any) {
-		this.selectionSrv.selectAll(entity);
-	}
-
-	/** Unselects a entity */
-	onAllItemsUnselected(entity: any) {
-		if (Array.isArray(entity)) {
-			entity.forEach(e => this.selectionSrv.unselectOne(e));
-		} else {
-			this.selectionSrv.unselectOne(entity);
 		}
 	}
 

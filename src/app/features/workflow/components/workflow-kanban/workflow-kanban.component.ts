@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter, TemplateRef, HostBinding } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
 import { ProductStatus } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
@@ -43,6 +43,7 @@ export class WorkflowKanbanComponent extends TrackingComponent {
 
 	separatorColor: string;
 	dragInProgress = false;
+	dragDropEnable$ = new Subject<any>();
 
 
 

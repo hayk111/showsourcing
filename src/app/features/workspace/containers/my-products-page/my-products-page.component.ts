@@ -45,6 +45,8 @@ export class MyProductsPageComponent extends ListPageComponent<Product, Workspac
 	ngOnInit() {
 		this.selectionSrv.unselectAll();
 
+		super.ngOnInit();
+
 		this.workspaceSrv.getStatuses().pipe(
 			takeUntil(this._destroy$)
 		).subscribe(statuses => {
@@ -72,30 +74,6 @@ export class MyProductsPageComponent extends ListPageComponent<Product, Workspac
 			.subscribe(() => {
 				this.cdr.detectChanges();
 			});
-	}
-
-	/** Selects a an entity */
-	onItemSelected(entity: any) {
-		this.selectionSrv.selectOne(entity);
-	}
-
-	/** Unselects a entity */
-	onItemUnselected(entity: any) {
-		this.selectionSrv.unselectOne(entity);
-	}
-
-	/** Selects an entity */
-	onAllItemsSelected(entity: any) {
-		this.selectionSrv.selectAll(entity);
-	}
-
-	/** Unselects a entity */
-	onAllItemsUnselected(entity: any) {
-		if (Array.isArray(entity)) {
-			entity.forEach(e => this.selectionSrv.unselectOne(e));
-		} else {
-			this.selectionSrv.unselectOne(entity);
-		}
 	}
 
 	/**
