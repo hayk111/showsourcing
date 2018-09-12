@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '~models';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'task-list-app',
@@ -8,7 +8,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./task-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskListComponent extends BaseComponent implements OnInit {
+export class TaskListComponent extends TrackingComponent implements OnInit {
 
 	@Input() tasks: Task[];
 	@Input() selection: Map<string, boolean>;

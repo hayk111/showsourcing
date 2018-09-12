@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Supplier } from '~models/supplier.model';
 import { Product } from '~models';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./supplier-images.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierImagesComponent extends BaseComponent implements OnInit {
+export class SupplierImagesComponent extends TrackingComponent implements OnInit {
 	@Input() supplier: Supplier = {};
 	@Input() products: Product[] = [];
 	modalOpen = false;

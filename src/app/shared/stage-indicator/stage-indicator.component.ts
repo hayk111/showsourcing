@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'stage-indicator-app',
@@ -7,7 +7,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./stage-indicator.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StageIndicatorComponent extends BaseComponent implements OnInit {
+export class StageIndicatorComponent extends TrackingComponent implements OnInit {
 
 	@Input() titles: Array<string>;
 	@Input() index: number;

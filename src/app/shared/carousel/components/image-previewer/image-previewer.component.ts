@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AppImage } from '~models';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'image-previewer-app',
@@ -10,7 +10,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 		'[class.overflow]': 'showOneLine'
 	}
 })
-export class ImagePreviewerComponent extends BaseComponent {
+export class ImagePreviewerComponent extends TrackingComponent {
 	/** size of the image box */
 	@Input() size = '52';
 	// array of images displayed

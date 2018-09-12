@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { DEFAULT_USER_ICON } from '~utils';
 import { Contact } from '~models';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'supplier-contact-card-app',
@@ -9,7 +9,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./supplier-contact-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierContactCardComponent extends BaseComponent {
+export class SupplierContactCardComponent extends TrackingComponent {
 	@Input() contacts = [];
 	@Output() newContact = new EventEmitter<null>();
 	@Output() openContact = new EventEmitter<Contact>();

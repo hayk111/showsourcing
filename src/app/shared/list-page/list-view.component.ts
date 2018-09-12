@@ -1,9 +1,9 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
-export class ListViewComponent<T> extends BaseComponent {
+export class ListViewComponent<T> extends TrackingComponent {
 	/** current selection */
 	@Input() selection: Map<string, boolean>;
 	/** entities displayed */

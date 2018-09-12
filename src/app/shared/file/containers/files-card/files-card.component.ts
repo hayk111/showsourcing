@@ -5,7 +5,7 @@ import { DEFAULT_FILE_ICON } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'files-card-app',
@@ -13,7 +13,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./files-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilesCardComponent extends BaseComponent {
+export class FilesCardComponent extends TrackingComponent {
 	@Input() set files(files: Array<Attachment | PendingFile>) {
 		this._files = files;
 	}

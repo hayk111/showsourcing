@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { FormGroup } from '@angular/forms';
 import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'dynamic-editable-form-app',
@@ -10,7 +10,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./dynamic-editable-form.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicEditableFormComponent extends BaseComponent implements OnInit {
+export class DynamicEditableFormComponent extends TrackingComponent implements OnInit {
 	@Input() descriptor: FormDescriptor;
 	/** number of columns */
 	@Input() colAmount = 1;

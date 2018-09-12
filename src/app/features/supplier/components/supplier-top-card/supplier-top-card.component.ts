@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { Supplier } from '~models/supplier.model';
 import { Location } from '@angular/common';
 import { ERM } from '~models';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'supplier-top-card-app',
@@ -13,7 +13,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 		class: 'z-2'
 	}
 })
-export class SupplierTopCardComponent extends BaseComponent implements OnInit {
+export class SupplierTopCardComponent extends TrackingComponent implements OnInit {
 	@Input() supplier: Supplier;
 	typeEntity = ERM.SUPPLIER;
 

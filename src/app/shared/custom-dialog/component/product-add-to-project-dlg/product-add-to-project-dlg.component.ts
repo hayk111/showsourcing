@@ -6,7 +6,7 @@ import { DialogService } from '~shared/dialog';
 import { ProjectService, ProductService } from '~global-services';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
 
@@ -16,7 +16,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./product-add-to-project-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductAddToProjectDlgComponent extends BaseComponent implements OnInit {
+export class ProductAddToProjectDlgComponent extends TrackingComponent implements OnInit {
 	projects$: Observable<Project[]>;
 	selected = {};
 	hasSelection = false;

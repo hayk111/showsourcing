@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 /** factory function to create an access provider */
 export function makeAccessorProvider(type: any) {
@@ -12,7 +12,7 @@ export function makeAccessorProvider(type: any) {
 }
 
 // The goal of this class is to abstract the value accessor implementation
-export class AbstractInput extends BaseComponent implements ControlValueAccessor {
+export class AbstractInput extends TrackingComponent implements ControlValueAccessor {
 	@Input() value: any = '';
 	protected disabled: boolean;
 	protected onTouchedFn: Function = () => { };

@@ -7,7 +7,7 @@ import { TeamService } from '~global-services';
 import { take, map, switchMap, first } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./product-request-team-feedback-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductRequestTeamFeedbackDlgComponent extends BaseComponent implements OnInit {
+export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent implements OnInit {
 	teamMembers$: Observable<User[]>;
 	private selected = {};
 	@Input() selectedProducts: Product[];

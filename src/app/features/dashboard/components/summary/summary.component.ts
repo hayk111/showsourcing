@@ -6,7 +6,7 @@ import { Input } from '@angular/core';
 import { Task } from '~models';
 import { DashboardCounters } from '~features/dashboard/services/dashboard.service';
 import { Router } from '@angular/router';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'dashboard-summary-app',
@@ -14,7 +14,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./summary.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SummaryComponent extends BaseComponent {
+export class SummaryComponent extends TrackingComponent {
 	@Input() user: User;
 	@Input() counters: DashboardCounters;
 	@Input() tasks: Task[] = [];

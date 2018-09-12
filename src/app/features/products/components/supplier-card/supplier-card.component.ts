@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { Router } from '@angular/router';
 import { Supplier } from '~models';
 import { DEFAULT_IMG } from '~utils';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'supplier-card-app',
@@ -10,7 +10,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./supplier-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierCardComponent extends BaseComponent implements OnInit {
+export class SupplierCardComponent extends TrackingComponent implements OnInit {
 
 	@Input() supplier: Supplier;
 	defaultImg = DEFAULT_IMG;

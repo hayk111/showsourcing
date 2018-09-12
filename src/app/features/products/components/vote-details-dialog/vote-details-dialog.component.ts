@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { ProductVote } from '~models';
 import { DialogService } from '~shared/dialog';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'vote-details-dialog-app',
@@ -9,7 +9,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./vote-details-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VoteDetailsDialogComponent extends BaseComponent implements OnInit {
+export class VoteDetailsDialogComponent extends TrackingComponent implements OnInit {
 
 	@Input() votes: ProductVote[];
 

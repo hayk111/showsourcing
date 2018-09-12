@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'bread-crumb-app',
@@ -7,7 +7,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./bread-crumb.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BreadCrumbComponent extends BaseComponent implements OnInit {
+export class BreadCrumbComponent extends TrackingComponent implements OnInit {
 	@Input() title: string;
 	@Input() subtitles: Array<string> = [];
 	constructor() {

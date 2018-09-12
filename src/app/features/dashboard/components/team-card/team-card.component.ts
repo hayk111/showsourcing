@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TeamService, TeamUserService } from '~global-services';
 import { TeamUser, Team } from '~models';
 import { Observable } from 'rxjs';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'team-card-app',
@@ -10,7 +10,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./team-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TeamCardComponent extends BaseComponent implements OnInit {
+export class TeamCardComponent extends TrackingComponent implements OnInit {
 	members$: Observable<TeamUser[]>;
 	team$: Observable<Team>;
 

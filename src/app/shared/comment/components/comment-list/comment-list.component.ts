@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, AfterViewInit } from '@angular/core';
 import { Comment } from '~models';
-import { BaseComponent } from '~shared/base-component/base-component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'comment-list-app',
@@ -8,7 +8,7 @@ import { BaseComponent } from '~shared/base-component/base-component';
 	styleUrls: ['./comment-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentListComponent extends BaseComponent implements OnInit {
+export class CommentListComponent extends TrackingComponent implements OnInit {
 
 	@Input() comments: Comment[];
 	/** index to keep track of which comments we display */
