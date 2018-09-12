@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { TeamService, TeamUserService } from '~global-services';
-import { TeamUser, Team } from '~models';
+import { TeamUser, Team, User } from '~models';
 import { Observable } from 'rxjs';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
@@ -11,6 +11,7 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeamCardComponent extends TrackingComponent implements OnInit {
+
 	members$: Observable<TeamUser[]>;
 	team$: Observable<Team>;
 
@@ -20,8 +21,8 @@ export class TeamCardComponent extends TrackingComponent implements OnInit {
 		private teamUserSrv: TeamUserService,
 		private teamSrv: TeamService
 	) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 		this.members$ = this.teamUserSrv.queryAll();

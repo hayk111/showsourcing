@@ -21,6 +21,14 @@ h4 {
 	font-size: var(--font-size-m);
 }
 
+.team-leader {
+	padding: 0px var(--spacing-xs);
+	margin-left: var(--spacing-s);
+	background: var(--color-success);
+	color: white;
+	border-radius: var(--border-radius-s);
+}
+
 card-footer-app {
 	button {
 		width: 100%;

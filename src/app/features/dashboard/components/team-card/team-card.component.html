@@ -7,10 +7,12 @@
   <divider-app></divider-app>
 
   <div *ngFor="let member of members$ | async; trackBy: trackByFn; last as last" class="flex member" [class.last]="last">
-    <user-picture-app [user]="member?.user" [border]="true"></user-picture-app>
+    <user-picture-app [user]="member.user" [border]="true"></user-picture-app>
     <div class="flexColumn">
-      <span class="name">
-        {{ member?.user?.firstName }} {{ member?.user?.lastName}}
+      <span class="name flex">
+				{{ member?.user?.firstName }} {{ member?.user?.lastName}}
+				<div *ngIf="(team$ | async)?.ownerUser && member.user?.id === (team$ | async)?.ownerUser?.id"
+					class="team-leader">Team Leader</div>
       </span>
       <span>{{ member.user.email }}</span>
     </div>
