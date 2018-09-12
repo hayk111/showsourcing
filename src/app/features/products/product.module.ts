@@ -48,6 +48,7 @@ import { StatusModule } from '~shared/status/status.module';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
 import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
 import { TaskCommonModule } from '~shared/task-common';
+import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 
 @NgModule({
 	imports: [
@@ -96,7 +97,8 @@ import { TaskCommonModule } from '~shared/task-common';
 		ProductTeamRatingComponent,
 		ProductActivityComponent,
 		VoteDetailsDialogComponent,
-		ProductTasksComponent
+		ProductTasksComponent,
+		ProductTopPanelComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,

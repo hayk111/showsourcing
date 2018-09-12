@@ -1,30 +1,6 @@
-<top-panel-details-app
-	[title]="(product$ | async)?.name || 'Unnamed Product'"
-	[hasOptions]="true"
-	(delete)="deleteProduct()">
-	<img-app [image]="(product$ | async)?.images" type="product" size="s"></img-app>
-	<icon-app *ngIf="(product$ | async)?.favorite" fontSet="fa" name="heart" class="color-warn"></icon-app>
-	<div class="flexColumn">
-		<icons-status-app
-			[product]="product$ | async"
-			[favorite]="false"
-			[fullInfo]="true"
-			colorTxt="txt-primary">
-		</icons-status-app>
-		<div class="flex section-info flexWrap">
-			<info-badge-app *ngIf="(product$ | async)?.category?.name" type="category">{{ (product$ | async).category.name }}</info-badge-app>
-			<info-badge-app *ngFor="let tag of (product$ | async)?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
-			<info-badge-app *ngFor="let project of (product$ | async)?.projects;trackBy: trackByFn" type="project">{{ project.name }}</info-badge-app>
-		</div>
-	</div>
-
-	<workflow-action-app
-		[typeEntity]="typeEntity"
-		[entity]="product$ | async"
-		selectSize="l"
-		xPosition="-61">
-	</workflow-action-app>
-</top-panel-details-app>
+<product-top-panel-app
+	[product]="product$ | async"
+	(deleteProduct)="deleteProduct()"></product-top-panel-app>
 
 <ng-container *ngIf="product$ | async as product">
 
@@ -40,7 +16,8 @@
 				(requestFeedback)="openRequestFeedbackDialog()"
 				(openAddProject)="openAddProjectDlg()"
 				(export)="export()"
-				(imgUploaded)="onNewImages($event)">
+				(imgUploaded)="onNewImages($event)"
+				(imageDeleted)="onImageDeleted($event)">
 			</product-carousel-app>
 
 			<!-- team rating here -->

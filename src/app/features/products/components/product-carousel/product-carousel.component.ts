@@ -42,6 +42,7 @@ export class ProductCarouselComponent extends AutoUnsub {
 	@Output() vote = new EventEmitter<any>();
 	@Output() openAddProject = new EventEmitter<null>();
 	@Output() export = new EventEmitter<null>();
+	@Output() imageDeleted = new EventEmitter<AppImage>();
 	/** default image displayed when no image  */
 	defaultImg = DEFAULT_IMG;
 	// when clicking an image we can open a modal carousel
@@ -78,8 +79,8 @@ export class ProductCarouselComponent extends AutoUnsub {
 
 
 	/** when image is deleted */
-	onDelete() {
-		this.selectedIndex--;
+	onDelete(image: AppImage) {
+		this.imageDeleted.emit(image);
 	}
 
 	/** opens the modal carousel */
@@ -104,6 +105,8 @@ export class ProductCarouselComponent extends AutoUnsub {
 		let pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
 		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
 		this._pendingImages.push(...pendingImgs);
+		// putting the index at the end so we instantly have feedback the image is being processed
+		this.selectedIndex = this.images.length - 1;
 		return pendingImgs.map(p => p.id);
 	}
 

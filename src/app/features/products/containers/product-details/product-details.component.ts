@@ -97,6 +97,12 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			.subscribe();
 	}
 
+	/** when image is deleted */
+	onImageDeleted(img: AppImage) {
+		const images = this.product.images.filter(image => image.id !== img.id);
+		this.updateProduct({ images });
+	}
+
 	/** when deleting this product */
 	deleteProduct() {
 		const callback = () => {
