@@ -5,7 +5,7 @@ import { ProductService } from '~global-services';
 import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
 import { Observable } from 'rxjs';
 import { AutoUnsub } from '~utils';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, first, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'multiple-products-activity-card-app',
@@ -14,6 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultipleProductsActivityCardComponent extends AutoUnsub implements OnInit {
+
 	@Input() groupFeed: GetStreamGroup;
 	time: Date;
 	products$: Observable<Product[]>;
@@ -25,7 +26,7 @@ export class MultipleProductsActivityCardComponent extends AutoUnsub implements 
 	}
 
 	ngOnInit() {
-		const productIds = this.groupFeed.activities.map(activity => `id == "${activity.id}"`);
+		const productIds = this.groupFeed.activities.map(activity => `id == "${activity.object}"`);
 		const query = productIds.join(' OR ');
 		this.products$ = this.productSrv.queryMany({ query });
 		this.time = this.groupFeed.updated_at;
