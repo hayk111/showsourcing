@@ -66,6 +66,10 @@ export class DashboardService {
 	}
 
 	getFirstFewTasks(): Observable<Task[]> {
-		return this.taskSrv.queryMany({ take: 3, query: 'deleted == false' }).pipe(first());
+		return this.taskSrv.queryMany({ take: 3, query: 'deleted == false' }).pipe();
+	}
+
+	updateTask(task: Task) {
+		this.taskSrv.update(task, 'done').subscribe();
 	}
 }

@@ -13,7 +13,7 @@
 
   <div class="secondBlock flexColumn" *ngIf="counters">
 
-    <div class="flex">
+    <div class="flexVAlign">
       <span class="amount">{{ counters?.productsNeedReview }}</span>
       <div class="flexColumn">
         <span class="taskType">Product Need review</span>
@@ -22,7 +22,7 @@
     </div>
 
 
-    <div class="flex">
+    <div class="flexVAlign">
       <span class="amount">{{ counters?.productsInWorkflow }}</span>
       <div class="flexColumn">
         <span class="taskType">Products in progress</span>
@@ -33,7 +33,7 @@
     </div>
 
 
-    <div class="flex">
+    <div class="flexVAlign">
       <span class="amount">{{ counters?.suppliersUnderAssessment }}</span>
       <div class="flexColumn desc">
         <span class="taskType">Supplier to assess</span>
@@ -50,10 +50,11 @@
 
   <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
 
-  <ng-container *ngFor="let task of tasks; trackBy: trackByFn">
-		<div class="flex flexVAlign">
-		<user-picture-app [size]="14" [user]="task.createdBy"></user-picture-app>
-		<span>{{ task.description }}</span>
+  <ng-container *ngFor="let task of tasks; trackBy: trackByFn; last as last">
+		<div class="flexVAlign user-tasks" [class.last]="last">
+			<icon-app [name]="task.done ? 'check-green-round' : 'check-empty-round'" fontSet="svg" (click)="toggleDoneStatus(task)"></icon-app>
+			<user-picture-app [size]="14" [user]="task.createdBy"></user-picture-app>
+			<div class="flexCenter" [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}">{{ task?.name || 'Unnamed task' }}</div>
 		</div>
   </ng-container>
 

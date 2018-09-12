@@ -9,7 +9,11 @@ export class TeamUserQueries extends GlobalQueries {
 			id,
 			firstName,
 			lastName,
-			email
+			email,
+			avatar {
+				id,
+				fileName
+			}
 		},
 		status,
 		accessType`;
@@ -20,7 +24,11 @@ export class TeamUserQueries extends GlobalQueries {
 			id,
 			firstName,
 			lastName,
-			email
+			email,
+			avatar {
+				id,
+				fileName
+			}
 		},
 		status,
 		accessType
@@ -32,7 +40,11 @@ export class TeamUserQueries extends GlobalQueries {
 			id,
 			firstName,
 			lastName,
-			email
+			email,
+			avatar {
+				id,
+				fileName
+			}
 		},
 		status,
 		accessType

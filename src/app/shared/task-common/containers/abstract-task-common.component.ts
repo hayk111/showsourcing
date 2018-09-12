@@ -54,4 +54,12 @@ export abstract class AbstractTaskCommonComponent extends ListPageComponent<Task
 		const newTask = new Task({ name });
 		this.featureSrv.create(newTask).subscribe();
 	}
+
+	openProduct(id: string) {
+		this.router.navigate([ERM.PRODUCT.singular, 'details', id]);
+	}
+
+	openSupplier(id: string) {
+		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
+	}
 }

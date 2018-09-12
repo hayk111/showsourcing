@@ -9,7 +9,8 @@ import { map } from 'rxjs/internal/operators/map';
 import { filter } from 'graphql-anywhere';
 import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
 import { DashboardService, DashboardCounters } from '~features/dashboard/services/dashboard.service';
-import { User, Task } from '~models';
+import { User, Task, ERM } from '~models';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'dashboard-app',
@@ -26,6 +27,7 @@ export class DashboardComponent implements OnInit {
 	tasks$: Observable<Task[]>;
 
 	constructor(
+		private router: Router,
 		private activitySrv: ActivityService,
 		private dashboardSrv: DashboardService,
 		private userSrv: UserService
@@ -38,8 +40,12 @@ export class DashboardComponent implements OnInit {
 		this.tasks$ = this.dashboardSrv.getFirstFewTasks();
 	}
 
-	redirInivteTeam() {
+	redirInviteTeam() {
+		this.router.navigate(['settings/team/members']);
+	}
 
+	updateTask(task: Task) {
+		this.dashboardSrv.updateTask(task);
 	}
 }
 

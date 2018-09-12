@@ -10,7 +10,8 @@
 		<dashboard-summary-app
 			[user]="user$ | async"
 			[counters]="counters$ | async"
-			[tasks]="tasks$ | async"></dashboard-summary-app>
+			[tasks]="tasks$ | async"
+			(updateTask)="updateTask($event)"></dashboard-summary-app>
 		<team-card-app
 			(inviteTeam)="redirInviteTeam()"></team-card-app>
 		<!-- <events-card-app></events-card-app> -->
