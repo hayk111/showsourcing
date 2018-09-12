@@ -50,7 +50,7 @@ export class UploaderService {
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ => service.waitForOne(`id == "${request.id}" AND status == "upload-ready"`)),
 			// when ready we make the upload
-			mergeMap(info => this.uploadFileToAws(info, file)),
+			mergeMap(info => this.uploadFileToAws(info, file, isImage)),
 			// when the upload is done on amazon, the image will give a 403 for a few seconds
 			// so we need to wait for it to be ready.
 			mergeMap(_ => this.emitWhenFileReady(request)),
@@ -68,7 +68,7 @@ export class UploaderService {
 		);
 	}
 
-	private uploadFileToAws(awsInfo, file: any): Observable<AppImage> {
+	private uploadFileToAws(awsInfo, file: any, isImage: boolean): Observable<AppImage> {
 		log.group('%c uploading to aws', LogColor.SERVICES);
 		log.debug(`%c upload url ${awsInfo.uploadUrl}`, LogColor.SERVICES);
 		log.group('%c form data', LogColor.SERVICES);
@@ -76,7 +76,7 @@ export class UploaderService {
 		log.groupEnd();
 		log.groupEnd();
 
-		const formData = this.converFormData(file, JSON.parse(awsInfo.formData));
+		const formData = this.converFormData(file, JSON.parse(awsInfo.formData), isImage);
 		const req = new HttpRequest('POST', awsInfo.url, formData, {
 			reportProgress: true,
 		});
@@ -84,9 +84,12 @@ export class UploaderService {
 	}
 
 	// we receive an array but formData wants an object
-	private converFormData(file: any, formDataObj: any) {
+	private converFormData(file: any, formDataObj: any, isImage: boolean) {
 		const formData = new FormData();
-		formData.append('Content-Type', file.type);
+
+		if (isImage)
+			formData.append('Content-Type', file.type);
+
 		delete formDataObj.__typename;
 		Object.entries(formDataObj).forEach(([k, v]: any) => formData.append(k, v));
 		formData.append('file', file);
@@ -113,11 +116,11 @@ export class UploaderService {
 				)),
 				// we still need to delay after for some reason because the image is still unavailable
 				// for a short while...
-				delay(1000)
+				delay(3000)
 			);
 		} else {
 			// files are ready instantly
-			return of();
+			return of([]);
 		}
 	}
 

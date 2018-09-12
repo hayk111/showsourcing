@@ -1,6 +1,7 @@
 <product-top-panel-app
 	[product]="product$ | async"
-	(deleteProduct)="deleteProduct()"></product-top-panel-app>
+	(deleteProduct)="deleteProduct()">
+</product-top-panel-app>
 
 <ng-container *ngIf="product$ | async as product">
 
@@ -35,7 +36,10 @@
 				(addProjectClick)="openAddProjectDlg()"
 				[projects]="product.projects"></project-card-app>
 
-			<!-- <files-card-app></files-card-app> -->
+			<files-card-app
+				[files]="product.attachments"
+				(fileAdded)="onFileAdded($event)"
+				(fileRemove)="onFileRemoved($event)"></files-card-app>
 
 		</div>
 

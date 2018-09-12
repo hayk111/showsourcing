@@ -8,7 +8,7 @@ import { Tag } from '~models/tag.model';
 import { ProductVote } from '~models/product-vote.model';
 import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
-import { Project } from '~models';
+import { Project, Attachment } from '~models';
 import { Comment } from '~models/comment.model';
 
 export class Product extends EntityWithAudit<ProductConfig> {
@@ -16,6 +16,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	comments?: Comment[];
 	supplier?: Supplier;
 	images?: AppImage[];
+	attachments?: Attachment[];
 	price?: Price;
 	category?: Category;
 	description?: string;

@@ -103,6 +103,16 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		this.updateProduct({ images });
 	}
 
+	onFileAdded(attachment: Attachment) {
+		const attachments = [...this.product.attachments, attachment];
+		this.updateProduct(attachments);
+	}
+
+	onFileRemoved(attachment: Attachment) {
+		const attachments = this.product.attachments.filter(atc => atc.id !== attachment.id);
+		this.updateProduct(attachments);
+	}
+
 	/** when deleting this product */
 	deleteProduct() {
 		const callback = () => {

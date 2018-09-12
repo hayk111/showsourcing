@@ -24,6 +24,7 @@ export class FilesCardComponent extends TrackingComponent {
 	private _pendingFiles = [];
 
 	@Output() fileRemove = new EventEmitter<Attachment>();
+	@Output() fileAdded = new EventEmitter<Attachment>();
 	defaultImg = DEFAULT_FILE_ICON;
 
 	constructor(
