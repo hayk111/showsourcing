@@ -51,13 +51,14 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
 import { TaskCommonModule } from '~shared/task-common';
-
+import { CustomDialogModule } from '~shared/custom-dialog';
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild(routes),
 		FileModule, // file-card
-		DynamicFormsModule,
+    DynamicFormsModule,
+    CustomDialogModule,
 		CarouselModule,
 		TopPanelModule,
 		DialogModule, // used by new contact dialog
