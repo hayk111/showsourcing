@@ -128,7 +128,7 @@ export class FilterList {
 			case FilterType.CREATED_BY:
 				return `createdBy.id == "${value}"`;
 			case FilterType.DUE_DATE:
-				return `dueDate >= ${value}`;
+				return `dueDate >= ${value} OR dueDate == null`;
 			// most of the filters from the panel filter by id
 			default:
 				return `${type}.id == "${value}"`;
