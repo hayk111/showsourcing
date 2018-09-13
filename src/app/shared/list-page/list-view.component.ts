@@ -27,8 +27,8 @@ export class ListViewComponent<T> extends TrackingComponent {
 
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	previousPage() {
 		this.previous.emit();

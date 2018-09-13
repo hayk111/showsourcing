@@ -30,7 +30,7 @@ export class FilterList {
 	private setFilters(filters: Filter[]) {
 		this._filters = filters;
 		this._byType = this.filtersToByType(filters);
-		this._query = this.filtersToPredicate(filters);
+		this._query = this.filtersToPredicate(this._byType);
 		this._valueChanges$.next(this);
 	}
 	asFilters() { return this._filters; }
@@ -90,19 +90,30 @@ export class FilterList {
 		return copy;
 	}
 
-	/** transform filter into a predicate understandable by graphql */
-	private filtersToPredicate(filters: Filter[]): string {
-		return FilterList.filtersToPredicate(filters);
+
+	private filtersToPredicate(byType: FilterByType): string {
+		return FilterList.filtersToPredicate(byType);
 	}
 
-	static filtersToPredicate(filters: Filter[]) {
-		if (filters.length === 0)
-			return '';
-
-		return filters.map(({ type, value }) => {
-
-			return FilterList.getFieldCondition(type, value);
-		}).join(' or ');
+	/** transform filter into a predicate understandable by graphql
+	 * we want every filter of the same type to be joined with OR
+	 * while when the type differ it's a AND.
+	 *
+	 * So if we have two supplier filter and one category filter the
+	 * predicate will be : (supplier.id == x OR supplier.id == y AND category.id == z)
+	*/
+	static filtersToPredicate(byType: FilterByType) {
+		const queryByType = [];
+		byType.forEach((valMap, type) => {
+			if (valMap.size === 0)
+				return;
+			const valuesForType = Array.from(valMap.keys());
+			const queryForType = valuesForType.map(value => {
+				return FilterList.getFieldCondition(type, value);
+			}).join(' or ');
+			queryByType.push(`(${queryForType})`);
+		});
+		return queryByType.join(' AND ');
 	}
 
 	/** the way a Filter is translated into graphql changes with
@@ -115,7 +126,7 @@ export class FilterList {
 			case FilterType.ARCHIVED:
 				return `${type} == ${value}`;
 			case FilterType.CREATED_BY:
-				return `createdBy == "${value}"`;
+				return `createdBy.id == "${value}"`;
 			case FilterType.DUE_DATE:
 				return `dueDate >= ${value}`;
 			// most of the filters from the panel filter by id

@@ -15,7 +15,7 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 })
 export class FilesCardComponent extends TrackingComponent {
 	@Input() set files(files: Array<Attachment | PendingFile>) {
-		this._files = files;
+		this._files = files || [];
 	}
 	get files() {
 		return [...this._files, ...this._pendingFiles];
@@ -24,6 +24,7 @@ export class FilesCardComponent extends TrackingComponent {
 	private _pendingFiles = [];
 
 	@Output() fileRemove = new EventEmitter<Attachment>();
+	@Output() fileAdded = new EventEmitter<Attachment[]>();
 	defaultImg = DEFAULT_FILE_ICON;
 
 	constructor(
@@ -35,7 +36,10 @@ export class FilesCardComponent extends TrackingComponent {
 
 	onFileAdded(files: Array<File>) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
-		this.uploader.uploadFiles(files).subscribe(_ => this._pendingFiles = []);
+		this.uploader.uploadFiles(files).subscribe(addedFiles => {
+			this.fileAdded.emit(addedFiles);
+			this._pendingFiles = [];
+		});
 	}
 
 	onFileRemoved(file: Attachment) {

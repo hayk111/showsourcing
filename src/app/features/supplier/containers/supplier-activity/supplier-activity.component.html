@@ -39,8 +39,11 @@
 			(deleteContact)="deleteContact($event)">
 		</supplier-contact-card-app>
 
-		<!-- files -->
-		<files-card-app></files-card-app>
+		<files-card-app
+			[files]="supplier.attachments"
+			(fileAdded)="onFileAdded($event)"
+			(fileRemove)="onFileRemoved($event)">
+		</files-card-app>
 	</div>
 
 </ng-container>

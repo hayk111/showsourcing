@@ -1,0 +1,32 @@
+<top-panel-details-app
+	[title]="product?.name || 'Unnamed Product'"
+	[hasOptions]="true"
+	(delete)="deleteProduct.emit()">
+
+	<img-app [image]="product?.images" type="product" size="s"></img-app>
+	<icon-app *ngIf="product?.favorite" fontSet="fa" name="heart" class="color-warn"></icon-app>
+
+	<div class="flexColumn">
+
+		<icons-status-app
+			[product]="product"
+			[favorite]="false"
+			[fullInfo]="true"
+			colorTxt="txt-primary">
+		</icons-status-app>
+
+		<div class="flex section-info flexWrap">
+
+			<info-badge-app *ngIf="product?.category?.name" type="category">{{ product.category.name }}</info-badge-app>
+			<info-badge-app *ngFor="let tag of product?.tags" type="tag">{{ tag.name }}</info-badge-app>
+			<info-badge-app *ngFor="let project of product?.projects" type="project">{{ project.name }}</info-badge-app>
+		</div>
+	</div>
+
+	<workflow-action-app
+		[typeEntity]="productEntity"
+		[entity]="product"
+		selectSize="l"
+		xPosition="-61">
+	</workflow-action-app>
+</top-panel-details-app>

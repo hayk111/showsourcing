@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { Contact, Product, Supplier } from '~models';
+import { Contact, Product, Supplier, Attachment } from '~models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
@@ -16,8 +16,6 @@ import { NewContactDlgComponent } from '~features/supplier/containers/new-contac
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 	supplier$: Observable<Supplier>;
-
-
 
 	constructor(
 		private route: ActivatedRoute,
@@ -33,8 +31,10 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.supplier$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id))
+			switchMap(id => this.featureSrv.selectOne(id)),
 		);
 
 	}
+
+
 }
