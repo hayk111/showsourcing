@@ -61,7 +61,7 @@ export class ProductDialogService extends ProductService {
     // users = users.map(user => ({ id: user.id, firstName: user.firstName }));
     users = users.map(user => ({id: user.user.id }));
     products = products.map(product => ({ id: product.id }));
-    const comment = '';
+    const comment = ''; // TODO: fixed this on backend side, comment must not be requis
 		const requests = products.map(product => this.voteSrv.create(new ProductVoteRequest({ users, product, comment })));
 		return forkJoin(requests);
 	}
