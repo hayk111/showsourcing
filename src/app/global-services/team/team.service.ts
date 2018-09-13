@@ -30,16 +30,17 @@ export class TeamService extends GlobalService<Team> {
 
 	private _selectedTeamId$ = new ReplaySubject<string>(1);
 	selectedTeamId$ = this._selectedTeamId$.asObservable();
-	hasTeamSelected$ = this._selectedTeamId$.asObservable().pipe(
-		map(team => !!team),
-	);
+
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
 		filter(team => !!team),
 		shareReplay(1),
-
 	);
-	selectedTeamSync;
+	hasTeamSelected$ = this._selectedTeam$.asObservable().pipe(
+		map(team => !!team),
+	);
+	// synchronous version for easy access
+	selectedTeamSync: Team;
 
 
 	constructor(

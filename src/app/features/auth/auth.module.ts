@@ -26,9 +26,7 @@ import {
 		ForgotPasswordComponent,
 		PwResettedComponent,
 	],
-	exports: [
-		// RouterModule
-	],
+	exports: [],
 })
 export class AuthModule {
 

@@ -21,8 +21,8 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 	private returnUrl: string;
 
 	constructor(private teamSrv: TeamService, private router: Router, private route: ActivatedRoute) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 		this.teams$ = this.teamSrv.selectAll();
