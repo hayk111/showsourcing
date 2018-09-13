@@ -56,11 +56,13 @@ export class ProductDialogService extends ProductService {
 	 * @param users users that we want to request feedback to
 	 * @param products products we want to request feedback for
 	 */
-	askFeedBackToUsers(users: User[], products: Product[]) {
+	askFeedBackToUsers(users: any[], products: Product[]) {
 		// keeping only the ids so we don't send any additional data.
-		users = users.map(user => ({ id: user.id }));
-		products = products.map(product => ({ id: product.id }));
-		const requests = products.map(product => this.voteSrv.create(new ProductVoteRequest({ users, product })));
+    // users = users.map(user => ({ id: user.id, firstName: user.firstName }));
+    users = users.map(user => ({id: user.user.id }));
+    products = products.map(product => ({ id: product.id }));
+    const comment = '';
+		const requests = products.map(product => this.voteSrv.create(new ProductVoteRequest({ users, product, comment })));
 		return forkJoin(requests);
 	}
 }
