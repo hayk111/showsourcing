@@ -11,7 +11,7 @@ export class RadioComponent extends AbstractInput {
 	protected static NEXT_UID = 0;
 	@Output() update = new EventEmitter<boolean>();
 	@Output() select = new EventEmitter<null>();
-	disabled = super.disabled;
+	disabled = super.disabled; //  Only public and protected methods of the base class are accessible via the 'super' keyword
 	/** list of possible values and labels */
 	@Input()
 	items: any[];
