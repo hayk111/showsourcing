@@ -19,7 +19,6 @@ import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from 
 import { UserClientReadyGuard, TeamClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
 import { HasCompanyGuard } from '~features/pick-a-team/services/has-company.guard';
 import { CreateACompanyPageComponent } from '~features/pick-a-team/containers/create-a-company-page/create-a-company-page.component';
-import { PickACompanyPageComponent } from '~features/pick-a-team/containers/pick-a-company-page/pick-a-company-page.component';
 import { HasCompanySelectGuard } from '~features/pick-a-team/services/has-company-selected.guard';
 
 export const routes: Array<Route> = [
@@ -46,7 +45,6 @@ export const routes: Array<Route> = [
 			{ path: 'create-a-team', component: CreateATeamPageComponent, canActivate: [HasCompanySelectGuard] },
 			{ path: 'pick-a-team', component: PickATeamPageComponent, canActivate: [HasTeamGuard] },
 			{ path: 'create-a-company', component: CreateACompanyPageComponent },
-			{ path: 'pick-a-company', component: PickACompanyPageComponent, canActivate: [HasCompanyGuard] },
 		]
 	},
 	{
