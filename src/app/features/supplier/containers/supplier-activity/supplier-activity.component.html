@@ -14,7 +14,7 @@
 		<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
 
 		<!-- activity -->
-		<ng-container *ngIf="feedResult">
+		<ng-container *ngIf="(feedResult?.feed$ | async)?.length > 0">
 				<flat-feed-list-app
 				[entity]="supplier"
 				[activities]="feedResult.feed$ | async"

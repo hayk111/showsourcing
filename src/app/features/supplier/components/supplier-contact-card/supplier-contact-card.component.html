@@ -3,7 +3,7 @@
 
 	<h2 i18n="header 2|Supplier contacts card@@supplierContactCard_contacts">Contacts</h2>
 
-	<ul *ngIf="contacts.length > 0; else noContact">
+	<ul *ngIf="contacts?.length > 0; else noContact">
 		<supplier-contact-app
 			*ngFor="let contact of contacts; let last = last;trackBy: trackByFn"
 			[border]="!last"
