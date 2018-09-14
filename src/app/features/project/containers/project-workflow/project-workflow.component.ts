@@ -27,7 +27,8 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 })
 export class ProjectWorkflowComponent extends ListPageComponent<Product, ProductService>  implements OnInit {
 	project$: Observable<Project>;
-	statuses$ = new Subject<ProductStatus[]>();
+	// statuses$ = new Subject<ProductStatus[]>();
+	statuses$: Observable<ProductStatus[]>;
 	id: string;
 	project: Project;
 	/** keeps tracks of the current selection */
@@ -55,10 +56,10 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		this.project$ = this.projectSrv.queryOne(id);
 		this.project$.subscribe(project => this.project = project);
 
-		this.project$.pipe(
+		this.statuses$ = this.project$.pipe(
 			takeUntil(this._destroy$),
 			switchMap(project => this.workflowService.getStatuses(project))
-		).subscribe(statuses => this.statuses$.next(statuses));
+		);
 
 		this.selected$ = this.selectionSrv.selection$;
 	}
@@ -147,7 +148,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 				return this.workflowService.getStatuses(this.project, true).pipe(
 					first(),
 					tap(statuses => {
-						this.statuses$.next(statuses);
+						// this.statuses$.next(statuses);
 					})
 				);
 			}),
