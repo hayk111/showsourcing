@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
-import { Invitation } from '~models';
+import { InvitationUser } from '~models';
 
-import { InvitationService, UserService } from '~global-services';
+import { InvitationUserService, UserService } from '~global-services';
 import { Apollo } from 'apollo-angular';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~shared/apollo';
 
 @Injectable()
-export class InvitationFeatureService extends InvitationService {
+export class InvitationFeatureService extends InvitationUserService {
 
 	constructor(
 		protected apolloState: ApolloStateService,
-		private invitationSrv: InvitationService,
+		private invitationSrv: InvitationUserService,
 		protected userSrv: UserService
 	) {
 		super(apolloState);
 	}
 
-	getInvitation(id: string): Observable<{ invitation: Invitation; client: Client }> {
+	getInvitation(id: string): Observable<{ invitation: InvitationUser; client: Client }> {
 		// try to find first the inviation into USER
 		return this.queryOne(id, null, Client.USER).pipe(
 			switchMap(invitation => {

@@ -3,7 +3,7 @@ import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
 
 
-export class InvitationQueries extends GlobalQueries {
+export class InvitationUserQueries extends GlobalQueries {
 
 	/**
 	 * 		inviter {
@@ -18,14 +18,16 @@ export class InvitationQueries extends GlobalQueries {
 		email,
 		accessType,
 		status,
-		inviter { firstName, lastName }
+		inviterFirstName,
+		inviterLastName
 	`;
 
 	static readonly many = `
 		email,
 		accessType,
 		status,
-		inviter { firstName, lastName }
+		inviterFirstName,
+		inviterLastName
 	`;
 
 }
