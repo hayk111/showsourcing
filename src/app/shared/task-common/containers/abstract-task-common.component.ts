@@ -52,7 +52,7 @@ export abstract class AbstractTaskCommonComponent extends ListPageComponent<Task
 
 	createTask(name: string) {
 		const newTask = new Task({ name });
-		this.featureSrv.create(newTask).subscribe();
+		this.featureSrv.create(newTask).subscribe(_ => this.refetch());
 	}
 
 	openProduct(id: string) {
