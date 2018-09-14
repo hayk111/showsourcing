@@ -17,8 +17,8 @@ export class FlatFeedListComponent extends TrackingComponent implements OnInit {
 	@Input() typeEntity: EntityMetadata;
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}

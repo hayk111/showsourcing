@@ -9,11 +9,12 @@ import { DialogService } from '~shared/dialog';
 import { FilterList, SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
+import { CreationDialogComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'supplier-app',
 	templateUrl: './supplier-products.component.html',
+	styleUrls: ['./supplier-products.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		SelectionService
@@ -25,15 +26,13 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 
 	constructor(
 		protected router: Router,
-		protected srv: ProductService,
-		protected productSrv: ProductService,
+		protected featureSrv: ProductService,
 		protected selectionSrv: SelectionService,
-		// protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 
 	}
 

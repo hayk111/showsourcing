@@ -20,15 +20,15 @@ export class SupplierImagesComponent extends TrackingComponent implements OnInit
 	private readonly MAX_NUMBER_OF_IMAGES = 6;
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}
 
 	// concatenates (supplier & product from supplier) 's images.
 	get images() {
-		const images = [...this.supplier.images];
+		const images = this.supplier.images ? [...this.supplier.images] : [];
 		let index = 0;
 
 		if (!this.products)
