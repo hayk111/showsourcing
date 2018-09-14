@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '~models';
+import { Product, Supplier } from '~models';
 import { Router } from '@angular/router';
 import { ProductService } from '~global-services';
 import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
@@ -34,6 +34,10 @@ export class MultipleProductsActivityCardComponent extends AutoUnsub implements 
 
 	viewProduct(product: Product) {
 		this.router.navigate(['product', 'details', product.id]);
+	}
+
+	viewSupplier(supplier: Supplier) {
+		this.router.navigate(['supplier', 'details', supplier.id]);
 	}
 
 }
