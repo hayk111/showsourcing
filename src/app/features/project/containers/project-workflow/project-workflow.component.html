@@ -33,7 +33,7 @@
 			[product]="row"
 			[dragInProgress]="dragInProgress"
 			[checked]="checked"
-			(dragDropEnable)="dragDropEnable$.next()"
+			(dragDropEnable)="dragDropEnable$.next($event)"
 			(select)="selectItem.emit(row)"
 			(unselect)="unselectItem.emit(row)">
 		</kanban-item-card-app>
@@ -55,7 +55,7 @@
 			<context-menu-item-app (click)="openExportDialog(row)">
 				<div class="border">Export</div>
 			</context-menu-item-app>
-			<context-menu-item-app (click)="deleteSelected(row)">
+			<context-menu-item-app (click)="deassociateProduct(row?.id)">
 				<div class="border">Delete</div>
 			</context-menu-item-app>
 		</context-menu-app>

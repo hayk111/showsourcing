@@ -28,19 +28,36 @@
 		[selection]="selected"
 		[rows]="projects"
 		[pending]="pending"
-		(bottomReached)="loadMore()"></projects-list-view-app>
+		(bottomReached)="loadMore()"
+		(delete)="deleteOne($event)"></projects-list-view-app>
 
 	</ng-container>
 
+	<selection-bar-app
+		*ngIf="(selected$ | async).size > 0"
+		[selection]="selected$ | async"
+		[hasDelete]="false"
+		(close)="resetSelection()"
+		(delete)="deleteSelected()">
+
+		<action-bar-app
+			[hasHeart]="false"
+			[hasLikes]="false">
+
+			<button class="icon light" (click)="deleteSelected()">
+				<icon-app fontSet="svg" name="trash-bin" size="m"></icon-app>
+			</button>
+		</action-bar-app>
+	</selection-bar-app>
+
+	<filters-app
+		[filterList]="filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="closeFilterPanel()"
+		*ngIf="filterPanelOpen">
+	</filters-app>
+
 </ng-container>
-
-<filters-app
-	[filterList]="filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="closeFilterPanel()"
-	*ngIf="filterPanelOpen">
-</filters-app>
-
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>

@@ -1,6 +1,7 @@
 	<div class="action-container flexBetween">
 		<div class="flex icons-container noselect">
 			<rating-heart-app
+			 *ngIf="hasHeart"
 			 size="m"
 			 [favorite]="favorite"
 			 (favorited)="onFavorite.emit()"

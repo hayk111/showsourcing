@@ -5,7 +5,8 @@ import {
 	Injectable,
 	Input,
 	OnInit,
-	Output
+	Output,
+	ChangeDetectorRef
 } from '@angular/core';
 import {
 	DomSanitizer,
@@ -52,7 +53,7 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 	/** A drag'n drop is in progress */
 	dragnDropInProgress: boolean;
 
-	constructor(private kanbanSrv: KanbanService, private sanitization: DomSanitizer) {
+	constructor(private kanbanSrv: KanbanService, private sanitization: DomSanitizer, private cdr: ChangeDetectorRef) {
 		super();
 	}
 
@@ -65,26 +66,30 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 			this.droppableArea = (!this.disabled && namespace !== this.namespace);
 		});
 
-		/** Don't register on drag'n drop if disabled */
-		if (this.disabled) {
-			return;
-		}
-
 		this.kanbanSrv.dragStart$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(({ data, namespace }) => {
 			this.dragnDropInProgress = true;
+			this.cdr.markForCheck();
 		});
 
 		// Handle dragEnd through the kanban service
 		this.kanbanSrv.dragEnd$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(({ data, namespace }) => {
-			this.sourceArea = false;
-			this.droppableArea = false;
-			this.enteredArea = false;
+			if (!this.disabled) {
+				this.sourceArea = false;
+				this.droppableArea = false;
+				this.enteredArea = false;
+			}
 			this.dragnDropInProgress = false;
+			this.cdr.markForCheck();
 		});
+
+		/** Don't register on other events if disabled */
+		if (this.disabled) {
+			return;
+		}
 
 		// Handle itemEntered through the kanban service
 		this.kanbanSrv.itemEntered$.pipe(

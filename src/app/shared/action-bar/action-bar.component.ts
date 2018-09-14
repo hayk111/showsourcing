@@ -19,6 +19,8 @@ export class ActionBarComponent implements OnInit {
 	@Input() hasLikes = true;
 	@Input() votes: ProductVote[];
 	@Input() buttonName: string;
+	/** whether we display the heart or not */
+	@Input() hasHeart = true;
 	/** we only use this one when we want to update multiple likes */
 	@Input() products: Product[];
 	@Output() onFavorite = new EventEmitter<null>();
@@ -45,5 +47,6 @@ Using in :
 - my-products-page
 - one-product-activity-card
 - product-grid
+- projects-page
 
 */
