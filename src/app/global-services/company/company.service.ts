@@ -22,19 +22,15 @@ export class CompanyService extends GlobalService<Company> {
 
 	defaultClient = Client.USER;
 
-	private _selectedCompanyId$ = new ReplaySubject<string>(1);
-	selectedCompanyId$ = this._selectedCompanyId$.asObservable();
+	// an user has only 1 company and we only need the id
+	private _companyId$ = new ReplaySubject<string>(1);
+	companyId$ = this._companyId$.asObservable();
 
-	private _selectedCompany$ = new ReplaySubject<Company>(1);
-	selectedCompany$ = this._selectedCompany$.asObservable().pipe(
-		shareReplay(1),
-	);
-
-	hasCompanySelected$ = this.selectedCompany$.pipe(
+	hasCompany$ = this.companyId$.pipe(
 		map(company => !!company)
 	);
 
-	companySync: Company;
+	companyIdSync: string;
 
 	constructor(
 		protected apolloState: ApolloStateService,
@@ -47,13 +43,6 @@ export class CompanyService extends GlobalService<Company> {
 	init() {
 		this.restoreSelectedCompanyId();
 
-		// 2. When we have companys we find out what the selected company is
-		combineLatest(
-			this.selectedCompanyId$,
-			this.selectAll(),
-			(id, companies) => this.getSelectedCompany(id, companies)
-		).subscribe(this._selectedCompany$);
-
 		// when logging out let's clear the current selected company
 		this.authSrv.authStatus$.subscribe(status => {
 			if (status === AuthStatus.NOT_AUTHENTICATED) {
@@ -61,7 +50,7 @@ export class CompanyService extends GlobalService<Company> {
 			}
 		});
 
-		this.selectedCompany$.subscribe(company => this.companySync = company);
+		this.companyId$.subscribe(id => this.companyIdSync = id);
 	}
 
 	/** creates and picks it */
@@ -72,28 +61,25 @@ export class CompanyService extends GlobalService<Company> {
 	}
 
 	/** picks a company, puts the selection in local storage */
-	pickCompany(company: Company): Observable<Company> {
+	pickCompany(company: Company): Observable<string> {
 		this.storage.setItem(SELECTED_COMPANY_ID, company.id);
-		this._selectedCompanyId$.next(company.id);
+		this._companyId$.next(company.id);
 
-		return this.hasCompanySelected$.pipe(
+		return this.hasCompany$.pipe(
 			filter(has => has),
-			switchMapTo(this.selectedCompany$)
+			switchMapTo(this.companyId$)
 		);
 	}
 
 	/** restore from local storage   */
 	private restoreSelectedCompanyId() {
-		const selectedCompanyId: string = this.storage.getItem(SELECTED_COMPANY_ID);
-		this._selectedCompanyId$.next(selectedCompanyId);
+		const companyId: string = this.storage.getItem(SELECTED_COMPANY_ID);
+		this._companyId$.next(companyId);
 	}
 
-	private getSelectedCompany(selectedId: string, companies: Company[]) {
-		return selectedId ? companies.find(company => company.id === selectedId) : undefined;
-	}
 
 	private resetSelectedCompany() {
 		this.storage.remove(SELECTED_COMPANY_ID);
-		this._selectedCompanyId$.next(undefined);
+		this._companyId$.next(undefined);
 	}
 }

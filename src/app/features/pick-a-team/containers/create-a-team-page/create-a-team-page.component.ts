@@ -37,7 +37,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 	onSubmit() {
 		this.pending = true;
 		const formValue = this.form.value;
-		const company: Company = { id: this.companySrv.companySync.id };
+		const company: Company = { id: this.companySrv.companyIdSync };
 		const team = new Team({ name: formValue.name, company, ownerUser: this.userSrv.userSync });
 		this.srv.create(team)
 			.subscribe(

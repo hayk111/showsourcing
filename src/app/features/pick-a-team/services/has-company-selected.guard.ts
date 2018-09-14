@@ -17,7 +17,7 @@ export class HasCompanySelectGuard implements CanActivate, CanActivateChild {
 	}
 
 	canActivate(): boolean | Observable<boolean> | Promise<boolean> {
-		return this.companySrv.hasCompanySelected$.pipe(
+		return this.companySrv.hasCompany$.pipe(
 			tap(d => log.debug('%c hasCompanySelectedGuard', LogColor.GUARD, d)),
 			tap(hasCompany => this.redirect(hasCompany))
 		);
