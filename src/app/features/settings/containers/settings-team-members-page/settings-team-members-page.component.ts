@@ -1,4 +1,5 @@
 import { Component, OnInit, NgModuleRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ERM, TeamUser, User } from '~models';
 import { DialogService } from '~shared/dialog';
 import { CreationDialogComponent } from '~shared/custom-dialog';
@@ -12,7 +13,9 @@ export class SettingsTeamMembersPageComponent {
 	selectedTab = 'team-members';
 	constructor(
 		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>
+		protected moduleRef: NgModuleRef<any>,
+		protected router: Router,
+		protected route: ActivatedRoute
 	) {
 	}
 
@@ -22,8 +25,8 @@ export class SettingsTeamMembersPageComponent {
 	}
 
 	/** Opens the dialog for creating a new team */
-	openNewTeamDialog() {
-		this.dlgSrv.openFromModule(CreationDialogComponent, this.moduleRef, { type: ERM.TEAM, shouldRedirect: false });
+	redirectNewTeamScreen() {
+		this.router.navigate(['../../../user/create-a-team'], { relativeTo: this.route });
 	}
 
 }

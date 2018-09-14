@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User, Team } from '~models';
 import { DEFAULT_USER_ICON } from '~utils';
@@ -30,6 +30,7 @@ export class UserPanelComponent implements OnInit {
 	}
 
 	pickTeam() {
+		this.router.navigateByUrl('/user/pick-a-team');
 		this.close.emit();
 	}
 
