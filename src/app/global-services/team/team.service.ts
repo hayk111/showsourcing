@@ -33,8 +33,7 @@ export class TeamService extends GlobalService<Team> {
 
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
-		filter(team => !!team),
-		shareReplay(1),
+		shareReplay(),
 	);
 	hasTeamSelected$ = this._selectedTeam$.asObservable().pipe(
 		map(team => !!team),
@@ -74,18 +73,21 @@ export class TeamService extends GlobalService<Team> {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.authSrv.userId$.pipe(
-			tap(userId => team.ownerUser = { id: userId }),
-			switchMapTo(super.create(team)),
-			switchMapTo(this.waitForOne(`id == "${team.id}" AND status == "active"`)),
-			tap(_ => this.pickTeam(team))
+		return super.create(team).pipe(
+			switchMap(_ => this.waitForOne(`id == "${team.id}" AND status == "active"`)),
+			switchMap(_ => this.pickTeam(team))
 		);
 	}
 
 	/** picks a team, puts the selection in local storage */
-	pickTeam(team: Team): void {
+	pickTeam(team: Team): Observable<Team> {
 		this.storage.setItem(SELECTED_TEAM_ID, team.id);
 		this._selectedTeamId$.next(team.id);
+
+		return this.hasTeamSelected$.pipe(
+			filter(has => has),
+			switchMap(_ => this.selectedTeam$)
+		);
 	}
 
 	/** restore from local storage   */

@@ -31,14 +31,12 @@ export class PickACompanyPageComponent extends TrackingComponent implements OnIn
 		this.companys$ = this.companySrv.selectAll();
 		// get return url from route parameters or default to '/'
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-		// go home when company selected
-		this.companySrv.selectedCompany$.pipe(
-			switchMap(company => this.router.navigateByUrl(this.returnUrl))
-		).subscribe(company => this.router.navigateByUrl(this.returnUrl));
+
 	}
 
 	pickCompany(company: Company) {
 		this.pending$.next(true);
-		this.companySrv.pickCompany(company);
+		this.companySrv.pickCompany(company)
+			.subscribe(_ => this.router.navigateByUrl(this.returnUrl));
 	}
 }

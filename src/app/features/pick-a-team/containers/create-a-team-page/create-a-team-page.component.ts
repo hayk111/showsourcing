@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Team } from '~models';
 import { TeamService, UserService, CompanyService } from '~global-services';
-import { map, first, tap } from 'rxjs/operators';
+import { map, first, tap, takeUntil } from 'rxjs/operators';
 import { Company } from '~models/company.model';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -14,7 +15,7 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./create-a-team-page.component.scss', '../../../auth/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateATeamPageComponent implements OnInit {
+export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
 	pending = false;
 	error: string;
@@ -27,6 +28,7 @@ export class CreateATeamPageComponent implements OnInit {
 		private router: Router,
 		private userSrv: UserService
 	) {
+		super();
 		this.form = this.fb.group({
 			name: ['', Validators.required]
 		});
@@ -36,12 +38,12 @@ export class CreateATeamPageComponent implements OnInit {
 		this.pending = true;
 		const formValue = this.form.value;
 		const company: Company = { id: this.companySrv.companySync.id };
-		const team = new Team({ name: formValue.teamName, company, ownerUser: this.userSrv.userSync });
+		const team = new Team({ name: formValue.name, company, ownerUser: this.userSrv.userSync });
 		this.srv.create(team)
 			.subscribe(
 				_ => {
-					this.pending = false;
 					this.router.navigate(['']);
+					this.pending = false;
 				},
 				e => {
 					this.pending = false;
@@ -55,7 +57,6 @@ export class CreateATeamPageComponent implements OnInit {
 			first(),
 			map(all => all.length > 0)
 		);
-
 	}
 
 }

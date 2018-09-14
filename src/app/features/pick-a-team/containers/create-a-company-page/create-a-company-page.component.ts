@@ -39,7 +39,7 @@ export class CreateACompanyPageComponent implements OnInit {
 			.subscribe(
 				_ => {
 					this.pending = false;
-					this.router.navigate(['']);
+					this.router.navigate(['user', 'create-a-team']);
 				},
 				e => {
 					this.pending = false;

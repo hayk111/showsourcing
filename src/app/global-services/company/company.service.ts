@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, ReplaySubject } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { combineLatest, ReplaySubject, Observable } from 'rxjs';
+import { map, shareReplay, tap, filter, switchMapTo, switchMap } from 'rxjs/operators';
 import { AuthStatus } from '~features/auth/interfaces';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
@@ -10,6 +10,7 @@ import { Company } from '~models';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { LocalStorageService } from '~shared/local-storage';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { GlobalService } from '~global-services/_global/global.service';
 
 
 const SELECTED_COMPANY_ID = 'selected-company-id';
@@ -17,7 +18,7 @@ const SELECTED_COMPANY_ID = 'selected-company-id';
 @Injectable({
 	providedIn: 'root'
 })
-export class CompanyService extends GlobalWithAuditService<Company> {
+export class CompanyService extends GlobalService<Company> {
 
 	defaultClient = Client.USER;
 
@@ -37,11 +38,10 @@ export class CompanyService extends GlobalWithAuditService<Company> {
 
 	constructor(
 		protected apolloState: ApolloStateService,
-		protected userSrv: UserService,
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService
 	) {
-		super(apolloState, CompanyQueries, 'company', 'companies', userSrv);
+		super(apolloState, CompanyQueries, 'company', 'companies');
 	}
 
 	init() {
@@ -64,10 +64,22 @@ export class CompanyService extends GlobalWithAuditService<Company> {
 		this.selectedCompany$.subscribe(company => this.companySync = company);
 	}
 
+	/** creates and picks it */
+	create(company: Company): Observable<any> {
+		return super.create(company).pipe(
+			switchMap(_ => this.pickCompany(company))
+		);
+	}
+
 	/** picks a company, puts the selection in local storage */
-	pickCompany(company: Company): void {
+	pickCompany(company: Company): Observable<Company> {
 		this.storage.setItem(SELECTED_COMPANY_ID, company.id);
 		this._selectedCompanyId$.next(company.id);
+
+		return this.hasCompanySelected$.pipe(
+			filter(has => has),
+			switchMapTo(this.selectedCompany$)
+		);
 	}
 
 	/** restore from local storage   */

@@ -19,8 +19,8 @@ export class UnauthGuardService implements CanActivate, CanActivateChild {
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
 		return this.authSrv.authStatus$.pipe(
-			filter(status => status !== AuthStatus.PENDING),
 			tap(status => log.debug('%c unauth guard status :', LogColor.GUARD, status)),
+			filter(status => status !== AuthStatus.PENDING),
 			tap(status => this.redirectOnAuthenticated(status)),
 			map(status => status === AuthStatus.NOT_AUTHENTICATED),
 		);
