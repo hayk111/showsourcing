@@ -67,6 +67,8 @@ export class KanbanItemCardComponent extends TrackingComponent implements OnInit
 	@Input() selectFromCard: boolean;
 	/** Whether a new content is displayed on hover */
 	@Input() enabledHoverContent: boolean;
+	/** Whether the product preview is accessibe from the card */
+	@Input() enablePreviewLink: boolean;
 
 	@Input() showCheckbox ? = true;
 	@Input() clickable ? = false;

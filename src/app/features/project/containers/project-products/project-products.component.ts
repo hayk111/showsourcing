@@ -56,12 +56,28 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	}
 
 	/**
+	 * Deassociate the product from the current project
+	 */
+	deassociateProductById(id: string) {
+		this.deassociateProductsWithProject([ { id } ]).subscribe();
+	}
+
+	/**
+	 * Deassociate the selected products from the current project
+	 */
+	deassociateSelectedProducts() {
+		const items = Array.from(this.selectionSrv.selection.keys());
+		this.deassociateProductsWithProject(items.map(id => ({ id }))).subscribe(() => {
+			this.resetSelection();
+		});
+	}
+	/**
 	 * Deassociate the selected product from the current project
 	 */
-	deassociateProduct(product: Product) {
-		this.featureSrv.manageProjectsToProductsAssociations([this.project], [], [product]).pipe(
+	deassociateProductsWithProject(products: Product[]) {
+		return this.featureSrv.manageProjectsToProductsAssociations([this.project], [], products).pipe(
 			tap(() => {
-				this.refetch({ query: this.filterList.asPredicate() });
+				this.refetch({ query: this.initialPredicate });
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',
@@ -69,7 +85,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 					timeout: 3500
 				});
 			})
-		).subscribe();
+		);
 	}
 
 	/**
@@ -79,7 +95,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	associatedProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
 		return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
 			tap(() => {
-				this.refetch({ query: this.filterList.asPredicate() });
+				this.refetch({ query: this.initialPredicate });
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',

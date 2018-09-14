@@ -43,6 +43,16 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		return this.productsResult.items$;
 	}
 
+	/** Refetch the statuses */
+	refreshStatuses(project: Project) {
+		if (this.productsResult) {
+			this.productsResult.refetch({
+				query: `projects.id == '${project.id}'`,
+				sortBy: 'lastUpdatedDate'
+			}).subscribe();
+		}
+	}
+
 	/**
 	 * Returns the product statuses including the associated products.
 	 *
@@ -51,7 +61,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	 *
 	 * A fake status is added with the products with no status since they
 	 * also have to be display in the kanban.
-	 * */
+	 */
 	getStatuses(project: Project, refresh = false) {
 		if (refresh && this.productsResult) {
 			this.productsResult.refetch({
