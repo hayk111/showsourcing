@@ -14,7 +14,7 @@ export class SelectParams {
 	/** sorting used */
 	sortBy: 'creationDate';
 	/** whether it's ASC or DESC */
-	descending: true;
+	descending = true;
 	/** how much items we request */
 	take = 15;
 
