@@ -127,6 +127,18 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.listResult.refetch(config).subscribe();
 	}
 
+	/**
+	 * refetchs the query and will merge with existing config
+	 */
+	refetchWithAllFilters() {
+		const allFilters = [
+			this.initialPredicate,
+			this.currentSearch,
+			this.filterList.asPredicate()
+		].filter(p => !!p).join(' AND ');
+		this.refetch({ query: allFilters });
+	}
+
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
 		this.listResult.fetchMore(this.items.length).subscribe();

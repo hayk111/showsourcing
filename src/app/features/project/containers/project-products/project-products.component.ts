@@ -77,7 +77,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	deassociateProductsWithProject(products: Product[]) {
 		return this.featureSrv.manageProjectsToProductsAssociations([this.project], [], products).pipe(
 			tap(() => {
-				this.refetch({ query: this.initialPredicate });
+				this.refetchWithAllFilters();
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',
@@ -95,7 +95,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	associatedProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
 		return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
 			tap(() => {
-				this.refetch({ query: this.initialPredicate });
+				this.refetchWithAllFilters();
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',
