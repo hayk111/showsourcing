@@ -19,7 +19,8 @@ export class InvitationUserQueries extends GlobalQueries {
 		accessType,
 		status,
 		inviterFirstName,
-		inviterLastName
+		inviterLastName,
+		teamName
 	`;
 
 	static readonly many = `
@@ -27,7 +28,8 @@ export class InvitationUserQueries extends GlobalQueries {
 		accessType,
 		status,
 		inviterFirstName,
-		inviterLastName
+		inviterLastName,
+		teamName
 	`;
 
 }
