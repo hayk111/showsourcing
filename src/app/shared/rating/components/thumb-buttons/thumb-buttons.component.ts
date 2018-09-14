@@ -204,7 +204,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 				voteIds.push(voteUser.id);
 			}
 		});
-		this.voteSrv.deleteMany(voteIds).subscribe();
+		voteIds.forEach(voteId => this.voteSrv.delete(voteId).subscribe());
 		this.multipleVotes.emit(mapVotes); // we do this to activate change detection on the product
 	}
 
