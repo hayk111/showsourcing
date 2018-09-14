@@ -138,7 +138,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	search(str: string) {
-		this.currentSearch = `name CONTAINS[c] "${str}"`;
+		this.currentSearch = str ? `name CONTAINS[c] "${str}"` : '';
 		this.onPredicateChange();
 	}
 
