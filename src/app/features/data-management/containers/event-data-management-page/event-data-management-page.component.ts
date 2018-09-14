@@ -28,4 +28,10 @@ export class EventDataManagementPageComponent extends AbstractDataManagementComp
 	) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.EVENT);
 	}
+
+	search(str: string) {
+		this.currentSearch = `description.name CONTAINS[c] "${str}"`;
+		this.onPredicateChange();
+	}
+
 }

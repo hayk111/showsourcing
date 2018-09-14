@@ -35,4 +35,8 @@ export class MemberFeatureService extends TeamUserService {
 		);
 	}
 
+	updateAccessType(members) {
+		return this.updateMany(members);
+	}
+
 }
