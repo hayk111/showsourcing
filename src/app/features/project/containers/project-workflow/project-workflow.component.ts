@@ -27,7 +27,8 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 })
 export class ProjectWorkflowComponent extends ListPageComponent<Product, ProductService>  implements OnInit {
 	project$: Observable<Project>;
-	statuses$ = new Subject<ProductStatus[]>();
+	// statuses$ = new Subject<ProductStatus[]>();
+	statuses$: Observable<ProductStatus[]>;
 	id: string;
 	project: Project;
 	/** keeps tracks of the current selection */
@@ -55,10 +56,10 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		this.project$ = this.projectSrv.queryOne(id);
 		this.project$.subscribe(project => this.project = project);
 
-		this.project$.pipe(
+		this.statuses$ = this.project$.pipe(
 			takeUntil(this._destroy$),
 			switchMap(project => this.workflowService.getStatuses(project))
-		).subscribe(statuses => this.statuses$.next(statuses));
+		);
 
 		this.selected$ = this.selectionSrv.selection$;
 	}
@@ -115,26 +116,25 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		});
 	}
 
-	/** Will show a confirm dialog to delete items selected */
-	deleteSelected() {
-		const items = Array.from(this.selectionSrv.selection.keys());
-		// callback for confirm dialog
-		const callback = () => {
-			this.productSrv.deleteMany(items).subscribe(() => {
-				this.resetSelection();
-			});
-		};
-		const text = `Delete ${items.length} ${items.length > 1 ? 'item' : 'items'} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
-	}
-
-	/** Unselect all entity */
-	resetSelection() {
-		this.selectionSrv.unselectAll();
-	}
-
 	getSelectedProducts() {
 		return Array.from(this.selectionSrv.selection.values());
+	}
+
+	/**
+	 * Deassociate the selected product from the current project
+	 */
+	deassociateProduct(product: Product) {
+		this.featureSrv.manageProjectsToProductsAssociations([this.project], [], [product]).pipe(
+			tap(() => {
+				this.workflowService.refreshStatuses(this.project);
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Products Updated',
+					message: 'The products were updated in the project with success',
+					timeout: 3500
+				});
+			})
+		).subscribe();
 	}
 
 	/**
@@ -143,15 +143,8 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 	 */
 	associateProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
 		return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
-			switchMap(() => {
-				return this.workflowService.getStatuses(this.project, true).pipe(
-					first(),
-					tap(statuses => {
-						this.statuses$.next(statuses);
-					})
-				);
-			}),
 			tap(() => {
+				this.workflowService.refreshStatuses(this.project);
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',

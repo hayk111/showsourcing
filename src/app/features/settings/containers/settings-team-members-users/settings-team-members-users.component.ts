@@ -1,18 +1,14 @@
-import { Component, OnInit, NgModuleRef } from '@angular/core';
+import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { zip } from 'rxjs';
-import { takeUntil, first } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
-import { NewTaskDlgComponent } from '~features/tasks';
+import { TeamService, UserService } from '~global-services';
 import { ERM, TeamUser, User } from '~models';
 import { DialogService } from '~shared/dialog';
-import { SearchService, FilterType } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-
-import { TeamService, UserService } from '~global-services';
-import { CreationDialogComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'settings-team-members-users-app',

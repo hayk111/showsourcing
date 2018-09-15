@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DataMananagementTableComponent } from '~features/data-management/components';
 import { DataManagementPageComponent } from '~features/data-management/containers';
@@ -11,7 +11,6 @@ import {
 import {
 	TagDataManagementPageComponent,
 } from '~features/data-management/containers/tag-data-management-page/tag-data-management-page.component';
-import { CreationDialogComponent, EditionDialogComponent, MergeDialogComponent } from '~shared/custom-dialog';
 import { SharedModule } from '~shared/shared.module';
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { TableModule } from '~shared/table';

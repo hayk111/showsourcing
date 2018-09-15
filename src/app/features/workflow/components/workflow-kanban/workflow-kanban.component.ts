@@ -47,9 +47,9 @@ export class WorkflowKanbanComponent extends TrackingComponent {
 
 
 
-  constructor(private kanbanSrv: KanbanService) {
-    super();
-  }
+	constructor(private kanbanSrv: KanbanService) {
+		super();
+	}
 
 	trackByFn(index, product) {
 		return product.id;

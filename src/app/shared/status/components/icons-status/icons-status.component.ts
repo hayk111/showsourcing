@@ -14,6 +14,10 @@ import { UserService } from '~global-services';
 export class IconsStatusComponent implements OnInit {
 
 	@Input() set product(product: Product) {
+		this.name = 'thumbs-up';
+		this.like = false;
+		this.dislike = false;
+		this.colorTxt = 'txt-secondary';
 		if (product)
 			this.userVote = (product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
 		if (this.userVote) {

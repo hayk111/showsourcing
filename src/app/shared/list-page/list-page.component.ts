@@ -127,6 +127,18 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.listResult.refetch(config).subscribe();
 	}
 
+	/**
+	 * refetchs the query and will merge with existing config
+	 */
+	refetchWithAllFilters() {
+		const allFilters = [
+			this.initialPredicate,
+			this.currentSearch,
+			this.filterList.asPredicate()
+		].filter(p => !!p).join(' AND ');
+		this.refetch({ query: allFilters });
+	}
+
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
 		this.listResult.fetchMore(this.items.length).subscribe();
@@ -138,7 +150,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	search(str: string) {
-		this.currentSearch = `name CONTAINS[c] "${str}"`;
+		this.currentSearch = str ? `name CONTAINS[c] "${str}"` : '';
 		this.onPredicateChange();
 	}
 
@@ -266,7 +278,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	deleteOne(itemId: string) {
 		// const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
 		const callback = () => {
-			this.featureSrv.delete(itemId).subscribe();
+		 	this.featureSrv.delete(itemId/*, refetchParams*/).subscribe();
 		};
 		const text = `Are you sure you want to delete this item?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
@@ -285,13 +297,11 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** When a product heart is clicked to unfavorite it */
 	onItemUnfavorited(id: string) {
-		console.log('  >> onItemUnfavorited');
 		this.update({ id, favorite: false } as any);
 	}
 
 	/** When we favorite all selected items, the items that are already favorited will stay the same */
 	onFavoriteAllSelected() {
-		console.log('>> onFavoriteAllSelected');
 		this.selectionItems().forEach(item => this.onItemFavorited(item.id));
 		this.allSelectedFavorite = true;
 	}

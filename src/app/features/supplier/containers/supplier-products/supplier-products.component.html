@@ -1,18 +1,33 @@
-    <sub-panel-app
-      [hasSwitch]="false"
-      [hasFilter]="false"
-      [buttonIcon]="false"
-      (search)="search($event)">
-    </sub-panel-app>
+<div *ngIf="(items$ | async)?.length; else empty" class="container">
+	<sub-panel-app
+		[hasSwitch]="false"
+		[hasFilter]="false"
+		[buttonIcon]="false"
+		(search)="search($event)">
+	</sub-panel-app>
+	<div class="title"> Products
+		<div class="num-products">{{ (items$ | async).length }} products</div>
+	</div>
+	<div class="products-section">
+		<ng-container *ngFor="let product of items$ | async; index as i; trackBy: trackById">
+			<product-grid-card-app
+				[class.mg-right]="(i+1)%4 === 0"
+				[product]="product"
+				[selection]="selected$ | async"
+				(productFavorite)="favorited.emit(product.id)"
+				(productUnfavorite)="unfavorited.emit(product.id)"
+				(productSelect)="select.emit(product)"
+				(productUnselect)="unselect.emit(product)">
+			</product-grid-card-app>
+		</ng-container>
+	</div>
+</div>
 
-    <products-card-view-app
-  		class="card-view"
-		  [rows]="products$ | async"
-		  [selection]="selected$ | async"
-		  (update)="update($event)"
-		  (select)="onItemSelected($event, true)"
-		  (unselect)="onItemUnselected($event, true)"
-		  (favorited)="onItemFavorited($event)"
-		  (unfavorited)="onItemUnfavorited($event)"
-		  (open)="goToDetails($event)"></products-card-view-app>
-
+<ng-template #empty>
+	<div class="empty flexCenter flexColumn">
+		<icon-app name="product" fontSet="svg"></icon-app>
+		<h1>Currently this supplier had no products associated</h1>
+		<!-- <h2>You can start adding products now</h2> -->
+		<!-- <button (click)="openCreateDlg(true)">Add Product</button> -->
+	</div>
+</ng-template>
