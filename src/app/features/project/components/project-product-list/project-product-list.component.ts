@@ -3,6 +3,8 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { Product, ERM } from '~models';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { ProductService } from '~global-services';
 
 @Component({
 	selector: 'project-product-list-app',
