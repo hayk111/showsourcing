@@ -10,7 +10,7 @@ export const routes: Array<Route> = [
 		component: WorkspaceComponent,
 		children: [
 			{ path: 'review', component: ReviewPageComponent },
-			{ path: 'my-products', component: MyProductsPageComponent },
+			{ path: 'my-workflow', component: MyProductsPageComponent },
 			{ path: 'my-tasks', component: MyTasksPageComponent },
 			{ path: '', redirectTo: 'review', pathMatch: 'full' }
 		],

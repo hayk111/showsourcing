@@ -24,7 +24,8 @@ export abstract class AbstractTaskCommonComponent extends ListPageComponent<Task
 	}
 
 	ngAfterViewInit() {
-		this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
+		// this is in case we need to filter by date again
+		// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
 		this.filterList.addFilter({ type: FilterType.DONE, value: false });
 	}
 
@@ -38,10 +39,10 @@ export abstract class AbstractTaskCommonComponent extends ListPageComponent<Task
 
 	toggleDoneTasks(show: boolean) {
 		if (show) {
-			this.filterList.removeFilterType(FilterType.DUE_DATE);
+			// this.filterList.removeFilterType(FilterType.DUE_DATE);
 			this.filterList.removeFilterType(FilterType.DONE);
 		} else {
-			this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
+			// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
 			this.filterList.addFilter({ type: FilterType.DONE, value: false });
 		}
 	}
