@@ -1,24 +1,33 @@
 <card-app>
-
-  <ng-container *ngIf="team$ | async as team">
-    <h2>{{ team?.name }}</h2>
-    <h4>{{ team?.ownerUser?.firstName }} {{ team?.ownerUser?.lastName }}</h4>
-  </ng-container>
+	<h2>{{ (team$ | async)?.name || 'Unnamed Team'}}</h2>
+	<h4>{{ (team$ | async)?.ownerUser?.firstName }} {{ (team$ | async)?.ownerUser?.lastName }}</h4>
   <divider-app></divider-app>
 
-  <div *ngFor="let member of members$ | async; trackBy: trackByFn; last as last" class="flex member" [class.last]="last">
-    <user-picture-app [user]="member.user" [border]="true"></user-picture-app>
-    <div class="flexColumn">
-      <span class="name flex">
-				{{ member?.user?.firstName }} {{ member?.user?.lastName}}
-				<div *ngIf="(team$ | async)?.ownerUser && member.user?.id === (team$ | async)?.ownerUser?.id"
-					class="team-leader">Team Leader</div>
-      </span>
-      <span>{{ member.user.email }}</span>
-    </div>
-  </div>
+  <ng-container *ngIf="(team$ | async) && (members$ | async)?.length > 0; else empty">
+		<div *ngFor="let member of members$ | async; trackBy: trackByFn" class="flex member">
+			<user-picture-app [user]="member.user" [border]="true"></user-picture-app>
+			<div class="flexColumn">
+				<span class="name flex">
+					{{ member?.user?.firstName }} {{ member?.user?.lastName}}
+					<div *ngIf="(team$ | async)?.ownerUser && member.user?.id === (team$ | async)?.ownerUser?.id"
+						class="team-leader">Team Leader</div>
+				</span>
+				<span>{{ member.user.email }}</span>
+			</div>
+		</div>
 
-  <card-footer-app>
-    <button (click)="inviteTeam.emit()">Invite team members</button>
-  </card-footer-app>
+		<card-footer-app>
+			<button (click)="inviteTeam.emit()">Invite team members</button>
+		</card-footer-app>
+	</ng-container>
+
+
+	<ng-template #empty>
+		<span class="no-team">No Team Members</span>
+
+		<card-footer-app>
+			<button (click)="inviteTeam.emit()">Invite team members</button>
+		</card-footer-app>
+	</ng-template>
+
 </card-app>
