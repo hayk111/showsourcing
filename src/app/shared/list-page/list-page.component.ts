@@ -86,7 +86,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	protected setItems() {
 		this.listResult = this.featureSrv.getListQuery({
 			query: this.initialPredicate,
-			sortBy: this.initialSortBy
+			sortBy: this.initialSortBy,
+			descending: false
 		});
 
 		this.items$ = this.listResult.items$.pipe(
@@ -278,7 +279,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	deleteOne(itemId: string) {
 		// const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
 		const callback = () => {
-		 	this.featureSrv.delete(itemId/*, refetchParams*/).subscribe();
+			this.featureSrv.delete(itemId/*, refetchParams*/).subscribe();
 		};
 		const text = `Are you sure you want to delete this item?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });

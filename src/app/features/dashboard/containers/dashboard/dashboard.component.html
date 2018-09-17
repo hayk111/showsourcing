@@ -1,7 +1,13 @@
 
 <div class="ctnr">
 	<div class="left">
-		<grouped-feed-list-app [feedResult]="feedResult"></grouped-feed-list-app>
+		<grouped-feed-list-app *ngIf="(feedResult?.feed$ | async)?.length > 0; else empty" [feedResult]="feedResult"></grouped-feed-list-app>
+		<ng-template #empty>
+			<div class="empty flexCenter flexColumn">
+				<icon-app name="home-project-menu-light" fontSet="svg"></icon-app>
+				<h1>There is no recent activity</h1>
+			</div>
+		</ng-template>
 		<ng-template #spinner>
 			<spinner-app></spinner-app>
 		</ng-template>

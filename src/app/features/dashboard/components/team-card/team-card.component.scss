@@ -8,8 +8,8 @@ user-picture-app {
 	color: var(--color-txt-strong);
 }
 
-.member:not(.last) {
-	margin: var(--spacing-l) 0;
+.member {
+	margin: var(--spacing-l) 0px;
 }
 
 h2 {
@@ -35,4 +35,13 @@ card-footer-app {
 		font-weight: 600;
 		line-height: 1.43;
 	}
+}
+
+.no-team {
+	font-size: var( --font-size-xxxl);
+	color: var(--color-txt-strong);
+	font-weight: 600;
+	display: flex;
+	justify-content: center;
+	margin: var(--spacing-xl) 0px;
 }

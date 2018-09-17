@@ -22,3 +22,26 @@ activity-list-app {
 .right {
 	width: 400px;
 }
+
+.empty {
+	padding-top: 120px;
+	padding-right: 300px;
+
+	icon-app {
+		cursor: default;
+		font-size: 210px;
+	}
+	h1 {
+		font-family: 'Source Sans Pro', sans-serif;
+		margin-top: var(--spacing-l);
+		margin-bottom: var(--spacing-s);
+	}
+	h2 {
+		font-family: 'Source Sans Pro', sans-serif;
+		margin-bottom: var(--spacing-xl);
+	}
+
+	button {
+		width: 200px;
+	}
+}
