@@ -4,12 +4,13 @@ form-field-app {
 	flex-grow: 1;
 }
 
-.twoLine input, :host.twoLine input {
+
+.twoLine input, .twoLine input {
 	padding: 3px;
 	font-size: var(--font-size-l);
 }
 
-.oneLine input, :host.oneLine input {
+.oneLine input, .oneLine input {
 	padding: 4px 1px 4px 6px;
 	border: none;
 }

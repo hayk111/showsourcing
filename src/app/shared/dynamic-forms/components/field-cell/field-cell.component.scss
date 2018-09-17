@@ -1,6 +1,7 @@
 :host {
 	box-sizing: border-box;
 	display: block;
+
 	.content {
 		font-size: var(--font-size-m);
 		color: var(--color-txt-primary);
@@ -21,7 +22,7 @@
 	 3. field cell one line with bottom
 	 4. field cell one line without bottom
 	*/
-	&.doubleLine {
+	&.twoLine {
 		margin-bottom: 16px;
 		// label is always the same size
 		.labelCtnr {
@@ -32,10 +33,6 @@
 		}
 		.content {
 			width: 100%;
-		}
-
-		&.isClosed {
-			// border-bottom: 1px solid var(--color-secondary);
 		}
 
 		&.isOpen {
@@ -57,8 +54,8 @@
 				min-height: 37px;
 			}
 		}
-
 	}
+
 	&.oneLine {
 		display: flex;
 		justify-content: space-between;

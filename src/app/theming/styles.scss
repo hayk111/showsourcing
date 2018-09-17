@@ -1,5 +1,3 @@
-@import './fontName';
-
 @import './browser-fixes';
 @import './spacing';
 @import './palette';
@@ -12,4 +10,7 @@
 
 @import './selectors.scss';
 @import './global.scss';
+
+@import '../shared/dynamic-forms/components/dynamic-form.scss';
+
 

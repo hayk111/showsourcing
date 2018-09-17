@@ -43,9 +43,6 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-	}
 
 	ngAfterViewInit() {
 		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {

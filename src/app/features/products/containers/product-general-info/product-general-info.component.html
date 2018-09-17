@@ -30,13 +30,6 @@
 			({{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}})
 		</div>
 	</div>
-	<!-- <editable-text-app #edt (saved)="savePrice(inpPrice.value)" (opened)="inpPrice.focus()">
-		<editable-label-app>
-			{{ priceAmount | currency: product?.price?.currency:'symbol':'1.2-2'}}
-		</editable-label-app>
-		<input inputApp restrictIn type="text" #inpPrice [value]="product.name"
-			(keyup.enter)="savePrice(inpPrice.value); edt.close()">
-	</editable-text-app> -->
 
 	<!-- description -->
 	<div class="description">

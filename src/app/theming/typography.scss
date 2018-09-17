@@ -13,6 +13,9 @@
   --font-size-xxl: 20px;
 	--font-size-xxxl: 24px;
 	--font-size-huge: 30px;
+	--font-normal: 'Source Sans Pro', Roboto, sans-serif;
+	--font-title: 'Raleway', sans-serif;
+
 }
 
 .fs-xxs {
@@ -65,7 +68,7 @@
 
 /* body 1 */
 body, .body, .body1 {
-  font-family: 'Source Sans Pro', -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 	color: var(--color-txt-primary);
 	font-size: var(--font-size-m);
 	// seems like the commented line below might do some weird stuff

@@ -13,14 +13,14 @@
 }
 
 h2 {
-  font-family: 'Raleway', sans-serif;
+	font-family: var(--font-title);
   font-size: var(--font-size-l);
 	font-weight: 600;
 	margin-bottom: var(--spacing-xs);
 }
 
 h3 {
-  font-family: 'Source Sans Pro', sans-serif;
+	font-family: var(--font-normal);
 	font-size: var(--font-size-m);
 	margin-bottom: var(--spacing-ms);
 }
@@ -33,7 +33,7 @@ h3 {
 	}
 
 	.amount {
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: var(--font-normal);
 		font-size: 40px;
 		width: 80px;
 	}

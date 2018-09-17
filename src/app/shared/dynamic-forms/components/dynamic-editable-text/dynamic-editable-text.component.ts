@@ -11,6 +11,7 @@ import {
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 
 /**
  * Component that selects the correct input and display it as an editable text
@@ -39,6 +40,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	@Output() open = new EventEmitter<null>();
 	/** blur event for onTouchedFn */
 	@Output() blur = new EventEmitter<null>();
+	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** editable field ref, used to close it programmatically */
 	@ViewChild('editable') editable: EditableTextComponent;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
