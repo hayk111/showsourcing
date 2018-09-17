@@ -9,7 +9,7 @@ export class Event extends EntityWithAudit<EventConfig> {
 
 	constructor(config: EventConfig) {
 		super(config);
-		this.description = new EventDescription(config.description || { name: this.name });
+		this.description = new EventDescription(config.description || { name: this.name, global: false, supplierCount: 0 });
 	}
 }
 
