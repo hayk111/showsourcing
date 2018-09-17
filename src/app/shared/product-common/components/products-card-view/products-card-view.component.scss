@@ -18,8 +18,7 @@
 
 .sectionTitle {
 	font-weight: bold;
-	margin-top: 30px;
-	margin-bottom: 0px;
+	margin: var(--spacing-l) 0px;
 	font-size: 20px;
 	text-transform: capitalize;
 	color: var(--color-txt-strong);
