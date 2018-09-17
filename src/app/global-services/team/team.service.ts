@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject, combineLatest } from 'rxjs';
-import { map, switchMap, tap, filter, shareReplay, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap, tap, filter, shareReplay, distinctUntilChanged, switchMapTo } from 'rxjs/operators';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Team } from '~models';
 
@@ -73,8 +73,10 @@ export class TeamService extends GlobalService<Team> {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return super.create(team).pipe(
-			switchMap(_ => this.waitForOne(`id == "${team.id}" AND status == "active"`)),
+		return this.authSrv.userId$.pipe(
+			tap(userId => team.ownerUser = { id: userId }),
+			switchMapTo(super.create(team)),
+			switchMapTo(this.waitForOne(`id == "${team.id}" AND status == "active"`)),
 			tap(_ => this.pickTeam(team))
 		);
 	}

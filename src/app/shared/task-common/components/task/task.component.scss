@@ -38,17 +38,17 @@
 
 	.task-user-status, .task-user {
 
-		user-picture-app, selector-entity-app {
-			margin-right: var(--spacing-s);
-		}
 		user-picture-app {
+			margin-right: var(--spacing-s);
 			font-size: var(--font-size-xs);
 		}
 
 		selector-entity-app {
+			width: 220px;
 			margin-top: -12px;
 			top: 7px;
 			position: relative;
+			margin-right: 0px;
 		}
 	}
 
