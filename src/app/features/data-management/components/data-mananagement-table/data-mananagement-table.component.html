@@ -52,17 +52,19 @@
 		sortBy="productsCount"
 		width="140">
 		<span>
+			{{row.productsCount}}
 		</span>
 	</ng-template>
 
 	<!-- Supplier Count -->
 	<ng-template *ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
-		columnApp="Suppliers Count"
-		let-row="row"
-		sortBy="suppliersCount"
-		width="140">
-		<span>
-		</span>
+	columnApp="Suppliers Count"
+	let-row="row"
+	sortBy="suppliersCount"
+	width="140">
+	<span>
+		{{row.suppliersCount}}
+	</span>
 	</ng-template>
 
 	<!-- Start Date (Event only) -->

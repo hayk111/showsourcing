@@ -16,7 +16,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly images = `images { id, fileName, orientation }`;
 	static readonly attachments = `attachments { id, fileName, url }`;
 	static readonly contacts = `contacts { id, name, phoneNumber, email, jobTitle businessCardImage { id, fileName } }`;
-	static readonly productsCount = `productsCount:  _count(type: "Product", field: "supplier.id", query:"archived == false")`;
+	// tslint:disable-next-line:max-line-length
+	static readonly productsCount = `productsCount:  _count(type: "Product", field: "supplier.id", query:"archived == false AND deleted == false")`;
 
 	static readonly one = `
 			name,
