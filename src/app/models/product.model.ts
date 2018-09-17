@@ -39,7 +39,6 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	archived ?= false;
 	taskCount?: number;
 	productCount?: number;
-	projectCount ?= 0;
 	projects?: Project[];
 	__typename ?= 'Product';
 

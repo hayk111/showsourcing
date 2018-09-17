@@ -31,7 +31,7 @@
 		(unfavorited)="onItemUnfavorited($event)"
 		(bottomReached)="loadMore()"
 		(sort)="sort($event)"
-		(delete)="deassociateProductsById($event)">
+		(delete)="deassociateProductById($event)">
 	</project-product-list-app>
 
 	<selection-bar-app
@@ -58,7 +58,14 @@
 				<icon-app fontSet="svg" name="trash-bin" size="m"></icon-app>
 			</button>
 		</action-bar-app>
-	</selection-bar-app>
+  </selection-bar-app>
+  <product-preview-app
+  *ngIf="previewOpen"
+  [product]="previewed"
+  (close)="closePreview()"
+  (clickOutside)="closePreview()">
+
+</product-preview-app>
 </ng-container>
 
 

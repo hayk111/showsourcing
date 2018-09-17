@@ -14,7 +14,7 @@ export function makeAccessorProvider(type: any) {
 // The goal of this class is to abstract the value accessor implementation
 export class AbstractInput extends TrackingComponent implements ControlValueAccessor {
 	@Input() value: any = '';
-	protected disabled: boolean;
+	public disabled: boolean; //  Only public and protected methods of the base class are accessible via the 'super' keyword
 	protected onTouchedFn: Function = () => { };
 	protected onChangeFn: Function = () => { };
 

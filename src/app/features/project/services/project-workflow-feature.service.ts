@@ -189,7 +189,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		// removing
 		projects = projects.filter(project => !removedProjects.some(p => p.id === project.id));
 
-		return this.update({ id: product.id, projects }, ['projects { id }']);
+		return this.update({ id: (typeof product.id === 'undefined' ? product : product.id), projects }, ['projects { id }']);
 	}
 
 }
