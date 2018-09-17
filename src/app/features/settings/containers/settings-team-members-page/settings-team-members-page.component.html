@@ -5,7 +5,7 @@
 	buttonName="Create New Team"
 	[buttonIcon]="false"
 	[withNav]="true"
-	(buttonClick)="openNewTeamDialog()">
+	(buttonClick)="redirectNewTeamScreen()">
 
 	<nav class="flex">
 		<span (click)="displayTab('team-members')" [ngClass]="{ active: (selectedTab === 'team-members') }">Team Members</span>
