@@ -14,10 +14,10 @@
 				<div class="text">Selection</div>
 				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'FullAccess' })">
+			<context-menu-item-app (click)="updateAccessTypeSelected({ accessType: 'FullAccess' })">
 				Team Member
 			</context-menu-item-app>
-			<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'ReadOnly' })">
+			<context-menu-item-app (click)="updateAccessTypeSelected({ accessType: 'ReadOnly' })">
 				Contributor
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
@@ -41,8 +41,8 @@
 		(unselect)="onItemUnselected($event)"
 		(selectAll)="selectAll($event)"
 		(unselectAll)="resetSelection()"
-		(accessTypeUpdated)="accessTypeUpdated($event)"
-		(delete)="deleteOneMember($event)">
+		(accessTypeUpdated)="updateAccessType($event)"
+		(delete)="deleteOne($event)">
 	</team-members-list-view-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">

@@ -7,7 +7,7 @@ import { take, takeUntil, catchError, tap, switchMap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { environment } from 'environments/environment';
 import { UserService } from '~global-services';
-import { Invitation } from '~models';
+import { InvitationUser } from '~models';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -20,7 +20,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 })
 export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	connected: boolean;
-	invitation: Invitation;
+	invitation: InvitationUser;
 	client: Client;
 
 	constructor(
@@ -43,6 +43,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 				return this.invitationSrv.getInvitation(invitationId);
 			})
 		).subscribe(({ invitation, client }) => {
+			console.log('>> invitation = ', invitation);
+			console.log('>> client = ', client);
 			if (invitation.id) {
 				// An invitation is found
 				this.invitation = invitation;
@@ -80,7 +82,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 				message: 'The invitation was refused',
 				timeout: 3500
 			});
-	});
+		});
 	}
 
 }

@@ -21,6 +21,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 export class InviteUserDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	pending = false;
+	callback: Function;
 
 	constructor(private dlgSrv: DialogService,
 		private invitationSrv: InvitationFeatureService,
@@ -42,7 +43,10 @@ export class InviteUserDlgComponent extends AutoUnsub {
 			this.invitationSrv.createInvitation(email)
 				.subscribe(() => {
 		 			this.pending = false;
-		 			this.dlgSrv.close();
+					this.dlgSrv.close();
+					if (this.callback) {
+						this.callback();
+					}
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
 						title: 'Invitation Sent',

@@ -14,6 +14,7 @@ export * from '~global-services/team-user/team-user.service';
 export * from '~global-services/image-upload-request/image-upload-request.service';
 export * from '~global-services/file-upload-request/file-upload-request.service';
 export * from '~global-services/invitation/invitation.service';
+export * from '~global-services/invitation-user/invitation-user.service';
 export * from '~global-services/user/user.service';
 export * from '~global-services/show/show.service';
 export * from '~global-services/external-request/external-request.service';

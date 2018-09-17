@@ -1,5 +1,6 @@
 <table-app
   [rows]="rows"
+  [contextualMenu]="contextualMenuTemplate"
 	[pending]="pending"
 	[selected]="selection"
 	[selectionDisabled]="true"
@@ -10,6 +11,15 @@
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)">
+
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row.id)"
+			i18n="invitation menu | delete">
+			Delete
+		</context-menu-item-app>
+	</ng-template>
 
 	<!-- email -->
 	<ng-template

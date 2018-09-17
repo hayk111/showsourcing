@@ -60,7 +60,7 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 		this.currentSearch = `user.lastName CONTAINS[c] "${str}" ` +
 			`OR user.firstName CONTAINS[c] "${str}" ` +
 			`OR user.email CONTAINS[c] "${str}"`;
-		this.onPredicateChange();
+		this.refetchWithAllFilters();
 	}
 
 	/** Opens the dialog for inviting a new user */
@@ -68,4 +68,18 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef);
 	}
 
+	updateAccessType({ member, accessType}: { member: TeamUser, accessType: string }) {
+		this.memberSrv.updateAccessType([ { id: member.id, accessType } ]).subscribe(() => {
+			this.refetchWithAllFilters();
+			this.resetSelection();
+		});
+	}
+
+	updateAccessTypeSelected({ accessType }) {
+		const items = Array.from(this.selectionSrv.selection.keys());
+		this.memberSrv.updateAccessType(items.map(item => ({ id: item, accessType }))).subscribe(() => {
+			this.refetchWithAllFilters();
+			this.resetSelection();
+		});
+	}
 }

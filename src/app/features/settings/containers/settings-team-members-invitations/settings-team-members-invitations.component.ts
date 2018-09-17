@@ -60,7 +60,10 @@ export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<I
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef);
+		const callback = () => {
+			this.refetchWithAllFilters();
+		};
+		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef, { callback });
 	}
 
 }
