@@ -26,7 +26,7 @@ export class SettingsTeamMembersPageComponent {
 
 	/** Opens the dialog for creating a new team */
 	redirectNewTeamScreen() {
-		this.router.navigate(['../../../user/create-a-team'], { relativeTo: this.route });
+		this.router.navigate(['user','create-a-team']);
 	}
 
 }
