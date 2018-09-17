@@ -33,7 +33,7 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly comments = `comments { id, text, ${ProductQueries.createdBy}, creationDate }`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
-
+	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, fileName }}`;
 	// This is the default selection when using selectOne or queryOne
 	static readonly one = `
 			name,
@@ -62,6 +62,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.packaging('masterCarton')}
 			${ProductQueries.priceMatrix}
 			${ProductQueries.createdBy}
+			${ProductQueries.assignee}
 			`;
 
 	static readonly many = `

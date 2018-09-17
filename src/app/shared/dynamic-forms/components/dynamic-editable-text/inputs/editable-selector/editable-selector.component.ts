@@ -23,6 +23,7 @@ export class EditableSelectorComponent extends AbstractInput {
 	@Input() isShowLabel: true;
 	@Input() inlineLabel: string;
 	@Input() customField: CustomField;
+	@Input() closeOnOutsideClick: boolean;
 	@Output() opened = new EventEmitter();
 	@Output() closed = new EventEmitter();
 	@Output() change = new EventEmitter<null>();

@@ -1,8 +1,8 @@
-<field-cell-app [isOpen]="!isOpen" [isShowLabel]="isShowLabel" [inlineLabel]="inlineLabel" [canGrow]="customField.multiple">
+<field-cell-app [isOpen]="isOpen" [isShowLabel]="isShowLabel" [inlineLabel]="inlineLabel" [canGrow]="customField.multiple">
 	<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
 	<!-- entity selector -->
 	<ng-container *ngIf="customField.metadata.type === 'entity'">
-		<editable-text-app #editable
+		<editable-text-app #editable [isOpen]="isOpen" [closeOnOutsideClick]="closeOnOutsideClick"
 			(closed)="closed.emit()" [hasAction]="false" (opened)="opened.emit()">
 
 			<!-- multiple value label -->

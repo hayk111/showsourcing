@@ -9,6 +9,9 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
 	templateUrl: './editable-text.component.html',
 	styleUrls: ['./editable-text.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class.open]': 'isOpen'
+	}
 })
 export class EditableTextComponent implements OnInit {
 	@Input() value;
@@ -29,7 +32,7 @@ export class EditableTextComponent implements OnInit {
 	@ContentChild(SelectorEntityComponent) selectorEntity: SelectorEntityComponent;
 	@ContentChild(InputDirective) input: InputDirective;
 
-	isOpen = false;
+	@Input() isOpen = false;
 
 	constructor(private cd: ChangeDetectorRef) { }
 

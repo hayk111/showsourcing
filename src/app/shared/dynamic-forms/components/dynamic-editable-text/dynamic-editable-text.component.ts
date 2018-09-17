@@ -31,6 +31,8 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 })
 export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
 	@Input() customField: CustomField;
+	/** whether the field is currently open */
+	@Input() isOpen: boolean;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
 	/** when the editable field opens */
@@ -43,8 +45,6 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 
 	@Input() isShowLabel = true;
 	accumulator: string;
-	/** whether the editable is open */
-	isOpen = false;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);

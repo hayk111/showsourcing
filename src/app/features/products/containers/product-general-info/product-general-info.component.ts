@@ -20,7 +20,7 @@ import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq
 	styleUrls: ['./product-general-info.component.scss'],
 })
 export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
-
+	// whether the form is open
 	product$: Observable<Product>;
 	product: Product;
 	descriptor$: Observable<FormDescriptor>;
@@ -42,15 +42,15 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'price', type: 'price' },
 		// { name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
 		{
-			name: 'createdBy', label: 'Assignee', type: 'selector',
+			name: 'assignee', label: 'Assignee', type: 'selector',
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
-		{
-			name: 'event', label: 'Found at', type: 'selector',
-			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true }
-		},
+		// {
+		// 	name: 'event', label: 'Found at', type: 'selector',
+		// 	metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true }
+		// },
 		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name', canCreate: true }, multiple: true },
 
 	];
@@ -101,23 +101,28 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			.subscribe(product => this.updateProduct(product));
 	}
 
-	updateProduct(product: Product) {
+	updateProduct(product: Product, fields?: string) {
 		product.id = this.product.id;
 		this.srv.update(product).subscribe();
 	}
 
 	saveDescription(description: string) {
-		this.updateProduct({ description });
+		this.updateProduct({ description }, 'description');
 	}
 
-	cancel() {
-		this.editable.close();
-		this.textarea.nativeElement.value = this.product.description;
+	saveName(name: string) {
+		this.updateProduct({ name }, 'name');
 	}
+
 
 	openRfq() {
 		// we add manually the supplier self email, since it is not on the contacts
 		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product });
 	}
+
+	get priceAmount() {
+		return (this.product && this.product.price) ? (this.product.price.value / 10000) : '-';
+	}
+
 
 }

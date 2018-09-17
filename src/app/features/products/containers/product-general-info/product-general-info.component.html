@@ -1,7 +1,16 @@
 <card-app>
+	<!-- product name -->
 	<div class="mainTitle shipping flex"
 		i18n="div title|Product general information@@productGeneralInfo_general">
-		{{ product?.name || 'Unnamed Product' }}
+
+		<editable-text-app #edt (saved)="saveName(inpName.value)" (opened)="inpName.focus()">
+			<editable-label-app>
+				{{ product?.name || 'Unnamed Product' }}
+			</editable-label-app>
+			<input inputApp type="text" #inpName [value]="product.name"
+				(keyup.enter)="saveName(inpName.value); edt.close()">
+		</editable-text-app>
+
 		<icons-status-app
 			class="flexCenter"
 			[product]="product"
@@ -10,17 +19,29 @@
 			[hasPercent]="false">
 		</icons-status-app>
 	</div>
+
+	<!-- price -->
 	<div class="flex price">
+
 		<div *ngIf="product?.price?.value" class="amount">
-			{{ product?.price.value | currency: product?.price?.currency:'symbol':'1.2-2'}}
+			{{ priceAmount | currency: product?.price?.currency:'symbol':'1.2-2'}}
 		</div>
 		<div *ngIf="product?.price?.value" class="moq flexCenter">
 			({{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}})
 		</div>
 	</div>
+	<!-- <editable-text-app #edt (saved)="savePrice(inpPrice.value)" (opened)="inpPrice.focus()">
+		<editable-label-app>
+			{{ priceAmount | currency: product?.price?.currency:'symbol':'1.2-2'}}
+		</editable-label-app>
+		<input inputApp restrictIn type="text" #inpPrice [value]="product.name"
+			(keyup.enter)="savePrice(inpPrice.value); edt.close()">
+	</editable-text-app> -->
+
+	<!-- description -->
 	<div class="description">
 		<div class="description-title">Description</div>
-		<editable-text-app #editable [closeOnOutsideClick]="false" (saved)="saveDescription(txt.value)">
+		<editable-text-app (saved)="saveDescription(txt.value)">
 			<editable-label-app *ngIf="product?.description; else noDesc">
 				{{ product.description }}
 			</editable-label-app>
@@ -34,6 +55,7 @@
 		</editable-text-app>
 	</div>
 
+	<!-- dynamic forms -->
 	<div class="title-information">Product Information</div>
 
 	<ng-container *ngIf="descriptor$ | async as descriptor">
@@ -41,18 +63,10 @@
 			[inlineLabel]="false"
 			(formCreated)="onFormCreated($event)"
 			[descriptor]="descriptor"
-			[editable]="true"
 			[colAmount]="2">
 		</dynamic-form-app>
 	</ng-container>
 
-	<card-footer-app>
-		<button *ngIf="!editable.isOpen; else closed" class="secondary-light" (click)="editable.open()">Edit</button>
-		<ng-template #closed>
-			<button class="light" (click)="cancel()">Cancel</button>
-		</ng-template>
-		<!-- <button (click)="openRfq()">Send RFQ to Supplier</button> -->
-	</card-footer-app>
 </card-app>
 
 <card-app>
@@ -68,6 +82,7 @@
 	<ng-container *ngIf="descriptor2$ | async as descriptor">
 		<dynamic-form-app (formCreated)="onFormCreated($event)"
 			[inlineLabel]="true"
-			[descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
+			[descriptor]="descriptor"
+			[colAmount]="2"></dynamic-form-app>
 	</ng-container>
 </card-app>
