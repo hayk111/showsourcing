@@ -3,6 +3,8 @@ import { Product, Contact } from '~models';
 import { InputDirective } from '~shared/inputs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogService } from '~shared/dialog';
+import { ProductFeatureService } from '~features/products/services';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'rfq-dialog-app',
@@ -20,15 +22,13 @@ export class RfqDialogComponent implements AfterViewInit, OnInit {
 	index = 0;
 	selected = new Map<number, Contact>();
 
-	@Input() set contacts(contacts: Array<Contact>) {
-		this._contacts = contacts ? contacts : [];
-	}
 	@Input() product: Product;
 	@ViewChild(InputDirective) input: InputDirective;
 
-	private _contacts: Array<Contact>;
+	_contacts: Array<Contact>;
 
 	constructor(
+		private productSrv: ProductFeatureService,
 		private fb: FormBuilder,
 		private dlgSrv: DialogService) { }
 
@@ -41,10 +41,21 @@ export class RfqDialogComponent implements AfterViewInit, OnInit {
 		this.emailGroup = this.fb.group({
 			email: ['', [Validators.required, Validators.email]]
 		});
+
+		this.productSrv.getContacts(this.product.supplier.id).pipe(
+			first()
+		).subscribe(supp => this._contacts = supp.contacts);
 	}
 
 	ngAfterViewInit() {
 		this.input.focus();
+		if (this._contacts && this.product.supplier.officeEmail) {
+			this._contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
+		} else if (!this._contacts && this.product.supplier.officeEmail) {
+			this._contacts = [{ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null }];
+		} else {
+			this._contacts = [];
+		}
 	}
 
 	onSubmit() {
@@ -76,9 +87,9 @@ export class RfqDialogComponent implements AfterViewInit, OnInit {
 		this.copyEmail = this.copyEmail ? false : true;
 	}
 
-	selectMail(index: Array<any>) {
+	selectMail(item: any) {
 		// 0 is the position in the selection and 1 is the contact
-		this.selected.set(index[0], index[1]);
+		this.selected.set(item.index, item.contact);
 	}
 
 	unSelectMail(i: any) {

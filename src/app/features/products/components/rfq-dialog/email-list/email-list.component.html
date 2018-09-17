@@ -6,7 +6,7 @@
 	<div *ngFor="let contact of contacts; index as i; last as lst;trackBy: trackByFn" class="mail-container" [class.no-divider]="lst && contacts.length > 3">
 		<checkbox-app
 		#checkbox
-		(check)="onSelectMail.emit([i, contact])"
+		(check)="onSelectMail.emit({index: i, contact: contact})"
 		(uncheck)="onUnselectMail.emit(i)"
 		[checked]="selected.has(i)">
 		</checkbox-app>

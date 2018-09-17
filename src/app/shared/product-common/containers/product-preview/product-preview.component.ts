@@ -27,8 +27,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	descriptor2$ = new ReplaySubject<FormDescriptor>(1);
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
-	/** Contacts given a supplier of the product */
-	contacts: Array<Contact>;
 	prodERM = ERM.PRODUCT;
 
 	// those are the custom fields for the first form section
@@ -83,9 +81,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			map(product => new FormDescriptor(this.customFields2, product))
 		).subscribe(this.descriptor2$);
-		/* this.featureSrv.getContacts(this.product.supplier.id).pipe(
-			takeUntil(this._destroy$)
-		).subscribe(supp => this.contacts = supp.contacts); */
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
@@ -104,23 +99,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openRfq() {
-		// TODO: contacts must be loaded from the RfqDialog itself
-		// we add manually the supplier self email, since it is not on the contacts
-		/* if (this.contacts && this.product.supplier.officeEmail) {
-			this.contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
-		} else if (!this.contacts && this.product.supplier.officeEmail) {
-			this.contacts = [{
-				name: this.product.supplier.name || 'Unnamed',
-				email: this.product.supplier.officeEmail,
-				jobTitle: null
-			}];
-		}
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.module,
-			{
-				product: this.product,
-				contacts: this.contacts
-			});
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product, contacts: this.contacts }); */
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product });
 	}
 
 	onViewProduct() {
