@@ -1,16 +1,18 @@
 
 <div class="ctnr">
 	<div class="left">
-		<grouped-feed-list-app *ngIf="(feedResult?.feed$ | async)?.length > 0; else empty" [feedResult]="feedResult"></grouped-feed-list-app>
-		<ng-template #empty>
-			<div class="empty flexCenter flexColumn">
-				<icon-app name="home-project-menu-light" fontSet="svg"></icon-app>
-				<h1>There is no recent activity</h1>
-			</div>
-		</ng-template>
-		<ng-template #spinner>
-			<spinner-app></spinner-app>
-		</ng-template>
+		<ng-container *ngIf="feedResult?.feed$ | async as feed">
+			<grouped-feed-list-app *ngIf="feed.length > 0; else empty" [feedResult]="feedResult"></grouped-feed-list-app>
+			<ng-template #spinner>
+				<spinner-app></spinner-app>
+			</ng-template>
+			<ng-template #empty>
+				<div class="empty flexCenter flexColumn">
+					<icon-app name="home-project-menu-light" fontSet="svg"></icon-app>
+					<h1>There is no recent activity</h1>
+				</div>
+			</ng-template>
+		</ng-container>
 	</div>
 	<div class="right">
 		<dashboard-summary-app

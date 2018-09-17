@@ -16,8 +16,8 @@ export class EmailListComponent extends TrackingComponent implements OnInit {
 	@Output() onUnselectMail = new EventEmitter<any>();
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() { }
 

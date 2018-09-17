@@ -19,7 +19,7 @@ import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq
 	templateUrl: './product-general-info.component.html',
 	styleUrls: ['./product-general-info.component.scss'],
 })
-export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	product$: Observable<Product>;
 	product: Product;
@@ -65,7 +65,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit, Af
 	];
 
 	typeEntity = ERM.PRODUCT;
-	contacts: Array<Contact>;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -88,12 +87,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit, Af
 		this.descriptor2$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields2, product))
 		);
-	}
-
-	ngAfterViewInit() {
-		this.srv.getContacts(this.product.supplier.id).pipe(
-			first()
-		).subscribe(supp => this.contacts = supp.contacts);
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
@@ -124,12 +117,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit, Af
 
 	openRfq() {
 		// we add manually the supplier self email, since it is not on the contacts
-		if (this.contacts && this.product.supplier.officeEmail) {
-			this.contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
-		} else if (!this.contacts && this.product.supplier.officeEmail) {
-			this.contacts = [{ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null }];
-		}
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product, contacts: this.contacts });
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product });
 	}
 
 }

@@ -17,7 +17,7 @@
       <span class="amount">{{ counters?.productsNeedReview }}</span>
       <div class="flexColumn">
         <span class="taskType">Product Need review</span>
-        <span><a>Review Products</a></span>
+        <span><a [routerLink]="['/workspace']" routerLinkActive="active">Review Products</a></span>
       </div>
     </div>
 
@@ -27,19 +27,19 @@
       <div class="flexColumn">
         <span class="taskType">Products in progress</span>
         <span>
-          <a>To my workspace</a>
+          <a [routerLink]="['/workspace/my-products']" routerLinkActive="active">To my workspace</a>
         </span>
       </div>
     </div>
 
 
-    <div class="flexVAlign">
+    <!-- <div class="flexVAlign">
       <span class="amount">{{ counters?.suppliersUnderAssessment }}</span>
       <div class="flexColumn desc">
         <span class="taskType">Supplier to assess</span>
         <span><a>To my workspace</a></span>
       </div>
-    </div>
+    </div> -->
 
 
   </div>
@@ -53,7 +53,7 @@
   <ng-container *ngFor="let task of tasks; trackBy: trackByFn; last as last">
 		<div class="flexVAlign user-tasks" [class.last]="last">
 			<icon-app [name]="task.done ? 'check-green-round' : 'check-empty-round'" fontSet="svg" (click)="toggleDoneStatus(task)"></icon-app>
-			<user-picture-app [size]="14" [user]="task.createdBy"></user-picture-app>
+			<user-picture-app [size]="14" [user]="task.assignee"></user-picture-app>
 			<div class="flexCenter" [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}">{{ task?.name || 'Unnamed task' }}</div>
 		</div>
   </ng-container>
