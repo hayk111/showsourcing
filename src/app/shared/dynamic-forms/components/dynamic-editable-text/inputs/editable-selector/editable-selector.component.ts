@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { CustomField } from '~shared/dynamic-forms';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
@@ -30,8 +30,16 @@ export class EditableSelectorComponent extends AbstractInput {
 	@Output() blur = new EventEmitter<null>();
 	@ViewChild('editable') editable: EditableTextComponent;
 	@ViewChild('selector') selector: any;
+	@ViewChild('oneValueLabel') oneLabel: TemplateRef<any>;
+	@ViewChild('multipleValuesLabel') manyLabel: TemplateRef<any>;
+
+
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
+	}
+
+	getLabelTemplate() {
+		return this.customField.multiple ? this.manyLabel : this.oneLabel;
 	}
 
 	/** check if a value is empty */
@@ -50,13 +58,13 @@ export class EditableSelectorComponent extends AbstractInput {
 		this.onChange();
 	}
 
+	preventPropagation(event: MouseEvent) {
+		event.stopPropagation();
+	}
+
 	onChange() {
 		this.onChangeFn(this.value);
 		this.change.emit();
-	}
-
-	onOpen() {
-		setTimeout(_ => this.selector.open());
 	}
 
 	onBlur() {
