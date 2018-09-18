@@ -29,6 +29,7 @@
 		<!-- user -->
 		<div class="flexVAlign" *ngSwitchCase="'user'">
 			<user-picture-app
+				*ngIf="value"
 				class="user-icon"
 				size="20"
 				[user]="value"
@@ -42,7 +43,7 @@
 
 		<!-- others we display an icon and the value next to it -->
 		<ng-container *ngSwitchDefault>
-			<img class="selectorIcon"
+			<img class="defaultLabelIcon"
 				*ngIf="(value | logo:customField.metadata.target) && !inlineLabel"
 				[src]="value | logo:customField.metadata.target" />
 			<span *ngSwitchDefault>

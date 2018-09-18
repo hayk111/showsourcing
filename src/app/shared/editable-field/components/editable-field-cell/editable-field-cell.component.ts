@@ -41,7 +41,8 @@ export class EditableFieldCellComponent {
 		if (this.editOnClick) {
 			this.isOpen = true;
 			this.editable.open();
-			this.opened.emit();
+			// we send the event once the thing is actually opened
+			setTimeout(_ => this.opened.emit());
 		}
 	}
 
@@ -49,7 +50,7 @@ export class EditableFieldCellComponent {
 		if (this.closeOnOutsideClick) {
 			this.isOpen = false;
 			this.editable.close();
-			this.closed.emit();
+			setTimeout(_ => this.closed.emit());
 		}
 	}
 }
