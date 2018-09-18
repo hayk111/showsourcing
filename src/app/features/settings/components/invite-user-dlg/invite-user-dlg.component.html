@@ -10,7 +10,7 @@
 		</form-field-app>
 
 		<dialog-footer-app class="fullWidth flexCenter flexBetween">
-			<button class="small" type="button" (click)="submit()">INVITE</button>
+			<button [disabled]="!form.valid" class="small" type="button" (click)="submit()">Invite</button>
 		</dialog-footer-app>
 	</dialog-app>
 </form>

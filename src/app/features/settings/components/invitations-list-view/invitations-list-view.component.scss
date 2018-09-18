@@ -1,7 +1,8 @@
 :host {
 	display: flex;
-	margin: var(--spacing-l) var(--spacing-l);
-	height: calc(100% - 340px);
+	margin: 0px var(--spacing-l);
+	height: calc(100% - 305px);
+	padding-bottom: var(--spacing-l);
 }
 
 .member a {
