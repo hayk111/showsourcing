@@ -4,7 +4,7 @@ import { GlobalQueries } from '~global-services/_global/global-queries.class';
 export abstract class EventQueries extends GlobalQueries {
 
 	static readonly one = `
-		id
+		name
 		description {
 			id
 			name
@@ -29,27 +29,29 @@ export abstract class EventQueries extends GlobalQueries {
 	`;
 
 	static readonly many = `
-	description {
-		id
 		name
-		description
-		startDate
-		endDate
-		supplierCount
-		logoImage {
-			id
-			fileName
-		}
-		primaryColor
-		secondaryColor
-		venue {
+		description {
 			id
 			name
-			country
-			addressFull
-			city
+			description
+			startDate
+			endDate
+			supplierCount
+			logoImage {
+				id
+				fileName
+			}
+			primaryColor
+			secondaryColor
+			venue {
+				id
+				name
+				country
+				addressFull
+				city
+			}
 		}
-	}`;
+	`;
 
 
 
