@@ -1,4 +1,4 @@
-	<context-menu-app *ngIf="entity?.status; else noStatus" [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}">
+	<context-menu-app *ngIf="entity?.status?.status; else noStatus" [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}">
 
 		<context-menu-trigger-app class="flex {{selectSize}}">
 			<status-badge-app *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [status]="entity.status.status" [size]="selectSize"></status-badge-app>
@@ -26,7 +26,7 @@
 			</context-menu-trigger-app>
 
 			<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
-				<status-badge-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)"></status-badge-app>
+				<status-badge-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)" [typeEntity]="typeEntity"></status-badge-app>
 			</context-menu-item-app>
 
 		</context-menu-app>

@@ -67,7 +67,7 @@ export abstract class AbstractApolloClient {
  	* to create the uri we need to concatena every parts we got from different DB's.
 	*/
 	protected getUri(port: number | string, hostName: string, path: string): string {
-		return `wss://${hostName}:${port}/graphql${path}`;
+		return `wss://${hostName}:${port}/graphql${path.startsWith('/') ? path : '/' + path}`;
 	}
 
 	/**
