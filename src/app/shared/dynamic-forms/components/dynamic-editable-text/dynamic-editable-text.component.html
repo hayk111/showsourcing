@@ -4,21 +4,22 @@
 	<!-- hint: field cell is used for almost every field, but options differs (packaging) -->
 	<!-- hint: when the field is open the border bottom should disappear -->
 	<editable-field-cell-app
+		#editable
 		*ngSwitchDefault
-		[inlineLabel]="inlineLabel">
+		[inlineLabel]="inlineLabel"
+		(closed)="onSave()"
+		(opened)="onOpen(); inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
 			{{ customField.value || '-' }}
 		</editable-label-app>
 		<form-field-app>
-			<input #inp
-				inputApp
-				autofocus="true"
+			<input #inp inputApp
 				[value]="customField.value"
+				[type]="customField.type"
 				(input)="accumulate(inp.value)"
-				(keyup.enter)="editable.close();"
-				[type]="customField.type"/>
+				(keyup.enter)="editable.close();"/>
 		</form-field-app>
 	</editable-field-cell-app>
 

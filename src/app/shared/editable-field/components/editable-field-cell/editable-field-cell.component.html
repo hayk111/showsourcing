@@ -11,7 +11,6 @@
     <editable-text-app
       (saved)="saved.emit()"
       (canceled)="canceled.emit()"
-      [isOpen]="isOpen"
       [closeOnOutsideClick]="false">
       <!-- using ngProjectAs so it's caught by the nested ng-content select -->
       <ng-content select="editable-label-app" ngProjectAs="editable-label-app"></ng-content>

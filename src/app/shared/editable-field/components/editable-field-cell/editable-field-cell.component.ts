@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, HostListener, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
 
 @Component({
 	selector: 'editable-field-cell-app',
@@ -31,12 +32,15 @@ export class EditableFieldCellComponent {
 	@Output() closed = new EventEmitter<null>();
 	@Output() saved = new EventEmitter<null>();
 	@Output() canceled = new EventEmitter<null>();
+
+	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
 	isOpen = false;
 
 	@HostListener('click')
 	open() {
 		if (this.editOnClick) {
 			this.isOpen = true;
+			this.editable.open();
 			this.opened.emit();
 		}
 	}
@@ -44,6 +48,7 @@ export class EditableFieldCellComponent {
 	close() {
 		if (this.closeOnOutsideClick) {
 			this.isOpen = false;
+			this.editable.close();
 			this.closed.emit();
 		}
 	}
