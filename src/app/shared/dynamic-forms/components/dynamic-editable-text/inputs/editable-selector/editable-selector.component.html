@@ -24,12 +24,13 @@
 
 
 <!-- one value, label template -->
+<!-- hint: we don't display icons when using inlineLabel -->
 <ng-template #oneValueLabel>
 	<ng-container [ngSwitch]="customField.metadata.target">
 		<!-- user -->
 		<div class="flexVAlign" *ngSwitchCase="'user'">
 			<user-picture-app
-				*ngIf="value"
+				*ngIf="value && !inlineLabel"
 				class="user-icon"
 				size="20"
 				[user]="value"

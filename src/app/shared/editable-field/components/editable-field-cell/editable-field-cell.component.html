@@ -1,5 +1,5 @@
 
-<div (clickOutside)="close()">
+<div class="ctnr" (clickOutside)="close()">
 
   <!-- label -->
   <div class="labelCtnr" *ngIf="hasLabel">
@@ -7,7 +7,7 @@
   </div>
 
   <!-- editable part -->
-  <div class="content fullWidth">
+  <div class="content">
     <editable-text-app
       (saved)="saved.emit()"
       (canceled)="canceled.emit()"
