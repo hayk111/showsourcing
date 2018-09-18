@@ -20,11 +20,11 @@ import { SearchService } from '~shared/filters';
 
 
 @Component({
-	selector: 'workspace-my-products-page-app',
-	templateUrl: './my-products-page.component.html',
-	styleUrls: ['./my-products-page.component.scss']
+	selector: 'workspace-my-workflow-page-app',
+	templateUrl: './my-workflow-page.component.html',
+	styleUrls: ['./my-workflow-page.component.scss']
 })
-export class MyProductsPageComponent extends ListPageComponent<Product, WorkspaceFeatureService> implements OnInit {
+export class MyWorkflowPageComponent extends ListPageComponent<Product, WorkspaceFeatureService> implements OnInit {
 
 	statuses$ = new Subject<ProductStatus[]>();
 	/** keeps tracks of the current selection */
