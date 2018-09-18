@@ -1,0 +1,25 @@
+
+<div class="flex flexVAlign">
+	<span class="currencyLabel txtBtn pointer" (click)="showCurrencySelector()">
+		{{ currency | const:'currency':'id' }}
+	</span>
+
+	<input #inp inputApp type="text"
+		restrictInput="decimal"
+		[(ngModel)]="amount"
+		(keyup.enter)="enter.emit()"
+		(change)="onChange()"
+		(blur)="onBlur()"/>
+</div>
+
+
+<selector-const-app
+	*ngIf="currencySelectorShown"
+	class="rightSelector"
+	[type]="'currency'"
+	[multiple]="false"
+	[(ngModel)]="currency"
+	(clickOutside)="hideCurrencySelector()"
+	(change)="onCurrencyChange()"
+	(blur)="onBlur()">
+</selector-const-app>

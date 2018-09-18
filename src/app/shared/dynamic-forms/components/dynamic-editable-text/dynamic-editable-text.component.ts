@@ -59,6 +59,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 
 	/** saves the value because an user might cancel */
 	accumulate(value: any) {
+		debugger;
 		this.accumulator = value;
 	}
 

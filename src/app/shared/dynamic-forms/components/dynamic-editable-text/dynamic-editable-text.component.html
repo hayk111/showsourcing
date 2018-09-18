@@ -10,13 +10,13 @@
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
-			{{ customField.value || '-' }}
+			{{ value || '-' }}
 		</editable-label-app>
 		<form-field-app>
 			<input
 				#inp
 				inputApp
-				[value]="customField.value"
+				[value]="value"
 				[type]="customField.type"
 				(input)="accumulate(inp.value)"
 				(keyup.enter)="editable.close();"/>
@@ -31,13 +31,13 @@
 		(closed)="onSave()"
 		(opened)="onOpen(); inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>{{ customField.value || '-' }}</editable-label-app>
+		<editable-label-app>{{ value || '-' }}</editable-label-app>
 		<form-field-app>
 			<input inputApp
 				#inp
 				restrictInput="tel"
 				autofocus="true"
-				[value]="customField.value"
+				[value]="value"
 				(input)="accumulate(inp.value)"
 				(keyup.enter)="editable.close();"
 				[type]="customField.type"/>
@@ -52,13 +52,13 @@
 		(closed)="onSave()"
 		(opened)="onOpen(); inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>{{ customField.value || '-' }}</editable-label-app>
+		<editable-label-app>{{ value || '-' }}</editable-label-app>
 		<form-field-app>
 			<input inputApp
 				#inp
 				restrictInput="number"
 				autofocus="true"
-				[value]="customField.value"
+				[value]="value"
 				(input)="accumulate(+inp.value)"
 				(keyup.enter)="editable.close();"
 				[type]="customField.type"/>
@@ -73,13 +73,13 @@
 		(closed)="onSave()"
 		(opened)="onOpen(); inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>{{ customField.value || '-' }}</editable-label-app>
+		<editable-label-app>{{ value || '-' }}</editable-label-app>
 		<form-field-app>
 			<input inputApp
 				#inp
 				restrictInput="decimal"
 				autofocus="true"
-				[value]="customField.value"
+				[value]="value"
 				(input)="accumulate(+inp.value)"
 				(keyup.enter)="editable.close();"
 				[type]="customField.type"/>
@@ -88,18 +88,18 @@
 
 	<!-- days -->
 	<editable-field-cell-app
-		*ngSwitchCase="'decimal'"
+		*ngSwitchCase="'days'"
 		#editable
 		[inlineLabel]="inlineLabel"
 		(closed)="onSave()"
 		(opened)="onOpen(); inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>{{ customField.value || '-' }} days</editable-label-app>
+		<editable-label-app>{{ value || '-' }} days</editable-label-app>
 		<form-field-app>
 			<input inputApp
 				#inp
 				autofocus="true"
-				[value]="customField.value"
+				[value]="value"
 				(input)="accumulate(+inp.value)"
 				(keyup.enter)="editable.close();"
 				[type]="'number'"/>
@@ -114,16 +114,39 @@
 		(closed)="onSave()"
 		(opened)="onOpen(); inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app style="white-space: pre-line">{{ customField.value || '-' }}</editable-label-app>
+		<editable-label-app style="white-space: pre-line">{{ value || '-' }}</editable-label-app>
 		<form-field-app>
 			<textarea
 				inputApp
 				#inp
 				autofocus="true"
-				[value]="customField.value"
+				[value]="value"
 				(input)="accumulate(inp.value)">
 			</textarea>
 		</form-field-app>
+	</editable-field-cell-app>
+
+	<!-- price -->
+	<editable-field-cell-app
+		*ngSwitchCase="'price'"
+		#editable
+		[inlineLabel]="inlineLabel"
+		(closed)="onSave()"
+		(opened)="onOpen(); inp.select()">
+		<label-app>{{ customField.label || customField.name }}</label-app>
+		<editable-label-app>
+			<span *ngIf="value.currency">{{ value?.currency | const : 'currency' : 'symbol'}} </span>
+			<span>{{ value && value.amount !== undefined ? value.amount : '-' }}</span>
+		</editable-label-app>
+		<input-price-app #inp (enter)="editable.close()" (change)="accumulate(inp.value)"></input-price-app>
+
+		<!-- <editable-price-app
+			[(ngModel)]="value"
+			(change)="onChange()"
+			(open)="onOpen()"
+			(close)="onClose()"
+			[inlineLabel]="inlineLabel"
+			[customField]="customField"></editable-price-app> -->
 	</editable-field-cell-app>
 
 	<!-- yesNo -->
@@ -136,17 +159,6 @@
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<span class="txtBtn" (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span>
 	</editable-field-cell-app>
-	<!-- price -->
-	<field-cell-app	*ngSwitchCase="'price'"	[isOpen]="isOpen" [inlineLabel]="inlineLabel">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-price-app
-			[(ngModel)]="value"
-			(change)="onChange()"
-			(open)="onOpen()"
-			(close)="onClose()"
-			[inlineLabel]="inlineLabel"
-			[customField]="customField"></editable-price-app>
-	</field-cell-app>
 
 	<!-- price matrix -->
 	<ng-container *ngSwitchCase="'priceMatrix'">

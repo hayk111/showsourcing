@@ -23,14 +23,5 @@
 		<span *ngIf="!inlineLabel" class="currencyLabel2 pointer" (click)="showCurrencySelector()">
 			{{ currency | const:'currency':'id' }}
 		</span>
-		<selector-const-app
-			*ngIf="currencySelectorShown"
-			(clickOutside)="hideCurrencySelector()"
-			class="rightSelector"
-			[multiple]="false"
-			[(ngModel)]="value.currency"
-			[type]="'currency'"
-			(change)="onCurrencyChange()"
-			(blur)="onBlur()">
-		</selector-const-app>
+
 	</div>
