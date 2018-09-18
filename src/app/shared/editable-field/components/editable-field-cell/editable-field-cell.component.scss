@@ -10,12 +10,6 @@
 		}
 	}
 
-	editable-text-app {
-		font-size: var(--font-size-m);
-		color: var(--color-txt-primary);
-		align-items: center;
-	}
-
 	/**
 	there are 4 padding cases:
 		1. field cell double line with bottom
@@ -24,33 +18,34 @@
 		4. field cell one line without bottom
 	*/
 	&.twoLine {
+		height: 67px;
+		min-height: 67px;
 		padding-top: 16px;
 		padding-bottom: 10px;
-		// when the input has a fixed height
-		&.cannotGrow {
-			height: 67px;
-			.content {
-				height: 37px;
-			}
-		}
 
-		&.canGrow {
-			min-height: 51px;
-			.content {
-				min-height: 37px;
-			}
-		}
 		// label is always the same size
 		.labelCtnr {
 			height: 18px;
+			margin-bottom: 3px;
 			line-height: 1;
 			font-size: var(--font-size-m);
 			color: var(--color-txt-secondary);
-			font-weight: normal;
+			font-weight: 600;
 			text-transform: capitalize;
 		}
+
 		.content {
+			min-height: 20px;
+			line-height: 1;
 			width: 100%;
+			font-size: var(--font-size-l);
+			color: var(--color-txt-strong);
+		}
+		// when the input has a fixed height
+		&.cannotGrow {
+			.content {
+				height: 20px;
+			}
 		}
 
 		&.isOpen {

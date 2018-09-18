@@ -16,30 +16,5 @@ for the whole thing.
 	}
 }
 
-dynamic-form-app {
-
-	field-cell-app {
-		display: block;
-		cursor: pointer;
-		&.twoLine {
-			input {
-				padding: 3px;
-				font-size: var(--font-size-l);
-			}
-			editable-label-app {
-				min-width: 20px;
-				font-size: var(--font-size-l);
-			}
-
-		}
-		&.oneLine {
-			input {
-				padding: 4px 1px 4px 6px;
-				border: none;
-			}
-		}
-	}
-}
-
 
 
