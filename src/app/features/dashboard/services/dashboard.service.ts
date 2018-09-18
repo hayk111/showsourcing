@@ -66,7 +66,7 @@ export class DashboardService {
 	}
 
 	getFirstFewTasks(): Observable<Task[]> {
-		return this.taskSrv.queryMany({ take: 3, query: 'deleted == false' }).pipe();
+		return this.taskSrv.queryMany({ take: 3, query: 'deleted == false AND done == false', descending: false }).pipe();
 	}
 
 	updateTask(task: Task) {

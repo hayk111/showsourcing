@@ -44,7 +44,7 @@ Using in :
 - products-page
 - project-workflow
 - supliers-page
-- my-products-page
+- my-workflow-page
 - one-product-activity-card
 - product-grid
 - projects-page

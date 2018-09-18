@@ -58,6 +58,7 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 	}
 
 	updateAssignee(user: User) {
+		this.toggleSelector(false);
 		this.updateTask.emit({ ...this.task, assignee: user });
 	}
 
