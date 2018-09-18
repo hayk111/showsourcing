@@ -6,7 +6,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./editable-label.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditableLabelComponent implements OnInit {
+export class EditableValueComponent implements OnInit {
 
 	constructor() { }
 

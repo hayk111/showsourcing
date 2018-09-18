@@ -1,34 +1,27 @@
 :host {
 	box-sizing: border-box;
 	display: block;
+	// when closed and on hover
+	&.closed:hover {
+		background: var(--color-secondary-light);
+		cursor: pointer;
+		editable-text-app {
+			color: var(--color-primary);
+		}
+	}
 
-	.content {
+	editable-text-app {
 		font-size: var(--font-size-m);
 		color: var(--color-txt-primary);
 		align-items: center;
 	}
 
-	.labelCtnr {
-		font-weight: bold;
-		font-size: var(--font-size-s);
-		color: var(--color-txt-primary);
-		text-transform: capitalize;
-		display: block;
-	}
-
-	&:hover {
-		background: var(--color-secondary-light);
-		cursor: pointer;
-		.content {
-			color: var(--color-primary);
-		}
-	}
 	/**
 	there are 4 padding cases:
-	 1. field cell double line with bottom
-	 2. field cell double line without bottom
-	 3. field cell one line with bottom
-	 4. field cell one line without bottom
+		1. field cell double line with bottom
+		2. field cell double line without bottom
+		3. field cell one line with bottom
+		4. field cell one line without bottom
 	*/
 	&.twoLine {
 		margin-bottom: 16px;
@@ -38,6 +31,7 @@
 			font-size: var(--font-size-m);
 			color: var(--color-txt-secondary);
 			font-weight: normal;
+			text-transform: capitalize;
 		}
 		.content {
 			width: 100%;
@@ -48,7 +42,7 @@
 				align-items: flex-end;
 			}
 		}
-		// when the input has a fixed size
+		// when the input has a fixed height
 		&.cannotGrow {
 			height: 51px;
 			.content {
@@ -79,6 +73,8 @@
 		.labelCtnr {
 			font-size: var(--font-size-m);
 			font-weight: 600;
+			color: var(--color-txt-secondary);
+			text-transform: capitalize;
 		}
 		.content {
 			color: var(--color-txt-secondary);
@@ -86,8 +82,4 @@
 		}
 	}
 }
-
-
-
-
 

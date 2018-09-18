@@ -9,8 +9,9 @@ import { UserPictureModule } from '~shared/user-picture';
 import { IconsModule } from '~shared/icons/icons.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import { UtilsModule } from '~shared/utils/utils.module';
-import { EditableLabelComponent } from '~shared/editable-field/components/editable-label/editable-label.component';
+import { EditableValueComponent } from '~shared/editable-field/components/editable-label/editable-label.component';
 import { ImageModule } from '~shared/image/image.module';
+import { EditableFieldCellComponent } from './components/editable-field-cell/editable-field-cell.component';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -24,7 +25,15 @@ import { ImageModule } from '~shared/image/image.module';
 		UtilsModule, // click outside directive used
 		ImageModule
 	],
-	declarations: [EditableTextComponent, EditableLabelComponent],
-	exports: [EditableTextComponent, EditableLabelComponent],
+	declarations: [
+		EditableTextComponent,
+		EditableValueComponent,
+		EditableFieldCellComponent
+	],
+	exports: [
+		EditableTextComponent,
+		EditableValueComponent,
+		EditableFieldCellComponent
+	],
 })
 export class EditableFieldModule { }

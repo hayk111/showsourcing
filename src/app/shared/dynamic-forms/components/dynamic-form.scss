@@ -1,16 +1,26 @@
 /**
 
-Imported as global css in app/theming/styles
+Imported as global css in app/theming/styles,
+
+the css of dynamic form can take many form and since there is many components at play
+it becomes really hard to maintain the styling in separate files. We need an overall css
+for the whole thing.
 
 */
 
-dynamic-form-app {
+/** overriding the default padding of form field */
+[override] dynamic-form-app {
 	form-field-app {
 		padding-bottom: 0;
 		flex-grow: 1;
 	}
+}
+
+dynamic-form-app {
 
 	field-cell-app {
+		display: block;
+		cursor: pointer;
 		&.twoLine {
 			input {
 				padding: 3px;
@@ -18,12 +28,9 @@ dynamic-form-app {
 			}
 			editable-label-app {
 				min-width: 20px;
-				color: var(--color-txt-strong)!important;
 				font-size: var(--font-size-l);
-				&:not(.mult-tags):hover {
-					color: var(--color-primary)!important;
-				}
 			}
+
 		}
 		&.oneLine {
 			input {

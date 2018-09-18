@@ -1,0 +1,24 @@
+
+<div (clickOutside)="close()">
+
+  <!-- label -->
+  <div class="labelCtnr" *ngIf="hasLabel">
+    <ng-content select="label-app"></ng-content>
+  </div>
+
+  <!-- editable part -->
+  <div class="content flexVAlign fullWidth">
+    <editable-text-app
+      (saved)="saved.emit()"
+      (canceled)="canceled.emit()"
+      [isOpen]="isOpen"
+      [closeOnOutsideClick]="false">
+      <!-- using ngProjectAs so it's caught by the nested ng-content select -->
+      <ng-content select="editable-label-app" ngProjectAs="editable-label-app"></ng-content>
+      <ng-content></ng-content>
+    </editable-text-app>
+  </div>
+
+</div>
+
+

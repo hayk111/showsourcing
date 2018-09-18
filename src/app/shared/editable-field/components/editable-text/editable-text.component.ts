@@ -14,7 +14,6 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
 	}
 })
 export class EditableTextComponent implements OnInit {
-	@Input() value;
 	/** Whether click on the value should open the editor */
 	@Input() editOnClick = true;
 	@Input() closeOnOutsideClick = true;

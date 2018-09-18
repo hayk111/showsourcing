@@ -3,22 +3,24 @@
 	<!-- default -->
 	<!-- hint: field cell is used for almost every field, but options differs (packaging) -->
 	<!-- hint: when the field is open the border bottom should disappear -->
-	<field-cell-app *ngSwitchDefault [isOpen]="isOpen" [inlineLabel]="inlineLabel">
-		<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
+	<editable-field-cell-app
+		*ngSwitchDefault
+		[inlineLabel]="inlineLabel">
+		<label-app>{{ customField.label || customField.name }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
-		<editable-text-app #editable (closed)="onSave()" [isOpen]="isOpen" (opened)="onOpen()">
-			<editable-label-app>{{ customField.value || '-' }}</editable-label-app>
-			<form-field-app>
-				<input #inp
-					inputApp
-					autofocus="true"
-					[value]="customField.value"
-					(input)="accumulate(inp.value)"
-					(keyup.enter)="editable.close();"
-					[type]="customField.type"/>
-			</form-field-app>
-		</editable-text-app>
-	</field-cell-app>
+		<editable-label-app>
+			{{ customField.value || '-' }}
+		</editable-label-app>
+		<form-field-app>
+			<input #inp
+				inputApp
+				autofocus="true"
+				[value]="customField.value"
+				(input)="accumulate(inp.value)"
+				(keyup.enter)="editable.close();"
+				[type]="customField.type"/>
+		</form-field-app>
+	</editable-field-cell-app>
 
 	<!-- tel (restricted input)-->
 	<field-cell-app *ngSwitchCase="'tel'" [isOpen]="isOpen" [inlineLabel]="inlineLabel">

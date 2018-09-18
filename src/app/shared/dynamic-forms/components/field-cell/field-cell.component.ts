@@ -14,7 +14,6 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 		'[class.isClosed]': '!isOpen',
 		'[class.canGrow]': 'canGrow',
 		'[class.cannotGrow]': '!canGrow',
-
 	}
 })
 export class FieldCellComponent implements OnInit {
