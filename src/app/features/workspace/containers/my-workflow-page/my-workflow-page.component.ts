@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
+import { map, switchMap, tap, first, takeUntil, take } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProjectService } from '~global-services';
 import { ERM, Product, Project, ProductStatus, ProductVote } from '~models';
@@ -48,7 +48,7 @@ export class MyWorkflowPageComponent extends ListPageComponent<Product, Workspac
 		super.ngOnInit();
 
 		this.workspaceSrv.getStatuses().pipe(
-			takeUntil(this._destroy$)
+			take(1)
 		).subscribe(statuses => {
 			this.statuses$.next(statuses);
 		});
