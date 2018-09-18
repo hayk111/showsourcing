@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, 
 import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
 
 @Component({
-	selector: 'editable-field-cell-app',
-	templateUrl: './editable-field-cell.component.html',
-	styleUrls: ['./editable-field-cell.component.scss'],
+	selector: 'editable-field-app',
+	templateUrl: './editable-field.component.html',
+	styleUrls: ['./editable-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.flexBetween]': 'inlineLabel',
@@ -17,7 +17,7 @@ import { EditableTextComponent } from '~shared/editable-field/components/editabl
 		'[class.cannotGrow]': '!canGrow',
 	}
 })
-export class EditableFieldCellComponent {
+export class EditableFieldComponent {
 	/** whether the label is above or inlined */
 	@Input() inlineLabel = false;
 	/** whether the input has a fixed height */

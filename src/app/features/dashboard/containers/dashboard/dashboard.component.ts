@@ -25,7 +25,6 @@ export class DashboardComponent implements OnInit {
 	user$: Observable<User>;
 	counters$: Observable<DashboardCounters>;
 	tasks$: Observable<Task[]>;
-	price2 = { value: 100000, currency: 'USD' };
 
 	constructor(
 		private router: Router,

@@ -25,8 +25,6 @@ import { FormsModule } from '@angular/forms';
 		DialogModule,
 		CustomDialogModule,
 		RatingModule,
-		InputsCustomModule,
-		FormsModule
 	],
 	declarations: [DashboardComponent, SummaryComponent, TeamCardComponent, EventsCardComponent],
 	providers: [

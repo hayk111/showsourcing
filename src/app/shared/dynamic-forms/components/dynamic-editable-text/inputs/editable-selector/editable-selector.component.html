@@ -1,6 +1,6 @@
 
 <!-- const selector -->
-<editable-field-cell-app
+<editable-field-app
 	*ngIf="customField.metadata.type === 'const'; else entitySelector"
 	#editable
 	[inlineLabel]="inlineLabel"
@@ -19,11 +19,11 @@
 		(blur)="onBlur()"
 		(click)="preventPropagation($event)">
 	</selector-const-app>
-</editable-field-cell-app>
+</editable-field-app>
 
 <!-- entity selector -->
 <ng-template #entitySelector>
-	<editable-field-cell-app
+	<editable-field-app
 		#editable
 		[inlineLabel]="inlineLabel"
 		[hasAction]="false"
@@ -43,7 +43,7 @@
 			(blur)="onBlur()"
 			(click)="preventPropagation($event)">
 		</selector-entity-app>
-	</editable-field-cell-app>
+	</editable-field-app>
 </ng-template>
 
 
