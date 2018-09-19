@@ -1,0 +1,78 @@
+<card-app padding="ms">
+	<ng-container *ngIf="supplier$ | async; else spinner">
+		<!-- user -->
+		<activity-user-app
+			[user]="supplier.createdBy"
+			[time]="supplier.creationDate"
+			[action]="title">
+		</activity-user-app>
+
+		<!-- preview  -->
+		<one-activity-carousel-app
+			[images]="supplier?.images">
+		</one-activity-carousel-app>
+
+		<!-- actions on buttons -->
+		<div class="action-section flexBetween">
+			<action-bar-app
+					[favorite]="supplier?.favorite"
+					[hasLikes]="false"
+					(onFavorite)="onFavorite()"
+					(onUnfavorite)="onUnfavorite()">
+			</action-bar-app>
+			<div class="right flex">
+				<button class="light" (click)="onViewSupplier()">Open Supplier</button>
+				<!-- <button class="icon light">
+					<icon-app fontSet="svg" name="3-dots-vertical"></icon-app>
+				</button> -->
+			</div>
+		</div>
+
+		<!-- information of the supplier -->
+		<div class="flexColumn suppInfo">
+			<span class="name">{{ supplier?.name }}</span>
+			<div class="flex status-info flexWrap">
+				<span *ngIf="supplier?.description">
+					{{ supplier?.description }}
+				</span>
+				<span *ngIf="supplier?.country && supplier?.city">
+					{{ supplier?.country + ', ' + supplier?.city }}
+				</span>
+				<span *ngIf="supplier?.country && !supplier?.city">
+					{{ supplier?.country }}
+				</span>
+				<span *ngIf="!supplier?.country && supplier?.city">
+					{{ supplier?.city }}
+				</span>
+				<span *ngIf="supplier?.comments?.length > 0">
+					{{ supplier?.comments?.length }} comment{{ supplier?.comments?.length > 1 ? 's' : '' }}
+				</span>
+			</div>
+			<div class="badges flex flexWrap">
+				<status-badge-app
+					size="mini"
+					[round]="true"
+					[typeEntity]="typeEntity"
+					[status]="supplier?.status?.status">
+				</status-badge-app>
+				<info-badge-app *ngFor="let category of supplier?.categories; trackBy: trackByFn" type="category">{{ category.name }}</info-badge-app>
+				<info-badge-app *ngFor="let tag of supplier?.tags; trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
+			</div>
+		</div>
+
+	</ng-container>
+	<card-footer-app *ngIf="supplier$ | async" align="left" class="flexColumn">
+		<!-- here the comment component with previosu commennts loaded -->
+		<comment-list-app [comments]="supplier?.comments"></comment-list-app>
+		<div class="flexBetween">
+			<textarea inputApp type="text" [formControl]="commentCtrl"
+			placeholder="Leave a comment" (keydown.enter)="onEnter($event)"></textarea>
+			<button *ngIf="inp?.focussed || commentCtrl.value" class="secondary-light" (click)="onSubmit()">Send</button>
+		</div>
+	</card-footer-app>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+
+</card-app>

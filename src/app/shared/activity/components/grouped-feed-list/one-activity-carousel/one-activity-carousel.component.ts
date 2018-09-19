@@ -3,12 +3,12 @@ import { AppImage } from '~models';
 import { DEFAULT_IMG } from '~utils';
 
 @Component({
-	selector: 'one-product-carousel-app',
-	templateUrl: './one-product-carousel.component.html',
-	styleUrls: ['./one-product-carousel.component.scss'],
+	selector: 'one-activity-carousel-app',
+	templateUrl: './one-activity-carousel.component.html',
+	styleUrls: ['./one-activity-carousel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OneProductCarouselComponent implements OnInit {
+export class OneActivityCarouselComponent implements OnInit {
 
 	@Input() set images(img: Array<AppImage>) {
 		this._images = img;

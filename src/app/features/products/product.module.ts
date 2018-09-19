@@ -38,7 +38,6 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { CustomDialogModule } from '~shared/custom-dialog';
 import { UtilsModule } from '~shared/utils';
 
-import { TeamRatingCardComponent } from './components/team-rating-card/team-rating-card.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
 import { ActivityUserComponent } from '~shared/activity/components/activity-user/activity-user.component';
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
@@ -92,7 +91,6 @@ import { ProductTopPanelComponent } from './components/product-top-panel/product
 		ProductNavigationComponent,
 		RfqDialogComponent,
 		EmailListComponent,
-		TeamRatingCardComponent,
 		ProductCarouselComponent,
 		ProductTeamRatingComponent,
 		ProductActivityComponent,
