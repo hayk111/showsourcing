@@ -1,20 +1,21 @@
 <div class="{{ canCreate ? 'canCreate' : '' }}">
 	<ng-select #ngSelect
 		class="custom"
-		[(ngModel)]="value"
-		[compareWith]="compareWith"
-		(open)="onOpen()"
-		(add)="onSelect($event)"
-		(remove)="onUnselect($event)"
-		(change)="onChange($event)"
-		(blur)="onBlur()"
+		[closeOnSelect]="!multiple"
 		[virtualScroll]="true"
 		[items]="filteredChoices"
 		[bindValue]="bindValue"
 		[bindLabel]="bindLabel"
 		[multiple]="multiple"
 		[notFoundText]="itemName + ' not found'"
-		[clearable]="false">
+		[clearable]="false"
+		[compareWith]="compareWith"
+		[(ngModel)]="value"
+		(open)="onOpen()"
+		(add)="onSelect($event)"
+		(remove)="onUnselect($event)"
+		(change)="onChange($event)"
+		(blur)="onBlur()">
 
 		<ng-template ng-label-tmp let-item="item" *ngIf="!multiple">
 			Select {{ itemName }}

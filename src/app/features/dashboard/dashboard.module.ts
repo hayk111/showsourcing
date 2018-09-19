@@ -14,6 +14,8 @@ import { TeamCardComponent } from '~features/dashboard/components/team-card/team
 import { EventsCardComponent } from '~features/dashboard/components/events-card/events-card.component';
 import { SharedModule } from '~shared/shared.module';
 import { RatingModule } from '~shared/rating';
+import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 	imports: [
@@ -22,7 +24,7 @@ import { RatingModule } from '~shared/rating';
 		ActivityModule,
 		DialogModule,
 		CustomDialogModule,
-		RatingModule
+		RatingModule,
 	],
 	declarations: [DashboardComponent, SummaryComponent, TeamCardComponent, EventsCardComponent],
 	providers: [

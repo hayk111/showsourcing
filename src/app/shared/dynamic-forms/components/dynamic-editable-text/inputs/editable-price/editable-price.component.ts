@@ -53,7 +53,8 @@ export class EditablePriceComponent extends AbstractInput {
 	}
 
 	accumulatePrice(priceAmount: number) {
-		this.accumulator.value = priceAmount;
+		// price is displayed as 10000 times less than what is saved
+		this.accumulator.value = priceAmount * 10000;
 	}
 
 	onChange() {
@@ -80,6 +81,14 @@ export class EditablePriceComponent extends AbstractInput {
 
 	hideCurrencySelector() {
 		this.currencySelectorShown = false;
+	}
+
+	get amount() {
+		return this.value.value / 10000;
+	}
+
+	get currency() {
+		return this.value.currency;
 	}
 
 }

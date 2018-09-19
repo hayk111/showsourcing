@@ -20,7 +20,7 @@
 
 h2 {
 	margin-bottom: 0;
-	font-family: 'Raleway', sans-serif;
+	font-family: var(--font-title);
 	font-size: var(--font-size-l);
 	font-weight: 600;
 	color: #182844;
@@ -43,7 +43,7 @@ rating-heart-app {
 h3 {
 	text-align: left;
 	color: var(--color-primary);
-	font-family: 'Raleway', sans-serif;
+	font-family: var(--font-title);
 	font-size: var(--font-size-m);
 	padding-top: 10px;
 	margin-bottom: 10px;

@@ -9,12 +9,11 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 		'[class.flexBetween]': 'inlineLabel',
 		'[class.flexCenter]': 'inlineLabel',
 		'[class.oneLine]': 'inlineLabel',
-		'[class.doubleLine]': '!inlineLabel',
+		'[class.twoLine]': '!inlineLabel',
 		'[class.isOpen]': 'isOpen',
 		'[class.isClosed]': '!isOpen',
 		'[class.canGrow]': 'canGrow',
 		'[class.cannotGrow]': '!canGrow',
-
 	}
 })
 export class FieldCellComponent implements OnInit {

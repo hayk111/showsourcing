@@ -1,0 +1,25 @@
+
+<!-- hint flexVAlign so label and value are on the same height -->
+<div class="ctnr fullWidth" [ngClass]="{ 'flexVAlign': inlineLabel }" (clickOutside)="close()">
+
+  <!-- label -->
+  <div class="labelCtnr" *ngIf="hasLabel">
+    <ng-content select="label-app"></ng-content>
+  </div>
+
+  <!-- editable part -->
+  <div class="content">
+    <editable-text-app
+      (saved)="saved.emit()"
+      (canceled)="canceled.emit()"
+      [editOnClick]="editOnClick"
+      [closeOnOutsideClick]="false">
+      <!-- using ngProjectAs so it's caught by the nested ng-content select -->
+      <ng-content select="editable-label-app" ngProjectAs="editable-label-app"></ng-content>
+      <ng-content></ng-content>
+    </editable-text-app>
+  </div>
+
+</div>
+
+

@@ -14,8 +14,8 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit {
 	@Input() descriptor: FormDescriptor;
 	/** number of columns */
 	@Input() colAmount = 1;
-	/** when editable is set to true, then the version of the forms becomes one that is using editable text */
-	@Input() editable = false;
+	/** when is open we see form inputs directly */
+	@Input() textMode = true;
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;
 	@Input() isShowLabel = true;

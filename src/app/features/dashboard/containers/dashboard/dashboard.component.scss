@@ -32,12 +32,12 @@ activity-list-app {
 		font-size: 210px;
 	}
 	h1 {
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: var(--font-normal);
 		margin-top: var(--spacing-l);
 		margin-bottom: var(--spacing-s);
 	}
 	h2 {
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: var(--font-normal);
 		margin-bottom: var(--spacing-xl);
 	}
 

@@ -11,6 +11,7 @@ import {
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 
 /**
  * Component that selects the correct input and display it as an editable text
@@ -37,14 +38,11 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	@Output() open = new EventEmitter<null>();
 	/** blur event for onTouchedFn */
 	@Output() blur = new EventEmitter<null>();
+	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** editable field ref, used to close it programmatically */
 	@ViewChild('editable') editable: EditableTextComponent;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
-
-	@Input() isShowLabel = true;
 	accumulator: string;
-	/** whether the editable is open */
-	isOpen = false;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
@@ -53,7 +51,6 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	ngOnInit() {
 		// saving the starting value in the accumulator so
 		// if we do a save without typing anything the field won't be undefined
-		// TODO: this should be done in the setter instead
 		this.accumulator = this.customField.value;
 	}
 
@@ -64,22 +61,14 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 
 	/** saving the value */
 	onSave() {
+		// do nothing when no changes made
+		if (this.value === this.accumulator)
+			return;
 		this.value = this.accumulator;
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
-		this.onClose();
 	}
 
-	/** when the editable field opens */
-	onOpen() {
-		this.open.emit();
-		this.isOpen = true;
-	}
-
-	/** when an editable field closes */
-	onClose() {
-		this.isOpen = false;
-	}
 
 	/** when the user cancels we put the previous value back in because onClose is gonna be called */
 	onCancel() {
@@ -90,6 +79,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	onChange() {
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
+		this.update.emit({ [this.customField.name]: this.value });
 	}
 
 	/** on blur we need to call onTouchedFn to not have errors of change detection */

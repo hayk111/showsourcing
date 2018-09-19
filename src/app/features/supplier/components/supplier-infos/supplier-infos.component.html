@@ -5,7 +5,6 @@
 	<dynamic-form-app
 		[inlineLabel]="false"
 		[descriptor]="descriptor"
-		[editable]="true"
 		(formCreated)="onFormCreated($event)">
 	</dynamic-form-app>
 
@@ -18,7 +17,6 @@
 			[entity]="supplier"
 			[value]="supplier.createdByUserId"
 			type="teamMember"
-			[editable]="false"
 			(update)="onUpdate($event, 'createdByUserId')"></editable-field-app>
 	</cell-two-row-app> -->
 

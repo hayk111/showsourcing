@@ -19,21 +19,28 @@
 		margin-bottom: 0px;
 	}
 }
+
 dynamic-form-app {
 	margin-left: var(--spacing-xs);
 }
 
 .mainTitle {
-	font-size: var(--font-size-xxxl);
-	font-weight: 600;
-	color: var(--color-txt-strong);
 	margin-bottom: var(--spacing-ms);
 
 	icons-status-app {
 		margin-left: var(--spacing-ml);
 		font-size: var(--font-size-xxl);
 	}
+	editable-text-app {
+		width: auto;
+	}
+	editable-label-app {
+		font-size: var(--font-size-xxxl);
+		font-weight: 600;
+		color: var(--color-txt-strong);
+	}
 }
+
 .price {
 	margin-bottom: var(--spacing-xl);
 	min-height: 31px;
@@ -87,7 +94,7 @@ textarea {
 	color: var(--color-button-dark);
 	margin-bottom: var(--spacing-l);
 	border-bottom: 2px solid var(--color-bg-switcher);
-	font-family: 'Raleway', sans-serif;
+	font-family: var(--font-title);
 	font-weight: 600;
 	color: #182844;
 	margin-bottom: var(--spacing-xl);

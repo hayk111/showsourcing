@@ -27,7 +27,7 @@ export class CustomTableComponent extends TrackingComponent {
 	@Output() next = new EventEmitter<null>();
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 }

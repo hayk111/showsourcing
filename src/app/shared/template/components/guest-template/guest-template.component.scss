@@ -9,7 +9,7 @@
 header {
 	padding: var(--spacing-m);
 	align-items: center;
-	font-family: 'Raleway', sans-serif;
+	font-family: var(--font-title);
 	color: var(--color-txt-strong);
 
 	.titleLogo {

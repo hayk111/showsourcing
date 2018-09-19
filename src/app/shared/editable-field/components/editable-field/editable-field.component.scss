@@ -1,0 +1,82 @@
+:host {
+	box-sizing: border-box;
+	// when closed and on hover
+	&.closed:hover {
+		background: var(--color-secondary-light);
+		cursor: pointer;
+		editable-text-app {
+			color: var(--color-primary);
+		}
+	}
+
+	/**
+	there are 4 padding cases:
+		1. field cell double line with bottom
+		2. field cell double line without bottom
+		3. field cell one line with bottom
+		4. field cell one line without bottom
+	*/
+	&.twoLine {
+		min-height: 67px;
+		padding-top: 16px;
+		padding-bottom: 10px;
+
+		// label is always the same size
+		.labelCtnr {
+			height: 18px;
+			margin-bottom: 3px;
+			line-height: 1;
+			font-size: var(--font-size-m);
+			color: var(--color-txt-secondary);
+			font-weight: 600;
+			text-transform: capitalize;
+		}
+
+		.content {
+			min-height: 20px;
+			line-height: 1;
+			width: 100%;
+			font-size: var(--font-size-l);
+			color: var(--color-txt-strong);
+		}
+		// when the input has a fixed height
+		&.cannotGrow {
+			.content {
+				height: 20px;
+			}
+		}
+
+		&.isOpen {
+			.content {
+				align-items: flex-end;
+			}
+		}
+	}
+
+	&.oneLine {
+		// we always display the border on single line
+		border-bottom: 1px solid var(--color-secondary);
+		// label on same line as input, label on left, input on right side
+		.ctnr {
+			display: flex;
+			justify-content: space-between;
+		}
+		&.cannotGrow {
+			height: 33px;
+		}
+		&.canGrow {
+			min-height: 33px;
+		}
+		.labelCtnr {
+			font-size: var(--font-size-m);
+			font-weight: 600;
+			color: var(--color-txt-secondary);
+			text-transform: capitalize;
+		}
+		.content {
+			color: var(--color-txt-secondary);
+			font-weight: 600;
+		}
+	}
+}
+
