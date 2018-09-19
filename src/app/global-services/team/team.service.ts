@@ -28,6 +28,7 @@ export class TeamService extends GlobalService<Team> {
 
 	defaultClient = Client.USER;
 
+	/** this is the team selected at the moment of the selection */
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
 		shareReplay(),
@@ -37,7 +38,6 @@ export class TeamService extends GlobalService<Team> {
 	);
 	// synchronous version for easy access
 	selectedTeamSync: Team;
-
 
 	constructor(
 		protected apolloState: ApolloStateService,
