@@ -42,7 +42,7 @@ export const routes: Array<Route> = [
 			UserClientReadyGuard
 		],
 		children: [
-			{ path: 'create-a-team', component: CreateATeamPageComponent, canActivate: [HasCompanySelectGuard] },
+			{ path: 'create-a-team', component: CreateATeamPageComponent, canActivate: [HasCompanyGuard] },
 			{ path: 'pick-a-team', component: PickATeamPageComponent, canActivate: [HasTeamGuard] },
 			{ path: 'create-a-company', component: CreateACompanyPageComponent },
 		]

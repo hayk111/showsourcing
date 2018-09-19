@@ -42,7 +42,6 @@ export class CompanyService extends GlobalService<Company> {
 
 	init() {
 		this.restoreSelectedCompanyId();
-
 		// when logging out let's clear the current selected company
 		this.authSrv.authStatus$.subscribe(status => {
 			if (status === AuthStatus.NOT_AUTHENTICATED) {
