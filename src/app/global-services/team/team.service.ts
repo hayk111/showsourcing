@@ -33,7 +33,7 @@ export class TeamService extends GlobalService<Team> {
 		shareReplay(),
 	);
 	hasTeamSelected$ = this._selectedTeam$.asObservable().pipe(
-		map(team => !!team),
+		map(team => !!team)
 	);
 	// synchronous version for easy access
 	selectedTeamSync: Team;
