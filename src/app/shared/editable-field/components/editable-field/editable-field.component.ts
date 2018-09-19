@@ -38,7 +38,7 @@ export class EditableFieldComponent {
 
 	@HostListener('click')
 	open() {
-		if (this.editOnClick) {
+		if (this.editOnClick && !this.isOpen) {
 			this.isOpen = true;
 			this.editable.open();
 			// we send the event once the thing is actually opened
@@ -47,7 +47,7 @@ export class EditableFieldComponent {
 	}
 
 	close() {
-		if (this.closeOnOutsideClick) {
+		if (this.closeOnOutsideClick && this.isOpen) {
 			this.isOpen = false;
 			this.editable.close();
 			setTimeout(_ => this.closed.emit());

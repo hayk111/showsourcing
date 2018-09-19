@@ -32,8 +32,6 @@ import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.inter
 })
 export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
 	@Input() customField: CustomField;
-	/** whether the field is currently open */
-	@Input() isOpen: boolean;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
 	/** when the editable field opens */
@@ -63,22 +61,14 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 
 	/** saving the value */
 	onSave() {
+		// do nothing when no changes made
+		if (this.value === this.accumulator)
+			return;
 		this.value = this.accumulator;
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
-		this.onClose();
 	}
 
-	/** when the editable field opens */
-	onOpen() {
-		this.open.emit();
-		this.isOpen = true;
-	}
-
-	/** when an editable field closes */
-	onClose() {
-		this.isOpen = false;
-	}
 
 	/** when the user cancels we put the previous value back in because onClose is gonna be called */
 	onCancel() {

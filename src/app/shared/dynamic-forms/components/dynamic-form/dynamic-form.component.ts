@@ -15,7 +15,6 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit {
 	/** number of columns */
 	@Input() colAmount = 1;
 	/** when is open we see form inputs directly */
-	@Input() isOpen = false;
 	@Input() textMode = true;
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;

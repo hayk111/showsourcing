@@ -6,7 +6,6 @@
 		<ng-container *ngIf="textMode">
 			<dynamic-editable-text-app
 				*ngFor="let field of col;trackBy: trackByFn"
-				[isOpen]="isOpen"
 				[customField]="field"
 				[formControlName]="field.name"
 				[inlineLabel]="inlineLabel">
@@ -16,7 +15,6 @@
 		<ng-template #inputs>
 			<dynamic-input-app
 				*ngFor="let field of col;trackBy: trackByFn"
-				[isOpen]="isOpen"
 				[customField]="field"
 				[formControlName]="field.name"></dynamic-input-app>
 		</ng-template>

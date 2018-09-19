@@ -1,6 +1,6 @@
 <card-app>
 	<!-- product name -->
-	<div class="mainTitle shipping flex"
+	<!-- <div class="mainTitle shipping flex"
 		i18n="div title|Product general information@@productGeneralInfo_general">
 
 		<editable-text-app #edt (saved)="saveName(inpName.value)" (opened)="inpName.focus()">
@@ -18,10 +18,10 @@
 			[onlyLike]="true"
 			[hasPercent]="false">
 		</icons-status-app>
-	</div>
+	</div> -->
 
 	<!-- price -->
-	<div class="flex price">
+	<!-- <div class="flex price">
 
 		<div *ngIf="product?.price?.value" class="amount">
 			{{ priceAmount | currency: product?.price?.currency:'symbol':'1.2-2'}}
@@ -30,10 +30,10 @@
 			({{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}})
 		</div>
 
-	</div>
+	</div> -->
 
 	<!-- description -->
-	<div class="description">
+	<!-- <div class="description">
 		<div class="description-title">Description</div>
 		<editable-text-app (saved)="saveDescription(txt.value)">
 			<editable-label-app *ngIf="product?.description; else noDesc">
@@ -47,7 +47,7 @@
 			</ng-template>
 			<textarea inputApp class="fullWidth" #txt [value]="product?.description || ''"></textarea>
 		</editable-text-app>
-	</div>
+	</div> -->
 
 	<!-- dynamic forms -->
 	<div class="title-information">Product Information</div>
