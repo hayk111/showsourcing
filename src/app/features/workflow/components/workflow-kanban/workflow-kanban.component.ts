@@ -96,12 +96,12 @@ implements AfterViewChecked {
 
 	/** Detect when an item (through namespace) enters a dropzone */
 	onItemEntered(namespace) {
-		this.kanbanSrv.itemEntered$.next({ namespace });
+		this.kanbanSrv.itemEntered$.next(namespace);
 	}
 
 	/** Detect when an item (through namespace) leaves a dropzone */
 	onItemLeft(namespace) {
-		this.kanbanSrv.itemLeft$.next({ namespace });
+		this.kanbanSrv.itemLeft$.next(namespace);
 	}
 
 	/**
