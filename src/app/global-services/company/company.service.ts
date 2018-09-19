@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, ReplaySubject, Observable } from 'rxjs';
+import { combineLatest, ReplaySubject, Observable, of } from 'rxjs';
 import { map, shareReplay, tap, filter, switchMapTo, switchMap } from 'rxjs/operators';
 import { AuthStatus } from '~features/auth/interfaces';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
@@ -13,7 +13,7 @@ import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { GlobalService } from '~global-services/_global/global.service';
 
 
-const SELECTED_COMPANY_ID = 'selected-company-id';
+const COMPANY = 'company';
 
 @Injectable({
 	providedIn: 'root'
@@ -22,15 +22,15 @@ export class CompanyService extends GlobalService<Company> {
 
 	defaultClient = Client.USER;
 
-	// an user has only 1 company and we only need the id
-	private _companyId$ = new ReplaySubject<string>(1);
-	companyId$ = this._companyId$.asObservable();
+	// an user has only 1 company
+	private _company$ = new ReplaySubject<Company>(1);
+	company$ = this._company$.asObservable();
 
-	hasCompany$ = this.companyId$.pipe(
+	hasCompany$ = this.company$.pipe(
 		map(company => !!company)
 	);
 
-	companyIdSync: string;
+	companySync: Company;
 
 	constructor(
 		protected apolloState: ApolloStateService,
@@ -41,44 +41,45 @@ export class CompanyService extends GlobalService<Company> {
 	}
 
 	init() {
-		this.restoreSelectedCompanyId();
 		// when logging out let's clear the current selected company
-		this.authSrv.authStatus$.subscribe(status => {
-			if (status === AuthStatus.NOT_AUTHENTICATED) {
-				this.resetSelectedCompany();
-			}
-		});
-
-		this.companyId$.subscribe(id => this.companyIdSync = id);
+		this.authSrv.notAuthenticated$.subscribe(_ => this.resetCompany());
+		this.authSrv.authenticated$.pipe(
+			switchMap(_ => this.getCompany())
+		).subscribe(this._company$);
+		this.company$.subscribe(id => this.companySync = id);
 	}
 
 	/** creates and picks it */
 	create(company: Company): Observable<any> {
 		return super.create(company).pipe(
-			switchMap(_ => this.pickCompany(company))
+			switchMap(_ => this.saveCompany(company))
 		);
 	}
 
 	/** picks a company, puts the selection in local storage */
-	pickCompany(company: Company): Observable<string> {
-		this.storage.setItem(SELECTED_COMPANY_ID, company.id);
-		this._companyId$.next(company.id);
-
-		return this.hasCompany$.pipe(
-			filter(has => has),
-			switchMapTo(this.companyId$)
+	saveCompany(company: Company): Observable<Company> {
+		this.storage.setItem(COMPANY, company);
+		this._company$.next(company);
+		return this.company$.pipe(
+			filter(x => !!x)
 		);
 	}
 
 	/** restore from local storage   */
-	private restoreSelectedCompanyId() {
-		const companyId: string = this.storage.getItem(SELECTED_COMPANY_ID);
-		this._companyId$.next(companyId);
+	private getCompany(): Observable<Company> {
+		const company: Company = this.storage.getItem(COMPANY);
+		if (company) {
+			return of(company);
+		} else {
+			return this.selectAll().pipe(
+				map(all => all[0])
+			);
+		}
 	}
 
 
-	private resetSelectedCompany() {
-		this.storage.remove(SELECTED_COMPANY_ID);
-		this._companyId$.next(undefined);
+	private resetCompany() {
+		this.storage.remove(COMPANY);
+		this._company$.next(undefined);
 	}
 }

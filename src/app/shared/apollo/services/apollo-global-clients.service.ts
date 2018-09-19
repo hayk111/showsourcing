@@ -43,8 +43,7 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 		);
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
-		this.authSrv.authStatus$.pipe(
-			filter(status => status === AuthStatus.AUTHENTICATED),
+		this.authSrv.authenticated$.pipe(
 			switchMapTo(tokens$)
 		).subscribe(([token1, token2, token3]) => {
 			this.initClient(allUserUri, Client.ALL_USER, token1);

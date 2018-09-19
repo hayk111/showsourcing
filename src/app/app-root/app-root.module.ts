@@ -48,7 +48,7 @@ import { TemplateModule } from '~shared/template';
 		// keep router as last module
 		RouterModule.forRoot(routes,
 			{ enableTracing: true }
-		),
+		)
 	],
 	providers: [],
 	exports: [RouterModule],

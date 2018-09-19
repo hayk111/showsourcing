@@ -56,9 +56,8 @@ export class UserClientInitializer extends AbstractApolloClient {
 
 
 		// when the refreshToken is gone we close it
-		this.authSrv.authStatus$.pipe(
-			filter(status => status === AuthStatus.NOT_AUTHENTICATED),
-		).subscribe(_ => this.destroyClient(Client.USER, 'not authenticated'));
+		this.authSrv.notAuthenticated$
+			.subscribe(_ => this.destroyClient(Client.USER, 'not authenticated'));
 	}
 
 	/** will emit once when all user and global constant are ready */

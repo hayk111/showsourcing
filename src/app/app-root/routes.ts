@@ -71,6 +71,7 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivateChild: [
 			AuthGuardService,
+			HasTeamSelectedGuard,
 			TeamClientReadyGuard
 		],
 		children: [
