@@ -32,7 +32,7 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 	/** The label of the column */
 	@Input() label: string;
 	/** The namespace associated with the column */
-	@Input() namespace: string;
+	@Input() namespace: any;
 	@Input() borderColor: string;
 	/** Doesn't take part of drag'n drop */
 	@Input() disabled: boolean;
@@ -61,17 +61,19 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 		// Handle dragStart through the kanban service
 		this.kanbanSrv.dragStart$.pipe(
 			takeUntil(this._destroy$)
-		).subscribe(({ namespace }) => {
-			this.sourceArea = (namespace === this.namespace);
-			this.droppableArea = (!this.disabled && namespace !== this.namespace);
-		});
-
-		this.kanbanSrv.dragStart$.pipe(
-			takeUntil(this._destroy$)
 		).subscribe(({ data, namespace }) => {
+			this.sourceArea = (data.status.status.id === this.namespace.id);
+			this.droppableArea = (!this.disabled && data.status.status.id !== this.namespace.id);
 			this.dragnDropInProgress = true;
 			this.cdr.markForCheck();
 		});
+
+		// this.kanbanSrv.dragStart$.pipe(
+		// 	takeUntil(this._destroy$)
+		// ).subscribe(({ data, namespace }) => {
+		// 	this.dragnDropInProgress = true;
+		// 	this.cdr.markForCheck();
+		// });
 
 		// Handle dragEnd through the kanban service
 		this.kanbanSrv.dragEnd$.pipe(
@@ -94,8 +96,8 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 		// Handle itemEntered through the kanban service
 		this.kanbanSrv.itemEntered$.pipe(
 			takeUntil(this._destroy$)
-		).subscribe(({ namespace }) => {
-			if (namespace && (namespace === this.namespace) && !this.sourceArea) {
+		).subscribe((namespace: any) => {
+			if (namespace.id && (namespace.id === this.namespace.id) && !this.sourceArea) {
 				this.enteredArea = true;
 			}
 		});
@@ -103,8 +105,8 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 		// Handle itemLeft through the kanban service
 		this.kanbanSrv.itemLeft$.pipe(
 			takeUntil(this._destroy$)
-		).subscribe(({ namespace }) => {
-			if (namespace && (namespace === this.namespace) && !this.sourceArea) {
+		).subscribe((namespace: any) => {
+			if (namespace.id && (namespace.id === this.namespace.id) && !this.sourceArea) {
 				this.enteredArea = false;
 			}
 		});

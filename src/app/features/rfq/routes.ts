@@ -3,7 +3,6 @@ import {
 	NewRequestPageComponent, FillInformationPageComponent,
 	ReviewSendPageComponent, ValidationPageComponent
 } from '~features/rfq/containers';
-import { send } from 'q';
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'new-request', pathMatch: 'full' },

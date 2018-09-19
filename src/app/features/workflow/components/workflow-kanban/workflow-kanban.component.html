@@ -11,28 +11,28 @@
 			[disabled]="status.name === '_NoStatus'"
 			[checked]="hasAllItemsSelected(selectedItems, status)"
 			(itemDropped)="onItemDropped($event)"
-			(itemEntered)="onItemEntered(status.id)"
-			(itemLeft)="onItemLeft(status.id)"
+			(itemEntered)="onItemEntered(status)"
+			(itemLeft)="onItemLeft(status)"
 			(checkChange)="onCheckItemsChange(status, $event)"
 			[label]="status.name | const:'status':'name'"
 			borderColor="{{ status.id }}"
-			[namespace]="status.id"
+			[namespace]="status"
 			*ngFor="let status of statuses; let i = index;trackBy: trackByFn">
-				<div class="card-container" *ngFor="let product of status.products; let j = index; trackBy:trackByFn">
+				<div class="card-container" *ngFor="let product of status.products; let j = index; trackBy:trackById">
 					<kanban-item-app
 							class="item"
-							[namespace]="getCurrentStatusTypeId(product)"
+							[namespace]="getCurrentStatus(product)"
 							[data]="product"
 							[dragDropEnable$]="dragDropEnable$"
-							(dragStart)="dragStart()"
-							(dragEnd)="dragEnd()">
+							(dragStart)="dragStart(product)"
+							(dragEnd)="dragEnd(product)">
 						<ng-container
 							*ngTemplateOutlet="card; context: { column: column, row: product, checked: isSelected(selectedItems, product.id), status: status, dragInProgress: dragInProgress, selectItem: selectItem, unselectItem: unselectItem, dragDropEnable$: dragDropEnable$ }">
 						</ng-container>
 					</kanban-item-app>
 					<div class="contextual-menu" [ngClass]="{ 'drag-in-progress':	dragInProgress }">
 						<ng-container
-							*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
+							*ngTemplateOutlet="contextualMenu; context: { column: column, row: product }">
 						</ng-container>
 					</div>
 				</div>
