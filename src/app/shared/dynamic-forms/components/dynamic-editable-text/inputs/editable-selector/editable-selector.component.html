@@ -5,9 +5,10 @@
 	#editable
 	[inlineLabel]="inlineLabel"
 	[hasAction]="false"
+	[canGrow]="customField.multiple"
 	(opened)="selector.open()">
 	<label-app>{{ customField.label || customField.name }}</label-app>
-	<editable-label-app class="flex flexWrap">
+	<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
 		{{ (value | const: customField.metadata.target) || '-'}}
 	</editable-label-app>
 	<selector-const-app
@@ -27,9 +28,10 @@
 		#editable
 		[inlineLabel]="inlineLabel"
 		[hasAction]="false"
+		[canGrow]="customField.multiple"
 		(opened)="selector.open()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app class="flex flexWrap">
+		<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
 			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 		</editable-label-app>
 		<selector-entity-app
@@ -61,7 +63,7 @@
 				[user]="value"
 				[image]="value?.avatar">
 			</user-picture-app>
-			<span>{{ value ? (value.firstName +  ' ' + value.lastName ) : '-'}}</span>
+			<span class="ellipsis">{{ value ? (value.firstName +  ' ' + value.lastName ) : '-'}}</span>
 		</div>
 
 		<!-- category -->
@@ -72,7 +74,7 @@
 			<img class="defaultLabelIcon"
 				*ngIf="(value | logo:customField.metadata.target) && !inlineLabel"
 				[src]="value | logo:customField.metadata.target" />
-			<span *ngSwitchDefault>
+			<span class="ellipsis fullWidth">
 				{{ value ? value[labelName] : '-' }}
 			</span>
 		</ng-container>

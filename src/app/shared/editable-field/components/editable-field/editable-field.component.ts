@@ -7,8 +7,8 @@ import { EditableTextComponent } from '~shared/editable-field/components/editabl
 	styleUrls: ['./editable-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[class.flexBetween]': 'inlineLabel',
-		'[class.flexCenter]': 'inlineLabel',
+		'[class.flex]': 'true',
+		'[class.flexVAlign]': 'inlineLabel',
 		'[class.oneLine]': 'inlineLabel',
 		'[class.twoLine]': '!inlineLabel',
 		'[class.open]': 'isOpen',

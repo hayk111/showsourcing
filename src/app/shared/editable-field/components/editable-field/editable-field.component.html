@@ -1,5 +1,6 @@
 
-<div class="ctnr" (clickOutside)="close()">
+<!-- hint flexVAlign so label and value are on the same height -->
+<div class="ctnr fullWidth" [ngClass]="{ 'flexVAlign': inlineLabel }" (clickOutside)="close()">
 
   <!-- label -->
   <div class="labelCtnr" *ngIf="hasLabel">

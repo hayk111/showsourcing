@@ -1,6 +1,5 @@
 :host {
 	box-sizing: border-box;
-	display: block;
 	// when closed and on hover
 	&.closed:hover {
 		background: var(--color-secondary-light);
@@ -18,7 +17,6 @@
 		4. field cell one line without bottom
 	*/
 	&.twoLine {
-		height: 67px;
 		min-height: 67px;
 		padding-top: 16px;
 		padding-bottom: 10px;

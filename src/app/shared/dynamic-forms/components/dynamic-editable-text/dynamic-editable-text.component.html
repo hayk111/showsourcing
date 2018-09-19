@@ -136,7 +136,7 @@
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>
-			<span *ngIf="value.currency">{{ value?.currency | const : 'currency' : 'symbol'}} </span>
+			<span *ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}} </span>
 			<span>{{ value && (value.value !== undefined) ? (value.value / 10000) : '-' }}</span>
 		</editable-label-app>
 		<input-price-app

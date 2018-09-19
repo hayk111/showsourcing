@@ -28,7 +28,7 @@ export class InputPriceComponent extends AbstractInput {
 
 	private _price: Price = new Price({ value: 0, currency: 'USD' });
 	@Input()
-	set price(price: Price) { this._price = { ...price }; }
+	set price(price: Price) { if (price) this._price = { ...price }; }
 	get price() { return this._price; }
 
 	constructor(protected cd: ChangeDetectorRef) {

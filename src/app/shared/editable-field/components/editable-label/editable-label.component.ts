@@ -4,7 +4,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	selector: 'editable-label-app',
 	templateUrl: './editable-label.component.html',
 	styleUrls: ['./editable-label.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class.flexVAlign]': 'true'
+	}
 })
 export class EditableValueComponent implements OnInit {
 
