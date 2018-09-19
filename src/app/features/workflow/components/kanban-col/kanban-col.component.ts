@@ -61,17 +61,19 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 		// Handle dragStart through the kanban service
 		this.kanbanSrv.dragStart$.pipe(
 			takeUntil(this._destroy$)
-		).subscribe((namespace: any) => {
-			this.sourceArea = (namespace.id === this.namespace.id);
-			this.droppableArea = (!this.disabled && namespace.id !== this.namespace.id);
-		});
-
-		this.kanbanSrv.dragStart$.pipe(
-			takeUntil(this._destroy$)
 		).subscribe(({ data, namespace }) => {
+			this.sourceArea = (data.status.status.id === this.namespace.id);
+			this.droppableArea = (!this.disabled && data.status.status.id !== this.namespace.id);
 			this.dragnDropInProgress = true;
 			this.cdr.markForCheck();
 		});
+
+		// this.kanbanSrv.dragStart$.pipe(
+		// 	takeUntil(this._destroy$)
+		// ).subscribe(({ data, namespace }) => {
+		// 	this.dragnDropInProgress = true;
+		// 	this.cdr.markForCheck();
+		// });
 
 		// Handle dragEnd through the kanban service
 		this.kanbanSrv.dragEnd$.pipe(

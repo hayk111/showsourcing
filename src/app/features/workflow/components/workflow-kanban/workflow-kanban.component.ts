@@ -82,7 +82,7 @@ implements AfterViewChecked {
 	/** The current status id for a product */
 	getCurrentStatus(product) {
 		if (product.status) {
-			return product.status;
+			return product.status.status;
 		}
 		return null;
 	}
