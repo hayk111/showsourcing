@@ -80,6 +80,7 @@ export class WorkflowKanbanComponent extends TrackingComponent {
   * before the request completes
 	*/
 	onItemDropped({ target, droppedElement }) {
+		this.draggingProduct = Object.assign(new Product(), droppedElement);
 		this.refreshStatusesInternally(target, droppedElement);
 		this.itemDropped.next({ target, droppedElement });
 	}
@@ -146,10 +147,9 @@ export class WorkflowKanbanComponent extends TrackingComponent {
 	}
 
 	dragEnd(event) {
-		this.draggingProduct = Object.assign(new Product(), event);
 		this.dragInProgress = false;
 		setTimeout(() => {
 			this.draggingProduct = null;
-		}, 50);
+		}, 100);
 	}
 }
