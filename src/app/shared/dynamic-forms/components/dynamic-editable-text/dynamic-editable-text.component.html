@@ -6,7 +6,7 @@
 		#editable
 		[inlineLabel]="inlineLabel"
 		(closed)="onSave()"
-		(opened)="onOpen(); inp.select();">
+		(opened)="inp.select();">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
@@ -29,7 +29,7 @@
 		#editable
 		[inlineLabel]="inlineLabel"
 		(closed)="onSave()"
-		(opened)="onOpen(); inp.select()">
+		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }}</editable-label-app>
 		<form-field-app>
@@ -38,9 +38,9 @@
 				restrictInput="tel"
 				autofocus="true"
 				[value]="value"
+				[type]="customField.type"
 				(input)="accumulate(inp.value)"
-				(keyup.enter)="editable.close();"
-				[type]="customField.type"/>
+				(keyup.enter)="editable.close();"/>
 		</form-field-app>
 	</editable-field-app>
 
@@ -50,7 +50,7 @@
 		#editable
 		[inlineLabel]="inlineLabel"
 		(closed)="onSave()"
-		(opened)="onOpen(); inp.select()">
+		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }}</editable-label-app>
 		<form-field-app>
@@ -59,9 +59,9 @@
 				restrictInput="number"
 				autofocus="true"
 				[value]="value"
+				[type]="customField.type"
 				(input)="accumulate(+inp.value)"
-				(keyup.enter)="editable.close();"
-				[type]="customField.type"/>
+				(keyup.enter)="editable.close();"/>
 		</form-field-app>
 	</editable-field-app>
 
@@ -71,7 +71,7 @@
 		#editable
 		[inlineLabel]="inlineLabel"
 		(closed)="onSave()"
-		(opened)="onOpen(); inp.select()">
+		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }}</editable-label-app>
 		<form-field-app>
@@ -80,9 +80,9 @@
 				restrictInput="decimal"
 				autofocus="true"
 				[value]="value"
+				[type]="customField.type"
 				(input)="accumulate(+inp.value)"
-				(keyup.enter)="editable.close();"
-				[type]="customField.type"/>
+				(keyup.enter)="editable.close();"/>
 		</form-field-app>
 	</editable-field-app>
 
@@ -92,7 +92,7 @@
 		#editable
 		[inlineLabel]="inlineLabel"
 		(closed)="onSave()"
-		(opened)="onOpen(); inp.select()">
+		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }} days</editable-label-app>
 		<form-field-app>
@@ -100,9 +100,9 @@
 				#inp
 				autofocus="true"
 				[value]="value"
+				[type]="'number'"
 				(input)="accumulate(+inp.value)"
-				(keyup.enter)="editable.close();"
-				[type]="'number'"/>
+				(keyup.enter)="editable.close();"/>
 		</form-field-app>
 	</editable-field-app>
 
@@ -113,7 +113,7 @@
 		[canGrow]="true"
 		[inlineLabel]="inlineLabel"
 		(closed)="onSave()"
-		(opened)="onOpen(); inp.select()">
+		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app style="white-space: pre-line">{{ value || '-' }}</editable-label-app>
 		<form-field-app>
@@ -133,7 +133,7 @@
 		#editable
 		[inlineLabel]="inlineLabel"
 		(closed)="onSave()"
-		(opened)="onOpen(); inp.select()">
+		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>
 			<span *ngIf="value.currency">{{ value?.currency | const : 'currency' : 'symbol'}} </span>
@@ -173,10 +173,10 @@
 		</label-app>
 		<div class="inputCtnr">
 			<editable-packaging-app
+				[customField]="customField"
 				[(ngModel)]="value"
 				(change)="onChange()"
-				(blur)="onBlur()"
-				[customField]="customField"></editable-packaging-app>
+				(blur)="onBlur()"></editable-packaging-app>
 		</div>
 	</ng-container>
 
@@ -184,13 +184,10 @@
 	<editable-selector-app
 		*ngSwitchCase="'selector'"
 		[customField]="customField"
+		[inlineLabel]="inlineLabel"
 		[(ngModel)]="value"
 		(change)="onChange()"
-		(blur)="onBlur()"
-		[inlineLabel]="inlineLabel"
-		[isOpen]="isOpen"
-		(opened)="onOpen()"
-		(closed)="onClose()">
+		(blur)="onBlur()">
 	</editable-selector-app>
 
 </ng-container>
