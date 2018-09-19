@@ -114,7 +114,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.updateProduct({ name }, 'name');
 	}
 
-
 	openRfq() {
 		// we add manually the supplier self email, since it is not on the contacts
 		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product });
@@ -123,6 +122,5 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	get priceAmount() {
 		return (this.product && this.product.price) ? (this.product.price.value / 10000) : '-';
 	}
-
 
 }

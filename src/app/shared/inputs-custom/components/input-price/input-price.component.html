@@ -4,11 +4,12 @@
 		{{ currency | const:'currency':'id' }}
 	</span>
 
-	<input #inp inputApp type="text"
+	<input #inp
+		inputApp
+		type="text"
 		restrictInput="decimal"
 		[(ngModel)]="amount"
-		(keyup.enter)="enter.emit()"
-		(change)="onChange()"
+		(input)="onChange()"
 		(blur)="onBlur()"/>
 </div>
 

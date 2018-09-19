@@ -137,9 +137,14 @@
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>
 			<span *ngIf="value.currency">{{ value?.currency | const : 'currency' : 'symbol'}} </span>
-			<span>{{ value && value.amount !== undefined ? value.amount : '-' }}</span>
+			<span>{{ value && (value.value !== undefined) ? (value.value / 10000) : '-' }}</span>
 		</editable-label-app>
-		<input-price-app #inp (enter)="editable.close()" (change)="accumulate(inp.value)"></input-price-app>
+		<input-price-app
+			#inp
+			[price]="value"
+			(keyup.enter)="editable.close()"
+			(change)="accumulate(inp.price)">
+		</input-price-app>
 	</editable-field-app>
 
 	<!-- yesNo -->

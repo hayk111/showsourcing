@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Price } from '~models/price.model';
 import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
-import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 
 @Component({
@@ -22,14 +22,13 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 export class InputPriceComponent extends AbstractInput {
 	@Output() change = new EventEmitter();
 	@Output() blur = new EventEmitter();
-	@Output() enter = new EventEmitter();
 	@ViewChild(SelectorConstComponent) currencySelector: SelectorConstComponent;
-	@ViewChild('inp') inp: HTMLInputElement;
+	@ViewChild(InputDirective) inp: InputDirective;
 	currencySelectorShown: boolean;
 
-	private _price: Price = { value: 0 };
+	private _price: Price = new Price({ value: 0, currency: 'USD' });
 	@Input()
-	set price(price: Price) { this._price = price; this.value = price; }
+	set price(price: Price) { this._price = { ...price }; }
 	get price() { return this._price; }
 
 	constructor(protected cd: ChangeDetectorRef) {
@@ -80,7 +79,7 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	get currency() {
-		return this.price.currency || 'USD';
+		return this.price.currency;
 	}
 
 	set currency(currencyId: string) {

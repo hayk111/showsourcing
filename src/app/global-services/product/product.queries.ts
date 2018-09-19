@@ -21,7 +21,7 @@ export abstract class ProductQueries extends GlobalQueries {
 		images { id, fileName }
 	}`;
 	static readonly contacts = `supplier { contacts { id, name, email, jobTitle } }`;
-	static readonly price = ` price { id, currency, value, baseCurrencyValue } `;
+	static readonly price = ` price { id, currency, value } `;
 	static readonly category = `category { id, name }`;
 	static readonly projects = `projects { id, name, description }`;
 	static readonly event = ` event { id, name, description { id logoImage { id, fileName } } }`;
