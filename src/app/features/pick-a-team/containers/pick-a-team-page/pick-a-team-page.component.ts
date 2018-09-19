@@ -21,21 +21,18 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 	private returnUrl: string;
 
 	constructor(private teamSrv: TeamService, private router: Router, private route: ActivatedRoute) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 		this.teams$ = this.teamSrv.selectAll();
 		// get return url from route parameters or default to '/'
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-		// go home when team selected
-		this.teamSrv.selectedTeam$.pipe(
-			switchMap(team => this.router.navigateByUrl(this.returnUrl))
-		).subscribe(team => this.router.navigateByUrl(this.returnUrl));
 	}
 
 	pickTeam(team: Team) {
 		this.pending$.next(true);
-		this.teamSrv.pickTeam(team);
+		this.teamSrv.pickTeam(team)
+			.subscribe(_ => this.router.navigateByUrl(this.returnUrl));
 	}
 }

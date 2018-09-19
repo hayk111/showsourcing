@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Product, ProductVote } from '~models';
-import { UserService } from '~global-services';
+import { UserService } from '~global-services/user/user.service';
 
 @Component({
 	selector: 'icons-status-app',

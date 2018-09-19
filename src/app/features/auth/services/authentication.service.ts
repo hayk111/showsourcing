@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import gql from 'graphql-tag';
 import { ReplaySubject, BehaviorSubject, of } from 'rxjs';
-import { map, switchMap, tap, catchError, shareReplay } from 'rxjs/operators';
+import { map, switchMap, tap, catchError, shareReplay, filter } from 'rxjs/operators';
 import { Credentials, RefreshTokenResponse, AuthStatus, AuthState } from '~features/auth/interfaces';
 
 import { TokenService } from '~features/auth/services/token.service';
@@ -21,6 +21,8 @@ export class AuthenticationService {
 	// then it's either true or false
 	private _authState$ = new BehaviorSubject<AuthState>({ status: AuthStatus.PENDING });
 	authStatus$ = this._authState$.asObservable().pipe(map(state => state.status), shareReplay(1));
+	authenticated$ = this.authStatus$.pipe(filter(status => status === AuthStatus.AUTHENTICATED), shareReplay(1));
+	notAuthenticated$ = this.authStatus$.pipe(filter(status => status === AuthStatus.NOT_AUTHENTICATED), shareReplay(1));
 	userId$ = this._authState$.asObservable().pipe(map(state => state.userId), shareReplay(1));
 	urlToRedirectOnAuth: string;
 
@@ -64,7 +66,8 @@ export class AuthenticationService {
 	logout() {
 		this.tokenSrv.clearTokens();
 		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
-		this.router.navigate(['/guest', 'login']);
+		// the navigation without the set timeout throws an error..
+		setTimeout(_ => this.router.navigate(['guest', 'login']));
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {

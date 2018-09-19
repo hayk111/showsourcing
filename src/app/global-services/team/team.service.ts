@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 // name in local storage
-const SELECTED_TEAM_ID = 'selected-team-id';
+const SELECTED_TEAM = 'selected-team';
 
 /**
  * Team service. At the start of the application it deals with
@@ -28,18 +28,15 @@ export class TeamService extends GlobalService<Team> {
 
 	defaultClient = Client.USER;
 
-	private _selectedTeamId$ = new ReplaySubject<string>(1);
-	selectedTeamId$ = this._selectedTeamId$.asObservable();
-	hasTeamSelected$ = this._selectedTeamId$.asObservable().pipe(
-		map(team => !!team),
-	);
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
-		filter(team => !!team),
-		shareReplay(1),
-
+		shareReplay(),
 	);
-	selectedTeamSync;
+	hasTeamSelected$ = this._selectedTeam$.asObservable().pipe(
+		map(team => !!team),
+	);
+	// synchronous version for easy access
+	selectedTeamSync: Team;
 
 
 	constructor(
@@ -51,21 +48,13 @@ export class TeamService extends GlobalService<Team> {
 	}
 
 	init() {
-		this.restoreSelectedTeamId();
 
-		// 2. When we have teams we find out what the selected team is
-		combineLatest(
-			this._selectedTeamId$,
-			this.selectAll(),
-			(id, teams) => this.getSelectedTeam(id, teams)
+		this.authSrv.authenticated$.pipe(
+			map(_ => this.getSelectedTeam())
 		).subscribe(this._selectedTeam$);
 
 		// when logging out let's clear the current selected team
-		this.authSrv.authStatus$.subscribe(status => {
-			if (status === AuthStatus.NOT_AUTHENTICATED) {
-				this.resetSelectedTeam();
-			}
-		});
+		this.authSrv.notAuthenticated$.subscribe(_ => this.resetSelectedTeam());
 
 		// putting a sync version of team
 		this.selectedTeam$.subscribe(team => this.selectedTeamSync = team);
@@ -73,33 +62,36 @@ export class TeamService extends GlobalService<Team> {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.authSrv.userId$.pipe(
-			tap(userId => team.ownerUser = { id: userId }),
-			switchMapTo(super.create(team)),
-			switchMapTo(this.waitForOne(`id == "${team.id}" AND status == "active"`)),
-			tap(_ => this.pickTeam(team))
+		return super.create(team).pipe(
+			switchMap(_ => this.waitForOne(`id == "${team.id}" AND status == "active"`)),
+			switchMap(_ => this.pickTeam(team))
 		);
 	}
 
 	/** picks a team, puts the selection in local storage */
-	pickTeam(team: Team): void {
-		this.storage.setItem(SELECTED_TEAM_ID, team.id);
-		this._selectedTeamId$.next(team.id);
+	pickTeam(team: Team): Observable<Team> {
+		this.storage.setItem(SELECTED_TEAM, team);
+		this._selectedTeam$.next(team);
+		return this.selectedTeam$.pipe(
+			filter(x => !!x)
+		);
 	}
 
 	/** restore from local storage   */
 	private restoreSelectedTeamId() {
-		const selectedTeamId: string = this.storage.getItem(SELECTED_TEAM_ID);
-		this._selectedTeamId$.next(selectedTeamId);
+		const selectedTeam: Team = this.storage.getItem(SELECTED_TEAM);
+		this._selectedTeam$.next(selectedTeam);
 	}
 
-	private getSelectedTeam(selectedId: string, teams: Team[]) {
-		return selectedId ? teams.find(team => team.id === selectedId) : undefined;
+	private getSelectedTeam() {
+		return this.storage.getItem(SELECTED_TEAM);
 	}
 
 	private resetSelectedTeam() {
-		this.storage.remove(SELECTED_TEAM_ID);
-		this._selectedTeamId$.next(undefined);
+		this.storage.remove(SELECTED_TEAM);
+		this._selectedTeam$.next(undefined);
 	}
 
 }
+
+

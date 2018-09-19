@@ -17,6 +17,9 @@ import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
 import { UserClientReadyGuard, TeamClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
+import { HasCompanyGuard } from '~features/pick-a-team/services/has-company.guard';
+import { CreateACompanyPageComponent } from '~features/pick-a-team/containers/create-a-company-page/create-a-company-page.component';
+import { HasCompanySelectGuard } from '~features/pick-a-team/services/has-company-selected.guard';
 
 export const routes: Array<Route> = [
 	{
@@ -39,8 +42,9 @@ export const routes: Array<Route> = [
 			UserClientReadyGuard
 		],
 		children: [
-			{ path: 'create-a-team', component: CreateATeamPageComponent },
+			{ path: 'create-a-team', component: CreateATeamPageComponent, canActivate: [HasCompanyGuard] },
 			{ path: 'pick-a-team', component: PickATeamPageComponent, canActivate: [HasTeamGuard] },
+			{ path: 'create-a-company', component: CreateACompanyPageComponent },
 		]
 	},
 	{
@@ -67,6 +71,7 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivateChild: [
 			AuthGuardService,
+			HasTeamSelectedGuard,
 			TeamClientReadyGuard
 		],
 		children: [
