@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
 	selector: 'editable-label-app',
@@ -6,10 +6,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./editable-label.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[class.flexVAlign]': 'true'
+		'[class.flexVAlign]': 'vAlign'
 	}
 })
 export class EditableValueComponent implements OnInit {
+	@Input() vAlign = true;
 
 	constructor() { }
 

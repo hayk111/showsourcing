@@ -1,10 +1,10 @@
 <!-- closed -->
-<div class="labelCtnr flex pointer" *ngIf="!isOpen" (click)="open(true)">
+<div class="labelCtnr flex pointer" *ngIf="!isOpen" (click)="open()">
 	<ng-content select="editable-label-app"></ng-content>
 </div>
 
 <!-- open -->
-<div *ngIf="isOpen" class="flex openBlock" (clickOutside)="close(true)">
+<div *ngIf="isOpen" class="flex openBlock" (clickOutside)="close()">
 
 	<ng-content></ng-content>
 

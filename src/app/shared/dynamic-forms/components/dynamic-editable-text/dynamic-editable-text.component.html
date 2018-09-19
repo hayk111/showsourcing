@@ -135,8 +135,10 @@
 		(closed)="onSave()"
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>
-			<span *ngIf="value && value.currency" class="mg-xs">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
+		<editable-label-app [vAlign]="false">
+			<span class="fs-s"
+				*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
+			<span class="mg-xs spacer"></span>
 			<span>{{ value && (value.value !== undefined) ? (value.value / 10000) : '-' }}</span>
 		</editable-label-app>
 		<input-price-app

@@ -15,7 +15,6 @@
 	--font-size-huge: 30px;
 	--font-normal: 'Source Sans Pro', Roboto, sans-serif;
 	--font-title: 'Raleway', sans-serif;
-
 }
 
 .fs-xxs {
@@ -52,6 +51,14 @@
 
 .fs-huge {
   font-size: var(--font-size-huge);
+}
+
+.txt-secondary {
+	color: var(--color-txt-secondary);
+}
+
+.txt-clickable:hover {
+	color: var(--color-primary);
 }
 
 .capitalize, [capitalize] {
@@ -142,10 +149,6 @@ small {
 time {
 	line-height: 1.4;
 	font-size: var(--font-size-s);
-	color: var(--color-txt-secondary);
-}
-
-.txt-secondary {
 	color: var(--color-txt-secondary);
 }
 
