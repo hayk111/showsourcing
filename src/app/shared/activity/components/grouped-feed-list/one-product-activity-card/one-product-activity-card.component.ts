@@ -22,10 +22,10 @@ import { FormControl } from '@angular/forms';
 })
 export class OneProductActivityCardComponent extends AutoUnsub implements OnInit {
 
-	@Output() createComment = new EventEmitter<any>();
-	@Output() update = new EventEmitter<Product>();
 	@Input() groupFeed: GetStreamGroup;
 	@Input() title: string;
+	@Output() createComment = new EventEmitter<any>();
+	@Output() update = new EventEmitter<Product>();
 	@ViewChild(InputDirective) inp: InputDirective;
 	product$: Observable<Product>;
 	product: Product;
@@ -52,10 +52,6 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 			this.product$ = this.productSrv.queryOne(this.groupFeed.activities[0].object);
 		}
 		this.product$.pipe(takeUntil(this._destroy$)).subscribe(product => this.product = product);
-	}
-
-	hasThreeImages() {
-		return this.product.images && this.product.images[2];
 	}
 
 	onFavorite() {

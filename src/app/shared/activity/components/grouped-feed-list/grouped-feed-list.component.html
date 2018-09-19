@@ -4,29 +4,38 @@
 
     <ng-container [ngSwitch]="getGroupName(feed)">
 
-      <!-- product activity -->
-      <one-product-activity-card-app
-        *ngSwitchCase="'product_activity'"
+			<!-- product activity -->
+			<one-product-activity-card-app
+				*ngSwitchCase="'product_activity'"
 				[groupFeed]="feed"
 				title="new comment"
 				(createComment)="createComment($event)"
-        (update)="updateProduct($event)"></one-product-activity-card-app>
+				(update)="update($event)">
+			</one-product-activity-card-app>
 
-				<!-- product created -->
-				<one-product-activity-card-app
-        *ngSwitchCase="'product_one_created'"
+			<!-- product created -->
+			<one-product-activity-card-app
+				*ngSwitchCase="'product_one_created'"
 				[groupFeed]="feed"
 				title="created a new product"
 				(createComment)="createComment($event)"
-        (update)="updateProduct($event)"></one-product-activity-card-app>
+				(update)="update($event)">
+			</one-product-activity-card-app>
 
-      <multiple-products-activity-card-app
-        *ngSwitchCase="'product_many_created'"
-        [groupFeed]="feed"
-        (update)="updateProduct($event)"></multiple-products-activity-card-app>
+			<multiple-products-activity-card-app
+				*ngSwitchCase="'product_many_created'"
+				[groupFeed]="feed"
+				(update)="update($event)">
+			</multiple-products-activity-card-app>
 
-      <!-- supplier -->
-      <!-- TODO -->
+			<!-- supplier -->
+			<one-supplier-activity-card-app
+				*ngSwitchCase="'supplier_one_created'"
+				[groupFeed]="feed"
+				title="created a new supplier"
+				(createComment)="createComment($event)"
+				(update)="update($event)">
+			</one-supplier-activity-card-app>
 
     </ng-container>
   </ng-container>

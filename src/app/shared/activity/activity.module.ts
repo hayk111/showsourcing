@@ -21,10 +21,13 @@ import { FlatFeedListComponent } from './components/flat-feed-list/flat-feed-lis
 import {
 	MultipleProductCarouselComponent,
 } from './components/grouped-feed-list/multiple-products-activity-card/multiple-product-carousel/multiple-product-carousel.component';
-import {
-	OneProductCarouselComponent,
-} from './components/grouped-feed-list/one-product-activity-card/one-product-carousel/one-product-carousel.component';
 import { FlatFeedCardComponent } from './components/flat-feed-card/flat-feed-card.component';
+import {
+	OneActivityCarouselComponent
+} from '~shared/activity/components/grouped-feed-list/one-activity-carousel/one-activity-carousel.component';
+import {
+	OneSupplierActivityCardComponent
+} from '~shared/activity/components/grouped-feed-list/one-supplier-activity-card/one-supplier-activity-card.component';
 
 @NgModule({
 	imports: [
@@ -40,16 +43,18 @@ import { FlatFeedCardComponent } from './components/flat-feed-card/flat-feed-car
 	],
 	declarations: [
 		OneProductActivityCardComponent,
+		OneSupplierActivityCardComponent,
 		MultipleProductsActivityCardComponent,
 		ActivityUserComponent,
 		GroupedFeedListComponent,
-		OneProductCarouselComponent,
+		OneActivityCarouselComponent,
 		MultipleProductCarouselComponent,
 		FlatFeedListComponent,
 		FlatFeedCardComponent
 	],
 	exports: [
 		OneProductActivityCardComponent,
+		OneSupplierActivityCardComponent,
 		MultipleProductsActivityCardComponent,
 		GroupedFeedListComponent,
 		ActivityUserComponent,
