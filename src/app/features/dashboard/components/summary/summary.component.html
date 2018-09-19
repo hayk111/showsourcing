@@ -16,8 +16,8 @@
     <div class="flexVAlign">
       <span class="amount">{{ counters?.productsNeedReview }}</span>
       <div class="flexColumn">
-        <span class="taskType">Product Need review</span>
-        <span><a [routerLink]="['/workspace']" routerLinkActive="active">Review Products</a></span>
+        <span class="taskType">Product{{ counters?.productsNeedReview > 1 ? 's' : '' }} need review</span>
+        <span><a [routerLink]="['/workspace']" routerLinkActive="active">Review Product{{ counters?.productsNeedReview > 1 ? 's' : '' }}</a></span>
       </div>
     </div>
 
@@ -25,7 +25,7 @@
     <div class="flexVAlign">
       <span class="amount">{{ counters?.productsInWorkflow }}</span>
       <div class="flexColumn">
-        <span class="taskType">Products in progress</span>
+        <span class="taskType">Product{{ counters?.productsInWorkflow > 1 ? 's' : '' }} in progress</span>
         <span>
           <a [routerLink]="['/workspace/my-workflow']" routerLinkActive="active">To my workspace</a>
         </span>
