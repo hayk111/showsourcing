@@ -7,7 +7,7 @@ import { IconsModule } from '~shared/icons/icons.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SharedModule } from '~shared/shared.module';
 import { DndModule } from '~shared/dnd/dnd.module';
-
+// import { DragulaModule } from 'ng2-dragula';
 import { KanbanColComponent, KanbanItemComponent, WorkflowKanbanComponent } from '~features/workflow/components';
 import { KanbanService } from '~features/workflow/services/kanban.service';
 
@@ -19,6 +19,7 @@ import { KanbanService } from '~features/workflow/services/kanban.service';
 		CardModule,
 		ProductCommonModule,
 		IconsModule,
+    // DragulaModule.forRoot(),
 		DndModule
 	],
 	declarations: [WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent],

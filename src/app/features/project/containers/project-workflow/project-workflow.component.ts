@@ -60,7 +60,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		).subscribe(project => {
 			this.project = project;
 		});
-		
+
 		this.statuses$ = this.project$.pipe(
 			take(1),
 			switchMap(project => this.workflowService.getStatuses(project))
