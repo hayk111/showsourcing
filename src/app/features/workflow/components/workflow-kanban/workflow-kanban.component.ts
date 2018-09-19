@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, Input, EventEmitter, TemplateRef, HostBinding } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, TemplateRef, HostBinding, AfterViewInit } from '@angular/core';
 
 import { Observable, Subject } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
-import { ProductStatus } from '~models';
+import { ProductStatus, Product } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { HeaderModule } from '~shared/header';
 
@@ -40,6 +40,8 @@ export class WorkflowKanbanComponent extends TrackingComponent {
 	@Output() selectAllItems = new EventEmitter<any[]>();
 	/** Triggers when all items are unselected for a status */
 	@Output() unselectAllItems = new EventEmitter<any[]>();
+
+	draggingProduct: Product = null;
 
 	separatorColor: string;
 	dragInProgress = false;
@@ -139,11 +141,15 @@ export class WorkflowKanbanComponent extends TrackingComponent {
 		return allSelected;
 	}
 
-	dragStart() {
+	dragStart(event) {
 		this.dragInProgress = true;
 	}
 
-	dragEnd() {
+	dragEnd(event) {
+		this.draggingProduct = Object.assign(new Product(), event);
 		this.dragInProgress = false;
+		setTimeout(() => {
+			this.draggingProduct = null;
+		}, 50);
 	}
 }

@@ -29,6 +29,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 	project$: Observable<Project>;
 	// statuses$ = new Subject<ProductStatus[]>();
 	statuses$: Observable<ProductStatus[]>;
+	statuses: ProductStatus[];
 	id: string;
 	project: Project;
 	/** keeps tracks of the current selection */
@@ -54,8 +55,12 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 	ngOnInit() {
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.projectSrv.queryOne(id);
-		this.project$.subscribe(project => this.project = project);
-
+		this.project$.pipe(
+			take(1)
+		).subscribe(project => {
+			this.project = project;
+		});
+		
 		this.statuses$ = this.project$.pipe(
 			take(1),
 			switchMap(project => this.workflowService.getStatuses(project))
