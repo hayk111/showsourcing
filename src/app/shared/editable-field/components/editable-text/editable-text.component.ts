@@ -45,11 +45,11 @@ export class EditableTextComponent {
 		this.closed.emit();
 	}
 
-	open(isClick?: boolean) {
+	open() {
 		// if the click was made from the template of this component
 		// and the editOnClick is disabled we shouldn't open the edit mode.
 		// this will allow us to have some editable text that are only opened via a button and such.
-		if (isClick && !this.editOnClick) {
+		if (isClick && this.editOnClick) {
 			return;
 		}
 		this.isOpen = true;
