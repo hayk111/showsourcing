@@ -32,7 +32,7 @@
 					</kanban-item-app>
 					<div class="contextual-menu" [ngClass]="{ 'drag-in-progress':	dragInProgress }">
 						<ng-container
-							*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
+							*ngTemplateOutlet="contextualMenu; context: { column: column, row: product }">
 						</ng-container>
 					</div>
 				</div>
