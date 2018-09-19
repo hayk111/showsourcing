@@ -64,7 +64,7 @@ export class DashboardService {
 
 	getCountSupplierUnderAssessment(): Observable<number> {
 		return this.supplierSrv.queryCount(
-			'status.status.name == "_UnderAssessment" && archived == false && deleted == false'
+			'status.status.name == "_UnderAssessment" && deleted == false'
 		).pipe(first());
 	}
 
