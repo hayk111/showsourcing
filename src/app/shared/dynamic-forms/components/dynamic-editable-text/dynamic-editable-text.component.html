@@ -155,7 +155,7 @@
 		[editOnClick]="false"
 		(click)="toggleValue()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<span (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span>
+		<editable-label-app (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</editable-label-app>
 	</editable-field-app>
 
 	<!-- price matrix -->
