@@ -61,7 +61,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
 		{ name: 'sample', type: 'yesNo' },
-		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
+		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
 	];
 
 	typeEntity = ERM.PRODUCT;
