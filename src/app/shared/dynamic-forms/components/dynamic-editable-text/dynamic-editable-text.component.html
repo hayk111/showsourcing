@@ -110,6 +110,7 @@
 	<editable-field-app
 		*ngSwitchCase="'textarea'"
 		#editable
+		[canGrow]="true"
 		[inlineLabel]="inlineLabel"
 		(closed)="onSave()"
 		(opened)="onOpen(); inp.select()">
@@ -139,14 +140,6 @@
 			<span>{{ value && value.amount !== undefined ? value.amount : '-' }}</span>
 		</editable-label-app>
 		<input-price-app #inp (enter)="editable.close()" (change)="accumulate(inp.value)"></input-price-app>
-
-		<!-- <editable-price-app
-			[(ngModel)]="value"
-			(change)="onChange()"
-			(open)="onOpen()"
-			(close)="onClose()"
-			[inlineLabel]="inlineLabel"
-			[customField]="customField"></editable-price-app> -->
 	</editable-field-app>
 
 	<!-- yesNo -->
@@ -157,7 +150,7 @@
 		[editOnClick]="false"
 		(click)="toggleValue()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<span class="txtBtn" (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span>
+		<span (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span>
 	</editable-field-app>
 
 	<!-- price matrix -->
@@ -197,6 +190,7 @@
 		[inlineLabel]="inlineLabel"
 		[isOpen]="isOpen"
 		(opened)="onOpen()"
-		(closed)="onClose()"></editable-selector-app>
+		(closed)="onClose()">
+	</editable-selector-app>
 
 </ng-container>

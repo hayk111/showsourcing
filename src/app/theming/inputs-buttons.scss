@@ -17,6 +17,15 @@ input, textarea {
 	&:focus {
 		border: 1px solid var(--color-primary);
 	}
+	&.small {
+		padding: 3px;
+	}
+}
+
+editable-field-app {
+	input {
+		padding: 3px;
+	}
 }
 
 

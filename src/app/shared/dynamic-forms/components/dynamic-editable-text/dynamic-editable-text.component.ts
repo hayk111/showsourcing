@@ -53,13 +53,11 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	ngOnInit() {
 		// saving the starting value in the accumulator so
 		// if we do a save without typing anything the field won't be undefined
-		// TODO: this should be done in the setter instead
 		this.accumulator = this.customField.value;
 	}
 
 	/** saves the value because an user might cancel */
 	accumulate(value: any) {
-		debugger;
 		this.accumulator = value;
 	}
 
@@ -91,6 +89,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	onChange() {
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
+		this.update.emit({ [this.customField.name]: this.value });
 	}
 
 	/** on blur we need to call onTouchedFn to not have errors of change detection */
