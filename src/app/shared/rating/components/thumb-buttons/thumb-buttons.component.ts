@@ -145,7 +145,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	createVote(state: boolean) {
 		const tempVote = new ProductVote({
 			value: state ? 100 : 0,
-			user: this.userSrv.userSync
+			user: { id: this.userSrv.userSync.id }
 		});
 		this.voteSrv.create(tempVote).subscribe();
 		return tempVote;

@@ -86,8 +86,12 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** update the product */
-	updateProduct(product: any) {
-		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
+	updateProduct(product: any, fields?: string) {
+		this.featureSrv.update({ id: this.product.id, ...product }, fields).subscribe();
+	}
+
+	updateProductVotes(product: any) {
+		this.updateProduct(product, 'votes { id, value, user { id } }');
 	}
 
 	/** when a new image is uploaded we add it to the list of images of the product */
