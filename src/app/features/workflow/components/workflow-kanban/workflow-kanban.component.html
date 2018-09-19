@@ -18,7 +18,7 @@
 			borderColor="{{ status.id }}"
 			[namespace]="status"
 			*ngFor="let status of statuses; let i = index;trackBy: trackByFn">
-				<div class="card-container" *ngFor="let product of status.products; let j = index; trackBy:trackById" [hidden]="draggingProduct && product.id === draggingProduct.id">
+				<div class="card-container" *ngFor="let product of status.products; let j = index; trackBy:trackById">
 					<kanban-item-app
 							class="item"
 							[namespace]="getCurrentStatus(product)"

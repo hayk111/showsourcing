@@ -66,7 +66,7 @@ implements AfterViewChecked {
 	@Output()
 	unselectAllItems = new EventEmitter<any[]>();
 
-	draggingProduct: Product = null;
+	// draggingProduct: Product = null;
 
 	separatorColor: string;
 	dragInProgress = false;
