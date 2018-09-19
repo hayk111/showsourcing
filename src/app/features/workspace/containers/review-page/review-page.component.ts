@@ -50,7 +50,7 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	ngOnInit() {
 		this.selectionSrv.unselectAll();
 
-		this.initialPredicate = `status.id == null AND deleted == false`;
+		this.initialPredicate = `status.id == null AND status.status.id == null AND deleted == false && archived == false`;
 		this.initialSortBy = 'supplier.name';
 
 		super.ngOnInit();
@@ -113,12 +113,12 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		votes.forEach((v, k) => this.update({ id: k, votes: v }));
 	}
 
-  /** Opens a dialog that lets the user add different products to different projects (many to many) */
-  openAddToProjectDialog(product: Product) {
-    this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
-      selectedProducts: product ? [product] : this.getSelectedProducts()
-    });
-  }
+	/** Opens a dialog that lets the user add different products to different projects (many to many) */
+	openAddToProjectDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
+			selectedProducts: product ? [product] : this.getSelectedProducts()
+		});
+	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product: Product) {

@@ -1,8 +1,7 @@
 <ng-container *ngIf="items$ | async as projects; else spinner">
 
 	<top-panel-app
-		[title]="'My Projects'"
-		[buttonName]="'Add Project'"
+		title="My Projects"
 		[subtitles]="['Projects', 'all']"
 		buttonName="Add Project"
 		(buttonClick)="openCreateDlg(true)">

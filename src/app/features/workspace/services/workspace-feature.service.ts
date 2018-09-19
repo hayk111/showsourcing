@@ -40,8 +40,12 @@ export class WorkspaceFeatureService extends ProductService {
 		if (refresh && this.productsResult) {
 			this.productsResult.refetch({
 				query: search ?
-					`status.id != null && status.status.inWorkflow == true AND status.status.name != 'Inspiration' && name CONTAINS[c] "${search}"` :
-					`status.id != null && status.status.inWorkflow == true AND status.status.name != 'Inspiration'`,
+					`status.id != null AND status.status.id != null ` +
+					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' AND status.status.category != "refused" ` +
+					`&& name CONTAINS[c] "${search}" AND archived == false && deleted == false` :
+					`status.id != null AND status.status.id != null ` +
+					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' AND status.status.category != "refused" ` +
+					`AND archived == false && deleted == false`,
 				sortBy: 'lastUpdatedDate'
 			});
 		}
@@ -49,8 +53,12 @@ export class WorkspaceFeatureService extends ProductService {
 		if (!this.productsResult) {
 			this.productsResult = this.productSrv.getListQuery({
 				query: search ?
-					`status.id != null && status.status.inWorkflow == true AND status.status.name != 'Inspiration' && name CONTAINS[c] "${search}"` :
-					`status.id != null && status.status.inWorkflow == true AND status.status.name != 'Inspiration'`,
+					`status.id != null AND status.status.id != null ` +
+					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' AND status.status.category != "refused" ` +
+					`&& name CONTAINS[c] "${search}" AND archived == false && deleted == false` :
+					`status.id != null AND status.status.id != null ` +
+					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' AND status.status.category != "refused" ` +
+					`AND archived == false && deleted == false`,
 				sortBy: 'lastUpdatedDate'
 			});
 		}
@@ -91,12 +99,14 @@ export class WorkspaceFeatureService extends ProductService {
 	/** Get the list of products */
 	getProducts(sort: Sort, search: string, refresh = false) {
 		const params = search ? {
-			query: `status.id == null && name CONTAINS[c] "${search}"`,
+			query: `status.id == null AND status.status.id == null && name CONTAINS[c] "${search}" AND archived == false && deleted == false`,
 			sortBy: sort ? sort.sortBy : null
 		} : {
-			query: `status.id == null && status.status.inWorkflow == true AND status.status.name != 'Inspiration'`,
-			sortBy: sort ? sort.sortBy : null
-		};
+				query: `status.id == null AND status.status.id == null ` +
+					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' ` +
+					`AND archived == false && deleted == false`,
+				sortBy: sort ? sort.sortBy : null
+			};
 
 		if (refresh && this.allProductsResult) {
 			this.allProductsResult.refetch(params);

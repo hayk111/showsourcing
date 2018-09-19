@@ -1,8 +1,8 @@
 
 export const realmDateFormat = (date: Date) => {
 	const year = date.getFullYear();
-	const month = addZero(date.getMonth());
-	const day = addZero(date.getDay());
+	const month = addZero(date.getMonth() + 1);
+	const day = addZero(date.getDate()); // for some reason date == day, and getDay() gets the name of the day
 	const hour = addZero(date.getHours());
 	const minutes = addZero(date.getMinutes());
 	const secs = addZero(date.getSeconds());

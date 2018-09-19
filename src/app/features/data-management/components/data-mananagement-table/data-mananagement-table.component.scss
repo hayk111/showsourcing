@@ -1,9 +1,9 @@
 :host {
 	display: flex;
-	margin: var(--spacing-l) var(--spacing-l);
-	height: calc(100% - 273px);
+	margin: 0px var(--spacing-l);
+	height: calc(100% - 248px);
 	box-sizing: border-box;
-  padding-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-l);
 }
 
 button.button {

@@ -2,7 +2,7 @@
 <ng-container *ngIf="items$ | async as products; else spinner">
 	<!-- top panel -->
 	<top-panel-app
-		[title]="entityMetadata.plural"
+		title="My Products"
 		[subtitles]="['Products', 'all']"
 		[center]="false"
 		buttonName="Add {{entityMetadata.singular}}"
