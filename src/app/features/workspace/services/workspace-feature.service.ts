@@ -41,32 +41,36 @@ export class WorkspaceFeatureService extends ProductService {
 			this.productsResult.refetch({
 				query: search ?
 					`status.id != null AND status.status.id != null ` +
-					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' AND status.status.category != "refused" ` +
+					`&& status.status.inWorkflow == true ` +
 					`&& name CONTAINS[c] "${search}" AND archived == false && deleted == false` :
 					`status.id != null AND status.status.id != null ` +
-					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' AND status.status.category != "refused" ` +
+					`&& status.status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
-				sortBy: 'lastUpdatedDate'
-			});
+				sortBy: 'lastUpdatedDate',
+				take: 1000 // TODO this has to change to a queryAll, but easiest way to change it was like this
+			}).subscribe();
 		}
 
 		if (!this.productsResult) {
 			this.productsResult = this.productSrv.getListQuery({
-				query: search ?
+				query: search ? // we get all the products with status and inWorkflow
 					`status.id != null AND status.status.id != null ` +
-					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' AND status.status.category != "refused" ` +
+					`&& status.status.inWorkflow == true ` +
 					`&& name CONTAINS[c] "${search}" AND archived == false && deleted == false` :
-					`status.id != null AND status.status.id != null ` +
-					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' AND status.status.category != "refused" ` +
+					`(status.id != null AND status.status.id != null) ` +
+					`&& status.status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
-				sortBy: 'lastUpdatedDate'
+				sortBy: 'lastUpdatedDate',
+				take: 1000 // TODO this has to change to a queryAll
 			});
 		}
 		return this.productsResult.items$.pipe(
 			switchMap(products => {
 				return this.productStatusTypeService.queryAll().pipe(
-					// Remove the status with category refused
-					map(statuses => statuses.filter(status => (status.category !== 'refused' && status.category !== 'inspiration'))),
+					// Only get status that are in workflow or is validated
+					// This way we have the validated column to drag and drop the products we want to validate
+					// Do not confuse this query with the one above, where we filter only inWorkflow products
+					map(statuses => statuses.filter(status => (status.inWorkflow || status.category === 'validated'))),
 					map(statuses => ({ statuses, products }))
 				);
 			}),
@@ -81,7 +85,7 @@ export class WorkspaceFeatureService extends ProductService {
 	}
 
 	getFirstStatus() {
-		return this.productStatusTypeService.queryMany({ query: 'inWorkflow == true' }).pipe(
+		return this.productStatusTypeService.queryMany({ query: 'inWorkflow == true', sortBy: 'step' }).pipe(
 			map(statuses => statuses.slice().sort((s1, s2) => (s1.step - s2.step))),
 			map(statuses => statuses.length > 0 ? statuses[0] : null)
 		);
@@ -99,11 +103,12 @@ export class WorkspaceFeatureService extends ProductService {
 	/** Get the list of products */
 	getProducts(sort: Sort, search: string, refresh = false) {
 		const params = search ? {
-			query: `status.id == null AND status.status.id == null && name CONTAINS[c] "${search}" AND archived == false && deleted == false`,
+			query: `status.id == null AND status.status.id == null && status.status.inWorkflow == true ` +
+				`&& name CONTAINS[c] "${search}" AND archived == false && deleted == false`,
 			sortBy: sort ? sort.sortBy : null
 		} : {
 				query: `status.id == null AND status.status.id == null ` +
-					`&& status.status.inWorkflow == true AND status.status.category != 'inspiration' ` +
+					`&& status.status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
 				sortBy: sort ? sort.sortBy : null
 			};
@@ -147,6 +152,6 @@ export class WorkspaceFeatureService extends ProductService {
 			}
 		}
 		return of();
-  }
+	}
 
 }
