@@ -8,7 +8,8 @@
 				*ngFor="let field of col;trackBy: trackByFn"
 				[customField]="field"
 				[formControlName]="field.name"
-				[inlineLabel]="inlineLabel">
+				[inlineLabel]="inlineLabel"
+				(update)="update.emit($event)">
 			</dynamic-editable-text-app>
 		</ng-container>
 

@@ -10,7 +10,8 @@
   <!-- editable part -->
   <div class="content">
     <editable-text-app
-      (saved)="closed.emit(); saved.emit()"
+      (saved)="close()"
+      (closed)="close()"
       (canceled)="canceled.emit()"
       [editOnClick]="false"
       [closeOnOutsideClick]="false">

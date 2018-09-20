@@ -36,6 +36,7 @@ export class EditableFieldComponent {
 	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
 	isOpen = false;
 
+
 	@HostListener('click')
 	open() {
 		if (this.editOnClick && !this.isOpen) {

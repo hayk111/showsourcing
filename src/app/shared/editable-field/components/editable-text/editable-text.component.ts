@@ -34,15 +34,15 @@ export class EditableTextComponent {
 		setTimeout(_ => this.closed.emit());
 	}
 
+	/** does not send a close event */
 	cancel() {
 		this.isOpen = false;
 		this.canceled.emit();
 	}
 
 	save() {
-		this.isOpen = false;
 		this.saved.emit();
-		this.closed.emit();
+		this.close();
 	}
 
 	open(isOutsideClick?: boolean) {

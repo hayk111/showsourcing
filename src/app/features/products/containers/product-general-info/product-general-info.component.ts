@@ -35,7 +35,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
 	@ViewChild('txt') textarea: ElementRef;
 
-
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor so we only have one array of custom fields
 	customFields: CustomField[] = [
@@ -98,18 +97,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.descriptor2$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields2, product))
 		);
-	}
-
-	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
-	 * update the product
-	 */
-	onFormCreated(form: FormGroup) {
-		form.valueChanges
-			.pipe(
-				takeUntil(this._destroy$),
-				distinctUntilChanged()
-			)
-			.subscribe(product => this.updateProduct(product));
 	}
 
 	updateProduct(product: Product, fields?: string) {
