@@ -53,4 +53,5 @@ export class EditableFieldComponent {
 			setTimeout(_ => this.closed.emit());
 		}
 	}
+
 }

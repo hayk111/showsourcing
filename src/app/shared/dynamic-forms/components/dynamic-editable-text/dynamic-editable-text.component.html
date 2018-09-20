@@ -145,7 +145,8 @@
 			#inp
 			[price]="value"
 			(keyup.enter)="editable.close()"
-			(change)="accumulate(inp.price)">
+			(change)="accumulate(inp.price); onBlur()"
+			(blur)="onBlur()">
 		</input-price-app>
 	</editable-field-app>
 

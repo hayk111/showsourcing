@@ -24,7 +24,7 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit {
 	cols: CustomField[][];
 
 	constructor(private dfSrv: DynamicFormsService) {
-    super();
+		super();
 	}
 
 	ngOnInit() {
