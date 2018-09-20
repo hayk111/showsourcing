@@ -58,8 +58,7 @@ export class DashboardService {
 
 	getCountProductsInWorkflow(): Observable<number> {
 		return this.productSrv.queryCount(
-			'status.id != null && status.status.inWorkflow == true ' +
-			'AND status.status.category != "inspiration" AND status.status.category != "refused" ' +
+			'status.id != null && status.status.id != null && status.status.inWorkflow == true ' +
 			'&& archived == false && deleted == false'
 		).pipe(first());
 	}
