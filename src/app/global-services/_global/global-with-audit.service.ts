@@ -28,10 +28,10 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	/** @inheritDoc
 	 * Updates on entity with an audit will add properties needed by the backend
 	 */
-	update(entity: any, fields?: string | string[], client?: Client) {
+	update(entity: any, fields?: string | string[], client?: Client, isOptimistic: boolean = true) {
 		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
 		entity.lastUpdatedDate = '' + new Date();
-		return super.update(entity, fields, client);
+		return super.update(entity, fields, client, isOptimistic);
 	}
 
 	/** @inheritDoc
