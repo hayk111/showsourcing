@@ -1,23 +1,29 @@
-import { Component, OnInit, ViewChild, ElementRef, NgModuleRef, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
-import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap, map, distinctUntilChanged, first } from 'rxjs/operators';
-import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
-import { Event, ERM, Contact } from '~models';
-import { Product } from '~models';
-import { Project, Tag } from '~models';
-import { AutoUnsub } from '~utils';
-import { ProductFeatureService } from '~features/products/services';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	NgModuleRef,
+	OnInit,
+	ViewChild,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { EditableTextComponent } from '~shared/editable-field';
-import { DialogService } from '~shared/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
+import { ProductFeatureService } from '~features/products/services';
+import { ERM, Product } from '~models';
+import { DialogService } from '~shared/dialog';
+import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
+import { EditableTextComponent } from '~shared/editable-field';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-general-info-app',
 	templateUrl: './product-general-info.component.html',
 	styleUrls: ['./product-general-info.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	// whether the form is open
@@ -28,7 +34,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
 	@ViewChild('txt') textarea: ElementRef;
-
 
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor so we only have one array of custom fields
@@ -61,7 +66,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
 		{ name: 'sample', type: 'yesNo' },
-		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
+		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
 	];
 
 	typeEntity = ERM.PRODUCT;
@@ -70,7 +75,9 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private srv: ProductFeatureService,
 		private dlgSrv: DialogService,
-		private module: NgModuleRef<any>) {
+		private module: NgModuleRef<any>,
+		private cd: ChangeDetectorRef
+	) {
 		super();
 	}
 
@@ -78,7 +85,10 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
 			switchMap(params => this.srv.selectOne(params.id)),
-			tap(product => this.product = product)
+			tap(product => this.product = product),
+			// need to notify the component things have changed because of onpush and this is container
+			// better to do it this way than to not use on push as this will prevent viewChangedAfterItWasCheckedError
+			tap(_ => this.cd.markForCheck())
 		);
 		// creating the form descriptor
 		this.descriptor$ = this.product$.pipe(
@@ -89,29 +99,13 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
-	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
-	 * update the product
-	 */
-	onFormCreated(form: FormGroup) {
-		form.valueChanges
-			.pipe(
-				takeUntil(this._destroy$),
-				distinctUntilChanged()
-			)
-			.subscribe(product => this.updateProduct(product));
-	}
-
 	updateProduct(product: Product, fields?: string) {
 		product.id = this.product.id;
 		this.srv.update(product).subscribe();
 	}
 
-	saveDescription(description: string) {
-		this.updateProduct({ description }, 'description');
-	}
-
-	saveName(name: string) {
-		this.updateProduct({ name }, 'name');
+	updateProductProp(value: any, prop: string) {
+		this.updateProduct({ [prop]: value }, prop);
 	}
 
 	openRfq() {

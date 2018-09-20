@@ -1,66 +1,42 @@
-<!-- edits are generated when either the labl or the value is clicked -->
-<editable-field-app [inlineLabel]="true" [editOnClick]="false">
+<div class="row flexBetween">
+	<!-- label -->
+	<editable-text-app #editableLabel>
 
-	<!-- the label is editable as well -->
-	<label-app>
-		<editable-text-app #editable1
-			(closed)="save()" (saved)="save()" (opened)="onOpen()">
+		<editable-label-app>
+			<ng-container *ngIf="value.label; else placeholder">
+				{{ value.label }}
+			</ng-container>
+			<ng-template #placeholder>
+				<span class="placeholder">Add price label</span>
+			</ng-template>
+		</editable-label-app>
 
-			<editable-label-app class="label txtBtn">
-				<ng-container *ngIf="value.label; else placeholder">
-					{{ value.label }}
-				</ng-container>
-				<ng-template #placeholder>
-					<span class="placeholder">Add price label</span>
-				</ng-template>
-			</editable-label-app>
+		<!-- label input -->
+		<input
+			#inp1
+			inputApp
+			autofocus="true"
+			[value]="value.label"
+			(input)="accumulate('label', inp1.value)"
+			(blur)="onBlur()"
+			(keyup.enter)="editableLabel.close();"
+			[type]="'text'"/>
 
-			<input
-				#inp1
-				inputApp
-				autofocus="true"
-				[value]="value.label"
-				(input)="accumulate('label', inp1.value)"
-				(blur)="onBlur()"
-				(keyup.enter)="editable1.close();"
-				[type]="'text'"/>
+	</editable-text-app>
 
-		</editable-text-app>
-	</label-app>
-
-	<!-- value -->
-	<editable-text-app #editable2 (closed)="save()" (saved)="save()" (opened)="onOpen()">
-
+	<!-- price -->
+	<editable-text-app #editableValue>
 		<editable-label-app class="txtBtn">
 			<span>{{ (value?.price?.currency || 'USD') | const : 'currency' : 'symbol'}} </span>
 
 			<span>{{ value?.price?.value !== undefined ? value.price.value  : '-' }}</span>
 		</editable-label-app>
 
-		<div class="flexBetween">
-			<div>
-				<span class="txtBtn currency" (click)="openSelector()">
-					{{ (value?.price?.currency || 'USD') | const:'currency':'id' }}
-				</span>
-
-				<selector-const-app
-					class="currencySelector"
-					*ngIf="selectorShown"
-					(select)="onSelectorChange()"
-					type="currency"
-					[(ngModel)]="value.price.currency"></selector-const-app>
-			</div>
-
-			<input #inp2
-				inputApp
-				restrictInput="decimal"
-				autofocus="true"
-				[value]="value.price.value"
-				(input)="accumulate('price', +inp2.value)"
-				(keyup.enter)="editable2.close();"
-				(blur)="onBlur()"
-				[type]="'text'"/>
-		</div>
+		<input-price-app
+			#inpPrice
+			[price]="value.price"
+			(keyup.enter)="editableValue.close();"
+			(change)="accumulate('price', inpPrice.price)"></input-price-app>
 
 	</editable-text-app>
-</editable-field-app>
+</div>

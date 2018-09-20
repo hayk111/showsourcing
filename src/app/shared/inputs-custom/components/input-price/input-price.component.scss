@@ -1,5 +1,10 @@
 .currencyLabel {
 	margin-right: var(--spacing-s);
+	color: var(--color-txt-secondary);
+	&:hover {
+		color: var(--color-primary);
+		text-decoration: underline;
+	}
 }
 
 input {

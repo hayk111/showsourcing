@@ -3,21 +3,26 @@
 		<!-- value -->
 		<editable-text-app #editable1 (closed)="onSave()" (opened)="onOpen()">
 			<editable-label-app>
-				<span class="priceValue">{{ currency | const : 'currency' : 'symbol'}} </span>
-				<span class="priceValue">{{ amount !== undefined ? amount : '-' }}</span>
+				<span>{{ currency | const : 'currency' : 'symbol'}} </span>
+				<span>{{ amount !== undefined ? amount : '-' }}</span>
 			</editable-label-app>
-			<!-- currency block goes before input on single line -->
-			<span *ngIf="inlineLabel"
-				class="currencyLabel1 txtBtn pointer" (click)="showCurrencySelector()">
-				{{ currency | const:'currency':'id' }}
-			</span>
-			<input #inp inputApp
-				(keyup.enter)="editable1.close();"
-				(input)="accumulatePrice(+inp.value)"
-				(blur)="onBlur()"
-				type="text"
-				restrictInput="decimal"
-				[value]="amount"/>
+
+
+			<ng-container>
+				<span *ngIf="inlineLabel"
+					class="currencyLabel1 pointer" (click)="showCurrencySelector()">
+					{{ currency | const:'currency':'id' }}
+				</span>
+
+				<input #inp inputApp
+					(keyup.enter)="editable1.close();"
+					(input)="accumulatePrice(+inp.value)"
+					(blur)="onBlur()"
+					type="text"
+					restrictInput="decimal"
+					[value]="amount"/>
+			</ng-container>
+
 		</editable-text-app>
 		<!-- currency goes after after when on double line -->
 		<span *ngIf="!inlineLabel" class="currencyLabel2 pointer" (click)="showCurrencySelector()">

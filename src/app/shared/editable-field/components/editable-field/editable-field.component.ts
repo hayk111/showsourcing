@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
 
 @Component({
@@ -36,6 +36,7 @@ export class EditableFieldComponent {
 	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
 	isOpen = false;
 
+
 	@HostListener('click')
 	open() {
 		if (this.editOnClick && !this.isOpen) {
@@ -53,4 +54,5 @@ export class EditableFieldComponent {
 			setTimeout(_ => this.closed.emit());
 		}
 	}
+
 }

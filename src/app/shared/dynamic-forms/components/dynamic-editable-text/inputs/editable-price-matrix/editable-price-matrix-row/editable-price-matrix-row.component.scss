@@ -10,25 +10,6 @@ input {
 	width: 90px;
 }
 
-.txtBtn {
-	&.currency {
-		margin-right: var(--spacing-xl);
-	}
-}
-.label {
-	font-weight: bold;
-	font-size: var(--font-size-s);
-	text-transform: capitalize;
-}
-
-.currencySelector {
-	position: absolute;
-	bottom: 0;
-	width: 141px;
-	top: 50px;
-	z-index: 4;
-}
-
 .placeholder {
 	font-style: italic;
 	color: var(--color-txt-secondary);

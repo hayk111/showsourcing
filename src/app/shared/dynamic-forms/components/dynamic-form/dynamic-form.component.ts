@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 
 @Component({
 	selector: 'dynamic-form-app',
@@ -20,11 +21,12 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit {
 	@Input() inlineLabel: boolean;
 	@Input() isShowLabel = true;
 	@Output() formCreated = new EventEmitter<FormGroup>();
+	@Output() update = new EventEmitter<DynamicUpdate>();
 	form: FormGroup;
 	cols: CustomField[][];
 
 	constructor(private dfSrv: DynamicFormsService) {
-    super();
+		super();
 	}
 
 	ngOnInit() {

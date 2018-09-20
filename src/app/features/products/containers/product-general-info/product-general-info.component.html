@@ -1,14 +1,14 @@
 <card-app>
 	<!-- product name -->
-	<!-- <div class="mainTitle shipping flex"
+	<div class="mainTitle shipping flex"
 		i18n="div title|Product general information@@productGeneralInfo_general">
 
-		<editable-text-app #edt (saved)="saveName(inpName.value)" (opened)="inpName.focus()">
+		<editable-text-app #edt (closed)="updateProductProp(inpName.value, 'name')" (opened)="inpName.select()">
 			<editable-label-app>
 				{{ product?.name || 'Unnamed Product' }}
 			</editable-label-app>
 			<input inputApp type="text" #inpName [value]="product.name"
-				(keyup.enter)="saveName(inpName.value); edt.close()">
+				(keyup.enter)="edt.close()">
 		</editable-text-app>
 
 		<icons-status-app
@@ -18,36 +18,42 @@
 			[onlyLike]="true"
 			[hasPercent]="false">
 		</icons-status-app>
-	</div> -->
+	</div>
 
 	<!-- price -->
-	<!-- <div class="flex price">
+	<editable-text-app #editablePrice class="price" (closed)="updateProductProp(inpPrice.price, 'price')" (opened)="inpPrice.select()"
+		(saved)="updateProductProp(inpPrice.price, 'price')">
+		<editable-label-app>
 
-		<div *ngIf="product?.price?.value" class="amount">
-			{{ priceAmount | currency: product?.price?.currency:'symbol':'1.2-2'}}
-		</div>
-		<div *ngIf="product?.price?.value" class="moq flexCenter">
-			({{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}})
-		</div>
+				<div *ngIf="product?.price?.value" class="amount">
+					{{ priceAmount | currency: product?.price?.currency:'symbol':'1.2-2'}}
+				</div>
+				<div *ngIf="product?.price?.value" class="moq flexCenter">
+					({{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}})
+				</div>
 
-	</div> -->
+		</editable-label-app>
+		<input-price-app #inpPrice [price]="product?.price" (keyup.enter)="editablePrice.close()"></input-price-app>
+	</editable-text-app>
 
 	<!-- description -->
-	<!-- <div class="description">
-		<div class="description-title">Description</div>
-		<editable-text-app (saved)="saveDescription(txt.value)">
-			<editable-label-app *ngIf="product?.description; else noDesc">
-				{{ product.description }}
+	<div class="description">
+		<editable-field-app
+			[canGrow]="true"
+			(opened)="txt.select()"
+			(closed)="updateProductProp(txt.value, 'description')">
+			<label-app>Description</label-app>
+			<editable-label-app>
+				<span *ngIf="product?.description; else noDesc">{{ product.description }}</span>
+				<ng-template #noDesc>
+					<span i18n="label|Product with no description@@productDescription_noDescription">
+						No description yet
+					</span>
+				</ng-template>
 			</editable-label-app>
-			<ng-template #noDesc>
-				<editable-label-app class="noDesc"
-					i18n="label|Product with no description@@productDescription_noDescription">
-					No description yet
-				</editable-label-app>
-			</ng-template>
 			<textarea inputApp class="fullWidth" #txt [value]="product?.description || ''"></textarea>
-		</editable-text-app>
-	</div> -->
+		</editable-field-app>
+	</div>
 
 	<!-- dynamic forms -->
 	<div class="title-information">Product Information</div>
@@ -55,9 +61,9 @@
 	<ng-container *ngIf="descriptor$ | async as descriptor">
 		<dynamic-form-app
 			[inlineLabel]="false"
-			(formCreated)="onFormCreated($event)"
 			[descriptor]="descriptor"
-			[colAmount]="2">
+			[colAmount]="2"
+			(update)="updateProduct($event)">
 		</dynamic-form-app>
 	</ng-container>
 
@@ -74,9 +80,11 @@
 	</div>
 
 	<ng-container *ngIf="descriptor2$ | async as descriptor">
-		<dynamic-form-app (formCreated)="onFormCreated($event)"
+		<!-- <dynamic-form-app
 			[inlineLabel]="true"
 			[descriptor]="descriptor"
-			[colAmount]="2"></dynamic-form-app>
+			[colAmount]="2"
+			(update)="updateProduct($event)">
+		</dynamic-form-app> -->
 	</ng-container>
 </card-app>

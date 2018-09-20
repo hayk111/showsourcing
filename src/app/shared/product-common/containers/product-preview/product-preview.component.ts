@@ -37,17 +37,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		{ name: 'category', type: 'selector', metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true } },
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'price', type: 'price' },
-		{ name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
 		{
-			name: 'createdBy', label: 'Assignee', type: 'selector', metadata:
+			name: 'assignee', label: 'Assignee', type: 'selector', metadata:
 				{ target: 'user', type: 'entity', labelName: 'name' }
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
-		{
-			name: 'event', label: 'Found at', type: 'selector',
-			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true }
-		},
 		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name', canCreate: true }, multiple: true },
 		{ name: 'description', type: 'textarea', label: 'description' },
 	];

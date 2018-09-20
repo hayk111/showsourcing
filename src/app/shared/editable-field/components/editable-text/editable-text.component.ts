@@ -34,22 +34,22 @@ export class EditableTextComponent {
 		setTimeout(_ => this.closed.emit());
 	}
 
+	/** does not send a close event */
 	cancel() {
 		this.isOpen = false;
 		this.canceled.emit();
 	}
 
 	save() {
-		this.isOpen = false;
 		this.saved.emit();
-		this.closed.emit();
+		this.close();
 	}
 
-	open(isClick?: boolean) {
+	open(isOutsideClick?: boolean) {
 		// if the click was made from the template of this component
 		// and the editOnClick is disabled we shouldn't open the edit mode.
 		// this will allow us to have some editable text that are only opened via a button and such.
-		if (isClick && this.editOnClick) {
+		if (isOutsideClick && !this.editOnClick) {
 			return;
 		}
 		this.isOpen = true;

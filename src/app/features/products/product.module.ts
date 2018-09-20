@@ -48,6 +48,7 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
 import { TaskCommonModule } from '~shared/task-common';
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
+import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 
 @NgModule({
 	imports: [
@@ -73,7 +74,8 @@ import { ProductTopPanelComponent } from './components/product-top-panel/product
 		StatusModule,
 		ProductCommonModule,
 		UtilsModule,
-		TaskCommonModule
+		TaskCommonModule,
+		InputsCustomModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
