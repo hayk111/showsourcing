@@ -20,6 +20,7 @@ import { UserClientReadyGuard, TeamClientReadyGuard } from '~shared/apollo/guard
 import { HasCompanyGuard } from '~features/pick-a-team/services/has-company.guard';
 import { CreateACompanyPageComponent } from '~features/pick-a-team/containers/create-a-company-page/create-a-company-page.component';
 import { HasCompanySelectGuard } from '~features/pick-a-team/services/has-company-selected.guard';
+import { HasUserGuard } from '~features/auth/services/has-user.guard';
 
 export const routes: Array<Route> = [
 	{
@@ -72,7 +73,8 @@ export const routes: Array<Route> = [
 		canActivateChild: [
 			AuthGuardService,
 			HasTeamSelectedGuard,
-			TeamClientReadyGuard
+			TeamClientReadyGuard,
+			HasUserGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full', },

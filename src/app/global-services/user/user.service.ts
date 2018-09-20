@@ -26,7 +26,7 @@ export class UserService extends GlobalService<User> {
 		protected apolloState: ApolloStateService
 	) {
 		super(apolloState, UserQueries, 'user', 'users');
-		this.selectUser().subscribe(user => this.userSync = user);
+		this.user$.subscribe(user => this.userSync = user);
 	}
 
 	selectUser() {

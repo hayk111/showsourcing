@@ -31,7 +31,8 @@ export class UserClientInitializer extends AbstractApolloClient {
 
 	init(): void {
 		super.checkNotAlreadyInit();
-		// we get the user id from the auth service
+		// we get the user id from the auth service as to not wait for
+		// the user from user service to be ready
 		const userId$ = this.authSrv.userId$.pipe(
 			filter(id => !!id),
 			tap(_ => this.apolloState.setClientPending(Client.USER)),
