@@ -30,7 +30,7 @@ export class ProjectCardComponent extends TrackingComponent {
 		this.removeProject.emit(project);
 	}
 
-	goToDetails(project: Project) {
+	openProject(project: Project) {
 		this.router.navigate(['project', 'details', project.id]);
 	}
 

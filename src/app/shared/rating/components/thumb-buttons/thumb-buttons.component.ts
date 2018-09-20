@@ -123,7 +123,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	createEmitVote(state: boolean = true) {
 		const vote = new ProductVote({
 			value: state ? 100 : 0,
-			user: { id: this.userSrv.userSync.id }
+			user: { id: this.userSrv.userSync.id, __typename: 'User' }
 		});
 		this.vote.emit([...this.votes, vote]);
 	}
@@ -145,7 +145,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	createVote(state: boolean) {
 		const tempVote = new ProductVote({
 			value: state ? 100 : 0,
-			user: { id: this.userSrv.userSync.id }
+			user: { id: this.userSrv.userSync.id, __typename: 'User' }
 		});
 		this.voteSrv.create(tempVote).subscribe();
 		return tempVote;
