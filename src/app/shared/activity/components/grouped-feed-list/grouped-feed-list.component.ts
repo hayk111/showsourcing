@@ -53,7 +53,7 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		const newComment = new Comment({ text: items.text });
 		this.commentSrv.create(newComment).pipe(
 			switchMap(_ =>
-				this.ermSrv.getGlobalService(items.typeEntity).update(
+				this.ermSrv.getGlobalService(this.typeEntity).update(
 					{ id: items.entity.id, comments: [...items.entity.comments, newComment] }
 				)
 			)
