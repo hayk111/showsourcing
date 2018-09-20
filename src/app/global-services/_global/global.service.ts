@@ -464,7 +464,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	update(entity: T, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T> {
+	update(entity: T, fields?: string | string[], clientName: Client = this.defaultClient, isOptimistic: boolean = true): Observable<T> {
 		const title = 'Update ' + this.typeName;
 		fields = this.getFields(fields, this.fields.update);
 		const gql = this.queryBuilder.update(fields);
@@ -473,7 +473,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
 
-		this.addOptimisticResponse(options, gql, entity, this.typeName);
+    if (isOptimistic) {
+      this.addOptimisticResponse(options, gql, entity, this.typeName);
+    }
 		// updating select one cache so changes are reflected when using selectOne(id)
 		if (this.selectOneCache.has(cacheKey)) {
 			this.selectOneCache.get(cacheKey).subj.next(entity);

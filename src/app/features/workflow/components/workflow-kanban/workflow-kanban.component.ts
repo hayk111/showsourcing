@@ -55,6 +55,13 @@ export class WorkflowKanbanComponent extends TrackingComponent {
 		return product.id;
 	}
 
+	/** The current status  for a product */
+	getCurrentStatus(product) {
+		if (product.status) {
+			return product.status.status;
+		}
+		return null;
+	}
 	/** The current status id for a product */
 	getCurrentStatusTypeId(product) {
 		if (product.status) {

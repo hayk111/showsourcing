@@ -121,15 +121,15 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	 */
 	updateProductStatus(product: Product, statusType: ProductStatusType) {
 		// we check if the product has a status
-		if (!product.status) {
+		if (!product.status || !product.status.status) {
 			const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-			return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status]);
+			return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status], undefined, false);
 		} else {
 			// we dont update if we click the same status as the current one of the product
 			const productStatusType = product.status.status;
 			if (statusType.id !== productStatusType.id) {
 				const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-				return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status]);
+				return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status], undefined, false);
 			}
 		}
 		return of();
