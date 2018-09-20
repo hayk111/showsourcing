@@ -7,10 +7,10 @@ img {
 }
 h1 {
 	margin-bottom: var(--spacing-s);
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: var(--font-normal);
 }
 
 h2 {
 	margin-bottom: var(--spacing-xl);
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: var(--font-normal);
 }

@@ -19,8 +19,8 @@ export class AbstractInput extends TrackingComponent implements ControlValueAcce
 	protected onChangeFn: Function = () => { };
 
 	constructor(protected cd: ChangeDetectorRef) {
-    super();
-  }
+		super();
+	}
 
 	// Implemented as part of ControlValueAccessor.
 	// to give accessor its formControl value associated to it

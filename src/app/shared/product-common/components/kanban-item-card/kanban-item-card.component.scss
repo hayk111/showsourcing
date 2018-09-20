@@ -142,7 +142,7 @@
 						display: flex;
 
 						.title {
-							font-family: 'Source Sans Pro', sans-serif;
+							font-family: var(--font-normal);
 							font-size: 14px;
 							font-weight: 600;
 							color: var(--color-txt-strong);
@@ -196,7 +196,7 @@
 				}
 
 				.subtitle {
-					font-family: 'Source Sans Pro', sans-serif;
+					font-family: var(--font-normal);
 					font-size: 12px;
 					color: #45adff;
 					margin-bottom: 3px;
@@ -204,7 +204,7 @@
 				}
 
 				.descriptionText {
-					font-family: 'Source Sans Pro', sans-serif;
+					font-family: var(--font-normal);
 					font-size: 12px;
 					color: var(--color-txt-primary);
 					margin-bottom: 3px;

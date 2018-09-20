@@ -1,83 +1,93 @@
-<field-cell-app [isOpen]="!isOpen" [isShowLabel]="isShowLabel" [inlineLabel]="inlineLabel" [canGrow]="customField.multiple">
-	<label-app *ngIf="isShowLabel">{{ customField.label || customField.name }}</label-app>
-	<!-- entity selector -->
-	<ng-container *ngIf="customField.metadata.type === 'entity'">
-		<editable-text-app #editable
-			(closed)="closed.emit()" [hasAction]="false" (opened)="opened.emit()">
 
-			<!-- multiple value label -->
-			<editable-label-app *ngIf="customField.multiple; else solo" class="flex flexWrap mult-tags">
-				<ng-container	*ngIf="!isEmpty(value); else none">
-					<info-badge-app
-						class="tag"
-						*ngFor="let tag of value;trackBy: trackByFn"
-						[type]="customField.metadata.target">
-						{{ tag.name }}
-					</info-badge-app>
-				</ng-container>
+<!-- const selector -->
+<editable-field-app
+	*ngIf="customField.metadata.type === 'const'; else entitySelector"
+	#editable
+	[inlineLabel]="inlineLabel"
+	[hasAction]="false"
+	[canGrow]="customField.multiple"
+	(opened)="selector.open()">
+	<label-app>{{ customField.label || customField.name }}</label-app>
+	<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
+		{{ (value | const: customField.metadata.target) || '-'}}
+	</editable-label-app>
+	<selector-const-app
+		#selector
+		[multiple]="false"
+		[type]="customField.metadata.target"
+		[(ngModel)]="value"
+		(change)="onSelectorChange()"
+		(blur)="onBlur()"
+		(click)="preventPropagation($event)">
+	</selector-const-app>
+</editable-field-app>
 
-				<ng-template #none>
-					-
-				</ng-template>
-			</editable-label-app>
+<!-- entity selector -->
+<ng-template #entitySelector>
+	<editable-field-app
+		#editable
+		[inlineLabel]="inlineLabel"
+		[hasAction]="false"
+		[canGrow]="customField.multiple"
+		(opened)="selector.open()">
+		<label-app>{{ customField.label || customField.name }}</label-app>
+		<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
+			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
+		</editable-label-app>
+		<selector-entity-app
+			#selector
+			[multiple]="customField.multiple"
+			[type]="customField.metadata.target"
+			[canCreate]="customField.metadata.canCreate"
+			[propertyName]="labelName"
+			[(ngModel)]="value"
+			(change)="onSelectorChange()"
+			(blur)="onBlur()"
+			(click)="preventPropagation($event)">
+		</selector-entity-app>
+	</editable-field-app>
+</ng-template>
 
-			<!-- one value label -->
-			<ng-template #solo>
-				<editable-label-app class="flexCenter">
-					<img class="selectorIcon"
-						*ngIf="(value | logo:customField.metadata.target) && !inlineLabel && customField.metadata.target !== 'user'"
-						[src]="value | logo:customField.metadata.target" />
-						<ng-container [ngSwitch]="customField.metadata.target">
-							<div *ngSwitchCase="'user'" class="flexCenter">
-								<user-picture-app
-									class="user-icon"
-									size="20"
-									[user]="value"
-									[image]="value?.avatar">
-								</user-picture-app>
-							{{ value ? (value.firstName +  ' ' + value.lastName ) : '-'}}
-						</div>
-						<info-badge-app *ngSwitchCase="'category'" type="category"> {{ value?.name }}</info-badge-app>
-						<span *ngSwitchDefault>
-							{{ value ? value[labelName] : '-' }}
-						</span>
-					</ng-container>
 
-				</editable-label-app>
-			</ng-template>
-			<selector-entity-app
-				#selector
-				[multiple]="customField.multiple"
-				[(ngModel)]="value"
-				(change)="onSelectorChange()"
-				(blur)="onBlur()"
-				[type]="customField.metadata.target"
-				[canCreate]="customField.metadata.canCreate"
-				[propertyName]="labelName">
-			</selector-entity-app>
-		</editable-text-app>
+
+<!-- one value, label template -->
+<!-- hint: we don't display icons when using inlineLabel -->
+<ng-template #oneValueLabel>
+	<ng-container [ngSwitch]="customField.metadata.target">
+		<!-- user -->
+		<div class="flexVAlign" *ngSwitchCase="'user'">
+			<user-picture-app
+				*ngIf="value && !inlineLabel"
+				class="user-icon"
+				size="20"
+				[user]="value"
+				[image]="value?.avatar">
+			</user-picture-app>
+			<span class="ellipsis">{{ value ? (value.firstName +  ' ' + value.lastName ) : '-'}}</span>
+		</div>
+
+		<!-- category -->
+		<info-badge-app *ngSwitchCase="'category'" type="category"> {{ value?.name }}</info-badge-app>
+
+		<!-- others we display an icon and the value next to it -->
+		<ng-container *ngSwitchDefault>
+			<img class="defaultLabelIcon"
+				*ngIf="(value | logo:customField.metadata.target) && !inlineLabel"
+				[src]="value | logo:customField.metadata.target" />
+			<span class="ellipsis fullWidth">
+				{{ value ? value[labelName] : '-' }}
+			</span>
+		</ng-container>
 
 	</ng-container>
+</ng-template>
 
-	<!-- const selector -->
-	<ng-container *ngIf="customField.metadata.type === 'const'">
-		<!-- one -->
-		<editable-text-app #editable *ngIf="!customField.multiple"
-			(closed)="closed.emit()" [hasAction]="false" (opened)="onOpen()">
-
-			<editable-label-app>
-				{{ (value | const: customField.metadata.target) || '-'}}
-			</editable-label-app>
-
-			<selector-const-app
-				#selector
-				[multiple]="false"
-				(change)="onSelectorChange()"
-				(blur)="onBlur()"
-				[(ngModel)]="value"
-				[type]="customField.metadata.target">
-			</selector-const-app>
-		</editable-text-app>
-
-	</ng-container>
-</field-cell-app>
+<!-- multiple values, label template (we display badges) -->
+<ng-template #multipleValuesLabel>
+	<info-badge-app
+		class="tag"
+		*ngFor="let tag of value; trackBy: trackByFn"
+		[type]="customField.metadata.target">
+		{{ tag.name }}
+	</info-badge-app>
+</ng-template>

@@ -1,10 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { AppImage, User } from '~models';
-import { PendingImage, AutoUnsub, DEFAULT_IMG } from '~utils';
-import { UploaderService } from '~shared/file/services/uploader.service';
-import { ImageService } from '~global-services/image/image.service';
-import { DialogService } from '~shared/dialog';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { first } from 'rxjs/operators';
+import { ImageService } from '~global-services/image/image.service';
+import { AppImage } from '~models';
+import { DialogService } from '~shared/dialog';
+import { UploaderService } from '~shared/file/services/uploader.service';
+import { AutoUnsub, DEFAULT_IMG, PendingImage } from '~utils';
 
 @Component({
 	selector: 'product-carousel-app',

@@ -2,56 +2,57 @@
 <!-- when the value is undefined, null or 0 we display '-'.
 A package with 0cm makes no sens -->
 <!-- length -->
-<field-cell-app #cell1 [inlineLabel]="true">
+<editable-field-app
+	#cell1
+	[inlineLabel]="true"
+	(closed)="onSave()"
+	(opened)="inp1.select();">
 	<label-app>length</label-app>
-	<editable-text-app #editable1
-		(closed)="onSave(); cell1.isOpen = true"
-		(opened)="cell1.isOpen = false">
-		<editable-label-app>
-			{{ value?.length ? (value?.length + ' ' + value.unit) : '-' }}
-		</editable-label-app>
-		<form-field-app class="edit">
-			<input inputApp
-				#inp1
-				restrictInput="number"
-				autofocus="true"
-				[value]="value?.length"
-				(input)="accumulateNested('length', +inp1.value)"
-				(keyup.enter)="editable1.close();"
-				[type]="'number'"/>
-		</form-field-app>
-	</editable-text-app>
-</field-cell-app>
+	<editable-label-app>
+		{{ value?.length ? (value?.length + ' ' + value.unit) : '-' }}
+	</editable-label-app>
+	<form-field-app class="edit">
+		<input inputApp
+			#inp1
+			restrictInput="number"
+			autofocus="true"
+			[value]="value?.length"
+			[type]="'number'"
+			(input)="accumulateNested('length', +inp1.value)"
+			(keyup.enter)="cell1.close();"/>
+	</form-field-app>
+</editable-field-app>
 
 <!-- width -->
-<field-cell-app #cell2 [inlineLabel]="true">
+<editable-field-app
+	#cell2
+	[inlineLabel]="true"
+	(closed)="onSave()"
+	(opened)="inp2.select();">
 	<label-app>width</label-app>
-	<editable-text-app
-		#editable2
-		(closed)="onSave(); cell2.isOpen = true"
-		(opened)="cell2.isOpen = false">
-		<editable-label-app>
-			{{ value?.width ? (value?.width + ' ' + value?.unit) : '-' }}
-		</editable-label-app>
-		<form-field-app class="edit">
-			<input inputApp
-				#inp2
-				restrictInput="number"
-				autofocus="true"
-				[value]="value?.width"
-				(input)="accumulateNested('width', +inp2.value)"
-				(keyup.enter)="editable2.close();"
-				[type]="'number'"/>
-		</form-field-app>
-	</editable-text-app>
-</field-cell-app>
+	<editable-label-app>
+		{{ value?.width ? (value?.width + ' ' + value?.unit) : '-' }}
+	</editable-label-app>
+	<form-field-app class="edit">
+		<input inputApp
+			#inp2
+			restrictInput="number"
+			autofocus="true"
+			[value]="value?.width"
+			(input)="accumulateNested('width', +inp2.value)"
+			(keyup.enter)="cell2.close();"
+			[type]="'number'"/>
+	</form-field-app>
+</editable-field-app>
 
 <!-- height -->
-<field-cell-app #cell3 [inlineLabel]="true">
+<editable-field-app
+	#cell3
+	[inlineLabel]="true"
+	(closed)="onSave()"
+	(opened)="inp3.select();">
+	<label-app>width</label-app>
 	<label-app>height</label-app>
-	<editable-text-app #editable3
-		(closed)="onSave(); cell3.isOpen = true"
-		(opened)="cell3.isOpen = false">
 		<editable-label-app>
 			{{ value?.height ? (value?.height + ' ' + value?.unit) : '-' }}
 		</editable-label-app>
@@ -62,84 +63,85 @@ A package with 0cm makes no sens -->
 				autofocus="true"
 				[value]="value?.height"
 				(input)="accumulateNested('height', +inp3.value)"
-				(keyup.enter)="editable3.close();"
+				(keyup.enter)="cell3.close();"
 				[type]="'number'"/>
 		</form-field-app>
-	</editable-text-app>
-</field-cell-app>
+</editable-field-app>
 
 <!-- units -->
-<field-cell-app #cell4 [inlineLabel]="true">
+<editable-field-app
+	#cell4
+	[inlineLabel]="true"
+	(closed)="onSave()"
+	(opened)="selector1.open();">
 	<label-app>Dimension units</label-app>
-	<editable-text-app #editable4
-		(closed)="onSave(); cell4.isOpen = true"
-		(opened)="cell4.isOpen = false">
-		<editable-label-app>
-			{{ customField?.value?.unit || '-' }}
-		</editable-label-app>
-		<selector-const-app
-			class="rightSelector edit"
-			[type]="'lengthUnit'"
-			[(ngModel)]="value.unit"></selector-const-app>
-	</editable-text-app>
-</field-cell-app>
+	<editable-label-app>
+		{{ customField?.value?.unit || '-' }}
+	</editable-label-app>
+	<selector-const-app
+		#selector1
+		class="rightSelector"
+		[type]="'lengthUnit'"
+		[(ngModel)]="value.unit"></selector-const-app>
+</editable-field-app>
 
 <!-- Quantity -->
-<field-cell-app #cell5 [inlineLabel]="true">
+<editable-field-app
+	#cell5
+	[inlineLabel]="true"
+	(closed)="onSave()"
+	(opened)="inp5.select();">
 	<label-app>Quantity</label-app>
-	<editable-text-app #editable5
-		(closed)="onSave(); cell5.isOpen = true"
-		(opened)="cell5.isOpen = false">
-		<editable-label-app>
-			{{ value?.itemsQuantity ? value.itemsQuantity : '-' }}
-		</editable-label-app>
-		<form-field-app class="edit">
-			<input inputApp
-				#inp5
-				restrictInput="number"
-				autofocus="true"
-				[value]="value?.itemsQuantity"
-				(input)="accumulateNested('itemsQuantity', +inp5.value)"
-				(keyup.enter)="editable5.close();"
-				[type]="'number'"/>
-		</form-field-app>
-	</editable-text-app>
-</field-cell-app>
+	<editable-label-app>
+		{{ value?.itemsQuantity ? value.itemsQuantity : '-' }}
+	</editable-label-app>
+	<form-field-app class="edit">
+		<input inputApp
+			#inp5
+			restrictInput="number"
+			autofocus="true"
+			[value]="value?.itemsQuantity"
+			[type]="'number'"
+			(input)="accumulateNested('itemsQuantity', +inp5.value)"
+			(keyup.enter)="cell5.close();"/>
+	</form-field-app>
+</editable-field-app>
 
 <!-- weight -->
-<field-cell-app #cell6 [inlineLabel]="true">
+<editable-field-app
+	#cell6
+	[inlineLabel]="true"
+	(closed)="onSave()"
+	(opened)="inp6.select();">
 	<label-app>Weight</label-app>
-	<editable-text-app #editable6
-		(closed)="onSave(); cell6.isOpen = true"
-		(opened)="cell6.isOpen = false">
-		<editable-label-app>
-			{{ value?.weight ? (value?.weight + ' ' + value?.weightUnit) : '-' }}
-		</editable-label-app>
-		<form-field-app class="edit">
-			<input inputApp
-				#inp6
-				restrictInput="number"
-				autofocus="true"
-				[value]="value?.weight"
-				(input)="accumulateNested('weight', +inp6.value)"
-				(keyup.enter)="editable6.close();"
-				[type]="'number'"/>
-		</form-field-app>
-	</editable-text-app>
-</field-cell-app>
+	<editable-label-app>
+		{{ value?.weight ? (value?.weight + ' ' + value?.weightUnit) : '-' }}
+	</editable-label-app>
+	<form-field-app class="edit">
+		<input inputApp
+			#inp6
+			restrictInput="number"
+			autofocus="true"
+			[value]="value?.weight"
+			(input)="accumulateNested('weight', +inp6.value)"
+			(keyup.enter)="cell6.close();"
+			[type]="'number'"/>
+	</form-field-app>
+</editable-field-app>
 
 <!-- weigth units -->
-<field-cell-app #cell7 [inlineLabel]="true">
+<editable-field-app
+	#cell7
+	[inlineLabel]="true"
+	(closed)="onSave()"
+	(opened)="selector7.open();">
 	<label-app>units</label-app>
-	<editable-text-app #editable7
-		(closed)="onSave(); cell7.isOpen = true"
-		(opened)="cell7.isOpen = false">
-		<editable-label-app>
-			{{ customField?.value?.weightUnit || '-' }}
-		</editable-label-app>
-		<selector-const-app
-			class="rightSelector edit"
-			[type]="'weightUnit'"
-			[(ngModel)]="value.weightUnit"></selector-const-app>
-	</editable-text-app>
-</field-cell-app>
+	<editable-label-app>
+		{{ customField?.value?.weightUnit || '-' }}
+	</editable-label-app>
+	<selector-const-app
+		#selector7
+		class="rightSelector"
+		[type]="'weightUnit'"
+		[(ngModel)]="value.weightUnit"></selector-const-app>
+</editable-field-app>

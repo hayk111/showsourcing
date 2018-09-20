@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Team } from '~models';
-import { TeamService, UserService } from '~global-services';
-import { map, first } from 'rxjs/operators';
+import { TeamService, UserService, CompanyService } from '~global-services';
+import { map, first, tap, takeUntil } from 'rxjs/operators';
 import { Company } from '~models/company.model';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -14,7 +15,7 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./create-a-team-page.component.scss', '../../../auth/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateATeamPageComponent implements OnInit {
+export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
 	pending = false;
 	error: string;
@@ -23,25 +24,27 @@ export class CreateATeamPageComponent implements OnInit {
 	constructor(
 		private fb: FormBuilder,
 		private srv: TeamService,
+		private companySrv: CompanyService,
 		private router: Router,
 		private userSrv: UserService
 	) {
+		super();
 		this.form = this.fb.group({
-			companyName: ['', Validators.required],
-			teamName: ['', Validators.required]
+			name: ['', Validators.required]
 		});
 	}
 
 	onSubmit() {
 		this.pending = true;
 		const formValue = this.form.value;
-		const company = new Company({ name: formValue.companyName });
-		const team = new Team({ name: formValue.teamName, company, ownerUser: this.userSrv.userSync });
+		// we a
+		const company: Company = { id: this.companySrv.companySync.id };
+		const team = new Team({ name: formValue.name, company, ownerUser: this.userSrv.userSync });
 		this.srv.create(team)
 			.subscribe(
 				_ => {
-					this.pending = false;
 					this.router.navigate(['']);
+					this.pending = false;
 				},
 				e => {
 					this.pending = false;
@@ -51,12 +54,10 @@ export class CreateATeamPageComponent implements OnInit {
 	}
 
 	ngOnInit() {
-
 		this.hasTeam$ = this.srv.selectAll().pipe(
 			first(),
 			map(all => all.length > 0)
 		);
-
 	}
 
 }

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import {
+	CreateACompanyPageComponent,
+} from '~features/pick-a-team/containers/create-a-company-page/create-a-company-page.component';
+import { CreateATeamPageComponent } from '~features/pick-a-team/containers/create-a-team-page/create-a-team-page.component';
+
 import { PickATeamPageComponent } from '~features/pick-a-team/containers/pick-a-team-page/pick-a-team-page.component';
 import { SharedModule } from '~shared/shared.module';
-import { CreateATeamPageComponent } from '~features/pick-a-team/containers/create-a-team-page/create-a-team-page.component';
-import { RouterModule } from '@angular/router';
-import { HasTeamGuard } from '~features/pick-a-team/services/has-team.guard';
-import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-selected.guard';
 
 
 
@@ -16,9 +17,14 @@ import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-se
 	],
 	declarations: [
 		PickATeamPageComponent,
-		CreateATeamPageComponent
+		CreateATeamPageComponent,
+		CreateACompanyPageComponent
 	],
-	exports: [PickATeamPageComponent, CreateATeamPageComponent],
-	providers: [HasTeamGuard, HasTeamSelectedGuard]
+	exports: [
+		PickATeamPageComponent,
+		CreateATeamPageComponent,
+		CreateACompanyPageComponent
+	],
+	providers: []
 })
 export class PickATeamModule { }

@@ -2,16 +2,4 @@
 	min-width: 140px;
 }
 
-editable-label-app {
-	min-width: 120px;
-	cursor: pointer;
-	text-align: right;
-	&:hover {
-		color: var(--color-primary);
-		text-decoration: underline;
-	}
-}
 
-label-app {
-	color: var(--color-secondary-dark);
-}

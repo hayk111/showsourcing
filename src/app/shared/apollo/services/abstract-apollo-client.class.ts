@@ -11,7 +11,6 @@ import { TokenService } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { environment } from 'environments/environment.prod';
-import { ClientInitializerQueries } from '~shared/apollo/services/client-queries';
 import { log, LogColor } from '~utils';
 import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';

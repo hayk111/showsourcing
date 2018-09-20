@@ -26,7 +26,7 @@
 </ng-template>
 
 <ng-template #userTemplate let-item="item">
-	<div class="flex">
+	<div class="flex flexVAlign">
 		<user-picture-app [user]="item" [size]="18" [border]="true"></user-picture-app>
 		<span>{{ item?.firstName }} {{ item?.lastName }}</span>
 	</div>

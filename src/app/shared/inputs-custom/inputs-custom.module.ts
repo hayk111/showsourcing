@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputPriceCurrencyComponent } from '~shared/inputs-custom/components/input-price-currency/input-price-currency.component';
+import { InputPriceComponent } from '~shared/inputs-custom/components/input-price/input-price.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { UtilsModule } from '~shared/utils';
+import { InputsModule } from '~shared/inputs';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
-		SelectorsModule
+		SelectorsModule,
+		UtilsModule,
+		InputsModule
 	],
-	declarations: [InputPriceCurrencyComponent],
-	exports: [InputPriceCurrencyComponent]
+	declarations: [InputPriceComponent],
+	exports: [InputPriceComponent]
 })
 export class InputsCustomModule { }

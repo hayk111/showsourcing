@@ -3,7 +3,7 @@ user-picture-app {
 }
 
 .name {
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: var(--font-normal);
 	font-weight: 600;
 	color: var(--color-txt-strong);
 }

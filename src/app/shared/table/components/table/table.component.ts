@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
+import { nextTick } from 'q';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({

@@ -3,7 +3,7 @@ import { uuid } from '~utils';
 
 export class Company {
 	id: string;
-	name: string;
+	name?: string;
 	__typename ?= 'Company';
 
 	constructor(config: CompanyConfig) {

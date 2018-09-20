@@ -13,7 +13,6 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog/component';
 import { CrudDialogService } from '~shared/custom-dialog/services/crud-dialog.service';
-import { FindProductDialogComponent } from './component/find-product-dialog/find-product-dialog.component';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
-		FindProductDialogComponent
 	],
 	entryComponents: [
 		CreationDialogComponent,
@@ -39,7 +37,6 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
-		FindProductDialogComponent
 	],
 	providers: [
 		ProductDialogService,

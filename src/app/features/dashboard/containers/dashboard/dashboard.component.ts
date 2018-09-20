@@ -9,7 +9,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { filter } from 'graphql-anywhere';
 import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
 import { DashboardService, DashboardCounters } from '~features/dashboard/services/dashboard.service';
-import { User, Task, ERM } from '~models';
+import { User, Task, ERM, Price } from '~models';
 import { Router } from '@angular/router';
 
 @Component({

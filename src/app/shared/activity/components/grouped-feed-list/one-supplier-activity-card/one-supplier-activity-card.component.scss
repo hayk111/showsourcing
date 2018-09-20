@@ -1,0 +1,88 @@
+:host {
+	min-width: 680px;
+	display: block;
+}
+
+activity-user-app {
+	margin-bottom: var(--spacing-ms);
+}
+
+one-activity-carousel-app {
+	margin-bottom: var(--spacing-ms);
+}
+
+.action-section {
+	font-size: var(--font-size-xxl);
+}
+
+.actions {
+	font-size: var(--font-size-xxl);
+	color: var(--color-txt-secondary);
+	& > * {
+		margin-right: var(--spacing-l);
+	}
+}
+
+.suppInfo {
+	margin-top: var(--spacing-s);
+
+	.name {
+		color: var(--color-txt-strong);
+		font-weight: 600;
+		font-size: var(--font-size-l);
+		letter-spacing: -0.4px;
+		margin-bottom: var(--spacing-xs);
+	}
+	.status-info {
+		margin-bottom: var(--spacing-s);
+		font-size: var(--font-size-m);
+		margin-bottom: var(--spacing-s);
+
+		& > * {
+			//for each children that is not the first one we add some spaces and bullet dots on the content
+			&:not(:first-child)::before {
+				content: "\00a0 \00a0 \2022 \00a0 \00a0";
+    		font-weight: bolder;
+			}
+		}
+		icons-status-app {
+			margin-right: -8px;
+		}
+		.price {
+			color: var(--color-primary);
+		}
+	}
+}
+
+.badges {
+	> * {
+		margin-right: var(--spacing-xs);
+	}
+}
+
+card-footer-app {
+	display: flex;
+
+	comment-list-app {
+		padding-left: 2px;
+	}
+
+	input, textarea {
+		height: 36px;
+		resize: none;
+		border: none;
+		background: none;
+
+		&:focus {
+			border-radius: 500px;
+			border: 1px solid var(--color-secondary);
+			background: var(--color-secondary-light);
+		}
+	}
+
+	button {
+		margin-left: var(--spacing-ms);
+	}
+}
+
+

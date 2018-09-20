@@ -3,15 +3,23 @@
 	<div *ngFor="let col of cols; let last = last;trackBy: trackByFn" class="col"
 		[ngClass]="{ 'last': last }"
 		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
-		<ng-container *ngIf="editable">
+		<ng-container *ngIf="textMode">
 			<dynamic-editable-text-app
 				*ngFor="let field of col;trackBy: trackByFn"
 				[customField]="field"
 				[formControlName]="field.name"
-				[isShowLabel]="isShowLabel"
 				[inlineLabel]="inlineLabel">
 			</dynamic-editable-text-app>
 		</ng-container>
+
+		<!-- <ng-template #inputs>
+			<dynamic-input-app
+				*ngFor="let field of col;trackBy: trackByFn"
+				[customField]="field"
+				[formControlName]="field.name"></dynamic-input-app>
+		</ng-template> -->
+
+
 	</div>
 
 </div>

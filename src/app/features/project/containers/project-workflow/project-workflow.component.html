@@ -1,7 +1,7 @@
 <div *ngIf="project$ | async as project">
 	<top-panel-app
 		[title]="project.name"
-		[buttonName]="'Update Products'"
+		buttonName="Update Products"
 		[subtitles]="['Projects', project.name, 'Kanban View']"
 		(buttonClick)="openFindProductDlg()">
 	</top-panel-app>

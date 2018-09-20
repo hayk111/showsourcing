@@ -1,10 +1,18 @@
-<field-cell-app [inlineLabel]="true" [isOpen]="!isOpen">
+<!-- edits are generated when either the labl or the value is clicked -->
+<editable-field-app [inlineLabel]="true" [editOnClick]="false">
+
+	<!-- the label is editable as well -->
 	<label-app>
-		<editable-text-app #editable1 (closed)="save()" (saved)="save()" (opened)="onOpen()">
+		<editable-text-app #editable1
+			(closed)="save()" (saved)="save()" (opened)="onOpen()">
 
 			<editable-label-app class="label txtBtn">
-				<ng-container *ngIf="value.label; else placeholder">{{ value.label }}</ng-container>
-				<ng-template #placeholder><span class="placeholder">Add price label</span></ng-template>
+				<ng-container *ngIf="value.label; else placeholder">
+					{{ value.label }}
+				</ng-container>
+				<ng-template #placeholder>
+					<span class="placeholder">Add price label</span>
+				</ng-template>
 			</editable-label-app>
 
 			<input
@@ -20,6 +28,7 @@
 		</editable-text-app>
 	</label-app>
 
+	<!-- value -->
 	<editable-text-app #editable2 (closed)="save()" (saved)="save()" (opened)="onOpen()">
 
 		<editable-label-app class="txtBtn">
@@ -53,5 +62,5 @@
 				[type]="'text'"/>
 		</div>
 
-		</editable-text-app>
-	</field-cell-app>
+	</editable-text-app>
+</editable-field-app>
