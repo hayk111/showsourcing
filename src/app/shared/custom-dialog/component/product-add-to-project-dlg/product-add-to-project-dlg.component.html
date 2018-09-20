@@ -26,6 +26,6 @@
 
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">{{ selectedProducts.length }} product{{ selectedProducts?.length > 1 ? 's' : '' }} selected</span>
-		<input [disabled]="!hasSelection" type="submit" value="Add Now" (click)="submit()" i18n="button|Adding product to projects@@productAddToProject_addNow"/>
+		<input [disabled]="numSelected < 1" type="submit" value="Add Now" (click)="submit()" i18n="button|Adding product to projects@@productAddToProject_addNow"/>
 	</dialog-footer-app>
 </dialog-app>

@@ -17,18 +17,19 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductAddToProjectDlgComponent extends TrackingComponent implements OnInit {
+
 	projects$: Observable<Project[]>;
-	selected = {};
-	hasSelection = false;
 	@Input() selectedProducts: Product[];
+	selected = {};
+	numSelected = 0;
 
 
 	constructor(
 		private dlgSrv: DialogService,
 		private productDlgSrv: ProductDialogService,
 		private notifSrv: NotificationService) {
-      super();
-    }
+		super();
+	}
 
 	ngOnInit() {
 		this.projects$ = this.productDlgSrv.selectProjects();
@@ -36,12 +37,12 @@ export class ProductAddToProjectDlgComponent extends TrackingComponent implement
 
 	select(id, value) {
 		this.selected[id] = value;
-		this.hasSelection = Object.values(this.selected).length > 0;
+		++this.numSelected;
 	}
 
 	unselect(id) {
 		delete this.selected[id];
-		this.hasSelection = Object.values(this.selected).length > 0;
+		--this.numSelected;
 	}
 
 	submit() {
