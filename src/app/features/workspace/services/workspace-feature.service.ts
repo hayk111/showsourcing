@@ -47,13 +47,13 @@ export class WorkspaceFeatureService extends ProductService {
 					`&& status.status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
 				sortBy: 'lastUpdatedDate',
-				take: 1000
+				take: 1000 // TODO this has to change to a queryAll, but easiest way to change it was like this
 			}).subscribe();
 		}
 
 		if (!this.productsResult) {
 			this.productsResult = this.productSrv.getListQuery({
-				query: search ?
+				query: search ? // we get all the products with status and inWorkflow
 					`status.id != null AND status.status.id != null ` +
 					`&& status.status.inWorkflow == true ` +
 					`&& name CONTAINS[c] "${search}" AND archived == false && deleted == false` :
@@ -61,7 +61,7 @@ export class WorkspaceFeatureService extends ProductService {
 					`&& status.status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
 				sortBy: 'lastUpdatedDate',
-				take: 1000
+				take: 1000 // TODO this has to change to a queryAll
 			});
 		}
 		return this.productsResult.items$.pipe(
@@ -152,6 +152,6 @@ export class WorkspaceFeatureService extends ProductService {
 			}
 		}
 		return of();
-  }
+	}
 
 }
