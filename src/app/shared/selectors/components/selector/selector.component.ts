@@ -76,6 +76,7 @@ export class SelectorComponent extends AbstractInput {
 	onCreate() {
 		this.create.emit(this.searchValue);
 		this.searchValue = '';
+		this.filter();
 	}
 
 	/** Finds values that contains the term searched */
@@ -101,6 +102,12 @@ export class SelectorComponent extends AbstractInput {
 				this.searchInp.focus();
 			}
 		});
+	}
+
+	onSearchEnter() {
+		if (this.filteredChoices.length === 0 && this.canCreate && this.searchValue) {
+			this.onCreate();
+		}
 	}
 
 	onBlur() {

@@ -24,8 +24,14 @@
 		<!-- header / search input -->
 		<ng-template ng-header-tmp *ngIf="canSearch">
 			<div class="selectCustomInput">
-				<input #searchInp inputApp autofocus="true" type="text"
-					[(ngModel)]="searchValue" (input)="filter()" (change)="$event.stopPropagation()" />
+				<input #searchInp
+					inputApp
+					autofocus="true"
+					type="text"
+					[(ngModel)]="searchValue"
+					(input)="filter()"
+					(keyup.enter)="onSearchEnter()"
+					(change)="$event.stopPropagation()" />
 			</div>
 		</ng-template>
 
@@ -34,7 +40,7 @@
 		</ng-template>
 
 		<ng-template ng-footer-tmp *ngIf="(canCreate && searchValue)">
-			<div class="createBlock pointer" (click)="onCreate()" *ngIf="filteredChoices.length === 0">
+			<div class="createBlock pointer color-primary" (click)="onCreate()" *ngIf="filteredChoices.length === 0">
 					Create {{ itemName }} {{ searchValue }}
 			</div>
 		</ng-template>
