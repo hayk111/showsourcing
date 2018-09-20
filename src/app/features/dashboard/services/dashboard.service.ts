@@ -29,7 +29,9 @@ export class DashboardService {
 		private productSrv: ProductService,
 		private supplierSrv: SupplierService,
 		private taskSrv: TaskService
-	) { this.userId = this.userSrv.userSync.id; }
+	) {
+		this.userSrv.selectUser().subscribe(user => this.userId = user.id);
+	}
 
 	getCounters(): Observable<DashboardCounters> {
 		return forkJoin([

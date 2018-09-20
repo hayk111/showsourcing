@@ -66,8 +66,7 @@ export class AuthenticationService {
 	logout() {
 		this.tokenSrv.clearTokens();
 		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
-		// the navigation without the set timeout throws an error..
-		setTimeout(_ => this.router.navigate(['guest', 'login']));
+		this.router.navigate(['guest', 'login']);
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {

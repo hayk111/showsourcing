@@ -6,6 +6,7 @@ import { UserNamePipe } from '~shared/utils/pipes/user-name.pipe';
 import { InfiniScrollDirective } from '~shared/utils/directives';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { GroupByPipe } from '~shared/utils/pipes/groupby.pipe';
+import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directive';
 
 @NgModule({
 	imports: [
@@ -18,6 +19,7 @@ import { GroupByPipe } from '~shared/utils/pipes/groupby.pipe';
 		GroupByPipe,
 		InfiniScrollDirective,
 		ConstPipe,
+		AutoFocusDirective
 	],
 	exports: [
 		ClickOutsideDirective,
@@ -26,6 +28,7 @@ import { GroupByPipe } from '~shared/utils/pipes/groupby.pipe';
 		InfiniScrollDirective,
 		ConstPipe,
 		GroupByPipe,
+		AutoFocusDirective
 	]
 })
 export class UtilsModule { }
