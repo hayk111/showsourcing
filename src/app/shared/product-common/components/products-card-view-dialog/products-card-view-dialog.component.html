@@ -1,5 +1,5 @@
 <div class="card-container">
-  <div *ngFor="let product of rows;trackBy: trackByFn"
+  <div *ngFor="let product of rows;trackBy: trackById"
        class="item">
     <kanban-item-card-app class="marginSmall" [title]="product.name"
       [status]="product.status?.name"
