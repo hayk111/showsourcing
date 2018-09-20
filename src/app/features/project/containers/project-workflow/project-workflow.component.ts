@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map, switchMap, tap, first, takeUntil, take } from 'rxjs/operators';
+import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { ProductService, ProjectService } from '~global-services';
 import { ERM, Product, Project, ProductStatus, ProductVote } from '~models';
@@ -29,7 +29,6 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 	project$: Observable<Project>;
 	// statuses$ = new Subject<ProductStatus[]>();
 	statuses$: Observable<ProductStatus[]>;
-	statuses: ProductStatus[];
 	id: string;
 	project: Project;
 	/** keeps tracks of the current selection */
@@ -55,14 +54,10 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 	ngOnInit() {
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.projectSrv.queryOne(id);
-		this.project$.pipe(
-			take(1)
-		).subscribe(project => {
-			this.project = project;
-		});
+		this.project$.subscribe(project => this.project = project);
 
 		this.statuses$ = this.project$.pipe(
-			take(1),
+			takeUntil(this._destroy$),
 			switchMap(project => this.workflowService.getStatuses(project))
 		);
 
