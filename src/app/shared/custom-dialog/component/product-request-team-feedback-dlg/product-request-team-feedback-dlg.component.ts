@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { User, TeamUser, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { TeamService } from '~global-services';
-import { take, map, switchMap, first } from 'rxjs/operators';
+import { take, map, switchMap, first, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
@@ -17,17 +17,19 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent implements OnInit {
+
 	teamMembers$: Observable<User[]>;
-	private selected = {};
 	@Input() selectedProducts: Product[];
+	private selected = {};
+	numSelected = 0;
 
 	get products() {
 		return this.selectedProducts;
 	}
 
 	constructor(private dlgSrv: DialogService, private productDlgSrv: ProductDialogService) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 		this.teamMembers$ = this.productDlgSrv.selectTeamUsers();
@@ -35,10 +37,12 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 
 	select(id: string, user) {
 		this.selected[id] = user;
+		++this.numSelected;
 	}
 
 	unselect(id: string) {
 		delete this.selected[id];
+		--this.numSelected;
 	}
 
 	submit() {

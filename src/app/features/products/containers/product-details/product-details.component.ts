@@ -57,7 +57,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog() {
 		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
-			selectedProducts: this.product
+			selectedProducts: [this.product]
 		});
 	}
 
