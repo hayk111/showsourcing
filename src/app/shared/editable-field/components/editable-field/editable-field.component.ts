@@ -29,9 +29,7 @@ export class EditableFieldComponent {
 	/** whether we display cancel / save buttons */
 	@Input() hasAction = true;
 	@Output() opened = new EventEmitter<null>();
-	@Output() closed = new EventEmitter<null>();
-	@Output() saved = new EventEmitter<null>();
-	@Output() canceled = new EventEmitter<null>();
+	@Output() closed = new EventEmitter<boolean>();
 
 	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
 	isOpen = false;
@@ -40,19 +38,24 @@ export class EditableFieldComponent {
 	@HostListener('click')
 	open() {
 		if (this.editOnClick && !this.isOpen) {
-			this.isOpen = true;
 			this.editable.open();
-			// we send the event once the thing is actually opened
-			setTimeout(_ => this.opened.emit());
 		}
+	}
+
+	onOpened() {
+		this.isOpen = true;
+		this.opened.emit();
 	}
 
 	close() {
 		if (this.closeOnOutsideClick && this.isOpen) {
-			this.isOpen = false;
 			this.editable.close();
-			setTimeout(_ => this.closed.emit());
 		}
+	}
+
+	onClosed(isCancel: boolean) {
+		this.isOpen = false;
+		this.closed.emit(isCancel);
 	}
 
 }

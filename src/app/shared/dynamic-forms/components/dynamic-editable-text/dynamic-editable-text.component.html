@@ -1,11 +1,12 @@
 <ng-container [ngSwitch]="customField.type">
-
+	<!-- hint: the onTouched and onChanged function must be called when needed (refer to ng doc)
+	to avoid very hard to debug ExpressionChangedAfterItWasCheckedError -->
 	<!-- default -->
 	<editable-field-app
 		*ngSwitchDefault
 		#editable
 		[inlineLabel]="inlineLabel"
-		(closed)="onSave()"
+		(closed)="onClose($event)"
 		(opened)="inp.select();">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
@@ -13,11 +14,12 @@
 			{{ value || '-' }}
 		</editable-label-app>
 		<form-field-app>
+			<!-- hint: couldn't ngModel to accumulator -->
 			<input
 				#inp
 				inputApp
-				[value]="value"
 				[type]="customField.type"
+				[value]="accumulator"
 				(input)="accumulate(inp.value)"
 				(keyup.enter)="editable.close();"/>
 		</form-field-app>
@@ -28,7 +30,7 @@
 		*ngSwitchCase="'tel'"
 		#editable
 		[inlineLabel]="inlineLabel"
-		(closed)="onSave()"
+		(closed)="onClose($event)"
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }}</editable-label-app>
@@ -49,7 +51,7 @@
 		*ngSwitchCase="'number'"
 		#editable
 		[inlineLabel]="inlineLabel"
-		(closed)="onSave()"
+		(closed)="onClose($event)"
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }}</editable-label-app>
@@ -70,7 +72,7 @@
 		*ngSwitchCase="'decimal'"
 		#editable
 		[inlineLabel]="inlineLabel"
-		(closed)="onSave()"
+		(closed)="onClose($event)"
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }}</editable-label-app>
@@ -91,7 +93,7 @@
 		*ngSwitchCase="'days'"
 		#editable
 		[inlineLabel]="inlineLabel"
-		(closed)="onSave()"
+		(closed)="onClose($event)"
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }} days</editable-label-app>
@@ -112,7 +114,7 @@
 		#editable
 		[canGrow]="true"
 		[inlineLabel]="inlineLabel"
-		(closed)="onSave()"
+		(closed)="onClose($event)"
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app style="white-space: pre-line">{{ value || '-' }}</editable-label-app>
@@ -132,7 +134,7 @@
 		*ngSwitchCase="'price'"
 		#editable
 		[inlineLabel]="inlineLabel"
-		(closed)="onSave()"
+		(closed)="onClose($event)"
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app [vAlign]="false">

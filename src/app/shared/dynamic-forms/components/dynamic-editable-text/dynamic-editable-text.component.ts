@@ -43,6 +43,8 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	@ViewChild('editable') editable: EditableTextComponent;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: string;
+	/** whenever someone cancels an input this flag goes true */
+	isCancel = false;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
@@ -57,6 +59,12 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	/** saves the value because an user might cancel */
 	accumulate(value: any) {
 		this.accumulator = value;
+	}
+
+	onClose(isCancel) {
+		if (!isCancel) {
+			this.onSave();
+		}
 	}
 
 	/** saving the value */

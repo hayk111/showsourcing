@@ -1,10 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+	TemplateRef,
+	ViewChild,
+} from '@angular/core';
 import { CustomField } from '~shared/dynamic-forms';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
-import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { EditableTextComponent } from '~shared/editable-field';
-import { Choice } from '~shared/selectors/utils/choice.interface';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
 	selector: 'editable-selector-app',

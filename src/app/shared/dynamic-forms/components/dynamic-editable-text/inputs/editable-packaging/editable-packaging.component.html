@@ -82,7 +82,8 @@ A package with 0cm makes no sens -->
 		#selector1
 		class="rightSelector"
 		[type]="'lengthUnit'"
-		[(ngModel)]="value.unit"></selector-const-app>
+		[(ngModel)]="value.unit"
+		(change)="cell4.close()"></selector-const-app>
 </editable-field-app>
 
 <!-- Quantity -->
@@ -143,5 +144,6 @@ A package with 0cm makes no sens -->
 		#selector7
 		class="rightSelector"
 		[type]="'weightUnit'"
-		[(ngModel)]="value.weightUnit"></selector-const-app>
+		[(ngModel)]="value.weightUnit"
+		(change)="cell7.close()"></selector-const-app>
 </editable-field-app>
