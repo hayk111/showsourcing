@@ -183,7 +183,8 @@
 			<editable-packaging-app
 				[customField]="customField"
 				[(ngModel)]="value"
-				(change)="onChange()"
+				(input)="onChangeFn()"
+				(change)="onChange();"
 				(blur)="onBlur()"></editable-packaging-app>
 		</div>
 	</ng-container>
