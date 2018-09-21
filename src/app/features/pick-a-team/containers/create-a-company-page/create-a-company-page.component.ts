@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CompanyService, UserService } from '~global-services';
 import { map, first } from 'rxjs/operators';
 import { Company } from '~models/company.model';
@@ -19,12 +19,14 @@ export class CreateACompanyPageComponent implements OnInit {
 	pending = false;
 	error: string;
 	hasCompany$: Observable<boolean>;
+	returnUrl: string;
 
 	constructor(
 		private fb: FormBuilder,
 		private srv: CompanyService,
 		private router: Router,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private route: ActivatedRoute
 	) {
 		this.form = this.fb.group({
 			name: ['', Validators.required],
@@ -39,7 +41,7 @@ export class CreateACompanyPageComponent implements OnInit {
 			.subscribe(
 				_ => {
 					this.pending = false;
-					this.router.navigate(['user', 'create-a-team']);
+					this.router.navigate(['user', 'create-a-team'], { queryParams: { returnUrl: this.returnUrl } });
 				},
 				e => {
 					this.pending = false;
@@ -54,6 +56,7 @@ export class CreateACompanyPageComponent implements OnInit {
 			first(),
 			map(all => all.length > 0)
 		);
+		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 
 	}
 

@@ -1,8 +1,9 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { takeUntil, take, catchError } from 'rxjs/operators';
@@ -17,7 +18,9 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 	pending: boolean;
 	error: string;
 
-	constructor(private fb: FormBuilder, private authSrv: AuthenticationService) {
+	constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,
+		private authSrv: AuthenticationService, private router: Router) {
+
 		super();
 		this.form = this.fb.group({
 			email: ['', Validators.compose([Validators.required, Validators.email])]
@@ -31,8 +34,15 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 		if (this.form.valid) {
 			this.pending = true;
 			this.authSrv.resetPassword(this.form.value).pipe(
-				catchError(error => this.error = error)
-			).subscribe(r => this.pending = false);
+				catchError(error => {
+					this.error = error;
+					return throwError(error);
+				})
+			).subscribe(r => {
+				this.pending = false;
+				this.cdr.detectChanges();
+				this.router.navigate([ 'guest', 'login' ]);
+			});
 		}
 	}
 }

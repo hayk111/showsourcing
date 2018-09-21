@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Team } from '~models';
 import { TeamService, UserService, CompanyService } from '~global-services';
 import { map, first, tap, takeUntil } from 'rxjs/operators';
@@ -20,13 +21,16 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 	pending = false;
 	error: string;
 	hasTeam$: Observable<boolean>;
+	returnUrl: string;
 
 	constructor(
 		private fb: FormBuilder,
 		private srv: TeamService,
 		private companySrv: CompanyService,
 		private router: Router,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private location: Location,
+		private route: ActivatedRoute
 	) {
 		super();
 		this.form = this.fb.group({
@@ -43,7 +47,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		this.srv.create(team)
 			.subscribe(
 				_ => {
-					this.router.navigate(['']);
+					this.router.navigateByUrl(this.returnUrl);
 					this.pending = false;
 				},
 				e => {
@@ -58,6 +62,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 			first(),
 			map(all => all.length > 0)
 		);
+		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}
 
 }

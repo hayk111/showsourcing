@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, tap } from 'rxjs/operators';
 import { InvitationUser } from '~models';
 
 import { InvitationUserService, UserService } from '~global-services';
@@ -22,12 +22,12 @@ export class InvitationFeatureService extends InvitationUserService {
 	getInvitation(id: string): Observable<{ invitation: InvitationUser; client: Client }> {
 		// try to find first the inviation into USER
 		return this.queryOne(id, null, Client.USER).pipe(
-			switchMap(invitation => {
+			switchMap((invitation: InvitationUser) => {
 				if (invitation && invitation.id) { // if an invitation is found, return it
 					return of({ invitation, client: Client.USER });
 				} else { // if no invitation found, try to find it into ALL_USER
 					return this.queryOne(id, null, Client.ALL_USER).pipe(
-						map(invit => ({ invitation: invit, client: Client.ALL_USER }))
+						map((invit: InvitationUser) => ({ invitation: invit, client: Client.ALL_USER }))
 					);
 				}
 			})
@@ -35,9 +35,13 @@ export class InvitationFeatureService extends InvitationUserService {
 	}
 
 	acceptInvitation(id: string, client: Client) {
-		return this.invitationSrv.update({
-			id, status: 'accepted'
-		}, null, client);
+		return this.userSrv.selectUser().pipe(
+			switchMap(user => {
+				return this.invitationSrv.update({
+					id, status: 'accepted',
+					userId: user.id
+				}, null, client);
+		}));
 	}
 
 	refuseInvitation(id: string, client: Client) {

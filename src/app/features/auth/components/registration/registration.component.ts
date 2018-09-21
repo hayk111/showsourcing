@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { AutoUnsub } from '~utils';
 import { takeUntil, take, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'registration-app',
@@ -17,7 +17,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 	pending$ = new Subject<boolean>();
 	error: string;
 
-	constructor(private authSrv: AuthenticationService, private fb: FormBuilder, private router: Router) {
+	constructor(private authSrv: AuthenticationService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
 		super();
 	}
 
@@ -41,8 +41,10 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 			).subscribe(
 				r => {
 					this.pending$.next(false);
-					// we navigate to dashboard for sure on registration end
-					this.router.navigate(['']);
+					// we check if there is a returnUrl query parameter
+					const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+					// we navigate to dashboard or return url for sure on registration end
+					this.router.navigateByUrl(returnUrl);
 				},
 				e => {
 					if (e.error && e.error.errors && e.error.errors.email) {

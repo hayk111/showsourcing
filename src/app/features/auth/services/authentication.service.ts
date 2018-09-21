@@ -91,8 +91,8 @@ export class AuthenticationService {
 		);
 	}
 
-	resetPassword(email: string) {
-		return this.http.post(`${environment.apiUrl}/signup/reset-password`, { email });
+	resetPassword({ email }: { email: string }) {
+		return this.http.post(`${environment.apiUrl}/signup/user/reset-password`, { email });
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
