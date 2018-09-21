@@ -22,10 +22,11 @@ import { ERMService } from '~global-services/_global/erm.service';
 export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 
 	@Input() feedResult: GroupedActivityFeed;
-	typeEntity: EntityMetadata;
 
 	constructor(
 		private ermSrv: ERMService,
+		private productSrv: ProductService,
+		private supplierSrv: SupplierService,
 		private activitySrv: ActivityService,
 		private router: Router,
 		private templateSrv: TemplateService,
@@ -43,17 +44,19 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		this.feedResult.loadMore();
 	}
 
-	update(entity: any) {
-		if (this.typeEntity === undefined) throw Error('type entity is null check the getGroupName function');
-		this.ermSrv.getGlobalService(this.typeEntity).update(entity).subscribe();
+	updateProduct(product: Product) {
+		this.productSrv.update(product).subscribe();
+	}
+
+	updateSupplier(supplier: Supplier) {
+		this.supplierSrv.update(supplier).subscribe();
 	}
 
 	createComment(items: any) {
-		if (this.typeEntity === undefined) throw Error('type entity is null check the getGroupName function');
 		const newComment = new Comment({ text: items.text });
 		this.commentSrv.create(newComment).pipe(
 			switchMap(_ =>
-				this.ermSrv.getGlobalService(this.typeEntity).update(
+				this.ermSrv.getGlobalService(items.typeEntity).update(
 					{ id: items.entity.id, comments: [...items.entity.comments, newComment] }
 				)
 			)
@@ -64,24 +67,15 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		const group = feed.group;
 		const manyActivities = feed.activities.length > 1;
 
-		if (group.startsWith('product_activity')) {
-			this.typeEntity = ERM.PRODUCT;
+		if (group.startsWith('product_activity'))
 			return 'product_activity';
-		}
-		if (group.startsWith('supplier_activity')) {
-			this.typeEntity = ERM.SUPPLIER;
+		if (group.startsWith('supplier_activity'))
 			return 'supplier_activity';
-		}
-		if (group.startsWith('create_product')) {
-			this.typeEntity = ERM.PRODUCT;
+		if (group.startsWith('create_product'))
 			return manyActivities ? 'product_many_created' : 'product_one_created';
-		}
-		if (group.startsWith('create_supplier')) {
-			this.typeEntity = ERM.SUPPLIER;
+		if (group.startsWith('create_supplier'))
 			return manyActivities ? 'supplier_many_created' : 'supplier_one_created';
-		}
 	}
-
 }
 
 /*

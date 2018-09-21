@@ -19,13 +19,13 @@
 				[groupFeed]="feed"
 				title="created a new product"
 				(createComment)="createComment($event)"
-				(update)="update($event)">
+				(update)="updateProduct($event)">
 			</one-product-activity-card-app>
 
 			<multiple-products-activity-card-app
 				*ngSwitchCase="'product_many_created'"
 				[groupFeed]="feed"
-				(update)="update($event)">
+				(update)="updateProduct($event)">
 			</multiple-products-activity-card-app>
 
 			<!-- supplier -->
@@ -34,7 +34,7 @@
 				[groupFeed]="feed"
 				title="created a new supplier"
 				(createComment)="createComment($event)"
-				(update)="update($event)">
+				(update)="updateSupplier($event)">
 			</one-supplier-activity-card-app>
 
     </ng-container>
