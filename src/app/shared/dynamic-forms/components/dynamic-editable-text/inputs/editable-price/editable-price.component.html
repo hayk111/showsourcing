@@ -1,7 +1,7 @@
 
 	<div class="flexBetween editablePrice">
 		<!-- value -->
-		<editable-text-app #editable1 (closed)="onSave()" (opened)="onOpen()">
+		<editable-text-app #editable1 (closed)="onClose($event)" (opened)="onOpen()">
 			<editable-label-app>
 				<span>{{ currency | const : 'currency' : 'symbol'}} </span>
 				<span>{{ amount !== undefined ? amount : '-' }}</span>
@@ -15,13 +15,11 @@
 				</span>
 
 				<input #inp inputApp
-					(keyup.enter)="editable1.close();"
-					(input)="accumulatePrice(+inp.value)"
-					(change)="onChange()"
-					(blur)="onBlur()"
 					type="text"
 					restrictInput="decimal"
-					[value]="amount"/>
+					[value]="amount"
+					(keyup.enter)="editable1.close();"
+					(input)="accumulatePrice(+inp.value)"/>
 			</ng-container>
 
 		</editable-text-app>

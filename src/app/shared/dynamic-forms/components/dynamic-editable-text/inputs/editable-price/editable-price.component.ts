@@ -40,7 +40,8 @@ export class EditablePriceComponent extends AbstractInput {
 		super(cd);
 	}
 
-	onSave() {
+	onClose(isCancel: boolean) {
+		if (isCancel) return;
 		this.value = this.accumulator;
 		this.onChange();
 		this.isOpen = false;
