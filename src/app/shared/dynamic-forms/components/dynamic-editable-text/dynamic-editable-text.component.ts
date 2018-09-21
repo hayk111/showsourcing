@@ -22,7 +22,7 @@ import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.inter
 @Component({
 	selector: 'dynamic-editable-text-app',
 	templateUrl: './dynamic-editable-text.component.html',
-	styleUrls: ['./dynamic-editable-text.component.scss', './common-styles.scss'],
+	styleUrls: ['./dynamic-editable-text.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(DynamicEditableTextComponent)],
 	host: {
@@ -42,7 +42,9 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	/** editable field ref, used to close it programmatically */
 	@ViewChild('editable') editable: EditableTextComponent;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
-	accumulator: string;
+	accumulator: any;
+	/** whenever someone cancels an input this flag goes true */
+	isCancel = false;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
@@ -57,6 +59,13 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	/** saves the value because an user might cancel */
 	accumulate(value: any) {
 		this.accumulator = value;
+		this.onChange();
+	}
+
+	onClose(isCancel) {
+		if (!isCancel) {
+			this.onSave();
+		}
 	}
 
 	/** saving the value */
@@ -66,6 +75,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			return;
 		this.value = this.accumulator;
 		this.onChange();
+		this.update.emit({ [this.customField.name]: this.value });
 	}
 
 
@@ -78,7 +88,6 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	onChange() {
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
-		this.update.emit({ [this.customField.name]: this.value });
 	}
 
 	/** on blur we need to call onTouchedFn to not have errors of change detection */
@@ -89,8 +98,8 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 
 	/** toggle input value from true to false and vice versa */
 	toggleValue() {
-		this.value = !this.value;
-		this.onChange();
+		this.accumulator = !this.accumulator;
+		this.onSave();
 	}
 
 }

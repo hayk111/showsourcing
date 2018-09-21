@@ -1,10 +1,10 @@
 <!-- closed -->
-<div class="labelCtnr flex pointer" *ngIf="!isOpen" (click)="open()">
+<div class="labelCtnr flex pointer fullWidth" *ngIf="!isOpen" (click)="open(true)">
 	<ng-content select="editable-label-app"></ng-content>
 </div>
 
 <!-- open -->
-<div *ngIf="isOpen" class="flex openBlock" (clickOutside)="close()">
+<div *ngIf="isOpen" class="flex openBlock" (clickOutside)="close(true)">
 
 	<ng-content></ng-content>
 
@@ -15,6 +15,7 @@
 		<div class="confirmIcon save pointer" (click)="save()">
 			<icon-app name="check" fontSet="fa"></icon-app>
 		</div>
+	</div>
 
 </div>
 

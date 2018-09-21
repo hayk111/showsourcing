@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 
+
+
 @Component({
 	selector: 'editable-text-app',
 	templateUrl: './editable-text.component.html',
@@ -12,44 +14,39 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 export class EditableTextComponent {
 	@Input() isOpen = false;
 	/** Whether click on the value should open the editor */
-	@Input() editOnClick = true;
+	@Input() openOnClick = true;
 	@Input() closeOnOutsideClick = true;
 	/** whether we display cancel / save buttons */
 	@Input() hasAction = true;
 	@Output() opened = new EventEmitter<null>();
-	@Output() closed = new EventEmitter<null>();
-	@Output() saved = new EventEmitter<null>();
-	@Output() canceled = new EventEmitter<null>();
+	@Output() closed = new EventEmitter<boolean>();
 
 	constructor(private cd: ChangeDetectorRef) { }
 
-
-	close(isOutsideClick?: boolean) {
-		if (isOutsideClick && !this.closeOnOutsideClick) {
+	close(isOutsideClick?: boolean, isCancel?: boolean) {
+		if (!this.isOpen || (isOutsideClick && !this.closeOnOutsideClick)) {
 			return;
 		}
 
 		this.isOpen = false;
 		this.cd.markForCheck();
-		setTimeout(_ => this.closed.emit());
+		setTimeout(_ => this.closed.emit(isCancel));
 	}
 
 	/** does not send a close event */
 	cancel() {
-		this.isOpen = false;
-		this.canceled.emit();
+		this.close(false, true);
 	}
 
 	save() {
-		this.saved.emit();
-		this.close();
+		this.close(false);
 	}
 
-	open(isOutsideClick?: boolean) {
+	open(isInsideClick?: boolean) {
 		// if the click was made from the template of this component
 		// and the editOnClick is disabled we shouldn't open the edit mode.
 		// this will allow us to have some editable text that are only opened via a button and such.
-		if (isOutsideClick && !this.editOnClick) {
+		if (this.isOpen || (isInsideClick && !this.openOnClick)) {
 			return;
 		}
 		this.isOpen = true;

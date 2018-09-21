@@ -53,7 +53,7 @@
 		<ng-container *ngIf="descriptor$ | async as desc">
 			<dynamic-form-app
 				[inlineLabel]="true"
-				(formCreated)="onFormCreated($event)"
+				(update)="updateProduct($event)"
 				[descriptor]="desc"
 				[colAmount]="1">
 			</dynamic-form-app>
@@ -63,9 +63,9 @@
 		<ng-container *ngIf="descriptor2$ | async as desc2">
 			<dynamic-form-app
 				[inlineLabel]="true"
-				(formCreated)="onFormCreated($event)"
 				[descriptor]="desc2"
-				[colAmount]="1">
+				[colAmount]="1"
+				(update)="updateProduct($event)">
 			</dynamic-form-app>
 		</ng-container>
 	</ng-container>

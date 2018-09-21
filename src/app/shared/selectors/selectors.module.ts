@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
@@ -20,6 +20,7 @@ const components = [
 	imports: [
 		CommonModule,
 		NgSelectModule,
+		ReactiveFormsModule,
 		FormsModule,
 		InputsModule,
 		ImageModule, // pipes are used

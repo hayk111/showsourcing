@@ -10,6 +10,6 @@ export class PriceMatrix {
 
 export class PriceMatrixRow {
 	id: string = uuid();
-	label;
+	label = '';
 	price: Price = new Price({ value: 0 });
 }

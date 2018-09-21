@@ -1,119 +1,133 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule, AfterViewInit, ViewChild, AfterViewChecked } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
-import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
+import {
+	AfterViewChecked,
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	NgModuleRef,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { AutoUnsub } from '~utils';
-import { takeUntil, distinctUntilChanged, map, tap, first } from 'rxjs/operators';
-import { TaskService, ProductService } from '~global-services';
-import { DialogService } from '~shared/dialog';
-import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
-import { Task, Comment, Product } from '~models';
-import { NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { combineLatest, switchMap } from 'rxjs/operators';
-import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { ProductService, TaskService } from '~global-services';
+import { Comment, Product, Task } from '~models';
+import { DialogService } from '~shared/dialog';
+import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
+import { AutoUnsub } from '~utils';
 
 
 @Component({
-  selector: 'preview-task-app',
-  templateUrl: './preview-task.component.html',
-  styleUrls: ['./preview-task.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'preview-task-app',
+	templateUrl: './preview-task.component.html',
+	styleUrls: ['./preview-task.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterViewInit, AfterViewChecked {
+export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterViewChecked {
 
-  private _task: Task;
-  get task(): Task {
-    return this._task;
-  }
+	private _task: Task;
+	get task(): Task {
+		return this._task;
+	}
 
-  @Output() udateTask = new EventEmitter<Task>();
+	@Output() udateTask = new EventEmitter<Task>();
 
-  @Input('task')
-  set task(value: Task) {
-    this._task = value;
-  }
+	@Input('task')
+	set task(value: Task) {
+		this._task = value;
+	}
 
-  @ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
+	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 
-  @Output() close = new EventEmitter<any>();
+	@Output() close = new EventEmitter<any>();
 
-  comment$: Observable<Comment>;
-  task$: Observable<Task>;
-  product$: Observable<Product>;
-  descriptor$: Observable<FormDescriptor>;
+	comment$: Observable<Comment>;
+	task$: Observable<Task>;
+	product$: Observable<Product>;
+	descriptor$: Observable<FormDescriptor>;
 
-  selectorVisible = false;
+	selectorVisible = false;
 
-  customFields: CustomField[] = [
-    {
-      name: 'assignee', label: 'Assignee To', type: 'selector',
-      metadata: { target: 'user', type: 'entity', labelName: 'name' }
-    },
-  ];
-  constructor(
-    private featureSrv: TaskService,
-    private productService: ProductService,
-    private dlgSrv: DialogService,
-    private module: NgModuleRef<any>,
-    private router: Router) {
-    super();
-  }
+	customFields: CustomField[] = [
+		{
+			name: 'assignee', label: 'Assignee To', type: 'selector',
+			metadata: { target: 'user', type: 'entity', labelName: 'name' }
+		},
+	];
+	constructor(
+		private featureSrv: TaskService,
+		private productService: ProductService,
+		private dlgSrv: DialogService,
+		private module: NgModuleRef<any>,
+		private router: Router) {
+		super();
+	}
 
-  ngOnInit() {
-    if (this.task.product) {
-      this.product$ = this.productService.selectOne(this.task.product.id);
-    }
-    this.task$ = this.featureSrv.selectOne(this.task.id);
-  }
-  ngAfterViewChecked() {
-    setTimeout(() => {
-      if (this.selectorVisible && this.selector) {
-        this.selector.selector.ngSelect.open();
-      }
-    });
-  }
-  ngAfterViewInit() {
-  }
-  updateTaskServer(task: any) {
-    task.id = this.task.id;
-    this.featureSrv.update(task).subscribe();
-  }
+	ngOnInit() {
+		if (this.task.product) {
+			this.product$ = this.productService.selectOne(this.task.product.id);
+		}
+		this.task$ = this.featureSrv.selectOne(this.task.id);
+	}
 
-  updateTaskDescription(description: string) {
-    this.updateTaskServer({ description });
-  }
+	ngAfterViewChecked() {
+		setTimeout(() => {
+			if (this.selectorVisible && this.selector) {
+				this.selector.open();
+			}
+		});
+	}
 
-  markAsDone() {
-    this.updateTaskServer({ done: true });
-  }
+	updateTaskServer(task: any) {
+		task.id = this.task.id;
+		this.featureSrv.update(task).subscribe();
+	}
 
-  updateTaskName(name: string) {
-    this.updateTaskServer({ name });
-  }
-  updateTaskDueDate(dueDate: Date) {
-    this.updateTaskServer({ dueDate });
-  }
+	updateTaskDescription(isCancel: boolean, description: string) {
+		if (isCancel) return;
 
-  updateAssignee(assignee: any) {
-    this.updateTaskServer({ assignee });
-    setTimeout(() => {
-      this.selectorVisible = false;
-    });
-  }
+		this.updateTaskServer({ description });
+	}
 
-  toggleSelector(is: boolean) {
-    if (this.selector) {
+	markAsDone() {
+		this.updateTaskServer({ done: true });
+	}
+
+	updateTaskName(isCancel: boolean, name: string) {
+		if (isCancel) return;
+
+		this.updateTaskServer({ name });
+	}
+
+	updateTaskDueDate(isCancel: boolean, dueDate: Date) {
+		if (isCancel) return;
+
+		this.updateTaskServer({ dueDate });
+	}
+
+	updateAssignee(assignee: any) {
+		this.updateTaskServer({ assignee });
+		setTimeout(() => {
+			this.selectorVisible = false;
+		});
+	}
+
+	toggleSelector(is: boolean) {
+		if (this.selector) {
 			this.selectorVisible = false;
 		} else this.selectorVisible = is;
-  }
+	}
 
-  onFormCreated(form: FormGroup) {
-    form.valueChanges
-      .pipe(
-        takeUntil(this._destroy$),
-        distinctUntilChanged()
-      ).subscribe(task => this.updateTaskServer(task));
-  }
+	onFormCreated(form: FormGroup) {
+		form.valueChanges
+			.pipe(
+				takeUntil(this._destroy$),
+				distinctUntilChanged()
+			).subscribe(task => this.updateTaskServer(task));
+	}
 }

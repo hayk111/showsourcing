@@ -6,13 +6,14 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 @Component({
 	selector: 'editable-price-matrix-app',
 	templateUrl: './editable-price-matrix.component.html',
-	styleUrls: ['./editable-price-matrix.component.scss', '../../common-styles.scss'],
+	styleUrls: ['./editable-price-matrix.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePriceMatrixComponent)],
 })
 export class EditablePriceMatrixComponent extends AbstractInput {
 	@Output() change = new EventEmitter<null>();
 	@Output() blur = new EventEmitter<null>();
+	@Output() rowClosed = new EventEmitter<null>();
 	@Input() set value(v: PriceMatrix) { this._value = v || new PriceMatrix(); }
 	get value() { return this._value; }
 	private _value: PriceMatrix;

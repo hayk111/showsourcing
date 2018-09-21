@@ -15,8 +15,8 @@ export function makeAccessorProvider(type: any) {
 export class AbstractInput extends TrackingComponent implements ControlValueAccessor {
 	@Input() value: any = '';
 	public disabled: boolean; //  Only public and protected methods of the base class are accessible via the 'super' keyword
-	protected onTouchedFn: Function = () => { };
-	protected onChangeFn: Function = () => { };
+	protected onTouchedFn = (any?: any) => { };
+	protected onChangeFn = (any?: any) => { };
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super();
@@ -26,7 +26,7 @@ export class AbstractInput extends TrackingComponent implements ControlValueAcce
 	// to give accessor its formControl value associated to it
 	writeValue(value: any): void {
 		this.value = value;
-		this.cd.detectChanges();
+		this.cd.markForCheck();
 	}
 
 	// Implemented as part of ControlValueAccessor.
@@ -35,7 +35,7 @@ export class AbstractInput extends TrackingComponent implements ControlValueAcce
 	registerOnChange(fn: any): void {
 		this.onChangeFn = (value) => {
 			fn(value);
-			this.cd.detectChanges();
+			this.cd.markForCheck();
 		};
 	}
 
@@ -43,7 +43,7 @@ export class AbstractInput extends TrackingComponent implements ControlValueAcce
 	registerOnTouched(fn: any): void {
 		this.onTouchedFn = (value) => {
 			fn(value);
-			this.cd.detectChanges();
+			this.cd.markForCheck();
 		};
 	}
 

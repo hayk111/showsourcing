@@ -2,7 +2,8 @@
 	*ngFor="let row of value.rows; let i = index;trackBy: trackByFn"
 	[(ngModel)]="value.rows[i]"
 	(change)="onChange()"
-	(blur)="onBlur()">
+	(blur)="onBlur()"
+	(closed)="rowClosed.emit($event)">
 </editable-price-matrix-row-app>
-
+<div class="mg-s spacer"></div>
 <div class="addBtn pointer" (click)="addRow()" >+ Add new price line</div>

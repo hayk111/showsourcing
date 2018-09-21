@@ -1,20 +1,41 @@
 
-field-cell-app {
-	width: 100%;
-	position: relative;
-	padding: 8px 0 8px 0;
-}
-
-input {
-	padding:  1px 1px 1px var(--spacing-m);
-	width: 90px;
-}
-
 .placeholder {
 	font-style: italic;
 	color: var(--color-txt-secondary);
 	font-weight: normal;
-	&:hover {
-		color: var(--color-primary);
+}
+
+:host {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	// we always display the border on single line
+	border-bottom: 1px solid var(--color-secondary);
+
+	height: 33px;
+
+	.label {
+		height: 100%;
+		width: 50%;
+		display: flex;
+		font-size: var(--font-size-m);
+		font-weight: 600;
+		&:hover {
+			color: var(--color-primary);
+		}
+	}
+
+	.value {
+		height: 100%;
+		width: 50%;
+		display: flex;
+		color: var(--color-txt-secondary);
+		font-weight: 600;
+		&:hover {
+			color: var(--color-primary);
+		}
+		editable-label-app {
+			justify-content: flex-end;
+		}
 	}
 }

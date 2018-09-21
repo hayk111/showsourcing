@@ -50,10 +50,4 @@ export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 		this.descriptor = new FormDescriptor(this.customFields, this.supplier);
 	}
 
-	onFormCreated(form: FormGroup) {
-		form.valueChanges
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(supplier => this.update.emit({ id: this.supplier.id, ...supplier }));
-	}
-
 }
