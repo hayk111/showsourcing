@@ -63,7 +63,7 @@ export const routes: Array<Route> = [
 		path: 'invitation',
 		component: GuestTemplateComponent,
 		canActivateChild: [
-			HasTeamSelectedIfConnectedGuard,
+			// HasTeamSelectedIfConnectedGuard,
 		],
 		children: [
 			...invitationRoutes
