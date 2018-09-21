@@ -17,6 +17,7 @@
 				<input #inp inputApp
 					(keyup.enter)="editable1.close();"
 					(input)="accumulatePrice(+inp.value)"
+					(change)="onChange()"
 					(blur)="onBlur()"
 					type="text"
 					restrictInput="decimal"

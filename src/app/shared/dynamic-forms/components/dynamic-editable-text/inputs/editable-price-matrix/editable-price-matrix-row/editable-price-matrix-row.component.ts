@@ -11,6 +11,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	providers: [makeAccessorProvider(EditablePriceMatrixRowComponent)]
 })
 export class EditablePriceMatrixRowComponent extends AbstractInput {
+
 	@Input() set value(v: PriceMatrixRow) {
 		this._value = v || new PriceMatrixRow();
 		this.accumulator = this.value;
@@ -37,12 +38,14 @@ export class EditablePriceMatrixRowComponent extends AbstractInput {
 			this.accumulator.label = value;
 	}
 
-	save() {
+	onClose(isCancel: boolean) {
+		if (isCancel) return;
+
 		this.value = this.accumulator;
 		/** close currency selector in case it's still open */
-		this.closeSelector();
 		this.isOpen = false;
 		this.onChange();
+		this.closeSelector();
 		this.closed.emit();
 	}
 

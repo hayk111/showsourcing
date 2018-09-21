@@ -1,6 +1,6 @@
 <ng-container [ngSwitch]="customField.type">
 
-  <field-cell-app *ngSwitchDefault [isOpen]="true" [inlineLabel]="inlineLabel">
+  <form-field-app *ngSwitchDefault >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       #inp
@@ -9,9 +9,9 @@
       (input)="accumulate(inp.value)"
       (keyup.enter)="editable.close();"
       [type]="customField.type"/>
-  </field-cell-app>
+  </form-field-app>
 
-  <field-cell-app *ngSwitchCase="'tel'" [isOpen]="true" [inlineLabel]="inlineLabel">
+  <form-field-app *ngSwitchCase="'tel'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
 			#inp
@@ -20,9 +20,9 @@
 			[value]="customField.value"
 			(input)="accumulate(inp.value)"
       [type]="customField.type"/>
-  </field-cell-app>
+  </form-field-app>
 
-  <field-cell-app *ngSwitchCase="'number'" [isOpen]="true" [inlineLabel]="inlineLabel">
+  <form-field-app *ngSwitchCase="'number'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       #inp
@@ -31,9 +31,9 @@
       [value]="customField.value"
       (input)="accumulate(+inp.value)"
       [type]="customField.type"/>
-  </field-cell-app>
+  </form-field-app>
 
-  <field-cell-app *ngSwitchCase="'decimal'" [isOpen]="true" [inlineLabel]="inlineLabel">
+  <form-field-app *ngSwitchCase="'decimal'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       #inp
@@ -42,34 +42,34 @@
       [value]="customField.value"
       (input)="accumulate(+inp.value)"
       [type]="customField.type"/>
-  </field-cell-app>
+  </form-field-app>
 
-  <field-cell-app *ngSwitchCase="'days'" [isOpen]="true" [inlineLabel]="inlineLabel">
+  <form-field-app *ngSwitchCase="'days'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
-    <input inputApp 
+    <input inputApp
       #inp
       autofocus="true"
       [value]="customField.value"
       (input)="accumulate(+inp.value)"
       [type]="'number'"/>
-  </field-cell-app>
+  </form-field-app>
 
-  <field-cell-app *ngSwitchCase="'textarea'" [canGrow]="true" [isOpen]="true" [inlineLabel]="inlineLabel">
+  <form-field-app *ngSwitchCase="'textarea'">
     <label-app>{{ customField.label || customField.name }}</label-app>
-    <textarea inputApp 
+    <textarea inputApp
       #inp
       [rows]="customField.metadata?.rows ? customField.metadata?.rows : null"
       autofocus="true"
       [value]="customField.value"
       (input)="accumulate(inp.value)">
     </textarea>
-  </field-cell-app>
+  </form-field-app>
 
-  <field-cell-app *ngSwitchCase="'yesNo'" [isOpen]="true" [inlineLabel]="inlineLabel">
+  <form-field-app *ngSwitchCase="'yesNo'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <!-- span class="txtBtn" (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span -->
     <radio-app [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" [(ngModel)]="value"></radio-app>
-  </field-cell-app>
+  </form-field-app>
 
         <!-- div class="inputCtnr" *ngSwitchCase="'price'">
 			<editable-price-app
@@ -81,7 +81,7 @@
         [customField]="customField"></editable-price-app>
     </div -->
 
-  <field-cell-app *ngSwitchCase="'price'" [isOpen]="true" [inlineLabel]="inlineLabel">
+  <form-field-app *ngSwitchCase="'price'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       #inp
@@ -90,18 +90,18 @@
       [value]="customField.value"
       (input)="accumulate(+inp.value)"
       type="number"/>
-  </field-cell-app>
+  </form-field-app>
 
-  <field-cell-app *ngSwitchCase="'priceMatrix'" [isOpen]="true" [inlineLabel]="inlineLabel">
+  <form-field-app *ngSwitchCase="'priceMatrix'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <div class="inputCtnr">
 			<editable-price-matrix-app
 				[(ngModel)]="value"
 				(change)="onChange()"></editable-price-matrix-app>
     </div>
-  </field-cell-app>
+  </form-field-app>
 
-  <field-cell-app *ngSwitchCase="'packaging'" [isOpen]="true" [inlineLabel]="false" class="flexColumn flexStart" [canGrow]="true">
+  <form-field-app *ngSwitchCase="'packaging'" [class="flexColumn flexStart">
     <label-app class="packaging">{{ customField.label || customField.name }}</label-app>
     <!-- div class="inputCtnr" -->
       <input-packaging-app
@@ -109,5 +109,5 @@
         (change)="onChange()"
         [customField]="customField"></input-packaging-app>
     <!-- /div -->
-  </field-cell-app>
+  </form-field-app>
 </ng-container>

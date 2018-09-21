@@ -62,11 +62,11 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	// those are the custom field for the second form section
 	customFields2: CustomField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
+		{ name: 'sample', type: 'yesNo' },
+		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
-		{ name: 'sample', type: 'yesNo' },
-		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
 	];
 
 	typeEntity = ERM.PRODUCT;
