@@ -157,7 +157,7 @@
 		*ngSwitchCase="'yesNo'"
 		#editable
 		[inlineLabel]="inlineLabel"
-		[editOnClick]="false"
+		[openOnClick]="false"
 		(click)="toggleValue()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</editable-label-app>

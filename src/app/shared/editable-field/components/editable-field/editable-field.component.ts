@@ -24,7 +24,7 @@ export class EditableFieldComponent {
 	@Input() canGrow = false;
 	@Input() hasLabel = true;
 	/** Whether click on the value should open the editor */
-	@Input() editOnClick = true;
+	@Input() openOnClick = true;
 	@Input() closeOnOutsideClick = true;
 	/** whether we display cancel / save buttons */
 	@Input() hasAction = true;
@@ -37,7 +37,7 @@ export class EditableFieldComponent {
 
 	@HostListener('click')
 	open() {
-		if (this.editOnClick && !this.isOpen) {
+		if (this.openOnClick && !this.isOpen) {
 			this.editable.open();
 		}
 	}
