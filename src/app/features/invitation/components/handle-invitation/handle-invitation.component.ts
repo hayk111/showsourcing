@@ -51,9 +51,6 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 				this.invitation = invitation;
 				this.client = client;
 				this.cdr.detectChanges();
-			} else {
-				// If no invitation found, redirect to /
-				this.router.navigateByUrl('/');
 			}
 		});
 		this.returnUrl = this.location.path();

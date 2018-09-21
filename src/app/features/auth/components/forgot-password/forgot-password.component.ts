@@ -40,7 +40,6 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 				})
 			).subscribe(r => {
 				this.pending = false;
-				this.cdr.detectChanges();
 				this.router.navigate([ 'guest', 'login' ]);
 			});
 		}
