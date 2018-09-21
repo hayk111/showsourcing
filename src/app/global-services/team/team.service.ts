@@ -28,12 +28,22 @@ export class TeamService extends GlobalService<Team> {
 
 	defaultClient = Client.USER;
 
-	/** this is the team selected at the moment of the selection */
-	private _selectedTeam$ = new ReplaySubject<Team>(1);
-	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
-		shareReplay(),
+	/** event the team selected at the moment of the selection */
+	private _teamSelectionEvent$ = new ReplaySubject<Team>(1);
+	teamSelectionEvent$ = this._teamSelectionEvent$.asObservable().pipe(
+		shareReplay(1),
 	);
-	hasTeamSelected$ = this._selectedTeam$.asObservable().pipe(
+	// the team selection event is not a subscription to the team selected.
+	// here we want a subscription so we can display changes in the view
+	teamSelected$ = this.teamSelectionEvent$.pipe(
+		// since
+		filter(team => !!team),
+		// yes we already have the team but we need a subscription :)
+		switchMap(team => this.selectOne(team.id)),
+		shareReplay(1)
+	);
+
+	hasTeamSelected$ = this._teamSelectionEvent$.asObservable().pipe(
 		map(team => !!team)
 	);
 	// synchronous version for easy access
@@ -51,13 +61,13 @@ export class TeamService extends GlobalService<Team> {
 
 		this.authSrv.authenticated$.pipe(
 			map(_ => this.getSelectedTeam())
-		).subscribe(this._selectedTeam$);
+		).subscribe(this._teamSelectionEvent$);
 
 		// when logging out let's clear the current selected team
 		this.authSrv.notAuthenticated$.subscribe(_ => this.resetSelectedTeam());
 
 		// putting a sync version of team
-		this.selectedTeam$.subscribe(team => this.selectedTeamSync = team);
+		this.teamSelectionEvent$.subscribe(team => this.selectedTeamSync = team);
 	}
 
 	/** creates a team and waits for it to be valid */
@@ -71,8 +81,8 @@ export class TeamService extends GlobalService<Team> {
 	/** picks a team, puts the selection in local storage */
 	pickTeam(team: Team): Observable<Team> {
 		this.storage.setItem(SELECTED_TEAM, team);
-		this._selectedTeam$.next(team);
-		return this.selectedTeam$.pipe(
+		this._teamSelectionEvent$.next(team);
+		return this.teamSelectionEvent$.pipe(
 			filter(x => !!x)
 		);
 	}
@@ -80,7 +90,7 @@ export class TeamService extends GlobalService<Team> {
 	/** restore from local storage   */
 	private restoreSelectedTeamId() {
 		const selectedTeam: Team = this.storage.getItem(SELECTED_TEAM);
-		this._selectedTeam$.next(selectedTeam);
+		this._teamSelectionEvent$.next(selectedTeam);
 	}
 
 	private getSelectedTeam() {
@@ -89,7 +99,7 @@ export class TeamService extends GlobalService<Team> {
 
 	private resetSelectedTeam() {
 		this.storage.remove(SELECTED_TEAM);
-		this._selectedTeam$.next(undefined);
+		this._teamSelectionEvent$.next(undefined);
 	}
 
 }

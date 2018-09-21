@@ -23,12 +23,11 @@ export class MemberFeatureService extends TeamUserService {
 	selectTeamOwner() {
 		return zip(
 			this.userSrv.selectUser(),
-			this.teamSrv.selectedTeam$
+			this.teamSrv.teamSelected$
 		).pipe(
-			map(values => {
-				const [user, team] = values;
+			map(([user, team]) => {
 				return {
-					teamOwner: (team.ownerUser && team.ownerUser.id === user.id),
+					teamOwner: (team && team.ownerUser && team.ownerUser.id === user.id),
 					user
 				};
 			})

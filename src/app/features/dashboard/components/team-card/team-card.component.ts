@@ -26,7 +26,7 @@ export class TeamCardComponent extends TrackingComponent implements OnInit {
 
 	ngOnInit() {
 		this.members$ = this.teamUserSrv.queryAll();
-		this.team$ = this.teamSrv.selectedTeam$;
+		this.team$ = this.teamSrv.teamSelected$;
 	}
 
 }

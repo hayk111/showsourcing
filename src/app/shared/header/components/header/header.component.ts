@@ -38,7 +38,7 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();
-		this.team$ = this.teamSrv.selectedTeam$;
+		this.team$ = this.teamSrv.teamSelected$;
 	}
 
 	triggerSearch() {
