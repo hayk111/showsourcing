@@ -26,12 +26,10 @@
     (opened)="inpDescription.select();"
 		[canGrow]="true">
       <label-app>Description</label-app>
-      <!-- hint: editable text is the clickable label that transforms into an input -->
       <editable-label-app>
         {{ task?.description || '-' }}
       </editable-label-app>
       <form-field-app>
-        <!-- hint: couldn't ngModel to accumulator -->
         <textarea inputApp #inpDescription autofocus="true" [value]="task?.description"
 				(keyup.enter)="updateTaskDescription(false, inpDescription.value)">
 
@@ -49,7 +47,7 @@
     <label-app>Due date</label-app>
     <editable-label-app>{{ task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date' }}</editable-label-app>
     <form-field-app>
-      <input inputApp #inpDueDate autofocus="true" [value]="(task?.dueDate | date:'dd-MM-yyyy')|| ''" [type]="'date'"
+      <input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate" [type]="'date'"
       (keyup.enter)="updateTaskDueDate($event, inpDueDate.value)"
       />
     </form-field-app>
