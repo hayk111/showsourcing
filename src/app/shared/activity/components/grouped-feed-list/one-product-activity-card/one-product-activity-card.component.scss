@@ -34,9 +34,7 @@ one-activity-carousel-app {
 		margin-bottom: var(--spacing-xs);
 	}
 	.status-info {
-		margin-bottom: var(--spacing-s);
 		font-size: var(--font-size-m);
-		margin-bottom: var(--spacing-s);
 
 		& > * {
 			//for each children that is not the first one we add some spaces and bullet dots on the content
@@ -55,6 +53,11 @@ one-activity-carousel-app {
 }
 
 .badges {
+
+	status-badge-app, info-badge-app {
+		margin-top: var(--spacing-s);
+	}
+
 	> * {
 		margin-right: var(--spacing-xs);
 	}
