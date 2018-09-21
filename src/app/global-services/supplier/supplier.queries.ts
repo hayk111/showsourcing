@@ -18,6 +18,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly contacts = `contacts { id, name, phoneNumber, email, jobTitle businessCardImage { id, fileName } }`;
 	// tslint:disable-next-line:max-line-length
 	static readonly productsCount = `productsCount:  _count(type: "Product", field: "supplier.id", query:"archived == false AND deleted == false")`;
+	static readonly comments = `comments { id, text, ${SupplierQueries.createdBy}, creationDate }`;
 
 	static readonly one = `
 			name,
@@ -34,6 +35,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 			generalMOQ,
 			generalLeadTime,
 			creationDate,
+			${SupplierQueries.comments}
 			${SupplierQueries.supplierType}
 			${SupplierQueries.logoImage}
 			${SupplierQueries.createdBy}
@@ -62,7 +64,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 
 	static readonly update = `
 		id,
-		favorite
+		favorite,
+		${SupplierQueries.comments}
 	`;
 
 }

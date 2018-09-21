@@ -85,7 +85,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	}
 
 	onSubmit() {
-		this.createComment.emit({ text: this.commentCtrl.value, entity: this.product });
+		this.createComment.emit({ text: this.commentCtrl.value, entity: this.product, typeEntity: this.typeEntity });
 		this.commentCtrl.reset();
 	}
 

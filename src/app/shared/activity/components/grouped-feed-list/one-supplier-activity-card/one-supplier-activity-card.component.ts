@@ -78,7 +78,7 @@ export class OneSupplierActivityCardComponent extends AutoUnsub implements OnIni
 	}
 
 	onSubmit() {
-		this.createComment.emit({ text: this.commentCtrl.value, entity: this.supplier });
+		this.createComment.emit({ text: this.commentCtrl.value, entity: this.supplier, typeEntity: this.typeEntity });
 		this.commentCtrl.reset();
 	}
 
