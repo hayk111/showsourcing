@@ -78,17 +78,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		).subscribe(this.descriptor2$);
 	}
 
-	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
-	 * update the product
-	 */
-	onFormCreated(form: FormGroup) {
-		form.valueChanges
-			.pipe(
-				takeUntil(this._destroy$),
-				distinctUntilChanged()
-			).subscribe(product => this.updateProduct(product));
-	}
-
 	updateProduct(product: any) {
 		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}

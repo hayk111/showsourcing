@@ -62,7 +62,7 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 
 	/** updates supplier */
 	patch(supplier: Supplier) {
-		this.featureSrv.update(supplier)
+		this.featureSrv.update({ id: this.supplier.id, ...supplier })
 			.subscribe();
 	}
 
