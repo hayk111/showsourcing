@@ -10,6 +10,7 @@
   <!-- editable part -->
   <div class="content">
     <editable-text-app
+      [hasAction]="hasAction"
       (closed)="onClosed($event)"
       (opened)="onOpened()">
       <!-- using ngProjectAs so it's caught by the nested ng-content select -->
