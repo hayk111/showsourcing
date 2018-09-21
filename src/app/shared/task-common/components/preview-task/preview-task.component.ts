@@ -85,7 +85,7 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 
 	updateTaskServer(task: any) {
 		task.id = this.task.id;
-		this.featureSrv.update(task).subscribe();
+		this.featureSrv.update(task, undefined, undefined, false).subscribe();
 	}
 
 	updateTaskDescription(isCancel: boolean, description: string) {

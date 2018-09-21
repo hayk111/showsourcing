@@ -22,20 +22,9 @@
       </editable-text-app>
     </div>
     <div class="descripton-container">
-      <!-- <div class="section-title">
-        Description
-      </div>
-
-      <editable-text-app #editable
-      (closed)="updateTaskDescription($event, txtDescription.value)"
-      [hasAction]="true">
-      <editable-label-app class="description-text" *ngIf="task?.description">
-        {{task?.description}}
-      </editable-label-app>
-      <textarea inputApp class="description-text" #txtDescription [value]="task?.description || ''"></textarea>
-    </editable-text-app> -->
-
-    <editable-field-app #editable [inlineLabel]="false" (opened)="inp.select();">
+    <editable-field-app #editable [inlineLabel]="false" (closed)="updateTaskDescription($event, inpDescription.value)"
+    (opened)="inpDescription.select();"
+		[canGrow]="true">
       <label-app>Description</label-app>
       <!-- hint: editable text is the clickable label that transforms into an input -->
       <editable-label-app>
@@ -43,7 +32,8 @@
       </editable-label-app>
       <form-field-app>
         <!-- hint: couldn't ngModel to accumulator -->
-        <textarea inputApp #inp autofocus="true" [value]="task?.description">
+        <textarea inputApp #inpDescription autofocus="true" [value]="task?.description"
+				(keyup.enter)="updateTaskDescription(false, inpDescription.value)">
 
         </textarea>
       </form-field-app>
@@ -53,24 +43,15 @@
   </div>
 
   <div class="descripton-container">
-    <!-- <div class="section-title">
-      Due date
-    </div>
-
-    <editable-text-app #editable
-    [closeOnOutsideClick]="true"
-    (saved)="updateTaskDueDate($event, txtDuaDate.value)"
-    [hasAction]="true">
-    <editable-label-app class="description-text" >
-      {{task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date'}}
-    </editable-label-app>
-    <input inputApp class="description-text" type="date" placeholder="Select a due date" #txtDuaDate [value]="(task?.dueDate | date:'dd-MM-yyyy')|| ''">
-  </editable-text-app> -->
-  <editable-field-app #editable [inlineLabel]="false" (opened)="inp.select()">
+  <editable-field-app #editable [inlineLabel]="false" (opened)="inpDueDate.select()" [canGrow]="true"
+  (closed)="updateTaskDueDate($event, inpDueDate.value)"
+  >
     <label-app>Due date</label-app>
     <editable-label-app>{{ task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date' }}</editable-label-app>
     <form-field-app>
-      <input inputApp #inp autofocus="true" [value]="(task?.dueDate | date:'dd-MM-yyyy')|| ''" [type]="'date'" />
+      <input inputApp #inpDueDate autofocus="true" [value]="(task?.dueDate | date:'dd-MM-yyyy')|| ''" [type]="'date'"
+      (keyup.enter)="updateTaskDueDate($event, inpDueDate.value)"
+      />
     </form-field-app>
   </editable-field-app>
 </div>
