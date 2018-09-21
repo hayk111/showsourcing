@@ -19,9 +19,9 @@
 		inputApp
 		autofocus="true"
 		[value]="value.label"
-		(input)="accumulate('label', inp1.value); onChangeFn()"
-		(change)="onChangeFn()"
-		(blur)="onTouchedFn()"
+		(input)="accumulate('label', inp1.value); onChange()"
+		(change)="onChange()"
+		(blur)="onBlur()"
 		(keyup.enter)="editableLabel.close();"
 		[type]="'text'"/>
 
