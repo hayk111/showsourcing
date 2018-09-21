@@ -104,8 +104,10 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.srv.update(product).subscribe();
 	}
 
-	updateProductProp(value: any, prop: string) {
-		this.updateProduct({ [prop]: value }, prop);
+	updateProductProp(isCancel: boolean, value: any, prop: string) {
+		if (!isCancel) {
+			this.updateProduct({ [prop]: value }, prop);
+		}
 	}
 
 	openRfq() {

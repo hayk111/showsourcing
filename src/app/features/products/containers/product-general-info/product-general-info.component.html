@@ -3,7 +3,9 @@
 	<div class="mainTitle shipping flex"
 		i18n="div title|Product general information@@productGeneralInfo_general">
 
-		<editable-text-app #edt (closed)="updateProductProp(inpName.value, 'name')" (opened)="inpName.select()">
+		<editable-text-app #edt
+			(closed)="updateProductProp($event, inpName.value, 'name')"
+			(opened)="inpName.select()">
 			<editable-label-app>
 				{{ product?.name || 'Unnamed Product' }}
 			</editable-label-app>
@@ -21,7 +23,10 @@
 	</div>
 
 	<!-- price -->
-	<editable-text-app #editablePrice class="price" (closed)="updateProductProp(inpPrice.price, 'price')" (opened)="inpPrice.select()"
+	<editable-text-app #editablePrice class="price"
+		*ngIf="product && product.price"
+		(closed)="updateProductProp($event, inpPrice.price, 'price')"
+		(opened)="inpPrice.select()"
 		(saved)="updateProductProp(inpPrice.price, 'price')">
 		<editable-label-app>
 
@@ -41,7 +46,7 @@
 		<editable-field-app
 			[canGrow]="true"
 			(opened)="txt.select()"
-			(closed)="updateProductProp(txt.value, 'description')">
+			(closed)="updateProductProp($event, txt.value, 'description')">
 			<label-app>Description</label-app>
 			<editable-label-app>
 				<span *ngIf="product?.description; else noDesc">{{ product.description }}</span>
