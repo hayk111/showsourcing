@@ -1,6 +1,6 @@
 <div class="row flexBetween">
 	<!-- label -->
-	<editable-text-app #editableLabel>
+	<editable-text-app #editableLabel (closed)="closed.emit($event)">
 
 		<editable-label-app>
 			<ng-container *ngIf="value.label; else placeholder">
@@ -18,18 +18,19 @@
 			autofocus="true"
 			[value]="value.label"
 			(input)="accumulate('label', inp1.value)"
-			(blur)="onBlur()"
+			(change)="onChangeFn()"
+			(blur)="onTouchedFn()"
 			(keyup.enter)="editableLabel.close();"
 			[type]="'text'"/>
 
 	</editable-text-app>
 
 	<!-- price -->
-	<editable-text-app #editableValue>
+	<editable-text-app #editableValue (closed)="closed.emit($event)">
 		<editable-label-app class="txtBtn">
-			<span>{{ (value?.price?.currency || 'USD') | const : 'currency' : 'symbol'}} </span>
-
-			<span>{{ value?.price?.value !== undefined ? value.price.value  : '-' }}</span>
+			<span *ngIf="currency">{{ (currency || 'USD') | const : 'currency' : 'symbol'}} </span>
+			<span class="mg-xs spacer"></span>
+			<span>{{ amount ? amount  : '-'}}</span>
 		</editable-label-app>
 
 		<input-price-app

@@ -8,7 +8,7 @@ import { EditableTextComponent } from '~shared/editable-field';
 @Component({
 	selector: 'editable-price-app',
 	templateUrl: './editable-price.component.html',
-	styleUrls: ['./editable-price.component.scss', '../../common-styles.scss'],
+	styleUrls: ['./editable-price.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePriceComponent)],
 	host: {

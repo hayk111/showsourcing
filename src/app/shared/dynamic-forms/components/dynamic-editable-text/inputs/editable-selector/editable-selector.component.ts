@@ -15,7 +15,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 @Component({
 	selector: 'editable-selector-app',
 	templateUrl: './editable-selector.component.html',
-	styleUrls: ['./editable-selector.component.scss', '../../common-styles.scss'],
+	styleUrls: ['./editable-selector.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditableSelectorComponent)],
 	host: {

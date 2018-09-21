@@ -1,6 +1,6 @@
 /** encapsulation none is used, watchout */
 
-:host {
+:host, .field-cell {
 	box-sizing: border-box;
 	// when closed and on hover
 	&.closed:hover {

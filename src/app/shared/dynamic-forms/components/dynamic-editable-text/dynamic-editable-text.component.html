@@ -39,7 +39,7 @@
 				#inp
 				restrictInput="tel"
 				autofocus="true"
-				[value]="value"
+				[value]="accumulator"
 				[type]="customField.type"
 				(input)="accumulate(inp.value)"
 				(keyup.enter)="editable.close();"/>
@@ -60,7 +60,7 @@
 				#inp
 				restrictInput="number"
 				autofocus="true"
-				[value]="value"
+				[value]="accumulator"
 				[type]="customField.type"
 				(input)="accumulate(+inp.value)"
 				(keyup.enter)="editable.close();"/>
@@ -81,7 +81,7 @@
 				#inp
 				restrictInput="decimal"
 				autofocus="true"
-				[value]="value"
+				[value]="accumulator"
 				[type]="customField.type"
 				(input)="accumulate(+inp.value)"
 				(keyup.enter)="editable.close();"/>
@@ -101,7 +101,7 @@
 			<input inputApp
 				#inp
 				autofocus="true"
-				[value]="value"
+				[value]="accumulator"
 				[type]="'number'"
 				(input)="accumulate(+inp.value)"
 				(keyup.enter)="editable.close();"/>
@@ -123,7 +123,7 @@
 				inputApp
 				#inp
 				autofocus="true"
-				[value]="value"
+				[value]="accumulator"
 				(input)="accumulate(inp.value)">
 			</textarea>
 		</form-field-app>
@@ -145,9 +145,9 @@
 		</editable-label-app>
 		<input-price-app
 			#inp
-			[price]="value"
+			[price]="accumulator"
 			(keyup.enter)="editable.close()"
-			(change)="accumulate(inp.price); onBlur()"
+			(change)="accumulate(inp.price);"
 			(blur)="onBlur()">
 		</input-price-app>
 	</editable-field-app>
@@ -170,8 +170,9 @@
 		</h4>
 		<div class="inputCtnr">
 			<editable-price-matrix-app
-				[(ngModel)]="value"
+				[(ngModel)]="accumulator"
 				(change)="onChange()"
+				(rowClosed)="onClose($event)"
 				(blur)="onBlur()"></editable-price-matrix-app>
 		</div>
 	</ng-container>
@@ -184,10 +185,10 @@
 		<div class="inputCtnr">
 			<editable-packaging-app
 				[customField]="customField"
-				[(ngModel)]="value"
-				(input)="onChangeFn()"
-				(change)="onChange();"
-				(blur)="onBlur()"></editable-packaging-app>
+				[(ngModel)]="accumulator"
+				(input)="onChange();"
+				(blur)="onBlur()"
+				(rowClosed)="onClose($event)"></editable-packaging-app>
 		</div>
 	</ng-container>
 
@@ -196,8 +197,8 @@
 		*ngSwitchCase="'selector'"
 		[customField]="customField"
 		[inlineLabel]="inlineLabel"
-		[(ngModel)]="value"
-		(change)="onChange()"
+		[(ngModel)]="accumulator"
+		(change)="onSave()"
 		(blur)="onBlur()">
 	</editable-selector-app>
 

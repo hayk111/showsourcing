@@ -5,7 +5,7 @@ A package with 0cm makes no sens -->
 <editable-field-app
 	#cell1
 	[inlineLabel]="true"
-	(closed)="onSave()"
+	(closed)="onClose($event)"
 	(opened)="inp1.select();">
 	<label-app>length</label-app>
 	<editable-label-app>
@@ -27,7 +27,7 @@ A package with 0cm makes no sens -->
 <editable-field-app
 	#cell2
 	[inlineLabel]="true"
-	(closed)="onSave()"
+	(closed)="onClose($event)"
 	(opened)="inp2.select();">
 	<label-app>width</label-app>
 	<editable-label-app>
@@ -49,7 +49,7 @@ A package with 0cm makes no sens -->
 <editable-field-app
 	#cell3
 	[inlineLabel]="true"
-	(closed)="onSave()"
+	(closed)="onClose($event)"
 	(opened)="inp3.select();">
 	<label-app>width</label-app>
 	<label-app>height</label-app>
@@ -72,17 +72,18 @@ A package with 0cm makes no sens -->
 <editable-field-app
 	#cell4
 	[inlineLabel]="true"
-	(closed)="onSave()"
+	(closed)="onClose($event)"
 	(opened)="selector1.open();">
 	<label-app>Dimension units</label-app>
 	<editable-label-app>
-		{{ customField?.value?.unit || '-' }}
+		{{ value?.unit || '-' }}
 	</editable-label-app>
 	<selector-const-app
 		#selector1
 		class="rightSelector"
 		[type]="'lengthUnit'"
-		[(ngModel)]="value.unit"
+		[itemName]="'length unit'"
+		[(ngModel)]="accumulator.unit"
 		(change)="cell4.close()"></selector-const-app>
 </editable-field-app>
 
@@ -90,7 +91,7 @@ A package with 0cm makes no sens -->
 <editable-field-app
 	#cell5
 	[inlineLabel]="true"
-	(closed)="onSave()"
+	(closed)="onClose($event)"
 	(opened)="inp5.select();">
 	<label-app>Quantity</label-app>
 	<editable-label-app>
@@ -112,7 +113,7 @@ A package with 0cm makes no sens -->
 <editable-field-app
 	#cell6
 	[inlineLabel]="true"
-	(closed)="onSave()"
+	(closed)="onClose($event)"
 	(opened)="inp6.select();">
 	<label-app>Weight</label-app>
 	<editable-label-app>
@@ -134,7 +135,7 @@ A package with 0cm makes no sens -->
 <editable-field-app
 	#cell7
 	[inlineLabel]="true"
-	(closed)="onSave()"
+	(closed)="onClose($event)"
 	(opened)="selector7.open();">
 	<label-app>units</label-app>
 	<editable-label-app>
@@ -144,6 +145,7 @@ A package with 0cm makes no sens -->
 		#selector7
 		class="rightSelector"
 		[type]="'weightUnit'"
-		[(ngModel)]="value.weightUnit"
+		[itemName]="'weight unit'"
+		[(ngModel)]="accumulator.weightUnit"
 		(change)="cell7.close()"></selector-const-app>
 </editable-field-app>
