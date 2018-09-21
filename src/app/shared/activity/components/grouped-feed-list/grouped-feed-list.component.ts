@@ -76,7 +76,6 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		if (group.startsWith('create_supplier'))
 			return manyActivities ? 'supplier_many_created' : 'supplier_one_created';
 	}
-
 }
 
 /*
