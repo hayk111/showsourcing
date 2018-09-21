@@ -34,12 +34,9 @@ export class TeamClientInitializer extends AbstractApolloClient {
 	}
 
 	init() {
-
-		// when the team id that the user changes we select the team
-		// this prevent us from being notified on every change on the team.
-		// this is a bit tricky, we can't use distinctUntilChanged because
+		// we can't use distinctUntilChanged because
 		// the user might pick the same team twice upon reconnection
-		const teamSelected$ = this.teamSrv.selectedTeam$
+		const teamSelected$ = this.teamSrv.teamSelectionEvent$
 			.pipe(
 				filter(team => !!team),
 				tap(_ => this.destroyClient(Client.TEAM, 'changing team')),

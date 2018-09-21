@@ -64,9 +64,9 @@ export class AuthenticationService {
 	}
 
 	logout() {
+		this.router.navigate(['guest', 'login']);
 		this.tokenSrv.clearTokens();
 		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
-		this.router.navigate(['guest', 'login']);
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {
