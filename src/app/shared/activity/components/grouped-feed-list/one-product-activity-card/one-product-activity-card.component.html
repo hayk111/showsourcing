@@ -37,7 +37,7 @@
 			<span class="name">{{ product?.name }}</span>
 			<div class="flex status-info flexWrap">
 				<span *ngIf="product?.price?.value" class="price">
-					{{ product.price.value | currency: product?.price?.currency:'symbol':'1.2-2' }}
+					{{ product.price.value | ssPrice | currency: product?.price?.currency:'symbol':'1.2-2' }}
 				</span>
 				<span *ngIf="product?.category?.name">{{ product.category.name }}</span>
 				<span *ngIf="product?.supplier?.name" class="supplier">{{ product.supplier.name }}</span>
