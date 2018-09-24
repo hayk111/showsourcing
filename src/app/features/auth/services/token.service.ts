@@ -39,17 +39,19 @@ export class TokenService {
 	 * so we don't have to relogin on every refresh.
 	 * This is called when the app starts
 	 */
-	restoreRefreshToken(): TokenService {
+	async restoreRefreshToken(): Promise<void> {
 		log.info(`%c Restoring refresh token`, LogColor.SERVICES);
 		const refreshToken = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME) as TokenState;
 		// the refresh token are long lived at the moment (10 years),
 		// let's make a check that the token is still valid for 1 month though
 		const validUntilMs = 1000 * 60 * 60 * 24 * 31;
-		if (refreshToken && this.isValid(refreshToken, validUntilMs))
+		const isValidOnClient = this.isValid(refreshToken, validUntilMs);
+		const isValidOnServer = await (isValidOnClient ? this.isValidOnServer(refreshToken) : Promise.resolve(true));
+
+		if (refreshToken && isValidOnClient && isValidOnServer)
 			this._refreshToken$.next(refreshToken);
 		else
 			this._refreshToken$.next();
-		return this;
 	}
 
 	getRefreshToken(refPostBody: RefreshTokenPostBody) {
@@ -108,7 +110,7 @@ export class TokenService {
 				app_id: '',
 				provider: 'realm',
 				data: refreshToken.token,
-				// path: realmPath
+				path: realmPath
 			})
 			),
 			switchMap(accessObj => this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj)),
@@ -142,6 +144,21 @@ export class TokenService {
 	/** check if a token has expired */
 	private isValid(token: TokenState, validUntilMs = 0) {
 		return token.token_data.expires * 1000 > Date.now() + validUntilMs;
+	}
+
+	private isValidOnServer(refreshToken: TokenState): Promise<boolean> {
+		// we will send a request for an access token to know if the request
+		// token is really valid (the server might have restarted etc).
+		const accessObj = {
+			app_id: '',
+			provider: 'realm',
+			data: refreshToken.token,
+		};
+		return this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj).pipe(
+			map(accessToken => !!accessToken),
+			catchError(err => of(false))
+		).toPromise();
+
 	}
 
 }
