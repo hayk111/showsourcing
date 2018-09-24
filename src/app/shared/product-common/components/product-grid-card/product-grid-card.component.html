@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="imgPrice flex flexCenter">
-			<span>{{product?.price?.value | currency: product?.price?.currency:'symbol':'1.2-2'}}</span>
+			<span>{{product?.price?.value | ssPrice | currency: product?.price?.currency:'symbol':'1.2-2'}}</span>
 		</div>
 
 		<status-badge-app

@@ -32,8 +32,8 @@
           <div class="descriptionCtnr">
             <div class="descriptionCtnr-first">
               <span class="subtitle">
-                <ng-container *ngIf="price && minimumOrderQuantity">{{price?.currency}} {{price?.value}} - </ng-container>
-                <ng-container *ngIf="price && !minimumOrderQuantity">{{price?.currency}} {{price?.value}}</ng-container>
+                <ng-container *ngIf="price && minimumOrderQuantity">{{price?.currency}} {{price?.value | ssPrice}} - </ng-container>
+                <ng-container *ngIf="price && !minimumOrderQuantity">{{price?.currency}} {{price?.value | ssPrice}}</ng-container>
                 <ng-container *ngIf="minimumOrderQuantity">Min {{minimumOrderQuantity}} pcs</ng-container>
               </span>
               <span class="descriptionText" *ngIf="description"> - </span>

@@ -24,6 +24,7 @@ import { ProductGridCardComponent } from '~shared/product-common/components/prod
 import { ProductSortingMenuComponent } from '~shared/product-common/components/product-sorting-menu/product-sorting-menu.component';
 import { ProductPreviewComponent } from '~shared/product-common/containers/product-preview/product-preview.component';
 import { KanbanItemCardComponent } from '~shared/product-common/components/kanban-item-card/kanban-item-card.component';
+import { SSPricePipe } from '~shared/price/price.pipe';
 
 
 @NgModule({

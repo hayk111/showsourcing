@@ -53,7 +53,7 @@
 
 <!-- price -->
 <ng-template #price let-row="row">
-  <price-app [amount]="row?.price?.value" [currency]="row?.price?.currency" *ngIf="row?.price?.currency; else noPrice">
+  <price-app [amount]="row?.price?.value" [currency]="row?.price?.currency  | ssPrice" *ngIf="row?.price?.currency; else noPrice">
   </price-app>
 
   <ng-template #noPrice>
