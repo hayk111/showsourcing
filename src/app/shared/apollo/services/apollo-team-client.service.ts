@@ -39,8 +39,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		const teamSelected$ = this.teamSrv.teamSelectionEvent$
 			.pipe(
 				filter(team => !!team),
-				tap(_ => this.destroyClient(Client.TEAM, 'changing team')),
-				tap(_ => this.apolloState.setClientPending(Client.TEAM)),
+				tap(_ => this.destroyClient(Client.TEAM, 'changing team', true)),
 				shareReplay(1)
 			);
 

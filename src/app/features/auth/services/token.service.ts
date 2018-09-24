@@ -45,7 +45,7 @@ export class TokenService {
 		// the refresh token are long lived at the moment (10 years),
 		// let's make a check that the token is still valid for 1 month though
 		const validUntilMs = 1000 * 60 * 60 * 24 * 31;
-		const isValidOnClient = this.isValid(refreshToken, validUntilMs);
+		const isValidOnClient = refreshToken && this.isValid(refreshToken, validUntilMs);
 		const isValidOnServer = await (isValidOnClient ? this.isValidOnServer(refreshToken) : Promise.resolve(true));
 
 		if (refreshToken && isValidOnClient && isValidOnServer)
@@ -110,7 +110,7 @@ export class TokenService {
 				app_id: '',
 				provider: 'realm',
 				data: refreshToken.token,
-				path: realmPath
+				// path: realmPath
 			})
 			),
 			switchMap(accessObj => this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj)),
