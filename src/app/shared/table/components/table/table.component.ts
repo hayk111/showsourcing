@@ -35,6 +35,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasMenu = true;
 	// whether selection is disabled
 	@Input() selectionDisabled = false;
+	// the placeholder text if no element displayed in the table
+	@Input() placeholder: string;
 	// the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	// so this is only useful when the table has selection enabled.
 	@Input() idName = 'id';
@@ -78,9 +80,9 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	// track by for column
 	columnTrackByFn = (index) => index;
 
-  constructor() {
-    super();
-  }
+	constructor() {
+		super();
+	}
 
 	ngOnChanges(changes) {
 		if (changes.currentSort && changes.currentSort.currentValue) {

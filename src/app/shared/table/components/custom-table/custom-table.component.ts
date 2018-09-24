@@ -11,6 +11,7 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 })
 export class CustomTableComponent extends TrackingComponent {
 	@Input() currentSort: Sort;
+	@Input() placeholder: string;
 	@Output() bottomReached = new EventEmitter<any>();
 	@Output() sort = new EventEmitter<Sort>();
 	@Input() descriptor: TableDescriptor = [];
