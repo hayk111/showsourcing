@@ -35,12 +35,19 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 			this.pending = true;
 			this.authSrv.resetPassword(this.form.value).pipe(
 				catchError(error => {
-					this.error = error;
+					if (error.error && error.error.errors && error.error.errors.length > 0) {
+						this.error = error.error.errors[0];
+					} else {
+						this.error = 'Error when requesting password reset';
+					}
 					return throwError(error);
 				})
 			).subscribe(r => {
 				this.pending = false;
 				this.router.navigate([ 'guest', 'login' ]);
+			}, err => {
+				this.pending = false;
+				this.cdr.detectChanges();
 			});
 		}
 	}
