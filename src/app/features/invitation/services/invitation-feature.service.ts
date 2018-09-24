@@ -38,9 +38,11 @@ export class InvitationFeatureService extends InvitationUserService {
 	acceptInvitation(id: string, teamId: string, client: Client) {
 		return this.userSrv.selectUser().pipe(
 			switchMap(user => {
-				return this.invitationSrv.update({
+				return this.invitationSrv.update((client === Client.ALL_USER) ? {
 					id, status: 'accepted',
 					userId: user.id
+				} : {
+					id, status: 'accepted',
 				}, null, client);
 			}),
 			switchMap(() => this.waitForOne(`id == "${teamId}"`)),
