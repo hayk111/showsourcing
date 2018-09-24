@@ -61,7 +61,7 @@ export class InfiniScrollDirective implements OnInit {
 	shouldEmitBottom(clientHeight, scrollTop) {
 			return (
 			this.isDown(scrollTop) &&
-			clientHeight + scrollTop >= this.el.scrollHeight - this.bottomDistance
+			clientHeight + scrollTop >= this.el.scrollHeight / 2 /*- this.bottomDistance*/
 		);
 	}
 
