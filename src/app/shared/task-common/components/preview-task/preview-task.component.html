@@ -2,7 +2,7 @@
   <side-panel-title-app>
     <div class="status-task clickable" [ngClass]="(task$ | async)?.done ? 'status-done' : ''" (click)="markAsDone()">
       <div class="status-task-icon ">
-        <icon-app  fontSet="fa" name="check"></icon-app>
+        <icon-app fontSet="fa" name="check"></icon-app>
       </div>
       <div class="status-task-text">{{(task$ | async)?.done ? 'Done' : 'Mark as done'}}</div>
     </div>
@@ -14,9 +14,7 @@
 
   <ng-container *ngIf="task$ | async as task">
     <div class="task-name">
-      <editable-text-app #editable
-        (closed)="updateTaskName($event, txtName.value)"
-        [hasAction]="true">
+      <editable-text-app #editable (closed)="updateTaskName($event, txtName.value)" [hasAction]="true">
         <editable-label-app class="task-name">
           {{task?.name ? task?.name : 'Unnamed task'}}
         </editable-label-app>
@@ -24,86 +22,80 @@
       </editable-text-app>
     </div>
     <div class="descripton-container">
-      <div class="section-title">
-        Description
-      </div>
+    <editable-field-app #editable [inlineLabel]="false" (closed)="updateTaskDescription($event, inpDescription.value)"
+    (opened)="inpDescription.select();"
+		[canGrow]="true">
+      <label-app>Description</label-app>
+      <editable-label-app>
+        {{ task?.description || '-' }}
+      </editable-label-app>
+      <form-field-app>
+        <textarea inputApp #inpDescription autofocus="true" [value]="task?.description"
+				(keyup.enter)="updateTaskDescription(false, inpDescription.value)">
 
-      <editable-text-app #editable
-        (closed)="updateTaskDescription($event, txtDescription.value)"
-        [hasAction]="true">
-        <editable-label-app class="description-text" *ngIf="task?.description">
-          {{task?.description}}
-        </editable-label-app>
-        <textarea inputApp class="description-text" #txtDescription [value]="task?.description || ''"></textarea>
-      </editable-text-app>
-
-    </div>
-
-    <div class="descripton-container">
-      <div class="section-title">
-        Due date
-      </div>
-
-      <editable-text-app #editable
-        [closeOnOutsideClick]="true"
-        (saved)="updateTaskDueDate($event, txtDuaDate.value)"
-        [hasAction]="true">
-        <editable-label-app class="description-text" >
-          {{task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date'}}
-        </editable-label-app>
-        <input inputApp class="description-text" type="date" placeholder="Select a due date" #txtDuaDate [value]="(task?.dueDate | date:'dd-MM-yyyy')|| ''">
-      </editable-text-app>
-
-    </div>
-
-    <div class="assigned-container">
-      <div class="section-title">
-        Assigned To
-      </div>
-
-      <div class="assigned-list">
-        <div class="flex task-user pointer" (click)="toggleSelector(true)">
-          <selector-entity-app #selector *ngIf="selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app>
-          <user-picture-app  *ngIf="!selectorVisible"  [user]="task?.assignee" [size]="30" [border]="true"></user-picture-app>
-          <div  *ngIf="!selectorVisible" class="user-name">{{ task?.assignee ? task.assignee.firstName+' '+task.assignee.lastName  : 'Unassigned' }}</div>
-        </div>
-      </div>
-    </div>
+        </textarea>
+      </form-field-app>
+    </editable-field-app>
 
 
+  </div>
 
-    <div class="linked-product-container">
-      <div class="section-title">
-        Linked Product
-      </div>
+  <div class="descripton-container">
+  <editable-field-app #editable [inlineLabel]="false" (opened)="inpDueDate.select()" [canGrow]="true"
+  (closed)="updateTaskDueDate($event, inpDueDate.value)"
+  >
+    <label-app>Due date</label-app>
+    <editable-label-app>{{ task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date' }}</editable-label-app>
+    <form-field-app>
+      <input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate" [type]="'date'"
+      (keyup.enter)="updateTaskDueDate($event, inpDueDate.value)"
+      />
+    </form-field-app>
+  </editable-field-app>
+</div>
 
-      <div class="linked-product-list" *ngIf="(product$ | async)" >
-        <kanban-item-card-app class="marginSmall"
-          [title]="(product$ | async).name"
-          [showCheckbox]="false"
-          [clickable]="true"
-          [status]="(product$ | async).status?.name"
-          [favorite]="(product$ | async).favorite"
-          [tags]="(product$ | async).tags"
-          [price]="(product$ | async).price"
-          [minimumOrderQuantity]="(product$ | async).minimumOrderQuantity"
-          [description]="(product$ | async).description ? (product$ | async).description : 'No description'"
-          [image]="(product$ | async).images?.length > 0 ? ((product$ | async) | image:'m') : null"
-          [person]="(product$ | async).createdBy"
-          [link]="'/product/details/' + (product$ | async).id + '/general'"
-          [product]="(product$ | async)">
-        </kanban-item-card-app>
+<div class="assigned-container">
+  <div class="section-title">
+    Assigned To
+  </div>
 
+  <div class="assigned-list">
+    <div class="flex task-user pointer" (click)="toggleSelector(true)">
+      <selector-entity-app #selector *ngIf="selectorVisible" type="user" (clickOutside)="toggleSelector(false)"
+      (change)="updateAssignee($event)"></selector-entity-app>
+      <user-picture-app *ngIf="!selectorVisible" [user]="task?.assignee" [size]="30" [border]="true"></user-picture-app>
+      <div *ngIf="!selectorVisible" class="user-name">{{ task?.assignee ? task.assignee.firstName+'
+        '+task.assignee.lastName : 'Unassigned' }}</div>
       </div>
     </div>
-    <!-- <div class="comment-container">
+  </div>
 
-      <div class="show-previous-comment-link clickable">
-        Show previous comments
-      </div>
-      <div class="comment-list">
 
-      </div>
-    </div> -->
-  </ng-container>
+
+  <div class="linked-product-container">
+    <div class="section-title">
+      Linked Product
+    </div>
+
+    <div class="linked-product-list" *ngIf="(product$ | async)">
+      <kanban-item-card-app class="marginSmall" [title]="(product$ | async).name" [showCheckbox]="false" [clickable]="true"
+      [status]="(product$ | async).status?.name" [favorite]="(product$ | async).favorite" [tags]="(product$ | async).tags"
+      [price]="(product$ | async).price" [minimumOrderQuantity]="(product$ | async).minimumOrderQuantity"
+      [description]="(product$ | async).description ? (product$ | async).description : 'No description'" [image]="(product$ | async).images?.length > 0 ? ((product$ | async) | image:'m') : null"
+      [person]="(product$ | async).createdBy" [link]="'/product/details/' + (product$ | async).id + '/general'"
+      [product]="(product$ | async)">
+    </kanban-item-card-app>
+
+  </div>
+</div>
+<!-- <div class="comment-container">
+
+  <div class="show-previous-comment-link clickable">
+    Show previous comments
+  </div>
+  <div class="comment-list">
+
+  </div>
+</div> -->
+</ng-container>
 </side-panel-app>
