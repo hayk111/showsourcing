@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap, map, tap } from 'rxjs/operators';
 import { InvitationUser } from '~models';
 
-import { InvitationUserService, UserService } from '~global-services';
+import { InvitationUserService, UserService, TeamService } from '~global-services';
 import { Apollo } from 'apollo-angular';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~shared/apollo';
@@ -14,7 +14,8 @@ export class InvitationFeatureService extends InvitationUserService {
 	constructor(
 		protected apolloState: ApolloStateService,
 		private invitationSrv: InvitationUserService,
-		protected userSrv: UserService
+		protected userSrv: UserService,
+		protected teamSrv: TeamService
 	) {
 		super(apolloState);
 	}
@@ -34,14 +35,17 @@ export class InvitationFeatureService extends InvitationUserService {
 		);
 	}
 
-	acceptInvitation(id: string, client: Client) {
+	acceptInvitation(id: string, teamId: string, client: Client) {
 		return this.userSrv.selectUser().pipe(
 			switchMap(user => {
 				return this.invitationSrv.update({
 					id, status: 'accepted',
 					userId: user.id
 				}, null, client);
-		}));
+			}),
+			switchMap(() => this.waitForOne(`id == "${teamId}"`)),
+			switchMap(team => this.teamSrv.pickTeam(team))
+		);
 	}
 
 	refuseInvitation(id: string, client: Client) {

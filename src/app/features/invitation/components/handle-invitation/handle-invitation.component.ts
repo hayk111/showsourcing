@@ -57,7 +57,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	}
 
 	joinTeam() {
-		this.invitationSrv.acceptInvitation(this.invitation.id, this.client).subscribe(() => {
+		this.invitationSrv.acceptInvitation(this.invitation.id, this.invitation.teamId, this.client).subscribe(() => {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.SUCCESS,
