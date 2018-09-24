@@ -84,6 +84,10 @@
 
 	</div>
 
+	<div class="flexAround placeholderCtnr" *ngIf="rows?.length === 0">
+		<div class="placeholder">{{placeholder}}</div>
+	</div>
+
 	<!-- pending -->
 	<div class="pendingCtnr flexCenter" *ngIf="pending">
 		<spinner-app></spinner-app>

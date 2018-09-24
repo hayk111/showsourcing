@@ -8,6 +8,7 @@ I added comment above each column to make it clearer -->
 	[contextualMenu]="contextualMenuTemplate"
 	[selected]="selection"
 	[currentSort]="currentSort"
+	placeholder="You don't have any product yet"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(selectOne)="select.emit($event)"
