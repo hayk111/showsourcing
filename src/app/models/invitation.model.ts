@@ -34,6 +34,8 @@ export class InvitationUser {
 	email: string;
 	inviterFirstName: string;
 	inviterLastName: string;
+	teamName: string;
+	teamId: string;
 	accessType: string;
 	status: string;
 	__typename?= 'Invitation';
