@@ -83,31 +83,31 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 		});
 	}
 
-	updateTaskServer(task: any) {
+	updateTaskServer(task: any, field?: string) {
 		task.id = this.task.id;
-		this.featureSrv.update(task, undefined, undefined, false).subscribe();
+		this.featureSrv.update(task, field, undefined, false).subscribe();
 	}
 
 	updateTaskDescription(isCancel: boolean, description: string) {
 		if (isCancel) return;
 
-		this.updateTaskServer({ description });
+		this.updateTaskServer({ description }, 'description');
 	}
 
 	markAsDone() {
-		this.updateTaskServer({ done: true });
+		this.updateTaskServer({ done: true }, 'done');
 	}
 
 	updateTaskName(isCancel: boolean, name: string) {
 		if (isCancel) return;
 
-		this.updateTaskServer({ name });
+		this.updateTaskServer({ name }, 'name');
 	}
 
 	updateTaskDueDate(isCancel: boolean, dueDate: Date) {
 		if (isCancel) return;
 
-		this.updateTaskServer({ dueDate });
+		this.updateTaskServer({ dueDate }, 'dueDate');
 	}
 
 	updateAssignee(assignee: any) {
