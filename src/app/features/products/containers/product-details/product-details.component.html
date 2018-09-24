@@ -1,9 +1,9 @@
 <product-top-panel-app
-	[product]="product$ | async"
+	[product]="product"
 	(deleteProduct)="deleteProduct()">
 </product-top-panel-app>
 
-<ng-container *ngIf="product$ | async as product">
+<ng-container *ngIf="product">
 
   <div class="flex content">
     <div class="left">
