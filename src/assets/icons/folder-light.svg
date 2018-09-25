@@ -7,26 +7,25 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
+   width="7"
+   height="7"
+   viewBox="0 0 5.4444444 9"
    version="1.1"
-   id="svg4366"
-   sodipodi:docname="workflow-dark.svg"
+   id="svg8"
+   sodipodi:docname="folder.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <metadata
-     id="metadata4372">
+     id="metadata12">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <defs
-     id="defs4370" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -38,24 +37,20 @@
      inkscape:pageshadow="2"
      inkscape:window-width="1858"
      inkscape:window-height="1057"
-     id="namedview4368"
+     id="namedview10"
      showgrid="false"
-     inkscape:zoom="27.812867"
-     inkscape:cx="10.403679"
-     inkscape:cy="16.603727"
+     inkscape:zoom="256"
+     inkscape:cx="0.67977192"
+     inkscape:cy="6.6338983"
      inkscape:window-x="54"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg4366" />
-  <g
-     fill="none"
-     fill-rule="evenodd"
-     transform="translate(0 1)"
-     id="g4364">
-    <path
-       style="fill:#182844;fill-opacity:1"
-       d="M 20.5 1 A 3.5 3.625 0 0 0 17.056641 4 L 11 4 C 9.9072751 4 9 4.9072751 9 6 L 9 11 L 6 11 A 2 2 0 0 0 4 9 L 2 9 A 2 2 0 0 0 0 11 L 0 13 A 2 2 0 0 0 2 15 L 4 15 A 2 2 0 0 0 6 13 L 9 13 L 9 18 C 9 19.092725 9.9072751 20 11 20 L 17.052734 20 A 3.5 3.625 0 0 0 20.5 23 A 3.5 3.625 0 0 0 24 19.375 A 3.5 3.625 0 0 0 21 15.791016 L 21 8.2089844 A 3.5 3.625 0 0 0 24 4.625 A 3.5 3.625 0 0 0 20.5 1 z M 11 6 L 17.263672 6 A 3.5 3.625 0 0 0 19 7.8945312 L 19 16.103516 A 3.5 3.625 0 0 0 17.261719 18 L 11 18 L 11 6 z "
-       transform="translate(0,-1)"
-       id="ellipse4354" />
-  </g>
+     inkscape:current-layer="svg8" />
+  <defs
+     id="defs2" />
+  <path
+     style="fill:#a3afc6;fill-rule:nonzero;stroke:none;stroke-width:1.00623059"
+     d="M 3.1496989,0.54747433 3.3517183,1.0338163 H -1.7757166 V 0.67574033 c 0,-0.368765 0.23943,-0.668052 0.534442,-0.668052 h 3.680166 c 0.2982187,0 0.5729212,0.208432 0.7108075,0.539786 z M 6.6905902,2.2576878 c 0.295187,0 0.534759,0.2943352 0.53369,0.6569982 v 5.4360041 c 0,0.3626753 -0.239572,0.6569978 -0.53476,0.6569978 h -7.9304778 c -0.295187,0 -0.534759,-0.2943225 -0.534759,-0.6569978 V 2.2576878 Z"
+     id="file-7"
+     inkscape:connector-curvature="0" />
 </svg>

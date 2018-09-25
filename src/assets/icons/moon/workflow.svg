@@ -12,7 +12,7 @@
    viewBox="0 0 24 24"
    version="1.1"
    id="svg4366"
-   sodipodi:docname="workflow-dark.svg"
+   sodipodi:docname="workflow.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <metadata
      id="metadata4372">
@@ -22,6 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -53,7 +54,7 @@
      transform="translate(0 1)"
      id="g4364">
     <path
-       style="fill:#182844;fill-opacity:1"
+       style="fill:#5d6d8b;fill-opacity:1"
        d="M 20.5 1 A 3.5 3.625 0 0 0 17.056641 4 L 11 4 C 9.9072751 4 9 4.9072751 9 6 L 9 11 L 6 11 A 2 2 0 0 0 4 9 L 2 9 A 2 2 0 0 0 0 11 L 0 13 A 2 2 0 0 0 2 15 L 4 15 A 2 2 0 0 0 6 13 L 9 13 L 9 18 C 9 19.092725 9.9072751 20 11 20 L 17.052734 20 A 3.5 3.625 0 0 0 20.5 23 A 3.5 3.625 0 0 0 24 19.375 A 3.5 3.625 0 0 0 21 15.791016 L 21 8.2089844 A 3.5 3.625 0 0 0 24 4.625 A 3.5 3.625 0 0 0 20.5 1 z M 11 6 L 17.263672 6 A 3.5 3.625 0 0 0 19 7.8945312 L 19 16.103516 A 3.5 3.625 0 0 0 17.261719 18 L 11 18 L 11 6 z "
        transform="translate(0,-1)"
        id="ellipse4354" />

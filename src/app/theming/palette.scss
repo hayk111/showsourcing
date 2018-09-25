@@ -34,14 +34,6 @@
 
 /* Color classes */
 
-.color-success {
-  color: var(--color-success);
-}
-
-.color-in-progress {
-	color: var(--color-in-progress);
-}
-
 .color-primary {
 	color: var(--color-primary);
 }
@@ -58,21 +50,37 @@
 	color: var(--color-secondary-dark);
 }
 
+/** status */
+
 .color-warn {
 	color: var(--color-warn);
+}
+
+.color-success {
+	color: var(--color-success);
+}
+
+.color-in-progress {
+	color: var(--color-in-progress);
+}
+/** text */
+
+.color-txt-primary {
+	color: var(--color-txt-primary);
+}
+
+.color-txt-secondary {
+	color: var(--color-secondary-dark);
 }
 
 .color-txt-dark {
 	color: var(--color-txt-primary);
 }
 
-.color-txt-light {
+.color-txt-light, .color-white {
 	color: white;
 }
 
-.color-txt-secondary {
-	color: var(--color-secondary-dark);
-}
 
 /* Background */
 
