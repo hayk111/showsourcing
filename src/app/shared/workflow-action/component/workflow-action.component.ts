@@ -42,7 +42,7 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 			if (this.internalUpdate) {
 				this.workflowSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
 			} else {
-				this.statusUpdated.emit(tempS);
+				this.statusUpdated.emit(status);
 			}
 		}
 	}
@@ -52,7 +52,7 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 		if (this.internalUpdate) {
 			this.workflowSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
 		} else {
-			this.statusUpdated.emit(tempS);
+			this.statusUpdated.emit(status);
 		}
 	}
 

@@ -44,7 +44,9 @@ export abstract class ProductQueries extends GlobalQueries {
 			leadTimeValue,
 			leadTimeUnit,
 			sample,
-			creationDate
+			creationDate,
+			archived,
+			deleted,
 			${ProductQueries.comments}
 			${ProductQueries.supplier}
 			${ProductQueries.images}
@@ -73,6 +75,8 @@ export abstract class ProductQueries extends GlobalQueries {
 			minimumOrderQuantity,
 			lastUpdatedDate,
 			deleted,
+			archived,
+			deleted,
 			${ProductQueries.comments},
 			${ProductQueries.createdBy},
 			${ProductQueries.images},
@@ -88,7 +92,8 @@ export abstract class ProductQueries extends GlobalQueries {
 
 	static readonly update = `
 		favorite
-		lastUpdatedDate
+		lastUpdatedDate,
+		archived,
 		${ProductQueries.status}
 		${ProductQueries.votes}
 		${ProductQueries.projects}

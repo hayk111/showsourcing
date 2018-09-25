@@ -141,7 +141,9 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	}
 
 	onStatusUpdated(product, status) {
-		this.statusUpdated.emit({ product, status });
+		if (status) {
+			this.statusUpdated.emit({ product, status });
+		}
 	}
 
 }

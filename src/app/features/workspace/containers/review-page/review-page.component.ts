@@ -99,7 +99,9 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 
 	onArchive(product: Product) {
 		const { id } = product;
-		this.update({ id, archived: true });
+		this.workspaceSrv.update({ id, archived: true }, 'archived').subscribe(() => {
+			this.refetch();
+		});
 	}
 
 	onStatusUpdated({ product, status }) {

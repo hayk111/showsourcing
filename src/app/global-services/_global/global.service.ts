@@ -473,9 +473,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
 
-    if (isOptimistic) {
-      this.addOptimisticResponse(options, gql, entity, this.typeName);
-    }
+		if (isOptimistic) {
+			this.addOptimisticResponse(options, gql, entity, this.typeName);
+		}
 		// updating select one cache so changes are reflected when using selectOne(id)
 		if (this.selectOneCache.has(cacheKey)) {
 			this.selectOneCache.get(cacheKey).subj.next(entity);
@@ -661,7 +661,7 @@ Deleting everything.. so watchout. `);
 		return gql.loc.source.body;
 	}
 
-	/** logs request that is about to being made to the console */
+	/** logs request that is about to being made to the 	 */
 	private log(type: string, gql: DocumentNode, queryName: string, clientName: Client, variables?: any) {
 		// logging for each request
 		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
