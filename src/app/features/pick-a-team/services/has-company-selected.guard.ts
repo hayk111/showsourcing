@@ -1,4 +1,5 @@
 import { CanActivate, CanActivateChild, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { CompanyService } from '~global-services/company/company.service';
 import { LogColor, log } from '~utils';
@@ -10,7 +11,7 @@ import { Injectable } from '@angular/core';
 })
 export class HasCompanySelectGuard implements CanActivate, CanActivateChild {
 
-	constructor(private companySrv: CompanyService, private router: Router) { }
+	constructor(private companySrv: CompanyService, private location: Location, private router: Router) { }
 
 	canActivateChild(): boolean | Observable<boolean> | Promise<boolean> {
 		return this.canActivate();
@@ -25,7 +26,7 @@ export class HasCompanySelectGuard implements CanActivate, CanActivateChild {
 
 	redirect(hasCompany: boolean) {
 		if (!hasCompany) {
-			this.router.navigate(['user', 'pick-a-company']);
+			this.router.navigate(['user', 'pick-a-company'], { queryParams: { returnUrl: this.location.path() } });
 		}
 	}
 }

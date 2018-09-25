@@ -22,6 +22,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	connected: boolean;
 	invitation: InvitationUser;
 	client: Client;
+	returnUrl: string;
 
 	constructor(
 		private router: Router,
@@ -37,32 +38,26 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.userSrv.selectUser().pipe(
 			takeUntil(this._destroy$),
-			tap(() => this.connected = true),
+			tap((user) => {
+				this.connected = true;
+			}),
 			switchMap(() => {
 				const invitationId = this.route.snapshot.params.id;
 				return this.invitationSrv.getInvitation(invitationId);
 			})
 		).subscribe(({ invitation, client }) => {
-			console.log('>> invitation = ', invitation);
-			console.log('>> client = ', client);
-			if (invitation.id) {
+			if (invitation && invitation.id) {
 				// An invitation is found
 				this.invitation = invitation;
 				this.client = client;
 				this.cdr.detectChanges();
-			} else {
-				// If no invitation found, redirect to /
-				this.router.navigateByUrl('/');
 			}
 		});
-	}
-
-	getCurrentPath() {
-		return this.location.path();
+		this.returnUrl = this.location.path();
 	}
 
 	joinTeam() {
-		this.invitationSrv.acceptInvitation(this.invitation.id, this.client).subscribe(() => {
+		this.invitationSrv.acceptInvitation(this.invitation.id, this.invitation.teamId, this.client).subscribe(() => {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.SUCCESS,

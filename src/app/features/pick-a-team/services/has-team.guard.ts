@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { CanActivate, CanActivateChild, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap, first } from 'rxjs/operators';
@@ -10,7 +11,7 @@ import { TeamService } from '~global-services';
 })
 export class HasTeamGuard implements CanActivate, CanActivateChild {
 
-	constructor(private teamSrv: TeamService, private router: Router) { }
+	constructor(private teamSrv: TeamService, private location: Location, private router: Router) { }
 
 	canActivateChild(): boolean | Observable<boolean> | Promise<boolean> {
 		return this.canActivate();
@@ -26,7 +27,7 @@ export class HasTeamGuard implements CanActivate, CanActivateChild {
 
 	redirect(hasTeam: boolean) {
 		if (!hasTeam) {
-			this.router.navigate(['user', 'create-a-team']);
+			this.router.navigate(['user', 'create-a-team'], { queryParams: { returnUrl: this.location.path() } });
 		}
 	}
 

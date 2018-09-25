@@ -14,8 +14,8 @@ export class AccountCreatedComponent extends TrackingComponent implements OnInit
 
 	constructor(private fb: FormBuilder,
 		private router: Router) {
-      super();
-    }
+			super();
+		}
 
 	ngOnInit() {
 		this.form = new FormArray([]);
