@@ -25,7 +25,7 @@ export class InfiniScrollDirective implements OnInit {
 	// distance of the view height at which point we trigger the event
 	// at 0 only triggers at end (when we can't scroll anymore)
 	@Input() topDistance = 0;
-	@Input() bottomDistance = 0;
+	@Input() bottomDistancePercent = 0.5;
 	private el: HTMLElement;
 	// to know the scroll direction
 	private lastScrollTop;
@@ -61,7 +61,7 @@ export class InfiniScrollDirective implements OnInit {
 	shouldEmitBottom(clientHeight, scrollTop) {
 			return (
 			this.isDown(scrollTop) &&
-			clientHeight + scrollTop >= this.el.scrollHeight / 2 /*- this.bottomDistance*/
+			clientHeight + scrollTop >= this.el.scrollHeight * this.bottomDistancePercent
 		);
 	}
 
