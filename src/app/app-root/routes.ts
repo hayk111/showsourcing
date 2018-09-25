@@ -21,7 +21,6 @@ import { HasCompanyGuard } from '~features/pick-a-team/services/has-company.guar
 import { CreateACompanyPageComponent } from '~features/pick-a-team/containers/create-a-company-page/create-a-company-page.component';
 import { HasCompanySelectGuard } from '~features/pick-a-team/services/has-company-selected.guard';
 import { HasUserGuard } from '~features/auth/services/has-user.guard';
-import { HasTeamSelectedIfConnectedGuard } from '~features/pick-a-team/services/has-team-selected-if-connected.guard';
 
 export const routes: Array<Route> = [
 	{
@@ -63,7 +62,6 @@ export const routes: Array<Route> = [
 		path: 'invitation',
 		component: GuestTemplateComponent,
 		canActivateChild: [
-			// HasTeamSelectedIfConnectedGuard,
 		],
 		children: [
 			...invitationRoutes
