@@ -275,6 +275,19 @@ kanban-item-card-app {
       color: #fff;
     }
   }
+
+  &.button-archive {
+    color: #5d6d8b;
+    background-color: var(--color-secondary);
+		padding-right: 5px;
+
+		&:hover {
+			background: var(--color-secondary-dark);
+		}
+    icon-app {
+      color: #5d6d8b;
+    }
+  }
 }
 
 .pendingCtnr {
