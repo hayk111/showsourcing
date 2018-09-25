@@ -37,16 +37,16 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 	prodErm = ERM.PRODUCT;
 
-	descriptor: TableDescriptor = [
+  descriptor: TableDescriptor = [
 		{ title: 'Name', type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
 		{ title: 'Category', type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
 		{ title: 'Supplier', type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
-		{ title: 'Price', type: 'price', sortBy: 'price.value', width: 50, minWidth: 50 },
+		{ title: 'Price', type: 'price', sortBy: 'price', width: 50, minWidth: 50 },
 		{ title: 'MOQ', type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50, minWidth: 50 },
-		{ title: 'FAV', type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
-		{ title: 'Status', type: 'status', sortBy: 'status.status.name', width: 85, minWidth: 120 },
+		{ title: 'FAV', type: 'rating', sortBy: 'rating', width: 15, minWidth: 50 },
+		{ title: 'Status', type: 'status', sortBy: 'status.name', width: 85, minWidth: 120 },
 		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
-	];
+  ];
 
 	constructor(private renderer: Renderer2) {
 		super();
