@@ -56,9 +56,14 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** resets a client */
-	protected destroyClient(clientName: Client, reason: string) {
+	protected destroyClient(clientName: Client, reason: string, setPending?: boolean) {
 		log.debug(`%c Destroying client ${clientName} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
-		this.apolloState.destroyClient(clientName);
+		// sometimes (for example when switching team) we want to put the state as pending
+		if (setPending) {
+			this.apolloState.setClientPending(clientName);
+		} else {
+			this.apolloState.destroyClient(clientName);
+		}
 		this.clearClient(clientName);
 	}
 
