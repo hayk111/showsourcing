@@ -14,10 +14,35 @@ import { SelectionService } from '~shared/list-page/selection.service';
 export class TestKanbanComponent implements OnInit {
 	columns = [
 		{
+			id: 'test',
 			name: 'test',
 			items: [
 				{
-					name: 'item1'
+					id: 'item1',
+					name: 'item1',
+					cat: {
+						id: 'test'
+					}
+				}
+			]
+		},
+		{
+			id: 'test1',
+			name: 'test1',
+			items: [
+			]
+		},
+		{
+			id: 'test2',
+			name: 'test2',
+			disabled: true,
+			items: [
+				{
+					id: 'item2',
+					name: 'item2',
+					cat: {
+						id: 'test2'
+					}
 				}
 			]
 		}
@@ -31,5 +56,35 @@ export class TestKanbanComponent implements OnInit {
 
 	ngOnInit() {
 		this.selected$ = this.selectionSrv.selection$;
+	}
+
+	getCurrentColumnFct(data) {
+		return data.cat;
+	}
+
+	onItemDropped(evt) {
+		console.log('>> onItemDropped - event = ', evt);
+	}
+
+	onItemSelected(item, flag) {
+		console.log('>> onItemSelected - event = ', item);
+		this.selectionSrv.selectOne(item);
+	}
+
+	onItemUnselected(item, flag) {
+		console.log('>> onItemUnselected - event = ', item);
+		this.selectionSrv.unselectOne(item);
+	}
+
+	selectAll(items, flag) {
+		console.log('>> selectAll - event = ', items);
+		this.selectionSrv.selectAll(items);
+	}
+
+	resetSelection(items) {
+		console.log('>> resetSelection - evt = ', items);
+		if (items) {
+			items.forEach(item => this.selectionSrv.unselectOne(item));
+		}
 	}
 }

@@ -38,7 +38,7 @@
 			[product]="row"
 			[dragInProgress]="dragInProgress"
 			[checked]="checked"
-			(dragDropEnable)="dragDropEnable$.next()"
+			(dragDropEnable)="dragDropEnable$.next($event)"
 			(select)="selectItem.emit(row)"
 			(unselect)="unselectItem.emit(row)">
 		</kanban-item-card-app>

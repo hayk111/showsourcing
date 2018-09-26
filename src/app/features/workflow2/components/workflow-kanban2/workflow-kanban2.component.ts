@@ -85,8 +85,8 @@ export class WorkflowKanban2Component extends TrackingComponent {
 	}
 
 	/**
-  * Detect when an item is dropped and locally update ui (optimistic ui)
-  * before the request completes
+	 * Detect when an item is dropped and locally update ui (optimistic ui)
+	 * before the request completes
 	*/
 	onItemDropped({ target, droppedElement }) {
 		this.refreshColumnsInternally(target, droppedElement);
@@ -125,6 +125,7 @@ export class WorkflowKanban2Component extends TrackingComponent {
 	}
 
 	onCheckItemsChange(column: any, checked: boolean) {
+		console.log('>> onCheckItemsChange - column.items = ', column.items);
 		if (checked) {
 			this.selectAllItems.emit(column.items);
 		} else {

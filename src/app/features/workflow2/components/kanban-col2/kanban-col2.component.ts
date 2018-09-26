@@ -38,6 +38,8 @@ export class KanbanCol2Component extends AutoUnsub implements OnInit {
 	@Input() disabled: boolean;
 	/** The checkbox is checked or not */
 	@Input() checked: boolean;
+	/** The function to get the current column of an item */
+	@Input() getCurrentColumnFct: Function;
 	/** The item is dropped in the column */
 	@Output() itemDropped = new EventEmitter<any>();
 	@Output() checkChange = new EventEmitter<boolean>();
@@ -63,7 +65,10 @@ export class KanbanCol2Component extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$)
 		).subscribe(({ data, namespace }) => {
 			this.sourceArea = (namespace === this.namespace);
-			this.droppableArea = (!this.disabled && data.status.status.id !== this.namespace.id);
+			if (this.getCurrentColumnFct) {
+				const dataColumn = this.getCurrentColumnFct(data);
+				this.droppableArea = (!this.disabled && dataColumn && dataColumn.id !== this.namespace.id);
+			}
 			this.dragnDropInProgress = true;
 			this.cdr.markForCheck();
 		});
