@@ -1,0 +1,9 @@
+
+<workflow-kanban2-app [columns]="columns"
+                      [selectedItems]="selected$ | async"
+                      [card]="card">
+</workflow-kanban2-app>
+
+<ng-template #card let-row="row" let-status="status" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-dragDropEnable$="dragDropEnable$">
+	test: {{row.name}}
+</ng-template>

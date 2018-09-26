@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TestPageComponent } from '~features/test-page/test-page/test-page.component';
+import { TestKanbanComponent } from '~features/test-page/test-kanban/test-kanban.component';
 import { EditableFieldModule } from '~shared/editable-field';
 import { CardModule } from '~shared/card';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
@@ -13,6 +14,7 @@ import { DividerModule } from '~shared/divider/divider.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { InputsModule } from '~shared/inputs';
+import { Workflow2Module } from '~features/workflow2/workflow2.module';
 
 @NgModule({
 	imports: [
@@ -28,9 +30,10 @@ import { InputsModule } from '~shared/inputs';
 		DividerModule,
 		UserPictureModule,
 		SearchBarModule,
-		InputsModule
+		InputsModule,
+		Workflow2Module
 	],
-	declarations: [TestPageComponent],
-	exports: [TestPageComponent]
+	declarations: [TestPageComponent, TestKanbanComponent],
+	exports: [TestPageComponent, TestKanbanComponent]
 })
 export class TestPageModule { }

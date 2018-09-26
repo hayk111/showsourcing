@@ -37,4 +37,5 @@ export * from '~models/booth.model';
 export * from '~models/realm-server.model';
 export * from '~models/comment.model';
 export * from '~models/company.model';
+export * from '~models/kanban.model';
 
