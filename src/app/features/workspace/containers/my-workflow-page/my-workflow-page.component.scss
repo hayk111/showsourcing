@@ -6,3 +6,7 @@ sub-panel-app {
   height: calc(100vh - 254px);
   display: flex;
 }
+
+icon-app {
+	color: var(--color-txt-secondary);
+}

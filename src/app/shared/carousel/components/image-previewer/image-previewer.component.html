@@ -1,10 +1,10 @@
 <div *ngIf="hasAdd" [ngStyle]="styleBox" class="plusBtn square pointer flex flexCenter" (click)="plusClick.emit()">
-	<icon-app name="plus-square" fontSet="svg" class="pointer"></icon-app>
+	<icon-app name="plus-square" class="pointer color-txt-secondary"></icon-app>
 </div>
 <img-app class="square pointer"
 	[ngStyle]="styleBox"
 	[ngClass]="{ 'pending': image.pending }"
 	*ngFor="let image of images; let i = index;trackBy: trackByFn"
-	[image]="image"
+	[image]="image"s
 	size="s"
 	(click)="imageClick.emit(i)"></img-app>

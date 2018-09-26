@@ -9,8 +9,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class InfoBadgeComponent implements OnInit {
 
 	@Input() type: 'category' | 'tag' | 'project' = 'category';
-
 	@Input() size = 'mini';
+	color: string;
 
 	constructor() { }
 
@@ -21,16 +21,20 @@ export class InfoBadgeComponent implements OnInit {
 		let name = '';
 		switch (this.type) {
 			case 'category':
-				name = 'badge-category';
+				name = 'category';
+				this.color = 'color-white';
 				break;
 			case 'tag':
-				name = 'badge-tag';
+				name = 'tag';
+				this.color = 'color-txt-secondary';
 				break;
 			case 'project':
-				name = 'badge-folder';
+				name = 'folder-light';
+				this.color = 'color-txt-secondary';
 				break;
 			default:
 				name = 'badge-tag';
+				this.color = 'color-txt-secondary';
 				break;
 		}
 		return name;

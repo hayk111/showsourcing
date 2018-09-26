@@ -40,8 +40,10 @@
               <span class="descriptionText">{{product?.supplier?.name}} - {{product?.category?.name}}</span>
             </div>
             <div class="descriptionCtnr-last flex">
-							<icon-app [style.visibility]="thumbsName === 'thumbs-up-white' ? 'hidden' : 'visible'"
-								[name]="thumbsName" *ngIf="thumbsName" fontSet="svg"></icon-app>
+							<icon-app *ngIf="thumbsName"
+								[style.visibility]="thumbsName === 'thumbs-up-white' ? 'hidden' : 'visible'"
+								[name]="thumbsName" [ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
+							</icon-app>
               <span *ngIf="product?.score !== undefined && product?.score != null" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
             </div>
           </div>

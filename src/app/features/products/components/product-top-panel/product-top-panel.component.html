@@ -4,7 +4,7 @@
 	(delete)="deleteProduct.emit()">
 
 	<img-app [image]="product?.images" type="product" size="s"></img-app>
-	<icon-app *ngIf="product?.favorite" fontSet="fa" name="heart" class="color-warn"></icon-app>
+	<icon-app *ngIf="product?.favorite" name="heart" class="color-warn"></icon-app>
 
 	<div class="flexColumn">
 
