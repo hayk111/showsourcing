@@ -8,6 +8,7 @@ import { take, map, switchMap, first, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 @Component({
@@ -27,7 +28,10 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 		return this.selectedProducts;
 	}
 
-	constructor(private dlgSrv: DialogService, private productDlgSrv: ProductDialogService) {
+	constructor(
+		private dlgSrv: DialogService,
+		private productDlgSrv: ProductDialogService,
+		private notificationSrv: NotificationService) {
 		super();
 	}
 
@@ -46,6 +50,7 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 	}
 
 	submit() {
+		// TODO check when app getStream(streamId: string) {
 		this.teamMembers$.pipe(
 			first(),
 			map(teamMembers => teamMembers.filter(teamMember => !!this.selected[teamMember.id])),
@@ -53,6 +58,21 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 				return this.productDlgSrv.askFeedBackToUsers(teamMembers, this.selectedProducts);
 			})
 		).subscribe(projects => {
+			if (projects) {
+				this.notificationSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Feedback requested',
+					message: 'Your feedback request has been sent with success',
+					timeout: 3500
+				});
+			} else {
+				this.notificationSrv.add({
+					type: NotificationType.ERROR,
+					title: 'Feedback requested',
+					message: 'Feedback request could not be sent, server issues',
+					timeout: 3500
+				});
+			}
 			this.dlgSrv.close();
 		});
 	}
