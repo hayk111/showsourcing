@@ -13,7 +13,7 @@ import { saveAs } from 'file-saver/FileSaver';
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductExportDlgComponent implements OnInit {
-	selectedExport: '' | 'pdf' | 'excel' = '';
+	selectedExport: '' | 'pdf' | 'xlsx' = '';
 	// used to give props from the dialog container
 	selectedProducts: { id: string }[];
 	get products() {
@@ -27,7 +27,7 @@ export class ProductExportDlgComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	select(value: '' | 'pdf' | 'excel') {
+	select(value: '' | 'pdf' | 'xlsx') {
 		this.selectedExport = value;
 	}
 
