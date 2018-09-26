@@ -16,6 +16,7 @@ export class ColumnDirective implements OnInit {
 	// width of the column
 	@Input() width;
 	// whether the column grows if the table hasn't reached full width
+	@Input() minWidth = 50;
 	@Input() grows = true;
 	@Input() sortOrder: 'NONE' | 'ASC' | 'DESC' = 'NONE';
 

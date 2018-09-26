@@ -53,7 +53,7 @@
 
 
 		<!-- content columns -->
-		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'"
+		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'" [style.minWidth]="column.minWidth + 'px'"
 			class="col {{ column.grows ? 'flexGrow' : '' }}">
 			<!-- header -->
 			<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}}" (click)="onSort(column)">
