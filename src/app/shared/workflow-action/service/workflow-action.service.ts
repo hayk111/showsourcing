@@ -13,11 +13,11 @@ export class WorkflowActionService {
 	// we need queryList, so we can refetch. And the workflow.html need infiniteScroll
 	productStatusTypes$: Observable<ProductStatusType[]> = this.ermSrv.getStatusService(ERM.PRODUCT)
 		.queryAll('name, category, step, inWorkflow', { sortBy: 'step' }).pipe(
-			share()
+			shareReplay(1)
 		);
 	supplierStatusTypes$: Observable<SupplierStatusType[]> = this.ermSrv.getStatusService(ERM.SUPPLIER)
 		.queryAll('name, category, step, inWorkflow', { sortBy: 'step' }).pipe(
-			share()
+			shareReplay(1)
 		);
 
 	constructor(

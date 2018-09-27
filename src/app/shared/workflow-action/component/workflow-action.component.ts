@@ -10,7 +10,6 @@ import { ContextMenuComponent } from '~shared/context-menu/components/context-me
 	templateUrl: './workflow-action.component.html',
 	styleUrls: ['./workflow-action.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [WorkflowActionService] // TODO delete when problem with pages fixed
 })
 export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 

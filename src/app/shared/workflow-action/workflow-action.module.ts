@@ -10,8 +10,8 @@ import { WorkflowActionService } from '~shared/workflow-action/service/workflow-
 	declarations: [WorkflowActionComponent],
 	exports: [WorkflowActionComponent],
 	// TODO Uncomment when fixed problem with pages
-	// providers: [
-	// 	WorkflowActionService
-	// ]
+	providers: [
+		WorkflowActionService
+	]
 })
 export class WorkflowActionModule { }
