@@ -38,9 +38,6 @@ card-app {
 				color: var(--color-txt-primary);
 				font-size: var(--font-size-s);
 			}
-			divider-app {
-				margin-top: var(--spacing-m);
-			}
 		}
 		.minus {
 			display: none;
@@ -56,6 +53,7 @@ card-app {
 	}
 
 	divider-app {
+		margin-top: 3px;
 		margin-right: var(--spacing-ms);
 		margin-left: $margin-bar;
 	}

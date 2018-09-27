@@ -1,7 +1,7 @@
 <div class="flex settings">
   <sidenav-app menuIcon="shape" menuTitle="Settings" (expanded)="onMenuExpanded($event)">
 
-	<sidenav-item-app link="/settings/profile">
+		<sidenav-item-app link="/settings/profile" (select)="test($event)">
 			<icon-app name="user"></icon-app> <span sidenavLabelApp>Profile</span>
 		</sidenav-item-app>
 		<!-- TODO Uncomment when these tabs are needed -->

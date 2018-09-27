@@ -29,7 +29,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 	/** the expanded event for the item */
 	@Output() expanded = new EventEmitter<boolean>();
 	/** the expanded event for the item */
-	@Output() select = new EventEmitter<boolean>();
+	@Output() select = new EventEmitter<any>();
 	/** the label as a component */
 	@ContentChildren(SidenavItemLabelDirective, { descendants: true, read: ElementRef }) labelRefs: QueryList<ElementRef>;
 	/** the icon contained in the item component */
@@ -121,7 +121,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 			this.selected = false;
 		}
 
-		this.select.emit(this.selected);
+		this.select.emit(this.icon);
 		// Manage icon selection (bold)
 		if (this.icon && this.icon.name) {
 			const { name } = this.icon;

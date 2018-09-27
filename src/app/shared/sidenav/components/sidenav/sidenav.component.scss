@@ -1,57 +1,62 @@
 .sidemenu {
-    width: 72px;
-    height: 100%;
-    background-color: var(--color-secondary-light);
-    border-right: solid 1px var(--color-secondary);
-    &.expanded {
-        width: 260px;
+	width: 72px;
+	height: 100%;
+	background-color: var(--color-secondary-light);
+	border-right: solid 1px var(--color-secondary);
+	&.expanded {
+		width: 260px;
 
-        icon-app {
-            flex-basis: 72px;
-        }
-    }
-    &__header {
-        padding-top: 25px;
-        margin-bottom: 35px;
-    }
+		icon-app {
+			flex-basis: 72px;
+		}
+	}
+	&__header {
+		padding-top: var(--spacing-l);
+		margin-bottom: var(--spacing-xl);
+	}
 }
 
 .icon {
-    width: 72px;
+	width: 72px;
 
-    icon-app {
-        width: 100%;
-        font-size: 48px;
-    }
+	icon-app {
+		width: 100%;
+		font-size: 48px;
+	}
 
-    &.expanded {
-        flex-basis: 72px;
-        justify-content: center;
-        align-items: center;
-        display: flex;
+	.folder {
+		font-size: 36px;
+		padding-top: var(--spacing-ms);
+	}
 
-        icon-app {
-            width: 72px;
-        }
-    }
+	&.expanded {
+		flex-basis: 72px;
+		justify-content: center;
+		align-items: center;
+		display: flex;
+
+		icon-app {
+			width: 72px;
+		}
+	}
 }
 
 .info {
-    margin-left: var(--spacing-l);
-    /* width: 120px; */
-    flex-basis: calc(100% - 112px);
-    display: flex;
-    align-items: center;
+	margin-left: var(--spacing-l);
+	/* width: 120px; */
+	flex-basis: calc(100% - 112px);
+	display: flex;
+	align-items: center;
 
-    &__text {
-        font-weight: bold;
-        font-size: var(--font-size-xl);
-        color: var(--color-txt-strong);
-    }
+	&__text {
+		font-weight: bold;
+		font-size: var(--font-size-xl);
+		color: var(--color-txt-strong);
+	}
 }
 
 .collapse {
-    flex-basis: 40px;
+	flex-basis: 40px;
 }
 
 nav {
@@ -59,8 +64,8 @@ nav {
 	display: flex;
 	justify-content: space-around;
 	/* align-items: center; */
-    flex-grow: 1;
-    flex-direction: column;
+	flex-grow: 1;
+	flex-direction: column;
 	a {
 		opacity: 0.9;
 		display: flex;
@@ -68,7 +73,7 @@ nav {
 		&.selected {
 			background: #071327;
 			color: white;
-    }
+		}
 	}
 }
 

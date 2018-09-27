@@ -10,7 +10,7 @@
 		<p *ngIf="fullInfo" class="color-txt-secondary ml-xs">({{ product?.votes?.length || 0}} {{ product?.votes?.length === 1 ? 'Vote' : 'Votes'}})</p>
 	</div>
 	<ng-container *ngIf="product?.projects?.length as numProjects">
-		<icon-app fontSet="svg" name="folder-light"></icon-app>
+		<icon-app class="fs-s" fontSet="svg" name="folder-light"></icon-app>
 		<p class="numbers color-{{colorTxt}}">{{ numProjects }} {{ fullInfo ? numProjects === 1 ? 'Project' : 'Projects' : ''}}</p>
 	</ng-container>
 	<ng-content></ng-content>
