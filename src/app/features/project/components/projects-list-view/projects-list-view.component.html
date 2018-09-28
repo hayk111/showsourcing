@@ -34,7 +34,7 @@
 		<div class="project">
 			<a class="flexVAlign txtBtn capitalize ellipsis"
 				[routerLink]="['/project', 'details', row.id]">
-				<icon-app></icon-app>
+				<img [src]="row.logoImage | logo:'project'" class="icon"/>
 				<b class="semi">{{ row.name }}</b>
 			</a>
 		</div>

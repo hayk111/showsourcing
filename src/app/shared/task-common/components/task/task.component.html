@@ -15,7 +15,7 @@
 
 	<!-- if supplier -->
 	<div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis">
-		<div *ngIf="task?.supplier" class="flex ellipsis" (click)="openSupplier.emit(task?.product?.id || null)">
+		<div *ngIf="task?.supplier" class="flex ellipsis" (click)="openSupplier.emit(task?.supplier?.id || null)">
 			<img-app [size]="xs" [image]="task?.supplier?.logoImage"></img-app>
 			{{ task?.supplier?.name || 'Unnamed suppler' }}
 		</div>
@@ -33,7 +33,8 @@
 		<selector-entity-app #selector *ngIf="!fullUser && selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app>
 		<user-picture-app *ngIf="!fullUser && !selectorVisible" [user]="task?.assignee" [size]="20" [border]="true" (click)="toggleSelector(true)"></user-picture-app>
 		<div *ngIf="!selectorVisible" class="flex task-status"
-		[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}">
+			[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}"
+			(click)="toggleDoneStatus()">
 			<icon-app name="circle" fontSet="fa" color="red"></icon-app>
 			<p>{{ getStatus }}</p>
 		</div>

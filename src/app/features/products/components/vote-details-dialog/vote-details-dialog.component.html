@@ -10,7 +10,7 @@
 			<!-- we explicitly check 100 or 0 since there can be null votes (with value 50) with no button  -->
 			<icon-app *ngIf="vote.value === 100 || vote.value === 0"
 					[name]="vote.value === 100 ? 'thumbs-up' : 'thumbs-down'"
-					[ngClass]="{'color-success': vote.value === 100, 'color-warn': vote.value === 0}">
+					[ngClass]="{'color-primary': vote.value === 100, 'color-warn': vote.value === 0}">
 			</icon-app>
 		</div>
 	</ng-container>

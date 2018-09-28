@@ -22,7 +22,7 @@ import { IconComponent } from '~shared/icons';
 export class RatingHeartComponent {
 	// whether it can be voted or not.
 	@Input() static = false;
-	@Input() size = 's';
+	@Input() size = '14';
 	@Output() favorited = new EventEmitter<null>();
 	@Output() unfavorited = new EventEmitter<null>();
 	@Input() favorite = false;

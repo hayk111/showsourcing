@@ -25,8 +25,9 @@
 	}
 
 	.folder {
-		font-size: 36px;
-		padding-top: var(--spacing-ms);
+		font-size: 32px;
+		padding-top: 9px;
+    padding-bottom: 7px;
 	}
 
 	&.expanded {

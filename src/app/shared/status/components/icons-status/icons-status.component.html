@@ -4,7 +4,7 @@
 		<icon-app name="comment" class="color-secondary-dark"></icon-app>
 		<p class="numbers color-{{colorTxt}}"> {{ product.comments.length }} {{ product.comments.length === 1 ? 'Comment' : 'Comments'}}</p>
 	</ng-container>
-	<icon-app [name]="name" [ngStyle]="successTxt"></icon-app>
+	<icon-app class="thumb {{colorIcon()}}" [name]="name"></icon-app>
 	<div *ngIf="hasPercent" class="numbers flex">
 		<p [ngStyle]="successTxt">{{ (product && product.score !== undefined) ? product.score : '-'}}%</p>
 		<p *ngIf="fullInfo" class="color-txt-secondary ml-xs">({{ product?.votes?.length || 0}} {{ product?.votes?.length === 1 ? 'Vote' : 'Votes'}})</p>
