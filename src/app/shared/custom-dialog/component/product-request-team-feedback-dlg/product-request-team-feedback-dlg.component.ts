@@ -50,31 +50,32 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 	}
 
 	submit() {
-		// TODO check when app getStream(streamId: string) {
 		this.teamMembers$.pipe(
 			first(),
 			map(teamMembers => teamMembers.filter(teamMember => !!this.selected[teamMember.id])),
 			switchMap(teamMembers => {
 				return this.productDlgSrv.askFeedBackToUsers(teamMembers, this.selectedProducts);
 			})
-		).subscribe(projects => {
-			if (projects) {
+		).subscribe(
+			r => {
 				this.notificationSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Feedback requested',
 					message: 'Your feedback request has been sent with success',
 					timeout: 3500
 				});
-			} else {
+				this.dlgSrv.close();
+			},
+			e => {
 				this.notificationSrv.add({
 					type: NotificationType.ERROR,
 					title: 'Feedback requested',
 					message: 'Feedback request could not be sent, server issues',
 					timeout: 3500
 				});
+				this.dlgSrv.close();
 			}
-			this.dlgSrv.close();
-		});
+		);
 	}
 
 }
