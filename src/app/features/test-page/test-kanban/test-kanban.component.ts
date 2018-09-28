@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project, ProductStatus, ProductVote, KanbanColumn } from '~models';
+import { ERM, Product, Project, ProductStatus, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -21,14 +21,14 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
 @Component({
-	selector: 'project-workflow-app',
-	templateUrl: './project-workflow.component.html',
-	styleUrls: ['./project-workflow.component.scss'],
+	selector: 'app-test-kanban',
+	templateUrl: './test-kanban.component.html',
+	styleUrls: ['./test-kanban.component.scss'],
 })
-export class ProjectWorkflowComponent extends ListPageComponent<Product, ProductService>  implements OnInit {
+export class TestKanbanComponent extends ListPageComponent<Product, ProductService>  implements OnInit {
 	project$: Observable<Project>;
 	// statuses$ = new Subject<ProductStatus[]>();
-	columns$: Observable<KanbanColumn[]>;
+	columns$: Observable<ProductStatus[]>;
 	id: string;
 	project: Project;
 	/** keeps tracks of the current selection */
@@ -52,27 +52,26 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 	}
 
 	ngOnInit() {
-		const id = this.route.parent.snapshot.params.id;
+		const id = 'f2005fed-93c6-4890-b5af-87be7a23db67'; // this.route.parent.snapshot.params.id;
 		this.project$ = this.projectSrv.queryOne(id);
-		this.project$.subscribe(project => this.project = project);
 
 		this.columns$ = this.project$.pipe(
 			takeUntil(this._destroy$),
 			switchMap(project => this.workflowService.getStatuses(project)),
-			map(statuses => this.convertStatusesToColumns(statuses)),
+			map(statuses => this.convertStatusesToColumns(statuses))
 		);
 
 		this.selected$ = this.selectionSrv.selection$;
 	}
 
-	/** Convert statuses / products into the generic input for kanban */
 	convertStatusesToColumns(statuses) {
 		return statuses.map(status => ({
 			id: status.id,
 			name: status.name,
 			disabled: (status.name === '_NoStatus'),
 			items: status.products.map(product => ({
-				...product,
+				id: product.id,
+				name: product.name,
 				cat: (product.status && product.status.status) ? {
 					id: product.status.status.id
 				} : { id: -1 }
@@ -176,3 +175,94 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 	}
 
 }
+
+/* import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import gql from 'graphql-tag';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SelectionService } from '~shared/list-page/selection.service';
+
+
+@Component({
+	selector: 'app-test-kanban',
+	templateUrl: './test-kanban.component.html',
+	styleUrls: ['./test-kanban.component.scss'],
+})
+export class TestKanbanComponent implements OnInit {
+	columns = [
+		{
+			id: 'test',
+			name: 'test',
+			items: [
+				{
+					id: 'item1',
+					name: 'item1',
+					cat: {
+						id: 'test'
+					}
+				}
+			]
+		},
+		{
+			id: 'test1',
+			name: 'test1',
+			items: [
+			]
+		},
+		{
+			id: 'test2',
+			name: 'test2',
+			disabled: true,
+			items: [
+				{
+					id: 'item2',
+					name: 'item2',
+					cat: {
+						id: 'test2'
+					}
+				}
+			]
+		}
+	];
+
+	selected$: Observable<Map<string, boolean>>;
+
+	constructor(protected selectionSrv: SelectionService) {
+
+	}
+
+	ngOnInit() {
+		this.selected$ = this.selectionSrv.selection$;
+	}
+
+	getCurrentColumnFct(data) {
+		return data.cat;
+	}
+
+	onItemDropped(evt) {
+		console.log('>> onItemDropped - event = ', evt);
+	}
+
+	onItemSelected(item, flag) {
+		console.log('>> onItemSelected - event = ', item);
+		this.selectionSrv.selectOne(item);
+	}
+
+	onItemUnselected(item, flag) {
+		console.log('>> onItemUnselected - event = ', item);
+		this.selectionSrv.unselectOne(item);
+	}
+
+	selectAll(items, flag) {
+		console.log('>> selectAll - event = ', items);
+		this.selectionSrv.selectAll(items);
+	}
+
+	resetSelection(items) {
+		console.log('>> resetSelection - evt = ', items);
+		if (items) {
+			items.forEach(item => this.selectionSrv.unselectOne(item));
+		}
+	}
+} */

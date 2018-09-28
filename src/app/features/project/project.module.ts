@@ -7,7 +7,7 @@ import { SharedModule } from '~shared/shared.module';
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { WorkflowModule } from '~features/workflow/workflow.module';
+import { Workflow2Module } from '~features/workflow2/workflow2.module';
 
 import { ProjectsListViewComponent } from '~features/project/components';
 import { ProjectNavComponent } from '~features/project/components/project-nav/project-nav.component';
@@ -43,7 +43,7 @@ import { FiltersModule } from '~shared/filters';
 		SidenavModule,
 		BadgeModule,
 		FileModule,
-		WorkflowModule,
+		Workflow2Module,
 		CustomDialogModule,
 		ActionBarModule,
 		DialogModule,

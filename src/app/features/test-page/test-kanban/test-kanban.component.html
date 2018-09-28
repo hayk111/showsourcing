@@ -1,0 +1,31 @@
+<top-panel-app
+  title="Test"
+  buttonName="Update Products"
+  [subtitles]="['Projects', 'Test', 'Kanban View']"
+  (buttonClick)="openFindProductDlg()">
+</top-panel-app>
+
+<div style="height: calc(100vh - 161px)">
+  <workflow-kanban2-app [columns]="columns$ | async"
+                        [selectedItems]="selected$ | async"
+                        [card]="card"
+                        [getCurrentColumnFct]="getCurrentColumnFct"
+                        (itemDropped)="onUpdateProductStatus($event)"
+                        (selectItem)="onItemSelected($event, true)"
+                        (unselectItem)="onItemUnselected($event, true)"
+                        (selectAllItems)="selectAll($event, true)"
+                        (unselectAllItems)="resetSelection($event)">
+  </workflow-kanban2-app>
+</div>
+
+<ng-template #card let-row="row" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-dragDropEnable$="dragDropEnable$">
+  <div style="padding: 10px">
+    test: {{row.name}}
+    checked: {{checked}}
+    dragInProgress: {{dragInProgress}}
+    <div (mouseenter)="dragDropEnable$.next(false)" (mouseleave)="dragDropEnable$.next(true)">
+      <div (click)="selectItem.emit(row)">select item</div>
+      <div (click)="unselectItem.emit(row)">unselect item</div>
+    </div>
+  </div>
+</ng-template>

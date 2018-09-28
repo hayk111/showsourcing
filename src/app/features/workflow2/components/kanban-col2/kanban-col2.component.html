@@ -1,0 +1,17 @@
+<header class="paddingDefault flexBetween" [ngClass]="{ 'in-progress': (data?.category === 'inProgress'), validated: (data?.category === 'validated'), refused: (data?.category === 'refused'), inspiration: (data?.category === 'inspiration') }">
+	<div><checkbox-app [checked]="checked"
+		                 (check)="checkChange.emit(true)"
+		                 (uncheck)="checkChange.emit(false)">
+	</checkbox-app></div>
+	<div class="title flexColumn flexBetween">
+		<div>{{ label }}</div>
+	</div>
+	<div class="number">{{data?.items?.length}}</div>
+</header>
+
+<main [ngClass]="{ 'source-area-overlay': sourceArea, 'droppable-area-overlay': droppableArea, 'droppable-area-overlay-disabled': (droppableArea && disabled), 'entered-area-overlay': enteredArea }"
+			[ngStyle]="{ 'overflow-x': dragnDropInProgress ? 'unset' : 'hidden', 'overflow-y': dragnDropInProgress ? 'unset' : 'auto' }">
+	<div [ngClass]="{ 'hide-items': (droppableArea) }">
+		<ng-content></ng-content>
+	</div>
+</main>
