@@ -121,6 +121,7 @@ I added comment above each column to make it clearer -->
 	<div>
 		<rating-heart-app
 			[favorite]="row?.favorite"
+			size="14"
 			(favorited)="favorited.emit(row.id)"
 			(unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
 	</div>

@@ -67,4 +67,13 @@ export class IconsStatusComponent implements OnInit {
 		};
 	}
 
+	colorIcon() {
+		let color = 'color-' + this.colorTxt;
+		if (this.dislike)
+			color = 'color-warn';
+		else if (this.like)
+			color = 'color-success';
+		return color;
+	}
+
 }

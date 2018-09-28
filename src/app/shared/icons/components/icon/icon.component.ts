@@ -23,9 +23,12 @@ export class IconComponent implements OnChanges {
 	@Input() type: 's' | 'r' | 'l' = 's';
 	// symbols give perf gains but are less configurable
 	// the fontset used, could be font awesome, svg or anything else added
-	@Input() fontSet: FontSet = FontSet.FA;
+	@Input() fontSet: FontSet;
 
-	constructor(elementRef: ElementRef, @Attribute('aria-hidden') ariaHidden: string, private cdr: ChangeDetectorRef) {
+	constructor(
+		elementRef: ElementRef,
+		@Attribute('aria-hidden') ariaHidden: string,
+		private cdr: ChangeDetectorRef) {
 		// If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
 		// the right thing to do for the majority of icon use-cases.
 		if (!ariaHidden) {

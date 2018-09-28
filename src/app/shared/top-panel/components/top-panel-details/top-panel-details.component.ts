@@ -27,8 +27,8 @@ export class TopPanelDetailsComponent extends TrackingComponent implements OnIni
 	constructor(
 		private location: Location
 	) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}

@@ -12,13 +12,13 @@ export abstract class ProductQueries extends GlobalQueries {
 
 	// the goal is to use those utilities a bit everywhere even if they don't match exactly the data we need
 	// it makes the code easier to read. It means tho, that those sub queries must be quite exhaustive.
-	static readonly images = `images { id, fileName, orientation }`;
+	static readonly images = `images { id, fileName, orientation, imageType }`;
 	static readonly attachments = `attachments { id, fileName, url }`;
 	static readonly supplier = `supplier {
 		id, name, address, country, favorite, officeEmail,
 		logoImage { id, fileName }
 		categories { id, name }
-		images { id, fileName }
+		images { id, fileName, imageType }
 	}`;
 	static readonly contacts = `supplier { contacts { id, name, email, jobTitle } }`;
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
@@ -27,7 +27,7 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly event = ` event { id, name, description { id logoImage { id, fileName } } }`;
 	static readonly status = `status { id, cancelled, status {id, name, category, step, inWorkflow } }`;
 	static readonly tags = `tags { id, name }`;
-	static readonly votes = `votes { id, value, user { id, firstName, lastName, avatar { id, fileName } } }`;
+	static readonly votes = `votes { id, value, user { id, firstName, lastName, avatar { id, fileName, imageType, creationDate } } }`;
 	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, fileName } }`;
 	static readonly comments = `comments { id, text, ${ProductQueries.createdBy}, creationDate }`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;

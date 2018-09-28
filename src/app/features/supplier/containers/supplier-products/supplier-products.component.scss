@@ -27,7 +27,7 @@
 	.title {
 		font-weight: bold;
 		margin-top: 30px;
-		margin-bottom: 0px;
+		margin-bottom: var(--spacing-l);
 		font-size: 20px;
 		text-transform: capitalize;
 		color: var(--color-txt-strong);

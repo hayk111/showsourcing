@@ -8,6 +8,7 @@
 .top {
 	padding-top: var(--spacing-l);
 	padding-bottom: var(--spacing-ml);
+
 	.title {
 		margin-bottom: var(--spacing-s);
 
@@ -43,6 +44,7 @@ icon-app {
 	margin-left: 156px;
 	> * {
 		width: 120px;
+		padding: 2px 0px;
 		margin-right: var(--font-size-l);
 		font-size: var(--font-size-l);
 		display: block;
@@ -55,6 +57,9 @@ icon-app {
 			font-weight: bold;
 			color: var(--color-primary);
 			border-color: var(--color-primary);
+		}
+		&:hover {
+			background: var(--color-secondary-light);
 		}
 	}
 }

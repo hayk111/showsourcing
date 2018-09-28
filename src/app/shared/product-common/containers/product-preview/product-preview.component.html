@@ -4,7 +4,7 @@
 	</side-panel-title-app>
 
 	<side-panel-action-app>
-		<icon-app class="close pointer" fontSet="fa" name="times" (click)="close.emit()"></icon-app>
+		<icon-app class="close pointer color-txt-secondary" name="close" (click)="close.emit()"></icon-app>
 	</side-panel-action-app>
 
 	<ng-container *ngIf="product$ | async as product">
@@ -28,7 +28,7 @@
 			(buttonClick)="onViewProduct()">
 
 			<button class="icon light folder" (click)="openAddToProject()">
-				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+				<icon-app fontSet="svg" name="folder-light" size="m" ></icon-app>
 			</button>
 		</action-bar-app>
 

@@ -42,7 +42,7 @@
 					[ngClass]="{ hover: (i === hoverIndex) }"
 					[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }">
 					<context-menu-trigger-app>
-						<icon-app fontSet="svg" name="3-dots-vertical" size="18"></icon-app>
+						<icon-app class="color-txt-secondary" name="dots-vertical" size="18"></icon-app>
 					</context-menu-trigger-app>
 					<ng-container
 						*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">

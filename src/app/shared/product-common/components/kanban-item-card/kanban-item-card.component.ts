@@ -70,8 +70,8 @@ export class KanbanItemCardComponent extends TrackingComponent implements OnInit
 	/** Whether the product preview is accessibe from the card */
 	@Input() enablePreviewLink: boolean;
 
-	@Input() showCheckbox ? = true;
-	@Input() clickable ? = false;
+	@Input() showCheckbox ?= true;
+	@Input() clickable ?= false;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();

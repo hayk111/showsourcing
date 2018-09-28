@@ -22,11 +22,8 @@
 thumb-buttons-app, icon-app, rating-heart-app {
 	color: var(--color-secondary-dark);
 }
-rating-heart-app {
-	margin-right: 9px;
-}
 
-thumb-buttons-app {
+thumb-buttons-app, rating-heart-app {
 	margin-right: var(--spacing-ms);
 }
 

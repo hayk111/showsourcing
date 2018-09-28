@@ -1,7 +1,13 @@
+.close {
+	font-size: 9px;
+	color: var(--color-txt-secondary);
+}
+
 .top {
 	display: flex;
 	justify-content: center;
 	position: relative;
+
 	button, rating-heart-app {
 		position: absolute;
 		top: 0;
@@ -13,6 +19,7 @@
 		right: 0;
 	}
 	.logo {
+		cursor: default;
 		height: 72px;
 		width: 72px;
 	}

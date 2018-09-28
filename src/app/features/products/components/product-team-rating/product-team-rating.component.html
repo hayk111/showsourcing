@@ -2,7 +2,7 @@
 
 	<div class="title flex">
 		<div class="space-icon flexAround">
-			<icon-app fontSet="svg" name="poll-light-blue" ></icon-app>
+			<icon-app name="poll" class="color-primary"></icon-app>
 		</div>
 		<h2 i18n="header 2|Product card@@teamRatingCard_product" class="flex">
 			Team Rating
@@ -12,7 +12,7 @@
 	<ng-container *ngIf="votes?.length > 0; else noVotes">
 		<div class="rating-info">
 				<div class="thumb-info flexVAlign">
-					<icon-app [name]="name" [ngStyle]="buttonStyle" size="18" fontSet="svg"></icon-app>
+					<icon-app class="thumb" [name]="name" [ngStyle]="buttonStyle"></icon-app>
 					<div class="score-info flexColumn">
 						<span class="number">{{ score !== undefined ? score : '-' }} %</span>
 						<span>({{ votes?.length || '0'}} votes)</span>
