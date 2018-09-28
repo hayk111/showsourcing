@@ -1,7 +1,10 @@
-import { Component, OnInit, Output, Input, EventEmitter, TemplateRef, HostBinding } from '@angular/core';
+import {
+	Component, OnInit, Output, Input, EventEmitter,
+	TemplateRef, HostBinding, Renderer2, ElementRef
+} from '@angular/core';
 
 import { Observable, Subject } from 'rxjs';
-import { KanbanService } from '~features/workflow/services/kanban.service';
+import { Kanban2Service } from '~features/workflow2/services/kanban2.service';
 import { KanbanColumn, KanbanItem } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { HeaderModule } from '~shared/header';
@@ -13,7 +16,7 @@ import { HeaderModule } from '~shared/header';
 	templateUrl: './workflow-kanban2.component.html',
 	styleUrls: ['./workflow-kanban2.component.scss']
 })
-export class WorkflowKanban2Component extends TrackingComponent {
+export class WorkflowKanban2Component extends TrackingComponent implements OnInit {
 	/** The list of columns included associated items */
 	@Input() columns: KanbanColumn[];
 	/** A reference to the contextual menu template */
@@ -27,9 +30,11 @@ export class WorkflowKanban2Component extends TrackingComponent {
 	/** Whether the kaban takes the full width */
 	@Input() @HostBinding('class.full-width') fullWidth: boolean;
 	/** The height of the offset regarding the header */
-	@Input() kanbanHeightOffset = 167;
+	@Input() kanbanVerticalPadding = 20;
 	/** The height of the column offset regarding the header */
-	@Input() kanbanColumnHeightOffset = 206;
+	@Input() kanbanHorizontalPadding = 20;
+	/** The left offset. To be used in the case where there is a sidenav on the left */
+	@Input() leftOffset = 0;
 	/** The function to get the current column of an item */
 	@Input() getCurrentColumnFct: Function;
 	/** The dropped item event including data associated with the target and the element */
@@ -49,8 +54,14 @@ export class WorkflowKanban2Component extends TrackingComponent {
 
 
 
-	constructor(private kanbanSrv: KanbanService) {
+	constructor(private kanbanSrv: Kanban2Service, private renderer: Renderer2, private elementRef: ElementRef) {
 		super();
+	}
+
+	ngOnInit() {
+		if (this.leftOffset) {
+			this.renderer.setStyle(this.elementRef.nativeElement, 'width', `calc(100vw - ${this.leftOffset}px)`);
+		}
 	}
 
 	trackByFn(index, item) {

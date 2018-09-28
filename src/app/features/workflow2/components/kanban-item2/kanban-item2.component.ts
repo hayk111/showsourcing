@@ -3,8 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { KanbanService } from '~features/workflow/services/kanban.service';
-import { KanbanItemCardComponent } from '~shared/product-common/components/kanban-item-card/kanban-item-card.component';
+import { Kanban2Service } from '~features/workflow2/services/kanban2.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -30,7 +29,7 @@ export class KanbanItem2Component extends AutoUnsub implements OnInit, AfterCont
 
 
 
-	constructor(private kanbanSrv: KanbanService, private el: ElementRef) {
+	constructor(private kanbanSrv: Kanban2Service, private el: ElementRef) {
 		super();
 	}
 

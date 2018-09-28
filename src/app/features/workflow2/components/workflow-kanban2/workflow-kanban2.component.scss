@@ -1,9 +1,9 @@
 :host {
-	display: block;
+	display: flex;
 	overflow-x: auto;
 	overflow-y: hidden;
-	width: calc(100vw - 72px);
-	// height: calc(100vh - 161px);
+	// width: calc(100vw - 72px);
+	min-height: 100%;
 
 	&.full-width {
 		width: 100vw;
@@ -17,7 +17,6 @@ article{
 
 .ctnr {
 	padding-left: var(--spacing-m);
-	height: calc(100vh - 190px);
 
 	&.without-sidenav {
 		padding-left: 20px;
@@ -27,7 +26,6 @@ article{
 kanban-col-app {
 	min-width: 340px;
 	margin-top: var(--spacing-m);
-	// min-height: calc(100vh - 227px);
 }
 
 .card-container {

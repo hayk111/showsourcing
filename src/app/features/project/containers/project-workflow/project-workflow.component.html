@@ -6,26 +6,30 @@
 		(buttonClick)="openFindProductDlg()">
 	</top-panel-app>
 
-	<workflow-kanban-app
-		[statuses]="statuses$ | async"
-		[contextualMenu]="contextualMenu"
-		[card]="card"
-		[selectedItems]="selected$ | async"
-		(itemDropped)="onUpdateProductStatus($event)"
-		(selectItem)="onItemSelected($event, true)"
-		(unselectItem)="onItemUnselected($event, true)"
-		(selectAllItems)="selectAll($event, true)"
-		(unselectAllItems)="resetSelection()">
-	</workflow-kanban-app>
+	<div class="kanbanCtnr">
+		<workflow-kanban2-app
+			[columns]="columns$ | async"
+			[contextualMenu]="contextualMenu"
+			[leftOffset]="73"
+			[card]="card"
+			[getCurrentColumnFct]="getCurrentColumnFct"
+			[selectedItems]="selected$ | async"
+			(itemDropped)="onUpdateProductStatus($event)"
+			(selectItem)="onItemSelected($event, true)"
+			(unselectItem)="onItemUnselected($event, true)"
+			(selectAllItems)="selectAll($event, true)"
+			(unselectAllItems)="resetSelection()">
+		</workflow-kanban2-app>
+	</div>
 
-	<ng-template #card let-row="row" let-status="status" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-dragDropEnable$="dragDropEnable$">
+	<ng-template #card let-row="row" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-dragDropEnable$="dragDropEnable$">
 		<kanban-item-card-app class="marginSmall" [title]="row?.name"
 			[status]="row?.status?.name"
 			[favorite]="row?.favorite"
 			[tags]="row?.tags"
 			[price]="row?.price"
 			[minimumOrderQuantity]="row?.minimumOrderQuantity"
-			[category]="status?.category"
+			[category]="column?.category"
 			[description]="row?.description ? row.description : 'No description'"
 			[image]="row?.images?.length > 0 ? (row | image:'m') : null"
 			[person]="row?.createdBy"

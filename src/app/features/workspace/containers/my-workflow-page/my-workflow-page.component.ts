@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project, ProductStatus, ProductVote } from '~models';
+import { ERM, Product, Project, ProductStatus, ProductVote, KanbanColumn } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -26,7 +26,7 @@ import { SearchService } from '~shared/filters';
 })
 export class MyWorkflowPageComponent extends ListPageComponent<Product, WorkspaceFeatureService> implements OnInit {
 
-	statuses$ = new Subject<ProductStatus[]>();
+	columns$ = new Subject<KanbanColumn[]>();
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 
@@ -50,17 +50,36 @@ export class MyWorkflowPageComponent extends ListPageComponent<Product, Workspac
 		this.workspaceSrv.getStatuses().pipe(
 			takeUntil(this._destroy$)
 		).subscribe(statuses => {
-			this.statuses$.next(statuses);
+			this.columns$.next(this.convertStatusesToColumns(statuses));
 		});
 
 		this.selected$ = this.selectionSrv.selection$;
+	}
+
+	/** Convert statuses / products into the generic input for kanban */
+	convertStatusesToColumns(statuses) {
+		return statuses.map(status => ({
+			id: status.id,
+			name: status.name,
+			disabled: (status.name === '_NoStatus'),
+			items: status.products.map(product => ({
+				...product,
+				cat: (product.status && product.status.status) ? {
+					id: product.status.status.id
+				} : { id: -1 }
+			}))
+		}));
+	}
+
+	getCurrentColumnFct(data) {
+		return data.cat ? data.cat.id : '';
 	}
 
 	search(search: string) {
 		this.workspaceSrv.getStatuses(true, search).pipe(
 			takeUntil(this._destroy$)
 		).subscribe(statuses => {
-			this.statuses$.next(statuses);
+			this.columns$.next(this.convertStatusesToColumns(statuses));
 		});
 	}
 

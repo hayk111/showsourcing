@@ -17,7 +17,7 @@ import {
 import { takeUntil } from 'rxjs/operators';
 
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { KanbanService } from '~features/workflow/services/kanban.service';
+import { Kanban2Service } from '~features/workflow2/services/kanban2.service';
 
 @Component({
 	selector: 'kanban-col2-app',
@@ -55,7 +55,7 @@ export class KanbanCol2Component extends AutoUnsub implements OnInit {
 	/** A drag'n drop is in progress */
 	dragnDropInProgress: boolean;
 
-	constructor(private kanbanSrv: KanbanService, private sanitization: DomSanitizer, private cdr: ChangeDetectorRef) {
+	constructor(private kanbanSrv: Kanban2Service, private sanitization: DomSanitizer, private cdr: ChangeDetectorRef) {
 		super();
 	}
 
@@ -67,7 +67,7 @@ export class KanbanCol2Component extends AutoUnsub implements OnInit {
 			this.sourceArea = (namespace === this.namespace);
 			if (this.getCurrentColumnFct) {
 				const dataColumn = this.getCurrentColumnFct(data);
-				this.droppableArea = (!this.disabled && dataColumn && dataColumn.id !== this.namespace.id);
+				this.droppableArea = (dataColumn && dataColumn !== this.namespace);
 			}
 			this.dragnDropInProgress = true;
 			this.cdr.markForCheck();
@@ -84,9 +84,9 @@ export class KanbanCol2Component extends AutoUnsub implements OnInit {
 		).subscribe(({ data, namespace }) => {
 			if (!this.disabled) {
 				this.sourceArea = false;
-				this.droppableArea = false;
 				this.enteredArea = false;
 			}
+			this.droppableArea = false;
 			this.dragnDropInProgress = false;
 			this.cdr.markForCheck();
 		});

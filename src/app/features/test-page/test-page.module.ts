@@ -15,6 +15,10 @@ import { UserPictureModule } from '~shared/user-picture';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { InputsModule } from '~shared/inputs';
 import { Workflow2Module } from '~features/workflow2/workflow2.module';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+
+import { ProjectFeatureService } from '~features/project/services/project-feature.service';
+import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 
 @NgModule({
 	imports: [
@@ -31,9 +35,14 @@ import { Workflow2Module } from '~features/workflow2/workflow2.module';
 		UserPictureModule,
 		SearchBarModule,
 		InputsModule,
+		TopPanelModule,
 		Workflow2Module
 	],
 	declarations: [TestPageComponent, TestKanbanComponent],
-	exports: [TestPageComponent, TestKanbanComponent]
+	exports: [TestPageComponent, TestKanbanComponent],
+	providers: [
+		ProjectFeatureService,
+		ProjectWorkflowFeatureService
+	]
 })
 export class TestPageModule { }

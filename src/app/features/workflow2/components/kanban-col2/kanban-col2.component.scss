@@ -93,6 +93,10 @@ main {
 .droppable-area-overlay {
   background-color: var(--color-secondary-light);
 	border: dashed 1px #45adff;
+
+	&.droppable-area-overlay-disabled {
+		border: solid 1px var(--color-divider);
+	}
 }
 
 .entered-area-overlay {

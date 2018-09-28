@@ -2,23 +2,22 @@
 <ng-container *ngIf="columns">
 	<div class="flex ctnr"
 		[ngClass]="{ 'without-sidenav': withoutSidenav }"
-		[ngStyle]="{ height: 'calc(100vh - ' + kanbanHeightOffset + 'px)' }">
+		[ngStyle]="{ 'padding-top': kanbanVerticalPadding + 'px', 'padding-bottom': (kanbanVerticalPadding + 10) + 'px', 'padding-left': kanbanHorizontalPadding + 'px', 'padding-right': kanbanHorizontalPadding + 'px' }">
 
 		<kanban-col2-app
-		  [ngStyle]="{ height: 'calc(100vh - ' + kanbanColumnHeightOffset + 'px)' }"
+			*ngFor="let column of columns; let i = index;trackBy: trackById"
 			[dropzoneApp]="column"
 			[data]="column"
 			[disabled]="column.disabled"
 			[checked]="hasAllItemsSelected(selectedItems, column)"
-			(itemDropped)="onItemDropped($event)"
-			(itemEntered)="onItemEntered(column)"
-			(itemLeft)="onItemLeft(column)"
-			(checkChange)="onCheckItemsChange(column, $event)"
 			[label]="column.name | const:'status':'name'"
 			[getCurrentColumnFct]="getCurrentColumnFct"
 			borderColor="{{ column.id }}"
-			[namespace]="column"
-			*ngFor="let column of columns; let i = index;trackBy: trackById">
+			[namespace]="column.id"
+			(itemDropped)="onItemDropped($event)"
+			(itemEntered)="onItemEntered(column)"
+			(itemLeft)="onItemLeft(column)"
+			(checkChange)="onCheckItemsChange(column, $event)">
 				<div class="card-container" *ngFor="let item of column.items; let j = index; trackBy:trackById">
 					<kanban-item2-app
 							class="item"

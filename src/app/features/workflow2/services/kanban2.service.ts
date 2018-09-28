@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class Kanban2Service {
 	/** The dragStart subject for the kanban (the drag'n drop started) */
 	dragStart$ = new Subject<{ namespace: string, data: any }>();
