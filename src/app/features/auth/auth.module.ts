@@ -9,6 +9,7 @@ import {
 	LoginComponent,
 	PwResettedComponent,
 	RegistrationComponent,
+	ResetPasswordComponent
 } from '~features/auth/components';
 
 
@@ -24,6 +25,7 @@ import {
 		RegistrationComponent,
 		AccountCreatedComponent,
 		ForgotPasswordComponent,
+		ResetPasswordComponent,
 		PwResettedComponent,
 	],
 	exports: [],
