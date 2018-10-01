@@ -1,1 +1,1 @@
-<img [src]="image | image : size : type" [style.transform]="getRotation() " [style.object-fit]="objectFit"/>
+<img [src]="image | image : size : type" [ngStyle]="{'object-fit': objectFit}" />
