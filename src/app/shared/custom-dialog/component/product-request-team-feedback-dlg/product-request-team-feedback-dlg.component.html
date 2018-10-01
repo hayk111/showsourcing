@@ -5,15 +5,16 @@
 
 	<main class="scrollable">
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
-			<list-item-app *ngFor="let member of teamMembers;trackBy: trackByFn" [selected]="selected[member.id]">
+			<list-item-app *ngFor="let member of teamMembers;trackBy: trackByFn" [selected]="selected[member.id]" (click)="checkbox.onClick()">
 				<div class="flex">
 					<checkbox-app
 						#checkbox
+						[checked]="selected[member.id]"
 						(check)="select(member.id, member)"
 						(uncheck)="unselect(member.id, member)"
-						[checked]="selected[member.id]">
+						(click)="checkbox.onClick()">
 					</checkbox-app>
-					<span class="name" (click)="checkbox.toggle()">{{ member.user.firstName }} {{ member.user.lastName }}</span>
+					<span class="name" (click)="checkbox.onClick()">{{ member.user.firstName }} {{ member.user.lastName }}</span>
 				</div>
 				</list-item-app>
 		</list-app>
