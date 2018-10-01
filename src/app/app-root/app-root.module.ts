@@ -46,9 +46,9 @@ import { TemplateModule } from '~shared/template';
 		PickATeamModule,
 		TestPageModule,
 		// keep router as last module
-		RouterModule.forRoot(routes,
-			// { enableTracing: true }
-		)
+		RouterModule.forRoot(routes, {
+			scrollPositionRestoration: 'top'
+		})
 	],
 	providers: [],
 	exports: [RouterModule],
