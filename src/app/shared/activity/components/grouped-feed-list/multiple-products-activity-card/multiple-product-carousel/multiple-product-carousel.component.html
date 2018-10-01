@@ -1,14 +1,16 @@
 <div class="previewCtnr flexCenter">
 	<div class="grid-section flexCenter">
 		<product-grid-card-app
-		[product]="products[selectedIndex]"
-		[hasActions]="false"
-		(click)="onViewProduct.emit(products[selectedIndex])">
+			[hasCheckbox]="false"
+			[product]="products[selectedIndex]"
+			(productFavorite)="updateProduct(products[selectedIndex], {favorite: true})"
+			(productUnfavorite)="updateProduct(products[selectedIndex], {favorite: false})">
 		</product-grid-card-app>
 		<product-grid-card-app
+			[hasCheckbox]="false"
 			[product]="products[selectedIndex + 1]"
-			[hasActions]="false"
-			(click)="onViewProduct.emit(products[selectedIndex + 1])">
+			(productFavorite)="updateProduct(products[selectedIndex + 1], {favorite: true})"
+			(productUnfavorite)="updateProduct(products[selectedIndex + 1], {favorite: false})">
 		</product-grid-card-app>
 	</div>
 

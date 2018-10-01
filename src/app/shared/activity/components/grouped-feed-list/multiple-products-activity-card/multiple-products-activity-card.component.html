@@ -10,7 +10,7 @@
 		<!-- previews -->
 		<multiple-product-carousel-app
 			[products]="products"
-			(onViewProduct)="viewProduct($event)">
+			(update)="update.emit($event)">
 		</multiple-product-carousel-app>
 
 		<!-- supplier -->
