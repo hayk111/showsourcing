@@ -38,6 +38,13 @@
   width: 76px;
 }
 
+.todo {
+	&:hover {
+		background: var(--color-success-dark);
+		color: var(--color-secondary);
+	}
+}
+
 .status-pending {
   background: var(--color-secondary);
   color: var(--color-black);

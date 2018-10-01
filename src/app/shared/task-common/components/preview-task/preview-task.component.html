@@ -1,6 +1,6 @@
 <side-panel-app>
   <side-panel-title-app>
-    <div class="status-task clickable" [ngClass]="(task$ | async)?.done ? 'status-done' : ''" (click)="markAsDone()">
+    <div class="status-task" [ngClass]="(task$ | async)?.done ? 'status-done nonclickable' : 'todo clickable'" (click)="markAsDone()">
       <div class="status-task-icon ">
         <icon-app fontSet="fa" name="check"></icon-app>
       </div>
