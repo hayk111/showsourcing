@@ -26,7 +26,9 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	@Output() statusUpdated = new EventEmitter<any>();
 
 	groupedProducts: Category[];
+	noFieldProducts: Product[];
 	prodERM = ERM.PRODUCT;
+	noFieldChecked: boolean;
 
 	constructor(private selectionSrv: SelectionService) {
 		super();
@@ -36,11 +38,14 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		if (changes.rows && changes.rows.currentValue) {
 			const rows = changes.rows.currentValue;
 			this.groupedProducts = this.getGroupedProducts(this.currentSort);
+			this.noFieldProducts = this.getNoFieldProducts(this.currentSort);
+			this.noFieldChecked = false;
 		}
 
 		if (changes.currentSort && changes.currentSort.currentValue) {
 			const currentSort = changes.currentSort.currentValue;
 			this.groupedProducts = this.getGroupedProducts(currentSort);
+			this.noFieldProducts = this.getNoFieldProducts(this.currentSort);
 		}
 
 		if (changes.selection && changes.selection.currentValue) {
@@ -51,6 +56,9 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 					...category,
 					checked: this.hasAllProductsSelected(category, currentSelection)
 				}));
+			}
+			if (this.noFieldProducts && (!previousSelection || currentSelection.size !== previousSelection.size)) {
+				this.noFieldChecked = this.hasAllNoFieldProductsSelected(currentSelection);
 			}
 		}
 	}
@@ -69,11 +77,47 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		return allSelected;
 	}
 
+	hasAllNoFieldProductsSelected(currentSelection) {
+		let allSelected = true;
+		this.noFieldProducts.forEach(value => {
+			if (!currentSelection.has(value.id)) {
+				allSelected = false;
+			}
+		});
+		return allSelected;
+	}
+
 	isSelected(product) {
 		if (this.selection)
 			return this.selection.has(product.id);
 
 		throw Error(`Selection Input is undefnied`);
+	}
+
+	onNoFieldChecked() {
+		if (this.noFieldProducts) {
+			this.selectionSrv.selectAll(this.noFieldProducts.map(value => ({ id: value.id })));
+		}
+	}
+
+	onNoFieldUnchecked() {
+		if (this.noFieldProducts) {
+			this.noFieldProducts.forEach(value => {
+				this.selectionSrv.unselectOne({ id: value.id });
+			});
+		}
+	}
+
+	getNoFieldProducts(sort: Sort): Product[] {
+		const fieldSortyBy = sort.sortBy;
+		const fieldSortByTokens = fieldSortyBy.split('.');
+		const field = fieldSortByTokens[0];
+
+		if (!this.rows) {
+			return [];
+		}
+
+		return this.rows.filter(row => !row[field]);
 	}
 
 	getGroupedProducts(sort: Sort): Category[] {
@@ -85,7 +129,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 			return [];
 		}
 
-		const groupedObj = this.rows.reduce((prev, cur) => {
+		const groupedObj = this.rows.filter(row => row[field]).reduce((prev, cur) => {
 			const id = (cur[field] && cur[field].id) ? cur[field].id : cur[field];
 			if (!prev[id]) {
 				prev[id] = [{ ...cur }];

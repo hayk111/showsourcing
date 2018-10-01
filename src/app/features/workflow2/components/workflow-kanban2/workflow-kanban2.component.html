@@ -27,7 +27,7 @@
 							(dragStart)="dragStart(item)"
 							(dragEnd)="dragEnd(item)">
 						<ng-container
-							*ngTemplateOutlet="card; context: { column: column, row: item, checked: isSelected(selectedItems, item.id), column: column, dragInProgress: dragInProgress, selectItem: selectItem, unselectItem: unselectItem, dragDropEnable$: dragDropEnable$ }">
+							*ngTemplateOutlet="card; context: { column: column, row: item, checked: isSelected(selectedItems, item.id), column: column, dragInProgress: dragInProgress, selectItem: selectItem, unselectItem: unselectItem, previewClick: previewClick, dragDropEnable$: dragDropEnable$ }">
 						</ng-container>
 					</kanban-item2-app>
 					<div class="contextual-menu" [ngClass]="{ 'drag-in-progress':	dragInProgress }">

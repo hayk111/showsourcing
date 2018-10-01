@@ -47,6 +47,9 @@ export class WorkflowKanban2Component extends TrackingComponent implements OnIni
 	@Output() selectAllItems = new EventEmitter<any[]>();
 	/** Triggers when all items are unselected for a column */
 	@Output() unselectAllItems = new EventEmitter<any[]>();
+	/** Triggers when the preview must be displayed */
+	@Output() previewClick = new EventEmitter<any>();
+
 
 	separatorColor: string;
 	dragInProgress = false;

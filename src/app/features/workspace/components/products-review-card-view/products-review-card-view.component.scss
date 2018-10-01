@@ -281,6 +281,10 @@ kanban-item-card-app {
     background-color: var(--color-secondary);
 		padding-right: 5px;
 
+    .button-label {
+      width: 100%;
+      text-align: left;
+    }
 		&:hover {
 			background: var(--color-secondary-dark);
 		}
