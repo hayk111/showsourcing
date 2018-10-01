@@ -32,10 +32,9 @@ $width-left: 410px;
   color: var(--color-primary);
 }
 
+// TODO: need another solution
 files-card-app {
-	.card-app {
-		margin-right: var(--spacing-xs);
-	}
+	margin-right: -12px;
 }
 
 
