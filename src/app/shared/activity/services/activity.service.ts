@@ -98,7 +98,7 @@ export class ActivityService {
 				const headers = new HttpHeaders({ Authorization: token.token });
 				return this.http.get<TokenResponse>(url, { headers });
 			}),
-			map((tokenState: TokenState) => tokenState.token),
+			map((resp: TokenResponse) => resp.token),
 			first()
 		);
 	}

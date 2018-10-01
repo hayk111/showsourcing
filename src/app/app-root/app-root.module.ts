@@ -18,6 +18,8 @@ import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
+import { environment } from 'environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -30,7 +32,7 @@ import { TemplateModule } from '~shared/template';
 		BrowserAnimationsModule,
 		AuthModule,
 		InvitationModule,
-		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
+		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		HttpClientModule,
 		TemplateModule,
 		LocalStorageModule,
