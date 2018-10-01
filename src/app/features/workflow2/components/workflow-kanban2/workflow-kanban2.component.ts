@@ -53,6 +53,7 @@ export class WorkflowKanban2Component extends TrackingComponent implements OnIni
 
 	separatorColor: string;
 	dragInProgress = false;
+	dragInProgressItem: KanbanItem;
 	dragDropEnable$ = new Subject<any>();
 
 
@@ -165,11 +166,17 @@ export class WorkflowKanban2Component extends TrackingComponent implements OnIni
 		return allSelected;
 	}
 
-	dragStart() {
+	dragStart(item) {
+		this.dragInProgressItem = item;
 		this.dragInProgress = true;
 	}
 
 	dragEnd() {
+		this.dragInProgressItem = null;
 		this.dragInProgress = false;
+	}
+
+	isDragInProgressItem(item) {
+		return (this.dragInProgressItem && item && this.dragInProgressItem.id === item.id);
 	}
 }
