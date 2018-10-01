@@ -32,6 +32,12 @@ $width-left: 410px;
   color: var(--color-primary);
 }
 
+files-card-app {
+	.card-app {
+		margin-right: var(--spacing-xs);
+	}
+}
+
 
 @media only screen and (max-width: 1300px) {
 	.left {
