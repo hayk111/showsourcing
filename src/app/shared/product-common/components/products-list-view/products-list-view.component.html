@@ -82,9 +82,9 @@ I added comment above each column to make it clearer -->
 <!-- price -->
 <ng-template #price let-row="row">
 	<price-app
+		*ngIf="row?.price?.currency; else noPrice"
 		[amount]="row?.price?.value"
-		[currency]="row?.price?.currency"
-		*ngIf="row?.price?.currency; else noPrice">
+		[currency]="row?.price?.currency">
 	</price-app>
 
 	<ng-template #noPrice>
@@ -96,8 +96,8 @@ I added comment above each column to make it clearer -->
 <!-- moq -->
 <ng-template #moq let-row="row">
 	<moq-app
-		[amount]="row?.minimumOrderQuantity"
-		*ngIf="row?.price?.currency; else noMoq">
+		*ngIf="row?.price?.currency; else noMoq"
+		[amount]="row?.minimumOrderQuantity">
 	</moq-app>
 
 	<ng-template #noMoq>
