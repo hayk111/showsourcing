@@ -2,7 +2,8 @@
 <div class="top">
 	<h1>Sign up</h1>
 	<h2 *ngIf="!(pending$ | async)">Just fill this form and get started with power sourcing!</h2>
-	<h2 *ngIf="(pending$ | async)">We are now processing your informations</h2>
+	<h1 *ngIf="(pending$ | async)">We are creating your account</h1>
+	<h2 *ngIf="(pending$ | async)">Please hold as we modify the internet for you!</h2>
 </div>
 
 <form [formGroup]="form" autocomplete="on" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
@@ -22,8 +23,9 @@
 
 	<form-field-app>
 		<label-app>Email</label-app>
-		<input inputApp required="true"
+		<input [class.error]="error && !form.get('email').dirty" inputApp required="true"
 			autocomplete="email" formControlName="email" type="email" placeholder="Your email"/>
+		<p class="error" *ngIf="error && !form.get('email').dirty">Please pick another email</p>
 		<hint-app>Tip: the app works better with a company email</hint-app>
 	</form-field-app>
 
@@ -43,5 +45,3 @@
 <ng-template #spinner>
 	<spinner-app></spinner-app>
 </ng-template>
-
-<div>{{ error }}</div>

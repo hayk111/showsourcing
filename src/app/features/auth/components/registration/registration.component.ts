@@ -59,7 +59,8 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 				},
 				e => {
 					if (e.error && e.error.errors && e.error.errors.email) {
-						this.error = e.error.errors.email.msg;
+						this.form.get('email').markAsPristine();
+						this.error = 'An account already exist with this email address.';
 					} else {
 						this.error = e.error.message;
 					}
