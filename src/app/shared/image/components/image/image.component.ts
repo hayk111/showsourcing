@@ -32,8 +32,6 @@ export class ImageComponent {
 			return 'rotate(' + (this.image.orientation * 90) % 360 + 'deg)';
 	}
 	rotate() {
-		setTimeout(() => {
-			this.transform = this.getRotation();	
-		});
+		this.transform = this.getRotation();	
 	}
 }
