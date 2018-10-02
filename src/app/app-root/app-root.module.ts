@@ -20,6 +20,7 @@ import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
 import { environment } from 'environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
