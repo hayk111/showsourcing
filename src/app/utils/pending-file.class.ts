@@ -5,9 +5,11 @@
  */
 export class PendingFile {
 	fileName;
+	size;
 	readonly pending = true;
 
 	constructor(private file: File) {
 		this.fileName = file.name;
+		this.size = file.size;
 	}
 }
