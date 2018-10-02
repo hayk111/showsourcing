@@ -20,7 +20,6 @@ import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
 import { environment } from 'environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -48,10 +47,11 @@ import { environment } from '../environments/environment';
 		PickATeamModule,
 		TestPageModule,
 		// keep router as last module
-		RouterModule.forRoot(routes,
-			// { enableTracing: true }
-		),
-		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+		RouterModule.forRoot(routes, {
+			scrollPositionRestoration: 'top',
+			// enableTracing: true
+		})
 	],
 	providers: [],
 	exports: [RouterModule],
