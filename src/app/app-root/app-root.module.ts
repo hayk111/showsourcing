@@ -32,7 +32,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 		BrowserAnimationsModule,
 		AuthModule,
 		InvitationModule,
-		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		HttpClientModule,
 		TemplateModule,
 		LocalStorageModule,
@@ -50,7 +49,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 		// keep router as last module
 		RouterModule.forRoot(routes,
 			// { enableTracing: true }
-		)
+		),
+		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 	],
 	providers: [],
 	exports: [RouterModule],

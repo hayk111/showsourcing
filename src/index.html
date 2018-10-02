@@ -27,7 +27,7 @@
 	<meta name="mobile-web-app-capable" content="yes">
 
 	<!-- prevent pinterest to add pin button -->
-	<meta name="pinterest" content="nopin" />
+	<meta name="pinterest" content="nopin"/>
 
 	<style>
 		/* we put the styles here for faster rendering. If http2 is used we could move it in a separate file */
@@ -57,8 +57,8 @@
 			width: 32px;
 			margin-right: 16px;
 			display: block;
-			background: url('/assets/img/logo.svg') no-repeat center;
 		}
+
 
 		.temp main {
 			font-family: sans-serif;
@@ -237,12 +237,13 @@
 
 
 	</style>
+
 </head>
-<body override>
+<body override="">
   <app-root>
 		<div class="temp">
 			<header>
-				<div class="titleLogo bounce-in-top"></div>
+				<img src="/assets/img/favicon.svg" class="titleLogo bounce-in-top"/>
 				<span class="title"><b>Show</b>Sourcing</span>
 			</header>
 			<main>
@@ -257,5 +258,6 @@
 			</main>
 		</div>
 	</app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 </html>
