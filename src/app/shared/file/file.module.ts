@@ -6,6 +6,8 @@ import { FilesPageComponent } from '~shared/file/containers';
 import { FileDropDirective } from '~shared/file/directives/file-drop.directive';
 import { FileSelectDirective } from '~shared/file/directives/file-select.directive';
 
+import { FileSizePipe } from '~shared/utils/pipes/fileSize.pipe';
+
 @NgModule({
 	imports: [SharedModule],
 	declarations: [FileDropDirective, FileSelectDirective, FilesPageComponent, FilesCardComponent],
