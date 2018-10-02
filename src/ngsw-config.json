@@ -5,7 +5,6 @@
     "installMode": "prefetch",
     "resources": {
       "files": [
-				"/index.html",
 				"/assets/logo.svg",
 				"/assets/fonts/**",
 				"https://fonts.googleapis.com/css?family=Raleway",
