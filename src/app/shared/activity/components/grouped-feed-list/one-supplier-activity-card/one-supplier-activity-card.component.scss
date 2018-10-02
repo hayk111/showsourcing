@@ -55,6 +55,11 @@ one-activity-carousel-app {
 }
 
 .badges {
+
+	status-badge-app, info-badge-app {
+		margin-top: var(--spacing-s);
+	}
+
 	> * {
 		margin-right: var(--spacing-xs);
 	}
