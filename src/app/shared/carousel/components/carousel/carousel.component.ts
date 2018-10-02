@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { AppImage } from '~models';
+import { ImageComponent } from '~shared/image/components/image/image.component';
 import { DEFAULT_IMG } from '~utils/constants';
 import { ImageService } from '~global-services/image/image.service';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -13,6 +14,7 @@ import { DialogService } from '~shared/dialog';
 })
 export class CarouselComponent implements OnInit {
 	defaultImg = DEFAULT_IMG;
+	@ViewChild('imgApp') imgApp: ImageComponent;
 
 
 	@Input() set images(img: Array<AppImage>) {
@@ -59,11 +61,13 @@ export class CarouselComponent implements OnInit {
 	/** rotates the image by 90 degrees */
 	rotate() {
 		const img = this.getImg();
+		img.orientation = (img.orientation + 1) % 4;
 		this.imageSrv.update({
 			...img,
-			orientation: (img.orientation + 1) % 4
+			orientation: img.orientation
 		}).subscribe();
 	}
+
 
 	/** deletes the image */
 	delete() {
@@ -93,8 +97,11 @@ export class CarouselComponent implements OnInit {
 		return this.images[this.selectedIndex].id;
 	}
 
-	getRotation() {
-		return 0;
+	getRotation(img) {
+		if (!img || !img.orientation)
+			return 'none';
+		else
+			return 'rotate(' + (img.orientation * 90) % 360 + 'deg)';
 	}
 
 }

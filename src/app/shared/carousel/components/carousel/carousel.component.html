@@ -1,8 +1,10 @@
 <div class="ctnr">
 
 	<!-- image -->
-	<div class="img-ctnr flexCenter">
+	<div class="img-ctnr flexCenter" 
+	[ngStyle]="{'transform': getRotation(getImg())}">
 		<img-app
+			#imgApp
 			*ngIf="images.length !== 0"
 			[image]="getImg()"
 			[size]="'xl'"
