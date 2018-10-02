@@ -10,6 +10,7 @@ import { FileUploadRequest } from '~models/file-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ImageUrls, log, LogColor } from '~utils';
 
+import { resizeSizeToLimit } from '~shared/utils/file.util';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
@@ -21,7 +22,11 @@ export class UploaderService {
 	) { }
 
 	uploadImages(imgs: File[]): Observable<any> {
-		return forkJoin(imgs.map(img => this.uploadFile(img, 'image')))
+
+		return forkJoin(imgs.map(img => resizeSizeToLimit(img, 1000000, (newImage) => {
+			console.log(newImage);
+			return this.uploadFile(newImage, 'image')
+		})))
 			.pipe(
 				first(),
 				catchError(error => { log.error(error); return of(error); })
