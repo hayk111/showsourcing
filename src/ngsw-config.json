@@ -5,8 +5,11 @@
     "installMode": "prefetch",
     "resources": {
       "files": [
-        "/favicon.ico",
-				"/index.html"
+				"/index.html",
+				"/assets/logo.svg",
+				"/assets/fonts/**",
+				"https://fonts.googleapis.com/css?family=Raleway",
+				"https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600"
       ],
       "versionedFiles": [
         "/*.bundle.css",
