@@ -32,7 +32,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 		BrowserAnimationsModule,
 		AuthModule,
 		InvitationModule,
-		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
+		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		HttpClientModule,
 		TemplateModule,
 		LocalStorageModule,
