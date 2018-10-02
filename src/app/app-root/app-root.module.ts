@@ -48,9 +48,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 		PickATeamModule,
 		TestPageModule,
 		// keep router as last module
-		RouterModule.forRoot(routes,
-			// { enableTracing: true }
-		)
+		RouterModule.forRoot(routes, {
+			scrollPositionRestoration: 'top'
+		})
 	],
 	providers: [],
 	exports: [RouterModule],
