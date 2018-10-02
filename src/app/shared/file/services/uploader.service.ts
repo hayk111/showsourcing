@@ -25,7 +25,7 @@ export class UploaderService {
 
 		return forkJoin(imgs.map(img => resizeSizeToLimit(img, 1000000, (newImage) => {
 			console.log(newImage);
-			return this.uploadFile(newImage, 'image')
+			return this.uploadFile(newImage, 'image');
 		})))
 			.pipe(
 				first(),
