@@ -1,10 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { AutoUnsub } from '~utils';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { ProductVote, Product } from '~models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserService } from '~global-services';
-import { ProductVoteService } from '~global-services/product-vote/product-vote.service';
-import { thumbAnimation } from '~shared/rating/components/thumb-buttons/animation';
+import { ProductVote } from '~models';
 
 @Component({
 	selector: 'thumb-buttons-app',
@@ -47,16 +43,18 @@ export class ThumbButtonsComponent {
 	/************************* NEW ERA ***********************/
 	@Input() size = 's';
 	@Input() hasText = false;
+	@Input() multiple = false;
+	// when multiple is true we don't have to pass votes as a parameter
 	@Input() set votes(votes: ProductVote[]) {
-		const voteIndex = (votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
-		if (~voteIndex) {
-			const vote = votes[voteIndex];
-			// we do it this way since we may have neutral votes
-			vote.value === 100 ? this.like = true : this.like = false;
-			vote.value === 0 ? this.dislike = true : this.dislike = false;
-		} else {
-			this.like = false;
-			this.dislike = false;
+		this.like = false;
+		this.dislike = false;
+		if (!this.multiple) {
+			const voteIndex = (votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
+			if (~voteIndex) {
+				const vote = votes[voteIndex];
+				vote.value === 100 ? this.like = true : this.like = false;
+				vote.value === 0 ? this.dislike = true : this.dislike = false;
+			}
 		}
 	}
 	@Output() liked = new EventEmitter<boolean>();
@@ -68,10 +66,18 @@ export class ThumbButtonsComponent {
 
 	thumbUp() {
 		this.liked.emit(!this.liked);
+		if (this.multiple) {
+			this.like = this.like ? false : true;
+			this.dislike = false;
+		}
 	}
 
 	thumbsDown() {
 		this.disliked.emit(!this.dislike);
+		if (this.multiple) {
+			this.dislike = this.dislike ? false : true;
+			this.like = false;
+		}
 	}
 
 	// ngOnInit() {
