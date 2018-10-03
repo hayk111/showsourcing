@@ -26,8 +26,10 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 	}
 
 	create(request: ExportRequest, ...args) {
-    this.userSrv.selectUser().pipe(take(1)).subscribe(_user => request.createdBy = new User({id: _user.id}));
-		return super.create(request, ...args).pipe(
+		return this.userSrv.selectUser().pipe(
+			take(1),
+			tap(user => request.createdBy = { id: user.id }),
+			switchMap(() => super.create(request, ...args)),
 			switchMap(_ => this.waitForOne(`id == "${request.id}" AND status == "ready"`))
 		);
 	}

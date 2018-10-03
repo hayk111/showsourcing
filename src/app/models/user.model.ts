@@ -15,10 +15,4 @@ export class User {
 	realmPath?: string;
 	avatar?: AppImage;
   __typename ?= 'User';
-
-  constructor(data: any) {
-    if (data) {
-      this.id = data.id;
-    }
-	}
 }
