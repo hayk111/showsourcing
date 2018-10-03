@@ -1,16 +1,10 @@
 import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Product, ERM } from '~models';
+import { Category } from '~features/workspace/models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 import { Sort } from '~shared/table/components/sort.interface';
 import { SelectionService } from '~shared/list-page/selection.service';
 
-
-interface Category {
-	key: string;
-	values: Product[];
-	label: any;
-	checked: boolean;
-}
 
 @Component({
 	selector: 'products-review-card-view-app',
@@ -37,36 +31,44 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	ngOnChanges(changes) {
 		if (changes.rows && changes.rows.currentValue) {
 			const rows = changes.rows.currentValue;
+			// Grouping products per category
 			this.groupedProducts = this.getGroupedProducts(this.currentSort);
+			// Grouping products without category
 			this.noFieldProducts = this.getNoFieldProducts(this.currentSort);
 			this.noFieldChecked = false;
 		}
 
 		if (changes.currentSort && changes.currentSort.currentValue) {
 			const currentSort = changes.currentSort.currentValue;
+			// Grouping products per category
 			this.groupedProducts = this.getGroupedProducts(currentSort);
+			// Grouping products without category
 			this.noFieldProducts = this.getNoFieldProducts(this.currentSort);
 		}
 
 		if (changes.selection && changes.selection.currentValue) {
 			const currentSelection = changes.selection.currentValue;
 			const previousSelection = changes.selection.previousValue;
+			// Checking selection for categories
 			if (this.groupedProducts && (!previousSelection || currentSelection.size !== previousSelection.size)) {
 				this.groupedProducts = this.groupedProducts.map(category => ({
 					...category,
 					checked: this.hasAllProductsSelected(category, currentSelection)
 				}));
 			}
+			// Checking selection for products without category
 			if (this.noFieldProducts && (!previousSelection || currentSelection.size !== previousSelection.size)) {
 				this.noFieldChecked = this.hasAllNoFieldProductsSelected(currentSelection);
 			}
 		}
 	}
 
+	/** Trackby function for ngFor */
 	trackByFn(index, product) {
 		return product.id;
 	}
 
+	/** Checks if the category has all products selected */
 	hasAllProductsSelected(category, currentSelection) {
 		let allSelected = true;
 		category.values.forEach(value => {
@@ -77,6 +79,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		return allSelected;
 	}
 
+	/** Checks if all elements without category are selected */
 	hasAllNoFieldProductsSelected(currentSelection) {
 		let allSelected = true;
 		this.noFieldProducts.forEach(value => {
@@ -87,6 +90,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		return allSelected;
 	}
 
+	/** Checks if a product is selected */
 	isSelected(product) {
 		if (this.selection)
 			return this.selection.has(product.id);
@@ -94,36 +98,18 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		throw Error(`Selection Input is undefnied`);
 	}
 
-	onNoFieldChecked() {
-		if (this.noFieldProducts) {
-			this.selectionSrv.selectAll(this.noFieldProducts.map(value => ({ id: value.id })));
-		}
-	}
-
-	onNoFieldUnchecked() {
-		if (this.noFieldProducts) {
-			this.noFieldProducts.forEach(value => {
-				this.selectionSrv.unselectOne({ id: value.id });
-			});
-		}
-	}
-
+	/** Gets products without category */
 	getNoFieldProducts(sort: Sort): Product[] {
-		const fieldSortyBy = sort.sortBy;
-		const fieldSortByTokens = fieldSortyBy.split('.');
-		const field = fieldSortByTokens[0];
-
+		const field = this.getFieldFromSort(sort);
 		if (!this.rows) {
 			return [];
 		}
-
 		return this.rows.filter(row => !row[field]);
 	}
 
+	/** Gathers products per category according to sort */
 	getGroupedProducts(sort: Sort): Category[] {
-		const fieldSortyBy = sort.sortBy;
-		const fieldSortByTokens = fieldSortyBy.split('.');
-		const field = fieldSortByTokens[0];
+		const field = this.getFieldFromSort(sort);
 
 		if (!this.rows) {
 			return [];
@@ -144,15 +130,20 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		}));
 	}
 
+	/** Gets the list of elements associated with the sort */
 	getGroupedValue(values, sort: Sort) {
-		const fieldSortyBy = sort.sortBy;
-		const fieldSortByTokens = fieldSortyBy.split('.');
-		const field = fieldSortByTokens[0];
-
+		const field = this.getFieldFromSort(sort);
 		if (values && values.length > 0) {
 			return (values[0] && values[0][field]) ? values[0][field] : null;
 		}
 		return null;
+	}
+
+	/** Get the field name the sort applies on */
+	getFieldFromSort(sort: Sort) {
+		const fieldSortyBy = sort.sortBy;
+		const fieldSortByTokens = fieldSortyBy.split('.');
+		return fieldSortByTokens[0];
 	}
 
 	/** Disable defaut drag for element */
@@ -161,12 +152,42 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		return false;
 	}
 
+	/**
+	 * Manage the selection from header for elements without category. If checked, all attached
+	 * elements must be checked.
+	 */
+	onNoFieldChecked() {
+		if (this.noFieldProducts) {
+			this.selectionSrv.selectAll(this.noFieldProducts.map(value => ({ id: value.id })));
+		}
+	}
+
+	/**
+	 * Manage the unselection from header for elements without category. If checked, all attached
+	 * elements must be unchecked.
+	 */
+	onNoFieldUnchecked() {
+		if (this.noFieldProducts) {
+			this.noFieldProducts.forEach(value => {
+				this.selectionSrv.unselectOne({ id: value.id });
+			});
+		}
+	}
+
+	/**
+	 * Manage the selection from category header. If checked, all attached elements must
+	 * be checked.
+	 */
 	onChecked(category: Category) {
 		if (category && category.values) {
 			this.selectionSrv.selectAll(category.values.map(value => ({ id: value.id })));
 		}
 	}
 
+	/**
+	 * Manage the unselection from category header. If checked, all attached elements must
+	 * be unchecked.
+	 */
 	onUnchecked(category: Category) {
 		if (category && category.values) {
 			category.values.forEach(value => {
@@ -175,6 +196,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		}
 	}
 
+	/** Close the contextual menu if the mouse goes outside a product card */
 	closeContextualMenuIfOpened(archiveMenu, workActionMenu) {
 		if (archiveMenu && archiveMenu.menuOpen) {
 			archiveMenu.closeMenu();
@@ -184,6 +206,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		}
 	}
 
+	/** Triggers a status update (from the workflow action component) */
 	onStatusUpdated(product, status) {
 		if (status) {
 			this.statusUpdated.emit({ product, status });

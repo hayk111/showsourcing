@@ -1,38 +1,14 @@
 <div class="card-container" infiniScroll>
   <div class="category-section" *ngIf="noFieldProducts && noFieldProducts.length > 0">
     <div class="category-header flex">
-      <div class="imgCtnr">
-        <checkbox-app [checked]="noFieldChecked"
-          (check)="onNoFieldChecked(category)"
-          (uncheck)="onNoFieldUnchecked(category)"
-          (dragstart)="preventDrag($event)">
-        </checkbox-app>
-      </div>
-      <div class="description flexBetween">
-        <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
-          <div class="titleCtnr"><h2>No supplier</h2></div>
-          <div class="descriptionCtnr">
-            <h3>Product with no supplier defined</h3>
-          </div>
-        </div>
-        <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
-          <div class="titleCtnr"><h2>No category</h2></div>
-          <div class="descriptionCtnr">
-              <h3>Product with no category defined</h3>
-            </div>
-          </div>
-        <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
-          <div class="titleCtnr"><h2>No user</h2></div>
-          <div class="descriptionCtnr">
-              <h3>Product with no user defined</h3>
-            </div>
-          </div>
-      </div>
+      <products-review-card-no-fields-header-app [currentSort]="currentSort"
+        (checked)="onNoFieldChecked($event)" (unchecked)="onNoFieldUnchecked($event)">
+      </products-review-card-no-fields-header-app>
     </div>
     <div class="products-section flex">
       <div *ngFor="let product of noFieldProducts; index as i; trackBy: trackByFn"
         class="item">
-        <kanban-item-card-app class="marginSmall" [title]="product.name"
+        <product-card-app class="marginSmall" [title]="product.name"
           [status]="product.status?.name"
           [checked]="isSelected(product)"
           [favorite]="product.favorite"
@@ -88,57 +64,21 @@
               </div>
             </div>
           </div>
-        </kanban-item-card-app>
+        </product-card-app>
       </div>
     </div>
   </div>
 
   <div *ngFor="let category of groupedProducts; first as first; index as i" class="category-section">
     <div class="category-header flex" *ngIf="category.label as element">
-      <div class="imgCtnr">
-        <img class="mini image ng-star-inserted" src="assets/icons/supplier.svg"
-             *ngIf="currentSort.sortBy === 'supplier.name'"
-             (dragstart)="preventDrag($event)">
-        <div *ngIf="currentSort.sortBy === 'category.name'" class="imgSubCtnr">
-          <img class="mini image category ng-star-inserted" src="assets/icons/category-white.svg"
-             (dragstart)="preventDrag($event)">
-        </div>
-        <user-picture-app [user]="category.label" *ngIf="currentSort.sortBy === 'createdBy.lastName'"
-             [image]="category.label?.avatar"></user-picture-app>
-        <checkbox-app [checked]="category.checked"
-          (check)="onChecked(category)"
-          (uncheck)="onUnchecked(category)"
-          (dragstart)="preventDrag($event)">
-        </checkbox-app>
-      </div>
-      <div class="description flexBetween">
-        <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
-          <div class="titleCtnr"><h2>{{ category.label.name || 'Unnamed' }}</h2></div>
-          <div class="descriptionCtnr">
-            <h3>
-              {{ supplier?.supplierType?.name || 'Supplier' }}
-              <ng-container *ngIf="element.country"> - {{ element.country | const:'country' }}</ng-container>
-            </h3>
-          </div>
-        </div>
-        <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
-            <div class="titleCtnr"><h2>{{ category.label.name || 'Unnamed' }}</h2></div>
-            <div class="descriptionCtnr">
-              <h3>{{ category.values.length }} products</h3>
-            </div>
-          </div>
-          <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
-            <div class="titleCtnr"><h2>{{ category.label.firstName }} {{ category.label.lastName }}</h2></div>
-            <div class="descriptionCtnr">
-              <h3>{{ category.values.length }} products</h3>
-          </div>
-          </div>
-        </div>
+      <products-review-card-header-app [currentSort]="currentSort" [category]="category"
+        (checked)="onChecked($event)" (unchecked)="onUnchecked($event)">
+      </products-review-card-header-app>
     </div>
     <div class="products-section flex">
       <div *ngFor="let product of category.values; index as i; trackBy: trackByFn"
       class="item">
-        <kanban-item-card-app class="marginSmall" [title]="product.name"
+        <product-card-app class="marginSmall" [title]="product.name"
           [status]="product.status?.name"
           [checked]="isSelected(product)"
           [favorite]="product.favorite"
@@ -194,7 +134,7 @@
               </div>
             </div>
           </div>
-        </kanban-item-card-app>
+        </product-card-app>
       </div>
     </div>
   </div>

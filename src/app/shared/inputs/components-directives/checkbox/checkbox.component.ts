@@ -46,7 +46,7 @@ export class CheckboxComponent extends AbstractInput {
 	 * Toggles checked state if element is not disabled.
 	 * @param event
 	 */
-	onClick() {
+	onClick(event) {
 		if (!this.disabled) {
 			this.toggle();
 			this.emit();

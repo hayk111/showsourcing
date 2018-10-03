@@ -24,7 +24,7 @@
 	</div>
 
 	<ng-template #card let-row="row" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">
-		<kanban-item-card-app class="marginSmall" [title]="row?.name"
+		<product-card-app class="marginSmall" [title]="row?.name"
 			[status]="row?.status?.name"
 			[favorite]="row?.favorite"
 			[tags]="row?.tags"
@@ -43,7 +43,7 @@
 			(select)="selectItem.emit(row)"
 			(unselect)="unselectItem.emit(row)"
 			(clickImage)="previewClick.emit(row)">
-		</kanban-item-card-app>
+		</product-card-app>
   </ng-template>
 
 	<ng-template #contextualMenu let-row="row">

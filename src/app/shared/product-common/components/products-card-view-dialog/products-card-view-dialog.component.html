@@ -1,7 +1,7 @@
 <div class="card-container" infiniScroll (bottomReached)="bottomReached.emit()">
   <div *ngFor="let product of rows; trackBy: trackById"
        class="item">
-    <kanban-item-card-app class="marginSmall" [title]="product.name"
+    <product-card-app class="marginSmall" [title]="product.name"
       [status]="product.status?.name"
       [checked]="isSelected(product)"
       [favorite]="product.favorite"
@@ -18,6 +18,6 @@
       [selectFromCard]="true"
       (select)="select.emit(product, false)"
       (unselect)="unselect.emit(product, false)">
-    </kanban-item-card-app>
+    </product-card-app>
   </div>
 </div>

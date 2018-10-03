@@ -65,23 +65,12 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 
 	}
 
-	onUpdateProductStatus({ target, droppedElement }) {
-		this.workspaceSrv.updateProductStatus(droppedElement, target)
-			.subscribe(() => {
-				this.notificationSrv.add({
-					type: NotificationType.SUCCESS,
-					title: 'Product Status Updated',
-					message: 'The invitation was accepted',
-					timeout: 3500
-				});
-				this.cdr.detectChanges();
-			});
-	}
-
+	/** Returns the selected products */
 	getSelectedProducts() {
 		return Array.from(this.selectionSrv.selection.values());
 	}
 
+	/** Update the sort from the menu */
 	sortFromMenu(fieldName) {
 		if (this.currentSort && this.currentSort.sortBy === fieldName) {
 			this.currentSort = { ...this.currentSort, descending: !this.currentSort.descending };
@@ -91,12 +80,14 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		this.sort(this.currentSort);
 	}
 
+	/** Add a product to workflow */
 	onSentToWorkflow(product: Product) {
 		this.workspaceSrv.sendProductToWorkflow(product).subscribe(() => {
 			this.refetch();
 		});
 	}
 
+	/** Triggers archive product */
 	onArchive(product: Product) {
 		const { id } = product;
 		this.workspaceSrv.update({ id, archived: true }, 'archived').subscribe(() => {
@@ -104,6 +95,7 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		});
 	}
 
+	/** Triggers status update */
 	onStatusUpdated({ product, status }) {
 		this.workspaceSrv.updateProductStatus(product, status).subscribe(() => {
 			this.refetch();
