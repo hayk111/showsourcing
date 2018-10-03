@@ -61,6 +61,7 @@ export class MyWorkflowPageComponent extends ListPageComponent<Product, Workspac
 		return statuses.map(status => ({
 			id: status.id,
 			name: status.name,
+			color: this.getColumnColor(status),
 			disabled: (status.name === '_NoStatus'),
 			items: status.products.map(product => ({
 				...product,
@@ -69,6 +70,19 @@ export class MyWorkflowPageComponent extends ListPageComponent<Product, Workspac
 				} : { id: -1 }
 			}))
 		}));
+	}
+
+	getColumnColor(status) {
+		if (status.category === 'validated') {
+			return 'var(--color-success)';
+		}
+		if (status.category === 'refused') {
+			return 'var(--color-warn)';
+		}
+		if (!status.category) {
+			return 'var(--color-accent)';
+		}
+		return 'var(--color-in-progress)';
 	}
 
 	getCurrentColumnFct(data) {
