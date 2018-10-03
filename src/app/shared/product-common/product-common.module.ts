@@ -23,7 +23,7 @@ import { ProductsCardViewComponent } from '~shared/product-common/components/pro
 import { ProductGridCardComponent } from '~shared/product-common/components/product-grid-card/product-grid-card.component';
 import { ProductSortingMenuComponent } from '~shared/product-common/components/product-sorting-menu/product-sorting-menu.component';
 import { ProductPreviewComponent } from '~shared/product-common/containers/product-preview/product-preview.component';
-import { KanbanItemCardComponent } from '~shared/product-common/components/kanban-item-card/kanban-item-card.component';
+import { ProductCardComponent } from '~shared/product-common/components/product-card/product-card.component';
 import { SSPricePipe } from '~shared/price/price.pipe';
 
 
@@ -53,7 +53,7 @@ import { SSPricePipe } from '~shared/price/price.pipe';
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
 		ProductPreviewComponent,
-		KanbanItemCardComponent
+		ProductCardComponent
 	],
 	exports: [
 		FindProductsDialogComponent,
@@ -62,7 +62,7 @@ import { SSPricePipe } from '~shared/price/price.pipe';
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
 		ProductPreviewComponent,
-		KanbanItemCardComponent
+		ProductCardComponent
 	],
 	entryComponents: [FindProductsDialogComponent],
 	providers: []

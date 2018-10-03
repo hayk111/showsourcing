@@ -47,9 +47,13 @@ export class WorkflowKanban2Component extends TrackingComponent implements OnIni
 	@Output() selectAllItems = new EventEmitter<any[]>();
 	/** Triggers when all items are unselected for a column */
 	@Output() unselectAllItems = new EventEmitter<any[]>();
+	/** Triggers when the preview must be displayed */
+	@Output() previewClick = new EventEmitter<any>();
+
 
 	separatorColor: string;
 	dragInProgress = false;
+	dragInProgressItem: KanbanItem;
 	dragDropEnable$ = new Subject<any>();
 
 
@@ -162,11 +166,17 @@ export class WorkflowKanban2Component extends TrackingComponent implements OnIni
 		return allSelected;
 	}
 
-	dragStart() {
+	dragStart(item) {
+		this.dragInProgressItem = item;
 		this.dragInProgress = true;
 	}
 
 	dragEnd() {
+		this.dragInProgressItem = null;
 		this.dragInProgress = false;
+	}
+
+	isDragInProgressItem(item) {
+		return (this.dragInProgressItem && item && this.dragInProgressItem.id === item.id);
 	}
 }

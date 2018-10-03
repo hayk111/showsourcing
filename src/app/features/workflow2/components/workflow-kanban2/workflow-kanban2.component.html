@@ -18,7 +18,8 @@
 			(itemEntered)="onItemEntered(column)"
 			(itemLeft)="onItemLeft(column)"
 			(checkChange)="onCheckItemsChange(column, $event)">
-				<div class="card-container" *ngFor="let item of column.items; let j = index; trackBy:trackById">
+				<div class="card-container" [ngClass]="{ 'dnd-progress': isDragInProgressItem(item) }"
+						 *ngFor="let item of column.items; let j = index; trackBy:trackById">
 					<kanban-item2-app
 							class="item"
 							[namespace]="getCurrentColumn(item)"
@@ -27,7 +28,7 @@
 							(dragStart)="dragStart(item)"
 							(dragEnd)="dragEnd(item)">
 						<ng-container
-							*ngTemplateOutlet="card; context: { column: column, row: item, checked: isSelected(selectedItems, item.id), column: column, dragInProgress: dragInProgress, selectItem: selectItem, unselectItem: unselectItem, dragDropEnable$: dragDropEnable$ }">
+							*ngTemplateOutlet="card; context: { column: column, row: item, checked: isSelected(selectedItems, item.id), column: column, dragInProgress: dragInProgress, selectItem: selectItem, unselectItem: unselectItem, previewClick: previewClick, dragDropEnable$: dragDropEnable$ }">
 						</ng-container>
 					</kanban-item2-app>
 					<div class="contextual-menu" [ngClass]="{ 'drag-in-progress':	dragInProgress }">
