@@ -26,16 +26,16 @@
 			(onUnfavorite)="productUnfavorite.emit()"
 			[hasLikes]="false">
 			<button class="icon light" (click)="requestFeedback.emit()">
-				<icon-app fontSet="svg" name="poll-light-grey"></icon-app>
+				<icon-app name="poll"></icon-app>
 			</button>
 			<button class="icon light" (click)="openAddProject.emit()">
-				<icon-app fontSet="svg" name="folder"></icon-app>
+				<icon-app class="fs-xl" fontSet="svg" name="folder-light"></icon-app>
 			</button>
 			<button class="secondary-light" (click)="openFileBrowser()">Add Picture</button>
 			<context-menu-app [xPosition]="3" [yPosition]="35" [width]="140">
 				<context-menu-trigger-app>
 					<button class="icon light dots">
-						<icon-app fontSet="svg" name="3-dots-vertical"></icon-app>
+						<icon-app name="dots-vertical"></icon-app>
 					</button>
 				</context-menu-trigger-app>
 				<context-menu-item-app (click)="export.emit()">

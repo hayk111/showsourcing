@@ -3,6 +3,8 @@
     "node_modules/codelyzer"
   ],
   "rules": {
+    "no-unused-css": true,
+    "trackBy-function": true,
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,

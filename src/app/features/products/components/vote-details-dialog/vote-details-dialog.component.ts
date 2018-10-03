@@ -14,10 +14,11 @@ export class VoteDetailsDialogComponent extends TrackingComponent implements OnI
 	@Input() votes: ProductVote[];
 
 	constructor(private dlgSrv: DialogService) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
+
 	}
 
 	closeDlg() {

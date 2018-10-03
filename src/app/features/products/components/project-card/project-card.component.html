@@ -2,17 +2,17 @@
 <card-app padding="ms">
 	<div class="title flex">
 		<div class="space-icon flexAround">
-			<icon-app fontSet="svg" name="folder-blue" ></icon-app>
+			<icon-app class="fs-m" fontSet="svg" name="folder-blue" ></icon-app>
 		</div>
 		<h2 i18n="header 2|Project card@@projectCard_projects">
 			Projects
 		</h2>
 	</div>
-	<div (click)="openProject(project)" *ngFor="let project of projects; last as last;trackBy: trackByFn">
+	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
 		<article class="flexBetween pointer" [class.last-item]="last">
 			<div class="flex">
 				<div class="space-icon flexAround">
-					<icon-app fontSet="svg" name="folder" ></icon-app>
+					<icon-app class="fs-m pointer" fontSet="svg" name="folder-light" ></icon-app>
 				</div>
 				<div class="flexColumn middle" >
 					<span class="name capitalize">{{ project?.name }}</span>

@@ -6,7 +6,7 @@ import { AutoUnsub } from '~utils';
 import { TemplateService } from '~shared/template/services/template.service';
 import { TeamService, UserService } from '~global-services';
 import { map } from 'rxjs/internal/operators/map';
-import { filter } from 'graphql-anywhere';
+import { filter } from 'rxjs/operators';
 import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
 import { DashboardService, DashboardCounters } from '~features/dashboard/services/dashboard.service';
 import { User, Task, ERM, Price } from '~models';

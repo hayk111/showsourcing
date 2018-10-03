@@ -8,7 +8,7 @@ I added comment above each column to make it clearer -->
 	[contextualMenu]="contextualMenuTemplate"
 	[selected]="selection"
 	[currentSort]="currentSort"
-	placeholder="You don't have any product yet"
+	placeholder="No product"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(selectOne)="select.emit($event)"
@@ -121,6 +121,7 @@ I added comment above each column to make it clearer -->
 	<div>
 		<rating-heart-app
 			[favorite]="row?.favorite"
+			size="14"
 			(favorited)="favorited.emit(row.id)"
 			(unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
 	</div>

@@ -1,23 +1,23 @@
 .selected {
-    // background: var(--color-txt-primary);
-    color: white;
-    >[class^="icon-"],
-    [class*=" icon-"] {
-        &:before {
-            color: white;
-        }
-    }
+	// background: var(--color-txt-primary);
+	color: white;
+	>[class^="icon-"],
+	[class*=" icon-"] {
+		&:before {
+			color: white;
+		}
+	}
 }
 
 :host {
-    border-radius: 2px;
-    background: var(--color-secondary);
-    position: relative;
+	border-radius: 2px;
+	background: var(--color-secondary);
+	position: relative;
 }
 
 .ctnr {
-    // to suppress the shadow from the btn
-    overflow: hidden;
+	// to suppress the shadow from the btn
+	overflow: hidden;
 }
 
 button {
@@ -35,31 +35,30 @@ button {
 	text-transform: none;
 }
 
-.icon-thumbs,
-.icon-list {
-    padding: 0 7px;
-    padding-left: 0;
-    font-size: var(--font-size-s);
-    &:before {
-        color: var(--color-txt-primary);
-    }
+icon-app {
+	padding: 0 7px;
+	padding-left: 0;
+	font-size: var(--font-size-s);
+	&:before {
+		color: var(--color-txt-primary);
+	}
 }
 
 .slider {
-    background: var(--color-txt-primary);
-    height: 32px;
-    border-radius: 2px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: 1;
-    transition: all 0.35s ease-out;
-    &.left {
-      left: 0;
-      width: calc(100% / 2);
-    }
-    &.right {
-      left: calc(100% / 2);
-      width: calc(100% / 2);
-    }
+	background: var(--color-txt-primary);
+	height: 32px;
+	border-radius: 2px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+	transition: all 0.35s ease-out;
+	&.left {
+		left: 0;
+		width: calc(100% / 2);
+	}
+	&.right {
+		left: calc(100% / 2);
+		width: calc(100% / 2);
+	}
 }

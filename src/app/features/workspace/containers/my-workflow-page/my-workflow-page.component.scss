@@ -1,3 +1,12 @@
 sub-panel-app {
   padding-bottom: 15px;
 }
+
+.kanbanCtnr {
+  height: calc(100vh - 254px);
+  display: flex;
+}
+
+icon-app {
+	color: var(--color-txt-secondary);
+}

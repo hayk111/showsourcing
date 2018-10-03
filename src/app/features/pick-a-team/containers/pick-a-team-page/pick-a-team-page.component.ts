@@ -25,7 +25,7 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 	}
 
 	ngOnInit() {
-		this.teams$ = this.teamSrv.selectAll();
+		this.teams$ = this.teamSrv.queryMany({ query: 'status == "active"', take: 0 });
 		// get return url from route parameters or default to '/'
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}

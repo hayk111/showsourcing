@@ -9,7 +9,7 @@ import { WorkspaceFeatureService } from '~features/workspace/services/workspace-
 import { SelectionBarModule } from '~shared/selection-bar';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
-import { WorkflowModule } from '~features/workflow/workflow.module';
+import { Workflow2Module } from '~features/workflow2/workflow2.module';
 import { TaskCommonModule } from '~shared/task-common';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { CustomDialogModule } from '~shared/custom-dialog';
@@ -22,7 +22,7 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 		TopPanelModule,
 		SelectionBarModule,
 		ActionBarModule,
-		WorkflowModule,
+		Workflow2Module,
 		TaskCommonModule,
 		ProductCommonModule,
 		WorkflowActionModule,

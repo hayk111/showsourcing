@@ -15,12 +15,12 @@
 	<!-- move back -->
 	<div class="move-btn back flexCenter pointer action"
 		(mousedown)="back($event)" *ngIf="selectedIndex > 0  && products.length > 2">
-		<icon-app name="arrow-left-rectangle" fontSet="svg"></icon-app>
+		<icon-app name="arrow-left-rectangle"></icon-app>
 	</div>
 
 	<!-- move next -->
 	<div class="move-btn next flexCenter pointer action"
 		(mousedown)="next($event)" *ngIf="selectedIndex < (products.length - 2)  && products.length > 2">
-		<icon-app name="arrow-right-rectangle" fontSet="svg"></icon-app>
+		<icon-app name="arrow-right-rectangle"></icon-app>
 	</div>
 </div>

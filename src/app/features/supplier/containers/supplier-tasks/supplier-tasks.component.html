@@ -17,7 +17,7 @@
 				(check)="toggleDoneTasks(true)"
 				(uncheck)="toggleDoneTasks(false)">
 			</checkbox-app>
-			Show done tasks
+			Completed tasks
 		</div>
 	</sub-panel-app>
 
@@ -54,13 +54,13 @@
 		<context-menu-app xPosition="-171" yPosition="-25">
 			<context-menu-trigger-app>
 				<button class="icon light">
-					<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+					<icon-app name="dots-vertical" size="m"></icon-app>
 				</button>
 			</context-menu-trigger-app>
 		</context-menu-app>
 
 		<button class="icon light" (click)="deleteSelected()">
-			<icon-app fontSet="svg" name="trash-bin" size="m"></icon-app>
+			<icon-app name="trash-bin" size="m"></icon-app>
 		</button>
 	</div>
 

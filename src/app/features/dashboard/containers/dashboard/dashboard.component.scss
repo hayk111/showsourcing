@@ -30,7 +30,9 @@ activity-list-app {
 	icon-app {
 		cursor: default;
 		font-size: 210px;
+		color: var(--color-txt-primary);
 	}
+
 	h1 {
 		font-family: var(--font-normal);
 		margin-top: var(--spacing-l);

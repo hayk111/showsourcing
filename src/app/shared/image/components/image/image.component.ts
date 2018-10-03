@@ -8,7 +8,15 @@ import { AppImage } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImageComponent {
-	@Input() image: AppImage;
+	private _image: AppImage;
+	public transform = 'none';
+
+	get image(): any {
+		return this._image;
+	}
+	@Input() set image(value: any) {
+		this._image = value;
+	};
 	@Input() size: string;
 	// type of the image (supplier, product, user...)
 	// so we can have an appropriate default image
@@ -19,9 +27,11 @@ export class ImageComponent {
 
 	getRotation() {
 		if (!this.image || !this.image.orientation)
-			return undefined;
+			return 'none';
 		else
 			return 'rotate(' + (this.image.orientation * 90) % 360 + 'deg)';
 	}
-
+	rotate() {
+		this.transform = this.getRotation();	
+	}
 }

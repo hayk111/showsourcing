@@ -32,6 +32,11 @@ $width-left: 410px;
   color: var(--color-primary);
 }
 
+// TODO: need another solution
+files-card-app {
+	margin-right: -12px;
+}
+
 
 @media only screen and (max-width: 1300px) {
 	.left {

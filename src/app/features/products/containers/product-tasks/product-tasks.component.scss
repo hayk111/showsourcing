@@ -2,6 +2,10 @@
 	display: block;
 }
 
+icon-app {
+	color: var(--color-txt-secondary);
+}
+
 .show-my-tasks, .show-tasks-done {
 	font-weight: 600;
 	line-height: 1.43;

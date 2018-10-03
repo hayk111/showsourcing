@@ -9,6 +9,7 @@
 
 icon-app {
 	cursor: default;
+	color: var(--color-secondary-dark);
 }
 
 .empty-contacts{
@@ -17,6 +18,10 @@ icon-app {
 	text-align: center;
 	p {
 		margin-top:6px;
+	}
+
+	icon-app {
+		font-size: var(--font-size-huge);
 	}
 }
 
@@ -31,7 +36,7 @@ icon-app {
 		margin-top: 2px;
 	}
 	icon-app {
-		color: var(--color-secondary-dark);
+		font-size: var(--font-size-m);
 		margin-top: 2px;
 		margin-left: 11px;
 		margin-right: 18px;

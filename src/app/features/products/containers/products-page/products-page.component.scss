@@ -5,6 +5,11 @@
 
 action-bar-app {
 	overflow: visible;
+
+	icon-app {
+		color: var(--color-txt-secondary);
+	}
+
 	context-menu-trigger-app {
 		width: 160px;
 		button.icon {

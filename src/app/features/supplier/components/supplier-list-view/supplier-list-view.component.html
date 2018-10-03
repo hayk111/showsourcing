@@ -3,7 +3,7 @@
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
-	placeholder="You don't have any supplier yet"
+	placeholder="No supplier"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
@@ -31,7 +31,7 @@
 			(mouseenter)="preview.style.display = 'block'"
 			(mouseleave)="preview.style.display = 'none'">
 			<a class="capitalize ellipsis txtBtn" [routerLink]="['/supplier', 'details', row.id]">
-				<img src="assets/icons/supplier.svg" class="supplierIcon"/>
+			<icon-app class="supplierIcon" name="supplier" fontSet="svg"></icon-app>
 				<span>{{ row.name }}</span>
 			</a>
 			<button #preview class="ugly" (click)="previewClick.emit(row)">preview</button>

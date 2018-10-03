@@ -4,7 +4,7 @@
 	</side-panel-title-app>
 
 	<side-panel-action-app>
-		<icon-app class="close pointer" fontSet="fa" name="times" (click)="close.emit()"></icon-app>
+		<icon-app class="close pointer" name="close" (click)="close.emit()"></icon-app>
 	</side-panel-action-app>
 
 	<div *ngIf="supplier$ | async as supplier" class="top">

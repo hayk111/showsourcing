@@ -1,5 +1,5 @@
 <custom-table-app class="list" [rows]="rows" [descriptor]="descriptor" [contextualMenu]="contextualMenuTemplate"
-  placeholder="You don't have any product yet"
+  placeholder="No product"
   [selected]="selection" (bottomReached)="bottomReached.emit($event)" (sort)="sort.emit($event)" (selectOne)="select.emit($event)"
   (unselectOne)="unselect.emit($event)" (selectAll)="selectAll.emit($event)" (unselectAll)="unselectAll.emit()"
   [pending]="pending">

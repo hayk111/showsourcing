@@ -1,7 +1,7 @@
 <div class="sidemenu" [ngClass]="{ expanded: internalExpanded }">
 	<div class="flex sidemenu__header">
 		<div class="icon" [ngClass]="{ expanded: internalExpanded }">
-			<icon-app class="flexCenter" fontSet="svg" [name]="menuIcon"
+			<icon-app class="flexCenter" [ngClass]="{'folder': menuIcon === 'folder'}" fontSet="svg" [name]="menuIcon"
 				(click)="onToggleExpanded()"></icon-app>
 		</div>
 		<div class="info" *ngIf="internalExpanded" >

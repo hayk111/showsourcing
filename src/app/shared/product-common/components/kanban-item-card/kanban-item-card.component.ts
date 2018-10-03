@@ -70,8 +70,8 @@ export class KanbanItemCardComponent extends TrackingComponent implements OnInit
 	/** Whether the product preview is accessibe from the card */
 	@Input() enablePreviewLink: boolean;
 
-	@Input() showCheckbox ? = true;
-	@Input() clickable ? = false;
+	@Input() showCheckbox ?= true;
+	@Input() clickable ?= false;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
@@ -105,8 +105,8 @@ export class KanbanItemCardComponent extends TrackingComponent implements OnInit
 	thumbsName = 'thumbs-up-white';
 
 	constructor(private userSrv: UserService, private elementRef: ElementRef, private renderer: Renderer2, private router: Router) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 		if (this.product) {
@@ -230,13 +230,13 @@ export class KanbanItemCardComponent extends TrackingComponent implements OnInit
 	leaveMenuTrigger() {
 		this.dragDropEnabled = true;
 		this.dragDropEnable.emit(this.dragDropEnabled);
-  }
+	}
 
-  openProduct() {
-    if (this.clickable && this.link) {
+	openProduct() {
+		if (this.clickable && this.link) {
 			this.router.navigate([this.link]);
-    }
-  }
+		}
+	}
 
 	enterMenuTrigger() {
 		this.dragDropEnabled = false;

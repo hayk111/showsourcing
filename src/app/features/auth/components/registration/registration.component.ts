@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, AbstractControl, AsyncValidator } from '@angular/forms';
 
 import { Observable, Subject } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { AutoUnsub } from '~utils';
-import { takeUntil, take, catchError } from 'rxjs/operators';
+import { takeUntil, take, catchError, map, tap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '~global-services';
 
 @Component({
 	selector: 'registration-app',
@@ -17,7 +18,13 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 	pending$ = new Subject<boolean>();
 	error: string;
 
-	constructor(private authSrv: AuthenticationService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+	constructor(
+		private authSrv: AuthenticationService,
+		private fb: FormBuilder,
+		private router: Router,
+		private route: ActivatedRoute,
+		private userSrv: UserService
+	) {
 		super();
 	}
 
@@ -25,10 +32,15 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 		this.form = this.fb.group({
 			firstName: ['', Validators.required],
 			lastName: ['', Validators.required],
-			email: ['', Validators.compose([Validators.required, Validators.email])],
-			password: ['', Validators.compose([
-				Validators.required, Validators.minLength(8)
-			])]
+			email: [
+				'',
+				Validators.compose([Validators.required, Validators.email]),
+				[new EmailNotTakenValidators(this.userSrv)]
+			],
+			password: [
+				'',
+				Validators.compose([Validators.required, Validators.minLength(8)])
+			]
 		});
 	}
 
@@ -40,7 +52,6 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 				take(1),
 			).subscribe(
 				r => {
-					this.pending$.next(false);
 					// we check if there is a returnUrl query parameter
 					const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 					// we navigate to dashboard or return url for sure on registration end
@@ -58,4 +69,25 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	validateEmailNotTaken(control: AbstractControl): Observable<{ [errorName: string]: boolean }> {
+		return this.userSrv.queryOneByPredicate(`email == "${control.value}"`, 'email').pipe(
+			map(emailTaken => !!emailTaken),
+			map(emailTaken => ({ emailTaken }))
+		);
+	}
+
 }
+
+@Injectable({ providedIn: 'root' })
+export class EmailNotTakenValidators implements AsyncValidator {
+
+	constructor(protected userSrv: UserService) { }
+
+	validate(control: AbstractControl): Observable<{ [errorName: string]: boolean }> {
+		return this.userSrv.queryOneByPredicate(`email == "${control.value}"`, 'email').pipe(
+			map(emailTaken => !!emailTaken),
+			map(emailTaken => ({ emailTaken }))
+		);
+	}
+}
+

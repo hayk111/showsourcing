@@ -11,6 +11,10 @@
 		height: var(--spacing-xl);
 		width: var(--spacing-xl);
 		margin-right: var(--spacing-ms);
+
+		icon-app[name="poll"] {
+			cursor: default;
+		}
 	}
 
 	h2 {

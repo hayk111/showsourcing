@@ -31,8 +31,8 @@ export class ProductTeamRatingComponent implements OnInit {
 		let state = 'secondary-dark';
 		if (this.votes) {
 			state = this.score >= 50 ? 'success' : 'warn';
-			this.name = this.score >= 50 ? 'thumbs-up-white' : 'thumbs-down-white';
+			this.name = this.score >= 50 ? 'thumbs-up-background' : 'thumbs-down-background';
 		}
-		return { background: `var(--color-${state})` };
+		return { color: `var(--color-${state})` };
 	}
 }

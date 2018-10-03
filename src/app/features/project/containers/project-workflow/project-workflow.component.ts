@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project, ProductStatus, ProductVote } from '~models';
+import { ERM, Product, Project, ProductStatus, ProductVote, KanbanColumn } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -28,7 +28,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 export class ProjectWorkflowComponent extends ListPageComponent<Product, ProductService>  implements OnInit {
 	project$: Observable<Project>;
 	// statuses$ = new Subject<ProductStatus[]>();
-	statuses$: Observable<ProductStatus[]>;
+	columns$: Observable<KanbanColumn[]>;
 	id: string;
 	project: Project;
 	/** keeps tracks of the current selection */
@@ -56,12 +56,32 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		this.project$ = this.projectSrv.queryOne(id);
 		this.project$.subscribe(project => this.project = project);
 
-		this.statuses$ = this.project$.pipe(
+		this.columns$ = this.project$.pipe(
 			takeUntil(this._destroy$),
-			switchMap(project => this.workflowService.getStatuses(project))
+			switchMap(project => this.workflowService.getStatuses(project)),
+			map(statuses => this.convertStatusesToColumns(statuses)),
 		);
 
 		this.selected$ = this.selectionSrv.selection$;
+	}
+
+	/** Convert statuses / products into the generic input for kanban */
+	convertStatusesToColumns(statuses) {
+		return statuses.map(status => ({
+			id: status.id,
+			name: status.name,
+			disabled: (status.name === '_NoStatus'),
+			items: status.products.map(product => ({
+				...product,
+				cat: (product.status && product.status.status) ? {
+					id: product.status.status.id
+				} : { id: -1 }
+			}))
+		}));
+	}
+
+	getCurrentColumnFct(data) {
+		return data.cat ? data.cat.id : '';
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {

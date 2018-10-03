@@ -1,21 +1,21 @@
 <div class="flex settings">
   <sidenav-app menuIcon="shape" menuTitle="Settings" (expanded)="onMenuExpanded($event)">
 
-	<sidenav-item-app link="/settings/profile">
-			<icon-app fontSet="svg" name="user"></icon-app> <span sidenavLabelApp>Profile</span>
+		<sidenav-item-app link="/settings/profile">
+			<icon-app name="user" fontSet="svg"></icon-app> <span sidenavLabelApp>Profile</span>
 		</sidenav-item-app>
 		<!-- TODO Uncomment when these tabs are needed -->
 		<!-- <sidenav-item-app link="/settings/workflows">
-			<icon-app fontSet="svg" name="workflow"></icon-app> <span sidenavLabelApp>Workflows</span>
+			<icon-app name="workflow"></icon-app> <span sidenavLabelApp>Workflows</span>
 		</sidenav-item-app>
 		<sidenav-item-app link="/settings/fields">
-			<icon-app fontSet="svg" name="fields"></icon-app> <span sidenavLabelApp>Fields Setup</span>
+			<icon-app name="fields"></icon-app> <span sidenavLabelApp>Fields Setup</span>
 		</sidenav-item-app> -->
 		<sidenav-item-app link="/settings/team/members">
-			<icon-app fontSet="svg" name="team"></icon-app> <span sidenavLabelApp>Team Members</span>
+			<icon-app name="team" fontSet="svg"></icon-app> <span sidenavLabelApp>Team Members</span>
 		</sidenav-item-app>
 		<sidenav-item-app [hasChildren]="true">
-			<icon-app fontSet="svg" name="data-cleansing"></icon-app> <span sidenavLabelApp>Data Cleansing</span>
+			<icon-app name="data-cleansing" fontSet="svg"></icon-app> <span sidenavLabelApp>Data Cleansing</span>
 
 			<sidenav-item-app link="/settings/data/category">
 				<span sidenavLabelApp>Category</span>
