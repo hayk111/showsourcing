@@ -1,5 +1,4 @@
 dialog-app {
-	height: 420px;
 	width: 500px;
 }
 
@@ -9,43 +8,42 @@ dialog-app {
   align-items: center;
   justify-content: center;
   margin: 0 var(--spacing-xxxl);
-  margin-bottom: 56px;
   .exportCell {
-      width: 220px;
-      height: 180px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--color-bg-grey);
-      border: 2px solid var(--color-bg-switcher);
-      border-radius: 4px;
-      &:first-child {
-          margin-right: var(--spacing-m);
-      }
-      &:last-child {
-          margin-left: var(--spacing-m);
-      }
-      cursor: pointer;
-      .icon-pdf,
-      .icon-excel {
-          font-size: 48px;
-          color: var(--color-txt-secondary);
-          margin-bottom: var(--spacing-m);
-      }
-      .title {
-          font-weight: 600;
-          color: var(--color-button-dark);
-      }
-      .subtitle {
-          color: var(--color-txt-secondary);
-      }
-      &.selected {
-          border: 2px solid var(--color-primary);
-          .icon-pdf,
-          .icon-excel {
-              color: var(--color-primary);
-          }
-      }
+		width: 220px;
+		height: 180px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border: 2px solid transparent;
+		border-radius: 4px;
+		&:first-child {
+				margin-right: var(--spacing-m);
+		}
+		&:last-child {
+				margin-left: var(--spacing-m);
+		}
+		cursor: pointer;
+		icon-app {
+			font-size: 48px;
+			color: var(--color-txt-secondary);
+			margin-bottom: var(--spacing-m);
+		}
+		.title {
+				font-weight: 600;
+				color: var(--color-button-dark);
+		}
+		.subtitle {
+				color: var(--color-txt-secondary);
+		}
+		&.selected {
+				border: 2px solid var(--color-primary);
+				icon-app {
+						color: var(--color-primary);
+				}
+		}
+		&:hover {
+			background: rgba(93, 109, 139, 0.05);
+		}
   }
 }

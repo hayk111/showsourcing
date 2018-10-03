@@ -16,12 +16,13 @@
     (selectItem)="onItemSelected($event, true)"
     (unselectItem)="onItemUnselected($event, true)"
     (selectAllItems)="selectAll($event, true)"
-    (unselectAllItems)="resetSelection()">
+    (unselectAllItems)="resetSelection()"
+    (previewClick)="openPreview($event)">
   </workflow-kanban2-app>
 </div>
 
-<ng-template #card let-row="row" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-dragDropEnable$="dragDropEnable$">
-  <kanban-item-card-app class="marginSmall" [title]="row?.name"
+<ng-template #card let-row="row" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">
+  <product-card-app class="marginSmall" [title]="row?.name"
     [status]="row?.status?.name"
     [favorite]="row?.favorite"
     [tags]="row?.tags"
@@ -35,10 +36,12 @@
     [product]="row"
     [dragInProgress]="dragInProgress"
     [checked]="checked"
+    [enablePreviewLink]="true"
     (dragDropEnable)="dragDropEnable$.next($event)"
     (select)="selectItem.emit(row)"
-    (unselect)="unselectItem.emit(row)">
-  </kanban-item-card-app>
+    (unselect)="unselectItem.emit(row)"
+    (clickImage)="previewClick.emit(row)">
+  </product-card-app>
 </ng-template>
 
 <ng-template #contextualMenu let-row="row">
@@ -80,11 +83,16 @@
     <button class="icon light" (click)="openAddToProjectDialog()">
       <icon-app name="folder" size="m" ></icon-app>
     </button>
-    <button class="icon light">
-      <icon-app name="dots-vertical" size="m"></icon-app>
-    </button>
     <button class="icon light" (click)="deleteSelected()">
       <icon-app name="trash-bin" size="m"></icon-app>
     </button>
   </action-bar-app>
 </selection-bar-app>
+
+<product-preview-app
+  *ngIf="previewOpen"
+  [product]="previewed"
+  (close)="closePreview()"
+  (clickOutside)="closePreview()">
+
+</product-preview-app>

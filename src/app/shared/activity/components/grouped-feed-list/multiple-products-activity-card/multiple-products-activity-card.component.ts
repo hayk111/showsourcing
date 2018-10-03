@@ -16,6 +16,7 @@ import { takeUntil, first, map } from 'rxjs/operators';
 export class MultipleProductsActivityCardComponent extends AutoUnsub implements OnInit {
 
 	@Input() groupFeed: GetStreamGroup;
+	@Output() update = new EventEmitter<Product>();
 	time: Date;
 	products$: Observable<Product[]>;
 

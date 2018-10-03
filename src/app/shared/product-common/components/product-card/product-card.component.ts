@@ -22,12 +22,12 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'kanban-item-card-app',
-	templateUrl: './kanban-item-card.component.html',
-	styleUrls: ['./kanban-item-card.component.scss'],
+	selector: 'product-card-app',
+	templateUrl: './product-card.component.html',
+	styleUrls: ['./product-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KanbanItemCardComponent extends TrackingComponent implements OnInit, AfterViewInit {
+export class ProductCardComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	/** The main title */
 	@Input() title: string;

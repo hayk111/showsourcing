@@ -10,7 +10,7 @@ import { DEFAULT_IMG, AutoUnsub } from '~utils';
 import { InputDirective } from '~shared/inputs';
 import { Observable } from 'rxjs';
 import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, map } from 'rxjs/operators';
 import { ProductService } from '~global-services';
 import { FormControl } from '@angular/forms';
 
@@ -51,7 +51,9 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		if (group.startsWith('create_product')) {
 			this.product$ = this.productSrv.queryOne(this.groupFeed.activities[0].object);
 		}
-		this.product$.pipe(takeUntil(this._destroy$)).subscribe(product => this.product = product);
+		this.product$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(product => this.product = product);
 	}
 
 	onFavorite() {

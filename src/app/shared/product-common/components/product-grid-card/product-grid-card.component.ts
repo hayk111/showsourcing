@@ -20,6 +20,7 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 		this.selected = selection.has(this.product.id);
 	}
 	@Input() hasActions = true;
+	@Input() hasCheckbox = true;
 	@Output() productSelect = new EventEmitter<null>();
 	@Output() productUnselect = new EventEmitter<null>();
 	@Output() productFavorite = new EventEmitter<null>();

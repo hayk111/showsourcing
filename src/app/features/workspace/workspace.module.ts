@@ -3,8 +3,14 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { routes } from '~features/workspace/routes';
-import { ProductsReviewCardViewComponent, ProductsReviewSortingMenuComponent } from '~features/workspace/components';
-import { WorkspaceComponent, MyWorkflowPageComponent, MyTasksPageComponent, ReviewPageComponent } from '~features/workspace/containers';
+import {
+	ProductsReviewCardViewComponent, ProductsReviewCardHeaderComponent,
+	ProductsReviewSortingMenuComponent, ProductsReviewCardNoFieldsHeaderComponent
+} from '~features/workspace/components';
+import {
+	WorkspaceComponent, MyWorkflowPageComponent,
+	MyTasksPageComponent, ReviewPageComponent
+} from '~features/workspace/containers';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
@@ -34,6 +40,8 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 		MyTasksPageComponent,
 		ReviewPageComponent,
 		ProductsReviewCardViewComponent,
+		ProductsReviewCardHeaderComponent,
+		ProductsReviewCardNoFieldsHeaderComponent,
 		ProductsReviewSortingMenuComponent
 	],
 	exports: [RouterModule],

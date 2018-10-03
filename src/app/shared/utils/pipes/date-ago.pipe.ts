@@ -9,8 +9,7 @@ export class DateToTimeAgoPipe implements PipeTransform {
 		if (dateData === undefined || dateData === null)
 			return '';
 		const timestamp = Date.parse(dateData.toString());
-		const currentTime = new Date().getTime();
-		const seconds = Math.floor((currentTime - timestamp) * 0.001);
+		const seconds = Math.floor((+new Date() - timestamp) * 0.001);
 
 		if (seconds < 10) {
 			return 'just now';
