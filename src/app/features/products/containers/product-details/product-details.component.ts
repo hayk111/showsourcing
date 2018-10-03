@@ -1,27 +1,15 @@
-import { Component, OnInit, NgModuleRef } from '@angular/core';
+import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ProductFeatureService } from '~features/products/services';
-import {
-	Attachment,
-	Product,
-	Project,
-	AppImage,
-	ProductStatus,
-	ERM
-} from '~models';
-import { DialogService } from '~shared/dialog';
-import { AutoUnsub } from '~utils';
-import {
-	ProductAddToProjectDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent
-} from '~shared/custom-dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { map, takeUntil } from 'rxjs/operators';
 import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
+import { ProductFeatureService } from '~features/products/services';
 import { ProductQueries } from '~global-services/product/product.queries';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { AppImage, Attachment, ERM, Product, ProductStatus, Project } from '~models';
+import { ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent } from '~shared/custom-dialog';
+import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-details-app',

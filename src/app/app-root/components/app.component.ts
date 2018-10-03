@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { ActivityService } from '~shared/activity/services/activity.service';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { UserService, TeamService, CompanyService } from '~global-services';
-import { filter } from 'rxjs/operators';
-import { TeamClientInitializer, UserClientInitializer, GlobalClientsInitializer } from '~shared/apollo/services';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { CompanyService, TeamService } from '~global-services';
+import { GlobalClientsInitializer, TeamClientInitializer, UserClientInitializer } from '~shared/apollo/services';
 
 @Component({
 	selector: 'app-root',
@@ -35,11 +34,13 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.companySrv.init();
 
 		this.routerSubscription = this.router.events
-						.pipe(filter(event => event instanceof NavigationEnd))
-            .subscribe(event => {
-                document.body.scrollTop = 0;
-            });
+			.pipe(filter(event => event instanceof NavigationEnd))
+			.subscribe(event => {
+				document.body.scrollTop = 0;
+			});
+
 	}
+
 	ngOnDestroy() {
 		this.routerSubscription.unsubscribe();
 	}
