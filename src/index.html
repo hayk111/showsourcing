@@ -5,7 +5,6 @@
   <title>Show Sourcing Web App</title>
   <base href="/">
 
-	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
 	<!-- Disable translation prompt: Chrome -->
@@ -27,7 +26,7 @@
 	<meta name="mobile-web-app-capable" content="yes">
 
 	<!-- prevent pinterest to add pin button -->
-	<meta name="pinterest" content="nopin" />
+	<meta name="pinterest" content="nopin"/>
 
 	<style>
 		/* we put the styles here for faster rendering. If http2 is used we could move it in a separate file */
@@ -36,6 +35,7 @@
 			padding: 0;
 			margin: 0;
 		}
+
 		.temp {
 			display: block;
 			height: 100vh;
@@ -44,6 +44,7 @@
 			flex-direction: column;
 			background: white;
 		}
+
 		.temp header {
 			padding: 16px;
 			align-items: center;
@@ -57,7 +58,6 @@
 			width: 32px;
 			margin-right: 16px;
 			display: block;
-			background: url('/assets/img/logo.svg') no-repeat center;
 		}
 
 		.temp main {
@@ -69,11 +69,13 @@
 			flex-direction: column;
 			color: #5D6D8B;
 		}
+
 		.temp h1 {
 			font-size: 36px;
 			color: #182844;
 			font-family: 'Raleway', sans-serif;
 		}
+
 		.temp h2 {
 			font-family: "Source Sans Pro", sans-serif;
 			font-size: 20px;
@@ -82,7 +84,6 @@
 			font-weight: normal;
 			margin-bottom: 32px;
 		}
-
 
 		.temp .loader {
 			position: relative;
@@ -154,95 +155,97 @@
  * animation bounce-in-top
  * ----------------------------------------
  */
-			@-webkit-keyframes bounce-in-top {
-				0% {
-					-webkit-transform: translateY(-40px);
-									transform: translateY(-40px);
-					-webkit-animation-timing-function: ease-in;
-									animation-timing-function: ease-in;
-					opacity: 0;
-				}
-				38% {
-					-webkit-transform: translateY(0);
-									transform: translateY(0);
-					-webkit-animation-timing-function: ease-out;
-									animation-timing-function: ease-out;
-					opacity: 1;
-				}
-				55% {
-					-webkit-transform: translateY(-16px);
-									transform: translateY(-16px);
-					-webkit-animation-timing-function: ease-in;
-									animation-timing-function: ease-in;
-				}
-				72% {
-					-webkit-transform: translateY(0);
-									transform: translateY(0);
-					-webkit-animation-timing-function: ease-out;
-									animation-timing-function: ease-out;
-				}
-				81% {
-					-webkit-transform: translateY(-8px);
-									transform: translateY(-8px);
-					-webkit-animation-timing-function: ease-in;
-				}
+	@-webkit-keyframes bounce-in-top {
+		0% {
+			-webkit-transform: translateY(-40px);
+							transform: translateY(-40px);
+			-webkit-animation-timing-function: ease-in;
+							animation-timing-function: ease-in;
+			opacity: 0;
+		}
+		38% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+			opacity: 1;
+		}
+		55% {
+			-webkit-transform: translateY(-16px);
+							transform: translateY(-16px);
+			-webkit-animation-timing-function: ease-in;
+							animation-timing-function: ease-in;
+		}
+		72% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+		}
+		81% {
+			-webkit-transform: translateY(-8px);
+							transform: translateY(-8px);
+			-webkit-animation-timing-function: ease-in;
+		}
 
-				100% {
-					-webkit-transform: translateY(0);
-									transform: translateY(0);
-					-webkit-animation-timing-function: ease-out;
-									animation-timing-function: ease-out;
-				}
-			}
-			@keyframes bounce-in-top {
-				0% {
-					-webkit-transform: translateY(-40px);
-									transform: translateY(-40px);
-					-webkit-animation-timing-function: ease-in;
-									animation-timing-function: ease-in;
-					opacity: 0;
-				}
-				38% {
-					-webkit-transform: translateY(0);
-									transform: translateY(0);
-					-webkit-animation-timing-function: ease-out;
-									animation-timing-function: ease-out;
-					opacity: 1;
-				}
-				55% {
-					-webkit-transform: translateY(-16px);
-									transform: translateY(-16px);
-					-webkit-animation-timing-function: ease-in;
-									animation-timing-function: ease-in;
-				}
-				72% {
-					-webkit-transform: translateY(0);
-									transform: translateY(0);
-					-webkit-animation-timing-function: ease-out;
-									animation-timing-function: ease-out;
-				}
-				81% {
-					-webkit-transform: translateY(-8px);
-									transform: translateY(-8px);
-					-webkit-animation-timing-function: ease-in;
-				}
+		100% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+		}
+	}
+	@keyframes bounce-in-top {
+		0% {
+			-webkit-transform: translateY(-40px);
+							transform: translateY(-40px);
+			-webkit-animation-timing-function: ease-in;
+							animation-timing-function: ease-in;
+			opacity: 0;
+		}
+		38% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+			opacity: 1;
+		}
+		55% {
+			-webkit-transform: translateY(-16px);
+							transform: translateY(-16px);
+			-webkit-animation-timing-function: ease-in;
+							animation-timing-function: ease-in;
+		}
+		72% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+		}
+		81% {
+			-webkit-transform: translateY(-8px);
+							transform: translateY(-8px);
+			-webkit-animation-timing-function: ease-in;
+		}
 
-				100% {
-					-webkit-transform: translateY(0);
-									transform: translateY(0);
-					-webkit-animation-timing-function: ease-out;
-									animation-timing-function: ease-out;
-				}
-			}
+		100% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+		}
+	}
 
 
 	</style>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1976d2">
 </head>
-<body override>
+<body override="">
   <app-root>
 		<div class="temp">
 			<header>
-				<div class="titleLogo bounce-in-top"></div>
+				<img src="/assets/img/favicon.svg" class="titleLogo bounce-in-top"/>
 				<span class="title"><b>Show</b>Sourcing</span>
 			</header>
 			<main>
@@ -257,5 +260,6 @@
 			</main>
 		</div>
 	</app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 </html>

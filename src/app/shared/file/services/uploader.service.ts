@@ -58,7 +58,7 @@ export class UploaderService {
 			mergeMap(info => this.uploadFileToAws(info, file, isImage)),
 			// when the upload is done on amazon, the image will give a 403 for a few seconds
 			// so we need to wait for it to be ready.
-			mergeMap(_ => this.emitWhenFileReady(request)),
+			mergeMap(_ => this.emitWhenFileReady(request) as any),
 			// putting the request status to uploaded
 			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' })),
 			// add notification

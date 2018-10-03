@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as getstream from 'getstream';
 import { forkJoin, Observable, ReplaySubject, BehaviorSubject, combineLatest, from } from 'rxjs';
-import { first, map, scan, switchMap, tap, switchMapTo, mapTo, zip } from 'rxjs/operators';
+import { first, map, scan, switchMap, tap, switchMapTo, mapTo, zip, mergeScan, shareReplay } from 'rxjs/operators';
 import { ProductService, TeamService, SupplierService } from '~global-services';
 import { CommentService } from '~global-services/comment/comment.service';
 import { log } from '~utils';
@@ -21,7 +21,7 @@ import { GroupedActivityFeed, ActivityFeed } from '~shared/activity/interfaces/c
 	providedIn: 'root'
 })
 export class ActivityService {
-	private readonly LIMIT = 15;
+	private readonly LIMIT = 10;
 	private client: any;
 
 	constructor(
@@ -58,24 +58,22 @@ export class ActivityService {
 	private getFeed(tokenUrl: string, feedName: string, feedId: string)
 		: GroupedActivityFeed | ActivityFeed {
 
-		const _previousResult$ = new BehaviorSubject<any[]>([]);
 		const _loadMore$ = new BehaviorSubject<undefined>(undefined);
 		const loadMore = () => {
 			_loadMore$.next(undefined);
 		};
+
 		const _token$ = this.getToken(tokenUrl).pipe(first());
 
 		// the token emits once, when it has emitted we wait for load more,
 		// when we have one load more emitted we get the previous result,
 		// then we get the feed result after that previous result
-		const feed$ = combineLatest(_token$, _loadMore$).pipe(
-			switchMap(([token]) => _previousResult$.pipe(
-				first(),
-				map(previous => [token, previous]))
-			),
-			switchMap(([token, prev]: any) => this.getNextFeedResult(feedName, feedId, token, prev)),
-			tap(res => _previousResult$.next(res)),
-			scan((pre, curr) => ([...pre, ...curr]), [])
+		const feed$ = _token$.pipe(
+			switchMap(token => _loadMore$.pipe(
+				mergeScan(prev => this.getNextFeedResult(feedName, feedId, token, prev), [], 1),
+				scan((pre, curr) => [...pre, ...curr], [])
+			)),
+			shareReplay(1)
 		);
 
 		return { feed$, loadMore };
@@ -98,7 +96,7 @@ export class ActivityService {
 				const headers = new HttpHeaders({ Authorization: token.token });
 				return this.http.get<TokenResponse>(url, { headers });
 			}),
-			map((tokenState: TokenState) => tokenState.token),
+			map((resp: TokenResponse) => resp.token),
 			first()
 		);
 	}
