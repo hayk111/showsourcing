@@ -55,6 +55,11 @@ one-activity-carousel-app {
 }
 
 .badges {
+
+	status-badge-app, info-badge-app {
+		margin-top: var(--spacing-s);
+	}
+
 	> * {
 		margin-right: var(--spacing-xs);
 	}
@@ -72,6 +77,7 @@ card-footer-app {
 		resize: none;
 		border: none;
 		background: none;
+		border: 1px solid transparent; // this way we avoid movement on the input when focusing
 
 		&:focus {
 			border-radius: 500px;

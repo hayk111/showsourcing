@@ -34,8 +34,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 			lastName: ['', Validators.required],
 			email: [
 				'',
-				Validators.compose([Validators.required, Validators.email]),
-				[new EmailNotTakenValidators(this.userSrv)]
+				Validators.compose([Validators.required, Validators.email])
 			],
 			password: [
 				'',
@@ -59,35 +58,14 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 				},
 				e => {
 					if (e.error && e.error.errors && e.error.errors.email) {
-						this.error = e.error.errors.email.msg;
+						this.form.get('email').markAsPristine();
+						this.error = 'An account already exist with this email address.';
 					} else {
 						this.error = e.error.message;
 					}
-					this.pending$.next(false);
 				}
 			);
 		}
-	}
-
-	validateEmailNotTaken(control: AbstractControl): Observable<{ [errorName: string]: boolean }> {
-		return this.userSrv.queryOneByPredicate(`email == "${control.value}"`, 'email').pipe(
-			map(emailTaken => !!emailTaken),
-			map(emailTaken => ({ emailTaken }))
-		);
-	}
-
-}
-
-@Injectable({ providedIn: 'root' })
-export class EmailNotTakenValidators implements AsyncValidator {
-
-	constructor(protected userSrv: UserService) { }
-
-	validate(control: AbstractControl): Observable<{ [errorName: string]: boolean }> {
-		return this.userSrv.queryOneByPredicate(`email == "${control.value}"`, 'email').pipe(
-			map(emailTaken => !!emailTaken),
-			map(emailTaken => ({ emailTaken }))
-		);
 	}
 }
 

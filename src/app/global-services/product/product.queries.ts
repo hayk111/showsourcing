@@ -94,6 +94,7 @@ export abstract class ProductQueries extends GlobalQueries {
 		favorite
 		lastUpdatedDate,
 		archived,
+		score
 		${ProductQueries.status}
 		${ProductQueries.votes}
 		${ProductQueries.projects}
