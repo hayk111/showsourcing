@@ -9,7 +9,7 @@
 
 		<div class="imgNumber flex flexCenter">
 			<span>{{product?.images?.length || '-'}}</span>
-			<div class="icon-img"></div>
+			<icon-app name="image"></icon-app>
 		</div>
 
 		<div class="imgPrice flex flexCenter">
@@ -21,7 +21,7 @@
 		</status-badge-app>
 
 		<checkbox-app
-			*ngIf="hasActions && (selected || showOptionsBar)"
+			*ngIf="hasActions && hasCheckbox && (selected || showOptionsBar)"
 			[size]="20"
 			[checked]="selected"
 			(check)="productSelect.emit()"
@@ -51,7 +51,7 @@
 			(buttonClick)="onViewProduct()">
 
 			<button class="icon light folder" (click)="openAddToProject()">
-				<icon-app name="folder-light" fontSet="svg"></icon-app>
+				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
 			</button>
 			<!-- uncomment when we have the design of the options -->
 			<!-- <button class="icon light dots">
