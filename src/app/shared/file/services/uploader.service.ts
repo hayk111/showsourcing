@@ -23,9 +23,10 @@ export class UploaderService {
 
 	uploadImages(imgs: File[]): Observable<any> {
 
-		return forkJoin(imgs.map(img => resizeSizeToLimit(img, 1000000, (newImage) => {
+		return forkJoin(imgs.map(img => resizeSizeToLimit(img, 10000).pipe(take(1)).subscribe((newImage) => {
 			console.log(newImage);
-			return this.uploadFile(newImage, 'image');
+      this.uploadFile(newImage, 'image');
+      return (newImage);
 		})))
 			.pipe(
 				first(),
