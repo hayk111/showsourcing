@@ -39,7 +39,8 @@ export class ProductExportDlgComponent implements OnInit {
 			query: JSON.stringify({
 				products: {
 					query: this.products.map(product => `id == '${product.id}'`).join(' or ')
-				}
+        },
+        suppliers: {}
 			})
 		});
 		this.exportSrv.create(request).pipe(
