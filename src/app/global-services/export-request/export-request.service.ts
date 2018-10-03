@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ExportRequest } from '~models';
+import { ExportRequest, User } from '~models';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { ExportRequestQueries } from '~global-services/export-request/export-request.queries';
@@ -26,7 +26,8 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 	}
 
 	create(request: ExportRequest, ...args) {
-		this.userSrv.selectUser().pipe(take(1)).subscribe(_user => request.createdBy = _user);
+    this.userSrv.selectUser().pipe(take(1)).subscribe(_user => request.createdBy = new User({id: _user.id}));
+    console.log(request);
 		return super.create(request, ...args).pipe(
 			switchMap(_ => this.waitForOne(`id == "${request.id}" AND status == "ready"`))
 		);
