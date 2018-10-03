@@ -22,14 +22,14 @@ export function resizeSizeToLimit(file: File, limit: number = 1000000, resizeDon
 					const ctx = elem.getContext('2d');
 					ctx.drawImage(img, 0, 0, newWidth, newHeight);
 					ctx.canvas.toBlob((blob) => {
-						newFile = new File([blob], 'test', {
-							type: 'image/jpeg',
+						newFile = new File([blob], file.name, {
+							type: file.type,
 							lastModified: Date.now()
             });
 
 			    observer.next(newFile);
 			    observer.complete();
-					}, 'image/jpeg', 1);
+					}, file.type, 1);
 				};
 			};
 			reader.readAsDataURL(file);
