@@ -8,6 +8,7 @@
 			*ngFor="let column of columns; let i = index;trackBy: trackById"
 			[dropzoneApp]="column"
 			[data]="column"
+			[borderColor]="column.color"
 			[disabled]="column.disabled"
 			[checked]="hasAllItemsSelected(selectedItems, column)"
 			[label]="column.name | const:'status':'name'"
