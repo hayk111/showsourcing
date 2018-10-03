@@ -20,7 +20,7 @@
       <div class="titleCtnr"><h2>{{ category.label.name || 'Unnamed' }}</h2></div>
       <div class="descriptionCtnr">
         <h3>
-          {{ supplier?.supplierType?.name || 'Supplier' }}
+          {{ category.supplierType?.name || 'Supplier' }}
           <ng-container *ngIf="element.country"> - {{ element.country | const:'country' }}</ng-container>
         </h3>
       </div>
