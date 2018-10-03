@@ -13,6 +13,13 @@ export const statusMap = {
 			}
 		}
 	},
+	'_getQuotation': {
+		locales: {
+			en: {
+				name: 'Get Quotation'
+			}
+		}
+	},
 	'_Refused': {
 		locales: {
 			en: {
@@ -31,6 +38,13 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Validated'
+			}
+		}
+	},
+	'_ValidateSample': {
+		locales: {
+			en: {
+				name: 'Validate Sample'
 			}
 		}
 	},

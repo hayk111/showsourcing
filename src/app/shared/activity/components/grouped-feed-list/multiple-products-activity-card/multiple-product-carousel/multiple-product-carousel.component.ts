@@ -12,11 +12,15 @@ export class MultipleProductCarouselComponent implements OnInit {
 
 	@Input() products: Product[];
 	@Input() selectedIndex = 0;
-	@Output() onViewProduct = new EventEmitter<Product>();
+	@Output() update = new EventEmitter<Product>();
 
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	updateProduct(prod: Product, fields) {
+		this.update.emit({ id: prod.id, ...fields });
 	}
 
 	back(event) {

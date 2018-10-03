@@ -4,12 +4,12 @@
 
 	<main class="exportRow" *ngIf="!pending; else spinner">
 		<div class="exportCell" (click)="select('xlsx')" [class.selected]="selectedExport === 'xlsx'">
-			<div class="icon-excel"></div>
+			<icon-app name="excel"></icon-app>
 			<div class="title">Excel</div>
 			<div class="subtitle" i18n="div subtitle|Export product for edition porpuses@@productExport_excelEdit">Perfect for edition</div>
 		</div>
 		<div class="exportCell" (click)="select('pdf')" [class.selected]="selectedExport === 'pdf'">
-			<div class="icon-pdf"></div>
+			<icon-app name="pdf"></icon-app>
 			<div class="title">PDF</div>
 			<div class="subtitle" i18n="div subtitle|Export product for sharing porpuses@@productExport_pdfShare">Perfect for sharing</div>
 		</div>

@@ -13,25 +13,23 @@ import { Currency } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PriceComponent implements OnInit {
+
 	@Input() big = false;
 	@Input() currency: Currency;
 	@Input() fontWeight = 'inherit';
 	@Input() size = 'inherit';
-	// price are 10000 times less than what comes back from the server
-	// @input in setter
+	@Input() get amount() {
+		return this._amount;
+	}
+
 	private _amount: number;
 
 	constructor() { }
 
 	ngOnInit() { }
 
-	@Input()
-	get amount() {
-		return this._amount;
-	}
-
 	set amount(v: number) {
-		this._amount = v / 10000;
+		this._amount = v;
 	}
 
 	get styles() {

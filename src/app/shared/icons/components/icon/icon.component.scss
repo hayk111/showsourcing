@@ -38,6 +38,12 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-file:before {
+  content: "\e900";
+}
+.icon-image:before {
+  content: "\e90c";
+}
 .icon-check-square:before {
   content: "\e901";
 }
@@ -153,25 +159,25 @@ i {
   content: "\e908";
 }
 .icon-envelope:before {
-  content: "\e900";
+  content: "\e902";
 }
 .icon-heart:before {
   content: "\e909";
 }
 .icon-pdf:before {
-  content: "\e902";
-}
-.icon-tag:before {
   content: "\e903";
 }
-.icon-thumbs-down:before {
+.icon-tag:before {
   content: "\e904";
 }
-.icon-thumbs-up:before {
+.icon-thumbs-down:before {
   content: "\e905";
 }
-.icon-trash-bin:before {
+.icon-thumbs-up:before {
   content: "\e906";
+}
+.icon-trash-bin:before {
+  content: "\e90d";
 }
 .icon-user:before {
   content: "\e948";

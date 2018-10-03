@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { KanbanService } from '~features/workflow/services/kanban.service';
-import { KanbanItemCardComponent } from '~shared/product-common/components/kanban-item-card/kanban-item-card.component';
 import { AutoUnsub } from '~utils';
 
 @Component({

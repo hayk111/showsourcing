@@ -21,7 +21,6 @@ import { routes } from '~features/products/routes';
 
 import {
 	ProductIconsComponent,
-	ProductSmallCardComponent,
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
@@ -78,7 +77,6 @@ import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 		InputsCustomModule
 	],
 	declarations: [
-		ProductSmallCardComponent,
 		ProductIconsComponent,
 		ProductSubInfoComponent,
 		ProductsPageComponent,
@@ -105,7 +103,7 @@ import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 		RfqDialogComponent,
 		VoteDetailsDialogComponent
 	],
-	exports: [ProductSmallCardComponent],
+	exports: [],
 	providers: [ProductFeatureService]
 })
 export class ProductModule {

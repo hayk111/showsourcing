@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from 'environments/environment';
 import { AppComponent } from '~app-root/components/app.component';
 import { routes } from '~app-root/routes';
 import { AuthModule } from '~features/auth';
-import { InvitationModule } from '~features/invitation';
 import { EventModule } from '~features/event/event.module';
+import { InvitationModule } from '~features/invitation';
 import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
 import { TestPageModule } from '~features/test-page/test-page.module';
 import { UserModule } from '~features/user';
@@ -18,8 +20,6 @@ import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
-import { environment } from 'environments/environment';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.

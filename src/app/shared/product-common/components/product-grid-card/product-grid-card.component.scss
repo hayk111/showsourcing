@@ -45,8 +45,8 @@
 			font-size: var(--font-size-ms);
 			font-weight: 600;
 			color: white;
-			background: rgba(93, 109, 139, 0.85);
 			padding: 0px 6px;
+			background: rgba(93, 109, 139, 0.8);
 			border-radius: var(--border-radius);
 		}
 
@@ -56,16 +56,15 @@
 			left: 280px;
 			font-size: var(--font-size-s);
 			font-weight: 600;
-			padding: 3px 7px;
+			padding: 2px 7px;
 			border-radius: var(--border-radius);
-			background: rgba(93, 109, 139, 0.6);
+			background: rgba(93, 109, 139, 0.8);
 			color: white;
 			span {
 				margin-right: var(--spacing-xs);
 			}
-			div.icon-img {
+			icon-app {
 				font-size: var(--font-size-xxs);
-				margin-top: 2px;
     	}
 		}
 
@@ -105,7 +104,7 @@
 			padding-left: var(--spacing-s);
 
 			icon-app {
-				font-size: var(--font-size-xxl);
+				font-size: var(--font-size-xl);
 			}
 		}
 

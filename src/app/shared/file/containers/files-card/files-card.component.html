@@ -1,5 +1,12 @@
 <card-app (fileDrop)="onFileAdded($event)" padding="ms">
-	<h2 i18n="header 2|File section card title@@filesCard_attachedFiles">Attached Files</h2>
+	<div class="title flex">
+		<div class="space-icon flexAround">
+			<icon-app class="fs-m color-primary" name="file" ></icon-app>
+		</div>
+		<h2 i18n="header 2|File section card title@@filesCard_attachedFiles">
+			Attached Files
+		</h2>
+	</div>
 
 	<ng-container *ngIf="files">
 		<ng-container *ngIf="files.length > 0; else noFile">
@@ -11,7 +18,9 @@
 					<div class="flex">
 						<spinner-app size="51" width="3" *ngIf="file.pending"></spinner-app>
 
-						<img class="iconFile" [src]="defaultImg"/>
+						<div class="space-icon flexAround">
+							<icon-app class="fs-m color-txt-secondary" name="file" ></icon-app>
+						</div>
 						<div class="name pointer">
 							<div class="ellipsis">{{ file.fileName }}</div>
 							<div class="file-size">{{ file.size | fileSize }}</div>
