@@ -50,8 +50,7 @@ export abstract class AbstractApolloClient {
 			this.createClient(uri, name, tokenState);
 			this.apolloState.setClientReady(name);
 		} catch (e) {
-			log.error(e);
-			this.apolloState.setClientError(name);
+			this.apolloState.setClientError(name, e);
 		}
 	}
 

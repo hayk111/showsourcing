@@ -44,14 +44,14 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 		).subscribe(token => {
 			this.initClient(globalConstUri, Client.GLOBAL_CONSTANT, token);
 		}, e => {
-			this.apolloState.setClientError(Client.GLOBAL_CONSTANT);
+			this.apolloState.setClientError(Client.GLOBAL_CONSTANT, e);
 		});
 
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.tokenSrv.getAccessToken(Client.GLOBAL_DATA)),
 		).subscribe(token => {
 			this.initClient(globalDataUri, Client.GLOBAL_DATA, token);
-		}, e => this.apolloState.setClientError(Client.GLOBAL_DATA));
+		}, e => this.apolloState.setClientError(Client.GLOBAL_DATA, e));
 
 		// destroy clients when unauthenticated
 		this.authSrv.authStatus$.pipe(

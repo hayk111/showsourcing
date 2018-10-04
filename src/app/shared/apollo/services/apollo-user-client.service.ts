@@ -55,9 +55,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		zip(realmUri$, accessToken$)
 			.subscribe(
 				([uri, token]) => super.initClient(uri, Client.USER, token),
-				e => {
-					this.apolloState.setClientError(Client.USER);
-				}
+				e => this.apolloState.setClientError(Client.USER, e)
 			);
 
 		// when the refreshToken is gone we close it

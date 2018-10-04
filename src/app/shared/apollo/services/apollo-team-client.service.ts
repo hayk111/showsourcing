@@ -63,7 +63,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		zip(accessToken$, uri$)
 			.subscribe(
 				([token, uri]) => super.initClient(uri, Client.TEAM, token),
-				e => this.apolloState.setClientError(Client.TEAM)
+				e => this.apolloState.setClientError(Client.TEAM, e)
 			);
 
 		// when no team selected we also destroy the client

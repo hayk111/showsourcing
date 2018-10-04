@@ -63,9 +63,10 @@ export class ApolloStateService {
 		this.emit();
 	}
 
-	setClientError(name: Client) {
+	setClientError(name: Client, error: Error) {
 		const status = ClientStatus.ERROR;
 		this.log(name, status, this.getCurrentStatus(name));
+		log.error(error);
 		this.clientsState[name] = status;
 		this.emit();
 	}
@@ -100,7 +101,6 @@ export class ApolloStateService {
 		// when any of those has error, we redirect to server issue
 		const hasError = Object.values(allState).some(value => value === ClientStatus.ERROR);
 		if (hasError) {
-			debugger;
 			this.router.navigate(['server-issue']);
 		}
 	}
