@@ -13,6 +13,7 @@ import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.inte
 import { takeUntil, map } from 'rxjs/operators';
 import { ProductService } from '~global-services';
 import { FormControl } from '@angular/forms';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'one-product-activity-card-app',
@@ -36,7 +37,8 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		private router: Router,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
-		private productSrv: ProductService) {
+		private productSrv: ProductService,
+		private thumbsSrv: ThumbService) {
 		super();
 	}
 
@@ -64,7 +66,13 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		this.updateProduct({ id: this.product.id, favorite: false });
 	}
 
-	onVote(votes) {
+	onLike() {
+		const votes = this.thumbsSrv.thumbUp(this.product);
+		this.updateProduct({ id: this.product.id, votes });
+	}
+
+	onDislike() {
+		const votes = this.thumbsSrv.thumbDown(this.product);
 		this.updateProduct({ id: this.product.id, votes });
 	}
 

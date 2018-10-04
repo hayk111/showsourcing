@@ -17,9 +17,10 @@
 			<action-bar-app
 					[favorite]="product?.favorite"
 					[votes]="product?.votes"
-					(vote)="onVote($event)"
 					(onFavorite)="onFavorite()"
-					(onUnfavorite)="onUnfavorite()">
+					(onUnfavorite)="onUnfavorite()"
+					(liked)="onLike()"
+					(disliked)="onDislike()">
 					<button class="icon light" (click)="openAddToProject()">
 						<icon-app class="fs-xl" fontSet="svg" name="folder-light"></icon-app>
 					</button>

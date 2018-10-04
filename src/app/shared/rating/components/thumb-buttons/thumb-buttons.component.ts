@@ -57,23 +57,23 @@ export class ThumbButtonsComponent {
 			}
 		}
 	}
-	@Output() liked = new EventEmitter<boolean>();
-	@Output() disliked = new EventEmitter<boolean>();
+	@Output() liked = new EventEmitter<null>();
+	@Output() disliked = new EventEmitter<null>();
 	like = false;
 	dislike = false;
 
 	constructor(private userSrv: UserService) { }
 
 	thumbUp() {
-		this.liked.emit(!this.liked);
+		this.liked.emit();
 		if (this.multiple) {
 			this.like = this.like ? false : true;
 			this.dislike = false;
 		}
 	}
 
-	thumbsDown() {
-		this.disliked.emit(!this.dislike);
+	thumbDown() {
+		this.disliked.emit();
 		if (this.multiple) {
 			this.dislike = this.dislike ? false : true;
 			this.like = false;
@@ -150,14 +150,14 @@ export class ThumbButtonsComponent {
 
 	// createEmitVote(state: boolean = true) {
 	// 	const vote = new ProductVote({
-	// 		value: state ? 100 : 0,
-	// 		user: {
-	// 			id: this.userSrv.userSync.id,
-	// 			firstName: this.userSrv.userSync.firstName,
-	// 			lastName: this.userSrv.userSync.lastName,
-	// 			avatar: this.userSrv.userSync.avatar,
-	// 			__typename: 'User'
-	// 		}
+	// value: state ? 100 : 0,
+	// user: {
+	// 	id: this.userSrv.userSync.id,
+	// 	firstName: this.userSrv.userSync.firstName,
+	// 	lastName: this.userSrv.userSync.lastName,
+	// 	avatar: this.userSrv.userSync.avatar,
+	// 	__typename: 'User'
+	// }
 	// 	});
 	// 	this.vote.emit([...this.votes, vote]);
 	// }

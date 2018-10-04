@@ -10,10 +10,9 @@
 			<thumb-buttons-app
 				*ngIf="hasLikes"
 				size="m"
-				[products]="products"
 				[votes]="votes"
-				(multipleVotes)="multipleVotes.emit($event)"
-				(vote)="vote.emit($event)">
+				(liked)="liked.emit()"
+				(disliked)="disliked.emit()">
 			</thumb-buttons-app>
 			<ng-content></ng-content>
 		</div>
