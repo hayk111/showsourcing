@@ -34,6 +34,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 	}
 
 	init() {
+		const userId$ = this.authSrv.userId$.pipe(shareReplay(1));
 		// we can't use distinctUntilChanged because
 		// the user might pick the same team twice upon reconnection
 		const teamSelected$ = this.teamSrv.teamSelectionEvent$
@@ -44,20 +45,26 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			);
 
 		// here the user client is ready if a team is selected
-		const uri$ = teamSelected$.pipe(
-			switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
+		const uri$ = combineLatest(teamSelected$, userId$).pipe(
+			switchMap(
+				([team, userId]) => this.getRealmUri(team.realmServerName, `${team.realmPath}/__partial/${userId}`)
+			)
 		);
 
-		const accessToken$ = teamSelected$.pipe(
+		const accessToken$ = combineLatest(teamSelected$, userId$).pipe(
 			// we need one access token per team id, ence the first
-			switchMap(team => this.tokenSrv.getAccessToken(`${Client.TEAM}/${team.id}`)
-				.pipe(first())
+			switchMap(
+				([team, userId]) => this.tokenSrv.getAccessToken(`${Client.TEAM}/${team.id}/__partial/${userId}`)
+					.pipe(first())
 			)
 		);
 
 		// combine tokens & uri
 		zip(accessToken$, uri$)
-			.subscribe(([token, uri]) => super.initClient(uri, Client.TEAM, token));
+			.subscribe(
+				([token, uri]) => super.initClient(uri, Client.TEAM, token),
+				e => this.apolloState.setClientError(Client.TEAM)
+			);
 
 		// when no team selected we also destroy the client
 		this.teamSrv.hasTeamSelected$.pipe(

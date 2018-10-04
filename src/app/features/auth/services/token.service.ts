@@ -98,7 +98,12 @@ export class TokenService {
 				return of(lastAccessToken);
 			}
 		}
-		return this.fetchAccessToken(realmPath);
+		return this.fetchAccessToken(realmPath).pipe(
+			tap(accessToken => {
+				if (!accessToken)
+					throw Error(`server didn't answer with an accessToken`);
+			})
+		);
 	}
 
 	/** gets an access token from a refresh token and stores it */
@@ -110,7 +115,7 @@ export class TokenService {
 				app_id: '',
 				provider: 'realm',
 				data: refreshToken.token,
-				// path: realmPath
+				path: realmPath
 			})
 			),
 			switchMap(accessObj => this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj)),

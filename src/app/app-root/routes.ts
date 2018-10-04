@@ -22,11 +22,10 @@ export const routes: Array<Route> = [
 		path: 'guest',
 		component: GuestTemplateComponent,
 		canActivateChild: [
-			UnauthGuardService
+			// UnauthGuardService
 		],
 		children: [
 			...authRoutes,
-			{ path: 'server-issue', component: ApolloIssuePageComponent }
 		]
 	},
 	{ path: 'server-issue', component: ApolloIssuePageComponent },
@@ -83,6 +82,5 @@ export const routes: Array<Route> = [
 			{ path: 'workspace', loadChildren: 'app/features/workspace/workspace.module#WorkspaceModule' },
 			{ path: 'test', children: testRoutes },
 		],
-	},
-	{ path: '**', redirectTo: '' },
+	}
 ];
