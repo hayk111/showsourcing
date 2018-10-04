@@ -82,5 +82,6 @@ export const routes: Array<Route> = [
 			{ path: 'workspace', loadChildren: 'app/features/workspace/workspace.module#WorkspaceModule' },
 			{ path: 'test', children: testRoutes },
 		],
-	}
+	},
+	{ path: '**', redirectTo: '' },
 ];

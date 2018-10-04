@@ -98,12 +98,7 @@ export class TokenService {
 				return of(lastAccessToken);
 			}
 		}
-		return this.fetchAccessToken(realmPath).pipe(
-			tap(accessToken => {
-				if (!accessToken)
-					throw Error(`server didn't answer with an accessToken`);
-			})
-		);
+		return this.fetchAccessToken(realmPath);
 	}
 
 	/** gets an access token from a refresh token and stores it */
@@ -119,7 +114,11 @@ export class TokenService {
 			})
 			),
 			switchMap(accessObj => this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj)),
-			map(accessTokenResp => accessTokenResp.user_token),
+			tap(accessTokenResp => {
+				if (!accessTokenResp || !accessTokenResp.access_token)
+					throw Error(`server didn't answer with an accessToken`);
+			}),
+			map(accessTokenResp => accessTokenResp.access_token),
 			tap(tokenState => this.storeAccessToken(tokenState, realmPath))
 		);
 	}

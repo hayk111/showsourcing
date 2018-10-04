@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from, split, ApolloLink } from 'apollo-link';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { first, map, switchMap } from 'rxjs/operators';
@@ -86,30 +86,42 @@ export abstract class AbstractApolloClient {
 	/** we use the path as client name.. */
 	protected createClient(uri: string, name: Client, tokenState: TokenState) {
 		log.debug(`%c creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
-		// Create a WebSocket link:
-		const connectionParams = { token: tokenState.token };
-		this.ws = new WebSocketLink({
-			uri,
-			options: {
-				reconnect: true,
-				connectionParams
-			}
+
+
+
+		return Observable.create((observer: Observer<any>) => {
+			// we complete the observable when connected
+			const connectionCallback = (error: any) => {
+				if (error) {
+					observer.error(error);
+				} else {
+					observer.complete();
+				}
+			};
+
+			// Create a WebSocket link:
+			const connectionParams = { token: tokenState.token };
+			this.ws = new WebSocketLink({
+				uri,
+				options: {
+					reconnect: true,
+					connectionParams,
+					connectionCallback
+				}
+			});
+
+			const link = from([
+				cleanTypenameLink,
+				this.ws
+			]);
+
+			this.apollo.create({
+				link,
+				connectToDevTools: !environment.production,
+				cache: new InMemoryCache({}),
+				queryDeduplication: true
+			}, name);
 		});
-
-
-		const link = from([
-			cleanTypenameLink,
-			this.ws
-		]);
-
-		this.apollo.create({
-			link,
-			connectToDevTools: !environment.production,
-			cache: new InMemoryCache({}),
-			queryDeduplication: true
-		}, name);
-		// need to reset the store so it doesn't have previous data
-		// const cli = this.apollo.use(name).getClient().resetStore();
 
 	}
 
