@@ -39,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
 				document.body.scrollTop = 0;
 			});
 	}
+
 	ngOnDestroy() {
 		this.routerSubscription.unsubscribe();
 	}
