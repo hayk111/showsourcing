@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { environment } from 'environments/environment';
 import { merge, zip } from 'rxjs';
-import { distinctUntilChanged, filter, switchMapTo, switchMap, catchError } from 'rxjs/operators';
+import { distinctUntilChanged, filter, switchMapTo, switchMap, catchError, tap } from 'rxjs/operators';
 import { AuthStatus } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
@@ -41,17 +41,19 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 		// will wait for user authentication..
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.tokenSrv.getAccessToken(Client.GLOBAL_CONSTANT)),
-		).subscribe(token => {
-			this.initClient(globalConstUri, Client.GLOBAL_CONSTANT, token);
-		}, e => {
-			this.apolloState.setClientError(Client.GLOBAL_CONSTANT, e);
-		});
+			switchMap(token => this.createClient(globalConstUri, Client.GLOBAL_CONSTANT, token))
+		).subscribe(
+			_ => this.apolloState.setClientReady(Client.GLOBAL_CONSTANT),
+			e => this.apolloState.setClientError(Client.GLOBAL_CONSTANT, e)
+		);
 
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.tokenSrv.getAccessToken(Client.GLOBAL_DATA)),
-		).subscribe(token => {
-			this.initClient(globalDataUri, Client.GLOBAL_DATA, token);
-		}, e => this.apolloState.setClientError(Client.GLOBAL_DATA, e));
+			switchMap(token => this.createClient(globalDataUri, Client.GLOBAL_DATA, token)),
+		).subscribe(
+			_ => this.apolloState.setClientReady(Client.GLOBAL_DATA),
+			e => this.apolloState.setClientError(Client.GLOBAL_DATA, e)
+		);
 
 		// destroy clients when unauthenticated
 		this.authSrv.authStatus$.pipe(

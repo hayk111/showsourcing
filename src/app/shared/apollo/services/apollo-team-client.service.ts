@@ -60,11 +60,12 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		);
 
 		// combine tokens & uri
-		zip(accessToken$, uri$)
-			.subscribe(
-				([token, uri]) => super.initClient(uri, Client.TEAM, token),
-				e => this.apolloState.setClientError(Client.TEAM, e)
-			);
+		zip(accessToken$, uri$).pipe(
+			switchMap(([token, uri]) => super.createClient(uri, Client.TEAM, token))
+		).subscribe(
+			_ => this.apolloState.setClientReady(Client.TEAM),
+			e => this.apolloState.setClientError(Client.TEAM, e)
+		);
 
 		// when no team selected we also destroy the client
 		this.teamSrv.hasTeamSelected$.pipe(

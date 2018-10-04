@@ -22,7 +22,7 @@ export const routes: Array<Route> = [
 		path: 'guest',
 		component: GuestTemplateComponent,
 		canActivateChild: [
-			// UnauthGuardService
+			UnauthGuardService
 		],
 		children: [
 			...authRoutes,
@@ -46,7 +46,6 @@ export const routes: Array<Route> = [
 		path: 'rfq/:token',
 		component: RfqTemplateComponent,
 		canActivateChild: [
-
 		],
 		children: [
 			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },

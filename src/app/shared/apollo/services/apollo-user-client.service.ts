@@ -52,11 +52,12 @@ export class UserClientInitializer extends AbstractApolloClient {
 			switchMap(userId => super.getRealmUri('default', `user/${userId}/__partial/${userId}`))
 		);
 
-		zip(realmUri$, accessToken$)
-			.subscribe(
-				([uri, token]) => super.initClient(uri, Client.USER, token),
-				e => this.apolloState.setClientError(Client.USER, e)
-			);
+		zip(realmUri$, accessToken$).pipe(
+			switchMap(([uri, token]) => this.createClient(uri, Client.USER, token))
+		).subscribe(
+			_ => this.apolloState.setClientReady(Client.USER),
+			e => this.apolloState.setClientError(Client.USER, e)
+		);
 
 		// when the refreshToken is gone we close it
 		this.authSrv.notAuthenticated$
