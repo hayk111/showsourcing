@@ -19,8 +19,8 @@
 					[votes]="product?.votes"
 					(onFavorite)="onFavorite()"
 					(onUnfavorite)="onUnfavorite()"
-					(liked)="onLike()"
-					(disliked)="onDislike()">
+					(liked)="onThumbUp()"
+					(disliked)="onThumbDown()">
 					<button class="icon light" (click)="openAddToProject()">
 						<icon-app class="fs-xl" fontSet="svg" name="folder-light"></icon-app>
 					</button>

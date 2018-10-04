@@ -13,6 +13,7 @@ import { SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { TemplateService } from '~shared/template/services/template.service';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'products-page-app',
@@ -45,8 +46,9 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
-		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
+		protected moduleRef: NgModuleRef<any>,
+		protected thumbSrv: ThumbService) {
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, thumbSrv);
 	}
 
 	ngOnInit() {

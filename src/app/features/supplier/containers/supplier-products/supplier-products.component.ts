@@ -10,6 +10,7 @@ import { FilterList, SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { CreationDialogComponent } from '~shared/custom-dialog';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'supplier-app',
@@ -31,8 +32,9 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected route: ActivatedRoute,
-		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
+		protected moduleRef: NgModuleRef<any>,
+		protected thumbSrv: ThumbService) {
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, thumbSrv);
 
 	}
 

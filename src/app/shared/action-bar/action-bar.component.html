@@ -11,6 +11,7 @@
 				*ngIf="hasLikes"
 				size="m"
 				[votes]="votes"
+				[multiple]="multiple"
 				(liked)="liked.emit()"
 				(disliked)="disliked.emit()">
 			</thumb-buttons-app>

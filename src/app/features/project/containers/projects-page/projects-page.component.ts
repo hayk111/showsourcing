@@ -6,6 +6,7 @@ import { DialogService } from '~shared/dialog';
 import { SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 
 @Component({
@@ -27,9 +28,9 @@ export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFea
 		protected selectionSrv: SelectionService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>
-	) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PROJECT);
+		protected moduleRef: NgModuleRef<any>,
+		protected thumbSrv: ThumbService) {
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PROJECT, thumbSrv);
 	}
 
 }

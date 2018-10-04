@@ -38,7 +38,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
 		private productSrv: ProductService,
-		private thumbsSrv: ThumbService) {
+		private thumbSrv: ThumbService) {
 		super();
 	}
 
@@ -66,13 +66,13 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		this.updateProduct({ id: this.product.id, favorite: false });
 	}
 
-	onLike() {
-		const votes = this.thumbsSrv.thumbUp(this.product);
+	onThumbUp() {
+		const votes = this.thumbSrv.thumbUp(this.product);
 		this.updateProduct({ id: this.product.id, votes });
 	}
 
-	onDislike() {
-		const votes = this.thumbsSrv.thumbDown(this.product);
+	onThumbDown() {
+		const votes = this.thumbSrv.thumbDown(this.product);
 		this.updateProduct({ id: this.product.id, votes });
 	}
 

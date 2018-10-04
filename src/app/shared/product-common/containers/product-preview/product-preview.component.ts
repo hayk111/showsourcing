@@ -12,6 +12,7 @@ import { ProductModule } from '~features/products';
 import { NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'product-preview-app',
@@ -61,7 +62,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
-		private router: Router) {
+		private router: Router,
+		private thumbSrv: ThumbService) {
 		super();
 	}
 
@@ -80,6 +82,16 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	updateProduct(product: any) {
 		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
+	}
+
+	onThumbUp() {
+		const votes = this.thumbSrv.thumbUp(this.product);
+		this.updateProduct({ id: this.product.id, votes });
+	}
+
+	onThumbDown() {
+		const votes = this.thumbSrv.thumbDown(this.product);
+		this.updateProduct({ id: this.product.id, votes });
 	}
 
 	openRfq() {

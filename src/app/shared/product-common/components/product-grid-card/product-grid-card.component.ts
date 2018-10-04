@@ -6,6 +6,7 @@ import { DialogService } from '~shared/dialog';
 import { Router } from '@angular/router';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
 import { UserService } from '~global-services';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'product-grid-card-app',
@@ -35,7 +36,8 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
-		private router: Router) {
+		private router: Router,
+		private thumbSrv: ThumbService) {
 		super();
 	}
 
@@ -56,6 +58,16 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 
 	openAddToProject() {
 		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
+	}
+
+	onThumbUp() {
+		const votes = this.thumbSrv.thumbUp(this.product);
+		this.updateProduct({ id: this.product.id, votes });
+	}
+
+	onThumbDown() {
+		const votes = this.thumbSrv.thumbDown(this.product);
+		this.updateProduct({ id: this.product.id, votes });
 	}
 
 }

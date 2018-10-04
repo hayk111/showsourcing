@@ -22,7 +22,7 @@ export class ThumbService {
 			if (vote.value === 100) {
 				votes = this.deleteVote(product.votes, vote);
 			} else {
-				votes = this.updateVote(product.votes, voteIndex, 0);
+				votes = this.updateVote(product.votes, voteIndex, 100);
 			}
 		} else {
 			votes = this.createVote(product.votes || [], 100);
@@ -38,7 +38,7 @@ export class ThumbService {
 			if (vote.value === 0) {
 				votes = this.deleteVote(product.votes, vote);
 			} else {
-				votes = this.updateVote(product.votes, voteIndex, 100);
+				votes = this.updateVote(product.votes, voteIndex, 0);
 			}
 		} else {
 			votes = this.createVote(product.votes || [], 0);

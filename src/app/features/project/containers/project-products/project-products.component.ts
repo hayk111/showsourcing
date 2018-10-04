@@ -40,7 +40,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected moduleRef: NgModuleRef<any>,
 		protected featureSrv: ProjectWorkflowFeatureService,
 		private notifSrv: NotificationService) {
-		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
+		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, null, FindProductsDialogComponent);
 	}
 
 	ngOnInit() {
@@ -59,7 +59,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	 * Deassociate the product from the current project
 	 */
 	deassociateProductById(id: string) {
-		this.deassociateProductsWithProject([ { id } ]).subscribe();
+		this.deassociateProductsWithProject([{ id }]).subscribe();
 	}
 
 	/**

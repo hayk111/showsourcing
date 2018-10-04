@@ -18,6 +18,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SearchService } from '~shared/filters';
 import { TemplateService } from '~shared/template/services/template.service';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 
 @Component({
@@ -43,8 +44,9 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		protected workspaceSrv: WorkspaceFeatureService,
 		protected notificationSrv: NotificationService,
 		protected moduleRef: NgModuleRef<any>,
-		private templateSrv: TemplateService) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
+		private templateSrv: TemplateService,
+		protected thumbSrv: ThumbService) {
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, thumbSrv);
 	}
 
 	ngOnInit() {

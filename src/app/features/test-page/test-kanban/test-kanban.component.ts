@@ -25,7 +25,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './test-kanban.component.html',
 	styleUrls: ['./test-kanban.component.scss'],
 })
-export class TestKanbanComponent extends ListPageComponent<Product, ProductService>  implements OnInit {
+export class TestKanbanComponent extends ListPageComponent<Product, ProductService> implements OnInit {
 	project$: Observable<Project>;
 	// statuses$ = new Subject<ProductStatus[]>();
 	columns$: Observable<ProductStatus[]>;
@@ -48,7 +48,7 @@ export class TestKanbanComponent extends ListPageComponent<Product, ProductServi
 		protected featureSrv: ProjectWorkflowFeatureService,
 		protected notifSrv: NotificationService
 	) {
-		super(router, productSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
+		super(router, productSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, null, FindProductsDialogComponent);
 	}
 
 	ngOnInit() {

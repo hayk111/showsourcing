@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
-import { EntityMetadata, ERM } from '~models';
+import { EntityMetadata, ERM, Product } from '~models';
 import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType, SearchService, Filter } from '~shared/filters';
@@ -13,6 +13,7 @@ import { AutoUnsub } from '~utils';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~global-services/_global/select-params';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 
 
@@ -71,6 +72,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		protected dlgSrv?: DialogService,
 		protected moduleRef?: NgModuleRef<any>,
 		protected entityMetadata?: EntityMetadata,
+		protected thumbSrv?: ThumbService,
 		protected createDlgComponent: new (...args: any[]) => any = CreationDialogComponent) {
 		super();
 	}
@@ -312,6 +314,25 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	onUnfavoriteAllSelected() {
 		this.selectionItems().forEach(item => this.onItemUnfavorited(item.id));
 		this.allSelectedFavorite = false;
+	}
+
+	onThumbUp(product: Product) {
+		const votes = this.thumbSrv.thumbUp(product);
+		this.update({ id: product.id, votes } as any, 'votes');
+	}
+
+	onThumbDown(product: Product) {
+		const votes = this.thumbSrv.thumbDown(product);
+		this.update({ id: product.id, votes } as any, 'votes');
+
+	}
+
+	onMultipleThumbUp() {
+		this.selectionItems().forEach(item => this.onThumbUp(item));
+	}
+
+	onMultipleThumbDown() {
+		this.selectionItems().forEach(item => this.onThumbDown(item));
 	}
 
 	/** when filter button is clicked at the top we open the panel */
