@@ -99,7 +99,6 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {
-		console.log('>> onUpdateProductStatus - droppedElement = ', droppedElement);
 		if (droppedElement) {
 			droppedElement.forEach(element => {
 				this.workflowService.updateProductStatus(element, target)
