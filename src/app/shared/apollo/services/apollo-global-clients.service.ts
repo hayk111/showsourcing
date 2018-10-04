@@ -60,7 +60,6 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 			distinctUntilChanged(),
 			filter(status => status === AuthStatus.NOT_AUTHENTICATED),
 		).subscribe(_ => {
-			// this.destroyClient(Client.ALL_USER, 'no refresh token');
 			this.destroyClient(Client.GLOBAL_CONSTANT, 'no refresh token');
 			this.destroyClient(Client.GLOBAL_DATA, 'no refresh token');
 		});
