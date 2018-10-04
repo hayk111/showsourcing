@@ -1,6 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
-
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	selector: 'apollo-issue-page',

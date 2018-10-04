@@ -110,11 +110,15 @@ export class TokenService {
 				app_id: '',
 				provider: 'realm',
 				data: refreshToken.token,
-				// path: realmPath
+				path: realmPath
 			})
 			),
 			switchMap(accessObj => this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj)),
-			map(accessTokenResp => accessTokenResp.user_token),
+			tap(accessTokenResp => {
+				if (!accessTokenResp || !accessTokenResp.access_token)
+					throw Error(`server didn't answer with an accessToken`);
+			}),
+			map(accessTokenResp => accessTokenResp.access_token),
 			tap(tokenState => this.storeAccessToken(tokenState, realmPath))
 		);
 	}

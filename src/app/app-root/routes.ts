@@ -26,7 +26,6 @@ export const routes: Array<Route> = [
 		],
 		children: [
 			...authRoutes,
-			{ path: 'server-issue', component: ApolloIssuePageComponent }
 		]
 	},
 	{ path: 'server-issue', component: ApolloIssuePageComponent },
@@ -47,7 +46,6 @@ export const routes: Array<Route> = [
 		path: 'rfq/:token',
 		component: RfqTemplateComponent,
 		canActivateChild: [
-
 		],
 		children: [
 			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },

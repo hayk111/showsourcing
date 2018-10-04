@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { forkJoin, combineLatest, zip } from 'rxjs';
-import { filter, first, shareReplay, switchMap, switchMapTo, tap, distinctUntilChanged } from 'rxjs/operators';
+import { filter, first, shareReplay, switchMap, switchMapTo, tap, distinctUntilChanged, map } from 'rxjs/operators';
 import { AuthStatus } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
@@ -42,25 +42,29 @@ export class UserClientInitializer extends AbstractApolloClient {
 
 		const accessToken$ = userId$.pipe(
 			// we need one access token per user id, ence the first()
-			switchMap(userId => this.tokenSrv.getAccessToken(`user/${userId}`)
+			switchMap(userId => this.tokenSrv.getAccessToken(`user/${userId}/__partial/${userId}`)
 				.pipe(first())
 			)
 		);
 
 		const realmUri$ = userId$.pipe(
 			// realm uri won't change if the userId hasn't changed
-			switchMap(userId => this.getUserRealmUri(userId))
+			switchMap(userId => super.getRealmUri('default', `user/${userId}/__partial/${userId}`))
 		);
 
-		zip(realmUri$, accessToken$)
-			.subscribe(([uri, token]) => super.initClient(uri, Client.USER, token));
-
+		zip(realmUri$, accessToken$).pipe(
+			switchMap(([uri, token]) => this.createClient(uri, Client.USER, token))
+		).subscribe(
+			_ => this.apolloState.setClientReady(Client.USER),
+			e => this.apolloState.setClientError(Client.USER, e)
+		);
 
 		// when the refreshToken is gone we close it
 		this.authSrv.notAuthenticated$
 			.subscribe(_ => this.destroyClient(Client.USER, 'not authenticated'));
 	}
 
+	/** @deprecated: this was used when all user was a thing */
 	/** will emit once when all user and global constant are ready */
 	private getUserRealmUri(userId: string) {
 		// then we can query the user, and with that user we can get the realm uri...
