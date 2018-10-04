@@ -47,20 +47,7 @@ export class AuthenticationService {
 
 	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
-		const refPostObj = this.getRefreshTokenObject(credentials);
-		return this.tokenSrv.getRefreshToken(refPostObj);
-	}
-
-	private getRefreshTokenObject(credentials: Credentials): RefreshTokenPostBody {
-		return {
-			app_id: '',
-			provider: 'password',
-			data: credentials.identifier,
-			user_info: {
-				register: false,
-				password: credentials.password
-			}
-		};
+		return this.tokenSrv.getRefreshToken(credentials);
 	}
 
 	logout() {
@@ -70,12 +57,9 @@ export class AuthenticationService {
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {
-		const refPostBody = this.getRefreshTokenObject(credentials);
-		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refPostBody).pipe(
+		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, credentials).pipe(
 			map(_ => true),
-			catchError(_ => {
-				return of(false);
-			})
+			catchError(_ => of(false))
 		);
 	}
 

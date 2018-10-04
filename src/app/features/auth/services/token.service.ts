@@ -54,8 +54,13 @@ export class TokenService {
 			this._refreshToken$.next();
 	}
 
-	getRefreshToken(refPostBody: RefreshTokenPostBody) {
-		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refPostBody).pipe(
+	getRefreshToken(credentials: Credentials) {
+		const refObj = this.getRefreshTokenObject(credentials, 'password');
+		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObj).pipe(
+			// if there is an error with the new auth mech, we have to try the legacy one
+			catchError(e => of(this.getRefreshTokenObject(credentials, 'legacy')).pipe(
+				switchMap(refObjLeg => this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObjLeg))
+			)),
 			tap(refreshToken => this.storeRefreshToken(refreshToken)),
 			catchError(err => {
 				this._refreshToken$.next();
@@ -63,6 +68,20 @@ export class TokenService {
 			})
 		);
 	}
+
+	private getRefreshTokenObject(credentials: Credentials, provider: 'password' | 'legacy')
+		: RefreshTokenPostBody {
+		return {
+			app_id: '',
+			provider,
+			data: credentials.identifier,
+			user_info: {
+				register: false,
+				password: credentials.password
+			}
+		};
+	}
+
 
 	/** stores the access token we get on login */
 	private storeRefreshToken(resp: RefreshTokenResponse): TokenService {

@@ -15,7 +15,7 @@ pipelines:
           artifacts:
             - dist/**
           caches:
-            # - node
+            - node
 
       - step:
           image: atlassian/pipelines-awscli
