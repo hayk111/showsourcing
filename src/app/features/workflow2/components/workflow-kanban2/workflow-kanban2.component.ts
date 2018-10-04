@@ -105,6 +105,10 @@ export class WorkflowKanban2Component extends TrackingComponent implements OnIni
 	*/
 	onItemDropped({ target, droppedElement }) {
 		this.refreshColumnsInternally(target, droppedElement);
+		try {
+			throw new Error('test');
+		} catch (err) { console.log(err.stack); }
+		console.log('>> onItemDropped (1) - droppedElement = ', droppedElement);
 		this.itemDropped.next({ target, droppedElement });
 	}
 

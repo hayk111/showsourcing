@@ -99,8 +99,13 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {
-		this.workflowService.updateProductStatus(droppedElement, target)
-			.subscribe(() => this.cdr.detectChanges());
+		console.log('>> onUpdateProductStatus - droppedElement = ', droppedElement);
+		if (droppedElement) {
+			droppedElement.forEach(element => {
+				this.workflowService.updateProductStatus(element, target)
+				.subscribe(() => this.cdr.detectChanges());
+			});
+		}
 	}
 
 	/** updates the products with the new value votes */
