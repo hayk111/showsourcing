@@ -20,18 +20,35 @@ export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
 	private _authState$ = new BehaviorSubject<AuthState>({ status: AuthStatus.PENDING });
-	authStatus$ = this._authState$.asObservable().pipe(map(state => state.status), shareReplay(1));
-	authenticated$ = this.authStatus$.pipe(filter(status => status === AuthStatus.AUTHENTICATED), shareReplay(1));
-	notAuthenticated$ = this.authStatus$.pipe(filter(status => status === AuthStatus.NOT_AUTHENTICATED), shareReplay(1));
-	userId$ = this._authState$.asObservable().pipe(map(state => state.userId), shareReplay(1));
+	authStatus$ = this._authState$.asObservable().pipe(
+		map(state => state.status),
+		shareReplay(1)
+	);
+	/** whether the user is authenticated */
+	isAuthenticated$ = this.authStatus$.pipe(
+		map(status => status === AuthStatus.AUTHENTICATED),
+		shareReplay(1)
+	);
+	/** sends event when the user authenticates */
+	authenticated$ = this.authStatus$.pipe(
+		filter(status => status === AuthStatus.AUTHENTICATED),
+		shareReplay(1)
+	);
+	/** sends event when the user logs out */
+	notAuthenticated$ = this.authStatus$.pipe(
+		filter(status => status === AuthStatus.NOT_AUTHENTICATED),
+		shareReplay(1)
+	);
+	userId$ = this._authState$.asObservable().pipe(
+		map(state => state.userId),
+		shareReplay(1)
+	);
 	urlToRedirectOnAuth: string;
-
 
 	constructor(
 		private tokenSrv: TokenService,
 		private router: Router,
 		private http: HttpClient,
-		private notificationSrv: NotificationService
 	) { }
 
 	init() {
@@ -47,20 +64,7 @@ export class AuthenticationService {
 
 	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
-		const refPostObj = this.getRefreshTokenObject(credentials);
-		return this.tokenSrv.getRefreshToken(refPostObj);
-	}
-
-	private getRefreshTokenObject(credentials: Credentials): RefreshTokenPostBody {
-		return {
-			app_id: '',
-			provider: 'password',
-			data: credentials.identifier,
-			user_info: {
-				register: false,
-				password: credentials.password
-			}
-		};
+		return this.tokenSrv.getRefreshToken(credentials);
 	}
 
 	logout() {
@@ -70,12 +74,10 @@ export class AuthenticationService {
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {
-		const refPostBody = this.getRefreshTokenObject(credentials);
-		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refPostBody).pipe(
+		const refBody = this.tokenSrv.getRefreshTokenObject(credentials, 'password');
+		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refBody).pipe(
 			map(_ => true),
-			catchError(_ => {
-				return of(false);
-			})
+			catchError(_ => of(false))
 		);
 	}
 
@@ -85,9 +87,7 @@ export class AuthenticationService {
 			map((tokenState: TokenState) => ({ headers: new HttpHeaders({ Authorization: tokenState.token }) })),
 			switchMap(opts => this.http.post<RefreshTokenResponse>(endpoint, { password }, opts)),
 			map(token => !!token),
-			catchError(_ => {
-				return of(false);
-			})
+			catchError(_ => of(false))
 		);
 	}
 

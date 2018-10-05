@@ -19,7 +19,9 @@
 	<small class="pointer forgot" (click)="forgotPw()">Forgot Password ?</small>
 
 	<input class="button fullWidth" type="submit" value="LOGIN" [disabled]="!form.valid"/>
-	<a class="button light fullWidth flexCenter" [routerLink]="['../register']">Don't have an account ?</a>
+	<a class="button light fullWidth flexCenter"
+		[routerLink]="['../register']"
+		[queryParams]="queryParams">Don't have an account ?</a>
 </form>
 
 <ng-template #spinner>

@@ -11,6 +11,7 @@ import { InvitationUser } from '~models';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 
 
 @Component({
@@ -19,8 +20,8 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 	styleUrls: ['./handle-invitation.component.scss'],
 })
 export class HandleInvitationComponent extends AutoUnsub implements OnInit {
-	connected: boolean;
-	invitation: InvitationUser;
+	authenticated$: Observable<boolean>;
+	invitation$: Observable<InvitationUser>;
 	client: Client;
 	returnUrl: string;
 
@@ -28,36 +29,24 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private location: Location,
-		private userSrv: UserService,
+		private authSrv: AuthenticationService,
 		private invitationSrv: InvitationFeatureService,
-		private cdr: ChangeDetectorRef,
 		private notifSrv: NotificationService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.userSrv.selectUser().pipe(
-			takeUntil(this._destroy$),
-			tap((user) => {
-				this.connected = true;
-			}),
-			switchMap(() => {
-				const invitationId = this.route.snapshot.params.id;
-				return this.invitationSrv.getInvitation(invitationId);
-			})
-		).subscribe(({ invitation, client }) => {
-			if (invitation && invitation.id) {
-				// An invitation is found
-				this.invitation = invitation;
-				this.client = client;
-				this.cdr.detectChanges();
-			}
-		});
+		const invitationId = this.route.snapshot.params.id;
+		this.authenticated$ = this.authSrv.isAuthenticated$;
+		this.invitation$ = this.authenticated$.pipe(
+			switchMap(_ => this.invitationSrv.getInvitation(invitationId))
+		);
+
 		this.returnUrl = this.location.path();
 	}
 
-	joinTeam() {
-		this.invitationSrv.acceptInvitation(this.invitation.id, this.invitation.teamId, this.client).subscribe(() => {
+	accept(invitation: InvitationUser) {
+		this.invitationSrv.acceptInvitation(invitation).subscribe(_ => {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.SUCCESS,
@@ -68,11 +57,11 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
-	refuseInvitation() {
-		this.invitationSrv.refuseInvitation(this.invitation.id, this.client).subscribe(() => {
+	refuse(invitation) {
+		this.invitationSrv.refuseInvitation(invitation).subscribe(_ => {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
-				type: NotificationType.SUCCESS,
+				type: NotificationType.ERROR,
 				title: 'Invitation Refused',
 				message: 'The invitation was refused',
 				timeout: 3500

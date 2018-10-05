@@ -17,6 +17,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
 	pending$ = new Subject<boolean>();
 	error: string;
+	queryParams: any;
 
 	constructor(
 		private authSrv: AuthenticationService,
@@ -29,6 +30,8 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		this.queryParams = this.route.snapshot.queryParams || '/';
+
 		this.form = this.fb.group({
 			firstName: ['', Validators.required],
 			lastName: ['', Validators.required],
@@ -50,21 +53,18 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 				takeUntil(this._destroy$),
 				take(1),
 			).subscribe(
-				r => {
-					// we check if there is a returnUrl query parameter
-					const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-					// we navigate to dashboard or return url for sure on registration end
-					this.router.navigateByUrl(returnUrl);
-				},
-				e => {
-					if (e.error && e.error.errors && e.error.errors.email) {
-						this.form.get('email').markAsPristine();
-						this.error = 'An account already exist with this email address.';
-					} else {
-						this.error = e.error.message;
-					}
-				}
+				r => this.router.navigateByUrl(this.queryParams.returnUrl),
+				e => this.onError(e)
 			);
+		}
+	}
+
+	onError(error) {
+		if (error.error && error.error.errors && error.error.errors.email) {
+			this.form.get('email').markAsPristine();
+			this.error = 'An account already exist with this email address.';
+		} else {
+			this.error = error.error.message;
 		}
 	}
 }
