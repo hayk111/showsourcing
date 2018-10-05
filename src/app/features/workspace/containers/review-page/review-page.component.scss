@@ -1,3 +1,17 @@
 icon-app {
 	color: var(--color-txt-secondary);
+	font-size: var(--font-size-xl);
+}
+
+icon-app[name="trash-bin"] {
+	font-size: var(--font-size-xxl);
+}
+selection-bar-app {
+	right: 0;
+}
+
+action-bar-app {
+	button.icon {
+		margin-right: var(--spacing-ms);
+	}
 }

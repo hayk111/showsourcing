@@ -12,5 +12,14 @@ action-bar-app {
 
 	icon-app {
 		color: var(--color-txt-secondary);
+		font-size: var(--font-size-xl);
+	}
+
+	icon-app[name="trash-bin"] {
+		font-size: var(--font-size-xxl);
+	}
+
+	button.icon {
+		margin-right: var(--spacing-ms);
 	}
 }

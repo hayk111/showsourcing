@@ -317,13 +317,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.allSelectedFavorite = false;
 	}
 
-	/**
-	 *
-	 * @param product product we want to update the vote
-	 * @param multiple if we it is being called from multiple
-	 * @param onHighlight if the thumb is highlighted or not
-	 * we use onHihglight since when multi voting products, some might have already the same state
-	 */
 	onThumbUp(product: Product) {
 		const votes = this.thumbSrv.thumbUp(product);
 		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
@@ -334,14 +327,26 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
 	}
 
+	/**
+	 * update the vote of a given selection of items (products) when given thumb up
+	 * @param onHighlight indicates the future state of the thumb
+	 */
 	onMultipleThumbUp(onHighlight: boolean) {
+		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
+		// if you are using another feature srv (as project) override this funcition
 		this.selectionItems().forEach(item => {
 			const votes = this.thumbSrv.thumbUpFromMulti(item, onHighlight);
 			this.update({ id: item.id, votes } as any);
 		});
 	}
 
+	/**
+	 * update the vote of a given selection of items (products) when given thumb down
+	 * @param onHighlight indicates the future state of the thumb
+	 */
 	onMultipleThumbDown(onHighlight: boolean) {
+		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
+		// if you are using another feature srv (as project) override this funcition
 		this.selectionItems().forEach(item => {
 			const votes = this.thumbSrv.thumbDownFromMulti(item, onHighlight);
 			this.update({ id: item.id, votes } as any);

@@ -18,6 +18,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 
 @Component({
@@ -46,9 +47,9 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>,
 		protected featureSrv: ProjectWorkflowFeatureService,
-		protected notifSrv: NotificationService
-	) {
-		super(router, productSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, null, FindProductsDialogComponent);
+		protected notifSrv: NotificationService,
+		protected thumbSrv: ThumbService) {
+		super(router, productSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, thumbSrv, FindProductsDialogComponent);
 	}
 
 	ngOnInit() {
@@ -188,5 +189,4 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 			})
 		);
 	}
-
 }

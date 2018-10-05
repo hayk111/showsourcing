@@ -12,6 +12,8 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import { ProjectWorkflowFeatureService } from '~features/project/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 
 @Component({
@@ -39,7 +41,9 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>,
 		protected featureSrv: ProjectWorkflowFeatureService,
-		private notifSrv: NotificationService) {
+		private notifSrv: NotificationService,
+		private productSrv: ProductService,
+		protected thumbSrv: ThumbService) {
 		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, null, FindProductsDialogComponent);
 	}
 
@@ -67,10 +71,16 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	 */
 	deassociateSelectedProducts() {
 		const items = Array.from(this.selectionSrv.selection.keys());
-		this.deassociateProductsWithProject(items.map(id => ({ id }))).subscribe(() => {
-			this.resetSelection();
-		});
+		// callback for confirm dialog
+		const callback = () => {
+			this.deassociateProductsWithProject(items.map(id => ({ id }))).subscribe(() => {
+				this.resetSelection();
+			});
+		};
+		const text = `Deassociate ${items.length} ${items.length > 1 ? 'products' : 'product'} ?`;
+		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
+
 	/**
 	 * Deassociate the selected product from the current project
 	 */
@@ -104,6 +114,22 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 				});
 			})
 		);
+	}
+
+	// we have to override the method since we are using a project feature srv instead of a product
+	onMultipleThumbUp(onHighlight: boolean) {
+		this.selectionItems().forEach(item => {
+			const votes = this.thumbSrv.thumbUpFromMulti(item, onHighlight);
+			this.productSrv.update({ id: item.id, votes } as any).subscribe();
+		});
+	}
+
+	// we have to override the method since we are using a project feature srv instead of a product
+	onMultipleThumbDown(onHighlight: boolean) {
+		this.selectionItems().forEach(item => {
+			const votes = this.thumbSrv.thumbDownFromMulti(item, onHighlight);
+			this.productSrv.update({ id: item.id, votes } as any).subscribe();
+		});
 	}
 
 	/** Open the find products dialog and passing selected products to it */

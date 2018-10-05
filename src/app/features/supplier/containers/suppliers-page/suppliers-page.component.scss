@@ -9,6 +9,11 @@ action-bar-app {
 	icon-app {
 		color: var(--color-txt-secondary);
 	}
+
+	icon-app[name="trash-bin"] {
+		font-size: var(--font-size-xxl);
+	}
+
 	context-menu-trigger-app {
 		width: 160px;
 	}
