@@ -39,7 +39,9 @@
 
   <input class="button fullWidth" type="submit" [disabled]="!form.valid" value="Create Account" (click)="createAccount()"/>
 
-	<a class="button light flexCenter fullWidth" [routerLink]="['../login']">Have an account? Sign-In!</a>
+	<a class="button light flexCenter fullWidth"
+	[routerLink]="['../login']"
+	[queryParams]="queryParams">Have an account? Sign-In!</a>
 </form>
 
 <ng-template #spinner>
