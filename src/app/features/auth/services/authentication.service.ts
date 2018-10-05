@@ -74,7 +74,8 @@ export class AuthenticationService {
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {
-		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, credentials).pipe(
+		const refBody = this.tokenSrv.getRefreshTokenObject(credentials, 'password');
+		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refBody).pipe(
 			map(_ => true),
 			catchError(_ => of(false))
 		);

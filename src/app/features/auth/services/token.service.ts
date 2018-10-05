@@ -69,7 +69,7 @@ export class TokenService {
 		);
 	}
 
-	private getRefreshTokenObject(credentials: Credentials, provider: 'password' | 'legacy')
+	getRefreshTokenObject(credentials: Credentials, provider: 'password' | 'legacy')
 		: RefreshTokenPostBody {
 		return {
 			app_id: '',
