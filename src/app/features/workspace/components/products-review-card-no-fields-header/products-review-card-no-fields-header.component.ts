@@ -12,6 +12,7 @@ export class ProductsReviewCardNoFieldsHeaderComponent {
 	@Input() currentSort: Sort;
 	@Output() checked = new EventEmitter<Category>();
 	@Output() unchecked = new EventEmitter<Category>();
+  @Input() noFieldChecked = false;
 
 	/** Disable defaut drag for element */
 	preventDrag(event) {
