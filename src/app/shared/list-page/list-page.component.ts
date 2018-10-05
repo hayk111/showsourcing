@@ -14,6 +14,7 @@ import { ListQuery } from '~global-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~global-services/_global/select-params';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { ProductQueries } from '~global-services/product/product.queries';
 
 
 
@@ -316,23 +317,35 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.allSelectedFavorite = false;
 	}
 
+	/**
+	 *
+	 * @param product product we want to update the vote
+	 * @param multiple if we it is being called from multiple
+	 * @param onHighlight if the thumb is highlighted or not
+	 * we use onHihglight since when multi voting products, some might have already the same state
+	 */
 	onThumbUp(product: Product) {
 		const votes = this.thumbSrv.thumbUp(product);
-		this.update({ id: product.id, votes } as any, 'votes');
+		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
 	}
 
 	onThumbDown(product: Product) {
 		const votes = this.thumbSrv.thumbDown(product);
-		this.update({ id: product.id, votes } as any, 'votes');
-
+		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
 	}
 
-	onMultipleThumbUp() {
-		this.selectionItems().forEach(item => this.onThumbUp(item));
+	onMultipleThumbUp(onHighlight: boolean) {
+		this.selectionItems().forEach(item => {
+			const votes = this.thumbSrv.thumbUpFromMulti(item, onHighlight);
+			this.update({ id: item.id, votes } as any);
+		});
 	}
 
-	onMultipleThumbDown() {
-		this.selectionItems().forEach(item => this.onThumbDown(item));
+	onMultipleThumbDown(onHighlight: boolean) {
+		this.selectionItems().forEach(item => {
+			const votes = this.thumbSrv.thumbDownFromMulti(item, onHighlight);
+			this.update({ id: item.id, votes } as any);
+		});
 	}
 
 	/** when filter button is clicked at the top we open the panel */

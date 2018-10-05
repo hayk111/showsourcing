@@ -28,8 +28,8 @@ export class ActionBarComponent implements OnInit {
 	@Output() onUnfavorite = new EventEmitter<null>();
 	@Output() buttonClick = new EventEmitter<null>();
 	/** this is only used when selecting multiple products */
-	@Output() liked = new EventEmitter<null>();
-	@Output() disliked = new EventEmitter<null>();
+	@Output() liked = new EventEmitter<boolean>();
+	@Output() disliked = new EventEmitter<boolean>();
 
 	constructor() { }
 

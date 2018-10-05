@@ -77,12 +77,11 @@
 
 		<action-bar-app
 			[favorite]="allSelectedFavorite"
-			[votes]="null"
 			[multiple]="true"
 			(onFavorite)="onFavoriteAllSelected()"
 			(onUnfavorite)="onUnfavoriteAllSelected()"
-			(liked)="onMultipleThumbUp()"
-			(disliked)="onMultipleThumbDown()">
+			(liked)="onMultipleThumbUp($event)"
+			(disliked)="onMultipleThumbDown($event)">
 
 			<button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app name="folder" size="m" ></icon-app>

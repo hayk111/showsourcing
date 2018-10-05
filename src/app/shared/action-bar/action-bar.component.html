@@ -12,8 +12,8 @@
 				size="m"
 				[votes]="votes"
 				[multiple]="multiple"
-				(liked)="liked.emit()"
-				(disliked)="disliked.emit()">
+				(liked)="liked.emit($event)"
+				(disliked)="disliked.emit($event)">
 			</thumb-buttons-app>
 			<ng-content></ng-content>
 		</div>

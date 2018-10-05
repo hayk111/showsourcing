@@ -27,13 +27,14 @@
 
 			<card-footer-app>
 				<thumb-buttons-app
-					size="m"
-					[votes]="votes"
-					[hasText]="true"
-					(vote)="vote.emit({votes: $event})">
-				</thumb-buttons-app>
-				<button class="secondary-light" (click)="openVoteDetails.emit()">View Vote Details</button>
-			</card-footer-app>
+				size="m"
+				[votes]="votes"
+				[hasText]="true"
+				(liked)="liked.emit()"
+				(disliked)="disliked.emit()">
+			</thumb-buttons-app>
+			<button class="secondary-light" (click)="openVoteDetails.emit()">View Vote Details</button>
+		</card-footer-app>
 	</ng-container>
 
 	<ng-template #noVotes>
@@ -48,7 +49,8 @@
 				size="m"
 				[votes]="votes"
 				[hasText]="true"
-				(vote)="vote.emit({votes: $event})">
+				(liked)="liked.emit()"
+				(disliked)="disliked.emit()">
 			</thumb-buttons-app>
 			<button class="primary fullWidth" (click)="requestTeamVotes.emit()">Request Team Votes</button>
 		</card-footer-app>

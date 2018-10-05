@@ -21,7 +21,7 @@
 		<icon-app *ngIf="favorite" name="heart"></icon-app>
 		<icon-app *ngIf="name !== 'thumbs-up'" [name]="name" [ngStyle]="successTxt"></icon-app>
 		<div *ngIf="hasPercent" class="numbers flex">
-			<p [ngStyle]="successTxt">{{product?.score || '-'}}%</p>
+			<p [ngStyle]="successTxt">{{(product && product.score !== undefined) ? product.score : '-'}}%</p>
 			<p *ngIf="fullInfo" class="color-txt-secondary ml-xs">({{ product?.votes?.length || 0}} {{ product?.votes?.length === 1 ? 'Vote' : 'Votes'}})</p>
 		</div>
 		<ng-content></ng-content>

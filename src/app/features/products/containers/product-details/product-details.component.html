@@ -25,7 +25,8 @@
 			<product-team-rating-app
 				[product]="product"
 				(requestTeamVotes)="openRequestFeedbackDialog()"
-				(vote)="updateProductVotes($event)"
+				(liked)="onThumbUp()"
+				(disliked)="onThumbDown()"
 				(openVoteDetails)="openVoteDetailsDialog()">
 			</product-team-rating-app>
 

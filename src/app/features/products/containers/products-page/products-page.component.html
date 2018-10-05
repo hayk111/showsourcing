@@ -91,12 +91,11 @@
 
 		<action-bar-app
 			[favorite]="allSelectedFavorite"
-			[products]="selectedItems$ | async"
 			[multiple]="true"
 			(onFavorite)="onFavoriteAllSelected()"
 			(onUnfavorite)="onUnfavoriteAllSelected()"
-			(liked)="onMultipleThumbUp()"
-			(disliked)="onMultipleThumbDown()">
+			(liked)="onMultipleThumbUp($event)"
+			(disliked)="onMultipleThumbDown($event)">
 
 			<button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
