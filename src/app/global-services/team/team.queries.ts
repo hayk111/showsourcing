@@ -4,7 +4,6 @@ import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
 export class TeamQueries extends GlobalQueries {
 
-
 	static readonly one = `name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status`;
 	static readonly many = `name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status`;
 	createDefaultSelection = `name, realmPath, realmServerName, status`;

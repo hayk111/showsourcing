@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { switchMap, map, tap, take } from 'rxjs/operators';
 import { InvitationUser } from '~models';
 
 import { InvitationUserService, UserService, TeamService } from '~global-services';
@@ -24,28 +24,35 @@ export class InvitationFeatureService extends InvitationUserService {
 	}
 
 	getInvitation(id: string): Observable<InvitationUser> {
-		return this.http.get<InvitationUser>(`${environment.apiUrl}/token/invitation/${id}`).pipe(
-			tap(d => { debugger; })
+		return this.http.get<InvitationUser>(
+			`${environment.apiUrl}/token/invitation/${id}`
 		);
 	}
 
-	acceptInvitation(id: string, teamId: string, client: Client) {
+	acceptInvitation(invitation: InvitationUser) {
 		return this.userSrv.selectUser().pipe(
-			switchMap(user => {
-				return this.invitationSrv.update((client === Client.ALL_USER) ? {
-					id, status: 'accepted',
-					userId: user.id
-				} : {
-						id, status: 'accepted',
-					}, null, client);
-			}),
-			switchMap(() => this.waitForOne(`id == "${teamId}"`)),
+			take(1),
+			map(user => ({
+				...invitation,
+				userId: user.id,
+				status: 'accepted'
+			})),
+			switchMap(invit => this.invitationSrv.create(invit, 'id, teamId', Client.USER)),
+			switchMap(invit => this.teamSrv.waitForOne(`id == "${invit.teamId}"`, undefined, Client.USER)),
 			switchMap(team => this.teamSrv.pickTeam(team))
 		);
 	}
 
-	refuseInvitation(id: string, client: Client) {
-		return this.invitationSrv.delete(id, client);
+	refuseInvitation(invitation: InvitationUser) {
+		return this.userSrv.selectUser().pipe(
+			take(1),
+			map(user => ({
+				...invitation,
+				userId: user.id,
+				status: 'refused'
+			})),
+			switchMap(invit => this.invitationSrv.create(invit, undefined, Client.USER))
+		);
 	}
 
 }

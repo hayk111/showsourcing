@@ -30,7 +30,6 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private location: Location,
 		private authSrv: AuthenticationService,
-		private userSrv: UserService,
 		private invitationSrv: InvitationFeatureService,
 		private notifSrv: NotificationService) {
 		super();
@@ -38,45 +37,36 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const invitationId = this.route.snapshot.params.id;
-		this.authenticated$ = this.authSrv.isAuthenticated$.pipe(
-			tap(d => { debugger; })
-		);
+		this.authenticated$ = this.authSrv.isAuthenticated$;
 		this.invitation$ = this.authenticated$.pipe(
-			tap(d => { debugger; }),
 			switchMap(_ => this.invitationSrv.getInvitation(invitationId))
 		);
-		// ).subscribe(({ invitation, client }) => {
-		// 	if (invitation && invitation.id) {
-		// 		// An invitation is found
-		// 		this.invitation = invitation;
-		// 		this.client = client;
-		// 	}
-		// });
+
 		this.returnUrl = this.location.path();
 	}
 
-	joinTeam() {
-		// this.invitationSrv.acceptInvitation(this.invitation.id, this.invitation.teamId, this.client).subscribe(() => {
-		// 	this.router.navigateByUrl('/');
-		// 	this.notifSrv.add({
-		// 		type: NotificationType.SUCCESS,
-		// 		title: 'Invitation Accepted',
-		// 		message: 'The invitation was accepted',
-		// 		timeout: 3500
-		// 	});
-		// });
+	accept(invitation: InvitationUser) {
+		this.invitationSrv.acceptInvitation(invitation).subscribe(_ => {
+			this.router.navigateByUrl('/');
+			this.notifSrv.add({
+				type: NotificationType.SUCCESS,
+				title: 'Invitation Accepted',
+				message: 'The invitation was accepted',
+				timeout: 3500
+			});
+		});
 	}
 
-	refuseInvitation() {
-		// this.invitationSrv.refuseInvitation(this.invitation.id, this.client).subscribe(() => {
-		// 	this.router.navigateByUrl('/');
-		// 	this.notifSrv.add({
-		// 		type: NotificationType.SUCCESS,
-		// 		title: 'Invitation Refused',
-		// 		message: 'The invitation was refused',
-		// 		timeout: 3500
-		// 	});
-		// });
+	refuse(invitation) {
+		this.invitationSrv.refuseInvitation(invitation).subscribe(_ => {
+			this.router.navigateByUrl('/');
+			this.notifSrv.add({
+				type: NotificationType.ERROR,
+				title: 'Invitation Refused',
+				message: 'The invitation was refused',
+				timeout: 3500
+			});
+		});
 	}
 
 }
