@@ -9,6 +9,7 @@
 
 		<!-- preview  -->
 		<one-activity-carousel-app
+			*ngIf="supplier?.images?.length > 0"
 			[images]="supplier?.images">
 		</one-activity-carousel-app>
 
