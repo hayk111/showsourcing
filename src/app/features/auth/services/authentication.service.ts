@@ -1,17 +1,12 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import gql from 'graphql-tag';
-import { ReplaySubject, BehaviorSubject, of } from 'rxjs';
-import { map, switchMap, tap, catchError, shareReplay, filter } from 'rxjs/operators';
-import { Credentials, RefreshTokenResponse, AuthStatus, AuthState } from '~features/auth/interfaces';
-
-import { TokenService } from '~features/auth/services/token.service';
-import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { environment } from 'environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { RefreshTokenPostBody } from '~features/auth/interfaces/refresh-token-post-body.interface';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { AuthState, AuthStatus, Credentials, RefreshTokenResponse } from '~features/auth/interfaces';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
+import { TokenService } from '~features/auth/services/token.service';
 
 @Injectable({
 	providedIn: 'root'
