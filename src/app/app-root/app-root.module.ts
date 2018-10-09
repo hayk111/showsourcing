@@ -20,6 +20,7 @@ import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
+import { PickerModule } from '~shared/picker';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -51,7 +52,8 @@ import { TemplateModule } from '~shared/template';
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
 			// enableTracing: true
-		})
+		}),
+		PickerModule
 	],
 	providers: [],
 	exports: [RouterModule],

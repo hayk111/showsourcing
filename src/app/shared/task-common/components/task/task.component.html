@@ -30,8 +30,9 @@
 
 	<!-- task status -->
 	<div class="flexEnd task-user-status">
-		<selector-entity-app #selector *ngIf="!fullUser && selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app>
-		<user-picture-app *ngIf="!fullUser && !selectorVisible" [user]="task?.assignee" [size]="20" [border]="true" (click)="toggleSelector(true)"></user-picture-app>
+		<!-- <selector-entity-app #selector *ngIf="!fullUser && selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app> -->
+		<!-- <user-picture-app *ngIf="!fullUser && !selectorVisible" [user]="task?.assignee" [size]="20" [border]="true" (click)="toggleSelector(true)"></user-picture-app> -->
+		<user-picture-app *ngIf="!fullUser && !selectorVisible" [user]="task?.assignee" [size]="20" [border]="true" (click)="openSelectorEntity($event)"></user-picture-app>
 		<div *ngIf="!selectorVisible" class="flex task-status"
 			[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}"
 			(click)="toggleDoneStatus()">

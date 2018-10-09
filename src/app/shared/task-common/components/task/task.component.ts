@@ -7,10 +7,13 @@ import {
 	OnInit,
 	Output,
 	ViewChild,
+	NgModuleRef,
 } from '@angular/core';
 import { Task, User } from '~models';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { DEFAULT_IMG } from '~utils';
+import { PickerService } from '~shared/picker';
+import { PickerEntitySelectorComponent } from '../picker-entity-selector/picker-entity-selector.component';
 
 @Component({
 	selector: 'task-app',
@@ -33,7 +36,10 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 	defaultImg = DEFAULT_IMG;
 	selectorVisible = false;
 
-	constructor() { }
+	constructor(
+		private pickerSrv: PickerService,
+		private moduleRef: NgModuleRef<any>
+	) { }
 
 	ngOnInit() { }
 
@@ -65,5 +71,12 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 	toggleDoneStatus() {
 		const done = !this.task.done;
 		this.updateTask.emit({ ...this.task, done });
+	}
+
+	openSelectorEntity(event) {
+		const callback = (user) => {
+			console.log(user);
+		};
+		this.pickerSrv.openFromModule(PickerEntitySelectorComponent, this.moduleRef, { event, callback });
 	}
 }

@@ -4,33 +4,31 @@ import {
 	ChangeDetectorRef,
 	Component,
 	ComponentFactoryResolver,
-	ViewChild,
 	HostListener,
-	NgModuleRef
+	NgModuleRef,
+	ViewChild,
 } from '@angular/core';
-
+import { takeUntil } from 'rxjs/operators';
+import { PickerHostDirective } from '~shared/picker/components/picker-host.directive';
+import { PickerService } from '~shared/picker/services';
 import { AutoUnsub } from '~utils';
 
-import { DialogHostDirective } from '~shared/dialog/components/dialog-host.directive';
-import { takeUntil } from 'rxjs/operators';
-import { DialogService } from '~shared/dialog/services/dialog.service';
-
-
 @Component({
-	selector: 'dialog-container-app',
-	templateUrl: './dialog-container.component.html',
-	styleUrls: ['./dialog-container.component.scss'],
+	selector: 'picker-container-app',
+	templateUrl: './picker-container.component.html',
+	styleUrls: ['./picker-container.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DialogContainerComponent extends AutoUnsub implements AfterViewInit {
+export class PickerContainerComponent extends AutoUnsub implements AfterViewInit {
+
 	// host where we will put dynamically generated components
-	@ViewChild(DialogHostDirective) host: DialogHostDirective;
+	@ViewChild(PickerHostDirective) host: PickerHostDirective;
 	// view container of said host.
 	protected viewContainerRef;
 	isOpen = false;
 
 	constructor(
-		protected srv: DialogService,
+		protected srv: PickerService,
 		protected componentFactoryResolver: ComponentFactoryResolver,
 		protected cdRef: ChangeDetectorRef) {
 		super();
