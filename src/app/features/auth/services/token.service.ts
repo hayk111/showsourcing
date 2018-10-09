@@ -1,17 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject, ReplaySubject, throwError, of } from 'rxjs';
-import { tap, catchError, switchMap, map, shareReplay, first } from 'rxjs/operators';
-import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
-import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
-import { LocalStorageService } from '~shared/local-storage';
-import { AuthModule } from '~features/auth/auth.module';
 import { environment } from 'environments/environment';
-import { TokenState } from '~features/auth/interfaces/token-state.interface';
-import { log, LogColor } from '~utils';
-import { filter } from 'rxjs/operators';
+import { Observable, of, ReplaySubject, throwError } from 'rxjs';
+import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { Credentials } from '~features/auth';
+import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenPostBody } from '~features/auth/interfaces/refresh-token-post-body.interface';
+import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
+import { LocalStorageService } from '~shared/local-storage';
+import { log, LogColor } from '~utils';
 
 
 const REFRESH_TOKEN_NAME = 'REFRESH_TOKEN';

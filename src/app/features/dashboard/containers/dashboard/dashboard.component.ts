@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { switchMap, tap, first, takeUntil } from 'rxjs/operators';
-import { ActivityService } from '~shared/activity/services/activity.service';
-import { AutoUnsub } from '~utils';
-import { TemplateService } from '~shared/template/services/template.service';
-import { TeamService, UserService } from '~global-services';
-import { map } from 'rxjs/internal/operators/map';
-import { filter } from 'rxjs/operators';
-import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
-import { DashboardService, DashboardCounters } from '~features/dashboard/services/dashboard.service';
-import { User, Task, ERM, Price } from '~models';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { DashboardCounters, DashboardService } from '~features/dashboard/services/dashboard.service';
+import { UserService } from '~global-services';
+import { Task, User } from '~models';
+import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
+import { ActivityService } from '~shared/activity/services/activity.service';
 
 @Component({
 	selector: 'dashboard-app',

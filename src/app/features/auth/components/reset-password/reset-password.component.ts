@@ -1,13 +1,11 @@
-import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-
-import { Observable, throwError } from 'rxjs';
-import { AutoUnsub } from '~utils/auto-unsub.component';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { takeUntil, take, catchError } from 'rxjs/operators';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'reset-password-app',
@@ -22,8 +20,8 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 
 	constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,
 		private authSrv: AuthenticationService, private router: Router,
-		private route: ActivatedRoute) {
-
+		private route: ActivatedRoute
+	) {
 		super();
 		this.form = this.fb.group({
 			newPswd: ['', Validators.required],
@@ -53,7 +51,7 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 				})
 			).subscribe(r => {
 				this.pending = false;
-				this.router.navigate([ 'guest', 'login' ]);
+				this.router.navigate(['guest', 'login']);
 			}, err => {
 				this.pending = false;
 				this.cdr.detectChanges();
