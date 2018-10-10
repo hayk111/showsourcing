@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as getstream from 'getstream';
 import { forkJoin, Observable, ReplaySubject, BehaviorSubject, combineLatest, from } from 'rxjs';
-import { first, map, scan, switchMap, tap, switchMapTo, mapTo, zip, mergeScan, shareReplay } from 'rxjs/operators';
+import { first, map, scan, switchMap, tap, switchMapTo, mapTo, zip, mergeScan, shareReplay, takeWhile } from 'rxjs/operators';
 import { ProductService, TeamService, SupplierService } from '~global-services';
 import { CommentService } from '~global-services/comment/comment.service';
 import { log } from '~utils';
@@ -21,7 +21,7 @@ import { GroupedActivityFeed, ActivityFeed } from '~shared/activity/interfaces/c
 	providedIn: 'root'
 })
 export class ActivityService {
-	private readonly LIMIT = 10;
+	private readonly LIMIT = 8;
 	private client: any;
 
 	constructor(
@@ -71,6 +71,7 @@ export class ActivityService {
 		const feed$ = _token$.pipe(
 			switchMap(token => _loadMore$.pipe(
 				mergeScan(prev => this.getNextFeedResult(feedName, feedId, token, prev), [], 1),
+				takeWhile(val => val.length > 0),
 				scan((pre, curr) => [...pre, ...curr], [])
 			)),
 			shareReplay(1)
@@ -79,11 +80,12 @@ export class ActivityService {
 		return { feed$, loadMore };
 	}
 
-	private getNextFeedResult(feedName: string, feedId: string, token: string, prev: GetStreamGroup[] | GetStreamActivity[] = [])
+	private getNextFeedResult(feedName: string, feedId: string, token: string, prev: GetStreamGroup[] | GetStreamActivity[])
 		: Observable<GetStreamGroup[] | GetStreamActivity[]> {
 		// we have a feedname like team:id but we need to do client.feed('team', 'id');
 		const stream = this.client.feed(feedName, feedId, token);
-		const id_lt = prev.length > 0 ? prev[prev.length - 1].id : undefined;
+		// if it's the first call there is prev is an array of 0 elem
+		const id_lt = prev && prev.length > 0 ? prev[prev.length - 1].id : undefined;
 		return from(stream.get({ limit: this.LIMIT, id_lt })).pipe(
 			map((res: GetStreamResponse) => res.results)
 		);
