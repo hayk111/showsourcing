@@ -38,22 +38,14 @@ export class UploaderService {
 
   uploadImages(imgs: File[]): Observable<any> {
     // MaxSize 1200px
-    imgs.map(img => {
-      let newImage;
-      resizeSizeToLimit(img, 1200)
-        .pipe(take(1))
-        .subscribe(_newImage => {
-          newImage = _newImage;
-        });
-      return newImage;
-    });
-    return forkJoin(imgs.map(img => this.uploadFile(img, 'image'))).pipe(
-      first(),
-      catchError(error => {
-        log.error(error);
-        return of(error);
-      })
+
+    const uploads$ = imgs.map(img =>
+      resizeSizeToLimit(img, 1200).pipe(
+        first(),
+        mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image'))
+      )
     );
+    return forkJoin(uploads$);
   }
 
   uploadFiles(files: File[]): Observable<any> {

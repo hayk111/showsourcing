@@ -7,38 +7,30 @@ export function resizeSizeToLimit(
 ): Observable<File> {
   const resultObservable = new Observable<File>(observer => {
     let newFile;
-    const newImageDiffRatio = 1 - (file.size - limitSize) / file.size;
     const reader = new FileReader();
     reader.onload = (e: any) => {
       const img = new Image();
       img.src = e.target.result;
+
       img.onload = () => {
         if (img.width > limitSize || img.height > limitSize) {
           const ratio = img.width / img.height;
-          let newWidth = img.width;
-          let newHeight = img.height;
-          if (newWidth > newHeight) {
-            newWidth = limitSize;
-            newHeight = limitSize * ratio;
-          } else {
-            newHeight = limitSize;
-            newWidth = limitSize * ratio;
-          }
           const elem = document.createElement('canvas');
-          newWidth = img.width * newImageDiffRatio;
-          newHeight = img.height * newImageDiffRatio;
-          elem.width = newWidth;
-          elem.height = newHeight;
-
+          if (img.width > img.height) {
+            elem.width = limitSize;
+            elem.height = limitSize / ratio;
+          } else {
+            elem.height = limitSize;
+            elem.width = limitSize / ratio;
+          }
           const ctx = elem.getContext('2d');
-          ctx.drawImage(img, 0, 0, newWidth, newHeight);
+          ctx.drawImage(img, 0, 0, elem.width, elem.height);
           ctx.canvas.toBlob(
             blob => {
               newFile = new File([blob], file.name, {
                 type: file.type,
                 lastModified: Date.now()
               });
-
               observer.next(newFile);
               observer.complete();
             },
@@ -46,7 +38,7 @@ export function resizeSizeToLimit(
             1
           );
         } else {
-          observer.next(newFile);
+          observer.next(file);
           observer.complete();
         }
       };
