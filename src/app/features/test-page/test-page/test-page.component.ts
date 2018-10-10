@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Supplier } from '~models';
-import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
+import { CustomField } from '~shared/dynamic-forms/models';
 
 @Component({
 	selector: 'app-test-page',
@@ -12,5 +12,5 @@ import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 	styleUrls: ['./test-page.component.scss'],
 })
 export class TestPageComponent {
-	test = "lol";
+	test = 'lol';
 }

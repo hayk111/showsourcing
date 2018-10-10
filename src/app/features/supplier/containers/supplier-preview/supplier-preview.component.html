@@ -33,15 +33,12 @@
 
 	<h3>SUPPLIER DETAILS</h3>
 
-	<ng-container *ngIf="descriptor$ | async as desc">
-
-		<dynamic-form-app
-			[inlineLabel]="true"
-			(update)="update($event)"
-			[descriptor]="desc"
-			[colAmount]="1">
-		</dynamic-form-app>
-
-	</ng-container>
+	<dynamic-form-app
+		[inlineLabel]="true"
+		[fields]="customFields"
+		[value]="supplier"
+		[colAmount]="1"
+		(update)="update($event)">
+	</dynamic-form-app>
 
 </side-panel-app>

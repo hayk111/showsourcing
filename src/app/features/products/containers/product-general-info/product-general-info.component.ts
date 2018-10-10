@@ -7,15 +7,14 @@ import {
 	OnInit,
 	ViewChild,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
 import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
-import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
+import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AutoUnsub } from '~utils';
 
@@ -29,8 +28,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	// whether the form is open
 	product$: Observable<Product>;
 	product: Product;
-	descriptor$: Observable<FormDescriptor>;
-	descriptor2$: Observable<FormDescriptor>;
+
 
 	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
 	@ViewChild('txt') textarea: ElementRef;
@@ -89,13 +87,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			// need to notify the component things have changed because of onpush and this is container
 			// better to do it this way than to not use on push as this will prevent viewChangedAfterItWasCheckedError
 			tap(_ => this.cd.markForCheck())
-		);
-		// creating the form descriptor
-		this.descriptor$ = this.product$.pipe(
-			map(product => new FormDescriptor(this.customFields, product))
-		);
-		this.descriptor2$ = this.product$.pipe(
-			map(product => new FormDescriptor(this.customFields2, product))
 		);
 	}
 

@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
+import { CustomField } from '~shared/dynamic-forms/models';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
@@ -11,8 +11,10 @@ import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.inter
 	styleUrls: ['./dynamic-form.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicFormComponent extends TrackingComponent implements OnInit {
-	@Input() descriptor: FormDescriptor;
+export class DynamicFormComponent extends TrackingComponent implements OnInit, OnChanges {
+	@Input() fields: CustomField[];
+	/** value of those custom field */
+	@Input() value: any;
 	/** number of columns */
 	@Input() colAmount = 1;
 	/** when is open we see form inputs directly */
@@ -31,8 +33,15 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit {
 
 	ngOnInit() {
 		this.makeCols();
-		this.form = this.dfSrv.toFormGroup(this.descriptor.fields);
+		this.form = this.dfSrv.toFormGroup(this.fields);
+		this.form.patchValue(this.value);
 		this.formCreated.emit(this.form);
+	}
+
+	ngOnChanges() {
+		if (this.value && this.form) {
+			this.form.patchValue(this.value);
+		}
 	}
 
 	/** put the custom fields into columns
@@ -41,7 +50,7 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit {
 	 */
 	makeCols() {
 		this.cols = [];
-		const fields = this.descriptor.fields;
+		const fields = this.fields;
 		const fieldPerCol = Math.ceil(fields.length / this.colAmount);
 		for (let i = 0; i < this.colAmount; i++) {
 			const start = i * fieldPerCol;

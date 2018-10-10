@@ -17,7 +17,7 @@ import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ProductService, TaskService } from '~global-services';
 import { Comment, Product, Task } from '~models';
 import { DialogService } from '~shared/dialog';
-import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
+import { CustomField } from '~shared/dynamic-forms';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { AutoUnsub } from '~utils';
 
@@ -49,7 +49,6 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 	comment$: Observable<Comment>;
 	task$: Observable<Task>;
 	product$: Observable<Product>;
-	descriptor$: Observable<FormDescriptor>;
 
 	selectorVisible = false;
 

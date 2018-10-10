@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
+import { CustomField } from '~shared/dynamic-forms/models';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
@@ -11,7 +11,7 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicEditableFormComponent extends TrackingComponent implements OnInit {
-	@Input() descriptor: FormDescriptor;
+	@Input() fields: CustomField[];
 	/** number of columns */
 	@Input() colAmount = 1;
 	/** max number of elements in column */
@@ -25,12 +25,12 @@ export class DynamicEditableFormComponent extends TrackingComponent implements O
 	cols: CustomField[][];
 
 	constructor(private dfSrv: DynamicFormsService) {
-    super();
+		super();
 	}
 
 	ngOnInit() {
 		this.makeCols();
-		this.form = this.dfSrv.toFormGroup(this.descriptor.fields);
+		this.form = this.dfSrv.toFormGroup(this.fields);
 		this.formCreated.emit(this.form);
 	}
 
@@ -41,7 +41,7 @@ export class DynamicEditableFormComponent extends TrackingComponent implements O
 	 */
 	makeCols() {
 		this.cols = [];
-		const fields = this.descriptor.fields;
+		const fields = this.fields;
 		if (this.elementsPerColAmount) { // We want to control here the number items per column
 			let remainingElements = fields.length;
 			for (let i = 0; i < this.colAmount; i++) {

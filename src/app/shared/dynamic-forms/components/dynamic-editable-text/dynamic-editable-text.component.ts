@@ -7,6 +7,7 @@ import {
 	OnInit,
 	Output,
 	ViewChild,
+	AfterViewInit,
 } from '@angular/core';
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
@@ -30,7 +31,7 @@ import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.inter
 		'[class.twoLine]': '!inlineLabel'
 	}
 })
-export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
+export class DynamicEditableTextComponent extends AbstractInput implements AfterViewInit {
 	@Input() customField: CustomField;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
@@ -50,10 +51,10 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		super(cd);
 	}
 
-	ngOnInit() {
+	ngAfterViewInit() {
 		// saving the starting value in the accumulator so
 		// if we do a save without typing anything the field won't be undefined
-		this.accumulator = this.customField.value;
+		this.accumulator = this.value;
 	}
 
 	/** saves the value because an user might cancel */

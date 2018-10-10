@@ -1,18 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule } from '@angular/core';
-import { Product, ProductConfig, ERM, Contact } from '~models';
-import { Observable, ReplaySubject } from 'rxjs';
-import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
-import { FormGroup } from '@angular/forms';
-import { AutoUnsub } from '~utils';
-import { takeUntil, distinctUntilChanged, map, tap, first } from 'rxjs/operators';
-import { ProductFeatureService } from '~features/products/services';
-import { DialogService } from '~shared/dialog';
-import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
-import { ProductModule } from '~features/products';
-import { NgModuleRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, ReplaySubject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
+import { ProductFeatureService } from '~features/products/services';
+import { ERM, Product } from '~models';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
+import { DialogService } from '~shared/dialog';
+import { CustomField } from '~shared/dynamic-forms';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-preview-app',
@@ -24,8 +21,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() product: Product;
 	@Output() close = new EventEmitter<any>();
-	descriptor$ = new ReplaySubject<FormDescriptor>(1);
-	descriptor2$ = new ReplaySubject<FormDescriptor>(1);
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
 	prodERM = ERM.PRODUCT;
@@ -70,14 +65,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// creating the form descriptor
 		this.product$ = this.featureSrv.selectOne(this.product.id);
-		this.product$.pipe(
-			takeUntil(this._destroy$),
-			map(product => new FormDescriptor(this.customFields, product)),
-		).subscribe(this.descriptor$);
-		this.product$.pipe(
-			takeUntil(this._destroy$),
-			map(product => new FormDescriptor(this.customFields2, product))
-		).subscribe(this.descriptor2$);
 	}
 
 	updateProduct(product: any) {
