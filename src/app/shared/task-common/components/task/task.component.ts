@@ -21,7 +21,7 @@ import { PickerEntitySelectorComponent } from '../picker-entity-selector/picker-
 	styleUrls: ['./task.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskComponent implements OnInit, AfterViewChecked {
+export class TaskComponent {
 
 	@Input() fullUser = false;
 	@Input() task: Task;
@@ -31,22 +31,13 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 	@Output() openSupplier = new EventEmitter<string>();
 	@Output() updateTask = new EventEmitter<Task>();
 	@Output() previewClicked = new EventEmitter<Task>();
-	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 
 	defaultImg = DEFAULT_IMG;
-	selectorVisible = false;
 
 	constructor(
 		private portalSrv: PortalService,
 		private moduleRef: NgModuleRef<any>
 	) { }
-
-	ngOnInit() { }
-
-	ngAfterViewChecked() {
-		if (this.selectorVisible)
-			this.selector.selector.ngSelect.open();
-	}
 
 	get getStatus() {
 		let status = 'pending';
@@ -57,14 +48,7 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 		return status;
 	}
 
-	toggleSelector(is: boolean) {
-		if (this.selector) { // when we select an option on the selector, so the selector gets closed
-			this.selectorVisible = false;
-		} else this.selectorVisible = is;
-	}
-
 	updateAssignee(user: User) {
-		this.toggleSelector(false);
 		this.updateTask.emit({ ...this.task, assignee: user });
 	}
 
@@ -73,10 +57,10 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 		this.updateTask.emit({ ...this.task, done });
 	}
 
-	openSelectorEntity(event) {
+	openSelectorEntity(event, offsetX = 114, offsetY = 5) {
 		const callback = (user) => {
-			console.log(user);
+			this.updateAssignee(user);
 		};
-		this.portalSrv.openFromModule(PickerEntitySelectorComponent, this.moduleRef, { event, callback });
+		this.portalSrv.openFromModule(PickerEntitySelectorComponent, this.moduleRef, { event, callback, offsetX, offsetY });
 	}
 }
