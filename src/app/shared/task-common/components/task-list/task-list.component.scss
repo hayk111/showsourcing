@@ -14,7 +14,7 @@
 }
 
 .container {
-	height: 505px;
+	max-height: 505px;
 
 	.task-container {
 		margin-left: var(--spacing-m);

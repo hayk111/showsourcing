@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewChild, AfterContentInit } from '@angular/core';
 import { User } from '~models/user.model';
 import { PortalService } from '~shared/portal';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
@@ -9,7 +9,7 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
 	styleUrls: ['./picker-entity-selector.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PickerEntitySelectorComponent implements OnInit {
+export class PickerEntitySelectorComponent implements AfterContentInit {
 
 	@HostBinding('style.left')
 	left: string;
@@ -37,16 +37,15 @@ export class PickerEntitySelectorComponent implements OnInit {
 
 	constructor(private portalSrv: PortalService) { }
 
-	ngOnInit() {
+	ngAfterContentInit() {
 		// we set the position of the dropdown
 		this.posX -= this.offsetX;
 		this.left = this.posX + 'px';
 		this.posY -= this.offsetY;
 		this.top = this.posY + 'px';
-
 		// this is done since we have a bug where the first click won't alter the dropdown position (instead of top is bottom)
 		// and  we have to add a setTimeout, this way we don't. 650 is the "middle" of the page
-		this.selector.selector.ngSelect.dropdownPosition = this.posY > 650 ? 'top' : 'bottom';
+		this.selector.selector.ngSelect.dropdownPosition = this.posY > 660 ? 'top' : 'bottom';
 		this.selector.open();
 	}
 
