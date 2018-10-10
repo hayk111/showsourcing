@@ -43,9 +43,7 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 			});
 		this.srv.toClose$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(_ => {
-				this.clear();
-			});
+			.subscribe(_ => this.clear());
 	}
 
 	/** will put a component in the host container */
