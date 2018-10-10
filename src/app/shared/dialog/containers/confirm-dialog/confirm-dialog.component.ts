@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-
 import { DialogService } from '~shared/dialog/services/dialog.service';
 
 

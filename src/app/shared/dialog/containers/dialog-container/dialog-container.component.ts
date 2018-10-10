@@ -4,16 +4,14 @@ import {
 	ChangeDetectorRef,
 	Component,
 	ComponentFactoryResolver,
-	ViewChild,
 	HostListener,
-	NgModuleRef
+	NgModuleRef,
+	ViewChild,
 } from '@angular/core';
-
-import { AutoUnsub } from '~utils';
-
-import { DialogHostDirective } from '~shared/dialog/components/dialog-host.directive';
 import { takeUntil } from 'rxjs/operators';
+import { DialogHostDirective } from '~shared/dialog/components/dialog-host.directive';
 import { DialogService } from '~shared/dialog/services/dialog.service';
+import { AutoUnsub } from '~utils';
 
 
 @Component({

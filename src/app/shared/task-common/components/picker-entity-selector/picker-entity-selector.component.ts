@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewChild, AfterContentInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, HostBinding, Input, ViewChild } from '@angular/core';
 import { User } from '~models/user.model';
 import { PortalService } from '~shared/portal';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';

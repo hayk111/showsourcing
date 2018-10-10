@@ -1,18 +1,8 @@
-import {
-	AfterViewChecked,
-	ChangeDetectionStrategy,
-	Component,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-	NgModuleRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, Output } from '@angular/core';
 import { Task, User } from '~models';
-import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
-import { DEFAULT_IMG } from '~utils';
 import { PortalService } from '~shared/portal';
+import { DEFAULT_IMG } from '~utils';
+
 import { PickerEntitySelectorComponent } from '../picker-entity-selector/picker-entity-selector.component';
 
 @Component({
