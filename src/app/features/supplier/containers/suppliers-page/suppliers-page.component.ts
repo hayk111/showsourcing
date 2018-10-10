@@ -28,6 +28,7 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		FilterType.CREATED_BY,
 		FilterType.FAVORITE,
 	];
+
 	constructor(
 		protected router: Router,
 		protected featureSrv: SupplierFeatureService,
@@ -37,6 +38,14 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		protected moduleRef: NgModuleRef<any>
 	) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.SUPPLIER);
+	}
+
+	search(str: string) {
+		// the search predicate
+		this.currentSearch = str ? `name CONTAINS[c] "${str}"`
+			+ ` OR categories.name CONTAINS[c] "${str}"`
+			+ ` OR tags.name CONTAINS[c] "${str}"` : '';
+		this.onPredicateChange();
 	}
 
 }

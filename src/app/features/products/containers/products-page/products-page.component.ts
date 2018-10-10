@@ -56,6 +56,15 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		this.templateSrv.bottomReached$.subscribe(_ => this.loadMore());
 	}
 
+	search(str: string) {
+		// the search predicate
+		this.currentSearch = str ? `name CONTAINS[c] "${str}"`
+			+ ` OR supplier.name CONTAINS[c] "${str}"`
+			+ ` OR category.name CONTAINS[c] "${str}"`
+			+ ` OR tags.name CONTAINS[c] "${str}"` : '';
+		this.onPredicateChange();
+	}
+
 	/** updates the products with the new value votes */
 	multipleVotes(votes: Map<string, ProductVote[]>) {
 		votes.forEach((v, k) => this.update({ id: k, votes: v }));
