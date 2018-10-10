@@ -17,18 +17,19 @@ export class ActionBarComponent implements OnInit {
 	@Input() favorite = false;
 	/** whether we display the like buttons or not */
 	@Input() hasLikes = true;
+	/** if we are liking/disliking multiple products */
+	@Input() multiple = false;
 	@Input() votes: ProductVote[];
 	@Input() buttonName: string;
 	/** whether we display the heart or not */
 	@Input() hasHeart = true;
 	/** we only use this one when we want to update multiple likes */
-	@Input() products: Product[];
 	@Output() onFavorite = new EventEmitter<null>();
 	@Output() onUnfavorite = new EventEmitter<null>();
-	@Output() vote = new EventEmitter<any>();
 	@Output() buttonClick = new EventEmitter<null>();
 	/** this is only used when selecting multiple products */
-	@Output() multipleVotes = new EventEmitter<Map<string, ProductVote[]>>();
+	@Output() liked = new EventEmitter<boolean>();
+	@Output() disliked = new EventEmitter<boolean>();
 
 	constructor() { }
 

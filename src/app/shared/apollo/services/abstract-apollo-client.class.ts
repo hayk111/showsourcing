@@ -1,22 +1,17 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { from, split, ApolloLink } from 'apollo-link';
-import { Observable } from 'rxjs';
+import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
-import { getMainDefinition } from 'apollo-utilities';
-import { first, map, switchMap } from 'rxjs/operators';
-import { TokenService } from '~features/auth';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { environment } from 'environments/environment.prod';
-import { log, LogColor } from '~utils';
-import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
+import { Observable, Observer } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
-import { filter } from 'rxjs/operators';
 import { RealmServerService } from '~global-services/realm-server/realm-server.service';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
+import { log, LogColor } from '~utils';
 
 
 /**
@@ -50,8 +45,7 @@ export abstract class AbstractApolloClient {
 			this.createClient(uri, name, tokenState);
 			this.apolloState.setClientReady(name);
 		} catch (e) {
-			log.error(e);
-			this.apolloState.setClientError(name);
+			this.apolloState.setClientError(name, e);
 		}
 	}
 
@@ -87,31 +81,42 @@ export abstract class AbstractApolloClient {
 	/** we use the path as client name.. */
 	protected createClient(uri: string, name: Client, tokenState: TokenState) {
 		log.debug(`%c creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
-		// Create a WebSocket link:
-		const connectionParams = { token: tokenState.token };
-		this.ws = new WebSocketLink({
-			uri,
-			options: {
-				reconnect: true,
-				connectionParams
-			}
+
+		return Observable.create((observer: Observer<any>) => {
+			const connectionCallback = (error) => {
+				if (error) {
+					observer.error(error);
+				} else {
+					observer.next(name);
+					observer.complete();
+				}
+			};
+			// Create a WebSocket link:
+			const connectionParams = { token: tokenState.token };
+			this.ws = new WebSocketLink({
+				uri,
+				options: {
+					reconnect: true,
+					connectionParams,
+					connectionCallback
+				}
+			});
+
+			const link = from([
+				cleanTypenameLink,
+				this.ws
+			]);
+
+			this.apollo.create({
+				link,
+				connectToDevTools: !environment.production,
+				cache: new InMemoryCache({}),
+				queryDeduplication: true
+			}, name);
 		});
 
-
-		const link = from([
-			cleanTypenameLink,
-			this.ws
-		]);
-
-		this.apollo.create({
-			link,
-			connectToDevTools: !environment.production,
-			cache: new InMemoryCache({}),
-			queryDeduplication: true
-		}, name);
 		// need to reset the store so it doesn't have previous data
 		// const cli = this.apollo.use(name).getClient().resetStore();
-
 	}
 
 	protected clearClient(clientName?: string) {

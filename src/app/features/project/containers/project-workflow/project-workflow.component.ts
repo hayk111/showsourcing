@@ -18,6 +18,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './project-workflow.component.html',
 	styleUrls: ['./project-workflow.component.scss'],
 })
-export class ProjectWorkflowComponent extends ListPageComponent<Product, ProductService>  implements OnInit {
+export class ProjectWorkflowComponent extends ListPageComponent<Product, ProductService> implements OnInit {
 	project$: Observable<Project>;
 	// statuses$ = new Subject<ProductStatus[]>();
 	columns$: Observable<KanbanColumn[]>;
@@ -46,9 +47,9 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>,
 		protected featureSrv: ProjectWorkflowFeatureService,
-		protected notifSrv: NotificationService
-	) {
-		super(router, productSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
+		protected notifSrv: NotificationService,
+		protected thumbSrv: ThumbService) {
+		super(router, productSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, thumbSrv, FindProductsDialogComponent);
 	}
 
 	ngOnInit() {
@@ -188,5 +189,4 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 			})
 		);
 	}
-
 }

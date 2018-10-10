@@ -20,7 +20,7 @@ export abstract class AbstractTaskCommonComponent extends ListPageComponent<Task
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TASK);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TASK, null);
 	}
 
 	ngAfterViewInit() {

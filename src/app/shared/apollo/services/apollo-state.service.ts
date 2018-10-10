@@ -33,18 +33,18 @@ export enum ClientStatus {
 })
 export class ApolloStateService {
 
-	private clientReady: AllClientState = {};
-	private _clientsReady$ = new ReplaySubject<AllClientState>(1);
-	private clientsReady$ = this._clientsReady$.asObservable().pipe(
+	private clientsState: AllClientState = {};
+	private _clientsState$ = new ReplaySubject<AllClientState>(1);
+	private clientsState$ = this._clientsState$.asObservable().pipe(
 		shareReplay(1)
 	);
 
 	constructor(protected router: Router, public apollo: Apollo) {
-		this.clientsReady$.subscribe(all => this.redirect(all));
+		this.clientsState$.subscribe(all => this.redirect(all));
 	}
 
 	getClientStatus(name: Client): Observable<ClientStatus> {
-		return this.clientsReady$.pipe(
+		return this.clientsState$.pipe(
 			map(state => state[name] ? state[name] : ClientStatus.PENDING),
 			distinctUntilChanged()
 		);
@@ -52,35 +52,36 @@ export class ApolloStateService {
 
 	setClientStatus(name: Client, status: ClientStatus) {
 		this.log(name, status, this.getCurrentStatus(name));
-		this.clientReady[name] = status;
+		this.clientsState[name] = status;
 		this.emit();
 	}
 
 	setClientReady(name: Client) {
 		const status = ClientStatus.READY;
 		this.log(name, status, this.getCurrentStatus(name));
-		this.clientReady[name] = status;
+		this.clientsState[name] = status;
 		this.emit();
 	}
 
-	setClientError(name: Client) {
+	setClientError(name: Client, error: Error) {
 		const status = ClientStatus.ERROR;
 		this.log(name, status, this.getCurrentStatus(name));
-		this.clientReady[name] = status;
+		log.error(error);
+		this.clientsState[name] = status;
 		this.emit();
 	}
 
 	setClientPending(name: Client) {
 		const status = ClientStatus.PENDING;
 		this.log(name, status, this.getCurrentStatus(name));
-		this.clientReady[name] = status;
+		this.clientsState[name] = status;
 		this.emit();
 	}
 
 	destroyClient(name: Client) {
 		const status = ClientStatus.NOT_READY;
 		this.log(name, status, this.getCurrentStatus(name));
-		this.clientReady[name] = status;
+		this.clientsState[name] = status;
 		this.emit();
 	}
 
@@ -101,17 +102,16 @@ export class ApolloStateService {
 		const hasError = Object.values(allState).some(value => value === ClientStatus.ERROR);
 		if (hasError) {
 			this.router.navigate(['server-issue']);
-			return;
 		}
 	}
 
 	private getCurrentStatus(clientName: string): ClientStatus {
-		return this.clientReady[clientName] || ClientStatus.PENDING;
+		return this.clientsState[clientName] || ClientStatus.PENDING;
 	}
 
 
 	private emit() {
-		this._clientsReady$.next(this.clientReady);
+		this._clientsState$.next(this.clientsState);
 	}
 
 	private log(name: string, newStatus: ClientStatus, oldStatus: ClientStatus) {

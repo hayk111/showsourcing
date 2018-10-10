@@ -3,7 +3,7 @@
 	<dialog-subtitle-app *ngIf="!pending" i18n="dialog subtitle|Select export type@@productExport_type">Export Type</dialog-subtitle-app>
 
 	<main class="exportRow" *ngIf="!pending; else spinner">
-		<div class="exportCell" (click)="select('excel')" [class.selected]="selectedExport === 'excel'">
+		<div class="exportCell" (click)="select('xlsx')" [class.selected]="selectedExport === 'xlsx'">
 			<icon-app name="excel"></icon-app>
 			<div class="title">Excel</div>
 			<div class="subtitle" i18n="div subtitle|Export product for edition porpuses@@productExport_excelEdit">Perfect for edition</div>

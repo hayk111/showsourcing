@@ -17,6 +17,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SearchService } from '~shared/filters';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class MyWorkflowPageComponent extends ListPageComponent<Product, Workspac
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
 		protected workspaceSrv: WorkspaceFeatureService,
-		protected moduleRef: NgModuleRef<any>) {
+		protected moduleRef: NgModuleRef<any>,
+		protected thumbSrv: ThumbService) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 

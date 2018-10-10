@@ -1,17 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { ActivityService } from '~shared/activity/services/activity.service';
-import { Product, Comment, Supplier, ERM, EntityMetadata } from '~models';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from '~global-services/product/product.service';
-import { TemplateService } from '~shared/template/services/template.service';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { takeUntil, switchMap } from 'rxjs/operators';
-import { AutoUnsub } from '~utils';
-import { CommentService } from '~global-services/comment/comment.service';
-import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
-import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
+import { switchMap } from 'rxjs/operators';
 import { SupplierService } from '~global-services';
 import { ERMService } from '~global-services/_global/erm.service';
+import { CommentService } from '~global-services/comment/comment.service';
+import { ProductService } from '~global-services/product/product.service';
+import { Comment, Product, Supplier } from '~models';
+import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
+import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
+import { ActivityService } from '~shared/activity/services/activity.service';
+import { TemplateService } from '~shared/template/services/template.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'grouped-feed-list-app',

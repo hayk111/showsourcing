@@ -41,13 +41,14 @@
 
 		<action-bar-app
 			*ngIf="hasActions"
+			buttonName="Open"
 			[isVisible]="showOptionsBar"
 			[votes]="product?.votes"
 			[favorite]="product?.favorite"
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
-			(vote)="updateProduct({ votes: $event })"
-			buttonName="Open"
+			(liked)="onThumbUp()"
+			(disliked)="onThumbDown()"
 			(buttonClick)="onViewProduct()">
 
 			<button class="icon light folder" (click)="openAddToProject()">

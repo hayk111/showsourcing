@@ -17,7 +17,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
 	pending$ = new Subject<boolean>();
 	error: string;
-	private returnUrl: string;
+	queryParams: any;
 
 	constructor(
 		private srv: AuthenticationService,
@@ -34,7 +34,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		// get return url from route parameters or default to '/'
-		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+		this.queryParams = this.route.snapshot.queryParams || '/';
 	}
 
 	onSubmit() {
@@ -42,20 +42,20 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 			this.pending$.next(true);
 			this.srv.login(this.form.value).pipe(
 				takeUntil(this._destroy$),
-				take(1)
 			).subscribe(
-				r => {
-					this.router.navigateByUrl(this.returnUrl);
-				},
-				e => {
-					if (e.error && e.error.status === 401) {
-						this.error = 'Incorrect credentials';
-					} else {
-						this.error = 'Submition failed, please try again in a short while';
-					}
-					this.pending$.next(false);
-				});
+				r => this.router.navigateByUrl(this.queryParams.returnUrl),
+				e => this.onError(e)
+			);
 		}
+	}
+
+	onError(error) {
+		if (error.error && error.error.status === 401)
+			this.error = 'Incorrect credentials';
+		else
+			this.error = 'Submition failed, please try again in a short while';
+
+		this.pending$.next(false);
 	}
 
 	forgotPw() {

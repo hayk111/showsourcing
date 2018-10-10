@@ -87,12 +87,6 @@ export class TeamService extends GlobalService<Team> {
 		);
 	}
 
-	/** restore from local storage   */
-	private restoreSelectedTeamId() {
-		const selectedTeam: Team = this.storage.getItem(SELECTED_TEAM);
-		this._teamSelectionEvent$.next(selectedTeam);
-	}
-
 	private getSelectedTeam() {
 		return this.storage.getItem(SELECTED_TEAM);
 	}

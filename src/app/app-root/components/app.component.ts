@@ -35,10 +35,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
 		this.routerSubscription = this.router.events
 			.pipe(filter(event => event instanceof NavigationEnd))
-			.subscribe(event => {
-				document.body.scrollTop = 0;
-			});
+			.subscribe(event => document.body.scrollTop = 0);
 	}
+
 	ngOnDestroy() {
 		this.routerSubscription.unsubscribe();
 	}

@@ -1,12 +1,12 @@
 import {
+	ChangeDetectionStrategy,
 	Component,
+	ElementRef,
 	EventEmitter,
 	Input,
 	Output,
-	ChangeDetectionStrategy,
-	ViewChild,
 	Renderer2,
-	ElementRef
+	ViewChild,
 } from '@angular/core';
 import { IconComponent } from '~shared/icons';
 

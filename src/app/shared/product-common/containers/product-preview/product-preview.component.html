@@ -19,12 +19,13 @@
 		</workflow-action-app>
 
 		<action-bar-app
+			buttonName="Open"
 			[votes]="product.votes"
 			[favorite]="product.favorite"
 			(onFavorite)="updateProduct({ favorite: true })"
 			(onUnfavorite)="updateProduct({ favorite: false })"
-			(vote)="updateProduct({ votes: $event })"
-			buttonName="Open"
+			(liked)="onThumbUp()"
+			(disliked)="onThumbDown()"
 			(buttonClick)="onViewProduct()">
 
 			<button class="icon light folder" (click)="openAddToProject()">
