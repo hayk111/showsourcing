@@ -9,6 +9,7 @@
 
 		<!-- preview  -->
 		<one-activity-carousel-app
+			*ngIf="product?.images?.length > 0"
 			[images]="product?.images">
 		</one-activity-carousel-app>
 
@@ -17,9 +18,10 @@
 			<action-bar-app
 					[favorite]="product?.favorite"
 					[votes]="product?.votes"
-					(vote)="onVote($event)"
 					(onFavorite)="onFavorite()"
-					(onUnfavorite)="onUnfavorite()">
+					(onUnfavorite)="onUnfavorite()"
+					(liked)="onThumbUp()"
+					(disliked)="onThumbDown()">
 					<button class="icon light" (click)="openAddToProject()">
 						<icon-app class="fs-xl" fontSet="svg" name="folder-light"></icon-app>
 					</button>

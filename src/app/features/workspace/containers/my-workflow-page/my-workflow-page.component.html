@@ -75,16 +75,17 @@
 
   <action-bar-app
     [favorite]="allSelectedFavorite"
-    [products]="selected$ | async"
-    (onFavorite)="onFavoriteAllSelected()"
-    (onUnfavorite)="onUnfavoriteAllSelected()"
-    (multipleVotes)="multipleVotes($event)">
+		[multiple]="true"
+		(onFavorite)="onFavoriteAllSelected()"
+		(onUnfavorite)="onUnfavoriteAllSelected()"
+		(liked)="onMultipleThumbUp($event)"
+		(disliked)="onMultipleThumbDown($event)">
 
     <button class="icon light" (click)="openAddToProjectDialog()">
-      <icon-app name="folder" size="m" ></icon-app>
+      <icon-app name="folder-light" fontSet="svg"></icon-app>
     </button>
     <button class="icon light" (click)="deleteSelected()">
-      <icon-app name="trash-bin" size="m"></icon-app>
+      <icon-app name="trash-bin"></icon-app>
     </button>
   </action-bar-app>
 </selection-bar-app>

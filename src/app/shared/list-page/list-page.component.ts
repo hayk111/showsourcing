@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
-import { EntityMetadata, ERM } from '~models';
+import { EntityMetadata, ERM, Product } from '~models';
 import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType, SearchService, Filter } from '~shared/filters';
@@ -13,6 +13,8 @@ import { AutoUnsub } from '~utils';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~global-services/_global/select-params';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { ProductQueries } from '~global-services/product/product.queries';
 
 
 
@@ -71,6 +73,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		protected dlgSrv?: DialogService,
 		protected moduleRef?: NgModuleRef<any>,
 		protected entityMetadata?: EntityMetadata,
+		protected thumbSrv?: ThumbService,
 		protected createDlgComponent: new (...args: any[]) => any = CreationDialogComponent) {
 		super();
 	}
@@ -312,6 +315,42 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	onUnfavoriteAllSelected() {
 		this.selectionItems().forEach(item => this.onItemUnfavorited(item.id));
 		this.allSelectedFavorite = false;
+	}
+
+	onThumbUp(product: Product) {
+		const votes = this.thumbSrv.thumbUp(product);
+		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
+	}
+
+	onThumbDown(product: Product) {
+		const votes = this.thumbSrv.thumbDown(product);
+		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
+	}
+
+	/**
+	 * update the vote of a given selection of items (products) when given thumb up
+	 * @param onHighlight indicates the future state of the thumb
+	 */
+	onMultipleThumbUp(onHighlight: boolean) {
+		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
+		// if you are using another feature srv (as project) override this funcition
+		this.selectionItems().forEach(item => {
+			const votes = this.thumbSrv.thumbUpFromMulti(item, onHighlight);
+			this.update({ id: item.id, votes } as any);
+		});
+	}
+
+	/**
+	 * update the vote of a given selection of items (products) when given thumb down
+	 * @param onHighlight indicates the future state of the thumb
+	 */
+	onMultipleThumbDown(onHighlight: boolean) {
+		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
+		// if you are using another feature srv (as project) override this funcition
+		this.selectionItems().forEach(item => {
+			const votes = this.thumbSrv.thumbDownFromMulti(item, onHighlight);
+			this.update({ id: item.id, votes } as any);
+		});
 	}
 
 	/** when filter button is clicked at the top we open the panel */

@@ -10,6 +10,7 @@ import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'product-details-app',
@@ -29,7 +30,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private moduleRef: NgModuleRef<any>,
 		private notifSrv: NotificationService,
-		private router: Router
+		private router: Router,
+		private thumbSrv: ThumbService
 	) {
 		super();
 	}
@@ -116,15 +118,21 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			.subscribe();
 	}
 
+	onThumbUp() {
+		const votes = this.thumbSrv.thumbUp(this.product);
+		this.updateProduct({ votes });
+	}
+
+	onThumbDown() {
+		const votes = this.thumbSrv.thumbDown(this.product);
+		this.updateProduct({ votes });
+	}
+
 	/** update the product */
 	updateProduct(product: any, fields?: string) {
 		this.featureSrv
 			.update({ id: this.product.id, ...product }, fields)
 			.subscribe();
-	}
-
-	updateProductVotes(product: any) {
-		this.updateProduct(product, 'votes { id, value, user { id } }');
 	}
 
 	/** when a new image is uploaded we add it to the list of images of the product */

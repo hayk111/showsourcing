@@ -1,18 +1,25 @@
 import {
-	Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter,
-	NgModuleRef, ViewChild, ElementRef, Renderer2
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	NgModuleRef,
+	OnInit,
+	Output,
+	ViewChild,
 } from '@angular/core';
-import { Product, ERM, Comment } from '~models';
-import { Router } from '@angular/router';
-import { DialogService } from '~shared/dialog';
-import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
-import { DEFAULT_IMG, AutoUnsub } from '~utils';
-import { InputDirective } from '~shared/inputs';
-import { Observable } from 'rxjs';
-import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
-import { takeUntil, map } from 'rxjs/operators';
-import { ProductService } from '~global-services';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ProductService } from '~global-services';
+import { ERM, Product } from '~models';
+import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
+import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
+import { DialogService } from '~shared/dialog';
+import { InputDirective } from '~shared/inputs';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'one-product-activity-card-app',
@@ -36,7 +43,8 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		private router: Router,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
-		private productSrv: ProductService) {
+		private productSrv: ProductService,
+		private thumbSrv: ThumbService) {
 		super();
 	}
 
@@ -64,15 +72,20 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		this.updateProduct({ id: this.product.id, favorite: false });
 	}
 
-	onVote(votes) {
+	onThumbUp() {
+		const votes = this.thumbSrv.thumbUp(this.product);
+		this.updateProduct({ id: this.product.id, votes });
+	}
+
+	onThumbDown() {
+		const votes = this.thumbSrv.thumbDown(this.product);
 		this.updateProduct({ id: this.product.id, votes });
 	}
 
 	updateProduct(product: Product) {
 		this.update.emit(product);
-		// since optimistic ui isn't working yet, let's modify the product locally
-		this.product = { ...this.product, ...product };
 	}
+
 	onViewProduct() {
 		this.router.navigate(['product', 'details', this.product.id]);
 	}

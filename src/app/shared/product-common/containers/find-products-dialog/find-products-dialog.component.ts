@@ -40,7 +40,7 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, null);
 	}
 
 

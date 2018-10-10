@@ -1,18 +1,15 @@
-import { Apollo, ApolloBase, QueryRef } from 'apollo-angular';
+import { ApolloBase, QueryRef } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError, pipe } from 'rxjs';
-import { catchError, filter, first, map, shareReplay, tap, switchMap } from 'rxjs/operators';
-import { SelectParams, SelectParamsConfig } from '~global-services/_global/select-params';
-import { log, LogColor } from '~utils';
-import { FetchResult } from 'apollo-link';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError } from 'rxjs';
+import { catchError, filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { ListQuery } from '~global-services/_global/list-query.interface';
-import { GlobalQueries } from '~global-services/_global/global-queries.class';
 import { QueryBuilder } from '~global-services/_global/query-builder.class';
+import { SelectAllParams, SelectAllParamsConfig } from '~global-services/_global/select-all-params';
+import { SelectParams, SelectParamsConfig } from '~global-services/_global/select-params';
 import { Entity } from '~models';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
-import { ProductQueries } from '~global-services/product/product.queries';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
-import { SelectAllParamsConfig, SelectAllParams } from '~global-services/_global/select-all-params';
+import { log, LogColor } from '~utils';
 
 
 export interface GlobalServiceInterface<T> {

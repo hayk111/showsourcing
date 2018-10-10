@@ -34,7 +34,7 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 		protected teamService: TeamService,
 		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, memberSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TEAM_USER);
+		super(router, memberSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TEAM_USER, null);
 	}
 
 	ngOnInit() {
@@ -68,8 +68,8 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef);
 	}
 
-	updateAccessType({ member, accessType}: { member: TeamUser, accessType: string }) {
-		this.memberSrv.updateAccessType([ { id: member.id, accessType } ]).subscribe(() => {
+	updateAccessType({ member, accessType }: { member: TeamUser, accessType: string }) {
+		this.memberSrv.updateAccessType([{ id: member.id, accessType }]).subscribe(() => {
 			this.refetchWithAllFilters();
 			this.resetSelection();
 		});

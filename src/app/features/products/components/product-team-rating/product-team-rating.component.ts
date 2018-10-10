@@ -15,7 +15,8 @@ export class ProductTeamRatingComponent implements OnInit {
 	}
 
 	@Output() requestTeamVotes = new EventEmitter<null>();
-	@Output() vote = new EventEmitter<any>();
+	@Output() liked = new EventEmitter<null>();
+	@Output() disliked = new EventEmitter<null>();
 	@Output() openVoteDetails = new EventEmitter<null>();
 
 	score: number;

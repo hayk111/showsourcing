@@ -58,7 +58,29 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	/** The item is checked */
 	@Input() tags: any;
 	/** The associated product */
-	@Input() product: Product;
+	@Input() set product(product: Product) {
+		this.thumbsName = 'thumbs-up';
+		this.like = false;
+		this.dislike = false;
+		if (product)
+			this.userVote = (product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+		if (this.userVote) {
+			if (this.userVote.value === 100) {
+				this.like = true;
+				this.dislike = false;
+				this.thumbsName = 'thumbs-up-background';
+			} else {
+				this.dislike = true;
+				this.like = false;
+				this.thumbsName = 'thumbs-down-background';
+			}
+		}
+		this._product = product;
+	}
+
+	get product() {
+		return this._product;
+	}
 	/** Some drag'n drop is in progress */
 	@Input() dragInProgress: boolean;
 	/** Highlight the card when checked */
@@ -100,6 +122,7 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	cardEntered: boolean;
 	/** The user vote if any */
 	userVote: ProductVote;
+	private _product: Product;
 	like = false;
 	dislike = false;
 	thumbsName = 'thumbs-up-white';
@@ -108,22 +131,7 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 		super();
 	}
 
-	ngOnInit() {
-		if (this.product) {
-			this.userVote = (this.product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			if (this.userVote) {
-				if (this.userVote.value === 100) {
-					this.like = true;
-					this.dislike = false;
-					this.thumbsName = 'thumbs-up-background';
-				} else {
-					this.dislike = true;
-					this.like = false;
-					this.thumbsName = 'thumbs-down-background';
-				}
-			}
-		}
-	}
+	ngOnInit() { }
 
 	ngAfterViewInit() {
 		if (this.checked && this.highlightOnChecked) {

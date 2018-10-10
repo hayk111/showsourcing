@@ -27,7 +27,8 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly event = ` event { id, name, description { id logoImage { id, fileName } } }`;
 	static readonly status = `status { id, cancelled, status {id, name, category, step, inWorkflow } }`;
 	static readonly tags = `tags { id, name }`;
-	static readonly votes = `votes { id, value, user { id, firstName, lastName, avatar { id, fileName, imageType, creationDate } } }`;
+	// uncomment and replace when the Image.creationDate bug is fixed on votes, avatar { id, fileName, imageType, creationDate }
+	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
 	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, fileName } }`;
 	static readonly comments = `comments { id, text, ${ProductQueries.createdBy}, creationDate }`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;

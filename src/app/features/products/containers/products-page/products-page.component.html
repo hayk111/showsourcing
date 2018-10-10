@@ -91,10 +91,11 @@
 
 		<action-bar-app
 			[favorite]="allSelectedFavorite"
-			[products]="selectedItems$ | async"
+			[multiple]="true"
 			(onFavorite)="onFavoriteAllSelected()"
 			(onUnfavorite)="onUnfavoriteAllSelected()"
-			(multipleVotes)="multipleVotes($event)">
+			(liked)="onMultipleThumbUp($event)"
+			(disliked)="onMultipleThumbDown($event)">
 
 			<button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
@@ -114,7 +115,7 @@
 			</context-menu-app>
 
 			<button class="icon light" (click)="deleteSelected()">
-				<icon-app name="trash-bin" size="m"></icon-app>
+				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
 	</selection-bar-app>

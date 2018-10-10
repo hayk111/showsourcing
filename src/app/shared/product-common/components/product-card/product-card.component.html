@@ -41,10 +41,10 @@
             </div>
             <div class="descriptionCtnr-last flex">
 							<icon-app *ngIf="thumbsName"
-								[style.visibility]="thumbsName === 'thumbs-up-white' ? 'hidden' : 'visible'"
+								[style.visibility]="thumbsName === 'thumbs-up' ? 'hidden' : 'visible'"
 								[name]="thumbsName" [ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
 							</icon-app>
-              <span *ngIf="product?.score !== undefined && product?.score != null" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
+              <span *ngIf="product?.score !== undefined && product?.score != null" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike, 'color-txt-secondary': !(like || dislike) }">{{product?.score}}%</span>
             </div>
           </div>
         </div>
