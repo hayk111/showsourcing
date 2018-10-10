@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 @Injectable({
 	providedIn: 'root'
 })
-export class PickerService {
+export class PortalService {
 	private _toOpen$ = new Subject<{ component: any, moduleRef: NgModuleRef<any>, props: any }>();
 	toOpen$ = this._toOpen$.asObservable();
 	private _toClose$ = new Subject<any>();

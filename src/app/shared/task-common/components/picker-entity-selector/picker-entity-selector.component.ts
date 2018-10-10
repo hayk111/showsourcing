@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
 import { User } from '~models/user.model';
-import { PickerService } from '~shared/picker';
+import { PortalService } from '~shared/portal';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 
 @Component({
@@ -34,7 +34,7 @@ export class PickerEntitySelectorComponent implements OnInit {
 	/** position click vertically */
 	posY: number;
 
-	constructor(private pickerSrv: PickerService) { }
+	constructor(private portalSrv: PortalService) { }
 
 	ngOnInit() {
 		// this is done since we have a bug where the first click won't alter the dropdown position (instead of top is bottom)
@@ -50,6 +50,6 @@ export class PickerEntitySelectorComponent implements OnInit {
 	}
 
 	close() {
-		this.pickerSrv.close();
+		this.portalSrv.close();
 	}
 }

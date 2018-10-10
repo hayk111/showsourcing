@@ -9,26 +9,26 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { PickerHostDirective } from '~shared/picker/components/picker-host.directive';
-import { PickerService } from '~shared/picker/services';
+import { PortalHostDirective } from '~shared/portal/components/portal-host.directive';
+import { PortalService } from '~shared/portal/services';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'picker-container-app',
-	templateUrl: './picker-container.component.html',
-	styleUrls: ['./picker-container.component.scss'],
+	selector: 'portal-container-app',
+	templateUrl: './portal-container.component.html',
+	styleUrls: ['./portal-container.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PickerContainerComponent extends AutoUnsub implements AfterViewInit {
+export class PortalContainerComponent extends AutoUnsub implements AfterViewInit {
 
 	// host where we will put dynamically generated components
-	@ViewChild(PickerHostDirective) host: PickerHostDirective;
+	@ViewChild(PortalHostDirective) host: PortalHostDirective;
 	// view container of said host.
 	protected viewContainerRef;
 	isOpen = false;
 
 	constructor(
-		protected srv: PickerService,
+		protected portalSrv: PortalService,
 		protected componentFactoryResolver: ComponentFactoryResolver,
 		protected cdRef: ChangeDetectorRef) {
 		super();
@@ -36,12 +36,12 @@ export class PickerContainerComponent extends AutoUnsub implements AfterViewInit
 
 	ngAfterViewInit() {
 		this.viewContainerRef = this.host.viewContainerRef;
-		this.srv.toOpen$
+		this.portalSrv.toOpen$
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(({ component, props, moduleRef }) => {
 				this.open(component, moduleRef, props);
 			});
-		this.srv.toClose$
+		this.portalSrv.toClose$
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(_ => {
 				this.clear();

@@ -20,7 +20,7 @@ import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
-import { PickerModule } from '~shared/picker';
+import { PortalModule } from '~shared/portal';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -53,7 +53,7 @@ import { PickerModule } from '~shared/picker';
 			scrollPositionRestoration: 'top',
 			// enableTracing: true
 		}),
-		PickerModule
+		PortalModule
 	],
 	providers: [],
 	exports: [RouterModule],

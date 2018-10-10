@@ -1,9 +1,9 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-	selector: '[pickerHostApp]'
+	selector: '[portalHostApp]'
 })
-export class PickerHostDirective {
+export class PortalHostDirective {
 
 	constructor(public viewContainerRef: ViewContainerRef) { }
 

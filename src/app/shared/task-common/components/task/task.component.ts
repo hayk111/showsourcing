@@ -12,7 +12,7 @@ import {
 import { Task, User } from '~models';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { DEFAULT_IMG } from '~utils';
-import { PickerService } from '~shared/picker';
+import { PortalService } from '~shared/portal';
 import { PickerEntitySelectorComponent } from '../picker-entity-selector/picker-entity-selector.component';
 
 @Component({
@@ -37,7 +37,7 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 	selectorVisible = false;
 
 	constructor(
-		private pickerSrv: PickerService,
+		private portalSrv: PortalService,
 		private moduleRef: NgModuleRef<any>
 	) { }
 
@@ -77,6 +77,6 @@ export class TaskComponent implements OnInit, AfterViewChecked {
 		const callback = (user) => {
 			console.log(user);
 		};
-		this.pickerSrv.openFromModule(PickerEntitySelectorComponent, this.moduleRef, { event, callback });
+		this.portalSrv.openFromModule(PickerEntitySelectorComponent, this.moduleRef, { event, callback });
 	}
 }

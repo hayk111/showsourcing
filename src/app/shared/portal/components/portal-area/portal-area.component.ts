@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-	selector: 'picker-area-app',
-	templateUrl: './picker-area.component.html',
-	styleUrls: ['./picker-area.component.scss'],
+	selector: 'portal-area-app',
+	templateUrl: './portal-area.component.html',
+	styleUrls: ['./portal-area.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PickerAreaComponent {
+export class PortalAreaComponent {
 
 	@Input() isOpen;
 
