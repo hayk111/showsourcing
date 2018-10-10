@@ -27,6 +27,8 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 	@Output() productFavorite = new EventEmitter<null>();
 	@Output() productUnfavorite = new EventEmitter<null>();
 	@Output() addToProject = new EventEmitter<null>();
+	@Output() liked = new EventEmitter<null>();
+	@Output() disliked = new EventEmitter<null>();
 
 	prodERM = ERM.PRODUCT;
 	showOptionsBar = false;
@@ -58,16 +60,6 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 
 	openAddToProject() {
 		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
-	}
-
-	onThumbUp() {
-		const votes = this.thumbSrv.thumbUp(this.product);
-		this.updateProduct({ id: this.product.id, votes });
-	}
-
-	onThumbDown() {
-		const votes = this.thumbSrv.thumbDown(this.product);
-		this.updateProduct({ id: this.product.id, votes });
 	}
 
 }

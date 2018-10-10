@@ -80,6 +80,8 @@
 		(unselect)="onItemUnselected($event, true)"
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
+		(liked)="onThumbUp($event)"
+		(disliked)="onThumbDown($event)"
 		(open)="goToDetails($event)"></products-card-view-app>
 
 	<selection-bar-app
