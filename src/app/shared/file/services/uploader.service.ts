@@ -25,7 +25,7 @@ export class UploaderService {
 
 			// MaxSize 1MB
 			imgs.map(img => {
-				let newImage = null;
+				let newImage;
 				resizeSizeToLimit(img, 1000000).pipe(take(1)).subscribe((_newImage) => {
 					newImage = _newImage;
 				});
