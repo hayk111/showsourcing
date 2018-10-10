@@ -153,11 +153,18 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.refetch({ ...sort });
 	}
 
+	/** when we want to search through the list, by default we only search the name
+	 * Override this to search more than just the name
+	 */
 	search(str: string) {
+		// the search predicate
 		this.currentSearch = str ? `name CONTAINS[c] "${str}"` : '';
 		this.onPredicateChange();
 	}
 
+	/**
+	 * On any of the predicate change we should call this to refetch
+	 */
 	onPredicateChange() {
 		const allFilters = [
 			this.initialPredicate,
@@ -234,14 +241,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	selectAll(entities: any[], checkFavorite = false) {
 		// we check for each item if it has unfavorite, if it has we stop looking and update the icon to false
 		if (checkFavorite && this.allSelectedFavorite) {
-			entities.every(entity => {
-				if (entity.favorite)
-					return true;
-				else {
-					this.allSelectedFavorite = false;
-					return false;
-				}
-			});
+			this.allSelectedFavorite = entities.every(entity => entity.favorite);
 		}
 		this.selectionSrv.selectAll(entities);
 	}
