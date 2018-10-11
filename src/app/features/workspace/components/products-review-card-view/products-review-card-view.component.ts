@@ -1,9 +1,12 @@
-import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { Product, ERM } from '~models';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { Category } from '~features/workspace/models';
+import { ProductStatusTypeService } from '~global-services';
+import { ERM, Product, ProductStatusType } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
-import { Sort } from '~shared/table/components/sort.interface';
 import { SelectionService } from '~shared/list-page/selection.service';
+import { Sort } from '~shared/table/components/sort.interface';
 
 
 @Component({
@@ -11,7 +14,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 	templateUrl: './products-review-card-view.component.html',
 	styleUrls: ['./products-review-card-view.component.scss']
 })
-export class ProductsReviewCardViewComponent extends ListViewComponent<Product> implements OnChanges {
+export class ProductsReviewCardViewComponent extends ListViewComponent<Product> implements OnInit, OnChanges {
 
 	@Input() currentSort: Sort;
 	@Output() sentToWorkflow = new EventEmitter<Product>();
@@ -19,13 +22,21 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	@Output() archive = new EventEmitter<Product>();
 	@Output() statusUpdated = new EventEmitter<any>();
 
+	firstStatus$: Observable<ProductStatusType>;
 	groupedProducts: Category[];
 	noFieldProducts: Product[];
 	prodERM = ERM.PRODUCT;
 	noFieldChecked: boolean;
 
-	constructor(private selectionSrv: SelectionService) {
+	constructor(
+		private selectionSrv: SelectionService,
+		private prodStatusSrv: ProductStatusTypeService
+	) {
 		super();
+	}
+
+	ngOnInit() {
+		this.firstStatus$ = this.prodStatusSrv.queryOneByPredicate(`step == 0`).pipe(first());
 	}
 
 	ngOnChanges(changes) {
