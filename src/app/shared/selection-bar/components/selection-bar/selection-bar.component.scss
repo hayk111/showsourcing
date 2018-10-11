@@ -15,7 +15,9 @@
 
 .ctnr {
     background: var(--color-bg);
-    height: 70px;
+    border-top: 3px solid var(--color-primary);
+    height: 64px;
+    box-sizing: border-box;
 }
 
 .left {

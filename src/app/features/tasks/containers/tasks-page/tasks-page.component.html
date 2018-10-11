@@ -5,7 +5,7 @@
 		[selection]="selection"
 		[tasks]="tasks$ | async"></tasks-list-view-app>
 
-<selection-bar-app  *ngIf="selection.size > 0" [selection]="selection">
+<selection-bar-app  [isShown]="selection.size > 0" [selection]="selection">
 
 </selection-bar-app>
 
