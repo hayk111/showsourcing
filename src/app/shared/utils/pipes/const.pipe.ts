@@ -1,5 +1,5 @@
 import { LOCALE_ID, Inject, Pipe, PipeTransform } from '@angular/core';
-import { currencyMap, countryMap, harbourMap, incoTermsMap, statusMap } from '~utils/constants';
+import { currencyMap, countryMap, harbourMap, incoTermsMap, statusMap, supplierTypesMap } from '~utils/constants';
 
 /**
  * transform a const to it's given name or if any additional param is given the property named with that param
@@ -48,6 +48,10 @@ export class ConstPipe implements PipeTransform {
 			case 'statuses':
 				constMap = statusMap;
 				break;
+			case 'supplierType':
+			case 'supplierTypes':
+				constMap = supplierTypesMap;
+				break;
 			default: throw Error(`The target ${args[0]} for the const pipe is not a valid const`);
 		}
 		const constObject = constMap[value];
@@ -86,7 +90,7 @@ export class ConstPipe implements PipeTransform {
 				return localeValues.en[propertyName];
 			}
 		}
-		return ''	;
+		return '';
 	}
 
 }

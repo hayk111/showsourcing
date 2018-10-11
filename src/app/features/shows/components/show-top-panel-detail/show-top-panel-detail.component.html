@@ -10,7 +10,7 @@
         {{ show?.description?.endDate | date: 'M'}}
         -
         {{ show?.description?.venue?.addressFull }},
-        {{ show?.description?.venue?.country | const:'country' }}
+        {{ show?.description?.venue?.country | const: 'country':'name' }}
       </div>
 
       <div class="flex tags">

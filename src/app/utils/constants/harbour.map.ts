@@ -1,310 +1,618 @@
 export const harbourMap = {
 	'Alexandria': {
-		'id': 'Alexandria',
-		'name': 'Alexandria'
+		locales: {
+			en: {
+				id: 'Alexandria',
+				name: 'Alexandria'
+			}
+		}
 	},
 	'Algeciras': {
-		'id': 'Algeciras',
-		'name': 'Algeciras'
+		locales: {
+			en: {
+				id: 'Algeciras',
+				name: 'Algeciras'
+			}
+		}
 	},
 	'Ambarli (Istanbul)': {
-		'id': 'Ambarli (Istanbul)',
-		'name': 'Ambarli (Istanbul)'
+		locales: {
+			en: {
+				id: 'Ambarli (Istanbul)',
+				name: 'Ambarli (Istanbul)'
+			}
+		}
 	},
 	'Antwerp': {
-		'id': 'Antwerp',
-		'name': 'Antwerp'
+		locales: {
+			en: {
+				id: 'Antwerp',
+				name: 'Antwerp'
+			}
+		}
 	},
 	'Bangkok': {
-		'id': 'Bangkok',
-		'name': 'Bangkok'
+		locales: {
+			en: {
+				id: 'Bangkok',
+				name: 'Bangkok'
+			}
+		}
 	},
 	'Barcelona': {
-		'id': 'Barcelona',
-		'name': 'Barcelona'
+		locales: {
+			en: {
+				id: 'Barcelona',
+				name: 'Barcelona'
+			}
+		}
 	},
 	'Bremen': {
-		'id': 'Bremen',
-		'name': 'Bremen'
+		locales: {
+			en: {
+				id: 'Bremen',
+				name: 'Bremen'
+			}
+		}
 	},
 	'Buenos Aires': {
-		'id': 'Buenos Aires',
-		'name': 'Buenos Aires'
+		locales: {
+			en: {
+				id: 'Buenos Aires',
+				name: 'Buenos Aires'
+			}
+		}
 	},
 	'Busan': {
-		'id': 'Busan',
-		'name': 'Busan'
+		locales: {
+			en: {
+				id: 'Busan',
+				name: 'Busan'
+			}
+		}
 	},
 	'Cartagena': {
-		'id': 'Cartagena',
-		'name': 'Cartagena'
+		locales: {
+			en: {
+				id: 'Cartagena',
+				name: 'Cartagena'
+			}
+		}
 	},
 	'Charleston': {
-		'id': 'Charleston',
-		'name': 'Charleston'
+		locales: {
+			en: {
+				id: 'Charleston',
+				name: 'Charleston'
+			}
+		}
 	},
 	'Chittagong': {
-		'id': 'Chittagong',
-		'name': 'Chittagong'
+		locales: {
+			en: {
+				id: 'Chittagong',
+				name: 'Chittagong'
+			}
+		}
 	},
 	'Colon': {
-		'id': 'Colon',
-		'name': 'Colon'
+		locales: {
+			en: {
+				id: 'Colon',
+				name: 'Colon'
+			}
+		}
 	},
 	'Dalian': {
-		'id': 'Dalian',
-		'name': 'Dalian'
+		locales: {
+			en: {
+				id: 'Dalian',
+				name: 'Dalian'
+			}
+		}
 	},
 	'Dammam': {
-		'id': 'Dammam',
-		'name': 'Dammam'
+		locales: {
+			en: {
+				id: 'Dammam',
+				name: 'Dammam'
+			}
+		}
 	},
 	'Durban': {
-		'id': 'Durban',
-		'name': 'Durban'
+		locales: {
+			en: {
+				id: 'Durban',
+				name: 'Durban'
+			}
+		}
 	},
 	'Felixstowe': {
-		'id': 'Felixstowe',
-		'name': 'Felixstowe'
+		locales: {
+			en: {
+				id: 'Felixstowe',
+				name: 'Felixstowe'
+			}
+		}
 	},
 	'Freeport': {
-		'id': 'Freeport',
-		'name': 'Freeport'
+		locales: {
+			en: {
+				id: 'Freeport',
+				name: 'Freeport'
+			}
+		}
 	},
 	'Gioia Tauro': {
-		'id': 'Gioia Tauro',
-		'name': 'Gioia Tauro'
+		locales: {
+			en: {
+				id: 'Gioia Tauro',
+				name: 'Gioia Tauro'
+			}
+		}
 	},
 	'Guangzhou': {
-		'id': 'Guangzhou',
-		'name': 'Guangzhou'
+		locales: {
+			en: {
+				id: 'Guangzhou',
+				name: 'Guangzhou'
+			}
+		}
 	},
 	'Guayaquil': {
-		'id': 'Guayaquil',
-		'name': 'Guayaquil'
+		locales: {
+			en: {
+				id: 'Guayaquil',
+				name: 'Guayaquil'
+			}
+		}
 	},
 	'Gyhh': {
-		'id': 'Gyhh',
-		'name': 'Gyhh'
+		locales: {
+			en: {
+				id: 'Gyhh',
+				name: 'Gyhh'
+			}
+		}
 	},
 	'Haifa': {
-		'id': 'Haifa',
-		'name': 'Haifa'
+		locales: {
+			en: {
+				id: 'Haifa',
+				name: 'Haifa'
+			}
+		}
 	},
 	'Hamburg': {
-		'id': 'Hamburg',
-		'name': 'Hamburg'
+		locales: {
+			en: {
+				id: 'Hamburg',
+				name: 'Hamburg'
+			}
+		}
 	},
 	'Ho Chi Minh City': {
-		'id': 'Ho Chi Minh City',
-		'name': 'Ho Chi Minh City'
+		locales: {
+			en: {
+				id: 'Ho Chi Minh City',
+				name: 'Ho Chi Minh City'
+			}
+		}
 	},
 	'Hong Kong': {
-		'id': 'Hong Kong',
-		'name': 'Hong Kong'
+		locales: {
+			en: {
+				id: 'Hong Kong',
+				name: 'Hong Kong'
+			}
+		}
 	},
 	'Houston': {
-		'id': 'Houston',
-		'name': 'Houston'
+		locales: {
+			en: {
+				id: 'Houston',
+				name: 'Houston'
+			}
+		}
 	},
 	'Jebel Ali (Dubai)': {
-		'id': 'Jebel Ali (Dubai)',
-		'name': 'Jebel Ali (Dubai)'
+		locales: {
+			en: {
+				id: 'Jebel Ali (Dubai)',
+				name: 'Jebel Ali (Dubai)'
+			}
+		}
 	},
 	'Jeddah': {
-		'id': 'Jeddah',
-		'name': 'Jeddah'
+		locales: {
+			en: {
+				id: 'Jeddah',
+				name: 'Jeddah'
+			}
+		}
 	},
 	'Kaohsiung': {
-		'id': 'Kaohsiung',
-		'name': 'Kaohsiung'
+		locales: {
+			en: {
+				id: 'Kaohsiung',
+				name: 'Kaohsiung'
+			}
+		}
 	},
 	'Karachi': {
-		'id': 'Karachi',
-		'name': 'Karachi'
+		locales: {
+			en: {
+				id: 'Karachi',
+				name: 'Karachi'
+			}
+		}
 	},
 	'Keihin ports': {
-		'id': 'Keihin ports',
-		'name': 'Keihin ports'
+		locales: {
+			en: {
+				id: 'Keihin ports',
+				name: 'Keihin ports'
+			}
+		}
 	},
 	'Khor Fakkan': {
-		'id': 'Khor Fakkan',
-		'name': 'Khor Fakkan'
+		locales: {
+			en: {
+				id: 'Khor Fakkan',
+				name: 'Khor Fakkan'
+			}
+		}
 	},
 	'Kingston': {
-		'id': 'Kingston',
-		'name': 'Kingston'
+		locales: {
+			en: {
+				id: 'Kingston',
+				name: 'Kingston'
+			}
+		}
 	},
 	'Kobe': {
-		'id': 'Kobe',
-		'name': 'Kobe'
+		locales: {
+			en: {
+				id: 'Kobe',
+				name: 'Kobe'
+			}
+		}
 	},
 	'La Spezia': {
-		'id': 'La Spezia',
-		'name': 'La Spezia'
+		locales: {
+			en: {
+				id: 'La Spezia',
+				name: 'La Spezia'
+			}
+		}
 	},
 	'Laem Chabang': {
-		'id': 'Laem Chabang',
-		'name': 'Laem Chabang'
+		locales: {
+			en: {
+				id: 'Laem Chabang',
+				name: 'Laem Chabang'
+			}
+		}
 	},
 	'Le Havre': {
-		'id': 'Le Havre',
-		'name': 'Le Havre'
+		locales: {
+			en: {
+				id: 'Le Havre',
+				name: 'Le Havre'
+			}
+		}
 	},
 	'Long Beach': {
-		'id': 'Long Beach',
-		'name': 'Long Beach'
+		locales: {
+			en: {
+				id: 'Long Beach',
+				name: 'Long Beach'
+			}
+		}
 	},
 	'Los Angeles': {
-		'id': 'Los Angeles',
-		'name': 'Los Angeles'
+		locales: {
+			en: {
+				id: 'Los Angeles',
+				name: 'Los Angeles'
+			}
+		}
 	},
 	'Malta Freeport': {
-		'id': 'Malta Freeport',
-		'name': 'Malta Freeport'
+		locales: {
+			en: {
+				id: 'Malta Freeport',
+				name: 'Malta Freeport'
+			}
+		}
 	},
 	'Manila': {
-		'id': 'Manila',
-		'name': 'Manila'
+		locales: {
+			en: {
+				id: 'Manila',
+				name: 'Manila'
+			}
+		}
 	},
 	'Manzanillo': {
-		'id': 'Manzanillo',
-		'name': 'Manzanillo'
+		locales: {
+			en: {
+				id: 'Manzanillo',
+				name: 'Manzanillo'
+			}
+		}
 	},
 	'Mersin': {
-		'id': 'Mersin',
-		'name': 'Mersin'
+		locales: {
+			en: {
+				id: 'Mersin',
+				name: 'Mersin'
+			}
+		}
 	},
 	'Montreal': {
-		'id': 'Montreal',
-		'name': 'Montreal'
+		locales: {
+			en: {
+				id: 'Montreal',
+				name: 'Montreal'
+			}
+		}
 	},
 	'Mumbai': {
-		'id': 'Mumbai',
-		'name': 'Mumbai'
+		locales: {
+			en: {
+				id: 'Mumbai',
+				name: 'Mumbai'
+			}
+		}
 	},
 	'Mundra': {
-		'id': 'Mundra',
-		'name': 'Mundra'
+		locales: {
+			en: {
+				id: 'Mundra',
+				name: 'Mundra'
+			}
+		}
 	},
 	'New Jersey': {
-		'id': 'New Jersey',
-		'name': 'New Jersey'
+		locales: {
+			en: {
+				id: 'New Jersey',
+				name: 'New Jersey'
+			}
+		}
 	},
 	'New York': {
-		'id': 'New York',
-		'name': 'New York'
+		locales: {
+			en: {
+				id: 'New York',
+				name: 'New York'
+			}
+		}
 	},
 	'Ningbo': {
-		'id': 'Ningbo',
-		'name': 'Ningbo'
+		locales: {
+			en: {
+				id: 'Ningbo',
+				name: 'Ningbo'
+			}
+		}
 	},
 	'Oakland': {
-		'id': 'Oakland',
-		'name': 'Oakland'
+		locales: {
+			en: {
+				id: 'Oakland',
+				name: 'Oakland'
+			}
+		}
 	},
 	'Osaka': {
-		'id': 'Osaka',
-		'name': 'Osaka'
+		locales: {
+			en: {
+				id: 'Osaka',
+				name: 'Osaka'
+			}
+		}
 	},
 	'Piraeus': {
-		'id': 'Piraeus',
-		'name': 'Piraeus'
+		locales: {
+			en: {
+				id: 'Piraeus',
+				name: 'Piraeus'
+			}
+		}
 	},
 	'Port Kelang': {
-		'id': 'Port Kelang',
-		'name': 'Port Kelang'
+		locales: {
+			en: {
+				id: 'Port Kelang',
+				name: 'Port Kelang'
+			}
+		}
 	},
 	'Qingdao': {
-		'id': 'Qingdao',
-		'name': 'Qingdao'
+		locales: {
+			en: {
+				id: 'Qingdao',
+				name: 'Qingdao'
+			}
+		}
 	},
 	'Rotterdam': {
-		'id': 'Rotterdam',
-		'name': 'Rotterdam'
+		locales: {
+			en: {
+				id: 'Rotterdam',
+				name: 'Rotterdam'
+			}
+		}
 	},
 	'Salalah': {
-		'id': 'Salalah',
-		'name': 'Salalah'
+		locales: {
+			en: {
+				id: 'Salalah',
+				name: 'Salalah'
+			}
+		}
 	},
 	'Santos': {
-		'id': 'Santos',
-		'name': 'Santos'
+		locales: {
+			en: {
+				id: 'Santos',
+				name: 'Santos'
+			}
+		}
 	},
 	'Savannah': {
-		'id': 'Savannah',
-		'name': 'Savannah'
+		locales: {
+			en: {
+				id: 'Savannah',
+				name: 'Savannah'
+			}
+		}
 	},
 	'Seatles': {
-		'id': 'Seatles',
-		'name': 'Seatles'
+		locales: {
+			en: {
+				id: 'Seatles',
+				name: 'Seatles'
+			}
+		}
 	},
 	'Shanghai': {
-		'id': 'Shanghai',
-		'name': 'Shanghai'
+		locales: {
+			en: {
+				id: 'Shanghai',
+				name: 'Shanghai'
+			}
+		}
 	},
 	'Shenzhen': {
-		'id': 'Shenzhen',
-		'name': 'Shenzhen'
+		locales: {
+			en: {
+				id: 'Shenzhen',
+				name: 'Shenzhen'
+			}
+		}
 	},
 	'Singapore': {
-		'id': 'Singapore',
-		'name': 'Singapore'
+		locales: {
+			en: {
+				id: 'Singapore',
+				name: 'Singapore'
+			}
+		}
 	},
 	'Sri Lanka': {
-		'id': 'Sri Lanka',
-		'name': 'Sri Lanka'
+		locales: {
+			en: {
+				id: 'Sri Lanka',
+				name: 'Sri Lanka'
+			}
+		}
 	},
 	'St Petersburg': {
-		'id': 'St Petersburg',
-		'name': 'St Petersburg'
+		locales: {
+			en: {
+				id: 'St Petersburg',
+				name: 'St Petersburg'
+			}
+		}
 	},
 	'Sydney': {
-		'id': 'Sydney',
-		'name': 'Sydney'
+		locales: {
+			en: {
+				id: 'Sydney',
+				name: 'Sydney'
+			}
+		}
 	},
 	'Tacoma': {
-		'id': 'Tacoma',
-		'name': 'Tacoma'
+		locales: {
+			en: {
+				id: 'Tacoma',
+				name: 'Tacoma'
+			}
+		}
 	},
 	'Tanger-Med (Tangiers)': {
-		'id': 'Tanger-Med (Tangiers)',
-		'name': 'Tanger-Med (Tangiers)'
+		locales: {
+			en: {
+				id: 'Tanger-Med (Tangiers)',
+				name: 'Tanger-Med (Tangiers)'
+			}
+		}
 	},
 	'Tanjung Pelepas': {
-		'id': 'Tanjung Pelepas',
-		'name': 'Tanjung Pelepas'
+		locales: {
+			en: {
+				id: 'Tanjung Pelepas',
+				name: 'Tanjung Pelepas'
+			}
+		}
 	},
 	'Tanjung Perak (Surabaya)': {
-		'id': 'Tanjung Perak (Surabaya)',
-		'name': 'Tanjung Perak (Surabaya)'
+		locales: {
+			en: {
+				id: 'Tanjung Perak (Surabaya)',
+				name: 'Tanjung Perak (Surabaya)'
+			}
+		}
 	},
 	'Tanjung Priok (Jakarta)': {
-		'id': 'Tanjung Priok (Jakarta)',
-		'name': 'Tanjung Priok (Jakarta)'
+		locales: {
+			en: {
+				id: 'Tanjung Priok (Jakarta)',
+				name: 'Tanjung Priok (Jakarta)'
+			}
+		}
 	},
 	'Tianjin': {
-		'id': 'Tianjin',
-		'name': 'Tianjin'
+		locales: {
+			en: {
+				id: 'Tianjin',
+				name: 'Tianjin'
+			}
+		}
 	},
 	'Tokyo': {
-		'id': 'Tokyo',
-		'name': 'Tokyo'
+		locales: {
+			en: {
+				id: 'Tokyo',
+				name: 'Tokyo'
+			}
+		}
 	},
 	'Valencia': {
-		'id': 'Valencia',
-		'name': 'Valencia'
+		locales: {
+			en: {
+				id: 'Valencia',
+				name: 'Valencia'
+			}
+		}
 	},
 	'Vancouver': {
-		'id': 'Vancouver',
-		'name': 'Vancouver'
+		locales: {
+			en: {
+				id: 'Vancouver',
+				name: 'Vancouver'
+			}
+		}
 	},
 	'Virginia': {
-		'id': 'Virginia',
-		'name': 'Virginia'
+		locales: {
+			en: {
+				id: 'Virginia',
+				name: 'Virginia'
+			}
+		}
 	},
 	'Xiamen': {
-		'id': 'Xiamen',
-		'name': 'Xiamen'
+		locales: {
+			en: {
+				id: 'Xiamen',
+				name: 'Xiamen'
+			}
+		}
 	}
 };

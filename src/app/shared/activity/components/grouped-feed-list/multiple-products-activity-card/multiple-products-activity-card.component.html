@@ -25,7 +25,7 @@
 						<span class="supplierType flexStart">
 							{{ supplier.supplierType || 'Supplier' }}
 							<ng-container *ngIf="supplier.country">
-								{{ supplier.country | const: 'country' }}
+								{{ supplier.country | const: 'country':'name' }}
 							</ng-container>
 						</span>
 					</div>
