@@ -50,7 +50,7 @@ import { TemplateModule } from '~shared/template';
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
-			enableTracing: true
+			// enableTracing: true
 		})
 	],
 	providers: [],
