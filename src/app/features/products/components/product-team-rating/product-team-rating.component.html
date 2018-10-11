@@ -11,22 +11,22 @@
 
 	<ng-container *ngIf="votes?.length > 0; else noVotes">
 		<div class="rating-info">
-				<div class="thumb-info flexVAlign">
-					<icon-app class="thumb" [name]="name" [ngStyle]="buttonStyle"></icon-app>
-					<div class="score-info flexColumn">
-						<span class="number">{{ score !== undefined ? score : '-' }} %</span>
-						<span>({{ votes?.length || '0'}} votes)</span>
-					</div>
+			<div class="thumb-info flexVAlign">
+				<icon-app class="thumb" [name]="name" [ngStyle]="buttonStyle"></icon-app>
+				<div class="score-info flexColumn">
+					<span class="number">{{ score !== undefined ? score : '-' }} %</span>
+					<span>({{ votes?.length || '0'}} votes)</span>
 				</div>
-				<rating-cylinder-app
-					[score]="score"
-					dislikeColor="warn"
-					width="342">
-				</rating-cylinder-app>
 			</div>
+			<rating-cylinder-app
+				[score]="score"
+				dislikeColor="warn"
+				width="342">
+			</rating-cylinder-app>
+		</div>
 
-			<card-footer-app>
-				<thumb-buttons-app
+		<card-footer-app>
+			<thumb-buttons-app
 				size="m"
 				[votes]="votes"
 				[hasText]="true"

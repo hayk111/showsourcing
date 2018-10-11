@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product, ProductVote } from '~models';
 
 @Component({
@@ -12,6 +12,11 @@ export class ProductTeamRatingComponent implements OnInit {
 	@Input() set product(product: Product) {
 		this.score = product.score;
 		this.votes = product.votes;
+		// we do this since the update on the score takes 50ms (more or less on the first vote) to process
+		// when clicking the first time the rating cylinder and the score would get updated after that delay
+		// provoking a visual glitch, this way we ensure the visual glitch is gone.
+		if (this.votes && this.votes.length === 1)
+			this.score = this.votes[0].value;
 	}
 
 	@Output() requestTeamVotes = new EventEmitter<null>();

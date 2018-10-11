@@ -53,11 +53,15 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		// when an activity group starts with product_activity, what's following is the id
 		if (group.startsWith('product_activity')) {
 			const productId = group.replace('product_activity_', '');
-			this.product$ = this.productSrv.queryOne(productId);
+			// we use selectOne instead of queryOne, since we need the response from the server
+			// with the new score, the response is not immediate due to calculations
+			this.product$ = this.productSrv.selectOne(productId);
 		}
 		// when it starts with create_product, we can get the product id by looking at the first activity
 		if (group.startsWith('create_product')) {
-			this.product$ = this.productSrv.queryOne(this.groupFeed.activities[0].object);
+			// we use selectOne instead of queryOne, since we need the response from the server
+			// with the new score, the response is not immediate due to calculations
+			this.product$ = this.productSrv.selectOne(this.groupFeed.activities[0].object);
 		}
 		this.product$.pipe(
 			takeUntil(this._destroy$)
