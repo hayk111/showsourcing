@@ -1,6 +1,6 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, switchMap } from 'rxjs/operators';
 import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
 import { ProductFeatureService } from '~features/products/services';
 import { ProductQueries } from '~global-services/product/product.queries';
@@ -41,31 +41,36 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			map(params => params.id)
 		);
-		id$.subscribe(id => {
-			this.featureSrv.selectOne(id).subscribe(
-				_product => {
-					if (Object.keys(_product).length === 0 || !_product) {
-						this.notifSrv.add({
-							type: NotificationType.ERROR,
-							title: 'The product doesn\'t exist',
-							timeout: 3500
-						});
-						this.router.navigate(['product']);
-					} else {
-						this.product = _product;
-					}
-				},
-				err => {
-					this.notifSrv.add({
-						type: NotificationType.ERROR,
-						title: 'Error',
-						message: 'There is an error, please try again later',
-						timeout: 3500
-					});
-					this.router.navigate(['product']);
-				}
-			);
+
+		id$.pipe(
+			switchMap(id => this.featureSrv.selectOne(id))
+		).subscribe(
+			product => this.onProduct(product),
+			err => this.onError(err)
+		);
+	}
+
+	private onProduct(product) {
+		if (!product) {
+			this.notifSrv.add({
+				type: NotificationType.ERROR,
+				title: 'The product doesn\'t exist',
+				timeout: 3500
+			});
+			this.router.navigate(['product']);
+		} else {
+			this.product = product;
+		}
+	}
+
+	private onError(error) {
+		this.notifSrv.add({
+			type: NotificationType.ERROR,
+			title: 'Error',
+			message: 'There is an error, please try again later',
+			timeout: 3500
 		});
+		this.router.navigate(['product']);
 	}
 
 	/** opens the dialog to add multiple project to product.projects */

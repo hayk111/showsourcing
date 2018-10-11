@@ -14,7 +14,17 @@
   <ng-container *ngIf="invitation$ | async as invitation; else spinner">
 
     <h1 class="title">Congratulation!</h1>
-    <div class="subtitle"><span class="name">{{invitation?.inviterFirstName}} {{invitation?.inviterLastName}}</span> invites you to join <span class="name">{{invitation?.teamName}}.</span></div>
+
+    <div class="subtitle">
+      <span class="name">
+        {{invitation?.inviterFirstName}} {{invitation?.inviterLastName}}
+      </span>
+      invites you to join
+      <span class="name">
+        {{invitation?.teamName}}.
+      </span>
+    </div>
+
     <div class="flexColumn buttons">
       <button (click)="accept(invitation)">
         Yes - Join the team
