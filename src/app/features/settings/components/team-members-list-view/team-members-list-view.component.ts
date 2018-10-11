@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TeamUser, User } from '~models';
-import { Sort } from '~shared/table/components/sort.interface';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 
 
@@ -15,10 +13,11 @@ export class TeamMembersListViewComponent extends ListViewComponent<TeamUser> {
 	@Input() teamOwner: boolean;
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
+	isSelectableFn: Function;
 
 	constructor() {
 		super();
-		this.isSelectable = this.isSelectable.bind(this);
+		this.isSelectableFn = (item) => this.isSelectable(item);
 	}
 
 	isSelectable(user: TeamUser) {

@@ -3,7 +3,7 @@
   [contextualMenu]="contextualMenuTemplate"
 	[pending]="pending"
 	[selected]="selection"
-	[isSelectable]="isSelectable"
+	[isSelectable]="isSelectableFn"
   placeholder="No team member"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
