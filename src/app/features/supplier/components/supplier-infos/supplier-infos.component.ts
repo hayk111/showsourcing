@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Supplier } from '~models';
-import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
+import { CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
@@ -11,11 +11,10 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./supplier-infos.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierInfosComponent extends AutoUnsub implements OnInit {
+export class SupplierInfosComponent extends AutoUnsub {
 	@Input() supplier: Supplier;
 	@Output() update = new EventEmitter<Supplier>();
 
-	descriptor: FormDescriptor;
 
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' },
@@ -46,8 +45,6 @@ export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
-	ngOnInit() {
-		this.descriptor = new FormDescriptor(this.customFields, this.supplier);
-	}
+
 
 }

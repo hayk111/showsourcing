@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
+import { CustomField } from '~shared/dynamic-forms';
 
 
 @Component({
@@ -11,11 +11,9 @@ import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 })
 export class FillInformationPageComponent {
 
-	descriptor$: Observable<FormDescriptor>;
-	descriptor2$: Observable<FormDescriptor>;
 
 	customFields: CustomField[] = [
-		{	name: 'name', label: 'Reference', type: 'text'	},
+		{ name: 'name', label: 'Reference', type: 'text' },
 		{ name: 'price', type: 'price' },
 		{ name: 'description', type: 'textarea', label: 'Description' },
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
@@ -204,465 +202,457 @@ export class FillInformationPageComponent {
 				"status": {
 					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
 					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+					"color": 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "0adbe554-0fdc-4aba-9540-dae8f9244233",
-				"cancelled": false,
-				"status": {
-					"id": "663530b2-70fd-4fad-8dd4-40488e71df79",
-					"name": "Idea",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '0adbe554-0fdc-4aba-9540-dae8f9244233',
+				'cancelled': false,
+				'status': {
+					'id': '663530b2-70fd-4fad-8dd4-40488e71df79',
+					'name': 'Idea',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "50d0bc71-c41c-4612-aaca-f6a51448ffff",
-				"cancelled": false,
-				"status": {
-					"id": "21e5b9b5-3e6c-4af3-b087-66f744bc93e7",
-					"name": "Refused",
-					"color": "rejected",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '50d0bc71-c41c-4612-aaca-f6a51448ffff',
+				'cancelled': false,
+				'status': {
+					'id': '21e5b9b5-3e6c-4af3-b087-66f744bc93e7',
+					'name': 'Refused',
+					'color': 'rejected',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "fe8e44ff-b2db-49df-a1f9-5d0cca9d44a4",
-				"cancelled": false,
-				"status": {
-					"id": "663530b2-70fd-4fad-8dd4-40488e71df79",
-					"name": "Idea",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'fe8e44ff-b2db-49df-a1f9-5d0cca9d44a4',
+				'cancelled': false,
+				'status': {
+					'id': '663530b2-70fd-4fad-8dd4-40488e71df79',
+					'name': 'Idea',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "9e28eeac-76d5-432c-b26e-5ae30e05445b",
-				"cancelled": false,
-				"status": {
-					"id": "a83edd61-dff5-4625-b37a-56aa65078419",
-					"name": "Inspiration",
-					"color": "inspiration",
-					"contrastColor": "dark",
-					"step": 0,
-					"__typename": "ProductStatusType"
+				'id': '9e28eeac-76d5-432c-b26e-5ae30e05445b',
+				'cancelled': false,
+				'status': {
+					'id': 'a83edd61-dff5-4625-b37a-56aa65078419',
+					'name': 'Inspiration',
+					'color': 'inspiration',
+					'contrastColor': 'dark',
+					'step': 0,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "a2243d9e-1d7c-4f3f-ad70-59a380952a70",
-				"cancelled": false,
-				"status": {
-					"id": "663530b2-70fd-4fad-8dd4-40488e71df79",
-					"name": "Idea",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'a2243d9e-1d7c-4f3f-ad70-59a380952a70',
+				'cancelled': false,
+				'status': {
+					'id': '663530b2-70fd-4fad-8dd4-40488e71df79',
+					'name': 'Idea',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "1be0aa7e-6bab-462c-a1c5-bb24039e7af8",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '1be0aa7e-6bab-462c-a1c5-bb24039e7af8',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "5dcf8ea1-4586-4007-b3bb-b19d458bcc12",
-				"cancelled": false,
-				"status": {
-					"id": "5d72acff-ad3b-448e-9e32-9e92445d70ee",
-					"name": "UnderAssessment",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '5dcf8ea1-4586-4007-b3bb-b19d458bcc12',
+				'cancelled': false,
+				'status': {
+					'id': '5d72acff-ad3b-448e-9e32-9e92445d70ee',
+					'name': 'UnderAssessment',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "02e53fd6-aa6f-4ef4-a183-ef6a634ff7a2",
-				"cancelled": false,
-				"status": {
-					"id": "5d72acff-ad3b-448e-9e32-9e92445d70ee",
-					"name": "UnderAssessment",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '02e53fd6-aa6f-4ef4-a183-ef6a634ff7a2',
+				'cancelled': false,
+				'status': {
+					'id': '5d72acff-ad3b-448e-9e32-9e92445d70ee',
+					'name': 'UnderAssessment',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "0f5c371e-d508-4efe-a2f9-280920b4a7c8",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '0f5c371e-d508-4efe-a2f9-280920b4a7c8',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "9f6a276a-416a-4ee6-b75a-52c0718e6c98",
-				"cancelled": false,
-				"status": {
-					"id": "663530b2-70fd-4fad-8dd4-40488e71df79",
-					"name": "Idea",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '9f6a276a-416a-4ee6-b75a-52c0718e6c98',
+				'cancelled': false,
+				'status': {
+					'id': '663530b2-70fd-4fad-8dd4-40488e71df79',
+					'name': 'Idea',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "691751d3-4b72-441c-8645-71ee2d384dd9",
-				"cancelled": false,
-				"status": {
-					"id": "5d72acff-ad3b-448e-9e32-9e92445d70ee",
-					"name": "UnderAssessment",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '691751d3-4b72-441c-8645-71ee2d384dd9',
+				'cancelled': false,
+				'status': {
+					'id': '5d72acff-ad3b-448e-9e32-9e92445d70ee',
+					'name': 'UnderAssessment',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "d9d323df-a14c-4619-a8eb-0e449080fbc8",
-				"cancelled": false,
-				"status": {
-					"id": "663530b2-70fd-4fad-8dd4-40488e71df79",
-					"name": "Idea",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'd9d323df-a14c-4619-a8eb-0e449080fbc8',
+				'cancelled': false,
+				'status': {
+					'id': '663530b2-70fd-4fad-8dd4-40488e71df79',
+					'name': 'Idea',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "c8d743ae-036d-4cce-ad98-bc36a96572ce",
-				"cancelled": false,
-				"status": {
-					"id": "5d72acff-ad3b-448e-9e32-9e92445d70ee",
-					"name": "UnderAssessment",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'c8d743ae-036d-4cce-ad98-bc36a96572ce',
+				'cancelled': false,
+				'status': {
+					'id': '5d72acff-ad3b-448e-9e32-9e92445d70ee',
+					'name': 'UnderAssessment',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "cba83431-3f06-4f72-b24b-f9fc13e26ce6",
-				"cancelled": false,
-				"status": {
-					"id": "16fa6474-628e-4db5-b0b7-ea34e732f7ba",
-					"name": "Complete",
-					"color": "validated",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'cba83431-3f06-4f72-b24b-f9fc13e26ce6',
+				'cancelled': false,
+				'status': {
+					'id': '16fa6474-628e-4db5-b0b7-ea34e732f7ba',
+					'name': 'Complete',
+					'color': 'validated',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "d6420f0b-a850-429f-95b1-b1aefde3ebe3",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'd6420f0b-a850-429f-95b1-b1aefde3ebe3',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "44a064da-401f-48e0-819f-6232ba407223",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '44a064da-401f-48e0-819f-6232ba407223',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "35cc6cc3-16a7-4d61-a194-db01f634ce1e",
-				"cancelled": false,
-				"status": {
-					"id": "5d72acff-ad3b-448e-9e32-9e92445d70ee",
-					"name": "UnderAssessment",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '35cc6cc3-16a7-4d61-a194-db01f634ce1e',
+				'cancelled': false,
+				'status': {
+					'id': '5d72acff-ad3b-448e-9e32-9e92445d70ee',
+					'name': 'UnderAssessment',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "e181601c-6bd2-46d7-91f0-21df5f0c997c",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'e181601c-6bd2-46d7-91f0-21df5f0c997c',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "32178bfe-2253-4f3d-99f7-d2eeaafd5363",
-				"cancelled": false,
-				"status": {
-					"id": "5d72acff-ad3b-448e-9e32-9e92445d70ee",
-					"name": "UnderAssessment",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '32178bfe-2253-4f3d-99f7-d2eeaafd5363',
+				'cancelled': false,
+				'status': {
+					'id': '5d72acff-ad3b-448e-9e32-9e92445d70ee',
+					'name': 'UnderAssessment',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "8904e0d5-7651-4375-99e9-7dce890f6629",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '8904e0d5-7651-4375-99e9-7dce890f6629',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "87cd3c57-2f9e-493e-9722-d421da73c779",
-				"cancelled": false,
-				"status": {
-					"id": "5d72acff-ad3b-448e-9e32-9e92445d70ee",
-					"name": "UnderAssessment",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '87cd3c57-2f9e-493e-9722-d421da73c779',
+				'cancelled': false,
+				'status': {
+					'id': '5d72acff-ad3b-448e-9e32-9e92445d70ee',
+					'name': 'UnderAssessment',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "4dcb5e4d-93a1-465d-b7c0-a2b7c5864df2",
-				"cancelled": false,
-				"status": {
-					"id": "663530b2-70fd-4fad-8dd4-40488e71df79",
-					"name": "Idea",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '4dcb5e4d-93a1-465d-b7c0-a2b7c5864df2',
+				'cancelled': false,
+				'status': {
+					'id': '663530b2-70fd-4fad-8dd4-40488e71df79',
+					'name': 'Idea',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "62b1f0b7-ad31-4f49-a4a6-1a9804a3ec8d",
-				"cancelled": false,
-				"status": {
-					"id": "21e5b9b5-3e6c-4af3-b087-66f744bc93e7",
-					"name": "Refused",
-					"color": "rejected",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '62b1f0b7-ad31-4f49-a4a6-1a9804a3ec8d',
+				'cancelled': false,
+				'status': {
+					'id': '21e5b9b5-3e6c-4af3-b087-66f744bc93e7',
+					'name': 'Refused',
+					'color': 'rejected',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "6507a102-2fcf-40f6-9e55-1c2ffe7a76c0",
-				"cancelled": false,
-				"status": {
-					"id": "663530b2-70fd-4fad-8dd4-40488e71df79",
-					"name": "Idea",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '6507a102-2fcf-40f6-9e55-1c2ffe7a76c0',
+				'cancelled': false,
+				'status': {
+					'id': '663530b2-70fd-4fad-8dd4-40488e71df79',
+					'name': 'Idea',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "9c48a929-1e61-4942-a22d-cf2b43b18ff6",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '9c48a929-1e61-4942-a22d-cf2b43b18ff6',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "f48eead7-c021-4615-a055-88cd73e5b728",
-				"cancelled": false,
-				"status": {
-					"id": "663530b2-70fd-4fad-8dd4-40488e71df79",
-					"name": "Idea",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'f48eead7-c021-4615-a055-88cd73e5b728',
+				'cancelled': false,
+				'status': {
+					'id': '663530b2-70fd-4fad-8dd4-40488e71df79',
+					'name': 'Idea',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			}
 		],
-		"tags": [
+		'tags': [
 			{
-				"id": "eef7d323-3635-46a8-9842-dd024794d317",
-				"name": "123456",
-				"__typename": "Tag"
+				'id': 'eef7d323-3635-46a8-9842-dd024794d317',
+				'name': '123456',
+				'__typename': 'Tag'
 			},
 			{
-				"id": "2717c451-d52f-4e42-8669-4f33192bfb3a",
-				"name": "Ccc",
-				"__typename": "Tag"
+				'id': '2717c451-d52f-4e42-8669-4f33192bfb3a',
+				'name': 'Ccc',
+				'__typename': 'Tag'
 			},
 			{
-				"id": "8348c3ac-02a4-4e63-9e37-11ac4907087d",
-				"name": "Hrthf",
-				"__typename": "Tag"
+				'id': '8348c3ac-02a4-4e63-9e37-11ac4907087d',
+				'name': 'Hrthf',
+				'__typename': 'Tag'
 			}
 		],
-		"minimumOrderQuantity": 240,
-		"moqDescription": "Per Color",
-		"score": null,
-		"votes": [
+		'minimumOrderQuantity': 240,
+		'moqDescription': 'Per Color',
+		'score': null,
+		'votes': [
 			{
-				"id": "6a5fb0f7-ef6c-40cc-be30-19f138edb421",
-				"value": 100,
-				"user": {
-					"id": "6c0b95d4-5e77-4caa-b826-b471e700d1d7",
-					"__typename": "User"
+				'id': '6a5fb0f7-ef6c-40cc-be30-19f138edb421',
+				'value': 100,
+				'user': {
+					'id': '6c0b95d4-5e77-4caa-b826-b471e700d1d7',
+					'__typename': 'User'
 				},
-				"__typename": "ProductVote"
+				'__typename': 'ProductVote'
 			}
 		],
-		"innerCarton": {
-			"id": "ef3b2134-0b7d-4032-9df5-29d70f68bf6d",
-			"height": 233,
-			"width": 123123,
-			"length": 23,
-			"unit": "cm",
-			"itemsQuantity": 0,
-			"weight": 0,
-			"weightUnit": "",
-			"__typename": "Packaging"
+		'innerCarton': {
+			'id': 'ef3b2134-0b7d-4032-9df5-29d70f68bf6d',
+			'height': 233,
+			'width': 123123,
+			'length': 23,
+			'unit': 'cm',
+			'itemsQuantity': 0,
+			'weight': 0,
+			'weightUnit': '',
+			'__typename': 'Packaging'
 		},
-		"masterCarton": null,
-		"priceMatrix": {
-			"id": "5f858d12-2421-4560-aca8-cdf912ab9dbf",
-			"rows": [
+		'masterCarton': null,
+		'priceMatrix': {
+			'id': '5f858d12-2421-4560-aca8-cdf912ab9dbf',
+			'rows': [
 				{
-					"id": "d21c6341-b20e-4b37-945b-2a7a45c56a45",
-					"label": "",
-					"price": {
-						"id": "20122d9a-21bf-4c6d-b54f-6c68e26a15eb",
-						"value": 0,
-						"currency": "USD",
-						"__typename": "Price"
+					'id': 'd21c6341-b20e-4b37-945b-2a7a45c56a45',
+					'label': '',
+					'price': {
+						'id': '20122d9a-21bf-4c6d-b54f-6c68e26a15eb',
+						'value': 0,
+						'currency': 'USD',
+						'__typename': 'Price'
 					},
-					"__typename": "PriceMatrixRow"
+					'__typename': 'PriceMatrixRow'
 				},
 				{
-					"id": "6465df3a-b4f9-4593-bc7e-c9f09fe69a1f",
-					"label": "",
-					"price": {
-						"id": "d7af5d45-8d38-448e-a949-dff10aa61778",
-						"value": 0,
-						"currency": "USD",
-						"__typename": "Price"
+					'id': '6465df3a-b4f9-4593-bc7e-c9f09fe69a1f',
+					'label': '',
+					'price': {
+						'id': 'd7af5d45-8d38-448e-a949-dff10aa61778',
+						'value': 0,
+						'currency': 'USD',
+						'__typename': 'Price'
 					},
-					"__typename": "PriceMatrixRow"
+					'__typename': 'PriceMatrixRow'
 				},
 				{
-					"id": "122b8348-c490-4127-9dcd-ff7e2f11e182",
-					"label": "",
-					"price": {
-						"id": "df667985-b51e-43c0-bac0-0ba09855f9a5",
-						"value": 0,
-						"currency": "USD",
-						"__typename": "Price"
+					'id': '122b8348-c490-4127-9dcd-ff7e2f11e182',
+					'label': '',
+					'price': {
+						'id': 'df667985-b51e-43c0-bac0-0ba09855f9a5',
+						'value': 0,
+						'currency': 'USD',
+						'__typename': 'Price'
 					},
-					"__typename": "PriceMatrixRow"
+					'__typename': 'PriceMatrixRow'
 				},
 				{
-					"id": "8ed87eb5-3468-4cd0-a5e8-fa6d6a55a6b5",
-					"label": "",
-					"price": {
-						"id": "4f30af0c-01ff-45b0-b6d6-6806960dc929",
-						"value": 0,
-						"currency": "USD",
-						"__typename": "Price"
+					'id': '8ed87eb5-3468-4cd0-a5e8-fa6d6a55a6b5',
+					'label': '',
+					'price': {
+						'id': '4f30af0c-01ff-45b0-b6d6-6806960dc929',
+						'value': 0,
+						'currency': 'USD',
+						'__typename': 'Price'
 					},
-					"__typename": "PriceMatrixRow"
+					'__typename': 'PriceMatrixRow'
 				}
 			],
-			"__typename": "PriceMatrix"
+			'__typename': 'PriceMatrix'
 		},
-		"leadTimeValue": 0,
-		"leadTimeUnit": null,
-		"sample": true,
-		"samplePrice": 0,
-		"createdBy": {
-			"id": "27ec5a84-1ec5-453f-8cf5-b58f0344ff67",
-			"firstName": "gauthier",
-			"lastName": "van den Eynde",
-			"__typename": "User"
+		'leadTimeValue': 0,
+		'leadTimeUnit': null,
+		'sample': true,
+		'samplePrice': 0,
+		'createdBy': {
+			'id': '27ec5a84-1ec5-453f-8cf5-b58f0344ff67',
+			'firstName': 'gauthier',
+			'lastName': 'van den Eynde',
+			'__typename': 'User'
 		},
-		"creationDate": "Sun Jan 18 1970 04:25:53 GMT+0000 (UTC)",
-		"__typename": "Product"
+		'creationDate': 'Sun Jan 18 1970 04:25:53 GMT+0000 (UTC)',
+		'__typename': 'Product'
 	};
 
-	ngOnInit() {
-		this.descriptor$ = of(this.product).pipe(
-			map(product => new FormDescriptor(this.customFields, product))
-		);
-		this.descriptor2$ = of(this.product).pipe(
-			map(product => new FormDescriptor(this.customFields2, product))
-		);
-	}
 }

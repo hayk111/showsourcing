@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Supplier, ERM } from '~models';
-import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
+import { CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '~utils';
 import { takeUntil, distinctUntilChanged, map, tap } from 'rxjs/operators';
@@ -20,7 +20,6 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	@Output() close = new EventEmitter<undefined>();
 	/** at first the supplier is the one in the list but it hasn't got all info so we gonna query it again */
 	supplier$: Observable<Supplier>;
-	descriptor$ = new ReplaySubject<FormDescriptor>(1);
 	suppERM = ERM.SUPPLIER;
 
 	customFields: CustomField[] = [
@@ -55,10 +54,6 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// getting the supplier with all the data
 		this.supplier$ = this.featureSrv.selectOne(this.supplier.id);
-		this.supplier$.pipe(
-			takeUntil(this._destroy$),
-			map(supplier => new FormDescriptor(this.customFields, supplier)),
-		).subscribe(this.descriptor$);
 	}
 
 	update(supplier: Supplier) {

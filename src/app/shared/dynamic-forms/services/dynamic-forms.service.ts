@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { FormDescriptor, CustomField } from '~shared/dynamic-forms/models';
+import { CustomField } from '~shared/dynamic-forms/models';
 import { RegexpApp } from '~utils/regexes';
 
 @Injectable({

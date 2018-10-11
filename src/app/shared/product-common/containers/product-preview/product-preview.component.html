@@ -51,24 +51,24 @@
 
 		<!-- form -->
 		<h3>Product Details</h3>
-		<ng-container *ngIf="descriptor$ | async as desc">
-			<dynamic-form-app
-				[inlineLabel]="true"
-				(update)="updateProduct($event)"
-				[descriptor]="desc"
-				[colAmount]="1">
-			</dynamic-form-app>
-		</ng-container>
+		<dynamic-form-app
+			[inlineLabel]="true"
+			[fields]="customFields"
+			[value]="product"
+			[colAmount]="1"
+			(update)="updateProduct($event)">
+		</dynamic-form-app>
 
-		<h3 style="margin-top: 22px; margin-bottom: 18px">Trading information</h3>
-		<ng-container *ngIf="descriptor2$ | async as desc2">
-			<dynamic-form-app
-				[inlineLabel]="true"
-				[descriptor]="desc2"
-				[colAmount]="1"
-				(update)="updateProduct($event)">
-			</dynamic-form-app>
-		</ng-container>
+		<h3 style="margin-top: 22px; margin-bottom: 18px">
+			Trading information
+		</h3>
+		<dynamic-form-app
+			[inlineLabel]="true"
+			[fields]="customFields2"
+			[value]="product"
+			[colAmount]="1"
+			(update)="updateProduct($event)">
+		</dynamic-form-app>
 	</ng-container>
 
 
