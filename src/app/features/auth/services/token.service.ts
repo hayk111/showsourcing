@@ -77,6 +77,7 @@ export class TokenService {
 			data: credentials.identifier,
 			user_info: {
 				register: false,
+				email: credentials.identifier,
 				password: credentials.password
 			}
 		};
