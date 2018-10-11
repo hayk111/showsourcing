@@ -4,13 +4,17 @@
 			[hasCheckbox]="false"
 			[product]="products[selectedIndex]"
 			(productFavorite)="updateProduct(products[selectedIndex], {favorite: true})"
-			(productUnfavorite)="updateProduct(products[selectedIndex], {favorite: false})">
+			(productUnfavorite)="updateProduct(products[selectedIndex], {favorite: false})"
+			(liked)="liked.emit( products[selectedIndex] )"
+			(disliked)="disliked.emit( products[selectedIndex] )">
 		</product-grid-card-app>
 		<product-grid-card-app
 			[hasCheckbox]="false"
 			[product]="products[selectedIndex + 1]"
 			(productFavorite)="updateProduct(products[selectedIndex + 1], {favorite: true})"
-			(productUnfavorite)="updateProduct(products[selectedIndex + 1], {favorite: false})">
+			(productUnfavorite)="updateProduct(products[selectedIndex + 1], {favorite: false})"
+			(liked)="liked.emit( products[selectedIndex + 1] )"
+			(disliked)="disliked.emit( products[selectedIndex + 1] )">
 		</product-grid-card-app>
 	</div>
 

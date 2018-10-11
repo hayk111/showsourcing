@@ -10,7 +10,9 @@
 				[groupFeed]="feed"
 				[title]="'new comment'"
 				(createComment)="createComment($event)"
-				(update)="updateProduct($event)">
+				(update)="updateProduct($event)"
+				(liked)="onThumbUp($event)"
+				(disliked)="onThumbDown($event)">
 			</one-product-activity-card-app>
 
 			<!-- product created -->
@@ -19,13 +21,17 @@
 				[groupFeed]="feed"
 				[title]="'created a new product'"
 				(createComment)="createComment($event)"
-				(update)="updateProduct($event)">
+				(update)="updateProduct($event)"
+				(liked)="onThumbUp($event)"
+				(disliked)="onThumbDown($event)">
 			</one-product-activity-card-app>
 
 			<multiple-products-activity-card-app
 				*ngSwitchCase="'product_many_created'"
 				[groupFeed]="feed"
-				(update)="updateProduct($event)">
+				(update)="updateProduct($event)"
+				(liked)="onThumbUp($event)"
+				(disliked)="onThumbDown($event)">
 			</multiple-products-activity-card-app>
 
 			<!-- supplier -->

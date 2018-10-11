@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from '~models';
-import { Renderer3 } from '@angular/core/src/render3/interfaces/renderer';
 
 @Component({
 	selector: 'multiple-product-carousel-app',
@@ -13,6 +12,8 @@ export class MultipleProductCarouselComponent implements OnInit {
 	@Input() products: Product[];
 	@Input() selectedIndex = 0;
 	@Output() update = new EventEmitter<Product>();
+	@Output() liked = new EventEmitter<Product>();
+	@Output() disliked = new EventEmitter<Product>();
 
 	constructor() { }
 

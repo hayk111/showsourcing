@@ -22,6 +22,8 @@ export interface GlobalServiceInterface<T> {
 	queryCount: (predicate: string, client?: string) => Observable<number>;
 	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => ListQuery<T>;
 	waitForOne: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
+	selectAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client?: Client): Observable<T[]>;
+	queryAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client?: Client): Observable<T[]>;
 	update: (entity: { id?: string }, fields?: string | string[], client?: Client) => Observable<T>;
 	updateMany: (entities: { id?: string }[], fields?: string | string[], client?: Client) => Observable<T[]>;
 	create: (entity: T, fields?: string | string[], client?: Client) => Observable<T>;
