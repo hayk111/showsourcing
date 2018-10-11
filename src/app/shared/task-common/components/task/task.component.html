@@ -22,17 +22,16 @@
 	</div>
 
 	<!-- user+name column -->
-	<div *ngIf="fullUser" class="flex task-user" (click)="toggleSelector(true)"> <!-- DONT ERASE THIS IN CASE THE TASK MENU != TASK WORKSPACE -->
-		<selector-entity-app #selector *ngIf="selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app>
-		<user-picture-app *ngIf="!selectorVisible" [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
-		<p *ngIf="!selectorVisible">{{ task?.assignee ? task.assignee.firstName+' '+task.assignee.lastName  : 'Unassigned' }}</p>
+	<div *ngIf="fullUser" class="flex task-user"> <!-- DONT ERASE THIS IN CASE THE TASK MENU != TASK WORKSPACE -->
+		<!-- we call 2 times the selctor method since it has 2 different styling offsets -->
+		<user-picture-app [user]="task?.assignee" [size]="20" [border]="true" (click)="openSelectorEntity($event, 26, 3)"></user-picture-app>
+		<p (click)="openSelectorEntity($event, 52, 3)">{{ task?.assignee ? task.assignee.firstName+' '+task.assignee.lastName  : 'Unassigned' }}</p>
 	</div>
 
 	<!-- task status -->
 	<div class="flexEnd task-user-status">
-		<selector-entity-app #selector *ngIf="!fullUser && selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app>
-		<user-picture-app *ngIf="!fullUser && !selectorVisible" [user]="task?.assignee" [size]="20" [border]="true" (click)="toggleSelector(true)"></user-picture-app>
-		<div *ngIf="!selectorVisible" class="flex task-status"
+		<user-picture-app *ngIf="!fullUser" [user]="task?.assignee" [size]="20" [border]="true" (click)="openSelectorEntity($event)"></user-picture-app>
+		<div class="flex task-status"
 			[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}"
 			(click)="toggleDoneStatus()">
 			<icon-app name="circle" fontSet="fa" color="red"></icon-app>

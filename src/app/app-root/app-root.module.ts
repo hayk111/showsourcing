@@ -19,6 +19,7 @@ import { DialogModule } from '~shared/dialog';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
+import { PortalModule } from '~shared/portal';
 import { TemplateModule } from '~shared/template';
 
 // Can a kangaroo jump higher than a house ?
@@ -51,7 +52,8 @@ import { TemplateModule } from '~shared/template';
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
 			// enableTracing: true
-		})
+		}),
+		PortalModule
 	],
 	providers: [],
 	exports: [RouterModule],

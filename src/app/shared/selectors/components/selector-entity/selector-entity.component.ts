@@ -4,19 +4,17 @@ import {
 	Component,
 	EventEmitter,
 	Input,
-	OnInit,
 	Output,
-	ViewChild,
 	TemplateRef,
+	ViewChild,
 } from '@angular/core';
-import { Observable, Subject, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Category, Event, Supplier, SupplierType, Tag } from '~models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
-import { Choice } from '~shared/selectors/utils/choice.interface';
-
 import { SelectorsService } from '~shared/selectors/sercices/selectors.service';
-import { Supplier, Category, Event, Tag, SupplierType, EntityMetadata, ERM } from '~models';
-import { takeUntil, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { Choice } from '~shared/selectors/utils/choice.interface';
 
 
 @Component({

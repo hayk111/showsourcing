@@ -1,19 +1,7 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ContentChild,
-	EventEmitter,
-	HostListener,
-	Input,
-	OnInit,
-	Output,
-	Host,
-	Optional
-} from '@angular/core';
-import { DialogService } from '~shared/dialog/services/dialog.service';
-
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { DialogFooterComponent } from '~shared/dialog/components/dialog-footer/dialog-footer.component';
 import { DialogHeaderComponent } from '~shared/dialog/components/dialog-header/dialog-header.component';
+import { DialogService } from '~shared/dialog/services/dialog.service';
 
 // This is merely a presentational component. The logic for displaying a component is in the container
 @Component({

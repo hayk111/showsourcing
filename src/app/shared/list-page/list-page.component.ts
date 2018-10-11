@@ -3,18 +3,18 @@ import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
-import { EntityMetadata, ERM, Product } from '~models';
-import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
-import { DialogService } from '~shared/dialog';
-import { FilterList, FilterType, SearchService, Filter } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { Sort } from '~shared/table/components/sort.interface';
-import { AutoUnsub } from '~utils';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~global-services/_global/select-params';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { ProductQueries } from '~global-services/product/product.queries';
+import { EntityMetadata, Product } from '~models';
+import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
+import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { Filter, FilterList, SearchService } from '~shared/filters';
+import { SelectionService } from '~shared/list-page/selection.service';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { Sort } from '~shared/table/components/sort.interface';
+import { AutoUnsub } from '~utils';
 
 
 

@@ -9,26 +9,26 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { DialogHostDirective } from '~shared/dialog/components/dialog-host.directive';
-import { DialogService } from '~shared/dialog/services/dialog.service';
+import { PortalHostDirective } from '~shared/portal/components/portal-host.directive';
+import { PortalService } from '~shared/portal/services';
 import { AutoUnsub } from '~utils';
 
-
 @Component({
-	selector: 'dialog-container-app',
-	templateUrl: './dialog-container.component.html',
-	styleUrls: ['./dialog-container.component.scss'],
+	selector: 'portal-container-app',
+	templateUrl: './portal-container.component.html',
+	styleUrls: ['./portal-container.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DialogContainerComponent extends AutoUnsub implements AfterViewInit {
+export class PortalContainerComponent extends AutoUnsub implements AfterViewInit {
+
 	// host where we will put dynamically generated components
-	@ViewChild(DialogHostDirective) host: DialogHostDirective;
+	@ViewChild(PortalHostDirective) host: PortalHostDirective;
 	// view container of said host.
 	protected viewContainerRef;
 	isOpen = false;
 
 	constructor(
-		protected srv: DialogService,
+		protected portalSrv: PortalService,
 		protected componentFactoryResolver: ComponentFactoryResolver,
 		protected cdRef: ChangeDetectorRef) {
 		super();
@@ -36,14 +36,16 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 
 	ngAfterViewInit() {
 		this.viewContainerRef = this.host.viewContainerRef;
-		this.srv.toOpen$
+		this.portalSrv.toOpen$
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(({ component, props, moduleRef }) => {
 				this.open(component, moduleRef, props);
 			});
-		this.srv.toClose$
+		this.portalSrv.toClose$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(_ => this.clear());
+			.subscribe(_ => {
+				this.clear();
+			});
 	}
 
 	/** will put a component in the host container */

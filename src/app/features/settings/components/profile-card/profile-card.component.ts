@@ -1,8 +1,17 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
 import { User } from '~models';
 import { InputDirective, phoneValidator } from '~shared/inputs';
-import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 
 @Component({

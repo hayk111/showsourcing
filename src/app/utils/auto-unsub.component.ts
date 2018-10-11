@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 // utility class to unsub from observable
 export abstract class AutoUnsub extends TrackingComponent implements OnDestroy {
@@ -9,8 +8,8 @@ export abstract class AutoUnsub extends TrackingComponent implements OnDestroy {
 	_destroy$ = new Subject<void>();
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnDestroy() {
 		this._destroy$.next();
