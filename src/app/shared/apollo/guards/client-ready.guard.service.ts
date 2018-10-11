@@ -32,7 +32,7 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 
 	protected redirect(status: ClientStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		if (status === ClientStatus.ERROR) {
-			this.router.navigate(['server-issues']);
+			this.router.navigate(['issues', 'server-issues']);
 		}
 	}
 }
@@ -99,7 +99,7 @@ export class TeamClientReadyGuard extends ClientReadyGuard {
 
 	protected redirect(status: ClientStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		if (status === ClientStatus.ERROR) {
-			this.router.navigate(['server-issues']);
+			this.router.navigate(['issues', 'server-issues']);
 		}
 		if (status === ClientStatus.NOT_READY) {
 			// we gotta check if there is a return url already,

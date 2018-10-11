@@ -28,7 +28,13 @@ export const routes: Array<Route> = [
 			...authRoutes,
 		]
 	},
-	{ path: 'server-issue', component: ApolloIssuePageComponent },
+	{
+		path: 'issues',
+		component: GuestTemplateComponent,
+		children: [
+			{ path: 'server-issues', component: ApolloIssuePageComponent },
+		]
+	},
 	{
 		path: 'user',
 		component: GuestTemplateComponent,
@@ -45,8 +51,6 @@ export const routes: Array<Route> = [
 	{
 		path: 'rfq/:token',
 		component: RfqTemplateComponent,
-		canActivateChild: [
-		],
 		children: [
 			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
 		],
@@ -54,8 +58,6 @@ export const routes: Array<Route> = [
 	{
 		path: 'invitation',
 		component: GuestTemplateComponent,
-		canActivateChild: [
-		],
 		children: [
 			...invitationRoutes
 		]
