@@ -1,6 +1,6 @@
 
 <top-panel-app
-	title="ShowSourcing - Fashion"
+	[title]="(team$ | async)?.name"
 	[subtitles]="['Settings', 'Team Members']"
 	buttonName="Create New Team"
 	[buttonIcon]="false"

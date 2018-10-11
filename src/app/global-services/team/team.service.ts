@@ -1,20 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject, combineLatest } from 'rxjs';
-import { map, switchMap, tap, filter, shareReplay, distinctUntilChanged, switchMapTo } from 'rxjs/operators';
-import { SelectParams } from '~global-services/_global/select-params';
-import { Team } from '~models';
-
-import { Apollo } from 'apollo-angular';
-
+import { Observable, ReplaySubject } from 'rxjs';
+import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { GlobalService } from '~global-services/_global/global.service';
 import { TeamQueries } from '~global-services/team/team.queries';
-import { log } from '~utils';
-import { LocalStorageService } from '~shared/local-storage';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
-import { AuthStatus } from '~features/auth/interfaces/auth-state.interface';
-import { Router } from '@angular/router';
+import { Team } from '~models';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { LocalStorageService } from '~shared/local-storage';
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
