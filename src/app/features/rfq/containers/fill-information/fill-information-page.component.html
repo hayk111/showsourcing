@@ -13,36 +13,31 @@
 			</div>
 
 			<div class="right">
-					<card-app>
-						<div class="sectionTitle information"
-							i18n="div title|Product general information@@productGeneralInfo_general">
-							General Information
-						</div>
-						<ng-container *ngIf="descriptor$ | async as descriptor">
-							<dynamic-editable-form-app
-								[inlineLabel]="false"
-								[descriptor]="descriptor"
-								[colAmount]="2">
-							</dynamic-editable-form-app>
-						</ng-container>
-					</card-app>
-					
-					<card-app>
-						<div class="sectionTitle shipping"
-							i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading">
-							Shipping & Trading
-						</div>
+				<card-app>
+					<div class="sectionTitle information"
+						i18n="div title|Product general information@@productGeneralInfo_general">
+						General Information
+					</div>
+					<dynamic-editable-form-app
+						[inlineLabel]="false"
+						[colAmount]="2">
+					</dynamic-editable-form-app>
+				</card-app>
 
-						<ng-container *ngIf="descriptor2$ | async as descriptor">
-							<dynamic-editable-form-app
-								[inlineLabel]="false"
-								[descriptor]="descriptor"
-								[colAmount]="2"
-								[elementsPerColAmount]="3">
-							</dynamic-editable-form-app>
-						</ng-container>
-					</card-app>
+				<card-app>
+					<div class="sectionTitle shipping"
+						i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading">
+						Shipping & Trading
+					</div>
+
+					<dynamic-editable-form-app
+						[inlineLabel]="false"
+						[colAmount]="2"
+						[elementsPerColAmount]="3">
+					</dynamic-editable-form-app>
+				</card-app>
 			</div>
+		</div>
 	</div>
 
 	<div class="toolbar-wrapper">

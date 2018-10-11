@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { of, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { CustomField } from '~shared/dynamic-forms';
 
 
@@ -50,159 +48,159 @@ export class FillInformationPageComponent {
 	];
 
 	product = {
-		"id": "ac0eee6c-02a1-474d-9bf6-585b06c6cd5b",
-		"name": "VEDE-0001-AP",
-		"supplier": {
-			"id": "71144d98-2d05-44db-86c4-35d2d50b0784",
-			"name": "Supp 10052",
-			"address": null,
-			"country": null,
-			"logoImage": null,
-			"__typename": "Supplier"
+		'id': 'ac0eee6c-02a1-474d-9bf6-585b06c6cd5b',
+		'name': 'VEDE-0001-AP',
+		'supplier': {
+			'id': '71144d98-2d05-44db-86c4-35d2d50b0784',
+			'name': 'Supp 10052',
+			'address': null,
+			'country': null,
+			'logoImage': null,
+			'__typename': 'Supplier'
 		},
-		"images": [
+		'images': [
 			{
-				"id": "27bb4e6a-4830-4f6b-90fc-b6c77cabb953",
-				"fileName": "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg",
-				"orientation": 0,
-				"__typename": "Image"
+				'id': '27bb4e6a-4830-4f6b-90fc-b6c77cabb953',
+				'fileName': '27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg',
+				'orientation': 0,
+				'__typename': 'Image'
 			},
 			{
-				"id": "3d95dbe5-7016-435c-9035-af4a1361b5be",
-				"fileName": "3d95dbe5-7016-435c-9035-af4a1361b5be.jpg",
-				"orientation": 0,
-				"__typename": "Image"
+				'id': '3d95dbe5-7016-435c-9035-af4a1361b5be',
+				'fileName': '3d95dbe5-7016-435c-9035-af4a1361b5be.jpg',
+				'orientation': 0,
+				'__typename': 'Image'
 			},
 			{
-				"id": "3d95dbe5-7016-435c-9035-af4a1361b5be",
-				"fileName": "3d95dbe5-7016-435c-9035-af4a1361b5be.jpg",
-				"orientation": 0,
-				"__typename": "Image"
+				'id': '3d95dbe5-7016-435c-9035-af4a1361b5be',
+				'fileName': '3d95dbe5-7016-435c-9035-af4a1361b5be.jpg',
+				'orientation': 0,
+				'__typename': 'Image'
 			},
 			{
-				"id": "98dfaab1-e4df-41b0-ab7b-a857acdd0986",
-				"fileName": "98dfaab1-e4df-41b0-ab7b-a857acdd0986.jpg",
-				"orientation": 0,
-				"__typename": "Image"
+				'id': '98dfaab1-e4df-41b0-ab7b-a857acdd0986',
+				'fileName': '98dfaab1-e4df-41b0-ab7b-a857acdd0986.jpg',
+				'orientation': 0,
+				'__typename': 'Image'
 			},
 			{
-				"id": "84554ab8-59a4-4a61-b39d-46deb5516a4a",
-				"fileName": "84554ab8-59a4-4a61-b39d-46deb5516a4a.jpg",
-				"orientation": 0,
-				"__typename": "Image"
+				'id': '84554ab8-59a4-4a61-b39d-46deb5516a4a',
+				'fileName': '84554ab8-59a4-4a61-b39d-46deb5516a4a.jpg',
+				'orientation': 0,
+				'__typename': 'Image'
 			}
 		],
-		"price": {
-			"id": "0cd4b498-c950-4bf2-87f1-05aa56f51003",
-			"currency": "USD",
-			"value": 0,
-			"baseCurrencyValue": null,
-			"__typename": "Price"
+		'price': {
+			'id': '0cd4b498-c950-4bf2-87f1-05aa56f51003',
+			'currency': 'USD',
+			'value': 0,
+			'baseCurrencyValue': null,
+			'__typename': 'Price'
 		},
-		"category": {
-			"id": "2068d6fc-d4c3-42fd-9766-9475a0226067",
-			"name": "post it",
-			"__typename": "Category"
+		'category': {
+			'id': '2068d6fc-d4c3-42fd-9766-9475a0226067',
+			'name': 'post it',
+			'__typename': 'Category'
 		},
-		"projects": [
+		'projects': [
 			{
-				"id": "e0fe18e9-db2a-4333-a016-46f40fd02a61",
-				"name": "aaa",
-				"productCount": 0,
-				"__typename": "Project"
+				'id': 'e0fe18e9-db2a-4333-a016-46f40fd02a61',
+				'name': 'aaa',
+				'productCount': 0,
+				'__typename': 'Project'
 			},
 			{
-				"id": "f2005fed-93c6-4890-b5af-87be7a23db67",
-				"name": "autre",
-				"productCount": 0,
-				"__typename": "Project"
+				'id': 'f2005fed-93c6-4890-b5af-87be7a23db67',
+				'name': 'autre',
+				'productCount': 0,
+				'__typename': 'Project'
 			}
 		],
-		"description": "Quick a good product I got to say\nExist in 4 colors: Blue / Red / Green / White",
-		"event": {
-			"id": "4c59dadd-03a0-4dfd-9be5-a10477a1676d",
-			"name": "fgh",
-			"description": {
-				"id": "4c59dadd-03a0-4dfd-9be5-a10477a1676d",
-				"logoImage": null,
-				"__typename": "EventDescription"
+		'description': 'Quick a good product I got to say\nExist in 4 colors: Blue / Red / Green / White',
+		'event': {
+			'id': '4c59dadd-03a0-4dfd-9be5-a10477a1676d',
+			'name': 'fgh',
+			'description': {
+				'id': '4c59dadd-03a0-4dfd-9be5-a10477a1676d',
+				'logoImage': null,
+				'__typename': 'EventDescription'
 			},
-			"__typename": "Event"
+			'__typename': 'Event'
 		},
-		"favorite": true,
-		"statuses": [
+		'favorite': true,
+		'statuses': [
 			{
-				"id": "a18ba2b6-33a8-486f-af40-ef5ada20e64d",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'a18ba2b6-33a8-486f-af40-ef5ada20e64d',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "6d37b4bf-a527-42cf-9fff-92bb18df0000",
-				"cancelled": false,
-				"status": {
-					"id": "16fa6474-628e-4db5-b0b7-ea34e732f7ba",
-					"name": "Complete",
-					"color": "validated",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '6d37b4bf-a527-42cf-9fff-92bb18df0000',
+				'cancelled': false,
+				'status': {
+					'id': '16fa6474-628e-4db5-b0b7-ea34e732f7ba',
+					'name': 'Complete',
+					'color': 'validated',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "4d5ecc82-63cd-46ea-8dd2-a00456ac20a6",
-				"cancelled": false,
-				"status": {
-					"id": "21e5b9b5-3e6c-4af3-b087-66f744bc93e7",
-					"name": "Refused",
-					"color": "rejected",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '4d5ecc82-63cd-46ea-8dd2-a00456ac20a6',
+				'cancelled': false,
+				'status': {
+					'id': '21e5b9b5-3e6c-4af3-b087-66f744bc93e7',
+					'name': 'Refused',
+					'color': 'rejected',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "bac4d350-9534-4913-82d4-d096ba75a188",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": "inProgress",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': 'bac4d350-9534-4913-82d4-d096ba75a188',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "35c4169a-d68d-4e73-b825-814ba8f7f8bd",
-				"cancelled": false,
-				"status": {
-					"id": "16fa6474-628e-4db5-b0b7-ea34e732f7ba",
-					"name": "Complete",
-					"color": "validated",
-					"contrastColor": "light",
-					"step": null,
-					"__typename": "ProductStatusType"
+				'id': '35c4169a-d68d-4e73-b825-814ba8f7f8bd',
+				'cancelled': false,
+				'status': {
+					'id': '16fa6474-628e-4db5-b0b7-ea34e732f7ba',
+					'name': 'Complete',
+					'color': 'validated',
+					'contrastColor': 'light',
+					'step': null,
+					'__typename': 'ProductStatusType'
 				},
-				"__typename": "ProductStatus"
+				'__typename': 'ProductStatus'
 			},
 			{
-				"id": "5ff9b1ab-5fb4-47a6-9d67-d66ddb535de1",
-				"cancelled": false,
-				"status": {
-					"id": "ec5620fb-ec33-44c7-bbe6-3f034a28426c",
-					"name": "NeedReview",
-					"color": 'inProgress',
+				'id': '5ff9b1ab-5fb4-47a6-9d67-d66ddb535de1',
+				'cancelled': false,
+				'status': {
+					'id': 'ec5620fb-ec33-44c7-bbe6-3f034a28426c',
+					'name': 'NeedReview',
+					'color': 'inProgress',
 					'contrastColor': 'light',
 					'step': null,
 					'__typename': 'ProductStatusType'
