@@ -59,9 +59,6 @@ export class ConstPipe implements PipeTransform {
 		if (!constObject)
 			return value;
 
-		if (!propertyName)
-			return constMap[value].name;
-
 		// Try to translate the value
 		return this.getI18nValue(constMap[value], propertyName, this.localeCountry) || value;
 	}
