@@ -37,6 +37,7 @@
 				(mouseenter)="hoverRow(i)"
 				(mouseleave)="hoverRow(-1)">
 				<context-menu-app
+					*ngIf="isSelectable(row)"
 					[xPosition]="-19"
 					[yPosition]="27"
 					[ngClass]="{ hover: (i === hoverIndex) }"
