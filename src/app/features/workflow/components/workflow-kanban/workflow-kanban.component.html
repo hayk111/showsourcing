@@ -14,7 +14,7 @@
 			(itemEntered)="onItemEntered(status)"
 			(itemLeft)="onItemLeft(status)"
 			(checkChange)="onCheckItemsChange(status, $event)"
-			[label]="status.name | const:'status':'name'"
+			[label]="status.name | const:'status' "
 			borderColor="{{ status.id }}"
 			[namespace]="status"
 			*ngFor="let status of statuses; let i = index;trackBy: trackById">

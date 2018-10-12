@@ -26,7 +26,7 @@ export class ConstPipe implements PipeTransform {
 	transform(value: any, ...args: string[]): any {
 		let constMap;
 		const constName = args[0];
-		const propertyName = args[1];
+		const propertyName = args[1] || 'name';
 		switch (constName) {
 			case 'currency':
 			case 'currencies':

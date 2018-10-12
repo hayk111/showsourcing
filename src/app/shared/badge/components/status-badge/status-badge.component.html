@@ -1,5 +1,5 @@
 <badge-app #badge *ngIf="status; else noStatus" [size]="size" [type]="getType" [round]="round">
-	{{ status?.step !== null ? status?.step+'. ' : '' }}{{ status?.name | const: 'status':'name' }}
+	{{ status?.step !== null ? status?.step+'. ' : '' }}{{ status?.name | const: 'status'  }}
 	<div class="selector" *ngIf="hasArrow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 </badge-app>
 
