@@ -44,7 +44,7 @@
 </div>
 
 <selection-bar-app
-	*ngIf="(selected$ | async)?.size > 0"
+	[isShown]="(selected$ | async)?.size > 0"
 	[selection]="selected$ | async"
 	[hasDelete]="false"
 	(close)="resetSelection()"

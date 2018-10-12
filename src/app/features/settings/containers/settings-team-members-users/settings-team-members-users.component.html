@@ -50,7 +50,7 @@
 			[ngClass]="{ 'collapsed-menu': !(menuCollapsed$ | async), 'expanded-menu': (menuCollapsed$ | async) }"
 			(close)="resetSelection()"
 			(delete)="deleteSelection()"
-			*ngIf="selected.size > 0"
+			[isShown]="selected.size > 0"
 			[selection]="selected"></selection-bar-app>
 	</ng-container -->
 </ng-container>

@@ -1,5 +1,5 @@
 
-<div class="ctnr z-6 flexBetween">
+<div class="ctnr z-6 flexBetween" @selectionBarTrigger *ngIf="isShown">
 
   <div class="closeSection pointer">
     <icon-app name="close" (click)="close.emit()"></icon-app>
