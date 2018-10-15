@@ -17,6 +17,7 @@ import { Component, OnInit, Input } from '@angular/core';
 		'[class.tiny]': 'size === "tiny"',
 		'[class.mini]': 'size === "mini"',
 		'[class.xsmall]': 'size === "xs"',
+		'[class.thick]': 'size === "thick"',
 		'[class.small]': 'size === "s" || size === "small"',
 		'[class.medium]': 'size === "m" || size === "medium"',
 		'[class.large]': 'size === "l" || size === "large"'

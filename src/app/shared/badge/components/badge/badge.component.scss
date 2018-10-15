@@ -41,6 +41,11 @@
 		padding: var(--spacing-xs) var(--spacing-ms);
 		border-radius: var(--border-radius-s);
 	}
+	&.thick {
+		width: fit-content;
+		padding: var(--spacing-ms) var(--spacing-s);
+		font-weight: 600;
+	}
 	&.xsmall {
 		font-size: var(--font-size-xs);
 		font-size: 12px;

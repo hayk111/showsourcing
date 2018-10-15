@@ -1,0 +1,19 @@
+<div class="title-container-boarding flex">
+	<button class="icon light" (click)="previousPage()">
+		<icon-app name="back-arrow"></icon-app>
+	</button>
+	<h1>What kind of business are you?</h1>
+</div>
+
+<div class="type-container flexColumn">
+	<p class="label">Business Type</p>
+	<context-menu-app class="boarding">
+		<context-menu-trigger-app class="flexBetween">
+			<div>Big Text</div>
+			<icon-app fontSet="fa" name="caret-down"></icon-app>
+		</context-menu-trigger-app>
+	</context-menu-app>
+</div>
+
+<input class="boarding" type="submit" value="Next" (click)="onSubmit()">
+
