@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'find-business-app',
@@ -6,9 +7,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./find-business.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FindBusinessComponent implements OnInit {
+export class FindBusinessComponent extends AutoUnsub implements OnInit {
 
-	constructor() { }
+	constructor() { super(); }
 
 	ngOnInit() {
 	}

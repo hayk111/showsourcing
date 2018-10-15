@@ -1,0 +1,55 @@
+:host {
+	width: 535px;
+	height: 323px;
+}
+
+.title-container {
+	margin-bottom: 96px;
+	align-items: center;
+
+	h1 {
+		font-size: var(--font-size-xxxl);
+		color: var(--color-txt-strong);
+		font-weight: 600;
+		margin-bottom: var(--spacing-m);
+	}
+	p {
+		font-size: var(--font-size-xl);
+		color: var(--color-txt-primary);
+		font-weight: normal;
+	}
+}
+
+.items-container {
+	margin-bottom: 76px;
+
+	& > * {
+		width: 33%;
+		align-items: center;
+
+		icon-app {
+			font-size: 44px;
+			cursor: default;
+			color: var(--color-secondary-dark);
+			margin-bottom: var(--spacing-ms);
+			margin-left: var(--spacing-s);
+		}
+		p {
+			width: 90%;
+			text-align: center;
+			font-size: var(--font-size-xl);
+			&.smaller {
+				width: 80%;
+			}
+		}
+	}
+}
+
+.footer {
+	align-items: center;
+
+	p {
+		font-size: var(--font-size-xl);
+		margin-bottom: 18px;
+	}
+}

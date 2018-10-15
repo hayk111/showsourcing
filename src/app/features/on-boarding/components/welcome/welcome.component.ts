@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'welcome-app',
@@ -8,9 +9,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-	constructor() { }
+	constructor(private router: Router) { }
 
 	ngOnInit() {
 	}
 
+	nextPage() {
+		this.router.navigate(['supplier', 'find-business']);
+	}
 }

@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { FindBusinessComponent } from './components';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	imports: [
-		CommonModule
+		CommonModule,
+		SharedModule
 	],
 	declarations: [FindBusinessComponent, WelcomeComponent]
 })
