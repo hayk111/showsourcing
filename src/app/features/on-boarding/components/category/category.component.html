@@ -1,3 +1,28 @@
-<p>
-  category works!
-</p>
+<div class="title-container-boarding flex">
+	<button class="icon light" (click)="previousPage()">
+		<icon-app name="back-arrow"></icon-app>
+	</button>
+	<h1>What kind of product / services do you provide?</h1>
+</div>
+
+<div class="product-container flexColumn">
+		<p class="label">Product/Service categories</p>
+		<div class="flexBetween">
+			<div class="categories flexWrap">
+				<!-- FOR with categories -->
+				<info-badge-app [hasDelete]="true" size="thick" type="tag">Tires</info-badge-app>
+				<info-badge-app [hasDelete]="true" size="thick" type="tag">Car Accessories</info-badge-app>
+				<info-badge-app [hasDelete]="true" size="thick" type="tag">Car Accessories</info-badge-app>
+			</div>
+			<div class="select-categories">
+				<context-menu-app>
+					<context-menu-trigger-app class="flexBetween">
+							<div class="selector-name">Select categories</div>
+							<icon-app fontSet="fa" name="caret-down"></icon-app>
+					</context-menu-trigger-app>
+				</context-menu-app>
+			</div>
+		</div>
+</div>
+
+<input class="boarding" type="submit" value="Next" (click)="onSubmit()"/>

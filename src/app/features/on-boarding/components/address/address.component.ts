@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
 	selector: 'address-app',
 	templateUrl: './address.component.html',
-	styleUrls: ['./address.component.scss'],
+	styleUrls: ['./address.component.scss', './../common-boarding.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddressComponent implements OnInit {

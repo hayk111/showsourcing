@@ -10,6 +10,7 @@ export class InfoBadgeComponent implements OnInit {
 
 	@Input() type: 'category' | 'tag' | 'project' = 'category';
 	@Input() size = 'mini';
+	@Input() hasDelete = false;
 	color: string;
 
 	constructor() { }

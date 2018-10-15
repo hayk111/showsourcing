@@ -1,15 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { InputDirective } from '~shared/inputs';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
 	selector: 'business-type-app',
 	templateUrl: './business-type.component.html',
-	styleUrls: ['./business-type.component.scss'],
+	styleUrls: ['./business-type.component.scss', './../common-boarding.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusinessTypeComponent implements OnInit {
-	@ViewChild(InputDirective) input: InputDirective;
 
 	constructor(private router: Router) { }
 

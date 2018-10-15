@@ -168,23 +168,3 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 }
-
-// on-board supplier title
-.title-container-boarding {
-	margin-left: -43px;
-	color: var(--color-txt-strong);
-	margin-bottom: 57px;
-
-	button {
-		margin-right: var(--spacing-ms);
-
-		icon-app {
-			font-size: var(--font-size-xxl);
-		}
-	}
-
-	h1 {
-		font-size: var(--font-size-xxxl);
-		font-weight: 600;
-	}
-}

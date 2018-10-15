@@ -1,0 +1,15 @@
+.description-container {
+	margin-bottom: 50px;
+
+	textarea {
+		width: 500px;
+		resize: none;
+		height: 182px;
+		margin-top: var(--spacing-ms);
+
+		&::placeholder {
+			padding: var(--spacing-ms);
+			font-size: var(--font-size-l);
+		}
+	}
+}

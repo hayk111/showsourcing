@@ -1,3 +1,7 @@
+:host {
+	display: block;
+}
+
 icon-app {
 	cursor: default;
 	margin-right: var(--spacing-xs);
@@ -5,4 +9,10 @@ icon-app {
 }
 badge-app {
 	margin-right: var(--spacing-s);
+}
+
+icon-app.close {
+	cursor: pointer;
+	font-size: var(--font-size-xxs);
+	margin-left: var(--spacing-xs);
 }

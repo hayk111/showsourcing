@@ -1,4 +1,5 @@
 <badge-app [size]="size" [type]="type === 'category' ? 'accent' : 'secondary'">
 	<icon-app [name]="iconName" class="{{color}}" [fontSet]="type === 'project' ? 'svg' : ''"></icon-app>
 	<ng-content></ng-content>
+	<icon-app *ngIf="hasDelete" class="close" name="close"></icon-app>
 </badge-app>

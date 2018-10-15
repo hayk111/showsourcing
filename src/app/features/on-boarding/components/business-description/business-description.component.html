@@ -1,3 +1,13 @@
-<p>
-  business-description works!
-</p>
+<div class="title-container-boarding flex">
+	<button class="icon light" (click)="previousPage()">
+		<icon-app name="back-arrow"></icon-app>
+	</button>
+	<h1>Describe your business</h1>
+</div>
+
+<div class="description-container flexColumn">
+	<p class="label">Business Description</p>
+	<textarea placeholder="Type your business description"></textarea>
+</div>
+
+<input class="boarding" type="submit" value="Next" (click)="onSubmit()"/>
