@@ -4,7 +4,6 @@ import { routes as authRoutes } from '~features/auth/routes';
 import { HasUserGuard } from '~features/auth/services/has-user.guard';
 import { UnauthGuardService } from '~features/auth/services/unauth-guard.service';
 import { routes as invitationRoutes } from '~features/invitation/routes';
-import { OnBoardingPageComponent } from '~features/on-boarding';
 import { routes as boardRoutes } from '~features/on-boarding/routes';
 import {
 	CreateACompanyPageComponent,
@@ -27,14 +26,14 @@ export const routes: Array<Route> = [
 			UnauthGuardService
 		],
 		children: [
-			...authRoutes,
-			{
-				path: 'supplier',
-				component: OnBoardingPageComponent,
-				children: [
-					...boardRoutes
-				]
-			}
+			...authRoutes
+		]
+	},
+	{
+		path: 'supplier',
+		component: GuestTemplateComponent,
+		children: [
+			...boardRoutes
 		]
 	},
 	{
