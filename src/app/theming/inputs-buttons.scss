@@ -63,6 +63,7 @@ form-field-app.boarding {
 		font-weight: 600;
 	}
 	input {
+		margin-top: var(--spacing-m);
 		font-size: var(--font-size-l);
 		height: 50px;
 		padding: var(--spacing-m);
@@ -153,6 +154,10 @@ button, input[type="submit"], .button {
 		padding: 6px;
 		min-width: 0;
 		font-size: inherit;
+	}
+	&.boarding {
+		height: 40px;
+    min-width: 120px;
 	}
 }
 
