@@ -23,6 +23,7 @@ import { FileUploadRequestService } from '~global-services/file-upload-request/f
 import { Attachment, AppImage, ImageUploadRequest } from '~models';
 import { FileUploadRequest } from '~models/file-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { ProductFeatureService } from '~features/products/services';
 import { ImageUrls, log, LogColor } from '~utils';
 
 import { resizeSizeToLimit } from '~shared/utils/file.util';
@@ -32,35 +33,36 @@ export class UploaderService {
   constructor(
     private imageUploadRequestSrv: ImageUploadRequestService,
     private fileUploadRequestSrv: FileUploadRequestService,
+		private productSrv: ProductFeatureService,
     private notifSrv: NotificationService,
     private http: HttpClient
   ) {}
 
-  uploadImages(imgs: File[]): Observable<any> {
+  uploadImages(imgs: File[], linkedItem?: any): Observable<any> {
     // MaxSize 1200px
-
     const uploads$ = imgs.map(img =>
       resizeSizeToLimit(img, 1200).pipe(
         first(),
-        mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image'))
+        mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem))
       )
     );
     return forkJoin(uploads$);
   }
 
-  uploadFiles(files: File[]): Observable<any> {
+  uploadFiles(files: File[], linkedItem?: any): Observable<any> {
     return forkJoin(files.map(file => this.uploadFile(file, 'file'))).pipe(
       first()
     );
   }
 
-  uploadImage(file: File) {
+  uploadImage(file: File, linkedItem?: any) {
     return this.uploadFile(file, 'image');
   }
 
   uploadFile(
     file: File,
-    type: 'file' | 'image' = 'file'
+    type: 'file' | 'image' = 'file',
+    linkedItem?: any
   ): Observable<AppImage> {
     const isImage = type === 'image';
     const fileName = file.name;
@@ -84,7 +86,9 @@ export class UploaderService {
       // so we need to wait for it to be ready.
       mergeMap(_ => this.emitWhenFileReady(request) as any),
       // putting the request status to uploaded
-      mergeMap(_ => service.update({ id: request.id, status: 'uploaded' })),
+      mergeMap(_ => {
+        return service.update({ id: request.id, status: 'uploaded' });
+      }),
       // add notification
       tap(_ =>
         this.notifSrv.add({

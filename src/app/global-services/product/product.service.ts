@@ -11,7 +11,6 @@ import { ApolloStateService } from '~shared/apollo/services/apollo-state.service
 	providedIn: 'root'
 })
 export class ProductService extends GlobalWithAuditService<Product> {
-
 	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
 		super(apolloState, ProductQueries, 'product', 'products', userSrv);
 	}
