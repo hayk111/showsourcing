@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AutoUnsub } from '~utils';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'find-business-app',
@@ -9,9 +10,13 @@ import { AutoUnsub } from '~utils';
 })
 export class FindBusinessComponent extends AutoUnsub implements OnInit {
 
-	constructor() { super(); }
+	constructor(private router: Router) { super(); }
 
 	ngOnInit() {
+	}
+
+	nextPage() {
+		this.router.navigate(['supplier', 'address']);
 	}
 
 }
