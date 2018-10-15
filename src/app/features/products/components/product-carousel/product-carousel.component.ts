@@ -10,9 +10,10 @@ import {
 } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { ImageService } from '~global-services/image/image.service';
-import { AppImage } from '~models';
+import { AppImage, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { UploaderService } from '~shared/file/services/uploader.service';
+import { ProductFeatureService } from '~features/products/services';
 import { AutoUnsub, DEFAULT_IMG, PendingImage } from '~utils';
 
 @Component({
@@ -61,6 +62,7 @@ export class ProductCarouselComponent extends AutoUnsub {
 		private uploader: UploaderService,
 		private imageSrv: ImageService,
 		private dlgSrv: DialogService,
+		private productSrv: ProductFeatureService,
 		private cd: ChangeDetectorRef
 	) {
 		super();
@@ -81,7 +83,7 @@ export class ProductCarouselComponent extends AutoUnsub {
 		this.uploader.uploadImages(files).pipe(
 			first()
 		).subscribe(imgs => {
-			this.imgUploaded.emit(imgs);
+			this.productSrv.onNewImages(this.product, imgs);
 			// removing pending image
 			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
 		}, e => this._pendingImages = []);
@@ -90,7 +92,8 @@ export class ProductCarouselComponent extends AutoUnsub {
 
 	/** when image is deleted */
 	onDelete(image: AppImage) {
-		this.imageDeleted.emit(image);
+		// this.imageDeleted.emit(image);
+		this.productSrv.onImageDeleted(this.product, image);
 	}
 
 	/** opens the modal carousel */

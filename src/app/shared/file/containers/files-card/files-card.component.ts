@@ -7,6 +7,12 @@ import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
+export enum PageType {
+	product = 'PRODUCT',
+	supplier = 'SUPPLIER'
+}
+
+
 @Component({
 	selector: 'files-card-app',
 	templateUrl: './files-card.component.html',
