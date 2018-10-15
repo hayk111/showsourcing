@@ -10,4 +10,5 @@ export * from '~utils/constants/currencies.map';
 export * from '~utils/constants/data.const';
 export * from '~utils/constants/units.const';
 export * from '~utils/constants/statuses.map';
+export * from '~utils/constants/supplier-types.map';
 

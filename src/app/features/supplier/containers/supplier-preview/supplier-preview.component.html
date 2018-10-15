@@ -14,7 +14,7 @@
 			<h2>{{ supplier?.name }}</h2>
 			<div>{{ supplier?.supplierType?.name || 'Supplier'}}
 				<ng-container *ngIf="supplier.country">
-					- {{ supplier.country | const:'country' }}
+					- {{ supplier.country | const: 'country'  }}
 				</ng-container>
 			</div>
 			<workflow-action-app

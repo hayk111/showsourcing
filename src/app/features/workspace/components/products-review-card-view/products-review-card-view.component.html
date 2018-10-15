@@ -48,7 +48,7 @@
             </div>
 
             <div class="secondary flexBetween sort-1 button-action button-workflow">
-              <span (click)="sentToWorkflow.emit(product)">Send to {{ (firstStatus$ | async)?.name | const: 'status':'name' }}</span>
+              <span (click)="sentToWorkflow.emit(product)">Send to {{ (firstStatus$ | async)?.name | const: 'status'  }}</span>
               <div class="button-icon">
                 <workflow-action-app
                   #workActionMenu
@@ -118,7 +118,7 @@
             </div>
 
             <div class="secondary flexBetween sort-1 button-action button-workflow">
-              <span (click)="sentToWorkflow.emit(product)">Send to {{ (firstStatus$ | async)?.name | const: 'status':'name' }}</span>
+              <span (click)="sentToWorkflow.emit(product)">Send to {{ (firstStatus$ | async)?.name | const: 'status'  }}</span>
               <div class="button-icon">
                 <workflow-action-app
                   #workActionMenu
