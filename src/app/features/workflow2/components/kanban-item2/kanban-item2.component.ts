@@ -20,12 +20,15 @@ export class KanbanItem2Component extends AutoUnsub implements OnInit, AfterCont
 	/** The namespace associated with the item */
 	@Input() namespace;
 	@Input() dragDropEnable$: Subject<any>;
+	/** The selected items */
+	@Input() selectedItems: Map<string, any>;
 	/** The drag'n drop started */
 	@Output() dragStart = new EventEmitter<any>();
 	/** The drag'n drop ended */
 	@Output() dragEnd = new EventEmitter<any>();
 
 	dragDropEnabled = true;
+	dragDropInProgress = false;
 
 
 
@@ -47,13 +50,32 @@ export class KanbanItem2Component extends AutoUnsub implements OnInit, AfterCont
 
 	/** Dispatch the dragStart event through the kanban service */
 	onDragStart(event) {
-		this.kanbanSrv.dragStart$.next({ namespace: this.namespace, data: this.data });
+		this.dragDropInProgress = true;
+		// if ()
+		console.log('>> selectedItems = ', this.selectedItems);
+		const itemsToDrop = this.getDataForDragnDrop();
+		this.kanbanSrv.dragStart$.next({ namespace: this.namespace, data: itemsToDrop });
 		this.dragStart.emit();
 	}
 
 	/** Dispatch the dragEnd event through the kanban service */
 	onDragEnd(event) {
-		this.kanbanSrv.dragEnd$.next({ namespace: this.namespace, data: this.data });
+		this.dragDropInProgress = false;
+		const itemsToDrop = this.getDataForDragnDrop();
+		console.log('>> itemsToDrop = ', itemsToDrop);
+		this.kanbanSrv.dragEnd$.next({ namespace: this.namespace, data: itemsToDrop });
 		this.dragEnd.emit();
+	}
+
+	getDataForDragnDrop() {
+		if (this.selectedItems && this.selectedItems.size > 0) {
+			if (this.selectedItems.has(this.data.id)) {
+				return Array.from(this.selectedItems.values());
+			} else {
+				return Array.from(this.selectedItems.values()).concat([ this.data ]);
+			}
+		} else {
+			return [ this.data ];
+		}
 	}
 }

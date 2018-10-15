@@ -1,8 +1,10 @@
-<div [ngClass]="{ draggable: dragDropEnabled }"
+<div class="cntr" [ngClass]="{ draggable: dragDropEnabled }"
 		 [movableApp]="data"
 		 [appMovableReset]="true"
 		 [disabled]="dragDropEnabled"
 		 (dragStart)="onDragStart($event)"
 		 (dragEnd)="onDragEnd($event)">
 	<ng-content></ng-content>
+	<div *ngIf="dragDropInProgress && selectedItems?.size > 1"
+		   class="selected-items-number">{{selectedItems?.size}}</div>
 </div>

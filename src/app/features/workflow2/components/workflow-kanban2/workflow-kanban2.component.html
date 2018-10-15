@@ -7,6 +7,7 @@
 		<kanban-col2-app
 			*ngFor="let column of columns; let i = index;trackBy: trackById"
 			[dropzoneApp]="column"
+			[selectedItems]="selectedItems"
 			[data]="column"
 			[borderColor]="column.color"
 			[disabled]="column.disabled"
@@ -16,7 +17,7 @@
 			borderColor="{{ column.id }}"
 			[namespace]="column.id"
 			(itemDropped)="onItemDropped($event)"
-			(itemEntered)="onItemEntered(column)"
+			(itemEntered)="onItemEntered(column.id)"
 			(itemLeft)="onItemLeft(column)"
 			(checkChange)="onCheckItemsChange(column, $event)">
 				<div class="card-container" [ngClass]="{ 'dnd-progress': isDragInProgressItem(item) }"
@@ -26,6 +27,7 @@
 							[namespace]="getCurrentColumn(item)"
 							[data]="item"
 							[dragDropEnable$]="dragDropEnable$"
+							[selectedItems]="selectedItems"
 							(dragStart)="dragStart(item)"
 							(dragEnd)="dragEnd(item)">
 						<ng-container

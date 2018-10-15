@@ -105,10 +105,12 @@ export class MyWorkflowPageComponent extends ListPageComponent<Product, Workspac
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {
-		this.workspaceSrv.updateProductStatus(droppedElement, target)
-			.subscribe(() => {
-				this.cdr.detectChanges();
+		if (droppedElement) {
+			droppedElement.forEach(element => {
+				this.workspaceSrv.updateProductStatus(element, target)
+				.subscribe(() => this.cdr.detectChanges());
 			});
+		}
 	}
 
 	/**

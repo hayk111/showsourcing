@@ -18,8 +18,9 @@ export class DropzoneDirective implements OnInit {
 	@Input('dropzoneApp') value: any;
 	@Input() disabled: any;
 	@Input() data: any;
+	@Input() selectedItems: Map<string, any>;
 	/** The event when an element is dropped into the zone */
-	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
+	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any[] }>();
 	/** The event when an element enters into the zone during drag'n drop */
 	@Output() itemEntered = new EventEmitter<null>();
 	/** The event when an element leaves into the zone during drag'n drop */
@@ -85,11 +86,24 @@ export class DropzoneDirective implements OnInit {
 		}
 
 		if (this.entered) {
-			this.itemDropped.emit({ target: this.value, droppedElement: this.allDroppableService.currentDataDragged });
+			const droppedElement = this.allDroppableService.currentDataDragged;
+			this.itemDropped.emit({ target: this.value, droppedElement: this.getDataForDragnDrop(droppedElement) });
 		}
 
 		this.activated = false;
 		this.entered = false;
+	}
+
+	getDataForDragnDrop(droppedElement) {
+		if (this.selectedItems && this.selectedItems.size > 0) {
+			if (this.selectedItems.has(this.data.id)) {
+				return Array.from(this.selectedItems.values());
+			} else {
+				return Array.from(this.selectedItems.values()).concat([ droppedElement ]);
+			}
+		} else {
+			return [ droppedElement ];
+		}
 	}
 
 	/** The drag'n drop starts (interception at dropzone level) */
