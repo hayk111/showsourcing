@@ -6,6 +6,7 @@ import { PendingFile } from '~utils/pending-file.class';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { any } from 'async';
 
 export enum PageType {
 	product = 'PRODUCT',
@@ -33,6 +34,8 @@ export class FilesCardComponent extends TrackingComponent {
 	@Output() fileAdded = new EventEmitter<Attachment[]>();
 	defaultImg = DEFAULT_FILE_ICON;
 
+  @Input() linkedItem: any;
+
 	constructor(
 		private uploader: UploaderService,
 		private dlgSrv: DialogService
@@ -40,10 +43,11 @@ export class FilesCardComponent extends TrackingComponent {
     super();
   }
 
-	onFileAdded(files: Array<File>, supplier?: Supplier) {
+	onFileAdded(files: Array<File>) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
-		this.uploader.uploadFiles(files, supplier).subscribe(addedFiles => {
-			this.fileAdded.emit(addedFiles);
+		this.uploader.uploadFiles(files, this.linkedItem).subscribe(addedFiles => {
+      // console.log(addedFiles);
+			// this.fileAdded.emit(addedFiles);
 			this._pendingFiles = [];
 		});
 	}

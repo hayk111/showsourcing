@@ -91,8 +91,15 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 				selectedProducts: [this.product]
 			}
 		);
-	}
+  }
 
+  /** when file has been removed we remove link */
+  onFileRemoved(attachment: Attachment) {
+    const attachments = this.product.attachments.filter(
+      atc => atc.id !== attachment.id
+    );
+    this.updateProduct({ attachments });
+  }
 	/** remove project from product.projects */
 	removeProject(removed: Project) {
 		// mapping project to their respective id, to not inadvertently change other props, then removing

@@ -73,9 +73,18 @@ export class UploaderService {
     const service: GlobalService<any> = isImage
       ? this.imageUploadRequestSrv
       : this.fileUploadRequestSrv;
+    console.log(linkedItem);
+    let featureService: GlobalService<any>;
+    if (linkedItem.__typename === 'Supplier') {
+      featureService = this.supplierSrv;
+    } else if (linkedItem.__typename === 'Product') {
+      featureService = this.productSrv;
+    }
     const returned = isImage
       ? (request as ImageUploadRequest).image
       : (request as FileUploadRequest).attachment;
+
+    console.log(returned);
     return service.create(request).pipe(
       // subscribing to that upload request so we can wait till it's ready
       mergeMap(_ =>
@@ -93,15 +102,15 @@ export class UploaderService {
       // add notification
       tap(_file =>
         {
-          if (linkedItem instanceof Product) {
-            this.productSrv.update({
+          if (isImage) {
+            featureService.update({
               id: linkedItem.id,
-              images: [...linkedItem.images, ..._file]
+              images: [...linkedItem.images, returned]
             })
             .subscribe();
-          } if (linkedItem instanceof Supplier) {
-		        const attachments = [...linkedItem.attachments, ..._file];
-            this.supplierSrv.update({ id: linkedItem.id, attachments }).subscribe();
+          } else {
+		        const attachments = [...linkedItem.attachments, returned];
+            featureService.update({ id: linkedItem.id, attachments }).subscribe();
           }
           return this.notifSrv.add({
             type: NotificationType.SUCCESS,

@@ -78,12 +78,6 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		this.featureSrv.deleteContact(contact).subscribe();
 	}
 
-	/** when file has been uploaded we link it */
-	onFileAdded(added: Attachment[]) {
-		const attachments = [...this.supplier.attachments, ...added];
-		this.featureSrv.update({ id: this.supplier.id, attachments }).subscribe();
-	}
-
 	/** when file has been removed we remove link */
 	onFileRemoved(attachment: Attachment) {
 		const attachments = this.supplier.attachments.filter(atc => atc.id !== attachment.id);

@@ -49,12 +49,6 @@ export class ProductFeatureService extends ProductService {
 		this.updateProduct({ images });
 	}
 
-	/** when file has been uploaded we link it */
-	onFileAdded(product: Product, added: Attachment[]) {
-		const attachments = [...product.attachments, ...added];
-		this.updateProduct({ attachments });
-	}
-
 	/** when file has been removed we remove link */
 	onFileRemoved(product: Product, attachment: Attachment) {
 		const attachments = product.attachments.filter(
