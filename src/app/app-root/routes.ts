@@ -32,6 +32,9 @@ export const routes: Array<Route> = [
 	{
 		path: 'supplier',
 		component: GuestTemplateComponent,
+		canActivateChild: [
+			UnauthGuardService
+		],
 		children: [
 			...boardRoutes
 		]
