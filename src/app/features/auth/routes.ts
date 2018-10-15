@@ -2,10 +2,10 @@ import { Routes } from '@angular/router';
 import {
 	AccountCreatedComponent,
 	ForgotPasswordComponent,
-	ResetPasswordComponent,
 	LoginComponent,
 	PwResettedComponent,
 	RegistrationComponent,
+	ResetPasswordComponent,
 } from '~features/auth/components';
 
 export const routes: Routes = [

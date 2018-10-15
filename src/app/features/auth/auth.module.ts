@@ -11,6 +11,7 @@ import {
 	RegistrationComponent,
 	ResetPasswordComponent
 } from '~features/auth/components';
+import { OnBoardingModule } from '~features/on-boarding';
 
 
 
@@ -19,6 +20,7 @@ import {
 		SharedModule,
 		RouterModule.forChild([]),
 		ReactiveFormsModule,
+		OnBoardingModule
 	],
 	declarations: [
 		LoginComponent,
