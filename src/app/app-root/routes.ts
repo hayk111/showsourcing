@@ -4,6 +4,8 @@ import { routes as authRoutes } from '~features/auth/routes';
 import { HasUserGuard } from '~features/auth/services/has-user.guard';
 import { UnauthGuardService } from '~features/auth/services/unauth-guard.service';
 import { routes as invitationRoutes } from '~features/invitation/routes';
+import { OnBoardingPageComponent } from '~features/on-boarding';
+import { routes as boardRoutes } from '~features/on-boarding/routes';
 import {
 	CreateACompanyPageComponent,
 } from '~features/pick-a-team/containers/create-a-company-page/create-a-company-page.component';
@@ -26,6 +28,13 @@ export const routes: Array<Route> = [
 		],
 		children: [
 			...authRoutes,
+			{
+				path: 'supplier',
+				component: OnBoardingPageComponent,
+				children: [
+					...boardRoutes
+				]
+			}
 		]
 	},
 	{

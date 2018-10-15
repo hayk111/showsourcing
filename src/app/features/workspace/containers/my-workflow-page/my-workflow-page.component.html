@@ -68,7 +68,7 @@
 
 <selection-bar-app
   [isShown]="(selected$ | async).size > 0"
-  [selection]="selected$ | async"
+	[selection]="selected$ | async"
   [hasDelete]="false"
   (close)="resetSelection()"
   (delete)="deleteSelected()">
@@ -81,7 +81,7 @@
 		(liked)="onMultipleThumbUp($event)"
 		(disliked)="onMultipleThumbDown($event)">
 
-    <button class="icon light" (click)="openAddToProjectDialog()">
+    <button class="icon light" (click)="openAddToProjectDialog(null)">
       <icon-app name="folder-light" fontSet="svg"></icon-app>
     </button>
     <button class="icon light" (click)="deleteSelected()">

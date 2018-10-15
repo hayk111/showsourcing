@@ -110,23 +110,23 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	}
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	openAddToProjectDialog(product: Product) {
+	openAddToProjectDialog() {
 		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectedProducts()
+			selectedProducts: this.getSelectedProducts()
 		});
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(product: Product) {
+	openExportDialog() {
 		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.selectionItems()
+			selectedProducts: this.selectionItems()
 		});
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	openRequestFeedbackDialog(product: Product) {
+	openRequestFeedbackDialog() {
 		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.selectionItems()
+			selectedProducts: this.selectionItems()
 		});
 	}
 
