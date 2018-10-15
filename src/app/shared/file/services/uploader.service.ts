@@ -20,10 +20,11 @@ import {
 import { ImageUploadRequestService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
-import { Attachment, AppImage, ImageUploadRequest } from '~models';
+import { Attachment, AppImage, ImageUploadRequest, Product, Supplier } from '~models';
 import { FileUploadRequest } from '~models/file-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ProductFeatureService } from '~features/products/services';
+import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { ImageUrls, log, LogColor } from '~utils';
 
 import { resizeSizeToLimit } from '~shared/utils/file.util';
@@ -34,6 +35,7 @@ export class UploaderService {
     private imageUploadRequestSrv: ImageUploadRequestService,
     private fileUploadRequestSrv: FileUploadRequestService,
 		private productSrv: ProductFeatureService,
+		private supplierSrv: SupplierFeatureService,
     private notifSrv: NotificationService,
     private http: HttpClient
   ) {}
@@ -50,13 +52,12 @@ export class UploaderService {
   }
 
   uploadFiles(files: File[], linkedItem?: any): Observable<any> {
-    return forkJoin(files.map(file => this.uploadFile(file, 'file'))).pipe(
-      first()
-    );
+    return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem))).pipe(
+      first());
   }
 
   uploadImage(file: File, linkedItem?: any) {
-    return this.uploadFile(file, 'image');
+    return this.uploadFile(file, 'image', linkedItem);
   }
 
   uploadFile(
@@ -90,12 +91,24 @@ export class UploaderService {
         return service.update({ id: request.id, status: 'uploaded' });
       }),
       // add notification
-      tap(_ =>
-        this.notifSrv.add({
-          type: NotificationType.SUCCESS,
-          title: 'File Uploaded',
-          message: 'Your file was uploaded with success'
-        })
+      tap(_file =>
+        {
+          if (linkedItem instanceof Product) {
+            this.productSrv.update({
+              id: linkedItem.id,
+              images: [...linkedItem.images, ..._file]
+            })
+            .subscribe();
+          } if (linkedItem instanceof Supplier) {
+		        const attachments = [...linkedItem.attachments, ..._file];
+            this.supplierSrv.update({ id: linkedItem.id, attachments }).subscribe();
+          }
+          return this.notifSrv.add({
+            type: NotificationType.SUCCESS,
+            title: 'File Uploaded',
+            message: 'Your file was uploaded with success'
+          });
+        }
       ),
       // sending the image back
       map(_ => returned),

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Attachment } from '~models';
+import { Attachment, Supplier } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { DEFAULT_FILE_ICON } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';
@@ -40,9 +40,9 @@ export class FilesCardComponent extends TrackingComponent {
     super();
   }
 
-	onFileAdded(files: Array<File>) {
+	onFileAdded(files: Array<File>, supplier?: Supplier) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
-		this.uploader.uploadFiles(files).subscribe(addedFiles => {
+		this.uploader.uploadFiles(files, supplier).subscribe(addedFiles => {
 			this.fileAdded.emit(addedFiles);
 			this._pendingFiles = [];
 		});
