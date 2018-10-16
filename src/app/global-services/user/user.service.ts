@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, filter, map, switchMap, tap, first, shareReplay } from 'rxjs/operators';
+import { distinctUntilChanged, shareReplay, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { GlobalService } from '~global-services/_global/global.service';
 import { UserQueries } from '~global-services/user/user.queries';
 import { User } from '~models';
-import { Apollo } from 'apollo-angular';
-import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 @Injectable({
 	providedIn: 'root',
