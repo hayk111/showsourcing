@@ -47,7 +47,7 @@ export class FilesCardComponent extends TrackingComponent {
 		this._pendingFiles = files.map(file => new PendingFile(file));
 		this.uploader.uploadFiles(files, this.linkedItem).subscribe(addedFiles => {
       // console.log(addedFiles);
-			// this.fileAdded.emit(addedFiles);
+			this.fileAdded.emit(addedFiles);
 			this._pendingFiles = [];
 		});
 	}

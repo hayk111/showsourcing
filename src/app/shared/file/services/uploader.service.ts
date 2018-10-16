@@ -73,7 +73,6 @@ export class UploaderService {
     const service: GlobalService<any> = isImage
       ? this.imageUploadRequestSrv
       : this.fileUploadRequestSrv;
-    console.log(linkedItem);
     let featureService: GlobalService<any>;
     if (linkedItem.__typename === 'Supplier') {
       featureService = this.supplierSrv;
@@ -84,7 +83,6 @@ export class UploaderService {
       ? (request as ImageUploadRequest).image
       : (request as FileUploadRequest).attachment;
 
-    console.log(returned);
     return service.create(request).pipe(
       // subscribing to that upload request so we can wait till it's ready
       mergeMap(_ =>
