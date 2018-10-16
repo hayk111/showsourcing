@@ -1,15 +1,33 @@
 <h1>What's the name of your business?</h1>
 
-<search-autocomplete-app>
-	<search-autocomplete-item-app>
-		<search-autocomplete-item-content-app *ngFor="let result of (searchResults$ | async); trackBy: TrackByFn">
+<search-autocomplete-app
+	#searchAutocomplete [xPosition]="0" [yPosition]="35"
+	[width]="400" >
 
+	<search-autocomplete-item-app *ngFor="let result of (searchResults$ | async); trackBy: TrackByFn">
+		<search-autocomplete-item-content-app
+			[selectable]="false"
+			[title]="result.name"
+			[subtitle]="supplierSubtitle(result)"
+			[image]="result?.logoImage ? result.logoImage : '/assets/icons/supplier.svg'"
+			(itemDisplayed)="itemSelected(result)">
 		</search-autocomplete-item-content-app>
-		<search-autocomplete-item-content-app>
-
-		</search-autocomplete-item-content-app>
-
 	</search-autocomplete-item-app>
 </search-autocomplete-app>
+<p class="label">Your business name</p>
+<search-bar-app
+	#searchBar
+	[class.focus]="focus"
+	[hasIcon]="false"
+	[inputFocus]="true"
+	placeHolder="Type your business name"
+	(search)="triggerSearch($event)"
+	(click)="toggleFocus(true)"
+	(clickOutside)="toggleFocus(false)">
+</search-bar-app>
 
-<button class="boarding" (click)="nextPage()">Next</button>
+<input class="boarding" type="submit" value="Next" (click)="nextPage()"/>
+<p class="terms">
+	By continuing you agree to the following
+	<a target="_blank" href="#">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>
+</p>

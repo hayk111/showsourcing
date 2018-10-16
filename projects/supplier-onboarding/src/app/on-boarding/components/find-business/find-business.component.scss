@@ -1,10 +1,27 @@
 :host {
 	width: 500px;
+	height: 630px;
 }
 
 h1 {
 	font-size: var(--font-size-xxxl);
 	color: var(--color-txt-strong);
 	font-weight: 600;
-	margin-bottom: var(--spacing-m);
+	margin-bottom: 53px;
+}
+
+search-bar-app {
+	height: 50px;
+	width: 100%;
+	margin-bottom: 60px;
+	margin-top: var(--spacing-m);
+	background: var(--color-secondary-light);
+}
+
+input {
+	margin-bottom: var(--spacing-l);
+}
+
+a {
+	color: var(--color-primary);
 }

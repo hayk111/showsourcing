@@ -4,9 +4,12 @@ import { SupplierQueries } from '~global-services/supplier/supplier.queries';
 import { UserService } from '~global-services/user/user.service';
 import { Supplier } from '~models';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 @Injectable({ providedIn: 'root' })
-export class SupplierService extends GlobalWithAuditService<Supplier> {
+export class SupplierFeatureService extends GlobalWithAuditService<Supplier> {
+
+	defaultClient = Client.GLOBAL_DATA;
 
 	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
 		super(apolloState, SupplierQueries, 'supplier', 'suppliers', userSrv);

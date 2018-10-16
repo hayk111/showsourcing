@@ -1,12 +1,18 @@
 import {
-	ChangeDetectionStrategy, Component, ChangeDetectorRef,
-	Input, Output, EventEmitter, ViewChild, ElementRef,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
 	OnChanges,
-	OnInit
+	OnInit,
+	Output,
+	ViewChild,
 } from '@angular/core';
-import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 import { Subject } from 'rxjs';
-import { switchMap, debounceTime } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 
 @Component({
@@ -16,12 +22,14 @@ import { switchMap, debounceTime } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(SearchBarComponent)],
 	host: {
-		'(click)': 'onClick()'
+		'(click)': 'onClick()',
 	}
 })
 export class SearchBarComponent extends AbstractInput implements OnChanges, OnInit {
 	focussed = false;
 	@Input() inputFocus: boolean;
+	@Input() hasIcon = true;
+	@Input() placeHolder = 'Type to search';
 	@Output() search = new EventEmitter<string>();
 	@Output() emptySearch = new EventEmitter();
 	private _searchSubject$ = new Subject();
@@ -35,7 +43,7 @@ export class SearchBarComponent extends AbstractInput implements OnChanges, OnIn
 	ngOnInit() {
 		this._searchSubject$.pipe(
 			debounceTime(400),
-		).subscribe((search: string) => this.search.emit(search))
+		).subscribe((search: string) => this.search.emit(search));
 	}
 
 	ngOnChanges(changes) {

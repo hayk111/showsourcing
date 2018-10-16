@@ -10,11 +10,13 @@ import { BusinessTypeComponent } from './components/business-type/business-type.
 import { CategoryComponent } from './components/category/category.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
+		SearchBarModule,
 		SearchAutocompleteModule
 	],
 	declarations: [
