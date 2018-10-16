@@ -33,12 +33,12 @@ export class SupplierOnboardingClient extends AbstractApolloClient {
 		this.checkNotAlreadyInit();
 
 		// we are currently not using all user
-
+		const uri = `${environment.graphqlUrl}/${Client.SUPPLIER_ONBOARDING}`;
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.tokenSrv.getAccessToken(Client.SUPPLIER_ONBOARDING)),
-			switchMap(token => this.createClient(Client.SUPPLIER_ONBOARDING, Client.SUPPLIER_ONBOARDING, token))
+			switchMap(token => this.createClient(uri, Client.SUPPLIER_ONBOARDING, token))
 		).subscribe(
 			_ => this.apolloState.setClientReady(Client.SUPPLIER_ONBOARDING),
 			e => this.apolloState.setClientError(Client.SUPPLIER_ONBOARDING, e)
