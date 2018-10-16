@@ -5,7 +5,6 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-onboarding": "ng serve supplier-onboarding",
     "start:fr": "ng serve --configuration=fr --proxy-config proxy.config.json",
     "build": "ng build --prod --aot",
     "build:fr": "ng build --configuration=fr --prod",

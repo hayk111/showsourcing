@@ -11,27 +11,17 @@ import {
 	RegistrationComponent,
 	ResetPasswordComponent
 } from '~features/auth/components';
-import { OnBoardingModule } from '~features/on-boarding';
-
-
 
 @NgModule({
-	imports: [
-		SharedModule,
-		RouterModule.forChild([]),
-		ReactiveFormsModule,
-		OnBoardingModule
-	],
+	imports: [SharedModule, RouterModule.forChild([]), ReactiveFormsModule],
 	declarations: [
 		LoginComponent,
 		RegistrationComponent,
 		AccountCreatedComponent,
 		ForgotPasswordComponent,
 		ResetPasswordComponent,
-		PwResettedComponent,
+		PwResettedComponent
 	],
-	exports: [],
+	exports: []
 })
-export class AuthModule {
-
-}
+export class AuthModule {}
