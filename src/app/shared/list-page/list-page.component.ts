@@ -344,6 +344,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 			const votes = this.thumbSrv.thumbUpFromMulti(item, onHighlight);
 			this.update({ id: item.id, votes } as any);
 		});
+		// check on thumbup
+		setTimeout(_ => this.refetch(), 200);
 	}
 
 	/**
@@ -357,6 +359,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 			const votes = this.thumbSrv.thumbDownFromMulti(item, onHighlight);
 			this.update({ id: item.id, votes } as any);
 		});
+		// check on thumbdown
+		setTimeout(_ => this.refetch(), 200);
 	}
 
 	/** when filter button is clicked at the top we open the panel */
