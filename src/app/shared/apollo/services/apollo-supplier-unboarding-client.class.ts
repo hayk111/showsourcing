@@ -13,8 +13,6 @@ import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 import { ApolloStateService } from './apollo-state.service';
 
-
-
 @Injectable({ providedIn: 'root' })
 export class SupplierOnboardingClient extends AbstractApolloClient {
 
