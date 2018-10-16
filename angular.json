@@ -165,7 +165,7 @@
               "projects/supplier-onboarding/src/assets"
             ],
             "styles": [
-              "projects/supplier-onboarding/src/styles.css"
+              "projects/supplier-onboarding/src/styles.scss"
             ],
             "scripts": []
           },

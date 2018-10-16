@@ -8,7 +8,11 @@ import { TemplateComponent } from '~shared/template/components/template/template
 import { RfqTemplateComponent } from '~shared/template/components/rfq-template/rfq-template.component';
 
 @NgModule({
-	imports: [SharedModule, RouterModule.forChild([]), HeaderModule],
+	imports: [
+		SharedModule,
+		RouterModule.forChild([]),
+		HeaderModule
+	],
 	declarations: [TemplateComponent, GuestTemplateComponent, RfqTemplateComponent],
 	exports: [],
 })

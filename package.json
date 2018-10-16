@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-onboarding": "ng serve supplier-onboarding",
     "start:fr": "ng serve --configuration=fr --proxy-config proxy.config.json",
     "build": "ng build --prod --aot",
     "build:fr": "ng build --configuration=fr --prod",
@@ -50,8 +51,8 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.8.3",
-    "@angular/cli": "^6.2.3",
+    "@angular-devkit/build-angular": "^0.8.5",
+    "@angular/cli": "^6.2.5",
     "@angular/compiler-cli": "^6.1.9",
     "@angular/language-service": "^6.1.9",
     "@compodoc/compodoc": "^1.1.3",
