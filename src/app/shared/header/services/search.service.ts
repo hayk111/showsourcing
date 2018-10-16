@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { of, zip } from 'rxjs';
+import { zip } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { SelectParams } from '~global-services/_global/select-params';
 import { ProductService } from '~global-services/product/product.service';
 import { SupplierService } from '~global-services/supplier/supplier.service';
 
