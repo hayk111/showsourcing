@@ -7,5 +7,6 @@ export enum Client {
 	USER = 'user',
 	GUEST = 'guest',
 	TEAM = 'team',
+	SUPPLIER_ONBOARDING = 'test-supplier-onboarding'
 }
 

@@ -1,4 +1,4 @@
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
 import {
 	WelcomeComponent,
 	FindBusinessComponent,
@@ -8,14 +8,22 @@ import {
 	BusinessDescriptionComponent,
 	ContactDetailsComponent
 } from './components';
+import { GuestTemplateComponent } from '~shared/template';
 
 export const routes: Routes = [
-	{ path: "", redirectTo: "welcome", pathMatch: "full" },
-	{ path: "welcome", component: WelcomeComponent },
-	{ path: "find-business", component: FindBusinessComponent },
-	{ path: "address", component: AddressComponent },
-	{ path: "business-type", component: BusinessTypeComponent },
-	{ path: "category", component: CategoryComponent },
-	{ path: "business-description", component: BusinessDescriptionComponent },
-	{ path: "contact-details", component: ContactDetailsComponent }
+	{
+		path: '',
+		component: GuestTemplateComponent,
+		canActivateChild: [],
+		children: [
+			{ path: '', redirectTo: 'welcome', pathMatch: 'full' },
+			{ path: 'welcome', component: WelcomeComponent },
+			{ path: 'find-business', component: FindBusinessComponent },
+			{ path: 'address', component: AddressComponent },
+			{ path: 'business-type', component: BusinessTypeComponent },
+			{ path: 'category', component: CategoryComponent },
+			{ path: 'business-description', component: BusinessDescriptionComponent },
+			{ path: 'contact-details', component: ContactDetailsComponent }
+		]
+	},
 ];

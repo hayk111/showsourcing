@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+	production: false,
+	graphqlUrl: 'wss://ros-dev3.showsourcing.com:9443/graphql',
+	realmUrl: 'https://ros-dev3.showsourcing.com:9443',
+	apiUrl: 'https://ros-dev3.showsourcing.com',
 };
 
 /*
