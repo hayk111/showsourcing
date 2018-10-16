@@ -8,6 +8,7 @@ import {
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { SearchBarComponent } from '~shared/search-bar-animated/components/search-bar/search-bar.component';
 import { AutoUnsub } from '~utils';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 
 @Component({
 	selector: 'find-business-app',
@@ -27,12 +28,18 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private router: Router,
 		private searchSrv: SearchFeatureService,
-		private render: Renderer2) {
+		private render: Renderer2,
+		private authSrv: AuthenticationService
+	) {
 		super();
 	}
 
 	ngOnInit() {
 		this.render.setStyle(this.searchBar.inputRef.nativeElement, 'font-size', 'var(--font-size-l)');
+		this.authSrv.login({
+			identifier: 'supplier-onboarding',
+			password: 'supplier-onboarding'
+		}).subscribe();
 	}
 
 	triggerSearch(search: string) {

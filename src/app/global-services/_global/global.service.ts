@@ -90,7 +90,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		if (this.selectOneCache.has(cacheKey))
 			return this.selectOneCache.get(cacheKey).result;
 
-		const obs = this.getClient(clientName).pipe(
+		const obs = this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
@@ -123,7 +123,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const variables = { id };
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			filter((r: any) => this.checkError(r)),
@@ -153,7 +153,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
@@ -176,13 +176,13 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
 	queryOneByPredicate(predicate: string, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T> {
-		const title = 'Querying One By Query ' + this.typeName;
+		const title = 'Querying One By Predicate ' + this.typeName;
 		fields = this.getFields(fields, this.fields.one);
 		const gql = this.queryBuilder.queryMany(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			filter((r: any) => this.checkError(r)),
@@ -211,7 +211,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
@@ -273,7 +273,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const variables = new SelectParams(paramsConfig);
 		const queryName = this.getQueryName(gql);
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			filter((r: any) => this.checkError(r)),
@@ -306,7 +306,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 
 		// get query ref
-		const queryRef$: Observable<QueryRef<any>> = this.getClient(clientName).pipe(
+		const queryRef$: Observable<QueryRef<any>> = this.getClient(clientName, title).pipe(
 			map(client => client.watchQuery<any>({
 				query: gql,
 				variables
@@ -374,7 +374,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const variables = new SelectAllParams(paramsConfig);
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			// extracting the result
@@ -408,7 +408,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 		const variables = new SelectAllParams(paramsConfig);
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			// extracting the result
@@ -437,7 +437,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			// extracting the result
@@ -480,7 +480,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			this.selectOneCache.get(cacheKey).subj.next(entity);
 		}
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.mutate(options)),
 			first(),
@@ -522,7 +522,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.mutate({ mutation: gql, variables })),
 			first(),
@@ -563,7 +563,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		};
 		const queryName = this.getQueryName(gql);
 
-		return this.getClient(clientName).pipe(
+		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, options.variables)),
 			switchMap(client => client.mutate(options)),
 			first(),
@@ -619,8 +619,8 @@ Deleting everything.. so watchout. `);
 	/////////////////////////////
 
 	/** to use another named apollo client */
-	private getClient(clientName: Client): Observable<ApolloBase> {
-		return this.apolloState.getClientWhenReady(clientName);
+	private getClient(clientName: Client, context: string): Observable<ApolloBase> {
+		return this.apolloState.getClientWhenReady(clientName, context);
 	}
 
 	/** create appollo mutationOptions from our updateOptions */
