@@ -17,7 +17,11 @@ export class AccountCreationComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
-			email: ['', Validators.compose([Validators.required, Validators.email])]
+			email: ['', Validators.compose([Validators.required, Validators.email])],
+			firstName: [''],
+			familyName: [''],
+			phoneNumber: [''],
+			password: ['', Validators.compose([Validators.required])]
 		});
   }
 
@@ -25,11 +29,11 @@ export class AccountCreationComponent implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['supplier', 'contact-details']);
+		this.router.navigate(['contact-details']);
 	}
 
 	nextPage() {
-		this.router.navigate(['supplier', 'proof-of-identity']);
+		this.router.navigate(['proof-of-identity']);
 	}
 
 	onSubmit() {
