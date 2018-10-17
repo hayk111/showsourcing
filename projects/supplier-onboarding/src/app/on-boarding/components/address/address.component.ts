@@ -16,7 +16,6 @@ import { takeUntil, switchMap, map } from 'rxjs/operators';
 export class AddressComponent extends AutoUnsub implements OnInit {
 
 	form: FormGroup;
-	countryMap = countries;
 	@ViewChild(InputDirective) input: InputDirective;
 	@ViewChild('selector') selector: SelectorConstComponent;
 
@@ -40,8 +39,8 @@ export class AddressComponent extends AutoUnsub implements OnInit {
 		).subscribe();
 	}
 
-	change(thing) {
-		this.form.get('country').setValue(thing);
+	change(country: string) {
+		this.form.get('country').setValue(country);
 	}
 
 	previousPage() {

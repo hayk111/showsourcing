@@ -8,6 +8,8 @@ import { CategoryService, EventService, SupplierService, TagService } from '~glo
 import { SupplierTypeService } from '~global-services/supplier-type/supplier-type.service';
 import { TeamUserService } from '~global-services/team-user/team-user.service';
 import { map } from 'rxjs/operators';
+import { categories } from '~utils/constants/categories.const';
+import { businessTypes } from '~utils/constants/business-types.const';
 
 
 @Injectable({
@@ -46,6 +48,14 @@ export class SelectorsService {
 
 	getWeigthUnits(): any[] {
 		return weightUnits;
+	}
+
+	getBusinessTypes(): any[] {
+		return businessTypes;
+	}
+
+	getCategoriesBoarding(): any[] {
+		return categories;
 	}
 
 	getSuppliers(): Observable<Supplier[]> {

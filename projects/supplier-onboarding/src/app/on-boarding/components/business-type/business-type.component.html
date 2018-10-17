@@ -5,15 +5,21 @@
 	<h1>What kind of business are you?</h1>
 </div>
 
-<div class="type-container flexColumn">
-	<p class="label">Business Type</p>
-	<context-menu-app class="boarding">
-		<context-menu-trigger-app class="flexBetween">
-			<div>Big Text</div>
-			<icon-app fontSet="fa" name="caret-down"></icon-app>
-		</context-menu-trigger-app>
-	</context-menu-app>
-</div>
+
+<form [formGroup]="form">
+	<form-field-app class="boarding">
+		<label-app>Business Type</label-app>
+		<selector-const-app
+			#selector
+			type="businessType"
+			itemName="your business type"
+			[customStyle]="true"
+			[currentItem]="form.get('businessType').value"
+			(change)="change($event)">
+		</selector-const-app>
+		<input inputApp [hidden]="true" type="text" fomrControlName="businessType"/>
+	</form-field-app>
+</form>
 
 <input class="boarding" type="submit" value="Next" (click)="onSubmit()">
 
