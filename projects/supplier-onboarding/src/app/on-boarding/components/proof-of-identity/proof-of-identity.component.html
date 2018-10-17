@@ -8,8 +8,14 @@
 </div>
 
 <div class="container flexColumn">
-	
-	<button>Upload file</button>
+  <file-row-app *ngFor="let file of listFile;trackBy: trackByFn"
+    [file]="file"
+    (onDelete)="onDelete($event)"
+  >
+
+  </file-row-app>
+	<button class="boarding secondary-light" (click)="openFileBrowser()">Upload file</button>
 </div>
 
 <input class="boarding" type="submit" value="Next" (click)="onSubmit()"/>
+<input #inpFile multiple="true" type="file" (fileSelect)="add($event)"/>
