@@ -24,9 +24,5 @@ pipelines:
           script:
             - cd dist/showsourcing
             - aws s3 sync --delete . s3://aws-website-showsourcing-web-dnz2m
-
-
-
-
-
-
+            - cd ../supplier-onboarding
+            - aws s3 sync --delete . s3://aws-website-supplieronboarding
