@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Supplier, SupplierClaim } from '~models';
-import { SupplierService, UserService } from '~global-services';
+import { SupplierService } from '~global-services';
 import { SupplierClaimService } from '~global-services/supplier-claim/supplier-claim.service';
-import { ApolloStateService } from '~shared/apollo';
+import { Supplier, SupplierClaim } from '~models';
 
 @Injectable({
 	providedIn: 'root'

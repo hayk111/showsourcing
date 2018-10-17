@@ -3,7 +3,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthStatus } from '~features/auth';
-import { ActivatedRoute } from '../../../../../../node_modules/@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'guest-template-app',
