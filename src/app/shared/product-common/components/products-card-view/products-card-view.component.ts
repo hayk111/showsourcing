@@ -23,6 +23,8 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Output() addToProject = new EventEmitter<string>();
 	@Output() update = new EventEmitter<Product>();
+	@Output() liked = new EventEmitter<Product>();
+	@Output() disliked = new EventEmitter<Product>();
 
 	getGroupedProducts(sort: Sort) {
 		const fieldSortyBy = sort.sortBy;

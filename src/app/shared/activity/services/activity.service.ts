@@ -1,16 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as getstream from 'getstream';
-import { forkJoin, Observable, ReplaySubject, BehaviorSubject, combineLatest, from } from 'rxjs';
-import { first, map, scan, switchMap, tap, switchMapTo, mapTo, zip, mergeScan, shareReplay, takeWhile } from 'rxjs/operators';
-import { ProductService, TeamService, SupplierService } from '~global-services';
-import { CommentService } from '~global-services/comment/comment.service';
-import { log } from '~utils';
 import { environment } from 'environments/environment.prod';
+import * as getstream from 'getstream';
+import { BehaviorSubject, from, Observable } from 'rxjs';
+import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile } from 'rxjs/operators';
 import { TokenService } from '~features/auth';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
-import { GetStreamResponse, GetStreamGroup, GetStreamActivity } from '~shared/activity/interfaces/get-stream-feed.interfaces';
-import { GroupedActivityFeed, ActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
+import { TeamService } from '~global-services';
+import { ActivityFeed, GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
+import {
+	GetStreamActivity,
+	GetStreamGroup,
+	GetStreamResponse,
+} from '~shared/activity/interfaces/get-stream-feed.interfaces';
 
 
 /**

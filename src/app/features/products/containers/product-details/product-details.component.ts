@@ -126,11 +126,15 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	onThumbUp() {
 		const votes = this.thumbSrv.thumbUp(this.product);
 		this.updateProduct({ votes });
+		// here we dont need the timeout to wait for the server to update the score
+		// since this is a select isntead of a query one
 	}
 
 	onThumbDown() {
 		const votes = this.thumbSrv.thumbDown(this.product);
 		this.updateProduct({ votes });
+		// here we dont need the timeout to wait for the server to update the score
+		// since this is a select isntead of a query one
 	}
 
 	/** update the product */

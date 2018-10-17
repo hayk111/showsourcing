@@ -12,7 +12,9 @@
 				(productFavorite)="favorited.emit(product.id)"
 				(productUnfavorite)="unfavorited.emit(product.id)"
 				(productSelect)="select.emit(product)"
-				(productUnselect)="unselect.emit(product)">
+				(productUnselect)="unselect.emit(product)"
+				(liked)="liked.emit(product)"
+				(disliked)="disliked.emit(product)">
 			</product-grid-card-app>
 		</ng-container>
 	</div>

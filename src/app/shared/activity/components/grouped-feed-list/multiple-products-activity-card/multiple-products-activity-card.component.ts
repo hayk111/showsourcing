@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product, Supplier } from '~models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from '~global-services';
-import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
 import { Observable } from 'rxjs';
+import { ProductService } from '~global-services';
+import { Product, Supplier } from '~models';
+import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
 import { AutoUnsub } from '~utils';
-import { takeUntil, first, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'multiple-products-activity-card-app',
@@ -17,6 +16,9 @@ export class MultipleProductsActivityCardComponent extends AutoUnsub implements 
 
 	@Input() groupFeed: GetStreamGroup;
 	@Output() update = new EventEmitter<Product>();
+	@Output() liked = new EventEmitter<Product>();
+	@Output() disliked = new EventEmitter<Product>();
+
 	time: Date;
 	products$: Observable<Product[]>;
 

@@ -47,8 +47,8 @@
 			[favorite]="product?.favorite"
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
-			(liked)="onThumbUp()"
-			(disliked)="onThumbDown()"
+			(liked)="liked.emit()"
+			(disliked)="disliked.emit()"
 			(buttonClick)="onViewProduct()">
 
 			<button class="icon light folder" (click)="openAddToProject()">

@@ -10,7 +10,9 @@
 		<!-- previews -->
 		<multiple-product-carousel-app
 			[products]="products"
-			(update)="update.emit($event)">
+			(update)="update.emit($event)"
+			(liked)="liked.emit($event)"
+			(disliked)="disliked.emit($event)">
 		</multiple-product-carousel-app>
 
 		<!-- supplier -->

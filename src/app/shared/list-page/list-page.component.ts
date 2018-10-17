@@ -320,11 +320,17 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	onThumbUp(product: Product) {
 		const votes = this.thumbSrv.thumbUp(product);
 		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
+		// we do this beacuse we love timeouts and we have to wait for the service
+		// on the backend to update the score, since we dont use select, we use query one
+		setTimeout(_ => this.refetch(), 100);
 	}
 
 	onThumbDown(product: Product) {
 		const votes = this.thumbSrv.thumbDown(product);
 		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
+		// we do this beacuse we love timeouts and we have to wait for the service
+		// on the backend to update the score, since we dont use select, we use query one
+		setTimeout(_ => this.refetch(), 100);
 	}
 
 	/**
@@ -338,6 +344,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 			const votes = this.thumbSrv.thumbUpFromMulti(item, onHighlight);
 			this.update({ id: item.id, votes } as any);
 		});
+		// check on thumbup
+		setTimeout(_ => this.refetch(), 200);
 	}
 
 	/**
@@ -351,6 +359,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 			const votes = this.thumbSrv.thumbDownFromMulti(item, onHighlight);
 			this.update({ id: item.id, votes } as any);
 		});
+		// check on thumbdown
+		setTimeout(_ => this.refetch(), 200);
 	}
 
 	/** when filter button is clicked at the top we open the panel */

@@ -18,7 +18,6 @@ import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.inte
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -33,6 +32,8 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	@Input() title: string;
 	@Output() createComment = new EventEmitter<any>();
 	@Output() update = new EventEmitter<Product>();
+	@Output() liked = new EventEmitter<Product>();
+	@Output() disliked = new EventEmitter<Product>();
 	@ViewChild(InputDirective) inp: InputDirective;
 	product$: Observable<Product>;
 	product: Product;
@@ -43,8 +44,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		private router: Router,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
-		private productSrv: ProductService,
-		private thumbSrv: ThumbService) {
+		private productSrv: ProductService) {
 		super();
 	}
 
@@ -53,11 +53,15 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		// when an activity group starts with product_activity, what's following is the id
 		if (group.startsWith('product_activity')) {
 			const productId = group.replace('product_activity_', '');
-			this.product$ = this.productSrv.queryOne(productId);
+			// we use selectOne instead of queryOne, since we need the response from the server
+			// with the new score, the response is not immediate due to calculations
+			this.product$ = this.productSrv.selectOne(productId);
 		}
 		// when it starts with create_product, we can get the product id by looking at the first activity
 		if (group.startsWith('create_product')) {
-			this.product$ = this.productSrv.queryOne(this.groupFeed.activities[0].object);
+			// we use selectOne instead of queryOne, since we need the response from the server
+			// with the new score, the response is not immediate due to calculations
+			this.product$ = this.productSrv.selectOne(this.groupFeed.activities[0].object);
 		}
 		this.product$.pipe(
 			takeUntil(this._destroy$)
@@ -70,16 +74,6 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 
 	onUnfavorite() {
 		this.updateProduct({ id: this.product.id, favorite: false });
-	}
-
-	onThumbUp() {
-		const votes = this.thumbSrv.thumbUp(this.product);
-		this.updateProduct({ id: this.product.id, votes });
-	}
-
-	onThumbDown() {
-		const votes = this.thumbSrv.thumbDown(this.product);
-		this.updateProduct({ id: this.product.id, votes });
 	}
 
 	updateProduct(product: Product) {
