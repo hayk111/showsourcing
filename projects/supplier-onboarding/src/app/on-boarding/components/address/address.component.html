@@ -4,16 +4,16 @@
 		</button>
 		<h1>Where are you located?</h1>
 </div>
-
 <form [formGroup]="form">
 	<form-field-app class="boarding">
 		<label-app>Country / Region</label-app>
 		<selector-const-app
 			#selector
 			type="country"
-			value="name"
 			itemName="your country"
-			[customStyle]="true">
+			[customStyle]="true"
+			[currentItem]="form.get('country').value | const: 'country'"
+			(change)="change($event)">
 		</selector-const-app>
 		<input inputApp [hidden]="true" type="text" fomrControlName="country"/>
 	</form-field-app>

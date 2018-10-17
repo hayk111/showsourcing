@@ -31,8 +31,10 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	@Input() value: any;
 	// the name that will appear in the selector. EG: 'No "country" found', or 'create new "country"'.
 	@Input() itemName = 'Item';
-	// we pass the customStyle string name that we defined on selector component
+	// if we use a custom style or not
 	@Input() customStyle = false;
+	// current item, to show on the selector bar
+	@Input() currentItem;
 	// events that emits the id of the entity
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
@@ -84,6 +86,8 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 			case 'incoTerm': this.choices = this.srv.getIncoTerms(); break;
 			case 'lengthUnit': this.choices = this.srv.getLengthUnits(); break;
 			case 'weightUnit': this.choices = this.srv.getWeigthUnits(); break;
+			case 'businessType': this.choices = this.srv.getBusinessTypes(); break;
+			case 'categories': this.choices = this.srv.getCategoriesBoarding(); break;
 			default: throw Error('Unsupported type');
 		}
 	}

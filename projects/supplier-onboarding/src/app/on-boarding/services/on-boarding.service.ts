@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { SupplierService } from '~global-services';
 import { SupplierClaimService } from '~global-services/supplier-claim/supplier-claim.service';
 import { Supplier, SupplierClaim } from '~models';
-import { tap } from 'rxjs/operators';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,6 +18,10 @@ export class OnBoardingService {
 		private supplierClaimSrv: SupplierClaimService
 	) { }
 
+	getClaim() {
+		return this.claim;
+	}
+
 	init() {
 		this.claim = new SupplierClaim();
 		return this.supplierClaimSrv.create(this.claim).pipe(
@@ -26,10 +31,11 @@ export class OnBoardingService {
 
 	updateClaim(addedValues: any) {
 		this.claim = { ...this.claim, ...addedValues };
-		this.supplierClaimSrv.update({ id: this.claim, ...addedValues });
+		return this.supplierClaimSrv.update({ id: this.claim.id, ...addedValues });
 	}
 
 	searchSuppliers(search: string): Observable<Supplier[]> {
-		return this.supplierSrv.queryMany({ query: `name CONTAINS[c] "${search}"` });
+		return this.supplierSrv.queryMany({ query: `name CONTAINS[c] "${search}"` },
+			`name, countryCode, supplierImage { id, fileName, orientation, imageType}`, Client.GLOBAL_DATA);
 	}
 }

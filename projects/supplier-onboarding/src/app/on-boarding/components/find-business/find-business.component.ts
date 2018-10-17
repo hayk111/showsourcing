@@ -36,7 +36,7 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 	}
 
 	triggerSearch(search: string) {
-		// this.searchResults$ = this.onboardingSrv.searchSuppliers(search);
+		this.searchResults$ = this.onboardingSrv.searchSuppliers(search);
 		this.searchAutocomplete.openAutocomplete();
 	}
 
@@ -44,9 +44,9 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 		this.focus = f;
 	}
 
-	supplierSubtitle(supplier: Supplier) {
-		return (supplier.country) ?
-			'Supplier - ' + supplier.country :
+	supplierSubtitle(supplier) {
+		return (supplier.countryCode) ?
+			'Supplier - ' + supplier.countryCode :
 			'Supplier';
 	}
 

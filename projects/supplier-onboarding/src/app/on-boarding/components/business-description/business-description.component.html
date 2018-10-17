@@ -6,8 +6,12 @@
 </div>
 
 <div class="description-container flexColumn">
-	<p class="label">Business Description</p>
-	<textarea placeholder="Type your business description"></textarea>
+	<form [formGroup]="form">
+		<form-field-app class="boarding">
+			<label-app>Business Description</label-app>
+			<textarea inputApp formControlName="description" placeholder="Type your business description"></textarea>
+		</form-field-app>
+	</form>
 </div>
 
 <input class="boarding" type="submit" value="Next" (click)="onSubmit()"/>

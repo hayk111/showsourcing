@@ -58,6 +58,8 @@ export class SelectorComponent extends AbstractInput {
 	@Input() compareWith = (a, b) => a.id === b.id;
 	// the name of the custom style
 	@Input() customStyle = false;
+	// current item, to show on the selector bar
+	@Input() currentItem;
 
 	/* different choices that an user can pick **/
 
