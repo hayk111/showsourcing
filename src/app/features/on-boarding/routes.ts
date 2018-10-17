@@ -6,6 +6,11 @@ import { BusinessTypeComponent } from './components/business-type/business-type.
 import { CategoryComponent } from './components/category/category.component';
 import { BusinessDescriptionComponent } from './components/business-description/business-description.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
+import { AccountCreationComponent } from './components/account-creation/account-creation.component';
+import { CongratulationsComponent } from './components/congratulations/congratulations.component';
+import { ProofOfIdentityComponent } from './components/proof-of-identity/proof-of-identity.component';
+import { QRCodeComponent } from './components/qrcode/qrcode.component';
+import { VerificationComponent } from './components/verification/verification.component';
 
 export const routes: Routes = [
 	{ path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -15,5 +20,10 @@ export const routes: Routes = [
 	{ path: 'business-type', component: BusinessTypeComponent },
 	{ path: 'category', component: CategoryComponent },
 	{ path: 'business-description', component: BusinessDescriptionComponent },
-	{ path: 'contact-details', component: ContactDetailsComponent }
+	{ path: 'contact-details', component: ContactDetailsComponent },
+	{ path: 'account-creation', component: AccountCreationComponent },
+	{ path: 'congratulations', component: CongratulationsComponent },
+	{ path: 'proof-of-identity', component: ProofOfIdentityComponent },
+	{ path: 'qrcode', component: QRCodeComponent },
+	{ path: 'verification', component: VerificationComponent }
 ];
