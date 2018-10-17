@@ -42,6 +42,8 @@ import * as faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
 import * as faCog from '@fortawesome/fontawesome-free-solid/faCog';
 import * as faCaretLeft from '@fortawesome/fontawesome-free-solid/faCaretLeft';
 import * as faCaretDown from '@fortawesome/fontawesome-free-solid/faCaretDown';
+import * as faSignOutAlt from '@fortawesome/fontawesome-free-solid/faSignOutAlt';
+
 import * as fontawesome from '@fortawesome/fontawesome';
 
 import * as faBell from '@fortawesome/fontawesome-free-regular/faBell';
@@ -99,7 +101,8 @@ export const faIconsSolid = [
 	faSortDown,
 	faCog,
 	faCaretLeft,
-	faCaretDown
+	faCaretDown,
+	faSignOutAlt
 ];
 
 faIconsSolid.forEach(ic => fontawesome.library.add(ic));

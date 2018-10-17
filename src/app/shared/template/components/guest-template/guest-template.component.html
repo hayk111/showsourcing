@@ -1,9 +1,21 @@
-<header class="flex">
-	<img src="/assets/img/favicon.svg" class="titleLogo"/>
-	<span class="fs-xl">
-		<b>Show</b>Sourcing
-	</span>
+<header class="flex flexBetween">
+	<div class="flex flexVAlign">
+		<img src="/assets/img/favicon.svg" class="titleLogo"/>
+		<span class="fs-xl">
+			<b>Show</b>Sourcing
+		</span>
+	</div>
+
+	<ng-container *ngIf="showLogout">
+		<div class="flex flexVAlign pointer" *ngIf="(auth$ | async)" (click)="logout()">
+			<icon-app name="sign-out-alt" fontSet="fa"></icon-app>
+			<span class="spacer mg-xs"></span>
+			<span>Logout</span>
+		</div>
+	</ng-container>
+
 </header>
+
 <main class="flexCenter">
 	<router-outlet></router-outlet>
 </main>
