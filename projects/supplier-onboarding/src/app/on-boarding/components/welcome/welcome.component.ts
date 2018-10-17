@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { log } from '~utils';
+
 import { OnBoardingService } from '../../services';
-import { SupplierClaim } from '~models';
 
 @Component({
 	selector: 'welcome-app',
@@ -10,14 +11,29 @@ import { SupplierClaim } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WelcomeComponent implements OnInit {
-
+	pending: boolean;
+	error: string;
 	constructor(private router: Router, private srv: OnBoardingService) { }
 
 	ngOnInit() {
 	}
 
-	nextPage() {
-		this.srv.init();
+	submit() {
+		this.pending = true;
+		this.srv.init().subscribe(
+			_ => this.onSuccess(),
+			e => this.onError(e)
+		);
+	}
+
+	onSuccess() {
+		this.pending = false;
 		this.router.navigate(['find-business']);
+	}
+
+	onError(e: Error) {
+		this.error = 'an error happened please try again';
+		log.error(e);
+		this.pending = false;
 	}
 }

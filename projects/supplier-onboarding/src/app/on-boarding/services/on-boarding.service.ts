@@ -3,12 +3,14 @@ import { Observable } from 'rxjs';
 import { SupplierService } from '~global-services';
 import { SupplierClaimService } from '~global-services/supplier-claim/supplier-claim.service';
 import { Supplier, SupplierClaim } from '~models';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class OnBoardingService {
 	private claim: SupplierClaim;
+	initialized: boolean;
 
 	constructor(
 		private supplierSrv: SupplierService,
@@ -17,7 +19,9 @@ export class OnBoardingService {
 
 	init() {
 		this.claim = new SupplierClaim();
-		this.supplierClaimSrv.create(this.claim);
+		return this.supplierClaimSrv.create(this.claim).pipe(
+			tap(_ => this.initialized = true)
+		);
 	}
 
 	updateClaim(addedValues: any) {

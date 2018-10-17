@@ -1,22 +1,36 @@
-<div class="title-container flexColumn">
-	<h1>Welcome to Showsourcing</h1>
-	<p>Discover the best way to connect with your oversea users!</p>
-</div>
-<div class="items-container flex">
-	<div class="flexColumn">
-		<icon-app  name="envelope-with-counter" fontSet="svg"></icon-app>
-		<p>Receive quotations from your clients</p>
+
+<ng-container *ngIf="!pending; else spinner">
+
+	<span class="error" *ngIf="error">{{ error }}</span>
+
+	<div class="title-container flexColumn">
+		<h1>Welcome to Showsourcing</h1>
+		<p>Discover the best way to connect with your oversea users!</p>
 	</div>
-	<div class="flexColumn">
-		<icon-app  name="product-with-counter" fontSet="svg"></icon-app>
-		<p class="smaller">Push them updates</p>
+	<div class="items-container flex">
+		<div class="flexColumn">
+			<icon-app  name="envelope-with-counter" fontSet="svg"></icon-app>
+			<p>Receive quotations from your clients</p>
+		</div>
+		<div class="flexColumn">
+			<icon-app  name="product-with-counter" fontSet="svg"></icon-app>
+			<p class="smaller">Push them updates</p>
+		</div>
+		<div class="flexColumn">
+			<icon-app name="home-project-menu"></icon-app>
+			<p>Grow your business with Showsourcing!</p>
+		</div>
 	</div>
-	<div class="flexColumn">
-		<icon-app name="home-project-menu"></icon-app>
-		<p>Grow your business with Showsourcing!</p>
+	<div class="footer flexColumn">
+		<p>Grow your business today!</p>
+		<button class="boarding" (click)="submit()">Claim my business!</button>
 	</div>
-</div>
-<div class="footer flexColumn">
-	<p>Grow your business today!</p>
-	<button class="boarding" (click)="nextPage()">Claim my business!</button>
-</div>
+</ng-container>
+
+<ng-template #spinner>
+	<div class="flexColumn flexCenter">
+		<h1>Starting Process</h1>
+		<div class="spacer mg-m"></div>
+		<spinner-app></spinner-app>
+	</div>
+</ng-template>
