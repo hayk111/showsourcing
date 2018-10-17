@@ -9,11 +9,11 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { first } from 'rxjs/operators';
+import { ProductFeatureService } from '~features/products/services';
 import { ImageService } from '~global-services/image/image.service';
-import { AppImage, Product } from '~models';
+import { AppImage } from '~models';
 import { DialogService } from '~shared/dialog';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { ProductFeatureService } from '~features/products/services';
 import { AutoUnsub, DEFAULT_IMG, PendingImage } from '~utils';
 
 @Component({
@@ -60,8 +60,6 @@ export class ProductCarouselComponent extends AutoUnsub {
 
 	constructor(
 		private uploader: UploaderService,
-		private imageSrv: ImageService,
-		private dlgSrv: DialogService,
 		private productSrv: ProductFeatureService,
 		private cd: ChangeDetectorRef
 	) {
@@ -83,7 +81,6 @@ export class ProductCarouselComponent extends AutoUnsub {
 		this.uploader.uploadImages(files, this.product).pipe(
 			first()
 		).subscribe(imgs => {
-			// this.productSrv.onNewImages(this.product, imgs);
 			// removing pending image
 			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
 		}, e => this._pendingImages = []);
