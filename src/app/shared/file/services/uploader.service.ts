@@ -4,7 +4,7 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { delay, first, map, mergeMap, retryWhen, take, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { ImageUploadRequestService } from '~global-services';
+import { ImageUploadRequestService, ProductService, SupplierService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
 import { AppImage, Attachment, ImageUploadRequest } from '~models';
@@ -19,8 +19,8 @@ export class UploaderService {
 	constructor(
 		private imageUploadRequestSrv: ImageUploadRequestService,
 		private fileUploadRequestSrv: FileUploadRequestService,
-		private productSrv: ProductFeatureService,
-		private supplierSrv: SupplierFeatureService,
+		private productSrv: ProductService,
+		private supplierSrv: SupplierService,
 		private notifSrv: NotificationService,
 		private http: HttpClient
 	) { }

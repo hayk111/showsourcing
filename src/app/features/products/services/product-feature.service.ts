@@ -26,35 +26,4 @@ export class ProductFeatureService extends ProductService {
 	}
 
 
-	/** update the product */
-	updateProduct(product: any, fields?: string) {
-		this
-			.update({ id: product.id, ...product }, fields)
-			.subscribe();
-	}
-
-	/** when a new image is uploaded we add it to the list of images of the product */
-	onNewImages(product: Product, imgs: AppImage[]) {
-		this
-			.update({
-				id: product.id,
-				images: [...product.images, ...imgs]
-			})
-			.subscribe();
-	}
-
-	/** when image is deleted */
-	onImageDeleted(product: Product, img: AppImage) {
-		const images = product.images.filter(image => image.id !== img.id);
-		this.updateProduct({ images });
-	}
-
-	/** when file has been removed we remove link */
-	onFileRemoved(product: Product, attachment: Attachment) {
-		const attachments = product.attachments.filter(
-			atc => atc.id !== attachment.id
-		);
-		this.updateProduct({ attachments });
-	}
-
 }

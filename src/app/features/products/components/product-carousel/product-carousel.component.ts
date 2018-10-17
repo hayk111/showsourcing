@@ -89,8 +89,8 @@ export class ProductCarouselComponent extends AutoUnsub {
 
 	/** when image is deleted */
 	onDelete(image: AppImage) {
-		// this.imageDeleted.emit(image);
-		this.productSrv.onImageDeleted(this.product, image);
+		const images = this.product.images.filter(img => image.id !== img.id);
+		this.productSrv.update({ id: this.product.id, images }).subscribe();
 	}
 
 	/** opens the modal carousel */
