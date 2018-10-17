@@ -1,18 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
+import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
 
 import {
-	FindBusinessComponent,
-	WelcomeComponent,
+	AccountCreationComponent,
 	AddressComponent,
+	BusinessDescriptionComponent,
 	BusinessTypeComponent,
 	CategoryComponent,
-	BusinessDescriptionComponent,
-	ContactDetailsComponent
+	CongratulationsComponent,
+	ContactDetailsComponent,
+	FindBusinessComponent,
+	ProofOfIdentityComponent,
+	QRCodeComponent,
+	VerificationComponent,
+	WelcomeComponent,
+	FileRowComponent,
 } from './components';
-import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 
 const components = [
 	FindBusinessComponent,
@@ -21,7 +27,13 @@ const components = [
 	BusinessTypeComponent,
 	CategoryComponent,
 	BusinessDescriptionComponent,
-	ContactDetailsComponent
+	ContactDetailsComponent,
+	AccountCreationComponent,
+	CongratulationsComponent,
+	ProofOfIdentityComponent,
+	QRCodeComponent,
+	VerificationComponent,
+	FileRowComponent
 ];
 
 import {

@@ -34,11 +34,11 @@ export class AddressComponent extends AutoUnsub implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['supplier', 'find-business']);
+		this.router.navigate(['find-business']);
 	}
 
 	nextPage() {
-		this.router.navigate(['supplier', 'business-type']);
+		this.router.navigate(['business-type']);
 	}
 
 	onSubmit() {

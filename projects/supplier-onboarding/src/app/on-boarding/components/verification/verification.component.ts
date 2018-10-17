@@ -2,12 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'business-description-app',
-	templateUrl: './business-description.component.html',
-	styleUrls: ['./business-description.component.scss', './../common-boarding.component.scss'],
+	selector: 'verification-app',
+	templateUrl: './verification.component.html',
+	styleUrls: ['./verification.component.scss', './../common-boarding.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BusinessDescriptionComponent implements OnInit {
+export class VerificationComponent implements OnInit {
 
 	constructor(private router: Router) { }
 
@@ -15,11 +15,11 @@ export class BusinessDescriptionComponent implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['category']);
+		this.router.navigate(['qrcode']);
 	}
 
 	nextPage() {
-		this.router.navigate(['contact-details']);
+		this.router.navigate(['congratulations']);
 	}
 
 	onSubmit() {

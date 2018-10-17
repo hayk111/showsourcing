@@ -15,11 +15,11 @@ export class CategoryComponent implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['supplier', 'business-type']);
+		this.router.navigate(['business-type']);
 	}
 
 	nextPage() {
-		this.router.navigate(['supplier', 'business-description']);
+		this.router.navigate(['business-description']);
 	}
 
 	onSubmit() {

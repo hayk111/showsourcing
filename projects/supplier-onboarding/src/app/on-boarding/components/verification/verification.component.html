@@ -1,0 +1,13 @@
+<div class="title-container-boarding flex">
+	<button class="icon light" (click)="previousPage()">
+		<icon-app name="back-arrow"></icon-app>
+	</button>
+  <h1>Verify and finish this business</h1>
+  <p>Review your data and send!</p>
+</div>
+
+<form [formGroup]="form">
+	<div class="left">
+		<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
+	</div>
+</form>

@@ -15,6 +15,6 @@ export class WelcomeComponent implements OnInit {
 	}
 
 	nextPage() {
-		this.router.navigate(['supplier', 'find-business']);
+		this.router.navigate(['find-business']);
 	}
 }

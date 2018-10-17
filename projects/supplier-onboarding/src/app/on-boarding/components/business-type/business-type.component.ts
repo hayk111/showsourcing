@@ -15,11 +15,11 @@ export class BusinessTypeComponent implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['supplier', 'address']);
+		this.router.navigate(['address']);
 	}
 
 	nextPage() {
-		this.router.navigate(['supplier', 'category']);
+		this.router.navigate(['category']);
 	}
 
 	onSubmit() {

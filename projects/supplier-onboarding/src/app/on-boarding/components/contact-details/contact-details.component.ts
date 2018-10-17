@@ -29,11 +29,11 @@ export class ContactDetailsComponent implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['supplier', 'business-description']);
+		this.router.navigate(['business-description']);
 	}
 
 	nextPage() {
-		this.router.navigate(['supplier', 'account-creation']);
+		this.router.navigate(['account-creation']);
 	}
 
 	onSubmit() {

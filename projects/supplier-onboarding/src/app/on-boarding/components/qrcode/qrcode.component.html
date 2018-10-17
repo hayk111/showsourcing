@@ -1,0 +1,14 @@
+<div class="title-container-boarding flex">
+	<button class="icon light" (click)="previousPage()">
+		<icon-app name="back-arrow"></icon-app>
+	</button>
+	<h1>Do you want your personnal QR Code?</h1>
+	<p>With this QR Code, buyers can quickly get your company details while visiting a trade show.</p>
+</div>
+
+<form [formGroup]="form">
+
+	<div class="left">
+		<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
+	</div>
+</form>
