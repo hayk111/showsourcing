@@ -15,11 +15,16 @@ import {
 	WelcomeComponent,
 } from './components';
 import { GuestTemplateComponent } from '~shared/template';
+import { GlobalDataClientReadyGuard, SupplierOnboardingClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
 
 export const routes: Routes = [
 	{
 		path: '', component: GuestTemplateComponent,
 		data: { showLogout: false },
+		canActivateChild: [
+			GlobalDataClientReadyGuard,
+			SupplierOnboardingClientReadyGuard
+		],
 		children: [
 			{ path: '', redirectTo: 'welcome', pathMatch: 'full' },
 			{ path: 'welcome', component: WelcomeComponent },

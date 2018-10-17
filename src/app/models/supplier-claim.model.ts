@@ -1,4 +1,5 @@
 import { Attachment } from '~models/attachment.model';
+import { uuid } from '~utils';
 
 
 export class SupplierClaim {
@@ -26,5 +27,9 @@ export class SupplierClaim {
 	password?: string;
 	firstName?: string;
 	lastName?: string;
+
+	constructor() {
+		this.id = uuid();
+	}
 }
 
