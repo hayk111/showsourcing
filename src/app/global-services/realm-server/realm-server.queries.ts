@@ -5,12 +5,14 @@ export abstract class RealmServerQueries extends GlobalQueries {
 
 	static readonly one = `
 		hostname,
-		httpsPort
+		httpsPort,
+		httpPort
 	`;
 
 	static readonly many = `
 		hostname,
-		httpsPort
+		httpsPort,
+		httpPort
 	`;
 
 

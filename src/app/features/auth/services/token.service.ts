@@ -6,7 +6,7 @@ import { AccessTokenResponse } from '~features/auth/interfaces/access-token-resp
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 import { LocalStorageService } from '~shared/local-storage';
 import { AuthModule } from '~features/auth/auth.module';
-import { environment } from 'environments/environment.prod';
+import { environment } from 'environments/environment';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { log, LogColor } from '~utils';
 import { filter } from 'rxjs/operators';

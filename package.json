@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:fr": "ng serve --configuration=fr --proxy-config proxy.config.json",
+    "start:fr": "ng serve --configuration=fr",
+    "start:local": "ng serve --configuration=local",
     "build": "ng build --prod --aot",
     "build:fr": "ng build --configuration=fr --prod",
     "translate": "ng xi18n --output-path locale",
