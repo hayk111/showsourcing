@@ -16,9 +16,7 @@
 				(productUnfavorite)="onUnfavorited()"
 				(requestFeedback)="openRequestFeedbackDialog()"
 				(openAddProject)="openAddProjectDlg()"
-				(export)="export()"
-				(imgUploaded)="onNewImages($event)"
-				(imageDeleted)="onImageDeleted($event)">
+				(export)="export()">
 			</product-carousel-app>
 
 			<!-- team rating here -->
@@ -38,8 +36,8 @@
 				[projects]="product.projects"></project-card-app>
 
 			<files-card-app
-				[files]="product.attachments"
-				(fileAdded)="onFileAdded($event)"
+        [files]="product.attachments"
+        [linkedItem]="product"
 				(fileRemove)="onFileRemoved($event)"></files-card-app>
 
 		</div>

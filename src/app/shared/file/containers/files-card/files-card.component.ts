@@ -1,11 +1,18 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Attachment } from '~models';
+import { Attachment, Supplier } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { DEFAULT_FILE_ICON } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { any } from 'async';
+
+export enum PageType {
+	product = 'PRODUCT',
+	supplier = 'SUPPLIER'
+}
+
 
 @Component({
 	selector: 'files-card-app',
@@ -27,6 +34,8 @@ export class FilesCardComponent extends TrackingComponent {
 	@Output() fileAdded = new EventEmitter<Attachment[]>();
 	defaultImg = DEFAULT_FILE_ICON;
 
+  @Input() linkedItem: any;
+
 	constructor(
 		private uploader: UploaderService,
 		private dlgSrv: DialogService
@@ -36,7 +45,8 @@ export class FilesCardComponent extends TrackingComponent {
 
 	onFileAdded(files: Array<File>) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
-		this.uploader.uploadFiles(files).subscribe(addedFiles => {
+		this.uploader.uploadFiles(files, this.linkedItem).subscribe(addedFiles => {
+      // console.log(addedFiles);
 			this.fileAdded.emit(addedFiles);
 			this._pendingFiles = [];
 		});

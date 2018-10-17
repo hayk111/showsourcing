@@ -42,7 +42,7 @@
 
 		<files-card-app
 			[files]="supplier.attachments"
-			(fileAdded)="onFileAdded($event)"
+      [linkedItem]="supplier"
 			(fileRemove)="onFileRemoved($event)">
 		</files-card-app>
 	</div>

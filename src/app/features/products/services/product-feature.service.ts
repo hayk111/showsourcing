@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, forkJoin } from 'rxjs';
-import { Product, Project, TeamUser, ProductVoteRequest, User } from '~models';
+import { Product, Project, Attachment, TeamUser, AppImage, ProductVoteRequest, User } from '~models';
 
 import { ProductService, ProjectService, TeamUserService, UserService, SupplierService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
@@ -24,5 +24,6 @@ export class ProductFeatureService extends ProductService {
 	getContacts(supplierId: string) {
 		return this.supplierSrv.queryOne(supplierId, SupplierQueries.contacts);
 	}
+
 
 }

@@ -91,8 +91,15 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 				selectedProducts: [this.product]
 			}
 		);
-	}
+  }
 
+  /** when file has been removed we remove link */
+  onFileRemoved(attachment: Attachment) {
+    const attachments = this.product.attachments.filter(
+      atc => atc.id !== attachment.id
+    );
+    this.updateProduct({ attachments });
+  }
 	/** remove project from product.projects */
 	removeProject(removed: Project) {
 		// mapping project to their respective id, to not inadvertently change other props, then removing
@@ -142,36 +149,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		this.featureSrv
 			.update({ id: this.product.id, ...product }, fields)
 			.subscribe();
-	}
-
-	/** when a new image is uploaded we add it to the list of images of the product */
-	onNewImages(imgs: AppImage[]) {
-		this.featureSrv
-			.update({
-				id: this.product.id,
-				images: [...this.product.images, ...imgs]
-			})
-			.subscribe();
-	}
-
-	/** when image is deleted */
-	onImageDeleted(img: AppImage) {
-		const images = this.product.images.filter(image => image.id !== img.id);
-		this.updateProduct({ images });
-	}
-
-	/** when file has been uploaded we link it */
-	onFileAdded(added: Attachment[]) {
-		const attachments = [...this.product.attachments, ...added];
-		this.updateProduct({ attachments });
-	}
-
-	/** when file has been removed we remove link */
-	onFileRemoved(attachment: Attachment) {
-		const attachments = this.product.attachments.filter(
-			atc => atc.id !== attachment.id
-		);
-		this.updateProduct({ attachments });
 	}
 
 	/** when deleting this product */
