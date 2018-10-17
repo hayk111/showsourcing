@@ -1,6 +1,6 @@
 <div class="{{ canCreate ? 'canCreate' : '' }}">
 	<ng-select #ngSelect
-		[class.custom]="customStyle"
+		[ngClass]="{'onboarding-big': customStyle === 'onboarding-big', 'onboarding-small': customStyle === 'onboarding-small'}"
 		[closeOnSelect]="!multiple"
 		[virtualScroll]="true"
 		[items]="filteredChoices"
