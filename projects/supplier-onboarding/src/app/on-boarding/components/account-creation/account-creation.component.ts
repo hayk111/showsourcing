@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
 @Component({
 	selector: 'account-creation-app',
 	templateUrl: './account-creation.component.html',
@@ -8,8 +10,20 @@ import { Router } from '@angular/router';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountCreationComponent implements OnInit {
+	public form: FormGroup;
 
-	constructor(private router: Router) { }
+	constructor(
+		private router: Router,
+		private fb: FormBuilder
+	) {
+		this.form = this.fb.group({
+			email: ['', Validators.compose([Validators.required, Validators.email])],
+			firstName: [''],
+			familyName: [''],
+			phoneNumber: [''],
+			password: ['', Validators.compose([Validators.required])]
+		});
+	}
 
 	ngOnInit() {
 	}

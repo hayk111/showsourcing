@@ -1,21 +1,8 @@
-
-
-.left{
-	text-align: left;
+:host {
+	height: 630px;
+	width: 500px;
 }
 
-.col1{
-	width: 40%;
-}
-
-.col2{
-	width: 50%;
-}
-
-.members :nth-child(1){
-	width: 40%;
-	margin-right:5%;
-}
-.members :nth-child(2){
-	width: 40%;
+.container {
+	margin-bottom: 28px;
 }

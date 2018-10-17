@@ -1,31 +1,63 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Attachment } from '~models';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
-	selector: 'proof-of-identity-app',
-	templateUrl: './proof-of-identity.component.html',
-	styleUrls: ['./proof-of-identity.component.scss', './../common-boarding.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'proof-of-identity-app',
+  templateUrl: './proof-of-identity.component.html',
+  styleUrls: [
+    './proof-of-identity.component.scss',
+    './../common-boarding.component.scss'
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProofOfIdentityComponent implements OnInit {
-	public listFile: Attachment[] = [];
+export class ProofOfIdentityComponent extends TrackingComponent
+  implements OnInit {
+  public listFile: Attachment[] = [];
 
-	constructor(private router: Router) { }
+  /** hidden file input */
+  @ViewChild('inpFile')
+  inpFile: ElementRef;
 
-	ngOnInit() {
-	}
+  constructor(private router: Router) {
+    super();
+  }
 
-	previousPage() {
-		this.router.navigate(['account-creation']);
-	}
+  ngOnInit() {}
 
-	nextPage() {
-		this.router.navigate(['qrcode']);
-	}
+  previousPage() {
+    this.router.navigate(['account-creation']);
+  }
 
-	onSubmit() {
-		// stuff
-		this.nextPage();
-	}
+  nextPage() {
+    this.router.navigate(['qrcode']);
+  }
+
+  onSubmit() {
+    // stuff
+    this.nextPage();
+  }
+
+  openFileBrowser() {
+    this.inpFile.nativeElement.click();
+  }
+
+  async add(files: Array<File>) {
+    console.log(files);
+    if (files.length === 0) {
+      return;
+    }
+    for (const file of files) {
+      const attachment = new Attachment(file.name, file.size);
+      this.listFile.push(attachment);
+    }
+    console.log(this.listFile);
+  }
 }
