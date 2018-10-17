@@ -2,37 +2,11 @@
 	<button class="icon light" (click)="previousPage()">
 		<icon-app name="back-arrow"></icon-app>
 	</button>
-	<h1>Account Creation</h1>
+  <h1>Verify and finish this business</h1>
+  <p>Review your data and send!</p>
 </div>
 
 <form [formGroup]="form">
-	<!-- email -->
-	<form-field-app>
-		<label-app>Email (your personal email)</label-app>
-		<input inputApp type="email" placeholder="Type your email" formControlName="email" />
-	</form-field-app>
-	<!-- first name -->
-	<form-field-app>
-		<label-app>First Name</label-app>
-		<input inputApp type="text" placeholder="Type your first name" formControlName="firstName" />
-	</form-field-app>
-
-	<!-- Family name -->
-	<form-field-app>
-		<label-app>Family Name</label-app>
-		<input inputApp type="text" placeholder="Type your family name" formControlName="familyName" />
-	</form-field-app>
-	<!-- Phone number -->
-	<form-field-app>
-		<label-app>Phone Number</label-app>
-		<input inputApp type="tel" placeholder="Type your phoneNumber" formControlName="phoneNumber" />
-	</form-field-app>
-	<!-- password -->
-	<form-field-app>
-		<label-app>Desired Password</label-app>
-		<input inputApp type="text" placeholder="Jhon Doe" formControlName="password" />
-	</form-field-app>
-
 	<div class="left">
 		<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
 	</div>
