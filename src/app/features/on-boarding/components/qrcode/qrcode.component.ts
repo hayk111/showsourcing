@@ -2,9 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'proof-of-identity-app',
-	templateUrl: './proof-of-identity.component.html',
-	styleUrls: ['./proof-of-identity.component.scss', './../common-boarding.component.scss'],
+	selector: 'qrcode-app',
+	templateUrl: './qrcode.component.html',
+	styleUrls: ['./qrcode.component.scss', './../common-boarding.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QRCodeComponent implements OnInit {

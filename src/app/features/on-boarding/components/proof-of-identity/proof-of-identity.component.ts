@@ -9,7 +9,7 @@ import { Attachment } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProofOfIdentityComponent implements OnInit {
-	public listFile: Attachment[] = []; 
+	public listFile: Attachment[] = [];
 
 	constructor(private router: Router) { }
 
