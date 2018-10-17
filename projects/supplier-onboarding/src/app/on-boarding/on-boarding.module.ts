@@ -36,16 +36,6 @@ const components = [
 	FileRowComponent
 ];
 
-import {
-	FindBusinessComponent,
-	WelcomeComponent,
-	AddressComponent,
-	BusinessTypeComponent,
-	CategoryComponent,
-	BusinessDescriptionComponent,
-	ContactDetailsComponent
-} from './components';
-
 @NgModule({
 	imports: [
 		CommonModule,
