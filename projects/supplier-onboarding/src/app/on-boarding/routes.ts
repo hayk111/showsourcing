@@ -19,6 +19,7 @@ import { GuestTemplateComponent } from '~shared/template';
 export const routes: Routes = [
 	{
 		path: '', component: GuestTemplateComponent,
+		data: { showLogout: false },
 		children: [
 			{ path: '', redirectTo: 'welcome', pathMatch: 'full' },
 			{ path: 'welcome', component: WelcomeComponent },

@@ -3,6 +3,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthStatus } from '~features/auth';
+import { ActivatedRoute } from '../../../../../../node_modules/@angular/router';
 
 @Component({
 	selector: 'guest-template-app',
@@ -12,12 +13,18 @@ import { AuthStatus } from '~features/auth';
 })
 export class GuestTemplateComponent implements OnInit {
 	auth$: Observable<boolean>;
-	constructor(private authSrv: AuthenticationService) { }
+	/** sometimes we don't wanna display the logout button */
+	showLogout = true;
+	constructor(
+		private authSrv: AuthenticationService,
+		private route: ActivatedRoute
+	) { }
 
 	ngOnInit() {
 		this.auth$ = this.authSrv.authStatus$.pipe(
 			map(status => status === AuthStatus.AUTHENTICATED)
 		);
+		this.showLogout = this.route.snapshot.data.showLogout;
 	}
 
 	logout() {
