@@ -1,6 +1,6 @@
 <div class="{{ canCreate ? 'canCreate' : '' }}">
 	<ng-select #ngSelect
-		class="custom"
+		[class.custom]="customStyle"
 		[closeOnSelect]="!multiple"
 		[virtualScroll]="true"
 		[items]="filteredChoices"
@@ -18,7 +18,10 @@
 		(blur)="onBlur()">
 
 		<ng-template ng-label-tmp let-item="item" *ngIf="!multiple">
-			Select {{ itemName }}
+			<div class="flexBetween">
+				<div>Select {{ itemName }}</div>
+				<icon-app *ngIf="customStyle" fontSet="fa" name="caret-down"></icon-app>
+			</div>
     </ng-template>
 
 		<!-- header / search input -->

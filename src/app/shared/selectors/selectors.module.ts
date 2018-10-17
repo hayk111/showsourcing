@@ -9,11 +9,12 @@ import { SelectorComponent } from '~shared/selectors/components/selector/selecto
 import { UtilsModule } from '~shared/utils';
 import { ImageModule } from '~shared/image/image.module';
 import { UserPictureModule } from '~shared/user-picture';
+import { IconsModule } from '~shared/icons';
 
 const components = [
 	SelectorComponent,
 	SelectorEntityComponent,
-	SelectorConstComponent
+	SelectorConstComponent,
 ];
 
 @NgModule({
@@ -24,7 +25,8 @@ const components = [
 		FormsModule,
 		InputsModule,
 		ImageModule, // pipes are used
-		UserPictureModule
+		UserPictureModule,
+		IconsModule
 	],
 	declarations: components,
 	exports: components

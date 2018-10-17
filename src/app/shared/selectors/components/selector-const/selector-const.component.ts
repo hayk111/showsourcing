@@ -21,6 +21,7 @@ import { SelectorsService } from '~shared/selectors/sercices/selectors.service';
 })
 export class SelectorConstComponent extends AbstractInput implements OnInit {
 
+	// type e.g. country, check setChoices below
 	@Input() type: string;
 	// whether it can create a new entity
 	@Input() canCreate = false;
@@ -30,6 +31,8 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	@Input() value: any;
 	// the name that will appear in the selector. EG: 'No "country" found', or 'create new "country"'.
 	@Input() itemName = 'Item';
+	// we pass the customStyle string name that we defined on selector component
+	@Input() customStyle = false;
 	// events that emits the id of the entity
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();

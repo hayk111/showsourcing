@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
+import { SharedModule } from '~shared/shared.module';
 
 import {
 	FindBusinessComponent,
@@ -10,11 +12,9 @@ import {
 	BusinessDescriptionComponent,
 	ContactDetailsComponent
 } from './components';
-import { SharedModule } from '~shared/shared.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
-import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 
-const comps = [
+const components = [
 	FindBusinessComponent,
 	WelcomeComponent,
 	AddressComponent,
@@ -35,8 +35,13 @@ import {
 } from './components';
 
 @NgModule({
-	imports: [CommonModule, SharedModule, SearchBarModule, SearchAutocompleteModule],
-	declarations: comps,
-	exports: comps
+	imports: [
+		CommonModule,
+		SharedModule,
+		SearchBarModule,
+		SearchAutocompleteModule
+	],
+	declarations: components,
+	exports: components
 })
 export class OnBoardingModule { }

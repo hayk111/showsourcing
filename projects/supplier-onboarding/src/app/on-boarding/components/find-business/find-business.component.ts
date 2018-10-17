@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SearchFeatureService } from '~features/on-boarding/services/search-feature.service';
 import { Supplier } from '~models';
 import {
 	SearchAutocompleteComponent,
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { SearchBarComponent } from '~shared/search-bar-animated/components/search-bar/search-bar.component';
 import { AutoUnsub } from '~utils';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { OnBoardingService } from '../../services';
 
 @Component({
 	selector: 'find-business-app',
@@ -27,10 +26,8 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private router: Router,
-		private searchSrv: SearchFeatureService,
-		private render: Renderer2,
-		private authSrv: AuthenticationService
-	) {
+		private onboardingSrv: OnBoardingService,
+		private render: Renderer2) {
 		super();
 	}
 
@@ -39,7 +36,7 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 	}
 
 	triggerSearch(search: string) {
-		this.searchResults$ = this.searchSrv.search(search);
+		this.searchResults$ = this.onboardingSrv.searchSuppliers(search);
 		this.searchAutocomplete.openAutocomplete();
 	}
 

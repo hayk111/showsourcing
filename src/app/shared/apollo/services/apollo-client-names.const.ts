@@ -1,4 +1,3 @@
-import { environment } from 'environments/environment';
 
 export enum Client {
 	ALL_USER = 'all-users',
@@ -7,6 +6,6 @@ export enum Client {
 	USER = 'user',
 	GUEST = 'guest',
 	TEAM = 'team',
-	SUPPLIER_ONBOARDING = 'test-supplier-onboarding'
+	SUPPLIER_ONBOARDING = 'supplier-onboarding'
 }
 

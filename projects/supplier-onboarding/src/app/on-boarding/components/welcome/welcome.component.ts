@@ -8,11 +8,13 @@ import { Router } from '@angular/router';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WelcomeComponent implements OnInit {
-	constructor(private router: Router) {}
 
-	ngOnInit() {}
+	constructor(private router: Router) { }
+
+	ngOnInit() {
+	}
 
 	nextPage() {
-		this.router.navigate(['find-business']);
+		this.router.navigate(['supplier', 'find-business']);
 	}
 }

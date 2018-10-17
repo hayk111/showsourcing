@@ -8,12 +8,13 @@
 <form [formGroup]="form">
 	<form-field-app class="boarding">
 		<label-app>Country / Region</label-app>
-		<context-menu-app class="boarding">
-			<context-menu-trigger-app class="flexBetween">
-				<div>Big Text</div>
-				<icon-app fontSet="fa" name="caret-down"></icon-app>
-			</context-menu-trigger-app>
-		</context-menu-app>
+		<selector-const-app
+			#selector
+			type="country"
+			value="name"
+			itemName="your country"
+			[customStyle]="true">
+		</selector-const-app>
 		<input inputApp [hidden]="true" type="text" fomrControlName="country"/>
 	</form-field-app>
 	<form-field-app class="boarding">

@@ -8,6 +8,7 @@ import {
 	Output,
 	TemplateRef,
 	ViewChild,
+	ViewEncapsulation,
 } from '@angular/core';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inputs/components-directives';
@@ -20,7 +21,11 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 	templateUrl: './selector.component.html',
 	styleUrls: ['./selector.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(SelectorComponent)]
+	providers: [makeAccessorProvider(SelectorComponent)],
+	encapsulation: ViewEncapsulation.None,
+	host: {
+		'[class.boarding]': 'customStyle === "boarding"'
+	}
 })
 export class SelectorComponent extends AbstractInput {
 	// when we select one
@@ -51,6 +56,8 @@ export class SelectorComponent extends AbstractInput {
 	@Input() hideSelected = true;
 	// how items are compared, to find out if they are already selected
 	@Input() compareWith = (a, b) => a.id === b.id;
+	// the name of the custom style
+	@Input() customStyle = false;
 
 	/* different choices that an user can pick **/
 

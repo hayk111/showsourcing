@@ -1,30 +1,29 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "business-description-app",
-  templateUrl: "./business-description.component.html",
-  styleUrls: [
-    "./business-description.component.scss",
-    "./../common-boarding.component.scss"
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'business-description-app',
+	templateUrl: './business-description.component.html',
+	styleUrls: ['./business-description.component.scss', './../common-boarding.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusinessDescriptionComponent implements OnInit {
-  constructor(private router: Router) {}
 
-  ngOnInit() {}
+	constructor(private router: Router) { }
 
-  previousPage() {
-    this.router.navigate(["category"]);
-  }
+	ngOnInit() {
+	}
 
-  nextPage() {
-    this.router.navigate(["contact-details"]);
-  }
+	previousPage() {
+		this.router.navigate(['supplier', 'category']);
+	}
 
-  onSubmit() {
-    // stuff
-    this.nextPage();
-  }
+	nextPage() {
+		this.router.navigate(['supplier', 'contact-details']);
+	}
+
+	onSubmit() {
+		// stuff
+		this.nextPage();
+	}
 }

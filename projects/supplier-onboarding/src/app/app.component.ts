@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
 	ngOnInit() {
 		this.authSrv.init();
 		this.authSrv.login({
-			identifier: 'supplier-onboarding',
-			password: 'supplier-onboarding'
+			identifier: 'supplier-onboarding-user',
+			password: 'supplier-onboarding-password'
 		}).subscribe(_ => this.supplierOnBoardingClient.init());
 		this.globalClients.init();
 	}
