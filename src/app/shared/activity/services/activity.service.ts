@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment.prod';
+import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile } from 'rxjs/operators';

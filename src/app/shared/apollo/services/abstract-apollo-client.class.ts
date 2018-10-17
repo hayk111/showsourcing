@@ -3,7 +3,7 @@ import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
-import { environment } from 'environments/environment.prod';
+import { environment } from 'environments/environment';
 import { Observable, Observer } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
@@ -64,8 +64,8 @@ export abstract class AbstractApolloClient {
 	/**
  	* to create the uri we need to concatena every parts we got from different DB's.
 	*/
-	protected getUri(port: number | string, hostName: string, path: string): string {
-		return `wss://${hostName}:${port}/graphql${path.startsWith('/') ? path : '/' + path}`;
+	protected getUri(port: number | string, hostName: string, path: string, isSecure=true): string {
+		return `ws${isSecure?'s':''}://${hostName}:${port}/graphql${path.startsWith('/') ? path : '/' + path}`;
 	}
 
 	/**
@@ -74,7 +74,11 @@ export abstract class AbstractApolloClient {
 	protected getRealmUri(realmName: string, path?: string): Observable<string> {
 		return this.realmServerSrv.queryOneByPredicate(`name == "${realmName}"`).pipe(
 			first(),
-			map(r => this.getUri(r.httpsPort, r.hostname, path))
+			map(r => { 
+				const port = r.httpsPort || r.httpPort;
+				const isSecure = !!r.httpsPort;
+				return this.getUri(port, r.hostname, path, isSecure);
+			})
 		);
 	}
 
