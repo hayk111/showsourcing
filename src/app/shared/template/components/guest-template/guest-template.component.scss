@@ -1,6 +1,7 @@
 :host {
 	display: block;
-	height: 100vh;
+	min-height: 100vh;
+	padding-bottom: var(--spacing-xl);
 	width: 100%;
 	background: var(--color-bg);
 	display:flex;
