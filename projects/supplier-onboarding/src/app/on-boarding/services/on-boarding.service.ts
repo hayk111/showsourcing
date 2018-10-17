@@ -18,6 +18,10 @@ export class OnBoardingService {
 		private supplierClaimSrv: SupplierClaimService
 	) { }
 
+	getClaim() {
+		return this.claim;
+	}
+
 	init() {
 		this.claim = new SupplierClaim();
 		return this.supplierClaimSrv.create(this.claim).pipe(
@@ -27,7 +31,7 @@ export class OnBoardingService {
 
 	updateClaim(addedValues: any) {
 		this.claim = { ...this.claim, ...addedValues };
-		this.supplierClaimSrv.update({ id: this.claim, ...addedValues });
+		return this.supplierClaimSrv.update({ id: this.claim.id, ...addedValues });
 	}
 
 	searchSuppliers(search: string): Observable<Supplier[]> {

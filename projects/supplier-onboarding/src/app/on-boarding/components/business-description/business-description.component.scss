@@ -10,9 +10,10 @@
 		resize: none;
 		height: 182px;
 		margin-top: var(--spacing-ms);
+		padding: var(--spacing-m) !important;
+		font-size: var(--font-size-l);
 
 		&::placeholder {
-			padding: var(--spacing-ms);
 			font-size: var(--font-size-l);
 		}
 	}

@@ -8,11 +8,11 @@
 <form [formGroup]="form">
 	<form-field-app class="boarding">
 		<label-app>Email</label-app>
-		<input inputApp type="text" fomrControlName="contactEmail" placeholder="Type your email"/>
+		<input inputApp type="text" formControlName="contactEmail" placeholder="Type your email"/>
 	</form-field-app>
 	<form-field-app class="boarding">
 		<label-app>Phone Number</label-app>
-		<input inputApp type="text" formControlName="contactPhone" placeholder="Type your phone number"/>
+		<input inputApp restrictInput="tel" type="text" formControlName="contactPhone" placeholder="Type your phone number"/>
 	</form-field-app>
 	<form-field-app class="boarding">
 		<label-app>WeChat</label-app>
@@ -28,4 +28,4 @@
 	</form-field-app>
 </form>
 
-<input class="boarding" type="submit" value="Next" (click)="onSubmit()">
+<input [disabled]="!form.valid" class="boarding" type="submit" value="Next" (click)="onSubmit()">

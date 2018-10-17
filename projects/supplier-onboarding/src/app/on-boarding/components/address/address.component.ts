@@ -5,6 +5,7 @@ import { InputDirective } from '~shared/inputs';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 import { AutoUnsub, countries } from '~utils';
 import { OnBoardingService } from '../../services';
+import { takeUntil, switchMap, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'address-app',
@@ -22,27 +23,25 @@ export class AddressComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private router: Router,
 		private fb: FormBuilder,
-		private onboardSrv: OnBoardingService) { super(); }
+		private onBoardSrv: OnBoardingService) { super(); }
 
 	ngOnInit() {
-		this.form = this.fb.group({
+		this.form = new FormGroup(this.fb.group({
 			country: ['', Validators.required],
 			street: ['', Validators.required],
 			city: ['', Validators.required],
 			zipCode: ['', Validators.required]
-		});
+		}).controls, { updateOn: 'blur' });
 
-		/*
-		this.form.patchValue(this.onBoardSrv.claim);
+		this.form.patchValue(this.onBoardSrv.getClaim());
 		this.form.valueChanges.pipe(
 			takeUntil(this._destroy$),
-			switchMap(claim => this.onBoardSrv.update(claim))
+			switchMap(claim => this.onBoardSrv.updateClaim(claim))
 		).subscribe();
-		*/
 	}
 
 	change(thing) {
-		console.log(thing);
+		this.form.get('country').setValue(thing);
 	}
 
 	previousPage() {
