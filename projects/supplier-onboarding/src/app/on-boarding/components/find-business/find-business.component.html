@@ -1,15 +1,15 @@
 <h1>What's the name of your business?</h1>
 
 <search-autocomplete-app
-	#searchAutocomplete [xPosition]="0" [yPosition]="35"
-	[width]="400" >
+	#searchAutocomplete [xPosition]="0" [yPosition]="110"
+	[width]="510" >
 
 	<search-autocomplete-item-app *ngFor="let result of (searchResults$ | async); trackBy: TrackByFn">
 		<search-autocomplete-item-content-app
 			[selectable]="false"
 			[title]="result.name"
 			[subtitle]="supplierSubtitle(result)"
-			[image]="result?.logoImage ? result.logoImage : '/assets/icons/supplier.svg'"
+			[image]="result?.supplierImage ? result.supplierImage : '/assets/icons/supplier.svg'"
 			(itemDisplayed)="itemSelected(result)">
 		</search-autocomplete-item-content-app>
 	</search-autocomplete-item-app>

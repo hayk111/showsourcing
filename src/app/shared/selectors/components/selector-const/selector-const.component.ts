@@ -31,8 +31,10 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	@Input() value: any;
 	// the name that will appear in the selector. EG: 'No "country" found', or 'create new "country"'.
 	@Input() itemName = 'Item';
-	// we pass the customStyle string name that we defined on selector component
+	// if we use a custom style or not
 	@Input() customStyle = false;
+	// current item, to show on the selector bar
+	@Input() currentItem;
 	// events that emits the id of the entity
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();

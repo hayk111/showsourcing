@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Renderer2 } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { InputDirective } from '~shared/inputs';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { countries, AutoUnsub } from '~utils';
+import { InputDirective } from '~shared/inputs';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
+import { AutoUnsub, countries } from '~utils';
+import { OnBoardingService } from '../../services';
 
 @Component({
 	selector: 'address-app',
@@ -21,7 +22,7 @@ export class AddressComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private router: Router,
 		private fb: FormBuilder,
-		private render: Renderer2) { super(); }
+		private onboardSrv: OnBoardingService) { super(); }
 
 	ngOnInit() {
 		this.form = this.fb.group({
@@ -30,7 +31,18 @@ export class AddressComponent extends AutoUnsub implements OnInit {
 			city: ['', Validators.required],
 			zipCode: ['', Validators.required]
 		});
-		// this.selector.selector.ngSelect.
+
+		/*
+		this.form.patchValue(this.onBoardSrv.claim);
+		this.form.valueChanges.pipe(
+			takeUntil(this._destroy$),
+			switchMap(claim => this.onBoardSrv.update(claim))
+		).subscribe();
+		*/
+	}
+
+	change(thing) {
+		console.log(thing);
 	}
 
 	previousPage() {

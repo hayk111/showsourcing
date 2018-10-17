@@ -13,7 +13,9 @@
 			type="country"
 			value="name"
 			itemName="your country"
-			[customStyle]="true">
+			[customStyle]="true"
+			[currentItem]="form.get('country').value"
+			(change)="change($event)">
 		</selector-const-app>
 		<input inputApp [hidden]="true" type="text" fomrControlName="country"/>
 	</form-field-app>
