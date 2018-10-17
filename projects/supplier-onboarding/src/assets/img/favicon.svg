@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>favicon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="22.1400751%" cy="100%" fx="22.1400751%" fy="100%" r="162.586212%" gradientTransform="translate(0.221401,1.000000),scale(0.586217,1.000000),rotate(90.000000),scale(1.000000,0.594956),translate(-0.221401,-1.000000)" id="radialGradient-1">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </radialGradient>
+        <polygon id="path-2" points="41.6877429 100.671141 84.7202517 124.832215 41.6877429 150.33557 0 124.832215"></polygon>
+        <radialGradient cx="-15.625%" cy="50%" fx="-15.625%" fy="50%" r="295.256626%" gradientTransform="translate(-0.156250,0.500000),scale(1.000000,0.344723),rotate(90.000000),scale(1.000000,0.223939),translate(0.156250,-0.500000)" id="radialGradient-3">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </radialGradient>
+        <polygon id="path-4" points="41.6877429 51.0067114 84.7202517 25.5033557 84.7202517 124.832215 41.6877429 150.33557"></polygon>
+        <radialGradient cx="33.3489571%" cy="79.2809705%" fx="33.3489571%" fy="79.2809705%" r="82.6420046%" gradientTransform="translate(0.333490,0.792810),scale(0.602060,1.000000),rotate(90.000000),scale(1.000000,0.701290),translate(-0.333490,-0.792810)" id="radialGradient-5">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </radialGradient>
+        <polygon id="path-6" points="41.6877429 0 84.7202517 25.5033557 41.6877429 51.0067114 0 25.5033557"></polygon>
+        <radialGradient cx="74.0522322%" cy="100%" fx="74.0522322%" fy="100%" r="115.476682%" gradientTransform="translate(0.740522,1.000000),scale(0.559571,1.000000),rotate(90.000000),scale(1.000000,0.803198),translate(-0.740522,-1.000000)" id="radialGradient-7">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </radialGradient>
+        <polygon id="path-8" points="44.3772747 100.671141 0 124.832215 44.3772747 150.33557 88.7545494 124.832215"></polygon>
+        <radialGradient cx="112.174258%" cy="57.1663532%" fx="112.174258%" fy="57.1663532%" r="62.7055196%" gradientTransform="translate(1.121743,0.571664),scale(1.000000,0.355495),rotate(180.000000),scale(1.000000,2.698489),translate(-1.121743,-0.571664)" id="radialGradient-9">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </radialGradient>
+        <polygon id="path-10" points="44.3772747 49.6644295 0 25.5033557 0 124.832215 44.3772747 150.33557"></polygon>
+        <radialGradient cx="67.8495271%" cy="100%" fx="67.8495271%" fy="100%" r="142.207815%" gradientTransform="translate(0.678495,1.000000),scale(0.559571,1.000000),rotate(90.000000),scale(1.000000,0.627694),translate(-0.678495,-1.000000)" id="radialGradient-11">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </radialGradient>
+        <polygon id="path-12" points="44.3772747 0 0 25.5033557 44.3772747 49.6644295 88.7545494 25.5033557"></polygon>
+    </defs>
+    <g id="favicon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo-contreforme" transform="translate(41.000000, 28.000000)">
+            <g id="Group" transform="translate(88.754549, 49.664430)">
+                <g id="Rectangle-7">
+                    <use fill="#45ADFF" xlink:href="#path-2"></use>
+                    <use fill="#000000" style="mix-blend-mode: overlay;" xlink:href="#path-2"></use>
+                    <use fill="url(#radialGradient-1)" style="mix-blend-mode: screen;" xlink:href="#path-2"></use>
+                </g>
+                <g id="Rectangle-6" opacity="0.8">
+                    <use fill="#45ADFF" xlink:href="#path-4"></use>
+                    <use fill="url(#radialGradient-3)" style="mix-blend-mode: screen;" xlink:href="#path-4"></use>
+                </g>
+                <g id="Rectangle-7">
+                    <use fill="#45ADFF" xlink:href="#path-6"></use>
+                    <use fill-opacity="0.5" fill="#FFFFFF" style="mix-blend-mode: overlay;" xlink:href="#path-6"></use>
+                    <use fill-opacity="0.6" fill="url(#radialGradient-5)" style="mix-blend-mode: screen;" xlink:href="#path-6"></use>
+                </g>
+            </g>
+            <g id="Group-2">
+                <g id="Rectangle-7-Copy">
+                    <use fill="#FCA410" xlink:href="#path-8"></use>
+                    <use fill="#000000" style="mix-blend-mode: overlay;" xlink:href="#path-8"></use>
+                    <use fill="url(#radialGradient-7)" style="mix-blend-mode: screen;" xlink:href="#path-8"></use>
+                </g>
+                <g id="Rectangle-6-Copy" opacity="0.8">
+                    <use fill="#FCA410" xlink:href="#path-10"></use>
+                    <use fill="url(#radialGradient-9)" style="mix-blend-mode: screen;" xlink:href="#path-10"></use>
+                </g>
+                <g id="Rectangle-7-Copy-2">
+                    <use fill="#FCA410" xlink:href="#path-12"></use>
+                    <use fill-opacity="0.5" fill="#FFFFFF" style="mix-blend-mode: overlay;" xlink:href="#path-12"></use>
+                    <use fill-opacity="0.7" fill="url(#radialGradient-11)" style="mix-blend-mode: screen;" xlink:href="#path-12"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

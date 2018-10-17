@@ -44,14 +44,15 @@
     "getstream": "^3.19.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
+    "npm": "^6.4.1",
     "rxjs": "^6.2.2",
     "subscriptions-transport-ws": "^0.9.14",
     "uuid": "^3.2.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.8.3",
-    "@angular/cli": "^6.2.3",
+    "@angular-devkit/build-angular": "^0.8.5",
+    "@angular/cli": "^6.2.5",
     "@angular/compiler-cli": "^6.1.9",
     "@angular/language-service": "^6.1.9",
     "@compodoc/compodoc": "^1.1.3",

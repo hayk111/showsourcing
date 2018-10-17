@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { switchMap, map, tap, take } from 'rxjs/operators';
-import { InvitationUser } from '~models';
-
-import { InvitationUserService, UserService, TeamService } from '~global-services';
-import { Apollo } from 'apollo-angular';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
-import { ApolloStateService } from '~shared/apollo';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment.prod';
+import { Observable } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
+import { InvitationUserService, TeamService, UserService } from '~global-services';
+import { InvitationUser } from '~models';
+import { ApolloStateService } from '~shared/apollo';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 @Injectable()
 export class InvitationFeatureService extends InvitationUserService {

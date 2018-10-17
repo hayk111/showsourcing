@@ -1,10 +1,18 @@
 import {
-	Component, OnInit, ChangeDetectionStrategy,
-	ElementRef, Renderer2, ContentChild,
-	Output, EventEmitter, AfterContentInit
+	AfterContentInit,
+	ChangeDetectionStrategy,
+	Component,
+	ContentChild,
+	ElementRef,
+	EventEmitter,
+	OnInit,
+	Output,
+	Renderer2,
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { SearchAutocompleteItemContentComponent } from '~shared/search-autocomplete/components/search-autocomplete-item-content/search-autocomplete-item-content.component';
+import {
+	SearchAutocompleteItemContentComponent,
+} from '~shared/search-autocomplete/components/search-autocomplete-item-content/search-autocomplete-item-content.component';
 import { AutoUnsub } from '~utils';
 
 @Component({

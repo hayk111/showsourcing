@@ -1,0 +1,46 @@
+:host {
+	height: 630px;
+	width: 500px;
+}
+.title-container-boarding {
+	width: 430px;
+}
+
+.product-container {
+	margin-bottom: 70px;
+
+	.label {
+		margin-bottom: var(--spacing-ml);
+	}
+
+	.categories {
+		width: 280px;
+
+		info-badge-app {
+			margin-bottom: var(--spacing-s);
+		}
+	}
+
+	context-menu-app {
+		display: block;
+		context-menu-trigger-app {
+			width: 150px;
+			height: 36px;
+			background: var(--color-secondary);
+			border-radius: 2px;
+			padding: 0px var(--spacing-s);
+
+			.select-name {
+				font-weight: 600;
+				line-height: 1.54;
+			}
+
+			icon-app {
+				color: var(--color-secondary-dark);
+				height: 100%;
+				padding-left: var(--spacing-s);
+				border-left: 1px solid var(--color-secondary-dark);
+			}
+		}
+	}
+}

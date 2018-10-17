@@ -17,3 +17,18 @@ ng-select {
 	width: 100%;
 }
 
+icon-app {
+	padding-left: 315px;
+	font-size: var(--font-size-l);
+	cursor: default;
+}
+
+.ng-select.custom .ng-select-container {
+	height: 50px;
+	padding: var(--spacing-ms);
+	background: var(--color-secondary-light);
+	font-size: var(--font-size-l);
+	color: var(--color-txt-secondary);
+	font-style: italic;
+}
+

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Show Sourcing Web App</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+	<!-- Disable translation prompt: Chrome -->
+	<meta name="google" value="notranslate">
+
+	<!-- Scaling -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- IE -->
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta http-equiv="cleartype" content="on">
+
+	<!-- Add to Home Screen: iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="ShowSourcing">
+
+	<!-- Add to Home Screen: Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<!-- prevent pinterest to add pin button -->
+	<meta name="pinterest" content="nopin"/>
+
+	<style>
+		/* we put the styles here for faster rendering. If http2 is used we could move it in a separate file */
+		body {
+			color: #182844;
+			padding: 0;
+			margin: 0;
+		}
+
+		.temp {
+			display: block;
+			height: 100vh;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			background: white;
+		}
+
+		.temp header {
+			padding: 16px;
+			align-items: center;
+			font-family: 'Raleway', sans-serif;
+			display: flex;
+			font-size: var(--font-size-xl);
+		}
+
+		.temp .titleLogo {
+			height: 32px;
+			width: 32px;
+			margin-right: 16px;
+			display: block;
+		}
+
+		.temp main {
+			font-family: sans-serif;
+			flex-grow: 1;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			color: #5D6D8B;
+		}
+
+		.temp h1 {
+			font-size: 36px;
+			color: #182844;
+			font-family: 'Raleway', sans-serif;
+		}
+
+		.temp h2 {
+			font-family: "Source Sans Pro", sans-serif;
+			font-size: 20px;
+			line-height: 25px;
+			text-align: center;
+			font-weight: normal;
+			margin-bottom: 32px;
+		}
+
+		.temp .loader {
+			position: relative;
+			margin: 0 auto;
+			width: 64px;
+		}
+
+		.temp .loader:before {
+			content: '';
+			display: block;
+			padding-top: 100%;
+		}
+
+		.temp .circular {
+			animation: rotate 2s linear infinite;
+			height: 100%;
+			transform-origin: center center;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+		}
+
+		.temp .path {
+			stroke-dasharray: 1, 200;
+			stroke-dashoffset: 0;
+			animation: dash 1.5s ease-in-out infinite,
+				colors 2s ease-in-out infinite;
+			stroke-linecap: round;
+		}
+
+		@keyframes colors {
+			0% { stroke: #41AFFF; }
+			50% { stroke: rgb(95, 86, 223); }
+			100% { stroke: #41AFFF; }
+		}
+
+		@keyframes rotate {
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		@keyframes dash {
+			0% {
+				stroke-dasharray: 1, 200;
+				stroke-dashoffset: 0;
+			}
+			50% {
+				stroke-dasharray: 89, 200;
+				stroke-dashoffset: -35px;
+			}
+			100% {
+				stroke-dasharray: 89, 200;
+				stroke-dashoffset: -124px;
+			}
+		}
+
+.bounce-in-top {
+	-webkit-animation: bounce-in-top 0.7s both;
+	        animation: bounce-in-top 0.7s both;
+}
+
+/**
+ * ----------------------------------------
+ * animation bounce-in-top
+ * ----------------------------------------
+ */
+	@-webkit-keyframes bounce-in-top {
+		0% {
+			-webkit-transform: translateY(-40px);
+							transform: translateY(-40px);
+			-webkit-animation-timing-function: ease-in;
+							animation-timing-function: ease-in;
+			opacity: 0;
+		}
+		38% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+			opacity: 1;
+		}
+		55% {
+			-webkit-transform: translateY(-16px);
+							transform: translateY(-16px);
+			-webkit-animation-timing-function: ease-in;
+							animation-timing-function: ease-in;
+		}
+		72% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+		}
+		81% {
+			-webkit-transform: translateY(-8px);
+							transform: translateY(-8px);
+			-webkit-animation-timing-function: ease-in;
+		}
+
+		100% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+		}
+	}
+	@keyframes bounce-in-top {
+		0% {
+			-webkit-transform: translateY(-40px);
+							transform: translateY(-40px);
+			-webkit-animation-timing-function: ease-in;
+							animation-timing-function: ease-in;
+			opacity: 0;
+		}
+		38% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+			opacity: 1;
+		}
+		55% {
+			-webkit-transform: translateY(-16px);
+							transform: translateY(-16px);
+			-webkit-animation-timing-function: ease-in;
+							animation-timing-function: ease-in;
+		}
+		72% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+		}
+		81% {
+			-webkit-transform: translateY(-8px);
+							transform: translateY(-8px);
+			-webkit-animation-timing-function: ease-in;
+		}
+
+		100% {
+			-webkit-transform: translateY(0);
+							transform: translateY(0);
+			-webkit-animation-timing-function: ease-out;
+							animation-timing-function: ease-out;
+		}
+	}
+
+
+	</style>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1976d2">
+</head>
+<body override="">
+  <app-root-onboarding>
+		<div class="temp">
+			<header>
+				<img src="/assets/img/favicon.svg" class="titleLogo bounce-in-top"/>
+				<span class="title"><b>Show</b>Sourcing</span>
+			</header>
+			<main>
+				<h1>Loading Your App...</h1>
+				<h2>We are preparing your experience, please wait a moment</h2>
+
+				<div class="loader">
+					<svg class="circular" viewBox="25 25 50 50">
+						<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"/>
+					</svg>
+				</div>
+			</main>
+		</div>
+	</app-root-onboarding>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+</html>

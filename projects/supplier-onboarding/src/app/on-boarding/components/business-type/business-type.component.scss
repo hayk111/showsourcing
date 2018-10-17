@@ -1,0 +1,30 @@
+:host {
+	height: 630px;
+	display: block;
+}
+
+
+.type-container {
+	margin-bottom: var(--spacing-xxxl);
+
+	context-menu-app {
+
+		context-menu-trigger-app {
+			margin-top: var(--spacing-m);
+			background: var(--color-secondary-light);
+			color: var(--color-secondary-dark);
+			width: 500px;
+			height: 50px;
+			border: 1px solid var(--color-secondary);
+			border-radius: var(--border-radius-s);
+			padding: var(--spacing-m);
+			font-size: var(--font-size-l);
+			box-sizing: border-box;
+
+
+			icon-app {
+				font-size: var(--font-size-xxxl);
+			}
+		}
+	}
+}

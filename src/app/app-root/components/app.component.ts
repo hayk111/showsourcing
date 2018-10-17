@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { CompanyService, TeamService } from '~global-services';
 import { GlobalClientsInitializer, TeamClientInitializer, UserClientInitializer } from '~shared/apollo/services';
+import { TokenService } from '~features/auth';
 
 @Component({
 	selector: 'app-root',
@@ -22,11 +23,13 @@ export class AppComponent implements OnInit, OnDestroy {
 		private userClient: UserClientInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
-		private companySrv: CompanyService
+		private companySrv: CompanyService,
+		private tokenSrv: TokenService
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
+		this.tokenSrv.restoreRefreshToken();
 		this.globalClients.init();
 		this.userClient.init();
 		this.teamSrv.init();

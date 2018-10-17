@@ -56,10 +56,6 @@ export class AuthenticationService {
 		this.tokenSrv.refreshToken$.pipe(
 			map(tokenState => this.refreshTokenToAuthState(tokenState))
 		).subscribe(this._authState$);
-
-		// since we subscribe to the refresh token in the constructor this will have as a side effect
-		// of telling if the user is connected or not.
-		this.tokenSrv.restoreRefreshToken();
 	}
 
 	// we really are authenticated when the tokenSrv generates the accessToken

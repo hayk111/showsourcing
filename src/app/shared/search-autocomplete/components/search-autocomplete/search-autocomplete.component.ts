@@ -1,14 +1,18 @@
 import {
-	Component, OnInit, ChangeDetectionStrategy,
-	Input, ViewChild, TemplateRef,
-	ComponentFactoryResolver, ChangeDetectorRef,
-	ContentChildren, QueryList,
-	HostListener, AfterContentInit,
-	Output, EventEmitter
+	AfterContentInit,
+	Component,
+	ContentChildren,
+	EventEmitter,
+	HostListener,
+	Input,
+	Output,
+	QueryList,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { SearchAutocompleteItemComponent } from '~shared/search-autocomplete/components/search-autocomplete-item/search-autocomplete-item.component';
+import {
+	SearchAutocompleteItemComponent,
+} from '~shared/search-autocomplete/components/search-autocomplete-item/search-autocomplete-item.component';
 import { AutoUnsub } from '~utils';
 
 export type AutocompletePositionX = 'before' | 'after';

@@ -1,0 +1,31 @@
+<div class="title-container-boarding flex">
+	<button class="icon light" (click)="previousPage()">
+		<icon-app name="back-arrow"></icon-app>
+	</button>
+	<h1>Contact Details</h1>
+</div>
+
+<form [formGroup]="form">
+	<form-field-app class="boarding">
+		<label-app>Email</label-app>
+		<input inputApp type="text" fomrControlName="contactEmail" placeholder="Type your email"/>
+	</form-field-app>
+	<form-field-app class="boarding">
+		<label-app>Phone Number</label-app>
+		<input inputApp type="text" formControlName="contactPhone" placeholder="Type your phone number"/>
+	</form-field-app>
+	<form-field-app class="boarding">
+		<label-app>WeChat</label-app>
+		<input inputApp type="text" formControlName="wechat" placeholder="Type your WeChat"/>
+	</form-field-app>
+	<form-field-app class="boarding">
+		<label-app>WhatsApp</label-app>
+		<input inputApp type="text" formControlName="whatsapp" placeholder="Type your WhatsApp"/>
+	</form-field-app>
+	<form-field-app class="boarding">
+		<label-app>Website</label-app>
+		<input inputApp type="text" formControlName="website" placeholder="Type your website'es url"/>
+	</form-field-app>
+</form>
+
+<input class="boarding" type="submit" value="Next" (click)="onSubmit()">
