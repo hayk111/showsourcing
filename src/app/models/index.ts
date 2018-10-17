@@ -38,4 +38,5 @@ export * from '~models/realm-server.model';
 export * from '~models/comment.model';
 export * from '~models/company.model';
 export * from '~models/kanban.model';
+export * from '~models/supplier-claim.model';
 
