@@ -15,7 +15,7 @@ export class CongratulationsComponent implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['verification']);
+		this.router.navigate(['supplier', 'verification']);
 	}
 
 	nextPage() {

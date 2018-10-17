@@ -15,11 +15,11 @@ export class VerificationComponent implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['qrcode']);
+		this.router.navigate(['supplier', 'qrcode']);
 	}
 
 	nextPage() {
-		this.router.navigate(['congratulations']);
+		this.router.navigate(['supplier', 'congratulations']);
 	}
 
 	onSubmit() {

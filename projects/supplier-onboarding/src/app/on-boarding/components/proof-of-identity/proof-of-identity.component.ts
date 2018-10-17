@@ -17,11 +17,11 @@ export class ProofOfIdentityComponent implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['account-creation']);
+		this.router.navigate(['supplier', 'account-creation']);
 	}
 
 	nextPage() {
-		this.router.navigate(['qrcode']);
+		this.router.navigate(['supplier', 'qrcode']);
 	}
 
 	onSubmit() {

@@ -15,11 +15,11 @@ export class QRCodeComponent implements OnInit {
 	}
 
 	previousPage() {
-		this.router.navigate(['proof-of-identity']);
+		this.router.navigate(['supplier', 'proof-of-identity']);
 	}
 
 	nextPage() {
-		this.router.navigate(['verification']);
+		this.router.navigate(['supplier', 'verification']);
 	}
 
 	onSubmit() {
