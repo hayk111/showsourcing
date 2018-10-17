@@ -12,18 +12,18 @@ import { Validators } from '@angular/forms';
 export class AccountCreationComponent implements OnInit {
 	public form: FormGroup;
 
-  constructor(
-    private router: Router,
-    private fb: FormBuilder
-  ) {
-    this.form = this.fb.group({
+	constructor(
+		private router: Router,
+		private fb: FormBuilder
+	) {
+		this.form = this.fb.group({
 			email: ['', Validators.compose([Validators.required, Validators.email])],
 			firstName: [''],
 			familyName: [''],
 			phoneNumber: [''],
 			password: ['', Validators.compose([Validators.required])]
 		});
-  }
+	}
 
 	ngOnInit() {
 	}
