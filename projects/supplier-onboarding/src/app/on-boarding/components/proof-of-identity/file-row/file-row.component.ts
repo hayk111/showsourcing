@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Attachment } from '~models';
 
 export enum FileType {
-	image = 'IMAGE',
-	file = 'File',
+  image = 'IMAGE',
+  file = 'File',
 }
 
 
@@ -26,7 +26,7 @@ export class FileRowComponent implements OnInit {
 	}
 
 	public onDeleteFunc() {
-		if (this.onDelete) {
+		if( this.onDelete ) {
 			this.onDelete.emit(this.file);
 		}
 	}

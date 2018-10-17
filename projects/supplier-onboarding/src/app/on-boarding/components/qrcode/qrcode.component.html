@@ -7,7 +7,10 @@
 </div>
 
 <form [formGroup]="form">
-
+  <div class="qr-code-container"></div>
+  <div class="checkbox-container">
+    <radio-app [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"></radio-app>
+  </div>
 	<div class="left">
 		<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
 	</div>
