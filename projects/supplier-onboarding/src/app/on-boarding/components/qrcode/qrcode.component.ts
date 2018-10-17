@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'qrcode-app',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class QRCodeComponent implements OnInit {
 
+	form: FormGroup;
 	constructor(private router: Router) { }
 
 	ngOnInit() {

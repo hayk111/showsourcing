@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'verification-app',
@@ -8,6 +9,8 @@ import { Router } from '@angular/router';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VerificationComponent implements OnInit {
+
+	form: FormGroup;
 
 	constructor(private router: Router) { }
 

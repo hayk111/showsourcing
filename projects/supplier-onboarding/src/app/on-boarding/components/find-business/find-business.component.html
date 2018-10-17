@@ -4,7 +4,7 @@
 	#searchAutocomplete [xPosition]="0" [yPosition]="110"
 	[width]="510" >
 
-	<search-autocomplete-item-app *ngFor="let result of (searchResults$ | async); trackBy: TrackByFn">
+	<search-autocomplete-item-app *ngFor="let result of (searchResults$ | async); trackBy: trackByFn">
 		<search-autocomplete-item-content-app
 			[selectable]="false"
 			[title]="result.name"
