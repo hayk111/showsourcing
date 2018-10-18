@@ -1,8 +1,8 @@
 .row-container {
+	padding-left: 8px; 
 	.file-container {
-		margin-left: 30px;
-		padding-top: 10px;
-		padding-bottom: 10px;
+		margin-left: 20px;
+		padding: 10px 8px;
 		border-bottom: solid 1px var(--color-divider);
 	}
 	.icon-container {
@@ -12,12 +12,12 @@
 	.info-container {
 		display: inline-block;
 		.file-name {
-			font-size: 14px;
+			font-size: var(--font-size-m);
 			letter-spacing: -0.3px;
 			color: var(--color-txt-strong);
 		}
 		.file-size {
-			font-size: 12px;
+			font-size: var(--font-size-s);
 			color: var(--color-txt-primary);
 		}
 	}

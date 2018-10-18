@@ -1,21 +1,14 @@
 
-
-.left{
-	text-align: left;
-}
-
-.col1{
-	width: 40%;
-}
-
-.col2{
-	width: 50%;
-}
-
-.members :nth-child(1){
-	width: 40%;
-	margin-right:5%;
-}
-.members :nth-child(2){
-	width: 40%;
+.qr-body {
+	display: table;
+	.qr-code-container {
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.checkbox-container {
+		padding-left: 20px;
+		display: table-cell;
+		vertical-align: middle;
+	}
+	margin-bottom: 40px;
 }
