@@ -15,7 +15,12 @@
 			font-size: var(--font-size-l);
 			color: var(--color-txt-strong);
 			icon-app {
+				margin-bottom: 5px;
+				color: var(--color-secondary-dark);
 				display: inline-block;
+				font-size: var(--font-size-s);
+				margin-right: 10px;
+				margin-left: 10px;
 			}
 		}
 		margin-top: 20px;
