@@ -4,7 +4,8 @@
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       [type]="customField.type"
-      [(ngModel)]="value"/>
+      [(ngModel)]="accumulator"
+      (blur)="onChange()"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'tel'" >
@@ -12,7 +13,8 @@
     <input inputApp
 			restrictInput="tel"
       [type]="customField.type"
-      [(ngModel)]="value"/>
+      [(ngModel)]="accumulator"
+      (blur)="onChange()"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'number'" >
@@ -20,7 +22,8 @@
     <input inputApp
       restrictInput="number"
       [type]="customField.type"
-      [(ngModel)]="value"/>
+      [(ngModel)]="accumulator"
+      (blur)="onChange()"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'decimal'" >
@@ -28,20 +31,23 @@
     <input inputApp
       restrictInput="decimal"
       [type]="customField.type"
-      [(ngModel)]="value"/>
+      [(ngModel)]="accumulator"
+      (blur)="onChange()"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'days'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       [type]="'number'"
-      [(ngModel)]="value"/>
+      [(ngModel)]="accumulator"
+      (blur)="onChange()"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'textarea'">
     <label-app>{{ customField.label || customField.name }}</label-app>
     <textarea inputApp
-      [(ngModel)]="value">
+      [(ngModel)]="accumulator"
+      (blur)="onChange()">
     </textarea>
   </form-field-app>
 
@@ -55,7 +61,8 @@
 			[type]="customField.metadata.target"
 			[canCreate]="customField.metadata.canCreate"
 			[propertyName]="labelName"
-			[(ngModel)]="value"></selector-entity-app>
+      [(ngModel)]="accumulator"
+      (change)="onChange()"></selector-entity-app>
     </form-field-app>
 
     <ng-template #const>
@@ -65,7 +72,8 @@
         [multiple]="customField.multiple"
         [type]="customField.metadata.target"
         [canCreate]="labelName"
-        [(ngModel)]="value"></selector-const-app>
+        [(ngModel)]="accumulator"
+        (change)="onChange()"></selector-const-app>
       </form-field-app>
     </ng-template>
   </ng-container>
@@ -77,7 +85,7 @@
 
         <!-- div class="inputCtnr" *ngSwitchCase="'price'">
 			<editable-price-app
-				[(ngModel)]="value"
+				[(ngModel)]="accumulator"
 				(change)="onChange()"
 				(open)="onOpen()"
 				(close)="onClose()"
@@ -99,7 +107,7 @@
     <label-app>{{ customField.label || customField.name }}</label-app>
     <div class="inputCtnr">
 			<editable-price-matrix-app
-				[(ngModel)]="value"
+				[(ngModel)]="accumulator"
 				(change)="onChange()"></editable-price-matrix-app>
     </div>
   </form-field-app> -->
@@ -107,7 +115,7 @@
   <!-- <form-field-app *ngSwitchCase="'packaging'" [class="flexColumn flexStart">
     <label-app class="packaging">{{ customField.label || customField.name }}</label-app>
       <input-packaging-app
-        [(ngModel)]="value"
+        [(ngModel)]="accumulator"
         (change)="onChange()"
         [customField]="customField"></input-packaging-app>
   </form-field-app> -->

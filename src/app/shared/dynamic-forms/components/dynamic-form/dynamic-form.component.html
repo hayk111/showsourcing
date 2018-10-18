@@ -15,9 +15,11 @@
 
 		<ng-template #inputs>
 			<dynamic-input-app
-				*ngFor="let field of col;trackBy: trackByFn"
+				*ngFor="let field of col; trackBy: trackByFn"
 				[customField]="field"
-				[formControlName]="field.name"></dynamic-input-app>
+				[formControlName]="field.name"
+				(update)="update.emit($event)">
+			</dynamic-input-app>
 		</ng-template>
 
 

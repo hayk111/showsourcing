@@ -15,7 +15,7 @@ export class SupplierInfosComponent extends AutoUnsub {
 	@Input() supplier: Supplier;
 	@Output() update = new EventEmitter<Supplier>();
 	textMode = true;
-
+	form: FormGroup;
 
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' },
@@ -49,4 +49,8 @@ export class SupplierInfosComponent extends AutoUnsub {
 	toggle() {
 		this.textMode = !this.textMode;
 	}
+
+
+
+
 }
