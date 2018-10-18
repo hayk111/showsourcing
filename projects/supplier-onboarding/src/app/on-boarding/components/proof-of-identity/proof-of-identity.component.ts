@@ -28,10 +28,7 @@ export class ProofOfIdentityComponent extends TrackingComponent
   @ViewChild('inpFile')
   inpFile: ElementRef;
 
-  constructor(
-    private router: Router,
-		private onBoardSrv: OnBoardingService
-  ) {
+  constructor(private router: Router, private onBoardSrv: OnBoardingService) {
     super();
 
     // TODO REMOVE FIXED DATA
@@ -40,8 +37,8 @@ export class ProofOfIdentityComponent extends TrackingComponent
       new Attachment('file 2', 534873),
       new Attachment('file 3', 654564),
       new Attachment('file 4', 131321),
-      new Attachment('file 5', 85454),
-    ]
+      new Attachment('file 5', 85454)
+    ];
   }
 
   ngOnInit() {}
@@ -53,7 +50,6 @@ export class ProofOfIdentityComponent extends TrackingComponent
   nextPage() {
     this.router.navigate(['qrcode']);
   }
-
 
   onSubmit() {
     // stuff
@@ -76,13 +72,9 @@ export class ProofOfIdentityComponent extends TrackingComponent
       return;
     }
     this.pendingFiles = [...this.pendingFiles, ...files];
-    this.onBoardSrv.uploadFiles(files).subscribe(x =>
-       {
-         console.log(x);
-       });
-    // for (const file of files) {
-    //   const attachment = new Attachment(file.name, file.size);
-    //   this.listFile.push(attachment);
-    // }
+    this.onBoardSrv.uploadFiles(files).subscribe(filesUploaded => {
+      this.listFile = [...this.listFile, ...filesUploaded];
+      this.pendingFiles = [];
+    });
   }
 }
