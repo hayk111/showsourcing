@@ -9,7 +9,6 @@
 		<p class="label">Product/Service categories</p>
 		<div class="flexBetween">
 			<div class="categories flexWrap">
-				<!-- FOR with categories -->
 				<info-badge-app *ngFor="let category of categories;" [hasDelete]="true" size="thick" type="tag" (delete)="delete(category)">
 					{{ category }}
 				</info-badge-app>
