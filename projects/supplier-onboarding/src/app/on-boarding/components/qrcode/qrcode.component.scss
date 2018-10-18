@@ -1,4 +1,11 @@
+:host {
+	height: 630px;
+	width: 500px;
+}
 
+.container {
+	margin-bottom: 28px;
+}
 .qr-body {
 	display: table;
 	.qr-code-container {

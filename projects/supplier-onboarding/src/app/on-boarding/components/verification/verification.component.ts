@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
+import { Attachment } from '~models';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'verification-app',
@@ -8,12 +9,25 @@ import { FormGroup } from '@angular/forms';
 	styleUrls: ['./verification.component.scss', './../common-boarding.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VerificationComponent implements OnInit {
+export class VerificationComponent extends TrackingComponent implements OnInit {
 
-	form: FormGroup;
+	constructor(private router: Router) {
+		super();
+	}
 
-	constructor(private router: Router) { }
-
+	public data = {
+		'name': 'Bussiness name',
+		'address': '3 rue de Venise, 69100 Villeurbane',
+		'type': 'Manufacturer',
+		'category': ['Watch', 'Jeweery'],	
+		'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		'attachments': [
+			new Attachment('file 1', 15464),
+			new Attachment('file 2', 534873),
+			new Attachment('file 3', 654564),
+			new Attachment('file 4', 131321),
+			new Attachment('file 5', 85454)]
+	}
 	ngOnInit() {
 	}
 

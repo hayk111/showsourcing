@@ -1,21 +1,24 @@
-
-
-.left{
-	text-align: left;
+:host {
+	height: 630px;
+	width: 500px;
 }
 
-.col1{
-	width: 40%;
-}
-
-.col2{
-	width: 50%;
-}
-
-.members :nth-child(1){
-	width: 40%;
-	margin-right:5%;
-}
-.members :nth-child(2){
-	width: 40%;
+.list-review {
+	margin-bottom: 40px;
+	.item-review {
+		.title {
+			font-size: var(--font-size-m);
+			font-weight: 600;
+			color: var(--color-secondary-dark);
+		}
+		.body {
+			font-size: var(--font-size-l);
+			color: var(--color-txt-strong);
+			icon-app {
+				display: inline-block;
+			}
+		}
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
 }
