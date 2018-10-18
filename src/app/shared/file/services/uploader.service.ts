@@ -12,6 +12,7 @@ import { FileUploadRequest } from '~models/file-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { resizeSizeToLimit } from '~shared/utils/file.util';
 import { ImageUrls, log, LogColor } from '~utils';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
@@ -25,30 +26,38 @@ export class UploaderService {
 		private http: HttpClient
 	) { }
 
-	uploadImages(imgs: File[], linkedItem?: any): Observable<any> {
+	uploadImages(imgs: File[], linkedItem?: any, team?: Client): Observable<any> {
 		// MaxSize 1200px
 		const uploads$ = imgs.map(img =>
 			resizeSizeToLimit(img, 1200).pipe(
 				first(),
-				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem))
+				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem, team))
 			)
 		);
 		return forkJoin(uploads$);
 	}
 
-	uploadFiles(files: File[], linkedItem?: any): Observable<any> {
-		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem))).pipe(
+  uploadFiles(files: File[],
+    linkedItem?: any,
+    team?: Client
+  ): Observable<any> {
+		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem, team))).pipe(
 			first());
 	}
 
-	uploadImage(file: File, linkedItem?: any) {
-		return this.uploadFile(file, 'image', linkedItem);
+  uploadImage(
+    file: File,
+    linkedItem?: any,
+    team?: Client
+  ) {
+		return this.uploadFile(file, 'image', linkedItem, team);
 	}
 
 	uploadFile(
 		file: File,
 		type: 'file' | 'image' = 'file',
-		linkedItem?: any
+    linkedItem?: any,
+    team?: Client
 	): Observable<AppImage> {
 		const isImage = type === 'image';
 		const fileName = file.name;
@@ -63,7 +72,7 @@ export class UploaderService {
 			? (request as ImageUploadRequest).image
 			: (request as FileUploadRequest).attachment;
 
-		return service.create(request).pipe(
+		return service.create(request, undefined, team).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ =>
 				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`)

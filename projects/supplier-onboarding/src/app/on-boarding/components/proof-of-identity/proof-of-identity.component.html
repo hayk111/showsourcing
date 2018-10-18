@@ -13,11 +13,13 @@
   <div class="listfile">
     <file-row-app *ngFor="let file of listFile;trackBy: trackByFn"
     [file]="file"
+    [isPending]="false"
     (onDelete)="onDelete($event)"
     >
     </file-row-app>
     <file-row-app *ngFor="let file of pendingFiles;trackBy: trackByFn"
     [file]="getAttachmentFromFile(file)"
+    [isPending]="true"
     (onDelete)="onDelete($event)"
     >
     </file-row-app>
