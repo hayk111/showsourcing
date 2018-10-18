@@ -11,6 +11,7 @@ import {
 	RestrictSpecialInputDirective,
 } from '~shared/inputs/components-directives';
 import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
+import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
 import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
 import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
 import { TextareaAutoGrowsDirective } from '~shared/inputs/components-directives/textarea-auto-grows.directive';
@@ -18,6 +19,7 @@ import { UtilsModule } from '~shared/utils/utils.module';
 
 export const components = [
 	FormFieldComponent,
+	FormFieldControlDirective,
 	InputDirective,
 	CheckboxComponent,
 	RestrictInputDirective,

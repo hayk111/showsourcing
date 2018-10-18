@@ -13,7 +13,7 @@
 		<editable-label-app>
 			{{ value || '-' }}
 		</editable-label-app>
-		<form-field-app>
+		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input
 				#inp
@@ -34,7 +34,7 @@
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }}</editable-label-app>
-		<form-field-app>
+		<form-field-app class="editable">
 			<input inputApp
 				#inp
 				restrictInput="tel"
@@ -55,7 +55,7 @@
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }}</editable-label-app>
-		<form-field-app>
+		<form-field-app class="editable">
 			<input inputApp
 				#inp
 				restrictInput="number"
@@ -76,7 +76,7 @@
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }}</editable-label-app>
-		<form-field-app>
+		<form-field-app class="editable">
 			<input inputApp
 				#inp
 				restrictInput="decimal"
@@ -97,7 +97,7 @@
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app>{{ value || '-' }} days</editable-label-app>
-		<form-field-app>
+		<form-field-app class="editable">
 			<input inputApp
 				#inp
 				autofocus="true"
@@ -118,7 +118,7 @@
 		(opened)="inp.select()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-label-app style="white-space: pre-line">{{ value || '-' }}</editable-label-app>
-		<form-field-app>
+		<form-field-app class="editable">
 			<textarea
 				inputApp
 				#inp

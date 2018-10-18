@@ -13,17 +13,16 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	templateUrl: './dynamic-input.component.html',
 	styleUrls: ['./dynamic-input.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(DynamicInputTextComponent)],
+	providers: [makeAccessorProvider(DynamicInputComponent)],
 	host: {
 		'[class.oneLine]': 'inlineLabel',
 		'[class.twoLine]': '!inlineLabel'
 	}
 })
-export class DynamicInputTextComponent extends AbstractInput implements AfterViewInit {
+export class DynamicInputComponent extends AbstractInput implements AfterViewInit {
 	@Input() customField: CustomField;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: string;
-
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);

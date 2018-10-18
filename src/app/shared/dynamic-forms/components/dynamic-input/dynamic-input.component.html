@@ -1,10 +1,8 @@
 <ng-container [ngSwitch]="customField.type">
 
-  <form-field-app *ngSwitchDefault >
+  <form-field-app *ngSwitchCase="'text'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
-      #inp
-      autofocus="true"
       [type]="customField.type"
       [(ngModel)]="accumulator"/>
   </form-field-app>
@@ -12,9 +10,7 @@
   <form-field-app *ngSwitchCase="'tel'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
-			#inp
 			restrictInput="tel"
-      autofocus="true"
       [type]="customField.type"
       [(ngModel)]="accumulator"/>
   </form-field-app>
@@ -22,9 +18,7 @@
   <form-field-app *ngSwitchCase="'number'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
-      #inp
       restrictInput="number"
-      autofocus="true"
       [type]="customField.type"
       [(ngModel)]="accumulator"/>
   </form-field-app>
@@ -32,9 +26,7 @@
   <form-field-app *ngSwitchCase="'decimal'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
-      #inp
       restrictInput="decimal"
-      autofocus="true"
       [type]="customField.type"
       [(ngModel)]="accumulator"/>
   </form-field-app>
@@ -42,8 +34,6 @@
   <form-field-app *ngSwitchCase="'days'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
-      #inp
-      autofocus="true"
       [type]="'number'"
       [(ngModel)]="accumulator"/>
   </form-field-app>
@@ -51,8 +41,6 @@
   <form-field-app *ngSwitchCase="'textarea'">
     <label-app>{{ customField.label || customField.name }}</label-app>
     <textarea inputApp
-      #inp
-      autofocus="true"
       [(ngModel)]="accumulator">
     </textarea>
   </form-field-app>
@@ -62,6 +50,19 @@
     <!-- span class="txtBtn" (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span -->
     <!-- <radio-app [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" [(ngModel)]="value"></radio-app> -->
   </form-field-app>
+
+  <div *ngSwitchCase="'selector'">
+    <label-app>{{ customField.label || customField.name }}</label-app>
+  </div>
+  <!-- <editable-selector-app
+
+    [customField]="customField"
+    [(ngModel)]="accumulator">
+  </editable-selector-app> -->
+
+  <ng-container *ngSwitchDefault>
+
+  </ng-container>
 
         <!-- div class="inputCtnr" *ngSwitchCase="'price'">
 			<editable-price-app
