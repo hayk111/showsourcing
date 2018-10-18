@@ -12,7 +12,7 @@ pipelines:
           script:
             - npm install
             - npm run build --prod
-            - npm run build supplier-onboarding
+            - npm run build supplier-onboarding --dev
           artifacts:
             - dist/**
           caches:
