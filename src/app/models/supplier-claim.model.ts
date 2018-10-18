@@ -27,9 +27,11 @@ export class SupplierClaim {
 	password?: string;
 	firstName?: string;
 	lastName?: string;
+	__typename?: string;
 
 	constructor() {
 		this.id = uuid();
+		this.__typename = 'SupplierClaim';
 	}
 }
 
