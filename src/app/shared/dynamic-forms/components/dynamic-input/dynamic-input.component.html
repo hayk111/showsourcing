@@ -57,23 +57,23 @@
     <form-field-app *ngIf="customField.metadata.type === 'entity'; else const" >
       <label-app>{{ customField.label || customField.name }}</label-app>
       <selector-entity-app formFieldCtrl
-      [multiple]="customField.multiple"
-			[type]="customField.metadata.target"
-			[canCreate]="customField.metadata.canCreate"
-			[propertyName]="labelName"
-      [(ngModel)]="accumulator"
-      (change)="onChange()"></selector-entity-app>
+        [multiple]="customField.multiple"
+        [type]="customField.metadata.target"
+        [canCreate]="customField.metadata.canCreate"
+        [propertyName]="labelName"
+        [(ngModel)]="accumulator"
+        (change)="onChange()"></selector-entity-app>
     </form-field-app>
 
     <ng-template #const>
       <form-field-app>
         <label-app>{{ customField.label || customField.name }}</label-app>
         <selector-const-app formFieldCtrl
-        [multiple]="customField.multiple"
-        [type]="customField.metadata.target"
-        [canCreate]="labelName"
-        [(ngModel)]="accumulator"
-        (change)="onChange()"></selector-const-app>
+          [multiple]="customField.multiple"
+          [type]="customField.metadata.target"
+          [canCreate]="labelName"
+          [(ngModel)]="accumulator"
+          (change)="onChange()"></selector-const-app>
       </form-field-app>
     </ng-template>
   </ng-container>
