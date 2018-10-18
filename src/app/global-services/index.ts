@@ -20,3 +20,4 @@ export * from '~global-services/show/show.service';
 export * from '~global-services/external-request/external-request.service';
 export * from '~global-services/task/task.service';
 export * from '~global-services/company/company.service';
+export * from '~global-services/supplier-claim/supplier-claim.service';

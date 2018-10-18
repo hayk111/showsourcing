@@ -4,7 +4,7 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { delay, first, map, mergeMap, retryWhen, take, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { ImageUploadRequestService, ProductService, SupplierService } from '~global-services';
+import { ImageUploadRequestService, ProductService, SupplierService, SupplierClaimService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
 import { AppImage, Attachment, ImageUploadRequest } from '~models';
@@ -22,6 +22,7 @@ export class UploaderService {
 		private fileUploadRequestSrv: FileUploadRequestService,
 		private productSrv: ProductService,
 		private supplierSrv: SupplierService,
+		private supplierClaim: SupplierClaimService,
 		private notifSrv: NotificationService,
 		private http: HttpClient
 	) { }
@@ -176,11 +177,13 @@ export class UploaderService {
     if (!linkedItem) {
       return;
     }
-		let srv: GlobalService<any>;
+		let srv: any;
 		if (linkedItem.__typename === 'Supplier') {
 			srv = this.supplierSrv;
 		} else if (linkedItem.__typename === 'Product') {
 			srv = this.productSrv;
+		} else if (linkedItem.__typename === 'SupplierClaim') {
+			srv = this.supplierClaim;
 		}
 
 		if (isImage) {

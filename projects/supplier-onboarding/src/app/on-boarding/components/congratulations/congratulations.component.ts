@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Attachment, SupplierClaim } from '~models';
 
 @Component({
 	selector: 'congratulations-app',
@@ -8,22 +9,14 @@ import { Router } from '@angular/router';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CongratulationsComponent implements OnInit {
+	supplierClaim: SupplierClaim;
 
 	constructor(private router: Router) { }
 
 	ngOnInit() {
 	}
 
-	previousPage() {
-		this.router.navigate(['verification']);
-	}
-
-	nextPage() {
-		this.router.navigate(['welcome']);
-	}
-
 	onSubmit() {
-		// stuff
-		this.nextPage();
+		window.open('https://app.showsourcing.com', '_self');
 	}
 }
