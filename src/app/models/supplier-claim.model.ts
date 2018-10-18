@@ -11,7 +11,7 @@ export class SupplierClaim {
 	city?: string;
 	zipCode?: string;
 	businessType?: string;
-	categories?: string;
+	categories?: string[];
 	description?: string;
 	attachment?: Attachment[];
 	qrCode?: boolean;

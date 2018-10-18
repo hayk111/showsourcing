@@ -17,19 +17,29 @@ ng-select {
 	width: 100%;
 }
 
-icon-app[name="caret-down"] {
+.ng-select.onboarding-big icon-app[name="caret-down"] {
 	padding-left: 315px;
 	font-size: var(--font-size-l);
 	cursor: default;
 }
 
-.ng-select.custom .ng-select-container {
+.ng-select.onboarding-big .ng-select-container {
 	height: 50px;
 	padding: var(--spacing-ms);
 	background: var(--color-secondary-light);
 	font-size: var(--font-size-l);
 	color: var(--color-txt-secondary);
 	font-style: italic;
+}
+
+.ng-select.onboarding-small .ng-select-container {
+	height: 36px;
+	width: 150px;
+	background: var(--color-secondary);
+	border-radius: 2px;
+	padding: 0px var(--spacing-s);
+	font-weight: 600;
+	line-height: 1.54;
 }
 
 .item-selected {

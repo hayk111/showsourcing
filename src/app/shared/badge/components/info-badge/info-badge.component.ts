@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'info-badge-app',
@@ -11,6 +11,7 @@ export class InfoBadgeComponent implements OnInit {
 	@Input() type: 'category' | 'tag' | 'project' = 'category';
 	@Input() size = 'mini';
 	@Input() hasDelete = false;
+	@Output() delete = new EventEmitter<null>();
 	color: string;
 
 	constructor() { }
