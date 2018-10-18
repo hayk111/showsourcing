@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
 	AccountCreationComponent,
@@ -40,6 +41,7 @@ const components = [
 	imports: [
 		CommonModule,
 		SharedModule,
+		FormsModule,
 		SearchBarModule,
 		SearchAutocompleteModule
 	],

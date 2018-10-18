@@ -1,21 +1,26 @@
-<div class="">
+<div class="title-container-boarding flex with-subtitle">
 	<button class="icon light" (click)="previousPage()">
 		<icon-app name="back-arrow"></icon-app>
 	</button>
 	<h1>Proof of idendity</h1>
-	<p>Any document that can prove your are a part of the business.</p>
-	<p>Bussiness card, Bussiness Document, Fair Document, ...</p>
+</div>
+<div class="subtitle">
+<p>Any document that can prove your are a part of the business.</p>
+<p>Bussiness card, Bussiness Document, Fair Document, ...</p>
 </div>
 
-<div class="container flexColumn">
-  <file-row-app *ngFor="let file of listFile;trackBy: trackByFn"
+<div class="listfile-container">
+  <div class="listfile">
+    <file-row-app *ngFor="let file of listFile;trackBy: trackByFn"
     [file]="file"
     (onDelete)="onDelete($event)"
   >
 
   </file-row-app>
+  </div>
 	<button class="boarding secondary-light" (click)="openFileBrowser()">Upload file</button>
 </div>
 
-<input class="boarding" type="submit" value="Next" (click)="onSubmit()"/>
-<input #inpFile multiple="true" type="file" (fileSelect)="add($event)"/>
+
+<input class="boarding" type="submit" value="Next" (click)="onSubmit()">
+<input #inpFile multiple="true" type="file" class="hidden" (fileSelect)="add($event)"/>

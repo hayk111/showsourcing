@@ -1,21 +1,35 @@
-
-
-.left{
-	text-align: left;
-}
-
-.col1{
-	width: 40%;
-}
-
-.col2{
-	width: 50%;
-}
-
-.members :nth-child(1){
-	width: 40%;
-	margin-right:5%;
-}
-.members :nth-child(2){
-	width: 40%;
+.row-container {
+	padding-left: 8px; 
+	.file-container {
+		margin-left: 20px;
+		padding: 10px 8px;
+		border-bottom: solid 1px var(--color-divider);
+	}
+	.icon-container {
+    margin-top: 20px;
+		display: inline-block;
+	}
+	.info-container {
+		display: inline-block;
+		.file-name {
+			font-size: var(--font-size-m);
+			letter-spacing: -0.3px;
+			color: var(--color-txt-strong);
+		}
+		.file-size {
+			font-size: var(--font-size-s);
+			color: var(--color-txt-primary);
+		}
+	}
+	.left {
+		display: inline-block;
+		float: left;
+	}
+	.right {
+    margin-top: 10px;
+		float: right;
+	}
+	&:hover {
+		background-color: var(--color-list-hover);
+	}
 }

@@ -1,6 +1,6 @@
 
 <div class="container">
-  <div class="items list ">
+  <div class=" list " [ngClass]="isVeritical ? '' : 'items'">
     <div *ngFor="let item of items; index as i;trackBy: trackByFn" class="item list__item">
       <input type="radio" class="radio-btn" [name]="_id" [id]="getId(i)"
              [value]="item.value" [(ngModel)]="value"/>

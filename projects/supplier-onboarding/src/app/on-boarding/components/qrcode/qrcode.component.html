@@ -1,16 +1,23 @@
-<div class="title-container-boarding flex">
+<div class="title-container-boarding flex with-subtitle">
 	<button class="icon light" (click)="previousPage()">
 		<icon-app name="back-arrow"></icon-app>
 	</button>
 	<h1>Do you want your personnal QR Code?</h1>
+</div>
+<div class="subtitle">
 	<p>With this QR Code, buyers can quickly get your company details while visiting a trade show.</p>
 </div>
 
 <form [formGroup]="form">
-  <div class="qr-code-container"></div>
-  <div class="checkbox-container">
-    <radio-app [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"></radio-app>
-  </div>
+	<div class="qr-body">
+		<div class="qr-code-container">
+			<img src="/assets/img/qr-code-logo.svg" class="qr-code-logo" />
+		</div>
+		<div class="checkbox-container">
+			<radio-app [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" [(ngModel)]="selectedValue"
+			 [isVeritical]="true"></radio-app>
+		</div>
+	</div>
 	<div class="left">
 		<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
 	</div>

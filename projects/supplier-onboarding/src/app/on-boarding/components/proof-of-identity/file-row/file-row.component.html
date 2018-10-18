@@ -1,8 +1,14 @@
 <div class="row-container">
-	<div class="icon-container"></div>
-	<div class="info-container">
-		<div class="file-name">{{file.fileName}}</div>
-		<div class="file-size">{{file.size | fileSize}}</div>
+	<div class="icon-container left">
+		<icon-app name="file"></icon-app>
 	</div>
-	<div class="icon-container right" (click)="onDeleteFunc()"></div>
+	<div class="file-container">
+		<div class="info-container">
+			<div class="file-name">{{file.fileName}}</div>
+			<div class="file-size">{{file.size | fileSize}}</div>
+		</div>
+		<div class="icon-container right" (click)="onDeleteFunc()">
+			<icon-app name="close"></icon-app>
+		</div>
+	</div>
 </div>
