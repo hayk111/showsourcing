@@ -40,4 +40,8 @@ export class DynamicInputComponent extends AbstractInput implements AfterViewIni
 		this.onChangeFn(this.accumulator);
 		this.update.emit({ [this.customField.name]: this.accumulator });
 	}
+
+	get labelName() {
+		return this.customField.metadata.labelName || 'name';
+	}
 }

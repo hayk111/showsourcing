@@ -33,8 +33,6 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	@Input() itemName = 'Item';
 	// if we use a custom style or not, specified on the class of selector-app
 	@Input() customStyle: string;
-	// current item, to show on the selector bar
-	@Input() currentItem;
 	// events that emits the id of the entity
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
@@ -52,14 +50,13 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 		this.setChoices();
 	}
 
-
 	/** opens the selector, is used when we want to open it programatically */
 	open() {
 		if (this.selector)
 			this.selector.open();
 	}
 
-	onChange() {
+	onChange(change) {
 		this.onChangeFn(this.value);
 		this.change.emit(this.value);
 	}

@@ -57,6 +57,7 @@
     <form-field-app *ngIf="customField.metadata.type === 'entity'; else const" >
       <label-app>{{ customField.label || customField.name }}</label-app>
       <selector-entity-app formFieldCtrl
+        itemName="sdkfjd fskfj"
         [multiple]="customField.multiple"
         [type]="customField.metadata.target"
         [canCreate]="customField.metadata.canCreate"
@@ -71,7 +72,7 @@
         <selector-const-app formFieldCtrl
           [multiple]="customField.multiple"
           [type]="customField.metadata.target"
-          [canCreate]="labelName"
+          [canCreate]="customField.metadata.canCreate"
           [(ngModel)]="accumulator"
           (change)="onChange()"></selector-const-app>
       </form-field-app>
