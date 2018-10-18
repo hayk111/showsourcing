@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { FileModule } from '~shared/file';
 
 import {
 	AccountCreationComponent,
@@ -34,7 +35,7 @@ const components = [
 	ProofOfIdentityComponent,
 	QRCodeComponent,
 	VerificationComponent,
-	FileRowComponent
+  FileRowComponent
 ];
 
 @NgModule({
@@ -43,6 +44,7 @@ const components = [
 		SharedModule,
 		FormsModule,
 		SearchBarModule,
+    FileModule,
 		SearchAutocompleteModule
 	],
 	declarations: components,

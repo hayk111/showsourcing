@@ -15,7 +15,8 @@ export enum FileType {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileRowComponent implements OnInit {
-	@Input() fileType = FileType.file;
+  @Input() fileType = FileType.file;
+
 	@Input() file?: Attachment;
 
 	@Output() onDelete = new EventEmitter<Attachment>();
