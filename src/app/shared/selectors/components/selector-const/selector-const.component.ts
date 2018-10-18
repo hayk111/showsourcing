@@ -87,7 +87,7 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 			case 'lengthUnit': this.choices = this.srv.getLengthUnits(); break;
 			case 'weightUnit': this.choices = this.srv.getWeigthUnits(); break;
 			case 'businessType': this.choices = this.srv.getBusinessTypes(); break;
-			case 'categories': this.choices = this.srv.getCategoriesBoarding(); break;
+			case 'category': this.choices = this.srv.getCategoriesBoarding(); break;
 			default: throw Error('Unsupported type');
 		}
 	}

@@ -10,9 +10,9 @@
 		<div class="flexBetween">
 			<div class="categories flexWrap">
 				<!-- FOR with categories -->
-				<info-badge-app [hasDelete]="true" size="thick" type="tag">Tires</info-badge-app>
-				<info-badge-app [hasDelete]="true" size="thick" type="tag">Car Accessories</info-badge-app>
-				<info-badge-app [hasDelete]="true" size="thick" type="tag">Car Accessories</info-badge-app>
+				<info-badge-app *ngFor="let category of categories;" [hasDelete]="true" size="thick" type="tag" (delete)="delete(category)">
+					{{ category }}
+				</info-badge-app>
 			</div>
 			<div class="select-categories">
 				<selector-const-app

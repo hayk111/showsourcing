@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { OnBoardingService } from '../../services';
 
 @Component({
 	selector: 'category-app',
@@ -9,9 +10,27 @@ import { Router } from '@angular/router';
 })
 export class CategoryComponent implements OnInit {
 
-	constructor(private router: Router) { }
+	private categories: string[];
+
+	constructor(
+		private router: Router,
+		private onBoardSrv: OnBoardingService) { }
 
 	ngOnInit() {
+		this.categories = this.onBoardSrv.getClaim().categories || [];
+	}
+
+	change(category) {
+		if (!this.categories)
+			this.categories.push(category);
+		else if (!this.categories.includes(category)) {
+			this.categories.push(category);
+			this.onBoardSrv.updateClaim({ categories: this.categories });
+		}
+	}
+
+	delete(category: string) {
+		this.categories = this.categories.filter(cat => cat !== category);
 	}
 
 	previousPage() {
