@@ -4,16 +4,19 @@
 		icon-app {
 			font-size: 80px;
 			color: var(--color-success);
+			i {
+				cursor: default;
+			}
 		}
 	}
 	.title {
-		margin-top: 20px;
+		margin-top: 15px;
 		font-size: var(--font-size-xxxl);
 		font-weight: 600;
 		color: var(--color-txt-strong);
 	}
 	.text-body {
-		margin-top: 20px;
+		margin-top: 15px;
 		font-size: var(--font-size-xl);
 		color: var(--color-txt-primary);
 	}
