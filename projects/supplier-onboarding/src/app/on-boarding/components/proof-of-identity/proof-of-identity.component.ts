@@ -32,13 +32,13 @@ export class ProofOfIdentityComponent extends TrackingComponent
     super();
 
     // TODO REMOVE FIXED DATA
-    this.listFile = [
-      new Attachment('file 1', 15464),
-      new Attachment('file 2', 534873),
-      new Attachment('file 3', 654564),
-      new Attachment('file 4', 131321),
-      new Attachment('file 5', 85454)
-    ];
+    // this.listFile = [
+    //   new Attachment('file 1', 15464),
+    //   new Attachment('file 2', 534873),
+    //   new Attachment('file 3', 654564),
+    //   new Attachment('file 4', 131321),
+    //   new Attachment('file 5', 85454)
+    // ];
   }
 
   ngOnInit() {}

@@ -10,7 +10,6 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VerificationComponent extends TrackingComponent implements OnInit {
-
 	constructor(private router: Router) {
 		super();
 	}
@@ -19,7 +18,7 @@ export class VerificationComponent extends TrackingComponent implements OnInit {
 		'name': 'Bussiness name',
 		'address': '3 rue de Venise, 69100 Villeurbane',
 		'type': 'Manufacturer',
-		'category': ['Watch', 'Jeweery'],	
+		'category': ['Watch', 'Jeweery'],
 		'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 		'attachments': [
 			new Attachment('file 1', 15464),
