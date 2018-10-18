@@ -8,7 +8,8 @@
 			<div class="file-size">{{file.size | fileSize}}</div>
 		</div>
 		<div class="icon-container right" (click)="onDeleteFunc()">
-			<icon-app name="close"></icon-app>
+      <icon-app *ngIf="!isPending" name="close"></icon-app>
+      <span *ngIf="isPending">...</span>
 		</div>
 	</div>
 </div>

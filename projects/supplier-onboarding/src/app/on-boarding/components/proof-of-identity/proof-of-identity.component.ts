@@ -76,7 +76,10 @@ export class ProofOfIdentityComponent extends TrackingComponent
       return;
     }
     this.pendingFiles = [...this.pendingFiles, ...files];
-    this.onBoardSrv.uploadFiles(files);
+    this.onBoardSrv.uploadFiles(files).subscribe(x =>
+       {
+         console.log(x);
+       });
     // for (const file of files) {
     //   const attachment = new Attachment(file.name, file.size);
     //   this.listFile.push(attachment);

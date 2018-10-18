@@ -17,7 +17,9 @@ export enum FileType {
 export class FileRowComponent implements OnInit {
   @Input() fileType = FileType.file;
 
-	@Input() file?: Attachment;
+  @Input() file?: Attachment;
+
+  @Input() isPending = false;
 
 	@Output() onDelete = new EventEmitter<Attachment>();
 
