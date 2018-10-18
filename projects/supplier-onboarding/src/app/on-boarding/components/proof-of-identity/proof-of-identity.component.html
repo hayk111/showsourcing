@@ -9,13 +9,15 @@
 <p>Bussiness card, Bussiness Document, Fair Document, ...</p>
 </div>
 
-<div class="">
-  <file-row-app *ngFor="let file of listFile;trackBy: trackByFn"
+<div class="listfile-container">
+  <div class="listfile">
+    <file-row-app *ngFor="let file of listFile;trackBy: trackByFn"
     [file]="file"
     (onDelete)="onDelete($event)"
   >
 
   </file-row-app>
+  </div>
 	<button class="boarding secondary-light" (click)="openFileBrowser()">Upload file</button>
 </div>
 

@@ -22,10 +22,15 @@
 
 .with-subtitle {
 	margin-bottom: 20px;
+	color: var(--txt-primary);
+	font-family: SourceSansPro;
 }
 
 .subtitle {
-  margin-bottom: 40px;
+	margin-bottom: 40px;
+	p {
+		font-size: var(--font-size-xl);
+	}
 }
 
 
