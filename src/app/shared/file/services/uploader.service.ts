@@ -75,7 +75,7 @@ export class UploaderService {
 		return service.create(request, undefined, team).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ =>
-				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`)
+				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`, undefined, team)
 			),
 			// when ready we make the upload
 			mergeMap(info => this.uploadFileToAws(info, file, isImage)),
@@ -83,7 +83,7 @@ export class UploaderService {
 			// so we need to wait for it to be ready.
 			mergeMap(_ => this.emitWhenFileReady(request) as any),
 			// putting the request status to uploaded
-			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' })),
+			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' }, undefined, team)),
 			// link item
 			tap(_file => this.linkItem(returned, linkedItem, isImage)),
 			// add notification
@@ -173,6 +173,9 @@ export class UploaderService {
 
 	/** Link uploaded file to its entity */
 	private linkItem(returned, linkedItem: any, isImage: boolean) {
+    if (!linkedItem) {
+      return;
+    }
 		let srv: GlobalService<any>;
 		if (linkedItem.__typename === 'Supplier') {
 			srv = this.supplierSrv;
