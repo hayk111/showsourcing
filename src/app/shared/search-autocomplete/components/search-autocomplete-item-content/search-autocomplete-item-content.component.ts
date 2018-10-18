@@ -42,7 +42,8 @@ export class SearchAutocompleteItemContentComponent {
 		} else if (this.link) {
 			this.itemDisplayed.emit();
 			this.router.navigate([this.link]);
-		}
+		} else
+			this.itemDisplayed.emit();
 	}
 
 	toggleCheck() {
