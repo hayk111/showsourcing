@@ -33,6 +33,7 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.render.setStyle(this.searchBar.inputRef.nativeElement, 'font-size', 'var(--font-size-l)');
+		this.searchBar.value = this.onboardingSrv.getClaim().name || '';
 	}
 
 	triggerSearch(search: string) {
@@ -50,8 +51,9 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 			'Supplier';
 	}
 
-	itemSelected(supplier: Supplier) {
-		// update with the service on top
+	itemSelected(supplier) {
+		this.onboardingSrv.updateClaim({ globalSupplierId: supplier.id, name: supplier.name, country: supplier.countryCode }).subscribe();
+		this.searchBar.value = supplier.name || '';
 	}
 
 	nextPage() {

@@ -13,7 +13,7 @@ import { OnBoardingService } from '../../services';
 })
 export class QRCodeComponent extends AutoUnsub implements OnInit {
 
-	public qrCode: boolean;
+	qrCode: boolean;
 
 	constructor(
 		private router: Router,
