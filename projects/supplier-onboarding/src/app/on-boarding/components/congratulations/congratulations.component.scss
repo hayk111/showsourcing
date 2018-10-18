@@ -1,21 +1,30 @@
-
-
-.left{
-	text-align: left;
-}
-
-.col1{
-	width: 40%;
-}
-
-.col2{
-	width: 50%;
-}
-
-.members :nth-child(1){
-	width: 40%;
-	margin-right:5%;
-}
-.members :nth-child(2){
-	width: 40%;
+.container {
+	text-align: center;
+	.icon-container {
+		icon-app {
+			font-size: 80px;
+			color: var(--color-success);
+		}
+	}
+	.title {
+		margin-top: 20px;
+		font-size: var(--font-size-xxxl);
+		font-weight: 600;
+		color: var(--color-txt-strong);
+	}
+	.text-body {
+		margin-top: 20px;
+		font-size: var(--font-size-xl);
+		color: var(--color-txt-primary);
+	}
+	.button-container {
+		margin-top: 40px;
+		button {
+			font-size: var(--font-size-m);
+			font-weight: 600;
+			line-height: 1.43;
+			height: 40px;
+    	width: 210px;
+		}
+	}
 }
