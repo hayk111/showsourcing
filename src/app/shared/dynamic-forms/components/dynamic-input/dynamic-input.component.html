@@ -4,7 +4,7 @@
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       [type]="customField.type"
-      [(ngModel)]="accumulator"/>
+      [(ngModel)]="value"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'tel'" >
@@ -12,7 +12,7 @@
     <input inputApp
 			restrictInput="tel"
       [type]="customField.type"
-      [(ngModel)]="accumulator"/>
+      [(ngModel)]="value"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'number'" >
@@ -20,7 +20,7 @@
     <input inputApp
       restrictInput="number"
       [type]="customField.type"
-      [(ngModel)]="accumulator"/>
+      [(ngModel)]="value"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'decimal'" >
@@ -28,37 +28,48 @@
     <input inputApp
       restrictInput="decimal"
       [type]="customField.type"
-      [(ngModel)]="accumulator"/>
+      [(ngModel)]="value"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'days'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       [type]="'number'"
-      [(ngModel)]="accumulator"/>
+      [(ngModel)]="value"/>
   </form-field-app>
 
   <form-field-app *ngSwitchCase="'textarea'">
     <label-app>{{ customField.label || customField.name }}</label-app>
     <textarea inputApp
-      [(ngModel)]="accumulator">
+      [(ngModel)]="value">
     </textarea>
   </form-field-app>
 
-  <form-field-app *ngSwitchCase="'yesNo'" >
-    <label-app>{{ customField.label || customField.name }}</label-app>
-    <!-- span class="txtBtn" (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span -->
-    <!-- <radio-app [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" [(ngModel)]="value"></radio-app> -->
-  </form-field-app>
 
-  <div *ngSwitchCase="'selector'">
-    <label-app>{{ customField.label || customField.name }}</label-app>
-  </div>
-  <!-- <editable-selector-app
+  <ng-container *ngSwitchCase="'selector'">
 
-    [customField]="customField"
-    [(ngModel)]="accumulator">
-  </editable-selector-app> -->
+    <form-field-app *ngIf="customField.metadata.type === 'entity'; else const" >
+      <label-app>{{ customField.label || customField.name }}</label-app>
+      <selector-entity-app formFieldCtrl
+      [multiple]="customField.multiple"
+			[type]="customField.metadata.target"
+			[canCreate]="customField.metadata.canCreate"
+			[propertyName]="labelName"
+			[(ngModel)]="value"></selector-entity-app>
+    </form-field-app>
+
+    <ng-template #const>
+      <form-field-app>
+        <label-app>{{ customField.label || customField.name }}</label-app>
+        <selector-const-app formFieldCtrl
+        [multiple]="customField.multiple"
+        [type]="customField.metadata.target"
+        [canCreate]="labelName"
+        [(ngModel)]="value"></selector-const-app>
+      </form-field-app>
+    </ng-template>
+  </ng-container>
+
 
   <ng-container *ngSwitchDefault>
 

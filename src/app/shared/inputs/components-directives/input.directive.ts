@@ -26,16 +26,16 @@ const supportedTypes = new Set([
 	host: {
 		'(blur)': 'focussed = false',
 		'(focus)': 'focussed = true',
-	}
+	},
+	providers: [{ provide: FormFieldControlDirective, useExisting: InputDirective }],
+
 })
 export class InputDirective extends FormFieldControlDirective {
 	protected static NEXT_UID = 0;
 
-
 	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) {
 		super(control);
 	}
-
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()

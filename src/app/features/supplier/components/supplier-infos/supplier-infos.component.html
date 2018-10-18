@@ -1,25 +1,19 @@
-<card-app>
+<card-app padding="ms">
 
-	<h2 i18n="header 2|Showing supplier information@@supplierInfos_information">Supplier Information</h2>
+	<div class="pd-ms">
+		<h2 i18n="header 2|Showing supplier information@@supplierInfos_information">Supplier Information</h2>
 
-	<dynamic-form-app
-		[inlineLabel]="false"
-		[fields]="customFields"
-		[value]="supplier"
-		(update)="update.emit($event)"
-		[textMode]="false">
-	</dynamic-form-app>
+		<dynamic-form-app
+			[inlineLabel]="false"
+			[fields]="customFields"
+			[value]="supplier"
+			(update)="update.emit($event)"
+			[textMode]="textMode">
+		</dynamic-form-app>
+	</div>
 
-
-	<!-- user / created by -->
-	<!-- <cell-two-row-app title="Created By">
-
-		<editable-field-app
-			class="user"
-			[entity]="supplier"
-			[value]="supplier.createdByUserId"
-			type="teamMember"
-			(update)="onUpdate($event, 'createdByUserId')"></editable-field-app>
-	</cell-two-row-app> -->
+	<card-footer-app>
+		<button (click)="toggle()">{{ textMode ? 'Edit': 'Save' }}</button>
+	</card-footer-app>
 
 </card-app>

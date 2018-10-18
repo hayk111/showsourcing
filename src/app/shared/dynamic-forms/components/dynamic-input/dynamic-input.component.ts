@@ -14,32 +14,21 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	styleUrls: ['./dynamic-input.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(DynamicInputComponent)],
-	host: {
-		'[class.oneLine]': 'inlineLabel',
-		'[class.twoLine]': '!inlineLabel'
-	}
 })
-export class DynamicInputComponent extends AbstractInput implements AfterViewInit {
+export class DynamicInputComponent extends AbstractInput {
 	@Input() customField: CustomField;
-	/** accumulates what the user types in input and if he doesn't press cancel we save it */
-	accumulator: string;
-
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
 	}
 
-	ngAfterViewInit() {
-		this.accumulator = this.value;
-	}
-
-	/** saves the value because an user might cancel */
-	accumulate(value: any) {
-		this.accumulator = value;
-	}
 
 	/** when the value changes */
 	onChange() {
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
+	}
+
+	get labelName() {
+		return this.customField.metadata.labelName || 'name';
 	}
 }
