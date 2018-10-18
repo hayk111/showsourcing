@@ -31,7 +31,7 @@
 	<form-field-app class="boarding">
 		<label-app>Desired Password</label-app>
 		<input inputApp type="password" placeholder="Type your password here" formControlName="password" minlength="8"/>
-		<error-app *ngIf="group.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
+		<error-app *ngIf="form.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
 	</form-field-app>
 
 	<div class="left">

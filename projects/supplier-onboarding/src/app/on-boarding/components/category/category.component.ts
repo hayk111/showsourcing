@@ -10,7 +10,7 @@ import { OnBoardingService } from '../../services';
 })
 export class CategoryComponent implements OnInit {
 
-	private categories: string[];
+	categories: string[];
 
 	constructor(
 		private router: Router,

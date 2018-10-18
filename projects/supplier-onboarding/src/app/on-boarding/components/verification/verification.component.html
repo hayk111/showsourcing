@@ -25,7 +25,7 @@
 	<div class="item-review">
 		<div class="title">Bussiness Category</div>
 		<div class="body">
-			<span  *ngFor="let cat of supplierClaim?.categories; trackBy: TrackByFn; last as last">
+			<span  *ngFor="let cat of supplierClaim?.categories; trackBy: trackByFn; last as last">
 					{{cat}}
 					<span *ngIf="!last">,</span>
 			</span>
@@ -38,7 +38,7 @@
 	<div class="item-review">
 		<div class="title">Attached file</div>
 		<div class="body">
-				<div  *ngFor="let file of supplierClaim?.attachment; trackBy: TrackByFn">
+				<div  *ngFor="let file of supplierClaim?.attachment; trackBy: trackByFn">
 						<icon-app name="file"></icon-app>
 						{{file.fileName}}
 				</div>

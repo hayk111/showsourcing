@@ -12,7 +12,7 @@ import { OnBoardingService } from '../../services';
 })
 export class VerificationComponent extends TrackingComponent implements OnInit {
 
-	private supplierClaim: SupplierClaim;
+	supplierClaim: SupplierClaim;
 
 	constructor(
 		private router: Router,
