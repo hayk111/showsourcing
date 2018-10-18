@@ -5,6 +5,7 @@ import { InputsModule } from '~shared/inputs';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
+import { FileModule } from '~shared/file';
 
 import {
 	AccountCreationComponent,
@@ -35,7 +36,7 @@ const components = [
 	ProofOfIdentityComponent,
 	QRCodeComponent,
 	VerificationComponent,
-	FileRowComponent
+  FileRowComponent
 ];
 
 @NgModule({
@@ -44,6 +45,7 @@ const components = [
 		SharedModule,
 		FormsModule,
 		SearchBarModule,
+    FileModule,
 		SearchAutocompleteModule,
 		InputsModule
 	],
