@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
-import { AbstractInput } from '~shared/inputs';
+import { AutoUnsub } from '~utils';
+
+import { OnBoardingService } from '../../services';
 
 
 @Component({
@@ -10,12 +11,21 @@ import { AbstractInput } from '~shared/inputs';
 	styleUrls: ['./qrcode.component.scss', './../common-boarding.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QRCodeComponent implements OnInit {
+export class QRCodeComponent extends AutoUnsub implements OnInit {
 
-	public selectedValue: true;
-	constructor(private router: Router) { }
+	public qrCode: boolean;
+
+	constructor(
+		private router: Router,
+		private onBoardSrv: OnBoardingService) { super(); }
 
 	ngOnInit() {
+		this.qrCode = this.onBoardSrv.getClaim().qrCode;
+	}
+
+	updateClaim(qrCode: boolean) {
+		this.qrCode = qrCode;
+		this.onBoardSrv.updateClaim({ qrCode }).subscribe();
 	}
 
 	previousPage() {

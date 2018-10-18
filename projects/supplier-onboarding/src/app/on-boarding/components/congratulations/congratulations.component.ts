@@ -19,6 +19,7 @@ export class CongratulationsComponent implements OnInit {
 	}
 
 	nextPage() {
+		this.router.navigate(['welcome']);
 	}
 
 	onSubmit() {

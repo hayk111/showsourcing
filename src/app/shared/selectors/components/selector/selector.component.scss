@@ -17,7 +17,7 @@ ng-select {
 	width: 100%;
 }
 
-.ng-select.onboarding-big icon-app[name="caret-down"] {
+.ng-select.onboarding-big .selector-select{
 	padding-left: 315px;
 	font-size: var(--font-size-l);
 	cursor: default;
@@ -38,8 +38,10 @@ ng-select {
 	background: var(--color-secondary);
 	border-radius: 2px;
 	padding: 0px var(--spacing-s);
+	padding-right: var(--spacing-ms);
 	font-weight: 600;
 	line-height: 1.54;
+	color: var(--color-txt-primary);
 }
 
 .item-selected {

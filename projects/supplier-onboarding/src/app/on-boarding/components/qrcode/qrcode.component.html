@@ -8,17 +8,15 @@
 	<p>With this QR Code, buyers can quickly get your company details while visiting a trade show.</p>
 </div>
 
-<form [formGroup]="form">
-	<div class="qr-body">
-		<div class="qr-code-container">
-			<img src="/assets/img/qr-code-logo.svg" class="qr-code-logo" />
-		</div>
-		<div class="checkbox-container">
-			<radio-app [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" [(ngModel)]="selectedValue"
-			 [isVeritical]="true"></radio-app>
-		</div>
+<div class="qr-body">
+	<div class="qr-code-container">
+		<img src="/assets/img/qr-code-logo.svg" class="qr-code-logo" />
 	</div>
-	<div class="left">
-		<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
+	<div class="checkbox-container">
+			<radio-app inputApp [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
+				[isVeritical]="true" (update)="updateClaim($event)"></radio-app>
 	</div>
-</form>
+</div>
+<div class="left">
+	<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
+</div>

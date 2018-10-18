@@ -1,23 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 import { IconsModule } from '~shared/icons';
-
-import { UtilsModule } from '~shared/utils/utils.module';
 import {
 	CheckboxComponent,
 	FormFieldComponent,
 	InputDirective,
+	RadioComponent,
 	RestrictInputDirective,
 	RestrictSpecialInputDirective,
-	RadioComponent
 } from '~shared/inputs/components-directives';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
-import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
 import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
+import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
 import { TextareaAutoGrowsDirective } from '~shared/inputs/components-directives/textarea-auto-grows.directive';
+import { UtilsModule } from '~shared/utils/utils.module';
 
 export const components = [
 	FormFieldComponent,

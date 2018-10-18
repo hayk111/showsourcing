@@ -3,8 +3,12 @@
 	width: 500px;
 }
 
+.subtitle {
+	padding-bottom: 30px;
+}
+
 .list-review {
-	margin-bottom: 40px;
+	margin-bottom: 70px;
 	.item-review {
 		.title {
 			font-size: var(--font-size-m);
@@ -23,7 +27,6 @@
 				margin-left: 10px;
 			}
 		}
-		margin-top: 20px;
-		margin-bottom: 20px;
+		margin-bottom: var(--spacing-l);
 	}
 }

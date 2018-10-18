@@ -21,16 +21,22 @@ export class CategoryComponent implements OnInit {
 	}
 
 	change(category) {
-		if (!this.categories)
+		if (!this.categories) {
 			this.categories.push(category);
-		else if (!this.categories.includes(category)) {
+			this.updateClaim();
+		} else if (!this.categories.includes(category)) {
 			this.categories.push(category);
-			this.onBoardSrv.updateClaim({ categories: this.categories });
+			this.updateClaim();
 		}
 	}
 
 	delete(category: string) {
 		this.categories = this.categories.filter(cat => cat !== category);
+		this.updateClaim();
+	}
+
+	updateClaim() {
+		this.onBoardSrv.updateClaim({ categories: this.categories }).subscribe();
 	}
 
 	previousPage() {
