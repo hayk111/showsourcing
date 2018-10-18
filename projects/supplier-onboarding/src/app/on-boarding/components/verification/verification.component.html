@@ -8,45 +8,43 @@
 	<p>Review your data and send!</p>
 </div>
 
-<form [formGroup]="form">
 
-		<div class="list-review">
-				<div class="item-review">
-						<div class="title">Bussiness Name</div>
-						<div class="body">{{data.name}}</div>
-				</div>
-				<div class="item-review">
-						<div class="title">Bussiness Address</div>
-						<div class="body">{{data.address}}</div>
-				</div>
-				<div class="item-review">
-						<div class="title">Bussiness Type</div>
-						<div class="body">{{data.type}}</div>
-				</div>
-				<div class="item-review">
-						<div class="title">Bussiness Category</div>
-						<div class="body">
-							<span  *ngFor="let cat of data.category; trackBy: TrackByFn; index as i">
-									{{cat}}
-									<span *ngIf="i !== data.category.length - 1">,</span>
-							</span>
-						</div>
-				</div>
-				<div class="item-review">
-						<div class="title">Bussiness Description</div>
-						<div class="body">{{data.description}}</div>
-				</div>
-				<div class="item-review">
-						<div class="title">Attached file</div>
-						<div class="body">
-								<div  *ngFor="let file of data.attachments; trackBy: TrackByFn; index as i">
-										<icon-app name="file"></icon-app>
-										{{file.fileName}}
-								</div>
-						</div>
-				</div>
-			</div>
-	<div class="left">
-		<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
+<div class="list-review">
+	<div class="item-review">
+			<div class="title">Bussiness Name</div>
+			<div class="body">{{supplierClaim?.name || '-'}}</div>
 	</div>
-</form>
+	<div class="item-review">
+			<div class="title">Bussiness Address</div>
+			<div class="body">{{supplierClaim?.street || '-'}}</div>
+	</div>
+	<div class="item-review">
+			<div class="title">Bussiness Type</div>
+			<div class="body">{{supplierClaim?.businessType || '-'}}</div>
+	</div>
+	<div class="item-review">
+		<div class="title">Bussiness Category</div>
+		<div class="body">
+			<span  *ngFor="let cat of supplierClaim?.categories; trackBy: trackByFn; last as last">
+					{{cat}}
+					<span *ngIf="!last">,</span>
+			</span>
+		</div>
+	</div>
+	<div class="item-review">
+		<div class="title">Bussiness Description</div>
+		<div class="body">{{supplierClaim?.description || '-'}}</div>
+	</div>
+	<div class="item-review">
+		<div class="title">Attached file</div>
+		<div class="body">
+				<div  *ngFor="let file of supplierClaim?.attachment; trackBy: trackByFn">
+						<icon-app name="file"></icon-app>
+						{{file.fileName}}
+				</div>
+		</div>
+	</div>
+</div>
+<div class="left">
+	<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
+</div>

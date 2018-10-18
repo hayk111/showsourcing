@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputsModule } from '~shared/inputs';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
 	AccountCreationComponent,
@@ -13,12 +14,12 @@ import {
 	CategoryComponent,
 	CongratulationsComponent,
 	ContactDetailsComponent,
+	FileRowComponent,
 	FindBusinessComponent,
 	ProofOfIdentityComponent,
 	QRCodeComponent,
 	VerificationComponent,
 	WelcomeComponent,
-	FileRowComponent,
 } from './components';
 
 const components = [
@@ -43,7 +44,8 @@ const components = [
 		SharedModule,
 		FormsModule,
 		SearchBarModule,
-		SearchAutocompleteModule
+		SearchAutocompleteModule,
+		InputsModule
 	],
 	declarations: components,
 	exports: components

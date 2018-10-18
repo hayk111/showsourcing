@@ -28,7 +28,7 @@ export class WelcomeComponent implements OnInit {
 
 	onSuccess() {
 		this.pending = false;
-		this.router.navigate(['find-business']);
+		this.router.navigate(['verification']);
 	}
 
 	onError(e: Error) {

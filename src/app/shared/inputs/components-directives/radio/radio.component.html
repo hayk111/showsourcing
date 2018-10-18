@@ -3,7 +3,7 @@
   <div class=" list " [ngClass]="isVeritical ? '' : 'items'">
     <div *ngFor="let item of items; index as i;trackBy: trackByFn" class="item list__item">
       <input type="radio" class="radio-btn" [name]="_id" [id]="getId(i)"
-             [value]="item.value" [(ngModel)]="value"/>
+             [value]="item.value" [(ngModel)]="value" (click)="update.emit(item.value)"/>
       <label class="label" [for]="getId(i)">{{item.name}}<span class="dot"></span></label>
     </div>
   </div>
