@@ -47,7 +47,7 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 
 	createSupplier() {
 		const name = this.searchBar.inputRef.nativeElement.value;
-		this.onboardingSrv.createSupplier(name);
+		this.onboardingSrv.updateClaim({ name });
 		this.unfocusSearch(name || '');
 	}
 
@@ -58,7 +58,19 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 	}
 
 	itemSelected(supplier) {
-		this.onboardingSrv.updateClaim({ globalSupplierId: supplier.id, name: supplier.name, country: supplier.countryCode }).subscribe();
+		this.onboardingSrv
+			.updateClaim({
+				globalSupplierId: supplier.id,
+				name: supplier.name,
+				country: supplier.countryCode,
+				street: supplier.addressFull,
+				website: supplier.website,
+				city: supplier.city,
+				accountEmail: supplier.emailAddress,
+				contactEmail: supplier.emailAddress,
+				phone: supplier.phone,
+				description: supplier.description
+			}).subscribe();
 		this.unfocusSearch(supplier.name || '');
 	}
 
