@@ -16,7 +16,7 @@ export class ImageComponent {
 	}
 	@Input() set image(value: any) {
 		this._image = value;
-	};
+	}
 	@Input() size: string;
 	// type of the image (supplier, product, user...)
 	// so we can have an appropriate default image
@@ -31,7 +31,8 @@ export class ImageComponent {
 		else
 			return 'rotate(' + (this.image.orientation * 90) % 360 + 'deg)';
 	}
+
 	rotate() {
-		this.transform = this.getRotation();	
+		this.transform = this.getRotation();
 	}
 }
