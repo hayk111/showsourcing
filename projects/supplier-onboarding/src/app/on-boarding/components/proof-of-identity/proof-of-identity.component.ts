@@ -6,9 +6,9 @@ import {
   ElementRef
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Attachment } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { OnBoardingService } from '../../services';
+import { Attachment, SupplierClaim } from '~models';
 
 @Component({
   selector: 'proof-of-identity-app',
@@ -23,6 +23,7 @@ export class ProofOfIdentityComponent extends TrackingComponent
   implements OnInit {
   public listFile: Attachment[] = [];
   public pendingFiles: File[] = [];
+	supplierClaim: SupplierClaim;
 
   /** hidden file input */
   @ViewChild('inpFile')
@@ -41,7 +42,10 @@ export class ProofOfIdentityComponent extends TrackingComponent
     // ];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.supplierClaim = this.onBoardSrv.getClaim();
+    this.listFile = this.supplierClaim.attachment || [];
+  }
 
   previousPage() {
     this.router.navigate(['account-creation']);
@@ -75,6 +79,7 @@ export class ProofOfIdentityComponent extends TrackingComponent
     this.onBoardSrv.uploadFiles(files).subscribe(filesUploaded => {
       this.listFile = [...this.listFile, ...filesUploaded];
       this.pendingFiles = [];
+      this.onBoardSrv.updateClaim({attachment: this.listFile}).subscribe();
     });
   }
 }
