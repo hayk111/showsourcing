@@ -56,7 +56,7 @@ export class SelectorComponent extends AbstractInput {
 	// the name of the custom style
 	@Input() customStyle: string;
 	/** value displayed */
-	@Input() displayedValue: string = this.value[this.bindLabel];
+	@Input() displayedValue: string = this.value ? this.value[this.bindLabel] : '';
 
 	/* different choices that an user can pick **/
 

@@ -33,6 +33,8 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	@Input() itemName = 'Item';
 	// if we use a custom style or not, specified on the class of selector-app
 	@Input() customStyle: string;
+	// value displayed
+	@Input() displayedValue: string;
 	// events that emits the id of the entity
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();

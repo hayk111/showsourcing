@@ -8,6 +8,7 @@ import { TemplateModule } from '~shared/template';
 import { AppComponent } from './app.component';
 import { OnBoardingModule } from './on-boarding';
 import { routes } from './on-boarding/routes';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -17,7 +18,8 @@ import { routes } from './on-boarding/routes';
 		TemplateModule,
 		RouterModule.forRoot(routes),
 		HttpClientModule,
-		AppApolloModule
+		AppApolloModule,
+		BrowserAnimationsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

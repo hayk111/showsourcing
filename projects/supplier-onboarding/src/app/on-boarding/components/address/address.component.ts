@@ -39,10 +39,6 @@ export class AddressComponent extends AutoUnsub implements OnInit {
 		).subscribe();
 	}
 
-	change(country: string) {
-		this.form.get('country').setValue(country);
-	}
-
 	previousPage() {
 		this.router.navigate(['find-business']);
 	}

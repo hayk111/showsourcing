@@ -1,14 +1,15 @@
 <selector-app
-	[(ngModel)]="value"
 	[choices]="choices$ | async"
 	[itemName]="type"
 	[canSearch]="true"
 	[canCreate]="canCreate"
 	[multiple]="multiple"
+	[bindLabel]="propertyName"
+	[displayedValue]="displayedValue || value"
+	[(ngModel)]="value"
 	(change)="onChange()"
 	(blur)="onBlur()"
-	(create)="create($event)"
-	[bindLabel]="propertyName">
+	(create)="create($event)">
 
 	<ng-template let-item="item">
 		<ng-container *ngTemplateOutlet="template; context: { item: item }"></ng-container>

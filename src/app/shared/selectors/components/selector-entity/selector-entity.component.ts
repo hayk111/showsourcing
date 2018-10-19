@@ -47,6 +47,8 @@ export class SelectorEntityComponent extends AbstractInput {
 	@Input() propertyName = 'name';
 	/** whether we can create a new entity */
 	@Input() canCreate = true;
+	// value displayed
+	@Input() displayedValue: string;
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
 	@Output() change = new EventEmitter<any>();

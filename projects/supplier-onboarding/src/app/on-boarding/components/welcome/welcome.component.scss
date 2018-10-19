@@ -6,6 +6,7 @@
 .title-container {
 	margin-bottom: 96px;
 	align-items: center;
+	text-align: center;
 
 	h1 {
 		font-size: var(--font-size-xxxl);
@@ -13,7 +14,7 @@
 		font-weight: 600;
 		margin-bottom: var(--spacing-m);
 	}
-	p {
+	label {
 		font-size: var(--font-size-xl);
 		color: var(--color-txt-primary);
 		font-weight: normal;

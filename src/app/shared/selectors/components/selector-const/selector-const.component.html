@@ -8,7 +8,7 @@
 	[bindLabel]="'name'"
 	[bindValue]="'id'"
 	[customStyle]="customStyle"
-	[displayedValue]="value"
+	[displayedValue]="displayedValue || value"
 	(change)="onChange($event)"
 	(blur)="onBlur()"
 	(select)="onSelect($event)"

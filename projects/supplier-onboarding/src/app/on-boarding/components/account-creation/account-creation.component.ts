@@ -29,15 +29,10 @@ export class AccountCreationComponent extends AutoUnsub implements OnInit {
 			lastName: [''],
 			accountPhone: ['', phoneValidator],
 			password: ['', Validators.required]
-		}).controls, { updateOn: 'blur' });
+		}).controls);
 
 		this.form.patchValue(this.onBoardSrv.getClaim());
-		this.form.valueChanges.pipe(
-			takeUntil(this._destroy$),
-			switchMap(claim => this.onBoardSrv.updateClaim(claim))
-		).subscribe();
 	}
-
 
 	ngOnInit() {
 	}
@@ -52,6 +47,8 @@ export class AccountCreationComponent extends AutoUnsub implements OnInit {
 
 	onSubmit() {
 		// stuff
+		const claim = this.form.value;
+		this.onBoardSrv.updateClaim(claim).subscribe();
 		this.nextPage();
 	}
 }
