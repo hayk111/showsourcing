@@ -43,4 +43,10 @@ export class OnBoardingService {
 	uploadFiles(files: File[]): Observable<any> {
 		return this.uploader.uploadFiles(files, undefined, Client.SUPPLIER_ONBOARDING);
 	}
+
+	createSupplier(name: string) {
+		// const supplier = new Supplier({ name });
+		// this.supplierSrv.create(supplier, '', Client.GLOBAL_DATA);
+		// this.updateClaim({ globalSupplierId: supplier.id, name }).subscribe();
+	}
 }

@@ -28,11 +28,12 @@ export class SearchAutocompleteItemContentComponent {
 	@Input() checked = true;
 	/** The link to display the element */
 	@Input() link: string;
+	/** if it is a special class icon for adding */
+	@Input() adding = false;
 	@Output() check = new EventEmitter<null>();
 	@Output() uncheck = new EventEmitter<null>();
 	/** The corresponding item was displayed. */
 	@Output() itemDisplayed = new EventEmitter<null>();
-
 
 	constructor(private router: Router) { }
 

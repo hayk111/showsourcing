@@ -3,8 +3,17 @@
 <search-autocomplete-app
 	#searchAutocomplete [xPosition]="0" [yPosition]="110"
 	[width]="510" >
-
-	<search-autocomplete-item-app *ngFor="let result of (searchResults$ | async); trackBy: trackByFn">
+	<search-autocomplete-item-app>
+		<search-autocomplete-item-content-app
+			[selectable]="false"
+			[title]="searchBar.inputRef.nativeElement.value"
+			subtitle="Create a business with this name"
+			[adding]="true"
+			image='/assets/icons/add-circle.svg'
+			(itemDisplayed)="createSupplier()">
+		</search-autocomplete-item-content-app>
+	</search-autocomplete-item-app>
+	<search-autocomplete-item-app *ngFor="let result of (searchResults$ | async); first as first; trackBy: trackByFn">
 		<search-autocomplete-item-content-app
 			[selectable]="false"
 			[title]="result.name"
