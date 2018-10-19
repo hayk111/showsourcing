@@ -68,7 +68,8 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 				city: supplier.city,
 				accountEmail: supplier.emailAddress,
 				contactEmail: supplier.emailAddress,
-				phone: supplier.phone,
+				accountPhone: supplier.phone,
+				contactPhone: supplier.phone,
 				description: supplier.description
 			}).subscribe();
 		this.unfocusSearch(supplier.name || '');
