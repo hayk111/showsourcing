@@ -53,7 +53,9 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 
 	itemSelected(supplier) {
 		this.onboardingSrv.updateClaim({ globalSupplierId: supplier.id, name: supplier.name, country: supplier.countryCode }).subscribe();
-		this.searchBar.value = supplier.name || '';
+		this.searchBar.inputRef.nativeElement.value = supplier.name || '';
+		this.toggleFocus(false);
+		this.searchAutocomplete.closeAutocomplete();
 	}
 
 	nextPage() {
