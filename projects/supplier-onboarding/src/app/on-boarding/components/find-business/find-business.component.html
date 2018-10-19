@@ -9,7 +9,7 @@
 			[title]="searchBar.inputRef.nativeElement.value"
 			subtitle="Create a business with this name"
 			[adding]="true"
-			image='/assets/icons/add-circle.svg'
+			icon='add-circle'
 			(itemDisplayed)="createSupplier()">
 		</search-autocomplete-item-content-app>
 	</search-autocomplete-item-app>
@@ -18,7 +18,8 @@
 			[selectable]="false"
 			[title]="result.name"
 			[subtitle]="supplierSubtitle(result)"
-			[image]="result?.supplierImage ? result.supplierImage : '/assets/icons/supplier.svg'"
+			[image]="result?.supplierImage ? result.supplierImage : null"
+			[icon]="!result?.supplierImage ? 'supplier' : null"
 			(itemDisplayed)="itemSelected(result)">
 		</search-autocomplete-item-content-app>
 	</search-autocomplete-item-app>
