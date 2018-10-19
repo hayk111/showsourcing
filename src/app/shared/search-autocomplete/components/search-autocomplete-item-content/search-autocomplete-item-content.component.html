@@ -10,8 +10,8 @@
         </checkbox-app>
       </div>
       <div class="imgCtnr">
-        <img [ngClass]="{'adding': adding}" class="mini image ng-star-inserted" *ngIf="image" [src]="image">
-        <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'">
+        <img class="mini image ng-star-inserted" *ngIf="image" [src]="image | image">
+        <img [ngClass]="{'adding': adding}" class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '.svg'">
       </div>
       <div class="description">
         <div class="titleCtnr">
