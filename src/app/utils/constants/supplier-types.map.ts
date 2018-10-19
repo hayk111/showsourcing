@@ -1,19 +1,19 @@
 export const supplierTypesMap = {
-	'Manufacturer': {
+	'_Manufacturer': {
 		locales: {
 			en: {
 				name: 'Manufacturer'
 			}
 		}
 	},
-	'Supplier': {
+	'_Supplier': {
 		locales: {
 			en: {
 				name: 'Supplier'
 			}
 		}
 	},
-	'Trader': {
+	'_Trader': {
 		locales: {
 			en: {
 				name: 'Trader'

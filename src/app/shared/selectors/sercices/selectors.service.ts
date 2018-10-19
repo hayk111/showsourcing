@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category, Event, SupplierType, Tag, TeamUser, User } from '~models';
 import { Supplier } from '~models/supplier.model';
-import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
+import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits, supplierTypesMap } from '~utils/constants';
 
 import { CategoryService, EventService, SupplierService, TagService } from '~global-services';
 import { SupplierTypeService } from '~global-services/supplier-type/supplier-type.service';
