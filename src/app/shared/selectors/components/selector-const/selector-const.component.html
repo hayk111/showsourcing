@@ -9,7 +9,7 @@
 	[bindValue]="'id'"
 	[customStyle]="customStyle"
 	[displayedValue]="value"
-	(change)="onChange()"
+	(change)="onChange($event)"
 	(blur)="onBlur()"
 	(select)="onSelect($event)"
 	(unselect)="onUnselect($event)">

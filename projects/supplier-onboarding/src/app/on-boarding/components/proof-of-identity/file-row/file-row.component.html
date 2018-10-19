@@ -1,5 +1,5 @@
 <div class="row-container">
-	<div class="icon-container left">
+	<div class="icon-container left space-icon flexAround">
 		<icon-app name="file"></icon-app>
 	</div>
 	<div class="file-container">
@@ -9,7 +9,9 @@
 		</div>
 		<div class="icon-container right" (click)="onDeleteFunc()">
       <icon-app *ngIf="!isPending" name="close"></icon-app>
-      <span *ngIf="isPending">...</span>
+      <span *ngIf="isPending">
+				<spinner-app size="xl"></spinner-app>
+			</span>
 		</div>
 	</div>
 </div>

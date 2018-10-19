@@ -1,8 +1,8 @@
 .row-container {
-	padding-left: 8px; 
+	padding-left: var(--spacing-s);
 	.file-container {
 		margin-left: 20px;
-		padding: 10px 8px;
+		padding: var(--spacing-ms) var(--spacing-s);
 		border-bottom: solid 1px var(--color-divider);
 	}
 	.icon-container {
@@ -24,10 +24,26 @@
 	.left {
 		display: inline-block;
 		float: left;
+
+		icon-app {
+			cursor: default;
+			color: var(--color-secondary-dark)
+		}
 	}
+
+	.space-icon {
+		height: var(--spacing-xl);
+		width: var(--spacing-xl);
+		margin-right: var(--spacing-ms);
+	}
+
 	.right {
     margin-top: 10px;
 		float: right;
+		icon-app {
+			font-size: var(--font-size-s);
+    	color: var(--color-secondary-dark)
+		}
 	}
 	&:hover {
 		background-color: var(--color-list-hover);

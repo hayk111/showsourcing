@@ -38,13 +38,15 @@ export class OnBoardingService {
 	searchSuppliers(search: string): Observable<Supplier[]> {
 		return this.supplierSrv.queryMany({ query: `name CONTAINS[c] "${search}"` },
 			`name, countryCode, supplierImage { id, fileName, orientation, imageType}`, Client.GLOBAL_DATA);
-  }
+	}
 
-  uploadFiles(files: File[]): Observable<any> {
-    return this.uploader.uploadFiles(files, undefined, Client.SUPPLIER_ONBOARDING);
-  }
+	uploadFiles(files: File[]): Observable<any> {
+		return this.uploader.uploadFiles(files, undefined, Client.SUPPLIER_ONBOARDING);
+	}
 
-  uploadFile(file: File) {
-
-  }
+	createSupplier(name: string) {
+		// const supplier = new Supplier({ name });
+		// this.supplierSrv.create(supplier, '', Client.GLOBAL_DATA);
+		// this.updateClaim({ globalSupplierId: supplier.id, name }).subscribe();
+	}
 }

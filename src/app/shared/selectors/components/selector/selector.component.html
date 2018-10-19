@@ -19,12 +19,12 @@
 
 		<ng-template ng-label-tmp let-item="item" *ngIf="!multiple">
 			<div class="flexBetween">
-				<div *ngIf="!displayedValue">Select {{ itemName }}</div>
+				<div *ngIf="!displayedValue" class="title-selector flexCenter">Select {{ itemName }}</div>
 				<!-- hint: we have to use selected instead of value since the value can be a string instead of the whole choice when const selector -->
 				<div *ngIf="displayedValue" class="item-selected">{{ displayedValue }}</div>
-				<!-- <icon-app *ngIf="customStyle" class="selector-select" name="arrow-right-rectangle"></icon-app> -->
+				<icon-app *ngIf="customStyle" class="selector-select" name="caret-down"></icon-app>
 			</div>
-    </ng-template>
+		</ng-template>
 
 		<!-- header / search input -->
 		<ng-template ng-header-tmp *ngIf="canSearch">

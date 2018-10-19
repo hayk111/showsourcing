@@ -45,6 +45,12 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 		this.focus = f;
 	}
 
+	createSupplier() {
+		const name = this.searchBar.inputRef.nativeElement.value;
+		this.onboardingSrv.createSupplier(name);
+		this.unfocusSearch(name || '');
+	}
+
 	supplierSubtitle(supplier) {
 		return (supplier.countryCode) ?
 			'Supplier - ' + supplier.countryCode :
@@ -53,7 +59,13 @@ export class FindBusinessComponent extends AutoUnsub implements OnInit {
 
 	itemSelected(supplier) {
 		this.onboardingSrv.updateClaim({ globalSupplierId: supplier.id, name: supplier.name, country: supplier.countryCode }).subscribe();
-		this.searchBar.value = supplier.name || '';
+		this.unfocusSearch(supplier.name || '');
+	}
+
+	unfocusSearch(name: string) {
+		this.searchBar.inputRef.nativeElement.value = name;
+		this.toggleFocus(false);
+		this.searchAutocomplete.closeAutocomplete();
 	}
 
 	nextPage() {

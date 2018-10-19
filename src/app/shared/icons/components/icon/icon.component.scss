@@ -38,6 +38,9 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-caret-down:before {
+  content: "\e90f";
+}
 .icon-file:before {
   content: "\e900";
 }
