@@ -17,10 +17,12 @@ ng-select {
 	width: 100%;
 }
 
+.ng-select .ng-value {
+	width: 100%;
+}
+
 .ng-select.onboarding-big .selector-select{
-	padding-left: 315px;
-	font-size: var(--font-size-l);
-	cursor: default;
+	font-size: var(--font-size-xxs);
 }
 
 .ng-select.onboarding-big .ng-select-container {
@@ -32,16 +34,27 @@ ng-select {
 	font-style: italic;
 }
 
+.ng-select.onboarding-small .title-selector{
+	border-right: 1px solid var(--color-secondary-dark);
+	padding-right: var(--spacing-ms);
+	height: 36px;
+}
+
 .ng-select.onboarding-small .ng-select-container {
 	height: 36px;
-	width: 150px;
+	width: 160px;
 	background: var(--color-secondary);
 	border-radius: 2px;
-	padding: 0px var(--spacing-s);
-	padding-right: var(--spacing-ms);
+	padding-left: var(--spacing-s);
 	font-weight: 600;
 	line-height: 1.54;
 	color: var(--color-txt-primary);
+}
+
+.ng-select.onboarding-small .selector-select {
+	font-size: 4px;
+	padding-right: var(--spacing-s);
+	color: var(--color-secondary-dark);
 }
 
 .item-selected {

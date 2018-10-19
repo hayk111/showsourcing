@@ -22,10 +22,7 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 	styleUrls: ['./selector.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(SelectorComponent)],
-	encapsulation: ViewEncapsulation.None,
-	host: {
-		'[class.boarding]': 'customStyle === "boarding"'
-	}
+	encapsulation: ViewEncapsulation.None
 })
 export class SelectorComponent extends AbstractInput {
 	// when we select one
