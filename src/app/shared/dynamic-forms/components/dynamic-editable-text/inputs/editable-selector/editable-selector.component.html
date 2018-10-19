@@ -13,7 +13,7 @@
 	</editable-label-app>
 	<selector-const-app
 		#selector
-		[multiple]="false"
+		[multiple]="customField.multiple"
 		[type]="customField.metadata.target"
 		[(ngModel)]="value"
 		(change)="onSelectorChange()"

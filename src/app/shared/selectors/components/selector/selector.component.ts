@@ -58,8 +58,8 @@ export class SelectorComponent extends AbstractInput {
 	@Input() compareWith = (a, b) => a.id === b.id;
 	// the name of the custom style
 	@Input() customStyle: string;
-	// current item, to show on the selector bar
-	@Input() currentItem;
+	/** value displayed */
+	@Input() displayedValue: string = this.value[this.bindLabel];
 
 	/* different choices that an user can pick **/
 
@@ -75,7 +75,7 @@ export class SelectorComponent extends AbstractInput {
 		super(cd);
 	}
 
-	onChange(e) {
+	onChange(choice: Choice) {
 		this.onChangeFn(this.value);
 		this.change.emit(this.value);
 	}

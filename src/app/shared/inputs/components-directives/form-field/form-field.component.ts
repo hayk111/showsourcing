@@ -8,6 +8,8 @@ import { animations } from '~shared/inputs/components-directives/form-field/form
 import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
 import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
 import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
+import { FormControlDirective } from '@angular/forms';
+import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
 
 @Component({
 	selector: 'form-field-app',
@@ -19,7 +21,7 @@ import { HintComponent } from '~shared/inputs/components-directives/hint/hint.co
 export class FormFieldComponent implements OnInit, AfterContentInit {
 	// whenever the * next to required field should be hidden
 	@Input() hideRequiredMarker: boolean;
-	@ContentChild(InputDirective) input: InputDirective;
+	@ContentChild(FormFieldControlDirective) input: FormFieldControlDirective;
 	@ContentChild(LabelComponent) label: LabelComponent;
 	@ContentChild(HintComponent) hint: HintComponent;
 	@ContentChild(ErrorComponent) error: ErrorComponent;
@@ -29,15 +31,17 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 
 	ngOnInit() {
 		if (!this.input)
-			throw Error('FormField should have an input in it with the directive inputApp');
+			throw Error('FormField should have an input in it with the directive formFieldCtrl');
 	}
 
 	ngAfterContentInit() {
 		// Subscribe to changes in the child control state in order to update the form field UI.
-		this.input.stateChanges.subscribe(() => {
-			this.changeDetectorRef.markForCheck();
-		});
-
+		if (this.input.stateChanges) {
+			this.input.stateChanges.subscribe(() => {
+				this.changeDetectorRef.markForCheck();
+			});
+		}
+		// Run change detection and update the outline if the suffix or prefix changes.
 		if (this.control && this.control.valueChanges) {
 			this.control.valueChanges.subscribe(() => {
 				this.changeDetectorRef.markForCheck();
@@ -51,9 +55,15 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 
 	/** Determines if we display an hint or an error */
 	get displayedMessage(): 'error' | 'hint' | 'none' {
-		if (this.control && !this.control.valid && !this.input.pristine && (this.defaultErrorMsg || this.error))
+		// if there is an error it's always the error except if it's pristine
+		if (this.control
+			&& !this.control.valid
+			&& !this.control.pristine
+			&& (this.defaultErrorMsg || this.error))
 			return 'error';
-		else if (this.input.focussed && this.hint)
+		// an hint displays only when we are focussed
+		// InputApp which extends formControl has focussed state
+		else if ((this.input as any).focussed && this.hint)
 			return 'hint';
 		else
 			return 'none';

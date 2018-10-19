@@ -1,6 +1,7 @@
 import { Directive, Input, ElementRef, Self, Optional, OnChanges } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
 
 const supportedTypes = new Set([
 	'color',
@@ -18,30 +19,23 @@ const supportedTypes = new Set([
 	'week',
 ]);
 
-export interface AppFormFieldControl {
-	id: string;
-	readonly: boolean;
-	required: boolean;
-	type: string;
-	disabled: boolean;
-}
+
 
 @Directive({
 	selector: '[inputApp]',
 	host: {
 		'(blur)': 'focussed = false',
 		'(focus)': 'focussed = true',
-	}
+	},
+	providers: [{ provide: FormFieldControlDirective, useExisting: InputDirective }],
+
 })
-export class InputDirective implements AppFormFieldControl, OnChanges {
+export class InputDirective extends FormFieldControlDirective {
 	protected static NEXT_UID = 0;
-	/**
-   * Inform parents of state change
-   */
-	readonly stateChanges: Subject<void> = new Subject<void>();
 
-	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) { }
-
+	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) {
+		super(control);
+	}
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()
@@ -139,10 +133,6 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 		setTimeout(_ => {
 			this._elementRef.nativeElement.select();
 		});
-	}
-
-	ngOnChanges() {
-		this.stateChanges.next();
 	}
 
 }

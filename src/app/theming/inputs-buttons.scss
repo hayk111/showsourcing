@@ -22,12 +22,13 @@ input, textarea {
 	}
 }
 
-editable-field-app, editable-text-app {
+form-field-app.editable {
+	padding-bottom: 0;
+	flex-grow: 1;
 	input {
 		padding: 3px;
 	}
 }
-
 
 form-field-app.borderless {
 	padding-bottom: 0px;

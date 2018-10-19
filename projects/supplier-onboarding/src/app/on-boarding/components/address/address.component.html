@@ -12,10 +12,9 @@
 			type="country"
 			itemName="your country"
 			customStyle="onboarding-big"
-			[currentItem]="form.get('country').value | const: 'country'"
+			fomrControlName="country"
 			(change)="change($event)">
 		</selector-const-app>
-		<input inputApp [hidden]="true" type="text" fomrControlName="country"/>
 	</form-field-app>
 	<form-field-app class="boarding">
 		<label-app>Street Name</label-app>

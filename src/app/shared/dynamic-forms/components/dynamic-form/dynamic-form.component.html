@@ -3,7 +3,7 @@
 	<div *ngFor="let col of cols; let last = last; trackBy: trackByFn" class="col"
 		[ngClass]="{ 'last': last }"
 		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
-		<ng-container *ngIf="textMode">
+		<ng-container *ngIf="textMode; else inputs">
 			<dynamic-editable-text-app
 				*ngFor="let field of col; trackBy: trackByFn"
 				[customField]="field"
@@ -13,13 +13,14 @@
 			</dynamic-editable-text-app>
 		</ng-container>
 
-		<!-- <ng-template #inputs>
+		<ng-template #inputs>
 			<dynamic-input-app
-				*ngFor="let field of col;trackBy: trackByFn"
+				*ngFor="let field of col; trackBy: trackByFn"
 				[customField]="field"
-				[formControlName]="field.name"></dynamic-input-app>
-		</ng-template> -->
-
+				[formControlName]="field.name"
+				(update)="update.emit($event)">
+			</dynamic-input-app>
+		</ng-template>
 
 	</div>
 

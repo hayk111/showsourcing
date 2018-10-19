@@ -36,6 +36,7 @@ import {
 } from './components/dynamic-editable-text/inputs/editable-selector/editable-selector.component';
 import { DynamicInputTextComponent } from './components/dynamic-input-text/dynamic-input-text.component';
 import { InputPackagingComponent } from './components/dynamic-input-text/inputs/input-packaging/input-packaging.component';
+import { DynamicInputComponent } from './components/dynamic-input/dynamic-input.component';
 
 @NgModule({
 	imports: [
@@ -63,7 +64,8 @@ import { InputPackagingComponent } from './components/dynamic-input-text/inputs/
 		EditablePackagingComponent,
 		EditableSelectorComponent,
 		DynamicInputTextComponent,
-		InputPackagingComponent
+		InputPackagingComponent,
+		DynamicInputComponent
 	],
 	exports: [DynamicFormComponent, DynamicEditableFormComponent]
 })
