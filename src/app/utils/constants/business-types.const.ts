@@ -1,18 +1,14 @@
 export const businessTypes = [
 	{
-		'id': 'QA',
-		'name': 'QA'
+		'id': 'Manufacturer',
+		'name': 'Manufacturer'
 	},
 	{
-		'id': 'Sourcing',
-		'name': 'Sourcing'
+		'id': 'Supplier',
+		'name': 'Supplier'
 	},
 	{
-		'id': 'Ecommerce',
-		'name': 'Ecommerce'
+		'id': 'Trader',
+		'name': 'Trader'
 	},
-	{
-		'id': 'Fashion',
-		'name': 'Fashion'
-	}
 ];
