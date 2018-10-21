@@ -3,8 +3,10 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   ViewChild,
+  ChangeDetectorRef,
   ElementRef
 } from '@angular/core';
+
 import { Router } from '@angular/router';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { OnBoardingService } from '../../services';
@@ -34,7 +36,8 @@ export class ProofOfIdentityComponent extends TrackingComponent
   constructor(
     private router: Router,
     private onBoardSrv: OnBoardingService,
-		private dlgSrv: DialogService
+    private dlgSrv: DialogService,
+    private cdr: ChangeDetectorRef
     ) {
     super();
 
@@ -83,14 +86,15 @@ export class ProofOfIdentityComponent extends TrackingComponent
   getAttachmentFromFile(file: File): Attachment {
     return new Attachment(file.name, file.size);
   }
-  async add(files: Array<File>) {
+  add(files: Array<File>) {
     if (files.length === 0) {
       return;
     }
     this.pendingFiles = [...this.pendingFiles, ...files];
     this.onBoardSrv.uploadFiles(files).subscribe(filesUploaded => {
-      this.listFile = [...this.listFile, ...filesUploaded];
-      this.pendingFiles = [];
+      this.listFile.push(...filesUploaded);
+      this.pendingFiles.length = 0;
+      this.cdr.detectChanges();
       this.onBoardSrv.updateClaim({attachment: this.listFile}).subscribe();
     });
   }
