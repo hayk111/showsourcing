@@ -1,7 +1,9 @@
-
-
 form {
 	margin-bottom: 36px;
+
+	label-app {
+		margin-bottom: var(--spacing-m);
+	}
 }
 .type-container {
 	margin-bottom: var(--spacing-xxxl);

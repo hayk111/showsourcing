@@ -3,24 +3,21 @@ import { Router } from '@angular/router';
 import { Attachment } from '~models';
 
 export enum FileType {
-  image = 'IMAGE',
-  file = 'File',
+	image = 'IMAGE',
+	file = 'File',
 }
-
 
 @Component({
 	selector: 'file-row-app',
 	templateUrl: './file-row.component.html',
-	styleUrls: ['./file-row.component.scss', './../../common-boarding.component.scss'],
+	styleUrls: ['./file-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileRowComponent implements OnInit {
-  @Input() fileType = FileType.file;
 
-  @Input() file?: Attachment;
-
-  @Input() isPending = false;
-
+	@Input() fileType = FileType.file;
+	@Input() file?: Attachment;
+	@Input() isPending = false;
 	@Output() onDelete = new EventEmitter<Attachment>();
 
 	constructor(private router: Router) { }
@@ -29,8 +26,6 @@ export class FileRowComponent implements OnInit {
 	}
 
 	public onDeleteFunc() {
-		if( this.onDelete ) {
-			this.onDelete.emit(this.file);
-		}
+		this.onDelete.emit(this.file);
 	}
 }

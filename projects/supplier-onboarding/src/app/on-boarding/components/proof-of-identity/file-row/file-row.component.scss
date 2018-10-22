@@ -1,5 +1,11 @@
+:host {
+	display: block;
+	padding-left: 0px;
+}
+
 .row-container {
 	padding-left: var(--spacing-s);
+
 	.file-container {
 		margin-left: 20px;
 		padding: var(--spacing-ms) var(--spacing-s);
@@ -11,6 +17,7 @@
 	}
 	.info-container {
 		display: inline-block;
+
 		.file-name {
 			font-size: var(--font-size-m);
 			letter-spacing: -0.3px;
@@ -45,6 +52,7 @@
     	color: var(--color-secondary-dark)
 		}
 	}
+
 	&:hover {
 		background-color: var(--color-list-hover);
 	}
