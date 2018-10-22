@@ -14,6 +14,11 @@ search-bar-app {
 	background: var(--color-secondary-light);
 }
 
+label {
+	font-weight: 600;
+	font-size: var(--font-size-l);
+}
+
 input {
 	margin-bottom: var(--spacing-l);
 }
