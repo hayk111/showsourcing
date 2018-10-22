@@ -8,15 +8,26 @@
 	<p>Review your data and send!</p>
 </div>
 
-
 <div class="list-review">
 	<div class="item-review" *ngIf="supplierClaim?.name">
 			<div class="title">Bussiness Name</div>
 			<div class="body">{{supplierClaim?.name}}</div>
 	</div>
+	<div class="item-review" *ngIf="supplierClaim?.country">
+			<div class="title">Country</div>
+			<div class="body">{{supplierClaim?.country | const: 'country'}}</div>
+	</div>
 	<div class="item-review" *ngIf="supplierClaim?.street">
-			<div class="title">Bussiness Address</div>
-			<div class="body">{{supplierClaim?.street}}</div>
+		<div class="title">Bussiness Address</div>
+		<div class="body">{{supplierClaim?.street}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.city">
+			<div class="title">City</div>
+			<div class="body">{{supplierClaim?.city}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.zipCode">
+			<div class="title">Postal Code</div>
+			<div class="body">{{supplierClaim?.zipCode}}</div>
 	</div>
 	<div class="item-review" *ngIf="supplierClaim?.businessType">
 			<div class="title">Bussiness Type</div>
@@ -35,7 +46,43 @@
 		<div class="title">Bussiness Description</div>
 		<div class="body">{{supplierClaim?.description}}</div>
 	</div>
-	<div class="item-review" *ngIf="supplierClaim?.length">
+	<div class="item-review" *ngIf="supplierClaim?.contactEmail">
+			<div class="title">Contact Email</div>
+			<div class="body">{{supplierClaim?.contactEmail}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.contactPhone">
+			<div class="title">Contact Phone</div>
+			<div class="body">{{supplierClaim?.contactPhone}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.wechat">
+			<div class="title">WeChat</div>
+			<div class="body">{{supplierClaim?.wechat}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.whatsapp">
+			<div class="title">WhatsApp</div>
+			<div class="body">{{supplierClaim?.whatsapp}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.website">
+			<div class="title">Website</div>
+			<div class="body">{{supplierClaim?.website}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.accountEmail">
+			<div class="title">Personal Email</div>
+			<div class="body">{{supplierClaim?.accountEmail}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.firstName">
+			<div class="title">First Name </div>
+			<div class="body">{{supplierClaim?.firstName}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.lastName">
+			<div class="title">Last Name </div>
+			<div class="body">{{supplierClaim?.lastName}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.accountPhone">
+			<div class="title">Personal Phone</div>
+			<div class="body">{{supplierClaim?.accountPhone}}</div>
+	</div>
+	<div class="item-review" *ngIf="supplierClaim?.attachment?.length">
 		<div class="title">Attached file</div>
 		<div class="body">
 				<div  *ngFor="let file of supplierClaim?.attachment; trackBy: trackByFn">
@@ -43,7 +90,11 @@
 						{{file.fileName}}
 				</div>
 		</div>
-  </div>
+	</div>
+	<div class="item-review">
+			<div class="title">QR Code</div>
+			<div class="body">{{supplierClaim?.qrCode ? 'Yes' : 'No'}}</div>
+	</div>
 </div>
 	<div class="left">
 		<input class="boarding" type="submit" value="Next" (click)="onSubmit()" />
