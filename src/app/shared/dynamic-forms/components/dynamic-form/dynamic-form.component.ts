@@ -34,7 +34,9 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit, O
 	ngOnInit() {
 		this.makeCols();
 		this.form = this.dfSrv.toFormGroup(this.fields);
-		this.form.patchValue(this.value);
+		if (this.value) {
+			this.form.patchValue(this.value);
+		}
 		this.formCreated.emit(this.form);
 	}
 

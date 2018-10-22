@@ -7,9 +7,9 @@
 
 		<div class="flex description">
 			<div class="left">
-					<carousel-card-app
-						[hasFooter]="false"
-						[images]="product.images"></carousel-card-app>
+				<carousel-card-app
+					[hasFooter]="false"
+					[images]="product.images"></carousel-card-app>
 			</div>
 
 			<div class="right">
@@ -18,10 +18,12 @@
 						i18n="div title|Product general information@@productGeneralInfo_general">
 						General Information
 					</div>
-					<dynamic-editable-form-app
+					<dynamic-form-app
 						[inlineLabel]="false"
-						[colAmount]="2">
-					</dynamic-editable-form-app>
+						[colAmount]="2"
+						[fields]="customFields"
+						[textMode]="false">
+					</dynamic-form-app>
 				</card-app>
 
 				<card-app>
@@ -30,11 +32,11 @@
 						Shipping & Trading
 					</div>
 
-					<dynamic-editable-form-app
+					<!-- <dynamic-editable-form-app
 						[inlineLabel]="false"
 						[colAmount]="2"
 						[elementsPerColAmount]="3">
-					</dynamic-editable-form-app>
+					</dynamic-editable-form-app> -->
 				</card-app>
 			</div>
 		</div>
