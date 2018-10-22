@@ -35,6 +35,6 @@
 	</form-field-app>
 
 	<div class="left">
-		<input [disabled]="!form.valid" class="boarding" type="submit" value="Next" (click)="onSubmit()" />
+		<button [disabled]="!form.valid" class="boarding" type="submit" (click)="onSubmit()">Next</button>
 	</div>
 </form>
