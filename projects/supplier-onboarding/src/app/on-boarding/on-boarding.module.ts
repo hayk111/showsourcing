@@ -6,6 +6,8 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
 import { FileModule } from '~shared/file';
+import { CustomDialogModule } from '~shared/custom-dialog';
+import { DialogModule } from '~shared/dialog/dialog.module';
 
 import {
 	AccountCreationComponent,
@@ -46,6 +48,8 @@ const components = [
 		FormsModule,
 		SearchBarModule,
     FileModule,
+		DialogModule,
+		CustomDialogModule,
 		SearchAutocompleteModule,
 		InputsModule
 	],
