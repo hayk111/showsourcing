@@ -44,18 +44,15 @@ export class RfqDialogComponent implements AfterViewInit, OnInit {
 
 		this.productSrv.getContacts(this.product.supplier.id).pipe(
 			first()
-		).subscribe(supp => this._contacts = supp.contacts);
+		).subscribe(supp => {
+			this._contacts = supp.contacts;
+			if (this.product.supplier.officeEmail)
+				this._contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
+		});
 	}
 
 	ngAfterViewInit() {
 		this.input.focus();
-		if (this._contacts && this.product.supplier.officeEmail) {
-			this._contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
-		} else if (!this._contacts && this.product.supplier.officeEmail) {
-			this._contacts = [{ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null }];
-		} else {
-			this._contacts = [];
-		}
 	}
 
 	onSubmit() {

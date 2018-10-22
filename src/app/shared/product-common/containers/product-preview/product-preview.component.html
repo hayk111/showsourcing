@@ -34,19 +34,19 @@
 		</action-bar-app>
 
 		<!-- actions -->
-		<!-- <div class="flexColumn actions">
-				<ng-container *ngIf="product?.status?.status; else sendWF">
-					Request RFQ to supplier?
-					<button class="primary" (click)="openRfq()">SEND RFQ</button>
-				</ng-container>
-				<ng-template #sendWF>
-					This product is still a new idea, what should we do next?
-					<div class="flexAround">
-						<button class="secondary">Keep as reference</button>
-						<button class="primary">Send to workflow</button>
-					</div>
-				</ng-template>
-			</div> -->
+		<div *ngIf="product?.status?.status" class="flexColumn actions">
+			<ng-container *ngIf="product?.status?.status; else sendWF">
+				Request RFQ to supplier?
+				<button class="primary" (click)="openRfq()">SEND RFQ</button>
+			</ng-container>
+			<!-- <ng-template #sendWF>
+				This product is still a new idea, what should we do next?
+				<div class="flexAround">
+					<button class="secondary">Keep as reference</button>
+					<button class="primary">Send to workflow</button>
+				</div>
+			</ng-template> -->
+		</div>
 		<divider-app></divider-app>
 
 		<!-- form -->
