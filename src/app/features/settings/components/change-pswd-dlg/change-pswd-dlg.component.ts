@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject, of } from 'rxjs';
-import { switchMap, takeUntil, catchError } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';

@@ -1,8 +1,7 @@
-import { User } from '~models/user.model';
-import { EntityWithAudit } from '~models/_entity.model';
-import { TeamUser } from '~models/team-user.model';
-import { uuid } from '~utils';
 import { Company } from '~models/company.model';
+import { TeamUser } from '~models/team-user.model';
+import { User } from '~models/user.model';
+import { uuid } from '~utils';
 
 
 export class Team {
@@ -17,7 +16,7 @@ export class Team {
 	realmPath: string;
 	status = 'pending';
 	company: Company;
-	__typename?= 'Team';
+	__typename ?= 'Team';
 
 	constructor(config: TeamConfig) {
 		Object.assign(this, config);
