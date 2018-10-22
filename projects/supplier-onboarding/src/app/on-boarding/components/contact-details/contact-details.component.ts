@@ -29,13 +29,9 @@ export class ContactDetailsComponent extends AutoUnsub implements OnInit {
 			wechat: [''],
 			whatsapp: [''],
 			website: ['']
-		}).controls, { updateOn: 'blur' });
+		}).controls);
 
 		this.form.patchValue(this.onBoardSrv.getClaim());
-		this.form.valueChanges.pipe(
-			takeUntil(this._destroy$),
-			switchMap(claim => this.onBoardSrv.updateClaim(claim))
-		).subscribe();
 	}
 
 	previousPage() {
@@ -48,7 +44,10 @@ export class ContactDetailsComponent extends AutoUnsub implements OnInit {
 
 	onSubmit() {
 		// stuff
-		this.nextPage();
+		const claim = this.onBoardSrv.getClaim();
+		this.onBoardSrv.updateClaim(claim).subscribe(_ => {
+			this.nextPage();
+		});
 	}
 
 
