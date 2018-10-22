@@ -33,7 +33,7 @@
 			<div class="title">Bussiness Type</div>
 			<div class="body">{{supplierClaim?.businessType}}</div>
 	</div>
-	<div class="item-review" *ngIf="supplierClaim?.categories.length">
+	<div class="item-review" *ngIf="supplierClaim?.categories?.length">
 		<div class="title">Bussiness Category</div>
 		<div class="body">
 			<span  *ngFor="let cat of supplierClaim?.categories; trackBy: trackByFn; last as last">
@@ -86,8 +86,8 @@
 		<div class="title">Attached file</div>
 		<div class="body">
 				<div  *ngFor="let file of supplierClaim?.attachment; trackBy: trackByFn">
-						<icon-app name="file"></icon-app>
-						{{file.fileName}}
+					<icon-app name="file"></icon-app>
+					{{file.fileName}}
 				</div>
 		</div>
 	</div>
