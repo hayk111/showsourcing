@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 @Component({
 	selector: 'reset-password-app',
@@ -20,7 +21,7 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 
 	constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,
 		private authSrv: AuthenticationService, private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute, private notificationSrv: NotificationService
 	) {
 		super();
 		this.form = this.fb.group({
@@ -38,7 +39,7 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 		if (this.form.valid) {
 			this.pending = true;
 			this.authSrv.confirmResetPassword({
-				password: this.form.value.newPassword,
+				password: this.form.get('confirmPswd').value,
 				token: this.token
 			}).pipe(
 				catchError(error => {
@@ -47,11 +48,23 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 					} else {
 						this.error = 'Error when resetting password';
 					}
+					this.notificationSrv.add({
+						type: NotificationType.ERROR,
+						title: 'Password Reset',
+						message: this.error,
+						timeout: 4500
+					});
 					return throwError(error);
 				})
 			).subscribe(r => {
 				this.pending = false;
 				this.router.navigate(['guest', 'login']);
+				this.notificationSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Password Reset',
+					message: 'Password successfully restored',
+					timeout: 3500
+				});
 			}, err => {
 				this.pending = false;
 				this.cdr.detectChanges();

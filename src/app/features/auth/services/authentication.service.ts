@@ -89,7 +89,7 @@ export class AuthenticationService {
 
 	confirmResetPassword({ token, password }: { token: string; password: string; }) {
 		// TODO: to be changed with the right endpoint
-		return this.http.post(`${environment.apiUrl}/signup/user/${token}/password`, { token, password });
+		return this.http.post(`${environment.apiUrl}/signup/user/token/${token}/password`, { token, password });
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
