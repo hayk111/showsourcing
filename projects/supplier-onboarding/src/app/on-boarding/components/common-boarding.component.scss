@@ -1,6 +1,21 @@
+:host {
+	width: 100%;
+	padding-left: 24px;
+	padding-right: 24px;
+	box-sizing: border-box;
+}
+
+@media only screen and (min-width:960px){
+	.title-container-boarding {
+		margin-left: -43px;
+	}
+	:host {
+		width: 500px;
+	}
+}
+
 // on-board supplier title
 .title-container-boarding {
-	margin-left: -43px;
 	color: var(--color-txt-strong);
 	margin-bottom: 57px;
 

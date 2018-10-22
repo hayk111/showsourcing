@@ -27,4 +27,12 @@ b {
 
 main {
 	flex-grow: 1;
+	justify-content: center;
+	padding-top: 70px;
+}
+
+@media only screen and (min-width:960px){
+	main {
+		padding-top: 163px;
+	}
 }

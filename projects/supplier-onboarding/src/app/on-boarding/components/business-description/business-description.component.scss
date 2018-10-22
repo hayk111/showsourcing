@@ -1,14 +1,8 @@
-:host {
-	display: table;
-	padding-top: 120px;
-	height: 630px;
-}
 
 .description-container {
 	margin-bottom: 50px;
 
 	textarea {
-		width: 500px;
 		resize: none;
 		height: 182px;
 		margin-top: var(--spacing-ms);
@@ -18,5 +12,11 @@
 		&::placeholder {
 			font-size: var(--font-size-l);
 		}
+	}
+}
+
+@media only screen and (min-width:960px){
+	textarea {
+		width: 500px;
 	}
 }

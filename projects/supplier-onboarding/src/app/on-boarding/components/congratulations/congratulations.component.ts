@@ -17,6 +17,6 @@ export class CongratulationsComponent implements OnInit {
 	}
 
 	onSubmit() {
-		window.open('https://app.showsourcing.com', '_self');
+		window.open('https://web.showsourcing.com', '_self');
 	}
 }

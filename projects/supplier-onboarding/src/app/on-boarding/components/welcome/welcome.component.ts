@@ -7,7 +7,7 @@ import { OnBoardingService } from '../../services';
 @Component({
 	selector: 'welcome-app',
 	templateUrl: './welcome.component.html',
-	styleUrls: ['./welcome.component.scss'],
+	styleUrls: ['./welcome.component.scss', './../common-boarding.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WelcomeComponent implements OnInit {
