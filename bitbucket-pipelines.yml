@@ -15,8 +15,8 @@ pipelines:
             - npm run build supplier-onboarding --prod
           artifacts:
             - dist/**
-          caches:
-            - node
+          #caches:
+          #  - node
 
       - step:
           image: atlassian/pipelines-awscli
