@@ -10,13 +10,15 @@ pipelines:
           image: node:9.11
           name: Building
           script:
+            - pwd
+            - ls -al
             - npm install
             - npm run build --prod
             - npm run build supplier-onboarding --prod
           artifacts:
             - dist/**
-          #caches:
-          #  - node
+          caches:
+           - node
 
       - step:
           image: atlassian/pipelines-awscli
