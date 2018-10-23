@@ -18,7 +18,7 @@ import { ProductService } from '~global-services';
 		SelectionService
 	]
 })
-export class FindProductsDialogComponent extends ListPageComponent<Product, ProductCommonFeatureService> implements OnInit, AfterViewInit {
+export class FindProductsDialogComponent extends ListPageComponent<Product, ProductService> implements OnInit, AfterViewInit {
 
 	@Input() initialSelectedProducts: Product[];
 	@Input() submitCallback: Function;
