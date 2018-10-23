@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { Product, Contact } from '~models';
-import { InputDirective } from '~shared/inputs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DialogService } from '~shared/dialog';
-import { ProductFeatureService } from '~features/products/services';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { ProductFeatureService } from '~features/products/services';
+import { ExternalRequestService } from '~global-services';
+import { Contact, ExternalRequest, Product } from '~models';
+import { DialogService } from '~shared/dialog';
+import { InputDirective } from '~shared/inputs';
 
 @Component({
 	selector: 'rfq-dialog-app',
@@ -28,6 +29,7 @@ export class RfqDialogComponent implements AfterViewInit, OnInit {
 	_contacts: Array<Contact>;
 
 	constructor(
+		private externalReqSrv: ExternalRequestService,
 		private productSrv: ProductFeatureService,
 		private fb: FormBuilder,
 		private dlgSrv: DialogService) { }
@@ -59,6 +61,14 @@ export class RfqDialogComponent implements AfterViewInit, OnInit {
 		if (this.index < this.maxInd)
 			++this.index;
 		else {
+			const exportData = new ExternalRequest({
+				name: this.detailGroup.get('title').value,
+				description: this.detailGroup.get('description').value,
+				targetedMOQ: this.detailGroup.get('quantity').value,
+				recipients: this._contacts.map(contact => contact.name),
+				supplier: this.product.supplier // care if empty
+			});
+
 			// Send information
 			this.closeDlg();
 		}
