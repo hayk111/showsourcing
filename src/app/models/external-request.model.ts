@@ -1,7 +1,7 @@
 import { Quote } from '~models/quote.model';
 import { Supplier } from '~models/supplier.model';
-import { EntityWithAudit } from './_entity.model';
 import { AppImage } from './app-image.model';
+import { EntityWithAudit } from './_entity.model';
 
 export class ExternalRequest extends EntityWithAudit<ExternalRequestConfig> {
 	name: string;
