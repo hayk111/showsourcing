@@ -64,8 +64,8 @@ export abstract class AbstractApolloClient {
 	/**
  	* to create the uri we need to concatena every parts we got from different DB's.
 	*/
-	protected getUri(port: number | string, hostName: string, path: string, isSecure=true): string {
-		return `ws${isSecure?'s':''}://${hostName}:${port}/graphql${path.startsWith('/') ? path : '/' + path}`;
+	protected getUri(port: number | string, hostName: string, path: string, isSecure = true): string {
+		return `ws${isSecure ? 's' : ''}://${hostName}:${port}/graphql${path.startsWith('/') ? path : '/' + path}`;
 	}
 
 	/**
@@ -74,7 +74,7 @@ export abstract class AbstractApolloClient {
 	protected getRealmUri(realmName: string, path?: string): Observable<string> {
 		return this.realmServerSrv.queryOneByPredicate(`name == "${realmName}"`).pipe(
 			first(),
-			map(r => { 
+			map(r => {
 				const port = r.httpsPort || r.httpPort;
 				const isSecure = !!r.httpsPort;
 				return this.getUri(port, r.hostname, path, isSecure);
