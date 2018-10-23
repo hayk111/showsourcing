@@ -61,7 +61,7 @@ export class WorkspaceFeatureService extends ProductService {
 					`&& status.status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
 				sortBy: 'lastUpdatedDate',
-				take: 1000 // TODO this has to change to a queryAll
+				take: 15 // TODO this has to change to a queryAll
 			});
 		}
 		return this.productsResult.items$.pipe(

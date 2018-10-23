@@ -1,23 +1,23 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project, ProductStatus, ProductVote, KanbanColumn } from '~models';
+import { ERM, KanbanColumn, Product, ProductVote, Project } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SearchService, FilterType, Filter } from '~shared/filters';
 import { DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { SearchService } from '~shared/filters';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils/auto-unsub.component';
+import {
+	FindProductsDialogComponent,
+} from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 
@@ -103,7 +103,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		if (droppedElement) {
 			droppedElement.forEach(element => {
 				this.workflowService.updateProductStatus(element, target)
-				.subscribe(() => this.cdr.detectChanges());
+					.subscribe(() => this.cdr.detectChanges());
 			});
 		}
 	}

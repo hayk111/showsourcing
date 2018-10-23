@@ -1,10 +1,9 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project, ProductStatus, ProductVote, KanbanColumn } from '~models';
+import { ERM, KanbanColumn, Product, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -12,11 +11,9 @@ import {
 } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils/auto-unsub.component';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SearchService } from '~shared/filters';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SelectionService } from '~shared/list-page/selection.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 
@@ -108,7 +105,7 @@ export class MyWorkflowPageComponent extends ListPageComponent<Product, Workspac
 		if (droppedElement) {
 			droppedElement.forEach(element => {
 				this.workspaceSrv.updateProductStatus(element, target)
-				.subscribe(() => this.cdr.detectChanges());
+					.subscribe(() => this.cdr.detectChanges());
 			});
 		}
 	}
