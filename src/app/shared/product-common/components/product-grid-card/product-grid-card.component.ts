@@ -1,12 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModuleRef } from '@angular/core';
-import { Product, ERM } from '~models';
-import { AutoUnsub } from '~utils';
-import { ProductFeatureService } from '~features/products/services';
-import { DialogService } from '~shared/dialog';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductFeatureService } from '~features/products/services';
+import { ERM, Product } from '~models';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
-import { UserService } from '~global-services';
+import { DialogService } from '~shared/dialog';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { AutoUnsub } from '~utils';
+import { ProductService } from '~global-services';
 
 @Component({
 	selector: 'product-grid-card-app',
@@ -35,11 +35,10 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 	selected: boolean;
 
 	constructor(
-		private featureSrv: ProductFeatureService,
+		private srv: ProductService,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
-		private router: Router,
-		private thumbSrv: ThumbService) {
+		private router: Router) {
 		super();
 	}
 
@@ -51,7 +50,7 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateProduct(product: any) {
-		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
+		this.srv.update({ id: this.product.id, ...product }).subscribe();
 	}
 
 	onViewProduct() {
