@@ -13,7 +13,6 @@ export class RadioComponent extends AbstractInput {
 	@Input() isVeritical = false;
 	@Output() update = new EventEmitter<boolean>();
 	@Output() select = new EventEmitter<null>();
-	disabled = super.disabled; //  Only public and protected methods of the base class are accessible via the 'super' keyword
 	/** list of possible values and labels */
 	@Input()
 	items: any[];

@@ -13,7 +13,6 @@ export class CheckboxComponent extends AbstractInput {
 	@Output() check = new EventEmitter<null>();
 	@Output() uncheck = new EventEmitter<null>();
 	@ViewChild('label') label: ElementRef;
-	disabled = super.disabled; //  Only public and protected methods of the base class are accessible via the 'super' keyword
 	@Input() size = 's';
 	/** id of element, if not specified it will generate automtically */
 	@Input()
