@@ -146,7 +146,7 @@ export class TokenService {
 
 	/** store access token at ACCESS_TOKEN_PRE-name */
 	private storeAccessToken(token: TokenState, name: string) {
-		log.info(`%c Saving access token ${token}`, LogColor.SERVICES);
+		log.info(`%c Saving access token ${name}`, LogColor.SERVICES);
 		const accessTokenMap = this.getAccessTokenMap();
 		accessTokenMap[name] = token;
 		this.localStorageSrv.setItem(ACCESS_TOKEN_MAP, accessTokenMap);

@@ -23,13 +23,11 @@ export class AppComponent implements OnInit, OnDestroy {
 		private userClient: UserClientInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
-		private companySrv: CompanyService,
-		private tokenSrv: TokenService
+		private companySrv: CompanyService
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
-		this.tokenSrv.restoreRefreshToken();
 		this.globalClients.init();
 		this.userClient.init();
 		this.teamSrv.init();

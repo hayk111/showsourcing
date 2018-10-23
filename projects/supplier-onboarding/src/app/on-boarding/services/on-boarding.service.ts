@@ -19,6 +19,7 @@ export class OnBoardingService {
 		private supplierClaimSrv: SupplierClaimService
 	) { }
 
+
 	getClaim() {
 		return this.claim;
 	}
