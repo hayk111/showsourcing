@@ -16,7 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		BrowserModule,
 		OnBoardingModule,
 		TemplateModule,
-		RouterModule.forRoot(routes),
+		RouterModule.forRoot(routes, {
+			scrollPositionRestoration: 'top'
+		}),
 		HttpClientModule,
 		AppApolloModule,
 		BrowserAnimationsModule
