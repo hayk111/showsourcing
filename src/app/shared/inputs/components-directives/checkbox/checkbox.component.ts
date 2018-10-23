@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ContentChild, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
 
 @Component({
