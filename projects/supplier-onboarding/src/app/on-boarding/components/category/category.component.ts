@@ -21,12 +21,14 @@ export class CategoryComponent implements OnInit {
 	}
 
 	change(category) {
-		if (!this.categories) {
-			this.categories.push(category);
-			this.updateClaim();
-		} else if (!this.categories.includes(category)) {
-			this.categories.push(category);
-			this.updateClaim();
+		if (typeof (category) === 'string') { // prevents the type event from being added to the array
+			if (!this.categories) {
+				this.categories.push(category);
+				this.updateClaim();
+			} else if (!this.categories.includes(category)) {
+				this.categories.push(category);
+				this.updateClaim();
+			}
 		}
 	}
 
