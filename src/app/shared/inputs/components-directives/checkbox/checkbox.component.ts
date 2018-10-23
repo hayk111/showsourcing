@@ -66,4 +66,8 @@ export class CheckboxComponent extends AbstractInput {
 		return this.label.nativeElement.children.length === 0;
 	}
 
+	constructor(protected cd: ChangeDetectorRef) {
+		super(cd);
+	}
+
 }

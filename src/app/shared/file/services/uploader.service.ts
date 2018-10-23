@@ -38,27 +38,27 @@ export class UploaderService {
 		return forkJoin(uploads$);
 	}
 
-  uploadFiles(files: File[],
-    linkedItem?: any,
-    team?: Client
-  ): Observable<any> {
+	uploadFiles(files: File[],
+		linkedItem?: any,
+		team?: Client
+	): Observable<any> {
 		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem, team))).pipe(
 			first());
 	}
 
-  uploadImage(
-    file: File,
-    linkedItem?: any,
-    team?: Client
-  ) {
+	uploadImage(
+		file: File,
+		linkedItem?: any,
+		team?: Client
+	) {
 		return this.uploadFile(file, 'image', linkedItem, team);
 	}
 
 	uploadFile(
 		file: File,
 		type: 'file' | 'image' = 'file',
-    linkedItem?: any,
-    team?: Client
+		linkedItem?: any,
+		team?: Client
 	): Observable<AppImage> {
 		const isImage = type === 'image';
 		const fileName = file.name;
@@ -94,8 +94,7 @@ export class UploaderService {
 					title: 'File Uploaded',
 					message: 'Your file was uploaded with success'
 				});
-			}
-			),
+			}),
 			// sending the image back
 			map(_ => returned),
 			first()
@@ -174,9 +173,9 @@ export class UploaderService {
 
 	/** Link uploaded file to its entity */
 	private linkItem(returned, linkedItem: any, isImage: boolean) {
-    if (!linkedItem) {
-      return;
-    }
+		if (!linkedItem) {
+			return;
+		}
 		let srv: any;
 		if (linkedItem.__typename === 'Supplier') {
 			srv = this.supplierSrv;
