@@ -4,7 +4,7 @@ import { uuid } from '~utils/uuid.utils';
 export class SupplierType {
 	id?: string;
 	name?: string;
-	deleted ?= false;
+	deleted = false;
 	__typename ?= 'SupplierType';
 
 
