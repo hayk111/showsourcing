@@ -1,18 +1,12 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit, ChangeDetectorRef, Input, AfterViewInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ProductCommonFeatureService } from '~shared/product-common/services/product-common-feature.service';
-import { ERM, Product, ProductVote, Project } from '~models';
-import {
-	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-} from '~shared/custom-dialog';
+import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
+import { ProductService } from '~global-services';
 
 
 @Component({
@@ -24,7 +18,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 		SelectionService
 	]
 })
-export class FindProductsDialogComponent extends ListPageComponent<Product, ProductCommonFeatureService> implements OnInit, AfterViewInit {
+export class FindProductsDialogComponent extends ListPageComponent<Product, ProductService> implements OnInit, AfterViewInit {
 
 	@Input() initialSelectedProducts: Product[];
 	@Input() submitCallback: Function;
@@ -34,13 +28,13 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 
 	constructor(
 		protected router: Router,
-		protected featureSrv: ProductCommonFeatureService,
+		protected srv: ProductService,
 		protected searchSrv: SearchService,
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, null);
+		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, null);
 	}
 
 
