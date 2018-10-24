@@ -83,7 +83,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 				samplePrice: this.product.samplePrice
 			});
 
-			const recipients = Array.from(this.selected.values()).map(contact => contact.email);
+			const recipients = [...this.selected.values()].map(contact => contact.email);
 			if (this.copyEmail && this.userEmail) recipients.push(this.userEmail);
 
 			const exportData = new ExternalRequest({
@@ -112,7 +112,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	previous() {
-		this.index = (this.index > 0 && this.index <= this.maxInd) ? --this.index : this.index;
+		this.index = (this.index && this.index <= this.maxInd) ? --this.index : this.index;
 	}
 
 	closeDlg() {
@@ -120,7 +120,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	toggleCopy() {
-		this.copyEmail = this.copyEmail ? false : true;
+		this.copyEmail = !this.copyEmail;
 	}
 
 	selectMail(item: any) {

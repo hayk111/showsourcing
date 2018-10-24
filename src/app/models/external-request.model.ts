@@ -2,6 +2,7 @@ import { Quote } from '~models/quote.model';
 import { Supplier } from '~models/supplier.model';
 import { AppImage } from './app-image.model';
 import { EntityWithAudit } from './_entity.model';
+import { RequestStatus } from '~utils/constants/request-status.enum';
 
 export class ExternalRequest extends EntityWithAudit<ExternalRequestConfig> {
 	name: string;
@@ -18,7 +19,7 @@ export class ExternalRequest extends EntityWithAudit<ExternalRequestConfig> {
 
 	constructor(config: ExternalRequestConfig) {
 		super(config);
-		this.status = 'pending';
+		this.status = RequestStatus.PENDING;
 	}
 }
 

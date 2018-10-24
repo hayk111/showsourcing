@@ -1,8 +1,8 @@
-import { Price } from '~models/price.model';
 import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
-import { EntityWithAudit } from '~models/_entity.model';
+import { Price } from '~models/price.model';
 import { uuid } from '~utils';
+import { RequestStatus } from '~utils/constants/request-status.enum';
 
 export class Quote {
 	id: string;
@@ -26,7 +26,7 @@ export class Quote {
 	constructor(config: QuoteConfig) {
 		Object.assign(this, config);
 		this.id = uuid();
-		this.status = 'pending';
+		this.status = RequestStatus.PENDING;
 	}
 }
 
