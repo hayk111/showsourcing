@@ -85,12 +85,11 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 				description: this.detailGroup.get('description').value,
 				targetedMOQ: this.detailGroup.get('quantity').value,
 				recipients: Array.from(this.selected.values()).map(contact => contact.email),
-				descriptor: 'Nei',
-				// supplier: this.product.supplier, // care if empty
+				descriptor: '',
+				supplier: this.product.supplier,
 				quotes: [quote],
 				images: this.product.images
 			});
-			// this.quoteSrv.create(quote).subscribe();
 			this.externalReqSrv.create(exportData).subscribe();
 
 			// Send information
