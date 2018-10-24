@@ -1,15 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, ReplaySubject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
-import { ProductFeatureService } from '~features/products/services';
+import { Observable } from 'rxjs';
+import { ProductService } from '~global-services';
 import { ERM, Product } from '~models';
-import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
+import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { CustomField } from '~shared/dynamic-forms';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
-import { RfqDialogComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'product-preview-app',
@@ -54,7 +52,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	];
 
 	constructor(
-		private featureSrv: ProductFeatureService,
+		private featureSrv: ProductService,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
 		private router: Router,

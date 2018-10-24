@@ -159,4 +159,5 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	openRequestQuotationDialog(product: Product) {
 		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product });
 	}
+
 }
