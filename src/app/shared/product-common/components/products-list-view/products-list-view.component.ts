@@ -30,6 +30,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
+	@Output() openRequestQuotationDialog = new EventEmitter<Product>();
 	// templates
 	// load cells template for custom table
 	@ViewChild('main') mainTemplate: TemplateRef<any>;

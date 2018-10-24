@@ -14,6 +14,7 @@ import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { TemplateService } from '~shared/template/services/template.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RfqDialogComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'products-page-app',
@@ -99,6 +100,10 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
 			selectedProducts: product ? [product] : this.selectionItems()
 		});
+	}
+
+	openRequestQuotationDialog(product: Product) {
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product });
 	}
 
 	getSelectedProducts() {

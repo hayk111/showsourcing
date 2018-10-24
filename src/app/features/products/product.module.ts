@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
-	EmailListComponent,
 	ProductIconsComponent,
 	ProductSubInfoComponent,
 	ProjectCardComponent,
-	RfqDialogComponent,
 	SelectionActionsComponent,
 	SupplierCardComponent,
 } from '~features/products/components';
@@ -87,8 +85,6 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		SelectableImageComponent,
 		NewProductDialogComponent,
 		ProductNavigationComponent,
-		RfqDialogComponent,
-		EmailListComponent,
 		ProductCarouselComponent,
 		ProductTeamRatingComponent,
 		ProductActivityComponent,
@@ -98,7 +94,6 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 	],
 	entryComponents: [
 		NewProductDialogComponent,
-		RfqDialogComponent,
 		VoteDetailsDialogComponent
 	],
 	exports: [],

@@ -14,6 +14,7 @@ import { ProjectWorkflowFeatureService } from '~features/project/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RfqDialogComponent } from '~shared/custom-dialog';
 
 
 @Component({
@@ -153,5 +154,9 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 				});
 			});
 		}
+	}
+
+	openRequestQuotationDialog(product: Product) {
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product });
 	}
 }

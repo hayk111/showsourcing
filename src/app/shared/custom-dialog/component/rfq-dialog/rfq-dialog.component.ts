@@ -1,12 +1,12 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { ProductFeatureService } from '~features/products/services';
 import { ExternalRequestService, UserService } from '~global-services';
 import { Contact, ExternalRequest, Product, Quote } from '~models';
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
+import { ProductDialogService } from '~shared/custom-dialog/services';
 
 @Component({
 	selector: 'rfq-dialog-app',
@@ -32,7 +32,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 
 	constructor(
 		private externalReqSrv: ExternalRequestService,
-		private productSrv: ProductFeatureService,
+		private productSrv: ProductDialogService,
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
 		private userSrv: UserService) { super(); }

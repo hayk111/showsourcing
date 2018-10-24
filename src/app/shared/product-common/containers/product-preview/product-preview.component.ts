@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, O
 import { Router } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
-import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
 import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
@@ -10,6 +9,7 @@ import { DialogService } from '~shared/dialog';
 import { CustomField } from '~shared/dynamic-forms';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
+import { RfqDialogComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'product-preview-app',

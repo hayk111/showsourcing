@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { Product, ProductVoteRequest, Project, User } from '~models';
-import { ProductService, ProjectService, TeamUserService, UserService } from '~global-services';
+import { ProductService, ProjectService, TeamUserService, UserService, SupplierService } from '~global-services';
 import { ProductVoteRequestService } from '~global-services/product-vote-request/product-vote-request.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Apollo } from 'apollo-angular';
 import { ApolloStateService } from '~shared/apollo';
+import { SupplierQueries } from '~global-services/supplier/supplier.queries';
 
 @Injectable()
 export class ProductDialogService extends ProductService {
@@ -15,10 +16,15 @@ export class ProductDialogService extends ProductService {
 		protected apolloState: ApolloStateService,
 		protected voteSrv: ProductVoteRequestService,
 		protected projectSrv: ProjectService,
+		protected supplierSrv: SupplierService,
 		protected teamUserSrv: TeamUserService,
 		protected userSrv: UserService
 	) {
 		super(apolloState, userSrv);
+	}
+
+	getContacts(supplierId: string) {
+		return this.supplierSrv.queryOne(supplierId, SupplierQueries.contacts);
 	}
 
 	selectProjects(): Observable<Project[]> {

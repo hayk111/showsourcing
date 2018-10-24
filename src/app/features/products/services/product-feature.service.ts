@@ -13,10 +13,4 @@ export class ProductFeatureService extends ProductService {
 	) {
 		super(apolloState, userSrv);
 	}
-
-	getContacts(supplierId: string) {
-		return this.supplierSrv.queryOne(supplierId, SupplierQueries.contacts);
-	}
-
-
 }

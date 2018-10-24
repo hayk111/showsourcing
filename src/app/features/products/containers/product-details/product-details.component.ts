@@ -5,7 +5,7 @@ import { VoteDetailsDialogComponent } from '~features/products/components/vote-d
 import { ProductFeatureService } from '~features/products/services';
 import { ProductQueries } from '~global-services/product/product.queries';
 import { AppImage, Attachment, ERM, Product, ProductStatus, Project } from '~models';
-import { ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent } from '~shared/custom-dialog';
+import { ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent, RfqDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -87,19 +87,21 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		this.dlgSrv.openFromModule(
 			ProductRequestTeamFeedbackDlgComponent,
 			this.moduleRef,
-			{
-				selectedProducts: [this.product]
-			}
+			{ selectedProducts: [this.product] }
 		);
-  }
+	}
 
-  /** when file has been removed we remove link */
-  onFileRemoved(attachment: Attachment) {
-    const attachments = this.product.attachments.filter(
-      atc => atc.id !== attachment.id
-    );
-    this.updateProduct({ attachments });
-  }
+	openRequestQuotationDialog() {
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product: this.product });
+	}
+
+	/** when file has been removed we remove link */
+	onFileRemoved(attachment: Attachment) {
+		const attachments = this.product.attachments.filter(
+			atc => atc.id !== attachment.id
+		);
+		this.updateProduct({ attachments });
+	}
 	/** remove project from product.projects */
 	removeProject(removed: Project) {
 		// mapping project to their respective id, to not inadvertently change other props, then removing
