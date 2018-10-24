@@ -1,8 +1,8 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
-import { ExternalRequestService, QuoteService } from '~global-services';
+import { ExternalRequestService, UserService } from '~global-services';
 import { Contact, ExternalRequest, Product, Quote } from '~models';
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
@@ -19,6 +19,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	detailGroup: FormGroup;
 	emailGroup: FormGroup;
 	copyEmail = false;
+	userEmail: string;
 	titles = ['review', 'recipient', 'confirmation'];
 	maxInd = this.titles.length - 1;
 	index = 0;
@@ -31,10 +32,10 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 
 	constructor(
 		private externalReqSrv: ExternalRequestService,
-		private quoteSrv: QuoteService,
 		private productSrv: ProductFeatureService,
 		private fb: FormBuilder,
-		private dlgSrv: DialogService) { super(); }
+		private dlgSrv: DialogService,
+		private userSrv: UserService) { super(); }
 
 	ngOnInit() {
 
@@ -55,6 +56,8 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 			if (this.product.supplier.officeEmail)
 				this._contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
 		});
+
+		this.userEmail = this.userSrv.userSync.email;
 	}
 
 	ngAfterViewInit() {
@@ -80,11 +83,14 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 				samplePrice: this.product.samplePrice
 			});
 
+			const recipients = Array.from(this.selected.values()).map(contact => contact.email);
+			if (this.copyEmail && this.userEmail) recipients.push(this.userEmail);
+
 			const exportData = new ExternalRequest({
 				name: this.detailGroup.get('title').value,
 				description: this.detailGroup.get('description').value,
 				targetedMOQ: this.detailGroup.get('quantity').value,
-				recipients: Array.from(this.selected.values()).map(contact => contact.email),
+				recipients,
 				descriptor: '',
 				supplier: this.product.supplier,
 				quotes: [quote],
