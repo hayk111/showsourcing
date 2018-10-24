@@ -16,13 +16,20 @@ export class ExternalRequest extends EntityWithAudit<ExternalRequestConfig> {
 	images: AppImage[];
 	__typename ?= 'ExternalRequest';
 
+	constructor(config: ExternalRequestConfig) {
+		super(config);
+		this.status = 'pending';
+	}
 }
 
 export interface ExternalRequestConfig {
 	name: string;
+	descriptor: string;
 	description?: string;
 	companyName?: string;
 	targetedMOQ?: number;
-	recipients?: string[];
+	recipients: string[];
 	supplier?: Supplier;
+	quotes: Quote[];
+	images?: AppImage[];
 }

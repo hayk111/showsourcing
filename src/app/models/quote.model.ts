@@ -2,8 +2,9 @@ import { Price } from '~models/price.model';
 import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
 import { EntityWithAudit } from '~models/_entity.model';
+import { uuid } from '~utils';
 
-export class Quote extends EntityWithAudit<QuoteConfig> {
+export class Quote {
 	id: string;
 	status: string; // possible values: pending, done, declined
 	comment?: string;
@@ -21,10 +22,15 @@ export class Quote extends EntityWithAudit<QuoteConfig> {
 	sample?: boolean;
 	samplePrice?: number;
 	__typename ?= 'Quote';
+
+	constructor(config: QuoteConfig) {
+		Object.assign(this, config);
+		this.id = uuid();
+		this.status = 'pending';
+	}
 }
 
 export interface QuoteConfig {
-	status: string; // possible values: pending, done, declined
 	comment?: string;
 	// Basic product fields
 	name: string;

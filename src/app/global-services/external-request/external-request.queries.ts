@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import { GlobalQueries } from '~global-services/_global/global-queries.class';
 import { ProductQueries } from '~global-services/product/product.queries';
 

@@ -1,11 +1,12 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { first, takeUntil } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
-import { ExternalRequestService } from '~global-services';
-import { Contact, ExternalRequest, Product } from '~models';
+import { ExternalRequestService, QuoteService } from '~global-services';
+import { Contact, ExternalRequest, Product, Quote } from '~models';
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'rfq-dialog-app',
@@ -13,7 +14,7 @@ import { InputDirective } from '~shared/inputs';
 	styleUrls: ['./rfq-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RfqDialogComponent implements AfterViewInit, OnInit {
+export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnInit {
 
 	detailGroup: FormGroup;
 	emailGroup: FormGroup;
@@ -30,11 +31,14 @@ export class RfqDialogComponent implements AfterViewInit, OnInit {
 
 	constructor(
 		private externalReqSrv: ExternalRequestService,
+		private quoteSrv: QuoteService,
 		private productSrv: ProductFeatureService,
 		private fb: FormBuilder,
-		private dlgSrv: DialogService) { }
+		private dlgSrv: DialogService) { super(); }
 
 	ngOnInit() {
+
+		this._contacts = [];
 		this.detailGroup = this.fb.group({
 			title: ['', Validators.required],
 			quantity: ['', Validators.required],
@@ -45,9 +49,9 @@ export class RfqDialogComponent implements AfterViewInit, OnInit {
 		});
 
 		this.productSrv.getContacts(this.product.supplier.id).pipe(
-			first()
+			takeUntil(this._destroy$)
 		).subscribe(supp => {
-			this._contacts = supp.contacts;
+			this._contacts = [...supp.contacts];
 			if (this.product.supplier.officeEmail)
 				this._contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
 		});
@@ -61,13 +65,33 @@ export class RfqDialogComponent implements AfterViewInit, OnInit {
 		if (this.index < this.maxInd)
 			++this.index;
 		else {
+			const quote = new Quote({
+				name: this.product.name,
+				price: this.product.price,
+				description: this.product.description,
+				minimumOrderQuantity: this.product.minimumOrderQuantity,
+				moqDescription: this.product.moqDescription,
+				innerCarton: this.product.innerCarton,
+				masterCarton: this.product.masterCarton,
+				priceMatrix: this.product.priceMatrix,
+				leadTimeValue: this.product.leadTimeValue,
+				leadTimeUnit: this.product.leadTimeUnit,
+				sample: this.product.sample,
+				samplePrice: this.product.samplePrice
+			});
+
 			const exportData = new ExternalRequest({
 				name: this.detailGroup.get('title').value,
 				description: this.detailGroup.get('description').value,
 				targetedMOQ: this.detailGroup.get('quantity').value,
-				recipients: this._contacts.map(contact => contact.name),
-				supplier: this.product.supplier // care if empty
+				recipients: Array.from(this.selected.values()).map(contact => contact.email),
+				descriptor: 'Nei',
+				// supplier: this.product.supplier, // care if empty
+				quotes: [quote],
+				images: this.product.images
 			});
+			// this.quoteSrv.create(quote).subscribe();
+			this.externalReqSrv.create(exportData).subscribe();
 
 			// Send information
 			this.closeDlg();
