@@ -19,8 +19,6 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
 
-	routerSubscription: Subscription;
-
 	constructor(
 		private authSrv: AuthenticationService,
 		private globalDataClient: GlobalDataClientsInitializer,
@@ -48,11 +46,12 @@ export class AppComponent implements OnInit {
 
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelected$.pipe(
-			switchMap(team => this.onTeamSelected(team) as any)
+			switchMap(team => this.startTeamClient(team) as any)
 		).subscribe();
 	}
 
 	private startBaseClients(): Observable<Client[]> {
+		// when we are authenticated it means we have a token
 		const token = this.tokenSrv.refreshTokenSync;
 		return forkJoin([
 			this.globalConstClient.init(token),
@@ -61,8 +60,9 @@ export class AppComponent implements OnInit {
 		]);
 	}
 
-	private onTeamSelected(team: Team) {
+	private startTeamClient(team: Team) {
 		const token = this.tokenSrv.refreshTokenSync;
+		// destroy team client first in case there was a previous team selectioned
 		this.teamClient.destroy('switching / no team selected');
 		if (team) {
 			return this.teamClient.init(token, team);
