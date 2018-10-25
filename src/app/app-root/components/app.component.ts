@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
 	routerSubscription: Subscription;
 
 	constructor(
-		private router: Router,
 		private authSrv: AuthenticationService,
 		private globalDataClient: GlobalDataClientsInitializer,
 		private globalConstClient: GlobalConstClientInitializer,
@@ -39,8 +38,6 @@ export class AppComponent implements OnInit {
 		this.companySrv.init();
 
 		// when authenticated we start the required clients
-		// hint: we don't subscribe directly in the client because we want
-		// to have a choice when we start the clients for other apps like supplier-app
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.startBaseClients())
 		).subscribe();
@@ -53,10 +50,6 @@ export class AppComponent implements OnInit {
 		this.teamSrv.teamSelected$.pipe(
 			switchMap(team => this.onTeamSelected(team) as any)
 		).subscribe();
-
-		this.routerSubscription = this.router.events
-			.pipe(filter(event => event instanceof NavigationEnd))
-			.subscribe(event => document.body.scrollTop = 0);
 	}
 
 	private startBaseClients(): Observable<Client[]> {
