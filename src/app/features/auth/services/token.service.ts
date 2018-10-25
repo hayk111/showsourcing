@@ -52,7 +52,8 @@ export class TokenService {
 			this._refreshToken$.next();
 	}
 
-	getRefreshToken(credentials: Credentials) {
+	getRefreshToken(credentials: Credentials)
+	: Observable<RefreshTokenResponse> {
 		const refObj = this.getRefreshTokenObject(credentials, 'password');
 		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObj).pipe(
 			// if there is an error with the new auth mech, we have to try the legacy one
@@ -91,11 +92,11 @@ export class TokenService {
 	}
 
 	/** gets a guest refresh token for when we are authenticated as guest */
-	getGuestRefreshToken(token: string): TokenService {
-		this.http.get<RefreshTokenResponse>(`${environment.apiUrl}/token/${token}`).pipe(
-			map(resp => resp.refresh_token)
-		).subscribe(refreshToken => this._guestRefreshToken$.next(refreshToken));
-		return this;
+	getGuestRefreshToken(token: string) {
+		return this.http.get<RefreshTokenResponse>(`${environment.apiUrl}/token/${token}`).pipe(
+			map(resp => resp.refresh_token),
+			tap(refreshToken => this._guestRefreshToken$.next(refreshToken))
+		);
 	}
 
 	/** revokes guest access */

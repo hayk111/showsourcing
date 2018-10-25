@@ -4,7 +4,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, Subject } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { RealmServerService } from '~global-services/realm-server/realm-server.service';
@@ -22,19 +22,22 @@ import { log, LogColor } from '~utils';
  */
 export abstract class AbstractApolloClient {
 	protected initialized = false;
+	protected destroyed$ = new Subject();
+
 	private ws: WebSocketLink;
 
 	constructor(
 		protected apollo: Apollo,
 		protected httpLink: HttpLink,
 		protected apolloState: ApolloStateService,
-		protected realmServerSrv: RealmServerService
+		protected realmServerSrv: RealmServerService,
+		protected client: Client
 	) { }
 
 
 	protected checkNotAlreadyInit() {
 		if (this.initialized) {
-			throw Error('User client already initialized');
+			throw Error('client already initialized');
 		}
 		this.initialized = true;
 	}
@@ -50,15 +53,16 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** resets a client */
-	protected destroyClient(clientName: Client, reason: string, setPending?: boolean) {
-		log.debug(`%c Destroying client ${clientName} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
+	destroy(reason?: string, setPending?: boolean) {
+		log.debug(`%c Destroying client ${this.client} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
 		// sometimes (for example when switching team) we want to put the state as pending
 		if (setPending) {
-			this.apolloState.setClientPending(clientName);
+			this.apolloState.setClientPending(this.client);
 		} else {
-			this.apolloState.destroyClient(clientName);
+			this.apolloState.destroyClient(this.client);
 		}
-		this.clearClient(clientName);
+		this.clearClient(this.client);
+		this.destroyed$.next();
 	}
 
 	/**
