@@ -69,11 +69,9 @@ export class AppComponent implements OnInit {
 	}
 
 	private onTeamSelected(team: Team) {
-		debugger;
 		const token = this.tokenSrv.refreshTokenSync;
-		if (!team) {
-			return this.teamClient.destroy('no team selected');
-		} else {
+		this.teamClient.destroy('switching / no team selected');
+		if (team) {
 			return this.teamClient.init(token, team);
 		}
 	}

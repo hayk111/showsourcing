@@ -34,7 +34,6 @@ export abstract class AbstractApolloClient {
 		protected client: Client
 	) { }
 
-
 	protected checkNotAlreadyInit() {
 		if (this.initialized) {
 			throw Error('client already initialized');
@@ -53,14 +52,9 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** resets a client */
-	destroy(reason?: string, setPending?: boolean): Observable<boolean> {
+	destroy(reason?: string): Observable<boolean> {
 		log.debug(`%c Destroying client ${this.client} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
-		// sometimes (for example when switching team) we want to put the state as pending
-		if (setPending) {
-			this.apolloState.setClientPending(this.client);
-		} else {
-			this.apolloState.destroyClient(this.client);
-		}
+		this.apolloState.destroyClient(this.client);
 		this.clearClient(this.client);
 		this.destroyed$.next();
 		this.initialized = false;
