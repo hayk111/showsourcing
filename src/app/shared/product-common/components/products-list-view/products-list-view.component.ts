@@ -30,6 +30,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
+	@Output() openRequestQuotationDialog = new EventEmitter<Product>();
 	// templates
 	// load cells template for custom table
 	@ViewChild('main') mainTemplate: TemplateRef<any>;
@@ -56,7 +57,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 		{ title: 'FAV', type: 'rating', sortBy: 'rating', width: 15, minWidth: 50 },
 		{ title: 'Status', type: 'status', sortBy: 'status.name', width: 85, minWidth: 120 },
 		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
-  ];
+	];
 
 	constructor(private renderer: Renderer2) {
 		super();

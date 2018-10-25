@@ -67,10 +67,28 @@
 		<h3>REQUEST DETAIL</h3>
 		<label-app class="title">Product</label-app>
 		<image-previewer-app
+			class="request-detail"
 			[hasAdd]="false"
 			[showOneLine]="true"
 			[images]="product.images">
 		</image-previewer-app>
+		<div class="flexColumn request-detail">
+			<label-app class="title">Title</label-app>
+			<span>{{ detailGroup.get('title').value }}</span>
+		</div>
+		<div class="flexColumn request-detail">
+			<label-app class="title">Targeted Quantity</label-app>
+			<span>{{ detailGroup.get('quantity').value }}</span>
+		</div>
+		<div class="flexColumn request-detail">
+			<label-app class="title">Description</label-app>
+			<span>{{ detailGroup.get('description').value }}</span>
+		</div>
+		<label-app class="title">Destinataries</label-app>
+		<div class="flexWrap request-detail">
+			<span *ngIf="copyEmail && userEmail" class="email-detail">{{ userEmail }}</span>
+			<span class="email-detail" *ngFor="let contact of selected.values(); first as first">{{ first && !userEmail ? contact.email : ', ' + contact.email }}</span>
+		</div>
 	</ng-container>
 
 	<divider-app></divider-app>

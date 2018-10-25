@@ -51,6 +51,7 @@ export class ProductCarouselComponent extends AutoUnsub {
 	@Output() requestFeedback = new EventEmitter<null>();
 	@Output() vote = new EventEmitter<any>();
 	@Output() openAddProject = new EventEmitter<null>();
+	@Output() openRequestQuotationDialog = new EventEmitter<null>();
 	@Output() export = new EventEmitter<null>();
 	@Output() imageDeleted = new EventEmitter<AppImage>();
 	/** default image displayed when no image  */

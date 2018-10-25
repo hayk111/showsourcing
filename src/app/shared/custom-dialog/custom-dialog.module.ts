@@ -14,13 +14,19 @@ import {
 } from '~shared/custom-dialog/component';
 import { CrudDialogService } from '~shared/custom-dialog/services/crud-dialog.service';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
+import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
+import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
+import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
+import { CarouselModule } from '~shared/carousel';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		DialogModule,
 		SharedModule,
-		SearchBarModule
+		SearchBarModule,
+		StageIndicatorModule,
+		CarouselModule
 	],
 	declarations: [
 		CreationDialogComponent,
@@ -29,6 +35,8 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
+		EmailListComponent,
+		RfqDialogComponent
 	],
 	entryComponents: [
 		CreationDialogComponent,
@@ -37,6 +45,7 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
+		RfqDialogComponent
 	],
 	providers: [
 		ProductDialogService,

@@ -1,10 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef, Output, EventEmitter, Renderer2 } from '@angular/core';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { Product, ERM } from '~models';
-import { ColumnDescriptor, TableDescriptor } from '~shared/table';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	OnInit,
+	Output,
+	Renderer2,
+	TemplateRef,
+	ViewChild,
+} from '@angular/core';
+import { ERM, Product } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { ProductService } from '~global-services';
+import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 
 @Component({
 	selector: 'project-product-list-app',
@@ -20,6 +26,7 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
+	@Output() openRequestQuotationDialog = new EventEmitter<Product>();
 	// templates
 	// load cells template for custom table
 	@ViewChild('main') mainTemplate: TemplateRef<any>;
@@ -37,7 +44,7 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 	prodErm = ERM.PRODUCT;
 
-  descriptor: TableDescriptor = [
+	descriptor: TableDescriptor = [
 		{ title: 'Name', type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
 		{ title: 'Category', type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
 		{ title: 'Supplier', type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
@@ -46,7 +53,7 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 		{ title: 'FAV', type: 'rating', sortBy: 'rating', width: 15, minWidth: 50 },
 		{ title: 'Status', type: 'status', sortBy: 'status.name', width: 85, minWidth: 120 },
 		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
-  ];
+	];
 
 	constructor(private renderer: Renderer2) {
 		super();

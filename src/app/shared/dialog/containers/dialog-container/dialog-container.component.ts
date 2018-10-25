@@ -64,10 +64,6 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 			});
 		}
 
-		if (instance.ngOnInit) {
-			instance.ngOnInit();
-		}
-
 		// mark for cd since we use the store and the event happened somewhere else
 		this.cdRef.markForCheck();
 	}

@@ -35,6 +35,10 @@ export class CheckboxComponent extends AbstractInput {
 	set required(value: boolean) { this._required = value; }
 	private _required: boolean;
 
+	constructor(protected cd: ChangeDetectorRef) {
+		super(cd);
+	}
+
 	/** Toggles the `checked` state of the checkbox. */
 	toggle(): void {
 		this.checked = !this.checked;
@@ -65,9 +69,4 @@ export class CheckboxComponent extends AbstractInput {
 	hasContent() {
 		return this.label.nativeElement.children.length === 0;
 	}
-
-	constructor(protected cd: ChangeDetectorRef) {
-		super(cd);
-	}
-
 }

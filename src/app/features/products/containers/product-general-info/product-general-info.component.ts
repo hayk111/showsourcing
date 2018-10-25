@@ -10,13 +10,13 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
 import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AutoUnsub } from '~utils';
+import { RfqDialogComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'product-general-info-app',

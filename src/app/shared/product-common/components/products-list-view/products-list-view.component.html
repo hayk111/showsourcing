@@ -24,7 +24,7 @@ I added comment above each column to make it clearer -->
 	<context-menu-item-app class="pointer flexCenter" (click)="openAddToProjectDialog.emit(row)" i18n="product menu | add to project">
 		Add to project
 	</context-menu-item-app>
-	<context-menu-item-app *ngIf="" class="pointer flexCenter" (click)="openRequestQuotationDialog.emit(row)" i18n="product menu | go to request quotation">
+	<context-menu-item-app *ngIf="row?.status?.status" class="pointer flexCenter" (click)="openRequestQuotationDialog.emit(row)" i18n="product menu | go to request quotation">
 		Request for quotation
 	</context-menu-item-app>
 	<context-menu-item-app class="pointer flexCenter" (click)="openRequestFeedbackDialog.emit(row)" i18n="product menu | go to request feedback">

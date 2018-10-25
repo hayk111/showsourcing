@@ -30,6 +30,7 @@
 		(unfavorited)="onItemUnfavorited($event)"
 		(bottomReached)="loadMore()"
 		(sort)="sort($event)"
+		(openRequestQuotationDialog)="openRequestQuotationDialog($event)"
 		(delete)="deassociateProductById($event)">
 	</project-product-list-app>
 
@@ -58,14 +59,14 @@
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
-  </selection-bar-app>
-  <product-preview-app
-  *ngIf="previewOpen"
-  [product]="previewed"
-  (close)="closePreview()"
-  (clickOutside)="closePreview()">
+	</selection-bar-app>
 
-</product-preview-app>
+  <product-preview-app
+		*ngIf="previewOpen"
+		[product]="previewed"
+		(close)="closePreview()"
+		(clickOutside)="closePreview()">
+	</product-preview-app>
 </ng-container>
 
 
