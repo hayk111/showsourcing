@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { forkJoin, combineLatest, zip } from 'rxjs';
-import { filter, first, shareReplay, switchMap, switchMapTo, tap, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
+import { forkJoin, combineLatest, zip, Observable } from 'rxjs';
+import { filter, first, shareReplay, switchMap, switchMapTo, tap, distinctUntilChanged, map, takeUntil, catchError } from 'rxjs/operators';
 import { AuthStatus } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
@@ -27,10 +27,10 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected userSrv: UserService,
 		protected realmServerSrv: RealmServerService
 	) {
-		super(apollo, link, apolloState, realmServerSrv);
+		super(apollo, link, apolloState, realmServerSrv, Client.USER);
 	}
 
-	init(refreshToken: TokenState): void {
+	init(refreshToken: TokenState): Observable<Client> {
 		super.checkNotAlreadyInit();
 
 		this.apolloState.setClientPending(Client.USER);
@@ -42,12 +42,12 @@ export class UserClientInitializer extends AbstractApolloClient {
 			);
 		const realmUri$ = super.getRealmUri('default', `user/${userId}/__partial/${userId}`);
 
-		zip(realmUri$, accessToken$).pipe(
+		return zip(realmUri$, accessToken$).pipe(
 			switchMap(([uri, token]) => this.createClient(uri, Client.USER, token)),
-			takeUntil(this.destroyed$)
-		).subscribe(
-			_ => this.apolloState.setClientReady(Client.USER),
-			e => this.apolloState.setClientError(Client.USER, e)
+			takeUntil(this.destroyed$),
+			tap(_ => this.apolloState.setClientReady(this.client)),
+			first(),
+			catchError(e => this.onError(e))
 		);
 	}
 

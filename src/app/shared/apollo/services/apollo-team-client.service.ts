@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { zip } from 'rxjs';
-import { first, switchMap, takeUntil } from 'rxjs/operators';
+import { zip, Observable } from 'rxjs';
+import { first, switchMap, takeUntil, tap, catchError } from 'rxjs/operators';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
@@ -32,7 +32,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		super(apollo, link, apolloState, realmServerSrv, Client.TEAM);
 	}
 
-	init(refreshToken: TokenState, team: Team) {
+	init(refreshToken: TokenState, team: Team): Observable<Client> {
 		const userId = refreshToken.token_data.identity;
 
 		// here the user client is ready if a team is selected
@@ -46,12 +46,12 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			.pipe(first());
 
 		// combine tokens & uri
-		zip(accessToken$, uri$).pipe(
+		return zip(accessToken$, uri$).pipe(
 			switchMap(([token, uri]) => super.createClient(uri, this.client, token)),
-			takeUntil(this.destroyed$)
-		).subscribe(
-			_ => this.apolloState.setClientReady(this.client),
-			e => this.apolloState.setClientError(this.client, e)
+			takeUntil(this.destroyed$),
+			tap(_ => this.apolloState.setClientReady(this.client)),
+			first(),
+			catchError(e => this.onError(e))
 		);
 
 	}

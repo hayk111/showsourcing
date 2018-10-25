@@ -25,12 +25,15 @@ export class TokenService {
 	private timers: any[] = [];
 	private _refreshToken$ = new ReplaySubject<TokenState>(1);
 	refreshToken$ = this._refreshToken$.asObservable().pipe(shareReplay(1));
+	refreshTokenSync: TokenState;
 	private _guestRefreshToken$ = new ReplaySubject<TokenState>(1);
 
 	constructor(
 		private localStorageSrv: LocalStorageService,
 		private http: HttpClient
-	) { }
+	) {
+		this.refreshToken$.subscribe(token => this.refreshTokenSync = token);
+	}
 
 	/**
 	 * Restores the refresh token from the local storage,
@@ -53,7 +56,7 @@ export class TokenService {
 	}
 
 	getRefreshToken(credentials: Credentials)
-	: Observable<RefreshTokenResponse> {
+		: Observable<RefreshTokenResponse> {
 		const refObj = this.getRefreshTokenObject(credentials, 'password');
 		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObj).pipe(
 			// if there is an error with the new auth mech, we have to try the legacy one

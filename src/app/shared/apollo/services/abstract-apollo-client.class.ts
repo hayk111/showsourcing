@@ -4,7 +4,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
-import { Observable, Observer, Subject } from 'rxjs';
+import { Observable, Observer, Subject, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { RealmServerService } from '~global-services/realm-server/realm-server.service';
@@ -53,7 +53,7 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** resets a client */
-	destroy(reason?: string, setPending?: boolean) {
+	destroy(reason?: string, setPending?: boolean): Observable<boolean> {
 		log.debug(`%c Destroying client ${this.client} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
 		// sometimes (for example when switching team) we want to put the state as pending
 		if (setPending) {
@@ -63,6 +63,13 @@ export abstract class AbstractApolloClient {
 		}
 		this.clearClient(this.client);
 		this.destroyed$.next();
+		this.initialized = false;
+		return of(false);
+	}
+
+	protected onError(e) {
+		this.apolloState.setClientError(this.client, e);
+		return of(e);
 	}
 
 	/**
@@ -87,7 +94,7 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** we use the path as client name.. */
-	protected createClient(uri: string, name: Client, tokenState: TokenState) {
+	protected createClient(uri: string, name: Client, tokenState: TokenState): Observable<Client> {
 		log.debug(`%c creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
 
 		return Observable.create((observer: Observer<any>) => {

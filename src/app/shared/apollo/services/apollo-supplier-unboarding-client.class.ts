@@ -24,7 +24,7 @@ export class SupplierOnboardingClient extends AbstractApolloClient {
 		protected authSrv: AuthenticationService,
 		protected tokenSrv: TokenService
 	) {
-		super(apollo, httpLink, apolloState, realmServerSrv);
+		super(apollo, httpLink, apolloState, realmServerSrv, Client.SUPPLIER_ONBOARDING);
 	}
 
 	init() {
@@ -47,7 +47,7 @@ export class SupplierOnboardingClient extends AbstractApolloClient {
 			distinctUntilChanged(),
 			filter(status => status === AuthStatus.NOT_AUTHENTICATED),
 		).subscribe(_ => {
-			this.destroyClient(Client.SUPPLIER_ONBOARDING, 'no refresh token');
+			this.destroy('no refresh token');
 		});
 	}
 }
