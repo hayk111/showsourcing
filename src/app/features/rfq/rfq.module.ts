@@ -31,8 +31,13 @@ import { ValidationPageComponent } from './containers/validation/validation-page
 		DynamicFormsModule,
 		RouterModule.forChild(routes)
 	],
-	declarations: [NewRequestPageComponent, FillInformationPageComponent, RefuseDialogComponent,
-		ReviewSendPageComponent, ValidationPageComponent],
+	declarations: [
+		NewRequestPageComponent,
+		FillInformationPageComponent,
+		RefuseDialogComponent,
+		ReviewSendPageComponent,
+		ValidationPageComponent
+	],
 	entryComponents: [RefuseDialogComponent],
 	exports: [],
 	providers: [

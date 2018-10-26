@@ -19,7 +19,6 @@ export class GuestClientInitializer extends AbstractApolloClient {
 		protected link: HttpLink,
 		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
-		private route: ActivatedRoute,
 		protected realmServerSrv: RealmServerService
 
 	) {

@@ -13,6 +13,7 @@
 	</editable-label-app>
 	<selector-const-app
 		#selector
+		[displayedValue]="'Select ' + customField.metadata.target"
 		[multiple]="customField.multiple"
 		[type]="customField.metadata.target"
 		[(ngModel)]="value"
@@ -36,6 +37,7 @@
 		</editable-label-app>
 		<selector-entity-app
 			#selector
+			[displayedValue]="'Select ' + customField.metadata.target"
 			[multiple]="customField.multiple"
 			[type]="customField.metadata.target"
 			[canCreate]="customField.metadata.canCreate"
