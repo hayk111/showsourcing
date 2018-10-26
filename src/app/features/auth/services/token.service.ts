@@ -45,7 +45,7 @@ export class TokenService {
 	 * so we don't have to relogin on every refresh.
 	 * This is called when the app starts
 	 */
-	async restoreRefreshToken(name: string): Promise<void> {
+	async restoreRefreshToken(name: string): Promise<TokenState> {
 		log.info(`%c Restoring refresh token`, LogColor.SERVICES);
 		const refreshToken = this.localStorageSrv.getItem(`${REFRESH_TOKEN_NAME}-name`) as TokenState;
 		// the refresh token are long lived at the moment (10 years),
@@ -58,31 +58,34 @@ export class TokenService {
 			this.pushToken(name, refreshToken);
 		else
 			this.pushToken(name);
+
+		return refreshToken;
 	}
 
 	private pushToken(name: string, token?: TokenState) {
 		switch (name) {
 			case 'auth':
 				this._authRefreshToken$.next(token);
-				break;
+				return this.authRefreshToken$;
 			case 'supplier-onboarding':
 				this._onboardingRefreshToken$.next(token);
-				break;
+				return this.onboardingRefreshToken$;
 			case 'rfq':
 				this._rfqRefreshToken$.next(token);
-				break;
+				return this.rfqRefreshToken$;
 		}
 	}
 
 	getRefreshToken(credentials: Credentials, name = 'auth')
-		: Observable<RefreshTokenResponse> {
+		: Observable<TokenState> {
 		const refObj = this.getRefreshTokenObject(credentials, 'password');
 		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObj).pipe(
 			// if there is an error with the new auth mech, we have to try the legacy one
 			catchError(e => of(this.getRefreshTokenObject(credentials, 'legacy')).pipe(
 				switchMap(refObjLeg => this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObjLeg))
 			)),
-			tap(refreshToken => this.storeRefreshToken(name, refreshToken)),
+			map((refreshTokenResp: RefreshTokenResponse) => refreshTokenResp.refresh_token),
+			tap((refreshToken: TokenState) => this.storeRefreshToken(name, refreshToken)),
 			catchError(err => {
 				this.pushToken(name);
 				return throwError(err);
@@ -106,10 +109,10 @@ export class TokenService {
 
 
 	/** stores the access token we get on login */
-	private storeRefreshToken(name: string, resp: RefreshTokenResponse): TokenService {
-		log.info(`%c Storring refresh token: ${resp.refresh_token}`, LogColor.SERVICES);
-		this.localStorageSrv.setItem(`${REFRESH_TOKEN_NAME}-name`, resp.refresh_token);
-		this.pushToken(name, resp.refresh_token);
+	private storeRefreshToken(name: string, token: TokenState): TokenService {
+		log.info(`%c Storring refresh token: ${token}`, LogColor.SERVICES);
+		this.localStorageSrv.setItem(`${REFRESH_TOKEN_NAME}-name`, token);
+		this.pushToken(name, token);
 		return this;
 	}
 

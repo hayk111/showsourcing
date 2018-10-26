@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { SupplierOnboardingClient } from '~shared/apollo/services/apollo-supplier-unboarding-client.class';
+import { of, from, forkJoin } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { AuthStatus, TokenService, Credentials } from '~features/auth';
-import { of, combineLatest } from 'rxjs';
+import { AuthStatus, Credentials, TokenService } from '~features/auth';
 import { GlobalDataClientsInitializer } from '~shared/apollo';
-import { CredentialDetails } from 'crypto';
+import { SupplierOnboardingClient } from '~shared/apollo/services/apollo-supplier-unboarding-client.class';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 
 @Component({
 	selector: 'app-root-onboarding',
@@ -24,25 +23,21 @@ export class AppComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		// we init the auth srv which is gonna authenticate
-		// if there is a token present else we authenticate the user
-		// with hard coded credentials (ask Antoine why)
-		this.tokenSrv.getRefreshToken(this.credentials).pipe(
-			switchMap(token => )
-		);
-		this.authSrv.authStatus$.pipe(
-			switchMap((status: AuthStatus) => {
-				if (status === AuthStatus.NOT_AUTHENTICATED) {
-					return this.authSrv.login({
-						identifier: 'supplier-onboarding-user',
-						password: 'supplier-onboarding-password'
-					}) as any;
-				} else {
-					return of(true);
-				}
-			})
+		// if the refresh token exist then we use that token, else we generate one
+		// with an hardcoded user (ask antine if question)
+		from(this.tokenSrv.restoreRefreshToken('supplier-onboarding')).pipe(
+			switchMap((token: TokenState) => {
+				return token ? of(token) :
+					this.tokenSrv.getRefreshToken(this.credentials, 'supplier-onboarding');
+			}),
+			switchMap((token: TokenState) => this.startClients(token))
 		).subscribe();
-		this.supplierOnBoardingClient.init();
-		this.globalClients.init();
+	}
+
+	private startClients(token: TokenState) {
+		return forkJoin([
+			this.supplierOnBoardingClient.init(token),
+			this.globalDataClient.init(token)
+		]);
 	}
 }
