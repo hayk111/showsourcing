@@ -35,7 +35,7 @@ export class GlobalConstClientInitializer extends AbstractApolloClient {
 
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
-		return this.tokenSrv.getAccessToken(this.client).pipe(
+		return this.tokenSrv.getAccessToken(refreshToken, this.client).pipe(
 			switchMap(token => this.createClient(uri, this.client, token)),
 			takeUntil(this.destroyed$),
 			tap(_ => this.apolloState.setClientReady(this.client)),

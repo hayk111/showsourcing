@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable, of, ReplaySubject, throwError } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { Credentials } from '~features/auth';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenPostBody } from '~features/auth/interfaces/refresh-token-post-body.interface';
@@ -21,18 +21,23 @@ const ACCESS_TOKEN_MAP = 'ACCESS_TOKEN_MAP';
 })
 export class TokenService {
 
-	// timeout variable. The timeout will refresh the access token.
-	private timers: any[] = [];
-	private _refreshToken$ = new ReplaySubject<TokenState>(1);
-	refreshToken$ = this._refreshToken$.asObservable().pipe(shareReplay(1));
-	refreshTokenSync: TokenState;
+	private _authRefreshToken$ = new ReplaySubject<TokenState>(1);
+	authRefreshToken$ = this._authRefreshToken$.asObservable().pipe(shareReplay(1));
+	authRefreshTokenSync: TokenState;
+	private _onboardingRefreshToken$ = new ReplaySubject<TokenState>(1);
+	onboardingRefreshToken$ = this._onboardingRefreshToken$.asObservable().pipe(shareReplay(1));
+	onboardingRefreshTokenSync: TokenState;
+	private _rfqRefreshToken$ = new ReplaySubject<TokenState>(1);
+	rfqRefreshToken$ = this._rfqRefreshToken$.asObservable().pipe(shareReplay(1));
+	rfqRefreshTokenSync: TokenState;
+
 	private _guestRefreshToken$ = new ReplaySubject<TokenState>(1);
 
 	constructor(
 		private localStorageSrv: LocalStorageService,
 		private http: HttpClient
 	) {
-		this.refreshToken$.subscribe(token => this.refreshTokenSync = token);
+		this.authRefreshToken$.subscribe(token => this.authRefreshTokenSync = token);
 	}
 
 	/**
@@ -40,9 +45,9 @@ export class TokenService {
 	 * so we don't have to relogin on every refresh.
 	 * This is called when the app starts
 	 */
-	async restoreRefreshToken(): Promise<void> {
+	async restoreRefreshToken(name: string): Promise<void> {
 		log.info(`%c Restoring refresh token`, LogColor.SERVICES);
-		const refreshToken = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME) as TokenState;
+		const refreshToken = this.localStorageSrv.getItem(`${REFRESH_TOKEN_NAME}-name`) as TokenState;
 		// the refresh token are long lived at the moment (10 years),
 		// let's make a check that the token is still valid for 1 month though
 		const validUntilMs = 1000 * 60 * 60 * 24 * 31;
@@ -50,12 +55,26 @@ export class TokenService {
 		const isValidOnServer = await (isValidOnClient ? this.isValidOnServer(refreshToken) : Promise.resolve(true));
 
 		if (refreshToken && isValidOnClient && isValidOnServer)
-			this._refreshToken$.next(refreshToken);
+			this.pushToken(name, refreshToken);
 		else
-			this._refreshToken$.next();
+			this.pushToken(name);
 	}
 
-	getRefreshToken(credentials: Credentials)
+	private pushToken(name: string, token?: TokenState) {
+		switch (name) {
+			case 'auth':
+				this._authRefreshToken$.next(token);
+				break;
+			case 'supplier-onboarding':
+				this._onboardingRefreshToken$.next(token);
+				break;
+			case 'rfq':
+				this._rfqRefreshToken$.next(token);
+				break;
+		}
+	}
+
+	getRefreshToken(credentials: Credentials, name = 'auth')
 		: Observable<RefreshTokenResponse> {
 		const refObj = this.getRefreshTokenObject(credentials, 'password');
 		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObj).pipe(
@@ -63,9 +82,9 @@ export class TokenService {
 			catchError(e => of(this.getRefreshTokenObject(credentials, 'legacy')).pipe(
 				switchMap(refObjLeg => this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObjLeg))
 			)),
-			tap(refreshToken => this.storeRefreshToken(refreshToken)),
+			tap(refreshToken => this.storeRefreshToken(name, refreshToken)),
 			catchError(err => {
-				this._refreshToken$.next();
+				this.pushToken(name);
 				return throwError(err);
 			})
 		);
@@ -87,10 +106,10 @@ export class TokenService {
 
 
 	/** stores the access token we get on login */
-	private storeRefreshToken(resp: RefreshTokenResponse): TokenService {
+	private storeRefreshToken(name: string, resp: RefreshTokenResponse): TokenService {
 		log.info(`%c Storring refresh token: ${resp.refresh_token}`, LogColor.SERVICES);
-		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, resp.refresh_token);
-		this._refreshToken$.next(resp.refresh_token);
+		this.localStorageSrv.setItem(`${REFRESH_TOKEN_NAME}-name`, resp.refresh_token);
+		this.pushToken(name, resp.refresh_token);
 		return this;
 	}
 
@@ -109,7 +128,7 @@ export class TokenService {
 	}
 
 	/** to get an access token from a request token */
-	getAccessToken(realmPath?: string): Observable<TokenState> {
+	getAccessToken(refreshToken: TokenState, realmPath?: string): Observable<TokenState> {
 		log.info(`%c Getting access token for ${realmPath}`, LogColor.SERVICES);
 		// if we have a valid accessToken in the local storage that's the one we return
 		if (realmPath) {
@@ -120,22 +139,19 @@ export class TokenService {
 				return of(lastAccessToken);
 			}
 		}
-		return this.fetchAccessToken(realmPath);
+		return this.fetchAccessToken(refreshToken, realmPath);
 	}
 
 	/** gets an access token from a refresh token and stores it */
-	private fetchAccessToken(realmPath: string): Observable<TokenState> {
+	private fetchAccessToken(refreshToken: TokenState, realmPath: string): Observable<TokenState> {
 		// getting access token from the refresh token
-		return this.refreshToken$.pipe(
-			filter(refreshToken => !!refreshToken),
-			map(refreshToken => ({
-				app_id: '',
-				provider: 'realm',
-				data: refreshToken.token,
-				path: realmPath
-			})
-			),
-			switchMap(accessObj => this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj)),
+		const accessObj = {
+			app_id: '',
+			provider: 'realm',
+			data: refreshToken.token,
+			path: realmPath
+		};
+		return this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj).pipe(
 			tap(accessTokenResp => {
 				// this is a quickfix since the old user token now its called access
 				if (accessTokenResp.user_token) accessTokenResp.access_token = accessTokenResp.user_token;
@@ -167,7 +183,9 @@ export class TokenService {
 		log.info(`%c Clearing tokens`, LogColor.SERVICES);
 		this.localStorageSrv.remove(ACCESS_TOKEN_MAP);
 		this.localStorageSrv.remove(REFRESH_TOKEN_NAME);
-		this._refreshToken$.next();
+		this._authRefreshToken$.next();
+		this._onboardingRefreshToken$.next();
+		this._rfqRefreshToken$.next();
 	}
 
 	/** check if a token has expired */
@@ -175,6 +193,7 @@ export class TokenService {
 		return token.token_data.expires * 1000 > Date.now() + validUntilMs;
 	}
 
+	/** to check if the refreshToken is still valid on the server in case it restarts and the token is invalidated   */
 	private isValidOnServer(refreshToken: TokenState): Promise<boolean> {
 		// we will send a request for an access token to know if the request
 		// token is really valid (the server might have restarted etc).

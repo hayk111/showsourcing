@@ -42,7 +42,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		);
 
 		const accessToken$ = this.tokenSrv
-			.getAccessToken(`${this.client}/${team.id}/__partial/${userId}`)
+			.getAccessToken(refreshToken, `${this.client}/${team.id}/__partial/${userId}`)
 			.pipe(first());
 
 		// combine tokens & uri

@@ -37,7 +37,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 
 		const userId = refreshToken.token_data.identity;
 		const accessToken$ = this.tokenSrv
-			.getAccessToken(`user/${userId}/__partial/${userId}`).pipe(
+			.getAccessToken(refreshToken, `user/${userId}/__partial/${userId}`).pipe(
 				first()
 			);
 		const realmUri$ = super.getRealmUri('default', `user/${userId}/__partial/${userId}`);

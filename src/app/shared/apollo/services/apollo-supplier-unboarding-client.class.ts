@@ -12,6 +12,7 @@ import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-cl
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 import { ApolloStateService } from './apollo-state.service';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 
 @Injectable({ providedIn: 'root' })
 export class SupplierOnboardingClient extends AbstractApolloClient {
@@ -27,28 +28,18 @@ export class SupplierOnboardingClient extends AbstractApolloClient {
 		super(apollo, httpLink, apolloState, realmServerSrv, Client.SUPPLIER_ONBOARDING);
 	}
 
-	init() {
+	init(refreshToken: TokenState) {
 		this.checkNotAlreadyInit();
 
 		// we are currently not using all user
 		const uri = `${environment.graphqlUrl}/${Client.SUPPLIER_ONBOARDING}`;
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
-		this.authSrv.authenticated$.pipe(
-			switchMap(_ => this.tokenSrv.getAccessToken(Client.SUPPLIER_ONBOARDING)),
-			switchMap(token => this.createClient(uri, Client.SUPPLIER_ONBOARDING, token))
-		).subscribe(
-			_ => this.apolloState.setClientReady(Client.SUPPLIER_ONBOARDING),
-			e => this.apolloState.setClientError(Client.SUPPLIER_ONBOARDING, e)
+		return this.tokenSrv.getAccessToken(refreshToken, Client.SUPPLIER_ONBOARDING).pipe(
+			switchMap(token => this.createClient(uri, Client.SUPPLIER_ONBOARDING, token)),
+			tap(_ => this.apolloState.setClientReady(Client.SUPPLIER_ONBOARDING)),
+			catchError(e => this.onError(e))
 		);
-
-		// destroy clients when unauthenticated
-		this.authSrv.authStatus$.pipe(
-			distinctUntilChanged(),
-			filter(status => status === AuthStatus.NOT_AUTHENTICATED),
-		).subscribe(_ => {
-			this.destroy('no refresh token');
-		});
 	}
 }
 

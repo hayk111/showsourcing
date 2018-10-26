@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
 
 	private startBaseClients(): Observable<Client[]> {
 		// when we are authenticated it means we have a token
-		const token = this.tokenSrv.refreshTokenSync;
+		const token = this.tokenSrv.authRefreshTokenSync;
 		return forkJoin([
 			this.globalConstClient.init(token),
 			this.globalDataClient.init(token),
@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
 	}
 
 	private startTeamClient(team: Team) {
-		const token = this.tokenSrv.refreshTokenSync;
+		const token = this.tokenSrv.authRefreshTokenSync;
 		// destroy team client first in case there was a previous team selectioned
 		this.teamClient.destroy('switching / no team selected');
 		if (team) {
