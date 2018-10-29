@@ -26,8 +26,6 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 })
 export class ProductCardComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
-	/** The category */
-	@Input() category: string;
 	/** The link to display the element */
 	link: string;
 	/** The associated product */

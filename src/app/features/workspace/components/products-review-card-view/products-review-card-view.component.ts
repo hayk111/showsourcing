@@ -40,6 +40,10 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	}
 
 	ngOnChanges(changes) {
+
+		// here we just update 1 map instead the getGrouped etc
+		// we make a function that fills that map whether its a supplier
+		// a category por user
 		if (changes.rows && changes.rows.currentValue) {
 			const rows = changes.rows.currentValue;
 			// Grouping products per category

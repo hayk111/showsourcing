@@ -1,16 +1,26 @@
 <div class="card-container" infiniScroll>
+	<!-- <div class="type-section" *ngFor="let key, value of mapProducts">
+		<products-review-card-no-fields-header-app *ngIf="key === 'noField'; else withField">
+		</products-review-card-no-fields-header-app>
+		<ng-template #withField>
+			<products-review-card-header-app>
+			</products-review-card-header-app>
+		</ng-template>
+		<div class="item" *ngFor="let product of value; trackBy: trackByFn">
+
+		</div>
+	</div> -->
   <div class="category-section" *ngIf="noFieldProducts && noFieldProducts.length > 0">
     <div class="category-header flex">
       <products-review-card-no-fields-header-app [currentSort]="currentSort"
         (checked)="onNoFieldChecked($event)" (unchecked)="onNoFieldUnchecked($event)">
       </products-review-card-no-fields-header-app>
-    </div>
+		</div>
     <div class="products-section flex">
       <div *ngFor="let product of noFieldProducts; index as i; trackBy: trackByFn"
         class="item">
         <product-card-app class="marginSmall"
           [checked]="isSelected(product)"
-          [category]="'category'"
           [product]="product"
           [highlightOnChecked]="true"
           [selectFromCard]="true"
@@ -68,10 +78,9 @@
     </div>
     <div class="products-section flex">
       <div *ngFor="let product of category.values; index as i; trackBy: trackByFn"
-      class="item">
+      	class="item">
         <product-card-app class="marginSmall"
           [checked]="isSelected(product)"
-          [category]="'category'"
           [product]="product"
           [highlightOnChecked]="true"
           [selectFromCard]="true"
