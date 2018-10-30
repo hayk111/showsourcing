@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
 	private startTeamClient(team: Team) {
 		const token = this.tokenSrv.authRefreshTokenSync;
 		// destroy team client first in case there was a previous team selectioned
-		this.teamClient.destroy('switching / no team selected');
+		this.teamClient.setPending('switching / no team selected');
 		if (team) {
 			return this.teamClient.init(token, team);
 		}

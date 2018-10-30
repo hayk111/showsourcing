@@ -61,6 +61,13 @@ export abstract class AbstractApolloClient {
 		return of(false);
 	}
 
+	setPending(reason?: string): Observable<boolean> {
+		log.debug(`%c set client ${this.client} pending, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
+		this.clearClient(this.client);
+		this.apolloState.setClientPending(this.client);
+		return of(false);
+	}
+
 	protected onError(e) {
 		this.apolloState.setClientError(this.client, e);
 		return of(e);

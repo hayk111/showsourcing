@@ -12,7 +12,8 @@ import { LocalStorageService } from '~shared/local-storage';
 import { log, LogColor } from '~utils';
 
 
-const REFRESH_TOKEN_NAME = 'REFRESH_TOKEN';
+
+const REFRESH_TOKEN_MAP = 'REFRESH_TOKEN_MAP';
 const ACCESS_TOKEN_MAP = 'ACCESS_TOKEN_MAP';
 
 
@@ -31,8 +32,6 @@ export class TokenService {
 	rfqRefreshToken$ = this._rfqRefreshToken$.asObservable().pipe(shareReplay(1));
 	rfqRefreshTokenSync: TokenState;
 
-	private _guestRefreshToken$ = new ReplaySubject<TokenState>(1);
-
 	constructor(
 		private localStorageSrv: LocalStorageService,
 		private http: HttpClient
@@ -47,7 +46,8 @@ export class TokenService {
 	 */
 	async restoreRefreshToken(name: string): Promise<TokenState> {
 		log.info(`%c Restoring refresh token`, LogColor.SERVICES);
-		const refreshToken = this.localStorageSrv.getItem(`${REFRESH_TOKEN_NAME}-name`) as TokenState;
+		const refreshTokenMap = this.localStorageSrv.getItem(REFRESH_TOKEN_MAP) || {};
+		const refreshToken = refreshTokenMap[name];
 		// the refresh token are long lived at the moment (10 years),
 		// let's make a check that the token is still valid for 1 month though
 		const validUntilMs = 1000 * 60 * 60 * 24 * 31;
@@ -111,7 +111,9 @@ export class TokenService {
 	/** stores the access token we get on login */
 	private storeRefreshToken(name: string, token: TokenState): TokenService {
 		log.info(`%c Storring refresh token: ${token}`, LogColor.SERVICES);
-		this.localStorageSrv.setItem(`${REFRESH_TOKEN_NAME}-name`, token);
+		const refreshmap = this.localStorageSrv.getItem(REFRESH_TOKEN_MAP) || {};
+		refreshmap[name] = token;
+		this.localStorageSrv.setItem(REFRESH_TOKEN_MAP, refreshmap);
 		this.pushToken(name, token);
 		return this;
 	}
@@ -120,13 +122,13 @@ export class TokenService {
 	getGuestRefreshToken(token: string) {
 		return this.http.get<RefreshTokenResponse>(`${environment.apiUrl}/token/${token}`).pipe(
 			map(resp => resp.refresh_token),
-			tap(refreshToken => this._guestRefreshToken$.next(refreshToken))
+			tap(refreshToken => this._rfqRefreshToken$.next(refreshToken))
 		);
 	}
 
 	/** revokes guest access */
 	revokeGuestRefreshToken(): TokenService {
-		this._guestRefreshToken$.next();
+		this._rfqRefreshToken$.next();
 		return this;
 	}
 
@@ -185,7 +187,7 @@ export class TokenService {
 	clearTokens(): void {
 		log.info(`%c Clearing tokens`, LogColor.SERVICES);
 		this.localStorageSrv.remove(ACCESS_TOKEN_MAP);
-		this.localStorageSrv.remove(REFRESH_TOKEN_NAME);
+		this.localStorageSrv.remove(REFRESH_TOKEN_MAP);
 		this._authRefreshToken$.next();
 		this._onboardingRefreshToken$.next();
 		this._rfqRefreshToken$.next();
