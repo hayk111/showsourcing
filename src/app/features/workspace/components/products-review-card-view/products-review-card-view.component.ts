@@ -24,7 +24,6 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 
 	firstStatus$: Observable<ProductStatusType>;
 	groupedProducts: Category[];
-	noFieldProducts: Product[];
 	prodERM = ERM.PRODUCT;
 	noFieldChecked: boolean;
 
@@ -36,20 +35,15 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	}
 
 	ngOnInit() {
-		this.firstStatus$ = this.prodStatusSrv.queryOneByPredicate(`step == 0`).pipe(first());
+		this.firstStatus$ = this.prodStatusSrv.queryOneByPredicate(`step != null`).pipe(first());
 	}
 
 	ngOnChanges(changes) {
 
-		// here we just update 1 map instead the getGrouped etc
-		// we make a function that fills that map whether its a supplier
-		// a category por user
 		if (changes.rows && changes.rows.currentValue) {
 			const rows = changes.rows.currentValue;
 			// Grouping products per category
 			this.groupedProducts = this.getGroupedProducts(this.currentSort);
-			// Grouping products without category
-			this.noFieldProducts = this.getNoFieldProducts(this.currentSort);
 			this.noFieldChecked = false;
 		}
 
@@ -57,8 +51,6 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 			const currentSort = changes.currentSort.currentValue;
 			// Grouping products per category
 			this.groupedProducts = this.getGroupedProducts(currentSort);
-			// Grouping products without category
-			this.noFieldProducts = this.getNoFieldProducts(this.currentSort);
 		}
 
 		if (changes.selection && changes.selection.currentValue) {
@@ -70,10 +62,6 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 					...category,
 					checked: this.hasAllProductsSelected(category, currentSelection)
 				}));
-			}
-			// Checking selection for products without category
-			if (this.noFieldProducts && (!previousSelection || currentSelection.size !== previousSelection.size)) {
-				this.noFieldChecked = this.hasAllNoFieldProductsSelected(currentSelection);
 			}
 		}
 	}
@@ -94,32 +82,12 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		return allSelected;
 	}
 
-	/** Checks if all elements without category are selected */
-	hasAllNoFieldProductsSelected(currentSelection) {
-		let allSelected = true;
-		this.noFieldProducts.forEach(value => {
-			if (!currentSelection.has(value.id)) {
-				allSelected = false;
-			}
-		});
-		return allSelected;
-	}
-
 	/** Checks if a product is selected */
 	isSelected(product) {
 		if (this.selection)
 			return this.selection.has(product.id);
 
 		throw Error(`Selection Input is undefnied`);
-	}
-
-	/** Gets products without category */
-	getNoFieldProducts(sort: Sort): Product[] {
-		const field = this.getFieldFromSort(sort);
-		if (!this.rows) {
-			return [];
-		}
-		return this.rows.filter(row => !row[field]);
 	}
 
 	/** Gathers products per category according to sort */
@@ -130,8 +98,8 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 			return [];
 		}
 
-		const groupedObj = this.rows.filter(row => row[field]).reduce((prev, cur) => {
-			const id = (cur[field] && cur[field].id) ? cur[field].id : cur[field];
+		const groupedObj = this.rows.reduce((prev, cur) => {
+			const id = (cur[field] && cur[field].id) ? cur[field].id : 'null-' + field;
 			if (!prev[id]) {
 				prev[id] = [{ ...cur }];
 			} else {
@@ -167,27 +135,6 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		return false;
 	}
 
-	/**
-	 * Manage the selection from header for elements without category. If checked, all attached
-	 * elements must be checked.
-	 */
-	onNoFieldChecked() {
-		if (this.noFieldProducts) {
-			this.selectionSrv.selectAll(this.noFieldProducts.map(value => ({ id: value.id })));
-		}
-	}
-
-	/**
-	 * Manage the unselection from header for elements without category. If checked, all attached
-	 * elements must be unchecked.
-	 */
-	onNoFieldUnchecked() {
-		if (this.noFieldProducts) {
-			this.noFieldProducts.forEach(value => {
-				this.selectionSrv.unselectOne({ id: value.id });
-			});
-		}
-	}
 
 	/**
 	 * Manage the selection from category header. If checked, all attached elements must

@@ -5,7 +5,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { routes } from '~features/workspace/routes';
 import {
 	ProductsReviewCardViewComponent, ProductsReviewCardHeaderComponent,
-	ProductsReviewSortingMenuComponent, ProductsReviewCardNoFieldsHeaderComponent
+	ProductsReviewSortingMenuComponent
 } from '~features/workspace/components';
 import {
 	WorkspaceComponent, MyWorkflowPageComponent,
@@ -41,7 +41,6 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 		ReviewPageComponent,
 		ProductsReviewCardViewComponent,
 		ProductsReviewCardHeaderComponent,
-		ProductsReviewCardNoFieldsHeaderComponent,
 		ProductsReviewSortingMenuComponent
 	],
 	exports: [RouterModule],
