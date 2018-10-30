@@ -10,34 +10,7 @@ import { TokenState } from '~features/auth/interfaces/token-state.interface';
 	selector: 'app-root-onboarding',
 	template: '<router-outlet></router-outlet>',
 })
-export class AppComponent implements OnInit {
-	credentials: Credentials = {
-		identifier: 'supplier-onboarding-user',
-		password: 'supplier-onboarding-password'
-	};
+export class AppComponent {
 
-	constructor(
-		private tokenSrv: TokenService,
-		private supplierOnBoardingClient: SupplierOnboardingClient,
-		private globalDataClient: GlobalDataClientsInitializer
-	) { }
 
-	ngOnInit() {
-		// if the refresh token exist then we use that token, else we generate one
-		// with an hardcoded user (ask antine if question)
-		from(this.tokenSrv.restoreRefreshToken('supplier-onboarding')).pipe(
-			switchMap((token: TokenState) => {
-				return token ? of(token) :
-					this.tokenSrv.getRefreshToken(this.credentials, 'supplier-onboarding');
-			}),
-			switchMap((token: TokenState) => this.startClients(token))
-		).subscribe();
-	}
-
-	private startClients(token: TokenState) {
-		return forkJoin([
-			this.supplierOnBoardingClient.init(token),
-			this.globalDataClient.init(token)
-		]);
-	}
 }
