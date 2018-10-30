@@ -47,7 +47,7 @@ export class WorkspaceFeatureService extends ProductService {
 					`&& status.status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
 				sortBy: 'lastUpdatedDate',
-				take: 1000 // TODO this has to change to a queryAll, but easiest way to change it was like this
+				take: 100 // TODO this has to change to a queryAll, but easiest way to change it was like this
 			}).subscribe();
 		}
 

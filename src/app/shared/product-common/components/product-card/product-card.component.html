@@ -6,10 +6,7 @@
   <div class="mainCellWrapper ellipsis ng-star-inserted" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
     <div class="mainCell">
       <div class="imgCtnr">
-        <img class="mini image ng-star-inserted" *ngIf="image" [src]="image"
-             (click)="clickImage.emit()"
-             (dragstart)="preventDrag($event)">
-        <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'"
+        <img class="mini image ng-star-inserted" *ngIf="product?.images?.length" [src]="product | image:'m'"
              (click)="clickImage.emit()"
              (dragstart)="preventDrag($event)">
         <div *ngIf="enablePreviewLink" class="preview" (click)="clickImage.emit()"><div>Preview</div></div>
@@ -26,17 +23,17 @@
       <div class="description flexBetween" (click)="clickTitle()">
         <div class="descriptionTopCtnr">
           <div class="titleCtnr">
-            <a class="title">{{title}}</a>
-            <icon-app *ngIf="favorite" name="heart"></icon-app>
+            <a class="title">{{ product?.name }}</a>
+            <icon-app *ngIf="product?.favorite" name="heart"></icon-app>
           </div>
           <div class="descriptionCtnr">
             <div class="descriptionCtnr-first">
               <span class="subtitle">
-                <ng-container *ngIf="price && minimumOrderQuantity">{{price?.currency}} {{price?.value | ssPrice}} - </ng-container>
-                <ng-container *ngIf="price && !minimumOrderQuantity">{{price?.currency}} {{price?.value | ssPrice}}</ng-container>
-                <ng-container *ngIf="minimumOrderQuantity">Min {{minimumOrderQuantity}} pcs</ng-container>
+                <ng-container *ngIf="product?.price && product?.minimumOrderQuantity">{{product?.price?.currency}} {{product?.price?.value | ssPrice}} - </ng-container>
+                <ng-container *ngIf="product?.price && !product?.minimumOrderQuantity">{{product?.price?.currency}} {{product?.price?.value | ssPrice}}</ng-container>
+                <ng-container *ngIf="product?.minimumOrderQuantity">Min {{product?.minimumOrderQuantity}} pcs</ng-container>
               </span>
-              <span class="descriptionText" *ngIf="description"> - </span>
+              <span class="descriptionText"> {{product?.description || ' - '}} </span>
               <span class="descriptionText">{{product?.supplier?.name}} - {{product?.category?.name}}</span>
             </div>
             <div class="descriptionCtnr-last flex">
@@ -44,12 +41,12 @@
 								[style.visibility]="thumbsName === 'thumbs-up' ? 'hidden' : 'visible'"
 								[name]="thumbsName" [ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
 							</icon-app>
-              <span *ngIf="product?.score !== undefined && product?.score != null" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike, 'color-txt-secondary': !(like || dislike) }">{{product?.score}}%</span>
+              <span *ngIf="product?.score !== undefined && product?.score != null" class="score" [ngClass]="{ 'like-txt': product?.score >= 50, 'dislike-txt': product?.score < 50 }">{{product?.score}}%</span>
             </div>
           </div>
         </div>
         <div class="descriptionBottomCtnr">
-          <badge-app size="xs" type="secondary-light" *ngFor="let tag of tags | slice:0:1;trackBy: trackByFn">{{tag.name}}</badge-app>
+          <badge-app size="xs" type="secondary-light" *ngFor="let tag of product?.tags | slice:0:1;trackBy: trackByFn">{{tag.name}}</badge-app>
         </div>
       </div>
       <div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">

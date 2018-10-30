@@ -1,25 +1,22 @@
-
-
 import {
+	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
+	ContentChild,
+	ElementRef,
 	EventEmitter,
-	Injectable,
 	Input,
 	OnInit,
 	Output,
-	TemplateRef,
-	HostBinding,
-	ContentChild,
 	Renderer2,
-	ElementRef,
-	AfterViewInit
 } from '@angular/core';
-import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
-import { Price, Product, ProductVote } from '~models';
-import { UserService } from '~global-services';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { Router } from '@angular/router';
+import { UserService } from '~global-services';
+import { Price, Product, ProductVote } from '~models';
+import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+
+
 
 @Component({
 	selector: 'product-card-app',
@@ -29,34 +26,12 @@ import { Router } from '@angular/router';
 })
 export class ProductCardComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
-	/** The main title */
-	@Input() title: string;
-	/** The sub title */
-	@Input() subtitle1: string;
-	/** The sub title */
-	@Input() description: string;
 	/** The category */
 	@Input() category: string;
-	/** The status displayed into a tiny label */
-	@Input() status: string;
-	/** The price */
-	@Input() price: Price;
-	/** The minimum order quantity */
-	@Input() minimumOrderQuantity: number;
-	/** The image url */
-	@Input() image: string;
-	/** The icon name */
-	@Input() icon: string;
 	/** The link to display the element */
-	@Input() link: string;
-	/** The person associated with the element */
-	@Input() person: any;
+	link: string;
 	/** The associated product */
 	@Input() checked: boolean;
-	/** Is favorite */
-	@Input() favorite: boolean;
-	/** The item is checked */
-	@Input() tags: any;
 	/** The associated product */
 	@Input() set product(product: Product) {
 		this.thumbsName = 'thumbs-up';
@@ -75,7 +50,8 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 				this.thumbsName = 'thumbs-down-background';
 			}
 		}
-		this._product = product;
+		this._product = { ...product };
+		this.link = '/product/details' + this._product.id + '/general';
 	}
 
 	get product() {
@@ -92,8 +68,8 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	/** Whether the product preview is accessibe from the card */
 	@Input() enablePreviewLink: boolean;
 
-	@Input() showCheckbox ?= true;
-	@Input() clickable ?= false;
+	@Input() showCheckbox = true;
+	@Input() clickable = false;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
