@@ -13,6 +13,14 @@ import {
 	name: 'image'
 })
 export class ImagePipe implements PipeTransform {
+	sizeIndexMap = new Map([
+		['xs', 0],
+		['s', 1],
+		['m', 2],
+		['xm', 3],
+		['l', 4],
+		['xl', 5]
+	]);
 	/**
 	 * Display image based on an input that can be an object an array or a string
 	 *
@@ -31,20 +39,22 @@ export class ImagePipe implements PipeTransform {
 	 */
 	transform(value: any | string, size: ('s' | 'm' | 'l' | 'xl') = 's', type: string = 'image'): string {
 		try {
+			// we get the size index from the map
+			const sizeIndex = this.sizeIndexMap.get(size);
 			// no value
 			if (!value)
 				return this.getDefault(type);
 
 			// array
 			if (Array.isArray(value)) {
-				return `${ImageUrls[size]}/${value[0].fileName}`;
+				return value[0].urls[sizeIndex].url;
 			}
 			// Object
 			if (typeof value === 'object') {
 
 				// AppImage Object
-				if (value.fileName) {
-					return `${ImageUrls[size]}/${value.fileName}`;
+				if (value.urls) {
+					return value.urls[sizeIndex].url;
 				}
 
 				// PendingImage Object
@@ -54,7 +64,7 @@ export class ImagePipe implements PipeTransform {
 
 				// Supplier, product, Entity object...
 				if (Array.isArray(value.images)) {
-					return `${ImageUrls[size]}/${value.images[0].fileName}`;
+					return value.images[0].urls[sizeIndex].url;
 				}
 			}
 			// if it's a string we return the url made of with that string
