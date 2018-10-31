@@ -15,7 +15,7 @@ export class UserQueries extends GlobalQueries {
 		},
 		preferredLanguage,
 		avatar {
-			id, fileName, orientation, imageType
+			id, urls { url }, orientation, imageType
 		},
 		companyName
 	`;

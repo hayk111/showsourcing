@@ -10,28 +10,28 @@ export abstract class ProductQueries extends GlobalQueries {
 
 	// the goal is to use those utilities a bit everywhere even if they don't match exactly the data we need
 	// it makes the code easier to read. It means tho, that those sub queries must be quite exhaustive.
-	static readonly images = `images { id, fileName, orientation, imageType }`;
+	static readonly images = `images { id, orientation, imageType, urls { url } }`;
 	static readonly attachments = `attachments { id, fileName, url }`;
 	static readonly supplier = `supplier {
 		id, name, address, country, favorite, officeEmail,
-		logoImage { id, fileName }
+		logoImage { id, urls { url } }
 		categories { id, name }
-		images { id, fileName, imageType }
+		images { id, urls { url }, imageType }
 	}`;
 	static readonly contacts = `supplier { contacts { id, name, email, jobTitle } }`;
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly category = `category { id, name }`;
 	static readonly projects = `projects { id, name, description }`;
-	static readonly event = ` event { id, name, description { id logoImage { id, fileName } } }`;
+	static readonly event = ` event { id, name, description { id logoImage { id, urls { url } } } }`;
 	static readonly status = `status { id, cancelled, status {id, name, category, step, inWorkflow } }`;
 	static readonly tags = `tags { id, name }`;
 	// uncomment and replace when the Image.creationDate bug is fixed on votes, avatar { id, fileName, imageType, creationDate }
 	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
-	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, fileName } }`;
+	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, urls { url } } }`;
 	static readonly comments = `comments { id, text, ${ProductQueries.createdBy}, creationDate }`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
-	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, fileName }}`;
+	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { url } }}`;
 	// This is the default selection when using selectOne or queryOne
 	static readonly one = `
 			name,
