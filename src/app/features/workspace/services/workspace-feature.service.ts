@@ -5,7 +5,7 @@ import { ProductQueries } from '~global-services/product/product.queries';
 import { Observable } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
 import { of, forkJoin } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, first } from 'rxjs/operators';
 import { Project, Product, ProductStatus, ProductStatusType } from '~models';
 import { Apollo } from 'apollo-angular';
 import { ListQuery } from '~global-services/_global/list-query.interface';
@@ -85,9 +85,9 @@ export class WorkspaceFeatureService extends ProductService {
 	}
 
 	getFirstStatus() {
-		return this.productStatusTypeService.queryMany({ query: 'inWorkflow == true', sortBy: 'step' }).pipe(
-			map(statuses => statuses.slice().sort((s1, s2) => (s1.step - s2.step))),
-			map(statuses => statuses.length > 0 ? statuses[0] : null)
+		return this.productStatusTypeService.queryAll('', { query: 'inWorkflow == true', sortBy: 'step' }).pipe(
+			first(),
+			map(status => status[0] ? status[0] : null) // we only need the first
 		);
 	}
 

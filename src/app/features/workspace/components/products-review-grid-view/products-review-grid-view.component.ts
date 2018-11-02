@@ -18,7 +18,7 @@ import * as Isotope from 'isotope-layout';
 export class ProductsReviewCardViewComponent extends ListViewComponent<Product> implements OnInit, OnChanges {
 
 	@Input() currentSort: Sort;
-	@Output() sentToWorkflow = new EventEmitter<Product>();
+	@Output() sendToWorkflow = new EventEmitter<Product>();
 	@Output() previewClick = new EventEmitter<Product>();
 	@Output() archive = new EventEmitter<Product>();
 	@Output() statusUpdated = new EventEmitter<any>();
@@ -31,14 +31,13 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 
 	constructor(
 		private selectionSrv: SelectionService,
-		private prodStatusSrv: ProductStatusTypeService,
-		private render: Renderer2
+		private prodStatusSrv: ProductStatusTypeService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.firstStatus$ = this.prodStatusSrv.queryAll('', { sortBy: 'step' }).pipe(
+		this.firstStatus$ = this.prodStatusSrv.queryAll('', { query: 'inWorkflow == true', sortBy: 'step' }).pipe(
 			first(),
 			map(status => status[0] ? status[0] : null) // we only need the first
 		);

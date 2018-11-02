@@ -17,6 +17,13 @@
 	flex-direction: row;
 }
 
+.send-workflow {
+	height: 100%;
+	width: 100%;
+	align-items: center;
+	display: flex;
+}
+
 product-card-app {
   width: 324px;
   margin-left: var(--spacing-ms) !important;

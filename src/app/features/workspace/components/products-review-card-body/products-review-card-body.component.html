@@ -1,4 +1,4 @@
-<div class="products-section flexWrap">
+<div class="products-section flexWrap products-section-{{index}}">
 	<div *ngFor="let product of products; index as i; trackBy: trackByFn"
 		class="item">
 		<product-card-app class="element-item marginSmall"
@@ -31,7 +31,8 @@
 				</div>
 
 				<div class="secondary flexBetween sort-1 button-action button-workflow">
-					<span (click)="sentToWorkflow.emit(product)">Send to {{ firstStatus?.name | const: 'status'  }}</span>
+					<!-- <span (click)="sentToWorkflow.emit(product)">Send to {{ firstStatus?.name | const: 'status'  }}</span> -->
+					<div class="send-workflow" (click)="sendToWorkflowFunc($event, product)">Send to {{ firstStatus?.name | const: 'status'  }}</div>
 					<div class="button-icon">
 						<workflow-action-app
 							#workActionMenu

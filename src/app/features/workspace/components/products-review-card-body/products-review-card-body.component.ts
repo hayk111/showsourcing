@@ -1,5 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
 import { Product, ProductStatusType } from '~models';
+import { ListViewComponent } from '~shared/list-page/list-view.component';
+import * as Isotope from 'isotope-layout';
 
 @Component({
 	selector: 'products-review-card-body-app',
@@ -7,21 +9,30 @@ import { Product, ProductStatusType } from '~models';
 	styleUrls: ['./products-review-card-body.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsReviewCardBodyComponent implements OnInit {
+export class ProductsReviewCardBodyComponent implements AfterViewInit {
 
 	@Input() products: Product[];
 	@Input() selection: Map<string, boolean>;
 	@Input() firstStatus: ProductStatusType;
-	@Output() sentToWorkflow = new EventEmitter<Product>();
+	@Input() index: number;
+	@Output() sendToWorkflow = new EventEmitter<Product>();
 	@Output() previewClick = new EventEmitter<Product>();
 	@Output() archive = new EventEmitter<Product>();
 	@Output() statusUpdated = new EventEmitter<any>();
 	@Output() select = new EventEmitter<any>();
 	@Output() unselect = new EventEmitter<any>();
 
-	constructor() { }
+	isotope: any;
 
-	ngOnInit() {
+	constructor(
+		private render: Renderer2
+	) { }
+
+	ngAfterViewInit() {
+		const element = document.querySelector('.products-section-' + this.index);
+		this.isotope = new Isotope(element, {
+			itemSelector: '.element-item'
+		});
 	}
 
 	/** Checks if a product is selected */
@@ -48,4 +59,12 @@ export class ProductsReviewCardBodyComponent implements OnInit {
 			this.statusUpdated.emit({ product, status });
 		}
 	}
+
+	sendToWorkflowFunc(event: any, product: Product) {
+		const some = event.srcElement.closest('.element-item');
+		this.render.addClass(some, 'deleted');
+		this.isotope.arrange({ filter: ':not(.deleted)' });
+		this.sendToWorkflow.emit(product);
+	}
+
 }

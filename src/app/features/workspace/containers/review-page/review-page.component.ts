@@ -85,7 +85,7 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	/** Add a product to workflow */
 	onSentToWorkflow(product: Product) {
 		this.workspaceSrv.sendProductToWorkflow(product).subscribe(
-			() => this.refetch()
+			// () => this.refetch()
 		);
 	}
 
@@ -99,9 +99,9 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 
 	/** Triggers status update */
 	onStatusUpdated({ product, status }) {
-		this.workspaceSrv.updateProductStatus(product, status).subscribe(() => {
-			this.refetch();
-		});
+		this.workspaceSrv.updateProductStatus(product, status).subscribe(
+			// () => this.refetch()
+		);
 	}
 
 	/** updates the products with the new value votes */
