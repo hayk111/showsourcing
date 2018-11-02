@@ -1,18 +1,19 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { Category } from '~features/workspace/models';
 import { ProductStatusTypeService } from '~global-services';
 import { ERM, Product, ProductStatusType } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
+import * as Isotope from 'isotope-layout';
 
 
 @Component({
-	selector: 'products-review-card-view-app',
-	templateUrl: './products-review-card-view.component.html',
-	styleUrls: ['./products-review-card-view.component.scss']
+	selector: 'products-review-grid-view-app',
+	templateUrl: './products-review-grid-view.component.html',
+	styleUrls: ['./products-review-grid-view.component.scss']
 })
 export class ProductsReviewCardViewComponent extends ListViewComponent<Product> implements OnInit, OnChanges {
 
@@ -26,16 +27,21 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	groupedProducts: Category[];
 	prodERM = ERM.PRODUCT;
 	noFieldChecked: boolean;
+	isotope: any;
 
 	constructor(
 		private selectionSrv: SelectionService,
-		private prodStatusSrv: ProductStatusTypeService
+		private prodStatusSrv: ProductStatusTypeService,
+		private render: Renderer2
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.firstStatus$ = this.prodStatusSrv.queryOneByPredicate(`step != null`).pipe(first());
+		this.firstStatus$ = this.prodStatusSrv.queryAll('', { sortBy: 'step' }).pipe(
+			first(),
+			map(status => status[0] ? status[0] : null) // we only need the first
+		);
 	}
 
 	ngOnChanges(changes) {
@@ -80,14 +86,6 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 			}
 		});
 		return allSelected;
-	}
-
-	/** Checks if a product is selected */
-	isSelected(product) {
-		if (this.selection)
-			return this.selection.has(product.id);
-
-		throw Error(`Selection Input is undefnied`);
 	}
 
 	/** Gathers products per category according to sort */
@@ -157,22 +155,4 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 			});
 		}
 	}
-
-	/** Close the contextual menu if the mouse goes outside a product card */
-	closeContextualMenuIfOpened(archiveMenu, workActionMenu) {
-		if (archiveMenu && archiveMenu.menuOpen) {
-			archiveMenu.closeMenu();
-		}
-		if (workActionMenu && workActionMenu.menuOpen) {
-			workActionMenu.closeMenu();
-		}
-	}
-
-	/** Triggers a status update (from the workflow action component) */
-	onStatusUpdated(product, status) {
-		if (status) {
-			this.statusUpdated.emit({ product, status });
-		}
-	}
-
 }

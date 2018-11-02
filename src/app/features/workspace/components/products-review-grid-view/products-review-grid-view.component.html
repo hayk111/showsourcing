@@ -1,0 +1,25 @@
+<div class="card-container" infiniScroll>
+  <div *ngFor="let category of groupedProducts; first as first; index as i" class="category-section">
+    <div class="category-header flex">
+      <products-review-card-header-app [currentSort]="currentSort" [category]="category"
+        (checked)="onChecked($event)" (unchecked)="onUnchecked($event)">
+      </products-review-card-header-app>
+    </div>
+		<products-review-card-body-app
+			[products]="category.values"
+			[selection]="selection"
+			[firstStatus]="firstStatus$ | async"
+			(sentToWorkflow)="sentToWorkflow.emit($event)"
+			(previewClick)="previewClick.emit($event)"
+			(archive)="archive.emit($event)"
+			(statusUpdated)="statusUpdated.emit($event)"
+			(select)="select.emit($event)"
+			(unselect)="unselect.emit($event)">
+		</products-review-card-body-app>
+  </div>
+
+  <!-- pending -->
+	<div class="pendingCtnr flexCenter" *ngIf="pending">
+		<spinner-app></spinner-app>
+	</div>
+</div>

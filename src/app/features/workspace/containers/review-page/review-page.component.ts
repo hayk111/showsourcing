@@ -84,9 +84,9 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 
 	/** Add a product to workflow */
 	onSentToWorkflow(product: Product) {
-		this.workspaceSrv.sendProductToWorkflow(product).subscribe(() => {
-			this.refetch();
-		});
+		this.workspaceSrv.sendProductToWorkflow(product).subscribe(
+			() => this.refetch()
+		);
 	}
 
 	/** Triggers archive product */
