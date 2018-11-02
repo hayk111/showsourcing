@@ -19,12 +19,12 @@ import { AutoUnsub } from '~utils';
 import { RfqDialogComponent } from '~shared/custom-dialog';
 
 @Component({
-	selector: 'product-general-info-app',
-	templateUrl: './product-general-info.component.html',
-	styleUrls: ['./product-general-info.component.scss'],
+	selector: 'product-quotation-app',
+	templateUrl: './product-quotation.component.html',
+	styleUrls: ['./product-quotation.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
+export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 	// whether the form is open
 	product$: Observable<Product>;
 	product: Product;

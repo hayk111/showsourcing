@@ -12,7 +12,11 @@ import { NewProductDialogComponent } from '~features/products/components/new-pro
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
-import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from '~features/products/containers';
+import { ProductDetailsComponent,
+          ProductGeneralInfoComponent,
+          ProductsPageComponent,
+          ProductQuotationComponent
+        } from '~features/products/containers';
 import { routes } from '~features/products/routes';
 import { ProductFeatureService } from '~features/products/services';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
@@ -74,7 +78,8 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 	],
 	declarations: [
 		ProductIconsComponent,
-		ProductSubInfoComponent,
+    ProductSubInfoComponent,
+    ProductQuotationComponent,
 		ProductsPageComponent,
 		SelectionActionsComponent,
 		ProductDetailsComponent,
