@@ -12,12 +12,12 @@
             There's no quotation for this product asked yet
           </div>
           <div class="text-tempty">
-            <span class="link clickable">click here</span> to create one
+            <span (click)="openRfq()" class="link clickable">click here</span> to create one
           </div>
         </div>
     </div>
     <div class="quotation-footer">
-        <button class="footer-button">Request for new quotation</button>
+        <button (click)="openRfq()" class="footer-button">Request for new quotation</button>
     </div>
   </card-app>
 </ng-container>
