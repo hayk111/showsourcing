@@ -1,0 +1,10 @@
+<div class="ctnr inline input-price-inline">
+  <input type="number" restrictInput="decimal"
+    [(ngModel)]="amount"/>
+  <selector-const-app
+    [displayedValue]="currency"
+    [type]="'currency'"
+    [multiple]="false"
+    [(ngModel)]="currency">
+  </selector-const-app>
+</div>

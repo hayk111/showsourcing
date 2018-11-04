@@ -20,7 +20,7 @@ export class DynamicInputComponent extends AbstractInput implements AfterViewIni
 	@Input() customField: CustomField;
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
-	accumulator: string;
+	accumulator: any;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);

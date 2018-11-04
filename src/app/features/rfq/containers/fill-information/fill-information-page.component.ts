@@ -42,9 +42,8 @@ export class FillInformationPageComponent {
 	customFields2: CustomField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		{ name: 'sample', type: 'yesNo' },
-		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
-
+		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
 	];
 
 	product = {
