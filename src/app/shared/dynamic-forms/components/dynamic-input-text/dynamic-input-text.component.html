@@ -104,10 +104,7 @@
   <form-field-app *ngSwitchCase="'packaging'" [class="flexColumn flexStart">
     <label-app class="packaging">{{ customField.label || customField.name }}</label-app>
     <!-- div class="inputCtnr" -->
-      <input-packaging-app
-        [(ngModel)]="value"
-        (change)="onChange()"
-        [customField]="customField"></input-packaging-app>
+      <input-packaging-app></input-packaging-app>
     <!-- /div -->
   </form-field-app>
 </ng-container>

@@ -1,0 +1,46 @@
+<div class="flex top inline">
+  <form-field-app>
+    <label-app>Width</label-app>
+    <input inputApp type="number" restrictInput="number"/>
+  </form-field-app>
+  <div class="spacer mg-xs"></div>
+  <form-field-app>
+    <label-app>Height</label-app>
+    <input inputApp type="number" restrictInput="number"/>
+  </form-field-app>
+  <div class="spacer mg-xs"></div>
+  <form-field-app>
+    <label-app>Depth</label-app>
+    <input inputApp type="number" restrictInput="number"/>
+  </form-field-app>
+  <div class="spacer mg-xs"></div>
+  <form-field-app>
+    <label-app>Units</label-app>
+    <selector-const-app
+      formFieldCtrl
+      displayedValue=" "
+      [type]="'lengthUnit'"
+      [itemName]="'length unit'"></selector-const-app>
+  </form-field-app>
+</div>
+
+<div class="flex inline">
+  <form-field-app class="quantity">
+    <label-app>Quantity</label-app>
+    <input inputApp type="number" restrictInput="number"/>
+  </form-field-app>
+  <div class="spacer mg-xs"></div>
+  <form-field-app>
+    <label-app>Weight</label-app>
+    <input inputApp type="number" restrictInput="number"/>
+  </form-field-app>
+  <div class="spacer mg-xs"></div>
+  <form-field-app>
+    <label-app>Units</label-app>
+    <selector-const-app
+      formFieldCtrl
+      displayedValue=" "
+      [type]="'weightUnit'"
+      [itemName]="'weight unit'"></selector-const-app>
+  </form-field-app>
+</div>

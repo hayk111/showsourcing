@@ -41,10 +41,10 @@ export class FillInformationPageComponent {
 	// those are the custom field for the second form section
 	customFields2: CustomField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
-		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
+
 	];
 
 	product = {
