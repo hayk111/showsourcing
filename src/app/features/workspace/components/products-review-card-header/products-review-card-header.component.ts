@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { Sort } from '~shared/table/components/sort.interface';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from '~features/workspace/models';
+import { Sort } from '~shared/table/components/sort.interface';
 
 @Component({
 	selector: 'products-review-card-header-app',

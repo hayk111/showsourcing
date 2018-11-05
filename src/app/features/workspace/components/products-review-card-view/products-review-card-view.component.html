@@ -1,77 +1,15 @@
 <div class="card-container" infiniScroll>
-  <div class="category-section" *ngIf="noFieldProducts && noFieldProducts.length > 0">
-    <div class="category-header flex">
-      <products-review-card-no-fields-header-app [currentSort]="currentSort"
-        (checked)="onNoFieldChecked($event)" (unchecked)="onNoFieldUnchecked($event)">
-      </products-review-card-no-fields-header-app>
-    </div>
-    <div class="products-section flex">
-      <div *ngFor="let product of noFieldProducts; index as i; trackBy: trackByFn"
-        class="item">
-        <product-card-app class="marginSmall"
-          [checked]="isSelected(product)"
-          [category]="'category'"
-          [product]="product"
-          [highlightOnChecked]="true"
-          [selectFromCard]="true"
-          [enabledHoverContent]="true"
-          [enablePreviewLink]="true"
-          (clickImage)="previewClick.emit(product)"
-          (select)="select.emit(product, false)"
-          (unselect)="unselect.emit(product, false)"
-          (cardLeave)="closeContextualMenuIfOpened(archiveMenu, workActionMenu)">
-          <div class="flexColumn card-hover-block">
-            <div class="secondary flexBetween sort-1 button-action button-archive">
-              <span class="button-label" (click)="archive.emit(product)">Archive</span>
-              <div class="button-icon">
-                <context-menu-app xPosition="-175" yPosition="25" #archiveMenu>
-                  <context-menu-trigger-app>
-                    <icon-app fontSet="fa" name="caret-down"></icon-app>
-                  </context-menu-trigger-app>
-                  <context-menu-item-app (click)="archive.emit(product)" class="menu-item">
-                    Archive Product
-                  </context-menu-item-app>
-                  <context-menu-item-app (click)="delete.emit(product)" class="menu-item">
-                    Delete Product
-                  </context-menu-item-app>
-                </context-menu-app>
-              </div>
-            </div>
-
-            <div class="secondary flexBetween sort-1 button-action button-workflow">
-              <span (click)="sentToWorkflow.emit(product)">Send to {{ (firstStatus$ | async)?.name | const: 'status'  }}</span>
-              <div class="button-icon">
-                <workflow-action-app
-                  #workActionMenu
-                  [entity]="product"
-                  selectSize="s"
-                  [xPosition]="-170"
-                  [yPosition]="24"
-                  [typeEntity]="prodERM"
-                  [isSendToWorkFlow]="true"
-                  [internalUpdate]="false"
-                  (statusUpdated)="onStatusUpdated(product, $event)">
-                </workflow-action-app>
-              </div>
-            </div>
-          </div>
-        </product-card-app>
-      </div>
-    </div>
-  </div>
-
   <div *ngFor="let category of groupedProducts; first as first; index as i" class="category-section">
-    <div class="category-header flex" *ngIf="category.label as element">
+    <div class="category-header flex">
       <products-review-card-header-app [currentSort]="currentSort" [category]="category"
         (checked)="onChecked($event)" (unchecked)="onUnchecked($event)">
       </products-review-card-header-app>
     </div>
     <div class="products-section flex">
       <div *ngFor="let product of category.values; index as i; trackBy: trackByFn"
-      class="item">
+      	class="item">
         <product-card-app class="marginSmall"
           [checked]="isSelected(product)"
-          [category]="'category'"
           [product]="product"
           [highlightOnChecked]="true"
           [selectFromCard]="true"
