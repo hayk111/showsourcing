@@ -3,13 +3,14 @@ import { CarouselCardComponent } from '~shared/carousel/container/carousel-card/
 import { FileModule } from '~shared/file';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
+import { LoadersModule } from '~shared/loaders/loaders.module';
 
 import { CarouselComponent, ModalCarouselComponent } from '~shared/carousel/components';
 import { ImagePreviewerComponent } from '~shared/carousel/components/image-previewer/image-previewer.component';
 import { ImageModule } from '~shared/image/image.module';
 
 @NgModule({
-	imports: [SharedModule, FileModule, RatingModule, ImageModule],
+	imports: [SharedModule, FileModule, RatingModule, ImageModule, LoadersModule],
 	declarations: [
 		ModalCarouselComponent,
 		CarouselComponent,

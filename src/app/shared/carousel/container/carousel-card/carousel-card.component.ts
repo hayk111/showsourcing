@@ -115,7 +115,15 @@ export class CarouselCardComponent extends AutoUnsub {
 	/** when a preview is clicked we want to display the image that was in the preview */
 	setSelectedIndex(index: number) {
 		this.selectedIndex = index;
-	}
+  }
+
+  isPendingImage() {
+    const currentImage = this.images[this.selectedIndex];
+    if (!currentImage) {
+      return false;
+    }
+    return this._pendingImages.findIndex(x => x.id === currentImage.id);
+  }
 
 	/** adds pending image to the list */
 	private async addPendingImg(files: File[]) {
