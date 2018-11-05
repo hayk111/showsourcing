@@ -39,8 +39,8 @@ export class ProductExportDlgComponent implements OnInit {
 			query: JSON.stringify({
 				products: {
 					query: this.products.map(product => `id == '${product.id}'`).join(' or ')
-        },
-        suppliers: {}
+				},
+				suppliers: {}
 			})
 		});
 		this.exportSrv.create(request).pipe(
@@ -48,7 +48,7 @@ export class ProductExportDlgComponent implements OnInit {
 		).subscribe(file => {
 			this.pending = false;
 			this.cdr.detectChanges();
-			// this.dlgSrv.close();
+			this.dlgSrv.close();
 			saveAs(file, (request.format === 'pdf') ? 'product-sheet.pdf' : 'product-sheet.xls');
 		});
 	}

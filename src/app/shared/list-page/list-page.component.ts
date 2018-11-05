@@ -1,7 +1,7 @@
 import { NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~global-services/_global/select-params';
@@ -21,7 +21,7 @@ import { AutoUnsub } from '~utils';
 /**
  * Class used by components that need to display a list
  */
-export abstract class ListPageComponent<T extends { id?: string }, G extends GlobalServiceInterface<T>>
+export abstract class ListPageComponent<T extends { id?: string, deleted?: boolean }, G extends GlobalServiceInterface<T>>
 	extends AutoUnsub implements OnInit {
 
 
@@ -96,6 +96,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),
 			tap(items => this.items = items),
+			// remove deleted items from the list cuz they stay if they
+			// start at deleted false then are updated as deleted true
+			map(items => items.filter(itm => !itm.deleted))
 		);
 	}
 
@@ -272,6 +275,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		const callback = () => {
 			this.featureSrv.deleteMany(items).subscribe(() => {
 				this.resetSelection();
+				// this will reload the list but
+				// else we won't see deletions..
+				// this.refetch();
 			});
 		};
 		const text = `Delete ${items.length} ${items.length > 1 ? 'items' : 'item'} ?`;
