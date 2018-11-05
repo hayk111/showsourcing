@@ -84,8 +84,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			switchMap(params => this.srv.selectOne(params.id)),
 			tap(product => this.product = product),
-			// need to notify the component things have changed because of onpush and this is container
-			// better to do it this way than to not use on push as this will prevent viewChangedAfterItWasCheckedError
 			tap(_ => this.cd.markForCheck())
 		);
 	}
@@ -105,9 +103,4 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		// we add manually the supplier self email, since it is not on the contacts
 		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product });
 	}
-
-	get priceAmount() {
-		return (this.product && this.product.price) ? (this.product.price.value / 10000) : '-';
-	}
-
 }
