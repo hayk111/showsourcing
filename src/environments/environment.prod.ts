@@ -5,6 +5,7 @@ export const environment = {
 	graphqlUrl: 'wss://ros-dev3.showsourcing.com:9443/graphql',
 	realmUrl: 'https://ros-dev3.showsourcing.com:9443',
 	apiUrl: 'https://ros-dev3.showsourcing.com',
+	getStreamKey: 'mvufdhfnfz83',
 	LOG_LEVEL: LogLevel.ERROR,
 };
 

@@ -26,23 +26,10 @@ export class WelcomeComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		const globalReady$ = this.apolloState.getClientStatus(Client.GLOBAL_DATA).pipe(
-			tap(status => this.checkClientNotReady(status)),
-			filter(status => status === ClientStatus.READY),
-			first()
+		this.srv.init().subscribe(
+			_ => this.pending = false,
+			e => this.onError(e)
 		);
-
-		const boardingReady$ = this.apolloState.getClientStatus(Client.SUPPLIER_ONBOARDING).pipe(
-			tap(status => this.checkClientNotReady(status)),
-			filter(status => status === ClientStatus.READY),
-			first()
-		);
-
-		forkJoin(globalReady$, boardingReady$)
-			.subscribe(_ => {
-				this.pending = false;
-				this.cd.markForCheck();
-			});
 	}
 
 	checkClientNotReady(status: ClientStatus) {
@@ -53,15 +40,6 @@ export class WelcomeComponent implements OnInit {
 	}
 
 	submit() {
-		this.pending = true;
-		this.srv.init().subscribe(
-			_ => this.onSuccess(),
-			e => this.onError(e)
-		);
-	}
-
-	onSuccess() {
-		this.pending = false;
 		this.router.navigate(['find-business']);
 	}
 

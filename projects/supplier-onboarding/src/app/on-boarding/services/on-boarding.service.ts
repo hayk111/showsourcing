@@ -36,7 +36,7 @@ export class OnBoardingService {
 		this.claim = new SupplierClaim();
 		// if the refresh token exist then we use that token, else we generate one
 		// with an hardcoded user (ask antine if question)
-		from(this.tokenSrv.restoreRefreshToken('supplier-onboarding')).pipe(
+		return from(this.tokenSrv.restoreRefreshToken('supplier-onboarding')).pipe(
 			switchMap((token: TokenState) => {
 				return token ? of(token) :
 					this.tokenSrv.getRefreshToken(this.credentials, 'supplier-onboarding');
@@ -44,7 +44,7 @@ export class OnBoardingService {
 			switchMap((token: TokenState) => this.startClients(token)),
 			switchMap(_ => this.supplierClaimSrv.create(this.claim)),
 			tap(_ => this.initialized = true)
-		).subscribe();
+		);
 	}
 
 	private startClients(token: TokenState) {
