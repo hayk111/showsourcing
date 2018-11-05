@@ -1,5 +1,7 @@
 @import '~@ng-select/ng-select/themes/default.theme.css';
 
+
+
 .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
 	display: none;
 }
@@ -54,7 +56,7 @@
 }
 
 .ng-select .ng-arrow-wrapper {
-	display: none;
+	// display: none;
 }
 
 .ng-dropdown-panel {
@@ -64,5 +66,20 @@
 		input {
 			border-radius: 0;
 		}
+	}
+}
+
+.inline {
+	.ng-select-container {
+		height: 36px!important;
+	}
+}
+
+.input-price-inline {
+	input {
+		border: none;
+	}
+	.ng-select .ng-select-container {
+		border: none!important;
 	}
 }

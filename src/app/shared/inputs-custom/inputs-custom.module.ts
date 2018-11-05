@@ -5,6 +5,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils';
 import { InputsModule } from '~shared/inputs';
+import { InputPriceInlineComponent } from './components/input-price-inline/input-price-inline.component';
+import { IconsModule } from '~shared/icons';
 
 @NgModule({
 	imports: [
@@ -12,10 +14,11 @@ import { InputsModule } from '~shared/inputs';
 		FormsModule,
 		ReactiveFormsModule,
 		SelectorsModule,
+		IconsModule,
 		UtilsModule,
 		InputsModule
 	],
-	declarations: [InputPriceComponent],
-	exports: [InputPriceComponent]
+	declarations: [InputPriceComponent, InputPriceInlineComponent],
+	exports: [InputPriceComponent, InputPriceInlineComponent]
 })
 export class InputsCustomModule { }

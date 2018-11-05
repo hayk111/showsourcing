@@ -32,16 +32,15 @@ const supportedTypes = new Set([
 })
 export class InputDirective extends FormFieldControlDirective {
 	protected static NEXT_UID = 0;
+		/** id of element, if not specified it will generate automtically */
+		@Input()
+		get id(): string { return this._id; }
+		set id(value: string) { this._id = value; this.stateChanges.next(); }
+		protected _id: string = 'inp-' + InputDirective.NEXT_UID++;
 
 	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) {
 		super(control);
 	}
-
-	/** id of element, if not specified it will generate automtically */
-	@Input()
-	get id(): string { return this._id; }
-	set id(value: string) { this._id = value; this.stateChanges.next(); }
-	protected _id: string = 'inp-' + InputDirective.NEXT_UID++;
 
 	/** Whether the element is readonly. */
 	@Input()

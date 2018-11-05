@@ -79,6 +79,22 @@
     </ng-template>
   </ng-container>
 
+  <ng-container *ngSwitchCase="'yesNo'">
+    <form-field-app>
+      <label-app>{{ customField.label || customField.name }}</label-app>
+      <radio-app formFieldCtrl [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" [(ngModel)]="value"></radio-app>
+    </form-field-app>
+  </ng-container>
+
+  <input-packaging-app
+    *ngSwitchCase="'packaging'"
+    name="packaging"
+    [value]="accumulator"></input-packaging-app>
+
+  <form-field-app *ngSwitchCase="'price'">
+    <label-app>{{ customField.label || customField.name }}</label-app>
+    <input-price-inline-app formFieldCtrl></input-price-inline-app>
+  </form-field-app>
 
   <ng-container *ngSwitchDefault>
 

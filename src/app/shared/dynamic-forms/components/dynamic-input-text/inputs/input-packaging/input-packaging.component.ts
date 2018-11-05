@@ -4,7 +4,7 @@ import { CustomField } from '~shared/dynamic-forms/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
-	selector: 'input-packaging-app',
+	selector: 'input-packaging-app-2',
 	templateUrl: './input-packaging.component.html',
 	styleUrls: ['./input-packaging.component.scss', '../../common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
