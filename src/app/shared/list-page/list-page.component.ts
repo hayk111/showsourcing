@@ -161,6 +161,7 @@ export abstract class ListPageComponent<T extends { id?: string, deleted?: boole
 	 */
 	search(str: string) {
 		// the search predicate
+		debugger;
 		this.currentSearch = str ? `name CONTAINS[c] "${str}"` : '';
 		this.onPredicateChange();
 	}

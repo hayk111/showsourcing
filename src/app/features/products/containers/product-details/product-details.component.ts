@@ -5,7 +5,7 @@ import { VoteDetailsDialogComponent } from '~features/products/components/vote-d
 import { ProductFeatureService } from '~features/products/services';
 import { ProductQueries } from '~global-services/product/product.queries';
 import { AppImage, Attachment, ERM, Product, ProductStatus, Project } from '~models';
-import { ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent, RfqDialogComponent } from '~shared/custom-dialog';
+import { ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent, RfqDialogComponent, ProductExportDlgComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -164,10 +164,12 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** export product */
-	export() {
-		// TODO
+	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
+	openExportDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
+			selectedProducts: [this.product]
+		});
 	}
-
 	/** Opens a dialog that let you see the list of people who have voted */
 	openVoteDetailsDialog() {
 		this.dlgSrv.openFromModule(VoteDetailsDialogComponent, this.moduleRef, {

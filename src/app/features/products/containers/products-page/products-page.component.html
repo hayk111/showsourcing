@@ -3,9 +3,9 @@
 	<!-- top panel -->
 	<top-panel-app
 		title="My Products"
+		buttonName="Add {{entityMetadata.singular}}"
 		[subtitles]="['Products', 'all']"
 		[center]="false"
-		buttonName="Add {{entityMetadata.singular}}"
 		(buttonClick)="openCreateDlg(true)">
 	</top-panel-app>
 

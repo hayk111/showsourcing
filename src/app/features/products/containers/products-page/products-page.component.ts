@@ -59,10 +59,10 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	search(str: string) {
 		// the search predicate
-		this.currentSearch = str ? `name CONTAINS[c] "${str}"`
+		this.currentSearch = str ? `(name CONTAINS[c] "${str}"`
 			+ ` OR supplier.name CONTAINS[c] "${str}"`
 			+ ` OR category.name CONTAINS[c] "${str}"`
-			+ ` OR tags.name CONTAINS[c] "${str}"` : '';
+			+ ` OR tags.name CONTAINS[c] "${str}")` : '';
 		this.onPredicateChange();
 	}
 
