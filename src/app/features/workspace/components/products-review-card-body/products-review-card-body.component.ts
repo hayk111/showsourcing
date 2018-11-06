@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
 import { Product, ProductStatusType } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
-import * as Isotope from 'isotope-layout';
+// import * as Isotope from 'isotope-layout';
 
 @Component({
 	selector: 'products-review-card-body-app',
@@ -22,17 +22,18 @@ export class ProductsReviewCardBodyComponent implements AfterViewInit {
 	@Output() select = new EventEmitter<any>();
 	@Output() unselect = new EventEmitter<any>();
 
-	isotope: any;
+	// isotope: any;
 
 	constructor(
 		private render: Renderer2
 	) { }
 
 	ngAfterViewInit() {
-		const element = document.querySelector('.products-section-' + this.index);
-		this.isotope = new Isotope(element, {
-			itemSelector: '.element-item'
-		});
+		// const element = document.querySelector('.products-section-' + this.index);
+		// this.isotope = new Isotope(element, {
+		// 	itemSelector: '.element-item',
+		// 	layoutMode: 'fitRows'
+		// });
 	}
 
 	/** Checks if a product is selected */
@@ -61,9 +62,11 @@ export class ProductsReviewCardBodyComponent implements AfterViewInit {
 	}
 
 	sendToWorkflowFunc(event: any, product: Product) {
-		const some = event.srcElement.closest('.element-item');
-		this.render.addClass(some, 'deleted');
-		this.isotope.arrange({ filter: ':not(.deleted)' });
+		// in case we fix in the future the problem with the scrolling when doing the filtering
+		// const some = event.srcElement.closest('.element-item');
+		// // this.isotope.hideItemElements(some);
+		// this.render.addClass(some, 'deleted');
+		// this.isotope.arrange({ filter: ':not(.deleted)' });
 		this.sendToWorkflow.emit(product);
 	}
 

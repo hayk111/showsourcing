@@ -61,10 +61,24 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 
 		this.templateSrv.bottomReached$.pipe(
 			takeUntil(this._destroy$)
-		).subscribe(() => {
+		).subscribe(_ => {
 			this.loadMore();
 		});
 
+	}
+
+	protected setItems() {
+		this.listResult = this.featureSrv.getListQuery({
+			query: this.initialPredicate,
+			sortBy: this.initialSortBy,
+			descending: false
+		});
+
+		this.items$ = this.listResult.items$.pipe(
+			tap(_ => this.onLoaded()),
+			tap(items => this.items = items),
+			map(items => items.filter(item => !item.deleted && !item.archived && !item.status))
+		);
 	}
 
 	/** Returns the selected products */
@@ -84,24 +98,18 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 
 	/** Add a product to workflow */
 	onSentToWorkflow(product: Product) {
-		this.workspaceSrv.sendProductToWorkflow(product).subscribe(
-			// () => this.refetch()
-		);
+		this.workspaceSrv.sendProductToWorkflow(product).subscribe();
 	}
 
 	/** Triggers archive product */
 	onArchive(product: Product) {
 		const { id } = product;
-		this.workspaceSrv.update({ id, archived: true }, 'archived').subscribe(() => {
-			this.refetch();
-		});
+		this.workspaceSrv.update({ id, archived: true }, 'archived').subscribe();
 	}
 
 	/** Triggers status update */
 	onStatusUpdated({ product, status }) {
-		this.workspaceSrv.updateProductStatus(product, status).subscribe(
-			// () => this.refetch()
-		);
+		this.workspaceSrv.updateProductStatus(product, status).subscribe();
 	}
 
 	/** updates the products with the new value votes */

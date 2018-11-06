@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Category } from '~features/workspace/models';
@@ -7,7 +7,6 @@ import { ERM, Product, ProductStatusType } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
-import * as Isotope from 'isotope-layout';
 
 
 @Component({
@@ -27,7 +26,6 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	groupedProducts: Category[];
 	prodERM = ERM.PRODUCT;
 	noFieldChecked: boolean;
-	isotope: any;
 
 	constructor(
 		private selectionSrv: SelectionService,

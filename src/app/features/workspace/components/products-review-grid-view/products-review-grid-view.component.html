@@ -1,4 +1,4 @@
-<div class="card-container" infiniScroll>
+<div class="card-container">
   <div *ngFor="let category of groupedProducts; first as first; index as i" class="category-section">
     <div class="category-header flex">
       <products-review-card-header-app [currentSort]="currentSort" [category]="category"

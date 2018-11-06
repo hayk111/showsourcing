@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import gql from 'graphql-tag';
 import { Observable } from 'rxjs';
@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Supplier } from '~models';
 import { CustomField } from '~shared/dynamic-forms/models';
 import * as Isotope from 'isotope-layout';
+
 
 @Component({
 	selector: 'app-test-page',
@@ -17,7 +18,7 @@ export class TestPageComponent implements OnInit {
 	iso: any;
 	element: any;
 
-	constructor() { }
+	constructor(private render: Renderer2) { }
 
 	ngOnInit() {
 		this.element = document.querySelector('.grid');
@@ -28,8 +29,13 @@ export class TestPageComponent implements OnInit {
 	}
 
 	doThis(event: any) {
+
 		const filter = event.target.dataset['filter'];
+		// const some = event.srcElement.closest(filter);
+		// this.iso.hideItemElements(some);
+		// this.render.addClass(some, 'deleted');
 		console.log(filter);
 		this.iso.arrange({ filter });
+		this.iso.filter(filter);
 	}
 }
