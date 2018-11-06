@@ -188,9 +188,8 @@ export class UploaderService {
 		if (isImage) {
 			srv.update({
 				id: linkedItem.id,
-				images: [...linkedItem.images, returned]
-			})
-				.subscribe();
+				images: [...linkedItem.images.map(img => ({ id: img.id })), returned]
+			}).subscribe();
 		} else {
 			const attachments = [...linkedItem.attachments, returned];
 			srv.update({ id: linkedItem.id, attachments }).subscribe();

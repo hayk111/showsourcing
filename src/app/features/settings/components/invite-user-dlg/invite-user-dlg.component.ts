@@ -1,14 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
-import { takeUntil, first, map } from 'rxjs/operators';
-import { AutoUnsub } from '~utils';
-import { Invitation } from '~models';
-import { DialogService } from '~shared/dialog';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
+import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub } from '~utils';
 
 
 
@@ -38,11 +33,11 @@ export class InviteUserDlgComponent extends AutoUnsub {
 
 	submit() {
 		if (this.form.valid) {
-		 	this.pending = true;
+			this.pending = true;
 			const { email } = this.form.value;
 			this.invitationSrv.createInvitation(email)
 				.subscribe(() => {
-		 			this.pending = false;
+					this.pending = false;
 					this.dlgSrv.close();
 					if (this.callback) {
 						this.callback();
@@ -53,7 +48,7 @@ export class InviteUserDlgComponent extends AutoUnsub {
 						message: `Your invitation was sent to ${email}`,
 						timeout: 3500
 					});
-			});
+				});
 		}
 	}
 }

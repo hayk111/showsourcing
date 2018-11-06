@@ -1,16 +1,21 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, takeUntil, switchMap } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
 import { ProductFeatureService } from '~features/products/services';
 import { ProductQueries } from '~global-services/product/product.queries';
-import { AppImage, Attachment, ERM, Product, ProductStatus, Project } from '~models';
-import { ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent, RfqDialogComponent } from '~shared/custom-dialog';
+import { Attachment, ERM, Product, ProductStatus, Project } from '~models';
+import {
+	ProductAddToProjectDlgComponent,
+	ProductExportDlgComponent,
+	ProductRequestTeamFeedbackDlgComponent,
+	RfqDialogComponent,
+} from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-details-app',
@@ -164,10 +169,12 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** export product */
-	export() {
-		// TODO
+	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
+	openExportDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
+			selectedProducts: [this.product]
+		});
 	}
-
 	/** Opens a dialog that let you see the list of people who have voted */
 	openVoteDetailsDialog() {
 		this.dlgSrv.openFromModule(VoteDetailsDialogComponent, this.moduleRef, {
