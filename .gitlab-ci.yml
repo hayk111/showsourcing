@@ -26,7 +26,7 @@ app-staging:
     - pip install awscli
     - pip install awscli
     - cd dist/showsourcing
-    - aws s3 sync . s3://aws-website-showsourcing-web-stagging --delete
+    - aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete
   only:
     - master
 
