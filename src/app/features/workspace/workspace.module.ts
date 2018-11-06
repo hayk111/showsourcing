@@ -19,6 +19,7 @@ import { Workflow2Module } from '~features/workflow2/workflow2.module';
 import { TaskCommonModule } from '~shared/task-common';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { CustomDialogModule } from '~shared/custom-dialog';
+import { ProductsReviewCardBodyComponent } from './components/products-review-card-body/products-review-card-body.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 		ReviewPageComponent,
 		ProductsReviewCardViewComponent,
 		ProductsReviewCardHeaderComponent,
-		ProductsReviewSortingMenuComponent
+		ProductsReviewSortingMenuComponent,
+		ProductsReviewCardBodyComponent
 	],
 	exports: [RouterModule],
 	providers: [

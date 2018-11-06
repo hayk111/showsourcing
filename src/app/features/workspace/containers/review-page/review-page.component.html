@@ -10,7 +10,7 @@
   </products-review-sorting-menu-app>
 </sub-panel-app>
 
-<products-review-card-view-app
+<products-review-grid-view-app
   class="card-view"
   [rows]="items$ | async"
   [pending]="pending"
@@ -22,12 +22,12 @@
   (unselect)="onItemUnselected($event, true)"
   (favorited)="onItemFavorited($event)"
   (unfavorited)="onItemUnfavorited($event)"
-  (sentToWorkflow)="onSentToWorkflow($event)"
+  (sendToWorkflow)="onSentToWorkflow($event)"
   (delete)="deleteOne($event)"
   (archive)="onArchive($event)"
   (statusUpdated)="onStatusUpdated($event)"
   (open)="goToDetails($event)">
-</products-review-card-view-app>
+</products-review-grid-view-app>
 
 <selection-bar-app
   [isShown]="(selected$ | async).size > 0"
@@ -72,6 +72,5 @@
   [product]="previewed"
   (close)="closePreview()"
   (clickOutside)="closePreview()">
-
 </product-preview-app>
 

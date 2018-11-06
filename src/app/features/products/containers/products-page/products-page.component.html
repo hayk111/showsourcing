@@ -83,7 +83,8 @@
 		(unfavorited)="onItemUnfavorited($event)"
 		(liked)="onThumbUp($event)"
 		(disliked)="onThumbDown($event)"
-		(open)="goToDetails($event)"></products-card-view-app>
+		(open)="goToDetails($event)">
+	</products-card-view-app>
 
 	<selection-bar-app
 		[isShown]="(selected$ | async).size > 0"

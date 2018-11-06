@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { Category } from '~features/workspace/models';
 import { ProductStatusTypeService } from '~global-services';
 import { ERM, Product, ProductStatusType } from '~models';
@@ -10,14 +10,14 @@ import { Sort } from '~shared/table/components/sort.interface';
 
 
 @Component({
-	selector: 'products-review-card-view-app',
-	templateUrl: './products-review-card-view.component.html',
-	styleUrls: ['./products-review-card-view.component.scss']
+	selector: 'products-review-grid-view-app',
+	templateUrl: './products-review-grid-view.component.html',
+	styleUrls: ['./products-review-grid-view.component.scss']
 })
 export class ProductsReviewCardViewComponent extends ListViewComponent<Product> implements OnInit, OnChanges {
 
 	@Input() currentSort: Sort;
-	@Output() sentToWorkflow = new EventEmitter<Product>();
+	@Output() sendToWorkflow = new EventEmitter<Product>();
 	@Output() previewClick = new EventEmitter<Product>();
 	@Output() archive = new EventEmitter<Product>();
 	@Output() statusUpdated = new EventEmitter<any>();
@@ -35,7 +35,10 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	}
 
 	ngOnInit() {
-		this.firstStatus$ = this.prodStatusSrv.queryOneByPredicate(`step != null`).pipe(first());
+		this.firstStatus$ = this.prodStatusSrv.queryAll('', { query: 'inWorkflow == true', sortBy: 'step' }).pipe(
+			first(),
+			map(status => status[0] ? status[0] : null) // we only need the first
+		);
 	}
 
 	ngOnChanges(changes) {
@@ -80,14 +83,6 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 			}
 		});
 		return allSelected;
-	}
-
-	/** Checks if a product is selected */
-	isSelected(product) {
-		if (this.selection)
-			return this.selection.has(product.id);
-
-		throw Error(`Selection Input is undefnied`);
 	}
 
 	/** Gathers products per category according to sort */
@@ -157,22 +152,4 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 			});
 		}
 	}
-
-	/** Close the contextual menu if the mouse goes outside a product card */
-	closeContextualMenuIfOpened(archiveMenu, workActionMenu) {
-		if (archiveMenu && archiveMenu.menuOpen) {
-			archiveMenu.closeMenu();
-		}
-		if (workActionMenu && workActionMenu.menuOpen) {
-			workActionMenu.closeMenu();
-		}
-	}
-
-	/** Triggers a status update (from the workflow action component) */
-	onStatusUpdated(product, status) {
-		if (status) {
-			this.statusUpdated.emit({ product, status });
-		}
-	}
-
 }

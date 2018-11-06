@@ -1,0 +1,121 @@
+.card-container {
+	overflow-y: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: var(--spacing-m);
+	margin-bottom: var(--spacing-m);
+	padding-left: 7px;
+	padding-top: 15px;
+  padding-bottom: var(--spacing-s);
+  width: 1061px;
+	/* background-color: var(--color-secondary-light);
+	border: solid 1px var(--color-divider);
+	height: 480px; */
+}
+
+.products-section {
+	flex-direction: row;
+}
+
+.send-workflow {
+	height: 100%;
+	width: 100%;
+	align-items: center;
+	display: flex;
+}
+
+product-card-app {
+  width: 324px;
+  margin-left: var(--spacing-ms) !important;
+  margin-right: var(--spacing-ms) !important;
+}
+
+.card-hover-block {
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.button-action {
+  width: 194px;
+  font-size: var(--font-size-m);
+  font-weight: 600;
+
+  cursor: pointer;
+  height: 32px;
+  padding: 0px var(--spacing-ms);
+  border-radius: 2px;
+  font-size: var(--font-size-m);
+  border: none;
+  outline: none;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: inherit;
+  white-space: nowrap;
+  text-align: center;
+  transition: background 0.3s;
+  padding-right: 5px;
+
+  .button-icon {
+    border-left: solid 0.5px rgba(255, 255, 255, 0.3);
+    /* padding-left: 10px;
+    display: flex;
+    align-items: center; */
+    height: 100%;
+  }
+
+  &.button-archive {
+    color: #5d6d8b;
+    background-color: var(--color-secondary);
+    margin-top: 10px;
+
+		&:hover {
+			background-color: var(--color-secondary-dark);
+			color: white;
+
+			icon-app {
+				color: white;
+			}
+		}
+    .button-icon {
+      padding-left: 5px;
+      display: flex;
+      align-items: center;
+    }
+
+    icon-app {
+      color: var(--color-secondary-dark);
+    }
+  }
+
+  &.button-workflow {
+    color: #fff;
+    background-color: #45adff;
+    margin-bottom: 10px;
+		padding-right: 5px;
+
+		&:hover {
+			background: var(--color-primary-dark);
+		}
+    icon-app {
+      color: #fff;
+    }
+  }
+
+  &.button-archive {
+    color: #5d6d8b;
+    background-color: var(--color-secondary);
+		padding-right: 5px;
+
+    .button-label {
+      width: 100%;
+      text-align: left;
+    }
+		&:hover {
+			background: var(--color-secondary-dark);
+		}
+    icon-app {
+      color: #5d6d8b;
+    }
+  }
+}
