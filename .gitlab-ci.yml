@@ -2,7 +2,9 @@
 image: node:9.11
 stages:
   - build
+  - staging
   - deploy
+
 
 before_script:
   - npm install
@@ -18,11 +20,21 @@ app-build:
     - master
     - production
 
+
+app-staging:
+  stage: staging
+  dependencies:
+    - app-build
+  script:
+    - npm run deploy:staging
+  only:
+    - master
+
 app-deploy:
   stage: deploy
   dependencies:
     - app-build
   script:
-    - npm run deploy
+    - npm run deploy:production
   only:
     - production
