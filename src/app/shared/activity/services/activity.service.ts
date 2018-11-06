@@ -31,7 +31,7 @@ export class ActivityService {
 		private teamSrv: TeamService,
 		private tokenSrv: TokenService
 	) {
-		this.client = getstream.connect('7mxs7fsf47nu', null, '39385');
+		this.client = getstream.connect(environment.getStreamKey, null, '39385');
 	}
 
 	getDashboardFeed(): GroupedActivityFeed {
@@ -95,7 +95,7 @@ export class ActivityService {
 
 	/** some doc on feed token API in readme next to this file */
 	private getToken(url): Observable<string> {
-		return this.tokenSrv.refreshToken$.pipe(
+		return this.tokenSrv.authRefreshToken$.pipe(
 			switchMap((token: TokenState) => {
 				const headers = new HttpHeaders({ Authorization: token.token });
 				return this.http.get<TokenResponse>(url, { headers });

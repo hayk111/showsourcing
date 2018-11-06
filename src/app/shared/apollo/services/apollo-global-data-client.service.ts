@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { environment } from 'environments/environment';
-import { merge, zip } from 'rxjs';
-import { distinctUntilChanged, filter, switchMapTo, switchMap, catchError, tap } from 'rxjs/operators';
-import { AuthStatus } from '~features/auth';
+import { Subject, Observable } from 'rxjs';
+import { switchMap, takeUntil, tap, catchError, first } from 'rxjs/operators';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
 import { RealmServerService } from '~global-services/realm-server/realm-server.service';
@@ -12,34 +12,38 @@ import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-cl
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 import { ApolloStateService } from './apollo-state.service';
-import { TokenState } from '~features/auth/interfaces/token-state.interface';
+
+
 
 @Injectable({ providedIn: 'root' })
-export class SupplierOnboardingClient extends AbstractApolloClient {
+export class GlobalDataClientsInitializer extends AbstractApolloClient {
 
 	constructor(
 		protected apollo: Apollo,
 		protected apolloState: ApolloStateService,
+		protected tokenSrv: TokenService,
 		protected httpLink: HttpLink,
-		protected realmServerSrv: RealmServerService,
 		protected authSrv: AuthenticationService,
-		protected tokenSrv: TokenService
+		protected realmServerSrv: RealmServerService
 	) {
-		super(apollo, httpLink, apolloState, realmServerSrv, Client.SUPPLIER_ONBOARDING);
+		super(apollo, httpLink, apolloState, realmServerSrv, Client.GLOBAL_DATA);
 	}
 
-	init(refreshToken: TokenState) {
+	init(refreshToken: TokenState): Observable<Client> {
 		this.checkNotAlreadyInit();
 
-		// we are currently not using all user
-		const uri = `${environment.graphqlUrl}/${Client.SUPPLIER_ONBOARDING}`;
+		const uri = `${environment.graphqlUrl}/${this.client}`;
+
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
-		return this.tokenSrv.getAccessToken(refreshToken, Client.SUPPLIER_ONBOARDING).pipe(
-			switchMap(token => this.createClient(uri, Client.SUPPLIER_ONBOARDING, token)),
-			tap(_ => this.apolloState.setClientReady(Client.SUPPLIER_ONBOARDING)),
-			catchError(e => this.onError(e))
+		return this.tokenSrv.getAccessToken(refreshToken, this.client).pipe(
+			switchMap(token => this.createClient(uri, this.client, token)),
+			tap(_ => this.apolloState.setClientReady(this.client)),
+			catchError(e => this.onError(e)),
+			takeUntil(this.destroyed$),
+			first()
 		);
 	}
+
 }
 
