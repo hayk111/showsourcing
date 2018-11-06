@@ -87,7 +87,7 @@
 		<label-app class="title">Destinataries</label-app>
 		<div class="flexWrap request-detail">
 			<span *ngIf="copyEmail && userEmail" class="email-detail">{{ userEmail }}</span>
-			<span class="email-detail" *ngFor="let contact of selected.values(); first as first">{{ first && !userEmail ? contact.email : ', ' + contact.email }}</span>
+			<span class="email-detail" *ngFor="let contact of selected.values(); first as first; trackBy: trackByFn">{{ (first && (!copyEmail || !userEmail)) ? contact.email : ', ' + contact.email }}</span>
 		</div>
 	</ng-container>
 
