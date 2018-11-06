@@ -1,0 +1,28 @@
+// .gitlab-ci.yml
+image: node:9.11
+stages:
+  - build
+  - deploy
+
+before_script:
+  - npm install
+
+app-build:
+  stage: build
+  artifacts:
+    paths:
+      - dist/
+  script:
+    - npm run build:js-training
+  only:
+    - master
+    - production
+
+app-deploy:
+  stage: deploy
+  dependencies:
+    - app-build
+  script:
+    - npm run deploy
+  only:
+    - production
