@@ -239,8 +239,15 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	selectMany(paramsConfig: SelectParamsConfig, fields?: string | string[], client = this.defaultClient): Observable<T[]> {
-		throw Error(`you probably don't want to use a subscription on many items (maybe queryMany, selectOne and waitForOne).
-		If you know what you are doing, go ahead, remove this error and uncomment the code`);
+		// throw Error(`you probably don't want to use a subscription on many items (maybe queryMany, selectOne and waitForOne).
+		// If you know what you are doing, go ahead, remove this error and uncomment the code`);
+		const title = 'Select Many' + this.typeName;
+		fields = this.getFields(fields, this.fields.many);
+		const gql = this.queryBuilder.selectMany(fields);
+		const queryName = this.getQueryName(gql);
+		const variables = new SelectParams(paramsConfig);
+
+		return null;
 		// const params = new SelectParams(paramsConfig);
 		// const variables = params.toApolloVariables();
 		// const queryName = this.getQueryName(gql);
