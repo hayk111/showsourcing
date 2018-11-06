@@ -1,4 +1,4 @@
 .selector{
-	z-index: 30;
+	z-index: var(--z-selector);
 	display: block;
 }

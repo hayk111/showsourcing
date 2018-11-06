@@ -3,7 +3,7 @@
     width: 100%;
     position: fixed;
     bottom: 0;
-    z-index: 15;
+    z-index: var(--z-selection-bar);
 
     &.expanded-menu {
         width: calc(100% - 260px);

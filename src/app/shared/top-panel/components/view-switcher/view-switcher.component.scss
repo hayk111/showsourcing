@@ -31,7 +31,7 @@ button {
 	background: transparent;
 	color:  var(--color-txt-primary);
 	padding: 0 15px;
-	z-index: 2;
+	z-index: var(--z-button);
 	text-transform: none;
 }
 
@@ -51,7 +51,7 @@ icon-app {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	z-index: 1;
+	z-index: var(--z-base);
 	transition: all 0.35s ease-out;
 	&.left {
 		left: 0;

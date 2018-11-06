@@ -2,7 +2,7 @@
 :host{
 	background: var(--color-bg);
 	margin: auto;
-	z-index: 100;
+	z-index: var(--z-dialog);
 	display: inline-block;
   border-radius: var(--border-radius);
 	padding: var(--spacing-l);

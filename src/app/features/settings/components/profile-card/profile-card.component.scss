@@ -22,7 +22,7 @@ button.auto {
 
 user-picture-app {
 	margin: 0;
-	z-index: 2;
+	z-index: var(--z-button);
 	border-radius: 20px;
 	font-size: var(--font-size-xl);
 }

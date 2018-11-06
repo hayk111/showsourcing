@@ -7,7 +7,7 @@
 }
 
 .autocomplete {
-	z-index: 10;
+	z-index: var(--z-cardContainer);
 	position: absolute;
 	background: white;
 	color: var(--color-txt-primary);

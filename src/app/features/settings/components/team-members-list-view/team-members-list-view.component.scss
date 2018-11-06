@@ -49,7 +49,7 @@ menu {
 	border: solid 1px var(--color-secondary-light);
 	background-color: var(--color-secondary);
 	width: 150px;
-	z-index: 1000;
+	z-index: var(--z-draganddrop-progress);
 }
 
 menuitem {
