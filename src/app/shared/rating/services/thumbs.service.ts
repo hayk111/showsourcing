@@ -95,6 +95,15 @@ export class ThumbService {
 		return votes;
 	}
 
+	computeScore(product: Product) {
+		let score = null;
+		if (product.votes && product.votes.length) {
+			product.votes.forEach(vote => score += vote.value);
+			score /= product.votes.length;
+		}
+		return score;
+	}
+
 	private createVote(votes: ProductVote[], value: number) {
 		const vote = new ProductVote({
 			value,

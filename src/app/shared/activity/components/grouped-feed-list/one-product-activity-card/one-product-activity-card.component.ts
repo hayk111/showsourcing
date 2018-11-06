@@ -19,6 +19,7 @@ import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'one-product-activity-card-app',
@@ -44,7 +45,8 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		private router: Router,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
-		private productSrv: ProductService) {
+		private productSrv: ProductService,
+		private thumbSrv: ThumbService) {
 		super();
 	}
 
@@ -53,15 +55,11 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		// when an activity group starts with product_activity, what's following is the id
 		if (group.startsWith('product_activity')) {
 			const productId = group.replace('product_activity_', '');
-			// we use selectOne instead of queryOne, since we need the response from the server
-			// with the new score, the response is not immediate due to calculations
-			this.product$ = this.productSrv.selectOne(productId);
+			this.product$ = this.productSrv.queryOne(productId);
 		}
 		// when it starts with create_product, we can get the product id by looking at the first activity
 		if (group.startsWith('create_product')) {
-			// we use selectOne instead of queryOne, since we need the response from the server
-			// with the new score, the response is not immediate due to calculations
-			this.product$ = this.productSrv.selectOne(this.groupFeed.activities[0].object);
+			this.product$ = this.productSrv.queryOne(this.groupFeed.activities[0].object);
 		}
 		this.product$.pipe(
 			takeUntil(this._destroy$)
@@ -96,6 +94,10 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	onSubmit() {
 		this.createComment.emit({ text: this.commentCtrl.value, entity: this.product, typeEntity: this.typeEntity });
 		this.commentCtrl.reset();
+	}
+
+	score() {
+		return this.thumbSrv.computeScore(this.product);
 	}
 
 }

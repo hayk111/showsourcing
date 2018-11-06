@@ -44,7 +44,7 @@
 				<span *ngIf="product?.category?.name">{{ product.category.name }}</span>
 				<span *ngIf="product?.supplier?.name" class="supplier">{{ product.supplier.name }}</span>
 				<icons-status-app
-					*ngIf="product?.score !== null"
+					*ngIf="score() != null"
 					class="flex"
 					[onlyLike]="true"
 					[product]="product">

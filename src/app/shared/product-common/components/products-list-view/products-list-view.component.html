@@ -111,7 +111,7 @@ I added comment above each column to make it clearer -->
 
 <!-- feedback -->
 <ng-template #feedback let-row="row">
-	{{ row?.score !== undefined ? row.score : '-' }} %
+  {{ score(row) !== null ? score(row) : '-' }} %
 </ng-template>
 
 <!-- creation date -->
