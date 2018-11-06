@@ -14,7 +14,7 @@ app-build:
     paths:
       - dist/
   script:
-    - npm run build:js-training
+    - npm run build
   only:
     - master
     - production

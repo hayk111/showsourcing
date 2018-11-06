@@ -53,13 +53,6 @@ export const routes: Array<Route> = [
 		]
 	},
 	{
-		path: 'rfq/:token',
-		component: RfqTemplateComponent,
-		children: [
-			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' }
-		]
-	},
-	{
 		path: 'invitation',
 		component: GuestTemplateComponent,
 		children: [...invitationRoutes]

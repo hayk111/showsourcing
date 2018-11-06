@@ -34,7 +34,6 @@ import {
 import {
 	EditableSelectorComponent,
 } from './components/dynamic-editable-text/inputs/editable-selector/editable-selector.component';
-import { DynamicInputTextComponent } from './components/dynamic-input-text/dynamic-input-text.component';
 import { InputPackagingComponent } from './components/dynamic-input/inputs/input-packaging/input-packaging.component';
 import { DynamicInputComponent } from './components/dynamic-input/dynamic-input.component';
 
@@ -63,7 +62,6 @@ import { DynamicInputComponent } from './components/dynamic-input/dynamic-input.
 		EditablePriceComponent,
 		EditablePackagingComponent,
 		EditableSelectorComponent,
-		DynamicInputTextComponent,
 		InputPackagingComponent,
 		DynamicInputComponent
 	],

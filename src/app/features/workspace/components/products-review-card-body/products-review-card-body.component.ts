@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
 import { Product, ProductStatusType } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 // import * as Isotope from 'isotope-layout';
 
 @Component({
@@ -9,7 +10,7 @@ import { ListViewComponent } from '~shared/list-page/list-view.component';
 	styleUrls: ['./products-review-card-body.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsReviewCardBodyComponent implements AfterViewInit {
+export class ProductsReviewCardBodyComponent extends TrackingComponent implements AfterViewInit {
 
 	@Input() products: Product[];
 	@Input() selection: Map<string, boolean>;
@@ -26,7 +27,9 @@ export class ProductsReviewCardBodyComponent implements AfterViewInit {
 
 	constructor(
 		private render: Renderer2
-	) { }
+	) {
+		super();
+	}
 
 	ngAfterViewInit() {
 		// const element = document.querySelector('.products-section-' + this.index);
