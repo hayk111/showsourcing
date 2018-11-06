@@ -1,8 +1,20 @@
 image: node:9.11
 stages:
+  - install
   - build
   - staging
   - deploy
+
+app-install:
+  stage: install
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
+  cache:
+    paths:
+      - node_modules
 
 app-build:
   stage: build
@@ -24,9 +36,8 @@ app-staging:
     - app-build
   script:
     - pip install awscli
-    - pip install awscli
     - cd dist/showsourcing
-    - aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete
+    - aws s3 sync . s3://aws-website-showsourcing-web-stagging --delete
   only:
     - master
 
