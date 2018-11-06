@@ -4,7 +4,6 @@ stages:
   - staging
   - deploy
 
-
 before_script:
   - npm install
 
@@ -22,18 +21,22 @@ app-build:
 
 app-staging:
   stage: staging
+  image: python:latest
   dependencies:
     - app-build
   script:
+    - pip install awscli
     - npm run deploy:staging
   only:
     - master
 
 app-deploy:
   stage: deploy
+  image: python:latest
   dependencies:
     - app-build
   script:
+    - pip install awscli
     - npm run deploy:production
   only:
     - production
