@@ -4,7 +4,7 @@
 
 notification-container-app {
 	position:fixed;
-	z-index: 5;
+	z-index: var(--z-notification);
 	bottom: 0;
 	right: 0;
 }

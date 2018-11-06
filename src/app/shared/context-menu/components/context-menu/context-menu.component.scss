@@ -6,7 +6,7 @@
 }
 
 .menu {
-	z-index: 1000;
+	z-index: var(--z-draganddrop-progress);
 	position: absolute;
 	background: white;
 	color: var(--color-txt-primary);

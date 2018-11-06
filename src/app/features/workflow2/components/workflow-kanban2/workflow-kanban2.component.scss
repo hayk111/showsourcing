@@ -30,12 +30,12 @@ kanban-col-app {
 
 .card-container {
 	position: relative;
-	z-index: 10;
+	z-index: var(--z-cardContainer);
 	height: 100%;
 	min-height: 100%;
-	
+
 	&.dnd-progress {
-		z-index: 1000;
+		z-index: var(--z-draganddrop-progress);
 	}
 
 	&:hover .contextual-menu {

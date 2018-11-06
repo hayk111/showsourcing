@@ -28,7 +28,7 @@ rating-heart-app {
 	overflow: hidden;
 	img.mini {
 		height: 100%;
-		z-index: 10;
+		z-index: var(--z-cardContainer);
 	}
 }
 
@@ -38,7 +38,7 @@ rating-heart-app {
 }
 
 .imgOverViewCtnr {
-	z-index: 10;
+	z-index: var(--z-cardContainer);
 	width: 128px;
 	height: 128px;
 	position: absolute;
@@ -95,7 +95,7 @@ menu {
 	border: solid 1px var(--color-secondary-light);
 	background-color: var(--color-secondary);
 	width: 150px;
-	z-index: 10;
+	z-index: var(--z-cardContainer);
 }
 
 menuitem {
