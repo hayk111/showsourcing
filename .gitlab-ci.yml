@@ -4,15 +4,13 @@ stages:
   - staging
   - deploy
 
-before_script:
-  - npm install
-
 app-build:
   stage: build
   artifacts:
     paths:
       - dist/
   script:
+    - npm install
     - npm run build
   only:
     - master
@@ -26,7 +24,9 @@ app-staging:
     - app-build
   script:
     - pip install awscli
-    - npm run deploy:staging
+   - pip install awscli
+    - cd dist/showsourcing
+    - aws s3 sync . s3://aws-website-showsourcing-web-stagging --delete
   only:
     - master
 
@@ -37,6 +37,7 @@ app-deploy:
     - app-build
   script:
     - pip install awscli
-    - npm run deploy:production
+    - cd dist/showsourcing
+    - aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete max-age=3600
   only:
     - production
