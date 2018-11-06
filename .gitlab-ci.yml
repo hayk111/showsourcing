@@ -24,7 +24,7 @@ app-staging:
     - app-build
   script:
     - pip install awscli
-   - pip install awscli
+    - pip install awscli
     - cd dist/showsourcing
     - aws s3 sync . s3://aws-website-showsourcing-web-stagging --delete
   only:
@@ -38,6 +38,6 @@ app-deploy:
   script:
     - pip install awscli
     - cd dist/showsourcing
-    - aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete max-age=3600
+    - aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete
   only:
     - production
