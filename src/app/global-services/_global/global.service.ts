@@ -582,36 +582,32 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param id : id of the entity to delete
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	deleteMany(ids: string[], client = this.defaultClient): Observable<any> {
+	deleteMany(ids: string[], clientName = this.defaultClient): Observable<any> {
 
-		throw Error(`There is no use case for delete many at the moment.
-If you know what you are doing you can remove this error and
-uncomment the code below. Delete many is dangerous, because there is a risk of
-Deleting everything.. so watchout. `);
 		// // checking we received ids, because if no query is specified
 		// // apollo will delete everything
-		// if (ids.length === 0) {
-		// 	log.warn('trying to delete many items with an empty array of ids, aborting');
-		// 	return of(undefined);
-		// }
+		if (ids.length === 0) {
+			log.warn('trying to delete many items with an empty array of ids, aborting');
+			return of(undefined);
+		}
 
-		// const title = 'Delete Many ' + this.typeName;
-		// const gql = this.queries.deleteMany();
-		// const query = ids.map(id => `id = "${id}"`).join(' OR ');
-		// const apolloOptions = {
-		// 	mutation: gql,
-		// 	variables: { query },
-		// };
-		// const queryName = this.getQueryName(gql);
-		// this.log('DeleteMany', gql, queryName, apolloOptions.variables);
+		const title = 'Delete many ' + this.typeName;
+		const gql = this.queryBuilder.deleteMany();
+		const query = ids.map(id => `id == "${id}"`).join(' OR ');
+		const options = {
+			mutation: gql,
+			variables: { query }
+		};
+		const queryName = this.getQueryName(gql);
 
-		// return this.getClient(client).mutate(apolloOptions).pipe(
-		// 	first(),
-		// 	filter((r: any) => this.checkError(r)),
-		// 	map(({ data }) => data[queryName]),
-		// 	tap(({ data }) => this.logResult('DeleteMany', queryName, data)),
-		// 	catchError(errors => of(log.table(errors)))
-		// );
+		return this.getClient(clientName, title).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, options.variables)),
+			switchMap(client => client.mutate(options)),
+			first(),
+			filter((r: any) => this.checkError(r)),
+			map(({ data }) => data[queryName]),
+			catchError(errors => of(log.table(errors)))
+		);
 	}
 
 	/////////////////////////////

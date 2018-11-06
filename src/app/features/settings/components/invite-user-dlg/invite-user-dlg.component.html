@@ -6,7 +6,7 @@
 			<label-app>
 				Email
 			</label-app>
-			<input type="text" inputApp formControlName="email"/>
+			<input type="text" inputApp formControlName="email" (keyup.enter)="submit()"/>
 		</form-field-app>
 
 		<dialog-footer-app class="fullWidth flexCenter flexBetween">

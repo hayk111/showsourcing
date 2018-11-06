@@ -161,7 +161,6 @@ export abstract class ListPageComponent<T extends { id?: string, deleted?: boole
 	 */
 	search(str: string) {
 		// the search predicate
-		debugger;
 		this.currentSearch = str ? `name CONTAINS[c] "${str}"` : '';
 		this.onPredicateChange();
 	}
@@ -276,9 +275,6 @@ export abstract class ListPageComponent<T extends { id?: string, deleted?: boole
 		const callback = () => {
 			this.featureSrv.deleteMany(items).subscribe(() => {
 				this.resetSelection();
-				// this will reload the list but
-				// else we won't see deletions..
-				// this.refetch();
 			});
 		};
 		const text = `Delete ${items.length} ${items.length > 1 ? 'items' : 'item'} ?`;
