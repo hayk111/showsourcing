@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductFeatureService } from '~features/products/services';
@@ -7,14 +7,14 @@ import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	RfqDialogComponent,
 } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { SearchService, FilterType } from '~shared/filters';
+import { FilterType, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { TemplateService } from '~shared/template/services/template.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { RfqDialogComponent } from '~shared/custom-dialog';
+import { TemplateService } from '~shared/template/services/template.service';
 
 @Component({
 	selector: 'products-page-app',

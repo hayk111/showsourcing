@@ -1,34 +1,62 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, from, of, forkJoin } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
 import { SupplierService } from '~global-services';
 import { SupplierClaimService } from '~global-services/supplier-claim/supplier-claim.service';
 import { Supplier, SupplierClaim, Attachment } from '~models';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { UploaderService } from '~shared/file/services/uploader.service';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
+import { Credentials } from '~features/auth/interfaces/credentials.interface';
+import { TokenService } from '~features/auth/services/token.service';
+import { SupplierOnboardingClient } from '~shared/apollo/services/apollo-supplier-unboarding-client.class';
+import { GlobalDataClientsInitializer } from '~shared/apollo';
+
 @Injectable({
 	providedIn: 'root'
 })
 export class OnBoardingService {
 	private claim: SupplierClaim;
 	initialized: boolean;
+	credentials: Credentials = {
+		identifier: 'supplier-onboarding-user',
+		password: 'supplier-onboarding-password'
+	};
 
 	constructor(
 		private supplierSrv: SupplierService,
 		private uploader: UploaderService,
-		private supplierClaimSrv: SupplierClaimService
+		private supplierClaimSrv: SupplierClaimService,
+		private tokenSrv: TokenService,
+		private onboardingClient: SupplierOnboardingClient,
+		private globalDataClient: GlobalDataClientsInitializer
 	) { }
+
+	init() {
+		this.claim = new SupplierClaim();
+		// if the refresh token exist then we use that token, else we generate one
+		// with an hardcoded user (ask antine if question)
+		return from(this.tokenSrv.restoreRefreshToken('supplier-onboarding')).pipe(
+			switchMap((token: TokenState) => {
+				return token ? of(token) :
+					this.tokenSrv.getRefreshToken(this.credentials, 'supplier-onboarding');
+			}),
+			switchMap((token: TokenState) => this.startClients(token)),
+			switchMap(_ => this.supplierClaimSrv.create(this.claim)),
+			tap(_ => this.initialized = true)
+		);
+	}
+
+	private startClients(token: TokenState) {
+		return forkJoin([
+			this.onboardingClient.init(token),
+			this.globalDataClient.init(token)
+		]);
+	}
 
 
 	getClaim() {
 		return this.claim;
-	}
-
-	init() {
-		this.claim = new SupplierClaim();
-		return this.supplierClaimSrv.create(this.claim).pipe(
-			tap(_ => this.initialized = true)
-		);
 	}
 
 	updateClaim(addedValues: any) {

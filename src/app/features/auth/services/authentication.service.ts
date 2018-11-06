@@ -47,9 +47,9 @@ export class AuthenticationService {
 	) { }
 
 	init() {
-		this.tokenSrv.restoreRefreshToken();
+		this.tokenSrv.restoreRefreshToken('auth');
 		// when there is a refresh token that means we are authenticated
-		this.tokenSrv.refreshToken$.pipe(
+		this.tokenSrv.authRefreshToken$.pipe(
 			map(tokenState => this.refreshTokenToAuthState(tokenState))
 		).subscribe(this._authState$);
 	}
@@ -75,7 +75,7 @@ export class AuthenticationService {
 
 	changePassword(userId: string, password: string): Observable<boolean> {
 		const endpoint = `${environment.apiUrl}/signup/user/${userId}/password`;
-		return this.tokenSrv.getAccessToken().pipe(
+		return this.tokenSrv.getAccessToken(this.tokenSrv.authRefreshTokenSync).pipe(
 			map((tokenState: TokenState) => ({ headers: new HttpHeaders({ Authorization: tokenState.token }) })),
 			switchMap(opts => this.http.post<RefreshTokenResponse>(endpoint, { password }, opts)),
 			map(token => !!token),

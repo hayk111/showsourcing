@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { distinctUntilChanged, filter, map, switchMap, tap, withLatestFrom, switchMapTo, shareReplay, first } from 'rxjs/operators';
+import { zip, Observable } from 'rxjs';
+import { first, switchMap, takeUntil, tap, catchError } from 'rxjs/operators';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
-import { Team } from '~models/team.model';
-import { ApolloStateService, ClientStatus } from './apollo-state.service';
-import { log } from '~utils/log';
-import { TeamService } from '~global-services/team/team.service';
-import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
-import { combineLatest, forkJoin, zip } from 'rxjs';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
-import { Router } from '@angular/router';
-import { AuthStatus } from '~features/auth';
 import { RealmServerService } from '~global-services/realm-server/realm-server.service';
+import { TeamService } from '~global-services/team/team.service';
+import { Team } from '~models/team.model';
+import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
+
+import { ApolloStateService } from './apollo-state.service';
 
 
 
@@ -30,47 +29,30 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		protected realmServerSrv: RealmServerService
 
 	) {
-		super(apollo, link, apolloState, realmServerSrv);
+		super(apollo, link, apolloState, realmServerSrv, Client.TEAM);
 	}
 
-	init() {
-		const userId$ = this.authSrv.userId$.pipe(shareReplay(1));
-		// we can't use distinctUntilChanged because
-		// the user might pick the same team twice upon reconnection
-		const teamSelected$ = this.teamSrv.teamSelectionEvent$
-			.pipe(
-				filter(team => !!team),
-				tap(_ => this.destroyClient(Client.TEAM, 'changing team', true)),
-				shareReplay(1)
-			);
+	init(refreshToken: TokenState, team: Team): Observable<Client> {
+		const userId = refreshToken.token_data.identity;
 
 		// here the user client is ready if a team is selected
-		const uri$ = combineLatest(teamSelected$, userId$).pipe(
-			switchMap(
-				([team, userId]) => this.getRealmUri(team.realmServerName, `${team.realmPath}/__partial/${userId}`)
-			)
+		const uri$ = this.getRealmUri(
+			team.realmServerName,
+			`${team.realmPath}/__partial/${userId}`
 		);
 
-		const accessToken$ = combineLatest(teamSelected$, userId$).pipe(
-			// we need one access token per team id, ence the first
-			switchMap(
-				([team, userId]) => this.tokenSrv.getAccessToken(`${Client.TEAM}/${team.id}/__partial/${userId}`)
-					.pipe(first())
-			)
-		);
+		const accessToken$ = this.tokenSrv
+			.getAccessToken(refreshToken, `${this.client}/${team.id}/__partial/${userId}`)
+			.pipe(first());
 
 		// combine tokens & uri
-		zip(accessToken$, uri$).pipe(
-			switchMap(([token, uri]) => super.createClient(uri, Client.TEAM, token))
-		).subscribe(
-			_ => this.apolloState.setClientReady(Client.TEAM),
-			e => this.apolloState.setClientError(Client.TEAM, e)
+		return zip(accessToken$, uri$).pipe(
+			switchMap(([token, uri]) => super.createClient(uri, this.client, token)),
+			takeUntil(this.destroyed$),
+			tap(_ => this.apolloState.setClientReady(this.client)),
+			first(),
+			catchError(e => this.onError(e))
 		);
-
-		// when no team selected we also destroy the client
-		this.teamSrv.hasTeamSelected$.pipe(
-			filter(has => !has),
-		).subscribe(_ => this.destroyClient(Client.TEAM, 'no team selected'));
 
 	}
 

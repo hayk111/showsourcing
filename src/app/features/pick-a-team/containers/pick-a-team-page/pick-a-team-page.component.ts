@@ -6,6 +6,8 @@ import { Team } from '~models';
 import { TeamService } from '~global-services';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { ApolloStateService } from '~shared/apollo';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 
 @Component({
@@ -20,7 +22,12 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 	form: FormGroup;
 	private returnUrl: string;
 
-	constructor(private teamSrv: TeamService, private router: Router, private route: ActivatedRoute) {
+	constructor(
+		private teamSrv: TeamService,
+		private router: Router,
+		private route: ActivatedRoute,
+		private apolloState: ApolloStateService
+	) {
 		super();
 	}
 
@@ -32,7 +39,14 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 
 	pickTeam(team: Team) {
 		this.pending$.next(true);
-		this.teamSrv.pickTeam(team)
-			.subscribe(_ => this.router.navigateByUrl(this.returnUrl));
+		this.teamSrv.pickTeam(team).pipe(
+			// we need to wait for the team client to be ready
+			switchMap(_ =>
+				this.apolloState.getClientWhenReady(
+					Client.TEAM,
+					'selecting team waiting for client'
+				)
+			)
+		).subscribe(_ => this.router.navigateByUrl(this.returnUrl));
 	}
 }

@@ -4,7 +4,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, Subject, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { RealmServerService } from '~global-services/realm-server/realm-server.service';
@@ -22,19 +22,21 @@ import { log, LogColor } from '~utils';
  */
 export abstract class AbstractApolloClient {
 	protected initialized = false;
+	protected destroyed$ = new Subject();
+
 	private ws: WebSocketLink;
 
 	constructor(
 		protected apollo: Apollo,
 		protected httpLink: HttpLink,
 		protected apolloState: ApolloStateService,
-		protected realmServerSrv: RealmServerService
+		protected realmServerSrv: RealmServerService,
+		protected client: Client
 	) { }
-
 
 	protected checkNotAlreadyInit() {
 		if (this.initialized) {
-			throw Error('User client already initialized');
+			throw Error('client already initialized');
 		}
 		this.initialized = true;
 	}
@@ -50,15 +52,25 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** resets a client */
-	protected destroyClient(clientName: Client, reason: string, setPending?: boolean) {
-		log.debug(`%c Destroying client ${clientName} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
-		// sometimes (for example when switching team) we want to put the state as pending
-		if (setPending) {
-			this.apolloState.setClientPending(clientName);
-		} else {
-			this.apolloState.destroyClient(clientName);
-		}
-		this.clearClient(clientName);
+	destroy(reason?: string): Observable<boolean> {
+		log.debug(`%c Destroying client ${this.client} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
+		this.apolloState.destroyClient(this.client);
+		this.clearClient(this.client);
+		this.destroyed$.next();
+		this.initialized = false;
+		return of(false);
+	}
+
+	setPending(reason?: string): Observable<boolean> {
+		log.debug(`%c set client ${this.client} pending, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
+		this.clearClient(this.client);
+		this.apolloState.setClientPending(this.client);
+		return of(false);
+	}
+
+	protected onError(e) {
+		this.apolloState.setClientError(this.client, e);
+		return of(e);
 	}
 
 	/**
@@ -83,7 +95,7 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** we use the path as client name.. */
-	protected createClient(uri: string, name: Client, tokenState: TokenState) {
+	protected createClient(uri: string, name: Client, tokenState: TokenState): Observable<Client> {
 		log.debug(`%c creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
 
 		return Observable.create((observer: Observer<any>) => {
