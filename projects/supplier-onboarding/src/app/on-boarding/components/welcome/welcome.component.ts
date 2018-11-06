@@ -1,12 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApolloStateService, ClientStatus } from '~shared/apollo';
 import { log } from '~utils';
 
 import { OnBoardingService } from '../../services';
-import { ApolloStateService, ClientStatus } from '~shared/apollo';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
-import { tap, filter, combineLatest, first } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
 
 @Component({
 	selector: 'welcome-app',
@@ -20,16 +17,15 @@ export class WelcomeComponent implements OnInit {
 
 	constructor(
 		private router: Router,
-		private srv: OnBoardingService,
-		private apolloState: ApolloStateService,
-		private cd: ChangeDetectorRef
+		private onboardingSrv: OnBoardingService
 	) { }
 
 	ngOnInit() {
-		this.srv.init().subscribe(
+		this.onboardingSrv.init().subscribe(
 			_ => this.pending = false,
 			e => this.onError(e)
 		);
+
 	}
 
 	checkClientNotReady(status: ClientStatus) {

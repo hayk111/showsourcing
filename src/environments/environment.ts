@@ -7,9 +7,9 @@ import { LogLevel } from '~utils/logger/log-level';
 
 export const environment = {
 	production: false,
-	graphqlUrl: 'wss://ros-dev2.showsourcing.com:9443/graphql',
-	realmUrl: 'https://ros-dev2.showsourcing.com:9443',
-	apiUrl: 'https://ros-dev2.showsourcing.com',
-	getStreamKey: 'mvufdhfnfz83',
+	graphqlUrl: 'wss://ros-dev3.showsourcing.com:9443/graphql',
+	realmUrl: 'https://ros-dev3.showsourcing.com:9443',
+	apiUrl: 'https://ros-dev3.showsourcing.com',
+	getStreamKey: '7mxs7fsf47nu',
 	LOG_LEVEL: LogLevel.DEBUG
 };
