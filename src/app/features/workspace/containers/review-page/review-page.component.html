@@ -23,7 +23,7 @@
   (favorited)="onItemFavorited($event)"
   (unfavorited)="onItemUnfavorited($event)"
   (sendToWorkflow)="onSentToWorkflow($event)"
-  (delete)="deleteOne($event)"
+  (delete)="deleteOne($event.id)"
   (archive)="onArchive($event)"
   (statusUpdated)="onStatusUpdated($event)"
   (open)="goToDetails($event)">
