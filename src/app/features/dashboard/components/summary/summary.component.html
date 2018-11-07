@@ -40,12 +40,11 @@
       </div>
     </div> -->
 
-
   </div>
 
-  <divider-app></divider-app>
+	<divider-app></divider-app>
 
-  <div class="taskTitle"> {{ counters?.tasksDone || '0'}} / {{ counters?.totalTasks || '0' }} Tasks</div>
+  <div class="taskTitle"> {{ counters?.tasksDone ? counters?.tasksDone + index : '0'}} / {{ counters?.totalTasks || '0' }} Tasks</div>
 
   <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
 

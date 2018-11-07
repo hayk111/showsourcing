@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { forkJoin, Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { ProductService, SupplierService, TaskService, UserService } from '~global-services';
-import { Observable, forkJoin } from 'rxjs';
-import { map, first } from 'rxjs/operators';
 import { Task } from '~models';
-import { realmDateFormat } from '~utils/realm-date-format.util';
 import { ID } from '~utils/id.utils';
+import { realmDateFormat } from '~utils/realm-date-format.util';
 
 export interface DashboardCounters {
 	productsNeedReview: number;
