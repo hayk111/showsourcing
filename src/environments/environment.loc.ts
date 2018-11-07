@@ -1,5 +1,4 @@
 import { LogLevel } from '~utils/logger/log-level';
-//
 
 export const environment = {
 	production: false,

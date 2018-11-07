@@ -15,6 +15,9 @@ app-install:
   cache:
     paths:
       - node_modules
+  only:
+    - master
+    - production
 
 app-build:
   stage: build
@@ -22,7 +25,6 @@ app-build:
     paths:
       - dist/
   script:
-    - npm install
     - npm run build
   only:
     - master
