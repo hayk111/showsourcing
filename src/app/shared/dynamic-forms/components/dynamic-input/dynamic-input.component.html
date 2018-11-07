@@ -8,6 +8,15 @@
       (blur)="onChange()"/>
   </form-field-app>
 
+  <form-field-app *ngSwitchCase="'email'" >
+    <label-app>{{ customField.label || customField.name }}</label-app>
+    <input inputApp
+      [type]="customField.type"
+      [(ngModel)]="accumulator"
+      (blur)="onChange()"/>
+  </form-field-app>
+
+
   <form-field-app *ngSwitchCase="'tel'" >
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
@@ -100,40 +109,4 @@
 
   </ng-container>
 
-        <!-- div class="inputCtnr" *ngSwitchCase="'price'">
-			<editable-price-app
-				[(ngModel)]="accumulator"
-				(change)="onChange()"
-				(open)="onOpen()"
-				(close)="onClose()"
-				[inlineLabel]="inlineLabel"
-        [customField]="customField"></editable-price-app>
-    </div -->
-
-  <!-- <form-field-app *ngSwitchCase="'price'" >
-    <label-app>{{ customField.label || customField.name }}</label-app>
-    <input inputApp
-      #inp
-      restrictInput="decimal"
-      autofocus="true"
-      [(ngModel)]="accumulator"
-      type="number"/>
-  </form-field-app> -->
-
-  <!-- <form-field-app *ngSwitchCase="'priceMatrix'" >
-    <label-app>{{ customField.label || customField.name }}</label-app>
-    <div class="inputCtnr">
-			<editable-price-matrix-app
-				[(ngModel)]="accumulator"
-				(change)="onChange()"></editable-price-matrix-app>
-    </div>
-  </form-field-app> -->
-
-  <!-- <form-field-app *ngSwitchCase="'packaging'" [class="flexColumn flexStart">
-    <label-app class="packaging">{{ customField.label || customField.name }}</label-app>
-      <input-packaging-app
-        [(ngModel)]="accumulator"
-        (change)="onChange()"
-        [customField]="customField"></input-packaging-app>
-  </form-field-app> -->
 </ng-container>
