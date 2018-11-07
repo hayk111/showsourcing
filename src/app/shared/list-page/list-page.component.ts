@@ -286,7 +286,6 @@ export abstract class ListPageComponent<T extends { id?: string, deleted?: boole
 		// const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
 		const callback = () => {
 			this.featureSrv.delete(itemId/*, refetchParams*/).subscribe();
-			this.refetch();
 		};
 		const text = `Are you sure you want to delete this item?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });

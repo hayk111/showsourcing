@@ -71,6 +71,11 @@
 		<!-- category -->
 		<info-badge-app *ngSwitchCase="'category'" type="category"> {{ value?.name }}</info-badge-app>
 
+		<!-- supplier type -->
+		<ng-container *ngSwitchCase="'supplierType'">
+			<span>{{ value ? (value[labelName] | const: 'supplierType')  : '-'  }}</span>
+		</ng-container>
+
 		<!-- others we display an icon and the value next to it -->
 		<ng-container *ngSwitchDefault>
 			<img class="defaultLabelIcon"

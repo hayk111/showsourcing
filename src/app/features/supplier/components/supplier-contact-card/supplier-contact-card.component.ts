@@ -10,13 +10,21 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupplierContactCardComponent extends TrackingComponent {
-	@Input() contacts = [];
+	private _contacts = [];
+	@Input() set contacts(contacts) {
+		this._contacts = contacts.filter(ctc => !ctc.deleted);
+	}
+	get contacts() {
+		return this._contacts;
+	}
+
 	@Output() newContact = new EventEmitter<null>();
 	@Output() openContact = new EventEmitter<Contact>();
 	@Output() deleteContact = new EventEmitter<Contact>();
 	defaultImg = DEFAULT_USER_ICON;
-  constructor() {
-    super();
-  }
+
+	constructor() {
+		super();
+	}
 
 }

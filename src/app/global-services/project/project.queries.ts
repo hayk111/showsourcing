@@ -23,6 +23,7 @@ export abstract class ProjectQueries extends GlobalQueries {
 		lastUpdatedDate,
 		creationDate,
 		description,
+		deleted,
 		${ProjectQueries.productsCount}`;
 
 }

@@ -7,4 +7,3 @@ export const environment = {
 	apiUrl: 'http://localhost',
 	LOG_LEVEL: LogLevel.DEBUG,
 };
-

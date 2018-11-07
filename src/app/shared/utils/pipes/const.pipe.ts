@@ -9,7 +9,7 @@ import { currencyMap, countryMap, harbourMap, incoTermsMap, statusMap, supplierT
  * the first will give the name of the currency USD which is US Dollar; the second will give you '$'
  */
 @Pipe({
-	name: 'const'
+	name: 'const',
 })
 export class ConstPipe implements PipeTransform {
 	localeCountry: string;
@@ -52,7 +52,7 @@ export class ConstPipe implements PipeTransform {
 			case 'supplierTypes':
 				constMap = supplierTypesMap;
 				break;
-			default: throw Error(`The target ${args[0]} for the const pipe is not a valid const`);
+			default: return value;
 		}
 		const constObject = constMap[value];
 

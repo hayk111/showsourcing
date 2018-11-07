@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { CategoryService, EventService, SupplierService, TagService } from '~global-services';
 import { SupplierTypeService } from '~global-services/supplier-type/supplier-type.service';
 import { TeamUserService } from '~global-services/team-user/team-user.service';
@@ -9,20 +9,22 @@ import { Supplier } from '~models/supplier.model';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class SelectorsService {
 
 	constructor(
+		private constPipe: ConstPipe,
 		private supplierSrv: SupplierService,
 		private categorySrv: CategoryService,
 		private eventSrv: EventService,
 		private tagSrv: TagService,
 		private teamUserSrv: TeamUserService,
-		private supplierTypeSrv: SupplierTypeService
+		private supplierTypeSrv: SupplierTypeService,
 	) { }
 
 	getCountries(): any[] {
@@ -74,7 +76,11 @@ export class SelectorsService {
 	}
 
 	getSupplierTypes(): Observable<SupplierType[]> {
-		return this.supplierTypeSrv.queryAll();
+		return this.supplierTypeSrv.queryAll().pipe(
+			map(types => types.map(type => {
+				return { ...type, name: this.constPipe.transform(type.name, 'supplierType') };
+			}))
+		);
 	}
 
 	getUsers(): Observable<User[]> {
