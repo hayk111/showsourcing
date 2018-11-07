@@ -56,6 +56,9 @@
 					<icon-app name="dots-vertical" size="m"></icon-app>
 				</button>
 			</context-menu-trigger-app>
+      <context-menu-item-app (click)="deleteSelected()">
+        Delete
+      </context-menu-item-app>
 		</context-menu-app>
 
 		<button class="icon light" (click)="deleteSelected()">
