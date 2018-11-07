@@ -1,8 +1,18 @@
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		class="pointer flexCenter"
+		(click)="delete.emit(row.id)"
+		i18n="supplier menu | delete">
+		Delete
+	</context-menu-item-app>
+</ng-template>
+
 <table-app
 	[rows]="rows"
 	[pending]="pending"
-	[dotsOption]="false"
-	[selected]="selection"
+	[dotsOption]="true"
+  [selected]="selection"
+  [contextualMenu]="contextualMenuTemplate"
   placeholder="No data"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
