@@ -1,15 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, takeUntil, switchMap, tap, catchError, take, first } from 'rxjs/operators';
-import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
-import { ProductService, SupplierService } from '~global-services';
-import { ERM, Product, Supplier } from '~models';
+import { ProductService } from '~global-services';
+import { ERM, Product } from '~models';
+import { ProductExportDlgComponent, ProductRequestTeamFeedbackDlgComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { FilterList, SearchService, FilterType } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { CreationDialogComponent } from '~shared/custom-dialog';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
@@ -24,6 +22,7 @@ import { ThumbService } from '~shared/rating/services/thumbs.service';
 export class SupplierProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {
 
 	products$: Observable<Product[]>;
+	hasSearch = false;
 
 	constructor(
 		protected router: Router,
@@ -42,5 +41,24 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 		const id = this.route.parent.snapshot.params.id;
 		this.initialPredicate = `supplier.id == "${id}"`;
 		super.ngOnInit();
+	}
+
+	search(event: any) {
+		super.search(event);
+		this.hasSearch = true;
+	}
+
+	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
+	openExportDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
+			selectedProducts: product ? [product] : this.selectionItems()
+		});
+	}
+
+	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
+	openRequestFeedbackDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
+			selectedProducts: product ? [product] : this.selectionItems()
+		});
 	}
 }
