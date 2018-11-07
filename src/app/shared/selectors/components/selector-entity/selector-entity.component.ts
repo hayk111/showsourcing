@@ -74,8 +74,8 @@ export class SelectorEntityComponent extends AbstractInput {
 	}
 
 	onChange() {
-		this.onChangeFn({ id: this.value.id });
-		this.change.emit({ id: this.value.id });
+		this.onChangeFn(this.value);
+		this.change.emit(this.value);
 	}
 
 	onSelect(choice: Choice) {
