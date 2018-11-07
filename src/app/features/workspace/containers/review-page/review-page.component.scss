@@ -11,6 +11,7 @@ selection-bar-app {
 }
 
 action-bar-app {
+	overflow: visible;
 	button.icon {
 		margin-right: var(--spacing-ms);
 	}
