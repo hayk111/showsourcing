@@ -5,7 +5,7 @@ export class User {
 	id: string;
 	firstName?: string;
 	lastName?: string;
-	name?: string;
+	name?: string; // NOT IN REALM ANYMORE
 	phoneNumber?: string;
 	companyName?: string;
 	email?: string;
