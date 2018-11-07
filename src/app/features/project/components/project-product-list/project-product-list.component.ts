@@ -11,6 +11,7 @@ import {
 import { ERM, Product } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'project-product-list-app',
@@ -55,7 +56,9 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
 	];
 
-	constructor(private renderer: Renderer2) {
+	constructor(
+		private renderer: Renderer2,
+		private thumbSrv: ThumbService) {
 		super();
 	}
 
@@ -111,5 +114,9 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 
 	onTogglePreview(overviewElement, display) {
 		this.renderer.setStyle(overviewElement, 'display', display ? 'block' : 'none');
+	}
+
+	score(product) {
+		return this.thumbSrv.computeScore(product);
 	}
 }

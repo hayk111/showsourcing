@@ -12,8 +12,9 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '~global-services';
-import { Price, Product, ProductVote } from '~models';
+import { Product, ProductVote } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
@@ -101,7 +102,12 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	dislike = false;
 	thumbsName = 'thumbs-up-white';
 
-	constructor(private userSrv: UserService, private elementRef: ElementRef, private renderer: Renderer2, private router: Router) {
+	constructor(
+		private userSrv: UserService,
+		private elementRef: ElementRef,
+		private renderer: Renderer2,
+		private router: Router,
+		private thumbSrv: ThumbService) {
 		super();
 	}
 
@@ -223,5 +229,9 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	enterMenuTrigger() {
 		this.dragDropEnabled = false;
 		this.dragDropEnable.emit(this.dragDropEnabled);
+	}
+
+	score() {
+		return this.thumbSrv.computeScore(this.product);
 	}
 }

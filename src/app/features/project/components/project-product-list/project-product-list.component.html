@@ -79,7 +79,7 @@
 
 <!-- feedback -->
 <ng-template #feedback let-row="row">
-  {{ row?.score !== undefined ? row.score : '-' }} %
+  {{ score(row) !== null ? score(row) : '-' }} %
 </ng-template>
 
 <!-- creation date -->

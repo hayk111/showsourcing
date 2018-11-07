@@ -241,6 +241,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	selectMany(paramsConfig: SelectParamsConfig, fields?: string | string[], client = this.defaultClient): Observable<T[]> {
 		throw Error(`you probably don't want to use a subscription on many items (maybe queryMany, selectOne and waitForOne).
 		If you know what you are doing, go ahead, remove this error and uncomment the code`);
+
 		// const params = new SelectParams(paramsConfig);
 		// const variables = params.toApolloVariables();
 		// const queryName = this.getQueryName(gql);

@@ -17,9 +17,9 @@
 
 		<div class="cell">
 			<div class="title" i18n="div title|Product summary team rating title@@productSummary_teamRating">Team Rating</div>
-			<div class="content" [ngClass]="{'success' : (product?.score >= 50), 'warn': (product?.score < 50)}">
+			<div class="content" [ngClass]="{'success' : (score() >= 50), 'warn': (score() < 50)}">
 				<div class="icon-thumb-up"></div>
-				{{ product?.score !== undefined ? product?.score : '-' }} %
+				{{ score() !== null ? score() : '-' }} %
 			</div>
 		</div>
 
