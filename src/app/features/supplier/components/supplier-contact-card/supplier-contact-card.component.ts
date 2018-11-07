@@ -15,8 +15,9 @@ export class SupplierContactCardComponent extends TrackingComponent {
 	@Output() openContact = new EventEmitter<Contact>();
 	@Output() deleteContact = new EventEmitter<Contact>();
 	defaultImg = DEFAULT_USER_ICON;
-  constructor() {
-    super();
-  }
+
+	constructor() {
+		super();
+	}
 
 }

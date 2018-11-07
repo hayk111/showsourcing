@@ -100,7 +100,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			// updating the supplier with a new contact
 			this.supplierSrv.update({
 				id: this.supplier.id,
-				contacts: [...this.supplier.contacts, contact]
+				contacts: [...this.supplier.contacts.map(ctc => ({ id: ctc.id })), contact]
 			}).subscribe();
 		}
 		this.isNewContact = false;
