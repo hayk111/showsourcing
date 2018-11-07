@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductService } from '~global-services';
 import { ERM, Product } from '~models';
-import { ProductExportDlgComponent, ProductRequestTeamFeedbackDlgComponent } from '~shared/custom-dialog';
+import { ProductExportDlgComponent, ProductRequestTeamFeedbackDlgComponent, ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
@@ -49,15 +49,22 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(product: Product) {
+	openExportDialog(product?: Product) {
 		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
 			selectedProducts: product ? [product] : this.selectionItems()
 		});
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	openRequestFeedbackDialog(product: Product) {
+	openRequestFeedbackDialog(product?: Product) {
 		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
+			selectedProducts: product ? [product] : this.selectionItems()
+		});
+	}
+
+	/** Opens a dialog that lets the user add different products to different projects (many to many) */
+	openAddToProjectDialog(product?: Product) {
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
 			selectedProducts: product ? [product] : this.selectionItems()
 		});
 	}
