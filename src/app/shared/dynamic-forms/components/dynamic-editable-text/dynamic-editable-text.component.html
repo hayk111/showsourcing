@@ -198,8 +198,8 @@
 		*ngSwitchCase="'selector'"
 		[customField]="customField"
 		[inlineLabel]="inlineLabel"
-		[(ngModel)]="accumulator"
-		(change)="onSave()"
+		[(ngModel)]="value"
+		(change)="onChange()"
 		(blur)="onBlur()">
 	</editable-selector-app>
 

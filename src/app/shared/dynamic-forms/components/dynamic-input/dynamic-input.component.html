@@ -1,14 +1,6 @@
 <ng-container [ngSwitch]="customField.type">
 
-  <form-field-app *ngSwitchCase="'text'" >
-    <label-app>{{ customField.label || customField.name }}</label-app>
-    <input inputApp
-      [type]="customField.type"
-      [(ngModel)]="accumulator"
-      (blur)="onChange()"/>
-  </form-field-app>
-
-  <form-field-app *ngSwitchCase="'email'" >
+  <form-field-app *ngSwitchDefault>
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       [type]="customField.type"
@@ -65,8 +57,10 @@
 
     <form-field-app *ngIf="customField.metadata.type === 'entity'; else const" >
       <label-app>{{ customField.label || customField.name }}</label-app>
-      <selector-entity-app formFieldCtrl
-        itemName="sdkfjd fskfj"
+      <selector-entity-app
+        formFieldCtrl
+        itemName="customField.metadata.target"
+        [displayedValue]="accumulator?.name | const: customField.metadata.target"
         [multiple]="customField.multiple"
         [type]="customField.metadata.target"
         [canCreate]="customField.metadata.canCreate"
@@ -105,7 +99,7 @@
     <input-price-inline-app formFieldCtrl></input-price-inline-app>
   </form-field-app>
 
-  <ng-container *ngSwitchDefault>
+  <ng-container *ngSwitchCase="'priceMatrix'">
 
   </ng-container>
 

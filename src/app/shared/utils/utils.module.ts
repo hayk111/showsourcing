@@ -32,6 +32,9 @@ import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directiv
 		GroupByPipe,
 		FileSizePipe,
 		AutoFocusDirective
+	],
+	providers: [
+		ConstPipe
 	]
 })
 export class UtilsModule { }
