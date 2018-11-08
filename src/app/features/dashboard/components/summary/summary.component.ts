@@ -16,7 +16,7 @@ export class SummaryComponent extends TrackingComponent {
 	@Input() counters: DashboardCounters;
 	@Input() tasks: Task[] = [];
 	@Output() updateTask = new EventEmitter<Task>();
-	// this is used since requering the count is not working
+	// this is use to update the count on the front end
 	index = 0;
 
 	constructor(private router: Router) {
