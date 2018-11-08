@@ -37,7 +37,7 @@
 		sortBy="description.name">
 		<div class="flexBetween">
       <!-- <div> {{ row.description.name }} </div> -->
-      <editable-text-app #editable (closed)="updateNameEntity(row.description, txtName.value)" [hasAction]="true">
+      <editable-text-app #editable (closed)="updateNameEntity(row, txtName.value, 'description')" [hasAction]="true">
         <editable-label-app class="task-name">
           {{row.description.name}}
         </editable-label-app>
