@@ -1,7 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy, ContentChildren, AfterViewInit, QueryList, ElementRef } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	ContentChildren,
+	ElementRef,
+	QueryList,
+	Renderer2,
+} from '@angular/core';
 import { AnimatedCardComponent } from '~shared/animated-stack/components/animated-card/animated-card.component';
 import { AnimatedStackService } from '~shared/animated-stack/services/animated-stack.service';
-import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'animated-stack-app',
@@ -16,24 +23,39 @@ export class AnimatedStackComponent implements AfterViewInit {
 
 	];
 
-	constructor(private stackSrv: AnimatedStackService) { }
+	constructor(
+		private stackSrv: AnimatedStackService,
+		private renderer: Renderer2,
+		private elemRef: ElementRef
+	) { }
 
 	ngAfterViewInit() {
-		this.cards.forEach(card => {
-			const coords = card.nativeElement.getBoundingClientRect();
-			this.coordinates.push(coords);
-		});
 		// when a card has been destroyed we get its index
 		this.stackSrv.destroyed$.subscribe(index => {
-			for (let i = index; i < this.cards.length; i++) {
-				const lastCoords = this.coordinates[index];
-				this.cards[i].nativeElement.getBoundingClientRect();
+			const cardArray = this.cards.map(card => card);
+			for (let i = index + 1; i < cardArray.length; i++) {
+				// we now need to modify next card
+				const cardElem = cardArray[i].nativeElement;
+				const lastCoords = cardArray[i - 1].nativeElement.getBoundingClientRect();
+				const currentCoords = cardElem.getBoundingClientRect();
+				this.applyTranslation(cardElem, lastCoords, currentCoords);
 			}
 		});
+		// we need to reset the translation after changes
+		this.cards.changes
+			.subscribe(cards => cards.forEach(card => {
+				const elem = card.nativeElement;
+				// this.renderer.setStyle(elem, 'transform', 'none');
+				// this.renderer.setStyle(elem, 'transition', 'none');
+
+			}));
 	}
 
-	applyTranslation() {
-
+	applyTranslation(elem, lastCoords, currentCoords) {
+		const dx = lastCoords.x - currentCoords.x;
+		const dy = lastCoords.y - currentCoords.y;
+		this.renderer.setStyle(elem, 'transition', '300ms transform');
+		this.renderer.setStyle(elem, 'transform', `translate3d(${dx}px, ${dy}px, 0)`);
 	}
 
 }

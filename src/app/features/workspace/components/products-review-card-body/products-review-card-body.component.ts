@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { Product, ProductStatusType, ERM } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { AnimatedCardComponent } from '~shared/animated-stack/components/animated-card/animated-card.component';
 // import * as Isotope from 'isotope-layout';
 
 @Component({
@@ -25,8 +26,6 @@ export class ProductsReviewCardBodyComponent extends TrackingComponent implement
 	@Output() unselect = new EventEmitter<any>();
 
 	prodERM = ERM.PRODUCT;
-
-	// isotope: any;
 
 	constructor(
 		private render: Renderer2
@@ -67,13 +66,10 @@ export class ProductsReviewCardBodyComponent extends TrackingComponent implement
 		}
 	}
 
-	sendToWorkflowFunc(event: any, product: Product) {
-		// in case we fix in the future the problem with the scrolling when doing the filtering
-		// const some = event.srcElement.closest('.element-item');
-		// // this.isotope.hideItemElements(some);
-		// this.render.addClass(some, 'deleted');
-		// this.isotope.arrange({ filter: ':not(.deleted)' });
-		this.sendToWorkflow.emit(product);
+	sendToWorkflowFunc(product: Product, card: AnimatedCardComponent) {
+		card.destroy().subscribe(_ => {
+			// this.sendToWorkflow.emit(product)
+		});
 	}
 
 }
