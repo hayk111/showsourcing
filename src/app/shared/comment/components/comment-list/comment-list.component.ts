@@ -15,8 +15,8 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 	indexShow = 0;
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 		if (this.comments && this.comments.length > 0) {

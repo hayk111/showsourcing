@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { SupplierService } from '~global-services';
+import { SupplierService, UserService } from '~global-services';
 import { ERMService } from '~global-services/_global/erm.service';
 import { CommentService } from '~global-services/comment/comment.service';
 import { ProductService } from '~global-services/product/product.service';
@@ -27,7 +27,8 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		private supplierSrv: SupplierService,
 		private templateSrv: TemplateService,
 		private commentSrv: CommentService,
-		private thumbSrv: ThumbService
+		private thumbSrv: ThumbService,
+		private userSrv: UserService
 	) {
 		super();
 	}
@@ -54,7 +55,8 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		this.commentSrv.create(newComment).pipe(
 			switchMap(_ =>
 				this.ermSrv.getGlobalService(items.typeEntity).update(
-					{ id: items.entity.id, comments: [...items.entity.comments, newComment] }
+					// we do ...newComment, createdBy since we need the firstName, lastName, avatar... and the audith just provides the id
+					{ id: items.entity.id, comments: [...items.entity.comments, { ...newComment, createdBy: this.userSrv.userSync }] }
 				)
 			)
 		).subscribe();
