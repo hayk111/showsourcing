@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { first, map, switchMap } from 'rxjs/operators';
 import { ProductService, ProductStatusTypeService, UserService } from '~global-services';
+import { ListQuery } from '~global-services/_global/list-query.interface';
 import { ProductStatusService } from '~global-services/product-status/product-status.service';
 import { ProductQueries } from '~global-services/product/product.queries';
-import { Observable } from 'rxjs';
-import { SelectParams } from '~global-services/_global/select-params';
-import { of, forkJoin } from 'rxjs';
-import { map, switchMap, tap, first } from 'rxjs/operators';
-import { Project, Product, ProductStatus, ProductStatusType } from '~models';
-import { Apollo } from 'apollo-angular';
-import { ListQuery } from '~global-services/_global/list-query.interface';
+import { Product, ProductStatus, ProductStatusType } from '~models';
 import { ApolloStateService } from '~shared/apollo';
 import { Sort } from '~shared/table/components/sort.interface';
 

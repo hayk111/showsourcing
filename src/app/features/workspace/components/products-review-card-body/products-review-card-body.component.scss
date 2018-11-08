@@ -17,13 +17,6 @@
 	flex-direction: row;
 }
 
-.send-workflow {
-	height: 100%;
-	width: 100%;
-	align-items: center;
-	display: flex;
-}
-
 product-card-app {
   width: 324px;
   margin-left: var(--spacing-ms) !important;
@@ -118,6 +111,13 @@ product-card-app {
       color: #5d6d8b;
     }
   }
+}
+
+.send-workflow {
+	height: 100%;
+	width: 100%;
+	align-items: center;
+	display: flex;
 }
 
 .archieve-trigger {

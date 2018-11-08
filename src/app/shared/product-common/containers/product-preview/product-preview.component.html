@@ -34,18 +34,49 @@
 		</action-bar-app>
 
 		<!-- actions -->
-		<div *ngIf="productF?.status?.status" class="flexColumn actions">
+		<div class="flexColumn actions">
 			<ng-container *ngIf="productF?.status?.status; else sendWF">
 				Request RFQ to supplier?
 				<button class="primary" (click)="openRfq()">SEND RFQ</button>
 			</ng-container>
-			<!-- <ng-template #sendWF>
-				This productF is still a new idea, what should we do next?
-				<div class="flexAround">
-					<button class="secondary">Keep as reference</button>
-					<button class="primary">Send to workflow</button>
+			<ng-template #sendWF>
+				This product is still a new idea, what should we do next?
+				<div class="flexColumn card-hover-block">
+					<!-- <div class="secondary flexBetween sort-1 button-action button-archive">
+						<span class="button-label flexCenter" (click)="onArchive(product)">Keep as reference</span>
+						<div class="button-icon">
+							<context-menu-app xPosition="-175" yPosition="25" #archiveMenu>
+								<context-menu-trigger-app class="archieve-trigger flexCenter">
+									<icon-app fontSet="fa" name="caret-down"></icon-app>
+								</context-menu-trigger-app>
+								<context-menu-item-app (click)="onArchive(product)" class="menu-item">
+									Archive Product
+								</context-menu-item-app>
+								<context-menu-item-app (click)="delete.emit(product)" class="menu-item">
+									Delete Product
+								</context-menu-item-app>
+							</context-menu-app>
+						</div>
+					</div> -->
+
+					<div class="secondary flexBetween sort-1 button-action button-workflow">
+						<div class="send-workflow flexCenter" (click)="onSentToWorkflow(product)">Send to {{ (firstStatus$ | async)?.name ? ((firstStatus$ | async)?.name | const: 'status') : 'workflow' }}</div>
+						<div class="button-icon">
+							<workflow-action-app
+								#workActionMenu
+								[entity]="product"
+								selectSize="s"
+								[xPosition]="-170"
+								[yPosition]="24"
+								[typeEntity]="prodERM"
+								[isSendToWorkFlow]="true"
+								[internalUpdate]="false"
+								(statusUpdated)="onStatusUpdated(product, $event)">
+							</workflow-action-app>
+						</div>
+					</div>
 				</div>
-			</ng-template> -->
+			</ng-template>
 		</div>
 		<divider-app></divider-app>
 
