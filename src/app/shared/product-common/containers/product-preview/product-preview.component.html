@@ -7,12 +7,12 @@
 		<icon-app class="close pointer color-txt-secondary" name="close" (click)="close.emit()"></icon-app>
 	</side-panel-action-app>
 
-	<ng-container *ngIf="product$ | async as product">
-		<carousel-app [images]="product.images"></carousel-app>
+	<ng-container *ngIf="product$ | async as productF">
+		<carousel-app [images]="product?.images"></carousel-app>
 
 		<workflow-action-app
 			class="card-flow"
-			[entity]="product"
+			[entity]="productF"
 			selectSize="s"
 			[xPosition]="-3"
 			[typeEntity]="prodERM">
@@ -20,12 +20,12 @@
 
 		<action-bar-app
 			buttonName="Open"
-			[votes]="product.votes"
-			[favorite]="product.favorite"
+			[votes]="product?.votes"
+			[favorite]="productF?.favorite"
 			(onFavorite)="updateProduct({ favorite: true })"
 			(onUnfavorite)="updateProduct({ favorite: false })"
-			(liked)="onThumbUp()"
-			(disliked)="onThumbDown()"
+			(liked)="onThumbUp(productF)"
+			(disliked)="onThumbDown(productF)"
 			(buttonClick)="onViewProduct()">
 
 			<button class="icon light folder" (click)="openAddToProject()">
@@ -34,13 +34,13 @@
 		</action-bar-app>
 
 		<!-- actions -->
-		<div *ngIf="product?.status?.status" class="flexColumn actions">
-			<ng-container *ngIf="product?.status?.status; else sendWF">
+		<div *ngIf="productF?.status?.status" class="flexColumn actions">
+			<ng-container *ngIf="productF?.status?.status; else sendWF">
 				Request RFQ to supplier?
 				<button class="primary" (click)="openRfq()">SEND RFQ</button>
 			</ng-container>
 			<!-- <ng-template #sendWF>
-				This product is still a new idea, what should we do next?
+				This productF is still a new idea, what should we do next?
 				<div class="flexAround">
 					<button class="secondary">Keep as reference</button>
 					<button class="primary">Send to workflow</button>
@@ -54,7 +54,7 @@
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="customFields"
-			[value]="product"
+			[value]="productF"
 			[colAmount]="1"
 			(update)="updateProduct($event)">
 		</dynamic-form-app>
@@ -65,7 +65,7 @@
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="customFields2"
-			[value]="product"
+			[value]="productF"
 			[colAmount]="1"
 			(update)="updateProduct($event)">
 		</dynamic-form-app>

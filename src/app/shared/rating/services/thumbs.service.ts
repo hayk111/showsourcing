@@ -97,7 +97,7 @@ export class ThumbService {
 
 	computeScore(product: Product) {
 		let score = null;
-		if (product.votes && product.votes.length) {
+		if (product && product.votes && product.votes.length) {
 			product.votes.forEach(vote => score += vote.value);
 			score /= product.votes.length;
 		}

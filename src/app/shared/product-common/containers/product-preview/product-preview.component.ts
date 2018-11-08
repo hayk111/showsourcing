@@ -69,14 +69,18 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}
 
-	onThumbUp() {
-		const votes = this.thumbSrv.thumbUp(this.product);
-		this.updateProduct({ id: this.product.id, votes });
+	onThumbUp(product) {
+		const votes = this.thumbSrv.thumbUp(product);
+		product = { ...product, votes };
+		this.product = { ...product };
+		this.updateProduct({ votes });
 	}
 
-	onThumbDown() {
-		const votes = this.thumbSrv.thumbDown(this.product);
-		this.updateProduct({ id: this.product.id, votes });
+	onThumbDown(product) {
+		const votes = this.thumbSrv.thumbDown(product);
+		product = { ...product, votes };
+		this.product = { ...product };
+		this.updateProduct({ votes });
 	}
 
 	openRfq() {

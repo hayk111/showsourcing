@@ -107,6 +107,7 @@ export class MyWorkflowPageComponent extends ListPageComponent<Product, Workspac
 				this.workspaceSrv.updateProductStatus(element, target)
 					.subscribe(() => this.cdr.detectChanges());
 			});
+			this.resetSelection();
 		}
 	}
 
@@ -159,5 +160,4 @@ export class MyWorkflowPageComponent extends ListPageComponent<Product, Workspac
 	getSelectedProducts() {
 		return Array.from(this.selectionSrv.selection.values());
 	}
-
 }
