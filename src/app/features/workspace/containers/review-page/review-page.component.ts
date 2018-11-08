@@ -1,24 +1,22 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, tap } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project, ProductStatus, ProductVote } from '~models';
+import { ERM, Product, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils/auto-unsub.component';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SearchService } from '~shared/filters';
-import { TemplateService } from '~shared/template/services/template.service';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SelectionService } from '~shared/list-page/selection.service';
+import { NotificationService } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { TemplateService } from '~shared/template/services/template.service';
+import { ID } from '~utils/id.utils';
 
 
 @Component({
@@ -99,6 +97,7 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	/** Add a product to workflow */
 	onSentToWorkflow(product: Product) {
 		this.workspaceSrv.sendProductToWorkflow(product).subscribe();
+		this.onItemUnselected(product, true);
 	}
 
 	/** Triggers archive product */
@@ -136,6 +135,11 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
 			selectedProducts: this.selectionItems()
 		});
+	}
+
+	deleteUnselectOne(product: Product) {
+		this.deleteOne(product.id);
+		this.onItemUnselected(product);
 	}
 
 }

@@ -17,7 +17,7 @@
 					<span class="button-label" (click)="archive.emit(product)">Archive</span>
 					<div class="button-icon">
 						<context-menu-app xPosition="-175" yPosition="25" #archiveMenu>
-							<context-menu-trigger-app>
+							<context-menu-trigger-app class="archieve-trigger flexCenter">
 								<icon-app fontSet="fa" name="caret-down"></icon-app>
 							</context-menu-trigger-app>
 							<context-menu-item-app (click)="archive.emit(product)" class="menu-item">

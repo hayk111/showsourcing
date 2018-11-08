@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
-import { Product, ProductStatusType } from '~models';
+import { Product, ProductStatusType, ERM } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 // import * as Isotope from 'isotope-layout';
@@ -19,9 +19,12 @@ export class ProductsReviewCardBodyComponent extends TrackingComponent implement
 	@Output() sendToWorkflow = new EventEmitter<Product>();
 	@Output() previewClick = new EventEmitter<Product>();
 	@Output() archive = new EventEmitter<Product>();
+	@Output() delete = new EventEmitter<Product>();
 	@Output() statusUpdated = new EventEmitter<any>();
 	@Output() select = new EventEmitter<any>();
 	@Output() unselect = new EventEmitter<any>();
+
+	prodERM = ERM.PRODUCT;
 
 	// isotope: any;
 
