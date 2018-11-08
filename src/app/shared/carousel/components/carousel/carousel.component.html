@@ -13,7 +13,7 @@
 			class="pointer"></img-app>
 	</div>
 
-  <spinner-app size="xl"></spinner-app>
+  <spinner-app *ngIf="getImg().pending" size="xl"></spinner-app>
 	<!-- actions buttons -->
 	<!-- move back -->
 	<div class="move-btn back flexCenter circle pointer btn action"
