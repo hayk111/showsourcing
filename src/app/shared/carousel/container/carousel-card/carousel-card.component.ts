@@ -122,7 +122,7 @@ export class CarouselCardComponent extends AutoUnsub {
     if (!currentImage) {
       return false;
     }
-    return this._pendingImages.findIndex(x => x.id === currentImage.id);
+    return this._pendingImages.findIndex(x => x.id === currentImage.id) >= 0;
   }
 
 	/** adds pending image to the list */
