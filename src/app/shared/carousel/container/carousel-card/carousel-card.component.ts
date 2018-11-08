@@ -117,14 +117,6 @@ export class CarouselCardComponent extends AutoUnsub {
 		this.selectedIndex = index;
   }
 
-  isPendingImage() {
-    const currentImage = this.images[this.selectedIndex];
-    if (!currentImage) {
-      return false;
-    }
-    return this._pendingImages.findIndex(x => x.id === currentImage.id) >= 0;
-  }
-
 	/** adds pending image to the list */
 	private async addPendingImg(files: File[]) {
 		// adding a pending image so we can see there is an image pending visually
