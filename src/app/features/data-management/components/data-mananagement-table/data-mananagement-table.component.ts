@@ -19,6 +19,10 @@ export class DataMananagementTableComponent extends ListViewComponent<any> {
 	ermEvent = ERM.EVENT;
 	idEntityHovered: string;
 
+  updateNameEntity(obj, newName) {
+    obj.name = newName;
+    this.renameEntity.emit(obj);
+  }
 	onHover(id: string) {
 		this.idEntityHovered = id;
 	}
