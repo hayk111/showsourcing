@@ -18,8 +18,14 @@
 		let-row="row"
 		width="250">
 		<div class="flexBetween">
-			<div> {{ row.name }} </div>
-			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
+      <!-- <div> {{ row.name }} </div> -->
+      <editable-text-app #editable (closed)="updateNameEntity(row, txtName.value)" [hasAction]="true">
+        <editable-label-app class="task-name">
+          {{row.name}}
+        </editable-label-app>
+        <input inputApp class="task-name" #txtName [value]="row.name || ''">
+      </editable-text-app>
+			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
 	</ng-template>
 
@@ -30,8 +36,14 @@
 		width="250"
 		sortBy="description.name">
 		<div class="flexBetween">
-			<div> {{ row.description.name }} </div>
-			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
+      <!-- <div> {{ row.description.name }} </div> -->
+      <editable-text-app #editable (closed)="updateNameEntity(row, txtName.value, 'description')" [hasAction]="true">
+        <editable-label-app class="task-name">
+          {{row.description.name}}
+        </editable-label-app>
+        <input inputApp class="task-name" #txtName [value]="row.description.name || ''">
+      </editable-text-app>
+			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
 	</ng-template>
 

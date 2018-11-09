@@ -265,6 +265,7 @@ export abstract class ListPageComponent<T extends { id?: string, deleted?: boole
 
 	/** Update a entity */
 	update(entity: T, fields?: string | string[]) {
+    console.log(entity);
 		this.featureSrv.update(entity, fields).subscribe();
 	}
 
