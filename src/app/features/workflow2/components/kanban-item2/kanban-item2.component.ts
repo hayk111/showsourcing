@@ -36,7 +36,7 @@ export class KanbanItem2Component extends AutoUnsub implements OnInit, AfterCont
 		super();
 	}
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	ngAfterContentInit() {
 		if (this.dragDropEnable$) {
@@ -51,8 +51,6 @@ export class KanbanItem2Component extends AutoUnsub implements OnInit, AfterCont
 	/** Dispatch the dragStart event through the kanban service */
 	onDragStart(event) {
 		this.dragDropInProgress = true;
-		// if ()
-		console.log('>> selectedItems = ', this.selectedItems);
 		const itemsToDrop = this.getDataForDragnDrop();
 		this.kanbanSrv.dragStart$.next({ namespace: this.namespace, data: itemsToDrop });
 		this.dragStart.emit();
@@ -62,7 +60,6 @@ export class KanbanItem2Component extends AutoUnsub implements OnInit, AfterCont
 	onDragEnd(event) {
 		this.dragDropInProgress = false;
 		const itemsToDrop = this.getDataForDragnDrop();
-		console.log('>> itemsToDrop = ', itemsToDrop);
 		this.kanbanSrv.dragEnd$.next({ namespace: this.namespace, data: itemsToDrop });
 		this.dragEnd.emit();
 	}
@@ -72,10 +69,10 @@ export class KanbanItem2Component extends AutoUnsub implements OnInit, AfterCont
 			if (this.selectedItems.has(this.data.id)) {
 				return Array.from(this.selectedItems.values());
 			} else {
-				return Array.from(this.selectedItems.values()).concat([ this.data ]);
+				return Array.from(this.selectedItems.values()).concat([this.data]);
 			}
 		} else {
-			return [ this.data ];
+			return [this.data];
 		}
 	}
 }

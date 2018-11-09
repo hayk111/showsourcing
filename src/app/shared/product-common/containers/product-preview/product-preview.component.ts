@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ProductService } from '~global-services';
-import { ERM, Product } from '~models';
+import { first, map } from 'rxjs/operators';
+import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
+import { ProductService, ProductStatusTypeService } from '~global-services';
+import { ERM, Product, ProductStatusType } from '~models';
 import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { CustomField } from '~shared/dynamic-forms';
@@ -19,8 +21,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() product: Product;
 	@Output() close = new EventEmitter<any>();
+	@Output() delete = new EventEmitter<null>();
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
+	firstStatus$: Observable<ProductStatusType>;
 	prodERM = ERM.PRODUCT;
 
 	// those are the custom fields for the first form section
@@ -56,27 +60,37 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
 		private router: Router,
-		private thumbSrv: ThumbService) {
+		private thumbSrv: ThumbService,
+		private prodStatusSrv: ProductStatusTypeService,
+		private workspaceSrv: WorkspaceFeatureService) {
 		super();
 	}
 
 	ngOnInit() {
 		// creating the form descriptor
 		this.product$ = this.featureSrv.selectOne(this.product.id);
+		this.firstStatus$ = this.prodStatusSrv.queryAll('', { query: 'inWorkflow == true', sortBy: 'step' }).pipe(
+			first(),
+			map(status => status[0] ? status[0] : null) // we only need the first
+		);
 	}
 
 	updateProduct(product: any) {
 		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}
 
-	onThumbUp() {
-		const votes = this.thumbSrv.thumbUp(this.product);
-		this.updateProduct({ id: this.product.id, votes });
+	onThumbUp(product) {
+		const votes = this.thumbSrv.thumbUp(product);
+		product = { ...product, votes };
+		this.product = { ...product };
+		this.updateProduct({ votes });
 	}
 
-	onThumbDown() {
-		const votes = this.thumbSrv.thumbDown(this.product);
-		this.updateProduct({ id: this.product.id, votes });
+	onThumbDown(product) {
+		const votes = this.thumbSrv.thumbDown(product);
+		product = { ...product, votes };
+		this.product = { ...product };
+		this.updateProduct({ votes });
 	}
 
 	openRfq() {
@@ -89,6 +103,22 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	openAddToProject() {
 		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
+	}
+
+	/** Add a product to workflow */
+	onSentToWorkflow(product: Product) {
+		this.workspaceSrv.sendProductToWorkflow(product).subscribe();
+	}
+
+	/** Triggers archive product */
+	onArchive(product: Product) {
+		const { id } = product;
+		this.workspaceSrv.update({ id, archived: true }, 'archived').subscribe();
+	}
+
+	/** Triggers status update */
+	onStatusUpdated(product, status) {
+		this.workspaceSrv.updateProductStatus(product, status).subscribe();
 	}
 
 }
