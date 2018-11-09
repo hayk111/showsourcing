@@ -89,7 +89,7 @@ export class ApolloStateService {
 		return this.getClientStatus(name).pipe(
 			tap(status => {
 				if (status !== ClientStatus.READY) {
-					log.debug(`About to use client ${name}, but it's not ready, so I'll wait.. context: ${context}`);
+					log.debug(`🕞About to use client ${name}, but it's not ready, so I'll wait.. context: ${context}`);
 				}
 			}),
 			filter(status => status === ClientStatus.READY),

@@ -60,16 +60,22 @@ export class ProductsReviewCardBodyComponent extends TrackingComponent implement
 	}
 
 	/** Triggers a status update (from the workflow action component) */
-	onStatusUpdated(product, status) {
+	onStatusUpdated(product, status, card) {
 		if (status) {
-			this.statusUpdated.emit({ product, status });
+			card.destroy().subscribe(_ => this.statusUpdated.emit({ product, status }));
 		}
 	}
 
 	sendToWorkflowFunc(product: Product, card: AnimatedCardComponent) {
-		card.destroy().subscribe(_ => {
-			// this.sendToWorkflow.emit(product)
-		});
+		card.destroy().subscribe(_ => this.sendToWorkflow.emit(product));
+	}
+
+	archiveFunc(product: Product, card: AnimatedCardComponent) {
+		card.destroy().subscribe(_ => this.archive.emit(product));
+	}
+
+	deleteFunc(product: Product, card: AnimatedCardComponent) {
+		card.destroy().subscribe(_ => this.delete.emit(product));
 	}
 
 }

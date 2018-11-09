@@ -36,7 +36,9 @@
 
 					<div class="secondary flexBetween sort-1 button-action button-workflow">
 						<!-- <span (click)="sentToWorkflow.emit(product)">Send to {{ firstStatus?.name | const: 'status'  }}</span> -->
-						<div class="send-workflow" (click)="sendToWorkflowFunc(product, card)">Send to {{ firstStatus?.name | const: 'status'  }}</div>
+						<div class="send-workflow" (click)="sendToWorkflowFunc(product, card)">
+							Send to {{ firstStatus?.name ? (firstStatus.name | const: 'status') : 'workflow'  }}
+						</div>
 						<div class="button-icon">
 							<workflow-action-app
 								#workActionMenu

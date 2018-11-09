@@ -11,8 +11,9 @@ import { delay, tap } from 'rxjs/operators';
 })
 export class AnimatedCardComponent implements AfterViewInit {
 	/** index of the item in the list */
-	@Input() index: number;
-	delay = 1000;
+	@Input() id: string;
+	delay = 600;
+	deleted: boolean;
 
 	constructor(
 		private stackSrv: AnimatedStackService,
@@ -26,12 +27,15 @@ export class AnimatedCardComponent implements AfterViewInit {
 
 	destroy() {
 		this.renderer.setStyle(this.elemRef.nativeElement, 'visibility', 'hidden');
-		this.stackSrv.destroy(this.index);
-		return of(true).pipe(
-			// after the anim is over
-			delay(this.delay),
-			tap(_ => this.renderer.setStyle(this.elemRef.nativeElement, 'display', 'none'))
-		);
+		return this.stackSrv.destroy(this.id, this.delay);
+	}
+
+	getPosition() {
+		return (this.elemRef.nativeElement as HTMLElement).getBoundingClientRect();
+	}
+
+	getElement() {
+		return this.elemRef.nativeElement;
 	}
 
 
