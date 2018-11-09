@@ -4,7 +4,8 @@ export class AppImage extends EntityWithAudit<undefined> {
 	fileName: string;
 	orientation = 0;
 	imageType = 'Photo';
-	deleted = false;
+  deleted = false;
+  pending = false;
 	__typename ?= 'Image';
 
 	constructor() {
