@@ -13,5 +13,3 @@ export class AppImage extends EntityWithAudit<undefined> {
 		this.fileName = `${this.id}.jpg`;
 	}
 }
-
-
