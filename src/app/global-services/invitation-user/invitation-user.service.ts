@@ -14,7 +14,4 @@ export class InvitationUserService extends GlobalService<InvitationUser> {
 		super(apolloState, InvitationUserQueries, 'invitation', 'invitations');
 	}
 
-	update(entity: any, fields?: string | string[], client?: Client) {
-		return super.update(entity, fields, client);
-	}
 }

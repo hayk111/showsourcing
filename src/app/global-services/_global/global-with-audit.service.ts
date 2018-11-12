@@ -28,21 +28,21 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	/** @inheritDoc
 	 * Updates on entity with an audit will add properties needed by the backend
 	 */
-	update(entity: any, fields?: string | string[], client?: Client, isOptimistic: boolean = true) {
-		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
+	update(entity: any, client?: Client, isOptimistic: boolean = true) {
+		entity.lastUpdatedBy = { id: this.userSrv.userSync.id, __typename: 'User' };
 		entity.lastUpdatedDate = '' + new Date();
-		return super.update(entity, fields, client, isOptimistic);
+		return super.update(entity, client, isOptimistic);
 	}
 
 	/** @inheritDoc
 	 * create on entity with an audit will add properties needed by the backend
 	 */
-	create(entity: any, fields?: string | string[], client?: Client) {
-		entity.createdBy = { id: this.userSrv.userSync.id };
+	create(entity: any, client?: Client) {
+		entity.createdBy = { id: this.userSrv.userSync.id, __typename: 'User' };
 		entity.creationDate = '' + new Date();
 		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
 		entity.lastUpdatedDate = '' + new Date();
-		return super.create(entity, fields, client);
+		return super.create(entity, client);
 	}
 
 	/** @inheritDoc
@@ -50,7 +50,7 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	 * a deleted flag set to true
 	 */
 	delete(id: string, client?: Client) {
-		return this.update({ id, deleted: true }, 'deleted', client);
+		return this.update({ id, deleted: true }, client);
 	}
 
 	/** @inheritDoc

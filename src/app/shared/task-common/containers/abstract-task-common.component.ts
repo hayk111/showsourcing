@@ -48,7 +48,7 @@ export abstract class AbstractTaskCommonComponent extends ListPageComponent<Task
 	}
 
 	updateTask(task: Task) {
-		this.update(task, TaskQueries.one);
+		this.update(task);
 	}
 
 	createTask(name: string) {

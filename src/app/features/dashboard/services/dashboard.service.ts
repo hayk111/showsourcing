@@ -92,6 +92,6 @@ export class DashboardService {
 	}
 
 	updateTask(task: Task) {
-		this.taskSrv.update(task, 'done').subscribe();
+		this.taskSrv.update(task).subscribe();
 	}
 }

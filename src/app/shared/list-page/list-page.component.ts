@@ -264,9 +264,8 @@ export abstract class ListPageComponent<T extends { id?: string, deleted?: boole
 	}
 
 	/** Update a entity */
-	update(entity: T, fields?: string | string[]) {
-    console.log(entity);
-		this.featureSrv.update(entity, fields).subscribe();
+	update(entity: T) {
+		this.featureSrv.update(entity).subscribe();
 	}
 
 	/** Will show a confirm dialog to delete items selected */
@@ -322,12 +321,12 @@ export abstract class ListPageComponent<T extends { id?: string, deleted?: boole
 
 	onThumbUp(product: Product) {
 		const votes = this.thumbSrv.thumbUp(product);
-		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
+		this.update({ id: product.id, votes } as any);
 	}
 
 	onThumbDown(product: Product) {
 		const votes = this.thumbSrv.thumbDown(product);
-		this.update({ id: product.id, votes } as any, `${ProductQueries.votes}`);
+		this.update({ id: product.id, votes } as any);
 	}
 
 	/**
