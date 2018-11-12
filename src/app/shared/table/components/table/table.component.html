@@ -36,6 +36,11 @@
 				*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				(mouseenter)="hoverRow(i)"
 				(mouseleave)="hoverRow(-1)">
+				<icon-app *ngIf="isSelectable(row)"
+					class="color-txt-secondary"
+					name="dots-vertical"
+					size="18">
+				</icon-app>
 				<context-menu-app
 					*ngIf="isSelectable(row)"
 					[xPosition]="-19"
