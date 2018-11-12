@@ -43,10 +43,15 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 		const fieldSortyBy = sort.sortBy;
 		const fieldSortByTokens = fieldSortyBy.split('.');
 		const field = fieldSortByTokens[0];
-
+		let value = null;
 		if (group && group.value.length > 0) {
-			return (group.value[0] && group.value[0][field]) ? group.value[0][field].name : null;
+			if (group.value[0]) {
+				if (field === 'favorite')
+					value = group.value[0][field] ? 'Favorite' : 'Not Favorite';
+				else
+					value = group.value[0][field] ? group.value[0][field].name : null;
+			}
 		}
-		return null;
+		return value;
 	}
 }

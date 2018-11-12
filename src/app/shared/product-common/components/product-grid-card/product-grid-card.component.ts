@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductFeatureService } from '~features/products/services';
+import { ProductService } from '~global-services';
 import { ERM, Product } from '~models';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
 import { DialogService } from '~shared/dialog';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
-import { ProductService } from '~global-services';
 
 @Component({
 	selector: 'product-grid-card-app',
