@@ -21,9 +21,6 @@ import { AnimatedStackService } from '~shared/animated-stack/services/animated-s
 })
 export class AnimatedStackComponent implements AfterViewInit {
 	@ContentChildren(AnimatedCardComponent) cards: QueryList<AnimatedCardComponent>;
-	coordinates = [
-
-	];
 
 	constructor(
 		private stackSrv: AnimatedStackService,
