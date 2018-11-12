@@ -13,8 +13,4 @@ export class InvitationService extends GlobalService<Invitation> {
 	constructor(protected apolloState: ApolloStateService) {
 		super(apolloState, InvitationQueries, 'invitation', 'invitations');
 	}
-
-	update(entity: any, fields?: string | string[], client?: Client) {
-		return super.update(entity, fields, client);
-	}
 }

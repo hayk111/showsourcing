@@ -140,13 +140,13 @@ export class WorkspaceFeatureService extends ProductService {
 		if (statusType !== undefined) {
 			if (!product.status || !product.status.status) {
 				const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-				return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status], undefined, false);
+				return this.update({ id: product.id, status: tempStatus });
 			} else {
 				// we dont update if we click the same status as the current one of the product
 				const productStatusType = product.status.status;
 				if (statusType.id !== productStatusType.id) {
 					const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-					return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status], undefined, false);
+					return this.update({ id: product.id, status: tempStatus });
 				}
 			}
 		}

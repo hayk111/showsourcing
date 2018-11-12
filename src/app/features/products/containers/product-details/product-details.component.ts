@@ -119,21 +119,21 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	updateStatus(statusId: string) {
 		const status = new ProductStatus({ status: { id: statusId } });
 		this.featureSrv
-			.update({ id: this.product.id, status }, ProductQueries.status)
+			.update({ id: this.product.id, status })
 			.subscribe();
 	}
 
 	/** item has been favorited */
 	onFavorited() {
 		this.featureSrv
-			.update({ id: this.product.id, favorite: true }, 'favorite')
+			.update({ id: this.product.id, favorite: true })
 			.subscribe();
 	}
 
 	/** item has been unfavorited */
 	onUnfavorited() {
 		this.featureSrv
-			.update({ id: this.product.id, favorite: false }, 'favorite')
+			.update({ id: this.product.id, favorite: false })
 			.subscribe();
 	}
 
@@ -152,9 +152,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** update the product */
-	updateProduct(product: any, fields?: string) {
+	updateProduct(product: any) {
 		this.featureSrv
-			.update({ id: this.product.id, ...product }, fields)
+			.update({ id: this.product.id, ...product })
 			.subscribe();
 	}
 

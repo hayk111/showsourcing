@@ -70,12 +70,13 @@ export class DynamicEditableTextComponent extends AbstractInput implements After
 	}
 
 	/** saving the value */
-	onSave() {
+	onSave(isAccumulated = true) {
 		// do nothing when no changes made
-		if (this.value === this.accumulator)
+		if (this.value === this.accumulator && isAccumulated)
 			return;
 		this.value = this.accumulator;
 		this.onChange();
+		this.update.emit({ [this.customField.name]: this.value });
 	}
 
 	/** when the user cancels we put the previous value back in because onClose is gonna be called */
@@ -86,7 +87,6 @@ export class DynamicEditableTextComponent extends AbstractInput implements After
 	/** when the value changes */
 	onChange() {
 		this.onChangeFn(this.value);
-		this.update.emit({ [this.customField.name]: this.value });
 	}
 
 	/** on blur we need to call onTouchedFn to not have errors of change detection */

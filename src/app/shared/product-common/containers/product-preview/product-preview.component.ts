@@ -113,7 +113,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** Triggers archive product */
 	onArchive(product: Product) {
 		const { id } = product;
-		this.workspaceSrv.update({ id, archived: true }, 'archived').subscribe();
+		this.workspaceSrv.update({ id, archived: true }).subscribe();
 	}
 
 	/** Triggers status update */

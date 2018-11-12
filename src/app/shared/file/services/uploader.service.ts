@@ -27,12 +27,12 @@ export class UploaderService {
 		private http: HttpClient
 	) { }
 
-	uploadImages(imgs: File[], linkedItem?: any, team?: Client): Observable<any> {
+	uploadImages(imgs: File[], linkedItem?: any, client?: Client): Observable<any> {
 		// MaxSize 1200px
 		const uploads$ = imgs.map(img =>
 			resizeSizeToLimit(img, 1200).pipe(
 				first(),
-				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem, team))
+				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem, client))
 			)
 		);
 		return forkJoin(uploads$);
@@ -40,31 +40,32 @@ export class UploaderService {
 
 	uploadFiles(files: File[],
 		linkedItem?: any,
-		team?: Client
+		client?: Client
 	): Observable<any> {
-		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem, team))).pipe(
+		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem, client))).pipe(
 			first());
 	}
 
 	uploadImage(
 		file: File,
 		linkedItem?: any,
-		team?: Client
+		client?: Client
 	) {
-		return this.uploadFile(file, 'image', linkedItem, team);
+		return this.uploadFile(file, 'image', linkedItem, client);
 	}
 
 	uploadFile(
 		file: File,
 		type: 'file' | 'image' = 'file',
 		linkedItem?: any,
-		team?: Client
+		client?: Client
 	): Observable<AppImage> {
 		const isImage = type === 'image';
 		const fileName = file.name;
 		const request = isImage
 			? new ImageUploadRequest()
 			: new FileUploadRequest(fileName);
+
 		const service: GlobalService<any> = isImage
 			? this.imageUploadRequestSrv
 			: this.fileUploadRequestSrv;
@@ -73,10 +74,10 @@ export class UploaderService {
 			? (request as ImageUploadRequest).image
 			: (request as FileUploadRequest).attachment;
 
-		return service.create(request, undefined, team).pipe(
+		return service.create(request, client).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ =>
-				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`, undefined, team)
+				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`, client)
 			),
 			// when ready we make the upload
 			mergeMap(info => this.uploadFileToAws(info, file, isImage)),
@@ -84,7 +85,7 @@ export class UploaderService {
 			// so we need to wait for it to be ready.
 			mergeMap(_ => this.emitWhenFileReady(request) as any),
 			// putting the request status to uploaded
-			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' }, undefined, team)),
+			mergeMap(_ => service.update({ id: request.id }, client)),
 			// link item
 			tap(_file => this.linkItem(returned, linkedItem, isImage)),
 			// add notification

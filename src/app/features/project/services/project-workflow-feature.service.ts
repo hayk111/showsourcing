@@ -123,13 +123,13 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		// we check if the product has a status
 		if (!product.status || !product.status.status) {
 			const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-			return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status], undefined, false);
+			return this.update({ id: product.id, status: tempStatus });
 		} else {
 			// we dont update if we click the same status as the current one of the product
 			const productStatusType = product.status.status;
 			if (statusType.id !== productStatusType.id) {
 				const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-				return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status], undefined, false);
+				return this.update({ id: product.id, status: tempStatus });
 			}
 		}
 		return of();
@@ -169,7 +169,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		addedProjects = addedProjects.filter(project => !projects.some(p => p.id === project.id));
 
 		projects.push(...addedProjects);
-		return this.update({ id: product.id, projects }, ['projects { id }']);
+		return this.update({ id: product.id, projects });
 	}
 
 	/**
@@ -189,7 +189,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		// removing
 		projects = projects.filter(project => !removedProjects.some(p => p.id === project.id));
 
-		return this.update({ id: (typeof product.id === 'undefined' ? product : product.id), projects }, ['projects { id }']);
+		return this.update({ id: (typeof product.id === 'undefined' ? product : product.id), projects });
 	}
 
 }

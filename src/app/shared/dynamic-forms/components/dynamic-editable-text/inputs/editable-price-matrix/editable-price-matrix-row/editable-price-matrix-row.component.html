@@ -14,16 +14,18 @@
 	</editable-label-app>
 
 	<!-- label input -->
-	<input
-		#inp1
-		inputApp
-		autofocus="true"
-		[value]="value.label"
-		(input)="accumulate('label', inp1.value); onChange()"
-		(change)="onChange()"
-		(blur)="onBlur()"
-		(keyup.enter)="editableLabel.close();"
-		[type]="'text'"/>
+	<form-field-app class="editable">
+		<input
+			#inp1
+			inputApp
+			autofocus="true"
+			[value]="value.label"
+			(input)="accumulate('label', inp1.value); onChange()"
+			(change)="onChange()"
+			(blur)="onBlur()"
+			(keyup.enter)="editableLabel.close();"
+			[type]="'text'"/>
+	</form-field-app>
 
 </editable-text-app>
 
@@ -38,9 +40,12 @@
 		<span class="mg-xs spacer"></span>
 		<span>{{ amount ? amount  : '-'}}</span>
 	</editable-label-app>
-	<input-price-app
-		#inpPrice
-		[price]="value.price"
-		(keyup.enter)="editableValue.close();"
-		(change)="accumulate('price', inpPrice.price)"></input-price-app>
+	<form-field-app class="editable">
+		<input-price-app
+			#inpPrice
+			formFieldCtrl
+			[price]="value.price"
+			(keyup.enter)="editableValue.close();"
+			(change)="accumulate('price', inpPrice.price)"></input-price-app>
+	</form-field-app>
 </editable-text-app>

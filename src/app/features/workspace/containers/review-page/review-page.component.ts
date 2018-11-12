@@ -103,7 +103,7 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	/** Triggers archive product */
 	onArchive(product: Product) {
 		const { id } = product;
-		this.workspaceSrv.update({ id, archived: true }, 'archived').subscribe();
+		this.workspaceSrv.update({ id, archived: true }).subscribe();
 	}
 
 	/** Triggers status update */

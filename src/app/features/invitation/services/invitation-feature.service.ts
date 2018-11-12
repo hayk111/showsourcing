@@ -35,7 +35,7 @@ export class InvitationFeatureService extends InvitationUserService {
 				userId: user.id,
 				status: 'accepted'
 			})),
-			switchMap(invit => this.invitationSrv.create(invit, 'id, teamId', Client.USER)),
+			switchMap(invit => this.invitationSrv.create(invit, Client.USER)),
 			switchMap(invit => this.teamSrv.waitForOne(`id == "${invit.teamId}"`, undefined, Client.USER)),
 			switchMap(team => this.teamSrv.pickTeam(team))
 		);
@@ -49,7 +49,7 @@ export class InvitationFeatureService extends InvitationUserService {
 				userId: user.id,
 				status: 'refused'
 			})),
-			switchMap(invit => this.invitationSrv.create(invit, undefined, Client.USER))
+			switchMap(invit => this.invitationSrv.create(invit, Client.USER))
 		);
 	}
 

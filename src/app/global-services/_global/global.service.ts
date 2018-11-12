@@ -24,7 +24,7 @@ export interface GlobalServiceInterface<T> {
 	waitForOne: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
 	selectAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client?: Client): Observable<T[]>;
 	queryAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client?: Client): Observable<T[]>;
-	update: (entity: { id?: string }, fields?: string | string[], client?: Client) => Observable<T>;
+	update: (entity: { id?: string }, client?: Client) => Observable<T>;
 	updateMany: (entities: { id?: string }[], fields?: string | string[], client?: Client) => Observable<T[]>;
 	create: (entity: T, fields?: string | string[], client?: Client) => Observable<T>;
 	createMany: (entities: T[], fields?: string | string[], client?: Client) => Observable<T[]>;
@@ -464,18 +464,16 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	update(entity: T, fields?: string | string[], clientName: Client = this.defaultClient, isOptimistic: boolean = true): Observable<T> {
+	update(entity: T, clientName: Client = this.defaultClient, isOptimistic: boolean = true): Observable<T> {
 		const title = 'Update ' + this.typeName;
-		fields = this.getFields(fields, this.fields.update);
+		const fields = this.patch(entity);
 		const gql = this.queryBuilder.update(fields);
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
 
-		if (isOptimistic) {
-			this.addOptimisticResponse(options, gql, entity, this.typeName);
-		}
+		this.addOptimisticResponse(options, gql, entity, this.typeName);
 		// updating select one cache so changes are reflected when using selectOne(id)
 		if (this.selectOneCache.has(cacheKey)) {
 			this.selectOneCache.get(cacheKey).subj.next(entity);
@@ -503,7 +501,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	updateMany(entities: T[], fields?: string | string[], clientName: Client = this.defaultClient): Observable<T[]> {
-		return forkJoin(entities.map(entity => this.update(entity, fields, clientName)));
+		return forkJoin(entities.map(entity => this.update(entity, clientName)));
 	}
 
 
@@ -516,9 +514,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	create(entity: T, fields?: string | string[], clientName: Client = this.defaultClient): Observable<T> {
+	create(entity: T, clientName: Client = this.defaultClient): Observable<T> {
 		const title = 'Create one ' + this.typeName;
-		fields = this.getFields(fields, this.fields.create);
+		const fields = this.patch(entity);
 		const gql = this.queryBuilder.create(fields);
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
@@ -544,7 +542,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	createMany(entities: T[], fields?: string | string[], clientName: Client = this.defaultClient): Observable<T[]> {
-		return forkJoin(entities.map(entity => this.create(entity, fields, clientName)));
+		return forkJoin(entities.map(entity => this.create(entity, clientName)));
 	}
 
 	/////////////////////////////
@@ -704,6 +702,38 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		if (Array.isArray(fields))
 			return fields.join(',');
 		return fields;
+	}
+
+
+	patch(a: any): string {
+		const keys = Object.keys(a);
+		// removing the typename property
+		const patchedParts = keys.filter(key => key !== '__typename')
+			// transforming fields of entity into gql update obj
+			.map(key => this.patchProp(key, a));
+		return patchedParts.join(' ');
+	}
+
+	patchProp(key, obj) {
+		const val = obj[key];
+		if (Array.isArray(val)) {
+			if (val.length > 0) {
+				if (val[0] instanceof Object) {
+					return `${key} { ${this.patch(val[0])} }`;
+				} else {
+					return key;
+				}
+			} else {
+				return '';
+			}
+
+		} else if (val instanceof Object) {
+			return `${key} { ${this.patch(val)} }`;
+		} else if (val === null) {
+			return '';
+		} else {
+			return key;
+		}
 	}
 
 }

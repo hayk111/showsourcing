@@ -15,6 +15,7 @@ import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TemplateService } from '~shared/template/services/template.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'products-page-app',
@@ -50,11 +51,6 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected moduleRef: NgModuleRef<any>,
 		protected thumbSrv: ThumbService) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, thumbSrv);
-	}
-
-	ngOnInit() {
-		super.ngOnInit();
-		this.templateSrv.bottomReached$.subscribe(_ => this.loadMore());
 	}
 
 	search(str: string) {

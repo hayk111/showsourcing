@@ -109,7 +109,6 @@ export class QueryBuilder {
 	update = (str: string) => gql(`
 		mutation update${this.capSing}($input: ${this.capSing}Input!) {
 			update${this.capSing}(input: $input) {
-				id
 				${str}
 			}
 		}`)
