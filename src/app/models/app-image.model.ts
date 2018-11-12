@@ -5,6 +5,7 @@ export class AppImage extends EntityWithAudit<undefined> {
 	orientation = 0;
 	imageType = 'Photo';
 	deleted = false;
+	pending?: boolean;
 	__typename ?= 'Image';
 
 	constructor() {

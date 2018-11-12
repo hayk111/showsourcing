@@ -15,7 +15,6 @@ import { DialogService } from '~shared/dialog';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
 import { PendingImage } from '~utils/pending-image.class';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -115,7 +114,7 @@ export class CarouselCardComponent extends AutoUnsub {
 	/** when a preview is clicked we want to display the image that was in the preview */
 	setSelectedIndex(index: number) {
 		this.selectedIndex = index;
-  }
+	}
 
 	/** adds pending image to the list */
 	private async addPendingImg(files: File[]) {
