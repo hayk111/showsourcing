@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { NotificationType } from '~shared/notifications/model/notification.interface';
+import { NotificationService } from '~shared/notifications/services/notification.service';
 
 @Component({
 	selector: 'notification-app',
@@ -8,11 +9,44 @@ import { NotificationType } from '~shared/notifications/model/notification.inter
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationComponent implements OnInit {
-	@Input() type: NotificationType;
+
+  public iconLeft = '';
+
+  @Input() id = null;
+
+  private _type: NotificationType;
+  @Input() set type(value: NotificationType) {
+    this._type = value;
+    switch (value) {
+      case NotificationType.ERROR: {
+        this.iconLeft = 'times';
+        break;
+      }
+      case NotificationType.DANGER:
+      case NotificationType.WARNING:
+      case NotificationType.SUCCESS:
+      case NotificationType.DELETED: {
+        this.iconLeft = 'check';
+        break;
+      }
+    }
+  }
+  get type() {
+    return this._type;
+  }
+
 	@Input() title: string;
-	@Input() message: string;
+  @Input() message: string;
 
-	constructor() {}
+  public NotificationType = NotificationType;
 
-	ngOnInit() {}
+	constructor(
+    protected notifSrv: NotificationService
+  ) {}
+
+  ngOnInit() {}
+
+  forceClose() {
+    this.notifSrv.removeNotification(this.id);
+  }
 }

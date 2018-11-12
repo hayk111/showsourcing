@@ -1,4 +1,12 @@
-<div class="ctnr z-4 {{ type }}">
-	<div class="title">{{ title }}</div>
-	<div class="message">{{ message }}</div>
+<div class="ctnr z-4 notification-body-container {{ type }}">
+  <div class="left-part ">
+      <icon-app fontSet="fa" style="cursor: default;" [name]="iconLeft"></icon-app>
+  </div>
+  <div class="middle-part">
+    <div class="title" *ngIf="title?.length">{{ title }}</div>
+    <div class="message" *ngIf="message?.length">{{ message }}</div>
+  </div>
+  <div class="right-part">
+      <icon-app name="close" (click)="forceClose()"></icon-app>
+  </div>
 </div>
