@@ -14,13 +14,13 @@ export class LocalStorageService {
 	}
 
 	setItem(key: string, val: any): void {
-		log.debug(`%c LocalStorage: Saving ${key}... `, LogColor.LOCAL_STORAGE);
+		log.debug(`%c 💾 LocalStorage: Saving ${key}... `, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
 			localStorage.setItem(key, JSON.stringify(val));
 	}
 
 	getItem<T>(key: string): T | null {
-		log.debug(`%c LocalStorage: Loading ${key}... `, LogColor.LOCAL_STORAGE);
+		log.debug(`%c 💾 LocalStorage: Loading ${key}... `, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
 			return JSON.parse(localStorage.getItem(key));
 		return null;

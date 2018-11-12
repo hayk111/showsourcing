@@ -658,7 +658,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/** logs request that is about to being made to the 	 */
 	private log(type: string, gql: DocumentNode, queryName: string, clientName: Client, variables?: any) {
 		// logging for each request
-		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
+		log.group(`%c 🍌 ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.debug(`%c client: ${clientName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c trace`, LogColor.APOLLO_CLIENT_PRE);
 		log.trace();
@@ -678,7 +678,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 	/** logs data received  */
 	private logResult(type: string, queryName: string, result) {
-		log.group(`%c ${type} ${queryName} -- Result`, 'color: pink; background: #555555; padding: 4px');
+		log.group(`%c 🍇 ${type} ${queryName} -- Result`, 'color: pink; background: #555555; padding: 4px');
 		log.table(result);
 		log.groupEnd();
 	}

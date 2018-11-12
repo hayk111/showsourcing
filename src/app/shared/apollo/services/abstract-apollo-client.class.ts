@@ -96,7 +96,7 @@ export abstract class AbstractApolloClient {
 
 	/** we use the path as client name.. */
 	protected createClient(uri: string, name: Client, tokenState: TokenState): Observable<Client> {
-		log.debug(`%c creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
+		log.debug(`%c 🌈creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
 
 		return Observable.create((observer: Observer<any>) => {
 			const connectionCallback = (error) => {

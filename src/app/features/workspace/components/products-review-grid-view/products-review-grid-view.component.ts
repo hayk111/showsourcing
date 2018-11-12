@@ -26,6 +26,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	groupedProducts: Category[];
 	prodERM = ERM.PRODUCT;
 	noFieldChecked: boolean;
+	trackByKey = (index, item) => item.key;
 
 	constructor(
 		private selectionSrv: SelectionService,
