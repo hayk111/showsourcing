@@ -21,7 +21,7 @@ export class ImageComponent {
 	// type of the image (supplier, product, user...)
 	// so we can have an appropriate default image
 	@Input() type: string;
-	@Input() objectFit: 'fill' | 'contain' | 'cover' = 'cover';
+	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'cover';
 
 	constructor() { }
 
