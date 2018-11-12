@@ -26,6 +26,7 @@
 	[entityMetadata]="entityMetadata"
 	(bottomReached)="loadMore()"
 	(sort)="sort($event)"
+	(delete)="deleteOne($event)"
 	(select)="onItemSelected($event)"
 	(unselect)="onItemUnselected($event)"
 	(selectAll)="selectAll($event)"
