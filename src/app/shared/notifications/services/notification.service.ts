@@ -23,7 +23,7 @@ export class NotificationService {
 			this.notifications.shift();
 		}
 		this.emit();
-		setTimeout(() => this.removeNotification(notif.id), notif.timeout || this.defaultTimeout);
+		// setTimeout(() => this.removeNotification(notif.id), notif.timeout || this.defaultTimeout);
 	}
 
 	private removeNotification(id: number) {

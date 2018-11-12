@@ -4,9 +4,10 @@ import { NotificationComponent } from '~shared/notifications/components/notifica
 import { NotificationContainerComponent } from '~shared/notifications/components/notification-container/notification-container.component';
 import { NotificationService } from '~shared/notifications/services/notification.service';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { IconsModule } from '~shared/icons/icons.module';
 
 @NgModule({
-	imports: [CommonModule],
+	imports: [CommonModule, IconsModule],
 	declarations: [NotificationComponent, NotificationContainerComponent],
 	exports: [NotificationContainerComponent],
 	providers: [NotificationService],

@@ -1,8 +1,6 @@
+
 .ctnr {
 	margin: var(--spacing-m);
-	background: rgb(38, 40, 48);
-	color: white;
-	padding: var(--spacing-m);
 }
 .success {
 	border-left: 4px solid var(--color-success);
@@ -11,7 +9,7 @@
 	border-left: 4px solid var(--color-warn);
 }
 .warning {
-	border-left: 4px solid var(--color-warn);
+	border-left: 4px solid var(--color-warn--color-accent);
 }
 .deleted {
 	border-left: 4px solid var(--color-warn);
@@ -20,20 +18,70 @@
 	border-left: 4px solid var(--color-warn);
 }
 
-.right-part {
-  icon-app {
-
+.success {
+  .left-part {
+    icon-app {
+      color: var(--color-success);
+    }
   }
+}
+
+.warning {
+  .left-part {
+    icon-app {
+      color: var(--color-warn--color-accent);
+    }
+  }
+}
+
+.error,
+.deleted,
+.success {
+  .left-part {
+    icon-app {
+      color: var(--color-warn);
+    }
+  }
+}
+.notification-body-container {
+  display: table;
+	border-right: 1px solid var(--color-divider);
+	border-top: 1px solid var(--color-divider);
+	border-bottom: 1px solid var(--color-divider);
+}
+
+.left-part,
+.middle-part,
+.right-part {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.left-part,
+.right-part {
+  padding: var(--font-size-xl);
+  font-size: var(--font-size-l);
+
 }
 
 .middle-part {
-  icon-app {
-
+  padding: 5px 10px;
+  padding-left: 0;
+  .title {
+    color: var(--color-txt-strong);
+  }
+  .message {
+    color: var(--color-txt-primary);
   }
 }
 
-.left-part {
-  icon-app {
 
+.right-part {
+	border-left: 1px solid var(--color-divider);
+  icon-app {
+    color: var(--color-secondary);
+    &:hover {
+      color: var(--color-secondary-dark);
+    }
   }
 }
