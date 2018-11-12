@@ -1,12 +1,10 @@
-import { Component, AfterViewInit, ChangeDetectionStrategy, Input, ElementRef, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import { delay } from 'rxjs/operators';
 import { AnimatedStackService } from '~shared/animated-stack/services/animated-stack.service';
-import { of } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'animated-card-app',
-	templateUrl: './animated-card.component.html',
-	styleUrls: ['./animated-card.component.scss'],
+	template: '<ng-content></ng-content>',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AnimatedCardComponent implements AfterViewInit {

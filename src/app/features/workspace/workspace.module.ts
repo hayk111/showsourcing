@@ -20,6 +20,7 @@ import { TaskCommonModule } from '~shared/task-common';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { CustomDialogModule } from '~shared/custom-dialog';
 import { ProductsReviewCardBodyComponent } from './components/products-review-card-body/products-review-card-body.component';
+import { AnimatedStackModule } from '~shared/animated-stack/animated-stack.module';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ProductsReviewCardBodyComponent } from './components/products-review-ca
 		TaskCommonModule,
 		ProductCommonModule,
 		WorkflowActionModule,
-		CustomDialogModule
+		CustomDialogModule,
+		AnimatedStackModule
 	],
 	declarations: [
 		WorkspaceComponent,

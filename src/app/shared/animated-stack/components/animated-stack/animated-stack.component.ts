@@ -15,8 +15,7 @@ import { AnimatedStackService } from '~shared/animated-stack/services/animated-s
  */
 @Component({
 	selector: 'animated-stack-app',
-	templateUrl: './animated-stack.component.html',
-	styleUrls: ['./animated-stack.component.scss'],
+	template: '<ng-content select="animated-card-app"></ng-content>',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [AnimatedStackService]
 })
