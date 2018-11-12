@@ -9,7 +9,7 @@
 	border-left: 4px solid var(--color-warn);
 }
 .warning {
-	border-left: 4px solid var(--color-warn--color-accent);
+	border-left: 4px solid var(--color-accent);
 }
 .deleted {
 	border-left: 4px solid var(--color-warn);
@@ -29,11 +29,12 @@
 .warning {
   .left-part {
     icon-app {
-      color: var(--color-warn--color-accent);
+      color: var(--color-accent);
     }
   }
 }
 
+.danger,
 .error,
 .deleted,
 .success {
@@ -65,13 +66,15 @@
 }
 
 .middle-part {
-  padding: 5px 10px;
+  padding: 12px;
   padding-left: 0;
   .title {
     color: var(--color-txt-strong);
+    font-size: var(--font-size-m);
   }
   .message {
     color: var(--color-txt-primary);
+    font-size: var(--font-size-s);
   }
 }
 

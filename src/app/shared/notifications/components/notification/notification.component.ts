@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { NotificationType } from '~shared/notifications/model/notification.interface';
+import { NotificationService } from '~shared/notifications';
 
 @Component({
 	selector: 'notification-app',
@@ -10,6 +11,8 @@ import { NotificationType } from '~shared/notifications/model/notification.inter
 export class NotificationComponent implements OnInit {
 
   public iconLeft = '';
+
+  @Input() id = null;
 
   private _type: NotificationType;
   @Input() set type(value: NotificationType) {
@@ -37,7 +40,13 @@ export class NotificationComponent implements OnInit {
 
   public NotificationType = NotificationType;
 
-	constructor() {}
+	constructor(
+    protected notifSrv: NotificationService
+  ) {}
 
-	ngOnInit() {}
+  ngOnInit() {}
+
+  forceClose() {
+    this.notifSrv.removeNotification(this.id);
+  }
 }
