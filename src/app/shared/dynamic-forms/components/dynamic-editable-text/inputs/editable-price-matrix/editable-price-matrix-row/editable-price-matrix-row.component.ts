@@ -66,6 +66,8 @@ export class EditablePriceMatrixRowComponent extends AbstractInput {
 	onBlur() {
 		this.onTouchedFn();
 		this.blur.emit();
+		// prevent view has changed after it was checked error
+		this.cd.detectChanges();
 	}
 
 	onChange() {

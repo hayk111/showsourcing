@@ -58,7 +58,8 @@ export class InputPriceComponent extends AbstractInput {
 
 	onBlur() {
 		this.onTouchedFn();
-		this.blur.emit();
+		// prevent view changed after it was checked error
+		this.cd.detectChanges();
 	}
 
 	showCurrencySelector() {
