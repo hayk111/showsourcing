@@ -9,13 +9,15 @@ import {
 	EditionDialogComponent,
 	MergeDialogComponent,
 	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
+  ProductExportDlgComponent,
+  CompareQuotationComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog/component';
 import { CrudDialogService } from '~shared/custom-dialog/services/crud-dialog.service';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
+import { ItemCompareColumnComponent } from './component/compare-quotation/item-comapre-column/item-comapre-column.component';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 import { CarouselModule } from '~shared/carousel';
 
@@ -33,8 +35,10 @@ import { CarouselModule } from '~shared/carousel';
 		EditionDialogComponent,
 		MergeDialogComponent,
 		ProductAddToProjectDlgComponent,
-		ProductRequestTeamFeedbackDlgComponent,
-		ProductExportDlgComponent,
+    ProductRequestTeamFeedbackDlgComponent,
+    CompareQuotationComponent,
+    ProductExportDlgComponent,
+    ItemCompareColumnComponent,
 		EmailListComponent,
 		RfqDialogComponent
 	],
@@ -42,7 +46,8 @@ import { CarouselModule } from '~shared/carousel';
 		CreationDialogComponent,
 		EditionDialogComponent,
 		MergeDialogComponent,
-		ProductAddToProjectDlgComponent,
+    ProductAddToProjectDlgComponent,
+    CompareQuotationComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
 		RfqDialogComponent

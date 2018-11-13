@@ -1,0 +1,20 @@
+<dialog-app>
+
+	<dialog-header-app>
+		Compare quotation
+	</dialog-header-app>
+
+  <div class="item-container">
+    <item-comapre-column-app [type]="'title'"></item-comapre-column-app>
+  </div>
+  <div class="item-container" *ngFor="let product of products;trackBy: trackByFn" >
+      <item-comapre-column-app [product]="product"></item-comapre-column-app>
+  </div>
+
+	<divider-app></divider-app>
+
+	<dialog-footer-app>
+		<button (click)="closeDlg()">Continue</button>
+	</dialog-footer-app>
+
+</dialog-app>
