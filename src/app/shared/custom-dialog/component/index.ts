@@ -5,3 +5,4 @@ export * from '~shared/custom-dialog/component/product-add-to-project-dlg/produc
 export * from '~shared/custom-dialog/component/product-export-dlg/product-export-dlg.component';
 export * from '~shared/custom-dialog/component/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 export * from '~shared/custom-dialog/component/rfq-dialog/rfq-dialog.component';
+export * from '~shared/custom-dialog/component/compare-quotation/compare-quotation.component';

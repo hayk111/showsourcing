@@ -1,0 +1,73 @@
+dialog-app {
+
+	width: 468px;
+	display: block;
+
+	dialog-header-app {
+		font-size: var(--font-size-l);
+	}
+	dialog-footer-app {
+		margin-top: var(--spacing-ms);
+		button {
+			width: 106px;
+			margin-left: 12px;
+		}
+		input {
+			width: 126px;
+			margin-left: 12px;
+		}
+	}
+
+	divider-app {
+		margin-top: var(--spacing-ms);
+	}
+	stage-indicator-app {
+		margin-bottom: 32px;
+	}
+}
+
+label-app.title {
+	font-size: var(--font-size-m);
+	font-weight: 600;
+	color: va(--color-primary-text);
+}
+
+image-previewer-app {
+	margin-bottom: var(--spacing-l);
+}
+
+h3 {
+	color: var(--color-primary);
+	text-align: left;
+	font-size: var(--font-size-m);
+	margin-bottom: var(--spacing-ms);
+}
+
+form-field-app.email-field{
+	width: 100%;
+	margin-right: 21px;
+}
+
+.add-email {
+	height:35px;
+	width:unset;
+	margin-top: 24px;
+	padding-left: 17px;
+	padding-right: 19px;
+}
+
+checkbox-app {
+	margin: 35px 0px;
+}
+
+.request-detail {
+	margin-bottom: var(--spacing-s);
+}
+
+.email-detail {
+	margin-bottom: var(--spacing-xs);
+}
+
+spinner-app {
+	margin: 1rem auto auto 1rem;
+}
