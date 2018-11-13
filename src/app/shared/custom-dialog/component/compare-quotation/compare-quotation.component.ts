@@ -22,7 +22,7 @@ export class CompareQuotationComponent extends AutoUnsub implements AfterViewIni
 	}
 
   ngAfterViewInit() {
-
+    console.log(this.products);
   }
 
 	closeDlg() {

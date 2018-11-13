@@ -6,7 +6,8 @@ import { ERM, Product, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
+  ProductRequestTeamFeedbackDlgComponent,
+  CompareQuotationComponent,
 	RfqDialogComponent,
 } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
@@ -97,6 +98,13 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 			selectedProducts: product ? [product] : this.selectionItems()
 		});
 	}
+
+	/** Opens a dialog that lets the user compare quotation between products */
+	openCompareQuotationDialog() {
+		this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
+			products: this.selectionItems()
+		});
+  }
 
 	openRequestQuotationDialog(product: Product) {
 		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product });
