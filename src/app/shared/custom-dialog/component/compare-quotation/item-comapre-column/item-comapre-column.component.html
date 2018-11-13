@@ -1,3 +1,59 @@
-<p>
+<div class="item-compare-column-container">
+  <div class="item-compare-column_header-contaienr">
+    <img alt="">
+    <div class="item-compare-column_supplier"></div>
+  </div>
+  <div class="item-compare-column_body">
+    <div *ngIf="type === 'title'" class="title">Reference</div>
+    <div *ngIf="type === 'content'" class="content">Reference</div>
+	  <divider-app></divider-app>
+    <div *ngIf="type === 'title'" class="title">Price</div>
+    <div *ngIf="type === 'content'" class="content">Price</div>
+	  <divider-app></divider-app>
+    <div *ngIf="type === 'title'" class="title">MOQ</div>
+    <div *ngIf="type === 'content'" class="content">MOQ</div>
+	  <divider-app></divider-app>
+    <div *ngIf="type === 'title'" class="title">MOQ Description</div>
+    <div *ngIf="type === 'content'" class="content">MOQ Description</div>
+	  <divider-app></divider-app>
+    <div *ngIf="type === 'title'" class="title">Sample Price</div>
+    <div *ngIf="type === 'content'" class="content">Sample Price</div>
+    <divider-app></divider-app>
 
-</p>
+    <div *ngIf="type === 'title'" class="big-title">PRICE MATRIX</div>
+
+
+    <div *ngIf="type === 'title'" class="title">1000pcs</div>
+    <div *ngIf="type === 'content'" class="content">1000pcs</div>
+    <divider-app></divider-app>
+
+
+    <div *ngIf="type === 'title'" class="title">10 000pcs</div>
+    <div *ngIf="type === 'content'" class="content">10 000pcs</div>
+    <divider-app></divider-app>
+
+    <div *ngIf="type === 'title'" class="big-title">TRADING</div>
+
+    <div *ngIf="type === 'title'" class="title">Inco Term</div>
+    <div *ngIf="type === 'content'" class="content">Inco Terms</div>
+    <divider-app></divider-app>
+
+    <div *ngIf="type === 'title'" class="title">Harbour</div>
+    <div *ngIf="type === 'content'" class="content">Harbour</div>
+    <divider-app></divider-app>
+
+    <div *ngIf="type === 'title'" class="big-title">PACKAGING</div>
+
+    <div *ngIf="type === 'title'" class="title">Carton Size</div>
+    <div *ngIf="type === 'content'" class="content">Carton Size</div>
+    <divider-app></divider-app>
+
+    <div *ngIf="type === 'title'" class="title">Master Carton</div>
+    <div *ngIf="type === 'content'" class="content">Master Carton</div>
+    <divider-app></divider-app>
+
+    <div *ngIf="type === 'title'" class="title">Pcs per Master</div>
+    <div *ngIf="type === 'content'" class="content">Pcs per Master</div>
+    <divider-app></divider-app>
+  </div>
+</div>

@@ -13,7 +13,6 @@ export class CompareQuotationComponent extends AutoUnsub implements AfterViewIni
 
   @Input() products: Product[] = [];
 
-
 	constructor(
 		private dlgSrv: DialogService) {
       super();
