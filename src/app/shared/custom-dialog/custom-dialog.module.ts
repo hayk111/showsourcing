@@ -17,6 +17,7 @@ import { CrudDialogService } from '~shared/custom-dialog/services/crud-dialog.se
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
+import { ItemCompareColumnComponent } from './component/compare-quotation/item-comapre-column/item-comapre-column.component';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 import { CarouselModule } from '~shared/carousel';
 
@@ -36,7 +37,8 @@ import { CarouselModule } from '~shared/carousel';
 		ProductAddToProjectDlgComponent,
     ProductRequestTeamFeedbackDlgComponent,
     CompareQuotationComponent,
-		ProductExportDlgComponent,
+    ProductExportDlgComponent,
+    ItemCompareColumnComponent,
 		EmailListComponent,
 		RfqDialogComponent
 	],
