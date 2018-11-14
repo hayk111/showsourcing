@@ -1,0 +1,31 @@
+
+<kanban-col-app
+  *ngFor="let col of cols; let i = index;">
+
+  <!-- header -->
+  <header class="flexBetween" [ngStyle]="getStyle(col)">
+    <checkbox-app
+      (check)="check.emit(true)"
+      (uncheck)="check.emit(false)">
+    </checkbox-app>
+    <span>
+      {{ col.title }}
+    </span>
+    <span>{{ col.data?.length }}</span>
+  </header>
+
+  <!-- main list -->
+  <main
+    cdkDropList
+    [id]="col.id"
+    [cdkDropListConnectedTo]="getOtherIds(col.id)"
+    [cdkDropListData]="col.data"
+    (cdkDropListDropped)="onDrop($event)">
+    <kanban-item-app *ngFor="let data of col.data" cdkDrag>
+      <div class="custom-placeholder" *cdkDragPlaceholder></div>
+      <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: data }">
+      </ng-container>
+    </kanban-item-app>
+  </main>
+
+</kanban-col-app>

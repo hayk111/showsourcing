@@ -1,22 +1,18 @@
 <div class="kanban__item cell ng-star-inserted main flexBetween"
      [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked), 'clickable' : clickable }"
      (clickOutside)="onClickOutsideCard()"
-	 (click)="clickable && openProduct()"
-     (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
+	   (click)="clickable && openProduct()">
   <div class="mainCellWrapper ellipsis ng-star-inserted" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
     <div class="mainCell">
       <div class="imgCtnr">
         <img class="mini image ng-star-inserted" *ngIf="product?.images?.length" [src]="product | image:'m'"
-             (click)="clickImage.emit()"
-             (dragstart)="preventDrag($event)">
+             (click)="clickImage.emit()">
         <div *ngIf="enablePreviewLink" class="preview" (click)="clickImage.emit()"><div>Preview</div></div>
         <div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
-          <checkbox-app [checked]="checked"
-                        (check)="onChecked()"
-                        (uncheck)="onUnchecked()"
-                        (dragstart)="preventDrag($event)"
-                        (mouseenter)="toggleDragDropEnable('checkbox', $event)"
-                        (mouseleave)="toggleDragDropEnable('checkbox', $event)">
+          <checkbox-app
+            [checked]="checked"
+            (check)="onChecked()"
+            (uncheck)="onUnchecked()">
           </checkbox-app>
         </div>
       </div>

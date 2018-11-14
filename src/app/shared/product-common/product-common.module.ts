@@ -25,6 +25,7 @@ import { ProductSortingMenuComponent } from '~shared/product-common/components/p
 import { ProductPreviewComponent } from '~shared/product-common/containers/product-preview/product-preview.component';
 import { ProductCardComponent } from '~shared/product-common/components/product-card/product-card.component';
 import { SSPricePipe } from '~shared/price/price.pipe';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { SSPricePipe } from '~shared/price/price.pipe';
 		FiltersModule,
 		DynamicFormsModule,
 		ReactiveFormsModule,
-		CarouselModule
+		CarouselModule,
+		DragDropModule
 	],
 	declarations: [
 		FindProductsDialogComponent,
