@@ -7,13 +7,15 @@ import { GuestTemplateComponent } from '~shared/template/components/guest-templa
 import { TemplateComponent } from '~shared/template/components/template/template.component';
 import { RfqTemplateComponent } from '~shared/template/components/rfq-template/rfq-template.component';
 import { IconsModule } from '~shared/icons';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild([]),
 		HeaderModule,
-		IconsModule
+		IconsModule,
+		ScrollingModule
 	],
 	declarations: [TemplateComponent, GuestTemplateComponent, RfqTemplateComponent],
 	exports: [],

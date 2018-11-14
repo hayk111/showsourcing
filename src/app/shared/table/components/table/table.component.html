@@ -1,4 +1,4 @@
-<div class="ctnr" infiniScroll (bottomReached)="bottomReached.emit()">
+<div class="ctnr" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable id="table-scroll-id">
 	<div class="contentCtnr" *ngIf="!pending">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
@@ -37,11 +37,29 @@
 				(mouseenter)="hoverRow(i)"
 				(mouseleave)="hoverRow(-1)">
 				<icon-app *ngIf="isSelectable(row)"
+					#overlayOrigin="cdkOverlayOrigin"
+					cdkOverlayOrigin
 					class="color-txt-secondary"
 					name="dots-vertical"
-					size="18">
+					size="18"
+					(click)="showThePortal($event)">
 				</icon-app>
-				<context-menu-app
+				<!-- OVERLAY WITH DIRECTIVE -->
+				<!-- <icon-app *ngIf="isSelectable(row) && i === 14"
+					#overlayOrigin="cdkOverlayOrigin"
+					cdkOverlayOrigin
+					class="color-txt-secondary"
+					name="dots-vertical"
+					size="18"
+					(click)="showThePortal()">
+				</icon-app>
+				<cdk-portal-app
+					[isOpened]="isOpen"
+					[overlayOrigin]="overlayOrigin">
+					REKTTTTTTTTTTTTTTTTTT
+				</cdk-portal-app> -->
+
+				<!-- <context-menu-app
 					*ngIf="isSelectable(row)"
 					[xPosition]="-19"
 					[yPosition]="27"
@@ -53,7 +71,7 @@
 					<ng-container
 						*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
 					</ng-container>
-				</context-menu-app>
+				</context-menu-app> -->
 			</div>
 		</div>
 

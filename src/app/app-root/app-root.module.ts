@@ -21,6 +21,8 @@ import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { PortalModule } from '~shared/portal';
 import { TemplateModule } from '~shared/template';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { AppOverlayContainer } from '~features/test-page/test-page/custom-overlay-container';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -55,7 +57,7 @@ import { TemplateModule } from '~shared/template';
 		}),
 		PortalModule
 	],
-	providers: [],
+	providers: [{ provide: OverlayContainer, useFactory: () => new AppOverlayContainer(document) }],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
 })
