@@ -1,7 +1,9 @@
 <div class="item-compare-column-container">
   <div class="item-compare-column_header-container">
-    <img alt="">
-    <div class="item-compare-column_supplier"></div>
+    <div class="image-container"  *ngIf="type === 'content'">
+      <img-app [customStyle]="{'border-radius': '5px'}" [image]="product?.images" type="product" size="s" [objectFit]="'cover'"></img-app>
+    </div>
+    <div class="item-compare-column_supplier"  *ngIf="type === 'content'">{{ product?.supplier?.name || 'Unnamed Product' }}</div>
   </div>
   <div class="item-compare-column_body">
     <div class="comparison-row">
@@ -11,7 +13,7 @@
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Price</div>
-      <div *ngIf="type === 'content'" class="content">Price</div>
+      <div *ngIf="type === 'content'" class="content">{{ priceAmount | currency: product?.price?.currency:'symbol':'1.2-2'}}</div>
     </div>
 
     <div class="comparison-row">
@@ -21,15 +23,15 @@
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">MOQ Description</div>
-      <div *ngIf="type === 'content'" class="content">MOQ Description</div>
+      <div *ngIf="type === 'content'" class="content">{{ product?.moqDescription }}</div>
     </div>
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Sample Price</div>
-      <div *ngIf="type === 'content'" class="content">Sample Price</div>
+      <div *ngIf="type === 'content'" class="content">{{ product?.samplePrice }}</div>
     </div>
 
-    <div class="comparison-row">
+    <div class="comparison-row-big">
       <div *ngIf="type === 'title'" class="big-title">PRICE MATRIX</div>
     </div>
 
@@ -43,7 +45,7 @@
       <div *ngIf="type === 'content'" class="content">10 000pcs</div>
     </div>
 
-    <div class="comparison-row">
+    <div class="comparison-row-big">
       <div *ngIf="type === 'title'" class="big-title">TRADING</div>
     </div>
 
@@ -57,7 +59,7 @@
       <div *ngIf="type === 'content'" class="content">Harbour</div>
     </div>
 
-    <div class="comparison-row">
+    <div class="comparison-row-big">
       <div *ngIf="type === 'title'" class="big-title">PACKAGING</div>
     </div>
 
