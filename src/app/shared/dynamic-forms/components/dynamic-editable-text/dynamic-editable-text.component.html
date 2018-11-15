@@ -143,13 +143,15 @@
 			<span class="mg-xs spacer"></span>
 			<span>{{ value && (value.value !== undefined) ? (value.value / 10000) : '-' }}</span>
 		</editable-label-app>
-		<input-price-app
-			#inp
-			[price]="accumulator"
-			(keyup.enter)="editable.close()"
-			(change)="accumulate(inp.price);"
-			(blur)="onBlur()">
-		</input-price-app>
+		<form-field-app class="editable">
+			<input-price-app
+				#inp
+				formFieldCtrl
+				[price]="accumulator"
+				(keyup.enter)="editable.close()"
+				(change)="accumulate(inp.price);">
+			</input-price-app>
+		</form-field-app>
 	</editable-field-app>
 
 	<!-- yesNo -->

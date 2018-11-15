@@ -32,7 +32,9 @@
 		[canGrow]="customField.multiple"
 		(opened)="selector.open()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
+		<editable-label-app class="flex"
+			[class.flexEnd]="inlineLabel"
+			[class.flexWrap]="customField.multiple">
 			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 		</editable-label-app>
 		<selector-entity-app
