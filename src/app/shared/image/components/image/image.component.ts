@@ -22,6 +22,7 @@ export class ImageComponent {
 	// so we can have an appropriate default image
 	@Input() type: string;
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'cover';
+	@Input() customStyle = {};
 
 	constructor() { }
 
@@ -31,6 +32,11 @@ export class ImageComponent {
 		else
 			return 'rotate(' + (this.image.orientation * 90) % 360 + 'deg)';
 	}
+
+  getCustomStyle() {
+    console.log({'object-fit': this.objectFit, ...this.customStyle});
+    return {'object-fit': this.objectFit, ...this.customStyle};
+  }
 
 	rotate() {
 		this.transform = this.getRotation();

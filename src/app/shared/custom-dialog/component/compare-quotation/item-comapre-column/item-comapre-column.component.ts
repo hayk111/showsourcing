@@ -12,6 +12,7 @@ export class ItemCompareColumnComponent extends TrackingComponent implements OnI
   @Input() type: ('title' | 'content') = 'content';
   @Input() product: Product;
 
+
 	constructor() {
 		super();
 	}
