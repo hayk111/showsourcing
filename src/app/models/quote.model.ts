@@ -1,6 +1,7 @@
 import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
 import { Price } from '~models/price.model';
+import { Supplier } from '~models/supplier.model';
 import { uuid } from '~utils';
 import { RequestStatus } from '~utils/constants/request-status.enum';
 
@@ -9,18 +10,23 @@ export class Quote {
 	status: string; // possible values: pending, done, declined
 	comment?: string;
 	// Basic product fields
-	name: string;
-	price?: Price;
-	description?: string;
+  name: string;
+  description?: string;
+	harbour?: string;
+	incoTerms?: string;
+	innerCarton?: Packaging;
+	leadTimeUnit?: string;
+	leadTimeValue?: number;
+	masterCarton?: Packaging;
 	minimumOrderQuantity?: number;
 	moqDescription?: string;
-	innerCarton?: Packaging;
-	masterCarton?: Packaging;
+	price?: Price;
 	priceMatrix?: PriceMatrix;
-	leadTimeValue?: number;
-	leadTimeUnit?: string;
+	reference?: string;
 	sample?: boolean;
 	samplePrice?: number;
+	supplier?: Supplier;
+
 	__typename ?= 'Quote';
 
 	constructor(config: QuoteConfig) {
