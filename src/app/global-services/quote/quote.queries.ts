@@ -2,22 +2,27 @@ import { GlobalQueries } from '~global-services/_global/global-queries.class';
 import { ProductQueries } from '~global-services/product/product.queries';
 
 export abstract class QuoteQueries extends GlobalQueries {
-	static readonly one = `
+  static readonly one = `
+    id,
 		status,
 		comment,
 		name,
-		price,
-		description,
+    ${ProductQueries.price()}
+    description,
+    harbour,
+    incoTerms,
 		minimumOrderQuantity,
-		moqDescription,
+    moqDescription,
+    reference,
 		${ProductQueries.packaging('innerCarton')},
 		${ProductQueries.packaging('masterCarton')},
 		${ProductQueries.priceMatrix}
 		leadTimeValue,
 		leadTimeUnit,
-		sample,
-		samplePrice
-	`;
+    sample,
+    ${ProductQueries.supplier},
+    ${ProductQueries.price('samplePrice')}
+  `;
 
 	static readonly many = `
 		id,
@@ -25,15 +30,19 @@ export abstract class QuoteQueries extends GlobalQueries {
 		comment,
 		name,
 		price,
-		description,
+    description,
+    harbour,
+    incoTerms,
 		minimumOrderQuantity,
-		moqDescription,
+    moqDescription,
+    reference,
 		${ProductQueries.packaging('innerCarton')},
 		${ProductQueries.packaging('masterCarton')},
 		${ProductQueries.priceMatrix}
 		leadTimeValue,
 		leadTimeUnit,
-		sample,
+    sample,
+    supplier,
 		samplePrice
 	`;
 }
