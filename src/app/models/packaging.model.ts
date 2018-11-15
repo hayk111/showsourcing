@@ -8,7 +8,8 @@ export class Packaging {
 	length?: number;
 	unit?: string;
 	itemsQuantity?: number;
-	weight?: number;
+  weight?: number;
+  depth?: number;
 	weightUnit?: string;
 	__typename ?= 'Packaging';
 
