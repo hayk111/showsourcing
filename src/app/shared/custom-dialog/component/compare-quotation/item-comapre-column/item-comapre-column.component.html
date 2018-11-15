@@ -8,17 +8,17 @@
   <div class="item-compare-column_body">
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Reference</div>
-      <div *ngIf="type === 'content'" class="content">{{ quote.reference }}</div>
+      <div *ngIf="type === 'content'" class="content">{{ quote?.reference }}</div>
     </div>
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Price</div>
-      <div *ngIf="type === 'content'" class="content">{{ quote?.price?.value | currency: quote.price.currency:'symbol':'1.2-2'}}</div>
+      <div *ngIf="type === 'content'" class="content">{{ quote?.price?.value | currency: quote?.price.currency:'symbol':'1.2-2'}}</div>
     </div>
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">MOQ</div>
-      <div *ngIf="type === 'content'" class="content">{{ quote.minimumOrderQuantity }}</div>
+      <div *ngIf="type === 'content'" class="content">{{ quote?.minimumOrderQuantity }}</div>
     </div>
 
     <div class="comparison-row">
@@ -37,12 +37,12 @@
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">1000pcs</div>
-      <div *ngIf="type === 'content'" class="content">{{ quote.priceMatrix.priceMatrixRow['1000pcs'] }}</div>
+      <div *ngIf="type === 'content'" class="content">{{ quote?.priceMatrix.priceMatrixRow['1000pcs'] }}</div>
     </div>
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">10 000pcs</div>
-      <div *ngIf="type === 'content'" class="content">{{ quote.priceMatrix.priceMatrixRow['10000pcs'] }}</div>
+      <div *ngIf="type === 'content'" class="content">{{ quote?.priceMatrix.priceMatrixRow['10000pcs'] }}</div>
     </div>
 
     <div class="comparison-row-big">
@@ -51,12 +51,12 @@
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Inco Term</div>
-      <div *ngIf="type === 'content'" class="content">{{quote.incoTerms}}</div>
+      <div *ngIf="type === 'content'" class="content">{{quote?.incoTerms}}</div>
     </div>
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Harbour</div>
-      <div *ngIf="type === 'content'" class="content">{{quote.harbour}}</div>
+      <div *ngIf="type === 'content'" class="content">{{quote?.harbour}}</div>
     </div>
 
     <div class="comparison-row-big">
@@ -65,17 +65,17 @@
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Carton Size</div>
-      <div *ngIf="type === 'content'" class="content">{{getPackagingString(quote.innerCarton)}}</div>
+      <div *ngIf="type === 'content'" class="content">{{getPackagingString(quote?.innerCarton)}}</div>
     </div>
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Master Carton</div>
-      <div *ngIf="type === 'content'" class="content">{{getPackagingString(quote.masterCarton)}}</div>
+      <div *ngIf="type === 'content'" class="content">{{getPackagingString(quote?.masterCarton)}}</div>
     </div>
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Pcs per Master</div>
-      <div *ngIf="type === 'content'" class="content">{{quote.masterCarton.quantity}}</div>
+      <div *ngIf="type === 'content'" class="content">{{quote?.masterCarton.quantity}}</div>
     </div>
   </div>
 </div>
