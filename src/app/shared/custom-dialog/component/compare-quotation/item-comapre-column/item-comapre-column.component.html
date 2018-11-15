@@ -65,12 +65,12 @@
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Carton Size</div>
-      <div *ngIf="type === 'content'" class="content">Carton Size</div>
+      <div *ngIf="type === 'content'" class="content">{{getPackagingString(product?.innerCarton)}}</div>
     </div>
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">Master Carton</div>
-      <div *ngIf="type === 'content'" class="content">Master Carton</div>
+      <div *ngIf="type === 'content'" class="content">{{getPackagingString(product?.masterCarton)}}</div>
     </div>
 
     <div class="comparison-row">
