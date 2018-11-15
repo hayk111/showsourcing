@@ -1,7 +1,7 @@
 <div class="item-compare-column-container">
   <div class="item-compare-column_header-container">
     <div class="image-container"  *ngIf="type === 'content'">
-      <img-app [customStyle]="{'border-radius': '5px'}" [image]="product?.images" type="product" size="s" [objectFit]="'cover'"></img-app>
+      <img-app [customStyle]="{'border-radius': '5px'}" [image]="quote?.product?.images" type="product" size="s" [objectFit]="'cover'"></img-app>
     </div>
     <div class="item-compare-column_supplier"  *ngIf="type === 'content'">{{ quote?.supplier?.name }}</div>
   </div>
