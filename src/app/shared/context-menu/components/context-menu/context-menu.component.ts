@@ -21,6 +21,7 @@ export type MenuPositionY = 'above' | 'below';
 export class ContextMenuComponent implements OnInit {
 
 	@Input() menuOpen = false;
+	/** activates the scroll strategy applied by the CDK directive */
 	@Input() closeOnScroll = false;
 	@Output() menuClosed = new EventEmitter<any>();
 
@@ -29,7 +30,6 @@ export class ContextMenuComponent implements OnInit {
 	constructor(private sso: ScrollStrategyOptions) { }
 
 	ngOnInit() {
-		// this works but when the content closes from scrolling, it cannot be open again
 		this.scrollStrat = this.closeOnScroll ? this.sso.close() : this.sso.reposition();
 	}
 

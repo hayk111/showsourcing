@@ -1,5 +1,5 @@
 import { OverlayModule } from '@angular/cdk/overlay';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '~shared/shared.module';
@@ -11,7 +11,7 @@ import { CustomTableComponent } from '~shared/table/components/custom-table/cust
 		SharedModule,
 		OverlayModule,
 		CommonModule,
-		ScrollDispatchModule
+		ScrollingModule
 
 	],
 	declarations: [TableComponent, ColumnDirective, CustomTableComponent],
