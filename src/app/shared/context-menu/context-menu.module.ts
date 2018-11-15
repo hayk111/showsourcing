@@ -6,12 +6,14 @@ import { ContextMenuItemComponent } from '~shared/context-menu/components/contex
 import { UtilsModule } from '~shared/utils';
 import { ContextMenuDividerComponent } from '~shared/context-menu/components/context-menu-divider/context-menu-divider.component';
 import { DividerModule } from '~shared/divider/divider.module';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		UtilsModule,
-		DividerModule
+		DividerModule,
+		OverlayModule
 	],
 	declarations: [ContextMenuComponent, ContextMenuTriggerComponent, ContextMenuItemComponent, ContextMenuDividerComponent],
 	exports: [ContextMenuComponent, ContextMenuTriggerComponent, ContextMenuItemComponent, ContextMenuDividerComponent]

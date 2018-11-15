@@ -1,22 +1,18 @@
 import {
-	AfterContentInit,
 	ChangeDetectionStrategy,
 	Component,
 	ContentChildren,
 	EventEmitter,
 	HostListener,
 	Input,
+	OnChanges,
 	Output,
 	QueryList,
 	TemplateRef,
-	OnChanges,
-	ViewChild
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
-import { CdkPortalService } from '~shared/portal/components/cdk-portal/cdk-portal.service';
-import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 
 @Component({
 	selector: 'table-app',
@@ -66,8 +62,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 	// currently sorted column
 	currentSortedColumn: ColumnDirective;
-	isOpen = false;
-	@ViewChild('overlayOrigin') overlayOrigin: CdkOverlayOrigin;
 
 	/** Different rows displayed */
 	@Input() rows;
@@ -84,7 +78,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	// track by for column
 	columnTrackByFn = (index) => index;
 
-	constructor(private cdkPortal: CdkPortalService) {
+	constructor() {
 		super();
 	}
 
@@ -170,12 +164,5 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		Object.keys(this.contextualMenuOpened).forEach(key => {
 			this.contextualMenuOpened[key] = false;
 		});
-	}
-
-	showThePortal(ting) {
-		// console.log(ting);
-		this.cdkPortal.open(ting.target); // OVErLAY WITHOUT DIRECTIVE
-		// this.cdkPortal.reveal(); // PORTAL
-		// this.isOpen = !this.isOpen; // OVERLAY WITH DIRECTIVE
 	}
 }

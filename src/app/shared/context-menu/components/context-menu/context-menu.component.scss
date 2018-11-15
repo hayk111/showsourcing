@@ -1,13 +1,9 @@
-:host {
-	position: relative;
-}
 .trigger {
 	display: inline-block;
 }
 
 .menu {
 	z-index: var(--z-draganddrop-progress);
-	position: absolute;
 	background: white;
 	color: var(--color-txt-primary);
 	display: block;

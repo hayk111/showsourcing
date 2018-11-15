@@ -12,12 +12,9 @@ export class CdkPortalComponent implements OnInit {
 	// PORTAL & OVERLAY WITHOUT DIRECTIVE
 	constructor() { }
 
-	ngOnInit() {
-	}
+	ngOnInit() { }
 
 	// OVERLAY WITH DIRECTIVE
 	// @Input() overlayOrigin: CdkOverlayOrigin;
 	// @Input() isOpened = false;
-
-
 }

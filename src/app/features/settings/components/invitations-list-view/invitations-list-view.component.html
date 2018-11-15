@@ -38,7 +38,7 @@
 		let-row="row"
 		sortBy="accessType"
 		width="200">
-		<context-menu-app xPosition="after" yPosition="30" *ngIf="teamOwner && (row.user.id !== user.id)">
+		<context-menu-app *ngIf="teamOwner && (row.user.id !== user.id)">
 			<context-menu-trigger-app class="flex pointer">
 				<div class="text" *ngIf="row.accessType === 'FullAccess'"> Team Member </div>
 				<div class="text" *ngIf="row.accessType === 'ReadOnly'"> Contributor </div>

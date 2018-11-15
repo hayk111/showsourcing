@@ -40,16 +40,19 @@ export class CdkPortalService {
 	constructor(private overlay: Overlay, private overlayPos: OverlayPositionBuilder) { }
 
 	open(element: ElementRef) {
-		console.log(element);
 		const positionStrategy = this.overlayPos
 			.flexibleConnectedTo(element).withViewportMargin(5)
 			.withPositions([{ overlayX: 'start', overlayY: 'top', originX: 'end', originY: 'bottom' }]);
-		const overlayRef = this.overlay.create({ positionStrategy, scrollStrategy: this.overlay.scrollStrategies.reposition() });
+		const overlayRef = this.overlay
+			.create({
+				positionStrategy,
+				scrollStrategy: this.overlay.scrollStrategies.close()
+			});
 		const dialogRef = new CdkPortalRef(overlayRef);
 		const theOverlayRef = new ComponentPortal(CdkPortalComponent);
 		overlayRef.attach(theOverlayRef);
-		console.log(overlayRef.getDirection());
-		overlayRef.backdropClick().subscribe(_ => dialogRef.close());
+		// overlayRef.backdropClick().subscribe(_ => dialogRef.close());
+
 	}
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductVoteService } from '~global-services/product-vote/product-vote.service';
-import { Product, ProductVote } from '~models';
 import { UserService } from '~global-services/user/user.service';
+import { Product, ProductVote } from '~models';
 
 @Injectable({ providedIn: 'root' })
 export class ThumbService {
@@ -111,7 +111,7 @@ export class ThumbService {
 				id: this.userSrv.userSync.id,
 				firstName: this.userSrv.userSync.firstName,
 				lastName: this.userSrv.userSync.lastName,
-				// avatar: this.userSrv.userSync.avatar, // uncomment when the Image.creationDate bug is fixed
+				avatar: this.userSrv.userSync.avatar, // uncomment when the Image.creationDate bug is fixed
 				__typename: 'User'
 			}
 		});

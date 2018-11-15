@@ -57,7 +57,6 @@ import { AppOverlayContainer } from '~features/test-page/test-page/custom-overla
 		}),
 		PortalModule
 	],
-	providers: [{ provide: OverlayContainer, useFactory: () => new AppOverlayContainer(document) }],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
 })
