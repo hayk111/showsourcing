@@ -2,6 +2,7 @@ import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
 import { Price } from '~models/price.model';
 import { Supplier } from '~models/supplier.model';
+import { Product } from '~models/product.model';
 import { uuid } from '~utils';
 import { RequestStatus } from '~utils/constants/request-status.enum';
 
@@ -21,7 +22,8 @@ export class Quote {
 	minimumOrderQuantity?: number;
 	moqDescription?: string;
 	price?: Price;
-	priceMatrix?: PriceMatrix;
+  priceMatrix?: PriceMatrix;
+  product?: Product;
 	reference?: string;
 	sample?: boolean;
 	samplePrice?: number;
