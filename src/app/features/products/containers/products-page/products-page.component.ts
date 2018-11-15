@@ -102,7 +102,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	/** Opens a dialog that lets the user compare quotation between products */
 	openCompareQuotationDialog() {
-    this.quotationSrv.getQuotationFromProducts(this.selectionItems()).subscribe(_quotes => {
+    this.quotationSrv.getQuotationFromProducts(this.selectionItems().map(x => x.id)).subscribe(_quotes => {
       this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
         quotes: _quotes
       });

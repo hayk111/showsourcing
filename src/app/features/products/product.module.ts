@@ -18,7 +18,7 @@ import { ProductDetailsComponent,
           ProductQuotationComponent
         } from '~features/products/containers';
 import { routes } from '~features/products/routes';
-import { ProductFeatureService } from '~features/products/services';
+import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { ActivityModule } from '~shared/activity/activity.module';
 import { BadgeModule } from '~shared/badge/badge.module';
@@ -102,7 +102,7 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		VoteDetailsDialogComponent
 	],
 	exports: [],
-	providers: [ProductFeatureService]
+	providers: [ProductFeatureService, QuoteFeatureService]
 })
 export class ProductModule {
 
