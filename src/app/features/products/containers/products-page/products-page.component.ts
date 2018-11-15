@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ProductFeatureService } from '~features/products/services';
+import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
 import { ERM, Product, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
@@ -46,7 +46,8 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected router: Router,
 		protected featureSrv: ProductFeatureService,
 		protected searchSrv: SearchService,
-		protected selectionSrv: SelectionService,
+    protected selectionSrv: SelectionService,
+    protected quotationSrv: QuoteFeatureService,
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
 		protected moduleRef: NgModuleRef<any>,
@@ -101,9 +102,11 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	/** Opens a dialog that lets the user compare quotation between products */
 	openCompareQuotationDialog() {
-		this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
-			products: this.selectionItems()
-		});
+    this.quotationSrv.getQuotationFromProducts(this.selectionItems()).subscribe(_quotes => {
+      this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
+        quotes: _quotes
+      });
+    });
   }
 
 	openRequestQuotationDialog(product: Product) {
