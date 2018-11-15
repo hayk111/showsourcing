@@ -1,24 +1,35 @@
 :host {
 	display: block;
-	background-color: var(--color-secondary-light);
-	border: 1px solid var(--color-secondary);
-	border-radius: var(--border-radius-s);
-	overflow: overlay;
-	height: 223px;
+  overflow: overlay;
+  max-height: inherit;
+  min-width: 196px;
 }
 .item-compare-column_header-container {
-	img {
-		width: 120px;
-		height: 120px;
-	}
+  height: 170px;
+  .image-container {
+    width: 120px;
+    height: 120px;
+
+  }
 	.item-compare-column_supplier {
 		font-size: 13px;
-		font-weight: 600;
-		color: var(--color-primary);
+    font-weight: 600;
+    height: 34px;
+    color: var(--color-primary);
+    margin-top: var(--spacing-l);
+    word-break: break-all;
 	}
 }
-
+.comparison-row-big,
 .comparison-row {
+  border-bottom: 1px solid var(--color-divider);
+  height: 33px;
+  line-height: 33px;
+  box-sizing:border-box;
+  vertical-align: middle;
+  // &:last-child {
+  //   border: none;
+  // }
 	.title {
 		font-size: 13px;
 		font-weight: 600;
@@ -28,5 +39,16 @@
 		font-size: 13px;
 		font-weight: 600;
 		color: var(--color-secondary-dark);
-	}
+  }
+
+}
+
+.comparison-row-big {
+  border: none;
+  margin: 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Raleway';
+  color: var(--color-primary);
+  text-transform: uppercase;
 }

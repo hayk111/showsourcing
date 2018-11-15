@@ -24,9 +24,13 @@ dialog-app {
 	stage-indicator-app {
 		margin-bottom: 32px;
 	}
-	
+
 	.item-container {
 		display: inline-block;
-	}
+  }
+
+  .content {
+    overflow: auto;
+  }
 }
 
