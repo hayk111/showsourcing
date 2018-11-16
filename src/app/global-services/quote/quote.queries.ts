@@ -21,7 +21,7 @@ export abstract class QuoteQueries extends GlobalQueries {
 		leadTimeUnit,
     sample,
     ${ProductQueries.supplier},
-    ${ProductQueries.price('samplePrice')}
+    samplePrice
   `;
 
 	static readonly many = `
@@ -29,7 +29,7 @@ export abstract class QuoteQueries extends GlobalQueries {
 		status,
 		comment,
 		name,
-		price,
+    ${ProductQueries.price()}
     description,
     harbour,
     incoTerms,
@@ -42,7 +42,6 @@ export abstract class QuoteQueries extends GlobalQueries {
 		leadTimeValue,
 		leadTimeUnit,
     sample,
-    supplier,
-		samplePrice
+    samplePrice
 	`;
 }
