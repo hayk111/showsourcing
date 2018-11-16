@@ -30,6 +30,7 @@
 
 	<!-- task status -->
 	<div class="flexEnd task-user-status">
+		<!-- hint: the user picture is sometimes displayed right next to the status -->
 		<user-picture-app *ngIf="!fullUser" [user]="task?.assignee" [size]="20" [border]="true" (click)="openSelectorEntity($event)"></user-picture-app>
 		<div class="flex task-status"
 			[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}"

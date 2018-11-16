@@ -36,6 +36,8 @@ import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { ERM_TOKEN, ERM } from '~models';
+import { KanbanModule } from '~shared/kanban/kanban.module';
+
 
 @NgModule({
 	imports: [
@@ -57,7 +59,8 @@ import { ERM_TOKEN, ERM } from '~models';
 		SearchAutocompleteModule,
 		ProductCommonModule,
 		WorkflowActionModule,
-		FiltersModule
+		FiltersModule,
+		KanbanModule
 	],
 	declarations: [
 		ProjectsPageComponent,
@@ -80,4 +83,4 @@ import { ERM_TOKEN, ERM } from '~models';
 		{ provide: ERM_TOKEN, useValue: ERM.PROJECT }
 	]
 })
-export class ProjectModule {}
+export class ProjectModule { }

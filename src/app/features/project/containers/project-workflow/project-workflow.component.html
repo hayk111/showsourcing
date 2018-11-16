@@ -1,11 +1,24 @@
 <div class="workflowCtnr" *ngIf="project$ | async as project">
+
 	<top-panel-app
 		[title]="project.name"
 		buttonName="Add Products"
-		[subtitles]="['Projects', project.name, 'Kanban View']"
-		(buttonClick)="openFindProductDlg()">
+		[subtitles]="['Projects', project.name, 'Kanban View']">
 	</top-panel-app>
 
+	<kanban-app
+		[cols]="columns$ | async"
+		[cardTemplate]="card"
+		(drop)="updateProductStatus($event)"></kanban-app>
+
+	<ng-template #card let-data="data">
+		<product-card-app
+			[product]="data"
+			[enablePreviewLink]="true">
+		</product-card-app>
+	</ng-template>
+
+<!--
 	<div class="kanbanCtnr">
 		<workflow-kanban2-app
 			[columns]="columns$ | async"
@@ -30,13 +43,10 @@
 			[checked]="checked"
 			[enablePreviewLink]="true"
 			(dragDropEnable)="dragDropEnable$.next($event)"
-			(select)="selectItem.emit(row)"
-			(unselect)="unselectItem.emit(row)"
-			(clickImage)="previewClick.emit(row)">
 		</product-card-app>
-  </ng-template>
+  </ng-template> -->
 
-	<ng-template #contextualMenu let-row="row">
+	<!-- <ng-template #contextualMenu let-row="row">
 		<context-menu-app>
 			<context-menu-trigger-app>
 				<button class="icon light">
@@ -56,9 +66,9 @@
 				<div class="border">Delete</div>
 			</context-menu-item-app>
 		</context-menu-app>
-</ng-template>
+</ng-template> -->
 
-	<selection-bar-app
+	<!-- <selection-bar-app
 		[isShown]="(selected$ | async).size > 0"
 		[selection]="selected$ | async"
 		[hasDelete]="false"
@@ -80,13 +90,12 @@
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
-	</selection-bar-app>
+	</selection-bar-app> -->
 </div>
 
-<product-preview-app
+<!-- <product-preview-app
   *ngIf="previewOpen"
   [product]="previewed"
   (close)="closePreview()"
   (clickOutside)="closePreview()">
-
-</product-preview-app>
+</product-preview-app> -->
