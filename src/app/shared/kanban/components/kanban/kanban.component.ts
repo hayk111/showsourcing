@@ -1,6 +1,7 @@
-import { CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { AfterViewInit, ChangeDetectionStrategy, EventEmitter, Component, Input, Output, QueryList, ViewChildren } from '@angular/core';
-import { KanbanColum } from '~shared/kanban/interfaces/kanban-column.interface';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
 	selector: 'kanban-app',
@@ -8,11 +9,11 @@ import { KanbanColum } from '~shared/kanban/interfaces/kanban-column.interface';
 	styleUrls: ['./kanban.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class KanbanComponent {
-	@Input() cols: KanbanColum[] = [];
+export class KanbanComponent extends TrackingComponent {
+	@Input() cols: KanbanColumn[] = [];
 	/** template for the displayed item */
 	@Input() cardTemplate: any;
-	@Output() drop = new EventEmitter<CdkDragDrop<any>>();
+	@Output() drop = new EventEmitter<KanbanDropEvent>();
 	/** when the top checkbox is checked */
 	@Output() check = new EventEmitter<boolean>();
 
@@ -30,10 +31,14 @@ export class KanbanComponent {
 				event.previousIndex,
 				event.currentIndex);
 		}
-		this.drop.emit(event);
+		this.drop.emit({
+			item: event.container.data[event.currentIndex],
+			from: event.previousContainer.id,
+			to: event.container.id
+		});
 	}
 
-	getStyle(col: KanbanColum) {
+	getStyle(col: KanbanColumn) {
 		return {
 			'border-top-color': `var(--color-${col.color})`
 		};

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ERM, KanbanColumn, Product, ProductVote } from '~models';
+import { ERM, Product, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -24,7 +24,7 @@ import { ThumbService } from '~shared/rating/services/thumbs.service';
 })
 export class MyWorkflowPageComponent extends ListPageComponent<Product, WorkspaceFeatureService> implements OnInit {
 
-	columns$ = new Subject<KanbanColumn[]>();
+	columns$ = new Subject<any[]>();
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 

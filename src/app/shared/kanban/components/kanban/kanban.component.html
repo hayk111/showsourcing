@@ -1,6 +1,6 @@
 
 <kanban-col-app
-  *ngFor="let col of cols; let i = index;">
+  *ngFor="let col of cols; let i = index; trackBy: trackById">
 
   <!-- header -->
   <header class="flexBetween" [ngStyle]="getStyle(col)">
@@ -21,7 +21,7 @@
     [cdkDropListConnectedTo]="getOtherIds(col.id)"
     [cdkDropListData]="col.data"
     (cdkDropListDropped)="onDrop($event)">
-    <kanban-item-app *ngFor="let data of col.data" cdkDrag>
+    <kanban-item-app *ngFor="let data of col.data; trackBy: trackById" cdkDrag>
       <div class="custom-placeholder" *cdkDragPlaceholder></div>
       <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: data }">
       </ng-container>

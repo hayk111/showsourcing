@@ -9,7 +9,7 @@ export class SelectAllParams {
 	/** sorting used */
 	sortBy: 'creationDate';
 	/** whether it's ASC or DESC */
-	descending: true;
+	descending = true;
 
 	constructor(config?: SelectAllParamsConfig) {
 		Object.assign(this, config);

@@ -8,7 +8,7 @@ import { CustomField } from '~shared/dynamic-forms/models';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ProductStatusTypeService, ProductService } from '~global-services';
 import { statusToColor } from '~utils/status-to-color.function';
-import { KanbanColum } from '~shared/kanban/interfaces/kanban-column.interface';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 
 
 @Component({
@@ -48,7 +48,7 @@ export class TestPageComponent implements OnInit {
 			this.statusTypes$,
 			this.products$,
 			(types: ProductStatusType[], products: Product[]) => {
-				const cols: KanbanColum[] = types.map(type => ({
+				const cols: KanbanColumn[] = types.map(type => ({
 					id: type.id,
 					title: type.name,
 					color: statusToColor(type.category),

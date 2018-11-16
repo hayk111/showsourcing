@@ -1,6 +1,6 @@
 
 
-export interface KanbanColum {
+export interface KanbanColumn {
 	id: string;
 	data: any[];
 	title: string;

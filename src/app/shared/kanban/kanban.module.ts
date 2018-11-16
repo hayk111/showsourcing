@@ -13,6 +13,6 @@ import { CheckboxComponent, InputsModule } from '~shared/inputs';
 		InputsModule
 	],
 	declarations: [KanbanComponent, KanbanColComponent, KanbanItemComponent],
-	exports: [KanbanComponent, KanbanColComponent]
+	exports: [KanbanComponent]
 })
 export class KanbanModule { }

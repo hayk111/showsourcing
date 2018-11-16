@@ -28,6 +28,7 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { FiltersModule } from '~shared/filters';
+import { KanbanModule } from '~shared/kanban/kanban.module';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { FiltersModule } from '~shared/filters';
 		SearchAutocompleteModule,
 		ProductCommonModule,
 		WorkflowActionModule,
-		FiltersModule
+		FiltersModule,
+		KanbanModule
 	],
 	declarations: [
 		ProjectsPageComponent,

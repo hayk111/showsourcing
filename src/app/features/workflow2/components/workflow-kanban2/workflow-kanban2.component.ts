@@ -5,7 +5,6 @@ import {
 
 import { Observable, Subject } from 'rxjs';
 import { Kanban2Service } from '~features/workflow2/services/kanban2.service';
-import { KanbanColumn, KanbanItem } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { HeaderModule } from '~shared/header';
 
@@ -18,7 +17,7 @@ import { HeaderModule } from '~shared/header';
 })
 export class WorkflowKanban2Component extends TrackingComponent implements OnInit {
 	/** The list of columns included associated items */
-	@Input() columns: KanbanColumn[];
+	@Input() columns: any[];
 	/** A reference to the contextual menu template */
 	@Input() contextualMenu: TemplateRef<any>;
 	/** A reference to the contextual menu template */
@@ -53,7 +52,7 @@ export class WorkflowKanban2Component extends TrackingComponent implements OnIni
 
 	separatorColor: string;
 	dragInProgress = false;
-	dragInProgressItem: KanbanItem;
+	dragInProgressItem: any;
 	dragDropEnable$ = new Subject<any>();
 
 
