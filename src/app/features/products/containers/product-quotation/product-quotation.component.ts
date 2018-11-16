@@ -69,7 +69,6 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
     this.quotationSrv
       .getQuotationFromProduct(this.product.id)
       .subscribe(_quotes => {
-        console.log(_quotes);
         this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
           quotes: _quotes
         });
