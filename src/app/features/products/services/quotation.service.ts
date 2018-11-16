@@ -8,8 +8,8 @@ import {
 import { SupplierQueries } from '~global-services/supplier/supplier.queries';
 import { ApolloStateService } from '~shared/apollo';
 import { Product, Quote } from '~models';
-import { Observable } from 'apollo-link';
-import { first } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 
 @Injectable()
 export class QuoteFeatureService extends QuoteService {
@@ -21,9 +21,9 @@ export class QuoteFeatureService extends QuoteService {
     super(apolloState, userSrv);
   }
 
-  getQuotationFromProducts(productIds: any): Observable<Quote[]> {
+  getQuotationFromProduct(productId: string): Observable<Quote[]> {
     return this.queryMany(
-      { query: `${productIds} CONTAINS product.id` },
+      { query: `product.id == "${productId}"` },
       QuoteQueries.many
     ).pipe(first());
   }
