@@ -34,7 +34,6 @@ export class ImageComponent {
 	}
 
   getCustomStyle() {
-    console.log({'object-fit': this.objectFit, ...this.customStyle});
     return {'object-fit': this.objectFit, ...this.customStyle};
   }
 
