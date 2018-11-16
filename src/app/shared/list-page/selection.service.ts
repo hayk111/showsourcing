@@ -37,4 +37,13 @@ export class SelectionService {
 		this.selection = new Map();
 		this.emit();
 	}
+
+	getSelectionValues() {
+		return Array.from(this.selection.values());
+	}
+
+	getSelectionIds() {
+		return Array.from(this.selection.keys());
+	}
+
 }

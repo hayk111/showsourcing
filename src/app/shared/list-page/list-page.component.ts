@@ -44,8 +44,6 @@ export abstract class ListPageComponent<T extends { id?: string, deleted?: boole
 	pending = true;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, any>>;
-	/** keeps tracks of the items selected on the current selection */
-	selectedItems$: Observable<T[]>;
 	/** current view */
 	view: 'list' | 'card' = 'list';
 	/** whether the filter panel is visible */
@@ -112,9 +110,6 @@ export abstract class ListPageComponent<T extends { id?: string, deleted?: boole
 	/** gets the selection from the selection service */
 	protected setSelection() {
 		this.selected$ = this.selectionSrv.selection$;
-		this.selectedItems$ = combineLatest(this.selected$, this.items$,
-			(selected, items) => items.filter(item => selected.has(item.id))
-		);
 	}
 
 	/** when the items are loading */

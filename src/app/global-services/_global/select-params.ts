@@ -1,7 +1,6 @@
 import { Sort } from '~shared/table/components/sort.interface';
 
-/** utility class used to manage a selection of items
- */
+/** utility class used to manage a selection of items */
 export class SelectParams {
 	/** used for pagination,
 	 * !!!! warning !!!!
@@ -24,6 +23,7 @@ export class SelectParams {
 
 }
 
+/** configuration for making a query */
 export interface SelectParamsConfig {
 	skip?: number;
 	take?: number;

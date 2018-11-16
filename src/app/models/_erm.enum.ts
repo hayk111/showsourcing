@@ -8,6 +8,7 @@ import { User } from '~models/user.model';
 import { Team } from '~models/team.model';
 import { Task } from '~models/task.model';
 import { Contact } from '~models/contact.model';
+import { InjectionToken } from '@angular/core';
 
 
 export class EntityMetadata {
@@ -51,7 +52,11 @@ export class ERM {
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
-	static readonly SUPPLIER_STATUS_TYPE = new EntityMetadata('supplier status type', 'supplier status type', Supplier, 'supplier-status-type');
+	static readonly SUPPLIER_STATUS_TYPE = new EntityMetadata(
+		'supplier status type',
+		'supplier status type',
+		Supplier,
+		'supplier-status-type');
 	static readonly SUPPLIER_TYPE = new EntityMetadata('supplier type', 'supplier types', Supplier, 'supplier-type');
 	static readonly SUPPLIER_TAG = new EntityMetadata('supplier tag', 'supplier tags', Tag, 'supplier-tag');
 	static readonly TAG = new EntityMetadata('tag', 'tags', Tag);
@@ -72,3 +77,4 @@ export class ERM {
 	}
 }
 
+export const ERM_TOKEN = new InjectionToken<string>('ERM_TOKEN');
