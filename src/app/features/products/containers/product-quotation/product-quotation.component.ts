@@ -45,25 +45,25 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 		private cd: ChangeDetectorRef
 	) {
 		super();
-	}
-
-	ngOnInit() {
-		const that = this;
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
 			switchMap(params => this.srv.selectOne(params.id)),
-			tap(product => {
-				this.product = product;
-				this.quotationSrv
-					.getQuotationFromProduct(this.product.id)
-					.pipe(take(1))
-					.subscribe(_quotes => {
-						that.quotes = _quotes;
-						console.log(that.quotes);
-					});
-			}),
+			tap(product => this.product = product ),
 			tap(_ => this.cd.markForCheck())
 		);
+		this.product$.subscribe(product => {
+			this.quotationSrv
+			.getQuotationFromProduct(product.id)
+			.pipe(take(1))
+			.subscribe(_quotes => {
+				this.quotes = _quotes;
+				this.cd.markForCheck();
+			});
+		});
+	}
+
+	ngOnInit() {
+
 	}
 
 	openRfq() {
