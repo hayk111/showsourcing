@@ -37,12 +37,12 @@
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">1000pcs</div>
-      <div *ngIf="type === 'content'" class="content">{{ quote?.priceMatrix?.priceMatrixRow?['1000pcs'] }}</div>
+      <div *ngIf="type === 'content'" class="content">{{ quote?.priceMatrix?.priceMatrixRow['1000pcs'] }}</div>
     </div>
 
     <div class="comparison-row">
       <div *ngIf="type === 'title'" class="title">10 000pcs</div>
-      <div *ngIf="type === 'content'" class="content">{{ quote?.priceMatrix?.priceMatrixRow?['10000pcs'] }}</div>
+      <div *ngIf="type === 'content'" class="content">{{ quote?.priceMatrix?.priceMatrixRow['10000pcs'] }}</div>
     </div>
 
     <div class="comparison-row-big">
