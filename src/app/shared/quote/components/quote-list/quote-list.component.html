@@ -2,12 +2,12 @@
 	<div *ngFor="let quote of quotes; index as i; first as first; last as last; trackBy: trackById"
 		[ngClass]="{'hovered': hoverIndex === i}" class="flex quote-container"
 		(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-		<!-- <checkbox-app
-			[ngStyle]="{'visibility': (selection.has(quote.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
-			[checked]="selection.has(quote.id)"
-			(check)="quoteSelect.emit(quote)"
-			(uncheck)="quoteUnselect.emit(quote)">
-		</checkbox-app> -->
+		<checkbox-app
+			[ngStyle]="{'visibility': (selection?.has(quote.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
+			[checked]="selection?.has(quote.id)"
+			(check)="quoteSelect?.emit(quote)"
+			(uncheck)="quoteUnselect?.emit(quote)">
+		</checkbox-app>
 		<quote-row-app
 			(previewClicked)="previewClicked.emit(quote)"
 			[quote]="quote"

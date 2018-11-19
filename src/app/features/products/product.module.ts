@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
 	ProductIconsComponent,
@@ -58,6 +59,7 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 
 @NgModule({
 	imports: [
+		CommonModule,
 		SharedModule,
 		RouterModule.forChild(routes),
 		DynamicFormsModule,
@@ -112,7 +114,7 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 	exports: [],
 	providers: [
 		ProductFeatureService,
-		QuoteFeatureService
+		QuoteFeatureService,
 		ListPageViewService,
 		ListPageDataService,
 		SelectionWithFavoriteService,

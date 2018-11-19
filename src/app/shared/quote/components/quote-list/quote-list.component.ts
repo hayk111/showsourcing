@@ -11,10 +11,9 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 export class QuoteListComponent extends TrackingComponent implements OnInit {
 
 
-  private _quotes: Quote[] = [];
-  @Input() set quotes(quotes: Quote[]) {
-    this._quotes = quotes;
-    console.log(this.quotes);
+	private _quotes: Quote[] = [];
+	@Input() set quotes(quotes: Quote[]) {
+		this._quotes = quotes;
 	}
 	get quotes() {
 		return this._quotes;
