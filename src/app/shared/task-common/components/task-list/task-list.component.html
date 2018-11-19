@@ -1,31 +1,27 @@
 <h1 class="title">Task</h1>
-<div class="container" infiniScroll (bottomReached)="bottomReached.emit()">
-	<div *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackById"
-		[ngClass]="{'hovered': hoverIndex === i}" class="flex task-container"
-		(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+<list-app infiniScroll (bottomReached)="bottomReached.emit()">
+	<list-item-app *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackById">
+		<!-- use hover index if we use selection -->
 		<!-- <checkbox-app
 			[ngStyle]="{'visibility': (selection.has(task.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
 			[checked]="selection.has(task.id)"
-			(check)="taskSelect.emit(task)"
-			(uncheck)="taskUnselect.emit(task)">
+			(check)="onItemSelected(task)"
+			(uncheck)="onItemUnselected(task)">
 		</checkbox-app> -->
 		<task-app
-			(previewClicked)="previewClicked.emit(task)"
+			[fullUser]="fullUser"
 			[hasProduct]="hasProduct"
 			[hasSupplier]="hasSupplier"
 			[task]="task"
-			[fullUser]="fullUser"
-			[ngClass]="{'border-top': first, 'no-border': last}"
 			(openProduct)="openProduct($event)"
 			(openSupplier)="openSupplier($event)"
+			(previewClicked)="previewClicked.emit(task)"
 			(updateTask)="updateTask.emit($event)">
 		</task-app>
-	</div>
-	<divider-app></divider-app>
-</div>
+	</list-item-app>
+</list-app>
 <div class="flexBetween create-task">
 	<textarea inputApp type="text" [formControl]="taskCtrl"
 		placeholder="+ Create a new task" (keydown.enter)="onEnter($event)"></textarea>
 	<button *ngIf="inp?.focussed || taskCtrl.value"class="secondary-light" (click)="onSubmit()">Create</button>
 </div>
-<!-- <button class="light" (click)="openCreateDlg.emit()">+ Create a new task</button> -->

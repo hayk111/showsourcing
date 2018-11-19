@@ -25,7 +25,6 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	@Input() hasProduct = false;
 	@Output() taskSelect = new EventEmitter<Task>();
 	@Output() taskUnselect = new EventEmitter<Task>();
-	@Output() openCreateDlg = new EventEmitter<null>();
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() updateTask = new EventEmitter<Task>();
 	@Output() createTask = new EventEmitter<string>();

@@ -1,47 +1,25 @@
 :host {
 	display: block;
 	background: white;
-	padding: var(--spacing-l);
-	padding-left: var(--spacing-ms);
-	border-radius: var(--border-radius-s);
+	margin-right: var(--spacing-l);
+	margin-left: var(--spacing-l);
 }
 
 .title {
+	background: white;
 	color: var(--color-txt-strong);
 	font-size: var(--font-size-xxxl);
-	margin-bottom: var(--spacing-l);
-	margin-left: var(--spacing-ms);
+	padding: var(--spacing-l);
 }
 
-.container {
-	max-height: 505px;
-
-	.task-container {
-		margin-left: var(--spacing-m);
-
-		&.hovered {
-			cursor: pointer;
-			background-color: var(--color-secondary-light);
-		}
-
-		task-app {
-			width: 100%;
-			border-bottom: 1px solid var(--color-secondary);
-
-			&.border-top {
-				border-top: 1px solid var(--color-secondary);
-			}
-
-			&.no-border {
-				border: none;
-			}
-		}
-	}
+list-app {
+	max-height: 460px;
+	margin: 0 var(--spacing-l);
 }
 
 .create-task {
-	margin-top: var(--spacing-l);
-	margin-left: var(--spacing-ms);
+	background: white;
+	padding: var(--spacing-l);
 
 	input, textarea {
 		height: 36px;
@@ -60,10 +38,4 @@
 	button {
 		margin-left: var(--spacing-ms);
 	}
-}
-
-button.light {
-	margin-top: var(--spacing-ms);
-	color: var(--color-txt-secondary);
-	font-style: italic;
 }

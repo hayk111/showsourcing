@@ -74,7 +74,7 @@ export class CheckboxComponent extends AbstractInput {
 		// it's -2 since the div of the unchecked grows by 2 for some reason
 		const unWidth = this.size - 2;
 		const unHeight = this.size - 2;
-		// if (this.size !=)
+
 		return {
 			width: `${unWidth}px`,
 			height: `${unHeight}px`
