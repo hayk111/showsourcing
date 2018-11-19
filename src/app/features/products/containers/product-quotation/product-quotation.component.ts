@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ERM, Product } from '~models';
+import { switchMap, takeUntil, tap, take } from 'rxjs/operators';
+import { ERM, Product, Quote } from '~models';
 import { DialogService } from '~shared/dialog';
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
@@ -34,6 +34,7 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
   // whether the form is open
   product$: Observable<Product>;
   product: Product;
+  quotes: Quote[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -47,12 +48,20 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
   }
 
   ngOnInit() {
+    const that = this;
     this.product$ = this.route.parent.params.pipe(
       takeUntil(this._destroy$),
       switchMap(params => this.srv.selectOne(params.id)),
-      tap(product => (this.product = product)),
-      // need to notify the component things have changed because of onpush and this is container
-      // better to do it this way than to not use on push as this will prevent viewChangedAfterItWasCheckedError
+      tap(product => {
+        (this.product = product);
+        this.quotationSrv
+        .getQuotationFromProduct(this.product.id)
+        .pipe(take(1))
+        .subscribe(_quotes => {
+          that.quotes = _quotes;
+          console.log(that.quotes);
+        });
+      }),
       tap(_ => this.cd.markForCheck())
     );
   }
@@ -66,12 +75,8 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 
   /** Opens a dialog that lets the user compare quotation of this product */
   openCompareQuotationDialog() {
-    this.quotationSrv
-      .getQuotationFromProduct(this.product.id)
-      .subscribe(_quotes => {
-        this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
-          quotes: _quotes
-        });
-      });
+    this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
+      quotes: this.quotes
+    });
   }
 }
