@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input
 import { ExternalRequest } from '~models';
 
 @Component({
-	selector: 'quote-app',
+	selector: 'quote-row-app',
 	templateUrl: './quote.component.html',
 	styleUrls: ['./quote.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
