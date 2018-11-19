@@ -29,7 +29,7 @@ import { KanbanDropEvent } from '~shared/kanban/interfaces';
 	templateUrl: './project-workflow.component.html',
 	styleUrls: ['./project-workflow.component.scss'],
 })
-export class ProjectWorkflowComponent implements OnInit {
+export class ProjectWorkflowComponent extends ListPageComponent<any, any> implements OnInit {
 	project$: Observable<Project>;
 	columns$: Observable<KanbanColumn[]>;
 	/** keeps tracks of the current selection */
@@ -39,8 +39,24 @@ export class ProjectWorkflowComponent implements OnInit {
 		protected route: ActivatedRoute,
 		protected projectSrv: ProjectService,
 		protected productSrv: ProductService,
-		protected productStatusSrv: ProductStatusTypeService
-	) { }
+		protected productStatusSrv: ProductStatusTypeService,
+		protected router: Router,
+		protected selectionSrv: SelectionService,
+		protected searchSrv: SearchService,
+		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>,
+		protected thumbSrv: ThumbService
+	) {
+		super(
+			router,
+			productSrv,
+			selectionSrv,
+			searchSrv,
+			dlgSrv,
+			moduleRef,
+			ERM.PRODUCT,
+			thumbSrv);
+	}
 
 	ngOnInit() {
 		const id = this.route.parent.snapshot.params.id;
@@ -71,7 +87,6 @@ export class ProjectWorkflowComponent implements OnInit {
 			statusProductToKanbanCol
 		);
 
-		// this.selected$ = this.selectionSrv.selection$;
 	}
 
 	updateProductStatus(event: KanbanDropEvent) {
