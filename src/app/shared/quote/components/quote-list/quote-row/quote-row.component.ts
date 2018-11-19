@@ -1,15 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
-import { ExternalRequest } from '~models';
+import { ExternalRequest, Quote } from '~models';
 
 @Component({
 	selector: 'quote-row-app',
-	templateUrl: './quote.component.html',
-	styleUrls: ['./quote.component.scss'],
+	templateUrl: './quote-row.component.html',
+	styleUrls: ['./quote-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuoteComponent implements OnInit {
 
-	@Input() externalReq: ExternalRequest;
+	@Input() quote: Quote;
 	@Output() openSupplier = new EventEmitter<string>();
 	@Output() updateTask = new EventEmitter<ExternalRequest>();
 	@Output() previewClicked = new EventEmitter<ExternalRequest>();
@@ -21,7 +21,7 @@ export class QuoteComponent implements OnInit {
 
 	getStatus() {
 		let status = 'pending';
-		switch (this.externalReq.status) {
+		switch (this.quote.status) {
 			case 'replied':
 				status = 'replied';
 				break;
