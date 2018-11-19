@@ -1,0 +1,19 @@
+<div class="container" infiniScroll (bottomReached)="bottomReached.emit()">
+	<div *ngFor="let externalReq of externalRequests; index as i; first as first; last as last; trackBy: trackById"
+		[ngClass]="{'hovered': hoverIndex === i}" class="flex quote-container"
+		(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+		<checkbox-app
+			[ngStyle]="{'visibility': (selection.has(externalReq.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
+			[checked]="selection.has(externalReq.id)"
+			(check)="externalReqSelect.emit(externalReq)"
+			(uncheck)="externalReqUnselect.emit(externalReq)">
+		</checkbox-app>
+		<quote-app
+			(previewClicked)="previewClicked.emit(externalReq)"
+			[externalReq]="externalReq"
+			[ngClass]="{'border-top': first, 'no-border': last}"
+			(openSupplier)="openSupplier($event)">
+		</quote-app>
+	</div>
+	<divider-app></divider-app>
+</div>
