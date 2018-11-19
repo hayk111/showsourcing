@@ -19,7 +19,7 @@ import {
 	ProductQuotationComponent
 } from '~features/products/containers';
 import { routes } from '~features/products/routes';
-import { ProductFeatureService } from '~features/products/services';
+import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { ActivityModule } from '~shared/activity/activity.module';
 import { BadgeModule } from '~shared/badge/badge.module';
@@ -112,6 +112,7 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 	exports: [],
 	providers: [
 		ProductFeatureService,
+		QuoteFeatureService
 		ListPageViewService,
 		ListPageDataService,
 		SelectionWithFavoriteService,
