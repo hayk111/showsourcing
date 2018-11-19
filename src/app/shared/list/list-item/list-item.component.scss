@@ -1,6 +1,7 @@
 :host {
 	display: block;
-	padding: var(--spacing-m) var(--spacing-m) 0 var(--spacing-m);
+	padding: 6px 6px 0 6px;
+
 	&:hover {
 		background: var(--color-secondary-light);
 	}
@@ -10,7 +11,7 @@
 }
 
 .ctnr {
-	padding-bottom: var(--spacing-m);
+	padding-bottom: 6px;
 }
 
 .border{
