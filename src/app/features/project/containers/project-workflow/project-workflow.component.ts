@@ -34,6 +34,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 	columns$: Observable<KanbanColumn[]>;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
+	project: Project;
 
 	constructor(
 		protected route: ActivatedRoute,
@@ -45,7 +46,9 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>,
-		protected thumbSrv: ThumbService
+		protected thumbSrv: ThumbService,
+		protected workflowService: ProjectWorkflowFeatureService,
+		protected notificationSrv: NotificationService
 	) {
 		super(
 			router,
@@ -61,6 +64,11 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 	ngOnInit() {
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.projectSrv.queryOne(id);
+		this.selected$ = this.selectionSrv.selection$;
+
+		this.project$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(project => this.project = project);
 
 		const products$ = this.productSrv.queryAll(ProductQueries.many, {
 			query: `projects.id == "${id}"`,
@@ -111,18 +119,18 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 	// }
 
 	/** Open the find products dialog and passing selected products to it */
-	// openFindProductDlg() {
-	// 	if (this.project) {
-	// 		this.featureSrv.getProjectProducts(this.project).pipe(first()).subscribe(products => {
-	// 			this.dlgSrv.openFromModule(FindProductsDialogComponent, this.moduleRef, {
-	// 				type: ERM.PRODUCT,
-	// 				shouldRedirect: false,
-	// 				initialSelectedProducts: products,
-	// 				submitCallback: this.associateProductsWithProject.bind(this)
-	// 			});
-	// 		});
-	// 	}
-	// }
+	openFindProductDlg() {
+		if (this.project) {
+			this.featureSrv.getProjectProducts(this.project).pipe(first()).subscribe(products => {
+				this.dlgSrv.openFromModule(FindProductsDialogComponent, this.moduleRef, {
+					type: ERM.PRODUCT,
+					shouldRedirect: false,
+					initialSelectedProducts: products,
+					submitCallback: this.associateProductsWithProject.bind(this)
+				});
+			});
+		}
+	}
 
 	/**
 	 * Selection bar actions
@@ -131,63 +139,63 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 	 */
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	// openAddToProjectDialog(product: Product) {
-	// 	this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
-	// 		selectedProducts: product ? [product] : this.getSelectedProducts()
-	// 	});
-	// }
+	openAddToProjectDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
+			selectedProducts: product ? [product] : this.getSelectedProducts()
+		});
+	}
 
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	// openExportDialog(product: Product) {
-	// 	this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
-	// 		selectedProducts: product ? [product] : this.getSelectedProducts()
-	// 	});
-	// }
+	openExportDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
+			selectedProducts: product ? [product] : this.getSelectedProducts()
+		});
+	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	// openRequestFeedbackDialog(product: Product) {
-	// 	this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
-	// 		selectedProducts: product ? [product] : this.getSelectedProducts()
-	// 	});
-	// }
+	openRequestFeedbackDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
+			selectedProducts: product ? [product] : this.getSelectedProducts()
+		});
+	}
 
-	// getSelectedProducts() {
-	// 	return Array.from(this.selectionSrv.selection.values());
-	// }
+	getSelectedProducts() {
+		return Array.from(this.selectionSrv.selection.values());
+	}
 
 	/**
 	 * Deassociate the selected product from the current project
 	 */
-	// deassociateProduct(product: Product) {
-	// 	this.featureSrv.manageProjectsToProductsAssociations([this.project], [], [product]).pipe(
-	// 		tap(() => {
-	// 			this.workflowService.refreshStatuses(this.project);
-	// 			this.notifSrv.add({
-	// 				type: NotificationType.SUCCESS,
-	// 				title: 'Products Updated',
-	// 				message: 'The products were updated in the project with success',
-	// 				timeout: 3500
-	// 			});
-	// 		})
-	// 	).subscribe();
-	// }
+	deassociateProduct(product: Product) {
+		this.featureSrv.manageProjectsToProductsAssociations([this.project], [], [product]).pipe(
+			tap(() => {
+				this.workflowService.refreshStatuses(this.project);
+				this.notificationSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Products Updated',
+					message: 'The products were updated in the project with success',
+					timeout: 3500
+				});
+			})
+		).subscribe();
+	}
 
 	/**
 	 * Associate the selected products from the current project. This method is
 	 * passed as callback for the "find products" dialog.
 	 */
-	// associateProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
-	// 	return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
-	// 		tap(() => {
-	// 			this.workflowService.refreshStatuses(this.project);
-	// 			this.notifSrv.add({
-	// 				type: NotificationType.SUCCESS,
-	// 				title: 'Products Updated',
-	// 				message: 'The products were updated in the project with success',
-	// 				timeout: 3500
-	// 			});
-	// 		})
-	// 	);
-	// }
+	associateProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
+		return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
+			tap(() => {
+				this.workflowService.refreshStatuses(this.project);
+				this.notificationSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Products Updated',
+					message: 'The products were updated in the project with success',
+					timeout: 3500
+				});
+			})
+		);
+	}
 }
