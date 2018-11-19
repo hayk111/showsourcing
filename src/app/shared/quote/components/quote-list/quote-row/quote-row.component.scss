@@ -1,0 +1,70 @@
+.row {
+	padding: 6px 0px;
+	padding-right: var(--spacing-ms);
+
+	.quote-name {
+		width: 55%;
+		color: var(--color-txt-strong);
+
+    &:hover {
+      .quote-preview {
+        opacity: 1;
+      }
+    }
+
+    .quote-preview {
+      opacity: 0;
+    }
+	}
+
+	.quote-supplier {
+		width: 30%;
+		img-app {
+			margin-right: var(--spacing-s);
+			height: 20px;
+    	width: 20px;
+		}
+	}
+
+
+
+	.quote-user-status {
+		width: 40%;
+
+		.quote-status {
+			padding-top: 2px;
+			border-radius: 500px;
+
+			&.quote-validated {
+				color: white;
+				background: var(--color-success);
+			}
+
+			&.quote-rejected {
+				color: white;
+				background: var(--color-warn);
+			}
+
+			&.quote-replied {
+				color: white;
+				background: var(--color-primary);
+
+			}
+
+			&.quote-pending {
+				background: var(--color-secondary);
+			}
+
+			icon-app {
+				padding: var(--spacing-s);
+				padding-top: 6px;
+				font-size: 6px;
+			}
+
+			p {
+				padding-right: var(--spacing-s);
+				text-transform: capitalize;
+			}
+		}
+	}
+}
