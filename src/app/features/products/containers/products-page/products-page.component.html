@@ -1,39 +1,38 @@
 
-<ng-container *ngIf="items$ | async as products; else spinner">
+<ng-container *ngIf="dataSrv.items$ | async as products; else spinner">
 	<!-- top panel -->
 	<top-panel-app
 		title="My Products"
-		buttonName="Add {{entityMetadata.singular}}"
+		buttonName="Add {{ viewSrv.entityMetadata.singular }}"
 		[subtitles]="['Products', 'all']"
 		[center]="false"
-		(buttonClick)="openCreateDlg(true)">
+		(buttonClick)="commonDlgSrv.openCreateDlg(true)">
 	</top-panel-app>
 
 	<sub-panel-app
 		[hasSwitch]="true"
 		[hasFilter]="true"
 		[buttonIcon]="false"
-		[filtersAmount]="filterList.asFilters().length"
-		(showFilters)="openFilterPanel()"
-		(search)="search($event)"
-		(smartSearch)="smartSearch($event)"
+		[filtersAmount]="dataSrv.filterList.asFilters().length"
+		(showFilters)="viewSrv.openFilterPanel()"
+		(search)="dataSrv.search($event)"
 		(viewChange)="onViewChange($event)">
 
-		<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
-			<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async);trackBy: trackByFn">
+		<!-- <search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
+			<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async); trackBy: trackByFn">
 				<search-autocomplete-item-content-app
 					[selectable]="true" [title]="element.name" [subtitle]="element.type"
 					[checked]="element.checked" [icon]="element.type"
-					(check)="addFilter({ type: element.type, value: element.id, entity: element })"
-					(uncheck)="removeFilter({ type: element.type, value: element.id, entity: element })">
+					(check)="dataSrv.addFilter({ type: element.type, value: element.id, entity: element })"
+					(uncheck)="dataSrv.removeFilter({ type: element.type, value: element.id, entity: element })">
 				</search-autocomplete-item-content-app>
 			</search-autocomplete-item-app>
-		</search-autocomplete-app>
+		</search-autocomplete-app> -->
 
 		<product-sorting-menu-app
-			[currentSort]="currentSort"
-			[gridView]="view === 'card'"
-			(sortFromMenu)="sortFromMenu($event)">
+			[currentSort]="dataSrv.currentSort"
+			[gridView]="viewSrv.view === 'card'"
+			(sortFromMenu)="dataSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
 
 		<!-- <context-menu-app xPosition="-74" yPosition="36">
@@ -49,61 +48,61 @@
 
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<products-list-view-app
-		*ngIf="view === 'list'"
+		*ngIf="viewSrv.view === 'list'"
 		class="list-view"
-		[selection]="selected$ | async"
-		[currentSort]="currentSort"
+		[selection]="selectionSrv.selection$ | async"
+		[currentSort]="dataSrv.currentSort"
 		[rows]="products"
-		[pending]="pending"
-		(previewClick)="openPreview($event)"
-		(select)="onItemSelected($event, true)"
-		(unselect)="onItemUnselected($event, true)"
-		(selectAll)="selectAll($event, true)"
-		(unselectAll)="resetSelection()"
-		(open)="goToDetails($event)"
-		(favorited)="onItemFavorited($event)"
-		(unfavorited)="onItemUnfavorited($event)"
-		(bottomReached)="loadMore()"
-		(sort)="sort($event)"
-		(openAddToProjectDialog)="openAddToProjectDialog($event)"
-		(openExportDialog)="openExportDialog($event)"
-		(openRequestFeedbackDialog)="openRequestFeedbackDialog($event)"
-		(openRequestQuotationDialog)="openRequestQuotationDialog($event)"
-		(delete)="deleteOne($event)">
+		[pending]="dataSrv.pending"
+		(previewClick)="viewSrv.openPreview($event)"
+		(select)="selectionSrv.selectOne($event, true)"
+		(unselect)="selectionSrv.unselectOne($event, true)"
+		(selectAll)="selectionSrv.selectAll($event, true)"
+		(unselectAll)="selectionSrv.unselectAll()"
+		(open)="viewSrv.goToDetails($event)"
+		(favorited)="dataSrv.onItemFavorited($event)"
+		(unfavorited)="dataSrv.onItemUnfavorited($event)"
+		(bottomReached)="dataSrv.loadMore()"
+		(sort)="dataSrv.sort($event)"
+		(openAddToProjectDialog)="commonDlgSrv.openAddToProjectDialog($event)"
+		(openExportDialog)="commonDlgSrv.openExportDialog($event)"
+		(openRequestFeedbackDialog)="commonDlgSrv.openRequestFeedbackDialog($event)"
+		(openRequestQuotationDialog)="commonDlgSrv.openRequestQuotationDialog($event)"
+		(delete)="dataSrv.deleteOne($event)">
 	</products-list-view-app>
 
 	<products-card-view-app
 		class="card-view"
-		*ngIf="view === 'card'"
-		[currentSort]="currentSort"
+		*ngIf="viewSrv.view === 'card'"
+		[currentSort]="dataSrv.currentSort"
 		[rows]="products"
-		[selection]="selected$ | async"
-		(update)="update($event)"
-		(select)="onItemSelected($event, true)"
-		(unselect)="onItemUnselected($event, true)"
-		(favorited)="onItemFavorited($event)"
-		(unfavorited)="onItemUnfavorited($event)"
-		(liked)="onThumbUp($event)"
-		(disliked)="onThumbDown($event)"
-		(open)="goToDetails($event)">
+		[selection]="selectionSrv.selection$ | async"
+		(update)="dataSrv.update($event)"
+		(select)="selectionSrv.selectOne($event, true)"
+		(unselect)="selectionSrv.unselectOne($event, true)"
+		(favorited)="selectionSrv.selectAll($event)"
+		(unfavorited)="selectionSrv.unselectAll($event)"
+		(liked)="dataSrv.onThumbUp($event)"
+		(disliked)="dataSrv.onThumbDown($event)"
+		(open)="viewSrv.goToDetails($event)">
 	</products-card-view-app>
 
 	<selection-bar-app
-		[isShown]="(selected$ | async).size > 0"
-		[selection]="selected$ | async"
+		[isShown]="(selectionSrv.selection$ | async).size > 0"
+		[selection]="selectionSrv.selection$ | async"
 		[hasDelete]="false"
-		(close)="resetSelection()"
-		(delete)="deleteSelected()">
+		(close)="selectionSrv.unselectAll()"
+		(delete)="dataSrv.deleteSelected()">
 
 		<action-bar-app
-			[favorite]="allSelectedFavorite"
+			[favorite]="selectionSrv.allSelectedFavorite"
 			[multiple]="true"
-			(onFavorite)="onFavoriteAllSelected()"
-			(onUnfavorite)="onUnfavoriteAllSelected()"
-			(liked)="onMultipleThumbUp($event)"
-			(disliked)="onMultipleThumbDown($event)">
+			(onFavorite)="dataSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
+			(liked)="dataSrv.onMultipleThumbUp($event)"
+			(disliked)="dataSrv.onMultipleThumbDown($event)">
 
-			<button class="icon light" (click)="openAddToProjectDialog()">
+			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog()">
 				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
 			</button>
 			<context-menu-app xPosition="-171" yPosition="-101">
@@ -112,36 +111,35 @@
 						<icon-app name="dots-vertical" size="m"></icon-app>
 					</button>
 				</context-menu-trigger-app>
-				<context-menu-item-app (click)="openExportDialog()">
+				<context-menu-item-app (click)="commonDlgSrv.openExportDialog()">
 					Export
 				</context-menu-item-app>
-				<context-menu-item-app (click)="openRequestFeedbackDialog()">
+				<context-menu-item-app (click)="commonDlgSrv.openRequestFeedbackDialog()">
 					Request For Team Feedback
 				</context-menu-item-app>
-				<context-menu-item-app (click)="openCompareQuotationDialog()">
+				<context-menu-item-app (click)="commonDlgSrv.openCompareQuotationDialog()">
 					Compare Quotation
 				</context-menu-item-app>
 			</context-menu-app>
 
-			<button class="icon light" (click)="deleteSelected()">
+			<button class="icon light" (click)="dataSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
 	</selection-bar-app>
 
 	<filters-app
-		[filterList]="filterList"
+		[filterList]="dataSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="closeFilterPanel()"
-		*ngIf="filterPanelOpen">
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		*ngIf="viewSrv.filterPanelOpen">
 	</filters-app>
 
 	<product-preview-app
-		*ngIf="previewOpen"
-		[product]="previewed"
-		(close)="closePreview()"
-		(clickOutside)="closePreview()">
-
+		*ngIf="viewSrv.previewOpen"
+		[product]="viewSrv.previewed"
+		(close)="viewSrv.closePreview()"
+		(clickOutside)="viewSrv.closePreview()">
 	</product-preview-app>
 
 </ng-container>
