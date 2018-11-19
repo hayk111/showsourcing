@@ -16,10 +16,9 @@
 		[filtersAmount]="dataSrv.filterList.asFilters().length"
 		(showFilters)="viewSrv.openFilterPanel()"
 		(search)="dataSrv.search($event)"
-		(smartSearch)="smartSearch($event)"
 		(viewChange)="onViewChange($event)">
 
-		<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
+		<!-- <search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
 			<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async); trackBy: trackByFn">
 				<search-autocomplete-item-content-app
 					[selectable]="true" [title]="element.name" [subtitle]="element.type"
@@ -28,7 +27,7 @@
 					(uncheck)="dataSrv.removeFilter({ type: element.type, value: element.id, entity: element })">
 				</search-autocomplete-item-content-app>
 			</search-autocomplete-item-app>
-		</search-autocomplete-app>
+		</search-autocomplete-app> -->
 
 		<product-sorting-menu-app
 			[currentSort]="dataSrv.currentSort"

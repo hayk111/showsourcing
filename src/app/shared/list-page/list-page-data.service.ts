@@ -13,6 +13,7 @@ import { ListPageDataConfig } from '~shared/list-page/list-page-config.interface
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
+import { log } from '~utils/log';
 
 /**
  * Services that helps us for common functionalities in list pages
@@ -26,8 +27,6 @@ export class ListPageDataService
 
 	/** main global service used */
 	featureSrv: G;
-	/** not using injection because we want a new one each time */
-	selectionSrv = new SelectionWithFavoriteService();
 	/** currently loaded items */
 	items$: Observable<Array<T>>;
 	/** non observable version of the above */
@@ -62,9 +61,11 @@ export class ListPageDataService
 	constructor(
 		public dlgSrv: DialogService,
 		public searchSrv: SearchService,
-		public thumbSrv: ThumbService
-	) { }
-
+		public thumbSrv: ThumbService,
+		public selectionSrv: SelectionWithFavoriteService
+	) {
+		log.debug('creating list-data service');
+	}
 
 	/**
 	 * Sets up the main global/feature service used for making queries.
@@ -195,7 +196,8 @@ export class ListPageDataService
 
 	/** When we favorite all selected items, the items that are already favorited will stay the same */
 	onFavoriteAllSelected() {
-		this.getSelectionIds().forEach(id => this.onItemFavorited(id));
+		const ids = this.getSelectionIds();
+		ids.forEach(id => this.onItemFavorited(id));
 		this.selectionSrv.allSelectedFavorite = true;
 	}
 

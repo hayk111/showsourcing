@@ -26,7 +26,8 @@ export class CommonDialogService {
 		private moduleRef: NgModuleRef<any>,
 		private selectionSrv: SelectionService,
 		@Optional() @Inject(ERM_TOKEN) private entityMetadata: EntityMetadata
-	) { }
+	) {
+	}
 
 	/** opens the create dialog,
 	 * @param shouldRedirect whether we redirect after creation to entityMetadata.createUrl

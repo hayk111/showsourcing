@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, ProductVote } from '~models';
+import { ERM, Product, ProductVote, ERM_TOKEN } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -22,6 +22,7 @@ import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { ListPage2Component } from '~shared/list-page/list-page2.component';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 
 
@@ -29,12 +30,9 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	providers: [
-		SelectionService
-	]
 })
 export class ProductsPageComponent extends TrackingComponent implements OnInit {
-	smartSearchFilterElements$: any;
+	// smartSearchFilterElements$: any;
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -66,14 +64,13 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 
 
 	// can be overriden
-
 	onViewChange(view: 'list' | 'card') {
 		// Update sorting according to the selected view
 		this.dataSrv.sort({ sortBy: 'category.name', descending: false });
 		this.viewSrv.changeView(view);
 	}
 
-	smartSearch(t: any) {
-		//
-	}
+	// smartSearch(t: any) {
+	// 	//
+	// }
 }

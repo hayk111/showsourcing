@@ -12,11 +12,12 @@ import { NewProductDialogComponent } from '~features/products/components/new-pro
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
-import { ProductDetailsComponent,
-          ProductGeneralInfoComponent,
-          ProductsPageComponent,
-          ProductQuotationComponent
-        } from '~features/products/containers';
+import {
+	ProductDetailsComponent,
+	ProductGeneralInfoComponent,
+	ProductsPageComponent,
+	ProductQuotationComponent
+} from '~features/products/containers';
 import { routes } from '~features/products/routes';
 import { ProductFeatureService } from '~features/products/services';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
@@ -47,7 +48,12 @@ import { ProductCarouselComponent } from './components/product-carousel/product-
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
+import { ERM_TOKEN, ERM } from '~models';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 
 @NgModule({
 	imports: [
@@ -78,8 +84,8 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 	],
 	declarations: [
 		ProductIconsComponent,
-    ProductSubInfoComponent,
-    ProductQuotationComponent,
+		ProductSubInfoComponent,
+		ProductQuotationComponent,
 		ProductsPageComponent,
 		SelectionActionsComponent,
 		ProductDetailsComponent,
@@ -102,7 +108,14 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		VoteDetailsDialogComponent
 	],
 	exports: [],
-	providers: [ProductFeatureService]
+	providers: [
+		ProductFeatureService,
+		ListPageViewService,
+		ListPageDataService,
+		SelectionWithFavoriteService,
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT },
+	]
 })
 export class ProductModule {
 
