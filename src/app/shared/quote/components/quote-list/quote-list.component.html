@@ -8,12 +8,12 @@
 			(check)="externalReqSelect.emit(externalReq)"
 			(uncheck)="externalReqUnselect.emit(externalReq)">
 		</checkbox-app>
-		<quote-app
+		<quote-row-app
 			(previewClicked)="previewClicked.emit(externalReq)"
 			[externalReq]="externalReq"
 			[ngClass]="{'border-top': first, 'no-border': last}"
 			(openSupplier)="openSupplier($event)">
-		</quote-app>
+		</quote-row-app>
 	</div>
 	<divider-app></divider-app>
 </div>

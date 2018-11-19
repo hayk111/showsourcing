@@ -42,6 +42,7 @@ import { TaskCommonModule } from '~shared/task-common';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { UtilsModule } from '~shared/utils';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { QuoteCommonModule } from '~shared/quote/quote.module';
 
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
@@ -80,6 +81,7 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 		ProductCommonModule,
 		UtilsModule,
 		TaskCommonModule,
+		QuoteCommonModule,
 		InputsCustomModule
 	],
 	declarations: [
