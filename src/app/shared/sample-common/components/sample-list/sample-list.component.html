@@ -1,0 +1,21 @@
+<h1 class="title">Samples</h1>
+<list-app infiniScroll (bottomReached)="bottomReached.emit()">
+	<list-item-app *ngFor="let sample of samples; index as i; first as first; last as last; trackBy: trackById">
+		<!-- use hover index if we use selection -->
+		<!-- <checkbox-app
+			[ngStyle]="{'visibility': (selection.has(task.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
+			[checked]="selection.has(task.id)"
+			(check)="onItemSelected(task)"
+			(uncheck)="onItemUnselected(task)">
+		</checkbox-app> -->
+		<sample-app
+			[hasProduct]="hasProduct"
+			[hasSupplier]="hasSupplier"
+			[sample]="sample"
+			(openProduct)="openProduct($event)"
+			(openSupplier)="openSupplier($event)"
+			(previewClicked)="previewClicked.emit(sample)"
+			(updateSample)="updateSample.emit($event)">
+		</task-app>
+	</list-item-app>
+</list-app>

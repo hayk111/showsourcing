@@ -19,9 +19,6 @@ import { AbstractTaskCommonComponent } from '~shared/task-common/containers/abst
 })
 export class MyTasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
 
-	@ViewChild(InputDirective) inp: InputDirective;
-	taskCtrl = new FormControl('');
-
 	constructor(
 
 		protected route: ActivatedRoute,
