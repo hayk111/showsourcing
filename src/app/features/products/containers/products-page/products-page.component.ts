@@ -1,26 +1,10 @@
-import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, ProductVote, ERM_TOKEN } from '~models';
-import {
-	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-	CompareQuotationComponent,
-	RfqDialogComponent,
-} from '~shared/custom-dialog';
-import { DialogService } from '~shared/dialog';
-import { FilterType, SearchService } from '~shared/filters';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { TemplateService } from '~shared/template/services/template.service';
-import { takeUntil } from 'rxjs/operators';
+import { Product } from '~models';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { FilterType } from '~shared/filters';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { ListPage2Component } from '~shared/list-page/list-page2.component';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 

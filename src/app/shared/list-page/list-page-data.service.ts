@@ -54,6 +54,8 @@ export class ListPageDataService
 	/** when making a search, fields we are gonna search through */
 	searchedFields: string[] = ['name'];
 
+	initialized = false;
+
 	/** for the smart search feature... */
 	searchFilterElements$: Observable<any[]>;
 	smartSearchFilterElements$: Observable<any[]>;
@@ -78,8 +80,12 @@ export class ListPageDataService
 
 	/** init: helper method to set everything up at once */
 	init() {
+		if (this.initialized) {
+			return;
+		}
 		this.setItems();
 		this.setFilters();
+		this.initialized = true;
 	}
 
 	/** subscribe to items and get the list result */
