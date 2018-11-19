@@ -41,6 +41,7 @@ import { TaskCommonModule } from '~shared/task-common';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { UtilsModule } from '~shared/utils';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { QuoteCommonModule } from '~shared/quote/quote.module';
 
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
@@ -74,6 +75,7 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		ProductCommonModule,
 		UtilsModule,
 		TaskCommonModule,
+		QuoteCommonModule,
 		InputsCustomModule
 	],
 	declarations: [
