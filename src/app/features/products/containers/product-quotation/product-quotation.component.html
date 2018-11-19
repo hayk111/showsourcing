@@ -4,7 +4,10 @@
       Quotations
     </div>
     <div class="quotation-body">
-        <div class="quotation-empty">
+        <quote-list-app [quotes]="quotes" *ngIf="quotes.length">
+
+        </quote-list-app>
+        <div class="quotation-empty" *ngIf="!quotes.length">
           <div class="icon-empty">
             <img src="assets/icons/rfq-no-new.svg">
           </div>
