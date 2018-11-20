@@ -24,6 +24,9 @@
 			</div>
 		</div>
 		<div class="quotation-footer">
+			<button (click)="openCompareQuotationDialog()" *ngIf="numSelected > 1" class="footer-button">
+				Compare selected quotations
+			</button>
 			<button (click)="openRfq()" class="footer-button">
 				Request for new quotation
 			</button>
