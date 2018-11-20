@@ -21,11 +21,21 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 
 	@Input() selection: Map<string, boolean>;
 	@Output() bottomReached = new EventEmitter<null>();
-	@Output() previewClicked = new EventEmitter<ExternalRequest>();
+	@Output() quoteSelect = new EventEmitter<Quote>();
+	@Output() quoteUnselect = new EventEmitter<Quote>();
+	@Output() previewClicked = new EventEmitter<Quote>();
+	@Output() hovered = new EventEmitter<Quote>();
 
 	hoverIndex: number;
 
 	constructor() { super(); }
+
+	hoverRow(index: number) {
+		this.hoverIndex = index;
+		if (index >= 0 && this.hovered) {
+			this.hovered.emit(this.quotes[index]);
+		}
+	}
 
 	ngOnInit() {
 	}
