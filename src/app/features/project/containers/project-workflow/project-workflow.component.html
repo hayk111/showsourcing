@@ -11,6 +11,7 @@
 		[cardTemplate]="card"
 		[selection]="selected$ | async"
 		(drop)="updateProductStatus($event)"
+		(multipleDrop)="updateProductsStatus($event)"
 		(selectColumn)="onColumnSelected($event)"
 		(unselectColumn)="onColumnUnselected($event)"></kanban-app>
 
@@ -19,38 +20,13 @@
 			[product]="data"
 			[enablePreviewLink]="true"
 			[checked]="(selected$ | async).has(data.id)"
-			(select)="onItemSelected($event)"
-			(unselect)="onItemUnselected($event)">
+			(clickImage)="openPreview(data)"
+			(select)="onItemSelected($event, true)"
+			(unselect)="onItemUnselected($event, true)">
 		</product-card-app>
 	</ng-template>
 
-<!--
-	<div class="kanbanCtnr">
-		<workflow-kanban2-app
-			[columns]="columns$ | async"
-			[contextualMenu]="contextualMenu"
-			[leftOffset]="73"
-			[card]="card"
-			[getCurrentColumnFct]="getCurrentColumnFct"
-			[selectedItems]="selected$ | async"
-			(itemDropped)="onUpdateProductStatus($event)"
-			(selectItem)="onItemSelected($event, true)"
-			(unselectItem)="onItemUnselected($event, true)"
-			(selectAllItems)="selectAll($event, true)"
-			(unselectAllItems)="resetSelection()"
-			(previewClick)="openPreview($event)">
-		</workflow-kanban2-app>
-	</div>
 
-	<ng-template #card let-row="row" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">
-		<product-card-app class="marginSmall"
-			[product]="row"
-			[dragInProgress]="dragInProgress"
-			[checked]="checked"
-			[enablePreviewLink]="true"
-			(dragDropEnable)="dragDropEnable$.next($event)"
-		</product-card-app>
-  </ng-template> -->
 
 	<!-- <ng-template #contextualMenu let-row="row">
 		<context-menu-app>
@@ -99,9 +75,9 @@
 	</selection-bar-app>
 </div>
 
-<!-- <product-preview-app
+<product-preview-app
   *ngIf="previewOpen"
-  [product]="previewed"
+	[product]="previewed"
   (close)="closePreview()"
   (clickOutside)="closePreview()">
-</product-preview-app> -->
+</product-preview-app>

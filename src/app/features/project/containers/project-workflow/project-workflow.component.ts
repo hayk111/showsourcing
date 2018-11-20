@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgModuleRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, combineLatest } from 'rxjs';
 import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -28,6 +28,7 @@ import { KanbanDropEvent } from '~shared/kanban/interfaces';
 	selector: 'project-workflow-app',
 	templateUrl: './project-workflow.component.html',
 	styleUrls: ['./project-workflow.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectWorkflowComponent extends ListPageComponent<any, any> implements OnInit {
 	project$: Observable<Project>;
@@ -113,12 +114,20 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 		}).subscribe();
 	}
 
+	updateProductsStatus(event: { to: any, items: any[] }) {
+		const products = event.items.map(id => ({
+			id,
+			status: new ProductStatus({ status: { id: event.to, __typename: 'ProductStatusType' } })
+		}));
+		this.productSrv.updateMany(products).subscribe();
+	}
+
 	onColumnSelected(products: Product[]) {
-		products.forEach(prod => this.selectionSrv.selectOne(prod));
+		products.forEach(prod => super.onItemSelected(prod, true));
 	}
 
 	onColumnUnselected(products: Product[]) {
-		products.forEach(prod => this.selectionSrv.unselectOne(prod));
+		products.forEach(prod => super.onItemUnselected(prod, true));
 	}
 
 	/** updates the products with the new value votes */

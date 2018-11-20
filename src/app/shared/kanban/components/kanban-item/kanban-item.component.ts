@@ -10,6 +10,4 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, ViewEncapsulation } 
 export class KanbanItemComponent {
 	@Input() badgeNumber: number;
 	@Input() showBadge: boolean;
-	constructor() { }
-
 }

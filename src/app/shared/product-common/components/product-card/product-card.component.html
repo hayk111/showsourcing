@@ -33,11 +33,13 @@
               <span class="descriptionText">{{product?.supplier?.name}} - {{product?.category?.name}}</span>
             </div>
             <div class="descriptionCtnr-last flex">
-							<icon-app *ngIf="thumbsName"
+              <icon-app
+                *ngIf="thumbsName"
 								[style.visibility]="thumbsName === 'thumbs-up' ? 'hidden' : 'visible'"
-								[name]="thumbsName" [ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
+                [name]="thumbsName"
+                [ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
 							</icon-app>
-              <span *ngIf="score() !== null" class="score" [ngClass]="{ 'like-txt': score() >= 50, 'dislike-txt': score() < 50 }">{{score()}}%</span>
+              <span *ngIf="score !== null" class="score" [ngClass]="{ 'like-txt': score >= 50, 'dislike-txt': score < 50 }">{{score}}%</span>
             </div>
           </div>
         </div>

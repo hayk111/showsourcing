@@ -15,6 +15,7 @@ export class KanbanComponent extends TrackingComponent {
 	@Input() cardTemplate: any;
 	@Input() selection: Map<string, any>;
 	@Output() drop = new EventEmitter<KanbanDropEvent>();
+	@Output() multipleDrop = new EventEmitter<{ to: any, items: any[] }>();
 	/** when the top checkbox is checked */
 	@Output() selectColumn = new EventEmitter<any[]>();
 	@Output() unselectColumn = new EventEmitter<any[]>();
@@ -46,8 +47,11 @@ export class KanbanComponent extends TrackingComponent {
 	}
 
 	onMultipleDrop(event) {
-		const ids = this.selection.keys();
-		// TODO
+		const ids = Array.from(this.selection.keys());
+		this.multipleDrop.emit({
+			to: event.container.id,
+			items: ids
+		});
 	}
 
 	getOtherIds(thatId) {
