@@ -83,10 +83,10 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 			});
 		}
 	}
-	
+
 	loadMoreQuote() {
-		// TODO need to implement 
-		throw 'loadMoreQuote() is not implemented yet';
+		// TODO need to implement
+		throw new Error('loadMoreQuote() is not implemented yet');
 	}
 
 	quoteSelect(quote: Quote) {
@@ -100,6 +100,6 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 	}
 
 	hovered(quote: Quote) {
-		
+
 	}
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
 import { ExternalRequest, Quote } from '~models';
+import { RequestStatus } from '~utils/constants/request-status.enum';
 
 @Component({
 	selector: 'quote-row-app',
@@ -8,11 +9,12 @@ import { ExternalRequest, Quote } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuoteComponent implements OnInit {
+	RequestStatus = RequestStatus;
 
 	@Input() quote: Quote;
 	@Output() openSupplier = new EventEmitter<string>();
-	@Output() updateTask = new EventEmitter<ExternalRequest>();
-	@Output() previewClicked = new EventEmitter<ExternalRequest>();
+	@Output() updateTask = new EventEmitter<Quote>();
+	@Output() previewClicked = new EventEmitter<Quote>();
 
 	constructor() { }
 
@@ -20,16 +22,16 @@ export class QuoteComponent implements OnInit {
 	}
 
 	getStatus() {
-		let status = 'pending';
+		let status = RequestStatus.PENDING;
 		switch (this.quote.status) {
-			case 'replied':
-				status = 'replied';
+			case RequestStatus.REPLIED:
+				status = RequestStatus.REPLIED;
 				break;
-			case 'validated':
-				status = 'validated';
+			case RequestStatus.VALIDATED:
+				status = RequestStatus.VALIDATED;
 				break;
-			case 'rejected':
-				status = 'rejected';
+			case RequestStatus.REJECTED:
+				status = RequestStatus.REJECTED;
 				break;
 		}
 		return status;

@@ -1,7 +1,8 @@
 <div class="flexStart row">
 	<!-- name -->
 	<div class="flex quote-name ellipsis pointer">
-		<div class="flexCenter" [ngStyle]="{'text-decoration': quote?.done ? 'line-through' : 'none'}" (click)="previewClicked.emit(quote)">
+    <div class="flexCenter" [ngStyle]="{'text-decoration': quote?.status === RequestStatus.DONE ? 'line-through' : 'none'}"
+    (click)="previewClicked.emit(quote)">
 			{{ quote?.name || 'Unnamed quote' }}
 		</div>
 	</div>

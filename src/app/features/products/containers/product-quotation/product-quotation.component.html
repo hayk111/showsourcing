@@ -2,15 +2,15 @@
 	<card-app>
 		<div class="quotation-title">Quotations</div>
 		<div class="quotation-body">
-			<quote-list-app [quotes]="quotes" 
+			<quote-list-app [quotes]="quotes"
 				*ngIf="quotes.length"
 				[selection]="selection"
-				[hovered]="hovered($event"
+				(hovered)="hovered($event)"
 				(bottomReached)="loadMoreQuote()"
 				(quoteSelect)="quoteSelect($event)"
 				(quoteUnselect)="quoteUnselect($event)"
 				(previewClicked)="previewClicked($event)"
-				> 
+				>
 			</quote-list-app>
 			<div class="quotation-empty" *ngIf="!quotes.length">
 				<div class="icon-empty"><img src="assets/icons/rfq-no-new.svg" /></div>

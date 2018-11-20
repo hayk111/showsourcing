@@ -8,10 +8,11 @@ import { RequestStatus } from '~utils/constants/request-status.enum';
 
 export class Quote {
 	id: string;
-	status: string; // possible values: pending, done, declined
+	status: RequestStatus; // possible values: pending, done, declined
 	comment?: string;
 	// Basic product fields
 	name: string;
+	creationDate?: Date;
 	description?: string;
 	harbour?: string;
 	incoTerms?: string;
