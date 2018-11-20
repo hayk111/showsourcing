@@ -3,7 +3,7 @@
   <div class="quotation-title">Quotations</div>
   <div class="quotation-body">
 
-    <div class="container" *ngIf="quotes.length" infiniScroll (bottomReached)="bottomReached.emit()">
+    <div class="container" *ngIf="quotes?.length" infiniScroll (bottomReached)="bottomReached.emit()">
       <div *ngFor="let quote of quotes; index as i; first as first; last as last; trackBy: trackById"
         [ngClass]="{'hovered': hoverIndex === i}" class="flex quote-container"
         (mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
