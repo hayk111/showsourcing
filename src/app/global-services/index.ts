@@ -23,3 +23,5 @@ export * from '~global-services/quote/quote.service';
 export * from '~global-services/quote/quote.queries';
 export * from '~global-services/company/company.service';
 export * from '~global-services/supplier-claim/supplier-claim.service';
+export * from '~global-services/sample/sample.service';
+export * from '~global-services/sample-status/sample-status.service';

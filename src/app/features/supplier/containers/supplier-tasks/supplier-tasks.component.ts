@@ -32,16 +32,16 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 		public dataSrv: ListPageDataService<Task, TaskService>,
 		protected selectionSrv: SelectionWithFavoriteService,
 		protected commonDlgSrv: CommonDialogService
-		) {
-			super(
-				router,
-				userSrv,
-				featureSrv,
-				viewSrv,
-				dataSrv,
-				selectionSrv,
-				commonDlgSrv
-			);
+	) {
+		super(
+			router,
+			userSrv,
+			featureSrv,
+			viewSrv,
+			dataSrv,
+			selectionSrv,
+			commonDlgSrv
+		);
 	}
 
 	ngOnInit() {

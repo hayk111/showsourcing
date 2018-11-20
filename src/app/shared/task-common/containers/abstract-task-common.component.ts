@@ -70,4 +70,14 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 	openSupplier(id: string) {
 		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
 	}
+
+	search(str: string) {
+		// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
+		this.currentSearch = str
+			? `name CONTAINS[c] "${str}"` +
+			` OR supplier.name CONTAINS[c] "${str}"` +
+			` OR product.name CONTAINS[c] "${str}"`
+			: '';
+		this.onPredicateChange();
+	}
 }

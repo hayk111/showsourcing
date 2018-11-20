@@ -17,7 +17,6 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 		CommonModule,
 		UserPictureModule,
 		ProductCommonModule,
-		DynamicFormsModule,
 		UtilsModule,
 		ImageModule,
 		InputsModule,

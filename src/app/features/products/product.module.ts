@@ -53,6 +53,7 @@ import { ProductTeamRatingComponent } from './components/product-team-rating/pro
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
 import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
+import { SampleCommonModule } from '~shared/sample-common';
 
 @NgModule({
 	imports: [
@@ -82,6 +83,7 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		TaskCommonModule,
 		QuoteCommonModule,
 		InputsCustomModule,
+		SampleCommonModule
 	],
 	declarations: [
 		ProductIconsComponent,

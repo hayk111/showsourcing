@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, Output } from '@angular/core';
 import { Task, User } from '~models';
 import { PortalService } from '~shared/portal';
-import { DEFAULT_IMG } from '~utils';
 
 import { PickerEntitySelectorComponent } from '../picker-entity-selector/picker-entity-selector.component';
 
@@ -21,8 +20,6 @@ export class TaskComponent {
 	@Output() openSupplier = new EventEmitter<string>();
 	@Output() updateTask = new EventEmitter<Task>();
 	@Output() previewClicked = new EventEmitter<Task>();
-
-	defaultImg = DEFAULT_IMG;
 
 	constructor(
 		private portalSrv: PortalService,

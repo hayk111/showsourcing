@@ -1,3 +1,11 @@
-<p>
-  supplier-samples works!
-</p>
+<div class="container">
+	<sample-list-app
+		[samples]="items$ | async"
+		[selection]="selected$ | async"
+		[hasProduct]="true"
+		(bottomReached)="loadMore()"
+		(createSample)="createSample($event)"
+		(previewClicked)="openPreview($event)"
+		(updateSample)="update($event)">
+	</sample-list-app>
+</div>
