@@ -5,3 +5,16 @@
 .nonclickable {
   cursor: default;
 }
+
+.col {
+  display: inline-block;
+}
+
+$columns: 100;
+@mixin col-x {
+  @for $i from 1 through $columns {
+  .col-#{$i} { width: percentage($i)/100; }
+  }
+}
+
+@include col-x()
