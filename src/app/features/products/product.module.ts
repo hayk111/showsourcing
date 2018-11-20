@@ -17,6 +17,7 @@ import {
 	ProductGeneralInfoComponent,
 	ProductQuotationComponent,
 	ProductsPageComponent,
+	ProductSamplesComponent,
 } from '~features/products/containers';
 import { routes } from '~features/products/routes';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
@@ -100,7 +101,8 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		ProductActivityComponent,
 		VoteDetailsDialogComponent,
 		ProductTasksComponent,
-		ProductTopPanelComponent
+		ProductTopPanelComponent,
+		ProductSamplesComponent
 	],
 	entryComponents: [
 		VoteDetailsDialogComponent
