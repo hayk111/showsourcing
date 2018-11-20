@@ -1,4 +1,4 @@
-<div class="ctnr" infiniScroll (bottomReached)="bottomReached.emit()">
+<div class="ctnr" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
 	<div class="contentCtnr" *ngIf="!pending">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
@@ -38,10 +38,9 @@
 				(mouseleave)="hoverRow(-1)">
 				<context-menu-app
 					*ngIf="isSelectable(row)"
-					[xPosition]="-19"
-					[yPosition]="27"
 					[ngClass]="{ hover: (i === hoverIndex) }"
-					[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }">
+					[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
+					[closeOnScroll]="true">
 					<context-menu-trigger-app>
 						<icon-app class="color-txt-secondary" name="dots-vertical" size="18"></icon-app>
           </context-menu-trigger-app>

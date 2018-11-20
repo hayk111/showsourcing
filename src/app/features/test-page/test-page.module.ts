@@ -19,6 +19,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
 	imports: [
@@ -36,7 +37,8 @@ import { ProjectWorkflowFeatureService } from '~features/project/services/projec
 		SearchBarModule,
 		InputsModule,
 		TopPanelModule,
-		Workflow2Module
+		Workflow2Module,
+		OverlayModule
 	],
 	declarations: [TestPageComponent, TestKanbanComponent],
 	exports: [TestPageComponent, TestKanbanComponent],

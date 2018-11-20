@@ -14,7 +14,9 @@ import { CustomField } from '~shared/dynamic-forms/models';
 })
 export class TestPageComponent implements OnInit {
 
-	constructor(private render: Renderer2) { }
+	isOpen = false;
+
+	constructor() { }
 
 	ngOnInit() {
 

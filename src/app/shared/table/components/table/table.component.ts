@@ -1,15 +1,14 @@
 import {
-	AfterContentInit,
 	ChangeDetectionStrategy,
 	Component,
 	ContentChildren,
 	EventEmitter,
 	HostListener,
 	Input,
+	OnChanges,
 	Output,
 	QueryList,
 	TemplateRef,
-	OnChanges
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -63,7 +62,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 	// currently sorted column
 	currentSortedColumn: ColumnDirective;
-
 
 	/** Different rows displayed */
 	@Input() rows;
@@ -167,5 +165,4 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			this.contextualMenuOpened[key] = false;
 		});
 	}
-
 }

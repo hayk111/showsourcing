@@ -55,7 +55,6 @@ import { TemplateModule } from '~shared/template';
 		}),
 		PortalModule
 	],
-	providers: [],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
 })

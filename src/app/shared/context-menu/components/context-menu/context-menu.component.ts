@@ -1,8 +1,5 @@
-import {
-	Component, OnInit, ChangeDetectionStrategy, Input,
-	ViewChild, TemplateRef, ComponentFactoryResolver,
-	Output, EventEmitter
-} from '@angular/core';
+import { ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 
 export type MenuPositionX = 'before' | 'after';
@@ -21,16 +18,20 @@ export type MenuPositionY = 'above' | 'below';
 		'aria-haspopup': 'true',
 	}
 })
-export class ContextMenuComponent {
-	/** Position of the menu in the X axis.*/
-	@Input() xPosition = 16;
-	/** Position of the menu in the Y axis. */
-	@Input() yPosition = 16;
-	/** width of the menu */
-	@Input() width = 200;
+export class ContextMenuComponent implements OnInit {
+
 	@Input() menuOpen = false;
+	/** activates the scroll strategy applied by the CDK directive */
+	@Input() closeOnScroll = false;
 	@Output() menuClosed = new EventEmitter<any>();
 
+	scrollStrat: ScrollStrategy;
+
+	constructor(private sso: ScrollStrategyOptions) { }
+
+	ngOnInit() {
+		this.scrollStrat = this.closeOnScroll ? this.sso.close() : this.sso.reposition();
+	}
 
 	/** Toggles the menu between the open and closed states. */
 	toggleMenu(): void {

@@ -38,7 +38,7 @@ const components = [
 	ProofOfIdentityComponent,
 	QRCodeComponent,
 	VerificationComponent,
-  FileRowComponent
+	FileRowComponent
 ];
 
 @NgModule({
@@ -47,7 +47,7 @@ const components = [
 		SharedModule,
 		FormsModule,
 		SearchBarModule,
-    FileModule,
+		FileModule,
 		DialogModule,
 		CustomDialogModule,
 		SearchAutocompleteModule,

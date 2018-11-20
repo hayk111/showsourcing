@@ -1,9 +1,18 @@
 <!-- the trigger -->
-<div class="trigger" (click)="openMenu()" (dragstart)="preventDrag($event)">
+<div class="trigger" (click)="menuOpen = !menuOpen" (dragstart)="preventDrag($event)"
+	cdkOverlayOrigin
+	#trigger="cdkOverlayOrigin">
 	<ng-content select="context-menu-trigger-app"></ng-content>
 </div>
+
 <!-- the menu card -->
-<div class="menu z-4 flexColumn ellipsis"  *ngIf="menuOpen" (clickOutside)="closeMenu()" (click)="closeMenu(true)"
-	[ngStyle]="{ 'left': xPosition + 'px', 'top': yPosition + 'px', 'width': width + 'px' }">
-	<ng-content></ng-content>
-</div>
+<ng-template
+	cdkConnectedOverlay
+	[cdkConnectedOverlayOrigin]="trigger"
+	[cdkConnectedOverlayOpen]="menuOpen"
+	[cdkConnectedOverlayScrollStrategy]="scrollStrat"
+	[cdkConnectedOverlayOffsetY]="8">
+	<div class="menu z-4 flexColumn ellipsis"  (clickOutside)="closeMenu()" (click)="closeMenu(true)">
+		<ng-content></ng-content>
+	</div>
+</ng-template>
