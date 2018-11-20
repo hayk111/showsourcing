@@ -34,19 +34,19 @@ export class FilesCardComponent extends TrackingComponent {
 	@Output() fileAdded = new EventEmitter<Attachment[]>();
 	defaultImg = DEFAULT_FILE_ICON;
 
-  @Input() linkedItem: any;
+	@Input() linkedItem: any;
 
 	constructor(
 		private uploader: UploaderService,
 		private dlgSrv: DialogService
 	) {
-    super();
-  }
+		super();
+	}
 
 	onFileAdded(files: Array<File>) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
 		this.uploader.uploadFiles(files, this.linkedItem).subscribe(addedFiles => {
-      // console.log(addedFiles);
+			// console.log(addedFiles);
 			this.fileAdded.emit(addedFiles);
 			this._pendingFiles = [];
 		});

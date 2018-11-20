@@ -20,8 +20,8 @@ export class SupplierTopCardComponent extends TrackingComponent implements OnIni
 	constructor(
 		private location: Location
 	) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}

@@ -3,18 +3,18 @@ import { Booth } from '~models/booth.model';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
-  selector: 'show-exhibitors-app',
-  templateUrl: './show-exhibitors.component.html',
-  styleUrls: ['./show-exhibitors.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'show-exhibitors-app',
+	templateUrl: './show-exhibitors.component.html',
+	styleUrls: ['./show-exhibitors.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowExhibitorsComponent extends TrackingComponent implements OnInit {
-  @Input() booths: Booth[];
-  constructor() {
-    super();
-  }
+	@Input() booths: Booth[];
+	constructor() {
+		super();
+	}
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
 }

@@ -36,14 +36,14 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 		this.featureSrv.create(newTask).subscribe(_ => this.refetch());
 	}
 
-  search(str: string) {
-    // TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
-    this.currentSearch = str
-      ? `name CONTAINS[c] "${str}"` +
-        ` OR supplier.name CONTAINS[c] "${str}"` +
-        ` OR product.name CONTAINS[c] "${str}"`
-      : '';
-    this.onPredicateChange();
-  }
+	search(str: string) {
+		// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
+		this.currentSearch = str
+			? `name CONTAINS[c] "${str}"` +
+				` OR supplier.name CONTAINS[c] "${str}"` +
+				` OR product.name CONTAINS[c] "${str}"`
+			: '';
+		this.onPredicateChange();
+	}
 }
 

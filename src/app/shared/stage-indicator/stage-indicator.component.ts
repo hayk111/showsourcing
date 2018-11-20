@@ -13,8 +13,8 @@ export class StageIndicatorComponent extends TrackingComponent implements OnInit
 	@Input() index: number;
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}

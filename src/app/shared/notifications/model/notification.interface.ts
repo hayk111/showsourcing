@@ -8,8 +8,8 @@ export class Notification {
 
 export enum NotificationType {
 	ERROR = 'error',
-  SUCCESS = 'success',
-  WARNING = 'warning',
-  DELETED = 'deleted',
-  DANGER = 'danger'
+	SUCCESS = 'success',
+	WARNING = 'warning',
+	DELETED = 'deleted',
+	DANGER = 'danger'
 }

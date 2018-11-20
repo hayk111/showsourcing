@@ -9,9 +9,9 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 })
 export class ItemCompareColumnComponent extends TrackingComponent implements OnInit {
 
-  @Input() type: ('title' | 'content') = 'content';
-  @Input() product: Product;
-  @Input() quote: Quote;
+	@Input() type: ('title' | 'content') = 'content';
+	@Input() product: Product;
+	@Input() quote: Quote;
 
 
 	constructor() {
@@ -20,10 +20,10 @@ export class ItemCompareColumnComponent extends TrackingComponent implements OnI
 
 	ngOnInit() { }
 
-  getPackagingString(packaging: Packaging): string {
-    if (!packaging) {
-      return '';
-    }
-    return `${packaging.width}x ${packaging.height} x ${packaging.depth}${packaging.unit}`;
-  }
+	getPackagingString(packaging: Packaging): string {
+		if (!packaging) {
+			return '';
+		}
+		return `${packaging.width}x ${packaging.height} x ${packaging.depth}${packaging.unit}`;
+	}
  }

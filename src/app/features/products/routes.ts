@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
 
 import { ProductDetailsComponent,
-  ProductGeneralInfoComponent,
-  ProductsPageComponent,
-  ProductQuotationComponent } from '~features/products/containers';
+	ProductGeneralInfoComponent,
+	ProductsPageComponent,
+	ProductQuotationComponent } from '~features/products/containers';
 import { ProductActivityComponent } from '~features/products/components/product-activity/product-activity.component';
 import { ProductTasksComponent } from '~features/products/containers/product-tasks/product-tasks.component';
 

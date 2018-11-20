@@ -11,8 +11,8 @@ export class BreadCrumbComponent extends TrackingComponent implements OnInit {
 	@Input() title: string;
 	@Input() subtitles: Array<string> = [];
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {}
 }

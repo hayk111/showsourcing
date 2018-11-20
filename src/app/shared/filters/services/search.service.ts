@@ -14,7 +14,7 @@ import { SelectParams } from '~global-services/_global/select-params';
 export class SearchService {
 
 	constructor(
-    protected tagSrv: TagService,
+		protected tagSrv: TagService,
 		protected categorySrv: CategoryService,
 		protected supplierSrv: SupplierService,
 		protected eventSrv: EventService) {

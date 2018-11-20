@@ -9,8 +9,8 @@ import {
 	EditionDialogComponent,
 	MergeDialogComponent,
 	ProductAddToProjectDlgComponent,
-  ProductExportDlgComponent,
-  CompareQuotationComponent,
+	ProductExportDlgComponent,
+	CompareQuotationComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog/component';
 import { CrudDialogService } from '~shared/custom-dialog/services/crud-dialog.service';
@@ -35,10 +35,10 @@ import { CarouselModule } from '~shared/carousel';
 		EditionDialogComponent,
 		MergeDialogComponent,
 		ProductAddToProjectDlgComponent,
-    ProductRequestTeamFeedbackDlgComponent,
-    CompareQuotationComponent,
-    ProductExportDlgComponent,
-    ItemCompareColumnComponent,
+		ProductRequestTeamFeedbackDlgComponent,
+		CompareQuotationComponent,
+		ProductExportDlgComponent,
+		ItemCompareColumnComponent,
 		EmailListComponent,
 		RfqDialogComponent
 	],
@@ -46,8 +46,8 @@ import { CarouselModule } from '~shared/carousel';
 		CreationDialogComponent,
 		EditionDialogComponent,
 		MergeDialogComponent,
-    ProductAddToProjectDlgComponent,
-    CompareQuotationComponent,
+		ProductAddToProjectDlgComponent,
+		CompareQuotationComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
 		RfqDialogComponent

@@ -33,9 +33,9 @@ export class ImageComponent {
 			return 'rotate(' + (this.image.orientation * 90) % 360 + 'deg)';
 	}
 
-  getCustomStyle() {
-    return {'object-fit': this.objectFit, ...this.customStyle};
-  }
+	getCustomStyle() {
+		return {'object-fit': this.objectFit, ...this.customStyle};
+	}
 
 	rotate() {
 		this.transform = this.getRotation();

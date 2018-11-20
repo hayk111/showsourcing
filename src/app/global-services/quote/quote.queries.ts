@@ -2,7 +2,7 @@ import { GlobalQueries } from '~global-services/_global/global-queries.class';
 import { ProductQueries } from '~global-services/product/product.queries';
 
 export abstract class QuoteQueries extends GlobalQueries {
-  static readonly one = `
+	static readonly one = `
     id,
 		status,
 		comment,

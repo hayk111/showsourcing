@@ -14,8 +14,8 @@ export class ProjectNavComponent extends TrackingComponent implements OnInit {
 	@Output() select = new EventEmitter<Project>();
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}

@@ -1,4 +1,6 @@
 
+const addZero = number => number < 9 ? `0${number}` : number;
+
 export const realmDateFormat = (date: Date) => {
 	const year = date.getFullYear();
 	const month = addZero(date.getMonth() + 1);
@@ -8,5 +10,3 @@ export const realmDateFormat = (date: Date) => {
 	const secs = addZero(date.getSeconds());
 	return `${year}-${month}-${day}@${hour}:${minutes}:${secs}`;
 };
-
-const addZero = number => number < 9 ? `0${number}` : number;

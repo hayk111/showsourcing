@@ -18,8 +18,8 @@ export class CreateTaskDialogComponent extends TrackingComponent implements OnIn
 	constructor(
 		private fb: FormBuilder,
 		private dlgSrv: DialogService) {
-      super();
-    }
+			super();
+		}
 
 	ngOnInit() {
 		this.group = this.fb.group({
