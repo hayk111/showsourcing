@@ -1,6 +1,7 @@
 import { statusToColor } from '~utils/status-to-color.function';
-import { ProductStatusType, Product } from '~models';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
+import { ProductStatusType, Product } from '~models';
 
 /**
  * converts an array of productStatusType and and array of products to an array of kanbanColumn
@@ -12,10 +13,12 @@ export function statusProductToKanbanCol(
 	types: ProductStatusType[],
 	products: Product[],
 	withoutStatus = true): KanbanColumn[] {
+
+	const constPipe = new ConstPipe();
 	// make the columns
 	const cols: KanbanColumn[] = types.map(type => ({
 		id: type.id,
-		title: type.name,
+		title: constPipe.transform('productStatusType', type.name),
 		color: statusToColor(type.category),
 		data: []
 	}));

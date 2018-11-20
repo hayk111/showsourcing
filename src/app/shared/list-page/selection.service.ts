@@ -14,14 +14,14 @@ export class SelectionService {
 		this._selection$.next(this.selection);
 	}
 
-	selectOne(item: { id: string }) {
+	selectOne(item: { id?: string }) {
 		// we do this so change detection, detects the change
 		this.selection = new Map(this.selection);
 		this.selection.set(item.id, item);
 		this.emit();
 	}
 
-	unselectOne(item: { id: string }) {
+	unselectOne(item: { id?: string }) {
 		this.selection = new Map(this.selection);
 		this.selection.delete(item.id);
 		this.emit();

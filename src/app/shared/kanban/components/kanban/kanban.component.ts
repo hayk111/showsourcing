@@ -13,9 +13,12 @@ export class KanbanComponent extends TrackingComponent {
 	@Input() cols: KanbanColumn[] = [];
 	/** template for the displayed item */
 	@Input() cardTemplate: any;
+	@Input() selection: Map<string, any>;
 	@Output() drop = new EventEmitter<KanbanDropEvent>();
 	/** when the top checkbox is checked */
-	@Output() check = new EventEmitter<boolean>();
+	@Output() selectColumn = new EventEmitter<any[]>();
+	@Output() unselectColumn = new EventEmitter<any[]>();
+
 
 	get ids() {
 		return this.cols.map(col => col.id);
@@ -36,12 +39,6 @@ export class KanbanComponent extends TrackingComponent {
 			from: event.previousContainer.id,
 			to: event.container.id
 		});
-	}
-
-	getStyle(col: KanbanColumn) {
-		return {
-			'border-top-color': `var(--color-${col.color})`
-		};
 	}
 
 	getOtherIds(thatId) {

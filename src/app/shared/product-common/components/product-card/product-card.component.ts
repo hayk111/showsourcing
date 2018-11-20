@@ -144,7 +144,7 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	onChecked() {
 		this.checked = true;
 		this.checkboxAction = true;
-		this.select.emit();
+		this.select.emit(this.product);
 		if (this.checked && this.highlightOnChecked) {
 			this.renderer.addClass(this.elementRef.nativeElement, 'highlight-checked');
 		}
@@ -154,7 +154,7 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	onUnchecked() {
 		this.checked = false;
 		this.checkboxAction = true;
-		this.unselect.emit();
+		this.unselect.emit(this.product);
 		if (!this.checked && this.highlightOnChecked) {
 			this.renderer.removeClass(this.elementRef.nativeElement, 'highlight-checked');
 		}
