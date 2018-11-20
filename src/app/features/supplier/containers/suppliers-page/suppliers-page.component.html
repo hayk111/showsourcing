@@ -10,10 +10,10 @@
   [hasSwitch]="false"
 	[hasFilter]="true"
 	[buttonIcon]="false"
-	[filtersAmount]="filterList.asFilters().length"
-	(showFilters)="openFilterPanel()"
-	(search)="search($event)"
-	(smartSearch)="smartSearch($event)">
+	[filtersAmount]="dataSrv.filterList.asFilters().length"
+	(showFilters)="viewSrv.openFilterPanel()"
+	(search)="dataSrv.search($event)"
+	(smartSearch)="dataSrv.smartSearch($event)">
 	<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
 		<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async);trackBy: trackByFn">
 			<search-autocomplete-item-content-app
@@ -28,20 +28,20 @@
 
 <ng-container *ngIf="items$ | async as suppliers; else spinner">
 	<supplier-list-view-app
-		[rows]="suppliers"
-		[selection]="selected$ | async"
-		[pending]="pending"
-		(bottomReached)="loadMore()"
-		(sort)="sort($event)"
-		(select)="onItemSelected($event, true)"
-		(unselect)="onItemUnselected($event, true)"
-		(selectAll)="selectAll($event, true)"
-		(unselectAll)="resetSelection()"
-		(open)="goToDetails()"
-		(favorited)="onItemFavorited($event)"
-		(unfavorited)="onItemUnfavorited($event)"
-		(previewClick)="openPreview($event)"
-		(delete)="deleteOne($event)">
+    [rows]="suppliers"
+    [selection]="selectionSrv.selection$ | async"
+		[pending]="dataSrv.pending"
+		(bottomReached)="dataSrv.loadMore()"
+		(sort)="dataSrv.sort($event)"
+		(select)="selectionSrv.onItemSelected($event, true)"
+		(unselect)="selectionSrv.onItemUnselected($event, true)"
+		(selectAll)="selectionSrv.selectAll($event, true)"
+		(unselectAll)="selectionSrv.resetSelection()"
+		(open)="viewSrv.goToDetails()"
+		(favorited)="dataSrv.onItemFavorited($event)"
+		(unfavorited)="dataSrv.onItemUnfavorited($event)"
+		(previewClick)="viewSrv.openPreview($event)"
+		(delete)="dataSrv.deleteOne($event)">
 	</supplier-list-view-app>
 
 	<selection-bar-app

@@ -1,4 +1,4 @@
-import { Component, NgModuleRef } from '@angular/core';
+import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, zip } from 'rxjs';
 import { first, map } from 'rxjs/operators';
@@ -7,19 +7,21 @@ import { SupplierFeatureService } from '~features/supplier/services';
 import { ERM, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
 import { SearchService, FilterType } from '~shared/filters';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { SelectionService } from '~shared/list-page/selection.service';
-
-
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 @Component({
 	selector: 'supplier-page-app',
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
-		SelectionService
+    SelectionService
 	]
 })
-export class SuppliersPageComponent extends ListPageComponent<Supplier, SupplierFeatureService> {
+export class SuppliersPageComponent extends TrackingComponent implements OnInit {
+
 	filterTypes = [
 		FilterType.CATEGORIES,
 		FilterType.TAGS,
@@ -33,19 +35,19 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		protected router: Router,
 		protected featureSrv: SupplierFeatureService,
 		protected selectionSrv: SelectionService,
-		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>
+		protected viewSrv: ListPageViewService<Supplier>,
+		protected dataSrv: ListPageDataService<Supplier, SupplierFeatureService>,
 	) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.SUPPLIER);
-	}
+		super();
+  }
 
-	search(str: string) {
-		// the search predicate
-		this.currentSearch = str ? `name CONTAINS[c] "${str}"`
-			+ ` OR categories.name CONTAINS[c] "${str}"`
-			+ ` OR tags.name CONTAINS[c] "${str}"` : '';
-		this.onPredicateChange();
+  ngOnInit() {
+		this.dataSrv.setup({
+			featureSrv: this.featureSrv,
+			searchedFields: ['name', 'tag.name', 'category.name'],
+			initialSortBy: 'name'
+		});
+		this.dataSrv.init();
 	}
-
 }
