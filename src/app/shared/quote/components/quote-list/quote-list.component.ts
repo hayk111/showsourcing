@@ -25,6 +25,8 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 	@Output() quoteUnselect = new EventEmitter<Quote>();
 	@Output() previewClicked = new EventEmitter<Quote>();
 	@Output() hovered = new EventEmitter<Quote>();
+	@Output() openRfq = new EventEmitter<null>();
+	@Output() openCompareQuotationDialog = new EventEmitter<null>();
 
 	hoverIndex: number;
 
