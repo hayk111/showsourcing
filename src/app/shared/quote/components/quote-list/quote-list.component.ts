@@ -11,6 +11,7 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 export class QuoteListComponent extends TrackingComponent implements OnInit {
 
 
+	numSelected = 0;
 	private _quotes: Quote[] = [];
 	@Input() set quotes(quotes: Quote[]) {
 		this._quotes = quotes;
@@ -19,7 +20,7 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 		return this._quotes;
 	}
 
-	@Input() selection: Map<string, boolean>;
+	@Input() selection: Map<string, Quote>;
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() quoteSelect = new EventEmitter<Quote>();
 	@Output() quoteUnselect = new EventEmitter<Quote>();
@@ -40,6 +41,22 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 	}
 
 	ngOnInit() {
+	}
+
+	quoteSelectFunc(quote: Quote) {
+		this.selection.set(quote.id, quote);
+		this.numSelected = this.numSelected + 1;
+		if (this.quoteSelect) {
+			this.quoteSelect.emit(quote);
+		}
+	}
+
+	quoteUnselectFunc(quote: Quote) {
+		this.selection.delete(quote.id);
+		this.numSelected = this.numSelected - 1;
+		if (this.quoteUnselect) {
+			this.quoteUnselect.emit(quote);
+		}
 	}
 
 }

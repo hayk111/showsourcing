@@ -12,7 +12,7 @@ export class Quote {
 	comment?: string;
 	// Basic product fields
 	name: string;
-	creationDate?: Date;
+	creationDate = new Date();
 	description?: string;
 	harbour?: string;
 	incoTerms?: string;
