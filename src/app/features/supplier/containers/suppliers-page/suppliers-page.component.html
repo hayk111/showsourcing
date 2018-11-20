@@ -2,7 +2,7 @@
 <top-panel-app
 	title="My Suppliers"
 	[subtitles]="['Suppliers', 'all']"
-	buttonName="Add Supplier"
+  buttonName="Add Suppliers"
 	(buttonClick)="openCreateDlg(true)">
 </top-panel-app>
 
@@ -10,85 +10,59 @@
   [hasSwitch]="false"
 	[hasFilter]="true"
 	[buttonIcon]="false"
-	[filtersAmount]="filterList.asFilters().length"
-	(showFilters)="openFilterPanel()"
-	(search)="search($event)"
-	(smartSearch)="smartSearch($event)">
-	<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
-		<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async);trackBy: trackByFn">
-			<search-autocomplete-item-content-app
-				[selectable]="true" [title]="element.name" [subtitle]="element.type"
-				[checked]="element.checked" [icon]="element.type"
-				(check)="addFilter({ type: element.type, value: element.id, entity: element })"
-				(uncheck)="removeFilter({ type: element.type, value: element.id, entity: element })">
-			</search-autocomplete-item-content-app>
-		</search-autocomplete-item-app>
-	</search-autocomplete-app>
+	[filtersAmount]="dataSrv.filterList.asFilters().length"
+	(showFilters)="viewSrv.openFilterPanel()"
+	(search)="dataSrv.search($event)"
+	(smartSearch)="dataSrv.smartSearch($event)">
 </sub-panel-app>
 
-<ng-container *ngIf="items$ | async as suppliers; else spinner">
+<ng-container *ngIf="dataSrv.items$ | async as suppliers; else spinner">
 	<supplier-list-view-app
-		[rows]="suppliers"
-		[selection]="selected$ | async"
-		[pending]="pending"
-		(bottomReached)="loadMore()"
-		(sort)="sort($event)"
-		(select)="onItemSelected($event, true)"
-		(unselect)="onItemUnselected($event, true)"
-		(selectAll)="selectAll($event, true)"
-		(unselectAll)="resetSelection()"
-		(open)="goToDetails()"
-		(favorited)="onItemFavorited($event)"
-		(unfavorited)="onItemUnfavorited($event)"
-		(previewClick)="openPreview($event)"
-		(delete)="deleteOne($event)">
-	</supplier-list-view-app>
-
+    [rows]="suppliers"
+    [selection]="selectionSrv.selection$ | async"
+		[pending]="dataSrv.pending"
+		(bottomReached)="dataSrv.loadMore()"
+		(sort)="dataSrv.sort($event)"
+		(select)="selectionSrv.selectOne($event, true)"
+		(unselect)="selectionSrv.unselectOne($event, true)"
+		(selectAll)="selectionSrv.selectAll($event, true)"
+		(unselectAll)="selectionSrv.unselectAll()"
+		(open)="viewSrv.goToDetails()"
+		(favorited)="dataSrv.onItemFavorited($event)"
+		(unfavorited)="dataSrv.onItemUnfavorited($event)"
+		(previewClick)="viewSrv.openPreview($event)"
+		(delete)="dataSrv.deleteOne($event)">
+  </supplier-list-view-app>
 	<selection-bar-app
-		[isShown]="(selected$ | async).size > 0"
-		[selection]="(selected$ | async)"
-		[hasDelete]="false"
-		(close)="resetSelection()"
-		(delete)="deleteSelected()">
-
+    [isShown]="(selectionSrv.selection$ | async).size > 0"
+    [selection]="selectionSrv.selection$ | async"
+    [hasDelete]="false"
+    (close)="selectionSrv.unselectAll()"
+    (delete)="dataSrv.deleteSelected()">
 		<action-bar-app
-			[favorite]="allSelectedFavorite"
+			[favorite]="selectionSrv.allSelectedFavorite"
 			[hasLikes]="false"
-			(onFavorite)="onFavoriteAllSelected()"
-			(onUnfavorite)="onUnfavoriteAllSelected()">
+      [multiple]="true"
+			(onFavorite)="dataSrv.onFavoriteAllSelected()"
+      (onUnfavorite)="dataSrv.onUnfavoriteAllSelected()">
 
-			<!-- yPosition -= 34  for each context-menu-item-app -->
-			<!-- The function 'Export' isn't work for now ( 20/9 ) so better remove 3 dot |  From Van-Huy with ♥ -->
-			<!-- <context-menu-app xPosition="-171" yPosition="-33">
-				<context-menu-trigger-app>
-					<button class="icon light">
-						<icon-app name="dots-vertical" size="m"></icon-app>
-					</button>
-				</context-menu-trigger-app>
-
-				<context-menu-item-app (click)="export.emit()">
-						Export
-					</context-menu-item-app>
-			</context-menu-app> -->
-
-			<button class="icon light" (click)="deleteSelected()">
+			<button class="icon light" (click)="dataSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
 
-	</selection-bar-app>
+  </selection-bar-app>
 
 	<supplier-preview-app
-		*ngIf="previewOpen"
-		[supplier]="previewed"
-		(close)="closePreview()"
-		(clickOutside)="closePreview()"></supplier-preview-app>
-
+		*ngIf="viewSrv.previewOpen"
+		[supplier]="viewSrv.previewed"
+		(close)="viewSrv.closePreview()"
+		(clickOutside)="viewSrv.closePreview()"></supplier-preview-app>
 		<filters-app
-			[filterList]="filterList"
+			[filterList]="dataSrv.filterList"
 			[filterTypes]="filterTypes"
-			(clickOutside)="closeFilterPanel()"
-			*ngIf="filterPanelOpen">
+			(clickOutside)="viewSrv.closeFilterPanel()"
+			*ngIf="viewSrv.filterPanelOpen">
 		</filters-app>
 
 </ng-container>

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import {
 	CategoryService,
 	EventService,
@@ -12,6 +13,6 @@ import {
 	imports: [
 		CommonModule
 	],
-	declarations: [],
+	declarations: []
 })
 export class ListPageModule { }

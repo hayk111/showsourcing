@@ -18,31 +18,12 @@
 		(search)="dataSrv.search($event)"
 		(viewChange)="onViewChange($event)">
 
-		<!-- <search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
-			<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async); trackBy: trackByFn">
-				<search-autocomplete-item-content-app
-					[selectable]="true" [title]="element.name" [subtitle]="element.type"
-					[checked]="element.checked" [icon]="element.type"
-					(check)="dataSrv.addFilter({ type: element.type, value: element.id, entity: element })"
-					(uncheck)="dataSrv.removeFilter({ type: element.type, value: element.id, entity: element })">
-				</search-autocomplete-item-content-app>
-			</search-autocomplete-item-app>
-		</search-autocomplete-app> -->
-
 		<product-sorting-menu-app
 			[currentSort]="dataSrv.currentSort"
 			[gridView]="viewSrv.view === 'card'"
 			(sortFromMenu)="dataSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
 
-		<!-- <context-menu-app>
-			<context-menu-trigger-app>
-				<button class="secondary flex sort-2">
-					<p>Product Only</p>
-					<div><icon-app name="caret-down" class="color-txt-primary"></icon-app></div>
-				</button>
-			</context-menu-trigger-app>
-		</context-menu-app> -->
 
 	</sub-panel-app>
 
