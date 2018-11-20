@@ -25,6 +25,9 @@ export class KanbanComponent extends TrackingComponent {
 	}
 
 	onDrop(event: CdkDragDrop<any>) {
+		if (this.selection.size > 0) {
+			return this.onMultipleDrop(event);
+		}
 		if (event.previousContainer === event.container) {
 			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 		} else {
@@ -32,7 +35,8 @@ export class KanbanComponent extends TrackingComponent {
 				event.previousContainer.data,
 				event.container.data,
 				event.previousIndex,
-				event.currentIndex);
+				event.currentIndex
+			);
 		}
 		this.drop.emit({
 			item: event.container.data[event.currentIndex],
@@ -41,7 +45,13 @@ export class KanbanComponent extends TrackingComponent {
 		});
 	}
 
+	onMultipleDrop(event) {
+		const ids = this.selection.keys();
+		// TODO
+	}
+
 	getOtherIds(thatId) {
 		return this.ids.filter(id => id !== thatId);
 	}
+
 }

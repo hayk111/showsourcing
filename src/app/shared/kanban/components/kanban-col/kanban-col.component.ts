@@ -11,9 +11,6 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 	templateUrl: './kanban-col.component.html',
 	styleUrls: ['./kanban-col.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	// view encapsulation none because the preview is rendered outside this node in
-	// the dom
-	encapsulation: ViewEncapsulation.None
 })
 export class KanbanColComponent extends TrackingComponent implements OnInit {
 	@Input() col: KanbanColumn;
@@ -23,11 +20,6 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 	@Output() selectAll = new EventEmitter<any[]>();
 	@Output() unselectAll = new EventEmitter<any[]>();
 	@Output() drop = new EventEmitter<CdkDragDrop<any>>();
-
-	/** whether multiple items are dragged simultaneously via selection */
-	private multipleDrag: boolean;
-	/** the currently dragged id */
-	draggedId: string;
 
 	constructor() {
 		super();
@@ -43,12 +35,15 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 	}
 
 	onDrop(event: CdkDragDrop<any>) {
-		if (this.selection.size > 0) {
-			//
-		} else {
-			this.drop.emit(event);
-		}
+		this.drop.emit(event);
 	}
 
+	hasAllSelected() {
+		const hasData = this.col.data.length > 0;
+		if (!hasData) {
+			return false;
+		}
+		return this.col.data.every(item => this.selection.has(item.id));
+	}
 
 }

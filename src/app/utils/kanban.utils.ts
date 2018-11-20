@@ -18,7 +18,7 @@ export function statusProductToKanbanCol(
 	// make the columns
 	const cols: KanbanColumn[] = types.map(type => ({
 		id: type.id,
-		title: constPipe.transform('productStatusType', type.name),
+		title: constPipe.transform(type.name, 'status'),
 		color: statusToColor(type.category),
 		data: []
 	}));
