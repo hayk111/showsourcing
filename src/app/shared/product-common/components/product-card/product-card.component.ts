@@ -33,25 +33,13 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	@Input() checked: boolean;
 	/** The associated product */
 	@Input() set product(product: Product) {
-		this.thumbsName = 'thumbs-up';
-		this.like = false;
-		this.dislike = false;
-		if (product)
-			this.userVote = (product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-		if (this.userVote) {
-			if (this.userVote.value === 100) {
-				this.like = true;
-				this.dislike = false;
-				this.thumbsName = 'thumbs-up-background';
-			} else {
-				this.dislike = true;
-				this.like = false;
-				this.thumbsName = 'thumbs-down-background';
-			}
-		}
-		this._product = { ...product };
+		this._product = product;
+		this.computeLikes();
+		this.computeScore();
 		this.link = '/product/details' + this._product.id + '/general';
 	}
+
+	score: number;
 
 	get product() {
 		return this._product;
@@ -226,12 +214,26 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 		}
 	}
 
-	enterMenuTrigger() {
-		this.dragDropEnabled = false;
-		this.dragDropEnable.emit(this.dragDropEnabled);
+	computeScore() {
+		this.score = this.thumbSrv.computeScore(this.product);
 	}
 
-	score() {
-		return this.thumbSrv.computeScore(this.product);
+	computeLikes() {
+		this.thumbsName = 'thumbs-up';
+		this.like = false;
+		this.dislike = false;
+		if (this.product)
+			this.userVote = (this.product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+		if (this.userVote) {
+			if (this.userVote.value === 100) {
+				this.like = true;
+				this.dislike = false;
+				this.thumbsName = 'thumbs-up-background';
+			} else {
+				this.dislike = true;
+				this.like = false;
+				this.thumbsName = 'thumbs-down-background';
+			}
+		}
 	}
 }

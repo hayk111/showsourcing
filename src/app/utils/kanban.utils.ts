@@ -24,7 +24,7 @@ export function statusProductToKanbanCol(
 	}));
 
 	if (withoutStatus) {
-		cols.push({ id: '-1', title: 'New Product', color: 'accent', data: [] });
+		cols.unshift({ id: '-1', title: 'New Product', color: 'accent', data: [] });
 	}
 
 	// making a map out of the array for easy access

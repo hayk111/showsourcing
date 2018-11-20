@@ -6,7 +6,6 @@ import { Product, ProductVote } from '~models';
 @Injectable({ providedIn: 'root' })
 export class ThumbService {
 
-
 	constructor(
 		private voteSrv: ProductVoteService,
 		private userSrv: UserService
