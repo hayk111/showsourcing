@@ -3,7 +3,7 @@
 		[ngClass]="{'hovered': hoverIndex === i}" class="flex quote-container"
 		(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 		<checkbox-app
-			[ngStyle]="{'visibility': (selection?.has(quote.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
+			[hidden]="!(selection?.has(quote.id) || hoverIndex === i)"
 			[checked]="selection?.has(quote.id)"
 			(check)="quoteSelect?.emit(quote)"
 			(uncheck)="quoteUnselect?.emit(quote)">
