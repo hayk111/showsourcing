@@ -40,8 +40,10 @@ export class MovableDirective extends DraggableDirective {
 	private dragnDropInProgress: boolean;
 
 	/** The data associated with the element */
+	// TODO the directive input property "data" should not be renamed.Please, consider the following use "@Input() data: string"
 	@Input('movableApp') data: any;
 	/** If the element position must be on dragEnd event */
+	// TODO the directive input property "reset" should not be renamed.Please, consider the following use "@Input() reset: string"
 	@Input('appMovableReset') reset = false;
 
 	constructor(private sanitizer: DomSanitizer, public element: ElementRef,

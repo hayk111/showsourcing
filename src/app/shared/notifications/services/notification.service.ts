@@ -17,7 +17,7 @@ export class NotificationService {
 
 	add(notif: Notification) {
 		// adding unique id so we can remove notif after a timeout
-    notif.id = NotificationService.ID++;
+		notif.id = NotificationService.ID++;
 		this.notifications.push(notif);
 		if (this.isLimitExceeded()) {
 			this.notifications.shift();

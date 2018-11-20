@@ -14,8 +14,8 @@ export class DetailsComponent extends TrackingComponent implements OnInit {
 	detailsShown = false;
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() { }
 

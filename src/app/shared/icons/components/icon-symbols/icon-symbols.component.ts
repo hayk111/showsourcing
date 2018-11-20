@@ -14,8 +14,8 @@ export class IconSymbolsComponent extends TrackingComponent implements OnInit {
 	iconsRegular = faIconsRegular;
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() { }
 }

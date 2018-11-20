@@ -19,8 +19,8 @@ export class SupplierMainComponent extends TrackingComponent implements OnInit {
 	@Output() update = new EventEmitter<Supplier>();
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() { }
 }

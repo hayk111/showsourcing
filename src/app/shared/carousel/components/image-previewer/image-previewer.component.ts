@@ -24,8 +24,8 @@ export class ImagePreviewerComponent extends TrackingComponent {
 	@Output() plusClick = new EventEmitter<any>();
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	getImg(i) {
 		return this.images[i];

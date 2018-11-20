@@ -11,8 +11,8 @@ export class Quote {
 	status: string; // possible values: pending, done, declined
 	comment?: string;
 	// Basic product fields
-  name: string;
-  description?: string;
+	name: string;
+	description?: string;
 	harbour?: string;
 	incoTerms?: string;
 	innerCarton?: Packaging;
@@ -22,8 +22,8 @@ export class Quote {
 	minimumOrderQuantity?: number;
 	moqDescription?: string;
 	price?: Price;
-  priceMatrix?: PriceMatrix;
-  product?: Product;
+	priceMatrix?: PriceMatrix;
+	product?: Product;
 	reference?: string;
 	sample?: boolean;
 	samplePrice?: number;

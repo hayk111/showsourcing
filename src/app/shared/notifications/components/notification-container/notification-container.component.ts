@@ -15,8 +15,8 @@ export class NotificationContainerComponent extends TrackingComponent implements
 	notifications$: Observable<Array<Notification>>;
 
 	constructor(private srv: NotificationService) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 		this.notifications$ = this.srv.notifications$;

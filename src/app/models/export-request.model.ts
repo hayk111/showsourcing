@@ -1,6 +1,12 @@
 import { User } from '~models/user.model';
 import { uuid } from '~utils';
 
+export interface ExportRequestConfig {
+	format?: string;
+	type?: string;
+	query?: string;
+}
+
 export class ExportRequest implements ExportRequestConfig {
 	id: string;
 	format: string;
@@ -19,10 +25,4 @@ export class ExportRequest implements ExportRequestConfig {
 		this.creationDate = '' + new Date();
 	}
 
-}
-
-export interface ExportRequestConfig {
-	format?: string;
-	type?: string;
-	query?: string;
 }

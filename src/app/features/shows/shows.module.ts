@@ -15,28 +15,28 @@ import { ShowTopPanelDetailComponent } from './components/show-top-panel-detail/
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    TopPanelModule,
-    SearchBarModule,
-    RouterModule.forChild([
-      { path: '', component: ShowsPageComponent, pathMatch: 'full' },
-      { path: ':id', component: ShowDetailsComponent }
-    ])
-  ],
-  declarations: [
-    ShowsPageComponent,
-    ShowListComponent,
-    ShowDetailsComponent,
-    ImgShowComponent,
-    ShowSummaryComponent,
-    ShowAboutComponent,
-    ShowExhibitorsComponent,
-    ShowTopPanelDetailComponent
-  ],
-  providers: [
-    ShowFeatureService
-  ]
+	imports: [
+		CommonModule,
+		SharedModule,
+		TopPanelModule,
+		SearchBarModule,
+		RouterModule.forChild([
+			{ path: '', component: ShowsPageComponent, pathMatch: 'full' },
+			{ path: ':id', component: ShowDetailsComponent }
+		])
+	],
+	declarations: [
+		ShowsPageComponent,
+		ShowListComponent,
+		ShowDetailsComponent,
+		ImgShowComponent,
+		ShowSummaryComponent,
+		ShowAboutComponent,
+		ShowExhibitorsComponent,
+		ShowTopPanelDetailComponent
+	],
+	providers: [
+		ShowFeatureService
+	]
 })
 export class ShowsModule { }

@@ -1,13 +1,13 @@
 import { ShowsModule } from '~features/shows/shows.module';
 
 describe('ShowsModule', () => {
-  let showsModule: ShowsModule;
+	let showsModule: ShowsModule;
 
-  beforeEach(() => {
-    showsModule = new ShowsModule();
-  });
+	beforeEach(() => {
+		showsModule = new ShowsModule();
+	});
 
-  it('should create an instance', () => {
-    expect(showsModule).toBeTruthy();
-  });
+	it('should create an instance', () => {
+		expect(showsModule).toBeTruthy();
+	});
 });

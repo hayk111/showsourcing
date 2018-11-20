@@ -11,20 +11,20 @@ import { AutoUnsub } from '~utils';
 })
 export class CompareQuotationComponent extends AutoUnsub implements AfterViewInit, OnInit {
 
-  @Input() products: Product[] = [];
-  @Input() quotes: Quote[] = [];
+	@Input() products: Product[] = [];
+	@Input() quotes: Quote[] = [];
 
 
 	constructor(
 		private dlgSrv: DialogService) {
-      super();
-    }
+			super();
+		}
 
 	ngOnInit() {
 	}
 
-  ngAfterViewInit() {
-  }
+	ngAfterViewInit() {
+	}
 
 	closeDlg() {
 		this.dlgSrv.close();

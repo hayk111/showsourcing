@@ -25,7 +25,7 @@ export class UserPanelComponent implements OnInit {
 	}
 
 	goToTeamManagement() {
-		this.router.navigate(['settings', 'team', 'members'])
+		this.router.navigate(['settings', 'team', 'members']);
 	}
 
 	goToDataManagement() {

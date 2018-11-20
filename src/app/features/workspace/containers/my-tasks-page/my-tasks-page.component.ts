@@ -22,17 +22,17 @@ export class MyTasksPageComponent extends AbstractTaskCommonComponent implements
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, userSrv, featureSrv, searchSrv, selectionSrv, dlgSrv, moduleRef);
-  }
+	}
 
 	ngOnInit() {
 		super.ngOnInit();
-  }
+	}
 
 	search(str: string) {
 // TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
 		this.currentSearch = str ? `name CONTAINS[c] "${str}"`
-    + ` OR supplier.name CONTAINS[c] "${str}"`
-    + ` OR product.name CONTAINS[c] "${str}"` : '';
+		+ ` OR supplier.name CONTAINS[c] "${str}"`
+		+ ` OR product.name CONTAINS[c] "${str}"` : '';
 		this.onPredicateChange();
 	}
 }
