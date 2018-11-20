@@ -112,7 +112,7 @@ import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 	providers: [
 		ListPageViewService,
 		ListPageDataService,
-    SelectionWithFavoriteService,
+		SelectionWithFavoriteService,
 		SupplierFeatureService
 	]
 })

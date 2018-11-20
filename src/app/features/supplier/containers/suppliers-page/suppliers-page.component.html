@@ -23,27 +23,28 @@
 		[pending]="dataSrv.pending"
 		(bottomReached)="dataSrv.loadMore()"
 		(sort)="dataSrv.sort($event)"
-		(select)="selectionSrv.onItemSelected($event, true)"
-		(unselect)="selectionSrv.onItemUnselected($event, true)"
+		(select)="selectionSrv.selectOne($event, true)"
+		(unselect)="selectionSrv.unselectOne($event, true)"
 		(selectAll)="selectionSrv.selectAll($event, true)"
-		(unselectAll)="selectionSrv.resetSelection()"
+		(unselectAll)="selectionSrv.unselectAll()"
 		(open)="viewSrv.goToDetails()"
 		(favorited)="dataSrv.onItemFavorited($event)"
 		(unfavorited)="dataSrv.onItemUnfavorited($event)"
 		(previewClick)="viewSrv.openPreview($event)"
 		(delete)="dataSrv.deleteOne($event)">
-	</supplier-list-view-app>
+  </supplier-list-view-app>
 	<selection-bar-app
     [isShown]="(selectionSrv.selection$ | async).size > 0"
-		[selection]="(selectionSrv.selected$ | async)"
-		[hasDelete]="false"
+    [selection]="selectionSrv.selection$ | async"
+    [hasDelete]="false"
     (close)="selectionSrv.unselectAll()"
-		(delete)="dataSrv.deleteSelected()">
+    (delete)="dataSrv.deleteSelected()">
 		<action-bar-app
 			[favorite]="selectionSrv.allSelectedFavorite"
 			[hasLikes]="false"
+      [multiple]="true"
 			(onFavorite)="dataSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()">
+      (onUnfavorite)="dataSrv.onUnfavoriteAllSelected()">
 
 			<button class="icon light" (click)="dataSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>

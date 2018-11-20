@@ -37,14 +37,9 @@ export class SuppliersPageComponent extends TrackingComponent implements OnInit 
 		protected dataSrv: ListPageDataService<Supplier, SupplierFeatureService>,
 	) {
 		super();
-  }
-
-	onViewChange(view: 'list' | 'card') {
-		this.dataSrv.sort({ sortBy: 'name', descending: false });
-		this.viewSrv.changeView(view);
 	}
 
-  ngOnInit() {
+	ngOnInit() {
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
 			searchedFields: ['name', 'tag.name', 'category.name'],
