@@ -5,12 +5,14 @@ import { KanbanColComponent } from './components/kanban-col/kanban-col.component
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { KanbanItemComponent } from './components/kanban-item/kanban-item.component';
 import { CheckboxComponent, InputsModule } from '~shared/inputs';
+import { IconsModule } from '~shared/icons';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		DragDropModule,
-		InputsModule
+		InputsModule,
+		IconsModule
 	],
 	declarations: [KanbanComponent, KanbanColComponent, KanbanItemComponent],
 	exports: [KanbanComponent]

@@ -1,4 +1,4 @@
-kanban-col-app {
+:host {
 	header {
 		text-align: center;
 		font-weight: 600;
@@ -25,10 +25,26 @@ kanban-col-app {
 		margin: 5px;
 		margin-top: 0;
 		height: 100%;
+		position: relative;
 	}
 
 	kanban-item-app {
 		margin: var(--spacing-s);
+	}
+
+	.overlay {
+		background: var(--color-secondary);
+		position: absolute;
+		top:0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 2;
+		display: none;
+		.arrow {
+			color: white;
+			font-size: 64px;
+		}
 	}
 
 	.custom-placeholder {
@@ -39,8 +55,13 @@ kanban-col-app {
 	}
 
 	/* Animate items as they're being sorted. */
-	.cdk-drop-list-dragging .cdk-drag {
-		transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+	.cdk-drop-list-dragging {
+		.overlay {
+			display: flex;
+		}
+		.cdk-drag {
+			transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+		}
 	}
 
 	/* Animate an item that has been dropped. */

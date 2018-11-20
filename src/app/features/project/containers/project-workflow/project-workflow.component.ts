@@ -74,7 +74,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 			query: `projects.id == "${id}"`,
 			sortBy: 'lastUpdatedDate',
 		}).pipe(
-			first(),
+			// first(),
 			// we lose the order when the product is updated
 			// because apollo has no idea of how to reorder items unless we do
 			// a refetch, but we re gonna do it on the front end

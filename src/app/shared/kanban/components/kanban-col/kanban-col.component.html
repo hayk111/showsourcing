@@ -1,6 +1,7 @@
 <!-- header -->
 <header class="flexBetween" [ngStyle]="getStyle(col)">
   <checkbox-app
+    [checked]="hasAllSelected()"
     (check)="selectAll.emit(col.data)"
     (uncheck)="unselectAll.emit(col.data)">
   </checkbox-app>
@@ -17,14 +18,18 @@
   [cdkDropListConnectedTo]="connectedLists"
   [cdkDropListData]="col.data"
   (cdkDropListDropped)="drop.emit($event)">
-    <kanban-item-app
-      *ngFor="let data of col.data; trackBy: trackById"
-      cdkDrag
-      [badgeNumber]="selection.size"
-      [showBadge]="selection.size > 0">
-      <div class="custom-placeholder" *cdkDragPlaceholder></div>
-      <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: data }">
-      </ng-container>
-    </kanban-item-app>
 
+  <div class="overlay flexCenter">
+    <icon-app class="arrow" name="arrow-circle-down" fontSet="fa"></icon-app>
+  </div>
+
+  <kanban-item-app
+    *ngFor="let data of col.data; trackBy: trackById"
+    cdkDrag
+    [badgeNumber]="selection.size"
+    [showBadge]="selection.size > 0">
+    <div class="custom-placeholder" *cdkDragPlaceholder></div>
+    <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: data }">
+    </ng-container>
+  </kanban-item-app>
 </main>

@@ -43,6 +43,7 @@ import * as faCog from '@fortawesome/fontawesome-free-solid/faCog';
 import * as faCaretLeft from '@fortawesome/fontawesome-free-solid/faCaretLeft';
 import * as faCaretDown from '@fortawesome/fontawesome-free-solid/faCaretDown';
 import * as faSignOutAlt from '@fortawesome/fontawesome-free-solid/faSignOutAlt';
+import * as faArrowCircleDown from '@fortawesome/fontawesome-free-solid/faArrowCircleDown';
 
 import * as fontawesome from '@fortawesome/fontawesome';
 
@@ -102,7 +103,8 @@ export const faIconsSolid = [
 	faCog,
 	faCaretLeft,
 	faCaretDown,
-	faSignOutAlt
+	faSignOutAlt,
+	faArrowCircleDown
 ];
 
 faIconsSolid.forEach(ic => fontawesome.library.add(ic));
