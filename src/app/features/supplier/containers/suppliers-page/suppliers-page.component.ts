@@ -15,10 +15,7 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 @Component({
 	selector: 'supplier-page-app',
 	templateUrl: './suppliers-page.component.html',
-	styleUrls: ['./suppliers-page.component.scss'],
-	providers: [
-    SelectionService
-	]
+	styleUrls: ['./suppliers-page.component.scss']
 })
 export class SuppliersPageComponent extends TrackingComponent implements OnInit {
 

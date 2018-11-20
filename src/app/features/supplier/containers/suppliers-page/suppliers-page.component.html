@@ -39,14 +39,13 @@
 		[hasDelete]="false"
     (close)="selectionSrv.unselectAll()"
 		(delete)="dataSrv.deleteSelected()">
-
 		<action-bar-app
-			[favorite]="allSelectedFavorite"
+			[favorite]="selectionSrv.allSelectedFavorite"
 			[hasLikes]="false"
-			(onFavorite)="onFavoriteAllSelected()"
-			(onUnfavorite)="onUnfavoriteAllSelected()">
+			(onFavorite)="dataSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()">
 
-			<button class="icon light" (click)="deleteSelected()">
+			<button class="icon light" (click)="dataSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
@@ -58,12 +57,11 @@
 		[supplier]="viewSrv.previewed"
 		(close)="viewSrv.closePreview()"
 		(clickOutside)="viewSrv.closePreview()"></supplier-preview-app>
-
 		<filters-app
-			[filterList]="filterList"
+			[filterList]="dataSrv.filterList"
 			[filterTypes]="filterTypes"
-			(clickOutside)="closeFilterPanel()"
-			*ngIf="filterPanelOpen">
+			(clickOutside)="viewSrv.closeFilterPanel()"
+			*ngIf="viewSrv.filterPanelOpen">
 		</filters-app>
 
 </ng-container>
