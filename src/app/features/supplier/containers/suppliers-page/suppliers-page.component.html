@@ -2,7 +2,7 @@
 <top-panel-app
 	title="My Suppliers"
 	[subtitles]="['Suppliers', 'all']"
-	buttonName="Add Supplier"
+  buttonName="Add Suppliers"
 	(buttonClick)="openCreateDlg(true)">
 </top-panel-app>
 
@@ -14,19 +14,9 @@
 	(showFilters)="viewSrv.openFilterPanel()"
 	(search)="dataSrv.search($event)"
 	(smartSearch)="dataSrv.smartSearch($event)">
-	<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
-		<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async);trackBy: trackByFn">
-			<search-autocomplete-item-content-app
-				[selectable]="true" [title]="element.name" [subtitle]="element.type"
-				[checked]="element.checked" [icon]="element.type"
-				(check)="addFilter({ type: element.type, value: element.id, entity: element })"
-				(uncheck)="removeFilter({ type: element.type, value: element.id, entity: element })">
-			</search-autocomplete-item-content-app>
-		</search-autocomplete-item-app>
-	</search-autocomplete-app>
 </sub-panel-app>
 
-<ng-container *ngIf="items$ | async as suppliers; else spinner">
+<ng-container *ngIf="dataSrv.items$ | async as suppliers; else spinner">
 	<supplier-list-view-app
     [rows]="suppliers"
     [selection]="selectionSrv.selection$ | async"
@@ -43,13 +33,12 @@
 		(previewClick)="viewSrv.openPreview($event)"
 		(delete)="dataSrv.deleteOne($event)">
 	</supplier-list-view-app>
-
 	<selection-bar-app
-		[isShown]="(selected$ | async).size > 0"
-		[selection]="(selected$ | async)"
+    [isShown]="(selectionSrv.selection$ | async).size > 0"
+		[selection]="(selectionSrv.selected$ | async)"
 		[hasDelete]="false"
-		(close)="resetSelection()"
-		(delete)="deleteSelected()">
+    (close)="selectionSrv.unselectAll()"
+		(delete)="dataSrv.deleteSelected()">
 
 		<action-bar-app
 			[favorite]="allSelectedFavorite"
@@ -57,32 +46,18 @@
 			(onFavorite)="onFavoriteAllSelected()"
 			(onUnfavorite)="onUnfavoriteAllSelected()">
 
-			<!-- yPosition -= 34  for each context-menu-item-app -->
-			<!-- The function 'Export' isn't work for now ( 20/9 ) so better remove 3 dot |  From Van-Huy with ♥ -->
-			<!-- <context-menu-app xPosition="-171" yPosition="-33">
-				<context-menu-trigger-app>
-					<button class="icon light">
-						<icon-app name="dots-vertical" size="m"></icon-app>
-					</button>
-				</context-menu-trigger-app>
-
-				<context-menu-item-app (click)="export.emit()">
-						Export
-					</context-menu-item-app>
-			</context-menu-app> -->
-
 			<button class="icon light" (click)="deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
 
-	</selection-bar-app>
+  </selection-bar-app>
 
 	<supplier-preview-app
-		*ngIf="previewOpen"
-		[supplier]="previewed"
-		(close)="closePreview()"
-		(clickOutside)="closePreview()"></supplier-preview-app>
+		*ngIf="viewSrv.previewOpen"
+		[supplier]="viewSrv.previewed"
+		(close)="viewSrv.closePreview()"
+		(clickOutside)="viewSrv.closePreview()"></supplier-preview-app>
 
 		<filters-app
 			[filterList]="filterList"

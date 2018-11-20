@@ -42,6 +42,11 @@ export class SuppliersPageComponent extends TrackingComponent implements OnInit 
 		super();
   }
 
+	onViewChange(view: 'list' | 'card') {
+		this.dataSrv.sort({ sortBy: 'name', descending: false });
+		this.viewSrv.changeView(view);
+	}
+
   ngOnInit() {
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
