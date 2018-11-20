@@ -58,8 +58,10 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 			.getQuotationFromProduct(product.id)
 			.pipe(take(1))
 			.subscribe(_quotes => {
-				this.quotes = _quotes;
-				this.cd.markForCheck();
+				if (_quotes) {
+					this.quotes = _quotes;
+					this.cd.markForCheck();
+				}
 			});
 		});
 	}
