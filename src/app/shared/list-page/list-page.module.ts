@@ -13,9 +13,6 @@ import {
 	imports: [
 		CommonModule
 	],
-	declarations: [],
-	providers: [
-    SelectionWithFavoriteService
-	]
+	declarations: []
 })
 export class ListPageModule { }
