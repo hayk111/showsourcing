@@ -9,12 +9,18 @@
 	<kanban-app
 		[cols]="columns$ | async"
 		[cardTemplate]="card"
-		(drop)="updateProductStatus($event)"></kanban-app>
+		[selection]="selected$ | async"
+		(drop)="updateProductStatus($event)"
+		(selectColumn)="onColumnSelected($event)"
+		(unselectColumn)="onColumnUnselected($event)"></kanban-app>
 
 	<ng-template #card let-data="data">
 		<product-card-app
 			[product]="data"
-			[enablePreviewLink]="true">
+			[enablePreviewLink]="true"
+			[checked]="(selected$ | async).has(data.id)"
+			(select)="onItemSelected($event)"
+			(unselect)="onItemUnselected($event)">
 		</product-card-app>
 	</ng-template>
 

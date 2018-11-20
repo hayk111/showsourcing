@@ -87,7 +87,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 			.queryAll(undefined, {
 				query: 'category != "refused" AND category != "inspiration"',
 				sortBy: 'step'
-			});
+			}).pipe();
 
 		this.columns$ = combineLatest(
 			productStatuses$,
@@ -111,6 +111,14 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 				}
 			})
 		}).subscribe();
+	}
+
+	onColumnSelected(products: Product[]) {
+		products.forEach(prod => this.selectionSrv.selectOne(prod));
+	}
+
+	onColumnUnselected(products: Product[]) {
+		products.forEach(prod => this.selectionSrv.unselectOne(prod));
 	}
 
 	/** updates the products with the new value votes */

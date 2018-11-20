@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  position: relative;
+
+  .numberBadge {
+    background: var(--color-primary);
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
+
+
+.cdk-drag-preview {
+  border: 2px solid red!important;
+  color: red!important;
+  background: red!important;
+}
