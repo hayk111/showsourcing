@@ -16,8 +16,8 @@ export class SupplierCardComponent extends TrackingComponent implements OnInit {
 	defaultImg = DEFAULT_IMG;
 
 	constructor(private router: Router) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() { }
 

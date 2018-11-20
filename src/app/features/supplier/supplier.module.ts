@@ -57,8 +57,8 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 		SharedModule,
 		RouterModule.forChild(routes),
 		FileModule, // file-card
-    DynamicFormsModule,
-    CustomDialogModule,
+		DynamicFormsModule,
+		CustomDialogModule,
 		CarouselModule,
 		TopPanelModule,
 		DialogModule, // used by new contact dialog

@@ -11,8 +11,8 @@ export class TabsComponent extends TrackingComponent implements OnInit, AfterCon
 	@ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}

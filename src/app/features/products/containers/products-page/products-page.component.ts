@@ -30,7 +30,7 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 	constructor(
 		protected featureSrv: ProductFeatureService,
 		protected viewSrv: ListPageViewService<Product>,
-		protected dataSrv: ListPageDataService<Product, ProductFeatureService>,
+		public dataSrv: ListPageDataService<Product, ProductFeatureService>,
 		protected selectionSrv: SelectionWithFavoriteService,
 		protected commonDlgSrv: CommonDialogService
 	) {

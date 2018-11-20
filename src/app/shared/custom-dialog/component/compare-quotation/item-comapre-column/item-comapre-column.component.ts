@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Product } from '~models';
+import { Product, Packaging, Quote } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 @Component({
 	selector: 'item-comapre-column-app',
@@ -9,8 +9,10 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 })
 export class ItemCompareColumnComponent extends TrackingComponent implements OnInit {
 
-  @Input() type: ('title' | 'content') = 'content';
-  @Input() product: Product;
+	@Input() type: ('title' | 'content') = 'content';
+	@Input() product: Product;
+	@Input() quote: Quote;
+
 
 	constructor() {
 		super();
@@ -18,4 +20,10 @@ export class ItemCompareColumnComponent extends TrackingComponent implements OnI
 
 	ngOnInit() { }
 
-}
+	getPackagingString(packaging: Packaging): string {
+		if (!packaging) {
+			return '';
+		}
+		return `${packaging.width}x ${packaging.height} x ${packaging.depth}${packaging.unit}`;
+	}
+ }

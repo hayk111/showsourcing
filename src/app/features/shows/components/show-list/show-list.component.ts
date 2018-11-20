@@ -4,24 +4,24 @@ import { Show } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 @Component({
-  selector: 'show-list-app',
-  templateUrl: './show-list.component.html',
-  styleUrls: ['./show-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'show-list-app',
+	templateUrl: './show-list.component.html',
+	styleUrls: ['./show-list.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowListComponent extends TrackingComponent implements OnInit {
-  @Input() items = [];
-  @Input() pending: boolean = true;
-  @Output() saveShow = new EventEmitter<Show>();
+	@Input() items = [];
+	@Input() pending = true;
+	@Output() saveShow = new EventEmitter<Show>();
 
-  constructor(private router: Router, private route: ActivatedRoute) {
-    super();
-  }
+	constructor(private router: Router, private route: ActivatedRoute) {
+		super();
+	}
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
-  goToDetail(item: any) {
-    this.router.navigate([item.id], { relativeTo: this.route })
-  }
+	goToDetail(item: any) {
+		this.router.navigate([item.id], { relativeTo: this.route });
+	}
 }

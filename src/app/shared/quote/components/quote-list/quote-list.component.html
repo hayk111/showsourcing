@@ -1,0 +1,46 @@
+
+<card-app>
+  <div class="quotation-title">Quotations</div>
+  <div class="quotation-body">
+
+    <div class="container" *ngIf="quotes.length" infiniScroll (bottomReached)="bottomReached.emit()">
+      <div *ngFor="let quote of quotes; index as i; first as first; last as last; trackBy: trackById"
+        [ngClass]="{'hovered': hoverIndex === i}" class="flex quote-container"
+        (mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+        <checkbox-app
+          [hidden]="!(selection?.has(quote.id) || hoverIndex === i)"
+          [checked]="selection?.has(quote.id)"
+          (check)="quoteSelect?.emit(quote)"
+          (uncheck)="quoteUnselect?.emit(quote)">
+        </checkbox-app>
+        <quote-row-app
+          (previewClicked)="previewClicked.emit(quote)"
+          [quote]="quote"
+          [ngClass]="{'border-top': first, 'no-border': last}"
+          (openSupplier)="openSupplier($event)">
+        </quote-row-app>
+      </div>
+      <divider-app></divider-app>
+    </div>
+
+
+    <div class="quotation-empty" *ngIf="!quotes.length">
+      <div class="icon-empty"><img src="assets/icons/rfq-no-new.svg" /></div>
+      <div class="text-tempty">
+        There's no quotation for this product asked yet
+      </div>
+      <div class="text-tempty">
+        <span (click)="openRfq.emit()" class="link clickable">click here</span> to
+        create one
+      </div>
+    </div>
+  </div>
+  <div class="quotation-footer">
+    <button (click)="openCompareQuotationDialog.emit()" *ngIf="numSelected > 1" class="footer-button">
+      Compare selected quotations
+    </button>
+    <button (click)="openRfq.emit()" class="footer-button">
+      Request for new quotation
+    </button>
+  </div>
+</card-app>

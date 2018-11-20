@@ -15,6 +15,7 @@ export class DropzoneDirective implements OnInit {
 	@HostBinding('class.dropzone-entered') entered = false;
 
 	/** The value associated with the dropzone */
+	// TODO: the directive input property "value" should not be renamed.Please, consider the following use "@Input() value: string"
 	@Input('dropzoneApp') value: any;
 	@Input() disabled: any;
 	@Input() data: any;

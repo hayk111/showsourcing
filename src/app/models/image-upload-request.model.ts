@@ -9,7 +9,7 @@ export class ImageUploadRequest {
 	__typename ?= 'ImageUploadRequest';
 
 	constructor() {
-    this.image = new AppImage();
-    delete this.image.pending;
+		this.image = new AppImage();
+		delete this.image.pending;
 	}
 }

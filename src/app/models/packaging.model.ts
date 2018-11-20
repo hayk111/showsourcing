@@ -9,6 +9,7 @@ export class Packaging {
 	unit?: string;
 	itemsQuantity?: number;
 	weight?: number;
+	depth?: number;
 	weightUnit?: string;
 	__typename ?= 'Packaging';
 

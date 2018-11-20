@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
 	ProductIconsComponent,
@@ -19,7 +20,7 @@ import {
 	ProductQuotationComponent
 } from '~features/products/containers';
 import { routes } from '~features/products/routes';
-import { ProductFeatureService } from '~features/products/services';
+import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { ActivityModule } from '~shared/activity/activity.module';
 import { BadgeModule } from '~shared/badge/badge.module';
@@ -42,6 +43,7 @@ import { TaskCommonModule } from '~shared/task-common';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { UtilsModule } from '~shared/utils';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { QuoteCommonModule } from '~shared/quote/quote.module';
 
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
@@ -57,6 +59,7 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 
 @NgModule({
 	imports: [
+		CommonModule,
 		SharedModule,
 		RouterModule.forChild(routes),
 		DynamicFormsModule,
@@ -80,6 +83,7 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 		ProductCommonModule,
 		UtilsModule,
 		TaskCommonModule,
+		QuoteCommonModule,
 		InputsCustomModule
 	],
 	declarations: [
@@ -110,6 +114,7 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 	exports: [],
 	providers: [
 		ProductFeatureService,
+		QuoteFeatureService,
 		ListPageViewService,
 		ListPageDataService,
 		SelectionWithFavoriteService,

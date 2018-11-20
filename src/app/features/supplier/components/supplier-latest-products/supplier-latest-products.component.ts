@@ -14,8 +14,8 @@ export class SupplierLatestProductsComponent extends TrackingComponent implement
 	@Input() products: Array<Product>;
 
 	constructor() {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}

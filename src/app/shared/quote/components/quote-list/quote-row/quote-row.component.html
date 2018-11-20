@@ -1,0 +1,32 @@
+<div class="flexStart row">
+	<!-- name -->
+	<div class="flex quote-name ellipsis pointer">
+    <div class="flexCenter" [ngStyle]="{'text-decoration': quote?.status === RequestStatus.DONE ? 'line-through' : 'none'}"
+    (click)="previewClicked.emit(quote)">
+			{{ quote?.name || 'Unnamed quote' }}
+		</div>
+	</div>
+
+	<!-- supplier -->
+	<div class="flexStart quote-supplier ellipsis">
+		<div *ngIf="quote?.supplier" class="flex ellipsis" (click)="openSupplier.emit(quote?.supplier?.id || null)">
+			<img-app [size]="xs" [image]="quote?.supplier?.logoImage"></img-app>
+			{{ quote?.supplier?.name || 'Unnamed suppler' }}
+		</div>
+	</div>
+
+	<!-- date -->
+	<div class="flexStart quote-supplier ellipsis">
+		<div class="flex ellipsis">
+			{{ quote?.creationDate | date: 'dd-mm-yyyy' }}
+		</div>
+	</div>
+
+	<!-- quote status -->
+	<div class="flexEnd quote-user-status">
+		<div class="flex quote-status quote-{{ getStatus() }}">
+			<icon-app name="circle" fontSet="fa" color="red"></icon-app>
+			<p>{{ quote?.status }}</p>
+		</div>
+	</div>
+</div>

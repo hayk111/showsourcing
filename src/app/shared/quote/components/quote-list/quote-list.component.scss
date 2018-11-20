@@ -1,0 +1,74 @@
+:host {
+	display: block;
+}
+
+.title {
+	color: var(--color-txt-strong);
+	font-size: var(--font-size-xxxl);
+	margin-bottom: var(--spacing-l);
+	margin-left: var(--spacing-ms);
+}
+
+.container {
+	max-height: 505px;
+
+	.quote-container {
+		margin-left: var(--spacing-m);
+
+		&.hovered {
+			cursor: pointer;
+			background-color: var(--color-secondary-light);
+		}
+
+		quote-app {
+			width: 100%;
+			border-bottom: 1px solid var(--color-secondary);
+
+			&.border-top {
+				border-top: 1px solid var(--color-secondary);
+			}
+
+			&.no-border {
+				border: none;
+			}
+		}
+	}
+}
+
+
+:host {
+  display: block;
+}
+
+.quotation-title {
+  color: var(--color-txt-strong);
+  font-family: var(--font-title);
+  font-size: 23px;
+}
+.quotation-body {
+  border-bottom: 1px solid var(--color-secondary-light);
+  border-top: 1px solid var(--color-secondary-light);
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+
+  .quotation-empty {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+
+    .text-tempty {
+      font-size: 13px;
+      font-style: italic;
+      text-align: center;
+      color: var(--color-secondary-dark);
+      .link {
+        color: var(--color-primary);
+      }
+    }
+  }
+}
+
+.quotation-footer {
+  text-align: right;
+}
