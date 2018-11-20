@@ -60,8 +60,8 @@ import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 		SharedModule,
 		RouterModule.forChild(routes),
 		FileModule, // file-card
-    DynamicFormsModule,
-    CustomDialogModule,
+		DynamicFormsModule,
+		CustomDialogModule,
 		CarouselModule,
 		TopPanelModule,
 		DialogModule, // used by new contact dialog
@@ -112,7 +112,7 @@ import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 	providers: [
 		ListPageViewService,
 		ListPageDataService,
-    SelectionWithFavoriteService,
+		SelectionWithFavoriteService,
 		SupplierFeatureService
 	]
 })
