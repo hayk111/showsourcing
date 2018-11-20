@@ -50,6 +50,11 @@
 				background: var(--color-primary);
 
 			}
+			
+			&.quote-done {
+				color: white;
+				background: var(--color-success);
+			}
 
 			&.quote-pending {
 				background: var(--color-secondary);

@@ -23,7 +23,7 @@ export class QuoteFeatureService extends QuoteService {
 
 	getQuotationFromProduct(productId: string): Observable<Quote[]> {
 		return this.queryMany(
-			{ query: `product.id == ${productId}` }
+			{ query: `product.id == "${productId}"` }
 		).pipe(first());
 	}
 }

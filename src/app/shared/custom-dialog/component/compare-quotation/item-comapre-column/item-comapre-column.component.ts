@@ -24,6 +24,6 @@ export class ItemCompareColumnComponent extends TrackingComponent implements OnI
 		if (!packaging) {
 			return '';
 		}
-		return `${packaging.width}x ${packaging.height} x ${packaging.depth}${packaging.unit}`;
+		return `${packaging.width || 0} x ${packaging.height || 0} x ${packaging.depth || 0}${packaging.unit}`;
 	}
  }

@@ -9,7 +9,7 @@
 
 	<!-- supplier -->
 	<div class="flexStart quote-supplier ellipsis">
-		<div *ngIf="quote?.supplier" class="flex ellipsis" (click)="openSupplier.emit(quote?.supplier?.id || null)">
+		<div class="flex ellipsis" (click)="openSupplier.emit(quote?.supplier?.id || null)">
 			<img-app [size]="xs" [image]="quote?.supplier?.logoImage"></img-app>
 			{{ quote?.supplier?.name || 'Unnamed suppler' }}
 		</div>
