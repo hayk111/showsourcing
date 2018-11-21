@@ -2,7 +2,7 @@ import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { Project } from '~models';
-import { DialogService } from '~shared/dialog';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
@@ -25,7 +25,7 @@ export class ProjectsPageComponent extends TrackingComponent implements OnInit {
 		protected viewSrv: ListPageViewService<Project>,
 		public dataSrv: ListPageDataService<Project, ProjectFeatureService>,
 		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: DialogService,
+		protected commonDlgSrv: CommonDialogService,
 		protected thumbSrv: ThumbService
 	) {
 		super();

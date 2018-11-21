@@ -11,7 +11,10 @@ import { Workflow2Module } from '~features/workflow2/workflow2.module';
 
 import { ProjectsListViewComponent } from '~features/project/components';
 import { ProjectNavComponent } from '~features/project/components/project-nav/project-nav.component';
-import { ProjectsPageComponent, ProjectWorkflowComponent } from '~features/project/containers';
+import {
+	ProjectsPageComponent,
+	ProjectWorkflowComponent
+} from '~features/project/containers';
 import { ProjectDetailsComponent } from '~features/project/containers/project-details/project-details.component';
 import { ProjectProductsComponent } from '~features/project/containers/project-products/project-products.component';
 import { ProjectSettingsComponent } from '~features/project/containers/project-settings/project-settings.component';
@@ -75,8 +78,4 @@ import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 		ProjectWorkflowFeatureService
 	]
 })
-export class ProjectModule {
-
-}
-
-
+export class ProjectModule {}
