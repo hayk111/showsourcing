@@ -4,56 +4,56 @@
 		title="My Projects"
 		[subtitles]="['Projects', 'all']"
 		buttonName="Add Project"
-		(buttonClick)="openCreateDlg(true)">
+		(buttonClick)="commonDlgSrv.openCreateDlg(true)">
 	</top-panel-app>
 
 	<sub-panel-app
 		[hasSwitch]="false"
 		[hasFilter]="true"
 		[buttonIcon]="false"
-		[filtersAmount]="filterList.asFilters().length"
-		(search)="search($event)"
-		(showFilters)="openFilterPanel()">
+		[filtersAmount]="dataSrv.filterList.asFilters().length"
+		(search)="dataSrv.search($event)"
+		(showFilters)="viewSrv.openFilterPanel()">
 	</sub-panel-app>
 
 	<ng-container *ngIf="selected$ | async as selected">
 
 	<projects-list-view-app
-		(select)="onItemSelected($event)"
-		(unselect)="onItemUnselected($event)"
-		(sort)="sort($event)"
-		(selectAll)="selectAll($event)"
-		(unselectAll)="resetSelection()"
-		[selection]="selected"
+    (select)="selectionSrv.selectOne($event, true)"
+    (unselect)="selectionSrv.unselectOne($event, true)"
+    (selectAll)="selectionSrv.selectAll($event, true)"
+    (unselectAll)="selectionSrv.unselectAll()"
+		[selection]="selectionSrv.selection$ | async"
+		(sort)="dataSrv.sort($event)"
 		[rows]="projects"
-		[pending]="pending"
-		(bottomReached)="loadMore()"
-		(delete)="deleteOne($event)"></projects-list-view-app>
+		[pending]="dataSrv.pending"
+		(bottomReached)="dataSrv.loadMore()"
+		(delete)="dataSrv.deleteOne($event)"></projects-list-view-app>
 
 	</ng-container>
 
 	<selection-bar-app
-		[isShown]="(selected$ | async).size > 0"
-		[selection]="selected$ | async"
-		[hasDelete]="false"
-		(close)="resetSelection()"
-		(delete)="deleteSelected()">
+    [isShown]="(selectionSrv.selection$ | async).size > 0"
+    [selection]="selectionSrv.selection$ | async"
+    [hasDelete]="false"
+    (close)="selectionSrv.unselectAll()"
+    (delete)="dataSrv.deleteSelected()">
 
 		<action-bar-app
 			[hasHeart]="false"
 			[hasLikes]="false">
 
-			<button class="icon light" (click)="deleteSelected()">
+			<button class="icon light" (click)="dataSrv.deleteSelected()">
 				<icon-app name="trash-bin" size="m"></icon-app>
 			</button>
 		</action-bar-app>
 	</selection-bar-app>
 
 	<filters-app
-		[filterList]="filterList"
+		[filterList]="dataSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="closeFilterPanel()"
-		*ngIf="filterPanelOpen">
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		*ngIf="viewSrv.filterPanelOpen">
 	</filters-app>
 
 </ng-container>

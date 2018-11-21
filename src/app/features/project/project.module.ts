@@ -28,7 +28,10 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { FiltersModule } from '~shared/filters';
-
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 
 @NgModule({
 	imports: [
@@ -64,6 +67,10 @@ import { FiltersModule } from '~shared/filters';
 	],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [
+		ListPageViewService,
+		ListPageDataService,
+		SelectionWithFavoriteService,
+		CommonDialogService,
 		ProjectFeatureService,
 		ProjectWorkflowFeatureService
 	]
