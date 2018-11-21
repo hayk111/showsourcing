@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Sample } from '~models';
+import { Sample, User } from '~models';
 
 @Component({
 	selector: 'sample-app',
@@ -7,7 +7,7 @@ import { Sample } from '~models';
 	styleUrls: ['./sample.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleComponent implements OnInit {
+export class SampleComponent {
 
 	@Input() sample: Sample;
 	@Input() hasSupplier: boolean;
@@ -17,9 +17,20 @@ export class SampleComponent implements OnInit {
 	@Output() previewClicked = new EventEmitter<Sample>();
 	@Output() updateSample = new EventEmitter<Sample>();
 
+	menuOpen = false;
+
 	constructor() { }
 
-	ngOnInit() {
+	updateAssignee(user: User) {
+		this.updateSample.emit({ ...this.sample, assignee: user });
+	}
+
+	toggleMenu() {
+		this.menuOpen = !this.menuOpen;
+	}
+
+	closeMenu() {
+		this.menuOpen = false;
 	}
 
 }

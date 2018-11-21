@@ -10,7 +10,7 @@ import { Sample } from '~models';
 export class SampleListComponent implements OnInit {
 
 	@Input() samples: Sample[];
-	@Input() selection: Map<string, any>;
+	@Input() selection: Map<string, boolean>;
 	@Input() hasProduct = false;
 	@Input() hasSupplier = false;
 	@Output() bottomReached = new EventEmitter<null>();

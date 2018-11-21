@@ -11,6 +11,7 @@ import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
 	imports: [
@@ -23,7 +24,8 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 		UserPictureModule,
 		IconsModule,
 		DialogModule,
-		SharedModule
+		SharedModule,
+		ScrollingModule
 	],
 	declarations: [
 		SampleListComponent,

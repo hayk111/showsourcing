@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task, User } from '~models';
-import { PortalService } from '~shared/portal';
 
 @Component({
 	selector: 'task-app',
@@ -21,10 +20,7 @@ export class TaskComponent {
 
 	menuOpen = false;
 
-	constructor(
-		private portalSrv: PortalService,
-		private moduleRef: NgModuleRef<any>
-	) { }
+	constructor() { }
 
 	get getStatus() {
 		let status = 'pending';
@@ -46,5 +42,9 @@ export class TaskComponent {
 
 	toggleMenu() {
 		this.menuOpen = !this.menuOpen;
+	}
+
+	closeMenu() {
+		this.menuOpen = false;
 	}
 }
