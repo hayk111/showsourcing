@@ -11,7 +11,10 @@ import { Workflow2Module } from '~features/workflow2/workflow2.module';
 
 import { ProjectsListViewComponent } from '~features/project/components';
 import { ProjectNavComponent } from '~features/project/components/project-nav/project-nav.component';
-import { ProjectsPageComponent, ProjectWorkflowComponent } from '~features/project/containers';
+import {
+	ProjectsPageComponent,
+	ProjectWorkflowComponent
+} from '~features/project/containers';
 import { ProjectDetailsComponent } from '~features/project/containers/project-details/project-details.component';
 import { ProjectProductsComponent } from '~features/project/containers/project-products/project-products.component';
 import { ProjectSettingsComponent } from '~features/project/containers/project-settings/project-settings.component';
@@ -28,7 +31,11 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { FiltersModule } from '~shared/filters';
-
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { ERM_TOKEN, ERM } from '~models';
 
 @NgModule({
 	imports: [
@@ -64,12 +71,13 @@ import { FiltersModule } from '~shared/filters';
 	],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [
+		ListPageViewService,
+		ListPageDataService,
+		SelectionWithFavoriteService,
+		CommonDialogService,
 		ProjectFeatureService,
-		ProjectWorkflowFeatureService
+		ProjectWorkflowFeatureService,
+		{ provide: ERM_TOKEN, useValue: ERM.PROJECT }
 	]
 })
-export class ProjectModule {
-
-}
-
-
+export class ProjectModule {}

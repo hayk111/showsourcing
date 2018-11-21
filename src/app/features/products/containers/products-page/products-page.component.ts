@@ -8,8 +8,6 @@ import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
-
-
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',

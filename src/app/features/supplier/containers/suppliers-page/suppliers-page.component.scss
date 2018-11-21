@@ -1,5 +1,5 @@
 :host {
-  display: block;
+	display: block;
 	height: 100%;
 }
 
@@ -10,7 +10,7 @@ action-bar-app {
 		color: var(--color-txt-secondary);
 	}
 
-	icon-app[name="trash-bin"] {
+	icon-app[name='trash-bin'] {
 		font-size: var(--font-size-xxl);
 	}
 
