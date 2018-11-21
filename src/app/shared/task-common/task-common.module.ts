@@ -13,7 +13,9 @@ import { SharedModule } from '~shared/shared.module';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { PreviewTaskComponent } from '~shared/task-common/components/preview-task/preview-task.component';
-import { PickerEntitySelectorComponent } from './components/picker-entity-selector/picker-entity-selector.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
 	imports: [
@@ -27,10 +29,13 @@ import { PickerEntitySelectorComponent } from './components/picker-entity-select
 		UserPictureModule,
 		IconsModule,
 		DialogModule,
-		SharedModule
+		SharedModule,
+		OverlayModule,
+		SelectorsModule,
+		ScrollingModule
 	],
-	declarations: [TaskListComponent, TaskComponent, CreateTaskDialogComponent, PreviewTaskComponent, PickerEntitySelectorComponent],
+	declarations: [TaskListComponent, TaskComponent, CreateTaskDialogComponent, PreviewTaskComponent],
 	exports: [TaskListComponent, TaskComponent, CreateTaskDialogComponent, PreviewTaskComponent],
-	entryComponents: [CreateTaskDialogComponent, PickerEntitySelectorComponent]
+	entryComponents: [CreateTaskDialogComponent]
 })
 export class TaskCommonModule { }

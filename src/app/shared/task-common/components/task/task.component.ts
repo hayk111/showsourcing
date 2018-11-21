@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, Output, ViewChild } from '@angular/core';
 import { Task, User } from '~models';
 import { PortalService } from '~shared/portal';
-
-import { PickerEntitySelectorComponent } from '../picker-entity-selector/picker-entity-selector.component';
 
 @Component({
 	selector: 'task-app',
@@ -20,6 +18,8 @@ export class TaskComponent {
 	@Output() openSupplier = new EventEmitter<string>();
 	@Output() updateTask = new EventEmitter<Task>();
 	@Output() previewClicked = new EventEmitter<Task>();
+
+	menuOpen = false;
 
 	constructor(
 		private portalSrv: PortalService,
@@ -44,10 +44,7 @@ export class TaskComponent {
 		this.updateTask.emit({ ...this.task, done });
 	}
 
-	openSelectorEntity(event, offsetX = 114, offsetY = 5) {
-		const callback = (user) => {
-			this.updateAssignee(user);
-		};
-		this.portalSrv.openFromModule(PickerEntitySelectorComponent, this.moduleRef, { event, callback, offsetX, offsetY });
+	toggleMenu() {
+		this.menuOpen = !this.menuOpen;
 	}
 }
