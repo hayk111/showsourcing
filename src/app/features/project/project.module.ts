@@ -35,6 +35,7 @@ import { CommonDialogService } from '~shared/custom-dialog/services/common-dialo
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { ERM_TOKEN, ERM } from '~models';
 
 @NgModule({
 	imports: [
@@ -75,7 +76,8 @@ import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 		SelectionWithFavoriteService,
 		CommonDialogService,
 		ProjectFeatureService,
-		ProjectWorkflowFeatureService
+		ProjectWorkflowFeatureService,
+		{ provide: ERM_TOKEN, useValue: ERM.PROJECT }
 	]
 })
 export class ProjectModule {}

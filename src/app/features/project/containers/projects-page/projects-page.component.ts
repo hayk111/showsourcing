@@ -4,7 +4,6 @@ import { ProjectFeatureService } from '~features/project/services/project-featur
 import { Project } from '~models';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';

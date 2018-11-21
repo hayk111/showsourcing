@@ -2,25 +2,18 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SupplierListViewComponent } from '~features/supplier/components';
-import {
-	SupplierContactCardComponent,
-} from '~features/supplier/components/supplier-contact-card/supplier-contact-card.component';
+import { SupplierContactCardComponent } from '~features/supplier/components/supplier-contact-card/supplier-contact-card.component';
 import { SupplierContactComponent } from '~features/supplier/components/supplier-contact/supplier-contact.component';
-import {
-	SupplierDescriptionComponent,
-} from '~features/supplier/components/supplier-description/supplier-description.component';
+import { SupplierDescriptionComponent } from '~features/supplier/components/supplier-description/supplier-description.component';
 import { SupplierInfosComponent } from '~features/supplier/components/supplier-infos/supplier-infos.component';
-import {
-	SupplierLatestProductsComponent,
-} from '~features/supplier/components/supplier-latest-products/supplier-latest-products.component';
-import {
-	SupplierMainTitleComponent,
-} from '~features/supplier/components/supplier-main/supplier-main-title/supplier-main-title.component';
+import { SupplierLatestProductsComponent } from '~features/supplier/components/supplier-latest-products/supplier-latest-products.component';
+import { SupplierMainTitleComponent } from '~features/supplier/components/supplier-main/supplier-main-title/supplier-main-title.component';
 import { SupplierMainComponent } from '~features/supplier/components/supplier-main/supplier-main.component';
+import { SupplierSummaryComponent } from '~features/supplier/components/supplier-main/supplier-summary/supplier-summary.component';
 import {
-	SupplierSummaryComponent,
-} from '~features/supplier/components/supplier-main/supplier-summary/supplier-summary.component';
-import { SupplierDetailsComponent, SuppliersPageComponent } from '~features/supplier/containers';
+	SupplierDetailsComponent,
+	SuppliersPageComponent
+} from '~features/supplier/containers';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
 import { SupplierPreviewComponent } from '~features/supplier/containers/supplier-preview/supplier-preview.component';
@@ -55,6 +48,8 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ERM_TOKEN, ERM } from '~models';
 @NgModule({
 	imports: [
 		SharedModule,
@@ -102,20 +97,15 @@ import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 		SupplierProductsComponent,
 		SupplierTasksComponent
 	],
-	entryComponents: [
-		NewSupplierDlgComponent,
-		NewContactDlgComponent
-	],
-	exports: [
-		SuppliersPageComponent
-	],
+	entryComponents: [NewSupplierDlgComponent, NewContactDlgComponent],
+	exports: [SuppliersPageComponent],
 	providers: [
 		ListPageViewService,
 		ListPageDataService,
 		SelectionWithFavoriteService,
-		SupplierFeatureService
+		CommonDialogService,
+		SupplierFeatureService,
+		{ provide: ERM_TOKEN, useValue: ERM.SUPPLIER }
 	]
 })
-export class SuppliersModule {
-
-}
+export class SuppliersModule {}

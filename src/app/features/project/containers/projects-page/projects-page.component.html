@@ -1,58 +1,57 @@
-<ng-container *ngIf="(items$ | async) as projects; else: spinner">
-	<top-panel-app
-		title="My Projects"
-		[subtitles]="['Projects', 'all']"
-		buttonName="Add Project"
-		(buttonClick)="commonDlgSrv.openCreateDlg(true)"
-	>
-	</top-panel-app>
+<ng-container *ngIf="(dataSrv.items$ | async) as projects; else: spinner">
+  <top-panel-app
+    title="My Projects"
+    [subtitles]="['Projects', 'all']"
+    buttonName="Add Project"
+    (buttonClick)="commonDlgSrv.openCreateDlg(true)"
+  >
+  </top-panel-app>
 
-	<sub-panel-app
-		[hasSwitch]="false"
-		[hasFilter]="true"
-		[buttonIcon]="false"
-		[filtersAmount]="dataSrv.filterList.asFilters().length"
-		(search)="dataSrv.search($event)"
-		(showFilters)="viewSrv.openFilterPanel()"
-	>
-	</sub-panel-app>
+  <sub-panel-app
+    [hasSwitch]="false"
+    [hasFilter]="true"
+    [buttonIcon]="false"
+    [filtersAmount]="dataSrv.filterList.asFilters().length"
+    (search)="dataSrv.search($event)"
+    (showFilters)="viewSrv.openFilterPanel()"
+  >
+  </sub-panel-app>
+  <!-- <ng-container *ngIf="(selectionSrv.selected$ | async) as selected"> -->
+  <projects-list-view-app
+    (select)="selectionSrv.selectOne($event, true)"
+    (unselect)="selectionSrv.unselectOne($event, true)"
+    (selectAll)="selectionSrv.selectAll($event, true)"
+    (unselectAll)="selectionSrv.unselectAll()"
+    [selection]="selectionSrv.selection$ | async"
+    (sort)="dataSrv.sort($event)"
+    [rows]="projects"
+    [pending]="dataSrv.pending"
+    (bottomReached)="dataSrv.loadMore()"
+    (delete)="dataSrv.deleteOne($event)"
+  ></projects-list-view-app>
+  <!-- </ng-container> -->
 
-	<ng-container *ngIf="(selected$ | async) as selected">
-		<projects-list-view-app
-			(select)="selectionSrv.selectOne($event, true)"
-			(unselect)="selectionSrv.unselectOne($event, true)"
-			(selectAll)="selectionSrv.selectAll($event, true)"
-			(unselectAll)="selectionSrv.unselectAll()"
-			[selection]="selectionSrv.selection$ | async"
-			(sort)="dataSrv.sort($event)"
-			[rows]="projects"
-			[pending]="dataSrv.pending"
-			(bottomReached)="dataSrv.loadMore()"
-			(delete)="dataSrv.deleteOne($event)"
-		></projects-list-view-app>
-	</ng-container>
+  <selection-bar-app
+    [isShown]="(selectionSrv.selection$ | async).size > 0"
+    [selection]="selectionSrv.selection$ | async"
+    [hasDelete]="false"
+    (close)="selectionSrv.unselectAll()"
+    (delete)="dataSrv.deleteSelected()"
+  >
+    <action-bar-app [hasHeart]="false" [hasLikes]="false">
+      <button class="icon light" (click)="dataSrv.deleteSelected()">
+        <icon-app name="trash-bin" size="m"></icon-app>
+      </button>
+    </action-bar-app>
+  </selection-bar-app>
 
-	<selection-bar-app
-		[isShown]="(selectionSrv.selection$ | async).size > 0"
-		[selection]="selectionSrv.selection$ | async"
-		[hasDelete]="false"
-		(close)="selectionSrv.unselectAll()"
-		(delete)="dataSrv.deleteSelected()"
-	>
-		<action-bar-app [hasHeart]="false" [hasLikes]="false">
-			<button class="icon light" (click)="dataSrv.deleteSelected()">
-				<icon-app name="trash-bin" size="m"></icon-app>
-			</button>
-		</action-bar-app>
-	</selection-bar-app>
-
-	<filters-app
-		[filterList]="dataSrv.filterList"
-		[filterTypes]="filterTypes"
-		(clickOutside)="viewSrv.closeFilterPanel()"
-		*ngIf="viewSrv.filterPanelOpen"
-	>
-	</filters-app>
+  <filters-app
+    [filterList]="dataSrv.filterList"
+    [filterTypes]="filterTypes"
+    (clickOutside)="viewSrv.closeFilterPanel()"
+    *ngIf="viewSrv.filterPanelOpen"
+  >
+  </filters-app>
 </ng-container>
 
 <ng-template #spinner> <spinner-app></spinner-app> </ng-template>
