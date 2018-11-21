@@ -28,10 +28,12 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 	}
 
 	@Output() bottomReached = new EventEmitter<null>();
-	@Output() previewClicked = new EventEmitter<Quote>();
 	@Output() hovered = new EventEmitter<Quote>();
 	@Output() openRfq = new EventEmitter<null>();
 	@Output() openCompareQuotationDialog = new EventEmitter<null>();
+	@Output() previewClicked = new EventEmitter<Quote>();
+	@Output() quoteSelect = new EventEmitter<Quote>();
+	@Output() quoteUnselect = new EventEmitter<Quote>();
 
 	hoverIndex: number;
 
@@ -48,9 +50,6 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 
 	hoverRow(index: number) {
 		this.hoverIndex = index;
-		if (index >= 0 && this.hovered) {
-			this.hovered.emit(this.quotes[index]);
-		}
 	}
 
 	ngOnInit() {

@@ -49,19 +49,19 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
 			switchMap(params => this.srv.selectOne(params.id)),
-			tap(product => this.product = product ),
+			tap(product => this.product = product),
 			tap(_ => this.cd.markForCheck())
 		);
 		this.product$.subscribe(product => {
 			this.quotationSrv
-			.getQuotationFromProduct(product.id)
-			.pipe(take(1))
-			.subscribe(_quotes => {
-				if (_quotes) {
-					this.quotes = _quotes;
-					this.cd.markForCheck();
-				}
-			});
+				.getQuotationFromProduct(product.id)
+				.pipe(take(1))
+				.subscribe(_quotes => {
+					if (_quotes) {
+						this.quotes = _quotes;
+						this.cd.markForCheck();
+					}
+				});
 		});
 	}
 
@@ -96,5 +96,4 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 
 	quoteUnselect(quote: Quote) {
 	}
-
 }

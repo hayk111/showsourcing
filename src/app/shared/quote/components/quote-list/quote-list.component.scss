@@ -5,73 +5,31 @@
 .title {
 	color: var(--color-txt-strong);
 	font-size: var(--font-size-xxxl);
-	margin-bottom: var(--spacing-l);
-	margin-left: var(--spacing-ms);
+	padding-bottom: var(--spacing-l);
 }
 
-.container {
-	max-height: 505px;
+list-app {
+	max-height: 507px;
+}
 
-	.quote-container {
-		margin-left: var(--spacing-m);
+.quotation-empty {
+	border-top: 1px solid var(--color-secondary);
+	padding-top: 40px;
+	padding-bottom: var(--spacing-m);
+	text-align: center;
 
-		&.hovered {
-			cursor: pointer;
-			background-color: var(--color-secondary-light);
-		}
+	icon-app {
+		font-size: var(--font-size-xl);
+		margin-bottom: var(--spacing-ml);
+	}
 
-		quote-app {
-			width: 100%;
-			border-bottom: 1px solid var(--color-secondary);
-
-			&.border-top {
-				border-top: 1px solid var(--color-secondary);
-			}
-
-			&.no-border {
-				border: none;
-			}
+	.text-tempty {
+		font-size: 13px;
+		font-style: italic;
+		text-align: center;
+		color: var(--color-secondary-dark);
+		.link {
+			color: var(--color-primary);
 		}
 	}
-}
-
-
-:host {
-  display: block;
-}
-
-.quotation-title {
-  color: var(--color-txt-strong);
-  font-family: var(--font-title);
-  font-size: 23px;
-}
-.quotation-body {
-  border-bottom: 1px solid var(--color-secondary-light);
-  border-top: 1px solid var(--color-secondary-light);
-  margin-top: 20px;
-  margin-bottom: 10px;
-  margin-left: 20px;
-
-  .quotation-empty {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-
-    .text-tempty {
-      font-size: 13px;
-      font-style: italic;
-      text-align: center;
-      color: var(--color-secondary-dark);
-      .link {
-        color: var(--color-primary);
-      }
-    }
-  }
-}
-
-.quotation-footer {
-  text-align: right;
-  .footer-button {
-    margin-left: 20px;
-  }
 }

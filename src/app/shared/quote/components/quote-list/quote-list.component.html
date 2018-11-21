@@ -1,54 +1,48 @@
 
 <card-app>
-	<div class="quotation-title">Quotations</div>
+	<h1 class="title">Quotations</h1>
+	<list-app *ngIf="quotes?.length; else emptyQuotes" infiniScroll (bottomReached)="bottomReached.emit()">
+		<list-item-app *ngFor="let quote of quotes; index as i; first as first; last as last; trackBy: trackById"
+			[ngClass]="{'hovered': hoverIndex === i}" class="flex quote-container"
+			(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+			<checkbox-app
+				[hidden]="!(selection?.has(quote.id) || hoverIndex === i)"
+				[checked]="(selectionSrv.selection$ | async)?.has(quote.id)"
+				(check)="selectionSrv.selectOne(quote, false)"
+				(uncheck)="selectionSrv.unselectOne(quote, false)">
+			</checkbox-app>
+			<quote-row-app
+				[ngClass]="{'border-top': first, 'no-border': last}"
+				[quote]="quote"
+				(openSupplier)="openSupplier($event)"
+				(previewClicked)="previewClicked.emit(quote)">
+			</quote-row-app>
+		</list-item-app>
+	</list-app>
 
-  <div class="quotation-body">
-			    <div class="container col-100" *ngIf="quotes?.length" infiniScroll (bottomReached)="bottomReached.emit()">
-      <div *ngFor="let quote of quotes; index as i; first as first; last as last; trackBy: trackById"
-        [ngClass]="{'hovered': hoverIndex === i}" class="flex quote-container"
-        (mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-        <checkbox-app
+	<ng-template #emptyQuotes>
+		<div class="quotation-empty">
+			<icon-app name="rfq-no-new" fontSet="svg"></icon-app>
+			<div class="text-tempty">
+				There's no quotation for this product asked yet
+			</div>
+			<div class="text-tempty">
+				<span (click)="openRfq.emit()" class="link clickable">click here</span> to
+				create one
+			</div>
+		</div>
+	</ng-template>
 
-          class="col-5"
-          [checked]="(selectionSrv.selection$ | async)?.has(quote.id)"
-          (check)="selectionSrv.selectOne(quote, false)"
-					(uncheck)="selectionSrv.unselectOne(quote, false)"
-					>
-        </checkbox-app>
-        <quote-row-app
-          class="col-90"
-          (previewClicked)="previewClicked.emit(quote)"
-          [quote]="quote"
-          [ngClass]="{'border-top': first, 'no-border': last}"
-          (openSupplier)="openSupplier($event)">
-        </quote-row-app>
-      </div>
-      <divider-app></divider-app>
-    </div>
+	<card-footer-app>
+		<button (click)="openCompareQuotationDialog.emit()" *ngIf="(selectionSrv.selection$ | async)?.size > 1" class="footer-button">
+			Compare selected quotations
+		</button>
+		<button (click)="openRfq.emit()" class="footer-button">
+			Request for new quotation
+		</button>
+	</card-footer-app>
 
-
-    <div class="quotation-empty" *ngIf="!quotes.length">
-      <div class="icon-empty"><img src="assets/icons/rfq-no-new.svg" /></div>
-      <div class="text-tempty">
-        There's no quotation for this product asked yet
-      </div>
-      <div class="text-tempty">
-        <span (click)="openRfq.emit()" class="link clickable">click here</span> to
-        create one
-      </div>
-    </div>
-  </div>
-  <div class="quotation-footer">
-    <button (click)="openCompareQuotationDialog.emit()" *ngIf="(selectionSrv.selection$ | async)?.size > 1" class="footer-button secondary">
-      Compare selected quotations
-    </button>
-    <button (click)="openRfq.emit()" class="footer-button">
-      Request for new quotation
-    </button>
-	</div>
-
-
-<ng-template #spinner>
+	<ng-template #spinner>
 		<spinner-app></spinner-app>
 	</ng-template>
 </card-app>

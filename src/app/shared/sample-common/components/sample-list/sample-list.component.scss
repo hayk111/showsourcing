@@ -1,18 +1,13 @@
 :host {
 	display: block;
-	background: white;
-	margin-right: var(--spacing-l);
-	margin-left: var(--spacing-l);
 }
 
 .title {
-	background: white;
 	color: var(--color-txt-strong);
 	font-size: var(--font-size-xxxl);
-	padding: var(--spacing-l);
+	padding-bottom: var(--spacing-l);
 }
 
 list-app {
-	max-height: 505px;
-	margin: 0 var(--spacing-l);
+	max-height: 507px;
 }
