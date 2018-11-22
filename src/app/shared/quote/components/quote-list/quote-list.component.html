@@ -13,7 +13,8 @@
           [hidden]="!(selection?.has(quote.id) || hoverIndex === i)"
           [checked]="selection?.has(quote.id)"
           (check)="quoteSelectFunc(quote)"
-          (uncheck)="quoteUnselectFunc(quote)">
+					(uncheck)="quoteUnselectFunc(quote)"
+					>
         </checkbox-app>
         <quote-row-app
           class="col-90"

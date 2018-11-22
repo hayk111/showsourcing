@@ -7,6 +7,7 @@ import { Project } from '~models/project.model';
 import { User } from '~models/user.model';
 import { Team } from '~models/team.model';
 import { Task } from '~models/task.model';
+import { Quote } from '~models/quote.model';
 import { Contact } from '~models/contact.model';
 import { InjectionToken } from '@angular/core';
 
@@ -64,6 +65,7 @@ export class ERM {
 	static readonly TEAM = new EntityMetadata('team', 'teams', Team);
 	static readonly TEAM_USER = new EntityMetadata('team user', 'team users');
 	static readonly USER = new EntityMetadata('user', 'users', User);
+	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
 
 	constructor() { }
 
