@@ -26,7 +26,6 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private supplierSrv: SupplierService,
 		private templateSrv: TemplateService,
-		private commentSrv: CommentService,
 		private thumbSrv: ThumbService,
 		private userSrv: UserService
 	) {
@@ -52,13 +51,15 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 
 	createComment(items: any) {
 		const newComment = new Comment({ text: items.text });
-		this.commentSrv.create(newComment).pipe(
-			switchMap(_ =>
-				this.ermSrv.getGlobalService(items.typeEntity).update(
-					// we do ...newComment, createdBy since we need the firstName, lastName, avatar... and the audith just provides the id
-					{ id: items.entity.id, comments: [...items.entity.comments, { ...newComment, createdBy: this.userSrv.userSync }] }
-				)
-			)
+		this.ermSrv.getGlobalService(items.typeEntity).update(
+			// we do ...newComment, createdBy since we need the firstName, lastName, avatar... and the audith just provides the id
+			{
+				id: items.entity.id,
+				comments: [
+					...items.entity.comments,
+					{ ...newComment, createdBy: this.userSrv.userSync, lastUpdatedBy: this.userSrv.userSync }
+				]
+			}
 		).subscribe();
 	}
 
