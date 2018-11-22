@@ -10,11 +10,22 @@
   display: inline-block;
 }
 
-$columns: 100;
-@mixin col-x {
-  @for $i from 1 through $columns {
-  .col-#{$i} { width: percentage($i)/100; }
-  }
+.col-5 {
+  width: 5%;
 }
 
-@include col-x()
+.col-20 {
+  width: 20%;
+}
+
+.col-25 {
+  width: 25%;
+}
+
+.col-90 {
+  width: 90%;
+}
+
+.col-100 {
+  width: 100%;
+}
