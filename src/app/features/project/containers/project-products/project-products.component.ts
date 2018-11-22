@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef, ChangeDetector
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, takeUntil, switchMap, tap, catchError, take, first } from 'rxjs/operators';
-import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import { ProductService, ProjectService } from '~global-services';
 import { ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog';
