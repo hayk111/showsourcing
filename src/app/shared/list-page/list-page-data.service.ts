@@ -62,7 +62,6 @@ export class ListPageDataService
 
 	constructor(
 		public dlgSrv: DialogService,
-		public searchSrv: SearchService,
 		public thumbSrv: ThumbService,
 		public selectionSrv: SelectionWithFavoriteService
 	) {

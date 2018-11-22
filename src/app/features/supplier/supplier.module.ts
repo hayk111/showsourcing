@@ -100,12 +100,7 @@ import { ERM_TOKEN, ERM } from '~models';
 	entryComponents: [NewSupplierDlgComponent, NewContactDlgComponent],
 	exports: [SuppliersPageComponent],
 	providers: [
-		ListPageViewService,
-		ListPageDataService,
-		SelectionWithFavoriteService,
-		CommonDialogService,
-		SupplierFeatureService,
-		{ provide: ERM_TOKEN, useValue: ERM.SUPPLIER }
+		SupplierFeatureService
 	]
 })
-export class SuppliersModule {}
+export class SuppliersModule { }

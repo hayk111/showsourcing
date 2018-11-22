@@ -7,7 +7,10 @@ import { SupplierTasksComponent } from '~features/supplier/containers/supplier-t
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },
-	{ path: 'all', component: SuppliersPageComponent },
+	{
+		path: 'all',
+		component: SuppliersPageComponent
+	},
 	{
 		path: 'details/:id',
 		component: SupplierDetailsComponent,

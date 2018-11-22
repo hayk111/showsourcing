@@ -1,9 +1,11 @@
 import { Route } from '@angular/router';
 
-import { ProductDetailsComponent,
+import {
+	ProductDetailsComponent,
 	ProductGeneralInfoComponent,
 	ProductsPageComponent,
-	ProductQuotationComponent } from '~features/products/containers';
+	ProductQuotationComponent
+} from '~features/products/containers';
 import { ProductActivityComponent } from '~features/products/components/product-activity/product-activity.component';
 import { ProductTasksComponent } from '~features/products/containers/product-tasks/product-tasks.component';
 
@@ -11,7 +13,7 @@ export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },
 	{
 		path: 'all',
-		component: ProductsPageComponent,
+		component: ProductsPageComponent
 	},
 	{
 		path: 'details/:id',
