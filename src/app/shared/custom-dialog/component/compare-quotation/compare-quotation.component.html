@@ -8,7 +8,7 @@
     <item-comapre-column-app [type]="'title'"></item-comapre-column-app>
   </div>
   <div class="item-container" [style.width]="100/(quotes.length + 1) + '%'" *ngFor="let quote of quotes;trackBy: trackByFn" >
-      <item-comapre-column-app [quote]="quote"></item-comapre-column-app>
+      <item-comapre-column-app [priceMatrixLabels]="priceMatrixLabels" [quote]="quote"></item-comapre-column-app>
   </div>
 
 	<!-- <divider-app></divider-app> -->
