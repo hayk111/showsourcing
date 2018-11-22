@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { ExternalRequest, Quote } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 
 @Component({
 	selector: 'quote-list-app',
@@ -31,7 +32,9 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 
 	hoverIndex: number;
 
-	constructor() { super(); }
+	constructor(
+		protected selectionSrv: SelectionWithFavoriteService,
+  ) { super(); }
 
 	hoverRow(index: number) {
 		this.hoverIndex = index;
