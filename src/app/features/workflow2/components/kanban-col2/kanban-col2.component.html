@@ -1,4 +1,9 @@
-<header class="paddingDefault flexBetween" [ngClass]="{ 'in-progress': (data?.category === 'inProgress'), validated: (data?.category === 'validated'), refused: (data?.category === 'refused'), inspiration: (data?.category === 'inspiration') }"
+<header class="paddingDefault flexBetween" [ngClass]="{
+	'in-progress': (data?.category === 'inProgress'),
+	validated: (data?.category === 'validated'),
+	refused: (data?.category === 'refused'),
+	inspiration: (data?.category === 'inspiration')
+}"
 	[ngStyle]="{ 'border-top': 'solid 2px ' + borderColor }">
 	<checkbox-app [checked]="checked"
 		(check)="checkChange.emit(true)"

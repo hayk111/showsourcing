@@ -1,13 +1,10 @@
-<div style="height: 700px"></div>
+<kanban-app [cols]="cols$ | async" [cardTemplate]="card">
 
-<button type="button" (click)="isOpen = !isOpen"
-cdkOverlayOrigin
-#trigger="cdkOverlayOrigin">Test me</button>
+</kanban-app>
 
-<ng-template
-cdkConnectedOverlay
-[cdkConnectedOverlayOrigin]="trigger"
-[cdkConnectedOverlayOpen]="isOpen">
-<div style="height: 500px; background-color: red">Hey</div>
+<ng-template #card let-data="data">
+  <product-card-app
+    [product]="data"
+    [enablePreviewLink]="true">
+  </product-card-app>
 </ng-template>
-<div style="height: 700px"></div>

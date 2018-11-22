@@ -1,9 +1,9 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import gql from 'graphql-tag';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Supplier } from '~models';
+import { Supplier, ProductStatusType, Product } from '~models';
 import { CustomField } from '~shared/dynamic-forms/models';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ProductStatusTypeService, ProductService } from '~global-services';
@@ -17,10 +17,29 @@ import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface'
 	styleUrls: ['./test-page.component.scss'],
 })
 export class TestPageComponent implements OnInit {
-
-	isOpen = false;
-
-	constructor() { }
+	cols = [
+		{
+			id: 'col-1',
+			data: ['hey', 'hola', 'bonjour'],
+			title: 'HELLO',
+			color: 'var(--color-primary)'
+		},
+		{
+			id: 'col-2',
+			data: ['How are you?', 'Como estas ?', 'ca va ?'],
+			title: 'WHATs UP',
+			color: 'var(--color-accent)'
+		}
+	];
+	projectId = '7c4f007d-c671-47b4-bb33-e0a9732732d5';
+	statusTypes$;
+	products$;
+	cols$;
+	constructor(
+		private render: Renderer2,
+		private typesSrv: ProductStatusTypeService,
+		private productSrv: ProductService
+	) { }
 
 	ngOnInit() {
 		this.statusTypes$ = this.typesSrv.queryAll();
@@ -51,4 +70,5 @@ export class TestPageComponent implements OnInit {
 	doThis(event: any) {
 
 	}
+
 }
