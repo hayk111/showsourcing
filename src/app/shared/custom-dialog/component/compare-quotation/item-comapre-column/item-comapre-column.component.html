@@ -35,9 +35,9 @@
 			<div *ngIf="type === 'title'" class="big-title">PRICE MATRIX</div>
 		</div>
 
-		<div class="comparison-row" *ngFor="let row of quote?.priceMatrix?.rows; let i = index;trackBy: trackByFn">
-			<div *ngIf="type === 'title'" class="title">{{row.label}}</div>
-			<div *ngIf="type === 'content'" class="content">{{row.value}}</div>
+		<div class="comparison-row" *ngFor="let label of priceMatrixLabels; let i = index;trackBy: trackByFn">
+			<div *ngIf="type === 'title'" class="title">{{label}}</div>
+			<div *ngIf="type === 'content'" class="content">{{getPriceMatrixRowByLabel(label)}}</div>
 		</div>
 
 		<!-- <div class="comparison-row">
