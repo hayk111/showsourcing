@@ -15,13 +15,13 @@ import { QuoteFeatureService } from '~features/products/services';
 	styleUrls: ['./quote-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders('products-page', ERM.QUOTE),
+		ListPageProviders.getProviders('quotes-list', ERM.QUOTE),
 	]
 })
 export class QuoteListComponent extends TrackingComponent implements OnInit {
 
 
-	numSelected = 0;
+	// numSelected = 0;
 	private _quotes: Quote[] = [];
 	@Input() set quotes(quotes: Quote[]) {
 		this._quotes = quotes;
@@ -30,10 +30,7 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 		return this._quotes;
 	}
 
-	@Input() selection: Map<string, Quote>;
 	@Output() bottomReached = new EventEmitter<null>();
-	@Output() quoteSelect = new EventEmitter<Quote>();
-	@Output() quoteUnselect = new EventEmitter<Quote>();
 	@Output() previewClicked = new EventEmitter<Quote>();
 	@Output() hovered = new EventEmitter<Quote>();
 	@Output() openRfq = new EventEmitter<null>();
@@ -49,7 +46,10 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 		protected viewSrv: ListPageViewService<Quote>,
 		protected dataSrv: ListPageDataService<Quote, QuoteFeatureService>
 
-  ) { super(); }
+	) {
+		super();
+		this.selectionSrv.selection$.subscribe(x => console.log(x));
+	}
 
 	hoverRow(index: number) {
 		this.hoverIndex = index;
@@ -66,21 +66,4 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 		});
 		this.dataSrv.init();
 	}
-
-	quoteSelectFunc(quote: Quote) {
-		this.selection.set(quote.id, quote);
-		this.numSelected = this.numSelected + 1;
-		if (this.quoteSelect) {
-			this.quoteSelect.emit(quote);
-		}
-	}
-
-	quoteUnselectFunc(quote: Quote) {
-		this.selection.delete(quote.id);
-		this.numSelected = this.numSelected - 1;
-		if (this.quoteUnselect) {
-			this.quoteUnselect.emit(quote);
-		}
-	}
-
 }

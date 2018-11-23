@@ -17,7 +17,7 @@ import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
 	styleUrls: ['./projects-page.component.scss'],
 	providers: [
 		CommonDialogService,
-		ListPageProviders.getProviders('products-page', ERM.PROJECT),
+		ListPageProviders.getProviders('projects-page', ERM.PROJECT),
 	]
 })
 export class ProjectsPageComponent extends TrackingComponent implements OnInit {
