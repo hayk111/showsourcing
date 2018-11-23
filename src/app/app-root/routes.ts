@@ -1,26 +1,12 @@
 import { Route } from '@angular/router';
+import { environment } from 'environments/environment';
 import { AuthGuardService } from '~features/auth';
-import { routes as authRoutes } from '~features/auth/routes';
 import { HasUserGuard } from '~features/auth/services/has-user.guard';
 import { UnauthGuardService } from '~features/auth/services/unauth-guard.service';
-import { routes as invitationRoutes } from '~features/invitation/routes';
-import { CreateACompanyPageComponent } from '~features/pick-a-team/containers/create-a-company-page/create-a-company-page.component';
-import { CreateATeamPageComponent } from '~features/pick-a-team/containers/create-a-team-page/create-a-team-page.component';
-import { PickATeamPageComponent } from '~features/pick-a-team/containers/pick-a-team-page/pick-a-team-page.component';
-import { HasCompanyGuard } from '~features/pick-a-team/services/has-company.guard';
 import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-selected.guard';
-import { HasTeamGuard } from '~features/pick-a-team/services/has-team.guard';
-import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
-import {
-	TeamClientReadyGuard,
-	UserClientReadyGuard
-} from '~shared/apollo/guards/client-ready.guard.service';
-import {
-	GuestTemplateComponent,
-	RfqTemplateComponent,
-	TemplateComponent
-} from '~shared/template';
+import { TeamClientReadyGuard, UserClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
+import { GuestTemplateComponent, TemplateComponent } from '~shared/template';
 
 export const routes: Array<Route> = [
 	{
@@ -87,12 +73,22 @@ export const routes: Array<Route> = [
 			{
 				path: 'workspace',
 				loadChildren: 'app/features/workspace/workspace.module#WorkspaceModule'
-			},
-			{
-				path: 'test',
-				loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
 			}
 		]
 	},
 	{ path: '**', redirectTo: '' }
 ];
+
+
+if (!environment.production) {
+	routes.find(route => route.path === '').children.push(
+		{
+			path: 'component-library',
+			loadChildren: 'app/features/component-library/component-library.module#ComponentLibraryModule'
+		},
+		{
+			path: 'test',
+			loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
+		}
+	);
+}

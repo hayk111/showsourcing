@@ -12,11 +12,12 @@ nav {
 	width: 17rem;
 	height: 100%;
 	h1 {
-		margin-left: var(--spacing-ms);
+		margin: var(--spacing-ms);
 	}
 	a {
 		padding: var(--spacing-m) var(--spacing-l);
-		&:hover {
+		&:hover, &.selected {
+			color: white;
 			background: var(--color-primary-dark);
 		}
 	}

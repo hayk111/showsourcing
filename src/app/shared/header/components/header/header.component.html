@@ -14,6 +14,21 @@
 
   <a [routerLink]="['/workspace']" routerLinkActive="selected">Workspace</a>
 
+  <!-- we don't want those links in production... -->
+  <a
+    *ngIf="!isProd"
+    [routerLink]="['/component-library']"
+    routerLinkActive="selected">
+    Component Library
+  </a>
+
+  <a *ngIf="!isProd"
+    [routerLink]="['/test']"
+    routerLinkActive="selected">
+    Test Page
+  </a>
+
+
 </nav>
 
 <div class="flexCenter right">

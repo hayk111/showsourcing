@@ -1,41 +1,38 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MemberFeatureService } from '~features/settings/services/member-feature.service';
+import { DataManagementModule } from '~features/data-management/data-management.module';
+import {
+	InvitationsListViewComponent,
+	InviteUserDlgComponent,
+	SettingsProfileComponent,
+	TeamMembersListViewComponent,
+} from '~features/settings/components';
+import { ChangePswdDlgComponent } from '~features/settings/components/change-pswd-dlg/change-pswd-dlg.component';
+import {
+	CompanyProfileCardComponent,
+} from '~features/settings/components/company-profile-card/company-profile-card.component';
+import { ProfileCardComponent } from '~features/settings/components/profile-card/profile-card.component';
+import {
+	SettingsComponent,
+	SettingsFieldsPageComponent,
+	SettingsTeamMembersInvitationsComponent,
+	SettingsTeamMembersPageComponent,
+	SettingsTeamMembersUsersComponent,
+	SettingsWorkflowsPageComponent,
+} from '~features/settings/containers';
+import { routes } from '~features/settings/routes';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
-import { MenuService } from '~features/settings/services/menu.service';
-import { UserModule } from '~features/user';
+import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { CustomDialogModule } from '~shared/custom-dialog/custom-dialog.module';
 import { DialogModule } from '~shared/dialog/dialog.module';
-import { DialogService } from '~shared/dialog/services';
+import { FileModule } from '~shared/file';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { routes } from '~features/settings/routes';
-import { DataManagementModule } from '~features/data-management/data-management.module';
-import { CustomDialogModule } from '~shared/custom-dialog/custom-dialog.module';
-
-import {
-	InviteUserDlgComponent,
-	SettingsProfileComponent,
-	TeamMembersListViewComponent,
-	InvitationsListViewComponent,
-} from '~features/settings/components';
-import {
-	SettingsComponent,
-	SettingsTeamMembersPageComponent,
-	SettingsFieldsPageComponent,
-	SettingsWorkflowsPageComponent,
-	SettingsTeamMembersUsersComponent,
-	SettingsTeamMembersInvitationsComponent
-} from '~features/settings/containers';
-import { CompanyProfileCardComponent } from '~features/settings/components/company-profile-card/company-profile-card.component';
-import { ProfileCardComponent } from '~features/settings/components/profile-card/profile-card.component';
-import { FileModule } from '~shared/file';
-import { ChangePswdDlgComponent } from '~features/settings/components/change-pswd-dlg/change-pswd-dlg.component';
-import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 
 @NgModule({
 	imports: [
@@ -45,7 +42,6 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 		RouterModule,
 		TopPanelModule,
 		DialogModule,
-		UserModule,
 		DataManagementModule,
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view

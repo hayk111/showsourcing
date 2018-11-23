@@ -5,15 +5,12 @@ import { UtilsModule } from '~shared/utils/utils.module';
 
 import { ChartComponent, DetailsComponent, LegendComponent } from '~shared/likes-chart/components';
 import { LikesCardComponent } from '~shared/likes-chart/containers';
-import { UserModule } from '~features/user';
 
 // Module to display likes of an entity with a chart
 @NgModule({
 	imports: [
 		CommonModule,
-		UserModule,
 		UtilsModule,
-		// NgxChartsModule,
 		LoadersModule,
 	],
 	declarations: [LegendComponent, ChartComponent, DetailsComponent, LikesCardComponent],

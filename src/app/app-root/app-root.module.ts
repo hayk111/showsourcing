@@ -10,9 +10,6 @@ import { routes } from '~app-root/routes';
 import { AuthModule } from '~features/auth';
 import { EventModule } from '~features/event/event.module';
 import { InvitationModule } from '~features/invitation';
-import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
-import { TestPageModule } from '~features/test-page/test-page.module';
-import { UserModule } from '~features/user';
 import { AppApolloModule } from '~shared/apollo/apollo.module';
 import { CardModule } from '~shared/card';
 import { DialogModule } from '~shared/dialog';
@@ -36,7 +33,6 @@ import { TemplateModule } from '~shared/template';
 		HttpClientModule,
 		TemplateModule,
 		LocalStorageModule,
-		UserModule,
 		TemplateModule,
 		EventModule,
 		IconsModule, // used to create symboles at the top
