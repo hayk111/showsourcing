@@ -7,6 +7,9 @@ import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 
+export enum ProviderKey {
+	TASK = 'tasks-page'
+}
 
 /**
  * Helper class to create providers for the different list page

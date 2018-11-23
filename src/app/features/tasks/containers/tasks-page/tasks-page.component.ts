@@ -1,21 +1,28 @@
 import { Component, OnInit, NgModuleRef } from '@angular/core';
-
+import { ERM } from '~models';
 import { Observable } from 'rxjs';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { NewTaskDlgComponent } from '~features/tasks/containers/new-task-dlg/new-task-dlg.component';
+import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
+	providers: [
+		ListPageProviders.getProviders(ProviderKey.TASK, ERM.TASK),
+	]
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit {
 	tasks$;
 	pending$: Observable<boolean>;
 	selection = new Map<string, boolean>();
 
-	constructor(private dlgSrv: DialogService, private moduleRef: NgModuleRef<any>) {
+	constructor(
+		private dlgSrv: DialogService,
+		private moduleRef: NgModuleRef<any>
+	) {
 		super();
 	}
 
