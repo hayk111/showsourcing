@@ -6,7 +6,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, ViewEncapsulation } 
 	styleUrls: ['./card-header.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CardHeaderComponent implements OnInit {
+export class CardHeaderComponent {
 
 	constructor() { }
 
