@@ -6,18 +6,24 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TaskService, UserService } from '~global-services';
-import { DialogService } from '~shared/dialog';
-import { SearchService, FilterType } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { AbstractTaskCommonComponent } from '~shared/task-common/containers/abstract-task-common.component';
-import { Task } from '~models';
+import { Task, ERM } from '~models';
+import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'product-tasks-app',
 	templateUrl: './product-tasks.component.html',
 	styleUrls: ['./product-tasks.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		ListPageProviders.getProviders(ProviderKey.TASK, ERM.TASK),
+	]
 })
+
 export class ProductTasksComponent extends AbstractTaskCommonComponent
 	implements OnInit {
 	constructor(
@@ -25,10 +31,10 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 		protected userSrv: UserService,
 		protected router: Router,
 		protected featureSrv: TaskService,
-		protected searchSrv: SearchService,
-		protected selectionSrv: SelectionService,
-		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>
+		protected viewSrv: ListPageViewService<Task>,
+		public dataSrv: ListPageDataService<Task, TaskService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
 	) {
 		super(
 			router,

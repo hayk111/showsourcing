@@ -8,9 +8,10 @@ import { DialogService } from '~shared/dialog';
 import { SearchService, FilterType } from '~shared/filters';
 import { realmDateFormat } from '~utils/realm-date-format.util';
 import { TaskQueries } from '~global-services/task/task.queries';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
-export abstract class AbstractTaskCommonComponent extends ListPageComponent<Task, TaskService> implements OnInit, AfterViewInit {
+export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		protected router: Router,
@@ -20,7 +21,7 @@ export abstract class AbstractTaskCommonComponent extends ListPageComponent<Task
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TASK, null);
+		super();
 	}
 
 	ngAfterViewInit() {
