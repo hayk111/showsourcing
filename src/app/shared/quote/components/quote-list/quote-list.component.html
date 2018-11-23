@@ -11,7 +11,7 @@
         <checkbox-app
 
           class="col-5"
-          [checked]="(selectionSrv.selection$ | async)?.has(quote.id)"
+          [checked]="selection?.has(quote.id)"
           (check)="selectionSrv.selectOne(quote, false)"
 					(uncheck)="selectionSrv.unselectOne(quote, false)"
 					>
@@ -40,8 +40,8 @@
     </div>
   </div>
   <div class="quotation-footer">
-		{{(selectionSrv.selection$ | async).length}}
-    <button (click)="openCompareQuotationDialog.emit()" *ngIf="(selectionSrv.selection$ | async)?.length > 1" class="footer-button secondary">
+		{{selection | json}}
+    <button (click)="openCompareQuotationDialog.emit()" *ngIf="selection?.length > 1" class="footer-button secondary">
       Compare selected quotations
     </button>
     <button (click)="openRfq.emit()" class="footer-button">

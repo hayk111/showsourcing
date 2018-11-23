@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, NgZone, Input, Output, EventEmitter } from '@angular/core';
 import { ERM, Quote } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
@@ -13,7 +13,6 @@ import { QuoteFeatureService } from '~features/products/services';
 	selector: 'quote-list-app',
 	templateUrl: './quote-list.component.html',
 	styleUrls: ['./quote-list.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageProviders.getProviders('quotes-list', ERM.QUOTE),
 	]
@@ -21,7 +20,7 @@ import { QuoteFeatureService } from '~features/products/services';
 export class QuoteListComponent extends TrackingComponent implements OnInit {
 
 
-	// numSelected = 0;
+	public selection: Map<string, any>;
 	private _quotes: Quote[] = [];
 	@Input() set quotes(quotes: Quote[]) {
 		this._quotes = quotes;
@@ -44,11 +43,16 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 		protected selectionSrv: SelectionWithFavoriteService,
 		protected commonDlgSrv: CommonDialogService,
 		protected viewSrv: ListPageViewService<Quote>,
-		protected dataSrv: ListPageDataService<Quote, QuoteFeatureService>
-
+		protected dataSrv: ListPageDataService<Quote, QuoteFeatureService>,
+		private _ngZone: NgZone
 	) {
 		super();
-		this.selectionSrv.selection$.subscribe(x => console.log(x));
+		this._subscription.add(this.selectionSrv.selection$.subscribe(_selection => {
+			console.log(_selection);
+			this._ngZone.run(() => {
+				this.selection = _selection;
+			});
+		}));
 	}
 
 	hoverRow(index: number) {

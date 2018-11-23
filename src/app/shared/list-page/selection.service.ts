@@ -18,7 +18,6 @@ export class SelectionService {
 		// we do this so change detection, detects the change
 		this.selection = new Map(this.selection);
 		this.selection.set(item.id, item);
-		console.log(this.selection);
 		this.emit();
 	}
 
