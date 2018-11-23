@@ -1,7 +1,7 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
-import { Project } from '~models';
+import { Project, ERM } from '~models';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
@@ -9,11 +9,16 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'projects-page-app',
 	templateUrl: './projects-page.component.html',
-	styleUrls: ['./projects-page.component.scss']
+	styleUrls: ['./projects-page.component.scss'],
+	providers: [
+		CommonDialogService,
+		ListPageProviders.getProviders('products-page', ERM.PROJECT),
+	]
 })
 export class ProjectsPageComponent extends TrackingComponent implements OnInit {
 	filterTypes = [FilterType.CREATED_BY];

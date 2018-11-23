@@ -71,13 +71,9 @@ import { ERM_TOKEN, ERM } from '~models';
 	],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [
-		ListPageViewService,
-		ListPageDataService,
-		SelectionWithFavoriteService,
-		CommonDialogService,
 		ProjectFeatureService,
 		ProjectWorkflowFeatureService,
-		{ provide: ERM_TOKEN, useValue: ERM.PROJECT }
+		CommonDialogService
 	]
 })
 export class ProjectModule {}

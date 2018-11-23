@@ -108,7 +108,7 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 	exports: [],
 	providers: [
 		ProductFeatureService,
-		QuoteFeatureService,
+		QuoteFeatureService
 	]
 })
 export class ProductModule {

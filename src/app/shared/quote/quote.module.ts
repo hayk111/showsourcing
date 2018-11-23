@@ -29,11 +29,7 @@ import { QuoteComponent, QuoteListComponent } from '.';
 	declarations: [QuoteListComponent, QuoteComponent],
 	exports: [QuoteListComponent, QuoteComponent],
 	providers: [
-		ListPageViewService,
-		ListPageDataService,
-		SelectionWithFavoriteService,
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.QUOTE }
+		CommonDialogService
 	]
 	// entryComponents: [CreateTaskDialogComponent, PickerEntitySelectorComponent]
 })

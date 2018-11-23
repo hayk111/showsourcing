@@ -15,6 +15,7 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
+		CommonDialogService,
 		ListPageProviders.getProviders('suppliers-page', ERM.SUPPLIER)
 	]
 })
