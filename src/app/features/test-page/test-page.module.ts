@@ -22,13 +22,15 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PreviewTestComponent } from './preview-test/preview-test.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './routes';
+import { GuidelinesComponent } from './guidelines/guidelines.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CardModule
   ],
-  declarations: [TestPageComponent, PreviewTestComponent],
+  declarations: [TestPageComponent, PreviewTestComponent, GuidelinesComponent],
   exports: [TestPageComponent],
   providers: [
     ProjectFeatureService,
