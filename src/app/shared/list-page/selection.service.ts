@@ -11,6 +11,7 @@ export class SelectionService {
 	selection$ = this._selection$.asObservable();
 
 	emit() {
+		console.log(this.selection);
 		this._selection$.next(this.selection);
 	}
 
@@ -24,7 +25,6 @@ export class SelectionService {
 	unselectOne(item: { id: string }) {
 		this.selection = new Map(this.selection);
 		this.selection.delete(item.id);
-		console.log(this.selection);
 		this.emit();
 	}
 

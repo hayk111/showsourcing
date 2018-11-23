@@ -1,7 +1,6 @@
 
 <card-app>
 	<div class="quotation-title">Quotations</div>
-	<ng-container *ngIf="quotes; else spinner">
 
   <div class="quotation-body">
 			    <div class="container col-100" *ngIf="quotes?.length" infiniScroll (bottomReached)="bottomReached.emit()">
@@ -11,7 +10,7 @@
         <checkbox-app
 
           class="col-5"
-          [checked]="selection?.has(quote.id)"
+          [checked]="(selectionSrv.selection$ | async)?.has(quote.id)"
           (check)="selectionSrv.selectOne(quote, false)"
 					(uncheck)="selectionSrv.unselectOne(quote, false)"
 					>
@@ -40,8 +39,7 @@
     </div>
   </div>
   <div class="quotation-footer">
-		{{selection | json}}
-    <button (click)="openCompareQuotationDialog.emit()" *ngIf="selection?.length > 1" class="footer-button secondary">
+    <button (click)="openCompareQuotationDialog.emit()" *ngIf="(selectionSrv.selection$ | async)?.size > 1" class="footer-button secondary">
       Compare selected quotations
     </button>
     <button (click)="openRfq.emit()" class="footer-button">
@@ -49,7 +47,6 @@
     </button>
 	</div>
 
-</ng-container>
 
 <ng-template #spinner>
 		<spinner-app></spinner-app>
