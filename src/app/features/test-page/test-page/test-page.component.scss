@@ -1,4 +1,27 @@
 :host {
-  margin: 1rem;
-  display: block;
+	display: flex;
+	height: 100%;
+}
+
+nav {
+	background: var(--color-txt-strong);
+	color: white;
+	font-size: var(--font-size-l);
+	font-weight: bold;
+	padding-top: var(--spacing-m);
+	width: 17rem;
+	height: 100%;
+	h1 {
+		margin-left: var(--spacing-ms);
+	}
+	a {
+		padding: var(--spacing-m) var(--spacing-l);
+		&:hover {
+			background: var(--color-primary-dark);
+		}
+	}
+}
+
+main {
+	padding: var(--spacing-xl);
 }
