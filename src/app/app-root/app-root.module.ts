@@ -44,9 +44,6 @@ import { TemplateModule } from '~shared/template';
 		// shared
 		NotificationsModule,
 		DialogModule,
-		// modules features
-		PickATeamModule,
-		TestPageModule,
 		// keep router as last module
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 		RouterModule.forRoot(routes, {

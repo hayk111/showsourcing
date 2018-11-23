@@ -27,7 +27,7 @@ export const routes: Array<Route> = [
 		path: 'guest',
 		component: GuestTemplateComponent,
 		canActivateChild: [UnauthGuardService],
-		children: [...authRoutes]
+		loadChildren: 'app/features/auth/auth.module#AuthModule'
 	},
 	{
 		path: 'issues',
@@ -38,24 +38,12 @@ export const routes: Array<Route> = [
 		path: 'user',
 		component: GuestTemplateComponent,
 		canActivateChild: [AuthGuardService, UserClientReadyGuard],
-		children: [
-			{
-				path: 'create-a-team',
-				component: CreateATeamPageComponent,
-				canActivate: [HasCompanyGuard]
-			},
-			{
-				path: 'pick-a-team',
-				component: PickATeamPageComponent,
-				canActivate: [HasTeamGuard]
-			},
-			{ path: 'create-a-company', component: CreateACompanyPageComponent }
-		]
+		loadChildren: 'app/features/pick-a-team/pick-a-team.module#PickATeamModule'
 	},
 	{
 		path: 'invitation',
 		component: GuestTemplateComponent,
-		children: [...invitationRoutes]
+		loadChildren: 'app/features/invitation/invitation.module#InvitationModule'
 	},
 	{
 		path: '',
@@ -100,7 +88,10 @@ export const routes: Array<Route> = [
 				path: 'workspace',
 				loadChildren: 'app/features/workspace/workspace.module#WorkspaceModule'
 			},
-			{ path: 'test', children: testRoutes }
+			{
+				path: 'test',
+				loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
+			}
 		]
 	},
 	{ path: '**', redirectTo: '' }

@@ -6,7 +6,7 @@ import { GuidelinesComponent } from './guidelines/guidelines.component';
 
 export const routes: Array<Route> = [
 	{
-		path: '',
+		path: 'test',
 		component: TestPageComponent,
 		children: [
 			{ path: '', redirectTo: 'guidelines', pathMatch: 'full' },
