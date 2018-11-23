@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ExternalRequestFeatureService } from '~features/rfq/services/external-request-feature.service';
 import { CardModule } from '~shared/card/card.module';
 import { IconsModule } from '~shared/icons/icons.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
@@ -17,6 +16,7 @@ import { FillInformationPageComponent } from './containers/fill-information/fill
 import { RefuseDialogComponent } from './containers/refuse/refuse-dialog.component';
 import { ReviewSendPageComponent } from './containers/review-send/review-send-page.component';
 import { ValidationPageComponent } from './containers/validation/validation-page.component';
+import { ExternalRequestFeatureService } from './services/external-request-feature.service';
 
 @NgModule({
 	imports: [
