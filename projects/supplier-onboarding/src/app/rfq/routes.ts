@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import {
 	NewRequestPageComponent, FillInformationPageComponent,
 	ReviewSendPageComponent, ValidationPageComponent
-} from '~features/rfq/containers';
+} from './containers';
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'new-request', pathMatch: 'full' },

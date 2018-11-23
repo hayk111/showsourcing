@@ -5,13 +5,13 @@ import { RouterModule } from '@angular/router';
 import { AppApolloModule } from '~shared/apollo';
 import { TemplateModule } from '~shared/template';
 
-import { AppComponent } from './app.component';
+import { AppOnboardingComponent } from './app-onboarding.component';
 import { OnBoardingModule } from './on-boarding';
 import { routes } from './on-boarding/routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [AppOnboardingComponent],
 	imports: [
 		BrowserModule,
 		OnBoardingModule,
@@ -24,6 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		BrowserAnimationsModule
 	],
 	providers: [],
-	bootstrap: [AppComponent]
+	bootstrap: [AppOnboardingComponent]
 })
-export class AppModule { }
+export class AppOnboardingModule { }

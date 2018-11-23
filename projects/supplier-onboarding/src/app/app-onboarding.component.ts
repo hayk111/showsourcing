@@ -10,7 +10,7 @@ import { TokenState } from '~features/auth/interfaces/token-state.interface';
 	selector: 'app-root-onboarding',
 	template: '<router-outlet></router-outlet>',
 })
-export class AppComponent {
+export class AppOnboardingComponent {
 
 
 }
