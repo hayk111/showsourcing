@@ -1,4 +1,4 @@
-import { LOCALE_ID, Inject, Pipe, PipeTransform } from '@angular/core';
+import { LOCALE_ID, Inject, Pipe, PipeTransform, Optional } from '@angular/core';
 import { currencyMap, countryMap, harbourMap, incoTermsMap, statusMap, supplierTypesMap } from '~utils/constants';
 
 /**
@@ -14,7 +14,7 @@ import { currencyMap, countryMap, harbourMap, incoTermsMap, statusMap, supplierT
 export class ConstPipe implements PipeTransform {
 	localeCountry: string;
 
-	constructor(@Inject(LOCALE_ID) private locale: string) {
+	constructor(@Optional() @Inject(LOCALE_ID) private locale?: string) {
 		if (locale) {
 			const localeTokens = locale.split('-');
 			if (localeTokens && localeTokens.length > 0) {

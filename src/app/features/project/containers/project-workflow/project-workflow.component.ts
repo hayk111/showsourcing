@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgModuleRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
-import { ProductService, ProjectService } from '~global-services';
-import { ERM, KanbanColumn, Product, ProductVote, Project } from '~models';
+import { ProductService, ProjectService, ProductStatusTypeService } from '~global-services';
+import { ERM, Product, ProductVote, Project, ProductStatus } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -19,99 +19,121 @@ import {
 	FindProductsDialogComponent,
 } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { statusProductToKanbanCol } from '~utils/kanban.utils';
+import { ProductQueries } from '~global-services/product/product.queries';
+import { KanbanDropEvent } from '~shared/kanban/interfaces';
 
 @Component({
 	selector: 'project-workflow-app',
 	templateUrl: './project-workflow.component.html',
 	styleUrls: ['./project-workflow.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectWorkflowComponent extends ListPageComponent<Product, ProductService> implements OnInit {
+export class ProjectWorkflowComponent extends ListPageComponent<any, any> implements OnInit {
 	project$: Observable<Project>;
-	// statuses$ = new Subject<ProductStatus[]>();
 	columns$: Observable<KanbanColumn[]>;
-	id: string;
-	project: Project;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
+	project: Project;
 
 	constructor(
-		protected router: Router,
 		protected route: ActivatedRoute,
 		protected projectSrv: ProjectService,
 		protected productSrv: ProductService,
-		protected workflowService: ProjectWorkflowFeatureService,
-		protected searchSrv: SearchService,
+		protected productStatusSrv: ProductStatusTypeService,
+		protected router: Router,
 		protected selectionSrv: SelectionService,
-		protected cdr: ChangeDetectorRef,
+		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>,
-		protected featureSrv: ProjectWorkflowFeatureService,
-		protected notifSrv: NotificationService,
-		protected thumbSrv: ThumbService) {
-		super(router, productSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, thumbSrv, FindProductsDialogComponent);
+		protected thumbSrv: ThumbService,
+		protected workflowService: ProjectWorkflowFeatureService,
+		protected notificationSrv: NotificationService
+	) {
+		super(
+			router,
+			productSrv,
+			selectionSrv,
+			searchSrv,
+			dlgSrv,
+			moduleRef,
+			ERM.PRODUCT,
+			thumbSrv);
 	}
 
 	ngOnInit() {
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.projectSrv.queryOne(id);
-		this.project$.subscribe(project => this.project = project);
+		this.selected$ = this.selectionSrv.selection$;
 
-		this.columns$ = this.project$.pipe(
-			takeUntil(this._destroy$),
-			switchMap(project => this.workflowService.getStatuses(project)),
-			map(statuses => this.convertStatusesToColumns(statuses)),
+		this.project$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(project => this.project = project);
+
+		const products$ = this.productSrv.queryAll(ProductQueries.many, {
+			query: `projects.id == "${id}"`,
+			sortBy: 'lastUpdatedDate',
+		}).pipe(
+			// first(),
+			// we lose the order when the product is updated
+			// because apollo has no idea of how to reorder items unless we do
+			// a refetch, but we re gonna do it on the front end
+			map(products => products.sort(
+				(a, b) => +(new Date(b.lastUpdatedDate)) - (+new Date(a.lastUpdatedDate)))
+			)
 		);
 
-		this.selected$ = this.selectionSrv.selection$;
+		const productStatuses$ = this.productStatusSrv
+			.queryAll(undefined, {
+				query: 'category != "refused" AND category != "inspiration"',
+				sortBy: 'step'
+			}).pipe();
+
+		this.columns$ = combineLatest(
+			productStatuses$,
+			products$,
+			statusProductToKanbanCol
+		);
+
 	}
 
-	/** Convert statuses / products into the generic input for kanban */
-	convertStatusesToColumns(statuses) {
-		return statuses.map(status => ({
-			id: status.id,
-			name: status.name,
-			color: this.getColumnColor(status),
-			disabled: (status.name === '_NoStatus'),
-			items: status.products.map(product => ({
-				...product,
-				cat: (product.status && product.status.status) ? {
-					id: product.status.status.id
-				} : { id: -1 }
-			}))
+	updateProductStatus(event: KanbanDropEvent) {
+		// if dropped in the same column do nothing
+		if (event.to === event.from) {
+			return;
+		}
+		this.productSrv.update({
+			id: event.item.id,
+			status: new ProductStatus({
+				status: {
+					id: event.to,
+					__typename: 'ProductStatusType'
+				}
+			})
+		}).subscribe();
+	}
+
+	updateProductsStatus(event: { to: any, items: any[] }) {
+		const products = event.items.map(id => ({
+			id,
+			status: new ProductStatus({ status: { id: event.to, __typename: 'ProductStatusType' } })
 		}));
+		this.productSrv.updateMany(products).subscribe();
 	}
 
-	getColumnColor(status) {
-		if (status.category === 'validated') {
-			return 'var(--color-success)';
-		}
-		if (status.category === 'refused') {
-			return 'var(--color-warn)';
-		}
-		if (!status.category) {
-			return 'var(--color-accent)';
-		}
-		return 'var(--color-in-progress)';
+	onColumnSelected(products: Product[]) {
+		products.forEach(prod => super.onItemSelected(prod, true));
 	}
 
-	getCurrentColumnFct(data) {
-		return data.cat ? data.cat.id : '';
-	}
-
-	onUpdateProductStatus({ target, droppedElement }) {
-		if (droppedElement) {
-			droppedElement.forEach(element => {
-				this.workflowService.updateProductStatus(element, target)
-					.subscribe(() => this.cdr.detectChanges());
-			});
-		}
+	onColumnUnselected(products: Product[]) {
+		products.forEach(prod => super.onItemUnselected(prod, true));
 	}
 
 	/** updates the products with the new value votes */
-	multipleVotes(votes: Map<string, ProductVote[]>) {
-		votes.forEach((v, k) => this.update({ id: k, votes: v }));
-	}
+	// multipleVotes(votes: Map<string, ProductVote[]>) {
+	// 	votes.forEach((v, k) => this.update({ id: k, votes: v }));
+	// }
 
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
@@ -166,7 +188,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		this.featureSrv.manageProjectsToProductsAssociations([this.project], [], [product]).pipe(
 			tap(() => {
 				this.workflowService.refreshStatuses(this.project);
-				this.notifSrv.add({
+				this.notificationSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',
 					message: 'The products were updated in the project with success',
@@ -184,7 +206,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<Product, Product
 		return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
 			tap(() => {
 				this.workflowService.refreshStatuses(this.project);
-				this.notifSrv.add({
+				this.notificationSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',
 					message: 'The products were updated in the project with success',

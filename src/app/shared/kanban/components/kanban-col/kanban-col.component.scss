@@ -1,0 +1,73 @@
+:host {
+	header {
+		text-align: center;
+		font-weight: 600;
+		color: var(--color-txt-strong);
+		font-size: 14px;
+		padding: var(--spacing-m);
+		background-color: #fff;
+		border: solid 1px var(--color-divider);
+		margin-left: 5px;
+		margin-right: 5px;
+		border-top-width: 2px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		height: 28px;
+	}
+
+	main {
+		background: var(--color-secondary-light);
+		padding-top: 12px;
+		border: solid 1px var(--color-divider);
+		border-top: 0;
+		margin: 5px;
+		margin-top: 0;
+		height: 100%;
+		position: relative;
+	}
+
+	kanban-item-app {
+		margin: var(--spacing-s);
+	}
+
+	.overlay {
+		background: var(--color-secondary);
+		position: absolute;
+		top:0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 2;
+		display: none;
+		.arrow {
+			color: white;
+			font-size: 64px;
+		}
+	}
+
+	.custom-placeholder {
+		background: #ccc;
+		border: dotted 3px #999;
+		min-height: 60px;
+		height: 115px;
+	}
+
+	/* Animate items as they're being sorted. */
+	.cdk-drop-list-dragging {
+		.overlay {
+			display: flex;
+		}
+		.cdk-drag {
+			transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+		}
+	}
+
+	/* Animate an item that has been dropped. */
+	.cdk-drag-animating {
+		transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+	}
+
+}
+

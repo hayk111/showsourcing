@@ -1,42 +1,34 @@
 <div class="workflowCtnr" *ngIf="project$ | async as project">
+
 	<top-panel-app
 		[title]="project.name"
 		buttonName="Add Products"
-		[subtitles]="['Projects', project.name, 'Kanban View']"
-		(buttonClick)="openFindProductDlg()">
+		[subtitles]="['Projects', project.name, 'Kanban View']">
 	</top-panel-app>
 
-	<div class="kanbanCtnr">
-		<workflow-kanban2-app
-			[columns]="columns$ | async"
-			[contextualMenu]="contextualMenu"
-			[leftOffset]="73"
-			[card]="card"
-			[getCurrentColumnFct]="getCurrentColumnFct"
-			[selectedItems]="selected$ | async"
-			(itemDropped)="onUpdateProductStatus($event)"
-			(selectItem)="onItemSelected($event, true)"
-			(unselectItem)="onItemUnselected($event, true)"
-			(selectAllItems)="selectAll($event, true)"
-			(unselectAllItems)="resetSelection()"
-			(previewClick)="openPreview($event)">
-		</workflow-kanban2-app>
-	</div>
+	<kanban-app
+		[cols]="columns$ | async"
+		[cardTemplate]="card"
+		[selection]="selected$ | async"
+		(drop)="updateProductStatus($event)"
+		(multipleDrop)="updateProductsStatus($event)"
+		(selectColumn)="onColumnSelected($event)"
+		(unselectColumn)="onColumnUnselected($event)"></kanban-app>
 
-	<ng-template #card let-row="row" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">
-		<product-card-app class="marginSmall"
-			[product]="row"
-			[dragInProgress]="dragInProgress"
-			[checked]="checked"
+	<ng-template #card let-data="data">
+		<product-card-app
+			[product]="data"
 			[enablePreviewLink]="true"
-			(dragDropEnable)="dragDropEnable$.next($event)"
-			(select)="selectItem.emit(row)"
-			(unselect)="unselectItem.emit(row)"
-			(clickImage)="previewClick.emit(row)">
+			[checked]="(selected$ | async).has(data.id)"
+			(clickImage)="openPreview(data)"
+			(select)="onItemSelected($event, true)"
+			(unselect)="onItemUnselected($event, true)">
 		</product-card-app>
-  </ng-template>
+	</ng-template>
 
-	<ng-template #contextualMenu let-row="row">
+
+
+	<!-- <ng-template #contextualMenu let-row="row">
 		<context-menu-app>
 			<context-menu-trigger-app>
 				<button class="icon light">
@@ -56,7 +48,7 @@
 				<div class="border">Delete</div>
 			</context-menu-item-app>
 		</context-menu-app>
-</ng-template>
+</ng-template> -->
 
 	<selection-bar-app
 		[isShown]="(selected$ | async).size > 0"
@@ -85,8 +77,7 @@
 
 <product-preview-app
   *ngIf="previewOpen"
-  [product]="previewed"
+	[product]="previewed"
   (close)="closePreview()"
   (clickOutside)="closePreview()">
-
 </product-preview-app>
