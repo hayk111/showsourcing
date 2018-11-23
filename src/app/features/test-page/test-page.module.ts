@@ -4,12 +4,12 @@ import { TestPageComponent } from './test-page.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild([
-      { path: '', component: TestPageComponent }
-    ])
-  ],
-  declarations: [TestPageComponent]
+	imports: [
+		CommonModule,
+		RouterModule.forChild([
+			{ path: '', component: TestPageComponent }
+		])
+	],
+	declarations: [TestPageComponent]
 })
 export class TestPageModule { }
