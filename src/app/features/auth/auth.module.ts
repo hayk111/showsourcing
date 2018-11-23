@@ -11,9 +11,14 @@ import {
 	RegistrationComponent,
 	ResetPasswordComponent
 } from '~features/auth/components';
+import { routes } from './routes';
 
 @NgModule({
-	imports: [SharedModule, RouterModule.forChild([]), ReactiveFormsModule],
+	imports: [
+		SharedModule,
+		RouterModule.forChild(routes),
+		ReactiveFormsModule
+	],
 	declarations: [
 		LoginComponent,
 		RegistrationComponent,
@@ -24,4 +29,4 @@ import {
 	],
 	exports: []
 })
-export class AuthModule {}
+export class AuthModule { }

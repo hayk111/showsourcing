@@ -1,10 +1,7 @@
-<kanban-app [cols]="cols$ | async" [cardTemplate]="card">
-
-</kanban-app>
-
-<ng-template #card let-data="data">
-  <product-card-app
-    [product]="data"
-    [enablePreviewLink]="true">
-  </product-card-app>
-</ng-template>
+<nav class="flexColumn">
+	<h1>Components</h1>
+	<a routerLink="./preview">preview</a>
+</nav>
+<main>
+	<router-outlet></router-outlet>
+</main>

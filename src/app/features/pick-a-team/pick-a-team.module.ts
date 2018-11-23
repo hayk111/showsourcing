@@ -7,13 +7,14 @@ import { CreateATeamPageComponent } from '~features/pick-a-team/containers/creat
 
 import { PickATeamPageComponent } from '~features/pick-a-team/containers/pick-a-team-page/pick-a-team-page.component';
 import { SharedModule } from '~shared/shared.module';
+import { routes } from './routes';
 
 
 
 @NgModule({
 	imports: [
 		SharedModule,
-		RouterModule.forChild([])
+		RouterModule.forChild(routes)
 	],
 	declarations: [
 		PickATeamPageComponent,

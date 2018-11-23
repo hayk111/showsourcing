@@ -10,6 +10,7 @@ import {
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { AutoUnsub } from '~utils';
 import { SearchService } from '../../services/search.service';
+import { environment } from 'environments/environment';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { SearchService } from '../../services/search.service';
 export class HeaderComponent extends AutoUnsub implements OnInit {
 	user$: Observable<User>;
 	team$: Observable<Team>;
+	isProd = environment.production;
 
 	@ViewChild('searchAutocomplete') searchAutocomplete: SearchAutocompleteComponent;
 
