@@ -7,6 +7,11 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 import { SharedModule } from '~shared/shared.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
+import { ERM_TOKEN, ERM } from '~models';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 
 import { QuoteComponent, QuoteListComponent } from '.';
 
@@ -23,6 +28,9 @@ import { QuoteComponent, QuoteListComponent } from '.';
 	],
 	declarations: [QuoteListComponent, QuoteComponent],
 	exports: [QuoteListComponent, QuoteComponent],
+	providers: [
+		CommonDialogService
+	]
 	// entryComponents: [CreateTaskDialogComponent, PickerEntitySelectorComponent]
 })
 export class QuoteCommonModule { }

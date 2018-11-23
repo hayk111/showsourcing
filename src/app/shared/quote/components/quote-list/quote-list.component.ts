@@ -1,15 +1,23 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { ExternalRequest, Quote } from '~models';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ERM, Quote } from '~models';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
+import { Router } from '@angular/router';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { QuoteFeatureService } from '~features/products/services';
 
 @Component({
 	selector: 'quote-list-app',
 	templateUrl: './quote-list.component.html',
 	styleUrls: ['./quote-list.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [
+		ListPageProviders.getProviders('quotes-list', ERM.QUOTE),
+	]
 })
 export class QuoteListComponent extends TrackingComponent implements OnInit {
-
 
 	private _quotes: Quote[] = [];
 	@Input() set quotes(quotes: Quote[]) {
@@ -19,10 +27,7 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 		return this._quotes;
 	}
 
-	@Input() selection: Map<string, boolean>;
 	@Output() bottomReached = new EventEmitter<null>();
-	@Output() quoteSelect = new EventEmitter<Quote>();
-	@Output() quoteUnselect = new EventEmitter<Quote>();
 	@Output() previewClicked = new EventEmitter<Quote>();
 	@Output() hovered = new EventEmitter<Quote>();
 	@Output() openRfq = new EventEmitter<null>();
@@ -30,7 +35,16 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 
 	hoverIndex: number;
 
-	constructor() { super(); }
+	constructor(
+		protected router: Router,
+		protected featureSrv: QuoteFeatureService,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService,
+		protected viewSrv: ListPageViewService<Quote>,
+		protected dataSrv: ListPageDataService<Quote, QuoteFeatureService>
+	) {
+		super();
+	}
 
 	hoverRow(index: number) {
 		this.hoverIndex = index;
@@ -40,6 +54,11 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.dataSrv.setup({
+			featureSrv: this.featureSrv,
+			searchedFields: ['name'],
+			initialSortBy: 'name'
+		});
+		this.dataSrv.init();
 	}
-
 }

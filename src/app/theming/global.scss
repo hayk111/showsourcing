@@ -5,3 +5,27 @@
 .nonclickable {
   cursor: default;
 }
+
+.col {
+  display: inline-block;
+}
+
+.col-5 {
+  width: 5%;
+}
+
+.col-20 {
+  width: 20%;
+}
+
+.col-25 {
+  width: 25%;
+}
+
+.col-90 {
+  width: 90%;
+}
+
+.col-100 {
+  width: 100%;
+}

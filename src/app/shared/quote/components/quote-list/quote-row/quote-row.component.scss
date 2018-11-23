@@ -3,7 +3,6 @@
 	padding-right: var(--spacing-ms);
 
 	.quote-name {
-		width: 55%;
 		color: var(--color-txt-strong);
 
     &:hover {
@@ -18,7 +17,6 @@
 	}
 
 	.quote-supplier {
-		width: 30%;
 		img-app {
 			margin-right: var(--spacing-s);
 			height: 20px;
@@ -29,8 +27,7 @@
 
 
 	.quote-user-status {
-		width: 40%;
-
+		text-align: right;
 		.quote-status {
 			padding-top: 2px;
 			border-radius: 500px;
@@ -49,6 +46,11 @@
 				color: white;
 				background: var(--color-primary);
 
+			}
+			
+			&.quote-done {
+				color: white;
+				background: var(--color-success);
 			}
 
 			&.quote-pending {

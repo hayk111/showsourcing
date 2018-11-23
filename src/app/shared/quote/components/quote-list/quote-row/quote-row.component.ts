@@ -22,19 +22,7 @@ export class QuoteComponent implements OnInit {
 	}
 
 	getStatus() {
-		let status = RequestStatus.PENDING;
-		switch (this.quote.status) {
-			case RequestStatus.REPLIED:
-				status = RequestStatus.REPLIED;
-				break;
-			case RequestStatus.VALIDATED:
-				status = RequestStatus.VALIDATED;
-				break;
-			case RequestStatus.REJECTED:
-				status = RequestStatus.REJECTED;
-				break;
-		}
-		return status;
+		return this.quote.status || RequestStatus.PENDING;
 	}
 
 }
