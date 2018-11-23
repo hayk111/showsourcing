@@ -9,6 +9,11 @@ import { SearchService, FilterType } from '~shared/filters';
 import { realmDateFormat } from '~utils/realm-date-format.util';
 import { TaskQueries } from '~global-services/task/task.queries';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {
@@ -17,11 +22,20 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 		protected router: Router,
 		protected userSrv: UserService,
 		protected featureSrv: TaskService,
-		protected searchSrv: SearchService,
-		protected selectionSrv: SelectionService,
-		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>) {
+		protected viewSrv: ListPageViewService<Task>,
+		public dataSrv: ListPageDataService<Task, TaskService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
+	) {
 		super();
+	}
+	ngOnInit() {
+		this.dataSrv.setup({
+			featureSrv: this.featureSrv,
+			searchedFields: ['name', 'supplier.name', 'category.name'],
+			initialSortBy: 'category.name'
+		});
+		this.dataSrv.init();
 	}
 
 	ngAfterViewInit() {
