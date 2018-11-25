@@ -12,9 +12,7 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
-import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
@@ -29,6 +27,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 	) {
 		super();
 	}
+
 	ngOnInit() {
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
