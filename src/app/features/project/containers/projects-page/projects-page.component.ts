@@ -1,7 +1,7 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
-import { Project } from '~models';
+import { Project, ERM_TOKEN, ERM } from '~models';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
@@ -13,7 +13,10 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 @Component({
 	selector: 'projects-page-app',
 	templateUrl: './projects-page.component.html',
-	styleUrls: ['./projects-page.component.scss']
+	styleUrls: ['./projects-page.component.scss'],
+	providers: [
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.PROJECT }]
 })
 export class ProjectsPageComponent extends TrackingComponent implements OnInit {
 	filterTypes = [FilterType.CREATED_BY];

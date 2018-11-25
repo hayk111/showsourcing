@@ -79,8 +79,7 @@ import { KanbanModule } from '~shared/kanban/kanban.module';
 		SelectionWithFavoriteService,
 		CommonDialogService,
 		ProjectFeatureService,
-		ProjectWorkflowFeatureService,
-		{ provide: ERM_TOKEN, useValue: ERM.PROJECT }
+		ProjectWorkflowFeatureService
 	]
 })
 export class ProjectModule { }

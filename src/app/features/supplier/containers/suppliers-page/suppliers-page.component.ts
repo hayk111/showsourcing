@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SupplierFeatureService } from '~features/supplier/services';
-import { ERM, Supplier } from '~models';
+import { ERM, Supplier, ERM_TOKEN } from '~models';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
@@ -15,7 +15,9 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
-		ListPageProviders.getProviders('suppliers-page', ERM.SUPPLIER)
+		ListPageProviders.getProviders('suppliers-page', ERM.SUPPLIER),
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.SUPPLIER }
 	]
 })
 export class SuppliersPageComponent extends TrackingComponent
