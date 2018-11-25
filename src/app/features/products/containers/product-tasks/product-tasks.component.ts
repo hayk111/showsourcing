@@ -40,37 +40,37 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 			router,
 			userSrv,
 			featureSrv,
-			searchSrv,
+			viewSrv,
+			dataSrv,
 			selectionSrv,
-			dlgSrv,
-			moduleRef
+			commonDlgSrv
 		);
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
-		this.filterList.addFilter({
-			type: FilterType.PRODUCT,
-			value: this.route.parent.snapshot.params.id
-		});
+		// this.filterList.addFilter({
+		// 	type: FilterType.PRODUCT,
+		// 	value: this.route.parent.snapshot.params.id
+		// });
 	}
 
-	createTask(name: string) {
-		const newTask = new Task({
-			name,
-			product: { id: this.route.parent.snapshot.params.id }
-		});
-		this.featureSrv.create(newTask).subscribe();
-		this.refetch();
-	}
+	// createTask(name: string) {
+	// 	const newTask = new Task({
+	// 		name,
+	// 		product: { id: this.route.parent.snapshot.params.id }
+	// 	});
+	// 	this.featureSrv.create(newTask).subscribe();
+	// 	this.refetch();
+	// }
 
-	search(str: string) {
-		// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
-		this.currentSearch = str
-			? `name CONTAINS[c] "${str}"` +
-				` OR supplier.name CONTAINS[c] "${str}"` +
-				` OR product.name CONTAINS[c] "${str}"`
-			: '';
-		this.onPredicateChange();
-	}
+	// search(str: string) {
+	// 	// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
+	// 	this.currentSearch = str
+	// 		? `name CONTAINS[c] "${str}"` +
+	// 			` OR supplier.name CONTAINS[c] "${str}"` +
+	// 			` OR product.name CONTAINS[c] "${str}"`
+	// 		: '';
+	// 	this.onPredicateChange();
+	// }
 }

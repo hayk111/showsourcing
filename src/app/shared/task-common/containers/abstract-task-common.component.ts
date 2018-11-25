@@ -39,37 +39,35 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 	}
 
 	ngAfterViewInit() {
-		// this is in case we need to filter by date again
-		// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
-		this.filterList.addFilter({ type: FilterType.DONE, value: false });
+		// this.filterList.addFilter({ type: FilterType.DONE, value: false });
 	}
 
-	toggleMyTasks(show: boolean) {
-		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
-		if (show)
-			this.filterList.addFilter(filterAssignee);
-		else
-			this.filterList.removeFilter(filterAssignee);
-	}
+	// toggleMyTasks(show: boolean) {
+	// 	const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
+	// 	if (show)
+	// 		this.filterList.addFilter(filterAssignee);
+	// 	else
+	// 		this.filterList.removeFilter(filterAssignee);
+	// }
 
-	toggleDoneTasks(show: boolean) {
-		if (show) {
-			// this.filterList.removeFilterType(FilterType.DUE_DATE);
-			this.filterList.removeFilterType(FilterType.DONE);
-		} else {
-			// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
-			this.filterList.addFilter({ type: FilterType.DONE, value: false });
-		}
-	}
+	// toggleDoneTasks(show: boolean) {
+	// 	if (show) {
+	// 		// this.filterList.removeFilterType(FilterType.DUE_DATE);
+	// 		this.filterList.removeFilterType(FilterType.DONE);
+	// 	} else {
+	// 		// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
+	// 		this.filterList.addFilter({ type: FilterType.DONE, value: false });
+	// 	}
+	// }
 
-	updateTask(task: Task) {
-		this.update(task);
-	}
+	// updateTask(task: Task) {
+	// 	this.update(task);
+	// }
 
-	createTask(name: string) {
-		const newTask = new Task({ name });
-		this.featureSrv.create(newTask).subscribe(_ => this.refetch());
-	}
+	// createTask(name: string) {
+	// 	const newTask = new Task({ name });
+	// 	this.featureSrv.create(newTask).subscribe(_ => this.refetch());
+	// }
 
 	openProduct(id: string) {
 		this.router.navigate([ERM.PRODUCT.singular, 'details', id]);

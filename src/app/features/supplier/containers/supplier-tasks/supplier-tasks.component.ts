@@ -1,16 +1,24 @@
-import { Component, NgModuleRef, OnInit } from '@angular/core';
+import {
+	Component,
+	OnInit
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TaskService, UserService } from '~global-services';
-import { DialogService } from '~shared/dialog';
-import { SearchService, FilterType } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { AbstractTaskCommonComponent } from '~shared/task-common/containers/abstract-task-common.component';
-import { Task } from '~models';
+import { Task, ERM } from '~models';
+import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'supplier-tasks-app',
 	templateUrl: './supplier-tasks.component.html',
-	styleUrls: ['./supplier-tasks.component.scss']
+	styleUrls: ['./supplier-tasks.component.scss'],
+	providers: [
+		ListPageProviders.getProviders(ProviderKey.TASK, ERM.TASK),
+	]
 })
 export class SupplierTasksComponent extends AbstractTaskCommonComponent implements OnInit {
 
@@ -19,31 +27,40 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 		protected userSrv: UserService,
 		protected router: Router,
 		protected featureSrv: TaskService,
-		protected searchSrv: SearchService,
-		protected selectionSrv: SelectionService,
-		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>) {
-		super(router, userSrv, featureSrv, searchSrv, selectionSrv, dlgSrv, moduleRef);
+		protected viewSrv: ListPageViewService<Task>,
+		public dataSrv: ListPageDataService<Task, TaskService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
+		) {
+			super(
+				router,
+				userSrv,
+				featureSrv,
+				viewSrv,
+				dataSrv,
+				selectionSrv,
+				commonDlgSrv
+			);
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-		this.filterList.addFilter({ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id });
-	}
+	// ngOnInit() {
+	// 	super.ngOnInit();
+	// 	this.filterList.addFilter({ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id });
+	// }
 
-	createTask(name: string) {
-		const newTask = new Task({ name, supplier: { id: this.route.parent.snapshot.params.id } });
-		this.featureSrv.create(newTask).subscribe(_ => this.refetch());
-	}
+	// createTask(name: string) {
+	// 	const newTask = new Task({ name, supplier: { id: this.route.parent.snapshot.params.id } });
+	// 	this.featureSrv.create(newTask).subscribe(_ => this.refetch());
+	// }
 
-	search(str: string) {
-		// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
-		this.currentSearch = str
-			? `name CONTAINS[c] "${str}"` +
-				` OR supplier.name CONTAINS[c] "${str}"` +
-				` OR product.name CONTAINS[c] "${str}"`
-			: '';
-		this.onPredicateChange();
-	}
+	// search(str: string) {
+	// 	// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
+	// 	this.currentSearch = str
+	// 		? `name CONTAINS[c] "${str}"` +
+	// 			` OR supplier.name CONTAINS[c] "${str}"` +
+	// 			` OR product.name CONTAINS[c] "${str}"`
+	// 		: '';
+	// 	this.onPredicateChange();
+	// }
 }
 
