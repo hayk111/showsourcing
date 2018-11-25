@@ -8,7 +8,10 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 export enum ProviderKey {
-	TASK = 'tasks-page'
+	TASK = 'tasks-page',
+	TAG = 'tags-page',
+	EVENT = 'events-page',
+	CATEGORY = 'categories-page'
 }
 
 /**

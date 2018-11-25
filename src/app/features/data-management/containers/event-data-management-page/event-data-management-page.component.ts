@@ -3,9 +3,11 @@ import { Router } from '@angular/router';
 import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
 import { EventManagementService } from '~features/data-management/services/event-management.service';
 import { ERM, Event } from '~models';
-import { DialogService } from '~shared/dialog';
-import { SearchService } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'event-data-management-page-app',
@@ -13,7 +15,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 	styleUrls: ['./event-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		SelectionService
+		ListPageProviders.getProviders(ProviderKey.EVENT, ERM.EVENT),
 	]
 })
 export class EventDataManagementPageComponent extends AbstractDataManagementComponent<Event, EventManagementService> {
@@ -21,17 +23,17 @@ export class EventDataManagementPageComponent extends AbstractDataManagementComp
 	constructor(
 		protected router: Router,
 		protected featureSrv: EventManagementService,
-		protected selectionSrv: SelectionService,
-		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>
+		protected viewSrv: ListPageViewService<Event>,
+		public dataSrv: ListPageDataService<Event, EventManagementService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
 	) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.EVENT);
+		super(router, featureSrv, viewSrv, dataSrv, selectionSrv, commonDlgSrv, ERM.EVENT);
 	}
 
 	search(str: string) {
-		this.currentSearch = `description.name CONTAINS[c] "${str}"`;
-		this.onPredicateChange();
+		this.dataSrv.currentSearch = `description.name CONTAINS[c] "${str}"`;
+		this.dataSrv.onPredicateChange();
 	}
 
 }
