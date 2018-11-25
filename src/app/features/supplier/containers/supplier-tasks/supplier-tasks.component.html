@@ -22,7 +22,7 @@
 	</sub-panel-app>
 
 	<task-list-app
-		[tasks]="dataSrv.items$"
+		[tasks]="dataSrv.items$ | async"
 		[selection]="selectionSrv.selection$ | async"
 		[fullUser]="true"
 		[hasProduct]="true"

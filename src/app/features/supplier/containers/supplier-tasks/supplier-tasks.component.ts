@@ -11,6 +11,7 @@ import { CommonDialogService } from '~shared/custom-dialog/services/common-dialo
 import { AbstractTaskCommonComponent } from '~shared/task-common/containers/abstract-task-common.component';
 import { Task, ERM } from '~models';
 import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'supplier-tasks-app',
@@ -43,15 +44,15 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 			);
 	}
 
-	// ngOnInit() {
-	// 	super.ngOnInit();
-	// 	this.filterList.addFilter({ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id });
-	// }
+	ngOnInit() {
+		super.ngOnInit();
+		this.dataSrv.filterList.addFilter({ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id });
+	}
 
-	// createTask(name: string) {
-	// 	const newTask = new Task({ name, supplier: { id: this.route.parent.snapshot.params.id } });
-	// 	this.featureSrv.create(newTask).subscribe(_ => this.refetch());
-	// }
+	createTask(name: string) {
+		const newTask = new Task({ name, supplier: { id: this.route.parent.snapshot.params.id } });
+		this.featureSrv.create(newTask).subscribe(_ => this.dataSrv.refetch());
+	}
 
 	// search(str: string) {
 	// 	// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE

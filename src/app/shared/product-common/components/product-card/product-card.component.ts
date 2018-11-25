@@ -53,6 +53,7 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	@Input() enabledHoverContent: boolean;
 	/** Whether the product preview is accessibe from the card */
 	@Input() enablePreviewLink: boolean;
+	@Input() dragInProgress: boolean;
 
 	@Input() showCheckbox = true;
 

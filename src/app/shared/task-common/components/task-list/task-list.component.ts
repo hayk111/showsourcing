@@ -18,6 +18,7 @@ import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-f
 })
 export class TaskListComponent extends TrackingComponent implements OnInit {
 
+	@Input() selection: Map<string, Task>;
 	@Input() tasks: Task[];
 	@Input() fullUser = false;
 	@Input() hasSupplier = false;
