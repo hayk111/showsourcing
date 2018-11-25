@@ -54,7 +54,6 @@ import { CommonDialogService } from '~shared/custom-dialog/services/common-dialo
 		RfqDialogComponent
 	],
 	providers: [
-		CommonDialogService,
 		ProductDialogService,
 		CrudDialogService
 	]
