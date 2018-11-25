@@ -11,8 +11,8 @@
 	[hasSwitch]="false"
 	[buttonIcon]="false"
 	(search)="dataSrv.search($event)"
-	(buttonClick)="openCreateDlg()">
-	<div class="flex" *ngIf="(selectionSrv.selection$).size > 0">
+	(buttonClick)="commonDlgSrv.openCreateDlg()">
+	<div class="flex" *ngIf="(selectionSrv.selection$ | async).size > 0">
 		<button class="button warn" (click)="dataSrv.deleteSelected()"> Delete Selected </button>
 		<span class="marginSmall"></span>
 		<button (click)="mergeSelected()"> Merge Selected </button>

@@ -100,7 +100,8 @@ import { ERM_TOKEN, ERM } from '~models';
 	entryComponents: [NewSupplierDlgComponent, NewContactDlgComponent],
 	exports: [SuppliersPageComponent],
 	providers: [
-		SupplierFeatureService
+		SupplierFeatureService,
+		{ provide: ERM_TOKEN, useValue: ERM.SUPPLIER }
 	]
 })
 export class SuppliersModule { }

@@ -55,14 +55,14 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 		// });
 	}
 
-	// createTask(name: string) {
-	// 	const newTask = new Task({
-	// 		name,
-	// 		product: { id: this.route.parent.snapshot.params.id }
-	// 	});
-	// 	this.featureSrv.create(newTask).subscribe();
-	// 	this.refetch();
-	// }
+	createTask(name: string) {
+		const newTask = new Task({
+			name,
+			product: { id: this.route.parent.snapshot.params.id }
+		});
+		this.featureSrv.create(newTask).subscribe();
+		this.dataSrv.refetch();
+	}
 
 	// search(str: string) {
 	// 	// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
