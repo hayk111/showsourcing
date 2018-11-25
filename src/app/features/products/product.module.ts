@@ -109,6 +109,7 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 	providers: [
 		ProductFeatureService,
 		QuoteFeatureService,
+		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
 	]
 })
 export class ProductModule {

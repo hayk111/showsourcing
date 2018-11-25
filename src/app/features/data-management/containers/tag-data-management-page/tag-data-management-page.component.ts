@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
 import { TagManagememtService } from '~features/data-management/services/tag-management.service';
-import { ERM, Tag } from '~models';
+import { ERM, Tag, ERM_TOKEN } from '~models';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
@@ -16,6 +16,8 @@ import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-prov
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageProviders.getProviders(ProviderKey.TAG, ERM.TAG),
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.TAG }
 	]
 })
 export class TagDataManagementPageComponent extends AbstractDataManagementComponent<Tag, TagManagememtService> {
