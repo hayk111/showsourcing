@@ -10,27 +10,27 @@
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[buttonIcon]="false"
-	(search)="search($event)"
-	(buttonClick)="openCreateDlg()">
-	<div class="flex" *ngIf="(selected$ | async).size > 0">
-		<button class="button warn" (click)="deleteSelected()"> Delete Selected </button>
+	(search)="dataSrv.search($event)"
+	(buttonClick)="commonDlgSrv.openCreateDlg()">
+	<div class="flex" *ngIf="(selectionSrv.selection$ | async).size > 0">
+		<button class="button warn" (click)="dataSrv.deleteSelected()"> Delete Selected </button>
 		<span class="marginSmall"></span>
 		<button (click)="mergeSelected()"> Merge Selected </button>
 	</div>
 </sub-panel-app>
 
 <data-management-table-app
-	[rows]="items$ | async"
-	[selection]="selected$ | async"
-	[pending]="pending"
+	[rows]="dataSrv.items$ | async"
+	[selection]="selectionSrv.selection$ | async"
+	[pending]="dataSrv.pending"
 	[entityMetadata]="entityMetadata"
-	(bottomReached)="loadMore()"
-	(sort)="sort($event)"
-	(delete)="deleteOne($event)"
-	(select)="onItemSelected($event)"
-	(unselect)="onItemUnselected($event)"
-	(selectAll)="selectAll($event)"
-	(unselectAll)="resetSelection()"
-	(renameEntity)="update($event)"
-	(removeEntity)="deleteOne($event)">
+	(bottomReached)="dataSrv.loadMore()"
+	(sort)="dataSrv.sort($event)"
+	(delete)="dataSrv.deleteOne($event)"
+	(select)="selectionSrv.selectOne($event, false)"
+	(unselect)="selectionSrv.unselectOne($event, false)"
+	(selectAll)="selectionSrv.selectAll($event, false)"
+	(unselectAll)="selectionSrv.unselectAll()"
+	(renameEntity)="dataSrv.update($event)"
+	(removeEntity)="dataSrv.deleteOne($event)">
 </data-management-table-app>

@@ -15,6 +15,8 @@ import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
 		ListPageProviders.getProviders('products-page', ERM.PRODUCT),
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
 	]
 })
 export class ProductsPageComponent extends TrackingComponent implements OnInit {

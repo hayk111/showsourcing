@@ -8,52 +8,64 @@ import { DialogService } from '~shared/dialog';
 import { SearchService, FilterType } from '~shared/filters';
 import { realmDateFormat } from '~utils/realm-date-format.util';
 import { TaskQueries } from '~global-services/task/task.queries';
-
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 /** since we use the task component on different pages, this page will keep the methods clean */
-export abstract class AbstractTaskCommonComponent extends ListPageComponent<Task, TaskService> implements OnInit, AfterViewInit {
+export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		protected router: Router,
 		protected userSrv: UserService,
 		protected featureSrv: TaskService,
-		protected searchSrv: SearchService,
-		protected selectionSrv: SelectionService,
-		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TASK, null);
+		protected viewSrv: ListPageViewService<Task>,
+		public dataSrv: ListPageDataService<Task, TaskService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
+	) {
+		super();
+	}
+
+	ngOnInit() {
+		this.dataSrv.setup({
+			featureSrv: this.featureSrv,
+			searchedFields: ['name'],
+			initialSortBy: 'name'
+		});
+		this.dataSrv.init();
 	}
 
 	ngAfterViewInit() {
-		// this is in case we need to filter by date again
-		// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
-		this.filterList.addFilter({ type: FilterType.DONE, value: false });
+		this.dataSrv.filterList.addFilter({ type: FilterType.DONE, value: false });
 	}
 
 	toggleMyTasks(show: boolean) {
 		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
 		if (show)
-			this.filterList.addFilter(filterAssignee);
+			this.dataSrv.filterList.addFilter(filterAssignee);
 		else
-			this.filterList.removeFilter(filterAssignee);
+			this.dataSrv.filterList.removeFilter(filterAssignee);
 	}
 
 	toggleDoneTasks(show: boolean) {
 		if (show) {
 			// this.filterList.removeFilterType(FilterType.DUE_DATE);
-			this.filterList.removeFilterType(FilterType.DONE);
+			this.dataSrv.filterList.removeFilterType(FilterType.DONE);
 		} else {
 			// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
-			this.filterList.addFilter({ type: FilterType.DONE, value: false });
+			this.dataSrv.filterList.addFilter({ type: FilterType.DONE, value: false });
 		}
 	}
 
 	updateTask(task: Task) {
-		this.update(task);
+		this.dataSrv.update(task);
 	}
 
 	createTask(name: string) {
 		const newTask = new Task({ name });
-		this.featureSrv.create(newTask).subscribe(_ => this.refetch());
+		this.featureSrv.create(newTask).subscribe(_ => this.dataSrv.refetch());
 	}
 
 	openProduct(id: string) {

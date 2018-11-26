@@ -75,8 +75,7 @@ import { KanbanModule } from '~shared/kanban/kanban.module';
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [
 		ProjectFeatureService,
-		ProjectWorkflowFeatureService,
-		CommonDialogService
+		ProjectWorkflowFeatureService
 	]
 })
 export class ProjectModule { }

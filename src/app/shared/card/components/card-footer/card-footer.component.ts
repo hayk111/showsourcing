@@ -13,11 +13,20 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 export class CardFooterComponent implements OnInit {
 	@Input() align: 'left' | 'right' = 'right';
 	@Input() paddingSide: 'ms' | 'l' = 'ms';
+
+	col = {
+		data: []
+	};
 	constructor() { }
 
 	ngOnInit() {
 	}
 
+	public getStyle(col) {
 
+	}
 
+	public hasAllSelected() {
+
+	}
 }
