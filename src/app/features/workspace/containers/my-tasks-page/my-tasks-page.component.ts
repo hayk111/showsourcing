@@ -23,7 +23,7 @@ import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-prov
 export class MyTasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
 
 	constructor(
-		
+
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected router: Router,
@@ -33,26 +33,26 @@ export class MyTasksPageComponent extends AbstractTaskCommonComponent implements
 		protected selectionSrv: SelectionWithFavoriteService,
 		protected commonDlgSrv: CommonDialogService
 	) {
-			super(
-				router,
-				userSrv,
-				featureSrv,
-				viewSrv,
-				dataSrv,
-				selectionSrv,
-				commonDlgSrv
-			);
+		super(
+			router,
+			userSrv,
+			featureSrv,
+			viewSrv,
+			dataSrv,
+			selectionSrv,
+			commonDlgSrv
+		);
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
 	}
 
-// 	search(str: string) {
-// // TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
-// 		this.currentSearch = str ? `name CONTAINS[c] "${str}"`
-// 		+ ` OR supplier.name CONTAINS[c] "${str}"`
-// 		+ ` OR product.name CONTAINS[c] "${str}"` : '';
-// 		this.onPredicateChange();
-// 	}
+	// 	search(str: string) {
+	// // TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
+	// 		this.currentSearch = str ? `name CONTAINS[c] "${str}"`
+	// 		+ ` OR supplier.name CONTAINS[c] "${str}"`
+	// 		+ ` OR product.name CONTAINS[c] "${str}"` : '';
+	// 		this.onPredicateChange();
+	// 	}
 }
