@@ -12,7 +12,7 @@ import {
 import { DialogService } from '~shared/dialog';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { MergeDialogComponent } from '~shared/custom-dialog';
-
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 @Injectable({ providedIn: 'root' })
 export class CommonDialogService {
@@ -21,6 +21,8 @@ export class CommonDialogService {
 	editDlgComponent = EditionDialogComponent;
 	/** dialog to create an entity (can be overidden) */
 	createDlgComponent = CreationDialogComponent;
+
+	confirmDialogComponent = ConfirmDialogComponent;
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -77,6 +79,22 @@ export class CommonDialogService {
 		this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
 			products: this.getSelectionValues()
 		});
+	}
+
+	openFindProductDlg(products: Product[], callback: any) {
+		this.dlgSrv.openFromModule(this.createDlgComponent, this.moduleRef, {
+			type: this.entityMetadata,
+			shouldRedirect: false,
+			initialSelectedProducts: products,
+			submitCallback: callback
+		});
+	}
+
+	openConfirmDialog(data: {
+		text: string,
+		callback: any
+	}) {
+		this.dlgSrv.open(ConfirmDialogComponent, data);
 	}
 
 	openRequestQuotationDialog(product: Product) {
