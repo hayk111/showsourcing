@@ -1,13 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, NgModuleRef, AfterViewInit } from '@angular/core';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { Task, ERM } from '~models';
 import { TaskService, UserService } from '~global-services';
 import { Router } from '@angular/router';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { DialogService } from '~shared/dialog';
-import { SearchService, FilterType } from '~shared/filters';
-import { realmDateFormat } from '~utils/realm-date-format.util';
-import { TaskQueries } from '~global-services/task/task.queries';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';

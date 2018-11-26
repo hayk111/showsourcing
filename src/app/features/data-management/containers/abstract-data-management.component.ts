@@ -2,16 +2,11 @@ import { Router } from '@angular/router';
 import { OnInit, AfterViewInit } from '@angular/core';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { EntityMetadata } from '~models';
-import { DialogService } from '~shared/dialog';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { MergeDialogComponent } from '~shared/custom-dialog';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
 
 export abstract class AbstractDataManagementComponent<T extends { id?: string },
 	G extends GlobalServiceInterface<T>> extends TrackingComponent implements OnInit {
