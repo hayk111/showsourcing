@@ -8,6 +8,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class PreviewPageComponent implements OnInit {
 
+	toggle = false;
+
 	constructor() { }
 
 	ngOnInit() {
