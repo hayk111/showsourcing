@@ -2,12 +2,10 @@ import { ChangeDetectionStrategy, Component, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
 import { EventManagementService } from '~features/data-management/services/event-management.service';
-import { ERM, Event, ERM_TOKEN } from '~models';
-import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { ListPageDataService } from '~shared/list-page/list-page-data.service';
-import { ListPageViewService } from '~shared/list-page/list-page-view.service';
-import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { ERM, Event } from '~models';
+import { DialogService } from '~shared/dialog';
+import { SearchService } from '~shared/filters';
+import { SelectionService } from '~shared/list-page/selection.service';
 
 @Component({
 	selector: 'event-data-management-page-app',
@@ -15,9 +13,7 @@ import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-prov
 	styleUrls: ['./event-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.EVENT, ERM.EVENT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.EVENT }
+		SelectionService
 	]
 })
 export class EventDataManagementPageComponent extends AbstractDataManagementComponent<Event, EventManagementService> {
@@ -25,17 +21,17 @@ export class EventDataManagementPageComponent extends AbstractDataManagementComp
 	constructor(
 		protected router: Router,
 		protected featureSrv: EventManagementService,
-		protected viewSrv: ListPageViewService<Event>,
-		public dataSrv: ListPageDataService<Event, EventManagementService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		protected selectionSrv: SelectionService,
+		protected searchSrv: SearchService,
+		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, viewSrv, dataSrv, selectionSrv, commonDlgSrv, ERM.EVENT);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.EVENT);
 	}
 
 	search(str: string) {
-		this.dataSrv.currentSearch = `description.name CONTAINS[c] "${str}"`;
-		this.dataSrv.onPredicateChange();
+		this.currentSearch = `description.name CONTAINS[c] "${str}"`;
+		this.onPredicateChange();
 	}
 
 }

@@ -2,12 +2,10 @@ import { ChangeDetectionStrategy, Component, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
 import { TagManagememtService } from '~features/data-management/services/tag-management.service';
-import { ERM, Tag, ERM_TOKEN } from '~models';
-import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { ListPageDataService } from '~shared/list-page/list-page-data.service';
-import { ListPageViewService } from '~shared/list-page/list-page-view.service';
-import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { ERM, Tag } from '~models';
+import { DialogService } from '~shared/dialog';
+import { SearchService } from '~shared/filters';
+import { SelectionService } from '~shared/list-page/selection.service';
 
 @Component({
 	selector: 'tag-data-management-page-app',
@@ -15,9 +13,7 @@ import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-prov
 	styleUrls: ['./tag-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.TAG, ERM.TAG),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.TAG }
+		SelectionService
 	]
 })
 export class TagDataManagementPageComponent extends AbstractDataManagementComponent<Tag, TagManagememtService> {
@@ -25,11 +21,11 @@ export class TagDataManagementPageComponent extends AbstractDataManagementCompon
 	constructor(
 		protected router: Router,
 		protected featureSrv: TagManagememtService,
-		protected viewSrv: ListPageViewService<Tag>,
-		public dataSrv: ListPageDataService<Tag, TagManagememtService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		protected selectionSrv: SelectionService,
+		protected searchSrv: SearchService,
+		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, viewSrv, dataSrv, selectionSrv, commonDlgSrv, ERM.TAG);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TAG);
 	}
 }
