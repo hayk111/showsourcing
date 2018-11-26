@@ -13,6 +13,7 @@ import { DialogService } from '~shared/dialog';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { MergeDialogComponent } from '~shared/custom-dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 
 @Injectable({ providedIn: 'root' })
 export class CommonDialogService {
@@ -23,6 +24,7 @@ export class CommonDialogService {
 	createDlgComponent = CreationDialogComponent;
 
 	confirmDialogComponent = ConfirmDialogComponent;
+	inviteUserDlgComponent = InviteUserDlgComponent;
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -103,6 +105,10 @@ export class CommonDialogService {
 
 	openMergeDialog(data: { type: any, entities: any[] }) {
 		this.dlgSrv.openFromModule(MergeDialogComponent, this.moduleRef, data);
+	}
+
+	openInvitationDialog(callback: any) {
+		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef, callback);
 	}
 
 	private getSelectionValues() {

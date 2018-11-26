@@ -12,7 +12,8 @@ export enum ProviderKey {
 	TAG = 'tags-page',
 	EVENT = 'events-page',
 	CATEGORY = 'categories-page',
-	PROJECTS_PRODUCT = 'projects-products-page'
+	PROJECTS_PRODUCT = 'projects-products-page',
+	INVITATION = 'invitations-page',
 }
 
 /**

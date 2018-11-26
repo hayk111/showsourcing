@@ -9,6 +9,7 @@ import { Team } from '~models/team.model';
 import { Task } from '~models/task.model';
 import { Quote } from '~models/quote.model';
 import { Contact } from '~models/contact.model';
+import { Invitation } from '~models/invitation.model';
 import { InjectionToken } from '@angular/core';
 
 
@@ -46,6 +47,7 @@ export class ERM {
 	static readonly EVENT = new EntityMetadata('event', 'events', Event);
 	static readonly FILE = new EntityMetadata('file', 'files');
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);
+	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
 	static readonly MEMBER = new EntityMetadata('member', 'members');
 	static readonly PRODUCT = new EntityMetadata('product', 'products', Product);
 	static readonly PRODUCT_STATUS_TYPE = new EntityMetadata('product status type', 'product status type', Product, 'product-status-type');

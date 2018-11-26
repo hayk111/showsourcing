@@ -4,16 +4,9 @@ import { Observable, of } from 'rxjs';
 import { map, takeUntil, switchMap, tap, catchError, take, first } from 'rxjs/operators';
 import { ProductService, ProjectService } from '~global-services';
 import { ERM, Product, Project, ERM_TOKEN } from '~models';
-import { DialogService } from '~shared/dialog';
-import { SearchService, FilterType, Filter } from '~shared/filters';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import { ProjectWorkflowFeatureService } from '~features/project/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { RfqDialogComponent } from '~shared/custom-dialog';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
@@ -63,6 +56,12 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 		this.dataSrv.initialPredicate = `projects.id == "${id}" AND deleted == false`;
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
 		// whne the id is there
+		this.dataSrv.setup({
+			featureSrv: this.productSrv,
+			searchedFields: ['name'],
+			initialSortBy: 'name'
+		});
+		this.dataSrv.init();
 
 	}
 

@@ -3,39 +3,51 @@ import { Router } from '@angular/router';
 import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { TeamService, UserService } from '~global-services';
-import { ERM, Invitation } from '~models';
+import { ERM, Invitation, ERM_TOKEN } from '~models';
 import { DialogService } from '~shared/dialog';
 import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 
 @Component({
 	selector: 'settings-team-members-invitations-app',
 	templateUrl: './settings-team-members-invitations.component.html',
 	styleUrls: ['./settings-team-members-invitations.component.scss'],
 	providers: [
-		SelectionService
-	]
+		ListPageProviders.getProviders(ProviderKey.INVITATION, ERM.INVITATION),
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.INVITATION }]
 })
-export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<Invitation, InvitationFeatureService> implements OnInit {
+export class SettingsTeamMembersInvitationsComponent extends TrackingComponent implements OnInit {
 	hasSelected = false;
 	initialPredicate = '';
 
 	constructor(
 		protected router: Router,
-		protected invitationSrv: InvitationFeatureService,
-		protected selectionSrv: SelectionService,
-		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService,
 		protected userService: UserService,
 		protected teamService: TeamService,
-		protected moduleRef: NgModuleRef<any>
+		protected moduleRef: NgModuleRef<any>,
+		protected featureSrv: InvitationFeatureService,
+		protected viewSrv: ListPageViewService<Invitation>,
+		public dataSrv: ListPageDataService<Invitation, InvitationFeatureService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService,
 	) {
-		super(router, invitationSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TEAM_USER, null);
+		super();
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
+		this.dataSrv.setup({
+			featureSrv: this.featureSrv,
+			searchedFields: ['name'],
+			initialSortBy: 'name'
+		});
+		this.dataSrv.init();
 		/* this.selected$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(selected => {
@@ -50,20 +62,20 @@ export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<I
 			this.teamOwner = true;
 		}); */
 
-		this.sort({ sortBy: 'email' });
+		this.dataSrv.sort({ sortBy: 'email' });
 	}
 
 	search(str: string) {
-		this.currentSearch = `email CONTAINS[c] "${str}"`;
-		this.onPredicateChange();
+		this.dataSrv.currentSearch = `email CONTAINS[c] "${str}"`;
+		this.dataSrv.onPredicateChange();
 	}
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
 		const callback = () => {
-			this.refetchWithAllFilters();
+			this.dataSrv.refetch();
 		};
-		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef, { callback });
+		this.commonDlgSrv.openInvitationDialog({ callback });
 	}
 
 }
