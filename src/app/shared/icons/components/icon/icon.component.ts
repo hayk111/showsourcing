@@ -1,4 +1,12 @@
-import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ChangeDetectorRef, OnChanges } from '@angular/core';
+import {
+	Attribute,
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	Input,
+	ChangeDetectorRef,
+	OnChanges
+} from '@angular/core';
 import { FontSet } from '~shared/icons/components/font-set.enum';
 
 @Component({
@@ -25,10 +33,28 @@ export class IconComponent implements OnChanges {
 	// the fontset used, could be font awesome, svg or anything else added
 	@Input() fontSet: FontSet;
 
+	customStyle = {};
+	private _backgroundColor = null;
+	get backgroundColor(): string {
+		return this._backgroundColor;
+	}
+
+	@Input()
+	set backgroundColor(value: string) {
+		this._backgroundColor = value;
+		if (this._backgroundColor) {
+			this.customStyle = {
+				'background-color': this._backgroundColor,
+				'color': 'white'
+			};
+		}
+	}
+
 	constructor(
 		elementRef: ElementRef,
 		@Attribute('aria-hidden') ariaHidden: string,
-		private cdr: ChangeDetectorRef) {
+		private cdr: ChangeDetectorRef
+	) {
 		// If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
 		// the right thing to do for the majority of icon use-cases.
 		if (!ariaHidden) {
