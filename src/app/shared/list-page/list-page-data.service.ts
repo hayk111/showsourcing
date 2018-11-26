@@ -259,7 +259,10 @@ export class ListPageDataService
 		const itemIds = this.getSelectionIds();
 		// callback for confirm dialog
 		const callback = () => {
-			this.featureSrv.deleteMany(itemIds).subscribe(_ => this.selectionSrv.unselectAll());
+			this.featureSrv.deleteMany(itemIds).subscribe(_ => {
+				this.selectionSrv.unselectAll();
+				this.refetch();
+			});
 		};
 		const text = `Delete ${itemIds.length} ${itemIds.length > 1 ? 'items' : 'item'} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
@@ -267,7 +270,7 @@ export class ListPageDataService
 
 	/** Deletes an specific item */
 	deleteOne(itemId: string) {
-		const callback = () => this.featureSrv.delete(itemId).subscribe();
+		const callback = () => this.featureSrv.delete(itemId).subscribe(_ => this.refetch());
 		const text = `Are you sure you want to delete this item?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}

@@ -4,6 +4,11 @@ import { Router } from '@angular/router';
 import { InputDirective } from '~shared/inputs';
 import { FormControl } from '@angular/forms';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 
 @Component({
 	selector: 'task-list-app',
@@ -13,8 +18,8 @@ import { TrackingComponent } from '~shared/tracking-component/tracking-component
 })
 export class TaskListComponent extends TrackingComponent implements OnInit {
 
+	@Input() selection: Map<string, Task>;
 	@Input() tasks: Task[];
-	@Input() selection: Map<string, boolean>;
 	@Input() fullUser = false;
 	@Input() hasSupplier = false;
 	@Input() hasProduct = false;

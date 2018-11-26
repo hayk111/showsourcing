@@ -15,6 +15,8 @@ import { SharedModule } from '~shared/shared.module';
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { CustomDialogModule } from '~shared/custom-dialog';
+import { ERM, Tag, ERM_TOKEN } from '~models';
 
 @NgModule({
 	imports: [
