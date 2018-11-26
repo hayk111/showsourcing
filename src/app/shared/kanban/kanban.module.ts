@@ -16,6 +16,6 @@ import { KanbanComponent } from './components/kanban/kanban.component';
 		IconsModule
 	],
 	declarations: [KanbanComponent, KanbanColComponent, KanbanItemComponent],
-	exports: [KanbanComponent, KanbanItemComponent, KanbanColComponent]
+	exports: [KanbanComponent]
 })
 export class KanbanModule { }

@@ -11,7 +11,6 @@ import {
 } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { MergeDialogComponent } from '~shared/custom-dialog';
 
 
 @Injectable({ providedIn: 'root' })
@@ -81,10 +80,6 @@ export class CommonDialogService {
 
 	openRequestQuotationDialog(product: Product) {
 		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product });
-	}
-
-	openMergeDialog(data: { type: any, entities: any[] }) {
-		this.dlgSrv.openFromModule(MergeDialogComponent, this.moduleRef, data);
 	}
 
 	private getSelectionValues() {

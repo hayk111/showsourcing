@@ -20,7 +20,6 @@ import { EmailListComponent } from './component/rfq-dialog/email-list/email-list
 import { ItemCompareColumnComponent } from './component/compare-quotation/item-comapre-column/item-comapre-column.component';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 import { CarouselModule } from '~shared/carousel';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 
 @NgModule({
 	imports: [

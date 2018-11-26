@@ -1,44 +1,30 @@
 import { Router } from '@angular/router';
-import { OnInit, AfterViewInit } from '@angular/core';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { MergeDialogComponent } from '~shared/custom-dialog';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
-import { ListPageDataService } from '~shared/list-page/list-page-data.service';
-import { ListPageViewService } from '~shared/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
+import { SearchService } from '~shared/filters';
+import { NgModuleRef } from '@angular/core';
 
 export abstract class AbstractDataManagementComponent<T extends { id?: string },
-	G extends GlobalServiceInterface<T>> extends TrackingComponent implements OnInit {
+	G extends GlobalServiceInterface<T>> extends ListPageComponent<T, G> {
 
 	constructor(
 		protected router: Router,
 		protected featureSrv: G,
-		protected viewSrv: ListPageViewService<T>,
-		public dataSrv: ListPageDataService<T, G>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService,
+		protected selectionSrv: SelectionService,
+		protected searchSrv: SearchService,
+		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>,
 		public entityMetadata: EntityMetadata
 	) {
-		super();
-	}
-
-	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
-			searchedFields: ['name'],
-			initialSortBy: 'name'
-		});
-		this.dataSrv.init();
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, entityMetadata);
 	}
 
 	mergeSelected() {
 		const items = Array.from(this.selectionSrv.selection.keys());
-		this.commonDlgSrv.openMergeDialog({ type: this.entityMetadata, entities: items });
+		this.dlgSrv.openFromModule(MergeDialogComponent, this.moduleRef, { type: this.entityMetadata, entities: items });
 	}
 }
