@@ -9,12 +9,14 @@ import {
 	PreviewSectionComponent,
 } from './components';
 import { SharedModule } from '~shared/shared.module';
+import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 
 
 @NgModule({
 	imports: [
 		CommonModule,
-		SharedModule
+		SharedModule,
+		WorkflowActionModule
 	],
 	declarations: [
 		PreviewComponent,

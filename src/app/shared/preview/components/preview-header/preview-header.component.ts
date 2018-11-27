@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { EntityMetadata } from '~models';
 
 @Component({
 	selector: 'preview-header-app',
@@ -8,9 +9,21 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class PreviewHeaderComponent implements OnInit {
 
+	@Input() title: string;
+	@Input() icons: string[];
+	@Input() entityMD: EntityMetadata;
+	@Input() entity: any;
+
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	getIcon() {
+		switch (this.entityMD) {
+			default:
+				return 'product';
+		}
 	}
 
 }

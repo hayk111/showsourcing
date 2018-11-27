@@ -1,2 +1,15 @@
 <button (click)="toggle = !toggle">test me</button>
-<preview-app *ngIf="toggle"></preview-app>
+<preview-app *ngIf="toggle">
+	<preview-header-app
+		title="The title"
+		[icons]="icons"
+		[entityMD]="entityMD">
+	</preview-header-app>
+	<preview-section-app
+		title="section2">
+	</preview-section-app>
+	<preview-section-app
+		title="section1"
+		[last]="true">
+	</preview-section-app>
+</preview-app>

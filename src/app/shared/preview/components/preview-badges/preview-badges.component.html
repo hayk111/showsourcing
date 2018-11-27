@@ -1,3 +1,16 @@
-<p>
-  preview-badges works!
-</p>
+<div class="flexStart" *ngIf="badges.includes(erm.PRODUCT)">
+	<icon-app [name]="erm.PRODUCT.singular" fontSet="svg"></icon-app>
+	<!-- TODO: selector comes here -->
+</div>
+<div class="flexStart" *ngIf="badges.includes(erm.SUPPLIER)">
+	<icon-app [name]="erm.SUPPLIER.singular" fontSet="svg"></icon-app>
+	<!-- TODO: selector comes here -->
+</div>
+<div class="flexStart" *ngIf="badges.includes(erm.LOCATION)">
+	<icon-app [name]="erm.LOCATION.singular" fontSet="svg"></icon-app>
+	<!-- TODO: selector comes here -->
+</div>
+<div class="flexStart" *ngIf="badges.includes(erm.CATEGORY)">
+	<icon-app [name]="erm.CATEGORY.singular" fontSet="svg"></icon-app>
+	<!-- TODO: selector comes here -->
+</div>

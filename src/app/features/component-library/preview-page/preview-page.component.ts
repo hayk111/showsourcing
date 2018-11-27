@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ERM } from '~models';
 
 @Component({
 	selector: 'preview-page-app',
@@ -9,6 +10,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 export class PreviewPageComponent implements OnInit {
 
 	toggle = false;
+	icons = ['product', 'supplier'];
+	entityMD = ERM.PRODUCT;
 
 	constructor() { }
 
