@@ -8,13 +8,15 @@
 			*ngIf="images.length !== 0"
 			[image]="getImg()"
 			[size]="'xl'"
-			objectFit="contain"
+			[objectFit]="objectFit"
 			(click)="imgClick.emit(selectedIndex)"
-			class="pointer"></img-app>
+			class="pointer">
+		</img-app>
 	</div>
 
   <spinner-app *ngIf="getImg().pending" size="xl"></spinner-app>
 	<!-- actions buttons -->
+
 	<!-- move back -->
 	<div class="move-btn back flexCenter circle pointer btn action"
 		(mousedown)="back($event)" *ngIf="selectedIndex > 0">
@@ -37,7 +39,8 @@
 		color="white"
 		class="menuIc btn action"
 		aria-label="more"
-		(click)="openMenu()"></icon-app>
+		(click)="openMenu()">
+	</icon-app>
 
 	<!-- menu -->
 	<menu class="z-2 flexColumn action" (clickOutside)="closeMenu()" *ngIf="menuOpen">
@@ -46,7 +49,12 @@
 	</menu>
 
 	<!-- counter -->
-	<div class="counter">{{ selectedIndex + 1 }} / {{ images.length }}</div>
+	<div class="counter flexCenter">
+		<div
+			*ngFor="let image of images; index as i"
+			class="dot {{ i === selectedIndex ? 'full' : '' }}">
+		</div>
+	</div>
 </div>
 
 

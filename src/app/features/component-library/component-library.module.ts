@@ -8,6 +8,7 @@ import { GuidelinesComponent } from './guidelines/guidelines.component';
 import { PreviewPageComponent } from './preview-page/preview-page.component';
 import { routes } from './routes';
 import { PreviewModule } from '~shared/preview';
+import { CarouselModule } from '~shared/carousel';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PreviewModule } from '~shared/preview';
 		CommonModule,
 		RouterModule.forChild(routes),
 		CardModule,
-		PreviewModule
+		PreviewModule,
+		CarouselModule
 	],
 	declarations: [
 		ComponentLibraryComponent,

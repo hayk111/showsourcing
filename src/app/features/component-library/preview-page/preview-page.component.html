@@ -1,7 +1,13 @@
 <button (click)="toggle = !toggle">test me</button>
 <preview-app *ngIf="toggle">
-	<preview-banner-app>
-		<div class="banner"></div>
+	<preview-banner-app (closed)="toggle = !toggle">
+		<carousel-app
+			[images]="(product$ | async)?.images"
+			[selectedIndex]="selectedIndex"
+			objectFit="cover"
+			(imgClick)="openModal($event)"
+			(deleted)="onDelete($event)">
+		</carousel-app>
 	</preview-banner-app>
 	<preview-header-app
 		[badges]="icons"
@@ -15,3 +21,10 @@
 		[last]="true">
 	</preview-section-app>
 </preview-app>
+
+<modal-carousel-app
+	*ngIf="modalOpen"
+	[selectedIndex]="selectedIndex"
+	[images]="(product$ | async)?.images"
+	(close)="closeModal()">
+</modal-carousel-app>
