@@ -21,28 +21,28 @@
 				Contributor
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
-			<context-menu-item-app class="remove-user" (click)="deleteSelected()">
+			<context-menu-item-app class="remove-user" (click)="dataSrv.deleteSelected()">
 				<span>Remove User</span>
 			</context-menu-item-app>
 		</context-menu-app>
 
 	</sub-panel-app>
 
-<ng-container *ngIf="items$ | async as members">
+<ng-container *ngIf="dataSrv.items$ | async as members">
 	<team-members-list-view-app
 		[rows]="members"
 		[teamOwner]="teamOwner"
 		[user]="user"
-		[selection]="selected$ | async"
-		[pending]="pending"
-		(bottomReached)="loadMore()"
-		(sort)="sort($event)"
-		(select)="onItemSelected($event)"
-		(unselect)="onItemUnselected($event)"
-		(selectAll)="selectAll($event)"
-		(unselectAll)="resetSelection()"
+		[selection]="selectionSrv.selection$ | async"
+		[pending]="dataSrv.pending"
+		(bottomReached)="dataSrv.loadMore()"
+		(sort)="dataSrv.sort($event)"
+		(select)="selectionSrv.selectOne($event, false)"
+		(unselect)="selectionSrv.unselectOne($event, false)"
+		(selectAll)="selectionSrv.selectAll($event, false)"
+    (unselectAll)="selectionSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
-		(delete)="deleteOne($event)">
+		(delete)="dataSrv.deleteOne($event)">
 	</team-members-list-view-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">
