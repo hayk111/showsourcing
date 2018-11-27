@@ -10,7 +10,7 @@ import { ERM } from '~models';
 export class PreviewPageComponent implements OnInit {
 
 	toggle = false;
-	icons = ['product', 'supplier'];
+	icons = [ERM.PRODUCT, ERM.SUPPLIER];
 	entityMD = ERM.PRODUCT;
 
 	constructor() { }

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Category, ERM, Product, Supplier } from '~models';
+import { Category, ERM, Product, Supplier, EntityMetadata } from '~models';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 @Component({
 	selector: 'preview-badges-app',
@@ -10,7 +11,7 @@ import { Category, ERM, Product, Supplier } from '~models';
 export class PreviewBadgesComponent implements OnInit {
 
 	/** array of names for icons that are going to be displayed */
-	@Input() badges: ERM[];
+	@Input() badges: EntityMetadata[];
 	/** supplier only if it's on the badge list, location will be extracted from supplier */
 	@Input() supplier: Supplier;
 	/** product only if it's on the badge list */
@@ -20,12 +21,20 @@ export class PreviewBadgesComponent implements OnInit {
 
 	erm = ERM;
 
-	constructor() { }
+	constructor(private constPipe: ConstPipe) { }
 
 	ngOnInit() {
-		const ba = 'product';
-		const a = this.badges.includes(ba);
-		console.log(a);
 	}
 
+	getSupplierLocation() {
+		let locName = '-';
+		if (this.supplier) {
+			if (this.supplier.city && this.supplier.country)
+				locName = this.supplier.city + ', ' + this.constPipe.transform(this.supplier.country, 'country');
+			else if (this.supplier.city)
+				locName = this.supplier.city;
+			else
+				locName = this.supplier.country;
+		}
+	}
 }

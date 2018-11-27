@@ -11,9 +11,21 @@
 		</workflow-action-app>
 	</div>
 </div>
-<h1>{{title}}</h1>
+
+<!-- Title name -->
+<editable-text-app #edt
+	(closed)="updateEntity($event, inpName.value, 'name')"
+	(opened)="inpName.select()">
+	<editable-label-app>
+		{{ entity?.name || 'Unnamed ' + entityMD.singular }}
+	</editable-label-app>
+	<input inputApp type="text" #inpName [value]="entity?.name"
+		(keyup.enter)="edt.close()">
+</editable-text-app>
+
 <ng-content></ng-content>
+
 <preview-badges-app
-	[icons]="icons">
+	[badges]="badges">
 </preview-badges-app>
 <divider-app></divider-app>

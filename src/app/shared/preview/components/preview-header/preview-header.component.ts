@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { EntityMetadata } from '~models';
 
 @Component({
@@ -9,10 +9,14 @@ import { EntityMetadata } from '~models';
 })
 export class PreviewHeaderComponent implements OnInit {
 
-	@Input() title: string;
-	@Input() icons: string[];
+	/** array of names for icons that are going to be displayed */
+	@Input() badges: EntityMetadata[];
+	/** entity metadata for the header */
 	@Input() entityMD: EntityMetadata;
+	/** entity for the workflow action */
 	@Input() entity: any;
+	/** updates entity */
+	@Output() update = new EventEmitter<any>();
 
 	constructor() { }
 
@@ -23,6 +27,12 @@ export class PreviewHeaderComponent implements OnInit {
 		switch (this.entityMD) {
 			default:
 				return 'product';
+		}
+	}
+
+	updateEntity(isCancel: boolean, value: any, prop: string) {
+		if (!isCancel) {
+			this.update.emit({ [prop]: value });
 		}
 	}
 

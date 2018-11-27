@@ -1,0 +1,19 @@
+:host {
+	display: block;
+	margin-top: -6px;
+}
+
+.top-section {
+	background: white;
+	border-top-left-radius: var(--border-radius-l);
+	border-top-right-radius: var(--border-radius-l);
+}
+
+editable-text-app {
+	width: auto;
+}
+editable-label-app {
+	font-size: var(--font-size-xxl);
+	font-weight: 600;
+	color: var(--color-txt-strong);
+}
