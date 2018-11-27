@@ -14,6 +14,7 @@ export enum ProviderKey {
 	CATEGORY = 'categories-page',
 	PROJECTS_PRODUCT = 'projects-products-page',
 	INVITATION = 'invitations-page',
+	TEAM_USER = 'team-users',
 }
 
 /**

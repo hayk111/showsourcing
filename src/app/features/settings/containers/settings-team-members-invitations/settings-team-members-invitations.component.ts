@@ -4,9 +4,6 @@ import { InviteUserDlgComponent } from '~features/settings/components/invite-use
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { TeamService, UserService } from '~global-services';
 import { ERM, Invitation, ERM_TOKEN } from '~models';
-import { DialogService } from '~shared/dialog';
-import { SearchService } from '~shared/filters';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';

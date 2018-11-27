@@ -107,7 +107,7 @@ export class CommonDialogService {
 		this.dlgSrv.openFromModule(MergeDialogComponent, this.moduleRef, data);
 	}
 
-	openInvitationDialog(callback: any) {
+	openInvitationDialog(callback?: any) {
 		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef, callback);
 	}
 

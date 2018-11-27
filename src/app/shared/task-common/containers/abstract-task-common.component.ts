@@ -7,6 +7,7 @@ import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { FilterType } from '~shared/filters';
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
