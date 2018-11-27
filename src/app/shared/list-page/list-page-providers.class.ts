@@ -17,6 +17,7 @@ export enum ProviderKey {
 	TEAM_USER = 'team-users-page',
 	SHOW = 'show-page',
 	REVIEWPAGE = 'show-page',
+	PROJECT_WORKFLOW = 'project-workflow-page',
 }
 
 /**
