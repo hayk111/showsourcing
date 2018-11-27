@@ -2,6 +2,7 @@ import { Category } from '~models/category.model';
 import { Event } from '~models/event.model';
 import { Product } from '~models/product.model';
 import { Supplier } from '~models/supplier.model';
+import { Show } from '~models/show.model';
 import { Tag } from '~models/tag.model';
 import { Project } from '~models/project.model';
 import { User } from '~models/user.model';
@@ -54,6 +55,7 @@ export class ERM {
 	static readonly PRODUCT_VOTE = new EntityMetadata('product vote', 'product votes', Product, 'product-vote');
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
+	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
 	static readonly SUPPLIER_STATUS_TYPE = new EntityMetadata(
 		'supplier status type',

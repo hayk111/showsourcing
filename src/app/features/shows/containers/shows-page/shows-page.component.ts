@@ -2,23 +2,28 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ShowService, UserService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { of } from 'rxjs';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { Show } from '~models/show.model';
+import { Show, ERM_TOKEN, ERM } from '~models';
 import { Router } from '@angular/router';
-import { first, tap, takeUntil, switchMap, mergeMap } from 'rxjs/operators';
-import { realmDateFormat } from '~utils/realm-date-format.util';
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 import { Observable } from 'rxjs';
 
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 @Component({
 	selector: 'shows-page-app',
 	templateUrl: './shows-page.component.html',
 	styleUrls: ['./shows-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-	]
+		ListPageProviders.getProviders(ProviderKey.SHOW, ERM.SHOW),
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.SHOW }]
 })
-export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureService> implements OnInit {
+export class ShowsPageComponent extends TrackingComponent implements OnInit {
 	allShows$: Observable<Show[]>;
 	myShows$: Observable<Show[]>;
 
@@ -27,13 +32,16 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureServi
 		futureShowOnly: false,
 		myShows: false
 	};
-
 	constructor(
 		protected router: Router,
 		protected featureSrv: ShowFeatureService,
-		protected userSrv: UserService
+		protected userSrv: UserService,
+		protected viewSrv: ListPageViewService<Show>,
+		public dataSrv: ListPageDataService<Show, ShowFeatureService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
 	) {
-		super(router, featureSrv);
+		super();
 	}
 
 	/** init */

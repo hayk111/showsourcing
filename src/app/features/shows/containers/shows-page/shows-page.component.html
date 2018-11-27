@@ -1,4 +1,4 @@
-<div class="scroller" infiniScroll (bottomReached)="loadMore()">
+<div class="scroller" infiniScroll (bottomReached)="dataSrv.loadMore()">
   <top-panel-app
     title="Shows & Events"
     [hasAction]="false">
@@ -22,7 +22,7 @@
     <show-list-app
       (saveShow)="saveShow($event)"
       *ngIf="!checkboxes.myShows"
-      [pending]="pending"
+      [pending]="dataSrv.pending"
       [items]="allShows$ | async"></show-list-app>
 
     <show-list-app
