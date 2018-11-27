@@ -55,6 +55,8 @@ export class ERM {
 	static readonly PRODUCT_VOTE = new EntityMetadata('product vote', 'product votes', Product, 'product-vote');
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
+	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
+	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
 	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
 	static readonly SUPPLIER_STATUS_TYPE = new EntityMetadata(
@@ -69,7 +71,6 @@ export class ERM {
 	static readonly TEAM = new EntityMetadata('team', 'teams', Team);
 	static readonly TEAM_USER = new EntityMetadata('team user', 'team users');
 	static readonly USER = new EntityMetadata('user', 'users', User);
-	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
 
 	constructor() { }
 

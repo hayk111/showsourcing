@@ -16,6 +16,7 @@ export enum ProviderKey {
 	INVITATION = 'invitations-page',
 	TEAM_USER = 'team-users-page',
 	SHOW = 'show-page',
+	REVIEWPAGE = 'show-page',
 }
 
 /**
