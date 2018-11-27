@@ -111,6 +111,10 @@ export class CommonDialogService {
 		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef, callback);
 	}
 
+	public close() {
+		this.dlgSrv.close();
+	}
+
 	private getSelectionValues() {
 		return this.selectionSrv.getSelectionValues();
 	}

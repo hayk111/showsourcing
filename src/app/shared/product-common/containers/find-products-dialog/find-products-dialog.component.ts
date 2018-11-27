@@ -1,13 +1,14 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ERM, Product } from '~models';
-import { DialogService } from '~shared/dialog';
-import { SearchService } from '~shared/filters';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { ERM, Product, ERM_TOKEN } from '~models';
 import { ProductService } from '~global-services';
-
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'find-products-dialog-app',
@@ -15,28 +16,38 @@ import { ProductService } from '~global-services';
 	styleUrls: ['./find-products-dialog.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		SelectionService
+		ListPageProviders.getProviders('products-page', ERM.PRODUCT),
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
 	]
 })
-export class FindProductsDialogComponent extends ListPageComponent<Product, ProductService> implements OnInit, AfterViewInit {
+export class FindProductsDialogComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	@Input() initialSelectedProducts: Product[];
 	@Input() submitCallback: Function;
 	searchFilterElements$: Observable<any[]>;
-	selected: number;
-	unselectedProducts: { [key: string]: Product } = {};
 
+	unselectedProducts: { [key: string]: Product } = {};
 	constructor(
 		protected router: Router,
-		protected srv: ProductService,
-		protected searchSrv: SearchService,
-		protected selectionSrv: SelectionService,
-		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
-		protected moduleRef: NgModuleRef<any>) {
-		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, null);
+		protected featureSrv: ProductService,
+		protected viewSrv: ListPageViewService<Product>,
+		public dataSrv: ListPageDataService<Product, ProductService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
+	) {
+		super();
 	}
 
+	ngOnInit() {
+		this.dataSrv.setup({
+			featureSrv: this.featureSrv,
+			searchedFields: ['name', 'supplier.name', 'category.name'],
+			initialSortBy: 'category.name'
+		});
+		this.dataSrv.init();
+	}
 
 	ngAfterViewInit() {
 		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
@@ -54,17 +65,17 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 
 	onItemSelected(entity: any, checkFavorite = false) {
 		delete this.unselectedProducts[entity.id];
-		super.onItemSelected(entity, checkFavorite);
+		this.selectionSrv.selectOne(entity, checkFavorite);
 	}
 
 
 	onItemUnselected(entity: any, checkFavorite = false) {
 		this.unselectedProducts[entity.id] = entity;
-		super.onItemUnselected(entity, checkFavorite);
+		this.selectionSrv.unselectOne(entity, checkFavorite);
 	}
 
 	closeDlg() {
-		this.dlgSrv.close();
+		this.commonDlgSrv.close();
 	}
 
 	submit() {
@@ -73,7 +84,7 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 		const unselectedProducts = Object.keys(this.unselectedProducts).map(key => this.unselectedProducts[key]);
 		this.submitCallback({ selectedProducts, unselectedProducts })
 			.subscribe(() => {
-				this.dlgSrv.close();
+				this.commonDlgSrv.close();
 			});
 	}
 }
