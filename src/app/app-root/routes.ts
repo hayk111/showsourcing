@@ -7,6 +7,8 @@ import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-se
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import { TeamClientReadyGuard, UserClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
 import { GuestTemplateComponent, TemplateComponent } from '~shared/template';
+import { isDevMode } from '@angular/core';
+import { DevModeGuard } from '~utils/dev-mode.guard';
 
 export const routes: Array<Route> = [
 	{
@@ -73,22 +75,19 @@ export const routes: Array<Route> = [
 			{
 				path: 'workspace',
 				loadChildren: 'app/features/workspace/workspace.module#WorkspaceModule'
+			},
+			{
+				path: 'component-library',
+				canLoad: [DevModeGuard],
+				loadChildren: 'app/features/component-library/component-library.module#ComponentLibraryModule'
+			},
+			{
+				path: 'test',
+				canLoad: [DevModeGuard],
+				loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
 			}
 		]
 	},
 	{ path: '**', redirectTo: '' }
 ];
 
-
-if (!environment.production) {
-	routes.find(route => route.path === '').children.push(
-		{
-			path: 'component-library',
-			loadChildren: 'app/features/component-library/component-library.module#ComponentLibraryModule'
-		},
-		{
-			path: 'test',
-			loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
-		}
-	);
-}
