@@ -4,7 +4,7 @@ import { EventDescription } from '~models/event-description.model';
 
 // show is actually called event on the back-end but since we have two event types (one from team realm)
 // and this one from global-constants
-export interface Show {
+export class Show {
 	id: string;
 	description: EventDescription;
 	booths: Booth[];
