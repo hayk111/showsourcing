@@ -8,7 +8,7 @@ import { ContactService, ProductService, UserService } from '~global-services';
 import { SupplierService } from '~global-services/supplier/supplier.service';
 import { first } from 'rxjs/operators';
 import { ProductQueries } from '~global-services/product/product.queries';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~core/apollo';
 
 
 @Injectable({

@@ -7,14 +7,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'environments/environment';
 import { AppComponent } from '~app-root/components/app.component';
 import { routes } from '~app-root/routes';
-import { AuthModule } from '~features/auth';
 import { EventModule } from '~features/event/event.module';
 import { InvitationModule } from '~features/invitation';
-import { AppApolloModule } from '~shared/apollo/apollo.module';
+import { AppApolloModule } from '~core/apollo/apollo.module';
 import { CardModule } from '~shared/card';
 import { DialogModule } from '~shared/dialog';
 import { IconsModule } from '~shared/icons';
-import { LocalStorageModule } from '~shared/local-storage';
+import { LocalStorageModule } from '~core/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { PortalModule } from '~shared/portal';
 import { TemplateModule } from '~shared/template';
@@ -28,7 +27,6 @@ import { TemplateModule } from '~shared/template';
 		AppApolloModule,
 		BrowserModule,
 		BrowserAnimationsModule,
-		AuthModule,
 		InvitationModule,
 		HttpClientModule,
 		TemplateModule,

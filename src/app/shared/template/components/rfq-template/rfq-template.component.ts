@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/
 import { AutoUnsub } from '~utils';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { GuestClientInitializer } from '~shared/apollo';
-import { TokenService } from '~features/auth';
+import { GuestClientInitializer } from '~core/apollo';
+import { TokenService } from '~core/auth';
 
 @Component({
 	selector: 'rfq-template-app',

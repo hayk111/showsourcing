@@ -4,8 +4,8 @@ import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile } from 'rxjs/operators';
-import { TokenService } from '~features/auth';
-import { TokenState } from '~features/auth/interfaces/token-state.interface';
+import { TokenService } from '~core/auth';
+import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TeamService } from '~global-services';
 import { ActivityFeed, GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
 import {

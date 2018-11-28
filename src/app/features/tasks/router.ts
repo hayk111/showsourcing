@@ -1,4 +1,4 @@
-import { AuthGuardService } from '~features/auth';
+import { AuthGuardService } from '~core/auth';
 import { Route } from '@angular/router';
 import { TasksPageComponent } from '~features/tasks/containers/tasks-page/tasks-page.component';
 

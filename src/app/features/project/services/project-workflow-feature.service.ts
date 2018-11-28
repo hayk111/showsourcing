@@ -9,7 +9,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { Project, Product, ProductStatus, ProductStatusType } from '~models';
 import { Apollo } from 'apollo-angular';
 import { ListQuery } from '~global-services/_global/list-query.interface';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~core/apollo';
 
 
 @Injectable({
