@@ -11,13 +11,13 @@
     [contextualMenu]="contextualMenu"
     [card]="card"
     [getCurrentColumnFct]="getCurrentColumnFct"
-    [selectedItems]="selected$ | async"
+    [selectedItems]="selectionSrv.selection$ | async"
     (itemDropped)="onUpdateProductStatus($event)"
-    (selectItem)="onItemSelected($event, true)"
-    (unselectItem)="onItemUnselected($event, true)"
-    (selectAllItems)="selectAll($event, true)"
-    (unselectAllItems)="resetSelection()"
-    (previewClick)="openPreview($event)">
+    (selectItem)="selectionSrv.selectOne($event, true)"
+    (unselectItem)="selectionSrv.unselectOne($event, true)"
+    (selectAllItems)="selectionSrv.selectAll($event, true)"
+    (unselectAllItems)="selectionSrv.unselectAll()"
+    (previewClick)="viewSrv.openPreview($event)">
   </workflow-kanban2-app>
 </div>
 
@@ -28,9 +28,9 @@
     [checked]="checked"
     [enablePreviewLink]="true"
     (dragDropEnable)="dragDropEnable$.next($event)"
-    (select)="selectItem.emit(row)"
-    (unselect)="unselectItem.emit(row)"
-    (clickImage)="previewClick.emit(row)">
+    (select)="selectionSrv.selectOne(row, true)"
+    (unselect)="selectionSrv.unselectOne(row, true)"
+    (clickImage)="viewSrv.openPreview(row)">
   </product-card-app>
 </ng-template>
 
@@ -53,39 +53,39 @@
     <context-menu-item-app (click)="openExportDialog(row)">
       <div class="border">Export</div>
     </context-menu-item-app>
-    <context-menu-item-app (click)="deleteSelected(row)">
+    <context-menu-item-app (click)="dataSrv.deleteOne(row)">
       <div class="border">Delete</div>
     </context-menu-item-app>
   </context-menu-app>
 </ng-template>
 
 <selection-bar-app
-  [isShown]="(selected$ | async).size > 0"
-	[selection]="selected$ | async"
+  [isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
   [hasDelete]="false"
-  (close)="resetSelection()"
-  (delete)="deleteSelected()">
+  (close)="selectionSrv.unselectAll()"
+  (delete)="dataSrv.deleteSelected()">
 
   <action-bar-app
-    [favorite]="allSelectedFavorite"
+    [favorite]="selectionSrv.allSelectedFavorite"
 		[multiple]="true"
-		(onFavorite)="onFavoriteAllSelected()"
-		(onUnfavorite)="onUnfavoriteAllSelected()"
-		(liked)="onMultipleThumbUp($event)"
-		(disliked)="onMultipleThumbDown($event)">
+		(onFavorite)="dataSrv.onFavoriteAllSelected()"
+		(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
+		(liked)="dataSrv.onMultipleThumbUp($event)"
+		(disliked)="dataSrv.onMultipleThumbDown($event)">
 
     <button class="icon light" (click)="openAddToProjectDialog(null)">
       <icon-app name="folder-light" fontSet="svg"></icon-app>
     </button>
-    <button class="icon light" (click)="deleteSelected()">
+    <button class="icon light" (click)="dataSrv.deleteSelected()">
       <icon-app name="trash-bin"></icon-app>
     </button>
   </action-bar-app>
 </selection-bar-app>
 
 <product-preview-app
-  *ngIf="previewOpen"
-  [product]="previewed"
-  (close)="closePreview()"
-	(clickOutside)="closePreview()">
+  *ngIf="viewSrv.previewOpen"
+  [product]="viewSrv.previewed"
+  (close)="viewSrv.closePreview()"
+	(clickOutside)="viewSrv.closePreview()">
 </product-preview-app>

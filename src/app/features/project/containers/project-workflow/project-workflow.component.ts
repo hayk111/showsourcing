@@ -4,7 +4,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { ProductService, ProjectService, ProductStatusTypeService } from '~global-services';
-import { ERM, Product, ProductVote, Project, ProductStatus } from '~models';
+import { ERM, Product, ERM_TOKEN, Project, ProductStatus } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -23,14 +23,25 @@ import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface'
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
 import { ProductQueries } from '~global-services/product/product.queries';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'project-workflow-app',
 	templateUrl: './project-workflow.component.html',
 	styleUrls: ['./project-workflow.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		ListPageProviders.getProviders(ProviderKey.PROJECT_WORKFLOW, ERM.PRODUCT),
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
+	]
 })
-export class ProjectWorkflowComponent extends ListPageComponent<any, any> implements OnInit {
+export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	project$: Observable<Project>;
 	columns$: Observable<KanbanColumn[]>;
 	/** keeps tracks of the current selection */
@@ -43,26 +54,26 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 		protected productSrv: ProductService,
 		protected productStatusSrv: ProductStatusTypeService,
 		protected router: Router,
-		protected selectionSrv: SelectionService,
-		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>,
 		protected thumbSrv: ThumbService,
 		protected workflowService: ProjectWorkflowFeatureService,
-		protected notificationSrv: NotificationService
+		protected notificationSrv: NotificationService,
+		protected featureSrv: ProjectWorkflowFeatureService,
+		protected viewSrv: ListPageViewService<Product>,
+		public dataSrv: ListPageDataService<Product, ProjectWorkflowFeatureService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
 	) {
-		super(
-			router,
-			productSrv,
-			selectionSrv,
-			searchSrv,
-			dlgSrv,
-			moduleRef,
-			ERM.PRODUCT,
-			thumbSrv);
+		super();
 	}
 
 	ngOnInit() {
+		this.dataSrv.setup({
+			featureSrv: this.featureSrv,
+			searchedFields: ['name', 'supplier.name', 'category.name'],
+			initialSortBy: 'category.name'
+		});
+		this.dataSrv.init();
+
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.projectSrv.queryOne(id);
 		this.selected$ = this.selectionSrv.selection$;
@@ -123,11 +134,11 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 	}
 
 	onColumnSelected(products: Product[]) {
-		products.forEach(prod => super.onItemSelected(prod, true));
+		products.forEach(prod => this.selectionSrv.selectOne(prod, true));
 	}
 
 	onColumnUnselected(products: Product[]) {
-		products.forEach(prod => super.onItemUnselected(prod, true));
+		products.forEach(prod => this.selectionSrv.unselectOne(prod, true));
 	}
 
 	/** updates the products with the new value votes */
@@ -139,12 +150,7 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 	openFindProductDlg() {
 		if (this.project) {
 			this.featureSrv.getProjectProducts(this.project).pipe(first()).subscribe(products => {
-				this.dlgSrv.openFromModule(FindProductsDialogComponent, this.moduleRef, {
-					type: ERM.PRODUCT,
-					shouldRedirect: false,
-					initialSelectedProducts: products,
-					submitCallback: this.associateProductsWithProject.bind(this)
-				});
+				this.commonDlgSrv.openFindProductDlg(products, this.associateProductsWithProject.bind(this));
 			});
 		}
 	}
@@ -157,24 +163,18 @@ export class ProjectWorkflowComponent extends ListPageComponent<any, any> implem
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog(product: Product) {
-		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectedProducts()
-		});
+		this.commonDlgSrv.openAddToProjectDialog(product ? [product] : this.getSelectedProducts());
 	}
 
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product: Product) {
-		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectedProducts()
-		});
+		this.commonDlgSrv.openExportDialog(product ? [product] : this.getSelectedProducts());
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(product: Product) {
-		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectedProducts()
-		});
+		this.commonDlgSrv.openRequestFeedbackDialog(product ? [product] : this.getSelectedProducts());
 	}
 
 	getSelectedProducts() {

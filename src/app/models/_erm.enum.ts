@@ -2,6 +2,7 @@ import { Category } from '~models/category.model';
 import { Event } from '~models/event.model';
 import { Product } from '~models/product.model';
 import { Supplier } from '~models/supplier.model';
+import { Show } from '~models/show.model';
 import { Tag } from '~models/tag.model';
 import { Project } from '~models/project.model';
 import { User } from '~models/user.model';
@@ -9,6 +10,7 @@ import { Team } from '~models/team.model';
 import { Task } from '~models/task.model';
 import { Quote } from '~models/quote.model';
 import { Contact } from '~models/contact.model';
+import { Invitation } from '~models/invitation.model';
 import { InjectionToken } from '@angular/core';
 
 
@@ -46,12 +48,16 @@ export class ERM {
 	static readonly EVENT = new EntityMetadata('event', 'events', Event);
 	static readonly FILE = new EntityMetadata('file', 'files');
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);
+	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
 	static readonly MEMBER = new EntityMetadata('member', 'members');
 	static readonly PRODUCT = new EntityMetadata('product', 'products', Product);
 	static readonly PRODUCT_STATUS_TYPE = new EntityMetadata('product status type', 'product status type', Product, 'product-status-type');
 	static readonly PRODUCT_VOTE = new EntityMetadata('product vote', 'product votes', Product, 'product-vote');
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
+	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
+	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
+	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
 	static readonly SUPPLIER_STATUS_TYPE = new EntityMetadata(
 		'supplier status type',
@@ -65,7 +71,6 @@ export class ERM {
 	static readonly TEAM = new EntityMetadata('team', 'teams', Team);
 	static readonly TEAM_USER = new EntityMetadata('team user', 'team users');
 	static readonly USER = new EntityMetadata('user', 'users', User);
-	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
 
 	constructor() { }
 

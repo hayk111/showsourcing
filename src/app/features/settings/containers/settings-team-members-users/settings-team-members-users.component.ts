@@ -4,48 +4,56 @@ import { takeUntil } from 'rxjs/operators';
 import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { TeamService, UserService } from '~global-services';
-import { ERM, TeamUser, User } from '~models';
-import { DialogService } from '~shared/dialog';
-import { SearchService } from '~shared/filters';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { ERM, TeamUser, User, ERM_TOKEN } from '~models';
+import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageDataService } from '~shared/list-page/list-page-data.service';
+import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'settings-team-members-users-app',
 	templateUrl: './settings-team-members-users.component.html',
 	styleUrls: ['./settings-team-members-users.component.scss'],
 	providers: [
-		SelectionService
-	]
+		ListPageProviders.getProviders(ProviderKey.TEAM_USER, ERM.TEAM_USER),
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.TEAM_USER }]
 })
-export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUser, MemberFeatureService> implements OnInit {
+export class SettingsTeamMembersUsersComponent extends AutoUnsub  implements OnInit {
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;
 	initialPredicate = '';
-
 	constructor(
 		protected router: Router,
-		protected memberSrv: MemberFeatureService,
-		protected selectionSrv: SelectionService,
-		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService,
 		protected userService: UserService,
 		protected teamService: TeamService,
-		protected moduleRef: NgModuleRef<any>
+		protected featureSrv: MemberFeatureService,
+		protected viewSrv: ListPageViewService<TeamUser>,
+		public dataSrv: ListPageDataService<TeamUser, MemberFeatureService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
 	) {
-		super(router, memberSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TEAM_USER, null);
+		super();
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
-		this.selected$.pipe(
+		this.dataSrv.setup({
+			featureSrv: this.featureSrv,
+			searchedFields: ['user.firstName'],
+			initialSortBy: 'user.firstName'
+		});
+		this.dataSrv.init();
+
+		this.selectionSrv.selection$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(selected => {
 			this.hasSelected = (selected.size > 0);
 		});
 
-		this.memberSrv.selectTeamOwner().pipe(
+		this.featureSrv.selectTeamOwner().pipe(
 			takeUntil(this._destroy$)
 		).subscribe(({ user, teamOwner }) => {
 			this.teamOwner = teamOwner;
@@ -53,33 +61,33 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 			this.teamOwner = true;
 		});
 
-		this.sort({ sortBy: 'user.firstName' });
+		this.dataSrv.sort({ sortBy: 'user.firstName' });
 	}
 
 	search(str: string) {
-		this.currentSearch = `user.lastName CONTAINS[c] "${str}" ` +
+		this.dataSrv.currentSearch = `user.lastName CONTAINS[c] "${str}" ` +
 			`OR user.firstName CONTAINS[c] "${str}" ` +
 			`OR user.email CONTAINS[c] "${str}"`;
-		this.refetchWithAllFilters();
+		this.dataSrv.refetch();
 	}
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef);
+		this.commonDlgSrv.openInvitationDialog();
 	}
 
 	updateAccessType({ member, accessType }: { member: TeamUser, accessType: string }) {
-		this.memberSrv.updateAccessType([{ id: member.id, accessType }]).subscribe(() => {
-			this.refetchWithAllFilters();
-			this.resetSelection();
+		this.featureSrv.updateAccessType([{ id: member.id, accessType }]).subscribe(() => {
+			this.dataSrv.refetch();
+			this.selectionSrv.unselectAll();
 		});
 	}
 
 	updateAccessTypeSelected({ accessType }) {
 		const items = Array.from(this.selectionSrv.selection.keys());
-		this.memberSrv.updateAccessType(items.map(item => ({ id: item, accessType }))).subscribe(() => {
-			this.refetchWithAllFilters();
-			this.resetSelection();
+		this.featureSrv.updateAccessType(items.map(item => ({ id: item, accessType }))).subscribe(() => {
+			this.dataSrv.refetch();
+			this.selectionSrv.unselectAll();
 		});
 	}
 }

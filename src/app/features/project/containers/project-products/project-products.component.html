@@ -15,39 +15,39 @@
 	</sub-panel-app>
 
 	<project-product-list-app
-		*ngIf="view === 'list'"
+		*ngIf="viewSrv.view === 'list'"
 		class="list-view"
-		[selection]="selected$ | async"
-		[rows]="items$ | async"
-		[pending]="pending"
-		(previewClick)="openPreview($event)"
-		(select)="onItemSelected($event, true)"
-		(unselect)="onItemUnselected($event, true)"
-		(selectAll)="selectAll($event, true)"
-		(unselectAll)="resetSelection()"
-		(open)="goToDetails($event)"
-		(favorited)="onItemFavorited($event)"
-		(unfavorited)="onItemUnfavorited($event)"
-		(bottomReached)="loadMore()"
-		(sort)="sort($event)"
+		[selection]="selectionSrv.selection$ | async"
+		[rows]="dataSrv.items$ | async"
+		[pending]="dataSrv.pending"
+		(previewClick)="viewSrv.openPreview($event)"
+		(select)="selectionSrv.selectOne($event, true)"
+		(unselect)="selectionSrv.unselectOne($event, true)"
+		(selectAll)="selectionSrv.selectAll($event, true)"
+		(unselectAll)="selectionSrv.unselectAll()"
+		(open)="viewSrv.goToDetails($event)"
+		(favorited)="dataSrv.onItemFavorited($event)"
+		(unfavorited)="dataSrv.onItemUnfavorited($event)"
+		(bottomReached)="dataSrv.loadMore()"
+		(sort)="dataSrv.sort($event)"
 		(openRequestQuotationDialog)="openRequestQuotationDialog($event)"
 		(delete)="deassociateProductById($event)">
 	</project-product-list-app>
 
 	<selection-bar-app
-		[isShown]="(selected$ | async).size > 0"
-		[selection]="selected$ | async"
+		[isShown]="(selectionSrv.selection$ | async).size > 0"
+		[selection]="(selectionSrv.selection$ | async)"
 		[hasDelete]="false"
-		(close)="resetSelection()"
-		(delete)="deleteSelected()">
+		(close)="selectionSrv.unselectAll()"
+		(delete)="dataSrv.deleteSelected()">
 
 		<action-bar-app
-			[favorite]="allSelectedFavorite"
+			[favorite]="selectionSrv.allSelectedFavorite"
 			[multiple]="true"
-			(onFavorite)="onFavoriteAllSelected()"
-			(onUnfavorite)="onUnfavoriteAllSelected()"
-			(liked)="onMultipleThumbUp($event)"
-			(disliked)="onMultipleThumbDown($event)">
+			(onFavorite)="dataSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
+			(liked)="dataSrv.onMultipleThumbUp($event)"
+			(disliked)="dataSrv.onMultipleThumbDown($event)">
 
 			<!-- <button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app name="folder-light" fontSet="svg"></icon-app>
@@ -62,10 +62,10 @@
 	</selection-bar-app>
 
   <product-preview-app
-		*ngIf="previewOpen"
-		[product]="previewed"
-		(close)="closePreview()"
-		(clickOutside)="closePreview()">
+		*ngIf="viewSrv.previewOpen"
+		[product]="viewSrv.previewed"
+		(close)="viewSrv.closePreview()"
+		(clickOutside)="viewSrv.closePreview()">
 	</product-preview-app>
 </ng-container>
 

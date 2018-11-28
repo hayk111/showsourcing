@@ -12,7 +12,8 @@ import {
 import { DialogService } from '~shared/dialog';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { MergeDialogComponent } from '~shared/custom-dialog';
-
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 
 @Injectable({ providedIn: 'root' })
 export class CommonDialogService {
@@ -21,6 +22,9 @@ export class CommonDialogService {
 	editDlgComponent = EditionDialogComponent;
 	/** dialog to create an entity (can be overidden) */
 	createDlgComponent = CreationDialogComponent;
+
+	confirmDialogComponent = ConfirmDialogComponent;
+	inviteUserDlgComponent = InviteUserDlgComponent;
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -52,23 +56,23 @@ export class CommonDialogService {
 	}
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	openAddToProjectDialog(product: Product) {
+	openAddToProjectDialog(products?: Product[]) {
 		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectionValues()
+			selectedProducts: products ? products : this.getSelectionValues()
 		});
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(product: Product) {
+	openExportDialog(products?: Product[]) {
 		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectionValues()
+			selectedProducts: products ? products : this.getSelectionValues()
 		});
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	openRequestFeedbackDialog(product: Product) {
+	openRequestFeedbackDialog(products?: Product[]) {
 		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectionValues()
+			selectedProducts: products ? products : this.getSelectionValues()
 		});
 	}
 
@@ -79,12 +83,36 @@ export class CommonDialogService {
 		});
 	}
 
+	openFindProductDlg(products: Product[], callback: any) {
+		this.dlgSrv.openFromModule(this.createDlgComponent, this.moduleRef, {
+			type: this.entityMetadata,
+			shouldRedirect: false,
+			initialSelectedProducts: products,
+			submitCallback: callback
+		});
+	}
+
+	openConfirmDialog(data: {
+		text: string,
+		callback: any
+	}) {
+		this.dlgSrv.open(ConfirmDialogComponent, data);
+	}
+
 	openRequestQuotationDialog(product: Product) {
 		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product });
 	}
 
 	openMergeDialog(data: { type: any, entities: any[] }) {
 		this.dlgSrv.openFromModule(MergeDialogComponent, this.moduleRef, data);
+	}
+
+	openInvitationDialog(callback?: any) {
+		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef, callback);
+	}
+
+	public close() {
+		this.dlgSrv.close();
 	}
 
 	private getSelectionValues() {

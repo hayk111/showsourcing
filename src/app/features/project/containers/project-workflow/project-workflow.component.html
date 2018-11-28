@@ -19,10 +19,10 @@
 		<product-card-app
 			[product]="data"
 			[enablePreviewLink]="true"
-			[checked]="(selected$ | async).has(data.id)"
-			(clickImage)="openPreview(data)"
-			(select)="onItemSelected($event, true)"
-			(unselect)="onItemUnselected($event, true)">
+			[checked]="(selectionSrv.selection$ | async).has(data.id)"
+			(clickImage)="viewSrv.openPreview(data)"
+			(select)="selectionSrv.selectOne($event, true)"
+			(unselect)="selectionSrv.unselectOne($event, true)">
 		</product-card-app>
 	</ng-template>
 
@@ -51,24 +51,24 @@
 </ng-template> -->
 
 	<selection-bar-app
-		[isShown]="(selected$ | async).size > 0"
-		[selection]="selected$ | async"
+		[isShown]="(selectionSrv.selection$ | async).size > 0"
+		[selection]="selectionSrv.selection$ | async"
 		[hasDelete]="false"
-		(close)="resetSelection()"
-		(delete)="deleteSelected()">
+		(close)="selectionSrv.unselectAll()"
+		(delete)="dataSrv.deleteSelected()">
 
 		<action-bar-app
-			[favorite]="allSelectedFavorite"
+			[favorite]="selectionSrv.allSelectedFavorite"
 			[multiple]="true"
-			(onFavorite)="onFavoriteAllSelected()"
-			(onUnfavorite)="onUnfavoriteAllSelected()"
-			(liked)="onMultipleThumbUp($event)"
-			(disliked)="onMultipleThumbDown($event)">
+			(onFavorite)="dataSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
+			(liked)="dataSrv.onMultipleThumbUp($event)"
+			(disliked)="dataSrv.onMultipleThumbDown($event)">
 
 			<button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app name="folder-light" fontSet="svg"></icon-app>
 			</button>
-			<button class="icon light" (click)="deleteSelected()">
+			<button class="icon light" (click)="dataSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
@@ -76,8 +76,8 @@
 </div>
 
 <product-preview-app
-  *ngIf="previewOpen"
-	[product]="previewed"
-  (close)="closePreview()"
-  (clickOutside)="closePreview()">
+  *ngIf="viewSrv.previewOpen"
+	[product]="viewSrv.previewed"
+  (close)="viewSrv.closePreview()"
+  (clickOutside)="viewSrv.closePreview()">
 </product-preview-app>

@@ -3,13 +3,13 @@
     Add Products to project
   </dialog-header-app>
 
-  <div *ngIf="items$ | async as products; else spinner">
+  <div *ngIf="dataSrv.items$ | async as products; else spinner">
     <sub-panel-app
       [hasSwitch]="false"
       [hasFilter]="false"
       [buttonIcon]="false"
-      (search)="search($event)"
-      (smartSearch)="smartSearch($event)">
+      (search)="dataSrvsearch($event)"
+      (smartSearch)="dataSrvsmartSearch($event)">
 
       <search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
         <search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async);trackBy: trackByFn">
@@ -24,26 +24,26 @@
 
     <products-card-view-dialog-app
       class="list-view"
-      [selection]="selected$ | async"
+      [selection]="selectionSrv.selection$ | async"
       [rows]="products"
-      [pending]="pending"
-      (previewClick)="openPreview($event)"
-      (select)="onItemSelected($event, true)"
-      (unselect)="onItemUnselected($event, true)"
-      (selectAll)="selectAll($event, true)"
-      (unselectAll)="resetSelection()"
-      (open)="goToDetails($event)"
-      (favorited)="onItemFavorited($event)"
-      (unfavorited)="onItemUnfavorited($event)"
-      (bottomReached)="loadMore()"
-      (sort)="sort($event)"></products-card-view-dialog-app>
+      [pending]="dataSrv.pending"
+      (previewClick)="viewSrv.openPreview($event)"
+      (select)="selectionSrv.selectOne($event, true)"
+      (unselect)="selectionSrv.unselectOne($event, true)"
+			(selectAll)="selectionSrv.selectAll($event, true)"
+			(unselectAll)="selectionSrv.unselectAll()"
+      (open)="viewSrv.goToDetails($event)"
+			(favorited)="dataSrv.onItemFavorited($event)"
+			(unfavorited)="dataSrv.onItemUnfavorited($event)"
+      (bottomReached)="dataSrv.loadMore()"
+      (sort)="dataSrv.sort($event)"></products-card-view-dialog-app>
 
     <divider-app></divider-app>
 
     <div class="flexBetween footer">
       <div class="left flexCenter">
-        <ng-container	*ngIf="(selected$ | async) as selected">
-          <div *ngIf="selected.size > 0" style="align-items: center">{{selected.size}} Product{{(selected.size > 1) ? 's' : ''}} Selected</div>
+        <ng-container	*ngIf="(selectionSrv.selection$ | async) as selected">
+          <div *ngIf="(selectionSrv.selection$ | async).size > 0" style="align-items: center">{{selected.size}} Product{{(selected.size > 1) ? 's' : ''}} Selected</div>
         </ng-container>
       </div>
       <div class="right flexCenter">

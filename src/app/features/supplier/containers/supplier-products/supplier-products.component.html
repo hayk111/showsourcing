@@ -1,4 +1,4 @@
-<div *ngIf="(items$ | async)?.length || hasSearch; else empty" class="container">
+<div *ngIf="(dataSrv.items$ | async)?.length || hasSearch; else empty" class="container">
 	<sub-panel-app
 		[hasSwitch]="false"
 		[hasFilter]="false"
@@ -7,20 +7,20 @@
 		(emptySearch)="test()">
 	</sub-panel-app>
 	<div class="title"> Products
-		<div class="num-products">{{ (items$ | async)?.length }} products</div>
+		<div class="num-products">{{ (dataSrv.items$ | async)?.length }} products</div>
 	</div>
 	<div class="products-section">
-		<ng-container *ngFor="let product of items$ | async; index as i; trackBy: trackById">
+		<ng-container *ngFor="let product of dataSrv.items$ | async; index as i; trackBy: trackById">
 			<product-grid-card-app
 				[class.mg-right]="(i+1)%4 === 0"
 				[product]="product"
-				[selection]="selected$ | async"
-				(productFavorite)="onItemFavorited(product.id)"
-				(productUnfavorite)="onItemUnfavorited(product.id)"
-				(productSelect)="onItemSelected(product, true)"
-				(productUnselect)="onItemUnselected(product, true)"
-				(liked)="onThumbUp(product)"
-				(disliked)="onThumbDown(product)">
+				[selection]="selectionSrv.selection$ | async"
+				(productFavorite)="dataSrv.onItemFavorited(product.id)"
+				(productUnfavorite)="dataSrv.onItemUnfavorited(product.id)"
+				(productSelect)="selectionSrv.selectOne(product, true)"
+				(productUnselect)="selectionSrv.unselectOne(product, true)"
+				(liked)="dataSrv.onThumbUp(product)"
+				(disliked)="dataSrv.onThumbDown(product)">
 			</product-grid-card-app>
 		</ng-container>
 	</div>
@@ -36,19 +36,19 @@
 </ng-template>
 
 <selection-bar-app
-	[isShown]="(selected$ | async).size > 0"
-	[selection]="selected$ | async"
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[hasDelete]="false"
-	(close)="resetSelection()"
-	(delete)="deleteSelected()">
+	(close)="selectionSrv.unselectAll()"
+	(delete)="dataSrv.deleteSelected()">
 
 	<action-bar-app
 		[favorite]="allSelectedFavorite"
 		[multiple]="true"
-		(onFavorite)="onFavoriteAllSelected()"
-		(onUnfavorite)="onUnfavoriteAllSelected()"
-		(liked)="onMultipleThumbUp($event)"
-		(disliked)="onMultipleThumbDown($event)">
+		(onFavorite)="dataSrv.onFavoriteAllSelected()"
+		(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
+		(liked)="dataSrv.onMultipleThumbUp($event)"
+		(disliked)="dataSrv.onMultipleThumbDown($event)">
 
 		<button class="icon light" (click)="openAddToProjectDialog()">
 			<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
@@ -67,7 +67,7 @@
 			</context-menu-item-app>
 		</context-menu-app>
 
-		<button class="icon light" (click)="deleteSelected()">
+		<button class="icon light" (click)="dataSrv.deleteSelected()">
 			<icon-app name="trash-bin"></icon-app>
 		</button>
 	</action-bar-app>

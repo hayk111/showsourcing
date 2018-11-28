@@ -12,37 +12,37 @@
 
 <products-review-grid-view-app
   class="card-view"
-  [rows]="items$ | async"
-  [pending]="pending"
-  [currentSort]="currentSort"
-  [selection]="selected$ | async"
-  (previewClick)="openPreview($event)"
-  (update)="update($event)"
-  (select)="onItemSelected($event, true)"
-  (unselect)="onItemUnselected($event, true)"
-  (favorited)="onItemFavorited($event)"
-  (unfavorited)="onItemUnfavorited($event)"
+  [rows]="dataSrv.items$ | async"
+  [pending]="dataSrv.pending"
+  [currentSort]="dataSrv.currentSort"
+  [selection]="selectionSrv.selection$ | async"
+  (previewClick)="viewSrv.openPreview($event)"
+  (update)="dataSrv.update($event)"
+  (select)="selectionSrv.selectOne($event, true)"
+  (unselect)="selectionSrv.unselectOne($event, true)"
+  (favorited)="dataSrv.onItemFavorited($event)"
+  (unfavorited)="dataSrv.onItemUnfavorited($event)"
   (sendToWorkflow)="onSentToWorkflow($event)"
   (delete)="deleteUnselectOne($event)"
   (archive)="onArchive($event)"
   (statusUpdated)="onStatusUpdated($event)"
-  (open)="goToDetails($event)">
+  (open)="viewSrv.goToDetails($event)">
 </products-review-grid-view-app>
 
 <selection-bar-app
-  [isShown]="(selected$ | async).size > 0"
-  [selection]="selected$ | async"
+  [isShown]="(selectionSrv.selection$ | async).size > 0"
+  [selection]="selectionSrv.selection$ | async"
   [hasDelete]="false"
-  (close)="resetSelection()"
-  (delete)="deleteSelected()">
+  (close)="selectionSrv.unselectAll()"
+  (delete)="dataSrv.deleteSelected()">
 
   <action-bar-app
-    [favorite]="allSelectedFavorite"
+    [favorite]="selectionSrv.allSelectedFavorite"
 		[multiple]="true"
-		(onFavorite)="onFavoriteAllSelected()"
-		(onUnfavorite)="onUnfavoriteAllSelected()"
-		(liked)="onMultipleThumbUp($event)"
-		(disliked)="onMultipleThumbDown($event)">
+		(onFavorite)="dataSrv.onFavoriteAllSelected()"
+		(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
+		(liked)="dataSrv.onMultipleThumbUp($event)"
+		(disliked)="dataSrv.onMultipleThumbDown($event)">
 
     <button class="icon light" (click)="openAddToProjectDialog()">
       <icon-app name="folder-light" fontSet="svg"></icon-app>
@@ -61,16 +61,16 @@
       </context-menu-item-app>
     </context-menu-app>
 
-    <button class="icon light" (click)="deleteSelected()">
+    <button class="icon light" (click)="dataSrv.deleteSelected()">
       <icon-app name="trash-bin"></icon-app>
     </button>
   </action-bar-app>
 </selection-bar-app>
 
 <product-preview-app
-  *ngIf="previewOpen"
-  [product]="previewed"
-  (close)="closePreview()"
-  (clickOutside)="closePreview()">
+  *ngIf="viewSrv.previewOpen"
+  [product]="viewSrv.previewed"
+  (close)="viewSrv.closePreview()"
+  (clickOutside)="viewSrv.closePreview()">
 </product-preview-app>
 
