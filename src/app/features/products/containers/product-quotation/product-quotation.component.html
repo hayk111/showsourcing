@@ -1,10 +1,9 @@
 <ng-container *ngIf="(product$ | async)">
 	<quote-list-app [quotes]="quotes"
-				(hovered)="hovered($event)"
-				[selection]="selection"
-				(bottomReached)="loadMoreQuote()"
-				(previewClicked)="previewClicked($event)"
-				(openRfq)="openRfq($event)"
-				(openCompareQuotationDialog)="openCompareQuotationDialog($event)">
-			</quote-list-app>
+		(hovered)="hovered($event)"
+		(bottomReached)="loadMoreQuote()"
+		(previewClicked)="previewClicked($event)"
+		(openRfq)="openRfq($event)"
+		(openCompareQuotationDialog)="openCompareQuotationDialog($event)">
+	</quote-list-app>
 </ng-container>

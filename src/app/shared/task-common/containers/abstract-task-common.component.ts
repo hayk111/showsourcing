@@ -1,13 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy, NgModuleRef, AfterViewInit } from '@angular/core';
-import { Task, ERM } from '~models';
-import { TaskService, UserService } from '~global-services';
+import { AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TaskService, UserService } from '~global-services';
+import { ERM, Task } from '~models';
+import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { FilterType } from '~shared/filters';
 import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { FilterType } from '~shared/filters';
+import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
@@ -26,7 +27,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 	ngOnInit() {
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
-			searchedFields: ['name'],
+			searchedFields: ['name', 'supplier.name', 'product.name'],
 			initialSortBy: 'name'
 		});
 		this.dataSrv.init();
@@ -69,15 +70,5 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 
 	openSupplier(id: string) {
 		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
-	}
-
-	search(str: string) {
-		// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
-		this.currentSearch = str
-			? `name CONTAINS[c] "${str}"` +
-			` OR supplier.name CONTAINS[c] "${str}"` +
-			` OR product.name CONTAINS[c] "${str}"`
-			: '';
-		this.onPredicateChange();
 	}
 }
