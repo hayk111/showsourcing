@@ -32,6 +32,7 @@ export class SelectorComponent extends AbstractInput {
 	@Output() create = new EventEmitter<string>();
 	@Output() change = new EventEmitter<any>();
 	@Output() blur = new EventEmitter<any>();
+	@Output() closed = new EventEmitter<null>();
 	// string from input to search through the list of choices
 	searchValue = '';
 	@ViewChild('ngSelect') ngSelect: NgSelectComponent;

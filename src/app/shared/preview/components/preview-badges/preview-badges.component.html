@@ -1,10 +1,28 @@
 <div class="flexStart icon-container" *ngIf="badgesMap.has(erm.PRODUCT)">
 	<icon-app [name]="erm.PRODUCT.singular" fontSet="svg"></icon-app>
-	<!-- TODO: selector comes here -->
+	<div (click)="selectProd.open()">
+		{{ entity?.product?.name || 'Unnamed Product' }}
+	</div>
+	<selector-entity-app
+		#selectProd
+		[ngStyle]="{visibility: selectProd.visible ? 'visible' : 'hidden'}"
+		type="product"
+		[displayedValue]="entity?.product?.name"
+		(change)="update($event); selectProd.visible = false;">
+	</selector-entity-app>
 </div>
 <div class="flexStart icon-container" *ngIf="badgesMap.has(erm.SUPPLIER)">
 	<icon-app [name]="erm.SUPPLIER.singular" fontSet="svg"></icon-app>
-	<!-- TODO: selector comes here -->
+	<div (click)="selectSup.open()">
+		{{ entity?.supplier?.name || 'Unnamed Supplier' }}
+	</div>
+	<selector-entity-app
+		#selectSup
+		[ngStyle]="{visibility: selectSup.visible ? 'visible' : 'hidden'}"
+		type="supplier"
+		[displayedValue]="entity?.supplier?.name"
+		(change)="update($event); selectSup.visible = false;">
+	</selector-entity-app>
 </div>
 <div class="flexStart icon-container" *ngIf="badgesMap.has(erm.LOCATION)">
 	<icon-app [name]="erm.LOCATION.singular" fontSet="svg"></icon-app>
@@ -12,5 +30,15 @@
 </div>
 <div class="flexStart icon-container" *ngIf="badgesMap.has(erm.CATEGORY)">
 	<icon-app [name]="erm.CATEGORY.singular" fontSet="svg"></icon-app>
-	<!-- TODO: selector comes here -->
+	<div (click)="selectCat.open()">
+			{{ entity?.supplier?.name || 'Unnamed Supplier' }}
+		</div>
+		<selector-entity-app
+			#selectCat
+			[ngStyle]="{visibility: selectCat.visible ? 'visible' : 'hidden'}"
+			type="supplier"
+			[multiple]="true"
+			[displayedValue]="entity?.supplier?.name"
+			(change)="update($event);">
+		</selector-entity-app>
 </div>

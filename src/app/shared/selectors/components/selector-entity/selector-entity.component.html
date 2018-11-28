@@ -9,7 +9,8 @@
 	[(ngModel)]="value"
 	(change)="onChange()"
 	(blur)="onBlur()"
-	(create)="create($event)">
+	(create)="create($event)"
+	(closed)="onClose()">
 
 	<ng-template let-item="item">
 		<ng-container *ngTemplateOutlet="template; context: { item: item }"></ng-container>

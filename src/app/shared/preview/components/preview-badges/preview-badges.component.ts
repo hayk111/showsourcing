@@ -24,6 +24,8 @@ export class PreviewBadgesComponent implements OnInit {
 	/** Map that indicates the badges that we have */
 	badgesMap = new Map();
 
+	visible = false;
+
 	constructor(private constPipe: ConstPipe) { }
 
 	ngOnInit() {
@@ -40,5 +42,9 @@ export class PreviewBadgesComponent implements OnInit {
 				locName = this.constPipe.transform(this.entity.country, 'country');
 		}
 		return locName;
+	}
+
+	update(item: any) {
+		console.log(item);
 	}
 }

@@ -5,8 +5,15 @@
 
 .icon-container {
 	margin-bottom: var(--spacing-xs);
+	position: relative;
 
 	icon-app {
 		margin-right: var(--spacing-s);
+	}
+
+	selector-entity-app {
+		position: absolute;
+    width: 95%;
+    left: 20px;
 	}
 }
