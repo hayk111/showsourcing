@@ -1,0 +1,84 @@
+:host {
+	box-sizing: border-box;
+	white-space: nowrap;
+	margin-right: var(--spacing-xs);
+
+	&.in-progress {
+		background: var(--color-in-progress);
+		color: white;
+	}
+	&.secondary {
+		background: var(--color-secondary);
+	}
+	&.secondary-light {
+		background: var(--color-secondary-light);
+	}
+	&.accent {
+		background: var(--color-accent);
+		color: white;
+	}
+	&.warn {
+		background: var(--color-warn);
+		color: white;
+	}
+	&.success {
+		background: var(--color-success);
+		color: white;
+	}
+	&.tiny {
+		font-family: var(--font-title);
+		font-size: var(--font-size-xxs);
+		font-weight: 600;
+		text-transform: uppercase;
+		text-align: center;
+		border-radius: var(--border-radius);
+		padding: 1px 5px;
+	}
+	&.mini {
+		font-family: var(--font-title);
+		font-size: var(--font-size-s);
+		font-weight: 600;
+		padding: var(--spacing-xs) var(--spacing-ms);
+		border-radius: var(--border-radius-s);
+	}
+	&.thick {
+		width: fit-content;
+		padding: var(--spacing-ms) var(--spacing-s);
+		font-weight: 600;
+	}
+	&.xsmall {
+		font-size: var(--font-size-xs);
+		font-size: 12px;
+		font-weight: bold;
+		padding: 2px var(--spacing-xs);
+		padding: 2px 8px 3px;
+		text-transform: uppercase;
+		border-radius: var(--border-radius-s);
+		font-weight: 600;
+	}
+	&.small {
+		font-size: var(--font-size-s);
+		font-weight: bold;
+		padding: 2px  var(--spacing-s);
+		min-width: 110px;
+		border-radius: var(--border-radius-s);
+		font-weight: 600;
+	}
+	&.medium {
+		height: 25px;
+		font-size: var(--font-size-m);
+		border-radius: var(--border-radius);
+		padding: var(--spacing-xs) var(--spacing-s);
+		font-weight: 600;
+	}
+	&.large {
+		height: 32px;
+		font-size: var(--font-size-m);
+		border-radius: var(--border-radius-s);
+		padding: var(--spacing-s) var(--spacing-ms);
+		font-weight: 600;
+	}
+	&.round {
+		border-radius: 500px;
+	}
+}
