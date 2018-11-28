@@ -1,3 +1,12 @@
 :host {
+	display: block;
 	text-align: left;
+}
+
+.icon-container {
+	margin-bottom: var(--spacing-xs);
+
+	icon-app {
+		margin-right: var(--spacing-s);
+	}
 }

@@ -23,9 +23,12 @@
 		(keyup.enter)="edt.close()">
 </editable-text-app>
 
-<ng-content></ng-content>
+<div class="deep-class">
+	<ng-content></ng-content>
+</div>
 
 <preview-badges-app
-	[badges]="badges">
+	[badges]="badges"
+	[supplier]="entity?.supplier">
 </preview-badges-app>
 <divider-app></divider-app>

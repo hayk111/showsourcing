@@ -11,8 +11,23 @@
 	</preview-banner-app>
 	<preview-header-app
 		[badges]="icons"
-		[entityMD]="entityMD">
+		[entityMD]="entityMD"
+		[entity]="(product$ | async)">
+		<div>test</div>
 	</preview-header-app>
+	<preview-section-app
+		[title]="'section2'">
+	</preview-section-app>
+	<preview-section-app
+		[title]="'section2'">
+		TEST
+	</preview-section-app>
+	<preview-section-app
+		[title]="'section2'">
+	</preview-section-app>
+	<preview-section-app
+		[title]="'section2'">
+	</preview-section-app>
 	<preview-section-app
 		[title]="'section2'">
 	</preview-section-app>
