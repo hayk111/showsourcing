@@ -36,8 +36,6 @@ export class WorkflowActionService {
 			case ERM.SUPPLIER: return this.supplierStatusTypes$;
 			case ERM.SAMPLE: return this.sampleStatus$;
 		}
-		// return this.ermSrv.getStatusService(typeEntity).queryAll('id, name, category, step, inWorkflow');
-
 	}
 
 	updateStatus(entity, typeEntity: EntityMetadata) {

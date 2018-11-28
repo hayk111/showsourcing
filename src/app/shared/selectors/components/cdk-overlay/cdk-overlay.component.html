@@ -5,11 +5,5 @@
 	[cdkConnectedOverlayOffsetX]="offsetX"
 	[cdkConnectedOverlayOffsetY]="offsetY"
 	[cdkConnectedOverlayOpen]="isOpen">
-	<selector-entity-app
-		#selector
-		[ngStyle]="selectorStyle()"
-		[type]="type"
-		(clickOutside)="close.emit()"
-		(change)="update($event)">
-	</selector-entity-app>
+	<ng-content></ng-content>
 </ng-template>

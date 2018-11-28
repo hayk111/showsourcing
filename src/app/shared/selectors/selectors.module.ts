@@ -10,13 +10,13 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
 import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
 import { UserPictureModule } from '~shared/user-picture';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { CdkSelectorEntityComponent } from './components/cdk-selector-entity/cdk-selector-entity.component';
+import { CdkOverlayComponent } from './components/cdk-overlay/cdk-overlay.component';
 
 const components = [
 	SelectorComponent,
 	SelectorEntityComponent,
 	SelectorConstComponent,
-	CdkSelectorEntityComponent
+	CdkOverlayComponent
 ];
 
 @NgModule({
