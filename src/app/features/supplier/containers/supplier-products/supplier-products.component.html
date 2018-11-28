@@ -45,10 +45,10 @@
 	<action-bar-app
 		[favorite]="allSelectedFavorite"
 		[multiple]="true"
-		(onFavorite)="onFavoriteAllSelected()"
-		(onUnfavorite)="onUnfavoriteAllSelected()"
-		(liked)="onMultipleThumbUp($event)"
-		(disliked)="onMultipleThumbDown($event)">
+		(onFavorite)="dataSrv.onFavoriteAllSelected()"
+		(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
+		(liked)="dataSrv.onMultipleThumbUp($event)"
+		(disliked)="dataSrv.onMultipleThumbDown($event)">
 
 		<button class="icon light" (click)="openAddToProjectDialog()">
 			<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>

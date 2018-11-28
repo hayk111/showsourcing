@@ -40,14 +40,15 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 	}
 
 	ngOnInit() {
+
+		const id = this.route.parent.snapshot.params.id;
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
 			searchedFields: ['name'],
-			initialSortBy: 'name'
+			initialSortBy: 'name',
+			initialPredicate: `supplier.id == "${id}"`
 		});
 		this.dataSrv.init();
-		const id = this.route.parent.snapshot.params.id;
-		this.dataSrv.initialPredicate = `supplier.id == "${id}"`;
 	}
 
 	search(event: any) {

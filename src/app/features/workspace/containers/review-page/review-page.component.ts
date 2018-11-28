@@ -60,16 +60,13 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
-			searchedFields: ['name'],
-			initialSortBy: 'name'
+			searchedFields: ['supplier.name'],
+			initialSortBy: 'supplier.name',
+			initialPredicate: `deleted == false && archived == false && status == null`
 		});
 		this.dataSrv.init();
 
 		this.selectionSrv.unselectAll();
-
-		this.dataSrv.initialPredicate = `deleted == false && archived == false && status == null`;
-		this.dataSrv.initialSortBy = 'supplier.name';
-
 
 		this.selected$ = this.selectionSrv.selection$;
 

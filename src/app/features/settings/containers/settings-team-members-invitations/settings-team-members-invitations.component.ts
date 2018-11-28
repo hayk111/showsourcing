@@ -42,7 +42,7 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
 			searchedFields: ['name'],
-			initialSortBy: 'name'
+			initialSortBy: 'email'
 		});
 		this.dataSrv.init();
 		/* this.selected$.pipe(

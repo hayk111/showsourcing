@@ -11,7 +11,6 @@ export class SelectionService {
 	selection$ = this._selection$.asObservable();
 
 	emit() {
-		console.log(this.selection);
 		this._selection$.next(this.selection);
 	}
 

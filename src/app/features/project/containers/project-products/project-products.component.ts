@@ -53,13 +53,13 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 		this.projectId = id;
 		this.project$ = this.projectSrv.queryOne(id);
 		this.project$.subscribe(proj => this.project = proj);
-		this.dataSrv.initialPredicate = `projects.id == "${id}" AND deleted == false`;
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
 		// whne the id is there
 		this.dataSrv.setup({
 			featureSrv: this.productSrv,
 			searchedFields: ['name'],
-			initialSortBy: 'name'
+			initialSortBy: 'name',
+			initialPredicate: `projects.id == "${id}" AND deleted == false`
 		});
 		this.dataSrv.init();
 
