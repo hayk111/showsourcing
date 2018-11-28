@@ -42,8 +42,8 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 	ngOnInit() {
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
-			searchedFields: ['user.firstName'],
-			initialSortBy: 'user.firstName'
+			searchedFields: ['name'],
+			initialSortBy: 'name'
 		});
 		this.dataSrv.init();
 		const id = this.route.parent.snapshot.params.id;

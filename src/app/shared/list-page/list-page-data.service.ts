@@ -291,5 +291,4 @@ export class ListPageDataService
 	private getSelectionIds() {
 		return this.selectionSrv.getSelectionIds();
 	}
-
 }

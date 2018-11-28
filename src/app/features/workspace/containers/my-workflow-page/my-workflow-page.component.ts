@@ -51,8 +51,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
-			searchedFields: ['user.firstName'],
-			initialSortBy: 'user.firstName'
+			searchedFields: ['name'],
+			initialSortBy: 'name'
 		});
 		this.dataSrv.init();
 		this.selectionSrv.unselectAll();
