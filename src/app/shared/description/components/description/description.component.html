@@ -1,0 +1,15 @@
+<div class="descripton-container">
+	<editable-field-app #editable [inlineLabel]="false" (closed)="updateDescription($event, inpDescription.value)"
+		(opened)="inpDescription.select();"
+		[canGrow]="true">
+		<label-app>Description</label-app>
+		<editable-label-app>
+			{{ (description.length && description) || '-' }}
+		</editable-label-app>
+		<form-field-app>
+			<textarea inputApp #inpDescription autofocus="true" [value]="description"
+			(keyup.enter)="updateDescription(false, inpDescription.value)">
+			</textarea>
+		</form-field-app>
+	</editable-field-app>
+</div>
