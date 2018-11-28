@@ -29,6 +29,6 @@
 
 <preview-badges-app
 	[badges]="badges"
-	[entity]="entity">
+	[entity]="entity"
+	(update)="update.emit($event)">
 </preview-badges-app>
-<divider-app></divider-app>
