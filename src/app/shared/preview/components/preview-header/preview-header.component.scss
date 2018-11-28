@@ -17,6 +17,14 @@
 	}
 }
 
+.top-section {
+	.left {
+		icon-app {
+			margin-right: var(--spacing-s);
+		}
+	}
+}
+
 editable-text-app {
 	width: auto;
 }

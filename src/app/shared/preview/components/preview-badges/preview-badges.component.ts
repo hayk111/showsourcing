@@ -11,15 +11,18 @@ import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 export class PreviewBadgesComponent implements OnInit {
 
 	/** array of names for icons that are going to be displayed */
-	@Input() badges: EntityMetadata[];
+	@Input() set badges(badges: EntityMetadata[]) {
+		badges.forEach(badge => {
+			this.badgesMap.set(badge, true);
+		});
+	}
 	/** supplier only if it's on the badge list, location will be extracted from supplier */
-	@Input() supplier: Supplier;
-	/** product only if it's on the badge list */
-	@Input() product: Product;
-	/** categories only if it's on the badge list */
-	@Input() category: Category[];
+	@Input() entity: any;
 
 	erm = ERM;
+
+	/** Map that indicates the badges that we have */
+	badgesMap = new Map();
 
 	constructor(private constPipe: ConstPipe) { }
 
@@ -28,13 +31,14 @@ export class PreviewBadgesComponent implements OnInit {
 
 	getSupplierLocation() {
 		let locName = '-';
-		if (this.supplier) {
-			if (this.supplier.city && this.supplier.country)
-				locName = this.supplier.city + ', ' + this.constPipe.transform(this.supplier.country, 'country');
-			else if (this.supplier.city)
-				locName = this.supplier.city;
+		if (this.entity) {
+			if (this.entity.city && this.entity.country)
+				locName = this.entity.city + ', ' + this.constPipe.transform(this.entity.country, 'country');
+			else if (this.entity.city)
+				locName = this.entity.city;
 			else
-				locName = this.supplier.country;
+				locName = this.constPipe.transform(this.entity.country, 'country');
 		}
+		return locName;
 	}
 }

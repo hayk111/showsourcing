@@ -1,7 +1,7 @@
 <div class="top-section flexBetween">
 	<div class="left flex">
 		<icon-app [name]="getIcon()" fontSet="svg"></icon-app>
-		{{ entityMD?.singular }}
+		<span>{{ entityMD?.singular }}</span>
 	</div>
 	<div class="right">
 		<workflow-action-app
@@ -29,6 +29,6 @@
 
 <preview-badges-app
 	[badges]="badges"
-	[supplier]="entity?.supplier">
+	[entity]="entity">
 </preview-badges-app>
 <divider-app></divider-app>

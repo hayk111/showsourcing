@@ -5,7 +5,7 @@
 	[ngStyle]="{'transform': getRotation(getImg())}">
 		<img-app
 			#imgApp
-			*ngIf="images.length !== 0"
+			*ngIf="images?.length !== 0"
 			[image]="getImg()"
 			[size]="'xl'"
 			[objectFit]="objectFit"
@@ -14,7 +14,7 @@
 		</img-app>
 	</div>
 
-  <spinner-app *ngIf="getImg().pending" size="xl"></spinner-app>
+  <spinner-app *ngIf="getImg()?.pending" size="xl"></spinner-app>
 	<!-- actions buttons -->
 
 	<!-- move back -->
@@ -25,7 +25,7 @@
 
 	<!-- move next -->
 	<div class="move-btn next flexCenter circle pointer btn action"
-		(mousedown)="next($event)" *ngIf="selectedIndex < (images.length - 1)">
+		(mousedown)="next($event)" *ngIf="selectedIndex < (images?.length - 1)">
 		<icon-app  fontSet="fa" name="angle-right" color="white"></icon-app>
 	</div>
 

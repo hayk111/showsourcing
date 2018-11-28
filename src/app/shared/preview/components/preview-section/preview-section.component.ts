@@ -9,7 +9,6 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class PreviewSectionComponent implements OnInit {
 
 	@Input() title: string;
-	@Input() last = false;
 
 	constructor() { }
 

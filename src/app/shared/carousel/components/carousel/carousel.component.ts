@@ -91,11 +91,11 @@ export class CarouselComponent implements OnInit {
 	}
 
 	getImg() {
-		return this.images[this.selectedIndex];
+		return this.images ? this.images[this.selectedIndex] : null;
 	}
 
 	getId() {
-		return this.images[this.selectedIndex].id;
+		return this.images ? this.images[this.selectedIndex].id : null;
 	}
 
 	getRotation(img) {
