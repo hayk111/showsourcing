@@ -13,7 +13,7 @@ export class PreviewPageComponent implements OnInit {
 
 	toggle = false;
 	selectedIndex = 0;
-	icons = [ERM.PRODUCT, ERM.SUPPLIER];
+	erm = ERM;
 	entityMD = ERM.PRODUCT;
 	product$: Observable<Product>;
 
@@ -40,5 +40,18 @@ export class PreviewPageComponent implements OnInit {
 	closeModal() {
 		this.modalOpen = false;
 	}
+
+	// getSupplierLocation() {
+	// 	let locName = '-';
+	// 	if (this.entity) {
+	// 		if (this.entity.city && this.entity.country)
+	// 			locName = this.entity.city + ', ' + this.constPipe.transform(this.entity.country, 'country');
+	// 		else if (this.entity.city)
+	// 			locName = this.entity.city;
+	// 		else
+	// 			locName = this.constPipe.transform(this.entity.country, 'country');
+	// 	}
+	// 	return locName;
+	// }
 
 }

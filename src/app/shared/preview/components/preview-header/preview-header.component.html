@@ -27,8 +27,6 @@
 	<ng-content></ng-content>
 </div>
 
-<preview-badges-app
-	[badges]="badges"
-	[entity]="entity"
-	(update)="update.emit($event)">
-</preview-badges-app>
+<div class="deep-class">
+	<ng-content select="preview-badge-app"></ng-content>
+</div>

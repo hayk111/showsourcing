@@ -10,9 +10,21 @@
 		</carousel-app>
 	</preview-banner-app>
 	<preview-header-app
-		[badges]="icons"
 		[entityMD]="entityMD"
 		[entity]="(product$ | async)">
+		<preview-badge-app
+			[badge]="erm.PRODUCT"
+			[value]="(product$ | async)?.name">
+		</preview-badge-app>
+		<preview-badge-app
+			[badge]="erm.SUPPLIER"
+			[value]="(product$ | async)?.supplier?.name">
+		</preview-badge-app>
+		<preview-badge-app
+			[badge]="erm.CATEGORY"
+			[multiple]="true"
+			[value]="(product$ | async)?.supplier?.categories">
+		</preview-badge-app>
 		<div>test</div>
 	</preview-header-app>
 	<preview-section-app

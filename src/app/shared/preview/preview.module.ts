@@ -10,13 +10,15 @@ import {
 } from './components';
 import { SharedModule } from '~shared/shared.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
-		WorkflowActionModule
+		WorkflowActionModule,
+		FormsModule
 	],
 	declarations: [
 		PreviewComponent,

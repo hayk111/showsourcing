@@ -63,20 +63,14 @@ export class SelectorEntityComponent extends AbstractInput {
 		switchMap(type => this.getChoices(type))
 	);
 
-	// this variable indicates outer components if its closed or open
-	visible = false;
-
-
 	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {
 		super(cd);
 	}
 
 	/** opens the selector, is used when we want to open it programatically */
 	open() {
-		if (this.selector) {
+		if (this.selector)
 			this.selector.open();
-			this.visible = true;
-		}
 	}
 
 	onChange() {
@@ -98,7 +92,6 @@ export class SelectorEntityComponent extends AbstractInput {
 	}
 
 	onClose() {
-		this.visible = false;
 		this.closed.emit();
 	}
 
