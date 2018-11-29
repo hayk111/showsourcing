@@ -1,6 +1,8 @@
 
 <top-panel-app
 	[title]="(team$ | async)?.name"
+	[isModifiable]="true"
+	(update)="updateTeamName($event)"
 	[subtitles]="['Settings', 'Team Members']"
 	buttonName="Create New Team"
 	[buttonIcon]="false"

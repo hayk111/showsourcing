@@ -43,7 +43,8 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub  implements OnI
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
 			searchedFields: ['user.firstName'],
-			initialSortBy: 'user.firstName'
+			initialSortBy: 'user.firstName',
+			initialPredicate: ''
 		});
 		this.dataSrv.init();
 

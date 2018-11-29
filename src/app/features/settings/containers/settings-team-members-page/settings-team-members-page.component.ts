@@ -1,17 +1,17 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'subscriptions-transport-ws';
+import { Observable, Subject } from 'rxjs';
 import { TeamService } from '~entity-services';
 import { Team } from '~models';
+import { take } from 'rxjs/operators';
 import { DialogService } from '~shared/dialog/services';
 
 @Component({
 	selector: 'settings-team-members-page-app',
 	templateUrl: './settings-team-members-page.component.html',
-	styleUrls: ['./settings-team-members-page.component.scss'],
+	styleUrls: ['./settings-team-members-page.component.scss']
 })
 export class SettingsTeamMembersPageComponent implements OnInit {
-
 	team$: Observable<Team>;
 	selectedTab = 'team-members';
 
@@ -21,8 +21,7 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 		protected router: Router,
 		protected route: ActivatedRoute,
 		private teamSrv: TeamService
-	) {
-	}
+	) {}
 
 	ngOnInit() {
 		this.team$ = this.teamSrv.teamSelected$;
@@ -37,5 +36,12 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 	redirectNewTeamScreen() {
 		this.router.navigate(['user', 'create-a-team']);
 	}
-
+	updateTeamName(newName: string) {
+		if (newName.length) {
+			this.team$.pipe(take(1)).subscribe(team => {
+				team.name = newName;
+				this.teamSrv.update(team);
+			});
+		}
+	}
 }
