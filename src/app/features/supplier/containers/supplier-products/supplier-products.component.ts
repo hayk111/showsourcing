@@ -17,9 +17,9 @@ import { CommonDialogService } from '~shared/custom-dialog/services/common-dialo
 	styleUrls: ['./supplier-products.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.TEAM_USER, ERM.TEAM_USER),
+		ListPageProviders.getProviders(ProviderKey.SUPPLIER_PRODUCT, ERM.PRODUCT),
 		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.TEAM_USER }]
+		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }]
 })
 export class SupplierProductsComponent extends TrackingComponent implements OnInit {
 

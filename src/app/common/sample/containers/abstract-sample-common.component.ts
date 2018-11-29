@@ -8,8 +8,10 @@ import { ListPageComponent } from '~core/list-page/list-page.component';
 import { SelectionService } from '~core/list-page/selection.service';
 
 /** since we use the sample component on different pages, this page will keep the methods clean */
-export abstract class AbstractSampleCommonComponent extends ListPageComponent<Sample, SampleService> implements OnInit {
+export abstract class AbstractSampleCommonComponent extends  implements OnInit {
 
+
+	//ListPageComponent<Sample, SampleService>
 	constructor(
 		protected router: Router,
 		protected userSrv: UserService,
