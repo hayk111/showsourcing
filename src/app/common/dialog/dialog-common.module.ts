@@ -24,11 +24,7 @@ import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component'
 @NgModule({
 	imports: [
 		CommonModule,
-		DialogModule,
 		SharedModule,
-		SearchBarModule,
-		StageIndicatorModule,
-		CarouselModule
 	],
 	declarations: [
 		CreationDialogComponent,

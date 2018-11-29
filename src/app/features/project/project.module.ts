@@ -34,26 +34,10 @@ import { StatusSelectorModule } from '~shared/status-selector/status-selector.mo
 
 @NgModule({
 	imports: [
-		SharedModule,
-		// EffectsModule.forFeature(effects),
 		RouterModule.forChild(routes),
-		SideMenuModule, // side nav
-		TopPanelModule, // bread crumb at the top left
-		SelectionBarModule, // used for when selecting an item
-		TableModule, // used in list
-		RatingModule,
-		SidenavModule,
-		BadgeModule,
-		FileModule,
-		Workflow2Module,
+		SharedModule,
 		DialogCommonModule,
-		ActionBarModule,
-		DialogModule,
-		SearchAutocompleteModule,
 		ProductCommonModule,
-		StatusSelectorModule,
-		FiltersModule,
-		KanbanModule
 	],
 	declarations: [
 		ProjectsPageComponent,
