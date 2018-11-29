@@ -3,8 +3,7 @@
     title="My Projects"
     [subtitles]="['Projects', 'all']"
     buttonName="Add Project"
-    (buttonClick)="commonDlgSrv.openCreateDlg(true)"
-  >
+    (buttonClick)="commonDlgSrv.openCreateDlg(true)">
   </top-panel-app>
 
   <sub-panel-app
@@ -13,10 +12,8 @@
     [buttonIcon]="false"
     [filtersAmount]="dataSrv.filterList.asFilters().length"
     (search)="dataSrv.search($event)"
-    (showFilters)="viewSrv.openFilterPanel()"
-  >
+    (showFilters)="viewSrv.openFilterPanel()" >
   </sub-panel-app>
-  <!-- <ng-container *ngIf="(selectionSrv.selected$ | async) as selected"> -->
   <projects-list-view-app
     (select)="selectionSrv.selectOne($event, true)"
     (unselect)="selectionSrv.unselectOne($event, true)"
@@ -27,17 +24,14 @@
     [rows]="projects"
     [pending]="dataSrv.pending"
     (bottomReached)="dataSrv.loadMore()"
-    (delete)="dataSrv.deleteOne($event)"
-  ></projects-list-view-app>
-  <!-- </ng-container> -->
+    (delete)="dataSrv.deleteOne($event)"></projects-list-view-app>
 
   <selection-bar-app
     [isShown]="(selectionSrv.selection$ | async).size > 0"
     [selection]="selectionSrv.selection$ | async"
     [hasDelete]="false"
     (close)="selectionSrv.unselectAll()"
-    (delete)="dataSrv.deleteSelected()"
-  >
+    (delete)="dataSrv.deleteSelected()" >
     <action-bar-app [hasHeart]="false" [hasLikes]="false">
       <button class="icon light" (click)="dataSrv.deleteSelected()">
         <icon-app name="trash-bin" size="m"></icon-app>
@@ -49,8 +43,7 @@
     [filterList]="dataSrv.filterList"
     [filterTypes]="filterTypes"
     (clickOutside)="viewSrv.closeFilterPanel()"
-    *ngIf="viewSrv.filterPanelOpen"
-  >
+    *ngIf="viewSrv.filterPanelOpen">
   </filters-app>
 </ng-container>
 

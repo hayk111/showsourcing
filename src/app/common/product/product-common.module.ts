@@ -11,7 +11,6 @@ import { FiltersModule } from '~shared/filters';
 import { RatingModule } from '~shared/rating/rating.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SharedModule } from '~shared/shared.module';
-import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table/table.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
@@ -23,6 +22,8 @@ import {
 	ProductsListViewComponent,
 	ProductSortingMenuComponent,
 	ProductsCardViewDialogComponent,
+	MoqComponent,
+	StatsIconsComponent,
 } from './components';
 import {
 	ProductPreviewComponent,
@@ -42,7 +43,6 @@ import {
 		RatingModule,
 		WorkflowActionModule,
 		ActionBarModule,
-		StatusModule,
 		FiltersModule,
 		DynamicFormsModule,
 		ReactiveFormsModule,
@@ -57,7 +57,9 @@ import {
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
 		ProductPreviewComponent,
-		ProductCardComponent
+		ProductCardComponent,
+		MoqComponent,
+		StatsIconsComponent
 	],
 	exports: [
 		FindProductsDialogComponent,
@@ -66,7 +68,9 @@ import {
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
 		ProductPreviewComponent,
-		ProductCardComponent
+		ProductCardComponent,
+		MoqComponent,
+		StatsIconsComponent
 	],
 	entryComponents: [FindProductsDialogComponent],
 	providers: []

@@ -44,11 +44,11 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
 import { TaskCommonModule } from '~common/task';
-import { CustomDialogModule } from '~shared/custom-dialog';
+import { DialogCommonModule } from '~common/dialog';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ERM_TOKEN, ERM } from '~models';
 import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
 import { SampleCommonModule } from '~common/sample';
@@ -58,7 +58,7 @@ import { SampleCommonModule } from '~common/sample';
 		RouterModule.forChild(routes),
 		FileModule, // file-card
 		DynamicFormsModule,
-		CustomDialogModule,
+		DialogCommonModule,
 		CarouselModule,
 		TopPanelModule,
 		DialogModule, // used by new contact dialog

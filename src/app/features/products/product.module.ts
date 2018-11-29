@@ -28,7 +28,7 @@ import { ProductFeatureService, QuoteFeatureService } from '~features/products/s
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
-import { CustomDialogModule } from '~shared/custom-dialog';
+import { DialogCommonModule } from '~common/dialog';
 import { DialogModule } from '~shared/dialog/dialog.module';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { FileModule } from '~shared/file';
@@ -39,7 +39,6 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
-import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
 import { TaskCommonModule } from '~common/task';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
@@ -74,9 +73,8 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		WorkflowActionModule,
 		StageIndicatorModule,
 		ActionBarModule,
-		CustomDialogModule,
+		DialogCommonModule,
 		ActivityCommonModule,
-		StatusModule,
 		ProductCommonModule,
 		UtilsModule,
 		TaskCommonModule,

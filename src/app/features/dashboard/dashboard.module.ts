@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 import { routes } from '~features/dashboard/routes';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { DialogModule } from '~shared/dialog';
-import { CustomDialogModule } from '~shared/custom-dialog';
-import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
+import { DialogCommonModule } from '~common/dialog';
+import { ProductDialogService } from '~common/dialog/services/product-dialog.service';
 import { UtilsModule } from '~shared/utils';
 import { LoadersModule } from '~shared/loaders';
 import { SummaryComponent } from '~features/dashboard/components/summary/summary.component';
@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
 		RouterModule.forChild(routes),
 		ActivityCommonModule,
 		DialogModule,
-		CustomDialogModule,
+		DialogCommonModule,
 		RatingModule,
 	],
 	declarations: [

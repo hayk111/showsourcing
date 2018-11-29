@@ -7,6 +7,8 @@ import { UtilsModule } from '~shared/utils';
 import { InputsModule } from '~shared/inputs';
 import { InputPriceInlineComponent } from './components/input-price-inline/input-price-inline.component';
 import { IconsModule } from '~shared/icons';
+import { InputDescriptionComponent } from './components/input-description/input-description.component';
+import { EditableFieldModule } from '~shared/editable-field';
 
 @NgModule({
 	imports: [
@@ -16,9 +18,10 @@ import { IconsModule } from '~shared/icons';
 		SelectorsModule,
 		IconsModule,
 		UtilsModule,
-		InputsModule
+		InputsModule,
+		EditableFieldModule
 	],
-	declarations: [InputPriceComponent, InputPriceInlineComponent],
-	exports: [InputPriceComponent, InputPriceInlineComponent]
+	declarations: [InputPriceComponent, InputPriceInlineComponent, InputDescriptionComponent],
+	exports: [InputPriceComponent, InputPriceInlineComponent, InputDescriptionComponent]
 })
 export class InputsCustomModule { }

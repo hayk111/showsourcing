@@ -14,21 +14,23 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SharedModule } from '~shared/shared.module';
 import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		SharedModule,
+		ReactiveFormsModule,
+		RouterModule.forChild([]),
 		SearchBarModule,
 		FiltersModule,
 		IconsModule,
 		LoadersModule,
-		RouterModule.forChild([]),
 		CardModule,
 		DividerModule,
 		SearchAutocompleteModule,
-		FormsModule
+		FormsModule,
+		ContextMenuModule
 	],
 	declarations: [
 		TopPanelComponent,

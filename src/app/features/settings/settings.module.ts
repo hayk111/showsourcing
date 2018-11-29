@@ -25,7 +25,7 @@ import { routes } from '~features/settings/routes';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
-import { CustomDialogModule } from '~shared/custom-dialog/custom-dialog.module';
+import { DialogCommonModule } from '~common/dialog/dialog-common.module';
 import { DialogModule } from '~shared/dialog/dialog.module';
 import { FileModule } from '~shared/file';
 import { SelectionBarModule } from '~shared/selection-bar';
@@ -48,7 +48,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		ContextMenuModule,
 		SidenavModule,
 		FileModule,
-		CustomDialogModule
+		DialogCommonModule
 	],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,

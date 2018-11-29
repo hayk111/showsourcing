@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
 import { NotificationService, NotificationType } from '~shared/notifications';

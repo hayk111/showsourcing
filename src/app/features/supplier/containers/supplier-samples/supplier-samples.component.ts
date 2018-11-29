@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '~global-services';
 import { SampleService } from '~global-services/sample/sample.service';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { FilterType, SearchService } from '~shared/filters';
 import { SelectionService } from '~core/list-page/selection.service';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';

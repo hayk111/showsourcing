@@ -1,25 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BadgeModule } from '~shared/badge';
+import { BadgeModule } from '~shared/badge/badge.module';
 import { DividerModule } from '~shared/divider/divider.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import {
 	SearchAutocompleteDividerComponent,
-} from '~shared/search-autocomplete/components/search-autocomplete-divider/search-autocomplete-divider.component';
+
+} from './components/search-autocomplete-divider/search-autocomplete-divider.component';
 import {
 	SearchAutocompleteItemContentComponent,
-} from '~shared/search-autocomplete/components/search-autocomplete-item-content/search-autocomplete-item-content.component';
+} from './components/search-autocomplete-item-content/search-autocomplete-item-content.component';
 import {
 	SearchAutocompleteItemComponent,
-} from '~shared/search-autocomplete/components/search-autocomplete-item/search-autocomplete-item.component';
+} from './components/search-autocomplete-item/search-autocomplete-item.component';
 import {
 	SearchAutocompleteTriggerComponent,
-} from '~shared/search-autocomplete/components/search-autocomplete-trigger/search-autocomplete-trigger.component';
+} from './components/search-autocomplete-trigger/search-autocomplete-trigger.component';
 import {
 	SearchAutocompleteComponent,
-} from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
+} from './components/search-autocomplete/search-autocomplete.component';
 import { UtilsModule } from '~shared/utils';
-import { SharedModule } from '~shared/shared.module';
+import { ImageModule } from '~shared/image/image.module';
 
 @NgModule({
 	imports: [
@@ -28,7 +29,7 @@ import { SharedModule } from '~shared/shared.module';
 		DividerModule,
 		InputsModule,
 		BadgeModule,
-		SharedModule
+		ImageModule
 	],
 	declarations: [
 		SearchAutocompleteComponent, SearchAutocompleteTriggerComponent,

@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModuleRef } from '@angular/core';
 import { ERM } from '~models';
 import { Observable } from 'rxjs';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
 import { NewTaskDlgComponent } from '~features/tasks/containers/new-task-dlg/new-task-dlg.component';
 import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';

@@ -6,7 +6,7 @@ import { Contact } from '~models/contact.model';
 import { Product, Attachment } from '~models';
 import { AutoUnsub } from '~utils';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { takeUntil, map, switchMap, tap } from 'rxjs/operators';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { ActivityService } from '~common/activity/services/activity.service';

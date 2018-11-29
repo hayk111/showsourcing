@@ -1,18 +1,22 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RatingModule } from '~shared/rating';
 import { BadgeModule } from '~shared/badge/badge.module';
-import { SharedModule } from '~shared/shared.module';
-
-import {
-	FilterSelectionEntityPanelComponent,
-	FiltersComponent,
-} from '~shared/filters/components';
+import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/filters/components';
 import { FilterBtnListComponent } from '~shared/filters/components/filter-btn-list/filter-btn-list.component';
+import { RatingModule } from '~shared/rating';
+import { CommonModule } from '@angular/common';
+import { LoadersModule } from '~shared/loaders';
+import { InputsModule } from '~shared/inputs';
+import { PanelModule } from '~shared/panel/panel.module';
+import { IconsModule } from '~shared/icons';
 
 @NgModule({
 	imports: [
-		SharedModule,
+		CommonModule,
+		LoadersModule,
+		InputsModule,
+		IconsModule,
+		PanelModule,
 		FormsModule,
 		ReactiveFormsModule,
 		RatingModule,

@@ -9,8 +9,8 @@ import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-} from '~shared/custom-dialog';
-import { DialogService } from '~shared/dialog';
+} from '~common/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { SearchService } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
@@ -21,7 +21,7 @@ import {
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
 import { ProductQueries } from '~global-services/product/product.queries';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';

@@ -11,7 +11,7 @@ import {
 import { first } from 'rxjs/operators';
 import { ImageService } from '~global-services/image/image.service';
 import { AppImage } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
 import { PendingImage } from '~utils/pending-image.class';

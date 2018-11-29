@@ -18,7 +18,7 @@ The app is divided like this:
 	- QuoteCommonModule
 	- ActivityCommonModule
 	- CommentsCommonModule
-  - ModalsModule (CustomDialogModule)
+  - ModalsModule (DialogCommonModule)
 	- Filters
 - shared: SharedModule containing all the decoupled modules. So we only imports SharedModule
   - all others in shared
