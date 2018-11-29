@@ -5,7 +5,7 @@ import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { TaskService, UserService } from '~global-services';
+import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 

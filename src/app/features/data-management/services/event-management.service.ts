@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EventService, UserService } from '~global-services';
+import { EventService, UserService } from '~entity-services';
 import { Apollo } from 'apollo-angular';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 

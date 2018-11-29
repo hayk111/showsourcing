@@ -7,7 +7,7 @@ import { environment } from 'environments/environment';
 import { Observable, Observer, Subject, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
-import { RealmServerService } from '~global-services/realm-server/realm-server.service';
+import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';

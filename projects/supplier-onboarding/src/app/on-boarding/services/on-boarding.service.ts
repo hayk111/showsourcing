@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, from, of, forkJoin } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
-import { SupplierService } from '~global-services';
-import { SupplierClaimService } from '~global-services/supplier-claim/supplier-claim.service';
+import { SupplierService } from '~entity-services';
+import { SupplierClaimService } from '~entity-services/supplier-claim/supplier-claim.service';
 import { Supplier, SupplierClaim, Attachment } from '~models';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { UploaderService } from '~shared/file/services/uploader.service';

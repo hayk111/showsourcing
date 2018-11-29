@@ -1,6 +1,6 @@
 import { AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TaskService, UserService } from '~global-services';
+import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';

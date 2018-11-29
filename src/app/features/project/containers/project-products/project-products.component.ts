@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef, ChangeDetector
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, takeUntil, switchMap, tap, catchError, take, first } from 'rxjs/operators';
-import { ProductService, ProjectService } from '~global-services';
+import { ProductService, ProjectService } from '~entity-services';
 import { ERM, Product, Project, ERM_TOKEN } from '~models';
 import { ProjectWorkflowFeatureService } from '~features/project/services';
 import { NotificationService, NotificationType } from '~shared/notifications';

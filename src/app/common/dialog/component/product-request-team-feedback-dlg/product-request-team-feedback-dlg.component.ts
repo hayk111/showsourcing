@@ -3,7 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { Observable } from 'rxjs';
 import { User, TeamUser, Product } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { TeamService } from '~global-services';
+import { TeamService } from '~entity-services';
 import { take, map, switchMap, first, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ProductDialogService } from '~common/dialog/services/product-dialog.service';

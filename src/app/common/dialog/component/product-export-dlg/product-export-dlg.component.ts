@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { switchMap, tap } from 'rxjs/operators';
 import { DialogService } from '~shared/dialog/services';
-import { ExportRequestService } from '~global-services/export-request/export-request.service';
+import { ExportRequestService } from '~entity-services/export-request/export-request.service';
 import { ExportRequest, Product } from '~models';
 import { saveAs } from 'file-saver/FileSaver';
 

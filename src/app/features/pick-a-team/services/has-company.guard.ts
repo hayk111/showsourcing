@@ -1,6 +1,6 @@
 import { CanActivate, CanActivateChild, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { CompanyService } from '~global-services/company/company.service';
+import { CompanyService } from '~entity-services/company/company.service';
 import { Observable } from 'rxjs';
 import { LogColor, log } from '~utils';
 import { map, tap } from 'rxjs/operators';

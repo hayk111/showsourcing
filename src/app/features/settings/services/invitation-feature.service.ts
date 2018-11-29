@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { Invitation } from '~models';
 
-import { InvitationService, UserService } from '~global-services';
+import { InvitationService, UserService } from '~entity-services';
 import { Apollo } from 'apollo-angular';
 import { ApolloStateService } from '~core/apollo';
 

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { Product, ProductVoteRequest, Project, User } from '~models';
-import { ProductService, ProjectService, TeamUserService, UserService, SupplierService } from '~global-services';
-import { ProductVoteRequestService } from '~global-services/product-vote-request/product-vote-request.service';
+import { ProductService, ProjectService, TeamUserService, UserService, SupplierService } from '~entity-services';
+import { ProductVoteRequestService } from '~entity-services/product-vote-request/product-vote-request.service';
 import { Sort } from '~shared/table/components/sort.interface';
-import { SelectParams } from '~global-services/_global/select-params';
+import { SelectParams } from '~entity-services/_global/select-params';
 import { Apollo } from 'apollo-angular';
 import { ApolloStateService } from '~core/apollo';
-import { SupplierQueries } from '~global-services/supplier/supplier.queries';
+import { SupplierQueries } from '~entity-services/supplier/supplier.queries';
 
 @Injectable()
 export class ProductDialogService extends ProductService {

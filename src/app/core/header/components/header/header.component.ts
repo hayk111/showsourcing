@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { UserService, TeamService } from '~global-services';
+import { UserService, TeamService } from '~entity-services';
 import { Team } from '~models';
 import { User } from '~models/user.model';
 import {

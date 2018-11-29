@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ProductVoteService } from '~global-services/product-vote/product-vote.service';
-import { UserService } from '~global-services/user/user.service';
+import { ProductVoteService } from '~entity-services/product-vote/product-vote.service';
+import { UserService } from '~entity-services/user/user.service';
 import { Product, ProductVote } from '~models';
 
 @Injectable({ providedIn: 'root' })

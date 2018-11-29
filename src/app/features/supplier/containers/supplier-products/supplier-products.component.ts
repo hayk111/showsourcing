@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ProductService } from '~global-services';
+import { ProductService } from '~entity-services';
 import { ERM, Product, ERM_TOKEN } from '~models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~utils/tracking-component';

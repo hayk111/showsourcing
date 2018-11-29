@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { ShowService } from '~global-services';
+import { ShowService } from '~entity-services';
 import { Observable } from 'rxjs';
 import { Show } from '~models';
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';

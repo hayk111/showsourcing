@@ -4,7 +4,7 @@ import { Product, Supplier, EntityMetadata, User } from '~models';
 import { InputDirective } from '~shared/inputs';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { UserService } from '~global-services';
+import { UserService } from '~entity-services';
 import { AutoUnsub } from '~utils';
 import { takeUntil } from 'rxjs/operators';
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from '~global-services';
+import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
 import { ProductAddToProjectDlgComponent } from '~common/dialog/component';
 import { DialogService } from '~shared/dialog/services';

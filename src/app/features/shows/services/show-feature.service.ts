@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ShowService, EventService, SupplierService } from '~global-services';
-import { SelectParams } from '~global-services/_global/select-params';
+import { ShowService, EventService, SupplierService } from '~entity-services';
+import { SelectParams } from '~entity-services/_global/select-params';
 import { Observable, of } from 'rxjs';
 import { combineLatest, switchMap, tap, map } from 'rxjs/operators';
 import { Filter, FilterType } from '~shared/filters';

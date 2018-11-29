@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AppImage, Contact, Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub, DEFAULT_IMG, RegexpApp, PendingImage } from '~utils';
-import { ContactService, SupplierService } from '~global-services';
+import { ContactService, SupplierService } from '~entity-services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { first } from 'rxjs/operators';
 

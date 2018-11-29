@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { take, takeUntil, catchError, tap, switchMap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { environment } from 'environments/environment';
-import { UserService } from '~global-services';
+import { UserService } from '~entity-services';
 import { InvitationUser } from '~models';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';

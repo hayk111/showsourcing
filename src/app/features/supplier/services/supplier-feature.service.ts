@@ -3,11 +3,11 @@ import { Observable, of } from 'rxjs';
 import { Contact, Product } from '~models';
 import { Apollo } from 'apollo-angular';
 
-import { SelectParams } from '~global-services/_global/select-params';
-import { ContactService, ProductService, UserService } from '~global-services';
-import { SupplierService } from '~global-services/supplier/supplier.service';
+import { SelectParams } from '~entity-services/_global/select-params';
+import { ContactService, ProductService, UserService } from '~entity-services';
+import { SupplierService } from '~entity-services/supplier/supplier.service';
 import { first } from 'rxjs/operators';
-import { ProductQueries } from '~global-services/product/product.queries';
+import { ProductQueries } from '~entity-services/product/product.queries';
 import { ApolloStateService } from '~core/apollo';
 
 

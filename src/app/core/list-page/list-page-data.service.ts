@@ -1,9 +1,9 @@
 import { Injectable, NgModuleRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { GlobalServiceInterface } from '~global-services/_global/global.service';
-import { ListQuery } from '~global-services/_global/list-query.interface';
-import { SelectParamsConfig } from '~global-services/_global/select-params';
+import { GlobalServiceInterface } from '~entity-services/_global/global.service';
+import { ListQuery } from '~entity-services/_global/list-query.interface';
+import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { EntityMetadata } from '~models';
 import { CreationDialogComponent, EditionDialogComponent } from '~common/dialog';
 import { DialogService } from '~shared/dialog/services';

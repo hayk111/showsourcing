@@ -1,8 +1,8 @@
 import { EntityMetadata } from '~models';
 import { AbstractControl, AsyncValidator } from '@angular/forms';
-import { ERMService } from '~global-services/_global/erm.service';
+import { ERMService } from '~entity-services/_global/erm.service';
 import { map, first } from 'rxjs/operators';
-import { SelectParams } from '~global-services/_global/select-params';
+import { SelectParams } from '~entity-services/_global/select-params';
 import { of } from 'rxjs';
 import { Injectable } from '@angular/core';
 

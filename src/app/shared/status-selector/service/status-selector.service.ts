@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
-import { ERMService } from '~global-services/_global/erm.service';
+import { ERMService } from '~entity-services/_global/erm.service';
 import { EntityMetadata, ERM, ProductStatusType, SupplierStatusType, SampleStatus } from '~models';
 
 @Injectable({

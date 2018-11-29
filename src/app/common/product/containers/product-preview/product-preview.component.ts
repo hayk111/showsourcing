@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ProductService, ProductStatusTypeService } from '~global-services';
+import { ProductService, ProductStatusTypeService } from '~entity-services';
 import { ERM, Product, ProductStatusType } from '~models';
 import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dialog';
 import { DialogService } from '~shared/dialog/services';

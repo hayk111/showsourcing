@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { first, map, takeUntil, tap } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
-import { ProductService, ProjectService, ProductStatusTypeService } from '~global-services';
+import { ProductService, ProjectService, ProductStatusTypeService } from '~entity-services';
 import { ERM, Product, ERM_TOKEN, Project, ProductStatus } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
@@ -20,7 +20,7 @@ import {
 } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
-import { ProductQueries } from '~global-services/product/product.queries';
+import { ProductQueries } from '~entity-services/product/product.queries';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';

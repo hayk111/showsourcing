@@ -30,8 +30,8 @@
 			"~models": ["app/core/models/index"],
 			"~shared/*": ["app/shared/*"],
 			"~shared": ["app/shared/index"],
-			"~global-services/*": ["app/core/global-services/*"],
-      "~global-services": ["app/core/global-services/index"],
+			"~entity-services/*": ["app/core/entity-services/*"],
+      "~entity-services": ["app/core/entity-services/index"],
       "~utils/*": ["app/utils/*"],
 			"~utils": ["app/utils/index"]
     }

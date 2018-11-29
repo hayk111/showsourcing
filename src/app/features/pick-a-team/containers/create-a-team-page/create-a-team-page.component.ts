@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Team } from '~models';
-import { TeamService, UserService, CompanyService } from '~global-services';
+import { TeamService, UserService, CompanyService } from '~entity-services';
 import { map, first, tap, takeUntil } from 'rxjs/operators';
 import { Company } from '~models/company.model';
 import { OnInit } from '@angular/core';

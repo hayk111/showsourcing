@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ShowService, UserService } from '~global-services';
-import { SelectParams } from '~global-services/_global/select-params';
+import { ShowService, UserService } from '~entity-services';
+import { SelectParams } from '~entity-services/_global/select-params';
 import { of } from 'rxjs';
 import { Show, ERM_TOKEN, ERM } from '~models';
 import { Router } from '@angular/router';

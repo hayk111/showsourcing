@@ -11,7 +11,7 @@ import { InputDirective } from '~shared/inputs';
 import { Observable } from 'rxjs';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { takeUntil } from 'rxjs/operators';
-import { SupplierService } from '~global-services';
+import { SupplierService } from '~entity-services';
 import { FormControl } from '@angular/forms';
 
 @Component({

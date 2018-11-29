@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { InvitationUserService, TeamService, UserService } from '~global-services';
+import { InvitationUserService, TeamService, UserService } from '~entity-services';
 import { InvitationUser } from '~models';
 import { ApolloStateService } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';

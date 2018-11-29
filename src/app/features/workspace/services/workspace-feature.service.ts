@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { first, map, switchMap } from 'rxjs/operators';
-import { ProductService, ProductStatusTypeService, UserService } from '~global-services';
-import { ListQuery } from '~global-services/_global/list-query.interface';
-import { ProductStatusService } from '~global-services/product-status/product-status.service';
-import { ProductQueries } from '~global-services/product/product.queries';
+import { ProductService, ProductStatusTypeService, UserService } from '~entity-services';
+import { ListQuery } from '~entity-services/_global/list-query.interface';
+import { ProductStatusService } from '~entity-services/product-status/product-status.service';
+import { ProductQueries } from '~entity-services/product/product.queries';
 import { Product, ProductStatus, ProductStatusType } from '~models';
 import { ApolloStateService } from '~core/apollo';
 import { Sort } from '~shared/table/components/sort.interface';

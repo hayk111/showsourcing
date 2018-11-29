@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ProductService } from '~global-services';
+import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { ProductAddToProjectDlgComponent } from '~common/dialog/component';

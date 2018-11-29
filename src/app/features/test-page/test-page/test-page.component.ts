@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Supplier, ProductStatusType, Product } from '~models';
 import { CustomField } from '~shared/dynamic-forms/models';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ProductStatusTypeService, ProductService } from '~global-services';
+import { ProductStatusTypeService, ProductService } from '~entity-services';
 import { statusToColor } from '~utils/status-to-color.function';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 
