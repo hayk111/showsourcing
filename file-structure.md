@@ -1,6 +1,6 @@
 # General
 
-The app is divided like this
+The app is divided like this:
 
 - app-root : root of the application
 - core : contains core functionalities
