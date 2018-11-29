@@ -38,12 +38,21 @@ import { SidenavModule } from './sidenav/sidenav.module';
 import { TableModule } from './table/table.module';
 import { TopPanelModule } from './top-panel/top-panel.module';
 import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
+import { StatusSelectorModule } from './status-selector/status-selector.module';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
 	// angular modules
 	CommonModule,
 	ReactiveFormsModule,
+
+	// cdk modules
+	DragDropModule,
+	ScrollingModule,
+	OverlayModule,
 
 	// shared modules
 	ActionBarModule,
@@ -78,13 +87,11 @@ const modules = [
 	SideMenuModule, // TODO: not used but the alternative sidenav isn't great
 	SidenavModule,
 	StageIndicatorModule,
-	// status to rename
 	TableModule,
 	TopPanelModule,
-	// tracking component in utils
 	UserPictureModule,
 	UtilsModule,
-	// workflow action to rename
+	StatusSelectorModule
 ];
 
 @NgModule({
