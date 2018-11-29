@@ -1,0 +1,19 @@
+.date-assignee-section {
+	.left {
+		width: 50%;
+	}
+	.right {
+		width: 50%;
+
+		div.title {
+			color: var(--color-txt-secondary);
+			font-weight: 600;
+			margin-bottom: var(--spacing-s);
+		}
+
+		user-picture-app {
+			margin-right: var(--spacing-s);
+			font-size: 9px;
+		}
+	}
+}
