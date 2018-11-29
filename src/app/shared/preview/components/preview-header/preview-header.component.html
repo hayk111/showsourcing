@@ -14,10 +14,10 @@
 
 <!-- Title name -->
 <editable-text-app #edt
-	(closed)="updateEntity(inpName.value)"
+	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
 	<editable-label-app>
-		{{ entity?.name || 'Unnamed ' + entityMD.singular }}
+		{{ entity?.name || 'Unnamed ' + entityMD?.singular }}
 	</editable-label-app>
 	<input inputApp type="text" #inpName [value]="entity?.name"
 		(keyup.enter)="edt.close()">

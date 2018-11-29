@@ -1,0 +1,18 @@
+:host{
+	display: block;
+}
+
+.cntr {
+	background: red;
+	border-top-left-radius: var(--border-radius-l);
+	border-top-right-radius: var(--border-radius-l);
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	max-height: 184px;
+}

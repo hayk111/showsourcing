@@ -1,4 +1,83 @@
-<side-panel-app>
+<preview-app *ngIf="task$ | async as task">
+	<preview-banner-app>
+		<!-- Do the banner of the task here -->
+	</preview-banner-app>
+	<preview-header-app
+		[entity]="task"
+		[entityMD]="erm.TASK"
+		(update)="update($event, 'name')">
+		<preview-badge-app
+			[badge]="erm.PRODUCT"
+			[value]="task?.product?.name"
+			(update)="update($event, 'product')">
+		</preview-badge-app>
+		<preview-badge-app
+			[badge]="erm.SUPPLIER"
+			[value]="task?.supplier?.name"
+			(update)="update($event, 'supplier')">
+		</preview-badge-app>
+	</preview-header-app>
+
+	<!-- Description -->
+	<preview-section-app [title]="'Description'">
+		<description-app
+			[description]="task?.description"
+			(update)="update($event, 'description')">
+		</description-app>
+	</preview-section-app>
+
+	<!-- Date & Assignee -->
+	<preview-section-app>
+		<div class="date-assignee-section flexAround">
+			<div class="left">
+				<editable-field-app #editable [inlineLabel]="false"
+					(opened)="inpDueDate.select()" [canGrow]="true"
+					(closed)="updateDueDate($event, inpDueDate.value)">
+					<label-app>Due date</label-app>
+					<editable-label-app>{{ task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date' }}</editable-label-app>
+					<form-field-app>
+						<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate" [type]="'date'"
+						(keyup.enter)="updateDueDate($event, inpDueDate.value)"/>
+					</form-field-app>
+				</editable-field-app>
+			</div>
+			<!-- Assignee -->
+			<div class="right">
+				<div class="title">Assigned to</div>
+				<div class="flex pointer"	(click)="toggleSelector(true)">
+					<cdk-overlay-app
+						*ngIf="menuOpen"
+						[trigger]="trigger"
+						[isOpen]="menuOpen"
+						[offsetY]="-22"
+						(clickOutside)="closeMenu()">
+						<selector-entity-app
+							#selector
+							type="user"
+							style="width: 200px"
+							(clickOutside)="closeMenu()"
+							(change)="update($event, 'assignee'); closeMenu();">
+						</selector-entity-app>
+					</cdk-overlay-app>
+					<user-picture-app
+						cdkOverlayOrigin
+						#trigger="cdkOverlayOrigin"
+						[user]="task?.assignee" [size]="16" [border]="true">
+					</user-picture-app>
+					<div class="user-name">
+						{{ task?.assignee ? task.assignee.firstName+' '+task?.assignee?.lastName[0] : 'Unassigned' }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</preview-section-app>
+
+	<!-- Activity -->
+	<preview-section-app>
+
+	</preview-section-app>
+</preview-app>
+<!-- <side-panel-app>
   <side-panel-title-app>
     <div class="status-task" [ngClass]="(task$ | async)?.done ? 'status-done nonclickable' : 'todo clickable'" (click)="markAsDone()">
       <div class="status-task-icon ">
@@ -78,7 +157,7 @@
 					</product-card-app>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- <div class="comment-container">
 
 			<div class="show-previous-comment-link clickable">
@@ -88,5 +167,5 @@
 
 			</div>
 		</div> -->
-	</ng-container>
-</side-panel-app>
+	<!-- </ng-container>
+</side-panel-app> -->

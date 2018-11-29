@@ -2,8 +2,21 @@
 	display: block;
 	background: white;
 	width: 424px;
-	height: 100%;
 	border-radius: var(--border-radius-l);
 	padding-bottom: var(--spacing-l);
 	overflow: overlay;
+
+	position: absolute;
+	bottom: 0;
+	z-index: var(--z-cardContainer);
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-sizing: border-box;
+	height: 100vh;
+	&.alignRight {
+		right: 0;
+	}
+	&.alignLeft {
+		left: 0;
+	}
 }

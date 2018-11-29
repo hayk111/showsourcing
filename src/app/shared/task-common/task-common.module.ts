@@ -16,6 +16,9 @@ import { PreviewTaskComponent } from '~shared/task-common/components/preview-tas
 import { OverlayModule } from '@angular/cdk/overlay';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { PreviewModule } from '~shared/preview';
+import { DescriptionModule } from '~shared/description';
+import { BannerTaskComponent } from './components/banner-task/banner-task.component';
 
 @NgModule({
 	imports: [
@@ -32,9 +35,11 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 		SharedModule,
 		OverlayModule,
 		SelectorsModule,
-		ScrollingModule
+		ScrollingModule,
+		PreviewModule,
+		DescriptionModule
 	],
-	declarations: [TaskListComponent, TaskComponent, CreateTaskDialogComponent, PreviewTaskComponent],
+	declarations: [TaskListComponent, TaskComponent, CreateTaskDialogComponent, PreviewTaskComponent, BannerTaskComponent],
 	exports: [TaskListComponent, TaskComponent, CreateTaskDialogComponent, PreviewTaskComponent],
 	entryComponents: [CreateTaskDialogComponent]
 })
