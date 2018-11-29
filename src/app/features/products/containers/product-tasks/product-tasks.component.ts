@@ -1,18 +1,13 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	NgModuleRef,
-	OnInit
-} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TaskService, UserService } from '~global-services';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AbstractTaskCommonComponent } from '~common/task';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { TaskService, UserService } from '~global-services';
+import { ERM, Task } from '~models';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { AbstractTaskCommonComponent } from '~shared/task-common/containers/abstract-task-common.component';
-import { Task, ERM } from '~models';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'product-tasks-app',

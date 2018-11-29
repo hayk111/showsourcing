@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { routerAnimation } from '~shared/template/components/animation';
+import { routerAnimation } from '~core/template/components/animation';
 
 @Component({
 	selector: 'workspace-app',

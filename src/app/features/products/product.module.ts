@@ -2,6 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ActivityCommonModule } from '~common/activity/activity-common.module';
+import { ProductCommonModule } from '~common/product/product-common.module';
+import { QuoteCommonModule } from '~common/quote/quote-common.module';
+import { SampleCommonModule } from '~common/sample';
 import {
 	ProductIconsComponent,
 	ProductSubInfoComponent,
@@ -16,14 +20,12 @@ import {
 	ProductDetailsComponent,
 	ProductGeneralInfoComponent,
 	ProductQuotationComponent,
-	ProductsPageComponent,
 	ProductSamplesComponent,
+	ProductsPageComponent,
 } from '~features/products/containers';
 import { routes } from '~features/products/routes';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
-import { ERM, ERM_TOKEN } from '~models';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
-import { ActivityModule } from '~shared/activity/activity.module';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
 import { CustomDialogModule } from '~shared/custom-dialog';
@@ -32,9 +34,6 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { FileModule } from '~shared/file';
 import { FiltersModule } from '~shared/filters';
 import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
-import { ListPageModule } from '~core/list-page/list-page.module';
-import { ProductCommonModule } from '~shared/product-common/product-common.module';
-import { QuoteCommonModule } from '~shared/quote/quote.module';
 import { RatingModule } from '~shared/rating';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SelectionBarModule } from '~shared/selection-bar';
@@ -42,7 +41,7 @@ import { SharedModule } from '~shared/shared.module';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
-import { TaskCommonModule } from '~shared/task-common';
+import { TaskCommonModule } from '~common/task';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { UtilsModule } from '~shared/utils';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
@@ -53,7 +52,7 @@ import { ProductTeamRatingComponent } from './components/product-team-rating/pro
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
 import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
-import { SampleCommonModule } from '~shared/sample-common';
+
 
 @NgModule({
 	imports: [
@@ -76,7 +75,7 @@ import { SampleCommonModule } from '~shared/sample-common';
 		StageIndicatorModule,
 		ActionBarModule,
 		CustomDialogModule,
-		ActivityModule,
+		ActivityCommonModule,
 		StatusModule,
 		ProductCommonModule,
 		UtilsModule,

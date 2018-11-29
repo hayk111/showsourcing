@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivityService } from '~shared/activity/services/activity.service';
+import { ActivityService } from '~common/activity/services/activity.service';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil, switchMap, tap } from 'rxjs/operators';
-import { ActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
+import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { ERM, Product } from '~models';
 import { AutoUnsub } from '~utils';
 import { ProductFeatureService } from '~features/products/services';

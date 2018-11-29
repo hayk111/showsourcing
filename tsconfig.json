@@ -20,6 +20,8 @@
 		"paths": {
 			"~app-root/*": ["app/app-root/*"],
       "~app-root/": ["app/app-root/index"],
+      "~common/*": ["app/common/*"],
+			"~common/": ["app/common/index"],
       "~core/*": ["app/core/*"],
 			"~core/": ["app/core/index"],
 			"~features/*": ["app/features/*"],

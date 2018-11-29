@@ -9,8 +9,8 @@ import { SupplierFeatureService } from '~features/supplier/services/supplier-fea
 import { DialogService } from '~shared/dialog';
 import { takeUntil, map, switchMap, tap } from 'rxjs/operators';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
-import { ActivityService } from '~shared/activity/services/activity.service';
-import { ActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
+import { ActivityService } from '~common/activity/services/activity.service';
+import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 
 @Component({
 	selector: 'supplier-activity-app',
