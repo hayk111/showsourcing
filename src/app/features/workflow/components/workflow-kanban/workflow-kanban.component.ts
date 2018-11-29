@@ -2,7 +2,7 @@ import { Component, EventEmitter, HostBinding, Input, Output, TemplateRef } from
 import { Subject } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
 import { ProductStatus } from '~models';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 /** Drag'n drop workflow */
 

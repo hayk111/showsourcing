@@ -13,7 +13,7 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table/table.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 
 import {
 	ProductCardComponent,
@@ -41,7 +41,7 @@ import {
 		TopPanelModule,
 		TableModule,
 		RatingModule,
-		WorkflowActionModule,
+		StatusSelectorModule,
 		ActionBarModule,
 		FiltersModule,
 		DynamicFormsModule,

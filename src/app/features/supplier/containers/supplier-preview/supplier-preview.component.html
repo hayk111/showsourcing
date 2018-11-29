@@ -17,12 +17,12 @@
 					- {{ supplier.country | const: 'country'  }}
 				</ng-container>
 			</div>
-			<workflow-action-app
+			<status-selector-app
 				[xPosition]="-2"
 				[selectSize]="'s'"
 				[typeEntity]="suppERM"
 				[entity]="supplier">
-			</workflow-action-app>
+			</status-selector-app>
 			<!-- <status-badge-app [status]="supplier.status"></status-badge-app> -->
 		</div>
 

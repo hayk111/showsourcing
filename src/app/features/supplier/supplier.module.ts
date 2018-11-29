@@ -32,7 +32,7 @@ import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { SupplierTopCardComponent } from '~features/supplier/components/supplier-top-card/supplier-top-card.component';
 import { SupplierActivityComponent } from '~features/supplier/containers/supplier-activity/supplier-activity.component';
 import { SupplierPublicProfileComponent } from '~features/supplier/containers/supplier-public-profile/supplier-public-profile.component';
@@ -66,7 +66,7 @@ import { SampleCommonModule } from '~common/sample';
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 		BadgeModule,
-		WorkflowActionModule,
+		StatusSelectorModule,
 		RatingModule, // used for hearth
 		FiltersModule, // used for filters
 		BadgeModule,

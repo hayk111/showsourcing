@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 /** factory function to create an access provider */
 export function makeAccessorProvider(type: any) {

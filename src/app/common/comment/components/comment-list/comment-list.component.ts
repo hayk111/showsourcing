@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, AfterViewInit } from '@angular/core';
 import { Comment } from '~models';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'comment-list-app',

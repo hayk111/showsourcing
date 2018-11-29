@@ -29,7 +29,7 @@ import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 
 
 @NgModule({
@@ -51,7 +51,7 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		DialogModule,
 		SearchAutocompleteModule,
 		ProductCommonModule,
-		WorkflowActionModule,
+		StatusSelectorModule,
 		FiltersModule,
 		KanbanModule
 	],

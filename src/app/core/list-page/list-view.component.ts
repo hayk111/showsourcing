@@ -1,6 +1,6 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 
 export class ListViewComponent<T> extends TrackingComponent {

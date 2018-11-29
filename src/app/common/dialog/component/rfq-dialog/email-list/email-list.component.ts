@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Contact } from '~models';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 @Component({
 	selector: 'email-list-app',
 	templateUrl: './email-list.component.html',

@@ -40,7 +40,7 @@
 							Send to {{ firstStatus?.name ? (firstStatus.name | const: 'status') : 'workflow'  }}
 						</div>
 						<div class="button-icon">
-							<workflow-action-app
+							<status-selector-app
 								#workActionMenu
 								[entity]="product"
 								selectSize="s"
@@ -50,7 +50,7 @@
 								[isSendToWorkFlow]="true"
 								[internalUpdate]="false"
 								(statusUpdated)="onStatusUpdated(product, $event, card)">
-							</workflow-action-app>
+							</status-selector-app>
 						</div>
 					</div>
 				</div>
