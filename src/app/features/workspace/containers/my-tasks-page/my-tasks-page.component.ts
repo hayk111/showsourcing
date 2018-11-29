@@ -14,7 +14,7 @@ import { AbstractTaskCommonComponent } from '~common/task/containers/abstract-ta
 	templateUrl: './my-tasks-page.component.html',
 	styleUrls: ['./my-tasks-page.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.TASK, ERM.TASK),
+		ListPageProviders.getProviders(ProviderKey.MY_TASK, ERM.TASK),
 	]
 })
 export class MyTasksPageComponent extends AbstractTaskCommonComponent implements OnInit {

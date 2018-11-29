@@ -18,7 +18,7 @@ import { FilterType } from '~shared/filters';
 	templateUrl: './supplier-tasks.component.html',
 	styleUrls: ['./supplier-tasks.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.TASK, ERM.TASK),
+		ListPageProviders.getProviders(ProviderKey.SUPPLIER_TASK, ERM.TASK),
 	]
 })
 export class SupplierTasksComponent extends AbstractTaskCommonComponent implements OnInit {

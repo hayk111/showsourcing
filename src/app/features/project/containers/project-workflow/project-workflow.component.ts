@@ -14,8 +14,6 @@ import { DialogService } from '~shared/dialog';
 import { SearchService } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
-import { ListPageComponent } from '~core/list-page/list-page.component';
-import { SelectionService } from '~core/list-page/selection.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import {
 	FindProductsDialogComponent,

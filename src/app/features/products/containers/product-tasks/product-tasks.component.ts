@@ -15,7 +15,7 @@ import { CommonDialogService } from '~shared/custom-dialog/services/common-dialo
 	styleUrls: ['./product-tasks.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.TASK, ERM.TASK),
+		ListPageProviders.getProviders(ProviderKey.PRODUCT_TASK, ERM.TASK),
 	]
 })
 
