@@ -21,7 +21,7 @@ export function resizeSizeToLimit(
 						elem.height = limitSize / ratio;
 					} else {
 						elem.height = limitSize;
-						elem.width = limitSize / ratio;
+						elem.width = limitSize * ratio;
 					}
 					const ctx = elem.getContext('2d');
 					ctx.drawImage(img, 0, 0, elem.width, elem.height);
