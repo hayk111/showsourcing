@@ -1,53 +1,83 @@
 <button (click)="toggle = !toggle">test me</button>
-<preview-app *ngIf="toggle">
-	<preview-banner-app (closed)="toggle = !toggle">
-		<carousel-app
-			[images]="(product$ | async)?.images"
-			[selectedIndex]="selectedIndex"
-			objectFit="cover"
-			(imgClick)="openModal($event)"
-			(deleted)="onDelete($event)">
-		</carousel-app>
-	</preview-banner-app>
-	<preview-header-app
-		[entityMD]="entityMD"
-		[entity]="(product$ | async)">
-		<preview-badge-app
-			[badge]="erm.PRODUCT"
-			[value]="(product$ | async)?.name">
-		</preview-badge-app>
-		<preview-badge-app
-			[badge]="erm.SUPPLIER"
-			[value]="(product$ | async)?.supplier?.name">
-		</preview-badge-app>
-		<preview-badge-app
-			[badge]="erm.CATEGORY"
-			[multiple]="true"
-			[value]="(product$ | async)?.supplier?.categories">
-		</preview-badge-app>
-		<div>test</div>
-	</preview-header-app>
-	<preview-section-app
-		[title]="'section2'">
-	</preview-section-app>
-	<preview-section-app
-		[title]="'section2'">
-		TEST
-	</preview-section-app>
-	<preview-section-app
-		[title]="'section2'">
-	</preview-section-app>
-	<preview-section-app
-		[title]="'section2'">
-	</preview-section-app>
-	<preview-section-app
-		[title]="'section2'">
-	</preview-section-app>
-	<preview-section-app
-		[title]="'section1'">
-	</preview-section-app>
-</preview-app>
+<div class="flex">
+	<div class="left">
+		<preview-app *ngIf="toggle">
+			<!-- Banner here you will transclude the component that you want to appear on the banner -->
+			<preview-banner-app (closed)="toggle = !toggle">
+				<carousel-app
+					[images]="(product$ | async)?.images"
+					[selectedIndex]="selectedIndex"
+					objectFit="cover"
+					(imgClick)="openModal($event)"
+					(deleted)="onDelete($event)">
+				</carousel-app>
+			</preview-banner-app>
 
+			<!-- Header -->
+			<preview-header-app
+				[entityMD]="entityMD"
+				[entity]="(product$ | async)"
+				(update)="update($event, 'name')">
+				<!-- Badge -->
+				<preview-badge-app
+					[badge]="erm.SUPPLIER"
+					[value]="(product$ | async)?.supplier?.name"
+					(update)="update($event, 'supplier')">
+				</preview-badge-app>
+				<preview-badge-app
+					[badge]="erm.CATEGORY"
+					[value]="[(product$ | async)?.category]"
+					(update)="update($event, 'category')">
+				</preview-badge-app>
+				<!--
+					this would be the example if the categories came form the supplier
+					but since we are using a product this cannot be, categories has multiple option
+				-->
+				<!-- <preview-badge-app
+					[badge]="erm.CATEGORY"
+					[multiple]="true"
+					[value]="(product$ | async)?.categories"
+					(update)="update($event, 'categories')">
+				</preview-badge-app>-->
+				<div>This is Transcluded for anything else</div>
+			</preview-header-app>
+			<preview-section-app
+				[title]="'section2'">
+			</preview-section-app>
+			<preview-section-app
+				[title]="'section2'">
+				This is transcluded
+			</preview-section-app>
+			<preview-section-app
+				[title]="'section2'">
+			</preview-section-app>
+			<preview-section-app
+				[title]="'section2'">
+			</preview-section-app>
+			<preview-section-app
+				[title]="'section2'">
+			</preview-section-app>
+			<preview-section-app
+				[title]="'section1'">
+			</preview-section-app>
+		</preview-app>
+	</div>
+	<div class="right">
+		<card-app>
+			<card-header-app>Header</card-header-app>
+			Has a common styling and a 2 transclude sections <br>
+			The transclusion for the preview-badge-app <br>
+			And the transclusion for anything else
+		</card-app>
+		<card-app>
+			<card-header-app>Badge</card-header-app>
+			You must send an ERM with the desired badge and the value that you want to display
+		</card-app>
+	</div>
+</div>
+
+
+<!-- Only for the carousel -->
 <modal-carousel-app
 	*ngIf="modalOpen"
 	[selectedIndex]="selectedIndex"

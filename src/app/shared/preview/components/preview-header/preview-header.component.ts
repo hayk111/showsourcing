@@ -15,7 +15,7 @@ export class PreviewHeaderComponent implements OnInit {
 	@Input() entityMD: EntityMetadata;
 	/** entity for the workflow action */
 	@Input() entity: any;
-	/** updates entity */
+	/** emits the value that has changed */
 	@Output() update = new EventEmitter<any>();
 
 	constructor() { }
@@ -23,17 +23,8 @@ export class PreviewHeaderComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	getIcon() {
-		switch (this.entityMD) {
-			default:
-				return 'product';
-		}
-	}
-
-	updateEntity(isCancel: boolean, value: any, prop: string) {
-		if (!isCancel) {
-			this.update.emit({ [prop]: value });
-		}
+	updateEntity(value: any) {
+		this.update.emit(value);
 	}
 
 }

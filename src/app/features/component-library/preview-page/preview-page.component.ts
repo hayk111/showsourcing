@@ -16,6 +16,7 @@ export class PreviewPageComponent implements OnInit {
 	erm = ERM;
 	entityMD = ERM.PRODUCT;
 	product$: Observable<Product>;
+	product: Product;
 
 	modalOpen = false;
 
@@ -23,6 +24,7 @@ export class PreviewPageComponent implements OnInit {
 
 	ngOnInit() {
 		this.product$ = this.productSrv.selectOne('0cf5af51-a620-4894-89e0-eee79c42f85e');
+		this.product$.subscribe(prod => this.product = prod);
 	}
 
 	/** when image is deleted */
@@ -39,6 +41,10 @@ export class PreviewPageComponent implements OnInit {
 	/** closes the modal */
 	closeModal() {
 		this.modalOpen = false;
+	}
+
+	update(value: any, prop: string) {
+		this.productSrv.update({ id: this.product.id, [prop]: value }).subscribe();
 	}
 
 	// getSupplierLocation() {
