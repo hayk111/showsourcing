@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from '~features/dashboard/containers/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { routes } from '~features/dashboard/routes';
-import { ActivityModule } from '~shared/activity/activity.module';
+import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { DialogModule } from '~shared/dialog';
 import { CustomDialogModule } from '~shared/custom-dialog';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
 	imports: [
 		SharedModule,
 		RouterModule.forChild(routes),
-		ActivityModule,
+		ActivityCommonModule,
 		DialogModule,
 		CustomDialogModule,
 		RatingModule,

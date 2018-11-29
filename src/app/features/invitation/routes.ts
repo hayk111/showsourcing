@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { GuestTemplateComponent } from '~shared/template/components/guest-template/guest-template.component';
+import { GuestTemplateComponent } from '~core/template/components/guest-template/guest-template.component';
 import { HandleInvitationComponent } from '~features/invitation/components';
 
 export const routes: Routes = [

@@ -14,7 +14,7 @@ import { SearchService } from '~shared/filters';
 import { SelectionService } from '~core/list-page/selection.service';
 import { NotificationService } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { TemplateService } from '~shared/template/services/template.service';
+import { TemplateService } from '~core/template/services/template.service';
 import { ID } from '~utils/id.utils';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';

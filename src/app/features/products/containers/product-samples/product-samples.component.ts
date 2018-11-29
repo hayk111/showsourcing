@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, NgModuleRef } from '@angular/core';
-import { AbstractSampleCommonComponent } from '~shared/sample-common/containers/abstract-sample-common.component';
+import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, SampleService } from '~global-services';
 import { SearchService, FilterType } from '~shared/filters';

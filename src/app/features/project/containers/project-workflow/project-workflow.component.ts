@@ -19,7 +19,7 @@ import { SelectionService } from '~core/list-page/selection.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import {
 	FindProductsDialogComponent,
-} from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
+} from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
 import { ProductQueries } from '~global-services/product/product.queries';

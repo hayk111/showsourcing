@@ -16,7 +16,7 @@ import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~core/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { PortalModule } from '~shared/portal';
-import { TemplateModule } from '~shared/template';
+import { TemplateModule } from '~core/template';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.

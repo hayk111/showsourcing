@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { DashboardCounters, DashboardService } from '~features/dashboard/services/dashboard.service';
 import { UserService } from '~global-services';
 import { Task, User } from '~models';
-import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
-import { ActivityService } from '~shared/activity/services/activity.service';
+import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
+import { ActivityService } from '~common/activity/services/activity.service';
 
 @Component({
 	selector: 'dashboard-app',
