@@ -51,6 +51,7 @@ export class ERM {
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);
 	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
 	static readonly MEMBER = new EntityMetadata('member', 'members');
+	static readonly LOCATION = new EntityMetadata('location', 'locations');
 	static readonly PRODUCT = new EntityMetadata('product', 'products', Product);
 	static readonly PRODUCT_STATUS_TYPE = new EntityMetadata('product status type', 'product status type', Product, 'product-status-type');
 	static readonly PRODUCT_VOTE = new EntityMetadata('product vote', 'product votes', Product, 'product-vote');

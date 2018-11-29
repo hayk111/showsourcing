@@ -1,0 +1,21 @@
+:host {
+	display: block;
+	max-height: 371px;
+	position: relative;
+}
+
+
+.close {
+	position: absolute;
+	top: var(--spacing-m);
+	right: var(--spacing-m);
+	height: 37px;
+	width: 37px;
+	background: rgba(24, 40, 68, 0.4);
+	border-radius: var(--border-radius);
+
+	icon-app {
+		color: white;
+		font-size: var(--font-size-l);
+	}
+}

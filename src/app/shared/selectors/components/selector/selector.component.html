@@ -15,7 +15,8 @@
 		(add)="onSelect($event)"
 		(remove)="onUnselect($event)"
 		(change)="onChange($event)"
-		(blur)="onBlur()">
+		(blur)="onBlur()"
+		(close)="closed.emit()">
 
 		<ng-template ng-label-tmp let-item="item" *ngIf="!multiple">
 			<div class="flexBetween">

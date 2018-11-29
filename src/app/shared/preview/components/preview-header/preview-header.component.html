@@ -1,0 +1,32 @@
+<div class="top-section flexBetween">
+	<div class="left flex">
+		<icon-app [name]="getIcon()" fontSet="svg"></icon-app>
+		<span>{{ entityMD?.singular }}</span>
+	</div>
+	<div class="right">
+		<workflow-action-app
+			*ngIf="entityMD"
+			[entity]="entity"
+			[typeEntity]="entityMD">
+		</workflow-action-app>
+	</div>
+</div>
+
+<!-- Title name -->
+<editable-text-app #edt
+	(closed)="updateEntity($event, inpName.value, 'name')"
+	(opened)="inpName.select()">
+	<editable-label-app>
+		{{ entity?.name || 'Unnamed ' + entityMD.singular }}
+	</editable-label-app>
+	<input inputApp type="text" #inpName [value]="entity?.name"
+		(keyup.enter)="edt.close()">
+</editable-text-app>
+
+<div class="deep-class">
+	<ng-content></ng-content>
+</div>
+
+<div class="deep-class">
+	<ng-content select="preview-badge-app"></ng-content>
+</div>

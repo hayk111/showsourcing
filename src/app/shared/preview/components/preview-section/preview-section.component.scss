@@ -1,0 +1,14 @@
+:host {
+	display: block;
+	padding: 0 var(--spacing-l);
+	padding-top: var(--spacing-l);
+
+
+	.deep-class {
+		padding-top: var(--spacing-ms);
+	}
+}
+
+h2 {
+	margin-bottom: 0px;
+}

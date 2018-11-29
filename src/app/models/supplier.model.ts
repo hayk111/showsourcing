@@ -16,6 +16,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	supplierType?: SupplierType;
 	website?: string;
 	country?: string;
+	city?: string;
 	address?: string;
 	officeEmail?: string;
 	officePhone?: string;

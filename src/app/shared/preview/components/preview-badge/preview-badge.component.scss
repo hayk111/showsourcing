@@ -1,0 +1,29 @@
+:host {
+	display: block;
+	text-align: left;
+}
+
+.icon-container {
+	margin-bottom: var(--spacing-xs);
+	position: relative;
+
+	icon-app {
+		margin-right: var(--spacing-s);
+	}
+
+	.category-info {
+		& > * {
+			//for each children that is not the first one we add some spaces and bullet dots on the content
+			&:not(:first-child)::before {
+				content: "\00a0 \00a0 \2022 \00a0 \00a0";
+    		font-weight: bolder;
+			}
+		}
+	}
+
+	selector-entity-app {
+		position: absolute;
+    width: 95%;
+    left: 20px;
+	}
+}

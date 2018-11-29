@@ -6,6 +6,7 @@
 			<carousel-app
 				[images]="images"
 				[selectedIndex]="selectedIndex"
+				objectFit="contain"
 				(imgClick)="openModal($event)"
 				(deleted)="onDelete($event)">
 			</carousel-app>
@@ -60,7 +61,8 @@
 			*ngIf="modalOpen"
 			[selectedIndex]=[selectedIndex]
 			[images]="images"
-			(close)="closeModal()"></modal-carousel-app>
+			(close)="closeModal()">
+		</modal-carousel-app>
 
 		<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
 </card-app>

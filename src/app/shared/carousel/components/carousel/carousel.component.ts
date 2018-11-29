@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AppImage } from '~models';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { DEFAULT_IMG } from '~utils/constants';
@@ -26,6 +26,7 @@ export class CarouselComponent implements OnInit {
 	private _images = [];
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
+	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'cover';
 	@Output() deleted = new EventEmitter<AppImage>();
 	@Output() imgClick = new EventEmitter<number>();
 
@@ -90,11 +91,11 @@ export class CarouselComponent implements OnInit {
 	}
 
 	getImg() {
-		return this.images[this.selectedIndex];
+		return this.images ? this.images[this.selectedIndex] : null;
 	}
 
 	getId() {
-		return this.images[this.selectedIndex].id;
+		return this.images ? this.images[this.selectedIndex].id : null;
 	}
 
 	getRotation(img) {

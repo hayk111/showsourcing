@@ -53,6 +53,7 @@ export class SelectorEntityComponent extends AbstractInput {
 	@Output() unselect = new EventEmitter<Choice>();
 	@Output() change = new EventEmitter<any>();
 	@Output() blur = new EventEmitter<any>();
+	@Output() closed = new EventEmitter<null>();
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	@ViewChild('defaultTemplate') defaultTemplate: TemplateRef<any>;
 	@ViewChild('userTemplate') userTemplate: TemplateRef<any>;
@@ -61,7 +62,6 @@ export class SelectorEntityComponent extends AbstractInput {
 		distinctUntilChanged(),
 		switchMap(type => this.getChoices(type))
 	);
-
 
 	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {
 		super(cd);
@@ -91,9 +91,14 @@ export class SelectorEntityComponent extends AbstractInput {
 		this.blur.emit();
 	}
 
+	onClose() {
+		this.closed.emit();
+	}
+
 	getChoices(type: string) {
 		switch (type) {
 			case 'supplier': return this.srv.getSuppliers();
+			case 'product': return this.srv.getProducts();
 			case 'category': return this.choices$ = this.srv.getCategories();
 			case 'event': return this.choices$ = this.srv.getEvents();
 			case 'tag': return this.choices$ = this.srv.getTags();

@@ -3,6 +3,8 @@
 }
 
 .ctnr {
+	border-top-left-radius: var(--border-radius-l);
+	border-top-right-radius: var(--border-radius-l);
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -81,14 +83,24 @@ menu {
 }
 
 .counter {
+	width: 100%;
 	font-size: 9px;
 	position: absolute;
 	bottom: var(--spacing-m);
-	right: var(--spacing-m);
 	border-radius: var(--border-radius);
 	padding: var(--spacing-xs) var(--spacing-s);
-	color: white;
-	background: rgba(93, 109, 139, 0.7);
+
+	.dot {
+		margin-right: var(--spacing-s);
+		height: 6px;
+		width: 6px;
+		border-radius: 500px;
+		background: rgba(255, 255, 255, 0.5);
+	}
+
+	.full {
+		background: white;
+	}
 }
 
 spinner-app {
