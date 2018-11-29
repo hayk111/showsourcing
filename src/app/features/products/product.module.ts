@@ -17,6 +17,7 @@ import {
 	ProductGeneralInfoComponent,
 	ProductQuotationComponent,
 	ProductsPageComponent,
+	ProductSamplesComponent,
 } from '~features/products/containers';
 import { routes } from '~features/products/routes';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
@@ -52,6 +53,7 @@ import { ProductTeamRatingComponent } from './components/product-team-rating/pro
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
 import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
+import { SampleCommonModule } from '~shared/sample-common';
 
 @NgModule({
 	imports: [
@@ -81,6 +83,7 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		TaskCommonModule,
 		QuoteCommonModule,
 		InputsCustomModule,
+		SampleCommonModule
 	],
 	declarations: [
 		ProductIconsComponent,
@@ -100,7 +103,8 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		ProductActivityComponent,
 		VoteDetailsDialogComponent,
 		ProductTasksComponent,
-		ProductTopPanelComponent
+		ProductTopPanelComponent,
+		ProductSamplesComponent
 	],
 	entryComponents: [
 		VoteDetailsDialogComponent

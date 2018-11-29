@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { ERMService } from '~global-services/_global/erm.service';
-import { EntityMetadata, ERM, ProductStatusType, SupplierStatusType } from '~models';
+import { EntityMetadata, ERM, ProductStatusType, SupplierStatusType, SampleStatus } from '~models';
 
 @Injectable({
 	providedIn: 'root'
@@ -19,6 +19,10 @@ export class WorkflowActionService {
 		.queryAll('name, category, step, inWorkflow', { sortBy: 'step' }).pipe(
 			shareReplay(1)
 		);
+	sampleStatus$: Observable<SampleStatus[]> = this.ermSrv.getStatusService(ERM.SAMPLE)
+		.queryAll('name, cateogry, inWorkflow').pipe(
+			shareReplay(1)
+		);
 
 	constructor(
 		private ermSrv: ERMService
@@ -26,13 +30,12 @@ export class WorkflowActionService {
 
 	}
 
-	getTableStatus(typeEntity: EntityMetadata): Observable<SupplierStatusType[] | ProductStatusType[]> {
+	getTableStatus(typeEntity: EntityMetadata): Observable<SupplierStatusType[] | ProductStatusType[] | SampleStatus[]> {
 		switch (typeEntity) {
 			case ERM.PRODUCT: return this.productStatusTypes$;
 			case ERM.SUPPLIER: return this.supplierStatusTypes$;
+			case ERM.SAMPLE: return this.sampleStatus$;
 		}
-		// return this.ermSrv.getStatusService(typeEntity).queryAll('id, name, category, step, inWorkflow');
-
 	}
 
 	updateStatus(entity, typeEntity: EntityMetadata) {

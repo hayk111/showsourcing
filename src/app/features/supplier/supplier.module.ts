@@ -50,6 +50,8 @@ import { ListPageDataService } from '~shared/list-page/list-page-data.service';
 import { ListPageViewService } from '~shared/list-page/list-page-view.service';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { ERM_TOKEN, ERM } from '~models';
+import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
+import { SampleCommonModule } from '~shared/sample-common';
 @NgModule({
 	imports: [
 		SharedModule,
@@ -73,7 +75,8 @@ import { ERM_TOKEN, ERM } from '~models';
 		ActivityModule,
 		ActionBarModule,
 		ProductCommonModule,
-		TaskCommonModule
+		TaskCommonModule,
+		SampleCommonModule
 	],
 	declarations: [
 		SupplierDetailsComponent,
@@ -95,7 +98,8 @@ import { ERM_TOKEN, ERM } from '~models';
 		SupplierPublicProfileComponent,
 		SupplierImagesComponent,
 		SupplierProductsComponent,
-		SupplierTasksComponent
+		SupplierTasksComponent,
+		SupplierSamplesComponent
 	],
 	entryComponents: [NewSupplierDlgComponent, NewContactDlgComponent],
 	exports: [SuppliersPageComponent],

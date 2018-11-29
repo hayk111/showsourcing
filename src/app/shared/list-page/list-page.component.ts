@@ -1,11 +1,10 @@
 import { NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~global-services/_global/select-params';
-import { ProductQueries } from '~global-services/product/product.queries';
 import { EntityMetadata, Product } from '~models';
 import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';

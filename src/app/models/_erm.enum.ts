@@ -12,6 +12,7 @@ import { Quote } from '~models/quote.model';
 import { Contact } from '~models/contact.model';
 import { Invitation } from '~models/invitation.model';
 import { InjectionToken } from '@angular/core';
+import { Sample } from './sample.model';
 
 
 export class EntityMetadata {
@@ -58,6 +59,8 @@ export class ERM {
 	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
 	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
 	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
+	static readonly SAMPLE = new EntityMetadata('sample', 'samples', Sample);
+	static readonly SAMPLE_STATUS = new EntityMetadata('sample status', 'samples status', Sample, 'sample-status');
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
 	static readonly SUPPLIER_STATUS_TYPE = new EntityMetadata(
 		'supplier status type',

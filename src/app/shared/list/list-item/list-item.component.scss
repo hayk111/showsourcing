@@ -1,16 +1,16 @@
 :host {
 	display: block;
-	padding: var(--spacing-m) var(--spacing-m) 0 var(--spacing-m);
-	&:hover {
-		background: var(--color-secondary-light);
-	}
+	margin: 0px 6px;
 	&.selected {
 		background: var(--color-secondary-light);
 	}
 }
 
 .ctnr {
-	padding-bottom: var(--spacing-m);
+	padding: var(--spacing-s) 0px;
+	&:hover {
+		background: var(--color-secondary-light);
+	}
 }
 
 .border{

@@ -10,6 +10,7 @@
 				<div class="flex" (click)="checkbox.onClick()">
 					<checkbox-app
 						#checkbox
+						[size]="14"
 						(check)="select(project.id, project)"
 						(uncheck)="unselect(project.id)"
 						[checked]="selected[project.id]">

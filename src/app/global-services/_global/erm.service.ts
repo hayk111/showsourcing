@@ -11,6 +11,8 @@ import { SupplierService } from '~global-services/supplier/supplier.service';
 import { TagService } from '~global-services/tag/tag.service';
 import { TeamService } from '~global-services/team/team.service';
 import { EntityMetadata, ERM } from '~models';
+import { SampleService } from '~global-services/sample/sample.service';
+import { SampleStatusService } from '~global-services/sample-status/sample-status.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -29,7 +31,9 @@ export class ERMService {
 		private eventService: EventService,
 		private teamService: TeamService,
 		private teamUserSrv: TeamUserService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private sampleSrv: SampleService,
+		private sampleStatusSrv: SampleStatusService
 	) { }
 
 
@@ -59,6 +63,10 @@ export class ERMService {
 				return this.userSrv;
 			case ERM.TEAM_USER:
 				return this.teamUserSrv;
+			case ERM.SAMPLE:
+				return this.sampleSrv;
+			case ERM.SAMPLE_STATUS:
+				return this.sampleStatusSrv;
 			default:
 				throw Error(`This ERM has not an associated service`);
 		}
@@ -70,6 +78,8 @@ export class ERMService {
 				return this.productStatusTypeService;
 			case ERM.SUPPLIER:
 				return this.supplierStatusTypeService;
+			case ERM.SAMPLE:
+				return this.sampleStatusSrv;
 			default:
 				throw Error(`This ERM has not an associated status service`);
 		}

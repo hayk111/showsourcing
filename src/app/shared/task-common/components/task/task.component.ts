@@ -1,9 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild, AfterContentChecked } from '@angular/core';
 import { Task, User } from '~models';
-import { PortalService } from '~shared/portal';
-import { DEFAULT_IMG } from '~utils';
-
-import { PickerEntitySelectorComponent } from '../picker-entity-selector/picker-entity-selector.component';
+import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 
 @Component({
 	selector: 'task-app',
@@ -11,7 +8,7 @@ import { PickerEntitySelectorComponent } from '../picker-entity-selector/picker-
 	styleUrls: ['./task.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskComponent {
+export class TaskComponent implements AfterContentChecked {
 
 	@Input() fullUser = false;
 	@Input() task: Task;
@@ -22,12 +19,18 @@ export class TaskComponent {
 	@Output() updateTask = new EventEmitter<Task>();
 	@Output() previewClicked = new EventEmitter<Task>();
 
-	defaultImg = DEFAULT_IMG;
+	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 
-	constructor(
-		private portalSrv: PortalService,
-		private moduleRef: NgModuleRef<any>
-	) { }
+	menuOpen = false;
+
+	constructor() { }
+
+	ngAfterContentChecked() {
+		if (this.selector && this.menuOpen) {
+			this.selector.open();
+			this.selector.selector.ngSelect.updateDropdownPosition();
+		}
+	}
 
 	get getStatus() {
 		let status = 'pending';
@@ -40,6 +43,7 @@ export class TaskComponent {
 
 	updateAssignee(user: User) {
 		this.updateTask.emit({ ...this.task, assignee: user });
+		this.closeMenu();
 	}
 
 	toggleDoneStatus() {
@@ -47,10 +51,11 @@ export class TaskComponent {
 		this.updateTask.emit({ ...this.task, done });
 	}
 
-	openSelectorEntity(event, offsetX = 114, offsetY = 5) {
-		const callback = (user) => {
-			this.updateAssignee(user);
-		};
-		this.portalSrv.openFromModule(PickerEntitySelectorComponent, this.moduleRef, { event, callback, offsetX, offsetY });
+	toggleMenu() {
+		this.menuOpen = !this.menuOpen;
+	}
+
+	closeMenu() {
+		this.menuOpen = false;
 	}
 }

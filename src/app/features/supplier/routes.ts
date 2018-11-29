@@ -4,6 +4,7 @@ import { SupplierActivityComponent } from '~features/supplier/containers/supplie
 import { SupplierPublicProfileComponent } from '~features/supplier/containers/supplier-public-profile/supplier-public-profile.component';
 import { SupplierProductsComponent } from '~features/supplier/containers/supplier-products/supplier-products.component';
 import { SupplierTasksComponent } from '~features/supplier/containers/supplier-tasks/supplier-tasks.component';
+import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },
@@ -18,6 +19,7 @@ export const routes: Array<Route> = [
 			{ path: 'activity', component: SupplierActivityComponent },
 			{ path: 'public-profile', component: SupplierPublicProfileComponent },
 			{ path: 'products', component: SupplierProductsComponent },
+			{ path: 'samples', component: SupplierSamplesComponent },
 			{ path: 'tasks', component: SupplierTasksComponent },
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' }
 		]

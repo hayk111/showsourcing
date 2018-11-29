@@ -29,7 +29,6 @@
 		(previewClicked)="viewSrv.openPreview($event)"
 		(taskSelect)="selectionSrv.selectOne($event, false)"
 		(taskUnselect)="selectionSrv.unselectOne($event, false)"
-		(openCreateDlg)="commonDlgSrv.openCreateDlg()"
 		(bottomReached)="dataSrv.loadMore()"
 		(updateTask)="dataSrv.update($event)"
 		(createTask)="createTask($event)">

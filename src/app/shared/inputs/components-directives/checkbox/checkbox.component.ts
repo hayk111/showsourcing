@@ -13,7 +13,7 @@ export class CheckboxComponent extends AbstractInput {
 	@Output() check = new EventEmitter<null>();
 	@Output() uncheck = new EventEmitter<null>();
 	@ViewChild('label') label: ElementRef;
-	@Input() size = 's';
+	@Input() size = 16;
 	/** id of element, if not specified it will generate automtically */
 	@Input()
 	get id(): string { return this._id; }
@@ -68,5 +68,21 @@ export class CheckboxComponent extends AbstractInput {
 
 	hasContent() {
 		return this.label.nativeElement.children.length === 0;
+	}
+
+	uncheckedStyle() {
+		// it's -2 since the div of the unchecked grows by 2 for some reason
+		const unWidth = this.size - 2;
+		const unHeight = this.size - 2;
+		return {
+			width: `${unWidth}px`,
+			height: `${unHeight}px`
+		};
+	}
+
+	iconSize() {
+		return {
+			'font-size': `${this.size}px`
+		};
 	}
 }
