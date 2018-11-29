@@ -13,6 +13,7 @@ import { AbstractSampleCommonComponent } from '~common/sample/containers/abstrac
 	styleUrls: ['./supplier-samples.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class SupplierSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
 
 	constructor(
