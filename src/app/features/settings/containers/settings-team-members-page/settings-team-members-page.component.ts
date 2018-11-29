@@ -40,7 +40,7 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 		if (newName.length) {
 			this.team$.pipe(take(1)).subscribe(team => {
 				team.name = newName;
-				this.teamSrv.update(team);
+				this.teamSrv.update(team).subscribe();
 			});
 		}
 	}
