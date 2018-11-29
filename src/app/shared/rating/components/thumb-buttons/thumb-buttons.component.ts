@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { UserService } from '~global-services';
+import { UserService } from '~entity-services';
 import { ProductVote } from '~models';
 
 @Component({

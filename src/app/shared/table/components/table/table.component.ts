@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'table-app',

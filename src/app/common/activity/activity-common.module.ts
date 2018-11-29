@@ -14,7 +14,6 @@ import { LoadersModule } from '~shared/loaders';
 import { ProductCommonModule } from '~common/product';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
-import { StatusModule } from '~shared/status/status.module';
 
 import { ActivityUserComponent } from './components/activity-user/activity-user.component';
 import { FlatFeedListComponent } from './components/flat-feed-list/flat-feed-list.component';
@@ -33,11 +32,6 @@ import {
 	imports: [
 		CommonModule,
 		SharedModule,
-		RatingModule,
-		ActionBarModule,
-		LoadersModule,
-		StatusModule,
-		CarouselModule,
 		ProductCommonModule,
 		CommentCommonModule
 	],

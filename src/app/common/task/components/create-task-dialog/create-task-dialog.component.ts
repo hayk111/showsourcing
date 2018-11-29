@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DialogService } from '~shared/dialog';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { DialogService } from '~shared/dialog/services';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'create-task-dialog-app',
@@ -18,8 +18,8 @@ export class CreateTaskDialogComponent extends TrackingComponent implements OnIn
 	constructor(
 		private fb: FormBuilder,
 		private dlgSrv: DialogService) {
-			super();
-		}
+		super();
+	}
 
 	ngOnInit() {
 		this.group = this.fb.group({

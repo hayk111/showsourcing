@@ -4,7 +4,7 @@ import {
 	Input, OnInit, Output, TemplateRef, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import { KanbanColumn } from '~shared/kanban/interfaces';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'kanban-col-app',

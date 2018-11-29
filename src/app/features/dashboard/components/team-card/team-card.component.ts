@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { TeamService, TeamUserService } from '~global-services';
+import { TeamService, TeamUserService } from '~entity-services';
 import { TeamUser, Team, User } from '~models';
 import { Observable } from 'rxjs';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'team-card-app',

@@ -6,7 +6,7 @@
 	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
 
 	<div class="flex flexWrap">
-		<workflow-action-app [entity]="supplier" [typeEntity]="typeEntity" selectSize="mini"></workflow-action-app>
+		<status-selector-app [entity]="supplier" [typeEntity]="typeEntity" selectSize="mini"></status-selector-app>
 		<info-badge-app *ngFor="let category of supplier.categories;trackBy: trackByFn" type="category">{{ category.name }}</info-badge-app>
 		<info-badge-app *ngFor="let tag of supplier.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
 	</div>

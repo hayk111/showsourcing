@@ -1,18 +1,18 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ShowService, UserService } from '~global-services';
-import { SelectParams } from '~global-services/_global/select-params';
+import { ShowService, UserService } from '~entity-services';
+import { SelectParams } from '~entity-services/_global/select-params';
 import { of } from 'rxjs';
 import { Show, ERM_TOKEN, ERM } from '~models';
 import { Router } from '@angular/router';
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 import { Observable } from 'rxjs';
 
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 @Component({
 	selector: 'shows-page-app',
 	templateUrl: './shows-page.component.html',

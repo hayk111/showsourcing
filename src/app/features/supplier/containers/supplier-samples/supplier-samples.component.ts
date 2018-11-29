@@ -1,18 +1,15 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '~global-services';
-import { SampleService } from '~global-services/sample/sample.service';
-import { DialogService } from '~shared/dialog';
-import { FilterType, SearchService } from '~shared/filters';
-import { SelectionService } from '~core/list-page/selection.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
-import { Product, ERM_TOKEN, ERM, Sample } from '~models';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { UserService } from '~entity-services';
+import { SampleService } from '~entity-services/sample/sample.service';
+import { ERM, ERM_TOKEN, Sample } from '~models';
+import { FilterType } from '~shared/filters';
 
 
 @Component({

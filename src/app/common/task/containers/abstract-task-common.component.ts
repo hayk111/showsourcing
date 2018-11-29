@@ -1,13 +1,13 @@
 import { AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TaskService, UserService } from '~global-services';
+import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
 import { ListPageDataService } from '~core/list-page';
 import { ListPageViewService } from '~core/list-page';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {

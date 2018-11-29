@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChangePswdDlgComponent } from '~features/settings/components/change-pswd-dlg/change-pswd-dlg.component';
-import { UserService } from '~global-services';
+import { UserService } from '~entity-services';
 import { User } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { first, switchMap, map } from 'rxjs/operators';
 import { SettingsProfileService } from '~features/settings/services/settings-profile.service';

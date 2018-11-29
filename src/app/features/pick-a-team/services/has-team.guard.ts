@@ -4,7 +4,7 @@ import { CanActivate, CanActivateChild, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap, first } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
-import { TeamService } from '~global-services';
+import { TeamService } from '~entity-services';
 
 @Injectable({
 	providedIn: 'root'

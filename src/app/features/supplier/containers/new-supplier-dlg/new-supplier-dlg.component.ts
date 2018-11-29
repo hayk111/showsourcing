@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Supplier } from '~models/supplier.model';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 

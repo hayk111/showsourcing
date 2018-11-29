@@ -4,8 +4,8 @@ import {
 	SupplierService,
 	UserService,
 	QuoteQueries
-} from '~global-services';
-import { SupplierQueries } from '~global-services/supplier/supplier.queries';
+} from '~entity-services';
+import { SupplierQueries } from '~entity-services/supplier/supplier.queries';
 import { ApolloStateService } from '~core/apollo';
 import { Product, Quote } from '~models';
 import { Observable } from 'rxjs';

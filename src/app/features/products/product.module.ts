@@ -28,7 +28,7 @@ import { ProductFeatureService, QuoteFeatureService } from '~features/products/s
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
-import { CustomDialogModule } from '~shared/custom-dialog';
+import { DialogCommonModule } from '~common/dialog';
 import { DialogModule } from '~shared/dialog/dialog.module';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { FileModule } from '~shared/file';
@@ -39,12 +39,11 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
-import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
 import { TaskCommonModule } from '~common/task';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { UtilsModule } from '~shared/utils';
-import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
@@ -57,31 +56,13 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 @NgModule({
 	imports: [
 		CommonModule,
-		SharedModule,
 		RouterModule.forChild(routes),
-		DynamicFormsModule,
-		ReactiveFormsModule,
-		DialogModule,
-		FileModule, // file card used
-		RatingModule,
-		SelectionBarModule, // used for selection bar at the bottom
-		TableModule, // used in list
-		FiltersModule, // used for filters
-		CarouselModule,
-		BadgeModule,
-		TopPanelModule,
-		SearchAutocompleteModule,
-		WorkflowActionModule,
-		StageIndicatorModule,
-		ActionBarModule,
-		CustomDialogModule,
+		SharedModule,
+		DialogCommonModule,
 		ActivityCommonModule,
-		StatusModule,
 		ProductCommonModule,
-		UtilsModule,
 		TaskCommonModule,
 		QuoteCommonModule,
-		InputsCustomModule,
 		SampleCommonModule
 	],
 	declarations: [

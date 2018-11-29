@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { Observable } from 'rxjs';

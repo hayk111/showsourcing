@@ -3,15 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
 import { ProductFeatureService } from '~features/products/services';
-import { ProductQueries } from '~global-services/product/product.queries';
+import { ProductQueries } from '~entity-services/product/product.queries';
 import { Attachment, ERM, Product, ProductStatus, Project } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RfqDialogComponent,
-} from '~shared/custom-dialog';
-import { DialogService } from '~shared/dialog';
+} from '~common/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';

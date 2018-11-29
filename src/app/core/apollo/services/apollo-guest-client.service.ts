@@ -8,7 +8,7 @@ import { ApolloStateService } from './apollo-state.service';
 import { log } from '~utils/log';
 import { ActivatedRoute } from '@angular/router';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
-import { RealmServerService } from '~global-services/realm-server/realm-server.service';
+import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 

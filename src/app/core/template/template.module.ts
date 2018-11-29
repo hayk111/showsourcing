@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 
-import { HeaderModule } from '~shared/header/header.module';
+import { HeaderModule } from '~core/header/header.module';
 import { GuestTemplateComponent } from '~core/template/components/guest-template/guest-template.component';
 import { TemplateComponent } from '~core/template/components/template/template.component';
 import { RfqTemplateComponent } from '~core/template/components/rfq-template/rfq-template.component';

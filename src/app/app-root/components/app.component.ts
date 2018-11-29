@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription, zip, combineLatest, forkJoin } from 'rxjs';
 import { filter, shareReplay, tap, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { CompanyService, TeamService } from '~global-services';
+import { CompanyService, TeamService } from '~entity-services';
 import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { TokenService, AuthStatus } from '~core/auth';
 import { Client } from '~core/apollo/services/apollo-client-names.const';

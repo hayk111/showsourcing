@@ -2,12 +2,12 @@ import { AfterViewInit, ChangeDetectorRef, Component, Input, NgModuleRef, OnInit
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ERM, Product, ERM_TOKEN } from '~models';
-import { ProductService } from '~global-services';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { ProductService } from '~entity-services';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { ListPageProviders } from '~core/list-page/list-page-providers.class';
 
 @Component({

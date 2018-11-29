@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DashboardCounters, DashboardService } from '~features/dashboard/services/dashboard.service';
-import { UserService } from '~global-services';
+import { UserService } from '~entity-services';
 import { Task, User } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { ActivityService } from '~common/activity/services/activity.service';

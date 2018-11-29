@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { Project } from '~models';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 @Component({
 	selector: 'project-nav-app',
 	templateUrl: './project-nav.component.html',

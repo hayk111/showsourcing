@@ -6,7 +6,7 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
 import { FileModule } from '~shared/file';
-import { CustomDialogModule } from '~shared/custom-dialog';
+import { DialogCommonModule } from '~common/dialog';
 import { DialogModule } from '~shared/dialog/dialog.module';
 
 import {
@@ -49,7 +49,7 @@ const components = [
 		SearchBarModule,
 		FileModule,
 		DialogModule,
-		CustomDialogModule,
+		DialogCommonModule,
 		SearchAutocompleteModule,
 		InputsModule
 	],

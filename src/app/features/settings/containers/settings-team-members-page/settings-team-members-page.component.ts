@@ -1,9 +1,9 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'subscriptions-transport-ws';
-import { TeamService } from '~global-services';
+import { TeamService } from '~entity-services';
 import { Team } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 
 @Component({
 	selector: 'settings-team-members-page-app',

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef, ChangeDetector
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, takeUntil, switchMap, tap, catchError, take, first } from 'rxjs/operators';
-import { ProductService, ProjectService } from '~global-services';
+import { ProductService, ProjectService } from '~entity-services';
 import { ERM, Product, Project, ERM_TOKEN } from '~models';
 import { ProjectWorkflowFeatureService } from '~features/project/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -10,9 +10,9 @@ import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 
 @Component({
 	selector: 'project-products-app',

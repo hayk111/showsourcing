@@ -1,5 +1,5 @@
 import { Component, NgModuleRef } from '@angular/core';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { RefuseDialogComponent } from '../refuse/refuse-dialog.component';
 
 

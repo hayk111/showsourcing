@@ -2,14 +2,14 @@ import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
-import { TeamService, UserService } from '~global-services';
+import { TeamService, UserService } from '~entity-services';
 import { ERM, Invitation, ERM_TOKEN } from '~models';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 
 @Component({
 	selector: 'settings-team-members-invitations-app',

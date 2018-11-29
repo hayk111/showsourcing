@@ -3,9 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Team } from '~models';
-import { TeamService } from '~global-services';
+import { TeamService } from '~entity-services';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { ApolloStateService } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 

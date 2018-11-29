@@ -19,19 +19,8 @@ import { TaskListComponent, TaskComponent, PreviewTaskComponent, CreateTaskDialo
 @NgModule({
 	imports: [
 		CommonModule,
-		UserPictureModule,
-		ProductCommonModule,
-		DynamicFormsModule,
-		UtilsModule,
-		ImageModule,
-		InputsModule,
-		UserPictureModule,
-		IconsModule,
-		DialogModule,
 		SharedModule,
-		OverlayModule,
-		SelectorsModule,
-		ScrollingModule
+		ProductCommonModule,
 	],
 	declarations: [
 		TaskListComponent,

@@ -6,7 +6,7 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { AutoUnsub } from '~utils';
 import { takeUntil, take, catchError, map, tap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '~global-services';
+import { UserService } from '~entity-services';
 
 @Component({
 	selector: 'registration-app',
