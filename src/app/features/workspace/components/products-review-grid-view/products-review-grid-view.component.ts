@@ -4,8 +4,8 @@ import { first, map } from 'rxjs/operators';
 import { Category } from '~features/workspace/models';
 import { ProductStatusTypeService } from '~global-services';
 import { ERM, Product, ProductStatusType } from '~models';
-import { ListViewComponent } from '~shared/list-page/list-view.component';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { ListViewComponent } from '~core/list-page/list-view.component';
+import { SelectionService } from '~core/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 
 

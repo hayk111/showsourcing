@@ -9,8 +9,8 @@ import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterList, SearchService } from '~shared/filters';
-import { ListPageDataConfig } from '~shared/list-page/list-page-config.interface';
-import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';

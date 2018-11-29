@@ -45,9 +45,9 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
 import { TaskCommonModule } from '~shared/task-common';
 import { CustomDialogModule } from '~shared/custom-dialog';
-import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
-import { ListPageDataService } from '~shared/list-page/list-page-data.service';
-import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 import { ERM_TOKEN, ERM } from '~models';
 import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';

@@ -5,7 +5,7 @@ import { AutoUnsub } from '~utils';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { Observable } from 'rxjs';
 import { Product } from '~models';
-import { ListViewComponent } from '~shared/list-page/list-view.component';
+import { ListViewComponent } from '~core/list-page/list-view.component';
 
 
 @Component({
