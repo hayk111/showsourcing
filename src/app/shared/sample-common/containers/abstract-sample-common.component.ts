@@ -4,8 +4,8 @@ import { SampleService, UserService } from '~global-services';
 import { ERM, Sample } from '~models';
 import { DialogService } from '~shared/dialog';
 import { SearchService } from '~shared/filters';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { ListPageComponent } from '~core/list-page/list-page.component';
+import { SelectionService } from '~core/list-page/selection.service';
 
 /** since we use the sample component on different pages, this page will keep the methods clean */
 export abstract class AbstractSampleCommonComponent extends ListPageComponent<Sample, SampleService> implements OnInit {

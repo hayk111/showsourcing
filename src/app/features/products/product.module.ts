@@ -32,7 +32,7 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { FileModule } from '~shared/file';
 import { FiltersModule } from '~shared/filters';
 import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
-import { ListPageModule } from '~shared/list-page/list-page.module';
+import { ListPageModule } from '~core/list-page/list-page.module';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { QuoteCommonModule } from '~shared/quote/quote.module';
 import { RatingModule } from '~shared/rating';

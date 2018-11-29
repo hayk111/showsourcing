@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { ERM, Product, ERM_TOKEN } from '~models';
 import { ProductService } from '~global-services';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { ListPageDataService } from '~shared/list-page/list-page-data.service';
-import { ListPageViewService } from '~shared/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
+import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
-import { ListPageProviders } from '~shared/list-page/list-page-providers.class';
+import { ListPageProviders } from '~core/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'find-products-dialog-app',

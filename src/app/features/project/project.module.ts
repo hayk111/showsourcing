@@ -32,9 +32,9 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { FiltersModule } from '~shared/filters';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { ListPageDataService } from '~shared/list-page/list-page-data.service';
-import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
-import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { ERM_TOKEN, ERM } from '~models';
 import { KanbanModule } from '~shared/kanban/kanban.module';
 

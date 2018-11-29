@@ -17,5 +17,4 @@ export interface ListPageDataConfig {
 	createDlgComponent?: any;
 	/** searched fields when making search */
 	searchedFields: string[];
-
 }

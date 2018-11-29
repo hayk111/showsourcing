@@ -10,7 +10,7 @@ import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterList, SearchService } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { SelectionService } from '~core/list-page/selection.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';

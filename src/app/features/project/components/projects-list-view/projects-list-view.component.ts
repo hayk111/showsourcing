@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Project } from '~models';
-import { ListViewComponent } from '~shared/list-page/list-view.component';
+import { ListViewComponent } from '~core/list-page/list-view.component';
 
 @Component({
 	selector: 'projects-list-view-app',

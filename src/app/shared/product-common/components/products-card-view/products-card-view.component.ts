@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '~models';
-import { ListViewComponent } from '~shared/list-page/list-view.component';
+import { ListViewComponent } from '~core/list-page/list-view.component';
 import { Sort } from '~shared/table/components/sort.interface';
 
 
