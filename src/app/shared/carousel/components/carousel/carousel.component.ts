@@ -4,7 +4,7 @@ import { ImageComponent } from '~shared/image/components/image/image.component';
 import { DEFAULT_IMG } from '~utils/constants';
 import { ImageService } from '~global-services/image/image.service';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 
 @Component({
 	selector: 'carousel-app',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SupplierFeatureService } from '~features/supplier/services';
 import { ERM, Supplier, ERM_TOKEN } from '~models';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageProviders } from '~core/list-page/list-page-providers.class';

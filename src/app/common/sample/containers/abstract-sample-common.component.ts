@@ -2,7 +2,7 @@ import { NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SampleService, UserService } from '~global-services';
 import { ERM, Sample } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~core/list-page/list-page.component';
 import { SelectionService } from '~core/list-page/selection.service';

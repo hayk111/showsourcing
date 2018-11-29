@@ -2,7 +2,7 @@ import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { Project, ERM_TOKEN, ERM } from '~models';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';

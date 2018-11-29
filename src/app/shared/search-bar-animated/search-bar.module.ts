@@ -1,12 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SearchBarComponent } from '~shared/search-bar-animated/components/search-bar/search-bar.component';
-import { SharedModule } from '~shared/shared.module';
-
-import { SearchBarAnimatedComponent } from '~shared/search-bar-animated/components/search-bar-animated/search-bar-animated.component';
+import {
+	SearchBarAnimatedComponent,
+} from './components/search-bar-animated/search-bar-animated.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { IconsModule } from '~shared/icons';
 
 @NgModule({
 	imports: [
-		SharedModule
+		CommonModule,
+		IconsModule
 	],
 	declarations: [SearchBarAnimatedComponent, SearchBarComponent],
 	exports: [SearchBarAnimatedComponent, SearchBarComponent]

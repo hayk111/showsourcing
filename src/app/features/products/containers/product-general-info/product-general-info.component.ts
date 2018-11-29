@@ -12,11 +12,11 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AutoUnsub } from '~utils';
-import { RfqDialogComponent } from '~shared/custom-dialog';
+import { RfqDialogComponent } from '~common/dialog';
 
 @Component({
 	selector: 'product-general-info-app',

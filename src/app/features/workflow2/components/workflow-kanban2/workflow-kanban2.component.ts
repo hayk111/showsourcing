@@ -1,12 +1,17 @@
 import {
-	Component, OnInit, Output, Input, EventEmitter,
-	TemplateRef, HostBinding, Renderer2, ElementRef
+	Component,
+	ElementRef,
+	EventEmitter,
+	HostBinding,
+	Input,
+	OnInit,
+	Output,
+	Renderer2,
+	TemplateRef,
 } from '@angular/core';
-
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Kanban2Service } from '~features/workflow2/services/kanban2.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
-import { HeaderModule } from '~shared/header';
 
 /** Drag'n drop workflow */
 

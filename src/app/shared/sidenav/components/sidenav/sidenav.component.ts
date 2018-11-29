@@ -6,6 +6,10 @@ import {
 
 import { SidenavItemComponent } from '~shared/sidenav/components/sidenav-item/sidenav-item.component';
 
+
+/**
+ * Component made by Thierry
+ */
 @Component({
 	selector: 'sidenav-app',
 	templateUrl: './sidenav.component.html',

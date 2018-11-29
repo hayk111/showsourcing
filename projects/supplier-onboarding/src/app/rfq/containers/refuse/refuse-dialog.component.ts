@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 
 
 @Component({

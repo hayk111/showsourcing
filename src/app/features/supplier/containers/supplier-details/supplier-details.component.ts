@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Supplier } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 

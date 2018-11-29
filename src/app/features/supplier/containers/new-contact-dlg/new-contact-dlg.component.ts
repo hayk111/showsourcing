@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AppImage, Contact, Supplier } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub, DEFAULT_IMG, RegexpApp, PendingImage } from '~utils';
 import { ContactService, SupplierService } from '~global-services';
 import { UploaderService } from '~shared/file/services/uploader.service';

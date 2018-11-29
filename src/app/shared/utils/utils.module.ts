@@ -6,7 +6,6 @@ import { UserNamePipe } from '~shared/utils/pipes/user-name.pipe';
 import { InfiniScrollDirective } from '~shared/utils/directives';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { GroupByPipe } from '~shared/utils/pipes/groupby.pipe';
-import { FileSizePipe } from '~shared/utils/pipes/fileSize.pipe';
 import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directive';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directiv
 		GroupByPipe,
 		InfiniScrollDirective,
 		ConstPipe,
-		FileSizePipe,
 		AutoFocusDirective
 	],
 	exports: [
@@ -30,7 +28,6 @@ import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directiv
 		InfiniScrollDirective,
 		ConstPipe,
 		GroupByPipe,
-		FileSizePipe,
 		AutoFocusDirective
 	],
 	providers: [

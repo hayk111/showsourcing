@@ -1,0 +1,17 @@
+.flex {
+	align-items: baseline;
+}
+
+:host {
+	align-items: baseline;
+}
+
+.unit {
+	font-size: var(--font-size-s);
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.amount {
+	font-weight: bold;
+}

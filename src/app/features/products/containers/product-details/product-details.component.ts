@@ -10,8 +10,8 @@ import {
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RfqDialogComponent,
-} from '~shared/custom-dialog';
-import { DialogService } from '~shared/dialog';
+} from '~common/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';

@@ -11,14 +11,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, take } from 'rxjs/operators';
 import { ERM, Product, Quote } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AutoUnsub } from '~utils';
 import {
 	CompareQuotationComponent,
 	RfqDialogComponent
-} from '~shared/custom-dialog';
+} from '~common/dialog';
 import {
 	ProductFeatureService,
 	QuoteFeatureService

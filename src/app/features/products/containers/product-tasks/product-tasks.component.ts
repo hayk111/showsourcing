@@ -7,7 +7,7 @@ import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { TaskService, UserService } from '~global-services';
 import { ERM, Task } from '~models';
-import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 
 @Component({
 	selector: 'product-tasks-app',

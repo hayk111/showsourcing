@@ -12,7 +12,7 @@ import { first } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ImageService } from '~global-services/image/image.service';
 import { AppImage } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub, DEFAULT_IMG, PendingImage } from '~utils';
 
