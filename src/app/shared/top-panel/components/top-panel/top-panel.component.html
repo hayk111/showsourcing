@@ -1,7 +1,7 @@
 <div class="flexColumn ctnr" [ngClass]="{ 'has-nav': withNav }">
 	<div [ngClass]="{ flexAround: center, flexBetween: !center }">
 		<div class="left">
-			<bread-crumb-app [title]="title" [subtitles]="subtitles"></bread-crumb-app>
+			<bread-crumb-app [isModifiable]="isModifiable" (update)="update.emit($event)" [title]="title" [subtitles]="subtitles"></bread-crumb-app>
 		</div>
 		<div class="right flexCenter" *ngIf="buttonName">
 
