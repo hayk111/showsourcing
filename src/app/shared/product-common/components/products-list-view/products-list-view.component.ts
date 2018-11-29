@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Product, ERM } from '~models';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
-import { ListViewComponent } from '~shared/list-page/list-view.component';
+import { ListViewComponent } from '~core/list-page/list-view.component';
 import { Sort } from '~shared/table/components/sort.interface';
 
 

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnChan
 
 import { TeamUser, User, Invitation } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
-import { ListViewComponent } from '~shared/list-page/list-view.component';
+import { ListViewComponent } from '~core/list-page/list-view.component';
 
 
 @Component({

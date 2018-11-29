@@ -3,7 +3,7 @@ import { AbstractSampleCommonComponent } from '~shared/sample-common/containers/
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, SampleService } from '~global-services';
 import { SearchService, FilterType } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { SelectionService } from '~core/list-page/selection.service';
 import { DialogService } from '~shared/dialog';
 
 @Component({

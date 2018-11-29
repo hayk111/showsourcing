@@ -7,11 +7,11 @@ import { ERM, Product, Project, ERM_TOKEN } from '~models';
 import { ProjectWorkflowFeatureService } from '~features/project/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
-import { ListPageDataService } from '~shared/list-page/list-page-data.service';
-import { ListPageViewService } from '~shared/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
-import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
 
 @Component({

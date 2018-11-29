@@ -10,7 +10,7 @@ import {
 	RfqDialogComponent,
 } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { SelectionService } from '~core/list-page/selection.service';
 import { MergeDialogComponent } from '~shared/custom-dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';

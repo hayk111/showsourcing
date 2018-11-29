@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { NewTaskDlgComponent } from '~features/tasks/containers/new-task-dlg/new-task-dlg.component';
-import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'tasks-page-app',

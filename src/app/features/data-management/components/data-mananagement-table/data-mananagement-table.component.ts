@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Category, EntityMetadata, ERM } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
-import { ListViewComponent } from '~shared/list-page/list-view.component';
+import { ListViewComponent } from '~core/list-page/list-view.component';
 
 @Component({
 	selector: 'data-management-table-app',

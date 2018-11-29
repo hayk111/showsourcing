@@ -14,8 +14,8 @@ import { DialogService } from '~shared/dialog';
 import { SearchService } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { ListPageComponent } from '~core/list-page/list-page.component';
+import { SelectionService } from '~core/list-page/selection.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import {
 	FindProductsDialogComponent,
@@ -24,10 +24,10 @@ import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
 import { ProductQueries } from '~global-services/product/product.queries';
 import { CommonDialogService } from '~shared/custom-dialog/services/common-dialog.service';
-import { ListPageDataService } from '~shared/list-page/list-page-data.service';
-import { ListPageViewService } from '~shared/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~shared/list-page/selection-with-favorite.service';
-import { ListPageProviders, ProviderKey } from '~shared/list-page/list-page-providers.class';
+import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { SelectionService } from '~core/list-page/selection.service';
 
 
 @Injectable()

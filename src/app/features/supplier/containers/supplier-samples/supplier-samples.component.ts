@@ -4,7 +4,7 @@ import { UserService } from '~global-services';
 import { SampleService } from '~global-services/sample/sample.service';
 import { DialogService } from '~shared/dialog';
 import { FilterType, SearchService } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { SelectionService } from '~core/list-page/selection.service';
 import { AbstractSampleCommonComponent } from '~shared/sample-common/containers/abstract-sample-common.component';
 
 @Component({
