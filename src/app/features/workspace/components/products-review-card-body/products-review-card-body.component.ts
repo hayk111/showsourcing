@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
 import { Product, ProductStatusType, ERM } from '~models';
 import { ListViewComponent } from '~core/list-page/list-view.component';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { AnimatedCardComponent } from '~shared/animated-stack/components/animated-card/animated-card.component';
 // import * as Isotope from 'isotope-layout';
 

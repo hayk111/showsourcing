@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { EntityMetadata, ERM } from '~models';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'preview-badge-app',

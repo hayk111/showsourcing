@@ -7,7 +7,7 @@ import {
 	EventEmitter,
 } from '@angular/core';
 import { Project } from '~models';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { Router } from '@angular/router';
 
 @Component({

@@ -7,7 +7,7 @@ import { EntityMetadata, ERM, ProductStatusType, SupplierStatusType, SampleStatu
 @Injectable({
 	providedIn: 'root'
 })
-export class WorkflowActionService {
+export class StatusSelectorService {
 
 	// if we dont want to see all at once and use a scroll for this, instead of query all
 	// we need queryList, so we can refetch. And the workflow.html need infiniteScroll

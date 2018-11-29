@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { WorkflowActionComponent } from '~shared/workflow-action/component/workflow-action.component';
-import { WorkflowActionService } from '~shared/workflow-action/service/workflow-action.service';
+import { StatusSelectorComponent } from './component/status-selector.component';
+import { StatusSelectorService } from './service/status-selector.service';
 import { CommonModule } from '@angular/common';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { BadgeModule } from '~shared/badge';
@@ -13,11 +13,11 @@ import { IconsModule } from '~shared/icons';
 		BadgeModule,
 		IconsModule
 	],
-	declarations: [WorkflowActionComponent],
-	exports: [WorkflowActionComponent],
+	declarations: [StatusSelectorComponent],
+	exports: [StatusSelectorComponent],
 	// TODO Uncomment when fixed problem with pages
 	providers: [
-		WorkflowActionService
+		StatusSelectorService
 	]
 })
-export class WorkflowActionModule { }
+export class StatusSelectorModule { }

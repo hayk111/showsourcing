@@ -8,7 +8,7 @@ import {
 	PreviewHeaderComponent,
 	PreviewSectionComponent,
 } from './components';
-import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { FormsModule } from '@angular/forms';
 import { IconsModule } from '~shared/icons';
 import { EditableFieldModule } from '~shared/editable-field';
@@ -18,7 +18,7 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 @NgModule({
 	imports: [
 		CommonModule,
-		WorkflowActionModule,
+		StatusSelectorModule,
 		FormsModule,
 		IconsModule,
 		EditableFieldModule,

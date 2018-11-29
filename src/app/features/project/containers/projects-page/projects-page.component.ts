@@ -8,7 +8,7 @@ import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { ListPageProviders } from '~core/list-page/list-page-providers.class';
 
 @Component({

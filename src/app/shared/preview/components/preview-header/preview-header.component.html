@@ -4,11 +4,11 @@
 		<span>{{ entityMD?.singular }}</span>
 	</div>
 	<div class="right">
-		<workflow-action-app
+		<status-selector-app
 			*ngIf="entityMD"
 			[entity]="entity"
 			[typeEntity]="entityMD">
-		</workflow-action-app>
+		</status-selector-app>
 	</div>
 </div>
 

@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { OnInit, AfterViewInit } from '@angular/core';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { EntityMetadata } from '~models';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';

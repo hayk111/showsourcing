@@ -7,7 +7,7 @@ import {
 	EventEmitter
 } from '@angular/core';
 import { Product, Packaging, Quote } from '~models';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 @Component({
 	selector: 'item-comapre-column-app',
 	templateUrl: './item-comapre-column.component.html',
@@ -25,7 +25,7 @@ export class ItemCompareColumnComponent extends TrackingComponent
 		super();
 	}
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	getPackagingString(packaging: Packaging): string {
 		if (!packaging) {

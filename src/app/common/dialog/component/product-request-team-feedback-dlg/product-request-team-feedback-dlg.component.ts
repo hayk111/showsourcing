@@ -7,7 +7,7 @@ import { TeamService } from '~global-services';
 import { take, map, switchMap, first, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ProductDialogService } from '~common/dialog/services/product-dialog.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'bread-crumb-app',
@@ -14,5 +14,5 @@ export class BreadCrumbComponent extends TrackingComponent implements OnInit {
 		super();
 	}
 
-	ngOnInit() {}
+	ngOnInit() { }
 }

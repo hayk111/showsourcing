@@ -43,7 +43,7 @@ import { TableModule } from '~shared/table';
 import { TaskCommonModule } from '~common/task';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { UtilsModule } from '~shared/utils';
-import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
@@ -70,7 +70,7 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		BadgeModule,
 		TopPanelModule,
 		SearchAutocompleteModule,
-		WorkflowActionModule,
+		StatusSelectorModule,
 		StageIndicatorModule,
 		ActionBarModule,
 		DialogCommonModule,

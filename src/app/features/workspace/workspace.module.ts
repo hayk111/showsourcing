@@ -22,7 +22,7 @@ import { AnimatedStackModule } from '~shared/animated-stack/animated-stack.modul
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 
 import { ProductsReviewCardBodyComponent } from './components/products-review-card-body/products-review-card-body.component';
 
@@ -37,7 +37,7 @@ import { ProductsReviewCardBodyComponent } from './components/products-review-ca
 		Workflow2Module,
 		TaskCommonModule,
 		ProductCommonModule,
-		WorkflowActionModule,
+		StatusSelectorModule,
 		DialogCommonModule,
 		AnimatedStackModule
 	],

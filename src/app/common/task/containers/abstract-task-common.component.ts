@@ -7,7 +7,7 @@ import { FilterType } from '~shared/filters';
 import { ListPageDataService } from '~core/list-page';
 import { ListPageViewService } from '~core/list-page';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {

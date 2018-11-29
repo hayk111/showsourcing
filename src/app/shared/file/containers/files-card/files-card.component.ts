@@ -5,7 +5,7 @@ import { DEFAULT_FILE_ICON } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';
 import { DialogService } from '~shared/dialog/services';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { any } from 'async';
 
 export enum PageType {

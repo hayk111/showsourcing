@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DashboardCounters } from '~features/dashboard/services/dashboard.service';
 import { Task } from '~models';
 import { User } from '~models/user.model';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'dashboard-summary-app',

@@ -1,6 +1,6 @@
 import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 // utility class to unsub from observable
 export abstract class AutoUnsub extends TrackingComponent implements OnDestroy {

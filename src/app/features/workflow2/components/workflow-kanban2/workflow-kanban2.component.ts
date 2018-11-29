@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Kanban2Service } from '~features/workflow2/services/kanban2.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 /** Drag'n drop workflow */
 

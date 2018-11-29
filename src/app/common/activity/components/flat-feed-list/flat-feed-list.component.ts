@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { Product, Supplier, EntityMetadata } from '~models';
 import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'flat-feed-list-app',

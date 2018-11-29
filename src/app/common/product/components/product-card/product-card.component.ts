@@ -15,7 +15,7 @@ import { UserService } from '~global-services';
 import { Product, ProductVote } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 
 

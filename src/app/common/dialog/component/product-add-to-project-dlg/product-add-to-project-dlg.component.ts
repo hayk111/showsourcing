@@ -6,7 +6,7 @@ import { DialogService } from '~shared/dialog/services';
 import { ProjectService, ProductService } from '~global-services';
 import { ProductDialogService } from '~common/dialog/services/product-dialog.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 
 

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { TrackingComponent } from '~shared/tracking-component/tracking-component';
+import { TrackingComponent } from '~utils/tracking-component';
 import { OnBoardingService } from '../../services';
 import { Attachment, SupplierClaim } from '~models';
 import { DialogService } from '~shared/dialog/services';
