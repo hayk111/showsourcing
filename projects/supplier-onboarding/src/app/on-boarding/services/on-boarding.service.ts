@@ -4,13 +4,13 @@ import { tap, switchMap } from 'rxjs/operators';
 import { SupplierService } from '~global-services';
 import { SupplierClaimService } from '~global-services/supplier-claim/supplier-claim.service';
 import { Supplier, SupplierClaim, Attachment } from '~models';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { TokenState } from '~features/auth/interfaces/token-state.interface';
-import { Credentials } from '~features/auth/interfaces/credentials.interface';
-import { TokenService } from '~features/auth/services/token.service';
-import { SupplierOnboardingClient } from '~shared/apollo/services/apollo-supplier-unboarding-client.class';
-import { GlobalDataClientsInitializer } from '~shared/apollo';
+import { TokenState } from '~core/auth/interfaces/token-state.interface';
+import { Credentials } from '~core/auth/interfaces/credentials.interface';
+import { TokenService } from '~core/auth/services/token.service';
+import { SupplierOnboardingClient } from '~core/apollo/services/apollo-supplier-unboarding-client.class';
+import { GlobalDataClientsInitializer } from '~core/apollo';
 
 @Injectable({
 	providedIn: 'root'

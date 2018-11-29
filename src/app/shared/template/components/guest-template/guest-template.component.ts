@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthStatus } from '~features/auth';
+import { AuthStatus } from '~core/auth';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

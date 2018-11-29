@@ -6,14 +6,14 @@ import { Team } from '~models';
 import { TeamService } from '~global-services';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrackingComponent } from '~shared/tracking-component/tracking-component';
-import { ApolloStateService } from '~shared/apollo';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~core/apollo';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 
 @Component({
 	selector: 'pick-a-team-page-app',
 	templateUrl: './pick-a-team-page.component.html',
-	styleUrls: ['./pick-a-team-page.component.scss', '../../../auth/components/form-style.scss'],
+	styleUrls: ['./pick-a-team-page.component.scss', '../../../auth-pages/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PickATeamPageComponent extends TrackingComponent implements OnInit {

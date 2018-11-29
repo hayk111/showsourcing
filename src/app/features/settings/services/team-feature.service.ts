@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, of, forkJoin } from 'rxjs';
-import { Invitation } from '~models';
-
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { LocalStorageService } from '~core/local-storage';
 import { TeamService } from '~global-services';
-import { SelectParams } from '~global-services/_global/select-params';
-import { Sort } from '~shared/table/components/sort.interface';
-import { Apollo } from 'apollo-angular';
-import { LocalStorageService } from '~shared/local-storage';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 @Injectable({
 	providedIn: 'root'

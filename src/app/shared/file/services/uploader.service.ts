@@ -12,7 +12,7 @@ import { FileUploadRequest } from '~models/file-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { resizeSizeToLimit } from '~shared/utils/file.util';
 import { ImageUrls, log, LogColor } from '~utils';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {

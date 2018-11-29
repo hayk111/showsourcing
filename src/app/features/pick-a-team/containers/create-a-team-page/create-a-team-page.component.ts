@@ -13,7 +13,7 @@ import { AutoUnsub } from '~utils';
 @Component({
 	selector: 'create-a-team-page-app',
 	templateUrl: './create-a-team-page.component.html',
-	styleUrls: ['./create-a-team-page.component.scss', '../../../auth/components/form-style.scss'],
+	styleUrls: ['./create-a-team-page.component.scss', '../../../auth-pages/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateATeamPageComponent extends AutoUnsub implements OnInit {

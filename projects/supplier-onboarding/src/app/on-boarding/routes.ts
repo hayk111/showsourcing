@@ -15,7 +15,7 @@ import {
 	WelcomeComponent,
 } from './components';
 import { GuestTemplateComponent } from '~shared/template';
-import { GlobalDataClientReadyGuard, SupplierOnboardingClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
+import { GlobalDataClientReadyGuard, SupplierOnboardingClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { ProcessStartedGuard } from './services/process-started.guard';
 
 export const routes: Routes = [

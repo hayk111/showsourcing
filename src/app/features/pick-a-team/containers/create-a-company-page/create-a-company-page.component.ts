@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 @Component({
 	selector: 'create-a-company-page-app',
 	templateUrl: './create-a-company-page.component.html',
-	styleUrls: ['./create-a-company-page.component.scss', '../../../auth/components/form-style.scss'],
+	styleUrls: ['./create-a-company-page.component.scss', '../../../auth-pages/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateACompanyPageComponent implements OnInit {

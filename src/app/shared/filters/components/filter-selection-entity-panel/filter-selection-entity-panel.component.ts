@@ -5,7 +5,7 @@ import { AutoUnsub } from '~utils';
 import { Filter, FilterType } from '~shared/filters/models';
 import { EntityMetadata, ERM } from '~models';
 import { ERMService } from '~global-services/_global/erm.service';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 
 // this is the entity panel that appears once a filter button has been clicked

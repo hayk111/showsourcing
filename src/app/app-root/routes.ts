@@ -1,26 +1,25 @@
 import { Route } from '@angular/router';
 import { environment } from 'environments/environment';
-import { AuthGuardService } from '~features/auth';
-import { HasUserGuard } from '~features/auth/services/has-user.guard';
-import { UnauthGuardService } from '~features/auth/services/unauth-guard.service';
+import { AuthGuardService } from '~core/auth';
+import { HasUserGuard } from '~core/auth/services/has-user.guard';
+import { UnauthGuardService } from '~core/auth/services/unauth-guard.service';
 import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-selected.guard';
-import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
-import { TeamClientReadyGuard, UserClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
+import { TeamClientReadyGuard, UserClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { GuestTemplateComponent, TemplateComponent } from '~shared/template';
 import { isDevMode } from '@angular/core';
 import { DevModeGuard } from '~utils/dev-mode.guard';
 
 export const routes: Array<Route> = [
 	{
-		path: 'guest',
+		path: 'auth',
 		component: GuestTemplateComponent,
 		canActivateChild: [UnauthGuardService],
-		loadChildren: 'app/features/auth/auth.module#AuthModule'
+		loadChildren: 'app/features/auth-pages/auth-pages.module#AuthPagesModule'
 	},
 	{
-		path: 'issues',
+		path: 'error',
 		component: GuestTemplateComponent,
-		children: [{ path: 'server-issues', component: ApolloIssuePageComponent }]
+		loadChildren: 'app/features/error-pages/error-pages.module#ErrorPagesModule'
 	},
 	{
 		path: 'user',

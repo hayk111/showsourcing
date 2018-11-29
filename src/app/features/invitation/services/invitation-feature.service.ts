@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { InvitationUserService, TeamService, UserService } from '~global-services';
 import { InvitationUser } from '~models';
-import { ApolloStateService } from '~shared/apollo';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~core/apollo';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 @Injectable()
 export class InvitationFeatureService extends InvitationUserService {

@@ -7,7 +7,7 @@ import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
 import { Apollo } from 'apollo-angular';
 import { first, map } from 'rxjs/operators';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~core/apollo';
 
 @Injectable()
 export class MemberFeatureService extends TeamUserService {

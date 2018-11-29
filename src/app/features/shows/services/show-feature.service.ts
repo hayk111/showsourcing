@@ -7,7 +7,7 @@ import { Filter, FilterType } from '~shared/filters';
 import { ShowsModule } from '~features/shows/shows.module';
 import { Show } from '~models/show.model';
 import { Apollo } from 'apollo-angular';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~core/apollo';
 
 @Injectable({
 	providedIn: 'root'

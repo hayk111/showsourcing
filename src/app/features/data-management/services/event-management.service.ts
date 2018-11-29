@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EventService, UserService } from '~global-services';
 import { Apollo } from 'apollo-angular';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 
 @Injectable({
 	providedIn: 'root'

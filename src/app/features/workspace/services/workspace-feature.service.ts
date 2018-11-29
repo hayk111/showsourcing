@@ -6,7 +6,7 @@ import { ListQuery } from '~global-services/_global/list-query.interface';
 import { ProductStatusService } from '~global-services/product-status/product-status.service';
 import { ProductQueries } from '~global-services/product/product.queries';
 import { Product, ProductStatus, ProductStatusType } from '~models';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~core/apollo';
 import { Sort } from '~shared/table/components/sort.interface';
 
 

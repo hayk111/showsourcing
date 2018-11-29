@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { AppApolloModule } from '~shared/apollo';
+import { AppApolloModule } from '~core/apollo';
 import { TemplateModule } from '~shared/template';
 
 import { AppOnboardingComponent } from './app-onboarding.component';

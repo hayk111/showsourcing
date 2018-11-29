@@ -9,9 +9,9 @@ import { environment } from 'environments/environment';
 import { UserService } from '~global-services';
 import { InvitationUser } from '~models';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
-import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
 
 
 @Component({

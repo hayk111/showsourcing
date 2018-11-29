@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApolloStateService, ClientStatus } from '~shared/apollo';
+import { ApolloStateService, ClientStatus } from '~core/apollo';
 import { log } from '~utils';
 
 import { OnBoardingService } from '../../services';

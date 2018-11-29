@@ -6,7 +6,7 @@ import { ProductVoteRequestService } from '~global-services/product-vote-request
 import { Sort } from '~shared/table/components/sort.interface';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Apollo } from 'apollo-angular';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~core/apollo';
 import { SupplierQueries } from '~global-services/supplier/supplier.queries';
 
 @Injectable()
