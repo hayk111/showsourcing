@@ -18,8 +18,6 @@ import { ShowFeatureService } from '~features/shows/services/show-feature.servic
 	imports: [
 		CommonModule,
 		SharedModule,
-		TopPanelModule,
-		SearchBarModule,
 		RouterModule.forChild([
 			{ path: '', component: ShowsPageComponent, pathMatch: 'full' },
 			{ path: ':id', component: ShowDetailsComponent }

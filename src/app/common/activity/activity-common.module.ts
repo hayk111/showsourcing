@@ -32,10 +32,6 @@ import {
 	imports: [
 		CommonModule,
 		SharedModule,
-		RatingModule,
-		ActionBarModule,
-		LoadersModule,
-		CarouselModule,
 		ProductCommonModule,
 		CommentCommonModule
 	],

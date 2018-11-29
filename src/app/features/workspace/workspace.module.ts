@@ -17,29 +17,19 @@ import {
 } from '~features/workspace/containers';
 import { routes } from '~features/workspace/routes';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ActionBarModule } from '~shared/action-bar/action-bar.module';
-import { AnimatedStackModule } from '~shared/animated-stack/animated-stack.module';
-import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
-import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 
 import { ProductsReviewCardBodyComponent } from './components/products-review-card-body/products-review-card-body.component';
 
 
 @NgModule({
 	imports: [
-		SharedModule,
 		RouterModule.forChild(routes),
-		TopPanelModule,
-		SelectionBarModule,
-		ActionBarModule,
-		Workflow2Module,
+		SharedModule,
+		Workflow2Module, // TODO REMOVE WHEN KANBAN USED
 		TaskCommonModule,
 		ProductCommonModule,
-		StatusSelectorModule,
 		DialogCommonModule,
-		AnimatedStackModule
 	],
 	declarations: [
 		WorkspaceComponent,

@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
+import { SharedModule } from '~shared/shared.module';
 
 
 @NgModule({
-	imports: [],
+	imports: [
+		SharedModule
+	],
 	declarations: [],
 })
 export class EventModule { }

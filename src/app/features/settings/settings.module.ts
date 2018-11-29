@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { DialogCommonModule } from '~common/dialog/dialog-common.module';
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import {
 	InvitationsListViewComponent,
@@ -24,30 +24,13 @@ import {
 import { routes } from '~features/settings/routes';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
-import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
-import { DialogCommonModule } from '~common/dialog/dialog-common.module';
-import { DialogModule } from '~shared/dialog/dialog.module';
-import { FileModule } from '~shared/file';
-import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
-import { SidenavModule } from '~shared/sidenav/sidenav.module';
-import { TableModule } from '~shared/table';
-import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 @NgModule({
 	imports: [
-		SharedModule,
 		RouterModule.forChild(routes),
-		ReactiveFormsModule,
-		RouterModule,
-		TopPanelModule,
-		DialogModule,
+		SharedModule,
 		DataManagementModule,
-		SelectionBarModule, // used for selection bar at the bottom
-		TableModule, // used by list view
-		ContextMenuModule,
-		SidenavModule,
-		FileModule,
 		DialogCommonModule
 	],
 	declarations: [

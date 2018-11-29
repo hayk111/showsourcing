@@ -56,30 +56,13 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 @NgModule({
 	imports: [
 		CommonModule,
-		SharedModule,
 		RouterModule.forChild(routes),
-		DynamicFormsModule,
-		ReactiveFormsModule,
-		DialogModule,
-		FileModule, // file card used
-		RatingModule,
-		SelectionBarModule, // used for selection bar at the bottom
-		TableModule, // used in list
-		FiltersModule, // used for filters
-		CarouselModule,
-		BadgeModule,
-		TopPanelModule,
-		SearchAutocompleteModule,
-		StatusSelectorModule,
-		StageIndicatorModule,
-		ActionBarModule,
+		SharedModule,
 		DialogCommonModule,
 		ActivityCommonModule,
 		ProductCommonModule,
-		UtilsModule,
 		TaskCommonModule,
 		QuoteCommonModule,
-		InputsCustomModule,
 		SampleCommonModule
 	],
 	declarations: [
