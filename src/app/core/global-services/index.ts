@@ -23,3 +23,5 @@ export * from './quote/quote.service';
 export * from './quote/quote.queries';
 export * from './company/company.service';
 export * from './supplier-claim/supplier-claim.service';
+export * from './sample/sample.service';
+export * from './sample-status/sample-status.service';

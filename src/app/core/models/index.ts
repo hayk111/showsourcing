@@ -39,4 +39,5 @@ export * from './realm-server.model';
 export * from './comment.model';
 export * from './company.model';
 export * from './supplier-claim.model';
-
+export * from './sample-status.model';
+export * from './sample.model';
