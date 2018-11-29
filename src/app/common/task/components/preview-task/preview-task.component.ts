@@ -33,6 +33,7 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 	@Input() set task(value: Task) {
 		this._task = value;
 	}
+	@Output() close = new EventEmitter<null>();
 	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 
 	task$: Observable<Task>;
@@ -74,8 +75,6 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 
 	/** OLD */
 	@Output() udateTask = new EventEmitter<Task>();
-
-	@Output() close = new EventEmitter<any>();
 
 	comment$: Observable<Comment>;
 

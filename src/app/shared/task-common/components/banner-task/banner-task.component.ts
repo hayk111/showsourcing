@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Task } from '~core/models';
 
 @Component({
 	selector: 'banner-task-app',
@@ -8,9 +9,32 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class BannerTaskComponent implements OnInit {
 
+	@Input() set task(task: Task) {
+		this._task = task;
+		if (task.done)
+			this.status = 'done';
+		else if (task.dueDate && (new Date().getTime() >= Date.parse(task.dueDate.toString())))
+			this.status = 'overdue';
+	}
+	get task() {
+		return this._task;
+	}
+	@Output() update = new EventEmitter<any>();
+	_task: Task;
+	status: 'overdue' | 'done' | 'pending' = 'pending';
+
 	constructor() { }
 
 	ngOnInit() {
 	}
 
+	getStatusText() {
+		let text = 'Task ';
+		if (status === 'overdue') {
+			text = 'Overdue - ' + this.task.dueDate;
+		} else {
+			text += this.status;
+		}
+		return text;
+	}
 }

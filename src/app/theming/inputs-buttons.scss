@@ -115,6 +115,14 @@ button, input[type="submit"], .button {
 			color: white;
 		}
 	}
+	&.secondary-dark {
+		background: var(--color-txt-primary);
+		color: white;
+		&:hover {
+			background: var(--color-secondary-dark);
+			color: white;
+		}
+	}
 	&.light {
 		background: transparent;
 		color: var(--color-txt);

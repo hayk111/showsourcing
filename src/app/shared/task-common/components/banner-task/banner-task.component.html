@@ -1,5 +1,19 @@
-<div class="cntr">
+<div class="cntr"
+	[ngClass]="{
+		'task-done': status === 'done',
+		'task-overdue': status === 'overdue',
+		'task-pending': status === 'pending'}">
 
-	<button class="secondary">Mark As Done</button>
+	<button
+		*ngIf="status != 'done'"
+		class="{{status === 'pending' ? 'secondary-dark' : 'secondary'}} task-mark"
+		(click)="update.emit(true)">
+		Mark as done
+	</button>
+
+	<div class="task-info">
+		<icon-app name="close"></icon-app>
+		<div class="info"> {{ status === 'overdue' ? 'Overdue - ' : 'Task ' + status }} {{ task?.dueDate | date:'dd MM yyyy' || ''}} </div>
+	</div>
 
 </div>
