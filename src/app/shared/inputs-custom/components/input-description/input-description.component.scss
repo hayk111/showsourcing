@@ -1,12 +1,18 @@
+:host {
+	display: block;
+}
+
 .descripton-container {
+
   .description-text {
     font-family: var(--font-normal);
     font-size: var(--font-size-l);
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: var(--color-txt-strong);
-  }
+	}
+
 }
+
+editable-label-app {
+	white-space: pre-line;
+}
+
