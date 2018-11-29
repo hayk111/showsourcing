@@ -1,23 +1,18 @@
 import {
 	AfterViewChecked,
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	EventEmitter,
 	Input,
-	NgModuleRef,
 	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ProductService, TaskService } from '~entity-services';
-import { Comment, Product, Task } from '~models';
-import { DialogService } from '~shared/dialog/services';
-import { CustomField } from '~shared/dynamic-forms';
+import { Comment, ERM, Task } from '~models';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { AutoUnsub } from '~utils';
 

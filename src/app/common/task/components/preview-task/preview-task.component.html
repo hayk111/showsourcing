@@ -23,10 +23,10 @@
 
 	<!-- Description -->
 	<preview-section-app [title]="'Description'">
-		<description-app
+		<input-description-app
 			[description]="task?.description"
 			(update)="update($event, 'description')">
-		</description-app>
+		</input-description-app>
 	</preview-section-app>
 
 	<!-- Date & Assignee -->
