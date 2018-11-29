@@ -1,6 +1,9 @@
 <preview-app *ngIf="task$ | async as task">
-	<preview-banner-app>
-		<!-- Do the banner of the task here -->
+	<preview-banner-app (closed)="close.emit()">
+		<banner-task-app
+			[task]="task"
+			(update)="update($event, 'done')">
+		</banner-task-app>
 	</preview-banner-app>
 	<preview-header-app
 		[entity]="task"
