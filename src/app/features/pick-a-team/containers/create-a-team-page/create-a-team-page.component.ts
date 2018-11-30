@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Team } from '~models';
-import { TeamService, UserService, CompanyService } from '~entity-services';
-import { map, first, tap, takeUntil } from 'rxjs/operators';
-import { Company } from '~models/company.model';
-import { OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
+import { CompanyService, TeamService, UserService } from '~entity-services';
+import { Team } from '~models';
+import { Company } from '~models/company.model';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -29,7 +28,6 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		private companySrv: CompanyService,
 		private router: Router,
 		private userSrv: UserService,
-		private location: Location,
 		private route: ActivatedRoute
 	) {
 		super();

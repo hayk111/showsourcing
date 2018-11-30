@@ -1,12 +1,10 @@
 import { Route } from '@angular/router';
-import { environment } from 'environments/environment';
+import { TeamClientReadyGuard, UserClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { AuthGuardService } from '~core/auth';
 import { HasUserGuard } from '~core/auth/services/has-user.guard';
 import { UnauthGuardService } from '~core/auth/services/unauth-guard.service';
-import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-selected.guard';
-import { TeamClientReadyGuard, UserClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
-import { isDevMode } from '@angular/core';
+import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-selected.guard';
 import { DevModeGuard } from '~utils/dev-mode.guard';
 
 export const routes: Array<Route> = [
