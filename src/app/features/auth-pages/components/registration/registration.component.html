@@ -1,6 +1,6 @@
 
 <div class="top">
-	<h1>Sign up</h1>
+	<h1 *ngIf="!(pending$ | async)">Sign up</h1>
 	<h2 *ngIf="!(pending$ | async)">Just fill this form and get started with power sourcing!</h2>
 	<h1 *ngIf="(pending$ | async)">We are creating your account</h1>
 	<h2 *ngIf="(pending$ | async)">Please hold as we modify the internet for you!</h2>

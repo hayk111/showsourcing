@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
@@ -9,6 +9,8 @@ import { TokenService } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
+import { ViewportScroller } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-root',

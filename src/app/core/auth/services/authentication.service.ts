@@ -56,6 +56,8 @@ export class AuthenticationService {
 
 	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
+		// lower case for email
+		credentials.identifier = credentials.identifier.toLowerCase();
 		return this.tokenSrv.getRefreshToken(credentials);
 	}
 
@@ -94,6 +96,8 @@ export class AuthenticationService {
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
+		creds.email = creds.email.toLowerCase();
+
 		return this.http.post(`${environment.apiUrl}/signup/user`, creds).pipe(
 			map(_ => ({ identifier: creds.email, password: creds.password })),
 			switchMap(loginCreds => this.login(loginCreds))
