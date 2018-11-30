@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { TeamService } from '~global-services';
 import { Team } from '~models';
-import { take } from 'rxjs/operators';
+import { take, switchMap } from 'rxjs/operators';
 import { DialogService } from '~shared/dialog';
 
 @Component({
@@ -38,10 +38,9 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 	}
 	updateTeamName(newName: string) {
 		if (newName.length) {
-			this.team$.pipe(take(1)).subscribe(team => {
-				team.name = newName;
-				this.teamSrv.update(team).subscribe();
-			});
+			this.team$.pipe(
+				switchMap(team => this.teamSrv.update(team))
+			).subscribe();
 		}
 	}
 }
