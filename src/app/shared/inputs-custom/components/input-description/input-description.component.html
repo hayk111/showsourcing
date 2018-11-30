@@ -8,7 +8,7 @@
 		[canGrow]="true">
 		<label-app>Description</label-app>
 		<editable-label-app>
-			{{ (description.length && description) || '-' }}
+			{{ (description?.length && description) || '-' }}
 		</editable-label-app>
 		<textarea inputApp #inpDescription autofocus="true"
 			class="fullWidth"

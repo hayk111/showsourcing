@@ -61,7 +61,6 @@
 		// label on same line as input, label on left, input on right side
 		.ctnr {
 			display: flex;
-			justify-content: space-between;
 		}
 		&.cannotGrow {
 			height: 33px;
@@ -72,12 +71,13 @@
 		.labelCtnr {
 			font-size: var(--font-size-m);
 			font-weight: 600;
-			color: var(--color-txt-primary);
+			color: var(--color-txt-secondary);
 			text-transform: capitalize;
+			width: 50%;
 		}
 		.content {
-			color: var(--color-txt-secondary);
-			font-weight: 600;
+			color: var(--color-txt-strong);
+			width: 50%;
 		}
 	}
 }

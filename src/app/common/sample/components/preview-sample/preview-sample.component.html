@@ -29,9 +29,9 @@
 			[badge]="erm.SUPPLIER"
 			[value]="sample?.supplier?.name"
 			(update)="update($event, 'supplier')">
+			<divider-app></divider-app>
 		</preview-badge-app>
 	</preview-header-app>
-
 	<!-- Description -->
 	<preview-section-app [title]="'Description'">
 		<input-description-app
@@ -43,8 +43,8 @@
 	<!-- Sample information -->
 	<preview-section-app [title]="'Sample Information'">
 		<dynamic-form-app
-			[inlineLabel]="false"
 			[fields]="customFields"
+			[inlineLabel]="true"
 			[value]="sample"
 			[colAmount]="1"
 			(update)="updateSample($event)">
