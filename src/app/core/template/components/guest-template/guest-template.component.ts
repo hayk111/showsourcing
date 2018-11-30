@@ -15,6 +15,7 @@ export class GuestTemplateComponent implements OnInit {
 	auth$: Observable<boolean>;
 	/** sometimes we don't wanna display the logout button */
 	showLogout = true;
+
 	constructor(
 		private authSrv: AuthenticationService,
 		private route: ActivatedRoute
