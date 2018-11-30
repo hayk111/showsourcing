@@ -1,0 +1,65 @@
+<preview-app *ngIf="sample$ | async as sample">
+
+	<!-- Banner -->
+	<preview-banner-app (closed)="close.emit()">
+		<carousel-app
+			[images]="sample?.images"
+			[selectedIndex]="selectedIndex"
+			objectFit="cover"
+			(imgClick)="openModal($event)"
+			(deleted)="onDelete($event)">
+		</carousel-app>
+	</preview-banner-app>
+
+	<!-- Header -->
+	<preview-header-app
+		[entity]="sample"
+		[entityMD]="erm.SAMPLE"
+		(update)="update($event, 'name')">
+
+		<!-- Product badge -->
+		<preview-badge-app
+			[badge]="erm.PRODUCT"
+			[value]="sample?.product?.name"
+			(update)="update($event, 'product')">
+		</preview-badge-app>
+
+		<!-- Supplier badge -->
+		<preview-badge-app
+			[badge]="erm.SUPPLIER"
+			[value]="sample?.supplier?.name"
+			(update)="update($event, 'supplier')">
+			<divider-app></divider-app>
+		</preview-badge-app>
+	</preview-header-app>
+	<!-- Description -->
+	<preview-section-app [title]="'Description'">
+		<input-description-app
+			[description]="sample?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
+	</preview-section-app>
+
+	<!-- Sample information -->
+	<preview-section-app [title]="'Sample Information'">
+		<dynamic-form-app
+			[fields]="customFields"
+			[inlineLabel]="true"
+			[value]="sample"
+			[colAmount]="1"
+			(update)="updateSample($event)">
+		</dynamic-form-app>
+	</preview-section-app>
+
+	<!-- Activity -->
+	<preview-section-app>
+
+	</preview-section-app>
+</preview-app>
+
+<modal-carousel-app
+	*ngIf="modalOpen"
+	[selectedIndex]="selectedIndex"
+	[images]="(sample$ | async)?.images"
+	(close)="closeModal()">
+</modal-carousel-app>

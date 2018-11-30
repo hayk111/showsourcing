@@ -5,6 +5,7 @@ import { SharedModule } from '~shared/shared.module';
 
 import { SampleListComponent } from './components/sample-list/sample-list.component';
 import { SampleComponent } from './components/sample/sample.component';
+import { PreviewSampleComponent } from './components/preview-sample/preview-sample.component';
 
 @NgModule({
 	imports: [
@@ -14,10 +15,12 @@ import { SampleComponent } from './components/sample/sample.component';
 	],
 	declarations: [
 		SampleListComponent,
-		SampleComponent],
+		SampleComponent,
+		PreviewSampleComponent],
 	exports: [
 		SampleListComponent,
-		SampleComponent
+		SampleComponent,
+		PreviewSampleComponent
 	],
 	entryComponents: []
 })
