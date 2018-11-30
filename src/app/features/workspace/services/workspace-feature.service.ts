@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { first, map, switchMap } from 'rxjs/operators';
+import { ApolloStateService } from '~core/apollo';
 import { ProductService, ProductStatusTypeService, UserService } from '~entity-services';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
 import { ProductStatusService } from '~entity-services/product-status/product-status.service';
-import { ProductQueries } from '~entity-services/product/product.queries';
-import { Product, ProductStatus, ProductStatusType } from '~models';
-import { ApolloStateService } from '~core/apollo';
+import { Product, ProductStatus } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
 
 
@@ -37,11 +36,11 @@ export class WorkspaceFeatureService extends ProductService {
 		if (refresh && this.productsResult) {
 			this.productsResult.refetch({
 				query: search ?
-					`status.id != null AND status.status.id != null ` +
-					`&& status.status.inWorkflow == true ` +
+					`status.id != null` +
+					`&& status.inWorkflow == true ` +
 					`&& name CONTAINS[c] "${search}" AND archived == false && deleted == false` :
-					`status.id != null AND status.status.id != null ` +
-					`&& status.status.inWorkflow == true ` +
+					`status.id != null ` +
+					`&& status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
 				sortBy: 'lastUpdatedDate',
 				take: 100 // TODO this has to change to a queryAll, but easiest way to change it was like this
@@ -51,11 +50,11 @@ export class WorkspaceFeatureService extends ProductService {
 		if (!this.productsResult) {
 			this.productsResult = this.productSrv.getListQuery({
 				query: search ? // we get all the products with status and inWorkflow
-					`status.id != null AND status.status.id != null ` +
-					`&& status.status.inWorkflow == true ` +
+					`status.id != null ` +
+					`&& status.inWorkflow == true ` +
 					`&& name CONTAINS[c] "${search}" AND archived == false && deleted == false` :
-					`(status.id != null AND status.status.id != null) ` +
-					`&& status.status.inWorkflow == true ` +
+					`(status.id != null) ` +
+					`&& status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
 				sortBy: 'lastUpdatedDate',
 				take: 15 // TODO this has to change to a queryAll
@@ -100,12 +99,12 @@ export class WorkspaceFeatureService extends ProductService {
 	/** Get the list of products */
 	getProducts(sort: Sort, search: string, refresh = false) {
 		const params = search ? {
-			query: `status.id == null AND status.status.id == null && status.status.inWorkflow == true ` +
+			query: `status.id == null && status.inWorkflow == true ` +
 				`&& name CONTAINS[c] "${search}" AND archived == false && deleted == false`,
 			sortBy: sort ? sort.sortBy : null
 		} : {
-				query: `status.id == null AND status.status.id == null ` +
-					`&& status.status.inWorkflow == true ` +
+				query: `status.id == null ` +
+					`&& status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
 				sortBy: sort ? sort.sortBy : null
 			};
@@ -127,7 +126,7 @@ export class WorkspaceFeatureService extends ProductService {
 	 */
 	getProductsWithStatus(status: ProductStatus, products: Product[]) {
 		return products.filter(product => {
-			const productCurrentStatus = product.status ? product.status.status : null;
+			const productCurrentStatus = product.status;
 			return (productCurrentStatus && productCurrentStatus.id === status.id);
 		});
 	}
@@ -135,20 +134,10 @@ export class WorkspaceFeatureService extends ProductService {
 	/**
 	 * Update the status of the product with the specified one.
 	 */
-	updateProductStatus(product: Product, statusType: ProductStatusType) {
+	updateProductStatus(product: Product, status: ProductStatus) {
 		// we check if the product has a status
-		if (statusType !== undefined) {
-			if (!product.status || !product.status.status) {
-				const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-				return this.update({ id: product.id, status: tempStatus });
-			} else {
-				// we dont update if we click the same status as the current one of the product
-				const productStatusType = product.status.status;
-				if (statusType.id !== productStatusType.id) {
-					const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-					return this.update({ id: product.id, status: tempStatus });
-				}
-			}
+		if (status !== undefined) {
+			return this.update({ id: product.id, status: { id: status } });
 		}
 		return of();
 	}

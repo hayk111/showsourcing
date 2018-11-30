@@ -38,11 +38,12 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.status$ = this.statusSlctSrv.getTableStatus(this.typeEntity);
 	}
+
 	updateStatus(status) {
-		if (status.id !== this.entity.status.status.id) { // we dont update if we click the same
-			const tempS = new ProductStatus({ status });
+		if (status.id !== this.entity.status.id) {
+			// we dont update if we click the same
 			if (this.internalUpdate) {
-				this.statusSlctSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
+				this.statusSlctSrv.updateStatus({ id: this.entity.id, status: { id: status.id } }, this.typeEntity).subscribe();
 			} else {
 				this.statusUpdated.emit(status);
 			}
@@ -50,9 +51,8 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	setStatus(status) {
-		const tempS = new ProductStatus({ status });
 		if (this.internalUpdate) {
-			this.statusSlctSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
+			this.statusSlctSrv.updateStatus({ id: this.entity.id, status: { id: status.id } }, this.typeEntity).subscribe();
 		} else {
 			this.statusUpdated.emit(status);
 		}

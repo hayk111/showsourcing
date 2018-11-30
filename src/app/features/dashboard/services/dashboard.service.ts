@@ -58,14 +58,14 @@ export class DashboardService {
 
 	getCountProductsInWorkflow(): Observable<number> {
 		return this.productSrv.queryCount(
-			'status.id != null && status.status.id != null && status.status.inWorkflow == true ' +
+			'status.id != null && status.inWorkflow == true ' +
 			'&& archived == false && deleted == false'
 		).pipe(first());
 	}
 
 	getCountSupplierUnderAssessment(): Observable<number> {
 		return this.supplierSrv.queryCount(
-			'status.status.name == "_UnderAssessment" && deleted == false'
+			'status.name == "_UnderAssessment" && deleted == false'
 		).pipe(first());
 	}
 

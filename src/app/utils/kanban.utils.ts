@@ -1,7 +1,7 @@
-import { statusToColor } from '~utils/status-to-color.function';
+import { Product, ProductStatus, Sample, SampleStatus } from '~models';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { ProductStatusType, Product, SampleStatus, Sample } from '~models';
+import { statusToColor } from '~utils/status-to-color.function';
 
 /**
  * converts an array of productStatusType and and array of products to an array of kanbanColumn
@@ -10,7 +10,7 @@ import { ProductStatusType, Product, SampleStatus, Sample } from '~models';
  * @param withoutStatus: boolean (default true) whether or not we enable a column for products without status
  */
 export function statusProductToKanbanCol(
-	types: ProductStatusType[],
+	types: ProductStatus[],
 	products: Product[],
 	withoutStatus = true): KanbanColumn[] {
 
@@ -34,11 +34,9 @@ export function statusProductToKanbanCol(
 
 	// adding the product to each element of the map
 	products.forEach(prod => {
-		if (prod.status && prod.status.status) {
-			const type = colsMap.get(prod.status.status.id);
-			if (type) {
-				(type as any).data.push(prod);
-			}
+		if (prod.status) {
+			const type = colsMap.get(prod.status.id);
+			(type as any).data.push(prod);
 		} else if (withoutStatus) {
 			const type = colsMap.get('-1');
 			(type as any).data.push(prod);
