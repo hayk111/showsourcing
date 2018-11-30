@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
-import { Product, ProductVoteRequest, Project, User } from '~models';
-import { ProductService, ProjectService, TeamUserService, UserService, SupplierService } from '~entity-services';
-import { ProductVoteRequestService } from '~entity-services/product-vote-request/product-vote-request.service';
-import { Sort } from '~shared/table/components/sort.interface';
-import { SelectParams } from '~entity-services/_global/select-params';
-import { Apollo } from 'apollo-angular';
+import { forkJoin, Observable } from 'rxjs';
 import { ApolloStateService } from '~core/apollo';
+import { ProductService, ProjectService, SupplierService, TeamUserService, UserService, ContactService } from '~entity-services';
+import { ProductVoteRequestService } from '~entity-services/product-vote-request/product-vote-request.service';
 import { SupplierQueries } from '~entity-services/supplier/supplier.queries';
+import { Product, ProductVoteRequest, Project, Contact } from '~models';
 
 @Injectable()
 export class ProductDialogService extends ProductService {
@@ -18,13 +15,14 @@ export class ProductDialogService extends ProductService {
 		protected projectSrv: ProjectService,
 		protected supplierSrv: SupplierService,
 		protected teamUserSrv: TeamUserService,
-		protected userSrv: UserService
+		protected userSrv: UserService,
+		protected contactSrv: ContactService
 	) {
 		super(apolloState, userSrv);
 	}
 
-	getContacts(supplierId: string) {
-		return this.supplierSrv.queryOne(supplierId, SupplierQueries.contacts);
+	getContacts(supplierId: string): Observable<Contact[]> {
+		return this.contactSrv.queryMany({ query: `supplier.id == "${supplierId}"` });
 	}
 
 	selectProjects(): Observable<Project[]> {
