@@ -1,7 +1,9 @@
 <context-menu-app
 	*ngIf="entity?.status?.status; else noStatus"
 	class="menu-status {{selectSize}}"
-	[closeOnScroll]="true">
+	[closeOnScroll]="true"
+	[offsetX]="offsetX"
+	[offsetY]="offsetY">
 
 	<context-menu-trigger-app class="flex {{selectSize}}">
 		<status-badge-app *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [status]="entity.status.status" [size]="selectSize"></status-badge-app>
