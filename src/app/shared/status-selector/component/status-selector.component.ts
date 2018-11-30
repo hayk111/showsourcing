@@ -57,18 +57,22 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	// if color true returns color, else type status
-	getTaskType(color = true) {
-		let taskStatusColor = 'secondary'; // pending
+	getTaskStatus() {
 		let taskStatus = 'pending';
-		if (this.entity.done) {
-			taskStatusColor = 'success'; // done
+		if (this.entity.done)
 			taskStatus = 'done';
-		} else if (this.entity.dueDate && (new Date().getTime() >= Date.parse(this.entity.dueDate.toString()))) {
-			taskStatusColor = 'warn'; // overdue
+		else if (this.entity.dueDate && (new Date().getTime() >= Date.parse(this.entity.dueDate.toString())))
 			taskStatus = 'overdue';
-		}
-		return color ? taskStatusColor : taskStatus;
+		return taskStatus;
+	}
+
+	getTaskColor() {
+		let taskStatusColor = 'secondary'; // pending
+		if (this.entity.done)
+			taskStatusColor = 'success'; // done
+		else if (this.entity.dueDate && (new Date().getTime() >= Date.parse(this.entity.dueDate.toString())))
+			taskStatusColor = 'warn'; // overdue
+		return taskStatusColor;
 	}
 
 	updateTask() {

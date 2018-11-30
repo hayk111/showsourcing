@@ -25,11 +25,11 @@
 	#checkTask
 	*ngIf="typeEntity === erm.TASK; else noStatus"
 	class="task pointer"
-	[type]="getTaskType()" [size]="selectSize"
+	[type]="getTaskColor()" [size]="selectSize"
 	(click)="updateTask()">
-		<icon-app class="color-{{ getTaskType() === 'secondary' ? 'txt-primary' : 'white' }}" name="circle" fontSet="fa"></icon-app>
-		<div class="color-{{ getTaskType() === 'secondary' ? 'txt-primary' : 'white' }}">
-			{{ getTaskType(false) }}
+		<icon-app class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}" name="circle" fontSet="fa"></icon-app>
+		<div class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}">
+			{{ getTaskStatus() }}
 		</div>
 </badge-app>
 

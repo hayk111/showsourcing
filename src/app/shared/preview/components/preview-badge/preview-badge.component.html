@@ -1,17 +1,16 @@
 <ng-container [ngSwitch]="badge">
 
 	<!-- Product -->
-	<div class="flexStart icon-container" *ngSwitchCase="erm.PRODUCT">
+	<div class="flexStart icon-container"  (clickOutside)="test('nun')" *ngSwitchCase="erm.PRODUCT">
 		<icon-app name="product" fontSet="svg"></icon-app>
-		<span (click)="open()"> {{ value }}</span>
+		<span (click)="open()" (clickOutside)="test('span')"> {{ value }} {{visible}}</span>
 		<selector-entity-app
 			#select
 			[ngStyle]="{visibility: visible ? 'visible' : 'hidden'}"
 			type="product"
 			[displayedValue]="value"
-			(change)="update.emit($event); visible = false;"
-			(close)="close()"
-			(clickOutside)="close()">
+			(change)="update.emit($event); close();"
+			(closed)="close()">
 		</selector-entity-app>
 	</div>
 
@@ -25,8 +24,7 @@
 			type="supplier"
 			[displayedValue]="value"
 			(change)="update.emit($event); close();"
-			(close)="close()"
-			(clickOutside)="close()">
+			(closed)="close()">
 		</selector-entity-app>
 	</div>
 
@@ -50,8 +48,7 @@
 			[(ngModel)]="value"
 			[multiple]="multiple"
 			(change)="update.emit($event); visible = multiple;"
-			(close)="close()"
-			(clickOutside)="close()">
+			(closed)="close()">
 		</selector-entity-app>
 	</div>
 </ng-container>
