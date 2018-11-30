@@ -1,19 +1,26 @@
 <preview-app *ngIf="task$ | async as task">
+	<!-- Banner -->
 	<preview-banner-app (closed)="close.emit()">
 		<banner-task-app
 			[task]="task"
 			(update)="update($event, 'done')">
 		</banner-task-app>
 	</preview-banner-app>
+
+	<!-- Header -->
 	<preview-header-app
 		[entity]="task"
 		[entityMD]="erm.TASK"
 		(update)="update($event, 'name')">
+
+		<!-- Product badge -->
 		<preview-badge-app
 			[badge]="erm.PRODUCT"
 			[value]="task?.product?.name"
 			(update)="update($event, 'product')">
 		</preview-badge-app>
+
+		<!-- Supplier badge -->
 		<preview-badge-app
 			[badge]="erm.SUPPLIER"
 			[value]="task?.supplier?.name"
@@ -32,6 +39,8 @@
 	<!-- Date & Assignee -->
 	<preview-section-app>
 		<div class="date-assignee-section flexAround">
+
+			<!-- Date -->
 			<div class="left">
 				<editable-field-app #editable [inlineLabel]="false"
 					(opened)="inpDueDate.select()" [canGrow]="true"
@@ -44,10 +53,12 @@
 					</form-field-app>
 				</editable-field-app>
 			</div>
+
 			<!-- Assignee -->
 			<div class="right">
 				<div class="title">Assigned to</div>
 				<div class="flex pointer"	(click)="toggleSelector(true)">
+					<!-- Selector -->
 					<cdk-overlay-app
 						*ngIf="menuOpen"
 						[trigger]="trigger"
@@ -62,6 +73,7 @@
 							(change)="update($event, 'assignee'); closeMenu();">
 						</selector-entity-app>
 					</cdk-overlay-app>
+					<!-- User info -->
 					<user-picture-app
 						cdkOverlayOrigin
 						#trigger="cdkOverlayOrigin"
