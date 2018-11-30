@@ -16,6 +16,7 @@ import { SharedModule } from '~shared/shared.module';
 import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { EditableFieldModule } from '~shared/editable-field';
 
 @NgModule({
 	imports: [
@@ -30,7 +31,8 @@ import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 		DividerModule,
 		SearchAutocompleteModule,
 		FormsModule,
-		ContextMenuModule
+		ContextMenuModule,
+		EditableFieldModule
 	],
 	declarations: [
 		TopPanelComponent,

@@ -23,7 +23,8 @@ export const routes: Array<Route> = [
 		path: 'user',
 		component: GuestTemplateComponent,
 		canActivateChild: [AuthGuardService, UserClientReadyGuard],
-		loadChildren: 'app/features/pick-a-team/pick-a-team.module#PickATeamModule'
+		loadChildren: 'app/features/pick-a-team/pick-a-team.module#PickATeamModule',
+		data: { showLogout: true }
 	},
 	{
 		path: 'invitation',
