@@ -44,7 +44,7 @@ export class IconComponent implements OnChanges {
 		this._backgroundColor = value;
 		if (this._backgroundColor) {
 			this.customStyle = {
-				'background-color': this._backgroundColor,
+				'background-color': `var(--color-${value})`,
 				'color': 'white'
 			};
 		}
