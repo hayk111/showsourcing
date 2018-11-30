@@ -35,6 +35,7 @@ export class PreviewPageComponent implements OnInit {
 
 	/** opens the modal carousel */
 	openModal(index: number) {
+		this.selectedIndex = index;
 		this.modalOpen = true;
 	}
 

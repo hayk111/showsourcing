@@ -2,7 +2,13 @@
 
 	<!-- Banner -->
 	<preview-banner-app (closed)="close.emit()">
-
+		<carousel-app
+			[images]="sample?.images"
+			[selectedIndex]="selectedIndex"
+			objectFit="cover"
+			(imgClick)="openModal($event)"
+			(deleted)="onDelete($event)">
+		</carousel-app>
 	</preview-banner-app>
 
 	<!-- Header -->
@@ -46,3 +52,10 @@
 	</preview-section-app>
 
 </preview-app>
+
+<modal-carousel-app
+	*ngIf="modalOpen"
+	[selectedIndex]="selectedIndex"
+	[images]="sample?.images"
+	(close)="closeModal()">
+</modal-carousel-app>

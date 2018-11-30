@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { AutoUnsub } from '~utils';
 import { SampleService } from '~core/entity-services';
-import { Sample, ERM } from '~core/models';
+import { Sample, ERM, AppImage } from '~core/models';
 import { Observable } from 'rxjs';
 import { CustomField } from '~shared/dynamic-forms';
 
@@ -20,6 +20,8 @@ export class PreviewSampleComponent extends AutoUnsub implements OnInit {
 
 	sample$: Observable<Sample>;
 	private _sample: Sample;
+	selectedIndex = 0;
+	modalOpen = false;
 	erm = ERM;
 
 	customFields: CustomField[] = [
@@ -53,6 +55,23 @@ export class PreviewSampleComponent extends AutoUnsub implements OnInit {
 	// dyanmic form update
 	updateSample(sample: Sample) {
 		this.sampleSrv.update({ id: this._sample.id, ...sample });
+	}
+
+	/** opens the modal carousel */
+	openModal(index: number) {
+		this.selectedIndex = index;
+		this.modalOpen = true;
+	}
+
+	/** closes the modal */
+	closeModal() {
+		this.modalOpen = false;
+	}
+
+	/** when image is deleted */
+	onDelete(image: AppImage) {
+		const images = this._sample.images.filter(img => image.id !== img.id);
+		this.sampleSrv.update({ id: this._sample.id, images }).subscribe();
 	}
 
 }
