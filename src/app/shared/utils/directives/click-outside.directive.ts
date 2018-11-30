@@ -20,7 +20,10 @@ export class ClickOutsideDirective {
 		}
 
 		const clickedInside = this._elementRef.nativeElement.contains(targetElement);
-		if (!clickedInside && (cdk && !cdk.contains(targetElement))) {
+		// hint: CDK Element is located at the app-root level
+		// if the CDK Element exists check that the click is not inside on both: elementRef and CDK Element
+		// OR if the CDK Element is not present, check that the target click is outside the elementRef
+		if ((cdk && (!clickedInside && !cdk.contains(targetElement)) || (!cdk && !clickedInside))) {
 			this.clickOutside.emit(event);
 		}
 	}

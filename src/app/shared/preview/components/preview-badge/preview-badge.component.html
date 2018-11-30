@@ -16,7 +16,7 @@
 
 	<!-- Supplier -->
 	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer">
-		<icon-app (click)="open()" name="supplier"></icon-app>
+		<icon-app (click)="open()" name="supplier" backgroundColor="supplier"></icon-app>
 		<span (click)="open()"> {{ value }}</span>
 		<selector-entity-app
 			#select
@@ -30,7 +30,7 @@
 
 	<!-- Supplier Type -->
 	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container pointer">
-		<icon-app (click)="open()" name="supplier"></icon-app>
+		<icon-app (click)="open()" name="supplier" backgroundColor="supplier"></icon-app>
 		<span (click)="open()"> {{ value }}</span>
 		<selector-entity-app
 			#select
@@ -49,10 +49,10 @@
 	</div>
 
 	<!-- Category -->
-	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer" (click)="open()">
 		<icon-app (click)="open()" name="category" backgroundColor="accent"></icon-app>
 		<div (click)="open()" class="flex category-info flexWrap">
-			<span *ngIf="!value"> - </span>
+			<span *ngIf="!value || !value[0]"> - </span>
 			<span *ngFor="let category of value"> {{ category.name }}  </span>
 		</div>
 		<selector-entity-app
