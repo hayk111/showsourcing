@@ -23,4 +23,7 @@ export class TopPanelComponent {
 	@Input() withNav: boolean;
 	/** whether the content of the top panel must be centered */
 	@Input() center: boolean;
+	// Can update title or not
+	@Input() isModifiable = false;
+	@Output() update = new EventEmitter<string>();
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -10,9 +10,18 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class BreadCrumbComponent extends TrackingComponent implements OnInit {
 	@Input() title: string;
 	@Input() subtitles: Array<string> = [];
+
+	@Input() isModifiable = false;
+	@Output() update = new EventEmitter<string>();
+
 	constructor() {
 		super();
 	}
 
-	ngOnInit() { }
+	updateText(isCancel, newString) {
+		if (!isCancel && this.update) {
+			this.update.emit(newString);
+		}
+	}
+	ngOnInit() {}
 }

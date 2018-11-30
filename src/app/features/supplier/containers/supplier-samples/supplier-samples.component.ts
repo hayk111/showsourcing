@@ -23,6 +23,7 @@ import { FilterType } from '~shared/filters';
 		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
 	]
 })
+
 export class SupplierSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
 
 	constructor(
