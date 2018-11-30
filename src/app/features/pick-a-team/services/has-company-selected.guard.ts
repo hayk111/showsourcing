@@ -1,4 +1,4 @@
-import { CanActivate, CanActivateChild, Router } from '@angular/router';
+import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { CompanyService } from '~entity-services/company/company.service';
@@ -13,20 +13,21 @@ export class HasCompanySelectGuard implements CanActivate, CanActivateChild {
 
 	constructor(private companySrv: CompanyService, private location: Location, private router: Router) { }
 
-	canActivateChild(): boolean | Observable<boolean> | Promise<boolean> {
-		return this.canActivate();
+	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+		return this.canActivate(route, state);
 	}
 
-	canActivate(): boolean | Observable<boolean> | Promise<boolean> {
+	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.companySrv.hasCompany$.pipe(
 			tap(d => log.debug('%c hasCompanySelectedGuard', LogColor.GUARD, d)),
-			tap(hasCompany => this.redirect(hasCompany))
+			tap(hasCompany => this.redirect(hasCompany, route, state))
 		);
 	}
 
-	redirect(hasCompany: boolean) {
+	redirect(hasCompany: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		if (!hasCompany) {
-			this.router.navigate(['user', 'pick-a-company'], { queryParams: { returnUrl: this.location.path() } });
+			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
+			this.router.navigate(['user', 'pick-a-company'], { queryParams: { returnUrl } });
 		}
 	}
 }

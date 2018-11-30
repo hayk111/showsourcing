@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
-import { CanActivate, CanActivateChild, Router } from '@angular/router';
+import { CanActivate, CanActivateChild, Router, Route, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap, first } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
@@ -13,21 +13,22 @@ export class HasTeamGuard implements CanActivate, CanActivateChild {
 
 	constructor(private teamSrv: TeamService, private location: Location, private router: Router) { }
 
-	canActivateChild(): boolean | Observable<boolean> | Promise<boolean> {
-		return this.canActivate();
+	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+		return this.canActivate(route, state);
 	}
 
-	canActivate(): boolean | Observable<boolean> | Promise<boolean> {
+	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.teamSrv.selectAll().pipe(
 			tap(d => log.debug('%c hasTeamGuard', LogColor.GUARD, d)),
 			map(teams => teams.length > 0),
-			tap(hasTeam => this.redirect(hasTeam))
+			tap(hasTeam => this.redirect(hasTeam, route, state))
 		);
 	}
 
-	redirect(hasTeam: boolean) {
+	redirect(hasTeam: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		if (!hasTeam) {
-			this.router.navigate(['user', 'create-a-team'], { queryParams: { returnUrl: this.location.path() } });
+			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
+			this.router.navigate(['user', 'create-a-team'], { queryParams: { returnUrl } });
 		}
 	}
 

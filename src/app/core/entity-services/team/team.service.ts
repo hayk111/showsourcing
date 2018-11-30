@@ -67,7 +67,7 @@ export class TeamService extends GlobalService<Team> {
 	create(team: Team): Observable<any> {
 		return super.create(team).pipe(
 			switchMap(_ => this.waitForOne(`id == "${team.id}" AND status == "active"`)),
-			switchMap(_ => this.pickTeam(team))
+			switchMap(_team => this.pickTeam(_team))
 		);
 	}
 
@@ -76,7 +76,12 @@ export class TeamService extends GlobalService<Team> {
 		this.storage.setItem(SELECTED_TEAM, team);
 		this._teamSelectionEvent$.next(team);
 		return this.teamSelectionEvent$.pipe(
-			filter(x => !!x)
+			filter(x => !!x),
+			// then we gotta wait for the team client to be ready
+			switchMap(
+				_ => this.apolloState.getClientWhenReady(Client.TEAM, 'picking team'),
+				_team => team
+			)
 		);
 	}
 

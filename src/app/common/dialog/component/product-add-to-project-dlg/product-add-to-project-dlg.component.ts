@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductFeatureService } from '~features/products/services';
-import { Project, Product } from '~models';
-import { DialogService } from '~shared/dialog/services';
-import { ProjectService, ProductService } from '~entity-services';
 import { ProductDialogService } from '~common/dialog/services/product-dialog.service';
+import { Product, Project } from '~models';
+import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { TrackingComponent } from '~utils/tracking-component';
 

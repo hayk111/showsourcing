@@ -1,16 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { Subscription, zip, combineLatest, forkJoin } from 'rxjs';
-import { filter, shareReplay, tap, switchMap } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { forkJoin, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { GlobalConstClientInitializer } from '~core/apollo/services/apollo-global-const-client.service';
+import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
+import { TokenService } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { CompanyService, TeamService } from '~entity-services';
-import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
-import { TokenService, AuthStatus } from '~core/auth';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
-import { GlobalConstClientInitializer } from '~core/apollo/services/apollo-global-const-client.service';
 import { Team } from '~models';
-import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-root',
