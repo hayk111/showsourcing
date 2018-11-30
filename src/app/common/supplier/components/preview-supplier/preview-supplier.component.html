@@ -1,0 +1,65 @@
+<preview-app *ngIf="supplier$ | async as supplier">
+
+		<!-- Banner -->
+		<preview-banner-app (closed)="close.emit()">
+			<carousel-app
+				[images]="supplier?.images"
+				[selectedIndex]="selectedIndex"
+				objectFit="cover"
+				(imgClick)="openModal($event)"
+				(deleted)="onDelete($event)">
+			</carousel-app>
+		</preview-banner-app>
+
+		<!-- Header -->
+		<preview-header-app
+			[entity]="supplier"
+			[entityMD]="erm.SUPPLIER"
+			(update)="update($event, 'name')">
+
+			<!-- Supplier type badge -->
+			<preview-badge-app
+				[badge]="erm.SUPPLIER_TYPE"
+				[value]="supplier?.supplierType?.name | const: 'supplierType'"
+				(update)="update($event, 'supplierType')">
+			</preview-badge-app>
+
+			<!-- Location badge -->
+			<preview-badge-app
+				[badge]="erm.LOCATION"
+				[value]="getLocationName(supplier)">
+			</preview-badge-app>
+
+			<!-- Categories badge -->
+			<preview-badge-app
+				[badge]="erm.CATEGORY"
+				[multiple]="true"
+				[value]="supplier?.categories"
+				(update)="update($event, 'categories')">
+				<divider-app></divider-app>
+			</preview-badge-app>
+		</preview-header-app>
+
+		<!-- Supplier Details -->
+		<preview-section-app [title]="'Supplier Details'">
+			<dynamic-form-app
+				[fields]="customFields"
+				[inlineLabel]="true"
+				[value]="supplier"
+				[colAmount]="1"
+				(update)="updateSupplier($event)">
+			</dynamic-form-app>
+		</preview-section-app>
+
+		<!-- Activity -->
+		<preview-section-app>
+
+		</preview-section-app>
+	</preview-app>
+
+	<modal-carousel-app
+		*ngIf="modalOpen"
+		[selectedIndex]="selectedIndex"
+		[images]="(supplier$ | async)?.images"
+		(close)="closeModal()">
+	</modal-carousel-app>

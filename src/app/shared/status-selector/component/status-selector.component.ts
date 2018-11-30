@@ -17,8 +17,9 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Input() typeEntity: EntityMetadata;
 	/** In this case its always going to be a Product or Supplier */
 	@Input() entity: any;
-	@Input() xPosition = 16;
-	@Input() yPosition = 30;
+	// use for the cdk overlay
+	@Input() offsetX = 0;
+	@Input() offsetY: number;
 	@Input() selectSize = 'm';
 	@Input() isSendToWorkFlow = false;
 	@Input() internalUpdate = true;

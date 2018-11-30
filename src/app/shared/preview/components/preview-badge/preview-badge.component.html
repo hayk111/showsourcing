@@ -1,9 +1,9 @@
 <ng-container [ngSwitch]="badge">
 
 	<!-- Product -->
-	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container pointer" (click)="open()">
-		<icon-app name="product" fontSet="svg"></icon-app>
-		<span>{{ value }}</span>
+	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container pointer">
+		<icon-app (click)="open()" name="product" fontSet="svg"></icon-app>
+		<span (click)="open()">{{ value }}</span>
 		<selector-entity-app
 			#select
 			[ngStyle]="{visibility: visible ? 'visible' : 'hidden'}"
@@ -15,9 +15,9 @@
 	</div>
 
 	<!-- Supplier -->
-	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer" (click)="open()">
-		<icon-app name="supplier" fontSet="svg"></icon-app>
-		<span> {{ value }}</span>
+	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer">
+		<icon-app (click)="open()" name="supplier" fontSet="svg"></icon-app>
+		<span (click)="open()"> {{ value }}</span>
 		<selector-entity-app
 			#select
 			[ngStyle]="{visibility: visible ? 'visible' : 'hidden'}"
@@ -28,16 +28,30 @@
 		</selector-entity-app>
 	</div>
 
+	<!-- Supplier Type -->
+	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container pointer">
+		<icon-app (click)="open()" name="supplier" fontSet="svg"></icon-app>
+		<span (click)="open()"> {{ value }}</span>
+		<selector-entity-app
+			#select
+			[ngStyle]="{visibility: visible ? 'visible' : 'hidden'}"
+			type="supplierType"
+			[displayedValue]="value"
+			(change)="update.emit($event); close();"
+			(closed)="close()">
+		</selector-entity-app>
+	</div>
+
 	<!-- Location -->
-	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container">
 		<icon-app class="noPointer" name="marker" fontSet="svg"></icon-app>
 		<span> {{ value }}</span>
 	</div>
 
 	<!-- Category -->
-	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer" (click)="open()">
-		<icon-app name="category" fontSet="svg"></icon-app>
-		<div class="flex category-info flexWrap">
+	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer">
+		<icon-app (click)="open()" name="category" fontSet="svg"></icon-app>
+		<div (click)="open()" class="flex category-info flexWrap">
 			<span *ngIf="!value"> - </span>
 			<span *ngFor="let category of value"> {{ category.name }}  </span>
 		</div>

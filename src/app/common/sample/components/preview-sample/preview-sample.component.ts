@@ -54,7 +54,7 @@ export class PreviewSampleComponent extends AutoUnsub implements OnInit {
 
 	// dyanmic form update
 	updateSample(sample: Sample) {
-		this.sampleSrv.update({ id: this._sample.id, ...sample });
+		this.sampleSrv.update({ id: this._sample.id, ...sample }).subscribe();
 	}
 
 	/** opens the modal carousel */
