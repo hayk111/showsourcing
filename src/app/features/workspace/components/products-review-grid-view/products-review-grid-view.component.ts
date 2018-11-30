@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Category } from '~features/workspace/models';
-import { ProductStatusTypeService } from '~global-services';
+import { ProductStatusTypeService } from '~entity-services';
 import { ERM, Product, ProductStatusType } from '~models';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { SelectionService } from '~core/list-page/selection.service';

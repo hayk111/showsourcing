@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
-import { TeamService, UserService } from '~global-services';
+import { TeamService, UserService } from '~entity-services';
 import { ERM, TeamUser, User, ERM_TOKEN } from '~models';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';

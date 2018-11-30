@@ -3,10 +3,10 @@ import { Observable, of, zip } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Product, Project } from '~models';
 
-import { TagService, CategoryService, SupplierService, EventService } from '~global-services';
+import { TagService, CategoryService, SupplierService, EventService } from '~entity-services';
 import { ERM, EntityMetadata } from '~models';
 import { FilterList } from '~shared/filters';
-import { SelectParams } from '~global-services/_global/select-params';
+import { SelectParams } from '~entity-services/_global/select-params';
 
 @Injectable({
 	providedIn: 'root'

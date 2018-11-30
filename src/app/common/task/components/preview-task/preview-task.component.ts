@@ -14,7 +14,7 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { ProductService, TaskService } from '~global-services';
+import { ProductService, TaskService } from '~entity-services';
 import { Comment, Product, Task } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';

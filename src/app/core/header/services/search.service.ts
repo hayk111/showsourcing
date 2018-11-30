@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { zip } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { ProductService } from '~global-services/product/product.service';
-import { SupplierService } from '~global-services/supplier/supplier.service';
+import { ProductService } from '~entity-services/product/product.service';
+import { SupplierService } from '~entity-services/supplier/supplier.service';
 
 @Injectable({ providedIn: 'root' })
 export class SearchService {

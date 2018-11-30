@@ -1,33 +1,43 @@
-import { Component, OnInit, ChangeDetectionStrategy, NgModuleRef } from '@angular/core';
-import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService, SampleService } from '~global-services';
-import { SearchService, FilterType } from '~shared/filters';
-import { SelectionService } from '~core/list-page/selection.service';
-import { DialogService } from '~shared/dialog/services';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
+import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { SampleService, UserService } from '~entity-services';
+import { ERM, ERM_TOKEN, Sample } from '~models';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'product-samples-app',
 	templateUrl: './product-samples.component.html',
 	styleUrls: ['./product-samples.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		ListPageProviders.getProviders(ProviderKey.PRODUCT_SAMPLE, ERM.PRODUCT),
+		CommonDialogService,
+		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
+	]
 })
 export class ProductSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
 
 	constructor(
 		protected route: ActivatedRoute,
-		protected userSrv: UserService,
 		protected router: Router,
+		protected userSrv: UserService,
 		protected featureSrv: SampleService,
-		protected searchSrv: SearchService,
-		protected selectionSrv: SelectionService,
-		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>) {
-		super(router, userSrv, featureSrv, searchSrv, selectionSrv, dlgSrv, moduleRef);
+		protected viewSrv: ListPageViewService<Sample>,
+		public dataSrv: ListPageDataService<Sample, SampleService>,
+		protected selectionSrv: SelectionWithFavoriteService,
+		protected commonDlgSrv: CommonDialogService
+	) {
+		super(router, userSrv, featureSrv, viewSrv, dataSrv, selectionSrv, commonDlgSrv);
 	}
 	ngOnInit() {
 		super.ngOnInit();
-		this.filterList.addFilter({
+		this.dataSrv.filterList.addFilter({
 			type: FilterType.PRODUCT,
 			value: this.route.parent.snapshot.params.id
 		});

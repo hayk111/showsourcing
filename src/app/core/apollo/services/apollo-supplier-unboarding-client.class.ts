@@ -7,7 +7,7 @@ import { distinctUntilChanged, filter, switchMapTo, switchMap, catchError, tap }
 import { AuthStatus } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { TokenService } from '~core/auth/services/token.service';
-import { RealmServerService } from '~global-services/realm-server/realm-server.service';
+import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 

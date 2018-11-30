@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CompanyService, UserService } from '~global-services';
+import { CompanyService, UserService } from '~entity-services';
 import { map, first } from 'rxjs/operators';
 import { Company } from '~models/company.model';
 import { OnInit } from '@angular/core';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Product, ProductVote } from '~models';
-import { UserService } from '~global-services/user/user.service';
+import { UserService } from '~entity-services/user/user.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({

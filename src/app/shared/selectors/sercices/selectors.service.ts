@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { CategoryService, EventService, SupplierService, TagService, ProductService } from '~global-services';
-import { SupplierTypeService } from '~global-services/supplier-type/supplier-type.service';
-import { TeamUserService } from '~global-services/team-user/team-user.service';
+import { CategoryService, EventService, SupplierService, TagService, ProductService } from '~entity-services';
+import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
+import { TeamUserService } from '~entity-services/team-user/team-user.service';
 import { Category, Event, SupplierType, Tag, TeamUser, User, Product } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';

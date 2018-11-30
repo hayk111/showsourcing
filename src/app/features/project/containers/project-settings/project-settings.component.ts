@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
-import { ProjectService } from '~global-services';
+import { ProjectService } from '~entity-services';
 import { Project } from '~models/project.model';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';

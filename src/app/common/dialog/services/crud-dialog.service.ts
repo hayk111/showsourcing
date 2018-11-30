@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map, first } from 'rxjs/operators';
-import { ERMService } from '~global-services/_global/erm.service';
-import { SelectParams } from '~global-services/_global/select-params';
+import { ERMService } from '~entity-services/_global/erm.service';
+import { SelectParams } from '~entity-services/_global/select-params';
 import { EntityMetadata, ERM } from '~models';
 
 @Injectable({

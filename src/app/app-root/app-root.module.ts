@@ -15,8 +15,9 @@ import { DialogModule } from '~shared/dialog';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~core/local-storage';
 import { NotificationsModule } from '~shared/notifications';
-import { PortalModule } from '~shared/portal';
+import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
+import { SharedModule } from '~shared/shared.module';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -24,20 +25,12 @@ import { TemplateModule } from '~core/template';
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
-		AppApolloModule,
 		BrowserModule,
 		BrowserAnimationsModule,
-		InvitationModule,
 		HttpClientModule,
+		SharedModule,
+		AppApolloModule,
 		TemplateModule,
-		LocalStorageModule,
-		TemplateModule,
-		EventModule,
-		IconsModule, // used to create symboles at the top
-		CardModule,
-		// shared
-		NotificationsModule,
-		DialogModule,
 		// keep router as last module
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 		RouterModule.forRoot(routes, {

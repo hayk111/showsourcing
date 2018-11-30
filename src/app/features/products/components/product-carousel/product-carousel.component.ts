@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
-import { ImageService } from '~global-services/image/image.service';
+import { ImageService } from '~entity-services/image/image.service';
 import { AppImage } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';

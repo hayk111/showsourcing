@@ -11,7 +11,7 @@ import {
 	Renderer2,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '~global-services';
+import { UserService } from '~entity-services';
 import { Product, ProductVote } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';

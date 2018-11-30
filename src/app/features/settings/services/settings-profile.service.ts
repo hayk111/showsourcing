@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { UserService } from '~global-services';
+import { UserService } from '~entity-services';
 import { User } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 

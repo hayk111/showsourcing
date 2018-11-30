@@ -18,6 +18,12 @@ export enum ProviderKey {
 	SHOW = 'show-page',
 	REVIEWPAGE = 'show-page',
 	PROJECT_WORKFLOW = 'project-workflow-page',
+	SUPPLIER_PRODUCT = 'supplier-products-page',
+	SUPPLIER_TASK = 'supplier-tasks-page',
+	MY_TASK = 'my-tasks-page',
+	PRODUCT_TASK = 'products-tasks-page',
+	PRODUCT_SAMPLE = 'products-samples-page',
+	SUPPLIER_SAMPLE = 'products-samples-page'
 }
 
 /**

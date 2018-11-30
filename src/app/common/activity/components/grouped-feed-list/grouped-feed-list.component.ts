@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { SupplierService, UserService } from '~global-services';
-import { ERMService } from '~global-services/_global/erm.service';
-import { CommentService } from '~global-services/comment/comment.service';
-import { ProductService } from '~global-services/product/product.service';
+import { SupplierService, UserService } from '~entity-services';
+import { ERMService } from '~entity-services/_global/erm.service';
+import { CommentService } from '~entity-services/comment/comment.service';
+import { ProductService } from '~entity-services/product/product.service';
 import { Comment, Product, Supplier } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
