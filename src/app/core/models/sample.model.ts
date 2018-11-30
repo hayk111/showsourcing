@@ -14,6 +14,8 @@ export class Sample extends EntityWithAudit<SampleConfig> {
 	status?: SampleStatus;
 	commnets?: Comment[];
 	images?: AppImage[];
+	trackingNumber?: string;
+	shippingCompany?: string;
 	price?: Price;
 	paid = false;
 	__typename ?= 'Sample';

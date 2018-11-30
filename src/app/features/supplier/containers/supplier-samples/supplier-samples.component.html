@@ -1,11 +1,18 @@
 <div class="container">
 	<sample-list-app
-		[samples]="items$ | async"
-		[selection]="selected$ | async"
+		[samples]="dataSrv.items$ | async"
+		[selection]="selectionSrv.selection$ | async"
 		[hasProduct]="true"
-		(bottomReached)="loadMore()"
+		(bottomReached)="dataSrv.loadMore()"
 		(createSample)="createSample($event)"
-		(previewClicked)="openPreview($event)"
-		(updateSample)="update($event)">
+		(previewClicked)="viewSrv.openPreview($event)"
+		(updateSample)="dataSrv.update($event)">
 	</sample-list-app>
 </div>
+
+<preview-sample-app
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()"
+	(clickOutside)="viewSrv.closePreview()">
+</preview-sample-app>

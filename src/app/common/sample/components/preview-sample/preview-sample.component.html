@@ -1,0 +1,48 @@
+<preview-app *ngIf="sample$ | async as sample">
+
+	<!-- Banner -->
+	<preview-banner-app (closed)="close.emit()">
+
+	</preview-banner-app>
+
+	<!-- Header -->
+	<preview-header-app
+		[entity]="sample"
+		[entityMD]="erm.SAMPLE"
+		(update)="update($event, 'name')">
+
+		<!-- Product badge -->
+		<preview-badge-app
+			[badge]="erm.PRODUCT"
+			[value]="sample?.product?.name"
+			(update)="update($event, 'product')">
+		</preview-badge-app>
+
+		<!-- Supplier badge -->
+		<preview-badge-app
+			[badge]="erm.SUPPLIER"
+			[value]="sample?.supplier?.name"
+			(update)="update($event, 'supplier')">
+		</preview-badge-app>
+	</preview-header-app>
+
+	<!-- Description -->
+	<preview-section-app [title]="'Description'">
+		<input-description-app
+			[description]="sample?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
+	</preview-section-app>
+
+	<!-- Sample information -->
+	<preview-section-app [title]="'Sample Information'">
+		<dynamic-form-app
+			[inlineLabel]="false"
+			[fields]="customFields"
+			[value]="sample"
+			[colAmount]="1"
+			(update)="updateSample($event)">
+		</dynamic-form-app>
+	</preview-section-app>
+
+</preview-app>

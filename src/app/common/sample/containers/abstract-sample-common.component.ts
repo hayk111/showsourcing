@@ -24,7 +24,7 @@ export abstract class AbstractSampleCommonComponent extends TrackingComponent im
 	ngOnInit() {
 		this.dataSrv.setup({
 			featureSrv: this.featureSrv,
-			searchedFields: ['name'],
+			searchedFields: ['name', 'supplier.name', 'product.name'],
 			initialSortBy: 'name'
 		});
 		this.dataSrv.init();
