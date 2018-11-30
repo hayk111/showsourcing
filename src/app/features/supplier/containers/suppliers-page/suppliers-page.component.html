@@ -2,8 +2,7 @@
 	title="My Suppliers"
 	[subtitles]="['Suppliers', 'all']"
 	buttonName="Add Suppliers"
-	(buttonClick)="commonDlgSrv.openCreateDlg(true)"
->
+	(buttonClick)="commonDlgSrv.openCreateDlg(true)">
 </top-panel-app>
 
 <sub-panel-app
@@ -13,8 +12,7 @@
 	[filtersAmount]="dataSrv.filterList.asFilters().length"
 	(showFilters)="viewSrv.openFilterPanel()"
 	(search)="dataSrv.search($event)"
-	(smartSearch)="dataSrv.smartSearch($event)"
->
+	(smartSearch)="dataSrv.smartSearch($event)">
 </sub-panel-app>
 
 <ng-container *ngIf="(dataSrv.items$ | async) as suppliers; else: spinner">
@@ -32,8 +30,7 @@
 		(favorited)="dataSrv.onItemFavorited($event)"
 		(unfavorited)="dataSrv.onItemUnfavorited($event)"
 		(previewClick)="viewSrv.openPreview($event)"
-		(delete)="dataSrv.deleteOne($event)"
-	>
+		(delete)="dataSrv.deleteOne($event)">
 	</supplier-list-view-app>
 	<selection-bar-app
 		[isShown]="(selectionSrv.selection$ | async).size > 0"
@@ -55,18 +52,17 @@
 		</action-bar-app>
 	</selection-bar-app>
 
-	<supplier-preview-app
+	<preview-supplier-app
 		*ngIf="viewSrv.previewOpen"
 		[supplier]="viewSrv.previewed"
 		(close)="viewSrv.closePreview()"
-		(clickOutside)="viewSrv.closePreview()"
-	></supplier-preview-app>
+		(clickOutside)="viewSrv.closePreview()">
+	</preview-supplier-app>
 	<filters-app
 		[filterList]="dataSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="viewSrv.closeFilterPanel()"
-		*ngIf="viewSrv.filterPanelOpen"
-	>
+		*ngIf="viewSrv.filterPanelOpen">
 	</filters-app>
 </ng-container>
 

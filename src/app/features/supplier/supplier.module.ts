@@ -4,6 +4,7 @@ import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { DialogCommonModule } from '~common/dialog';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SampleCommonModule } from '~common/sample';
+import { SupplierCommonModule } from '~common/supplier';
 import { TaskCommonModule } from '~common/task';
 import { SupplierListViewComponent } from '~features/supplier/components';
 import {
@@ -30,7 +31,6 @@ import { SupplierDetailsComponent, SuppliersPageComponent } from '~features/supp
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
 import { SupplierActivityComponent } from '~features/supplier/containers/supplier-activity/supplier-activity.component';
-import { SupplierPreviewComponent } from '~features/supplier/containers/supplier-preview/supplier-preview.component';
 import { SupplierProductsComponent } from '~features/supplier/containers/supplier-products/supplier-products.component';
 import {
 	SupplierPublicProfileComponent,
@@ -50,7 +50,8 @@ import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tas
 		ProductCommonModule,
 		TaskCommonModule,
 		SampleCommonModule,
-		DialogCommonModule
+		DialogCommonModule,
+		SupplierCommonModule
 	],
 	declarations: [
 		SupplierDetailsComponent,
@@ -66,7 +67,6 @@ import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tas
 		SupplierContactCardComponent,
 		SupplierContactComponent,
 		SupplierDescriptionComponent,
-		SupplierPreviewComponent,
 		SupplierTopCardComponent,
 		SupplierActivityComponent,
 		SupplierPublicProfileComponent,

@@ -1,5 +1,9 @@
 <div class="top-section flexBetween">
 	<div class="left flex">
+		<preview-logo-app
+			*ngIf="entityMD === erm.SUPPLIER"
+			[image]="logoImage">
+		</preview-logo-app>
 		<icon-app [name]="entityMD?.singular || 'product'" fontSet="svg"></icon-app>
 		<span>{{ entityMD?.singular }}</span>
 	</div>
@@ -7,7 +11,8 @@
 		<status-selector-app
 			*ngIf="entityMD"
 			[entity]="entity"
-			[typeEntity]="entityMD">
+			[typeEntity]="entityMD"
+			[offsetX]="-15">
 		</status-selector-app>
 	</div>
 </div>

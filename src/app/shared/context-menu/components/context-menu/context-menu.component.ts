@@ -23,6 +23,8 @@ export class ContextMenuComponent implements OnInit {
 	@Input() menuOpen = false;
 	/** activates the scroll strategy applied by the CDK directive */
 	@Input() closeOnScroll = false;
+	@Input() offsetX = 0;
+	@Input() offsetY = 8;
 	@Output() menuClosed = new EventEmitter<any>();
 
 	scrollStrat: ScrollStrategy;

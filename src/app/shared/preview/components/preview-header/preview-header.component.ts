@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { EntityMetadata } from '~models';
+import { EntityMetadata, ERM, AppImage } from '~models';
 
 @Component({
 	selector: 'preview-header-app',
@@ -15,8 +15,12 @@ export class PreviewHeaderComponent implements OnInit {
 	@Input() entityMD: EntityMetadata;
 	/** entity for the workflow action */
 	@Input() entity: any;
+	/** logo Image */
+	@Input() logoImage: AppImage;
 	/** emits the value that has changed */
 	@Output() update = new EventEmitter<any>();
+
+	erm = ERM;
 
 	constructor() { }
 
