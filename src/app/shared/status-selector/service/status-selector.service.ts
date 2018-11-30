@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
+import { TaskService } from '~core/entity-services';
 import { ERMService } from '~entity-services/_global/erm.service';
-import { EntityMetadata, ERM, ProductStatusType, SupplierStatusType, SampleStatus } from '~models';
+import { EntityMetadata, ERM, ProductStatusType, SampleStatus, SupplierStatusType } from '~models';
 
 @Injectable({
 	providedIn: 'root'
@@ -25,7 +26,8 @@ export class StatusSelectorService {
 		);
 
 	constructor(
-		private ermSrv: ERMService
+		private ermSrv: ERMService,
+		private taskSrv: TaskService
 	) {
 
 	}
@@ -40,5 +42,9 @@ export class StatusSelectorService {
 
 	updateStatus(entity, typeEntity: EntityMetadata) {
 		return this.ermSrv.getGlobalService(typeEntity).update(entity);
+	}
+
+	updateTask(entity) {
+		this.taskSrv.update(entity).subscribe();
 	}
 }

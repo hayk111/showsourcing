@@ -11,6 +11,7 @@ export class BannerTaskComponent implements OnInit {
 
 	@Input() set task(task: Task) {
 		this._task = task;
+		this.status = 'pending';
 		if (task.done)
 			this.status = 'done';
 		else if (task.dueDate && (new Date().getTime() >= Date.parse(task.dueDate.toString())))
