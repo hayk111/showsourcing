@@ -35,7 +35,7 @@ import { SharedModule } from '~shared/shared.module';
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
-			enableTracing: true
+			// enableTracing: true
 		}),
 		PortalModule
 	],
