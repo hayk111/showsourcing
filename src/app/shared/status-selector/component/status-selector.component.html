@@ -20,19 +20,6 @@
 
 </context-menu-app>
 
-<!-- since we dont have a status we have to do it like this -->
-<badge-app
-	*ngIf="typeEntity === erm.TASK"
-	class="task pointer"
-	[type]="getTaskColor()" [size]="selectSize"
-	(click)="updateTask()">
-		<icon-app class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}" name="circle" fontSet="fa"></icon-app>
-		<div class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}">
-			{{ getTaskStatus() }}
-		</div>
-</badge-app>
-
-
 <ng-template #noStatus>
 	<context-menu-app
 		*ngIf="typeEntity !== erm.TASK"
@@ -51,4 +38,16 @@
 	</context-menu-app>
 </ng-template>
 
-	<ng-content></ng-content>
+<!-- since we dont have a status we have to do it like this -->
+<badge-app
+	*ngIf="typeEntity === erm.TASK && !entity?.status?.status"
+	class="task pointer"
+	[type]="getTaskColor()" [size]="selectSize"
+	(click)="updateTask()">
+		<icon-app class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}" name="circle" fontSet="fa"></icon-app>
+		<div class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}">
+			{{ getTaskStatus() }}
+		</div>
+</badge-app>
+
+<ng-content></ng-content>
