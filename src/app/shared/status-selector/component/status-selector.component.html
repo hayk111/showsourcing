@@ -1,5 +1,5 @@
 <context-menu-app
-	*ngIf="entity?.status?.status; else checkTask"
+	*ngIf="entity?.status?.status; else noStatus"
 	class="menu-status {{selectSize}}"
 	[closeOnScroll]="true">
 
@@ -22,8 +22,7 @@
 
 <!-- since we dont have a status we have to do it like this -->
 <badge-app
-	#checkTask
-	*ngIf="typeEntity === erm.TASK; else noStatus"
+	*ngIf="typeEntity === erm.TASK"
 	class="task pointer"
 	[type]="getTaskColor()" [size]="selectSize"
 	(click)="updateTask()">
@@ -36,6 +35,7 @@
 
 <ng-template #noStatus>
 	<context-menu-app
+		*ngIf="typeEntity !== erm.TASK"
 		class="menu-status {{selectSize}}"
 		(menuClosed)="statusUpdated.emit()">
 
