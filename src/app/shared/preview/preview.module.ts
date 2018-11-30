@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { IconsModule } from '~shared/icons';
 import { EditableFieldModule } from '~shared/editable-field';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { PreviewLogoComponent } from './components/preview-logo/preview-logo.component';
+import { ImageModule } from '~shared/image/image.module';
 
 
 @NgModule({
@@ -22,21 +24,24 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 		FormsModule,
 		IconsModule,
 		EditableFieldModule,
-		SelectorsModule
+		SelectorsModule,
+		ImageModule
 	],
 	declarations: [
 		PreviewComponent,
 		PreviewHeaderComponent,
 		PreviewSectionComponent,
 		PreviewBadgesComponent,
-		PreviewBannerComponent
+		PreviewBannerComponent,
+		PreviewLogoComponent
 	],
 	exports: [
 		PreviewComponent,
 		PreviewHeaderComponent,
 		PreviewSectionComponent,
 		PreviewBadgesComponent,
-		PreviewBannerComponent
+		PreviewBannerComponent,
+		PreviewLogoComponent
 	]
 })
 export class PreviewModule { }

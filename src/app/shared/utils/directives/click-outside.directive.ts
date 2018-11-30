@@ -15,12 +15,12 @@ export class ClickOutsideDirective {
 	@HostListener('window:mousedown', ['$event', '$event.target'])
 	public onClick(event: MouseEvent, targetElement: HTMLElement): void {
 		const cdk = document.getElementsByClassName('cdk-overlay-container')[0];
-		if (!targetElement || !cdk) {
+		if (!targetElement) {
 			return;
 		}
 
 		const clickedInside = this._elementRef.nativeElement.contains(targetElement);
-		if (!clickedInside && !cdk.contains(targetElement)) {
+		if (!clickedInside && (cdk && !cdk.contains(targetElement))) {
 			this.clickOutside.emit(event);
 		}
 	}

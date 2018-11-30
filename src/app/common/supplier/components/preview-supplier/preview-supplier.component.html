@@ -15,6 +15,7 @@
 		<preview-header-app
 			[entity]="supplier"
 			[entityMD]="erm.SUPPLIER"
+			[logoImage]="supplier?.logoImage"
 			(update)="update($event, 'name')">
 
 			<!-- Supplier type badge -->

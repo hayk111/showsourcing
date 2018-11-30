@@ -15,6 +15,14 @@
 .top-section {
 
 	.left {
+		align-items: center;
+		position: relative;
+
+		preview-logo-app {
+			margin-top: -34px;
+			margin-right: var(--spacing-ms);
+		}
+
 		icon-app {
 			margin-right: var(--spacing-s);
 		}
