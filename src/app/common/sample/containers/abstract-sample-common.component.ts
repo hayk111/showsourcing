@@ -1,6 +1,6 @@
 import { NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SampleService, UserService } from '~global-services';
+import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
 import { DialogService } from '~shared/dialog';
 import { SearchService } from '~shared/filters';
