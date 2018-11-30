@@ -60,6 +60,6 @@
 <modal-carousel-app
 	*ngIf="modalOpen"
 	[selectedIndex]="selectedIndex"
-	[images]="sample?.images"
+	[images]="(sample$ | async)?.images"
 	(close)="closeModal()">
 </modal-carousel-app>

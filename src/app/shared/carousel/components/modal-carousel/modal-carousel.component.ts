@@ -35,7 +35,7 @@ export class ModalCarouselComponent implements OnInit {
 
 
 	getImg() {
-		return this.images[this.selectedIndex];
+		return this.images ? this.images[this.selectedIndex] : null;
 	}
 
 }

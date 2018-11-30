@@ -5,7 +5,7 @@
 	<div class="move-btn back flexCenter pointer"
 		(mousedown)="back($event)" *ngIf="selectedIndex > 0"> &lt; </div>
 	<div class="move-btn next flexCenter pointer"
-		(mousedown)="next($event)" *ngIf="selectedIndex < (images.length - 1)"> &gt; </div>
+		(mousedown)="next($event)" *ngIf="selectedIndex < (images?.length - 1)"> &gt; </div>
 	<span class="close-btn pointer" (mousedown)="close.emit($event)">x close</span>
-	<span class="title">{{ selectedIndex + 1}} / {{ images.length }}</span>
+	<span class="title">{{ selectedIndex + 1}} / {{ images?.length }}</span>
 </div>
