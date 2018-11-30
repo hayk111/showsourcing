@@ -23,8 +23,8 @@ export class PreviewHeaderComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	updateEntity(value: any) {
-		this.update.emit(value);
+	updateEntity(isClosed: boolean, value: any) {
+		if (!isClosed) this.update.emit(value);
 	}
 
 }

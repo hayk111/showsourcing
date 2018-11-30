@@ -1,0 +1,51 @@
+:host{
+	display: block;
+}
+
+.cntr {
+	border-top-left-radius: var(--border-radius-l);
+	border-top-right-radius: var(--border-radius-l);
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	min-height: 184px;
+
+	&.task-done {
+		color: white;
+		background: var(--color-success);
+	}
+
+	&.task-overdue {
+		color: white;
+		background: var(--color-warn);
+	}
+
+	&.task-pending {
+		background: var(--color-secondary);
+	}
+
+	.task-mark {
+		position: absolute;
+		left: var(--spacing-m);
+		top: var(--spacing-m);
+	}
+
+	.task-info {
+
+		icon-app {
+			cursor: default;
+			font-size: 32px;
+			margin-bottom: var(--spacing-m);
+		}
+		.info {
+			font-size: var(--font-size-l);
+			font-weight: 600;
+		}
+	}
+}
+

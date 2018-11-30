@@ -7,6 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class InputDescriptionComponent implements OnInit {
 	@Input() description = '';
+	@Input() hasLabel = false;
 	@Output() update = new EventEmitter<string>();
 	constructor() { }
 

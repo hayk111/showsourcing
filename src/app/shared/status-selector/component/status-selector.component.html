@@ -1,38 +1,53 @@
+<context-menu-app
+	*ngIf="entity?.status?.status; else noStatus"
+	class="menu-status {{selectSize}}"
+	[closeOnScroll]="true">
+
+	<context-menu-trigger-app class="flex {{selectSize}}">
+		<status-badge-app *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [status]="entity.status.status" [size]="selectSize"></status-badge-app>
+		<div class="caretCtnr" *ngIf="isSendToWorkFlow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+	</context-menu-trigger-app>
+
+	<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
+		<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatus(stat)"></status-badge-app>
+	</context-menu-item-app>
+
+	<context-menu-divider-app></context-menu-divider-app>
+
+	<context-menu-item-app class="remove-workflow" (click)="setStatus(null)">
+		<span>Remove from Workflow</span>
+	</context-menu-item-app>
+
+</context-menu-app>
+
+<ng-template #noStatus>
 	<context-menu-app
-		*ngIf="entity?.status?.status; else noStatus"
+		*ngIf="typeEntity !== erm.TASK"
 		class="menu-status {{selectSize}}"
-		[closeOnScroll]="true">
+		(menuClosed)="statusUpdated.emit()">
 
 		<context-menu-trigger-app class="flex {{selectSize}}">
-			<status-badge-app *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [status]="entity.status.status" [size]="selectSize"></status-badge-app>
+			<status-badge-app  *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [size]="selectSize" [typeEntity]="typeEntity"></status-badge-app>
 			<div class="caretCtnr" *ngIf="isSendToWorkFlow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 		</context-menu-trigger-app>
 
 		<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
-			<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatus(stat)"></status-badge-app>
-		</context-menu-item-app>
-
-		<context-menu-divider-app></context-menu-divider-app>
-
-		<context-menu-item-app class="remove-workflow" (click)="setStatus(null)">
-			<span>Remove from Workflow</span>
+			<status-badge-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)" [typeEntity]="typeEntity"></status-badge-app>
 		</context-menu-item-app>
 
 	</context-menu-app>
+</ng-template>
 
-	<ng-template #noStatus>
-		<context-menu-app class="menu-status {{selectSize}}" (menuClosed)="statusUpdated.emit()">
+<!-- since we dont have a status we have to do it like this -->
+<badge-app
+	*ngIf="typeEntity === erm.TASK && !entity?.status?.status"
+	class="task pointer"
+	[type]="getTaskColor()" [size]="selectSize"
+	(click)="updateTask()">
+		<icon-app class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}" name="circle" fontSet="fa"></icon-app>
+		<div class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}">
+			{{ getTaskStatus() }}
+		</div>
+</badge-app>
 
-			<context-menu-trigger-app class="flex {{selectSize}}">
-				<status-badge-app  *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [size]="selectSize" [typeEntity]="typeEntity"></status-badge-app>
-				<div class="caretCtnr" *ngIf="isSendToWorkFlow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
-			</context-menu-trigger-app>
-
-			<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
-				<status-badge-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)" [typeEntity]="typeEntity"></status-badge-app>
-			</context-menu-item-app>
-
-		</context-menu-app>
-	</ng-template>
-
-	<ng-content></ng-content>
+<ng-content></ng-content>

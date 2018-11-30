@@ -11,4 +11,17 @@ context-menu-app {
     width: 100%;
 		padding-left: 5px;
 	}
+
+}
+
+badge-app.task {
+	text-transform: capitalize;
+	color: var(--color-txt-strong);
+
+	icon-app[name="circle"] {
+		padding: var(--spacing-xs);
+		padding-top: 5px;
+		padding-left: 0;
+		font-size: 6px;
+	}
 }

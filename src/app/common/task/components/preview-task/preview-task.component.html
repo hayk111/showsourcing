@@ -1,92 +1,111 @@
-<side-panel-app>
-  <side-panel-title-app>
-    <div class="status-task" [ngClass]="(task$ | async)?.done ? 'status-done nonclickable' : 'todo clickable'" (click)="markAsDone()">
-      <div class="status-task-icon ">
-        <icon-app fontSet="fa" name="check"></icon-app>
-      </div>
-      <div class="status-task-text">{{(task$ | async)?.done ? 'Done' : 'Mark as done'}}</div>
-    </div>
-  </side-panel-title-app>
+<preview-app *ngIf="task$ | async as task">
+	<!-- Banner -->
+	<preview-banner-app (closed)="close.emit()">
+		<banner-task-app
+			[task]="task"
+			(update)="update($event, 'done')">
+		</banner-task-app>
+	</preview-banner-app>
 
-  <side-panel-action-app>
-    <icon-app class="close pointer color-txt-secondary" name="close" (click)="close.emit()"></icon-app>
-  </side-panel-action-app>
+	<!-- Header -->
+	<preview-header-app
+		[entity]="task"
+		[entityMD]="erm.TASK"
+		(update)="update($event, 'name')">
 
-  <ng-container *ngIf="task$ | async as task">
-    <div class="task-name">
-      <editable-text-app #editable (closed)="updateTaskName($event, txtName.value)" [hasAction]="true">
-        <editable-label-app class="task-name">
-          {{task?.name ? task?.name : 'Unnamed task'}}
-        </editable-label-app>
-        <input inputApp class="task-name" #txtName [value]="task?.name || ''">
-      </editable-text-app>
-    </div>
-    <div class="descripton-container">
-			<editable-field-app #editable [inlineLabel]="false" (closed)="updateTaskDescription($event, inpDescription.value)"
-				(opened)="inpDescription.select();"
-				[canGrow]="true">
-				<label-app>Description</label-app>
-				<editable-label-app>
-					{{ task?.description || '-' }}
-				</editable-label-app>
-				<form-field-app>
-					<textarea inputApp #inpDescription autofocus="true" [value]="task?.description"
-					(keyup.enter)="updateTaskDescription(false, inpDescription.value)">
-					</textarea>
-				</form-field-app>
-			</editable-field-app>
-  	</div>
+		<!-- Product badge -->
+		<preview-badge-app
+			[badge]="erm.PRODUCT"
+			[value]="task?.product?.name"
+			(update)="update($event, 'product')">
+		</preview-badge-app>
 
-		<div class="descripton-container">
-			<editable-field-app #editable [inlineLabel]="false" (opened)="inpDueDate.select()" [canGrow]="true"
-				(closed)="updateTaskDueDate($event, inpDueDate.value)">
-				<label-app>Due date</label-app>
-				<editable-label-app>{{ task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date' }}</editable-label-app>
-				<form-field-app>
-					<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate" [type]="'date'"
-					(keyup.enter)="updateTaskDueDate($event, inpDueDate.value)"/>
-				</form-field-app>
-			</editable-field-app>
+		<!-- Supplier badge -->
+		<preview-badge-app
+			[badge]="erm.SUPPLIER"
+			[value]="task?.supplier?.name"
+			(update)="update($event, 'supplier')">
+		</preview-badge-app>
+	</preview-header-app>
+
+	<!-- Description -->
+	<preview-section-app [title]="'Description'">
+		<input-description-app
+			[description]="task?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
+	</preview-section-app>
+
+	<!-- Date & Assignee -->
+	<preview-section-app>
+		<div class="date-assignee-section flexAround">
+
+			<!-- Date -->
+			<div class="left">
+				<editable-field-app #editable [inlineLabel]="false"
+					(opened)="inpDueDate.select()" [canGrow]="true"
+					(closed)="updateDueDate($event, inpDueDate.value)">
+					<label-app>Due date</label-app>
+					<editable-label-app>{{ task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date' }}</editable-label-app>
+					<form-field-app>
+						<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate" [type]="'date'"
+						(keyup.enter)="updateDueDate($event, inpDueDate.value)"/>
+					</form-field-app>
+				</editable-field-app>
+			</div>
+
+			<!-- Assignee -->
+			<div class="right">
+					<editable-field-app #editable [inlineLabel]="false"
+						(opened)="selector.open()" [canGrow]="true">
+						<label-app>Assigned to</label-app>
+						<editable-label-app class="flex">
+							<user-picture-app
+								[user]="task?.assignee" [size]="16" [border]="true">
+							</user-picture-app>
+							{{ task?.assignee ? task.assignee.firstName+' '+task?.assignee?.lastName[0] : 'Unassigned' }}
+						</editable-label-app>
+						<selector-entity-app
+							#selector
+							type="user"
+							[displayedValue]="task?.assignee?.firstName"
+							(clickOutside)="editable.close()"
+							(change)="update($event, 'assignee'); editable.close();">
+						</selector-entity-app>
+					</editable-field-app>
+				<!-- <div class="title">Assigned to</div>
+				<div class="flex pointer"	(click)="toggleSelector(true)"> -->
+					<!-- Selector -->
+					<!-- <cdk-overlay-app
+						*ngIf="menuOpen"
+						[trigger]="trigger"
+						[isOpen]="menuOpen"
+						[offsetY]="-22"
+						(clickOutside)="closeMenu()">
+						<selector-entity-app
+							#selector
+							type="user"
+							style="width: 200px"
+							(clickOutside)="closeMenu()"
+							(change)="update($event, 'assignee'); closeMenu();">
+						</selector-entity-app>
+					</cdk-overlay-app> -->
+					<!-- User info -->
+					<!-- <user-picture-app
+						cdkOverlayOrigin
+						#trigger="cdkOverlayOrigin"
+						[user]="task?.assignee" [size]="16" [border]="true">
+					</user-picture-app>
+					<div class="user-name">
+						{{ task?.assignee ? task.assignee.firstName+' '+task?.assignee?.lastName[0] : 'Unassigned' }}
+					</div> -->
+				<!-- </div> -->
+			</div>
 		</div>
+	</preview-section-app>
 
-		<div class="assigned-container">
-			<div class="section-title">
-				Assigned To
-			</div>
+	<!-- Activity -->
+	<preview-section-app>
 
-			<div class="assigned-list">
-				<div class="flex task-user pointer" (click)="toggleSelector(true)">
-					<selector-entity-app #selector *ngIf="selectorVisible" type="user" (clickOutside)="toggleSelector(false)"
-					(change)="updateAssignee($event)"></selector-entity-app>
-					<user-picture-app *ngIf="!selectorVisible" [user]="task?.assignee" [size]="30" [border]="true"></user-picture-app>
-					<div *ngIf="!selectorVisible" class="user-name">{{ task?.assignee ? task.assignee.firstName+'
-						'+task.assignee.lastName : 'Unassigned' }}
-					</div>
-				</div>
-			</div>
-
-			<div class="linked-product-container">
-				<div class="section-title">
-					Linked Product
-				</div>
-
-				<div class="linked-product-list" *ngIf="(product$ | async) as product">
-					<product-card-app class="marginSmall"
-						[showCheckbox]="false"
-						[clickable]="true"
-						[product]="product">
-					</product-card-app>
-				</div>
-			</div>
-		</div>
-		<!-- <div class="comment-container">
-
-			<div class="show-previous-comment-link clickable">
-				Show previous comments
-			</div>
-			<div class="comment-list">
-
-			</div>
-		</div> -->
-	</ng-container>
-</side-panel-app>
+	</preview-section-app>
+</preview-app>

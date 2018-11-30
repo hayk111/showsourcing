@@ -1,23 +1,16 @@
 import {
 	AfterViewChecked,
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	EventEmitter,
 	Input,
-	NgModuleRef,
 	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { ProductService, TaskService } from '~entity-services';
-import { Comment, Product, Task } from '~models';
-import { DialogService } from '~shared/dialog/services';
-import { CustomField } from '~shared/dynamic-forms';
+import { TaskService } from '~entity-services';
+import { ERM, Task } from '~models';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { AutoUnsub } from '~utils';
 
@@ -30,103 +23,48 @@ import { AutoUnsub } from '~utils';
 })
 export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterViewChecked {
 
-	private _task: Task;
-	get task(): Task {
-		return this._task;
-	}
-
-	@Output() udateTask = new EventEmitter<Task>();
-
-	@Input('task')
-	set task(value: Task) {
+	@Input() set task(value: Task) {
 		this._task = value;
 	}
-
+	@Output() close = new EventEmitter<null>();
 	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 
-	@Output() close = new EventEmitter<any>();
-
-	comment$: Observable<Comment>;
 	task$: Observable<Task>;
-	product$: Observable<Product>;
+	private _task: Task;
+	erm = ERM;
+	menuOpen = false;
 
-	selectorVisible = false;
-
-	customFields: CustomField[] = [
-		{
-			name: 'assignee', label: 'Assignee To', type: 'selector',
-			metadata: { target: 'user', type: 'entity', labelName: 'name' }
-		},
-	];
 	constructor(
-		private featureSrv: TaskService,
-		private productService: ProductService,
-		private dlgSrv: DialogService,
-		private module: NgModuleRef<any>,
-		private router: Router) {
+		private taskSrv: TaskService) {
 		super();
 	}
 
 	ngOnInit() {
-		if (this.task.product) {
-			this.product$ = this.productService.selectOne(this.task.product.id);
-		}
-		this.task$ = this.featureSrv.selectOne(this.task.id);
+		this.task$ = this.taskSrv.selectOne(this._task.id);
 	}
 
 	ngAfterViewChecked() {
-		setTimeout(() => {
-			if (this.selectorVisible && this.selector) {
-				this.selector.open();
-			}
-		});
+		if (this.menuOpen && this.selector) {
+			this.selector.open();
+			this.selector.selector.ngSelect.updateDropdownPosition();
+		}
 	}
 
-	updateTaskServer(task: any, field?: string) {
-		task.id = this.task.id;
-		this.featureSrv.update(task).subscribe();
+	update(value: any, prop: string) {
+		this.taskSrv.update({ id: this._task.id, [prop]: value }).subscribe();
 	}
 
-	updateTaskDescription(isCancel: boolean, description: string) {
-		if (isCancel) return;
-
-		this.updateTaskServer({ description }, 'description');
-	}
-
-	markAsDone() {
-		this.updateTaskServer({ done: true }, 'done');
-	}
-
-	updateTaskName(isCancel: boolean, name: string) {
-		if (isCancel) return;
-
-		this.updateTaskServer({ name }, 'name');
-	}
-
-	updateTaskDueDate(isCancel: boolean, dueDate: Date) {
-		if (isCancel) return;
-
-		this.updateTaskServer({ dueDate }, 'dueDate');
-	}
-
-	updateAssignee(assignee: any) {
-		this.updateTaskServer({ assignee });
-		setTimeout(() => {
-			this.selectorVisible = false;
-		});
+	updateDueDate(isCancel: boolean, value: Date) {
+		if (!isCancel && isCancel !== undefined) this.update(value, 'dueDate');
 	}
 
 	toggleSelector(is: boolean) {
 		if (this.selector) {
-			this.selectorVisible = false;
-		} else this.selectorVisible = is;
+			this.menuOpen = false;
+		} else this.menuOpen = is;
 	}
 
-	onFormCreated(form: FormGroup) {
-		form.valueChanges
-			.pipe(
-				takeUntil(this._destroy$),
-				distinctUntilChanged()
-			).subscribe(task => this.updateTaskServer(task));
+	closeMenu() {
+		this.menuOpen = false;
 	}
 }

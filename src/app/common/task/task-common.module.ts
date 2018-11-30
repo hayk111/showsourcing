@@ -1,18 +1,10 @@
-import { OverlayModule } from '@angular/cdk/overlay';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ProductCommonModule } from '~common/product/product-common.module';
-import { DialogModule } from '~shared/dialog';
-import { DynamicFormsModule } from '~shared/dynamic-forms';
-import { IconsModule } from '~shared/icons';
-import { ImageModule } from '~shared/image/image.module';
-import { InputsModule } from '~shared/inputs';
-import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { SharedModule } from '~shared/shared.module';
-import { UserPictureModule } from '~shared/user-picture';
-import { UtilsModule } from '~shared/utils';
-import { TaskListComponent, TaskComponent, PreviewTaskComponent, CreateTaskDialogComponent } from './components';
+
+import { CreateTaskDialogComponent, PreviewTaskComponent, TaskComponent, TaskListComponent } from './components';
+import { BannerTaskComponent } from './components/banner-task/banner-task.component';
 
 
 
@@ -26,13 +18,15 @@ import { TaskListComponent, TaskComponent, PreviewTaskComponent, CreateTaskDialo
 		TaskListComponent,
 		TaskComponent,
 		CreateTaskDialogComponent,
-		PreviewTaskComponent
+		PreviewTaskComponent,
+		BannerTaskComponent
 	],
 	exports: [
 		TaskListComponent,
 		TaskComponent,
 		CreateTaskDialogComponent,
-		PreviewTaskComponent
+		PreviewTaskComponent,
+		BannerTaskComponent
 	],
 	entryComponents: [CreateTaskDialogComponent]
 })

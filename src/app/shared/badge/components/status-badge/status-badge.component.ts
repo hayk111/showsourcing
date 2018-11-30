@@ -1,9 +1,5 @@
-import {
-	AfterViewInit, AfterContentInit, ChangeDetectionStrategy,
-	Component, ElementRef, Input, Renderer2, ViewChild, OnInit
-} from '@angular/core';
-import { ProductStatusType, SupplierStatusType, EntityMetadata } from '~models';
-import { BadgeComponent } from '../badge/badge.component';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { EntityMetadata, ProductStatusType, SampleStatus, SupplierStatusType } from '~models';
 
 @Component({
 	selector: 'status-badge-app',
@@ -14,7 +10,7 @@ import { BadgeComponent } from '../badge/badge.component';
 export class StatusBadgeComponent implements OnInit {
 	@Input() size = 's';
 
-	@Input() status: ProductStatusType | SupplierStatusType;
+	@Input() status: ProductStatusType | SupplierStatusType | SampleStatus;
 	@Input() round = true;
 
 	// we need to pass this so when the

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EntityMetadata, ProductStatus, ProductStatusType, SupplierStatus } from '~models';
+import { EntityMetadata, ProductStatus, ProductStatusType, SupplierStatus, SampleStatus, ERM } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { AutoUnsub } from '~utils';
 
@@ -24,7 +24,9 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Input() internalUpdate = true;
 	@Output() statusUpdated = new EventEmitter<any>();
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
-	status$: Observable<ProductStatusType[] | SupplierStatus[]>;
+	/** string[] since tasks does not have a status entity */
+	status$: Observable<ProductStatusType[] | SupplierStatus[] | SampleStatus[]>;
+	erm = ERM;
 
 	constructor(
 		private statusSlctSrv: StatusSelectorService
@@ -53,6 +55,29 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		} else {
 			this.statusUpdated.emit(status);
 		}
+	}
+
+	getTaskStatus() {
+		let taskStatus = 'pending';
+		if (this.entity.done)
+			taskStatus = 'done';
+		else if (this.entity.dueDate && (new Date().getTime() >= Date.parse(this.entity.dueDate.toString())))
+			taskStatus = 'overdue';
+		return taskStatus;
+	}
+
+	getTaskColor() {
+		let taskStatusColor = 'secondary'; // pending
+		if (this.entity.done)
+			taskStatusColor = 'success'; // done
+		else if (this.entity.dueDate && (new Date().getTime() >= Date.parse(this.entity.dueDate.toString())))
+			taskStatusColor = 'warn'; // overdue
+		return taskStatusColor;
+	}
+
+	updateTask() {
+		const done = !this.entity.done;
+		this.statusSlctSrv.updateTask({ id: this.entity.id, done });
 	}
 
 	closeMenu() {

@@ -73,7 +73,7 @@
 		<div class="flex task-status"
 			[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}"
 			(click)="toggleDoneStatus()">
-			<icon-app name="circle" fontSet="fa" color="red"></icon-app>
+			<icon-app name="circle" fontSet="fa"></icon-app>
 			<p>{{ getStatus }}</p>
 		</div>
 	</div>
