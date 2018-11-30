@@ -1,8 +1,4 @@
-import gql from 'graphql-tag';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
-import { Supplier } from '~models';
-
-
 
 export abstract class SupplierQueries extends GlobalQueries {
 
@@ -15,7 +11,6 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly tags = ` tags { id, name }`;
 	static readonly images = `images { id, urls { url }, orientation }`;
 	static readonly attachments = `attachments { id, fileName, url }`;
-	static readonly contacts = `contacts { id, name, phoneNumber, email, jobTitle businessCardImage { id, urls { url } } }`;
 	// tslint:disable-next-line:max-line-length
 	static readonly productsCount = `productsCount:  _count(type: "Product", field: "supplier.id", query:"archived == false AND deleted == false")`;
 	static readonly comments = `comments { id, text, ${SupplierQueries.createdBy}, creationDate }`;
@@ -45,7 +40,6 @@ export abstract class SupplierQueries extends GlobalQueries {
 			${SupplierQueries.images}
 			${SupplierQueries.attachments}
 			${SupplierQueries.tags}
-			${SupplierQueries.contacts}
 		`;
 
 	static readonly many = `
