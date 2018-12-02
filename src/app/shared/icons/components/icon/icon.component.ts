@@ -41,12 +41,14 @@ export class IconComponent implements OnChanges {
 
 	@Input()
 	set backgroundColor(value: string) {
-		this._backgroundColor = value;
-		if (this._backgroundColor) {
-			this.customStyle = {
-				'background-color': `var(--color-${value})`,
-				'color': 'white'
-			};
+		if (value && value.length) {
+			this._backgroundColor = value;
+			if (this._backgroundColor) {
+				this.customStyle = {
+					'background-color': `var(--color-${value})`,
+					'color': 'white',
+				};
+			}
 		}
 	}
 

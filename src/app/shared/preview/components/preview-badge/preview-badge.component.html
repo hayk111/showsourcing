@@ -2,7 +2,7 @@
 
 	<!-- Product -->
 	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container pointer">
-		<icon-app (click)="open()" name="product" fontSet="svg"></icon-app>
+		<icon-app (click)="open()" [backgroundColor]="iconBackground" name="product" fontSet="svg"></icon-app>
 		<span (click)="open()">{{ value }}</span>
 		<selector-entity-app
 			#select
@@ -16,7 +16,7 @@
 
 	<!-- Supplier -->
 	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer">
-		<icon-app (click)="open()" name="supplier" fontSet="svg"></icon-app>
+		<icon-app (click)="open()" [backgroundColor]="iconBackground" name="supplier"></icon-app>
 		<span (click)="open()"> {{ value }}</span>
 		<selector-entity-app
 			#select
@@ -30,7 +30,7 @@
 
 	<!-- Supplier Type -->
 	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container pointer">
-		<icon-app (click)="open()" name="supplier" fontSet="svg"></icon-app>
+		<icon-app (click)="open()" [backgroundColor]="iconBackground" name="supplier" fontSet="svg"></icon-app>
 		<span (click)="open()"> {{ value }}</span>
 		<selector-entity-app
 			#select
@@ -50,7 +50,7 @@
 
 	<!-- Category -->
 	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer">
-		<icon-app (click)="open()" name="category" fontSet="svg"></icon-app>
+		<icon-app (click)="open()" [backgroundColor]="iconBackground" name="category"></icon-app>
 		<div (click)="open()" class="flex category-info flexWrap">
 			<span *ngIf="!value"> - </span>
 			<span *ngFor="let category of value"> {{ category.name }}  </span>
