@@ -1,0 +1,9 @@
+<div class="list-action-button-container">
+	<div class="clickable"
+	*ngFor="let btn of actions; trackBy: trackByFn">
+		<div class="btn-icon roundbutton">
+				<icon [name]="btn.icon" (click)="btn.action"></icon>
+		</div>
+		<div class="btn-text">{{btn.text}}</div>
+	</div>
+</div>
