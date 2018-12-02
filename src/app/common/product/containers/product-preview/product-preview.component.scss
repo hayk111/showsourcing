@@ -1,3 +1,9 @@
+carousel-app {
+	height: 300px;
+	border-top-left-radius: var(--border-radius-l);
+	border-top-right-radius: var(--border-radius-l);
+}
+
 .close {
 	font-size: 9px;
 	color: var(--color-txt-secondary);

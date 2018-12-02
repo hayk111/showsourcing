@@ -26,7 +26,13 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	firstStatus$: Observable<ProductStatusType>;
 	prodERM = ERM.PRODUCT;
+	selectedIndex = 0;
+	erm = ERM;
+	modalOpen = false;
 
+	actions = [{
+		'icon': ''
+	}];
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor
 	// so we only have one array of custom fields
@@ -121,4 +127,20 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.workspaceSrv.updateProductStatus(product, status).subscribe();
 	}
 
+	/** when image is deleted */
+	onDelete(image: AppImage) {
+		// 	const images = this.product.images.filter(img => image.id !== img.id);
+		// 	this.productSrv.update({ id: this.product.id, images }).subscribe();
+	}
+
+	/** opens the modal carousel */
+	openModal(index: number) {
+		this.selectedIndex = index;
+		this.modalOpen = true;
+	}
+
+	/** closes the modal */
+	closeModal() {
+		this.modalOpen = false;
+	}
 }
