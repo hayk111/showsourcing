@@ -41,3 +41,4 @@ export * from './company.model';
 export * from './supplier-claim.model';
 export * from './sample-status.model';
 export * from './sample.model';
+export * from './preview-action-button.model';

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProductStatusTypeService } from '~entity-services';
-import { ERM, Product, ProductStatusType, AppImage } from '~models';
+import { ERM, Product, ProductStatusType, AppImage, PreviewActionButton } from '~models';
 import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';
@@ -31,12 +31,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 	modalOpen = false;
 
-	actions: {
-		icon: string,
-		fontSet: 'fa' | 'svg',
-		text: string,
-		action: any,
-	}[];
+	actions: PreviewActionButton[];
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor
 	// so we only have one array of custom fields
@@ -113,6 +108,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	updateProductProp(value: any, prop: string) {
 		this.updateProduct({ [prop]: value }, prop);
+	}
+
+	clickOnAction(action : PreviewActionButton) {
+		action.action();
 	}
 
 	onThumbUp(product) {

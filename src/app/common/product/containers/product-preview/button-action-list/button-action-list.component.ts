@@ -1,15 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
-import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ProductService, ProductStatusTypeService } from '~entity-services';
-import { ERM, Product, ProductStatusType } from '~models';
-import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dialog';
-import { DialogService } from '~shared/dialog/services';
-import { CustomField } from '~shared/dynamic-forms';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
+import { PreviewActionButton } from '~models';
 
 @Component({
 	selector: 'button-action-list-app',
@@ -18,7 +9,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListActionButtonsComponent extends TrackingComponent implements OnInit {
-	@Input() actions = [];
+	@Input() actions: PreviewActionButton[] = [];
+	@Output() clickOnAction = new EventEmitter<PreviewActionButton>() 
 	constructor() {
 		super();
 	}
