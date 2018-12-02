@@ -1,4 +1,4 @@
-<ng-container *ngIf="product$ | async as productF">
+<ng-container *ngIf="product as productF">
 	<div class="flex">
 		<div class="left">
 			<preview-app>
@@ -9,15 +9,12 @@
 				</preview-banner-app>
 
 				<preview-header-app Open my workspace  [entityMD]="prodERM" [entity]="productF" (update)="update($event, 'name')">
-					
-					
 					<price-with-quantity-app [product]="productF" (updatePrice)="updateProductProp($event, 'price')"></price-with-quantity-app>
 					<preview-badge-app [badge]="erm.SUPPLIER" [iconBackground]="'purple'" [value]="productF?.supplier?.name" (update)="update($event, 'supplier')">
 					</preview-badge-app>
 					<preview-badge-app [badge]="erm.CATEGORY" [iconBackground]="'yellow'" [value]="[productF?.category]" (update)="update($event, 'category')">
 					</preview-badge-app>
 				</preview-header-app>
-
 
 				<preview-section-app>
 					<button class="btn-ask-quote" (click)="openRfq()">Ask for a Quote</button>
@@ -50,6 +47,7 @@
 					</dynamic-form-app>
 				</preview-section-app>
 				
+				<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
 			</preview-app>
 		</div>
 	</div>

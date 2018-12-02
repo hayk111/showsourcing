@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
@@ -9,9 +9,8 @@ import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dia
 import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { AutoUnsub } from '~utils';
-import { any } from 'async';
-
+import { AutoUnsub, PendingImage } from '~utils';
+import { UploaderService } from '~shared/file/services/uploader.service';
 @Component({
 	selector: 'product-preview-app',
 	templateUrl: './product-preview.component.html',
@@ -20,9 +19,21 @@ import { any } from 'async';
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
-	@Input() product: Product;
+	@Input() _product: Product;
+	@Input() set product(value: Product) {
+		this._product = value;
+		if (value) {
+			this.images = this._product.images;
+		}
+	}
+	get product() {
+		return this._product;
+	}
+
+
 	@Output() close = new EventEmitter<any>();
 	@Output() delete = new EventEmitter<null>();
+	@Output() clickOutside = new EventEmitter<null>();
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
 	firstStatus$: Observable<ProductStatusType>;
@@ -59,8 +70,20 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
 	];
-	
+
+	private _images: AppImage[] = [];
+	@Input() set images(images: AppImage[]) {
+		this._images = images;
+	}
+	get images() {
+		return [...this._images, ...(this._pendingImages as any)];
+	}
+	private _pendingImages: PendingImage[] = [];
+	@ViewChild('inpFile') inpFile: ElementRef;
+
 	constructor(
+		private uploader: UploaderService,
+		private cd: ChangeDetectorRef,
 		private featureSrv: ProductService,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
@@ -74,7 +97,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			icon: 'camera',
 			fontSet: 'fa',
 			text: 'Add Picture',
-			action: null,
+			action: this.openFileBrowser.bind(this),
 		}, {
 			icon: 'folder-plus',
 			fontSet: 'fa',
@@ -95,11 +118,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		// creating the form descriptor
-		this.product$ = this.featureSrv.selectOne(this.product.id);
-		this.firstStatus$ = this.prodStatusSrv.queryAll('', { query: 'inWorkflow == true', sortBy: 'step' }).pipe(
-			first(),
-			map(status => status[0] ? status[0] : null) // we only need the first
-		);
+		// this.product$ = this.featureSrv.selectOne(this.product.id);
+		// this.firstStatus$ = this.prodStatusSrv.queryAll('', { query: 'inWorkflow == true', sortBy: 'step' }).pipe(
+		// 	first(),
+		// 	map(status => status[0] ? status[0] : null) // we only need the first
+		// );
 	}
 
 	updateProduct(product: any, field?: string) {
@@ -110,8 +133,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.updateProduct({ [prop]: value }, prop);
 	}
 
-	clickOnAction(action : PreviewActionButton) {
-		action.action();
+	clickOnAction(action: PreviewActionButton) {
+		if (action.action) {
+			action.action();
+		}
 	}
 
 	onThumbUp(product) {
@@ -171,5 +196,34 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** closes the modal */
 	closeModal() {
 		this.modalOpen = false;
+	}
+	openFileBrowser() {
+		this.inpFile.nativeElement.click();
+	}
+
+	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
+	async add(files: Array<File>) {
+		if (files.length === 0)
+			return;
+
+		const uuids: string[] = await this._addPendingImg(files);
+		this.cd.markForCheck();
+		this.uploader.uploadImages(files, this.product).pipe(
+			first()
+		).subscribe(imgs => {
+			// removing pending image
+			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
+		}, e => this._pendingImages = []);
+	}
+
+	/** adds pending image to the list */
+	private async _addPendingImg(files: File[]) {
+		// adding a pending image so we can see there is an image pending visually
+		let pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
+		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
+		this._pendingImages.push(...pendingImgs);
+		// putting the index at the end so we instantly have feedback the image is being processed
+		this.selectedIndex = this.images.length - 1;
+		return pendingImgs.map(p => p.id);
 	}
 }
