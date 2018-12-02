@@ -1,10 +1,13 @@
 
 <ng-container [ngSwitch]="fontSet">
-
-	<ng-container *ngSwitchCase="'fa'">
+	<!-- <ng-container *ngSwitchCase="'fa'">
 		<svg [ngStyle]="customStyle" class="svg-inline--fa">
 			<use [attr.xlink:href]="'#' + name"></use>
 		</svg>
+	</ng-container> -->
+
+	<ng-container *ngSwitchCase="'fa'">
+			<i [ngStyle]="customStyle" class="fa fa-{{ name }}"></i>
 	</ng-container>
 
 	<ng-container *ngSwitchCase="'svg'">

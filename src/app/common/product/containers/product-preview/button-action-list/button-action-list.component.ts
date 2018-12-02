@@ -18,7 +18,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListActionButtonsComponent extends TrackingComponent implements OnInit {
-	actions = [];
+	@Input() actions = [];
 	constructor() {
 		super();
 	}

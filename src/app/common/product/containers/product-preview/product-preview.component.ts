@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProductStatusTypeService } from '~entity-services';
-import { ERM, Product, ProductStatusType } from '~models';
+import { ERM, Product, ProductStatusType, AppImage } from '~models';
 import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
+import { any } from 'async';
 
 @Component({
 	selector: 'product-preview-app',
@@ -30,9 +31,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 	modalOpen = false;
 
-	actions = [{
-		'icon': ''
-	}];
+	actions: {
+		icon: string,
+		fontSet: 'fa' | 'svg',
+		text: string,
+		action: any,
+	}[];
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor
 	// so we only have one array of custom fields
@@ -60,7 +64,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
 	];
-
+	
 	constructor(
 		private featureSrv: ProductService,
 		private dlgSrv: DialogService,
@@ -70,6 +74,28 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private prodStatusSrv: ProductStatusTypeService,
 		private workspaceSrv: WorkspaceFeatureService) {
 		super();
+
+		this.actions = [{
+			icon: 'camera',
+			fontSet: 'fa',
+			text: 'Add Picture',
+			action: null,
+		}, {
+			icon: 'folder-plus',
+			fontSet: 'fa',
+			text: 'Add',
+			action: this.openAddToProject.bind(this),
+		}, {
+			icon: 'comments',
+			fontSet: 'fa',
+			text: 'Comment',
+			action: null,
+		}, {
+			icon: 'share-square',
+			text: 'Share',
+			fontSet: 'fa',
+			action: null,
+		}];
 	}
 
 	ngOnInit() {
@@ -81,8 +107,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
-	updateProduct(product: any) {
+	updateProduct(product: any, field?: string) {
 		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
+	}
+
+	updateProductProp(value: any, prop: string) {
+		this.updateProduct({ [prop]: value }, prop);
 	}
 
 	onThumbUp(product) {

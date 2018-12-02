@@ -28,7 +28,7 @@
 			*ngIf="product && product.price"
 			(closed)="updateProductProp($event, inpPrice.price, 'price')"
 			(opened)="inpPrice.select()"
-			(saved)="updateProductProp(inpPrice.price, 'price')">
+			(saved)="updateProductProp(false, inpPrice.price, 'price')">
 			<editable-label-app>
 
 					<div *ngIf="product?.price?.value" class="amount">

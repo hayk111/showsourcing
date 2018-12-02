@@ -1,1 +1,19 @@
 // Keep
+.action-button-container {
+	display: inline-block;
+	margin: var(--spacing-ms) var(--spacing-m);
+	.round-button {
+    display: inline-grid;
+		width: var(--spacing-xxl);
+		height: var(--spacing-xxl);
+		border-radius: var(--spacing-xxl);
+		background-color: var(--color-secondary);
+		font-size: var(--font-size-xxxl);
+		color: var(--color-txt-primary);
+	}
+	.btn-text {
+		font-size: 14px;
+		color: var(--color-txt-strong);
+		margin-top: var(--spacing-s);
+	}
+}
