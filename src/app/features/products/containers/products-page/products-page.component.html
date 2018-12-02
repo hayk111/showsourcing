@@ -116,15 +116,27 @@
 		*ngIf="viewSrv.filterPanelOpen">
 	</filters-app>
 
-	<product-preview-app
-		*ngIf="viewSrv.previewOpen"
-		[product]="viewSrv.previewed"
-		(close)="viewSrv.closePreview()"
-		(clickOutside)="viewSrv.closePreview()">
-	</product-preview-app>
 
+	<div class="flex">
+			<div class="left">
+					<product-preview-app
+					*ngIf="viewSrv.previewOpen"
+					[product]="viewSrv.previewed"
+					(close)="viewSrv.closePreview()"
+					(clickOutside)="viewSrv.closePreview()">
+				</product-preview-app>
+			</div>
+		</div>
 </ng-container>
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>
 </ng-template>
+
+<!-- Only for the carousel -->
+<modal-carousel-app
+	*ngIf="modalOpen"
+	[selectedIndex]="selectedIndex"
+	[images]="(product)?.images"
+	(close)="closeModal()">
+</modal-carousel-app>
