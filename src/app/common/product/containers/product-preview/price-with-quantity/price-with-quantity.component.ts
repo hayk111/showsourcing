@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProductStatusTypeService } from '~entity-services';
-import { ERM, Product, ProductStatusType } from '~models';
+import { ERM, Product, ProductStatusType, Price } from '~models';
 import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';
@@ -18,11 +18,23 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriceWithQuantityComponent extends TrackingComponent implements OnInit {
+
+	@Input() product: Product;
+
+	@Output() closed = new EventEmitter();
+	@Output() updatePrice = new EventEmitter<Price>();
+
 	constructor() {
 		super();
 	}
 
 	ngOnInit(){
 
+	}
+
+	updateProductPrice(isCancel: boolean, newValue: Price, field = 'price') {
+		if (!isCancel && this.updatePrice) {
+			this.updatePrice.emit(newValue);
+		}
 	}
 }

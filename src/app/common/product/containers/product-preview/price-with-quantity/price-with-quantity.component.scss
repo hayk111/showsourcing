@@ -1,1 +1,14 @@
 // Keep
+.price {
+	margin-bottom: var(--spacing-xl);
+	min-height: 31px;
+	.amount {
+		color: var(--color-primary);
+		font-size: var(--font-size-xxxl);
+		font-weight: bold;
+	}
+	.moq {
+		margin-left: var(--spacing-ms);
+		color: var(--color-txt-secondary);
+	}
+}

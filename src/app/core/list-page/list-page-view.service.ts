@@ -26,6 +26,7 @@ export class ListPageViewService<T> {
 	/** opens the preview panel for an item */
 	openPreview(item: T) {
 		this.previewed = item;
+		console.log(this.previewed);
 		this.previewOpen = true;
 	}
 
