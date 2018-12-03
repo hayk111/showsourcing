@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, combineLatest } from 'rxjs';
-import { map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ERM, ERM_TOKEN, Product, ProductVote } from '~models';
 
 import { ThumbService } from '~shared/rating/services/thumbs.service';
@@ -31,7 +31,7 @@ import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface'
 	templateUrl: './my-workflow-page.component.html',
 	styleUrls: ['./my-workflow-page.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.SHOW, ERM.SHOW),
+		getProviders(ProviderKey.SHOW, ERM.SHOW),
 		CommonDialogService,
 		{ provide: ERM_TOKEN, useValue: ERM.SHOW }
 	]

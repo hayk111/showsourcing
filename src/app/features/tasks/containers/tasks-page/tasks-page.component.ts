@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
 import { NewTaskDlgComponent } from '~features/tasks/containers/new-task-dlg/new-task-dlg.component';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.TASK, ERM.TASK),
+		getProviders(ProviderKey.TASK, ERM.TASK),
 	]
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit {

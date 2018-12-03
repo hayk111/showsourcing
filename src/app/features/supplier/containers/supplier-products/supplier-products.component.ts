@@ -8,7 +8,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 
 @Component({
@@ -17,7 +17,7 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	styleUrls: ['./supplier-products.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.SUPPLIER_PRODUCT, ERM.PRODUCT),
+		getProviders(ProviderKey.SUPPLIER_PRODUCT, ERM.PRODUCT),
 		CommonDialogService,
 		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }]
 })

@@ -7,7 +7,7 @@ import { SelectionWithFavoriteService } from '~core/list-page/selection-with-fav
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'category-data-management-page-app',
@@ -15,7 +15,7 @@ import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-provid
 	styleUrls: ['./category-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.CATEGORY, ERM.CATEGORY),
+		getProviders(ProviderKey.CATEGORY, ERM.CATEGORY),
 		CommonDialogService,
 		{ provide: ERM_TOKEN, useValue: ERM.CATEGORY }
 	]

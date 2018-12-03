@@ -10,7 +10,7 @@ import { SelectionWithFavoriteService } from '~core/list-page/selection-with-fav
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { AbstractTaskCommonComponent } from '~common/task';
 import { Task, ERM } from '~models';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { FilterType } from '~shared/filters';
 
 @Component({
@@ -18,7 +18,7 @@ import { FilterType } from '~shared/filters';
 	templateUrl: './supplier-tasks.component.html',
 	styleUrls: ['./supplier-tasks.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.SUPPLIER_TASK, ERM.TASK),
+		getProviders(ProviderKey.SUPPLIER_TASK, ERM.TASK),
 	]
 })
 export class SupplierTasksComponent extends AbstractTaskCommonComponent implements OnInit {

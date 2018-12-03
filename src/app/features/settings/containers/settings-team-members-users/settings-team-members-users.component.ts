@@ -8,7 +8,7 @@ import { ERM, TeamUser, User, ERM_TOKEN } from '~models';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { AutoUnsub } from '~utils';
 
@@ -17,11 +17,11 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './settings-team-members-users.component.html',
 	styleUrls: ['./settings-team-members-users.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.TEAM_USER, ERM.TEAM_USER),
+		getProviders(ProviderKey.TEAM_USER, ERM.TEAM_USER),
 		CommonDialogService,
 		{ provide: ERM_TOKEN, useValue: ERM.TEAM_USER }]
 })
-export class SettingsTeamMembersUsersComponent extends AutoUnsub  implements OnInit {
+export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnInit {
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ERM, Quote } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { ListPageProviders } from '~core/list-page/list-page-providers.class';
+import { getProviders } from '~core/list-page/list-page-providers.class';
 import { Router } from '@angular/router';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
@@ -14,7 +14,7 @@ import { QuoteFeatureService } from '~features/products/services';
 	templateUrl: './quote-list.component.html',
 	styleUrls: ['./quote-list.component.scss'],
 	providers: [
-		ListPageProviders.getProviders('quotes-list', ERM.QUOTE),
+		getProviders('quotes-list', ERM.QUOTE),
 	]
 })
 export class QuoteListComponent extends TrackingComponent implements OnInit {

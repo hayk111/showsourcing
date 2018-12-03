@@ -1,14 +1,15 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, NgModuleRef, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ERM, Product, ERM_TOKEN } from '~models';
-import { ProductService } from '~entity-services';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { getProviders } from '~core/list-page/list-page-providers.class';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ProductService } from '~entity-services';
+import { Product } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
-import { ListPageProviders } from '~core/list-page/list-page-providers.class';
+
 
 @Component({
 	selector: 'find-products-dialog-app',
@@ -16,9 +17,8 @@ import { ListPageProviders } from '~core/list-page/list-page-providers.class';
 	styleUrls: ['./find-products-dialog.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders('products-page', ERM.PRODUCT),
+		getProviders('products-page'),
 		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
 	]
 })
 export class FindProductsDialogComponent extends TrackingComponent implements OnInit, AfterViewInit {
@@ -26,8 +26,8 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 	@Input() initialSelectedProducts: Product[];
 	@Input() submitCallback: Function;
 	searchFilterElements$: Observable<any[]>;
-
 	unselectedProducts: { [key: string]: Product } = {};
+
 	constructor(
 		protected router: Router,
 		protected cdr: ChangeDetectorRef,

@@ -8,7 +8,7 @@ import { SelectionWithFavoriteService } from '~core/list-page/selection-with-fav
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	templateUrl: './settings-team-members-invitations.component.html',
 	styleUrls: ['./settings-team-members-invitations.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.INVITATION, ERM.INVITATION),
+		getProviders(ProviderKey.INVITATION, ERM.INVITATION),
 		CommonDialogService,
 		{ provide: ERM_TOKEN, useValue: ERM.INVITATION }]
 })

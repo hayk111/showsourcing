@@ -5,7 +5,7 @@ import { ERM, Supplier, ERM_TOKEN } from '~models';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageProviders } from '~core/list-page/list-page-providers.class';
+import { getProviders } from '~core/list-page/list-page-providers.class';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -15,7 +15,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
-		ListPageProviders.getProviders('suppliers-page', ERM.SUPPLIER),
+		getProviders('suppliers-page', ERM.SUPPLIER),
 		CommonDialogService,
 		{ provide: ERM_TOKEN, useValue: ERM.SUPPLIER }
 	]

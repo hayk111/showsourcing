@@ -9,14 +9,14 @@ import { SelectionWithFavoriteService } from '~core/list-page/selection-with-fav
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { ListPageProviders } from '~core/list-page/list-page-providers.class';
+import { getProviders } from '~core/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'projects-page-app',
 	templateUrl: './projects-page.component.html',
 	styleUrls: ['./projects-page.component.scss'],
 	providers: [
-		ListPageProviders.getProviders('projects-page', ERM.PROJECT),
+		getProviders('projects-page', ERM.PROJECT),
 		CommonDialogService,
 		{ provide: ERM_TOKEN, useValue: ERM.PROJECT }]
 })
