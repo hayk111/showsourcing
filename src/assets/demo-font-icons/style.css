@@ -1,0 +1,242 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?137yjq');
+  src:  url('fonts/icomoon.eot?137yjq#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?137yjq') format('truetype'),
+    url('fonts/icomoon.woff?137yjq') format('woff'),
+    url('fonts/icomoon.svg?137yjq#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-comments:before {
+  content: "\e93c";
+}
+.icon-supplier:before {
+  content: "\e937";
+}
+.icon-task:before {
+  content: "\e900";
+}
+.icon-Kanban:before {
+  content: "\e901";
+}
+.icon-Status:before {
+  content: "\e902";
+}
+.icon-Export:before {
+  content: "\e903";
+}
+.icon-location:before {
+  content: "\e904";
+}
+.icon-sample:before {
+  content: "\e905";
+}
+.icon-inspiraiton:before {
+  content: "\e906";
+}
+.icon-files:before {
+  content: "\e907";
+}
+.icon-edit:before {
+  content: "\e908";
+}
+.icon-dots-horizontal:before {
+  content: "\e909";
+}
+.icon-request-quotation:before {
+  content: "\e90a";
+}
+.icon-project:before {
+  content: "\e90b";
+}
+.icon-star:before {
+  content: "\e90c";
+}
+.icon-plus-square-background:before {
+  content: "\e90d";
+}
+.icon-camera:before {
+  content: "\e90e";
+}
+.icon-shipping:before {
+  content: "\e90f";
+}
+.icon-share:before {
+  content: "\e910";
+}
+.icon-check:before {
+  content: "\e911";
+}
+.icon-chevron__right:before {
+  content: "\e912";
+}
+.icon-chevron__bottom:before {
+  content: "\e913";
+}
+.icon-more:before {
+  content: "\e914";
+}
+.icon-product:before {
+  content: "\e915";
+}
+.icon-caret-down:before {
+  content: "\e916";
+}
+.icon-file:before {
+  content: "\e917";
+}
+.icon-image:before {
+  content: "\e918";
+}
+.icon-check-square:before {
+  content: "\e919";
+}
+.icon-thumbs-up-background:before {
+  content: "\e91a";
+}
+.icon-thumbs-down-background:before {
+  content: "\e91b";
+}
+.icon-check-round:before {
+  content: "\e91c";
+}
+.icon-workflow:before {
+  content: "\e952";
+}
+.icon-kanban:before {
+  content: "\e953";
+}
+.icon-fields:before {
+  content: "\e949";
+}
+.icon-check-empty-round:before {
+  content: "\e94a";
+}
+.icon-bell:before {
+  content: "\e94b";
+}
+.icon-thumbs:before {
+  content: "\e91d";
+}
+.icon-team:before {
+  content: "\e91e";
+}
+.icon-task1:before {
+  content: "\e91f";
+}
+.icon-supplier-icon:before {
+  content: "\e920";
+}
+.icon-settings-project-menu:before {
+  content: "\e921";
+}
+.icon-sample-box:before {
+  content: "\e922";
+}
+.icon-poll:before {
+  content: "\e925";
+}
+.icon-plus-square:before {
+  content: "\e926";
+}
+.icon-pencil:before {
+  content: "\e927";
+}
+.icon-list-project-menu:before {
+  content: "\e928";
+}
+.icon-list:before {
+  content: "\e929";
+}
+.icon-home-project-menu:before {
+  content: "\e92a";
+}
+.icon-feedback:before {
+  content: "\e932";
+}
+.icon-export:before {
+  content: "\e933";
+}
+.icon-excel:before {
+  content: "\e934";
+}
+.icon-event-icon:before {
+  content: "\e935";
+}
+.icon-delete:before {
+  content: "\e938";
+}
+.icon-data-cleansing:before {
+  content: "\e939";
+}
+.icon-comment:before {
+  content: "\e93a";
+}
+.icon-close:before {
+  content: "\e93b";
+}
+.icon-category:before {
+  content: "\e93f";
+}
+.icon-caret:before {
+  content: "\e940";
+}
+.icon-back-arrow:before {
+  content: "\e941";
+}
+.icon-arrow-right-rectangle:before {
+  content: "\e923";
+}
+.icon-arrow-left-rectangle:before {
+  content: "\e943";
+}
+.icon-search:before {
+  content: "\e944";
+}
+.icon-dots-vertical:before {
+  content: "\e924";
+}
+.icon-add:before {
+  content: "\e92b";
+}
+.icon-envelope:before {
+  content: "\e92c";
+}
+.icon-heart:before {
+  content: "\e92d";
+}
+.icon-pdf:before {
+  content: "\e92e";
+}
+.icon-tag:before {
+  content: "\e92f";
+}
+.icon-thumbs-down:before {
+  content: "\e930";
+}
+.icon-thumbs-up:before {
+  content: "\e931";
+}
+.icon-trash-bin:before {
+  content: "\e936";
+}
+.icon-user:before {
+  content: "\e948";
+}
