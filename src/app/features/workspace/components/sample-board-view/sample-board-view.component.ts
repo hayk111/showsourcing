@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ListViewComponent } from '~core/list-page';
+import { Sample } from '~core/models';
 
 @Component({
 	selector: 'sample-board-view-app',
@@ -6,9 +8,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./sample-board-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleBoardViewComponent implements OnInit {
+export class SampleBoardViewComponent extends ListViewComponent<Sample> implements OnInit {
 
-	constructor() { }
+	constructor() { super(); }
 
 	ngOnInit() {
 	}

@@ -1,3 +1,42 @@
-<p>
-  my-sample-page works!
-</p>
+<sub-panel-app
+	[hasSwitch]="true"
+	[hasFilter]="true"
+	[buttonIcon]="false"
+	[filtersAmount]="dataSrv.filterList.asFilters()?.length"
+	(showFilters)="viewSrv.openFilterPanel()"
+	(search)="dataSrv.search($event)"
+	(viewChange)="viewSrv.changeView($event)">
+</sub-panel-app>
+
+<sample-list-view-app
+	*ngIf="viewSrv.view === 'list'">
+
+</sample-list-view-app>
+
+<sample-board-view-app
+	*ngIf="viewSrv.view === 'card'">
+
+</sample-board-view-app>
+
+<selection-bar-app
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	[hasDelete]="false"
+	(close)="selectionSrv.unselectAll()"
+	(delete)="dataSrv.deleteSelected()">
+	<button> Change Status </button>
+</selection-bar-app>
+
+<filters-app
+	*ngIf="viewSrv.filterPanelOpen"
+	[filterList]="dataSrv.filterList"
+	[filterTypes]="filterTypes"
+	(clickOutside)="viewSrv.closeFilterPanel()">
+</filters-app>
+
+<preview-sample-app
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()"
+	(clickOutside)="viewSrv.closePreview()">
+</preview-sample-app>

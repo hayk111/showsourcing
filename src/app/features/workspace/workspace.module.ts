@@ -23,6 +23,7 @@ import { WorkspaceFeatureService } from '~features/workspace/services/workspace-
 import { SharedModule } from '~shared/shared.module';
 
 import { ProductsReviewCardBodyComponent } from './components/products-review-card-body/products-review-card-body.component';
+import { SampleCommonModule } from '~common/sample';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ProductsReviewCardBodyComponent } from './components/products-review-ca
 		TaskCommonModule,
 		ProductCommonModule,
 		DialogCommonModule,
+		SampleCommonModule
 	],
 	declarations: [
 		WorkspaceComponent,

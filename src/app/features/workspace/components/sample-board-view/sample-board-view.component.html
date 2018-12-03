@@ -1,3 +1,19 @@
-<p>
-  sample-board-view works!
-</p>
+<div class="kanbanCtnr">
+  <workflow-kanban2-app>
+  </workflow-kanban2-app>
+</div>
+
+<ng-template #card let-row="row" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">
+	<sample-card-app>
+
+	</sample-card-app>
+    <!-- [sample]="row"
+    [dragInProgress]="dragInProgress"
+    [checked]="checked"
+    [enablePreviewLink]="true"
+    (dragDropEnable)="dragDropEnable$.next($event)"
+    (select)="select.emit(row)"
+    (unselect)="unselect.emit(row)"
+    (clickImage)="previewClick.emit(row)"> -->
+</ng-template>
+

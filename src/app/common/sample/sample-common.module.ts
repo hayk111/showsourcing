@@ -6,6 +6,7 @@ import { SharedModule } from '~shared/shared.module';
 import { SampleListComponent } from './components/sample-list/sample-list.component';
 import { SampleComponent } from './components/sample/sample.component';
 import { PreviewSampleComponent } from './components/preview-sample/preview-sample.component';
+import { SampleCardComponent } from './components/sample-card/sample-card.component';
 
 @NgModule({
 	imports: [
@@ -16,11 +17,13 @@ import { PreviewSampleComponent } from './components/preview-sample/preview-samp
 	declarations: [
 		SampleListComponent,
 		SampleComponent,
-		PreviewSampleComponent],
+		PreviewSampleComponent,
+		SampleCardComponent],
 	exports: [
 		SampleListComponent,
 		SampleComponent,
-		PreviewSampleComponent
+		PreviewSampleComponent,
+		SampleCardComponent
 	],
 	entryComponents: []
 })
