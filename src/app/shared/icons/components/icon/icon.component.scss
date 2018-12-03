@@ -38,6 +38,9 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-comments:before {
+  content: "\e93c";
+}
 .icon-supplier:before {
   content: "\e937";
 }
