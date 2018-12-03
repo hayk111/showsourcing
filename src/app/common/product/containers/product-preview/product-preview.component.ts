@@ -1,11 +1,31 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	NgModuleRef,
+	OnInit,
+	Output,
+	ViewChild,
+	ElementRef,
+	ChangeDetectorRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProductStatusTypeService } from '~entity-services';
-import { ERM, Product, ProductStatusType, AppImage, PreviewActionButton } from '~models';
-import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dialog';
+import {
+	ERM,
+	Product,
+	ProductStatusType,
+	AppImage,
+	PreviewActionButton
+} from '~models';
+import {
+	ProductAddToProjectDlgComponent,
+	RfqDialogComponent
+} from '~common/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
@@ -20,7 +40,8 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() _product: Product;
-	@Input() set product(value: Product) {
+	@Input()
+	set product(value: Product) {
 		this._product = value;
 		if (value) {
 			this.images = this._product.images;
@@ -29,7 +50,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	get product() {
 		return this._product;
 	}
-
 
 	@Output() close = new EventEmitter<any>();
 	@Output() delete = new EventEmitter<null>();
@@ -47,18 +67,48 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	// ultimately "sections" should be added to the form descriptor
 	// so we only have one array of custom fields
 	customFields: CustomField[] = [
-		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true } },
-		{ name: 'category', type: 'selector', metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true } },
+		{
+			name: 'supplier',
+			type: 'selector',
+			metadata: {
+				target: 'supplier',
+				type: 'entity',
+				labelName: 'name',
+				canCreate: true
+			}
+		},
+		{
+			name: 'category',
+			type: 'selector',
+			metadata: {
+				target: 'category',
+				type: 'entity',
+				labelName: 'name',
+				canCreate: true
+			}
+		},
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'price', type: 'price' },
 		{
-			name: 'assignee', label: 'Assignee', type: 'selector', metadata:
-				{ target: 'user', type: 'entity', labelName: 'name' }
+			name: 'assignee',
+			label: 'Assignee',
+			type: 'selector',
+			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
-		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name', canCreate: true }, multiple: true },
-		{ name: 'description', type: 'textarea', label: 'description' },
+		{
+			name: 'tags',
+			type: 'selector',
+			metadata: {
+				target: 'tag',
+				type: 'entity',
+				labelName: 'name',
+				canCreate: true
+			},
+			multiple: true
+		},
+		{ name: 'description', type: 'textarea', label: 'description' }
 	];
 
 	// those are the custom field for the second form section
@@ -68,11 +118,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
 		{ name: 'sample', type: 'yesNo' },
-		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
+		{ name: 'samplePrice', type: 'number', label: 'Sample Price' }
 	];
 
 	private _images: AppImage[] = [];
-	@Input() set images(images: AppImage[]) {
+	@Input()
+	set images(images: AppImage[]) {
 		this._images = images;
 	}
 	get images() {
@@ -90,32 +141,38 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private prodStatusSrv: ProductStatusTypeService,
-		private workspaceSrv: WorkspaceFeatureService) {
+		private workspaceSrv: WorkspaceFeatureService
+	) {
 		super();
 
-		this.actions = [{
-			icon: 'camera',
-			fontSet: '',
-			text: 'Add Picture',
-			action: this.openFileBrowser.bind(this),
-		}, {
-			icon: 'project',
-			fontSet: '',
-			text: 'Add',
-			action: this.openAddToProject.bind(this),
-		}, {
-			icon: 'comments',
-			fontSet: '',
-			text: 'Comment',
-			action: null,
-		}, {
-			icon: 'export',
-			text: 'Share',
-			fontSet: '',
-			action: null,
-		}];
+		this.actions = [
+			{
+				icon: 'camera',
+				fontSet: '',
+				text: 'Add Picture',
+				action: this.openFileBrowser.bind(this)
+			},
+			{
+				icon: 'project',
+				fontSet: '',
+				text: 'Add',
+				action: this.openAddToProject.bind(this)
+			},
+			{
+				icon: 'comments',
+				fontSet: '',
+				text: 'Comment',
+				action: null
+			},
+			{
+				icon: 'export',
+				text: 'Share',
+				fontSet: '',
+				action: null
+			}
+		];
 	}
-
+	//
 	ngOnInit() {
 		// creating the form descriptor
 		// this.product$ = this.featureSrv.selectOne(this.product.id);
@@ -154,7 +211,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openRfq() {
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product });
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, {
+			product: this.product
+		});
 	}
 
 	onViewProduct() {
@@ -162,7 +221,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openAddToProject() {
-		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, {
+			selectedProducts: [this.product]
+		});
 	}
 
 	/** Add a product to workflow */
@@ -203,17 +264,22 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
-		if (files.length === 0)
-			return;
+		if (files.length === 0) return;
 
 		const uuids: string[] = await this._addPendingImg(files);
 		this.cd.markForCheck();
-		this.uploader.uploadImages(files, this.product).pipe(
-			first()
-		).subscribe(imgs => {
-			// removing pending image
-			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
-		}, e => this._pendingImages = []);
+		this.uploader
+			.uploadImages(files, this.product)
+			.pipe(first())
+			.subscribe(
+				imgs => {
+					// removing pending image
+					this._pendingImages = this._pendingImages.filter(
+						p => !uuids.includes(p.id)
+					);
+				},
+				e => (this._pendingImages = [])
+			);
 	}
 
 	/** adds pending image to the list */
