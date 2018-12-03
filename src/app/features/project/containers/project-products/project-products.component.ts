@@ -27,7 +27,6 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 export class ProjectProductsComponent extends TrackingComponent implements OnInit {
 
 	project$: Observable<Project>;
-	private projectId: string;
 	private project: Project;
 
 	constructor(
@@ -50,7 +49,6 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 
 	ngOnInit() {
 		const id = this.route.parent.snapshot.params.id;
-		this.projectId = id;
 		this.project$ = this.projectSrv.queryOne(id);
 		this.project$.subscribe(proj => this.project = proj);
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
@@ -63,15 +61,6 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 		});
 		this.dataSrv.init();
 
-	}
-
-	search(str: string) {
-		// the search predicate
-		this.dataSrv.currentSearch = str ? `name CONTAINS[c] "${str}"`
-			+ ` OR supplier.name CONTAINS[c] "${str}"`
-			+ ` OR category.name CONTAINS[c] "${str}"`
-			+ ` OR tags.name CONTAINS[c] "${str}"` : '';
-		this.dataSrv.onPredicateChange();
 	}
 
 	/**
@@ -129,22 +118,6 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 				});
 			})
 		);
-	}
-
-	// we have to override the method since we are using a project feature srv instead of a product
-	onMultipleThumbUp(onHighlight: boolean) {
-		this.selectionSrv.selection.forEach(item => {
-			const votes = this.thumbSrv.thumbUpFromMulti(item, onHighlight);
-			this.productSrv.update({ id: item.id, votes } as any).subscribe();
-		});
-	}
-
-	// we have to override the method since we are using a project feature srv instead of a product
-	onMultipleThumbDown(onHighlight: boolean) {
-		this.selectionSrv.selection.forEach(item => {
-			const votes = this.thumbSrv.thumbDownFromMulti(item, onHighlight);
-			this.productSrv.update({ id: item.id, votes } as any).subscribe();
-		});
 	}
 
 	/** Open the find products dialog and passing selected products to it */

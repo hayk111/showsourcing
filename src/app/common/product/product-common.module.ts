@@ -13,7 +13,8 @@ import {
 	ProductSortingMenuComponent,
 	StatsIconsComponent,
 } from './components';
-import { FindProductsDialogComponent, ProductPreviewComponent } from './containers';
+import { FindProductsDialogComponent, ProductPreviewComponent, PriceWithQuantityComponent, ListActionButtonsComponent } from './containers';
+
 
 
 @NgModule({
@@ -30,6 +31,8 @@ import { FindProductsDialogComponent, ProductPreviewComponent } from './containe
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
 		ProductPreviewComponent,
+		PriceWithQuantityComponent,
+		ListActionButtonsComponent,
 		ProductCardComponent,
 		MoqComponent,
 		StatsIconsComponent
@@ -41,6 +44,8 @@ import { FindProductsDialogComponent, ProductPreviewComponent } from './containe
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
 		ProductPreviewComponent,
+		PriceWithQuantityComponent,
+		ListActionButtonsComponent,
 		ProductCardComponent,
 		MoqComponent,
 		StatsIconsComponent

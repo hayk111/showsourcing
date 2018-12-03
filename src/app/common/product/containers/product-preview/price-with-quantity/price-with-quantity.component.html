@@ -1,0 +1,18 @@
+<div class="price-with-quantity">
+		<editable-text-app #editablePrice class="price"
+			*ngIf="product && product.price"
+			(closed)="updateProductPrice($event, inpPrice.price, 'price')"
+			(opened)="inpPrice.select()"
+			(saved)="updateProductPrice(false, inpPrice.price, 'price')">
+			<editable-label-app>
+					<div *ngIf="product?.price?.value" class="amount">
+						{{ product?.price?.value | ssPrice | currency: product?.price?.currency:'symbol':'1.2-2'}} 
+					</div>
+					<div *ngIf="product?.price?.value" class="moq flexCenter">
+						{{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}}
+					</div>
+
+			</editable-label-app>
+			<input-price-app #inpPrice [price]="product?.price" (keyup.enter)="editablePrice.close()"></input-price-app>
+		</editable-text-app>
+</div>

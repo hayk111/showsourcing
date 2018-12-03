@@ -14,6 +14,7 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 	@Input() badge: EntityMetadata;
 	@Input() value: any;
 	@Input() multiple = false;
+	@Input() iconBackground = '';
 	@Output() update = new EventEmitter<any>();
 
 	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;

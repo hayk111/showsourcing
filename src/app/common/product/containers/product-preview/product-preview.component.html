@@ -1,107 +1,57 @@
-<side-panel-app>
-	<side-panel-title-app>
-		{{ product.name }}
-	</side-panel-title-app>
+<ng-container *ngIf="product as productF">
 
-	<side-panel-action-app>
-		<icon-app class="close pointer color-txt-secondary" name="close" (click)="close.emit()"></icon-app>
-	</side-panel-action-app>
+		<preview-app>
+				<preview-banner-app (closed)="close.emit()">
+					<carousel-app [images]="productF?.images" [selectedIndex]="selectedIndex" objectFit="cover" (imgClick)="openModal($event)"
+					 (deleted)="onDelete($event)">
+					</carousel-app>
+				</preview-banner-app>
 
-	<ng-container *ngIf="product$ | async as productF">
-		<carousel-app [images]="product?.images"></carousel-app>
+				<preview-header-app Open my workspace  [entityMD]="prodERM" [entity]="productF" (update)="update($event, 'name')">
+					<price-with-quantity-app [product]="productF" (updatePrice)="updateProductProp($event, 'price')"></price-with-quantity-app>
+					<preview-badge-app [badge]="erm.SUPPLIER" [iconBackground]="'purple'" [value]="productF?.supplier?.name" (update)="update($event, 'supplier')">
+					</preview-badge-app>
+					<preview-badge-app [badge]="erm.CATEGORY" [iconBackground]="'yellow'" [value]="[productF?.category]" (update)="update($event, 'category')">
+					</preview-badge-app>
+				</preview-header-app>
 
-		<status-selector-app
-			class="card-flow"
-			[entity]="productF"
-			selectSize="s"
-			[typeEntity]="prodERM">
-		</status-selector-app>
+				<preview-section-app>
+					<button class="btn-ask-quote" (click)="openRfq()">Ask for a Quote</button>
+					<div class="centered-text text-ask-quote">Ask for a quote from the supplier</div>
+					<button-action-list-app (clickOnAction)="clickOnAction($event)" [actions]="actions"></button-action-list-app>
+				</preview-section-app>
+				<preview-section-app [title]="'Description'">
+					<input-description-app
+						[description]="productF?.description"
+						(update)="updateProductProp($event, 'description')">
+					</input-description-app>
+					<info-badge-app *ngFor="let tag of productF?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
+				</preview-section-app>
+				<preview-section-app [title]="'Product Details'">
+						<dynamic-form-app
+						[inlineLabel]="true"
+						[fields]="customFields"
+						[value]="productF"
+						[colAmount]="1"
+						(update)="updateProduct($event)">
+					</dynamic-form-app>
+				</preview-section-app>
+				<preview-section-app [title]="'Trading Information'">
+						<dynamic-form-app
+						[inlineLabel]="true"
+						[fields]="customFields2"
+						[value]="productF"
+						[colAmount]="1"
+						(update)="updateProduct($event)">
+					</dynamic-form-app>
+				</preview-section-app>
 
-		<action-bar-app
-			buttonName="Open"
-			[votes]="product?.votes"
-			[favorite]="productF?.favorite"
-			(onFavorite)="updateProduct({ favorite: true })"
-			(onUnfavorite)="updateProduct({ favorite: false })"
-			(liked)="onThumbUp(productF)"
-			(disliked)="onThumbDown(productF)"
-			(buttonClick)="onViewProduct()">
+				<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+			</preview-app>
+</ng-container>
 
-			<button class="icon light folder" (click)="openAddToProject()">
-				<icon-app fontSet="svg" name="folder-light" size="m" ></icon-app>
-			</button>
-		</action-bar-app>
-
-		<!-- actions -->
-		<div class="flexColumn actions">
-			<ng-container *ngIf="productF?.status?.status; else sendWF">
-				Request RFQ to supplier?
-				<button class="primary" (click)="openRfq()">SEND RFQ</button>
-			</ng-container>
-			<ng-template #sendWF>
-				This product is still a new idea, what should we do next?
-				<div class="flexColumn card-hover-block">
-					<!-- <div class="secondary flexBetween sort-1 button-action button-archive">
-						<span class="button-label flexCenter" (click)="onArchive(product)">Keep as reference</span>
-						<div class="button-icon">
-							<context-menu-app #archiveMenu>
-								<context-menu-trigger-app class="archieve-trigger flexCenter">
-									<icon-app fontSet="fa" name="caret-down"></icon-app>
-								</context-menu-trigger-app>
-								<context-menu-item-app (click)="onArchive(product)" class="menu-item">
-									Archive Product
-								</context-menu-item-app>
-								<context-menu-item-app (click)="delete.emit(product)" class="menu-item">
-									Delete Product
-								</context-menu-item-app>
-							</context-menu-app>
-						</div>
-					</div> -->
-
-					<div class="secondary flexBetween sort-1 button-action button-workflow">
-						<div class="send-workflow flexCenter" (click)="onSentToWorkflow(product)">Send to {{ (firstStatus$ | async)?.name ? ((firstStatus$ | async)?.name | const: 'status') : 'workflow' }}</div>
-						<div class="button-icon">
-							<status-selector-app
-								#workActionMenu
-								[entity]="product"
-								selectSize="s"
-								[typeEntity]="prodERM"
-								[isSendToWorkFlow]="true"
-								[internalUpdate]="false"
-								(statusUpdated)="onStatusUpdated(product, $event)">
-							</status-selector-app>
-						</div>
-					</div>
-				</div>
-			</ng-template>
-		</div>
-		<divider-app></divider-app>
-
-		<!-- form -->
-		<h3>Product Details</h3>
-		<dynamic-form-app
-			[inlineLabel]="true"
-			[fields]="customFields"
-			[value]="productF"
-			[colAmount]="1"
-			(update)="updateProduct($event)">
-		</dynamic-form-app>
-
-		<h3 style="margin-top: 22px; margin-bottom: 18px">
-			Trading information
-		</h3>
-		<dynamic-form-app
-			[inlineLabel]="true"
-			[fields]="customFields2"
-			[value]="productF"
-			[colAmount]="1"
-			(update)="updateProduct($event)">
-		</dynamic-form-app>
-	</ng-container>
-
-
-
-	<ng-template #spinner>
-		<spinner-app></spinner-app>
-	</ng-template>
-</side-panel-app>
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>
+<modal-carousel-app *ngIf="modalOpen" [selectedIndex]="selectedIndex" [images]="(product$ | async)?.images" (close)="closeModal()">
+</modal-carousel-app>

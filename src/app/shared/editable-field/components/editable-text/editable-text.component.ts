@@ -39,7 +39,7 @@ export class EditableTextComponent {
 	}
 
 	save() {
-		this.close(false);
+		this.close(false, false);
 	}
 
 	open(isInsideClick?: boolean) {

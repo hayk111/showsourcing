@@ -21,6 +21,12 @@ svg, img {
   font-style: normal;
 }
 
+.has-background {
+  border-radius: 3px;
+  padding: 3px;
+  font-size: 9px;
+}
+
 i {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
