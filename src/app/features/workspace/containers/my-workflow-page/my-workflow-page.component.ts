@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ERM, ERM_TOKEN, Product, ProductVote } from '~models';
@@ -17,8 +17,8 @@ import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { statusProductToKanbanCol } from '~utils/kanban.utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-
 @Component({
 	selector: 'workspace-my-workflow-page-app',
 	templateUrl: './my-workflow-page.component.html',
@@ -65,7 +65,6 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		});
 
 		this.selected$ = this.selectionSrv.selection$;
-
 	}
 
 	/** Convert statuses / products into the generic input for kanban */
@@ -75,12 +74,14 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			name: status.name,
 			color: this.getColumnColor(status),
 			disabled: (status.name === '_NoStatus'),
-			items: status.products.map(product => ({
-				...product,
-				cat: (product.status && product.status.status) ? {
-					id: product.status.status.id
-				} : { id: -1 }
-			}))
+			data: status.products.map(product => {
+				return ({
+					...product,
+					cat: (product.status && product.status.status) ? {
+						id: product.status.status.id
+					} : { id: -1 }
+				});
+			})
 		}));
 	}
 
@@ -166,5 +167,12 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	getSelectedProducts() {
 		return Array.from(this.selectionSrv.selection.values());
+	}
+	onColumnSelected(products: Product[]) {
+		products.forEach(prod => this.selectionSrv.selectOne(prod, true));
+	}
+
+	onColumnUnselected(products: Product[]) {
+		products.forEach(prod => this.selectionSrv.unselectOne(prod, true));
 	}
 }
