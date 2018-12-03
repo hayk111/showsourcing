@@ -95,23 +95,23 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 		this.actions = [{
 			icon: 'camera',
-			fontSet: 'fa',
+			fontSet: '',
 			text: 'Add Picture',
 			action: this.openFileBrowser.bind(this),
 		}, {
-			icon: 'folder-plus',
-			fontSet: 'fa',
+			icon: 'project',
+			fontSet: '',
 			text: 'Add',
 			action: this.openAddToProject.bind(this),
 		}, {
 			icon: 'comments',
-			fontSet: 'fa',
+			fontSet: '',
 			text: 'Comment',
 			action: null,
 		}, {
-			icon: 'share-square',
+			icon: 'export',
 			text: 'Share',
-			fontSet: 'fa',
+			fontSet: '',
 			action: null,
 		}];
 	}

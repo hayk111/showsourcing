@@ -1,6 +1,6 @@
 export class PreviewActionButton {
 	icon: string;
-	fontSet: 'fa' | 'svg';
+	fontSet: 'fa' | 'svg' | '';
 	text: string;
 	action: Function;
 }
