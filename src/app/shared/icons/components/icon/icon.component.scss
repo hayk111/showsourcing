@@ -38,6 +38,9 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-supplier:before {
+  content: "\e937";
+}
 .icon-task:before {
   content: "\e900";
 }
@@ -149,7 +152,7 @@ i {
 .icon-task1:before {
   content: "\e91f";
 }
-.icon-supplier:before {
+.icon-supplier-icon:before {
   content: "\e920";
 }
 .icon-settings-project-menu:before {
