@@ -11,7 +11,7 @@
 		[hasFilter]="false"
 		[buttonIcon]="false"
 		(buttonClick)="openFindProductDlg()"
-		(search)="search($event)">
+		(search)="dataSrv.search($event)">
 	</sub-panel-app>
 
 	<project-product-list-app

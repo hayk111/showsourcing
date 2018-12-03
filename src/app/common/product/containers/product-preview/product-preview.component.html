@@ -1,7 +1,6 @@
 <ng-container *ngIf="product as productF">
-	<div class="flex">
-		<div class="left">
-			<preview-app>
+
+		<preview-app>
 				<preview-banner-app (closed)="close.emit()">
 					<carousel-app [images]="productF?.images" [selectedIndex]="selectedIndex" objectFit="cover" (imgClick)="openModal($event)"
 					 (deleted)="onDelete($event)">
@@ -46,11 +45,9 @@
 						(update)="updateProduct($event)">
 					</dynamic-form-app>
 				</preview-section-app>
-				
+
 				<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
 			</preview-app>
-		</div>
-	</div>
 </ng-container>
 
 <ng-template #spinner>
