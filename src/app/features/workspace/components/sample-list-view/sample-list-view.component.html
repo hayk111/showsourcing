@@ -15,8 +15,7 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row.id)"
-			i18n="sample menu | delete">
+			(click)="delete.emit(row.id)">
 			Delete
 		</context-menu-item-app>
 	</ng-template>

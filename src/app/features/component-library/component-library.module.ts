@@ -7,6 +7,7 @@ import { ComponentLibraryComponent } from './component-library-page/component-li
 import { GuidelinesComponent } from './guidelines/guidelines.component';
 import { PreviewPageComponent } from './preview-page/preview-page.component';
 import { routes } from './routes';
+import { SampleCardTestComponent } from './sample-card-test/sample-card-test.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { routes } from './routes';
 	declarations: [
 		ComponentLibraryComponent,
 		PreviewPageComponent,
-		GuidelinesComponent
+		GuidelinesComponent,
+		SampleCardTestComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []

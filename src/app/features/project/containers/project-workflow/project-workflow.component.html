@@ -13,7 +13,8 @@
 		(drop)="updateProductStatus($event)"
 		(multipleDrop)="updateProductsStatus($event)"
 		(selectColumn)="onColumnSelected($event)"
-		(unselectColumn)="onColumnUnselected($event)"></kanban-app>
+		(unselectColumn)="onColumnUnselected($event)">
+	</kanban-app>
 
 	<ng-template #card let-data="data">
 		<product-card-app
