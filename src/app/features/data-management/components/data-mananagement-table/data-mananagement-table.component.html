@@ -30,7 +30,7 @@
       <!-- <div> {{ row.name }} </div> -->
       <editable-text-app #editable (closed)="updateNameEntity(row, txtName.value)" [hasAction]="true">
         <editable-label-app class="task-name">
-          {{row.name}}
+          {{ row.name }}
         </editable-label-app>
         <input inputApp class="task-name" #txtName [value]="row.name || ''">
       </editable-text-app>
@@ -48,7 +48,7 @@
       <!-- <div> {{ row.description.name }} </div> -->
       <editable-text-app #editable (closed)="updateNameEntity(row, txtName.value, 'description')" [hasAction]="true">
         <editable-label-app class="task-name">
-          {{row.description.name}}
+          {{ row.description.name }}
         </editable-label-app>
         <input inputApp class="task-name" #txtName [value]="row.description.name || ''">
       </editable-text-app>

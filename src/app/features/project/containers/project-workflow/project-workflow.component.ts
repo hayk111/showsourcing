@@ -1,32 +1,21 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { first, map, takeUntil, tap } from 'rxjs/operators';
-import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
-import { ProductService, ProjectService, ProductStatusTypeService } from '~entity-services';
-import { ERM, Product, ERM_TOKEN, Project, ProductStatus } from '~models';
-import {
-	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-} from '~common/dialog';
-import { DialogService } from '~shared/dialog/services';
-import { SearchService } from '~shared/filters';
-import { KanbanDropEvent } from '~shared/kanban/interfaces';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
-import { NotificationService, NotificationType } from '~shared/notifications';
-import {
-	FindProductsDialogComponent,
-} from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { statusProductToKanbanCol } from '~utils/kanban.utils';
-import { ProductQueries } from '~entity-services/product/product.queries';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { ProductService, ProductStatusTypeService, ProjectService } from '~entity-services';
+import { ProductQueries } from '~entity-services/product/product.queries';
+import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
+import { ERM, Product, ProductStatus, Project } from '~models';
+import { KanbanDropEvent } from '~shared/kanban/interfaces';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { statusProductToKanbanCol } from '~utils/kanban.utils';
 
 @Component({
 	selector: 'project-workflow-app',
@@ -34,9 +23,10 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	styleUrls: ['./project-workflow.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.PROJECT_WORKFLOW, ERM.PRODUCT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
@@ -47,19 +37,19 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	project: Project;
 
 	constructor(
-		protected route: ActivatedRoute,
-		protected projectSrv: ProjectService,
-		protected productSrv: ProductService,
-		protected productStatusSrv: ProductStatusTypeService,
-		protected router: Router,
-		protected thumbSrv: ThumbService,
-		protected workflowService: ProjectWorkflowFeatureService,
-		protected notificationSrv: NotificationService,
-		protected featureSrv: ProjectWorkflowFeatureService,
-		protected viewSrv: ListPageViewService<Product>,
+		public route: ActivatedRoute,
+		public projectSrv: ProjectService,
+		public productSrv: ProductService,
+		public productStatusSrv: ProductStatusTypeService,
+		public router: Router,
+		public thumbSrv: ThumbService,
+		public workflowService: ProjectWorkflowFeatureService,
+		public notificationSrv: NotificationService,
+		public featureSrv: ProjectWorkflowFeatureService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProjectWorkflowFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}
@@ -71,6 +61,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			initialSortBy: 'category.name'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.PRODUCT);
 
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.projectSrv.queryOne(id);

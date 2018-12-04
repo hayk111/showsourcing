@@ -133,10 +133,3 @@
 	<spinner-app></spinner-app>
 </ng-template>
 
-<!-- Only for the carousel -->
-<modal-carousel-app
-	*ngIf="modalOpen"
-	[selectedIndex]="selectedIndex"
-	[images]="(product)?.images"
-	(close)="closeModal()">
-</modal-carousel-app>

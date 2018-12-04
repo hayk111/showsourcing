@@ -1,16 +1,15 @@
-import { Injectable, NgModuleRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { EntityMetadata } from '~models';
-import { CreationDialogComponent, EditionDialogComponent } from '~common/dialog';
-import { DialogService } from '~shared/dialog/services';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { Filter, FilterList, SearchService } from '~shared/filters';
-import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { DialogService } from '~shared/dialog/services';
+import { Filter, FilterList } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
@@ -168,7 +167,7 @@ export class ListPageDataService
 			this.currentSearch = '';
 		} else {
 			this.currentSearch = this.searchedFields
-				.map(field => `name CONTAINS[c] "${str}"`)
+				.map(field => `${field} CONTAINS[c] "${str}"`)
 				.join(' OR ');
 		}
 		this.onPredicateChange();
@@ -284,6 +283,10 @@ export class ListPageDataService
 		this.filterList.removeFilter(filter);
 	}
 
+	smartSearch(event: any) {
+		throw Error('not implemented');
+	}
+
 	private getSelectionValues() {
 		return this.selectionSrv.getSelectionValues();
 	}
@@ -291,4 +294,6 @@ export class ListPageDataService
 	private getSelectionIds() {
 		return this.selectionSrv.getSelectionIds();
 	}
+
+
 }

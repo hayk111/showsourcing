@@ -1,16 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { switchMap, tap } from 'rxjs/operators';
-import { DialogService } from '~shared/dialog/services';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { saveAs } from 'file-saver';
+import { switchMap } from 'rxjs/operators';
 import { ExportRequestService } from '~entity-services/export-request/export-request.service';
-import { ExportRequest, Product } from '~models';
-import { saveAs } from 'file-saver/FileSaver';
+import { ExportRequest } from '~models';
+import { DialogService } from '~shared/dialog/services';
 
 
 @Component({
 	selector: 'product-export-dlg-app',
 	templateUrl: './product-export-dlg.component.html',
 	styleUrls: ['./product-export-dlg.component.scss'],
-	// changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductExportDlgComponent implements OnInit {
 	selectedExport: '' | 'pdf' | 'xlsx' = '';

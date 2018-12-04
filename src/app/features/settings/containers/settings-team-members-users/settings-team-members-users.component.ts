@@ -1,15 +1,13 @@
-import { Component, NgModuleRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
-import { MemberFeatureService } from '~features/settings/services/member-feature.service';
-import { TeamService, UserService } from '~entity-services';
-import { ERM, TeamUser, User, ERM_TOKEN } from '~models';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { TeamService, UserService } from '~entity-services';
+import { MemberFeatureService } from '~features/settings/services/member-feature.service';
+import { TeamUser, User } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -17,24 +15,26 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './settings-team-members-users.component.html',
 	styleUrls: ['./settings-team-members-users.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.TEAM_USER, ERM.TEAM_USER),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.TEAM_USER }]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
+	]
 })
-export class SettingsTeamMembersUsersComponent extends AutoUnsub  implements OnInit {
+export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnInit {
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;
 	initialPredicate = '';
 	constructor(
-		protected router: Router,
-		protected userService: UserService,
-		protected teamService: TeamService,
-		protected featureSrv: MemberFeatureService,
-		protected viewSrv: ListPageViewService<TeamUser>,
+		public router: Router,
+		public userService: UserService,
+		public teamService: TeamService,
+		public featureSrv: MemberFeatureService,
+		public viewSrv: ListPageViewService<TeamUser>,
 		public dataSrv: ListPageDataService<TeamUser, MemberFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}

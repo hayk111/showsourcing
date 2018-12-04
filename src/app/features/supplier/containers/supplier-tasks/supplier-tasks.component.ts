@@ -10,7 +10,7 @@ import { SelectionWithFavoriteService } from '~core/list-page/selection-with-fav
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { AbstractTaskCommonComponent } from '~common/task';
 import { Task, ERM } from '~models';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { FilterType } from '~shared/filters';
 
 @Component({
@@ -18,20 +18,22 @@ import { FilterType } from '~shared/filters';
 	templateUrl: './supplier-tasks.component.html',
 	styleUrls: ['./supplier-tasks.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.SUPPLIER_TASK, ERM.TASK),
-	]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService]
 })
 export class SupplierTasksComponent extends AbstractTaskCommonComponent implements OnInit {
 
 	constructor(
-		protected route: ActivatedRoute,
-		protected userSrv: UserService,
-		protected router: Router,
-		protected featureSrv: TaskService,
-		protected viewSrv: ListPageViewService<Task>,
+		public route: ActivatedRoute,
+		public userSrv: UserService,
+		public router: Router,
+		public featureSrv: TaskService,
+		public viewSrv: ListPageViewService<Task>,
 		public dataSrv: ListPageDataService<Task, TaskService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super(
 			router,

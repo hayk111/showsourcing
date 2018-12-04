@@ -8,7 +8,7 @@ import { SelectionWithFavoriteService } from '~core/list-page/selection-with-fav
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 
 @Component({
@@ -16,24 +16,26 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	templateUrl: './settings-team-members-invitations.component.html',
 	styleUrls: ['./settings-team-members-invitations.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.INVITATION, ERM.INVITATION),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.INVITATION }]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
+	]
 })
 export class SettingsTeamMembersInvitationsComponent extends TrackingComponent implements OnInit {
 	hasSelected = false;
 	initialPredicate = '';
 
 	constructor(
-		protected router: Router,
-		protected userService: UserService,
-		protected teamService: TeamService,
-		protected moduleRef: NgModuleRef<any>,
-		protected featureSrv: InvitationFeatureService,
-		protected viewSrv: ListPageViewService<Invitation>,
+		public router: Router,
+		public userService: UserService,
+		public teamService: TeamService,
+		public moduleRef: NgModuleRef<any>,
+		public featureSrv: InvitationFeatureService,
+		public viewSrv: ListPageViewService<Invitation>,
 		public dataSrv: ListPageDataService<Invitation, InvitationFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService,
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService,
 	) {
 		super();
 	}
@@ -45,6 +47,7 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 			initialSortBy: 'email'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.TEAM_USER);
 		/* this.selected$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(selected => {

@@ -31,56 +31,53 @@ export enum ProviderKey {
  * Helper class to create providers for the different list page
  * The providers are not recreated and are stored so we can keep the state.
  */
-export class ListPageProviders {
+const selectionSrvMap = new Map<string, any>();
+const listViewSrvMap = new Map<string, any>();
+const listDataSrvMap = new Map<string, any>();
 
-	private static selectionSrvMap = new Map<string, any>();
-	private static listViewSrvMap = new Map<string, any>();
-	private static listDataSrvMap = new Map<string, any>();
-
-	/** we want those providers to be the same for the  */
-	static getProviders(key: string, entityMetadata: EntityMetadata): Provider[] {
-		return [
-			{ provide: ERM_TOKEN, useValue: entityMetadata },
-			{
-				provide: SelectionWithFavoriteService,
-				useFactory: () => {
-					let selectionSrv = ListPageProviders.selectionSrvMap.get(key);
-					if (!selectionSrv) {
-						selectionSrv = new SelectionWithFavoriteService();
-						ListPageProviders.selectionSrvMap.set(key, selectionSrv);
-					}
-					return selectionSrv;
+/** we want those providers to be the same for the  */
+export function getProviders(key: string, entityMetadata?: EntityMetadata): Provider[] {
+	return [
+		// { provide: ERM_TOKEN, useValue: entityMetadata },
+		{
+			provide: SelectionWithFavoriteService,
+			useFactory: () => {
+				let selectionSrv = selectionSrvMap.get(key);
+				if (!selectionSrv) {
+					selectionSrv = new SelectionWithFavoriteService();
+					selectionSrvMap.set(key, selectionSrv);
 				}
-			},
-			{
-				provide: ListPageViewService,
-				useFactory: (router: Router) => {
-					let viewSrv = ListPageProviders.listViewSrvMap.get(key);
-					if (!viewSrv) {
-						viewSrv = new ListPageViewService(router, entityMetadata);
-						ListPageProviders.listViewSrvMap.set(key, viewSrv);
-					}
-
-					return viewSrv;
-				},
-				deps: [Router]
-			},
-			{
-				provide: ListPageDataService,
-				useFactory: (
-					dlgSrv: DialogService,
-					thumbSrv: ThumbService,
-					selectionSrv: SelectionWithFavoriteService
-				) => {
-					let dataSrv = ListPageProviders.listDataSrvMap.get(key);
-					if (!dataSrv) {
-						dataSrv = new ListPageDataService(dlgSrv, thumbSrv, selectionSrv);
-						ListPageProviders.listDataSrvMap.set(key, dataSrv);
-					}
-					return dataSrv;
-				},
-				deps: [DialogService, ThumbService, SelectionWithFavoriteService]
+				return selectionSrv;
 			}
-		];
-	}
+		},
+		{
+			provide: ListPageViewService,
+			useFactory: (router: Router) => {
+				let viewSrv = listViewSrvMap.get(key);
+				if (!viewSrv) {
+					viewSrv = new ListPageViewService(router);
+					listViewSrvMap.set(key, viewSrv);
+				}
+
+				return viewSrv;
+			},
+			deps: [Router]
+		},
+		{
+			provide: ListPageDataService,
+			useFactory: (
+				dlgSrv: DialogService,
+				thumbSrv: ThumbService,
+				selectionSrv: SelectionWithFavoriteService
+			) => {
+				let dataSrv = listDataSrvMap.get(key);
+				if (!dataSrv) {
+					dataSrv = new ListPageDataService(dlgSrv, thumbSrv, selectionSrv);
+					listDataSrvMap.set(key, dataSrv);
+				}
+				return dataSrv;
+			},
+			deps: [DialogService, ThumbService, SelectionWithFavoriteService]
+		}
+	];
 }

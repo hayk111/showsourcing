@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SampleService } from '~core/entity-services';
 import { Sample, ERM, ERM_TOKEN } from '~core/models';
-import { ListPageViewService, ListPageDataService, SelectionService, ListPageProviders } from '~core/list-page';
+import { ListPageViewService, ListPageDataService, SelectionService, SelectionWithFavoriteService } from '~core/list-page';
 import { FilterType } from '~shared/filters';
 import { CommonDialogService } from '~common/dialog';
 
@@ -11,9 +11,10 @@ import { CommonDialogService } from '~common/dialog';
 	styleUrls: ['./my-sample-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders('samples-page', ERM.SAMPLE),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.SAMPLE }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class MySamplePageComponent implements OnInit {
@@ -24,10 +25,10 @@ export class MySamplePageComponent implements OnInit {
 	];
 
 	constructor(
-		protected featureSrv: SampleService,
-		protected viewSrv: ListPageViewService<Sample>,
+		public featureSrv: SampleService,
+		public viewSrv: ListPageViewService<Sample>,
 		public dataSrv: ListPageDataService<Sample, SampleService>,
-		protected selectionSrv: SelectionService,
+		public selectionSrv: SelectionService,
 	) { }
 
 	ngOnInit() {

@@ -11,7 +11,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 @Component({
 	selector: 'shows-page-app',
@@ -19,9 +19,11 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	styleUrls: ['./shows-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.SHOW, ERM.SHOW),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.SHOW }]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
+	]
 })
 export class ShowsPageComponent extends TrackingComponent implements OnInit {
 	allShows$: Observable<Show[]>;
@@ -33,13 +35,13 @@ export class ShowsPageComponent extends TrackingComponent implements OnInit {
 		myShows: false
 	};
 	constructor(
-		protected router: Router,
-		protected featureSrv: ShowFeatureService,
-		protected userSrv: UserService,
-		protected viewSrv: ListPageViewService<Show>,
+		public router: Router,
+		public featureSrv: ShowFeatureService,
+		public userSrv: UserService,
+		public viewSrv: ListPageViewService<Show>,
 		public dataSrv: ListPageDataService<Show, ShowFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}

@@ -1,26 +1,17 @@
-import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { ListPageDataService } from '~core/list-page/list-page-data.service';
+import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { TemplateService } from '~core/template/services/template.service';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ERM, Product, ProductVote, ERM_TOKEN } from '~models';
-import {
-	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-} from '~common/dialog';
-import { DialogService } from '~shared/dialog/services';
-import { SearchService } from '~shared/filters';
-import { SelectionService } from '~core/list-page/selection.service';
+import { ERM, ERM_TOKEN, Product, ProductVote } from '~models';
 import { NotificationService } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { TemplateService } from '~core/template/services/template.service';
-import { ID } from '~utils/id.utils';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
@@ -29,9 +20,11 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './review-page.component.html',
 	styleUrls: ['./review-page.component.scss'],
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.REVIEWPAGE, ERM.REVIEW),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.REVIEW }]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
+	]
 })
 export class ReviewPageComponent extends AutoUnsub implements OnInit {
 
@@ -42,18 +35,18 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 	currentSearch = null;
 
 	constructor(
-		protected router: Router,
-		protected cdr: ChangeDetectorRef,
-		protected workspaceSrv: WorkspaceFeatureService,
-		protected notificationSrv: NotificationService,
-		private templateSrv: TemplateService,
-		protected thumbSrv: ThumbService,
-		protected featureSrv: WorkspaceFeatureService,
-		protected viewSrv: ListPageViewService<Product>,
+		public router: Router,
+		public cdr: ChangeDetectorRef,
+		public workspaceSrv: WorkspaceFeatureService,
+		public notificationSrv: NotificationService,
+		public templateSrv: TemplateService,
+		public thumbSrv: ThumbService,
+		public featureSrv: WorkspaceFeatureService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, WorkspaceFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
-		) {
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
+	) {
 		super();
 	}
 

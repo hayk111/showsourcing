@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { DialogCommonModule } from '~common/dialog';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { TaskCommonModule } from '~common/task';
-import { Workflow2Module } from '~features/workflow2/workflow2.module';
 import {
 	ProductsReviewCardHeaderComponent,
 	ProductsReviewCardViewComponent,
@@ -30,7 +29,6 @@ import { SampleCommonModule } from '~common/sample';
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		Workflow2Module, // TODO REMOVE WHEN KANBAN USED
 		TaskCommonModule,
 		ProductCommonModule,
 		DialogCommonModule,

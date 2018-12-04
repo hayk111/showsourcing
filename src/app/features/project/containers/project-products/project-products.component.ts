@@ -1,18 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map, takeUntil, switchMap, tap, catchError, take, first } from 'rxjs/operators';
-import { ProductService, ProjectService } from '~entity-services';
-import { ERM, Product, Project, ERM_TOKEN } from '~models';
-import { ProjectWorkflowFeatureService } from '~features/project/services';
-import { NotificationService, NotificationType } from '~shared/notifications';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { Observable } from 'rxjs';
+import { first, tap } from 'rxjs/operators';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ProductService, ProjectService } from '~entity-services';
+import { ProjectWorkflowFeatureService } from '~features/project/services';
+import { Product, Project } from '~models';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 
 @Component({
 	selector: 'project-products-app',
@@ -20,9 +19,11 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	templateUrl: './project-products.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageProviders.getProviders(ProviderKey.PROJECTS_PRODUCT, ERM.PRODUCT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
+	]
 })
 export class ProjectProductsComponent extends TrackingComponent implements OnInit {
 
@@ -30,20 +31,20 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 	private project: Project;
 
 	constructor(
-		protected router: Router,
-		protected srv: ProductService,
-		protected projectSrv: ProjectService,
-		protected route: ActivatedRoute,
-		protected moduleRef: NgModuleRef<any>,
-		private notifSrv: NotificationService,
-		private productSrv: ProductService,
+		public router: Router,
+		public srv: ProductService,
+		public projectSrv: ProjectService,
+		public route: ActivatedRoute,
+		public moduleRef: NgModuleRef<any>,
+		public notifSrv: NotificationService,
+		public productSrv: ProductService,
 
-		protected featureSrv: ProjectWorkflowFeatureService,
-		protected viewSrv: ListPageViewService<Product>,
+		public featureSrv: ProjectWorkflowFeatureService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProductService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService,
-		protected thumbSrv: ThumbService) {
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService,
+		public thumbSrv: ThumbService) {
 		super();
 	}
 
@@ -123,9 +124,10 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
 		if (this.project) {
-			this.featureSrv.getProjectProducts(this.project).pipe(first()).subscribe(products => {
-				this.commonDlgSrv.openFindProductDlg(products, this.associatedProductsWithProject.bind(this));
-			});
+			this.featureSrv.getProjectProducts(this.project).pipe(first())
+				.subscribe(products => {
+					this.commonDlgSrv.openFindProductDlg(products, this.associatedProductsWithProject.bind(this));
+				});
 		}
 	}
 

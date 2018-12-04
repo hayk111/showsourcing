@@ -1,20 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ERM, Quote } from '~models';
-import { TrackingComponent } from '~utils/tracking-component';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { ListPageProviders } from '~core/list-page/list-page-providers.class';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { QuoteFeatureService } from '~features/products/services';
+import { ERM, Quote } from '~models';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'quote-list-app',
 	templateUrl: './quote-list.component.html',
 	styleUrls: ['./quote-list.component.scss'],
 	providers: [
-		ListPageProviders.getProviders('quotes-list', ERM.QUOTE),
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class QuoteListComponent extends TrackingComponent implements OnInit {
@@ -38,12 +40,12 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 	hoverIndex: number;
 
 	constructor(
-		protected router: Router,
-		protected featureSrv: QuoteFeatureService,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService,
-		protected viewSrv: ListPageViewService<Quote>,
-		protected dataSrv: ListPageDataService<Quote, QuoteFeatureService>
+		public router: Router,
+		public featureSrv: QuoteFeatureService,
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService,
+		public viewSrv: ListPageViewService<Quote>,
+		public dataSrv: ListPageDataService<Quote, QuoteFeatureService>
 	) {
 		super();
 	}
@@ -59,5 +61,6 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 			initialSortBy: 'name'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.QUOTE);
 	}
 }

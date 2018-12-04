@@ -7,16 +7,17 @@ import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { ListPageProviders } from '~core/list-page/list-page-providers.class';
+import { getProviders } from '~core/list-page/list-page-providers.class';
 
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
-		ListPageProviders.getProviders('products-page', ERM.PRODUCT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class ProductsPageComponent extends TrackingComponent implements OnInit {
@@ -32,11 +33,11 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 	];
 
 	constructor(
-		protected featureSrv: ProductFeatureService,
-		protected viewSrv: ListPageViewService<Product>,
+		public featureSrv: ProductFeatureService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProductFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}
@@ -48,6 +49,7 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 			initialSortBy: 'category.name'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.PRODUCT);
 	}
 
 

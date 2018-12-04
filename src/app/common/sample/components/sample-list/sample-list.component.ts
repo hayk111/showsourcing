@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Sample } from '~models';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'sample-list-app',
@@ -7,7 +8,7 @@ import { Sample } from '~models';
 	styleUrls: ['./sample-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleListComponent implements OnInit {
+export class SampleListComponent extends TrackingComponent implements OnInit {
 
 	@Input() samples: Sample[];
 	@Input() selection: Map<string, boolean>;
@@ -20,7 +21,9 @@ export class SampleListComponent implements OnInit {
 	@Output() taskUnselect = new EventEmitter<Sample>();
 	@Output() updateSample = new EventEmitter<Sample>();
 
-	constructor() { }
+	constructor() {
+		super();
+	}
 
 	ngOnInit() {
 	}

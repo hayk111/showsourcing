@@ -18,10 +18,15 @@ export class ListPageViewService<T> {
 	/** previewed item */
 	previewed: T;
 
+	entityMetadata: EntityMetadata;
+
 	constructor(
-		private router: Router,
-		@Optional() @Inject(ERM_TOKEN) public entityMetadata: EntityMetadata
+		private router: Router
 	) { }
+
+	setup(entityMetadata: EntityMetadata) {
+		this.entityMetadata = entityMetadata;
+	}
 
 	/** opens the preview panel for an item */
 	openPreview(item: T) {

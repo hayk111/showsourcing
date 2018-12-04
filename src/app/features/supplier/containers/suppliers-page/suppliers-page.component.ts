@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SupplierFeatureService } from '~features/supplier/services';
-import { ERM, Supplier, ERM_TOKEN } from '~models';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { FilterType } from '~shared/filters';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageProviders } from '~core/list-page/list-page-providers.class';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { SupplierFeatureService } from '~features/supplier/services';
+import { ERM, Supplier } from '~models';
+import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -15,9 +14,10 @@ import { TrackingComponent } from '~utils/tracking-component';
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
-		ListPageProviders.getProviders('suppliers-page', ERM.SUPPLIER),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.SUPPLIER }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class SuppliersPageComponent extends TrackingComponent
@@ -32,12 +32,12 @@ export class SuppliersPageComponent extends TrackingComponent
 	];
 
 	constructor(
-		protected router: Router,
-		protected featureSrv: SupplierFeatureService,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService,
-		protected viewSrv: ListPageViewService<Supplier>,
-		protected dataSrv: ListPageDataService<Supplier, SupplierFeatureService>
+		public router: Router,
+		public featureSrv: SupplierFeatureService,
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService,
+		public viewSrv: ListPageViewService<Supplier>,
+		public dataSrv: ListPageDataService<Supplier, SupplierFeatureService>
 	) {
 		super();
 	}
@@ -49,5 +49,6 @@ export class SuppliersPageComponent extends TrackingComponent
 			initialSortBy: 'name'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.SUPPLIER);
 	}
 }
