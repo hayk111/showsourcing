@@ -1,7 +1,7 @@
 import { statusToColor } from '~utils/status-to-color.function';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { ProductStatusType, Product } from '~models';
+import { ProductStatusType, Product, SampleStatus, Sample } from '~models';
 
 /**
  * converts an array of productStatusType and and array of products to an array of kanbanColumn
@@ -42,5 +42,34 @@ export function statusProductToKanbanCol(
 			(type as any).data.push(prod);
 		}
 	});
+	return cols;
+}
+
+export function statusSampleToKanbanCol(
+	types: SampleStatus[],
+	samples: Sample[]): KanbanColumn[] {
+
+	// making the columns
+	const constPipe = new ConstPipe();
+	const cols: KanbanColumn[] = types.map(type => ({
+		id: type.id,
+		title: constPipe.transform(type.name, 'status'),
+		color: statusToColor(type.category),
+		data: []
+	}));
+
+	// making a map out of the array for easy access
+	const colsMap = new Map(
+		cols.map(col => ([col.id, col])) as any
+	);
+
+	// adding the sample to each element of the map
+	samples.forEach(sample => {
+		if (sample.status) {
+			const type = colsMap.get(sample.status.id);
+			(type as any).data.push(sample);
+		}
+	});
+
 	return cols;
 }

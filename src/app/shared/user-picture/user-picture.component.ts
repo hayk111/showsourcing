@@ -43,12 +43,19 @@ export class UserPictureComponent {
 	}
 	private _image: AppImage;
 
-	get commonStyle() {
+	commonStyle() {
+		// This ratio is needed so we don't have to declare each time a font-size, given a circle size
+		// case 0: if cercle size = 0, font-size = 2 (initials) this case is imposible (size = 0) but its the base case
+		// cercleSize / 4 => for each 4px of growth on cercleSize
+		// 2 * => 2px of growth on the fontSize
+		// this means that case 0 circleSize = 0, font-size = 2
+		// for each4px of groth on the cercle the font-size will increase 2px
+		const fontSize = 2 + (2 * (Math.floor(this.size / 4)));
 		return {
+			'font-size': fontSize + 'px',
 			height: this.size + 'px',
 			width: this.size + 'px',
 			'border-radius': '50%'
 		};
 	}
-
 }

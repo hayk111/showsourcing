@@ -8,12 +8,14 @@ import { GuidelinesComponent } from './guidelines/guidelines.component';
 import { PreviewPageComponent } from './preview-page/preview-page.component';
 import { routes } from './routes';
 import { SampleCardTestComponent } from './sample-card-test/sample-card-test.component';
+import { SampleCommonModule } from '~common/sample';
 
 
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
-		SharedModule
+		SharedModule,
+		SampleCommonModule
 	],
 	declarations: [
 		ComponentLibraryComponent,
