@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
-import { CategoryManagementService } from '~features/data-management/services/category-management.service';
-import { ERM, Category, ERM_TOKEN } from '~models';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CategoryService } from '~core/entity-services';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
+import { Category, ERM } from '~models';
 
 @Component({
 	selector: 'category-data-management-page-app',
@@ -21,17 +20,28 @@ import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.c
 		CommonDialogService
 	]
 })
-export class CategoryDataManagementPageComponent extends AbstractDataManagementComponent<Category, CategoryManagementService> {
+export class CategoryDataManagementPageComponent extends AbstractDataManagementComponent
+	implements OnInit {
 
 	constructor(
 		protected router: Router,
-		protected featureSrv: CategoryManagementService,
+		protected categorySrv: CategoryService,
 		protected viewSrv: ListPageViewService<Category>,
-		public dataSrv: ListPageDataService<Category, CategoryManagementService>,
+		public dataSrv: ListPageDataService<Category, CategoryService>,
 		protected selectionSrv: SelectionWithFavoriteService,
 		protected commonDlgSrv: CommonDialogService
 	) {
-		super(router, featureSrv, viewSrv, dataSrv, selectionSrv, commonDlgSrv, ERM.CATEGORY);
+		super(selectionSrv, commonDlgSrv, ERM.CATEGORY);
 	}
 
+
+	ngOnInit() {
+		this.dataSrv.setup({
+			featureSrv: this.categorySrv,
+			searchedFields: ['name'],
+			initialSortBy: 'name'
+		});
+		this.dataSrv.init();
+		this.viewSrv.setup(this.entityMetadata);
+	}
 }

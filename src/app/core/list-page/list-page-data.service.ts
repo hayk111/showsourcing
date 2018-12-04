@@ -168,7 +168,7 @@ export class ListPageDataService
 			this.currentSearch = '';
 		} else {
 			this.currentSearch = this.searchedFields
-				.map(field => `name CONTAINS[c] "${str}"`)
+				.map(field => `${field} CONTAINS[c] "${str}"`)
 				.join(' OR ');
 		}
 		this.onPredicateChange();

@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
-import { EventManagementService } from '~features/data-management/services/event-management.service';
-import { ERM, Event, ERM_TOKEN } from '~models';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { EventService } from '~core/entity-services';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
+import { ERM, Event } from '~models';
 
 @Component({
 	selector: 'event-data-management-page-app',
@@ -21,22 +20,28 @@ import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.c
 		CommonDialogService
 	]
 })
-export class EventDataManagementPageComponent extends AbstractDataManagementComponent<Event, EventManagementService> {
+export class EventDataManagementPageComponent extends AbstractDataManagementComponent
+	implements OnInit {
 
 	constructor(
 		protected router: Router,
-		protected featureSrv: EventManagementService,
+		protected eventSrv: EventService,
 		protected viewSrv: ListPageViewService<Event>,
-		public dataSrv: ListPageDataService<Event, EventManagementService>,
+		public dataSrv: ListPageDataService<Event, EventService>,
 		protected selectionSrv: SelectionWithFavoriteService,
 		protected commonDlgSrv: CommonDialogService
 	) {
-		super(router, featureSrv, viewSrv, dataSrv, selectionSrv, commonDlgSrv, ERM.EVENT);
+		super(selectionSrv, commonDlgSrv, ERM.EVENT);
 	}
 
-	search(str: string) {
-		this.dataSrv.currentSearch = `description.name CONTAINS[c] "${str}"`;
-		this.dataSrv.onPredicateChange();
+	ngOnInit() {
+		this.dataSrv.setup({
+			featureSrv: this.eventSrv,
+			searchedFields: ['description.name'],
+			initialSortBy: 'description.name'
+		});
+		this.dataSrv.init();
+		this.viewSrv.setup(this.entityMetadata);
 	}
 
 }
