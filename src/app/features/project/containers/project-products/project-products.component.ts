@@ -124,9 +124,10 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
 		if (this.project) {
-			this.featureSrv.getProjectProducts(this.project).pipe(first()).subscribe(products => {
-				this.commonDlgSrv.openFindProductDlg(products, this.associatedProductsWithProject.bind(this));
-			});
+			this.featureSrv.getProjectProducts(this.project).pipe(first())
+				.subscribe(products => {
+					this.commonDlgSrv.openFindProductDlg(products, this.associatedProductsWithProject.bind(this));
+				});
 		}
 	}
 

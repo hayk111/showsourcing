@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { AbstractInput } from '~shared/inputs';
 import { Packaging } from '~models/packaging.model';
 
@@ -16,4 +16,8 @@ export class InputPackagingComponent extends AbstractInput {
 	}
 	get value() { return this._value; }
 	private _value;
+
+	constructor(protected cd: ChangeDetectorRef) {
+		super(cd);
+	}
 }

@@ -9,6 +9,7 @@ import { SelectionWithFavoriteService } from '~core/list-page/selection-with-fav
 import { ProductService } from '~entity-services';
 import { Product, ERM } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
+import { DialogService } from '~shared/dialog';
 
 
 @Component({
@@ -26,7 +27,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class FindProductsDialogComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	@Input() initialSelectedProducts: Product[];
-	@Input() submitCallback: Function;
+	@Input() submitCallback: (sel: { selectedProducts, unselectedProducts }) => Observable<any>;
 	searchFilterElements$: Observable<any[]>;
 	unselectedProducts: { [key: string]: Product } = {};
 
@@ -37,7 +38,8 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 		protected viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProductService>,
 		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		protected commonDlgSrv: CommonDialogService,
+		protected dlgSrv: DialogService
 	) {
 		super();
 	}
@@ -59,7 +61,7 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 	}
 
 	getSelectedProducts() {
-		return Array.from(this.selectionSrv.selection.values());
+		return this.selectionSrv.getSelectionValues();
 	}
 
 	hasSelectedProducts() {
@@ -78,16 +80,14 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 	}
 
 	closeDlg() {
-		this.commonDlgSrv.close();
+		this.dlgSrv.close();
 	}
 
 	submit() {
 		// we add each project one by one to the store
-		const selectedProducts = this.getSelectedProducts();
-		const unselectedProducts = Object.keys(this.unselectedProducts).map(key => this.unselectedProducts[key]);
+		const selectedProducts = this.selectionSrv.getSelectionValues();
+		const unselectedProducts = Object.values(this.unselectedProducts);
 		this.submitCallback({ selectedProducts, unselectedProducts })
-			.subscribe(() => {
-				this.commonDlgSrv.close();
-			});
+			.subscribe(() => this.dlgSrv.close());
 	}
 }

@@ -1,32 +1,21 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { first, map, takeUntil, tap } from 'rxjs/operators';
-import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
-import { ProductService, ProjectService, ProductStatusTypeService } from '~entity-services';
-import { ERM, Product, ERM_TOKEN, Project, ProductStatus } from '~models';
-import {
-	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-} from '~common/dialog';
-import { DialogService } from '~shared/dialog/services';
-import { SearchService } from '~shared/filters';
-import { KanbanDropEvent } from '~shared/kanban/interfaces';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
-import { NotificationService, NotificationType } from '~shared/notifications';
-import {
-	FindProductsDialogComponent,
-} from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { statusProductToKanbanCol } from '~utils/kanban.utils';
-import { ProductQueries } from '~entity-services/product/product.queries';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { ProductService, ProductStatusTypeService, ProjectService } from '~entity-services';
+import { ProductQueries } from '~entity-services/product/product.queries';
+import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
+import { ERM, Product, ProductStatus, Project } from '~models';
+import { KanbanDropEvent } from '~shared/kanban/interfaces';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { statusProductToKanbanCol } from '~utils/kanban.utils';
 
 @Component({
 	selector: 'project-workflow-app',
