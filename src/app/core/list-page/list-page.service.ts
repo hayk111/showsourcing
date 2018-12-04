@@ -11,14 +11,20 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
-import { Product } from '~core/models';
+import { Product, EntityMetadata } from '~core/models';
 import { ListPageKey } from './list-page-keys.enum';
+import { ListPageDataConfig } from './list-page-config.interface';
 
 
 // where we can save the services
 const selectionSrvMap = new Map<ListPageKey, SelectionWithFavoriteService>();
 const dataSrvMap = new Map<ListPageKey, ListPageDataService<any, any>>();
 const viewSrvMap = new Map<ListPageKey, ListPageViewService<any>>();
+
+export interface ListPageConfig extends ListPageDataConfig {
+	key: ListPageKey;
+	entityMetadata: EntityMetadata;
+}
 
 /**
  * Helper service for list pages.
@@ -45,10 +51,10 @@ export class ListPageService<A, B extends GlobalServiceInterface<A>> {
 		private thumbSrv: ThumbService
 	) { }
 
-	setup(config: any, shouldInitDataLoading = true) {
+	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.initServices(config.key);
 		this.dataSrv.setup(config);
-		this.viewSrv.setup(config);
+		this.viewSrv.setup(config.entityMetadata);
 
 		// by default we start loading
 		if (shouldInitDataLoading) {
