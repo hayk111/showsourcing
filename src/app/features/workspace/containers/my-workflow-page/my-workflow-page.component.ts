@@ -1,24 +1,31 @@
-import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, Subject, combineLatest } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ERM, ERM_TOKEN, Product, ProductVote } from '~models';
 import {
-	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-} from '~common/dialog';
+	ChangeDetectorRef,
+	Component,
+	OnInit
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, combineLatest } from 'rxjs';
+import { map} from 'rxjs/operators';
+import { ERM, ERM_TOKEN, Product, ProductVote } from '~models';
 
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~utils/tracking-component';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { ListPageProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import {
+	ListPageProviders,
+	ProviderKey
+} from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import {
+	ProductService,
+	ProductStatusTypeService
+} from '~entity-services';
+import { ProductQueries } from '~entity-services/product/product.queries';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 @Component({
 	selector: 'workspace-my-workflow-page-app',
 	templateUrl: './my-workflow-page.component.html',
@@ -26,22 +33,22 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	providers: [
 		ListPageProviders.getProviders(ProviderKey.SHOW, ERM.SHOW),
 		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.SHOW }]
+		{ provide: ERM_TOKEN, useValue: ERM.SHOW }
+	]
 })
 export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
-
-	columns$ = new Subject<any[]>();
+	columns$: Observable<KanbanColumn[]>;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 
 	constructor(
 		protected router: Router,
-		protected featureSrv: WorkspaceFeatureService,
+		protected featureSrv: ProductService,
+		protected productStatusSrv: ProductStatusTypeService,
 		protected cdr: ChangeDetectorRef,
-		protected workspaceSrv: WorkspaceFeatureService,
 		protected thumbSrv: ThumbService,
 		protected viewSrv: ListPageViewService<Product>,
-		public dataSrv: ListPageDataService<Product, WorkspaceFeatureService>,
+		public dataSrv: ListPageDataService<Product, ProductService>,
 		protected selectionSrv: SelectionWithFavoriteService,
 		protected commonDlgSrv: CommonDialogService
 	) {
@@ -56,13 +63,34 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		});
 		this.dataSrv.init();
 		this.selectionSrv.unselectAll();
+		const products$ = this.featureSrv
+			.queryAll(ProductQueries.many, {
+				query:
+					`status.id != null AND status.status.id != null ` +
+					`&& status.status.inWorkflow == true ` +
+					`AND archived == false && deleted == false`,
+				sortBy: 'lastUpdatedDate'
+			})
+			.pipe(
+				map(products =>
+					products.sort(
+						(a, b) =>
+							+new Date(b.lastUpdatedDate) - +new Date(a.lastUpdatedDate)
+					)
+				)
+			);
+		const productStatuses$ = this.productStatusSrv
+			.queryAll(undefined, {
+				query: 'category != "refused" AND category != "inspiration"',
+				sortBy: 'step'
+			})
+			.pipe();
 
-
-		this.workspaceSrv.getStatuses().pipe(
-			takeUntil(this._destroy$)
-		).subscribe(statuses => {
-			this.columns$.next(this.convertStatusesToColumns(statuses));
-		});
+		this.columns$ = combineLatest(
+			productStatuses$,
+			products$,
+			statusProductToKanbanCol
+		);
 
 		this.selected$ = this.selectionSrv.selection$;
 	}
@@ -73,14 +101,17 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			id: status.id,
 			name: status.name,
 			color: this.getColumnColor(status),
-			disabled: (status.name === '_NoStatus'),
+			disabled: status.name === '_NoStatus',
 			data: status.products.map(product => {
-				return ({
+				return {
 					...product,
-					cat: (product.status && product.status.status) ? {
-						id: product.status.status.id
-					} : { id: -1 }
-				});
+					cat:
+						product.status && product.status.status
+							? {
+									id: product.status.status.id
+								}
+							: { id: -1 }
+				};
 			})
 		}));
 	}
@@ -102,14 +133,6 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		return data.cat ? data.cat.id : '';
 	}
 
-	search(search: string) {
-		this.workspaceSrv.getStatuses(true, search).pipe(
-			takeUntil(this._destroy$)
-		).subscribe(statuses => {
-			this.columns$.next(this.convertStatusesToColumns(statuses));
-		});
-	}
-
 	/** updates the products with the new value votes */
 	multipleVotes(votes: Map<string, ProductVote[]>) {
 		votes.forEach((v, k) => this.dataSrv.update({ id: k, votes: v }));
@@ -118,7 +141,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	onUpdateProductStatus({ target, droppedElement }) {
 		if (droppedElement) {
 			droppedElement.forEach(element => {
-				this.workspaceSrv.updateProductStatus(element, target)
+				this.featureSrv
+					.updateProductStatus(element, target)
 					.subscribe(() => this.cdr.detectChanges());
 			});
 			this.resetSelection();
@@ -136,7 +160,6 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		this.commonDlgSrv.openAddToProjectDialog([product]);
 	}
 
-
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product: Product) {
 		this.commonDlgSrv.openExportDialog([product]);
@@ -152,11 +175,13 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		const items = Array.from(this.selectionSrv.selection.keys());
 		// callback for confirm dialog
 		const callback = () => {
-			this.workspaceSrv.deleteMany(items).subscribe(() => {
+			this.featureSrv.deleteMany(items).subscribe(() => {
 				this.resetSelection();
 			});
 		};
-		const text = `Delete ${items.length} ${items.length > 1 ? 'items' : 'item'} ?`;
+		const text = `Delete ${items.length} ${
+			items.length > 1 ? 'items' : 'item'
+		} ?`;
 		this.commonDlgSrv.openConfirmDialog({ text, callback });
 	}
 
