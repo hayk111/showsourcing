@@ -23,6 +23,7 @@ export enum ProviderKey {
 	MY_TASK = 'my-tasks-page',
 	PRODUCT_TASK = 'products-tasks-page',
 	PRODUCT_SAMPLE = 'products-samples-page',
+	SAMPLE = 'samples-page',
 	SUPPLIER_SAMPLE = 'products-samples-page'
 }
 

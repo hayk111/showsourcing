@@ -109,11 +109,6 @@ I added comment above each column to make it clearer -->
 
 </ng-template>
 
-<!-- feedback -->
-<ng-template #feedback let-row="row">
-  {{ score(row) !== null ? score(row) : '-' }} %
-</ng-template>
-
 <!-- creation date -->
 <ng-template #creationDate let-row="row">
 	{{ row?.creationDate | date: 'dd MMMM y' }}

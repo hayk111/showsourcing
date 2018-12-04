@@ -8,18 +8,22 @@ import {
 	ProductsReviewCardHeaderComponent,
 	ProductsReviewCardViewComponent,
 	ProductsReviewSortingMenuComponent,
+	SampleListViewComponent,
+	SampleBoardViewComponent,
 } from '~features/workspace/components';
 import {
 	MyTasksPageComponent,
 	MyWorkflowPageComponent,
 	ReviewPageComponent,
 	WorkspaceComponent,
+	MySamplePageComponent,
 } from '~features/workspace/containers';
 import { routes } from '~features/workspace/routes';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { SharedModule } from '~shared/shared.module';
 
 import { ProductsReviewCardBodyComponent } from './components/products-review-card-body/products-review-card-body.component';
+import { SampleCommonModule } from '~common/sample';
 
 
 @NgModule({
@@ -30,6 +34,7 @@ import { ProductsReviewCardBodyComponent } from './components/products-review-ca
 		TaskCommonModule,
 		ProductCommonModule,
 		DialogCommonModule,
+		SampleCommonModule
 	],
 	declarations: [
 		WorkspaceComponent,
@@ -39,7 +44,10 @@ import { ProductsReviewCardBodyComponent } from './components/products-review-ca
 		ProductsReviewCardViewComponent,
 		ProductsReviewCardHeaderComponent,
 		ProductsReviewSortingMenuComponent,
-		ProductsReviewCardBodyComponent
+		ProductsReviewCardBodyComponent,
+		MySamplePageComponent,
+		SampleListViewComponent,
+		SampleBoardViewComponent
 	],
 	exports: [RouterModule],
 	providers: [
