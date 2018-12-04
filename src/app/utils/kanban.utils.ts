@@ -36,7 +36,9 @@ export function statusProductToKanbanCol(
 	products.forEach(prod => {
 		if (prod.status && prod.status.status) {
 			const type = colsMap.get(prod.status.status.id);
-			(type as any).data.push(prod);
+			if (type) {
+				(type as any).data.push(prod);
+			}
 		} else if (withoutStatus) {
 			const type = colsMap.get('-1');
 			(type as any).data.push(prod);
