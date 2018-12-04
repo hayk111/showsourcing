@@ -34,9 +34,10 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	styleUrls: ['./project-workflow.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders(ProviderKey.PROJECT_WORKFLOW, ERM.PRODUCT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
@@ -71,6 +72,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			initialSortBy: 'category.name'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.PRODUCT);
 
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.projectSrv.queryOne(id);

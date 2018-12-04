@@ -14,9 +14,10 @@ import { getProviders } from '~core/list-page/list-page-providers.class';
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
-		getProviders('products-page', ERM.PRODUCT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class ProductsPageComponent extends TrackingComponent implements OnInit {
@@ -48,6 +49,7 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 			initialSortBy: 'category.name'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.PRODUCT);
 	}
 
 

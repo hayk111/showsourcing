@@ -7,7 +7,7 @@ import { getProviders } from '~core/list-page/list-page-providers.class';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ProductService } from '~entity-services';
-import { Product } from '~models';
+import { Product, ERM } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
@@ -17,8 +17,10 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./find-products-dialog.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders('products-page'),
-		CommonDialogService,
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class FindProductsDialogComponent extends TrackingComponent implements OnInit, AfterViewInit {
@@ -47,6 +49,7 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 			initialSortBy: 'category.name'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.PRODUCT);
 	}
 
 	ngAfterViewInit() {

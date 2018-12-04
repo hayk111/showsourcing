@@ -19,9 +19,11 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	styleUrls: ['./shows-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders(ProviderKey.SHOW, ERM.SHOW),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.SHOW }]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
+	]
 })
 export class ShowsPageComponent extends TrackingComponent implements OnInit {
 	allShows$: Observable<Show[]>;

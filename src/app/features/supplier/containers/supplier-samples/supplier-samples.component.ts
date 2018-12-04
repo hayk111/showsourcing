@@ -18,9 +18,10 @@ import { FilterType } from '~shared/filters';
 	styleUrls: ['./supplier-samples.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders(ProviderKey.SUPPLIER_SAMPLE, ERM.PRODUCT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 

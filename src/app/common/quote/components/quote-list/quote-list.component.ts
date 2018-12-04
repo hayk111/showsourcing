@@ -14,7 +14,10 @@ import { QuoteFeatureService } from '~features/products/services';
 	templateUrl: './quote-list.component.html',
 	styleUrls: ['./quote-list.component.scss'],
 	providers: [
-		getProviders('quotes-list', ERM.QUOTE),
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class QuoteListComponent extends TrackingComponent implements OnInit {
@@ -59,5 +62,6 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 			initialSortBy: 'name'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.QUOTE);
 	}
 }

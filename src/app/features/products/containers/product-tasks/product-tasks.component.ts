@@ -15,8 +15,10 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	styleUrls: ['./product-tasks.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders(ProviderKey.PRODUCT_TASK, ERM.TASK),
-	]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService]
 })
 
 export class ProductTasksComponent extends AbstractTaskCommonComponent

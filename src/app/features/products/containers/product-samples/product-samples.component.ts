@@ -16,9 +16,10 @@ import { FilterType } from '~shared/filters';
 	styleUrls: ['./product-samples.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders(ProviderKey.PRODUCT_SAMPLE, ERM.PRODUCT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class ProductSamplesComponent extends AbstractSampleCommonComponent implements OnInit {

@@ -5,13 +5,18 @@ import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
 import { NewTaskDlgComponent } from '~features/tasks/containers/new-task-dlg/new-task-dlg.component';
 import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { ListPageDataService, ListPageViewService, SelectionWithFavoriteService } from '~core/list-page';
+import { CommonDialogService } from '~common/dialog';
 
 @Component({
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
-		getProviders(ProviderKey.TASK, ERM.TASK),
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit {

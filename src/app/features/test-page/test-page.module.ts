@@ -11,6 +11,7 @@ import { TestPageComponent } from './test-page.component';
 			{ path: '', component: TestPageComponent }
 		])
 	],
-	declarations: [TestPageComponent]
+	declarations: [TestPageComponent],
+	exports: [TestPageComponent]
 })
 export class TestPageModule { }

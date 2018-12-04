@@ -15,9 +15,10 @@ import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.c
 	styleUrls: ['./category-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders(ProviderKey.CATEGORY, ERM.CATEGORY),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.CATEGORY }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class CategoryDataManagementPageComponent extends AbstractDataManagementComponent<Category, CategoryManagementService> {

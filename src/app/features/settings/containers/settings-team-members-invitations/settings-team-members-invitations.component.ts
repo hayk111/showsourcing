@@ -16,9 +16,11 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	templateUrl: './settings-team-members-invitations.component.html',
 	styleUrls: ['./settings-team-members-invitations.component.scss'],
 	providers: [
-		getProviders(ProviderKey.INVITATION, ERM.INVITATION),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.INVITATION }]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
+	]
 })
 export class SettingsTeamMembersInvitationsComponent extends TrackingComponent implements OnInit {
 	hasSelected = false;
@@ -45,6 +47,7 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 			initialSortBy: 'email'
 		});
 		this.dataSrv.init();
+		this.viewSrv.setup(ERM.TEAM_USER);
 		/* this.selected$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(selected => {

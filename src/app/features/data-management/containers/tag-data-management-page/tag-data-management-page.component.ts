@@ -15,9 +15,10 @@ import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.c
 	styleUrls: ['./tag-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders(ProviderKey.TAG, ERM.TAG),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.TAG }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class TagDataManagementPageComponent extends AbstractDataManagementComponent<Tag, TagManagememtService> {

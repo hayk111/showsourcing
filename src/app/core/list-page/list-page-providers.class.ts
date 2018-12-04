@@ -55,7 +55,7 @@ export function getProviders(key: string, entityMetadata?: EntityMetadata): Prov
 			useFactory: (router: Router) => {
 				let viewSrv = listViewSrvMap.get(key);
 				if (!viewSrv) {
-					viewSrv = new ListPageViewService(router, entityMetadata);
+					viewSrv = new ListPageViewService(router);
 					listViewSrvMap.set(key, viewSrv);
 				}
 

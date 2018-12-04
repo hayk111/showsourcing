@@ -17,9 +17,11 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './settings-team-members-users.component.html',
 	styleUrls: ['./settings-team-members-users.component.scss'],
 	providers: [
-		getProviders(ProviderKey.TEAM_USER, ERM.TEAM_USER),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.TEAM_USER }]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
+	]
 })
 export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnInit {
 	teamOwner: boolean;

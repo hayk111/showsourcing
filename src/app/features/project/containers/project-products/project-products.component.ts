@@ -1,18 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map, takeUntil, switchMap, tap, catchError, take, first } from 'rxjs/operators';
-import { ProductService, ProjectService } from '~entity-services';
-import { ERM, Product, Project, ERM_TOKEN } from '~models';
-import { ProjectWorkflowFeatureService } from '~features/project/services';
-import { NotificationService, NotificationType } from '~shared/notifications';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { Observable } from 'rxjs';
+import { first, tap } from 'rxjs/operators';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ProductService, ProjectService } from '~entity-services';
+import { ProjectWorkflowFeatureService } from '~features/project/services';
+import { Product, Project } from '~models';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 
 @Component({
 	selector: 'project-products-app',
@@ -20,9 +19,11 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	templateUrl: './project-products.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders(ProviderKey.PROJECTS_PRODUCT, ERM.PRODUCT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.PRODUCT }]
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
+	]
 })
 export class ProjectProductsComponent extends TrackingComponent implements OnInit {
 

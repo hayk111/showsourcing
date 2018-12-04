@@ -20,9 +20,10 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './review-page.component.html',
 	styleUrls: ['./review-page.component.scss'],
 	providers: [
-		getProviders(ProviderKey.REVIEWPAGE, ERM.REVIEW),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.REVIEW }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class ReviewPageComponent extends AutoUnsub implements OnInit {

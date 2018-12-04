@@ -15,9 +15,10 @@ import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.c
 	styleUrls: ['./event-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		getProviders(ProviderKey.EVENT, ERM.EVENT),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.EVENT }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class EventDataManagementPageComponent extends AbstractDataManagementComponent<Event, EventManagementService> {

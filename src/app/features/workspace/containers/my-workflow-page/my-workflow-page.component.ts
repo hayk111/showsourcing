@@ -31,9 +31,10 @@ import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface'
 	templateUrl: './my-workflow-page.component.html',
 	styleUrls: ['./my-workflow-page.component.scss'],
 	providers: [
-		getProviders(ProviderKey.SHOW, ERM.SHOW),
-		CommonDialogService,
-		{ provide: ERM_TOKEN, useValue: ERM.SHOW }
+		ListPageDataService,
+		ListPageViewService,
+		SelectionWithFavoriteService,
+		CommonDialogService
 	]
 })
 export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
