@@ -51,10 +51,6 @@ export const routes: Array<Route> = [
 				loadChildren: 'app/features/project/project.module#ProjectModule'
 			},
 			{
-				path: 'task',
-				loadChildren: 'app/features/tasks/tasks.module#TasksModule'
-			},
-			{
 				path: 'product',
 				loadChildren: 'app/features/products/product.module#ProductModule'
 			},

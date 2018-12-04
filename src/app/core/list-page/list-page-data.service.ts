@@ -9,7 +9,7 @@ import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { EntityMetadata } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
-import { Filter, FilterList } from '~shared/filters';
+import { Filter, FilterList, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
@@ -277,6 +277,10 @@ export class ListPageDataService
 
 	removeFilter(filter: Filter) {
 		this.filterList.removeFilter(filter);
+	}
+
+	removeFilterType(filterType: FilterType) {
+		this.filterList.removeFilterType(filterType);
 	}
 
 	smartSearch(event: any) {

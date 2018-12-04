@@ -6,10 +6,10 @@ export enum ListPageKey {
 	EVENT, // done
 	FIND_PRODUCT, // done
 	INVITATION,
-	MY_TASK,
+	MY_TASK, // done Michael
 	PRODUCTS, // done
 	PRODUCT_SAMPLE,
-	PRODUCT_TASK,
+	PRODUCT_TASK, // done Michael
 	PROJECTS, // done
 	PROJECTS_PRODUCT,
 	PROJECT_WORKFLOW,
@@ -19,8 +19,8 @@ export enum ListPageKey {
 	SUPPLIER, // done
 	SUPPLIER_PRODUCT,
 	SUPPLIER_SAMPLE,
-	SUPPLIER_TASK,
+	SUPPLIER_TASK, // done Michael
 	TAG, // done
-	TASK,
+	TASK, // done Michael
 	TEAM_USER,
 }

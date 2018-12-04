@@ -3,17 +3,17 @@ import { Router } from '@angular/router';
 import { CommonDialogService } from '~common/dialog';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { EntityMetadata } from '~core/models';
 import { DialogService } from '~shared/dialog';
-import { Filter } from '~shared/filters';
+import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
 
+import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
+import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
-import { Product, EntityMetadata } from '~core/models';
-import { ListPageKey } from './list-page-keys.enum';
-import { ListPageDataConfig } from './list-page-config.interface';
 
 
 // where we can save the services
@@ -179,6 +179,10 @@ export class ListPageService<A, B extends GlobalServiceInterface<A>> {
 
 	removeFilter(filter: Filter) {
 		this.dataSrv.removeFilter(filter);
+	}
+
+	removeFilterType(filterType: FilterType) {
+		this.dataSrv.removeFilterType(filterType);
 	}
 
 	smartSearch(event: any) {

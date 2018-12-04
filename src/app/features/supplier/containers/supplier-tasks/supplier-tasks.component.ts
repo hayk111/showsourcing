@@ -1,16 +1,10 @@
-import {
-	Component,
-	OnInit
-} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TaskService, UserService } from '~entity-services';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { AbstractTaskCommonComponent } from '~common/task';
-import { Task, ERM } from '~models';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
+import { ListPageService } from '~core/list-page';
+import { TaskService, UserService } from '~entity-services';
+import { Task } from '~models';
 import { FilterType } from '~shared/filters';
 
 @Component({
@@ -18,52 +12,36 @@ import { FilterType } from '~shared/filters';
 	templateUrl: './supplier-tasks.component.html',
 	styleUrls: ['./supplier-tasks.component.scss'],
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService]
+		ListPageService
+	]
 })
 export class SupplierTasksComponent extends AbstractTaskCommonComponent implements OnInit {
 
 	constructor(
-		public route: ActivatedRoute,
-		public userSrv: UserService,
-		public router: Router,
-		public featureSrv: TaskService,
-		public viewSrv: ListPageViewService<Task>,
-		public dataSrv: ListPageDataService<Task, TaskService>,
-		public selectionSrv: SelectionWithFavoriteService,
-		public commonDlgSrv: CommonDialogService
+		private route: ActivatedRoute,
+		protected userSrv: UserService,
+		protected router: Router,
+		protected taskSrv: TaskService,
+		public commonDlgSrv: CommonDialogService,
+		public listSrv: ListPageService<Task, TaskService>
 	) {
 		super(
 			router,
 			userSrv,
-			featureSrv,
-			viewSrv,
-			dataSrv,
-			selectionSrv,
-			commonDlgSrv
+			taskSrv,
+			commonDlgSrv,
+			listSrv
 		);
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
-		this.dataSrv.filterList.addFilter({ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id });
+		this.listSrv.filterList.addFilter({ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id });
 	}
 
 	createTask(name: string) {
 		const newTask = new Task({ name, supplier: { id: this.route.parent.snapshot.params.id } });
-		this.featureSrv.create(newTask).subscribe(_ => this.dataSrv.refetch());
+		this.taskSrv.create(newTask).subscribe(_ => this.listSrv.refetch());
 	}
-
-	// search(str: string) {
-	// 	// TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
-	// 	this.currentSearch = str
-	// 		? `name CONTAINS[c] "${str}"` +
-	// 			` OR supplier.name CONTAINS[c] "${str}"` +
-	// 			` OR product.name CONTAINS[c] "${str}"`
-	// 		: '';
-	// 	this.onPredicateChange();
-	// }
 }
 
