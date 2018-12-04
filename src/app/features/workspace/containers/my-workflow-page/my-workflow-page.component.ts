@@ -95,27 +95,6 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		this.selected$ = this.selectionSrv.selection$;
 	}
 
-	/** Convert statuses / products into the generic input for kanban */
-	convertStatusesToColumns(statuses) {
-		return statuses.map(status => ({
-			id: status.id,
-			name: status.name,
-			color: this.getColumnColor(status),
-			disabled: status.name === '_NoStatus',
-			data: status.products.map(product => {
-				return {
-					...product,
-					cat:
-						product.status && product.status.status
-							? {
-									id: product.status.status.id
-								}
-							: { id: -1 }
-				};
-			})
-		}));
-	}
-
 	getColumnColor(status) {
 		if (status.category === 'validated') {
 			return 'var(--color-success)';
@@ -145,54 +124,10 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 					.updateProductStatus(element, target)
 					.subscribe(() => this.cdr.detectChanges());
 			});
-			this.resetSelection();
+			this.selectionSrv.unselectAll();
 		}
 	}
 
-	/**
-	 * Selection bar actions
-	 *
-	 * Each of the actions to open dialog below will open a dialog that is itself a container.
-	 */
-
-	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	openAddToProjectDialog(product: Product) {
-		this.commonDlgSrv.openAddToProjectDialog([product]);
-	}
-
-	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(product: Product) {
-		this.commonDlgSrv.openExportDialog([product]);
-	}
-
-	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	openRequestFeedbackDialog(product: Product) {
-		this.commonDlgSrv.openRequestFeedbackDialog([product]);
-	}
-
-	/** Will show a confirm dialog to delete items selected */
-	deleteSelected() {
-		const items = Array.from(this.selectionSrv.selection.keys());
-		// callback for confirm dialog
-		const callback = () => {
-			this.featureSrv.deleteMany(items).subscribe(() => {
-				this.resetSelection();
-			});
-		};
-		const text = `Delete ${items.length} ${
-			items.length > 1 ? 'items' : 'item'
-		} ?`;
-		this.commonDlgSrv.openConfirmDialog({ text, callback });
-	}
-
-	/** Unselect all entity */
-	resetSelection() {
-		this.selectionSrv.unselectAll();
-	}
-
-	getSelectedProducts() {
-		return Array.from(this.selectionSrv.selection.values());
-	}
 	onColumnSelected(products: Product[]) {
 		products.forEach(prod => this.selectionSrv.selectOne(prod, true));
 	}
@@ -200,4 +135,5 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	onColumnUnselected(products: Product[]) {
 		products.forEach(prod => this.selectionSrv.unselectOne(prod, true));
 	}
+
 }
