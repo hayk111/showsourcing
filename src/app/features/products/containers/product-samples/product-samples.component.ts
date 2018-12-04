@@ -25,17 +25,18 @@ import { FilterType } from '~shared/filters';
 export class ProductSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
 
 	constructor(
-		protected route: ActivatedRoute,
-		protected router: Router,
-		protected userSrv: UserService,
-		protected featureSrv: SampleService,
-		protected viewSrv: ListPageViewService<Sample>,
+		public route: ActivatedRoute,
+		public router: Router,
+		public userSrv: UserService,
+		public featureSrv: SampleService,
+		public viewSrv: ListPageViewService<Sample>,
 		public dataSrv: ListPageDataService<Sample, SampleService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super(router, userSrv, featureSrv, viewSrv, dataSrv, selectionSrv, commonDlgSrv);
 	}
+
 	ngOnInit() {
 		super.ngOnInit();
 		this.dataSrv.filterList.addFilter({

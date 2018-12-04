@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { AbstractTaskCommonComponent } from '~common/task';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { TaskService, UserService } from '~entity-services';
-import { ERM, Task } from '~models';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { Task } from '~models';
 
 @Component({
 	selector: 'product-tasks-app',

@@ -24,12 +24,12 @@ export class EventDataManagementPageComponent extends AbstractDataManagementComp
 	implements OnInit {
 
 	constructor(
-		protected router: Router,
-		protected eventSrv: EventService,
-		protected viewSrv: ListPageViewService<Event>,
+		public router: Router,
+		public eventSrv: EventService,
+		public viewSrv: ListPageViewService<Event>,
 		public dataSrv: ListPageDataService<Event, EventService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super(selectionSrv, commonDlgSrv, ERM.EVENT);
 	}

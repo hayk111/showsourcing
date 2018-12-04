@@ -43,7 +43,7 @@
 	(delete)="dataSrv.deleteSelected()">
 
 	<action-bar-app
-		[favorite]="allSelectedFavorite"
+		[favorite]="selectionSrv.allSelectedFavorite"
 		[multiple]="true"
 		(onFavorite)="dataSrv.onFavoriteAllSelected()"
 		(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"

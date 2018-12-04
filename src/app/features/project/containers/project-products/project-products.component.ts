@@ -31,20 +31,20 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 	private project: Project;
 
 	constructor(
-		protected router: Router,
-		protected srv: ProductService,
-		protected projectSrv: ProjectService,
-		protected route: ActivatedRoute,
-		protected moduleRef: NgModuleRef<any>,
-		private notifSrv: NotificationService,
-		private productSrv: ProductService,
+		public router: Router,
+		public srv: ProductService,
+		public projectSrv: ProjectService,
+		public route: ActivatedRoute,
+		public moduleRef: NgModuleRef<any>,
+		public notifSrv: NotificationService,
+		public productSrv: ProductService,
 
-		protected featureSrv: ProjectWorkflowFeatureService,
-		protected viewSrv: ListPageViewService<Product>,
+		public featureSrv: ProjectWorkflowFeatureService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProductService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService,
-		protected thumbSrv: ThumbService) {
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService,
+		public thumbSrv: ThumbService) {
 		super();
 	}
 

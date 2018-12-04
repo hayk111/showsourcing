@@ -27,15 +27,15 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 	initialPredicate = '';
 
 	constructor(
-		protected router: Router,
-		protected userService: UserService,
-		protected teamService: TeamService,
-		protected moduleRef: NgModuleRef<any>,
-		protected featureSrv: InvitationFeatureService,
-		protected viewSrv: ListPageViewService<Invitation>,
+		public router: Router,
+		public userService: UserService,
+		public teamService: TeamService,
+		public moduleRef: NgModuleRef<any>,
+		public featureSrv: InvitationFeatureService,
+		public viewSrv: ListPageViewService<Invitation>,
 		public dataSrv: ListPageDataService<Invitation, InvitationFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService,
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService,
 	) {
 		super();
 	}

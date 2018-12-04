@@ -33,11 +33,11 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 	];
 
 	constructor(
-		protected featureSrv: ProductFeatureService,
-		protected viewSrv: ListPageViewService<Product>,
+		public featureSrv: ProductFeatureService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProductFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}

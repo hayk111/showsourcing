@@ -21,7 +21,6 @@ import { ActionBarModule } from './action-bar/action-bar.module';
 import { AnimatedStackModule } from './animated-stack/animated-stack.module';
 import { CarouselModule } from './carousel/carousel.module';
 import { DialogModule } from './dialog/dialog.module';
-import { DndModule } from './dnd/dnd.module';
 import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
 import { FileModule } from './file/file.module';
 import { FiltersModule } from './filters/filters.module';
@@ -63,7 +62,6 @@ const modules = [
 	ContextMenuModule,
 	DialogModule,
 	DividerModule,
-	DndModule, // TODO: DELETE WHEN OLD KANBAN IS REMOVED
 	DynamicFormsModule,
 	EditableFieldModule,
 	FileModule,

@@ -3,13 +3,12 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { getProviders } from '~core/list-page/list-page-providers.class';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ProductService } from '~entity-services';
-import { Product, ERM } from '~models';
-import { TrackingComponent } from '~utils/tracking-component';
+import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
+import { TrackingComponent } from '~utils/tracking-component';
 
 
 @Component({
@@ -32,14 +31,14 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 	unselectedProducts: { [key: string]: Product } = {};
 
 	constructor(
-		protected router: Router,
-		protected cdr: ChangeDetectorRef,
-		protected featureSrv: ProductService,
-		protected viewSrv: ListPageViewService<Product>,
+		public router: Router,
+		public cdr: ChangeDetectorRef,
+		public featureSrv: ProductService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProductService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService,
-		protected dlgSrv: DialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService,
+		public dlgSrv: DialogService
 	) {
 		super();
 	}

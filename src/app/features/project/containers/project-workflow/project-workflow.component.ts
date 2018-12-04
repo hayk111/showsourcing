@@ -37,19 +37,19 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	project: Project;
 
 	constructor(
-		protected route: ActivatedRoute,
-		protected projectSrv: ProjectService,
-		protected productSrv: ProductService,
-		protected productStatusSrv: ProductStatusTypeService,
-		protected router: Router,
-		protected thumbSrv: ThumbService,
-		protected workflowService: ProjectWorkflowFeatureService,
-		protected notificationSrv: NotificationService,
-		protected featureSrv: ProjectWorkflowFeatureService,
-		protected viewSrv: ListPageViewService<Product>,
+		public route: ActivatedRoute,
+		public projectSrv: ProjectService,
+		public productSrv: ProductService,
+		public productStatusSrv: ProductStatusTypeService,
+		public router: Router,
+		public thumbSrv: ThumbService,
+		public workflowService: ProjectWorkflowFeatureService,
+		public notificationSrv: NotificationService,
+		public featureSrv: ProjectWorkflowFeatureService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProjectWorkflowFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}

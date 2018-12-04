@@ -25,10 +25,10 @@ export class MySamplePageComponent implements OnInit {
 	];
 
 	constructor(
-		protected featureSrv: SampleService,
-		protected viewSrv: ListPageViewService<Sample>,
+		public featureSrv: SampleService,
+		public viewSrv: ListPageViewService<Sample>,
 		public dataSrv: ListPageDataService<Sample, SampleService>,
-		protected selectionSrv: SelectionService,
+		public selectionSrv: SelectionService,
 	) { }
 
 	ngOnInit() {

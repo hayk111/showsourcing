@@ -24,12 +24,12 @@ export class CategoryDataManagementPageComponent extends AbstractDataManagementC
 	implements OnInit {
 
 	constructor(
-		protected router: Router,
-		protected categorySrv: CategoryService,
-		protected viewSrv: ListPageViewService<Category>,
+		public router: Router,
+		public categorySrv: CategoryService,
+		public viewSrv: ListPageViewService<Category>,
 		public dataSrv: ListPageDataService<Category, CategoryService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super(selectionSrv, commonDlgSrv, ERM.CATEGORY);
 	}

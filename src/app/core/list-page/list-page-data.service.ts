@@ -283,6 +283,10 @@ export class ListPageDataService
 		this.filterList.removeFilter(filter);
 	}
 
+	smartSearch(event: any) {
+		throw Error('not implemented');
+	}
+
 	private getSelectionValues() {
 		return this.selectionSrv.getSelectionValues();
 	}
@@ -290,4 +294,6 @@ export class ListPageDataService
 	private getSelectionIds() {
 		return this.selectionSrv.getSelectionIds();
 	}
+
+
 }

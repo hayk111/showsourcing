@@ -8,8 +8,8 @@ import { SelectionService } from '~core/list-page';
 export abstract class AbstractDataManagementComponent extends TrackingComponent {
 
 	constructor(
-		protected selectionSrv: SelectionService,
-		protected commonDlgSrv: CommonDialogService,
+		public selectionSrv: SelectionService,
+		public commonDlgSrv: CommonDialogService,
 		public entityMetadata: EntityMetadata
 	) {
 		super();

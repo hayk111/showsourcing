@@ -13,13 +13,13 @@ import { TrackingComponent } from '~utils/tracking-component';
 export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	constructor(
-		protected router: Router,
-		protected userSrv: UserService,
-		protected featureSrv: TaskService,
-		protected viewSrv: ListPageViewService<Task>,
+		public router: Router,
+		public userSrv: UserService,
+		public featureSrv: TaskService,
+		public viewSrv: ListPageViewService<Task>,
 		public dataSrv: ListPageDataService<Task, TaskService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}

@@ -24,12 +24,12 @@ export class TagDataManagementPageComponent extends AbstractDataManagementCompon
 	implements OnInit {
 
 	constructor(
-		protected router: Router,
-		protected tagSrv: TagService,
-		protected viewSrv: ListPageViewService<Tag>,
+		public router: Router,
+		public tagSrv: TagService,
+		public viewSrv: ListPageViewService<Tag>,
 		public dataSrv: ListPageDataService<Tag, TagService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super(selectionSrv, commonDlgSrv, ERM.TAG);
 	}

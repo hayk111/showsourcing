@@ -31,15 +31,15 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	selected$: Observable<Map<string, boolean>>;
 
 	constructor(
-		protected router: Router,
-		protected featureSrv: ProductService,
-		protected productStatusSrv: ProductStatusTypeService,
-		protected cdr: ChangeDetectorRef,
-		protected thumbSrv: ThumbService,
-		protected viewSrv: ListPageViewService<Product>,
+		public router: Router,
+		public featureSrv: ProductService,
+		public productStatusSrv: ProductStatusTypeService,
+		public cdr: ChangeDetectorRef,
+		public thumbSrv: ThumbService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProductService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}

@@ -35,13 +35,13 @@ export class ShowsPageComponent extends TrackingComponent implements OnInit {
 		myShows: false
 	};
 	constructor(
-		protected router: Router,
-		protected featureSrv: ShowFeatureService,
-		protected userSrv: UserService,
-		protected viewSrv: ListPageViewService<Show>,
+		public router: Router,
+		public featureSrv: ShowFeatureService,
+		public userSrv: UserService,
+		public viewSrv: ListPageViewService<Show>,
 		public dataSrv: ListPageDataService<Show, ShowFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}

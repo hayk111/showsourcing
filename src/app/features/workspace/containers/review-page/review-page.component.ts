@@ -35,17 +35,17 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 	currentSearch = null;
 
 	constructor(
-		protected router: Router,
-		protected cdr: ChangeDetectorRef,
-		protected workspaceSrv: WorkspaceFeatureService,
-		protected notificationSrv: NotificationService,
-		private templateSrv: TemplateService,
-		protected thumbSrv: ThumbService,
-		protected featureSrv: WorkspaceFeatureService,
-		protected viewSrv: ListPageViewService<Product>,
+		public router: Router,
+		public cdr: ChangeDetectorRef,
+		public workspaceSrv: WorkspaceFeatureService,
+		public notificationSrv: NotificationService,
+		public templateSrv: TemplateService,
+		public thumbSrv: ThumbService,
+		public featureSrv: WorkspaceFeatureService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, WorkspaceFeatureService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}
