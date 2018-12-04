@@ -53,7 +53,7 @@
 		<icon-app (click)="open()" name="category" backgroundColor="accent"></icon-app>
 		<div (click)="open()" class="flex category-info flexWrap">
 			<span *ngIf="!value || !value[0]"> - </span>
-			<span *ngFor="let category of value"> {{ category.name }}  </span>
+			<span *ngFor="let category of value"> {{ category?.name }}  </span>
 		</div>
 		<selector-entity-app
 			#select

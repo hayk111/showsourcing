@@ -2,10 +2,10 @@
   [hasSwitch]="false"
   [hasFilter]="false"
   [buttonIcon]="false"
-  (search)="search($event)">
+  (search)="dataSrv.search($event)">
 
   <products-review-sorting-menu-app
-    [currentSort]="currentSort"
+    [currentSort]="dataSrv.currentSort"
     (sortFromMenu)="sortFromMenu($event)">
   </products-review-sorting-menu-app>
 </sub-panel-app>
