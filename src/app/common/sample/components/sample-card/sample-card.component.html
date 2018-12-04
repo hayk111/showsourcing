@@ -1,3 +1,32 @@
-<p>
-  sample-card works!
-</p>
+<div class="card-container flex" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
+	<div class="left">
+		<img-app
+			[image]="sample?.images?.length ? sample?.images[0] : null"
+			type="sample"
+			size="s">
+		</img-app>
+		<checkbox-app
+			*ngIf="checked || hovered"
+			[checked]="checked"
+			(check)="onChecked()"
+			(uncheck)="onUnchecked()">
+		</checkbox-app>
+	</div>
+	<div class="right">
+		<h2> {{ sample?.reference || 'Undefined Sample Reference' }} </h2>
+		<div class="center-section flex">
+			<div class="name">{{ sample?.name }}</div>
+			<div class="supplier">{{ sample?.supplier?.name }}</div>
+		</div>
+		<div class="bottom-section flexBetween">
+			<div class="info-user flexCenter">
+				<user-picture-app [user]="sample?.assignee" [border]="true" size="12"></user-picture-app>
+				<span> {{ sample?.assignee?.firstName }} {{ sample?.assignee?.lastName ? sample?.assignee?.lastName[0] + '.' : '' }}</span>
+			</div>
+			<div *ngIf="sample?.comments?.length" class="number-comments flexCenter">
+				<icon-app name="comments"></icon-app>
+				<span> {{ sample?.comments?.length }} </span>
+			</div>
+		</div>
+	</div>
+</div>

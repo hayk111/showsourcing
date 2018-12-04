@@ -12,6 +12,9 @@ export function statusToColor(status: string) {
 		case 'refused':
 		case '_refused':
 			return 'warn';
+		case 'preparation':
+		case '_preparation':
+			return 'secondary';
 	}
 }
 

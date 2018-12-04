@@ -1,5 +1,3 @@
-
-
 <kanban-col-app
   *ngFor="let col of cols; let i = index; trackBy: trackById"
   [col]="col"
@@ -10,4 +8,3 @@
   (unselectAll)="unselectColumn.emit($event)"
   (drop)="onDrop($event)">
 </kanban-col-app>
-
