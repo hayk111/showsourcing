@@ -152,33 +152,6 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			});
 		}
 	}
-
-	/**
-	 * Selection bar actions
-	 *
-	 * Each of the actions to open dialog below will open a dialog that is itself a container.
-	 */
-
-	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	openAddToProjectDialog(product: Product) {
-		this.commonDlgSrv.openAddToProjectDialog(product ? [product] : this.getSelectedProducts());
-	}
-
-
-	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(product: Product) {
-		this.commonDlgSrv.openExportDialog(product ? [product] : this.getSelectedProducts());
-	}
-
-	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	openRequestFeedbackDialog(product: Product) {
-		this.commonDlgSrv.openRequestFeedbackDialog(product ? [product] : this.getSelectedProducts());
-	}
-
-	getSelectedProducts() {
-		return Array.from(this.selectionSrv.selection.values());
-	}
-
 	/**
 	 * Deassociate the selected product from the current project
 	 */
