@@ -24,14 +24,14 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 export class ProductTasksComponent extends AbstractTaskCommonComponent
 	implements OnInit {
 	constructor(
-		protected route: ActivatedRoute,
-		protected userSrv: UserService,
-		protected router: Router,
-		protected featureSrv: TaskService,
-		protected viewSrv: ListPageViewService<Task>,
+		public route: ActivatedRoute,
+		public userSrv: UserService,
+		public router: Router,
+		public featureSrv: TaskService,
+		public viewSrv: ListPageViewService<Task>,
 		public dataSrv: ListPageDataService<Task, TaskService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super(
 			router,

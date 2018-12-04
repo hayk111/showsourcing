@@ -1,31 +1,19 @@
-import {
-	ChangeDetectorRef,
-	Component,
-	OnInit
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ERM, ERM_TOKEN, Product, ProductVote } from '~models';
-
-import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { TrackingComponent } from '~utils/tracking-component';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import {
-	ListPageProviders,
-	ProviderKey
-} from '~core/list-page/list-page-providers.class';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { statusProductToKanbanCol } from '~utils/kanban.utils';
-import { AutoUnsub } from '~utils/auto-unsub.component';
-import {
-	ProductService,
-	ProductStatusTypeService
-} from '~entity-services';
+import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ProductService, ProductStatusTypeService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';
+import { Product, ProductVote } from '~models';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { AutoUnsub } from '~utils/auto-unsub.component';
+import { statusProductToKanbanCol } from '~utils/kanban.utils';
+
 @Component({
 	selector: 'workspace-my-workflow-page-app',
 	templateUrl: './my-workflow-page.component.html',

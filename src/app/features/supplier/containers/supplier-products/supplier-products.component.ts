@@ -28,14 +28,14 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 	products$: Observable<Product[]>;
 	hasSearch = false;
 	constructor(
-		protected router: Router,
-		protected route: ActivatedRoute,
-		protected thumbSrv: ThumbService,
-		protected featureSrv: ProductService,
-		protected viewSrv: ListPageViewService<Product>,
+		public router: Router,
+		public route: ActivatedRoute,
+		public thumbSrv: ThumbService,
+		public featureSrv: ProductService,
+		public viewSrv: ListPageViewService<Product>,
 		public dataSrv: ListPageDataService<Product, ProductService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 

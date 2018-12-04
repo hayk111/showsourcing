@@ -32,12 +32,12 @@ export class SuppliersPageComponent extends TrackingComponent
 	];
 
 	constructor(
-		protected router: Router,
-		protected featureSrv: SupplierFeatureService,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService,
-		protected viewSrv: ListPageViewService<Supplier>,
-		protected dataSrv: ListPageDataService<Supplier, SupplierFeatureService>
+		public router: Router,
+		public featureSrv: SupplierFeatureService,
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService,
+		public viewSrv: ListPageViewService<Supplier>,
+		public dataSrv: ListPageDataService<Supplier, SupplierFeatureService>
 	) {
 		super();
 	}

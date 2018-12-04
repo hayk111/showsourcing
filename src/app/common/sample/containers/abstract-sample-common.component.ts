@@ -15,13 +15,13 @@ import { TrackingComponent } from '~utils/tracking-component';
 /** since we use the sample component on different pages, this page will keep the methods clean */
 export abstract class AbstractSampleCommonComponent extends TrackingComponent implements OnInit {
 	constructor(
-		protected router: Router,
-		protected userSrv: UserService,
-		protected featureSrv: SampleService,
-		protected viewSrv: ListPageViewService<Sample>,
+		public router: Router,
+		public userSrv: UserService,
+		public featureSrv: SampleService,
+		public viewSrv: ListPageViewService<Sample>,
 		public dataSrv: ListPageDataService<Sample, SampleService>,
-		protected selectionSrv: SelectionWithFavoriteService,
-		protected commonDlgSrv: CommonDialogService
+		public selectionSrv: SelectionWithFavoriteService,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}
