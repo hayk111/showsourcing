@@ -1,27 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductFeatureService } from '~features/products/services';
-import { Product, ERM_TOKEN, ERM } from '~models';
+import { ProductService } from '~core/entity-services';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { getProviders } from '~core/list-page/list-page-providers.class';
+import { CommonDialogService } from '~common/dialog';
 
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
 export class ProductsPageComponent extends TrackingComponent implements OnInit {
-	// smartSearchFilterElements$: any;
+
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -33,35 +27,27 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 	];
 
 	constructor(
-		public featureSrv: ProductFeatureService,
-		public viewSrv: ListPageViewService<Product>,
-		public dataSrv: ListPageDataService<Product, ProductFeatureService>,
-		public selectionSrv: SelectionWithFavoriteService,
-		public commonDlgSrv: CommonDialogService
+		private productSrv: ProductService,
+		public commonDlgSrv: CommonDialogService,
+		public listSrv: ListPageService<Product, ProductService>
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
+		this.listSrv.setup({
+			key: ListPageKey.PRODUCTS,
+			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			initialSortBy: 'category.name'
+			initialSortBy: 'category.name',
+			entityMetadata: ERM.PRODUCT
 		});
-		this.dataSrv.init();
-		this.viewSrv.setup(ERM.PRODUCT);
 	}
 
-
-	// can be overriden
 	onViewChange(view: 'list' | 'card') {
 		// Update sorting according to the selected view
-		this.dataSrv.sort({ sortBy: 'category.name', descending: false });
-		this.viewSrv.changeView(view);
+		this.listSrv.sort({ sortBy: 'category.name', descending: false });
+		this.listSrv.changeView(view);
 	}
-
-	// smartSearch(t: any) {
-	// 	//
-	// }
 
 }

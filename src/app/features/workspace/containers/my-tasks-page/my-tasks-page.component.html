@@ -2,7 +2,7 @@
 	<sub-panel-app
 		[hasFilter]="false"
 		[hasSwitch]="false"
-		(search)="dataSrv.search($event)">
+		(search)="listSrv.search($event)">
 		<div class="flex show-my-tasks">
 			<checkbox-app
 				(check)="toggleMyTasks(true)"
@@ -20,22 +20,22 @@
 	</sub-panel-app>
 
 	<task-list-app
-		[tasks]="dataSrv.items$ | async"
-		[selection]="selectionSrv.selection$ | async"
+		[tasks]="listSrv.items$ | async"
+		[selection]="listSrv.selection$ | async"
 		[hasProduct]="true"
 		[hasSupplier]="true"
-		(previewClicked)="viewSrv.openPreview($event)"
-		(taskSelect)="selectionSrv.selectOne($event, false)"
-		(taskUnselect)="selectionSrv.unselectOne($event, false)"
-		(bottomReached)="dataSrv.loadMore()"
-		(updateTask)="dataSrv.update($event)"
+		(previewClicked)="listSrv.openPreview($event)"
+		(taskSelect)="listSrv.selectOne($event, false)"
+		(taskUnselect)="listSrv.unselectOne($event, false)"
+		(bottomReached)="listSrv.loadMore()"
+		(updateTask)="listSrv.update($event)"
 		(createTask)="createTask($event)">
 	</task-list-app>
 
 	<preview-task-app
-		*ngIf="viewSrv.previewOpen"
-		[task]="viewSrv.previewed"
-		(close)="viewSrv.closePreview()"
-		(clickOutside)="viewSrv.closePreview()">
+		*ngIf="listSrv.previewOpen"
+		[task]="listSrv.previewed"
+		(close)="listSrv.closePreview()"
+		(clickOutside)="listSrv.closePreview()">
 	</preview-task-app>
 </div>

@@ -1,11 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { TagService } from '~core/entity-services';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { ERM, Tag } from '~models';
 
 @Component({
@@ -14,33 +11,31 @@ import { ERM, Tag } from '~models';
 	styleUrls: ['./tag-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
-export class TagDataManagementPageComponent extends AbstractDataManagementComponent
-	implements OnInit {
+export class TagDataManagementPageComponent implements OnInit {
 
 	constructor(
-		public router: Router,
-		public tagSrv: TagService,
-		public viewSrv: ListPageViewService<Tag>,
-		public dataSrv: ListPageDataService<Tag, TagService>,
-		public selectionSrv: SelectionWithFavoriteService,
-		public commonDlgSrv: CommonDialogService
+		private tagSrv: TagService,
+		public listSrv: ListPageService<Tag, TagService>,
+		public commonDlgSrv: CommonDialogService,
+		private dmSrv: DataManagementService
 	) {
-		super(selectionSrv, commonDlgSrv, ERM.TAG);
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.tagSrv,
+		this.listSrv.setup({
+			key: ListPageKey.TAG,
+			entitySrv: this.tagSrv,
 			searchedFields: ['name'],
-			initialSortBy: 'name'
+			initialSortBy: 'name',
+			entityMetadata: ERM.TAG
 		});
-		this.dataSrv.init();
-		this.viewSrv.setup(this.entityMetadata);
+	}
+
+	mergeSelected() {
+		const ids = this.listSrv.selectionSrv.getSelectionIds();
+		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
 	}
 }

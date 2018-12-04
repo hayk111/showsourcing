@@ -3,16 +3,16 @@
     Add Products to project
   </dialog-header-app>
 
-  <div *ngIf="dataSrv.items$ | async as products; else spinner">
+  <div *ngIf="listSrv.items$ | async as products; else spinner">
     <sub-panel-app
       [hasSwitch]="false"
       [hasFilter]="false"
       [buttonIcon]="false"
-      (search)="dataSrvsearch($event)"
-      (smartSearch)="dataSrvsmartSearch($event)">
+      (search)="listSrv.search($event)"
+      (smartSearch)="listSrv.smartSearch($event)">
 
       <search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
-        <search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async);trackBy: trackByFn">
+        <search-autocomplete-item-app *ngFor="let element of (listSrv.smartSearchFilterElements$ | async);trackBy: trackByFn">
           <search-autocomplete-item-content-app
             [selectable]="true" [title]="element.name" [subtitle]="element.type"
             [checked]="element.checked" [icon]="element.type">
@@ -24,26 +24,26 @@
 
     <products-card-view-dialog-app
       class="list-view"
-      [selection]="selectionSrv.selection$ | async"
+      [selection]="listSrv.selection$ | async"
       [rows]="products"
-      [pending]="dataSrv.pending"
-      (previewClick)="viewSrv.openPreview($event)"
-      (select)="selectionSrv.selectOne($event, true)"
-      (unselect)="selectionSrv.unselectOne($event, true)"
-			(selectAll)="selectionSrv.selectAll($event, true)"
-			(unselectAll)="selectionSrv.unselectAll()"
-      (open)="viewSrv.goToDetails($event)"
-			(favorited)="dataSrv.onItemFavorited($event)"
-			(unfavorited)="dataSrv.onItemUnfavorited($event)"
-      (bottomReached)="dataSrv.loadMore()"
-      (sort)="dataSrv.sort($event)"></products-card-view-dialog-app>
+      [pending]="listSrv.pending"
+      (previewClick)="listSrv.openPreview($event)"
+      (select)="listSrv.selectOne($event, true)"
+      (unselect)="listSrv.unselectOne($event, true)"
+			(selectAll)="listSrv.selectAll($event, true)"
+			(unselectAll)="listSrv.unselectAll()"
+      (open)="listSrv.goToDetails($event)"
+			(favorited)="listSrv.onItemFavorited($event)"
+			(unfavorited)="listSrv.onItemUnfavorited($event)"
+      (bottomReached)="listSrv.loadMore()"
+      (sort)="listSrv.sort($event)"></products-card-view-dialog-app>
 
     <divider-app></divider-app>
 
     <div class="flexBetween footer">
       <div class="left flexCenter">
-        <ng-container	*ngIf="(selectionSrv.selection$ | async) as selected">
-          <div *ngIf="(selectionSrv.selection$ | async).size > 0" style="align-items: center">{{selected.size}} Product{{(selected.size > 1) ? 's' : ''}} Selected</div>
+        <ng-container	*ngIf="(listSrv.selection$ | async) as selected">
+          <div *ngIf="(listSrv.selection$ | async).size > 0" style="align-items: center">{{selected.size}} Product{{(selected.size > 1) ? 's' : ''}} Selected</div>
         </ng-container>
       </div>
       <div class="right flexCenter">

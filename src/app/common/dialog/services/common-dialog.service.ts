@@ -15,6 +15,7 @@ import { SelectionService } from '~core/list-page/selection.service';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 
+
 @Injectable({ providedIn: 'root' })
 export class CommonDialogService {
 
@@ -22,9 +23,10 @@ export class CommonDialogService {
 	editDlgComponent = EditionDialogComponent;
 	/** dialog to create an entity (can be overidden) */
 	createDlgComponent = CreationDialogComponent;
-
+	/** dialog used to confirm an action */
 	confirmDialogComponent = ConfirmDialogComponent;
-	inviteUserDlgComponent = InviteUserDlgComponent;
+	/** dialog used to invite an user */
+	inviteUserDlgComponent = InviteUserDlgComponent; // TODO: this is not commonly used, shouldn't be here
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -111,16 +113,12 @@ export class CommonDialogService {
 		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef, callback);
 	}
 
-	public close() {
+	close() {
 		this.dlgSrv.close();
 	}
 
 	private getSelectionValues() {
 		return this.selectionSrv.getSelectionValues();
-	}
-
-	private getSelectionIds() {
-		return this.selectionSrv.getSelectionIds();
 	}
 
 }

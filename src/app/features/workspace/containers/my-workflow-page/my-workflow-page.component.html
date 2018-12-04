@@ -2,29 +2,29 @@
   [hasSwitch]="false"
   [hasFilter]="false"
   [buttonIcon]="false"
-  (search)="dataSrv.search($event)">
+  (search)="listSrv.search($event)">
 </sub-panel-app>
 
 <div class="kanbanCtnr">
-		<kanban-app
-			[cols]="columns$ | async"
-			[cardTemplate]="card"
-			[selection]="selectionSrv.selection$ | async"
-			(drop)="onUpdateProductStatus($event)"
-			(multipleDrop)="onUpdateProductStatus($event)"
-			(selectColumn)="onColumnSelected($event)"
-			(unselectColumn)="onColumnUnselected($event)">
-		</kanban-app>
+  <kanban-app
+    [cols]="columns$ | async"
+    [cardTemplate]="card"
+    [selection]="listSrv.selection$ | async"
+    (drop)="onUpdateProductStatus($event)"
+    (multipleDrop)="onUpdateProductStatus($event)"
+    (selectColumn)="onColumnSelected($event)"
+    (unselectColumn)="onColumnUnselected($event)">
+  </kanban-app>
 </div>
 
 <ng-template #card  let-data="data" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">
 		<product-card-app
 			[product]="data"
 			[enablePreviewLink]="true"
-			[checked]="(selectionSrv.selection$ | async).has(data.id)"
-			(clickImage)="viewSrv.openPreview(data)"
-			(select)="selectionSrv.selectOne($event, true)"
-			(unselect)="selectionSrv.unselectOne($event, true)">
+			[checked]="(listSrv.selection$ | async).has(data.id)"
+			(clickImage)="listSrv.openPreview(data)"
+			(select)="listSrv.selectOne($event, true)"
+			(unselect)="listSrv.unselectOne($event, true)">
 		</product-card-app>
 </ng-template>
 
@@ -47,39 +47,39 @@
     <context-menu-item-app (click)="commonDlgSrv.openExportDialog([row])">
       <div class="border">Export</div>
     </context-menu-item-app>
-    <context-menu-item-app (click)="dataSrv.deleteOne(row)">
+    <context-menu-item-app (click)="listSrv.deleteOne(row)">
       <div class="border">Delete</div>
     </context-menu-item-app>
   </context-menu-app>
 </ng-template>
 
 <selection-bar-app
-  [isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
+  [isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
   [hasDelete]="false"
-  (close)="selectionSrv.unselectAll()"
-  (delete)="dataSrv.deleteSelected()">
+  (close)="listSrv.unselectAll()"
+  (delete)="listSrv.deleteSelected()">
 
   <action-bar-app
-    [favorite]="selectionSrv.allSelectedFavorite"
+    [favorite]="listSrv.allSelectedFavorite"
 		[multiple]="true"
-		(onFavorite)="dataSrv.onFavoriteAllSelected()"
-		(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
-		(liked)="dataSrv.onMultipleThumbUp($event)"
-		(disliked)="dataSrv.onMultipleThumbDown($event)">
+		(onFavorite)="listSrv.onFavoriteAllSelected()"
+		(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
+		(liked)="listSrv.onMultipleThumbUp($event)"
+		(disliked)="listSrv.onMultipleThumbDown($event)">
 
     <button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog(null)">
       <icon-app name="folder-light" fontSet="svg"></icon-app>
     </button>
-    <button class="icon light" (click)="dataSrv.deleteSelected()">
+    <button class="icon light" (click)="listSrv.deleteSelected()">
       <icon-app name="trash-bin"></icon-app>
     </button>
   </action-bar-app>
 </selection-bar-app>
 
 <product-preview-app
-  *ngIf="viewSrv.previewOpen"
-  [product]="viewSrv.previewed"
-  (close)="viewSrv.closePreview()"
-	(clickOutside)="viewSrv.closePreview()">
+  *ngIf="listSrv.previewOpen"
+  [product]="listSrv.previewed"
+  (close)="listSrv.closePreview()"
+	(clickOutside)="listSrv.closePreview()">
 </product-preview-app>

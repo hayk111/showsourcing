@@ -8,22 +8,19 @@ import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.c
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { AbstractTaskCommonComponent } from '~common/task/containers/abstract-task-common.component';
+import { ListPageService } from '~core/list-page';
 
 @Component({
 	selector: 'workspace-my-tasks-page-app',
 	templateUrl: './my-tasks-page.component.html',
 	styleUrls: ['./my-tasks-page.component.scss'],
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
 export class MyTasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
 
 	constructor(
-
 		public route: ActivatedRoute,
 		public userSrv: UserService,
 		public router: Router,
@@ -48,11 +45,4 @@ export class MyTasksPageComponent extends AbstractTaskCommonComponent implements
 		super.ngOnInit();
 	}
 
-	// 	search(str: string) {
-	// // TODO, POSSIBLE SEARCHING FULL NAME ASSIGNEE
-	// 		this.currentSearch = str ? `name CONTAINS[c] "${str}"`
-	// 		+ ` OR supplier.name CONTAINS[c] "${str}"`
-	// 		+ ` OR product.name CONTAINS[c] "${str}"` : '';
-	// 		this.onPredicateChange();
-	// 	}
 }

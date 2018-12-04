@@ -1,3 +1,4 @@
+
 <top-panel-app
 	[title]="'ShowSourcing'"
 	[subtitles]="['Settings', 'Data Cleansing']"
@@ -5,32 +6,32 @@
 </top-panel-app>
 
 <sub-panel-app
-	[title]="entityMetadata.plural"
-	buttonName="New {{entityMetadata.singular}}"
+	[title]="listSrv.entityMetadata.plural"
+	buttonName="New {{listSrv.entityMetadata.singular}}"
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[buttonIcon]="false"
-	(search)="dataSrv.search($event)"
+	(search)="listSrv.search($event)"
 	(buttonClick)="commonDlgSrv.openCreateDlg()">
-	<div class="flex" *ngIf="(selectionSrv.selection$ | async).size > 0">
-		<button class="button warn" (click)="dataSrv.deleteSelected()"> Delete Selected </button>
+	<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
+		<button class="button warn" (click)="listSrv.deleteSelected()"> Delete Selected </button>
 		<span class="marginSmall"></span>
 		<button (click)="mergeSelected()"> Merge Selected </button>
 	</div>
 </sub-panel-app>
 
 <data-management-table-app
-	[rows]="dataSrv.items$ | async"
-	[selection]="selectionSrv.selection$ | async"
-	[pending]="dataSrv.pending"
-	[entityMetadata]="entityMetadata"
-	(bottomReached)="dataSrv.loadMore()"
-	(sort)="dataSrv.sort($event)"
-	(delete)="dataSrv.deleteOne($event)"
-	(select)="selectionSrv.selectOne($event, false)"
-	(unselect)="selectionSrv.unselectOne($event, false)"
-	(selectAll)="selectionSrv.selectAll($event, false)"
-	(unselectAll)="selectionSrv.unselectAll()"
-	(renameEntity)="dataSrv.update($event)"
-	(removeEntity)="dataSrv.deleteOne($event)">
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[pending]="listSrv.pending"
+	[entityMetadata]="listSrv.entityMetadata"
+	(bottomReached)="listSrv.loadMore()"
+	(sort)="listSrv.sort($event)"
+	(delete)="listSrv.deleteOne($event)"
+	(select)="listSrv.selectOne($event, false)"
+	(unselect)="listSrv.unselectOne($event, false)"
+	(selectAll)="listSrv.selectAll($event, false)"
+	(unselectAll)="listSrv.unselectAll()"
+	(renameEntity)="listSrv.update($event)"
+	(removeEntity)="listSrv.deleteOne($event)">
 </data-management-table-app>

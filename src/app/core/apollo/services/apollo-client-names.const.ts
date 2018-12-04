@@ -1,11 +1,11 @@
 
 export enum Client {
 	ALL_USER = 'all-users',
-	GLOBAL_DATA = 'global/global-data',
 	GLOBAL_CONSTANT = 'global/global-constants',
-	USER = 'user',
+	GLOBAL_DATA = 'global/global-data',
 	GUEST = 'guest',
+	SUPPLIER_ONBOARDING = 'supplier-onboarding',
 	TEAM = 'team',
-	SUPPLIER_ONBOARDING = 'supplier-onboarding'
+	USER = 'user',
 }
 

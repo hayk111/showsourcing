@@ -21,25 +21,24 @@ import { log } from '~utils/log';
 	providedIn: 'root'
 })
 export class ListPageDataService
-	<T extends { id?: string, deleted?: boolean }, G extends GlobalServiceInterface<T>>
-	implements ListPageDataConfig {
+	<T extends { id?: string, deleted?: boolean }, G extends GlobalServiceInterface<T>> {
 
 	/** main global service used */
-	featureSrv: G;
+	protected entitySrv: G;
 	/** currently loaded items */
 	items$: Observable<Array<T>>;
 	/** non observable version of the above */
-	items: Array<T> = [];
+	private items: Array<T> = [];
 	/** can be used on when to fetch more etc. */
-	listResult: ListQuery<T>;
+	private listResult: ListQuery<T>;
 	/** predicate that will be used at the start for filtering */
-	initialPredicate = 'deleted == false';
+	private initialPredicate = 'deleted == false';
 	/** searched string */
-	currentSearch = '';
+	private currentSearch = '';
 	/** property we sort by on first query */
-	initialSortBy = 'creationDate';
+	private initialSortBy = 'creationDate';
 	/** currently used sort */
-	currentSort: Sort;
+	private currentSort: Sort;
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
 		// initial filters
@@ -47,16 +46,13 @@ export class ListPageDataService
 	/** Whether the items are pending */
 	pending = true;
 
-	/** targeted entity metadata */
-	entityMetadata: EntityMetadata;
-
 	/** when making a search, fields we are gonna search through */
-	searchedFields: string[] = ['name'];
+	private searchedFields: string[] = ['name'];
 
-	initialized = false;
+	private initialized = false;
 
 	/** for the smart search feature... */
-	searchFilterElements$: Observable<any[]>;
+	private searchFilterElements$: Observable<any[]>;
 	smartSearchFilterElements$: Observable<any[]>;
 
 	constructor(
@@ -88,7 +84,7 @@ export class ListPageDataService
 
 	/** subscribe to items and get the list result */
 	setItems() {
-		this.listResult = this.featureSrv.getListQuery({
+		this.listResult = this.entitySrv.getListQuery({
 			query: this.initialPredicate,
 			sortBy: this.initialSortBy,
 			descending: false
@@ -180,12 +176,12 @@ export class ListPageDataService
 			// we use only the id to not update unnecessary values (and prevent overwrite of another user)
 			.map(id => ({ ...value, id }));
 
-		this.featureSrv.updateMany(items).subscribe(() => this.selectionSrv.unselectAll());
+		this.entitySrv.updateMany(items).subscribe(() => this.selectionSrv.unselectAll());
 	}
 
 	/** Update a entity */
 	update(entity: T) {
-		this.featureSrv.update(entity).subscribe();
+		this.entitySrv.update(entity);
 	}
 
 	/** When a product heart is clicked to favorite it */
@@ -223,32 +219,32 @@ export class ListPageDataService
 
 	/**
 	 * update the vote of a given selection of items (products) when given thumb up
-	 * @param onHighlight indicates the future state of the thumb
+	 * @param isCreated if true the vote is created, if false, removed
 	 */
-	onMultipleThumbUp(onHighlight: boolean) {
+	onMultipleThumbUp(isCreated: boolean) {
 		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
 		// if you are using another feature srv (as project) override this funcition
 		const updated = [];
 		this.getSelectionValues().forEach(item => {
-			const votes = this.thumbSrv.thumbUpFromMulti(item, onHighlight);
+			const votes = this.thumbSrv.thumbUpFromMulti(item, isCreated);
 			updated.push({ id: item.id, votes });
 		});
-		this.featureSrv.updateMany(updated).subscribe();
+		this.entitySrv.updateMany(updated).subscribe();
 	}
 
 	/**
 	 * update the vote of a given selection of items (products) when given thumb down
-	 * @param onHighlight indicates the future state of the thumb
+	 * @param isCreated if true the vote is created, if false, removed
 	 */
-	onMultipleThumbDown(onHighlight: boolean) {
+	onMultipleThumbDown(isCreated: boolean) {
 		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
 		// if you are using another feature srv (as project) override this funcition
 		const updated = [];
 		this.getSelectionValues().forEach(item => {
-			const votes = this.thumbSrv.thumbDownFromMulti(item, onHighlight);
+			const votes = this.thumbSrv.thumbDownFromMulti(item, isCreated);
 			updated.push({ id: item.id, votes });
 		});
-		this.featureSrv.updateMany(updated).subscribe();
+		this.entitySrv.updateMany(updated).subscribe();
 	}
 
 	// DELETES
@@ -258,7 +254,7 @@ export class ListPageDataService
 		const itemIds = this.getSelectionIds();
 		// callback for confirm dialog
 		const callback = () => {
-			this.featureSrv.deleteMany(itemIds).subscribe(_ => {
+			this.entitySrv.deleteMany(itemIds).subscribe(_ => {
 				this.selectionSrv.unselectAll();
 				this.refetch();
 			});
@@ -269,7 +265,7 @@ export class ListPageDataService
 
 	/** Deletes an specific item */
 	deleteOne(itemId: string) {
-		const callback = () => this.featureSrv.delete(itemId).subscribe(_ => this.refetch());
+		const callback = () => this.entitySrv.delete(itemId).subscribe(_ => this.refetch());
 		const text = `Are you sure you want to delete this item?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}

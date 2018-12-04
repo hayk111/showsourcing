@@ -50,7 +50,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 			// this.filterList.removeFilterType(FilterType.DUE_DATE);
 			this.dataSrv.filterList.removeFilterType(FilterType.DONE);
 		} else {
-			// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
+			// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: toRealmDateFormat(new Date()) });
 			this.dataSrv.filterList.addFilter({ type: FilterType.DONE, value: false });
 		}
 	}

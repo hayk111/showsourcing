@@ -81,7 +81,7 @@ export class ShowsPageComponent extends TrackingComponent implements OnInit {
 		// const now = new Date();
 		// this.checkboxes.futureShowOnly = !this.checkboxes.futureShowOnly;
 		// if (this.checkboxes.futureShowOnly) {
-		//   this.filterSrv.upsertFilter({ type: 'description.endDate', comparator: '>', value: realmDateFormat(now) });
+		//   this.filterSrv.upsertFilter({ type: 'description.endDate', comparator: '>', value: toRealmDateFormat(now) });
 		// } else {
 		//   this.filterSrv.removeFilterType('description.endDate');
 		// }

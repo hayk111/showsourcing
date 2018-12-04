@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Attachment } from '~models';
 
 export enum FileType {
-	image = 'IMAGE',
 	file = 'File',
+	image = 'IMAGE',
 }
 
 @Component({

@@ -1,11 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { EventService } from '~core/entity-services';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { ERM, Event } from '~models';
 
 @Component({
@@ -14,34 +11,32 @@ import { ERM, Event } from '~models';
 	styleUrls: ['./event-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
-export class EventDataManagementPageComponent extends AbstractDataManagementComponent
-	implements OnInit {
+export class EventDataManagementPageComponent implements OnInit {
 
 	constructor(
-		public router: Router,
-		public eventSrv: EventService,
-		public viewSrv: ListPageViewService<Event>,
-		public dataSrv: ListPageDataService<Event, EventService>,
-		public selectionSrv: SelectionWithFavoriteService,
-		public commonDlgSrv: CommonDialogService
+		private eventSrv: EventService,
+		public listSrv: ListPageService<Event, EventService>,
+		public commonDlgSrv: CommonDialogService,
+		private dmSrv: DataManagementService
 	) {
-		super(selectionSrv, commonDlgSrv, ERM.EVENT);
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.eventSrv,
+		this.listSrv.setup({
+			key: ListPageKey.EVENT,
+			entitySrv: this.eventSrv,
 			searchedFields: ['description.name'],
-			initialSortBy: 'description.name'
+			initialSortBy: 'description.name',
+			entityMetadata: ERM.EVENT
 		});
-		this.dataSrv.init();
-		this.viewSrv.setup(this.entityMetadata);
+	}
+
+	mergeSelected() {
+		const ids = this.listSrv.selectionSrv.getSelectionIds();
+		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
 	}
 
 }

@@ -4,7 +4,7 @@ import { first, map } from 'rxjs/operators';
 import { ProductService, SupplierService, TaskService, UserService } from '~entity-services';
 import { Task } from '~models';
 import { ID } from '~utils/id.utils';
-import { realmDateFormat } from '~utils/realm-date-format.util';
+import { toRealmDateFormat } from '~utils/realm-date-format.util';
 
 export interface DashboardCounters {
 	productsNeedReview: number;
@@ -22,7 +22,7 @@ export class DashboardService {
 	userId: ID;
 	/** magic number for 2 weeks in miliseconds */
 	twoWeeks = 12096e5;
-	weeksAgo = realmDateFormat(new Date(+new Date - this.twoWeeks));
+	weeksAgo = toRealmDateFormat(new Date(+new Date - this.twoWeeks));
 
 	constructor(
 		private userSrv: UserService,

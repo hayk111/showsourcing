@@ -1,9 +1,9 @@
 
-<ng-container *ngIf="dataSrv.items$ | async as products; else spinner">
+<ng-container *ngIf="listSrv.items$ | async as products; else spinner">
 	<!-- top panel -->
 	<top-panel-app
 		title="My Products"
-		buttonName="Add {{ viewSrv.entityMetadata.singular }}"
+		buttonName="Add {{ listSrv.entityMetadata.singular }}"
 		[subtitles]="['Products', 'all']"
 		[center]="false"
 		(buttonClick)="commonDlgSrv.openCreateDlg(true)">
@@ -13,15 +13,15 @@
 		[hasSwitch]="true"
 		[hasFilter]="true"
 		[buttonIcon]="false"
-		[filtersAmount]="dataSrv.filterList.asFilters().length"
-		(showFilters)="viewSrv.openFilterPanel()"
-		(search)="dataSrv.search($event)"
+		[filtersAmount]="listSrv.filterList.asFilters().length"
+		(showFilters)="listSrv.openFilterPanel()"
+		(search)="listSrv.search($event)"
 		(viewChange)="onViewChange($event)">
 
 		<product-sorting-menu-app
-			[currentSort]="dataSrv.currentSort"
-			[gridView]="viewSrv.view === 'card'"
-			(sortFromMenu)="dataSrv.sortFromMenu($event)">
+			[currentSort]="listSrv.currentSort"
+			[gridView]="listSrv.view === 'card'"
+			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
 
 
@@ -29,59 +29,60 @@
 
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<products-list-view-app
-		*ngIf="viewSrv.view === 'list'"
+		*ngIf="listSrv.view === 'list'"
 		class="list-view"
-		[selection]="selectionSrv.selection$ | async"
-		[currentSort]="dataSrv.currentSort"
+		[selection]="listSrv.selection$ | async"
+		[currentSort]="listSrv.currentSort"
 		[rows]="products"
-		[pending]="dataSrv.pending"
-		(previewClick)="viewSrv.openPreview($event)"
-		(select)="selectionSrv.selectOne($event, true)"
-		(unselect)="selectionSrv.unselectOne($event, true)"
-		(selectAll)="selectionSrv.selectAll($event, true)"
-		(unselectAll)="selectionSrv.unselectAll()"
-		(open)="viewSrv.goToDetails($event)"
-		(favorited)="dataSrv.onItemFavorited($event)"
-		(unfavorited)="dataSrv.onItemUnfavorited($event)"
-		(bottomReached)="dataSrv.loadMore()"
-		(sort)="dataSrv.sort($event)"
+		[pending]="listSrv.pending"
+		(previewClick)="listSrv.openPreview($event)"
+		(select)="listSrv.selectOne($event, true)"
+		(unselect)="listSrv.unselectOne($event, true)"
+		(selectAll)="listSrv.selectAll($event, true)"
+		(unselectAll)="listSrv.unselectAll()"
+		(open)="listSrv.goToDetails($event)"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(bottomReached)="listSrv.loadMore()"
+		(sort)="listSrv.sort($event)"
 		(openAddToProjectDialog)="commonDlgSrv.openAddToProjectDialog($event)"
 		(openExportDialog)="commonDlgSrv.openExportDialog($event)"
 		(openRequestFeedbackDialog)="commonDlgSrv.openRequestFeedbackDialog($event)"
 		(openRequestQuotationDialog)="commonDlgSrv.openRequestQuotationDialog($event)"
-		(delete)="dataSrv.deleteOne($event)">
+		(delete)="listSrv.deleteOne($event)">
 	</products-list-view-app>
+
 
 	<products-card-view-app
 		class="card-view"
-		*ngIf="viewSrv.view === 'card'"
-		[currentSort]="dataSrv.currentSort"
+		*ngIf="listSrv.view === 'card'"
+		[currentSort]="listSrv.currentSort"
 		[rows]="products"
-		[selection]="selectionSrv.selection$ | async"
-		(update)="dataSrv.update($event)"
-		(select)="selectionSrv.selectOne($event, true)"
-		(unselect)="selectionSrv.unselectOne($event, true)"
-		(favorited)="selectionSrv.selectAll($event)"
-		(unfavorited)="selectionSrv.unselectAll($event)"
-		(liked)="dataSrv.onThumbUp($event)"
-		(disliked)="dataSrv.onThumbDown($event)"
-		(open)="viewSrv.goToDetails($event)">
+		[selection]="listSrv.selection$ | async"
+		(update)="listSrv.update($event)"
+		(select)="listSrv.selectOne($event, true)"
+		(unselect)="listSrv.unselectOne($event, true)"
+		(favorited)="listSrv.selectAll($event)"
+		(unfavorited)="listSrv.unselectAll($event)"
+		(liked)="listSrv.onThumbUp($event)"
+		(disliked)="listSrv.onThumbDown($event)"
+		(open)="listSrv.goToDetails($event)">
 	</products-card-view-app>
 
 	<selection-bar-app
-		[isShown]="(selectionSrv.selection$ | async).size > 0"
-		[selection]="selectionSrv.selection$ | async"
+		[isShown]="(listSrv.selection$ | async).size > 0"
+		[selection]="listSrv.selection$ | async"
 		[hasDelete]="false"
-		(close)="selectionSrv.unselectAll()"
-		(delete)="dataSrv.deleteSelected()">
+		(close)="listSrv.unselectAll()"
+		(delete)="listSrv.deleteSelected()">
 
 		<action-bar-app
-			[favorite]="selectionSrv.allSelectedFavorite"
+			[favorite]="listSrv.allSelectedFavorite"
 			[multiple]="true"
-			(onFavorite)="dataSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
-			(liked)="dataSrv.onMultipleThumbUp($event)"
-			(disliked)="dataSrv.onMultipleThumbDown($event)">
+			(onFavorite)="listSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
+			(liked)="listSrv.onMultipleThumbUp($event)"
+			(disliked)="listSrv.onMultipleThumbDown($event)">
 
 			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog()">
 				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
@@ -103,30 +104,28 @@
 				</context-menu-item-app>
 			</context-menu-app>
 
-			<button class="icon light" (click)="dataSrv.deleteSelected()">
+			<button class="icon light" (click)="listSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
 	</selection-bar-app>
 
 	<filters-app
-		[filterList]="dataSrv.filterList"
+		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="viewSrv.closeFilterPanel()"
-		*ngIf="viewSrv.filterPanelOpen">
+		(clickOutside)="listSrv.closeFilterPanel()"
+		*ngIf="listSrv.filterPanelOpen">
 	</filters-app>
 
 
-	<div class="flex">
-			<div class="left">
-					<product-preview-app
-					*ngIf="viewSrv.previewOpen"
-					[product]="viewSrv.previewed"
-					(close)="viewSrv.closePreview()"
-					(clickOutside)="viewSrv.closePreview()">
-				</product-preview-app>
-			</div>
-		</div>
+
+	<product-preview-app
+		*ngIf="listSrv.previewOpen"
+		[product]="listSrv.previewed"
+		(close)="listSrv.closePreview()"
+		(clickOutside)="listSrv.closePreview()">
+	</product-preview-app>
+
 </ng-container>
 
 <ng-template #spinner>
