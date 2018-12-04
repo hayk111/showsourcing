@@ -10,7 +10,8 @@
         <div *ngIf="enablePreviewLink" class="preview" (click)="clickImage.emit()"><div>Preview</div></div>
         <div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
           <checkbox-app
-            [checked]="checked"
+						[checked]="checked"
+						size="12"
             (check)="onChecked()"
             (uncheck)="onUnchecked()">
           </checkbox-app>

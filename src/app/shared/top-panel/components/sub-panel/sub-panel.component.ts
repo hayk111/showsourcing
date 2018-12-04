@@ -48,8 +48,6 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Output() filterClick = new EventEmitter<null>();
 	// search event
 	@Output() search = new EventEmitter<string>();
-	// when user removed string from search input
-	@Output() emptySearch = new EventEmitter();
 	// smart search event
 	@Output() smartSearch = new EventEmitter<string>();
 
