@@ -42,7 +42,7 @@
 			(liked)="dataSrv.onMultipleThumbUp($event)"
 			(disliked)="dataSrv.onMultipleThumbDown($event)">
 
-			<button class="icon light" (click)="openAddToProjectDialog()">
+			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog(selectionSrv.selection)">
 				<icon-app name="folder-light" fontSet="svg"></icon-app>
 			</button>
 			<button class="icon light" (click)="dataSrv.deleteSelected()">
