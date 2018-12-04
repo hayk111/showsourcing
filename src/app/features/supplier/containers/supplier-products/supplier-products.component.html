@@ -3,8 +3,7 @@
 		[hasSwitch]="false"
 		[hasFilter]="false"
 		[buttonIcon]="false"
-		(search)="search($event)"
-		(emptySearch)="test()">
+		(search)="search($event)">
 	</sub-panel-app>
 	<div class="title"> Products
 		<div class="num-products">{{ (dataSrv.items$ | async)?.length }} products</div>

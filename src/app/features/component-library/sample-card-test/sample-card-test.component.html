@@ -1,3 +1,18 @@
-<p>
-  sample-card-test works!
-</p>
+<kanban-app
+	[cols]="columns$ | async"
+	[cardTemplate]="card"
+	[selection]="selected$ | async"
+	(drop)="updateSampleStatus($event)"
+	(multipleDrop)="updateSamplesStatus($event)"
+	(selectColumn)="onColumnSelected($event)"
+	(unselectColumn)="onColumnUnselected($event)">
+</kanban-app>
+
+<ng-template #card let-data="data">
+	<sample-card-app
+		[sample]="data"
+		[checked]="(selectionSrv.selection$ | async).has(data.id)"
+		(select)="selectionSrv.selectOne($event)"
+		(unselect)="selectionSrv.unselectOne($event)">
+	</sample-card-app>
+</ng-template>
