@@ -37,7 +37,7 @@ export class ThumbService {
 	 * this function is called only when we are updating a single product, with no multiple selection involved
 	 * @param product
 	 */
-	thumbDown(product: Product, multiple = false, ) {
+	thumbDown(product: Product, multiple = false) {
 		const voteIndex = (product.votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
 		let votes = product.votes ? [...product.votes] : [];
 		if (~voteIndex) {
