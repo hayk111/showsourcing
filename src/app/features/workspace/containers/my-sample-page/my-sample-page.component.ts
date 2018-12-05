@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { SampleService, UserService } from '~core/entity-services';
-import { Sample, ERM, ERM_TOKEN } from '~core/models';
-import { ListPageViewService, ListPageDataService, SelectionService, SelectionWithFavoriteService } from '~core/list-page';
-import { FilterType } from '~shared/filters';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonDialogService } from '~common/dialog';
+import { SampleService, UserService } from '~core/entity-services';
+import { ListPageDataService, ListPageViewService, SelectionService, SelectionWithFavoriteService } from '~core/list-page';
+import { Sample } from '~core/models';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'my-sample-page-app',
