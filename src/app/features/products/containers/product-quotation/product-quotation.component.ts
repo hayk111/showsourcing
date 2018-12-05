@@ -35,7 +35,6 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	product: Product;
 	quotes: Quote[] = [];
-	selection: Map<string, Quote> = new Map();
 
 	constructor(
 		private route: ActivatedRoute,
@@ -77,9 +76,10 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** Opens a dialog that lets the user compare quotation of this product */
-	openCompareQuotationDialog() {
+	openCompareQuotationDialog(quotes) {
+		console.log(quotes);
 		this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
-			quotes: this.selection.values()
+			quotes: quotes
 		});
 	}
 

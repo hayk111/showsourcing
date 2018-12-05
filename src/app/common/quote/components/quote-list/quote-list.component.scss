@@ -5,11 +5,13 @@
 .title {
 	color: var(--color-txt-strong);
 	font-size: var(--font-size-xxxl);
-	padding-bottom: var(--spacing-l);
+	padding-bottom: var(--spacing-ms);
+	border-bottom: 1px solid var(--color-divider);
 }
 
 list-app {
 	max-height: 507px;
+	margin-top: var(--spacing-ms);
 }
 
 .quotation-empty {
@@ -32,4 +34,29 @@ list-app {
 			color: var(--color-primary);
 		}
 	}
+}
+
+.quote-container {
+	margin: 0px 6px;
+	&.selected {
+		background: var(--color-secondary-light);
+	}
+	&:hover {
+		background: var(--color-secondary-light);
+	}
+	&:not(:first-child) {
+		border-top: 1px solid var(--color-secondary);
+	}
+
+	.checkbox {
+		display: flex;
+	}
+	quote-row-app {
+		display: inline-block;
+		width: calc(100% - 25px);
+	}
+}
+
+.footer-button {
+	margin-left:  var(--spacing-l);
 }
