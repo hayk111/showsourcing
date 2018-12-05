@@ -7,16 +7,18 @@
 	overflow: overlay;
 
 	position: absolute;
-	bottom: 0;
+	bottom: var(--spacing-s);
 	z-index: var(--z-cardContainer);
 	overflow-x: hidden;
 	overflow-y: auto;
 	box-sizing: border-box;
-	height: 100vh;
+	height: calc(100vh - 70px); // this way we perserve the ratio and the margin otp
+
 	&.alignRight {
-		right: 0;
+		right: var(--spacing-s);
 	}
 	&.alignLeft {
-		left: 0;
+		left: var(--spacing-s);;
 	}
+	&::-webkit-scrollbar { width: 0 !important } // we make invisible the scrollbar
 }
