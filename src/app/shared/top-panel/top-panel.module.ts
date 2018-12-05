@@ -17,6 +17,7 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { EditableFieldModule } from '~shared/editable-field';
+import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
 
 @NgModule({
 	imports: [
@@ -40,7 +41,14 @@ import { EditableFieldModule } from '~shared/editable-field';
 		ViewSwitcherComponent,
 		BreadCrumbComponent,
 		TopPanelDetailsComponent,
+		SubPanelLeftItemComponent,
 	],
-	exports: [TopPanelComponent, SubPanelComponent, BreadCrumbComponent, TopPanelDetailsComponent],
+	exports: [
+		TopPanelComponent,
+		SubPanelComponent,
+		BreadCrumbComponent,
+		TopPanelDetailsComponent,
+		SubPanelLeftItemComponent
+	],
 })
 export class TopPanelModule { }

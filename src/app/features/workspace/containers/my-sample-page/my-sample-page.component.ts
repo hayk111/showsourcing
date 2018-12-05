@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { SampleService } from '~core/entity-services';
+import { SampleService, UserService } from '~core/entity-services';
 import { Sample, ERM, ERM_TOKEN } from '~core/models';
 import { ListPageViewService, ListPageDataService, SelectionService, SelectionWithFavoriteService } from '~core/list-page';
 import { FilterType } from '~shared/filters';
@@ -25,6 +25,7 @@ export class MySamplePageComponent implements OnInit {
 	];
 
 	constructor(
+		private userSrv: UserService,
 		public featureSrv: SampleService,
 		public viewSrv: ListPageViewService<Sample>,
 		public dataSrv: ListPageDataService<Sample, SampleService>,
@@ -37,6 +38,15 @@ export class MySamplePageComponent implements OnInit {
 			searchedFields: ['name', 'assignee.firstName', 'assignee.lastName', 'product.name', 'supplier.name']
 		});
 		this.dataSrv.init();
+	}
+
+	// can be moved to abstract
+	toggleMyTasks(show: boolean) {
+		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
+		if (show)
+			this.dataSrv.filterList.addFilter(filterAssignee);
+		else
+			this.dataSrv.filterList.removeFilter(filterAssignee);
 	}
 
 }

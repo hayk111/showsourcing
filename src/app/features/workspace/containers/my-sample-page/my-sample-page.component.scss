@@ -2,3 +2,12 @@
 	display: block;
 	height: 100%;
 }
+
+sub-panel-left-item-app {
+	margin-left: var(--spacing-l);
+
+	.show-my-samples span {
+		font-weight: 600;
+		line-height: 1.43;
+	}
+}
