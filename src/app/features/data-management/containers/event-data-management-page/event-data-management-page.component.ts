@@ -35,7 +35,7 @@ export class EventDataManagementPageComponent implements OnInit {
 	}
 
 	mergeSelected() {
-		const ids = this.listSrv.selectionSrv.getSelectionIds();
+		const ids = this.listSrv.getSelectedIds();
 		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
 	}
 

@@ -9,7 +9,7 @@
 	<kanban-app
 		[cols]="columns$ | async"
 		[cardTemplate]="card"
-		[selection]="selected$ | async"
+		[selection]="listSrv.selection$ | async"
 		(drop)="updateProductStatus($event)"
 		(multipleDrop)="updateProductsStatus($event)"
 		(selectColumn)="onColumnSelected($event)"

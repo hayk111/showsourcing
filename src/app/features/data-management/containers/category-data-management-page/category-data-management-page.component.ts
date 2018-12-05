@@ -37,7 +37,7 @@ export class CategoryDataManagementPageComponent
 	}
 
 	mergeSelected() {
-		const ids = this.listSrv.selectionSrv.getSelectionIds();
+		const ids = this.listSrv.getSelectedIds();
 		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
 	}
 }

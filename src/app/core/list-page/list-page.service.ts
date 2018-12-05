@@ -38,11 +38,11 @@ export interface ListPageConfig extends ListPageDataConfig {
 @Injectable({
 	providedIn: 'root'
 })
-export class ListPageService<A, B extends GlobalServiceInterface<A>> {
+export class ListPageService<T extends { id: string }, G extends GlobalServiceInterface<T>> {
 
 	selectionSrv: SelectionWithFavoriteService;
-	dataSrv: ListPageDataService<A, B>;
-	viewSrv: ListPageViewService<A>;
+	dataSrv: ListPageDataService<T, G>;
+	viewSrv: ListPageViewService<T>;
 
 	constructor(
 		private commonDlgSrv: CommonDialogService,
@@ -76,8 +76,8 @@ export class ListPageService<A, B extends GlobalServiceInterface<A>> {
 		if (!this.selectionSrv || !this.viewSrv || !this.dataSrv) {
 			// we have to create instance manually instead of injecting those
 			this.selectionSrv = new SelectionWithFavoriteService();
-			this.viewSrv = new ListPageViewService<A>(this.router);
-			this.dataSrv = new ListPageDataService<A, B>(this.dlgSrv, this.thumbSrv, this.selectionSrv);
+			this.viewSrv = new ListPageViewService<T>(this.router);
+			this.dataSrv = new ListPageDataService<T, G>();
 
 			selectionSrvMap.set(key, this.selectionSrv);
 			viewSrvMap.set(key, this.viewSrv);
@@ -126,51 +126,89 @@ export class ListPageService<A, B extends GlobalServiceInterface<A>> {
 	}
 
 	updateSelected(value: any) {
-		this.dataSrv.updateSelected(value);
+		const ids = this.getSelectedIds()
+			.map(id => ({ id, ...value }));
+		this.dataSrv.updateMany(value).subscribe();
 	}
 
-	update(value: A) {
-		this.dataSrv.update(value);
+	update(value: T) {
+		this.dataSrv.update(value).subscribe();
 	}
 
 	onItemFavorited(id: string) {
-		this.dataSrv.onItemFavorited(id);
+		this.dataSrv.update({ id, favorite: false } as any).subscribe();
 	}
 
 	onItemUnfavorited(id: string) {
-		this.dataSrv.onItemUnfavorited(id);
+		this.dataSrv.update({ id, favorite: false } as any).subscribe();
 	}
 
 	onFavoriteAllSelected() {
-		this.dataSrv.onFavoriteAllSelected();
+		const ids = this.getSelectedIds();
+		ids.forEach(id => this.onItemFavorited(id));
+		this.selectionSrv.allSelectedFavorite = true;
 	}
 
 	onUnfavoriteAllSelected() {
-		this.dataSrv.onUnfavoriteAllSelected();
+		/** When we unfavorite all selected items, the items that are already unfavorited will stay the same */
+		this.getSelectedIds()
+			.forEach(id => this.onItemUnfavorited(id));
+		this.selectionSrv.allSelectedFavorite = false;
 	}
 
-	onThumbUp(item: A) {
-		this.dataSrv.onThumbUp(item);
+	onThumbUp(item: T) {
+		const votes = this.thumbSrv.thumbUp(item);
+		return this.dataSrv.update({ id: item.id, votes } as any);
 	}
 
-	onThumbDown(item: A) {
-		this.dataSrv.onThumbDown(item);
+	onThumbDown(item: T) {
+		const votes = this.thumbSrv.thumbDown(item);
+		return this.update({ id: item.id, votes } as any);
 	}
 
+	/**
+	 * update the vote of a given selection of items (products) when given thumb up
+	 * @param isCreated if true the vote is created, if false, removed
+	 */
 	onMultipleThumbUp(isCreated: boolean) {
-		this.dataSrv.onMultipleThumbUp(isCreated);
+		const updated = [];
+		this.getSelectedValues().forEach(item => {
+			const votes = this.thumbSrv.thumbUpFromMulti(item, isCreated);
+			updated.push({ id: item.id, votes });
+		});
+		this.dataSrv.updateMany(updated).subscribe();
 	}
 
+	/**
+ * update the vote of a given selection of items (products) when given thumb down
+ * @param isCreated if true the vote is created, if false, removed
+ */
 	onMultipleThumbDown(isCreated: boolean) {
-		this.dataSrv.onMultipleThumbDown(isCreated);
-	}
-
-	deleteSelected() {
-		this.dataSrv.deleteSelected();
+		const updated = [];
+		this.getSelectedValues().forEach(item => {
+			const votes = this.thumbSrv.thumbDownFromMulti(item, isCreated);
+			updated.push({ id: item.id, votes });
+		});
+		this.dataSrv.updateMany(updated).subscribe();
 	}
 
 	deleteOne(id: string) {
-		this.dataSrv.deleteOne(id);
+		const callback = () => this.dataSrv.deleteOne(id).subscribe(_ => this.refetch());
+		const text = `Are you sure you want to delete this item?`;
+		this.commonDlgSrv.openConfirmDialog({ text, callback });
+	}
+
+	deleteSelected() {
+		const itemIds = this.getSelectedIds();
+		// callback for confirm dialog
+		const callback = () => {
+			this.dataSrv.deleteMany(itemIds).subscribe(_ => {
+				this.selectionSrv.unselectAll();
+				this.refetch();
+			});
+		};
+		const text = `Delete ${itemIds.length} ${itemIds.length > 1 ? 'items' : 'item'} ?`;
+		this.commonDlgSrv.openConfirmDialog({ text, callback });
 	}
 
 	addFilter(filter: Filter) {
@@ -211,7 +249,7 @@ export class ListPageService<A, B extends GlobalServiceInterface<A>> {
 		return this.viewSrv.entityMetadata;
 	}
 
-	openPreview(item: A) {
+	openPreview(item: T) {
 		this.viewSrv.openPreview(item);
 	}
 
@@ -261,6 +299,14 @@ export class ListPageService<A, B extends GlobalServiceInterface<A>> {
 
 	unselectAll() {
 		this.selectionSrv.unselectAll();
+	}
+
+	getSelectedIds() {
+		return this.selectionSrv.getSelectionIds();
+	}
+
+	getSelectedValues() {
+		return this.selectionSrv.getSelectionValues();
 	}
 
 }

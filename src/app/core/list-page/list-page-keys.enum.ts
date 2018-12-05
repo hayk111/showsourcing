@@ -7,6 +7,7 @@ export enum ListPageKey {
 	FIND_PRODUCT, // done
 	INVITATION, // done
 	MY_TASK, // done Michael
+	MY_WORKFLOW,
 	PRODUCTS, // done
 	PRODUCT_SAMPLE, // done Michael
 	PRODUCT_TASK, // done Michael

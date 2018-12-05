@@ -66,7 +66,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	}
 
 	updateAccessTypeSelected({ accessType }) {
-		const ids = this.listSrv.selectionSrv.getSelectionIds();
+		const ids = this.listSrv.getSelectedIds();
 		this.featureSrv.updateAccessType(ids.map(id => ({ id, accessType })))
 			.subscribe(() => {
 				this.listSrv.refetch();

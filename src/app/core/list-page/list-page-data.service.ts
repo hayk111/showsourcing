@@ -55,11 +55,7 @@ export class ListPageDataService
 	private searchFilterElements$: Observable<any[]>;
 	smartSearchFilterElements$: Observable<any[]>;
 
-	constructor(
-		public dlgSrv: DialogService,
-		public thumbSrv: ThumbService,
-		public selectionSrv: SelectionWithFavoriteService
-	) {
+	constructor() {
 		log.debug('creating list-data service');
 	}
 
@@ -125,7 +121,7 @@ export class ListPageDataService
 			this.filterList.asPredicate()
 		].filter(p => !!p).join(' AND ');
 
-		this.refetch({ query: allFilters });
+		return this.refetch({ query: allFilters });
 	}
 
 	/**
@@ -133,12 +129,12 @@ export class ListPageDataService
 	 * @param config configuration used to refetch
 	 */
 	refetch(config?: SelectParamsConfig) {
-		this.listResult.refetch(config).subscribe();
+		this.listResult.refetch(config);
 	}
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
-		this.listResult.fetchMore(this.items.length).subscribe();
+		this.listResult.fetchMore(this.items.length);
 	}
 
 	/** Sorts items based on sort.sortBy */
@@ -171,103 +167,24 @@ export class ListPageDataService
 	// UPDATES
 
 	/** Update entities */
-	updateSelected(value) {
-		const items = this.getSelectionIds()
-			// we use only the id to not update unnecessary values (and prevent overwrite of another user)
-			.map(id => ({ ...value, id }));
-
-		this.entitySrv.updateMany(items).subscribe(() => this.selectionSrv.unselectAll());
+	updateMany(entities: T[]) {
+		return this.entitySrv.updateMany(entities);
 	}
 
 	/** Update a entity */
 	update(entity: T) {
-		this.entitySrv.update(entity);
-	}
-
-	/** When a product heart is clicked to favorite it */
-	onItemFavorited(id: string) {
-		this.update({ id, favorite: true } as any);
-	}
-
-	/** When a product heart is clicked to unfavorite it */
-	onItemUnfavorited(id: string) {
-		this.update({ id, favorite: false } as any);
-	}
-
-	/** When we favorite all selected items, the items that are already favorited will stay the same */
-	onFavoriteAllSelected() {
-		const ids = this.getSelectionIds();
-		ids.forEach(id => this.onItemFavorited(id));
-		this.selectionSrv.allSelectedFavorite = true;
-	}
-
-	/** When we unfavorite all selected items, the items that are already unfavorited will stay the same */
-	onUnfavoriteAllSelected() {
-		this.getSelectionIds().forEach(id => this.onItemUnfavorited(id));
-		this.selectionSrv.allSelectedFavorite = false;
-	}
-
-	onThumbUp(item: T) {
-		const votes = this.thumbSrv.thumbUp(item);
-		this.update({ id: item.id, votes } as any);
-	}
-
-	onThumbDown(item: T) {
-		const votes = this.thumbSrv.thumbDown(item);
-		this.update({ id: item.id, votes } as any);
-	}
-
-	/**
-	 * update the vote of a given selection of items (products) when given thumb up
-	 * @param isCreated if true the vote is created, if false, removed
-	 */
-	onMultipleThumbUp(isCreated: boolean) {
-		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
-		// if you are using another feature srv (as project) override this funcition
-		const updated = [];
-		this.getSelectionValues().forEach(item => {
-			const votes = this.thumbSrv.thumbUpFromMulti(item, isCreated);
-			updated.push({ id: item.id, votes });
-		});
-		this.entitySrv.updateMany(updated).subscribe();
-	}
-
-	/**
-	 * update the vote of a given selection of items (products) when given thumb down
-	 * @param isCreated if true the vote is created, if false, removed
-	 */
-	onMultipleThumbDown(isCreated: boolean) {
-		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
-		// if you are using another feature srv (as project) override this funcition
-		const updated = [];
-		this.getSelectionValues().forEach(item => {
-			const votes = this.thumbSrv.thumbDownFromMulti(item, isCreated);
-			updated.push({ id: item.id, votes });
-		});
-		this.entitySrv.updateMany(updated).subscribe();
+		return this.entitySrv.update(entity);
 	}
 
 	// DELETES
-
-	/** Will show a confirm dialog to delete items selected */
-	deleteSelected() {
-		const itemIds = this.getSelectionIds();
-		// callback for confirm dialog
-		const callback = () => {
-			this.entitySrv.deleteMany(itemIds).subscribe(_ => {
-				this.selectionSrv.unselectAll();
-				this.refetch();
-			});
-		};
-		const text = `Delete ${itemIds.length} ${itemIds.length > 1 ? 'items' : 'item'} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
-	}
-
 	/** Deletes an specific item */
 	deleteOne(itemId: string) {
-		const callback = () => this.entitySrv.delete(itemId).subscribe(_ => this.refetch());
-		const text = `Are you sure you want to delete this item?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		return this.entitySrv.delete(itemId);
+	}
+
+	/** Will show a confirm dialog to delete items selected */
+	deleteMany(ids: string[]) {
+		return this.entitySrv.deleteMany(ids);
 	}
 
 	/** adds a filters to the list of filters */
@@ -286,14 +203,5 @@ export class ListPageDataService
 	smartSearch(event: any) {
 		throw Error('not implemented');
 	}
-
-	private getSelectionValues() {
-		return this.selectionSrv.getSelectionValues();
-	}
-
-	private getSelectionIds() {
-		return this.selectionSrv.getSelectionIds();
-	}
-
 
 }

@@ -16,6 +16,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
+import { ListPageService, ListPageKey } from '~core/list-page';
 
 @Component({
 	selector: 'project-workflow-app',
@@ -23,49 +24,39 @@ import { statusProductToKanbanCol } from '~utils/kanban.utils';
 	styleUrls: ['./project-workflow.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
 export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	project$: Observable<Project>;
 	columns$: Observable<KanbanColumn[]>;
-	/** keeps tracks of the current selection */
-	selected$: Observable<Map<string, boolean>>;
 	project: Project;
 
 	constructor(
-		public route: ActivatedRoute,
-		public projectSrv: ProjectService,
-		public productSrv: ProductService,
-		public productStatusSrv: ProductStatusTypeService,
-		public router: Router,
-		public thumbSrv: ThumbService,
-		public workflowService: ProjectWorkflowFeatureService,
-		public notificationSrv: NotificationService,
-		public featureSrv: ProjectWorkflowFeatureService,
-		public viewSrv: ListPageViewService<Product>,
-		public dataSrv: ListPageDataService<Product, ProjectWorkflowFeatureService>,
-		public selectionSrv: SelectionWithFavoriteService,
+		private route: ActivatedRoute,
+		private projectSrv: ProjectService,
+		private productSrv: ProductService,
+		private productStatusSrv: ProductStatusTypeService,
+		private workflowService: ProjectWorkflowFeatureService,
+		private notificationSrv: NotificationService,
+		private featureSrv: ProjectWorkflowFeatureService,
+		public listSrv: ListPageService<Product, ProjectWorkflowFeatureService>,
 		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
+		this.listSrv.setup({
+			key: ListPageKey.PROJECT_WORKFLOW,
+			entitySrv: this.featureSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			initialSortBy: 'category.name'
+			initialSortBy: 'category.name',
+			entityMetadata: ERM.PRODUCT
 		});
-		this.dataSrv.init();
-		this.viewSrv.setup(ERM.PRODUCT);
 
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.projectSrv.queryOne(id);
-		this.selected$ = this.selectionSrv.selection$;
 
 		this.project$.pipe(
 			takeUntil(this._destroy$)
@@ -95,7 +86,6 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			products$,
 			statusProductToKanbanCol
 		);
-
 	}
 
 	updateProductStatus(event: KanbanDropEvent) {
@@ -123,11 +113,11 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected(products: Product[]) {
-		products.forEach(prod => this.selectionSrv.selectOne(prod, true));
+		products.forEach(prod => this.listSrv.selectOne(prod, true));
 	}
 
 	onColumnUnselected(products: Product[]) {
-		products.forEach(prod => this.selectionSrv.unselectOne(prod, true));
+		products.forEach(prod => this.listSrv.unselectOne(prod, true));
 	}
 
 	/** updates the products with the new value votes */
@@ -143,6 +133,33 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			});
 		}
 	}
+
+	/**
+	 * Selection bar actions
+	 *
+	 * Each of the actions to open dialog below will open a dialog that is itself a container.
+	 */
+
+	/** Opens a dialog that lets the user add different products to different projects (many to many) */
+	openAddToProjectDialog(product: Product) {
+		this.commonDlgSrv.openAddToProjectDialog(product ? [product] : this.getSelectedProducts());
+	}
+
+
+	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
+	openExportDialog(product: Product) {
+		this.commonDlgSrv.openExportDialog(product ? [product] : this.getSelectedProducts());
+	}
+
+	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
+	openRequestFeedbackDialog(product: Product) {
+		this.commonDlgSrv.openRequestFeedbackDialog(product ? [product] : this.getSelectedProducts());
+	}
+
+	getSelectedProducts() {
+		return this.listSrv.getSelectedValues();
+	}
+
 	/**
 	 * Deassociate the selected product from the current project
 	 */

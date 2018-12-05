@@ -52,7 +52,7 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 	}
 
 	getSelectedProducts() {
-		return this.listSrv.selectionSrv.getSelectionValues();
+		return this.listSrv.getSelectedValues();
 	}
 
 	hasSelectedProducts() {
@@ -76,7 +76,7 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 
 	submit() {
 		// we add each project one by one to the store
-		const selectedProducts = this.listSrv.selectionSrv.getSelectionValues();
+		const selectedProducts = this.listSrv.getSelectedValues();
 		const unselectedProducts = Object.values(this.unselectedProducts);
 		this.submitCallback({ selectedProducts, unselectedProducts })
 			.subscribe(() => this.dlgSrv.close());

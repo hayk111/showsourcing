@@ -37,15 +37,13 @@
 		[selection]="listSrv.selection$ | async"
 		[hasDelete]="false"
 		(close)="listSrv.unselectAll()"
-		(delete)="listSrv.deleteSelected()"
-	>
+		(delete)="listSrv.deleteSelected()">
 		<action-bar-app
 			[favorite]="listSrv.allSelectedFavorite"
 			[hasLikes]="false"
 			[multiple]="true"
 			(onFavorite)="listSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
-		>
+			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
 			<button class="icon light" (click)="listSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
