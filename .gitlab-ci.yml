@@ -27,7 +27,7 @@ app-build:
     - master
     - production
 
-
+# staging
 app-staging:
   stage: staging
   image: python:latest
