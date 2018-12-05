@@ -91,19 +91,14 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		}
 		this.productSrv.update({
 			id: event.item.id,
-			status: new ProductStatus({
-				status: {
-					id: event.to,
-					__typename: 'ProductStatusType'
-				}
-			})
+			status: { id: event.to }
 		}).subscribe();
 	}
 
 	updateProductsStatus(event: { to: any, items: any[] }) {
 		const products = event.items.map(id => ({
 			id,
-			status: new ProductStatus({ status: { id: event.to, __typename: 'ProductStatusType' } })
+			status: { id: event.to }
 		}));
 		this.productSrv.updateMany(products).subscribe();
 	}

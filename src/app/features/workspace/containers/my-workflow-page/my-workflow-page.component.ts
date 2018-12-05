@@ -6,7 +6,7 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { ProductService, ProductStatusTypeService } from '~entity-services';
+import { ProductService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';
 import { Product, ProductVote, ERM } from '~models';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
@@ -14,6 +14,7 @@ import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
 import { ListPageService, ListPageKey } from '~core/list-page';
+import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -30,7 +31,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private featureSrv: ProductService,
-		private productStatusSrv: ProductStatusTypeService,
+		private productStatusSrv: ProductStatusService,
 		private cdr: ChangeDetectorRef,
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonDlgSrv: CommonDialogService
@@ -105,7 +106,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		if (droppedElement) {
 			droppedElement.forEach(element => {
 				this.featureSrv
-					.updateProductStatus(element, target)
+					.update({ id: element.id, status: { id: target.id } })
 					.subscribe(() => this.cdr.detectChanges());
 			});
 			this.listSrv.unselectAll();

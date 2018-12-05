@@ -1,36 +1,29 @@
 import {
 	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
+	ElementRef,
 	EventEmitter,
 	Input,
 	NgModuleRef,
 	OnInit,
 	Output,
 	ViewChild,
-	ElementRef,
-	ChangeDetectorRef
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
+import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dialog';
+import { ProductService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ProductService, ProductStatusTypeService } from '~entity-services';
-import {
-	ERM,
-	Product,
-	ProductStatusType,
-	AppImage,
-	PreviewActionButton
-} from '~models';
-import {
-	ProductAddToProjectDlgComponent,
-	RfqDialogComponent
-} from '~common/dialog';
+import { AppImage, ERM, PreviewActionButton, Product, ProductStatus } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';
+import { UploaderService } from '~shared/file/services/uploader.service';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, PendingImage } from '~utils';
-import { UploaderService } from '~shared/file/services/uploader.service';
+import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
+
 @Component({
 	selector: 'product-preview-app',
 	templateUrl: './product-preview.component.html',
@@ -56,7 +49,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@Output() clickOutside = new EventEmitter<null>();
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
-	firstStatus$: Observable<ProductStatusType>;
+	firstStatus$: Observable<ProductStatus>;
 	prodERM = ERM.PRODUCT;
 	selectedIndex = 0;
 	erm = ERM;
@@ -140,7 +133,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private module: NgModuleRef<any>,
 		private router: Router,
 		private thumbSrv: ThumbService,
-		private prodStatusSrv: ProductStatusTypeService,
+		private prodStatusSrv: ProductStatusService,
 		private workspaceSrv: WorkspaceFeatureService
 	) {
 		super();

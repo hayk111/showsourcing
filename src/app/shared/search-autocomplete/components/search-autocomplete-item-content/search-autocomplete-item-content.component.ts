@@ -3,7 +3,7 @@ import {
 	EventEmitter
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductStatusType, SupplierStatusType } from '~models';
+import { ProductStatus, SupplierStatus } from '~core/models';
 
 @Component({
 	selector: 'search-autocomplete-item-content-app',
@@ -17,7 +17,7 @@ export class SearchAutocompleteItemContentComponent {
 	/** The sub title */
 	@Input() subtitle: string;
 	/** The status displayed into a tiny label */
-	@Input() status: ProductStatusType | SupplierStatusType;
+	@Input() status: ProductStatus | SupplierStatus;
 	/** The image url */
 	@Input() image: string;
 	/** The icon name */

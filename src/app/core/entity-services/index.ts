@@ -2,7 +2,6 @@ export * from './category/category.service';
 export * from './contact/contact.service';
 export * from './event/event.service';
 export * from './product/product.service';
-export * from './product-status-type/product-status-type.service';
 export * from './project/project.service';
 export * from './supplier/supplier.service';
 export * from './supplier-status/supplier-status.service';

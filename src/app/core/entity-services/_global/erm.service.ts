@@ -4,7 +4,6 @@ import { GlobalService } from '~entity-services/_global/global.service';
 import { CategoryService } from '~entity-services/category/category.service';
 import { EventService } from '~entity-services/event/event.service';
 import { ImageService } from '~entity-services/image/image.service';
-import { ProductStatusTypeService } from '~entity-services/product-status-type/product-status-type.service';
 import { ProductService } from '~entity-services/product/product.service';
 import { ProjectService } from '~entity-services/project/project.service';
 import { SupplierService } from '~entity-services/supplier/supplier.service';
@@ -23,9 +22,7 @@ export class ERMService {
 		private categoryService: CategoryService,
 		private tagService: TagService,
 		private supplierService: SupplierService,
-		private supplierStatusTypeService: SupplierStatusTypeService,
 		private productService: ProductService,
-		private productStatusTypeService: ProductStatusTypeService,
 		private projectService: ProjectService,
 		private imageService: ImageService,
 		private eventService: EventService,
@@ -53,10 +50,6 @@ export class ERMService {
 				return this.tagService;
 			case ERM.EVENT:
 				return this.eventService;
-			case ERM.SUPPLIER_STATUS_TYPE:
-				return this.supplierStatusTypeService;
-			case ERM.PRODUCT_STATUS_TYPE:
-				return this.productStatusTypeService;
 			case ERM.TEAM:
 				return this.teamService;
 			case ERM.USER:
@@ -74,10 +67,6 @@ export class ERMService {
 
 	getStatusService(erm: EntityMetadata): GlobalService<any> {
 		switch (erm) {
-			case ERM.PRODUCT:
-				return this.productStatusTypeService;
-			case ERM.SUPPLIER:
-				return this.supplierStatusTypeService;
 			case ERM.SAMPLE:
 				return this.sampleStatusSrv;
 			default:
