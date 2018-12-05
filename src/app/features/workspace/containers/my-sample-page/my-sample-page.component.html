@@ -28,12 +28,18 @@
 </sample-board-view-app>
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
+	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="listSrv.selection$ | async"
-	[hasDelete]="false"
-	(close)="listSrv.unselectAll()"
-	(delete)="listSrv.deleteSelected()">
-	<button> Change Status </button>
+	(close)="listSrv.unselectAll()">
+	<div class="flex">
+		<button class="flexCenter change-status">
+			<icon-app name="Status"></icon-app>
+			<span>Change Status</span>
+		</button>
+		<button class="icon light" (click)="listSrv.deleteSelected()">
+			<icon-app class="trash-bin" name="trash-bin"></icon-app>
+		</button>
+	</div>
 </selection-bar-app>
 
 <filters-app

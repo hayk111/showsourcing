@@ -16,16 +16,11 @@ import { selectionBarAnimation } from '~shared/selection-bar/animation/selection
 })
 export class SelectionBarComponent implements OnInit {
 	@Input() selection: Map<string, boolean>;
-	@Input() hasDelete = true;
 	@Input() isShown = false;
 	@Output() close = new EventEmitter();
-	@Output() delete = new EventEmitter();
 
 	constructor() { }
 
 	ngOnInit() { }
 
-	deleteAction() {
-		this.delete.emit(this.selection);
-	}
 }

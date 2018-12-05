@@ -45,9 +45,7 @@
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="(listSrv.selection$ | async)"
-	[hasDelete]="false"
-	(close)="listSrv.unselectAll()"
-	(delete)="listSrv.deleteSelected()">
+	(close)="listSrv.unselectAll()">
 
 	<div class="flex">
 		<context-menu-app>

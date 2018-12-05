@@ -2,14 +2,11 @@
 <div class="ctnr z-6 flexBetween" @selectionBarTrigger *ngIf="isShown">
 
   <div class="closeSection pointer">
-    <icon-app name="close" (click)="close.emit()"></icon-app>
-    <span class="selected-text">
       {{ selection.size }} items selected
-    </span>
   </div>
 
   <ng-content></ng-content>
 
-  <button [ngStyle]="{'visibility': hasDelete ? 'visible' : 'hidden'}" class="small" (click)="deleteAction()" i18n="button|Delete product selected@@global_delete"><span class="icon-delete"></span>Delete</button>
+	<icon-app class="icon-close" name="close" (click)="close.emit()"></icon-app>
 
 </div>
