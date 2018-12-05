@@ -12,9 +12,10 @@ export class SupplierInfoHeaderComponent implements OnInit {
 	RequestStatus = RequestStatus;
 
 	@Input() quote: Quote;
-	@Output() openSupplier = new EventEmitter<string>();
-	@Output() updateTask = new EventEmitter<Quote>();
-	@Output() previewClicked = new EventEmitter<Quote>();
+	
+	fields = [
+
+	];
 
 	constructor() { }
 
