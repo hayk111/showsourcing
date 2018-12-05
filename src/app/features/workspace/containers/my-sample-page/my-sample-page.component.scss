@@ -11,3 +11,19 @@ sub-panel-left-item-app {
 		line-height: 1.43;
 	}
 }
+
+selection-bar-app {
+
+	.change-status {
+		margin-right: 45px;
+
+		icon-app {
+			margin-right: 6px;
+		}
+	}
+
+	icon-app.trash-bin {
+		font-size: var(--font-size-xxxl);
+		color: var(--color-txt-secondary);
+	}
+}

@@ -37,9 +37,7 @@
 	<selection-bar-app
 		[isShown]="(selectionSrv.selection$ | async).size > 0"
 		[selection]="(selectionSrv.selection$ | async)"
-		[hasDelete]="false"
-		(close)="selectionSrv.unselectAll()"
-		(delete)="dataSrv.deleteSelected()">
+		(close)="selectionSrv.unselectAll()">
 
 		<action-bar-app
 			[favorite]="selectionSrv.allSelectedFavorite"
