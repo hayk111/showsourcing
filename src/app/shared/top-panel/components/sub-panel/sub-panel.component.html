@@ -16,9 +16,11 @@
 				(keydown.enter)="triggerSmartSearch($event)">
 			</search-bar-app>
 
-			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>
+			<button *ngIf="hasFilter" class="showFilters pointer secondary" (click)="showFilters.emit()">Show Filters</button>
 
 			<span *ngIf="hasFilter" class="filters">{{ filtersAmount }}</span>
+
+			<ng-content select="sub-panel-left-item-app"></ng-content>
 
 		</div>
 
@@ -33,6 +35,7 @@
 			</view-switcher-app>
 
 			<button *ngIf="hasCreate && buttonName"
+							class="create"
 							(click)="buttonClick.emit()">
 							<!-- TODO check this icon if matches the curfrent ones -->
 				<icon-app *ngIf="buttonIcon" class="plusIc fs-s" name="plus" fontSet="fa"></icon-app>

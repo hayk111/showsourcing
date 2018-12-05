@@ -1,9 +1,11 @@
 <div class="ctnr c-{{ view }} borderRadius flex">
   <div class="slider" [class.right]="view === 'card'" [class.left]="view === 'list'"></div>
 	<button class="flexCenter {{ view === 'list' ? 'selected' : ''}}" (mousedown)="switchView('list')">
-		<icon-app name="list"></icon-app>List
+		<icon-app class="list" name="list"></icon-app>
+		List
 	</button>
 	<button class="flexCenter {{ view === 'card' ? 'selected' : ''}}" (mousedown)="switchView('card')">
-			<icon-app name="thumbs"></icon-app>Thumbs
+			<icon-app class="board" name="Kanban"></icon-app>
+			Board
 	</button>
 </div>

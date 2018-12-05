@@ -32,4 +32,13 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 	) {
 		super(router, userSrv, sampleSrv, listSrv, commonDlgSrv);
 	}
+
+	// can be moved to abstract
+	toggleMySamples(show: boolean) {
+		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
+		if (show)
+			this.listSrv.addFilter(filterAssignee);
+		else
+			this.listSrv.removeFilter(filterAssignee);
+	}
 }
