@@ -1,14 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { Task, Product, Supplier, ERM } from '~models';
-import { Router } from '@angular/router';
-import { InputDirective } from '~shared/inputs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ERM, Task } from '~models';
+import { InputDirective } from '~shared/inputs';
 import { TrackingComponent } from '~utils/tracking-component';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 
 @Component({
 	selector: 'task-list-app',

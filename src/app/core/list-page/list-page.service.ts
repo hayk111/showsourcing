@@ -4,7 +4,6 @@ import { CommonDialogService } from '~common/dialog';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
-import { DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -136,7 +135,7 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	onItemFavorited(id: string) {
-		this.dataSrv.update({ id, favorite: false } as any).subscribe();
+		this.dataSrv.update({ id, favorite: true } as any).subscribe();
 	}
 
 	onItemUnfavorited(id: string) {
