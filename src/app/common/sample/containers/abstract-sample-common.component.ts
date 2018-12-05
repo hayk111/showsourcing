@@ -1,9 +1,7 @@
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ListPageKey, ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -11,29 +9,28 @@ import { TrackingComponent } from '~utils/tracking-component';
 /** since we use the sample component on different pages, this page will keep the methods clean */
 export abstract class AbstractSampleCommonComponent extends TrackingComponent implements OnInit {
 	constructor(
-		public router: Router,
-		public userSrv: UserService,
-		public featureSrv: SampleService,
-		public viewSrv: ListPageViewService<Sample>,
-		public dataSrv: ListPageDataService<Sample, SampleService>,
-		public selectionSrv: SelectionWithFavoriteService,
+		protected router: Router,
+		protected userSrv: UserService,
+		protected sampleSrv: SampleService,
+		public listSrv: ListPageService<Sample, SampleService>,
 		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name'],
-			initialSortBy: 'name'
+		this.listSrv.setup({
+			key: ListPageKey.SAMPLE,
+			entitySrv: this.sampleSrv,
+			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
+			initialSortBy: 'name',
+			entityMetadata: ERM.SAMPLE
 		});
-		this.dataSrv.init();
 	}
 
 	createSample(name: string) {
 		const newSample = new Sample({ name });
-		this.featureSrv.create(newSample).subscribe(_ => this.dataSrv.refetch());
+		this.sampleSrv.create(newSample).subscribe(_ => this.listSrv.refetch());
 	}
 
 	openProduct(id: string) {

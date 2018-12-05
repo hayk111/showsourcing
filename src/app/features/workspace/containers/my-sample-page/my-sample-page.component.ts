@@ -1,9 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { SampleService } from '~core/entity-services';
-import { Sample, ERM, ERM_TOKEN } from '~core/models';
-import { ListPageViewService, ListPageDataService, SelectionService, SelectionWithFavoriteService } from '~core/list-page';
-import { FilterType } from '~shared/filters';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonDialogService } from '~common/dialog';
+import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
+import { SampleService, UserService } from '~core/entity-services';
+import { ListPageService } from '~core/list-page';
+import { Sample } from '~core/models';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'my-sample-page-app',
@@ -11,13 +13,10 @@ import { CommonDialogService } from '~common/dialog';
 	styleUrls: ['./my-sample-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
-export class MySamplePageComponent implements OnInit {
+export class MySamplePageComponent extends AbstractSampleCommonComponent implements OnInit {
 
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -25,18 +24,12 @@ export class MySamplePageComponent implements OnInit {
 	];
 
 	constructor(
-		public featureSrv: SampleService,
-		public viewSrv: ListPageViewService<Sample>,
-		public dataSrv: ListPageDataService<Sample, SampleService>,
-		public selectionSrv: SelectionService,
-	) { }
-
-	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
-			searchedFields: ['name', 'assignee.firstName', 'assignee.lastName', 'product.name', 'supplier.name']
-		});
-		this.dataSrv.init();
+		protected router: Router,
+		protected userSrv: UserService,
+		protected sampleSrv: SampleService,
+		public listSrv: ListPageService<Sample, SampleService>,
+		public commonDlgSrv: CommonDialogService,
+	) {
+		super(router, userSrv, sampleSrv, listSrv, commonDlgSrv);
 	}
-
 }

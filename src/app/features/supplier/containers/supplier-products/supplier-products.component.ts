@@ -1,15 +1,12 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
-import { ERM, Product, ERM_TOKEN } from '~models';
+import { ERM, Product } from '~models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 
 @Component({
 	selector: 'supplier-app',
@@ -17,10 +14,7 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 	styleUrls: ['./supplier-products.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
 export class SupplierProductsComponent extends TrackingComponent implements OnInit {
@@ -28,13 +22,11 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 	products$: Observable<Product[]>;
 	hasSearch = false;
 	constructor(
-		public router: Router,
-		public route: ActivatedRoute,
+		protected router: Router,
+		private route: ActivatedRoute,
 		public thumbSrv: ThumbService,
-		public featureSrv: ProductService,
-		public viewSrv: ListPageViewService<Product>,
-		public dataSrv: ListPageDataService<Product, ProductService>,
-		public selectionSrv: SelectionWithFavoriteService,
+		private productSrv: ProductService,
+		public listSrv: ListPageService<Product, ProductService>,
 		public commonDlgSrv: CommonDialogService
 	) {
 		super();
@@ -42,19 +34,19 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 	}
 
 	ngOnInit() {
-
 		const id = this.route.parent.snapshot.params.id;
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
+		this.listSrv.setup({
+			key: ListPageKey.PRODUCTS,
+			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			initialSortBy: 'name',
-			initialPredicate: `supplier.id == "${id}"`
+			initialPredicate: `supplier.id == "${id}"`,
+			entityMetadata: ERM.PRODUCT
 		});
-		this.dataSrv.init();
 	}
 
 	search(event: any) {
-		this.dataSrv.search(event);
+		this.listSrv.search(event);
 		this.hasSearch = true;
 	}
 

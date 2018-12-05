@@ -8,17 +8,17 @@ export enum ListPageKey {
 	INVITATION,
 	MY_TASK, // done Michael
 	PRODUCTS, // done
-	PRODUCT_SAMPLE,
+	PRODUCT_SAMPLE, // done Michael
 	PRODUCT_TASK, // done Michael
 	PROJECTS, // done
 	PROJECTS_PRODUCT,
 	PROJECT_WORKFLOW,
 	REVIEWPAGE,
-	SAMPLE,
+	SAMPLE, // done Michael
 	SHOW,
 	SUPPLIER, // done
-	SUPPLIER_PRODUCT,
-	SUPPLIER_SAMPLE,
+	SUPPLIER_PRODUCT, // done Michael
+	SUPPLIER_SAMPLE, // done Michael
 	SUPPLIER_TASK, // done Michael
 	TAG, // done
 	TASK, // done Michael
