@@ -38,7 +38,7 @@ export interface ListPageConfig extends ListPageDataConfig {
 @Injectable({
 	providedIn: 'root'
 })
-export class ListPageService<T extends { id: string }, G extends GlobalServiceInterface<T>> {
+export class ListPageService<T extends { id?: string }, G extends GlobalServiceInterface<T>> {
 
 	selectionSrv: SelectionWithFavoriteService;
 	dataSrv: ListPageDataService<T, G>;
@@ -47,9 +47,9 @@ export class ListPageService<T extends { id: string }, G extends GlobalServiceIn
 	constructor(
 		private commonDlgSrv: CommonDialogService,
 		private router: Router,
-		private dlgSrv: DialogService,
-		private thumbSrv: ThumbService
-	) { }
+		private thumbSrv: ThumbService,
+	) {
+	}
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.initServices(config.key);
@@ -58,7 +58,7 @@ export class ListPageService<T extends { id: string }, G extends GlobalServiceIn
 
 		// by default we start loading
 		if (shouldInitDataLoading) {
-			this.dataSrv.init();
+			this.dataSrv.loadData();
 		}
 	}
 

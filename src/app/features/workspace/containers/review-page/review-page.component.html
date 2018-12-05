@@ -23,7 +23,7 @@
   (favorited)="listSrv.onItemFavorited($event)"
   (unfavorited)="listSrv.onItemUnfavorited($event)"
   (sendToWorkflow)="onSentToWorkflow($event)"
-  (delete)="deleteUnselectOne($event)"
+  (delete)="listSrv.deleteOne($event)"
   (archive)="onArchive($event)"
   (statusUpdated)="onStatusUpdated($event)"
   (open)="listSrv.goToDetails($event)">
@@ -56,7 +56,7 @@
       <context-menu-item-app (click)="openExportDialog()">
         Export
       </context-menu-item-app>
-      <context-menu-item-app (click)="openRequestFeedbackDialog()">
+      <context-menu-item-app (click)="commonDlgSrv.openRequestFeedbackDialog()">
         Request For Team Feedback
       </context-menu-item-app>
     </context-menu-app>

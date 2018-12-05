@@ -1,15 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { TemplateService } from '~core/template/services/template.service';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ERM, ERM_TOKEN, Product, ProductVote } from '~models';
+import { ERM, Product, ProductVote } from '~models';
 import { NotificationService } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -116,11 +113,6 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog() {
 		this.commonDlgSrv.openRequestFeedbackDialog(this.getSelectedProducts());
-	}
-
-	deleteUnselectOne(product: Product) {
-		this.listSrv.deleteOne(product.id);
-		this.listSrv.unselectOne(product);
 	}
 
 }

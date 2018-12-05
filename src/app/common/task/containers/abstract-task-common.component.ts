@@ -21,6 +21,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 	}
 
 	ngOnInit() {
+
 		this.listSrv.setup({
 			key: ListPageKey.TASK,
 			entitySrv: this.taskSrv,
@@ -28,10 +29,12 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 			initialSortBy: 'name',
 			entityMetadata: ERM.TASK
 		});
-	}
-
-	ngAfterViewInit() {
-		this.listSrv.addFilter({ type: FilterType.DONE, value: false });
+		// we don't want done at the startup
+		// this.listSrv.dataSrv.loadData();
+		this.listSrv.addFilter({
+			type: FilterType.DONE,
+			value: false
+		});
 	}
 
 	toggleMyTasks(show: boolean) {

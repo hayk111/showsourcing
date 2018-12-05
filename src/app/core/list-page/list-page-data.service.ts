@@ -69,7 +69,7 @@ export class ListPageDataService
 	}
 
 	/** init: helper method to set everything up at once */
-	init() {
+	loadData() {
 		if (this.initialized) {
 			return;
 		}
@@ -81,7 +81,7 @@ export class ListPageDataService
 	/** subscribe to items and get the list result */
 	setItems() {
 		this.listResult = this.entitySrv.getListQuery({
-			query: this.initialPredicate,
+			query: this.getPredicate(),
 			sortBy: this.initialSortBy,
 			descending: false
 		});
@@ -115,13 +115,16 @@ export class ListPageDataService
 
 	/** On any of the predicate change we should call this to refetch */
 	onPredicateChange() {
-		const allFilters = [
+		const allFilters = this.getPredicate();
+		return this.refetch({ query: allFilters });
+	}
+
+	private getPredicate() {
+		return [
 			this.initialPredicate,
 			this.currentSearch,
 			this.filterList.asPredicate()
 		].filter(p => !!p).join(' AND ');
-
-		return this.refetch({ query: allFilters });
 	}
 
 	/**

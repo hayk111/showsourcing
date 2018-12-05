@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { first, map, takeUntil, tap } from 'rxjs/operators';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService, ProductStatusTypeService, ProjectService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
@@ -13,10 +11,8 @@ import { ERM, Product, ProductStatus, Project } from '~models';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
-import { ListPageService, ListPageKey } from '~core/list-page';
 
 @Component({
 	selector: 'project-workflow-app',
