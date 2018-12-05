@@ -5,7 +5,7 @@ export enum ListPageKey {
 	CATEGORY, // done
 	EVENT, // done
 	FIND_PRODUCT, // done
-	INVITATION,
+	INVITATION, // done
 	MY_TASK, // done Michael
 	PRODUCTS, // done
 	PRODUCT_SAMPLE, // done Michael
@@ -16,12 +16,12 @@ export enum ListPageKey {
 	QUOTE, // done
 	REVIEWPAGE, // DONE
 	SAMPLE, // done Michael
-	SHOW,
+	SHOW, // done
 	SUPPLIER, // done
 	SUPPLIER_PRODUCT, // done Michael
 	SUPPLIER_SAMPLE, // done Michael
 	SUPPLIER_TASK, // done Michael
 	TAG, // done
 	TASK, // done Michael
-	TEAM_USER,
+	TEAM_USER, // done
 }

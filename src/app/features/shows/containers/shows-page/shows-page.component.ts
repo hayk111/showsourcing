@@ -1,28 +1,18 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ShowService, UserService } from '~entity-services';
-import { SelectParams } from '~entity-services/_global/select-params';
-import { of } from 'rxjs';
-import { Show, ERM_TOKEN, ERM } from '~models';
-import { Router } from '@angular/router';
-import { ShowFeatureService } from '~features/shows/services/show-feature.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { TrackingComponent } from '~utils/tracking-component';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { ListPageService } from '~core/list-page';
+import { ShowFeatureService } from '~features/shows/services/show-feature.service';
+import { Show } from '~models';
+import { TrackingComponent } from '~utils/tracking-component';
+
 @Component({
 	selector: 'shows-page-app',
 	templateUrl: './shows-page.component.html',
 	styleUrls: ['./shows-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
 export class ShowsPageComponent extends TrackingComponent implements OnInit {
@@ -35,12 +25,8 @@ export class ShowsPageComponent extends TrackingComponent implements OnInit {
 		myShows: false
 	};
 	constructor(
-		public router: Router,
-		public featureSrv: ShowFeatureService,
-		public userSrv: UserService,
-		public viewSrv: ListPageViewService<Show>,
-		public dataSrv: ListPageDataService<Show, ShowFeatureService>,
-		public selectionSrv: SelectionWithFavoriteService,
+		private featureSrv: ShowFeatureService,
+		public listSrv: ListPageService<Show, ShowFeatureService>,
 		public commonDlgSrv: CommonDialogService
 	) {
 		super();

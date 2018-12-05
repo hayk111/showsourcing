@@ -10,16 +10,14 @@ import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { TrackingComponent } from '~utils/tracking-component';
 import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { ListPageService, ListPageKey } from '~core/list-page';
 
 @Component({
 	selector: 'settings-team-members-invitations-app',
 	templateUrl: './settings-team-members-invitations.component.html',
 	styleUrls: ['./settings-team-members-invitations.component.scss'],
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
 export class SettingsTeamMembersInvitationsComponent extends TrackingComponent implements OnInit {
@@ -27,27 +25,21 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 	initialPredicate = '';
 
 	constructor(
-		public router: Router,
-		public userService: UserService,
-		public teamService: TeamService,
-		public moduleRef: NgModuleRef<any>,
-		public featureSrv: InvitationFeatureService,
-		public viewSrv: ListPageViewService<Invitation>,
-		public dataSrv: ListPageDataService<Invitation, InvitationFeatureService>,
-		public selectionSrv: SelectionWithFavoriteService,
+		private featureSrv: InvitationFeatureService,
+		public listSrv: ListPageService<any, InvitationFeatureService>,
 		public commonDlgSrv: CommonDialogService,
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
-			searchedFields: ['name'],
-			initialSortBy: 'email'
+		this.listSrv.setup({
+			key: ListPageKey.INVITATION,
+			entitySrv: this.featureSrv,
+			searchedFields: ['email'],
+			initialSortBy: 'email',
+			entityMetadata: ERM.TEAM_USER
 		});
-		this.dataSrv.init();
-		this.viewSrv.setup(ERM.TEAM_USER);
 		/* this.selected$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(selected => {
@@ -61,20 +53,11 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 			this.user = user;
 			this.teamOwner = true;
 		}); */
-
-		this.dataSrv.sort({ sortBy: 'email' });
-	}
-
-	search(str: string) {
-		this.dataSrv.currentSearch = `email CONTAINS[c] "${str}"`;
-		this.dataSrv.onPredicateChange();
 	}
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		const callback = () => {
-			this.dataSrv.refetch();
-		};
+		const callback = () => this.listSrv.refetch();
 		this.commonDlgSrv.openInvitationDialog({ callback });
 	}
 
