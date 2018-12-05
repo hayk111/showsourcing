@@ -11,7 +11,7 @@ export enum ListPageKey {
 	PRODUCT_SAMPLE, // done Michael
 	PRODUCT_TASK, // done Michael
 	PROJECTS, // done
-	PROJECTS_PRODUCT,
+	PROJECTS_PRODUCT, // done
 	PROJECT_WORKFLOW,
 	QUOTE, // done
 	REVIEWPAGE, // DONE
