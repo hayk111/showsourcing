@@ -36,10 +36,10 @@ export class ItemCompareColumnComponent extends TrackingComponent
 	}
 
 	getPriceMatrixRowByLabel(_label: string) {
-		const label = _label.toLowerCase();
+		const label = String(_label).toLowerCase();
+		const priceMatrix = this.quote.priceMatrix.rows.find(x => String(x.label).toLowerCase() === label);
 		return (
-			this.quote.priceMatrix.rows.find(x => x.label.toLowerCase() === label)
-				.price || '-'
+			(priceMatrix && priceMatrix.price.value) || '-'
 		);
 	}
 }

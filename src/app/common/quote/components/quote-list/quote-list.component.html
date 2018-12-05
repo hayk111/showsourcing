@@ -2,22 +2,24 @@
 <card-app>
 	<h1 class="title">Quotations</h1>
 	<list-app *ngIf="quotes?.length; else emptyQuotes" infiniScroll (bottomReached)="bottomReached.emit()">
-		<list-item-app *ngFor="let quote of quotes; index as i; first as first; last as last; trackBy: trackById"
+		<div *ngFor="let quote of quotes; index as i; first as first; last as last; trackBy: trackById"
 			[ngClass]="{'hovered': hoverIndex === i}" class="flex quote-container"
 			(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 			<checkbox-app
+				class="checkbox"
 				[hidden]="!(selection?.has(quote.id) || hoverIndex === i)"
 				[checked]="(listSrv.selection$ | async)?.has(quote.id)"
 				(check)="listSrv.selectOne(quote, false)"
 				(uncheck)="listSrv.unselectOne(quote, false)">
 			</checkbox-app>
 			<quote-row-app
+				class="row"
 				[ngClass]="{'border-top': first, 'no-border': last}"
 				[quote]="quote"
 				(openSupplier)="openSupplier($event)"
 				(previewClicked)="previewClicked.emit(quote)">
 			</quote-row-app>
-		</list-item-app>
+		</div>
 	</list-app>
 
 	<ng-template #emptyQuotes>
@@ -34,7 +36,7 @@
 	</ng-template>
 
 	<card-footer-app>
-		<button (click)="openCompareQuotationDialog.emit()" *ngIf="(listSrv.selection$ | async)?.size > 1" class="footer-button">
+		<button (click)="openCompareQuotationDialog.emit(listSrv.selectionSrv.getSelectionValues())" *ngIf="(listSrv.selection$ | async)?.size > 1" class="footer-button">
 			Compare selected quotations
 		</button>
 		<button (click)="openRfq.emit()" class="footer-button">
