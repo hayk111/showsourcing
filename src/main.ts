@@ -6,6 +6,7 @@ import { AppRootModule } from './app/app-root/app-root.module';
 import { environment } from 'environments/environment';
 
 log.info('%c 🐱‍🚀 App init ', LogColor.METADATA);
+console.log(`%c 🎱 App version: ${environment.version}`, 'color: salmon');
 
 if (environment.production) {
 	enableProdMode();
