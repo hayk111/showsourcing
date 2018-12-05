@@ -43,10 +43,11 @@ divider-app {
 }
 
 view-switcher-app {
+	margin-left: var(--spacing-l);
  	margin-right: var(--spacing-m);
 }
 
-button {
+button.create {
 	margin-left: var(--spacing-m);
 }
 

@@ -6,6 +6,15 @@
 	(showFilters)="viewSrv.openFilterPanel()"
 	(search)="dataSrv.search($event)"
 	(viewChange)="viewSrv.changeView($event)">
+	<sub-panel-left-item-app>
+		<div class="flex show-my-samples">
+			<checkbox-app
+				(check)="toggleMySamples(true)"
+				(uncheck)="toggleMySamples(false)">
+			</checkbox-app>
+			<span class="ellipsis">Show my samples only</span>
+		</div>
+	</sub-panel-left-item-app>
 </sub-panel-app>
 
 <sample-list-view-app
