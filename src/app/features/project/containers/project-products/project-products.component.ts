@@ -61,7 +61,6 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 			initialPredicate: `projects.id == "${id}" AND deleted == false`
 		});
 		this.dataSrv.init();
-
 	}
 
 	/**

@@ -13,6 +13,7 @@ export enum ListPageKey {
 	PROJECTS, // done
 	PROJECTS_PRODUCT,
 	PROJECT_WORKFLOW,
+	QUOTE, // done
 	REVIEWPAGE,
 	SAMPLE, // done Michael
 	SHOW,
