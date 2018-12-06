@@ -11,11 +11,7 @@ import {
 } from '~common/dialog/component';
 import { ProductDialogService } from '~common/dialog/services';
 import { CrudDialogService } from '~common/dialog/services/crud-dialog.service';
-import { CarouselModule } from '~shared/carousel';
-import { DialogModule } from '~shared/dialog';
-import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
-import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 
 import { ItemCompareColumnComponent } from './component/compare-quotation/item-comapre-column/item-comapre-column.component';
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';

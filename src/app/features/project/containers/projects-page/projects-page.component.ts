@@ -16,6 +16,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class ProjectsPageComponent extends TrackingComponent implements OnInit {
 	filterTypes = [FilterType.CREATED_BY];
+	erm = ERM.PROJECT;
 
 	constructor(
 		private projectSrv: ProjectService,

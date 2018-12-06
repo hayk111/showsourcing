@@ -4,7 +4,7 @@ import { CommonDialogService } from '~common/dialog/services/common-dialog.servi
 import { AbstractTaskCommonComponent } from '~common/task';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
-import { Task } from '~models';
+import { Task, ERM } from '~models';
 
 @Component({
 	selector: 'product-tasks-app',
@@ -18,6 +18,9 @@ import { Task } from '~models';
 
 export class ProductTasksComponent extends AbstractTaskCommonComponent
 	implements OnInit {
+
+	erm = ERM.TASK;
+
 	constructor(
 		private route: ActivatedRoute,
 		protected userSrv: UserService,

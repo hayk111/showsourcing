@@ -6,7 +6,7 @@
 		buttonName="Add {{ listSrv.entityMetadata.singular }}"
 		[subtitles]="['Products', 'all']"
 		[center]="false"
-		(buttonClick)="commonDlgSrv.openCreateDlg(true)">
+		(buttonClick)="commonDlgSrv.openCreateDlg(erm, true)">
 	</top-panel-app>
 
 	<sub-panel-app
@@ -82,7 +82,7 @@
 			(liked)="listSrv.onMultipleThumbUp($event)"
 			(disliked)="listSrv.onMultipleThumbDown($event)">
 
-			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog()">
+			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog(listSrv.selection)">
 				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
 			</button>
 			<context-menu-app>
@@ -91,13 +91,13 @@
 						<icon-app name="dots-vertical" size="m"></icon-app>
 					</button>
 				</context-menu-trigger-app>
-				<context-menu-item-app (click)="commonDlgSrv.openExportDialog()">
+				<context-menu-item-app (click)="commonDlgSrv.openExportDialog(listSrv.selection)">
 					Export
 				</context-menu-item-app>
-				<context-menu-item-app (click)="commonDlgSrv.openRequestFeedbackDialog()">
+				<context-menu-item-app (click)="commonDlgSrv.openRequestFeedbackDialog(listSrv.selection)">
 					Request For Team Feedback
 				</context-menu-item-app>
-				<context-menu-item-app (click)="commonDlgSrv.openCompareQuotationDialog()">
+				<context-menu-item-app (click)="commonDlgSrv.openCompareQuotationDialog(listSrv.selection)">
 					Compare Quotation
 				</context-menu-item-app>
 			</context-menu-app>

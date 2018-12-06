@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { Invitation } from '~models';
-
-import { InvitationService, UserService } from '~entity-services';
-import { Apollo } from 'apollo-angular';
 import { ApolloStateService } from '~core/apollo';
+import { InvitationService, UserService } from '~entity-services';
+import { Invitation } from '~models';
 
 @Injectable()
 export class InvitationFeatureService extends InvitationService {
@@ -25,7 +23,7 @@ export class InvitationFeatureService extends InvitationService {
 		return this.getInviter().pipe(
 			switchMap(inviter => {
 				return this.invitationSrv.create(new Invitation({
-					email, inviter: { id: inviter.id }, accessType: 'FullAccess'
+					email, inviter: { id: inviter.id }, accessType: 'TeamMember'
 				}));
 			})
 		);

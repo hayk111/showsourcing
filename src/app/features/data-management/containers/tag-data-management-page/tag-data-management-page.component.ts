@@ -15,6 +15,7 @@ import { ERM, Tag } from '~models';
 	]
 })
 export class TagDataManagementPageComponent implements OnInit {
+	erm = ERM.TAG;
 
 	constructor(
 		private tagSrv: TagService,
@@ -30,7 +31,7 @@ export class TagDataManagementPageComponent implements OnInit {
 			entitySrv: this.tagSrv,
 			searchedFields: ['name'],
 			initialSortBy: 'name',
-			entityMetadata: ERM.TAG
+			entityMetadata: this.erm
 		});
 	}
 

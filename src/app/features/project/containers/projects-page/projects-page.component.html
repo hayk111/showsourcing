@@ -4,7 +4,7 @@
     title="My Projects"
     [subtitles]="['Projects', 'all']"
     buttonName="Add Project"
-    (buttonClick)="commonDlgSrv.openCreateDlg(true)">
+    (buttonClick)="commonDlgSrv.openCreateDlg(erm, true)">
   </top-panel-app>
 
   <sub-panel-app
@@ -15,6 +15,7 @@
     (search)="listSrv.search($event)"
     (showFilters)="listSrv.openFilterPanel()" >
   </sub-panel-app>
+
   <projects-list-view-app
     (select)="listSrv.selectOne($event, true)"
     (unselect)="listSrv.unselectOne($event, true)"
