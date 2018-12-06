@@ -47,5 +47,4 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 	onMultipleStatusUpdated(selection, status) {
 
 	}
-
 }
