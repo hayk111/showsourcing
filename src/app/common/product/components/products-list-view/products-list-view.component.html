@@ -42,22 +42,13 @@ I added comment above each column to make it clearer -->
 <ng-template #main let-row="row">
 	<div class="mainCellWrapper ellipsis">
 		<div class="mainCell">
-			<div class="imgCtnr"
-				(mouseenter)="onTogglePreview(overview, true)"
-				(mouseleave)="onTogglePreview(overview, false)">
+			<div class="imgCtnr">
 				<img *ngIf="row.images?.length > 0" class="mini" [src]="row | image:'s'"/>
 			</div>
 			<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name || 'Unnamed' }}</a>
 		</div>
 		<div class="preview">
 			<button class="secondary-dark" (click)="previewClick.emit(row)">Preview</button>
-		</div>
-	</div>
-	<div class="imgOverViewCtnrWrapper" #overview
-		(mouseenter)="onTogglePreview(overview, true)"
-		(mouseleave)="onTogglePreview(overview, false)">
-		<div class="imgOverViewCtnr">
-			<img *ngIf="row.images?.length > 0" [src]="row | image:'m'"/>
 		</div>
 	</div>
 </ng-template>
