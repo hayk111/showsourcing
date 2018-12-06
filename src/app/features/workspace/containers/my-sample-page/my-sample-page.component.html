@@ -1,66 +1,87 @@
-<sub-panel-app
-	[hasSwitch]="true"
-	[hasFilter]="true"
-	[buttonIcon]="false"
-	[filtersAmount]="listSrv.filterList.asFilters()?.length"
-	(showFilters)="listSrv.openFilterPanel()"
-	(search)="listSrv.search($event)"
-	(viewChange)="listSrv.changeView($event)">
-	<sub-panel-left-item-app>
-		<div class="flex show-my-samples">
-			<checkbox-app
-				(check)="toggleMySamples(true)"
-				(uncheck)="toggleMySamples(false)">
-			</checkbox-app>
-			<span class="ellipsis">Show my samples only</span>
+<ng-container *ngIf="listSrv.items$ | async as samples; else spinner">
+	<sub-panel-app
+		[hasSwitch]="true"
+		[hasFilter]="true"
+		[buttonIcon]="false"
+		[filtersAmount]="listSrv.filterList.asFilters()?.length"
+		(showFilters)="listSrv.openFilterPanel()"
+		(search)="listSrv.search($event)"
+		(viewChange)="listSrv.changeView($event)">
+		<sub-panel-left-item-app>
+			<div class="flex show-my-samples">
+				<checkbox-app
+					(check)="toggleMySamples(true)"
+					(uncheck)="toggleMySamples(false)">
+				</checkbox-app>
+				<span class="ellipsis">Show my samples only</span>
+			</div>
+		</sub-panel-left-item-app>
+	</sub-panel-app>
+
+	<sample-list-view-app
+		*ngIf="listSrv.view === 'list'"
+		[selection]="listSrv.selection$ | async"
+		[rows]="samples"
+		(previewClick)="listSrv.openPreview($event)"
+		(select)="listSrv.selectOne($event)"
+		(unselect)="listSrv.unselectOne($event)"
+		(selectAll)="listSrv.selectAll($event)"
+		(unselectAll)="listSrv.unselectAll()"
+		(bottomReached)="listSrv.loadMore()"
+		(sort)="listSrv.sort($event)"
+		(delete)="listSrv.deleteOne($event)">
+
+	</sample-list-view-app>
+
+	<sample-board-view-app
+		*ngIf="listSrv.view === 'card'"
+		[columns]="columns$ | async"
+		[selection]="listSrv.selection$ | async"
+		(select)="listSrv.selectOne($event)"
+		(unselect)="listSrv.unselectOne($event)"
+		(updateStatusSample)="updateStatusSample($event)"
+		(updateStatusSamples)="updateStatusSamples($event)">
+	</sample-board-view-app>
+
+	<selection-bar-app
+		[isShown]="(listSrv.selection$ | async)?.size > 0"
+		[selection]="listSrv.selection$ | async"
+		(close)="listSrv.unselectAll()">
+		<div class="flex">
+			<button class="flexCenter change-status">
+				<icon-app name="Status"></icon-app>
+				<span>Change Status</span>
+				<status-selector-app
+					#workActionMenu
+					selectSize="s"
+					[typeEntity]="erm.SAMPLE"
+					[isSendToWorkFlow]="true"
+					[internalUpdate]="false"
+					(statusUpdated)="onMultipleStatusUpdated(listSrv.getSelectedValues() , $event)">
+				</status-selector-app>
+			</button>
+
+			<button class="icon light" (click)="listSrv.deleteSelected()">
+				<icon-app class="trash-bin" name="trash-bin"></icon-app>
+			</button>
 		</div>
-	</sub-panel-left-item-app>
-</sub-panel-app>
+	</selection-bar-app>
 
-<sample-list-view-app
-	*ngIf="listSrv.view === 'list'">
+	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="listSrv.closeFilterPanel()">
+	</filters-app>
 
-</sample-list-view-app>
+	<preview-sample-app
+		*ngIf="listSrv.previewOpen"
+		[sample]="listSrv.previewed"
+		(close)="listSrv.closePreview()"
+		(clickOutside)="listSrv.closePreview()">
+	</preview-sample-app>
+</ng-container>
 
-<sample-board-view-app
-	*ngIf="listSrv.view === 'card'">
-
-</sample-board-view-app>
-
-<selection-bar-app
-	[isShown]="(listSrv.selection$ | async)?.size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-	<div class="flex">
-		<button class="flexCenter change-status">
-			<icon-app name="Status"></icon-app>
-			<span>Change Status</span>
-			<status-selector-app
-				#workActionMenu
-				selectSize="s"
-				[typeEntity]="erm.SAMPLE"
-				[isSendToWorkFlow]="true"
-				[internalUpdate]="false"
-				(statusUpdated)="onMultipleStatusUpdated(listSrv.selection , $event)">
-			</status-selector-app>
-		</button>
-
-		<button class="icon light" (click)="listSrv.deleteSelected()">
-			<icon-app class="trash-bin" name="trash-bin"></icon-app>
-		</button>
-	</div>
-</selection-bar-app>
-
-<filters-app
-	*ngIf="listSrv.filterPanelOpen"
-	[filterList]="listSrv.filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()">
-</filters-app>
-
-<preview-sample-app
-	*ngIf="listSrv.previewOpen"
-	[sample]="listSrv.previewed"
-	(close)="listSrv.closePreview()"
-	(clickOutside)="listSrv.closePreview()">
-</preview-sample-app>
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>

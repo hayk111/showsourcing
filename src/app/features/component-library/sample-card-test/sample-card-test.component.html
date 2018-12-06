@@ -11,8 +11,8 @@
 <ng-template #card let-data="data">
 	<sample-card-app
 		[sample]="data"
-		[checked]="(selectionSrv.selection$ | async).has(data.id)"
-		(select)="selectionSrv.selectOne($event)"
-		(unselect)="selectionSrv.unselectOne($event)">
+		[checked]="(listSrv.selection$ | async).has(data.id)"
+		(select)="listSrv.selectOne($event)"
+		(unselect)="listSrv.unselectOne($event)">
 	</sample-card-app>
 </ng-template>

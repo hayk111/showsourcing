@@ -14,12 +14,17 @@ export class KanbanComponent extends TrackingComponent {
 	/** template for the displayed item */
 	@Input() cardTemplate: any;
 	@Input() selection: Map<string, any>;
+	@Input() set width(width: string) {
+		this._width = width + 'px';
+	}
 	@Output() drop = new EventEmitter<KanbanDropEvent>();
 	@Output() multipleDrop = new EventEmitter<{ to: any, items: any[] }>();
 	/** when the top checkbox is checked */
 	@Output() selectColumn = new EventEmitter<any[]>();
 	@Output() unselectColumn = new EventEmitter<any[]>();
 
+
+	_width = 'inherit';
 
 	get ids() {
 		return this.cols.map(col => col.id);
