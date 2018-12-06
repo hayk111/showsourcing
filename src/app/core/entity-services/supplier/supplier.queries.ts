@@ -5,7 +5,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly supplierType = `supplierType { id, name }`;
 	static readonly logoImage = `logoImage { fileName, urls { url } }`;
 	static readonly createdBy = `createdBy { id, lastName, firstName, avatar { id, fileName } }`;
-	static readonly status = `status { id, cancelled, status {id, name, category, step, inWorkflow } }`;
+	static readonly status = `status { id, name, category, step, inWorkflow }`;
 	static readonly statusHistory = `statusHistory { id, cancelled, status { id, name, category, step, inWorkflow } }`;
 	static readonly categories = `categories { id, name }`;
 	static readonly tags = ` tags { id, name }`;

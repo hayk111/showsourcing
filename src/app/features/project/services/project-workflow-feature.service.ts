@@ -18,7 +18,6 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		protected apolloState: ApolloStateService,
 		protected productSrv: ProductService,
 		protected productStatusSrv: ProductStatusService,
-		protected productStatusService: ProductStatus,
 		protected userSrv: UserService
 	) {
 		super(apolloState, userSrv);

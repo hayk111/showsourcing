@@ -12,11 +12,11 @@ export class StatusSelectorService {
 
 	// if we dont want to see all at once and use a scroll for this, instead of query all
 	// we need queryList, so we can refetch. And the workflow.html need infiniteScroll
-	productStatuses$: Observable<ProductStatus[]> = this.ermSrv.getStatusService(ERM.PRODUCT)
+	productStatuses$: Observable<ProductStatus[]> = this.ermSrv.getStatusService(ERM.PRODUCT_STATUS)
 		.queryAll('name, category, step, inWorkflow', { sortBy: 'step' }).pipe(
 			shareReplay(1)
 		);
-	supplierStatuses$: Observable<SupplierStatus[]> = this.ermSrv.getStatusService(ERM.SUPPLIER)
+	supplierStatuses$: Observable<SupplierStatus[]> = this.ermSrv.getStatusService(ERM.SUPPLIER_STATUS)
 		.queryAll('name, category, step, inWorkflow', { sortBy: 'step' }).pipe(
 			shareReplay(1)
 		);

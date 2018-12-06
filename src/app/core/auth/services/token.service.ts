@@ -79,10 +79,10 @@ export class TokenService {
 	getRefreshToken(credentials: Credentials, name = 'auth')
 		: Observable<TokenState> {
 		const refObj = this.getRefreshTokenObject(credentials, 'password');
-		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObj).pipe(
+		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, refObj).pipe(
 			// if there is an error with the new auth mech, we have to try the legacy one
 			catchError(e => of(this.getRefreshTokenObject(credentials, 'legacy')).pipe(
-				switchMap(refObjLeg => this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refObjLeg))
+				switchMap(refObjLeg => this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, refObjLeg))
 			)),
 			map((refreshTokenResp: RefreshTokenResponse) => refreshTokenResp.refresh_token),
 			tap((refreshToken: TokenState) => this.storeRefreshToken(name, refreshToken)),
@@ -156,7 +156,7 @@ export class TokenService {
 			data: refreshToken.token,
 			path: realmPath
 		};
-		return this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj).pipe(
+		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj).pipe(
 			tap(accessTokenResp => {
 				// this is a quickfix since the old user token now its called access
 				if (accessTokenResp.user_token) accessTokenResp.access_token = accessTokenResp.user_token;
@@ -207,7 +207,7 @@ export class TokenService {
 			provider: 'realm',
 			data: refreshToken.token,
 		};
-		return this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj).pipe(
+		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj).pipe(
 			map(accessToken => !!accessToken),
 			catchError(err => of(false))
 		).toPromise();
