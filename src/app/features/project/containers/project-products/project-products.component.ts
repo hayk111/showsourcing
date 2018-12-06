@@ -123,7 +123,6 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 					this.commonDlgSrv.openFindProductDlg(
 						products,
 						this.associatedProductsWithProject.bind(this),
-
 					);
 				});
 		}
