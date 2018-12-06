@@ -38,7 +38,7 @@ export class ListPageDataService
 	/** property we sort by on first query */
 	private initialSortBy = 'creationDate';
 	/** currently used sort */
-	private currentSort: Sort;
+	currentSort: Sort = { sortBy: this.initialSortBy, descending: true };
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
 		// initial filters
@@ -83,7 +83,7 @@ export class ListPageDataService
 		this.listResult = this.entitySrv.getListQuery({
 			query: this.getPredicate(),
 			sortBy: this.initialSortBy,
-			descending: false
+			descending: true
 		});
 
 		this.items$ = this.listResult.items$.pipe(

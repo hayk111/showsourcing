@@ -104,6 +104,10 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 		return this.dataSrv.filterList;
 	}
 
+	get currentSort() {
+		return this.dataSrv.currentSort;
+	}
+
 	refetch(config?: SelectParamsConfig) {
 		this.dataSrv.refetch(config);
 	}
