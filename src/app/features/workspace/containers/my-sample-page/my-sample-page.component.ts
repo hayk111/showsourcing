@@ -4,7 +4,7 @@ import { CommonDialogService } from '~common/dialog';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { SampleService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { Sample } from '~core/models';
+import { Sample, ERM } from '~core/models';
 import { FilterType } from '~shared/filters';
 
 @Component({
@@ -22,6 +22,8 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		FilterType.SUPPLIER,
 		FilterType.PRODUCT
 	];
+
+	erm = ERM;
 
 	constructor(
 		protected router: Router,
@@ -41,4 +43,9 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		else
 			this.listSrv.removeFilter(filterAssignee);
 	}
+
+	onMultipleStatusUpdated(selection, status) {
+
+	}
+
 }
