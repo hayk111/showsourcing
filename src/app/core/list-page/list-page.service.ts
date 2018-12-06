@@ -46,9 +46,8 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	constructor(
 		private commonDlgSrv: CommonDialogService,
 		private router: Router,
-		private thumbSrv: ThumbService,
-	) {
-	}
+		private thumbSrv: ThumbService
+	) { }
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.initServices(config.key);
@@ -307,5 +306,6 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	getSelectedValues() {
 		return this.selectionSrv.getSelectionValues();
 	}
+
 
 }
