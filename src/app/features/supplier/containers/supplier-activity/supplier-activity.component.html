@@ -34,7 +34,7 @@
 
 		<!-- contacts -->
 		<supplier-contact-card-app
-			[contacts]="supplier.contacts"
+			[contacts]="contacts$ | async"
 			(newContact)="openContactDlg()"
 			(openContact)="openContactDlg($event)"
 			(deleteContact)="deleteContact($event)">

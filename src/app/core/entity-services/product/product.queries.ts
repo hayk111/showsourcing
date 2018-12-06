@@ -18,12 +18,11 @@ export abstract class ProductQueries extends GlobalQueries {
 		categories { id, name }
 		images { id, urls { url }, imageType }
 	}`;
-	static readonly contacts = `supplier { contacts { id, name, email, jobTitle } }`;
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly category = `category { id, name }`;
 	static readonly projects = `projects { id, name, description }`;
 	static readonly event = ` event { id, name, description { id logoImage { id, urls { url } } } }`;
-	static readonly status = `status { id, cancelled, status {id, name, category, step, inWorkflow } }`;
+	static readonly status = `status { id, name, category, step, inWorkflow }`;
 	static readonly tags = `tags { id, name }`;
 	// uncomment and replace when the Image.creationDate bug is fixed on votes, avatar { id, fileName, imageType, creationDate }
 	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
@@ -80,7 +79,6 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.createdBy},
 			${ProductQueries.images},
 			${ProductQueries.supplier},
-			${ProductQueries.contacts},
 			${ProductQueries.category},
 			${ProductQueries.price()},
 			${ProductQueries.status},

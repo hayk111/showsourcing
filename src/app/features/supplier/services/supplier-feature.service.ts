@@ -36,6 +36,12 @@ export class SupplierFeatureService extends SupplierService {
 		);
 	}
 
+	getContacts(supplierId) {
+		return this.contactSrv.queryMany({
+			query: `supplier.id == "${supplierId}" && deleted == false`
+		});
+	}
+
 	createContact(contact: Contact): Observable<Contact> {
 		return this.contactSrv.create(contact);
 	}

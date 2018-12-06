@@ -1,14 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
-import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ProductService, ProductStatusTypeService } from '~entity-services';
-import { ERM, Product, ProductStatusType, Price } from '~models';
-import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dialog';
-import { DialogService } from '~shared/dialog/services';
-import { CustomField } from '~shared/dynamic-forms';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Price, Product } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -17,7 +8,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./price-with-quantity.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PriceWithQuantityComponent extends TrackingComponent implements OnInit {
+export class PriceWithQuantityComponent extends TrackingComponent {
 
 	@Input() product: Product;
 
@@ -26,10 +17,6 @@ export class PriceWithQuantityComponent extends TrackingComponent implements OnI
 
 	constructor() {
 		super();
-	}
-
-	ngOnInit(){
-
 	}
 
 	updateProductPrice(isCancel: boolean, newValue: Price, field = 'price') {

@@ -13,6 +13,8 @@ import { Contact } from '~models/contact.model';
 import { Invitation } from '~models/invitation.model';
 import { InjectionToken } from '@angular/core';
 import { Sample } from './sample.model';
+import { SupplierStatus } from './supplier-status.model';
+import { ProductStatus } from './product-status.model';
 
 
 export class EntityMetadata {
@@ -53,7 +55,7 @@ export class ERM {
 	static readonly MEMBER = new EntityMetadata('member', 'members');
 	static readonly LOCATION = new EntityMetadata('location', 'locations');
 	static readonly PRODUCT = new EntityMetadata('product', 'products', Product);
-	static readonly PRODUCT_STATUS_TYPE = new EntityMetadata('product status type', 'product status type', Product, 'product-status-type');
+	static readonly PRODUCT_STATUS = new EntityMetadata('product status', 'product status', ProductStatus, 'product-status');
 	static readonly PRODUCT_VOTE = new EntityMetadata('product vote', 'product votes', Product, 'product-vote');
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
@@ -63,11 +65,11 @@ export class ERM {
 	static readonly SAMPLE = new EntityMetadata('sample', 'samples', Sample);
 	static readonly SAMPLE_STATUS = new EntityMetadata('sample status', 'samples status', Sample, 'sample-status');
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
-	static readonly SUPPLIER_STATUS_TYPE = new EntityMetadata(
-		'supplier status type',
-		'supplier status type',
-		Supplier,
-		'supplier-status-type');
+	static readonly SUPPLIER_STATUS = new EntityMetadata(
+		'supplier status',
+		'supplier status',
+		SupplierStatus,
+		'supplier-status');
 	static readonly SUPPLIER_TYPE = new EntityMetadata('supplier type', 'supplier types', Supplier, 'supplier-type');
 	static readonly SUPPLIER_TAG = new EntityMetadata('supplier tag', 'supplier tags', Tag, 'supplier-tag');
 	static readonly TAG = new EntityMetadata('tag', 'tags', Tag);

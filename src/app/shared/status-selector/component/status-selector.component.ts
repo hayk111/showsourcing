@@ -1,6 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	QueryList,
+	ViewChildren,
+} from '@angular/core';
 import { Observable } from 'rxjs';
-import { EntityMetadata, ProductStatus, ProductStatusType, SupplierStatus, SampleStatus, ERM } from '~models';
+import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { AutoUnsub } from '~utils';
 
@@ -26,7 +35,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Output() statusUpdated = new EventEmitter<any>();
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	/** string[] since tasks does not have a status entity */
-	status$: Observable<ProductStatusType[] | SupplierStatus[] | SampleStatus[]>;
+	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
 	erm = ERM;
 
 	constructor(
@@ -38,11 +47,12 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.status$ = this.statusSlctSrv.getTableStatus(this.typeEntity);
 	}
+
 	updateStatus(status) {
-		if (status.id !== this.entity.status.status.id) { // we dont update if we click the same
-			const tempS = new ProductStatus({ status });
+		if (status.id !== this.entity.status.id) {
+			// we dont update if we click the same
 			if (this.internalUpdate) {
-				this.statusSlctSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
+				this.statusSlctSrv.updateStatus({ id: this.entity.id, status: { id: status.id } }, this.typeEntity).subscribe();
 			} else {
 				this.statusUpdated.emit(status);
 			}
@@ -50,9 +60,8 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	setStatus(status) {
-		const tempS = new ProductStatus({ status });
 		if (this.internalUpdate) {
-			this.statusSlctSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
+			this.statusSlctSrv.updateStatus({ id: this.entity.id, status: { id: status.id } }, this.typeEntity).subscribe();
 		} else {
 			this.statusUpdated.emit(status);
 		}

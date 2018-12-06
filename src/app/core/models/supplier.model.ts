@@ -26,7 +26,6 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	generalLeadTime?: number;
 	tags?: Tag[];
 	categories?: Category[];
-	contacts?: Contact[];
 	favorite ?= false;
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
@@ -52,7 +51,6 @@ export interface SupplierConfig {
 	generalLeadTime?: number;
 	tags?: Tag[];
 	categories?: Category[];
-	contacts?: Contact[];
 	favorite?: boolean;
 	status?: SupplierStatus;
 }

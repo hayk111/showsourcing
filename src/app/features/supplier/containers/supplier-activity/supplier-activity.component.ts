@@ -26,6 +26,7 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 	supplier: Supplier;
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
+	contacts$: Observable<Contact[]>;
 	feedResult: ActivityFeed;
 
 	constructor(
@@ -33,7 +34,7 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		private featureSrv: SupplierFeatureService,
 		private dlgSrv: DialogService,
 		private moduleRef: NgModuleRef<any>,
-		private activitySrv: ActivityService
+		private activitySrv: ActivityService,
 	) {
 		super();
 	}
@@ -55,6 +56,10 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		// getting his products
 		this.products$ = id$.pipe(
 			switchMap(id => this.featureSrv.getProducts(id))
+		);
+
+		this.contacts$ = id$.pipe(
+			switchMap(id => this.featureSrv.getContacts(id))
 		);
 
 		this.feedResult = this.activitySrv.getSupplierFeed(this.route.parent.snapshot.params.id);

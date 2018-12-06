@@ -117,9 +117,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	/** item status update */
 	updateStatus(statusId: string) {
-		const status = new ProductStatus({ status: { id: statusId } });
 		this.featureSrv
-			.update({ id: this.product.id, status })
+			.update({ id: this.product.id, status: { id: statusId } })
 			.subscribe();
 	}
 

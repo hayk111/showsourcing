@@ -32,7 +32,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 
 	constructor(
 		private externalReqSrv: ExternalRequestService,
-		private productSrv: ProductDialogService,
+		private productDlgSrv: ProductDialogService,
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
 		private userSrv: UserService) { super(); }
@@ -49,12 +49,17 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 			email: ['', [Validators.required, Validators.email]]
 		});
 
-		this.productSrv.getContacts(this.product.supplier.id).pipe(
+		this.productDlgSrv.getContacts(this.product.supplier.id).pipe(
 			takeUntil(this._destroy$)
-		).subscribe(supp => {
-			this._contacts = [...supp.contacts];
+		).subscribe(contacts => {
+			this._contacts = contacts;
+			// add supplier as contact
 			if (this.product.supplier.officeEmail)
-				this._contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
+				this._contacts.push({
+					name: this.product.supplier.name || 'Unnamed',
+					email: this.product.supplier.officeEmail,
+					jobTitle: null
+				});
 		});
 
 		this.userEmail = this.userSrv.userSync.email;

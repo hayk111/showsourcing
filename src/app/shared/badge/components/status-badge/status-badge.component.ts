@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { EntityMetadata, ProductStatusType, SampleStatus, SupplierStatusType } from '~models';
+import { EntityMetadata, SampleStatus, SupplierStatus, ProductStatus } from '~models';
 
 @Component({
 	selector: 'status-badge-app',
@@ -10,7 +10,7 @@ import { EntityMetadata, ProductStatusType, SampleStatus, SupplierStatusType } f
 export class StatusBadgeComponent implements OnInit {
 	@Input() size = 's';
 
-	@Input() status: ProductStatusType | SupplierStatusType | SampleStatus;
+	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
 	@Input() round = true;
 
 	// we need to pass this so when the

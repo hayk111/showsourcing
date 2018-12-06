@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { forkJoin, combineLatest, zip, Observable } from 'rxjs';
-import { filter, first, shareReplay, switchMap, switchMapTo, tap, distinctUntilChanged, map, takeUntil, catchError } from 'rxjs/operators';
-import { AuthStatus } from '~core/auth';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { TokenService } from '~core/auth/services/token.service';
-import { UserService } from '~entity-services/user/user.service';
+import { Observable, zip } from 'rxjs';
+import { catchError, first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-
-import { ApolloStateService, ClientStatus } from './apollo-state.service';
-import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { TokenService } from '~core/auth/services/token.service';
+import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
+import { UserService } from '~entity-services/user/user.service';
+
+import { ApolloStateService } from './apollo-state.service';
 
 
 @Injectable({ providedIn: 'root' })
