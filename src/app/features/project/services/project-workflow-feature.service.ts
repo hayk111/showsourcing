@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ProductService, ProductStatusTypeService, UserService } from '~entity-services';
-import { ProductStatusService } from '~entity-services/product-status/product-status.service';
-import { ProductQueries } from '~entity-services/product/product.queries';
-import { Observable } from 'rxjs';
-import { SelectParams } from '~entity-services/_global/select-params';
-import { of, forkJoin } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { Project, Product, ProductStatus, ProductStatusType } from '~models';
-import { Apollo } from 'apollo-angular';
-import { ListQuery } from '~entity-services/_global/list-query.interface';
+import { forkJoin, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
+import { ProductService, UserService } from '~entity-services';
+import { ListQuery } from '~entity-services/_global/list-query.interface';
+import { ProductStatusService } from '~entity-services/product-status/product-status.service';
+import { Product, Project, ProductStatus } from '~models';
 
 
 @Injectable({
@@ -22,7 +18,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		protected apolloState: ApolloStateService,
 		protected productSrv: ProductService,
 		protected productStatusSrv: ProductStatusService,
-		protected productStatusTypeService: ProductStatusTypeService,
+		protected productStatusService: ProductStatus,
 		protected userSrv: UserService
 	) {
 		super(apolloState, userSrv);
@@ -53,68 +49,6 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		}
 	}
 
-	/**
-	 * Returns the product statuses including the associated products.
-	 *
-	 * The status with the category refused is removed since we don't need
-	 * to display it.
-	 *
-	 * A fake status is added with the products with no status since they
-	 * also have to be display in the kanban.
-	 */
-	getStatuses(project: Project, refresh = false) {
-		if (refresh && this.productsResult) {
-			this.productsResult.refetch({
-				query: `projects.id == '${project.id}'`,
-				sortBy: 'lastUpdatedDate'
-			});
-		}
-
-		if (!this.productsResult) {
-			this.productsResult = this.productSrv.getListQuery({ query: `projects.id == '${project.id}'`, sortBy: 'lastUpdatedDate' });
-		}
-		return this.productsResult.items$.pipe(
-			// Filter products to get only products without status
-			map((products: Product[]) => products.filter(product => !product.status)),
-			switchMap(productsWithNoStatus => {
-				return this.productStatusTypeService.queryAll().pipe(
-					// Remove the status with category refused
-					map(statuses => statuses.filter(status => (status.category !== 'refused' && status.category !== 'inspiration'))),
-					// Load products associated with the project
-					switchMap(statuses => {
-						return this.getProjectProducts(project).pipe(
-							map(products => ({ products, statuses }))
-						);
-					}),
-					// Add products to the status
-					map(({ products, statuses }) => statuses.map(status => ({
-						...status,
-						products: this.getProductsWithStatus(status, products)
-					}))),
-					// Add fake status for products without status
-					map((statuses: any[]) => statuses.concat([{
-						id: -1,
-						name: '_NoStatus',
-						step: 0,
-						products: productsWithNoStatus
-					}])),
-					// Sort statuses per step
-					map(statuses => statuses.sort((s1, s2) => (s1.step - s2.step)))
-				);
-			})
-		);
-	}
-
-	/**
-	 * Filter the products list to get only products that have a current status
-	 * and correspond to the provided status.
-	 */
-	getProductsWithStatus(status: ProductStatus, products: Product[]) {
-		return products.filter(product => {
-			const productCurrentStatus = product.status ? product.status : null;
-			return (productCurrentStatus && productCurrentStatus.id === status.id);
-		});
-	}
 
 	/**
 	 * Update the status of the product with the specified one.

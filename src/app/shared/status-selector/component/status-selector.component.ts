@@ -1,6 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	QueryList,
+	ViewChildren,
+} from '@angular/core';
 import { Observable } from 'rxjs';
-import { EntityMetadata, ProductStatus, ProductStatusType, SupplierStatus, SampleStatus, ERM } from '~models';
+import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { AutoUnsub } from '~utils';
 
@@ -26,7 +35,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Output() statusUpdated = new EventEmitter<any>();
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	/** string[] since tasks does not have a status entity */
-	status$: Observable<ProductStatusType[] | SupplierStatus[] | SampleStatus[]>;
+	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
 	erm = ERM;
 
 	constructor(

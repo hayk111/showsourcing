@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Category } from '~features/workspace/models';
-import { ProductStatusTypeService } from '~entity-services';
-import { ERM, Product, ProductStatusType } from '~models';
+import { ProductStatusService } from '~entity-services';
+import { ERM, Product, ProductStatus } from '~models';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { SelectionService } from '~core/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -22,7 +22,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	@Output() archive = new EventEmitter<Product>();
 	@Output() statusUpdated = new EventEmitter<any>();
 
-	firstStatus$: Observable<ProductStatusType>;
+	firstStatus$: Observable<ProductStatus>;
 	groupedProducts: Category[];
 	prodERM = ERM.PRODUCT;
 	noFieldChecked: boolean;
@@ -30,7 +30,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 
 	constructor(
 		private selectionSrv: SelectionService,
-		private prodStatusSrv: ProductStatusTypeService
+		private prodStatusSrv: ProductStatusService
 	) {
 		super();
 	}

@@ -4,10 +4,10 @@ import { combineLatest, Observable } from 'rxjs';
 import { first, map, takeUntil, tap } from 'rxjs/operators';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ProductService, ProductStatusTypeService, ProjectService } from '~entity-services';
+import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
-import { ERM, Product, ProductStatus, Project } from '~models';
+import { ERM, Product, Project } from '~models';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -32,7 +32,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private projectSrv: ProjectService,
 		private productSrv: ProductService,
-		private productStatusSrv: ProductStatusTypeService,
+		private productStatusSrv: ProductStatusService,
 		private workflowService: ProjectWorkflowFeatureService,
 		private notificationSrv: NotificationService,
 		private featureSrv: ProjectWorkflowFeatureService,

@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
-import { Product, ProductStatusType, ERM } from '~models';
-import { ListViewComponent } from '~core/list-page/list-view.component';
-import { TrackingComponent } from '~utils/tracking-component';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
+import { ERM, Product, ProductStatus } from '~models';
 import { AnimatedCardComponent } from '~shared/animated-stack/components/animated-card/animated-card.component';
+import { TrackingComponent } from '~utils/tracking-component';
+
 // import * as Isotope from 'isotope-layout';
 
 @Component({
@@ -15,7 +15,7 @@ export class ProductsReviewCardBodyComponent extends TrackingComponent implement
 
 	@Input() products: Product[];
 	@Input() selection: Map<string, boolean>;
-	@Input() firstStatus: ProductStatusType;
+	@Input() firstStatus: ProductStatus;
 	@Input() index: number;
 	@Output() sendToWorkflow = new EventEmitter<Product>();
 	@Output() previewClick = new EventEmitter<Product>();

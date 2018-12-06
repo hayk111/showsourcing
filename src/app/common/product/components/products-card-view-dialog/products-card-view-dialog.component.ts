@@ -1,11 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DialogService } from '~shared/dialog/services';
-import { AutoUnsub } from '~utils';
-import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
-import { Observable } from 'rxjs';
-import { Product } from '~models';
+import { Component } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
+import { Product } from '~models';
 
 
 @Component({
@@ -15,7 +10,7 @@ import { ListViewComponent } from '~core/list-page/list-view.component';
 })
 export class ProductsCardViewDialogComponent extends ListViewComponent<Product> {
 
-	constructor(private fb: FormBuilder, private dlgSrv: DialogService, private productFeatureService: ProjectWorkflowFeatureService) {
+	constructor() {
 		super();
 	}
 
