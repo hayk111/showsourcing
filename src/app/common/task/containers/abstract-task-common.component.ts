@@ -8,7 +8,7 @@ import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
-export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {
+export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit {
 
 	constructor(
 		protected router: Router,

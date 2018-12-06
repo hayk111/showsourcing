@@ -17,6 +17,7 @@ export enum ListPageKey {
 	QUOTE, // done
 	REVIEWPAGE, // DONE
 	SAMPLE, // done Michael
+	SAMPLE_TEST,
 	SHOW, // done
 	SUPPLIER, // done
 	SUPPLIER_PRODUCT, // done Michael
