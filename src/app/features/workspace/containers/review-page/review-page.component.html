@@ -2,47 +2,47 @@
   [hasSwitch]="false"
   [hasFilter]="false"
   [buttonIcon]="false"
-  (search)="dataSrv.search($event)">
+  (search)="listSrv.search($event)">
 
   <products-review-sorting-menu-app
-    [currentSort]="dataSrv.currentSort"
+    [currentSort]="listSrv.currentSort"
     (sortFromMenu)="sortFromMenu($event)">
   </products-review-sorting-menu-app>
 </sub-panel-app>
 
 <products-review-grid-view-app
   class="card-view"
-  [rows]="dataSrv.items$ | async"
-  [pending]="dataSrv.pending"
-  [currentSort]="dataSrv.currentSort"
-  [selection]="selectionSrv.selection$ | async"
-  (previewClick)="viewSrv.openPreview($event)"
-  (update)="dataSrv.update($event)"
-  (select)="selectionSrv.selectOne($event, true)"
-  (unselect)="selectionSrv.unselectOne($event, true)"
-  (favorited)="dataSrv.onItemFavorited($event)"
-  (unfavorited)="dataSrv.onItemUnfavorited($event)"
+  [rows]="listSrv.items$ | async"
+  [pending]="listSrv.pending"
+  [currentSort]="listSrv.currentSort"
+  [selection]="listSrv.selection$ | async"
+  (previewClick)="listSrv.openPreview($event)"
+  (update)="listSrv.update($event)"
+  (select)="listSrv.selectOne($event, true)"
+  (unselect)="listSrv.unselectOne($event, true)"
+  (favorited)="listSrv.onItemFavorited($event)"
+  (unfavorited)="listSrv.onItemUnfavorited($event)"
   (sendToWorkflow)="onSentToWorkflow($event)"
-  (delete)="deleteUnselectOne($event)"
+  (delete)="listSrv.deleteOne($event)"
   (archive)="onArchive($event)"
   (statusUpdated)="onStatusUpdated($event)"
-  (open)="viewSrv.goToDetails($event)">
+  (open)="listSrv.goToDetails($event)">
 </products-review-grid-view-app>
 
 <selection-bar-app
-  [isShown]="(selectionSrv.selection$ | async).size > 0"
-  [selection]="selectionSrv.selection$ | async"
+  [isShown]="(listSrv.selection$ | async).size > 0"
+  [selection]="listSrv.selection$ | async"
   [hasDelete]="false"
-  (close)="selectionSrv.unselectAll()"
-  (delete)="dataSrv.deleteSelected()">
+  (close)="listSrv.unselectAll()"
+  (delete)="listSrv.deleteSelected()">
 
   <action-bar-app
-    [favorite]="selectionSrv.allSelectedFavorite"
+    [favorite]="listSrv.allSelectedFavorite"
 		[multiple]="true"
-		(onFavorite)="dataSrv.onFavoriteAllSelected()"
-		(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
-		(liked)="dataSrv.onMultipleThumbUp($event)"
-		(disliked)="dataSrv.onMultipleThumbDown($event)">
+		(onFavorite)="listSrv.onFavoriteAllSelected()"
+		(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
+		(liked)="listSrv.onMultipleThumbUp($event)"
+		(disliked)="listSrv.onMultipleThumbDown($event)">
 
     <button class="icon light" (click)="openAddToProjectDialog()">
       <icon-app name="folder-light" fontSet="svg"></icon-app>
@@ -56,21 +56,21 @@
       <context-menu-item-app (click)="openExportDialog()">
         Export
       </context-menu-item-app>
-      <context-menu-item-app (click)="openRequestFeedbackDialog()">
+      <context-menu-item-app (click)="commonDlgSrv.openRequestFeedbackDialog()">
         Request For Team Feedback
       </context-menu-item-app>
     </context-menu-app>
 
-    <button class="icon light" (click)="dataSrv.deleteSelected()">
+    <button class="icon light" (click)="listSrv.deleteSelected()">
       <icon-app name="trash-bin"></icon-app>
     </button>
   </action-bar-app>
 </selection-bar-app>
 
 <product-preview-app
-  *ngIf="viewSrv.previewOpen"
-  [product]="viewSrv.previewed"
-  (close)="viewSrv.closePreview()"
-  (clickOutside)="viewSrv.closePreview()">
+  *ngIf="listSrv.previewOpen"
+  [product]="listSrv.previewed"
+  (close)="listSrv.closePreview()"
+  (clickOutside)="listSrv.closePreview()">
 </product-preview-app>
 

@@ -56,18 +56,18 @@ export class ThumbService {
 	 * updates a vote from the user and return the list of the votes given by a product
 	 * this function is called only when we are updating a single product, and multiselection is involved
 	 * @param product
-	 * @param onHighlight indicates if the thumb is highlighted, since it is the only way to know the future state when multiselecting
+	 * @param isCreated if true the vote is created, if false, removed
 	 */
-	thumbUpFromMulti(product: Product, onHighlight: boolean) {
+	thumbUpFromMulti(product: Product, isCreated: boolean) {
 		const voteIndex = (product.votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
 		let votes = product.votes ? [...product.votes] : [];
 		if (~voteIndex) { // if the user has a vote inside this product
 			const vote = votes[voteIndex];
-			if (vote.value === 0 && onHighlight) // we only update a vote when it is highlighted and the previous value was thumbdown
+			if (vote.value === 0 && isCreated) // we only update a vote when it is highlighted and the previous value was thumbdown
 				this.updateVote(votes, voteIndex, 100);
-			else if (!onHighlight) // if the highlight is off that means we have to delete the vote no matter if its up or down
+			else if (!isCreated) // if the highlight is off that means we have to delete the vote no matter if its up or down
 				votes = this.deleteVote(votes, vote);
-		} else if (onHighlight) // if the user does not have a vote and the highlight is on
+		} else if (isCreated) // if the user does not have a vote and the highlight is on
 			this.createVote(votes, 100);
 
 		return votes;
@@ -77,18 +77,18 @@ export class ThumbService {
 	 * updates a vote from the user and return the list of the votes given by a product
 	 * this function is called only when we are updating a single product, and multiselection is involved
 	 * @param product
-	 * @param onHighlight indicates if the thumb is highlighted, since it is the only way to know the future state when multiselecting
+	 * @param isCreated if true the vote is created, if false, removed
 	 */
-	thumbDownFromMulti(product: Product, onHighlight: boolean) {
+	thumbDownFromMulti(product: Product, isCreated: boolean) {
 		const voteIndex = (product.votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
 		let votes = product.votes ? [...product.votes] : [];
 		if (~voteIndex) {
 			const vote = votes[voteIndex];
-			if (vote.value === 100 && onHighlight)
+			if (vote.value === 100 && isCreated)
 				this.updateVote(votes, voteIndex, 0);
-			else if (!onHighlight)
+			else if (!isCreated)
 				votes = this.deleteVote(votes, vote);
-		} else if (onHighlight)
+		} else if (isCreated)
 			this.createVote(votes, 0);
 
 		return votes;

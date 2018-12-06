@@ -5,7 +5,7 @@ import { EntityMetadata } from '~models';
 export interface ListPageDataConfig {
 
 	/** main global service used */
-	featureSrv: any;
+	entitySrv: any;
 	/** predicate that will be used at the start for filtering */
 	initialPredicate?: string;
 	/** property we sort by on first query */

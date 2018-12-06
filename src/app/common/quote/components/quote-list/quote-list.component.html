@@ -7,9 +7,9 @@
 			(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 			<checkbox-app
 				[hidden]="!(selection?.has(quote.id) || hoverIndex === i)"
-				[checked]="(selectionSrv.selection$ | async)?.has(quote.id)"
-				(check)="selectionSrv.selectOne(quote, false)"
-				(uncheck)="selectionSrv.unselectOne(quote, false)">
+				[checked]="(listSrv.selection$ | async)?.has(quote.id)"
+				(check)="listSrv.selectOne(quote, false)"
+				(uncheck)="listSrv.unselectOne(quote, false)">
 			</checkbox-app>
 			<quote-row-app
 				[ngClass]="{'border-top': first, 'no-border': last}"
@@ -34,7 +34,7 @@
 	</ng-template>
 
 	<card-footer-app>
-		<button (click)="openCompareQuotationDialog.emit()" *ngIf="(selectionSrv.selection$ | async)?.size > 1" class="footer-button">
+		<button (click)="openCompareQuotationDialog.emit()" *ngIf="(listSrv.selection$ | async)?.size > 1" class="footer-button">
 			Compare selected quotations
 		</button>
 		<button (click)="openRfq.emit()" class="footer-button">

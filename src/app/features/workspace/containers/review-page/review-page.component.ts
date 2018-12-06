@@ -1,15 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { getProviders, ProviderKey } from '~core/list-page/list-page-providers.class';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ListPageKey, ListPageService } from '~core/list-page';
 import { TemplateService } from '~core/template/services/template.service';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { ERM, ERM_TOKEN, Product, ProductVote } from '~models';
+import { ERM, Product, ProductVote } from '~models';
 import { NotificationService } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -20,12 +17,10 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './review-page.component.html',
 	styleUrls: ['./review-page.component.scss'],
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
+
 export class ReviewPageComponent extends AutoUnsub implements OnInit {
 
 	products$ = new Subject<Product[]>();
@@ -37,57 +32,40 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		public router: Router,
 		public cdr: ChangeDetectorRef,
-		public workspaceSrv: WorkspaceFeatureService,
 		public notificationSrv: NotificationService,
 		public templateSrv: TemplateService,
 		public thumbSrv: ThumbService,
 		public featureSrv: WorkspaceFeatureService,
-		public viewSrv: ListPageViewService<Product>,
-		public dataSrv: ListPageDataService<Product, WorkspaceFeatureService>,
-		public selectionSrv: SelectionWithFavoriteService,
-		public commonDlgSrv: CommonDialogService
+		public commonDlgSrv: CommonDialogService,
+		public listSrv: ListPageService<Product, WorkspaceFeatureService>
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
+		this.listSrv.setup({
+			key: ListPageKey.REVIEWPAGE,
+			entitySrv: this.featureSrv,
 			searchedFields: ['supplier.name'],
 			initialSortBy: 'supplier.name',
-			initialPredicate: `deleted == false && archived == false && status == null`
+			initialPredicate: `deleted == false && archived == false && status == null`,
+			entityMetadata: ERM.PRODUCT
 		});
-		this.dataSrv.init();
+		this.listSrv.unselectAll();
 
-		this.selectionSrv.unselectAll();
-
-		this.selected$ = this.selectionSrv.selection$;
+		this.selected$ = this.listSrv.selection$;
 
 		this.templateSrv.bottomReached$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(_ => {
-			this.dataSrv.loadMore();
+			this.listSrv.loadMore();
 		});
 
-	}
-
-	protected setItems() {
-		this.dataSrv.listResult = this.featureSrv.getListQuery({
-			query: this.dataSrv.initialPredicate,
-			sortBy: this.dataSrv.initialSortBy,
-			descending: false
-		});
-
-		this.dataSrv.items$ = this.dataSrv.listResult.items$.pipe(
-			tap(_ => this.dataSrv.onLoaded()),
-			tap(items => this.dataSrv.items = items),
-			map(items => items.filter(item => !item.deleted && !item.archived && !item.status))
-		);
 	}
 
 	/** Returns the selected products */
 	getSelectedProducts() {
-		return Array.from(this.selectionSrv.selection.values());
+		return Array.from(this.listSrv.selectionSrv.selection.values());
 	}
 
 	/** Update the sort from the menu */
@@ -97,29 +75,29 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 		} else {
 			this.currentSort = { ...this.currentSort, sortBy: fieldName };
 		}
-		this.dataSrv.sort(this.currentSort);
+		this.listSrv.sort(this.currentSort);
 	}
 
 	/** Add a product to workflow */
 	onSentToWorkflow(product: Product) {
-		this.workspaceSrv.sendProductToWorkflow(product).subscribe();
-		this.selectionSrv.unselectOne(product, true);
+		this.featureSrv.sendProductToWorkflow(product).subscribe();
+		this.listSrv.unselectOne(product, true);
 	}
 
 	/** Triggers archive product */
 	onArchive(product: Product) {
 		const { id } = product;
-		this.workspaceSrv.update({ id, archived: true }).subscribe();
+		this.featureSrv.update({ id, archived: true }).subscribe();
 	}
 
 	/** Triggers status update */
 	onStatusUpdated({ product, status }) {
-		this.workspaceSrv.updateProductStatus(product, status).subscribe();
+		this.featureSrv.updateProductStatus(product, status).subscribe();
 	}
 
 	/** updates the products with the new value votes */
 	multipleVotes(votes: Map<string, ProductVote[]>) {
-		votes.forEach((v, k) => this.dataSrv.update({ id: k, votes: v }));
+		votes.forEach((v, k) => this.listSrv.update({ id: k, votes: v }));
 	}
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
@@ -135,11 +113,6 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog() {
 		this.commonDlgSrv.openRequestFeedbackDialog(this.getSelectedProducts());
-	}
-
-	deleteUnselectOne(product: Product) {
-		this.dataSrv.deleteOne(product.id);
-		this.selectionSrv.unselectOne(product);
 	}
 
 }

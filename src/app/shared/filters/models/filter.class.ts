@@ -16,27 +16,23 @@ export class Filter {
  * on filter-list.class.ts
 */
 export enum FilterType {
-	SUPPLIER = 'supplier',
-	SUPPLIERS = 'suppliers',
-
-	EVENT = 'event',
-	EVENTS = 'events',
-
-	CATEGORY = 'category',
-	CATEGORIES = 'categories',
-
-	TAG = 'tag',
-	TAGS = 'tags',
-
-	PROJECT = 'project',
-	PROJECTS = 'projects',
-	CREATED_BY = 'created by',
-	PRODUCT_STATUS = 'status',
-	SUPPLIER_STATUS = 'status',
-	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',
 	ASSIGNEE = 'assignee',
-	PRODUCT = 'product',
+	CATEGORIES = 'categories',
+	CATEGORY = 'category',
+	CREATED_BY = 'created by',
 	DONE = 'done',
-	DUE_DATE = 'dueDate'
+	DUE_DATE = 'dueDate',
+	EVENT = 'event',
+	EVENTS = 'events',
+	FAVORITE = 'favorite',
+	PRODUCT = 'product',
+	PRODUCT_STATUS = 'status',
+	PROJECT = 'project',
+	PROJECTS = 'projects',
+	SUPPLIER = 'supplier',
+	SUPPLIERS = 'suppliers',
+	SUPPLIER_STATUS = 'status',
+	TAG = 'tag',
+	TAGS = 'tags',
 }

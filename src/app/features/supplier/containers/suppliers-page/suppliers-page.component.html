@@ -9,60 +9,58 @@
 	[hasSwitch]="false"
 	[hasFilter]="true"
 	[buttonIcon]="false"
-	[filtersAmount]="dataSrv.filterList.asFilters().length"
-	(showFilters)="viewSrv.openFilterPanel()"
-	(search)="dataSrv.search($event)"
-	(smartSearch)="dataSrv.smartSearch($event)">
+	[filtersAmount]="listSrv.filterList.asFilters().length"
+	(showFilters)="listSrv.openFilterPanel()"
+	(search)="listSrv.search($event)"
+	(smartSearch)="listSrv.smartSearch($event)">
 </sub-panel-app>
 
-<ng-container *ngIf="(dataSrv.items$ | async) as suppliers; else: spinner">
+<ng-container *ngIf="(listSrv.items$ | async) as suppliers; else: spinner">
 	<supplier-list-view-app
 		[rows]="suppliers"
-		[selection]="selectionSrv.selection$ | async"
-		[pending]="dataSrv.pending"
-		(bottomReached)="dataSrv.loadMore()"
-		(sort)="dataSrv.sort($event)"
-		(select)="selectionSrv.selectOne($event, true)"
-		(unselect)="selectionSrv.unselectOne($event, true)"
-		(selectAll)="selectionSrv.selectAll($event, true)"
-		(unselectAll)="selectionSrv.unselectAll()"
-		(open)="viewSrv.goToDetails()"
-		(favorited)="dataSrv.onItemFavorited($event)"
-		(unfavorited)="dataSrv.onItemUnfavorited($event)"
-		(previewClick)="viewSrv.openPreview($event)"
-		(delete)="dataSrv.deleteOne($event)">
+		[selection]="listSrv.selection$ | async"
+		[pending]="listSrv.pending"
+		(bottomReached)="listSrv.loadMore()"
+		(sort)="listSrv.sort($event)"
+		(select)="listSrv.selectOne($event, true)"
+		(unselect)="listSrv.unselectOne($event, true)"
+		(selectAll)="listSrv.selectAll($event, true)"
+		(unselectAll)="listSrv.unselectAll()"
+		(open)="listSrv.goToDetails()"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(previewClick)="listSrv.openPreview($event)"
+		(delete)="listSrv.deleteOne($event)">
 	</supplier-list-view-app>
 	<selection-bar-app
-		[isShown]="(selectionSrv.selection$ | async).size > 0"
-		[selection]="selectionSrv.selection$ | async"
+		[isShown]="(listSrv.selection$ | async).size > 0"
+		[selection]="listSrv.selection$ | async"
 		[hasDelete]="false"
-		(close)="selectionSrv.unselectAll()"
-		(delete)="dataSrv.deleteSelected()"
-	>
+		(close)="listSrv.unselectAll()"
+		(delete)="listSrv.deleteSelected()">
 		<action-bar-app
-			[favorite]="selectionSrv.allSelectedFavorite"
+			[favorite]="listSrv.allSelectedFavorite"
 			[hasLikes]="false"
 			[multiple]="true"
-			(onFavorite)="dataSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
-		>
-			<button class="icon light" (click)="dataSrv.deleteSelected()">
+			(onFavorite)="listSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
+			<button class="icon light" (click)="listSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
 	</selection-bar-app>
 
 	<preview-supplier-app
-		*ngIf="viewSrv.previewOpen"
-		[supplier]="viewSrv.previewed"
-		(close)="viewSrv.closePreview()"
-		(clickOutside)="viewSrv.closePreview()">
+		*ngIf="listSrv.previewOpen"
+		[supplier]="listSrv.previewed"
+		(close)="listSrv.closePreview()"
+		(clickOutside)="listSrv.closePreview()">
 	</preview-supplier-app>
 	<filters-app
-		[filterList]="dataSrv.filterList"
+		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="viewSrv.closeFilterPanel()"
-		*ngIf="viewSrv.filterPanelOpen">
+		(clickOutside)="listSrv.closeFilterPanel()"
+		*ngIf="listSrv.filterPanelOpen">
 	</filters-app>
 </ng-container>
 

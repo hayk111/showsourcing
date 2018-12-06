@@ -9,7 +9,7 @@
 	<kanban-app
 		[cols]="columns$ | async"
 		[cardTemplate]="card"
-		[selection]="selected$ | async"
+		[selection]="listSrv.selection$ | async"
 		(drop)="updateProductStatus($event)"
 		(multipleDrop)="updateProductsStatus($event)"
 		(selectColumn)="onColumnSelected($event)"
@@ -20,32 +20,32 @@
 		<product-card-app
 			[product]="data"
 			[enablePreviewLink]="true"
-			[checked]="(selectionSrv.selection$ | async).has(data.id)"
-			(clickImage)="viewSrv.openPreview(data)"
-			(select)="selectionSrv.selectOne($event, true)"
-			(unselect)="selectionSrv.unselectOne($event, true)">
+			[checked]="(listSrv.selection$ | async).has(data.id)"
+			(clickImage)="listSrv.openPreview(data)"
+			(select)="listSrv.selectOne($event, true)"
+			(unselect)="listSrv.unselectOne($event, true)">
 		</product-card-app>
 	</ng-template>
 
 	<selection-bar-app
-		[isShown]="(selectionSrv.selection$ | async).size > 0"
-		[selection]="selectionSrv.selection$ | async"
+		[isShown]="(listSrv.selection$ | async).size > 0"
+		[selection]="listSrv.selection$ | async"
 		[hasDelete]="false"
-		(close)="selectionSrv.unselectAll()"
-		(delete)="dataSrv.deleteSelected()">
+		(close)="listSrv.unselectAll()"
+		(delete)="listSrv.deleteSelected()">
 
 		<action-bar-app
-			[favorite]="selectionSrv.allSelectedFavorite"
+			[favorite]="listSrv.allSelectedFavorite"
 			[multiple]="true"
-			(onFavorite)="dataSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
-			(liked)="dataSrv.onMultipleThumbUp($event)"
-			(disliked)="dataSrv.onMultipleThumbDown($event)">
+			(onFavorite)="listSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
+			(liked)="listSrv.onMultipleThumbUp($event)"
+			(disliked)="listSrv.onMultipleThumbDown($event)">
 
 			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog(selectionSrv.selection)">
 				<icon-app name="folder-light" fontSet="svg"></icon-app>
 			</button>
-			<button class="icon light" (click)="dataSrv.deleteSelected()">
+			<button class="icon light" (click)="listSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
 		</action-bar-app>
@@ -53,8 +53,8 @@
 </div>
 
 <product-preview-app
-  *ngIf="viewSrv.previewOpen"
-	[product]="viewSrv.previewed"
-  (close)="viewSrv.closePreview()"
-  (clickOutside)="viewSrv.closePreview()">
+  *ngIf="listSrv.previewOpen"
+	[product]="listSrv.previewed"
+  (close)="listSrv.closePreview()"
+  (clickOutside)="listSrv.closePreview()">
 </product-preview-app>

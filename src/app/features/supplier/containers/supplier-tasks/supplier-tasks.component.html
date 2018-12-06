@@ -2,8 +2,8 @@
 	<sub-panel-app
 		[hasFilter]="false"
 		[hasSwitch]="false"
-		(search)="dataSrv.search($event)"
-		(smartSearch)="dataSrv.smartSearch($event)">
+		(search)="listSrv.search($event)"
+		(smartSearch)="listSrv.smartSearch($event)">
 
 		<div class="flex show-my-tasks">
 			<checkbox-app
@@ -22,32 +22,32 @@
 	</sub-panel-app>
 
 	<task-list-app
-		[tasks]="dataSrv.items$ | async"
-		[selection]="selectionSrv.selection$ | async"
+		[tasks]="listSrv.items$ | async"
+		[selection]="listSrv.selection$ | async"
 		[fullUser]="true"
 		[hasProduct]="true"
-		(previewClicked)="viewSrv.openPreview($event)"
-		(taskSelect)="selectionSrv.selectOne($event, false)"
-		(taskUnselect)="selectionSrv.unselectOne($event, false)"
-		(bottomReached)="dataSrv.loadMore()"
-		(updateTask)="dataSrv.update($event)"
+		(previewClicked)="listSrv.openPreview($event)"
+		(taskSelect)="listSrv.selectOne($event, false)"
+		(taskUnselect)="listSrv.unselectOne($event, false)"
+		(bottomReached)="listSrv.loadMore()"
+		(updateTask)="listSrv.update($event)"
 		(createTask)="createTask($event)">
 	</task-list-app>
 
 	<preview-task-app
-		*ngIf="viewSrv.previewOpen"
-		[task]="viewSrv.previewed"
-		(close)="viewSrv.closePreview()"
-		(clickOutside)="viewSrv.closePreview()">
+		*ngIf="listSrv.previewOpen"
+		[task]="listSrv.previewed"
+		(close)="listSrv.closePreview()"
+		(clickOutside)="listSrv.closePreview()">
 	</preview-task-app>
 </div>
 
 <selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
-	[selection]="selectionSrv.selection$ | async"
+	[isShown]="(listSrv.selection$ | async)?.size > 0"
+	[selection]="listSrv.selection$ | async"
 	[hasDelete]="false"
-	(close)="selectionSrv.unselectAll()"
-	(delete)="dataSrv.deleteSelected()">
+	(close)="listSrv.unselectAll()"
+	(delete)="listSrv.deleteSelected()">
 
 	<div class="flex">
 		<context-menu-app>
@@ -56,12 +56,12 @@
 					<icon-app name="dots-vertical" size="m"></icon-app>
 				</button>
       </context-menu-trigger-app>
-      <context-menu-item-app (click)="dataSrv.deleteSelected()">
+      <context-menu-item-app (click)="listSrv.deleteSelected()">
         Delete
       </context-menu-item-app>
 		</context-menu-app>
 
-		<button class="icon light" (click)="dataSrv.deleteSelected()">
+		<button class="icon light" (click)="listSrv.deleteSelected()">
 			<icon-app name="trash-bin" size="m"></icon-app>
 		</button>
 	</div>

@@ -2,41 +2,41 @@
 	[hasSwitch]="true"
 	[hasFilter]="true"
 	[buttonIcon]="false"
-	[filtersAmount]="dataSrv.filterList.asFilters()?.length"
-	(showFilters)="viewSrv.openFilterPanel()"
-	(search)="dataSrv.search($event)"
-	(viewChange)="viewSrv.changeView($event)">
+	[filtersAmount]="listSrv.filterList.asFilters()?.length"
+	(showFilters)="listSrv.openFilterPanel()"
+	(search)="listSrv.search($event)"
+	(viewChange)="listSrv.changeView($event)">
 </sub-panel-app>
 
 <sample-list-view-app
-	*ngIf="viewSrv.view === 'list'">
+	*ngIf="listSrv.view === 'list'">
 
 </sample-list-view-app>
 
 <sample-board-view-app
-	*ngIf="viewSrv.view === 'card'">
+	*ngIf="listSrv.view === 'card'">
 
 </sample-board-view-app>
 
 <selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
 	[hasDelete]="false"
-	(close)="selectionSrv.unselectAll()"
-	(delete)="dataSrv.deleteSelected()">
+	(close)="listSrv.unselectAll()"
+	(delete)="listSrv.deleteSelected()">
 	<button> Change Status </button>
 </selection-bar-app>
 
 <filters-app
-	*ngIf="viewSrv.filterPanelOpen"
-	[filterList]="dataSrv.filterList"
+	*ngIf="listSrv.filterPanelOpen"
+	[filterList]="listSrv.filterList"
 	[filterTypes]="filterTypes"
-	(clickOutside)="viewSrv.closeFilterPanel()">
+	(clickOutside)="listSrv.closeFilterPanel()">
 </filters-app>
 
 <preview-sample-app
-	*ngIf="viewSrv.previewOpen"
-	[sample]="viewSrv.previewed"
-	(close)="viewSrv.closePreview()"
-	(clickOutside)="viewSrv.closePreview()">
+	*ngIf="listSrv.previewOpen"
+	[sample]="listSrv.previewed"
+	(close)="listSrv.closePreview()"
+	(clickOutside)="listSrv.closePreview()">
 </preview-sample-app>

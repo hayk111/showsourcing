@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ListPageKey, ListPageService } from '~core/list-page';
 import { QuoteFeatureService } from '~features/products/services';
 import { ERM, Quote } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -13,10 +11,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	templateUrl: './quote-list.component.html',
 	styleUrls: ['./quote-list.component.scss'],
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
 export class QuoteListComponent extends TrackingComponent implements OnInit {
@@ -42,10 +37,8 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 	constructor(
 		public router: Router,
 		public featureSrv: QuoteFeatureService,
-		public selectionSrv: SelectionWithFavoriteService,
 		public commonDlgSrv: CommonDialogService,
-		public viewSrv: ListPageViewService<Quote>,
-		public dataSrv: ListPageDataService<Quote, QuoteFeatureService>
+		public listSrv: ListPageService<Quote, QuoteFeatureService>
 	) {
 		super();
 	}
@@ -55,12 +48,12 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
+		this.listSrv.setup({
+			key: ListPageKey.QUOTE,
+			entitySrv: this.featureSrv,
 			searchedFields: ['name'],
-			initialSortBy: 'name'
+			initialSortBy: 'name',
+			entityMetadata: ERM.QUOTE
 		});
-		this.dataSrv.init();
-		this.viewSrv.setup(ERM.QUOTE);
 	}
 }

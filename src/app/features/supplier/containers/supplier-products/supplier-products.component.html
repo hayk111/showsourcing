@@ -1,26 +1,25 @@
-<div *ngIf="(dataSrv.items$ | async)?.length || hasSearch; else empty" class="container">
+<div *ngIf="(listSrv.items$ | async)?.length || hasSearch; else empty" class="container">
 	<sub-panel-app
 		[hasSwitch]="false"
 		[hasFilter]="false"
 		[buttonIcon]="false"
-		(search)="search($event)"
-		(emptySearch)="test()">
+		(search)="search($event)">
 	</sub-panel-app>
 	<div class="title"> Products
-		<div class="num-products">{{ (dataSrv.items$ | async)?.length }} products</div>
+		<div class="num-products">{{ (listSrv.items$ | async)?.length }} products</div>
 	</div>
 	<div class="products-section">
-		<ng-container *ngFor="let product of dataSrv.items$ | async; index as i; trackBy: trackById">
+		<ng-container *ngFor="let product of listSrv.items$ | async; index as i; trackBy: trackById">
 			<product-grid-card-app
 				[class.mg-right]="(i+1)%4 === 0"
 				[product]="product"
-				[selection]="selectionSrv.selection$ | async"
-				(productFavorite)="dataSrv.onItemFavorited(product.id)"
-				(productUnfavorite)="dataSrv.onItemUnfavorited(product.id)"
-				(productSelect)="selectionSrv.selectOne(product, true)"
-				(productUnselect)="selectionSrv.unselectOne(product, true)"
-				(liked)="dataSrv.onThumbUp(product)"
-				(disliked)="dataSrv.onThumbDown(product)">
+				[selection]="listSrv.selection$ | async"
+				(productFavorite)="listSrv.onItemFavorited(product.id)"
+				(productUnfavorite)="listSrv.onItemUnfavorited(product.id)"
+				(productSelect)="listSrv.selectOne(product, true)"
+				(productUnselect)="listSrv.unselectOne(product, true)"
+				(liked)="listSrv.onThumbUp(product)"
+				(disliked)="listSrv.onThumbDown(product)">
 			</product-grid-card-app>
 		</ng-container>
 	</div>
@@ -36,19 +35,19 @@
 </ng-template>
 
 <selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
 	[hasDelete]="false"
-	(close)="selectionSrv.unselectAll()"
-	(delete)="dataSrv.deleteSelected()">
+	(close)="listSrv.unselectAll()"
+	(delete)="listSrv.deleteSelected()">
 
 	<action-bar-app
-		[favorite]="selectionSrv.allSelectedFavorite"
+		[favorite]="listSrv.allSelectedFavorite"
 		[multiple]="true"
-		(onFavorite)="dataSrv.onFavoriteAllSelected()"
-		(onUnfavorite)="dataSrv.onUnfavoriteAllSelected()"
-		(liked)="dataSrv.onMultipleThumbUp($event)"
-		(disliked)="dataSrv.onMultipleThumbDown($event)">
+		(onFavorite)="listSrv.onFavoriteAllSelected()"
+		(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
+		(liked)="listSrv.onMultipleThumbUp($event)"
+		(disliked)="listSrv.onMultipleThumbDown($event)">
 
 		<button class="icon light" (click)="openAddToProjectDialog()">
 			<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
@@ -67,7 +66,7 @@
 			</context-menu-item-app>
 		</context-menu-app>
 
-		<button class="icon light" (click)="dataSrv.deleteSelected()">
+		<button class="icon light" (click)="listSrv.deleteSelected()">
 			<icon-app name="trash-bin"></icon-app>
 		</button>
 	</action-bar-app>

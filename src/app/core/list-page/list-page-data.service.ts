@@ -9,7 +9,7 @@ import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { EntityMetadata } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
-import { Filter, FilterList } from '~shared/filters';
+import { Filter, FilterList, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
@@ -21,25 +21,24 @@ import { log } from '~utils/log';
 	providedIn: 'root'
 })
 export class ListPageDataService
-	<T extends { id?: string, deleted?: boolean }, G extends GlobalServiceInterface<T>>
-	implements ListPageDataConfig {
+	<T extends { id?: string, deleted?: boolean }, G extends GlobalServiceInterface<T>> {
 
 	/** main global service used */
-	featureSrv: G;
+	protected entitySrv: G;
 	/** currently loaded items */
 	items$: Observable<Array<T>>;
 	/** non observable version of the above */
-	items: Array<T> = [];
+	private items: Array<T> = [];
 	/** can be used on when to fetch more etc. */
-	listResult: ListQuery<T>;
+	private listResult: ListQuery<T>;
 	/** predicate that will be used at the start for filtering */
-	initialPredicate = 'deleted == false';
+	private initialPredicate = 'deleted == false';
 	/** searched string */
-	currentSearch = '';
+	private currentSearch = '';
 	/** property we sort by on first query */
-	initialSortBy = 'creationDate';
+	private initialSortBy = 'creationDate';
 	/** currently used sort */
-	currentSort: Sort;
+	private currentSort: Sort;
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
 		// initial filters
@@ -47,23 +46,16 @@ export class ListPageDataService
 	/** Whether the items are pending */
 	pending = true;
 
-	/** targeted entity metadata */
-	entityMetadata: EntityMetadata;
-
 	/** when making a search, fields we are gonna search through */
-	searchedFields: string[] = ['name'];
+	private searchedFields: string[] = ['name'];
 
-	initialized = false;
+	private initialized = false;
 
 	/** for the smart search feature... */
-	searchFilterElements$: Observable<any[]>;
+	private searchFilterElements$: Observable<any[]>;
 	smartSearchFilterElements$: Observable<any[]>;
 
-	constructor(
-		public dlgSrv: DialogService,
-		public thumbSrv: ThumbService,
-		public selectionSrv: SelectionWithFavoriteService
-	) {
+	constructor() {
 		log.debug('creating list-data service');
 	}
 
@@ -77,7 +69,7 @@ export class ListPageDataService
 	}
 
 	/** init: helper method to set everything up at once */
-	init() {
+	loadData() {
 		if (this.initialized) {
 			return;
 		}
@@ -88,8 +80,8 @@ export class ListPageDataService
 
 	/** subscribe to items and get the list result */
 	setItems() {
-		this.listResult = this.featureSrv.getListQuery({
-			query: this.initialPredicate,
+		this.listResult = this.entitySrv.getListQuery({
+			query: this.getPredicate(),
 			sortBy: this.initialSortBy,
 			descending: false
 		});
@@ -123,13 +115,16 @@ export class ListPageDataService
 
 	/** On any of the predicate change we should call this to refetch */
 	onPredicateChange() {
-		const allFilters = [
+		const allFilters = this.getPredicate();
+		return this.refetch({ query: allFilters });
+	}
+
+	private getPredicate() {
+		return [
 			this.initialPredicate,
 			this.currentSearch,
 			this.filterList.asPredicate()
 		].filter(p => !!p).join(' AND ');
-
-		this.refetch({ query: allFilters });
 	}
 
 	/**
@@ -137,12 +132,12 @@ export class ListPageDataService
 	 * @param config configuration used to refetch
 	 */
 	refetch(config?: SelectParamsConfig) {
-		this.listResult.refetch(config).subscribe();
+		this.listResult.refetch(config);
 	}
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
-		this.listResult.fetchMore(this.items.length).subscribe();
+		this.listResult.fetchMore(this.items.length);
 	}
 
 	/** Sorts items based on sort.sortBy */
@@ -175,103 +170,24 @@ export class ListPageDataService
 	// UPDATES
 
 	/** Update entities */
-	updateSelected(value) {
-		const items = this.getSelectionIds()
-			// we use only the id to not update unnecessary values (and prevent overwrite of another user)
-			.map(id => ({ ...value, id }));
-
-		this.featureSrv.updateMany(items).subscribe(() => this.selectionSrv.unselectAll());
+	updateMany(entities: T[]) {
+		return this.entitySrv.updateMany(entities);
 	}
 
 	/** Update a entity */
 	update(entity: T) {
-		this.featureSrv.update(entity).subscribe();
-	}
-
-	/** When a product heart is clicked to favorite it */
-	onItemFavorited(id: string) {
-		this.update({ id, favorite: true } as any);
-	}
-
-	/** When a product heart is clicked to unfavorite it */
-	onItemUnfavorited(id: string) {
-		this.update({ id, favorite: false } as any);
-	}
-
-	/** When we favorite all selected items, the items that are already favorited will stay the same */
-	onFavoriteAllSelected() {
-		const ids = this.getSelectionIds();
-		ids.forEach(id => this.onItemFavorited(id));
-		this.selectionSrv.allSelectedFavorite = true;
-	}
-
-	/** When we unfavorite all selected items, the items that are already unfavorited will stay the same */
-	onUnfavoriteAllSelected() {
-		this.getSelectionIds().forEach(id => this.onItemUnfavorited(id));
-		this.selectionSrv.allSelectedFavorite = false;
-	}
-
-	onThumbUp(item: T) {
-		const votes = this.thumbSrv.thumbUp(item);
-		this.update({ id: item.id, votes } as any);
-	}
-
-	onThumbDown(item: T) {
-		const votes = this.thumbSrv.thumbDown(item);
-		this.update({ id: item.id, votes } as any);
-	}
-
-	/**
-	 * update the vote of a given selection of items (products) when given thumb up
-	 * @param onHighlight indicates the future state of the thumb
-	 */
-	onMultipleThumbUp(onHighlight: boolean) {
-		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
-		// if you are using another feature srv (as project) override this funcition
-		const updated = [];
-		this.getSelectionValues().forEach(item => {
-			const votes = this.thumbSrv.thumbUpFromMulti(item, onHighlight);
-			updated.push({ id: item.id, votes });
-		});
-		this.featureSrv.updateMany(updated).subscribe();
-	}
-
-	/**
-	 * update the vote of a given selection of items (products) when given thumb down
-	 * @param onHighlight indicates the future state of the thumb
-	 */
-	onMultipleThumbDown(onHighlight: boolean) {
-		// BE AWARE THAT THIS IS USING THE FEATURE SERVICE TO UPDATE
-		// if you are using another feature srv (as project) override this funcition
-		const updated = [];
-		this.getSelectionValues().forEach(item => {
-			const votes = this.thumbSrv.thumbDownFromMulti(item, onHighlight);
-			updated.push({ id: item.id, votes });
-		});
-		this.featureSrv.updateMany(updated).subscribe();
+		return this.entitySrv.update(entity);
 	}
 
 	// DELETES
-
-	/** Will show a confirm dialog to delete items selected */
-	deleteSelected() {
-		const itemIds = this.getSelectionIds();
-		// callback for confirm dialog
-		const callback = () => {
-			this.featureSrv.deleteMany(itemIds).subscribe(_ => {
-				this.selectionSrv.unselectAll();
-				this.refetch();
-			});
-		};
-		const text = `Delete ${itemIds.length} ${itemIds.length > 1 ? 'items' : 'item'} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
-	}
-
 	/** Deletes an specific item */
 	deleteOne(itemId: string) {
-		const callback = () => this.featureSrv.delete(itemId).subscribe(_ => this.refetch());
-		const text = `Are you sure you want to delete this item?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		return this.entitySrv.delete(itemId);
+	}
+
+	/** Will show a confirm dialog to delete items selected */
+	deleteMany(ids: string[]) {
+		return this.entitySrv.deleteMany(ids);
 	}
 
 	/** adds a filters to the list of filters */
@@ -283,17 +199,12 @@ export class ListPageDataService
 		this.filterList.removeFilter(filter);
 	}
 
+	removeFilterType(filterType: FilterType) {
+		this.filterList.removeFilterType(filterType);
+	}
+
 	smartSearch(event: any) {
 		throw Error('not implemented');
 	}
-
-	private getSelectionValues() {
-		return this.selectionSrv.getSelectionValues();
-	}
-
-	private getSelectionIds() {
-		return this.selectionSrv.getSelectionIds();
-	}
-
 
 }

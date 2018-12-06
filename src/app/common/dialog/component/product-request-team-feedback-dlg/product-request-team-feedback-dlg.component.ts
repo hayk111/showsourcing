@@ -1,14 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User, TeamUser, Product } from '~models';
-import { DialogService } from '~shared/dialog/services';
-import { TeamService } from '~entity-services';
-import { take, map, switchMap, first, tap } from 'rxjs/operators';
-import { ProductFeatureService } from '~features/products/services';
+import { first, map, switchMap } from 'rxjs/operators';
 import { ProductDialogService } from '~common/dialog/services/product-dialog.service';
-import { TrackingComponent } from '~utils/tracking-component';
+import { Product, User } from '~models';
+import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { TrackingComponent } from '~utils/tracking-component';
 
 
 @Component({

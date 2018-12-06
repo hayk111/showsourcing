@@ -1,23 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
-import { SupplierFeatureService } from '~features/supplier/services';
+import { SupplierService } from '~core/entity-services';
+import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
+import { CommonDialogService } from '~common/dialog';
 
 @Component({
 	selector: 'supplier-page-app',
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
 export class SuppliersPageComponent extends TrackingComponent
@@ -32,23 +26,20 @@ export class SuppliersPageComponent extends TrackingComponent
 	];
 
 	constructor(
-		public router: Router,
-		public featureSrv: SupplierFeatureService,
-		public selectionSrv: SelectionWithFavoriteService,
-		public commonDlgSrv: CommonDialogService,
-		public viewSrv: ListPageViewService<Supplier>,
-		public dataSrv: ListPageDataService<Supplier, SupplierFeatureService>
+		private supplierSrv: SupplierService,
+		public listSrv: ListPageService<Supplier, SupplierService>,
+		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
+		this.listSrv.setup({
+			key: ListPageKey.SUPPLIER,
+			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tag.name', 'category.name'],
-			initialSortBy: 'name'
+			initialSortBy: 'name',
+			entityMetadata: ERM.SUPPLIER
 		});
-		this.dataSrv.init();
-		this.viewSrv.setup(ERM.SUPPLIER);
 	}
 }

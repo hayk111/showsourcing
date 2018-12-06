@@ -1,67 +1,67 @@
 import { AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { ListPageKey, ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { FilterType } from '~shared/filters';
-import { ListPageDataService } from '~core/list-page';
-import { ListPageViewService } from '~core/list-page';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { TrackingComponent } from '~utils/tracking-component';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	constructor(
-		public router: Router,
-		public userSrv: UserService,
-		public featureSrv: TaskService,
-		public viewSrv: ListPageViewService<Task>,
-		public dataSrv: ListPageDataService<Task, TaskService>,
-		public selectionSrv: SelectionWithFavoriteService,
-		public commonDlgSrv: CommonDialogService
+		protected router: Router,
+		protected userSrv: UserService,
+		protected taskSrv: TaskService,
+		public commonDlgSrv: CommonDialogService,
+		public listSrv: ListPageService<Task, TaskService>
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name'],
-			initialSortBy: 'name'
-		});
-		this.dataSrv.init();
-	}
 
-	ngAfterViewInit() {
-		this.dataSrv.filterList.addFilter({ type: FilterType.DONE, value: false });
+		this.listSrv.setup({
+			key: ListPageKey.TASK,
+			entitySrv: this.taskSrv,
+			searchedFields: ['name', 'supplier.name', 'product.name'],
+			initialSortBy: 'name',
+			entityMetadata: ERM.TASK
+		});
+		// we don't want done at the startup
+		// this.listSrv.dataSrv.loadData();
+		this.listSrv.addFilter({
+			type: FilterType.DONE,
+			value: false
+		});
 	}
 
 	toggleMyTasks(show: boolean) {
 		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
 		if (show)
-			this.dataSrv.filterList.addFilter(filterAssignee);
+			this.listSrv.addFilter(filterAssignee);
 		else
-			this.dataSrv.filterList.removeFilter(filterAssignee);
+			this.listSrv.removeFilter(filterAssignee);
 	}
 
 	toggleDoneTasks(show: boolean) {
 		if (show) {
 			// this.filterList.removeFilterType(FilterType.DUE_DATE);
-			this.dataSrv.filterList.removeFilterType(FilterType.DONE);
+			this.listSrv.removeFilterType(FilterType.DONE);
 		} else {
-			// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
-			this.dataSrv.filterList.addFilter({ type: FilterType.DONE, value: false });
+			// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: toRealmDateFormat(new Date()) });
+			this.listSrv.addFilter({ type: FilterType.DONE, value: false });
 		}
 	}
 
 	updateTask(task: Task) {
-		this.dataSrv.update(task);
+		this.listSrv.update(task);
 	}
 
 	createTask(name: string) {
 		const newTask = new Task({ name });
-		this.featureSrv.create(newTask).subscribe(_ => this.dataSrv.refetch());
+		this.taskSrv.create(newTask).subscribe(_ => this.listSrv.refetch());
 	}
 
 	openProduct(id: string) {

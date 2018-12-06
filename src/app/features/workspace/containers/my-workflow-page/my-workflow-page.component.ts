@@ -8,21 +8,19 @@ import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { ProductService, ProductStatusTypeService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';
-import { Product, ProductVote } from '~models';
+import { Product, ProductVote, ERM } from '~models';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
+import { ListPageService, ListPageKey } from '~core/list-page';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
 	templateUrl: './my-workflow-page.component.html',
 	styleUrls: ['./my-workflow-page.component.scss'],
 	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
+		ListPageService
 	]
 })
 export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
@@ -31,27 +29,24 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	selected$: Observable<Map<string, boolean>>;
 
 	constructor(
-		public router: Router,
-		public featureSrv: ProductService,
-		public productStatusSrv: ProductStatusTypeService,
-		public cdr: ChangeDetectorRef,
-		public thumbSrv: ThumbService,
-		public viewSrv: ListPageViewService<Product>,
-		public dataSrv: ListPageDataService<Product, ProductService>,
-		public selectionSrv: SelectionWithFavoriteService,
+		private featureSrv: ProductService,
+		private productStatusSrv: ProductStatusTypeService,
+		private cdr: ChangeDetectorRef,
+		public listSrv: ListPageService<Product, ProductService>,
 		public commonDlgSrv: CommonDialogService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
+		this.listSrv.setup({
+			key: ListPageKey.MY_WORKFLOW,
+			entitySrv: this.featureSrv,
 			searchedFields: ['name'],
-			initialSortBy: 'name'
+			initialSortBy: 'name',
+			entityMetadata: ERM.PRODUCT
 		});
-		this.dataSrv.init();
-		this.selectionSrv.unselectAll();
+
 		const products$ = this.featureSrv
 			.queryAll(ProductQueries.many, {
 				query:
@@ -81,7 +76,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			statusProductToKanbanCol
 		);
 
-		this.selected$ = this.selectionSrv.selection$;
+		this.selected$ = this.listSrv.selection$;
 	}
 
 	getColumnColor(status) {
@@ -103,7 +98,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	/** updates the products with the new value votes */
 	multipleVotes(votes: Map<string, ProductVote[]>) {
-		votes.forEach((v, k) => this.dataSrv.update({ id: k, votes: v }));
+		votes.forEach((v, k) => this.listSrv.update({ id: k, votes: v }));
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {
@@ -113,16 +108,16 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 					.updateProductStatus(element, target)
 					.subscribe(() => this.cdr.detectChanges());
 			});
-			this.selectionSrv.unselectAll();
+			this.listSrv.unselectAll();
 		}
 	}
 
 	onColumnSelected(products: Product[]) {
-		products.forEach(prod => this.selectionSrv.selectOne(prod, true));
+		products.forEach(prod => this.listSrv.selectOne(prod, true));
 	}
 
 	onColumnUnselected(products: Product[]) {
-		products.forEach(prod => this.selectionSrv.unselectOne(prod, true));
+		products.forEach(prod => this.listSrv.unselectOne(prod, true));
 	}
 
 }

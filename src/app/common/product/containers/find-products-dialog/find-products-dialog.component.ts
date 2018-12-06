@@ -9,6 +9,8 @@ import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { TrackingComponent } from '~utils/tracking-component';
+import { ListPageService } from '~core/list-page/list-page.service';
+import { ListPageKey } from '~core/list-page/list-page-keys.enum';
 
 
 @Component({
@@ -16,12 +18,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	templateUrl: './find-products-dialog.component.html',
 	styleUrls: ['./find-products-dialog.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		ListPageDataService,
-		ListPageViewService,
-		SelectionWithFavoriteService,
-		CommonDialogService
-	]
+	providers: [ListPageService]
 })
 export class FindProductsDialogComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
@@ -31,51 +28,46 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 	unselectedProducts: { [key: string]: Product } = {};
 
 	constructor(
-		public router: Router,
-		public cdr: ChangeDetectorRef,
-		public featureSrv: ProductService,
-		public viewSrv: ListPageViewService<Product>,
-		public dataSrv: ListPageDataService<Product, ProductService>,
-		public selectionSrv: SelectionWithFavoriteService,
-		public commonDlgSrv: CommonDialogService,
-		public dlgSrv: DialogService
+		public listSrv: ListPageService<Product, ProductService>,
+		private productSrv: ProductService,
+		private dlgSrv: DialogService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.dataSrv.setup({
-			featureSrv: this.featureSrv,
+		this.listSrv.setup({
+			key: ListPageKey.FIND_PRODUCT,
+			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			initialSortBy: 'category.name'
+			initialSortBy: 'category.name',
+			entityMetadata: ERM.PRODUCT,
 		});
-		this.dataSrv.init();
-		this.viewSrv.setup(ERM.PRODUCT);
 	}
 
 	ngAfterViewInit() {
 		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
-			this.selectionSrv.selectAll(this.initialSelectedProducts.map(product => ({ id: product.id })));
+			this.listSrv.selectAll(this.initialSelectedProducts.map(product => ({ id: product.id })));
 		}
 	}
 
 	getSelectedProducts() {
-		return this.selectionSrv.getSelectionValues();
+		return this.listSrv.getSelectedValues();
 	}
 
 	hasSelectedProducts() {
-		return (Array.from(this.selectionSrv.selection.values()).length > 0);
+		return (Array.from(this.listSrv.selectionSrv.selection.values()).length > 0);
 	}
 
 	onItemSelected(entity: any, checkFavorite = false) {
 		delete this.unselectedProducts[entity.id];
-		this.selectionSrv.selectOne(entity, checkFavorite);
+		this.listSrv.selectionSrv.selectOne(entity, checkFavorite);
 	}
 
 
 	onItemUnselected(entity: any, checkFavorite = false) {
 		this.unselectedProducts[entity.id] = entity;
-		this.selectionSrv.unselectOne(entity, checkFavorite);
+		this.listSrv.selectionSrv.unselectOne(entity, checkFavorite);
 	}
 
 	closeDlg() {
@@ -84,7 +76,7 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 
 	submit() {
 		// we add each project one by one to the store
-		const selectedProducts = this.selectionSrv.getSelectionValues();
+		const selectedProducts = this.listSrv.getSelectedValues();
 		const unselectedProducts = Object.values(this.unselectedProducts);
 		this.submitCallback({ selectedProducts, unselectedProducts })
 			.subscribe(() => this.dlgSrv.close());
