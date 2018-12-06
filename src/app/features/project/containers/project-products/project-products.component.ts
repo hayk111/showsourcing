@@ -120,7 +120,11 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 		if (this.project) {
 			this.featureSrv.getProjectProducts(this.project).pipe(first())
 				.subscribe(products => {
-					this.commonDlgSrv.openFindProductDlg(products, this.associatedProductsWithProject.bind(this));
+					this.commonDlgSrv.openFindProductDlg(
+						products,
+						this.associatedProductsWithProject.bind(this),
+
+					);
 				});
 		}
 	}

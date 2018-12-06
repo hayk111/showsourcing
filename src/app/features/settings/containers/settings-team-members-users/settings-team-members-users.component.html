@@ -6,7 +6,7 @@
 		[hasFilter]="false"
 		[hasCreate]="teamOwner"
 		[buttonIcon]="false"
-		(search)="search($event)"
+		(search)="listSrv.search($event)"
 		(buttonClick)="openInviteDialog()">
 
 		<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">

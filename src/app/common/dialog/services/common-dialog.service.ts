@@ -72,9 +72,8 @@ export class CommonDialogService {
 		});
 	}
 
-	openFindProductDlg(products: Product[], callback: any, entityMetadata: EntityMetadata) {
+	openFindProductDlg(products: Product[], callback: any) {
 		this.dlgSrv.openFromModule(FindProductsDialogComponent, this.moduleRef, {
-			type: entityMetadata,
 			shouldRedirect: false,
 			initialSelectedProducts: products,
 			submitCallback: callback
