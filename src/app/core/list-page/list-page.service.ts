@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/dialog';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
@@ -13,6 +12,8 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 
 // where we can save the services
@@ -44,11 +45,10 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	viewSrv: ListPageViewService<T>;
 
 	constructor(
-		private commonDlgSrv: CommonDialogService,
 		private router: Router,
 		private thumbSrv: ThumbService,
-	) {
-	}
+		private dlgSrv: DialogService
+	) { }
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.initServices(config.key);
@@ -102,6 +102,10 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 
 	get filterList() {
 		return this.dataSrv.filterList;
+	}
+
+	get currentSort() {
+		return this.dataSrv.currentSort;
 	}
 
 	refetch(config?: SelectParamsConfig) {
@@ -194,7 +198,7 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	deleteOne(id: string) {
 		const callback = () => this.dataSrv.deleteOne(id).subscribe(_ => this.refetch());
 		const text = `Are you sure you want to delete this item?`;
-		this.commonDlgSrv.openConfirmDialog({ text, callback });
+		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
 	deleteSelected() {
@@ -207,7 +211,7 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 			});
 		};
 		const text = `Delete ${itemIds.length} ${itemIds.length > 1 ? 'items' : 'item'} ?`;
-		this.commonDlgSrv.openConfirmDialog({ text, callback });
+		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
 	addFilter(filter: Filter) {
@@ -280,6 +284,10 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 		return this.selectionSrv.selection$;
 	}
 
+	get selection() {
+		return this.selectionSrv.selection;
+	}
+
 	get allSelectedFavorite() {
 		return this.selectionSrv.allSelectedFavorite;
 	}
@@ -307,5 +315,6 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	getSelectedValues() {
 		return this.selectionSrv.getSelectionValues();
 	}
+
 
 }

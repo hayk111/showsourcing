@@ -129,6 +129,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			});
 		}
 	}
+
 	/**
 	 * Deassociate the selected product from the current project
 	 */

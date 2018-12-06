@@ -12,7 +12,7 @@
 	[hasSwitch]="false"
 	[buttonIcon]="false"
 	(search)="listSrv.search($event)"
-	(buttonClick)="commonDlgSrv.openCreateDlg()">
+	(buttonClick)="commonDlgSrv.openCreateDlg(erm)">
 	<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
 		<button class="button warn" (click)="listSrv.deleteSelected()"> Delete Selected </button>
 		<span class="marginSmall"></span>

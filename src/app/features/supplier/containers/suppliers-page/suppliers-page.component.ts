@@ -16,6 +16,8 @@ import { CommonDialogService } from '~common/dialog';
 })
 export class SuppliersPageComponent extends TrackingComponent
 	implements OnInit {
+	erm = ERM.SUPPLIER;
+
 	filterTypes = [
 		FilterType.CATEGORIES,
 		FilterType.TAGS,

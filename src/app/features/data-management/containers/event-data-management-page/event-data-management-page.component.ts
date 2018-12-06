@@ -15,6 +15,7 @@ import { ERM, Event } from '~models';
 	]
 })
 export class EventDataManagementPageComponent implements OnInit {
+	erm = ERM.EVENT;
 
 	constructor(
 		private eventSrv: EventService,

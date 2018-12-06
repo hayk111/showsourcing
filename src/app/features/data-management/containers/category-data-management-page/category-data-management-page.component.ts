@@ -17,13 +17,14 @@ import { Category, ERM } from '~models';
 export class CategoryDataManagementPageComponent
 	implements OnInit {
 
+	erm = ERM.CATEGORY;
+
 	constructor(
 		private categorySrv: CategoryService,
 		public listSrv: ListPageService<Category, CategoryService>,
 		public commonDlgSrv: CommonDialogService,
 		private dmSrv: DataManagementService
-	) {
-	}
+	) { }
 
 
 	ngOnInit() {
