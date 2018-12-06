@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonDialogService } from '~common/dialog';
 import { SampleService, UserService } from '~core/entity-services';
 import { ListPageDataService, ListPageViewService, SelectionService, SelectionWithFavoriteService } from '~core/list-page';
-import { Sample } from '~core/models';
+import { Sample, ERM } from '~core/models';
 import { FilterType } from '~shared/filters';
 
 @Component({
@@ -13,7 +13,7 @@ import { FilterType } from '~shared/filters';
 	providers: [
 		ListPageDataService,
 		ListPageViewService,
-		SelectionWithFavoriteService,
+		SelectionService,
 		CommonDialogService
 	]
 })
@@ -23,6 +23,8 @@ export class MySamplePageComponent implements OnInit {
 		FilterType.SUPPLIER,
 		FilterType.PRODUCT
 	];
+
+	erm = ERM;
 
 	constructor(
 		private userSrv: UserService,
@@ -47,6 +49,10 @@ export class MySamplePageComponent implements OnInit {
 			this.dataSrv.filterList.addFilter(filterAssignee);
 		else
 			this.dataSrv.filterList.removeFilter(filterAssignee);
+	}
+
+	onMultipleStatusUpdated(selection, status) {
+
 	}
 
 }
