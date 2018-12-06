@@ -15,9 +15,11 @@ export class SampleQueries extends GlobalQueries {
 		id, name, ${SampleQueries.images}, favorite, description,
 	}`;
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
+	static readonly status = `status { id, name, category, inWorkflow, step }`;
 
 	static readonly one = `
 		name,
+		reference,
 		description
 		creationDate,
 		deleted,
@@ -27,10 +29,12 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.price()}
 		${SampleQueries.createdBy}
 		${SampleQueries.assignee}
+		${SampleQueries.status}
 	`;
 
 	static readonly many = `
 		name,
+		reference,
 		description
 		creationDate,
 		deleted,
@@ -40,6 +44,7 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.price()}
 		${SampleQueries.createdBy}
 		${SampleQueries.assignee}
+		${SampleQueries.status}
 	`;
 
 }

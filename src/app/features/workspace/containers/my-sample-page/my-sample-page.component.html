@@ -6,6 +6,15 @@
 	(showFilters)="listSrv.openFilterPanel()"
 	(search)="listSrv.search($event)"
 	(viewChange)="listSrv.changeView($event)">
+	<sub-panel-left-item-app>
+		<div class="flex show-my-samples">
+			<checkbox-app
+				(check)="toggleMySamples(true)"
+				(uncheck)="toggleMySamples(false)">
+			</checkbox-app>
+			<span class="ellipsis">Show my samples only</span>
+		</div>
+	</sub-panel-left-item-app>
 </sub-panel-app>
 
 <sample-list-view-app
@@ -19,12 +28,34 @@
 </sample-board-view-app>
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
+	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="listSrv.selection$ | async"
-	[hasDelete]="false"
-	(close)="listSrv.unselectAll()"
-	(delete)="listSrv.deleteSelected()">
-	<button> Change Status </button>
+	(close)="listSrv.unselectAll()">
+	<div class="flex">
+		<button class="flexCenter change-status">
+			<icon-app name="Status"></icon-app>
+			<span>Change Status</span>
+			<status-selector-app
+				#workActionMenu
+				selectSize="s"
+				[typeEntity]="erm.SAMPLE"
+				[isSendToWorkFlow]="true"
+				[internalUpdate]="false"
+				(statusUpdated)="onMultipleStatusUpdated(selectionSrv.selection , $event)">
+			</status-selector-app>
+		</button>
+<<<<<<< HEAD
+<<<<<<< HEAD
+		<button class="icon light" (click)="listSrv.deleteSelected()">
+=======
+		<button class="icon light" (click)="dataSrv.deleteSelected()">
+>>>>>>> selection bar updated
+=======
+		<button class="icon light" (click)="dataSrv.deleteSelected()">
+>>>>>>> 7a922d9756133e943f63a1ccdd0dd713758c48ed
+			<icon-app class="trash-bin" name="trash-bin"></icon-app>
+		</button>
+	</div>
 </selection-bar-app>
 
 <filters-app

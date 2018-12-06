@@ -30,9 +30,7 @@
   <selection-bar-app
     [isShown]="(listSrv.selection$ | async).size > 0"
     [selection]="listSrv.selection$ | async"
-    [hasDelete]="false"
-    (close)="listSrv.unselectAll()"
-    (delete)="listSrv.deleteSelected()" >
+    (close)="listSrv.unselectAll()">
     <action-bar-app [hasHeart]="false" [hasLikes]="false">
       <button class="icon light" (click)="listSrv.deleteSelected()">
         <icon-app name="trash-bin" size="m"></icon-app>

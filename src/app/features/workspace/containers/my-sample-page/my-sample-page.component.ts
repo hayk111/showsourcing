@@ -4,7 +4,7 @@ import { CommonDialogService } from '~common/dialog';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { SampleService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { Sample } from '~core/models';
+import { Sample, ERM } from '~core/models';
 import { FilterType } from '~shared/filters';
 
 @Component({
@@ -23,6 +23,8 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		FilterType.PRODUCT
 	];
 
+	erm = ERM;
+
 	constructor(
 		protected router: Router,
 		protected userSrv: UserService,
@@ -31,5 +33,18 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		public commonDlgSrv: CommonDialogService,
 	) {
 		super(router, userSrv, sampleSrv, listSrv, commonDlgSrv);
+	}
+
+	// can be moved to abstract
+	toggleMySamples(show: boolean) {
+		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
+		if (show)
+			this.listSrv.addFilter(filterAssignee);
+		else
+			this.listSrv.removeFilter(filterAssignee);
+	}
+
+	onMultipleStatusUpdated(selection, status) {
+
 	}
 }

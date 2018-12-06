@@ -2,8 +2,8 @@
 	[style.height]="size + 'px'"
 	[style.width]="size + 'px'"></img-app>
 <ng-template #default>
-	<div class="gradient-border flexCenter" [ngClass]="{'gradient-border': initials, 'dot-border': !initials}" [ngStyle]="commonStyle">
-		<div class="initials flexCenter" [ngClass]="{'bg-initials': initials, 'bg-secondary-light': !initials}" [ngStyle]="commonStyle">
+	<div class="gradient-border flexCenter" [ngClass]="{'gradient-border': initials, 'dot-border': !initials}" [ngStyle]="commonStyle()">
+		<div class="initials flexCenter" [ngClass]="{'bg-initials': initials, 'bg-secondary-light': !initials}" [ngStyle]="commonStyle()">
 			{{ initials }}
 		</div>
 	</div>

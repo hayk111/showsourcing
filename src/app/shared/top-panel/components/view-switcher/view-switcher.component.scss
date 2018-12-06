@@ -22,23 +22,30 @@
 
 button {
 	height: 32px;
-	width: 100px;
+	min-width: 70px;
 	border-radius: var(--border-radius-s);
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	font-size: var(--font-size-m);
+	font-size: var(--font-size-s);
 	background: transparent;
 	color:  var(--color-txt-primary);
-	padding: 0 15px;
+	padding: var(--spacing-s) var(--spacing-ms);
 	z-index: var(--z-button);
 	text-transform: none;
+	align-items: baseline;
 }
 
+
+
 icon-app {
-	padding: 0 7px;
+	padding: 0 6px;
 	padding-left: 0;
-	font-size: var(--font-size-s);
+	font-size: var(--font-size-xs);
+
+	&.list {
+		font-size: var(--font-size-xxs);
+	}
 	&:before {
 		color: var(--color-txt-primary);
 	}

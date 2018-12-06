@@ -1,22 +1,24 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TopPanelComponent } from '~shared/top-panel/components/top-panel/top-panel.component';
-import { SubPanelComponent } from '~shared/top-panel/components/sub-panel/sub-panel.component';
-import { ViewSwitcherComponent } from '~shared/top-panel/components/view-switcher/view-switcher.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CardModule } from '~shared/card';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { DividerModule } from '~shared/divider/divider.module';
+import { EditableFieldModule } from '~shared/editable-field';
 import { FiltersModule } from '~shared/filters/filters.module';
 import { IconsModule } from '~shared/icons';
 import { LoadersModule } from '~shared/loaders';
-import { RouterModule } from '@angular/router';
-import { CardModule } from '~shared/card';
-import { BreadCrumbComponent } from '~shared/top-panel/components/bread-crumb/bread-crumb.component';
-import { DividerModule } from '~shared/divider/divider.module';
-import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
-import { SharedModule } from '~shared/shared.module';
+import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
+import { BreadCrumbComponent } from '~shared/top-panel/components/bread-crumb/bread-crumb.component';
+import { SubPanelComponent } from '~shared/top-panel/components/sub-panel/sub-panel.component';
+import { TopPanelComponent } from '~shared/top-panel/components/top-panel/top-panel.component';
+import { ViewSwitcherComponent } from '~shared/top-panel/components/view-switcher/view-switcher.component';
+
+import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
+import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
 import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
-import { EditableFieldModule } from '~shared/editable-field';
 
 @NgModule({
 	imports: [
@@ -40,7 +42,16 @@ import { EditableFieldModule } from '~shared/editable-field';
 		ViewSwitcherComponent,
 		BreadCrumbComponent,
 		TopPanelDetailsComponent,
+		SubPanelLeftItemComponent,
+		SubPanelRightItemComponent,
 	],
-	exports: [TopPanelComponent, SubPanelComponent, BreadCrumbComponent, TopPanelDetailsComponent],
+	exports: [
+		TopPanelComponent,
+		SubPanelComponent,
+		BreadCrumbComponent,
+		TopPanelDetailsComponent,
+		SubPanelLeftItemComponent,
+		SubPanelRightItemComponent
+	],
 })
 export class TopPanelModule { }

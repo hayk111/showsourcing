@@ -31,7 +31,6 @@ export class SearchBarComponent extends AbstractInput implements OnChanges, OnIn
 	@Input() hasIcon = true;
 	@Input() placeHolder = 'Type to search';
 	@Output() search = new EventEmitter<string>();
-	@Output() emptySearch = new EventEmitter();
 	private _searchSubject$ = new Subject();
 
 	@ViewChild('inp') inputRef: ElementRef;

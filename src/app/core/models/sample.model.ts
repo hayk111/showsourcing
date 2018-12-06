@@ -7,17 +7,16 @@ export class Sample extends EntityWithAudit<SampleConfig> {
 	name?: string;
 	reference?: string;
 	description?: string;
-	type?: any;
 	assignee?: User;
 	product?: Product;
 	supplier?: Supplier;
 	status?: SampleStatus;
-	commnets?: Comment[];
+	comments?: Comment[];
 	images?: AppImage[];
 	trackingNumber?: string;
 	shippingCompany?: string;
 	price?: Price;
-	paid = false;
+	paid ?= false;
 	__typename ?= 'Sample';
 }
 
