@@ -22,6 +22,7 @@
 		*ngIf="listSrv.view === 'list'"
 		[selection]="listSrv.selection$ | async"
 		[rows]="samples"
+		[pending]="listSrv.pending"
 		(previewClick)="listSrv.openPreview($event)"
 		(select)="listSrv.selectOne($event)"
 		(unselect)="listSrv.unselectOne($event)"
@@ -29,8 +30,9 @@
 		(unselectAll)="listSrv.unselectAll()"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"
-		(delete)="listSrv.deleteOne($event)">
-
+		(delete)="listSrv.deleteOne($event)"
+		(openProduct)="openProduct($event)"
+		(openSupplier)="openSupplier($event)">
 	</sample-list-view-app>
 
 	<sample-board-view-app

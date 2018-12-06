@@ -1,0 +1,18 @@
+.assignee-container {
+	align-items: center;
+}
+
+.number {
+	color: var(--color-txt-strong);
+	font-weight: 600;
+}
+
+.name-container {
+	align-items: center;
+
+	img-app {
+		height: 28px;
+		width: 28px;
+		margin-right: var(--spacing-ms);
+	}
+}

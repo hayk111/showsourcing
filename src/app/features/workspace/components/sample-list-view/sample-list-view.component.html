@@ -1,3 +1,12 @@
+<!-- contextual menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		class="pointer flexCenter"
+		(click)="delete.emit(row.id)">
+		Delete
+	</context-menu-item-app>
+</ng-template>
+
 <table-app
 	[rows]="rows"
 	[pending]="pending"
@@ -11,12 +20,99 @@
 	(sort)="sort.emit($event)"
 	(bottomReached)="bottomReached.emit()">
 
-	<!-- contextual menu -->
-	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-app
-			class="pointer flexCenter"
-			(click)="delete.emit(row.id)">
-			Delete
-		</context-menu-item-app>
+	<!-- name -->
+	<ng-template
+		class="capitalize"
+		columnApp="Samples"
+		let-row="row"
+		sortBy="name"
+		width="400"
+		[grows]="false">
+		<div class="mainCellWrapper name-container ellipsis">
+			<div class="mainCell">
+				<img-app [image]="row?.images ? row?.images[0] : null" type="sample" size="s"></img-app>
+				<span class="ellipsis">{{ row?.name }}</span>
+			</div>
+			<div class="preview">
+				<button (click)="previewClick.emit(row)" class="secondary-dark small">Preview</button>
+			</div>
+		</div>
 	</ng-template>
+
+	<!-- assignee -->
+	<ng-template
+		class="capitalize"
+		columnApp="Assignee"
+		let-row="row"
+		sortBy="assignee.lastName"
+		width="200"
+		[grows]="false">
+		<div class="flex assignee-container">
+			<user-picture-app	[user]="row?.assignee" size="24" [border]="true"></user-picture-app>
+			{{ row?.assignee?.firstName }} {{ row.assignee?.lastName ? row?.assignee?.lastName[0] + '.' : ''}}
+		</div>
+	</ng-template>
+
+	<!-- product -->
+	<ng-template
+		class="capitalize"
+		columnApp="Product"
+		let-row="row"
+		sortBy="product.name"
+		width="250"
+		[grows]="false">
+		<div *ngIf="row?.product" class="pointer" (click)="openProduct.emit(row?.product?.id)">{{ row?.product?.name }}</div>
+	</ng-template>
+
+	<!-- supplier -->
+	<ng-template
+		class="capitalize"
+		columnApp="Supplier"
+		let-row="row"
+		sortBy="supplier.name"
+		width="300"
+		[grows]="false">
+		<div *ngIf="row?.supplier" class="pointer" (click)="openSupplier.emit(row.supplier.id)">{{ row?.supplier?.name }}</div>
+	</ng-template>
+
+	<!-- comments -->
+	<ng-template
+		columnApp="Comments"
+		let-row="row"
+		sortBy="comments.length"
+		width="200"
+		[grows]="false">
+		<div class="flex">
+			<div class="number">{{ row?.comments?.length || '0' }}</div>
+			&nbsp;
+			{{ row?.comments?.length === 1 ? 'comment' : 'comments'}}
+		</div>
+	</ng-template>
+
+	<!-- status -->
+		<ng-template
+		class="capitalize"
+		columnApp="Status"
+		let-row="row"
+		sortBy="status.name"
+		width="200"
+		[grows]="false">
+		<status-selector-app
+			[entity]="row"
+			[typeEntity]="erm.SAMPLE"
+			selectSize="s">
+		</status-selector-app>
+	</ng-template>
+
+	<!-- created on -->
+	<ng-template
+		class="capitalize"
+		columnApp="Created On"
+		let-row="row"
+		sortBy="createdBy.lastName"
+		width="200"
+		[grows]="false">
+		{{ row?.creationDate | date: 'MMMM y' }}
+	</ng-template>
+
 </table-app>

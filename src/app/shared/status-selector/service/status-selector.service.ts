@@ -21,7 +21,7 @@ export class StatusSelectorService {
 			shareReplay(1)
 		);
 	sampleStatus$: Observable<SampleStatus[]> = this.ermSrv.getStatusService(ERM.SAMPLE)
-		.queryAll('name, cateogry, inWorkflow', { descending: false }).pipe(
+		.queryAll('name, category, inWorkflow', { descending: false }).pipe(
 			shareReplay(1)
 		);
 
