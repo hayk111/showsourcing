@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Sample, User } from '~models';
+import { Sample, User, ERM } from '~models';
 
 @Component({
 	selector: 'sample-app',
@@ -18,11 +18,13 @@ export class SampleComponent {
 	@Output() updateSample = new EventEmitter<Sample>();
 
 	menuOpen = false;
+	erm = ERM;
 
 	constructor() { }
 
 	updateAssignee(user: User) {
 		this.updateSample.emit({ ...this.sample, assignee: user });
+		this.closeMenu();
 	}
 
 	toggleMenu() {

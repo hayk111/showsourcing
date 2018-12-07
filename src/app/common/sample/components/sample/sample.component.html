@@ -1,30 +1,46 @@
 <div class="flexStart row">
-	<!-- name -->
-	<div class="flex task-name ellipsis pointer">
-		<!-- <icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus()"></icon-app> -->
-		<div class="flexCenter" (click)="previewClicked.emit(sample)">{{ sample?.name || 'Unnamed sample' }}</div>
+	<!-- reference -->
+	<div class="flex sample-reference ellipsis pointer">
+		<img-app [image]="sample?.images ? sample.images[0] : null" type="sample" size="s"></img-app>
+		<div class="flexCenter" >{{ sample?.reference || 'No reference' }}</div>
 	</div>
 
-	<!-- if product -->
-	<!-- <div *ngIf="hasProduct" class="flexStart task-product ellipsis">
-		<div *ngIf="task?.product" class="flex ellipsis" (click)="openProduct.emit(task?.product?.id || null)">
-			<img-app [size]="'xs'" [image]="task?.product?.images"></img-app>
-			{{ task?.product?.name || 'Unnamed product'}}
-		</div>
-	</div> -->
+	<!-- name -->
+	<div class="flexStart sample-name ellipsis" (click)="previewClicked.emit(sample)">
+		{{ sample?.name || 'Unnamed Sample'}}
+	</div>
 
-	<!-- if supplier -->
-	<!-- <div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis">
-		<div *ngIf="task?.supplier" class="flex ellipsis" (click)="openSupplier.emit(task?.supplier?.id || null)">
-			<img-app [size]="'xs'" [image]="task?.supplier?.logoImage"></img-app>
-			{{ task?.supplier?.name || 'Unnamed suppler' }}
-		</div>
-	</div> -->
-
-	<!-- user+name column -->
-	<!-- <div *ngIf="fullUser" class="flex task-user"> DONT ERASE THIS IN CASE THE TASK MENU != TASK WORKSPACE
-		we call 2 times the selctor method since it has 2 different styling offsets
-	</div> -->
+	<div
+		class="flex sample-user"
+		cdkOverlayOrigin
+		#trigger="cdkOverlayOrigin"
+		(click)="toggleMenu()">
+		<!-- DONT ERASE THIS IN CASE THE TASK MENU != TASK WORKSPACE -->
+		<!-- we call 2 times the selctor method since it has 2 different styling offsets -->
+		<user-picture-app [user]="sample?.assignee" [size]="20" [border]="true"></user-picture-app>
+		<span>{{ sample?.assignee?.firstName }} {{ sample?.assignee?.lastName }}</span>
+		<cdk-overlay-app
+			*ngIf="menuOpen"
+			[trigger]="trigger"
+			[isOpen]="menuOpen"
+			[offsetY]="-22"
+			(clickOutside)="closeMenu()">
+			<selector-entity-app
+				#selector
+				style="width: 200px;"
+				type="user"
+				(clickOutside)="closeMenu()"
+				(change)="updateAssignee($event)">
+			</selector-entity-app>
+		</cdk-overlay-app>
+	</div>
 
 	<!-- sample status -->
+	<div class="sample-status">
+		<status-selector-app
+			[entity]="sample"
+			[typeEntity]="erm.SUPPLIER"
+			[offsetX]="-15">
+		</status-selector-app>
+	</div>
 </div>

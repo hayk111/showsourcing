@@ -1,3 +1,23 @@
 .row {
 	padding-right: var(--spacing-ms);
+
+	.sample-reference {
+		width: 25%;
+		img-app {
+			width: 21px;
+			height: 21px;
+		}
+	}
+
+	.sample-name {
+		width: 35%;
+	}
+
+	.sample-user {
+		width: 25%;
+	}
+
+	.sample-status {
+		width: 15%;
+	}
 }

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {
 	DEFAULT_IMG, ImageUrls, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON,
-	DEFAULT_PROJECT_ICON, DEFAULT_CATEGORY_ICON, DEFAULT_PRODUCT_ICON
+	DEFAULT_PROJECT_ICON, DEFAULT_CATEGORY_ICON, DEFAULT_PRODUCT_ICON, DEFAULT_SAMPLE_ICON
 } from '~utils';
 
 /**
@@ -90,6 +90,8 @@ export class ImagePipe implements PipeTransform {
 				return DEFAULT_CATEGORY_ICON;
 			case 'product':
 				return DEFAULT_PRODUCT_ICON;
+			case 'sample':
+				return DEFAULT_SAMPLE_ICON;
 			default:
 				return DEFAULT_IMG;
 		}
