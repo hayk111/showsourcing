@@ -1,6 +1,6 @@
 export class ComparisonDataModel {
-	type?: 'title' | 'content' = 'content';
-	title = '';
+	type?: 'title' | 'content'| 'header' | 'image' = 'content';
+	title?: string;
 	dataType?: 'price' | 'text' | 'date' = 'text';
 	data?: Array<any> = [];
 }

@@ -22,7 +22,7 @@ export class ItemCompareRowComponent extends TrackingComponent
 	@Input() quote: Quote;
 	@Input() priceMatrixLabels = [];
 
-	@Input() data: ComparisonDataModel[] = [];
+	@Input() comparisonData: ComparisonDataModel[] = [];
 
 	constructor() {
 		super();
