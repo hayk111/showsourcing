@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { CommentCommonModule } from '~common/comment';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
 
-import { CreateTaskDialogComponent, PreviewTaskComponent, TaskComponent, TaskListComponent } from './components';
+import { CreateTaskDialogComponent, TaskComponent, TaskListComponent, TaskPreviewComponent } from './components';
 import { BannerTaskComponent } from './components/banner-task/banner-task.component';
-import { CommentCommonModule } from '~common/comment';
 
 
 
@@ -19,14 +18,14 @@ import { CommentCommonModule } from '~common/comment';
 		TaskListComponent,
 		TaskComponent,
 		CreateTaskDialogComponent,
-		PreviewTaskComponent,
+		TaskPreviewComponent,
 		BannerTaskComponent
 	],
 	exports: [
 		TaskListComponent,
 		TaskComponent,
 		CreateTaskDialogComponent,
-		PreviewTaskComponent,
+		TaskPreviewComponent,
 		BannerTaskComponent
 	],
 	entryComponents: [CreateTaskDialogComponent]

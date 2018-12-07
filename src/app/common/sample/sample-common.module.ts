@@ -1,13 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { CommentCommonModule } from '~common/comment';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
-
-import { SampleListComponent } from './components/sample-list/sample-list.component';
-import { SampleComponent } from './components/sample/sample.component';
-import { PreviewSampleComponent } from './components/preview-sample/preview-sample.component';
-import { SampleCardComponent } from './components/sample-card/sample-card.component';
-import { CommentCommonModule } from '~common/comment';
+import { SampleListComponent, SampleComponent, SamplePreviewComponent, SampleCardComponent } from './components';
 
 @NgModule({
 	imports: [
@@ -19,12 +15,12 @@ import { CommentCommonModule } from '~common/comment';
 	declarations: [
 		SampleListComponent,
 		SampleComponent,
-		PreviewSampleComponent,
+		SamplePreviewComponent,
 		SampleCardComponent],
 	exports: [
 		SampleListComponent,
 		SampleComponent,
-		PreviewSampleComponent,
+		SamplePreviewComponent,
 		SampleCardComponent
 	],
 	entryComponents: []

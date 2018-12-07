@@ -12,8 +12,6 @@ export class SampleListComponent extends TrackingComponent implements OnInit {
 
 	@Input() samples: Sample[];
 	@Input() selection: Map<string, boolean>;
-	@Input() hasProduct = false;
-	@Input() hasSupplier = false;
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() createSample = new EventEmitter<string>();
 	@Output() previewClicked = new EventEmitter<Sample>();

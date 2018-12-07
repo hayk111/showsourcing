@@ -10,11 +10,7 @@
 				(uncheck)="onItemUnselected(task)">
 			</checkbox-app> -->
 			<sample-app
-				[hasProduct]="hasProduct"
-				[hasSupplier]="hasSupplier"
 				[sample]="sample"
-				(openProduct)="openProduct($event)"
-				(openSupplier)="openSupplier($event)"
 				(previewClicked)="previewClicked.emit(sample)"
 				(updateSample)="updateSample.emit($event)">
 			</sample-app>

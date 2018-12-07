@@ -48,11 +48,11 @@
 		</action-bar-app>
 	</selection-bar-app>
 
-	<preview-supplier-app
+	<supplier-preview-app
 		*ngIf="listSrv.previewOpen"
 		[supplier]="listSrv.previewed"
 		(close)="listSrv.closePreview()">
-	</preview-supplier-app>
+	</supplier-preview-app>
 
 	<filters-app
 		[filterList]="listSrv.filterList"

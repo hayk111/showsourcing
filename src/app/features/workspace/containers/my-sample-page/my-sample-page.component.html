@@ -76,11 +76,11 @@
 		(clickOutside)="listSrv.closeFilterPanel()">
 	</filters-app>
 
-	<preview-sample-app
+	<sample-preview-app
 		*ngIf="listSrv.previewOpen"
 		[sample]="listSrv.previewed"
 		(close)="listSrv.closePreview()">
-	</preview-sample-app>
+	</sample-preview-app>
 </ng-container>
 
 <ng-template #spinner>

@@ -2,7 +2,6 @@
 	<sample-list-app
 		[samples]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
-		[hasProduct]="true"
 		(bottomReached)="listSrv.loadMore()"
 		(createSample)="createSample($event)"
 		(previewClicked)="listSrv.openPreview($event)"
@@ -10,9 +9,9 @@
 	</sample-list-app>
 </div>
 
-<preview-sample-app
+<sample-preview-app
 	*ngIf="listSrv.previewOpen"
 	[sample]="listSrv.previewed"
 	(close)="listSrv.closePreview()"
 	(clickOutside)="listSrv.closePreview()">
-</preview-sample-app>
+</sample-preview-app>

@@ -10,8 +10,6 @@ import { Sample, User } from '~models';
 export class SampleComponent {
 
 	@Input() sample: Sample;
-	@Input() hasSupplier: boolean;
-	@Input() hasProduct: boolean;
 	@Output() openProduct = new EventEmitter<string>();
 	@Output() openSupplier = new EventEmitter<string>();
 	@Output() previewClicked = new EventEmitter<Sample>();

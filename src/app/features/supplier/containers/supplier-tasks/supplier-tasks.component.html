@@ -34,11 +34,11 @@
 		(createTask)="createTask($event)">
 	</task-list-app>
 
-	<preview-task-app
+	<task-preview-app
 		*ngIf="listSrv.previewOpen"
 		[task]="listSrv.previewed"
 		(close)="listSrv.closePreview()">
-	</preview-task-app>
+	</task-preview-app>
 </div>
 
 <selection-bar-app
