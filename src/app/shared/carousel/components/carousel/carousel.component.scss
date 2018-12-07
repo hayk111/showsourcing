@@ -27,13 +27,13 @@
 .menuIc {
 	position: absolute;
 	top: var(--spacing-m);
-	right: var(--spacing-m);
+	left: var(--spacing-m);
 }
 
 menu {
 	position: absolute;
 	top: var(--spacing-xl);
-	right: var(--spacing-m);
+	left: var(--spacing-m);
 }
 
 .btn {
@@ -78,7 +78,7 @@ menu {
 	color: white;
 	display: flex;
 	align-items: center;
-	right: var(--spacing-xxxl);
+	left: var(--spacing-xxxl);
 	top: var(--spacing-m);
 }
 

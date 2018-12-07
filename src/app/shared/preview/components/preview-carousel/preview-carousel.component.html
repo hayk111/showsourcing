@@ -1,0 +1,39 @@
+<!-- images -->
+<ng-container *ngIf="images.length > 0; else noImg">
+	<!-- carousel -->
+	<carousel-app
+		[images]="images"
+		[selectedIndex]="selectedIndex"
+		[objectFit]="objectFit"
+		(imgClick)="openModal($event)"
+		(deleted)="onDelete($event)">
+	</carousel-app>
+
+</ng-container>
+<!-- no image -->
+<ng-template #noImg>
+	<div class="flexColumn flexCenter empty">
+		<img [src]="defaultImg"/>
+		<span>No picture yet</span>
+		<button class="secondary" (click)="openFileBrowser()">Add Picture</button>
+	</div>
+</ng-template>
+
+<div cdkOverlayOrigin
+	#trigger="cdkOverlayOrigin">
+</div>
+
+
+<!-- modal carousel that can be seen when clicking on the normal carousel -->
+<cdk-overlay-app
+	[trigger]="trigger"
+	[isOpen]="modalOpen"
+	(clickOutside)="closeModal()">
+	<modal-carousel-app
+		[selectedIndex]="selectedIndex"
+		[images]="images"
+		(close)="closeModal()">
+	</modal-carousel-app>
+</cdk-overlay-app>
+
+<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>

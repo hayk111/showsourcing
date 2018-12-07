@@ -35,7 +35,6 @@
 	<preview-task-app
 		*ngIf="listSrv.previewOpen"
 		[task]="listSrv.previewed"
-		(close)="listSrv.closePreview()"
-		(clickOutside)="listSrv.closePreview()">
+		(close)="listSrv.closePreview()">
 	</preview-task-app>
 </div>

@@ -56,22 +56,4 @@ export class PreviewSampleComponent extends AutoUnsub implements OnInit {
 	updateSample(sample: Sample) {
 		this.sampleSrv.update({ id: this._sample.id, ...sample }).subscribe();
 	}
-
-	/** opens the modal carousel */
-	openModal(index: number) {
-		this.selectedIndex = index;
-		this.modalOpen = true;
-	}
-
-	/** closes the modal */
-	closeModal() {
-		this.modalOpen = false;
-	}
-
-	/** when image is deleted */
-	onDelete(image: AppImage) {
-		const images = this._sample.images.filter(img => image.id !== img.id);
-		this.sampleSrv.update({ id: this._sample.id, images }).subscribe();
-	}
-
 }

@@ -5,13 +5,12 @@ import {
 	Input,
 	OnInit,
 	Output,
-	Renderer2,
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
-import { Product, ERM } from '~models';
-import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { ListViewComponent } from '~core/list-page/list-view.component';
+import { ERM, Product } from '~models';
+import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { Sort } from '~shared/table/components/sort.interface';
 
 
@@ -24,6 +23,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
+
 	@Input() currentSort: Sort;
 	// TODO, I think we will have to rethink the descriptor / custom table thing
 	// because this won't really work with the type of descriptor Antoine is envisaging
@@ -31,6 +31,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
 	@Output() openRequestQuotationDialog = new EventEmitter<Product>();
+
 	// templates
 	// load cells template for custom table
 	@ViewChild('main') mainTemplate: TemplateRef<any>;
@@ -59,7 +60,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
 	];
 
-	constructor(private renderer: Renderer2) {
+	constructor() {
 		super();
 	}
 
@@ -111,9 +112,5 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 			default:
 				column.template = this.defaultTemplate;
 		}
-	}
-
-	onTogglePreview(overviewElement, display) {
-		this.renderer.setStyle(overviewElement, 'display', display ? 'block' : 'none');
 	}
 }

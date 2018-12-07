@@ -1,20 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CarouselModule } from '~shared/carousel';
+import { EditableFieldModule } from '~shared/editable-field';
+import { FileModule } from '~shared/file';
+import { IconsModule } from '~shared/icons';
+import { ImageModule } from '~shared/image/image.module';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 
 import {
 	PreviewBadgesComponent,
 	PreviewBannerComponent,
+	PreviewCarouselComponent,
 	PreviewComponent,
 	PreviewHeaderComponent,
+	PreviewLogoComponent,
 	PreviewSectionComponent,
 } from './components';
-import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
-import { FormsModule } from '@angular/forms';
-import { IconsModule } from '~shared/icons';
-import { EditableFieldModule } from '~shared/editable-field';
-import { SelectorsModule } from '~shared/selectors/selectors.module';
-import { PreviewLogoComponent } from './components/preview-logo/preview-logo.component';
-import { ImageModule } from '~shared/image/image.module';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 
 @NgModule({
@@ -25,7 +29,10 @@ import { ImageModule } from '~shared/image/image.module';
 		IconsModule,
 		EditableFieldModule,
 		SelectorsModule,
-		ImageModule
+		ImageModule,
+		CarouselModule,
+		FileModule,
+		OverlayModule
 	],
 	declarations: [
 		PreviewComponent,
@@ -33,7 +40,8 @@ import { ImageModule } from '~shared/image/image.module';
 		PreviewSectionComponent,
 		PreviewBadgesComponent,
 		PreviewBannerComponent,
-		PreviewLogoComponent
+		PreviewLogoComponent,
+		PreviewCarouselComponent
 	],
 	exports: [
 		PreviewComponent,
@@ -41,7 +49,8 @@ import { ImageModule } from '~shared/image/image.module';
 		PreviewSectionComponent,
 		PreviewBadgesComponent,
 		PreviewBannerComponent,
-		PreviewLogoComponent
+		PreviewLogoComponent,
+		PreviewCarouselComponent
 	]
 })
 export class PreviewModule { }

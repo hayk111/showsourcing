@@ -51,9 +51,9 @@
 	<preview-supplier-app
 		*ngIf="listSrv.previewOpen"
 		[supplier]="listSrv.previewed"
-		(close)="listSrv.closePreview()"
-		(clickOutside)="listSrv.closePreview()">
+		(close)="listSrv.closePreview()">
 	</preview-supplier-app>
+
 	<filters-app
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
