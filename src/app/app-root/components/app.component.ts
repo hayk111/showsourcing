@@ -1,16 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { GlobalConstClientInitializer } from '~core/apollo/services/apollo-global-const-client.service';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
 import { TokenService } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
-import { ViewportScroller } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-root',
@@ -22,7 +19,6 @@ export class AppComponent implements OnInit {
 	constructor(
 		private authSrv: AuthenticationService,
 		private globalDataClient: GlobalDataClientsInitializer,
-		private globalConstClient: GlobalConstClientInitializer,
 		private userClient: UserClientInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
@@ -54,7 +50,6 @@ export class AppComponent implements OnInit {
 		// when we are authenticated it means we have a token
 		const token = this.tokenSrv.authRefreshTokenSync;
 		return forkJoin([
-			this.globalConstClient.init(token),
 			this.globalDataClient.init(token),
 			this.userClient.init(token)
 		]);
@@ -71,7 +66,6 @@ export class AppComponent implements OnInit {
 
 	private destroyAllClients() {
 		const reason = 'unauthenticated';
-		this.globalConstClient.destroy(reason);
 		this.globalDataClient.destroy(reason);
 		this.userClient.destroy(reason);
 		this.teamClient.destroy(reason);

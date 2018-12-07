@@ -20,6 +20,8 @@ import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { CommentService } from '~core/entity-services/comment/comment.service';
+import { Comment } from '~models';
 
 @Component({
 	selector: 'one-product-activity-card-app',
@@ -31,7 +33,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 
 	@Input() groupFeed: GetStreamGroup;
 	@Input() title: string;
-	@Output() createComment = new EventEmitter<any>();
+	@Output() createComment = new EventEmitter<{ comment: any, entity: any, erm: any }>();
 	@Output() update = new EventEmitter<Product>();
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
@@ -46,7 +48,8 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
 		private productSrv: ProductService,
-		private thumbSrv: ThumbService) {
+		private thumbSrv: ThumbService,
+		private commentSrv: CommentService) {
 		super();
 	}
 
@@ -92,7 +95,9 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	}
 
 	onSubmit() {
-		this.createComment.emit({ text: this.commentCtrl.value, entity: this.product, typeEntity: this.typeEntity });
+		const comment = new Comment({ text: this.commentCtrl.value });
+		this.commentSrv.create(comment);
+		this.createComment.emit({ comment, entity: this.product, erm: ERM.PRODUCT });
 		this.commentCtrl.reset();
 	}
 

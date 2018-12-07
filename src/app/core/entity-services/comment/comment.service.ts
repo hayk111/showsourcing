@@ -11,7 +11,10 @@ import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 @Injectable({ providedIn: 'root' })
 export class CommentService extends GlobalWithAuditService<Comment> {
 
-	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
+	constructor(
+		protected apolloState: ApolloStateService,
+		protected userSrv: UserService
+	) {
 		super(apolloState, CommentQueries, 'comment', 'comments', userSrv);
 	}
 

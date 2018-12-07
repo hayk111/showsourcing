@@ -1,6 +1,7 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from '~shared/carousel';
 import { EditableFieldModule } from '~shared/editable-field';
 import { FileModule } from '~shared/file';
@@ -12,13 +13,13 @@ import { StatusSelectorModule } from '~shared/status-selector/status-selector.mo
 import {
 	PreviewBadgesComponent,
 	PreviewBannerComponent,
-	PreviewCarouselComponent,
 	PreviewComponent,
 	PreviewHeaderComponent,
-	PreviewLogoComponent,
 	PreviewSectionComponent,
+	PreviewCommentComponent
 } from './components';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { PreviewLogoComponent } from './components/preview-logo/preview-logo.component';
+import { PreviewCarouselComponent } from './components/preview-carousel/preview-carousel.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 		ImageModule,
 		CarouselModule,
 		FileModule,
-		OverlayModule
+		OverlayModule,
+		ReactiveFormsModule,
 	],
 	declarations: [
 		PreviewComponent,
@@ -41,7 +43,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 		PreviewBadgesComponent,
 		PreviewBannerComponent,
 		PreviewLogoComponent,
-		PreviewCarouselComponent
+		PreviewCarouselComponent,
+		PreviewCommentComponent,
 	],
 	exports: [
 		PreviewComponent,
@@ -50,7 +53,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 		PreviewBadgesComponent,
 		PreviewBannerComponent,
 		PreviewLogoComponent,
-		PreviewCarouselComponent
+		PreviewCarouselComponent,
+		PreviewCommentComponent,
 	]
 })
 export class PreviewModule { }

@@ -5,4 +5,12 @@ export class SupplierStatus {
 	inWorkflow?: boolean;
 	category?: string;
 	step?: number;
+
+	constructor(config: SupplierStatus) {
+		Object.assign(this, config);
+	}
+}
+
+export interface SupplierStatusConfig {
+	id: string;
 }

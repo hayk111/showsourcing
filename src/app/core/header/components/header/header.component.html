@@ -41,14 +41,14 @@
         *ngIf="result.type === 'product'"
         [selectable]="false"
         [status]="result?.status?.status" [title]="result.name" [subtitle]="result.supplier?.name"
-        [image]="result.images?.length > 0 ? (result | image:'m') : null"
+        [image]="result.images[0]"
         [link]="'/product/details/' + result.id + '/general'">
       </search-autocomplete-item-content-app>
       <search-autocomplete-item-content-app
         *ngIf="result.type === 'supplier'"
         [selectable]="false"
         [status]="result?.status?.status" [title]="result.name" [subtitle]="supplierSubtitle(result)"
-        image="/assets/icons/supplier.svg"
+        [image]="result.images[0]"
         [link]="'/supplier/details/' + result.id">
       </search-autocomplete-item-content-app>
     </search-autocomplete-item-app>

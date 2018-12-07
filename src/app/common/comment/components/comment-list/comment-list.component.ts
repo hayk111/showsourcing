@@ -12,7 +12,7 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 
 	@Input() comments: Comment[];
 	/** index to keep track of which comments we display */
-	indexShow = 0;
+	amountShown = 0;
 
 	constructor() {
 		super();
@@ -20,7 +20,7 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.comments && this.comments.length > 0) {
-			this.indexShow = this.comments.length;
+			this.amountShown = this.comments.length;
 			this.showMore();
 		}
 	}
@@ -29,7 +29,7 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 	 * will be able to see 2 more items until the index is 0
 	 */
 	showMore() {
-		this.indexShow = this.indexShow >= 2 ? this.indexShow - 2 : 0;
+		this.amountShown = this.amountShown >= 2 ? this.amountShown - 2 : 0;
 	}
 
 }

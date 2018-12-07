@@ -1,0 +1,8 @@
+<h2>Add Comment</h2>
+<input type="text"
+  name="comment"
+  [formControl]="commentCtrl"
+  (keydown.enter)="addComment()"/>
+<div class="flexEnd">
+  <button (click)="addComment()">ADD</button>
+</div>

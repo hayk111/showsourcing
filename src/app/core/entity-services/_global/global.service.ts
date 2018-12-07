@@ -719,7 +719,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		if (Array.isArray(val)) {
 			if (val.length > 0) {
 				if (val[0] instanceof Object) {
-					return `${key} { ${this.patch(val[0])} }`;
+					// take fields of last elements (so when we add new comment etc)
+					return `${key} { ${this.patch(val[val.length - 1])} }`;
 				} else {
 					return key;
 				}

@@ -4,7 +4,7 @@ import { SupplierService, UserService } from '~entity-services';
 import { ERMService } from '~entity-services/_global/erm.service';
 import { CommentService } from '~entity-services/comment/comment.service';
 import { ProductService } from '~entity-services/product/product.service';
-import { Comment, Product, Supplier } from '~models';
+import { Comment, Product, Supplier, EntityMetadata, ERM } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
@@ -18,6 +18,8 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
+	ermSupplier = ERM.SUPPLIER;
+	ermProduct = ERM.PRODUCT;
 
 	@Input() feedResult: GroupedActivityFeed;
 
@@ -49,18 +51,11 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		this.supplierSrv.update(supplier).subscribe();
 	}
 
-	createComment(items: any) {
-		const newComment = new Comment({ text: items.text });
-		this.ermSrv.getGlobalService(items.typeEntity).update(
-			// we do ...newComment, createdBy since we need the firstName, lastName, avatar... and the audith just provides the id
-			{
-				id: items.entity.id,
-				comments: [
-					...items.entity.comments,
-					{ ...newComment, createdBy: this.userSrv.userSync, lastUpdatedBy: this.userSrv.userSync }
-				]
-			}
-		).subscribe();
+	createComment(evt: { comment: any, entity: any, erm: any }) {
+		this.ermSrv.getGlobalService(evt.erm).update({
+			id: evt.entity.id,
+			comments: [...evt.entity.comments, evt.comment]
+		}).subscribe();
 	}
 
 	onThumbUp(product) {

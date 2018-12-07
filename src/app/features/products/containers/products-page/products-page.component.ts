@@ -15,7 +15,7 @@ import { CommonDialogService } from '~common/dialog';
 	]
 })
 export class ProductsPageComponent extends TrackingComponent implements OnInit {
-
+	erm = ERM.PRODUCT;
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,

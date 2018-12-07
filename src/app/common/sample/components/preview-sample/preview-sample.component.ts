@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { AutoUnsub } from '~utils';
 import { SampleService } from '~core/entity-services';
-import { Sample, ERM, AppImage } from '~core/models';
+import { Sample, ERM, AppImage, Comment } from '~core/models';
 import { Observable } from 'rxjs';
 import { CustomField } from '~shared/dynamic-forms';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'preview-sample-app',
@@ -46,6 +47,8 @@ export class PreviewSampleComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.sample$ = this.sampleSrv.selectOne(this._sample.id);
+		this.sample$.pipe(takeUntil(this._destroy$))
+			.subscribe(s => this._sample = s);
 	}
 
 	update(value: any, prop: string) {
@@ -55,5 +58,11 @@ export class PreviewSampleComponent extends AutoUnsub implements OnInit {
 	// dyanmic form update
 	updateSample(sample: Sample) {
 		this.sampleSrv.update({ id: this._sample.id, ...sample }).subscribe();
+	}
+
+	addComment(comment: Comment) {
+		const comments = [...(this._sample.comments || [])];
+		comments.push(comment as any);
+		this.sampleSrv.update({ id: this._sample.id, comments }).subscribe();
 	}
 }

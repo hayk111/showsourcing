@@ -52,7 +52,12 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		if (status.id !== this.entity.status.id) {
 			// we dont update if we click the same
 			if (this.internalUpdate) {
-				this.statusSlctSrv.updateStatus({ id: this.entity.id, status: { id: status.id } }, this.typeEntity).subscribe();
+				this.statusSlctSrv.updateStatus({
+					id: this.entity.id,
+					status: { id: status.id, __typename: status.__typename }
+				},
+					this.typeEntity
+				).subscribe();
 			} else {
 				this.statusUpdated.emit(status);
 			}
@@ -61,7 +66,11 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	setStatus(status) {
 		if (this.internalUpdate) {
-			this.statusSlctSrv.updateStatus({ id: this.entity.id, status: { id: status.id } }, this.typeEntity).subscribe();
+			this.statusSlctSrv.updateStatus({
+				id: this.entity.id,
+				status: { id: status.id, __typename: status.__typename }
+			}, this.typeEntity
+			).subscribe();
 		} else {
 			this.statusUpdated.emit(status);
 		}

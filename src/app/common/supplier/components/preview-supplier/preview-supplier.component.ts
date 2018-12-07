@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CustomField } from '~shared/dynamic-forms';
 import { SupplierService } from '~core/entity-services';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'preview-supplier-app',
@@ -17,6 +18,7 @@ export class PreviewSupplierComponent extends AutoUnsub implements OnInit {
 	@Input() set supplier(value: Supplier) {
 		this._supplier = value;
 	}
+
 	@Output() close = new EventEmitter<null>();
 
 	supplier$: Observable<Supplier>;
@@ -60,6 +62,8 @@ export class PreviewSupplierComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.supplier$ = this.supplierSrv.selectOne(this._supplier.id);
+		this.supplier$.pipe(takeUntil(this._destroy$))
+			.subscribe(s => this._supplier = s);
 	}
 
 	update(value: any, prop: string) {
@@ -69,6 +73,12 @@ export class PreviewSupplierComponent extends AutoUnsub implements OnInit {
 	// dyanmic form update
 	updateSupplier(supplier: Supplier) {
 		this.supplierSrv.update({ id: this._supplier.id, ...supplier }).subscribe();
+	}
+
+	addComment(comment: Comment) {
+		const comments = [...(this._supplier.comments || [])];
+		comments.push(comment as any);
+		this.supplierSrv.update({ id: this._supplier.id, comments }).subscribe();
 	}
 
 	/** opens the modal carousel */

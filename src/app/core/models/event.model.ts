@@ -16,4 +16,5 @@ export class Event extends EntityWithAudit<EventConfig> {
 export interface EventConfig {
 	name?: string;
 	description?: EventDescription;
+	comments?: Comment[];
 }

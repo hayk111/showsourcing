@@ -1,5 +1,5 @@
+import { Comment, Product, Supplier, User } from '~models';
 import { EntityWithAudit } from '~models/_entity.model';
-import { User, Product, Supplier } from '~models';
 
 export class Task extends EntityWithAudit<TaskConfig> {
 	description?: string;
@@ -12,6 +12,7 @@ export class Task extends EntityWithAudit<TaskConfig> {
 	assignee?: User;
 	product?: Product;
 	supplier?: Supplier;
+	comments?: Comment[];
 	__typename ?= 'Task';
 }
 
@@ -22,4 +23,5 @@ export interface TaskConfig {
 	assignee?: User;
 	product?: Product;
 	supplier?: Supplier;
+	comments?: Comment[];
 }

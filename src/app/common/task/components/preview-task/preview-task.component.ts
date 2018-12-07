@@ -13,6 +13,7 @@ import { TaskService } from '~entity-services';
 import { ERM, Task } from '~models';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { AutoUnsub } from '~utils';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -41,6 +42,8 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 
 	ngOnInit() {
 		this.task$ = this.taskSrv.selectOne(this._task.id);
+		this.task$.pipe(takeUntil(this._destroy$))
+			.subscribe(s => this._task = s);
 	}
 
 	ngAfterViewChecked() {
@@ -56,6 +59,12 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 
 	updateDueDate(isCancel: boolean, value: Date) {
 		if (!isCancel && isCancel !== undefined) this.update(value, 'dueDate');
+	}
+
+	addComment(comment: Comment) {
+		const comments = [...(this._task.comments || [])];
+		comments.push(comment as any);
+		this.taskSrv.update({ id: this._task.id, comments }).subscribe();
 	}
 
 	toggleSelector(is: boolean) {

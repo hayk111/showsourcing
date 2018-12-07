@@ -53,6 +53,9 @@
 
 		<!-- Activity -->
 		<preview-section-app>
-
+			<comment-list-app [comments]="supplier.comments"></comment-list-app>
 		</preview-section-app>
+
+		<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+
 	</preview-app>

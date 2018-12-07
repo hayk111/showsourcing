@@ -7,6 +7,8 @@ export abstract class TaskQueries extends GlobalQueries {
 	static readonly supplier = `supplier { id, name, logoImage { id, fileName }}`;
 	static readonly product = `product { id, name, images { id, fileName }}`;
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, fileName } }`;
+	static readonly createdBy = `createdBy { id, lastName, firstName, avatar { id, fileName } }`;
+	static readonly comments = `comments { id, text, ${TaskQueries.createdBy}, creationDate }`;
 
 	static one = `
 		${TaskQueries.type}
@@ -18,6 +20,7 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.product}
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
+		${TaskQueries.comments}
 		description
 	`;
 

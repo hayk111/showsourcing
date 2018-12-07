@@ -5,6 +5,7 @@ import { Category } from '~models/category.model';
 import { SupplierStatus } from '~models/supplier-status.model';
 import { SupplierType } from '~models/supplier-type.model';
 import { Tag } from '~models/tag.model';
+import { Comment } from '~models';
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
 	name?: string;
@@ -29,7 +30,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	favorite ?= false;
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
-	statusHistory?: SupplierStatus[];
+	comments?: Comment[];
 	__typename ?= 'Supplier';
 }
 
@@ -53,4 +54,5 @@ export interface SupplierConfig {
 	categories?: Category[];
 	favorite?: boolean;
 	status?: SupplierStatus;
+	comments?: Comment[];
 }
