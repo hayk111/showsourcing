@@ -13,7 +13,7 @@ import { ProductDialogService } from '~common/dialog/services';
 import { CrudDialogService } from '~common/dialog/services/crud-dialog.service';
 import { SharedModule } from '~shared/shared.module';
 
-import { ItemCompareColumnComponent } from './component/compare-quotation/item-comapre-column/item-comapre-column.component';
+import { ItemCompareRowComponent } from './component/compare-quotation/item-comapre-row/item-comapre-row.component';
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 
@@ -30,7 +30,7 @@ import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component'
 		ProductRequestTeamFeedbackDlgComponent,
 		CompareQuotationComponent,
 		ProductExportDlgComponent,
-		ItemCompareColumnComponent,
+		ItemCompareRowComponent,
 		EmailListComponent,
 		RfqDialogComponent
 	],

@@ -5,10 +5,10 @@
 	</dialog-header-app>
 
   <div class="item-container">
-    <item-comapre-column-app [priceMatrixLabels]="priceMatrixLabels" [type]="'title'"></item-comapre-column-app>
+    <item-comapre-row-app [priceMatrixLabels]="priceMatrixLabels" [type]="'title'"></item-comapre-row-app>
   </div>
   <div class="item-container" [style.width]="100/(quotes.length + 1) + '%'" *ngFor="let quote of quotes;trackBy: trackByFn" >
-      <item-comapre-column-app [priceMatrixLabels]="priceMatrixLabels" [quote]="quote"></item-comapre-column-app>
+      <item-comapre-row-app [priceMatrixLabels]="priceMatrixLabels" [quote]="quote"></item-comapre-row-app>
   </div>
 
 	<!-- <divider-app></divider-app> -->

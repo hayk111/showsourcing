@@ -8,18 +8,21 @@ import {
 } from '@angular/core';
 import { Product, Packaging, Quote } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
+import { ComparisonDataModel } from '../ComparisonDataModel';
 @Component({
-	selector: 'item-comapre-column-app',
-	templateUrl: './item-comapre-column.component.html',
-	styleUrls: ['./item-comapre-column.component.scss'],
+	selector: 'item-comapre-row-app',
+	templateUrl: './item-comapre-row.component.html',
+	styleUrls: ['./item-comapre-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ItemCompareColumnComponent extends TrackingComponent
+export class ItemCompareRowComponent extends TrackingComponent
 	implements OnInit {
 	@Input() type: 'title' | 'content' = 'content';
 	@Input() product: Product;
 	@Input() quote: Quote;
 	@Input() priceMatrixLabels = [];
+
+	@Input() data: ComparisonDataModel[] = [];
 
 	constructor() {
 		super();
