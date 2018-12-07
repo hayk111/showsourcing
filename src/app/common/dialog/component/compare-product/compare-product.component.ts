@@ -8,7 +8,7 @@ import {
 import { Contact, Product, Quote, Packaging } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
-import { ComparisonDataModel } from './ComparisonDataModel';
+import { ComparisonDataModel } from '../compare-quotation/ComparisonDataModel';
 
 @Component({
 	selector: 'compare-quotation-app',
@@ -20,65 +20,65 @@ export class CompareQuotationComponent extends AutoUnsub
 	implements AfterViewInit, OnInit {
 	priceMatrixLabels = [];
 	public comparisonData: ComparisonDataModel[] = [];
-	private _quotes: Quote[] = [];
+
+	private _products: Product[] = [];
 	@Input()
-	set quotes(quotes: Quote[]) {
-		this._quotes = quotes;
-		this.priceMatrixLabels = this._quotes
-			.map(x => x.priceMatrix.rows.map(row => row.label))
-			.reduce((acc, val) => acc.concat(val), [])
-			.filter((el, i, a) => i === a.indexOf(el));
+	set products(products: Product[]) {
+		this._products = products;
 		this.comparisonData = [
 			{
 				type: 'header',
-				data: this._getArrayData(quotes, 'product.images')
+				data: this._getArrayData(products, 'images')
 			},
 			{
 				type: 'header',
-				data: this._getArrayData(quotes, 'supplier.name')
+				data: this._getArrayData(products, 'name')
 			},
 			{
-				title: 'Reference',
-				data: this._getArrayData(quotes, 'reference')
+				dataType: 'description',
+				data: this._getArrayData(products, 'description')
+			},
+			{
+				title: 'Supplier',
+				data: this._getArrayData(products, 'supplier.name')
 			},
 			{
 				title: 'Price',
 				dataType: 'price',
-				data: this._getArrayData(quotes, 'price')
+				data: this._getArrayData(products, 'price')
 			},
 			{
 				title: 'MOQ',
-				data: this._getArrayData(quotes, 'minimumOrderQuantity')
+				data: this._getArrayData(products, 'minimumOrderQuantity')
 			},
 			{
 				title: 'MOQ Description',
-				data: this._getArrayData(quotes, 'moqDescription')
+				data: this._getArrayData(products, 'moqDescription')
 			},
 			{
-				title: 'Sample Price',
-				data: this._getArrayData(quotes, 'samplePrice')
+				title: 'Team Rating',
+				data: this._getArrayData(products, 'score')
 			},
 			{
-				type: 'title',
-				title: 'PRICE MATRIX'
+				title: 'Category',
+				data: this._getArrayData(products, 'category.name')
 			},
-			...this.priceMatrixLabels.map(priceMatrix => {
-				return {
-					title: priceMatrix,
-					data: this._getPriceMatrixRowByLabel(quotes, priceMatrix)
-				};
-			}),
+			{
+				title: 'Tags',
+				dataType: 'tag',
+				data: this._getArrayData(products, 'tags')
+			},
 			{
 				type: 'title',
 				title: 'TRADING'
 			},
 			{
 				title: 'Inco Term',
-				data: this._getArrayData(quotes, 'incoTerms')
+				data: this._getArrayData(products, 'incoTerms')
 			},
 			{
 				title: 'Harbour',
-				data: this._getArrayData(quotes, 'harbour')
+				data: this._getArrayData(products, 'harbour')
 			},
 			{
 				type: 'title',
@@ -86,21 +86,21 @@ export class CompareQuotationComponent extends AutoUnsub
 			},
 			{
 				title: 'Carton Size',
-				data: this._getPackagingString(quotes, 'innerCarton')
+				data: this._getPackagingString(products, 'innerCarton')
 			},
 			{
 				title: 'Master Carton',
-				data: this._getPackagingString(quotes, 'masterCarton')
+				data: this._getPackagingString(products, 'masterCarton')
 			},
 			{
 				title: 'Pcs per Master',
-				data: this._getPackagingString(quotes, 'masterCarton.itemsQuantity')
+				data: this._getPackagingString(products, 'masterCarton.itemsQuantity')
 			}
 		];
 	}
 
-	get quotes() {
-		return this._quotes;
+	get products() {
+		return this._products;
 	}
 
 	constructor(private dlgSrv: DialogService) {
