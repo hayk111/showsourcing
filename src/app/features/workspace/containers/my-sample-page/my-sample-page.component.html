@@ -79,11 +79,11 @@
 	<preview-sample-app
 		*ngIf="listSrv.previewOpen"
 		[sample]="listSrv.previewed"
-		(close)="listSrv.closePreview()"
-		(clickOutside)="listSrv.closePreview()">
+		(close)="listSrv.closePreview()">
 	</preview-sample-app>
 </ng-container>
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>
 </ng-template>
+
