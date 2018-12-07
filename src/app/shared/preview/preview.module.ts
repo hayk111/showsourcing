@@ -15,6 +15,8 @@ import { EditableFieldModule } from '~shared/editable-field';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { PreviewLogoComponent } from './components/preview-logo/preview-logo.component';
 import { ImageModule } from '~shared/image/image.module';
+import { PreviewCarouselComponent } from './components/preview-carousel/preview-carousel.component';
+import { CarouselModule } from '~shared/carousel';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { ImageModule } from '~shared/image/image.module';
 		IconsModule,
 		EditableFieldModule,
 		SelectorsModule,
-		ImageModule
+		ImageModule,
+		CarouselModule
 	],
 	declarations: [
 		PreviewComponent,
@@ -33,7 +36,8 @@ import { ImageModule } from '~shared/image/image.module';
 		PreviewSectionComponent,
 		PreviewBadgesComponent,
 		PreviewBannerComponent,
-		PreviewLogoComponent
+		PreviewLogoComponent,
+		PreviewCarouselComponent
 	],
 	exports: [
 		PreviewComponent,
@@ -41,7 +45,8 @@ import { ImageModule } from '~shared/image/image.module';
 		PreviewSectionComponent,
 		PreviewBadgesComponent,
 		PreviewBannerComponent,
-		PreviewLogoComponent
+		PreviewLogoComponent,
+		PreviewCarouselComponent
 	]
 })
 export class PreviewModule { }

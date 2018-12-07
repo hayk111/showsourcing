@@ -2,13 +2,12 @@
 
 		<!-- Banner -->
 		<preview-banner-app (closed)="close.emit()">
-			<carousel-app
+			<preview-carousel-app
+				[entity]="supplier"
+				[entityMD]="erm.SUPPLIER"
 				[images]="supplier?.images"
-				[selectedIndex]="selectedIndex"
-				objectFit="cover"
-				(imgClick)="openModal($event)"
-				(deleted)="onDelete($event)">
-			</carousel-app>
+				objectFit="cover">
+			</preview-carousel-app>
 		</preview-banner-app>
 
 		<!-- Header -->
@@ -57,10 +56,3 @@
 
 		</preview-section-app>
 	</preview-app>
-
-	<modal-carousel-app
-		*ngIf="modalOpen"
-		[selectedIndex]="selectedIndex"
-		[images]="(supplier$ | async)?.images"
-		(close)="closeModal()">
-	</modal-carousel-app>

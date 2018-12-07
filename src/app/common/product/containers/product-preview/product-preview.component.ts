@@ -49,11 +49,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@Output() clickOutside = new EventEmitter<null>();
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
-	firstStatus$: Observable<ProductStatus>;
-	prodERM = ERM.PRODUCT;
-	selectedIndex = 0;
 	erm = ERM;
-	modalOpen = false;
 
 	actions: PreviewActionButton[];
 	// those are the custom fields for the first form section
@@ -132,8 +128,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
 		private router: Router,
-		private thumbSrv: ThumbService,
-		private prodStatusSrv: ProductStatusService,
 		private workspaceSrv: WorkspaceFeatureService
 	) {
 		super();
@@ -167,19 +161,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 	//
 	ngOnInit() {
-		// creating the form descriptor
-		// this.product$ = this.featureSrv.selectOne(this.product.id);
-		// this.firstStatus$ = this.prodStatusSrv.queryAll('', { query: 'inWorkflow == true', sortBy: 'step' }).pipe(
-		// 	first(),
-		// 	map(status => status[0] ? status[0] : null) // we only need the first
-		// );
+
 	}
 
 	updateProduct(product: any) {
 		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}
 
-	updateProductProp(value: any, prop: string) {
+	update(value: any, prop: string) {
 		this.updateProduct({ [prop]: value });
 	}
 
@@ -187,20 +176,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		if (action.action) {
 			action.action();
 		}
-	}
-
-	onThumbUp(product) {
-		const votes = this.thumbSrv.thumbUp(product);
-		product = { ...product, votes };
-		this.product = { ...product };
-		this.updateProduct({ votes });
-	}
-
-	onThumbDown(product) {
-		const votes = this.thumbSrv.thumbDown(product);
-		product = { ...product, votes };
-		this.product = { ...product };
-		this.updateProduct({ votes });
 	}
 
 	openRfq() {
@@ -235,22 +210,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.workspaceSrv.updateProductStatus(product, status).subscribe();
 	}
 
-	/** when image is deleted */
-	onDelete(image: AppImage) {
-		// 	const images = this.product.images.filter(img => image.id !== img.id);
-		// 	this.productSrv.update({ id: this.product.id, images }).subscribe();
-	}
-
-	/** opens the modal carousel */
-	openModal(index: number) {
-		this.selectedIndex = index;
-		this.modalOpen = true;
-	}
-
-	/** closes the modal */
-	closeModal() {
-		this.modalOpen = false;
-	}
 	openFileBrowser() {
 		this.inpFile.nativeElement.click();
 	}
@@ -282,7 +241,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
 		this._pendingImages.push(...pendingImgs);
 		// putting the index at the end so we instantly have feedback the image is being processed
-		this.selectedIndex = this.images.length - 1;
 		return pendingImgs.map(p => p.id);
 	}
 }

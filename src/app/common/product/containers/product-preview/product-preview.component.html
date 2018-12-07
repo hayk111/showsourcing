@@ -1,57 +1,86 @@
 <ng-container *ngIf="product as productF">
 
-		<preview-app>
-				<preview-banner-app (closed)="close.emit()">
-					<carousel-app [images]="productF?.images" [selectedIndex]="selectedIndex" objectFit="cover" (imgClick)="openModal($event)"
-					 (deleted)="onDelete($event)">
-					</carousel-app>
-				</preview-banner-app>
+	<preview-app>
+		<!-- Banner -->
+		<preview-banner-app (closed)="close.emit()">
+			<preview-carousel-app
+				[entity]="productF"
+				[entityMD]="erm.SUPPLIER"
+				[images]="productF?.images"
+				objectFit="cover">
+			</preview-carousel-app>
+		</preview-banner-app>
 
-				<preview-header-app Open my workspace  [entityMD]="prodERM" [entity]="productF" (update)="update($event, 'name')">
-					<price-with-quantity-app [product]="productF" (updatePrice)="updateProductProp($event, 'price')"></price-with-quantity-app>
-					<preview-badge-app [badge]="erm.SUPPLIER" [iconBackground]="'purple'" [value]="productF?.supplier?.name" (update)="update($event, 'supplier')">
-					</preview-badge-app>
-					<preview-badge-app [badge]="erm.CATEGORY" [iconBackground]="'yellow'" [value]="[productF?.category]" (update)="update($event, 'category')">
-					</preview-badge-app>
-				</preview-header-app>
+		<!-- Header -->
+		<preview-header-app
+			[entityMD]="erm.PRODUCT"
+			[entity]="productF"
+			(update)="update($event, 'name')">
+			<!-- Price -->
+			<price-with-quantity-app
+				[product]="productF"
+				(updatePrice)="update($event, 'price')">
+			</price-with-quantity-app>
 
-				<preview-section-app>
-					<button class="btn-ask-quote" (click)="openRfq()">Ask for a Quote</button>
-					<div class="centered-text text-ask-quote">Ask for a quote from the supplier</div>
-					<button-action-list-app (clickOnAction)="clickOnAction($event)" [actions]="actions"></button-action-list-app>
-				</preview-section-app>
-				<preview-section-app [title]="'Description'">
-					<input-description-app
-						[description]="productF?.description"
-						(update)="updateProductProp($event, 'description')">
-					</input-description-app>
-					<info-badge-app *ngFor="let tag of productF?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
-				</preview-section-app>
-				<preview-section-app [title]="'Product Details'">
-						<dynamic-form-app
-						[inlineLabel]="true"
-						[fields]="customFields"
-						[value]="productF"
-						[colAmount]="1"
-						(update)="updateProduct($event)">
-					</dynamic-form-app>
-				</preview-section-app>
-				<preview-section-app [title]="'Trading Information'">
-						<dynamic-form-app
-						[inlineLabel]="true"
-						[fields]="customFields2"
-						[value]="productF"
-						[colAmount]="1"
-						(update)="updateProduct($event)">
-					</dynamic-form-app>
-				</preview-section-app>
+			<!-- Badge supplier -->
+			<preview-badge-app
+				[badge]="erm.SUPPLIER"
+				[value]="productF?.supplier?.name"
+				(update)="update($event, 'supplier')">
+			</preview-badge-app>
 
-				<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
-			</preview-app>
+			<!-- Badge category -->
+			<preview-badge-app
+				[badge]="erm.CATEGORY"
+				[value]="productF?.category"
+				(update)="update($event, 'category')">
+			</preview-badge-app>
+		</preview-header-app>
+
+		<!-- Ask for a quote -->
+		<preview-section-app>
+			<button class="btn-ask-quote" (click)="openRfq()">Ask for a Quote</button>
+			<div class="centered-text text-ask-quote">Ask for a quote from the supplier</div>
+			<button-action-list-app (clickOnAction)="clickOnAction($event)" [actions]="actions"></button-action-list-app>
+		</preview-section-app>
+
+		<!-- Description -->
+		<preview-section-app [title]="'Description'">
+			<input-description-app
+				[description]="productF?.description"
+				(update)="update($event, 'description')">
+			</input-description-app>
+			<info-badge-app *ngFor="let tag of productF?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
+		</preview-section-app>
+
+		<!-- Product details -->
+		<preview-section-app [title]="'Product Details'">
+			<dynamic-form-app
+				[inlineLabel]="true"
+				[fields]="customFields"
+				[value]="productF"
+				[colAmount]="1"
+				(update)="updateProduct($event)">
+			</dynamic-form-app>
+		</preview-section-app>
+
+		<!-- Trading information -->
+		<preview-section-app [title]="'Trading Information'">
+			<dynamic-form-app
+				[inlineLabel]="true"
+				[fields]="customFields2"
+				[value]="productF"
+				[colAmount]="1"
+				(update)="updateProduct($event)">
+			</dynamic-form-app>
+		</preview-section-app>
+
+			<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+
+	</preview-app>
 </ng-container>
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>
 </ng-template>
-<modal-carousel-app *ngIf="modalOpen" [selectedIndex]="selectedIndex" [images]="(product$ | async)?.images" (close)="closeModal()">
-</modal-carousel-app>
+
