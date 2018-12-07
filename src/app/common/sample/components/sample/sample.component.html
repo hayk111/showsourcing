@@ -1,32 +1,34 @@
 <div class="flexStart row">
 	<!-- reference -->
-	<div class="flex sample-reference ellipsis pointer">
-		<img-app [image]="sample?.images ? sample.images[0] : null" type="sample" size="s"></img-app>
-		<div class="flexCenter" >{{ sample?.reference || 'No reference' }}</div>
+	<div class="flex sample-reference display-name pointer">
+		<img-app [image]="sample?.images ? sample.images[0] : null" type="sample" size="xs"></img-app>
+		<span class="ellipsis">{{ sample?.reference || 'No reference' }}</span>
 	</div>
 
 	<!-- name -->
-	<div class="flexStart sample-name ellipsis" (click)="previewClicked.emit(sample)">
-		{{ sample?.name || 'Unnamed Sample'}}
+	<div class="sample-name display-name" (click)="previewClicked.emit(sample)">
+		<span class="ellipsis">
+			{{ sample?.name || 'Unnamed Sample'}}
+		</span>
 	</div>
 
 	<div
-		class="flex sample-user"
+		class="flex sample-user display-name"
 		cdkOverlayOrigin
 		#trigger="cdkOverlayOrigin"
 		(click)="toggleMenu()">
 
 		<user-picture-app [user]="sample?.assignee" [size]="20" [border]="true"></user-picture-app>
-		<span>{{ sample?.assignee?.firstName }} {{ sample?.assignee?.lastName }}</span>
+		<span class="ellipsis capitalize">{{ sample?.assignee?.firstName }} {{ sample?.assignee?.lastName ? sample?.assignee?.lastName[0] + '.' : '' }}</span>
 		<cdk-overlay-app
 			*ngIf="menuOpen"
 			[trigger]="trigger"
 			[isOpen]="menuOpen"
-			[offsetY]="-22"
+			[offsetY]="-27"
 			(clickOutside)="closeMenu()">
 			<selector-entity-app
 				#selector
-				style="width: 200px;"
+				style="width: 285px;"
 				type="user"
 				(clickOutside)="closeMenu()"
 				(change)="updateAssignee($event)">
@@ -38,7 +40,7 @@
 	<div class="sample-status">
 		<status-selector-app
 			[entity]="sample"
-			[typeEntity]="erm.SUPPLIER"
+			[typeEntity]="erm.SAMPLE"
 			[offsetX]="-15">
 		</status-selector-app>
 	</div>

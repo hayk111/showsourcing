@@ -4,8 +4,9 @@
 	.sample-reference {
 		width: 25%;
 		img-app {
-			width: 21px;
-			height: 21px;
+			margin-right: var(--spacing-ms);
+			max-width: 25px;
+			max-height: 25px;
 		}
 	}
 
@@ -15,9 +16,19 @@
 
 	.sample-user {
 		width: 25%;
+
+		user-picture-app {
+			margin-right: var(--spacing-s);
+		}
 	}
 
 	.sample-status {
 		width: 15%;
 	}
+}
+
+// for the ellipsis with centered items to work we have to surround the span with a div with these properties
+.display-name {
+	display: flex;
+	align-items: center;
 }
