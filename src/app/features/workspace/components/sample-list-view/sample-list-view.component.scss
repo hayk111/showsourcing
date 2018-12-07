@@ -11,8 +11,7 @@
 	align-items: center;
 
 	img-app {
-		height: 28px;
-		width: 28px;
+		max-width: 28px;
 		margin-right: var(--spacing-xs);
 	}
 }
