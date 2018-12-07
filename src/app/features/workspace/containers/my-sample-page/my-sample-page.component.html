@@ -69,7 +69,6 @@
 		</div>
 	</selection-bar-app>
 
-<<<<<<< HEAD
 	<filters-app
 		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
@@ -85,28 +84,6 @@
 	</preview-sample-app>
 </ng-container>
 
-=======
-		<button class="icon light" (click)="listSrv.deleteSelected()">
-			<icon-app class="trash-bin" name="trash-bin"></icon-app>
-		</button>
-	</div>
-</selection-bar-app>
-<filters-app
-	*ngIf="listSrv.filterPanelOpen"
-	[filterList]="listSrv.filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()">
-</filters-app>
-
-	<preview-sample-app
-		*ngIf="listSrv.previewOpen"
-		[sample]="listSrv.previewed"
-		(close)="listSrv.closePreview()"
-		(clickOutside)="listSrv.closePreview()">
-	</preview-sample-app>
-</ng-container>
-
->>>>>>> sample board
 <ng-template #spinner>
 	<spinner-app></spinner-app>
 </ng-template>
