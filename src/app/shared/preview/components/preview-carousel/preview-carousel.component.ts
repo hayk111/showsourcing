@@ -1,19 +1,9 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
-import { AppImage, Product, Supplier, Sample, EntityMetadata } from '~core/models';
-import { UploaderService } from '~shared/file/services/uploader.service';
-import { DEFAULT_IMG, PendingImage } from '~utils';
-import { ERMService } from '~core/entity-services/_global/erm.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { AppImage, EntityMetadata, Product, Sample, Supplier } from '~core/models';
+import { UploaderService } from '~shared/file/services/uploader.service';
+import { DEFAULT_IMG, PendingImage, AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'preview-carousel-app',
@@ -21,7 +11,7 @@ import { first } from 'rxjs/operators';
 	styleUrls: ['./preview-carousel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewCarouselComponent implements OnInit {
+export class PreviewCarouselComponent extends AutoUnsub {
 
 	@Input() entity: Product | Sample | Supplier;
 	@Input() entityMD: EntityMetadata;
@@ -49,9 +39,11 @@ export class PreviewCarouselComponent implements OnInit {
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
 		private ermSrv: ERMService
-	) { }
+	) { super(); }
 
-	ngOnInit() {
+	/** opens the file browser window so the user can select a file he wants to upload */
+	openFileBrowser() {
+		this.inpFile.nativeElement.click();
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
@@ -67,11 +59,6 @@ export class PreviewCarouselComponent implements OnInit {
 			// removing pending image
 			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
 		}, e => this._pendingImages = []);
-	}
-
-	/** opens the file browser window so the user can select a file he wants to upload */
-	openFileBrowser() {
-		this.inpFile.nativeElement.click();
 	}
 
 	/** when image is deleted */

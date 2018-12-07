@@ -1,22 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CarouselModule } from '~shared/carousel';
+import { EditableFieldModule } from '~shared/editable-field';
+import { FileModule } from '~shared/file';
+import { IconsModule } from '~shared/icons';
+import { ImageModule } from '~shared/image/image.module';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 
 import {
 	PreviewBadgesComponent,
 	PreviewBannerComponent,
+	PreviewCarouselComponent,
 	PreviewComponent,
 	PreviewHeaderComponent,
+	PreviewLogoComponent,
 	PreviewSectionComponent,
 } from './components';
-import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
-import { FormsModule } from '@angular/forms';
-import { IconsModule } from '~shared/icons';
-import { EditableFieldModule } from '~shared/editable-field';
-import { SelectorsModule } from '~shared/selectors/selectors.module';
-import { PreviewLogoComponent } from './components/preview-logo/preview-logo.component';
-import { ImageModule } from '~shared/image/image.module';
-import { PreviewCarouselComponent } from './components/preview-carousel/preview-carousel.component';
-import { CarouselModule } from '~shared/carousel';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { CarouselModule } from '~shared/carousel';
 		EditableFieldModule,
 		SelectorsModule,
 		ImageModule,
-		CarouselModule
+		CarouselModule,
+		FileModule,
+		OverlayModule
 	],
 	declarations: [
 		PreviewComponent,
