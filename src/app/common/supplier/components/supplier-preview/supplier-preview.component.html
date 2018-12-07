@@ -40,6 +40,14 @@
 			</preview-badge-app>
 		</preview-header-app>
 
+		<!-- Description -->
+		<preview-section-app [title]="'Description'">
+			<input-description-app
+				[description]="supplier?.description"
+				(update)="update($event, 'description')">
+			</input-description-app>
+		</preview-section-app>
+
 		<!-- Supplier Details -->
 		<preview-section-app [title]="'Supplier Details'">
 			<dynamic-form-app

@@ -7,12 +7,21 @@
 		(opened)="inpDescription.select();"
 		[canGrow]="true">
 		<label-app>Description</label-app>
-		<editable-label-app>
-			{{ (description?.length && description) || '-' }}
+		<editable-label-app
+			*ngIf="description?.length && description">
+			{{ (description?.length && description)  }}
+		</editable-label-app>
+		<editable-label-app
+			*ngIf="!(description?.length && description)"
+			class="fullWidth">
+			<button class="secondary flexCenter edit-description">
+				<icon-app class="edit" name="edit"></icon-app>
+				<span>Add Product Description</span>
+			</button>
 		</editable-label-app>
 		<textarea inputApp #inpDescription autofocus="true"
 			class="fullWidth"
-			[value]="description || '-'"
+			[value]="description || ''"
 			(keyup.enter)="updateDescription(false, inpDescription.value)">
 		</textarea>
 	</editable-field-app>
