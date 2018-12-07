@@ -38,7 +38,15 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	 * create on entity with an audit will add properties needed by the backend
 	 */
 	create(entity: any, client?: Client) {
-		entity.createdBy = { id: this.userSrv.userSync.id, __typename: 'User' };
+		const user = this.userSrv.userSync;
+		const userLean = {
+			__typename: 'User',
+			id: user.id,
+			lastName: user.lastName,
+			firstName: user.firstName,
+			avatar: user.avatar ? { id: user.avatar.id, fileName: user.avatar.fileName } : null
+		};
+		entity.createdBy = { ...userLean, __typename: 'User' };
 		entity.creationDate = '' + new Date();
 		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
 		entity.lastUpdatedDate = '' + new Date();

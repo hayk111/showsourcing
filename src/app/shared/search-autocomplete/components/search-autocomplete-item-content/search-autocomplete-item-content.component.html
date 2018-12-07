@@ -11,7 +11,7 @@
       </div>
       <div class="imgCtnr">
         <img class="mini image ng-star-inserted" *ngIf="image" [src]="image | image">
-        <img [ngClass]="{'adding': adding}" class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '.svg'">
+        <img [ngClass]="{'adding': adding}" class="mini icon ng-star-inserted" *ngIf="icon" [src]="(image | image:'m')">
       </div>
       <div class="description">
         <div class="titleCtnr">

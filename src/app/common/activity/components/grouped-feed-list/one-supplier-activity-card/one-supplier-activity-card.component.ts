@@ -13,6 +13,7 @@ import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.inte
 import { takeUntil } from 'rxjs/operators';
 import { SupplierService } from '~entity-services';
 import { FormControl } from '@angular/forms';
+import { CommentService } from '~core/entity-services/comment/comment.service';
 
 @Component({
 	selector: 'one-supplier-activity-card-app',
@@ -24,7 +25,7 @@ export class OneSupplierActivityCardComponent extends AutoUnsub implements OnIni
 
 	@Input() groupFeed: GetStreamGroup;
 	@Input() title: string;
-	@Output() createComment = new EventEmitter<any>();
+	@Output() createComment = new EventEmitter<{ comment: any, entity: any, erm: any }>();
 	@Output() update = new EventEmitter<Supplier>();
 	@ViewChild(InputDirective) inp: InputDirective;
 	supplier$: Observable<Supplier>;
@@ -36,7 +37,8 @@ export class OneSupplierActivityCardComponent extends AutoUnsub implements OnIni
 		private router: Router,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
-		private supplierSrv: SupplierService) {
+		private supplierSrv: SupplierService,
+		private commentSrv: CommentService) {
 		super();
 	}
 
@@ -78,7 +80,9 @@ export class OneSupplierActivityCardComponent extends AutoUnsub implements OnIni
 	}
 
 	onSubmit() {
-		this.createComment.emit({ text: this.commentCtrl.value, entity: this.supplier, typeEntity: this.typeEntity });
+		const comment = new Comment({ text: this.commentCtrl.value });
+		this.commentSrv.create(comment);
+		this.createComment.emit({ comment, entity: this.supplier, erm: ERM.SUPPLIER });
 		this.commentCtrl.reset();
 	}
 

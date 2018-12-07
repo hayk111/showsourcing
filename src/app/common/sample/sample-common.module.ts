@@ -7,12 +7,14 @@ import { SampleListComponent } from './components/sample-list/sample-list.compon
 import { SampleComponent } from './components/sample/sample.component';
 import { PreviewSampleComponent } from './components/preview-sample/preview-sample.component';
 import { SampleCardComponent } from './components/sample-card/sample-card.component';
+import { CommentCommonModule } from '~common/comment';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
-		ProductCommonModule
+		ProductCommonModule,
+		CommentCommonModule
 	],
 	declarations: [
 		SampleListComponent,

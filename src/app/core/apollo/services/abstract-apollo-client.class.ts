@@ -80,20 +80,6 @@ export abstract class AbstractApolloClient {
 		return `ws${isSecure ? 's' : ''}://${hostName}:${port}/graphql${path.startsWith('/') ? path : '/' + path}`;
 	}
 
-	/**
-	 * gets a realm given a realm name
-	 */
-	protected getRealmUri(realmName: string, path?: string): Observable<string> {
-		return this.realmServerSrv.queryOneByPredicate(`name == "${realmName}"`).pipe(
-			first(),
-			map(r => {
-				const port = r.httpsPort || r.httpPort;
-				const isSecure = !!r.httpsPort;
-				return this.getUri(port, r.hostname, path, isSecure);
-			})
-		);
-	}
-
 	/** we use the path as client name.. */
 	protected createClient(uri: string, name: Client, tokenState: TokenState): Observable<Client> {
 		log.debug(`%c 🌈creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, AfterViewInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
 	selector: 'preview-app',
@@ -11,13 +11,18 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 		'[class.alignLeft]': 'align === "left"'
 	}
 })
-export class PreviewComponent implements OnInit {
+export class PreviewComponent implements AfterViewInit {
 
 	@Input() align: 'left' | 'right' = 'right';
+	@ViewChild('top') topSection: ElementRef<HTMLElement>;
+	@ViewChild('scrollSection') scrollSection: ElementRef<HTMLElement>;
 
-	constructor() { }
+	constructor(private renderer: Renderer2) { }
 
-	ngOnInit() {
+	ngAfterViewInit() {
+		// minus 6 so it goes a bit above the image
+		const topHeight = this.topSection.nativeElement.getBoundingClientRect().height - 6;
+		this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `${topHeight}px`);
 	}
 
 }

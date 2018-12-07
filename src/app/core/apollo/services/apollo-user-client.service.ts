@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { Observable, zip } from 'rxjs';
+import { Observable, zip, of } from 'rxjs';
 import { catchError, first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
@@ -12,6 +12,7 @@ import { RealmServerService } from '~entity-services/realm-server/realm-server.s
 import { UserService } from '~entity-services/user/user.service';
 
 import { ApolloStateService } from './apollo-state.service';
+import { environment } from 'environments/environment';
 
 
 @Injectable({ providedIn: 'root' })
@@ -39,26 +40,15 @@ export class UserClientInitializer extends AbstractApolloClient {
 			.getAccessToken(refreshToken, `user/${userId}/__partial/${userId}`).pipe(
 				first()
 			);
-		const realmUri$ = super.getRealmUri('default', `user/${userId}/__partial/${userId}`);
+		const realmUri = `${environment.graphqlUrl}/user/${userId}/__partial/${userId}`;
 
-		return zip(realmUri$, accessToken$).pipe(
-			switchMap(([uri, token]) => this.createClient(uri, Client.USER, token)),
+		return accessToken$.pipe(
+			switchMap(token => this.createClient(realmUri, Client.USER, token)),
 			takeUntil(this.destroyed$),
 			tap(_ => this.apolloState.setClientReady(this.client)),
 			first(),
 			catchError(e => this.onError(e))
 		);
-	}
-
-	/** @deprecated: this was used when all user was a thing */
-	/** will emit once when all user and global constant are ready */
-	private getUserRealmUri(userId: string) {
-		// then we can query the user, and with that user we can get the realm uri...
-		return this.userSrv.queryOne(userId, 'realmServerName, realmPath', Client.ALL_USER)
-			.pipe(
-				first(),
-				switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath)),
-			);
 	}
 
 }

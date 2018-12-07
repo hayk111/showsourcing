@@ -22,3 +22,15 @@
 	}
 	&::-webkit-scrollbar { width: 0 !important } // we make invisible the scrollbar
 }
+
+.fixedTop {
+	position: fixed;
+	width: 424px;
+}
+
+.scrollable {
+	position: relative;
+	background: white;
+	border-top-left-radius: var(--border-radius-l);
+	border-top-right-radius: var(--border-radius-l);
+}

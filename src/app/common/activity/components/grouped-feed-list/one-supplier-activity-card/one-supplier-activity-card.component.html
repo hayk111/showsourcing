@@ -54,7 +54,7 @@
 					size="mini"
 					[round]="true"
 					[typeEntity]="typeEntity"
-					[status]="supplier?.status?.status">
+					[status]="supplier?.status">
 				</status-badge-app>
 				<info-badge-app *ngFor="let category of supplier?.categories; trackBy: trackByFn" type="category">{{ category.name }}</info-badge-app>
 				<info-badge-app *ngFor="let tag of supplier?.tags; trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>

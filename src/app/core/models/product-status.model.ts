@@ -6,5 +6,13 @@ export class ProductStatus {
 	step?: number;
 
 	__typename ?= 'ProductStatus';
+
+	constructor(config: ProductStatusConfig) {
+		Object.assign(this, config);
+	}
+}
+
+export interface ProductStatusConfig {
+	id: string;
 }
 
