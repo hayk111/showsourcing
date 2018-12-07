@@ -1,43 +1,64 @@
 <div class="item-compare-row-container">
-	<div *ngFor="let data of comparisonData; trackBy: trackByFn">
-		<ng-container [ngSwitch]="data.type">
-			<div *ngSwitchCase="'title'">{{ data?.value }}</div>
-			<div *ngSwitchCase="'content'">
-				{{ data?.value | currency: quote?.price.currency:'symbol':'1.2-2' }}
+	<div
+		*ngFor="let comparison of comparisonData; trackBy: trackByFn"
+		class="comparison-row"
+	>
+		<div [ngSwitch]="comparison.type">
+			<div *ngSwitchCase="'title'">
+				<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+					{{ value }}
+				</div>
 			</div>
-			<div *ngSwitchCase="'header'">
-				<ng-container [ngSwitch]="data.dataType">
-					<div *ngSwitchCase="'description'">
-						{{ data?.value | currency: quote?.price.currency:'symbol':'1.2-2' }}
+			<div *ngSwitchCase="'content'">
+				<div class="title">{{ comparison.title }}</div>
+				<div [ngSwitch]="data.dataType">
+					<div *ngSwitchCase="'price'">
+						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+							{{ value | currency: value.currency:'symbol':'1.2-2' }}
+						</div>
 					</div>
 					<div *ngSwitchCase="'text'">
-						{{ data?.value | currency: quote?.price.currency:'symbol':'1.2-2' }}
+						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+							{{ value }}
+						</div>
 					</div>
-				</ng-container>
+					<div *ngSwitchCase="'tag'">
+						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+							<span
+								*ngFor="let tag of value; let fst = first; trackBy: trackByFn"
+							>
+								{{ tag.name }} {{ fst ? ', ' : '' }}
+							</span>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div *ngSwitchCase="'image'"></div>
-		</ng-container>
-	</div>
-
-	<div class="item-compare-row_header-container">
-		<div class="image-container" *ngIf="type === 'content'">
-			<img-app
-				[customStyle]="{ 'border-radius': '5px' }"
-				[image]="quote?.product?.images"
-				type="product"
-				size="s"
-				[objectFit]="'cover'"
-			></img-app>
-		</div>
-		<div class="item-compare-row_supplier" *ngIf="type === 'content'">
-			{{ quote?.supplier?.name }}
-		</div>
-	</div>
-	<div class="item-compare-row_body">
-		<div class="comparison-row">
-			<div *ngIf="type === 'title'" class="title">Reference</div>
-			<div *ngIf="type === 'content'" class="content">
-				{{ quote?.reference }}
+			<div *ngSwitchCase="'header'">
+				<div [ngSwitch]="data.dataType">
+					<div *ngSwitchCase="'description'" class="description">
+						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+							{{ value }}
+						</div>
+					</div>
+					<div *ngSwitchCase="'text'" class="header-title">
+						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+							{{ value }}
+						</div>
+					</div>
+				</div>
+				<div *ngSwitchCase="'image'">
+					<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+						<div class="image-container" *ngIf="type === 'content'">
+							<img-app
+								[customStyle]="{ 'border-radius': '5px' }"
+								[image]="value"
+								type="product"
+								size="s"
+								[objectFit]="'cover'"
+							></img-app>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
