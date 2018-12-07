@@ -15,7 +15,7 @@ export class SampleQueries extends GlobalQueries {
 		id, name, ${SampleQueries.images}, favorite, description,
 	}`;
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
-	static readonly status = `status { id, name, category, inWorkflow, step }`;
+	static readonly status = `status { id, name, category, inWorkflow }`;
 
 	static readonly one = `
 		name,

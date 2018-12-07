@@ -1,5 +1,6 @@
 <kanban-col-app
-  *ngFor="let col of cols; let i = index; trackBy: trackById"
+	*ngFor="let col of cols; let i = index; trackBy: trackById"
+	[ngStyle]="{'min-width': _width}"
   [col]="col"
   [cardTemplate]="cardTemplate"
   [connectedLists]="getOtherIds()"

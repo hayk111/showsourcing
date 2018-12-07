@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { Sample } from '~core/models';
+import { ERM, Sample } from '~core/models';
+import { ID } from '~utils/id.utils';
 
 @Component({
 	selector: 'sample-list-view-app',
@@ -12,7 +13,12 @@ import { Sample } from '~core/models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SampleListViewComponent extends ListViewComponent<Sample> implements OnInit {
+
+	@Output() openSupplier = new EventEmitter<ID>();
+	@Output() openProduct = new EventEmitter<ID>();
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+
+	erm = ERM;
 
 	constructor() { super(); }
 

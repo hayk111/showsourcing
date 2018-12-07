@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { CommonDialogService } from '~common/dialog';
 import { SampleService, SampleStatusService } from '~core/entity-services';
-import { SampleQueries } from '~core/entity-services/sample/sample.queries';
-import { ListPageDataService, ListPageViewService, SelectionService, SelectionWithFavoriteService, ListPageService, ListPageKey } from '~core/list-page';
-import { Sample, ERM } from '~core/models';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { ERM, Sample } from '~core/models';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { AutoUnsub } from '~utils';
 import { statusSampleToKanbanCol } from '~utils/kanban.utils';
-import { first, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'sample-card-test-app',
@@ -30,8 +29,7 @@ export class SampleCardTestComponent extends AutoUnsub implements OnInit {
 		protected sampleSrv: SampleService,
 		protected sampleStatusSrv: SampleStatusService,
 		protected router: Router,
-		protected featureSrv: SampleService,
-		public listSrv: ListPageService<any, any>,
+		public listSrv: ListPageService<Sample, SampleService>,
 		protected commonDlgSrv: CommonDialogService
 	) {
 		super();
@@ -39,9 +37,10 @@ export class SampleCardTestComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.SAMPLE_TEST,
-			entitySrv: this.featureSrv,
+			key: ListPageKey.SAMPLE,
+			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name'],
+			initialSortBy: 'name',
 			entityMetadata: ERM.SAMPLE
 		});
 

@@ -8,6 +8,7 @@ import { EntityMetadata, SampleStatus, SupplierStatus, ProductStatus } from '~mo
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusBadgeComponent implements OnInit {
+
 	@Input() size = 's';
 
 	@Input() status: ProductStatus | SupplierStatus | SampleStatus;

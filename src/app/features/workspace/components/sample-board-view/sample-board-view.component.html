@@ -1,7 +1,19 @@
-<kanban-app>
+<kanban-app
+	[cols]="columns"
+	[width]="354"
+	[cardTemplate]="card"
+	[selection]="selection"
+	(drop)="updateStatusSample.emit($event)"
+	(multipleDrop)="updateStatusSamples.emit($event)"
+	(selectColumn)="onColumnSelected($event)"
+	(unselectColumn)="onColumnUnselected($event)">
 </kanban-app>
 
 <ng-template #card let-data="data">
-	<sample-card-app>
+	<sample-card-app
+		[sample]="data"
+		[checked]="selection?.has(data.id)"
+		(select)="select.emit($event)"
+		(unselect)="unselect.emit($event)">
 	</sample-card-app>
 </ng-template>
