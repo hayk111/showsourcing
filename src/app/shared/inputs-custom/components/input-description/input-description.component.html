@@ -1,4 +1,4 @@
-<div class="descripton-container">
+<div #container class="descripton-container">
 	<editable-field-app
 		[ngStyle]="{'padding-top': hasLabel ? 'inherit' : '0px'}"
 		[hasLabel]="hasLabel"
@@ -26,3 +26,7 @@
 		</textarea>
 	</editable-field-app>
 </div>
+<button
+	*ngIf="showMore"
+	class="secondary-light flexCenter view-more"
+	(click)="showAll()">View More</button>

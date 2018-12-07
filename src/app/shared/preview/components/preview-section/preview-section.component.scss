@@ -1,8 +1,7 @@
 :host {
 	display: block;
-	padding: var(--spacing-m) 0 0 0;
-	// border-top: 1px solid var(--color-divider);
-	margin: var(--spacing-ml);
+	padding: 0;
+	margin: var(--spacing-l);
 
 	.deep-class {
 		padding-top: var(--spacing-ms);
