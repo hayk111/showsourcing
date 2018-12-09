@@ -6,7 +6,7 @@
 		<h2 i18n="header 2|Supplier card@@supplierCard_product" class="flex">
 				{{ supplier?.name || 'Supplier'}}
 		</h2>
-		<icon-app *ngIf="supplier?.status?.status?.category === 'validated'" name="check-round" class="color-success"></icon-app>
+		<icon-app *ngIf="supplier?.status?.category === 'validated'" name="check-round" class="color-success"></icon-app>
 		<icon-app *ngIf="supplier?.favorite" name="heart" class="color-warn"></icon-app>
 	</div>
 
