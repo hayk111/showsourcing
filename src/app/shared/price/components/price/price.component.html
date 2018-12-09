@@ -6,5 +6,6 @@
 <div *ngIf="isShort" class="flex"
 	[ngStyle]="styles">
 	<span class="currency">{{ currency | const : 'currency' : 'symbol'}}</span>
+	<span class="mg-xxs spacer"></span>
 	<span class="amount">{{ amount ? (amount | ssPrice) : '-' }}</span>
 </div>
