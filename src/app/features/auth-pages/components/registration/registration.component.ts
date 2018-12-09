@@ -18,6 +18,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 	pending$ = new Subject<boolean>();
 	error: string;
 	queryParams: any;
+	filedFocused = 'firstName';
 
 	constructor(
 		private authSrv: AuthenticationService,

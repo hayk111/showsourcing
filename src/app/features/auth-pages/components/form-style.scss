@@ -7,21 +7,22 @@ h1, h2 {
 }
 
 h1 {
-	font-size: 36px;
+	font-size: 28px;
+  font-weight: 600;
 	font-family: var(--font-title);
 	color: var(--color-txt-strong);
 	text-align: center;
-	font-weight: bold;
 	margin-bottom: var(--spacing-m);
 }
 
 h2 {
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: normal;
-	margin-bottom: var(--spacing-xxxl);
+	margin-bottom: var(--spacing-l);
 	text-align: center;
 	font-family: var(--font-normal);
 	text-transform: none;
+	color: var(--color-txt-primary);
 }
 
 error-app {
@@ -31,7 +32,9 @@ error-app {
 }
 
 a{
-	font-weight: normal;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--color-txt-primary);
 	&.button {
 		text-transform: none;
 	}
@@ -43,9 +46,49 @@ form {
 }
 
 .button {
-	height: 36px;
-	margin-top: var(--spacing-m);
+	height: 42px;
+	margin-top: var(--spacing-m);	
+	width: 216px;
+	line-height: 42px;
+	font-size: 14px;
+  font-weight: 600;
 }
 spinner-app {
 	margin: auto;
 }
+
+input {
+	border-radius: var(--border-radius);
+}
+
+.field-focused {
+	label-app {
+		color: var(--color-primary);
+	}
+	input {
+		border-left: 4px solid var(--color-primary)
+	}
+}
+
+.options {
+	margin-top: var(--spacing-s);
+	margin-bottom: var(--spacing-s);
+	display: flow-root;
+
+	font-size: 14px;
+	font-weight: 600;
+
+	.checkbox-container {
+		float: left;
+		.label-rememberme {
+			font-size: 14px;
+			font-weight: 600;
+		}
+	}
+	.forgot-password{
+    color: var(--color-txt-primary);
+		float: right;
+	}
+	
+}
+
