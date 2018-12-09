@@ -7,6 +7,7 @@ import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	CompareProductComponent,
 	RfqDialogComponent,
 } from '~common/dialog/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
@@ -77,6 +78,12 @@ export class CommonDialogService {
 			shouldRedirect: false,
 			initialSelectedProducts: products,
 			submitCallback: callback
+		});
+	}
+	
+	openCompareProductDialog(products: Product[]) {
+		this.dlgSrv.openFromModule(CompareProductComponent, this.moduleRef, {
+			products: products
 		});
 	}
 

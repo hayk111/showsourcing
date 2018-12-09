@@ -11,12 +11,12 @@ import { AutoUnsub } from '~utils';
 import { ComparisonDataModel } from '../compare-quotation/ComparisonDataModel';
 
 @Component({
-	selector: 'compare-quotation-app',
-	templateUrl: './compare-quotation.component.html',
-	styleUrls: ['./compare-quotation.component.scss'],
+	selector: 'compare-product-app',
+	templateUrl: './compare-product.component.html',
+	styleUrls: ['./compare-product.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CompareQuotationComponent extends AutoUnsub
+export class CompareProductComponent extends AutoUnsub
 	implements AfterViewInit, OnInit {
 	priceMatrixLabels = [];
 	public comparisonData: ComparisonDataModel[] = [];
@@ -28,73 +28,104 @@ export class CompareQuotationComponent extends AutoUnsub
 		this.comparisonData = [
 			{
 				type: 'header',
+				dataType: 'image',
 				data: this._getArrayData(products, 'images')
 			},
 			{
 				type: 'header',
+				dataType: 'text',
 				data: this._getArrayData(products, 'name')
 			},
 			{
+				type: 'header',
 				dataType: 'description',
 				data: this._getArrayData(products, 'description')
 			},
 			{
+				type: 'content',
 				title: 'Supplier',
+				dataType: 'text',
 				data: this._getArrayData(products, 'supplier.name')
 			},
 			{
 				title: 'Price',
+				type: 'content',
 				dataType: 'price',
 				data: this._getArrayData(products, 'price')
 			},
 			{
+				type: 'content',
 				title: 'MOQ',
+				dataType: 'text',
 				data: this._getArrayData(products, 'minimumOrderQuantity')
 			},
 			{
+				type: 'content',
+				dataType: 'text',
 				title: 'MOQ Description',
 				data: this._getArrayData(products, 'moqDescription')
 			},
 			{
+				type: 'content',
 				title: 'Team Rating',
+				dataType: 'text',
 				data: this._getArrayData(products, 'score')
 			},
 			{
+				type: 'content',
 				title: 'Category',
+				dataType: 'text',
 				data: this._getArrayData(products, 'category.name')
 			},
 			{
+				type: 'content',
 				title: 'Tags',
 				dataType: 'tag',
 				data: this._getArrayData(products, 'tags')
 			},
 			{
 				type: 'title',
+				dataType: 'text',
 				title: 'TRADING'
 			},
 			{
+				type: 'content',
 				title: 'Inco Term',
+				dataType: 'text',
 				data: this._getArrayData(products, 'incoTerms')
 			},
 			{
+				type: 'content',
 				title: 'Harbour',
+				dataType: 'text',
 				data: this._getArrayData(products, 'harbour')
 			},
 			{
 				type: 'title',
+				dataType: 'text',
 				title: 'PACKAGING'
 			},
 			{
+				type: 'content',
 				title: 'Carton Size',
+				dataType: 'text',
 				data: this._getPackagingString(products, 'innerCarton')
 			},
 			{
+				type: 'content',
 				title: 'Master Carton',
+				dataType: 'text',
 				data: this._getPackagingString(products, 'masterCarton')
 			},
 			{
+				type: 'content',
 				title: 'Pcs per Master',
+				dataType: 'text',
 				data: this._getPackagingString(products, 'masterCarton.itemsQuantity')
+			}, {
+				type: 'header',
+				dataType: 'button',
+				data: this._getArrayData(products, 'status.name')
 			}
 		];
 	}

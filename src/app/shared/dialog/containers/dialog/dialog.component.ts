@@ -20,6 +20,8 @@ export class DialogComponent {
 	@ContentChild(DialogFooterComponent) footer: DialogFooterComponent;
 	@ContentChild(DialogHeaderComponent) header: DialogHeaderComponent;
 
+	@Input() headerSpacing = 'xl';
+
 	constructor(private srv: DialogService) { }
 
 	get hasFooter() {

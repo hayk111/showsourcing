@@ -7,6 +7,7 @@ import {
 	MergeDialogComponent,
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
+	CompareProductComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~common/dialog/component';
 import { ProductDialogService } from '~common/dialog/services';
@@ -29,6 +30,7 @@ import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component'
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		CompareQuotationComponent,
+		CompareProductComponent,
 		ProductExportDlgComponent,
 		ItemCompareRowComponent,
 		EmailListComponent,
@@ -40,6 +42,7 @@ import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component'
 		MergeDialogComponent,
 		ProductAddToProjectDlgComponent,
 		CompareQuotationComponent,
+		CompareProductComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
 		RfqDialogComponent

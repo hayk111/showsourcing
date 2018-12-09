@@ -1,32 +1,27 @@
 <div class="item-compare-row-container">
-	<div
-		*ngFor="let comparison of comparisonData; trackBy: trackByFn"
-		class="comparison-row"
-	>
-		<div [ngSwitch]="comparison.type">
+	<div *ngFor="let comparison of comparisonData; trackBy: trackByFn" class="comparison-row">
+		<div [ngSwitch]="comparison.type" [ngClass]="'comparison-row-' + comparison.type">
 			<div *ngSwitchCase="'title'">
-				<div *ngFor="let value of comparison.data; trackBy: trackByFn">
-					{{ value }}
+				<div class="comparison-cell" >
+					{{ comparison.title }}
 				</div>
 			</div>
 			<div *ngSwitchCase="'content'">
 				<div class="title">{{ comparison.title }}</div>
-				<div [ngSwitch]="data.dataType">
+				<div [ngSwitch]="comparison.dataType" [ngClass]="'comparison-cell-' + comparison.dataType">
 					<div *ngSwitchCase="'price'">
-						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
 							{{ value | currency: value.currency:'symbol':'1.2-2' }}
 						</div>
 					</div>
 					<div *ngSwitchCase="'text'">
-						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
 							{{ value }}
 						</div>
 					</div>
 					<div *ngSwitchCase="'tag'">
-						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
-							<span
-								*ngFor="let tag of value; let fst = first; trackBy: trackByFn"
-							>
+						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
+							<span *ngFor="let tag of value; let fst = first; trackBy: trackByFn">
 								{{ tag.name }} {{ fst ? ', ' : '' }}
 							</span>
 						</div>
@@ -34,28 +29,31 @@
 				</div>
 			</div>
 			<div *ngSwitchCase="'header'">
-				<div [ngSwitch]="data.dataType">
+				<div class="empty-header-cell">
+				</div>
+				<div [ngSwitch]="comparison.dataType" [ngClass]="'comparison-cell-' + comparison.dataType">
 					<div *ngSwitchCase="'description'" class="description">
-						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
 							{{ value }}
 						</div>
 					</div>
 					<div *ngSwitchCase="'text'" class="header-title">
-						<div *ngFor="let value of comparison.data; trackBy: trackByFn">
+						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
 							{{ value }}
 						</div>
 					</div>
-				</div>
-				<div *ngSwitchCase="'image'">
-					<div *ngFor="let value of comparison.data; trackBy: trackByFn">
-						<div class="image-container" *ngIf="type === 'content'">
-							<img-app
-								[customStyle]="{ 'border-radius': '5px' }"
-								[image]="value"
-								type="product"
-								size="s"
-								[objectFit]="'cover'"
-							></img-app>
+
+					<div *ngSwitchCase="'button'" class="header-title">
+							<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
+								<button>{{ value }}</button>
+							</div>
+						</div>
+	
+					<div *ngSwitchCase="'image'">
+						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
+							<div class="image-container">
+								<img-app [customStyle]="{ 'border-radius': '4px' }" [image]="value" type="product" size="s" [objectFit]="'cover'"></img-app>
+							</div>
 						</div>
 					</div>
 				</div>

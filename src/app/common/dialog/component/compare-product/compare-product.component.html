@@ -1,4 +1,4 @@
-<dialog-app>
+<dialog-app [headerSpacing]="'s'">
 
 	<dialog-header-app>
 		Compare Products
@@ -7,14 +7,5 @@
   <div class="item-container" >
       <item-comapre-row-app [comparisonData]="comparisonData"></item-comapre-row-app>
   </div>
-
-	<!-- <divider-app></divider-app> -->
-
-	<dialog-footer-app>
-		<button (click)="closeDlg()" class="">New Product</button>
-		<button (click)="closeDlg()">Validate Sample</button>
-		<button (click)="closeDlg()">Validate Sample</button>
-		<button (click)="closeDlg()">Continue</button>
-	</dialog-footer-app>
 
 </dialog-app>

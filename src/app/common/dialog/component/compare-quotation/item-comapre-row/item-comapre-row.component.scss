@@ -1,54 +1,73 @@
+
+$cell-width: 200px;
+
 :host {
 	display: block;
   overflow: overlay;
   max-height: inherit;
-  min-width: 196px;
 }
-.item-compare-column_header-container {
-  height: 170px;
-  .image-container {
-    width: 120px;
-    height: 120px;
 
-  }
-	.item-compare-column_supplier {
-		font-size: 13px;
-    font-weight: 600;
-    height: 34px;
-    color: var(--color-primary);
-    margin-top: var(--spacing-l);
-    word-break: break-all;
-	}
-}
-.comparison-row-big,
 .comparison-row {
-  border-bottom: 1px solid var(--color-divider);
-  height: 33px;
-  line-height: 33px;
+  width: 100%;
   box-sizing:border-box;
   vertical-align: middle;
-  // &:last-child {
-  //   border: none;
-  // }
-	.title {
-		font-size: 13px;
-		font-weight: 600;
-		color: var(--color-txt-primary);
-	}
-	.content {
-		font-size: 13px;
-		font-weight: 600;
-		color: var(--color-secondary-dark);
+  
+  .comparison-row-header {
+    .comparison-cell-image {
+      margin-bottom: 0;
+    }
+    .comparison-cell-description {
+      margin-bottom: var(--spacing-ms);
+    }
+    .comparison-cell-text {
+      font-size: var(--font-size-m);
+      font-weight: 600;
+      color: var(--color-txt-strong);
+    }
   }
 
+  .comparison-row-content {
+    border-bottom: 1px solid var(--color-divider);
+    height: 33px;
+    line-height: 33px;
+    .comparison-cell {
+    }
+
+    .title {
+      width: $cell-width;
+      font-size: var(--font-size-m);
+      font-weight: 600;
+      color: var(--color-secondary-dark);
+    } 
+  }
+
+  .comparison-row-title {
+    margin-top: var(--spacing-m);
+    .comparison-cell {
+      font-size: var(--font-size-l);
+      font-weight: 600;  
+      color: var(--color-txt-strong);
+      padding-left: 0px; 
+    }
+  }
+
+  .empty-header-cell {
+    width: $cell-width;
+  }
+
+  .comparison-cell {
+    width: $cell-width;
+    padding: 5px;
+  }
+
+  .image-container {
+    width: 175px;
+    height: 175px;
+  }
+
+  div {
+    display: inline-block;
+  }
+  
 }
 
-.comparison-row-big {
-  border: none;
-  margin: 8px 0;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: 'Raleway';
-  color: var(--color-primary);
-  text-transform: uppercase;
-}
