@@ -1,5 +1,10 @@
-<div class="flex {{ big ? 'big' : ''}}"
+<div *ngIf="!isShort" class="flex {{ big ? 'big' : ''}}"
 	[ngStyle]="styles">
 	<span class="amount">{{ amount | ssPrice }}</span>
 	<span class="currency txt-secondary">{{ currency }}</span>
+</div>
+<div *ngIf="isShort" class="flex"
+	[ngStyle]="styles">
+	<span class="currency">{{ currency | const : 'currency' : 'symbol'}}</span>
+	<span class="amount">{{ amount ? (amount | ssPrice) : '-' }}</span>
 </div>

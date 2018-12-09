@@ -141,7 +141,7 @@
 			<span class="fs-s"
 				*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
 			<span class="mg-xs spacer"></span>
-			<span>{{ value && (value.value !== undefined) ? (value.value / 10000) : '-' }}</span>
+			<span>{{ value && (value.value) ? (value.value / 10000) : '-' }}</span>
 		</editable-label-app>
 		<form-field-app class="editable">
 			<input-price-app

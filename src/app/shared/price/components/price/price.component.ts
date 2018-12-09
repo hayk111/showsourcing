@@ -4,13 +4,14 @@ import {
 	Input,
 	OnInit,
 } from '@angular/core';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { Currency } from '~models';
 
 @Component({
 	selector: 'price-app',
 	templateUrl: './price.component.html',
 	styleUrls: ['./price.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriceComponent implements OnInit {
 
@@ -18,6 +19,7 @@ export class PriceComponent implements OnInit {
 	@Input() currency: Currency;
 	@Input() fontWeight = 'inherit';
 	@Input() size = 'inherit';
+	@Input() isShort = false;
 	@Input() get amount() {
 		return this._amount;
 	}

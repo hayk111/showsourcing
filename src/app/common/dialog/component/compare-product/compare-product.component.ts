@@ -8,7 +8,8 @@ import {
 import { Contact, Product, Quote, Packaging } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
-import { ComparisonDataModel } from '../compare-quotation/ComparisonDataModel';
+import { ComparisonDataModel } from '~shared/table/models/';
+import { getArrayData, getPackagingString } from '~utils/product.utils';
 
 @Component({
 	selector: 'compare-product-app',
@@ -29,59 +30,59 @@ export class CompareProductComponent extends AutoUnsub
 			{
 				type: 'header',
 				dataType: 'image',
-				data: this._getArrayData(products, 'images')
+				data: getArrayData(products, 'images')
 			},
 			{
 				type: 'header',
 				dataType: 'text',
-				data: this._getArrayData(products, 'name')
+				data: getArrayData(products, 'name')
 			},
 			{
 				type: 'header',
 				dataType: 'description',
-				data: this._getArrayData(products, 'description')
+				data: getArrayData(products, 'description')
 			},
 			{
 				type: 'content',
 				title: 'Supplier',
 				dataType: 'text',
-				data: this._getArrayData(products, 'supplier.name')
+				data: getArrayData(products, 'supplier.name')
 			},
 			{
 				title: 'Price',
 				type: 'content',
 				dataType: 'price',
-				data: this._getArrayData(products, 'price')
+				data: getArrayData(products, 'price')
 			},
 			{
 				type: 'content',
 				title: 'MOQ',
 				dataType: 'text',
-				data: this._getArrayData(products, 'minimumOrderQuantity')
+				data: getArrayData(products, 'minimumOrderQuantity')
 			},
 			{
 				type: 'content',
 				dataType: 'text',
 				title: 'MOQ Description',
-				data: this._getArrayData(products, 'moqDescription')
+				data: getArrayData(products, 'moqDescription')
 			},
 			{
 				type: 'content',
 				title: 'Team Rating',
 				dataType: 'text',
-				data: this._getArrayData(products, 'score')
+				data: getArrayData(products, 'score')
 			},
 			{
 				type: 'content',
 				title: 'Category',
 				dataType: 'text',
-				data: this._getArrayData(products, 'category.name')
+				data: getArrayData(products, 'category.name')
 			},
 			{
 				type: 'content',
 				title: 'Tags',
 				dataType: 'tag',
-				data: this._getArrayData(products, 'tags')
+				data: getArrayData(products, 'tags')
 			},
 			{
 				type: 'title',
@@ -92,13 +93,13 @@ export class CompareProductComponent extends AutoUnsub
 				type: 'content',
 				title: 'Inco Term',
 				dataType: 'text',
-				data: this._getArrayData(products, 'incoTerms')
+				data: getArrayData(products, 'incoTerms')
 			},
 			{
 				type: 'content',
 				title: 'Harbour',
 				dataType: 'text',
-				data: this._getArrayData(products, 'harbour')
+				data: getArrayData(products, 'harbour')
 			},
 			{
 				type: 'title',
@@ -109,23 +110,23 @@ export class CompareProductComponent extends AutoUnsub
 				type: 'content',
 				title: 'Carton Size',
 				dataType: 'text',
-				data: this._getPackagingString(products, 'innerCarton')
+				data: getPackagingString(products, 'innerCarton')
 			},
 			{
 				type: 'content',
 				title: 'Master Carton',
 				dataType: 'text',
-				data: this._getPackagingString(products, 'masterCarton')
+				data: getPackagingString(products, 'masterCarton')
 			},
 			{
 				type: 'content',
 				title: 'Pcs per Master',
 				dataType: 'text',
-				data: this._getPackagingString(products, 'masterCarton.itemsQuantity')
+				data: getPackagingString(products, 'masterCarton.itemsQuantity')
 			}, {
 				type: 'header',
 				dataType: 'button',
-				data: this._getArrayData(products, 'status.name')
+				data: getArrayData(products, 'status.name')
 			}
 		];
 	}
@@ -138,40 +139,6 @@ export class CompareProductComponent extends AutoUnsub
 		super();
 	}
 
-	private _getArrayData(array: Array<any>, property: string): Array<any> {
-		return array.map(x => this._getNestedValue(x, property) || '-');
-	}
-
-	private _getNestedValue(obj: any, property: string) {
-		return property.split('.').reduce(function(result, key) {
-			if (result) {
-				return result[key];
-			}
-		}, obj);
-	}
-
-	private _getPriceMatrixRowByLabel(
-		array: Array<any>,
-		_label: string
-	): Array<any> {
-		const label = String(_label).toLowerCase();
-		return array.map(quote => {
-			const priceMatrix = quote.priceMatrix.rows.find(
-				x => String(x.label).toLowerCase() === label
-			);
-			return (priceMatrix && priceMatrix.price.value) || '-';
-		});
-	}
-	private _getPackagingString(array: Array<any>, property: string): Array<any> {
-		return array.map(x => {
-			const packaging = x[property];
-			if (!packaging) {
-				return '';
-			}
-			return `${packaging.width || 0} x ${packaging.height ||
-				0} x ${packaging.depth || 0}${packaging.unit}`;
-		});
-	}
 	ngOnInit() {}
 
 	ngAfterViewInit() {}

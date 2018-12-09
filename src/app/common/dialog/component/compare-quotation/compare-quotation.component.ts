@@ -8,8 +8,8 @@ import {
 import { Contact, Product, Quote, Packaging } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
-import { ComparisonDataModel } from './ComparisonDataModel';
-
+import { ComparisonDataModel } from '~shared/table/models/';
+import { getArrayData, getPackagingString } from '~utils/product.utils';
 @Component({
 	selector: 'compare-quotation-app',
 	templateUrl: './compare-quotation.component.html',
@@ -32,40 +32,40 @@ export class CompareQuotationComponent extends AutoUnsub
 			{
 				type: 'header',
 				dataType: 'image',
-				data: this._getArrayData(quotes, 'product.images')
+				data: getArrayData(quotes, 'product.images')
 			},
 			{
 				type: 'header',
 				dataType: 'text',
-				data: this._getArrayData(quotes, 'supplier.name')
+				data: getArrayData(quotes, 'supplier.name')
 			},
 			{
 				type: 'header',
 				dataType: 'text',
 				title: 'Reference',
-				data: this._getArrayData(quotes, 'reference')
+				data: getArrayData(quotes, 'reference')
 			},
 			{
 				type: 'content',
 				dataType: 'price',
 				title: 'Price',
-				data: this._getArrayData(quotes, 'price')
+				data: getArrayData(quotes, 'price')
 			}, {
 				type: 'content',
 				dataType: 'text',
 				title: 'MOQ',
-				data: this._getArrayData(quotes, 'minimumOrderQuantity')
+				data: getArrayData(quotes, 'minimumOrderQuantity')
 			},
 			{
 				type: 'content',
 				dataType: 'text',
 				title: 'MOQ Description',
-				data: this._getArrayData(quotes, 'moqDescription')
+				data: getArrayData(quotes, 'moqDescription')
 			}, {
 				type: 'content',
 				dataType: 'text',
 				title: 'Sample Price',
-				data: this._getArrayData(quotes, 'samplePrice')
+				data: getArrayData(quotes, 'samplePrice')
 			},
 			{
 				type: 'title',
@@ -89,13 +89,13 @@ export class CompareQuotationComponent extends AutoUnsub
 				type: 'content',
 				dataType: 'text',
 				title: 'Inco Term',
-				data: this._getArrayData(quotes, 'incoTerms')
+				data: getArrayData(quotes, 'incoTerms')
 			},
 			{
 				type: 'content',
 				dataType: 'text',
 				title: 'Harbour',
-				data: this._getArrayData(quotes, 'harbour')
+				data: getArrayData(quotes, 'harbour')
 			},
 			{
 				type: 'title',
@@ -106,19 +106,19 @@ export class CompareQuotationComponent extends AutoUnsub
 				type: 'content',
 				dataType: 'text',
 				title: 'Carton Size',
-				data: this._getPackagingString(quotes, 'innerCarton')
+				data: getPackagingString(quotes, 'innerCarton')
 			},
 			{
 				type: 'content',
 				dataType: 'text',
 				title: 'Master Carton',
-				data: this._getPackagingString(quotes, 'masterCarton')
+				data: getPackagingString(quotes, 'masterCarton')
 			},
 			{
 				type: 'content',
 				dataType: 'text',
 				title: 'Pcs per Master',
-				data: this._getPackagingString(quotes, 'masterCarton.itemsQuantity')
+				data: getPackagingString(quotes, 'masterCarton.itemsQuantity')
 			}
 
 		];
@@ -132,40 +132,7 @@ export class CompareQuotationComponent extends AutoUnsub
 		super();
 	}
 
-	private _getArrayData(array: Array<any>, property: string): Array<any> {
-		return array.map(x => this._getNestedValue(x, property) || '-');
-	}
-
-	private _getNestedValue(obj: any, property: string) {
-		return property.split('.').reduce(function (result, key) {
-			if (result) {
-				return result[key];
-			}
-		}, obj);
-	}
-
-	private _getPriceMatrixRowByLabel(
-		array: Array<any>,
-		_label: string
-	): Array<any> {
-		const label = String(_label).toLowerCase();
-		return array.map(quote => {
-			const priceMatrix = quote.priceMatrix.rows.find(
-				x => String(x.label).toLowerCase() === label
-			);
-			return (priceMatrix && priceMatrix.price.value) || '-';
-		});
-	}
-	private _getPackagingString(array: Array<any>, property: string): Array<any> {
-		return array.map(x => {
-			const packaging = x[property];
-			if (!packaging) {
-				return '';
-			}
-			return `${packaging.width || 0} x ${packaging.height ||
-				0} x ${packaging.depth || 0}${packaging.unit}`;
-		});
-	}
+	
 	ngOnInit() { }
 
 	ngAfterViewInit() { }

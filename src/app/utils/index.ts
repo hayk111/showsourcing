@@ -7,3 +7,4 @@ export * from '~utils/pending-file.class';
 export * from '~utils/pending-image.class';
 export * from '~utils/regexes';
 export * from '~utils/uuid.utils';
+export * from '~utils/product.utils';

@@ -11,7 +11,7 @@
 				<div [ngSwitch]="comparison.dataType" [ngClass]="'comparison-cell-' + comparison.dataType">
 					<div *ngSwitchCase="'price'">
 						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
-							{{ value | currency: value.currency:'symbol':'1.2-2' }}
+							{{ value ? (value | currency: value.currency:'symbol':'1.2-2') : '$ -' }}
 						</div>
 					</div>
 					<div *ngSwitchCase="'text'">

@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
+import { PriceModule } from '~shared/price';
+import { ListModule } from '~shared/list/list.module';
 
 import {
 	MoqComponent,
@@ -13,7 +15,7 @@ import {
 	ProductSortingMenuComponent,
 	StatsIconsComponent,
 } from './components';
-import { FindProductsDialogComponent, ProductPreviewComponent, PriceWithQuantityComponent, ListActionButtonsComponent } from './containers';
+import { FindProductsDialogComponent, ProductPreviewComponent } from './containers';
 
 
 
@@ -22,6 +24,8 @@ import { FindProductsDialogComponent, ProductPreviewComponent, PriceWithQuantity
 		CommonModule,
 		RouterModule,
 		SharedModule,
+		PriceModule,
+		ListModule
 	],
 	declarations: [
 		FindProductsDialogComponent,
@@ -31,8 +35,6 @@ import { FindProductsDialogComponent, ProductPreviewComponent, PriceWithQuantity
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
 		ProductPreviewComponent,
-		PriceWithQuantityComponent,
-		ListActionButtonsComponent,
 		ProductCardComponent,
 		MoqComponent,
 		StatsIconsComponent
@@ -44,8 +46,6 @@ import { FindProductsDialogComponent, ProductPreviewComponent, PriceWithQuantity
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
 		ProductPreviewComponent,
-		PriceWithQuantityComponent,
-		ListActionButtonsComponent,
 		ProductCardComponent,
 		MoqComponent,
 		StatsIconsComponent
