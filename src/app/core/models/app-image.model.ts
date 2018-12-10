@@ -8,7 +8,7 @@ export class AppImage extends EntityWithAudit<undefined> {
 	deleted = false;
 	pending?: boolean;
 	urls?: ImageUrl[];
-	__typename?= 'Image';
+	__typename ?= 'Image';
 
 	constructor() {
 		super();
