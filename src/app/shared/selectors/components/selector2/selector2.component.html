@@ -1,0 +1,39 @@
+<input type="text" [placeholder]="'Enter a' + type">
+
+<divider-app></divider-app>
+
+<cdk-virtual-scroll-viewport>
+
+	<ng-container [ngSwitch]="type">
+
+		<ng-container *ngSwitchCase="'supplier'">
+			<selector-supplier-row-app *cdkVirtualFor="let item of choices"></selector-supplier-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'project'">
+			<selector-project-row-app *cdkVirtualFor="let item of choices"></selector-project-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'user'">
+			<selector-user-row-app *cdkVirtualFor="let item of choices"></selector-user-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'price'">
+			<selector-price-row-app *cdkVirtualFor="let item of choices"></selector-price-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'text'">
+			<selector-text-row-app *cdkVirtualFor="let item of choices"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'product'">
+			<selector-product-row-app *cdkVirtualFor="let item of choices"></selector-product-row-app>
+		</ng-container>
+
+	</ng-container>
+
+	<button class="small">Create {{type}}</button>
+
+</cdk-virtual-scroll-viewport>
+
+<button class="secondary">Done</button>

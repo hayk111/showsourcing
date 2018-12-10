@@ -8,16 +8,34 @@ import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
 import { UserPictureModule } from '~shared/user-picture';
 
-import { CdkOverlayComponent, SelectorComponent } from './components';
+import {
+	CdkOverlayComponent,
+	SelectorComponent,
+	SelectorPriceRowComponent,
+	SelectorProductRowComponent,
+	SelectorProjectRowComponent,
+	SelectorSupplierRowComponent,
+	SelectorTextRowComponent,
+	SelectorUserRowComponent,
+	Selector2Component,
+} from './components';
 import { SelectorConstComponent } from './components/selector-const/selector-const.component';
 import { SelectorEntityComponent } from './components/selector-entity/selector-entity.component';
+import { DividerModule } from '~shared/divider/divider.module';
 
 
 const components = [
+	CdkOverlayComponent,
 	SelectorComponent,
-	SelectorEntityComponent,
+	Selector2Component,
 	SelectorConstComponent,
-	CdkOverlayComponent
+	SelectorEntityComponent,
+	SelectorPriceRowComponent,
+	SelectorProductRowComponent,
+	SelectorProjectRowComponent,
+	SelectorSupplierRowComponent,
+	SelectorTextRowComponent,
+	SelectorUserRowComponent
 ];
 
 @NgModule({
@@ -30,7 +48,8 @@ const components = [
 		ImageModule, // pipes are used
 		UserPictureModule,
 		IconsModule,
-		OverlayModule
+		OverlayModule,
+		DividerModule
 	],
 	declarations: components,
 	exports: components

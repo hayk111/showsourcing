@@ -1,16 +1,18 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-selector-text-row',
-  templateUrl: './selector-text-row.component.html',
-  styleUrls: ['./selector-text-row.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'selector-text-row-app',
+	templateUrl: './selector-text-row.component.html',
+	styleUrls: ['./selector-text-row.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorTextRowComponent implements OnInit {
 
-  constructor() { }
+	@Input() text: string;
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Product } from '~core/models';
 
 @Component({
 	selector: 'selector-product-row-app',
@@ -7,6 +8,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorProductRowComponent implements OnInit {
+
+	@Input() product: Product;
 
 	constructor() { }
 

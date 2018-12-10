@@ -1,16 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Project } from '~core/models';
 
 @Component({
-  selector: 'app-selector-project-row',
-  templateUrl: './selector-project-row.component.html',
-  styleUrls: ['./selector-project-row.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'selector-project-row-app',
+	templateUrl: './selector-project-row.component.html',
+	styleUrls: ['./selector-project-row.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorProjectRowComponent implements OnInit {
 
-  constructor() { }
+	@Input() project: Project;
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }

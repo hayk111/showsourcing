@@ -1,16 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Supplier } from '~core/models';
 
 @Component({
-  selector: 'app-selector-supplier-row',
-  templateUrl: './selector-supplier-row.component.html',
-  styleUrls: ['./selector-supplier-row.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'selector-supplier-row-app',
+	templateUrl: './selector-supplier-row.component.html',
+	styleUrls: ['./selector-supplier-row.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorSupplierRowComponent implements OnInit {
 
-  constructor() { }
+	@Input() supplier: Supplier;
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }

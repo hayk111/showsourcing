@@ -1,16 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { User } from '~core/models';
 
 @Component({
-  selector: 'app-selector-user-row',
-  templateUrl: './selector-user-row.component.html',
-  styleUrls: ['./selector-user-row.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'selector-user-row-app',
+	templateUrl: './selector-user-row.component.html',
+	styleUrls: ['./selector-user-row.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorUserRowComponent implements OnInit {
 
-  constructor() { }
+	@Input() user: User;
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }

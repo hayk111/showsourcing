@@ -6,3 +6,4 @@ export * from './selector-supplier-row/selector-supplier-row.component';
 export * from './selector-text-row/selector-text-row.component';
 export * from './selector-user-row/selector-user-row.component';
 export * from './selector/selector.component';
+export * from './selector2/selector2.component';

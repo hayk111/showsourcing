@@ -1,16 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-selector-price-row',
-  templateUrl: './selector-price-row.component.html',
-  styleUrls: ['./selector-price-row.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'selector-price-row-app',
+	templateUrl: './selector-price-row.component.html',
+	styleUrls: ['./selector-price-row.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorPriceRowComponent implements OnInit {
 
-  constructor() { }
+	@Input() currency: string;
+	@Input() abreviation: string;
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }
