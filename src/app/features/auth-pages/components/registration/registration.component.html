@@ -30,7 +30,7 @@
 		<input (focus)="filedFocused = 'lastName'" inputApp required="true" autocomplete="family-name" formControlName="lastName" type="text" placeholder="Your last name" />
 	</form-field-app>
 
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'email'}">
+	<form-field-app [ngClass]="{'field-focused': filedFocused === 'email', 'field-error': (form.get('email').invalid) }">
 		<label-app>Email</label-app>
 		<input (focus)="filedFocused = 'email'" [class.error]="error && !form.get('email').dirty" inputApp required="true" autocomplete="email"
 		 formControlName="email" type="email" placeholder="Your email" />
@@ -38,7 +38,7 @@
 		<hint-app>Tip: the app works better with a company email</hint-app>
 	</form-field-app>
 
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'password'}">
+	<form-field-app [ngClass]="{'field-focused': filedFocused === 'password', 'field-error': (form.get('password').hasError('minlength'))}">
 		<label-app>Password</label-app>
 		<input (focus)="filedFocused = 'password'" #pw inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
 		 placeholder="Your password" />

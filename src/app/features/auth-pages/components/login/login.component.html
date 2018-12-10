@@ -18,7 +18,7 @@
 <form (ngSubmit)="onSubmit()" *ngIf="!(pending$ | async); else spinner" [formGroup]="form">
 	<error-app *ngIf="error">{{ error }}</error-app>
 
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'email'}">
+	<form-field-app [ngClass]="{'field-focused': filedFocused === 'email', 'field-error': (form.get('identifier').invalid)}">
 		<label-app>Email</label-app>
 		<input (focus)="filedFocused = 'email'" inputApp autoFocus autocomplete="current-email" type="text" placeholder="example@showsourcing.com"
 		 formControlName="identifier" />

@@ -70,6 +70,15 @@ input {
 	}
 }
 
+.field-error {
+	label-app {
+		color: var(--color-warn);
+	}
+	input {
+		border-left: 4px solid var(--color-warn)
+	}
+}
+
 .options {
 	margin-top: var(--spacing-s);
 	margin-bottom: var(--spacing-s);
