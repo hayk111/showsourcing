@@ -14,6 +14,7 @@ export class CheckboxComponent extends AbstractInput {
 	@Output() uncheck = new EventEmitter<null>();
 	@ViewChild('label') label: ElementRef;
 	@Input() size = 16;
+	@Input() labelClass = '';
 	/** id of element, if not specified it will generate automtically */
 	@Input()
 	get id(): string { return this._id; }
