@@ -18,10 +18,9 @@ import { ComparisonDataModel } from '~shared/table/models';
 })
 export class ItemCompareRowComponent extends TrackingComponent
 	implements OnInit {
-	
-		private _comparisonData: ComparisonDataModel[] = []; 
+
+		private _comparisonData: ComparisonDataModel[] = [];
 	@Input() set comparisonData(value: ComparisonDataModel[]) {
-		console.log(value);
 		this._comparisonData = value;
 	}
 	get comparisonData(): ComparisonDataModel[] {
