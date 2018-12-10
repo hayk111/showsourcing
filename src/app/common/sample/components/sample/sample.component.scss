@@ -2,7 +2,7 @@
 	padding-right: var(--spacing-ms);
 
 	.sample-reference {
-		width: 25%;
+
 		img-app {
 			margin-right: var(--spacing-ms);
 			max-width: 25px;
@@ -10,20 +10,11 @@
 		}
 	}
 
-	.sample-name {
-		width: 35%;
-	}
-
 	.sample-user {
-		width: 25%;
 
 		user-picture-app {
 			margin-right: var(--spacing-s);
 		}
-	}
-
-	.sample-status {
-		width: 15%;
 	}
 }
 
