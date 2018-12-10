@@ -132,12 +132,12 @@ export class ListPageDataService
 	 * @param config configuration used to refetch
 	 */
 	refetch(config?: SelectParamsConfig) {
-		this.listResult.refetch(config);
+		this.listResult.refetch(config).subscribe();
 	}
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
-		this.listResult.fetchMore(this.items.length);
+		return this.listResult.fetchMore(this.items.length);
 	}
 
 	/** Sorts items based on sort.sortBy */

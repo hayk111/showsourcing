@@ -42,16 +42,15 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 		const userLean = {
 			__typename: 'User',
 			id: user.id,
-			lastName: user.lastName,
-			firstName: user.firstName,
-			avatar: user.avatar ? {
-				id: user.avatar.id,
-				fileName: user.avatar.fileName,
-			} : null
+			// lastName: user.lastName,
+			// firstName: user.firstName,
+			// avatar: user.avatar ? {
+			// 	id: user.avatar.id,
+			// } : null
 		};
-		entity.createdBy = { ...userLean, __typename: 'User' };
+		entity.createdBy = userLean;
 		entity.creationDate = '' + new Date();
-		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
+		entity.lastUpdatedBy = userLean;
 		entity.lastUpdatedDate = '' + new Date();
 		return super.create(entity, client);
 	}

@@ -19,4 +19,5 @@ export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 	constructor() {
 		super();
 	}
+
 }
