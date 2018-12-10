@@ -45,13 +45,13 @@
 		<error-app *ngIf="form.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
 	</form-field-app>
 
-	
+
 	<div class="options">
-			<div class="checkbox-container">
+			<!-- <div class="checkbox-container">
 				<checkbox-app [size]="16" [labelClass]="'label-rememberme'">
 					Remember me
 				</checkbox-app>
-			</div>
+			</div> -->
 			<div class="clickable forgot-password" (click)="forgotPw()">Forgotten password?</div>
 		</div>
 
@@ -60,7 +60,7 @@
 			<a class="button light" [routerLink]="['../login']" [queryParams]="queryParams">Already have an account?</a>
 	</div>
 
-	
+
 </form>
 
 <ng-template #spinner>
