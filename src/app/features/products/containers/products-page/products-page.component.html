@@ -18,12 +18,13 @@
 		(search)="listSrv.search($event)"
 		(viewChange)="onViewChange($event)">
 
-		<product-sorting-menu-app
-			[currentSort]="listSrv.currentSort"
-			[gridView]="listSrv.view === 'card'"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">
-		</product-sorting-menu-app>
-
+		<sub-panel-right-item-app>
+			<product-sorting-menu-app
+				[currentSort]="listSrv.currentSort"
+				[gridView]="listSrv.view === 'card'"
+				(sortFromMenu)="listSrv.sortFromMenu($event)">
+			</product-sorting-menu-app>
+		</sub-panel-right-item-app>
 
 	</sub-panel-app>
 
