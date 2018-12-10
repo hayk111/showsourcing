@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PreviewSupplierComponent } from './components/preview-supplier/preview-supplier.component';
-import { SharedModule } from '~shared/shared.module';
 import { CommentCommonModule } from '~common/comment';
+import { SharedModule } from '~shared/shared.module';
+
+import { SupplierPreviewComponent } from './components';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		CommentCommonModule
 	],
-	declarations: [PreviewSupplierComponent],
-	exports: [PreviewSupplierComponent]
+	declarations: [SupplierPreviewComponent],
+	exports: [SupplierPreviewComponent]
 })
 export class SupplierCommonModule { }

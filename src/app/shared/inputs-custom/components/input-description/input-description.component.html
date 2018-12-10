@@ -1,4 +1,4 @@
-<div class="descripton-container">
+<div #container class="descripton-container">
 	<editable-field-app
 		[ngStyle]="{'padding-top': hasLabel ? 'inherit' : '0px'}"
 		[hasLabel]="hasLabel"
@@ -7,13 +7,26 @@
 		(opened)="inpDescription.select();"
 		[canGrow]="true">
 		<label-app>Description</label-app>
-		<editable-label-app>
-			{{ (description?.length && description) || '-' }}
+		<editable-label-app
+			*ngIf="description?.length && description">
+			{{ (description?.length && description)  }}
+		</editable-label-app>
+		<editable-label-app
+			*ngIf="!(description?.length && description)"
+			class="fullWidth">
+			<button class="secondary flexCenter edit-description">
+				<icon-app class="edit" name="edit"></icon-app>
+				<span>Add Product Description</span>
+			</button>
 		</editable-label-app>
 		<textarea inputApp #inpDescription autofocus="true"
 			class="fullWidth"
-			[value]="description || '-'"
+			[value]="description || ''"
 			(keyup.enter)="updateDescription(false, inpDescription.value)">
 		</textarea>
 	</editable-field-app>
 </div>
+<button
+	*ngIf="showMore"
+	class="secondary-light flexCenter view-more"
+	(click)="showAll()">View More</button>

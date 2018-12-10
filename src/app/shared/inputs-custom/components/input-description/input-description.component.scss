@@ -1,8 +1,10 @@
 :host {
 	display: block;
+	width: 100%;
 }
 
 .descripton-container {
+	overflow-y: hidden;
 
   .description-text {
     font-family: var(--font-normal);
@@ -12,7 +14,26 @@
 
 }
 
-editable-label-app {
-	white-space: pre-line;
+editable-field-app {
+	min-height: unset !important;
+	padding-bottom: 0 !important;
+
+	editable-label-app {
+		white-space: pre-line;
+		font-size: var(--font-size-m);
+
+		icon-app.edit {
+			margin-right: var(--spacing-xs);
+		}
+
+		button.edit-description {
+			width: 100%;
+			font-weight: 600;
+		}
+	}
 }
 
+button.view-more {
+	width: 100%;
+	margin-top: var(--spacing-s);
+}

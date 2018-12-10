@@ -1,1 +1,1 @@
-export * from './preview-supplier/preview-supplier.component';
+export * from './supplier-preview/supplier-preview.component';

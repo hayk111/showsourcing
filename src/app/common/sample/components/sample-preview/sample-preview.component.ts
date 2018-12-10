@@ -7,12 +7,12 @@ import { CustomField } from '~shared/dynamic-forms';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-	selector: 'preview-sample-app',
-	templateUrl: './preview-sample.component.html',
-	styleUrls: ['./preview-sample.component.scss'],
+	selector: 'sample-preview-app',
+	templateUrl: './sample-preview.component.html',
+	styleUrls: ['./sample-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewSampleComponent extends AutoUnsub implements OnInit {
+export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 
 	@Input() set sample(value: Sample) {
 		this._sample = value;

@@ -8,12 +8,12 @@ import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-	selector: 'preview-supplier-app',
-	templateUrl: './preview-supplier.component.html',
-	styleUrls: ['./preview-supplier.component.scss'],
+	selector: 'supplier-preview-app',
+	templateUrl: './supplier-preview.component.html',
+	styleUrls: ['./supplier-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewSupplierComponent extends AutoUnsub implements OnInit {
+export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 
 	@Input() set supplier(value: Supplier) {
 		this._supplier = value;

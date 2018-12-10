@@ -17,12 +17,12 @@ import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
-	selector: 'preview-task-app',
-	templateUrl: './preview-task.component.html',
-	styleUrls: ['./preview-task.component.scss'],
+	selector: 'task-preview-app',
+	templateUrl: './task-preview.component.html',
+	styleUrls: ['./task-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterViewChecked {
+export class TaskPreviewComponent extends AutoUnsub implements OnInit, AfterViewChecked {
 
 	@Input() set task(value: Task) {
 		this._task = value;
