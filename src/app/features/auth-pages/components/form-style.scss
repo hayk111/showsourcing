@@ -7,7 +7,7 @@ h1, h2 {
 }
 
 h1 {
-	font-size: 28px;
+	font-size: var(--font-size-xxxxl);
   font-weight: 600;
 	font-family: var(--font-title);
 	color: var(--color-txt-strong);
@@ -47,7 +47,7 @@ form {
 
 .button {
 	height: 42px;
-	margin-top: var(--spacing-m);	
+	margin-top: var(--spacing-m);
 	width: 216px;
 	line-height: 42px;
 	font-size: 14px;
@@ -89,6 +89,6 @@ input {
     color: var(--color-txt-primary);
 		float: right;
 	}
-	
+
 }
 
