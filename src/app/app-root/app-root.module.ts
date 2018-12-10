@@ -7,17 +7,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'environments/environment';
 import { AppComponent } from '~app-root/components/app.component';
 import { routes } from '~app-root/routes';
-import { EventModule } from '~features/event/event.module';
-import { InvitationModule } from '~features/invitation';
 import { AppApolloModule } from '~core/apollo/apollo.module';
-import { CardModule } from '~shared/card';
-import { DialogModule } from '~shared/dialog';
-import { IconsModule } from '~shared/icons';
-import { LocalStorageModule } from '~core/local-storage';
-import { NotificationsModule } from '~shared/notifications';
 import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
+import { FindProductsDialogComponent } from '~common/product';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -41,5 +35,6 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
+	entryComponents: []
 })
 export class AppRootModule { }

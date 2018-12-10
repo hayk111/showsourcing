@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
 import { ListPageDataService } from '~core/list-page/list-page-data.service';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
@@ -44,19 +44,19 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.MY_WORKFLOW,
 			entitySrv: this.featureSrv,
 			searchedFields: ['name'],
-			initialSortBy: 'name',
+			currentSort: { sortBy: 'name', descending: true },
 			entityMetadata: ERM.PRODUCT
 		});
 
 		const products$ = this.featureSrv
-			.queryAll(ProductQueries.many, {
+			.queryMany({
 				query:
-					`status.id != null AND status.status.id != null ` +
-					`&& status.status.inWorkflow == true ` +
+					`status.id != null ` +
+					`&& status.inWorkflow == true ` +
 					`AND archived == false && deleted == false`,
-				sortBy: 'lastUpdatedDate'
-			})
-			.pipe(
+				sortBy: 'lastUpdatedDate',
+				take: 30
+			}).pipe(
 				map(products =>
 					products.sort(
 						(a, b) =>

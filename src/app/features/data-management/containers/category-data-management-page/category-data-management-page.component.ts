@@ -32,7 +32,7 @@ export class CategoryDataManagementPageComponent
 			key: ListPageKey.CATEGORY,
 			entitySrv: this.categorySrv,
 			searchedFields: ['name'],
-			initialSortBy: 'name',
+			currentSort: { sortBy: 'name', descending: true },
 			entityMetadata: ERM.CATEGORY
 		});
 	}

@@ -19,7 +19,7 @@ export class ShowsPageComponent extends TrackingComponent implements OnInit {
 	allShows$: Observable<Show[]>;
 	myShows$: Observable<Show[]>;
 
-	initialSortBy = 'description.startDate';
+	currentSort: { sortBy: 'startDate', descending: true };
 	checkboxes = {
 		futureShowOnly: false,
 		myShows: false

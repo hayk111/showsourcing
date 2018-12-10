@@ -39,7 +39,7 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 			key: ListPageKey.PRODUCTS,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			initialSortBy: 'category.name',
+			currentSort: { sortBy: 'category.name', descending: true },
 			entityMetadata: ERM.PRODUCT
 		});
 	}

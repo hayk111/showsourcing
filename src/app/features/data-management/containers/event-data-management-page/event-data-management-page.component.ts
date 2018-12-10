@@ -30,7 +30,7 @@ export class EventDataManagementPageComponent implements OnInit {
 			key: ListPageKey.EVENT,
 			entitySrv: this.eventSrv,
 			searchedFields: ['description.name'],
-			initialSortBy: 'description.name',
+			currentSort: { sortBy: 'description.name', descending: true },
 			entityMetadata: ERM.EVENT
 		});
 	}

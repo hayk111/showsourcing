@@ -55,6 +55,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 
 	onSubmit() {
 		if (this.group.valid) {
+			this.group.patchValue({ name: this.group.value.name.trim() });
 			this.pending = true;
 			this.crudDlgSrv.create(this.group, this.type)
 				.pipe(takeUntil(this._destroy$))

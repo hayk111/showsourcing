@@ -33,7 +33,7 @@ import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component'
 		CompareProductComponent,
 		ProductExportDlgComponent,
 		EmailListComponent,
-		RfqDialogComponent
+		RfqDialogComponent,
 	],
 	entryComponents: [
 		CreationDialogComponent,
@@ -44,7 +44,7 @@ import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component'
 		CompareProductComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
-		RfqDialogComponent
+		RfqDialogComponent,
 	],
 	providers: [
 		ProductDialogService,

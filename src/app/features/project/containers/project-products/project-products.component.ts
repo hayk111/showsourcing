@@ -52,7 +52,7 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 			key: ListPageKey.PROJECTS_PRODUCT,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
-			initialSortBy: 'name',
+			currentSort: { sortBy: 'category.name', descending: true },
 			initialPredicate: `projects.id == "${id}" AND deleted == false`,
 			entityMetadata: ERM.PRODUCT
 		});

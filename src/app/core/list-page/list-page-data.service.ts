@@ -35,10 +35,8 @@ export class ListPageDataService
 	private initialPredicate = 'deleted == false';
 	/** searched string */
 	private currentSearch = '';
-	/** property we sort by on first query */
-	private initialSortBy = 'creationDate';
 	/** currently used sort */
-	currentSort: Sort = { sortBy: this.initialSortBy, descending: true };
+	currentSort: Sort = { sortBy: 'creationDate', descending: true };
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
 		// initial filters
@@ -82,8 +80,8 @@ export class ListPageDataService
 	setItems() {
 		this.listResult = this.entitySrv.getListQuery({
 			query: this.getPredicate(),
-			sortBy: this.initialSortBy,
-			descending: true
+			sortBy: this.currentSort.sortBy,
+			descending: this.currentSort.descending
 		});
 
 		this.items$ = this.listResult.items$.pipe(

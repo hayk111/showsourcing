@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { ChangePswdDlgComponent } from '~features/settings/components/change-pswd-dlg/change-pswd-dlg.component';
-import { UserService } from '~entity-services';
+import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 import { User } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { first, switchMap, map } from 'rxjs/operators';
-import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -30,7 +29,8 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.user$ = this.profileSrv.selectUser();
-		this.user$.pipe(first()).subscribe(m => this.userId = m.id); // This way we dont have to call the observable eachtime we need the id
+		// This way we dont have to call the observable eachtime we need the id
+		this.user$.pipe(first()).subscribe(m => this.userId = m.id);
 	}
 
 	updateUser(user: User) {
@@ -41,9 +41,6 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 	addFile(file: Array<File>) {
 		this.uploaderSrv.uploadImages(file)
 			.subscribe(img => {
-				delete img[0].creationDate;
-				delete img[0].lastUpdatedDate;
-				delete img[0].deleted;
 				this.profileSrv.updateUser({
 					id: this.userId,
 					avatar: img[0]
