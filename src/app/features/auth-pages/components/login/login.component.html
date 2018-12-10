@@ -10,7 +10,7 @@
 		<br />
 		your team and suppliers
 	</h2>
-	<h2>
+	<h2 *ngIf="!(pending$ | async)">
 		Please login to your account.
 	</h2>
 </div>
