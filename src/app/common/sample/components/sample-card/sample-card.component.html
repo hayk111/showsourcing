@@ -16,7 +16,7 @@
 		<h2> {{ sample?.reference || 'Undefined Sample Reference' }} </h2>
 		<div class="center-section flex">
 			<div class="name">{{ sample?.name }}</div>
-			<div class="supplier">{{ sample?.supplier?.name }}</div>
+			<div *ngIf="sample?.supplier" class="supplier">{{ sample?.supplier?.name }}</div>
 		</div>
 		<div class="bottom-section flexBetween">
 			<div class="info-user flexCenter">

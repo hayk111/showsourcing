@@ -1,30 +1,47 @@
 <div class="flexStart row">
-	<!-- name -->
-	<div class="flex task-name ellipsis pointer">
-		<!-- <icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus()"></icon-app> -->
-		<div class="flexCenter" (click)="previewClicked.emit(sample)">{{ sample?.name || 'Unnamed sample' }}</div>
+	<!-- reference -->
+	<div class="flex col-25 sample-reference display-name pointer">
+		<img-app [image]="sample?.images ? sample.images[0] : null" type="sample" size="xs"></img-app>
+		<span class="ellipsis">{{ sample?.reference || 'No reference' }}</span>
 	</div>
 
-	<!-- if product -->
-	<!-- <div *ngIf="hasProduct" class="flexStart task-product ellipsis">
-		<div *ngIf="task?.product" class="flex ellipsis" (click)="openProduct.emit(task?.product?.id || null)">
-			<img-app [size]="'xs'" [image]="task?.product?.images"></img-app>
-			{{ task?.product?.name || 'Unnamed product'}}
-		</div>
-	</div> -->
+	<!-- name -->
+	<div class="col-35 sample-name display-name" (click)="previewClicked.emit(sample)">
+		<span class="ellipsis">
+			{{ sample?.name || 'Unnamed Sample'}}
+		</span>
+	</div>
 
-	<!-- if supplier -->
-	<!-- <div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis">
-		<div *ngIf="task?.supplier" class="flex ellipsis" (click)="openSupplier.emit(task?.supplier?.id || null)">
-			<img-app [size]="'xs'" [image]="task?.supplier?.logoImage"></img-app>
-			{{ task?.supplier?.name || 'Unnamed suppler' }}
-		</div>
-	</div> -->
+	<div
+		class="flex col-25 sample-user display-name"
+		cdkOverlayOrigin
+		#trigger="cdkOverlayOrigin"
+		(click)="toggleMenu()">
 
-	<!-- user+name column -->
-	<!-- <div *ngIf="fullUser" class="flex task-user"> DONT ERASE THIS IN CASE THE TASK MENU != TASK WORKSPACE
-		we call 2 times the selctor method since it has 2 different styling offsets
-	</div> -->
+		<user-picture-app [user]="sample?.assignee" [size]="20" [border]="true"></user-picture-app>
+		<span class="ellipsis capitalize">{{ sample?.assignee?.firstName }} {{ sample?.assignee?.lastName ? sample?.assignee?.lastName[0] + '.' : '' }}</span>
+		<cdk-overlay-app
+			*ngIf="menuOpen"
+			[trigger]="trigger"
+			[isOpen]="menuOpen"
+			[offsetY]="-27"
+			(clickOutside)="closeMenu()">
+			<selector-entity-app
+				#selector
+				style="width: 285px;"
+				type="user"
+				(clickOutside)="closeMenu()"
+				(change)="updateAssignee($event)">
+			</selector-entity-app>
+		</cdk-overlay-app>
+	</div>
 
 	<!-- sample status -->
+	<div class="col-15 sample-status">
+		<status-selector-app
+			[entity]="sample"
+			[typeEntity]="erm.SAMPLE"
+			[offsetX]="-15">
+		</status-selector-app>
+	</div>
 </div>

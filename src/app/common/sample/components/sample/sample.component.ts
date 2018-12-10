@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Sample, User } from '~models';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, AfterContentChecked, ViewChild } from '@angular/core';
+import { Sample, User, ERM } from '~models';
+import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 
 @Component({
 	selector: 'sample-app',
@@ -7,7 +8,7 @@ import { Sample, User } from '~models';
 	styleUrls: ['./sample.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleComponent {
+export class SampleComponent implements AfterContentChecked {
 
 	@Input() sample: Sample;
 	@Output() openProduct = new EventEmitter<string>();
@@ -15,12 +16,23 @@ export class SampleComponent {
 	@Output() previewClicked = new EventEmitter<Sample>();
 	@Output() updateSample = new EventEmitter<Sample>();
 
+	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
+
 	menuOpen = false;
+	erm = ERM;
 
 	constructor() { }
 
+	ngAfterContentChecked() {
+		if (this.selector && this.menuOpen) {
+			this.selector.open();
+			this.selector.selector.ngSelect.updateDropdownPosition();
+		}
+	}
+
 	updateAssignee(user: User) {
 		this.updateSample.emit({ ...this.sample, assignee: user });
+		this.closeMenu();
 	}
 
 	toggleMenu() {

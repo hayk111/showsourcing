@@ -1,3 +1,25 @@
 .row {
 	padding-right: var(--spacing-ms);
+
+	.sample-reference {
+
+		img-app {
+			margin-right: var(--spacing-ms);
+			max-width: 25px;
+			max-height: 25px;
+		}
+	}
+
+	.sample-user {
+
+		user-picture-app {
+			margin-right: var(--spacing-s);
+		}
+	}
+}
+
+// for the ellipsis with centered items to work we have to surround the span with a div with these properties
+.display-name {
+	display: flex;
+	align-items: center;
 }
