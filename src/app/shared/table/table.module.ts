@@ -9,6 +9,9 @@ import { InputsModule } from '~shared/inputs';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { IconsModule } from '~shared/icons';
 import { LoadersModule } from '~shared/loaders';
+import { ItemCompareRowComponent } from '~shared/table/components/item-comapre-row/item-comapre-row.component';
+import { ImageModule } from '~shared/image/image.module';
+import { PriceModule } from '~shared/price';
 
 @NgModule({
 	imports: [
@@ -18,9 +21,11 @@ import { LoadersModule } from '~shared/loaders';
 		InputsModule,
 		ContextMenuModule,
 		IconsModule,
+		ImageModule,
+		PriceModule,
 		LoadersModule
 	],
-	declarations: [TableComponent, ColumnDirective, CustomTableComponent],
-	exports: [TableComponent, ColumnDirective, CustomTableComponent],
+	declarations: [TableComponent, ColumnDirective, CustomTableComponent, ItemCompareRowComponent],
+	exports: [TableComponent, ColumnDirective, CustomTableComponent, ItemCompareRowComponent],
 })
 export class TableModule { }

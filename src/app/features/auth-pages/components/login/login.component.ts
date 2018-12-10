@@ -18,6 +18,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	pending$ = new Subject<boolean>();
 	error: string;
 	queryParams: any;
+	filedFocused = 'email';
 
 	constructor(
 		private srv: AuthenticationService,

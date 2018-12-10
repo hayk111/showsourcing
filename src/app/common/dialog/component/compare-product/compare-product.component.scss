@@ -3,6 +3,10 @@ dialog-app {
 	width: auto;
 	display: block;
 
+	.header {
+		padding-bottom: var(--spacing-s);
+	}
+
 	dialog-header-app {
 		font-size: var(--font-size-l);
 	}

@@ -1,47 +1,66 @@
-
 <div class="top">
-	<h1 *ngIf="!(pending$ | async)">Sign up</h1>
-	<h2 *ngIf="!(pending$ | async)">Just fill this form and get started with power sourcing!</h2>
+	<div class="logo">
+		<img src="/assets/img/logo.svg">
+	</div>
+	<h1 *ngIf="!(pending$ | async)">
+		Welcome to ShowSourcing
+	</h1>
+	<h2 *ngIf="!(pending$ | async)">
+		Your Collaborative Sourcing Platform for
+		<br/>
+		your team and suppliers
+	</h2>
+	<h2 *ngIf="!(pending$ | async)">
+		Please create your account.
+	</h2>
 	<h1 *ngIf="(pending$ | async)">We are creating your account</h1>
 	<h2 *ngIf="(pending$ | async)">Please hold as we modify the internet for you!</h2>
 </div>
 
 <form [formGroup]="form" autocomplete="on" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
 	<error-app *ngIf="error">{{ error }}</error-app>
-	<form-field-app>
+	<form-field-app [ngClass]="{'field-focused': filedFocused === 'firstName'}">
 		<label-app>First Name</label-app>
-		<input inputApp required="true"
-			autoFocus
-			autocomplete="given-name" formControlName="firstName" type="text" placeholder="Your first name"/>
+		<input (focus)="filedFocused = 'firstName'" inputApp required="true" autoFocus autocomplete="given-name" formControlName="firstName" type="text"
+		 placeholder="Your first name" />
 	</form-field-app>
 
-	<form-field-app>
+	<form-field-app [ngClass]="{'field-focused': filedFocused === 'lastName'}">
 		<label-app>Last Name</label-app>
-		<input inputApp required="true"
-			autocomplete="family-name" formControlName="lastName" type="text" placeholder="Your last name"/>
+		<input (focus)="filedFocused = 'lastName'" inputApp required="true" autocomplete="family-name" formControlName="lastName" type="text" placeholder="Your last name" />
 	</form-field-app>
 
-	<form-field-app>
+	<form-field-app [ngClass]="{'field-focused': filedFocused === 'email', 'field-error': (form.get('email').invalid) }">
 		<label-app>Email</label-app>
-		<input [class.error]="error && !form.get('email').dirty" inputApp required="true"
-			autocomplete="email" formControlName="email" type="email" placeholder="Your email"/>
+		<input (focus)="filedFocused = 'email'" [class.error]="error && !form.get('email').dirty" inputApp required="true" autocomplete="email"
+		 formControlName="email" type="email" placeholder="Your email" />
 		<p class="error" *ngIf="error && !form.get('email').dirty">Please pick another email</p>
 		<hint-app>Tip: the app works better with a company email</hint-app>
 	</form-field-app>
 
-	<form-field-app>
+	<form-field-app [ngClass]="{'field-focused': filedFocused === 'password', 'field-error': (form.get('password').hasError('minlength'))}">
 		<label-app>Password</label-app>
-		<input #pw inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
-			placeholder="Your password"/>
+		<input (focus)="filedFocused = 'password'" #pw inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
+		 placeholder="Your password" />
 		<error-app *ngIf="form.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
 	</form-field-app>
 
 
-  <input class="button fullWidth" type="submit" [disabled]="!form.valid" value="Create Account" (click)="createAccount()"/>
+	<div class="options">
+			<!-- <div class="checkbox-container">
+				<checkbox-app [size]="16" [labelClass]="'label-rememberme'">
+					Remember me
+				</checkbox-app>
+			</div> -->
+			<div class="clickable forgot-password" (click)="forgotPw()">Forgotten password?</div>
+		</div>
 
-	<a class="button light flexCenter fullWidth"
-	[routerLink]="['../login']"
-	[queryParams]="queryParams">Have an account? Sign-In!</a>
+	<div class="centered-text">
+			<input class="button" type="submit" [disabled]="!form.valid" value="Sign Up" (click)="createAccount()" />
+			<a class="button light" [routerLink]="['../login']" [queryParams]="queryParams">Already have an account?</a>
+	</div>
+
+
 </form>
 
 <ng-template #spinner>

@@ -82,7 +82,7 @@
 			(liked)="listSrv.onMultipleThumbUp($event)"
 			(disliked)="listSrv.onMultipleThumbDown($event)">
 
-			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog(listSrv.selection)">
+			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog(listSrv.getSelectedValues())">
 				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
 			</button>
 			<context-menu-app>
@@ -91,14 +91,14 @@
 						<icon-app name="dots-vertical" size="m"></icon-app>
 					</button>
 				</context-menu-trigger-app>
-				<context-menu-item-app (click)="commonDlgSrv.openExportDialog(listSrv.selection)">
+				<context-menu-item-app (click)="commonDlgSrv.openExportDialog(listSrv.getSelectedValues())">
 					Export
 				</context-menu-item-app>
-				<context-menu-item-app (click)="commonDlgSrv.openRequestFeedbackDialog(listSrv.selection)">
+				<context-menu-item-app (click)="commonDlgSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())">
 					Request For Team Feedback
 				</context-menu-item-app>
-				<context-menu-item-app (click)="commonDlgSrv.openCompareQuotationDialog(listSrv.selection)">
-					Compare Quotation
+				<context-menu-item-app (click)="commonDlgSrv.openCompareProductDialog(listSrv.getSelectedValues())">
+					Compare Product
 				</context-menu-item-app>
 			</context-menu-app>
 

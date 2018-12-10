@@ -6,3 +6,4 @@ export * from './product-export-dlg/product-export-dlg.component';
 export * from './product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 export * from './rfq-dialog/rfq-dialog.component';
 export * from './compare-quotation/compare-quotation.component';
+export * from './compare-product/compare-product.component';
