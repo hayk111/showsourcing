@@ -44,7 +44,10 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 			id: user.id,
 			lastName: user.lastName,
 			firstName: user.firstName,
-			avatar: user.avatar ? { id: user.avatar.id, fileName: user.avatar.fileName } : null
+			avatar: user.avatar ? {
+				id: user.avatar.id,
+				fileName: user.avatar.fileName,
+			} : null
 		};
 		entity.createdBy = { ...userLean, __typename: 'User' };
 		entity.creationDate = '' + new Date();

@@ -37,7 +37,11 @@ export class ImagePipe implements PipeTransform {
 	 * @param value : Entity object (like supplier), array or string
 	 * @param args : 's' | 'm' | 'l' | 'xl' size of the image
 	 */
-	transform(value: any | string, size: ('xs' | 's' | 'm' | 'l' | 'xl') = 's', type: string = 'image'): string {
+	transform(
+		value: any | string,
+		size: ('xs' | 's' | 'm' | 'l' | 'xl') = 's',
+		type: string = 'image' // can be supplier, product etc..
+	): string {
 		try {
 			// we get the size index from the map
 			const sizeIndex = this.sizeIndexMap.get(size);
