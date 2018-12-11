@@ -47,7 +47,7 @@ export class Selector2Component implements OnInit {
 			case 'tag': return this.selectorSrv.getTags();
 			// case 'supplierType': return this.selectorSrv.getSupplierTypes();
 			case 'user': return this.selectorSrv.getUsers();
-			case 'currency': return this.selectorSrv.getCurrencies();
+			case 'currency': return this.selectorSrv.getCurrenciesGlobal();
 			case 'project': return this.selectorSrv.getProjects();
 			default: throw Error(`Unsupported type ${this.type}`);
 		}

@@ -23,7 +23,7 @@
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'currency'">
-				<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async" [currency]="item.id"></selector-currency-row-app>
+				<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async" [currency]="item"></selector-currency-row-app>
 			</ng-container>
 
 		<ng-container *ngSwitchCase="'product'">

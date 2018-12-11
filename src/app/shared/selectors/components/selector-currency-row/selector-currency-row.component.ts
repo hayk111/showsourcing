@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Currency } from '~core/models';
 
 @Component({
 	selector: 'selector-currency-row-app',
@@ -8,7 +9,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class SelectorCurrencyRowComponent implements OnInit {
 
-	@Input() currency: string;
+	@Input() currency: Currency;
 
 	constructor() { }
 

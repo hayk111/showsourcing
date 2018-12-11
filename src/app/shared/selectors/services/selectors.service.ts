@@ -4,12 +4,13 @@ import { map, tap } from 'rxjs/operators';
 import { CategoryService, EventService, SupplierService, TagService, ProductService, ProjectService } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import { TeamUserService } from '~entity-services/team-user/team-user.service';
-import { Category, Event, SupplierType, Tag, TeamUser, User, Product, Project } from '~models';
+import { Category, Event, SupplierType, Tag, TeamUser, User, Product, Project, Currency } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
+import { CurrencyService } from '~core/entity-services/currency/currency.service';
 
 
 @Injectable({
@@ -26,7 +27,8 @@ export class SelectorsService {
 		private teamUserSrv: TeamUserService,
 		private supplierTypeSrv: SupplierTypeService,
 		private productSrv: ProductService,
-		private projectSrv: ProjectService
+		private projectSrv: ProjectService,
+		private currencySrv: CurrencyService,
 	) { }
 
 	getCountries(): any[] {
@@ -43,6 +45,10 @@ export class SelectorsService {
 
 	getCurrencies(): any[] {
 		return currencies;
+	}
+
+	getCurrenciesGlobal(): Observable<Currency[]> {
+		return this.currencySrv.queryAll();
 	}
 
 	getLengthUnits(): any[] {
