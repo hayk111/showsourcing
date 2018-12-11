@@ -11,7 +11,7 @@ import { UserPictureModule } from '~shared/user-picture';
 import {
 	CdkOverlayComponent,
 	SelectorComponent,
-	SelectorPriceRowComponent,
+	SelectorCurrencyRowComponent,
 	SelectorProductRowComponent,
 	SelectorProjectRowComponent,
 	SelectorSupplierRowComponent,
@@ -22,6 +22,8 @@ import {
 import { SelectorConstComponent } from './components/selector-const/selector-const.component';
 import { SelectorEntityComponent } from './components/selector-entity/selector-entity.component';
 import { DividerModule } from '~shared/divider/divider.module';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { BadgeModule } from '~shared/badge';
 
 
 const components = [
@@ -30,7 +32,7 @@ const components = [
 	Selector2Component,
 	SelectorConstComponent,
 	SelectorEntityComponent,
-	SelectorPriceRowComponent,
+	SelectorCurrencyRowComponent,
 	SelectorProductRowComponent,
 	SelectorProjectRowComponent,
 	SelectorSupplierRowComponent,
@@ -49,7 +51,9 @@ const components = [
 		UserPictureModule,
 		IconsModule,
 		OverlayModule,
-		DividerModule
+		DividerModule,
+		ScrollingModule,
+		BadgeModule
 	],
 	declarations: components,
 	exports: components

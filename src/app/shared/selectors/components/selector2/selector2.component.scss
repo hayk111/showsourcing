@@ -1,0 +1,11 @@
+:host {
+	display: block;
+	padding: var(--spacing-ms);
+	border: 1px solid var(--color-secondary);
+	border-radius: var(--border-radius);
+}
+
+.example-viewport {
+  height: 210px;
+  width: 395px;
+}

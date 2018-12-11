@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { CategoryService, EventService, SupplierService, TagService, ProductService } from '~entity-services';
+import { CategoryService, EventService, SupplierService, TagService, ProductService, ProjectService } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import { TeamUserService } from '~entity-services/team-user/team-user.service';
-import { Category, Event, SupplierType, Tag, TeamUser, User, Product } from '~models';
+import { Category, Event, SupplierType, Tag, TeamUser, User, Product, Project } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
@@ -25,7 +25,8 @@ export class SelectorsService {
 		private tagSrv: TagService,
 		private teamUserSrv: TeamUserService,
 		private supplierTypeSrv: SupplierTypeService,
-		private productSrv: ProductService
+		private productSrv: ProductService,
+		private projectSrv: ProjectService
 	) { }
 
 	getCountries(): any[] {
@@ -66,6 +67,10 @@ export class SelectorsService {
 
 	getProducts(): Observable<Product[]> {
 		return this.productSrv.queryAll();
+	}
+
+	getProjects(): Observable<Project[]> {
+		return this.projectSrv.queryAll();
 	}
 
 	getCategories(): Observable<Category[]> {
