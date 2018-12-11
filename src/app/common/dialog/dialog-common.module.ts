@@ -16,11 +16,15 @@ import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
+import { ProductElementModule } from '~common/product/product-elements-module';
+import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
+import { DialogService } from '~shared/dialog/services';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
+		ProductElementModule,
 		TableModule
 	],
 	declarations: [
@@ -44,7 +48,8 @@ import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component'
 		CompareProductComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
-		RfqDialogComponent,
+		FindProductsDialogComponent,
+		RfqDialogComponent
 	],
 	providers: [
 		ProductDialogService,

@@ -5,18 +5,9 @@ import { SharedModule } from '~shared/shared.module';
 import { PriceModule } from '~shared/price';
 import { ListModule } from '~shared/list/list.module';
 
-import {
-	MoqComponent,
-	ProductCardComponent,
-	ProductGridCardComponent,
-	ProductsCardViewComponent,
-	ProductsCardViewDialogComponent,
-	ProductsListViewComponent,
-	ProductSortingMenuComponent,
-	StatsIconsComponent,
-} from './components';
-import { FindProductsDialogComponent, ProductPreviewComponent } from './containers';
 
+import { ProductPreviewComponent } from './containers';
+import { ProductElementModule } from './product-elements-module';
 
 
 @NgModule({
@@ -25,32 +16,16 @@ import { FindProductsDialogComponent, ProductPreviewComponent } from './containe
 		RouterModule,
 		SharedModule,
 		PriceModule,
+		ProductElementModule,
 		ListModule
 	],
 	declarations: [
-		FindProductsDialogComponent,
-		ProductsCardViewDialogComponent,
-		ProductsListViewComponent,
-		ProductsCardViewComponent,
-		ProductGridCardComponent,
-		ProductSortingMenuComponent,
-		ProductPreviewComponent,
-		ProductCardComponent,
-		MoqComponent,
-		StatsIconsComponent
+		ProductPreviewComponent
 	],
 	exports: [
-		FindProductsDialogComponent,
-		ProductsListViewComponent,
-		ProductsCardViewComponent,
-		ProductGridCardComponent,
-		ProductSortingMenuComponent,
-		ProductPreviewComponent,
-		ProductCardComponent,
-		MoqComponent,
-		StatsIconsComponent
+		ProductPreviewComponent
 	],
-	entryComponents: [FindProductsDialogComponent],
+	entryComponents: [],
 	providers: []
 })
 export class ProductCommonModule { }

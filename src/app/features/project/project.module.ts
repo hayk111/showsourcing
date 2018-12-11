@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DialogCommonModule } from '~common/dialog';
 import { ProductCommonModule } from '~common/product/product-common.module';
+import { ProductElementModule } from '~common/product/product-elements-module';
 import { ProjectsListViewComponent } from '~features/project/components';
 import { ProjectNavComponent } from '~features/project/components/project-nav/project-nav.component';
 import {
@@ -15,14 +17,16 @@ import { routes } from '~features/project/routes';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { SharedModule } from '~shared/shared.module';
-import { FindProductsDialogComponent } from '~common/product';
+import { CommonDialogService } from '~common/dialog';
 
 
 @NgModule({
 	imports: [
+		CommonModule,
 		RouterModule.forChild(routes),
 		SharedModule,
 		ProductCommonModule,
+		ProductElementModule
 	],
 	declarations: [
 		ProjectsPageComponent,
@@ -36,6 +40,7 @@ import { FindProductsDialogComponent } from '~common/product';
 	],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [
+		CommonDialogService,
 		ProjectFeatureService,
 		ProjectWorkflowFeatureService
 	],
