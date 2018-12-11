@@ -1,16 +1,11 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ListPageKey } from '~core/list-page/list-page-keys.enum';
+import { ListPageService } from '~core/list-page/list-page.service';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { TrackingComponent } from '~utils/tracking-component';
-import { ListPageService } from '~core/list-page/list-page.service';
-import { ListPageKey } from '~core/list-page/list-page-keys.enum';
 
 
 @Component({

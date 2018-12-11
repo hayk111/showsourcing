@@ -12,8 +12,10 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
-import { DialogService } from '~shared/dialog';
+import { DialogService, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { switchMap } from 'rxjs/operators';
+import { CreationDialogComponent } from '~common/dialog/component/creation-dialog/creation-dialog.component';
 
 
 // where we can save the services
@@ -196,22 +198,41 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	deleteOne(id: string) {
-		const callback = () => this.dataSrv.deleteOne(id).subscribe(_ => this.refetch());
-		const text = `Are you sure you want to delete this item?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
+		this.dlgSrv.open(ConfirmDialogComponent, { text })
+			.pipe(switchMap(_ => this.dataSrv.deleteOne(id)))
+			.subscribe(_ => this.refetch());
 	}
 
 	deleteSelected() {
 		const itemIds = this.getSelectedIds();
-		// callback for confirm dialog
-		const callback = () => {
-			this.dataSrv.deleteMany(itemIds).subscribe(_ => {
-				this.selectionSrv.unselectAll();
-				this.refetch();
-			});
-		};
-		const text = `Delete ${itemIds.length} ${itemIds.length > 1 ? 'items' : 'item'} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		const text = `Delete ${itemIds.length} `
+			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural);
+
+		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			switchMap(_ => this.dataSrv.deleteMany(itemIds))
+		).subscribe(_ => {
+			this.selectionSrv.unselectAll();
+			this.refetch();
+		});
+	}
+
+	create(shouldRedirect = true) {
+		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect }).subscribe(event => {
+			if (event.type === CloseEventType.OK) {
+				this.onCreated(event.data, shouldRedirect);
+			}
+		});
+	}
+
+	private onCreated(data: any, shouldRedirect: boolean) {
+		this.refetch();
+		if (shouldRedirect) {
+			if (this.entityMetadata.destUrl)
+				this.router.navigate([this.entityMetadata.destUrl, data.id]);
+			else
+				throw Error(`no destination url`);
+		}
 	}
 
 	addFilter(filter: Filter) {

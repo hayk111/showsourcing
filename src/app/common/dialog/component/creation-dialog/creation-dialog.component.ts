@@ -9,6 +9,7 @@ import { DialogService } from '~shared/dialog/services';
 import { CrudDialogService } from '~common/dialog/services/crud-dialog.service';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
+import { CloseEventType } from '~shared/dialog';
 
 @Component({
 	selector: 'creation-dialog-app',
@@ -20,14 +21,12 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 	group: FormGroup;
 	pending = false;
 	@Input() type: EntityMetadata;
-	@Input() shouldRedirect = false;
 	@ViewChild(InputDirective) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;
 
 	constructor(
 		private fb: FormBuilder,
-		private router: Router,
 		private dlgSrv: DialogService,
 		private crudDlgSrv: CrudDialogService) {
 		super();
@@ -59,14 +58,12 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 			this.pending = true;
 			this.crudDlgSrv.create(this.group, this.type)
 				.pipe(takeUntil(this._destroy$))
-				.subscribe(id => {
-					this.pending = false;
-					if (this.shouldRedirect) {
-						if (this.type.destUrl) this.router.navigate([this.type.destUrl, id.id]);
-						else throw Error(`no destination url`);
-					}
-					this.dlgSrv.close();
-				});
+				.subscribe(item => this.onCreate(item));
 		}
+	}
+
+	onCreate(item: any) {
+		this.pending = false;
+		this.dlgSrv.close({ type: CloseEventType.OK, data: item });
 	}
 }

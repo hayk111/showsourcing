@@ -39,7 +39,7 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 			key: ListPageKey.PRODUCTS,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			initialPredicate: `supplier.id == "${id}"`,
 			entityMetadata: ERM.PRODUCT
 		});

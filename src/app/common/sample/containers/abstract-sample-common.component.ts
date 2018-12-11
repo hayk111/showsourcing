@@ -23,7 +23,7 @@ export abstract class AbstractSampleCommonComponent extends TrackingComponent im
 			key: ListPageKey.SAMPLE,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.SAMPLE
 		});
 	}

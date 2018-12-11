@@ -30,7 +30,7 @@ export class TagDataManagementPageComponent implements OnInit {
 			key: ListPageKey.TAG,
 			entitySrv: this.tagSrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: this.erm
 		});
 	}

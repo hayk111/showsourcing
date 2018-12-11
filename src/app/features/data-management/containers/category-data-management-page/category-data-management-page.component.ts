@@ -32,7 +32,7 @@ export class CategoryDataManagementPageComponent
 			key: ListPageKey.CATEGORY,
 			entitySrv: this.categorySrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.CATEGORY
 		});
 	}
@@ -41,4 +41,5 @@ export class CategoryDataManagementPageComponent
 		const ids = this.listSrv.getSelectedIds();
 		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
 	}
+
 }

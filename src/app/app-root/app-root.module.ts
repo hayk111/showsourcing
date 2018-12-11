@@ -11,7 +11,6 @@ import { AppApolloModule } from '~core/apollo/apollo.module';
 import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
-import { FindProductsDialogComponent } from '~common/product';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.

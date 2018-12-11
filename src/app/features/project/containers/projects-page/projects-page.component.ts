@@ -31,7 +31,7 @@ export class ProjectsPageComponent extends TrackingComponent implements OnInit {
 			key: ListPageKey.PROJECTS,
 			entitySrv: this.projectSrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.PROJECT
 		});
 	}
