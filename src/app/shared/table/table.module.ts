@@ -1,17 +1,17 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { NgModule } from '@angular/core';
-import { SharedModule } from '~shared/shared.module';
-import { ColumnDirective, TableComponent } from '~shared/table/components';
-import { CustomTableComponent } from '~shared/table/components/custom-table/custom-table.component';
 import { CommonModule } from '@angular/common';
-import { InputsModule } from '~shared/inputs';
+import { NgModule } from '@angular/core';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { IconsModule } from '~shared/icons';
-import { LoadersModule } from '~shared/loaders';
-import { ItemCompareRowComponent } from '~shared/table/components/item-comapre-row/item-comapre-row.component';
 import { ImageModule } from '~shared/image/image.module';
+import { InputsModule } from '~shared/inputs';
+import { LoadersModule } from '~shared/loaders';
 import { PriceModule } from '~shared/price';
+import { ColumnDirective, TableComponent } from '~shared/table/components';
+import { CustomTableComponent } from '~shared/table/components/custom-table/custom-table.component';
+import { ItemCompareRowComponent } from '~shared/table/components/item-comapre-row/item-comapre-row.component';
+import { UtilsModule } from '~shared/utils';
 
 @NgModule({
 	imports: [
@@ -23,7 +23,8 @@ import { PriceModule } from '~shared/price';
 		IconsModule,
 		ImageModule,
 		PriceModule,
-		LoadersModule
+		LoadersModule,
+		UtilsModule
 	],
 	declarations: [TableComponent, ColumnDirective, CustomTableComponent, ItemCompareRowComponent],
 	exports: [TableComponent, ColumnDirective, CustomTableComponent, ItemCompareRowComponent],

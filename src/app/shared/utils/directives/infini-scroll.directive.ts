@@ -1,16 +1,9 @@
-import { Subject, Observable } from 'rxjs';
-import {
-	Directive,
-	ElementRef,
-	HostListener,
-	Output,
-	Input,
-	EventEmitter,
-	Renderer2,
-	OnInit,
-} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { Subject } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
 
+
+// TODO: now that we use the cdk this can be replaced with scroll functions of the cdk
 @Directive({
 	selector: '[infiniScroll]',
 })

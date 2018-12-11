@@ -1,4 +1,5 @@
 import { EntityWithAudit } from '~models/_entity.model';
+import { ImageUrl } from './image-url.model';
 
 export class AppImage extends EntityWithAudit<undefined> {
 	fileName: string;
@@ -6,6 +7,7 @@ export class AppImage extends EntityWithAudit<undefined> {
 	imageType = 'Photo';
 	deleted = false;
 	pending?: boolean;
+	urls?: ImageUrl[];
 	__typename ?= 'Image';
 
 	constructor() {

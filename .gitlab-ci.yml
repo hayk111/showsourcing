@@ -15,6 +15,7 @@ app-install:
   only:
     - master
     - production
+    - acceptance
 
 app-build:
   stage: build
@@ -26,6 +27,7 @@ app-build:
   only:
     - master
     - production
+    - acceptance
 
 # staging
 app-staging:
@@ -36,9 +38,21 @@ app-staging:
   script:
     - pip install awscli
     - cd dist/showsourcing
-    - aws s3 sync . s3://aws-website-showsourcing-web-stagging --delete
+    - aws s3 sync . s3://app-sta.showsourcing.com --delete
   only:
     - master
+
+app-acceptance:
+  stage: deploy
+  image: python:latest
+  dependencies:
+    - app-build
+  script:
+    - pip install awscli
+    - cd dist/showsourcing
+    - aws s3 sync . s3://app-acc.showsourcing.com --delete
+  only:
+    - acceptance
 
 app-deploy:
   stage: deploy
@@ -48,6 +62,6 @@ app-deploy:
   script:
     - pip install awscli
     - cd dist/showsourcing
-    - aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete
+    - aws s3 sync . s3://app.showsourcing.com --delete
   only:
     - production

@@ -15,13 +15,13 @@ import { routes } from '~features/project/routes';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { SharedModule } from '~shared/shared.module';
+import { FindProductsDialogComponent } from '~common/product';
 
 
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		DialogCommonModule,
 		ProductCommonModule,
 	],
 	declarations: [
@@ -38,6 +38,7 @@ import { SharedModule } from '~shared/shared.module';
 	providers: [
 		ProjectFeatureService,
 		ProjectWorkflowFeatureService
-	]
+	],
+	entryComponents: []
 })
 export class ProjectModule { }

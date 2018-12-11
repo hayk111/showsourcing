@@ -1,11 +1,6 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, share, filter, skip } from 'rxjs/operators';
-
-import { Filter } from '~shared/filters/models/filter.class';
-import { tap } from 'rxjs/internal/operators/tap';
+import { Subject } from 'rxjs';
+import { Filter, FilterType } from '~shared/filters/models/filter.class';
 import { ID } from '~utils/id.utils';
-import { FilterType } from '~shared/filters/models/filter.class';
 
 
 /** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
@@ -16,7 +11,7 @@ import { FilterType } from '~shared/filters/models/filter.class';
  *
  * byType.get(ERM.SUPPLIER).has(id-10)
  */
-export type FilterByType = Map<FilterType, Map<ID, Filter>>;
+export type FilterByType = Map<FilterType, Map<ID | boolean, Filter>>;
 
 
 export class FilterList {
@@ -53,6 +48,10 @@ export class FilterList {
 	/** adds filter at the end of the array */
 	addFilter(added: Filter) {
 		this.setFilters([...this._filters, added]);
+	}
+
+	addFilters(added: Filter[]) {
+		this.setFilters([...this._filters, ...added]);
 	}
 
 	/** removes one filter */

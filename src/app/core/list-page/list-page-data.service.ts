@@ -2,15 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
-import { EntityMetadata } from '~models';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService } from '~shared/dialog/services';
 import { Filter, FilterList, FilterType } from '~shared/filters';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
 
@@ -35,10 +30,9 @@ export class ListPageDataService
 	private initialPredicate = 'deleted == false';
 	/** searched string */
 	private currentSearch = '';
-	/** property we sort by on first query */
-	private initialSortBy = 'creationDate';
 	/** currently used sort */
-	currentSort: Sort = { sortBy: this.initialSortBy, descending: true };
+	currentSort: Sort = { sortBy: 'creationDate', descending: true };
+	private initialFilters: Filter[] = [];
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
 		// initial filters
@@ -80,10 +74,11 @@ export class ListPageDataService
 
 	/** subscribe to items and get the list result */
 	setItems() {
+		this.filterList.addFilters(this.initialFilters);
 		this.listResult = this.entitySrv.getListQuery({
 			query: this.getPredicate(),
-			sortBy: this.initialSortBy,
-			descending: true
+			sortBy: this.currentSort.sortBy,
+			descending: this.currentSort.descending
 		});
 
 		this.items$ = this.listResult.items$.pipe(
@@ -132,12 +127,12 @@ export class ListPageDataService
 	 * @param config configuration used to refetch
 	 */
 	refetch(config?: SelectParamsConfig) {
-		this.listResult.refetch(config);
+		this.listResult.refetch(config).subscribe();
 	}
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
-		this.listResult.fetchMore(this.items.length);
+		return this.listResult.fetchMore(this.items.length);
 	}
 
 	/** Sorts items based on sort.sortBy */

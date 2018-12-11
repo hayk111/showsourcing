@@ -43,7 +43,7 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.REVIEWPAGE,
 			entitySrv: this.featureSrv,
 			searchedFields: ['supplier.name'],
-			initialSortBy: 'supplier.name',
+			currentSort: { sortBy: 'supplier.name', descending: true },
 			initialPredicate: `deleted == false && archived == false && status == null`,
 			entityMetadata: ERM.PRODUCT
 		});

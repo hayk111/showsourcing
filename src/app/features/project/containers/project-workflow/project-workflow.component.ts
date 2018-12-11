@@ -47,7 +47,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.PROJECT_WORKFLOW,
 			entitySrv: this.featureSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			initialSortBy: 'category.name',
+			currentSort: { sortBy: 'category.name', descending: true },
 			entityMetadata: ERM.PRODUCT
 		});
 

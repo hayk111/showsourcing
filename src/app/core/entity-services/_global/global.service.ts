@@ -331,8 +331,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		// (will be reflected in items$)
 		const fetchMore = (skip: number): Observable<any> => {
 			const fetchMoreTitle = 'Selecting List Fetch More ' + this.typeName;
-			this.log(fetchMoreTitle, gql, queryName, clientName, { skip });
 			return queryRef$.pipe(
+				tap(_ => this.log(fetchMoreTitle, gql, queryName, clientName, { skip })),
 				map(queryRef => queryRef.fetchMore({
 					variables: { skip },
 					updateQuery: (prev, { fetchMoreResult }) => {

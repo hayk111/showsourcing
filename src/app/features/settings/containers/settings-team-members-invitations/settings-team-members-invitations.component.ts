@@ -30,7 +30,7 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 			key: ListPageKey.INVITATION,
 			entitySrv: this.featureSrv,
 			searchedFields: ['email'],
-			initialSortBy: 'email',
+			currentSort: { sortBy: 'email', descending: true },
 			entityMetadata: ERM.TEAM_USER
 		});
 		/* this.selected$.pipe(

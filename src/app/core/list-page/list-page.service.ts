@@ -113,7 +113,7 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	loadMore() {
-		this.dataSrv.loadMore();
+		this.dataSrv.loadMore().subscribe();
 	}
 
 	sort(sort: Sort) {
