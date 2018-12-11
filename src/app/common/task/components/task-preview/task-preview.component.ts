@@ -47,10 +47,10 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, AfterView
 	}
 
 	ngAfterViewChecked() {
-		if (this.menuOpen && this.selector) {
-			this.selector.open();
-			this.selector.selector.ngSelect.updateDropdownPosition();
-		}
+		// if (this.menuOpen && this.selector) {
+		// 	this.selector.open();
+		// 	this.selector.selector.ngSelect.updateDropdownPosition();
+		// }
 	}
 
 	update(value: any, prop: string) {

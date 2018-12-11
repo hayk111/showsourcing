@@ -13,8 +13,8 @@ import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Category, Event, Supplier, SupplierType, Tag } from '~models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
-import { SelectorsService } from '~shared/selectors/sercices/selectors.service';
 import { Choice } from '~shared/selectors/utils/choice.interface';
+import { SelectorsService } from '~shared/selectors/services/selectors.service';
 
 
 @Component({

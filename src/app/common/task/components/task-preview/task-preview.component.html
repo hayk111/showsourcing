@@ -42,7 +42,7 @@
 
 			<!-- Date -->
 			<div class="left">
-				<editable-field-app #editable [inlineLabel]="false"
+				<editable-field-app #editable [hasAction]="false" [inlineLabel]="false"
 					(opened)="inpDueDate.select()" [canGrow]="true"
 					(closed)="updateDueDate($event, inpDueDate.value)">
 					<label-app>Due date</label-app>
@@ -56,7 +56,7 @@
 
 			<!-- Assignee -->
 			<div class="right">
-					<editable-field-app #editable [inlineLabel]="false"
+					<editable-field-app #editable [hasAction]="false" [inlineLabel]="false"
 						(opened)="selector.open()" [canGrow]="true">
 						<label-app>Assigned to</label-app>
 						<editable-label-app class="flex">

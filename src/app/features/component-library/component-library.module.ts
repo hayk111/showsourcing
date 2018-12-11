@@ -9,6 +9,7 @@ import { PreviewPageComponent } from './preview-page/preview-page.component';
 import { routes } from './routes';
 import { SampleCardTestComponent } from './sample-card-test/sample-card-test.component';
 import { SampleCommonModule } from '~common/sample';
+import { SelectorTestComponent } from './selector-test/selector-test.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SampleCommonModule } from '~common/sample';
 		ComponentLibraryComponent,
 		PreviewPageComponent,
 		GuidelinesComponent,
-		SampleCardTestComponent
+		SampleCardTestComponent,
+		SelectorTestComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []
