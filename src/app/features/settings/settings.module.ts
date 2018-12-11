@@ -25,6 +25,7 @@ import { routes } from '~features/settings/routes';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { SharedModule } from '~shared/shared.module';
+import { CommonDialogService } from '~common/dialog';
 
 @NgModule({
 	imports: [
@@ -47,6 +48,7 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	exports: [],
 	providers: [
+		CommonDialogService,
 		MemberFeatureService, InvitationFeatureService
 	]
 })
