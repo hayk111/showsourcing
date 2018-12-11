@@ -6,7 +6,7 @@ import { SelectorCurrencyRowComponent } from '../selector-currency-row/selector-
 import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
 import { ENTER } from '@angular/cdk/keycodes';
 import { SelectorTextRowComponent } from '../selector-text-row/selector-text-row.component';
-import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/asbtract-selector-highlight.ablecomponent';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
 	selector: 'selector2-app',
