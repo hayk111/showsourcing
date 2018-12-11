@@ -76,21 +76,16 @@ I added comment above each column to make it clearer -->
 <!-- price -->
 <ng-template #price let-row="row">
 	<price-app
-		*ngIf="row?.price?.currency; else noPrice"
+		[isShort]="true"
 		[amount]="row?.price?.value"
 		[currency]="row?.price?.currency">
 	</price-app>
-
-	<ng-template #noPrice>
-		<div>-</div>
-	</ng-template>
-
 </ng-template>
 
 <!-- moq -->
 <ng-template #moq let-row="row">
 	<moq-app
-		*ngIf="row?.price?.currency; else noMoq"
+		*ngIf="row?.minimumOrderQuantity; else noMoq"
 		[amount]="row?.minimumOrderQuantity">
 	</moq-app>
 

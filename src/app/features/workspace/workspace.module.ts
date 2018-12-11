@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DialogCommonModule } from '~common/dialog';
 import { ProductCommonModule } from '~common/product/product-common.module';
+import { ProductElementModule } from '~common/product/product-elements-module';
 import { SampleCommonModule } from '~common/sample';
 import { TaskCommonModule } from '~common/task';
 import {
@@ -30,6 +31,7 @@ import { ProductsReviewCardBodyComponent } from './components/products-review-ca
 		SharedModule,
 		TaskCommonModule,
 		ProductCommonModule,
+		ProductElementModule,
 		DialogCommonModule,
 		SampleCommonModule
 	],

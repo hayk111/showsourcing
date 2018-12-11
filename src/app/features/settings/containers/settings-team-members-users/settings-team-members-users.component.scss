@@ -1,12 +1,13 @@
 context-menu-trigger-app {
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-    background-color: var(--color-primary);
+	background-color: var(--color-primary);
 	padding-left: 25px;
-    padding-right: 10px;
-    margin-right: 15px;
+	padding-right: 10px;
+	margin-right: 15px;
 
 	.text {
 		color: #fff;
@@ -15,9 +16,8 @@ context-menu-trigger-app {
 	}
 
 	.selector {
-        color: #fff;
+		color: #fff;
 	}
-
 }
 
 context-menu-item-app {
