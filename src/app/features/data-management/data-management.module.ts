@@ -28,7 +28,7 @@ import { CommonDialogService } from '~common/dialog';
 		TagDataManagementPageComponent
 	],
 	exports: [DataManagementPageComponent],
-	providers: [CommonDialogService]
+	providers: []
 })
 export class DataManagementModule {
 
