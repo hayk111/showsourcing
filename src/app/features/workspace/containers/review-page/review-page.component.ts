@@ -44,7 +44,7 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 			entitySrv: this.featureSrv,
 			searchedFields: ['supplier.name'],
 			currentSort: { sortBy: 'supplier.name', descending: true },
-			initialPredicate: `deleted == false && archived == false && status == null`,
+			initialPredicate: `deleted == false && archived == false && status.name != "_Idea"`,
 			entityMetadata: ERM.PRODUCT
 		});
 		this.listSrv.unselectAll();

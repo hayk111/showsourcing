@@ -11,4 +11,20 @@ export abstract class ProductStatusQueries extends GlobalQueries {
 		category
 	`;
 
+	static readonly many = `
+		id,
+		name,
+		inWorkflow,
+		step,
+		category
+	`;
+
+	static readonly all = `
+		id,
+		name,
+		inWorkflow,
+		step,
+		category
+	`;
+
 }

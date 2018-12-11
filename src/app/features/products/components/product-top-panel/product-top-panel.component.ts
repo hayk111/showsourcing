@@ -12,7 +12,6 @@ export class ProductTopPanelComponent implements OnInit {
 	@Input() product: Product;
 	@Output() deleteProduct = new EventEmitter<null>();
 	productEntity = ERM.PRODUCT;
-	// <product-top-panel-app [product]="product$ | async" [title]="" (deleteProduct)="deleteProduct()"
 	constructor() { }
 
 	ngOnInit() {
