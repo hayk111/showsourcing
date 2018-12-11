@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DialogCommonModule } from '~common/dialog';
 import { ProductCommonModule } from '~common/product/product-common.module';
@@ -16,10 +17,11 @@ import { routes } from '~features/project/routes';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { SharedModule } from '~shared/shared.module';
-
+import { CommonDialogService } from '~common/dialog';
 
 @NgModule({
 	imports: [
+		CommonModule,
 		RouterModule.forChild(routes),
 		SharedModule,
 		DialogCommonModule,
@@ -38,6 +40,7 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [
+		CommonDialogService,
 		ProjectFeatureService,
 		ProjectWorkflowFeatureService
 	]
