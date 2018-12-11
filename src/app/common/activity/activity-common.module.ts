@@ -11,7 +11,7 @@ import {
 import { CarouselModule } from '~shared/carousel';
 import { CommentCommonModule } from '~common/comment';
 import { LoadersModule } from '~shared/loaders';
-import { ProductCommonModule } from '~common/product';
+import { ProductElementModule } from '~common/product/product-elements-module';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
 
@@ -32,7 +32,7 @@ import {
 	imports: [
 		CommonModule,
 		SharedModule,
-		ProductCommonModule,
+		ProductElementModule,
 		CommentCommonModule
 	],
 	declarations: [
