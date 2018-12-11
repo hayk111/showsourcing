@@ -43,6 +43,7 @@ import { SharedModule } from '~shared/shared.module';
 import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
 import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
 
+import { CommonDialogService } from '~common/dialog';
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
@@ -80,6 +81,7 @@ import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tas
 	entryComponents: [NewSupplierDlgComponent, NewContactDlgComponent],
 	exports: [SuppliersPageComponent],
 	providers: [
+		CommonDialogService,
 		SupplierFeatureService
 	]
 })

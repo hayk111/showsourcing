@@ -52,7 +52,6 @@ import { DialogService } from '~shared/dialog/services';
 		RfqDialogComponent
 	],
 	providers: [
-		DialogService,
 		ProductDialogService,
 		CrudDialogService
 	]

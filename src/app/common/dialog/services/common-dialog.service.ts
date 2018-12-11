@@ -80,7 +80,7 @@ export class CommonDialogService {
 			submitCallback: callback
 		});
 	}
-	
+
 	openCompareProductDialog(products: Product[]) {
 		this.dlgSrv.openFromModule(CompareProductComponent, this.moduleRef, {
 			products: products
