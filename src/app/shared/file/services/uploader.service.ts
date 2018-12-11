@@ -2,9 +2,8 @@ import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/comm
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { delay, first, map, mergeMap, retryWhen, take, tap } from 'rxjs/operators';
-import { ProductFeatureService } from '~features/products/services';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { ImageUploadRequestService, ProductService, SupplierService, SupplierClaimService } from '~entity-services';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { ImageUploadRequestService, ProductService, SupplierClaimService, SupplierService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { FileUploadRequestService } from '~entity-services/file-upload-request/file-upload-request.service';
 import { AppImage, Attachment, ImageUploadRequest } from '~models';
@@ -12,7 +11,6 @@ import { FileUploadRequest } from '~models/file-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { resizeSizeToLimit } from '~shared/utils/file.util';
 import { ImageUrls, log, LogColor } from '~utils';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
@@ -154,8 +152,8 @@ export class UploaderService {
 			return this.queryImage(request).pipe(
 				retryWhen(errors =>
 					errors.pipe(
-						delay(1000),
-						take(20)
+						delay(2000),
+						take(40)
 					)
 				)
 			);

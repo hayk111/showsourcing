@@ -52,16 +52,23 @@ export class FilterBtnListComponent {
 
 	// when a type has filter
 	hasFilterFor(type: FilterType) {
+		// it's a map of map
 		return this.filterMap.get(type).size > 0;
 	}
 
-
 	isArchived() {
-		return this.hasFilterFor(FilterType.ARCHIVED);
+		return this.filterMap.get(FilterType.ARCHIVED).has(true);
+	}
+
+	onArchivedChange() {
+		const current = this.filterMap.get(FilterType.ARCHIVED).get(this.isArchived());
+		const next = { type: FilterType.ARCHIVED, value: !this.isArchived() };
+		this.removeFilter(current);
+		this.addFilter(next);
 	}
 
 	isFavorite() {
-		return this.hasFilterFor(FilterType.FAVORITE);
+		return this.filterMap.get(FilterType.FAVORITE).has(true);
 	}
 
 	getDisplayName(filter: Filter, type: FilterType) {

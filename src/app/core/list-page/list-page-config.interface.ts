@@ -1,4 +1,4 @@
-import { FilterList } from '~shared/filters';
+import { FilterList, Filter } from '~shared/filters';
 import { EntityMetadata } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
 
@@ -17,5 +17,6 @@ export interface ListPageDataConfig {
 	editDlgComponent?: any;
 	createDlgComponent?: any;
 	/** searched fields when making search */
-	searchedFields: string[];
+	searchedFields?: string[];
+	initialFilters?: Filter[];
 }

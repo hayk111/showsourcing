@@ -72,8 +72,8 @@
 
 	<checkbox-app
 		[checked]="isArchived()"
-		(check)="addFilter({ type: archivedType, value: true })"
-		(uncheck)="removeFilter({ type: archivedType, value: false })"
+		(check)="onArchivedChange()"
+		(uncheck)="onArchivedChange()"
 		i18n="checkbox|Archieved checkbox title@@productFilters_showArchived">
 		Show Archived Products
 	</checkbox-app>
