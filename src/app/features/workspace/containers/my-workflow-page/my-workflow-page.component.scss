@@ -1,3 +1,9 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
 sub-panel-app {
   padding-bottom: 15px;
 }

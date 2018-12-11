@@ -1,5 +1,7 @@
 .workflowCtnr {
   height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 kanban-app {
