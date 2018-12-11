@@ -1,4 +1,9 @@
 :host {
 	display: block;
 	height: 63px;
+
+	&.active {
+		background-color: red;
+		color: #fff;
+	}
 }

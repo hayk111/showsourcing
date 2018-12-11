@@ -1,4 +1,4 @@
-<input type="text" [placeholder]="'Enter a' + type">
+<input type="text" [placeholder]="'Enter a' + type" (keyup)="onKeydown($event)" #input>
 
 <divider-app></divider-app>
 

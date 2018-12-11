@@ -24,6 +24,7 @@ import { SelectorEntityComponent } from './components/selector-entity/selector-e
 import { DividerModule } from '~shared/divider/divider.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { BadgeModule } from '~shared/badge';
+import { A11yModule } from '@angular/cdk/a11y';
 
 
 const components = [
@@ -53,7 +54,8 @@ const components = [
 		OverlayModule,
 		DividerModule,
 		ScrollingModule,
-		BadgeModule
+		BadgeModule,
+		A11yModule
 	],
 	declarations: components,
 	exports: components
