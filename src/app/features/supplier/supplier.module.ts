@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { DialogCommonModule } from '~common/dialog';
 import { ProductCommonModule } from '~common/product/product-common.module';
+import { ProductElementModule } from '~common/product/product-elements-module';
 import { SampleCommonModule } from '~common/sample';
 import { SupplierCommonModule } from '~common/supplier';
 import { TaskCommonModule } from '~common/task';
@@ -48,6 +49,7 @@ import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tas
 		SharedModule,
 		ActivityCommonModule,
 		ProductCommonModule,
+		ProductElementModule,
 		TaskCommonModule,
 		SampleCommonModule,
 		DialogCommonModule,

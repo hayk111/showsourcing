@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DialogCommonModule } from '~common/dialog';
 import { ProductCommonModule } from '~common/product/product-common.module';
+import { ProductElementModule } from '~common/product/product-elements-module';
 import { ProjectsListViewComponent } from '~features/project/components';
 import { ProjectNavComponent } from '~features/project/components/project-nav/project-nav.component';
 import {
@@ -23,6 +24,7 @@ import { SharedModule } from '~shared/shared.module';
 		SharedModule,
 		DialogCommonModule,
 		ProductCommonModule,
+		ProductElementModule
 	],
 	declarations: [
 		ProjectsPageComponent,
