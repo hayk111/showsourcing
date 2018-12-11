@@ -152,15 +152,6 @@ button, input[type="submit"], .button {
 		color: inherit;
 	}
 
-	&.ugly {
-		color: var(--color-txt-primary);
-		border: solid 1px var(--color-txt-secondary);
-		background-color: var(--color-secondary);
-		font-size: var(--font-size-s);
-		height: 21px;
-		width: 57px;
-		text-transform: none;
-	}
 	&.icon {
 		width: 32px;
 		height: 32px;

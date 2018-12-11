@@ -13,11 +13,13 @@
 	[buttonIcon]="false"
 	(search)="listSrv.search($event)"
 	(buttonClick)="commonDlgSrv.openCreateDlg(erm)">
-	<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
-		<button class="button warn" (click)="listSrv.deleteSelected()"> Delete Selected </button>
-		<span class="marginSmall"></span>
-		<button (click)="mergeSelected()"> Merge Selected </button>
-	</div>
+	<sub-panel-right-item-app>
+		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
+			<button class="button warn" (click)="listSrv.deleteSelected()"> Delete Selected </button>
+			<span class="marginSmall"></span>
+			<button (click)="mergeSelected()"> Merge Selected </button>
+		</div>
+	</sub-panel-right-item-app>
 </sub-panel-app>
 
 <data-management-table-app

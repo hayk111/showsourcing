@@ -34,7 +34,7 @@
         </editable-label-app>
         <input inputApp class="task-name" #txtName [value]="row.name || ''">
       </editable-text-app>
-			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button> -->
+			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
 	</ng-template>
 
@@ -52,7 +52,7 @@
         </editable-label-app>
         <input inputApp class="task-name" #txtName [value]="row.description.name || ''">
       </editable-text-app>
-			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button> -->
+			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
 	</ng-template>
 
@@ -118,7 +118,7 @@
 		width="160">
 		<div class="flex">
 			<!-- If we are hovering over the row and we have nothing selection-->
-			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)" class="button ugly" (click)="removeEntity.emit(row.id)">Delete</button>
+			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)" class="button secondary-dark" (click)="removeEntity.emit(row.id)">Delete</button>
 		</div>
 	</ng-template>
 </table-app>
