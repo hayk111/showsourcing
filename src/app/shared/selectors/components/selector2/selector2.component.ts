@@ -1,7 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
+import { SelectorCurrencyRowComponent } from '../selector-currency-row/selector-currency-row.component';
+import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
+import { ENTER } from '@angular/cdk/keycodes';
+import { SelectorTextRowComponent } from '../selector-text-row/selector-text-row.component';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/asbtract-selector-highlight.ablecomponent';
 
 @Component({
 	selector: 'selector2-app',
@@ -9,10 +14,14 @@ import { SelectorsService } from '~shared/selectors/services/selectors.service';
 	styleUrls: ['./selector2.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Selector2Component implements OnInit {
+export class Selector2Component implements OnInit, AfterViewInit {
+
+	@ViewChildren(SelectorCurrencyRowComponent) items: QueryList<AbstractSelectorHighlightableComponent>;
+	private keyManager: ActiveDescendantKeyManager<AbstractSelectorHighlightableComponent>;
 
 	@Input() values: any;
-	/**  the type of entity we gonna select from. */
+
+	private _type;
 	@Input() set type(type: string) {
 		this._type = type;
 		this.type$.next(type);
@@ -23,7 +32,6 @@ export class Selector2Component implements OnInit {
 	@Input() multiple = false;
 	@Input() canCreate = true;
 
-	private _type;
 	private type$ = new ReplaySubject<string>(1);
 
 	choices$: Observable<any[]> = this.type$.pipe(
@@ -31,10 +39,15 @@ export class Selector2Component implements OnInit {
 		switchMap(type => this.getChoices(type))
 	);
 
+	toPrint = '';
 
 	constructor(private selectorSrv: SelectorsService) { }
 
 	ngOnInit() {
+	}
+
+	ngAfterViewInit() {
+		this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap();
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
@@ -58,6 +71,14 @@ export class Selector2Component implements OnInit {
 		switch (this.type) {
 			case 'supplier': return 63;
 			default: return 37;
+		}
+	}
+
+	onKeydown(event) {
+		if (event.keyCode === ENTER) {
+			this.toPrint = this.keyManager.activeItem.getLabel();
+		} else {
+			this.keyManager.onKeydown(event);
 		}
 	}
 

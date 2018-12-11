@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Product } from '~core/models';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/asbtract-selector-highlight.ablecomponent';
 
 @Component({
 	selector: 'selector-product-row-app',
@@ -7,13 +8,14 @@ import { Product } from '~core/models';
 	styleUrls: ['./selector-product-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorProductRowComponent implements OnInit {
+export class SelectorProductRowComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() product: Product;
 
-	constructor() { }
+	constructor() { super(); }
 
-	ngOnInit() {
+	getLabel() {
+		return this.product.id;
 	}
 
 }
