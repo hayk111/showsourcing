@@ -19,12 +19,12 @@ import { ProjectWorkflowFeatureService } from '~features/project/services/projec
 import { SharedModule } from '~shared/shared.module';
 import { CommonDialogService } from '~common/dialog';
 
-
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(routes),
 		SharedModule,
+		DialogCommonModule,
 		ProductCommonModule,
 		ProductElementModule
 	],
@@ -43,7 +43,6 @@ import { CommonDialogService } from '~common/dialog';
 		CommonDialogService,
 		ProjectFeatureService,
 		ProjectWorkflowFeatureService
-	],
-	entryComponents: []
+	]
 })
 export class ProjectModule { }
