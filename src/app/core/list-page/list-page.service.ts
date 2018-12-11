@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { filter, switchMap } from 'rxjs/operators';
+import { CreationDialogComponent } from '~common/dialog/component/creation-dialog/creation-dialog.component';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
+import { CloseEventType, DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -12,10 +16,6 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
-import { DialogService, CloseEventType } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { switchMap } from 'rxjs/operators';
-import { CreationDialogComponent } from '~common/dialog/component/creation-dialog/creation-dialog.component';
 
 
 // where we can save the services
@@ -200,8 +200,10 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	deleteOne(id: string) {
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
-			.pipe(switchMap(_ => this.dataSrv.deleteOne(id)))
-			.subscribe(_ => this.refetch());
+			.pipe(
+				filter(event => event.type === CloseEventType.OK),
+				switchMap(_ => this.dataSrv.deleteOne(id))
+			).subscribe(_ => this.refetch());
 	}
 
 	deleteSelected() {
@@ -210,6 +212,7 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural);
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter(event => event.type === CloseEventType.OK),
 			switchMap(_ => this.dataSrv.deleteMany(itemIds))
 		).subscribe(_ => {
 			this.selectionSrv.unselectAll();
@@ -218,11 +221,9 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	create(shouldRedirect = true) {
-		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect }).subscribe(event => {
-			if (event.type === CloseEventType.OK) {
-				this.onCreated(event.data, shouldRedirect);
-			}
-		});
+		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect }).pipe(
+			filter(event => event.type === CloseEventType.OK)
+		).subscribe(event => this.onCreated(event.data, shouldRedirect));
 	}
 
 	private onCreated(data: any, shouldRedirect: boolean) {
@@ -235,12 +236,12 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 		}
 	}
 
-	addFilter(filter: Filter) {
-		this.dataSrv.addFilter(filter);
+	addFilter(_filter: Filter) {
+		this.dataSrv.addFilter(_filter);
 	}
 
-	removeFilter(filter: Filter) {
-		this.dataSrv.removeFilter(filter);
+	removeFilter(_filter: Filter) {
+		this.dataSrv.removeFilter(_filter);
 	}
 
 	removeFilterType(filterType: FilterType) {
