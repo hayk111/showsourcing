@@ -12,11 +12,16 @@ import { ProductService } from '~core/entity-services';
 export class SelectorTestComponent implements OnInit {
 
 	product$: Observable<Product>;
+	id = 'a097fe3d-6f84-4918-89e2-7a090728207c';
 
 	constructor(private produdctSrv: ProductService) { }
 
 	ngOnInit() {
-		this.product$ = this.produdctSrv.selectOne('a097fe3d-6f84-4918-89e2-7a090728207c');
+		this.product$ = this.produdctSrv.selectOne(this.id);
+	}
+
+	update(item, prop) {
+		this.produdctSrv.update({ id: this.id, [prop]: item }).subscribe();
 	}
 
 }

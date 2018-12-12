@@ -3,7 +3,7 @@
 <divider-app></divider-app>
 
 <div *ngIf="multiple" class="flexWrap current-values-container">
-	<info-badge-app *ngFor="let item of values; trackBy: trackById" [type]="type" [hasDelete]="true">{{item.name}}</info-badge-app>
+	<info-badge-app *ngFor="let item of values; trackBy: trackById" [type]="type" [hasDelete]="true" (delete)="delete(item)">{{item.name}}</info-badge-app>
 </div>
 
 <divider-app *ngIf="multiple"></divider-app>
@@ -17,7 +17,7 @@
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'project'">
-			<selector-project-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [project]="item"></selector-project-row-app>
+			<selector-project-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [class.active]="isActive(item)" [project]="item"></selector-project-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'user'">
@@ -30,6 +30,10 @@
 
 		<ng-container *ngSwitchCase="'product'">
 			<selector-product-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [product]="item"></selector-product-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'tag'">
+			<selector-tag-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [class.active]="isActive(item)" [tag]="item"></selector-tag-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchDefault>

@@ -1,5 +1,6 @@
 <selector2-app
 	type="project"
 	[values]="(product$ | async)?.projects"
-	[multiple]="true">
+	[multiple]="true"
+	(update)="update($event, 'projects')">
 </selector2-app>

@@ -1,9 +1,19 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, switchMap } from 'rxjs/operators';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+	QueryList,
+	ViewChild,
+	ViewChildren,
+} from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -30,6 +40,8 @@ export class Selector2Component extends TrackingComponent implements AfterViewIn
 	}
 	@Input() multiple = false;
 	@Input() canCreate = true;
+
+	@Output() update = new EventEmitter<any>();
 
 	private type$ = new ReplaySubject<string>(1);
 
@@ -107,5 +119,18 @@ export class Selector2Component extends TrackingComponent implements AfterViewIn
 			// }
 			// this.cdkVirtualScrollViewport.scrollToIndex(this.count);
 		}
+	}
+
+	isActive(item: any) {
+		if (this.values) {
+			const matches = this.values.filter(value => value.id === item.id);
+			return matches.length;
+		}
+		return false;
+	}
+
+	/** this is only called when deleting from the current-values-container */
+	delete(item) {
+		this.update.emit(this.values.filter(value => value.id !== item.id));
 	}
 }
