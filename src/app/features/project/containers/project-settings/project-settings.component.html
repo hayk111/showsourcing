@@ -36,7 +36,7 @@
 
 		<div class="bottom">
 			<div class="flex">
-				<b class="semi">Created By: </b> {{ project?.user?.firstName }} {{ project?.user?.lastName }}
+				<b class="semi">Created By: </b> {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
 			</div>
 			<div class="flex">
 				<b class="semi">Created On:</b> {{ project?.creationDate | date: 'd MMMM y' }}
