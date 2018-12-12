@@ -1,5 +1,6 @@
 
-export interface IncoTerm {
+export class IncoTerm {
 	id: string;
 	name: string;
+	__typename ?= 'IncoTerm';
 }

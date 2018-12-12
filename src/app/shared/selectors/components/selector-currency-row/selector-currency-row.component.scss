@@ -1,4 +1,11 @@
 :host {
 	display: block;
 	height: 37px;
+	cursor: pointer;
+
+	&.active, &:hover {
+		background-color: red;
+		color: #fff;
+	}
 }
+

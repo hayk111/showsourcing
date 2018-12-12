@@ -10,4 +10,9 @@ export class CountryQueries extends GlobalQueries {
 		fullName
 		countyCode
 	`;
+
+	static readonly all = `
+		fullName
+		countyCode
+	`;
 }

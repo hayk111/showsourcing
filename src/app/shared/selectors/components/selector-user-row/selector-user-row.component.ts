@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { User } from '~core/models';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
 	selector: 'selector-user-row-app',
@@ -7,13 +8,14 @@ import { User } from '~core/models';
 	styleUrls: ['./selector-user-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorUserRowComponent implements OnInit {
+export class SelectorUserRowComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() user: User;
 
-	constructor() { }
+	constructor() { super(); }
 
-	ngOnInit() {
+	getLabel() {
+		return this.user.id;
 	}
 
 }

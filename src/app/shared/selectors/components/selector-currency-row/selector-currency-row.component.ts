@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Currency } from '~core/models';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
 	selector: 'selector-currency-row-app',
@@ -7,13 +8,14 @@ import { Currency } from '~core/models';
 	styleUrls: ['./selector-currency-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorCurrencyRowComponent implements OnInit {
+export class SelectorCurrencyRowComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() currency: Currency;
 
-	constructor() { }
+	constructor() { super(); }
 
-	ngOnInit() {
+	getLabel() {
+		return this.currency.id;
 	}
 
 }
