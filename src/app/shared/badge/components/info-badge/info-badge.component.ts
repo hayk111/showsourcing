@@ -13,33 +13,36 @@ export class InfoBadgeComponent implements OnInit {
 	@Input() hasDelete = false;
 	@Output() delete = new EventEmitter<null>();
 	color: string;
+	infoType: string;
+	name = '';
 
 	constructor() { }
 
 	ngOnInit() {
+		this.initNames();
 	}
 
-	get iconName() {
-		let name = '';
+	initNames() {
 		switch (this.type) {
 			case 'category':
-				name = 'category';
-				this.color = 'color-white';
+				this.name = 'category';
+				this.infoType = 'accent';
 				break;
 			case 'tag':
-				name = 'tag';
-				this.color = 'color-txt-secondary';
+				this.name = 'tag';
+				this.infoType = 'secondary';
 				break;
 			case 'project':
-				name = 'folder-light';
-				this.color = 'color-txt-secondary';
+				this.name = 'project';
+				this.infoType = 'primary';
 				break;
 			default:
-				name = 'badge-tag';
-				this.color = 'color-txt-secondary';
+				this.name = 'badge-tag';
+				this.infoType = 'secondary';
 				break;
 		}
-		return name;
+		return this.name;
 	}
+
 
 }

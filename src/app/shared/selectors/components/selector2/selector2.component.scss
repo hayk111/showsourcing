@@ -5,6 +5,12 @@
 	border-radius: var(--border-radius);
 }
 
+.current-values-container {
+	min-height: 42px;
+	max-height: 94px;
+	width: 395px;
+}
+
 .container-viewport {
   height: 210px;
   width: 395px;

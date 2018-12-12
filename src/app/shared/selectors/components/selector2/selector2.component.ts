@@ -69,7 +69,7 @@ export class Selector2Component extends TrackingComponent implements AfterViewIn
 		switch (type) {
 			case 'supplier': return this.selectorSrv.getSuppliers(searchTxt);
 			case 'product': return this.selectorSrv.getProducts(searchTxt);
-			case 'category': return this.selectorSrv.getCategories(searchTxt);
+			// case 'category': return this.selectorSrv.getCategories(searchTxt);
 			// case 'event': return this.selectorSrv.getEvents();
 			case 'tag': return this.selectorSrv.getTags(searchTxt);
 			// case 'supplierType': return this.selectorSrv.getSupplierTypes();

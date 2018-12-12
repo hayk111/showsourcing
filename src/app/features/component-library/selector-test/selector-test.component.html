@@ -1,3 +1,5 @@
 <selector2-app
- type="supplier">
+	type="project"
+	[values]="(product$ | async)?.projects"
+	[multiple]="true">
 </selector2-app>

@@ -2,9 +2,11 @@
 
 <divider-app></divider-app>
 
-<div *ngIf="multiple" class="current-values-container">
-	<info-badge-app *ngFor="let item of values" [type]="type"></info-badge-app>
+<div *ngIf="multiple" class="flexWrap current-values-container">
+	<info-badge-app *ngFor="let item of values; trackBy: trackById" [type]="type" [hasDelete]="true">{{item.name}}</info-badge-app>
 </div>
+
+<divider-app *ngIf="multiple"></divider-app>
 
 <div class="container-items">
 
