@@ -47,8 +47,9 @@ export class SelectorsService {
 		return currencies;
 	}
 
-	getCurrenciesGlobal(): Observable<Currency[]> {
-		return this.currencySrv.queryAll();
+	getCurrenciesGlobal(searchTxt?: string): Observable<Currency[]> {
+		if (searchTxt) return this.currencySrv.queryMany({ query: `symbol CONTAINS[c] "${searchTxt}"` });
+		else return this.currencySrv.queryAll();
 	}
 
 	getLengthUnits(): any[] {
@@ -67,19 +68,23 @@ export class SelectorsService {
 		return categories;
 	}
 
-	getSuppliers(): Observable<Supplier[]> {
+	getSuppliers(searchTxt?: string): Observable<Supplier[]> {
+		if (searchTxt) return this.supplierSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
 		return this.supplierSrv.queryAll();
 	}
 
-	getProducts(): Observable<Product[]> {
+	getProducts(searchTxt?: string): Observable<Product[]> {
+		if (searchTxt) return this.productSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
 		return this.productSrv.queryAll();
 	}
 
-	getProjects(): Observable<Project[]> {
+	getProjects(searchTxt?: string): Observable<Project[]> {
+		if (searchTxt) return this.projectSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
 		return this.projectSrv.queryAll();
 	}
 
-	getCategories(): Observable<Category[]> {
+	getCategories(searchTxt?: string): Observable<Category[]> {
+		if (searchTxt) return this.categorySrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
 		return this.categorySrv.queryAll();
 	}
 
@@ -87,7 +92,8 @@ export class SelectorsService {
 		return this.eventSrv.queryAll('id, name');
 	}
 
-	getTags(): Observable<Tag[]> {
+	getTags(searchTxt?: string): Observable<Tag[]> {
+		if (searchTxt) return this.tagSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
 		return this.tagSrv.queryAll();
 	}
 
@@ -99,7 +105,12 @@ export class SelectorsService {
 		);
 	}
 
-	getUsers(): Observable<User[]> {
+	getUsers(searchTxt?: string): Observable<User[]> {
+		if (searchTxt) return this.teamUserSrv
+			.queryMany({ query: `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"` })
+			.pipe(
+				map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.user))
+			);
 		return this.teamUserSrv.queryAll().pipe(
 			map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.user))
 		);

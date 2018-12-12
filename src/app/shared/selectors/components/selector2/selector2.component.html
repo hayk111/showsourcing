@@ -1,4 +1,4 @@
-<input type="text" [placeholder]="'Enter a' + type" (keyup)="onKeydown($event)" #input>
+<input type="text" [placeholder]="'Enter a' + type" (keyup)="onKeydown($event)" (input)="search(inp.value)" #inp>
 
 <divider-app></divider-app>
 
