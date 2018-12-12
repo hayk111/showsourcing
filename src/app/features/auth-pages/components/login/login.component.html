@@ -1,19 +1,5 @@
-<div class="top">
-	<div class="logo">
-		<img src="/assets/img/logo.svg">
-	</div>
-	<h1>
-		Welcome to ShowSourcing
-	</h1>
-	<h2>
-		Your Collaborative Sourcing Platform for
-		<br />
-		your team and suppliers
-	</h2>
-	<h2 *ngIf="!(pending$ | async)">
-		Please login to your account.
-	</h2>
-</div>
+<auth-form-header-app [pending]="(pending$ | async)" [subDescription]="'Please login to your account.'"></auth-form-header-app>
+
 
 <form (ngSubmit)="onSubmit()" *ngIf="!(pending$ | async); else spinner" [formGroup]="form">
 	<error-app *ngIf="error">{{ error }}</error-app>
