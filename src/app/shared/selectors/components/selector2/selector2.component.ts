@@ -2,7 +2,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { AfterViewInit, ChangeDetectionStrategy, Component, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -35,9 +35,9 @@ export class Selector2Component extends TrackingComponent implements AfterViewIn
 	private type$ = new ReplaySubject<string>(1);
 
 	choices$: Observable<any[]> = this.type$.pipe(
-		distinctUntilChanged(),
-		switchMap(type => this.getChoices(type))
+		switchMap(type => this.getChoices(type, this.searchTxt))
 	);
+
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
 	 * each row on the virtual scroll has to implement the AbstractSelectorHighlightableComponent,
@@ -51,6 +51,7 @@ export class Selector2Component extends TrackingComponent implements AfterViewIn
 	keyManager: ActiveDescendantKeyManager<AbstractSelectorHighlightableComponent>;
 	/** index when using manager keys and virtual scrolling */
 	count = 0;
+	searchTxt = '';
 
 
 	constructor(private selectorSrv: SelectorsService) { super(); }
@@ -59,22 +60,23 @@ export class Selector2Component extends TrackingComponent implements AfterViewIn
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
 	}
 
-	search(event) {
-
+	search(text) {
+		this.searchTxt = text;
+		this.type$.next(this.type);
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
-	getChoices(type: string): Observable<any[]> {
+	getChoices(type: string, searchTxt: string): Observable<any[]> {
 		switch (type) {
-			case 'supplier': return this.selectorSrv.getSuppliers();
-			case 'product': return this.selectorSrv.getProducts();
-			case 'category': return this.selectorSrv.getCategories();
+			case 'supplier': return this.selectorSrv.getSuppliers(searchTxt);
+			case 'product': return this.selectorSrv.getProducts(searchTxt);
+			case 'category': return this.selectorSrv.getCategories(searchTxt);
 			// case 'event': return this.selectorSrv.getEvents();
-			case 'tag': return this.selectorSrv.getTags();
+			case 'tag': return this.selectorSrv.getTags(searchTxt);
 			// case 'supplierType': return this.selectorSrv.getSupplierTypes();
-			case 'user': return this.selectorSrv.getUsers();
-			case 'currency': return this.selectorSrv.getCurrenciesGlobal();
-			case 'project': return this.selectorSrv.getProjects();
+			case 'user': return this.selectorSrv.getUsers(searchTxt);
+			case 'currency': return this.selectorSrv.getCurrenciesGlobal(searchTxt);
+			case 'project': return this.selectorSrv.getProjects(searchTxt);
 			default: throw Error(`Unsupported type ${this.type}`);
 		}
 	}
