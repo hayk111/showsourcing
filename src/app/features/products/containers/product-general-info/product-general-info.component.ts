@@ -16,7 +16,7 @@ import { DialogService } from '~shared/dialog/services';
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AutoUnsub } from '~utils';
-import { RfqDialogComponent } from '~common/dialog';
+import { RfqDialogComponent } from '~common/modals';
 
 @Component({
 	selector: 'product-general-info-app',

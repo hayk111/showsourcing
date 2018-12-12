@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { ProductAddToProjectDlgComponent } from '~common/dialog/component';
+import { ProductAddToProjectDlgComponent } from '~common/modals/component';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';

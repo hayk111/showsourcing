@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CrudDialogService } from '~common/dialog/services/crud-dialog.service';
+import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';

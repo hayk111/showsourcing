@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/modals/services/common-dialog.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { ERM } from '~models';

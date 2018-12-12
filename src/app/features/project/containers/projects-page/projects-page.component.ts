@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonDialogService } from '~common/dialog';
+import { CommonDialogService } from '~common/modals';
 import { ProjectService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Project } from '~models';

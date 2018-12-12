@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/modals/services/common-dialog.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';

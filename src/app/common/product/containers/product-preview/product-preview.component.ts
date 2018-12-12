@@ -13,7 +13,7 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/dialog';
+import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/modals';
 import { ProductService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { AppImage, ERM, PreviewActionButton, Product, ProductStatus } from '~models';

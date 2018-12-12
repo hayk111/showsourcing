@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
-import { DialogCommonModule } from '~common/dialog';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { ProductElementModule } from '~common/product/product-elements-module';
 import { SampleCommonModule } from '~common/sample';
@@ -43,7 +42,6 @@ import { SharedModule } from '~shared/shared.module';
 import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
 import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
 
-import { CommonDialogService } from '~common/dialog';
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
@@ -53,7 +51,6 @@ import { CommonDialogService } from '~common/dialog';
 		ProductElementModule,
 		TaskCommonModule,
 		SampleCommonModule,
-		DialogCommonModule,
 		SupplierCommonModule
 	],
 	declarations: [
@@ -81,7 +78,6 @@ import { CommonDialogService } from '~common/dialog';
 	entryComponents: [NewSupplierDlgComponent, NewContactDlgComponent],
 	exports: [SuppliersPageComponent],
 	providers: [
-		CommonDialogService,
 		SupplierFeatureService
 	]
 })

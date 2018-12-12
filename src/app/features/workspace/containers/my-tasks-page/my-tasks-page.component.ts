@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/modals/services/common-dialog.service';
 import { AbstractTaskCommonComponent } from '~common/task/containers/abstract-task-common.component';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';

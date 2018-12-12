@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/modals/services/common-dialog.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { ERM, TeamUser, User } from '~models';

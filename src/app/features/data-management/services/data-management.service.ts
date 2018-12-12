@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EntityMetadata } from '~core/models';
-import { CommonDialogService } from '~common/dialog';
+import { CommonDialogService } from '~common/modals';
 
 
 

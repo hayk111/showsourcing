@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, O
 import { Router } from '@angular/router';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
-import { ProductAddToProjectDlgComponent } from '~common/dialog/component';
+import { ProductAddToProjectDlgComponent } from '~common/modals/component';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
 

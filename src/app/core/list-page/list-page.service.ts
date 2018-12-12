@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, switchMap } from 'rxjs/operators';
-import { CreationDialogComponent } from '~common/dialog/component/creation-dialog/creation-dialog.component';
+import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';

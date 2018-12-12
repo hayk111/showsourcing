@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/modals/services/common-dialog.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { TemplateService } from '~core/template/services/template.service';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';

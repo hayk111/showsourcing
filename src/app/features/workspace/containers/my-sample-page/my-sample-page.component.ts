@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/dialog';
+import { CommonDialogService } from '~common/modals';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { SampleService, UserService, SampleStatusService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';

@@ -5,7 +5,7 @@ import {
 import { Supplier, ERM, Comment } from '~models';
 import { Router } from '@angular/router';
 import { DialogService } from '~shared/dialog/services';
-import { ProductAddToProjectDlgComponent } from '~common/dialog/component';
+import { ProductAddToProjectDlgComponent } from '~common/modals/component';
 import { DEFAULT_IMG, AutoUnsub } from '~utils';
 import { InputDirective } from '~shared/inputs';
 import { Observable } from 'rxjs';

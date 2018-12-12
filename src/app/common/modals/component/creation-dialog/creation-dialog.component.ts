@@ -6,7 +6,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { Observable } from 'subscriptions-transport-ws';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { CrudDialogService } from '~common/dialog/services/crud-dialog.service';
+import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 import { CloseEventType } from '~shared/dialog';

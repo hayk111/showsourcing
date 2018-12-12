@@ -4,7 +4,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
-import { CommonDialogService } from '~common/dialog';
+import { CommonDialogService } from '~common/modals';
 
 @Component({
 	selector: 'products-page-app',

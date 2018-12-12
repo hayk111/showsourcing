@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/modals/services/common-dialog.service';
 import { CategoryService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';

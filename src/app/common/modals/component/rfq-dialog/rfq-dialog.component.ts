@@ -6,7 +6,7 @@ import { Contact, ExternalRequest, Product, Quote } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
-import { ProductDialogService } from '~common/dialog/services/product-dialog.service';
+import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 
 @Component({
 	selector: 'rfq-dialog-app',

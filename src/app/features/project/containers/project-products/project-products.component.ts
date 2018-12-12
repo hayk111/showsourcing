@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, tap } from 'rxjs/operators';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/modals/services/common-dialog.service';
 import { ERM } from '~models';
 import { ProductService, ProjectService } from '~entity-services';
 import { ProjectWorkflowFeatureService } from '~features/project/services';

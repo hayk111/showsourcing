@@ -18,7 +18,7 @@ import { AutoUnsub } from '~utils';
 import {
 	CompareQuotationComponent,
 	RfqDialogComponent
-} from '~common/dialog';
+} from '~common/modals';
 import {
 	ProductFeatureService,
 	QuoteFeatureService

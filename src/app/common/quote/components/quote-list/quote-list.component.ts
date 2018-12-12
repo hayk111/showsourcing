@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/modals/services/common-dialog.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { QuoteFeatureService } from '~features/products/services';
 import { ERM, Quote } from '~models';

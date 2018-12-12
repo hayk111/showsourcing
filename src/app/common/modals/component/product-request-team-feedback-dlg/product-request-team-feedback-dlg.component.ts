@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map, switchMap } from 'rxjs/operators';
-import { ProductDialogService } from '~common/dialog/services/product-dialog.service';
+import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 import { Product, User } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';

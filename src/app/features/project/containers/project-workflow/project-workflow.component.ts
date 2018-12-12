@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { first, map, takeUntil, tap } from 'rxjs/operators';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonDialogService } from '~common/modals/services/common-dialog.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';

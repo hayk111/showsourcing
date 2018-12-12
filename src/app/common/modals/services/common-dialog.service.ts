@@ -9,7 +9,7 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 	CompareProductComponent,
 	RfqDialogComponent,
-} from '~common/dialog/component';
+} from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 import { EntityMetadata, Product } from '~models';

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DialogCommonModule } from '~common/dialog/dialog-common.module';
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import {
 	InvitationsListViewComponent,
@@ -25,14 +24,12 @@ import { routes } from '~features/settings/routes';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { SharedModule } from '~shared/shared.module';
-import { CommonDialogService } from '~common/dialog';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
 		DataManagementModule,
-		DialogCommonModule
 	],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
@@ -48,7 +45,6 @@ import { CommonDialogService } from '~common/dialog';
 	],
 	exports: [],
 	providers: [
-		CommonDialogService,
 		MemberFeatureService, InvitationFeatureService
 	]
 })
