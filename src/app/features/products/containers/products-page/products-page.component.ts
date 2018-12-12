@@ -6,6 +6,10 @@ import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
 import { CommonModalService } from '~common/modals';
 
+// dailah lama goes into pizza store
+// servant asks : what pizza do you want sir ?
+// dailah lama: Make me one with everything.
+
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
