@@ -29,27 +29,20 @@ export class StatusBadgeComponent implements OnInit {
 
 	get getType() {
 		// by default is secondary since is the color for NEW elements
-		let type = 'secondary';
 		if (this.status) {
 			switch (this.status.category) {
 				case 'inProgress':
-					type = 'in-progress';
-					break;
+					return 'in-progress';
 				case 'validated':
-					type = 'success';
-					break;
+					return 'success';
 				case 'refused':
-					type = 'warn';
-					break;
+					return 'warn';
 				case 'inspiration':
-					type = 'secondary-light';
-					break;
+					return 'secondary-light';
 				default:
-					type = 'secondary';
-					break;
+					return 'secondary';
 			}
 		}
-		return type;
 	}
 
 }

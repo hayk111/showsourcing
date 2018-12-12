@@ -13,7 +13,6 @@ export function statusProductToKanbanCol(
 	types: ProductStatus[],
 	products: Product[],
 	withoutStatus = true): KanbanColumn[] {
-
 	const constPipe = new ConstPipe();
 	// make the columns
 	const cols: KanbanColumn[] = types.map(type => ({

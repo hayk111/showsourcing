@@ -221,7 +221,7 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	create(shouldRedirect = true) {
-		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect }).pipe(
+		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, type: this.entityMetadata }).pipe(
 			filter(event => event.type === CloseEventType.OK)
 		).subscribe(event => this.onCreated(event.data, shouldRedirect));
 	}

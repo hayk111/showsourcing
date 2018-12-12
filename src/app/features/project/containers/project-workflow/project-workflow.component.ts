@@ -74,7 +74,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		const productStatuses$ = this.productStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused" AND category != "inspiration"',
-				sortBy: 'step'
+				sortBy: 'step',
+				descending: false
 			}).pipe();
 
 		this.columns$ = combineLatest(

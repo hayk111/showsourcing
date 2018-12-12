@@ -11,6 +11,7 @@ import { AppApolloModule } from '~core/apollo/apollo.module';
 import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
+import { DialogCommonModule } from '~common/dialog';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -24,6 +25,7 @@ import { SharedModule } from '~shared/shared.module';
 		SharedModule,
 		AppApolloModule,
 		TemplateModule,
+		DialogCommonModule,
 		// keep router as last module
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 		RouterModule.forRoot(routes, {

@@ -6,7 +6,7 @@
 		buttonName="Add {{ listSrv.entityMetadata.singular }}"
 		[subtitles]="['Products', 'all']"
 		[center]="false"
-		(buttonClick)="commonDlgSrv.openCreateDlg(erm, true)">
+		(buttonClick)="listSrv.create()">
 	</top-panel-app>
 
 	<sub-panel-app
