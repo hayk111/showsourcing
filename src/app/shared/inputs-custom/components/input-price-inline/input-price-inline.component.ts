@@ -25,7 +25,8 @@ export class InputPriceInlineComponent implements OnInit {
 		return this.price.value / 10000;
 	}
 
-	set amount(amount: number) {
+	set amount(amount: any) {
+		amount = amount.replace(',', '.');
 		this.price.value = amount * 10000;
 	}
 

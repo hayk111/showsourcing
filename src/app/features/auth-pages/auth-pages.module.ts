@@ -9,6 +9,7 @@ import {
 	PwResettedComponent,
 	RegistrationComponent,
 	ResetPasswordComponent,
+	AuthFormHeaderComponent
 } from './components';
 import { routes } from './routes';
 
@@ -23,7 +24,8 @@ import { routes } from './routes';
 		AccountCreatedComponent,
 		ForgotPasswordComponent,
 		ResetPasswordComponent,
-		PwResettedComponent
+		PwResettedComponent,
+		AuthFormHeaderComponent
 	],
 	exports: []
 })

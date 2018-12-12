@@ -1,0 +1,18 @@
+<div class="top">
+	<div class="logo">
+		<img src="/assets/img/logo.svg">
+	</div>
+	<h1 *ngIf="!pending">
+		Welcome to ShowSourcing
+	</h1>
+	<h2 *ngIf="!pending">
+		Your Collaborative Sourcing Platform for
+		<br/>
+		your team and suppliers
+	</h2>
+	<h2 *ngIf="!pending">
+		Please create your account.
+	</h2>
+	<h1 *ngIf="pending">We are creating your account</h1>
+	<h2 *ngIf="pending">{{subDescription}}</h2>
+</div>
