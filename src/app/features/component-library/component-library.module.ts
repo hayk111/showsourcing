@@ -10,20 +10,26 @@ import { routes } from './routes';
 import { SampleCardTestComponent } from './sample-card-test/sample-card-test.component';
 import { SampleCommonModule } from '~common/sample';
 import { SelectorTestComponent } from './selector-test/selector-test.component';
+import { KanbanLibraryPageComponent } from './kanban-library-page/kanban-library-page.component';
+import { ProductCommonModule } from '~common/product/product-common.module';
+import { ProductCardLibraryPageComponent } from './product-card-library-page/product-card-library-page.component';
 
 
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		SampleCommonModule
+		SampleCommonModule,
+		ProductCommonModule
 	],
 	declarations: [
 		ComponentLibraryComponent,
 		PreviewPageComponent,
 		GuidelinesComponent,
 		SampleCardTestComponent,
-		SelectorTestComponent
+		SelectorTestComponent,
+		KanbanLibraryPageComponent,
+		ProductCardLibraryPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []

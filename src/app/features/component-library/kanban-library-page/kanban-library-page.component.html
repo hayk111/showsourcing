@@ -1,0 +1,24 @@
+
+	<kanban-app
+  [cols]="columns$ | async"
+  [cardTemplate]="card"
+  [selection]="listSrv.selection$ | async"
+  (drop)="updateProductStatus($event)"
+  (multipleDrop)="updateProductsStatus($event)"
+  (selectColumn)="onColumnSelected($event)"
+  (unselectColumn)="onColumnUnselected($event)">
+</kanban-app>
+
+
+<ng-template #card let-data="data">
+
+  <product-card-app
+    [product]="data"
+    [enablePreviewLink]="true"
+    [checked]="(listSrv.selection$ | async).has(data.id)"
+    (clickImage)="listSrv.openPreview(data)"
+    (select)="listSrv.selectOne($event, true)"
+    (unselect)="listSrv.unselectOne($event, true)">
+  </product-card-app>
+
+</ng-template>
