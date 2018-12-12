@@ -1,5 +1,5 @@
 <context-menu-app
-	*ngIf="entity?.status?.status; else noStatus"
+	*ngIf="entity?.status; else noStatus"
 	class="menu-status {{selectSize}}"
 	[closeOnScroll]="true"
 	[offsetX]="offsetX"

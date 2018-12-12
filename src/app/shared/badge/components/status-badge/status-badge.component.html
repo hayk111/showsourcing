@@ -1,4 +1,3 @@
-{{ status | json }}
 <badge-app #badge *ngIf="status; else noStatus" [size]="size" [type]="getType" [round]="round">
 	<icon-app name="circle" fontSet="fa"></icon-app>
 	{{ status?.step }}. {{ status?.name | const: 'status'  }}
