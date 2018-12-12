@@ -24,7 +24,14 @@ export class SampleCardTestComponent extends AutoUnsub implements OnInit {
 	columns$: Observable<KanbanColumn[]>;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, any>>;
-
+	sample = {
+		id: 'adsqd',
+		name: 'my sample',
+		reference: 'ref-23293',
+		// status: { id: '9384', name}
+		// assignee
+		description: 'super task'
+	};
 	constructor(
 		protected sampleSrv: SampleService,
 		protected sampleStatusSrv: SampleStatusService,

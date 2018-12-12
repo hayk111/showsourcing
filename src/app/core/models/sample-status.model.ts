@@ -3,6 +3,7 @@ export class SampleStatus {
 	name?: string;
 	inWorkflow?: boolean;
 	category?: string;
+	step?: number;
 	__typename ?= 'SampleStatus';
 
 	constructor(config: SampleStatusConfig) {
