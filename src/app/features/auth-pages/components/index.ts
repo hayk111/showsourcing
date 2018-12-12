@@ -4,3 +4,4 @@ export * from './reset-password/reset-password.component';
 export * from './pw-resetted/pw-resetted.component';
 export * from './login/login.component';
 export * from './registration/registration.component';
+export * from './auth-header/auth-header.component';

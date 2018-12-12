@@ -1,5 +1,3 @@
-<auth-form-header-app [pending]="(pending$ | async)" [subDescription]="'Please hold as we modify the internet for you!'"></auth-form-header-app>
-
 <form [formGroup]="form" autocomplete="on" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
 	<error-app *ngIf="error">{{ error }}</error-app>
 	<form-field-app [ngClass]="{'field-focused': filedFocused === 'firstName'}">
@@ -27,25 +25,3 @@
 		 placeholder="Your password" />
 		<error-app *ngIf="form.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
 	</form-field-app>
-
-
-	<div class="options">
-			<!-- <div class="checkbox-container">
-				<checkbox-app [size]="16" [labelClass]="'label-rememberme'">
-					Remember me
-				</checkbox-app>
-			</div> -->
-			<div class="clickable forgot-password" (click)="forgotPw()">Forgotten password?</div>
-		</div>
-
-	<div class="centered-text">
-			<input class="button" type="submit" [disabled]="!form.valid" value="Sign Up" (click)="createAccount()" />
-			<a class="button light" [routerLink]="['../login']" [queryParams]="queryParams">Already have an account?</a>
-	</div>
-
-
-</form>
-
-<ng-template #spinner>
-	<spinner-app></spinner-app>
-</ng-template>

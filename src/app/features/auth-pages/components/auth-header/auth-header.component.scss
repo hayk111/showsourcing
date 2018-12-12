@@ -1,0 +1,12 @@
+form {
+	width: 344px;
+	margin: auto;
+}
+
+input.error {
+	border: 1px solid var(--color-warn);
+}
+
+p.error {
+	color: var(--color-warn);
+}
