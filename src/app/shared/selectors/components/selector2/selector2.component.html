@@ -6,28 +6,61 @@
 	<info-badge-app *ngFor="let item of values" [type]="type"></info-badge-app>
 </div>
 
-<cdk-virtual-scroll-viewport itemSize="getHeight()" class="example-viewport">
+<div class="container-items">
 
 	<ng-container [ngSwitch]="type">
 
 		<ng-container *ngSwitchCase="'supplier'">
-			<selector-supplier-row-app *cdkVirtualFor="let item of choices$ | async" [supplier]="item"></selector-supplier-row-app>
+			<selector-supplier-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [supplier]="item"></selector-supplier-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'project'">
-			<selector-project-row-app *cdkVirtualFor="let item of choices$ | async" [project]="item"></selector-project-row-app>
+			<selector-project-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [project]="item"></selector-project-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'user'">
-			<selector-user-row-app *cdkVirtualFor="let item of choices$ | async" [user]="item"></selector-user-row-app>
+			<selector-user-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [user]="item"></selector-user-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'currency'">
-				<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async" [currency]="item"></selector-currency-row-app>
-			</ng-container>
+			<selector-currency-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [currency]="item"></selector-currency-row-app>
+		</ng-container>
 
 		<ng-container *ngSwitchCase="'product'">
-			<selector-product-row-app *cdkVirtualFor="let item of choices$ | async" [product]="item"></selector-product-row-app>
+			<selector-product-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [product]="item"></selector-product-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchDefault>
+			<selector-text-row-app *ngFor="let item of choices$ | async" [text]="item"></selector-text-row-app>
+		</ng-container>
+
+	</ng-container>
+
+	<button class="small">Create {{type}}</button>
+
+</div>
+<!-- <cdk-virtual-scroll-viewport [itemSize]="getHeight()" clÇass="container-viewport">
+
+	<ng-container [ngSwitch]="type">
+
+		<ng-container *ngSwitchCase="'supplier'">
+			<selector-supplier-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [supplier]="item"></selector-supplier-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'project'">
+			<selector-project-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [project]="item"></selector-project-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'user'">
+			<selector-user-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [user]="item"></selector-user-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'currency'">
+			<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [currency]="item"></selector-currency-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'product'">
+			<selector-product-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [product]="item"></selector-product-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchDefault>
@@ -38,7 +71,7 @@
 
 	<button class="small">Create {{type}}</button>
 
-</cdk-virtual-scroll-viewport>
+</cdk-virtual-scroll-viewport> -->
 
 <divider-app></divider-app>
 

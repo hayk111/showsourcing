@@ -5,7 +5,13 @@
 	border-radius: var(--border-radius);
 }
 
-.example-viewport {
+.container-viewport {
   height: 210px;
   width: 395px;
+}
+
+.container-items {
+	height: 210px;
+	width: 395px;
+	overflow-y: auto;
 }

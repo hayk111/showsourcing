@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
-import { SelectorCurrencyRowComponent } from '../selector-currency-row/selector-currency-row.component';
-import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
-import { ENTER } from '@angular/cdk/keycodes';
-import { SelectorTextRowComponent } from '../selector-text-row/selector-text-row.component';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
+import { TrackingComponent } from '~utils/tracking-component';
+
+import { SelectorCurrencyRowComponent } from '../selector-currency-row/selector-currency-row.component';
 
 @Component({
 	selector: 'selector2-app',
@@ -14,10 +16,8 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 	styleUrls: ['./selector2.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Selector2Component implements OnInit, AfterViewInit {
+export class Selector2Component extends TrackingComponent implements AfterViewInit {
 
-	@ViewChildren(SelectorCurrencyRowComponent) items: QueryList<AbstractSelectorHighlightableComponent>;
-	private keyManager: ActiveDescendantKeyManager<AbstractSelectorHighlightableComponent>;
 
 	@Input() values: any;
 
@@ -38,16 +38,29 @@ export class Selector2Component implements OnInit, AfterViewInit {
 		distinctUntilChanged(),
 		switchMap(type => this.getChoices(type))
 	);
+	/**
+	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
+	 * each row on the virtual scroll has to implement the AbstractSelectorHighlightableComponent,
+	 * since they keyManager needs it to update state of selection
+	*/
+	@ViewChildren(SelectorCurrencyRowComponent) virtualItems: QueryList<AbstractSelectorHighlightableComponent>;
+	/** cdk virtual scroll viewport so we can determine the scroll index in combination with cdk a11y */
+	@ViewChild(CdkVirtualScrollViewport) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 
-	toPrint = '';
+	/** key manager that controlls the selection with arrowkeys  */
+	keyManager: ActiveDescendantKeyManager<AbstractSelectorHighlightableComponent>;
+	/** index when using manager keys and virtual scrolling */
+	count = 0;
 
-	constructor(private selectorSrv: SelectorsService) { }
 
-	ngOnInit() {
-	}
+	constructor(private selectorSrv: SelectorsService) { super(); }
 
 	ngAfterViewInit() {
-		this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap();
+		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
+	}
+
+	search(event) {
+
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
@@ -69,17 +82,29 @@ export class Selector2Component implements OnInit, AfterViewInit {
 	/** CDK virtual scroll needs the height of the element */
 	getHeight() {
 		switch (this.type) {
-			case 'supplier': return 63;
+			case 'supplier': return 64;
 			default: return 37;
 		}
 	}
 
 	onKeydown(event) {
 		if (event.keyCode === ENTER) {
-			this.toPrint = this.keyManager.activeItem.getLabel();
-		} else {
+			// here add the item selected to the value
+			// this.keyManager.activeItem.getLabel();
+		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+			// console.log(this.keyManager.activeItemIndex);
 			this.keyManager.onKeydown(event);
+			// const indexItem = this.keyManager.activeItemIndex;
+			// console.log(indexItem);
+			// if (indexItem > 0) {
+			// 	if (this.count === 0 && indexItem % 6 === 0)
+			// 		this.count += 6;
+			// 	else if (event.keyCode === DOWN_ARROW && indexItem % 9 === 0)
+			// 		this.count += 6;
+			// 	else if (event.keyCode === UP_ARROW && indexItem % 2 === 0)
+			// 		this.count -= 6;
+			// }
+			// this.cdkVirtualScrollViewport.scrollToIndex(this.count);
 		}
 	}
-
 }

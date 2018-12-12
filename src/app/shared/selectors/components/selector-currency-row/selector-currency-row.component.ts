@@ -15,7 +15,7 @@ export class SelectorCurrencyRowComponent extends AbstractSelectorHighlightableC
 	constructor() { super(); }
 
 	getLabel() {
-		return this.currency.symbol;
+		return this.currency.id;
 	}
 
 }
