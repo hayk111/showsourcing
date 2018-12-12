@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product/product-common.module';
-import { ProductElementModule } from '~common/product/product-elements-module';
 import { ProjectsListViewComponent } from '~features/project/components';
 import { ProjectNavComponent } from '~features/project/components/project-nav/project-nav.component';
 import {
@@ -23,7 +22,7 @@ import { SharedModule } from '~shared/shared.module';
 		RouterModule.forChild(routes),
 		SharedModule,
 		ProductCommonModule,
-		ProductElementModule
+		ProductCommonModule
 	],
 	declarations: [
 		ProjectsPageComponent,

@@ -33,4 +33,4 @@ import {
 	entryComponents: [],
 	providers: []
 })
-export class ProductElementModule { }
+export class ProductCommonModule { }

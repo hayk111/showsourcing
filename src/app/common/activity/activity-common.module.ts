@@ -7,7 +7,7 @@ import {
 	OneSupplierActivityCardComponent,
 } from '~common/activity/components/grouped-feed-list/one-supplier-activity-card/one-supplier-activity-card.component';
 import { CommentCommonModule } from '~common/comment';
-import { ProductElementModule } from '~common/product/product-elements-module';
+import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import { ActivityUserComponent } from './components/activity-user/activity-user.component';
@@ -28,7 +28,7 @@ import {
 	imports: [
 		CommonModule,
 		SharedModule,
-		ProductElementModule,
+		ProductCommonModule,
 		CommentCommonModule
 	],
 	declarations: [

@@ -13,14 +13,13 @@ import {
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { ProductElementModule } from '~common/product/product-elements-module';
+import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import { ProductsCardViewDialogComponent } from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
-import { ProductCommonModule } from '~common/product';
 
 const modals = [
 	CreationDialogComponent,

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ProductCommonModule } from '~common/product/product-common.module';
-import { ProductElementModule } from '~common/product/product-elements-module';
 import { SharedModule } from '~shared/shared.module';
 
 import { QuoteComponent, QuoteListComponent } from './components';
@@ -10,7 +9,7 @@ import { QuoteComponent, QuoteListComponent } from './components';
 	imports: [
 		CommonModule,
 		ProductCommonModule,
-		ProductElementModule,
+		ProductCommonModule,
 		SharedModule
 	],
 	declarations: [QuoteListComponent, QuoteComponent],
