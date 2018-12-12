@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { ERM, TeamUser, User } from '~models';
@@ -22,7 +22,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	constructor(
 		private featureSrv: MemberFeatureService,
 		public listSrv: ListPageService<TeamUser, MemberFeatureService>,
-		public commonDlgSrv: CommonDialogService
+		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}
@@ -55,7 +55,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.commonDlgSrv.openInvitationDialog();
+		this.commonModalSrv.openInvitationDialog();
 	}
 
 	updateAccessType({ member, accessType }: { member: TeamUser, accessType: string }) {

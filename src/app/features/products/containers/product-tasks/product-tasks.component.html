@@ -28,7 +28,7 @@
   (previewClicked)="listSrv.openPreview($event)"
 	(taskSelect)="listSrv.selectOne($event, false)"
 	(taskUnselect)="listSrv.unselectOne($event, false)"
-	(openCreateDlg)="commonDlgSrv.openCreateDlg(erm)"
+	(openCreateDlg)="listSrv.create(false)"
 	(bottomReached)="listSrv.loadMore()"
 	(updateTask)="listSrv.update($event)"
 	(createTask)="createTask($event)">

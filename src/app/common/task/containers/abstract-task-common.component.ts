@@ -1,6 +1,6 @@
 import { AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
@@ -14,7 +14,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 		protected router: Router,
 		protected userSrv: UserService,
 		protected taskSrv: TaskService,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
 		super();
@@ -26,7 +26,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 			key: ListPageKey.TASK,
 			entitySrv: this.taskSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.TASK
 		});
 		// we don't want done at the startup

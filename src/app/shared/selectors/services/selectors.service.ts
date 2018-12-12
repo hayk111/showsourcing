@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { CategoryService, EventService, SupplierService, TagService, ProductService, ProjectService } from '~entity-services';
+import { map } from 'rxjs/operators';
+import { CurrencyService } from '~core/entity-services/currency/currency.service';
+import {
+	CategoryService,
+	EventService,
+	ProductService,
+	ProjectService,
+	SupplierService,
+	TagService,
+} from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import { TeamUserService } from '~entity-services/team-user/team-user.service';
-import { Category, Event, SupplierType, Tag, TeamUser, User, Product, Project, Currency } from '~models';
+import { Category, Currency, Event, Product, Project, SupplierType, Tag, TeamUser, User } from '~models';
 import { Supplier } from '~models/supplier.model';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
-import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { CurrencyService } from '~core/entity-services/currency/currency.service';
 
 
 @Injectable({

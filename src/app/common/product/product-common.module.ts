@@ -1,13 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '~shared/shared.module';
-import { PriceModule } from '~shared/price';
 import { ListModule } from '~shared/list/list.module';
+import { PriceModule } from '~shared/price';
+import { SharedModule } from '~shared/shared.module';
 
-
+import {
+	MoqComponent,
+	ProductCardComponent,
+	ProductGridCardComponent,
+	ProductsCardViewComponent,
+	ProductsListViewComponent,
+	ProductSortingMenuComponent,
+	StatsIconsComponent,
+} from './components';
 import { ProductPreviewComponent } from './containers';
-import { ProductElementModule } from './product-elements-module';
+
 
 
 @NgModule({
@@ -16,14 +24,27 @@ import { ProductElementModule } from './product-elements-module';
 		RouterModule,
 		SharedModule,
 		PriceModule,
-		ProductElementModule,
 		ListModule
 	],
 	declarations: [
-		ProductPreviewComponent
+		ProductPreviewComponent,
+		ProductsListViewComponent,
+		ProductsCardViewComponent,
+		ProductGridCardComponent,
+		ProductSortingMenuComponent,
+		ProductCardComponent,
+		MoqComponent,
+		StatsIconsComponent
 	],
 	exports: [
-		ProductPreviewComponent
+		ProductPreviewComponent,
+		ProductsListViewComponent,
+		ProductsCardViewComponent,
+		ProductGridCardComponent,
+		ProductSortingMenuComponent,
+		ProductCardComponent,
+		MoqComponent,
+		StatsIconsComponent
 	],
 	entryComponents: [],
 	providers: []

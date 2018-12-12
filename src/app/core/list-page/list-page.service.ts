@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { filter, switchMap } from 'rxjs/operators';
+import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
+import { CloseEventType, DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -12,8 +16,6 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
-import { DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 
 // where we can save the services
@@ -196,30 +198,50 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	deleteOne(id: string) {
-		const callback = () => this.dataSrv.deleteOne(id).subscribe(_ => this.refetch());
-		const text = `Are you sure you want to delete this item?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
+		this.dlgSrv.open(ConfirmDialogComponent, { text })
+			.pipe(
+				filter(event => event.type === CloseEventType.OK),
+				switchMap(_ => this.dataSrv.deleteOne(id))
+			).subscribe(_ => this.refetch());
 	}
 
 	deleteSelected() {
 		const itemIds = this.getSelectedIds();
-		// callback for confirm dialog
-		const callback = () => {
-			this.dataSrv.deleteMany(itemIds).subscribe(_ => {
-				this.selectionSrv.unselectAll();
-				this.refetch();
-			});
-		};
-		const text = `Delete ${itemIds.length} ${itemIds.length > 1 ? 'items' : 'item'} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		const text = `Delete ${itemIds.length} `
+			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural);
+
+		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter(event => event.type === CloseEventType.OK),
+			switchMap(_ => this.dataSrv.deleteMany(itemIds))
+		).subscribe(_ => {
+			this.selectionSrv.unselectAll();
+			this.refetch();
+		});
 	}
 
-	addFilter(filter: Filter) {
-		this.dataSrv.addFilter(filter);
+	create(shouldRedirect = true) {
+		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, type: this.entityMetadata }).pipe(
+			filter(event => event.type === CloseEventType.OK)
+		).subscribe(event => this.onCreated(event.data, shouldRedirect));
 	}
 
-	removeFilter(filter: Filter) {
-		this.dataSrv.removeFilter(filter);
+	private onCreated(data: any, shouldRedirect: boolean) {
+		this.refetch();
+		if (shouldRedirect) {
+			if (this.entityMetadata.destUrl)
+				this.router.navigate([this.entityMetadata.destUrl, data.id]);
+			else
+				throw Error(`no destination url`);
+		}
+	}
+
+	addFilter(_filter: Filter) {
+		this.dataSrv.addFilter(_filter);
+	}
+
+	removeFilter(_filter: Filter) {
+		this.dataSrv.removeFilter(_filter);
 	}
 
 	removeFilterType(filterType: FilterType) {

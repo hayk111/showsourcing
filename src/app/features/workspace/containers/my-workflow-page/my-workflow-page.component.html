@@ -35,16 +35,16 @@
         <icon-app name="dots-vertical" size="m"></icon-app>
       </button>
     </context-menu-trigger-app>
-    <context-menu-item-app (click)="commonDlgSrv.openAddToProjectDialog([row])">
+    <context-menu-item-app (click)="commonModalSrv.openAddToProjectDialog([row])">
       <div class="border">Add to project</div>
     </context-menu-item-app>
-    <context-menu-item-app (click)="commonDlgSrv.openRequestQuotationDialog([row])">
+    <context-menu-item-app (click)="commonModalSrv.openRequestQuotationDialog([row])">
       <div class="border">Request for quotation</div>
     </context-menu-item-app>
-    <context-menu-item-app (click)="commonDlgSrv.openRequestFeedbackDialog([row])">
+    <context-menu-item-app (click)="commonModalSrv.openRequestFeedbackDialog([row])">
       <div class="border">Request feedback</div>
     </context-menu-item-app>
-    <context-menu-item-app (click)="commonDlgSrv.openExportDialog([row])">
+    <context-menu-item-app (click)="commonModalSrv.openExportDialog([row])">
       <div class="border">Export</div>
     </context-menu-item-app>
     <context-menu-item-app (click)="listSrv.deleteOne(row)">
@@ -66,7 +66,7 @@
 		(liked)="listSrv.onMultipleThumbUp($event)"
 		(disliked)="listSrv.onMultipleThumbDown($event)">
 
-    <button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog(null)">
+    <button class="icon light" (click)="commonModalSrv.openAddToProjectDialog(null)">
       <icon-app name="folder-light" fontSet="svg"></icon-app>
     </button>
     <button class="icon light" (click)="listSrv.deleteSelected()">

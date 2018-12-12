@@ -38,7 +38,7 @@ export class Selector2Component implements OnInit {
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
-	getChoices(type: string) {
+	getChoices(type: string): Observable<any[]> {
 		switch (type) {
 			case 'supplier': return this.selectorSrv.getSuppliers();
 			case 'product': return this.selectorSrv.getProducts();

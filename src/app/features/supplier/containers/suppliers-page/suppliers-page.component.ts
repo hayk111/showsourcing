@@ -4,7 +4,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
-import { CommonDialogService } from '~common/dialog';
+import { CommonModalService } from '~common/modals';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -30,7 +30,7 @@ export class SuppliersPageComponent extends TrackingComponent
 	constructor(
 		private supplierSrv: SupplierService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
-		public commonDlgSrv: CommonDialogService
+		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}
@@ -40,7 +40,7 @@ export class SuppliersPageComponent extends TrackingComponent
 			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tag.name', 'category.name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.SUPPLIER
 		});
 	}

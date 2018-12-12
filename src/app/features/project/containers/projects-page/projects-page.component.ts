@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonDialogService } from '~common/dialog';
+import { CommonModalService } from '~common/modals';
 import { ProjectService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Project } from '~models';
@@ -21,7 +21,7 @@ export class ProjectsPageComponent extends TrackingComponent implements OnInit {
 	constructor(
 		private projectSrv: ProjectService,
 		public listSrv: ListPageService<Project, ProjectService>,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 	) {
 		super();
 	}
@@ -31,7 +31,7 @@ export class ProjectsPageComponent extends TrackingComponent implements OnInit {
 			key: ListPageKey.PROJECTS,
 			entitySrv: this.projectSrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.PROJECT
 		});
 	}

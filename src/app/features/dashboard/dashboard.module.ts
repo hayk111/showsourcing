@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
-import { DialogCommonModule } from '~common/dialog';
-import { ProductDialogService } from '~common/dialog/services/product-dialog.service';
+import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 import { EventsCardComponent } from '~features/dashboard/components/events-card/events-card.component';
 import { SummaryComponent } from '~features/dashboard/components/summary/summary.component';
 import { TeamCardComponent } from '~features/dashboard/components/team-card/team-card.component';
@@ -17,7 +16,6 @@ import { SharedModule } from '~shared/shared.module';
 		RouterModule.forChild(routes),
 		ActivityCommonModule,
 		DialogModule,
-		DialogCommonModule,
 	],
 	declarations: [
 		DashboardComponent,

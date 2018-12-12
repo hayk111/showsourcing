@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
 
 
-// TODO: now that we use the cdk this can be replaced with scroll functions of the cdk
 @Directive({
 	selector: '[infiniScroll]',
 })
@@ -12,7 +11,6 @@ export class InfiniScrollDirective implements OnInit {
 	@Output() bottomReached = new EventEmitter();
 	private topReached$ = new Subject();
 	private bottomReached$ = new Subject();
-
 	// ms
 	@Input() throttleTime = 400;
 	// distance of the view height at which point we trigger the event
@@ -23,7 +21,6 @@ export class InfiniScrollDirective implements OnInit {
 	private el: HTMLElement;
 	// to know the scroll direction
 	private lastScrollTop;
-	private scroll$;
 
 	constructor(private elRef: ElementRef, private renderer: Renderer2) {
 		// throttle output events

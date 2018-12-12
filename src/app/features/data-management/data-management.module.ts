@@ -12,7 +12,6 @@ import {
 	TagDataManagementPageComponent,
 } from '~features/data-management/containers/tag-data-management-page/tag-data-management-page.component';
 import { SharedModule } from '~shared/shared.module';
-import { CommonDialogService } from '~common/dialog';
 
 
 @NgModule({
@@ -28,7 +27,7 @@ import { CommonDialogService } from '~common/dialog';
 		TagDataManagementPageComponent
 	],
 	exports: [DataManagementPageComponent],
-	providers: [CommonDialogService]
+	providers: []
 })
 export class DataManagementModule {
 

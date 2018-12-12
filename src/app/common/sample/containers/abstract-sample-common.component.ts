@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
@@ -13,7 +13,7 @@ export abstract class AbstractSampleCommonComponent extends TrackingComponent im
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
 		public listSrv: ListPageService<Sample, SampleService>,
-		public commonDlgSrv: CommonDialogService
+		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}
@@ -23,7 +23,7 @@ export abstract class AbstractSampleCommonComponent extends TrackingComponent im
 			key: ListPageKey.SAMPLE,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.SAMPLE
 		});
 	}

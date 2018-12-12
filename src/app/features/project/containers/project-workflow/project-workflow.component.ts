@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { first, map, takeUntil, tap } from 'rxjs/operators';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';
@@ -37,7 +37,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		private notificationSrv: NotificationService,
 		private featureSrv: ProjectWorkflowFeatureService,
 		public listSrv: ListPageService<Product, ProjectWorkflowFeatureService>,
-		public commonDlgSrv: CommonDialogService
+		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}
@@ -74,7 +74,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		const productStatuses$ = this.productStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused" AND category != "inspiration"',
-				sortBy: 'step'
+				sortBy: 'step',
+				descending: false
 			}).pipe();
 
 		this.columns$ = combineLatest(
@@ -120,7 +121,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	openFindProductDlg() {
 		if (this.project) {
 			this.featureSrv.getProjectProducts(this.project).pipe(first()).subscribe(products => {
-				this.commonDlgSrv.openFindProductDlg(products, this.associateProductsWithProject.bind(this));
+				this.commonModalSrv.openFindProductDlg(products, this.associateProductsWithProject.bind(this));
 			});
 		}
 	}

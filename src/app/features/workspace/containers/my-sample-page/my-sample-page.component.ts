@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/dialog';
+import { CommonModalService } from '~common/modals';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { SampleService, UserService, SampleStatusService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
@@ -37,9 +37,9 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		protected sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
 		public listSrv: ListPageService<Sample, SampleService>,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 	) {
-		super(router, userSrv, sampleSrv, listSrv, commonDlgSrv);
+		super(router, userSrv, sampleSrv, listSrv, commonModalSrv);
 	}
 
 	ngOnInit() {

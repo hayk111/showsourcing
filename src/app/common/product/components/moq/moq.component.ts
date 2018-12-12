@@ -1,10 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	Input,
-	OnInit,
-} from '@angular/core';
-import { Currency } from '~models';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'moq-app',

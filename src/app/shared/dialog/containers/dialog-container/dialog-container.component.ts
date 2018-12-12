@@ -38,8 +38,8 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 		this.viewContainerRef = this.host.viewContainerRef;
 		this.srv.toOpen$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(({ component, props, moduleRef }) => {
-				this.open(component, moduleRef, props);
+			.subscribe(({ component, props }) => {
+				this.open(component, props);
 			});
 		this.srv.toClose$
 			.pipe(takeUntil(this._destroy$))
@@ -47,11 +47,9 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	}
 
 	/** will put a component in the host container */
-	open(component, moduleRef: NgModuleRef<any>, props: any) {
+	open(component, props: any) {
 		this.isOpen = true;
-		const componentFactoryResolver = moduleRef ?
-			moduleRef.componentFactoryResolver :
-			this.componentFactoryResolver;
+		const componentFactoryResolver = this.componentFactoryResolver;
 		const componentFactory = componentFactoryResolver.resolveComponentFactory(component);
 		this.viewContainerRef.clear();
 

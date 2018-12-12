@@ -1,5 +1,5 @@
 export const statusMap = {
-	'_NoStatus': {
+	'_New': {
 		locales: {
 			en: {
 				name: 'New Product'

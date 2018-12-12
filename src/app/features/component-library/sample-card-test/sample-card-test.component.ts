@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { CommonDialogService } from '~common/dialog';
+import { CommonModalService } from '~common/modals';
 import { SampleService, SampleStatusService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
@@ -30,7 +30,7 @@ export class SampleCardTestComponent extends AutoUnsub implements OnInit {
 		protected sampleStatusSrv: SampleStatusService,
 		protected router: Router,
 		public listSrv: ListPageService<Sample, SampleService>,
-		protected commonDlgSrv: CommonDialogService
+		protected commonModalSrv: CommonModalService
 	) {
 		super();
 	}
@@ -40,7 +40,7 @@ export class SampleCardTestComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.SAMPLE,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.SAMPLE
 		});
 

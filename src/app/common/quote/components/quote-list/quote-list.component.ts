@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { QuoteFeatureService } from '~features/products/services';
 import { ERM, Quote } from '~models';
@@ -37,7 +37,7 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 	constructor(
 		public router: Router,
 		public featureSrv: QuoteFeatureService,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Quote, QuoteFeatureService>
 	) {
 		super();
@@ -52,7 +52,7 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 			key: ListPageKey.QUOTE,
 			entitySrv: this.featureSrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.QUOTE
 		});
 	}

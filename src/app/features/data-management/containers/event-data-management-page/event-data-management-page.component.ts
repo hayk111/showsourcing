@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { EventService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
@@ -20,7 +20,7 @@ export class EventDataManagementPageComponent implements OnInit {
 	constructor(
 		private eventSrv: EventService,
 		public listSrv: ListPageService<Event, EventService>,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 		private dmSrv: DataManagementService
 	) {
 	}
@@ -30,7 +30,7 @@ export class EventDataManagementPageComponent implements OnInit {
 			key: ListPageKey.EVENT,
 			entitySrv: this.eventSrv,
 			searchedFields: ['description.name'],
-			currentSort: { sortBy: 'description.name', descending: true },
+			currentSort: { sortBy: 'description.name', descending: false },
 			entityMetadata: ERM.EVENT
 		});
 	}

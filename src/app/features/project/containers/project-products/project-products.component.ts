@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, tap } from 'rxjs/operators';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ERM } from '~models';
 import { ProductService, ProjectService } from '~entity-services';
 import { ProjectWorkflowFeatureService } from '~features/project/services';
@@ -37,7 +37,7 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 
 		public featureSrv: ProjectWorkflowFeatureService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 		public thumbSrv: ThumbService) {
 		super();
 	}
@@ -77,7 +77,7 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 			});
 		};
 		const text = `Deassociate ${items.length} ${items.length > 1 ? 'products' : 'product'} ?`;
-		this.commonDlgSrv.openConfirmDialog({ text, callback });
+		this.commonModalSrv.openConfirmDialog({ text, callback });
 	}
 
 	/**
@@ -120,12 +120,12 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 		this.productSrv.queryMany({ query: `projects.id == '${this.project.id}'` })
 			.pipe(first())
 			.subscribe(products => {
-				this.commonDlgSrv.openFindProductDlg(products, this.associatedProductsWithProject.bind(this));
+				this.commonModalSrv.openFindProductDlg(products, this.associatedProductsWithProject.bind(this));
 			});
 	}
 
 	openRequestQuotationDialog(product: Product) {
-		this.commonDlgSrv.openRequestQuotationDialog(product);
+		this.commonModalSrv.openRequestQuotationDialog(product);
 	}
 
 }

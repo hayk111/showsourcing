@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageService } from '~core/list-page';
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 import { Show } from '~models';
@@ -27,7 +27,7 @@ export class ShowsPageComponent extends TrackingComponent implements OnInit {
 	constructor(
 		private featureSrv: ShowFeatureService,
 		public listSrv: ListPageService<Show, ShowFeatureService>,
-		public commonDlgSrv: CommonDialogService
+		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}

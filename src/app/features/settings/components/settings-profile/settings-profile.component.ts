@@ -22,8 +22,8 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private profileSrv: SettingsProfileService,
 		private dlgSrv: DialogService,
-		private uploaderSrv: UploaderService,
-		private moduleRef: NgModuleRef<any>) {
+		private uploaderSrv: UploaderService
+	) {
 		super();
 	}
 
@@ -49,6 +49,6 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 	}
 
 	pswdModal() {
-		this.dlgSrv.openFromModule(ChangePswdDlgComponent, this.moduleRef);
+		this.dlgSrv.open(ChangePswdDlgComponent);
 	}
 }

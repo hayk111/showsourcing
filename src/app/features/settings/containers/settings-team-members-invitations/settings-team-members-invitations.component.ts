@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { ERM } from '~models';
@@ -20,7 +20,7 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 	constructor(
 		private featureSrv: InvitationFeatureService,
 		public listSrv: ListPageService<any, InvitationFeatureService>,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 	) {
 		super();
 	}
@@ -51,7 +51,7 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
 		const callback = () => this.listSrv.refetch();
-		this.commonDlgSrv.openInvitationDialog({ callback });
+		this.commonModalSrv.openInvitationDialog({ callback });
 	}
 
 }

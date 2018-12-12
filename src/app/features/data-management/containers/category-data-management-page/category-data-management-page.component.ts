@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonDialogService } from '~common/dialog/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { CategoryService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
@@ -22,7 +22,7 @@ export class CategoryDataManagementPageComponent
 	constructor(
 		private categorySrv: CategoryService,
 		public listSrv: ListPageService<Category, CategoryService>,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 		private dmSrv: DataManagementService
 	) { }
 
@@ -32,7 +32,7 @@ export class CategoryDataManagementPageComponent
 			key: ListPageKey.CATEGORY,
 			entitySrv: this.categorySrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'name', descending: true },
+			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.CATEGORY
 		});
 	}
@@ -41,4 +41,5 @@ export class CategoryDataManagementPageComponent
 		const ids = this.listSrv.getSelectedIds();
 		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
 	}
+
 }

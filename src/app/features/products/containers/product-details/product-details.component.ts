@@ -10,7 +10,7 @@ import {
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RfqDialogComponent,
-} from '~common/dialog';
+} from '~common/modals';
 import { DialogService } from '~shared/dialog/services';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -33,7 +33,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
-		private moduleRef: NgModuleRef<any>,
 		private notifSrv: NotificationService,
 		private router: Router,
 		private thumbSrv: ThumbService
@@ -80,24 +79,22 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	/** opens the dialog to add multiple project to product.projects */
 	openAddProjectDlg() {
-		this.dlgSrv.openFromModule(
+		this.dlgSrv.open(
 			ProductAddToProjectDlgComponent,
-			this.moduleRef,
 			{ selectedProducts: [this.product] }
 		);
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog() {
-		this.dlgSrv.openFromModule(
+		this.dlgSrv.open(
 			ProductRequestTeamFeedbackDlgComponent,
-			this.moduleRef,
 			{ selectedProducts: [this.product] }
 		);
 	}
 
 	openRequestQuotationDialog() {
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product: this.product });
+		this.dlgSrv.open(RfqDialogComponent, { product: this.product });
 	}
 
 	/** when file has been removed we remove link */
@@ -170,13 +167,13 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	/** export product */
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product: Product) {
-		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
+		this.dlgSrv.open(ProductExportDlgComponent, {
 			selectedProducts: [this.product]
 		});
 	}
 	/** Opens a dialog that let you see the list of people who have voted */
 	openVoteDetailsDialog() {
-		this.dlgSrv.openFromModule(VoteDetailsDialogComponent, this.moduleRef, {
+		this.dlgSrv.open(VoteDetailsDialogComponent, {
 			votes: this.product.votes
 		});
 	}

@@ -2,9 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
-import { DialogCommonModule } from '~common/dialog';
 import { ProductCommonModule } from '~common/product/product-common.module';
-import { ProductElementModule } from '~common/product/product-elements-module';
 import { QuoteCommonModule } from '~common/quote/quote-common.module';
 import { SampleCommonModule } from '~common/sample';
 import { TaskCommonModule } from '~common/task';
@@ -35,7 +33,6 @@ import { ProductTeamRatingComponent } from './components/product-team-rating/pro
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
 import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
-import { CommonDialogService } from '~common/dialog';
 
 
 @NgModule({
@@ -43,10 +40,9 @@ import { CommonDialogService } from '~common/dialog';
 		CommonModule,
 		RouterModule.forChild(routes),
 		SharedModule,
-		DialogCommonModule,
 		ActivityCommonModule,
 		ProductCommonModule,
-		ProductElementModule,
+		ProductCommonModule,
 		TaskCommonModule,
 		QuoteCommonModule,
 		SampleCommonModule
@@ -77,7 +73,6 @@ import { CommonDialogService } from '~common/dialog';
 	],
 	exports: [],
 	providers: [
-		CommonDialogService,
 		ProductFeatureService,
 		QuoteFeatureService
 	]

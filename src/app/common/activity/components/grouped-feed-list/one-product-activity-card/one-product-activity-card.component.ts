@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { ProductAddToProjectDlgComponent } from '~common/dialog/component';
+import { ProductAddToProjectDlgComponent } from '~common/modals/component';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
@@ -46,7 +46,6 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	constructor(
 		private router: Router,
 		private dlgSrv: DialogService,
-		private module: NgModuleRef<any>,
 		private productSrv: ProductService,
 		private thumbSrv: ThumbService,
 		private commentSrv: CommentService) {
@@ -86,7 +85,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	}
 
 	openAddToProject() {
-		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
+		this.dlgSrv.open(ProductAddToProjectDlgComponent, { selectedProducts: [this.product] });
 	}
 
 	onEnter(event) {

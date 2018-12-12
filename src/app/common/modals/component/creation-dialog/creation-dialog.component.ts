@@ -1,27 +1,26 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Observable } from 'subscriptions-transport-ws';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { CrudDialogService } from '~common/dialog/services/crud-dialog.service';
+import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
+import { CloseEventType } from '~shared/dialog';
 
 @Component({
-	selector: 'edition-dialog-app',
-	templateUrl: './edition-dialog.component.html',
-	styleUrls: ['./edition-dialog.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'creation-dialog-app',
+	templateUrl: './creation-dialog.component.html',
+	styleUrls: ['./creation-dialog.component.scss']
 })
-export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
+export class CreationDialogComponent extends AutoUnsub implements AfterViewInit, OnInit {
 
 	group: FormGroup;
 	pending = false;
 	@Input() type: EntityMetadata;
-	@Input() entity: any;
-	@Input() callback: Function;
 	@ViewChild(InputDirective) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;
@@ -31,8 +30,11 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 		private dlgSrv: DialogService,
 		private crudDlgSrv: CrudDialogService) {
 		super();
+	}
+
+	ngOnInit() {
 		this.group = this.fb.group({
-			name: ['', Validators.required],
+			name: ['', Validators.required] // ValidateNameNotEqual.equalValidator(this.ermService, this.type) in case is fixed by angular
 		});
 		this.exists$ = this.typed$
 			.pipe(
@@ -52,16 +54,16 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 
 	onSubmit() {
 		if (this.group.valid) {
-			if (!this.entity) throw Error(`null entity when editing dialog`);
+			this.group.patchValue({ name: this.group.value.name.trim() });
 			this.pending = true;
-			this.crudDlgSrv.edit(this.group, this.type, this.entity)
+			this.crudDlgSrv.create(this.group, this.type)
 				.pipe(takeUntil(this._destroy$))
-				.subscribe(() => {
-					this.pending = false;
-					// this.callback(this.group.value.name); // delete all related to callbacks if not needed
-					this.dlgSrv.close();
-				});
+				.subscribe(item => this.onCreate(item));
 		}
 	}
 
+	onCreate(item: any) {
+		this.pending = false;
+		this.dlgSrv.close({ type: CloseEventType.OK, data: item });
+	}
 }

@@ -18,7 +18,7 @@ import { AutoUnsub } from '~utils';
 import {
 	CompareQuotationComponent,
 	RfqDialogComponent
-} from '~common/dialog';
+} from '~common/modals';
 import {
 	ProductFeatureService,
 	QuoteFeatureService
@@ -70,7 +70,7 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 
 	openRfq() {
 		// we add manually the supplier self email, since it is not on the contacts
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, {
+		this.dlgSrv.open(RfqDialogComponent, {
 			product: this.product
 		});
 	}
@@ -78,7 +78,7 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 	/** Opens a dialog that lets the user compare quotation of this product */
 	openCompareQuotationDialog(quotes) {
 		console.log(quotes);
-		this.dlgSrv.openFromModule(CompareQuotationComponent, this.moduleRef, {
+		this.dlgSrv.open(CompareQuotationComponent, {
 			quotes: quotes
 		});
 	}

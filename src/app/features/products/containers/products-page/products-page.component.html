@@ -6,7 +6,7 @@
 		buttonName="Add {{ listSrv.entityMetadata.singular }}"
 		[subtitles]="['Products', 'all']"
 		[center]="false"
-		(buttonClick)="commonDlgSrv.openCreateDlg(erm, true)">
+		(buttonClick)="listSrv.create()">
 	</top-panel-app>
 
 	<sub-panel-app
@@ -46,10 +46,10 @@
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"
-		(openAddToProjectDialog)="commonDlgSrv.openAddToProjectDialog($event)"
-		(openExportDialog)="commonDlgSrv.openExportDialog($event)"
-		(openRequestFeedbackDialog)="commonDlgSrv.openRequestFeedbackDialog($event)"
-		(openRequestQuotationDialog)="commonDlgSrv.openRequestQuotationDialog($event)"
+		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog($event)"
+		(openExportDialog)="commonModalSrv.openExportDialog($event)"
+		(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog($event)"
+		(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog($event)"
 		(delete)="listSrv.deleteOne($event)">
 	</products-list-view-app>
 
@@ -82,7 +82,7 @@
 			(liked)="listSrv.onMultipleThumbUp($event)"
 			(disliked)="listSrv.onMultipleThumbDown($event)">
 
-			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog(listSrv.getSelectedValues())">
+			<button class="icon light" (click)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())">
 				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
 			</button>
 			<context-menu-app>
@@ -91,13 +91,13 @@
 						<icon-app name="dots-vertical" size="m"></icon-app>
 					</button>
 				</context-menu-trigger-app>
-				<context-menu-item-app (click)="commonDlgSrv.openExportDialog(listSrv.getSelectedValues())">
+				<context-menu-item-app (click)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())">
 					Export
 				</context-menu-item-app>
-				<context-menu-item-app (click)="commonDlgSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())">
+				<context-menu-item-app (click)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())">
 					Request For Team Feedback
 				</context-menu-item-app>
-				<context-menu-item-app (click)="commonDlgSrv.openCompareProductDialog(listSrv.getSelectedValues())">
+				<context-menu-item-app (click)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())">
 					Compare Product
 				</context-menu-item-app>
 			</context-menu-app>
