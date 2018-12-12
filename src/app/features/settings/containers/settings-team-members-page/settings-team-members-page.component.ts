@@ -1,9 +1,9 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { TeamService } from '~entity-services';
 import { Team } from '~models';
-import { take, switchMap } from 'rxjs/operators';
 import { DialogService } from '~shared/dialog/services';
 
 @Component({
@@ -21,7 +21,7 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 		protected router: Router,
 		protected route: ActivatedRoute,
 		private teamSrv: TeamService
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.team$ = this.teamSrv.teamSelected$;

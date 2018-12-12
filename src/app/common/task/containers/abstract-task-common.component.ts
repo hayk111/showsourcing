@@ -6,6 +6,7 @@ import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
 import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
+import { switchMap } from 'rxjs/operators';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit {
@@ -61,7 +62,9 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 
 	createTask(name: string) {
 		const newTask = new Task({ name });
-		this.taskSrv.create(newTask).subscribe(_ => this.listSrv.refetch());
+		this.taskSrv.create(newTask).pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 
 	openProduct(id: string) {

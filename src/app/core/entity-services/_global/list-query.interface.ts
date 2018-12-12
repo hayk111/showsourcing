@@ -1,6 +1,4 @@
-import { DocumentNode } from 'graphql';
 import { Observable } from 'rxjs';
-import { QueryRef } from 'apollo-angular';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
 
 

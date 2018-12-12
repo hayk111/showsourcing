@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
-
-import { TeamUser, User, Invitation } from '~models';
-import { Sort } from '~shared/table/components/sort.interface';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
+import { Invitation, User } from '~models';
 
 
 @Component({

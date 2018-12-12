@@ -4,6 +4,7 @@ import { InvitationFeatureService } from '~features/settings/services/invitation
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { CloseEventType } from '~shared/dialog';
 
 
 
@@ -16,7 +17,6 @@ import { AutoUnsub } from '~utils';
 export class InviteUserDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	pending = false;
-	callback: Function;
 
 	constructor(private dlgSrv: DialogService,
 		private invitationSrv: InvitationFeatureService,
@@ -35,13 +35,12 @@ export class InviteUserDlgComponent extends AutoUnsub {
 		if (this.form.valid) {
 			this.pending = true;
 			const { email } = this.form.value;
+			this.dlgSrv.close({ type: CloseEventType.OK });
+
 			this.invitationSrv.createInvitation(email)
 				.subscribe(() => {
 					this.pending = false;
 					this.dlgSrv.close();
-					if (this.callback) {
-						this.callback();
-					}
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
 						title: 'Invitation Sent',

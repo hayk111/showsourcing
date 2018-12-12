@@ -5,6 +5,7 @@ import { AbstractTaskCommonComponent } from '~common/task';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { Task, ERM } from '~models';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'product-tasks-app',
@@ -51,7 +52,8 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 			name,
 			product: { id: this.route.parent.snapshot.params.id }
 		});
-		this.taskSrv.create(newTask).subscribe();
-		this.listSrv.refetch();
+		this.taskSrv.create(newTask).pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 }

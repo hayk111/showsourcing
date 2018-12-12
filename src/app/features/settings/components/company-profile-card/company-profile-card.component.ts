@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { AutoUnsub } from '~utils';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { InputDirective } from '~shared/inputs';
-import { takeUntil } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'company-profile-card-app',

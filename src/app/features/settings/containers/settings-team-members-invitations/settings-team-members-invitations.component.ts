@@ -4,6 +4,8 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { ERM } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
+import { switchMap, filter } from 'rxjs/operators';
+import { CloseEventType } from '~shared/dialog';
 
 @Component({
 	selector: 'settings-team-members-invitations-app',
@@ -50,8 +52,10 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		const callback = () => this.listSrv.refetch();
-		this.commonModalSrv.openInvitationDialog({ callback });
+		this.commonModalSrv.openInvitationDialog().pipe(
+			filter(evt => evt.type === CloseEventType.OK),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 
 }
