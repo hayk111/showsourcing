@@ -18,7 +18,6 @@ import { SelectorCurrencyRowComponent } from '../selector-currency-row/selector-
 })
 export class Selector2Component extends TrackingComponent implements AfterViewInit {
 
-
 	@Input() values: any;
 
 	private _type;
