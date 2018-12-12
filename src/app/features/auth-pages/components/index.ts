@@ -5,3 +5,4 @@ export * from './pw-resetted/pw-resetted.component';
 export * from './login/login.component';
 export * from './registration/registration.component';
 export * from './auth-header/auth-header.component';
+export * from './auth-form-base/auth-form-base.component';

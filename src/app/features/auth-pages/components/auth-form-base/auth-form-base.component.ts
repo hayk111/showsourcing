@@ -10,10 +10,10 @@ import { UserService } from '~entity-services';
 
 @Component({
 	selector: 'auth-form-app',
-	templateUrl: './auth-form.component.html',
-	styleUrls: ['./auth-form.component.scss', '../form-style.scss']
+	templateUrl: './auth-form-base.component.html',
+	styleUrls: ['./auth-form-base.component.scss', '../form-style.scss']
 })
-export class AuthFormComponent extends AutoUnsub implements OnInit {
+export class AuthFormBaseComponent extends AutoUnsub implements OnInit {
 	@Input() pending = false;
 	constructor(
 	) {
