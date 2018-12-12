@@ -5,6 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
+import { switchMap } from 'rxjs/operators';
 
 /** since we use the sample component on different pages, this page will keep the methods clean */
 export abstract class AbstractSampleCommonComponent extends TrackingComponent implements OnInit {
@@ -30,7 +31,9 @@ export abstract class AbstractSampleCommonComponent extends TrackingComponent im
 
 	createSample(name: string) {
 		const newSample = new Sample({ name });
-		this.sampleSrv.create(newSample).subscribe(_ => this.listSrv.refetch());
+		this.sampleSrv.create(newSample).pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 
 	openProduct(id: string) {

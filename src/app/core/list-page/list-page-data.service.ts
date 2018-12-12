@@ -127,7 +127,7 @@ export class ListPageDataService
 	 * @param config configuration used to refetch
 	 */
 	refetch(config?: SelectParamsConfig) {
-		this.listResult.refetch(config).subscribe();
+		return this.listResult.refetch(config);
 	}
 
 	/** Loads more items when we reach the bottom of the page */
@@ -138,7 +138,7 @@ export class ListPageDataService
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
 		this.currentSort = sort;
-		this.refetch({ ...sort });
+		return this.refetch({ ...sort });
 	}
 
 	sortFromMenu(fieldName) {
@@ -147,7 +147,7 @@ export class ListPageDataService
 		} else {
 			this.currentSort = { sortBy: fieldName, descending: false };
 		}
-		this.refetch({ ...this.currentSort });
+		return this.refetch({ ...this.currentSort });
 	}
 
 	/** when we want to search through the list we only search the name */
@@ -160,7 +160,7 @@ export class ListPageDataService
 				.map(field => `${field} CONTAINS[c] "${str}"`)
 				.join(' OR ');
 		}
-		this.onPredicateChange();
+		return this.onPredicateChange();
 	}
 	// UPDATES
 

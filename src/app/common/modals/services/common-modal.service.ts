@@ -88,19 +88,19 @@ export class CommonModalService {
 		text: string,
 		callback: any
 	}) {
-		this.dlgSrv.open(ConfirmDialogComponent, data);
+		return this.dlgSrv.open(ConfirmDialogComponent, data);
 	}
 
 	openRequestQuotationDialog(product: Product) {
-		this.dlgSrv.open(RfqDialogComponent, { product });
+		return this.dlgSrv.open(RfqDialogComponent, { product });
 	}
 
 	openMergeDialog(data: { type: any, entities: any[] }) {
-		this.dlgSrv.open(MergeDialogComponent, data);
+		return this.dlgSrv.open(MergeDialogComponent, data);
 	}
 
-	openInvitationDialog(callback?: any) {
-		this.dlgSrv.open(InviteUserDlgComponent, callback);
+	openInvitationDialog() {
+		return this.dlgSrv.open(InviteUserDlgComponent);
 	}
 
 	close() {

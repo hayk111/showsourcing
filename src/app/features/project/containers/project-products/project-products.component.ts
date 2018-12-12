@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, tap } from 'rxjs/operators';
+import { first, tap, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ERM } from '~models';
 import { ProductService, ProjectService } from '~entity-services';
@@ -85,8 +85,8 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 	 */
 	deassociateProductsWithProject(products: Product[]) {
 		return this.featureSrv.manageProjectsToProductsAssociations([this.project], [], products).pipe(
+			switchMap(_ => this.listSrv.refetch()),
 			tap(() => {
-				this.listSrv.refetch();
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',

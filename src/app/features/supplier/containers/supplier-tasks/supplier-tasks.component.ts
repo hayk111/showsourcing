@@ -6,6 +6,7 @@ import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { Task } from '~models';
 import { FilterType } from '~shared/filters';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'supplier-tasks-app',
@@ -41,7 +42,9 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 
 	createTask(name: string) {
 		const newTask = new Task({ name, supplier: { id: this.route.parent.snapshot.params.id } });
-		this.taskSrv.create(newTask).subscribe(_ => this.listSrv.refetch());
+		this.taskSrv.create(newTask).pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 }
 

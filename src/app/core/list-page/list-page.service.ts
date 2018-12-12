@@ -111,7 +111,7 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	refetch(config?: SelectParamsConfig) {
-		this.dataSrv.refetch(config);
+		return this.dataSrv.refetch(config);
 	}
 
 	loadMore() {
@@ -119,15 +119,15 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	sort(sort: Sort) {
-		this.dataSrv.sort(sort);
+		this.dataSrv.sort(sort).subscribe();
 	}
 
 	sortFromMenu(fieldName: string) {
-		this.dataSrv.sortFromMenu(fieldName);
+		this.dataSrv.sortFromMenu(fieldName).subscribe();
 	}
 
 	search(str: string) {
-		this.dataSrv.search(str);
+		this.dataSrv.search(str).subscribe();
 	}
 
 	updateSelected(value: any) {
@@ -163,12 +163,12 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 
 	onThumbUp(item: T) {
 		const votes = this.thumbSrv.thumbUp(item);
-		return this.dataSrv.update({ id: item.id, votes } as any);
+		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
 	}
 
 	onThumbDown(item: T) {
 		const votes = this.thumbSrv.thumbDown(item);
-		return this.update({ id: item.id, votes } as any);
+		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
 	}
 
 	/**
@@ -202,8 +202,9 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
 				filter(event => event.type === CloseEventType.OK),
-				switchMap(_ => this.dataSrv.deleteOne(id))
-			).subscribe(_ => this.refetch());
+				switchMap(_ => this.dataSrv.deleteOne(id)),
+				switchMap(_ => this.refetch())
+			).subscribe();
 	}
 
 	deleteSelected() {
@@ -213,24 +214,25 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter(event => event.type === CloseEventType.OK),
-			switchMap(_ => this.dataSrv.deleteMany(itemIds))
+			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
+			switchMap(_ => this.refetch())
 		).subscribe(_ => {
 			this.selectionSrv.unselectAll();
-			this.refetch();
 		});
 	}
 
 	create(shouldRedirect = true) {
 		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, type: this.entityMetadata }).pipe(
-			filter(event => event.type === CloseEventType.OK)
+			filter(event => event.type === CloseEventType.OK),
+			switchMap(_ => this.refetch(), evt => evt)
 		).subscribe(event => this.onCreated(event.data, shouldRedirect));
 	}
 
 	private onCreated(data: any, shouldRedirect: boolean) {
-		this.refetch();
 		if (shouldRedirect) {
 			if (this.entityMetadata.destUrl)
-				this.router.navigate([this.entityMetadata.destUrl, data.id]);
+				this.router.navigate([this.entityMetadata.destUrl, data.id]
+				);
 			else
 				throw Error(`no destination url`);
 		}

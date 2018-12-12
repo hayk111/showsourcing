@@ -17,6 +17,7 @@ app-install:
     - production
     - acceptance
 
+# acc & prod build
 app-build:
   stage: build
   artifacts:
@@ -25,16 +26,26 @@ app-build:
   script:
     - npm run build
   only:
-    - master
     - production
     - acceptance
 
-# staging
+# staging build
+app-build-staging:
+  stage: build
+  artifacts:
+    paths:
+      - dist/
+  script:
+    - npm run build:sta
+  only:
+    - master
+
+# staging deployment
 app-staging:
   stage: staging
   image: python:latest
   dependencies:
-    - app-build
+    - app-build-staging
   script:
     - pip install awscli
     - cd dist/showsourcing
@@ -42,6 +53,7 @@ app-staging:
   only:
     - master
 
+# acc deployment
 app-acceptance:
   stage: deploy
   image: python:latest
@@ -54,6 +66,7 @@ app-acceptance:
   only:
     - acceptance
 
+# prod deployment
 app-deploy:
   stage: deploy
   image: python:latest

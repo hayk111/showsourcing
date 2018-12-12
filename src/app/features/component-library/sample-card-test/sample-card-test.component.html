@@ -1,18 +1,8 @@
-<kanban-app
-	[cols]="columns$ | async"
-	[cardTemplate]="card"
-	[selection]="selected$ | async"
-	(drop)="updateSampleStatus($event)"
-	(multipleDrop)="updateSamplesStatus($event)"
-	(selectColumn)="onColumnSelected($event)"
-	(unselectColumn)="onColumnUnselected($event)">
-</kanban-app>
 
-<ng-template #card let-data="data">
+
 	<sample-card-app
-		[sample]="data"
-		[checked]="(listSrv.selection$ | async).has(data.id)"
+		[sample]="sample"
+		[checked]="(listSrv.selection$ | async).has(sample.id)"
 		(select)="listSrv.selectOne($event)"
 		(unselect)="listSrv.unselectOne($event)">
 	</sample-card-app>
-</ng-template>

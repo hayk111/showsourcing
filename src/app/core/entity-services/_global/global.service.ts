@@ -351,7 +351,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			const refetchTitle = 'Selecting List Refetch' + this.typeName;
 			this.log(refetchTitle, gql, queryName, clientName, config);
 			return queryRef$.pipe(
-				map(queryRef => queryRef.refetch(config))
+				switchMap(queryRef => queryRef.refetch(config))
 			);
 		};
 
