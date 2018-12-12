@@ -35,7 +35,6 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private srv: ProductService,
 		private dlgSrv: DialogService,
-		private module: NgModuleRef<any>,
 		private router: Router) {
 		super();
 	}
@@ -56,7 +55,7 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 	}
 
 	openAddToProject() {
-		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
+		this.dlgSrv.open(ProductAddToProjectDlgComponent, { selectedProducts: [this.product] });
 	}
 
 }

@@ -5,7 +5,6 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
-	NgModuleRef,
 	OnInit,
 	Output,
 	ViewChild,
@@ -13,16 +12,13 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { ProductAddToProjectDlgComponent, RfqDialogComponent } from '~common/modals';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { AppImage, ERM, PreviewActionButton, Product, ProductStatus } from '~models';
-import { DialogService } from '~shared/dialog/services';
+import { AppImage, ERM, PreviewActionButton, Product } from '~models';
 import { CustomField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, PendingImage } from '~utils';
-import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 
 @Component({
 	selector: 'product-preview-app',
@@ -125,8 +121,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
 		private featureSrv: ProductService,
-		private dlgSrv: DialogService,
-		private module: NgModuleRef<any>,
+		private modalSrv: CommonModalService,
 		private router: Router,
 		private workspaceSrv: WorkspaceFeatureService
 	) {
@@ -179,9 +174,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openRfq() {
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, {
-			product: this.product
-		});
+		this.modalSrv.openRequestFeedbackDialog([this.product]);
 	}
 
 	onViewProduct() {
@@ -189,9 +182,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openAddToProject() {
-		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, {
-			selectedProducts: [this.product]
-		});
+		this.modalSrv.openAddToProjectDialog([this.product]);
 	}
 
 	/** Add a product to workflow */

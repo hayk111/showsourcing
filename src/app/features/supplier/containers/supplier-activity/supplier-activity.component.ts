@@ -33,7 +33,6 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private featureSrv: SupplierFeatureService,
 		private dlgSrv: DialogService,
-		private moduleRef: NgModuleRef<any>,
 		private activitySrv: ActivityService,
 	) {
 		super();
@@ -73,10 +72,10 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 
 	openContactDlg(contact?: Contact) {
 		if (contact)
-			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: false, contact, supplier: this.supplier });
+			this.dlgSrv.open(NewContactDlgComponent, { isNewContact: false, contact, supplier: this.supplier });
 		// new contact dlg
 		else
-			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: true, supplier: this.supplier });
+			this.dlgSrv.open(NewContactDlgComponent, { isNewContact: true, supplier: this.supplier });
 	}
 
 	deleteContact(contact: Contact) {

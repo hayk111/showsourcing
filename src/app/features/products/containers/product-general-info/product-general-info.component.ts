@@ -73,7 +73,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private srv: ProductFeatureService,
 		private dlgSrv: DialogService,
-		private module: NgModuleRef<any>,
 		private cd: ChangeDetectorRef
 	) {
 		super();
@@ -101,6 +100,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	openRfq() {
 		// we add manually the supplier self email, since it is not on the contacts
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product });
+		this.dlgSrv.open(RfqDialogComponent, { product: this.product });
 	}
 }

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CommonDialogService } from '~common/modals/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { TemplateService } from '~core/template/services/template.service';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
@@ -32,7 +32,7 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private templateSrv: TemplateService,
 		private featureSrv: WorkspaceFeatureService,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, WorkspaceFeatureService>
 	) {
 		super();
@@ -98,17 +98,17 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog() {
-		this.commonDlgSrv.openAddToProjectDialog(this.getSelectedProducts());
+		this.commonModalSrv.openAddToProjectDialog(this.getSelectedProducts());
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog() {
-		this.commonDlgSrv.openExportDialog(this.getSelectedProducts());
+		this.commonModalSrv.openExportDialog(this.getSelectedProducts());
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog() {
-		this.commonDlgSrv.openRequestFeedbackDialog(this.getSelectedProducts());
+		this.commonModalSrv.openRequestFeedbackDialog(this.getSelectedProducts());
 	}
 
 }

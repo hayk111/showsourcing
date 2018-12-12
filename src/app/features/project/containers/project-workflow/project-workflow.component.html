@@ -40,7 +40,7 @@
 			(liked)="listSrv.onMultipleThumbUp($event)"
 			(disliked)="listSrv.onMultipleThumbDown($event)">
 
-			<button class="icon light" (click)="commonDlgSrv.openAddToProjectDialog(selectionSrv.selection)">
+			<button class="icon light" (click)="commonModalSrv.openAddToProjectDialog(selectionSrv.selection)">
 				<icon-app name="folder-light" fontSet="svg"></icon-app>
 			</button>
 			<button class="icon light" (click)="listSrv.deleteSelected()">

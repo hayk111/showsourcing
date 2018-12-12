@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDialogService } from '~common/modals/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
@@ -13,7 +13,7 @@ export abstract class AbstractSampleCommonComponent extends TrackingComponent im
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
 		public listSrv: ListPageService<Sample, SampleService>,
-		public commonDlgSrv: CommonDialogService
+		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}

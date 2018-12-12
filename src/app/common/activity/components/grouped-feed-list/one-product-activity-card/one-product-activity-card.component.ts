@@ -46,7 +46,6 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	constructor(
 		private router: Router,
 		private dlgSrv: DialogService,
-		private module: NgModuleRef<any>,
 		private productSrv: ProductService,
 		private thumbSrv: ThumbService,
 		private commentSrv: CommentService) {
@@ -86,7 +85,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	}
 
 	openAddToProject() {
-		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
+		this.dlgSrv.open(ProductAddToProjectDlgComponent, { selectedProducts: [this.product] });
 	}
 
 	onEnter(event) {

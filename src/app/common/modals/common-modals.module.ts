@@ -19,6 +19,8 @@ import { TableModule } from '~shared/table';
 
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
+import { ProductsCardViewDialogComponent } from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
+import { ProductCommonModule } from '~common/product';
 
 const modals = [
 	CreationDialogComponent,
@@ -31,16 +33,17 @@ const modals = [
 	ProductExportDlgComponent,
 	EmailListComponent,
 	RfqDialogComponent,
+	FindProductsDialogComponent
 ];
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
-		ProductElementModule,
+		ProductCommonModule,
 		TableModule
 	],
-	declarations: modals,
+	declarations: [...modals, ProductsCardViewDialogComponent],
 	entryComponents: modals,
 	providers: [
 		ProductDialogService,

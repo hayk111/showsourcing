@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CommonDialogService } from '~common/modals/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
@@ -27,7 +27,7 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 		public thumbSrv: ThumbService,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public commonDlgSrv: CommonDialogService
+		public commonModalSrv: CommonModalService
 	) {
 		super();
 
@@ -52,16 +52,16 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product?: Product) {
-		this.commonDlgSrv.openExportDialog();
+		this.commonModalSrv.openExportDialog();
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(product?: Product) {
-		this.commonDlgSrv.openRequestFeedbackDialog();
+		this.commonModalSrv.openRequestFeedbackDialog();
 	}
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog() {
-		this.commonDlgSrv.openAddToProjectDialog();
+		this.commonModalSrv.openAddToProjectDialog();
 	}
 }

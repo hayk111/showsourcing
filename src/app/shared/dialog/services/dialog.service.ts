@@ -6,19 +6,15 @@ import { CloseEvent, CloseEventType } from '../interfaces';
 	providedIn: 'root'
 })
 export class DialogService {
-	private _toOpen$ = new Subject<{ component: any, moduleRef: NgModuleRef<any>, props: any }>();
+	private _toOpen$ = new Subject<{ component: any, props: any }>();
 	toOpen$ = this._toOpen$.asObservable();
 	private _toClose$ = new Subject<CloseEvent>();
 	toClose$ = this._toClose$.asObservable();
 
 	/** opens a dialog, returns an observable that emits when it closes */
 	open(component: new (...args: any[]) => any, props?: Object): Observable<CloseEvent> {
-		this.openFromModule(component, null, props);
+		this._toOpen$.next({ component, props });
 		return this.toClose$;
-	}
-
-	openFromModule(component: new (...args: any[]) => any, moduleRef?: NgModuleRef<any>, props?: Object) {
-		this._toOpen$.next({ component, props, moduleRef });
 	}
 
 	close(event: CloseEvent = { type: CloseEventType.CANCEL }) {

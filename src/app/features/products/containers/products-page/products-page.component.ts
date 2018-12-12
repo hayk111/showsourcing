@@ -4,7 +4,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
-import { CommonDialogService } from '~common/modals';
+import { CommonModalService } from '~common/modals';
 
 @Component({
 	selector: 'products-page-app',
@@ -28,7 +28,7 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 
 	constructor(
 		private productSrv: ProductService,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>
 	) {
 		super();

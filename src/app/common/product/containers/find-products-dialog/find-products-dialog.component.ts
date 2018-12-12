@@ -13,7 +13,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 	templateUrl: './find-products-dialog.component.html',
 	styleUrls: ['./find-products-dialog.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService]
+	providers: [ListPageService],
+
 })
 export class FindProductsDialogComponent extends TrackingComponent implements OnInit, AfterViewInit {
 

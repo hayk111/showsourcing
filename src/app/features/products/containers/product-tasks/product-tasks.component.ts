@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonDialogService } from '~common/modals/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { AbstractTaskCommonComponent } from '~common/task';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
@@ -26,14 +26,14 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 		protected userSrv: UserService,
 		protected router: Router,
 		protected taskSrv: TaskService,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
 		super(
 			router,
 			userSrv,
 			taskSrv,
-			commonDlgSrv,
+			commonModalSrv,
 			listSrv
 		);
 	}

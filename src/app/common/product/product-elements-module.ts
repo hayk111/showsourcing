@@ -15,7 +15,6 @@ import {
 	ProductSortingMenuComponent,
 	StatsIconsComponent,
 } from './components';
-import { FindProductsDialogComponent } from './containers/find-products-dialog/find-products-dialog.component';
 
 @NgModule({
 	imports: [
@@ -26,27 +25,12 @@ import { FindProductsDialogComponent } from './containers/find-products-dialog/f
 		ListModule
 	],
 	declarations: [
-		FindProductsDialogComponent,
-		ProductsCardViewDialogComponent,
-		ProductsListViewComponent,
-		ProductsCardViewComponent,
-		ProductGridCardComponent,
-		ProductSortingMenuComponent,
-		ProductCardComponent,
-		MoqComponent,
-		StatsIconsComponent
+
 	],
 	exports: [
-		FindProductsDialogComponent,
-		ProductsListViewComponent,
-		ProductsCardViewComponent,
-		ProductGridCardComponent,
-		ProductSortingMenuComponent,
-		ProductCardComponent,
-		MoqComponent,
-		StatsIconsComponent
+
 	],
-	entryComponents: [FindProductsDialogComponent],
+	entryComponents: [],
 	providers: []
 })
 export class ProductElementModule { }

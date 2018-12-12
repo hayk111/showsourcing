@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonDialogService } from '~common/modals/services/common-dialog.service';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { TagService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
@@ -20,7 +20,7 @@ export class TagDataManagementPageComponent implements OnInit {
 	constructor(
 		private tagSrv: TagService,
 		public listSrv: ListPageService<Tag, TagService>,
-		public commonDlgSrv: CommonDialogService,
+		public commonModalSrv: CommonModalService,
 		private dmSrv: DataManagementService
 	) {
 	}
