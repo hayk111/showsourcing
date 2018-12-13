@@ -1,1 +1,11 @@
-{{supplier?.name || 'Unnamed supplier'}}
+<div class="container">
+	<div class="flex name-container">
+		<icon-app class="circle color-{{color}}" name="circle" fontSet="fa"></icon-app>
+		<div class="name">{{supplier?.name || 'Unnamed supplier'}}</div>
+	</div>
+	<div class="flex categories">
+		<icon-app class="circle" name="circle" fontSet="fa"></icon-app>
+		<span *ngFor="let category of supplier?.categories" class="category">{{ category?.name }}</span>
+	</div>
+</div>
+

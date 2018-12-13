@@ -1,8 +1,11 @@
 :host {
 	display: block;
-	padding: var(--spacing-ms);
 	border: 1px solid var(--color-secondary);
 	border-radius: var(--border-radius);
+
+	& > *:not(.container-items){
+		margin: var(--spacing-ms);
+	}
 }
 
 .current-values-container {
@@ -10,6 +13,11 @@
 	max-height: 94px;
 	width: 395px;
 	overflow-y: auto;
+
+	.empty-message {
+		color: var(--color-txt-secondary);
+		font-style: italic;
+	}
 }
 
 .container-viewport {
@@ -19,6 +27,41 @@
 
 .container-items {
 	height: 210px;
-	width: 395px;
 	overflow-y: auto;
+
+	& > * {
+		padding-left: var(--spacing-ms);
+		display: flex;
+		align-items: center;
+	}
+
+	.create-container {
+		height: 37px;
+
+		&:hover {
+			background-color: var(--color-primary);
+
+			button.create {
+				background: white;
+			}
+		}
+
+		button.create {
+			font-weight: 600;
+			font-size: var(--font-size-s);
+
+			icon-app {
+				margin-right: var(--spacing-xs);
+				font-size: var(--font-size-xs);
+			}
+		}
+	}
+}
+
+.top-divider {
+	margin-bottom: 0px !important;
+}
+
+.bottom-divider {
+	margin-top: 0px !important;
 }

@@ -47,12 +47,28 @@ export abstract class SupplierQueries extends GlobalQueries {
 		favorite,
 		deleted,
 		creationDate,
+		${SupplierQueries.status}
 		${SupplierQueries.categories}
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
 		${SupplierQueries.createdBy}
 		${SupplierQueries.productsCount}
-		`;
+	`;
+
+	static readonly all = `
+		name,
+		description,
+		country,
+		favorite,
+		deleted,
+		creationDate,
+		${SupplierQueries.status}
+		${SupplierQueries.categories}
+		${SupplierQueries.images}
+		${SupplierQueries.tags}
+		${SupplierQueries.createdBy}
+		${SupplierQueries.productsCount}
+	`;
 
 	static readonly update = `
 		id,

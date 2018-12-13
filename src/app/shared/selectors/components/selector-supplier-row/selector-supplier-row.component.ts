@@ -10,11 +10,46 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 })
 export class SelectorSupplierRowComponent extends AbstractSelectorHighlightableComponent {
 
-	@Input() supplier: Supplier;
+	private _supplier: Supplier;
+	@Input() set supplier(supplier: Supplier) {
+		this._supplier = supplier;
+		this.color = this.getType(supplier.status);
+	}
+
+	get supplier() {
+		return this._supplier;
+	}
+
+	color = 'secondary';
 
 	constructor() { super(); }
 
 	getLabel() {
 		return this.supplier.id;
+	}
+
+	getType(status) {
+		// by default is secondary since is the color for NEW elements
+		let style = 'secondary';
+		if (status) {
+			switch (status.category) {
+				case 'inProgress':
+					style = 'in-progress';
+					break;
+				case 'validated':
+					style = 'success';
+					break;
+				case 'refused':
+					style = 'warn';
+					break;
+				case 'inspiration':
+					style = 'secondary-light';
+					break;
+				default:
+					style = 'secondary';
+					break;
+			}
+		}
+		return style;
 	}
 }

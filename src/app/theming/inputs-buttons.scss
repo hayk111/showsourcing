@@ -151,6 +151,16 @@ button, input[type="submit"], .button {
 		}
 		color: inherit;
 	}
+	&.selector {
+		border-radius: var(--border-radius);
+		padding: 0 var(--spacing-s);
+		align-items: center;
+		background: var(--color-secondary);
+		color: var(--color-txt-primary);
+		&:hover {
+			background: white;
+		}
+	}
 
 	&.icon {
 		width: 32px;

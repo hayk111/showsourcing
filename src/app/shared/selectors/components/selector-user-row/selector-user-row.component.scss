@@ -4,7 +4,7 @@
 	cursor: pointer;
 
 	&.active, &:hover {
-		background-color: red;
+		background-color: var(--color-primary);
 		color: #fff;
 	}
 }

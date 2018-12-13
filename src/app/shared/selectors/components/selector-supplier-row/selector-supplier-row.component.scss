@@ -1,10 +1,52 @@
 :host {
-	display: block;
+	display: flex;
 	height: 63px;
 	cursor: pointer;
 
 	&.active, &:hover {
-		background-color: red;
+		background-color: var(--color-primary);
 		color: #fff;
+
+		.container > *:not(icon-app), .name-container .name {
+			color: white !important;
+		}
+	}
+}
+
+icon-app.circle {
+	border: 1px solid white;
+	border-radius: 500px;
+	height: 8px;
+	font-size: var(--font-size-xxs);
+	margin-right: var(--spacing-s);
+}
+
+.container {
+
+	.name-container {
+		margin-bottom: var(--spacing-xs);
+		align-items: center;
+
+		.name {
+			font-size: var(--font-size-l);
+			color: var(--color-txt-strong);
+		}
+	}
+
+	.categories {
+		color: var(--color-txt-secondary);
+
+		// just for the title and descrption have the same align
+		icon-app.circle {
+			visibility: hidden;
+		}
+
+		& > * {
+			//for each children that is not the first one we add some spaces and bullet dots on the content
+			&:not(:first-child)::before {
+				content: "\00a0 \00a0 \2022 \00a0 \00a0";
+				font-weight: bolder;
+			}
+		}
 	}
 }
