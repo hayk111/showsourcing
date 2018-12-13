@@ -1,4 +1,4 @@
-<form [formGroup]="form" autocomplete="on" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
+<!-- <form [formGroup]="form" autocomplete="on" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
 	<error-app *ngIf="error">{{ error }}</error-app>
 	<form-field-app [ngClass]="{'field-focused': filedFocused === 'firstName'}">
 		<label-app>First Name</label-app>
@@ -24,4 +24,4 @@
 		<input (focus)="filedFocused = 'password'" #pw inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
 		 placeholder="Your password" />
 		<error-app *ngIf="form.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
-	</form-field-app>
+	</form-field-app> -->
