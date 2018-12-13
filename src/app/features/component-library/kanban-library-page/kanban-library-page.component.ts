@@ -6,7 +6,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
 import { KanbanColumn } from '~shared/kanban/interfaces';
 import { ListPageService, ListPageKey } from '~core/list-page';
-import { ERM } from '~core/models';
+import { ERM, Product } from '~core/models';
 
 @Component({
 	selector: 'kanban-library-page-app',
@@ -20,7 +20,7 @@ export class KanbanLibraryPageComponent implements OnInit {
 	constructor(
 		private productSrv: ProductService,
 		private productStatusSrv: ProductStatusService,
-		private listSrv: ListPageService<any, any>
+		public listSrv: ListPageService<any, any>
 	) { }
 
 	ngOnInit() {
@@ -60,4 +60,24 @@ export class KanbanLibraryPageComponent implements OnInit {
 		);
 	}
 
+	updateProductStatus(product: Product) {
+		// TODO implement this function
+		throw 'not implemented updateProductStatus';
+	}
+
+
+	updateProductsStatus(products: Product[]) {
+		// TODO implement this function
+		throw 'not implemented updateProductsStatus';
+	}
+
+	onColumnSelected(data: any) {
+		// TODO implement this function
+		throw 'not implemented onColumnSelected';
+	}
+
+	onColumnUnselected(data: any) {
+		// TODO implement this function
+		throw 'not implemented onColumnUnselected';
+	}
 }
