@@ -6,6 +6,9 @@
 	&.active, &:hover {
 		background-color: var(--color-primary);
 		color: #fff;
+		.currency {
+			color: white;
+		}
 	}
 }
 
