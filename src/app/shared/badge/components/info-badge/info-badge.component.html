@@ -1,5 +1,5 @@
 <badge-app [size]="size" [type]="infoType">
 	<icon-app [name]="name"></icon-app>
 	<ng-content></ng-content>
-	<icon-app *ngIf="hasDelete" class="close" fontSet="svg" name="close-circle" (click)="delete.emit()"></icon-app>
+	<icon-app *ngIf="hasDelete" class="close"  name="close" (click)="delete.emit()"></icon-app>
 </badge-app>

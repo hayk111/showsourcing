@@ -9,10 +9,14 @@
 }
 
 .current-values-container {
-	min-height: 42px;
-	max-height: 94px;
+	min-height: 26px;
+	max-height: 74px;
 	width: 395px;
 	overflow-y: auto;
+
+	info-badge-app {
+		margin-bottom: var(--spacing-xs);
+	}
 
 	.empty-message {
 		color: var(--color-txt-secondary);
