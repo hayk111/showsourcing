@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { ChangePswdDlgComponent } from '~features/settings/components/change-pswd-dlg/change-pswd-dlg.component';
-import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
+import { ChangePswdDlgComponent } from '~common/modals';
+import { SettingsProfileService } from '../../services';
 import { User } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';

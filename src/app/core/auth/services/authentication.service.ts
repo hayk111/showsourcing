@@ -85,9 +85,8 @@ export class AuthenticationService {
 		);
 	}
 
-	resetPassword({ email }: { email: string }) {
-		// TODO: should be renamed recoverPassword instead (method and endpoint)
-		return this.http.post(`${environment.apiUrl}/signup/user/reset-password`, { email });
+	resetPassword(cred: { email: string }) {
+		return this.http.post(`${environment.apiUrl}/signup/user/reset-password`, cred);
 	}
 
 	confirmResetPassword({ token, password }: { token: string; password: string; }) {

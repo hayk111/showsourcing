@@ -36,6 +36,9 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 			currentSort: { sortBy: 'email', descending: true },
 			entityMetadata: ERM.TEAM_USER
 		});
+		// TODO remove below if page works properly,
+		// I'm not sure why thierry added this
+
 		/* this.selected$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(selected => {

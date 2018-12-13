@@ -18,14 +18,14 @@ export class InvitationQueries extends GlobalQueries {
 		email,
 		accessType,
 		status,
-		inviter { firstName, lastName }
+		inviter { id, firstName, lastName }
 	`;
 
 	static readonly many = `
 		email,
 		accessType,
 		status,
-		inviter { firstName, lastName }
+		inviter { id, firstName, lastName }
 	`;
 
 }

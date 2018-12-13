@@ -4,7 +4,7 @@ import { ApolloStateService } from '~core/apollo';
 import { InvitationService, UserService } from '~entity-services';
 import { Invitation } from '~models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class InvitationFeatureService extends InvitationService {
 
 	constructor(

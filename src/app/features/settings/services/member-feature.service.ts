@@ -1,20 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, forkJoin, zip } from 'rxjs';
-import { TeamUser } from '~models';
-
-import { TeamUserService, TeamService, UserService } from '~entity-services';
-import { SelectParams } from '~entity-services/_global/select-params';
-import { Sort } from '~shared/table/components/sort.interface';
-import { Apollo } from 'apollo-angular';
-import { first, map } from 'rxjs/operators';
+import { zip } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
+import { TeamService, TeamUserService, UserService } from '~entity-services';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MemberFeatureService extends TeamUserService {
 
 	constructor(
 		protected apolloState: ApolloStateService,
-		private teamUserSrv: TeamUserService,
 		private teamSrv: TeamService,
 		protected userSrv: UserService) {
 		super(apolloState);
