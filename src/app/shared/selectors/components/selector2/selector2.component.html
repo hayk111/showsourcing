@@ -1,10 +1,15 @@
 <input type="text" [placeholder]="'Enter a' + type" (keyup)="onKeydown($event)" (input)="search(inp.value)" #inp>
 
-<divider-app></divider-app>
-
-<div *ngIf="multiple" class="current-values-container">
-	<info-badge-app *ngFor="let item of values" [type]="type"></info-badge-app>
+<div *ngIf="multiple" class="flexWrap current-values-container">
+	<ng-container *ngIf="values?.length; else empty">
+		<info-badge-app *ngFor="let item of values; trackBy: trackById" [type]="type" [hasDelete]="true" (delete)="delete(item)">{{item.name}}</info-badge-app>
+	</ng-container>
+	<ng-template #empty>
+		<span class="empty-message">There's no {{type}} yet, add one!</span>
+	</ng-template>
 </div>
+
+<divider-app *ngIf="multiple" class="top-divider"></divider-app>
 
 <div class="container-items">
 
@@ -15,7 +20,7 @@
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'project'">
-			<selector-project-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [project]="item"></selector-project-row-app>
+			<selector-project-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [class.active]="isActive(item)" [project]="item"></selector-project-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'user'">
@@ -30,13 +35,22 @@
 			<selector-product-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [product]="item"></selector-product-row-app>
 		</ng-container>
 
+		<ng-container *ngSwitchCase="'tag'">
+			<selector-tag-row-app *ngFor="let item of choices$ | async; trackBy: trackById" [class.active]="isActive(item)" [tag]="item"></selector-tag-row-app>
+		</ng-container>
+
 		<ng-container *ngSwitchDefault>
 			<selector-text-row-app *ngFor="let item of choices$ | async" [text]="item"></selector-text-row-app>
 		</ng-container>
 
 	</ng-container>
 
-	<button class="small">Create {{type}}</button>
+	<div class="create-container">
+		<button class="selector small flex create">
+			<icon-app name="add"></icon-app>
+			<span>Create new {{type}} "{{searchTxt}}"</span>
+		</button>
+	</div>
 
 </div>
 <!-- <cdk-virtual-scroll-viewport [itemSize]="getHeight()" clÇass="container-viewport">
@@ -73,7 +87,7 @@
 
 </cdk-virtual-scroll-viewport> -->
 
-<divider-app></divider-app>
+<divider-app class="bottom-divider"></divider-app>
 
 <div class="flexEnd">
 	<button class="secondary">Done</button>

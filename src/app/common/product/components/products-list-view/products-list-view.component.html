@@ -48,7 +48,7 @@ I added comment above each column to make it clearer -->
 			<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name || 'Unnamed' }}</a>
 		</div>
 		<div class="preview">
-			<button class="secondary-dark" (click)="previewClick.emit(row)">Preview</button>
+			<button class="small secondary-dark" (click)="previewClick.emit(row)">Preview</button>
 		</div>
 	</div>
 </ng-template>

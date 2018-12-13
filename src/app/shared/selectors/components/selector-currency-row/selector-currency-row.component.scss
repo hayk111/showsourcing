@@ -4,8 +4,16 @@
 	cursor: pointer;
 
 	&.active, &:hover {
-		background-color: red;
+		background-color: var(--color-primary);
 		color: #fff;
+		.currency {
+			color: white;
+		}
 	}
 }
 
+.currency {
+	margin-right: var(--spacing-ms);
+	font-weight: 600;
+	color: var(--color-txt-strong);
+}

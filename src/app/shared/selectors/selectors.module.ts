@@ -25,6 +25,8 @@ import { DividerModule } from '~shared/divider/divider.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { BadgeModule } from '~shared/badge';
 import { A11yModule } from '@angular/cdk/a11y';
+import { SelectorTagRowComponent } from './components/selector-tag-row/selector-tag-row.component';
+import { UtilsModule } from '~shared/utils';
 
 
 const components = [
@@ -38,7 +40,8 @@ const components = [
 	SelectorProjectRowComponent,
 	SelectorSupplierRowComponent,
 	SelectorTextRowComponent,
-	SelectorUserRowComponent
+	SelectorUserRowComponent,
+	SelectorTagRowComponent
 ];
 
 @NgModule({
@@ -55,7 +58,8 @@ const components = [
 		DividerModule,
 		ScrollingModule,
 		BadgeModule,
-		A11yModule
+		A11yModule,
+		UtilsModule
 	],
 	declarations: components,
 	exports: components

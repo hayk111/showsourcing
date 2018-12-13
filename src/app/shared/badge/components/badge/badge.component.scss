@@ -10,6 +10,10 @@
 	&.secondary {
 		background: var(--color-secondary);
 	}
+	&.primary {
+		background: var(--color-primary);
+		color: white;
+	}
 	&.secondary-light {
 		background: var(--color-secondary-light);
 	}
