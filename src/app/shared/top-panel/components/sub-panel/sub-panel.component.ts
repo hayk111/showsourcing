@@ -1,14 +1,22 @@
 import {
-	ChangeDetectionStrategy, Component, EventEmitter,
-	Input, Output, OnInit,
-	ElementRef, Renderer2, ContentChild,
-	ChangeDetectorRef, ViewChild
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ContentChild,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	Renderer2,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { debounceTime, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+import {
+	SearchAutocompleteComponent,
+} from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { AutoUnsub } from '~utils';
-import { SearchAutocompleteComponent } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 
 @Component({
 	selector: 'sub-panel-app',

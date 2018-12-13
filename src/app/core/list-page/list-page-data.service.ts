@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, switchMap } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
@@ -95,7 +95,9 @@ export class ListPageDataService
 	setFilters() {
 		this.filterList
 			.valueChanges$
-			.subscribe(_ => this.onPredicateChange());
+			.pipe(
+				switchMap(_ => this.onPredicateChange())
+			).subscribe();
 	}
 
 	/** when the items are loading */

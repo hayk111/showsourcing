@@ -52,8 +52,8 @@ export class ERM {
 	static readonly FILE = new EntityMetadata('file', 'files');
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);
 	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
-	static readonly MEMBER = new EntityMetadata('member', 'members');
 	static readonly LOCATION = new EntityMetadata('location', 'locations');
+	static readonly MEMBER = new EntityMetadata('member', 'members');
 	static readonly PRODUCT = new EntityMetadata('product', 'products', Product);
 	static readonly PRODUCT_STATUS = new EntityMetadata('product status', 'product status', ProductStatus, 'product-status');
 	static readonly PRODUCT_VOTE = new EntityMetadata('product vote', 'product votes', Product, 'product-vote');
@@ -61,17 +61,13 @@ export class ERM {
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
 	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
 	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
-	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
 	static readonly SAMPLE = new EntityMetadata('sample', 'samples', Sample);
 	static readonly SAMPLE_STATUS = new EntityMetadata('sample status', 'samples status', Sample, 'sample-status');
+	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
-	static readonly SUPPLIER_STATUS = new EntityMetadata(
-		'supplier status',
-		'supplier status',
-		SupplierStatus,
-		'supplier-status');
-	static readonly SUPPLIER_TYPE = new EntityMetadata('supplier type', 'supplier types', Supplier, 'supplier-type');
+	static readonly SUPPLIER_STATUS = new EntityMetadata('supplier status', 'supplier status', SupplierStatus, 'supplier-status');
 	static readonly SUPPLIER_TAG = new EntityMetadata('supplier tag', 'supplier tags', Tag, 'supplier-tag');
+	static readonly SUPPLIER_TYPE = new EntityMetadata('supplier type', 'supplier types', Supplier, 'supplier-type');
 	static readonly TAG = new EntityMetadata('tag', 'tags', Tag);
 	static readonly TASK = new EntityMetadata('task', 'tasks', Task);
 	static readonly TEAM = new EntityMetadata('team', 'teams', Team);
@@ -83,7 +79,7 @@ export class ERM {
 	/** if the string matches with any of the attributeson ERM this function will return that property */
 	static getEntityMetadata(name: string): EntityMetadata {
 		for (const item in ERM) {
-			if (name.match(ERM[item].singular) || name.match(ERM[item].plural))
+			if (name === ERM[item].singular || name === ERM[item].plural)
 				return ERM[item];
 		}
 		throw Error('The string passed does not exist on the _erm.enum.ts');

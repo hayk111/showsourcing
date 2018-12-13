@@ -4,7 +4,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	selector: 'sub-panel-left-item-app',
 	templateUrl: './sub-panel-left-item.component.html',
 	styleUrls: ['./sub-panel-left-item.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'flex' }
 })
 export class SubPanelLeftItemComponent implements OnInit {
 
