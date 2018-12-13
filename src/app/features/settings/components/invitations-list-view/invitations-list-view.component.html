@@ -40,14 +40,14 @@
 		width="200">
 		<context-menu-app *ngIf="teamOwner && (row.user.id !== user.id)" [closeOnScroll]="true">
 			<context-menu-trigger-app class="flex pointer">
-				<div class="text" *ngIf="row.accessType === 'FullAccess'"> Team Member </div>
-				<div class="text" *ngIf="row.accessType === 'ReadOnly'"> Contributor </div>
+				<div class="text" *ngIf="row.accessType === 'TeamMember'"> Team Member </div>
+				<div class="text" *ngIf="row.accessType === 'Contributor'"> Contributor </div>
 				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'FullAccess' })">
+			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'TeamMember' })">
 				Team Member
 			</context-menu-item-app>
-			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'ReadOnly' })">
+			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'Contributor' })">
 				Contributor
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
@@ -56,8 +56,8 @@
 			</context-menu-item-app>
 	   </context-menu-app>
 	   <span *ngIf="!teamOwner">
-				<ng-container *ngIf="row.accessType === 'FullAccess'"> Team Member </ng-container>
-				<ng-container *ngIf="row.accessType === 'ReadOnly'"> Contributor </ng-container>
+				<ng-container *ngIf="row.accessType === 'TeamMember'"> Team Member </ng-container>
+				<ng-container *ngIf="row.accessType === 'Contributor'"> Contributor </ng-container>
 			</span>
 	</ng-template>
 

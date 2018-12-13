@@ -8,13 +8,13 @@ export class Invitation {
 	inviter: User;
 	accessType: string;
 	status: string;
-	__typename ?= 'Invitation';
+	__typename?= 'Invitation';
 
 	constructor(config?: InvitationConfig) {
 		Object.assign(this, config);
 		this.id = uuid();
 		if (!this.accessType) {
-			this.accessType = 'ReadOnly';
+			this.accessType = 'Contributor';
 		}
 		if (!this.status) {
 			this.status = 'pending';
@@ -38,13 +38,13 @@ export class InvitationUser {
 	teamId: string;
 	accessType: string;
 	status: string;
-	__typename ?= 'Invitation';
+	__typename?= 'Invitation';
 
 	constructor(config?: InvitationUserConfig) {
 		Object.assign(this, config);
 		this.id = uuid();
 		if (!this.accessType) {
-			this.accessType = 'ReadOnly';
+			this.accessType = 'Contributor';
 		}
 		if (!this.status) {
 			this.status = 'pending';
