@@ -68,7 +68,7 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	 * this is done so we keep the state even when navigating
 	 * from page to page. (angular component providers are recreated upon nav)
 	 */
-	private initServices(key: ListPageKey) {
+	private initServices(key: ListPageKey | string) {
 		// we are gonna set the right services in the map
 		this.selectionSrv = selectionSrvMap.get(key);
 		this.viewSrv = viewSrvMap.get(key);
