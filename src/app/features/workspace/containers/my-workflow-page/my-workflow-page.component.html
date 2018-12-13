@@ -5,17 +5,15 @@
   (search)="listSrv.search($event)">
 </sub-panel-app>
 
-<div class="kanbanCtnr">
-  <kanban-app
-    [cols]="columns$ | async"
-    [cardTemplate]="card"
-    [selection]="listSrv.selection$ | async"
-    (drop)="onUpdateProductStatus($event)"
-    (multipleDrop)="onUpdateProductStatus($event)"
-    (selectColumn)="onColumnSelected($event)"
-    (unselectColumn)="onColumnUnselected($event)">
-  </kanban-app>
-</div>
+<kanban-app
+  [cols]="columns$ | async"
+  [cardTemplate]="card"
+  [selection]="listSrv.selection$ | async"
+  (drop)="onUpdateProductStatus($event)"
+  (multipleDrop)="onUpdateProductStatus($event)"
+  (selectColumn)="onColumnSelected($event)"
+  (unselectColumn)="onColumnUnselected($event)">
+</kanban-app>
 
 <ng-template #card  let-data="data" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">
 		<product-card-app

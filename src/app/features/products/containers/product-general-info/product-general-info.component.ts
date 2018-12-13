@@ -3,7 +3,6 @@ import {
 	ChangeDetectorRef,
 	Component,
 	ElementRef,
-	NgModuleRef,
 	OnInit,
 	ViewChild,
 } from '@angular/core';

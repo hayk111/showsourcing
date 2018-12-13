@@ -6,6 +6,8 @@
 
 .right {
 	flex-grow: 1;
+	/** 100% minus menu width */
+	width: calc(100% - 79px);
 }
 
 icon-app {
