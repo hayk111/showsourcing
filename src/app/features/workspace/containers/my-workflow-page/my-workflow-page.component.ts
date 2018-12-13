@@ -1,20 +1,14 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { ListPageDataService } from '~core/list-page/list-page-data.service';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { SelectionWithFavoriteService } from '~core/list-page/selection-with-favorite.service';
+import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
+import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
-import { ProductQueries } from '~entity-services/product/product.queries';
-import { Product, ProductVote, ERM } from '~models';
+import { ERM, Product, ProductVote } from '~models';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
-import { ListPageService, ListPageKey } from '~core/list-page';
-import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -32,7 +26,6 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private featureSrv: ProductService,
 		private productStatusSrv: ProductStatusService,
-		private cdr: ChangeDetectorRef,
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService
 	) {
@@ -67,7 +60,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		const productStatuses$ = this.productStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused" AND category != "inspiration"',
-				sortBy: 'step'
+				sortBy: 'step',
+				descending: false
 			})
 			.pipe();
 
@@ -107,7 +101,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			droppedElement.forEach(element => {
 				this.featureSrv
 					.update({ id: element.id, status: { id: target.id } })
-					.subscribe(() => this.cdr.detectChanges());
+					.subscribe();
 			});
 			this.listSrv.unselectAll();
 		}

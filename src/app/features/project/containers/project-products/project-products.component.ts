@@ -49,7 +49,7 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
 		// whne the id is there
 		this.listSrv.setup({
-			key: ListPageKey.PROJECTS_PRODUCT,
+			key: `${ListPageKey.PROJECTS_PRODUCT}-${id}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			currentSort: { sortBy: 'category.name', descending: true },

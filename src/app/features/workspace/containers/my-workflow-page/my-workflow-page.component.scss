@@ -8,8 +8,11 @@ sub-panel-app {
   padding-bottom: 15px;
 }
 
-.kanbanCtnr {
-  display: flex;
+kanban-app {
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0 20px;
 }
 
 icon-app {

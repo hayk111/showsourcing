@@ -1,18 +1,17 @@
 import {
+	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
 	EventEmitter,
 	Input,
-	OnInit,
 	Output,
 	ViewChild,
-	AfterViewInit,
 } from '@angular/core';
 import { CustomField } from '~shared/dynamic-forms';
+import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 
 /**
  * Component that selects the correct input and display it as an editable text

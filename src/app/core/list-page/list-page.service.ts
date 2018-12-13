@@ -19,12 +19,12 @@ import { SelectionWithFavoriteService } from './selection-with-favorite.service'
 
 
 // where we can save the services
-const selectionSrvMap = new Map<ListPageKey, SelectionWithFavoriteService>();
-const dataSrvMap = new Map<ListPageKey, ListPageDataService<any, any>>();
-const viewSrvMap = new Map<ListPageKey, ListPageViewService<any>>();
+const selectionSrvMap = new Map<ListPageKey | string, SelectionWithFavoriteService>();
+const dataSrvMap = new Map<ListPageKey | string, ListPageDataService<any, any>>();
+const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 
 export interface ListPageConfig extends ListPageDataConfig {
-	key: ListPageKey;
+	key: ListPageKey | string;
 	entityMetadata: EntityMetadata;
 }
 

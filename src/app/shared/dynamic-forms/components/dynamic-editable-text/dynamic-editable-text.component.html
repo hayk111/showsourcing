@@ -155,14 +155,17 @@
 	</editable-field-app>
 
 	<!-- yesNo -->
+
 	<editable-field-app
-		*ngSwitchCase="'yesNo'"
 		#editable
+		*ngSwitchCase="'yesNo'"
 		[inlineLabel]="inlineLabel"
 		[openOnClick]="false"
 		(click)="toggleValue()">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</editable-label-app>
+		<editable-label-app>
+			{{ value ? 'Yes' : 'No' }}
+		</editable-label-app>
 	</editable-field-app>
 
 	<!-- price matrix -->
