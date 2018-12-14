@@ -4,6 +4,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	EventEmitter,
 	Input,
@@ -11,26 +12,23 @@ import {
 	QueryList,
 	ViewChild,
 	ViewChildren,
-	ChangeDetectorRef,
 } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
+import { Product, Project, Supplier, Tag } from '~core/models';
+import { AbstractInput } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
-import { TrackingComponent } from '~utils/tracking-component';
 
 import { SelectorCurrencyRowComponent } from '../selector-currency-row/selector-currency-row.component';
-import { AbstractInput } from '~shared/inputs';
-import { Supplier, Tag, Project, Product } from '~core/models';
-import { stringify } from 'querystring';
 
 @Component({
-	selector: 'selector2-app',
-	templateUrl: './selector2.component.html',
-	styleUrls: ['./selector2.component.scss'],
+	selector: 'selector-picker-app',
+	templateUrl: './selector-picker.component.html',
+	styleUrls: ['./selector-picker.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Selector2Component extends AbstractInput implements AfterViewInit {
+export class SelectorPickerComponent extends AbstractInput implements AfterViewInit {
 
 	private _type;
 	@Input() set type(type: string) {

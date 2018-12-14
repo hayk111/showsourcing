@@ -1,17 +1,17 @@
-<selector2-app
+<selector-picker-app
 	type="project"
 	[canCreate]="true"
 	[value]="(product$ | async)?.projects"
 	[multiple]="true"
 	(update)="update($event, 'projects')">
-</selector2-app>
+</selector-picker-app>
 <!--  if this is uncommented and since we are not using virtual scroll, on selector2 -> searchTxt = 'light'
 			so we just load part of it -->
-<selector2-app
+<selector-picker-app
 	type="supplier"
 	[canCreate]="true"
 	(update)="update($event, 'supplier')">
-</selector2-app>
-<selector2-app
+</selector-picker-app>
+<selector-picker-app
 	type="currency">
-</selector2-app>
+</selector-picker-app>

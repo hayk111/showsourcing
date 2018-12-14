@@ -17,7 +17,7 @@ import {
 	SelectorSupplierRowComponent,
 	SelectorTextRowComponent,
 	SelectorUserRowComponent,
-	Selector2Component,
+	SelectorPickerComponent,
 } from './components';
 import { SelectorConstComponent } from './components/selector-const/selector-const.component';
 import { SelectorEntityComponent } from './components/selector-entity/selector-entity.component';
@@ -32,7 +32,7 @@ import { UtilsModule } from '~shared/utils';
 const components = [
 	CdkOverlayComponent,
 	SelectorComponent,
-	Selector2Component,
+	SelectorPickerComponent,
 	SelectorConstComponent,
 	SelectorEntityComponent,
 	SelectorCurrencyRowComponent,
