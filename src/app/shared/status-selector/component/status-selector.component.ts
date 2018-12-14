@@ -32,6 +32,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Input() selectSize = 'm';
 	@Input() isSendToWorkFlow = false;
 	@Input() internalUpdate = true;
+	@Input() type = 'badge';
 	@Output() statusUpdated = new EventEmitter<any>();
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	/** string[] since tasks does not have a status entity */

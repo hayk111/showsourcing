@@ -26,10 +26,15 @@ export class ListPageDataService
 	private items: Array<T> = [];
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
-	selectParams: SelectParamsConfig = { query: 'deleted == false' };
+	selectParams: SelectParamsConfig = {
+		query: 'deleted == false',
+		sortBy: 'creationDate',
+		descending: true,
+		take: 15,
+		skip: 0
+	};
 	/** searched string */
 	private currentSearch = '';
-	private initialFilters: Filter[] = [];
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
 		// initial filters

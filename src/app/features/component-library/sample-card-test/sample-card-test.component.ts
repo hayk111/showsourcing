@@ -47,7 +47,7 @@ export class SampleCardTestComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.SAMPLE,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name'],
-			currentSort: { sortBy: 'name', descending: false },
+			selectParams: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.SAMPLE
 		});
 

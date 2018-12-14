@@ -1,14 +1,8 @@
 :host {
-	display: block;
 	padding: 8px var(--spacing-ms);
 	white-space: nowrap;
-	min-width: 100px;
 
 	&:hover {
 		background: var(--color-secondary-light);
-	}
-
-	&.remove-workflow {
-		color: var(--color-warn);
 	}
 }

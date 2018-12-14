@@ -35,13 +35,13 @@
 					</div>
 
 					<div class="secondary flexBetween sort-1 button-action button-workflow">
-						<!-- <span (click)="sentToWorkflow.emit(product)">Send to {{ firstStatus?.name | const: 'status'  }}</span> -->
 						<div class="send-workflow" (click)="sendToWorkflowFunc(product, card)">
 							Send to {{ firstStatus?.name ? (firstStatus.name | const: 'status') : 'workflow'  }}
 						</div>
-						<div class="button-icon">
+						<div class="button-icon flexCenter">
 							<status-selector-app
 								#workActionMenu
+								type="dropdown"
 								[entity]="product"
 								selectSize="s"
 								[typeEntity]="prodERM"
