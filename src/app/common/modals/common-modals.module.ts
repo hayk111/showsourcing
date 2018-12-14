@@ -18,7 +18,7 @@ import { FindProductsDialogComponent } from '~common/product/containers/find-pro
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
-
+import { InputsModule } from '~shared/inputs';
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import { ProductsCardViewDialogComponent } from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
@@ -48,7 +48,8 @@ const modals = [
 		CommonModule,
 		SharedModule,
 		ProductCommonModule,
-		TableModule
+		TableModule,
+		InputsModule
 	],
 	declarations: [...modals, ProductsCardViewDialogComponent],
 	entryComponents: modals,
