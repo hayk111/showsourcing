@@ -21,8 +21,9 @@ export class ImageService extends GlobalWithAuditService<AppImage> {
 	}
 
 	download(img: AppImage) {
-		if (window)
-			window.open(ImageUrls.xl + '/' + img.fileName);
+		if (window) {
+			window.open(`${ImageUrls.xl}/${img.id}.jpg`);
+		}
 	}
 }
 
