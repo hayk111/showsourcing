@@ -86,7 +86,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
-	updateProduct(product: Product, fields?: string) {
+	updateProduct(product: Product, field?: string) {
 		product.id = this.product.id;
 		this.srv.update(product).subscribe();
 	}
