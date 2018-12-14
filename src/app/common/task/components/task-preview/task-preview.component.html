@@ -56,50 +56,22 @@
 
 			<!-- Assignee -->
 			<div class="right">
-					<editable-field-app #editable [hasAction]="false" [inlineLabel]="false"
-						(opened)="selector.open()" [canGrow]="true">
+				<selector2-app
+					type="user"
+					[width]="210"
+					[offsetY]="-26"
+					(update)="update($event, 'assignee')">
+					<editable-field-app
+						#editable [hasAction]="false" [inlineLabel]="false" [canGrow]="true" [openOnClick]="false">
 						<label-app>Assigned to</label-app>
 						<editable-label-app class="flex">
 							<user-picture-app
 								[user]="task?.assignee" [size]="16" [border]="true">
 							</user-picture-app>
-							{{ task?.assignee ? task.assignee.firstName+' '+task?.assignee?.lastName[0] : 'Unassigned' }}
+							{{ task?.assignee?.firstName }} {{ task?.assignee?.lastName ? task?.assignee?.lastName[0] : ''}}
 						</editable-label-app>
-						<selector-entity-app
-							#selector
-							type="user"
-							[displayedValue]="task?.assignee?.firstName"
-							(clickOutside)="editable.close()"
-							(change)="update($event, 'assignee'); editable.close();">
-						</selector-entity-app>
 					</editable-field-app>
-				<!-- <div class="title">Assigned to</div>
-				<div class="flex pointer"	(click)="toggleSelector(true)"> -->
-					<!-- Selector -->
-					<!-- <cdk-overlay-app
-						*ngIf="menuOpen"
-						[trigger]="trigger"
-						[isOpen]="menuOpen"
-						[offsetY]="-22"
-						(clickOutside)="closeMenu()">
-						<selector-entity-app
-							#selector
-							type="user"
-							style="width: 200px"
-							(clickOutside)="closeMenu()"
-							(change)="update($event, 'assignee'); closeMenu();">
-						</selector-entity-app>
-					</cdk-overlay-app> -->
-					<!-- User info -->
-					<!-- <user-picture-app
-						cdkOverlayOrigin
-						#trigger="cdkOverlayOrigin"
-						[user]="task?.assignee" [size]="16" [border]="true">
-					</user-picture-app>
-					<div class="user-name">
-						{{ task?.assignee ? task.assignee.firstName+' '+task?.assignee?.lastName[0] : 'Unassigned' }}
-					</div> -->
-				<!-- </div> -->
+				</selector2-app>
 			</div>
 		</div>
 	</preview-section-app>

@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild, AfterContentChecked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task, User } from '~models';
-import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 
 @Component({
 	selector: 'task-app',
@@ -8,7 +7,7 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
 	styleUrls: ['./task.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskComponent implements AfterContentChecked {
+export class TaskComponent {
 
 	@Input() fullUser = false;
 	@Input() task: Task;
@@ -19,18 +18,8 @@ export class TaskComponent implements AfterContentChecked {
 	@Output() updateTask = new EventEmitter<Task>();
 	@Output() previewClicked = new EventEmitter<Task>();
 
-	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
-
-	menuOpen = false;
-
 	constructor() { }
 
-	ngAfterContentChecked() {
-		if (this.selector && this.menuOpen) {
-			this.selector.open();
-			this.selector.selector.ngSelect.updateDropdownPosition();
-		}
-	}
 
 	get getStatus() {
 		let status = 'pending';
@@ -43,19 +32,10 @@ export class TaskComponent implements AfterContentChecked {
 
 	updateAssignee(user: User) {
 		this.updateTask.emit({ ...this.task, assignee: user });
-		this.closeMenu();
 	}
 
 	toggleDoneStatus() {
 		const done = !this.task.done;
 		this.updateTask.emit({ ...this.task, done });
-	}
-
-	toggleMenu() {
-		this.menuOpen = !this.menuOpen;
-	}
-
-	closeMenu() {
-		this.menuOpen = false;
 	}
 }

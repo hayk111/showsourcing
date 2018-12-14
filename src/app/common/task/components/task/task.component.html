@@ -22,54 +22,33 @@
 	</div>
 
 	<!-- user+name column -->
-	<div *ngIf="fullUser"
+	<selector2-app
+		*ngIf="fullUser"
 		class="flex task-user"
-		cdkOverlayOrigin
-		#trigger="cdkOverlayOrigin"
-		(click)="toggleMenu()">
-		<!-- DONT ERASE THIS IN CASE THE TASK MENU != TASK WORKSPACE -->
-		<!-- we call 2 times the selctor method since it has 2 different styling offsets -->
-		<user-picture-app [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
-		<span>{{ task?.assignee?.firstName }} {{ task?.assignee?.lastName }}</span>
-		<cdk-overlay-app
-			*ngIf="menuOpen && fullUser"
-			[trigger]="trigger"
-			[isOpen]="menuOpen"
-			[offsetY]="-22"
-			(clickOutside)="closeMenu()">
-			<selector-entity-app
-				#selector
-				style="width: 200px;"
-				type="user"
-				(clickOutside)="closeMenu()"
-				(change)="updateAssignee($event)">
-			</selector-entity-app>
-		</cdk-overlay-app>
-	</div>
+		type="user"
+		[width]="200"
+		[offsetY]="-22"
+		(update)="updateAssignee($event)">
+		<div class="flexVAlign">
+			<!-- we call 2 times the selctor method since it has 2 different styling offsets -->
+			<user-picture-app [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
+			<span>{{ task?.assignee?.firstName }} {{ task?.assignee?.lastName }}</span>
+		</div>
+	</selector2-app>
 
 	<!-- task status -->
-	<div class="flexEnd task-user-status"
-		cdkOverlayOrigin
-		#trigger="cdkOverlayOrigin">
-		<user-picture-app
+	<div class="flexEnd task-user-status">
+		<selector2-app
 			*ngIf="!fullUser"
-			[user]="task?.assignee"	[size]="20"	[border]="true"
-			(click)="toggleMenu()">
-		</user-picture-app>
-		<cdk-overlay-app
-			*ngIf="!fullUser && menuOpen"
-			[trigger]="trigger"
-			[isOpen]="menuOpen"
+			type="user"
+			[width]="230"
 			[offsetY]="-22"
-			(clickOutside)="closeMenu()">
-			<selector-entity-app
-				#selector
-				style="width: 230px;"
-				type="user"
-				(clickOutside)="closeMenu()"
-				(change)="updateAssignee($event)">
-			</selector-entity-app>
-		</cdk-overlay-app>
+			[offsetX]="-115"
+			(update)="updateAssignee($event)">
+			<user-picture-app
+				[user]="task?.assignee"	[size]="20"	[border]="true">
+			</user-picture-app>
+		</selector2-app>
 		<div class="flex task-status"
 			[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}"
 			(click)="toggleDoneStatus()">

@@ -12,29 +12,17 @@
 		</span>
 	</div>
 
-	<div
+	<selector2-app
 		class="flex col-25 sample-user display-name"
-		cdkOverlayOrigin
-		#trigger="cdkOverlayOrigin"
-		(click)="toggleMenu()">
-
-		<user-picture-app [user]="sample?.assignee" [size]="20" [border]="true"></user-picture-app>
-		<span class="ellipsis capitalize">{{ sample?.assignee?.firstName }} {{ sample?.assignee?.lastName ? sample?.assignee?.lastName[0] + '.' : '' }}</span>
-		<cdk-overlay-app
-			*ngIf="menuOpen"
-			[trigger]="trigger"
-			[isOpen]="menuOpen"
-			[offsetY]="-27"
-			(clickOutside)="closeMenu()">
-			<selector-entity-app
-				#selector
-				style="width: 285px;"
-				type="user"
-				(clickOutside)="closeMenu()"
-				(change)="updateAssignee($event)">
-			</selector-entity-app>
-		</cdk-overlay-app>
-	</div>
+		[offsetY]="-27"
+		type="user"
+		[width]="285"
+		(update)="updateAssignee($event)">
+		<div class="flex sample-user display-name">
+			<user-picture-app [user]="sample?.assignee" [size]="20" [border]="true"></user-picture-app>
+			<span class="ellipsis capitalize">{{ sample?.assignee?.firstName }} {{ sample?.assignee?.lastName ? sample?.assignee?.lastName[0] + '.' : '' }}</span>
+		</div>
+	</selector2-app>
 
 	<!-- sample status -->
 	<div class="col-15 sample-status">

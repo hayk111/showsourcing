@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { CurrencyService } from '~core/entity-services/currency/currency.service';
 import {
 	CategoryService,
@@ -9,10 +10,10 @@ import {
 	ProjectService,
 	SupplierService,
 	TagService,
+	UserService,
 } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
-import { TeamUserService } from '~entity-services/team-user/team-user.service';
-import { Category, Currency, Event, Product, Project, SupplierType, Tag, TeamUser, User } from '~models';
+import { Category, Currency, Event, Product, Project, SupplierType, Tag, User } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
@@ -26,16 +27,16 @@ import { categories } from '~utils/constants/categories.const';
 export class SelectorsService {
 
 	constructor(
-		private constPipe: ConstPipe,
-		private supplierSrv: SupplierService,
 		private categorySrv: CategoryService,
+		private constPipe: ConstPipe,
+		private currencySrv: CurrencyService,
 		private eventSrv: EventService,
-		private tagSrv: TagService,
-		private teamUserSrv: TeamUserService,
-		private supplierTypeSrv: SupplierTypeService,
 		private productSrv: ProductService,
 		private projectSrv: ProjectService,
-		private currencySrv: CurrencyService,
+		private supplierSrv: SupplierService,
+		private supplierTypeSrv: SupplierTypeService,
+		private tagSrv: TagService,
+		private userSrv: UserService
 	) { }
 
 	getCountries(): any[] {
@@ -113,14 +114,9 @@ export class SelectorsService {
 	}
 
 	getUsers(searchTxt?: string): Observable<User[]> {
-		if (searchTxt) return this.teamUserSrv
-			.queryMany({ query: `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"` })
-			.pipe(
-				map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.user))
-			);
-		return this.teamUserSrv.queryAll().pipe(
-			map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.user))
-		);
+		if (searchTxt) return this.userSrv
+			.queryMany({ query: `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"` }, '', Client.TEAM);
+		return this.userSrv.queryAll('', null, Client.TEAM);
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {

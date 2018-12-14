@@ -1,1 +1,2 @@
-{{user?.firstName || 'Unnamed user'}}
+<user-picture-app [user]="user" [size]="18" [border]="true"></user-picture-app>
+<span>{{ user?.firstName }} {{ user?.lastName }}</span>

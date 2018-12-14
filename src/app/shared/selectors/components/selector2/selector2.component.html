@@ -1,7 +1,9 @@
 <!-- the trigger -->
-<div (click)="menuOpen = !menuOpen"
+<div
+	#trigger="cdkOverlayOrigin"
 	cdkOverlayOrigin
-	#trigger="cdkOverlayOrigin">
+	class="fullWidth"
+	(click)="menuOpen = !menuOpen">
 	<ng-content></ng-content>
 </div>
 
