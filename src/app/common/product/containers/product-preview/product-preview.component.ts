@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
@@ -19,6 +19,7 @@ import { AppImage, ERM, PreviewActionButton, Product } from '~models';
 import { CustomField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub, PendingImage } from '~utils';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'product-preview-app',
@@ -118,6 +119,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild('inpFile') inpFile: ElementRef;
 
 	constructor(
+		private route: ActivatedRoute,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
 		private featureSrv: ProductService,
@@ -154,9 +156,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			}
 		];
 	}
-	//
-	ngOnInit() {
 
+	ngOnInit() {
+		this.product$ = this.featureSrv.selectOne(this.product.id);
+		this.product$.pipe(takeUntil(this._destroy$))
+			.subscribe(s => this.product = s);
 	}
 
 	updateProduct(product: any) {
