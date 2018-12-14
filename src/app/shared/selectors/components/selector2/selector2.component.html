@@ -16,31 +16,31 @@
 	<ng-container [ngSwitch]="type">
 
 		<ng-container *ngSwitchCase="'supplier'">
-			<selector-supplier-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [supplier]="item" (click)="onSelect(item)"></selector-supplier-row-app>
+			<selector-supplier-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [supplier]="item" (click)="onSelect(item)"></selector-supplier-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'project'">
-			<selector-project-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [ngClass]="getActiveClass(item)" [project]="item" (click)="onSelect(item)"></selector-project-row-app>
+			<selector-project-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [ngClass]="getActiveClass(item)" [project]="item" (click)="onSelect(item)"></selector-project-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'user'">
-			<selector-user-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
+			<selector-user-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'currency'">
-			<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
+			<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'product'">
-			<selector-product-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [product]="item" (click)="onSelect(item)"></selector-product-row-app>
+			<selector-product-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [product]="item" (click)="onSelect(item)"></selector-product-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'tag'">
-			<selector-tag-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" [ngClass]="getActiveClass(item)" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
+			<selector-tag-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [ngClass]="getActiveClass(item)" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchDefault>
-			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" [text]="item" (click)="onSelect(item)"></selector-text-row-app>
+			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item" (click)="onSelect(item)"></selector-text-row-app>
 		</ng-container>
 
 	</ng-container>

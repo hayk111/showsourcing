@@ -29,9 +29,15 @@
   width: 395px;
 }
 
+
 .container-items {
 	height: 210px;
 	overflow-y: auto;
+
+	.selector-row {
+		padding-left: var(--spacing-ms);
+		align-items: center;
+	}
 
 	.create-container {
 		height: 37px;
