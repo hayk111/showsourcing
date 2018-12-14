@@ -1,20 +1,25 @@
 # Supplier Show Sourcing Web App
 
 
-## Overview of the documentation
+# Overview of the documentation
 
 The goal of this readme is to present the guidelines followed throughout the application and furnish a clear path to follow to understand the app.
 
-## Table of Content
+# Table of Content
 
  - Running the app
  - Other Scripts
  - File structure
  - Style structure
- - Global Services
+ - Before starting
+ - Entity Services
+ - List Page Service
+ - Auto Unsub
+ - Translation
 
 
-## Running the app
+
+# Running the app
 
 No surprise here
 
@@ -40,19 +45,20 @@ You can run every script with `npm run`, for example `npm run start`.
  - `npm run translate:fr` Translates and generates `message.xlf` `messages.fr.xlf`, also merges the old source langauge file with the new one (see Translation section)
 
 
-## File Structure & guidelines
+# File Structure & guidelines
 
 At the root of src we have
 
  ```
   - app-root: small folder containing only the root module and root component
   - features: folder containing feature modules (pages)
-  - global-services: folder containing the main business logic of accessing the back-end.
-  - models: containing the models for the different entities used throughout the app
-  - shared: folder containing modules shared between feature-modules
+  - core: folder containing essential classes on which the application is based
+  - common: folder containing big modules like ProductCommonModule, TaskCommonModule.
+  - shared: folder containing modules shared. The sharedModule contains them all.
   - theming: contains the global styles
   - utils: contains some utils used throughout the app
  ```
+
 
 In each module the division of the file structure is with those folders (each one being optional).
 
@@ -69,7 +75,7 @@ In each module the division of the file structure is with those folders (each on
  README.md
 ```
 
-## Style Structure
+# Style Structure
 
 The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs.
 
@@ -77,15 +83,67 @@ Spacing and palette use CSS4 variables and should be used throughout the applica
 
 Some scss files are based on google material design guidelinds. For instance `elevation.scss` is a somewhat simplified version of the file in angular material design.
 
-## Global Services
+# Before starting
 
-When accessing the db for an entity we use its global service. For example if we want to access the ProductVotes in the database we will use `ProductVoteService` that is
-located in `src/global-services`. If you open the file you'll notice the file is quite empty, the class `ProductVoteService` merely extends GlobalService that does the heavy lifting.
+To have a smooth time understanding the app, two big features have to be understood first.
+The Entity Services and the ListPageService. Those will be described below
 
-There is 3 important classes to understand to get how this works.
+# Entity Services
+
+When accessing the db for an entity we use its entity service. For example if we want to access the ProductVotes in the database we will use `ProductVoteService`. If you open the file you'll notice the file is quite empty, the class `ProductVoteService` merely extends GlobalService that does the heavy lifting.
+
+So At the base of the data business logic we have a bunch of entity service that provide CRUD
+functions like `queryOne`, `queryMany`, `selectOne`, `update` and so on...
+
+The difference between `query` and `select` is that the `select` will do a subscription.
+So you'll be notified of changes that happen on the back end (it could be changes from other people).
+
+There is one special method that is `getListQuery` that return a `ListQuery`
+that can be used for `refetching`, `loadMore`, etc...
+
+## To Subscribe or not to unsubscribe ?
+
+All the methods except the ones that retrieve data use `first()` as rxjs pipe.
+That means that you don't have to worry about unsubscribing and things like this are
+perfectly valid without ever unsubscribing:
+
+```
+    this.productSrv.update(product).subscribe();
+```
+
+## Updating Subentity
+
+When a subentity is updated it has to be by making a new one. Example:
+
+```
+		this.productSrv.update({
+			id: event.item.id,
+			status: new ProductStatus({ id: statusId })
+		}).subscribe();
+```
+
+We create a new Product status and give the id of an existing one.
+This is because the cache expect to receive a __typename inside the object, this means that the following would also be valid
+
+```
+		this.productSrv.update({
+			id: event.item.id,
+			status: { id: statusId, __typename: 'Status' }
+		}).subscribe();
+```
+
+We don't have to do it for the root entity because the global service automatically does
+it himself.
+
+## Under the hood
+
+Understanding what's under the hood is not important to understand the rest of the application. However the following can be interesting if there is a need for debugging.
+Entity services extend `GlobalService` that adds crud operations, and more. It will do heavy logging and do some other behind the scene work. To do the querying automatically it uses the `QueryBuilder`.
+
+To understand more about it you'll have to check the implementation.
 
 
-#### QueryBuilder
+## QueryBuilder
 
 The query builder create graphQL queries.
 
@@ -106,7 +164,7 @@ The content of the queryOne method in query builder is simple to understand, it 
 		}`)
 ```
 
-#### GlobalQueries
+## GlobalQueries
 
 The `GlobalQuery` class is really simple as it is supposed to be extended.
 
@@ -131,39 +189,21 @@ export class Supplier extends GlobalQueries {
 It will basically make the application request for a `name` and a `description` every time a query to *one* `Supplier` is made.
 
 
-#### GlobalService
+# List Page Service
 
-`GlobalService` adds crud operations, and more to the services extending it. It will do heavy logging and do some other behind the scene work. To do the querying automatically it uses the `QueryBuilder`. It also uses
-
-```
-	/**
-	 * Query one item by id, (query, optimistic UI)
-	 * @param id : id of the entity selected
-	 * @param fields: the fields you want to query, if none is specified the default ones are used
-	 * @param client: name of the client you want to use, if none is specified the default one is used
-	 */
-	queryOne(id: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
-		fields = this.getFields(fields, this.fields.one); // == fields || this.fields.one
-		const gql = this.queryBuilder.queryOne(fields);
-        // ...
-    }
-```
-
-The first line of the method `fields = this.getFields(fields, this.fields.one);` is more or less equivalent to `fields || this.fields.one`.
-`this.fields.one` is the `one` from the `GlobalQueries` explained above.
-
-This second line will call `queryBuilder.queryOne(fields)` with the fields it got above.
+List and tables are used extensively in the application. We have a service that deals with
+most of the logic for those lists. This service is called `ListPageService`. To understand this app it's paramount that one understand that first.
 
 
-## AutoUnsub
+# AutoUnsub
 
 To prevent memory leaks, components which are using observables should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables when the component is destroyed.
 The AutoUnsub class should be used as a standard app wise.
 
 
-### Translation
+# Translation
 
-(13/06/18)
+(13/06/18) by Michael
 
 [Documentation on xliffmerge](https://github.com/martinroob/ngx-i18nsupport)
 `npm run translate` will generate `messages.xlf`

@@ -42,7 +42,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.listSrv.setup({
 			key: ListPageKey.PROJECT_WORKFLOW,
-			entitySrv: this.featureSrv,
+			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
 			currentSort: { sortBy: 'category.name', descending: true },
 			entityMetadata: ERM.PRODUCT
