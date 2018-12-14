@@ -32,8 +32,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 			key: ListPageKey.TEAM_USER,
 			entitySrv: this.featureSrv,
 			searchedFields: ['user.firstName', 'user.lastName', 'user.email'],
-			currentSort: { sortBy: 'user.firstName', descending: true },
-			initialPredicate: '',
+			selectParams: { query: '', sortBy: 'user.firstName', descending: true },
 			entityMetadata: ERM.TEAM_USER
 		});
 

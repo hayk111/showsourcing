@@ -10,8 +10,8 @@ import { statusToColor } from '~utils/status-to-color.function';
  * @param withoutStatus: boolean (default true) whether or not we enable a column for products without status
  */
 export function statusProductToKanbanCol(
-	types: ProductStatus[],
-	products: Product[],
+	types: ProductStatus[] = [],
+	products: Product[] = [],
 	withoutStatus = true): KanbanColumn[] {
 	const constPipe = new ConstPipe();
 	// make the columns

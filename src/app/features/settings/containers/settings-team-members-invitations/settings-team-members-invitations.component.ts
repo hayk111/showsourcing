@@ -17,7 +17,6 @@ import { CloseEventType } from '~shared/dialog';
 })
 export class SettingsTeamMembersInvitationsComponent extends TrackingComponent implements OnInit {
 	hasSelected = false;
-	initialPredicate = '';
 
 	constructor(
 		private featureSrv: InvitationFeatureService,
@@ -32,8 +31,7 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 			key: ListPageKey.INVITATION,
 			entitySrv: this.featureSrv,
 			searchedFields: ['email'],
-			initialPredicate: '',
-			currentSort: { sortBy: 'email', descending: true },
+			selectParams: { query: '', sortBy: 'email', descending: true },
 			entityMetadata: ERM.TEAM_USER
 		});
 		// TODO remove below if page works properly,

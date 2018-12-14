@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { AutoUnsub } from '~utils';
-import { SampleService } from '~core/entity-services';
-import { Sample, ERM, AppImage, Comment } from '~core/models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CustomField } from '~shared/dynamic-forms';
 import { takeUntil } from 'rxjs/operators';
+import { SampleService } from '~core/entity-services';
+import { Comment, ERM, Sample } from '~core/models';
+import { CustomField } from '~shared/dynamic-forms';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -46,7 +46,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.sample$ = this.sampleSrv.selectOne(this._sample.id);
+		this.sample$ = this.sampleSrv.queryOne(this._sample.id);
 		this.sample$.pipe(takeUntil(this._destroy$))
 			.subscribe(s => this._sample = s);
 	}

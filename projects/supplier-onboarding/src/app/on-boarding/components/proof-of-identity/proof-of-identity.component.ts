@@ -73,7 +73,7 @@ export class ProofOfIdentityComponent extends TrackingComponent
 	}
 
 	getAttachmentFromFile(file: File): Attachment {
-		return new Attachment(file.name, file.size);
+		return new Attachment({ fileName: file.name, size: file.size });
 	}
 	add(files: Array<File>) {
 		if (files.length === 0) {

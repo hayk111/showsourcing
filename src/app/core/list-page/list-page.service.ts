@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, switchMap, map, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -40,7 +40,8 @@ export interface ListPageConfig extends ListPageDataConfig {
 @Injectable({
 	providedIn: 'root'
 })
-export class ListPageService<T extends { id?: string }, G extends GlobalServiceInterface<T>> {
+export class ListPageService
+	<T extends { id?: string }, G extends GlobalServiceInterface<T>> {
 
 	selectionSrv: SelectionWithFavoriteService;
 	dataSrv: ListPageDataService<T, G>;
@@ -107,7 +108,10 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	get currentSort() {
-		return this.dataSrv.currentSort;
+		return {
+			sortBy: this.dataSrv.selectParams.sortBy,
+			descending: this.dataSrv.selectParams.descending
+		};
 	}
 
 	refetch(config?: SelectParamsConfig) {
@@ -131,9 +135,9 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 	}
 
 	updateSelected(value: any) {
-		const ids = this.getSelectedIds()
+		const items = this.getSelectedIds()
 			.map(id => ({ id, ...value }));
-		this.dataSrv.updateMany(value).subscribe();
+		this.dataSrv.updateMany(items).subscribe();
 	}
 
 	update(value: T) {
@@ -203,7 +207,8 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 			.pipe(
 				filter(event => event.type === CloseEventType.OK),
 				switchMap(_ => this.dataSrv.deleteOne(id)),
-				switchMap(_ => this.refetch())
+				// we don't want to refetch or we lose the pagination
+				// switchMap(_ => this.refetch())
 			).subscribe();
 	}
 
@@ -215,7 +220,8 @@ export class ListPageService<T extends { id?: string }, G extends GlobalServiceI
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter(event => event.type === CloseEventType.OK),
 			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
-			switchMap(_ => this.refetch())
+			// we don't want to refetch or we lose the pagination
+			// switchMap(_ => this.refetch())
 		).subscribe(_ => {
 			this.selectionSrv.unselectAll();
 		});

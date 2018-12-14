@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
-import { map, takeUntil, switchMap } from 'rxjs/operators';
+import { map, takeUntil, switchMap, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
@@ -40,26 +40,27 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		const id = this.route.parent.snapshot.params.id;
+		this.project$ = this.projectSrv.queryOne(id);
+
 		this.listSrv.setup({
 			key: ListPageKey.PROJECT_WORKFLOW,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			currentSort: { sortBy: 'category.name', descending: true },
+			selectParams: {
+				query: `projects.id == "${id}" AND status.category != "refused" AND status.category != "inspiration"`,
+				sortBy: 'category.name',
+				descending: true,
+				take: 0 // basically query all
+			},
 			entityMetadata: ERM.PRODUCT
 		});
-
-		const id = this.route.parent.snapshot.params.id;
-		this.project$ = this.projectSrv.queryOne(id);
 
 		this.project$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(project => this.project = project);
 
-		const products$ = this.productSrv.queryAll(ProductQueries.many, {
-			query: `projects.id == "${id}"`,
-			sortBy: 'lastUpdatedDate',
-		}).pipe(
-			// first(),
+		const products$ = this.listSrv.items$.pipe(
 			// we lose the order when the product is updated
 			// because apollo has no idea of how to reorder items unless we do
 			// a refetch, but we re gonna do it on the front end
@@ -72,7 +73,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			.queryAll(undefined, {
 				query: 'category != "refused" AND category != "inspiration"',
 				sortBy: 'step',
-				descending: false
+				descending: false,
 			}).pipe();
 
 		this.columns$ = combineLatest(

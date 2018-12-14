@@ -36,6 +36,7 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 	ngOnInit() {
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.featureSrv.queryOne(id);
+
 		this.project$.subscribe(proj => this.project = proj);
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
 		// whne the id is there
@@ -43,8 +44,11 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 			key: `${ListPageKey.PROJECTS_PRODUCT}-${id}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'category.name', descending: true },
-			initialPredicate: `projects.id == "${id}" AND deleted == false`,
+			selectParams: {
+				query: `projects.id == "${id}" AND deleted == false`,
+				sortBy: 'category.name',
+				descending: true
+			},
 			entityMetadata: ERM.PRODUCT
 		});
 	}

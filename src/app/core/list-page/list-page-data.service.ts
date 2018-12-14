@@ -26,12 +26,9 @@ export class ListPageDataService
 	private items: Array<T> = [];
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
-	/** predicate that will be used at the start for filtering */
-	private initialPredicate = 'deleted == false';
+	selectParams: SelectParamsConfig = { query: 'deleted == false' };
 	/** searched string */
 	private currentSearch = '';
-	/** currently used sort */
-	currentSort: Sort = { sortBy: 'creationDate', descending: true };
 	private initialFilters: Filter[] = [];
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
@@ -74,11 +71,11 @@ export class ListPageDataService
 
 	/** subscribe to items and get the list result */
 	setItems() {
-		this.filterList.addFilters(this.initialFilters);
+		// this.filterList.addFilters(this.initialFilters);
 		this.listResult = this.entitySrv.getListQuery({
-			query: this.getPredicate(),
-			sortBy: this.currentSort.sortBy,
-			descending: this.currentSort.descending
+			...this.selectParams,
+			// overriding query in case there is a filter / search
+			query: this.getPredicate()
 		});
 
 		this.items$ = this.listResult.items$.pipe(
@@ -118,7 +115,7 @@ export class ListPageDataService
 
 	private getPredicate() {
 		return [
-			this.initialPredicate,
+			this.selectParams.query,
 			this.currentSearch,
 			this.filterList.asPredicate()
 		].filter(p => !!p).join(' AND ');
@@ -129,7 +126,7 @@ export class ListPageDataService
 	 * @param config configuration used to refetch
 	 */
 	refetch(config?: SelectParamsConfig) {
-		return this.listResult.refetch(config);
+		return this.listResult.refetch(config || this.selectParams);
 	}
 
 	/** Loads more items when we reach the bottom of the page */
@@ -139,17 +136,18 @@ export class ListPageDataService
 
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
-		this.currentSort = sort;
-		return this.refetch({ ...sort });
+		this.selectParams = { ...this.selectParams, ...sort };
+		return this.refetch();
 	}
 
 	sortFromMenu(fieldName) {
-		if (this.currentSort && this.currentSort.sortBy === fieldName) {
-			this.currentSort = { ...this.currentSort, descending: !this.currentSort.descending };
+		if (this.selectParams.sortBy === fieldName) {
+			this.selectParams.descending = !this.selectParams.descending;
 		} else {
-			this.currentSort = { sortBy: fieldName, descending: false };
+			this.selectParams.sortBy = fieldName;
+			this.selectParams.descending = false;
 		}
-		return this.refetch({ ...this.currentSort });
+		return this.refetch();
 	}
 
 	/** when we want to search through the list we only search the name */

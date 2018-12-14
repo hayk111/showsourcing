@@ -12,5 +12,6 @@ export class Comment extends EntityWithAudit<CommentConfig> {
 }
 
 export interface CommentConfig {
-	text: string;
+	id?: string;
+	text?: string;
 }
