@@ -16,6 +16,11 @@ import { EntityMetadata, Product } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 
+/**
+ * Service used to open dialogs, the goal of this service is to bring easy typing
+ * for data in dialog as well as to relieve the imports of the dlg components
+ * which might bring some circular dependencies from time to time
+ */
 @Injectable({ providedIn: 'root' })
 export class CommonModalService {
 
@@ -28,66 +33,45 @@ export class CommonModalService {
 	 * if its truem otherwise it will stay on the same page
 	 */
 	openCreateDlg(entityMetadata: EntityMetadata, shouldRedirect: boolean = false) {
-		this.dlgSrv.open(
-			CreationDialogComponent,
-			{ shouldRedirect, type: entityMetadata }
-		);
+		return this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, type: entityMetadata });
 	}
 
 	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/
 	openEditDlg(entity: any, entityMetadata: EntityMetadata) {
-		this.dlgSrv.open(
-			EditionDialogComponent,
-			{ entity, type: entityMetadata }
-		);
+		return this.dlgSrv.open(EditionDialogComponent, { entity, type: entityMetadata });
 	}
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog(products?: Product[]) {
-		this.dlgSrv.open(ProductAddToProjectDlgComponent, {
-			selectedProducts: products
-		});
+		return this.dlgSrv.open(ProductAddToProjectDlgComponent, { products });
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(products?: Product[]) {
-		this.dlgSrv.open(ProductExportDlgComponent, {
-			selectedProducts: products
-		});
+		return this.dlgSrv.open(ProductExportDlgComponent, { products });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(products?: Product[]) {
-		this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, {
-			selectedProducts: products
-		});
+		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
 	}
 
 	/** Opens a dialog that lets the user compare quotation between products */
 	openCompareQuotationDialog(products: Product[]) {
-		this.dlgSrv.open(CompareQuotationComponent, {
-			products
-		});
+		return this.dlgSrv.open(CompareQuotationComponent, { products });
 	}
 
-	openFindProductDlg(products: Product[], callback: any) {
-		this.dlgSrv.open(FindProductsDialogComponent, {
-			shouldRedirect: false,
-			initialSelectedProducts: products,
-			submitCallback: callback
+	openFindProductDlg(initialSelectedProducts: Product[]) {
+		return this.dlgSrv.open(FindProductsDialogComponent, {
+			initialSelectedProducts,
 		});
 	}
 
 	openCompareProductDialog(products: Product[]) {
-		this.dlgSrv.open(CompareProductComponent, {
-			products: products
-		});
+		return this.dlgSrv.open(CompareProductComponent, { products });
 	}
 
-	openConfirmDialog(data: {
-		text: string,
-		callback: any
-	}) {
+	openConfirmDialog(data: { text: string }) {
 		return this.dlgSrv.open(ConfirmDialogComponent, data);
 	}
 

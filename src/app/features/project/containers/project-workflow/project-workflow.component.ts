@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
-import { first, map, takeUntil, tap } from 'rxjs/operators';
+import { map, takeUntil, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';
-import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
-import { ERM, Product, Project } from '~models';
+import { ProjectFeatureService } from '~features/project/services';
+import { ERM, Product, Project, ProductStatus } from '~models';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
-import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { statusProductToKanbanCol } from '~utils/kanban.utils';
 
@@ -33,10 +32,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		private projectSrv: ProjectService,
 		private productSrv: ProductService,
 		private productStatusSrv: ProductStatusService,
-		private workflowService: ProjectWorkflowFeatureService,
-		private notificationSrv: NotificationService,
-		private featureSrv: ProjectWorkflowFeatureService,
-		public listSrv: ListPageService<Product, ProjectWorkflowFeatureService>,
+		private featureSrv: ProjectFeatureService,
+		public listSrv: ListPageService<Product, ProjectFeatureService>,
 		public commonModalSrv: CommonModalService
 	) {
 		super();
@@ -92,10 +89,11 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		}
 		this.productSrv.update({
 			id: event.item.id,
-			status: { id: event.to }
+			status: new ProductStatus({ id: event.to })
 		}).subscribe();
 	}
 
+	/** multiple */
 	updateProductsStatus(event: { to: any, items: any[] }) {
 		const products = event.items.map(id => ({
 			id,
@@ -112,52 +110,11 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		products.forEach(prod => this.listSrv.unselectOne(prod, true));
 	}
 
-	/** updates the products with the new value votes */
-	// multipleVotes(votes: Map<string, ProductVote[]>) {
-	// 	votes.forEach((v, k) => this.update({ id: k, votes: v }));
-	// }
-
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
-		if (this.project) {
-			this.featureSrv.getProjectProducts(this.project).pipe(first()).subscribe(products => {
-				this.commonModalSrv.openFindProductDlg(products, this.associateProductsWithProject.bind(this));
-			});
-		}
-	}
-
-	/**
-	 * Deassociate the selected product from the current project
-	 */
-	deassociateProduct(product: Product) {
-		this.featureSrv.manageProjectsToProductsAssociations([this.project], [], [product]).pipe(
-			tap(() => {
-				this.workflowService.refreshStatuses(this.project);
-				this.notificationSrv.add({
-					type: NotificationType.SUCCESS,
-					title: 'Products Updated',
-					message: 'The products were updated in the project with success',
-					timeout: 3500
-				});
-			})
+		this.featureSrv.openFindProductDlg(this.project).pipe(
+			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}
 
-	/**
-	 * Associate the selected products from the current project. This method is
-	 * passed as callback for the "find products" dialog.
-	 */
-	associateProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
-		return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
-			tap(() => {
-				this.workflowService.refreshStatuses(this.project);
-				this.notificationSrv.add({
-					type: NotificationType.SUCCESS,
-					title: 'Products Updated',
-					message: 'The products were updated in the project with success',
-					timeout: 3500
-				});
-			})
-		);
-	}
 }

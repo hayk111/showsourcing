@@ -12,6 +12,7 @@ import { Project, Attachment } from '~models';
 import { Comment } from '~models/comment.model';
 
 export class Product extends EntityWithAudit<ProductConfig> {
+	id?: string;
 	name?: string;
 	comments?: Comment[];
 	supplier?: Supplier;
@@ -45,7 +46,8 @@ export class Product extends EntityWithAudit<ProductConfig> {
 }
 
 export interface ProductConfig {
-	name: string;
+	id?: string;
+	name?: string;
 	supplier?: Supplier;
 	images?: AppImage[];
 	comments?: Comment[];

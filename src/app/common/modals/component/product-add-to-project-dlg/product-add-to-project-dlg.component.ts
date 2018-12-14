@@ -17,7 +17,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class ProductAddToProjectDlgComponent extends TrackingComponent implements OnInit {
 
 	projects$: Observable<Project[]>;
-	@Input() selectedProducts: Product[];
+	@Input() products: Product[];
 	selected = {};
 	numSelected = 0;
 
@@ -46,7 +46,7 @@ export class ProductAddToProjectDlgComponent extends TrackingComponent implement
 	submit() {
 		// we add each project one by one to the store
 		const selectedProjects = <Project[]>Object.values(this.selected);
-		this.productDlgSrv.addProjectsToProducts(selectedProjects, this.selectedProducts)
+		this.productDlgSrv.addProjectsToProducts(selectedProjects, this.products)
 			.subscribe(projects => {
 				this.dlgSrv.close();
 				this.notifSrv.add({

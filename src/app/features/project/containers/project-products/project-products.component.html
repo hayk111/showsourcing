@@ -30,7 +30,7 @@
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"
-		(openRequestQuotationDialog)="openRequestQuotationDialog($event)"
+		(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog($event)"
 		(delete)="deassociateProductById($event)">
 	</project-product-list-app>
 
