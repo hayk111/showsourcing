@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, debounceTime } from 'rxjs/operators';
 import { Observable } from 'subscriptions-transport-ws';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog/services';
@@ -38,6 +38,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		});
 		this.exists$ = this.typed$
 			.pipe(
+				debounceTime(1000),
 				takeUntil(this._destroy$),
 				switchMap((str) => this.crudDlgSrv.checkExists(this.type, str))
 			);
