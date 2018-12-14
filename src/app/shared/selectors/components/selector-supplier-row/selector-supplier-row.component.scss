@@ -1,7 +1,9 @@
 :host {
-	display: flex;
 	height: 63px;
 	cursor: pointer;
+	padding-left: var(--spacing-ms);
+	display: flex;
+	align-items: center;
 
 	&.active, &:hover {
 		background-color: var(--color-primary);
@@ -43,7 +45,7 @@ icon-app.circle {
 
 		& > * {
 			//for each children that is not the first one we add some spaces and bullet dots on the content
-			&:not(:first-child)::before {
+			&:not(:last-child, icon-app.circle)::after {
 				content: "\00a0 \00a0 \2022 \00a0 \00a0";
 				font-weight: bolder;
 			}

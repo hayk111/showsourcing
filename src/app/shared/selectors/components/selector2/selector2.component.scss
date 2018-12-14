@@ -10,7 +10,7 @@
 
 .current-values-container {
 	min-height: 26px;
-	max-height: 74px;
+	max-height: 78px;
 	width: 395px;
 	overflow-y: auto;
 
@@ -33,14 +33,12 @@
 	height: 210px;
 	overflow-y: auto;
 
-	& > * {
+	.create-container {
+		height: 37px;
 		padding-left: var(--spacing-ms);
 		display: flex;
 		align-items: center;
-	}
-
-	.create-container {
-		height: 37px;
+		cursor: pointer;
 
 		&:hover {
 			background-color: var(--color-primary);

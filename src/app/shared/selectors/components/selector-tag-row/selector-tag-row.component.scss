@@ -1,7 +1,9 @@
 :host {
-	display: block;
 	height: 37px;
 	cursor: pointer;
+	padding-left: var(--spacing-ms);
+	display: flex;
+	align-items: center;
 
 	&.active, &:hover {
 		background-color: var(--color-primary);
