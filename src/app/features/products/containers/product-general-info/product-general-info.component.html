@@ -25,7 +25,8 @@
 
 		<!-- price -->
 
-		<price-with-quantity-app [product]="product" (updatePrice)="updateProductProp(false, $event, 'price')"></price-with-quantity-app>
+		<price-with-quantity-app [product]="product" 
+		(updateField)="updateProductProp(false, $event.newValue,  $event.field)">></price-with-quantity-app>
 
 		<!-- description -->
 		<div class="description">

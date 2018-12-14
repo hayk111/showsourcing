@@ -7,8 +7,14 @@
 		font-size: var(--font-size-xxxl);
 		font-weight: bold;
 	}
-	.moq {
-		margin-left: var(--spacing-ms);
-		color: var(--color-txt-secondary);
-	}
+}
+
+.moq {
+	margin-left: var(--spacing-xs);
+	color: var(--color-txt-secondary);
+}
+
+editable-text-app {
+	width: auto;
+	display: inline-block;
 }

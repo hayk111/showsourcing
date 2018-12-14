@@ -160,7 +160,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateProduct(product: any) {
-		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
+		product.id = this.product.id;
+		this.featureSrv.update(product).subscribe();
 	}
 
 	update(value: any, prop: string) {

@@ -19,7 +19,7 @@
 			<!-- Price -->
 			<price-with-quantity-app
 				[product]="productF"
-				(updatePrice)="update($event, 'price')">
+				(updateField)="update($event.newValue,  $event.field)">
 			</price-with-quantity-app>
 
 			<!-- Badge supplier -->

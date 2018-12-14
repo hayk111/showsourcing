@@ -6,8 +6,9 @@ import { PriceComponent } from '~shared/price/components/price/price.component';
 import { EditableFieldModule } from '~shared/editable-field';
 import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { UtilsModule } from '~shared/utils';
+import { InputsModule } from '~shared/inputs';
 @NgModule({
-	imports: [CommonModule,EditableFieldModule, InputsCustomModule, UtilsModule],
+	imports: [CommonModule,EditableFieldModule, InputsCustomModule, UtilsModule, InputsModule],
 	declarations: [PriceComponent, SSPricePipe, PriceWithQuantityComponent],
 	exports: [PriceComponent, SSPricePipe, PriceWithQuantityComponent],
 })
