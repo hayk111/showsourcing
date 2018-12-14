@@ -57,7 +57,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * each row on the virtual scroll has to implement the AbstractSelectorHighlightableComponent,
 	 * since they keyManager needs it to update state of selection
 	*/
-	@ViewChildren(SelectorCurrencyRowComponent) virtualItems: QueryList<AbstractSelectorHighlightableComponent>;
+	@ViewChildren(AbstractSelectorHighlightableComponent) virtualItems: QueryList<AbstractSelectorHighlightableComponent>;
 	/** cdk virtual scroll viewport so we can determine the scroll index in combination with cdk a11y */
 	@ViewChild(CdkVirtualScrollViewport) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 

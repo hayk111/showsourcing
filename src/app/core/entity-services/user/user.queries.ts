@@ -20,5 +20,37 @@ export class UserQueries extends GlobalQueries {
 		companyName
 	`;
 
+	static readonly many = `
+		id,
+		firstName,
+		lastName,
+		email,
+		phoneNumber,
+		currentTeam {
+			id, name, status
+		},
+		preferredLanguage,
+		avatar {
+			id, urls { id, url }, orientation, imageType
+		},
+		companyName
+	`;
+
+	static readonly all = `
+		id,
+		firstName,
+		lastName,
+		email,
+		phoneNumber,
+		currentTeam {
+			id, name, status
+		},
+		preferredLanguage,
+		avatar {
+			id, urls { id, url }, orientation, imageType
+		},
+		companyName
+	`;
+
 
 }

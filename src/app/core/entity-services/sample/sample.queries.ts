@@ -2,14 +2,14 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
 export class SampleQueries extends GlobalQueries {
 
-	static readonly images = `images { id, orientation, imageType, urls { url } }`;
-	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, urls { url } } }`;
-	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { url } }}`;
+	static readonly images = `images { id, orientation, imageType, urls { id, url } }`;
+	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, urls { id, url } } }`;
+	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { id, url } }}`;
 	static readonly supplier = `supplier {
 		id, name, address, country, favorite, officeEmail,
-		logoImage { id, urls { url } }
+		logoImage { id, urls { id, url } }
 		categories { id, name }
-		images { id, urls { url }, imageType }
+		images { id, urls { id, url }, imageType }
 	}`;
 	static readonly product = `product {
 		id, name, ${SampleQueries.images}, favorite, description,
