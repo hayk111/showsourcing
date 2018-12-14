@@ -41,9 +41,9 @@ icon-app.circle {
 			visibility: hidden;
 		}
 
-		& > * {
+		& > span {
 			//for each children that is not the first one we add some spaces and bullet dots on the content
-			&:not(:last-child, icon-app.circle)::after {
+			&:not(:last-child)::after {
 				content: "\00a0 \00a0 \2022 \00a0 \00a0";
 				font-weight: bolder;
 			}

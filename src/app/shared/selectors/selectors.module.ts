@@ -18,6 +18,7 @@ import {
 	SelectorTextRowComponent,
 	SelectorUserRowComponent,
 	SelectorPickerComponent,
+	Selector2Component,
 } from './components';
 import { SelectorConstComponent } from './components/selector-const/selector-const.component';
 import { SelectorEntityComponent } from './components/selector-entity/selector-entity.component';
@@ -41,7 +42,8 @@ const components = [
 	SelectorSupplierRowComponent,
 	SelectorTextRowComponent,
 	SelectorUserRowComponent,
-	SelectorTagRowComponent
+	SelectorTagRowComponent,
+	Selector2Component
 ];
 
 @NgModule({

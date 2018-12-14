@@ -1,0 +1,26 @@
+<!-- the trigger -->
+<div (click)="menuOpen = !menuOpen"
+	cdkOverlayOrigin
+	#trigger="cdkOverlayOrigin">
+	<ng-content></ng-content>
+</div>
+
+<cdk-overlay-app
+	*ngIf="menuOpen"
+	[trigger]="trigger"
+	[isOpen]="menuOpen"
+	[offsetY]="offsetY"
+	[offsetX]="offsetX"
+	[closeOnScroll]="false"
+	(clickOutside)="closeMenu()">
+	<selector-picker-app
+		class="z-2"
+		[ngStyle]="{ width: width + 'px'}"
+		[value]="value"
+		[type]="type"
+		[multiple]="multiple"
+		[canCreate]="canCreate"
+		(update)="update.emit($event)"
+		(close)="closeMenu()">
+	</selector-picker-app>
+</cdk-overlay-app>

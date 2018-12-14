@@ -12,15 +12,17 @@ import {
 	QueryList,
 	ViewChild,
 	ViewChildren,
+	OnInit,
 } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Product, Project, Supplier, Tag } from '~core/models';
-import { AbstractInput } from '~shared/inputs';
+import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 import { SelectorCurrencyRowComponent } from '../selector-currency-row/selector-currency-row.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -28,7 +30,7 @@ import { SelectorCurrencyRowComponent } from '../selector-currency-row/selector-
 	styleUrls: ['./selector-picker.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorPickerComponent extends AbstractInput implements AfterViewInit {
+export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit {
 
 	private _type;
 	@Input() set type(type: string) {
@@ -42,6 +44,7 @@ export class SelectorPickerComponent extends AbstractInput implements AfterViewI
 	@Input() canCreate = false;
 
 	@Output() update = new EventEmitter<any>();
+	@Output() close = new EventEmitter<null>();
 
 	private type$ = new ReplaySubject<string>(1);
 
@@ -58,6 +61,10 @@ export class SelectorPickerComponent extends AbstractInput implements AfterViewI
 	/** cdk virtual scroll viewport so we can determine the scroll index in combination with cdk a11y */
 	@ViewChild(CdkVirtualScrollViewport) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 
+	@ViewChild(InputDirective) inp: InputDirective;
+	group: FormGroup;
+
+
 	/** key manager that controlls the selection with arrowkeys  */
 	keyManager: ActiveDescendantKeyManager<AbstractSelectorHighlightableComponent>;
 	/** index when using manager keys and virtual scrolling */
@@ -67,9 +74,15 @@ export class SelectorPickerComponent extends AbstractInput implements AfterViewI
 
 	constructor(
 		private selectorSrv: SelectorsService,
-		protected cd: ChangeDetectorRef
+		protected cd: ChangeDetectorRef,
+		private fb: FormBuilder
 	) { super(cd); }
 
+	ngOnInit() {
+		this.group = this.fb.group({
+			name: ['']
+		});
+	}
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
 	}
@@ -97,8 +110,10 @@ export class SelectorPickerComponent extends AbstractInput implements AfterViewI
 
 	onChange() {
 		this.onChangeFn(this.value);
-		if (!this.multiple) this.update.emit({ id: this.value.id, __typename: this.value.__typename });
-		else
+		if (!this.multiple) {
+			this.update.emit({ id: this.value.id, __typename: this.value.__typename });
+			this.close.emit();
+		} else
 			this.update.emit(this.value);
 	}
 
@@ -194,5 +209,9 @@ export class SelectorPickerComponent extends AbstractInput implements AfterViewI
 	getActiveClass(item) {
 		if (!this.multiple) return [];
 		return this.isSelected(item) ? ['active'] : [];
+	}
+
+	test(item) {
+		console.log(item);
 	}
 }

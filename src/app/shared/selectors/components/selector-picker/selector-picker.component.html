@@ -1,4 +1,9 @@
-<input type="text" [placeholder]="'Enter a' + type" (keyup)="onKeydown($event)" (input)="search(inp.value)" #inp>
+
+<form [formGroup]="group">
+	<form-field-app class="search-input" [ngClass]="{'field-focused': inp.focussed || !!inp.control.value}">
+			<input inputApp formControlName="name" type="text" [placeholder]="'Enter a ' + type" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
+	</form-field-app>
+</form>
 
 <div *ngIf="multiple" class="flexWrap current-values-container">
 	<ng-container *ngIf="value?.length; else empty">
@@ -57,5 +62,5 @@
 <divider-app class="bottom-divider"></divider-app>
 
 <div class="flexEnd">
-	<button class="secondary">Done</button>
+	<button class="secondary" (click)="close.emit()">Done</button>
 </div>
