@@ -7,3 +7,4 @@ export * from './selector-text-row/selector-text-row.component';
 export * from './selector-user-row/selector-user-row.component';
 export * from './selector/selector.component';
 export * from './selector2/selector2.component';
+export * from './selector-picker/selector-picker.component';

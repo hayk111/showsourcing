@@ -1,7 +1,8 @@
 :host {
-	display: block;
+	display: flex;
 	height: 37px;
 	cursor: pointer;
+
 
 	&.active, &:hover {
 		background-color: var(--color-primary);

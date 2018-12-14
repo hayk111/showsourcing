@@ -1,10 +1,10 @@
 :host {
-	display: block;
+	display: flex;
 	height: 37px;
 	cursor: pointer;
 
 	&.active, &:hover {
-		background-color: red;
+		background-color: var(--color-primary);
 		color: #fff;
 	}
 }

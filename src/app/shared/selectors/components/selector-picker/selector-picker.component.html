@@ -1,0 +1,66 @@
+
+<form [formGroup]="group">
+	<form-field-app class="search-input" [ngClass]="{'field-focused': inp.focussed || !!inp.control.value}">
+			<input inputApp formControlName="name" type="text" [placeholder]="'Enter a ' + type" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
+	</form-field-app>
+</form>
+
+<div *ngIf="multiple" class="flexWrap current-values-container">
+	<ng-container *ngIf="value?.length; else empty">
+		<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type" [hasDelete]="true" (delete)="delete(item)">{{item.name}}</info-badge-app>
+	</ng-container>
+	<ng-template #empty>
+		<span class="empty-message">There's no {{type}} yet, add one!</span>
+	</ng-template>
+</div>
+
+<divider-app *ngIf="multiple" class="top-divider"></divider-app>
+
+<cdk-virtual-scroll-viewport [itemSize]="getHeight()" class="container-items">
+
+	<ng-container [ngSwitch]="type">
+
+		<ng-container *ngSwitchCase="'supplier'">
+			<selector-supplier-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [supplier]="item" (click)="onSelect(item)"></selector-supplier-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'project'">
+			<selector-project-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [ngClass]="getActiveClass(item)" [project]="item" (click)="onSelect(item)"></selector-project-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'user'">
+			<selector-user-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'currency'">
+			<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'product'">
+			<selector-product-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [product]="item" (click)="onSelect(item)"></selector-product-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'tag'">
+			<selector-tag-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [ngClass]="getActiveClass(item)" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchDefault>
+			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item" (click)="onSelect(item)"></selector-text-row-app>
+		</ng-container>
+
+	</ng-container>
+
+	<div *ngIf="canCreate" class="create-container" (click)="create()">
+		<button class="selector small flex create">
+			<icon-app name="add"></icon-app>
+			<span>Create new {{type}} "{{searchTxt}}"</span>
+		</button>
+	</div>
+
+</cdk-virtual-scroll-viewport>
+
+<divider-app class="bottom-divider"></divider-app>
+
+<div class="flexEnd">
+	<button class="secondary" (click)="close.emit()">Done</button>
+</div>

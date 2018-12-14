@@ -17,6 +17,7 @@ import {
 	SelectorSupplierRowComponent,
 	SelectorTextRowComponent,
 	SelectorUserRowComponent,
+	SelectorPickerComponent,
 	Selector2Component,
 } from './components';
 import { SelectorConstComponent } from './components/selector-const/selector-const.component';
@@ -32,7 +33,7 @@ import { UtilsModule } from '~shared/utils';
 const components = [
 	CdkOverlayComponent,
 	SelectorComponent,
-	Selector2Component,
+	SelectorPickerComponent,
 	SelectorConstComponent,
 	SelectorEntityComponent,
 	SelectorCurrencyRowComponent,
@@ -41,7 +42,8 @@ const components = [
 	SelectorSupplierRowComponent,
 	SelectorTextRowComponent,
 	SelectorUserRowComponent,
-	SelectorTagRowComponent
+	SelectorTagRowComponent,
+	Selector2Component
 ];
 
 @NgModule({

@@ -1,16 +1,20 @@
 <selector2-app
 	type="project"
-	[values]="(product$ | async)?.projects"
+	[canCreate]="true"
+	[value]="(product$ | async)?.projects"
 	[multiple]="true"
 	(update)="update($event, 'projects')">
+	<div>click me pls</div>
 </selector2-app>
 <!--  if this is uncommented and since we are not using virtual scroll, on selector2 -> searchTxt = 'light'
 			so we just load part of it -->
-<!-- <selector2-app
-	type="supplier"
-	(update)="update($event, 'projects')">
-</selector2-app> -->
 <selector2-app
-	type="currency"
-	(update)="update($event, 'projects')">
+	type="supplier"
+	[canCreate]="true"
+	(update)="update($event, 'supplier')">
+	No, click me!
+</selector2-app>
+<selector2-app
+	type="currency">
+	Im best, do it
 </selector2-app>

@@ -127,6 +127,14 @@ export class SelectorsService {
 		return this.supplierSrv.create(supplier);
 	}
 
+	createProject(project: Project): Observable<any> {
+		return this.projectSrv.create(project);
+	}
+
+	createProduct(product: Product): Observable<any> {
+		return this.productSrv.create(product);
+	}
+
 	createCategory(category: Category): Observable<any> {
 		return this.categorySrv.create(category);
 	}
