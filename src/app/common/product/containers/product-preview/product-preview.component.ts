@@ -7,11 +7,11 @@ import {
 	Input,
 	OnInit,
 	Output,
-	ViewChild,
+	ViewChild
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
@@ -118,6 +118,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild('inpFile') inpFile: ElementRef;
 
 	constructor(
+		private route: ActivatedRoute,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
 		private featureSrv: ProductService,
@@ -154,9 +155,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			}
 		];
 	}
-	//
-	ngOnInit() {
 
+	ngOnInit() {
+		this.product$ = this.featureSrv.selectOne(this.product.id);
+		this.product$
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(s => (this.product = s));
 	}
 
 	updateProduct(product: any) {
