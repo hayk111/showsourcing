@@ -81,7 +81,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
-		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
+		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' },
 		{
 			name: 'tags',
 			type: 'selector',
