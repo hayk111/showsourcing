@@ -7,6 +7,7 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { take, takeUntil, catchError } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { environment } from 'environments/environment';
+import { AuthFormElement, AuthFormButton } from '~features/auth-pages/components/auth-form-base/auth-form';
 
 @Component({
 	selector: 'login-app',
@@ -14,12 +15,14 @@ import { environment } from 'environments/environment';
 	styleUrls: ['./login.component.scss', '../form-style.scss'],
 })
 export class LoginComponent extends AutoUnsub implements OnInit {
-	form: FormGroup;
 	pending$ = new Subject<boolean>();
 	error: string;
 	queryParams: any;
 	filedFocused = 'email';
 
+	listForm: AuthFormElement[];
+	buttons: AuthFormButton[];
+	
 	constructor(
 		private srv: AuthenticationService,
 		private fb: FormBuilder,
@@ -27,21 +30,43 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute) {
 
 		super();
-		this.form = this.fb.group({
-			identifier: ['', Validators.compose([Validators.required, Validators.email])],
-			password: ['', Validators.required]
-		});
 	}
 
 	ngOnInit() {
 		// get return url from route parameters or default to '/'
 		this.queryParams = this.route.snapshot.queryParams || '/';
+		this.listForm   = [{
+			label: 'Email',
+			type: 'email',
+			name: 'identifier',
+			isRequired: true,
+			autoComplete: 'current-email',
+			placeHolder: 'example@showsourcing.com',
+			validators: [Validators.required, Validators.email]
+		}, {
+			label: 'Password',
+			type: 'password',
+			name: 'password',
+			isRequired: true,
+			autoComplete: 'current-password',
+			placeHolder: 'your password',
+			validators: [Validators.required]
+		}];
+		this.buttons = [{
+			label: 'Login',
+			type: 'button'
+		}, {
+			label: 'Don\'t have an account ?',
+			type: 'link',
+			link: ['../register'],
+			queryParams: this.queryParams
+		}];
 	}
 
-	onSubmit() {
-		if (this.form.valid) {
+	onSubmit(form) {
+		if (form.valid) {
 			this.pending$.next(true);
-			this.srv.login(this.form.value).pipe(
+			this.srv.login(form.value).pipe(
 				takeUntil(this._destroy$),
 			).subscribe(
 				r => this.router.navigateByUrl(this.queryParams.returnUrl),
