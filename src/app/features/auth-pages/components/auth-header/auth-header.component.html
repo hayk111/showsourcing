@@ -1,4 +1,4 @@
-<div class="top">
+<div class="top"  *ngIf="!pending">
 	<div class="logo">
 		<img src="/assets/img/logo.svg">
 	</div>
@@ -10,5 +10,5 @@
 		<br/>
 		your team and suppliers
 	</h2>
-	<h2 *ngIf="!pending">{{subDescription}}</h2>
+	<h2>{{subDescription}}</h2>
 </div>
