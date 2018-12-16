@@ -63,7 +63,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 		}];
 	}
 
-	onSubmit(form) {
+	onSubmit(form: FormGroup) {
 		if (form.valid) {
 			this.pending$.next(true);
 			this.srv.login(form.value).pipe(
@@ -75,7 +75,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	onError(error) {
+	onError(error: any) {
 		if (error.error && error.error.status === 401)
 			this.error = 'Incorrect credentials';
 		else

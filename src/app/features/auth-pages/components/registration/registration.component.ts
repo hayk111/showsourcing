@@ -89,7 +89,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 		}];
 	}
 
-	createAccount(form) {
+	createAccount(form: FormGroup) {
 		if (form.valid) {
 			this.pending$.next(true);
 			this.authSrv.register(form.value).pipe(
@@ -102,7 +102,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	onError(error, form) {
+	onError(error: any, form: FormGroup) {
 		this.pending$.next(false);
 		if (error.error && error.error.errors && error.error.errors.email) {
 			form.get('email').markAsPristine();
