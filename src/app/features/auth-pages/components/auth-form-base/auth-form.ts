@@ -12,6 +12,6 @@ export class AuthFormElement {
 export class AuthFormButton {
 	label?: string;
 	type?: 'button' | 'link';
-	link?: string[];
+	link?: any;
 	queryParams?: string;
 }
