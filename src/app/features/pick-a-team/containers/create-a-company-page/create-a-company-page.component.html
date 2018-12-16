@@ -1,9 +1,9 @@
-<div class="top">
+<div *ngIf="!(pending$ | async)" class="top">
 		<div class="logo">
 			<img src="/assets/img/logo.svg">
 		</div>
-		<h1 *ngIf="!pending">Create a team</h1>
-		<h2 *ngIf="!pending">Create your team and start sourcing</h2>
+		<h1>Create a team</h1>
+		<h2>Create your team and start sourcing</h2>
 </div>
 	
 <auth-form-app (onSubmit)="onSubmit($event)" [error]="error" [defaultFocused]="'companyName'" [pending]="(pending$ | async)" [listForm]="listForm" [buttons]="buttons">	
