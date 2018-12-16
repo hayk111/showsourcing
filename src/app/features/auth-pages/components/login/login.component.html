@@ -1,7 +1,7 @@
-<auth-form-header-app [pending]="true" [subDescription]="'Please login to your account.'"></auth-form-header-app>
+<auth-form-header-app [pending]="(pending$ | async)" [subDescription]="'Please login to your account.'"></auth-form-header-app>
 
 
-<auth-form-app (onSubmit)="onSubmit($event)" [error]="error" [defaultFocused]="filedFocused" [pending]="true" [listForm]="listForm" [buttons]="buttons">
+<auth-form-app (onSubmit)="onSubmit($event)" [error]="error" [defaultFocused]="filedFocused" [pending]="(pending$ | async)" [listForm]="listForm" [buttons]="buttons">
 	<div class="options">
 		<!-- <div class="checkbox-container">
 			<checkbox-app [size]="16" [labelClass]="'label-rememberme'">

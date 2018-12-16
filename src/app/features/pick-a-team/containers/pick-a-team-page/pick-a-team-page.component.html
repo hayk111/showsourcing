@@ -1,32 +1,24 @@
-
-
-<div class="top">
+<ng-container *ngIf="!(pending$ | async); else spinner">
+	<div class="top">
 		<div class="logo">
 			<img src="/assets/img/logo.svg">
 		</div>
 		<h1>Join a team</h1>
 		<h2>Select the team you wanna connect to or<br>create a new one</h2>
-</div>
-	
-<ng-container *ngIf="!(pending$ | async); else spinner">
-	
-		<ul>
-			<div class="flex pointer item border"
-				*ngFor="let team of (teams$ | async); let last = last;trackBy: trackByFn"
-				(click)="pickTeam(team)">
-				<icon-app name="team" fontSet="svg" size="m"></icon-app>
-				<span >{{ team.name }}</span>
-			</div>
-		</ul>
-	
-	
-		<a class="button light flexCenter" [routerLink]="['../create-a-team']">Create a new team</a>
-	
-	</ng-container>
+	</div>
+	<ul>
+		<div class="flex pointer item border" *ngFor="let team of (teams$ | async); let last = last;trackBy: trackByFn"
+		 (click)="pickTeam(team)">
+			<icon-app name="team" fontSet="svg" size="m"></icon-app>
+			<span>{{ team.name }}</span>
+		</div>
+	</ul>
+
+
+	<a class="button light flexCenter" [routerLink]="['../create-a-team']">Create a new team</a>
+
+</ng-container>
 
 <ng-template #spinner>
-	<h1>Setting-Up Your Team</h1>
-	<h2>We are setting-up your workspace, please wait a few seconds</h2>
-	<spinner-app></spinner-app>
+	<spinner-app [isHaveLogo]="true"></spinner-app>
 </ng-template>
-
