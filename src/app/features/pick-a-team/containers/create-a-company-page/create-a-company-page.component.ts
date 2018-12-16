@@ -36,12 +36,14 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 			type: 'text',
 			name: 'companyName',
 			isRequired: true,
+			placeHolder: '',
 			validators: [Validators.required]
 		}, {
 			label: 'Team Name',
 			type: 'text',
 			name: 'teamName',
 			isRequired: true,
+			placeHolder: '',
 			validators: [Validators.required]
 		}];
 		this.buttons = [{
@@ -50,15 +52,15 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 		}];
 	}
 
-	onSubmit(form) {
+	onSubmit(form: FormGroup) {
 		this.pending = true;
 		const formValue = form.value;
 		const company = new Company(formValue);
 		this.srv.create(company)
 			.subscribe(
 				_ => {
+					this.router.navigateByUrl(this.returnUrl);
 					this.pending = false;
-					this.router.navigate(['user', 'create-a-team'], { queryParams: { returnUrl: this.returnUrl } });
 				},
 				e => {
 					this.pending = false;
@@ -80,7 +82,6 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 			}
 		});
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-
 	}
 
 }

@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
 import { Company } from '~models/company.model';
 import { AutoUnsub } from '~utils';
+import { AuthFormElement, AuthFormButton } from '~features/auth-pages/components/auth-form-base/auth-form';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -16,11 +17,13 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
-	form: FormGroup;
 	pending = false;
 	error: string;
 	hasTeam$: Observable<boolean>;
 	returnUrl: string;
+
+	listForm: AuthFormElement[];
+	@Input() buttons: AuthFormButton[];
 
 	constructor(
 		private fb: FormBuilder,
@@ -31,14 +34,23 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute
 	) {
 		super();
-		this.form = this.fb.group({
-			name: ['', Validators.required]
-		});
+		this.listForm   = [{
+			label: 'Team Name',
+			type: 'text',
+			name: 'teamName',
+			isRequired: true,
+			placeHolder: '',
+			validators: [Validators.required]
+		}];
+		this.buttons = [{
+			label: 'Create a new team',
+			type: 'button'
+		}];
 	}
 
-	onSubmit() {
+	onSubmit(form: FormGroup) {
 		this.pending = true;
-		const formValue = this.form.value;
+		const formValue = form.value;
 		// we a
 		const company: Company = { id: this.companySrv.companySync.id };
 		const team = new Team({ name: formValue.name, company, ownerUser: this.userSrv.userSync });
@@ -56,10 +68,17 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.hasTeam$ = this.srv.selectAll().pipe(
-			first(),
-			map(all => all.length > 0)
-		);
+		this.srv.selectAll().pipe(
+			first()
+		).subscribe(all => {
+			if(all.length > 0) {
+				this.buttons = [...this.buttons, {
+					label: 'Select a team Instead',
+					type: 'link',
+					link: '../pick-a-team'
+				}];
+			}
+		});
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}
 
