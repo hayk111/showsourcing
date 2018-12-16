@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { OnBoardingService } from '../../services';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'category-app',
@@ -8,13 +9,15 @@ import { OnBoardingService } from '../../services';
 	styleUrls: ['./category.component.scss', './../common-boarding.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent extends TrackingComponent implements OnInit {
 
 	categories: string[];
 
 	constructor(
 		private router: Router,
-		private onBoardSrv: OnBoardingService) { }
+		private onBoardSrv: OnBoardingService) {
+			super();
+	}
 
 	ngOnInit() {
 		this.categories = this.onBoardSrv.getClaim().categories || [];

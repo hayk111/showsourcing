@@ -1,21 +1,7 @@
 <auth-form-header-app [pending]="(pending$ | async)" [subDescription]="'Please login to your account.'"></auth-form-header-app>
 
 
-<form (ngSubmit)="onSubmit()" *ngIf="!(pending$ | async); else spinner" [formGroup]="form">
-	<error-app *ngIf="error">{{ error }}</error-app>
-
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'email', 'field-error': (form.get('identifier').invalid)}">
-		<label-app>Email</label-app>
-		<input (focus)="filedFocused = 'email'" inputApp autoFocus autocomplete="current-email" type="text" placeholder="example@showsourcing.com"
-		 formControlName="identifier" />
-	</form-field-app>
-
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'password'}">
-		<label-app>Password</label-app>
-		<input (focus)="filedFocused = 'password'" inputApp autocomplete="current-password" type="password" placeholder="your password"
-		 formControlName="password" />
-	</form-field-app>
-
+<auth-form-app (onSubmit)="onSubmit($event)" [error]="error" [defaultFocused]="'email'" [pending]="(pending$ | async)" [listForm]="listForm" [buttons]="buttons">
 	<div class="options">
 		<!-- <div class="checkbox-container">
 			<checkbox-app [size]="16" [labelClass]="'label-rememberme'">
@@ -25,12 +11,7 @@
 		<div class="clickable forgot-password" (click)="forgotPw()">Forgotten password?</div>
 	</div>
 
-	<div class="centered-text">
-		<input class="button" type="submit" value="Login" [disabled]="!form.valid" />
-		<a class="button light" [routerLink]="['../register']" [queryParams]="queryParams">Don't have an account ?</a>
-	</div>
-
-</form>
+</auth-form-app>
 
 <ng-template #spinner>
 	<spinner-app size="xxl"></spinner-app>
