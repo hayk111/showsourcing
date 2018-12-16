@@ -29,6 +29,6 @@ import { routes } from './routes';
 		AuthFormHeaderComponent,
 		AuthFormBaseComponent
 	],
-	exports: []
+	exports: [AuthFormBaseComponent]
 })
 export class AuthPagesModule { }
