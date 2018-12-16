@@ -1,11 +1,15 @@
-<div class="flexCenter">
-	<icon-app name="teamwork" fontSet="svg"></icon-app>
+<div class="top">
+		<div class="logo">
+			<img src="/assets/img/logo.svg">
+		</div>
+		<h1 *ngIf="!pending">Create your team</h1>
+		<h2 *ngIf="!pending">Create your team and start sourcing</h2>
 </div>
+	
 
 
 <ng-container *ngIf="!pending; else spinner">
-	<h1>Create your team</h1>
-	<h2>Create your team and start sourcing</h2>
+	
 
 	<form [formGroup]="form" (ngSubmit)="onSubmit()">
 		<error-app *ngIf="error">{{ error }}</error-app>

@@ -1,5 +1,5 @@
 <auth-form-header-app [pending]="(pending$ | async)" [subDescription]="'Please hold as we modify the internet for you!'"></auth-form-header-app>
-<auth-form-app (onSubmit)="createAccount($event)" [error]="error" [defaultFocused]="'email'" [pending]="(pending$ | async)"
+<auth-form-app (onSubmit)="createAccount($event)" [error]="error"  [defaultFocused]="filedFocused" [pending]="(pending$ | async)"
  [listForm]="listForm" [buttons]="buttons">
 	<div class="options">
 		<!-- <div class="checkbox-container">
