@@ -60,7 +60,15 @@
               "buildOptimizer": true,
               "serviceWorker": true
             },
-	    "local":{
+            "sta":{
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sta.ts"
+                }
+              ]
+            },
+	          "local":{
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -91,6 +99,9 @@
             },
             "local": {
               "browserTarget": "showsourcing:build:local"
+            },
+            "sta": {
+              "browserTarget": "showsourcing:build:sta"
             }
           }
         },
