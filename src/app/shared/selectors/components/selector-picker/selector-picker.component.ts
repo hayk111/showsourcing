@@ -85,6 +85,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
+		this.inp.focus();
 	}
 
 	search(text) {
@@ -209,9 +210,5 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	getActiveClass(item) {
 		if (!this.multiple) return [];
 		return this.isSelected(item) ? ['active'] : [];
-	}
-
-	test(item) {
-		console.log(item);
 	}
 }

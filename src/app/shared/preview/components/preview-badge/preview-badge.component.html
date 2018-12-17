@@ -2,20 +2,20 @@
 
 	<!-- Product -->
 	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container pointer">
-		<icon-app (click)="open()" name="product" backgroundColor="primary"></icon-app>
-		<span (click)="open()">{{ value || '-' }}</span>
-		<selector-entity-app
-			#select
-			[ngStyle]="{visibility: visible ? 'visible' : 'hidden'}"
+		<selector2-app
 			type="product"
-			[displayedValue]="value"
-			(change)="update.emit($event); close();"
-			(closed)="close()">
-		</selector-entity-app>
+			(update)="update.emit($event)">
+			<icon-app (click)="open()" name="product" backgroundColor="primary"></icon-app>
+			<span (click)="open()">{{ value || '-' }}</span>
+		</selector2-app>
 	</div>
 
 	<!-- Supplier -->
 	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer">
+		<!-- <selector2-app
+			type="supplier"
+			(update)="update.emit($event)">
+		</selector2-app> -->
 		<icon-app (click)="open()" name="supplier" backgroundColor="supplier"></icon-app>
 		<span (click)="open()"> {{ value || '-' }}</span>
 		<selector-entity-app
@@ -30,6 +30,10 @@
 
 	<!-- Supplier Type -->
 	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container pointer">
+		<!-- <selector2-app
+			type="supplierType"
+			(update)="update.emit($event)">
+		</selector2-app> -->
 		<icon-app (click)="open()" name="supplier" backgroundColor="supplier"></icon-app>
 		<span (click)="open()"> {{ value || '-'}}</span>
 		<selector-entity-app
@@ -50,6 +54,11 @@
 
 	<!-- Category -->
 	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer" (click)="open()">
+		<!-- <selector2-app
+			type="category"
+			[value]="value"
+			(update)="update.emit($event)">
+		</selector2-app> -->
 		<icon-app (click)="open()" name="category" backgroundColor="accent"></icon-app>
 		<div (click)="open()" class="flex category-info flexWrap">
 			<span *ngIf="!value || !value[0]"> - </span>

@@ -17,20 +17,25 @@ export class InputDescriptionComponent implements AfterViewInit {
 	constructor(private render: Renderer2) { }
 
 	ngAfterViewInit() {
-		if (this.container.nativeElement.clientHeight > 85 && !this.showMore) {
-			this.render.setStyle(this.container.nativeElement, 'height', '85px');
-			this.showMore = true;
-		}
+		this.adaptSize();
 	}
 
 	updateDescription(isCancel: boolean = true, newDescription: string) {
 		if (!isCancel) {
 			this.update.emit(newDescription);
+			this.adaptSize();
 		}
 	}
 
 	showAll() {
 		this.render.setStyle(this.container.nativeElement, 'height', '100%');
 		this.showMore = false;
+	}
+
+	adaptSize() {
+		if (this.container.nativeElement.clientHeight > 85 && !this.showMore) {
+			this.render.setStyle(this.container.nativeElement, 'height', '85px');
+			this.showMore = true;
+		}
 	}
 }
