@@ -33,7 +33,7 @@ export class MyTasksPageComponent extends AbstractTaskCommonComponent implements
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
+		super.setup();
 	}
 
 }

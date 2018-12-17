@@ -44,7 +44,6 @@ export class ListPageDataService
 
 	/** when making a search, fields we are gonna search through */
 	private searchedFields: string[] = ['name'];
-
 	private initialized = false;
 
 	/** for the smart search feature... */
@@ -62,6 +61,7 @@ export class ListPageDataService
 	 */
 	setup(config: ListPageDataConfig) {
 		Object.assign(this, config);
+		this.filterList = new FilterList(config.initialFilters);
 	}
 
 	/** init: helper method to set everything up at once */
@@ -76,7 +76,6 @@ export class ListPageDataService
 
 	/** subscribe to items and get the list result */
 	setItems() {
-		// this.filterList.addFilters(this.initialFilters);
 		this.listResult = this.entitySrv.getListQuery({
 			...this.selectParams,
 			// overriding query in case there is a filter / search

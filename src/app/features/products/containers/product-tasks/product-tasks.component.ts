@@ -6,6 +6,7 @@ import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { Task, ERM } from '~models';
 import { switchMap } from 'rxjs/operators';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'product-tasks-app',
@@ -40,11 +41,8 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
-		// this.listSrv.addFilter({
-		// 	type: FilterType.PRODUCT,
-		// 	value: this.route.parent.snapshot.params.id
-		// });
+		super.setup([]);
+
 	}
 
 	createTask(name: string) {

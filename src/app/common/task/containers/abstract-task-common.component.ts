@@ -4,12 +4,13 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
-import { FilterType } from '~shared/filters';
+import { FilterType, Filter } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
 import { switchMap } from 'rxjs/operators';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
-export abstract class AbstractTaskCommonComponent extends TrackingComponent implements OnInit {
+export abstract class AbstractTaskCommonComponent extends TrackingComponent {
+	assigneeFilterType = FilterType.ASSIGNEE;
 
 	constructor(
 		protected router: Router,
@@ -21,14 +22,22 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 		super();
 	}
 
-	ngOnInit() {
-
+	setup(addedFilters: Filter[] = []) {
+		const userId = this.userSrv.userSync.id;
 		this.listSrv.setup({
 			key: ListPageKey.TASK,
 			entitySrv: this.taskSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name'],
-			selectParams: { sortBy: 'creationDate', descending: true },
-			initialFilters: [{ type: FilterType.DONE, value: false }],
+			selectParams: {
+				query: `createdBy.id == "${userId}"`,
+				sortBy: 'creationDate',
+				descending: true
+			},
+			initialFilters: [
+				{ type: FilterType.DONE, value: false },
+				{ type: FilterType.ASSIGNEE, value: userId },
+				...addedFilters
+			],
 			entityMetadata: ERM.TASK
 		});
 	}
@@ -43,10 +52,8 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 
 	toggleDoneTasks(show: boolean) {
 		if (show) {
-			// this.filterList.removeFilterType(FilterType.DUE_DATE);
 			this.listSrv.removeFilterType(FilterType.DONE);
 		} else {
-			// this.filterList.addFilter({ type: FilterType.DUE_DATE, value: toRealmDateFormat(new Date()) });
 			this.listSrv.addFilter({ type: FilterType.DONE, value: false });
 		}
 	}
