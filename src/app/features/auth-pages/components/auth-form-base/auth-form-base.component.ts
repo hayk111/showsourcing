@@ -7,6 +7,8 @@ import { AutoUnsub } from '~utils';
 import { takeUntil, take, catchError, map, tap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '~entity-services';
+import { AuthFormElement, AuthFormButton } from '~features/auth-pages/components/auth-form-base/auth-form';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'auth-form-app',
@@ -14,8 +16,31 @@ import { UserService } from '~entity-services';
 	styleUrls: ['./auth-form-base.component.scss', '../form-style.scss']
 })
 export class AuthFormBaseComponent extends AutoUnsub implements OnInit {
+
+	@Input() form: FormGroup;
+
+	@Input() error: string = '';
 	@Input() pending = false;
+	@Input() defaultFocused: string = '';
+	@Output() onSubmit = new EventEmitter<any>();
+
+	private _listForm: AuthFormElement[] = [];
+	@Input() set listForm(value: AuthFormElement[]) {
+		this._listForm = value;
+		const formGroup = {};
+		this._listForm.forEach((element: AuthFormElement) => {
+			formGroup[element.name] = ['', Validators.compose(element.validators)]
+		});
+		this.form = this.fb.group(formGroup);
+	}
+	get listForm(): AuthFormElement[] {
+		return this._listForm;
+	}
+
+	@Input() buttons: AuthFormButton[] = [];
+
 	constructor(
+		private fb: FormBuilder,
 	) {
 		super();
 	}

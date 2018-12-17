@@ -1,27 +1,26 @@
-<!-- <form [formGroup]="form" autocomplete="on" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
+<form [formGroup]="form" (ngSubmit)="onSubmit.emit(form)" autocomplete="on" class="flexColumn" *ngIf="!pending; else spinner">
 	<error-app *ngIf="error">{{ error }}</error-app>
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'firstName'}">
-		<label-app>First Name</label-app>
-		<input (focus)="filedFocused = 'firstName'" inputApp required="true" autoFocus autocomplete="given-name" formControlName="firstName" type="text"
-		 placeholder="Your first name" />
+	<form-field-app *ngFor="let formElement of listForm; trackBy: trackByFn" [ngClass]="{'field-focused': fieldFocused === formElement.name, 'field-error': (form.get(formElement.name).invalid)}">
+		<label-app>{{formElement.label}}</label-app>
+		<input (focus)="fieldFocused = formElement.name" (blur)="fieldFocused =''" inputApp [required]="formElement.isRequired"
+		 autoFocus [autocomplete]="formElement.autocomplete" [formControlName]="formElement.name" [type]="formElement.type"
+		 [placeholder]="formElement.placeHolder" />
+		<error-app *ngIf="formElement.error && error && (formElement.error.type ? !form.get(formElement.name).dirty : form.get(formElement.name).hasError(formElement.error.type))">{{formElement.errorMesasge}}</error-app>
+		<hint-app *ngIf="formElement.hint">{{formElement.hint}}</hint-app>
 	</form-field-app>
 
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'lastName'}">
-		<label-app>Last Name</label-app>
-		<input (focus)="filedFocused = 'lastName'" inputApp required="true" autocomplete="family-name" formControlName="lastName" type="text" placeholder="Your last name" />
-	</form-field-app>
+	<ng-content></ng-content>
 
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'email', 'field-error': (form.get('email').invalid) }">
-		<label-app>Email</label-app>
-		<input (focus)="filedFocused = 'email'" [class.error]="error && !form.get('email').dirty" inputApp required="true" autocomplete="email"
-		 formControlName="email" type="email" placeholder="Your email" />
-		<p class="error" *ngIf="error && !form.get('email').dirty">Please pick another email</p>
-		<hint-app>Tip: the app works better with a company email</hint-app>
-	</form-field-app>
+	<div class="centered-text">
+		<div *ngFor="let formButton of buttons; trackBy: trackByFn">
+			<div [ngSwitch]="formButton.type">
+				<input *ngSwitchCase="'button'" class="button" type="submit" [value]="formButton.label" [disabled]="!form.valid" />
+				<a *ngSwitchCase="'link'" class="button light" [routerLink]="formButton.link" [queryParams]="formButton.queryParams">{{formButton.label}}</a>
+			</div>
+		</div>
+	</div>
+</form>
 
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'password', 'field-error': (form.get('password').hasError('minlength'))}">
-		<label-app>Password</label-app>
-		<input (focus)="filedFocused = 'password'" #pw inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
-		 placeholder="Your password" />
-		<error-app *ngIf="form.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
-	</form-field-app> -->
+<ng-template #spinner>
+	<spinner-app [isHaveLogo]="true"></spinner-app>
+</ng-template>

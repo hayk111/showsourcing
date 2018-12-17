@@ -1,32 +1,10 @@
-<div class="flexCenter">
-	<icon-app name="teamwork" fontSet="svg"></icon-app>
+<div *ngIf="!pending" class="top">
+		<div class="logo">
+			<img src="/assets/img/logo.svg">
+		</div>
+		<h1>Create a team</h1>
+		<h2>Create your team and start sourcing</h2>
 </div>
 
-
-<ng-container *ngIf="!pending; else spinner">
-	<h1>Create your team</h1>
-	<h2>Create your team and start sourcing</h2>
-
-	<form [formGroup]="form" (ngSubmit)="onSubmit()">
-		<error-app *ngIf="error">{{ error }}</error-app>
-
-		<form-field-app>
-			<label-app>Team name</label-app>
-			<input type="text" autoFocus inputApp formControlName="name"/>
-		</form-field-app>
-
-
-		<input type="submit" class="fullWidth submitBtn" value="create team" [disabled]="!form.valid" />
-		<a class="button light fullWidth flexCenter"
-			routerLink="../pick-a-team"
-			*ngIf="hasTeam$ | async">Select Team Instead</a>
-	</form>
-
-</ng-container>
-
-<ng-template #spinner>
-	<h1>Setting-Up Your Team</h1>
-	<h2>We are setting-up your workspace, please wait a few seconds</h2>
-	<spinner-app></spinner-app>
-</ng-template>
-
+<auth-form-app (onSubmit)="onSubmit($event)" [error]="error" [defaultFocused]="'teamName'" [pending]="pending" [listForm]="listForm" [buttons]="buttons">
+</auth-form-app>

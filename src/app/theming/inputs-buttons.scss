@@ -13,9 +13,11 @@ input, textarea {
 	border-radius: var(--border-radius);
 	&:not(.borderless).ng-invalid.ng-dirty {
 		border: 1px solid var(--color-warn);
+		border-left: 4px solid var(--color-warn);
 	}
 	&:focus {
 		border: 1px solid var(--color-primary);
+		border-left: 4px solid var(--color-primary);
 	}
 	&.small {
 		padding: 3px;
@@ -82,10 +84,7 @@ form-field-app.field-focused {
 
 form-field-app.field-error {
 	label-app {
-		color: var(--color-warn);
-	}
-	input {
-		border-left: 4px solid var(--color-warn)
+		color: var(--color-warn) !important;
 	}
 }
 

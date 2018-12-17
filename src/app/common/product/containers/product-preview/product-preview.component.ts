@@ -26,6 +26,7 @@ import { AutoUnsub, PendingImage } from '~utils';
 	styleUrls: ['./product-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() _product: Product;
@@ -81,7 +82,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
-		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
+		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' },
 		{
 			name: 'tags',
 			type: 'selector',

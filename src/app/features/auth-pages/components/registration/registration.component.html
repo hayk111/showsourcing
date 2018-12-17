@@ -1,51 +1,13 @@
 <auth-form-header-app [pending]="(pending$ | async)" [subDescription]="'Please hold as we modify the internet for you!'"></auth-form-header-app>
-
-<form [formGroup]="form" autocomplete="on" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
-	<error-app *ngIf="error">{{ error }}</error-app>
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'firstName'}">
-		<label-app>First Name</label-app>
-		<input (focus)="filedFocused = 'firstName'" inputApp required="true" autoFocus autocomplete="given-name" formControlName="firstName" type="text"
-		 placeholder="Your first name" />
-	</form-field-app>
-
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'lastName'}">
-		<label-app>Last Name</label-app>
-		<input (focus)="filedFocused = 'lastName'" inputApp required="true" autocomplete="family-name" formControlName="lastName" type="text" placeholder="Your last name" />
-	</form-field-app>
-
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'email', 'field-error': (form.get('email').invalid) }">
-		<label-app>Email</label-app>
-		<input (focus)="filedFocused = 'email'" [class.error]="error && !form.get('email').dirty" inputApp required="true" autocomplete="email"
-		 formControlName="email" type="email" placeholder="Your email" />
-		<p class="error" *ngIf="error && !form.get('email').dirty">Please pick another email</p>
-		<hint-app>Tip: the app works better with a company email</hint-app>
-	</form-field-app>
-
-	<form-field-app [ngClass]="{'field-focused': filedFocused === 'password', 'field-error': (form.get('password').hasError('minlength'))}">
-		<label-app>Password</label-app>
-		<input (focus)="filedFocused = 'password'" #pw inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
-		 placeholder="Your password" />
-		<error-app *ngIf="form.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
-	</form-field-app>
-
-
+<auth-form-app (onSubmit)="createAccount($event)" [error]="error"  [defaultFocused]="filedFocused" [pending]="(pending$ | async)"
+ [listForm]="listForm" [buttons]="buttons">
 	<div class="options">
-			<!-- <div class="checkbox-container">
-				<checkbox-app [size]="16" [labelClass]="'label-rememberme'">
-					Remember me
-				</checkbox-app>
-			</div> -->
-			<div class="clickable forgot-password" (click)="forgotPw()">Forgotten password?</div>
-		</div>
-
-	<div class="centered-text">
-			<input class="button" type="submit" [disabled]="!form.valid" value="Sign Up" (click)="createAccount()" />
-			<a class="button light" [routerLink]="['../login']" [queryParams]="queryParams">Already have an account?</a>
+		<!-- <div class="checkbox-container">
+					<checkbox-app [size]="16" [labelClass]="'label-rememberme'">
+						Remember me
+					</checkbox-app>
+				</div> -->
+		<div class="clickable forgot-password" (click)="forgotPw()">Forgotten password?</div>
 	</div>
 
-
-</form>
-
-<ng-template #spinner>
-	<spinner-app></spinner-app>
-</ng-template>
+</auth-form-app>

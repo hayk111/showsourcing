@@ -1,5 +1,14 @@
-<div class="loader" [ngStyle]="style" >
+<div class="loader" *ngIf="!isHaveLogo" [ngStyle]="style">
 	<svg class="circular" viewBox="25 25 50 50">
-		<circle class="path" cx="50" cy="50" r="20" fill="none" [attr.stroke-width]="width" stroke-miterlimit="10"/>
+		<circle class="path" cx="50" cy="50" r="20" fill="none" [attr.stroke-width]="width" stroke-miterlimit="10" />
 	</svg>
+</div>
+
+<div class="loader" *ngIf="isHaveLogo" [ngStyle]="{width: '150px',
+	height: '150px'
+}">
+	<svg class="circular" viewBox="100 100 200 200">
+		<circle class="path-with-logo" cx="200" cy="200" r="80" fill="none" [attr.stroke-width]="10" stroke-miterlimit="10" />
+	</svg>
+	<img class="spinner-logo" src="/assets/img/logo.svg">
 </div>
