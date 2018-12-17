@@ -8,21 +8,19 @@ import {
 	Component,
 	EventEmitter,
 	Input,
+	OnInit,
 	Output,
 	QueryList,
 	ViewChild,
 	ViewChildren,
-	OnInit,
 } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Product, Project, Supplier, Tag } from '~core/models';
+import { Product, Project, Supplier, Tag, Currency } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
-
-import { SelectorCurrencyRowComponent } from '../selector-currency-row/selector-currency-row.component';
-import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -51,6 +49,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	choices$: Observable<any[]> = this.type$.pipe(
 		switchMap(type => this.getChoices(type, this.searchTxt))
 	);
+	topCurrencies$: Observable<Currency[]>;
 
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
@@ -69,6 +68,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	keyManager: ActiveDescendantKeyManager<AbstractSelectorHighlightableComponent>;
 	/** index when using manager keys and virtual scrolling */
 	count = 0;
+	/** whther the type that we send is a const or not
+	 * if its a const we don't need to emit an object {id, typename}, we only need a string
+	 */
+	isConst = false;
 	searchTxt = '';
 
 
@@ -85,6 +88,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
+		this.inp.focus();
 	}
 
 	search(text) {
@@ -97,12 +101,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		switch (type) {
 			case 'supplier': return this.selectorSrv.getSuppliers(searchTxt);
 			case 'product': return this.selectorSrv.getProducts(searchTxt);
-			// case 'category': return this.selectorSrv.getCategories(searchTxt);
+			case 'category': return this.selectorSrv.getCategories(searchTxt);
 			// case 'event': return this.selectorSrv.getEvents();
 			case 'tag': return this.selectorSrv.getTags(searchTxt);
-			// case 'supplierType': return this.selectorSrv.getSupplierTypes();
+			case 'supplierType': return this.selectorSrv.getSupplierTypes();
 			case 'user': return this.selectorSrv.getUsers(searchTxt);
-			case 'currency': return this.selectorSrv.getCurrenciesGlobal(searchTxt);
+			case 'currency':
+				this.isConst = true;
+				this.topCurrencies$ = this.selectorSrv.getTopCurrencies();
+				return this.selectorSrv.getCurrenciesGlobal(searchTxt);
 			case 'project': return this.selectorSrv.getProjects(searchTxt);
 			default: throw Error(`Unsupported type ${this.type}`);
 		}
@@ -111,7 +118,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	onChange() {
 		this.onChangeFn(this.value);
 		if (!this.multiple) {
-			this.update.emit({ id: this.value.id, __typename: this.value.__typename });
+			if (!this.isConst) this.update.emit({ id: this.value.id, __typename: this.value.__typename });
+			else this.update.emit(this.value);
 			this.close.emit();
 		} else
 			this.update.emit(this.value);
@@ -209,9 +217,5 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	getActiveClass(item) {
 		if (!this.multiple) return [];
 		return this.isSelected(item) ? ['active'] : [];
-	}
-
-	test(item) {
-		console.log(item);
 	}
 }

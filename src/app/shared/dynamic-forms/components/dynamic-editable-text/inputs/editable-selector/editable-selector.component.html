@@ -37,6 +37,12 @@
 			[class.flexWrap]="customField.multiple">
 			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 		</editable-label-app>
+		<!-- <selector2-app
+			[value]="value"
+			[multiple]="customField.multiple"
+			[canCreate]="customField.metadata.canCreate"
+			(update)="onSelectorChange()">
+		</selector2-app> -->
 		<selector-entity-app
 			#selector
 			[displayedValue]="'Select ' + customField.metadata.target"

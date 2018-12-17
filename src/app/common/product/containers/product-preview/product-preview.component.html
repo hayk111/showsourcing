@@ -18,6 +18,7 @@
 			(update)="update($event, 'name')">
 			<!-- Price -->
 			<price-with-quantity-app
+				*ngIf="productF?.price?.value"
 				[product]="productF"
 				(updateField)="update($event.newValue,  $event.field)">
 			</price-with-quantity-app>

@@ -25,27 +25,18 @@
 
 		<!-- price -->
 
-		<price-with-quantity-app [product]="product" 
-		(updateField)="updateProductProp(false, $event.newValue,  $event.field)">></price-with-quantity-app>
+		<price-with-quantity-app
+			[product]="product"
+			(updateField)="updateProductProp(false, $event.newValue,  $event.field)">
+		</price-with-quantity-app>
 
 		<!-- description -->
-		<div class="description">
-			<editable-field-app
-				[canGrow]="true"
-				(opened)="txt.select()"
-				(closed)="updateProductProp($event, txt.value, 'description')">
-				<label-app>Description</label-app>
-				<editable-label-app>
-					<span *ngIf="product?.description; else noDesc">{{ product.description }}</span>
-					<ng-template #noDesc>
-						<span i18n="label|Product with no description@@productDescription_noDescription">
-							No description yet
-						</span>
-					</ng-template>
-				</editable-label-app>
-				<textarea inputApp class="fullWidth" #txt [value]="product?.description || ''"></textarea>
-			</editable-field-app>
-		</div>
+		<h2>Description</h2>
+		<input-description-app
+			[isBig]="true"
+			[description]="product?.description"
+			(update)="updateProductProp(false, $event, 'description')">
+		</input-description-app>
 
 		<!-- dynamic forms -->
 		<div class="title-information">Product Information</div>
