@@ -17,13 +17,10 @@
 		</div>
 	</context-menu-trigger-app>
 
-	<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
-		<status-box-app
-			[type]="'list'"
-			[status]="entity.status"
-			[size]="selectSize">
-		</status-box-app>
-	</context-menu-item-app>
+	
+	<div *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
+		<status-box-app [type]="'list'" [status]="stat" [size]="selectSize" [typeEntity]="typeEntity" (click)="updateStatus(stat)"></status-box-app>
+	</div>
 
 </context-menu-app>
 
@@ -38,9 +35,9 @@
 			<div class="caretCtnr" *ngIf="isSendToWorkFlow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 		</context-menu-trigger-app>
 
-		<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
-			<status-box-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)" [typeEntity]="typeEntity"></status-box-app>
-		</context-menu-item-app>
+		<div *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
+			<status-box-app [type]="'list'" [status]="stat" [size]="selectSize" [typeEntity]="typeEntity" (click)="setStatus(stat)"></status-box-app>
+		</div>
 
 	</context-menu-app>
 </ng-template>
