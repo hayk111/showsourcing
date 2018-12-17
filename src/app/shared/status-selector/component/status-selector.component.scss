@@ -28,6 +28,28 @@ context-menu-app {
 	font-weight: 600;
 }
 
+.status-item {
+	color: var(--color-txt-strong);
+	padding: 5px 10px;
+	.status-box {
+		display: inline-block;
+		width: 12px;
+		height: 12px;
+		background-color: #45d8ff;
+	}
+
+	.status-name {
+		display: inline-block;
+		font-size: 14px;
+		font-weight: 600;
+	}
+	&:hover {
+		background-color: #45d8ff;
+		color: white;
+		border-radius: 5px;
+	}
+}
+
 badge-app.task {
 	text-transform: capitalize;
 	color: var(--color-txt-strong);

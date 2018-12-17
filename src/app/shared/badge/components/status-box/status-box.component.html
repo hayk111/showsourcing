@@ -1,0 +1,22 @@
+<div *ngIf="type==='badge'">
+	<div *ngIf="status; else noStatus">
+		<badge-app #badge [size]="size" [type]="getType" [round]="false" class="badge-name border">
+			{{ status?.name | const: 'status'  }}
+			<icon-app name="caret"></icon-app>
+		</badge-app>
+	</div>
+
+	<ng-template #noStatus>
+		<badge-app #badge class="no-status" [size]="size" [type]="getType" [round]="false">
+			New {{ typeEntity?.singular }}
+		</badge-app>
+	</ng-template>
+</div>
+<div *ngIf="type==='list'">
+	<badge-app #badge *ngIf="status; else noStatus" [size]="size" [type]="getType" [round]="false">
+		<div class="status-item">
+			<div class="status-box" [ngClass]="stat?.name"></div>
+			<div class="status-name">{{stat?.name }}</div>
+		</div>
+	</badge-app>
+</div>
