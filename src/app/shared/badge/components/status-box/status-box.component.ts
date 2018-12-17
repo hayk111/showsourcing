@@ -5,13 +5,20 @@ import { EntityMetadata, SampleStatus, SupplierStatus, ProductStatus } from '~mo
 	selector: 'status-box-app',
 	templateUrl: './status-box.component.html',
 	styleUrls: ['./status-box.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatusBoxComponent implements OnInit {
 
 	@Input() size = 's';
 
-	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
+	private _status: ProductStatus | SupplierStatus | SampleStatus;
+	@Input() set status(value: ProductStatus | SupplierStatus | SampleStatus) {
+		this._status = value
+	}
+	get status() {
+		return this._status;
+	}
+
 	@Input() round = true;
 
 	// we need to pass this so when the
@@ -28,7 +35,7 @@ export class StatusBoxComponent implements OnInit {
 
 	}
 
-	get getType() {
+	getType() {
 		// by default is secondary since is the color for NEW elements
 		if (this.status) {
 			switch (this.status.category) {

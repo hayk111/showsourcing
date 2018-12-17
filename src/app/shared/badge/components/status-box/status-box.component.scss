@@ -1,45 +1,169 @@
 :host {
-	display: inline-block;
-	cursor: default;
-	user-select: none;
+  display: inline-block;
+  cursor: default;
+  user-select: none;
 }
 
 div.selector {
-	margin-left: 4px;
+  margin-left: var(--spacing-xs);
 }
 
 badge-app.no-status {
-	text-transform: capitalize;
-	color: var(--color-txt-strong);
+  text-transform: capitalize;
+  color: var(--color-txt-strong);
 }
 
 icon-app {
-	padding: var(--spacing-xs);
-	padding-top: 5px;
-	padding-left: 0;
-	font-size: 6px;
-	margin-left: 20px;
-}
-.status-item {
-	height: 100%;
+  padding: var(--spacing-xs);
+  padding-top: var(--spacing-xs);
+  padding-left: 0;
+  font-size: var(--font-size-xxs);
+  margin-left: var(--spacing-l);
 }
 
-.status-name {
-	display: inline-block;
-	height: 100%;
-}
-.status-icon {
-	display: inline-block;
-	height: 100%;
+.badge-item {
+  font-size: var(--font-size-m);
+  border-radius: var(--border-radius-s);	
+	padding: var(--spacing-s) var(--spacing-s) var(--spacing-s) var(--spacing-s);
+  font-weight: 600;
+  .badge-name {
+    display: inline-block;
+    color: white;
+  }
+  .badge-icon {
+    display: inline-block;
+    color: white;
+  }
 }
 
 .border {
-	&:after {
-		content: "";
-		width: 1px;
+  &:after {
+    content: "";
+    width: 1px;
+    height: 40px;
     position: absolute;
-    padding-top: 48px;
-    margin-left: var(--spacing-l);
-		border-right: 1px solid var(--color-primary-contrast);
-	}
+    margin-top: -10px;
+    margin-left: var(--spacing-ms);
+    border-right: 1px solid var(--color-primary-contrast);
+  }
+}
+
+.badge {
+  .in-progress {
+    background: var(--color-in-progress);
+  }
+  .secondary {
+    background: var(--color-secondary);
+  }
+  .primary {
+    background: var(--color-primary);
+  }
+  .secondary-light {
+    background: var(--color-secondary-light);
+  }
+  .accent {
+    background: var(--color-accent);
+  }
+  .warn {
+    background: var(--color-warn);
+  }
+  .success {
+    background: var(--color-success);
+  }
+}
+
+.list {
+  badge-ap {
+    color: black !important;
+  }
+  .status-item {
+    width: 200px;
+    color: var(--color-txt-strong);
+    margin: 5px 10px;
+    padding: 5px 10px;
+    .status-box {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+    }
+    .status-name {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+    &:hover {
+      border-radius: 5px;
+    }
+  }
+  .in-progress {
+    .status-box {
+      background-color: var(--color-in-progress);
+    }
+    &:hover {
+      color: white;
+      border-radius: 5px;
+      background-color: var(--color-in-progress);
+    }
+  }
+  .secondary {
+    .status-box {
+      background-color: var(--color-secondary);
+    }
+    &:hover {
+      color: white;
+      border-radius: 5px;
+      background-color: var(--color-secondary);
+    }
+  }
+  .primary {
+    .status-box {
+      background-color: var(--color-primary);
+    }
+    &:hover {
+      color: white;
+      border-radius: 5px;
+      background-color: var(--color-primary);
+    }
+  }
+  .secondary-light {
+    .status-box {
+      background-color: var(--color-secondary-light);
+    }
+    &:hover {
+      color: white;
+      border-radius: 5px;
+      background-color: var(--color-secondary-light);
+    }
+  }
+  .accent {
+    .status-box {
+      background-color: var(--color-accent);
+    }
+    &:hover {
+      color: white;
+      border-radius: 5px;
+      background-color: var(--color-accent);
+    }
+  }
+  .warn {
+    .status-box {
+      background-color: var(--color-warn);
+    }
+    &:hover {
+      color: white;
+      border-radius: 5px;
+      background-color: var(--color-warn);
+    }
+  }
+  .success {
+    .status-box {
+      background-color: var(--color-success);
+    }
+    &:hover {
+      color: white;
+      border-radius: 5px;
+      background-color: var(--color-success);
+    }
+  }
 }
