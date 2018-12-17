@@ -16,7 +16,7 @@
 	</main>
 
   <dialog-footer-app class="fullWidth flexCenter flexBetween" *ngIf="!pending">
-		<span class="txt-secondary">{{ selectedProducts?.length }} product{{ selectedProducts?.length > 1 ? 's' : '' }} selected</span>
+		<span class="txt-secondary">{{ products?.length }} product{{ products?.length > 1 ? 's' : '' }} selected</span>
 		<button class="small" (click)="export()" i18n="button|Export product@@productExport_export">
 			Export
 		</button>

@@ -1,4 +1,3 @@
-import { EntityWithAudit } from '~models/_entity.model';
 import { uuid } from '~utils';
 
 export class Attachment {
@@ -8,9 +7,15 @@ export class Attachment {
 	size?: number;
 	__typename ?= 'File';
 
-	constructor(fileName: string, size?: number) {
+	constructor(config: AttachmentConfig) {
 		this.id = uuid();
-		this.fileName = fileName;
-		this.size = size;
+		Object.assign(this, config);
 	}
+}
+
+
+export interface AttachmentConfig {
+	id?: string;
+	fileName?: string;
+	size?: number;
 }

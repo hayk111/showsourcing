@@ -17,13 +17,10 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent implements OnInit {
 
 	teamMembers$: Observable<User[]>;
-	@Input() selectedProducts: Product[];
-	private selected = {};
+	@Input() products: Product[];
+	selected = {};
 	numSelected = 0;
 
-	get products() {
-		return this.selectedProducts;
-	}
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -51,7 +48,7 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 			first(),
 			map(teamMembers => teamMembers.filter(teamMember => !!this.selected[teamMember.id])),
 			switchMap(teamMembers => {
-				return this.productDlgSrv.askFeedBackToUsers(teamMembers, this.selectedProducts);
+				return this.productDlgSrv.askFeedBackToUsers(teamMembers, this.products);
 			})
 		).subscribe(
 			r => {

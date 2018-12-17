@@ -29,6 +29,9 @@
 	--color-success: #71e591;
 	--color-success-dark: #48d26f;
 
+
+	/** Status colors */
+
 	--color-in-progress: #45d8ff;
 
 	--color-supplier: #9013fe;
@@ -57,17 +60,15 @@
 	color: var(--color-secondary-dark);
 }
 
-/** status */
-
-.color-warn {
+.color-warn, .color-refused {
 	color: var(--color-warn);
 }
 
-.color-success {
+.color-success, .color-validated {
 	color: var(--color-success);
 }
 
-.color-in-progress {
+.color-in-progress, .color-inProgress {
 	color: var(--color-in-progress);
 }
 /** text */
@@ -91,7 +92,7 @@
 
 /* Background */
 
-.bg-primary, .bg-inProgress {
+.bg-primary {
 	background: var(--color-primary);
 }
 
@@ -111,8 +112,12 @@
 	background-color: var(--color-success);
 }
 
-.bg-warn, .bg-rejected {
+.bg-warn, .bg-rejected, .bg-refused {
 	background-color: var(--color-warn);
+}
+
+.bg-inProgress, .bg-in-progress {
+	background-color: var(--color-in-progress);
 }
 
 .bg-inspiration {

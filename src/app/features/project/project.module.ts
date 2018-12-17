@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { ProjectsListViewComponent } from '~features/project/components';
@@ -12,8 +12,6 @@ import { ProjectDetailsComponent } from '~features/project/containers/project-de
 import { ProjectProductsComponent } from '~features/project/containers/project-products/project-products.component';
 import { ProjectSettingsComponent } from '~features/project/containers/project-settings/project-settings.component';
 import { routes } from '~features/project/routes';
-import { ProjectFeatureService } from '~features/project/services/project-feature.service';
-import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
@@ -35,9 +33,6 @@ import { SharedModule } from '~shared/shared.module';
 		ProjectProductListComponent
 	],
 	exports: [RouterModule, ProjectsPageComponent],
-	providers: [
-		ProjectFeatureService,
-		ProjectWorkflowFeatureService
-	]
+	providers: []
 })
 export class ProjectModule { }

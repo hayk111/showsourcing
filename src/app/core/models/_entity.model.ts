@@ -14,11 +14,11 @@ export class EntityWithAudit<G> implements Entity {
 	deleted?: boolean;
 
 	constructor(config?: G) {
-		Object.assign(this, config);
 		this.id = uuid();
 		this.creationDate = '' + new Date();
 		this.lastUpdatedDate = '' + new Date();
 		this.deleted = false;
+		Object.assign(this, config);
 	}
 }
 

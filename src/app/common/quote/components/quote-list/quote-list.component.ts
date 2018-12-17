@@ -52,7 +52,7 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 			key: ListPageKey.QUOTE,
 			entitySrv: this.featureSrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'name', descending: false },
+			selectParams: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.QUOTE
 		});
 	}

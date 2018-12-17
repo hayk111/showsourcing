@@ -44,7 +44,7 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }],
-			entityMetadata: ERM.PRODUCT
+			entityMetadata: ERM.PRODUCT,
 		});
 	}
 

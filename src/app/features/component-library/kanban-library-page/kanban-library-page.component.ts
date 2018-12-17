@@ -28,7 +28,7 @@ export class KanbanLibraryPageComponent implements OnInit {
 			key: ListPageKey.LIB_KANBAN,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			currentSort: { sortBy: 'category.name', descending: true },
+			selectParams: { sortBy: 'category.name', descending: true },
 			entityMetadata: ERM.PRODUCT
 		});
 
@@ -62,22 +62,22 @@ export class KanbanLibraryPageComponent implements OnInit {
 
 	updateProductStatus(product: Product) {
 		// TODO implement this function
-		throw 'not implemented updateProductStatus';
+		throw new Error('not implemented updateProductStatus');
 	}
 
 
 	updateProductsStatus(products: Product[]) {
 		// TODO implement this function
-		throw 'not implemented updateProductsStatus';
+		throw new Error('not implemented updateProductsStatus');
 	}
 
 	onColumnSelected(data: any) {
 		// TODO implement this function
-		throw 'not implemented onColumnSelected';
+		throw new Error('not implemented onColumnSelected');
 	}
 
 	onColumnUnselected(data: any) {
 		// TODO implement this function
-		throw 'not implemented onColumnUnselected';
+		throw new Error('not implemented onColumnUnselected');
 	}
 }

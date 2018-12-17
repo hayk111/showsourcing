@@ -618,14 +618,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.apolloState.getClientWhenReady(clientName, context);
 	}
 
-	/** create appollo mutationOptions from our updateOptions */
-	private createApolloMutationOptions(gql: DocumentNode, input: any) {
-		return {
-			mutation: gql,
-			variables: { input },
-		};
-	}
-
 	/** creates an optimistic response the way apollo expects it */
 	private addOptimisticResponse(options: any, gql: DocumentNode, input, typename: string) {
 		if (typename) {

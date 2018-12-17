@@ -37,7 +37,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.MY_WORKFLOW,
 			entitySrv: this.featureSrv,
 			searchedFields: ['name'],
-			currentSort: { sortBy: 'name', descending: false },
+			selectParams: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.PRODUCT
 		});
 

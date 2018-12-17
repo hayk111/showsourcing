@@ -1,5 +1,3 @@
-import { Sort } from '~shared/table/components/sort.interface';
-
 /** utility class used to manage a selection of items */
 export class SelectParams {
 	/** used for pagination,

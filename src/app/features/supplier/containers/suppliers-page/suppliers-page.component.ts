@@ -40,7 +40,6 @@ export class SuppliersPageComponent extends TrackingComponent
 			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tag.name', 'category.name'],
-			currentSort: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.SUPPLIER
 		});
 	}

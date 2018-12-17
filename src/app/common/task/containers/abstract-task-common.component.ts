@@ -27,7 +27,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent impl
 			key: ListPageKey.TASK,
 			entitySrv: this.taskSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name'],
-			currentSort: { sortBy: 'creationDate', descending: true },
+			selectParams: { sortBy: 'creationDate', descending: true },
 			initialFilters: [{ type: FilterType.DONE, value: false }],
 			entityMetadata: ERM.TASK
 		});

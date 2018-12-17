@@ -6,25 +6,35 @@
 	[offsetY]="offsetY">
 
 	<context-menu-trigger-app class="flex {{selectSize}}">
-		<status-badge-app
-			*ngIf="!isSendToWorkFlow"
-			[hasArrow]="selectSize !== 's'"
-			[status]="entity.status"
-			[size]="selectSize">
-		</status-badge-app>
-		<div class="caretCtnr" *ngIf="isSendToWorkFlow">
+
+		<ng-container *ngIf="type === 'badge'">
+			<status-badge-app
+				[status]="entity.status"
+				[size]="selectSize">
+			</status-badge-app>
+		</ng-container>
+
+		<ng-container *ngIf="type === 'button'">
+			<div class="bg-{{ entity?.status?.category }}">
+				<div class="statusName">{{ entity?.status?.name | const: 'status' }}</div>
+				<divider-app [vertical]="true"></divider-app>
+				<icon-app fontSet="fa" name="caret-right"></icon-app>
+			</div>
+		</ng-container>
+
+		<ng-container *ngIf="type === 'dropdown'">
 			<icon-app fontSet="fa" name="caret-down"></icon-app>
-		</div>
+		</ng-container>
+
 	</context-menu-trigger-app>
 
-	<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
-		<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatus(stat)"></status-badge-app>
-	</context-menu-item-app>
-
-	<context-menu-divider-app></context-menu-divider-app>
-
-	<context-menu-item-app class="remove-workflow" (click)="setStatus(null)">
-		<span>Remove from Workflow</span>
+	<context-menu-item-app
+		[ngClass]="{ 'flexVAlign': true }"
+		style="min-width: 220px;"
+		*ngFor="let status of (status$ | async);trackBy: trackByFn"
+		(click)="updateStatus(status)">
+		<div class="coloredSquare bg-{{ status?.category }}"></div>
+		<div class="statusName">{{ status?.name | const: 'status' }}</div>
 	</context-menu-item-app>
 
 </context-menu-app>
@@ -36,7 +46,7 @@
 		(menuClosed)="statusUpdated.emit()">
 
 		<context-menu-trigger-app class="flex {{selectSize}}">
-			<status-badge-app  *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [size]="selectSize" [typeEntity]="typeEntity"></status-badge-app>
+			<status-badge-app  *ngIf="!isSendToWorkFlow" [size]="selectSize" [typeEntity]="typeEntity"></status-badge-app>
 			<div class="caretCtnr" *ngIf="isSendToWorkFlow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 		</context-menu-trigger-app>
 

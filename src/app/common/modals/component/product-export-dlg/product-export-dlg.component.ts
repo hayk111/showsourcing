@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { switchMap } from 'rxjs/operators';
 import { ExportRequestService } from '~entity-services/export-request/export-request.service';
-import { ExportRequest } from '~models';
+import { ExportRequest, Product } from '~models';
 import { DialogService } from '~shared/dialog/services';
 
 
@@ -15,10 +15,8 @@ import { DialogService } from '~shared/dialog/services';
 export class ProductExportDlgComponent implements OnInit {
 	selectedExport: '' | 'pdf' | 'xlsx' = '';
 	// used to give props from the dialog container
-	selectedProducts: { id: string }[];
-	get products() {
-		return this.selectedProducts;
-	}
+	@Input() products: Product[];
+
 	pending: boolean;
 
 	constructor(private dlgSrv: DialogService, private exportSrv: ExportRequestService,

@@ -5,13 +5,17 @@ import { CommonModule } from '@angular/common';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { BadgeModule } from '~shared/badge';
 import { IconsModule } from '~shared/icons';
+import { UtilsModule } from '~shared/utils';
+import { DividerModule } from '~shared/divider/divider.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		ContextMenuModule,
 		BadgeModule,
-		IconsModule
+		IconsModule,
+		UtilsModule,
+		DividerModule
 	],
 	declarations: [StatusSelectorComponent],
 	exports: [StatusSelectorComponent],

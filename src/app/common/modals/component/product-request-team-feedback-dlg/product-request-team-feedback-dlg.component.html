@@ -21,7 +21,7 @@
 	</main>
 
   <dialog-footer-app class="fullWidth flexCenter flexBetween">
-		<span class="txt-secondary">{{ selectedProducts?.length }} {{ !selectedProducts?.length  ? '' : selectedProducts?.length > 1 ? 'products selected for feedback' : 'product selected for feedback' }} </span>
+		<span class="txt-secondary">{{ products?.length }} {{ !products?.length  ? '' : products?.length > 1 ? 'products selected for feedback' : 'product selected for feedback' }} </span>
 		<button [disabled]="numSelected < 1"class="small" (click)="submit()" i18n="button|Feedback request@@productRequestTeamFeedback_requestFeedback">
 			Request Feedback
 		</button>

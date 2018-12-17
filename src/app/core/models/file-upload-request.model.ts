@@ -9,7 +9,7 @@ export class FileUploadRequest {
 	__typename ?= 'FileUploadRequest';
 
 	constructor(fileName: string) {
-		this.attachment = new Attachment(fileName);
+		this.attachment = new Attachment({ fileName });
 	}
 
 }
