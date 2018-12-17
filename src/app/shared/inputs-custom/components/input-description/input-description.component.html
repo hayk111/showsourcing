@@ -14,7 +14,7 @@
 		<editable-label-app
 			*ngIf="!(description?.length && description)"
 			class="fullWidth">
-			<button class="secondary flexCenter edit-description">
+			<button class="secondary flexCenter edit-description" [ngStyle]="{'width': isBig ? '30%' : '100%'}">
 				<icon-app class="edit" name="edit"></icon-app>
 				<span>Add Product Description</span>
 			</button>
@@ -27,6 +27,13 @@
 	</editable-field-app>
 </div>
 <button
-	*ngIf="showMore"
+	*ngIf="showMore && !isBig"
 	class="secondary-light flexCenter view-more"
-	(click)="showAll()">View More</button>
+	(click)="showAll()">
+	View More
+</button>
+<span *ngIf="showMore && isBig"
+	class="text-more"
+	(click)="showAll()">
+	View more...
+</span>

@@ -20,7 +20,7 @@ editable-field-app {
 
 	editable-label-app {
 		white-space: pre-line;
-		font-size: var(--font-size-m);
+		font-size: var(--font-size-l);
 
 		icon-app.edit {
 			margin-right: var(--spacing-xs);
@@ -36,4 +36,9 @@ editable-field-app {
 button.view-more {
 	width: 100%;
 	margin-top: var(--spacing-s);
+}
+
+.text-more {
+	cursor: pointer;
+	color: var(--color-primary);
 }

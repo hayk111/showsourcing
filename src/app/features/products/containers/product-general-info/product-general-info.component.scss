@@ -64,18 +64,8 @@ textarea {
 	height: 74px;
 }
 
-.description {
+input-description-app {
 	margin-bottom: var(--spacing-xl);
-
-
-	editable-label-app {
-		white-space: pre-line;
-		margin-top: var(--spacing-xs);
-		font-size: var(--font-size-l);
-		color: var(--color-txt-strong);
-		width: 100%;
-		max-height: 152px;
-	}
 }
 
 .title-information {
