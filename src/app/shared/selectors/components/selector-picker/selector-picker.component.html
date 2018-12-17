@@ -14,7 +14,7 @@
 	</ng-template>
 </div>
 
-<divider-app *ngIf="multiple" class="top-divider"></divider-app>
+<divider-app class="top-divider"></divider-app>
 
 <cdk-virtual-scroll-viewport [itemSize]="getHeight()" class="container-items">
 
@@ -33,6 +33,9 @@
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'currency'">
+			<!-- we need the top 3 currencies always visible at the top -->
+			<selector-currency-row-app *ngFor="let item of topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
+			<divider-app *ngIf="topCurrencies$ | async"></divider-app>
 			<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
 		</ng-container>
 
@@ -42,6 +45,14 @@
 
 		<ng-container *ngSwitchCase="'tag'">
 			<selector-tag-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [ngClass]="getActiveClass(item)" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'category'">
+			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [ngClass]="getActiveClass(item)" [text]="item.name" (click)="onSelect(item)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'supplierType'">
+			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchDefault>

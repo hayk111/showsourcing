@@ -1,6 +1,7 @@
 :host {
 	display: flex;
-	height: 63px;
+	min-height: 37px;
+	max-height: 63px;
 	cursor: pointer;
 
 	&.active, &:hover {
@@ -22,10 +23,14 @@ icon-app.circle {
 }
 
 .container {
+	height: 100%;
+	width: 100%;
+	border-bottom: 1px solid var(--color-divider);
+	margin-right: var(--spacing-xs);
 
 	.name-container {
-		margin-bottom: var(--spacing-xs);
 		align-items: center;
+		margin-top: 10px;
 
 		.name {
 			font-size: var(--font-size-l);
@@ -35,6 +40,7 @@ icon-app.circle {
 
 	.categories {
 		color: var(--color-txt-secondary);
+		margin-bottom: 10px;
 
 		// just for the title and descrption have the same align
 		icon-app.circle {

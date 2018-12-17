@@ -119,6 +119,10 @@ export class SelectorsService {
 		return this.userSrv.queryAll('', null, Client.TEAM);
 	}
 
+	getTopCurrencies(): Observable<Currency[]> {
+		return this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
+	}
+
 	createSupplier(supplier: Supplier): Observable<any> {
 		return this.supplierSrv.create(supplier);
 	}

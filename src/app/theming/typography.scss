@@ -1,6 +1,6 @@
 /* */
 
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+// @import url('https://fonts.googleapis.com/css?family=Source Sans Pro');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
 
 :root {
@@ -15,7 +15,7 @@
 	--font-size-xxxxl: 28px;
 	--font-size-huge: 30px;
 	--font-normal: 'Source Sans Pro', Roboto, sans-serif;
-	--font-title: 'Raleway', sans-serif;
+	--font-title: 'Source Sans Pro', sans-serif;
 }
 
 .fs-xxs {
@@ -86,7 +86,7 @@ body, .body, .body1 {
 }
 
 h1 {
-	font-family: 'Raleway';
+	font-family: 'Source Sans Pro';
 	font-size: var(--font-size-xxl);
 }
 
