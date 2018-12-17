@@ -26,6 +26,7 @@ import { AutoUnsub, PendingImage } from '~utils';
 	styleUrls: ['./product-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() _product: Product;
