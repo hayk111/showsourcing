@@ -42,7 +42,6 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 
 	ngOnInit() {
 		super.setup([]);
-
 	}
 
 	createTask(name: string) {
