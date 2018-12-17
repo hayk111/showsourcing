@@ -12,8 +12,7 @@
 	[cdkConnectedOverlayOpen]="menuOpen"
 	[cdkConnectedOverlayScrollStrategy]="scrollStrat"
 	[cdkConnectedOverlayOffsetY]="offsetY"
-	[cdkConnectedOverlayOffsetX]="offsetX"
-	[cdkConnectedOverlayPositions]="downPos">
+	[cdkConnectedOverlayOffsetX]="offsetX">
 	<div class="menu z-4 flexColumn ellipsis" (clickOutside)="closeMenu()" (click)="closeMenu(true)">
 		<ng-content></ng-content>
 	</div>
