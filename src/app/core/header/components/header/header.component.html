@@ -16,13 +16,13 @@
 
   <!-- we don't want those links in production... -->
   <a
-    *ngIf="!isProd"
+    *ngIf="!isProd && !isSta"
     [routerLink]="['/component-library']"
     routerLinkActive="selected">
     Component Library
   </a>
 
-  <a *ngIf="!isProd"
+  <a *ngIf="!isProd &&  !isSta"
     [routerLink]="['/test']"
     routerLinkActive="selected">
     Test Page

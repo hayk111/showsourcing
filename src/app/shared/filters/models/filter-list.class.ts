@@ -74,6 +74,10 @@ export class FilterList {
 		this.setFilters(this._filters.filter(f => f.type !== type));
 	}
 
+	hasFilterType(type: FilterType) {
+		return this._byType.get(type).size > 0;
+	}
+
 	/** return a new map of <type, new Map()> */
 	private getInitialMap(): FilterByType {
 		const byTypeMap = new Map();
@@ -128,6 +132,8 @@ export class FilterList {
 				return `createdBy.id == "${value}"`;
 			case FilterType.DUE_DATE:
 				return `dueDate >= ${value} OR dueDate == null`;
+			case FilterType.CUSTOM:
+				return value;
 			// most of the filters from the panel filter by id
 			default:
 				return `${type}.id == "${value}"`;

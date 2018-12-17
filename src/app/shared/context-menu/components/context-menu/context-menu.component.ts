@@ -1,4 +1,4 @@
-import { ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { ScrollStrategy, ScrollStrategyOptions, ConnectedPosition } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 
@@ -26,7 +26,6 @@ export class ContextMenuComponent implements OnInit {
 	@Input() offsetX = 0;
 	@Input() offsetY = 8;
 	@Output() menuClosed = new EventEmitter<any>();
-
 	scrollStrat: ScrollStrategy;
 
 	constructor(private sso: ScrollStrategyOptions) { }
