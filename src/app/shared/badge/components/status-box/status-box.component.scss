@@ -1,0 +1,45 @@
+:host {
+	display: inline-block;
+	cursor: default;
+	user-select: none;
+}
+
+div.selector {
+	margin-left: 4px;
+}
+
+badge-app.no-status {
+	text-transform: capitalize;
+	color: var(--color-txt-strong);
+}
+
+icon-app {
+	padding: var(--spacing-xs);
+	padding-top: 5px;
+	padding-left: 0;
+	font-size: 6px;
+	margin-left: 20px;
+}
+.status-item {
+	height: 100%;
+}
+
+.status-name {
+	display: inline-block;
+	height: 100%;
+}
+.status-icon {
+	display: inline-block;
+	height: 100%;
+}
+
+.border {
+	&:after {
+		content: "";
+		width: 1px;
+    position: absolute;
+    padding-top: 48px;
+    margin-left: var(--spacing-l);
+		border-right: 1px solid var(--color-primary-contrast);
+	}
+}
