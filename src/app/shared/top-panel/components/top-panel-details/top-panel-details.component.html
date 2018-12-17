@@ -16,7 +16,7 @@
 
 	<div class="flex right">
 		<ng-content select="status-selector-app"></ng-content>
-		<context-menu-app *ngIf="hasOptions">
+		<context-menu-app *ngIf="hasOptions" [offsetY]="90">
 				<context-menu-trigger-app>
 					<button class="icon light">
 						<icon-app class="color-txt-secondary" name="dots-vertical"></icon-app>

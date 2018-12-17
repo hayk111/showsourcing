@@ -4,8 +4,10 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
-import { Sample } from '~models';
+import { Sample, ERM } from '~models';
 import { FilterType } from '~shared/filters';
+import { first, filter, map } from 'rxjs/operators';
+import { CloseEventType } from '~shared/dialog';
 
 @Component({
 	selector: 'product-samples-app',
@@ -37,4 +39,7 @@ export class ProductSamplesComponent extends AbstractSampleCommonComponent imple
 		});
 	}
 
+	createSample() {
+		this.commonModalSrv.openCreateDlg(ERM.SAMPLE, false);
+	}
 }
