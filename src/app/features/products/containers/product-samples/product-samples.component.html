@@ -2,7 +2,7 @@
 	[samples]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	(bottomReached)="listSrv.loadMore()"
-	(createSample)="createSample($event)"
+	(createSample)="createSample()"
 	(previewClicked)="listSrv.openPreview($event)"
 	(updateSample)="listSrv.update($event)">
 </sample-list-app>

@@ -46,7 +46,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.sample$ = this.sampleSrv.queryOne(this._sample.id);
+		this.sample$ = this.sampleSrv.selectOne(this._sample.id);
 		this.sample$.pipe(takeUntil(this._destroy$))
 			.subscribe(s => this._sample = s);
 	}

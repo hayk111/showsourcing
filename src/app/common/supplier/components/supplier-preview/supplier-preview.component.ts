@@ -61,7 +61,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.supplier$ = this.supplierSrv.queryOne(this._supplier.id);
+		this.supplier$ = this.supplierSrv.selectOne(this._supplier.id);
 		this.supplier$.pipe(takeUntil(this._destroy$))
 			.subscribe(s => this._supplier = s);
 	}

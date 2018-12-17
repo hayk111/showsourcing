@@ -29,7 +29,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.task$ = this.taskSrv.queryOne(this._task.id);
+		this.task$ = this.taskSrv.selectOne(this._task.id);
 		this.task$.pipe(takeUntil(this._destroy$))
 			.subscribe(s => this._task = s);
 	}
