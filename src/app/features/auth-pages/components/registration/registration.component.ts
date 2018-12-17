@@ -111,5 +111,9 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 			this.error = error.error.message;
 		}
 	}
+
+	forgotPw() {
+		this.router.navigate(['../forgot-password'], { relativeTo: this.route });
+	}
 }
 
