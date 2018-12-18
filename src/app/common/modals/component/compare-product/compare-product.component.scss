@@ -35,6 +35,12 @@ dialog-app {
 
   .content {
     overflow: auto;
-  }
+	}
+
+	.item-container {
+		max-width: 70em;
+    overflow-x: auto;
+    white-space: nowrap;
+	}
 }
 
