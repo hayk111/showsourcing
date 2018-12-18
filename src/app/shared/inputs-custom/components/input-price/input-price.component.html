@@ -1,8 +1,17 @@
 
 <div class="flex flexVAlign">
-	<span class="currencyLabel pointer" (click)="showCurrencySelector()">
-		{{ currency | const:'currency':'id' }}
-	</span>
+	<selector2-app
+		type="currency"
+		[multiple]="false"
+		[value]="currency"
+		[width]="200"
+		[offsetX]="-13"
+		[offsetY]="-24"
+		(update)="onCurrencyChange($event)">
+		<span class="currencyLabel pointer">
+			{{ currency | const:'currency':'id' }}
+		</span>
+	</selector2-app>
 
 	<input #inp
 		inputApp
@@ -13,8 +22,7 @@
 		(blur)="onBlur()"/>
 </div>
 
-
-<selector-const-app
+<!-- <selector-const-app
 	*ngIf="currencySelectorShown"
 	class="rightSelector"
 	[type]="'currency'"
@@ -23,4 +31,4 @@
 	(clickOutside)="hideCurrencySelector()"
 	(change)="onCurrencyChange()"
 	(blur)="onBlur()">
-</selector-const-app>
+</selector-const-app> -->

@@ -14,7 +14,7 @@ export class IncoTermService extends GlobalService<IncoTerm> {
 	defaultClient = Client.GLOBAL_DATA;
 
 	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, IncoTermQueries, 'incoTerm', 'incoTerms');
+		super(apolloState, IncoTermQueries, 'incoterm', 'incoterms');
 	}
 
 }

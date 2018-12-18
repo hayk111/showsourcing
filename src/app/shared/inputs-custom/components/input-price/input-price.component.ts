@@ -51,7 +51,9 @@ export class InputPriceComponent extends AbstractInput {
 		this.cd.markForCheck();
 	}
 
-	onCurrencyChange() {
+	onCurrencyChange(item?) {
+		console.log(this.amount);
+		if (item) this.price = { ...this.price, currency: item };
 		this.hideCurrencySelector();
 		this.onChange();
 	}
@@ -64,7 +66,7 @@ export class InputPriceComponent extends AbstractInput {
 
 	showCurrencySelector() {
 		this.currencySelectorShown = true;
-		setTimeout(_ => this.currencySelector.open());
+		// setTimeout(_ => this.currencySelector.open());
 	}
 
 	hideCurrencySelector() {

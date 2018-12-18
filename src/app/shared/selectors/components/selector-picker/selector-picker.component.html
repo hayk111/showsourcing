@@ -1,7 +1,7 @@
 
 <form [formGroup]="group">
 	<form-field-app class="search-input" [ngClass]="{'field-focused': inp.focussed || !!inp.control.value}">
-			<input inputApp formControlName="name" type="text" [placeholder]="'Enter a ' + type" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
+			<input inputApp formControlName="name" type="text" [placeholder]="'Enter a ' + displayName ? displayName : type" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
 	</form-field-app>
 </form>
 
@@ -13,10 +13,9 @@
 		<span class="empty-message">There's no {{type}} yet, add one!</span>
 	</ng-template>
 </div>
-
+<!-- [ngStyle]="{'height': hasDB ? (choices$ | async)?.length * getHeight() + 'px' : choicesLocal?.length * getHeight() > 210 ? 210 + 'px' : choicesLocal?.length * getHeight() + 'px'}" -->
 <divider-app class="top-divider"></divider-app>
-
-<cdk-virtual-scroll-viewport [itemSize]="getHeight()" class="container-items">
+<cdk-virtual-scroll-viewport [itemSize]="getHeight()" class="container-items" [ngStyle]="{'height': type === 'lengthUnit' ? '150px' : type === 'weightUnit' ? '120px' : '200px'}">
 
 	<ng-container [ngSwitch]="type">
 
@@ -64,23 +63,23 @@
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'country'">
-			<selector-country-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.fullName)"></selector-country-row-app>
+			<selector-country-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'widthUnit'">
-			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		<ng-container *ngSwitchCase="'weightUnit'">
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'lengthUnit'">
-			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'businessType'">
-			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'categoryBoarding'">
-			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchDefault>
