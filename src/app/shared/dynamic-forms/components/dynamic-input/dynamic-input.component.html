@@ -54,20 +54,28 @@
 
 
   <ng-container *ngSwitchCase="'selector'">
-
-    <form-field-app *ngIf="customField.metadata.type === 'entity'; else const" >
-      <label-app>{{ customField.label || customField.name }}</label-app>
-      <selector-entity-app
-        formFieldCtrl
-        itemName="customField.metadata.target"
-        [displayedValue]="accumulator?.name | const: customField.metadata.target"
-        [multiple]="customField.multiple"
-        [type]="customField.metadata.target"
-        [canCreate]="customField.metadata.canCreate"
-        [propertyName]="labelName"
-        [(ngModel)]="accumulator"
-        (change)="onChange()"></selector-entity-app>
-    </form-field-app>
+		<selector2-app
+			*ngIf="customField.metadata.type === 'entity'; else const"
+			[value]="accumulator"
+			[multiple]="customField.multiple"
+			[type]="customField.metadata.target"
+			[canCreate]="customField.metadata.canCreate"
+			(update)="update.emit($event)">
+			<form-field-app >
+				<label-app>{{ customField.label || customField.name }}</label-app>
+				<!-- <selector-entity-app
+					formFieldCtrl
+					itemName="customField.metadata.target"
+					[displayedValue]="accumulator?.name | const: customField.metadata.target"
+					[multiple]="customField.multiple"
+					[type]="customField.metadata.target"
+					[canCreate]="customField.metadata.canCreate"
+					[propertyName]="labelName"
+					[(ngModel)]="accumulator"
+					(change)="onChange()">
+				</selector-entity-app> -->
+			</form-field-app>
+		</selector2-app>
 
     <ng-template #const>
       <form-field-app>

@@ -33,7 +33,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 		{
 			name: 'supplierType',
 			type: 'selector',
-			metadata: { target: 'supplierType', type: 'entity', canCreate: true, labelName: 'name' },
+			metadata: { target: 'supplierType', type: 'entity', canCreate: false, labelName: 'name' },
 			label: 'type'
 		},
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
