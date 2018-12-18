@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { TaskService } from '~entity-services';
+import { takeUntil, switchMap } from 'rxjs/operators';
+import { TaskService, ContactService } from '~entity-services';
 import { ERM, Task } from '~models';
 import { AutoUnsub } from '~utils';
+import { CommentService } from '~core/entity-services/comment/comment.service';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 
 	constructor(
-		private taskSrv: TaskService) {
+		private commentSrv: CommentService,
+		private taskSrv: TaskService
+	) {
 		super();
 	}
 
@@ -45,6 +48,8 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	addComment(comment: Comment) {
 		const comments = [...(this._task.comments || [])];
 		comments.push(comment as any);
-		this.taskSrv.update({ id: this._task.id, comments }).subscribe();
+		this.commentSrv.create(comment).pipe(
+			switchMap(_ => this.taskSrv.update({ id: this._task.id, comments }))
+		).subscribe();
 	}
 }
