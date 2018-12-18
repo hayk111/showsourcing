@@ -20,7 +20,7 @@ import { switchMap } from 'rxjs/operators';
 export class ProductSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
 	private productId: string;
 	constructor(
-		private route: ActivatedRoute,
+		protected route: ActivatedRoute,
 		protected router: Router,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,

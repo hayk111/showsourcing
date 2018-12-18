@@ -34,10 +34,10 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute
 	) {
 		super();
-		this.listForm   = [{
+		this.listForm = [{
 			label: 'Team Name',
 			type: 'text',
-			name: 'teamName',
+			name: 'name',
 			isRequired: true,
 			placeHolder: '',
 			validators: [Validators.required]
@@ -71,7 +71,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		this.srv.selectAll().pipe(
 			first()
 		).subscribe(all => {
-			if(all.length > 0) {
+			if (all.length > 0) {
 				this.buttons = [...this.buttons, {
 					label: 'Select a team Instead',
 					type: 'link',

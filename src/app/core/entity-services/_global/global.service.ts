@@ -1,7 +1,7 @@
 import { ApolloBase, QueryRef } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError } from 'rxjs';
-import { catchError, filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError, merge } from 'rxjs';
+import { catchError, filter, first, map, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
 import { QueryBuilder } from '~entity-services/_global/query-builder.class';
 import { SelectAllParams, SelectAllParamsConfig } from '~entity-services/_global/select-all-params';
@@ -63,7 +63,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 	// we use a cache so we can change things on update, without waiting for server response
 	// this is because apollo doesn't have optimistic UI on subscriptions
-	private selectOneCache = new Map<string, { subj, obs, result }>();
+	private selectOneCache = new Map<string, { serverChanges, clientChanges, result }>();
 
 	/** select one entity given an id,
 	 * This is a subscription like all select, so it will listen to changes from all users.
@@ -91,7 +91,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			return this.selectOneCache.get(cacheKey).result;
 
 		// observable of the subscription
-		const obs = this.getClient(clientName, title).pipe(
+		const serverChanges = this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
@@ -101,14 +101,16 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			tap(data => this.logResult(title, queryName, data)),
 			shareReplay(1)
 		);
-		const subj = new BehaviorSubject({});
-		const result = combineLatest(
-			obs,
-			subj,
-			(latestChanges, newestChanges) => {
-				return { ...latestChanges, ...newestChanges };
-			});
-		this.selectOneCache.set(cacheKey, { subj, obs, result });
+		const clientChanges = new BehaviorSubject({});
+
+		const result = merge(
+			serverChanges,
+			clientChanges.pipe(
+				withLatestFrom(serverChanges),
+				map(([obs2Value, obs1Value]) => ({ ...obs1Value, ...obs2Value })),
+			)
+		);
+		this.selectOneCache.set(cacheKey, { serverChanges, clientChanges, result });
 		return result;
 	}
 
@@ -481,7 +483,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		this.addOptimisticResponse(options, gql, entity, this.typeName);
 		// updating select one cache so changes are reflected when using selectOne(id)
 		if (this.selectOneCache.has(cacheKey)) {
-			this.selectOneCache.get(cacheKey).subj.next(entity);
+			this.selectOneCache.get(cacheKey).clientChanges.next(entity);
 		}
 
 		return this.getClient(clientName, title).pipe(

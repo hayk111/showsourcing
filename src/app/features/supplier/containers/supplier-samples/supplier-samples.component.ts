@@ -24,7 +24,7 @@ export class SupplierSamplesComponent extends AbstractSampleCommonComponent impl
 	private supplierId: string;
 
 	constructor(
-		private route: ActivatedRoute,
+		protected route: ActivatedRoute,
 		protected router: Router,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,

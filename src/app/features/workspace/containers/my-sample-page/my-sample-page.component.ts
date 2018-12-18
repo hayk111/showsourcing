@@ -9,7 +9,8 @@ import { FilterType } from '~shared/filters';
 import { KanbanDropEvent, KanbanColumn } from '~shared/kanban/interfaces';
 import { statusSampleToKanbanCol } from '~utils/kanban.utils';
 import { Observable, combineLatest } from 'rxjs';
-import { first, map, switchMap } from 'rxjs/operators';
+import { first, map, switchMap, filter } from 'rxjs/operators';
+import { CloseEventType } from '~shared/dialog';
 
 @Component({
 	selector: 'my-sample-page-app',
@@ -104,13 +105,10 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 
 	}
 
-
-	createSample(name: string) {
-		const sample = new Sample({
-			name,
-			assignee: this.userSrv.userSync
-		});
-		this.sampleSrv.create(sample).pipe(
+	openCreateDlg() {
+		this.commonModalSrv.openCreateDlg(ERM.SAMPLE, false).pipe(
+			filter(evt => evt.type === CloseEventType.OK),
+			map(evt => evt.data),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}
