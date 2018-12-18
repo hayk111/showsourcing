@@ -43,7 +43,6 @@ export class ImagePipe implements PipeTransform {
 		type: string = 'image' // can be supplier, product etc..
 	): string {
 		try {
-			debugger;
 			// we get the size index from the map
 			const sizeIndex = this.sizeIndexMap.get(size);
 			// no value
