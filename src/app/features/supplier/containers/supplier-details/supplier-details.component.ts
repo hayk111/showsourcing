@@ -1,6 +1,6 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';
@@ -31,6 +31,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 		id$.pipe(
 			switchMap((id: string) => this.featureSrv.selectOne(id)),
+			takeUntil(this._destroy$)
 		).subscribe(
 			supplier => this.onSupplier(supplier),
 			err => this.onError(err)

@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CompanyService, UserService, TeamService } from '~entity-services';
-import { map, first, mergeMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { first, mergeMap } from 'rxjs/operators';
+import { CompanyService, TeamService, UserService } from '~entity-services';
+import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { Company, Team } from '~models';
-import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AuthFormElement, AuthFormButton } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
@@ -60,8 +58,12 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 		this.srv.create(company)
 			.pipe(
 				first(),
-				mergeMap((company: Company) => {
-					const team = new Team({ name: formValue.teamName, company, ownerUser: this.userSrv.userSync });
+				mergeMap((_company: Company) => {
+					const team = new Team({
+						name: formValue.teamName,
+						company: _company,
+						ownerUser: this.userSrv.userSync
+					});
 					return this.teamService.create(team);
 				})
 			)

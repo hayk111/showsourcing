@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModalService } from '~common/modals';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { SampleService, UserService, SampleStatusService } from '~core/entity-services';
@@ -9,7 +9,8 @@ import { FilterType } from '~shared/filters';
 import { KanbanDropEvent, KanbanColumn } from '~shared/kanban/interfaces';
 import { statusSampleToKanbanCol } from '~utils/kanban.utils';
 import { Observable, combineLatest } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { first, map, switchMap, filter } from 'rxjs/operators';
+import { CloseEventType } from '~shared/dialog';
 
 @Component({
 	selector: 'my-sample-page-app',
@@ -33,17 +34,18 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 
 	constructor(
 		protected router: Router,
+		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService,
 	) {
-		super(router, userSrv, sampleSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, listSrv, commonModalSrv);
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
+		super.setup();
 
 		// we just take the first 15 since this is a test and we just want to display the behaviour
 		const samples$ = this.sampleSrv.queryMany({ take: 100 }).pipe(
@@ -101,5 +103,13 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 
 	onMultipleStatusUpdated(selection, status) {
 
+	}
+
+	openCreateDlg() {
+		this.commonModalSrv.openCreateDlg(ERM.SAMPLE, false).pipe(
+			filter(evt => evt.type === CloseEventType.OK),
+			map(evt => evt.data),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 }

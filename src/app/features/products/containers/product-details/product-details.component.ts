@@ -47,7 +47,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id))
+			switchMap(id => this.featureSrv.selectOne(id)),
+			takeUntil(this._destroy$)
 		).subscribe(
 			product => this.onProduct(product),
 			err => this.onError(err)

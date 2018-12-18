@@ -11,3 +11,27 @@
 list-app {
 	max-height: 507px;
 }
+
+
+.create-sample {
+	background: white;
+	padding-top: var(--spacing-l);
+
+	input, textarea {
+		height: 36px;
+		resize: none;
+		border: none;
+		background: none;
+		border: 1px solid transparent; // this way we avoid movement on the input when focusing
+
+		&:focus {
+			border-radius: 500px;
+			border: 1px solid var(--color-secondary);
+			background: var(--color-secondary-light);
+		}
+	}
+
+	button {
+		margin-left: var(--spacing-ms);
+	}
+}

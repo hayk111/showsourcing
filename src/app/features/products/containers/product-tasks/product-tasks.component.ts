@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { AbstractTaskCommonComponent } from '~common/task';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
-import { Task, ERM } from '~models';
-import { switchMap } from 'rxjs/operators';
+import { ERM, Task } from '~models';
 import { FilterType } from '~shared/filters';
 
 @Component({
@@ -41,7 +41,9 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 	}
 
 	ngOnInit() {
-		super.setup([]);
+		super.setup([
+			{ type: FilterType.PRODUCT, value: this.route.parent.snapshot.params.id }
+		]);
 	}
 
 	createTask(name: string) {
