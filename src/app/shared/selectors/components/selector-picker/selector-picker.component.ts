@@ -82,7 +82,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	constructor(
 		private selectorSrv: SelectorsService,
 		protected cd: ChangeDetectorRef,
-		private fb: FormBuilder, private scd: ScrollDispatcher
+		private fb: FormBuilder
 	) { super(cd); }
 
 	ngOnInit() {
@@ -90,7 +90,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
-		this.scd.deregister(this.cdkVirtualScrollViewport);
 	}
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();

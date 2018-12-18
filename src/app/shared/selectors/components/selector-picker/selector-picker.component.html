@@ -111,6 +111,34 @@
 			<selector-text-row-app *ngFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
 		</ng-container>
 
+		<ng-container *ngSwitchCase="'harbour'">
+			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'incoTerm'">
+			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'country'">
+			<selector-country-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.fullName)"></selector-country-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'widthUnit'">
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'lengthUnit'">
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'businessType'">
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'categoryBoarding'">
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
 		<ng-container *ngSwitchDefault>
 			<selector-text-row-app *ngFor="let item of choices$ | async" class="selector-row" [text]="item" (click)="onSelect(item)"></selector-text-row-app>
 		</ng-container>
