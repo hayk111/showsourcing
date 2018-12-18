@@ -63,17 +63,6 @@
 			(update)="update.emit($event)">
 			<form-field-app >
 				<label-app>{{ customField.label || customField.name }}</label-app>
-				<!-- <selector-entity-app
-					formFieldCtrl
-					itemName="customField.metadata.target"
-					[displayedValue]="accumulator?.name | const: customField.metadata.target"
-					[multiple]="customField.multiple"
-					[type]="customField.metadata.target"
-					[canCreate]="customField.metadata.canCreate"
-					[propertyName]="labelName"
-					[(ngModel)]="accumulator"
-					(change)="onChange()">
-				</selector-entity-app> -->
 			</form-field-app>
 		</selector2-app>
 
