@@ -37,9 +37,7 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 
 	ngOnInit() {
 		super.setup([
-			{ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id },
-			{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id },
-			{ type: FilterType.CREATED_BY, value: this.userSrv.userSync.id }
+			{ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id }
 		]);
 	}
 

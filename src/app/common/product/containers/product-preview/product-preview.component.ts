@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, takeUntil } from 'rxjs/operators';
+import { first, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
@@ -24,7 +24,7 @@ import { AutoUnsub, PendingImage } from '~utils';
 	selector: 'product-preview-app',
 	templateUrl: './product-preview.component.html',
 	styleUrls: ['./product-preview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
@@ -161,12 +161,13 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.product$ = this.featureSrv.selectOne(this.product.id);
 		this.product$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(s => (this.product = s));
+			.subscribe(product => this.product = product);
 	}
 
-	updateProduct(product: any) {
-		product.id = this.product.id;
-		this.featureSrv.update(product).subscribe();
+	updateProduct(productConfig: any) {
+		const product = new Product({ ...productConfig, id: this.product.id });
+		this.featureSrv.update(product)
+			.subscribe();
 	}
 
 	update(value: any, prop: string) {

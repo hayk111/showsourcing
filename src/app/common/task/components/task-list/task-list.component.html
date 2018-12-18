@@ -22,8 +22,8 @@
 		</list-item-app>
 	</list-app>
 	<div class="flexBetween create-task">
-		<textarea inputApp type="text" [formControl]="taskCtrl"
-			placeholder="+ Create a new task" (keydown.enter)="onEnter($event)"></textarea>
+		<input inputApp type="text" [formControl]="taskCtrl"
+			placeholder="+ Create a new task" (keydown.enter)="onEnter($event)"/>
 		<button *ngIf="inp?.focussed || taskCtrl.value"class="secondary-light" (click)="onSubmit()">Create</button>
 	</div>
 </card-app>

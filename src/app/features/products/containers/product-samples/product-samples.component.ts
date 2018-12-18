@@ -4,10 +4,9 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
-import { Sample, ERM } from '~models';
+import { ERM, Sample } from '~models';
 import { FilterType } from '~shared/filters';
-import { first, filter, map } from 'rxjs/operators';
-import { CloseEventType } from '~shared/dialog';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'product-samples-app',
@@ -19,7 +18,7 @@ import { CloseEventType } from '~shared/dialog';
 	]
 })
 export class ProductSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
-
+	private productId: string;
 	constructor(
 		private route: ActivatedRoute,
 		protected router: Router,
@@ -28,18 +27,27 @@ export class ProductSamplesComponent extends AbstractSampleCommonComponent imple
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService
 	) {
-		super(router, userSrv, sampleSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, listSrv, commonModalSrv);
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
-		this.listSrv.addFilter({
-			type: FilterType.PRODUCT,
-			value: this.route.parent.snapshot.params.id
-		});
+		this.productId = this.route.parent.snapshot.params.id;
+		super.setup([
+			{
+				type: FilterType.PRODUCT,
+				value: this.productId
+			}
+		]);
 	}
 
-	createSample() {
-		this.commonModalSrv.openCreateDlg(ERM.SAMPLE, false);
+	createSample(name: string) {
+		const sample = new Sample({
+			name,
+			product: { id: this.productId },
+			assignee: this.userSrv.userSync
+		});
+		this.sampleSrv.create(sample).pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 }

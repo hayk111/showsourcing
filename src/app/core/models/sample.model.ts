@@ -5,8 +5,8 @@ import { Price } from './price.model';
 
 export class Sample extends EntityWithAudit<SampleConfig> {
 	name?: string;
-	reference?: string;
-	description?: string;
+	reference ?= '';
+	description ?= '';
 	assignee?: User;
 	product?: Product;
 	supplier?: Supplier;
@@ -18,6 +18,10 @@ export class Sample extends EntityWithAudit<SampleConfig> {
 	price?: Price;
 	paid ?= false;
 	__typename ?= 'Sample';
+
+	constructor(config: SampleConfig) {
+		super(config);
+	}
 }
 
 export interface SampleConfig {

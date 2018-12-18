@@ -1,12 +1,11 @@
-import { AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
-import { FilterType, Filter } from '~shared/filters';
+import { Filter, FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
-import { switchMap } from 'rxjs/operators';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends TrackingComponent {
@@ -22,7 +21,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent {
 		super();
 	}
 
-	setup(addedFilters: Filter[] = []) {
+	setup(addedFilters: Filter[]) {
 		const userId = this.userSrv.userSync.id;
 		this.listSrv.setup({
 			key: ListPageKey.TASK,
@@ -35,7 +34,6 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent {
 			},
 			initialFilters: [
 				{ type: FilterType.DONE, value: false },
-				{ type: FilterType.ASSIGNEE, value: userId },
 				...addedFilters
 			],
 			entityMetadata: ERM.TASK
@@ -43,7 +41,12 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent {
 	}
 
 	toggleMyTasks(show: boolean) {
-		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
+		const userId = this.userSrv.userSync.id;
+
+		const filterAssignee = {
+			type: FilterType.CUSTOM,
+			value: `assignee.id == "${userId}" OR createdBy.id == "${userId}"`
+		};
 		if (show)
 			this.listSrv.addFilter(filterAssignee);
 		else

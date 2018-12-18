@@ -90,6 +90,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		if (this.selectOneCache.has(cacheKey))
 			return this.selectOneCache.get(cacheKey).result;
 
+		// observable of the subscription
 		const obs = this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
@@ -101,7 +102,12 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			shareReplay(1)
 		);
 		const subj = new BehaviorSubject({});
-		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
+		const result = combineLatest(
+			obs,
+			subj,
+			(latestChanges, newestChanges) => {
+				return { ...latestChanges, ...newestChanges };
+			});
 		this.selectOneCache.set(cacheKey, { subj, obs, result });
 		return result;
 	}
@@ -472,7 +478,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
-
 		this.addOptimisticResponse(options, gql, entity, this.typeName);
 		// updating select one cache so changes are reflected when using selectOne(id)
 		if (this.selectOneCache.has(cacheKey)) {

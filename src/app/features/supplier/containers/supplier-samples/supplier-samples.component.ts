@@ -7,6 +7,7 @@ import { UserService } from '~entity-services';
 import { SampleService } from '~entity-services/sample/sample.service';
 import { Sample } from '~models';
 import { FilterType } from '~shared/filters';
+import { switchMap, takeUntil, map } from 'rxjs/operators';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { FilterType } from '~shared/filters';
 })
 
 export class SupplierSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
+	private supplierId: string;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -29,15 +31,32 @@ export class SupplierSamplesComponent extends AbstractSampleCommonComponent impl
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService
 	) {
-		super(router, userSrv, sampleSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, listSrv, commonModalSrv);
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
-		this.listSrv.addFilter({
-			type: FilterType.SUPPLIER,
-			value: this.route.parent.snapshot.params.id
+		super.setup([
+			{
+				type: FilterType.SUPPLIER,
+				value: this.supplierId
+			}
+		]);
+		this.route.parent.params.pipe(
+			takeUntil(this._destroy$),
+			map(params => params.id)
+		).subscribe(id => this.supplierId = id);
+	}
+
+
+	createSample(name: string) {
+		const sample = new Sample({
+			name,
+			supplier: { id: this.supplierId },
+			assignee: this.userSrv.userSync
 		});
+		this.sampleSrv.create(sample).pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 
 }
