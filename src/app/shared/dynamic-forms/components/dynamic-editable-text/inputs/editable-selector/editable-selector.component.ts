@@ -32,7 +32,7 @@ export class EditableSelectorComponent extends AbstractInput {
 	@Input() closeOnOutsideClick: boolean;
 	@Output() opened = new EventEmitter();
 	@Output() closed = new EventEmitter();
-	@Output() change = new EventEmitter<null>();
+	@Output() change = new EventEmitter<any>();
 	@Output() blur = new EventEmitter<null>();
 	@ViewChild('editable') editable: EditableTextComponent;
 	@ViewChild('selector') selector: any;
@@ -57,20 +57,20 @@ export class EditableSelectorComponent extends AbstractInput {
 	}
 
 	/** when the selector has changed, we don't use the accumulator */
-	onSelectorChange() {
+	onSelectorChange(item?) {
 		if (!this.customField.multiple) {
 			this.editable.close();
 		}
-		this.onChange();
+		this.onChange(item);
 	}
 
 	preventPropagation(event: MouseEvent) {
 		event.stopPropagation();
 	}
 
-	onChange() {
+	onChange(item?) {
 		this.onChangeFn(this.value);
-		this.change.emit();
+		this.change.emit(item);
 	}
 
 	onBlur() {

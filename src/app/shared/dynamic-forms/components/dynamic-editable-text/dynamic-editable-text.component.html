@@ -204,7 +204,7 @@
 		[customField]="customField"
 		[inlineLabel]="inlineLabel"
 		[(ngModel)]="value"
-		(change)="onSave(false)"
+		(change)="onSave(true, $event)"
 		(blur)="onBlur()">
 	</editable-selector-app>
 

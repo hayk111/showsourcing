@@ -25,37 +25,38 @@
 
 <!-- entity selector -->
 <ng-template #entitySelector>
-	<editable-field-app
-		#editable
-		[inlineLabel]="inlineLabel"
-		[hasAction]="false"
-		[canGrow]="customField.multiple"
-		(opened)="selector.open()">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app class="flex"
-			[class.flexEnd]="inlineLabel"
-			[class.flexWrap]="customField.multiple">
-			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
-		</editable-label-app>
-		<!-- <selector2-app
-			[value]="value"
-			[multiple]="customField.multiple"
-			[canCreate]="customField.metadata.canCreate"
-			(update)="onSelectorChange()">
-		</selector2-app> -->
-		<selector-entity-app
-			#selector
-			[displayedValue]="'Select ' + customField.metadata.target"
-			[multiple]="customField.multiple"
-			[type]="customField.metadata.target"
-			[canCreate]="customField.metadata.canCreate"
-			[propertyName]="labelName"
-			[(ngModel)]="value"
-			(change)="onSelectorChange()"
-			(blur)="onBlur()"
-			(click)="preventPropagation($event)">
-		</selector-entity-app>
-	</editable-field-app>
+	<selector2-app
+		[value]="value"
+		[type]="customField.metadata.target"
+		[multiple]="customField.multiple"
+		[canCreate]="customField.metadata.canCreate"
+		(update)="onSelectorChange($event)">
+		<editable-field-app
+			#editable
+			[inlineLabel]="inlineLabel"
+			[hasAction]="false"
+			[canGrow]="customField.multiple">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-label-app class="flex"
+				[class.flexEnd]="inlineLabel"
+				[class.flexWrap]="customField.multiple">
+				<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
+			</editable-label-app>
+
+			<!-- <selector-entity-app
+				#selector
+				[displayedValue]="'Select ' + customField.metadata.target"
+				[multiple]="customField.multiple"
+				[type]="customField.metadata.target"
+				[canCreate]="customField.metadata.canCreate"
+				[propertyName]="labelName"
+				[(ngModel)]="value"
+				(change)="onSelectorChange()"
+				(blur)="onBlur()"
+				(click)="preventPropagation($event)">
+			</selector-entity-app> -->
+		</editable-field-app>
+	</selector2-app>
 </ng-template>
 
 
