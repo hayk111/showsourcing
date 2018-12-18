@@ -50,6 +50,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		switchMap(type => this.getChoices(type, this.searchTxt))
 	);
 	topCurrencies$: Observable<Currency[]>;
+	choicesLocal = [];
 
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
@@ -72,6 +73,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * if its a const we don't need to emit an object {id, typename}, we only need a string
 	 */
 	isConst = false;
+	hasDB = false;
 	searchTxt = '';
 
 
@@ -85,6 +87,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.group = this.fb.group({
 			name: ['']
 		});
+		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 	}
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
@@ -93,7 +96,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	search(text) {
 		this.searchTxt = text;
-		this.type$.next(this.type);
+		this.hasDB ? this.type$.next(this.type) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
@@ -104,14 +107,43 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case 'category': return this.selectorSrv.getCategories(searchTxt);
 			// case 'event': return this.selectorSrv.getEvents();
 			case 'tag': return this.selectorSrv.getTags(searchTxt);
-			case 'supplierType': return this.selectorSrv.getSupplierTypes();
+			case 'supplierType': return this.selectorSrv.getSupplierTypes(searchTxt);
 			case 'user': return this.selectorSrv.getUsers(searchTxt);
+			case 'project': return this.selectorSrv.getProjects(searchTxt);
+			// Constants
 			case 'currency':
 				this.isConst = true;
 				this.topCurrencies$ = this.selectorSrv.getTopCurrencies();
 				return this.selectorSrv.getCurrenciesGlobal(searchTxt);
-			case 'project': return this.selectorSrv.getProjects(searchTxt);
+			case 'country':
+				this.isConst = true;
+				return this.selectorSrv.getCountriesGlobal(searchTxt);
+			case 'harbour':
+				this.isConst = true;
+				return this.selectorSrv.getHarboursGlobal(searchTxt);
+			case 'incoTerm':
+				this.isConst = true;
+				return this.selectorSrv.getIncoTermsGlobal(searchTxt);
+
 			default: throw Error(`Unsupported type ${this.type}`);
+		}
+	}
+
+	getChoicesLocal(type, searchTxt) {
+		switch (type) {
+			case 'lengthUnit':
+				this.isConst = true;
+				return this.selectorSrv.getLengthUnits(searchTxt);
+			case 'widthUnit':
+				this.isConst = true;
+				return this.selectorSrv.getWeigthUnits(searchTxt);
+			case 'businessType':
+				this.isConst = true;
+				return this.selectorSrv.getBusinessTypes(searchTxt);
+			case 'categoryBoarding':
+				this.isConst = true;
+				return this.selectorSrv.getCategoriesBoarding(searchTxt);
+			default: this.hasDB = true;
 		}
 	}
 

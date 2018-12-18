@@ -3,16 +3,16 @@ import { GlobalQueries } from '../_global/global-queries.class';
 export class CountryQueries extends GlobalQueries {
 	static readonly one = `
 		fullName
-		countyCode
+		countryCode
 	`;
 
 	static readonly many = `
 		fullName
-		countyCode
+		countryCode
 	`;
 
 	static readonly all = `
 		fullName
-		countyCode
+		countryCode
 	`;
 }
