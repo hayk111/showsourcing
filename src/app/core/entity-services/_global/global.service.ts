@@ -476,7 +476,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const title = 'Update ' + this.typeName;
 		const fields = this.patch(entity);
 		const gql = this.queryBuilder.update(fields);
-		const variables = { input: entity };
+		const variables = { input: this.strip(entity) };
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
@@ -619,6 +619,23 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/////////////////////////////
 	//          UTILS          //
 	/////////////////////////////
+
+	// when updating an entity with sub entities we only need
+	// the id of the sub entities.
+	// for example when we change the supplier of a product we just need the id of the supplier
+	// else we could override things
+	// TODO: recursive
+	private strip(entity: any) {
+		const striped = {};
+		Object.entries(entity).forEach(([k, v]) => {
+			if (entity[k] instanceof Object && entity[k].id) {
+				striped[k] = { id: entity[k].id };
+			} else {
+				striped[k] = entity[k];
+			}
+		});
+		return striped;
+	}
 
 	/** to use another named apollo client */
 	private getClient(clientName: Client, context: string): Observable<ApolloBase> {
