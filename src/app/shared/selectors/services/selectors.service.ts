@@ -13,18 +13,23 @@ import {
 	UserService,
 } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
-import { Category, Currency, Event, Product, Project, SupplierType, Tag, User } from '~models';
+import { Category, Currency, Event, Product, Project, SupplierType, Tag, User, Country, IncoTerm, Harbour } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
+import { HarbourService } from '~core/entity-services/harbour/harbour.service';
+import { IncoTermService } from '~core/entity-services/inco-term/inco-term.service';
+import { CountryService } from '~core/entity-services/country/country.service';
 
 
 @Injectable({
 	providedIn: 'root',
 })
 export class SelectorsService {
+
+	bindLabel = 'name';
 
 	constructor(
 		private categorySrv: CategoryService,
@@ -36,19 +41,39 @@ export class SelectorsService {
 		private supplierSrv: SupplierService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagSrv: TagService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private harbourSrv: HarbourService,
+		private incoTermSrv: IncoTermService,
+		private countrySrv: CountryService
 	) { }
 
 	getCountries(): any[] {
 		return countries;
 	}
 
+	getCountriesGlobal(searchTxt?: string): Observable<Country[]> {
+		if (searchTxt)
+			return this.countrySrv.queryMany({ query: `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"` });
+		else
+			return this.countrySrv.queryAll();
+	}
+
 	getIncoTerms(): any[] {
 		return incoTerms;
 	}
 
+	getIncoTermsGlobal(searchTxt?: string): Observable<IncoTerm[]> {
+		if (searchTxt) return this.incoTermSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
+		else return this.incoTermSrv.queryAll();
+	}
+
 	getHarbours(): any[] {
 		return harbours;
+	}
+
+	getHarboursGlobal(searchTxt?: string): Observable<Harbour[]> {
+		if (searchTxt) return this.harbourSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
+		else return this.harbourSrv.queryAll();
 	}
 
 	getCurrencies(): any[] {
@@ -60,19 +85,47 @@ export class SelectorsService {
 		else return this.currencySrv.queryAll();
 	}
 
-	getLengthUnits(): any[] {
+	getLengthUnits(searchTxt?: string): any[] {
+		if (searchTxt) {
+			return lengthUnits.filter(c => {
+				const searched = (c[this.bindLabel] as string).toLowerCase();
+				const searchString = searchTxt.toLowerCase();
+				return searched.includes(searchString);
+			});
+		}
 		return lengthUnits;
 	}
 
-	getWeigthUnits(): any[] {
+	getWeigthUnits(searchTxt?: string): any[] {
+		if (searchTxt) {
+			return weightUnits.filter(c => {
+				const searched = (c[this.bindLabel] as string).toLowerCase();
+				const searchString = searchTxt.toLowerCase();
+				return searched.includes(searchString);
+			});
+		}
 		return weightUnits;
 	}
 
-	getBusinessTypes(): any[] {
+	getBusinessTypes(searchTxt?: string): any[] {
+		if (searchTxt) {
+			return businessTypes.filter(c => {
+				const searched = (c[this.bindLabel] as string).toLowerCase();
+				const searchString = searchTxt.toLowerCase();
+				return searched.includes(searchString);
+			});
+		}
 		return businessTypes;
 	}
 
-	getCategoriesBoarding(): any[] {
+	getCategoriesBoarding(searchTxt?: string): any[] {
+		if (searchTxt) {
+			return categories.filter(c => {
+				const searched = (c[this.bindLabel] as string).toLowerCase();
+				const searchString = searchTxt.toLowerCase();
+				return searched.includes(searchString);
+			});
+		}
 		return categories;
 	}
 
@@ -105,7 +158,12 @@ export class SelectorsService {
 		return this.tagSrv.queryAll();
 	}
 
-	getSupplierTypes(): Observable<SupplierType[]> {
+	getSupplierTypes(searchTxt?: string): Observable<SupplierType[]> {
+		if (searchTxt) return this.supplierTypeSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` }).pipe(
+			map(types => types.map(type => {
+				return { ...type, name: this.constPipe.transform(type.name, 'supplierType') };
+			}))
+		);
 		return this.supplierTypeSrv.queryAll().pipe(
 			map(types => types.map(type => {
 				return { ...type, name: this.constPipe.transform(type.name, 'supplierType') };

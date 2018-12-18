@@ -19,6 +19,7 @@ import {
 	SelectorUserRowComponent,
 	SelectorPickerComponent,
 	Selector2Component,
+	SelectorCountryRowComponent,
 } from './components';
 import { SelectorConstComponent } from './components/selector-const/selector-const.component';
 import { SelectorEntityComponent } from './components/selector-entity/selector-entity.component';
@@ -32,18 +33,19 @@ import { UtilsModule } from '~shared/utils';
 
 const components = [
 	CdkOverlayComponent,
+	Selector2Component,
 	SelectorComponent,
-	SelectorPickerComponent,
 	SelectorConstComponent,
-	SelectorEntityComponent,
+	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
+	SelectorEntityComponent,
+	SelectorPickerComponent,
 	SelectorProductRowComponent,
 	SelectorProjectRowComponent,
 	SelectorSupplierRowComponent,
-	SelectorTextRowComponent,
-	SelectorUserRowComponent,
 	SelectorTagRowComponent,
-	Selector2Component
+	SelectorTextRowComponent,
+	SelectorUserRowComponent
 ];
 
 @NgModule({

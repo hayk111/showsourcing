@@ -34,9 +34,9 @@
 
 		<ng-container *ngSwitchCase="'currency'">
 			<!-- we need the top 3 currencies always visible at the top -->
-			<selector-currency-row-app *ngFor="let item of topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
+			<selector-currency-row-app *ngFor="let item of topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
 			<divider-app *ngIf="topCurrencies$ | async"></divider-app>
-			<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
+			<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'product'">
@@ -53,6 +53,34 @@
 
 		<ng-container *ngSwitchCase="'supplierType'">
 			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'harbour'">
+			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'incoTerm'">
+			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'country'">
+			<selector-country-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.fullName)"></selector-country-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'widthUnit'">
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'lengthUnit'">
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'businessType'">
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'categoryBoarding'">
+			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchDefault>
