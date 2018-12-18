@@ -1,6 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit.emit(form)" autocomplete="on" class="flexColumn" *ngIf="!pending; else spinner">
 	<error-app *ngIf="error">{{ error }}</error-app>
-	<form-field-app *ngFor="let formElement of listForm; trackBy: trackByFn" [ngClass]="{'field-focused': fieldFocused === formElement.name, 'field-error': (form.get(formElement.name).invalid)}">
+	<form-field-app *ngFor="let formElement of listForm; trackBy: trackByFn"
+	[ngClass]="{'field-focused': fieldFocused === formElement.name, 'field-error': (form.get(formElement.name).invalid && !form.pristine)}">
 		<label-app>{{formElement.label}}</label-app>
 		<input (focus)="fieldFocused = formElement.name" (blur)="fieldFocused =''" inputApp [required]="formElement.isRequired"
 		 autoFocus [autocomplete]="formElement.autocomplete" [formControlName]="formElement.name" [type]="formElement.type"
@@ -10,17 +11,15 @@
 	</form-field-app>
 
 	<ng-content></ng-content>
-
 	<div class="centered-text">
 		<div *ngFor="let formButton of buttons; trackBy: trackByFn">
 			<div [ngSwitch]="formButton.type">
-				<input *ngSwitchCase="'button'" class="button" type="submit" [value]="formButton.label" [disabled]="!form.valid" />
+				<input *ngSwitchCase="'button'" class="button" type="submit" [value]="formButton.label" [disabled]="!form.valid && !form.pristine" />
 				<a *ngSwitchCase="'link'" class="button light" [routerLink]="formButton.link" [queryParams]="formButton.queryParams">{{formButton.label}}</a>
 			</div>
 		</div>
 	</div>
 </form>
-
 <ng-template #spinner>
 	<spinner-app [isHaveLogo]="true"></spinner-app>
 </ng-template>
