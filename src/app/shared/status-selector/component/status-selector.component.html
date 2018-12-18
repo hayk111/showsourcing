@@ -16,8 +16,6 @@
 			<icon-app fontSet="fa" name="caret-down"></icon-app>
 		</div>
 	</context-menu-trigger-app>
-
-	
 	<div *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
 		<status-box-app [type]="'list'" [status]="stat" [size]="selectSize" [typeEntity]="typeEntity" (click)="updateStatus(stat)"></status-box-app>
 	</div>
