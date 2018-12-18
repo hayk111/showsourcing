@@ -1,5 +1,5 @@
 <div *ngIf="comments" class="flexColumn">
-	<div *ngIf="amountShown > 0" class="show-previous" (click)="showMore()">
+	<div *ngIf="amountShown > 0 && hasViewMore" class="show-previous" (click)="showMore()">
 		Show previous comments
 	</div>
 	<ng-container *ngFor="let comment of comments; index as i;trackBy: trackByFn">
