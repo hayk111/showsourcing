@@ -56,6 +56,8 @@
   <ng-container *ngSwitchCase="'selector'">
 		<selector2-app
 			*ngIf="customField.metadata.type === 'entity'; else const"
+			[offsetY]="-22"
+			[width]="390"
 			[value]="accumulator"
 			[multiple]="customField.multiple"
 			[type]="customField.metadata.target"
@@ -67,15 +69,24 @@
 		</selector2-app>
 
     <ng-template #const>
-      <form-field-app>
-        <label-app>{{ customField.label || customField.name }}</label-app>
-        <selector-const-app formFieldCtrl
-          [multiple]="customField.multiple"
-          [type]="customField.metadata.target"
-          [canCreate]="customField.metadata.canCreate"
-          [(ngModel)]="accumulator"
-          (change)="onChange()"></selector-const-app>
-      </form-field-app>
+			<selector2-app
+				[multiple]="customField.multiple"
+				[width]="390"
+				[offsetY]="-22"
+				[type]="customField.metadata.target"
+				[canCreate]="customField.metadata.canCreate"
+				[value]="accumulator"
+				(update)="update.emit($event)">
+				<form-field-app>
+					<label-app>{{ customField.label || customField.name }}</label-app>
+					<!-- <selector-const-app formFieldCtrl
+						[multiple]="customField.multiple"
+						[type]="customField.metadata.target"
+						[canCreate]="customField.metadata.canCreate"
+						[(ngModel)]="accumulator"
+						(change)="onChange()"></selector-const-app> -->
+				</form-field-app>
+			</selector2-app>
     </ng-template>
   </ng-container>
 

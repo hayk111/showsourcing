@@ -51,6 +51,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	);
 	topCurrencies$: Observable<Currency[]>;
 	choicesLocal = [];
+	// for complex names
+	displayName = '';
 
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
@@ -107,7 +109,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case 'category': return this.selectorSrv.getCategories(searchTxt);
 			// case 'event': return this.selectorSrv.getEvents();
 			case 'tag': return this.selectorSrv.getTags(searchTxt);
-			case 'supplierType': return this.selectorSrv.getSupplierTypes(searchTxt);
+			case 'supplierType':
+				this.displayName = 'supplier type';
+				return this.selectorSrv.getSupplierTypes(searchTxt);
 			case 'user': return this.selectorSrv.getUsers(searchTxt);
 			case 'project': return this.selectorSrv.getProjects(searchTxt);
 			// Constants
@@ -133,15 +137,19 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		switch (type) {
 			case 'lengthUnit':
 				this.isConst = true;
+				this.displayName = 'length unit';
 				return this.selectorSrv.getLengthUnits(searchTxt);
-			case 'widthUnit':
+			case 'weightUnit':
 				this.isConst = true;
+				this.displayName = 'weight unit';
 				return this.selectorSrv.getWeigthUnits(searchTxt);
 			case 'businessType':
 				this.isConst = true;
+				this.displayName = 'business type';
 				return this.selectorSrv.getBusinessTypes(searchTxt);
 			case 'categoryBoarding':
 				this.isConst = true;
+				this.displayName = 'category';
 				return this.selectorSrv.getCategoriesBoarding(searchTxt);
 			default: this.hasDB = true;
 		}
