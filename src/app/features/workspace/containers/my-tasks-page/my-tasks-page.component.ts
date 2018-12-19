@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { AbstractTaskCommonComponent } from '~common/task/containers/abstract-task-common.component';
 import { ListPageService } from '~core/list-page';
@@ -20,12 +20,14 @@ export class MyTasksPageComponent extends AbstractTaskCommonComponent implements
 	constructor(
 		protected userSrv: UserService,
 		protected router: Router,
+		protected route: ActivatedRoute,
 		protected taskSrv: TaskService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
 		super(
 			router,
+			route,
 			userSrv,
 			taskSrv,
 			commonModalSrv,

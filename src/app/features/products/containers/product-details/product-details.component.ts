@@ -89,7 +89,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	openRequestFeedbackDialog() {
 		this.dlgSrv.open(
 			ProductRequestTeamFeedbackDlgComponent,
-			{ selectedProducts: [this.product] }
+			{ products: [this.product] }
 		);
 	}
 
@@ -168,7 +168,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product: Product) {
 		this.dlgSrv.open(ProductExportDlgComponent, {
-			selectedProducts: [this.product]
+			products: [this.product]
 		});
 	}
 	/** Opens a dialog that let you see the list of people who have voted */
