@@ -49,12 +49,4 @@ export class SupplierInfosComponent extends AutoUnsub {
 	toggle() {
 		this.textMode = !this.textMode;
 	}
-
-	test(item) {
-		console.log(item);
-	}
-
-
-
-
 }
