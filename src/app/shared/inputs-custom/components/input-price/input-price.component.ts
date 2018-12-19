@@ -8,8 +8,7 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { Price } from '~models/price.model';
-import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
-import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs';
+import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inputs';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 
 @Component({
@@ -22,7 +21,6 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 export class InputPriceComponent extends AbstractInput {
 	@Output() change = new EventEmitter();
 	@Output() blur = new EventEmitter();
-	@ViewChild(SelectorConstComponent) currencySelector: SelectorConstComponent;
 	@ViewChild(InputDirective) inp: InputDirective;
 	currencySelectorShown: boolean;
 
@@ -51,7 +49,7 @@ export class InputPriceComponent extends AbstractInput {
 		this.cd.markForCheck();
 	}
 
-	onCurrencyChange(item?) {
+	onCurrencyChange(item?: any) {
 		console.log(this.amount);
 		if (item) this.price = { ...this.price, currency: item };
 		this.hideCurrencySelector();
@@ -66,7 +64,6 @@ export class InputPriceComponent extends AbstractInput {
 
 	showCurrencySelector() {
 		this.currencySelectorShown = true;
-		// setTimeout(_ => this.currencySelector.open());
 	}
 
 	hideCurrencySelector() {

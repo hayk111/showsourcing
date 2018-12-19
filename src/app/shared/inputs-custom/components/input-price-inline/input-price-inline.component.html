@@ -1,10 +1,11 @@
 <div class="ctnr inline input-price-inline">
+	<input type="number" restrictInput="decimal"
+		[(ngModel)]="amount"/>
 	<selector2-app
 		type="currency"
 		[value]="currency"
 		[multiple]="false"
-		(update)="update($event)">
-		<input type="number" restrictInput="decimal"
-			[(ngModel)]="amount"/>
+		(update)="updateCurrency($event)">
+		<span>{{ currency }}</span>
 	</selector2-app>
 </div>

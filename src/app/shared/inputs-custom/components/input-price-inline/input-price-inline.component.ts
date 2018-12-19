@@ -38,7 +38,7 @@ export class InputPriceInlineComponent implements OnInit {
 		this.price.currency = currencyId;
 	}
 
-	update(item) {
+	updateCurrency(item) {
 		this.price.currency = item;
 	}
 
