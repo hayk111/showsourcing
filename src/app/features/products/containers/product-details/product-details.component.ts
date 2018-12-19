@@ -1,18 +1,17 @@
-import { Component, NgModuleRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
-import { ProductFeatureService } from '~features/products/services';
-import { ProductQueries } from '~entity-services/product/product.queries';
-import { Attachment, ERM, Product, ProductStatus, Project } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RfqDialogComponent,
 } from '~common/modals';
-import { DialogService } from '~shared/dialog/services';
+import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
+import { ProductFeatureService } from '~features/products/services';
+import { Attachment, ERM, Product, Project } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
@@ -47,7 +46,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id))
+			switchMap(id => this.featureSrv.selectOne(id)),
+			takeUntil(this._destroy$)
 		).subscribe(
 			product => this.onProduct(product),
 			err => this.onError(err)

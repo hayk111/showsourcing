@@ -1,5 +1,18 @@
 <card-app>
-	<h1 class="title">Samples</h1>
+	<div class="flex top">
+		<h1>Samples</h1>
+		<div class="spacer mg-m"></div>
+		<div class="flex show-my-tasks" *ngIf="hasFilters">
+			<checkbox-app
+				[checked]="filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
+				(check)="toggleMySample.emit(true)"
+				(uncheck)="toggleMySample.emit(false)">
+				<span>
+					Show my samples only
+				</span>
+			</checkbox-app>
+		</div>
+	</div>
 	<list-app infiniScroll cdk-scrollable (bottomReached)="bottomReached.emit()">
 		<list-item-app *ngFor="let sample of samples; index as i; first as first; last as last; trackBy: trackById">
 			<!-- use hover index if we use selection -->
@@ -9,15 +22,13 @@
 				(check)="onItemSelected(task)"
 				(uncheck)="onItemUnselected(task)">
 			</checkbox-app> -->
-			<sample-app
-				[sample]="sample"
-				(previewClicked)="previewClicked.emit(sample)"
-				(updateSample)="updateSample.emit($event)">
+			<sample-app [sample]="sample" (previewClicked)="previewClicked.emit(sample)" (updateSample)="updateSample.emit($event)">
 			</sample-app>
 		</list-item-app>
 	</list-app>
 
-	<div class="flexEnd">
-		<button (click)="createSample.emit()">Add Samples</button>
+	<div class="flexBetween create-sample">
+		<input #inp [formControl]="sampleCtrl" inputApp type="text" placeholder="+ Create a new sample" (keydown.enter)="onSubmit()" />
+		<button *ngIf="inp?.focussed || sampleCtrl.value" class="secondary-light" (click)="onSubmit()">Create</button>
 	</div>
 </card-app>

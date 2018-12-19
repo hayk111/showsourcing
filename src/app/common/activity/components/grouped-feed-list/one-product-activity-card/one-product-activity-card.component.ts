@@ -1,27 +1,17 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	EventEmitter,
-	Input,
-	NgModuleRef,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ProductService } from '~entity-services';
-import { ERM, Product } from '~models';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { ProductAddToProjectDlgComponent } from '~common/modals/component';
+import { CommentService } from '~core/entity-services/comment/comment.service';
+import { ProductService } from '~entity-services';
+import { Comment, ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
-import { AutoUnsub } from '~utils';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { CommentService } from '~core/entity-services/comment/comment.service';
-import { Comment } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'one-product-activity-card-app',
@@ -95,8 +85,9 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 
 	onSubmit() {
 		const comment = new Comment({ text: this.commentCtrl.value });
-		this.commentSrv.create(comment);
-		this.createComment.emit({ comment, entity: this.product, erm: ERM.PRODUCT });
+		this.commentSrv.create(comment).subscribe(_ =>
+			this.createComment.emit({ comment, entity: this.product, erm: ERM.PRODUCT })
+		);
 		this.commentCtrl.reset();
 	}
 

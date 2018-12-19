@@ -1,4 +1,5 @@
-<img-app *ngIf="image; else default" [image]="image" size="m" type="user" [ngClass]="{ 'border': border }"
+<img-app *ngIf="image; else default"
+	[image]="image" size="m" type="user" [ngClass]="{ 'border': border }"
 	[style.height]="size + 'px'"
 	[style.width]="size + 'px'"></img-app>
 <ng-template #default>

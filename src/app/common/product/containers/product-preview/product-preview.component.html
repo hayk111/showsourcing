@@ -1,12 +1,11 @@
-<ng-container *ngIf="product as productF">
 
 	<preview-app>
 		<!-- Banner -->
 		<preview-banner-app (closed)="close.emit()">
 			<preview-carousel-app
-				[entity]="productF"
+				[entity]="product"
 				[entityMD]="erm.SUPPLIER"
-				[images]="productF?.images"
+				[images]="product?.images"
 				objectFit="cover">
 			</preview-carousel-app>
 		</preview-banner-app>
@@ -14,26 +13,26 @@
 		<!-- Header -->
 		<preview-header-app
 			[entityMD]="erm.PRODUCT"
-			[entity]="productF"
+			[entity]="product"
 			(update)="update($event, 'name')">
 			<!-- Price -->
 			<price-with-quantity-app
-				*ngIf="productF?.price?.value"
-				[product]="productF"
+				*ngIf="product?.price?.value"
+				[product]="product"
 				(updateField)="update($event.newValue,  $event.field)">
 			</price-with-quantity-app>
 
 			<!-- Badge supplier -->
 			<preview-badge-app
 				[badge]="erm.SUPPLIER"
-				[value]="productF?.supplier?.name"
+				[value]="product?.supplier?.name"
 				(update)="update($event, 'supplier')">
 			</preview-badge-app>
 
 			<!-- Badge category -->
 			<preview-badge-app
 				[badge]="erm.CATEGORY"
-				[value]="productF?.category"
+				[value]="product?.category"
 				(update)="update($event, 'category')">
 			</preview-badge-app>
 		</preview-header-app>
@@ -49,10 +48,10 @@
 		<!-- Description -->
 		<preview-section-app [title]="'Description'">
 			<input-description-app
-				[description]="productF?.description"
+				[description]="product?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
-			<info-badge-app *ngFor="let tag of productF?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
+			<info-badge-app *ngFor="let tag of product?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
 		</preview-section-app>
 
 		<!-- Product details -->
@@ -60,7 +59,7 @@
 			<dynamic-form-app
 				[inlineLabel]="true"
 				[fields]="customFields"
-				[value]="productF"
+				[value]="product"
 				[colAmount]="1"
 				(update)="updateProduct($event)">
 			</dynamic-form-app>
@@ -71,7 +70,7 @@
 			<dynamic-form-app
 				[inlineLabel]="true"
 				[fields]="customFields2"
-				[value]="productF"
+				[value]="product"
 				[colAmount]="1"
 				(update)="updateProduct($event)">
 			</dynamic-form-app>
@@ -80,7 +79,6 @@
 			<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
 
 	</preview-app>
-</ng-container>
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>

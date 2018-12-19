@@ -1,7 +1,7 @@
 import { ApolloBase, QueryRef } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError } from 'rxjs';
-import { catchError, filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError, merge } from 'rxjs';
+import { catchError, filter, first, map, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
 import { QueryBuilder } from '~entity-services/_global/query-builder.class';
 import { SelectAllParams, SelectAllParamsConfig } from '~entity-services/_global/select-all-params';
@@ -63,7 +63,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 	// we use a cache so we can change things on update, without waiting for server response
 	// this is because apollo doesn't have optimistic UI on subscriptions
-	private selectOneCache = new Map<string, { subj, obs, result }>();
+	private selectOneCache = new Map<string, { serverChanges, clientChanges, result }>();
 
 	/** select one entity given an id,
 	 * This is a subscription like all select, so it will listen to changes from all users.
@@ -90,7 +90,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		if (this.selectOneCache.has(cacheKey))
 			return this.selectOneCache.get(cacheKey).result;
 
-		const obs = this.getClient(clientName, title).pipe(
+		// observable of the subscription
+		const serverChanges = this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
@@ -100,9 +101,16 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			tap(data => this.logResult(title, queryName, data)),
 			shareReplay(1)
 		);
-		const subj = new BehaviorSubject({});
-		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
-		this.selectOneCache.set(cacheKey, { subj, obs, result });
+		const clientChanges = new BehaviorSubject({});
+
+		const result = merge(
+			serverChanges,
+			clientChanges.pipe(
+				withLatestFrom(serverChanges),
+				map(([obs2Value, obs1Value]) => ({ ...obs1Value, ...obs2Value })),
+			)
+		);
+		this.selectOneCache.set(cacheKey, { serverChanges, clientChanges, result });
 		return result;
 	}
 
@@ -468,15 +476,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const title = 'Update ' + this.typeName;
 		const fields = this.patch(entity);
 		const gql = this.queryBuilder.update(fields);
-		const variables = { input: entity };
+		const variables = { input: this.strip(entity) };
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
-
 		this.addOptimisticResponse(options, gql, entity, this.typeName);
 		// updating select one cache so changes are reflected when using selectOne(id)
 		if (this.selectOneCache.has(cacheKey)) {
-			this.selectOneCache.get(cacheKey).subj.next(entity);
+			this.selectOneCache.get(cacheKey).clientChanges.next(entity);
 		}
 
 		return this.getClient(clientName, title).pipe(
@@ -518,7 +525,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const title = 'Create one ' + this.typeName;
 		const fields = this.patch(entity);
 		const gql = this.queryBuilder.create(fields);
-		const variables = { input: entity };
+		const variables = { input: this.strip(entity) };
 		const queryName = this.getQueryName(gql);
 
 		return this.getClient(clientName, title).pipe(
@@ -612,6 +619,26 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/////////////////////////////
 	//          UTILS          //
 	/////////////////////////////
+
+	// when updating an entity with sub entities we only need
+	// the id of the sub entities.
+	// for example when we change the supplier of a product we just need the id of the supplier
+	// else we could override things
+	// TODO: recursive
+	private strip(entity: any) {
+		const striped = {};
+		Object.entries(entity).forEach(([k, v]) => {
+			const value = entity[k];
+			if (Array.isArray(value) && value.length > 0 && value[0].id) {
+				striped[k] = value.map(item => ({ id: item.id }));
+			} else if (value instanceof Object && value.id) {
+				striped[k] = { id: value.id };
+			} else {
+				striped[k] = value;
+			}
+		});
+		return striped;
+	}
 
 	/** to use another named apollo client */
 	private getClient(clientName: Client, context: string): Observable<ApolloBase> {

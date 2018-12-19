@@ -1,5 +1,19 @@
 <card-app>
-	<h1 class="title">Tasks</h1>
+	<div class="flex top">
+		<h1>Tasks</h1>
+		<div class="spacer mg-m"></div>
+		<div class="flex show-my-tasks" *ngIf="hasFilters">
+			<checkbox-app
+				[checked]="filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
+				(check)="toggleMyTasks.emit(true)"
+				(uncheck)="toggleMyTasks.emit(false)">
+				<span>
+					Show my tasks only
+				</span>
+			</checkbox-app>
+		</div>
+	</div>
+
 	<list-app infiniScroll cdk-scrollable (bottomReached)="bottomReached.emit()">
 		<list-item-app *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackById">
 			<!-- use hover index if we use selection -->
@@ -22,8 +36,8 @@
 		</list-item-app>
 	</list-app>
 	<div class="flexBetween create-task">
-		<textarea inputApp type="text" [formControl]="taskCtrl"
-			placeholder="+ Create a new task" (keydown.enter)="onEnter($event)"></textarea>
+		<input inputApp type="text" [formControl]="taskCtrl"
+			placeholder="+ Create a new task" (keydown.enter)="onEnter($event)"/>
 		<button *ngIf="inp?.focussed || taskCtrl.value"class="secondary-light" (click)="onSubmit()">Create</button>
 	</div>
 </card-app>

@@ -11,7 +11,6 @@ export class SettingsProfileService {
 
 	constructor(
 		private userSrv: UserService,
-		private uploaderSrv: UploaderService,
 		private authSrv: AuthenticationService) { }
 
 	selectUser() {

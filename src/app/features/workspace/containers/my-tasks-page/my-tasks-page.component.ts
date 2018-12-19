@@ -5,6 +5,7 @@ import { AbstractTaskCommonComponent } from '~common/task/containers/abstract-ta
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { Task } from '~models';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'workspace-my-tasks-page-app',
@@ -33,7 +34,13 @@ export class MyTasksPageComponent extends AbstractTaskCommonComponent implements
 	}
 
 	ngOnInit() {
-		super.setup();
+		const userId = this.userSrv.userSync.id;
+		super.setup([
+			{
+				type: FilterType.ASSIGNEE,
+				value: userId
+			}
+		]);
 	}
 
 }

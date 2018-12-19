@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, switchMap, tap } from 'rxjs/operators';
 import { ChangePswdDlgComponent } from '~common/modals';
 import { SettingsProfileService } from '../../services';
 import { User } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 @Component({
 	selector: 'settings-profile-app',
@@ -35,17 +36,17 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 
 	updateUser(user: User) {
 		user.id = this.userId;
-		this.profileSrv.updateUser(user).subscribe();
+		this.profileSrv.updateUser(user)
+			.subscribe();
 	}
 
 	addFile(file: Array<File>) {
-		this.uploaderSrv.uploadImages(file)
-			.subscribe(img => {
-				this.profileSrv.updateUser({
-					id: this.userId,
-					avatar: img[0]
-				}).subscribe();
-			});
+		this.uploaderSrv.uploadImages(file, undefined, Client.USER).pipe(
+			switchMap(img => this.profileSrv.updateUser({
+				id: this.userId,
+				avatar: img[0]
+			}))
+		).subscribe();
 	}
 
 	pswdModal() {

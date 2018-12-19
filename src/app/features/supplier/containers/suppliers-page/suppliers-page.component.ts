@@ -5,6 +5,7 @@ import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
 import { CommonModalService } from '~common/modals';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -28,6 +29,7 @@ export class SuppliersPageComponent extends TrackingComponent
 	];
 
 	constructor(
+		private route: ActivatedRoute,
 		private supplierSrv: SupplierService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
 		public commonModalSrv: CommonModalService

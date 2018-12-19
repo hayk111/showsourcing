@@ -118,8 +118,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	onChange() {
 		this.onChangeFn(this.value);
 		if (!this.multiple) {
-			if (!this.isConst) this.update.emit({ id: this.value.id, __typename: this.value.__typename });
-			else this.update.emit(this.value);
+			if (!this.isConst) {
+				const value = { id: this.value.id, __typename: this.value.__typename };
+				this.update.emit(value);
+			} else {
+				this.update.emit(this.value);
+			}
 			this.close.emit();
 		} else
 			this.update.emit(this.value);

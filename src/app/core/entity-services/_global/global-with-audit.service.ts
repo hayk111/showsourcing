@@ -1,14 +1,10 @@
-import { Apollo } from 'apollo-angular';
-import { UserService } from '~entity-services';
-import { GlobalService, GlobalServiceInterface } from '~entity-services/_global/global.service';
-import { GlobalQueries } from '~entity-services/_global/global-queries.class';
-import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { SelectParamsConfig } from '~entity-services/_global/select-params';
-import { ListQuery } from '~entity-services/_global/list-query.interface';
-import { EntityWithAudit } from '~models';
+import { forkJoin } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { UserService } from '~entity-services';
+import { GlobalQueries } from '~entity-services/_global/global-queries.class';
+import { GlobalService, GlobalServiceInterface } from '~entity-services/_global/global.service';
+import { EntityWithAudit } from '~models';
 
 /**
  * Same as global service but adds an audit (created by, last updated date etc)
@@ -29,7 +25,7 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	 * Updates on entity with an audit will add properties needed by the backend
 	 */
 	update(entity: any, client?: Client, isOptimistic: boolean = true) {
-		entity.lastUpdatedBy = { id: this.userSrv.userSync.id, __typename: 'User' };
+		entity.lastUpdatedBy = { ...this.userSrv.userSync };
 		entity.lastUpdatedDate = '' + new Date();
 		return super.update(entity, client, isOptimistic);
 	}

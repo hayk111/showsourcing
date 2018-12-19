@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { delay, first, map, mergeMap, retryWhen, take, tap } from 'rxjs/operators';
+import { delay, first, map, mergeMap, retryWhen, take, tap, switchMap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ImageUploadRequestService, ProductService, SupplierClaimService, SupplierService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
@@ -75,7 +75,7 @@ export class UploaderService {
 		return service.create(request, client).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ =>
-				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`, client)
+				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`, undefined, client)
 			),
 			// when ready we make the upload
 			mergeMap(info => this.uploadFileToAws(info, file, isImage)),
@@ -83,9 +83,9 @@ export class UploaderService {
 			// so we need to wait for it to be ready.
 			mergeMap(_ => this.emitWhenFileReady(request) as any),
 			// putting the request status to uploaded
-			mergeMap(_ => service.update({ id: request.id }, client)),
+			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' }, client)),
 			// link item
-			tap(_file => this.linkItem(returned, linkedItem, isImage)),
+			mergeMap(_file => this.linkItem(returned, linkedItem, isImage), _file => _file),
 			// add notification
 			tap(_ => {
 				return this.notifSrv.add({
@@ -96,7 +96,6 @@ export class UploaderService {
 			}),
 			// sending the image back
 			map(_ => returned),
-			first()
 		);
 	}
 
@@ -173,7 +172,7 @@ export class UploaderService {
 	/** Link uploaded file to its entity */
 	private linkItem(returned, linkedItem: any, isImage: boolean) {
 		if (!linkedItem) {
-			return;
+			return of('no linked item');
 		}
 		let srv: any;
 		if (linkedItem.__typename === 'Supplier') {
@@ -185,13 +184,13 @@ export class UploaderService {
 		}
 
 		if (isImage) {
-			srv.update({
+			return srv.update({
 				id: linkedItem.id,
 				images: [...linkedItem.images.map(img => ({ id: img.id })), returned]
-			}).subscribe();
+			});
 		} else {
 			const attachments = [...linkedItem.attachments, returned];
-			srv.update({ id: linkedItem.id, attachments }).subscribe();
+			return srv.update({ id: linkedItem.id, attachments });
 		}
 	}
 }

@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap } from 'rxjs/operators';
 import { SampleService } from '~core/entity-services';
 import { Comment, ERM, Sample } from '~core/models';
 import { CustomField } from '~shared/dynamic-forms';
 import { AutoUnsub } from '~utils';
+import { CommentService } from '~core/entity-services/comment/comment.service';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -41,6 +42,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	];
 
 	constructor(
+		private commentSrv: CommentService,
 		private sampleSrv: SampleService) {
 		super();
 	}
@@ -63,6 +65,8 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	addComment(comment: Comment) {
 		const comments = [...(this._sample.comments || [])];
 		comments.push(comment as any);
-		this.sampleSrv.update({ id: this._sample.id, comments }).subscribe();
+		this.commentSrv.create(comment).pipe(
+			switchMap(_ => this.sampleSrv.update({ id: this._sample.id, comments }))
+		).subscribe();
 	}
 }

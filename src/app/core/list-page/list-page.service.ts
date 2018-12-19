@@ -16,6 +16,7 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+import { ERMService } from '~core/entity-services/_global/erm.service';
 
 
 // where we can save the services
@@ -50,7 +51,8 @@ export class ListPageService
 	constructor(
 		private router: Router,
 		private thumbSrv: ThumbService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private ermSrv: ERMService
 	) { }
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
@@ -230,14 +232,22 @@ export class ListPageService
 	create(shouldRedirect = true) {
 		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, type: this.entityMetadata }).pipe(
 			filter(event => event.type === CloseEventType.OK),
-			switchMap(_ => this.refetch(), evt => evt)
-		).subscribe(event => this.onCreated(event.data, shouldRedirect));
+			switchMap(_ => this.refetch(), evt => evt),
+			map(evt => evt.data),
+			switchMap(name => this.createItem(name))
+		).subscribe(item => this.redirectToCreated(item.id, shouldRedirect));
 	}
 
-	private onCreated(data: any, shouldRedirect: boolean) {
+	private createItem(name) {
+		const entity = new this.entityMetadata.constClass({ name });
+		return this.ermSrv.getGlobalService(this.entityMetadata)
+			.create(entity);
+	}
+
+	private redirectToCreated(id: string, shouldRedirect: boolean) {
 		if (shouldRedirect) {
 			if (this.entityMetadata.destUrl)
-				this.router.navigate([this.entityMetadata.destUrl, data.id]
+				this.router.navigate([this.entityMetadata.destUrl, id]
 				);
 			else
 				throw Error(`no destination url`);
@@ -345,6 +355,5 @@ export class ListPageService
 	getSelectedValues() {
 		return this.selectionSrv.getSelectionValues();
 	}
-
 
 }
