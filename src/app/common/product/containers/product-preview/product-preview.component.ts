@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, takeUntil, tap } from 'rxjs/operators';
+import { first, takeUntil, tap, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
@@ -19,6 +19,7 @@ import { AppImage, ERM, PreviewActionButton, Product } from '~models';
 import { CustomField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub, PendingImage } from '~utils';
+import { CommentService } from '~core/entity-services/comment/comment.service';
 
 @Component({
 	selector: 'product-preview-app',
@@ -119,13 +120,13 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild('inpFile') inpFile: ElementRef;
 
 	constructor(
-		private route: ActivatedRoute,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
-		private featureSrv: ProductService,
+		private productSrv: ProductService,
 		private modalSrv: CommonModalService,
 		private router: Router,
-		private workspaceSrv: WorkspaceFeatureService
+		private workspaceSrv: WorkspaceFeatureService,
+		private commentSrv: CommentService
 	) {
 		super();
 
@@ -158,7 +159,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.product$ = this.featureSrv.selectOne(this.product.id);
+		this.product$ = this.productSrv.selectOne(this.product.id);
 		this.product$
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(product => this.product = product);
@@ -166,7 +167,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	updateProduct(productConfig: any) {
 		const product = new Product({ ...productConfig, id: this.product.id });
-		this.featureSrv.update(product)
+		this.productSrv.update(product)
 			.subscribe();
 	}
 
@@ -210,6 +211,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	openFileBrowser() {
 		this.inpFile.nativeElement.click();
+	}
+
+	addComment(comment: Comment) {
+		const comments = [...(this._product.comments || [])];
+		comments.push(comment as any);
+		this.commentSrv.create(comment).pipe(
+			switchMap(_ => this.productSrv.update({ id: this._product.id, comments }))
+		).subscribe();
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */

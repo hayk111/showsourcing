@@ -15,6 +15,7 @@ import {
 	StatsIconsComponent,
 } from './components';
 import { ProductPreviewComponent } from './containers';
+import { CommentCommonModule } from '~common/comment';
 
 
 
@@ -23,8 +24,7 @@ import { ProductPreviewComponent } from './containers';
 		CommonModule,
 		RouterModule,
 		SharedModule,
-		PriceModule,
-		ListModule
+		CommentCommonModule
 	],
 	declarations: [
 		ProductPreviewComponent,

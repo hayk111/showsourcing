@@ -76,8 +76,14 @@
 			</dynamic-form-app>
 		</preview-section-app>
 
-			<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+		<!-- Activity -->
+		<preview-section-app>
+			<comment-list-app [comments]="product.comments"></comment-list-app>
+		</preview-section-app>
 
+		<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+
+		<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
 	</preview-app>
 
 <ng-template #spinner>
