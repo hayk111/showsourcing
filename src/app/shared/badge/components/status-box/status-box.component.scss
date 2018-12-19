@@ -1,5 +1,5 @@
 :host {
-  display: inline-block;
+  display: flex;
   cursor: default;
   user-select: none;
 }
@@ -23,7 +23,7 @@ icon-app {
 
 .badge-item {
   font-size: var(--font-size-m);
-  border-radius: var(--border-radius-s);	
+  border-radius: var(--border-radius-s);
 	padding: var(--spacing-s) var(--spacing-s) var(--spacing-s) var(--spacing-s);
   font-weight: 600;
   .badge-name {

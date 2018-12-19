@@ -3,10 +3,26 @@ form {
 	margin: auto;
 }
 
-input.error {
-	border: 1px solid var(--color-warn);
-}
 
 p.error {
 	color: var(--color-warn);
+}
+
+.logo {
+	margin-bottom: var(--spacing-ms);
+}
+
+h1 {
+	font-family: var(--font-normal);
+  font-size: 28px;
+	font-weight: 600;
+	color: var(--color-txt-strong);
+	margin-bottom: var(--spacing-ms);
+}
+
+h2 {
+	font-family: var(--font-normal);
+  font-size: 16px;
+  text-align: center;
+  color: var(--color-txt-primary);
 }

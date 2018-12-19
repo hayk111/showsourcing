@@ -10,6 +10,7 @@ import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
 import { ComparisonDataModel } from '~shared/table/models/';
 import { getArrayData, getPackagingString } from '~utils/product.utils';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 @Component({
 	selector: 'compare-product-app',
@@ -30,59 +31,59 @@ export class CompareProductComponent extends AutoUnsub
 			{
 				type: 'header',
 				dataType: 'image',
-				data: getArrayData(products, 'images')
+				data: getArrayData(this.products, 'images')
 			},
 			{
 				type: 'header',
 				dataType: 'text',
-				data: getArrayData(products, 'name')
+				data: getArrayData(this.products, 'name')
 			},
 			{
 				type: 'header',
 				dataType: 'description',
-				data: getArrayData(products, 'description')
+				data: getArrayData(this.products, 'description')
 			},
 			{
 				type: 'content',
 				title: 'Supplier',
 				dataType: 'text',
-				data: getArrayData(products, 'supplier.name')
+				data: getArrayData(this.products, 'supplier.name')
 			},
 			{
 				title: 'Price',
 				type: 'content',
 				dataType: 'price',
-				data: getArrayData(products, 'price')
+				data: getArrayData(this.products, 'price')
 			},
 			{
 				type: 'content',
 				title: 'MOQ',
 				dataType: 'text',
-				data: getArrayData(products, 'minimumOrderQuantity')
+				data: getArrayData(this.products, 'minimumOrderQuantity')
 			},
 			{
 				type: 'content',
 				dataType: 'text',
 				title: 'MOQ Description',
-				data: getArrayData(products, 'moqDescription')
+				data: getArrayData(this.products, 'moqDescription')
 			},
 			{
 				type: 'content',
 				title: 'Team Rating',
 				dataType: 'text',
-				data: getArrayData(products, 'score')
+				data: getArrayData(this.products, 'score')
 			},
 			{
 				type: 'content',
 				title: 'Category',
 				dataType: 'text',
-				data: getArrayData(products, 'category.name')
+				data: getArrayData(this.products, 'category.name')
 			},
 			{
 				type: 'content',
 				title: 'Tags',
 				dataType: 'tag',
-				data: getArrayData(products, 'tags')
+				data: getArrayData(this.products, 'tags')
 			},
 			{
 				type: 'title',
@@ -93,13 +94,13 @@ export class CompareProductComponent extends AutoUnsub
 				type: 'content',
 				title: 'Inco Term',
 				dataType: 'text',
-				data: getArrayData(products, 'incoTerms')
+				data: getArrayData(this.products, 'incoTerms')
 			},
 			{
 				type: 'content',
 				title: 'Harbour',
 				dataType: 'text',
-				data: getArrayData(products, 'harbour')
+				data: getArrayData(this.products, 'harbour')
 			},
 			{
 				type: 'title',
@@ -110,23 +111,25 @@ export class CompareProductComponent extends AutoUnsub
 				type: 'content',
 				title: 'Carton Size',
 				dataType: 'text',
-				data: getPackagingString(products, 'innerCarton')
+				data: getPackagingString(this.products, 'innerCarton')
 			},
 			{
 				type: 'content',
 				title: 'Master Carton',
 				dataType: 'text',
-				data: getPackagingString(products, 'masterCarton')
+				data: getPackagingString(this.products, 'masterCarton')
 			},
 			{
 				type: 'content',
 				title: 'Pcs per Master',
 				dataType: 'text',
-				data: getPackagingString(products, 'masterCarton.itemsQuantity')
+				data: getPackagingString(this.products, 'masterCarton.itemsQuantity')
 			}, {
 				type: 'header',
 				dataType: 'button',
-				data: getArrayData(products, 'status.name')
+				data: getArrayData(this.products, 'status.name').map(x => {
+					return this.constPipe.transform(x, 'status');
+				})
 			}
 		];
 	}
@@ -135,7 +138,9 @@ export class CompareProductComponent extends AutoUnsub
 		return this._products;
 	}
 
-	constructor(private dlgSrv: DialogService) {
+	constructor(
+		private dlgSrv: DialogService,
+		private constPipe: ConstPipe) {
 		super();
 	}
 

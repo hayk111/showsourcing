@@ -24,6 +24,12 @@ input, textarea {
 	}
 }
 
+// form-field-app.ng-pristine {
+// 	label-app {
+// 		color: var(--color-txt-primary);
+// 	}
+// }
+
 form-field-app.editable {
 	padding-bottom: 0;
 	flex-grow: 1;
@@ -36,11 +42,7 @@ form-field-app.borderless {
 	padding-bottom: 0px;
 	padding-top: 16px;
 	box-sizing: border-box;
-	label-app {
-		font-size: var(--font-size-s);
-		height: 14px;
-		margin-bottom: 3px;
-	}
+
 	input, textarea {
 		height: 25px;
 		box-sizing: border-box;
@@ -65,6 +67,7 @@ form-field-app.boarding {
 		font-size: var(--font-size-l);
 		font-weight: 600;
 	}
+
 	input {
 		margin-top: var(--spacing-m);
 		font-size: var(--font-size-l);
@@ -74,8 +77,10 @@ form-field-app.boarding {
 }
 
 form-field-app.field-focused {
-	label-app {
-		color: var(--color-primary);
+	&:not(.field-error) {
+		label-app {
+			color: var(--color-primary);
+		}
 	}
 	input {
 		border-left: 4px solid var(--color-primary)
@@ -84,7 +89,7 @@ form-field-app.field-focused {
 
 form-field-app.field-error {
 	label-app {
-		color: var(--color-warn) !important;
+		color: var(--color-warn);
 	}
 }
 

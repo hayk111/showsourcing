@@ -6,6 +6,7 @@ import { Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { TabModel } from '~shared/navbar';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -14,6 +15,14 @@ import { AutoUnsub } from '~utils';
 })
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	supplier: Supplier;
+
+	tabs: TabModel[] = [{
+		title: 'Activity',
+		link: 'tasks'
+	}, {
+		title: 'Products',
+		link: 'products'
+	}];
 
 	constructor(
 		private route: ActivatedRoute,
