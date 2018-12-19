@@ -1,7 +1,5 @@
 import { CdkConnectedOverlay, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
-
-import { SelectorEntityComponent } from '../selector-entity/selector-entity.component';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'cdk-overlay-app',
@@ -16,8 +14,6 @@ export class CdkOverlayComponent implements OnInit {
 	@Input() closeOnScroll = true;
 	@Input() offsetY = 0;
 	@Input() offsetX = 0;
-
-	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 
 	scrollStrat: ScrollStrategy;
 

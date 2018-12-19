@@ -46,9 +46,18 @@
 	</div>
 
 	<!-- Location -->
-	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container">
-		<icon-app class="noPointer" name="location" backgroundColor="secondary-dark"></icon-app>
-		<span> {{ value }}</span>
+	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container pointer">
+		<selector2-app
+			type="country"
+			[offsetY]="-22"
+			[offsetX]="22"
+			[width]="370"
+			(update)="update.emit($event)">
+			<div class="flex">
+				<icon-app class="noPointer" name="location" backgroundColor="secondary-dark"></icon-app>
+				<span> {{ value || '-'}}</span>
+			</div>
+		</selector2-app>
 	</div>
 
 	<!-- Category -->
@@ -63,10 +72,10 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app name="category" backgroundColor="accent"></icon-app>
-				<div class="flex category-info flexWrap">
-					<ng-container *ngIf="value?.length; else noArray">
+				<div class="flex  flexWrap">
+					<div *ngIf="value?.length; else noArray" class="ellipsis category-info">
 						<span *ngFor="let category of value"> {{ category?.name }}  </span>
-					</ng-container>
+					</div>
 					<ng-template #noArray>
 							<span *ngIf="!value"> - </span>
 							<span *ngIf="value"> {{ value?.name }} </span>
