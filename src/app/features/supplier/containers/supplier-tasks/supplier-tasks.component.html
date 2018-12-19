@@ -26,6 +26,7 @@
 		[selection]="listSrv.selection$ | async"
 		[fullUser]="true"
 		[hasProduct]="true"
+		(toggleMyTasks)="toggleMyTasks($event)"
 		(previewClicked)="listSrv.openPreview($event)"
 		(taskSelect)="listSrv.selectOne($event, false)"
 		(taskUnselect)="listSrv.unselectOne($event, false)"

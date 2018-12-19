@@ -19,7 +19,7 @@ import { switchMap } from 'rxjs/operators';
 export class SupplierTasksComponent extends AbstractTaskCommonComponent implements OnInit {
 
 	constructor(
-		private route: ActivatedRoute,
+		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected router: Router,
 		protected taskSrv: TaskService,
@@ -28,6 +28,7 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 	) {
 		super(
 			router,
+			route,
 			userSrv,
 			taskSrv,
 			commonModalSrv,
@@ -42,7 +43,11 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 	}
 
 	createTask(name: string) {
-		const newTask = new Task({ name, supplier: { id: this.route.parent.snapshot.params.id } });
+		const newTask = new Task({
+			name,
+			supplier: { id: this.route.parent.snapshot.params.id },
+			assignee: this.userSrv.userSync
+		});
 		this.taskSrv.create(newTask).pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();

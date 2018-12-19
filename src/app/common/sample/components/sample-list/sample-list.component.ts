@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { Sample } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 import { FormControl } from '@angular/forms';
+import { FilterList, FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'sample-list-app',
@@ -11,8 +12,12 @@ import { FormControl } from '@angular/forms';
 })
 export class SampleListComponent extends TrackingComponent implements OnInit {
 	sampleCtrl = new FormControl();
+	filterTypeEnum = FilterType;
 	@Input() samples: Sample[];
 	@Input() selection: Map<string, boolean>;
+	@Input() filterList: FilterList;
+	@Input() hasFilters = true;
+	@Output() toggleMySamples = new EventEmitter<boolean>();
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() createSample = new EventEmitter<string>();
 	@Output() previewClicked = new EventEmitter<Sample>();

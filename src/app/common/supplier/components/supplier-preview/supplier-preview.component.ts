@@ -3,9 +3,10 @@ import { AutoUnsub } from '~utils';
 import { Supplier, ERM, AppImage } from '~core/models';
 import { Observable } from 'rxjs';
 import { CustomField } from '~shared/dynamic-forms';
-import { SupplierService } from '~core/entity-services';
+import { SupplierService, ContactService } from '~core/entity-services';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap } from 'rxjs/operators';
+import { CommentService } from '~core/entity-services/comment/comment.service';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -56,6 +57,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private supplierSrv: SupplierService,
+		private commentSrv: CommentService,
 		private constPipe: ConstPipe) {
 		super();
 	}
@@ -78,7 +80,9 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	addComment(comment: Comment) {
 		const comments = [...(this._supplier.comments || [])];
 		comments.push(comment as any);
-		this.supplierSrv.update({ id: this._supplier.id, comments }).subscribe();
+		this.commentSrv.create(comment).pipe(
+			switchMap(_ => this.supplierSrv.update({ id: this._supplier.id, comments }))
+		).subscribe();
 	}
 
 	/** opens the modal carousel */

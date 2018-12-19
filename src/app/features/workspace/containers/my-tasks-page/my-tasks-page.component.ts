@@ -37,8 +37,8 @@ export class MyTasksPageComponent extends AbstractTaskCommonComponent implements
 		const userId = this.userSrv.userSync.id;
 		super.setup([
 			{
-				type: FilterType.CUSTOM,
-				value: `assignee.id == "${userId}" OR createdBy.id == "${userId}"`
+				type: FilterType.ASSIGNEE,
+				value: userId
 			}
 		]);
 	}

@@ -21,6 +21,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 	group: FormGroup;
 	pending = false;
 	@Input() type: EntityMetadata;
+	@Input() autoCreate = true;
 	@ViewChild(InputDirective) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;
@@ -54,17 +55,12 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 	}
 
 	onSubmit() {
-		if (this.group.valid) {
-			this.group.patchValue({ name: this.group.value.name.trim() });
-			this.pending = true;
-			this.crudDlgSrv.create(this.group, this.type)
-				.pipe(takeUntil(this._destroy$))
-				.subscribe(item => this.onCreate(item));
+		if (!this.group.valid) {
+			return;
 		}
+		const name = this.group.value.name.trim();
+		this.pending = true;
+		this.dlgSrv.close({ type: CloseEventType.OK, data: name });
 	}
 
-	onCreate(item: any) {
-		this.pending = false;
-		this.dlgSrv.close({ type: CloseEventType.OK, data: item });
-	}
 }

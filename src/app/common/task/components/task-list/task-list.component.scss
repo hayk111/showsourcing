@@ -2,10 +2,14 @@
 	display: block;
 }
 
-.title {
+.top {
+	margin-bottom: var(--spacing-l);
+	align-items: baseline;
+}
+
+h1 {
 	color: var(--color-txt-strong);
 	font-size: var(--font-size-xxxl);
-	padding-bottom: var(--spacing-l);
 }
 
 list-app {

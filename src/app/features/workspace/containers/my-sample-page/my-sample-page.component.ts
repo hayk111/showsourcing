@@ -24,7 +24,7 @@ import { CloseEventType } from '~shared/dialog';
 export class MySamplePageComponent extends AbstractSampleCommonComponent implements OnInit {
 
 	columns$: Observable<KanbanColumn[]>;
-
+	filterType = FilterType;
 	filterTypes = [
 		FilterType.SUPPLIER,
 		FilterType.PRODUCT
@@ -106,9 +106,12 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 	}
 
 	openCreateDlg() {
+		const assignee = this.userSrv.userSync;
 		this.commonModalSrv.openCreateDlg(ERM.SAMPLE, false).pipe(
 			filter(evt => evt.type === CloseEventType.OK),
 			map(evt => evt.data),
+			map(name => new Sample({ name, assignee })),
+			switchMap(sample => this.sampleSrv.create(sample)),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}

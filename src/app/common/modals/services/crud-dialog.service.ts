@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { map, first } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { ERMService } from '~entity-services/_global/erm.service';
-import { SelectParams } from '~entity-services/_global/select-params';
-import { EntityMetadata, ERM } from '~models';
+import { EntityMetadata } from '~models';
 
 @Injectable({
 	providedIn: 'root'

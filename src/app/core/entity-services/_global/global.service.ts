@@ -476,7 +476,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const title = 'Update ' + this.typeName;
 		const fields = this.patch(entity);
 		const gql = this.queryBuilder.update(fields);
-		const variables = { input: entity };
+		const variables = { input: this.strip(entity) };
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
@@ -525,7 +525,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const title = 'Create one ' + this.typeName;
 		const fields = this.patch(entity);
 		const gql = this.queryBuilder.create(fields);
-		const variables = { input: entity };
+		const variables = { input: this.strip(entity) };
 		const queryName = this.getQueryName(gql);
 
 		return this.getClient(clientName, title).pipe(
@@ -619,6 +619,26 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/////////////////////////////
 	//          UTILS          //
 	/////////////////////////////
+
+	// when updating an entity with sub entities we only need
+	// the id of the sub entities.
+	// for example when we change the supplier of a product we just need the id of the supplier
+	// else we could override things
+	// TODO: recursive
+	private strip(entity: any) {
+		const striped = {};
+		Object.entries(entity).forEach(([k, v]) => {
+			const value = entity[k];
+			if (Array.isArray(value) && value.length > 0 && value[0].id) {
+				striped[k] = value.map(item => ({ id: item.id }));
+			} else if (value instanceof Object && value.id) {
+				striped[k] = { id: value.id };
+			} else {
+				striped[k] = value;
+			}
+		});
+		return striped;
+	}
 
 	/** to use another named apollo client */
 	private getClient(clientName: Client, context: string): Observable<ApolloBase> {

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ERM, Task } from '~models';
 import { InputDirective } from '~shared/inputs';
 import { TrackingComponent } from '~utils/tracking-component';
+import { FilterList, FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'task-list-app',
@@ -18,6 +19,9 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	@Input() fullUser = false;
 	@Input() hasSupplier = false;
 	@Input() hasProduct = false;
+	@Input() hasFilters = true;
+	@Input() filterList: FilterList;
+	@Output() toggleMyTasks = new EventEmitter<boolean>();
 	@Output() createTask = new EventEmitter<string>();
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() previewClicked = new EventEmitter<Task>();
@@ -28,6 +32,7 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	@ViewChild(InputDirective) inp: InputDirective;
 	taskCtrl = new FormControl('');
 	hoverIndex: number;
+	filterTypeEnum = FilterType;
 
 	constructor(
 		protected router: Router,

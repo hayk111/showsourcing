@@ -1,5 +1,12 @@
-<sample-list-app [samples]="listSrv.items$ | async" [selection]="listSrv.selection$ | async" (bottomReached)="listSrv.loadMore()"
- (createSample)="createSample($event)" (previewClicked)="listSrv.openPreview($event)" (updateSample)="listSrv.update($event)">
+<sample-list-app
+	[samples]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[filterList]="listSrv.filterList"
+	(toggleMySamples)="toggleMySamples($event)"
+	(bottomReached)="listSrv.loadMore()"
+	(createSample)="createSample($event)"
+	(previewClicked)="listSrv.openPreview($event)"
+	(updateSample)="listSrv.update($event)">
 </sample-list-app>
 
 <sample-preview-app *ngIf="listSrv.previewOpen" [sample]="listSrv.previewed" (close)="listSrv.closePreview()">
