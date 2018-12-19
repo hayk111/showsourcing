@@ -90,6 +90,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
+		this.scd.deregister(this.cdkVirtualScrollViewport);
 	}
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
