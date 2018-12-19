@@ -35,7 +35,7 @@
 		<ng-container *ngSwitchCase="'currency'">
 			<!-- we need the top 3 currencies always visible at the top -->
 			<selector-currency-row-app *ngFor="let item of topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
-			<divider-app *ngIf="topCurrencies$ | async"></divider-app>
+			<divider-app class="top-3-divider" *ngIf="(topCurrencies$ | async)?.length"></divider-app>
 			<selector-currency-row-app *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
 		</ng-container>
 

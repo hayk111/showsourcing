@@ -22,6 +22,8 @@ import { categories } from '~utils/constants/categories.const';
 import { HarbourService } from '~core/entity-services/harbour/harbour.service';
 import { IncoTermService } from '~core/entity-services/inco-term/inco-term.service';
 import { CountryService } from '~core/entity-services/country/country.service';
+import { SelectParamsConfig, SelectParams } from '~core/entity-services/_global/select-params';
+import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 
 
 @Injectable({
@@ -30,6 +32,14 @@ import { CountryService } from '~core/entity-services/country/country.service';
 export class SelectorsService {
 
 	bindLabel = 'name';
+	listResult: ListQuery<any>;
+	item$: Observable<any>;
+
+	selectParams: SelectParamsConfig = {
+		descending: false,
+		take: 15,
+		skip: 0
+	};
 
 	constructor(
 		private categorySrv: CategoryService,
@@ -47,15 +57,22 @@ export class SelectorsService {
 		private countrySrv: CountryService
 	) { }
 
+	init() {
+		console.log(SelectParams);
+		this.listResult = this.countrySrv.getListQuery({ ...this.selectParams });
+		this.item$ = this.listResult.items$;
+	}
+
 	getCountries(): any[] {
 		return countries;
 	}
 
 	getCountriesGlobal(searchTxt?: string): Observable<Country[]> {
-		if (searchTxt)
-			return this.countrySrv.queryMany({ query: `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"` });
-		else
-			return this.countrySrv.queryAll();
+		if (searchTxt) {
+			this.selectParams = { ...this.selectParams, query: `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"` };
+		}
+		this.init();
+		return this.item$;
 	}
 
 	getIncoTerms(): any[] {
@@ -81,9 +98,19 @@ export class SelectorsService {
 	}
 
 	getCurrenciesGlobal(searchTxt?: string): Observable<Currency[]> {
-		if (searchTxt) return this.currencySrv.queryMany({ query: `symbol CONTAINS[c] "${searchTxt}"` });
+		if (searchTxt) return this.currencySrv.queryMany({ query: `symbol CONTAINS[c] "${searchTxt}" OR name CONTAINS[c] "${searchTxt}"` });
 		else return this.currencySrv.queryAll();
 	}
+
+	getTopCurrencies(searchTxt?: string): Observable<Currency[]> {
+		if (searchTxt)
+			return this.currencySrv.queryMany({
+				query: `((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND symbol CONTAINS[c] "${searchTxt}")` +
+					` OR ((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND name CONTAINS[c]"${searchTxt}")`
+			});
+		return this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
+	}
+
 
 	getLengthUnits(searchTxt?: string): any[] {
 		if (searchTxt) {
@@ -175,10 +202,6 @@ export class SelectorsService {
 		if (searchTxt) return this.userSrv
 			.queryMany({ query: `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"` }, '', Client.TEAM);
 		return this.userSrv.queryAll('', null, Client.TEAM);
-	}
-
-	getTopCurrencies(): Observable<Currency[]> {
-		return this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {

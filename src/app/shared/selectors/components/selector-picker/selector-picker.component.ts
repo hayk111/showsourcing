@@ -118,7 +118,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// Constants
 			case 'currency':
 				this.isConst = true;
-				this.topCurrencies$ = this.selectorSrv.getTopCurrencies();
+				this.topCurrencies$ = this.selectorSrv.getTopCurrencies(searchTxt);
 				return this.selectorSrv.getCurrenciesGlobal(searchTxt);
 			case 'country':
 				this.isConst = true;
