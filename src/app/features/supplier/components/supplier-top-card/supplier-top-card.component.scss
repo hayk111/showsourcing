@@ -1,3 +1,15 @@
 info-badge-app, status-selector-app {
 	margin-bottom: var(--spacing-ms);
 }
+
+.subinfo-container {
+	font-size: var(--font-size-m);
+	.tag {
+		display: inline-block;
+  	color: var(--color-supplier-tag);
+	}
+	.adress {
+		display: inline-block;
+  	color: var(--color-txt-primary);
+	}
+}

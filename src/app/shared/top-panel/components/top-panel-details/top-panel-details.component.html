@@ -1,5 +1,5 @@
 <div class="flexBetween top">
-	<div class="flex left ">
+	<div class="flex left container">
 		<icon-app name="back-arrow" (click)="goBack()" class="flexStart color-txt-primary"></icon-app>
 		<div class="logo">
 			<ng-content select="img-app"></ng-content>
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 
-	<div class="flex right">
+	<div class="flex right container">
 		<ng-content select="status-selector-app"></ng-content>
 		<context-menu-app *ngIf="hasOptions">
 				<context-menu-trigger-app>
@@ -29,7 +29,7 @@
 	</div>
 </div>
 
-
+<!--
 <nav class="flex">
 	<a *ngFor="let link of links;trackBy: trackByFn" [routerLink]="'./' + link" routerLinkActive="active">{{ toDisplayString(link) }}</a>
-</nav>
+</nav> -->
