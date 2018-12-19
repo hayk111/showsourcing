@@ -46,10 +46,10 @@
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"
-		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog($event)"
-		(openExportDialog)="commonModalSrv.openExportDialog($event)"
-		(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog($event)"
-		(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog($event)"
+		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
+		(openExportDialog)="commonModalSrv.openExportDialog([$event])"
+		(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
+		(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog([$event])"
 		(delete)="listSrv.deleteOne($event)">
 	</products-list-view-app>
 
