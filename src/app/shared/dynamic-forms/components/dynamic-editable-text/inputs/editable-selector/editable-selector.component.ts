@@ -58,6 +58,7 @@ export class EditableSelectorComponent extends AbstractInput {
 
 	/** when the selector has changed, we don't use the accumulator */
 	onSelectorChange(item?) {
+		this.value = item;
 		if (!this.customField.multiple) {
 			this.editable.close();
 		}
