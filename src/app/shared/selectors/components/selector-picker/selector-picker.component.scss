@@ -38,6 +38,8 @@ form-field-app {
 .container-items {
 	height: 210px;
 	overflow-y: auto;
+	overflow-x: hidden;
+
 
 	.selector-row {
 		padding-left: var(--spacing-ms);

@@ -5,6 +5,8 @@
 	</div>
 	<div *ngIf="supplier?.categories?.length" class="flex categories">
 		<icon-app class="circle" name="circle" fontSet="fa"></icon-app>
-		<span *ngFor="let category of supplier?.categories" class="category">{{ category?.name }}</span>
+		<div class="categories-container ellipsis">
+			<span *ngFor="let category of supplier?.categories" class="category">{{ category?.name }}</span>
+		</div>
 	</div>
 </div>

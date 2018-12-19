@@ -13,77 +13,78 @@
 		<span class="empty-message">There's no {{type}} yet, add one!</span>
 	</ng-template>
 </div>
-<!-- [ngStyle]="{'height': hasDB ? (choices$ | async)?.length * getHeight() + 'px' : choicesLocal?.length * getHeight() > 210 ? 210 + 'px' : choicesLocal?.length * getHeight() + 'px'}" -->
+
 <divider-app class="top-divider"></divider-app>
-<cdk-virtual-scroll-viewport [itemSize]="getHeight()" class="container-items" [ngStyle]="{'height': type === 'lengthUnit' ? '150px' : type === 'weightUnit' ? '120px' : '200px'}">
+<!-- [ngClass]="getActiveClass(item)" in case we want set an active class -->
+<div class="container-items" [ngStyle]="{'height': type === 'lengthUnit' ? '150px' : type === 'weightUnit' ? '120px' : '200px'}">
 
 	<ng-container [ngSwitch]="type">
 
 		<ng-container *ngSwitchCase="'supplier'">
-			<selector-supplier-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [supplier]="item" (click)="onSelect(item)"></selector-supplier-row-app>
+			<selector-supplier-row-app *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [supplier]="item" (click)="onSelect(item)"></selector-supplier-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'project'">
-			<selector-project-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [ngClass]="getActiveClass(item)" [project]="item" (click)="onSelect(item)"></selector-project-row-app>
+			<selector-project-row-app *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row"  [project]="item" (click)="onSelect(item)"></selector-project-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'user'">
-			<selector-user-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
+			<selector-user-row-app *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'currency'">
 			<!-- we need the top 3 currencies always visible at the top -->
 			<selector-currency-row-app *ngFor="let item of topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
 			<divider-app *ngIf="topCurrencies$ | async"></divider-app>
-			<selector-currency-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
+			<selector-currency-row-app *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'product'">
-			<selector-product-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [product]="item" (click)="onSelect(item)"></selector-product-row-app>
+			<selector-product-row-app *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [product]="item" (click)="onSelect(item)"></selector-product-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'tag'">
-			<selector-tag-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [ngClass]="getActiveClass(item)" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
+			<selector-tag-row-app *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'category'">
-			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [ngClass]="getActiveClass(item)" [text]="item.name" (click)="onSelect(item)"></selector-text-row-app>
+			<selector-text-row-app *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [text]="item.name" (click)="onSelect(item)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'supplierType'">
-			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item)"></selector-text-row-app>
+			<selector-text-row-app *ngFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'harbour'">
-			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+			<selector-text-row-app *ngFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'incoTerm'">
-			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
+			<selector-text-row-app *ngFor="let item of choices$ | async" class="selector-row" [text]="item.name" (click)="onSelect(item.name)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'country'">
-			<selector-country-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
+			<selector-country-row-app *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'weightUnit'">
-			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
+			<selector-text-row-app *ngFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'lengthUnit'">
-			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
+			<selector-text-row-app *ngFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'businessType'">
-			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
+			<selector-text-row-app *ngFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="'categoryBoarding'">
-			<selector-text-row-app *cdkVirtualFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
+			<selector-text-row-app *ngFor="let item of choicesLocal" class="selector-row" [text]="item.name" (click)="onSelect(item.id)"></selector-text-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchDefault>
-			<selector-text-row-app *cdkVirtualFor="let item of choices$ | async" class="selector-row" [text]="item" (click)="onSelect(item)"></selector-text-row-app>
+			<selector-text-row-app *ngFor="let item of choices$ | async" class="selector-row" [text]="item" (click)="onSelect(item)"></selector-text-row-app>
 		</ng-container>
 
 	</ng-container>
@@ -95,7 +96,7 @@
 		</button>
 	</div>
 
-</cdk-virtual-scroll-viewport>
+</div>
 
 <divider-app class="bottom-divider"></divider-app>
 
