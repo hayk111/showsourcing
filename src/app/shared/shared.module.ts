@@ -38,7 +38,7 @@ import { TableModule } from './table/table.module';
 import { TopPanelModule } from './top-panel/top-panel.module';
 import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule, ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -52,6 +52,7 @@ const modules = [
 	DragDropModule,
 	ScrollingModule,
 	OverlayModule,
+	ScrollDispatchModule,
 
 	// shared modules
 	ActionBarModule,

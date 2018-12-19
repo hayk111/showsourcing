@@ -19,11 +19,12 @@ import {
 	SelectorUserRowComponent,
 	SelectorPickerComponent,
 	Selector2Component,
+	SelectorCountryRowComponent,
 } from './components';
 import { SelectorConstComponent } from './components/selector-const/selector-const.component';
 import { SelectorEntityComponent } from './components/selector-entity/selector-entity.component';
 import { DividerModule } from '~shared/divider/divider.module';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule, ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { BadgeModule } from '~shared/badge';
 import { A11yModule } from '@angular/cdk/a11y';
 import { SelectorTagRowComponent } from './components/selector-tag-row/selector-tag-row.component';
@@ -32,18 +33,19 @@ import { UtilsModule } from '~shared/utils';
 
 const components = [
 	CdkOverlayComponent,
+	Selector2Component,
 	SelectorComponent,
-	SelectorPickerComponent,
 	SelectorConstComponent,
-	SelectorEntityComponent,
+	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
+	SelectorEntityComponent,
+	SelectorPickerComponent,
 	SelectorProductRowComponent,
 	SelectorProjectRowComponent,
 	SelectorSupplierRowComponent,
-	SelectorTextRowComponent,
-	SelectorUserRowComponent,
 	SelectorTagRowComponent,
-	Selector2Component
+	SelectorTextRowComponent,
+	SelectorUserRowComponent
 ];
 
 @NgModule({
@@ -61,7 +63,8 @@ const components = [
 		ScrollingModule,
 		BadgeModule,
 		A11yModule,
-		UtilsModule
+		UtilsModule,
+		ScrollDispatchModule
 	],
 	declarations: components,
 	exports: components

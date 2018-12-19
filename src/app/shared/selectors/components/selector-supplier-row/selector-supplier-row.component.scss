@@ -46,12 +46,14 @@ icon-app.circle {
 		icon-app.circle {
 			visibility: hidden;
 		}
+		.categories-container {
 
-		& > span {
-			//for each children that is not the first one we add some spaces and bullet dots on the content
-			&:not(:last-child)::after {
-				content: "\00a0 \00a0 \2022 \00a0 \00a0";
-				font-weight: bolder;
+			& > span {
+				//for each children that is not the first one we add some spaces and bullet dots on the content
+				&:not(:last-child)::after {
+					content: "\00a0 \00a0 \2022 \00a0 \00a0";
+					font-weight: bolder;
+				}
 			}
 		}
 	}

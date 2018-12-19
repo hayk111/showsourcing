@@ -1,6 +1,6 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, ScrollDispatcher } from '@angular/cdk/scrolling';
 import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
@@ -50,6 +50,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		switchMap(type => this.getChoices(type, this.searchTxt))
 	);
 	topCurrencies$: Observable<Currency[]>;
+	choicesLocal = [];
+	// for complex names
+	displayName = '';
 
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
@@ -72,19 +75,22 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * if its a const we don't need to emit an object {id, typename}, we only need a string
 	 */
 	isConst = false;
+	hasDB = false;
 	searchTxt = '';
 
 
 	constructor(
 		private selectorSrv: SelectorsService,
 		protected cd: ChangeDetectorRef,
-		private fb: FormBuilder
+		private fb: FormBuilder, private scd: ScrollDispatcher
 	) { super(cd); }
 
 	ngOnInit() {
 		this.group = this.fb.group({
 			name: ['']
 		});
+		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
+		this.scd.deregister(this.cdkVirtualScrollViewport);
 	}
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
@@ -93,7 +99,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	search(text) {
 		this.searchTxt = text;
-		this.type$.next(this.type);
+		this.hasDB ? this.type$.next(this.type) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
@@ -104,26 +110,67 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case 'category': return this.selectorSrv.getCategories(searchTxt);
 			// case 'event': return this.selectorSrv.getEvents();
 			case 'tag': return this.selectorSrv.getTags(searchTxt);
-			case 'supplierType': return this.selectorSrv.getSupplierTypes();
+			case 'supplierType':
+				this.displayName = 'supplier type';
+				return this.selectorSrv.getSupplierTypes(searchTxt);
 			case 'user': return this.selectorSrv.getUsers(searchTxt);
+			case 'project': return this.selectorSrv.getProjects(searchTxt);
+			// Constants
 			case 'currency':
 				this.isConst = true;
 				this.topCurrencies$ = this.selectorSrv.getTopCurrencies();
 				return this.selectorSrv.getCurrenciesGlobal(searchTxt);
-			case 'project': return this.selectorSrv.getProjects(searchTxt);
+			case 'country':
+				this.isConst = true;
+				return this.selectorSrv.getCountriesGlobal(searchTxt);
+			case 'harbour':
+				this.isConst = true;
+				return this.selectorSrv.getHarboursGlobal(searchTxt);
+			case 'incoTerm':
+				this.isConst = true;
+				return this.selectorSrv.getIncoTermsGlobal(searchTxt);
+
 			default: throw Error(`Unsupported type ${this.type}`);
+		}
+	}
+
+	getChoicesLocal(type, searchTxt) {
+		switch (type) {
+			case 'lengthUnit':
+				this.isConst = true;
+				this.displayName = 'length unit';
+				return this.selectorSrv.getLengthUnits(searchTxt);
+			case 'weightUnit':
+				this.isConst = true;
+				this.displayName = 'weight unit';
+				return this.selectorSrv.getWeigthUnits(searchTxt);
+			case 'businessType':
+				this.isConst = true;
+				this.displayName = 'business type';
+				return this.selectorSrv.getBusinessTypes(searchTxt);
+			case 'categoryBoarding':
+				this.isConst = true;
+				this.displayName = 'category';
+				return this.selectorSrv.getCategoriesBoarding(searchTxt);
+			default: this.hasDB = true;
 		}
 	}
 
 	onChange() {
 		this.onChangeFn(this.value);
 		if (!this.multiple) {
-			if (!this.isConst) {
-				const value = { id: this.value.id, __typename: this.value.__typename };
-				this.update.emit(value);
-			} else {
+			if (!this.isConst) { // constants can update directly
+				if (this.type === 'user')
+					this.update.emit({
+						id: this.value.id,
+						firstName: this.value.firstName ? this.value.firstName : '',
+						lastName: this.value.lastName ? this.value.lastName : '',
+						__typename: this.value.__typename
+					});
+				else
+					this.update.emit({ id: this.value.id, name: this.value.name ? this.value.name : '', __typename: this.value.__typename });
+			} else
 				this.update.emit(this.value);
-			}
 			this.close.emit();
 		} else
 			this.update.emit(this.value);

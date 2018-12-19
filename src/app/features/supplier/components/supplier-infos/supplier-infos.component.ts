@@ -22,7 +22,7 @@ export class SupplierInfosComponent extends AutoUnsub {
 		{
 			name: 'supplierType',
 			type: 'selector',
-			metadata: { target: 'supplierType', type: 'entity', canCreate: true, labelName: 'name' },
+			metadata: { target: 'supplierType', type: 'entity', canCreate: false, labelName: 'name' },
 			label: 'type'
 		},
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
@@ -48,6 +48,10 @@ export class SupplierInfosComponent extends AutoUnsub {
 
 	toggle() {
 		this.textMode = !this.textMode;
+	}
+
+	test(item) {
+		console.log(item);
 	}
 
 

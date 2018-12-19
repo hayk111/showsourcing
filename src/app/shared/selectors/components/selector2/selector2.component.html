@@ -13,8 +13,8 @@
 	[isOpen]="menuOpen"
 	[offsetY]="offsetY"
 	[offsetX]="offsetX"
-	[closeOnScroll]="false"
-	(clickOutside)="closeMenu()">
+	[closeOnScroll]="true"
+	(clickOutside)="closeMenu(true)">
 	<selector-picker-app
 		class="z-2"
 		[ngStyle]="{ width: width + 'px'}"
@@ -23,6 +23,6 @@
 		[multiple]="multiple"
 		[canCreate]="canCreate"
 		(update)="update.emit($event)"
-		(close)="closeMenu()">
+		(close)="closeMenu(true)">
 	</selector-picker-app>
 </cdk-overlay-app>

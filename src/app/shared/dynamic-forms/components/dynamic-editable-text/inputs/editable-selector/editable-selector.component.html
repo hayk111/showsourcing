@@ -1,61 +1,50 @@
 
 <!-- const selector -->
-<editable-field-app
+<selector2-app
 	*ngIf="customField.metadata.type === 'const'; else entitySelector"
-	#editable
-	[inlineLabel]="inlineLabel"
-	[hasAction]="false"
-	[canGrow]="customField.multiple"
-	(opened)="selector.open()">
-	<label-app>{{ customField.label || customField.name }}</label-app>
-	<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
-		{{ (value | const: customField.metadata.target) || '-'}}
-	</editable-label-app>
-	<selector-const-app
-		#selector
-		[displayedValue]="'Select ' + customField.metadata.target"
-		[multiple]="customField.multiple"
-		[type]="customField.metadata.target"
-		[(ngModel)]="value"
-		(change)="onSelectorChange()"
-		(blur)="onBlur()"
-		(click)="preventPropagation($event)">
-	</selector-const-app>
-</editable-field-app>
-
-<!-- entity selector -->
-<ng-template #entitySelector>
+	[type]="customField.metadata.target"
+	[offsetY]="-30"
+	[width]="265"
+	[multiple]="customField.multiple"
+	[value]="value"
+	(update)="onSelectorChange($event)"
+	(menuClosed)="editable.close()">
 	<editable-field-app
 		#editable
 		[inlineLabel]="inlineLabel"
 		[hasAction]="false"
-		[canGrow]="customField.multiple"
-		(opened)="selector.open()">
+		[canGrow]="customField.multiple">
 		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app class="flex"
-			[class.flexEnd]="inlineLabel"
-			[class.flexWrap]="customField.multiple">
-			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
+		<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
+			{{ (value | const: customField.metadata.target) || '-'}}
 		</editable-label-app>
-		<!-- <selector2-app
-			[value]="value"
-			[multiple]="customField.multiple"
-			[canCreate]="customField.metadata.canCreate"
-			(update)="onSelectorChange()">
-		</selector2-app> -->
-		<selector-entity-app
-			#selector
-			[displayedValue]="'Select ' + customField.metadata.target"
-			[multiple]="customField.multiple"
-			[type]="customField.metadata.target"
-			[canCreate]="customField.metadata.canCreate"
-			[propertyName]="labelName"
-			[(ngModel)]="value"
-			(change)="onSelectorChange()"
-			(blur)="onBlur()"
-			(click)="preventPropagation($event)">
-		</selector-entity-app>
 	</editable-field-app>
+</selector2-app>
+
+<!-- entity selector -->
+<ng-template #entitySelector>
+	<selector2-app
+		[value]="value"
+		[offsetY]="-30"
+		[width]="265"
+		[type]="customField.metadata.target"
+		[multiple]="customField.multiple"
+		[canCreate]="customField.metadata.canCreate"
+		(update)="onSelectorChange($event)"
+		(menuClosed)="editable.close()">
+		<editable-field-app
+			#editable
+			[inlineLabel]="inlineLabel"
+			[hasAction]="false"
+			[canGrow]="customField.multiple">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-label-app class="flex"
+				[class.flexEnd]="inlineLabel"
+				[class.flexWrap]="customField.multiple">
+				<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
+			</editable-label-app>
+		</editable-field-app>
+	</selector2-app>
 </ng-template>
 
 

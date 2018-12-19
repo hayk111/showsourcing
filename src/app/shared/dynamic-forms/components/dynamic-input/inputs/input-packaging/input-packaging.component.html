@@ -1,46 +1,47 @@
 <div class="flex top inline">
-  <form-field-app>
-    <label-app>Width</label-app>
-    <input inputApp name="width" [(ngModel)]="value.width" type="number" restrictInput="number"/>
-  </form-field-app>
-  <div class="spacer mg-xs"></div>
-  <form-field-app>
-    <label-app>Height</label-app>
-    <input inputApp name="height" [(ngModel)]="value.height" type="number" restrictInput="number"/>
-  </form-field-app>
-  <div class="spacer mg-xs"></div>
-  <form-field-app>
-    <label-app>Depth</label-app>
-    <input inputApp name="depth" [(ngModel)]="value.length" type="number" restrictInput="number"/>
-  </form-field-app>
-  <div class="spacer mg-xs"></div>
-  <form-field-app>
-    <label-app>Units</label-app>
-    <selector-const-app
-      formFieldCtrl
-      displayedValue=" "
-      [type]="'lengthUnit'"
-      [itemName]="'length unit'"></selector-const-app>
-  </form-field-app>
-</div>
+		<form-field-app>
+			<label-app>Width</label-app>
+			<input inputApp name="width" [(ngModel)]="value.width" type="number" restrictInput="number"/>
+		</form-field-app>
+		<div class="spacer mg-xs"></div>
+		<form-field-app>
+			<label-app>Height</label-app>
+			<input inputApp name="height" [(ngModel)]="value.height" type="number" restrictInput="number"/>
+		</form-field-app>
+		<div class="spacer mg-xs"></div>
+		<form-field-app>
+			<label-app>Depth</label-app>
+			<input inputApp name="depth" [(ngModel)]="value.length" type="number" restrictInput="number"/>
+		</form-field-app>
+		<div class="spacer mg-xs"></div>
 
-<div class="flex inline">
-  <form-field-app class="quantity">
-    <label-app>Quantity</label-app>
-    <input inputApp name="quantity" [(ngModel)]="value.itemsQuantity" type="number" restrictInput="number"/>
-  </form-field-app>
-  <div class="spacer mg-xs"></div>
-  <form-field-app>
-    <label-app>Weight</label-app>
-    <input inputApp name="weight" [(ngModel)]="value.weight" type="number" restrictInput="number"/>
-  </form-field-app>
-  <div class="spacer mg-xs"></div>
-  <form-field-app>
-    <label-app>Units</label-app>
-    <selector-const-app
-      formFieldCtrl
-      displayedValue=" "
-      [type]="'weightUnit'"
-      [itemName]="'weight unit'"></selector-const-app>
-  </form-field-app>
-</div>
+		<form-field-app>
+			<selector2-app
+				type="lengthUnit"
+				[value]="value.unit"
+				(update)="update($event, 'unit')">
+				<label-app>Units</label-app>
+			</selector2-app>
+		</form-field-app>
+	</div>
+
+	<div class="flex inline">
+		<form-field-app class="quantity">
+			<label-app>Quantity</label-app>
+			<input inputApp name="quantity" [(ngModel)]="value.itemsQuantity" type="number" restrictInput="number"/>
+		</form-field-app>
+		<div class="spacer mg-xs"></div>
+		<form-field-app>
+			<label-app>Weight</label-app>
+			<input inputApp name="weight" [(ngModel)]="value.weight" type="number" restrictInput="number"/>
+		</form-field-app>
+		<div class="spacer mg-xs"></div>
+		<form-field-app>
+			<selector2-app
+				type="weightUnit"
+				[value]="value.weightUnit"
+				(update)="update($event, 'weightUnit')">
+				<label-app>Units</label-app>
+			</selector2-app>
+		</form-field-app>
+	</div>

@@ -13,13 +13,13 @@ import { StatusSelectorModule } from '~shared/status-selector/status-selector.mo
 import {
 	PreviewBadgesComponent,
 	PreviewBannerComponent,
+	PreviewCommentComponent,
 	PreviewComponent,
 	PreviewHeaderComponent,
 	PreviewSectionComponent,
-	PreviewCommentComponent
 } from './components';
-import { PreviewLogoComponent } from './components/preview-logo/preview-logo.component';
 import { PreviewCarouselComponent } from './components/preview-carousel/preview-carousel.component';
+import { PreviewLogoComponent } from './components/preview-logo/preview-logo.component';
 
 
 @NgModule({
@@ -34,7 +34,7 @@ import { PreviewCarouselComponent } from './components/preview-carousel/preview-
 		CarouselModule,
 		FileModule,
 		OverlayModule,
-		ReactiveFormsModule,
+		ReactiveFormsModule
 	],
 	declarations: [
 		PreviewComponent,

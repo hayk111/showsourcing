@@ -1,4 +1,4 @@
-<preview-app *ngIf="supplier$ | async as supplier">
+<preview-app cdk-scrollable *ngIf="supplier$ | async as supplier">
 
 		<!-- Banner -->
 		<preview-banner-app (closed)="close.emit()">
@@ -27,7 +27,8 @@
 			<!-- Location badge -->
 			<preview-badge-app
 				[badge]="erm.LOCATION"
-				[value]="getLocationName(supplier)">
+				[value]="getLocationName(supplier)"
+				(update)="update($event, 'country')">
 			</preview-badge-app>
 
 			<!-- Categories badge -->

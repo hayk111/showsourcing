@@ -1,5 +1,5 @@
 
-	<preview-app>
+	<preview-app cdk-scrollable>
 		<!-- Banner -->
 		<preview-banner-app (closed)="close.emit()">
 			<preview-carousel-app
@@ -51,6 +51,10 @@
 				[description]="product?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
+		</preview-section-app>
+
+		<!-- Tags -->
+		<preview-section-app [title]="'Tags'">
 			<info-badge-app *ngFor="let tag of product?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
 		</preview-section-app>
 
