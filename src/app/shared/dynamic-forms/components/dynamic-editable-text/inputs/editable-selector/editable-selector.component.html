@@ -4,10 +4,11 @@
 	*ngIf="customField.metadata.type === 'const'; else entitySelector"
 	[type]="customField.metadata.target"
 	[offsetY]="-30"
-	[width]="390"
+	[width]="265"
 	[multiple]="customField.multiple"
 	[value]="value"
-	(update)="onSelectorChange($event)">
+	(update)="onSelectorChange($event)"
+	(menuClosed)="editable.close()">
 	<editable-field-app
 		#editable
 		[inlineLabel]="inlineLabel"
@@ -17,17 +18,6 @@
 		<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
 			{{ (value | const: customField.metadata.target) || '-'}}
 		</editable-label-app>
-
-		<!-- <selector-const-app
-			#selector
-			[displayedValue]="'Select ' + customField.metadata.target"
-			[multiple]="customField.multiple"
-			[type]="customField.metadata.target"
-			[(ngModel)]="value"
-			(change)="onSelectorChange()"
-			(blur)="onBlur()"
-			(click)="preventPropagation($event)">
-		</selector-const-app> -->
 	</editable-field-app>
 </selector2-app>
 
@@ -36,11 +26,12 @@
 	<selector2-app
 		[value]="value"
 		[offsetY]="-30"
-		[width]="390"
+		[width]="265"
 		[type]="customField.metadata.target"
 		[multiple]="customField.multiple"
 		[canCreate]="customField.metadata.canCreate"
-		(update)="onSelectorChange($event)">
+		(update)="onSelectorChange($event)"
+		(menuClosed)="editable.close()">
 		<editable-field-app
 			#editable
 			[inlineLabel]="inlineLabel"

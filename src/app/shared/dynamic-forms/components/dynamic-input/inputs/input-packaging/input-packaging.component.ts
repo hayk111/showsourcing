@@ -20,4 +20,8 @@ export class InputPackagingComponent extends AbstractInput {
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
 	}
+
+	update(item, prop) {
+		this.value = { ...this.value, [prop]: item };
+	}
 }

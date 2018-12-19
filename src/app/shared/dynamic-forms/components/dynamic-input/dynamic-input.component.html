@@ -79,12 +79,6 @@
 				(update)="update.emit($event)">
 				<form-field-app>
 					<label-app>{{ customField.label || customField.name }}</label-app>
-					<!-- <selector-const-app formFieldCtrl
-						[multiple]="customField.multiple"
-						[type]="customField.metadata.target"
-						[canCreate]="customField.metadata.canCreate"
-						[(ngModel)]="accumulator"
-						(change)="onChange()"></selector-const-app> -->
 				</form-field-app>
 			</selector2-app>
     </ng-template>
@@ -100,7 +94,8 @@
   <input-packaging-app
     *ngSwitchCase="'packaging'"
     name="packaging"
-    [value]="accumulator"></input-packaging-app>
+		[value]="accumulator">
+	</input-packaging-app>
 
   <form-field-app *ngSwitchCase="'price'">
     <label-app>{{ customField.label || customField.name }}</label-app>
