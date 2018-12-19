@@ -33,6 +33,7 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 	) {
 		super(
 			router,
+			route,
 			userSrv,
 			taskSrv,
 			commonModalSrv,
@@ -49,10 +50,12 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 	createTask(name: string) {
 		const newTask = new Task({
 			name,
-			product: { id: this.route.parent.snapshot.params.id }
+			product: { id: this.route.parent.snapshot.params.id },
+			assignee: this.userSrv.userSync
 		});
 		this.taskSrv.create(newTask).pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}
+
 }

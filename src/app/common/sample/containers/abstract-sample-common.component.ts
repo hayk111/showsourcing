@@ -3,7 +3,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
-import { Filter } from '~shared/filters';
+import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 /** since we use the sample component on different pages, this page will keep the methods clean */
@@ -23,13 +23,17 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 
 	setup(addedFilters: Filter[] = []) {
 		const id = this.route.parent.snapshot.params.id;
+		const userId = this.userSrv.userSync.id;
 		this.listSrv.setup({
 			key: `${ListPageKey.SAMPLE}-${id}`,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
 			selectParams: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.SAMPLE,
-			initialFilters: [...addedFilters]
+			initialFilters: [
+				{ type: FilterType.ASSIGNEE, value: userId },
+				...addedFilters
+			]
 		});
 	}
 
@@ -39,5 +43,18 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 
 	openSupplier(id: string) {
 		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
+	}
+
+	toggleMySamples(show: boolean) {
+		const userId = this.userSrv.userSync.id;
+
+		const filterAssignee = {
+			type: FilterType.ASSIGNEE,
+			value: userId
+		};
+		if (show)
+			this.listSrv.addFilter(filterAssignee);
+		else
+			this.listSrv.removeFilter(filterAssignee);
 	}
 }

@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -13,6 +13,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent {
 
 	constructor(
 		protected router: Router,
+		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected taskSrv: TaskService,
 		public commonModalSrv: CommonModalService,
@@ -23,12 +24,12 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent {
 
 	setup(addedFilters: Filter[]) {
 		const userId = this.userSrv.userSync.id;
+		const routeId = this.route.parent.snapshot.params.id;
 		this.listSrv.setup({
-			key: ListPageKey.TASK,
+			key: `${ListPageKey.TASK}-${routeId}`,
 			entitySrv: this.taskSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name'],
 			selectParams: {
-				query: `createdBy.id == "${userId}"`,
 				sortBy: 'creationDate',
 				descending: true
 			},
@@ -44,8 +45,8 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent {
 		const userId = this.userSrv.userSync.id;
 
 		const filterAssignee = {
-			type: FilterType.CUSTOM,
-			value: `assignee.id == "${userId}" OR createdBy.id == "${userId}"`
+			type: FilterType.ASSIGNEE,
+			value: userId
 		};
 		if (show)
 			this.listSrv.addFilter(filterAssignee);

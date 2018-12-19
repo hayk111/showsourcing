@@ -10,6 +10,7 @@
 		<sub-panel-left-item-app>
 			<div class="flex show-my-samples">
 				<checkbox-app
+					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
 					(check)="toggleMySamples(true)"
 					(uncheck)="toggleMySamples(false)">
 				</checkbox-app>
