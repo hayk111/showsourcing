@@ -74,7 +74,8 @@ A package with 0cm makes no sens -->
 	[width]="180"
 	[offsetY]="-34"
 	[value]="accumulator.unit"
-	(update)="updateAcummulator($event, 'unit'); cell4.close();">
+	(update)="updateAcummulator($event, 'unit')"
+	(menuClosed)="cell4.close()">
 	<editable-field-app
 		#cell4
 		[hasAction]="false"
@@ -137,7 +138,8 @@ A package with 0cm makes no sens -->
 	[value]="accumulator.weightUnit"
 	[width]="180"
 	[offsetY]="-34"
-	(update)="updateAcummulator($event, 'weightUnit'); cell7.close();">
+	(update)="updateAcummulator($event, 'weightUnit')"
+	(menuClosed)="cell7.close()">
 	<editable-field-app
 		#cell7
 		[inlineLabel]="true"

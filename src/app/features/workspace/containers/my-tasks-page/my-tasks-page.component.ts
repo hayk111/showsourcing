@@ -18,6 +18,7 @@ import { FilterType } from '~shared/filters';
 export class MyTasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
 
 	constructor(
+		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected router: Router,
 		protected route: ActivatedRoute,
