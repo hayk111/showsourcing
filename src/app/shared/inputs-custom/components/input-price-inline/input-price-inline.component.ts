@@ -38,4 +38,8 @@ export class InputPriceInlineComponent implements OnInit {
 		this.price.currency = currencyId;
 	}
 
+	update(item) {
+		this.price.currency = item;
+	}
+
 }
