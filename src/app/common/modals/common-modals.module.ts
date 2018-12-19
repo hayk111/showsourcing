@@ -22,7 +22,7 @@ import { InputsModule } from '~shared/inputs';
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import { ProductsCardViewDialogComponent } from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
-
+import { UtilsModule } from '~shared/utils';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -49,7 +49,8 @@ const modals = [
 		SharedModule,
 		ProductCommonModule,
 		TableModule,
-		InputsModule
+		InputsModule,
+		UtilsModule
 	],
 	declarations: [...modals, ProductsCardViewDialogComponent],
 	entryComponents: modals,

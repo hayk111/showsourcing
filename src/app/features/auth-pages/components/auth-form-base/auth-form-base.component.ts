@@ -19,9 +19,9 @@ export class AuthFormBaseComponent extends AutoUnsub implements OnInit {
 
 	@Input() form: FormGroup;
 
-	@Input() error: string = '';
+	@Input() error = '';
 	@Input() pending = false;
-	@Input() defaultFocused: string = '';
+	@Input() defaultFocused = '';
 	@Output() onSubmit = new EventEmitter<any>();
 
 	private _listForm: AuthFormElement[] = [];
@@ -29,7 +29,7 @@ export class AuthFormBaseComponent extends AutoUnsub implements OnInit {
 		this._listForm = value;
 		const formGroup = {};
 		this._listForm.forEach((element: AuthFormElement) => {
-			formGroup[element.name] = ['', Validators.compose(element.validators)]
+			formGroup[element.name] = ['', Validators.compose(element.validators)];
 		});
 		this.form = this.fb.group(formGroup);
 	}

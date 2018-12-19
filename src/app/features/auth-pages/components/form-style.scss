@@ -2,13 +2,14 @@
 	text-align: center;
 }
 
-h1, h2 {
+h1,
+h2 {
 	white-space: nowrap;
 }
 
 h1 {
 	font-size: var(--font-size-xxxxl);
-  font-weight: 600;
+	font-weight: 600;
 	font-family: var(--font-title);
 	color: var(--color-txt-strong);
 	text-align: center;
@@ -31,7 +32,7 @@ error-app {
 	display: block;
 }
 
-a{
+a {
 	font-size: 14px;
 	font-weight: 600;
 	color: var(--color-txt-primary);
@@ -51,27 +52,16 @@ form {
 	width: 216px;
 	line-height: 42px;
 	font-size: 14px;
-  font-weight: 600;
+	font-weight: 600;
 }
 spinner-app {
 	margin: auto;
 }
 
-input {
+input  {
 	border-radius: var(--border-radius);
 }
 
-.field-focused {
-	label-app {
-		color: var(--color-primary);
-	}
-}
-
-.field-error {
-	label-app {
-		color: var(--color-warn);
-	}
-}
 
 .options {
 	margin-top: var(--spacing-s);
@@ -88,10 +78,8 @@ input {
 			font-weight: 600;
 		}
 	}
-	.forgot-password{
-    color: var(--color-txt-primary);
+	.forgot-password {
+		color: var(--color-txt-primary);
 		float: right;
 	}
-
 }
-

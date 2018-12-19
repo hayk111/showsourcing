@@ -40,6 +40,7 @@ import { SharedModule } from '~shared/shared.module';
 
 import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
 import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
+import { NavBarModule } from '~shared/navbar/navbar.module';
 
 @NgModule({
 	imports: [
@@ -50,6 +51,7 @@ import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tas
 		ProductCommonModule,
 		TaskCommonModule,
 		SampleCommonModule,
+		NavBarModule,
 		SupplierCommonModule
 	],
 	declarations: [
