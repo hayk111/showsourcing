@@ -24,7 +24,7 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 	erm = ERM.TASK;
 
 	constructor(
-		private route: ActivatedRoute,
+		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected router: Router,
 		protected taskSrv: TaskService,
