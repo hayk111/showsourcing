@@ -22,7 +22,8 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this._sorByProperty(this.comments, 'creationDate', this.order === 'asc');
+		// this._sorByProperty(this.comments, 'creationDate', this.order === 'asc');
+		this.comments = this.order === 'asc' ? this.comments : this.comments.reverse();
 		if (this.comments && this.comments.length > 0) {
 			this.amountShown = this.comments.length;
 			this.showMore();
@@ -47,16 +48,17 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 	}
 
 	private _sorByProperty(arr: any[], propName: string, isOrderASC: boolean): any[]  {
-		if (typeof this._getProperty(propName, arr[0]) === 'string') {
+		const that = this;
+		if (typeof that._getProperty(propName, arr[0]) === 'string') {
 			arr.sort(function (a, b) {
-				const valueA = this._getProperty(propName, a);
-				const valueB = this._getProperty(propName, b);
+				const valueA = that._getProperty(propName, a);
+				const valueB = that._getProperty(propName, b);
 				return valueA.localeCompare(valueB, 'en', {ignorePunctuation: true, sensitivity: 'base'});
 			});
 		} else {
 			arr.sort((a, b) => {
-				const valueA = this._getProperty(propName, a);
-				const valueB = this._getProperty(propName, b);
+				const valueA = that._getProperty(propName, a);
+				const valueB = that._getProperty(propName, b);
 				return valueA - valueB;
 			});
 		}
