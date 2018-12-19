@@ -476,7 +476,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const title = 'Update ' + this.typeName;
 		const fields = this.patch(entity);
 		const gql = this.queryBuilder.update(fields);
-		const variables = { input: this.strip(entity) };
+		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
@@ -525,7 +525,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const title = 'Create one ' + this.typeName;
 		const fields = this.patch(entity);
 		const gql = this.queryBuilder.create(fields);
-		const variables = { input: this.strip(entity) };
+		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
 
 		return this.getClient(clientName, title).pipe(
