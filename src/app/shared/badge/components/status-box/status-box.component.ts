@@ -11,21 +11,13 @@ export class StatusBoxComponent implements OnInit {
 
 	@Input() size = 's';
 
-	private _status: ProductStatus | SupplierStatus | SampleStatus;
-	@Input() set status(value: ProductStatus | SupplierStatus | SampleStatus) {
-		this._status = value
-	}
-	get status() {
-		return this._status;
-	}
+	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
 
 	@Input() round = true;
 
 	// we need to pass this so when the
 	// status is null, because the product or supplier are new
 	@Input() typeEntity: EntityMetadata;
-	// if we display the caret down or not
-	@Input() hasArrow = false;
 	@Input() type: ('list' | 'badge') = 'badge';
 
 	constructor() {

@@ -2,7 +2,6 @@
 	<div class="badge-item "  [ngClass]="getType()">
 		<div *ngIf="status" class="badge-name border">{{status?.name | const: 'status'}}</div>
 		<div *ngIf="!status" class="badge-name">New {{ typeEntity?.singular }}</div>
-		<div class="badge-icon"><icon-app name="caret"></icon-app></div>
 	</div>
 </div>
 <div *ngIf="type==='list'" class="list">

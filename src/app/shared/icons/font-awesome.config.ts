@@ -49,6 +49,7 @@ import * as faThumbsUp from '@fortawesome/fontawesome-free-solid/faThumbsUp';
 import * as faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 import * as faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
 import * as faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+
 import * as fontawesome from '@fortawesome/fontawesome';
 // TODO observa mutation should not be needed
 fontawesome.config.searchPseudoElements = false;

@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
 export class TeamUserQueries extends GlobalQueries {
@@ -12,7 +11,8 @@ export class TeamUserQueries extends GlobalQueries {
 			email,
 			avatar {
 				id,
-				fileName
+				fileName,
+				urls { id, url }
 			}
 		},
 		status,
@@ -28,6 +28,7 @@ export class TeamUserQueries extends GlobalQueries {
 			avatar {
 				id,
 				fileName
+				urls { id, url }
 			}
 		},
 		status,
@@ -44,6 +45,7 @@ export class TeamUserQueries extends GlobalQueries {
 			avatar {
 				id,
 				fileName
+				urls { id, url }
 			}
 		},
 		status,
