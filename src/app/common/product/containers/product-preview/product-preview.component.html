@@ -1,94 +1,94 @@
 
-	<preview-app cdk-scrollable>
-		<!-- Banner -->
-		<preview-banner-app (closed)="close.emit()">
-			<preview-carousel-app
-				[entity]="product"
-				[entityMD]="erm.SUPPLIER"
-				[images]="product?.images"
-				objectFit="cover">
-			</preview-carousel-app>
-		</preview-banner-app>
-
-		<!-- Header -->
-		<preview-header-app
-			[entityMD]="erm.PRODUCT"
+<preview-app cdk-scrollable>
+	<!-- Banner -->
+	<preview-banner-app (closed)="close.emit()">
+		<preview-carousel-app
 			[entity]="product"
-			(update)="update($event, 'name')">
-			<!-- Price -->
-			<price-with-quantity-app
-				*ngIf="product?.price?.value"
-				[product]="product"
-				(updateField)="update($event.newValue,  $event.field)">
-			</price-with-quantity-app>
+			[entityMD]="erm.SUPPLIER"
+			[images]="product?.images"
+			objectFit="cover">
+		</preview-carousel-app>
+	</preview-banner-app>
 
-			<!-- Badge supplier -->
-			<preview-badge-app
-				[badge]="erm.SUPPLIER"
-				[value]="product?.supplier?.name"
-				(update)="update($event, 'supplier')">
-			</preview-badge-app>
+	<!-- Header -->
+	<preview-header-app
+		[entityMD]="erm.PRODUCT"
+		[entity]="product"
+		(update)="update($event, 'name')">
+		<!-- Price -->
+		<price-with-quantity-app
+			*ngIf="product?.price?.value"
+			[product]="product"
+			(updateField)="update($event.newValue,  $event.field)">
+		</price-with-quantity-app>
 
-			<!-- Badge category -->
-			<preview-badge-app
-				[badge]="erm.CATEGORY"
-				[value]="product?.category"
-				(update)="update($event, 'category')">
-			</preview-badge-app>
-		</preview-header-app>
+		<!-- Badge supplier -->
+		<preview-badge-app
+			[badge]="erm.SUPPLIER"
+			[value]="product?.supplier?.name"
+			(update)="update($event, 'supplier')">
+		</preview-badge-app>
 
-		<!-- Ask for a quote (disabled temporarily)-->
+		<!-- Badge category -->
+		<preview-badge-app
+			[badge]="erm.CATEGORY"
+			[value]="product?.category"
+			(update)="update($event, 'category')">
+		</preview-badge-app>
+	</preview-header-app>
 
-		<!-- <preview-section-app>
-			<button class="btn-ask-quote" (click)="openRfq()">Ask for a Quote</button>
-			<div class="centered-text text-ask-quote">Ask for a quote from the supplier</div>
-			<button-action-list-app (clickOnAction)="clickOnAction($event)" [actions]="actions"></button-action-list-app>
-		</preview-section-app> -->
+	<!-- Ask for a quote (disabled temporarily)-->
 
-		<!-- Description -->
-		<preview-section-app [title]="'Description'">
-			<input-description-app
-				[description]="product?.description"
-				(update)="update($event, 'description')">
-			</input-description-app>
-		</preview-section-app>
+	<!-- <preview-section-app>
+		<button class="btn-ask-quote" (click)="openRfq()">Ask for a Quote</button>
+		<div class="centered-text text-ask-quote">Ask for a quote from the supplier</div>
+		<button-action-list-app (clickOnAction)="clickOnAction($event)" [actions]="actions"></button-action-list-app>
+	</preview-section-app> -->
 
-		<!-- Tags -->
-		<preview-section-app [title]="'Tags'">
-			<info-badge-app *ngFor="let tag of product?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
-		</preview-section-app>
+	<!-- Description -->
+	<preview-section-app [title]="'Description'">
+		<input-description-app
+			[description]="product?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
+	</preview-section-app>
 
-		<!-- Product details -->
-		<preview-section-app [title]="'Product Details'">
-			<dynamic-form-app
-				[inlineLabel]="true"
-				[fields]="customFields"
-				[value]="product"
-				[colAmount]="1"
-				(update)="updateProduct($event)">
-			</dynamic-form-app>
-		</preview-section-app>
+	<!-- Tags -->
+	<preview-section-app [title]="'Tags'">
+		<info-badge-app *ngFor="let tag of product?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
+	</preview-section-app>
 
-		<!-- Trading information -->
-		<preview-section-app [title]="'Trading Information'">
-			<dynamic-form-app
-				[inlineLabel]="true"
-				[fields]="customFields2"
-				[value]="product"
-				[colAmount]="1"
-				(update)="updateProduct($event)">
-			</dynamic-form-app>
-		</preview-section-app>
+	<!-- Product details -->
+	<preview-section-app [title]="'Product Details'">
+		<dynamic-form-app
+			[inlineLabel]="true"
+			[fields]="customFields"
+			[value]="product"
+			[colAmount]="1"
+			(update)="updateProduct($event)">
+		</dynamic-form-app>
+	</preview-section-app>
 
-		<!-- Activity -->
-		<preview-section-app>
-			<comment-list-app [comments]="product.comments"></comment-list-app>
-		</preview-section-app>
+	<!-- Trading information -->
+	<preview-section-app [title]="'Trading Information'">
+		<dynamic-form-app
+			[inlineLabel]="true"
+			[fields]="customFields2"
+			[value]="product"
+			[colAmount]="1"
+			(update)="updateProduct($event)">
+		</dynamic-form-app>
+	</preview-section-app>
 
-		<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+	<!-- Activity -->
+	<preview-section-app>
+		<comment-list-app [comments]="product?.comments"></comment-list-app>
+	</preview-section-app>
 
-		<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
-	</preview-app>
+	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+
+	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+</preview-app>
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>

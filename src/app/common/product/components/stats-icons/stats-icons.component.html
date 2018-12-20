@@ -2,7 +2,7 @@
 	<icon-app *ngIf="favorite" name="heart"></icon-app>
 	<ng-container *ngIf="fullInfo && product?.comments?.length">
 		<icon-app name="comment" class="color-secondary-dark"></icon-app>
-		<p class="numbers color-{{colorTxt}}"> {{ product.comments.length }} {{ product.comments.length === 1 ? 'Comment' : 'Comments'}}</p>
+		<p class="numbers color-{{colorTxt}}"> {{ product?.comments?.length }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments'}}</p>
 	</ng-container>
 	<icon-app class="thumb {{colorIcon()}}" [name]="name"></icon-app>
 	<div *ngIf="hasPercent" class="numbers flex">

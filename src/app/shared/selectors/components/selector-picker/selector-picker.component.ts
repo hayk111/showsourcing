@@ -1,6 +1,6 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
-import { CdkVirtualScrollViewport, ScrollDispatcher } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
@@ -15,9 +15,9 @@ import {
 	ViewChildren,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { switchMap, distinctUntilChanged, first, tap, map } from 'rxjs/operators';
-import { Product, Project, Supplier, Tag, Currency, Category } from '~core/models';
+import { Observable, Subject } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { Category, Product, Project, Supplier, Tag } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -258,6 +258,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// here add the item selected to the value
 			// this.keyManager.activeItem.getLabel();
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+			console.log(this.virtualItems);
 			this.keyManager.onKeydown(event);
 		}
 	}
