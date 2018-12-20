@@ -36,14 +36,14 @@ form-field-app {
 
 
 .container-items {
-	min-height: 70px;
+	min-height: 80px;
 	max-height: 210px;
 	overflow-y: auto;
 	overflow-x: hidden;
 
 
 	.selector-row {
-		padding-left: var(--spacing-ms);
+		padding: 0 var(--spacing-ms);
 		align-items: center;
 	}
 
@@ -76,6 +76,10 @@ form-field-app {
 
 .top-divider {
 	margin-bottom: 0px !important;
+}
+
+.top-3-divider {
+	margin: 0 var(--spacing-ms);
 }
 
 .bottom-divider {

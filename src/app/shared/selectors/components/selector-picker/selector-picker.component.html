@@ -16,7 +16,7 @@
 
 <divider-app class="top-divider"></divider-app>
 <!-- [ngClass]="getActiveClass(item)" in case we want set an active class -->
-<div class="container-items">
+<div class="container-items" infiniScroll (bottomReached)="selectorSrv.loadMore()">
 
 	<ng-container [ngSwitch]="type">
 
@@ -34,8 +34,8 @@
 
 		<ng-container *ngSwitchCase="'currency'">
 			<!-- we need the top 3 currencies always visible at the top -->
-			<selector-currency-row-app *ngFor="let item of topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
-			<divider-app *ngIf="topCurrencies$ | async"></divider-app>
+			<selector-currency-row-app *ngFor="let item of this.selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
+			<divider-app class="top-3-divider" *ngIf="(this.selectorSrv.topCurrencies$ | async)?.length"></divider-app>
 			<selector-currency-row-app *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
 		</ng-container>
 
@@ -89,7 +89,7 @@
 
 	</ng-container>
 
-	<div *ngIf="canCreate" class="create-container" (click)="create()">
+	<div *ngIf="canCreate && (isMatch$ | async)" class="create-container" (click)="create()">
 		<button class="selector small flex create">
 			<icon-app name="add"></icon-app>
 			<span>Create new {{type}} "{{searchTxt}}"</span>

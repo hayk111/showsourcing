@@ -77,7 +77,6 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 
 	/** Opens a dialog that lets the user compare quotation of this product */
 	openCompareQuotationDialog(quotes) {
-		console.log(quotes);
 		this.dlgSrv.open(CompareQuotationComponent, {
 			quotes: quotes
 		});
