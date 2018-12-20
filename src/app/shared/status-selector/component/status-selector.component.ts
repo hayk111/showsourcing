@@ -38,8 +38,8 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		let status;
 		if (value) {
 			status = value.status || { id: '-1', category: 'new', name: '_New', step: 0 };
+			this._entity = { ...value, status };
 		}
-		this._entity = { ...value, status };
 	}
 	// use for the cdk overlay
 	@Input() offsetX = 0;
