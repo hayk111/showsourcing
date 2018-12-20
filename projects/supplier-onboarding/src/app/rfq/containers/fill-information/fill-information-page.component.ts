@@ -43,7 +43,7 @@ export class FillInformationPageComponent {
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
-		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
+		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
 	];
 
 	product = {

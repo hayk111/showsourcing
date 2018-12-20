@@ -102,10 +102,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	customFields2: CustomField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
-		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
+		// { name: 'samplePrice', type: 'price', label: 'Sample Price' },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
 		{ name: 'sample', type: 'yesNo' },
-		{ name: 'samplePrice', type: 'number', label: 'Sample Price' }
+		{ name: 'samplePrice', type: 'price', label: 'Sample Price' }
 	];
 
 	private _images: AppImage[] = [];

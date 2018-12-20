@@ -62,7 +62,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
-		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
+		// { name: 'samplePrice', type: 'price', label: 'Sample Price' },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
 	];
 
