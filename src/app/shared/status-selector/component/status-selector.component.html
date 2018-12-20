@@ -1,48 +1,48 @@
-<!-- with a status -->
+<ng-container *ngIf="entity && statuses">
+	<context-menu-app
+		class="menu-status {{selectSize}}"
+		[closeOnScroll]="true"
+		[offsetX]="offsetX"
+		[offsetY]="offsetY">
 
-<context-menu-app
-	class="menu-status {{selectSize}}"
-	[closeOnScroll]="true"
-	[offsetX]="offsetX"
-	[offsetY]="offsetY">
+		<context-menu-trigger-app class="flex {{selectSize}}">
 
-	<context-menu-trigger-app class="flex {{selectSize}}">
+				<ng-container *ngIf="type === 'badge'">
+					<status-badge-app
+						[status]="entity?.status"
+						[size]="selectSize">
+					</status-badge-app>
+				</ng-container>
 
-			<ng-container *ngIf="type === 'badge'">
-				<status-badge-app
-					[status]="entity?.status"
-					[size]="selectSize">
-				</status-badge-app>
-			</ng-container>
+				<ng-container *ngIf="type === 'button'">
 
-			<ng-container *ngIf="type === 'button'">
+					<status-box-app
+						[status]="entity?.status"
+						[size]="selectSize">
+					</status-box-app>
 
-				<status-box-app
-					[status]="entity?.status"
-					[size]="selectSize">
-				</status-box-app>
+				</ng-container>
 
-			</ng-container>
+				<ng-container *ngIf="type === 'dropdown'">
+					<icon-app fontSet="fa" name="caret-down"></icon-app>
+				</ng-container>
 
-			<ng-container *ngIf="type === 'dropdown'">
-				<icon-app fontSet="fa" name="caret-down"></icon-app>
-			</ng-container>
+		</context-menu-trigger-app>
 
-	</context-menu-trigger-app>
+		<div *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
+			<status-box-app [type]="'list'" [status]="stat" [size]="selectSize" [typeEntity]="typeEntity" (click)="updateStatus(stat)"></status-box-app>
+		</div>
 
-	<div *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
-		<status-box-app [type]="'list'" [status]="stat" [size]="selectSize" [typeEntity]="typeEntity" (click)="updateStatus(stat)"></status-box-app>
-	</div>
+	</context-menu-app>
 
-</context-menu-app>
+	<ng-container *ngIf="type === 'button'">
+		<div *ngIf="!isLast()" class="pointer caretCtnr bg-{{ entity?.status.category }}" (click)="next()">
+			<icon-app fontSet="fa" name="caret-right"></icon-app>
+		</div>
+		<div *ngIf="isLast()" class="pointer caretCtnr bg-{{ entity?.status.category }}" (click)="previous()">
+			<icon-app fontSet="fa" name="caret-left"></icon-app>
+		</div>
+	</ng-container>
 
-<ng-container *ngIf="type === 'button'">
-	<div *ngIf="!isLast()" class="pointer caretCtnr bg-{{ entity?.status.category }}" (click)="next()">
-		<icon-app fontSet="fa" name="caret-right"></icon-app>
-	</div>
-	<div *ngIf="isLast()" class="pointer caretCtnr bg-{{ entity?.status.category }}" (click)="previous()">
-		<icon-app fontSet="fa" name="caret-left"></icon-app>
-	</div>
+
 </ng-container>
-
-

@@ -29,7 +29,18 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
 	/** In this case its always going to be a Product or Supplier */
-	@Input() entity: any;
+	private _entity: any;
+	@Input()
+	public get entity(): any {
+		return this._entity;
+	}
+	public set entity(value: any) {
+		let status;
+		if (value) {
+			status = value.status || { id: '-1', category: 'new', name: '_New', step: 0 };
+		}
+		this._entity = { ...value, status };
+	}
 	// use for the cdk overlay
 	@Input() offsetX = 0;
 	@Input() offsetY: number;
@@ -41,7 +52,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	/** string[] since tasks does not have a status entity */
 	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
-	private statuses: any[];
+	statuses: any[];
 	erm = ERM;
 
 	constructor(
@@ -115,7 +126,6 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	isLast() {
-		if (!this.entity) return true;
 
 		const length = this.statuses.length;
 		// minus 2 cuz we don't want the last one (refused)
