@@ -28,7 +28,7 @@ import { takeUntil } from 'rxjs/operators';
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
-	/** In this case its always going to be a Product or Supplier */
+	/** In this case its alwaysgoing to be a Product or Supplier */
 	private _entity: any;
 	@Input()
 	public get entity(): any {
