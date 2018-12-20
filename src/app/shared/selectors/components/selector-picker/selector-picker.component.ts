@@ -15,9 +15,9 @@ import {
 	ViewChildren,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, ReplaySubject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Product, Project, Supplier, Tag, Currency } from '~core/models';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { switchMap, distinctUntilChanged, first, tap, map } from 'rxjs/operators';
+import { Product, Project, Supplier, Tag, Currency, Category } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -33,7 +33,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	private _type;
 	@Input() set type(type: string) {
 		this._type = type;
-		this.type$.next(type);
 	}
 	get type(): string {
 		return this._type;
@@ -44,12 +43,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
 
-	private type$ = new ReplaySubject<string>(1);
 
-	choices$: Observable<any[]> = this.type$.pipe(
-		switchMap(type => this.getChoices(type, this.searchTxt))
-	);
-	topCurrencies$: Observable<Currency[]>;
+	choices$: Observable<any[]>;
+
 	choicesLocal = [];
 	// for complex names
 	displayName = '';
@@ -71,18 +67,22 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	keyManager: ActiveDescendantKeyManager<AbstractSelectorHighlightableComponent>;
 	/** index when using manager keys and virtual scrolling */
 	count = 0;
+
 	/** whther the type that we send is a const or not
 	 * if its a const we don't need to emit an object {id, typename}, we only need a string
 	 */
 	isConst = false;
 	hasDB = false;
+	searched$: Subject<string> = new Subject();
 	searchTxt = '';
+
+	isMatch$: Observable<boolean>;
 
 
 	constructor(
-		private selectorSrv: SelectorsService,
+		protected selectorSrv: SelectorsService,
 		protected cd: ChangeDetectorRef,
-		private fb: FormBuilder, private scd: ScrollDispatcher
+		private fb: FormBuilder
 	) { super(cd); }
 
 	ngOnInit() {
@@ -90,8 +90,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
-		this.scd.deregister(this.cdkVirtualScrollViewport);
+		if (this.hasDB) this.choices$ = this.getChoices(this.type);
+		if (this.canCreate) this.isMatch$ = this.searched$.pipe(
+			switchMap(_ => this.choices$.pipe(
+				map(m => m.filter(it => it.name === this.searchTxt)),
+				map(m => !m.length)
+			))
+		);
 	}
+
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
 		this.inp.focus();
@@ -99,36 +106,36 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	search(text) {
 		this.searchTxt = text;
-		this.hasDB ? this.type$.next(this.type) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
+		this.hasDB ? this.selectorSrv.search(this.type, text) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
+		this.searched$.next(this.searchTxt);
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
-	getChoices(type: string, searchTxt: string): Observable<any[]> {
+	getChoices(type: string): Observable<any[]> {
 		switch (type) {
-			case 'supplier': return this.selectorSrv.getSuppliers(searchTxt);
-			case 'product': return this.selectorSrv.getProducts(searchTxt);
-			case 'category': return this.selectorSrv.getCategories(searchTxt);
+			case 'supplier': return this.selectorSrv.getSuppliers();
+			case 'product': return this.selectorSrv.getProducts();
+			case 'category': return this.selectorSrv.getCategories();
 			// case 'event': return this.selectorSrv.getEvents();
-			case 'tag': return this.selectorSrv.getTags(searchTxt);
+			case 'tag': return this.selectorSrv.getTags();
 			case 'supplierType':
 				this.displayName = 'supplier type';
-				return this.selectorSrv.getSupplierTypes(searchTxt);
-			case 'user': return this.selectorSrv.getUsers(searchTxt);
-			case 'project': return this.selectorSrv.getProjects(searchTxt);
+				return this.selectorSrv.getSupplierTypes();
+			case 'user': return this.selectorSrv.getUsers();
+			case 'project': return this.selectorSrv.getProjects();
 			// Constants
 			case 'currency':
 				this.isConst = true;
-				this.topCurrencies$ = this.selectorSrv.getTopCurrencies(searchTxt);
-				return this.selectorSrv.getCurrenciesGlobal(searchTxt);
+				return this.selectorSrv.getCurrenciesGlobal();
 			case 'country':
 				this.isConst = true;
-				return this.selectorSrv.getCountriesGlobal(searchTxt);
+				return this.selectorSrv.getCountriesGlobal();
 			case 'harbour':
 				this.isConst = true;
-				return this.selectorSrv.getHarboursGlobal(searchTxt);
+				return this.selectorSrv.getHarboursGlobal();
 			case 'incoTerm':
 				this.isConst = true;
-				return this.selectorSrv.getIncoTermsGlobal(searchTxt);
+				return this.selectorSrv.getIncoTermsGlobal();
 
 			default: throw Error(`Unsupported type ${this.type}`);
 		}
@@ -220,6 +227,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				added = new Tag({ name });
 				createObs$ = this.selectorSrv.createTag(added);
 				break;
+			case 'category':
+				added = new Category({ name });
+				createObs$ = this.selectorSrv.createCategory(added);
+				break;
 			default: throw Error(`Unsupported type ${this.type}`);
 		}
 		// we add it directly to the value
@@ -231,6 +242,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		createObs$.subscribe();
 		// we changed the value directly so we have to notify the formControl
 		this.onChange();
+		this.selectorSrv.refetch();
 	}
 
 	/** CDK virtual scroll needs the height of the element */

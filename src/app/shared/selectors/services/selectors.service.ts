@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, first, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { CurrencyService } from '~core/entity-services/currency/currency.service';
 import {
@@ -33,13 +33,18 @@ export class SelectorsService {
 
 	bindLabel = 'name';
 	listResult: ListQuery<any>;
-	item$: Observable<any>;
+	items$: Observable<any[]>;
+	/** non observable version of the above */
+	private items = [];
+	topCurrencies$: Observable<Currency[]>;
 
 	selectParams: SelectParamsConfig = {
 		descending: false,
-		take: 15,
+		take: 30,
 		skip: 0
 	};
+
+	currentSearchQuery = '';
 
 	constructor(
 		private categorySrv: CategoryService,
@@ -57,58 +62,100 @@ export class SelectorsService {
 		private countrySrv: CountryService
 	) { }
 
-	init() {
-		console.log(SelectParams);
-		this.listResult = this.countrySrv.getListQuery({ ...this.selectParams });
-		this.item$ = this.listResult.items$;
+	setItems() {
+		this.items$ = this.listResult.items$.pipe(
+			tap(items => this.items = items),
+			// remove deleted items from the list cuz they stay if they
+			// start at deleted false then are updated as deleted true
+			// and we can't use refetch or we lose the pagination
+			map(items => items.filter(itm => !itm.deleted))
+		);
+	}
+
+	refetch(selectParams?: SelectParamsConfig) {
+		this.listResult.refetch(selectParams || this.selectParams).subscribe();
+	}
+
+	loadMore() {
+		return this.listResult.fetchMore(this.items.length).subscribe();
+	}
+
+	search(type: string, searchTxt: string) {
+		switch (type) {
+			case 'user':
+				this.currentSearchQuery = `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"`;
+				break;
+			// Constants
+			case 'currency':
+				// this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
+				this.topCurrencies$ = this.currencySrv.queryMany({
+					query: `((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND symbol CONTAINS[c] "${searchTxt}")` +
+						` OR ((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND name CONTAINS[c]"${searchTxt}")`
+				});
+				this.currentSearchQuery = `symbol CONTAINS[c] "${searchTxt}" OR name CONTAINS[c] "${searchTxt}"`;
+				break;
+			case 'country':
+				this.currentSearchQuery = `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"`;
+				break;
+			case 'category':
+			case 'harbour':
+			case 'incoTerm':
+			case 'product':
+			case 'project':
+			case 'supplier':
+			case 'supplierType':
+			case 'tag':
+				this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}"`;
+				break;
+			default: throw Error(`Unsupported type for search ${type}`);
+		}
+		this.refetch({ ...this.selectParams, query: this.currentSearchQuery });
 	}
 
 	getCountries(): any[] {
 		return countries;
 	}
 
-	getCountriesGlobal(searchTxt?: string): Observable<Country[]> {
-		if (searchTxt) {
-			this.selectParams = { ...this.selectParams, query: `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"` };
-		}
-		this.init();
-		return this.item$;
+	getCountriesGlobal(): Observable<Country[]> {
+		this.listResult = this.countrySrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
 	getIncoTerms(): any[] {
 		return incoTerms;
 	}
 
-	getIncoTermsGlobal(searchTxt?: string): Observable<IncoTerm[]> {
-		if (searchTxt) return this.incoTermSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
-		else return this.incoTermSrv.queryAll();
+	getIncoTermsGlobal(): Observable<IncoTerm[]> {
+		this.listResult = this.incoTermSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
 	getHarbours(): any[] {
 		return harbours;
 	}
 
-	getHarboursGlobal(searchTxt?: string): Observable<Harbour[]> {
-		if (searchTxt) return this.harbourSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
-		else return this.harbourSrv.queryAll();
+	getHarboursGlobal(): Observable<Harbour[]> {
+		this.listResult = this.harbourSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
 	getCurrencies(): any[] {
 		return currencies;
 	}
 
-	getCurrenciesGlobal(searchTxt?: string): Observable<Currency[]> {
-		if (searchTxt) return this.currencySrv.queryMany({ query: `symbol CONTAINS[c] "${searchTxt}" OR name CONTAINS[c] "${searchTxt}"` });
-		else return this.currencySrv.queryAll();
+	getCurrenciesGlobal(): Observable<Currency[]> {
+		this.listResult = this.currencySrv.getListQuery(this.selectParams);
+		this.setItems();
+		this.getTopCurrencies();
+		return this.items$;
 	}
 
-	getTopCurrencies(searchTxt?: string): Observable<Currency[]> {
-		if (searchTxt)
-			return this.currencySrv.queryMany({
-				query: `((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND symbol CONTAINS[c] "${searchTxt}")` +
-					` OR ((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND name CONTAINS[c]"${searchTxt}")`
-			});
-		return this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
+	private getTopCurrencies() {
+		this.listResult = this.currencySrv.getListQuery({ ...this.selectParams, query: 'symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"' });
+		this.topCurrencies$ = this.listResult.items$;
 	}
 
 
@@ -156,52 +203,55 @@ export class SelectorsService {
 		return categories;
 	}
 
-	getSuppliers(searchTxt?: string): Observable<Supplier[]> {
-		if (searchTxt) return this.supplierSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
-		return this.supplierSrv.queryAll();
+	getSuppliers(): Observable<Supplier[]> {
+		this.selectParams = {
+			descending: false,
+			take: 30,
+			skip: 0
+		};
+		this.listResult = this.supplierSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
-	getProducts(searchTxt?: string): Observable<Product[]> {
-		if (searchTxt) return this.productSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
-		return this.productSrv.queryAll();
+	getProducts(): Observable<Product[]> {
+		this.listResult = this.productSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
-	getProjects(searchTxt?: string): Observable<Project[]> {
-		if (searchTxt) return this.projectSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
-		return this.projectSrv.queryAll();
+	getProjects(): Observable<Project[]> {
+		this.listResult = this.projectSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
-	getCategories(searchTxt?: string): Observable<Category[]> {
-		if (searchTxt) return this.categorySrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
-		return this.categorySrv.queryAll();
+	getCategories(): Observable<Category[]> {
+		this.listResult = this.categorySrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
-	getEvents(): Observable<Event[]> {
-		return this.eventSrv.queryAll('id, name');
+	getTags(): Observable<Tag[]> {
+		this.listResult = this.tagSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
-	getTags(searchTxt?: string): Observable<Tag[]> {
-		if (searchTxt) return this.tagSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` });
-		return this.tagSrv.queryAll();
-	}
-
-	getSupplierTypes(searchTxt?: string): Observable<SupplierType[]> {
-		if (searchTxt) return this.supplierTypeSrv.queryMany({ query: `name CONTAINS[c] "${searchTxt}"` }).pipe(
+	getSupplierTypes(): Observable<SupplierType[]> {
+		this.listResult = this.supplierTypeSrv.getListQuery(this.selectParams);
+		this.items$ = this.listResult.items$.pipe(
 			map(types => types.map(type => {
 				return { ...type, name: this.constPipe.transform(type.name, 'supplierType') };
 			}))
 		);
-		return this.supplierTypeSrv.queryAll().pipe(
-			map(types => types.map(type => {
-				return { ...type, name: this.constPipe.transform(type.name, 'supplierType') };
-			}))
-		);
+		return this.items$;
 	}
 
-	getUsers(searchTxt?: string): Observable<User[]> {
-		if (searchTxt) return this.userSrv
-			.queryMany({ query: `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"` }, '', Client.TEAM);
-		return this.userSrv.queryAll('', null, Client.TEAM);
+	getUsers(): Observable<User[]> {
+		this.listResult = this.userSrv.getListQuery(this.selectParams, '', Client.TEAM);
+		this.setItems();
+		return this.items$;
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {

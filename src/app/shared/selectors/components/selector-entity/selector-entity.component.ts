@@ -100,7 +100,7 @@ export class SelectorEntityComponent extends AbstractInput {
 			case 'supplier': return this.srv.getSuppliers();
 			case 'product': return this.srv.getProducts();
 			case 'category': return this.choices$ = this.srv.getCategories();
-			case 'event': return this.choices$ = this.srv.getEvents();
+			// case 'event': return this.choices$ = this.srv.getEvents();
 			case 'tag': return this.choices$ = this.srv.getTags();
 			case 'supplierType': return this.choices$ = this.srv.getSupplierTypes();
 			case 'user': return this.srv.getUsers();
