@@ -11,6 +11,7 @@ import { FileUploadRequest } from '~models/file-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { resizeSizeToLimit } from '~shared/utils/file.util';
 import { ImageUrls, log, LogColor } from '~utils';
+import { ERMService } from '~core/entity-services/_global/erm.service';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
@@ -18,9 +19,7 @@ export class UploaderService {
 	constructor(
 		private imageUploadRequestSrv: ImageUploadRequestService,
 		private fileUploadRequestSrv: FileUploadRequestService,
-		private productSrv: ProductService,
-		private supplierSrv: SupplierService,
-		private supplierClaim: SupplierClaimService,
+		private ermSrv: ERMService,
 		private notifSrv: NotificationService,
 		private http: HttpClient
 	) { }
@@ -174,14 +173,7 @@ export class UploaderService {
 		if (!linkedItem) {
 			return of('no linked item');
 		}
-		let srv: any;
-		if (linkedItem.__typename === 'Supplier') {
-			srv = this.supplierSrv;
-		} else if (linkedItem.__typename === 'Product') {
-			srv = this.productSrv;
-		} else if (linkedItem.__typename === 'SupplierClaim') {
-			srv = this.supplierClaim;
-		}
+		const srv = this.ermSrv.getGlobalServiceForEntity(linkedItem);
 
 		if (isImage) {
 			return srv.update({

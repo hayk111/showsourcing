@@ -1,21 +1,28 @@
-<div class="ctnr">
+<div class="ctnr" (fileDrop)="add($event)">
 
 	<!-- image -->
 	<div class="img-ctnr flexCenter"
 	[ngStyle]="{'transform': getRotation(getImg())}">
 		<img-app
 			#imgApp
-			*ngIf="images?.length !== 0"
+			*ngIf="images?.length !== 0; else noImg"
 			[image]="getImg()"
 			[size]="'xl'"
 			[objectFit]="objectFit"
-			(click)="imgClick.emit(selectedIndex)"
+			(click)="openModal()"
 			class="pointer">
 		</img-app>
+		<!-- no image -->
+		<ng-template #noImg>
+			<div class="flexColumn flexCenter empty">
+				<img [src]="defaultImg"/>
+				<span>No picture yet</span>
+				<button class="secondary" (click)="openFileBrowser()">Add Picture</button>
+			</div>
+		</ng-template>
 	</div>
 
   <spinner-app *ngIf="getImg()?.pending" size="xl"></spinner-app>
-	<!-- actions buttons -->
 
 	<!-- move back -->
 	<div class="move-btn back flexCenter circle pointer btn action"
@@ -55,6 +62,19 @@
 			class="dot {{ i === selectedIndex ? 'full' : '' }}">
 		</div>
 	</div>
+
+	<!-- modal carousel that can be seen when clicking on the normal carousel -->
+	<modal-carousel-app
+		*ngIf="modalOpen"
+		[selectedIndex]="selectedIndex"
+		[images]="images"
+		(indexChange)="selectedIndex = $event"
+		(close)="closeModal()">
+	</modal-carousel-app>
+
+	<!-- input used to input files -->
+	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+
 </div>
 
 

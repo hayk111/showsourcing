@@ -38,6 +38,42 @@ export class ERMService {
 	) { }
 
 
+	getGlobalServiceForEntity({ __typename: typename }: { __typename: any })
+		: GlobalService<any> {
+		switch (typename) {
+			case 'Category':
+				return this.categoryService;
+			case 'Supplier':
+				return this.supplierService;
+			case 'Product':
+				return this.productService;
+			case 'Project':
+				return this.projectService;
+			case 'Image':
+				return this.imageService;
+			case 'Tag':
+				return this.tagService;
+			case 'Event':
+				return this.eventService;
+			case 'Team':
+				return this.teamService;
+			case 'User':
+				return this.userSrv;
+			case 'TeamUser':
+				return this.teamUserSrv;
+			case 'Sample':
+				return this.sampleSrv;
+			case 'SampleStatus':
+				return this.sampleStatusSrv;
+			case 'ProductStatus':
+				return this.productStatusSrv;
+			case 'SupplierStatus':
+				return this.supplierStatusSrv;
+			default:
+				throw Error(`__typename ${typename} wasn't found`);
+		}
+	}
+
 	getGlobalService(erm: EntityMetadata): GlobalService<any> {
 		switch (erm) {
 			case ERM.CATEGORY:
