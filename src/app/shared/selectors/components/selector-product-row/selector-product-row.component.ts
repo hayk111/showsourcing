@@ -15,7 +15,7 @@ export class SelectorProductRowComponent extends AbstractSelectorHighlightableCo
 	constructor() { super(); }
 
 	getLabel() {
-		return this.product.id;
+		return this.product;
 	}
 
 }

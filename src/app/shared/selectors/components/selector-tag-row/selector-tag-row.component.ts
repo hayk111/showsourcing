@@ -15,7 +15,7 @@ export class SelectorTagRowComponent extends AbstractSelectorHighlightableCompon
 	constructor() { super(); }
 
 	getLabel() {
-		return this.tag.id;
+		return this.tag;
 	}
 
 }

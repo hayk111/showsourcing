@@ -15,6 +15,6 @@ export class SelectorProjectRowComponent extends AbstractSelectorHighlightableCo
 	constructor() { super(); }
 
 	getLabel() {
-		return this.project.id;
+		return this.project;
 	}
 }

@@ -55,7 +55,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * each row on the virtual scroll has to implement the AbstractSelectorHighlightableComponent,
 	 * since they keyManager needs it to update state of selection
 	*/
-	@ViewChildren(AbstractSelectorHighlightableComponent) virtualItems: QueryList<AbstractSelectorHighlightableComponent>;
+	// for some reason it doesnt work without the string
+	@ViewChildren('abstract') virtualItems: QueryList<AbstractSelectorHighlightableComponent>;
 	/** cdk virtual scroll viewport so we can determine the scroll index in combination with cdk a11y */
 	@ViewChild(CdkVirtualScrollViewport) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 
@@ -256,9 +257,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	onKeydown(event) {
 		if (event.keyCode === ENTER) {
 			// here add the item selected to the value
-			// this.keyManager.activeItem.getLabel();
+			const label = this.keyManager.activeItem.getLabel();
+			if (label === 'create-button') this.create();
+			else this.onSelect(label);
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
-			console.log(this.virtualItems);
 			this.keyManager.onKeydown(event);
 		}
 	}

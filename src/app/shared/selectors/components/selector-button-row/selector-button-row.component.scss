@@ -1,0 +1,24 @@
+:host {
+	display: flex;
+	height: 37px;
+
+	cursor: pointer;
+
+	&.active, &:hover {
+		background-color: var(--color-primary);
+		color: #fff;
+		button.create {
+			background: white;
+		}
+	}
+}
+
+button.create {
+	font-weight: 600;
+	font-size: var(--font-size-s);
+
+	icon-app {
+		margin-right: var(--spacing-xs);
+		font-size: var(--font-size-xs);
+	}
+}

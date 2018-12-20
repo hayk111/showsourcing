@@ -25,7 +25,7 @@ export class SelectorSupplierRowComponent extends AbstractSelectorHighlightableC
 	constructor() { super(); }
 
 	getLabel() {
-		return this.supplier.id;
+		return this.supplier;
 	}
 
 	getType(status) {
