@@ -1,12 +1,12 @@
 <card-app>
-	<div class="flex top">
+	<div class="flex flexBetween top">
 		<h1>Samples</h1>
 		<div class="spacer mg-m"></div>
 		<div class="flex show-my-tasks" *ngIf="hasFilters">
 			<checkbox-app
 				[checked]="filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
-				(check)="toggleMySample.emit(true)"
-				(uncheck)="toggleMySample.emit(false)">
+				(check)="toggleMySamples.emit(true)"
+				(uncheck)="toggleMySamples.emit(false)">
 				<span>
 					Show my samples only
 				</span>

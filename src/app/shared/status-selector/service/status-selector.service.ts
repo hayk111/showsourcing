@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { TaskService } from '~core/entity-services';
 import { ERMService } from '~entity-services/_global/erm.service';
@@ -37,6 +37,7 @@ export class StatusSelectorService {
 			case ERM.PRODUCT: return this.productStatuses$;
 			case ERM.SUPPLIER: return this.supplierStatuses$;
 			case ERM.SAMPLE: return this.sampleStatus$;
+			default: return of();
 		}
 	}
 

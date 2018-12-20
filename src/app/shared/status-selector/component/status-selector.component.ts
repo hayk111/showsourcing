@@ -14,18 +14,33 @@ import { ContextMenuComponent } from '~shared/context-menu/components/context-me
 import { AutoUnsub } from '~utils';
 
 import { StatusSelectorService } from '../service/status-selector.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'status-selector-app',
 	templateUrl: './status-selector.component.html',
 	styleUrls: ['./status-selector.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'flex'
+	}
 })
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
-	/** In this case its always going to be a Product or Supplier */
-	@Input() entity: any;
+	/** In this case its alwaysgoing to be a Product or Supplier */
+	private _entity: any;
+	@Input()
+	public get entity(): any {
+		return this._entity;
+	}
+	public set entity(value: any) {
+		let status;
+		if (value) {
+			status = value.status || { id: '-1', category: 'new', name: '_New', step: 0 };
+		}
+		this._entity = { ...value, status };
+	}
 	// use for the cdk overlay
 	@Input() offsetX = 0;
 	@Input() offsetY: number;
@@ -37,6 +52,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	/** string[] since tasks does not have a status entity */
 	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
+	statuses: any[];
 	erm = ERM;
 
 	constructor(
@@ -47,6 +63,8 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.status$ = this.statusSlctSrv.getTableStatus(this.typeEntity);
+		this.status$.pipe(takeUntil(this._destroy$))
+			.subscribe(statuses => this.statuses = statuses);
 	}
 
 	updateStatus(status) {
@@ -105,5 +123,25 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 			const contextualMenu = this.menus.first;
 			contextualMenu.closeMenu();
 		}
+	}
+
+	isLast() {
+
+		const length = this.statuses.length;
+		// minus 2 cuz we don't want the last one (refused)
+		const lastStep = this.statuses[length - 2].step;
+		return this.entity.status.step >= lastStep;
+	}
+
+	next() {
+		const nextStep = this.entity.status.step + 1;
+		const next = this.statuses.find(status => status.step === nextStep);
+		return this.updateStatus(next);
+	}
+
+	previous() {
+		const previousStep = this.entity.status.step - 1;
+		const previous = this.statuses.find(status => status.step === previousStep);
+		return this.updateStatus(previous);
 	}
 }
