@@ -15,14 +15,14 @@ export const routes: Array<Route> = [
 	},
 	{
 		path: 'details/:id',
-		component: SupplierGeneralInfoComponent,
+		component: SupplierDetailsComponent,
 		children: [
 			{ path: 'activity', component: SupplierActivityComponent },
 			{ path: 'public-profile', component: SupplierPublicProfileComponent },
 			{ path: 'products', component: SupplierProductsComponent },
 			{ path: 'samples', component: SupplierSamplesComponent },
 			{ path: 'tasks', component: SupplierTasksComponent },
-			{ path: '', redirectTo: 'tasks', pathMatch: 'full' }
+			{ path: '', redirectTo: 'products', pathMatch: 'full' }
 		]
 	}
 ];

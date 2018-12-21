@@ -26,10 +26,7 @@ export class SupplierTopCardComponent extends TrackingComponent implements OnIni
 	}
 
 	ngOnInit() {
-		console.log(this.supplier);
 	}
-
-	
 
 	goBack() {
 		this.location.back();
