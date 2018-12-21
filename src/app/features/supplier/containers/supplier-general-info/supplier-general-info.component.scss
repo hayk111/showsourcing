@@ -1,7 +1,19 @@
-:host {
-	display: flex;
-	flex-direction: column;
-	margin: 0 var(--spacing-edge);
+.supplier-top-header {
+	margin: auto;
+	width: calc(796px + 452px);
+	padding-top: var(--spacing-m);
+}
+
+.left {
+	width: 796px;
+}
+
+.right {
+	width: 452px;
+}
+
+.top {
+	margin: var(--spacing-xl);
 }
 
 .container {
@@ -96,6 +108,3 @@ action-bar-app {
 		margin-right: var(--spacing-ms);
 	}
 }
-
-
-
