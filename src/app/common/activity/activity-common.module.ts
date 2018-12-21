@@ -24,6 +24,9 @@ import {
 	OneProductActivityCardComponent,
 } from './components/grouped-feed-list/one-product-activity-card/one-product-activity-card.component';
 
+import { ActivityCardComponent } from '~common/activity/components/activity-card/activity-card.component';
+import { ActivityListComponent } from '~common/activity/components/activity-list/activity-list.component';
+
 @NgModule({
 	imports: [
 		CommonModule,
@@ -40,6 +43,8 @@ import {
 		OneActivityCarouselComponent,
 		MultipleProductCarouselComponent,
 		FlatFeedListComponent,
+		ActivityCardComponent,
+		ActivityListComponent,
 		FlatFeedCardComponent
 	],
 	exports: [

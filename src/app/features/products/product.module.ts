@@ -11,12 +11,16 @@ import {
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
+	SupplierCardComponent,
+	ProductCardComponent,
+	ProductListComponent
 } from '~features/products/components';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import {
 	ProductDetailsComponent,
+	ProductGeneralInfoComponent,
 	ProductQuotationComponent,
 	ProductSamplesComponent,
 	ProductsPageComponent,
@@ -33,6 +37,7 @@ import { ProductCarouselComponent } from './components/product-carousel/product-
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
+import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
 
 
 @NgModule({
@@ -55,6 +60,8 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		SelectionActionsComponent,
 		ProductDetailsComponent,
 		ProjectCardComponent,
+		SupplierCardComponent,
+		ProductGeneralInfoComponent,
 		ProductSummaryComponent,
 		SelectableImageComponent,
 		ProductNavigationComponent,
@@ -64,6 +71,8 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		VoteDetailsDialogComponent,
 		ProductTasksComponent,
 		ProductTopPanelComponent,
+		ProductCardComponent,
+		ProductListComponent,
 		ProductSamplesComponent,
 		ProductResumeComponent,
 		ProductShippingComponent
