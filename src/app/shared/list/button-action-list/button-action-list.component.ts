@@ -10,7 +10,7 @@ import { PreviewActionButton } from '~models';
 })
 export class ListActionButtonsComponent extends TrackingComponent implements OnInit {
 	@Input() actions: PreviewActionButton[] = [];
-	@Output() clickOnAction = new EventEmitter<PreviewActionButton>() 
+	@Output() clickOnAction = new EventEmitter<PreviewActionButton>();
 	constructor() {
 		super();
 	}
