@@ -20,6 +20,11 @@ import {
 	SelectorPickerComponent,
 	Selector2Component,
 	SelectorCountryRowComponent,
+	SelectorButtonRowComponent,
+	SelectorNameRowComponent,
+	SelectorIdRowComponent,
+	SelectorSupplierTypeRowComponent,
+	SelectorCategoryRowComponent,
 } from './components';
 import { SelectorConstComponent } from './components/selector-const/selector-const.component';
 import { SelectorEntityComponent } from './components/selector-entity/selector-entity.component';
@@ -34,15 +39,20 @@ import { UtilsModule } from '~shared/utils';
 const components = [
 	CdkOverlayComponent,
 	Selector2Component,
+	SelectorButtonRowComponent,
+	SelectorCategoryRowComponent,
 	SelectorComponent,
 	SelectorConstComponent,
 	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
 	SelectorEntityComponent,
+	SelectorIdRowComponent,
+	SelectorNameRowComponent,
 	SelectorPickerComponent,
 	SelectorProductRowComponent,
 	SelectorProjectRowComponent,
 	SelectorSupplierRowComponent,
+	SelectorSupplierTypeRowComponent,
 	SelectorTagRowComponent,
 	SelectorTextRowComponent,
 	SelectorUserRowComponent

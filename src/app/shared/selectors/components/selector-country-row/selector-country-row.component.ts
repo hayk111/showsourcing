@@ -15,7 +15,7 @@ export class SelectorCountryRowComponent extends AbstractSelectorHighlightableCo
 	constructor() { super(); }
 
 	getLabel() {
-		return this.country.id;
+		return this.country.countryCode;
 	}
 
 }

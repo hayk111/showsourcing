@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { User } from '~core/models';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
-	selector: 'selector-user-row-app',
-	templateUrl: './selector-user-row.component.html',
-	styleUrls: ['./selector-user-row.component.scss'],
+	selector: 'selector-button-row-app',
+	templateUrl: './selector-button-row.component.html',
+	styleUrls: ['./selector-button-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorUserRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorButtonRowComponent extends AbstractSelectorHighlightableComponent {
 
-	@Input() user: User;
+	@Input() type: string;
+	@Input() searchTxt: string;
 
 	constructor() { super(); }
 
 	getLabel() {
-		return this.user;
+		return 'create-button';
 	}
 
 }
