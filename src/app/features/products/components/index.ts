@@ -3,3 +3,5 @@ export * from '~features/products/components/product-sub-info/product-sub-info.c
 export * from '~features/products/components/selection-actions/selection-actions.component';
 export * from '~features/products/components/supplier-card/supplier-card.component';
 export * from '~features/products/components/project-card/project-card.component';
+export * from '~features/products/components/product-card/product-card.component';
+export * from '~features/products/components/product-list/product-list.component';

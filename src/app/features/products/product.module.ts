@@ -12,6 +12,8 @@ import {
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	SupplierCardComponent,
+	ProductCardComponent,
+	ProductListComponent
 } from '~features/products/components';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
@@ -66,6 +68,8 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		VoteDetailsDialogComponent,
 		ProductTasksComponent,
 		ProductTopPanelComponent,
+		ProductCardComponent,
+		ProductListComponent,
 		ProductSamplesComponent
 	],
 	entryComponents: [
