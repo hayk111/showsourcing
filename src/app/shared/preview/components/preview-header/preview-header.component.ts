@@ -17,6 +17,8 @@ export class PreviewHeaderComponent implements OnInit {
 	@Input() entity: any;
 	/** logo Image */
 	@Input() logoImage: AppImage;
+	/** if it has the top section */
+	@Input() hasTop = true;
 	/** emits the value that has changed */
 	@Output() update = new EventEmitter<any>();
 

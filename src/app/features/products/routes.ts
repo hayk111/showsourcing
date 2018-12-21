@@ -21,13 +21,13 @@ export const routes: Array<Route> = [
 		path: 'details/:id',
 		component: ProductDetailsComponent,
 		children: [
+			{ path: '', redirectTo: 'shipping', pathMatch: 'full' },
 			{ path: 'general', component: ProductGeneralInfoComponent },
 			{ path: 'shipping', component: ProductShippingComponent },
 			{ path: 'activity', component: ProductActivityComponent },
 			{ path: 'samples', component: ProductSamplesComponent },
 			{ path: 'quotation', component: ProductQuotationComponent },
-			{ path: 'tasks', component: ProductTasksComponent },
-			{ path: '', redirectTo: 'general', pathMatch: 'full' }
+			{ path: 'tasks', component: ProductTasksComponent }
 		],
 	},
 ];

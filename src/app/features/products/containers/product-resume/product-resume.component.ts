@@ -1,4 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ProductService } from '~core/entity-services';
+import { ERM, Product } from '~core/models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-resume-app',
@@ -6,11 +9,22 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./product-resume.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductResumeComponent implements OnInit {
+export class ProductResumeComponent extends AutoUnsub implements OnInit {
 
-	constructor() { }
+	@Input() product: Product;
 
-	ngOnInit() {
+	erm = ERM;
+
+	constructor(
+		private productSrv: ProductService
+	) {
+		super();
+	}
+
+	ngOnInit() { }
+
+	update(item: any, prop: string) {
+		this.productSrv.update({ id: this.product.id, [prop]: item }).subscribe();
 	}
 
 }

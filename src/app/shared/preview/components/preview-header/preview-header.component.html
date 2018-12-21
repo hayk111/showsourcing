@@ -1,4 +1,4 @@
-<div class="top-section flexBetween">
+<div *ngIf="hasTop" class="top-section flexBetween">
 	<div class="left flex">
 		<preview-logo-app
 			*ngIf="entityMD === erm.SUPPLIER"
