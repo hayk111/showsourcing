@@ -10,6 +10,7 @@
 			*ngIf="!isSendToWorkFlow"
 			[hasArrow]="selectSize !== 's'"
 			[status]="entity.status"
+			[typeEntity]="typeEntity"
 			[size]="selectSize">
 		</status-box-app>
 		<div class="caretCtnr" *ngIf="isSendToWorkFlow">

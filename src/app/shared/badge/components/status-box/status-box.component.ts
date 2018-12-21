@@ -4,8 +4,7 @@ import { EntityMetadata, SampleStatus, SupplierStatus, ProductStatus } from '~mo
 @Component({
 	selector: 'status-box-app',
 	templateUrl: './status-box.component.html',
-	styleUrls: ['./status-box.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./status-box.component.scss']
 })
 export class StatusBoxComponent implements OnInit {
 
@@ -32,7 +31,10 @@ export class StatusBoxComponent implements OnInit {
 	}
 
 	ngOnInit() {
+	}
 
+	isHaveStatus() {
+		return this.status &&  this.status.category !== 'new';
 	}
 
 	getType() {
