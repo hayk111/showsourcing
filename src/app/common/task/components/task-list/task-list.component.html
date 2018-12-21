@@ -1,8 +1,8 @@
 <card-app>
-	<div class="flex flexBetween top"  *ngIf="filterList">
+	<div class="flex flexBetween top" *ngIf="filterList">
 		<h1>Tasks</h1>
 		<div class="spacer mg-m"></div>
-		<div *ngIf="hasFilters" class="flex show-my-tasks">
+		<div class="flex show-my-tasks" *ngIf="hasFilters">
 			<checkbox-app
 				[checked]="filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 				(check)="toggleMyTasks.emit(true)"
@@ -15,7 +15,7 @@
 	</div>
 
 	<list-app infiniScroll cdk-scrollable (bottomReached)="bottomReached.emit()">
-		<list-item-app *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackById" class="{{ first ? 'border-top' : '' }}">
+		<list-item-app *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackById"  class="{{ first ? 'border-top' : '' }}">
 			<!-- use hover index if we use selection -->
 			<!-- <checkbox-app
 				[ngStyle]="{'visibility': (selection.has(task.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
