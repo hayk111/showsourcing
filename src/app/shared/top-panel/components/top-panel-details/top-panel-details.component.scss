@@ -29,13 +29,13 @@
 .left {
 	max-width: 50%;
 	white-space: nowrap;
-  align-items: center;
+	align-items: center;
 }
 
 .right {
-	float: right;
 	max-width: 50%;
 	white-space: nowrap;
+	align-items: center;
 	margin-right: var(--spacing-xl);
 
 	button {
@@ -72,17 +72,6 @@ icon-app {
 	}
 }
 
-.subinfo-container {
-	font-size: var(--font-size-m);
-	.tag {
-		display: inline-block;
-  	color: var(--color-supplier-tag);
-	}
-	.adress {
-		display: inline-block;
-  	color: var(--color-txt-primary);
-	}
-}
 
 .logo {
   width: 50px;
