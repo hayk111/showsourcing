@@ -1,5 +1,5 @@
 <card-app>
-	<div class="flex flexBetween top">
+	<div class="flex flexBetween top"  *ngIf="filterList">
 		<h1>Tasks</h1>
 		<div class="spacer mg-m"></div>
 		<div *ngIf="hasFilters" class="flex show-my-tasks">
