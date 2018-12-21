@@ -8,11 +8,15 @@
   <div class="flex content">
     <div class="left">
 
-			<card-app>
+			<card-app padding="0">
 				<carousel-app
+					#carousel
 					[images]="product?.images"
 					[entity]="product">
 				</carousel-app>
+				<image-previewer-2-app
+					[images]="product?.images"
+					(imageClick)="carousel.openModal($event)"></image-previewer-2-app>
 			</card-app>
 
 			<!-- team rating here -->

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { AppImage } from '~models';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { DEFAULT_IMG } from '~utils/constants';
@@ -41,13 +41,13 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Input() entity: any; // entity to which we can link images after an upload
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'cover';
 
-	menuOpen = false;
 
 	constructor(
 		private imageSrv: ImageService,
 		private dlgSrv: DialogService,
 		private uploader: UploaderService,
-		private ermSrv: ERMService
+		private ermSrv: ERMService,
+		private cd: ChangeDetectorRef
 	) {
 		super();
 	}
@@ -64,14 +64,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		if (this.selectedIndex < this.images.length - 1)
 			this.selectedIndex++;
 		event.stopPropagation();
-	}
-
-	closeMenu() {
-		this.menuOpen = false;
-	}
-
-	openMenu() {
-		this.menuOpen = true;
 	}
 
 	/** rotates the image by 90 degrees */
@@ -157,8 +149,12 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** opens the modal carousel */
-	openModal() {
+	openModal(index?: number) {
+		if (index)
+			this.selectedIndex = index;
 		this.modalOpen = true;
+		// since it can be opened from outside..
+		this.cd.markForCheck();
 	}
 
 	/** closes the modal */

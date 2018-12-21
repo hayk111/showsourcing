@@ -40,20 +40,19 @@
 	<div class="btn rotate pointer action" (click)="rotate()">rotate</div>
 
 	<!-- menu -->
-	<icon-app
-		fontSet="fa"
-		name="ellipsis-v"
-		color="white"
-		class="menuIc btn action"
-		aria-label="more"
-		(click)="openMenu()">
-	</icon-app>
-
-	<!-- menu -->
-	<menu class="z-2 flexColumn action" (clickOutside)="closeMenu()" *ngIf="menuOpen">
-		<menuitem (click)="download()"> download </menuitem>
-		<menuitem (click)="delete()"> delete </menuitem>
-	</menu>
+	<context-menu-app class="menu action">
+		<context-menu-trigger-app>
+				<icon-app
+					fontSet="fa"
+					name="ellipsis-v"
+					color="white"
+					class="btn"
+					aria-label="more">
+				</icon-app>
+		</context-menu-trigger-app>
+		<context-menu-item-app (click)="download()"> download </context-menu-item-app>
+		<context-menu-item-app (click)="delete()"> delete </context-menu-item-app>
+	</context-menu-app>
 
 	<!-- counter -->
 	<div class="counter flexCenter">

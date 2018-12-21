@@ -3,7 +3,7 @@ product-top-panel-app {
 }
 
 $width-right: 810px;
-$width-left: 410px;
+$width-left: 452px;
 
 .content {
 	margin-left: auto;
@@ -16,10 +16,6 @@ $width-left: 410px;
 		project-card-app, product-team-rating-app, supplier-card-app {
 			width: 388px;
 			margin-top: var(--spacing-l);
-		}
-
-		product-carousel-app {
-			padding-bottom: 6px;
 		}
 	}
 
@@ -37,6 +33,14 @@ files-card-app {
 	margin-right: -12px;
 }
 
+
+carousel-app {
+	height: 411px;
+}
+
+image-previewer-2-app {
+	padding: 0 0 0 var(--spacing-ms);
+}
 
 @media only screen and (max-width: 1200px) {
 	.conent {
