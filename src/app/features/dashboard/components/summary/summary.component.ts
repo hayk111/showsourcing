@@ -18,6 +18,8 @@ export class SummaryComponent extends TrackingComponent {
 	@Output() updateTask = new EventEmitter<Task>();
 	// this is use to update the count on the front end
 	index = 0;
+	toPreview: Task;
+	previewOpen = false;
 
 	constructor(private router: Router) {
 		super();
@@ -35,5 +37,11 @@ export class SummaryComponent extends TrackingComponent {
 		const done = !task.done;
 		this.index = done ? this.index + 1 : this.index - 1;
 		this.updateTask.emit({ ...task, done });
+	}
+
+	preview(task: Task) {
+		this.previewOpen = false;
+		this.toPreview = task;
+		this.previewOpen = true;
 	}
 }

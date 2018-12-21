@@ -4,11 +4,14 @@
 	box-sizing: border-box;
 	padding-bottom: var(--spacing-l);
 	width: 100%;
+
+	&.card-no-padding card-app{
+		margin: 0px ;
+	}
 }
 
 card-app {
-	margin: 0px;
-	margin-bottom: var(--spacing-l)
+	margin-bottom: var(--spacing-l);
 }
 
 .top {
@@ -23,6 +26,10 @@ h1 {
 
 list-app {
 	max-height: 507px;
+
+	list-item-app.border-top {
+		border-top: 1px solid var(--color-secondary);
+	}
 }
 
 .create-task {

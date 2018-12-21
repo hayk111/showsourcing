@@ -22,6 +22,7 @@
 </sub-panel-app>
 
 <task-list-app
+	class="card-no-padding"
 	[tasks]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[hasProduct]="true"
