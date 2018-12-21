@@ -1,11 +1,9 @@
 :host {
 	background-color: var(--color-secondary-light);
-	height: calc(100% - 105px);
 	display: block;
 }
 
 .card-container {
-	height: calc(100% - 48px);
 	overflow-x: hidden;
 	overflow-y: auto;
 	margin-left: auto;
