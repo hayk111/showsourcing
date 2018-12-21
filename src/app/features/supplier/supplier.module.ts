@@ -40,6 +40,7 @@ import { SharedModule } from '~shared/shared.module';
 
 import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
 import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
+import { SupplierGeneralInfoComponent } from './containers/supplier-general-info/supplier-general-info.component';
 import { NavBarModule } from '~shared/navbar/navbar.module';
 
 @NgModule({
@@ -74,7 +75,8 @@ import { NavBarModule } from '~shared/navbar/navbar.module';
 		SupplierImagesComponent,
 		SupplierProductsComponent,
 		SupplierTasksComponent,
-		SupplierSamplesComponent
+		SupplierSamplesComponent,
+		SupplierGeneralInfoComponent
 	],
 	entryComponents: [NewSupplierDlgComponent, NewContactDlgComponent],
 	exports: [SuppliersPageComponent],

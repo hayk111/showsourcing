@@ -30,14 +30,6 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 	contacts$: Observable<Contact[]>;
 	feedResult: ActivityFeed;
 
-	tabs: TabModel[] = [{
-		title: 'Activity',
-		link: 'tasks'
-	}, {
-		title: 'Products',
-		link: '../products'
-	}];
-
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: SupplierFeatureService,
