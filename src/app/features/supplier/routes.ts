@@ -22,7 +22,7 @@ export const routes: Array<Route> = [
 			{ path: 'products', component: SupplierProductsComponent },
 			{ path: 'samples', component: SupplierSamplesComponent },
 			{ path: 'tasks', component: SupplierTasksComponent },
-			{ path: '', redirectTo: 'products', pathMatch: 'full' }
+			{ path: '', redirectTo: 'tasks', pathMatch: 'full' }
 		]
 	}
 ];
