@@ -12,6 +12,7 @@ import { NewContactDlgComponent } from '~features/supplier/containers/new-contac
 import { ActivityService } from '~common/activity/services/activity.service';
 import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 
+import { TabModel } from '~shared/navbar';
 @Component({
 	selector: 'supplier-activity-app',
 	templateUrl: './supplier-activity.component.html',
@@ -28,6 +29,14 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
 	feedResult: ActivityFeed;
+
+	tabs: TabModel[] = [{
+		title: 'Activity',
+		link: 'tasks'
+	}, {
+		title: 'Products',
+		link: '../products'
+	}];
 
 	constructor(
 		private route: ActivatedRoute,
