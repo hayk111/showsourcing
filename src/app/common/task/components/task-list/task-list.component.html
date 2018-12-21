@@ -1,9 +1,10 @@
 <card-app>
-	<div class="flex flexBetween top"  *ngIf="filterList">
+	<div class="flex flexBetween top">
 		<h1>Tasks</h1>
 		<div class="spacer mg-m"></div>
 		<div *ngIf="hasFilters" class="flex show-my-tasks">
 			<checkbox-app
+			  	*ngIf="filterList"
 				[checked]="filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 				(check)="toggleMyTasks.emit(true)"
 				(uncheck)="toggleMyTasks.emit(false)">
