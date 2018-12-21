@@ -1,0 +1,17 @@
+<div class="ctnr square pointer"
+	*ngFor="let i of [0, 1, 2, 3, 4]; trackBy: trackByFn"
+	(click)="imageClick.emit(i)">
+	<img-app
+		*ngIf="getImg(i)"
+		[image]="getImg(i)"
+		size="s"></img-app>
+	<ng-container *ngIf="i === 4">
+		<div class="more flexCenter"
+			*ngIf="images.length > 5">
+			<div class="flexColumn">
+				<div class="flexCenter">+ {{ images.length - 5 }}</div>
+				<div>More</div>
+			</div>
+		</div>
+	</ng-container>
+</div>

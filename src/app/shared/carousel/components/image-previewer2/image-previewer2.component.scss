@@ -1,0 +1,37 @@
+:host {
+	display: block;
+	margin-top: var(--spacing-s);
+	display: flex;
+	flex-wrap: wrap;
+	&.overflow {
+		height: 60px;
+		overflow: overlay;
+	}
+	.square {
+		overflow: hidden;
+		border-radius: var(--border-radius-s);
+		margin-bottom: var(--spacing-s);
+		margin-right: var(--spacing-s);
+		width: 72px;
+		height: 72px;
+		img-app {
+			min-height: 100%;
+			min-width: 100%;
+		}
+	}
+}
+.ctnr {
+	position: relative;
+}
+
+.more {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(93, 109, 139, 0.7);
+	color: white;
+	font-size: 16px;
+  font-weight: 600;
+}

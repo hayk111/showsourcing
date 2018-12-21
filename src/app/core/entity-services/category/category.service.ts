@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Category } from '~models';
-
-import { GlobalService } from '~entity-services/_global/global.service';
-import { CategoryQueries } from '~entity-services/category/category.queries';
-import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
-import { UserService } from '~entity-services/user/user.service';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
+import { CategoryQueries } from '~entity-services/category/category.queries';
+import { UserService } from '~entity-services/user/user.service';
+import { Category } from '~models';
 
 
 @Injectable({

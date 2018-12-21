@@ -9,20 +9,18 @@ import { AppImage } from '~models';
 	styleUrls: ['./modal-carousel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModalCarouselComponent implements OnInit {
+export class ModalCarouselComponent {
 	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
 	@Output() close = new EventEmitter<Event>();
+	@Output() indexChange = new EventEmitter<number>();
 
-	constructor() { }
-
-	ngOnInit() {
-	}
 
 	back(event) {
 		log.debug('[ModalCarouselComponent] back');
 		if (this.selectedIndex > 0)
 			this.selectedIndex--;
+		this.indexChange.emit(this.selectedIndex);
 		event.stopPropagation();
 	}
 
@@ -30,6 +28,7 @@ export class ModalCarouselComponent implements OnInit {
 		log.debug('[ModalCarouselComponent] next');
 		if (this.selectedIndex < this.images.length - 1)
 			this.selectedIndex++;
+		this.indexChange.emit(this.selectedIndex);
 		event.stopPropagation();
 	}
 

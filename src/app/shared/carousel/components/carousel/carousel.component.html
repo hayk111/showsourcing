@@ -1,21 +1,28 @@
-<div class="ctnr">
+<div class="ctnr" (fileDrop)="add($event)">
 
 	<!-- image -->
 	<div class="img-ctnr flexCenter"
 	[ngStyle]="{'transform': getRotation(getImg())}">
 		<img-app
 			#imgApp
-			*ngIf="images?.length !== 0"
+			*ngIf="images?.length !== 0; else noImg"
 			[image]="getImg()"
 			[size]="'xl'"
 			[objectFit]="objectFit"
-			(click)="imgClick.emit(selectedIndex)"
+			(click)="openModal()"
 			class="pointer">
 		</img-app>
+		<!-- no image -->
+		<ng-template #noImg>
+			<div class="flexColumn flexCenter empty">
+				<img [src]="defaultImg"/>
+				<span>No picture yet</span>
+				<button class="secondary" (click)="openFileBrowser()">Add Picture</button>
+			</div>
+		</ng-template>
 	</div>
 
   <spinner-app *ngIf="getImg()?.pending" size="xl"></spinner-app>
-	<!-- actions buttons -->
 
 	<!-- move back -->
 	<div class="move-btn back flexCenter circle pointer btn action"
@@ -33,20 +40,19 @@
 	<div class="btn rotate pointer action" (click)="rotate()">rotate</div>
 
 	<!-- menu -->
-	<icon-app
-		fontSet="fa"
-		name="ellipsis-v"
-		color="white"
-		class="menuIc btn action"
-		aria-label="more"
-		(click)="openMenu()">
-	</icon-app>
-
-	<!-- menu -->
-	<menu class="z-2 flexColumn action" (clickOutside)="closeMenu()" *ngIf="menuOpen">
-		<menuitem (click)="download()"> download </menuitem>
-		<menuitem (click)="delete()"> delete </menuitem>
-	</menu>
+	<context-menu-app class="menu action">
+		<context-menu-trigger-app>
+				<icon-app
+					fontSet="fa"
+					name="ellipsis-v"
+					color="white"
+					class="btn"
+					aria-label="more">
+				</icon-app>
+		</context-menu-trigger-app>
+		<context-menu-item-app (click)="download()"> download </context-menu-item-app>
+		<context-menu-item-app (click)="delete()"> delete </context-menu-item-app>
+	</context-menu-app>
 
 	<!-- counter -->
 	<div class="counter flexCenter">
@@ -55,6 +61,19 @@
 			class="dot {{ i === selectedIndex ? 'full' : '' }}">
 		</div>
 	</div>
+
+	<!-- modal carousel that can be seen when clicking on the normal carousel -->
+	<modal-carousel-app
+		*ngIf="modalOpen"
+		[selectedIndex]="selectedIndex"
+		[images]="images"
+		(indexChange)="selectedIndex = $event"
+		(close)="closeModal()">
+	</modal-carousel-app>
+
+	<!-- input used to input files -->
+	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+
 </div>
 
 

@@ -8,17 +8,16 @@
   <div class="flex content">
     <div class="left">
 
-			<product-carousel-app
-				[product]="product"
-				[images]="product?.images"
-				[favorite]="product.favorite"
-				(productFavorite)="onFavorited()"
-				(productUnfavorite)="onUnfavorited()"
-				(requestFeedback)="openRequestFeedbackDialog()"
-				(openAddProject)="openAddProjectDlg()"
-				(openRequestQuotationDialog)="openRequestQuotationDialog()"
-				(export)="openExportDialog()">
-			</product-carousel-app>
+			<card-app padding="0">
+				<carousel-app
+					#carousel
+					[images]="product?.images"
+					[entity]="product">
+				</carousel-app>
+				<image-previewer-2-app
+					[images]="product?.images"
+					(imageClick)="carousel.openModal($event)"></image-previewer-2-app>
+			</card-app>
 
 			<!-- team rating here -->
 			<product-team-rating-app
