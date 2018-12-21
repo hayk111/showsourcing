@@ -3,4 +3,5 @@ export class PreviewActionButton {
 	fontSet: 'fa' | 'svg' | '';
 	text: string;
 	action: Function;
+	type: 'rounded' | 'normal' | 'context';
 }
