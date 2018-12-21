@@ -49,10 +49,10 @@
   <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
 
   <ng-container *ngFor="let task of tasks; trackBy: trackByFn; last as last">
-		<div class="flexVAlign user-tasks" [class.last]="last">
+		<div class="flexVAlign user-tasks pointer" [class.last]="last">
 			<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus(task)"></icon-app>
-			<user-picture-app [size]="14" [user]="task.assignee"></user-picture-app>
-			<div class="flexCenter" [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}">{{ task?.name || 'Unnamed task' }}</div>
+			<user-picture-app [size]="14" [user]="task.assignee" (click)="preview(task)"></user-picture-app>
+			<div class="flexCenter" [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}" (click)="preview(task)">{{ task?.name || 'Unnamed task' }}</div>
 		</div>
   </ng-container>
 
@@ -63,3 +63,9 @@
   </card-footer-app>
 
 </card-app>
+
+<task-preview-app
+	*ngIf="previewOpen"
+	[task]="toPreview"
+	(close)="previewOpen = false;">
+</task-preview-app>

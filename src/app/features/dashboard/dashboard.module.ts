@@ -9,6 +9,7 @@ import { DashboardComponent } from '~features/dashboard/containers/dashboard/das
 import { routes } from '~features/dashboard/routes';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
+import { TaskCommonModule } from '~common/task';
 
 @NgModule({
 	imports: [
@@ -16,6 +17,7 @@ import { SharedModule } from '~shared/shared.module';
 		RouterModule.forChild(routes),
 		ActivityCommonModule,
 		DialogModule,
+		TaskCommonModule
 	],
 	declarations: [
 		DashboardComponent,
