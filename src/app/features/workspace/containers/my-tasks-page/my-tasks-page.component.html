@@ -1,44 +1,42 @@
-<div class="container">
-	<sub-panel-app
-		[hasFilter]="false"
-		[hasSwitch]="false"
-		(search)="listSrv.search($event)">
-		<sub-panel-left-item-app>
-			<div class="flex show-my-tasks">
-				<checkbox-app
-					[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
-					(check)="toggleMyTasks(true)"
-					(uncheck)="toggleMyTasks(false)">
-				</checkbox-app>
-				Show my tasks only
-			</div>
-			<div class="flex show-tasks-done">
-				<checkbox-app
-					(check)="toggleDoneTasks(true)"
-					(uncheck)="toggleDoneTasks(false)">
-				</checkbox-app>
-				Completed tasks
-			</div>
-		</sub-panel-left-item-app>
-	</sub-panel-app>
+<sub-panel-app
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	(search)="listSrv.search($event)">
+	<sub-panel-right-item-app>
+		<div class="flex show-my-tasks">
+			<checkbox-app
+				[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
+				(check)="toggleMyTasks(true)"
+				(uncheck)="toggleMyTasks(false)">
+			</checkbox-app>
+			Show my tasks only
+		</div>
+		<div class="flex show-tasks-done">
+			<checkbox-app
+				(check)="toggleDoneTasks(true)"
+				(uncheck)="toggleDoneTasks(false)">
+			</checkbox-app>
+			Completed tasks
+		</div>
+	</sub-panel-right-item-app>
+</sub-panel-app>
 
-	<task-list-app
-		[tasks]="listSrv.items$ | async"
-		[selection]="listSrv.selection$ | async"
-		[hasProduct]="true"
-		[hasSupplier]="true"
-		[hasFilters]="false"
-		(previewClicked)="listSrv.openPreview($event)"
-		(taskSelect)="listSrv.selectOne($event, false)"
-		(taskUnselect)="listSrv.unselectOne($event, false)"
-		(bottomReached)="listSrv.loadMore()"
-		(updateTask)="listSrv.update($event)"
-		(createTask)="createTask($event)">
-	</task-list-app>
+<task-list-app
+	[tasks]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[hasProduct]="true"
+	[hasSupplier]="true"
+	[hasFilters]="false"
+	(previewClicked)="listSrv.openPreview($event)"
+	(taskSelect)="listSrv.selectOne($event, false)"
+	(taskUnselect)="listSrv.unselectOne($event, false)"
+	(bottomReached)="listSrv.loadMore()"
+	(updateTask)="listSrv.update($event)"
+	(createTask)="createTask($event)">
+</task-list-app>
 
-	<task-preview-app
-		*ngIf="listSrv.previewOpen"
-		[task]="listSrv.previewed"
-		(close)="listSrv.closePreview()">
-	</task-preview-app>
-</div>
+<task-preview-app
+	*ngIf="listSrv.previewOpen"
+	[task]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
+</task-preview-app>

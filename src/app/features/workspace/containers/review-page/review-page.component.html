@@ -26,7 +26,8 @@
   (delete)="listSrv.deleteOne($event)"
   (archive)="onArchive($event)"
   (statusUpdated)="onStatusUpdated($event)"
-  (open)="listSrv.goToDetails($event)">
+	(open)="listSrv.goToDetails($event)"
+	(bottomReached)="listSrv.loadMore()">
 </products-review-grid-view-app>
 
 <selection-bar-app
