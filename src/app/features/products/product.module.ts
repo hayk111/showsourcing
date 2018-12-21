@@ -18,7 +18,6 @@ import { ProductSummaryComponent } from '~features/products/components/product-s
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import {
 	ProductDetailsComponent,
-	ProductGeneralInfoComponent,
 	ProductQuotationComponent,
 	ProductSamplesComponent,
 	ProductsPageComponent,
@@ -58,7 +57,6 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		ProductDetailsComponent,
 		ProjectCardComponent,
 		SupplierCardComponent,
-		ProductGeneralInfoComponent,
 		ProductSummaryComponent,
 		SelectableImageComponent,
 		ProductNavigationComponent,

@@ -2,7 +2,6 @@ import { Route } from '@angular/router';
 
 import {
 	ProductDetailsComponent,
-	ProductGeneralInfoComponent,
 	ProductsPageComponent,
 	ProductQuotationComponent,
 	ProductSamplesComponent,
@@ -22,7 +21,6 @@ export const routes: Array<Route> = [
 		component: ProductDetailsComponent,
 		children: [
 			{ path: '', redirectTo: 'shipping', pathMatch: 'full' },
-			{ path: 'general', component: ProductGeneralInfoComponent },
 			{ path: 'shipping', component: ProductShippingComponent },
 			{ path: 'activity', component: ProductActivityComponent },
 			{ path: 'samples', component: ProductSamplesComponent },
