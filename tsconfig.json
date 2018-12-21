@@ -8,7 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-		"baseUrl": "./src/",
+		"baseUrl": ".",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -33,6 +33,7 @@
 			"~entity-services/*": ["app/core/entity-services/*"],
       "~entity-services": ["app/core/entity-services/index"],
       "~utils/*": ["app/utils/*"],
+			"~deprecated/*": ["../deprecated/*"],
 			"~utils": ["app/utils/index"]
     }
   }

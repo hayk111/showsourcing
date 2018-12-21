@@ -11,8 +11,8 @@ import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import { ActivityUserComponent } from './components/activity-user/activity-user.component';
-import { FlatFeedCardComponent } from './components/flat-feed-card/flat-feed-card.component';
-import { FlatFeedListComponent } from './components/flat-feed-list/flat-feed-list.component';
+import { FlatFeedCardComponent } from '~deprecated/flat-feed-card/flat-feed-card.component';
+import { FlatFeedListComponent } from '~deprecated/flat-feed-list/flat-feed-list.component';
 import { GroupedFeedListComponent } from './components/grouped-feed-list/grouped-feed-list.component';
 import {
 	MultipleProductCarouselComponent,
