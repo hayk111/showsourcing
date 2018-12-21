@@ -8,7 +8,6 @@
 	<context-menu-trigger-app class="flex {{selectSize}}">
 		<status-box-app
 			*ngIf="!isSendToWorkFlow"
-			[hasArrow]="selectSize !== 's'"
 			[status]="entity.status"
 			[typeEntity]="typeEntity"
 			[size]="selectSize">
@@ -30,7 +29,7 @@
 		(menuClosed)="statusUpdated.emit()">
 
 		<context-menu-trigger-app class="flex {{selectSize}}">
-			<status-box-app  *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [size]="selectSize" [typeEntity]="typeEntity"></status-box-app>
+			<status-box-app  *ngIf="!isSendToWorkFlow" [size]="selectSize" [typeEntity]="typeEntity"></status-box-app>
 			<div class="caretCtnr" *ngIf="isSendToWorkFlow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 		</context-menu-trigger-app>
 
