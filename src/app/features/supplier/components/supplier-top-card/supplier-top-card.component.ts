@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Supplier } from '~models/supplier.model';
 import { Location } from '@angular/common';
 import { ERM } from '~models';
@@ -15,6 +15,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class SupplierTopCardComponent extends TrackingComponent implements OnInit {
 	@Input() supplier: Supplier;
+	@Output() delete = new EventEmitter<Supplier>();
+
 	typeEntity = ERM.SUPPLIER;
 
 	constructor(
@@ -24,7 +26,10 @@ export class SupplierTopCardComponent extends TrackingComponent implements OnIni
 	}
 
 	ngOnInit() {
+		console.log(this.supplier);
 	}
+
+	
 
 	goBack() {
 		this.location.back();

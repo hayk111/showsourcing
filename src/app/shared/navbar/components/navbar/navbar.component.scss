@@ -1,12 +1,12 @@
 /*navbar*/
 .navbar-container {
-	width: 100%;
 	text-align: center;
+	padding: var(--spacing-xs) var(--spacing-m) 0px var(--spacing-m);
 }
 
 .tab-container {
 	width: 100%;
-	max-width: 720px;
+	margin: var(--spacing-ms);
 	white-space: nowrap;
 	background-color: var(--color-bg);
   margin: var(--spacing-ms) auto;
