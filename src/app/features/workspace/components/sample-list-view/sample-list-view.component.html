@@ -1,12 +1,3 @@
-<!-- contextual menu -->
-<ng-template #contextualMenuTemplate let-row="row">
-	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="delete.emit(row.id)">
-		Delete
-	</context-menu-item-app>
-</ng-template>
-
 <table-app
 	[rows]="rows"
 	[pending]="pending"
@@ -20,14 +11,22 @@
 	(sort)="sort.emit($event)"
 	(bottomReached)="bottomReached.emit()">
 
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row.id)">
+			Delete
+		</context-menu-item-app>
+	</ng-template>
+
 	<!-- name -->
 	<ng-template
 		class="capitalize"
 		columnApp="Samples"
 		let-row="row"
 		sortBy="name"
-		width="400"
-		[grows]="false">
+		width="400">
 		<div class="mainCellWrapper name-container ellipsis">
 			<div class="mainCell">
 				<img-app [image]="row?.images ? row?.images[0] : null" type="sample" size="s"></img-app>
@@ -45,8 +44,7 @@
 		columnApp="Assignee"
 		let-row="row"
 		sortBy="assignee.lastName"
-		width="200"
-		[grows]="false">
+		width="200">
 		<div class="flex assignee-container">
 			<user-picture-app	[user]="row?.assignee" size="24" [border]="true"></user-picture-app>
 			{{ row?.assignee?.firstName }} {{ row.assignee?.lastName ? row?.assignee?.lastName[0] + '.' : ''}}
@@ -59,8 +57,7 @@
 		columnApp="Product"
 		let-row="row"
 		sortBy="product.name"
-		width="250"
-		[grows]="false">
+		width="250">
 		<div *ngIf="row?.product" class="pointer" (click)="openProduct.emit(row?.product?.id)">{{ row?.product?.name }}</div>
 	</ng-template>
 
@@ -70,8 +67,7 @@
 		columnApp="Supplier"
 		let-row="row"
 		sortBy="supplier.name"
-		width="300"
-		[grows]="false">
+		width="300">
 		<div *ngIf="row?.supplier" class="pointer" (click)="openSupplier.emit(row.supplier.id)">{{ row?.supplier?.name }}</div>
 	</ng-template>
 
@@ -80,8 +76,7 @@
 		columnApp="Comments"
 		let-row="row"
 		sortBy="comments.length"
-		width="200"
-		[grows]="false">
+		width="200">
 		<div class="flex">
 			<div class="number">{{ row?.comments?.length || '0' }}</div>
 			&nbsp;
@@ -95,8 +90,7 @@
 		columnApp="Status"
 		let-row="row"
 		sortBy="status.name"
-		width="200"
-		[grows]="false">
+		width="200">
 		<status-selector-app
 			[entity]="row"
 			[typeEntity]="erm.SAMPLE"
@@ -110,8 +104,7 @@
 		columnApp="Created On"
 		let-row="row"
 		sortBy="createdBy.lastName"
-		width="200"
-		[grows]="false">
+		width="200">
 		{{ row?.creationDate | date: 'MMMM y' }}
 	</ng-template>
 
