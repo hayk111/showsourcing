@@ -10,16 +10,12 @@
 				<h1>{{ title }}</h1>
 				<ng-content select="icon-app"></ng-content>
 			</div>
-			<ng-content></ng-content>
+			<ng-content select="[subinfo]"></ng-content>
 		</div>
 	</div>
 
-	<div class="flex right container">
-		<button>love</button>
-		<button>share</button>
-		<button>Contact Supplier</button>
-		<button>Validated</button>
-		<button>menu</button>
+	<div class="flex right container action-list">
+			<ng-content select="[action]"></ng-content>
 	</div>
 </div>
 
