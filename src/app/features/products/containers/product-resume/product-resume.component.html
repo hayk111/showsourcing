@@ -1,0 +1,58 @@
+<card-app>
+	<preview-app class="reset-this">
+		<!-- Header -->
+		<preview-header-app
+			[entityMD]="erm.PRODUCT"
+			[entity]="product"
+			[hasTop]="false"
+			(update)="update($event, 'name')">
+			<!-- Price -->
+			<price-with-quantity-app
+				*ngIf="product?.price?.value"
+				[product]="product"
+				(updateField)="update($event.newValue,  $event.field)">
+			</price-with-quantity-app>
+
+			<!-- Badge supplier -->
+			<preview-badge-app
+				[badge]="erm.SUPPLIER"
+				[value]="product?.supplier?.name"
+				(update)="update($event, 'supplier')">
+			</preview-badge-app>
+
+			<!-- Badge category -->
+			<preview-badge-app
+				[badge]="erm.CATEGORY"
+				[value]="product?.category"
+				(update)="update($event, 'category')">
+			</preview-badge-app>
+		</preview-header-app>
+
+		<!-- Description -->
+		<preview-section-app [title]="'Description'">
+			<input-description-app
+				[isBig]="true"
+				[description]="product?.description"
+				(update)="update($event, 'description')">
+			</input-description-app>
+		</preview-section-app>
+
+		<!-- Tags -->
+		<preview-section-app [title]="'Tags'">
+			<selector2-app
+				[canCreate]="true"
+				type="tag"
+				[multiple]="true"
+				[offsetX]="-330"
+				[offsetY]="-28"
+				[value]="product?.tags"
+				(update)="update($event, 'tags')">
+				<info-badge-app *ngIf="!product?.tags?.length" class="pointer" type="tag">
+					Add tag
+					<icon-app name="add"></icon-app>
+				</info-badge-app>
+				<info-badge-app *ngFor="let tag of product?.tags; trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
+			</selector2-app>
+		</preview-section-app>
+	</preview-app>
+</card-app>

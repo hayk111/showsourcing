@@ -24,7 +24,7 @@ import { RfqDialogComponent } from '~common/modals';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
-	// whether the form is open
+
 	product$: Observable<Product>;
 	product: Product;
 

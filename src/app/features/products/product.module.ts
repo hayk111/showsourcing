@@ -22,6 +22,9 @@ import {
 	ProductQuotationComponent,
 	ProductSamplesComponent,
 	ProductsPageComponent,
+	ProductResumeComponent,
+	ProductTasksComponent,
+	ProductShippingComponent,
 } from '~features/products/containers';
 import { routes } from '~features/products/routes';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
@@ -32,7 +35,6 @@ import { ProductCarouselComponent } from './components/product-carousel/product-
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
-import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
 
 
 @NgModule({
@@ -66,7 +68,9 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		VoteDetailsDialogComponent,
 		ProductTasksComponent,
 		ProductTopPanelComponent,
-		ProductSamplesComponent
+		ProductSamplesComponent,
+		ProductResumeComponent,
+		ProductShippingComponent
 	],
 	entryComponents: [
 		VoteDetailsDialogComponent

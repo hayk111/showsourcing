@@ -1,0 +1,30 @@
+@import '../../../../theming/helper-classes.scss';
+
+preview-app {
+	@extend .reset-this;
+
+	preview-header-app {
+		padding-left: 0;
+		padding-right: 0;
+
+		preview-badge-app {
+			width: 50%;
+		}
+	}
+
+	preview-section-app {
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+}
+
+info-badge-app {
+	display: inline-block;
+	margin-bottom: 5px;
+
+	icon-app {
+		font-size: var(--font-size-xxs);
+		margin-left: var(--spacing-xs);
+	}
+}
+
