@@ -4,6 +4,8 @@
 
 	<!-- left side -->
 	<div class="left">
+
+	<navbar-app [tabs]="tabs" [currentTab]="tabs[0].title"></navbar-app>
 		<!-- description -->
 		<supplier-description-app
 			(update)="patch($event)"
