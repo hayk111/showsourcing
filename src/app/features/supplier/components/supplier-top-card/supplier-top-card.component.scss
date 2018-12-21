@@ -15,3 +15,28 @@ info-badge-app, status-selector-app {
   	color: var(--color-txt-primary);
 	}
 }
+
+.action-list {
+	user-picture-app,
+	status-selector-app,
+	button {
+		margin-left: var(--spacing-ms);
+	}
+	.rounded {
+		min-width: 32px;
+    border-radius: 16px;
+    height: 32px;
+    font-size: var(--font-size-s);
+    padding: 0;
+	}
+	.like {
+		background-color: var(--color-warn);
+	}
+	user-picture-app {
+		display: inline-block;
+	}
+	context-menu-app,
+	user-picture-app {
+    vertical-align: middle;
+	}
+}
