@@ -3,6 +3,8 @@ info-badge-app, status-selector-app {
 }
 
 .subinfo-container {
+	margin-bottom: 12px;
+	margin-top: 4px;
 	font-size: var(--font-size-m);
 	.tag {
 		display: inline-block;
