@@ -1,0 +1,25 @@
+:host {
+	display: block;
+}
+
+.title {
+	margin-bottom: var(--spacing-m);
+	margin-left: -12px;
+	margin-top: -12px;
+
+	.space-icon {
+		height: var(--spacing-xl);
+		width: var(--spacing-xl);
+		margin-right: var(--spacing-ms);
+
+		icon-app[name="poll"] {
+			cursor: default;
+		}
+	}
+
+	h2 {
+		align-items: center;
+		display: flex;
+		margin-bottom: 0px;
+	}
+}
