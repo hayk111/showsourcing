@@ -1,9 +1,8 @@
-
-
-.top {
-	margin: var(--spacing-xl);
+:host {
+	display: flex;
+	flex-direction: column;
+	margin: 0 var(--spacing-edge);
 }
-
 
 .container {
 	width: 1416px;
