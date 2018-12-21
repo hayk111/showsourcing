@@ -1,52 +1,22 @@
-
-
 <ng-container *ngIf="supplier$ | async as supplier">
 
-	<!-- left side -->
-	<div class="left">
+	<!-- description -->
+	<supplier-description-app
+	(update)="patch($event)"
+	[supplier]="supplier">
+</supplier-description-app>
 
-	<navbar-app [tabs]="tabs" [currentTab]="tabs[0].title"></navbar-app>
-		<!-- description -->
-		<supplier-description-app
-			(update)="patch($event)"
-			[supplier]="supplier">
-		</supplier-description-app>
+<!-- images-->
+<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
 
-		<!-- images-->
-		<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
-
-		<!-- activity -->
-		<!-- TODO Uncomment when activity does something usefull -->
-		<!-- <ng-container *ngIf="(feedResult?.feed$ | async)?.length > 0">
-				<flat-feed-list-app
-				[entity]="supplier"
-				[activities]="feedResult.feed$ | async"
-				[typeEntity]="typeEntity">
-			</flat-feed-list-app>
-		</ng-container> -->
-	</div>
-
-	<!-- right side -->
-	<div class="right">
-		<!-- editable infos -->
-		<supplier-infos-app
-			[supplier]="supplier"
-			(update)="patch($event)">
-		</supplier-infos-app>
-
-		<!-- contacts -->
-		<supplier-contact-card-app
-			[contacts]="contacts$ | async"
-			(newContact)="openContactDlg()"
-			(openContact)="openContactDlg($event)"
-			(deleteContact)="deleteContact($event)">
-		</supplier-contact-card-app>
-
-		<files-card-app
-			[files]="supplier.attachments"
-      [linkedItem]="supplier"
-			(fileRemove)="onFileRemoved($event)">
-		</files-card-app>
-	</div>
+<!-- activity -->
+<!-- TODO Uncomment when activity does something usefull -->
+<!-- <ng-container *ngIf="(feedResult?.feed$ | async)?.length > 0">
+		<flat-feed-list-app
+		[entity]="supplier"
+		[activities]="feedResult.feed$ | async"
+		[typeEntity]="typeEntity">
+	</flat-feed-list-app>
+</ng-container> -->
 
 </ng-container>
