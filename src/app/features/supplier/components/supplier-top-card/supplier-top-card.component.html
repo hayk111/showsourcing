@@ -1,7 +1,35 @@
 <top-panel-details-app [title]="supplier.name">
 	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
-	<div class="subinfo-container">
+	<div subinfo class="subinfo-container">
 		<div class="tag">Supplier . {{' '}}</div>
 		<div class="adress">Guangzhou, China </div>
+	</div>
+	<div action class="action-list">
+		<button class="rounded like">
+			<icon-app name="heart"></icon-app>
+		</button>
+		<button class="rounded secondary share">
+			<icon-app name="share"></icon-app>
+		</button>
+
+		<user-picture-app [user]="supplier.createdBy" [image]="supplier.createdBy?.avatar" [border]="true" size="28">
+		</user-picture-app>
+
+		<button class="contact-supplier">Contact Supplier</button>
+
+
+		<status-selector-app [typeEntity]="typeEntity" [entity]="supplier" selectSize="l" type="button">
+		</status-selector-app>
+
+		<context-menu-app>
+			<context-menu-trigger-app>
+				<button class="icon light dots">
+					<icon-app [size]="20" name="dots-vertical"></icon-app>
+				</button>
+			</context-menu-trigger-app>
+			<context-menu-item-app (click)="delete.emit()">
+				Delete
+			</context-menu-item-app>
+		</context-menu-app>
 	</div>
 </top-panel-details-app>
