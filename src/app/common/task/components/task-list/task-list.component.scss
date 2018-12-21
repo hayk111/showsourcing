@@ -1,5 +1,14 @@
 :host {
 	display: block;
+	height: calc(100% + -104px);
+	box-sizing: border-box;
+	padding-bottom: var(--spacing-l);
+	width: 100%;
+}
+
+card-app {
+	margin: 0px;
+	margin-bottom: var(--spacing-l)
 }
 
 .top {

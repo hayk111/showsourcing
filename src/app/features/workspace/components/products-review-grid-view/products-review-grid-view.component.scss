@@ -1,8 +1,10 @@
 :host {
-  background-color: var(--color-secondary-light);
+	background-color: var(--color-secondary-light);
+	display: block;
 }
 
 .card-container {
+	overflow-x: hidden;
 	overflow-y: auto;
 	margin-left: auto;
 	margin-right: auto;
