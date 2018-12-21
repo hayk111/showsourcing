@@ -6,6 +6,7 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	ElementRef,
 	EventEmitter,
 	Input,
 	OnInit,
@@ -44,8 +45,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@Output() close = new EventEmitter<null>();
 
 
+	/** choices to iterate */
 	choices$: Observable<any[]>;
-
+	/** local choices to iterate, these choices are not in our DB */
 	choicesLocal = [];
 	// for complex names
 	displayName = '';
@@ -57,6 +59,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	*/
 	// for some reason it doesnt work without the string
 	@ViewChildren('abstract') virtualItems: QueryList<AbstractSelectorHighlightableComponent>;
+	/** Exact same list but with elementRef type so it can be scrolles */
+	@ViewChildren('abstract', { read: ElementRef }) elementRefItems: QueryList<ElementRef>;
 	/** cdk virtual scroll viewport so we can determine the scroll index in combination with cdk a11y */
 	@ViewChild(CdkVirtualScrollViewport) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 
@@ -73,10 +77,13 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * if its a const we don't need to emit an object {id, typename}, we only need a string
 	 */
 	isConst = false;
+	/** if current type is in our DB or not */
 	hasDB = false;
+
 	searched$: Subject<string> = new Subject();
 	searchTxt = '';
 
+	/** whether the search has a exact match or not to display the create button */
 	isMatch$: Observable<boolean>;
 
 
@@ -109,6 +116,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.searchTxt = text;
 		this.hasDB ? this.selectorSrv.search(this.type, text) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 		this.searched$.next(this.searchTxt);
+		this.keyManager.setFirstItemActive();
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
@@ -142,6 +150,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
+	/** Choices that are not registered on out DB */
 	getChoicesLocal(type, searchTxt) {
 		switch (type) {
 			case 'lengthUnit':
@@ -167,8 +176,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	onChange() {
 		this.onChangeFn(this.value);
 		if (!this.multiple) {
-			if (!this.isConst) { // constants can update directly
-				if (this.type === 'user')
+			if (!this.isConst) { // constants can update directly, wihtout a value name
+				if (this.type === 'user') // specific user case, since the rest use name to update
 					this.update.emit({
 						id: this.value.id,
 						firstName: this.value.firstName ? this.value.firstName : '',
@@ -186,24 +195,17 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	onSelect(item) {
 		if (this.multiple) {
-			if (this.isSelected(item))
+			if (this.isSelected(item)) // if its multiple and is already on the selection we delete the item from our value array
 				this.delete(item);
-			else {
+			else { // if its multiple and its not selected we add it
 				this.value.push(item);
 				this.onChange();
 			}
-		} else {
+		} else { // we update and close
 			this.value = item;
 			this.onChange();
 		}
 
-	}
-
-	onUnselect(item) {
-		if (this.multiple && !this.isSelected(item)) {
-			this.value.push(item);
-		}
-		this.onChange();
 	}
 
 	/** creates a new entity */
@@ -246,22 +248,25 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.selectorSrv.refetch();
 	}
 
-	/** CDK virtual scroll needs the height of the element */
-	getHeight() {
-		switch (this.type) {
-			case 'supplier': return 64;
-			default: return 37;
-		}
-	}
-
 	onKeydown(event) {
 		if (event.keyCode === ENTER) {
-			// here add the item selected to the value
+			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
 			if (label === 'create-button') this.create();
 			else this.onSelect(label);
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+			let aIndex = this.keyManager.activeItemIndex;
+			const items = this.elementRefItems.toArray();
+			// we call this before the event key sicne we are going back with the arrow key up
+			if (event.keyCode === UP_ARROW && aIndex % 5 === 0) items[aIndex - 5 > 0 ? aIndex - 5 : 0].nativeElement.scrollIntoView();
+			// register the move of the key
 			this.keyManager.onKeydown(event);
+			// get the new index
+			aIndex = this.keyManager.activeItemIndex;
+			// this case scenario is when you reach the last index of the item when going with up arrow key, we have to scroll to the last item
+			if (event.keyCode === UP_ARROW && aIndex === items.length - 1) items[aIndex].nativeElement.scrollIntoView();
+			// every 5 rows we scroll to the next item
+			if (event.keyCode === DOWN_ARROW && aIndex % 5 === 0) items[aIndex].nativeElement.scrollIntoView();
 		}
 	}
 
@@ -280,6 +285,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.onChange();
 	}
 
+	/** we needed this in case we want to display multiple items active class, for some reason with ngClass didn't work */
 	getActiveClass(item) {
 		if (!this.multiple) return [];
 		return this.isSelected(item) ? ['active'] : [];
