@@ -24,6 +24,9 @@ export class SupplierContactComponent {
 	}
 
 	get initials() {
+		if (!this.contact.name) {
+			return '';
+		}
 		return this.contact.name
 			.split(' ')
 			.map(namePart => namePart[0])
