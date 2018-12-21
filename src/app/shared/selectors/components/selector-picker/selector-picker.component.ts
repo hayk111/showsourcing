@@ -81,7 +81,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 
 	constructor(
-		protected selectorSrv: SelectorsService,
+		public selectorSrv: SelectorsService,
 		protected cd: ChangeDetectorRef,
 		private fb: FormBuilder
 	) { super(cd); }
