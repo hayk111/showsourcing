@@ -15,7 +15,7 @@ export class ListActionButtonsComponent extends TrackingComponent implements OnI
 		super();
 	}
 
-	ngOnInit(){
+	ngOnInit() {
 
 	}
 }
