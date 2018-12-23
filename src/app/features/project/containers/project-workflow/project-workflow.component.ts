@@ -1,18 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, Observable, forkJoin, of, zip, merge } from 'rxjs';
-import { map, takeUntil, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
-import { ProductQueries } from '~entity-services/product/product.queries';
 import { ProjectFeatureService } from '~features/project/services';
-import { ERM, Product, Project, ProductStatus } from '~models';
+import { ERM, Product, ProductStatus, Project } from '~models';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
-import { statusToKanbanCol, makeColumns } from '~utils/kanban.utils';
+import { makeColumns } from '~utils/kanban.utils';
 
 @Component({
 	selector: 'project-workflow-app',
@@ -67,7 +66,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 		const productStatuses$ = this.productStatusSrv
 			.queryAll(undefined, {
-				query: 'category != "refused" AND category != "inspiration"',
+				query: 'category != "refused"',
 				sortBy: 'step',
 				descending: false,
 			}).pipe(
@@ -80,11 +79,14 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
+	loadMore(col: KanbanColumn) {
+		this.productsMap.get(col.id).fetchMore().subscribe();
+	}
 
 	private getProducts(statuses: ProductStatus[]) {
 		statuses.forEach(status => {
 			const query = `projects.id == "${this.project.id}" AND status.id == "${status.id}"`;
-			const prod$ = this.productSrv.getListQuery({ query });
+			const prod$ = this.productSrv.getListQuery({ query, take: 8 });
 			const total$ = this.productSrv.queryCount(query);
 			this.productsMap.set(status.id, prod$);
 			this.totalMap.set(status.id, total$);
@@ -122,7 +124,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
 		this.featureSrv.openFindProductDlg(this.project).pipe(
-			zip(_ => this.listSrv.refetch())
+			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}
 

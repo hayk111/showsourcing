@@ -15,7 +15,8 @@
 		(drop)="updateProductStatus($event)"
 		(multipleDrop)="updateProductsStatus($event)"
 		(selectColumn)="onColumnSelected($event)"
-		(unselectColumn)="onColumnUnselected($event)">
+		(unselectColumn)="onColumnUnselected($event)"
+		(loadMore)="loadMore($event)">
 	</kanban-app>
 
 	<ng-template #card let-data="data">
@@ -42,7 +43,7 @@
 			(liked)="listSrv.onMultipleThumbUp($event)"
 			(disliked)="listSrv.onMultipleThumbDown($event)">
 
-			<button class="icon light" (click)="commonModalSrv.openAddToProjectDialog(selectionSrv.selection)">
+			<button class="icon light" (click)="commonModalSrv.openAddToProjectDialog(listSrv.selection)">
 				<icon-app name="folder-light" fontSet="svg"></icon-app>
 			</button>
 			<button class="icon light" (click)="listSrv.deleteSelected()">

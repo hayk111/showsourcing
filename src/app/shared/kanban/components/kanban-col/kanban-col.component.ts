@@ -20,7 +20,7 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 	@Output() selectAll = new EventEmitter<any[]>();
 	@Output() unselectAll = new EventEmitter<any[]>();
 	@Output() drop = new EventEmitter<CdkDragDrop<any>>();
-
+	@Output() loadMore = new EventEmitter<KanbanColumn>();
 	constructor() {
 		super();
 	}

@@ -77,7 +77,7 @@ export class SelectorsService {
 	}
 
 	loadMore() {
-		return this.listResult.fetchMore(this.items.length).subscribe();
+		return this.listResult.fetchMore().subscribe();
 	}
 
 	search(type: string, searchTxt: string) {

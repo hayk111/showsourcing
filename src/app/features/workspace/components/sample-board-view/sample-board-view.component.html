@@ -6,7 +6,8 @@
 	(drop)="updateStatusSample.emit($event)"
 	(multipleDrop)="updateStatusSamples.emit($event)"
 	(selectColumn)="onColumnSelected($event)"
-	(unselectColumn)="onColumnUnselected($event)">
+	(unselectColumn)="onColumnUnselected($event)"
+	(loadMore)="loadMore($event)">
 </kanban-app>
 
 <ng-template #card let-data="data">

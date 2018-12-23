@@ -32,4 +32,6 @@
     <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: data }">
     </ng-container>
   </kanban-item-app>
+
+  <div class="txtBtn flexCenter" (click)="loadMore.emit(col)" *ngIf="col.data.length < col.totalData">Load More</div>
 </main>

@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { Sample } from '~core/models';
+import { Sample, Product } from '~core/models';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
+import { Observable } from 'rxjs';
+import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 
 @Component({
 	selector: 'sample-board-view-app',

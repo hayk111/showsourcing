@@ -22,6 +22,7 @@ export class KanbanComponent extends TrackingComponent {
 	/** when the top checkbox is checked */
 	@Output() selectColumn = new EventEmitter<any[]>();
 	@Output() unselectColumn = new EventEmitter<any[]>();
+	@Output() loadMore = new EventEmitter<KanbanColumn>();
 
 
 	_width = 'inherit';

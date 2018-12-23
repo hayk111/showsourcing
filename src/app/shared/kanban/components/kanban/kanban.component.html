@@ -7,5 +7,6 @@
   [selection]="selection"
   (selectAll)="selectColumn.emit($event)"
   (unselectAll)="unselectColumn.emit($event)"
-  (drop)="onDrop($event)">
+  (drop)="onDrop($event)"
+  (loadMore)="loadMore.emit($event)">
 </kanban-col-app>

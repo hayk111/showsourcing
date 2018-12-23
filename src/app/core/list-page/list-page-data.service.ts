@@ -135,7 +135,7 @@ export class ListPageDataService
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
-		return this.listResult.fetchMore(this.items.length);
+		return this.listResult.fetchMore();
 	}
 
 	/** Sorts items based on sort.sortBy */

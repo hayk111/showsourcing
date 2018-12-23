@@ -4,12 +4,14 @@ import { CommonModalService } from '~common/modals';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { SampleService, UserService, SampleStatusService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { Sample, ERM } from '~core/models';
+import { Sample, ERM, Product, SampleStatus } from '~core/models';
 import { FilterType } from '~shared/filters';
 import { KanbanDropEvent, KanbanColumn } from '~shared/kanban/interfaces';
 import { Observable, combineLatest } from 'rxjs';
-import { first, map, switchMap, filter } from 'rxjs/operators';
+import { first, map, switchMap, filter, tap } from 'rxjs/operators';
 import { CloseEventType } from '~shared/dialog';
+import { ListQuery } from '~core/entity-services/_global/list-query.interface';
+import { makeColumns } from '~utils/kanban.utils';
 
 @Component({
 	selector: 'my-sample-page-app',
@@ -28,6 +30,8 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		FilterType.SUPPLIER,
 		FilterType.PRODUCT
 	];
+	private samplesMap = new Map<string, ListQuery<Sample>>();
+	private totalMap = new Map<string, Observable<number>>();
 
 	erm = ERM;
 
@@ -63,11 +67,24 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 				descending: false
 			}).pipe();
 
-		// this.columns$ = combineLatest(
-		// 	sampleStatus$,
-		// 	samples$,
-		// 	statusSampleToKanbanCol
-		// );
+		this.columns$ = sampleStatus$.pipe(
+			tap(statuses => this.getSamples(statuses)),
+			switchMap(statuses => makeColumns(statuses, this.samplesMap, this.totalMap)),
+		);
+	}
+
+	loadMore(col: KanbanColumn) {
+		this.samplesMap.get(col.id).fetchMore().subscribe();
+	}
+
+	private getSamples(statuses: SampleStatus[]) {
+		statuses.forEach(status => {
+			const query = `status.id == "${status.id}"`;
+			const prod$ = this.sampleSrv.getListQuery({ query, take: 8 });
+			const total$ = this.sampleSrv.queryCount(query);
+			this.samplesMap.set(status.id, prod$);
+			this.totalMap.set(status.id, total$);
+		});
 	}
 
 	// can be moved to abstract

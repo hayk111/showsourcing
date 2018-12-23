@@ -12,7 +12,8 @@
   (drop)="onUpdateProductStatus($event)"
   (multipleDrop)="onUpdateProductStatus($event)"
   (selectColumn)="onColumnSelected($event)"
-  (unselectColumn)="onColumnUnselected($event)">
+  (unselectColumn)="onColumnUnselected($event)"
+  (loadMore)="loadMore($event)">
 </kanban-app>
 
 <ng-template #card  let-data="data" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">

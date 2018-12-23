@@ -323,7 +323,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			shareReplay(1)
 		);
 
-
+		let itemsAmount = 0;
 		// add items$ wich are the actual items requested
 		const items$: Observable<T[]> = queryRef$.pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
@@ -332,17 +332,18 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			// extracting the result
 			map((r) => r.data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
+			tap(data => itemsAmount = data.length),
 			catchError((errors) => of(log.table(errors)))
 		);
 
 		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
 		// (will be reflected in items$)
-		const fetchMore = (skip: number): Observable<any> => {
+		const fetchMore = (): Observable<any> => {
 			const fetchMoreTitle = 'Selecting List Fetch More ' + this.typeName;
 			return queryRef$.pipe(
-				tap(_ => this.log(fetchMoreTitle, gql, queryName, clientName, { skip })),
+				tap(_ => this.log(fetchMoreTitle, gql, queryName, clientName, { skip: itemsAmount })),
 				map(queryRef => queryRef.fetchMore({
-					variables: { skip },
+					variables: { skip: itemsAmount },
 					updateQuery: (prev, { fetchMoreResult }) => {
 						if (!fetchMoreResult[queryName]) { return prev; }
 						this.logResult(fetchMoreTitle, queryName, fetchMoreResult.data);

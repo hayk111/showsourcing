@@ -93,7 +93,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 
 	loadMore() {
 		this.choices$.pipe(take(1)).pipe(
-			switchMap(choices => this.listResult.fetchMore(choices.length))
+			switchMap(choices => this.listResult.fetchMore())
 		);
 	}
 
