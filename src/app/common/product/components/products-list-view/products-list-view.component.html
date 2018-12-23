@@ -45,7 +45,7 @@ I added comment above each column to make it clearer -->
 			<div class="imgCtnr">
 				<img *ngIf="row.images?.length > 0" class="mini" [src]="row | image:'s'"/>
 			</div>
-			<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name || 'Unnamed' }}</a>
+			<a class="name" [routerLink]="['/product', 'details', row.id]">{{ row.name || 'Unnamed' }}</a>
 		</div>
 		<div class="preview">
 			<button class="small secondary-dark" (click)="previewClick.emit(row)">Preview</button>
