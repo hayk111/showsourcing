@@ -7,7 +7,6 @@ import { ListPageService } from '~core/list-page';
 import { Sample, ERM } from '~core/models';
 import { FilterType } from '~shared/filters';
 import { KanbanDropEvent, KanbanColumn } from '~shared/kanban/interfaces';
-import { statusSampleToKanbanCol } from '~utils/kanban.utils';
 import { Observable, combineLatest } from 'rxjs';
 import { first, map, switchMap, filter } from 'rxjs/operators';
 import { CloseEventType } from '~shared/dialog';
@@ -64,11 +63,11 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 				descending: false
 			}).pipe();
 
-		this.columns$ = combineLatest(
-			sampleStatus$,
-			samples$,
-			statusSampleToKanbanCol
-		);
+		// this.columns$ = combineLatest(
+		// 	sampleStatus$,
+		// 	samples$,
+		// 	statusSampleToKanbanCol
+		// );
 	}
 
 	// can be moved to abstract

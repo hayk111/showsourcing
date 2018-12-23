@@ -8,7 +8,6 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { AutoUnsub } from '~utils';
-import { statusSampleToKanbanCol } from '~utils/kanban.utils';
 
 @Component({
 	selector: 'sample-card-test-app',
@@ -70,11 +69,11 @@ export class SampleCardTestComponent extends AutoUnsub implements OnInit {
 				descending: false
 			}).pipe();
 
-		this.columns$ = combineLatest(
-			sampleStatus$,
-			samples$,
-			statusSampleToKanbanCol
-		);
+		// this.columns$ = combineLatest(
+		// 	sampleStatus$,
+		// 	samples$,
+		// 	statusSampleToKanbanCol
+		// );
 	}
 
 	updateSampleStatus(event: KanbanDropEvent) {

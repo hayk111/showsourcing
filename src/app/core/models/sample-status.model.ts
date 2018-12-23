@@ -1,13 +1,11 @@
-export class SampleStatus {
-	id?: string;
-	name?: string;
-	inWorkflow?: boolean;
-	category?: string;
-	step?: number;
+import { Status } from './status.model';
+
+export class SampleStatus extends Status {
+
 	__typename ?= 'SampleStatus';
 
 	constructor(config: SampleStatusConfig) {
-		Object.assign(this, config);
+		super(config);
 	}
 }
 

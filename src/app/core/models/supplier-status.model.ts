@@ -1,13 +1,9 @@
+import { Status } from './status.model';
 
-export class SupplierStatus {
-	id?: string;
-	name?: string;
-	inWorkflow?: boolean;
-	category?: string;
-	step?: number;
-
+export class SupplierStatus extends Status {
+	__typename ?= 'SupplierStatus';
 	constructor(config: SupplierStatus) {
-		Object.assign(this, config);
+		super(config);
 	}
 }
 

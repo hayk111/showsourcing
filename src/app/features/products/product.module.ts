@@ -11,7 +11,6 @@ import {
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
-	SupplierCardComponent,
 } from '~features/products/components';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
@@ -56,7 +55,6 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		SelectionActionsComponent,
 		ProductDetailsComponent,
 		ProjectCardComponent,
-		SupplierCardComponent,
 		ProductSummaryComponent,
 		SelectableImageComponent,
 		ProductNavigationComponent,

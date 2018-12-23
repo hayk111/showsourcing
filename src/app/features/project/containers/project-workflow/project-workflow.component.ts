@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, forkJoin, of, zip, merge } from 'rxjs';
 import { map, takeUntil, switchMap, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -11,7 +11,8 @@ import { ERM, Product, Project, ProductStatus } from '~models';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { statusProductToKanbanCol } from '~utils/kanban.utils';
+import { ListQuery } from '~core/entity-services/_global/list-query.interface';
+import { statusToKanbanCol, makeColumns } from '~utils/kanban.utils';
 
 @Component({
 	selector: 'project-workflow-app',
@@ -26,6 +27,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	project$: Observable<Project>;
 	columns$: Observable<KanbanColumn[]>;
 	project: Project;
+	private productsMap = new Map<string, ListQuery<Product>>();
+	private totalMap = new Map<string, Observable<number>>();
 
 	constructor(
 		private route: ActivatedRoute,
@@ -46,41 +49,46 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			key: ListPageKey.PROJECT_WORKFLOW,
 			entitySrv: this.productSrv,
-			searchedFields: ['name', 'supplier.name', 'category.name'],
-			selectParams: {
-				query: `projects.id == "${id}" AND status.category != "refused" AND status.category != "inspiration"`,
-				sortBy: 'category.name',
-				descending: true,
-				take: 0 // basically query all
-			},
 			entityMetadata: ERM.PRODUCT
-		});
+		}, false);
 
 		this.project$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(project => this.project = project);
 
-		const products$ = this.listSrv.items$.pipe(
-			// we lose the order when the product is updated
-			// because apollo has no idea of how to reorder items unless we do
-			// a refetch, but we re gonna do it on the front end
-			map(products => products.sort(
-				(a, b) => +(new Date(b.lastUpdatedDate)) - (+new Date(a.lastUpdatedDate)))
-			)
-		);
+		// const products$ = this..items$.pipe(
+		// 	// we lose the order when the product is updated
+		// 	// because apollo has no idea of how to reorder items unless we do
+		// 	// a refetch, but we re gonna do it on the front end
+		// 	map(products => products.sort(
+		// 		(a, b) => +(new Date(b.lastUpdatedDate)) - (+new Date(a.lastUpdatedDate)))
+		// 	)
+		// );
 
 		const productStatuses$ = this.productStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused" AND category != "inspiration"',
 				sortBy: 'step',
 				descending: false,
-			}).pipe();
+			}).pipe(
+				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses])
+			);
 
-		this.columns$ = combineLatest(
-			productStatuses$,
-			products$,
-			statusProductToKanbanCol
+		this.columns$ = productStatuses$.pipe(
+			tap(statuses => this.getProducts(statuses)),
+			switchMap(statuses => makeColumns(statuses, this.productsMap, this.totalMap)),
 		);
+	}
+
+
+	private getProducts(statuses: ProductStatus[]) {
+		statuses.forEach(status => {
+			const query = `projects.id == "${this.project.id}" AND status.id == "${status.id}"`;
+			const prod$ = this.productSrv.getListQuery({ query });
+			const total$ = this.productSrv.queryCount(query);
+			this.productsMap.set(status.id, prod$);
+			this.totalMap.set(status.id, total$);
+		});
 	}
 
 	updateProductStatus(event: KanbanDropEvent) {
@@ -114,7 +122,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
 		this.featureSrv.openFindProductDlg(this.project).pipe(
-			switchMap(_ => this.listSrv.refetch())
+			zip(_ => this.listSrv.refetch())
 		).subscribe();
 	}
 

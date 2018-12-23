@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
@@ -8,7 +8,6 @@ import { ProductService } from '~entity-services';
 import { ERM, Product, ProductVote } from '~models';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { statusProductToKanbanCol } from '~utils/kanban.utils';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -65,11 +64,11 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			})
 			.pipe();
 
-		this.columns$ = combineLatest(
-			productStatuses$,
-			products$,
-			statusProductToKanbanCol
-		);
+		// this.columns$ = combineLatest(
+		// 	productStatuses$,
+		// 	products$,
+		// 	statusProductToKanbanCol
+		// );
 
 		this.selected$ = this.listSrv.selection$;
 	}

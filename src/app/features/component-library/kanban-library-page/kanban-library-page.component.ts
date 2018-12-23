@@ -1,12 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ProductStatusService, ProductService } from '~core/entity-services';
-import { ProductQueries } from '~core/entity-services/product/product.queries';
-import { map } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { statusProductToKanbanCol } from '~utils/kanban.utils';
-import { KanbanColumn } from '~shared/kanban/interfaces';
-import { ListPageService, ListPageKey } from '~core/list-page';
+import { map } from 'rxjs/operators';
+import { ProductService, ProductStatusService } from '~core/entity-services';
+import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~core/models';
+import { KanbanColumn } from '~shared/kanban/interfaces';
 
 @Component({
 	selector: 'kanban-library-page-app',
@@ -53,11 +51,11 @@ export class KanbanLibraryPageComponent implements OnInit {
 				descending: false
 			}).pipe();
 
-		this.columns$ = combineLatest(
-			productStatuses$,
-			products$,
-			statusProductToKanbanCol
-		);
+		// this.columns$ = combineLatest(
+		// 	productStatuses$,
+		// 	products$,
+		// 	statusProductToKanbanCol
+		// );
 	}
 
 	updateProductStatus(product: Product) {
