@@ -16,7 +16,7 @@ export class SampleBoardViewComponent extends ListViewComponent<Sample> implemen
 	@Input() columns: KanbanColumn[];
 	@Output() updateStatusSample = new EventEmitter<KanbanDropEvent>();
 	@Output() updateStatusSamples = new EventEmitter<{ to: any, items: any[] }>();
-
+	@Output() loadMore = new EventEmitter<KanbanColumn>();
 	constructor() { super(); }
 
 	ngOnInit() {
