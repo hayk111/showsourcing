@@ -2,7 +2,7 @@
 	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
 	<div subinfo class="subinfo-container">
 		<div class="tag">Supplier . {{' '}}</div>
-		<div class="adress">Guangzhou, China </div>
+		<div class="adress">{{supplier.address}} {{(supplier.address && supplier.country) ? ', ': ''}}{{supplier.country}} </div>
 	</div>
 	<div action class="action-list">
 		<button class="rounded like">
