@@ -11,27 +11,9 @@
 
 		<!-- right side -->
 		<div class="right">
-			<!-- editable infos -->
-			<supplier-infos-app [supplier]="supplier" (update)="patch($event)">
-			</supplier-infos-app>
-
-			<!-- contacts -->
-			<supplier-contact-card-app
-				[contacts]="contacts$ | async"
-				(newContact)="openContactDlg()"
-				(openContact)="openContactDlg($event)"
-				(deleteContact)="deleteContact($event)"
-			>
-			</supplier-contact-card-app>
-
-			<files-card-app
-				[files]="supplier.attachments"
-				[linkedItem]="supplier"
-				(fileRemove)="onFileRemoved($event)"
-			>
-			</files-card-app>
+			<supplier-preview-app [supplier]="supplier" [canClose]="false" [isRelative]="true">
+			</supplier-preview-app>
 		</div>
 	</div>
 
 </ng-container>
-
