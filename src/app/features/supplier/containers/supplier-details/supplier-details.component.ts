@@ -36,7 +36,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	tabs: TabModel[] = [
 		{
 			title: 'Activity',
-			link: 'tasks'
+			link: 'activity'
 		},
 		{
 			title: 'Products',
