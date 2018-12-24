@@ -95,11 +95,12 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		votes.forEach((v, k) => this.listSrv.update({ id: k, votes: v }));
 	}
 
-	onUpdateProductStatus({ target, droppedElement }) {
+	onUpdateProductStatus({ target, droppedElement, from }) {
 		if (droppedElement) {
 			droppedElement.forEach(element => {
 				this.productSrv
 					.update({ id: element.id, status: { id: target.id } })
+					.pipe(switchMap(_ => this.productsMap.get(from).refetch({})))
 					.subscribe();
 			});
 			this.listSrv.unselectAll();
