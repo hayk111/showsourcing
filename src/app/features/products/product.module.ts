@@ -12,7 +12,8 @@ import {
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	ProductCardComponent,
-	ProductListComponent
+	ProductListComponent,
+	ProductInformationComponent
 } from '~features/products/components';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
@@ -72,6 +73,7 @@ import { CommentCommonModule } from '~common/comment/comment-common.module';
 		ProductListComponent,
 		ProductSamplesComponent,
 		ProductResumeComponent,
+		ProductInformationComponent,
 		ProductShippingComponent
 	],
 	entryComponents: [

@@ -2,18 +2,14 @@
 
 	<div class="pd-ms">
 
-		<supplier-images-app [supplier]="supplier" [products]="supplier.products"></supplier-images-app>
+		<supplier-images-app [supplier]="supplier"></supplier-images-app>
 		<div class="general-info block">
 			<div class="icon"></div>
 			<div class="supplier-name">Fuzhou Camera Factory</div>
 			<div>
 
 				<!-- Badge Location -->
-				<preview-badge-app [badge]="erm.LOCATION" [value]="supplier?.country" (update)="update($event, 'category')">
-				</preview-badge-app>
-
-				<!-- Badge category -->
-				<preview-badge-app [badge]="erm.CATEGORY" [value]="supplier?.category" (update)="update($event, 'category')">
+				<preview-badge-app [badge]="erm.LOCATION" [value]="supplier?.country" (update)="update.emit($event)">
 				</preview-badge-app>
 			</div>
 		</div>
@@ -21,7 +17,7 @@
 			<div class="title">Description</div>
 			<input-description-app
 			[description]="supplier?.description"
-			(update)="update($event, 'description')">
+			(update)="update.emit($event)">
 		</input-description-app>
 		</div>
 		<div class="tag-container block">
