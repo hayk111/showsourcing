@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product, Supplier, EntityMetadata } from '~models';
+import { Product, Supplier, EntityMetadata, Comment } from '~models';
 import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -13,7 +13,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class ActivityListComponent extends TrackingComponent implements OnInit {
 
 	@Input() entity: Product | Supplier;
-	@Input() activities: GetStreamActivity[];
+	@Input() activities: Comment[];
 	@Input() typeEntity: EntityMetadata;
 
 	constructor() {
