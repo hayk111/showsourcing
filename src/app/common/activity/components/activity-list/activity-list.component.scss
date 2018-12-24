@@ -5,28 +5,29 @@
 
 $circle-size: 32px;
 
-.container {
-	padding-left: $circle-size;
-
-	.left {
-		padding-top: var(--spacing-xl);
-		padding-bottom: var(--spacing-xl);
-
-		.circle {
-			width: $circle-size;
-			height: $circle-size;
-			background: var(--color-secondary);
-			border-radius: 50%;
-		}
-
-		.border-middle {
-			border-right: 2px dashed var(--color-secondary);
-			margin-right: ($circle-size/2)-1;
-			height: 100%;
-		}
+.add-new-comment {
+	border-bottom: 1px solid var(--color-divider);
+	.title {
+		font-size: 16px;
+		font-weight: 600;
+		color: var(--color-txt-strong);
+	
 	}
 
-	.right {
-		width: 100%;
+	.text-input-new-comment {
+		margin-top: var(--spacing-ms);
+		textarea {
+			resize: none;
+		 }
 	}
+
+	.button-container {
+		margin: var(--spacing-ms) 0;
+		text-align: right;
+	}
+	
+}
+.add-new-comment,
+.activity-container {
+	margin: var(--spacing-ml) var(--spacing-l);
 }
