@@ -21,6 +21,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	@Output() close = new EventEmitter<null>();
+	@Input() canClose = true;
+	@Input() isRelative = false;
 
 	supplier$: Observable<Supplier>;
 	private _supplier: Supplier;

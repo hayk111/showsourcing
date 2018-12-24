@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
 	selector: 'preview-banner-app',
@@ -9,6 +9,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from
 export class PreviewBannerComponent implements OnInit {
 
 	@Output() closed = new EventEmitter<null>();
+	@Input() canClose = true;
 
 	constructor() { }
 
