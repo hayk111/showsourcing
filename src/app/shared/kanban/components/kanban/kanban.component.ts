@@ -38,18 +38,19 @@ export class KanbanComponent extends TrackingComponent {
 		if (event.previousContainer === event.container) {
 			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 		} else {
+			const currentIndex = 0; // event.currentIndex we use 0 instead to have it at the top
 			transferArrayItem(
 				event.previousContainer.data,
 				event.container.data,
 				event.previousIndex,
-				event.currentIndex
+				currentIndex
 			);
+			this.drop.emit({
+				item: event.container.data[currentIndex],
+				from: event.previousContainer.id,
+				to: event.container.id
+			});
 		}
-		this.drop.emit({
-			item: event.container.data[event.currentIndex],
-			from: event.previousContainer.id,
-			to: event.container.id
-		});
 	}
 
 	onMultipleDrop(event) {

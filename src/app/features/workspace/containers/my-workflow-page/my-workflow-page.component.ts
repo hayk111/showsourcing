@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
@@ -10,6 +10,7 @@ import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface'
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { makeColumns } from '~utils/kanban.utils';
+import { KanbanDropEvent } from '~shared/kanban/interfaces';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -24,7 +25,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 	private productsMap = new Map<string, ListQuery<Product>>();
-	private totalMap = new Map<string, Observable<number>>();
+	private totalMap = new Map<string, ListQuery<number>>();
 
 	constructor(
 		private productSrv: ProductService,
@@ -67,7 +68,18 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		statuses.forEach(status => {
 			const query = `status.id == "${status.id}"`;
 			const prod$ = this.productSrv.getListQuery({ query, take: 6 });
-			const total$ = this.productSrv.queryCount(query);
+			const total$ = this.productSrv.customQuery({
+				query, take: 8, sortBy: 'lastUpdatedDate'
+			}, `query productsCount($query: String) {
+				productsCount(query: $query)
+			}`);
+			// unfortunately we have to filter a second time on the front end
+			// because optimistic UI doesn't take the query into account
+			prod$.items$ = prod$.items$.pipe(
+				map(products => products
+					.filter(prod => prod.status.id === status.id)
+				)
+			);
 			this.productsMap.set(status.id, prod$);
 			this.totalMap.set(status.id, total$);
 		});
@@ -95,16 +107,24 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		votes.forEach((v, k) => this.listSrv.update({ id: k, votes: v }));
 	}
 
-	onUpdateProductStatus({ target, droppedElement, from }) {
-		if (droppedElement) {
-			droppedElement.forEach(element => {
-				this.productSrv
-					.update({ id: element.id, status: { id: target.id } })
-					.pipe(switchMap(_ => this.productsMap.get(from).refetch({})))
-					.subscribe();
-			});
-			this.listSrv.unselectAll();
+	onUpdateProductStatus(event: KanbanDropEvent) {
+		// if dropped in the same column do nothing
+		if (event.to === event.from) {
+			return;
 		}
+		// we update on the server
+		this.productSrv.update({
+			id: event.item.id,
+			status: new ProductStatus({ id: event.to })
+		}).pipe(
+			// refetch so we get the info..
+			switchMap(_ => forkJoin(
+				this.productsMap.get(event.from).refetch({}),
+				this.productsMap.get(event.to).refetch({}),
+				this.totalMap.get(event.to).refetch({}),
+				this.totalMap.get(event.from).refetch({})
+			))
+		).subscribe();
 	}
 
 	onColumnSelected(products: Product[]) {

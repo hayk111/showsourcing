@@ -26,7 +26,6 @@ import { ProductsCardViewComponent } from '~common/product';
 export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	project$: Observable<Project>;
 	columns$: Observable<KanbanColumn[]>;
-	columns: KanbanColumn;
 	project: Project;
 	private productsMap = new Map<string, ListQuery<Product>>();
 	private totalMap = new Map<string, ListQuery<number>>();
@@ -63,14 +62,17 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 				sortBy: 'step',
 				descending: false,
 			}).pipe(
-				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses])
+				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses]),
+				takeUntil(this._destroy$)
 			);
 
 		this.columns$ = productStatuses$.pipe(
 			tap(statuses => this.getProducts(statuses)),
 			mergeMap(statuses => makeColumns(statuses, this.productsMap, this.totalMap)),
 		);
-		this.columns$.pipe(takeUntil(this._))
+
+
+
 	}
 
 	loadMore(col: KanbanColumn) {
@@ -103,10 +105,12 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		if (event.to === event.from) {
 			return;
 		}
+		// we update on the server
 		this.productSrv.update({
 			id: event.item.id,
 			status: new ProductStatus({ id: event.to })
 		}).pipe(
+			// refetch so we get the info..
 			switchMap(_ => forkJoin(
 				this.productsMap.get(event.from).refetch({}),
 				this.productsMap.get(event.to).refetch({}),
