@@ -20,6 +20,7 @@ info-badge-app, status-selector-app {
 	user-picture-app,
 	status-selector-app,
 	button {
+		display: inline-block;
 		margin-left: var(--spacing-ms);
 	}
 	.rounded {
