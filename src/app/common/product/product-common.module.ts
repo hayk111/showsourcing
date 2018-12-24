@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ListModule } from '~shared/list/list.module';
-import { PriceModule } from '~shared/price';
+import { CommentCommonModule } from '~common/comment';
 import { SharedModule } from '~shared/shared.module';
 
 import {
 	MoqComponent,
 	ProductCardComponent,
+	ProductGridCard2Component,
 	ProductGridCardComponent,
 	ProductsCardViewComponent,
 	ProductsListViewComponent,
@@ -15,7 +15,6 @@ import {
 	StatsIconsComponent,
 } from './components';
 import { ProductPreviewComponent } from './containers';
-import { CommentCommonModule } from '~common/comment';
 
 
 
@@ -34,7 +33,8 @@ import { CommentCommonModule } from '~common/comment';
 		ProductSortingMenuComponent,
 		ProductCardComponent,
 		MoqComponent,
-		StatsIconsComponent
+		StatsIconsComponent,
+		ProductGridCard2Component
 	],
 	exports: [
 		ProductPreviewComponent,

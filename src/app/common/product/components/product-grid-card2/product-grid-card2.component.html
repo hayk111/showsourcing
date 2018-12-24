@@ -1,0 +1,13 @@
+<div class="card-container">
+	<img-app
+		[image]="product?.images">
+	</img-app>
+
+	<!-- Content -->
+	<h2 class="title"></h2>
+	<div class="description"></div>
+	<div class="flex">
+		<icon-app class="circle" name="circle" fontSet="fa"></icon-app>
+		{{ product?.status?.step }} {{ product?.status?.name | const:'status' }}
+	</div>
+</div>
