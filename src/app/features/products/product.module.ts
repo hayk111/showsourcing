@@ -11,28 +11,31 @@ import {
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
-	ProductInformationComponent,
+	SupplierCardComponent,
+	ProductCardComponent,
+	ProductListComponent
 } from '~features/products/components';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import {
 	ProductDetailsComponent,
+	ProductGeneralInfoComponent,
 	ProductQuotationComponent,
 	ProductSamplesComponent,
 	ProductsPageComponent,
-	ProductResumeComponent,
-	ProductTasksComponent,
-	ProductShippingComponent,
 } from '~features/products/containers';
 import { routes } from '~features/products/routes';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
 import { SharedModule } from '~shared/shared.module';
-import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
-import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
+
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
-import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
+import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
+import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
+import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
+import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
+
 
 @NgModule({
 	imports: [
@@ -54,6 +57,8 @@ import { ProductTopPanelComponent } from './components/product-top-panel/product
 		SelectionActionsComponent,
 		ProductDetailsComponent,
 		ProjectCardComponent,
+		SupplierCardComponent,
+		ProductGeneralInfoComponent,
 		ProductSummaryComponent,
 		SelectableImageComponent,
 		ProductNavigationComponent,
@@ -63,10 +68,9 @@ import { ProductTopPanelComponent } from './components/product-top-panel/product
 		VoteDetailsDialogComponent,
 		ProductTasksComponent,
 		ProductTopPanelComponent,
-		ProductSamplesComponent,
-		ProductResumeComponent,
-		ProductShippingComponent,
-		ProductInformationComponent
+		ProductCardComponent,
+		ProductListComponent,
+		ProductSamplesComponent
 	],
 	entryComponents: [
 		VoteDetailsDialogComponent
