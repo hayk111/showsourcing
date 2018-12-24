@@ -24,9 +24,9 @@ info-badge-app, status-selector-app {
 		margin-left: var(--spacing-ms);
 	}
 	.rounded {
-		min-width: 32px;
-    border-radius: 16px;
-    height: 32px;
+		min-width: var(--spacing-xl);
+    border-radius: var(--spacing-m);
+    height: var(--spacing-xl);
     font-size: var(--font-size-s);
     padding: 0;
 	}
