@@ -4,7 +4,7 @@
 	[value]="(product$ | async)?.projects"
 	[multiple]="true"
 	(update)="update($event, 'projects')">
-	<div>click me pls</div>
+	<div>click me pls, Projects</div>
 </selector2-app>
 <!--  if this is uncommented and since we are not using virtual scroll, on selector2 -> searchTxt = 'light'
 			so we just load part of it -->
@@ -12,11 +12,11 @@
 	type="supplier"
 	[canCreate]="true"
 	(update)="update($event, 'supplier')">
-	No, click me!
+	No, click me! Supplier
 </selector2-app>
 <selector2-app
 	type="currency">
-	Im best, do it
+	Im best, do itm the currency
 </selector2-app>
 <selector2-app
 	type="user">
@@ -31,10 +31,10 @@
 	I got the sTypes
 </selector2-app>
 <selector2-app
-	type="widthUnit">
-	I got the sTypes
+	type="wieghtUnit">
+	I got the Weight Units
 </selector2-app>
 <selector2-app
 	type="businessType">
-	I got the sTypes
+	I got the Business types
 </selector2-app>

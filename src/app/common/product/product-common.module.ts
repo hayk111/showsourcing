@@ -44,7 +44,8 @@ import { ProductPreviewComponent } from './containers';
 		ProductSortingMenuComponent,
 		ProductCardComponent,
 		MoqComponent,
-		StatsIconsComponent
+		StatsIconsComponent,
+		ProductGridCard2Component
 	],
 	entryComponents: [],
 	providers: []
