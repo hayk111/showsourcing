@@ -20,6 +20,10 @@ card-app {
 			height: var(--spacing-xl);
 			width: var(--spacing-xl);
 			margin-right: var(--spacing-ms);
+
+			icon-app {
+				font-size: var(--font-size-xxl);
+			}
 		}
 
 		h2 {

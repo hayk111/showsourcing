@@ -17,6 +17,7 @@ card-app {
 		margin-bottom: var(--spacing-ms);
 
 		icon-app[name="folder-blue"] {
+			font-size: var(--font-size-xxl);
 			cursor: default;
 		}
 
@@ -79,6 +80,7 @@ card-app {
 	card-footer-app {
 		margin-right: var(--spacing-ms);
 		margin-left: var(--spacing-ms);
+		padding-bottom: var(--spacing-l);
 
 		button {
 			min-width: 120px;
