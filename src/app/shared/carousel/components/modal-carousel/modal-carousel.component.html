@@ -1,5 +1,5 @@
 <div class="modal" (mousedown)="close.emit($event)">
-	<div class="img-ctnr">
+	<div class="img-ctnr" [ngStyle]="{'transform': getRotation(getImg())}">
 		<img-app [image]="getImg()" [size]="'xl'" class="loading" objectFit="contain"></img-app>
 	</div>
 	<div class="move-btn back flexCenter pointer"

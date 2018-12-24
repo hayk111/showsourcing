@@ -32,6 +32,12 @@ export class ModalCarouselComponent {
 		event.stopPropagation();
 	}
 
+	getRotation(img) {
+		if (!img || !img.orientation)
+			return 'none';
+		else
+			return 'rotate(' + (img.orientation * 90) % 360 + 'deg)';
+	}
 
 	getImg() {
 		return this.images ? this.images[this.selectedIndex] : null;
