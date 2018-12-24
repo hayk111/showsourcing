@@ -1,22 +1,16 @@
 <ng-container *ngIf="supplier$ | async as supplier">
 
-	<!-- description -->
-	<supplier-description-app
-	(update)="patch($event)"
-	[supplier]="supplier">
-</supplier-description-app>
 
-<!-- images-->
-<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
-
-<!-- activity -->
-<!-- TODO Uncomment when activity does something usefull -->
-<!-- <ng-container *ngIf="(feedResult?.feed$ | async)?.length > 0">
-		<flat-feed-list-app
-		[entity]="supplier"
-		[activities]="feedResult.feed$ | async"
-		[typeEntity]="typeEntity">
-	</flat-feed-list-app>
-</ng-container> -->
+<div class="activity-container">
+	<div class="add-new-comment">
+		<div class="title">Add Comment</div>
+		<div class="text-input-new-comment">
+			<textarea rows="4" placeholder="Write your comment here" ></textarea>
+		</div>
+		<div class="button-container">
+			<button>Send</button>
+		</div>
+	</div>
+</div>
 
 </ng-container>
