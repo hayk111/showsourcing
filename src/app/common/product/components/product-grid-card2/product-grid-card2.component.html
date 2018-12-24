@@ -3,7 +3,18 @@
 	size="m">
 </img-app>
 
-<!-- Content -->
+<!-- Floating Elements -->
+
+<checkbox-app
+	class="overlay"
+	[checked]="selected"
+	(check)="select.emit()"
+	(uncheck)="unselect.emit()">
+</checkbox-app>
+
+<button class="preview secondary overlay" (click)="preview.emit()">Preview</button>
+
+<!-- Content (Non Floating) -->
 <div class="content">
 	<div class="title"> {{ product?.name || 'Unnamed product'}} </div>
 	<div class="description"> {{ product?.category?.name }}</div>

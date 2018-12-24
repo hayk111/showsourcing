@@ -2,6 +2,35 @@
 	display: block;
 	background: white;
 	width: 170px;
+	position: relative;
+
+	&:hover {
+		.overlay {
+      opacity: 1;
+		}
+
+    img-app {
+      -webkit-filter: blur(2px);
+      filter: blur(2px);
+    }
+	}
+}
+
+.overlay {
+	opacity: 0;
+	position: absolute;
+}
+
+button.preview {
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	top: 30%;
+}
+
+checkbox-app {
+	top: var(--spacing-ms);
+	right: var(--spacing-xs);
 }
 
 img-app {
