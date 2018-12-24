@@ -1,4 +1,7 @@
 <div class="flex container">
-	
-	
+	<div class="activity-container" *ngFor="let activity of activities; trackBy: trackByFn">
+		<activity-card-app [activity]="activity" [entity]="entity" [typeEntity]="typeEntity">
+
+		</activity-card-app>
+	</div>
 </div>
