@@ -11,7 +11,6 @@ import {
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
-	SupplierCardComponent,
 	ProductCardComponent,
 	ProductListComponent
 } from '~features/products/components';
@@ -20,13 +19,12 @@ import { ProductSummaryComponent } from '~features/products/components/product-s
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import {
 	ProductDetailsComponent,
-	ProductGeneralInfoComponent,
 	ProductQuotationComponent,
 	ProductSamplesComponent,
 	ProductsPageComponent,
 	ProductResumeComponent,
-	ProductTasksComponent,
 	ProductShippingComponent,
+	ProductTasksComponent
 } from '~features/products/containers';
 import { routes } from '~features/products/routes';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
@@ -37,7 +35,7 @@ import { ProductCarouselComponent } from './components/product-carousel/product-
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
-import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
+import { CommentCommonModule } from '~common/comment/comment-common.module';
 
 
 @NgModule({
@@ -50,6 +48,7 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		ProductCommonModule,
 		TaskCommonModule,
 		QuoteCommonModule,
+		CommentCommonModule,
 		SampleCommonModule
 	],
 	declarations: [
@@ -60,8 +59,6 @@ import { ProductTasksComponent } from './containers/product-tasks/product-tasks.
 		SelectionActionsComponent,
 		ProductDetailsComponent,
 		ProjectCardComponent,
-		SupplierCardComponent,
-		ProductGeneralInfoComponent,
 		ProductSummaryComponent,
 		SelectableImageComponent,
 		ProductNavigationComponent,
