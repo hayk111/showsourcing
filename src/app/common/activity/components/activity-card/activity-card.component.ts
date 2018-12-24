@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { Product, Supplier, EntityMetadata, User } from '~models';
+import { Product, Supplier, EntityMetadata, User, Comment } from '~models';
 import { InputDirective } from '~shared/inputs';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -16,7 +16,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ActivityCardComponent extends AutoUnsub implements OnInit {
 
-	@Input() activity: GetStreamActivity;
+	@Input() activity: Comment;
 	@Input() entity: Product | Supplier;
 	@Input() typeEntity: EntityMetadata;
 	@Output() createComment = new EventEmitter<any>();
@@ -29,36 +29,36 @@ export class ActivityCardComponent extends AutoUnsub implements OnInit {
 	constructor(private userSrv: UserService) { super(); }
 
 	ngOnInit() {
-		this.actor$ = this.userSrv.queryOne(this.activity.actor);
+		// this.actor$ = this.userSrv.queryOne(this.activity.actor);
 	}
 
 	get title() {
 		let title = '';
-		switch (this.activity.verb) {
-			// Product
-			case 'create_comment':
-				title = 'has commented';
-				break;
-			case 'create_product':
-				title = 'created the product';
-				break;
-			case 'vote_product':
-				title = 'has voted';
-				break;
-			case 'update_product':
-				title = 'updated the product';
-				break;
-			// Supplier
-			case 'create_supplier':
-				title = 'created the supplier';
-				break;
-			case 'update_supplier':
-				title = 'updated the supplier';
-				break;
-			default:
-				title = 'has made an update';
-				break;
-		}
+		// switch (this.activity.verb) {
+		// 	// Product
+		// 	case 'create_comment':
+		// 		title = 'has commented';
+		// 		break;
+		// 	case 'create_product':
+		// 		title = 'created the product';
+		// 		break;
+		// 	case 'vote_product':
+		// 		title = 'has voted';
+		// 		break;
+		// 	case 'update_product':
+		// 		title = 'updated the product';
+		// 		break;
+		// 	// Supplier
+		// 	case 'create_supplier':
+		// 		title = 'created the supplier';
+		// 		break;
+		// 	case 'update_supplier':
+		// 		title = 'updated the supplier';
+		// 		break;
+		// 	default:
+		// 		title = 'has made an update';
+		// 		break;
+		// }
 		return title;
 	}
 
@@ -73,9 +73,3 @@ export class ActivityCardComponent extends AutoUnsub implements OnInit {
 	}
 
 }
-
-/*
-Using in :
-- flat-feed-list
-
-*/

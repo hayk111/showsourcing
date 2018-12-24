@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Supplier } from '~models';
+import { Supplier, ERM } from '~models';
 import { CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -16,6 +16,7 @@ export class SupplierInfosComponent extends AutoUnsub {
 	@Output() update = new EventEmitter<Supplier>();
 	textMode = true;
 	form: FormGroup;
+	erm = ERM;
 
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' },

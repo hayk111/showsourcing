@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Supplier } from '~models/supplier.model';
 import { Contact } from '~models/contact.model';
-import { Product, Attachment } from '~models';
+import { Product, Attachment, ERM, Comment } from '~models';
 import { AutoUnsub } from '~utils';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { DialogService } from '~shared/dialog/services';
@@ -11,7 +11,7 @@ import { takeUntil, map, switchMap, tap } from 'rxjs/operators';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { ActivityService } from '~common/activity/services/activity.service';
 import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
-
+import { GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { TabModel } from '~shared/navbar';
 @Component({
 	selector: 'supplier-activity-app',
@@ -29,7 +29,9 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
 	feedResult: ActivityFeed;
+	erm = ERM;
 
+	activities: Comment[] = [];
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: SupplierFeatureService,
@@ -50,7 +52,15 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		// getting supplier
 		this.supplier$ = id$.pipe(
 			switchMap(id => this.featureSrv.selectOne(id)),
-			tap(supplier => this.supplier = supplier)
+			tap(supplier => {
+				this.activities = [{
+					id: 'string',
+					text: 'qsdqsdqsd',
+					creationDate: (new Date()).toString(),
+					createdBy: supplier.createdBy,
+				}];
+				return this.supplier = supplier;
+			})
 		);
 
 		// getting his products
