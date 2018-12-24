@@ -1,5 +1,5 @@
 <ng-content></ng-content>
 <!-- close -->
-<div class="close flexCenter pointer" (click)="closed.emit()">
+<div class="close flexCenter pointer" *ngIf="canClose" (click)="closed.emit()">
 	<icon-app name="close"></icon-app>
 </div>
