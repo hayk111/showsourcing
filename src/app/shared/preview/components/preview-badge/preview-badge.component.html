@@ -11,7 +11,7 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app name="product" backgroundColor="primary"></icon-app>
-				<span>{{ value || '-' }}</span>
+				<span>{{ value || 'Set product' }}</span>
 			</div>
 		</selector2-app>
 	</div>
@@ -27,7 +27,7 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app name="supplier" backgroundColor="supplier"></icon-app>
-				<span> {{ value || '-' }}</span>
+				<span> {{ value || 'Set supplier' }}</span>
 			</div>
 		</selector2-app>
 	</div>
@@ -42,7 +42,7 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app name="supplier" backgroundColor="supplier"></icon-app>
-				<span> {{ value || '-'}}</span>
+				<span> {{ value || 'Set supplier type'}}</span>
 			</div>
 		</selector2-app>
 	</div>
@@ -57,7 +57,7 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app class="noPointer" name="location" backgroundColor="secondary-dark"></icon-app>
-				<span> {{ value || '-'}}</span>
+				<span> {{ value || 'Set location'}}</span>
 			</div>
 		</selector2-app>
 	</div>
@@ -80,8 +80,8 @@
 						<span *ngFor="let category of value"> {{ category?.name }}  </span>
 					</div>
 					<ng-template #noArray>
-							<span *ngIf="!value"> - </span>
-							<span *ngIf="value"> {{ value?.name }} </span>
+							<span *ngIf="!value?.name"> {{ multiple ? 'Set categories' : 'Set Category'}} </span>
+							<span *ngIf="value?.name"> {{ value?.name }} </span>
 					</ng-template>
 				</div>
 			</div>

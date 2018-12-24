@@ -48,7 +48,7 @@
 				[value]="product?.tags"
 				(update)="update($event, 'tags')">
 				<info-badge-app *ngIf="!product?.tags?.length" class="pointer" type="tag">
-					Add tag
+					Add tags
 					<icon-app name="add"></icon-app>
 				</info-badge-app>
 				<info-badge-app *ngFor="let tag of product?.tags; trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
