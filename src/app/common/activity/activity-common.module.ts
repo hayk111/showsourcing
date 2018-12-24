@@ -26,7 +26,7 @@ import {
 
 import { ActivityCardComponent } from '~common/activity/components/activity-card/activity-card.component';
 import { ActivityListComponent } from '~common/activity/components/activity-list/activity-list.component';
-
+import { TimeAgoPipe } from './time.pipe';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -45,7 +45,8 @@ import { ActivityListComponent } from '~common/activity/components/activity-list
 		FlatFeedListComponent,
 		ActivityCardComponent,
 		ActivityListComponent,
-		FlatFeedCardComponent
+		FlatFeedCardComponent,
+		TimeAgoPipe
 	],
 	exports: [
 		OneProductActivityCardComponent,
@@ -54,7 +55,9 @@ import { ActivityListComponent } from '~common/activity/components/activity-list
 		GroupedFeedListComponent,
 		ActivityUserComponent,
 		FlatFeedListComponent,
-		FlatFeedCardComponent
+		ActivityListComponent,
+		FlatFeedCardComponent,
+		TimeAgoPipe
 	]
 })
 export class ActivityCommonModule { }
