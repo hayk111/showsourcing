@@ -19,6 +19,12 @@
 					(imageClick)="carousel.openModal($event)"></image-previewer-2-app>
 			</card-app>
 
+			<!-- Product information -->
+			<product-information-app
+				[product]="product"
+				(update)="updateProduct($event)">
+			</product-information-app>
+
 			<!-- team rating here -->
 			<product-team-rating-app
 				[product]="product"

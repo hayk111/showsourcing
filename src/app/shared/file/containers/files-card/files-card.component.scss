@@ -13,6 +13,7 @@
 
 	icon-app[name="file"] {
 		cursor: default;
+		font-size: var(--font-size-xxl);
 	}
 
 	h2 {
@@ -78,4 +79,8 @@ list-item-app {
 .hidden {
 	width: 0;
 	visibility: hidden;
+}
+
+card-footer-app {
+		padding-bottom: var(--spacing-l);
 }

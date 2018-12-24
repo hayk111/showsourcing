@@ -11,6 +11,7 @@ import {
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
+	ProductInformationComponent,
 } from '~features/products/components';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
@@ -27,13 +28,11 @@ import {
 import { routes } from '~features/products/routes';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
 import { SharedModule } from '~shared/shared.module';
-
-import { ProductActivityComponent } from './components/product-activity/product-activity.component';
-import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
-import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
+import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
+import { ProductActivityComponent } from './components/product-activity/product-activity.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
-
+import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 
 @NgModule({
 	imports: [
@@ -66,7 +65,8 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		ProductTopPanelComponent,
 		ProductSamplesComponent,
 		ProductResumeComponent,
-		ProductShippingComponent
+		ProductShippingComponent,
+		ProductInformationComponent
 	],
 	entryComponents: [
 		VoteDetailsDialogComponent
