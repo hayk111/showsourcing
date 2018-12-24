@@ -1,13 +1,13 @@
 <div class="card-container">
 	<div class="avatar-container">
-		<user-picture-app [user]="supplier.createdBy" [image]="supplier.createdBy?.avatar" [border]="true" size="28">
+		<user-picture-app [user]="activity.createdBy" [image]="activity.createdBy?.avatar" [border]="true" size="27">
 		</user-picture-app>
 	</div>
 	<div class="body-container">
 		<div class="header">
 			<div class="user-name">{{activity.createdBy.firstName}} {{activity.createdBy.lastName}}</div>
-			<div class="time">{{activity.creationDate}}</div>
+			<div class="time">{{activity.creationDate | timeAgo}}</div>
 		</div>
-		<div class="text">Successful businesses know the importance of building and maintaining good working relationships, whether it is with partners, employees, business or trade organizations, the government, media representatives, vendors, consumers, or the community at large.</div>
+		<div class="text">{{activity.text}}</div>
 	</div>
 </div>
