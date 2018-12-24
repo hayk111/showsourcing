@@ -1,17 +1,4 @@
 <div class="flex container">
-	<div *ngIf="activities?.length > 0" class="left flexColumn">
-		<div class="circle"></div>
-		<div class="border-middle"></div>
-		<div class="circle"></div>
-	</div>
-
-	<div class="right flexColumn">
-		<activity-card-app
-			*ngFor="let activity of activities; trackBy: trackByFn"
-			class="flex"
-			[activity]="activity"
-			[entity]="entity"
-			[typeEntity]="typeEntity">
-		</activity-card-app>
-	</div>
+	
+	
 </div>
