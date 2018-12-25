@@ -9,10 +9,10 @@ import { PreviewPageComponent } from './preview-page/preview-page.component';
 import { routes } from './routes';
 import { SampleCardTestComponent } from './sample-card-test/sample-card-test.component';
 import { SampleCommonModule } from '~common/sample';
-import { SelectorTestComponent } from './selector-test/selector-test.component';
 import { KanbanLibraryPageComponent } from './kanban-library-page/kanban-library-page.component';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { ProductCardLibraryPageComponent } from './product-card-library-page/product-card-library-page.component';
+import { SelectorLibraryComponent } from './selector-library/selector-library.component';
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import { ProductCardLibraryPageComponent } from './product-card-library-page/pro
 		PreviewPageComponent,
 		GuidelinesComponent,
 		SampleCardTestComponent,
-		SelectorTestComponent,
+		SelectorLibraryComponent,
 		KanbanLibraryPageComponent,
 		ProductCardLibraryPageComponent
 	],

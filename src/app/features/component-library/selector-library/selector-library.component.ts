@@ -4,12 +4,12 @@ import { Product } from '~core/models';
 import { ProductService } from '~core/entity-services';
 
 @Component({
-	selector: 'app-selector-test',
-	templateUrl: './selector-test.component.html',
-	styleUrls: ['./selector-test.component.scss'],
+	selector: 'app-selector-library',
+	templateUrl: './selector-library.component.html',
+	styleUrls: ['./selector-library.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorTestComponent implements OnInit {
+export class SelectorLibraryComponent implements OnInit {
 
 	product$: Observable<Product>;
 	id = 'a097fe3d-6f84-4918-89e2-7a090728207c';
