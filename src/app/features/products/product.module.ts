@@ -9,6 +9,7 @@ import { TaskCommonModule } from '~common/task';
 import {
 	ProductIconsComponent,
 	ProductSubInfoComponent,
+	ProductCardComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	ProductListComponent,
@@ -72,7 +73,8 @@ import { CommentCommonModule } from '~common/comment/comment-common.module';
 		ProductSamplesComponent,
 		ProductResumeComponent,
 		ProductInformationComponent,
-		ProductShippingComponent
+		ProductShippingComponent,
+		ProductCardComponent
 	],
 	entryComponents: [
 		VoteDetailsDialogComponent

@@ -17,8 +17,6 @@ import { ContextMenuComponent } from '~shared/context-menu/components/context-me
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~utils/tracking-component';
 
-
-
 @Component({
 	selector: 'product-card-app',
 	templateUrl: './product-card.component.html',
