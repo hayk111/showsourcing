@@ -112,8 +112,6 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		}).pipe(
 			// refetch so we get the info..
 			switchMap(_ => forkJoin(
-				this.productsMap.get(event.from).refetch({}),
-				this.productsMap.get(event.to).refetch({}),
 				this.totalMap.get(event.to).refetch({}),
 				this.totalMap.get(event.from).refetch({})
 			))

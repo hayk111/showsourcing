@@ -108,8 +108,6 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		}).pipe(
 			// refetch so we get the info..
 			switchMap(_ => forkJoin(
-				this.samplesMap.get(event.from).refetch({}),
-				this.samplesMap.get(event.to).refetch({}),
 				this.totalMap.get(event.to).refetch({}),
 				this.totalMap.get(event.from).refetch({})
 			))
