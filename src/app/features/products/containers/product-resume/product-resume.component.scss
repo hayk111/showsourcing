@@ -1,7 +1,6 @@
-@import '../../../../theming/helper-classes.scss';
 
 preview-app {
-	@extend .reset-this;
+	all: unset;
 
 	preview-header-app {
 		padding-left: 0;

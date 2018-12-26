@@ -1,21 +1,20 @@
-
 <ng-container *ngIf="listSrv.items$ | async as products; else spinner">
 	<!-- top panel -->
 	<top-panel-app
 		title="My Products"
 		buttonName="Add {{ listSrv.entityMetadata.singular }}"
-		[subtitles]="['Products', 'all']"
+		(buttonClick)="listSrv.create()"
 		[center]="false"
-		(buttonClick)="listSrv.create()">
+		[subtitles]="['Products', 'all']">
 	</top-panel-app>
 
 	<sub-panel-app
-		[hasSwitch]="true"
-		[hasFilter]="true"
 		[buttonIcon]="false"
 		[filtersAmount]="listSrv.filterList.asFilters().length"
-		(showFilters)="listSrv.openFilterPanel()"
+		[hasFilter]="true"
+		[hasSwitch]="true"
 		(search)="listSrv.search($event)"
+		(showFilters)="listSrv.openFilterPanel()"
 		(viewChange)="onViewChange($event)">
 
 		<sub-panel-right-item-app>
@@ -32,41 +31,44 @@
 	<products-list-view-app
 		*ngIf="listSrv.view === 'list'"
 		class="list-view"
-		[selection]="listSrv.selection$ | async"
 		[currentSort]="listSrv.currentSort"
-		[rows]="products"
 		[pending]="listSrv.pending"
-		(previewClick)="listSrv.openPreview($event)"
-		(select)="listSrv.selectOne($event, true)"
-		(unselect)="listSrv.unselectOne($event, true)"
-		(selectAll)="listSrv.selectAll($event, true)"
-		(unselectAll)="listSrv.unselectAll()"
-		(open)="listSrv.goToDetails($event)"
-		(favorited)="listSrv.onItemFavorited($event)"
-		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		[rows]="products"
+		[selection]="listSrv.selection$ | async"
 		(bottomReached)="listSrv.loadMore()"
-		(sort)="listSrv.sort($event)"
+		(delete)="listSrv.deleteOne($event)"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(open)="listSrv.goToDetails($event)"
 		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
 		(openExportDialog)="commonModalSrv.openExportDialog([$event])"
 		(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
 		(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog([$event])"
-		(delete)="listSrv.deleteOne($event)">
+		(previewClick)="listSrv.openPreview($event)"
+		(select)="listSrv.selectOne($event, true)"
+		(selectAll)="listSrv.selectAll($event, true)"
+		(sort)="listSrv.sort($event)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(unselect)="listSrv.unselectOne($event, true)"
+		(unselectAll)="listSrv.unselectAll()">
 	</products-list-view-app>
 
 	<products-card-view-app
-		class="card-view"
 		*ngIf="listSrv.view === 'card'"
+		infinitScroll
+		class="card-view"
 		[currentSort]="listSrv.currentSort"
 		[rows]="products"
 		[selection]="listSrv.selection$ | async"
-		(update)="listSrv.update($event)"
-		(select)="listSrv.selectOne($event, true)"
-		(unselect)="listSrv.unselectOne($event, true)"
-		(favorited)="listSrv.selectAll($event)"
-		(unfavorited)="listSrv.unselectAll($event)"
-		(liked)="listSrv.onThumbUp($event)"
+		(bottomReached)="listSrv.loadMore()"
 		(disliked)="listSrv.onThumbDown($event)"
-		(open)="listSrv.goToDetails($event)">
+		(favorited)="listSrv.selectAll($event)"
+		(liked)="listSrv.onThumbUp($event)"
+		(open)="listSrv.goToDetails($event)"
+		(previewClick)="listSrv.openPreview($event)"
+		(select)="listSrv.selectOne($event, true)"
+		(unfavorited)="listSrv.unselectAll($event)"
+		(unselect)="listSrv.unselectOne($event, true)"
+		(update)="listSrv.update($event)">
 	</products-card-view-app>
 
 	<selection-bar-app
@@ -77,10 +79,10 @@
 		<action-bar-app
 			[favorite]="listSrv.allSelectedFavorite"
 			[multiple]="true"
-			(onFavorite)="listSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
+			(disliked)="listSrv.onMultipleThumbDown($event)"
 			(liked)="listSrv.onMultipleThumbUp($event)"
-			(disliked)="listSrv.onMultipleThumbDown($event)">
+			(onFavorite)="listSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()">
 
 			<button class="icon light" (click)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())">
 				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>

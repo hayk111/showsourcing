@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { ProductService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
@@ -33,7 +33,9 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 	constructor(
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,
-		public listSrv: ListPageService<Product, ProductService>
+		public listSrv: ListPageService<Product, ProductService>,
+		private elRef: ElementRef,
+		private render: Renderer2
 	) {
 		super();
 	}
@@ -50,6 +52,10 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 
 	onViewChange(view: 'list' | 'card') {
 		// Update sorting according to the selected view
+		console.log(this.elRef.nativeElement);
+		if (view === 'list') {
+			this.render.setStyle(this.elRef.nativeElement, 'height', '100%');
+		}
 		this.listSrv.sort({ sortBy: 'category.name', descending: false });
 		this.listSrv.changeView(view);
 	}
