@@ -4,3 +4,4 @@ export * from '~features/products/components/selection-actions/selection-actions
 export * from '~features/products/components/project-card/project-card.component';
 export * from '~features/products/components/product-list/product-list.component';
 export * from '~features/products/components/product-information/product-information.component';
+export * from '~features/products/components/product-card/product-card.component';
