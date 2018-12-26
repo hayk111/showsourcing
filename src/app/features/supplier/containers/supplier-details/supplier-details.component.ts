@@ -12,12 +12,12 @@ import { Product, Attachment } from '~models';
 import { AutoUnsub } from '~utils';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { DialogService } from '~shared/dialog/services';
-import { takeUntil, map, switchMap, tap } from 'rxjs/operators';
+import { takeUntil, map, switchMap, tap, take } from 'rxjs/operators';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { ActivityService } from '~common/activity/services/activity.service';
 import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { NotificationService, NotificationType } from '~shared/notifications';
-
+import { CommonModalService } from '~common/modals';
 import { TabModel } from '~shared/navbar';
 
 @Component({
@@ -51,7 +51,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private notifSrv: NotificationService,
 		private dlgSrv: DialogService,
 		private activitySrv: ActivityService,
-		private moduleRef: NgModuleRef<any>
+		private moduleRef: NgModuleRef<any>,
+		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}
@@ -82,6 +83,14 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.feedResult = this.activitySrv.getSupplierFeed(
 			this.route.parent.snapshot.params.id
 		);
+	}
+
+	update(supplier: Supplier) {
+		this.featureSrv.update(supplier).subscribe();
+	}
+
+	export(supplier: Supplier) {
+		this.products$.pipe(take(1)).subscribe((products: Product[]) => this.commonModalSrv.openExportDialog(products));
 	}
 
 	onSupplier(supplier) {

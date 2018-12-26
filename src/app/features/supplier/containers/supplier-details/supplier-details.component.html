@@ -1,6 +1,11 @@
 <ng-container *ngIf="supplier" class="supplier-top-header">
 	<!-- top card -->
-	<supplier-top-card-app [supplier]="supplier"></supplier-top-card-app>
+	<supplier-top-card-app
+	[supplier]="supplier"
+	(delete)="delete($event)"
+	(export)="export($event)"
+	(updateFavorite)="update($event)"
+	></supplier-top-card-app>
 	<div class="flex supplier-container">
 		<!-- left side -->
 		<div class="left">

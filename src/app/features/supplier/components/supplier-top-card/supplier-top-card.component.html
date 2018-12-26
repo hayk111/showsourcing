@@ -10,14 +10,15 @@
 				[colorNormal]="'color-black'"
 				[favorite]="supplier?.favorite"
 				size="14"
-				(favorited)="favorited.emit(supplier.id)"
-				(unfavorited)="unfavorited.emit(supplier.id)"></rating-heart-app>
+				(favorited)="changeFavorite(true)"
+				(unfavorited)="changeFavorite(false)"></rating-heart-app>
 		</button>
-		<button class="rounded secondary share">
+		<button class="rounded secondary share" (click)="export.emit(supplier)">
 			<icon-app name="share"></icon-app>
 		</button>
 
-		<user-picture-app [user]="supplier.createdBy" [image]="supplier.createdBy?.avatar" [border]="true" size="28">
+		<user-picture-app
+			[user]="supplier.createdBy" [image]="supplier.createdBy?.avatar" [border]="true" size="28">
 		</user-picture-app>
 
 		<button class="contact-supplier">Contact Supplier</button>
