@@ -78,7 +78,11 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			prod$.items$ = prod$.items$.pipe(
 				map(products => products
 					.filter(prod => prod.status.id === status.id)
-				)
+				),
+				tap(d => {
+					const _status = status;
+					debugger;
+				})
 			);
 			this.productsMap.set(status.id, prod$);
 			this.totalMap.set(status.id, total$);
