@@ -1,6 +1,6 @@
 :host {
 	margin: 0px;
-	margin-right: var(--spacing-ms);
+	margin-left: var(--spacing-ms);
 	margin-bottom: var(--spacing-xl);
 	display: block;
 	background: white;
@@ -56,6 +56,10 @@ img-app {
 	.title {
 		color: var(--color-txt-strong);
 		font-weight: 600;
+
+		&:hover {
+			color: var(--color-primary);
+		}
 	}
 
 	.status-info {
