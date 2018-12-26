@@ -1,4 +1,7 @@
 :host {
+	margin: 0px;
+	margin-right: var(--spacing-ms);
+	margin-bottom: var(--spacing-xl);
 	display: block;
 	background: white;
 	width: 170px;
@@ -19,6 +22,10 @@
 .overlay {
 	opacity: 0;
 	position: absolute;
+}
+
+.opacity-on {
+	opacity: 1;
 }
 
 button.preview {
