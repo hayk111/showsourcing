@@ -42,6 +42,7 @@ import { SupplierSamplesComponent } from './containers/supplier-samples/supplier
 import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
 import { SupplierGeneralInfoComponent } from './containers/supplier-general-info/supplier-general-info.component';
 import { NavBarModule } from '~shared/navbar/navbar.module';
+import { RatingModule } from '~shared/rating';
 
 @NgModule({
 	imports: [
@@ -53,6 +54,7 @@ import { NavBarModule } from '~shared/navbar/navbar.module';
 		TaskCommonModule,
 		SampleCommonModule,
 		NavBarModule,
+		RatingModule,
 		SupplierCommonModule
 	],
 	declarations: [

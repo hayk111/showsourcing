@@ -30,9 +30,14 @@ info-badge-app, status-selector-app {
     font-size: var(--font-size-s);
     padding: 0;
 	}
+
+	.share,
 	.like {
-		background-color: var(--color-warn);
+		background-color: var(--color-secondary);
+		color: var(--color-black);
 	}
+
+
 	user-picture-app {
 		display: inline-block;
 	}

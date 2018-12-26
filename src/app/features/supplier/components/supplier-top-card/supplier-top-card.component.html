@@ -6,7 +6,12 @@
 	</div>
 	<div action class="action-list">
 		<button class="rounded like">
-			<icon-app name="heart"></icon-app>
+				<rating-heart-app
+				[colorNormal]="'color-black'"
+				[favorite]="supplier?.favorite"
+				size="14"
+				(favorited)="favorited.emit(supplier.id)"
+				(unfavorited)="unfavorited.emit(supplier.id)"></rating-heart-app>
 		</button>
 		<button class="rounded secondary share">
 			<icon-app name="share"></icon-app>
