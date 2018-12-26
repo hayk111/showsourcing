@@ -93,7 +93,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			prod$.items$ = prod$.items$.pipe(
 				map(products => products
 					.filter(prod => prod.status.id === status.id)
-				)
+				),
+				tap(d => { debugger; })
 			);
 			this.productsMap.set(status.id, prod$);
 			this.totalMap.set(status.id, total$);
@@ -119,12 +120,18 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** multiple */
-	updateProductsStatus(event: { to: any, items: any[] }) {
+	updateProductsStatus(event: { to: any, items: any[], from: any }) {
 		const products = event.items.map(id => ({
 			id,
-			status: { id: event.to }
+			status: new ProductStatus({ id: event.to })
 		}));
-		this.productSrv.updateMany(products).subscribe();
+		this.productSrv.updateMany(products).pipe(
+			// refetch so we get the info..
+			switchMap(_ => forkJoin(
+				this.totalMap.get(event.to).refetch({}),
+				this.totalMap.get(event.from).refetch({})
+			))
+		).subscribe();
 	}
 
 	onColumnSelected(products: Product[]) {

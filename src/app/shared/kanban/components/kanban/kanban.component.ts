@@ -18,7 +18,7 @@ export class KanbanComponent extends TrackingComponent {
 		this._width = width + 'px';
 	}
 	@Output() drop = new EventEmitter<KanbanDropEvent>();
-	@Output() multipleDrop = new EventEmitter<{ to: any, items: any[] }>();
+	@Output() multipleDrop = new EventEmitter<{ from: any, to: any, items: any[] }>();
 	/** when the top checkbox is checked */
 	@Output() selectColumn = new EventEmitter<any[]>();
 	@Output() unselectColumn = new EventEmitter<any[]>();
@@ -53,9 +53,10 @@ export class KanbanComponent extends TrackingComponent {
 		}
 	}
 
-	onMultipleDrop(event) {
+	onMultipleDrop(event: CdkDragDrop<any>) {
 		const ids = Array.from(this.selection.keys());
 		this.multipleDrop.emit({
+			from: event.previousContainer.id,
 			to: event.container.id,
 			items: ids
 		});
