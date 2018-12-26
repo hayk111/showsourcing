@@ -11,7 +11,6 @@ import {
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
-	ProductCardComponent,
 	ProductListComponent,
 	ProductInformationComponent
 } from '~features/products/components';
