@@ -68,7 +68,6 @@ import { CommentCommonModule } from '~common/comment/comment-common.module';
 		VoteDetailsDialogComponent,
 		ProductTasksComponent,
 		ProductTopPanelComponent,
-		ProductCardComponent,
 		ProductListComponent,
 		ProductSamplesComponent,
 		ProductResumeComponent,
