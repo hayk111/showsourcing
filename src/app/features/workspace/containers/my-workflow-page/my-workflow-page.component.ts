@@ -67,9 +67,9 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	private getProducts(statuses: ProductStatus[]) {
 		statuses.forEach(status => {
 			const query = `status.id == "${status.id}"`;
-			const prod$ = this.productSrv.getListQuery({ query, take: 6 });
+			const prod$ = this.productSrv.getListQuery({ query, take: 6, sortBy: 'lastUpdatedDate' });
 			const total$ = this.productSrv.customQuery({
-				query, take: 8, sortBy: 'lastUpdatedDate'
+				query
 			}, `query productsCount($query: String) {
 				productsCount(query: $query)
 			}`);
@@ -115,12 +115,31 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		// we update on the server
 		this.productSrv.update({
 			id: event.item.id,
-			status: new ProductStatus({ id: event.to })
+			status: new ProductStatus({ id: event.to.id })
 		}).pipe(
 			// refetch so we get the info..
 			switchMap(_ => forkJoin(
-				this.totalMap.get(event.to).refetch({}),
-				this.totalMap.get(event.from).refetch({})
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.productsMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.productsMap.get(event.from.id).refetch({ take: event.from.data.length }),
+			))
+		).subscribe();
+	}
+
+	/** multiple */
+	updateProductsStatus(event: KanbanDropEvent) {
+		const products = event.items.map(id => ({
+			id,
+			status: new ProductStatus({ id: event.to.id })
+		}));
+		this.productSrv.updateMany(products).pipe(
+			// refetch so we get the info..
+			switchMap(_ => forkJoin(
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.productsMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.productsMap.get(event.from.id).refetch({ take: event.from.data.length }),
 			))
 		).subscribe();
 	}

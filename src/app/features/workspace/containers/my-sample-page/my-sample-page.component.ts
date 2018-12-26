@@ -108,18 +108,29 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		}).pipe(
 			// refetch so we get the info..
 			switchMap(_ => forkJoin(
-				this.totalMap.get(event.to).refetch({}),
-				this.totalMap.get(event.from).refetch({})
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.samplesMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.samplesMap.get(event.from.id).refetch({ take: event.from.data.length }),
 			))
 		).subscribe();
 	}
 
-	updateStatusSamples(event: { to: any, items: any[] }) {
-		const samples = event.items.map(id => ({
+	/** multiple */
+	updateStatusSamples(event: KanbanDropEvent) {
+		const products = event.items.map(id => ({
 			id,
-			status: { id: event.to, __typename: 'SampleStatus' }
+			status: new SampleStatus({ id: event.to.id })
 		}));
-		this.sampleSrv.updateMany(samples).subscribe();
+		this.sampleSrv.updateMany(products).pipe(
+			// refetch so we get the info..
+			switchMap(_ => forkJoin(
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.samplesMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.samplesMap.get(event.from.id).refetch({ take: event.from.data.length }),
+			))
+		).subscribe();
 	}
 
 	onMultipleStatusUpdated(selection, status) {

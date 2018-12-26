@@ -84,17 +84,16 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			const query = `projects.id == "${this.project.id}" AND status.id == "${status.id}"`;
 			const prod$ = this.productSrv.getListQuery({ query, take: 8, sortBy: 'lastUpdatedDate' });
 			const total$ = this.productSrv.customQuery({
-				query, take: 8, sortBy: 'lastUpdatedDate'
+				query
 			}, `query productsCount($query: String) {
 				productsCount(query: $query)
 			}`);
 			// unfortunately we have to filter a second time on the front end
 			// because optimistic UI doesn't take the query into account
 			prod$.items$ = prod$.items$.pipe(
-				map(products => products
-					.filter(prod => prod.status.id === status.id)
-				),
-				tap(d => { debugger; })
+				// map(products => products
+				// 	.filter(prod => prod.status.id === status.id)
+				// )
 			);
 			this.productsMap.set(status.id, prod$);
 			this.totalMap.set(status.id, total$);
@@ -109,27 +108,31 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		// we update on the server
 		this.productSrv.update({
 			id: event.item.id,
-			status: new ProductStatus({ id: event.to })
+			status: new ProductStatus({ id: event.to.id })
 		}).pipe(
 			// refetch so we get the info..
 			switchMap(_ => forkJoin(
-				this.totalMap.get(event.to).refetch({}),
-				this.totalMap.get(event.from).refetch({})
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.productsMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.productsMap.get(event.from.id).refetch({ take: event.from.data.length }),
 			))
 		).subscribe();
 	}
 
 	/** multiple */
-	updateProductsStatus(event: { to: any, items: any[], from: any }) {
+	updateProductsStatus(event: KanbanDropEvent) {
 		const products = event.items.map(id => ({
 			id,
-			status: new ProductStatus({ id: event.to })
+			status: new ProductStatus({ id: event.to.id })
 		}));
 		this.productSrv.updateMany(products).pipe(
 			// refetch so we get the info..
 			switchMap(_ => forkJoin(
-				this.totalMap.get(event.to).refetch({}),
-				this.totalMap.get(event.from).refetch({})
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.productsMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.productsMap.get(event.from.id).refetch({ take: event.from.data.length }),
 			))
 		).subscribe();
 	}
