@@ -37,6 +37,7 @@ import { ProductTeamRatingComponent } from './components/product-team-rating/pro
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
 import { CommentCommonModule } from '~common/comment/comment-common.module';
+import { NavBarModule } from '~shared/navbar/navbar.module';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { CommentCommonModule } from '~common/comment/comment-common.module';
 		TaskCommonModule,
 		QuoteCommonModule,
 		CommentCommonModule,
+		NavBarModule,
 		SampleCommonModule
 	],
 	declarations: [
