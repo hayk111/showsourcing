@@ -10,7 +10,7 @@
 	</div>
 	<div class="products-section">
 		<ng-container *ngFor="let product of listSrv.items$ | async; index as i; trackBy: trackById">
-			<product-grid-card-app
+			<product-grid-card-deprecated-app
 				[class.mg-right]="(i+1)%4 === 0"
 				[product]="product"
 				[selection]="listSrv.selection$ | async"
@@ -20,7 +20,7 @@
 				(productUnselect)="listSrv.unselectOne(product, true)"
 				(liked)="listSrv.onThumbUp(product)"
 				(disliked)="listSrv.onThumbDown(product)">
-			</product-grid-card-app>
+			</product-grid-card-deprecated-app>
 		</ng-container>
 	</div>
 </div>

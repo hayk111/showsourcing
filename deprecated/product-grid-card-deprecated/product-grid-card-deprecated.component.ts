@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModuleRef, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductAddToProjectDlgComponent } from '~common/modals/component';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
-import { ProductAddToProjectDlgComponent } from '~common/modals/component';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'product-grid-card-app',
-	templateUrl: './product-grid-card.component.html',
-	styleUrls: ['./product-grid-card.component.scss'],
+	selector: 'product-grid-card-deprecated-app',
+	templateUrl: './product-grid-card-deprecated.component.html',
+	styleUrls: ['./product-grid-card-deprecated.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductGridCardComponent extends AutoUnsub implements OnInit {
+export class ProductGridCardDeprecatedComponent extends AutoUnsub implements OnInit {
 
 	@Input() product: Product;
 	@Input() set selection(selection: Map<string, boolean>) {
