@@ -1,5 +1,5 @@
 <div class="flexBetween top">
-	<div class="flex left ">
+	<div class="flex left container">
 		<icon-app name="back-arrow" (click)="goBack()" class="flexStart color-txt-primary"></icon-app>
 		<div class="logo">
 			<ng-content select="img-app"></ng-content>
@@ -10,26 +10,31 @@
 				<h1>{{ title }}</h1>
 				<ng-content select="icon-app"></ng-content>
 			</div>
-			<ng-content></ng-content>
+			<ng-content select="[subinfo]"></ng-content>
 		</div>
 	</div>
 
-	<div class="flex right">
-		<ng-content select="status-selector-app"></ng-content>
-		<context-menu-app *ngIf="hasOptions" [offsetY]="90">
-				<context-menu-trigger-app>
-					<button class="icon light">
-						<icon-app class="color-txt-secondary" name="dots-vertical"></icon-app>
-					</button>
-				</context-menu-trigger-app>
-				<context-menu-item-app (click)="delete.emit()" class="color-warn">
-					Delete
-				</context-menu-item-app>
-			</context-menu-app>
+	<div class="flex right container action-list">
+			<button class="rounded like">
+					<rating-heart-app
+					[colorNormal]="'color-black'"
+					[favorite]="data?.favorite"
+					size="14"
+					(favorited)="favorited.emit(data)"
+					(unfavorited)="unfavorited.emit(data)"></rating-heart-app>
+			</button>
+			<button class="rounded secondary share" (click)="export.emit(data)">
+				<icon-app name="share"></icon-app>
+			</button>
+	
+			<user-picture-app
+				[user]="user" [image]="user?.avatar" [border]="true" size="28">
+			</user-picture-app>
+			<ng-content select="[action]"></ng-content>
 	</div>
 </div>
 
-
+<!--
 <nav class="flex">
 	<a *ngFor="let link of links;trackBy: trackByFn" [routerLink]="'./' + link" routerLinkActive="active">{{ toDisplayString(link) }}</a>
-</nav>
+</nav> -->

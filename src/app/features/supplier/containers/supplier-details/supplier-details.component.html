@@ -1,8 +1,24 @@
 <ng-container *ngIf="supplier">
 	<!-- top card -->
-	<supplier-top-card-app [supplier]="supplier"></supplier-top-card-app>
+	<supplier-top-card-app class="supplier-top-header"
+	[supplier]="supplier"
+	(delete)="delete($event)"
+	(export)="export($event)"
+	(updateFavorite)="update($event)"
+	></supplier-top-card-app>
+	<div class="flex supplier-container">
+		<!-- left side -->
+		<div class="left">
+			<navbar-app [tabs]="tabs"></navbar-app>
 
-	<navbar-app [tabs]="tabs" [currentTab]="tabs[0].title"></navbar-app>
-	<router-outlet></router-outlet>
+			<router-outlet></router-outlet>
+		</div>
+
+		<!-- right side -->
+		<div class="right">
+			<supplier-preview-app [supplier]="supplier" [canClose]="false" [isRelative]="true">
+			</supplier-preview-app>
+		</div>
+	</div>
 
 </ng-container>

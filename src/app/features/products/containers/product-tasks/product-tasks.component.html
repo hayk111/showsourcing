@@ -1,47 +1,26 @@
-<sub-panel-app
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)">
-
-	<div class="flex show-my-tasks">
-			<checkbox-app
-				(check)="toggleMyTasks(true)"
-				(uncheck)="toggleMyTasks(false)">
-			</checkbox-app>
-			Show my tasks only
-		</div>
-		<div class="flex show-tasks-done">
-			<checkbox-app
-				(check)="toggleDoneTasks(true)"
-				(uncheck)="toggleDoneTasks(false)">
-			</checkbox-app>
-			Completed tasks
-		</div>
-</sub-panel-app>
-
 <task-list-app
-	[tasks]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
-	[fullUser]="true"
-	[hasSupplier]="true"
 	[filterList]="listSrv.filterList"
-	(toggleMyTasks)="toggleMyTasks($event)"
-  (previewClicked)="listSrv.openPreview($event)"
+	[fullUser]="true"
+	[hasFilters]="true"
+	[hasSupplier]="true"
+	[selection]="listSrv.selection$ | async"
+	[tasks]="listSrv.items$ | async"
+	(bottomReached)="listSrv.loadMore()"
+	(createTask)="createTask($event)"
+	(openCreateDlg)="listSrv.create(false)"
 	(taskSelect)="listSrv.selectOne($event, false)"
 	(taskUnselect)="listSrv.unselectOne($event, false)"
-	(openCreateDlg)="listSrv.create(false)"
-	(bottomReached)="listSrv.loadMore()"
+	(toggleMyTasks)="toggleMyTasks($event)"
 	(updateTask)="listSrv.update($event)"
-	(createTask)="createTask($event)">
+  (previewClicked)="listSrv.openPreview($event)">
 </task-list-app>
 
 
-	<task-preview-app
-		*ngIf="listSrv.previewOpen"
-		[task]="listSrv.previewed"
-		(close)="listSrv.closePreview()">
-  </task-preview-app>
+<task-preview-app
+	*ngIf="listSrv.previewOpen"
+	[task]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
+</task-preview-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { AppImage } from '~models';
+import { AppImage, Product, Supplier, User } from '~models';
 import { Location } from '@angular/common';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -21,8 +21,15 @@ export class TopPanelDetailsComponent extends TrackingComponent implements OnIni
 	@Input() links: string[];
 	/** has default options */
 	@Input() hasOptions = false;
+	@Input() user: User;
+
+	@Input() data: Supplier | Product;
 
 	@Output() delete = new EventEmitter<null>();
+	@Output() export = new EventEmitter<Supplier | Product>();
+	@Output() favorited = new EventEmitter<Supplier | Product>();
+	@Output() unfavorited = new EventEmitter<Supplier | Product>();
+	@Output() changeUser = new EventEmitter<Supplier | Product>();
 
 	constructor(
 		private location: Location

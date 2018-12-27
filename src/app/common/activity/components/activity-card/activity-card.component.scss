@@ -1,0 +1,64 @@
+card-app {
+	width: 100%;
+}
+
+card-footer-app {
+	display: flex;
+
+	comment-list-app {
+		padding-left: 2px;
+	}
+
+	input, textarea {
+		height: 36px;
+		resize: none;
+		border: none;
+		background: none;
+
+		&:focus {
+			border-radius: 500px;
+			border: 1px solid var(--color-secondary);
+			background: var(--color-secondary-light);
+		}
+	}
+
+	button {
+		margin-left: var(--spacing-ms);
+	}
+}
+
+.card-container {
+	.avatar-container {
+    vertical-align: top;
+		display: inline-block;
+		padding-top: var(--spacing-ms);
+	}
+	.body-container {
+		display: inline-block;  
+		border-radius: 8px;
+		background-color: var(--color-secondary-light);
+		width: calc(100% - 58px);
+		margin-left: var(--spacing-xs);
+		padding: var(--spacing-ms);
+		.header {
+			padding-bottom: var(--spacing-s);
+			.user-name {
+				display: inline-block;
+				font-size: var(--font-size-m);
+				font-weight: 600;
+				color: var(--color-txt-strong);
+			}
+			.time {
+				display: inline-block;
+				font-size: var(--font-size-s);
+				color: var(--color-txt-strong);
+				vertical-align: baseline;
+				margin-left: var(--spacing-xs);
+			}
+		}
+		.text {
+			font-size: vaf(--font-size-l);
+			color: var(--color-txt-strong);
+		}
+	}
+}

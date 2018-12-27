@@ -1,13 +1,11 @@
 :host {
 	margin: auto;
-	width: calc(796px + 452px);
+	width: var(--screen-detail-width);
 	padding-top: var(--spacing-m);
 }
 
-.left {
-	width: 796px;
-}
-
-.right {
-	width: 452px;
+.activity-container {
+	width: 100%;
+	border-radius: 2px;
+	background-color: var(--color-bg);
 }

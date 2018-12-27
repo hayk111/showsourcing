@@ -26,6 +26,9 @@ export class RatingHeartComponent {
 	@Output() favorited = new EventEmitter<null>();
 	@Output() unfavorited = new EventEmitter<null>();
 	@Input() favorite = false;
+	@Input() colorFavorite = 'color-warn';
+	@Input() colorNormal = 'color-secondary-dark';
+
 	@ViewChild(IconComponent, { read: ElementRef }) icon;
 
 	constructor(private renderer: Renderer2) {

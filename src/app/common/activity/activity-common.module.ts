@@ -11,8 +11,8 @@ import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import { ActivityUserComponent } from './components/activity-user/activity-user.component';
-import { FlatFeedCardComponent } from './components/flat-feed-card/flat-feed-card.component';
-import { FlatFeedListComponent } from './components/flat-feed-list/flat-feed-list.component';
+import { FlatFeedCardComponent } from '~deprecated/flat-feed-card/flat-feed-card.component';
+import { FlatFeedListComponent } from '~deprecated/flat-feed-list/flat-feed-list.component';
 import { GroupedFeedListComponent } from './components/grouped-feed-list/grouped-feed-list.component';
 import {
 	MultipleProductCarouselComponent,
@@ -24,11 +24,15 @@ import {
 	OneProductActivityCardComponent,
 } from './components/grouped-feed-list/one-product-activity-card/one-product-activity-card.component';
 
+import { ActivityCardComponent } from '~common/activity/components/activity-card/activity-card.component';
+import { ActivityListComponent } from '~common/activity/components/activity-list/activity-list.component';
+import { UtilsModule } from '~shared/utils/utils.module';
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
 		ProductCommonModule,
+		UtilsModule,
 		CommentCommonModule
 	],
 	declarations: [
@@ -40,6 +44,8 @@ import {
 		OneActivityCarouselComponent,
 		MultipleProductCarouselComponent,
 		FlatFeedListComponent,
+		ActivityCardComponent,
+		ActivityListComponent,
 		FlatFeedCardComponent
 	],
 	exports: [
@@ -49,6 +55,7 @@ import {
 		GroupedFeedListComponent,
 		ActivityUserComponent,
 		FlatFeedListComponent,
+		ActivityListComponent,
 		FlatFeedCardComponent
 	]
 })

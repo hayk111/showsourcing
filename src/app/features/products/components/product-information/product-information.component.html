@@ -1,0 +1,17 @@
+<card-app>
+	<div class="title flex">
+		<div class="space-icon flexAround">
+			<icon-app name="product"></icon-app>
+		</div>
+		<h2 i18n="header 2|Product information card@@productInfoCard_product" class="flex">
+				Product Information
+		</h2>
+	</div>
+
+	<dynamic-form-app
+		[fields]="customFields"
+		[value]="product"
+		[colAmount]="1"
+		(update)="update.emit($event)">
+	</dynamic-form-app>
+</card-app>

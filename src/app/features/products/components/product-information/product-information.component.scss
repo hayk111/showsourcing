@@ -1,0 +1,25 @@
+:host {
+	display: block;
+}
+
+.title {
+	margin-bottom: var(--spacing-xs);
+
+	.space-icon {
+		height: var(--spacing-xl);
+		width: var(--spacing-xl);
+		margin-right: var(--spacing-ms);
+
+		icon-app[name="product"] {
+			color: var(--color-primary);
+			cursor: default;
+			font-size: var(--font-size-xxl);
+		}
+	}
+
+	h2 {
+		align-items: center;
+		display: flex;
+		margin-bottom: 0px;
+	}
+}

@@ -26,6 +26,8 @@
 	--color-warn-light: #f94259;
 	--color-warn-dark: #ca263a;
 
+	--color-supplier-tag: #fca410;
+
 	--color-success: #71e591;
 	--color-success-dark: #48d26f;
 
@@ -52,12 +54,16 @@
 	color: var(--color-primary-dark);
 }
 
-.color-secondary {
+.color-secondary, .color-new {
 	color: var(--color-secondary);
 }
 
 .color-secondary-dark {
 	color: var(--color-secondary-dark);
+}
+
+.color-black {
+	color: var(--color-black);
 }
 
 .color-warn, .color-refused {

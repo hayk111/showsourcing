@@ -1,7 +1,7 @@
-<preview-app cdk-scrollable *ngIf="supplier$ | async as supplier">
+<preview-app cdk-scrollable *ngIf="supplier$ | async as supplier" [ngClass]="isRelative ? 'relative' : ''">
 
 		<!-- Banner -->
-		<preview-banner-app (closed)="close.emit()">
+		<preview-banner-app (closed)="close.emit()" [canClose]="canClose">
 			<preview-carousel-app
 				[entity]="supplier"
 				[entityMD]="erm.SUPPLIER"

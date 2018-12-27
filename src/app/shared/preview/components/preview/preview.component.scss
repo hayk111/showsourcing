@@ -14,6 +14,8 @@
 	box-sizing: border-box;
 	height: calc(100vh - 70px); // this way we perserve the ratio and the margin otp
 
+  box-shadow: 0 0 24px 0 rgba(163, 175, 198, 0.2);
+
 	&.alignRight {
 		right: var(--spacing-s);
 	}

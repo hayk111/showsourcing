@@ -1,0 +1,36 @@
+<div *ngIf="supplier" class="supplier-top-header">
+	<!-- top card -->
+	<supplier-top-card-app [supplier]="supplier"></supplier-top-card-app>
+</div>
+
+<div *ngIf="(supplier$ | async) as supplier" class="flex supplier-container">
+	<!-- left side -->
+	<div class="left">
+		<navbar-app [tabs]="tabs" [currentTab]="tabs[0].title"></navbar-app>
+
+		<router-outlet></router-outlet>
+	</div>
+
+	<!-- right side -->
+	<div class="right">
+		<!-- editable infos -->
+		<supplier-infos-app [supplier]="supplier" (update)="patch($event)">
+		</supplier-infos-app>
+
+		<!-- contacts -->
+		<supplier-contact-card-app
+			[contacts]="contacts$ | async"
+			(newContact)="openContactDlg()"
+			(openContact)="openContactDlg($event)"
+			(deleteContact)="deleteContact($event)"
+		>
+		</supplier-contact-card-app>
+
+		<files-card-app
+			[files]="supplier.attachments"
+			[linkedItem]="supplier"
+			(fileRemove)="onFileRemoved($event)"
+		>
+		</files-card-app>
+	</div>
+</div>

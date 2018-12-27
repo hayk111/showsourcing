@@ -1,5 +1,5 @@
 <button class="icon light">
 	<icon-app name="heart" [size]="size"
-		[ngClass]="{'color-warn': favorite, 'color-secondary-dark': !favorite }"></icon-app>
+		[ngClass]="favorite ? colorFavorite : colorNormal"></icon-app>
 </button>
 
