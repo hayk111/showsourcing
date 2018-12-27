@@ -1,4 +1,4 @@
-<button class="icon light">
+<button class="icon light" [ngClass]="favorite ? customClassFavorited : customClassUnFavorited">
 	<icon-app name="heart" [size]="size"
 		[ngClass]="favorite ? colorFavorite : colorNormal"></icon-app>
 </button>
