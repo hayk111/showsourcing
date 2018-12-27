@@ -32,7 +32,7 @@
 			(mouseleave)="preview.style.display = 'none'">
 			<a class="capitalize ellipsis txtBtn" [routerLink]="['/supplier', 'details', row.id]">
 			<icon-app class="supplierIcon" name="supplier" fontSet="svg"></icon-app>
-				<span>{{ row.name }}</span>
+				<span class="ellipsis">{{ row.name }}</span>
 			</a>
 			<button #preview class="preview small secondary-dark" (click)="previewClick.emit(row)">Preview</button>
 		</div>
