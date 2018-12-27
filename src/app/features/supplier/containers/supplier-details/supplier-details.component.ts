@@ -41,6 +41,10 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		{
 			title: 'Products',
 			link: 'products'
+		},
+		{
+			title: 'Tasks',
+			link: 'tasks'
 		}
 	];
 
