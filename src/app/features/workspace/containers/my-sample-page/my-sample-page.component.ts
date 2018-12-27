@@ -81,7 +81,8 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 				// map(samples => samples
 				// 	.filter(s => s.status.id === status.id)
 				// )
-			); this.samplesMap.set(status.id, samples$);
+			);
+			this.samplesMap.set(status.id, samples$);
 			this.totalMap.set(status.id, total$);
 		});
 	}

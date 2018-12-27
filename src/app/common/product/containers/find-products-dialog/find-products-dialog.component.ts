@@ -35,7 +35,7 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 			key: ListPageKey.FIND_PRODUCT,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			selectParams: { sortBy: 'category.name', descending: true, take: 15 },
+			selectParams: { query: 'deleted == false', sortBy: 'category.name', descending: true, take: 15 },
 			entityMetadata: ERM.PRODUCT,
 		});
 	}

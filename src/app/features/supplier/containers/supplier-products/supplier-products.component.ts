@@ -36,7 +36,7 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 	ngOnInit() {
 		const id = this.route.parent.snapshot.params.id;
 		this.listSrv.setup({
-			key: ListPageKey.PRODUCTS,
+			key: `supplier-products-${id}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: { query: `supplier.id == "${id}"` },

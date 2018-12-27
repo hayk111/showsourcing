@@ -61,5 +61,33 @@ export const statusMap = {
 				name: 'Inspiration'
 			}
 		}
+	},
+	'_Onboarding': {
+		locales: {
+			en: {
+				name: 'Onboarding'
+			}
+		}
+	},
+	'_toOrder': {
+		locales: {
+			en: {
+				name: 'To order'
+			}
+		}
+	},
+	'_Ordered': {
+		locales: {
+			en: {
+				name: 'Ordered'
+			}
+		}
+	},
+	'_Received': {
+		locales: {
+			en: {
+				name: 'Received'
+			}
+		}
 	}
 };
