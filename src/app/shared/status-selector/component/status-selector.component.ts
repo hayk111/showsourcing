@@ -20,7 +20,6 @@ import { takeUntil } from 'rxjs/operators';
 	selector: 'status-selector-app',
 	templateUrl: './status-selector.component.html',
 	styleUrls: ['./status-selector.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex'
 	}
@@ -52,7 +51,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	/** string[] since tasks does not have a status entity */
 	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
-	statuses: any[];
+	@Input() statuses: any[];
 	erm = ERM;
 
 	constructor(

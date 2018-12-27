@@ -36,6 +36,7 @@ import { ProductCarouselComponent } from './components/product-carousel/product-
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { CommentCommonModule } from '~common/comment/comment-common.module';
+import { NavBarModule } from '~shared/navbar/navbar.module';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { CommentCommonModule } from '~common/comment/comment-common.module';
 		TaskCommonModule,
 		QuoteCommonModule,
 		CommentCommonModule,
+		NavBarModule,
 		SampleCommonModule
 	],
 	declarations: [
