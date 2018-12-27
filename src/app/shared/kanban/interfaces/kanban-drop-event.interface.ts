@@ -1,7 +1,9 @@
+import { KanbanColumn } from './kanban-column.interface';
 
 
 export interface KanbanDropEvent {
-	item: any;
-	from: string; // id
-	to: string; // id
+	item?: any;
+	items?: any[];
+	from: KanbanColumn;
+	to: KanbanColumn;
 }

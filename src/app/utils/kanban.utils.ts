@@ -2,7 +2,7 @@ import { Product, ProductStatus, Sample, SampleStatus } from '~models';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { statusToColor } from '~utils/status-to-color.function';
-import { combineLatest, zip, Observable } from 'rxjs';
+import { combineLatest, zip, Observable, merge } from 'rxjs';
 import { Status } from '~core/models/status.model';
 import { ID } from './id.utils';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
@@ -11,17 +11,19 @@ import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 export function makeColumns(
 	statuses: Status[],
 	dataMap: Map<ID, ListQuery<any>>,
-	totalMap: Map<ID, Observable<number>>
+	totalMap: Map<ID, ListQuery<number>>
 ) {
 	const columns$ = statuses.map(status => {
 		const data$ = dataMap.get(status.id).items$;
-		const total$ = totalMap.get(status.id);
+		const total$ = totalMap.get(status.id).items$ as unknown as Observable<number>;
 		return combineLatest(
 			data$,
 			total$,
-			(data, total) => statusToKanbanCol(status, data, total));
+			(data, total) => {
+				return statusToKanbanCol(status, data, total);
+			});
 	});
-	return zip(...columns$);
+	return combineLatest(...columns$);
 }
 
 /**

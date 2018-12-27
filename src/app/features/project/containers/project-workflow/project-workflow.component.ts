@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { Observable, forkJoin } from 'rxjs';
+import { map, switchMap, takeUntil, tap, mergeMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -12,6 +12,7 @@ import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { makeColumns } from '~utils/kanban.utils';
+import { ProductsCardViewComponent } from '~common/product';
 
 @Component({
 	selector: 'project-workflow-app',
@@ -27,7 +28,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	columns$: Observable<KanbanColumn[]>;
 	project: Project;
 	private productsMap = new Map<string, ListQuery<Product>>();
-	private totalMap = new Map<string, Observable<number>>();
+	private totalMap = new Map<string, ListQuery<number>>();
 
 	constructor(
 		private route: ActivatedRoute,
@@ -55,28 +56,23 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$)
 		).subscribe(project => this.project = project);
 
-		// const products$ = this..items$.pipe(
-		// 	// we lose the order when the product is updated
-		// 	// because apollo has no idea of how to reorder items unless we do
-		// 	// a refetch, but we re gonna do it on the front end
-		// 	map(products => products.sort(
-		// 		(a, b) => +(new Date(b.lastUpdatedDate)) - (+new Date(a.lastUpdatedDate)))
-		// 	)
-		// );
-
 		const productStatuses$ = this.productStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused"',
 				sortBy: 'step',
 				descending: false,
 			}).pipe(
-				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses])
+				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses]),
+				takeUntil(this._destroy$)
 			);
 
 		this.columns$ = productStatuses$.pipe(
 			tap(statuses => this.getProducts(statuses)),
-			switchMap(statuses => makeColumns(statuses, this.productsMap, this.totalMap)),
+			mergeMap(statuses => makeColumns(statuses, this.productsMap, this.totalMap)),
 		);
+
+
+
 	}
 
 	loadMore(col: KanbanColumn) {
@@ -86,8 +82,19 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	private getProducts(statuses: ProductStatus[]) {
 		statuses.forEach(status => {
 			const query = `projects.id == "${this.project.id}" AND status.id == "${status.id}"`;
-			const prod$ = this.productSrv.getListQuery({ query, take: 8 });
-			const total$ = this.productSrv.queryCount(query);
+			const prod$ = this.productSrv.getListQuery({ query, take: 8, sortBy: 'lastUpdatedDate' });
+			const total$ = this.productSrv.customQuery({
+				query
+			}, `query productsCount($query: String) {
+				productsCount(query: $query)
+			}`);
+			// unfortunately we have to filter a second time on the front end
+			// because optimistic UI doesn't take the query into account
+			prod$.items$ = prod$.items$.pipe(
+				// map(products => products
+				// 	.filter(prod => prod.status.id === status.id)
+				// )
+			);
 			this.productsMap.set(status.id, prod$);
 			this.totalMap.set(status.id, total$);
 		});
@@ -98,19 +105,36 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		if (event.to === event.from) {
 			return;
 		}
+		// we update on the server
 		this.productSrv.update({
 			id: event.item.id,
-			status: new ProductStatus({ id: event.to })
-		}).subscribe();
+			status: new ProductStatus({ id: event.to.id })
+		}).pipe(
+			// refetch so we get the info..
+			switchMap(_ => forkJoin(
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.productsMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.productsMap.get(event.from.id).refetch({ take: event.from.data.length }),
+			))
+		).subscribe();
 	}
 
 	/** multiple */
-	updateProductsStatus(event: { to: any, items: any[] }) {
+	updateProductsStatus(event: KanbanDropEvent) {
 		const products = event.items.map(id => ({
 			id,
-			status: { id: event.to }
+			status: new ProductStatus({ id: event.to.id })
 		}));
-		this.productSrv.updateMany(products).subscribe();
+		this.productSrv.updateMany(products).pipe(
+			// refetch so we get the info..
+			switchMap(_ => forkJoin(
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.productsMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.productsMap.get(event.from.id).refetch({ take: event.from.data.length }),
+			))
+		).subscribe();
 	}
 
 	onColumnSelected(products: Product[]) {
