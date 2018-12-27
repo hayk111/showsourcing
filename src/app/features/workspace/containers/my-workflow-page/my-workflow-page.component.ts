@@ -76,13 +76,14 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			// unfortunately we have to filter a second time on the front end
 			// because optimistic UI doesn't take the query into account
 			prod$.items$ = prod$.items$.pipe(
-				map(products => products
-					.filter(prod => prod.status.id === status.id)
-				),
-				tap(d => {
-					const _status = status;
-					debugger;
-				})
+				// map(products => products
+				// 	.filter(prod => prod.status.id === status.id)
+				// ),
+				// tap(d => {
+				// 	const _status = status;
+				// 	debugger;
+				// 	// removing opt ui could solve this
+				// })
 			);
 			this.productsMap.set(status.id, prod$);
 			this.totalMap.set(status.id, total$);

@@ -78,9 +78,9 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 			// unfortunately we have to filter a second time on the front end
 			// because optimistic UI doesn't take the query into account
 			samples$.items$ = samples$.items$.pipe(
-				map(samples => samples
-					.filter(s => s.status.id === status.id)
-				)
+				// map(samples => samples
+				// 	.filter(s => s.status.id === status.id)
+				// )
 			); this.samplesMap.set(status.id, samples$);
 			this.totalMap.set(status.id, total$);
 		});
