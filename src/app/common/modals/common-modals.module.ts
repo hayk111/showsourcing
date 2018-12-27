@@ -11,6 +11,7 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 	InviteUserDlgComponent,
 	ChangePswdDlgComponent,
+	VoteDetailsDialogComponent,
 } from './component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
@@ -40,7 +41,8 @@ const modals = [
 	RfqDialogComponent,
 	FindProductsDialogComponent,
 	InviteUserDlgComponent,
-	ChangePswdDlgComponent
+	ChangePswdDlgComponent,
+	VoteDetailsDialogComponent
 ];
 
 @NgModule({
