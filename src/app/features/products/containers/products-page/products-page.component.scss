@@ -1,4 +1,4 @@
-:host {
+div.container {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -49,4 +49,10 @@ context-menu-app {
 			color: white;
 		}
 	}
+}
+
+
+selection-bar-app {
+	position: absolute;
+	width: 100%;
 }

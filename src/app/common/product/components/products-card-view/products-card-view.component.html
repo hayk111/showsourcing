@@ -5,24 +5,14 @@
 	</div>
 	<div class="products-section">
 		<ng-container *ngFor="let product of category.value; index as i; trackBy: trackById">
-			<!-- <product-grid-card-app
-				[class.mg-right]="(i+1)%4 === 0"
-				[product]="product"
-				[selection]="selection"
-				(productFavorite)="favorited.emit(product.id)"
-				(productUnfavorite)="unfavorited.emit(product.id)"
-				(productSelect)="select.emit(product)"
-				(productUnselect)="unselect.emit(product)"
-				(liked)="liked.emit(product)"
-				(disliked)="disliked.emit(product)">
-			</product-grid-card-app> -->
-			<product-grid-card2-app
+			<product-grid-card-app
 				[product]="product"
 				[selected]="selection.has(product?.id)"
+				(open)="open.emit(product.id)"
 				(preview)="previewClick.emit(product)"
 				(select)="select.emit(product)"
 				(unselect)="unselect.emit(product)">
-			</product-grid-card2-app>
+			</product-grid-card-app>
 		</ng-container>
 	</div>
 </div>
