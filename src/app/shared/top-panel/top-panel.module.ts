@@ -19,6 +19,9 @@ import { ViewSwitcherComponent } from '~shared/top-panel/components/view-switche
 import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
 import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
 import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
+import { ListModule } from '~shared/list/list.module';
+import { RatingModule } from '~shared/rating';
+import { UserPictureModule } from '~shared/user-picture/user-picture.module';
 
 @NgModule({
 	imports: [
@@ -34,6 +37,9 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		SearchAutocompleteModule,
 		FormsModule,
 		ContextMenuModule,
+		ListModule,
+		RatingModule,
+		UserPictureModule,
 		EditableFieldModule
 	],
 	declarations: [

@@ -6,13 +6,12 @@
 }
 
 .top {
-	padding-top: var(--spacing-l);
-	padding-bottom: var(--spacing-ml);
-
+	// padding-top: var(--spacing-l);
+	// padding-bottom: var(--spacing-ml);
+	height: 75px;
 	.title {
-		margin-bottom: var(--spacing-s);
-
 		h1 {
+			margin-top: var(--spacing-ms);
 			font-family: var(--font-normal);
 			font-size: 20px;
 			font-weight: 600;
@@ -27,7 +26,16 @@
 	margin-left: var(--spacing-l);
 }
 
+.left {
+	max-width: 50%;
+	white-space: nowrap;
+	align-items: center;
+}
+
 .right {
+	max-width: 50%;
+	white-space: nowrap;
+	align-items: center;
 	margin-right: var(--spacing-xl);
 
 	button {
@@ -66,7 +74,42 @@ icon-app {
 
 
 .logo {
-  width: 64px;
-  height: 64px;
+  width: 50px;
+  height: 50px;
   border-radius: 2px;
+}
+
+.container {
+	height: 75px;
+}
+
+.action-list {
+	user-picture-app,
+	status-selector-app,
+	button {
+		display: inline-block;
+		margin-left: var(--spacing-ms);
+	}
+	.rounded {
+		min-width: var(--spacing-xl);
+    border-radius: var(--spacing-m);
+    height: var(--spacing-xl);
+    font-size: var(--font-size-s);
+    padding: 0;
+	}
+
+	.share,
+	.like {
+		background-color: var(--color-secondary);
+		color: var(--color-black);
+	}
+
+
+	user-picture-app {
+		display: inline-block;
+	}
+	context-menu-app,
+	user-picture-app {
+    vertical-align: middle;
+	}
 }

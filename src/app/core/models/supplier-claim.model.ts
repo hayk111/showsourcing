@@ -34,4 +34,3 @@ export class SupplierClaim {
 		this.__typename = 'SupplierClaim';
 	}
 }
-

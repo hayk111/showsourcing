@@ -33,6 +33,7 @@
 			"~entity-services/*": ["app/core/entity-services/*"],
       "~entity-services": ["app/core/entity-services/index"],
       "~utils/*": ["app/utils/*"],
+			"~deprecated/*": ["../deprecated/*"],
 			"~utils": ["app/utils/index"]
     }
   }

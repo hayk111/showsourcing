@@ -1,11 +1,11 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	margin: 0 var(--spacing-edge);
+	margin: 0 var(--spacing-m);
 }
 
 .container {
-	width: 1416px;
+	width: 100%;
 	margin: 0 auto;
 
 	sub-panel-app {

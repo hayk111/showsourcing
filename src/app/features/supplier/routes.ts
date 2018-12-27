@@ -5,6 +5,7 @@ import { SupplierPublicProfileComponent } from '~features/supplier/containers/su
 import { SupplierProductsComponent } from '~features/supplier/containers/supplier-products/supplier-products.component';
 import { SupplierTasksComponent } from '~features/supplier/containers/supplier-tasks/supplier-tasks.component';
 import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
+import { SupplierGeneralInfoComponent } from './containers/supplier-general-info/supplier-general-info.component';
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },

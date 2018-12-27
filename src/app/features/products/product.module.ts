@@ -9,9 +9,11 @@ import { TaskCommonModule } from '~common/task';
 import {
 	ProductIconsComponent,
 	ProductSubInfoComponent,
+	ProductCardComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
-	ProductInformationComponent,
+	ProductListComponent,
+	ProductInformationComponent
 } from '~features/products/components';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
@@ -22,17 +24,20 @@ import {
 	ProductSamplesComponent,
 	ProductsPageComponent,
 	ProductResumeComponent,
-	ProductTasksComponent,
 	ProductShippingComponent,
+	ProductTasksComponent
 } from '~features/products/containers';
 import { routes } from '~features/products/routes';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
 import { SharedModule } from '~shared/shared.module';
-import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
-import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
+
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
-import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
+import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
+import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
+import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
+import { CommentCommonModule } from '~common/comment/comment-common.module';
+
 
 @NgModule({
 	imports: [
@@ -44,6 +49,7 @@ import { ProductTopPanelComponent } from './components/product-top-panel/product
 		ProductCommonModule,
 		TaskCommonModule,
 		QuoteCommonModule,
+		CommentCommonModule,
 		SampleCommonModule
 	],
 	declarations: [
@@ -63,10 +69,12 @@ import { ProductTopPanelComponent } from './components/product-top-panel/product
 		VoteDetailsDialogComponent,
 		ProductTasksComponent,
 		ProductTopPanelComponent,
+		ProductListComponent,
 		ProductSamplesComponent,
 		ProductResumeComponent,
+		ProductInformationComponent,
 		ProductShippingComponent,
-		ProductInformationComponent
+		ProductCardComponent
 	],
 	entryComponents: [
 		VoteDetailsDialogComponent
