@@ -11,6 +11,7 @@
 				<ng-container *ngIf="type === 'badge'">
 					<status-badge-app
 						[status]="entity?.status"
+						[typeEntity]="typeEntity"
 						[size]="selectSize">
 					</status-badge-app>
 				</ng-container>
@@ -19,6 +20,7 @@
 
 					<status-box-app
 						[status]="entity?.status"
+						[typeEntity]="typeEntity"
 						[size]="selectSize">
 					</status-box-app>
 
