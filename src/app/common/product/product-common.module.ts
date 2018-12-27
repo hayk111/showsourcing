@@ -7,7 +7,7 @@ import { SharedModule } from '~shared/shared.module';
 import {
 	MoqComponent,
 	ProductCardComponent,
-	ProductGridCard2Component,
+	ProductGridCardComponent,
 	ProductsCardViewComponent,
 	ProductsListViewComponent,
 	ProductSortingMenuComponent,
@@ -32,7 +32,7 @@ import { ProductPreviewComponent } from './containers';
 		ProductCardComponent,
 		MoqComponent,
 		StatsIconsComponent,
-		ProductGridCard2Component
+		ProductGridCardComponent
 	],
 	exports: [
 		ProductPreviewComponent,
@@ -42,7 +42,7 @@ import { ProductPreviewComponent } from './containers';
 		ProductCardComponent,
 		MoqComponent,
 		StatsIconsComponent,
-		ProductGridCard2Component
+		ProductGridCardComponent
 	],
 	entryComponents: [],
 	providers: []
