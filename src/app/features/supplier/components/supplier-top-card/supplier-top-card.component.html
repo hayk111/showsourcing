@@ -1,25 +1,13 @@
-<top-panel-details-app [title]="supplier.name">
+<top-panel-details-app [title]="supplier.name" [data]="supplier" [user]="supplier?.createdBy" (export)="export.emit($event)" (favorited)="changeFavorite(true)"
+ (unfavorited)="changeFavorite(false)">
 	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
 	<div subinfo class="subinfo-container">
 		<div class="tag">Supplier . {{' '}}</div>
-		<div class="adress">{{supplier.address}} {{(supplier.address && supplier.country) ? ', ': ''}}{{supplier.country}} </div>
+		<div class="adress">{{supplier.address}} {{(supplier.address && supplier.country) ? ', ': ''}}{{supplier.country}}
+		</div>
 	</div>
 	<div action class="action-list">
-		<button class="rounded like">
-				<rating-heart-app
-				[colorNormal]="'color-black'"
-				[favorite]="supplier?.favorite"
-				size="14"
-				(favorited)="changeFavorite(true)"
-				(unfavorited)="changeFavorite(false)"></rating-heart-app>
-		</button>
-		<button class="rounded secondary share" (click)="export.emit(supplier)">
-			<icon-app name="share"></icon-app>
-		</button>
 
-		<user-picture-app
-			[user]="supplier.createdBy" [image]="supplier.createdBy?.avatar" [border]="true" size="28">
-		</user-picture-app>
 
 		<button class="contact-supplier">Contact Supplier</button>
 

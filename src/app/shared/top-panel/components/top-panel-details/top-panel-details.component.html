@@ -15,6 +15,21 @@
 	</div>
 
 	<div class="flex right container action-list">
+			<button class="rounded like">
+					<rating-heart-app
+					[colorNormal]="'color-black'"
+					[favorite]="data?.favorite"
+					size="14"
+					(favorited)="favorited.emit(data)"
+					(unfavorited)="unfavorited.emit(data)"></rating-heart-app>
+			</button>
+			<button class="rounded secondary share" (click)="export.emit(data)">
+				<icon-app name="share"></icon-app>
+			</button>
+	
+			<user-picture-app
+				[user]="user" [image]="user?.avatar" [border]="true" size="28">
+			</user-picture-app>
 			<ng-content select="[action]"></ng-content>
 	</div>
 </div>

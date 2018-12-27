@@ -1,7 +1,9 @@
 .supplier-top-header {
 	margin: auto;
-	width: calc(796px + 452px);
-	padding-top: var(--spacing-m);
+	width: 100%;
+	// padding-top: var(--spacing-m);
+	position: absolute;
+	z-index: var(--z-selection-bar);
 }
 
 .left {
@@ -10,7 +12,7 @@
 
 .right {
 	width: 452px;
-	
+	// overflow: auto;
 }
 
 .top {
@@ -19,7 +21,7 @@
 
 .supplier-container {
 	width: 1416px;
-	margin: 0 auto;
+	margin: var(--spacing-xxxxl) auto;
 
 	sub-panel-app {
 		padding-left: 0px;
