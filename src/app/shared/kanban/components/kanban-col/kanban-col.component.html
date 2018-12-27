@@ -17,7 +17,7 @@
   [id]="col.id"
   [cdkDropListConnectedTo]="connectedLists"
   [cdkDropListData]="col.data"
-  (cdkDropListDropped)="drop.emit($event)">
+  (cdkDropListDropped)="onDrop($event)">
 
   <div class="overlay flexCenter">
     <icon-app class="arrow" name="arrow-circle-down" fontSet="fa"></icon-app>
@@ -32,6 +32,7 @@
     <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: data }">
     </ng-container>
   </kanban-item-app>
-
-  <div class="txtBtn flexCenter" (click)="loadMore.emit(col)" *ngIf="col.data.length < col.totalData">Load More</div>
+  <div class="txtBtn flexCenter"
+    (click)="loadMore.emit(col)"
+    *ngIf="col.data.length < col.totalData">Load More ({{ col.totalData - col.data.length }})</div>
 </main>

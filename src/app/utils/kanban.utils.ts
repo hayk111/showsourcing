@@ -15,7 +15,7 @@ export function makeColumns(
 ) {
 	const columns$ = statuses.map(status => {
 		const data$ = dataMap.get(status.id).items$;
-		const total$ = totalMap.get(status.id).items$ as Observable<number>;
+		const total$ = totalMap.get(status.id).items$ as unknown as Observable<number>;
 		return combineLatest(
 			data$,
 			total$,

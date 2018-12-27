@@ -1,0 +1,65 @@
+<div class="card-container" [ngClass]="{'selectedCard': selected, 'actions': hasActions}" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
+	<div class="card-content flexColumn">
+		<img-app
+			class="noselect"
+			size="l"
+			[image]="product"
+			objectFit="none">
+		</img-app>
+
+		<div class="imgNumber flex flexCenter">
+			<span>{{product?.images?.length || '-'}}</span>
+			<icon-app name="image"></icon-app>
+		</div>
+
+		<div class="imgPrice flex flexCenter">
+			<span>{{product?.price?.value | ssPrice | currency: product?.price?.currency:'symbol':'1.2-2'}}</span>
+		</div>
+
+		<status-badge-app
+			[status]="product?.status" [typeEntity]="prodERM">
+		</status-badge-app>
+
+		<checkbox-app
+			*ngIf="hasActions && hasCheckbox && (selected || showOptionsBar)"
+			[size]="20"
+			[checked]="selected"
+			(check)="productSelect.emit()"
+			(uncheck)="productUnselect.emit()">
+		</checkbox-app>
+
+		<div class="information">
+			<div class="text-bar">
+				<p class="name-product">{{product?.name || 'Unnamed Product'}}</p>
+				<p class="supplier-product">{{product?.supplier?.name}}</p>
+			</div>
+			<stats-icons-app
+				[product]="product"
+				[favorite]="product?.favorite">
+			</stats-icons-app>
+		</div>
+
+		<action-bar-app
+			*ngIf="hasActions"
+			buttonName="Open"
+			[isVisible]="showOptionsBar"
+			[votes]="product?.votes"
+			[favorite]="product?.favorite"
+			(onFavorite)="productFavorite.emit()"
+			(onUnfavorite)="productUnfavorite.emit()"
+			(liked)="liked.emit()"
+			(disliked)="disliked.emit()"
+			(buttonClick)="onViewProduct()">
+
+			<button class="icon light folder" (click)="openAddToProject()">
+				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
+			</button>
+			<!-- uncomment when we have the design of the options -->
+			<!-- <button class="icon light dots">
+				<icon-app name="dots-vertical" class="color-txt-secondary"></icon-app>
+			</button> -->
+
+		</action-bar-app>
+
+	</div>
+</div>

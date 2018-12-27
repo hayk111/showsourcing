@@ -28,6 +28,8 @@ export class RatingHeartComponent {
 	@Input() favorite = false;
 	@Input() colorFavorite = 'color-warn';
 	@Input() colorNormal = 'color-secondary-dark';
+	@Input() customClassFavorited = '';
+	@Input() customClassUnFavorited = '';
 
 	@ViewChild(IconComponent, { read: ElementRef }) icon;
 

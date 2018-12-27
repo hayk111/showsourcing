@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import {
-	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-	RfqDialogComponent,
-} from '~common/modals';
-import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
+import { CommonModalService } from '~common/modals';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -34,7 +28,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
 		private router: Router,
-		private thumbSrv: ThumbService
+		private thumbSrv: ThumbService,
+		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}
@@ -75,26 +70,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			timeout: 3500
 		});
 		this.router.navigate(['product']);
-	}
-
-	/** opens the dialog to add multiple project to product.projects */
-	openAddProjectDlg() {
-		this.dlgSrv.open(
-			ProductAddToProjectDlgComponent,
-			{ products: [this.product] }
-		);
-	}
-
-	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	openRequestFeedbackDialog() {
-		this.dlgSrv.open(
-			ProductRequestTeamFeedbackDlgComponent,
-			{ products: [this.product] }
-		);
-	}
-
-	openRequestQuotationDialog() {
-		this.dlgSrv.open(RfqDialogComponent, { product: this.product });
 	}
 
 	/** when file has been removed we remove link */
@@ -162,19 +137,5 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		};
 		const text = `Are you sure you want to delete this product?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
-	}
-
-	/** export product */
-	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(product: Product) {
-		this.dlgSrv.open(ProductExportDlgComponent, {
-			products: [this.product]
-		});
-	}
-	/** Opens a dialog that let you see the list of people who have voted */
-	openVoteDetailsDialog() {
-		this.dlgSrv.open(VoteDetailsDialogComponent, {
-			votes: this.product.votes
-		});
 	}
 }

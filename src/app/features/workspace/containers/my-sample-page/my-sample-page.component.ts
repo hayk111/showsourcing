@@ -7,7 +7,7 @@ import { ListPageService } from '~core/list-page';
 import { Sample, ERM, Product, SampleStatus } from '~core/models';
 import { FilterType } from '~shared/filters';
 import { KanbanDropEvent, KanbanColumn } from '~shared/kanban/interfaces';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, forkJoin } from 'rxjs';
 import { first, map, switchMap, filter, tap } from 'rxjs/operators';
 import { CloseEventType } from '~shared/dialog';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
@@ -31,7 +31,7 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		FilterType.PRODUCT
 	];
 	private samplesMap = new Map<string, ListQuery<Sample>>();
-	private totalMap = new Map<string, Observable<number>>();
+	private totalMap = new Map<string, ListQuery<number>>();
 
 	erm = ERM;
 
@@ -49,17 +49,6 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 
 	ngOnInit() {
 		super.setup();
-
-		// we just take the first 15 since this is a test and we just want to display the behaviour
-		const samples$ = this.sampleSrv.queryMany({ take: 100 }).pipe(
-			first(),
-			// we lose the order when the product is updated
-			// because apollo has no idea of how to reorder items unless we do
-			// a refetch, but we re gonna do it on the front end
-			map(sample => sample.sort(
-				(a, b) => +(new Date(b.lastUpdatedDate)) - (+new Date(a.lastUpdatedDate)))
-			)
-		);
 
 		const sampleStatus$ = this.sampleStatusSrv
 			.queryAll(undefined, {
@@ -80,9 +69,19 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 	private getSamples(statuses: SampleStatus[]) {
 		statuses.forEach(status => {
 			const query = `status.id == "${status.id}"`;
-			const prod$ = this.sampleSrv.getListQuery({ query, take: 8 });
-			const total$ = this.sampleSrv.queryCount(query);
-			this.samplesMap.set(status.id, prod$);
+			const samples$ = this.sampleSrv.getListQuery({ query, take: 8, sortBy: 'lastUpdatedDate' });
+			const total$ = this.sampleSrv.customQuery({
+				query, take: 8, sortBy: 'lastUpdatedDate'
+			}, `query samplesCount($query: String) {
+				samplesCount(query: $query)
+			}`);
+			// unfortunately we have to filter a second time on the front end
+			// because optimistic UI doesn't take the query into account
+			samples$.items$ = samples$.items$.pipe(
+				// map(samples => samples
+				// 	.filter(s => s.status.id === status.id)
+				// )
+			); this.samplesMap.set(status.id, samples$);
 			this.totalMap.set(status.id, total$);
 		});
 	}
@@ -106,15 +105,32 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 				id: event.to,
 				__typename: 'SampleStatus'
 			}
-		}).subscribe();
+		}).pipe(
+			// refetch so we get the info..
+			switchMap(_ => forkJoin(
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.samplesMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.samplesMap.get(event.from.id).refetch({ take: event.from.data.length }),
+			))
+		).subscribe();
 	}
 
-	updateStatusSamples(event: { to: any, items: any[] }) {
-		const samples = event.items.map(id => ({
+	/** multiple */
+	updateStatusSamples(event: KanbanDropEvent) {
+		const products = event.items.map(id => ({
 			id,
-			status: { id: event.to, __typename: 'SampleStatus' }
+			status: new SampleStatus({ id: event.to.id })
 		}));
-		this.sampleSrv.updateMany(samples).subscribe();
+		this.sampleSrv.updateMany(products).pipe(
+			// refetch so we get the info..
+			switchMap(_ => forkJoin(
+				this.totalMap.get(event.to.id).refetch({}),
+				this.totalMap.get(event.from.id).refetch({}),
+				this.samplesMap.get(event.to.id).refetch({ take: event.to.data.length }),
+				this.samplesMap.get(event.from.id).refetch({ take: event.from.data.length }),
+			))
+		).subscribe();
 	}
 
 	onMultipleStatusUpdated(selection, status) {
