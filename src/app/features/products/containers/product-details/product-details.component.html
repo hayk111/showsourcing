@@ -28,15 +28,15 @@
 			<!-- team rating here -->
 			<product-team-rating-app
 				[product]="product"
-				(requestTeamVotes)="openRequestFeedbackDialog()"
+				(requestTeamVotes)="commonModalSrv.openRequestFeedbackDialog([product])"
 				(liked)="onThumbUp()"
 				(disliked)="onThumbDown()"
-				(openVoteDetails)="openVoteDetailsDialog()">
+				(openVoteDetails)="commonModalSrv.openVoteDetailsDialog(product?.votes)">
 			</product-team-rating-app>
 
 			<project-card-app
 				(removeProject)="removeProject($event)"
-				(addProjectClick)="openAddProjectDlg()"
+				(addProjectClick)="commonModalSrv.openAddToProjectDialog([product])"
 				[projects]="product.projects"></project-card-app>
 
 			<files-card-app

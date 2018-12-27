@@ -9,10 +9,11 @@ import {
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RfqDialogComponent,
+	VoteDetailsDialogComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { InviteUserDlgComponent } from '~common/modals/component';
-import { EntityMetadata, Product } from '~models';
+import { EntityMetadata, Product, ProductVote } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 
@@ -85,6 +86,11 @@ export class CommonModalService {
 
 	openInvitationDialog() {
 		return this.dlgSrv.open(InviteUserDlgComponent);
+	}
+
+	/** Opens a dialog that let you see the list of people who have voted */
+	openVoteDetailsDialog(votes: ProductVote[]) {
+		return this.dlgSrv.open(VoteDetailsDialogComponent, { votes });
 	}
 
 	close() {
