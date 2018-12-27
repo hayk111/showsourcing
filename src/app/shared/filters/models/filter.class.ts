@@ -22,6 +22,7 @@ export enum FilterType {
 	CATEGORY = 'category',
 	CREATED_BY = 'created by',
 	CUSTOM = 'custom',
+	DELETED = 'deleted',
 	DONE = 'done',
 	DUE_DATE = 'dueDate',
 	EVENT = 'event',

@@ -1,9 +1,9 @@
-<top-panel-details-app [title]="supplier.name" [data]="supplier" [user]="supplier?.createdBy" (export)="export.emit($event)" (favorited)="changeFavorite(true)"
+<top-panel-details-app [title]="supplier?.name" [data]="supplier" [user]="supplier?.createdBy" (export)="export.emit($event)" (favorited)="changeFavorite(true)"
  (unfavorited)="changeFavorite(false)">
-	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
+	<img-app [image]="supplier?.logoImage" type="supplier"></img-app>
 	<div subinfo class="subinfo-container">
 		<div class="tag">Supplier . {{' '}}</div>
-		<div class="adress">{{supplier.address}} {{(supplier.address && supplier.country) ? ', ': ''}}{{supplier.country}}
+		<div class="adress">{{supplier?.address}} {{(supplier?.address && supplier?.country) ? ', ': ''}}{{supplier?.country}}
 		</div>
 	</div>
 	<div action class="action-list">

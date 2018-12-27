@@ -32,6 +32,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 			entityMetadata: ERM.SAMPLE,
 			initialFilters: [
 				{ type: FilterType.ASSIGNEE, value: userId },
+				{ type: FilterType.DELETED, value: false },
 				...addedFilters
 			]
 		});
