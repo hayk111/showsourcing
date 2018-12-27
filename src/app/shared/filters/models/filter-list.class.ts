@@ -124,6 +124,7 @@ export class FilterList {
 	 */
 	private static getFieldCondition(type, value) {
 		switch (type) {
+			case FilterType.DELETED:
 			case FilterType.DONE:
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
