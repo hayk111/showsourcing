@@ -1,15 +1,20 @@
 <card-app>
-	<div class="title flex">
-		<h2 i18n="div title|Product shipping and tranding information@@productShipping" class="flex">
-			Shipping & Trading
-		</h2>
-	</div>
+	<ng-container *ngIf="product$ | async as product; else pending">
+		<div class="title flex">
+			<h2 i18n="div title|Product shipping and tranding information@@productShipping" class="flex">
+				Shipping & Trading
+			</h2>
+		</div>
 
-	<dynamic-form-app
-		[inlineLabel]="true"
-		[fields]="customFields"
-		[value]="product$ | async"
-		[colAmount]="2"
-		(update)="update($event)">
-	</dynamic-form-app>
+		<dynamic-form-app
+			[inlineLabel]="true"
+			[fields]="customFields"
+			[value]="product"
+			[colAmount]="2"
+			(update)="update($event)">
+		</dynamic-form-app>
+	</ng-container>
+	<ng-template #pending>
+		<spinner-app></spinner-app>
+	</ng-template>
 </card-app>
