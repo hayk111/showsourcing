@@ -16,7 +16,11 @@
 
 		<!-- right side -->
 		<div class="right">
-			<supplier-preview-app [supplier]="supplier" [canClose]="false" [isRelative]="true">
+			<supplier-preview-app
+				[shouldSelect]="false"
+				[supplier]="supplier"
+				[canClose]="false"
+				[isRelative]="true">
 			</supplier-preview-app>
 		</div>
 	</div>

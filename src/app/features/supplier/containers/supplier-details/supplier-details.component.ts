@@ -54,31 +54,24 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const id$ = this.route.params.pipe(map(params => params.id));
+		const id = this.route.snapshot.params.id;
 
-		id$
-			.pipe(
-				switchMap((id: string) => this.featureSrv.selectOne(id)),
-				takeUntil(this._destroy$)
-			)
-			.subscribe(
-				supplier => this.onSupplier(supplier),
-				err => this.onError(err)
-			);
+		this.supplier$ = this.featureSrv.selectOne(id).pipe(
+			takeUntil(this._destroy$),
+			tap(supplier => (this.supplier = supplier)),
+		);
 
-		this.supplier$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
-			tap(supplier => (this.supplier = supplier))
+		this.supplier$.subscribe(
+			supplier => this.onSupplier(supplier),
+			err => this.onError(err)
 		);
 
 		// getting his products
-		this.products$ = id$.pipe(switchMap(id => this.featureSrv.getProducts(id)));
+		this.products$ = this.featureSrv.getProducts(id);
 
-		this.contacts$ = id$.pipe(switchMap(id => this.featureSrv.getContacts(id)));
+		this.contacts$ = this.featureSrv.getContacts(id);
 
-		this.feedResult = this.activitySrv.getSupplierFeed(
-			this.route.parent.snapshot.params.id
-		);
+		this.feedResult = this.activitySrv.getSupplierFeed(id);
 	}
 
 	update(supplier: Supplier) {
