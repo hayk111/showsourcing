@@ -1,13 +1,13 @@
 <div class="flexStart row">
 	<!-- name -->
-	<div class="flex task-name ellipsis">
+	<div class="flex task-name ellipsis pointer">
 		<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus()"></icon-app>
-		<div class="flexCenter name pointer" [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}" (click)="previewClicked.emit(task)">{{ task?.name || 'Unnamed task' }}</div>
+		<div class="flexCenter" [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}" (click)="previewClicked.emit(task)">{{ task?.name || 'Unnamed task' }}</div>
 	</div>
 
 	<!-- if product -->
 	<div *ngIf="hasProduct" class="flexStart task-product ellipsis">
-		<div *ngIf="task?.product" class="flex ellipsis pointer" (click)="openProduct.emit(task?.product?.id || null)">
+		<div *ngIf="task?.product" class="flex ellipsis name-container" (click)="openProduct.emit(task?.product?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.product?.images"></img-app></div>
 			<div class="text">{{ task?.product?.name || 'Unnamed product' }}</div>
 		</div>
@@ -15,7 +15,7 @@
 
 	<!-- if supplier -->
 	<div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis">
-		<div *ngIf="task?.supplier" class="flex ellipsis pointer" (click)="openSupplier.emit(task?.supplier?.id || null)">
+		<div *ngIf="task?.supplier" class="flex ellipsis name-container" (click)="openSupplier.emit(task?.supplier?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.supplier?.logoImage"></img-app></div>
 			<div class="text">{{ task?.supplier?.name || 'Unnamed suppler' }}</div>
 		</div>
@@ -29,10 +29,10 @@
 		[width]="200"
 		[offsetY]="-22"
 		(update)="updateAssignee($event)">
-		<div class="flexVAlign pointer">
+		<div class="flexVAlign">
 			<!-- we call 2 times the selctor method since it has 2 different styling offsets -->
-			<user-picture-app class="pointer" [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
-			<span class="pointer">{{ task?.assignee?.firstName }} {{ task?.assignee?.lastName }}</span>
+			<user-picture-app [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
+			<span>{{ task?.assignee?.firstName }} {{ task?.assignee?.lastName }}</span>
 		</div>
 	</selector2-app>
 
@@ -46,10 +46,10 @@
 			[offsetX]="-115"
 			(update)="updateAssignee($event)">
 			<user-picture-app
-				class="pointer" [user]="task?.assignee"	[size]="20"	[border]="true">
+				[user]="task?.assignee"	[size]="20"	[border]="true">
 			</user-picture-app>
 		</selector2-app>
-		<div class="flex task-status pointer"
+		<div class="flex task-status"
 			[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}"
 			(click)="toggleDoneStatus()">
 			<icon-app name="circle" fontSet="fa"></icon-app>
