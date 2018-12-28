@@ -13,7 +13,10 @@
     &:hover {
       .task-preview {
         opacity: 1;
-      }
+			}
+			div.name {
+				color: var(--color-primary);
+			}
     }
 
     .task-preview {
