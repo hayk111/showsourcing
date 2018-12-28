@@ -8,16 +8,16 @@
 	<!-- if product -->
 	<div *ngIf="hasProduct" class="flexStart task-product ellipsis">
 		<div *ngIf="task?.product" class="flex ellipsis pointer" (click)="openProduct.emit(task?.product?.id || null)">
-			<img-app [size]="'xs'" [image]="task?.product?.images"></img-app>
-			{{ task?.product?.name || 'Unnamed product' }}
+			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.product?.images"></img-app></div>
+			<div class="text">{{ task?.product?.name || 'Unnamed product' }}</div>
 		</div>
 	</div>
 
 	<!-- if supplier -->
 	<div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis">
 		<div *ngIf="task?.supplier" class="flex ellipsis pointer" (click)="openSupplier.emit(task?.supplier?.id || null)">
-			<img-app [size]="'xs'" [image]="task?.supplier?.logoImage"></img-app>
-			{{ task?.supplier?.name || 'Unnamed suppler' }}
+			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.supplier?.logoImage"></img-app></div>
+			<div class="text">{{ task?.supplier?.name || 'Unnamed suppler' }}</div>
 		</div>
 	</div>
 
