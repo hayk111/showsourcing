@@ -22,8 +22,8 @@
 		<div class="title pointer" (click)="open.emit()"> {{ product?.name || 'Unnamed product'}} </div>
 		<div class="description"> {{ product?.category?.name }}</div>
 		<div class="flex status-info">
-			<icon-app class="circle color-{{product?.status?.category}}" name="circle" fontSet="fa"></icon-app>
-			{{ product?.status?.step }}.  {{ product?.status?.name | const:'status' }}
+			<icon-app class="circle color-{{product?.status?.category || 'secondary'}}" name="circle" fontSet="fa"></icon-app>
+			{{ product?.status?.step || '0' }}.  {{ product?.status?.name ? (product?.status?.name | const:'status') : 'New Product' }}
 		</div>
 	</div>
 </div>
