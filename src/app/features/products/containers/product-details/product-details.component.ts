@@ -20,7 +20,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	// product$: Observable<Product>;
 	files: Array<Attachment>;
 	/** projects for this product */
-	product: Product = null;
+	product: Product;
 	typeEntity = ERM.PRODUCT;
 
 	constructor(
@@ -36,13 +36,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const id$ = this.route.params.pipe(
-			takeUntil(this._destroy$),
-			map(params => params.id)
-		);
+		const id = this.route.snapshot.params.id;
 
-		id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
+		this.featureSrv.selectOne(id).pipe(
 			takeUntil(this._destroy$)
 		).subscribe(
 			product => this.onProduct(product),
