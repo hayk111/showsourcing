@@ -26,6 +26,7 @@ rating-heart-app {
 	width: 32px;
 	height: 32px;
 	overflow: hidden;
+	position: absolute;
 	img.mini {
 		height: 100%;
 		z-index: var(--z-cardContainer);
@@ -58,6 +59,7 @@ rating-heart-app {
 		.preview {
 			display: flex;
 			align-items: center;
+			min-width: 70px;
 		}
 	}
 }
@@ -74,6 +76,7 @@ rating-heart-app {
 	margin-left: var(--spacing-s);
 	.name {
 		font-weight: 600;
+		margin-left: 40px;
 	}
 }
 
