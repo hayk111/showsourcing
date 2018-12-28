@@ -126,6 +126,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	isLast() {
 		if (!this.statuses) {
+			// if empty we return true, so it beleives its last
 			return false;
 		}
 

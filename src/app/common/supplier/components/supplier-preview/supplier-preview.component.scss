@@ -11,4 +11,5 @@ divider-app {
 .relative {
 	position: relative;
 	margin: var(--spacing-l) var(--spacing-m);
+	height: unset;
 }

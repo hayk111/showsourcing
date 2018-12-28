@@ -14,6 +14,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, AfterViewInit, Rende
 export class PreviewComponent implements AfterViewInit {
 
 	@Input() align: 'left' | 'right' = 'right';
+	/** wether the top image is fixed or not for the scrolling effect*/
+	@Input() isFixed = true;
 	@ViewChild('top') topSection: ElementRef<HTMLElement>;
 	@ViewChild('scrollSection') scrollSection: ElementRef<HTMLElement>;
 
@@ -21,8 +23,10 @@ export class PreviewComponent implements AfterViewInit {
 
 	ngAfterViewInit() {
 		// minus 6 so it goes a bit above the image
-		const topHeight = this.topSection.nativeElement.getBoundingClientRect().height - 6;
-		this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `${topHeight}px`);
+		if (this.isFixed) {
+			const topHeight = this.topSection.nativeElement.getBoundingClientRect().height - 6;
+			this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `${topHeight}px`);
+		}
 	}
 
 }

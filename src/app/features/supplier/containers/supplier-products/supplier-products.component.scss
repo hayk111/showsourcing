@@ -49,16 +49,16 @@
 }
 
 .empty {
-	padding-top: 160px;
+	padding-top: 110px;
 
 	icon-app {
 		cursor: default;
-		font-size: 210px;
+		font-size: 130px;
 	}
 	h1 {
-		font-family: var(--font-normal);
     margin-top: var(--spacing-l);
 		margin-bottom: var(--spacing-s);
+		font-size: var(--font-size-xl);
 	}
 	h2 {
 		font-family: var(--font-normal);

@@ -1,4 +1,8 @@
-<preview-app cdk-scrollable *ngIf="supplier$ | async" [ngClass]="isRelative ? 'relative' : ''">
+<preview-app
+	*ngIf="supplier$ | async"
+	[ngClass]="isRelative ? 'relative' : ''"
+	cdk-scrollable
+	[isFixed]="isFixed">
 
 		<!-- Banner -->
 		<preview-banner-app (closed)="close.emit()" [canClose]="canClose">
