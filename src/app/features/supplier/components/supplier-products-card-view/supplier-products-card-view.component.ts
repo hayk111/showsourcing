@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ListViewComponent } from '~core/list-page';
+import { Product } from '~core/models';
 
 @Component({
 	selector: 'supplier-products-card-view-app',
@@ -6,9 +8,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./supplier-products-card-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierProductsCardViewComponent implements OnInit {
+export class SupplierProductsCardViewComponent extends ListViewComponent<Product> implements OnInit {
 
-	constructor() { }
+	constructor() { super(); }
 
 	ngOnInit() {
 	}

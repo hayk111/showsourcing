@@ -1,6 +1,7 @@
 <ng-container *ngIf="supplier">
 	<!-- top card -->
-	<supplier-top-card-app class="supplier-top-header"
+	<supplier-top-card-app
+		class="supplier-top-header"
 		[supplier]="supplier"
 		(delete)="delete($event)"
 		(export)="export($event)"

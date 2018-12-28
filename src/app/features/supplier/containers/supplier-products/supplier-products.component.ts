@@ -20,7 +20,6 @@ import { ID } from '~utils/id.utils';
 })
 export class SupplierProductsComponent extends TrackingComponent implements OnInit {
 
-	products$: Observable<Product[]>;
 	hasSearch = false;
 	supplierId: ID;
 	maxItemsDisplay = 16;

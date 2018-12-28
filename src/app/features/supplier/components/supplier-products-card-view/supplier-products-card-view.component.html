@@ -1,3 +1,12 @@
-<p>
-  supplier-products-card-view works!
-</p>
+<ng-container *ngFor="let product of rows; index as i; trackBy: trackById">
+		<!-- only the last item has a margin bottom, and if its the final row, no margin-bottom -->
+		<product-grid-card-app
+			[ngClass]="{'no-left-margin': i % 4 == 0, 'margin-bottom-card': (i !== maxItemsDisplay - 1) && (i % 4 == 3)}"
+			[product]="product"
+			[selected]="selection?.has(product?.id)"
+			(open)="open.emit(product.id)"
+			(preview)="previewClick.emit(product)"
+			(select)="select.emit(product, true)"
+			(unselect)="unselect.emit(product, true)">
+		</product-grid-card-app>
+	</ng-container>
