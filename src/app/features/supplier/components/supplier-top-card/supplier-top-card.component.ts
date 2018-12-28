@@ -29,7 +29,7 @@ export class SupplierTopCardComponent extends TrackingComponent implements OnIni
 	}
 
 	changeFavorite(isFavorited: boolean) {
-		this.updateFavorite.emit({ favorite: isFavorited, ...this.supplier });
+		this.updateFavorite.emit({ favorite: isFavorited, id: this.supplier.id });
 	}
 
 	ngOnInit() {

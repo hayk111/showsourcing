@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { AutoUnsub } from '~utils';
 import { Supplier, ERM, AppImage } from '~core/models';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CustomField } from '~shared/dynamic-forms';
 import { SupplierService, ContactService } from '~core/entity-services';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
@@ -16,16 +16,14 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 
-	@Input() set supplier(value: Supplier) {
-		this._supplier = value;
-	}
-
-	@Output() close = new EventEmitter<null>();
+	@Input() supplier: Supplier;
 	@Input() canClose = true;
 	@Input() isRelative = false;
+	// whether we reselect / subscribe to item given the supplier id
+	@Input() shouldSelect = true;
+	@Output() close = new EventEmitter<null>();
 
 	supplier$: Observable<Supplier>;
-	private _supplier: Supplier;
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;
@@ -65,25 +63,30 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.supplier$ = this.supplierSrv.selectOne(this._supplier.id);
-		this.supplier$.pipe(takeUntil(this._destroy$))
-			.subscribe(s => this._supplier = s);
+		if (this.shouldSelect) {
+			this.supplier$ = this.supplierSrv.selectOne(this.supplier.id)
+				.pipe(takeUntil(this._destroy$));
+			this.supplier$.subscribe(s => this.supplier = s);
+		} else {
+			this.supplier$ = of(this.supplier);
+		}
+
 	}
 
 	update(value: any, prop: string) {
-		this.supplierSrv.update({ id: this._supplier.id, [prop]: value }).subscribe();
+		this.supplierSrv.update({ id: this.supplier.id, [prop]: value }).subscribe();
 	}
 
 	// dyanmic form update
 	updateSupplier(supplier: Supplier) {
-		this.supplierSrv.update({ id: this._supplier.id, ...supplier }).subscribe();
+		this.supplierSrv.update({ id: this.supplier.id, ...supplier }).subscribe();
 	}
 
 	addComment(comment: Comment) {
-		const comments = [...(this._supplier.comments || [])];
+		const comments = [...(this.supplier.comments || [])];
 		comments.push(comment as any);
 		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.supplierSrv.update({ id: this._supplier.id, comments }))
+			switchMap(_ => this.supplierSrv.update({ id: this.supplier.id, comments }))
 		).subscribe();
 	}
 
@@ -100,8 +103,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 
 	/** when image is deleted */
 	onDelete(image: AppImage) {
-		const images = this._supplier.images.filter(img => image.id !== img.id);
-		this.supplierSrv.update({ id: this._supplier.id, images }).subscribe();
+		const images = this.supplier.images.filter(img => image.id !== img.id);
+		this.supplierSrv.update({ id: this.supplier.id, images }).subscribe();
 	}
 
 	getLocationName(supplier) {

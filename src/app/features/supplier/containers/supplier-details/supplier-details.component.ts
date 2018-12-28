@@ -1,24 +1,18 @@
-import {
-	Component,
-	OnInit,
-	ChangeDetectionStrategy,
-	NgModuleRef
-} from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Supplier } from '~models/supplier.model';
-import { Contact } from '~models/contact.model';
-import { Product, Attachment } from '~models';
-import { AutoUnsub } from '~utils';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { DialogService } from '~shared/dialog/services';
-import { takeUntil, map, switchMap, tap, take } from 'rxjs/operators';
-import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
-import { ActivityService } from '~common/activity/services/activity.service';
+import { Observable } from 'rxjs';
+import { map, switchMap, take, takeUntil, tap, filter, first } from 'rxjs/operators';
 import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ActivityService } from '~common/activity/services/activity.service';
 import { CommonModalService } from '~common/modals';
+import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
+import { Product } from '~models';
+import { Contact } from '~models/contact.model';
+import { Supplier } from '~models/supplier.model';
 import { TabModel } from '~shared/navbar';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub } from '~utils';
+import { CloseEventType } from '~shared/dialog';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -53,44 +47,44 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private featureSrv: SupplierFeatureService,
 		private notifSrv: NotificationService,
-		private dlgSrv: DialogService,
 		private activitySrv: ActivityService,
-		private moduleRef: NgModuleRef<any>,
 		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		const id$ = this.route.params.pipe(map(params => params.id));
+		const id = this.route.snapshot.params.id;
 
-		id$
-			.pipe(
-				switchMap((id: string) => this.featureSrv.selectOne(id)),
-				takeUntil(this._destroy$)
-			)
-			.subscribe(
-				supplier => this.onSupplier(supplier),
-				err => this.onError(err)
-			);
+		this.supplier$ = this.featureSrv.selectOne(id).pipe(
+			takeUntil(this._destroy$),
+			tap(supplier => (this.supplier = supplier)),
+		);
 
-		this.supplier$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
-			tap(supplier => (this.supplier = supplier))
+		this.supplier$.subscribe(
+			supplier => this.onSupplier(supplier),
+			err => this.onError(err)
 		);
 
 		// getting his products
-		this.products$ = id$.pipe(switchMap(id => this.featureSrv.getProducts(id)));
+		this.products$ = this.featureSrv.getProducts(id);
 
-		this.contacts$ = id$.pipe(switchMap(id => this.featureSrv.getContacts(id)));
+		this.contacts$ = this.featureSrv.getContacts(id);
 
-		this.feedResult = this.activitySrv.getSupplierFeed(
-			this.route.parent.snapshot.params.id
-		);
+		this.feedResult = this.activitySrv.getSupplierFeed(id);
 	}
 
 	update(supplier: Supplier) {
 		this.featureSrv.update(supplier).subscribe();
+	}
+
+	delete(supplier: Supplier) {
+		this.commonModalSrv.openConfirmDialog({ text: 'are you sure you want to delete this supplier ?' }).pipe(
+			filter(evt => evt.type === CloseEventType.OK),
+			first(),
+			switchMap(_ => this.featureSrv.delete(supplier.id))
+		).subscribe(_ => this.router.navigate(['supplier', 'all']));
+
 	}
 
 	export(supplier: Supplier) {

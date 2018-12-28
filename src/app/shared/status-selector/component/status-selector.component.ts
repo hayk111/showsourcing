@@ -125,6 +125,9 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	isLast() {
+		if (!this.statuses) {
+			return false;
+		}
 
 		const length = this.statuses.length;
 		// minus 2 cuz we don't want the last one (refused)

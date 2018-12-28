@@ -1,6 +1,7 @@
 <product-top-panel-app
 	[product]="product"
-	(deleteProduct)="deleteProduct()">
+	(update)="updateProduct($event)"
+	(deleteProduct)="deleteProduct($event)">
 </product-top-panel-app>
 
 <ng-container *ngIf="product">
@@ -47,8 +48,8 @@
 		</div>
 
     <div class="right">
-				<product-resume-app [product]="product"></product-resume-app>
-				<product-navigation-app></product-navigation-app>
+			<product-resume-app [product]="product"></product-resume-app>
+			<product-navigation-app></product-navigation-app>
 			<router-outlet></router-outlet>
     </div>
 
