@@ -702,7 +702,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	// the id of the sub entities.
 	// for example when we change the supplier of a product we just need the id of the supplier
 	// else we could override things
-	// TODO: recursive
 	private strip(entity: any) {
 		const striped = {};
 		Object.entries(entity).forEach(([k, v]) => {
@@ -801,7 +800,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return fields;
 	}
 
-
+	// transform an entity into a set of gql fields that can be
+	// used in a request
 	patch(a: any): string {
 		const keys = Object.keys(a);
 		// removing the typename property

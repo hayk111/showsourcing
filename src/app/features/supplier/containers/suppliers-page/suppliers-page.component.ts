@@ -41,9 +41,9 @@ export class SuppliersPageComponent extends TrackingComponent
 		this.listSrv.setup({
 			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
-			searchedFields: ['name', 'tag.name', 'category.name'],
+			searchedFields: ['name', 'tags.name', 'categories.name'],
 			entityMetadata: ERM.SUPPLIER,
-			initialFilters: [{ type: FilterType.DELETED, value: false }],
+			initialFilters: [],
 		});
 	}
 }
