@@ -67,7 +67,7 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent {
 	}
 
 	createTask(name: string) {
-		const newTask = new Task({ name });
+		const newTask = new Task({ name, assignee: { id: this.userSrv.userSync.id } });
 		this.taskSrv.create(newTask).pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
