@@ -49,3 +49,15 @@
 .centered-text {
   text-align: center;
 }
+
+.name-container {
+	display: inline-block;
+
+	icon-app,
+	img-app,
+	.icon-container,
+	.text {
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
