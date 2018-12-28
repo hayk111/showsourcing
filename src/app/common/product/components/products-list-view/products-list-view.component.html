@@ -24,37 +24,32 @@ I added comment above each column to make it clearer -->
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openAddToProjectDialog.emit(row)"
-		i18n="product menu | add to project"
-	>
+		i18n="product menu | add to project">
 		Add to project
 	</context-menu-item-app>
 	<context-menu-item-app
 		*ngIf="row?.status?.status"
 		class="pointer flexCenter"
 		(click)="openRequestQuotationDialog.emit(row)"
-		i18n="product menu | go to request quotation"
-	>
+		i18n="product menu | go to request quotation">
 		Request for quotation
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openRequestFeedbackDialog.emit(row)"
-		i18n="product menu | go to request feedback"
-	>
+		i18n="product menu | go to request feedback">
 		Request feedback
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openExportDialog.emit(row)"
-		i18n="product menu | export"
-	>
+		i18n="product menu | export">
 		Export
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="delete.emit(row.id)"
-		i18n="product menu | delete"
-	>
+		i18n="product menu | delete">
 		Delete
 	</context-menu-item-app>
 </ng-template>
@@ -63,15 +58,12 @@ I added comment above each column to make it clearer -->
 <ng-template #main let-row="row">
 	<div class="mainCellWrapper ellipsis name-container">
 		<div class="mainCell ellipsis">
-			<img
-					*ngIf="row.images?.length > 0"
-					class="mini imgCtnr"
-					[src]="row | image: 's'"
-				/>
+			<img class="mini imgCtnr"
+					[src]="row | image: 's' : 'product'" />
 			<span class="ellipsis">
-				<a class="name" [routerLink]="['/product', 'details', row.id]"
-					>{{ row.name || 'Unnamed' }}</a
-				>
+				<a class="name" [routerLink]="['/product', 'details', row.id]">
+					{{ row.name || 'Unnamed' }}
+				</a>
 			</span>
 
 			<button class="small secondary-dark preview" (click)="previewClick.emit(row)">Preview</button>
@@ -96,8 +88,7 @@ I added comment above each column to make it clearer -->
 	<price-app
 		[isShort]="true"
 		[amount]="row?.price?.value"
-		[currency]="row?.price?.currency"
-	>
+		[currency]="row?.price?.currency">
 	</price-app>
 </ng-template>
 
@@ -105,8 +96,7 @@ I added comment above each column to make it clearer -->
 <ng-template #moq let-row="row">
 	<moq-app
 		*ngIf="row?.minimumOrderQuantity; else noMoq"
-		[amount]="row?.minimumOrderQuantity"
-	>
+		[amount]="row?.minimumOrderQuantity">
 	</moq-app>
 
 	<ng-template #noMoq> <div>-</div> </ng-template>
@@ -132,9 +122,9 @@ I added comment above each column to make it clearer -->
 <!-- projects -->
 <ng-template #projects let-row="row">
 	<div class="flexCenter">
-		<span *ngFor="let project of row.projects; trackBy: trackByFn">{{
-			project.name
-		}}</span>
+		<span *ngFor="let project of row.projects; trackBy: trackByFn">
+			{{ project.name }}
+		</span>
 	</div>
 </ng-template>
 

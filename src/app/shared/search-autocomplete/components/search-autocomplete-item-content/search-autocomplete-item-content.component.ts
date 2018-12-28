@@ -20,6 +20,7 @@ export class SearchAutocompleteItemContentComponent {
 	@Input() status: ProductStatus | SupplierStatus;
 	/** The image url */
 	@Input() image: string;
+	@Input() type: string;
 	/** The icon name */
 	@Input() icon: string;
 	/** Displays the checkbox */

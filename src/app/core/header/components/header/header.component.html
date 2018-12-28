@@ -39,6 +39,7 @@
     <search-autocomplete-item-app *ngFor="let result of (searchResults$ | async);trackBy: trackByFn">
       <search-autocomplete-item-content-app
         *ngIf="result.type === 'product'"
+        [type]="result.type"
         [selectable]="false"
         [status]="result?.status?.status" [title]="result.name" [subtitle]="result.supplier?.name"
         [image]="result.images[0]"
@@ -46,6 +47,7 @@
       </search-autocomplete-item-content-app>
       <search-autocomplete-item-content-app
         *ngIf="result.type === 'supplier'"
+        [type]="result.type"
         [selectable]="false"
         [status]="result?.status?.status" [title]="result.name" [subtitle]="supplierSubtitle(result)"
         [image]="result.images[0]"
