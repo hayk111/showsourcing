@@ -9,6 +9,7 @@
 				<product-grid-card-app
 					*ngIf="i < maxItemsDisplay"
 					[ngClass]="{'no-left-margin': i % 4 == 0, 'margin-bottom-card': (i !== maxItemsDisplay - 1) && (i % 4 == 3)}"
+					[hasCheckbox]="false"
 					[product]="product"
 					[selected]="(listSrv.selection$ | async)?.has(product?.id)"
 					(open)="listSrv.goToDetails(product.id)"
@@ -65,3 +66,9 @@
 		</action-bar-app>
 	</selection-bar-app>
 </card-app>
+
+<product-preview-app
+	*ngIf="listSrv.previewOpen"
+	[product]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
+</product-preview-app>
