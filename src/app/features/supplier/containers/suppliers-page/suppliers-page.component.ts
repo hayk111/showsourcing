@@ -43,7 +43,7 @@ export class SuppliersPageComponent extends TrackingComponent
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tag.name', 'category.name'],
 			entityMetadata: ERM.SUPPLIER,
-			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
+			initialFilters: [{ type: FilterType.DELETED, value: false }],
 		});
 	}
 }
