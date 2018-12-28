@@ -1,6 +1,8 @@
 <top-panel-details-app
 	[title]="product?.name || 'Unnamed Product'"
 	[hasOptions]="true"
+	[data]="product"
+	[user]="product?.createdBy"
 	(favorited)="onFavorited()"
 	(unfavorited)="onUnfavorited()"
 	(delete)="deleteProduct.emit(product)">

@@ -18,11 +18,11 @@ export class ProductTopPanelComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	onFavorited(product: Product) {
+	onFavorited() {
 		this.update.emit({ id: this.product.id, favorite: true });
 	}
 
-	onUnfavorited(product: Product) {
+	onUnfavorited() {
 		this.update.emit({ id: this.product.id, favorite: false });
 	}
 
