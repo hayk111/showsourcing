@@ -10,11 +10,20 @@ import { ERM } from '~models/_erm.enum';
 })
 export class ProductTopPanelComponent implements OnInit {
 	@Input() product: Product;
-	@Output() deleteProduct = new EventEmitter<null>();
+	@Output() deleteProduct = new EventEmitter<Product>();
+	@Output() update = new EventEmitter<Product>();
 	productEntity = ERM.PRODUCT;
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	onFavorited(product: Product) {
+		this.update.emit({ id: this.product.id, favorite: true });
+	}
+
+	onUnfavorited(product: Product) {
+		this.update.emit({ id: this.product.id, favorite: false });
 	}
 
 }

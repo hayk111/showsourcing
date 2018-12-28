@@ -1,6 +1,7 @@
 <product-top-panel-app
 	[product]="product"
-	(deleteProduct)="deleteProduct()">
+	(update)="updateProduct($event)"
+	(deleteProduct)="deleteProduct($event)">
 </product-top-panel-app>
 
 <ng-container *ngIf="product">

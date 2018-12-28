@@ -1,7 +1,9 @@
 <top-panel-details-app
 	[title]="product?.name || 'Unnamed Product'"
 	[hasOptions]="true"
-	(delete)="deleteProduct.emit()">
+	(favorited)="onFavorited()"
+	(unfavorited)="onUnfavorited()"
+	(delete)="deleteProduct.emit(product)">
 
 	<img-app [image]="product?.images" type="product" size="s"></img-app>
 	<icon-app *ngIf="product?.favorite" name="heart" class="color-warn"></icon-app>
