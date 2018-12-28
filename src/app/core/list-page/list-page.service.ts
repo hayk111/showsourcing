@@ -229,17 +229,18 @@ export class ListPageService
 		});
 	}
 
-	create(shouldRedirect = true) {
+	/** creates a new entity, can also create with defaul values with extra?: any */
+	create(shouldRedirect = true, extra?: any) {
 		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, type: this.entityMetadata }).pipe(
 			filter(event => event.type === CloseEventType.OK),
 			switchMap(_ => this.refetch(), evt => evt),
 			map(evt => evt.data),
-			switchMap(name => this.createItem(name))
+			switchMap(name => this.createItem({ name, ...extra }))
 		).subscribe(item => this.redirectToCreated(item.id, shouldRedirect));
 	}
 
-	private createItem(name) {
-		const entity = new this.entityMetadata.constClass({ name });
+	private createItem(item) {
+		const entity = new this.entityMetadata.constClass(item);
 		return this.ermSrv.getGlobalService(this.entityMetadata)
 			.create(entity);
 	}

@@ -7,6 +7,7 @@ import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~utils/tracking-component';
+import { ID } from '~utils/id.utils';
 
 @Component({
 	selector: 'supplier-app',
@@ -21,6 +22,9 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 
 	products$: Observable<Product[]>;
 	hasSearch = false;
+	supplierId: ID;
+	maxItemsDisplay = 16;
+
 	constructor(
 		protected router: Router,
 		private route: ActivatedRoute,
@@ -34,12 +38,12 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 	}
 
 	ngOnInit() {
-		const id = this.route.parent.snapshot.params.id;
+		this.supplierId = this.route.parent.snapshot.params.id;
 		this.listSrv.setup({
-			key: `supplier-products-${id}`,
+			key: `supplier-products-${this.supplierId}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
-			selectParams: { query: `supplier.id == "${id}"` },
+			selectParams: { query: `supplier.id == "${this.supplierId}" AND deleted == false AND archived == false` },
 			entityMetadata: ERM.PRODUCT
 		});
 	}

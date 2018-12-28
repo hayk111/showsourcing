@@ -5,7 +5,9 @@
 	[isFixed]="isFixed">
 
 		<!-- Banner -->
-		<preview-banner-app (closed)="close.emit()" [canClose]="canClose">
+		<preview-banner-app
+			[canClose]="canClose"
+			(closed)="close.emit()" >
 			<preview-carousel-app
 				[entity]="supplier"
 				[entityMD]="erm.SUPPLIER"
@@ -19,6 +21,7 @@
 			[entity]="supplier"
 			[entityMD]="erm.SUPPLIER"
 			[logoImage]="supplier?.logoImage"
+			[hasTop]="!isRelative"
 			(update)="update($event, 'name')">
 
 			<!-- Supplier type badge -->
@@ -65,10 +68,10 @@
 		</preview-section-app>
 
 		<!-- Activity -->
-		<preview-section-app>
+		<preview-section-app *ngIf="!isRelative">
 			<comment-list-app [comments]="supplier.comments"></comment-list-app>
 		</preview-section-app>
 
-		<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+		<preview-comment-app *ngIf="!isRelative" (added)="addComment($event)"></preview-comment-app>
 
 	</preview-app>

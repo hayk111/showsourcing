@@ -1,7 +1,10 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	margin: 0 var(--spacing-m);
+}
+
+card-app {
+	padding-bottom: 0px;
 }
 
 .container {
@@ -17,7 +20,6 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		margin-bottom: 44px;
 
 		.mg-right {
 			margin-right: 0px;
@@ -25,25 +27,31 @@
 	}
 
 	.title {
-		font-weight: bold;
-		margin-top: 30px;
-		margin-bottom: var(--spacing-l);
-		font-size: 20px;
-		text-transform: capitalize;
-		color: var(--color-txt-strong);
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
+    font-weight: 600;
+    margin-bottom: var(--spacing-ms);
+    font-size: var(--font-size-l);
+    text-transform: capitalize;
+    color: var(--color-txt-strong);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
-		.num-products {
-			border-radius: 14px;
-			background-color: var(--color-secondary);
-			color: var(--color-txt-primary);
-			font-size: var(--font-size-m);
-			display: flex;
-			text-transform: capitalize;
-			padding: 5px 24px;
-			font-weight: initial;
+		button.secondary {
+			font-weight: 600;
+			margin-top: -12px;
+		}
+	}
+
+	product-grid-card-app {
+		margin-left: var(--spacing-ms);
+		margin-bottom: 0px;
+
+		&.no-left-margin {
+			margin-left: 0px;
+		}
+
+		&.margin-bottom-card {
+			margin-bottom: var(--spacing-l);
 		}
 	}
 }
