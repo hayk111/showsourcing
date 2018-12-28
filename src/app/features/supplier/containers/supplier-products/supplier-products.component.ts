@@ -53,6 +53,10 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 		this.hasSearch = true;
 	}
 
+	viewAll() {
+		this.router.navigate(['supplier', 'all-products', this.supplierId]);
+	}
+
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product?: Product) {
 		this.commonModalSrv.openExportDialog();

@@ -1,7 +1,7 @@
 <card-app>
 	<div *ngIf="(listSrv.items$ | async)?.length; else empty" class="container">
 		<div class="title"> Products
-			<button class="secondary">View All Products</button>
+			<button class="secondary" (click)="viewAll()">View All Products</button>
 		</div>
 		<div class="products-section">
 			<ng-container *ngFor="let product of listSrv.items$ | async; index as i; trackBy: trackById">
