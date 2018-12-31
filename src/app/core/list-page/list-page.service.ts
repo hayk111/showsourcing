@@ -55,6 +55,12 @@ export class ListPageService
 		private ermSrv: ERMService
 	) { }
 
+	static reset() {
+		selectionSrvMap.clear();
+		dataSrvMap.clear();
+		viewSrvMap.clear();
+	}
+
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.initServices(config.key);
 		this.dataSrv.setup(config);
