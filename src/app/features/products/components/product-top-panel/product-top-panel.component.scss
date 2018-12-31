@@ -12,3 +12,21 @@ img-app {
 		margin-top: var(--spacing-ms);
 	}
 }
+
+[subinfo] {
+	& > * {
+		margin-right: var(--spacing-xs);
+	}
+	.price {
+		color: var(--color-primary);
+	}
+
+	.category {
+		color: var(--color-supplier-tag);
+	}
+
+	icon-app {
+		color: var(--color-txt-secondary);
+		font-size: 4px;
+	}
+}
