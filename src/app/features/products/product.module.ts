@@ -32,7 +32,6 @@ import { ProductFeatureService, QuoteFeatureService } from '~features/products/s
 import { SharedModule } from '~shared/shared.module';
 
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
-import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 import { ProductTopPanelComponent } from './components/product-top-panel/product-top-panel.component';
 import { CommentCommonModule } from '~common/comment/comment-common.module';
@@ -64,7 +63,6 @@ import { NavBarModule } from '~shared/navbar/navbar.module';
 		ProductSummaryComponent,
 		SelectableImageComponent,
 		ProductNavigationComponent,
-		ProductCarouselComponent,
 		ProductTeamRatingComponent,
 		ProductActivityComponent,
 		ProductTasksComponent,
