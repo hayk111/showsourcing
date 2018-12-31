@@ -1,10 +1,15 @@
 <top-panel-details-app [title]="supplier?.name" [data]="supplier" [user]="supplier?.createdBy" (export)="export.emit($event)" (favorited)="changeFavorite(true)"
  (unfavorited)="changeFavorite(false)">
+
 	<img-app [image]="supplier?.logoImage" type="supplier"></img-app>
 
-	<div subinfo>
-		<div class="tag">Supplier . {{' '}}</div>
-		<div class="adress">{{supplier?.address}} {{(supplier?.address && supplier?.country) ? ', ': ''}}{{supplier?.country}}
+	<div subinfo class="flex flexVAlign">
+		<div class="type">{{ supplier?.supplierType?.name }}</div>
+		<icon-app name="circle" fontSet="fa" *ngIf="supplier?.supplierType"></icon-app>
+		<div class="adress">
+			{{supplier?.address}}
+			{{(supplier?.address && supplier?.country) ? ', ': ''}}
+			{{supplier?.country | const: 'country'}}
 		</div>
 	</div>
 

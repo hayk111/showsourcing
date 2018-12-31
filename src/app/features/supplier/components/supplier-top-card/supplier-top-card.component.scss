@@ -1,13 +1,21 @@
 
 [subinfo] {
 	font-size: var(--font-size-m);
-	.tag {
-		display: inline-block;
-  	color: var(--color-supplier-tag);
+
+	& > * {
+		margin-right: var(--spacing-xs);
 	}
-	.adress {
-		display: inline-block;
-  	color: var(--color-txt-primary);
+	.type {
+		color: var(--color-supplier-tag);
+	}
+
+	.category {
+		color: var(--color-supplier-tag);
+	}
+
+	icon-app {
+		color: var(--color-supplier-tag);
+		font-size: 4px;
 	}
 }
 

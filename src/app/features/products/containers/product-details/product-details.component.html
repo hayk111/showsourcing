@@ -1,10 +1,12 @@
-<product-top-panel-app
-	[product]="product"
-	(update)="updateProduct($event)"
-	(deleteProduct)="deleteProduct($event)">
-</product-top-panel-app>
+
 
 <ng-container *ngIf="product">
+
+	<product-top-panel-app
+		[product]="product"
+		(update)="updateProduct($event)"
+		(deleteProduct)="deleteProduct($event)">
+	</product-top-panel-app>
 
   <div class="flex content">
     <div class="left">
