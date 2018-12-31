@@ -2,14 +2,13 @@
  (unfavorited)="changeFavorite(false)">
 	<img-app [image]="supplier?.logoImage" type="supplier"></img-app>
 
-	<div subinfo class="subinfo-container">
+	<div subinfo>
 		<div class="tag">Supplier . {{' '}}</div>
 		<div class="adress">{{supplier?.address}} {{(supplier?.address && supplier?.country) ? ', ': ''}}{{supplier?.country}}
 		</div>
 	</div>
 
-	<div action class="action-list">
-
+	<div class="flex" action>
 
 		<button class="contact-supplier">Contact Supplier</button>
 

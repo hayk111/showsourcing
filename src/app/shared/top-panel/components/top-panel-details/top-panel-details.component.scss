@@ -1,26 +1,12 @@
 :host {
-	display: block;
+	display: flex;
+	justify-content: space-between;
 	background: var(--color-bg);
 	box-sizing: border-box;
 	border-bottom: 1px solid var(--color-secondary);
+	height: 75px;
 }
 
-.top {
-	// padding-top: var(--spacing-l);
-	// padding-bottom: var(--spacing-ml);
-	height: 75px;
-	.title {
-		h1 {
-			margin-top: var(--spacing-ms);
-			font-family: var(--font-normal);
-			font-size: 20px;
-			font-weight: 600;
-			color: var(--color-txt-strong);
-			line-height: 1;
-			margin-right: var(--spacing-ms);
-		}
-	}
-}
 
 .left > * {
 	margin-left: var(--spacing-l);
@@ -37,41 +23,28 @@
 	white-space: nowrap;
 	align-items: center;
 	margin-right: var(--spacing-xl);
+}
 
-	button {
-		margin-left: var(--spacing-ms);
+
+.info {
+	height: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	h1 {
+		font-family: var(--font-normal);
+		font-size: 20px;
+		font-weight: 600;
+		color: var(--color-txt-strong);
+		line-height: 1;
+		margin-right: var(--spacing-ms);
 	}
 }
 
-icon-app {
+.backArrow {
 	align-items: flex-start;
 	font-size: 20px;
 }
-
-:host nav {
-	margin-left: 156px;
-	> * {
-		width: 120px;
-		padding: 2px 0px;
-		margin-right: var(--font-size-l);
-		font-size: var(--font-size-l);
-		display: block;
-		height: 28px;
-		border-bottom: 2px solid transparent;
-		box-sizing: border-box;
-		display: flex;
-		justify-content: center;
-		&.active {
-			font-weight: bold;
-			color: var(--color-primary);
-			border-color: var(--color-primary);
-		}
-		&:hover {
-			background: var(--color-secondary-light);
-		}
-	}
-}
-
 
 .logo {
   width: 50px;
@@ -79,16 +52,13 @@ icon-app {
   border-radius: 2px;
 }
 
-.container {
-	height: 75px;
-}
 
 .action-list {
 	user-picture-app,
 	status-selector-app,
 	button {
 		display: inline-block;
-		margin-left: var(--spacing-ms);
+		margin-right: var(--spacing-ms);
 	}
 	.rounded {
 		min-width: var(--spacing-xl);

@@ -1,18 +1,19 @@
-<div class="flexBetween top">
+
 	<div class="flex left container">
-		<icon-app name="back-arrow" (click)="goBack()" class="flexStart color-txt-primary"></icon-app>
+
+		<icon-app name="back-arrow" (click)="goBack()" class="backArrow flexStart color-txt-primary"></icon-app>
+
 		<div class="logo">
 			<ng-content select="img-app"></ng-content>
 		</div>
 
-		<div>
-			<div class="flex title">
-				<h1>{{ title }}</h1>
-				<ng-content select="icon-app"></ng-content>
-			</div>
+		<div class="info">
+			<h1>{{ title }}</h1>
 			<ng-content select="[subinfo]"></ng-content>
 		</div>
+
 	</div>
+
 
 	<div class="flex right container action-list">
 			<button class="rounded like">
@@ -34,9 +35,4 @@
 			</user-picture-app>
 			<ng-content select="[action]"></ng-content>
 	</div>
-</div>
 
-<!--
-<nav class="flex">
-	<a *ngFor="let link of links;trackBy: trackByFn" [routerLink]="'./' + link" routerLinkActive="active">{{ toDisplayString(link) }}</a>
-</nav> -->
