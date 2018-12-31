@@ -548,9 +548,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	update(entity: T, clientName: Client = this.defaultClient, isOptimistic: boolean = true, fields?: string): Observable<T> {
+	update(entity: T, clientName: Client = this.defaultClient, isOptimistic: boolean = true): Observable<T> {
 		const title = 'Update ' + this.typeName;
-		fields = fields || this.patch(entity);
+		const fields = this.patch(entity);
 		const gql = this.queryBuilder.update(fields);
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
@@ -599,9 +599,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	create(entity: T, clientName: Client = this.defaultClient, fields?: string): Observable<T> {
+	create(entity: T, clientName: Client = this.defaultClient): Observable<T> {
 		const title = 'Create one ' + this.typeName;
-		fields = fields || this.patch(entity);
+		const fields = this.patch(entity);
 		const gql = this.queryBuilder.create(fields);
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);

@@ -27,8 +27,7 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	update(entity: any, client?: Client, isOptimistic: boolean = true) {
 		entity.lastUpdatedBy = { id: this.userSrv.userSync.id, __typename: 'User' };
 		entity.lastUpdatedDate = '' + new Date();
-		const fields = this.patch({ ...entity, lastUpdatedBy: this.userSrv.userSync });
-		return super.update(entity, client, isOptimistic, fields);
+		return super.update(entity, client, isOptimistic);
 	}
 
 	/** @inheritDoc
@@ -41,8 +40,7 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 		entity.creationDate = '' + new Date();
 		entity.lastUpdatedBy = userId;
 		entity.lastUpdatedDate = '' + new Date();
-		const fields = this.patch({ ...entity, lastUpdatedBy: user, createdBy: user });
-		return super.create(entity, client, fields);
+		return super.create(entity, client);
 	}
 
 	/** @inheritDoc
