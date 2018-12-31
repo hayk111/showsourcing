@@ -22,7 +22,6 @@ import {
 	SupplierMainComponent,
 	SupplierMainTitleComponent,
 	SupplierProductsCardViewComponent,
-	SupplierProductsListViewComponent,
 	SupplierSummaryComponent,
 	SupplierTopCardComponent,
 } from './components';
@@ -53,7 +52,8 @@ import { SupplierFeatureService } from './services';
 		SampleCommonModule,
 		SharedModule,
 		SupplierCommonModule,
-		TaskCommonModule
+		TaskCommonModule,
+		ProductCommonModule
 	],
 	declarations: [
 		NewContactDlgComponent,
@@ -72,7 +72,6 @@ import { SupplierFeatureService } from './services';
 		SupplierMainTitleComponent,
 		SupplierProductsCardViewComponent,
 		SupplierProductsComponent,
-		SupplierProductsListViewComponent,
 		SupplierProductsPageComponent,
 		SupplierPublicProfileComponent,
 		SupplierSamplesComponent,

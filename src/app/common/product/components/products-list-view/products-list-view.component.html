@@ -1,6 +1,4 @@
-<!-- TODO: thiery I think at the end here some of the columns are not used anymore
-also rating should become favorite.
-I added comment above each column to make it clearer -->
+
 <custom-table-app
 	class="list"
 	[rows]="rows"
@@ -15,8 +13,7 @@ I added comment above each column to make it clearer -->
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	[pending]="pending"
->
+	[pending]="pending">
 </custom-table-app>
 
 <!-- contextual menu -->
@@ -134,16 +131,6 @@ I added comment above each column to make it clearer -->
 	</status-selector-app>
 </ng-template>
 
-<!-- open btn -->
-<ng-template #action let-row="row">
-	<div
-		class="pointer"
-		(click)="open.emit(row.id)"
-		i18n="div product|Open and view product@@global_open"
-	>
-		Open
-	</div>
-</ng-template>
 
 <!-- for some mindblowing reason if this is put last,
 	the viewchild for default template is undefined -->
