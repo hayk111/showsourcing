@@ -26,25 +26,7 @@ rating-heart-app {
 	width: 32px;
 	height: 32px;
 	overflow: hidden;
-	position: absolute;
-	img.mini {
-		height: 100%;
-		z-index: var(--z-cardContainer);
-	}
-}
-
-// TODO: this should be a component
-.imgOverViewCtnrWrapper {
-	display: none;
-}
-
-.imgOverViewCtnr {
-	z-index: var(--z-cardContainer);
-	width: 128px;
-	height: 128px;
-	position: absolute;
-	top: 20px;
-	left: 36px;
+	flex-shrink: 0;
 }
 
 .ellipsis {
@@ -76,7 +58,6 @@ rating-heart-app {
 	margin-left: var(--spacing-s);
 	.name {
 		font-weight: 600;
-		margin-left: 40px;
 	}
 }
 
@@ -92,15 +73,3 @@ user-picture-app {
 	display: none;
 }
 
-// TODO: this should use the contextual menu
-menu {
-	left: 10px;
-	border: solid 1px var(--color-secondary-light);
-	background-color: var(--color-secondary);
-	width: 150px;
-	z-index: var(--z-cardContainer);
-}
-
-menuitem {
-	padding: 10px;
-}

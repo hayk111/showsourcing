@@ -56,7 +56,7 @@
 	<div class="mainCellWrapper ellipsis name-container">
 		<div class="mainCell ellipsis">
 			<img class="mini imgCtnr"
-					[src]="row | image: 's' : 'product'" />
+				[src]="row | image: 's' : 'product'" />
 			<span class="ellipsis">
 				<a class="name" [routerLink]="['/product', 'details', row.id]">
 					{{ row.name || 'Unnamed' }}
