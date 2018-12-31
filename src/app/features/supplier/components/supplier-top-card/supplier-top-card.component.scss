@@ -1,52 +1,28 @@
-info-badge-app, status-selector-app {
-	margin-bottom: var(--spacing-ms);
-}
 
-.subinfo-container {
-	margin-bottom: 12px;
-	margin-top: 4px;
+[subinfo] {
 	font-size: var(--font-size-m);
-	.tag {
-		display: inline-block;
-  	color: var(--color-supplier-tag);
+
+	& > * {
+		margin-right: var(--spacing-xs);
 	}
-	.adress {
-		display: inline-block;
-  	color: var(--color-txt-primary);
+	.type {
+		color: var(--color-supplier-tag);
+	}
+
+	.category {
+		color: var(--color-supplier-tag);
+	}
+
+	icon-app {
+		color: var(--color-supplier-tag);
+		font-size: 4px;
 	}
 }
 
-.action-list {
-	user-picture-app,
-	status-selector-app,
-	button {
-		display: inline-block;
-		margin-left: var(--spacing-ms);
-	}
-	.rounded {
-		min-width: var(--spacing-xl);
-    border-radius: var(--spacing-m);
-    height: var(--spacing-xl);
-    font-size: var(--font-size-s);
-    padding: 0;
+[action] {
+
+	button, status-selector-app  {
+		margin-right: var(--spacing-ms);
 	}
 
-	.share,
-	.like {
-		background-color: var(--color-secondary);
-		color: var(--color-black);
-	}
-
-
-	user-picture-app {
-		display: inline-block;
-	}
-	context-menu-app,
-	user-picture-app {
-    vertical-align: middle;
-	}
-	status-selector-app {
-		display: inline-flex;
-		margin-bottom: 0px;
-	}
 }
