@@ -1,4 +1,5 @@
-<div *ngIf="listSrv.items$ | async as products; else spinner" class="container" infiniScroll (bottomReached)="listSrv.loadMore()">
+<ng-container
+*ngIf="listSrv.items$ | async as products; else spinner">
 		<!-- top panel -->
 		<top-panel-app
 			title="My Products"
@@ -122,7 +123,7 @@
 			[product]="listSrv.previewed"
 			(close)="listSrv.closePreview()">
 		</product-preview-app>
-</div>
+</ng-container>
 
 
 <ng-template #spinner>

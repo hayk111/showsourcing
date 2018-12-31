@@ -1,0 +1,9 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+products-list-view-app {
+	height: calc(100% - 174px);
+}
