@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
@@ -8,6 +8,7 @@ import { TokenService } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
+import { ListPageService } from '~core/list-page';
 
 @Component({
 	selector: 'app-root',
@@ -42,7 +43,9 @@ export class AppComponent implements OnInit {
 
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelected$.pipe(
-			switchMap(team => this.startTeamClient(team) as any)
+			switchMap(team => this.startTeamClient(team) as any),
+			// we need to reset list page to not have data from other team in cache
+			tap(_ => ListPageService.reset())
 		).subscribe();
 	}
 
