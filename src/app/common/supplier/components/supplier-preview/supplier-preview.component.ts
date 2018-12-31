@@ -18,10 +18,13 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 
 	@Input() supplier: Supplier;
 	@Input() canClose = true;
+	/** wether we display it as a preview or part of a component (supplier details) */
 	@Input() isRelative = false;
 	// whether we reselect / subscribe to item given the supplier id
 	@Input() shouldSelect = true;
 	@Output() close = new EventEmitter<null>();
+	/** wether the top image is fixed or not for the scrolling effect*/
+	@Input() isFixed = true;
 
 	supplier$: Observable<Supplier>;
 	selectedIndex = 0;

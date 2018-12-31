@@ -1,5 +1,5 @@
 
-<div #top class="fixedTop">
+<div #top [ngClass]="{ 'fixedTop': isFixed }">
 	<ng-content select="preview-banner-app"></ng-content>
 </div>
 <div #scrollSection class="scrollable">

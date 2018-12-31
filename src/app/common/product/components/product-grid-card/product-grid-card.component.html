@@ -1,27 +1,29 @@
-<img-app
-	[image]="product?.images"
-	size="m">
-</img-app>
+<div class="card-container" [class.selected-card]="selected">
+	<img-app
+		[image]="product?.images"
+		size="m">
+	</img-app>
 
-<!-- Floating Elements -->
+	<!-- Floating Elements -->
 
-<checkbox-app
-	*ngIf="hasCheckbox"
-	class="overlay"
-	[ngClass]="{'opacity-on': selected}"
-	[checked]="selected"
-	(check)="select.emit()"
-	(uncheck)="unselect.emit()">
-</checkbox-app>
+	<checkbox-app
+		*ngIf="hasCheckbox"
+		class="overlay"
+		[ngClass]="{'opacity-on': selected}"
+		[checked]="selected"
+		(check)="select.emit()"
+		(uncheck)="unselect.emit()">
+	</checkbox-app>
 
-<button class="preview secondary overlay" (click)="preview.emit()">Preview</button>
+	<button class="preview secondary overlay" (click)="preview.emit()">Preview</button>
 
-<!-- Content (Non Floating) -->
-<div class="content">
-	<div class="title pointer" (click)="open.emit()"> {{ product?.name || 'Unnamed product'}} </div>
-	<div class="description"> {{ product?.category?.name }}</div>
-	<div class="flex status-info">
-		<icon-app class="circle color-{{product?.status?.category}}" name="circle" fontSet="fa"></icon-app>
-		{{ product?.status?.step }}.  {{ product?.status?.name | const:'status' }}
+	<!-- Content (Non Floating) -->
+	<div class="content">
+		<div class="title pointer" (click)="open.emit()"> {{ product?.name || 'Unnamed product'}} </div>
+		<div class="description"> {{ product?.category?.name }}</div>
+		<div class="flex status-info">
+			<icon-app class="circle color-{{product?.status?.category || 'secondary'}}" name="circle" fontSet="fa"></icon-app>
+			{{ product?.status?.step || '0' }}.  {{ product?.status?.name ? (product?.status?.name | const:'status') : 'New Product' }}
+		</div>
 	</div>
 </div>

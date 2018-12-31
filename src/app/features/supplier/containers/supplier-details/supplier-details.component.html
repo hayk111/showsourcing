@@ -1,6 +1,7 @@
 <ng-container *ngIf="supplier">
 	<!-- top card -->
-	<supplier-top-card-app class="supplier-top-header"
+	<supplier-top-card-app
+		class="supplier-top-header"
 		[supplier]="supplier"
 		(delete)="delete($event)"
 		(export)="export($event)"
@@ -17,10 +18,11 @@
 		<!-- right side -->
 		<div class="right">
 			<supplier-preview-app
-				[shouldSelect]="false"
-				[supplier]="supplier"
 				[canClose]="false"
-				[isRelative]="true">
+				[isFixed]="false"
+				[isRelative]="true"
+				[shouldSelect]="false"
+				[supplier]="supplier">
 			</supplier-preview-app>
 		</div>
 	</div>

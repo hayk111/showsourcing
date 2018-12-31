@@ -1,0 +1,46 @@
+<supplier-top-card-app
+	[supplier]="supplier$ | async"
+	(delete)="delete($event)"
+	(export)="export()"
+	(updateFavorite)="update($event)">
+</supplier-top-card-app>
+
+<sub-panel-app
+[hasFilter]="false"
+(viewChange)="onViewChange($event)"
+(search)="listSrv.search($event)"
+(smartSearch)="listSrv.smartSearch($event)">
+</sub-panel-app>
+
+<ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
+	<supplier-products-list-view-app
+		*ngIf="listSrv.view === 'list'">
+
+	</supplier-products-list-view-app>
+
+	<supplier-products-card-view-app
+		*ngIf="listSrv.view === 'card'"
+		class="flexWrap"
+		[rows]="products"
+		[selection]="listSrv.selection$ | async"
+		(open)="listSrv.goToDetails($event)"
+		(previewClick)="listSrv.openPreview($event)"
+		(select)="listSrv.selectOne($event, true)"
+		(unselect)="listSrv.unselectOne($event, true)"
+		(update)="listSrv.update($event)">
+	</supplier-products-card-view-app>
+</ng-container>
+
+<product-preview-app
+	*ngIf="listSrv.previewOpen"
+	[product]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
+</product-preview-app>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>
+
+<ng-template #spinner> <spinner-app></spinner-app> </ng-template>

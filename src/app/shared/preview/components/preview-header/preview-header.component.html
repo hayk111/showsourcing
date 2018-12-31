@@ -1,15 +1,18 @@
-<div *ngIf="hasTop" class="top-section flexBetween">
+<!-- since the supplier is the only one with logo if we want the hasTop = false, we still have to display the logo -->
+<div *ngIf="hasTop || entityMD === erm.SUPPLIER" class="top-section flexBetween">
 	<div class="left flex">
 		<preview-logo-app
 			*ngIf="entityMD === erm.SUPPLIER"
 			[image]="logoImage">
 		</preview-logo-app>
-		<icon-app [name]="entityMD?.singular || 'product'"></icon-app>
-		<span>{{ entityMD?.singular }}</span>
+		<ng-container *ngIf="hasTop">
+			<icon-app [name]="entityMD?.singular || 'product'"></icon-app>
+			<span>{{ entityMD?.singular }}</span>
+		</ng-container>
 	</div>
 	<div class="right">
 		<status-selector-app
-			*ngIf="entityMD"
+			*ngIf="entityMD && hasTop"
 			[entity]="entity"
 			[typeEntity]="entityMD"
 			[offsetX]="-15">
