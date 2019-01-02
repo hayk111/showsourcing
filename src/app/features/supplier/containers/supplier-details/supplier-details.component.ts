@@ -25,7 +25,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
-	feedResult: ActivityFeed;
 
 	tabs: TabModel[] = [
 		{
@@ -47,17 +46,19 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private featureSrv: SupplierFeatureService,
 		private notifSrv: NotificationService,
-		private activitySrv: ActivityService,
 		public commonModalSrv: CommonModalService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		const id = this.route.snapshot.params.id;
+		const id$ = this.route.params.pipe(
+			map(params => params.id),
+			takeUntil(this._destroy$)
+		);
 
-		this.supplier$ = this.featureSrv.selectOne(id).pipe(
-			takeUntil(this._destroy$),
+		this.supplier$ = id$.pipe(
+			switchMap(id => this.featureSrv.selectOne(id)),
 			tap(supplier => (this.supplier = supplier)),
 		);
 
@@ -67,11 +68,14 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		// getting his products
-		this.products$ = this.featureSrv.getProducts(id);
+		this.products$ = id$.pipe(
+			switchMap(id => this.featureSrv.getProducts(id))
+		);
 
-		this.contacts$ = this.featureSrv.getContacts(id);
+		this.contacts$ = id$.pipe(
+			switchMap(id => this.featureSrv.getContacts(id))
+		);
 
-		this.feedResult = this.activitySrv.getSupplierFeed(id);
 	}
 
 	update(supplier: Supplier) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil, filter, first } from 'rxjs/operators';
+import { map, switchMap, takeUntil, filter, first, take } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
@@ -10,6 +10,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
 import { CloseEventType } from '~shared/dialog';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'product-details-app',
@@ -17,10 +18,9 @@ import { CloseEventType } from '~shared/dialog';
 	styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
-	// product$: Observable<Product>;
+	product: Product;
 	files: Array<Attachment>;
 	/** projects for this product */
-	product: Product;
 	typeEntity = ERM.PRODUCT;
 
 	constructor(
@@ -36,9 +36,13 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const id = this.route.snapshot.params.id;
+		const id$ = this.route.params.pipe(
+			map(params => params.id),
+			takeUntil(this._destroy$)
+		);
 
-		this.featureSrv.selectOne(id).pipe(
+		id$.pipe(
+			switchMap(id => this.featureSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(
 			product => this.onProduct(product),
@@ -108,15 +112,11 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	onThumbUp() {
 		const votes = this.thumbSrv.thumbUp(this.product);
 		this.updateProduct({ votes });
-		// here we dont need the timeout to wait for the server to update the score
-		// since this is a select isntead of a query one
 	}
 
 	onThumbDown() {
 		const votes = this.thumbSrv.thumbDown(this.product);
 		this.updateProduct({ votes });
-		// here we dont need the timeout to wait for the server to update the score
-		// since this is a select isntead of a query one
 	}
 
 	/** update the product */
