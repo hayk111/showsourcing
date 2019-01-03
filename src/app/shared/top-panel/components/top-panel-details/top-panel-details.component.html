@@ -30,10 +30,9 @@
 			<icon-app name="export" size="14"></icon-app>
 		</button>
 
-		<user-picture-app
-			*ngIf="hasAssignee"
-			[user]="user" [image]="user?.avatar" [border]="true" size="28">
-		</user-picture-app>
+		<selector2-app type="user" (update)="changeUser.emit($event)">
+			<user-picture-app [user]="user" [border]="true"></user-picture-app>
+		</selector2-app>
 		<ng-content select="[action]"></ng-content>
 	</div>
 

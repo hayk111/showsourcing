@@ -1,12 +1,12 @@
 <ng-container *ngIf="supplier$ | async as supplier">
 
 
-<div class="activity-container">
+<card-app>
 	<activity-list-app
 		[activities]="supplier.comments"
 		[entity]="supplier"
 		[typeEntity]="erm.SUPPLIER">
 	</activity-list-app>
-</div>
+</card-app>
 
 </ng-container>

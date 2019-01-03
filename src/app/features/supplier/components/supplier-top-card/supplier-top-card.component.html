@@ -9,7 +9,7 @@
 	<img-app [image]="supplier?.logoImage" type="supplier"></img-app>
 
 	<div subinfo class="flex flexVAlign">
-		<div class="type">{{ supplier?.supplierType?.name }}</div>
+		<div class="type" *ngIf="supplier?.supplierType">{{ supplier?.supplierType?.name }}</div>
 		<icon-app name="circle" fontSet="fa" *ngIf="supplier?.supplierType"></icon-app>
 		<div class="adress">
 			{{supplier?.address}}
@@ -33,5 +33,6 @@
 				Delete
 			</context-menu-item-app>
 		</context-menu-app>
+
 	</div>
 </top-panel-details-app>

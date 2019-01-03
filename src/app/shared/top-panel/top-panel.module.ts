@@ -22,6 +22,7 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 import { ListModule } from '~shared/list/list.module';
 import { RatingModule } from '~shared/rating';
 import { UserPictureModule } from '~shared/user-picture/user-picture.module';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
 
 @NgModule({
 	imports: [
@@ -40,7 +41,8 @@ import { UserPictureModule } from '~shared/user-picture/user-picture.module';
 		ListModule,
 		RatingModule,
 		UserPictureModule,
-		EditableFieldModule
+		EditableFieldModule,
+		SelectorsModule
 	],
 	declarations: [
 		TopPanelComponent,

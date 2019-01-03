@@ -8,9 +8,6 @@ import { TrackingComponent } from '~utils/tracking-component';
 	templateUrl: './supplier-top-card.component.html',
 	styleUrls: ['./supplier-top-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'z-2'
-	}
 })
 export class SupplierTopCardComponent extends TrackingComponent implements OnInit {
 	@Input() supplier: Supplier;

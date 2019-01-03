@@ -2,10 +2,11 @@
 	[title]="product?.name || 'Unnamed Product'"
 	[hasOptions]="true"
 	[data]="product"
-	[user]="product?.createdBy"
+	[user]="product?.assignee"
 	(favorited)="onFavorited()"
 	(unfavorited)="onUnfavorited()"
-	(delete)="deleteProduct.emit(product)">
+	(delete)="delete.emit(product)"
+	(changeUser)="onUserChanged($event)">
 
 	<img-app [image]="product?.images" type="product" size="s"></img-app>
 
@@ -24,4 +25,15 @@
 		selectSize="l"
 		type="button">
 	</status-selector-app>
+
+	<context-menu-app action>
+		<context-menu-trigger-app>
+			<button class="icon light dots pointer">
+				<icon-app [size]="20" name="dots-vertical"></icon-app>
+			</button>
+		</context-menu-trigger-app>
+		<context-menu-item-app (click)="delete.emit(supplier)">
+			Delete
+		</context-menu-item-app>
+	</context-menu-app>
 </top-panel-details-app>

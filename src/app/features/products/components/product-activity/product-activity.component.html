@@ -1,5 +1,11 @@
-<flat-feed-list-app
-	[entity]="product$ | async"
-	[activities]="feedResult.feed$ | async"
-	[typeEntity]="typeEntity">
-</flat-feed-list-app>
+<ng-container *ngIf="product$ | async as product">
+
+	<card-app>
+		<activity-list-app
+			[entity]="product"
+			[activities]="product.comments"
+			[typeEntity]="typeEntity">
+		</activity-list-app>
+	</card-app>
+
+</ng-container>

@@ -7,7 +7,10 @@ import { TrackingComponent } from '~utils/tracking-component';
 	selector: 'top-panel-details-app',
 	templateUrl: './top-panel-details.component.html',
 	styleUrls: ['./top-panel-details.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'z-6'
+	}
 })
 export class TopPanelDetailsComponent extends TrackingComponent implements OnInit {
 	/** logo displayed */

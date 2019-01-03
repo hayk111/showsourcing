@@ -8,7 +8,7 @@ import { Tag } from '~models/tag.model';
 import { ProductVote } from '~models/product-vote.model';
 import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
-import { Project, Attachment } from '~models';
+import { Project, Attachment, User } from '~models';
 import { Comment } from '~models/comment.model';
 
 export class Product extends EntityWithAudit<ProductConfig> {
@@ -41,6 +41,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	taskCount?: number;
 	productCount?: number;
 	projects?: Project[];
+	assignee?: User;
 	__typename ?= 'Product';
 
 }

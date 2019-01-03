@@ -3,13 +3,17 @@
 	justify-content: space-between;
 	background: var(--color-bg);
 	box-sizing: border-box;
-	border-bottom: 1px solid var(--color-secondary);
 	height: 75px;
 }
 
 
-.left > * {
-	margin-left: var(--spacing-l);
+.left {
+	.backArrow, .logo {
+		margin-left: var(--spacing-l);
+	}
+	.info {
+		margin-left: var(--spacing-ms);
+	}
 }
 
 .left {

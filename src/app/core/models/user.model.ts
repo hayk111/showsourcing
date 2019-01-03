@@ -14,5 +14,24 @@ export class User {
 	realmServerName?: string;
 	realmPath?: string;
 	avatar?: AppImage;
-	__typename ?= 'User';
+	__typename?= 'User';
+
+	constructor(config: UserConfig) {
+		Object.assign(this, config);
+	}
+}
+
+export interface UserConfig {
+	id?: string;
+	firstName?: string;
+	lastName?: string;
+	name?: string; // NOT IN REALM ANYMORE
+	phoneNumber?: string;
+	companyName?: string;
+	email?: string;
+	currentTeam?: Team;
+	preferredLanguage?: string;
+	realmServerName?: string;
+	realmPath?: string;
+	avatar?: AppImage;
 }

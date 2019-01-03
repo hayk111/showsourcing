@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '~models/product.model';
 import { ERM } from '~models/_erm.enum';
+import { User } from '~core/models';
 
 @Component({
 	selector: 'product-top-panel-app',
@@ -10,8 +11,9 @@ import { ERM } from '~models/_erm.enum';
 })
 export class ProductTopPanelComponent implements OnInit {
 	@Input() product: Product;
-	@Output() deleteProduct = new EventEmitter<Product>();
+	@Output() delete = new EventEmitter<Product>();
 	@Output() update = new EventEmitter<Product>();
+
 	productEntity = ERM.PRODUCT;
 	constructor() { }
 
@@ -24,6 +26,10 @@ export class ProductTopPanelComponent implements OnInit {
 
 	onUnfavorited() {
 		this.update.emit({ id: this.product.id, favorite: false });
+	}
+
+	onUserChanged(user: User) {
+		this.update.emit({ id: this.product.id, assignee: new User({ id: user.id }) });
 	}
 
 }
