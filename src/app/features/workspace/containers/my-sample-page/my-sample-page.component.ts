@@ -141,9 +141,6 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 	openCreateDlg() {
 		const assignee = this.userSrv.userSync;
 		this.commonModalSrv.openCreateDlg(ERM.SAMPLE, false).pipe(
-			first(),
-			filter(evt => evt.type === CloseEventType.OK),
-			map(evt => evt.data),
 			map(name => new Sample({ name, assignee })),
 			switchMap(sample => this.sampleSrv.create(sample)),
 			switchMap(_ => this.listSrv.refetch())

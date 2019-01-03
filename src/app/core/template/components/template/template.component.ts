@@ -29,9 +29,7 @@ export class TemplateComponent extends AutoUnsub implements AfterViewInit {
 		this.router.events.pipe(
 			takeUntil(this._destroy$),
 			filter(evt => evt instanceof NavigationEnd),
-			// tap(d => { debugger; }),
 			switchMap(_ => this.route.data),
-			//  tap(d => { debugger; }),
 			map(data => data.skipScrollTop)
 		).subscribe((skip: boolean) => {
 			if (!skip)

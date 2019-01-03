@@ -55,7 +55,6 @@ export class SettingsTeamMembersInvitationsComponent extends TrackingComponent i
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
 		this.commonModalSrv.openInvitationDialog().pipe(
-			filter(evt => evt.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}

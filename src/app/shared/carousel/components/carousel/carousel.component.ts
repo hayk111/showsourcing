@@ -110,7 +110,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 			text: 'Are you sure you want to remove this image ?',
 		}).pipe(
 			takeUntil(this._destroy$),
-			filter(evt => evt.type === CloseEventType.OK),
 			switchMap(_ => this.onDeleteAccepted(img))
 		).subscribe();
 	}

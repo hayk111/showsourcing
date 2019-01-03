@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, switchMap, map, tap } from 'rxjs/operators';
+import { filter, switchMap, map, tap, first } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -237,11 +237,9 @@ export class ListPageService
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
 	create(shouldRedirect = true, extra?: any) {
-		this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, type: this.entityMetadata }).pipe(
-			filter(event => event.type === CloseEventType.OK),
-			switchMap(_ => this.refetch(), evt => evt),
-			map(evt => evt.data),
-			switchMap(name => this.createItem({ name, ...extra }))
+		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata }).pipe(
+			switchMap(name => this.createItem({ name, ...extra })),
+			switchMap(_ => this.refetch(), item => item),
 		).subscribe(item => this.redirectToCreated(item.id, shouldRedirect));
 	}
 

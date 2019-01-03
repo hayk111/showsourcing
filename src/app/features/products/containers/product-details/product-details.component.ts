@@ -133,8 +133,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	deleteProduct(product: Product) {
 		const text = `Are you sure you want to delete this product?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-			filter(evt => evt.type === CloseEventType.OK),
-			first(),
 			switchMap(_ => this.featureSrv.delete(product.id))
 		).subscribe(_ => this.router.navigate(['product']));
 	}

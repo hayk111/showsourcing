@@ -14,7 +14,7 @@
     "translate:fr": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json fr",
     "analyze": "ng build --stats-json && webpack-bundle-analyzer dist/showsourcing/stats.json",
     "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json",
-    "deploy:staging": "cd dist/showsourcing && aws s3 sync . s3://aws-website-showsourcing-web-stagging --delete max-age=3600",
+    "deploy:sta": "npm run build:sta && cd dist/showsourcing && aws s3 sync . s3://app-sta.showsourcing.com --delete",
     "deploy:production": "cd dist/showsourcing && aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete max-age=3600",
     "test": "ng test",
     "lint": "ng lint",

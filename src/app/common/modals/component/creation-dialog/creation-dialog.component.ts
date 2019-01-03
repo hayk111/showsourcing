@@ -21,7 +21,6 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 	group: FormGroup;
 	pending = false;
 	@Input() type: EntityMetadata;
-	@Input() autoCreate = true;
 	@ViewChild(InputDirective) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;

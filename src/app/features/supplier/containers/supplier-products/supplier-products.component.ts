@@ -58,12 +58,12 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product?: Product) {
-		this.commonModalSrv.openExportDialog();
+		this.commonModalSrv.openExportDialog([product]);
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(product?: Product) {
-		this.commonModalSrv.openRequestFeedbackDialog();
+		this.commonModalSrv.openRequestFeedbackDialog([product]);
 	}
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
