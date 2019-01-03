@@ -1,16 +1,19 @@
-<div class="">
-	<div class="add-new-comment">
-		<div class="title">Add Comment</div>
-		<div class="text-input-new-comment">
-			<textarea rows="4" placeholder="Write your comment here"></textarea>
-		</div>
-		<div class="button-container">
-			<button>Send</button>
-		</div>
-	</div>
-	<div class="activity-container" *ngFor="let activity of activities; trackBy: trackByFn">
-		<activity-card-app [activity]="activity" [entity]="entity" [typeEntity]="typeEntity">
+<div class="add-new-comment">
 
-		</activity-card-app>
+	<div class="title">Add Comment</div>
+
+	<div class="text-input-new-comment">
+		<textarea
+			[formControl]="commentCtrl"
+			(keyup.enter)="send()"
+			rows="4"
+			placeholder="Write your comment here"></textarea>
 	</div>
+
+	<div class="button-container">
+		<button (click)="send()">Send</button>
+	</div>
+
 </div>
+
+<comment-list-app [comments]="activities"></comment-list-app>

@@ -1,17 +1,19 @@
 :host {
 	display: block;
 	width: 100%;
+	padding: var(--spacing-l);
+	box-sizing: border-box;
 }
 
-$circle-size: 32px;
 
 .add-new-comment {
 	border-bottom: 1px solid var(--color-divider);
+
 	.title {
 		font-size: var(--font-size-l);
 		font-weight: 600;
 		color: var(--color-txt-strong);
-	
+
 	}
 
 	.text-input-new-comment {
@@ -25,9 +27,9 @@ $circle-size: 32px;
 		margin: var(--spacing-ms) 0;
 		text-align: right;
 	}
-	
+
 }
-.add-new-comment,
-.activity-container {
-	margin: var(--spacing-ml) var(--spacing-l);
+
+comment-list-app {
+	margin-top: var(--spacing-l);
 }

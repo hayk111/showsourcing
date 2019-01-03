@@ -2,9 +2,10 @@
 
 
 <div class="activity-container">
-	
-	<activity-list-app [activities]="activities" [entity]="supplier" [typeEntity]="erm.SUPPLIER">
-
+	<activity-list-app
+		[activities]="supplier.comments"
+		[entity]="supplier"
+		[typeEntity]="erm.SUPPLIER">
 	</activity-list-app>
 </div>
 

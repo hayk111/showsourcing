@@ -38,7 +38,7 @@ export class ERMService {
 	) { }
 
 
-	getGlobalServiceForEntity({ __typename: typename }: { __typename: any })
+	getGlobalServiceForEntity({ __typename: typename }: { __typename?: string })
 		: GlobalService<any> {
 		switch (typename) {
 			case 'Category':

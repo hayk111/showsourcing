@@ -27,15 +27,12 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
-	feedResult: ActivityFeed;
 	erm = ERM;
 
-	activities: Comment[] = [];
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: SupplierFeatureService,
 		private dlgSrv: DialogService,
-		private activitySrv: ActivityService,
 	) {
 		super();
 	}
@@ -51,15 +48,7 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		// getting supplier
 		this.supplier$ = id$.pipe(
 			switchMap(id => this.featureSrv.selectOne(id)),
-			tap(supplier => {
-				this.activities = [{
-					id: 'string',
-					text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book',
-					creationDate: supplier.creationDate,
-					createdBy: supplier.createdBy,
-				}];
-				return this.supplier = supplier;
-			})
+			tap(supplier => this.supplier = supplier)
 		);
 
 		// getting his products
@@ -71,7 +60,6 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 			switchMap(id => this.featureSrv.getContacts(id))
 		);
 
-		this.feedResult = this.activitySrv.getSupplierFeed(this.route.parent.snapshot.params.id);
 	}
 
 	/** updates supplier */
