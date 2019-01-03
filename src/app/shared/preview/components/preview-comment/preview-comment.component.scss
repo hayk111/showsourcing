@@ -2,7 +2,8 @@
 	display: block;
   padding: 0 var(--spacing-m);
   padding-top: var(--spacing-s);
-  border-top: 1px solid var(--color-divider);
+	border-top: 1px solid var(--color-divider);
+	margin-top: auto;
 }
 
 h2 {

@@ -16,7 +16,17 @@ selector2-app {
 		font-size: 9px;
 	}
 
+	.category-label {
+		display: flex;
+		align-items: flex-start;
+		icon-app {
+			margin-top: 2px;
+		}
+	}
+
 	.category-info {
+		display: flex;
+		flex-wrap: wrap;
 		& > * {
 			//for each children that is not the first one we add some spaces and bullet dots on the content
 			&:not(:first-child)::before {

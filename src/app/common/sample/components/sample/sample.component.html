@@ -1,13 +1,15 @@
 <div class="flexStart row">
 	<!-- reference -->
-	<div class="flex col-25 sample-reference display-name pointer">
+	<div class="flex col-25 sample-reference display-name pointer" (click)="previewClicked.emit(sample)">
 		<img-app [image]="sample?.images ? sample.images[0] : null" type="sample" size="xs"></img-app>
-		<span class="ellipsis">{{ sample?.reference || 'No reference' }}</span>
+		<span class="ellipsis pointer" >
+			{{ sample?.reference || 'No reference' }}
+		</span>
 	</div>
 
 	<!-- name -->
 	<div class="col-35 sample-name display-name" (click)="previewClicked.emit(sample)">
-		<span class="ellipsis">
+		<span class="ellipsis pointer">
 			{{ sample?.name || 'Unnamed Sample'}}
 		</span>
 	</div>

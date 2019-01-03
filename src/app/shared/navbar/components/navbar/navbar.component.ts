@@ -1,10 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
 
-export class TabModel {
-	title?: string;
-	link?: string;
-}
 
 @Component({
 	selector: 'navbar-app',
@@ -13,9 +9,9 @@ export class TabModel {
 	styleUrls: ['./navbar.component.scss']
 })
 export class NavBarComponent extends TrackingComponent implements OnInit {
-	@Input() tabs: TabModel[] = [];
+	@Input() tabs: string[] = [];
 	@Input() currentTab = '';
-	@Output() didChangeTab = new EventEmitter<string>();
+	@Output() tabChange = new EventEmitter<string>();
 
 	constructor() {
 		super();
@@ -26,8 +22,8 @@ export class NavBarComponent extends TrackingComponent implements OnInit {
 
 	changeTab(newTab: string) {
 		this.currentTab = newTab;
-		if (this.didChangeTab) {
-			this.didChangeTab.emit(newTab);
+		if (this.tabChange) {
+			this.tabChange.emit(newTab);
 		}
 	}
 }

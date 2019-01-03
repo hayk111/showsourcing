@@ -6,7 +6,7 @@
 <div *ngIf="(supplier$ | async) as supplier" class="flex supplier-container">
 	<!-- left side -->
 	<div class="left">
-		<navbar-app [tabs]="tabs" [currentTab]="tabs[0].title"></navbar-app>
+		<navbar-app [tabs]="['Activity', 'Products']"></navbar-app>
 
 		<router-outlet></router-outlet>
 	</div>

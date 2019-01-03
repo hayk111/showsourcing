@@ -10,7 +10,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 import { ID } from '~utils/id.utils';
 
 @Component({
-	selector: 'supplier-app',
+	selector: 'supplier-products-app',
 	templateUrl: './supplier-products.component.html',
 	styleUrls: ['./supplier-products.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

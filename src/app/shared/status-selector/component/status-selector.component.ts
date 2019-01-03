@@ -1,20 +1,11 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	QueryList,
-	ViewChildren,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { AutoUnsub } from '~utils';
 
 import { StatusSelectorService } from '../service/status-selector.service';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'status-selector-app',

@@ -2,9 +2,8 @@
 <div #top [ngClass]="{ 'fixedTop': isFixed }">
 	<ng-content select="preview-banner-app"></ng-content>
 </div>
-<div #scrollSection class="scrollable">
+<div #scrollSection class="scrollable flexColumn">
 	<ng-content select="preview-header-app"></ng-content>
 	<ng-content select="preview-section-app"></ng-content>
 	<ng-content select="preview-comment-app"></ng-content>
-
 </div>

@@ -1,12 +1,12 @@
-<div class="navbar-container">
-	<div class="tab-container">
-		<div class="tab-item clickable" *ngFor="let tab of tabs; trackBy: trackByFn"  [style.width]="100 / tabs.length + '%'" >
-			<div [ngClass]="{'active': currentTab === tab.title}" [routerLink]="'./' + tab.link" routerLinkActive="active" (click)="changeTab(tab.title)" class="tab-title">
-				{{tab.title}}
-			</div>
-		</div>
-		<div class="page-contaienr">
-			<ng-content></ng-content>
-		</div>
-	</div>
+
+<div
+	*ngFor="let tab of tabs; trackBy: trackByFn"
+	class="tab-title"
+	[style.width]="100 / tabs.length + '%'"
+	[ngClass]="{'active': currentTab === tab}"
+	[routerLink]="'./' + tab.toLowerCase()"
+	[replaceUrl]="true"
+	routerLinkActive="active"
+	(click)="changeTab(tab)">
+	{{ tab }}
 </div>

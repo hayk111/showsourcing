@@ -15,7 +15,6 @@ import {
 	ProductListComponent,
 	ProductInformationComponent
 } from '~features/products/components';
-import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import {
@@ -62,7 +61,6 @@ import { NavBarModule } from '~shared/navbar/navbar.module';
 		ProjectCardComponent,
 		ProductSummaryComponent,
 		SelectableImageComponent,
-		ProductNavigationComponent,
 		ProductTeamRatingComponent,
 		ProductActivityComponent,
 		ProductTasksComponent,

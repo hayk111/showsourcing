@@ -1,9 +1,10 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Event, RouterEvent, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { routerAnimation } from '~core/template/components/animation';
 import { TemplateService } from '~core/template/services/template.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap, map, tap, filter } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'template-app',
@@ -18,16 +19,23 @@ export class TemplateComponent extends AutoUnsub implements AfterViewInit {
 
 	constructor(
 		private templateSrv: TemplateService,
-		private router: Router
+		private router: Router,
+		private route: ActivatedRoute,
 	) {
 		super();
 	}
 
 	ngAfterViewInit() {
 		this.router.events.pipe(
-			takeUntil(this._destroy$)
-		).subscribe(evt => {
-			this.main.nativeElement.scrollTop = 0;
+			takeUntil(this._destroy$),
+			filter(evt => evt instanceof NavigationEnd),
+			// tap(d => { debugger; }),
+			switchMap(_ => this.route.data),
+			//  tap(d => { debugger; }),
+			map(data => data.skipScrollTop)
+		).subscribe((skip: boolean) => {
+			if (!skip)
+				this.main.nativeElement.scrollTop = 0;
 		});
 	}
 

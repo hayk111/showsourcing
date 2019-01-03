@@ -13,7 +13,6 @@ import { ActivityService } from '~common/activity/services/activity.service';
 import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { NotificationService, NotificationType } from '~shared/notifications';
 
-import { TabModel } from '~shared/navbar';
 
 @Component({
 	selector: 'supplier-general-info-app',
@@ -28,13 +27,6 @@ export class SupplierGeneralInfoComponent extends AutoUnsub implements OnInit {
 	contacts$: Observable<Contact[]>;
 	feedResult: ActivityFeed;
 
-	tabs: TabModel[] = [{
-		title: 'Activity',
-		link: 'tasks'
-	}, {
-		title: 'Products',
-		link: '../products'
-	}];
 
 	constructor(
 		private route: ActivatedRoute,

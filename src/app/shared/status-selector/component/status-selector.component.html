@@ -1,4 +1,4 @@
-<ng-container *ngIf="entity">
+<ng-container *ngIf="entity && typeEntity !== erm.TASK">
 	<context-menu-app
 		*ngIf="entity.status"
 		class="menu-status {{selectSize}}"

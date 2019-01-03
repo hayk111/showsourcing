@@ -16,23 +16,24 @@
 
 
 	<div class="flex right container action-list">
-			<button class="rounded like">
-					<rating-heart-app
-					[customClassFavorited]="'header-favorited'"
-					[colorNormal]="'color-black'"
-					[colorFavorite]="''"
-					[favorite]="data?.favorite"
-					size="14"
-					(favorited)="favorited.emit(data)"
-					(unfavorited)="unfavorited.emit(data)"></rating-heart-app>
-			</button>
-			<button class="rounded secondary share" (click)="export.emit(data)">
-				<icon-app name="export" size="14"></icon-app>
-			</button>
+		<button class="rounded like">
+			<rating-heart-app
+			[customClassFavorited]="'header-favorited'"
+			[colorNormal]="'color-black'"
+			[colorFavorite]="''"
+			[favorite]="data?.favorite"
+			size="14"
+			(favorited)="favorited.emit(data)"
+			(unfavorited)="unfavorited.emit(data)"></rating-heart-app>
+		</button>
+		<button class="rounded secondary share" (click)="export.emit(data)">
+			<icon-app name="export" size="14"></icon-app>
+		</button>
 
-			<user-picture-app
-				[user]="user" [image]="user?.avatar" [border]="true" size="28">
-			</user-picture-app>
-			<ng-content select="[action]"></ng-content>
+		<user-picture-app
+			*ngIf="hasAssignee"
+			[user]="user" [image]="user?.avatar" [border]="true" size="28">
+		</user-picture-app>
+		<ng-content select="[action]"></ng-content>
 	</div>
 

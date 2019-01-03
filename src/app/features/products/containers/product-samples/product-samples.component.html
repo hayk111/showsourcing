@@ -9,5 +9,8 @@
 	(updateSample)="listSrv.update($event)">
 </sample-list-app>
 
-<sample-preview-app *ngIf="listSrv.previewOpen" [sample]="listSrv.previewed" (close)="listSrv.closePreview()">
+<sample-preview-app
+	*ngIf="listSrv.previewOpen"
+	[sample]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
 </sample-preview-app>

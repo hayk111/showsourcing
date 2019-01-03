@@ -52,7 +52,8 @@
 
     <div class="right">
 			<product-resume-app [product]="product"></product-resume-app>
-			<product-navigation-app></product-navigation-app>
+			<navbar-app
+				[tabs]="['Activity', 'Shipping', 'Samples', 'Tasks']"></navbar-app>
 			<router-outlet></router-outlet>
     </div>
 

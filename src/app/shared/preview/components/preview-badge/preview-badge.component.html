@@ -73,9 +73,9 @@
 			[offsetX]="22"
 			[width]="370"
 			(update)="update.emit($event)">
-			<div class="flex">
+			<div class="flex category-label">
 				<icon-app name="category" backgroundColor="accent"></icon-app>
-				<div class="flex  flexWrap">
+				<div class="flex flexWrap">
 					<div *ngIf="value?.length; else noArray" class="ellipsis category-info">
 						<span *ngFor="let category of value"> {{ category?.name }}  </span>
 					</div>

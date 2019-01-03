@@ -9,7 +9,6 @@ import { SupplierFeatureService } from '~features/supplier/services/supplier-fea
 import { Product } from '~models';
 import { Contact } from '~models/contact.model';
 import { Supplier } from '~models/supplier.model';
-import { TabModel } from '~shared/navbar';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 import { CloseEventType } from '~shared/dialog';
@@ -26,20 +25,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
 
-	tabs: TabModel[] = [
-		{
-			title: 'Activity',
-			link: 'activity'
-		},
-		{
-			title: 'Products',
-			link: 'products'
-		},
-		{
-			title: 'Tasks',
-			link: 'tasks'
-		}
-	];
+
 
 	constructor(
 		private route: ActivatedRoute,

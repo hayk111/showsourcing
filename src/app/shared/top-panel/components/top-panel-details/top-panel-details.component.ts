@@ -21,6 +21,7 @@ export class TopPanelDetailsComponent extends TrackingComponent implements OnIni
 	@Input() links: string[];
 	/** has default options */
 	@Input() hasOptions = false;
+	@Input() hasAssignee = true;
 	@Input() user: User;
 
 	@Input() data: Supplier | Product;

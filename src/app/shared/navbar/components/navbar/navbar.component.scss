@@ -1,27 +1,19 @@
 /*navbar*/
-.navbar-container {
-	text-align: center;
-	padding: var(--spacing-xs) var(--spacing-m) 0px var(--spacing-m);
-}
-
-.tab-container {
+:host {
+	display: flex;
 	border: 1px solid var(--color-secondary);
-	width: 100%;
 	margin: var(--spacing-ms);
 	white-space: nowrap;
 	background-color: var(--color-bg);
-  margin: var(--spacing-ms) auto;
+  margin: var(--spacing-m);
 }
 
 .tab-title {
+	cursor: pointer;
 	text-align: center;
 	padding: 10px;
 	font-weight: 600;
 	font-size: var(--font-size-l);
-}
-
-.tab-item {
-	display: inline-block;
 }
 
 .active {

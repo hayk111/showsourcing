@@ -11,6 +11,7 @@ import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
 import { CloseEventType } from '~shared/dialog';
 import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'product-details-app',
@@ -25,10 +26,11 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
+		private router: Router,
+		private location: Location,
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
-		private router: Router,
 		private thumbSrv: ThumbService,
 		public commonModalSrv: CommonModalService
 	) {
@@ -48,6 +50,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			product => this.onProduct(product),
 			err => this.onError(err)
 		);
+
 	}
 
 	private onProduct(product) {
@@ -135,4 +138,5 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			switchMap(_ => this.featureSrv.delete(product.id))
 		).subscribe(_ => this.router.navigate(['product']));
 	}
+
 }
