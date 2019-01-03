@@ -15,6 +15,7 @@
 		[entityMD]="erm.PRODUCT"
 		[entity]="product"
 		(update)="update($event, 'name')">
+
 		<!-- Price -->
 		<price-with-quantity-app
 			*ngIf="product?.price?.value"
@@ -35,6 +36,7 @@
 			[value]="product?.category"
 			(update)="update($event, 'category')">
 		</preview-badge-app>
+
 	</preview-header-app>
 
 	<!-- Ask for a quote (disabled temporarily)-->

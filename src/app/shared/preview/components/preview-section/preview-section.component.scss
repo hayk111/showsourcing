@@ -3,7 +3,7 @@
 	padding: 0;
 	margin: var(--spacing-l);
 
-	.deep-class {
+	.deep-class:not(:empty) {
 		padding-top: var(--spacing-ms);
 	}
 }

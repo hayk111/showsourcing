@@ -21,7 +21,9 @@
 </div>
 
 <!-- Title name -->
-<editable-text-app #edt
+<editable-text-app
+	class="{{ hasTop ? '' : 'noPaddingTop' }}"
+	#edt
 	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
 	<editable-label-app>
@@ -31,10 +33,10 @@
 		(keyup.enter)="edt.close()">
 </editable-text-app>
 
-<div class="deep-class">
+<div>
 	<ng-content></ng-content>
 </div>
 
-<div class="deep-class">
+<div>
 	<ng-content select="preview-badge-app"></ng-content>
 </div>

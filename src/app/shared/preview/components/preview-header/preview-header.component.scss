@@ -5,6 +5,12 @@
 
 	& > * {
 		padding-top: var(--spacing-ms);
+		&:empty {
+			display: none;
+		}
+	}
+	.noPaddingTop {
+		padding-top: 0;
 	}
 }
 

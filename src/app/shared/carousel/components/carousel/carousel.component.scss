@@ -7,6 +7,7 @@ carousel-app {
 }
 
 .ctnr {
+	background: var(--color-secondary-light);
 	border-top-left-radius: var(--border-radius);
 	border-top-right-radius: var(--border-radius);
 	position: relative;
@@ -28,7 +29,9 @@ carousel-app {
 	visibility: visible;
 }
 
-
+.empty > * {
+	margin: var(--spacing-xs);
+}
 .menu {
 	position: absolute;
 	top: var(--spacing-m);

@@ -6,6 +6,7 @@
 			[entity]="product"
 			[hasTop]="false"
 			(update)="update($event, 'name')">
+
 			<!-- Price -->
 			<price-with-quantity-app
 				*ngIf="product?.price?.value"
@@ -38,7 +39,7 @@
 		</preview-section-app>
 
 		<!-- Tags -->
-		<preview-section-app [title]="'Tags'">
+		<preview-section-app [title]="'Tags'" class="noMarginBottom">
 			<selector2-app
 				[canCreate]="true"
 				type="tag"

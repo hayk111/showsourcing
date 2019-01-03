@@ -82,6 +82,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 			return;
 
 		const uuids: string[] = await this.addPendingImg(files);
+		this.cd.markForCheck();
 		this.uploader.uploadImages(files, this.entity).pipe(
 			first()
 		).subscribe(imgs => {

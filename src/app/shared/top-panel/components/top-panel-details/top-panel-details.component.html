@@ -16,7 +16,8 @@
 
 
 	<div class="flex right container action-list">
-		<button class="rounded like">
+
+		<button class="rounded like" title="favorite">
 			<rating-heart-app
 			[customClassFavorited]="'header-favorited'"
 			[colorNormal]="'color-black'"
@@ -26,11 +27,12 @@
 			(favorited)="favorited.emit(data)"
 			(unfavorited)="unfavorited.emit(data)"></rating-heart-app>
 		</button>
-		<button class="rounded secondary share" (click)="export.emit(data)">
+
+		<button class="rounded secondary share" (click)="export.emit(data)" title="export">
 			<icon-app name="export" size="14"></icon-app>
 		</button>
 
-		<selector2-app type="user" (update)="changeUser.emit($event)">
+		<selector2-app type="user" (update)="changeUser.emit($event)" title="assignee">
 			<user-picture-app [user]="user" [border]="true"></user-picture-app>
 		</selector2-app>
 		<ng-content select="[action]"></ng-content>
