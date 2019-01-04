@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
-import { map, switchMap, takeUntil, tap, mergeMap } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
+import { map, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -12,7 +12,6 @@ import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { makeColumns } from '~utils/kanban.utils';
-import { ProductsCardViewComponent } from '~common/product';
 
 @Component({
 	selector: 'project-workflow-app',
@@ -82,7 +81,12 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	private getProducts(statuses: ProductStatus[]) {
 		statuses.forEach(status => {
-			const query = `projects.id == "${this.project.id}" AND status.id == "${status.id}"`;
+			let query;
+			if (status.id === null)
+				query = `projects.id == "${this.project.id}" AND status == null `;
+			else
+				query = `projects.id == "${this.project.id}" AND status.id == "${status.id}"`;
+
 			const prod$ = this.productSrv.getListQuery({ query, take: 8, sortBy: 'lastUpdatedDate' });
 			const total$ = this.productSrv.customQuery({
 				query
