@@ -71,8 +71,6 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			mergeMap(statuses => makeColumns(statuses, this.productsMap, this.totalMap)),
 		);
 
-
-
 	}
 
 	loadMore(col: KanbanColumn) {
