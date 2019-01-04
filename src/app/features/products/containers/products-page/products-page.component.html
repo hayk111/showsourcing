@@ -3,10 +3,8 @@
 		<!-- top panel -->
 		<top-panel-app
 			title="My Products"
-			buttonName="Add {{ listSrv.entityMetadata.singular }}"
-			(buttonClick)="listSrv.create()"
-			[center]="false"
-			[subtitles]="['Products', 'all']">
+			buttonName="Add Product"
+			(buttonClick)="listSrv.create()">
 		</top-panel-app>
 
 		<sub-panel-app

@@ -1,7 +1,6 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 	<top-panel-app
 		[title]="project.name"
-		[subtitles]="['Projects', project.name, 'Products']"
 		[hasAction]="false">
 	</top-panel-app>
 

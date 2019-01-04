@@ -213,7 +213,6 @@ export class ListPageService
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
-				filter(event => event.type === CloseEventType.OK),
 				switchMap(_ => this.dataSrv.deleteOne(id)),
 				// we don't want to refetch or we lose the pagination
 				// switchMap(_ => this.refetch())
@@ -226,7 +225,6 @@ export class ListPageService
 			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural);
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-			filter(event => event.type === CloseEventType.OK),
 			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
 			// we don't want to refetch or we lose the pagination
 			// switchMap(_ => this.refetch())

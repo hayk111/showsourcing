@@ -1,18 +1,17 @@
-<div class="flexColumn ctnr" [ngClass]="{ 'has-nav': withNav }">
-	<div [ngClass]="{ flexAround: center, flexBetween: !center }">
-		<div class="left">
-			<bread-crumb-app [isModifiable]="isModifiable" (update)="update.emit($event)" [title]="title" [subtitles]="subtitles"></bread-crumb-app>
-		</div>
-		<div class="right flexCenter" *ngIf="buttonName">
 
-			<button (click)="buttonClick.emit()" class="button auto" *ngIf="hasAction">
-				<span class="spacing"> {{ buttonName }} </span>
-			</button>
-
-		</div>
-
-	</div>
-	<div class="navCtnr" [ngClass]="{ 'has-nav': withNav, centered: center }">
-		<ng-content select="nav"></ng-content>
-	</div>
+<div class="left">
+	<h1>{{ title }}</h1>
 </div>
+
+<div class="navCtnr">
+	<ng-content select="nav"></ng-content>
+</div>
+
+<div class="right flexCenter">
+
+	<button (click)="buttonClick.emit()" class="button auto" *ngIf="hasAction">
+		<span class="spacing"> {{ buttonName }} </span>
+	</button>
+
+</div>
+

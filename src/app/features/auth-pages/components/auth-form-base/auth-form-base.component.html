@@ -1,12 +1,14 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit.emit(form)" autocomplete="on" class="flexColumn" *ngIf="!pending; else spinner">
 	<error-app *ngIf="error">{{ error }}</error-app>
 	<form-field-app *ngFor="let formElement of listForm; trackBy: trackByFn"
-	[ngClass]="{'field-focused': fieldFocused === formElement.name, 'field-error': (form.get(formElement.name).invalid && !form.pristine)}">
+		[ngClass]="{'field-focused': fieldFocused === formElement.name, 'field-error': (form.get(formElement.name).invalid && !form.get(formElement.name).pristine && !form.get(formElement.name).focussed) }">
 		<label-app>{{formElement.label}}</label-app>
 		<input (focus)="fieldFocused = formElement.name" (blur)="fieldFocused =''" inputApp [required]="formElement.isRequired"
 		 autoFocus [autocomplete]="formElement.autocomplete" [formControlName]="formElement.name" [type]="formElement.type"
 		 [placeholder]="formElement.placeHolder" />
-		<error-app *ngIf="formElement.error && error && (formElement.error.type ? !form.get(formElement.name).dirty : form.get(formElement.name).hasError(formElement.error.type))">{{formElement.errorMesasge}}</error-app>
+		<error-app *ngIf="formElement.error && error && (formElement.error.type ? !form.get(formElement.name).dirty : form.get(formElement.name).hasError(formElement.error.type))">
+			{{formElement.errorMesasge}}
+		</error-app>
 		<hint-app *ngIf="formElement.hint">{{formElement.hint}}</hint-app>
 	</form-field-app>
 

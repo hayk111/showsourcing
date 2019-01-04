@@ -1,36 +1,13 @@
 :host {
-	display: block;
-	padding: 0 var(--spacing-edge);
-	padding-left: 0;
-	padding-right: 0;
+	padding: 0 var(--spacing-l);
+	height: 65px;
+	background: white;
 }
 
 .ctnr {
-	padding: var(--spacing-l) var(--spacing-xl) var(--spacing-l) var(--spacing-l);
 	background-color: #fff;
 	border: solid 1px var(--color-secondary);
 	border-left: 0;
-
-	&.has-nav {
-		padding-bottom: 0;
-	}
-}
-
-.plusIc {
-	margin-top: var(--spacing-xs);
-}
-
-.mg-right {
-	margin-right: var(--spacing-xl);
-}
-
-.vert-divider {
-	height: 20px;
-	border-right: 2px solid var(--color-divider);
-}
-
-divider-app {
-	margin: var(--spacing-xl) 0;
 }
 
 .actions {
@@ -40,16 +17,9 @@ divider-app {
 	padding-bottom: 10px;
 }
 
-.spacing {
-	margin-right: 10px;
-    margin-left: 10px;
+h1 {
+	font-weight:  600;
 }
-
-.navCtnr.has-nav {
-	padding-top: 30px;
-
-	&.centered {
-		margin-left: auto;
-		margin-right: auto;
-	}
+.navCtnr {
+	margin-top: 36px;
 }

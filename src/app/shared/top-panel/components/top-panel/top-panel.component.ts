@@ -5,6 +5,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Elemen
 	templateUrl: './top-panel.component.html',
 	styleUrls: ['./top-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'z-6 flexVAlign flexBetween'
+	}
 })
 export class TopPanelComponent {
 	/** what appears in the button on the right for adding an entity */
@@ -15,14 +18,8 @@ export class TopPanelComponent {
 	@Output() buttonClick = new EventEmitter<any>();
 	/** title of the bread crumb */
 	@Input() title: string;
-	/** subtitles of the bread crumb */
-	@Input() subtitles: Array<string>;
 	/** whether the button on the right is displayed */
 	@Input() hasAction = true;
-	/** a nav is provided as ng-content */
-	@Input() withNav: boolean;
-	/** whether the content of the top panel must be centered */
-	@Input() center: boolean;
 	// Can update title or not
 	@Input() isModifiable = false;
 	@Output() update = new EventEmitter<string>();

@@ -22,7 +22,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 
 	listForm: AuthFormElement[];
 	buttons: AuthFormButton[];
-	
+
 	constructor(
 		private srv: AuthenticationService,
 		private fb: FormBuilder,
@@ -35,7 +35,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// get return url from route parameters or default to '/'
 		this.queryParams = this.route.snapshot.queryParams || '/';
-		this.listForm   = [{
+		this.listForm = [{
 			label: 'Email',
 			type: 'email',
 			name: 'identifier',
@@ -52,6 +52,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 			placeHolder: 'your password',
 			validators: [Validators.required]
 		}];
+
 		this.buttons = [{
 			label: 'Login',
 			type: 'button'

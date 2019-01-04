@@ -1,15 +1,13 @@
-import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, AsyncValidator } from '@angular/forms';
-
-import { Observable, Subject } from 'rxjs';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { AutoUnsub } from '~utils';
-import { takeUntil, take, catchError, map, tap } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '~entity-services';
-import { AuthFormElement, AuthFormButton } from '~features/auth-pages/components/auth-form-base/auth-form';
-import { TrackingComponent } from '~utils/tracking-component';
 
+
+/**
+ * This component was made by Van Huy, and I've no clue why he decided
+ * to do something dynamic for something as simple as a login form.
+ */
 @Component({
 	selector: 'auth-form-app',
 	templateUrl: './auth-form-base.component.html',
@@ -25,6 +23,7 @@ export class AuthFormBaseComponent extends AutoUnsub implements OnInit {
 	@Output() onSubmit = new EventEmitter<any>();
 
 	private _listForm: AuthFormElement[] = [];
+
 	@Input() set listForm(value: AuthFormElement[]) {
 		this._listForm = value;
 		const formGroup = {};

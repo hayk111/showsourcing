@@ -55,16 +55,18 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 
 	/** Determines if we display an hint or an error */
 	get displayedMessage(): 'error' | 'hint' | 'none' {
-		// if there is an error it's always the error except if it's pristine
-		if (this.control
+		// an hint displays only when we are focussed
+		// InputApp which extends formControl has focussed state
+		if ((this.input as any).focussed && this.hint)
+			return 'hint';
+		else if ((this.input as any).focussed)
+			return 'none';
+		// if there is an error it's always the error except if it's pristine (or focussed)
+		else if (this.control
 			&& !this.control.valid
 			&& !this.control.pristine
 			&& (this.defaultErrorMsg || this.error))
 			return 'error';
-		// an hint displays only when we are focussed
-		// InputApp which extends formControl has focussed state
-		else if ((this.input as any).focussed && this.hint)
-			return 'hint';
 		else
 			return 'none';
 	}
