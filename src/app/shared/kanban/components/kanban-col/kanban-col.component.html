@@ -28,7 +28,7 @@
     cdkDrag
     [badgeNumber]="selection.size"
     [showBadge]="selection.size > 0">
-    <div class="custom-placeholder" *cdkDragPlaceholder></div>
+    <!-- <div class="custom-placeholder" *cdkDragPlaceholder></div> -->
     <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: data }">
     </ng-container>
   </kanban-item-app>

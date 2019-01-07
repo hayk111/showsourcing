@@ -46,7 +46,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			entityMetadata: ERM.PRODUCT
 		}, false);
 
-		const productStatuses$ = this.productStatusSrv
+		this.productStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused"',
 				sortBy: 'step',
@@ -65,12 +65,16 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	private getProducts(statuses: ProductStatus[]) {
 		statuses.forEach(status => {
 			const query = `status.id == "${status.id}"`;
-			this.productSrv.queryMany({ query, take: 6, sortBy: 'creationDate' })
+			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
-				.subscribe(prods => this.kanbanSrv.addData(prods, status.id));
+				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
 			this.productSrv.queryCount(query).pipe(first())
-				.subscribe(total => this.kanbanSrv.addTotal(total, status.id));
+				.subscribe(total => this.kanbanSrv.setTotal(total, status.id));
 		});
+	}
+
+	onUpdate(product: Product) {
+		this.kanbanSrv.updateData(product);
 	}
 
 	getColumnColor(status) {

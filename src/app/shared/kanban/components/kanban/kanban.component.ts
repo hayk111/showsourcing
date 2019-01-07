@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
+import { KanbanService } from '~shared/kanban/services/kanban.service';
 
 @Component({
 	selector: 'kanban-app',
@@ -27,6 +28,10 @@ export class KanbanComponent extends TrackingComponent {
 
 	_width = 'inherit';
 
+	constructor(private kanbanSrv: KanbanService) {
+		super();
+	}
+
 	get ids() {
 		return this.cols.map(col => col.id);
 	}
@@ -36,17 +41,20 @@ export class KanbanComponent extends TrackingComponent {
 			return this.onMultipleDrop(event);
 		}
 		if (event.previousContainer === event.container) {
-			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-		} else {
-			const currentIndex = 0; // event.currentIndex we use 0 instead to have it at the top
-			transferArrayItem(
-				event.previousContainer.data,
-				event.container.data,
+			this.kanbanSrv.moveItemInsideColumn(
+				event.container.id,
 				event.previousIndex,
-				currentIndex
+				event.currentIndex
+			);
+		} else {
+			this.kanbanSrv.transferItem(
+				event.previousContainer.id,
+				event.container.id,
+				event.previousIndex,
+				event.currentIndex
 			);
 			this.drop.emit({
-				item: event.container.data[currentIndex],
+				item: event.container.data[event.currentIndex],
 				from: this.cols.find(col => col.id === event.previousContainer.id),
 				to: this.cols.find(col => col.id === event.container.id),
 			});

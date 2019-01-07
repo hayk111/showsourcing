@@ -44,6 +44,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	@Output() close = new EventEmitter<any>();
 	@Output() delete = new EventEmitter<null>();
+	@Output() updated = new EventEmitter<Product>();
 	@Output() clickOutside = new EventEmitter<null>();
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
@@ -168,7 +169,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	updateProduct(productConfig: any) {
 		const product = new Product({ ...productConfig, id: this.product.id });
 		this.productSrv.update(product)
-			.subscribe();
+			.subscribe(_ => this.updated.emit(product));
 	}
 
 	update(value: any, prop: string) {

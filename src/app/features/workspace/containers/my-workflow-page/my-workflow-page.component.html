@@ -77,5 +77,6 @@
 <product-preview-app
   *ngIf="listSrv.previewOpen"
   [product]="listSrv.previewed"
-  (close)="listSrv.closePreview()">
+  (close)="listSrv.closePreview()"
+  (updated)="onUpdate($event)">
 </product-preview-app>
