@@ -1,31 +1,53 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { KanbanColumn } from '../interfaces';
+import { KanbanColumn, KanbanConfig } from '../interfaces';
 import { Status } from '~core/models/status.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { statusToColor } from '~utils/status-to-color.function';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { DataManagementPageComponent } from '~features/data-management/containers';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
+
+/**
+ * service to move items between columns in kanban
+ *
+ * the columns are made with map that are converted to array,
+ * the reason is for easy access when we need to modify the data,
+ * and it's converted back to array because it's easier to deal with in
+ * an angular template.
+ *
+ * There is a lot of back and forth between array and map that can
+ * probably be optimised. However it was made with a goal of keeping things simple
+ *
+ */
 @Injectable()
 export class KanbanService {
 
-	private _columns$ = new Subject<KanbanColumn[]>();
-	columns$ = this._columns$.asObservable();
-	private columns: KanbanColumn[];
-	// <column id, column> for easy access
-	private columnMap = new Map<string, KanbanColumn>();
-	// dataMap for easy access when making an update
-	private dataMap = new Map<string, any>();
-	// position of a data within a specific column for easy updates
-	private dataPositionMap = new Map<string, { col: string, index: number }>();
+	private _kanbanConfig$ = new Subject<KanbanConfig>();
+	columns$: Observable<KanbanColumn[]> = this._kanbanConfig$.asObservable().pipe(
+		map(config => this.configToCols(config))
+	);
+	private kanbanConfig: KanbanConfig;
 
+	private configToCols(kanbanConfig: KanbanConfig): KanbanColumn[] {
+		const columns = Array.from(kanbanConfig.values());
+		columns.forEach(c => c.data = Array.from(c.dataMap.values()));
+		return columns;
+	}
 
 	/** converts an array of status to kanban columns */
 	setColumnsFromStatus(statuses: Status[]) {
-		this.setColumns(statuses.map(status => this.statusToKanbanCol(status)));
+		const columns = statuses.map(status => this.statusToKanbanCol(status));
+		this.kanbanConfig = this.mapFromArray(columns);
+		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
+	private mapFromArray(arr: any[]): Map<string, any> {
+		return arr.reduce((prev, curr) => prev.set(curr.id, curr), new Map());
+	}
 	/**
 	 * @param status: Status of the columns
 	 * @param data: data of column
@@ -33,67 +55,97 @@ export class KanbanService {
 	 */
 	private statusToKanbanCol(
 		status: Status,
-		data: any[] = [],
+		items: any[] = [],
 		totalData = 0): KanbanColumn {
 		const constPipe = new ConstPipe();
+		// data map
+		const dataMap = this.mapFromArray(items);
 		// make the columns
 		return {
 			id: status.id,
 			title: constPipe.transform(status.name, 'status'),
 			color: statusToColor(status.category),
-			data,
+			dataMap,
 			totalData
 		};
 	}
 
-	/** set the columns for the service */
-	private setColumns(columns: KanbanColumn[]) {
-		this.columns = columns;
-		this.columns.forEach(c => this.columnMap.set(c.id, c));
-		this._columns$.next([...this.columns]);
-	}
 
 	/** sets data of specific column */
 	setData(data: any[], colId: string) {
-		data.forEach((d, index) => this.dataPositionMap.set(d.id, { col: colId, index }));
-		this.columnMap.get(colId).data = [...data];
-		this._columns$.next([...this.columns]);
+		this.kanbanConfig.get(colId).dataMap = this.mapFromArray(data);
+		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
 	/** sets total of specific column */
 	setTotal(total: number, colId: string) {
-		this.columnMap.get(colId).totalData = total;
+		this.kanbanConfig.get(colId).totalData = total;
 	}
 
 	/** since we are working with copy of data we need
 	 * to update those to keep the view updated */
 	updateData(item: any) {
-		const position = this.dataPositionMap.get(item.id);
-		const column = this.columnMap.get(position.col);
-		column.data[position.index] = { ...column.data[position.index], ...item };
-		this._columns$.next([...this.columns]);
+		// find item in column and update it
+		const columns = Array.from(this.kanbanConfig.values());
+		const column = columns.find(col => col.dataMap.has(item.id));
+		const localItem = column.dataMap.get(item.id);
+		// the new item is the concatenation of both the local and update
+		const newItem = { ...localItem, ...item };
+		column.dataMap.set(item.id, newItem);
+
+		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
 	moveItemInsideColumn(colId: string, previousIndex: number, currentIndex: number) {
-		const column = this.columnMap.get(colId);
-		moveItemInArray(column.data, previousIndex, currentIndex);
-		// for change detection
-		column.data = [...column.data];
-		this._columns$.next([...this.columns]);
+		const columnMap = this.kanbanConfig.get(colId);
+		// converting to array for easy moving
+		const arr = Array.from(columnMap.dataMap.values());
+		moveItemInArray(arr, previousIndex, currentIndex);
+		// converting back to map
+		columnMap.dataMap = this.mapFromArray(arr);
+		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
 	transferItem(prevColId: string, currColId: string, previousIndex: number, currentIndex: number) {
-		const previousCol = this.columnMap.get(prevColId);
-		const currentCol = this.columnMap.get(currColId);
+		const previousCol = this.kanbanConfig.get(prevColId);
+		const currentCol = this.kanbanConfig.get(currColId);
+
+		const prevArr = Array.from(previousCol.dataMap.values());
+		const currArr = Array.from(currentCol.dataMap.values());
+
 		transferArrayItem(
-			previousCol.data,
-			currentCol.data,
+			prevArr,
+			currArr,
 			previousIndex,
 			currentIndex
 		);
-		previousCol.data = [...previousCol.data];
-		currentCol.data = [...currentCol.data];
-		this._columns$.next([...this.columns]);
+
+		previousCol.dataMap = this.mapFromArray(prevArr);
+		currentCol.dataMap = this.mapFromArray(currArr);
+
+		this._kanbanConfig$.next(this.kanbanConfig);
 	}
+
+	// when the status of an item changes outside the kanban we want to
+	// update the kanban as well
+	onExternalStatusChange(item: any) {
+		// read status for more info
+		// find item in column and update it
+		const columns = Array.from(this.kanbanConfig.values());
+		const column = columns.find(col => col.dataMap.has(item.id));
+		const localItem = column.dataMap.get(item.id);
+		const oldStatus = localItem.status ? localItem.status.id : null;
+		const currentIndex = Array.from(column.dataMap.keys())
+			.findIndex(k => k === item.id);
+
+		this.transferItem(
+			oldStatus,
+			item.status.id,
+			currentIndex,
+			0
+		);
+	}
+
+
 
 }

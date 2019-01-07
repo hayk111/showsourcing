@@ -45,6 +45,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@Output() close = new EventEmitter<any>();
 	@Output() delete = new EventEmitter<null>();
 	@Output() updated = new EventEmitter<Product>();
+	@Output() statusUpdated = new EventEmitter<Product>();
 	@Output() clickOutside = new EventEmitter<null>();
 	/** this is the fully loaded product */
 	product$: Observable<Product>;

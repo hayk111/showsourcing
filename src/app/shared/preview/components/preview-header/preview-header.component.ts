@@ -21,6 +21,7 @@ export class PreviewHeaderComponent implements OnInit {
 	@Input() hasTop = true;
 	/** emits the value that has changed */
 	@Output() update = new EventEmitter<any>();
+	@Output() statusUpdated = new EventEmitter<any>();
 
 	erm = ERM;
 

@@ -78,5 +78,6 @@
   *ngIf="listSrv.previewOpen"
   [product]="listSrv.previewed"
   (close)="listSrv.closePreview()"
-  (updated)="onUpdate($event)">
+  (updated)="onUpdate($event)"
+  (statusUpdated)="previewStatusUpdate($event)">
 </product-preview-app>

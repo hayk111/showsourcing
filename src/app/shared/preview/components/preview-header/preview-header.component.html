@@ -15,7 +15,8 @@
 			*ngIf="entityMD && hasTop"
 			[entity]="entity"
 			[typeEntity]="entityMD"
-			[offsetX]="-15">
+			[offsetX]="-15"
+			(statusUpdated)="statusUpdated.emit({ id: entity.id, status: $event})">
 		</status-selector-app>
 	</div>
 </div>

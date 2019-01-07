@@ -40,6 +40,11 @@ export class KanbanComponent extends TrackingComponent {
 		if (this.selection.size > 0) {
 			return this.onMultipleDrop(event);
 		}
+		const emitted = {
+			item: event.previousContainer.data[event.previousIndex],
+			from: this.cols.find(col => col.id === event.previousContainer.id),
+			to: this.cols.find(col => col.id === event.container.id),
+		};
 		if (event.previousContainer === event.container) {
 			this.kanbanSrv.moveItemInsideColumn(
 				event.container.id,
@@ -53,11 +58,7 @@ export class KanbanComponent extends TrackingComponent {
 				event.previousIndex,
 				event.currentIndex
 			);
-			this.drop.emit({
-				item: event.container.data[event.currentIndex],
-				from: this.cols.find(col => col.id === event.previousContainer.id),
-				to: this.cols.find(col => col.id === event.container.id),
-			});
+			this.drop.emit(emitted);
 		}
 	}
 

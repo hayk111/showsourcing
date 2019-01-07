@@ -33,7 +33,6 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService,
 		public kanbanSrv: KanbanService,
-		private cd: ChangeDetectorRef
 	) {
 		super();
 	}
@@ -74,7 +73,12 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdate(product: Product) {
+		// if the status has been updated we want to update the column as well..
 		this.kanbanSrv.updateData(product);
+	}
+
+	previewStatusUpdate(product: Product) {
+		this.kanbanSrv.onExternalStatusChange(product);
 	}
 
 	getColumnColor(status) {
@@ -100,6 +104,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdateProductStatus(event: KanbanDropEvent) {
+		debugger;
 		// if dropped in the same column do nothing
 		if (event.to === event.from) {
 			return;
