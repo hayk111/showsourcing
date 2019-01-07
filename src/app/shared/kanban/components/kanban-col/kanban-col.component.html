@@ -19,9 +19,9 @@
   [cdkDropListData]="col.data"
   (cdkDropListDropped)="onDrop($event)">
 
-  <div class="overlay flexCenter">
+  <!-- <div class="overlay flexCenter">
     <icon-app class="arrow" name="arrow-circle-down" fontSet="fa"></icon-app>
-  </div>
+  </div> -->
 
   <kanban-item-app
     *ngFor="let data of col.data; trackBy: trackById"
