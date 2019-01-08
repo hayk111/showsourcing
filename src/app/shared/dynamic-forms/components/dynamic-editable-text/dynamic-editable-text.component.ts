@@ -76,7 +76,7 @@ export class DynamicEditableTextComponent extends AbstractInput {
 		if (this.value === this.accumulator)
 			return;
 		if (isAccumulated)
-			this.value = this.accumulator;
+			this._value = this.accumulator;
 		this.onChange();
 		this.update.emit({ [this.customField.name]: this.value });
 	}
