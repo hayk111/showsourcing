@@ -91,9 +91,9 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			let query;
 			// we need to check for null status
 			if (status.id !== null)
-				query = `status.id == "${status.id}" && deleted == false`;
+				query = `status.id == "${status.id}" && deleted == false && projects.id == "${this.project.id}"`;
 			else
-				query = `status == null && deleted == false`;
+				query = `status == null && deleted == false && projects.id == "${this.project.id}"`;
 
 			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
 				.pipe(first())

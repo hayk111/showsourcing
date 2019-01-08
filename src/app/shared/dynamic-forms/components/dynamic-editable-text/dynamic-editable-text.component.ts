@@ -30,7 +30,15 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 		'[class.twoLine]': '!inlineLabel'
 	}
 })
-export class DynamicEditableTextComponent extends AbstractInput implements AfterViewInit {
+export class DynamicEditableTextComponent extends AbstractInput {
+	@Input() set value(v: any) {
+		this._value = v;
+		this.accumulator = v;
+	}
+	get value() {
+		return this._value;
+	}
+	private _value: any;
 	@Input() customField: CustomField;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
@@ -48,12 +56,6 @@ export class DynamicEditableTextComponent extends AbstractInput implements After
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
-	}
-
-	ngAfterViewInit() {
-		// saving the starting value in the accumulator so
-		// if we do a save without typing anything the field won't be undefined
-		this.accumulator = this.value;
 	}
 
 	/** saves the value because an user might cancel */

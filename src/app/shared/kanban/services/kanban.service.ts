@@ -72,7 +72,7 @@ export class KanbanService {
 
 
 	/** sets data of specific column */
-	setData(data: any[], colId: string) {
+	setData(data: any[] = [], colId: string) {
 		this.kanbanConfig.get(colId).dataMap = this.mapFromArray(data);
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
