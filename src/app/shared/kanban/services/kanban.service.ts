@@ -96,6 +96,21 @@ export class KanbanService {
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
+	updateMany(items: any[]) {
+		const columns = Array.from(this.kanbanConfig.values());
+		items.forEach(item => {
+			// find item in column and update it
+			const column = columns.find(col => col.dataMap.has(item.id));
+			const localItem = column.dataMap.get(item.id);
+			// the new item is the concatenation of both the local and update
+			const newItem = { ...localItem, ...item };
+			column.dataMap.set(item.id, newItem);
+		});
+
+		this._kanbanConfig$.next(this.kanbanConfig);
+	}
+
+
 	moveItemInsideColumn(colId: string, previousIndex: number, currentIndex: number) {
 		const columnMap = this.kanbanConfig.get(colId);
 		// converting to array for easy moving
@@ -126,6 +141,30 @@ export class KanbanService {
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
+	transferMultiple(ids: string[], toColId: string, toIndex: number) {
+		const columns = Array.from(this.kanbanConfig.values());
+		const currentCol = this.kanbanConfig.get(toColId);
+		const currArr = Array.from(currentCol.dataMap.values());
+
+		ids.forEach(id => {
+			const previousCol = columns.find(col => col.dataMap.has(id));
+			const prevArr = Array.from(previousCol.dataMap.values());
+			const previousIndex = prevArr.findIndex(item => item.id === id);
+
+			transferArrayItem(
+				prevArr,
+				currArr,
+				previousIndex,
+				toIndex
+			);
+
+			previousCol.dataMap = this.mapFromArray(prevArr);
+		});
+
+		currentCol.dataMap = this.mapFromArray(currArr);
+		this._kanbanConfig$.next(this.kanbanConfig);
+	}
+
 	// when the status of an item changes outside the kanban we want to
 	// update the kanban as well
 	onExternalStatusChange(item: any) {
@@ -153,6 +192,13 @@ export class KanbanService {
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
-
+	deleteItems(ids: string[]) {
+		const columns = Array.from(this.kanbanConfig.values());
+		ids.forEach(id => {
+			const column = columns.find(col => col.dataMap.has(id));
+			column.dataMap.delete(id);
+		});
+		this._kanbanConfig$.next(this.kanbanConfig);
+	}
 
 }

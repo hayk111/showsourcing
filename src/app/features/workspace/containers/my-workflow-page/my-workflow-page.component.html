@@ -60,15 +60,15 @@
   <action-bar-app
     [favorite]="listSrv.allSelectedFavorite"
 		[multiple]="true"
-		(onFavorite)="listSrv.onFavoriteAllSelected()"
-		(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
-		(liked)="listSrv.onMultipleThumbUp($event)"
-		(disliked)="listSrv.onMultipleThumbDown($event)">
+		(onFavorite)="onFavoriteAllSelected()"
+		(onUnfavorite)="onUnfavoriteAllSelected()"
+		(liked)="onMultipleThumbUp($event)"
+		(disliked)="onMultipleThumbDown($event)">
 
     <button class="icon light" (click)="commonModalSrv.openAddToProjectDialog(null)">
       <icon-app name="folder-light" fontSet="svg"></icon-app>
     </button>
-    <button class="icon light" (click)="listSrv.deleteSelected()">
+    <button class="icon light" (click)="deleteSelected()">
       <icon-app name="trash-bin"></icon-app>
     </button>
   </action-bar-app>

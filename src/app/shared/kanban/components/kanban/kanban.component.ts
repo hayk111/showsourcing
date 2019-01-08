@@ -64,6 +64,7 @@ export class KanbanComponent extends TrackingComponent {
 
 	onMultipleDrop(event: CdkDragDrop<any>) {
 		const ids = Array.from(this.selection.keys());
+		this.kanbanSrv.transferMultiple(ids, event.container.id, event.currentIndex);
 		this.multipleDrop.emit({
 			from: this.cols.find(col => col.id === event.previousContainer.id),
 			to: this.cols.find(col => col.id === event.container.id),

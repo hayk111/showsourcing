@@ -12,6 +12,8 @@ import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { makeColumns } from '~utils/kanban.utils';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -33,6 +35,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService,
 		public kanbanSrv: KanbanService,
+		public dlgSrv: DialogService
 	) {
 		super();
 	}
@@ -58,12 +61,18 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
-		// this.productsMap.get(col.id).fetchMore().subscribe();
+		this.productSrv.queryMany({
+			query: `status.id == "${col.id}" && deleted == false`,
+			take: col.data.length + 6,
+			sortBy: 'lastUpdatedDate'
+		}).pipe(
+			first()
+		).subscribe(products => this.kanbanSrv.setData(products, col.id));
 	}
 
 	private getProducts(statuses: ProductStatus[]) {
 		statuses.forEach(status => {
-			const query = `status.id == "${status.id}"`;
+			const query = `status.id == "${status.id}" && deleted == false`;
 			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
@@ -104,7 +113,6 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdateProductStatus(event: KanbanDropEvent) {
-		debugger;
 		// if dropped in the same column do nothing
 		if (event.to === event.from) {
 			return;
@@ -131,6 +139,43 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	onColumnUnselected(products: Product[]) {
 		products.forEach(prod => this.listSrv.unselectOne(prod, true));
+	}
+
+	onFavoriteAllSelected() {
+		this.listSrv.onFavoriteAllSelected();
+		const updated = this.listSrv.getSelectedIds()
+			.map(id => ({ id, favorite: true }));
+		this.kanbanSrv.updateMany(updated);
+	}
+
+	onUnfavoriteAllSelected() {
+		this.listSrv.onUnfavoriteAllSelected();
+		const updated = this.listSrv.getSelectedIds()
+			.map(id => ({ id, favorite: false }));
+		this.kanbanSrv.updateMany(updated);
+	}
+
+	onMultipleThumbUp(isCreated) {
+		const updated = this.listSrv.onMultipleThumbUp(isCreated);
+		this.kanbanSrv.updateMany(updated);
+	}
+
+	onMultipleThumbDown(isCreated) {
+		const updated = this.listSrv.onMultipleThumbDown(isCreated);
+		this.kanbanSrv.updateMany(updated);
+	}
+
+	deleteSelected() {
+		const itemIds = this.listSrv.getSelectedIds();
+		const text = `Delete ${itemIds.length} `
+			+ (itemIds.length <= 1 ? this.listSrv.entityMetadata.singular : this.listSrv.entityMetadata.plural);
+
+		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
+		).subscribe(_ => {
+			this.listSrv.selectionSrv.unselectAll();
+			this.kanbanSrv.deleteItems(itemIds);
+		});
 	}
 
 }

@@ -194,6 +194,7 @@ export class ListPageService
 			updated.push({ id: item.id, votes });
 		});
 		this.dataSrv.updateMany(updated).subscribe();
+		return updated;
 	}
 
 	/**
@@ -207,6 +208,7 @@ export class ListPageService
 			updated.push({ id: item.id, votes });
 		});
 		this.dataSrv.updateMany(updated).subscribe();
+		return updated;
 	}
 
 	deleteOne(id: string) {
