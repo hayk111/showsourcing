@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, KeyValueDiffers } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { KanbanColumn, KanbanConfig } from '../interfaces';
@@ -55,11 +55,11 @@ export class KanbanService {
 	 */
 	private statusToKanbanCol(
 		status: Status,
-		items: any[] = [],
+		data: any[] = [],
 		totalData = 0): KanbanColumn {
 		const constPipe = new ConstPipe();
 		// data map
-		const dataMap = this.mapFromArray(items);
+		const dataMap = this.mapFromArray(data);
 		// make the columns
 		return {
 			id: status.id,
@@ -132,18 +132,25 @@ export class KanbanService {
 		// read status for more info
 		// find item in column and update it
 		const columns = Array.from(this.kanbanConfig.values());
-		const column = columns.find(col => col.dataMap.has(item.id));
-		const localItem = column.dataMap.get(item.id);
-		const oldStatus = localItem.status ? localItem.status.id : null;
-		const currentIndex = Array.from(column.dataMap.keys())
-			.findIndex(k => k === item.id);
+		const previousCol = columns.find(col => col.dataMap.has(item.id));
+		const currentCol = this.kanbanConfig.get(item.status.id);
+		const prevArr = Array.from(previousCol.dataMap.values());
+		const currArr = Array.from(currentCol.dataMap.values());
 
-		this.transferItem(
-			oldStatus,
-			item.status.id,
-			currentIndex,
+		const previousIndex = Array.from(previousCol.dataMap.values())
+			.findIndex(v => v.id === item.id);
+
+		transferArrayItem(
+			prevArr,
+			currArr,
+			previousIndex,
 			0
 		);
+
+		previousCol.dataMap = this.mapFromArray(prevArr);
+		currentCol.dataMap = this.mapFromArray(currArr);
+
+		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
 
