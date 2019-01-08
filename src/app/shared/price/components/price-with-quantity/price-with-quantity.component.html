@@ -19,7 +19,7 @@
 			(saved)="updateProductField(false, inputMOQ.value, 'minimumOrderQuantity')">
 			<editable-label-app>
 					<div *ngIf="product?.price?.value" class="moq flexCenter">
-						{{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}}
+						{{ 'Min ' + (product?.minimumOrderQuantity || 0) + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}}
 					</div>
 			</editable-label-app>
 			<input inputApp
