@@ -4,4 +4,72 @@
 	background: var(--color-txt-strong);
 	padding: 6px;
 	border-radius: 3px;
+	z-index: var(--z-notification);
+}
+
+.tooltip.above {
+
+	&:after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 80%;
+		margin-left: -8px;
+		width: 0; height: 0;
+		border-top: 8px solid var(--color-txt-strong);
+		border-right: 8px solid transparent;
+		border-left: 8px solid transparent;
+	}
+}
+
+.tooltip.below {
+
+	&:after {
+		content: '';
+		transform: translateX(-50%);
+		position: absolute;
+		top: 0%;
+		left: 20%;
+		margin-left: -8px;
+		margin-top: -8px;
+		width: 0; height: 0;
+		border-bottom: 8px solid var(--color-txt-strong);
+		border-right: 8px solid transparent;
+		border-left: 8px solid transparent;
+	}
+}
+
+.tooltip.right {
+
+	&:after {
+		content: '';
+		transform: translateX(-50%);
+    position: absolute;
+    top: 0%;
+    margin-left: -8px;
+    margin-top: 8px;
+    width: 0;
+    height: 0;
+    border-right: 8px solid var(--color-txt-strong);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+	}
+}
+
+.tooltip.left {
+
+	&:after {
+		content: '';
+		transform: translateX(-50%);
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    margin-left: 4px;
+    margin-top: 8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid var(--color-txt-strong);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+	}
 }

@@ -33,13 +33,8 @@ export class TooltipDirective implements OnInit {
 	private _showTimeOutId: number | null;
 	private _hideTimeOutId: number | null;
 
-	offsetX = 0;
-	offsetY = 0;
-
 	// margin between the tooltip and the element
-	margin = 10;
-
-	visible = false;
+	margin = 5;
 
 	@HostListener('mouseenter')
 	onMouseEnter() {
@@ -62,6 +57,7 @@ export class TooltipDirective implements OnInit {
 		this.tooltipPortalHost = new DomPortalHost(
 			// Create the Portal Host on the parent element
 			(this.elementRef.nativeElement as HTMLElement).parentElement,
+			// document.body,
 			this.componentFR,
 			this.appRef,
 			this.injector
@@ -76,14 +72,14 @@ export class TooltipDirective implements OnInit {
 				// Pass the tooltip text as $implicit so it's the
 				// default variable for use within the templateRef
 				// we pass the offset context later (setPosition()), since we don't know the final position of the element until its hovered
-				$implicit: this.toolTipMessage
+				$implicit: this.toolTipMessage,
+				position: this.toolTipPosition
 			}
 		);
 	}
 
 	private show() {
 		if (!this.templatePortal.isAttached) {
-			this.setPosition();
 			if (this._hideTimeOutId) {
 				clearTimeout(this._hideTimeOutId);
 				this._hideTimeOutId = null;
@@ -91,6 +87,13 @@ export class TooltipDirective implements OnInit {
 
 			this._showTimeOutId = <any>setTimeout(() => {
 				this._showTimeOutId = null;
+				// we attach the first time to know the bounding rectangle of the item
+				this.tooltipPortalHost.attach(this.templatePortal);
+				const boundPortal = this.tooltipPortalHost.outletElement.getElementsByClassName('tooltip')[0].getBoundingClientRect();
+				// we detach it since we only wanted the rectangle
+				this.tooltipPortalHost.detach();
+				this.setPosition(boundPortal);
+				// we render it again with the new positions on the context of tempaltePortal
 				this.tooltipPortalHost.attach(this.templatePortal);
 			}, this.toolTipShowDelay);
 		}
@@ -105,32 +108,41 @@ export class TooltipDirective implements OnInit {
 		this._hideTimeOutId = <any>setTimeout(() => {
 			this._hideTimeOutId = null;
 			this.tooltipPortalHost.detach();
-		}, this.toolTipShowDelay);
+		}, this.toolTipHideDelay);
 	}
 
 	/**
-	 * sets the offsets given the position of the tooltip
+	 * sets the position of the tooltip given the toolTip bounding rectangle
 	 */
-	private setPosition() {
+	private setPosition(boundPortalContent) {
+		// arrow that indicates where the tooltip is coming from
+		const arrowSize = 8;
+		// the result of the translation calculation
+		let result: number;
+		// transformation string result
+		let transform = 'none';
+		// the element that we hover
+		const nativeEl = this.elementRef.nativeElement;
+		const bound = nativeEl.getBoundingClientRect();
 		switch (this.toolTipPosition) {
 			case 'above':
-				this.offsetY = this.elementRef.nativeElement.offsetHeight + this.margin;
-				this.offsetX = this.elementRef.nativeElement.offsetWidth / 2;
+				bound.y = bound.y - bound.height - arrowSize - this.margin;
+				result = - (boundPortalContent.width - bound.width);
+				transform = `translateX(${result}px)`;
 				break;
 			case 'below':
-				this.offsetY = this.elementRef.nativeElement.offsetHeight + this.margin;
-				this.offsetX = this.elementRef.nativeElement.offsetWidth / 2;
+				bound.y = bound.y + bound.height + arrowSize + this.margin;
 				break;
 			case 'right':
-				this.offsetY = this.elementRef.nativeElement.offsetHeight / 2;
-				this.offsetX = this.elementRef.nativeElement.offsetWidth + this.margin;
+				bound.x = bound.x + bound.width + arrowSize + this.margin;
 				break;
 			case 'left':
-				this.offsetY = this.elementRef.nativeElement.offsetHeight / 2;
-				this.offsetX = this.elementRef.nativeElement.offsetWidth + this.margin;
+				bound.x = bound.x - arrowSize - this.margin;
+				result = - boundPortalContent.width;
+				transform = `translateX(${result}px)`;
 				break;
 		}
 		// we update the context of the template with the offsets
-		this.templatePortal.context = { ...this.templatePortal.context, offsetX: this.offsetX, offsetY: this.offsetY };
+		this.templatePortal.context = { ...this.templatePortal.context, boundPosition: bound, transform };
 	}
 }

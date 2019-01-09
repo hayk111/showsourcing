@@ -1,6 +1,6 @@
-<ng-template #tooltip let-tooltipText let-offsetX="offsetX" let-offsetY="offsetY">
-	<div class="tooltip"
-		[ngStyle]="{top: offsetY + 'px', left: offsetX + 'px'}">
+<ng-template #tooltip let-tooltipText let-boundPosition="boundPosition" let-position="position" let-transform="transform">
+	<div #toolBox class="tooltip {{position}}"
+		[ngStyle]="getStyle(boundPosition, transform)">
 		{{ tooltipText }}
 	</div>
 </ng-template>

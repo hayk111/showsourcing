@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
 	selector: 'tooltip-app',
@@ -12,4 +12,14 @@ export class TooltipComponent {
 
 	constructor() { }
 
+
+
+	getStyle(bound, transform) {
+		const style = bound ? {
+			top: bound.y + 'px',
+			left: bound.x + 'px',
+			transform
+		} : {};
+		return style;
+	}
 }
