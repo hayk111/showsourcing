@@ -1,6 +1,5 @@
-import { Directive, Input, ElementRef, Self, Optional, OnChanges } from '@angular/core';
+import { Directive, ElementRef, Input, Optional, Self } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { Subject } from 'rxjs';
 import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
 
 const supportedTypes = new Set([
@@ -32,11 +31,11 @@ const supportedTypes = new Set([
 })
 export class InputDirective extends FormFieldControlDirective {
 	protected static NEXT_UID = 0;
-		/** id of element, if not specified it will generate automtically */
-		@Input()
-		get id(): string { return this._id; }
-		set id(value: string) { this._id = value; this.stateChanges.next(); }
-		protected _id: string = 'inp-' + InputDirective.NEXT_UID++;
+	/** id of element, if not specified it will generate automtically */
+	@Input()
+	get id(): string { return this._id; }
+	set id(value: string) { this._id = value; this.stateChanges.next(); }
+	protected _id: string = 'inp-' + InputDirective.NEXT_UID++;
 
 	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) {
 		super(control);

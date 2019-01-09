@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ClickOutsideDirective } from '~shared/utils/directives/click-outside.directive';
 import { DateToTimeAgoPipe } from '~shared/utils/pipes/date-ago.pipe';
 import { UserNamePipe } from '~shared/utils/pipes/user-name.pipe';
-import { InfiniScrollDirective } from '~shared/utils/directives';
+import { InfiniScrollDirective, TooltipDirective, TooltipComponent } from '~shared/utils/directives';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { GroupByPipe } from '~shared/utils/pipes/groupby.pipe';
 import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directive';
+import { CurrencySymbolPipe } from './pipes';
 
 @NgModule({
 	imports: [
@@ -19,7 +20,10 @@ import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directiv
 		GroupByPipe,
 		InfiniScrollDirective,
 		ConstPipe,
-		AutoFocusDirective
+		AutoFocusDirective,
+		TooltipDirective,
+		TooltipComponent,
+		CurrencySymbolPipe
 	],
 	exports: [
 		ClickOutsideDirective,
@@ -28,10 +32,13 @@ import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directiv
 		InfiniScrollDirective,
 		ConstPipe,
 		GroupByPipe,
-		AutoFocusDirective
+		AutoFocusDirective,
+		TooltipDirective,
+		CurrencySymbolPipe
 	],
 	providers: [
 		ConstPipe
-	]
+	],
+	entryComponents: [TooltipComponent]
 })
 export class UtilsModule { }

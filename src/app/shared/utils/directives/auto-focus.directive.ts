@@ -1,5 +1,4 @@
-import { Directive, ElementRef, Output, EventEmitter, HostListener, OnInit } from '@angular/core';
-import { InputDirective } from '~shared/inputs';
+import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
 	selector: '[autoFocus]'

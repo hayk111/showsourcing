@@ -54,7 +54,7 @@
 		[selection]="listSrv.selection$ | async"
 		(close)="listSrv.unselectAll()">
 		<div class="flex">
-			<button class="flexCenter change-status">
+			<button class="flexCenter change-status" toolTip toolTipMessage="Change status to" toolTipPosition="above">
 				<icon-app name="Status"></icon-app>
 				<span>Change Status</span>
 				<status-selector-app

@@ -1,3 +1,4 @@
-export * from '~shared/utils/pipes/date-ago.pipe';
-export * from '~shared/utils/pipes/user-name.pipe';
-export * from '~shared/utils/pipes/groupby.pipe';
+export * from './date-ago.pipe';
+export * from './user-name.pipe';
+export * from './groupby.pipe';
+export * from './currency-symbol.pipe';
