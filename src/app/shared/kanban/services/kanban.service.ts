@@ -124,7 +124,6 @@ export class KanbanService {
 	transferItem(prevColId: string, currColId: string, previousIndex: number, currentIndex: number) {
 		const previousCol = this.kanbanConfig.get(prevColId);
 		const currentCol = this.kanbanConfig.get(currColId);
-
 		const prevArr = Array.from(previousCol.dataMap.values());
 		const currArr = Array.from(currentCol.dataMap.values());
 
@@ -135,6 +134,8 @@ export class KanbanService {
 			currentIndex
 		);
 
+		previousCol.totalData--;
+		currentCol.totalData++;
 		previousCol.dataMap = this.mapFromArray(prevArr);
 		currentCol.dataMap = this.mapFromArray(currArr);
 
@@ -157,7 +158,8 @@ export class KanbanService {
 				previousIndex,
 				toIndex
 			);
-
+			previousCol.totalData--;
+			currentCol.totalData++;
 			previousCol.dataMap = this.mapFromArray(prevArr);
 		});
 
@@ -185,7 +187,8 @@ export class KanbanService {
 			previousIndex,
 			0
 		);
-
+		previousCol.totalData--;
+		currentCol.totalData++;
 		previousCol.dataMap = this.mapFromArray(prevArr);
 		currentCol.dataMap = this.mapFromArray(currArr);
 
@@ -197,6 +200,7 @@ export class KanbanService {
 		ids.forEach(id => {
 			const column = columns.find(col => col.dataMap.has(id));
 			column.dataMap.delete(id);
+			column.totalData--;
 		});
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}

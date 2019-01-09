@@ -21,6 +21,8 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 	@Output() unselectAll = new EventEmitter<any[]>();
 	@Output() drop = new EventEmitter<CdkDragDrop<any>>();
 	@Output() loadMore = new EventEmitter<KanbanColumn>();
+	draggedId: string;
+
 	constructor() {
 		super();
 	}
@@ -44,6 +46,11 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 			return false;
 		}
 		return this.col.data.every(item => this.selection.has(item.id));
+	}
+
+	/** we use the mouse enter event since it happens before the drag process starts */
+	onMouseEnter(item: any) {
+		this.draggedId = item.id;
 	}
 
 }

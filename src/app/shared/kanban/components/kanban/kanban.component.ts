@@ -37,11 +37,13 @@ export class KanbanComponent extends TrackingComponent {
 	}
 
 	onDrop(event: CdkDragDrop<any>) {
-		if (this.selection.size > 0) {
+		const item = event.previousContainer.data[event.previousIndex];
+
+		if (this.selection.size > 0 && this.selection.has(item.id)) {
 			return this.onMultipleDrop(event);
 		}
 		const emitted = {
-			item: event.previousContainer.data[event.previousIndex],
+			item,
 			from: this.cols.find(col => col.id === event.previousContainer.id),
 			to: this.cols.find(col => col.id === event.container.id),
 		};

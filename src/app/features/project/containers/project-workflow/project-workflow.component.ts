@@ -78,7 +78,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	loadMore(col: KanbanColumn) {
 		this.productSrv.queryMany({
-			query: `status.id == "${col.id}" && deleted == false`,
+			query: `status.id == "${col.id}" && deleted == false && projects.id == "${this.project.id}"`,
 			take: col.data.length + 6,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(
