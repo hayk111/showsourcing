@@ -1,11 +1,11 @@
-<ng-container *ngIf="entity && typeEntity !== erm.TASK">
+<!-- multiple entity update selection does not need an entity, since we update outside -->
+<ng-container *ngIf="(entity || type === 'multiple-selection') && typeEntity !== erm.TASK">
 	<context-menu-app
-		*ngIf="entity.status"
+		*ngIf="entity?.status || type === 'multiple-selection'"
 		class="menu-status {{selectSize}}"
 		[closeOnScroll]="true"
 		[offsetX]="offsetX"
 		[offsetY]="offsetY">
-
 		<context-menu-trigger-app class="flex {{selectSize}}">
 
 				<ng-container *ngIf="type === 'badge'">
@@ -30,9 +30,16 @@
 					<icon-app fontSet="fa" name="caret-down"></icon-app>
 				</ng-container>
 
+				<ng-container *ngIf="type === 'multiple-selection'">
+					<button class="flexCenter change-status">
+						<icon-app name="Status"></icon-app>
+						<span>Change Status</span>
+					</button>
+				</ng-container>
+
 		</context-menu-trigger-app>
 
-		<div *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
+		<div *ngFor="let stat of (status$ | async); trackBy: trackByFn" class="{{selectSize}}">
 			<status-box-app [type]="'list'" [status]="stat" [size]="selectSize" [typeEntity]="typeEntity" (click)="updateStatus(stat)"></status-box-app>
 		</div>
 
@@ -49,6 +56,7 @@
 
 </ng-container>
 
+<!-- specific for task since we dont have the status on the DB we just have done, over-due and pending -->
 <badge-app
 	*ngIf="typeEntity === erm.TASK"
 	class="task pointer"

@@ -6,8 +6,8 @@ context-menu-app {
 	.context-menu-item-app {
 		min-width: 220px;
 	}
-
 }
+
 .caretCtnr {
 	display: flex;
 	align-items: center;
@@ -19,47 +19,11 @@ context-menu-app {
 	border-radius: 2px;
 }
 
-.status-item {
-	color: var(--color-txt-strong);
-	padding: 5px 10px;
-	.status-box {
-		display: inline-block;
-		width: 12px;
-		height: 12px;
-		background-color: #45d8ff;
-	}
+.change-status {
+	padding: 0 10px 0 6px;
 
-	.status-name {
-		display: inline-block;
-		font-size: 14px;
-		font-weight: 600;
-	}
-	&:hover {
-		background-color: #45d8ff;
-		color: white;
-		border-radius: 5px;
-	}
-}
-
-.status-item {
-	color: var(--color-txt-strong);
-	padding: 5px 10px;
-	.status-box {
-		display: inline-block;
-		width: 12px;
-		height: 12px;
-		background-color: #45d8ff;
-	}
-
-	.status-name {
-		display: inline-block;
-		font-size: 14px;
-		font-weight: 600;
-	}
-	&:hover {
-		background-color: #45d8ff;
-		color: white;
-		border-radius: 5px;
+	icon-app {
+		margin-right: 6px;
 	}
 }
 

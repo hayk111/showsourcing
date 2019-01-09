@@ -35,7 +35,6 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Input() offsetX = 0;
 	@Input() offsetY: number;
 	@Input() selectSize = 'm';
-	@Input() isSendToWorkFlow = false;
 	@Input() internalUpdate = true;
 	@Input() type = 'badge';
 	@Output() statusUpdated = new EventEmitter<any>();
@@ -58,18 +57,16 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateStatus(status) {
-		if (status.id !== this.entity.status.id) {
+		if (!this.internalUpdate) {
+			this.statusUpdated.emit(status);
+		} else if (status.id !== this.entity.status.id) {
 			// we dont update if we click the same
-			if (this.internalUpdate) {
-				this.statusSlctSrv.updateStatus({
-					id: this.entity.id,
-					status: { id: status.id, __typename: status.__typename }
-				},
-					this.typeEntity
-				).subscribe();
-			} else {
-				this.statusUpdated.emit(status);
-			}
+			this.statusSlctSrv.updateStatus({
+				id: this.entity.id,
+				status: { id: status.id, __typename: status.__typename }
+			},
+				this.typeEntity
+			).subscribe();
 		}
 	}
 

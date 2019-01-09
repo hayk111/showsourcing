@@ -248,3 +248,6 @@ In each `messages.lang.xlf` we have 3 different types of target. When we transla
 <target state='final'>Hello</target> 'final' indicates that it matches with our default language translation
 <target state='translated'>Bonjour</target> 'translated' indicates that it has been translated
 ```
+
+# Refactor List
+- Status selector updates, not inside the component but above. `<status-selector-app (updateStatus)="update({id: entity.id, status: $event })>`
