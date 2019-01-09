@@ -1,19 +1,17 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
-import { map, tap, switchMap, first } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { first, switchMap, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
-import { ERM, Product, ProductVote, ProductStatus } from '~models';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
-import { AutoUnsub } from '~utils/auto-unsub.component';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
-import { makeColumns } from '~utils/kanban.utils';
-import { KanbanDropEvent } from '~shared/kanban/interfaces';
-import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { ERM, Product, ProductStatus, ProductVote } from '~models';
 import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { KanbanDropEvent } from '~shared/kanban/interfaces';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -82,7 +80,6 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdate(product: Product) {
-		// if the status has been updated we want to update the column as well..
 		this.kanbanSrv.updateData(product);
 	}
 
@@ -168,7 +165,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
 		const text = `Delete ${itemIds.length} `
-			+ (itemIds.length <= 1 ? this.listSrv.entityMetadata.singular : this.listSrv.entityMetadata.plural);
+			+ (itemIds.length <= 1 ? 'product' : 'products');
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),

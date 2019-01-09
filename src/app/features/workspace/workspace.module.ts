@@ -7,11 +7,12 @@ import {
 	ProductsReviewCardHeaderComponent,
 	ProductsReviewCardViewComponent,
 	ProductsReviewSortingMenuComponent,
-	SampleBoardViewComponent,
-	SampleListViewComponent,
+	SampleListViewComponent
 } from '~features/workspace/components';
 import {
 	MySamplePageComponent,
+	MySampleBoardPageComponent,
+	MySampleListPageComponent,
 	MyTasksPageComponent,
 	MyWorkflowPageComponent,
 	ReviewPageComponent,
@@ -42,8 +43,9 @@ import { ProductsReviewCardBodyComponent } from './components/products-review-ca
 		ProductsReviewSortingMenuComponent,
 		ProductsReviewCardBodyComponent,
 		MySamplePageComponent,
-		SampleListViewComponent,
-		SampleBoardViewComponent
+		MySampleBoardPageComponent,
+		MySampleListPageComponent,
+		SampleListViewComponent
 	],
 	exports: [RouterModule],
 	providers: []

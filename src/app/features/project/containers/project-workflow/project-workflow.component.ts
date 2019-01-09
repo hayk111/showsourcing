@@ -105,7 +105,6 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 
 	onUpdate(product: Product) {
-		// if the status has been updated we want to update the column as well..
 		this.kanbanSrv.updateData(product);
 	}
 
