@@ -40,20 +40,10 @@
 
 		<!-- Tags -->
 		<preview-section-app [title]="'Tags'" class="noMarginBottom">
-			<selector2-app
-				[canCreate]="true"
-				type="tag"
-				[multiple]="true"
-				[offsetX]="-330"
-				[offsetY]="-28"
-				[value]="product?.tags"
-				(update)="update($event, 'tags')">
-				<info-badge-app *ngIf="!product?.tags?.length" class="pointer" type="tag">
-					Add tags
-					<icon-app name="add"></icon-app>
-				</info-badge-app>
-				<info-badge-app *ngFor="let tag of product?.tags; trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
-			</selector2-app>
+			<input-tags-app
+				[tags]="product?.tags"
+				(updateTags)="update($event, 'tags')">
+			</input-tags-app>
 		</preview-section-app>
 	</preview-app>
 </card-app>

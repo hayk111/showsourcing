@@ -1,0 +1,14 @@
+<selector2-app
+	[canCreate]="true"
+	type="tag"
+	[multiple]="true"
+	[offsetX]="-330"
+	[offsetY]="-28"
+	[value]="tags"
+	(update)="updateTags.emit($event)">
+	<info-badge-app *ngIf="!tags?.length" class="pointer" type="tag">
+		Add tags
+		<icon-app name="add"></icon-app>
+	</info-badge-app>
+	<info-badge-app *ngFor="let tag of tags; trackBy: trackById" type="tag">{{ tag.name }}</info-badge-app>
+</selector2-app>
