@@ -77,6 +77,14 @@ export class KanbanService {
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
+	addItems(data: any[] = [], colId: string) {
+		const dataMap = this.kanbanConfig.get(colId).dataMap;
+		data.forEach(item => {
+			dataMap.set(item.id, item);
+		});
+		this._kanbanConfig$.next(this.kanbanConfig);
+	}
+
 	/** sets total of specific column */
 	setTotal(total: number, colId: string) {
 		this.kanbanConfig.get(colId).totalData = total;

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { first, tap, switchMap, takeUntil, startWith } from 'rxjs/operators';
-import { SampleService, SampleStatusService } from '~core/entity-services';
+import { first, tap, switchMap, takeUntil, startWith, map } from 'rxjs/operators';
+import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { Sample, SampleStatus, ERM } from '~core/models';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
@@ -11,6 +11,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { CreationDialogComponent } from '~common/modals';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	filterType = FilterType;
 	filterTypes = [
 		FilterType.SUPPLIER,
-		FilterType.PRODUCT
+		FilterType.PRODUCT,
+		FilterType.ASSIGNEE
 	];
 	erm = ERM;
 	statuses: SampleStatus[];
@@ -40,7 +42,8 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		private sampleStatusSrv: SampleStatusService,
 		private router: Router,
 		private route: ActivatedRoute,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private userSrv: UserService
 	) { super(); }
 
 	ngOnInit() {
@@ -50,7 +53,10 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 			entityMetadata: ERM.SAMPLE,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'reference'],
-			initialFilters: [{ type: FilterType.DELETED, value: false }]
+			initialFilters: [
+				{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id },
+				{ type: FilterType.DELETED, value: false }
+			]
 		}, false);
 
 		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
@@ -64,6 +70,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 				descending: false
 			}).pipe(
 				first(),
+				map(statuses => [{ id: null, name: 'New Sample', category: 'new' }, ...statuses]),
 				tap(statuses => this.statuses = statuses),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
@@ -108,12 +115,19 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		samples.forEach(sample => this.listSrv.unselectOne(sample));
 	}
 
-	toggleMySamples() {
-		throw Error('not implemented yet');
+	toggleMySamples(show: boolean) {
+		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
+		if (show)
+			this.listSrv.addFilter(filterAssignee);
+		else
+			this.listSrv.removeFilter(filterAssignee);
 	}
 
 	openCreateDlg() {
-		throw Error('not implemented yet');
+		this.dlgSrv.open(CreationDialogComponent, { type: ERM.SAMPLE }).pipe(
+			map(name => new Sample({ name })),
+			switchMap(sample => this.sampleSrv.create(sample), sample => sample)
+		).subscribe(sample => this.kanbanSrv.addItems([sample], null));
 	}
 
 	updateSampleStatus(event: KanbanDropEvent) {

@@ -8,7 +8,7 @@
 		(showFilters)="listSrv.openFilterPanel()"
 		(search)="listSrv.search($event, false)"
 		(viewChange)="goToList()">
-		<!-- <sub-panel-left-item-app>
+		<sub-panel-left-item-app>
 			<div class="flex show-my-samples">
 				<checkbox-app
 					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
@@ -20,7 +20,7 @@
 		</sub-panel-left-item-app>
 		<sub-panel-right-item-app>
 			<button (click)="openCreateDlg()">Add Sample</button>
-		</sub-panel-right-item-app> -->
+		</sub-panel-right-item-app>
 	</sub-panel-app>
 
 	<kanban-app
@@ -69,12 +69,12 @@
 		</div>
 	</selection-bar-app>
 
-	<!-- <filters-app
+	<filters-app
 		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()">
-	</filters-app> -->
+	</filters-app>
 
 	<sample-preview-app
 		*ngIf="listSrv.previewOpen"
