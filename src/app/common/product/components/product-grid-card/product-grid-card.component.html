@@ -23,8 +23,16 @@
 
 	<!-- Content (Non Floating) -->
 	<div class="content">
-		<div class="title pointer" (click)="open.emit()"> {{ product?.name || 'Unnamed product'}} </div>
-		<div class="description"> {{ product?.category?.name }}</div>
+		<div class="title"> {{ product?.name || 'Unnamed product'}} </div>
+		<div class="flex" *ngIf="product?.price?.value">
+				<span class="price">
+					{{product?.price?.currency | currencySymbol}} {{ product?.price?.value | ssPrice }}
+				</span>
+				<span class="moq" *ngIf="product?.minimumOrderQuantity">
+					&nbsp;- Min {{ product?.minimumOrderQuantity }} Pcs
+				</span>
+			</div>
+		<div class="category"> {{ product?.category?.name }}</div>
 		<div class="flex status-info">
 			<icon-app class="circle color-{{product?.status?.category || 'secondary'}}" name="circle" fontSet="fa"></icon-app>
 			{{ product?.status?.step || '0' }}.  {{ product?.status?.name ? (product?.status?.name | const:'status') : 'New Product' }}

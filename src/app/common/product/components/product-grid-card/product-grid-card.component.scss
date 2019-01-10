@@ -77,10 +77,18 @@ img-app {
 	.title {
 		color: var(--color-txt-strong);
 		font-weight: 600;
+	}
 
-		&:hover {
-			color: var(--color-primary);
-		}
+	.price {
+		color: var(--color-primary);
+	}
+
+	.moq {
+		color: var(--color-secondary-dark);
+	}
+
+	.price, .moq, .cateogry, .status-info {
+		font-size: var(--font-size-s);
 	}
 
 	.status-info {
