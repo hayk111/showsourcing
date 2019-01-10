@@ -5,17 +5,21 @@
 	</img-app>
 
 	<!-- Floating Elements -->
+	<!-- anything that floats needs the overlay class -->
+	<div class="black-hover">
+	</div>
 
 	<checkbox-app
 		*ngIf="hasCheckbox"
 		class="overlay"
-		[ngClass]="{'opacity-on': selected}"
+		[ngClass]="{'full-opacity': selected}"
 		[checked]="selected"
 		(check)="select.emit()"
 		(uncheck)="unselect.emit()">
 	</checkbox-app>
 
-	<button class="preview secondary overlay" (click)="preview.emit()">Preview</button>
+	<button class="preview primary overlay" (click)="preview.emit()">Preview</button>
+	<button class="open secondary overlay" (click)="open.emit()">Open</button>
 
 	<!-- Content (Non Floating) -->
 	<div class="content">
@@ -26,4 +30,6 @@
 			{{ product?.status?.step || '0' }}.  {{ product?.status?.name ? (product?.status?.name | const:'status') : 'New Product' }}
 		</div>
 	</div>
+
 </div>
+
