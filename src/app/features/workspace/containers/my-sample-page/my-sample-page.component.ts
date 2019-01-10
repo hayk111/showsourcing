@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin, Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
-import { SampleService, UserService, SampleStatusService } from '~core/entity-services';
-import { ListPageService } from '~core/list-page';
-import { Sample, ERM, Product, SampleStatus } from '~core/models';
-import { FilterType } from '~shared/filters';
-import { KanbanDropEvent, KanbanColumn } from '~shared/kanban/interfaces';
-import { Observable, combineLatest, forkJoin } from 'rxjs';
-import { first, map, switchMap, filter, tap } from 'rxjs/operators';
-import { CloseEventType } from '~shared/dialog';
+import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
+import { ListPageService } from '~core/list-page';
+import { ERM, Sample, SampleStatus } from '~core/models';
+import { FilterType } from '~shared/filters';
+import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { makeColumns } from '~utils/kanban.utils';
 
 @Component({
@@ -134,8 +133,8 @@ export class MySamplePageComponent extends AbstractSampleCommonComponent impleme
 		).subscribe();
 	}
 
-	onMultipleStatusUpdated(selection, status) {
-
+	onMultipleStatusUpdated(status) {
+		this.listSrv.updateSelected({ status });
 	}
 
 	openCreateDlg() {
