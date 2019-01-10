@@ -1,8 +1,12 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	margin: 0 var(--spacing-edge);
+	padding: 0 var(--spacing-edge);
+	padding-top: 10px;
 	height: 100%;
+	background: white;
+	border-top: 1px solid var(--color-secondary);
+	overflow-y: auto;
 }
 
 .category-section {
@@ -17,7 +21,7 @@
 	flex-wrap: wrap
 }
 
-.sectionTitle {
+.section-title {
 	font-weight: bold;
 	margin: var(--spacing-l) 0px;
 	font-size: 20px;
@@ -28,21 +32,8 @@
 	justify-content: space-between;
 }
 
-.noTopMargin {
-	margin-top: 0;
-}
-
-.sectionTag {
-  border-radius: 14px;
-	background-color: var(--color-secondary);
-	color: var(--color-txt-primary);
-  font-size: var(--font-size-m);
-  display: flex;
-  text-transform: capitalize;
-	padding: 5px 24px;
-	font-weight: initial;
-}
-
-.mg-right {
-	margin-right: 0px;
+product-grid-card-app {
+	margin-left: 0;
+	margin-right: var(--spacing-ms);
+	margin-bottom: var(--spacing-l);
 }

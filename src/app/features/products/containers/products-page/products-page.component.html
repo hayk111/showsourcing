@@ -52,11 +52,13 @@
 			</products-list-view-app>
 
 			<products-card-view-app
+				infiniScroll
 				*ngIf="listSrv.view === 'card'"
 				class="card-view"
 				[currentSort]="listSrv.currentSort"
 				[rows]="products"
 				[selection]="listSrv.selection$ | async"
+				(bottomReached)="listSrv.loadMore()"
 				(disliked)="listSrv.onThumbDown($event)"
 				(favorited)="listSrv.selectAll($event)"
 				(liked)="listSrv.onThumbUp($event)"

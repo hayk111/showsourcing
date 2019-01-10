@@ -1,8 +1,6 @@
 
 <div *ngFor="let category of getGroupedProducts(currentSort); first as first; index as i; trackBy: trackByFn" class="category-section">
-	<div class="sectionTitle">{{ getGroupedValue(category, currentSort) || 'Unnamed' }}
-		<div class="sectionTag">{{ category.value.length }} products</div>
-	</div>
+	<div class="section-title">{{ getGroupedValue(category, currentSort) || 'Unnamed' }}</div>
 	<div class="products-section">
 		<ng-container *ngFor="let product of category.value; index as i; trackBy: trackById">
 			<product-grid-card-app
