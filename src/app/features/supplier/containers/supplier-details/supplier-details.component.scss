@@ -6,12 +6,16 @@
 	z-index: var(--z-top-selection);
 }
 
+$left-side: 739px;
+// $left-side: 798px;
+$right-side: 452px;
+
 .left {
-	width: 798px;
+	width: $left-side;
 }
 
 .right {
-	width: 452px;
+	width: $right-side;
 	// overflow: auto;
 }
 
@@ -24,7 +28,7 @@ main {
 }
 
 .supplier-container {
-	width: 1416px;
+	width: $left-side + $right-side;
 	margin: var(--spacing-xxxxl) auto;
 
 	sub-panel-app {
