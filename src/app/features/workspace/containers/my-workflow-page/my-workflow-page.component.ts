@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { first, switchMap, tap } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { first, switchMap, tap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -12,6 +12,7 @@ import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { FilterList } from '~shared/filters';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -45,8 +46,11 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			searchedFields: ['name'],
 			entityMetadata: ERM.PRODUCT
 		}, false);
+		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
+			takeUntil(this._destroy$)
+		);
 
-		this.productStatusSrv
+		const statuses$ = this.productStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused"',
 				sortBy: 'step',
@@ -54,7 +58,13 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			}).pipe(
 				first(),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
-			).subscribe(statuses => this.getProducts(statuses));
+			);
+
+		combineLatest(
+			filters$,
+			statuses$,
+			(filterList, statuses) => this.getProducts(statuses, filterList)
+		).subscribe();
 		this.selected$ = this.listSrv.selection$;
 	}
 
@@ -68,9 +78,13 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		).subscribe(products => this.kanbanSrv.setData(products, col.id));
 	}
 
-	private getProducts(statuses: ProductStatus[]) {
+	private getProducts(statuses: ProductStatus[], filterList: FilterList) {
+		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
-			const query = `status.id == "${status.id}" && deleted == false`;
+			const query = [
+				predicate,
+				`status.id == "${status.id}"`
+			].join(' && ');
 			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));

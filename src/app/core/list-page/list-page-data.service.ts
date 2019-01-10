@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { map, tap, switchMap, skip } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
@@ -59,7 +59,11 @@ export class ListPageDataService
 	 */
 	setup(config: ListPageDataConfig) {
 		Object.assign(this, config);
-		this.filterList = new FilterList(config.initialFilters, this.selectParams.query);
+		this.filterList = new FilterList(
+			config.initialFilters,
+			config.searchedFields,
+			this.selectParams.query
+		);
 	}
 
 	/** init: helper method to set everything up at once */
@@ -94,6 +98,7 @@ export class ListPageDataService
 		this.filterList
 			.valueChanges$
 			.pipe(
+				skip(1),
 				switchMap(_ => this.refetch({ query: this.filterList.asPredicate() }))
 			).subscribe();
 	}

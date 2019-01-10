@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { Subject, ReplaySubject } from 'rxjs';
 import { Filter, FilterType } from '~shared/filters/models/filter.class';
 import { ID } from '~utils/id.utils';
 
@@ -17,14 +17,18 @@ export type FilterByType = Map<FilterType, Map<ID | boolean, Filter>>;
 export class FilterList {
 
 	/** to know when filters are changing */
-	private _valueChanges$ = new Subject<FilterList>();
+	private _valueChanges$ = new ReplaySubject<FilterList>(1);
 	valueChanges$ = this._valueChanges$.asObservable();
 
 	/** immovable predicate that stays at all time */
 	constPredicate: string;
 
 	/** function used to join the initial predicate, the search and the query as predicate */
-	predicateFn = (initial, search, query) => [initial, search, query].filter(p => !!p).join(' AND ');
+	predicateFn = (initial, search, query) => [
+		`(${initial || ''})`,
+		`(${search || ''})`,
+		`(${query || ''})`
+	].filter(p => p !== '()').join(' AND ')
 
 	/** the fields that will be searched */
 	searchedFields: string[] = ['name'];
@@ -67,9 +71,10 @@ export class FilterList {
 		return this.predicateFn(this.constPredicate, this.getSearchStr(), this._query);
 	}
 
-	constructor(startFilters: Filter[] = [], constPredicate?: string) {
+	constructor(startFilters: Filter[] = [], searchedFields = ['name'], constPredicate?: string) {
 		// adding the start filters
 		this.setFilters(startFilters);
+		this.searchedFields = searchedFields;
 		this.constPredicate = constPredicate;
 	}
 

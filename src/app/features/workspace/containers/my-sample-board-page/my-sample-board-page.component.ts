@@ -49,6 +49,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 			key: `sample-kanban`,
 			entityMetadata: ERM.SAMPLE,
 			entitySrv: this.sampleSrv,
+			searchedFields: ['name', 'reference'],
 			initialFilters: [{ type: FilterType.DELETED, value: false }]
 		}, false);
 
@@ -66,15 +67,16 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 				tap(statuses => this.statuses = statuses),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
+
 		combineLatest(
 			filters$,
 			statuses$,
-			(filters, statuses) => this.getSamples(this.statuses, filters))
+			(filters, statuses) => this.getSamples(statuses, filters))
 			.subscribe();
 	}
 
-	private getSamples(statuses: SampleStatus[], filterList?: FilterList) {
-		const predicate = filterList.asPredicate().trim();
+	private getSamples(statuses: SampleStatus[], filterList: FilterList) {
+		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
 			const query = [
 				predicate,
