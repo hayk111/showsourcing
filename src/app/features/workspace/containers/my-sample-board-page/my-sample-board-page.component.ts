@@ -23,7 +23,7 @@ import { DialogService } from '~shared/dialog';
 	]
 })
 export class MySampleBoardPageComponent implements OnInit {
-	columns$: Observable<KanbanColumn[]>;
+	columns$ = this.kanbanSrv.columns$;
 	filterType = FilterType;
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -113,7 +113,7 @@ export class MySampleBoardPageComponent implements OnInit {
 	}
 
 	goToList() {
-		this.router.navigate(['../board'], { relativeTo: this.route });
+		this.router.navigate(['../list'], { relativeTo: this.route });
 	}
 
 	get selection() {

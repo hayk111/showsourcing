@@ -1,9 +1,10 @@
-<ng-container *ngIf="listSrv.items$ | async as samples; else spinner">
+<ng-container *ngIf="columns$ | async as columns; else spinner">
 	<sub-panel-app
 		[hasSwitch]="true"
 		[hasFilter]="true"
 		[buttonIcon]="false"
 		[filtersAmount]="listSrv.filterList.asFilters()?.length"
+		[view]="'card'"
 		(showFilters)="listSrv.openFilterPanel()"
 		(search)="listSrv.search($event)"
 		(viewChange)="goToList()">
@@ -23,7 +24,7 @@
 	</sub-panel-app>
 
 	<kanban-app
-		[cols]="columns$ | async"
+		[cols]="columns"
 		[width]="354"
 		[cardTemplate]="card"
 		[selection]="listSrv.selection"

@@ -1,11 +1,9 @@
 :host {
 	display: block;
-	margin: 0 var(--spacing-l);
 	overflow-x: auto;
-	overflow-y: hidden;
-	height: calc(100vh - 278px);
+	overflow-y: auto;
+	height: calc(100vh - 120px);
 }
-
 
 sub-panel-left-item-app {
 	margin-left: var(--spacing-l);
