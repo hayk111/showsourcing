@@ -23,8 +23,7 @@ export class ListPageDataService
 	protected entitySrv: G;
 	/** currently loaded items */
 	items$: Observable<Array<T>>;
-	/** non observable version of the above */
-	private items: Array<T> = [];
+
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
 	selectParams: SelectParamsConfig = {
@@ -34,8 +33,7 @@ export class ListPageDataService
 		take: 15,
 		skip: 0
 	};
-	/** searched string */
-	private currentSearch = '';
+
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
 		// initial filters
@@ -44,7 +42,6 @@ export class ListPageDataService
 	pending = true;
 
 	/** when making a search, fields we are gonna search through */
-	private searchedFields: string[] = ['name'];
 	private initialized = false;
 
 	/** for the smart search feature... */
@@ -62,7 +59,7 @@ export class ListPageDataService
 	 */
 	setup(config: ListPageDataConfig) {
 		Object.assign(this, config);
-		this.filterList = new FilterList(config.initialFilters);
+		this.filterList = new FilterList(config.initialFilters, this.selectParams.query);
 	}
 
 	/** init: helper method to set everything up at once */
@@ -71,7 +68,7 @@ export class ListPageDataService
 			return;
 		}
 		this.setItems();
-		this.setFilters();
+		this.listenFilterChanges();
 		this.initialized = true;
 	}
 
@@ -80,12 +77,11 @@ export class ListPageDataService
 		this.listResult = this.entitySrv.getListQuery({
 			...this.selectParams,
 			// overriding query in case there is a filter / search
-			query: this.getPredicate()
+			query: this.filterList.asPredicate()
 		});
 
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),
-			tap(items => this.items = items),
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
@@ -94,11 +90,11 @@ export class ListPageDataService
 	}
 
 	/** when the filter change we want to refetch the items with a new predicate */
-	setFilters() {
+	listenFilterChanges() {
 		this.filterList
 			.valueChanges$
 			.pipe(
-				switchMap(_ => this.onPredicateChange())
+				switchMap(_ => this.refetch({ query: this.filterList.asPredicate() }))
 			).subscribe();
 	}
 
@@ -110,20 +106,6 @@ export class ListPageDataService
 	/** when the items are loaded */
 	onLoaded() {
 		this.pending = false;
-	}
-
-	/** On any of the predicate change we should call this to refetch */
-	onPredicateChange() {
-		const allFilters = this.getPredicate();
-		return this.refetch({ query: allFilters });
-	}
-
-	private getPredicate() {
-		return [
-			this.selectParams.query,
-			this.currentSearch,
-			this.filterList.asPredicate()
-		].filter(p => !!p).join(' AND ');
 	}
 
 	/**
@@ -145,7 +127,7 @@ export class ListPageDataService
 		return this.refetch();
 	}
 
-	sortFromMenu(fieldName) {
+	sortFromMenu(fieldName: string) {
 		if (this.selectParams.sortBy === fieldName) {
 			this.selectParams.descending = !this.selectParams.descending;
 		} else {
@@ -156,19 +138,11 @@ export class ListPageDataService
 	}
 
 	/** when we want to search through the list we only search the name */
-	search(str: string, refetch: boolean) {
-		// the search predicate
-		if (!str) {
-			this.currentSearch = '';
-		} else {
-			this.currentSearch = this.searchedFields
-				.map(field => `${field} CONTAINS[c] "${str}"`)
-				.join(' OR ');
-		}
-		return refetch ? this.onPredicateChange() : of();
+	search(str: string): void {
+		this.filterList.setSearch(str);
 	}
-	// UPDATES
 
+	// UPDATES
 	/** Update entities */
 	updateMany(entities: T[]) {
 		return this.entitySrv.updateMany(entities);

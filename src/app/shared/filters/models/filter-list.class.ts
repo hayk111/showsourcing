@@ -20,11 +20,18 @@ export class FilterList {
 	private _valueChanges$ = new Subject<FilterList>();
 	valueChanges$ = this._valueChanges$.asObservable();
 
+	/** immovable predicate that stays at all time */
+	constPredicate: string;
+
+	/** function used to join the initial predicate, the search and the query as predicate */
+	predicateFn = (initial, search, query) => [initial, search, query].filter(p => !!p).join(' AND ');
+
 	/** the fields that will be searched */
 	searchedFields: string[] = ['name'];
 	/** adds a search to the predicate */
 	setSearch(value: string) {
 		this.search = value;
+		this._valueChanges$.next(this);
 	}
 
 	getSearchStr() {
@@ -57,15 +64,13 @@ export class FilterList {
 	 */
 	private _query: string;
 	asPredicate(): string {
-		return [
-			this.getSearchStr(),
-			this._query
-		].filter(p => !!p).join(' AND ');
+		return this.predicateFn(this.constPredicate, this.getSearchStr(), this._query);
 	}
 
-	constructor(startFilters: Filter[] = []) {
+	constructor(startFilters: Filter[] = [], constPredicate?: string) {
 		// adding the start filters
 		this.setFilters(startFilters);
+		this.constPredicate = constPredicate;
 	}
 
 	/** adds filter at the end of the array */
