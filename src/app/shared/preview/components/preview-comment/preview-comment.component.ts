@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { Comment } from '~models';
-import { CommentService } from '~core/entity-services/comment/comment.service';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { CommentService } from '~core/entity-services/comment/comment.service';
+import { Comment } from '~models';
 
 @Component({
 	selector: 'preview-comment-app',
@@ -16,7 +16,10 @@ export class PreviewCommentComponent {
 	@Output() added = new EventEmitter<Comment>();
 	commentCtrl = new FormControl();
 
-	constructor(private commentSrv: CommentService) { }
+	// element is needed if we want to acces the position of the element to scroll (product preview)
+	constructor(
+		private commentSrv: CommentService,
+		public element: ElementRef) { }
 
 	addComment() {
 		const comment = new Comment({ text: this.commentCtrl.value });
