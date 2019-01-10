@@ -85,9 +85,11 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	private getSamples(statuses: SampleStatus[], filterList: FilterList) {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
+			// for sample with null status
+			const statusQuery = status.id ? `status.id == "${status.id}"` : `status == null`;
 			const query = [
 				predicate,
-				`status.id == "${status.id}"`
+				statusQuery
 			].join(' && ');
 			this.sampleSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
@@ -98,8 +100,15 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
+		const statusQuery = col.id ? `status.id == "${col.id}"` : `status == null`;
+		const predicate = this.listSrv.filterList.asPredicate();
+		const query = [
+			predicate,
+			statusQuery
+		].join(' && ');
+
 		this.sampleSrv.queryMany({
-			query: `status.id == "${col.id}" && deleted == false`,
+			query: query,
 			take: col.data.length + 6,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(

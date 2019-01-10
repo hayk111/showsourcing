@@ -1,6 +1,8 @@
 :host {
 	display: flex;
 	flex-direction: column;
+	height: calc(100% - 70px);
+	overflow: auto;
 }
 
 sub-panel-app {
@@ -9,8 +11,6 @@ sub-panel-app {
 
 kanban-app {
 	margin: auto;
-	overflow-x: auto;
-	overflow-y: hidden;
 	padding: 0 20px;
 }
 
