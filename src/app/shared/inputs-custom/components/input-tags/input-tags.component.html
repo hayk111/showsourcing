@@ -2,8 +2,8 @@
 	[canCreate]="true"
 	type="tag"
 	[multiple]="true"
-	[offsetX]="-330"
-	[offsetY]="-28"
+	[offsetX]="offsetX"
+	[offsetY]="offsetY"
 	[value]="tags"
 	(update)="updateTags.emit($event)">
 	<info-badge-app *ngIf="!tags?.length" class="pointer" type="tag">

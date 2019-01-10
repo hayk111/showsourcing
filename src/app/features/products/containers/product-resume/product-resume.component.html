@@ -42,6 +42,7 @@
 		<preview-section-app [title]="'Tags'" class="noMarginBottom">
 			<input-tags-app
 				[tags]="product?.tags"
+				[offsetX]="-330"
 				(updateTags)="update($event, 'tags')">
 			</input-tags-app>
 		</preview-section-app>

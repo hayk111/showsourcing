@@ -58,7 +58,10 @@
 
 	<!-- Tags -->
 	<preview-section-app [title]="'Tags'">
-		<info-badge-app *ngFor="let tag of product?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
+		<input-tags-app
+			[tags]="product?.tags"
+			(updateTags)="update($event, 'tags')">
+		</input-tags-app>
 	</preview-section-app>
 
 	<!-- Product details -->

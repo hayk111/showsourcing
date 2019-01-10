@@ -26,13 +26,14 @@
 		</textarea>
 	</editable-field-app>
 </div>
+{{inpDescription | json}}
 <button
-	*ngIf="showMore && !isBig"
+	*ngIf="showMore && !isBig && !inpDescription.focussed"
 	class="secondary-light flexCenter view-more"
 	(click)="showAll()">
 	View More
 </button>
-<span *ngIf="showMore && isBig"
+<span *ngIf="showMore && isBig && !inpDescription.focussed"
 	class="text-more"
 	(click)="showAll()">
 	View more...
