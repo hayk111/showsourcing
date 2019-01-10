@@ -337,7 +337,7 @@ export const countryMap = {
 			en: {
 				id: 'CN',
 				isoCode: 'CN',
-				name: 'China, People\'s Republic of'
+				name: 'China'
 			}
 		}
 	},
@@ -364,7 +364,7 @@ export const countryMap = {
 			en: {
 				id: 'CD',
 				isoCode: 'CD',
-				name: 'Congo (Kinshasa)'
+				name: 'Congo'
 			}
 		}
 	},
@@ -391,7 +391,7 @@ export const countryMap = {
 			en: {
 				id: 'CI',
 				isoCode: 'CI',
-				name: 'Cote d\'Ivoire (\'Ivory Coast\')'
+				name: 'Cote d\'Ivoire'
 			}
 		}
 	},
@@ -1093,7 +1093,7 @@ export const countryMap = {
 			en: {
 				id: 'MM',
 				isoCode: 'MM',
-				name: 'Myanmar (\'Burma\')'
+				name: 'Myanmar'
 			}
 		}
 	},
@@ -1561,7 +1561,7 @@ export const countryMap = {
 			en: {
 				id: 'TL',
 				isoCode: 'TL',
-				name: 'Timor-Leste (\'East Timor\')'
+				name: 'East Timor'
 			}
 		}
 	},
