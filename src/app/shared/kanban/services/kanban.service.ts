@@ -177,28 +177,30 @@ export class KanbanService {
 
 	// when the status of an item changes outside the kanban we want to
 	// update the kanban as well
-	onExternalStatusChange(item: any) {
+	onExternalStatusChange(items: any[]) {
 		// read status for more info
 		// find item in column and update it
 		const columns = Array.from(this.kanbanConfig.values());
-		const previousCol = columns.find(col => col.dataMap.has(item.id));
-		const currentCol = this.kanbanConfig.get(item.status.id);
-		const prevArr = Array.from(previousCol.dataMap.values());
-		const currArr = Array.from(currentCol.dataMap.values());
+		items.forEach(item => {
+			const previousCol = columns.find(col => col.dataMap.has(item.id));
+			const currentCol = this.kanbanConfig.get(item.status.id);
+			const prevArr = Array.from(previousCol.dataMap.values());
+			const currArr = Array.from(currentCol.dataMap.values());
 
-		const previousIndex = Array.from(previousCol.dataMap.values())
-			.findIndex(v => v.id === item.id);
+			const previousIndex = Array.from(previousCol.dataMap.values())
+				.findIndex(v => v.id === item.id);
 
-		transferArrayItem(
-			prevArr,
-			currArr,
-			previousIndex,
-			0
-		);
-		previousCol.totalData--;
-		currentCol.totalData++;
-		previousCol.dataMap = this.mapFromArray(prevArr);
-		currentCol.dataMap = this.mapFromArray(currArr);
+			transferArrayItem(
+				prevArr,
+				currArr,
+				previousIndex,
+				0
+			);
+			previousCol.totalData--;
+			currentCol.totalData++;
+			previousCol.dataMap = this.mapFromArray(prevArr);
+			currentCol.dataMap = this.mapFromArray(currArr);
+		});
 
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}

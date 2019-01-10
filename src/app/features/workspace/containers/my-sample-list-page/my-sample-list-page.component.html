@@ -43,18 +43,15 @@
 		[selection]="listSrv.selection$ | async"
 		(close)="listSrv.unselectAll()">
 		<div class="flex">
-			<button class="flexCenter change-status">
-				<icon-app name="Status"></icon-app>
-				<span>Change Status</span>
-				<status-selector-app
-					#workActionMenu
-					selectSize="s"
-					[typeEntity]="erm.SAMPLE"
-					[isSendToWorkFlow]="true"
-					[internalUpdate]="false"
-					(statusUpdated)="onMultipleStatusUpdated(listSrv.getSelectedValues() , $event)">
-				</status-selector-app>
-			</button>
+			<status-selector-app
+				toolTip toolTipMessage="Change status to" toolTipPosition="above"
+				#workActionMenu
+				selectSize="s"
+				[typeEntity]="erm.SAMPLE"
+				type="multiple-selection"
+				[internalUpdate]="false"
+				(statusUpdated)="onMultipleStatusUpdated($event)">
+			</status-selector-app>
 
 			<button class="icon light" (click)="listSrv.deleteSelected()">
 				<icon-app class="trash-bin" name="trash-bin"></icon-app>

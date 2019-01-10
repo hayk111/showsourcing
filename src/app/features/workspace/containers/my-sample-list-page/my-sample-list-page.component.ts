@@ -69,4 +69,8 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 	goToKanban() {
 		this.router.navigate(['../board'], { relativeTo: this.route });
 	}
+
+	onMultipleStatusUpdated(status: SampleStatus) {
+		this.listSrv.updateSelected({ status });
+	}
 }

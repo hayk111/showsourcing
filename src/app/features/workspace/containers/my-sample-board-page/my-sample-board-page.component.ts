@@ -142,9 +142,9 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		}).subscribe();
 	}
 
-	onMultipleStatusUpdated(values: any[], status: SampleStatus) {
-		values = values.map(val => ({ id: val.id, status }));
-		this.kanbanSrv.updateMany(values);
+	onMultipleStatusUpdated(status: SampleStatus) {
+		const values = this.listSrv.getSelectedIds().map(id => ({ id, status }));
+		this.kanbanSrv.onExternalStatusChange(values);
 		this.sampleSrv.updateMany(values).subscribe();
 	}
 

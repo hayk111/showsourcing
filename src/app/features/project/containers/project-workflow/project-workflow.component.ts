@@ -109,7 +109,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	}
 
 	previewStatusUpdate(product: Product) {
-		this.kanbanSrv.onExternalStatusChange(product);
+		this.kanbanSrv.onExternalStatusChange([product]);
 	}
 
 	updateProductStatus(event: KanbanDropEvent) {
