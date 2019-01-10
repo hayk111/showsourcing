@@ -5,6 +5,7 @@ import { Product, Project } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { TrackingComponent } from '~utils/tracking-component';
+import { CloseEventType } from '~shared/dialog';
 
 
 
@@ -46,6 +47,8 @@ export class ProductAddToProjectDlgComponent extends TrackingComponent implement
 	submit() {
 		// we add each project one by one to the store
 		const selectedProjects = <Project[]>Object.values(this.selected);
+		this.dlgSrv.close({ type: CloseEventType.OK, data: { selectedProjects, products: this.products } });
+
 		this.productDlgSrv.addProjectsToProducts(selectedProjects, this.products)
 			.subscribe(projects => {
 				this.dlgSrv.close();

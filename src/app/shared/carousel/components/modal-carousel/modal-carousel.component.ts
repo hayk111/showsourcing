@@ -20,6 +20,8 @@ export class ModalCarouselComponent {
 		log.debug('[ModalCarouselComponent] back');
 		if (this.selectedIndex > 0)
 			this.selectedIndex--;
+		else
+			this.selectedIndex = this.images.length - 1;
 		this.indexChange.emit(this.selectedIndex);
 		event.stopPropagation();
 	}
@@ -28,6 +30,8 @@ export class ModalCarouselComponent {
 		log.debug('[ModalCarouselComponent] next');
 		if (this.selectedIndex < this.images.length - 1)
 			this.selectedIndex++;
+		else
+			this.selectedIndex = 0;
 		this.indexChange.emit(this.selectedIndex);
 		event.stopPropagation();
 	}

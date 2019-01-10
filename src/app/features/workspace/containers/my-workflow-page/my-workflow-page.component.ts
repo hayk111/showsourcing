@@ -1,37 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { first, switchMap, tap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
-import { ERM, Product, ProductVote, ProductStatus } from '~models';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
-import { AutoUnsub } from '~utils/auto-unsub.component';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
-import { makeColumns } from '~utils/kanban.utils';
+import { ERM, Product, ProductStatus, ProductVote } from '~models';
+import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { AutoUnsub } from '~utils/auto-unsub.component';
+import { FilterList } from '~shared/filters';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
 	templateUrl: './my-workflow-page.component.html',
 	styleUrls: ['./my-workflow-page.component.scss'],
 	providers: [
-		ListPageService
+		ListPageService,
+		KanbanService
 	]
 })
 export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
-	columns$: Observable<KanbanColumn[]>;
+	columns$ = this.kanbanSrv.columns$;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
-	private productsMap = new Map<string, ListQuery<Product>>();
-	private totalMap = new Map<string, ListQuery<number>>();
 
 	constructor(
 		private productSrv: ProductService,
 		private productStatusSrv: ProductStatusService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public commonModalSrv: CommonModalService
+		public commonModalSrv: CommonModalService,
+		public kanbanSrv: KanbanService,
+		public dlgSrv: DialogService
 	) {
 		super();
 	}
@@ -43,50 +46,59 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			searchedFields: ['name'],
 			entityMetadata: ERM.PRODUCT
 		}, false);
+		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
+			takeUntil(this._destroy$)
+		);
 
-		const productStatuses$ = this.productStatusSrv
+		const statuses$ = this.productStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused"',
 				sortBy: 'step',
 				descending: false
-			})
-			.pipe();
+			}).pipe(
+				first(),
+				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
+			);
 
-		this.columns$ = productStatuses$.pipe(
-			tap(statuses => this.getProducts(statuses)),
-			switchMap(statuses => makeColumns(statuses, this.productsMap, this.totalMap)),
-		);
-
+		combineLatest(
+			filters$,
+			statuses$,
+			(filterList, statuses) => this.getProducts(statuses, filterList)
+		).subscribe();
 		this.selected$ = this.listSrv.selection$;
 	}
 
 	loadMore(col: KanbanColumn) {
-		this.productsMap.get(col.id).fetchMore().subscribe();
+		this.productSrv.queryMany({
+			query: `status.id == "${col.id}" && deleted == false`,
+			take: col.data.length + 6,
+			sortBy: 'lastUpdatedDate'
+		}).pipe(
+			first()
+		).subscribe(products => this.kanbanSrv.setData(products, col.id));
 	}
 
-	private getProducts(statuses: ProductStatus[]) {
+	private getProducts(statuses: ProductStatus[], filterList: FilterList) {
+		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
-			const query = `status.id == "${status.id}"`;
-			const prod$ = this.productSrv.getListQuery({ query, take: 6, sortBy: 'lastUpdatedDate' });
-			const total$ = this.productSrv.customQuery({
-				query
-			}, `query productsCount($query: String) {
-				productsCount(query: $query)
-			}`);
-			// unfortunately we have to filter a second time on the front end
-			// because optimistic UI doesn't take the query into account
-			prod$.items$ = prod$.items$.pipe(
-				// map(products => products
-				// 	.filter(prod => prod.status.id === status.id)
-				// ),
-				// tap(d => {
-				// 	const _status = status;
-				// 	// removing opt ui could solve this
-				// })
-			);
-			this.productsMap.set(status.id, prod$);
-			this.totalMap.set(status.id, total$);
+			const query = [
+				predicate,
+				`status.id == "${status.id}"`
+			].join(' && ');
+			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
+				.pipe(first())
+				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
+			this.productSrv.queryCount(query).pipe(first())
+				.subscribe(total => this.kanbanSrv.setTotal(total, status.id));
 		});
+	}
+
+	onUpdate(product: Product) {
+		this.kanbanSrv.updateData(product);
+	}
+
+	previewStatusUpdate(product: Product) {
+		this.kanbanSrv.onExternalStatusChange([product]);
 	}
 
 	getColumnColor(status) {
@@ -120,15 +132,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		this.productSrv.update({
 			id: event.item.id,
 			status: new ProductStatus({ id: event.to.id })
-		}).pipe(
-			// refetch so we get the info..
-			switchMap(_ => forkJoin(
-				this.totalMap.get(event.to.id).refetch({}),
-				this.totalMap.get(event.from.id).refetch({}),
-				this.productsMap.get(event.to.id).refetch({ take: event.to.data.length }),
-				this.productsMap.get(event.from.id).refetch({ take: event.from.data.length }),
-			))
-		).subscribe();
+		}).subscribe();
 	}
 
 	/** multiple */
@@ -137,15 +141,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			id,
 			status: new ProductStatus({ id: event.to.id })
 		}));
-		this.productSrv.updateMany(products).pipe(
-			// refetch so we get the info..
-			switchMap(_ => forkJoin(
-				this.totalMap.get(event.to.id).refetch({}),
-				this.totalMap.get(event.from.id).refetch({}),
-				this.productsMap.get(event.to.id).refetch({ take: event.to.data.length }),
-				this.productsMap.get(event.from.id).refetch({ take: event.from.data.length }),
-			))
-		).subscribe();
+		this.productSrv.updateMany(products).subscribe();
 	}
 
 	onColumnSelected(products: Product[]) {
@@ -154,6 +150,43 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	onColumnUnselected(products: Product[]) {
 		products.forEach(prod => this.listSrv.unselectOne(prod, true));
+	}
+
+	onFavoriteAllSelected() {
+		this.listSrv.onFavoriteAllSelected();
+		const updated = this.listSrv.getSelectedIds()
+			.map(id => ({ id, favorite: true }));
+		this.kanbanSrv.updateMany(updated);
+	}
+
+	onUnfavoriteAllSelected() {
+		this.listSrv.onUnfavoriteAllSelected();
+		const updated = this.listSrv.getSelectedIds()
+			.map(id => ({ id, favorite: false }));
+		this.kanbanSrv.updateMany(updated);
+	}
+
+	onMultipleThumbUp(isCreated) {
+		const updated = this.listSrv.onMultipleThumbUp(isCreated);
+		this.kanbanSrv.updateMany(updated);
+	}
+
+	onMultipleThumbDown(isCreated) {
+		const updated = this.listSrv.onMultipleThumbDown(isCreated);
+		this.kanbanSrv.updateMany(updated);
+	}
+
+	deleteSelected() {
+		const itemIds = this.listSrv.getSelectedIds();
+		const text = `Delete ${itemIds.length} `
+			+ (itemIds.length <= 1 ? 'product' : 'products');
+
+		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
+		).subscribe(_ => {
+			this.listSrv.selectionSrv.unselectAll();
+			this.kanbanSrv.deleteItems(itemIds);
+		});
 	}
 
 }

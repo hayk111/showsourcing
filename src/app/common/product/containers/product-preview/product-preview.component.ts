@@ -27,7 +27,6 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 	styleUrls: ['./product-preview.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() _product: Product;
@@ -44,6 +43,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	@Output() close = new EventEmitter<any>();
 	@Output() delete = new EventEmitter<null>();
+	@Output() updated = new EventEmitter<Product>();
+	@Output() statusUpdated = new EventEmitter<Product>();
 	@Output() clickOutside = new EventEmitter<null>();
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
@@ -168,7 +169,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	updateProduct(productConfig: any) {
 		const product = new Product({ ...productConfig, id: this.product.id });
 		this.productSrv.update(product)
-			.subscribe();
+			.subscribe(_ => this.updated.emit(product));
 	}
 
 	update(value: any, prop: string) {

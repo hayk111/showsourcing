@@ -139,7 +139,7 @@ export class ListPageService
 	}
 
 	search(str: string) {
-		this.dataSrv.search(str).subscribe();
+		this.dataSrv.search(str);
 	}
 
 	updateSelected(value: any) {
@@ -194,6 +194,7 @@ export class ListPageService
 			updated.push({ id: item.id, votes });
 		});
 		this.dataSrv.updateMany(updated).subscribe();
+		return updated;
 	}
 
 	/**
@@ -207,6 +208,7 @@ export class ListPageService
 			updated.push({ id: item.id, votes });
 		});
 		this.dataSrv.updateMany(updated).subscribe();
+		return updated;
 	}
 
 	deleteOne(id: string) {

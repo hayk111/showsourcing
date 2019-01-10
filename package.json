@@ -15,7 +15,7 @@
     "analyze": "ng build --stats-json && webpack-bundle-analyzer dist/showsourcing/stats.json",
     "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json",
     "deploy:sta": "npm run build:sta && cd dist/showsourcing && aws s3 sync . s3://app-sta.showsourcing.com --delete",
-    "deploy:production": "cd dist/showsourcing && aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete max-age=3600",
+    "deploy:production": "npm run build && cd dist/showsourcing && aws s3 sync . s3://app-acc.showsourcing.com --delete",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

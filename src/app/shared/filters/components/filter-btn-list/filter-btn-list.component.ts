@@ -73,6 +73,7 @@ export class FilterBtnListComponent {
 
 	getDisplayName(filter: Filter, type: FilterType) {
 		switch (type) {
+			case FilterType.ASSIGNEE:
 			case FilterType.CREATED_BY:
 				return filter.entity.firstName + ' ' + filter.entity.lastName;
 			default:

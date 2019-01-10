@@ -1,26 +1,4 @@
 :host {
-	display: flex;
-	flex-direction: column;
+	display: block;
 	height: 100%;
-}
-
-sub-panel-left-item-app {
-	margin-left: var(--spacing-l);
-
-	.show-my-samples span {
-		font-weight: 600;
-		line-height: 1.43;
-	}
-}
-
-selection-bar-app {
-
-	status-selector-app {
-		margin-right: 45px;
-	}
-
-	icon-app.trash-bin {
-		font-size: var(--font-size-xxxl);
-		color: var(--color-txt-secondary);
-	}
 }

@@ -14,7 +14,8 @@
 	<preview-header-app
 		[entityMD]="erm.PRODUCT"
 		[entity]="product"
-		(update)="update($event, 'name')">
+		(update)="update($event, 'name')"
+		(statusUpdated)="statusUpdated.emit($event)">
 
 		<!-- Price -->
 		<price-with-quantity-app

@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
+import { KanbanService } from '~shared/kanban/services/kanban.service';
 
 @Component({
 	selector: 'kanban-app',
@@ -27,34 +28,45 @@ export class KanbanComponent extends TrackingComponent {
 
 	_width = 'inherit';
 
+	constructor(private kanbanSrv: KanbanService) {
+		super();
+	}
+
 	get ids() {
 		return this.cols.map(col => col.id);
 	}
 
 	onDrop(event: CdkDragDrop<any>) {
-		if (this.selection.size > 0) {
+		const item = event.previousContainer.data[event.previousIndex];
+
+		if (this.selection.size > 0 && this.selection.has(item.id)) {
 			return this.onMultipleDrop(event);
 		}
+		const emitted = {
+			item,
+			from: this.cols.find(col => col.id === event.previousContainer.id),
+			to: this.cols.find(col => col.id === event.container.id),
+		};
 		if (event.previousContainer === event.container) {
-			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-		} else {
-			const currentIndex = 0; // event.currentIndex we use 0 instead to have it at the top
-			transferArrayItem(
-				event.previousContainer.data,
-				event.container.data,
+			this.kanbanSrv.moveItemInsideColumn(
+				event.container.id,
 				event.previousIndex,
-				currentIndex
+				event.currentIndex
 			);
-			this.drop.emit({
-				item: event.container.data[currentIndex],
-				from: this.cols.find(col => col.id === event.previousContainer.id),
-				to: this.cols.find(col => col.id === event.container.id),
-			});
+		} else {
+			this.kanbanSrv.transferItem(
+				event.previousContainer.id,
+				event.container.id,
+				event.previousIndex,
+				event.currentIndex
+			);
+			this.drop.emit(emitted);
 		}
 	}
 
 	onMultipleDrop(event: CdkDragDrop<any>) {
 		const ids = Array.from(this.selection.keys());
+		this.kanbanSrv.transferMultiple(ids, event.container.id, event.currentIndex);
 		this.multipleDrop.emit({
 			from: this.cols.find(col => col.id === event.previousContainer.id),
 			to: this.cols.find(col => col.id === event.container.id),

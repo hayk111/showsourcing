@@ -26,13 +26,13 @@
 
 	<!-- move back -->
 	<div class="move-btn back flexCenter circle pointer btn action"
-		(mousedown)="back($event)" *ngIf="selectedIndex > 0">
+		(mousedown)="back($event)">
 		<icon-app  fontSet="fa" name="angle-left" color="white"></icon-app>
 	</div>
 
 	<!-- move next -->
 	<div class="move-btn next flexCenter circle pointer btn action"
-		(mousedown)="next($event)" *ngIf="selectedIndex < (images?.length - 1)">
+		(mousedown)="next($event)">
 		<icon-app  fontSet="fa" name="angle-right" color="white"></icon-app>
 	</div>
 
@@ -50,7 +50,7 @@
 					aria-label="more">
 				</icon-app>
 		</context-menu-trigger-app>
-		<context-menu-item-app (click)="download()"> download </context-menu-item-app>
+		<context-menu-item-app> <a [href]="getImg() | image:'xl'" download>download</a> </context-menu-item-app>
 		<context-menu-item-app (click)="delete()"> delete </context-menu-item-app>
 	</context-menu-app>
 

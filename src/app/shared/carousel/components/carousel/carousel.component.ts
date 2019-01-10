@@ -57,12 +57,16 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	back(event) {
 		if (this.selectedIndex > 0)
 			this.selectedIndex--;
+		else
+			this.selectedIndex = this.images.length - 1;
 		event.stopPropagation();
 	}
 
 	next(event) {
 		if (this.selectedIndex < this.images.length - 1)
 			this.selectedIndex++;
+		else
+			this.selectedIndex = 0;
 		event.stopPropagation();
 	}
 

@@ -40,7 +40,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			debounceTime(400)
 		).subscribe(str => this.filterChoices(str));
 
-		if (this.type === FilterType.CREATED_BY) {
+		if (this.type === FilterType.CREATED_BY || this.type === FilterType.ASSIGNEE) {
 			this.loadUserChoices();
 		} else {
 			this.loadChoices();
@@ -81,6 +81,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 
 	filterChoices(value: string) {
 		switch (this.type) {
+			case FilterType.ASSIGNEE:
 			case FilterType.CREATED_BY:
 				this.listResult.refetch({
 					query: `firstName CONTAINS[c] "${value}" OR lastName CONTAINS[c] "${value}"`
@@ -107,6 +108,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 
 	formatDisplayName(type: string, choice) {
 		switch (type) {
+			case FilterType.ASSIGNEE:
 			case FilterType.CREATED_BY:
 				return `${choice.lastName} ${choice.firstName}`;
 			default:

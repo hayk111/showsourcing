@@ -82,7 +82,7 @@ export class ERM {
 			if (name === ERM[item].singular || name === ERM[item].plural)
 				return ERM[item];
 		}
-		throw Error('The string passed does not exist on the _erm.enum.ts');
+		throw Error(`The string "${name}" does not exist on the _erm.enum.ts`);
 	}
 }
 
