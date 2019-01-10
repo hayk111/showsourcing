@@ -20,6 +20,24 @@ export class FilterList {
 	private _valueChanges$ = new Subject<FilterList>();
 	valueChanges$ = this._valueChanges$.asObservable();
 
+	/** the fields that will be searched */
+	searchedFields: string[] = ['name'];
+	/** adds a search to the predicate */
+	setSearch(value: string) {
+		this.search = value;
+	}
+
+	getSearchStr() {
+		if (!this.search) {
+			return '';
+		} else {
+			return this.searchedFields
+				.map(field => `${field} CONTAINS[c] "${this.search}"`)
+				.join(' OR ');
+		}
+	}
+	private search: string;
+
 	/** current filters sync */
 	private _filters: Filter[] = [];
 	private setFilters(filters: Filter[]) {
@@ -38,7 +56,12 @@ export class FilterList {
 	 * Returns the filters as a query usable by apollo client
 	 */
 	private _query: string;
-	asPredicate(): string { return this._query; }
+	asPredicate(): string {
+		return [
+			this.getSearchStr(),
+			this._query
+		].filter(p => !!p).join(' AND ');
+	}
 
 	constructor(startFilters: Filter[] = []) {
 		// adding the start filters

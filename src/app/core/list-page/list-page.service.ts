@@ -138,8 +138,8 @@ export class ListPageService
 		this.dataSrv.sortFromMenu(fieldName).subscribe();
 	}
 
-	search(str: string) {
-		this.dataSrv.search(str).subscribe();
+	search(str: string, refetch = true) {
+		this.dataSrv.search(str, refetch).subscribe();
 	}
 
 	updateSelected(value: any) {

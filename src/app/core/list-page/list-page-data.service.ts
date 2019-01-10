@@ -8,6 +8,7 @@ import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
+import { of } from 'zen-observable';
 
 /**
  * Services that helps us for common functionalities in list pages
@@ -155,7 +156,7 @@ export class ListPageDataService
 	}
 
 	/** when we want to search through the list we only search the name */
-	search(str: string) {
+	search(str: string, refetch: boolean) {
 		// the search predicate
 		if (!str) {
 			this.currentSearch = '';
@@ -164,7 +165,7 @@ export class ListPageDataService
 				.map(field => `${field} CONTAINS[c] "${str}"`)
 				.join(' OR ');
 		}
-		return this.onPredicateChange();
+		return refetch ? this.onPredicateChange() : of();
 	}
 	// UPDATES
 

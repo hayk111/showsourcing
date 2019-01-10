@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { first, tap, switchMap } from 'rxjs/operators';
+import { first, tap, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { SampleService, SampleStatusService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { Sample, SampleStatus, ERM } from '~core/models';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilterType } from '~shared/filters';
-import { Observable } from 'rxjs';
+import { FilterType, FilterList } from '~shared/filters';
+import { Observable, combineLatest } from 'rxjs';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { DialogService } from '~shared/dialog';
 		ListPageService
 	]
 })
-export class MySampleBoardPageComponent implements OnInit {
+export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
 	filterType = FilterType;
 	filterTypes = [
@@ -30,6 +31,7 @@ export class MySampleBoardPageComponent implements OnInit {
 		FilterType.PRODUCT
 	];
 	erm = ERM;
+	statuses: SampleStatus[];
 
 	constructor(
 		private kanbanSrv: KanbanService,
@@ -39,27 +41,45 @@ export class MySampleBoardPageComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private dlgSrv: DialogService
-	) { }
+	) { super(); }
 
 	ngOnInit() {
+
 		this.listSrv.setup({
 			key: `sample-kanban`,
 			entityMetadata: ERM.SAMPLE,
-			entitySrv: this.sampleSrv
+			entitySrv: this.sampleSrv,
+			initialFilters: [{ type: FilterType.DELETED, value: false }]
 		}, false);
-		this.sampleStatusSrv
+
+		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
+			takeUntil(this._destroy$),
+			startWith(new FilterList([{ type: FilterType.DELETED, value: false }]))
+		);
+
+		const statuses$ = this.sampleStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused" AND category != "inspiration"',
 				descending: false
 			}).pipe(
 				first(),
+				tap(statuses => this.statuses = statuses),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
-			).subscribe(statuses => this.getSamples(statuses));
+			);
+		combineLatest(
+			filters$,
+			statuses$,
+			(filters, statuses) => this.getSamples(this.statuses, filters))
+			.subscribe();
 	}
 
-	private getSamples(statuses: SampleStatus[]) {
+	private getSamples(statuses: SampleStatus[], filterList?: FilterList) {
+		const predicate = filterList.asPredicate().trim();
 		statuses.forEach(status => {
-			const query = `status.id == "${status.id}" && deleted == false`;
+			const query = [
+				predicate,
+				`status.id == "${status.id}"`
+			].join(' && ');
 			this.sampleSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(samples => this.kanbanSrv.setData(samples, status.id));

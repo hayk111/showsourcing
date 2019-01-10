@@ -6,7 +6,7 @@
 		[filtersAmount]="listSrv.filterList.asFilters()?.length"
 		[view]="'card'"
 		(showFilters)="listSrv.openFilterPanel()"
-		(search)="listSrv.search($event)"
+		(search)="listSrv.search($event, false)"
 		(viewChange)="goToList()">
 		<!-- <sub-panel-left-item-app>
 			<div class="flex show-my-samples">
