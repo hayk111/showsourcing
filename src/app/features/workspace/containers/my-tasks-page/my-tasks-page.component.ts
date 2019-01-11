@@ -8,7 +8,7 @@ import { Task } from '~models';
 import { FilterType } from '~shared/filters';
 
 @Component({
-	selector: 'workspace-my-tasks-page-app',
+	selector: 'my-tasks-page-app',
 	templateUrl: './my-tasks-page.component.html',
 	styleUrls: ['./my-tasks-page.component.scss'],
 	providers: [

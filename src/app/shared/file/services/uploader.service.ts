@@ -127,7 +127,7 @@ export class UploaderService {
 
 		if (isImage) {
 			formData.append('Content-Type', file.type);
-			// formData.append('Content-Disposition', 'attachment');
+			// </any>formData.append('Content-Disposition', 'attachment');
 		}
 
 		delete formDataObj.__typename;

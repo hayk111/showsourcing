@@ -13,6 +13,8 @@ import {
 	AuthFormBaseComponent
 } from './components';
 import { routes } from './routes';
+import { ValidateEmailComponent } from './components/validate-email/validate-email.component';
+import { ErrorUnvalidatedEmailComponent } from './components/error-unvalidated-email/error-unvalidated-email.component';
 
 @NgModule({
 	imports: [
@@ -27,7 +29,9 @@ import { routes } from './routes';
 		ResetPasswordComponent,
 		PwResettedComponent,
 		AuthFormHeaderComponent,
-		AuthFormBaseComponent
+		AuthFormBaseComponent,
+		ValidateEmailComponent,
+		ErrorUnvalidatedEmailComponent
 	],
 	exports: [AuthFormBaseComponent]
 })

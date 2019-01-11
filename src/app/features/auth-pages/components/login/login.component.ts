@@ -38,7 +38,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 		this.listForm = [{
 			label: 'Email',
 			type: 'email',
-			name: 'identifier',
+			name: 'login',
 			isRequired: true,
 			autoComplete: 'current-email',
 			placeHolder: 'example@showsourcing.com',

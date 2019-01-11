@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthState, AuthStatus, Credentials, RefreshTokenResponse } from '~core/auth/interfaces';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TokenService } from '~core/auth/services/token.service';
@@ -12,6 +12,7 @@ import { TokenService } from '~core/auth/services/token.service';
 	providedIn: 'root'
 })
 export class AuthenticationService {
+
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
 	private _authState$ = new BehaviorSubject<AuthState>({ status: AuthStatus.PENDING });
@@ -57,8 +58,19 @@ export class AuthenticationService {
 	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
 		// lower case for email
-		credentials.identifier = credentials.identifier.toLowerCase();
-		return this.tokenSrv.getRefreshToken(credentials);
+		credentials.login = credentials.login.toLowerCase();
+		return this.http.post<{ jwtToken: string, emailValidated: boolean }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
+			tap(resp => this.redirectOnUnvalidatedEmail(resp.emailValidated)),
+			filter(resp => resp.emailValidated),
+			map(resp => resp.jwtToken),
+			switchMap((jwt) => this.tokenSrv.getRealmRefreshToken(jwt))
+		);
+	}
+
+	private redirectOnUnvalidatedEmail(isValidated) {
+		if (!isValidated) {
+			this.router.navigate(['auth', 'error-unvalidated-email']);
+		}
 	}
 
 	logout() {
@@ -68,8 +80,7 @@ export class AuthenticationService {
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {
-		const refBody = this.tokenSrv.getRefreshTokenObject(credentials, 'password');
-		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, refBody).pipe(
+		return this.http.post<{ jwtToken: string }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
 			map(_ => true),
 			catchError(_ => of(false))
 		);
@@ -86,21 +97,24 @@ export class AuthenticationService {
 	}
 
 	resetPassword(cred: { email: string }) {
-		return this.http.post(`${environment.apiUrl}/signup/user/reset-password`, cred);
+		return this.http.post(`${environment.apiUrl}/user/password-reset-request`, cred);
 	}
 
 	confirmResetPassword({ token, password }: { token: string; password: string; }) {
-		// TODO: to be changed with the right endpoint
-		return this.http.post(`${environment.apiUrl}/signup/user/token/${token}/password`, { token, password });
+		return this.http.post(`${environment.apiUrl}/user/password-reset`, { token, password });
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
 		creds.email = creds.email.toLowerCase();
 
-		return this.http.post(`${environment.apiUrl}/signup/user`, creds).pipe(
-			map(_ => ({ identifier: creds.email, password: creds.password })),
+		return this.http.post(`${environment.apiUrl}/user/signup`, creds).pipe(
+			map(_ => ({ login: creds.email, password: creds.password })),
 			switchMap(loginCreds => this.login(loginCreds))
 		);
+	}
+
+	validateEmail(token: string) {
+		return this.http.post(`${environment.apiUrl}/user/email-validation`, { token });
 	}
 
 	private refreshTokenToAuthState(tokenState: TokenState): AuthState {

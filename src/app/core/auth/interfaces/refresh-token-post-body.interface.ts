@@ -2,11 +2,6 @@
 
 export interface RefreshTokenPostBody {
 	app_id: string;
-	provider: string;
+	provider: 'jwt';
 	data: string;
-	user_info: {
-		register: boolean;
-		email?: string;
-		password: string;
-	};
 }
