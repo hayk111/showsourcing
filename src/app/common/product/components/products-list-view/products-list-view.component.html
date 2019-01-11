@@ -58,7 +58,7 @@
 			<img class="mini imgCtnr"
 				[src]="row | image: 's' : 'product'" />
 			<span class="ellipsis">
-				<a class="name" [routerLink]="['/product', 'details', row.id]">
+				<a class="name txtBtn" [routerLink]="['/product', 'details', row.id]">
 					{{ row.name || 'Unnamed' }}
 				</a>
 			</span>

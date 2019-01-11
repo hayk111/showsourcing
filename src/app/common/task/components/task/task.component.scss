@@ -1,6 +1,10 @@
 .row {
 	padding-right: var(--spacing-ms);
 
+	.done {
+		text-decoration: line-through;
+	}
+
 	.task-name {
 		width: 55%;
 		color: var(--color-txt-strong);

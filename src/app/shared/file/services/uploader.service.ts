@@ -125,7 +125,10 @@ export class UploaderService {
 	private converFormData(file: any, formDataObj: any, isImage: boolean) {
 		const formData = new FormData();
 
-		if (isImage) formData.append('Content-Type', file.type);
+		if (isImage) {
+			formData.append('Content-Type', file.type);
+			// formData.append('Content-Disposition', 'attachment');
+		}
 
 		delete formDataObj.__typename;
 		Object.entries(formDataObj).forEach(([k, v]: any) => formData.append(k, v));

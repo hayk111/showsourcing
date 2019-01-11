@@ -13,7 +13,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class ImagePreviewer2Component extends TrackingComponent {
 
 	// array of images displayed
-	@Input() images: Array<AppImage>;
+	@Input() images: Array<AppImage> = [];
 	// returns the index of the images clicked
 	@Output() imageClick = new EventEmitter<number>();
 
@@ -23,6 +23,10 @@ export class ImagePreviewer2Component extends TrackingComponent {
 
 	getImg(i) {
 		return this.images[i];
+	}
+
+	getPreviews() {
+		return this.images.slice(0, 5);
 	}
 
 }

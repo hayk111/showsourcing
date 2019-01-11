@@ -1,9 +1,8 @@
 <div class="ctnr square pointer"
-	*ngFor="let i of [0, 1, 2, 3, 4]; trackBy: trackByFn"
+	*ngFor="let img of getPreviews(); let i = index; trackBy: trackByFn"
 	(click)="imageClick.emit(i)">
 	<img-app
-		*ngIf="getImg(i)"
-		[image]="getImg(i)"
+		[image]="img"
 		size="s"></img-app>
 	<ng-container *ngIf="i === 4">
 		<div class="more flexCenter"
