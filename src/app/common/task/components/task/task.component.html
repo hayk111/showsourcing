@@ -2,12 +2,12 @@
 	<!-- name -->
 	<div class="flex task-name ellipsis pointer">
 		<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus()"></icon-app>
-		<div class="flexCenter" [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}" (click)="previewClicked.emit(task)">{{ task?.name || 'Unnamed task' }}</div>
+		<div class="flexCenter txtBtn" [ngClass]="{'done': task?.done }" (click)="previewClicked.emit(task)">{{ task?.name || 'Unnamed task' }}</div>
 	</div>
 
 	<!-- if product -->
 	<div *ngIf="hasProduct" class="flexStart task-product ellipsis">
-		<div *ngIf="task?.product" class="flex ellipsis name-container" (click)="openProduct.emit(task?.product?.id || null)">
+		<div *ngIf="task?.product" class="flex ellipsis name-container txtBtn" (click)="openProduct.emit(task?.product?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.product?.images"></img-app></div>
 			<div class="text">{{ task?.product?.name || 'Unnamed product' }}</div>
 		</div>
@@ -15,7 +15,7 @@
 
 	<!-- if supplier -->
 	<div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis">
-		<div *ngIf="task?.supplier" class="flex ellipsis name-container" (click)="openSupplier.emit(task?.supplier?.id || null)">
+		<div *ngIf="task?.supplier" class="flex ellipsis name-container txtBtn" (click)="openSupplier.emit(task?.supplier?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.supplier?.logoImage"></img-app></div>
 			<div class="text">{{ task?.supplier?.name || 'Unnamed suppler' }}</div>
 		</div>
