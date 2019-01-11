@@ -1,6 +1,7 @@
 <ng-container *ngIf="columns$ | async as columns; else spinner">
 	<sub-panel-app
 		[hasSwitch]="true"
+		[switchContent]="['list', 'kanban']"
 		[hasFilter]="true"
 		[buttonIcon]="false"
 		[filtersAmount]="listSrv.filterList.asFilters()?.length"

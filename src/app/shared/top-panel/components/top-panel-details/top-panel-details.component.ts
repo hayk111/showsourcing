@@ -9,7 +9,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./top-panel-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'z-6'
+		class: 'z-1'
 	}
 })
 export class TopPanelDetailsComponent extends TrackingComponent implements OnInit {

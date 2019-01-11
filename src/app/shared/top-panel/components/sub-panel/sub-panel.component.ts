@@ -29,6 +29,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() hasFilter = true;
 	// whether the screen can be switched from table to list view
 	@Input() hasSwitch = true;
+	// content of the switch
+	@Input() switchContent: ['list', 'kanban' | 'thumbs'] = ['list', 'thumbs'];
 	// whether the screen has a search input
 	@Input() hasSearch = true;
 	// whether the screen has a create button

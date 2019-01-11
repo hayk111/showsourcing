@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?cfa99o');
-  src:  url('fonts/icomoon.eot?cfa99o#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?cfa99o') format('truetype'),
-    url('fonts/icomoon.woff?cfa99o') format('woff'),
-    url('fonts/icomoon.svg?cfa99o#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?niukyk');
+  src:  url('fonts/icomoon.eot?niukyk#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?niukyk') format('truetype'),
+    url('fonts/icomoon.woff?niukyk') format('woff'),
+    url('fonts/icomoon.svg?niukyk#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -45,7 +45,7 @@
 .icon-task:before {
   content: "\e900";
 }
-.icon-Kanban:before {
+.icon-kanban:before {
   content: "\e901";
 }
 .icon-status:before {
@@ -132,7 +132,7 @@
 .icon-workflow:before {
   content: "\e952";
 }
-.icon-kanban:before {
+.icon-kanban-2:before {
   content: "\e953";
 }
 .icon-fields:before {

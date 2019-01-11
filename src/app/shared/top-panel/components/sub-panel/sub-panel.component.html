@@ -30,8 +30,9 @@
 
 			<view-switcher-app
 				*ngIf="hasSwitch"
-				(viewChange)="viewChange.emit($event)"
-				[view]="view">
+				[switchContent]="switchContent"
+				[view]="view"
+				(viewChange)="viewChange.emit($event)">
 			</view-switcher-app>
 
 			<button *ngIf="hasCreate && buttonName"
