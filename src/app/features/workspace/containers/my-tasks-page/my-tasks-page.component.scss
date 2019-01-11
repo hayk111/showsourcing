@@ -1,8 +1,9 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 	width: 980px;
+	height: calc(100% - 70px);
+	overflow: auto;
 	margin-left: auto;
 	margin-right: auto;
 }

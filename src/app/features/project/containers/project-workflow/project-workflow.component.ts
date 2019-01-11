@@ -1,20 +1,18 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin, Observable } from 'rxjs';
-import { map, mergeMap, switchMap, takeUntil, tap, first } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, ProductStatus, Project } from '~models';
+import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
-import { AutoUnsub } from '~utils/auto-unsub.component';
-import { makeColumns } from '~utils/kanban.utils';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService } from '~shared/dialog';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'project-workflow-app',

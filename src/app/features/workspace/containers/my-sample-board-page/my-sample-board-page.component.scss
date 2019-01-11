@@ -1,8 +1,13 @@
 :host {
-	display: block;
+	display: flex;
+	flex-direction: column;
 	overflow-x: auto;
 	overflow-y: auto;
-	height: calc(100vh - 120px);
+	height: 100%;
+}
+
+kanban-app {
+	flex-grow: 1;
 }
 
 sub-panel-left-item-app {
