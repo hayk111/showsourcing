@@ -51,7 +51,7 @@ $image-height: 219px;
 	right: var(--spacing-s);
 	top: var(--spacing-s);
 
-	& > * {
+	& > *:not(.selector), .folder {
 		position: relative;
 		margin-left: var(--spacing-s);
 	}

@@ -19,7 +19,8 @@
 					(open)="listSrv.goToDetails(product.id)"
 					(preview)="listSrv.openPreview(product)"
 					(select)="listSrv.selectOne(product, true)"
-					(unselect)="listSrv.unselectOne(product, true)">
+					(unselect)="listSrv.unselectOne(product, true)"
+					(update)="listSrv.update($event)">
 				</product-grid-card-app>
 			</ng-container>
 		</div>

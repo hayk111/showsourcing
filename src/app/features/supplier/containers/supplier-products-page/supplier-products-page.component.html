@@ -36,10 +36,16 @@
 	</products-list-view-app>
 
 	<supplier-products-card-view-app
+		infiniScroll
+		cdk-scrollable
 		*ngIf="listSrv.view === 'card'"
 		class="flexWrap"
 		[rows]="products"
 		[selection]="listSrv.selection$ | async"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(liked)="listSrv.onThumbUp($event)"
+		(disliked)="listSrv.onThumbDown($event)"
 		(open)="listSrv.goToDetails($event)"
 		(previewClick)="listSrv.openPreview($event)"
 		(select)="listSrv.selectOne($event, true)"

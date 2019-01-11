@@ -13,7 +13,8 @@
 				(open)="open.emit(product.id)"
 				(preview)="previewClick.emit(product)"
 				(select)="select.emit(product)"
-				(unselect)="unselect.emit(product)">
+				(unselect)="unselect.emit(product)"
+				(update)="update.emit($event)">
 			</product-grid-card-app>
 		</ng-container>
 	</div>

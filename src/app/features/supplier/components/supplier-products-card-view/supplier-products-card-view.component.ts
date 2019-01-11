@@ -12,6 +12,7 @@ export class SupplierProductsCardViewComponent extends ListViewComponent<Product
 
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
+	@Output() update = new EventEmitter<Product>();
 
 	constructor() { super(); }
 

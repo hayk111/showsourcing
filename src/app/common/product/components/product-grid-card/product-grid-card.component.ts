@@ -20,7 +20,7 @@ export class ProductGridCardComponent implements OnInit {
 	@Output() unfavorited = new EventEmitter<null>();
 	@Output() liked = new EventEmitter<null>();
 	@Output() disliked = new EventEmitter<null>();
-	@Output() addProjects = new EventEmitter<null>();
+	@Output() update = new EventEmitter<Product>();
 
 	constructor() { }
 
