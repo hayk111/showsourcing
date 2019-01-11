@@ -58,10 +58,11 @@
 
 	<!-- Tags -->
 	<preview-section-app [title]="'Tags'">
-		<input-tags-app
-			[tags]="product?.tags"
-			(updateTags)="update($event, 'tags')">
-		</input-tags-app>
+		<input-badge-selector-app
+			[value]="product?.tags"
+			type="tag"
+			(change)="update($event, 'tags')">
+		</input-badge-selector-app>
 	</preview-section-app>
 
 	<!-- Product details -->

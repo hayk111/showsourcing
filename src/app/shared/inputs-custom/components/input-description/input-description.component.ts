@@ -1,6 +1,7 @@
 import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	ElementRef,
 	EventEmitter,
@@ -8,11 +9,7 @@ import {
 	Output,
 	Renderer2,
 	ViewChild,
-	OnInit,
-	ChangeDetectorRef,
 } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
-import { map, repeat } from 'rxjs/operators';
 
 @Component({
 	selector: 'input-description-app',
@@ -56,6 +53,8 @@ export class InputDescriptionComponent implements AfterViewInit {
 		if (this.container.nativeElement.clientHeight > 85 && !this.showMore) {
 			this.render.setStyle(this.container.nativeElement, 'height', '85px');
 			this.showMore = true;
+		} else if (this.showMore === true) {
+			this.render.setStyle(this.container.nativeElement, 'height', '85px');
 		} else {
 			this.render.setStyle(this.container.nativeElement, 'height', '100%');
 			this.showMore = false;

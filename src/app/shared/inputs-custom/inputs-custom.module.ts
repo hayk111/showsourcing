@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BadgeModule } from '~shared/badge';
+import { EditableFieldModule } from '~shared/editable-field';
+import { IconsModule } from '~shared/icons';
+import { InputsModule } from '~shared/inputs';
 import { InputPriceComponent } from '~shared/inputs-custom/components/input-price/input-price.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils';
-import { InputsModule } from '~shared/inputs';
-import { InputPriceInlineComponent } from './components/input-price-inline/input-price-inline.component';
-import { IconsModule } from '~shared/icons';
+
+import { InputBadgeSelectorComponent } from './components/input-badge-selector/input-badge-selector.component';
 import { InputDescriptionComponent } from './components/input-description/input-description.component';
-import { EditableFieldModule } from '~shared/editable-field';
-import { InputTagsComponent } from './components/input-tags/input-tags.component';
-import { BadgeModule } from '~shared/badge';
+import { InputPriceInlineComponent } from './components/input-price-inline/input-price-inline.component';
 
 @NgModule({
 	imports: [
@@ -24,7 +25,7 @@ import { BadgeModule } from '~shared/badge';
 		EditableFieldModule,
 		BadgeModule
 	],
-	declarations: [InputPriceComponent, InputPriceInlineComponent, InputDescriptionComponent, InputTagsComponent],
-	exports: [InputPriceComponent, InputPriceInlineComponent, InputDescriptionComponent, InputTagsComponent]
+	declarations: [InputPriceComponent, InputPriceInlineComponent, InputDescriptionComponent, InputBadgeSelectorComponent],
+	exports: [InputPriceComponent, InputPriceInlineComponent, InputDescriptionComponent, InputBadgeSelectorComponent]
 })
 export class InputsCustomModule { }

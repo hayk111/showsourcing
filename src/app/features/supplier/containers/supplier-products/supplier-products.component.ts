@@ -22,7 +22,7 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 
 	hasSearch = false;
 	supplierId: ID;
-	maxItemsDisplay = 16;
+	maxItemsDisplay = 15;
 
 	constructor(
 		protected router: Router,
