@@ -8,7 +8,7 @@
 </button>
 </ng-container> -->
 
-<!-- <ng-template #double> -->
+<ng-container *ngIf="!lineStyle; else other">
 	<button class="icon light first flex" [ngClass]="{'total-width': hasText}" (click)="thumbUp()">
 		<icon-app [ngClass]="{'color-primary': like, 'color-txt-secondary': !like}" name="thumbs-up" [size]="size" ></icon-app>
 		<p *ngIf="hasText">Like</p>
@@ -17,4 +17,11 @@
 		<icon-app [ngClass]="{'color-warn': dislike, 'color-txt-secondary': !dislike}" name="thumbs-down" [size]="size"></icon-app>
 		<p *ngIf="hasText">Dislike</p>
 	</button>
-<!-- </ng-template> -->
+</ng-container>
+
+<ng-template #other>
+	<!-- TODO change both last string [name] = dis/like ? 'thumbs-up/down' : 'thumbs-up/down-line' -->
+	<icon-app [ngClass]="{'color-success': like, 'color-white': !like}" [name]="like ? 'thumbs-up' : 'thumbs-up'" [size]="size" (click)="thumbUp()"></icon-app>
+	<span style="margin-right: var(--spacing-s)"></span>
+	<icon-app [ngClass]="{'color-warn': dislike, 'color-white': !dislike}" [name]="dislike ? 'thumbs-down' : 'thumbs-down'" [size]="size" (click)="thumbDown()"></icon-app>
+</ng-template>

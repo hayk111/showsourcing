@@ -13,6 +13,8 @@ export class ThumbButtonsComponent {
 
 	@Input() size = 's';
 	@Input() hasText = false;
+	// when we want to use the secondary style of the thumbs with just the borders and center empty
+	@Input() lineStyle = false;
 	@Input() multiple = false;
 	// when multiple is true we don't have to pass votes as a parameter
 	@Input() set votes(votes: ProductVote[]) {
@@ -28,6 +30,7 @@ export class ThumbButtonsComponent {
 		}
 	}
 	// we only use the boolean item inside the emitter when using multiple selection
+	// if its not multiple we don't care, we just send the product on a higher level to the thumbSrv
 	@Output() liked = new EventEmitter<boolean>();
 	@Output() disliked = new EventEmitter<boolean>();
 	like = false;

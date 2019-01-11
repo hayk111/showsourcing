@@ -18,6 +18,24 @@
 		(uncheck)="unselect.emit()">
 	</checkbox-app>
 
+	<div class="flex icons-container">
+		<icon-app class="folder overlay-icons" name="close" (click)="addProjects.emit()"></icon-app>
+		<thumb-buttons-app
+			class="thumb-up overlay-icons"
+			[lineStyle]="true"
+			[votes]="product?.votes"
+			(liked)="liked.emit()"
+			(disliked)="disliked.emit()">
+		</thumb-buttons-app>
+		<rating-heart-app
+			class="heart"
+			[favorite]="product?.favorite"
+			[lineStyle]="true"
+			(favorited)="favorited.emit()"
+			(unfavorited)="unfavorited.emit()">
+		</rating-heart-app>
+	</div>
+
 	<button class="preview primary overlay" (click)="preview.emit()">Preview</button>
 	<button class="open secondary overlay" (click)="open.emit()">Open</button>
 

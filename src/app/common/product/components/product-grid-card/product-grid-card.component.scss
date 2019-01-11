@@ -15,11 +15,14 @@ $image-height: 219px;
       opacity: 1;
 		}
 
+		.icons-container .overlay-icons {
+			opacity: 1;
+		}
+
 		.black-hover {
 			top: 0;
 			position: absolute;
-			background: black;
-			opacity: 0.5;
+			background: rgba(0, 0, 0, 0.7);
 			height: $image-height;
 			width: $image-width;
 		}
@@ -42,6 +45,26 @@ $image-height: 219px;
 }
 
 // floating elements
+
+.icons-container {
+	position: absolute;
+	right: var(--spacing-s);
+	top: var(--spacing-s);
+
+	& > * {
+		position: relative;
+		margin-left: var(--spacing-s);
+	}
+
+	icon-app {
+		color: white;
+	}
+
+	.overlay-icons {
+		opacity: 0;
+	}
+}
+
 button.preview, button.open {
 	left: 36px;
 	width: 139px;

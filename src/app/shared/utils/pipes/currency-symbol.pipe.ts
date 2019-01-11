@@ -5,7 +5,7 @@ import { CurrencyPipe } from '@angular/common';
 export class CurrencySymbolPipe extends CurrencyPipe implements
 	PipeTransform {
 	transform(value: string): any {
-		const currencyValue = super.transform(0, value, true, '1.0-2');
+		const currencyValue = super.transform(0, value, 'symbol', '1.0-2');
 		return currencyValue.replace(/[0-9]/g, '');
 	}
 }

@@ -6,6 +6,11 @@
 			<product-grid-card-app
 				[product]="product"
 				[selected]="selection.has(product?.id)"
+				(addProjects)="addToProject.emit(product)"
+				(favorited)="favorited.emit(product?.id)"
+				(unfavorited)="unfavorited.emit(product?.id)"
+				(liked)="liked.emit(product)"
+				(disliked)="disliked.emit(product)"
 				(open)="open.emit(product.id)"
 				(preview)="previewClick.emit(product)"
 				(select)="select.emit(product)"

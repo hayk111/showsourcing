@@ -58,14 +58,15 @@
 				[currentSort]="listSrv.currentSort"
 				[rows]="products"
 				[selection]="listSrv.selection$ | async"
+				(addToProject)="commonModalSrv.openAddToProjectDialog([$event])"
 				(bottomReached)="listSrv.loadMore()"
 				(disliked)="listSrv.onThumbDown($event)"
-				(favorited)="listSrv.selectAll($event)"
+				(favorited)="listSrv.onItemFavorited($event)"
 				(liked)="listSrv.onThumbUp($event)"
 				(open)="listSrv.goToDetails($event)"
 				(previewClick)="listSrv.openPreview($event)"
 				(select)="listSrv.selectOne($event, true)"
-				(unfavorited)="listSrv.unselectAll($event)"
+				(unfavorited)="listSrv.onItemUnfavorited($event)"
 				(unselect)="listSrv.unselectOne($event, true)"
 				(update)="listSrv.update($event)">
 			</products-card-view-app>
