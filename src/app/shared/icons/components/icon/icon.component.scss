@@ -44,6 +44,18 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-thumbs-down-line:before {
+  content: "\e93d";
+}
+.icon-thumbs-up-line:before {
+  content: "\e93e";
+}
+.icon-heart-line:before {
+  content: "\e942";
+}
+.icon-folder-line:before {
+  content: "\e945";
+}
 .icon-comments:before {
   content: "\e93c";
 }
@@ -56,10 +68,10 @@ i {
 .icon-Kanban:before {
   content: "\e901";
 }
-.icon-Status:before {
+.icon-status:before {
   content: "\e902";
 }
-.icon-Export:before {
+.icon-export:before {
   content: "\e903";
 }
 .icon-location:before {
@@ -191,7 +203,7 @@ i {
 .icon-feedback:before {
   content: "\e932";
 }
-.icon-export:before {
+.icon-export1:before {
   content: "\e933";
 }
 .icon-excel:before {

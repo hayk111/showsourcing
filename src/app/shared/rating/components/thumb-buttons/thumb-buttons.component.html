@@ -21,7 +21,7 @@
 
 <ng-template #other>
 	<!-- TODO change both last string [name] = dis/like ? 'thumbs-up/down' : 'thumbs-up/down-line' -->
-	<icon-app [ngClass]="{'color-success': like, 'color-white': !like}" [name]="like ? 'thumbs-up' : 'thumbs-up'" [size]="size" (click)="thumbUp()"></icon-app>
+	<icon-app [ngClass]="{'color-success': like, 'color-white': !like}" [name]="like ? 'thumbs-up' : 'thumbs-up-line'" [size]="size" (click)="thumbUp()"></icon-app>
 	<span style="margin-right: var(--spacing-s)"></span>
-	<icon-app [ngClass]="{'color-warn': dislike, 'color-white': !dislike}" [name]="dislike ? 'thumbs-down' : 'thumbs-down'" [size]="size" (click)="thumbDown()"></icon-app>
+	<icon-app [ngClass]="{'color-warn': dislike, 'color-white': !dislike}" [name]="dislike ? 'thumbs-down' : 'thumbs-down-line'" [size]="size" (click)="thumbDown()"></icon-app>
 </ng-template>

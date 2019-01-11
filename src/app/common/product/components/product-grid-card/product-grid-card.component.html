@@ -1,7 +1,8 @@
 <div class="card-container" [class.selected-card]="selected">
 	<img-app
 		[image]="product?.images"
-		size="m">
+		objectFit="none"
+		size="l">
 	</img-app>
 
 	<!-- Floating Elements -->
@@ -19,7 +20,7 @@
 	</checkbox-app>
 
 	<div class="flex icons-container">
-		<icon-app class="folder overlay-icons" name="close" (click)="addProjects.emit()"></icon-app>
+		<icon-app class="folder overlay-icons pointer" name="folder-line"></icon-app>
 		<thumb-buttons-app
 			class="thumb-up overlay-icons"
 			[lineStyle]="true"
