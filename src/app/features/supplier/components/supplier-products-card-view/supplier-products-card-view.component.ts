@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
 import { Product } from '~core/models';
 
@@ -9,6 +9,10 @@ import { Product } from '~core/models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupplierProductsCardViewComponent extends ListViewComponent<Product> implements OnInit {
+
+	@Output() liked = new EventEmitter<Product>();
+	@Output() disliked = new EventEmitter<Product>();
+	@Output() update = new EventEmitter<Product>();
 
 	constructor() { super(); }
 

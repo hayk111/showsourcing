@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Elemen
 	styleUrls: ['./top-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'z-6 flexVAlign flexBetween'
+		class: 'z-1 flexVAlign flexBetween'
 	}
 })
 export class TopPanelComponent {

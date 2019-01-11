@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?137yjq');
-  src:  url('fonts/icomoon.eot?137yjq#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?137yjq') format('truetype'),
-    url('fonts/icomoon.woff?137yjq') format('woff'),
-    url('fonts/icomoon.svg?137yjq#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?niukyk');
+  src:  url('fonts/icomoon.eot?niukyk#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?niukyk') format('truetype'),
+    url('fonts/icomoon.woff?niukyk') format('woff'),
+    url('fonts/icomoon.svg?niukyk#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-thumbs-down-line:before {
+  content: "\e93d";
+}
+.icon-thumbs-up-line:before {
+  content: "\e93e";
+}
+.icon-heart-line:before {
+  content: "\e942";
+}
+.icon-folder-line:before {
+  content: "\e945";
+}
 .icon-comments:before {
   content: "\e93c";
 }
@@ -33,13 +45,13 @@
 .icon-task:before {
   content: "\e900";
 }
-.icon-Kanban:before {
+.icon-kanban:before {
   content: "\e901";
 }
-.icon-Status:before {
+.icon-status:before {
   content: "\e902";
 }
-.icon-Export:before {
+.icon-export:before {
   content: "\e903";
 }
 .icon-location:before {
@@ -120,7 +132,7 @@
 .icon-workflow:before {
   content: "\e952";
 }
-.icon-kanban:before {
+.icon-kanban-2:before {
   content: "\e953";
 }
 .icon-fields:before {
@@ -171,7 +183,7 @@
 .icon-feedback:before {
   content: "\e932";
 }
-.icon-export:before {
+.icon-export1:before {
   content: "\e933";
 }
 .icon-excel:before {

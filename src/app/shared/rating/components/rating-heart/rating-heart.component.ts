@@ -23,6 +23,7 @@ export class RatingHeartComponent {
 	// whether it can be voted or not.
 	@Input() static = false;
 	@Input() size = '14';
+	@Input() lineStyle = false;
 	@Output() favorited = new EventEmitter<null>();
 	@Output() unfavorited = new EventEmitter<null>();
 	@Input() favorite = false;

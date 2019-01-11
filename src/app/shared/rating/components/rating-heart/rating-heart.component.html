@@ -1,5 +1,17 @@
-<button class="icon light" [ngClass]="favorite ? customClassFavorited : customClassUnFavorited">
-	<icon-app name="heart" [size]="size"
-		[ngClass]="favorite ? colorFavorite : colorNormal"></icon-app>
-</button>
+<ng-container *ngIf="!lineStyle; else other">
+	<button class="icon light" [ngClass]="favorite ? customClassFavorited : customClassUnFavorited">
+		<icon-app name="heart" [size]="size"
+			[ngClass]="favorite ? colorFavorite : colorNormal"></icon-app>
+	</button>
+</ng-container>
+
+<ng-template #other>
+	<icon-app
+		[ngClass]="favorite ? colorFavorite : 'color-white'"
+		[name]="favorite ? 'heart' : 'heart-line'"
+		[size]="size">
+	</icon-app>
+	<!-- new style of the heart -->
+</ng-template>
+
 

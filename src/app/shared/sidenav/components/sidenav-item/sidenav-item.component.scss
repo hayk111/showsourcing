@@ -24,6 +24,7 @@ a:hover {
 }
 
 .selected {
+		color: var(--color-txt-strong);
     background-color: var(--color-secondary);
 
     &.has-children.expanded {

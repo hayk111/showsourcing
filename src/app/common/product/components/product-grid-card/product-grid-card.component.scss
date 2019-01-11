@@ -1,10 +1,13 @@
+$image-width: 211px;
+$image-height: 219px;
+
 :host {
 	margin: 0px;
 	margin-left: var(--spacing-ms);
 	margin-bottom: var(--spacing-xl);
 	display: block;
 	background: white;
-	width: 170px;
+	width: 211px;
 	position: relative;
 
 	&:hover {
@@ -12,10 +15,17 @@
       opacity: 1;
 		}
 
-    img-app {
-      -webkit-filter: blur(1px);
-      filter: blur(1px);
-    }
+		.icons-container .overlay-icons {
+			opacity: 1;
+		}
+
+		.black-hover {
+			top: 0;
+			position: absolute;
+			background: rgba(0, 0, 0, 0.7);
+			height: $image-height;
+			width: $image-width;
+		}
 	}
 }
 
@@ -30,25 +40,53 @@
 	position: absolute;
 }
 
-.opacity-on {
+.full-opacity {
 	opacity: 1;
 }
 
+// floating elements
+
+.icons-container {
+	position: absolute;
+	right: var(--spacing-s);
+	top: var(--spacing-s);
+
+	& > *:not(.selector), .folder {
+		position: relative;
+		margin-left: var(--spacing-s);
+	}
+
+	icon-app {
+		color: white;
+	}
+
+	.overlay-icons {
+		opacity: 0;
+	}
+}
+
+button.preview, button.open {
+	left: 36px;
+	width: 139px;
+}
+
 button.preview {
-	left: 50%;
-	-webkit-transform: translateX(-50%);
-	transform: translateX(-50%);
-	top: 26%;
+	top: 74px;
+}
+
+button.open {
+	top: 114px;
 }
 
 checkbox-app {
-	top: var(--spacing-ms);
-	right: var(--spacing-xs);
+	top: var(--spacing-s);
+	left: var(--spacing-s);
 }
 
+// non floating elements
 img-app {
-	width: 170px;
-	height: 170px;
+	height: $image-height;
+	width: $image-width;
 	margin-bottom: var(--spacing-ms);
 }
 
@@ -62,16 +100,24 @@ img-app {
 	.title {
 		color: var(--color-txt-strong);
 		font-weight: 600;
+	}
 
-		&:hover {
-			color: var(--color-primary);
-		}
+	.price {
+		color: var(--color-primary);
+	}
+
+	.moq {
+		color: var(--color-secondary-dark);
+	}
+
+	.price, .moq, .cateogry, .status-info {
+		font-size: var(--font-size-s);
 	}
 
 	.status-info {
 		icon-app {
 			cursor: default;
-			font-size: var(--font-size-xxs);
+			font-size: 5px;
 			margin-right: var(--spacing-xs);
 		}
 	}

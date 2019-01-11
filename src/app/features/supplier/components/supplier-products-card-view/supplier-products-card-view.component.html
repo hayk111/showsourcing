@@ -4,9 +4,14 @@
 			[ngClass]="{'no-left-margin': i % 4 == 0, 'margin-bottom-card': (i !== maxItemsDisplay - 1) && (i % 4 == 3)}"
 			[product]="product"
 			[selected]="selection?.has(product?.id)"
+			(favorited)="favorited.emit(product?.id)"
+			(unfavorited)="unfavorited.emit(product?.id)"
+			(liked)="liked.emit(product)"
+			(disliked)="disliked.emit(product)"
 			(open)="open.emit(product.id)"
 			(preview)="previewClick.emit(product)"
 			(select)="select.emit(product, true)"
-			(unselect)="unselect.emit(product, true)">
+			(unselect)="unselect.emit(product, true)"
+			(update)="update.emit($event)">
 		</product-grid-card-app>
 	</ng-container>

@@ -72,8 +72,9 @@ export class DynamicEditableTextComponent extends AbstractInput {
 
 	/** saving the value */
 	onSave(isAccumulated = true) {
-		// do nothing when no changes made
-		if (this.value === this.accumulator)
+		const type = this.customField.type;
+		// do nothing when no changes made, we don't need this condition for the types that do not use accumulator
+		if ((type !== 'selector' && type !== 'yesNo') && this.value === this.accumulator)
 			return;
 		if (isAccumulated)
 			this._value = this.accumulator;

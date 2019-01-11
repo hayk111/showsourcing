@@ -1,29 +1,73 @@
 <div class="card-container" [class.selected-card]="selected">
 	<img-app
 		[image]="product?.images"
-		size="m">
+		objectFit="none"
+		size="l">
 	</img-app>
 
 	<!-- Floating Elements -->
+	<!-- anything that floats needs the overlay class -->
+	<div class="black-hover">
+	</div>
 
 	<checkbox-app
 		*ngIf="hasCheckbox"
 		class="overlay"
-		[ngClass]="{'opacity-on': selected}"
+		[ngClass]="{'full-opacity': selected}"
 		[checked]="selected"
 		(check)="select.emit()"
 		(uncheck)="unselect.emit()">
 	</checkbox-app>
 
-	<button class="preview secondary overlay" (click)="preview.emit()">Preview</button>
+	<div class="flex icons-container">
+		<selector2-app
+			class="selector"
+			type="project"
+			[value]="product?.projects"
+			[offsetY]="8"
+			[offsetX]="226"
+			[canCreate]="false"
+			[multiple]="true"
+			[width]="240"
+			(update)="update.emit({id: product?.id, projects: $event})">
+			<icon-app class="folder overlay-icons pointer" name="folder-line"></icon-app>
+		</selector2-app>
+		<thumb-buttons-app
+			class="thumb-up overlay-icons"
+			[lineStyle]="true"
+			[votes]="product?.votes"
+			(liked)="liked.emit()"
+			(disliked)="disliked.emit()">
+		</thumb-buttons-app>
+		<rating-heart-app
+			class="heart"
+			[favorite]="product?.favorite"
+			[lineStyle]="true"
+			(favorited)="favorited.emit()"
+			(unfavorited)="unfavorited.emit()">
+		</rating-heart-app>
+	</div>
+
+	<button class="preview primary overlay" (click)="preview.emit()">Preview</button>
+	<button class="open secondary overlay" (click)="open.emit()">Open</button>
 
 	<!-- Content (Non Floating) -->
 	<div class="content">
-		<div class="title pointer" (click)="open.emit()"> {{ product?.name || 'Unnamed product'}} </div>
-		<div class="description"> {{ product?.category?.name }}</div>
+		<div class="title"> {{ product?.name || 'Unnamed product'}} </div>
+		<div class="flex" *ngIf="product?.price?.value">
+				<span class="price">
+					{{product?.price?.currency | currencySymbol}} {{ product?.price?.value | ssPrice }}
+				</span>
+				<span class="moq" *ngIf="product?.minimumOrderQuantity">
+					&nbsp;- Min {{ product?.minimumOrderQuantity }} Pcs
+				</span>
+			</div>
+		<div class="category"> {{ product?.category?.name }}</div>
 		<div class="flex status-info">
 			<icon-app class="circle color-{{product?.status?.category || 'secondary'}}" name="circle" fontSet="fa"></icon-app>
 			{{ product?.status?.step || '0' }}.  {{ product?.status?.name ? (product?.status?.name | const:'status') : 'New Product' }}
 		</div>
 	</div>
+
 </div>
+
