@@ -166,4 +166,10 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		this.modalOpen = false;
 	}
 
+	setSelectedIndex(value: number) {
+		this.selectedIndex = value;
+		// change coming from above
+		this.cd.markForCheck();
+	}
+
 }

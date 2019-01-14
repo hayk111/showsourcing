@@ -36,9 +36,6 @@
 		<icon-app  fontSet="fa" name="angle-right" color="white"></icon-app>
 	</div>
 
-	<!-- rotate -->
-	<div class="btn rotate pointer action" (click)="rotate()">rotate</div>
-
 	<!-- menu -->
 	<context-menu-app class="menu action">
 		<context-menu-trigger-app>
@@ -51,8 +48,12 @@
 				</icon-app>
 		</context-menu-trigger-app>
 		<context-menu-item-app> <a [href]="getImg() | image:'xl'" download>download</a> </context-menu-item-app>
+		<context-menu-item-app (click)="rotate()"> rotate </context-menu-item-app>
 		<context-menu-item-app (click)="delete()"> delete </context-menu-item-app>
 	</context-menu-app>
+
+	<!-- add -->
+	<div class="btn add pointer action" (click)="inpFile.click()">add</div>
 
 	<!-- counter -->
 	<div class="counter flexCenter">

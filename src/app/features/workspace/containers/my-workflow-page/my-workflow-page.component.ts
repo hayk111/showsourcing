@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import { first, switchMap, tap, takeUntil } from 'rxjs/operators';
+import { first, switchMap, tap, takeUntil, map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -57,6 +57,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 				descending: false
 			}).pipe(
 				first(),
+				// adding new status
+				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses]),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
 
@@ -69,8 +71,11 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
+		const query = col.id !== null ?
+			`status.id == "${col.id}" && deleted == false`
+			: `status == null && deleted == false`;
 		this.productSrv.queryMany({
-			query: `status.id == "${col.id}" && deleted == false`,
+			query,
 			take: col.data.length + 6,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(
@@ -81,9 +86,13 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	private getProducts(statuses: ProductStatus[], filterList: FilterList) {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
+			const constQuery = status.id !== null ?
+				`status.id == "${status.id}" && deleted == false`
+				: `status == null && deleted == false`;
+
 			const query = [
 				predicate,
-				`status.id == "${status.id}"`
+				constQuery
 			].join(' && ');
 			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
