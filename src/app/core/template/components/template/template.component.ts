@@ -30,13 +30,9 @@ export class TemplateComponent extends AutoUnsub implements AfterViewInit {
 			takeUntil(this._destroy$),
 			filter(evt => evt instanceof NavigationEnd),
 			switchMap(_ => this.route.data),
-			map(data => data.skipScrollTop)
-		).subscribe((skip: boolean) => {
-			if (!skip)
-				this.main.nativeElement.scrollTop = 0;
-		});
+			filter(data => !data.skipScrollTop)
+		).subscribe(_ => this.main.nativeElement.scrollTop = 0);
 	}
-
 
 	/**
 	 * Notifies the service we have reached the bottom of the page,
