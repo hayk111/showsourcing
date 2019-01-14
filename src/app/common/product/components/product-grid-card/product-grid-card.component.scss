@@ -112,14 +112,15 @@ img-app {
 		color: var(--color-secondary-dark);
 	}
 
-	.price, .moq, .cateogry, .status-info {
+	.price, .moq, .category, .status-info {
 		font-size: var(--font-size-s);
 	}
 
 	.status-info {
 		icon-app {
 			cursor: default;
-			font-size: 5px;
+			margin-top: 2px;
+			font-size: 4px;
 			margin-right: var(--spacing-xs);
 		}
 	}
