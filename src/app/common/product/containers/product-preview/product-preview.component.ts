@@ -1,25 +1,16 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, takeUntil, tap, switchMap } from 'rxjs/operators';
+import { first, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { CommentService } from '~core/entity-services/comment/comment.service';
 import { ProductService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { AppImage, ERM, PreviewActionButton, Product } from '~models';
 import { CustomField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
+import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, PendingImage } from '~utils';
-import { CommentService } from '~core/entity-services/comment/comment.service';
 
 @Component({
 	selector: 'product-preview-app',
@@ -46,6 +37,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@Output() updated = new EventEmitter<Product>();
 	@Output() statusUpdated = new EventEmitter<Product>();
 	@Output() clickOutside = new EventEmitter<null>();
+	// component to scroll into view
+	@ViewChild(PreviewCommentComponent) previewComment: PreviewCommentComponent;
+
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
 	erm = ERM;
@@ -84,19 +78,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
-		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' },
-		{
-			name: 'tags',
-			type: 'selector',
-			metadata: {
-				target: 'tag',
-				type: 'entity',
-				labelName: 'name',
-				canCreate: true
-			},
-			multiple: true
-		},
-		{ name: 'description', type: 'textarea', label: 'description' }
+		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' }
 	];
 
 	// those are the custom field for the second form section
@@ -148,13 +130,13 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 				icon: 'comments',
 				fontSet: '',
 				text: 'Comment',
-				action: null
+				action: this.scrollToCommentButton.bind(this)
 			},
 			{
 				icon: 'export',
 				text: 'Share',
 				fontSet: '',
-				action: null
+				action: this.openExportModal.bind(this)
 			}
 		];
 	}
@@ -192,6 +174,13 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	openAddToProject() {
 		this.modalSrv.openAddToProjectDialog([this.product]);
+	}
+	openExportModal() {
+		this.modalSrv.openExportDialog([this.product]);
+	}
+
+	scrollToCommentButton() {
+		this.previewComment.element.nativeElement.scrollIntoView();
 	}
 
 	/** Add a product to workflow */

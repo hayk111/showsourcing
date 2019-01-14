@@ -3,7 +3,8 @@
 		[ngStyle]="{'padding-top': hasLabel ? 'inherit' : '0px'}"
 		[hasLabel]="hasLabel"
 		[inlineLabel]="false"
-		(closed)="updateDescription($event, inpDescription.value)"
+		(closed)="updateDescription($event, inpDescription.value);"
+		(clickOutside)="adaptSize()"
 		(opened)="inpDescription.select();"
 		[canGrow]="true">
 		<label-app>Description</label-app>

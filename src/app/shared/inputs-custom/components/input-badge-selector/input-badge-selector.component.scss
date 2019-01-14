@@ -1,0 +1,14 @@
+:host {
+	display: block;
+}
+
+info-badge-app {
+	display: inline-block;
+	margin-bottom: 5px;
+	cursor: pointer;
+
+	icon-app {
+		font-size: var(--font-size-xxs);
+		margin-left: var(--spacing-xs);
+	}
+}
