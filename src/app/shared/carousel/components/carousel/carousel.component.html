@@ -74,7 +74,6 @@
 		(close)="closeModal()">
 	</modal-carousel-app>
 
-
 	<!-- input used to input files -->
 	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
 
@@ -83,6 +82,7 @@
 <image-previewer-2-app
 	*ngIf="hasPreview"
 	[images]="images"
-	(imageClick)="selectedIndex = $event"></image-previewer-2-app>
+	(imageClick)="selectedIndex = $event">
+</image-previewer-2-app>
 
 
