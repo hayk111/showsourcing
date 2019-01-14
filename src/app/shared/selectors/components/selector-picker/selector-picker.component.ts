@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 import { Category, Product, Project, Supplier, Tag } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
@@ -98,7 +98,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
-		if (this.hasDB) this.choices$ = this.getChoices(this.type);
+		if (this.hasDB) {
+			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
+			if (this.multiple)
+				this.choices$ = this.getChoices(this.type).pipe(
+					map((item) => item.filter(i => !(this.value as Array<any>).some(val => val.id === i.id)))
+				);
+			else
+				this.choices$ = this.getChoices(this.type);
+		}
 		if (this.canCreate) this.isMatch$ = this.searched$.pipe(
 			switchMap(_ => this.choices$.pipe(
 				map(m => m.filter(it => it.name === this.searchTxt)),
@@ -192,6 +200,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		} else {
 			const trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
 			this.update.emit(trimValues);
+			this.selectorSrv.refetch();
 		}
 	}
 
