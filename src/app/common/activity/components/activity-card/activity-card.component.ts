@@ -32,35 +32,35 @@ export class ActivityCardComponent extends AutoUnsub implements OnInit {
 		// this.actor$ = this.userSrv.queryOne(this.activity.actor);
 	}
 
-	get title() {
-		let title = '';
-		// switch (this.activity.verb) {
-		// 	// Product
-		// 	case 'create_comment':
-		// 		title = 'has commented';
-		// 		break;
-		// 	case 'create_product':
-		// 		title = 'created the product';
-		// 		break;
-		// 	case 'vote_product':
-		// 		title = 'has voted';
-		// 		break;
-		// 	case 'update_product':
-		// 		title = 'updated the product';
-		// 		break;
-		// 	// Supplier
-		// 	case 'create_supplier':
-		// 		title = 'created the supplier';
-		// 		break;
-		// 	case 'update_supplier':
-		// 		title = 'updated the supplier';
-		// 		break;
-		// 	default:
-		// 		title = 'has made an update';
-		// 		break;
-		// }
-		return title;
-	}
+	// get title() {
+	// 	// let title = '';
+	// 	// switch (this.activity.verb) {
+	// 	// 	// Product
+	// 	// 	case 'create_comment':
+	// 	// 		title = 'has commented';
+	// 	// 		break;
+	// 	// 	case 'create_product':
+	// 	// 		title = 'created the product';
+	// 	// 		break;
+	// 	// 	case 'vote_product':
+	// 	// 		title = 'has voted';
+	// 	// 		break;
+	// 	// 	case 'update_product':
+	// 	// 		title = 'updated the product';
+	// 	// 		break;
+	// 	// 	// Supplier
+	// 	// 	case 'create_supplier':
+	// 	// 		title = 'created the supplier';
+	// 	// 		break;
+	// 	// 	case 'update_supplier':
+	// 	// 		title = 'updated the supplier';
+	// 	// 		break;
+	// 	// 	default:
+	// 	// 		title = 'has made an update';
+	// 	// 		break;
+	// 	// }
+	// 	// return title;
+	// }
 
 	onEnter(event) {
 		event.preventDefault();

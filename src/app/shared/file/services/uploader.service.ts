@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { delay, first, map, mergeMap, retryWhen, take, tap, switchMap } from 'rxjs/operators';
+import { delay, first, map, mergeMap, retryWhen, take, tap, switchMap, mapTo } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ImageUploadRequestService, ProductService, SupplierClaimService, SupplierService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
@@ -24,15 +24,27 @@ export class UploaderService {
 		private http: HttpClient
 	) { }
 
-	uploadImages(imgs: File[], linkedItem?: any, client?: Client): Observable<any> {
+	uploadImages(imgs: File[], linkedItem?: any, client?: Client): Observable<AppImage[]> {
 		// MaxSize 1200px
 		const uploads$ = imgs.map(img =>
 			resizeSizeToLimit(img, 1200).pipe(
 				first(),
+				tap(imgResized => log.debug(`about to upload image ${imgResized.name}, with size: ${imgResized.size} and type ${imgResized.type}`)),
 				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem, client))
 			)
 		);
-		return forkJoin(uploads$);
+		return forkJoin(uploads$).pipe(
+			// link item (we need to do it after the file is ready else we will have 403)
+			mergeMap((files: AppImage[]) => this.linkItem(files, linkedItem, true)),
+			// add notification
+			tap((files: AppImage[]) => {
+				return this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: `${files.length} image(s) Uploaded with success`,
+					message: 'Your images were uploaded with success'
+				});
+			}),
+		);
 	}
 
 	uploadFiles(files: File[],
@@ -40,7 +52,18 @@ export class UploaderService {
 		client?: Client
 	): Observable<any> {
 		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem, client))).pipe(
-			first());
+			first(),
+			// link item (we need to do it after the file is ready else we will have 403)
+			mergeMap((attachments: any[]) => this.linkItem(attachments, linkedItem, true)),
+			// add notification
+			tap((attachments: Attachment[]) => {
+				return this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: `${files.length} Uploaded with success`,
+					message: 'Your files were uploaded with success'
+				});
+			}),
+		);
 	}
 
 	uploadImage(
@@ -83,16 +106,6 @@ export class UploaderService {
 			mergeMap(_ => this.emitWhenFileReady(request) as any),
 			// putting the request status to uploaded
 			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' }, client)),
-			// link item
-			mergeMap(_file => this.linkItem(returned, linkedItem, isImage), _file => _file),
-			// add notification
-			tap(_ => {
-				return this.notifSrv.add({
-					type: NotificationType.SUCCESS,
-					title: 'File Uploaded',
-					message: 'Your file was uploaded with success'
-				});
-			}),
 			// sending the image back
 			map(_ => returned),
 		);
@@ -153,8 +166,8 @@ export class UploaderService {
 			return this.queryImage(request).pipe(
 				retryWhen(errors =>
 					errors.pipe(
-						delay(2000),
-						take(40)
+						delay(1000),
+						take(15)
 					)
 				)
 			);
@@ -172,20 +185,24 @@ export class UploaderService {
 	}
 
 	/** Link uploaded file to its entity */
-	private linkItem(returned, linkedItem: any, isImage: boolean) {
+	private linkItem(files: AppImage[] | Attachment[], linkedItem: any, isImage: boolean): Observable<AppImage[] | Attachment[]> {
 		if (!linkedItem) {
-			return of('no linked item');
+			return of(files);
 		}
 		const srv = this.ermSrv.getGlobalServiceForEntity(linkedItem);
 
 		if (isImage) {
 			return srv.update({
 				id: linkedItem.id,
-				images: [...linkedItem.images.map(img => ({ id: img.id })), returned]
-			});
+				images: [...linkedItem.images.map(img => ({ id: img.id })), ...files]
+			}).pipe(
+				mapTo(files)
+			);
 		} else {
-			const attachments = [...linkedItem.attachments, returned];
-			return srv.update({ id: linkedItem.id, attachments });
+			const attachments = [...linkedItem.attachments, ...files];
+			return srv.update({ id: linkedItem.id, attachments }).pipe(
+				mapTo(files)
+			);
 		}
 	}
 }

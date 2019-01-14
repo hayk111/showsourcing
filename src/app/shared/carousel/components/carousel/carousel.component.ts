@@ -26,6 +26,10 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** hidden file input */
 	@ViewChild('inpFile') inpFile: ElementRef;
 
+	/** size in px of the main display */
+	@Input() size = 411;
+	@Input() hasPreview = false;
+
 	@Input() set images(images: AppImage[]) {
 		this._images = images;
 	}
@@ -164,6 +168,12 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** closes the modal */
 	closeModal() {
 		this.modalOpen = false;
+	}
+
+	setSelectedIndex(value: number) {
+		this.selectedIndex = value;
+		// change coming from above
+		this.cd.markForCheck();
 	}
 
 }

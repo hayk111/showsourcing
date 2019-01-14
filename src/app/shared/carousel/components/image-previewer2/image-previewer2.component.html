@@ -2,8 +2,10 @@
 	*ngFor="let img of getPreviews(); let i = index; trackBy: trackByFn"
 	(click)="imageClick.emit(i)">
 	<img-app
+		[ngClass]="{ 'pending': img.pending }"
 		[image]="img"
-		size="s"></img-app>
+		size="s">
+	</img-app>
 	<ng-container *ngIf="i === 4">
 		<div class="more flexCenter"
 			*ngIf="images.length > 5">

@@ -1,5 +1,6 @@
 :host{
-	display: block;
+	display: flex;
+	flex-direction: column;
 }
 
 carousel-app {
@@ -7,11 +8,11 @@ carousel-app {
 }
 
 .ctnr {
-	background: var(--color-secondary-light);
 	border-top-left-radius: var(--border-radius);
 	border-top-right-radius: var(--border-radius);
 	position: relative;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
@@ -74,7 +75,7 @@ carousel-app {
 	}
 }
 
-.rotate {
+.add {
 	position: absolute;
 	padding: 0 var(--spacing-m);
 	color: white;
