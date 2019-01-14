@@ -15,12 +15,11 @@
 				<carousel-app
 					#carousel
 					objectFit="contain"
+					[hasPreview]="true"
 					[images]="product?.images"
+					[size]="411"
 					[entity]="product">
 				</carousel-app>
-				<image-previewer-2-app
-					[images]="product?.images"
-					(imageClick)="carousel.setSelectedIndex($event)"></image-previewer-2-app>
 			</card-app>
 
 			<!-- Product information -->

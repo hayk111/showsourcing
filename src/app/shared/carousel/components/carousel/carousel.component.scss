@@ -7,11 +7,11 @@ carousel-app {
 }
 
 .ctnr {
-	background: var(--color-secondary-light);
 	border-top-left-radius: var(--border-radius);
 	border-top-right-radius: var(--border-radius);
 	position: relative;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;

@@ -6,12 +6,14 @@
 		<img-app
 			#imgApp
 			*ngIf="images?.length !== 0; else noImg"
+			[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }"
 			[image]="getImg()"
 			[size]="'xl'"
 			[objectFit]="objectFit"
 			(click)="openModal()"
 			class="pointer">
 		</img-app>
+
 		<!-- no image -->
 		<ng-template #noImg>
 			<div class="flexColumn flexCenter empty">
@@ -72,9 +74,15 @@
 		(close)="closeModal()">
 	</modal-carousel-app>
 
+	<image-previewer-2-app
+		*ngIf="hasPreview"
+		[images]="images"
+		(imageClick)="selectedIndex = $event"></image-previewer-2-app>
+
 	<!-- input used to input files -->
 	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
 
 </div>
+
 
 

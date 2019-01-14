@@ -26,6 +26,10 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** hidden file input */
 	@ViewChild('inpFile') inpFile: ElementRef;
 
+	/** size in px of the main display */
+	@Input() size = 411;
+	@Input() hasPreview = false;
+
 	@Input() set images(images: AppImage[]) {
 		this._images = images;
 	}
