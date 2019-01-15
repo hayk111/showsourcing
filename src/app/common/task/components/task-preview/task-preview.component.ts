@@ -15,13 +15,17 @@ import { AutoUnsub } from '~utils';
 })
 export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 
+	private _task: Task;
 	@Input() set task(value: Task) {
 		this._task = value;
 	}
+	get task() {
+		return this._task;
+	}
+
 	@Output() close = new EventEmitter<null>();
 
 	task$: Observable<Task>;
-	private _task: Task;
 	erm = ERM;
 
 	constructor(

@@ -3,7 +3,6 @@
 	<task-list-app
 		[tasks]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
-		[fullUser]="true"
 		[hasProduct]="true"
 		(toggleMyTasks)="toggleMyTasks($event)"
 		(previewClicked)="listSrv.openPreview($event)"

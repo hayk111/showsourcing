@@ -23,7 +23,7 @@ export class SettingsProfileService {
 
 	// check current password return observable true or false
 	checkCurrentPassword(password: string) {
-		return this.authSrv.checkPassword({ identifier: this.userSrv.userSync.email, password });
+		return this.authSrv.checkPassword({ login: this.userSrv.userSync.email, password });
 	}
 
 	// changes the password return observable true or false
