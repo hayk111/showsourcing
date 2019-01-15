@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { first, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { CommentService } from '~core/entity-services/comment/comment.service';
-import { ProductService } from '~entity-services';
+import { ProductService, UserService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { AppImage, ERM, PreviewActionButton, Product } from '~models';
+import { AppImage, ERM, PreviewActionButton, Product, Comment } from '~models';
 import { CustomField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent } from '~shared/preview';
@@ -108,6 +108,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private modalSrv: CommonModalService,
 		private router: Router,
+		private userSrv: UserService,
 		private workspaceSrv: WorkspaceFeatureService,
 		private commentSrv: CommentService
 	) {
@@ -204,8 +205,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	addComment(comment: Comment) {
+		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
+		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
 		const comments = [...(this._product.comments || [])];
-		comments.push(comment as any);
+		comments.push(commentUser);
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.productSrv.update({ id: this._product.id, comments }))
 		).subscribe();
