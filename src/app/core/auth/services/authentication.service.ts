@@ -60,18 +60,11 @@ export class AuthenticationService {
 		// lower case for email
 		credentials.login = credentials.login.toLowerCase();
 		return this.http.post<{ jwtToken: string, emailValidated: boolean }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
-			tap(resp => this.redirectOnUnvalidatedEmail(resp.emailValidated)),
-			filter(resp => resp.emailValidated),
 			map(resp => resp.jwtToken),
-			switchMap((jwt) => this.tokenSrv.getRealmRefreshToken(jwt))
+			switchMap((jwt) => this.tokenSrv.getRealmRefreshToken(jwt)),
 		);
 	}
 
-	private redirectOnUnvalidatedEmail(isValidated) {
-		if (!isValidated) {
-			this.router.navigate(['auth', 'error-unvalidated-email']);
-		}
-	}
 
 	logout() {
 		this.router.navigate(['auth', 'login']);
@@ -109,7 +102,6 @@ export class AuthenticationService {
 
 		return this.http.post(`${environment.apiUrl}/user/signup`, creds).pipe(
 			map(_ => ({ login: creds.email, password: creds.password })),
-			switchMap(loginCreds => this.login(loginCreds))
 		);
 	}
 

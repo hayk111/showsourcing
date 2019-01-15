@@ -8,7 +8,7 @@ import {
 	ResetPasswordComponent,
 } from './components';
 import { ValidateEmailComponent } from './components/validate-email/validate-email.component';
-import { ErrorUnvalidatedEmailComponent } from './components/error-unvalidated-email/error-unvalidated-email.component';
+import { UnvalidatedEmailComponent } from './components/unvalidated-email/unvalidated-email.component';
 
 export const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
@@ -17,6 +17,6 @@ export const routes: Routes = [
 	{ path: 'register', component: RegistrationComponent },
 	{ path: 'password-resetted', component: PwResettedComponent },
 	{ path: 'account-created', component: AccountCreatedComponent },
-	{ path: 'validate-email', component: ValidateEmailComponent },
-	{ path: 'error-unvalidated-email', component: ErrorUnvalidatedEmailComponent }
+	{ path: 'validate-email/:token', component: ValidateEmailComponent },
+	{ path: 'unvalidated-email', component: UnvalidatedEmailComponent }
 ];

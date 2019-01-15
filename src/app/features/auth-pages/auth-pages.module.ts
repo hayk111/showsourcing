@@ -14,7 +14,7 @@ import {
 } from './components';
 import { routes } from './routes';
 import { ValidateEmailComponent } from './components/validate-email/validate-email.component';
-import { ErrorUnvalidatedEmailComponent } from './components/error-unvalidated-email/error-unvalidated-email.component';
+import { UnvalidatedEmailComponent } from './components/unvalidated-email/unvalidated-email.component';
 
 @NgModule({
 	imports: [
@@ -31,7 +31,7 @@ import { ErrorUnvalidatedEmailComponent } from './components/error-unvalidated-e
 		AuthFormHeaderComponent,
 		AuthFormBaseComponent,
 		ValidateEmailComponent,
-		ErrorUnvalidatedEmailComponent
+		UnvalidatedEmailComponent
 	],
 	exports: [AuthFormBaseComponent]
 })

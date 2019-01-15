@@ -62,6 +62,7 @@ export class TokenService {
 		return refreshToken;
 	}
 
+	/** Pushes token to correct subject */
 	private pushToken(name: string, token?: TokenState) {
 		switch (name) {
 			case 'auth':
@@ -76,6 +77,11 @@ export class TokenService {
 		}
 	}
 
+	/**
+	 *
+	 * @param jwt : jwt
+	 * @param name : name of the token
+	 */
 	getRealmRefreshToken(jwt: string, name = 'auth')
 		: Observable<TokenState> {
 		const refObj = this.getRefreshTokenObject(jwt);
@@ -156,7 +162,6 @@ export class TokenService {
 			}),
 			map(accessTokenResp => accessTokenResp.access_token),
 			tap(tokenState => this.storeAccessToken(tokenState, realmPath)),
-			catchError(e => of(e))
 		);
 	}
 
