@@ -1,5 +1,5 @@
 
-<preview-app cdk-scrollable>
+<preview-app cdk-scrollable *ngIf="product$ | async">
 	<!-- Banner -->
 	<preview-banner-app (closed)="close.emit()">
 		<preview-carousel-app

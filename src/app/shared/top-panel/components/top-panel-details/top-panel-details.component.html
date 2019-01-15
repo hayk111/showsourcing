@@ -17,7 +17,7 @@
 
 	<div class="flex right container action-list">
 
-		<button class="rounded like" title="favorite" toolTip toolTipMessage="Favorite item" [offsetX]="5">
+		<button class="rounded like" [title]="'favorite'" toolTip toolTipMessage="Favorite item" [offsetX]="5">
 			<rating-heart-app
 				[customClassFavorited]="'header-favorited'"
 				[colorNormal]="'color-black'"
@@ -32,12 +32,12 @@
 		<button
 			toolTip toolTipMessage="Export" [offsetX]="8"
 			class="rounded secondary share"
-			title="export"
+			[title]="'export'"
 			(click)="export.emit(data)">
 			<icon-app name="export" size="14"></icon-app>
 		</button>
 
-		<selector2-app type="user" (update)="changeUser.emit($event)" title="assignee" toolTip toolTipMessage="Change assignee" [offsetX]="4">
+		<selector2-app type="user" (update)="changeUser.emit($event)" [title]="'assignee'" toolTip toolTipMessage="Change assignee" [offsetX]="4">
 			<user-picture-app class="pointer" [user]="user" [border]="true"></user-picture-app>
 		</selector2-app>
 		<ng-content select="[action]"></ng-content>
