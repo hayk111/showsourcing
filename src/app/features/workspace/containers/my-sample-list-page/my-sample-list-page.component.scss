@@ -17,12 +17,8 @@ sub-panel-left-item-app {
 
 selection-bar-app {
 
-	.change-status {
+	status-selector-app {
 		margin-right: 45px;
-
-		icon-app {
-			margin-right: 6px;
-		}
 	}
 
 	icon-app.trash-bin {

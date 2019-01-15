@@ -17,6 +17,10 @@ context-menu-app {
 	border-left: 1px solid white;
 	color: white;
 	border-radius: 2px;
+
+	.new {
+		color: var(--color-txt-primary);
+	}
 }
 
 .change-status {

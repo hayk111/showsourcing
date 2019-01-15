@@ -29,7 +29,10 @@ icon-app {
   .badge-name {
     display: inline-block;
     color: white;
-    white-space: nowrap;
+		white-space: nowrap;
+		&.new {
+			color: var(--color-txt-primary);
+		}
   }
   .badge-icon {
     display: inline-block;
@@ -79,7 +82,7 @@ icon-app {
       display: inline-block;
       font-size: 14px;
       font-weight: 600;
-      margin-left: 10px;
+			margin-left: 10px;
     }
     &:hover {
       border-radius: 5px;
