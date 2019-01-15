@@ -1,13 +1,13 @@
 <div *ngIf="type==='badge'" class="badge">
-	<div class="badge-item "  [ngClass]="getType()">
+	<div class="badge-item" [ngClass]="getType()">
 		<div *ngIf="isHaveStatus()" class="badge-name border">{{status?.name | const: 'status'}}</div>
-		<div *ngIf="!isHaveStatus()" class="badge-name">New {{ typeEntity?.singular }}</div>
+		<div *ngIf="!isHaveStatus()" class="badge-name new">New {{ typeEntity?.singular }}</div>
 	</div>
 </div>
 <div *ngIf="type==='list'" class="list">
-	<div class="status-item"   [ngClass]="getType()">
+	<div class="status-item" [ngClass]="getType()">
 		<div class="status-box" [ngClass]="status?.name"></div>
 		<div *ngIf="isHaveStatus()" class="status-name">{{status?.name | const: 'status'}}</div>
-		<div *ngIf="!isHaveStatus()" class="status-name">New {{ typeEntity?.singular }}</div>
+		<div *ngIf="!isHaveStatus()" class="status-name new">New {{ typeEntity?.singular }}</div>
 	</div>
 </div>
