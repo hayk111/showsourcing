@@ -1,12 +1,12 @@
 <div class="flexStart row">
 	<!-- name -->
-	<div class="flex task-name ellipsis pointer">
+	<div class="flex task-name ellipsis {{ hasSupplier && hasProduct ? 'col-35' : 'col-50'}}">
 		<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus()"></icon-app>
-		<div class="flexCenter txtBtn" [ngClass]="{'done': task?.done }" (click)="previewClicked.emit(task)">{{ task?.name || 'Unnamed task' }}</div>
+		<div class="flexCenter txtBtn pointer" [ngClass]="{'done': task?.done }" (click)="previewClicked.emit(task)">{{ task?.name || 'Unnamed task' }}</div>
 	</div>
 
 	<!-- if product -->
-	<div *ngIf="hasProduct" class="flexStart task-product ellipsis">
+	<div *ngIf="hasProduct" class="flexStart task-product ellipsis {{hasSupplier || fullUser ? 'col-25' : 'col-35'}}">
 		<div *ngIf="task?.product" class="flex ellipsis name-container txtBtn" (click)="openProduct.emit(task?.product?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.product?.images"></img-app></div>
 			<div class="text">{{ task?.product?.name || 'Unnamed product' }}</div>
@@ -14,7 +14,7 @@
 	</div>
 
 	<!-- if supplier -->
-	<div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis">
+	<div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis {{hasProduct || fullUser ? 'col-25' : 'col-35'}}">
 		<div *ngIf="task?.supplier" class="flex ellipsis name-container txtBtn" (click)="openSupplier.emit(task?.supplier?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.supplier?.logoImage"></img-app></div>
 			<div class="text">{{ task?.supplier?.name || 'Unnamed suppler' }}</div>
@@ -24,32 +24,33 @@
 	<!-- user+name column -->
 	<selector2-app
 		*ngIf="fullUser"
-		class="flex task-user"
+		class="flex task-user col-25"
 		type="user"
-		[width]="200"
+		[width]="280"
 		[offsetY]="-22"
+		[offsetX]="108"
 		(update)="updateAssignee($event)">
 		<div class="flexVAlign">
 			<!-- we call 2 times the selctor method since it has 2 different styling offsets -->
 			<user-picture-app [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
-			<span>{{ task?.assignee?.firstName }} {{ task?.assignee?.lastName }}</span>
+			<span class="ellipsis">{{ task?.assignee?.firstName }} {{ task?.assignee?.lastName }}</span>
 		</div>
 	</selector2-app>
 
 	<!-- task status -->
-	<div class="flexEnd task-user-status">
+	<div class="flexEnd task-user-status {{fullUser ? 'col-15' : 'col-20'}}">
 		<selector2-app
 			*ngIf="!fullUser"
 			type="user"
-			[width]="230"
+			[width]="310"
 			[offsetY]="-22"
-			[offsetX]="-115"
+			[offsetX]="85"
 			(update)="updateAssignee($event)">
 			<user-picture-app
-				[user]="task?.assignee"	[size]="20"	[border]="true">
+				class="pointer" [user]="task?.assignee"	[size]="20"	[border]="true">
 			</user-picture-app>
 		</selector2-app>
-		<div class="flex task-status"
+		<div class="flex task-status pointer"
 			[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}"
 			(click)="toggleDoneStatus()">
 			<icon-app name="circle" fontSet="fa"></icon-app>
