@@ -1,4 +1,4 @@
-<preview-app cdk-scrollable *ngIf="task$ | async as task">
+<preview-app cdk-scrollable *ngIf="task$ | async">
 	<!-- Banner -->
 	<preview-banner-app (closed)="close.emit()">
 		<banner-task-app

@@ -15,13 +15,17 @@ import { Sample, ERM, Comment } from '~core/models';
 })
 export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 
+	private _sample: Sample;
 	@Input() set sample(value: Sample) {
 		this._sample = value;
 	}
+	get sample() {
+		return this._sample;
+	}
+
 	@Output() close = new EventEmitter<null>();
 
 	sample$: Observable<Sample>;
-	private _sample: Sample;
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;

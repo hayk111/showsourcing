@@ -2,7 +2,6 @@
 	padding-right: var(--spacing-ms);
 
 	.task-name {
-		width: 55%;
 		color: var(--color-txt-strong);
 
 		icon-app {
@@ -29,7 +28,6 @@
 	}
 
 	.task-product, .task-supplier {
-		width: 30%;
 		img-app {
 			margin-right: var(--spacing-s);
 			height: 20px;
@@ -46,18 +44,12 @@
 	}
 
 	.task-user {
-		width: 40%;
 		margin-left: var(--spacing-ms);
-
-		& ~ div.task-user-status {
-			width: 25%;
-		}
 	}
 
 
 
 	.task-user-status {
-		width: 40%;
 
 		.task-status {
 			padding-top: 2px;
