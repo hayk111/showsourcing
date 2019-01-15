@@ -46,10 +46,18 @@
 	</context-menu-app>
 
 	<ng-container *ngIf="type === 'button'">
-		<div *ngIf="!isLast()" class="pointer caretCtnr bg-{{ entity?.status.category }}" (click)="next()">
-			<icon-app fontSet="fa" name="caret-right"></icon-app>
+		<div
+			*ngIf="!isLast()"
+			toolTip toolTipMessage="Next status {{getNextStatus()?.name | const: 'status'}}" toolTipPosition="above-right" [offsetX]="26"
+			class="pointer caretCtnr bg-{{ entity?.status.category }}"
+			(click)="next()">
+			<icon-app fontSet="fa" name="caret-right" ></icon-app>
 		</div>
-		<div *ngIf="isLast()" class="pointer caretCtnr bg-{{ entity?.status.category }}" (click)="previous()">
+		<div
+			*ngIf="isLast()"
+			toolTip toolTipMessage="Previous status {{getPreviousStatus()?.name | const: 'status'}}" toolTipPosition="above-right" [offsetX]="20"
+			class="pointer caretCtnr bg-{{ entity?.status.category }}"
+			(click)="previous()">
 			<icon-app fontSet="fa" name="caret-left"></icon-app>
 		</div>
 	</ng-container>

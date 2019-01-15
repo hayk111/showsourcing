@@ -8,21 +8,22 @@ import { DividerModule } from '~shared/divider/divider.module';
 import { EditableFieldModule } from '~shared/editable-field';
 import { FiltersModule } from '~shared/filters/filters.module';
 import { IconsModule } from '~shared/icons';
+import { ListModule } from '~shared/list/list.module';
 import { LoadersModule } from '~shared/loaders';
+import { RatingModule } from '~shared/rating';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { BreadCrumbComponent } from '~shared/top-panel/components/bread-crumb/bread-crumb.component';
 import { SubPanelComponent } from '~shared/top-panel/components/sub-panel/sub-panel.component';
 import { TopPanelComponent } from '~shared/top-panel/components/top-panel/top-panel.component';
 import { ViewSwitcherComponent } from '~shared/top-panel/components/view-switcher/view-switcher.component';
+import { UserPictureModule } from '~shared/user-picture/user-picture.module';
+import { UtilsModule } from '~shared/utils';
 
 import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
 import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
 import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
-import { ListModule } from '~shared/list/list.module';
-import { RatingModule } from '~shared/rating';
-import { UserPictureModule } from '~shared/user-picture/user-picture.module';
-import { SelectorsModule } from '~shared/selectors/selectors.module';
 
 @NgModule({
 	imports: [
@@ -42,7 +43,8 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 		RatingModule,
 		UserPictureModule,
 		EditableFieldModule,
-		SelectorsModule
+		SelectorsModule,
+		UtilsModule
 	],
 	declarations: [
 		TopPanelComponent,

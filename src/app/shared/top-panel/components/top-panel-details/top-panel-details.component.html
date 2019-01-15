@@ -17,23 +17,28 @@
 
 	<div class="flex right container action-list">
 
-		<button class="rounded like" title="favorite">
+		<button class="rounded like" title="favorite" toolTip toolTipMessage="Favorite item" [offsetX]="5">
 			<rating-heart-app
-			[customClassFavorited]="'header-favorited'"
-			[colorNormal]="'color-black'"
-			[colorFavorite]="''"
-			[favorite]="data?.favorite"
-			size="14"
-			(favorited)="favorited.emit(data)"
-			(unfavorited)="unfavorited.emit(data)"></rating-heart-app>
+				[customClassFavorited]="'header-favorited'"
+				[colorNormal]="'color-black'"
+				[colorFavorite]="''"
+				[favorite]="data?.favorite"
+				size="14"
+				(favorited)="favorited.emit(data)"
+				(unfavorited)="unfavorited.emit(data)">
+			</rating-heart-app>
 		</button>
 
-		<button class="rounded secondary share" (click)="export.emit(data)" title="export">
+		<button
+			toolTip toolTipMessage="Export" [offsetX]="8"
+			class="rounded secondary share"
+			title="export"
+			(click)="export.emit(data)">
 			<icon-app name="export" size="14"></icon-app>
 		</button>
 
-		<selector2-app type="user" (update)="changeUser.emit($event)" title="assignee">
-			<user-picture-app [user]="user" [border]="true"></user-picture-app>
+		<selector2-app type="user" (update)="changeUser.emit($event)" title="assignee" toolTip toolTipMessage="Change assignee" [offsetX]="4">
+			<user-picture-app class="pointer" [user]="user" [border]="true"></user-picture-app>
 		</selector2-app>
 		<ng-content select="[action]"></ng-content>
 	</div>

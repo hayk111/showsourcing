@@ -10,6 +10,8 @@ import { ImageModule } from '~shared/image/image.module';
 import { LoadersModule } from '~shared/loaders/loaders.module';
 import { RatingModule } from '~shared/rating';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
 	imports: [
@@ -20,7 +22,9 @@ import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 		RatingModule,
 		ImageModule,
 		LoadersModule,
-		ContextMenuModule
+		ContextMenuModule,
+		SelectorsModule,
+		OverlayModule
 	],
 	declarations: [
 		ModalCarouselComponent,

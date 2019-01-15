@@ -9,13 +9,12 @@ import {
 	Input,
 	OnInit,
 	ViewContainerRef,
-	Renderer2,
 } from '@angular/core';
 
 import { TooltipComponent } from './tooltip.component';
 
 
-export type TooltipPosition = 'above' | 'below' | 'left' | 'right';
+export type TooltipPosition = 'above-right' | 'above-left' | 'below-right' | 'below-left' | 'left' | 'right';
 
 @Directive({
 	selector: '[toolTip]'
@@ -23,9 +22,11 @@ export type TooltipPosition = 'above' | 'below' | 'left' | 'right';
 export class TooltipDirective implements OnInit {
 
 	@Input() toolTipMessage = 'Insert tool tip message';
-	@Input() toolTipPosition: TooltipPosition = 'below';
+	@Input() toolTipPosition: TooltipPosition = 'below-left';
 	@Input() toolTipShowDelay = 400;
 	@Input() toolTipHideDelay = 100;
+	@Input() offsetX = 0;
+	@Input() offsetY = 0;
 
 	private tooltipPortalHost: DomPortalHost;
 	private templatePortal: TemplatePortal<any>;
@@ -35,6 +36,9 @@ export class TooltipDirective implements OnInit {
 
 	// margin between the tooltip and the element
 	margin = 5;
+
+	// only for a small condition when setting position, we need to know if its the first time loading it or not
+	firstTime = true;
 
 	@HostListener('mouseenter')
 	onMouseEnter() {
@@ -56,8 +60,8 @@ export class TooltipDirective implements OnInit {
 	ngOnInit() {
 		this.tooltipPortalHost = new DomPortalHost(
 			// Create the Portal Host on the parent element
-			(this.elementRef.nativeElement as HTMLElement).parentElement,
-			// document.body,
+			// (this.elementRef.nativeElement as HTMLElement).parentElement,
+			document.body,
 			this.componentFR,
 			this.appRef,
 			this.injector
@@ -89,7 +93,7 @@ export class TooltipDirective implements OnInit {
 				this._showTimeOutId = null;
 				// we attach the first time to know the bounding rectangle of the item
 				this.tooltipPortalHost.attach(this.templatePortal);
-				const boundPortal = this.tooltipPortalHost.outletElement.getElementsByClassName('tooltip')[0].getBoundingClientRect();
+				const boundPortal = this.tooltipPortalHost.outletElement.getElementsByClassName('tooltip-directive')[0].getBoundingClientRect();
 				// we detach it since we only wanted the rectangle
 				this.tooltipPortalHost.detach();
 				this.setPosition(boundPortal);
@@ -124,14 +128,25 @@ export class TooltipDirective implements OnInit {
 		// the element that we hover
 		const nativeEl = this.elementRef.nativeElement;
 		const bound = nativeEl.getBoundingClientRect();
+		// for some reason when it loads the second time the same element, the bound.x is displaced 6px
+		if (!this.firstTime) bound.x = bound.x - 6;
+		this.firstTime = false;
 		switch (this.toolTipPosition) {
-			case 'above':
+			case 'above-right':
 				bound.y = bound.y - bound.height - arrowSize - this.margin;
 				result = - (boundPortalContent.width - bound.width);
 				transform = `translateX(${result}px)`;
 				break;
-			case 'below':
+			case 'above-left':
+				bound.y = bound.y - bound.height - arrowSize - this.margin;
+				break;
+			case 'below-left':
 				bound.y = bound.y + bound.height + arrowSize + this.margin;
+				break;
+			case 'below-right':
+				bound.y = bound.y + bound.height + arrowSize + this.margin;
+				result = - (boundPortalContent.width - bound.width);
+				transform = `translateX(${result}px)`;
 				break;
 			case 'right':
 				bound.x = bound.x + bound.width + arrowSize + this.margin;
@@ -142,7 +157,11 @@ export class TooltipDirective implements OnInit {
 				transform = `translateX(${result}px)`;
 				break;
 		}
+		bound.x += this.offsetX;
+		bound.y += this.offsetY;
 		// we update the context of the template with the offsets
-		this.templatePortal.context = { ...this.templatePortal.context, boundPosition: bound, transform };
+		this.templatePortal.context = {
+			...this.templatePortal.context, boundPosition: bound, transform
+		};
 	}
 }
