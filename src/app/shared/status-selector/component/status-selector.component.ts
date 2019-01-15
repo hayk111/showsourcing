@@ -59,7 +59,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	updateStatus(status) {
 		if (!this.internalUpdate) {
 			this.statusUpdated.emit(status);
-		} else if (status.id !== this.entity.status.id) {
+		} else if (status && status.id !== this.entity.status.id) {
 			// we dont update if we click the same
 			this.statusSlctSrv.updateStatus({
 				id: this.entity.id,
@@ -124,15 +124,21 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		return this.entity.status.step >= lastStep;
 	}
 
-	next() {
+	getNextStatus() {
 		const nextStep = this.entity.status.step + 1;
-		const next = this.statuses.find(status => status.step === nextStep);
-		return this.updateStatus(next);
+		return this.statuses ? this.statuses.find(status => status.step === nextStep) : null;
+	}
+
+	next() {
+		return this.updateStatus(this.getNextStatus());
+	}
+
+	getPreviousStatus() {
+		const previousStep = this.entity.status.step - 1;
+		return this.statuses ? this.statuses.find(status => status.step === previousStep) : null;
 	}
 
 	previous() {
-		const previousStep = this.entity.status.step - 1;
-		const previous = this.statuses.find(status => status.step === previousStep);
-		return this.updateStatus(previous);
+		return this.updateStatus(this.getPreviousStatus());
 	}
 }

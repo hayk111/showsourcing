@@ -1,6 +1,6 @@
 <ng-template #tooltip let-tooltipText let-boundPosition="boundPosition" let-position="position" let-transform="transform">
-	<div #toolBox class="tooltip {{position}}"
+	<div #toolBox class="tooltip-directive {{position}}"
 		[ngStyle]="getStyle(boundPosition, transform)">
-		{{ tooltipText }}
+		<span>{{ tooltipText }}</span>
 	</div>
 </ng-template>

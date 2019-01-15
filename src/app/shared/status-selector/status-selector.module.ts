@@ -19,7 +19,6 @@ import { DividerModule } from '~shared/divider/divider.module';
 	],
 	declarations: [StatusSelectorComponent],
 	exports: [StatusSelectorComponent],
-	// TODO Uncomment when fixed problem with pages
 	providers: [
 		StatusSelectorService
 	]

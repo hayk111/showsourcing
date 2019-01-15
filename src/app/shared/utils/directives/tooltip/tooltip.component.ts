@@ -12,8 +12,6 @@ export class TooltipComponent {
 
 	constructor() { }
 
-
-
 	getStyle(bound, transform) {
 		const style = bound ? {
 			top: bound.y + 'px',
