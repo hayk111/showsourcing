@@ -206,9 +206,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	addComment(comment: Comment) {
 		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
-		const commUser = { ...comment, createdBy: this.userSrv.userSync };
+		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
 		const comments = [...(this._product.comments || [])];
-		comments.push(commUser);
+		comments.push(commentUser);
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.productSrv.update({ id: this._product.id, comments }))
 		).subscribe();

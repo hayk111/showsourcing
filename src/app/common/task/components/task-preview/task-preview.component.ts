@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { takeUntil, switchMap } from 'rxjs/operators';
-import { TaskService, ContactService } from '~entity-services';
-import { ERM, Task } from '~models';
-import { AutoUnsub } from '~utils';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommentService } from '~core/entity-services/comment/comment.service';
+import { TaskService, UserService } from '~entity-services';
+import { ERM, Task, Comment } from '~models';
+import { AutoUnsub } from '~utils';
 
 
 @Component({
@@ -26,6 +26,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private commentSrv: CommentService,
+		private userSrv: UserService,
 		private taskSrv: TaskService
 	) {
 		super();
@@ -46,8 +47,10 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	addComment(comment: Comment) {
+		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
+		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
 		const comments = [...(this._task.comments || [])];
-		comments.push(comment as any);
+		comments.push(commentUser);
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.taskSrv.update({ id: this._task.id, comments }))
 		).subscribe();

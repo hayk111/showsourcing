@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { takeUntil, switchMap } from 'rxjs/operators';
-import { SampleService } from '~core/entity-services';
-import { Comment, ERM, Sample } from '~core/models';
+import { SampleService, UserService } from '~core/entity-services';
 import { CustomField } from '~shared/dynamic-forms';
 import { AutoUnsub } from '~utils';
 import { CommentService } from '~core/entity-services/comment/comment.service';
+import { Sample, ERM, Comment } from '~core/models';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -43,6 +43,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private commentSrv: CommentService,
+		private userSrv: UserService,
 		private sampleSrv: SampleService) {
 		super();
 	}
@@ -63,8 +64,10 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	addComment(comment: Comment) {
+		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
+		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
 		const comments = [...(this._sample.comments || [])];
-		comments.push(comment as any);
+		comments.push(commentUser as any);
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.sampleSrv.update({ id: this._sample.id, comments }))
 		).subscribe();

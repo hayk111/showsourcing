@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { AutoUnsub } from '~utils';
-import { Supplier, ERM, AppImage } from '~core/models';
+import { Supplier, ERM, AppImage, Comment } from '~core/models';
 import { Observable, of } from 'rxjs';
 import { CustomField } from '~shared/dynamic-forms';
-import { SupplierService, ContactService } from '~core/entity-services';
+import { SupplierService, ContactService, UserService } from '~core/entity-services';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { CommentService } from '~core/entity-services/comment/comment.service';
@@ -61,6 +61,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private supplierSrv: SupplierService,
 		private commentSrv: CommentService,
+		private userSrv: UserService,
 		private constPipe: ConstPipe) {
 		super();
 	}
@@ -86,8 +87,10 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	addComment(comment: Comment) {
+		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
+		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
 		const comments = [...(this.supplier.comments || [])];
-		comments.push(comment as any);
+		comments.push(commentUser);
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.supplierSrv.update({ id: this.supplier.id, comments }))
 		).subscribe();
