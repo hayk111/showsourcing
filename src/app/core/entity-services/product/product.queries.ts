@@ -21,16 +21,16 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly category = `category { id, name }`;
 	static readonly projects = `projects { id, name, description }`;
-	static readonly event = ` event { id, name, description { id logoImage { id, urls { url } } } }`;
+	static readonly event = ` event { id, name, description { id logoImage { id, urls { id, url } } } }`;
 	static readonly status = `status { id, name, category, step, inWorkflow }`;
 	static readonly tags = `tags { id, name }`;
 	// uncomment and replace when the Image.creationDate bug is fixed on votes, avatar { id, fileName, imageType, creationDate }
 	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
-	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, urls { url } } }`;
+	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, urls { id, url } } }`;
 	static readonly comments = `comments { id, text, ${ProductQueries.createdBy}, creationDate }`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
-	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { url } }}`;
+	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { id, url } }}`;
 	// This is the default selection when using selectOne or queryOne
 	static readonly one = `
 			name,

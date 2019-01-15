@@ -133,7 +133,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** start downloading the image */
 	download() {
 		const img = this.getImg();
-		saveAs(img.urls[5].url, img.fileName);
+		// saveAs(img.urls[5].url, img.fileName);
 	}
 
 	getImg() {
