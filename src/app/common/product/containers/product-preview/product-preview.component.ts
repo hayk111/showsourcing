@@ -146,7 +146,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.product$ = this.productSrv.selectOne(this.product.id);
 		this.product$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(product => { this.product = product; console.log(product); });
+			.subscribe(product => this.product = product);
 	}
 
 	updateProduct(productConfig: any) {
