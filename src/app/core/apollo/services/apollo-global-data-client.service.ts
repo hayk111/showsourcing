@@ -31,12 +31,12 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 
 	init(refreshToken: TokenState): Observable<Client> {
 		this.checkNotAlreadyInit();
-
-		const uri = `${environment.graphqlUrl}/${this.client}`;
+		const userId = refreshToken.token_data.identity;
+		const uri = `${environment.graphqlUrl}/${this.client}/__partial/${userId}`;
 
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
-		return this.tokenSrv.getAccessToken(refreshToken, this.client).pipe(
+		return this.tokenSrv.getAccessToken(refreshToken, `${this.client}/__partial/${userId}`).pipe(
 			switchMap(token => this.createClient(uri, this.client, token)),
 			tap(_ => this.apolloState.setClientReady(this.client)),
 			catchError(e => this.onError(e)),

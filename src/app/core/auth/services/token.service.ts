@@ -62,6 +62,7 @@ export class TokenService {
 		return refreshToken;
 	}
 
+	/** Pushes token to correct subject */
 	private pushToken(name: string, token?: TokenState) {
 		switch (name) {
 			case 'auth':
@@ -76,14 +77,15 @@ export class TokenService {
 		}
 	}
 
-	getRefreshToken(credentials: Credentials, name = 'auth')
+	/**
+	 *
+	 * @param jwt : jwt
+	 * @param name : name of the token
+	 */
+	getRealmRefreshToken(jwt: string, name = 'auth')
 		: Observable<TokenState> {
-		const refObj = this.getRefreshTokenObject(credentials, 'password');
+		const refObj = this.getRefreshTokenObject(jwt);
 		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, refObj).pipe(
-			// if there is an error with the new auth mech, we have to try the legacy one
-			catchError(e => of(this.getRefreshTokenObject(credentials, 'legacy')).pipe(
-				switchMap(refObjLeg => this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, refObjLeg))
-			)),
 			map((refreshTokenResp: RefreshTokenResponse) => refreshTokenResp.refresh_token),
 			tap((refreshToken: TokenState) => this.storeRefreshToken(name, refreshToken)),
 			catchError(err => {
@@ -93,17 +95,12 @@ export class TokenService {
 		);
 	}
 
-	getRefreshTokenObject(credentials: Credentials, provider: 'password' | 'legacy')
+	private getRefreshTokenObject(jwt: string)
 		: RefreshTokenPostBody {
 		return {
 			app_id: '',
-			provider,
-			data: credentials.identifier,
-			user_info: {
-				register: false,
-				email: credentials.identifier,
-				password: credentials.password
-			}
+			provider: 'jwt',
+			data: jwt,
 		};
 	}
 
@@ -165,7 +162,6 @@ export class TokenService {
 			}),
 			map(accessTokenResp => accessTokenResp.access_token),
 			tap(tokenState => this.storeAccessToken(tokenState, realmPath)),
-			catchError(e => of(e))
 		);
 	}
 

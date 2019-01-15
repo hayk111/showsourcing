@@ -38,7 +38,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 		this.listForm = [{
 			label: 'Email',
 			type: 'email',
-			name: 'identifier',
+			name: 'login',
 			isRequired: true,
 			autoComplete: 'current-email',
 			placeHolder: 'example@showsourcing.com',
@@ -70,15 +70,21 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 			this.srv.login(form.value).pipe(
 				takeUntil(this._destroy$),
 			).subscribe(
-				r => this.router.navigateByUrl(this.queryParams.returnUrl),
+				r => this.onSuccess(r),
 				e => this.onError(e)
 			);
 		}
 	}
 
+	onSuccess(r: any) {
+		this.router.navigateByUrl(this.queryParams.returnUrl);
+	}
+
 	onError(error: any) {
-		if (error.error && error.error.status === 401)
+		if (error.status === 401)
 			this.error = 'Incorrect credentials';
+		else if (error.status === 403)
+			this.error = 'Email not validated, please check your inbox';
 		else
 			this.error = 'Submition failed, please try again in a short while';
 

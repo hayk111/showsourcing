@@ -4,7 +4,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
-import { Observable, Observer, Subject, of } from 'rxjs';
+import { Observable, Observer, Subject, of, throwError } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
@@ -70,7 +70,7 @@ export abstract class AbstractApolloClient {
 
 	protected onError(e) {
 		this.apolloState.setClientError(this.client, e);
-		return of(e);
+		return throwError(e);
 	}
 
 	/**
