@@ -7,6 +7,7 @@ import {
 	HostListener,
 	Injector,
 	Input,
+	OnChanges,
 	OnInit,
 	ViewContainerRef,
 } from '@angular/core';
@@ -19,7 +20,7 @@ export type TooltipPosition = 'above-right' | 'above-left' | 'below-right' | 'be
 @Directive({
 	selector: '[toolTip]'
 })
-export class TooltipDirective implements OnInit {
+export class TooltipDirective implements OnInit, OnChanges {
 
 	@Input() toolTipMessage = 'Insert tool tip message';
 	@Input() toolTipPosition: TooltipPosition = 'below-left';
@@ -80,6 +81,18 @@ export class TooltipDirective implements OnInit {
 				position: this.toolTipPosition
 			}
 		);
+	}
+
+	ngOnChanges() {
+		if (this.tooltipPortalHost) {
+			const boundPortal = this.tooltipPortalHost.outletElement.getElementsByClassName('tooltip-directive')[0];
+			if (boundPortal) {
+				this.setPosition(boundPortal.getBoundingClientRect());
+				this.templatePortal.context = {
+					...this.templatePortal.context, $implicit: this.toolTipMessage
+				};
+			}
+		}
 	}
 
 	private show() {
@@ -161,7 +174,7 @@ export class TooltipDirective implements OnInit {
 		bound.y += this.offsetY;
 		// we update the context of the template with the offsets
 		this.templatePortal.context = {
-			...this.templatePortal.context, boundPosition: bound, transform
+			...this.templatePortal.context, $implicit: this.toolTipMessage, boundPosition: bound, transform
 		};
 	}
 }

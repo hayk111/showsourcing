@@ -89,7 +89,7 @@
 
 	</ng-container>
 
-	<selector-button-row-app #abstract *ngIf="canCreate && (isMatch$ | async)" class="selector-row" [type]="type" [searchTxt]="searchTxt" (click)="create()"></selector-button-row-app>
+	<selector-button-row-app #abstract *ngIf="canCreate && !(nameExists$ | async)" class="selector-row" [type]="type" [searchTxt]="searchTxt" (click)="create()"></selector-button-row-app>
 
 </div>
 

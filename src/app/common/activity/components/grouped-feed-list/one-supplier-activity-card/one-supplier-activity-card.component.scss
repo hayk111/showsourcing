@@ -38,13 +38,6 @@ one-activity-carousel-app {
 		font-size: var(--font-size-m);
 		margin-bottom: var(--spacing-s);
 
-		& > * {
-			//for each children that is not the first one we add some spaces and bullet dots on the content
-			&:not(:first-child)::before {
-				content: "\00a0 \00a0 \2022 \00a0 \00a0";
-    		font-weight: bolder;
-			}
-		}
 		stats-icons-app {
 			margin-right: -8px;
 		}

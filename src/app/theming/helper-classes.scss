@@ -168,3 +168,13 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 }
+
+.dot-separator {
+	& > * {
+		//for each children that is not the first one we add some spaces and bullet dots on the content
+		&:not(:first-child)::before {
+			content: "\00a0 \00a0 \2022 \00a0 \00a0"; // 00a0 is a space and 2022 is the bullet
+			font-weight: bolder;
+		}
+	}
+}
