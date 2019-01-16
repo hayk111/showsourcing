@@ -4,8 +4,8 @@
 	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container pointer">
 		<selector2-app
 			type="product"
-			[offsetY]="-22"
-			[offsetX]="22"
+			[offsetY]="offsetY"
+			[offsetX]="offsetX"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -20,8 +20,8 @@
 	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer">
 		<selector2-app
 			type="supplier"
-			[offsetY]="-22"
-			[offsetX]="22"
+			[offsetY]="offsetY"
+			[offsetX]="offsetX"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -36,8 +36,8 @@
 	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container pointer">
 		<selector2-app
 			type="supplierType"
-			[offsetY]="-22"
-			[offsetX]="22"
+			[offsetY]="offsetY"
+			[offsetX]="offsetX"
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
@@ -51,8 +51,8 @@
 	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container pointer">
 		<selector2-app
 			type="country"
-			[offsetY]="-22"
-			[offsetX]="22"
+			[offsetY]="offsetY"
+			[offsetX]="offsetX"
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
@@ -69,8 +69,8 @@
 			[value]="value"
 			[canCreate]="true"
 			[multiple]="multiple"
-			[offsetY]="-22"
-			[offsetX]="22"
+			[offsetY]="offsetY"
+			[offsetX]="offsetX"
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex category-label">

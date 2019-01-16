@@ -2,6 +2,8 @@
 .action-button-container {
 	display: inline-block;
 	margin: var(--spacing-ms) var(--spacing-m);
+	margin-top: 0;
+
 	.round-button {
     display: inline-grid;
 		width: var(--spacing-xxl);

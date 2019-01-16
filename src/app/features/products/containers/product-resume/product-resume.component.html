@@ -18,6 +18,7 @@
 			<preview-badge-app
 				[badge]="erm.SUPPLIER"
 				[value]="product?.supplier?.name"
+				[offsetX]="210"
 				(update)="update($event, 'supplier')">
 			</preview-badge-app>
 
@@ -25,6 +26,7 @@
 			<preview-badge-app
 				[badge]="erm.CATEGORY"
 				[value]="product?.category"
+				[offsetX]="210"
 				(update)="update($event, 'category')">
 			</preview-badge-app>
 		</preview-header-app>
@@ -32,7 +34,6 @@
 		<!-- Description -->
 		<preview-section-app [title]="'Description'">
 			<input-description-app
-				[isBig]="true"
 				[description]="product?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
@@ -43,7 +44,7 @@
 			<input-badge-selector-app
 				[value]="product?.tags"
 				type="tag"
-				[offsetX]="-330"
+				[offsetX]="15"
 				(change)="update($event, 'tags')">
 			</input-badge-selector-app>
 		</preview-section-app>
