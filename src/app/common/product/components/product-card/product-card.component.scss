@@ -60,12 +60,12 @@
 			display: none;
 			max-width: 200px;
 			height: 107px;
-			align-items: flex-start;
+			align-items: flex-flex-start;
 		}
 
 		.mainCell {
 			display: flex;
-			align-items: flex-start;
+			align-items: flex-flex-start;
 
       .imgCtnr {
 				border-radius: var(--border-radius);
@@ -127,7 +127,7 @@
 			.description {
 				display: flex;
 				flex-direction: column;
-				align-items: start;
+				align-items: flex-start;
 				max-width: 200px;
 				height: 107px;
 
