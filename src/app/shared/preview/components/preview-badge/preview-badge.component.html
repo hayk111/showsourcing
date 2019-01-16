@@ -76,7 +76,7 @@
 			<div class="flex category-label">
 				<icon-app name="category" backgroundColor="accent"></icon-app>
 				<div class="flex flexWrap">
-					<div *ngIf="value?.length; else noArray" class="ellipsis category-info">
+					<div *ngIf="value?.length; else noArray" class="ellipsis category-info dot-separator">
 						<span *ngFor="let category of value"> {{ category?.name }}  </span>
 					</div>
 					<ng-template #noArray>

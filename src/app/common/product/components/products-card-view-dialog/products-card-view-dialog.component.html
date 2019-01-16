@@ -1,7 +1,8 @@
 <div class="card-container" infiniScroll (bottomReached)="bottomReached.emit()">
   <div *ngFor="let product of rows; trackBy: trackById"
        class="item">
-    <product-card-app class="marginSmall"
+		<product-card-app
+			class="marginSmall"
       [checked]="isSelected(product)"
       [product]="product"
       [highlightOnChecked]="true"

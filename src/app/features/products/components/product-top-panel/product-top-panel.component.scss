@@ -13,12 +13,9 @@ img-app {
 	}
 }
 
-[subinfo] {
+.info-container {
 	font-size: var(--font-size-m);
 
-	& > * {
-		margin-right: var(--spacing-xs);
-	}
 	.price {
 		color: var(--color-primary);
 	}
