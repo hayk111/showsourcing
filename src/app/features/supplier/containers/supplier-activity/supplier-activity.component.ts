@@ -17,9 +17,6 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './supplier-activity.component.html',
 	styleUrls: ['./supplier-activity.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'flex'
-	}
 })
 export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 

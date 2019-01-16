@@ -1,12 +1,5 @@
 :host {
-	display: flex;
-	flex-direction: column;
-	padding: 0 var(--spacing-m);
-}
-
-card-app {
-	padding-bottom: 0px;
-	margin: 0;
+	display: block;
 }
 
 .container {

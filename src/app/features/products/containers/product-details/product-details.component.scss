@@ -12,11 +12,6 @@ $width-left: 452px;
 
 	.left {
 		width: $width-left;
-
-		project-card-app, product-team-rating-app, supplier-card-app {
-			width: 420px;
-			margin-top: var(--spacing-l);
-		}
 	}
 
 	.right {
@@ -26,11 +21,6 @@ $width-left: 452px;
 
 .selected {
   color: var(--color-primary);
-}
-
-// TODO: need another solution
-files-card-app {
-	margin-right: -12px;
 }
 
 
