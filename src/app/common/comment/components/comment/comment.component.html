@@ -11,5 +11,5 @@
 		<span class="date flexCenter">{{ comment?.creationDate | timeAgo }}</span>
 	</div>
 	<!-- comment content -->
-	<div [innerHtml]="urlify(comment?.text)"></div>
+	<div class="text" [innerHtml]="urlify(comment?.text)"></div>
 </div>
