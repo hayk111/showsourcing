@@ -1,7 +1,6 @@
-import gql from 'graphql-tag';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
-export abstract class FileUploadRequestQueries extends GlobalQueries {
+export abstract class AttachmentUploadRequestQueries extends GlobalQueries {
 
 
 	static readonly one = `

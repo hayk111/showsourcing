@@ -1,5 +1,4 @@
-export * from './new-contact-dlg/new-contact-dlg.component';
-export * from './new-supplier-dlg/new-supplier-dlg.component';
+
 export * from './supplier-activity/supplier-activity.component';
 export * from './supplier-details/supplier-details.component';
 export * from './supplier-general-info/supplier-general-info.component';

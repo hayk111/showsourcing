@@ -25,5 +25,4 @@ export abstract class ProjectQueries extends GlobalQueries {
 		description,
 		deleted,
 		${ProjectQueries.productsCount}`;
-
 }

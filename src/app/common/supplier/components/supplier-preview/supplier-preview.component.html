@@ -2,6 +2,7 @@
 	*ngIf="supplier$ | async"
 	[ngClass]="isRelative ? 'relative' : ''"
 	cdk-scrollable
+	[align]="isRelative ? 'left' : 'right'"
 	[isFixed]="isFixed">
 
 		<!-- Banner -->

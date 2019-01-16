@@ -9,6 +9,7 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
 import { ListPageService } from '~core/list-page';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-root',
@@ -24,7 +25,8 @@ export class AppComponent implements OnInit {
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
 		private companySrv: CompanyService,
-		private tokenSrv: TokenService
+		private tokenSrv: TokenService,
+		private route: ActivatedRoute
 	) { }
 
 	ngOnInit(): void {
@@ -47,6 +49,7 @@ export class AppComponent implements OnInit {
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
 		).subscribe();
+
 	}
 
 	private startBaseClients(): Observable<Client[]> {

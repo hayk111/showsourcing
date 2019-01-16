@@ -26,8 +26,6 @@ import {
 	SupplierTopCardComponent,
 } from './components';
 import {
-	NewContactDlgComponent,
-	NewSupplierDlgComponent,
 	SupplierActivityComponent,
 	SupplierDetailsComponent,
 	SupplierGeneralInfoComponent,
@@ -56,8 +54,6 @@ import { SupplierFeatureService } from './services';
 		ProductCommonModule
 	],
 	declarations: [
-		NewContactDlgComponent,
-		NewSupplierDlgComponent,
 		SupplierActivityComponent,
 		SupplierContactCardComponent,
 		SupplierContactComponent,
@@ -80,7 +76,7 @@ import { SupplierFeatureService } from './services';
 		SupplierTopCardComponent,
 		SuppliersPageComponent
 	],
-	entryComponents: [NewSupplierDlgComponent, NewContactDlgComponent],
+	entryComponents: [],
 	exports: [SuppliersPageComponent],
 	providers: [
 		SupplierFeatureService

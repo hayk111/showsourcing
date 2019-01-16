@@ -18,4 +18,5 @@ export class AppImage extends EntityWithAudit<AppImageConfig> {
 
 export interface AppImageConfig {
 	id?: string;
+	fileName?: string;
 }

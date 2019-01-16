@@ -6,7 +6,8 @@ import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub, DEFAULT_IMG, RegexpApp, PendingImage } from '~utils';
 import { ContactService, SupplierService } from '~entity-services';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { first } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
+import { CloseEventType } from '~shared/dialog';
 
 // different cases regarding the image upload and saving the contact
 // 1. contact is not created yet and an image is pending
@@ -85,22 +86,19 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateContact() {
-		if (!this.isNewContact) {
-			const contact = { ...this.form.value, id: this.contact.id };
-			this.addImageToContact(contact);
-			this.contactSrv.update(contact).subscribe();
-		}
+		const contact = { ...this.form.value, id: this.contact.id };
+		this.addImageToContact(contact);
+		this.contactSrv.update(contact).subscribe();
 	}
 
 	createContact() {
-		if (this.isNewContact) {
-			const contact = new Contact(this.form.value);
-			this.addImageToContact(contact);
-			// updating the supplier with a new contact
-			this.contactSrv.create(contact).subscribe();
-		}
+		const contact = new Contact({ ...this.form.value, supplier: this.supplier.id });
+		this.addImageToContact(contact);
 		this.isNewContact = false;
-		this.dlgSrv.close();
+		// updating the supplier with a new contact
+		this.contactSrv.create(contact).subscribe(
+			_ => this.dlgSrv.close({ type: CloseEventType.OK, data: contact })
+		);
 	}
 
 	private addImageToContact(contact) {

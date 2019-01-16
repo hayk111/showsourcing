@@ -1,7 +1,9 @@
 
+
 export * from './_entity.model';
 export * from './_erm.enum';
 export * from './app-image.model';
+export * from './attachment-upload-request.model';
 export * from './attachment.model';
 export * from './attachment.model';
 export * from './attachment.model';
@@ -16,7 +18,6 @@ export * from './event-description.model';
 export * from './event.model';
 export * from './export-request.model';
 export * from './external-request.model';
-export * from './file-upload-request.model';
 export * from './harbour.model';
 export * from './image-upload-request.model';
 export * from './inco-term.model';
