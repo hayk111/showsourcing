@@ -121,6 +121,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
 		this.inp.focus();
+		this.searched$.next(this.searchTxt);
 	}
 
 	search(text) {

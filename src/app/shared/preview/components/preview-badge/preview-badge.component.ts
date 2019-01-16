@@ -12,6 +12,8 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 
 	@Input() badge: EntityMetadata;
 	@Input() value: any;
+	@Input() offsetX = 18;
+	@Input() offsetY = -22;
 	@Input() multiple = false;
 	@Output() update = new EventEmitter<any>();
 
