@@ -6,14 +6,14 @@
 	display: inline-block;
   border-radius: var(--border-radius);
 	padding: var(--spacing-l);
-	display:flex;
+	display: flex;
 	flex-direction: column;
 }
 
 .header {
   display: flex;
   flex-direction: row;
-	align-items: start;
+	align-items: flex-start;
   justify-content: space-between;
   color: var(--color-button-dark);
 
@@ -25,7 +25,7 @@
 .spacer {
 	display: flex;
   flex-direction: row;
-	align-items: start;
+	align-items: flex-start;
 	justify-content: space-between;
 	margin-top: var(--spacing-xs);
 }
