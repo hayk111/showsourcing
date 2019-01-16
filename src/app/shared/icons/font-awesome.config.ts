@@ -1,59 +1,57 @@
 
 
 // Icons should be imported individually to keep bundle size down
-import * as faAngleDown from '@fortawesome/fontawesome-free-solid/faAngleDown';
-import * as faAngleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
-import * as faAngleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
-import * as faAngleUp from '@fortawesome/fontawesome-free-solid/faAngleUp';
-import * as faArrowCircleDown from '@fortawesome/fontawesome-free-solid/faArrowCircleDown';
-import * as faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft';
-import * as faArrowRight from '@fortawesome/fontawesome-free-solid/faArrowRight';
-import * as faBell from '@fortawesome/fontawesome-free-regular/faBell';
-import * as faBolt from '@fortawesome/fontawesome-free-solid/faBolt';
-import * as faCaretDown from '@fortawesome/fontawesome-free-solid/faCaretDown';
-import * as faCaretLeft from '@fortawesome/fontawesome-free-solid/faCaretLeft';
-import * as faCaretRight from '@fortawesome/fontawesome-free-solid/faCaretRight';
-import * as faChartBar from '@fortawesome/fontawesome-free-solid/faChartBar';
-import * as faCheck from '@fortawesome/fontawesome-free-solid/faCheck';
-import * as faCheckCircle from '@fortawesome/fontawesome-free-solid/faCheckCircle';
-import * as faCheckSquare from '@fortawesome/fontawesome-free-solid/faCheckSquare';
-import * as faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
-import * as faCog from '@fortawesome/fontawesome-free-solid/faCog';
-import * as faComment from '@fortawesome/fontawesome-free-solid/faComment';
-import * as faEdit from '@fortawesome/fontawesome-free-solid/faEdit';
-import * as faEllipsisH from '@fortawesome/fontawesome-free-solid/faEllipsisH';
-import * as faEllipsisV from '@fortawesome/fontawesome-free-solid/faEllipsisV';
-import * as faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
-import * as faExternalLinkAlt from '@fortawesome/fontawesome-free-solid/faExternalLinkAlt';
-import * as faFilter from '@fortawesome/fontawesome-free-solid/faFilter';
-import * as faFire from '@fortawesome/fontawesome-free-solid/faFire';
-import * as faFolder from '@fortawesome/fontawesome-free-solid/faFolder';
-import * as faGlobe from '@fortawesome/fontawesome-free-solid/faGlobe';
-import * as faHeart from '@fortawesome/fontawesome-free-solid/faHeart';
-import * as faInfoCircle from '@fortawesome/fontawesome-free-solid/faInfoCircle';
-import * as faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt';
-import * as faMinus from '@fortawesome/fontawesome-free-solid/faMinus';
-import * as faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
-import * as faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
-import * as faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
-import * as faQuestion from '@fortawesome/fontawesome-free-solid/faQuestion';
-import * as faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCircle';
-import * as faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
-import * as faShare from '@fortawesome/fontawesome-free-solid/faShare';
-import * as faSignOutAlt from '@fortawesome/fontawesome-free-solid/faSignOutAlt';
-import * as faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
-import * as faSortUp from '@fortawesome/fontawesome-free-solid/faSortUp';
-import * as faTag from '@fortawesome/fontawesome-free-solid/faTag';
-import * as faThumbsDown from '@fortawesome/fontawesome-free-solid/faThumbsDown';
-import * as faThumbsUp from '@fortawesome/fontawesome-free-solid/faThumbsUp';
-import * as faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
-import * as faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
-import * as faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight';
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
+import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons/faArrowCircleDown';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';
+import { faBell } from '@fortawesome/free-regular-svg-icons/faBell';
+import { faBolt } from '@fortawesome/free-solid-svg-icons/faBolt';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown';
+import { faCaretLeft } from '@fortawesome/free-solid-svg-icons/faCaretLeft';
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons/faCaretRight';
+import { faChartBar } from '@fortawesome/free-solid-svg-icons/faChartBar';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle';
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons/faCheckSquare';
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
+import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
+import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
+import { faComment } from '@fortawesome/free-solid-svg-icons/faComment';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons/faEllipsisH';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt';
+import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
+import { faFire } from '@fortawesome/free-solid-svg-icons/faFire';
+import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
+import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons/faMapMarkerAlt';
+import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons/faPencilAlt';
+import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons/faQuestionCircle';
+import { faQuestion } from '@fortawesome/free-solid-svg-icons/faQuestion';
+import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
+import { faShare } from '@fortawesome/free-solid-svg-icons/faShare';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
+import { faSortDown } from '@fortawesome/free-solid-svg-icons/faSortDown';
+import { faSortUp } from '@fortawesome/free-solid-svg-icons/faSortUp';
+import { faTag } from '@fortawesome/free-solid-svg-icons/faTag';
+import { faThumbsDown } from '@fortawesome/free-solid-svg-icons/faThumbsDown';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons/faThumbsUp';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons/faTimesCircle';
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt';
 
-import * as fontawesome from '@fortawesome/fontawesome';
-// TODO observa mutation should not be needed
-fontawesome.config.searchPseudoElements = false;
-fontawesome.config.observeMutations = true;
+import { library, dom } from '@fortawesome/fontawesome-svg-core';
+
 
 export const faIconsRegular = [
 	faBell
@@ -110,5 +108,7 @@ export const faIconsSolid = [
 	faTrashAlt,
 ];
 
-faIconsSolid.forEach(ic => fontawesome.library.add(ic));
-faIconsRegular.forEach(ic => fontawesome.library.add(ic));
+faIconsSolid.forEach(ic => library.add(ic));
+faIconsRegular.forEach(ic => library.add(ic));
+
+dom.watch();

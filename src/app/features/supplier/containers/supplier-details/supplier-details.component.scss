@@ -1,3 +1,5 @@
+
+
 .supplier-top-header {
 	margin: auto;
 	width: 100%;
@@ -7,8 +9,7 @@
 }
 
 $left-side: 739px;
-// $left-side: 798px;
-$right-side: 452px;
+$right-side: 472px;
 
 .left {
 	width: $left-side;
@@ -16,15 +17,10 @@ $right-side: 452px;
 
 .right {
 	width: $right-side;
-	// overflow: auto;
 }
 
 .top {
 	margin: var(--spacing-xl);
-}
-
-main {
-	padding-top: var(--spacing-m);
 }
 
 .supplier-container {

@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Attachment, Supplier } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { DEFAULT_FILE_ICON } from '~utils';
+import { DEFAULT_FILE_ICON, AutoUnsub } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';
 import { DialogService } from '~shared/dialog/services';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { TrackingComponent } from '~utils/tracking-component';
 import { any } from 'async';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { AttachmentService } from '~core/entity-services';
+import { takeUntil, switchMap } from 'rxjs/operators';
 
 export enum PageType {
 	product = 'PRODUCT',
@@ -20,25 +23,24 @@ export enum PageType {
 	styleUrls: ['./files-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilesCardComponent extends TrackingComponent {
+export class FilesCardComponent extends AutoUnsub {
 	@Input() set files(files: Array<Attachment | PendingFile>) {
 		this._files = files || [];
 	}
-	get files() {
+	get files(): Array<Attachment | PendingFile> {
 		return [...this._files, ...this._pendingFiles];
 	}
 	private _files = [];
 	private _pendingFiles = [];
 
-	@Output() fileRemove = new EventEmitter<Attachment>();
-	@Output() fileAdded = new EventEmitter<Attachment[]>();
 	defaultImg = DEFAULT_FILE_ICON;
 
 	@Input() linkedItem: any;
 
 	constructor(
 		private uploader: UploaderService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private attachmentSrv: AttachmentService
 	) {
 		super();
 	}
@@ -46,16 +48,20 @@ export class FilesCardComponent extends TrackingComponent {
 	onFileAdded(files: Array<File>) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
 		this.uploader.uploadFiles(files, this.linkedItem).subscribe(addedFiles => {
-			// console.log(addedFiles);
-			this.fileAdded.emit(addedFiles);
 			this._pendingFiles = [];
 		});
 	}
 
 	onFileRemoved(file: Attachment) {
 		this.dlgSrv.open(ConfirmDialogComponent, {
-			text: 'Remove 1 file ?',
-			callback: () => this.fileRemove.emit(file)
-		});
+			text: 'Remove 1 file ?'
+		}).pipe(
+			takeUntil(this._destroy$),
+			switchMap(_ => this.removeFile(file))
+		).subscribe();
+	}
+
+	private removeFile(file: Attachment) {
+		return this.attachmentSrv.delete(file.id);
 	}
 }

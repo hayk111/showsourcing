@@ -1,32 +1,32 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { delay, first, map, mergeMap, retryWhen, take, tap, switchMap, mapTo } from 'rxjs/operators';
+import { delay, first, map, mapTo, mergeMap, retryWhen, take, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ImageUploadRequestService, ProductService, SupplierClaimService, SupplierService } from '~entity-services';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { ImageUploadRequestService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
-import { FileUploadRequestService } from '~entity-services/file-upload-request/file-upload-request.service';
+import { AttachmentUploadRequestService } from '~entity-services/attachment-upload-request/attachment-upload-request.service';
 import { AppImage, Attachment, ImageUploadRequest } from '~models';
-import { FileUploadRequest } from '~models/file-upload-request.model';
+import { AttachmentUploadRequest } from '~models/attachment-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { resizeSizeToLimit } from '~shared/utils/file.util';
 import { ImageUrls, log, LogColor } from '~utils';
-import { ERMService } from '~core/entity-services/_global/erm.service';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
 
 	constructor(
 		private imageUploadRequestSrv: ImageUploadRequestService,
-		private fileUploadRequestSrv: FileUploadRequestService,
+		private fileUploadRequestSrv: AttachmentUploadRequestService,
 		private ermSrv: ERMService,
 		private notifSrv: NotificationService,
 		private http: HttpClient
 	) { }
 
 	uploadImages(imgs: File[], linkedItem?: any, client?: Client): Observable<AppImage[]> {
-		// MaxSize 1200px
 		const uploads$ = imgs.map(img =>
+			// MaxSize 1200px
 			resizeSizeToLimit(img, 1200).pipe(
 				first(),
 				tap(imgResized => log.debug(`about to upload image ${imgResized.name}, with size: ${imgResized.size} and type ${imgResized.type}`)),
@@ -54,7 +54,7 @@ export class UploaderService {
 		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem, client))).pipe(
 			first(),
 			// link item (we need to do it after the file is ready else we will have 403)
-			mergeMap((attachments: any[]) => this.linkItem(attachments, linkedItem, true)),
+			mergeMap((attachments: any[]) => this.linkItem(attachments, linkedItem, false)),
 			// add notification
 			tap((attachments: Attachment[]) => {
 				return this.notifSrv.add({
@@ -82,9 +82,10 @@ export class UploaderService {
 	): Observable<AppImage> {
 		const isImage = type === 'image';
 		const fileName = file.name;
+		const size = file.size;
 		const request = isImage
-			? new ImageUploadRequest()
-			: new FileUploadRequest(fileName);
+			? new ImageUploadRequest({ fileName })
+			: new AttachmentUploadRequest({ fileName, size });
 
 		const service: GlobalService<any> = isImage
 			? this.imageUploadRequestSrv
@@ -92,7 +93,7 @@ export class UploaderService {
 
 		const returned = isImage
 			? (request as ImageUploadRequest).image
-			: (request as FileUploadRequest).attachment;
+			: (request as AttachmentUploadRequest).attachment;
 
 		return service.create(request, client).pipe(
 			// subscribing to that upload request so we can wait till it's ready
@@ -160,14 +161,15 @@ export class UploaderService {
 	}
 
 	/** checks when an image is ready */
-	private emitWhenFileReady(request: ImageUploadRequest | FileUploadRequest) {
+	private emitWhenFileReady(request: ImageUploadRequest | AttachmentUploadRequest) {
 		if (request instanceof ImageUploadRequest) {
 			// query image, when error retries every 1s
 			return this.queryImage(request).pipe(
 				retryWhen(errors =>
 					errors.pipe(
 						delay(1000),
-						take(15)
+						take(15),
+						delay(1000),
 					)
 				)
 			);

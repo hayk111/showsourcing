@@ -1,5 +1,5 @@
 import { uuid } from '~utils';
-import { AppImage } from '~models/app-image.model';
+import { AppImage, AppImageConfig } from '~models/app-image.model';
 
 
 export class ImageUploadRequest {
@@ -8,8 +8,8 @@ export class ImageUploadRequest {
 	image?: any;
 	__typename ?= 'ImageUploadRequest';
 
-	constructor() {
-		this.image = new AppImage();
+	constructor(config: AppImageConfig) {
+		this.image = new AppImage(config);
 		delete this.image.pending;
 	}
 }

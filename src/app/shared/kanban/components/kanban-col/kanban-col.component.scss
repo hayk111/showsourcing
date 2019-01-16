@@ -25,7 +25,8 @@
 		margin: 5px;
 		margin-top: 0;
 		height: calc(100% - 51px);
-		// position: relative;
+		box-sizing: border-box;
+    overflow-y: auto;
 	}
 
 	kanban-item-app {

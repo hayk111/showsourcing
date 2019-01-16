@@ -7,7 +7,7 @@
 		<supplier-contact-app
 			*ngFor="let contact of contacts; let last = last;trackBy: trackByFn"
 			[border]="!last"
-			(edit)="openContact.emit(contact)"
+			(edit)="openContactDlg(contact)"
 			(delete)="deleteContact.emit(contact)"
 			[contact]="contact">
 		</supplier-contact-app>
@@ -15,13 +15,13 @@
 
 	<ng-template #noContact>
 		<div class="flexColumn flexCenter empty">
-			<img [src]="defaultImg" class="pointer" (click)="newContact.emit()"/>
+			<img [src]="defaultImg" class="pointer" (click)="openContactDlg()"/>
 			<span i18n="span|Supplier with no contacts@@supplierContactCard_noContacts">No contact for this supplier</span>
 		</div>
 	</ng-template>
 
 	<card-footer-app>
-		<button (click)="newContact.emit()" i18n="button|Add new contact for a supplier@@supplierContactCard_newContact">New Contact</button>
+		<button (click)="openContactDlg()" i18n="button|Add new contact for a supplier@@supplierContactCard_newContact">New Contact</button>
 	</card-footer-app>
 
 </card-app>
