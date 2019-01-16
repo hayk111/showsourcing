@@ -27,12 +27,12 @@
           <div class="descriptionCtnr">
             <div class="descriptionCtnr-first">
               <span class="subtitle">
-                <ng-container *ngIf="product?.price && product?.minimumOrderQuantity">{{product?.price?.currency}} {{product?.price?.value | ssPrice}} - </ng-container>
-                <ng-container *ngIf="product?.price && !product?.minimumOrderQuantity">{{product?.price?.currency}} {{product?.price?.value | ssPrice}}</ng-container>
+                <ng-container *ngIf="product?.price">{{product?.price?.currency}} {{product?.price?.value | ssPrice}}</ng-container>
+                <ng-container *ngIf="product?.price && product?.minimumOrderQuantity">&nbsp;-&nbsp;</ng-container>
                 <ng-container *ngIf="product?.minimumOrderQuantity">Min {{product?.minimumOrderQuantity}} pcs</ng-container>
               </span>
-              <span class="descriptionText"> {{product?.description || ' - '}} </span>
-              <span class="descriptionText">{{product?.supplier?.name}} - {{product?.category?.name}}</span>
+              <span class="descriptionText"> {{product?.description || ''}} </span>
+              <span class="descriptionText">{{product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : ''}} {{product?.category?.name}}</span>
             </div>
             <div class="descriptionCtnr-last flex">
               <icon-app

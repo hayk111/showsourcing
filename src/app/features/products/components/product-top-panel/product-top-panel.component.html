@@ -14,8 +14,8 @@
 		<span class="price" *ngIf="product.price && product.price.value !== null">
 			{{ product?.price?.value | ssPrice | currency: product?.price?.currency:'symbol':'1.2-2'}}
 		</span>
-		<span class="category">{{ product?.category?.name }}</span>
-		<span class="supplier">{{ product?.supplier?.name }}</span>
+		<span *ngIf="product?.category" class="category">{{ product?.category?.name }}</span>
+		<span *ngIf="product?.supplier" class="supplier">{{ product?.supplier?.name }}</span>
 	</div>
 
 	<status-selector-app

@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { first, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Category, Product, Project, Supplier, Tag } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
@@ -84,7 +84,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	searchTxt = '';
 
 	/** whether the search has a exact match or not to display the create button */
-	isMatch$: Observable<boolean>;
+	nameExists$: Observable<boolean>;
 
 
 	constructor(
@@ -107,10 +107,13 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			else
 				this.choices$ = this.getChoices(this.type);
 		}
-		if (this.canCreate) this.isMatch$ = this.searched$.pipe(
+		if (this.canCreate) this.nameExists$ = this.searched$.pipe(
 			switchMap(_ => this.choices$.pipe(
 				map(m => m.filter(it => it.name === this.searchTxt)),
-				map(m => !m.length)
+				// if text is found on choices$ OR
+				// if the text is empty OR
+				// if the text is inside the value array (only multiple allowed)
+				map(m => (!!m.length || !this.searchTxt || this.hasName(this.searchTxt)))
 			))
 		);
 	}
@@ -121,8 +124,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	search(text) {
-		this.searchTxt = text;
-		this.hasDB ? this.selectorSrv.search(this.type, text) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
+		this.searchTxt = text.trim();
+		this.hasDB ? this.selectorSrv.search(this.type, this.searchTxt) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 		this.searched$.next(this.searchTxt);
 		this.keyManager.setFirstItemActive();
 	}
@@ -281,13 +284,26 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	/** these method should only be used when multiple true */
+	/** this method should only be used when multiple true, since we acces the value as an array 	*/
+	/** checks if the item matches with any of the values stored */
 	isSelected(item: any) {
-		if (!this.multiple) return false;
+		let isSelected = false;
+		if (!this.multiple) return isSelected;
 		if (this.value && this.value.length) {
-			return !!this.value.find(value => value.id === item.id);
+			isSelected = !!this.value.find(value => value.id === item.id);
 		}
-		return false;
+		return isSelected;
+	}
+
+	/** this method should only be used when multiple true, since we acces the value as an array 	*/
+	/** checks if the name given matches with any of the values stored */
+	hasName(name: string) {
+		let hasName = false;
+		if (!this.multiple) return hasName;
+		if (this.value && this.value.length) {
+			hasName = !!this.value.find(value => value.name === name);
+		}
+		return hasName;
 	}
 
 	/** this is only called when deleting from the current-values-container */

@@ -81,34 +81,36 @@ export class SelectorsService {
 	}
 
 	search(type: string, searchTxt: string) {
-		switch (type) {
-			case 'user':
-				this.currentSearchQuery = `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"`;
-				break;
-			// Constants
-			case 'currency':
-				// this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
-				this.topCurrencies$ = this.currencySrv.queryMany({
-					query: `((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND symbol CONTAINS[c] "${searchTxt}")` +
-						` OR ((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND name CONTAINS[c]"${searchTxt}")`
-				});
-				this.currentSearchQuery = `symbol CONTAINS[c] "${searchTxt}" OR name CONTAINS[c] "${searchTxt}"`;
-				break;
-			case 'country':
-				this.currentSearchQuery = `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"`;
-				break;
-			case 'category':
-			case 'harbour':
-			case 'incoTerm':
-			case 'product':
-			case 'project':
-			case 'supplier':
-			case 'supplierType':
-			case 'tag':
-				this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}"`;
-				break;
-			default: throw Error(`Unsupported type for search ${type}`);
-		}
+		if (searchTxt) {
+			switch (type) {
+				case 'user':
+					this.currentSearchQuery = `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"`;
+					break;
+				// Constants
+				case 'currency':
+					// this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
+					this.topCurrencies$ = this.currencySrv.queryMany({
+						query: `((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND symbol CONTAINS[c] "${searchTxt}")` +
+							` OR ((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND name CONTAINS[c]"${searchTxt}")`
+					});
+					this.currentSearchQuery = `symbol CONTAINS[c] "${searchTxt}" OR name CONTAINS[c] "${searchTxt}"`;
+					break;
+				case 'country':
+					this.currentSearchQuery = `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"`;
+					break;
+				case 'category':
+				case 'harbour':
+				case 'incoTerm':
+				case 'product':
+				case 'project':
+				case 'supplier':
+				case 'supplierType':
+				case 'tag':
+					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}"`;
+					break;
+				default: throw Error(`Unsupported type for search ${type}`);
+			}
+		} else this.currentSearchQuery = '';
 		this.refetch({ ...this.selectParams, query: this.currentSearchQuery });
 	}
 
