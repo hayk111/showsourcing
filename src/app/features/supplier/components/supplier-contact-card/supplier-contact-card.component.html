@@ -8,7 +8,7 @@
 			*ngFor="let contact of contacts; let last = last;trackBy: trackByFn"
 			[border]="!last"
 			(edit)="openContactDlg(contact)"
-			(delete)="deleteContact.emit(contact)"
+			(delete)="deleteContact(contact)"
 			[contact]="contact">
 		</supplier-contact-app>
 	</ul>

@@ -37,7 +37,7 @@ export class SupplierFeatureService extends SupplierService {
 	}
 
 	getContacts(supplierId) {
-		return this.contactSrv.queryMany({
+		return this.contactSrv.selectMany({
 			query: `supplier.id == "${supplierId}" && deleted == false`
 		});
 	}

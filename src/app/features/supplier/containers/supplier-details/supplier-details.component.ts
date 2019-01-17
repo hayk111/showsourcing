@@ -59,7 +59,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.contacts$ = id$.pipe(
-			switchMap(id => this.featureSrv.getContacts(id))
+			switchMap(id => this.featureSrv.getContacts(id)),
 		);
 
 	}
