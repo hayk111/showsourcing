@@ -23,9 +23,12 @@ export class PreviewComponent implements AfterViewInit {
 
 	ngAfterViewInit() {
 		// minus 6 so it goes a bit above the image
+		// minus fifthy if there is a logo where that we want to display above the img
 		if (this.isFixed) {
-			const topHeight = this.topSection.nativeElement.getBoundingClientRect().height - 6;
+			const topHeight = this.topSection.nativeElement.getBoundingClientRect().height - 6 - 50;
 			this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `${topHeight}px`);
+		} else {
+			this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `-50px`);
 		}
 	}
 

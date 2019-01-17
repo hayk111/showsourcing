@@ -3,7 +3,12 @@
 	<ng-content select="preview-banner-app"></ng-content>
 </div>
 <div #scrollSection class="scrollable">
-	<ng-content select="preview-header-app"></ng-content>
-	<ng-content select="preview-section-app"></ng-content>
-	<ng-content select="preview-comment-app"></ng-content>
+	<div class="logo-transparent">
+		<!-- so the logo can go above the banner -->
+	</div>
+	<div class="white-bg">
+		<ng-content select="preview-header-app"></ng-content>
+		<ng-content select="preview-section-app"></ng-content>
+		<ng-content select="preview-comment-app"></ng-content>
+	</div>
 </div>

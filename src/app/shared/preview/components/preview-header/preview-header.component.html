@@ -3,7 +3,8 @@
 	<div class="left flex">
 		<preview-logo-app
 			*ngIf="entityMD === erm.SUPPLIER"
-			[image]="logoImage">
+			[image]="logoImage"
+			[ngClass]="{ 'mg-bottom': (entityMD === erm.SUPPLIER && !hasTop ) }">
 		</preview-logo-app>
 		<ng-container *ngIf="hasTop">
 			<icon-app [name]="entityMD?.singular || 'product'"></icon-app>
