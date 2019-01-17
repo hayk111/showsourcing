@@ -96,7 +96,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 				takeUntil(this._destroy$),
 				take(1),
 			).subscribe(
-				r => this.router.navigate(['auth', 'unvalidated-email']),
+				r => this.router.navigate(['']),
 				e => this.onError(e, form)
 			);
 		}
