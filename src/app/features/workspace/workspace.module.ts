@@ -15,7 +15,6 @@ import {
 	MySampleListPageComponent,
 	MyTasksPageComponent,
 	MyWorkflowPageComponent,
-	ReviewPageComponent,
 	WorkspaceComponent,
 } from '~features/workspace/containers';
 import { routes } from '~features/workspace/routes';
@@ -37,7 +36,6 @@ import { ProductsReviewCardBodyComponent } from './components/products-review-ca
 		WorkspaceComponent,
 		MyWorkflowPageComponent,
 		MyTasksPageComponent,
-		ReviewPageComponent,
 		ProductsReviewCardViewComponent,
 		ProductsReviewCardHeaderComponent,
 		ProductsReviewSortingMenuComponent,

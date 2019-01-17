@@ -12,6 +12,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
 import { log, LogColor } from '~utils';
+import { LocalStorageService } from '~core/local-storage';
 
 
 /**
@@ -81,7 +82,8 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** we use the path as client name.. */
-	protected createClient(uri: string, name: Client, tokenState: TokenState): Observable<Client> {
+	protected createClient(path: string, name: Client, tokenState: TokenState): Observable<Client> {
+		const uri = environment.graphqlUrl + path;
 		log.debug(`%c 🌈creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
 
 		return Observable.create((observer: Observer<any>) => {
