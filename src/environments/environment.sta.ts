@@ -9,8 +9,8 @@ export const environment = {
 	version: '0.0.3',
 	production: false,
 	staging: true,
-	graphqlUrl: 'wss://ros-sta.showsourcing.com/graphql',
-	apiUrl: 'https://ros-sta.showsourcing.com',
+	graphqlUrl: 'wss://ros-dev2.showsourcing.com/graphql',
+	apiUrl: 'https://ros-dev2.showsourcing.com',
 	getStreamKey: '7mxs7fsf47nu',
 	LOG_LEVEL: LogLevel.DEBUG
 };

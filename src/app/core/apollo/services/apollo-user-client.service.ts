@@ -40,7 +40,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 			.getAccessToken(refreshToken, `user/${userId}/__partial/${userId}`).pipe(
 				first()
 			);
-		const realmUri = `${environment.graphqlUrl}/user/${userId}/__partial/${userId}`;
+		const realmUri = `/user/${userId}/__partial/${userId}`;
 
 		return accessToken$.pipe(
 			switchMap(token => this.createClient(realmUri, Client.USER, token)),

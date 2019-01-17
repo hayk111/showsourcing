@@ -10,6 +10,7 @@ import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
 import { ListPageService } from '~core/list-page';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'environments/environment';
 
 @Component({
 	selector: 'app-root',
@@ -30,6 +31,8 @@ export class AppComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		this.setEnvironmentUrls();
+
 		this.authSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
@@ -75,5 +78,15 @@ export class AppComponent implements OnInit {
 		this.globalDataClient.destroy(reason);
 		this.userClient.destroy(reason);
 		this.teamClient.destroy(reason);
+	}
+
+	/** changes urls in environment based on query params */
+	protected setEnvironmentUrls() {
+		const urlParams = new URLSearchParams(window.location.search);
+		const ros = urlParams.get('ros');
+		if (ros) {
+			environment.graphqlUrl = `wss://${ros}.showsourcing.com/graphql`;
+			environment.apiUrl = `https://${ros}.showsourcing.com`;
+		}
 	}
 }
