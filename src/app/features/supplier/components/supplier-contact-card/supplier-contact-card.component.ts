@@ -28,7 +28,7 @@ export class SupplierContactCardComponent extends TrackingComponent implements O
 	ngOnInit() {
 	}
 
-	openContactDlg(contact: any) {
+	openContactDlg(contact?: any) {
 		const isNewContact = !contact;
 		this.dlgSrv.open(NewContactDlgComponent, { isNewContact, supplier: this.supplier });
 	}
