@@ -2,12 +2,6 @@
 	display: block;
 }
 
-.title {
-	color: var(--color-txt-strong);
-	font-size: var(--font-size-xxxl);
-	padding-bottom: var(--spacing-l);
-}
-
 list-app {
 	max-height: 507px;
 }
@@ -15,12 +9,6 @@ list-app {
 .top {
 	margin-bottom: var(--spacing-l);
 	align-items: baseline;
-}
-
-h1 {
-	color: var(--color-txt-strong);
-	font-size: var(--font-size-xxxl);
-	font-weight: 600;
 }
 
 list-app {

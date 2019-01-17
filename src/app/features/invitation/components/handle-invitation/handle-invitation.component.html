@@ -1,6 +1,6 @@
 
 <div class="invite" *ngIf="!(authenticated$ | async)">
-  <h1 class="title">Congratulation!</h1>
+  <div class="title">Congratulation!</div>
   <div class="subtitle">You are invited to join ShowSourcing</div>
   <div class="subtitle">Do you have an account</div>
   <div class="flexColumn buttons">
@@ -13,7 +13,7 @@
 
   <ng-container *ngIf="invitation$ | async as invitation; else spinner">
 
-    <h1 class="title">Congratulation!</h1>
+    <div class="title">Congratulation!</div>
 
     <div class="subtitle">
       <span class="name">

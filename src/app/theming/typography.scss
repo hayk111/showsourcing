@@ -86,8 +86,19 @@ body, .body, .body1 {
 }
 
 h1 {
-	font-family: 'Source Sans Pro';
+	font-family: var(--font-normal);
 	font-size: var(--font-size-xxl);
+	color: var(--color-txt-primary);
+	font-weight: 600;
+	margin: 0;
+
+	&.banner {
+		font-size: var(--font-size-xxxxl);
+		font-weight: 600;
+		font-family: var(--font-title);
+		color: var(--color-txt-strong);
+		text-align: center;
+	}
 }
 
 h2, h3 {
