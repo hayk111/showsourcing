@@ -23,6 +23,7 @@ export abstract class ContactQueries extends GlobalQueries {
 			id,
 			fileName
 		}
+		supplier { id }
 	`;
 
 }

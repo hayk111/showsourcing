@@ -102,6 +102,7 @@ export class AuthenticationService {
 
 		return this.http.post(`${environment.apiUrl}/user/signup`, creds).pipe(
 			map(_ => ({ login: creds.email, password: creds.password })),
+			switchMap(_ => this.login({ login: creds.email, password: creds.password }))
 		);
 	}
 

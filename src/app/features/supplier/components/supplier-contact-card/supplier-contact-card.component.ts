@@ -4,7 +4,7 @@ import { Contact, Supplier } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 import { DialogService } from '~shared/dialog';
 import { NewContactDlgComponent } from '~common/modals/component/new-contact-dlg/new-contact-dlg.component';
-import { SupplierService } from '~core/entity-services';
+import { SupplierService, ContactService } from '~core/entity-services';
 
 @Component({
 	selector: 'supplier-contact-card-app',
@@ -20,7 +20,7 @@ export class SupplierContactCardComponent extends TrackingComponent implements O
 
 	constructor(
 		private dlgSrv: DialogService,
-		private supplierSrv: SupplierService
+		private contactSrv: ContactService
 	) {
 		super();
 	}
@@ -30,11 +30,11 @@ export class SupplierContactCardComponent extends TrackingComponent implements O
 
 	openContactDlg(contact?: any) {
 		const isNewContact = !contact;
-		this.dlgSrv.open(NewContactDlgComponent, { isNewContact, supplier: this.supplier });
+		this.dlgSrv.open(NewContactDlgComponent, { isNewContact, supplier: this.supplier, contact });
 	}
 
-	deleteContact() {
-
+	deleteContact(contact: Contact) {
+		this.contactSrv.delete(contact.id).subscribe();
 	}
 
 }

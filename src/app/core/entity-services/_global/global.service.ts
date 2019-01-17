@@ -248,23 +248,22 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	selectMany(paramsConfig: SelectParamsConfig, fields?: string | string[], client = this.defaultClient): Observable<T[]> {
-		throw Error(`you probably don't want to use a subscription on many items (maybe queryMany, selectOne and waitForOne).
-		If you know what you are doing, go ahead, remove this error and uncomment the code`);
+	selectMany(paramsConfig: SelectParamsConfig, fields?: string | string[], clientName = this.defaultClient): Observable<T[]> {
+		const title = 'Selecting Many ' + this.typeName;
+		fields = this.getFields(fields, this.fields.many);
+		const gql = this.queryBuilder.selectMany(fields);
+		const variables = new SelectParams(paramsConfig);
+		const queryName = this.getQueryName(gql);
 
-		// const params = new SelectParams(paramsConfig);
-		// const variables = params.toApolloVariables();
-		// const queryName = this.getQueryName(gql);
-		// const title = 'Selecting Many';
-		// this.log(title, gql, queryName, variables);
-		// return this.getClient(client).subscribe({ query: gql, variables })
-		// 	.pipe(
-		// 		filter((r: any) => this.checkError(r)),
-		// 		// extracting the result
-		// 		map((r) => r.data[queryName]),
-		// 		tap(data => this.logResult(title, queryName, data)),
-		// 		catchError(errors => of(log.table(errors)))
-		// );
+		return this.getClient(clientName, title).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.subscribe({ query: gql, variables })),
+			filter((r: any) => this.checkError(r)),
+			// extracting the result
+			map((r) => r.data[queryName]),
+			tap(data => this.logResult(title, queryName, data)),
+			catchError(errors => of(log.table(errors)))
+		);
 	}
 
 	/////////////////////////////

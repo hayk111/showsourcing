@@ -77,6 +77,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	}
 
 	onSuccess(r: any) {
+		this.pending$.next(false);
 		this.router.navigateByUrl(this.queryParams.returnUrl);
 	}
 

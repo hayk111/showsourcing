@@ -46,7 +46,7 @@ export class QueryBuilder {
 		}`)
 
 	selectMany = (str: string) => gql(`
-		query ${this.plural}(
+		subscription ${this.plural}(
 			$take: Int,
 			$skip: Int,
 			$query: String!,
