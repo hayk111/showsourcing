@@ -131,7 +131,6 @@ h3 {
 	text-transform: capitalize;
 }
 
-// used on top of cards
 h4 {
 	align-items: center;
 	color: var(--color-txt-primary);
@@ -139,15 +138,6 @@ h4 {
 	font-family: var(--font-normal);
 	font-size: var(--font-size-m);
 }
-
-
-// h5 {
-// 	font-size: var(--font-size-l);
-// 	color: var(--color-primary);
-// 	font-weight: normal;
-// 	margin: 0;
-// 	margin-bottom: var(--spacing-s);
-// }
 
 label {
 	font-weight: 600;
