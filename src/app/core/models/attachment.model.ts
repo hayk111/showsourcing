@@ -5,6 +5,7 @@ export class Attachment {
 	fileName: string;
 	url: string;
 	size?: number;
+	pending?: boolean;
 	__typename ?= 'File';
 
 	constructor(config: AttachmentConfig) {

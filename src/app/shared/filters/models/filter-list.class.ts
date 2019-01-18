@@ -32,6 +32,7 @@ export class FilterList {
 
 	/** the fields that will be searched */
 	searchedFields: string[] = ['name'];
+
 	/** adds a search to the predicate */
 	setSearch(value: string) {
 		this.search = value;

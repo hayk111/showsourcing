@@ -64,4 +64,9 @@ export class FilesCardComponent extends AutoUnsub {
 	private removeFile(file: Attachment) {
 		return this.attachmentSrv.delete(file.id);
 	}
+
+	// dumb function to not have the error: '<anonymous>' does not contain such a member
+	isPending(file: Attachment) {
+		return file.pending;
+	}
 }

@@ -9,7 +9,6 @@ import { TaskCommonModule } from '~common/task';
 import {
 	ProductIconsComponent,
 	ProductSubInfoComponent,
-	ProductCardComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	ProductListComponent,
@@ -70,7 +69,6 @@ import { NavBarModule } from '~shared/navbar/navbar.module';
 		ProductResumeComponent,
 		ProductInformationComponent,
 		ProductShippingComponent,
-		ProductCardComponent
 	],
 	entryComponents: [],
 	exports: [],

@@ -161,8 +161,9 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 		this.thumbsName = 'thumbs-up';
 		this.like = false;
 		this.dislike = false;
+		// some vote have user null because of the importer in the backend
 		if (this.product)
-			this.userVote = (this.product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+			this.userVote = (this.product.votes || []).find(v => v.user && v.user.id === this.userSrv.userSync.id);
 		if (this.userVote) {
 			if (this.userVote.value === 100) {
 				this.like = true;
