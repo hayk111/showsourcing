@@ -47,15 +47,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 		{ name: 'incoTerm', type: 'selector', metadata: { target: 'incoTerm', type: 'const' } },
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
-		{ name: 'officePhone', type: 'tel', label: 'Tel' },
-		{
-			name: 'categories', type: 'selector', metadata: {
-				target: 'category', type: 'entity', canCreate: true
-			}, label: 'categories', multiple: true
-		},
-		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name', canCreate: true }, multiple: true },
-
-
+		{ name: 'officePhone', type: 'tel', label: 'Tel' }
 	];
 
 	constructor(
