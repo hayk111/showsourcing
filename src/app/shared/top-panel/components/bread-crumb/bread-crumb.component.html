@@ -1,4 +1,4 @@
-<h1 *ngIf="!isModifiable" class="s">{{ title }}</h1>
+<h2 *ngIf="!isModifiable" class="s">{{ title }}</h2>
 <editable-text-app
 	#edt
 	*ngIf="isModifiable"
@@ -6,7 +6,7 @@
 	(opened)="inpName.select()"
 >
 	<editable-label-app>
-		<h1 class="s">{{ title }}</h1>
+		<h2 class="s">{{ title }}</h2>
 	</editable-label-app>
 	<input
 		inputApp

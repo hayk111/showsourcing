@@ -1,6 +1,6 @@
 <card-app padding="xs">
   <div class="top">
-    <h1>{{ show?.description?.name }}</h1>
+    <h2>{{ show?.description?.name }}</h2>
     <h3>
       {{ show?.description?.startDate | date: 'd' }} - {{ show?.description?.endDate | date: 'd MMMM' }}
       <ng-container *ngIf="show && show.description && show.description.venue">

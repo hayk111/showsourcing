@@ -4,7 +4,7 @@
 		<img class="logo" src="{{ supplier.logoImage.fileName | image: 's' }}" />
 	</ng-template>
 	<div class="flexColumn info">
-		<h1>{{ supplier?.name }}</h1>
+		<h2>{{ supplier?.name }}</h2>
 		<div class="type">
 			{{ supplier?.supplierType?.name || 'Supplier' }}
 			<ng-container *ngIf="supplier.country">
