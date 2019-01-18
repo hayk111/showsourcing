@@ -2,15 +2,15 @@
 	<card-header-app class="flexCenter">
 		<div class="alignCenter">
 			<h1>{{ supplier.name }}</h1>
-			<h2>
+			<h3>
 				{{ supplier?.supplierType?.name | const:'supplierType' || 'Supplier' }}
 				<ng-container *ngIf="supplier.country"> - {{ supplier.country | const: 'country'  }}</ng-container>
-			</h2>
+			</h3>
 		</div>
 	</card-header-app>
 
 	<main>
-		<h2 class="ms">Supplier Description</h2>
+		<h3 class="ms">Supplier Description</h3>
 
 		<editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
 			<editable-label-app class="desc" *ngIf="supplier.description; else noDesc">

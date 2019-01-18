@@ -4,9 +4,9 @@
 		<div class="space-icon flexAround">
 			<icon-app class="fs-m" fontSet="svg" name="folder-blue" ></icon-app>
 		</div>
-		<h2 i18n="header 2|Project card@@projectCard_projects">
+		<h3 i18n="header 2|Project card@@projectCard_projects">
 			Projects
-		</h2>
+		</h3>
 	</div>
 	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
 		<article class="flexBetween pointer" [class.last-item]="last">
