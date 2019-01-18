@@ -24,6 +24,10 @@
 	position: relative;
 }
 
+.last-item {
+	margin-right: 0px !important;
+}
+
 .more {
 	position: absolute;
 	top: 0;
@@ -33,7 +37,7 @@
 	background-color: rgba(93, 109, 139, 0.7);
 	color: white;
 	font-size: 16px;
-  font-weight: 600;
+	font-weight: 600;
 }
 
 .pending {

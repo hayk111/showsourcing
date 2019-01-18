@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { filter, first, map, switchMap, tap } from 'rxjs/operators';
+import { first, switchMap, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ApolloStateService } from '~core/apollo';
 import { Product, ProductStatus, Project } from '~core/models';
 import { ProductService, ProductStatusService, ProjectService, UserService } from '~entity-services';
-import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 
 @Injectable({ providedIn: 'root' })

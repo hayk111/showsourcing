@@ -1,4 +1,5 @@
 <div class="ctnr square pointer"
+	[ngClass]="{'last-item': i > 3}"
 	*ngFor="let img of getPreviews(); let i = index; trackBy: trackByFn"
 	(click)="imageClick.emit(i)">
 	<img-app
