@@ -13,7 +13,7 @@
 		</checkbox-app>
 	</div>
 	<div class="right">
-		<h2> {{ sample?.reference || 'Undefined Sample Reference' }} </h2>
+		<h2 class="ms"> {{ sample?.reference || 'Undefined Sample Reference' }} </h2>
 		<div class="center-section flex">
 			<div class="name">{{ sample?.name }}</div>
 			<div *ngIf="sample?.supplier" class="supplier">{{ sample?.supplier?.name }}</div>

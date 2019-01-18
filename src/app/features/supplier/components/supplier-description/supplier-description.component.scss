@@ -9,9 +9,6 @@ card-header-app {
 		margin-bottom: var(--spacing-s);
 		font-family: var(--font-title);
 	}
-	h2 {
-		margin: 0;
-	}
 	.alignCenter {
 		text-align: center;
 	}
@@ -19,9 +16,6 @@ card-header-app {
 
 main {
 	padding: var(--spacing-ms) var(--spacing-l) var(--spacing-l) var(--spacing-l);
-	h2 {
-		margin-bottom: var(--spacing-ms);
-	}
 
 	.noDesc {
 		font-style: italic;

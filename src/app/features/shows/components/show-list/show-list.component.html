@@ -9,7 +9,7 @@
 
     <div class="flex flexGrow"  [ngClass]="{ 'border': !last }">
       <div class="flexColumn showDesc">
-        <h2>{{ show.description.name }}</h2>
+        <h2 class="ms">{{ show.description.name }}</h2>
         <small>
           {{ show?.description?.startDate | date: 'd' }} {{ show?.description?.endDate | date: 'd MM' }}
 

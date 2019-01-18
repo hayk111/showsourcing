@@ -101,18 +101,37 @@ h1 {
 	}
 }
 
-h2, h3 {
-	font-weight: 500;
-	margin: 0;
-}
+// h2, h3 {
+// 	font-weight: 500;
+// 	margin: 0;
+// }
 
 h2 {
-  margin-bottom: var(--spacing-ms);
+	align-items: center;
+	display: flex;
 	font-size: var(--font-size-l);
-  font-size: var(--font-size-l);
   font-weight: 600;
 	color: var(--color-txt-strong);
 	text-transform: capitalize;
+
+	&.xl {
+		margin-bottom: var(--spacing-xl);
+	}
+	&.l {
+		margin-bottom: var(--spacing-l);
+	}
+	&.m {
+		margin-bottom: var(--spacing-m);
+	}
+	&.ms {
+		margin-bottom: var(--spacing-ms);
+	}
+	&.s {
+		margin-bottom: var(--spacing-s);
+	}
+	&.xs {
+		margin-bottom: var(--spacing-xs);
+	}
 }
 
 // used on top of cards
@@ -121,6 +140,7 @@ h3 {
   margin-bottom: var(--spacing-l);
   font-size: var(--font-size-xxl);
 }
+
 
 h4 {
 	font-size: var(--font-size-l);

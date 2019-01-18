@@ -1,5 +1,5 @@
 <card-app>
-	<h2>{{ (team$ | async)?.name || 'Unnamed Team'}}</h2>
+	<h2 class="ms">{{ (team$ | async)?.name || 'Unnamed Team'}}</h2>
 	<h4>{{ (team$ | async)?.ownerUser?.firstName }} {{ (team$ | async)?.ownerUser?.lastName }}</h4>
   <divider-app></divider-app>
 
