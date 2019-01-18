@@ -25,7 +25,6 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private srv: AuthenticationService,
-		private fb: FormBuilder,
 		private router: Router,
 		private route: ActivatedRoute) {
 
@@ -77,7 +76,6 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	}
 
 	onSuccess(r: any) {
-		this.pending$.next(false);
 		this.router.navigateByUrl(this.queryParams.returnUrl);
 	}
 
