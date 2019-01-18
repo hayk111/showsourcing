@@ -21,6 +21,7 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 	@Input() initialSelectedProducts: Product[];
 	searchFilterElements$: Observable<any[]>;
 	unselectedProducts: { [key: string]: Product } = {};
+	selectedProducts: { [key: string]: Product } = {};
 
 	constructor(
 		public listSrv: ListPageService<Product, ProductService>,
@@ -46,21 +47,19 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 		}
 	}
 
-	getSelectedProducts() {
-		return this.listSrv.getSelectedValues();
-	}
-
 	hasSelectedProducts() {
 		return (Array.from(this.listSrv.selectionSrv.selection.values()).length > 0);
 	}
 
 	onItemSelected(entity: any) {
+		this.selectedProducts[entity.id] = entity;
 		delete this.unselectedProducts[entity.id];
 		this.listSrv.selectionSrv.selectOne(entity, false);
 	}
 
 	onItemUnselected(entity: any) {
 		this.unselectedProducts[entity.id] = entity;
+		delete this.selectedProducts[entity.id];
 		this.listSrv.selectionSrv.unselectOne(entity, false);
 	}
 
@@ -70,7 +69,8 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 
 	submit() {
 		// we add each project one by one to the store
-		const selectedProducts = this.listSrv.getSelectedValues();
+		// const selectedProducts = this.listSrv.getSelectedValues();
+		const selectedProducts = Object.values(this.selectedProducts);
 		const unselectedProducts = Object.values(this.unselectedProducts);
 		const data = { selectedProducts, unselectedProducts };
 		this.dlgSrv.close({
