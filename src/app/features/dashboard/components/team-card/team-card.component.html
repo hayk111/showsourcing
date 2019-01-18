@@ -1,6 +1,6 @@
 <card-app>
 	<h3 class="ms">{{ (team$ | async)?.name || 'Unnamed Team'}}</h3>
-	<h5 class="ms color-txt-strong">{{ (team$ | async)?.ownerUser?.firstName }} {{ (team$ | async)?.ownerUser?.lastName }}</h5>
+	<h4 class="ms color-txt-strong">{{ (team$ | async)?.ownerUser?.firstName }} {{ (team$ | async)?.ownerUser?.lastName }}</h4>
   <divider-app></divider-app>
 
   <ng-container *ngIf="(team$ | async) && (members$ | async)?.length > 0; else empty">

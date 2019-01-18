@@ -22,22 +22,22 @@
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
 				<div class="titleCtnr"><h3>{{ category.label.name || 'Unnamed' }}</h3></div>
 				<div class="descriptionCtnr">
-					<h5 class="xs">
+					<h4 class="xs">
 						{{ category.supplierType?.name || 'Supplier' }}
 						<ng-container *ngIf="category?.label?.country"> - {{ category?.label?.country | const: 'country'  }}</ng-container>
-					</h5>
+					</h4>
 				</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
 					<div class="titleCtnr"><h3>{{ category.label.name || 'Unnamed' }}</h3></div>
 					<div class="descriptionCtnr">
-						<h5 class="xs">{{ category.values.length }} products</h5>
+						<h4 class="xs">{{ category.values.length }} products</h4>
 					</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
 				<div class="titleCtnr"><h3>{{ category.label.firstName }} {{ category.label.lastName }}</h3></div>
 				<div class="descriptionCtnr">
-					<h5 class="xs">{{ category.values.length }} products</h5>
+					<h4 class="xs">{{ category.values.length }} products</h4>
 				</div>
 			</div>
 		</ng-container>
@@ -45,19 +45,19 @@
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
 				<div class="titleCtnr"><h3>No supplier</h3></div>
 				<div class="descriptionCtnr">
-					<h5 class="xs">Product with no supplier defined</h5>
+					<h4 class="xs">Product with no supplier defined</h4>
 				</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
 				<div class="titleCtnr"><h3>No category</h3></div>
 				<div class="descriptionCtnr">
-					<h5 class="xs">Product with no category defined</h5>
+					<h4 class="xs">Product with no category defined</h4>
 				</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
 				<div class="titleCtnr"><h3>No user</h3></div>
 				<div class="descriptionCtnr">
-					<h5 class="xs">Product with no user defined</h5>
+					<h4 class="xs">Product with no user defined</h4>
 				</div>
 			</div>
 		</ng-template>
