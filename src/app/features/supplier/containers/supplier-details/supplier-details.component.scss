@@ -8,7 +8,8 @@
 	z-index: var(--z-top-selection);
 }
 
-$left-side: 739px;
+// if this value is modified, take care of the supplier/products section since it has to fit the content with the cards
+$left-side: 755px;
 $right-side: 472px;
 
 .left {

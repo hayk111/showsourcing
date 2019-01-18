@@ -57,6 +57,15 @@
 			</input-description-app>
 		</preview-section-app>
 
+		<!-- Tags -->
+		<preview-section-app [title]="'Tags'">
+			<input-badge-selector-app
+				[value]="supplier?.tags"
+				type="tag"
+				(change)="update($event, 'tags')">
+			</input-badge-selector-app>
+		</preview-section-app>
+
 		<!-- Supplier Details -->
 		<preview-section-app [title]="'Supplier Details'">
 			<dynamic-form-app

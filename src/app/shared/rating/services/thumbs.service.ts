@@ -17,7 +17,7 @@ export class ThumbService {
 	 * @param product
 	 */
 	thumbUp(product: Product) {
-		const voteIndex = (product.votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
+		const voteIndex = (product.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
 		// this way we dont keep the same reference
 		let votes = product.votes ? [...product.votes] : [];
 		if (~voteIndex) { // if the user has a vote inside this product
@@ -38,7 +38,7 @@ export class ThumbService {
 	 * @param product
 	 */
 	thumbDown(product: Product) {
-		const voteIndex = (product.votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
+		const voteIndex = (product.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
 		let votes = product.votes ? [...product.votes] : [];
 		if (~voteIndex) {
 			const vote = votes[voteIndex];
@@ -59,7 +59,7 @@ export class ThumbService {
 	 * @param isCreated if true the vote is created, if false, removed
 	 */
 	thumbUpFromMulti(product: Product, isCreated: boolean) {
-		const voteIndex = (product.votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
+		const voteIndex = (product.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
 		let votes = product.votes ? [...product.votes] : [];
 		if (~voteIndex) { // if the user has a vote inside this product
 			const vote = votes[voteIndex];
@@ -80,7 +80,7 @@ export class ThumbService {
 	 * @param isCreated if true the vote is created, if false, removed
 	 */
 	thumbDownFromMulti(product: Product, isCreated: boolean) {
-		const voteIndex = (product.votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
+		const voteIndex = (product.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
 		let votes = product.votes ? [...product.votes] : [];
 		if (~voteIndex) {
 			const vote = votes[voteIndex];
