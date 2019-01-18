@@ -107,22 +107,22 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
+	font-size: var(--font-size-xxxxl);
+	font-weight: 600;
+	font-family: var(--font-title);
+	color: var(--color-txt-strong);
+	text-align: center;
+}
+
+h2 {
 	font-family: var(--font-normal);
 	font-size: var(--font-size-xxl);
 	color: var(--color-txt-primary);
 	font-weight: 600;
-	margin: 0;
-
-	&.banner {
-		font-size: var(--font-size-xxxxl);
-		font-weight: 600;
-		font-family: var(--font-title);
-		color: var(--color-txt-strong);
-		text-align: center;
-	}
 }
 
 h3 {
+	font-family: var(--font-normal);
 	align-items: center;
 	display: flex;
 	font-size: var(--font-size-l);
@@ -133,6 +133,7 @@ h3 {
 
 // used on top of cards
 h5 {
+	font-family: var(--font-normal);
 	align-items: center;
 	display: flex;
 	color: var(--color-txt-primary);
