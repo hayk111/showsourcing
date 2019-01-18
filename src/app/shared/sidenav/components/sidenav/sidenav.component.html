@@ -5,7 +5,7 @@
 				(click)="onToggleExpanded()"></icon-app>
 		</div>
 		<div class="info" *ngIf="internalExpanded" >
-			<h2>{{ menuTitle }}</h2>
+			<h1 class="color-txt-strong">{{ menuTitle }}</h1>
 		</div>
 		<div class="flexCenter collapse" *ngIf="internalExpanded"
 			(click)="onToggleExpanded()">

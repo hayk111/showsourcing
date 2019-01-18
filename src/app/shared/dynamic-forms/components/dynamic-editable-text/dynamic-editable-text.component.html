@@ -173,9 +173,9 @@
 
 	<!-- price matrix -->
 	<ng-container *ngSwitchCase="'priceMatrix'">
-		<h4>
+		<h2 class="s">
 			{{ customField.label || customField.name }}
-		</h4>
+		</h2>
 		<div class="inputCtnr">
 			<editable-price-matrix-app
 				[(ngModel)]="accumulator"
@@ -187,9 +187,9 @@
 
 	<!-- packaging -->
 	<ng-container *ngSwitchCase="'packaging'">
-		<h4>
+		<h2 class="s">
 			{{ customField.label || customField.name }}
-		</h4>
+		</h2>
 		<div class="inputCtnr">
 			<editable-packaging-app
 				[customField]="customField"

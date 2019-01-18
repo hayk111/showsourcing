@@ -85,6 +85,27 @@ body, .body, .body1 {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2, h3, h4, h5 {
+	&.xl {
+		margin-bottom: var(--spacing-xl);
+	}
+	&.l {
+		margin-bottom: var(--spacing-l);
+	}
+	&.m {
+		margin-bottom: var(--spacing-m);
+	}
+	&.ms {
+		margin-bottom: var(--spacing-ms);
+	}
+	&.s {
+		margin-bottom: var(--spacing-s);
+	}
+	&.xs {
+		margin-bottom: var(--spacing-xs);
+	}
+}
+
 h1 {
 	font-family: var(--font-normal);
 	font-size: var(--font-size-xxl);
@@ -113,50 +134,26 @@ h2 {
   font-weight: 600;
 	color: var(--color-txt-strong);
 	text-transform: capitalize;
-
-	&.xl {
-		margin-bottom: var(--spacing-xl);
-	}
-	&.l {
-		margin-bottom: var(--spacing-l);
-	}
-	&.m {
-		margin-bottom: var(--spacing-m);
-	}
-	&.ms {
-		margin-bottom: var(--spacing-ms);
-	}
-	&.s {
-		margin-bottom: var(--spacing-s);
-	}
-	&.xs {
-		margin-bottom: var(--spacing-xs);
-	}
 }
 
 // used on top of cards
-h3 {
-	text-align: center;
-  margin-bottom: var(--spacing-l);
-  font-size: var(--font-size-xxl);
-}
-
-
-h4 {
-	font-size: var(--font-size-l);
-	font-weight: 500;
-	color: var(--color-txt-strong);
-	margin: 0;
-	margin-bottom: var(--spacing-s);
-}
-
 h5 {
-	font-size: var(--font-size-l);
-	color: var(--color-primary);
-	font-weight: normal;
-	margin: 0;
-	margin-bottom: var(--spacing-s);
+	align-items: center;
+	display: flex;
+	color: var(--color-txt-primary);
+	font-size: var(--font-size-m);
 }
+
+
+h4 { }
+
+// h5 {
+// 	font-size: var(--font-size-l);
+// 	color: var(--color-primary);
+// 	font-weight: normal;
+// 	margin: 0;
+// 	margin-bottom: var(--spacing-s);
+// }
 
 label {
 	font-weight: 600;
