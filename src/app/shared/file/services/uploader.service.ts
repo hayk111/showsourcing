@@ -196,12 +196,12 @@ export class UploaderService {
 		if (isImage) {
 			return srv.update({
 				id: linkedItem.id,
-				images: [...linkedItem.images, ...files].map(img => ({ id: img.id }))
+				images: [...linkedItem.images.map(img => ({ id: img.id })), ...files]
 			}).pipe(
 				mapTo(files)
 			);
 		} else {
-			const attachments = [...linkedItem.attachments, ...files].map(img => ({ id: img.id }));
+			const attachments = [...linkedItem.attachments, ...files];
 			return srv.update({ id: linkedItem.id, attachments }).pipe(
 				mapTo(files)
 			);
