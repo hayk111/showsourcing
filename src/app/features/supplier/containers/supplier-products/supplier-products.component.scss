@@ -52,20 +52,15 @@
 }
 
 .empty {
-	padding-top: 110px;
+	padding: 50px 0px;
 
 	icon-app {
 		cursor: default;
 		font-size: 130px;
 	}
-	h1 {
+	h2 {
     margin-top: var(--spacing-l);
 		margin-bottom: var(--spacing-s);
-		font-size: var(--font-size-xl);
-	}
-	h2 {
-		font-family: var(--font-normal);
-		margin-bottom: var(--spacing-xl);
 	}
 
 	button {

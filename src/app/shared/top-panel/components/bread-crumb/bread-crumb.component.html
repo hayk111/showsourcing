@@ -1,4 +1,4 @@
-<h2 *ngIf="!isModifiable">{{ title }}</h2>
+<h2 *ngIf="!isModifiable" class="s">{{ title }}</h2>
 <editable-text-app
 	#edt
 	*ngIf="isModifiable"
@@ -6,7 +6,7 @@
 	(opened)="inpName.select()"
 >
 	<editable-label-app>
-		<h2>{{ title }}</h2>
+		<h2 class="s">{{ title }}</h2>
 	</editable-label-app>
 	<input
 		inputApp
@@ -19,14 +19,8 @@
 <!-- subtitles -->
 <div>
 	<span
-		*ngFor="
-			let sub of subtitles;
-			let first = first;
-			let last = last;
-			trackBy: trackByFn
-		"
-		class="{{ first ? 'bold': '' }}"
-	>
+		*ngFor="let sub of subtitles;	let first = first; let last = last;	trackBy: trackByFn"
+		class="{{ first ? 'bold': '' }}">
 		{{ sub }} {{ !last ? '&gt; ' : '' }}
 	</span>
 </div>

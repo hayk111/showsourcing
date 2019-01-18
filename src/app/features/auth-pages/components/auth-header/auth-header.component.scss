@@ -12,17 +12,10 @@ p.error {
 	margin-bottom: var(--spacing-ms);
 }
 
-h1 {
+.title {
 	font-family: var(--font-normal);
   font-size: 28px;
 	font-weight: 600;
 	color: var(--color-txt-strong);
 	margin-bottom: var(--spacing-ms);
-}
-
-h2 {
-	font-family: var(--font-normal);
-  font-size: 16px;
-  text-align: center;
-  color: var(--color-txt-primary);
 }

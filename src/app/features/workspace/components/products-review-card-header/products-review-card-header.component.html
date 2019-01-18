@@ -20,44 +20,44 @@
   <div class="description flexBetween">
 		<ng-container *ngIf="category.label; else noLabel">
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
-				<div class="titleCtnr"><h2>{{ category.label.name || 'Unnamed' }}</h2></div>
+				<div class="titleCtnr"><h3>{{ category.label.name || 'Unnamed' }}</h3></div>
 				<div class="descriptionCtnr">
-					<h3>
+					<h4 class="xs">
 						{{ category.supplierType?.name || 'Supplier' }}
 						<ng-container *ngIf="category?.label?.country"> - {{ category?.label?.country | const: 'country'  }}</ng-container>
-					</h3>
+					</h4>
 				</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
-					<div class="titleCtnr"><h2>{{ category.label.name || 'Unnamed' }}</h2></div>
+					<div class="titleCtnr"><h3>{{ category.label.name || 'Unnamed' }}</h3></div>
 					<div class="descriptionCtnr">
-						<h3>{{ category.values.length }} products</h3>
+						<h4 class="xs">{{ category.values.length }} products</h4>
 					</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
-				<div class="titleCtnr"><h2>{{ category.label.firstName }} {{ category.label.lastName }}</h2></div>
+				<div class="titleCtnr"><h3>{{ category.label.firstName }} {{ category.label.lastName }}</h3></div>
 				<div class="descriptionCtnr">
-					<h3>{{ category.values.length }} products</h3>
+					<h4 class="xs">{{ category.values.length }} products</h4>
 				</div>
 			</div>
 		</ng-container>
 		<ng-template #noLabel>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
-				<div class="titleCtnr"><h2>No supplier</h2></div>
+				<div class="titleCtnr"><h3>No supplier</h3></div>
 				<div class="descriptionCtnr">
-					<h3>Product with no supplier defined</h3>
+					<h4 class="xs">Product with no supplier defined</h4>
 				</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
-				<div class="titleCtnr"><h2>No category</h2></div>
+				<div class="titleCtnr"><h3>No category</h3></div>
 				<div class="descriptionCtnr">
-					<h3>Product with no category defined</h3>
+					<h4 class="xs">Product with no category defined</h4>
 				</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
-				<div class="titleCtnr"><h2>No user</h2></div>
+				<div class="titleCtnr"><h3>No user</h3></div>
 				<div class="descriptionCtnr">
-					<h3>Product with no user defined</h3>
+					<h4 class="xs">Product with no user defined</h4>
 				</div>
 			</div>
 		</ng-template>

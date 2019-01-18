@@ -11,7 +11,7 @@
 
 	<!-- Stage 1 -->
 	<ng-container *ngIf="index === 0">
-		<h3>REQUEST DETAIL</h3>
+		<h4 class="ms color-primary">REQUEST DETAIL</h4>
 		<label-app class="title">Product</label-app>
 		<image-previewer-app
 			[hasAdd]="false"
@@ -38,7 +38,7 @@
 
 	<!-- Stage 2 -->
 	<ng-container *ngIf="index === 1">
-		<h3>SELECT RECIPIENT</h3>
+		<h4 class="ms color-primary">SELECT RECIPIENT</h4>
 		<form [formGroup]="emailGroup" class="flex">
 			<form-field-app class="email-field">
 				<label-app>Add New Email Address</label-app>
@@ -64,7 +64,7 @@
 
 	<!-- Stage 3 -->
 	<ng-container *ngIf="index === 2">
-		<h3>REQUEST DETAIL</h3>
+		<h4 class="ms color-primary">REQUEST DETAIL</h4>
 		<label-app class="title">Product</label-app>
 		<image-previewer-app
 			class="request-detail"

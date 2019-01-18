@@ -166,7 +166,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openRfq() {
-		this.modalSrv.openRequestFeedbackDialog([this.product]);
+		this.modalSrv.openRequestQuotationDialog(this.product);
 	}
 
 	onViewProduct() {

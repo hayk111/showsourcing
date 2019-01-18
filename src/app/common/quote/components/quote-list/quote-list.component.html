@@ -1,6 +1,6 @@
 
 <card-app>
-	<h1 class="title">Quotations</h1>
+	<div class="title">Quotations</div>
 	<list-app *ngIf="quotes?.length; else emptyQuotes" infiniScroll (bottomReached)="bottomReached.emit()">
 		<div *ngFor="let quote of quotes; index as i; first as first; last as last; trackBy: trackById"
 			[ngClass]="{'hovered': hoverIndex === i}" class="flex quote-container"

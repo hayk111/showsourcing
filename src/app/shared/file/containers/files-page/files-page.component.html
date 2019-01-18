@@ -1,6 +1,6 @@
 <div (fileDrop)="onFileAdded($event)">
 	<div class="flexBetween">
-		<h2>Files &amp; Documents</h2>
+		<h3 class="ms">Files &amp; Documents</h3>
 
 		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
 		<button class="small" (click)="inp.click()" i18n="button|Add file@@filesPage_addFile">Add File</button>

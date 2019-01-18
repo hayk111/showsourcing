@@ -85,46 +85,58 @@ body, .body, .body1 {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-	font-family: 'Source Sans Pro';
-	font-size: var(--font-size-xxl);
+h1, h2, h3, h4, h5 {
+	&.xl {
+		margin-bottom: var(--spacing-xl);
+	}
+	&.l {
+		margin-bottom: var(--spacing-l);
+	}
+	&.m {
+		margin-bottom: var(--spacing-m);
+	}
+	&.ms {
+		margin-bottom: var(--spacing-ms);
+	}
+	&.s {
+		margin-bottom: var(--spacing-s);
+	}
+	&.xs {
+		margin-bottom: var(--spacing-xs);
+	}
 }
 
-h2, h3 {
-	font-weight: 500;
-	margin: 0;
+h1 {
+	color: var(--color-txt-strong);
+	font-family: var(--font-title);
+	font-size: var(--font-size-xxxxl);
+	font-weight: 600;
+	text-align: center;
 }
 
 h2 {
-  margin-bottom: var(--spacing-ms);
-	font-size: var(--font-size-l);
-  font-size: var(--font-size-l);
-  font-weight: 600;
+	color: var(--color-txt-primary);
+	font-family: var(--font-normal);
+	font-size: var(--font-size-xxl);
+	font-weight: 600;
+}
+
+h3 {
+	align-items: center;
 	color: var(--color-txt-strong);
+	display: flex;
+	font-family: var(--font-normal);
+	font-size: var(--font-size-l);
+  font-weight: 600;
 	text-transform: capitalize;
 }
 
-// used on top of cards
-h3 {
-	text-align: center;
-  margin-bottom: var(--spacing-l);
-  font-size: var(--font-size-xxl);
-}
-
 h4 {
-	font-size: var(--font-size-l);
-	font-weight: 500;
-	color: var(--color-txt-strong);
-	margin: 0;
-	margin-bottom: var(--spacing-s);
-}
-
-h5 {
-	font-size: var(--font-size-l);
-	color: var(--color-primary);
-	font-weight: normal;
-	margin: 0;
-	margin-bottom: var(--spacing-s);
+	align-items: center;
+	color: var(--color-txt-primary);
+	display: flex;
+	font-family: var(--font-normal);
+	font-size: var(--font-size-m);
 }
 
 label {

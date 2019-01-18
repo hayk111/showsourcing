@@ -3,8 +3,8 @@
 
     <ng-container *ngIf="user">
 			<user-picture-app [user]="user" size="68" [image]="user?.avatar" [border]="true"></user-picture-app>
-      <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
-      <h3>{{ user?.companyName }}</h3>
+      <h3 class="xs">{{ user?.firstName }} {{ user?.lastName }}</h3>
+      <h4 class="ms">{{ user?.companyName }}</h4>
     </ng-container>
 
   </div>
