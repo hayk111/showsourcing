@@ -48,7 +48,6 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		private uploader: UploaderService
 	) {
 		super();
-
 	}
 
 	ngOnInit() {
