@@ -8,10 +8,10 @@ import {
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
-import { ERM, Product } from '~models';
 import { ListViewComponent } from '~core/list-page/list-view.component';
-import { ColumnDescriptor, TableDescriptor } from '~shared/table';
+import { ERM, Product } from '~models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 
 @Component({
 	selector: 'project-product-list-app',

@@ -1,11 +1,12 @@
 import { Route } from '@angular/router';
-import { ProjectDetailsComponent } from '~features/project/containers/project-details/project-details.component';
-import { ProjectProductsComponent } from '~features/project/containers/project-products/project-products.component';
-import { ProjectSettingsComponent } from '~features/project/containers/project-settings/project-settings.component';
 
-import { ProjectsPageComponent } from '~features/project/containers/projects-page/projects-page.component';
-
-import { ProjectWorkflowComponent } from '~features/project/containers/project-workflow/project-workflow.component';
+import {
+	ProjectDetailsComponent,
+	ProjectProductsComponent,
+	ProjectSettingsComponent,
+	ProjectsPageComponent,
+	ProjectWorkflowComponent,
+} from './containers';
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },

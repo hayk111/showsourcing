@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { ApolloStateService } from '~core/apollo';
-import { ProductService, ProjectService, SupplierService, TeamUserService, UserService, ContactService } from '~entity-services';
+import {
+	ContactService,
+	ProductService,
+	ProjectService,
+	SupplierService,
+	TeamUserService,
+	UserService,
+} from '~entity-services';
 import { ProductVoteRequestService } from '~entity-services/product-vote-request/product-vote-request.service';
-import { SupplierQueries } from '~entity-services/supplier/supplier.queries';
-import { Product, ProductVoteRequest, Project, Contact } from '~models';
+import { Contact, Product, ProductVoteRequest, Project } from '~models';
 
 @Injectable()
 export class ProductDialogService extends ProductService {

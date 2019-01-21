@@ -1,7 +1,5 @@
-import { FilterList, Filter } from '~shared/filters';
-import { EntityMetadata } from '~models';
-import { Sort } from '~shared/table/components/sort.interface';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { Filter, FilterList } from '~shared/filters';
 
 
 export interface ListPageDataConfig {
