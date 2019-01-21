@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { TeamClientReadyGuard, UserClientReadyGuard, GlobalDataClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
+import { TeamClientReadyGuard, UserClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { AuthGuardService } from '~core/auth';
 import { HasUserGuard } from '~core/auth/services/has-user.guard';
 import { UnauthGuardService } from '~core/auth/services/unauth-guard.service';
