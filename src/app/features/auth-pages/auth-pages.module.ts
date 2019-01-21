@@ -10,11 +10,11 @@ import {
 	RegistrationComponent,
 	ResetPasswordComponent,
 	AuthFormHeaderComponent,
-	AuthFormBaseComponent
+	AuthFormBaseComponent,
+	UnvalidatedEmailComponent,
+	ValidateEmailComponent
 } from './components';
 import { routes } from './routes';
-import { ValidateEmailComponent } from './components/validate-email/validate-email.component';
-import { UnvalidatedEmailComponent } from './components/unvalidated-email/unvalidated-email.component';
 
 @NgModule({
 	imports: [
@@ -22,16 +22,16 @@ import { UnvalidatedEmailComponent } from './components/unvalidated-email/unvali
 		RouterModule.forChild(routes)
 	],
 	declarations: [
-		LoginComponent,
-		RegistrationComponent,
 		AccountCreatedComponent,
-		ForgotPasswordComponent,
-		ResetPasswordComponent,
-		PwResettedComponent,
-		AuthFormHeaderComponent,
 		AuthFormBaseComponent,
+		AuthFormHeaderComponent,
+		ForgotPasswordComponent,
+		LoginComponent,
+		PwResettedComponent,
+		RegistrationComponent,
+		ResetPasswordComponent,
+		UnvalidatedEmailComponent,
 		ValidateEmailComponent,
-		UnvalidatedEmailComponent
 	],
 	exports: [AuthFormBaseComponent]
 })

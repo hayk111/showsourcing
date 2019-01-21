@@ -1,1 +1,1 @@
-export * from '~features/data-management/components/data-mananagement-table/data-mananagement-table.component';
+export * from './data-mananagement-table/data-mananagement-table.component';

@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-import { AuthGuardService } from '~core/auth';
 import { DataManagementPageComponent } from '~features/data-management/containers';
 
 export const routes: Array<Route> = [

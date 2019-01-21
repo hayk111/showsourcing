@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import {
 	AccountCreatedComponent,
 	ForgotPasswordComponent,
@@ -6,9 +7,9 @@ import {
 	PwResettedComponent,
 	RegistrationComponent,
 	ResetPasswordComponent,
+	UnvalidatedEmailComponent,
+	ValidateEmailComponent,
 } from './components';
-import { ValidateEmailComponent } from './components/validate-email/validate-email.component';
-import { UnvalidatedEmailComponent } from './components/unvalidated-email/unvalidated-email.component';
 
 export const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
