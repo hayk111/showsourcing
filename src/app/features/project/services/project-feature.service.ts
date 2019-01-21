@@ -43,7 +43,7 @@ export class ProjectFeatureService extends ProjectService {
 		if (project) {
 			return this.getProjectProducts(project).pipe(
 				first(),
-				switchMap((products: Product[]) => this.commonModalSrv.openFindProductDlg(products)),
+				switchMap((products: Product[]) => this.commonModalSrv.openFindProductDlg(products, project)),
 				switchMap((data: any) => this.manageProjectsToProductsAssociations([project], data), data => data)
 			);
 		} return of();
@@ -51,6 +51,8 @@ export class ProjectFeatureService extends ProjectService {
 
 	/**
 	 * Manage products to projects relationships.
+	 * WARN: Remember only to send only the non-existing products in the project, otherwise
+	 * this function will update all the products that you send, doesn't matter if they already have that project or not
 	 */
 	manageProjectsToProductsAssociations(
 		projects: Project[],

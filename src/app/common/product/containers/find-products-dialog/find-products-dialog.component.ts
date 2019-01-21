@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListPageKey } from '~core/list-page/list-page-keys.enum';
 import { ListPageService } from '~core/list-page/list-page.service';
 import { ProductService } from '~entity-services';
-import { ERM, Product } from '~models';
-import { DialogService, CloseEventType } from '~shared/dialog';
+import { ERM, Product, Project } from '~models';
+import { CloseEventType, DialogService } from '~shared/dialog';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
@@ -19,6 +19,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class FindProductsDialogComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	@Input() initialSelectedProducts: Product[];
+	@Input() project: Project;
+
 	searchFilterElements$: Observable<any[]>;
 	unselectedProducts: { [key: string]: Product } = {};
 	selectedProducts: { [key: string]: Product } = {};
@@ -33,7 +35,7 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.FIND_PRODUCT,
+			key: `${ListPageKey.FIND_PRODUCT}-${this.project.id}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
 			selectParams: { query: 'deleted == false', sortBy: 'category.name', descending: true, take: 15 },
@@ -69,7 +71,6 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 
 	submit() {
 		// we add each project one by one to the store
-		// const selectedProducts = this.listSrv.getSelectedValues();
 		const selectedProducts = Object.values(this.selectedProducts);
 		const unselectedProducts = Object.values(this.unselectedProducts);
 		const data = { selectedProducts, unselectedProducts };
