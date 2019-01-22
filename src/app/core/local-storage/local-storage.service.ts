@@ -29,20 +29,20 @@ export class LocalStorageService {
 	setString(key: string, val: string): void {
 		if (val === undefined)
 			throw Error(`LocalStorage: You tried to save ${key} which is undefined`);
-		log.debug(`%c LocalStorage: Saving ${key}...`, LogColor.LOCAL_STORAGE);
+		log.debug(`%c 💾 LocalStorage: Saving ${key}...`, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
 			localStorage.setItem(key, val);
 	}
 
 	getString(key: string): string | null {
-		log.debug(`%c LocalStorage: Loading ${key}... `, LogColor.LOCAL_STORAGE);
+		log.debug(`%c 💾 LocalStorage: Loading ${key}... `, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
 			return localStorage.getItem(key);
 		return null;
 	}
 
 	remove(key: string): void {
-		log.debug(`%c LocalStorage: removing ${key}...`, LogColor.LOCAL_STORAGE);
+		log.debug(`%c 💾 LocalStorage: removing ${key}...`, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
 			return localStorage.removeItem(key);
 	}

@@ -47,14 +47,14 @@ You can run every script with `npm run`, for example `npm run start`.
 
 # File Structure & guidelines
 
-At the root of src we have
+At the root of src/app we have
 
  ```
   - app-root: small folder containing only the root module and root component
-  - features: folder containing feature modules (pages)
-  - core: folder containing essential classes on which the application is based
   - common: folder containing big modules like ProductCommonModule, TaskCommonModule.
-  - shared: folder containing modules shared. The sharedModule contains them all.
+  - core: folder containing essential classes on which the application is based
+  - features: folder containing feature modules (pages)
+  - shared: folder containing modules shared. The SharedModule contains them all.
   - theming: contains the global styles
   - utils: contains some utils used throughout the app
  ```
