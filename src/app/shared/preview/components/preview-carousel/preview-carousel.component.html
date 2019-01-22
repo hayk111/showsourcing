@@ -2,6 +2,7 @@
 <ng-container *ngIf="images.length > 0; else noImg">
 	<!-- carousel -->
 	<carousel-app
+		[entity]="entity"
 		[images]="images"
 		[selectedIndex]="selectedIndex"
 		[objectFit]="objectFit"

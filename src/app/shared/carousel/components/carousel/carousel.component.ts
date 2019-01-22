@@ -19,12 +19,6 @@ import { PendingImage } from '~utils/pending-image.class';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarouselComponent extends AutoUnsub implements OnInit {
-	defaultImg = DEFAULT_IMG;
-	// when clicking an image we can open a modal carousel
-	modalOpen = false;
-	@ViewChild('imgApp') imgApp: ImageComponent;
-	/** hidden file input */
-	@ViewChild('inpFile') inpFile: ElementRef;
 
 	/** size in px of the main display */
 	@Input() size = 411;
@@ -45,6 +39,13 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Input() entity: any; // entity to which we can link images after an upload
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'cover';
 
+	@ViewChild('imgApp') imgApp: ImageComponent;
+	/** hidden file input */
+	@ViewChild('inpFile') inpFile: ElementRef;
+
+	defaultImg = DEFAULT_IMG;
+	// when clicking an image we can open a modal carousel
+	modalOpen = false;
 
 	constructor(
 		private imageSrv: ImageService,
