@@ -14,7 +14,7 @@ export abstract class ProjectQueries extends GlobalQueries {
 			lastUpdatedDate,
 			creationDate,
 			createdBy { id, firstName, lastName },
-			logoImage { id, fileName },
+			logoImage { id, urls { url } },
 			${ProjectQueries.productsCount}`;
 
 	static readonly many = `
