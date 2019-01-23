@@ -52,7 +52,7 @@
 		<div class="flexVAlign user-tasks pointer" [class.last]="last">
 			<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus(task)"></icon-app>
 			<user-picture-app [size]="14" [user]="task.assignee" (click)="preview(task)"></user-picture-app>
-			<div class="flexCenter" [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}" (click)="preview(task)">{{ task?.name || 'Unnamed task' }}</div>
+			<div class="flexCenter" (click)="preview(task)">{{ task?.name || 'Unnamed task' }}</div>
 		</div>
   </ng-container>
 
