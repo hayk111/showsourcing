@@ -341,7 +341,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		// (will be reflected in items$)
 		const fetchMore = (): Observable<any> => {
 			const fetchMoreTitle = 'Selecting List Fetch More ' + this.typeName;
-			debugger;
 			return queryRef$.pipe(
 				tap(_ => this.log(fetchMoreTitle, gql, queryName, clientName, { skip: itemsAmount })),
 				map(queryRef => queryRef.fetchMore({
@@ -358,9 +357,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 		// add refetch query so we can tell apollo to that the variables have changed
 		// (will be reflected in items$)
-		console.log('>>>>>>>>>>>>>>>>>>>>refetch');
 		const refetch = (config: SelectParamsConfig): Observable<any> => {
-			debugger;
 			const refetchTitle = 'Selecting List Refetch' + this.typeName;
 			this.log(refetchTitle, gql, queryName, clientName, config);
 			return queryRef$.pipe(

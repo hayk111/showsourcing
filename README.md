@@ -18,7 +18,6 @@ The goal of this readme is to present the guidelines followed throughout the app
  - Translation
 
 
-
 # Running the app
 
 No surprise here
@@ -35,7 +34,6 @@ npm start
 For an up-to-date version of the scripts just open package.json and those figure in the `script` part.
 
 You can run every script with `npm run`, for example `npm run start`.
-
 
  - `npm run build` Builds a production ready of the app in the dist directory
  - `npm run analyze` Runs the dependency reports, so we can analyze the sizes of the different modules
@@ -249,7 +247,7 @@ Now to run the serve with this config we have to `npm run start:fr` that is the 
 
 Everytime we execute `npm run translate:fr` the `messages.fr.xlf` file will contain the original data and, if there are new `i18n` translations, it will update the file and let us know in that same file which translations are new using the target state.
 
-In each `messages.lang.xlf` we have 3 different types of target. When we translate we will have to manually change that state, this way xliffmerge can read and update the files properly. The same author developed this [tool](https://martinroob.github.io/tiny-translator/en/#/home) in order to translate this type of files. Even if we use another kind of tool for translation, the state from 'new' to 'translated' can be changed manually with a refractor.
+In each `messages.lang.xlf` we have 3 different types of target. When we translate we will have to manually change that state, this way xliffmerge can read and update the files properly. The same author developed this [tool](https://martinroob.github.io/tiny-translator/en/#/home) in order to translate this type of files. Even if we use another kind of tool for translation, the state from 'new' to 'translated' can be changed manually with a refactor.
 ```
 <target state='new'>Hello</target> 'new' indicates that it hasn't been translated
 <target state='final'>Hello</target> 'final' indicates that it matches with our default language translation

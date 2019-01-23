@@ -1,25 +1,36 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, takeUntil, first, tap } from 'rxjs/operators';
 import { ProductService, ProductStatusService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, Product } from '~core/models';
+import { ERM, Product, ProductStatus } from '~core/models';
 import { KanbanColumn } from '~shared/kanban/interfaces';
+import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { AutoUnsub } from '~utils';
+import { FilterList } from '~shared/filters';
 
 @Component({
 	selector: 'kanban-library-page-app',
 	templateUrl: './kanban-library-page.component.html',
 	styleUrls: ['./kanban-library-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		KanbanService,
+		ListPageService
+	]
 })
-export class KanbanLibraryPageComponent implements OnInit {
+export class KanbanLibraryPageComponent extends AutoUnsub implements OnInit {
 
-	columns$: Observable<KanbanColumn[]>;
+	columns$ = this.kanbanSrv.columns$;
+	/** keeps tracks of the current selection */
+	selected$: Observable<Map<string, boolean>>;
+
 	constructor(
 		private productSrv: ProductService,
 		private productStatusSrv: ProductStatusService,
+		public kanbanSrv: KanbanService,
 		public listSrv: ListPageService<any, any>
-	) { }
+	) { super(); }
 
 	ngOnInit() {
 		this.listSrv.setup({
@@ -30,32 +41,47 @@ export class KanbanLibraryPageComponent implements OnInit {
 			entityMetadata: ERM.PRODUCT
 		});
 
-
-		const products$ = this.productSrv.queryMany({
-			sortBy: 'lastUpdatedDate',
-			take: 30
-		}).pipe(
-			// first(),
-			// we lose the order when the product is updated
-			// because apollo has no idea of how to reorder items unless we do
-			// a refetch, but we re gonna do it on the front end
-			map(products => products.sort(
-				(a, b) => +(new Date(b.lastUpdatedDate)) - (+new Date(a.lastUpdatedDate)))
-			)
+		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
+			takeUntil(this._destroy$)
 		);
 
-		const productStatuses$ = this.productStatusSrv
+		const statuses$ = this.productStatusSrv
 			.queryAll(undefined, {
-				query: 'category != "refused" AND category != "inspiration"',
+				query: 'category != "refused"',
 				sortBy: 'step',
 				descending: false
-			}).pipe();
+			}).pipe(
+				first(),
+				// adding new status
+				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses]),
+				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
+			);
 
-		// this.columns$ = combineLatest(
-		// 	productStatuses$,
-		// 	products$,
-		// 	statusProductToKanbanCol
-		// );
+		combineLatest(
+			filters$,
+			statuses$,
+			(filterList, statuses) => this.getProducts(statuses, filterList)
+		).subscribe();
+		this.selected$ = this.listSrv.selection$;
+	}
+
+	private getProducts(statuses: ProductStatus[], filterList: FilterList) {
+		const predicate = filterList.asPredicate();
+		statuses.forEach(status => {
+			const constQuery = status.id !== null ?
+				`status.id == "${status.id}" && deleted == false`
+				: `status == null && deleted == false`;
+
+			const query = [
+				predicate,
+				constQuery
+			].join(' && ');
+			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
+				.pipe(first())
+				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
+			this.productSrv.queryCount(query).pipe(first())
+				.subscribe(total => this.kanbanSrv.setTotal(total, status.id));
+		});
 	}
 
 	updateProductStatus(product: Product) {

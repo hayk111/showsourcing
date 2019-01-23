@@ -18,7 +18,7 @@ import { StatusSelectorService } from '../service/status-selector.service';
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
-	/** In this case its alwaysgoing to be a Product or Supplier */
+	/** In this case its alwaysgoing to be a product, sample, supplier or task */
 	private _entity: any;
 	@Input()
 	public get entity(): any {
@@ -36,7 +36,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Input() offsetY: number;
 	@Input() selectSize = 'm';
 	@Input() internalUpdate = true;
-	@Input() type = 'badge';
+	@Input() type: 'badge' | 'dropdown' | 'multiple-selection' | 'button' = 'badge';
 	@Output() statusUpdated = new EventEmitter<any>();
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	/** string[] since tasks does not have a status entity */
@@ -82,6 +82,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	}
 
+	// this is only done for tasks since we don't have it on the DB
 	getTaskStatus() {
 		let taskStatus = 'pending';
 		if (this.entity.done)
@@ -91,6 +92,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		return taskStatus;
 	}
 
+	// this is only done for tasks since we don't have it on the DB
 	getTaskColor() {
 		let taskStatusColor = 'secondary'; // pending
 		if (this.entity.done)
@@ -100,6 +102,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		return taskStatusColor;
 	}
 
+	// this is only done for tasks since we don't have it on the DB
 	updateTask() {
 		const done = !this.entity.done;
 		this.statusSlctSrv.updateTask({ id: this.entity.id, done });
