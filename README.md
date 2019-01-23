@@ -81,10 +81,10 @@ The theming is done in ./src/app/theming and should be straight forward. `styles
 
 - `elevation.scss`: is a somewhat simplified version of the file in angular material design.
 - `helper-classes.scss`: has different sections (display, align, text, misc...) with classes that are generally used around the app.
-- `inputs-buttons.scss`:
-- `palette.scss`
-- `spacing.scss`
-- `typography.scss`
+- `inputs-buttons.scss`: has different styles for our `form-field-app` and inputs-buttons inside the app
+- `palette.scss`: has different color variables and classes used around the app
+- `spacing.scss`: has different spacing variables and classes used aorund the app
+- `typography.scss`: has the different font-size vairables and classes used around the app, also it contains different font and header styles.
 
 Spacing and palette use CSS4 variables and should be used throughout the application. CSS4 variables are used with a fallback (meaning that even if the browser doesn't support CSS4 vars it's gonna work).
 
