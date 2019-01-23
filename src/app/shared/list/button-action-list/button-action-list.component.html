@@ -1,5 +1,5 @@
 <div class="list-action-button-container">
-	<div class="clickable action-button-container centered-text"
+	<div class="pointer action-button-container centered-text"
 	*ngFor="let btn of actions; trackBy: trackByFn">
 		<div class="btn-icon round-button">
 				<icon-app [name]="btn.icon" (click)="clickOnAction.emit(btn)" [fontSet]="btn.fontSet"></icon-app>

@@ -4,7 +4,7 @@
 			*ngFor="let product of products; index as i; trackBy: trackById"
 			[id]="product.id" #card>
 
-			<product-card-app class="element-item marginSmall"
+			<product-card-app class="element-item mg-s"
 				[checked]="isSelected(product)"
 				[product]="product"
 				[highlightOnChecked]="true"

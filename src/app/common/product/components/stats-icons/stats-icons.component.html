@@ -1,4 +1,4 @@
-<div *ngIf="!onlyLike;else one" class="flex noselect small-icons">
+<div *ngIf="!onlyLike;else one" class="flex no-select small-icons">
 	<icon-app *ngIf="favorite" name="heart"></icon-app>
 	<ng-container *ngIf="fullInfo && product?.comments?.length">
 		<icon-app name="comment" class="color-secondary-dark"></icon-app>
@@ -17,7 +17,7 @@
 </div>
 
 <ng-template #one>
-	<div class="flex noselect small-icons one">
+	<div class="flex no-select small-icons one">
 		<icon-app *ngIf="favorite" name="heart"></icon-app>
 		<icon-app *ngIf="name !== 'thumbs-up'" [name]="name" [ngStyle]="successTxt"></icon-app>
 		<div *ngIf="hasPercent" class="numbers flex">

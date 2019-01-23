@@ -1,6 +1,6 @@
 <div *ngIf="project$ | async as project">
 	<top-panel-app
-		[title]="project.name"
+		[title]="project?.name"
 		[buttonName]="'Add Project'"
 		[hasAction]="false">
 	</top-panel-app>
@@ -12,7 +12,7 @@
 
 		<div class="flex picCtnr">
 			<div class="circle pointer">
-				<img-app size="s" [image]="project.logoImage" (click)="fileInp.click()"></img-app>
+				<img-app size="s" [image]="project?.logoImage" type="project" (click)="fileInp.click()"></img-app>
 			</div>
 			<div class="color-primary sel">
 				<b class="semi pointer" (click)="fileInp.click()">Select Image</b>
