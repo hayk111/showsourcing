@@ -1,14 +1,15 @@
 import { Route } from '@angular/router';
 
+import { ProductActivityComponent } from './components';
 import {
 	ProductDetailsComponent,
-	ProductsPageComponent,
 	ProductQuotationComponent,
 	ProductSamplesComponent,
-	ProductShippingComponent
-} from '~features/products/containers';
-import { ProductActivityComponent } from '~features/products/components/product-activity/product-activity.component';
-import { ProductTasksComponent } from '~features/products/containers/product-tasks/product-tasks.component';
+	ProductShippingComponent,
+	ProductsPageComponent,
+	ProductTasksComponent,
+} from './containers';
+
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },

@@ -1,6 +1,6 @@
-import { Injectable, Optional, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { EntityMetadata, ERM_TOKEN } from '~models';
+import { EntityMetadata } from '~models';
 
 @Injectable({
 	providedIn: 'root'

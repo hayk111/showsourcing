@@ -4,6 +4,7 @@ import {
 	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
+	InviteUserDlgComponent,
 	MergeDialogComponent,
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -12,8 +13,7 @@ import {
 	VoteDetailsDialogComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { InviteUserDlgComponent } from '~common/modals/component';
-import { EntityMetadata, Product, ProductVote } from '~models';
+import { EntityMetadata, Product, ProductVote, Project } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 
@@ -62,9 +62,9 @@ export class CommonModalService {
 		return this.dlgSrv.open(CompareQuotationComponent, { products });
 	}
 
-	openFindProductDlg(initialSelectedProducts: Product[]) {
+	openFindProductDlg(initialSelectedProducts: Product[], project: Project) {
 		return this.dlgSrv.open(FindProductsDialogComponent, {
-			initialSelectedProducts,
+			initialSelectedProducts, project
 		});
 	}
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap, switchMap, skip } from 'rxjs/operators';
+import { map, skip, switchMap, tap } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
@@ -8,7 +8,6 @@ import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
-import { of } from 'zen-observable';
 
 /**
  * Services that helps us for common functionalities in list pages

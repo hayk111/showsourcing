@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, switchMap, map, tap, first } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
+import { ERMService } from '~core/entity-services/_global/erm.service';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
-import { CloseEventType, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
@@ -16,7 +17,6 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
-import { ERMService } from '~core/entity-services/_global/erm.service';
 
 
 // where we can save the services

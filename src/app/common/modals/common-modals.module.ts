@@ -1,50 +1,52 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
+	ProductsCardViewDialogComponent,
+} from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
+import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
+import { ProductCommonModule } from '~common/product/product-common.module';
+import { InputsModule } from '~shared/inputs';
+import { SharedModule } from '~shared/shared.module';
+import { TableModule } from '~shared/table';
+import { UtilsModule } from '~shared/utils';
+
+import {
+	ChangePswdDlgComponent,
 	CompareProductComponent,
 	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
+	InviteUserDlgComponent,
 	MergeDialogComponent,
+	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	InviteUserDlgComponent,
-	ChangePswdDlgComponent,
 	VoteDetailsDialogComponent,
 } from './component';
-import { ProductDialogService } from './services';
-import { CrudDialogService } from './services/crud-dialog.service';
-import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { ProductCommonModule } from '~common/product/product-common.module';
-import { SharedModule } from '~shared/shared.module';
-import { TableModule } from '~shared/table';
-import { InputsModule } from '~shared/inputs';
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
-import { ProductsCardViewDialogComponent } from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
-import { UtilsModule } from '~shared/utils';
-import { NewContactDlgComponent } from './component/new-contact-dlg/new-contact-dlg.component';
+import { ProductDialogService } from './services';
+import { CrudDialogService } from './services/crud-dialog.service';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
-
 const modals = [
+	ChangePswdDlgComponent,
+	CompareProductComponent,
+	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
-	MergeDialogComponent,
-	ProductAddToProjectDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-	CompareQuotationComponent,
-	CompareProductComponent,
-	ProductExportDlgComponent,
 	EmailListComponent,
-	RfqDialogComponent,
 	FindProductsDialogComponent,
 	InviteUserDlgComponent,
-	ChangePswdDlgComponent,
+	MergeDialogComponent,
+	NewContactDlgComponent,
+	ProductAddToProjectDlgComponent,
+	ProductExportDlgComponent,
+	ProductRequestTeamFeedbackDlgComponent,
+	RfqDialogComponent,
 	VoteDetailsDialogComponent,
-	NewContactDlgComponent
 ];
 
 @NgModule({
