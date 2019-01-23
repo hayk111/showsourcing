@@ -36,14 +36,14 @@ export class UserClientInitializer extends AbstractApolloClient {
 		this.apolloState.setClientPending(Client.USER);
 
 		const userId = refreshToken.token_data.identity;
+		const uri = `/user/${userId}/__partial/${userId}/web`;
 		const accessToken$ = this.tokenSrv
-			.getAccessToken(refreshToken, `user/${userId}/__partial/${userId}`).pipe(
-				first()
+			.getAccessToken(refreshToken, uri).pipe(
+				first(),
 			);
-		const realmUri = `/user/${userId}/__partial/${userId}`;
 
 		return accessToken$.pipe(
-			switchMap(token => this.createClient(realmUri, Client.USER, token)),
+			switchMap(token => this.createClient(uri, Client.USER, token)),
 			takeUntil(this.destroyed$),
 			tap(_ => this.apolloState.setClientReady(this.client)),
 			first(),

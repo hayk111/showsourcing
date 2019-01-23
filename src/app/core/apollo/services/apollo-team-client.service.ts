@@ -37,10 +37,10 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		const userId = refreshToken.token_data.identity;
 
 		// here the user client is ready if a team is selected
-		const uri = `${team.realmPath}/__partial/${userId}`;
+		const uri = `${team.realmPath}/__partial/${userId}/web`;
 
 		const accessToken$ = this.tokenSrv
-			.getAccessToken(refreshToken, `${this.client}/${team.id}/__partial/${userId}`)
+			.getAccessToken(refreshToken, uri)
 			.pipe(first());
 
 		// combine tokens & uri

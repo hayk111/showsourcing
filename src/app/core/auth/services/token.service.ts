@@ -13,6 +13,9 @@ import { log, LogColor } from '~utils';
 
 
 
+
+
+
 const REFRESH_TOKEN_MAP = 'REFRESH_TOKEN_MAP';
 const ACCESS_TOKEN_MAP = 'ACCESS_TOKEN_MAP';
 
@@ -78,14 +81,13 @@ export class TokenService {
 	}
 
 	/**
-	 *
 	 * @param jwt : jwt
 	 * @param name : name of the token
 	 */
 	getRealmRefreshToken(jwt: string, name = 'auth')
 		: Observable<TokenState> {
 		const refObj = this.getRefreshTokenObject(jwt);
-		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, refObj).pipe(
+		return this.http.post<RefreshTokenResponse>(environment.graphqlAuthUrl, refObj).pipe(
 			map((refreshTokenResp: RefreshTokenResponse) => refreshTokenResp.refresh_token),
 			tap((refreshToken: TokenState) => this.storeRefreshToken(name, refreshToken)),
 			catchError(err => {
@@ -153,7 +155,7 @@ export class TokenService {
 			data: refreshToken.token,
 			path: realmPath
 		};
-		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj).pipe(
+		return this.http.post<AccessTokenResponse>(environment.graphqlAuthUrl, accessObj).pipe(
 			tap(accessTokenResp => {
 				// this is a quickfix since the old user token now its called access
 				if (accessTokenResp.user_token) accessTokenResp.access_token = accessTokenResp.user_token;

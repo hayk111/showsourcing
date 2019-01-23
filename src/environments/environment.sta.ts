@@ -10,6 +10,7 @@ export const environment = {
 	production: false,
 	staging: true,
 	graphqlUrl: 'wss://ros-sta.showsourcing.com/graphql',
+	graphqlAuthUrl: 'https://ros-sta.showsourcing.com/auth',
 	apiUrl: 'https://ros-sta.showsourcing.com',
 	getStreamKey: '7mxs7fsf47nu',
 	LOG_LEVEL: LogLevel.DEBUG
