@@ -13,7 +13,6 @@ import { SharedModule } from '~shared/shared.module';
 
 import {
 	ProductActivityComponent,
-	ProductCardComponent,
 	ProductIconsComponent,
 	ProductInformationComponent,
 	ProductListComponent,

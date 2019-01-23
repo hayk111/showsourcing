@@ -1,5 +1,4 @@
 export * from './product-activity/product-activity.component';
-export * from './product-card/product-card.component';
 export * from './product-icons/product-icons.component';
 export * from './product-information/product-information.component';
 export * from './product-list/product-list.component';
