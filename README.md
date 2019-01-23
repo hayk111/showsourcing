@@ -77,7 +77,14 @@ In each module the division of the file structure is with those folders (each on
 
 # Style Structure
 
-The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs.
+The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs. Inside this file we import some core styling files:
+
+- `elevation.scss`: is a somewhat simplified version of the file in angular material design.
+- `helper-classes.scss`: has different sections (display, align, text, misc...) with classes that are generally used around the app.
+- `inputs-buttons.scss`:
+- `palette.scss`
+- `spacing.scss`
+- `typography.scss`
 
 Spacing and palette use CSS4 variables and should be used throughout the application. CSS4 variables are used with a fallback (meaning that even if the browser doesn't support CSS4 vars it's gonna work).
 

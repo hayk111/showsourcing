@@ -1,39 +1,4 @@
-
-// spacing
-.noPadding {
-	padding: 0;
-}
-
-.noMargin {
-	margin: 0;
-}
-
-.paddingDefault {
-	padding: var(--spacing-m);
-}
-
-.marginDefault {
-	margin: var(--spacing-m);
-}
-
-.paddingSmall {
-	padding: var(--spacing-s);
-}
-
-.marginSmall {
-	margin: var(--spacing-s);
-}
-
-.marginExtraSmall {
-	margin: var(--spacing-xs);
-}
-
-.borderRadius {
-	border-radius: var(--border-radius);
-}
-
 /////// flex (used everywhere) /////////
-
 .flex {
   display: flex;
 }
@@ -89,22 +54,57 @@
 	align-items: center;
 }
 
+.col {
+  display: inline-block;
+}
 
-// align
+.col-5 {
+  width: 5%;
+}
 
-.center {
-	text-align: center;
+.col-15 {
+  width: 15%;
+}
+
+.col-20 {
+  width: 20%;
+}
+
+.col-25 {
+  width: 25%;
+}
+
+.col-30 {
+	width: 30%;
+}
+
+.col-35 {
+	width: 35%;
+}
+
+.col-40 {
+	width: 40%;
+}
+
+.col-50 {
+  width: 50%;
+}
+
+.col-90 {
+  width: 90%;
+}
+
+.col-100 {
+  width: 100%;
 }
 
 // width and form
-
 .fullWidth{
 	// using important here for quick fix, running low on time
   width: 100%!important;
 }
 
 // pointer
-
 .pointer {
 	user-select: none;
   cursor: pointer;
@@ -115,15 +115,15 @@
 	cursor: move;
 }
 
-.noselect {
+.no-select {
 	user-select: none;
 }
 
-.noPointer {
+.no-pointer {
 	cursor: default !important;
 }
-// colors
 
+// colors
 .selected {
 	color: var(--color-primary);
 }
@@ -148,12 +148,16 @@
 	align-items: center;
 	overflow: hidden;
 }
-// txt
 
+// txt
 .ellipsis {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.centered-text {
+  text-align: center;
 }
 
 // misc

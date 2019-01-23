@@ -1,7 +1,7 @@
 <div class="card-container" [ngClass]="{'selectedCard': selected, 'actions': hasActions}" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
 	<div class="card-content flexColumn">
 		<img-app
-			class="noselect"
+			class="no-select"
 			size="l"
 			[image]="product"
 			objectFit="none">

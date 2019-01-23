@@ -1,4 +1,4 @@
-<div class="ctnr c-{{ view }} borderRadius flex">
+<div class="ctnr c-{{ view }} border-radius flex">
   <div class="slider" [class.right]="view === 'card'" [class.left]="view === 'list'"></div>
 	<button class="flexCenter {{ view === 'list' ? 'selected' : ''}}" (mousedown)="switchView('list')">
 		<icon-app class="list" [name]="switchContent[0]"></icon-app>
