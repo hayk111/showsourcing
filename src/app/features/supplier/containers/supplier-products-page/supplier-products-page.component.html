@@ -65,38 +65,50 @@
 	[selection]="listSrv.selection$ | async"
 	(close)="listSrv.unselectAll()">
 
-	<action-bar-app
-		[favorite]="listSrv.allSelectedFavorite"
-		[multiple]="true"
-		(disliked)="listSrv.onMultipleThumbDown($event)"
-		(liked)="listSrv.onMultipleThumbUp($event)"
-		(onFavorite)="listSrv.onFavoriteAllSelected()"
-		(onUnfavorite)="listSrv.onUnfavoriteAllSelected()">
+	<div class="flex">
+		<status-selector-app
+			toolTip toolTipMessage="Change status" toolTipPosition="above-right"
+			#workActionMenu
+			selectSize="s"
+			[typeEntity]="erm.PRODUCT"
+			type="multiple-selection"
+			[internalUpdate]="false"
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
+		</status-selector-app>
+		<action-bar-app
+			[favorite]="listSrv.allSelectedFavorite"
+			[multiple]="true"
+			(disliked)="listSrv.onMultipleThumbDown($event)"
+			(liked)="listSrv.onMultipleThumbUp($event)"
+			(onFavorite)="listSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()">
 
-		<button class="icon light" (click)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())">
-			<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
-		</button>
-		<context-menu-app>
-			<context-menu-trigger-app>
-				<button class="icon light">
-					<icon-app name="dots-vertical" size="m"></icon-app>
-				</button>
-			</context-menu-trigger-app>
-			<context-menu-item-app (click)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())">
-				Export
-			</context-menu-item-app>
-			<context-menu-item-app (click)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())">
-				Request For Team Feedback
-			</context-menu-item-app>
-			<context-menu-item-app (click)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())">
-				Compare Product
-			</context-menu-item-app>
-		</context-menu-app>
+			<button class="icon light" (click)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())">
+				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
+			</button>
+			<context-menu-app>
+				<context-menu-trigger-app>
+					<button class="icon light">
+						<icon-app name="dots-vertical" size="m"></icon-app>
+					</button>
+				</context-menu-trigger-app>
+				<context-menu-item-app (click)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())">
+					Export
+				</context-menu-item-app>
+				<context-menu-item-app (click)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())">
+					Request For Team Feedback
+				</context-menu-item-app>
+				<context-menu-item-app (click)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())">
+					Compare Product
+				</context-menu-item-app>
+			</context-menu-app>
 
-		<button class="icon light" (click)="listSrv.deleteSelected()">
-			<icon-app name="trash-bin"></icon-app>
-		</button>
-	</action-bar-app>
+			<button class="icon light" (click)="listSrv.deleteSelected()">
+				<icon-app name="trash-bin"></icon-app>
+			</button>
+		</action-bar-app>
+	</div>
+
 </selection-bar-app>
 
 <ng-template #spinner> <spinner-app></spinner-app> </ng-template>

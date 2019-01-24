@@ -51,7 +51,7 @@
 				[typeEntity]="erm.SAMPLE"
 				type="multiple-selection"
 				[internalUpdate]="false"
-				(statusUpdated)="onMultipleStatusUpdated($event)">
+				(statusUpdated)="this.listSrv.updateSelected({status: $event})">
 			</status-selector-app>
 
 			<button class="icon light" (click)="listSrv.deleteSelected()">

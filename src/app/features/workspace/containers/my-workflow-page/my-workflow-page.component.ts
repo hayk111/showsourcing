@@ -27,6 +27,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
+	erm = ERM;
 
 	constructor(
 		private productSrv: ProductService,
@@ -198,4 +199,10 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
+	onMultipleStatusChange(status: ProductStatus) {
+		const updated = this.listSrv.getSelectedIds()
+			.map(id => ({ id, status }));
+		this.kanbanSrv.onExternalStatusChange(updated);
+		this.productSrv.updateMany(updated).subscribe();
+	}
 }

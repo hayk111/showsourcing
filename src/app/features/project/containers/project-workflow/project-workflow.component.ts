@@ -29,6 +29,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
 	project: Project;
 	private statuses: ProductStatus[];
+	erm = ERM;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -186,5 +187,10 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
-
+	onMultipleStatusChange(status: ProductStatus) {
+		const updated = this.listSrv.getSelectedIds()
+			.map(id => ({ id, status }));
+		this.kanbanSrv.onExternalStatusChange(updated);
+		this.productSrv.updateMany(updated).subscribe();
+	}
 }
