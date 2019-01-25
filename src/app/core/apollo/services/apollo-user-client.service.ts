@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { catchError, first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
@@ -56,7 +56,10 @@ export class UserClientInitializer extends AbstractApolloClient {
 	}
 
 	createMissingSubscription(): Observable<any> {
-		return this.teamSrv.openSubscription(Client.USER);
+		return forkJoin([
+			this.teamSrv.openSubscription(Client.USER),
+			this.userSrv.openSubscription(Client.USER)
+		]);
 	}
 
 }

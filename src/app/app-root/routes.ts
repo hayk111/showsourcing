@@ -39,7 +39,7 @@ export const routes: Array<Route> = [
 			UserClientReadyGuard,
 			HasTeamSelectedGuard,
 			TeamClientReadyGuard,
-			// 	HasUserGuard
+			HasUserGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
