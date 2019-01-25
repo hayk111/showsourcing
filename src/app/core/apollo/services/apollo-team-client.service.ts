@@ -73,7 +73,9 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			'supplier type',
 			'tag',
 			'task',
-			'team'
+			'team',
+			'team user',
+			'user'
 		]);
 
 		const newSubs = Array.from(toSubSet)
