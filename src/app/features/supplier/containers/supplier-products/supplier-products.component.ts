@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { TrackingComponent } from '~utils/tracking-component';
 import { ID } from '~utils/id.utils';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'supplier-products-app',
@@ -69,5 +69,9 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog() {
 		this.commonModalSrv.openAddToProjectDialog();
+	}
+
+	previewUpdated() {
+		this.listSrv.refetch().pipe(first()).subscribe();
 	}
 }

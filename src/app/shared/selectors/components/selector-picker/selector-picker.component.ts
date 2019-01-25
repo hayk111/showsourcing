@@ -102,7 +102,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			if (this.multiple)
 				this.choices$ = this.getChoices(this.type).pipe(
-					map((item) => item.filter(i => !(this.value as Array<any>).some(val => val.id === i.id)))
+					map((item) => item.filter(i => !((this.value as Array<any>) ? (this.value as Array<any>).some(val => val.id === i.id) : false)))
 				);
 			else
 				this.choices$ = this.getChoices(this.type);
