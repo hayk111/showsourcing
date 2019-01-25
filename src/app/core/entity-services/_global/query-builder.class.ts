@@ -123,6 +123,14 @@ export class QueryBuilder {
 			delete${this.capPlural}(query: $query)
 		}`)
 
+	openSubscription = () => gql(`
+		mutation create${this.capSing}Subscription($name: String) {
+			create${this.capSing}Subscription(name: $name) {
+				id@skip(if: true)
+			}
+		}
+	`)
+
 	private capitalize(str: string): string {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}

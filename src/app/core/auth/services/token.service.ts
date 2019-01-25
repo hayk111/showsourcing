@@ -200,12 +200,13 @@ export class TokenService {
 	private isValidOnServer(refreshToken: TokenState): Promise<boolean> {
 		// we will send a request for an access token to know if the request
 		// token is really valid (the server might have restarted etc).
+		const userId = refreshToken.token_data.identity;
 		const accessObj = {
 			app_id: '',
 			provider: 'realm',
 			data: refreshToken.token,
 		};
-		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj).pipe(
+		return this.http.post<AccessTokenResponse>(environment.graphqlAuthUrl, accessObj).pipe(
 			map(accessToken => !!accessToken),
 			catchError(err => of(false))
 		).toPromise();

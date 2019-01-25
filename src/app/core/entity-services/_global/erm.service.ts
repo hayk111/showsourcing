@@ -14,6 +14,9 @@ import { SampleService } from '~entity-services/sample/sample.service';
 import { SampleStatusService } from '~entity-services/sample-status/sample-status.service';
 import { ProductStatusService } from '../product-status/product-status.service';
 import { SupplierStatusService } from '../supplier-status/supplier-status.service';
+import { InvitationService } from '../invitation/invitation.service';
+import { SupplierTypeService } from '../supplier-type/supplier-type.service';
+import { TaskService } from '../task/task.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -34,7 +37,10 @@ export class ERMService {
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
 		private productStatusSrv: ProductStatusService,
-		private supplierStatusSrv: SupplierStatusService
+		private supplierStatusSrv: SupplierStatusService,
+		private invitationSrv: InvitationService,
+		private supplierTypeSrv: SupplierTypeService,
+		private taskSrv: TaskService
 	) { }
 
 
@@ -86,6 +92,8 @@ export class ERMService {
 				return this.projectService;
 			case ERM.IMAGE:
 				return this.imageService;
+			case ERM.INVITATION:
+				return this.invitationSrv;
 			case ERM.TAG:
 				return this.tagService;
 			case ERM.EVENT:
@@ -104,8 +112,12 @@ export class ERMService {
 				return this.productStatusSrv;
 			case ERM.SUPPLIER_STATUS:
 				return this.supplierStatusSrv;
+			case ERM.SUPPLIER_TYPE:
+				return this.supplierTypeSrv;
+			case ERM.TASK:
+				return this.taskSrv;
 			default:
-				throw Error(`This ERM has not an associated service`);
+				throw Error(`The ERM "${erm.singular}" has not an associated service`);
 		}
 	}
 
@@ -118,7 +130,7 @@ export class ERMService {
 			case ERM.PRODUCT_STATUS:
 				return this.productStatusSrv;
 			default:
-				throw Error(`This ERM has not an associated status service`);
+				throw Error(`The ERM "${erm.singular}" has not an associated status service`);
 		}
 	}
 }

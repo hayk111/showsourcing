@@ -10,7 +10,7 @@ export const environment = {
 	version: '0.0.1',
 	production: false,
 	staging: false,
-	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphQL',
+	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',
 	apiUrl: 'https://services-dev.showsourcing.com/user',
 	getStreamKey: '7mxs7fsf47nu',
