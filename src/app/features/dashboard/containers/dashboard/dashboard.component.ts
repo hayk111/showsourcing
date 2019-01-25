@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
 	ngOnInit() {
 		this.feedResult = this.activitySrv.getDashboardFeed();
 		this.user$ = this.userSrv.selectUser();
-		this.counters$ = this.dashboardSrv.getCounters();
+		// this.counters$ = this.dashboardSrv.getCounters();
 		this.tasks$ = this.dashboardSrv.getFirstFewTasks();
 	}
 

@@ -73,7 +73,7 @@ export class AuthenticationService {
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {
-		return this.http.post<{ jwtToken: string }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
+		return this.http.post<{ jwtToken: string }>(`${environment.apiUrl}/auth`, credentials).pipe(
 			map(_ => true),
 			catchError(_ => of(false))
 		);
@@ -90,24 +90,24 @@ export class AuthenticationService {
 	}
 
 	resetPassword(cred: { email: string }) {
-		return this.http.post(`${environment.apiUrl}/user/password-reset-request`, cred);
+		return this.http.post(`${environment.apiUrl}/password-reset-request`, cred);
 	}
 
 	confirmResetPassword({ token, password }: { token: string; password: string; }) {
-		return this.http.post(`${environment.apiUrl}/user/password-reset`, { token, password });
+		return this.http.post(`${environment.apiUrl}/password-reset`, { token, password });
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
 		creds.email = creds.email.toLowerCase();
 
-		return this.http.post(`${environment.apiUrl}/user/signup`, creds).pipe(
+		return this.http.post(`${environment.apiUrl}/signup`, creds).pipe(
 			map(_ => ({ login: creds.email, password: creds.password })),
 			switchMap(_ => this.login({ login: creds.email, password: creds.password }))
 		);
 	}
 
 	validateEmail(token: string) {
-		return this.http.post(`${environment.apiUrl}/user/email-validation`, { token });
+		return this.http.post(`${environment.apiUrl}/email-validation`, { token });
 	}
 
 	private refreshTokenToAuthState(tokenState: TokenState): AuthState {

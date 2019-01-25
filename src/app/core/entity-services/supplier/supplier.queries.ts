@@ -52,7 +52,6 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
 		${SupplierQueries.createdBy}
-		${SupplierQueries.productsCount}
 	`;
 
 	static readonly all = `
@@ -67,7 +66,6 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
 		${SupplierQueries.createdBy}
-		${SupplierQueries.productsCount}
 	`;
 
 	static readonly update = `

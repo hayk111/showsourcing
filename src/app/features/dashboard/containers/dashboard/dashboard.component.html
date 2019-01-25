@@ -16,7 +16,6 @@
 	<div class="right">
 		<dashboard-summary-app
 			[user]="user$ | async"
-			[counters]="counters$ | async"
 			[tasks]="tasks$ | async"
 			(updateTask)="updateTask($event)">
 		</dashboard-summary-app>
