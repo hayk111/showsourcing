@@ -27,7 +27,6 @@ import {
 	SelectorCategoryRowComponent,
 } from './components';
 import { SelectorConstComponent } from './components/selector-const/selector-const.component';
-import { SelectorEntityComponent } from './components/selector-entity/selector-entity.component';
 import { DividerModule } from '~shared/divider/divider.module';
 import { ScrollingModule, ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { BadgeModule } from '~shared/badge';
@@ -45,7 +44,6 @@ const components = [
 	SelectorConstComponent,
 	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
-	SelectorEntityComponent,
 	SelectorIdRowComponent,
 	SelectorNameRowComponent,
 	SelectorPickerComponent,
