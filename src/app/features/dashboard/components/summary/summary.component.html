@@ -11,42 +11,44 @@
 
   <divider-app></divider-app>
 
-  <div class="secondBlock flexColumn" *ngIf="counters">
+  <ng-container *ngIf="counters">
+    <div class="secondBlock flexColumn">
 
-    <div class="flexVAlign">
-      <span class="amount">{{ counters?.productsNeedReview }}</span>
-      <div class="flexColumn">
-        <span class="taskType">Product{{ counters?.productsNeedReview === 1 ? '' : 's' }} need{{ counters?.productsNeedReview === 1 ? 's' : '' }} review</span>
-        <span><a [routerLink]="['/workspace']" routerLinkActive="active">Review Product{{ counters?.productsNeedReview > 1 ? 's' : '' }}</a></span>
+      <div class="flexVAlign">
+        <span class="amount">{{ counters?.productsNeedReview }}</span>
+        <div class="flexColumn">
+          <span class="taskType">Product{{ counters?.productsNeedReview === 1 ? '' : 's' }} need{{ counters?.productsNeedReview === 1 ? 's' : '' }} review</span>
+          <span><a [routerLink]="['/workspace']" routerLinkActive="active">Review Product{{ counters?.productsNeedReview > 1 ? 's' : '' }}</a></span>
+        </div>
       </div>
+
+
+      <div class="flexVAlign">
+        <span class="amount">{{ counters?.productsInWorkflow }}</span>
+        <div class="flexColumn">
+          <span class="taskType">Product{{ counters?.productsInWorkflow === 1 ? '' : 's' }} in progress</span>
+          <span>
+            <a [routerLink]="['/workspace/my-workflow']" routerLinkActive="active">To my workspace</a>
+          </span>
+        </div>
+      </div>
+
+      <!-- <div class="flexVAlign">
+        <span class="amount">{{ counters?.suppliersUnderAssessment }}</span>
+        <div class="flexColumn desc">
+          <span class="taskType">Supplier to assess</span>
+          <span><a>To my workspace</a></span>
+        </div>
+      </div> -->
+
     </div>
 
+    <divider-app></divider-app>
 
-    <div class="flexVAlign">
-      <span class="amount">{{ counters?.productsInWorkflow }}</span>
-      <div class="flexColumn">
-        <span class="taskType">Product{{ counters?.productsInWorkflow === 1 ? '' : 's' }} in progress</span>
-        <span>
-          <a [routerLink]="['/workspace/my-workflow']" routerLinkActive="active">To my workspace</a>
-        </span>
-      </div>
-    </div>
+    <div class="taskTitle"> {{ counters?.tasksDone ? counters?.tasksDone + index : '0'}} / {{ counters?.totalTasks || '0' }} Tasks</div>
 
-    <!-- <div class="flexVAlign">
-      <span class="amount">{{ counters?.suppliersUnderAssessment }}</span>
-      <div class="flexColumn desc">
-        <span class="taskType">Supplier to assess</span>
-        <span><a>To my workspace</a></span>
-      </div>
-    </div> -->
-
-  </div>
-
-	<divider-app></divider-app>
-
-  <div class="taskTitle"> {{ counters?.tasksDone ? counters?.tasksDone + index : '0'}} / {{ counters?.totalTasks || '0' }} Tasks</div>
-
-  <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
+    <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
+  </ng-container>
 
   <ng-container *ngFor="let task of tasks; trackBy: trackByFn; last as last">
 		<div class="flexVAlign user-tasks pointer" [class.last]="last">

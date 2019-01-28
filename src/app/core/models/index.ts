@@ -1,5 +1,6 @@
 
 
+
 export * from './_entity.model';
 export * from './_erm.enum';
 export * from './app-image.model';
@@ -31,6 +32,7 @@ export * from './product-vote-request.model';
 export * from './product-vote.model';
 export * from './product.model';
 export * from './project.model';
+export * from './query-based-subscription.model';
 export * from './quote.model';
 export * from './realm-server.model';
 export * from './sample-status.model';

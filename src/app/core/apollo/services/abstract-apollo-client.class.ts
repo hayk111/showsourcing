@@ -4,15 +4,13 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
-import { Observable, Observer, Subject, of, throwError } from 'rxjs';
-import { first, map } from 'rxjs/operators';
-import { TokenState } from '~core/auth/interfaces/token-state.interface';
-import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
+import { Observable, Observer, of, Subject, throwError } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
+import { TokenState } from '~core/auth/interfaces/token-state.interface';
+import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { log, LogColor } from '~utils';
-import { LocalStorageService } from '~core/local-storage';
 
 
 /**
@@ -32,7 +30,7 @@ export abstract class AbstractApolloClient {
 		protected httpLink: HttpLink,
 		protected apolloState: ApolloStateService,
 		protected realmServerSrv: RealmServerService,
-		protected client: Client
+		protected client: Client,
 	) { }
 
 	protected checkNotAlreadyInit() {
@@ -95,20 +93,30 @@ export abstract class AbstractApolloClient {
 					observer.complete();
 				}
 			};
-			// Create a WebSocket link:
+
 			const connectionParams = { token: tokenState.token };
-			this.ws = new WebSocketLink({
-				uri,
-				options: {
-					reconnect: true,
-					connectionParams,
-					connectionCallback
-				}
-			});
+			let linker;
+			// Create a WebSocket link:
+			if (uri.startsWith('ws')) {
+				this.ws = new WebSocketLink({
+					uri,
+					options: {
+						reconnect: true,
+						connectionParams,
+						connectionCallback
+					}
+				});
+				linker = this.ws;
+			} else {
+				linker = this.httpLink.create({
+					uri,
+
+				});
+			}
 
 			const link = from([
 				cleanTypenameLink,
-				this.ws
+				linker
 			]);
 
 			this.apollo.create({

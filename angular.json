@@ -76,7 +76,19 @@
               "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": true,
-              "serviceWorker": false
+              "serviceWorker": true
+            },
+            "dev":{
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "serviceWorker": true
             },
 	          "local":{
               "fileReplacements": [

@@ -49,6 +49,7 @@ export class AuthenticationService {
 
 	init() {
 		this.tokenSrv.restoreRefreshToken('auth');
+		this.tokenSrv.restoreFeedToken();
 		// when there is a refresh token that means we are authenticated
 		this.tokenSrv.authRefreshToken$.pipe(
 			map(tokenState => this.refreshTokenToAuthState(tokenState))
@@ -59,12 +60,12 @@ export class AuthenticationService {
 	login(credentials: Credentials) {
 		// lower case for email
 		credentials.login = credentials.login.toLowerCase();
-		return this.http.post<{ jwtToken: string, emailValidated: boolean }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
+		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
+			tap(resp => this.tokenSrv.storeFeedToken(resp.jwtTokenFeed)),
 			map(resp => resp.jwtToken),
 			switchMap((jwt) => this.tokenSrv.getRealmRefreshToken(jwt)),
 		);
 	}
-
 
 	logout() {
 		this.router.navigate(['auth', 'login']);
@@ -80,7 +81,7 @@ export class AuthenticationService {
 	}
 
 	changePassword(userId: string, password: string): Observable<boolean> {
-		const endpoint = `${environment.apiUrl}/signup/user/${userId}/password`;
+		const endpoint = `${environment.apiUrl}/user/signup/user/${userId}/password`;
 		return this.tokenSrv.getAccessToken(this.tokenSrv.authRefreshTokenSync).pipe(
 			map((tokenState: TokenState) => ({ headers: new HttpHeaders({ Authorization: tokenState.token }) })),
 			switchMap(opts => this.http.post<RefreshTokenResponse>(endpoint, { password }, opts)),

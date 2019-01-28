@@ -86,6 +86,7 @@ export class AppComponent implements OnInit {
 		const ros = urlParams.get('ros');
 		if (ros) {
 			environment.graphqlUrl = `wss://${ros}.showsourcing.com/graphql`;
+			environment.graphqlAuthUrl = `https://${ros}.showsourcing.com/auth`;
 			environment.apiUrl = `https://${ros}.showsourcing.com`;
 		}
 	}

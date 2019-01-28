@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable, ReplaySubject } from 'rxjs';
 import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile } from 'rxjs/operators';
 import { TokenService } from '~core/auth';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
@@ -25,6 +25,7 @@ import {
 export class ActivityService {
 	private readonly LIMIT = 8;
 	private client: any;
+	private getStreamToken$ = new ReplaySubject(1);
 
 	constructor(
 		private http: HttpClient,
@@ -95,7 +96,7 @@ export class ActivityService {
 
 	/** some doc on feed token API in readme next to this file */
 	private getToken(url): Observable<string> {
-		return this.tokenSrv.authRefreshToken$.pipe(
+		return this.tokenSrv.jwtTokenFeed$.pipe(
 			switchMap((token: TokenState) => {
 				const headers = new HttpHeaders({ Authorization: token.token });
 				return this.http.get<TokenResponse>(url, { headers });

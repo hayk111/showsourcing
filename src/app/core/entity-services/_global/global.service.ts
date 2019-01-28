@@ -51,8 +51,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	constructor(
 		protected apolloState: ApolloStateService,
 		protected fields: any,
-		sing: string,
-		plural: string
+		protected sing: string,
+		protected plural: string
 	) {
 		this.queryBuilder = new QueryBuilder(sing, plural);
 		// capitalizing the typename
@@ -65,7 +65,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 	// we use a cache so we can change things on update, without waiting for server response
 	// this is because apollo doesn't have optimistic UI on subscriptions
-	private selectOneCache = new Map<string, { serverChanges, clientChanges, result }>();
+	protected selectOneCache = new Map<string, { serverChanges, clientChanges, result }>();
 
 	/** select one entity given an id,
 	 * This is a subscription like all select, so it will listen to changes from all users.
@@ -99,7 +99,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
-			map(({ data }) => data[queryName][0]),
+			map(({ data }) => data[queryName].items[0]),
 			tap(data => this.logResult(title, queryName, data)),
 			shareReplay(1)
 		);
@@ -169,7 +169,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
-			map(({ data }) => data[queryName][0]),
+			map(({ data }) => data[queryName].items[0]),
 			tap(data => this.logResult(title, queryName, data)),
 			shareReplay(1)
 		);
@@ -198,7 +198,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
-			map(({ data }) => data[queryName][0]),
+			map(({ data }) => data[queryName].items[0]),
 			tap(data => this.logResult(title, queryName, data)),
 			shareReplay(1)
 		);
@@ -227,7 +227,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
-			map(({ data }) => data[queryName][0]),
+			map(({ data }) => data[queryName].items[0]),
 			// we are only interested when there is an item
 			filter(item => !!item),
 			first(),
@@ -260,7 +260,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
-			map((r) => r.data[queryName]),
+			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			catchError(errors => of(log.table(errors)))
 		);
@@ -288,7 +288,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
-			map((r) => r.data[queryName]),
+			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			catchError(errors => of(log.table(errors)))
 		);
@@ -331,7 +331,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			switchMap(queryRef => queryRef.valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
-			map((r) => r.data[queryName]),
+			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
 			catchError((errors) => of(log.table(errors)))
@@ -465,7 +465,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			map((r: any) => {
 				if (!r.data)
 					throwError(r.errors);
-				return r.data[queryName];
+				return r.data[queryName].items;
 			}),
 			catchError(errors => of(log.table(errors))),
 			tap(data => this.logResult(title, queryName, data)),
@@ -499,7 +499,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			map((r) => {
 				if (!r.data)
 					throwError(r.errors);
-				return r.data[queryName];
+				return r.data[queryName].items;
 			}),
 			catchError(errors => of(log.table(errors))),
 			tap(data => this.logResult(title, queryName, data)),
@@ -528,7 +528,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			map((r) => {
 				if (!r.data)
 					throwError(r.errors);
-				return r.data[queryName];
+				return r.data[queryName].count;
 			}),
 			catchError(errors => of(log.table(errors))),
 			tap(data => this.logResult(title, queryName, data)),
@@ -693,6 +693,26 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		);
 	}
 
+
+	openSubscription(clientName?: Client) {
+		const title = 'Opening subscription for ' + this.typeName;
+		const gql = this.queryBuilder.openSubscription();
+		const queryName = this.getQueryName(gql);
+
+		// we need not to wait for the client to be ready
+		return of(this.apolloState.getClient(clientName)).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName)),
+			switchMap(client => {
+				return client.mutate({ mutation: gql, variables: this.sing + '-subscription' });
+			}),
+			first(),
+			filter((r: any) => this.checkError(r)),
+			map(({ data }) => data[queryName].count),
+			tap(data => this.logResult(title, queryName, data)),
+			catchError(errors => of(log.table(errors)))
+		);
+	}
+
 	/////////////////////////////
 	//          UTILS          //
 	/////////////////////////////
@@ -701,7 +721,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	// the id of the sub entities.
 	// for example when we change the supplier of a product we just need the id of the supplier
 	// else we could override things
-	private strip(entity: any) {
+	protected strip(entity: any) {
 		const striped = {};
 		Object.entries(entity).forEach(([k, v]) => {
 			const value = entity[k];
@@ -717,12 +737,12 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 	/** to use another named apollo client */
-	private getClient(clientName: Client, context: string): Observable<ApolloBase> {
+	protected getClient(clientName: Client, context: string): Observable<ApolloBase> {
 		return this.apolloState.getClientWhenReady(clientName, context);
 	}
 
 	/** creates an optimistic response the way apollo expects it */
-	private addOptimisticResponse(options: any, gql: DocumentNode, input, typename: string) {
+	protected addOptimisticResponse(options: any, gql: DocumentNode, input, typename: string) {
 		if (typename) {
 			options.optimisticResponse = {
 				__typename: 'Mutation',
@@ -737,7 +757,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 	/** gets the query name from a gql statement */
-	private getQueryName(gql: DocumentNode): string {
+	protected getQueryName(gql: DocumentNode): string {
 		try {
 			return (gql.definitions[0] as any).selectionSet.selections[0].name.value;
 		} catch (e) {
@@ -746,12 +766,12 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 	/** gets the content of a graphql query */
-	private getQueryBody(gql: DocumentNode): string {
+	protected getQueryBody(gql: DocumentNode): string {
 		return gql.loc.source.body;
 	}
 
 	/** logs request that is about to being made to the 	 */
-	private log(type: string, gql: DocumentNode, queryName: string, clientName: Client, variables?: any) {
+	protected log(type: string, gql: DocumentNode, queryName: string, clientName: Client, variables?: any) {
 		// logging for each request
 		log.group(`%c 🍌 ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.debug(`%c client: ${clientName}`, LogColor.APOLLO_CLIENT_PRE);
@@ -772,14 +792,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 	/** logs data received  */
-	private logResult(type: string, queryName: string, result) {
+	protected logResult(type: string, queryName: string, result) {
 		log.group(`%c 🍇 ${type} ${queryName} -- Result`, 'color: pink; background: #555555; padding: 4px');
 		log.table(result);
 		log.groupEnd();
 	}
 
 	/** check if a graphql call has given any error */
-	private checkError(r: { data: any, errors: any[] }) {
+	protected checkError(r: { data: any, errors: any[] }) {
 		if (r.errors) {
 			r.errors.forEach(e => log.error(e));
 			return false;
@@ -791,7 +811,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return true;
 	}
 
-	private getFields(fields: string | string[], defaultFields: string) {
+	protected getFields(fields: string | string[], defaultFields: string) {
 		if (!fields || fields.length === 0)
 			return defaultFields;
 		if (Array.isArray(fields))

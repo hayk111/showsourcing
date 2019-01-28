@@ -98,6 +98,10 @@ export class ApolloStateService {
 		);
 	}
 
+	getClient(name: Client) {
+		return this.apollo.use(name);
+	}
+
 	private redirect(allState: AllClientState) {
 		// when any of those has error, we redirect to server issue
 		const hasError = Object.values(allState).some(value => value === ClientStatus.ERROR);

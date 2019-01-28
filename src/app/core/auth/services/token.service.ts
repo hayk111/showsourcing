@@ -13,6 +13,9 @@ import { log, LogColor } from '~utils';
 
 
 
+
+
+
 const REFRESH_TOKEN_MAP = 'REFRESH_TOKEN_MAP';
 const ACCESS_TOKEN_MAP = 'ACCESS_TOKEN_MAP';
 
@@ -31,6 +34,9 @@ export class TokenService {
 	private _rfqRefreshToken$ = new ReplaySubject<TokenState>(1);
 	rfqRefreshToken$ = this._rfqRefreshToken$.asObservable().pipe(shareReplay(1));
 	rfqRefreshTokenSync: TokenState;
+
+	private _jwtTokenFeed$ = new ReplaySubject<TokenState>();
+	jwtTokenFeed$ = this._jwtTokenFeed$.asObservable();
 
 	constructor(
 		private localStorageSrv: LocalStorageService,
@@ -78,14 +84,13 @@ export class TokenService {
 	}
 
 	/**
-	 *
 	 * @param jwt : jwt
 	 * @param name : name of the token
 	 */
 	getRealmRefreshToken(jwt: string, name = 'auth')
 		: Observable<TokenState> {
 		const refObj = this.getRefreshTokenObject(jwt);
-		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, refObj).pipe(
+		return this.http.post<RefreshTokenResponse>(environment.graphqlAuthUrl, refObj).pipe(
 			map((refreshTokenResp: RefreshTokenResponse) => refreshTokenResp.refresh_token),
 			tap((refreshToken: TokenState) => this.storeRefreshToken(name, refreshToken)),
 			catchError(err => {
@@ -153,7 +158,7 @@ export class TokenService {
 			data: refreshToken.token,
 			path: realmPath
 		};
-		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj).pipe(
+		return this.http.post<AccessTokenResponse>(environment.graphqlAuthUrl, accessObj).pipe(
 			tap(accessTokenResp => {
 				// this is a quickfix since the old user token now its called access
 				if (accessTokenResp.user_token) accessTokenResp.access_token = accessTokenResp.user_token;
@@ -178,6 +183,19 @@ export class TokenService {
 		return this.localStorageSrv.getItem(ACCESS_TOKEN_MAP) || {};
 	}
 
+	storeFeedToken(token: TokenState) {
+		this.localStorageSrv.setItem('feed-token', token);
+		this._jwtTokenFeed$.next(token);
+	}
+
+	restoreFeedToken() {
+		const token: TokenState = this.localStorageSrv.getItem('feed-token');
+		// check if token is still valid, minus 10 so we still have some leeway
+		if (token && token.token_data.expires > (Date.now() / 1000) - 10) {
+			this._jwtTokenFeed$.next(token);
+		}
+	}
+
 
 	/** clear current tokens, called on logout */
 	clearTokens(): void {
@@ -198,12 +216,13 @@ export class TokenService {
 	private isValidOnServer(refreshToken: TokenState): Promise<boolean> {
 		// we will send a request for an access token to know if the request
 		// token is really valid (the server might have restarted etc).
+		const userId = refreshToken.token_data.identity;
 		const accessObj = {
 			app_id: '',
 			provider: 'realm',
 			data: refreshToken.token,
 		};
-		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj).pipe(
+		return this.http.post<AccessTokenResponse>(environment.graphqlAuthUrl, accessObj).pipe(
 			map(accessToken => !!accessToken),
 			catchError(err => of(false))
 		).toPromise();

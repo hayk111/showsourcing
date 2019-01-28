@@ -15,6 +15,7 @@ import { InjectionToken } from '@angular/core';
 import { Sample } from './sample.model';
 import { SupplierStatus } from './supplier-status.model';
 import { ProductStatus } from './product-status.model';
+import { EventDescription } from './event-description.model';
 
 
 export class EntityMetadata {
@@ -49,6 +50,7 @@ export class ERM {
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts', Contact);
 	static readonly CURRENCY = new EntityMetadata('currency', 'currencies');
 	static readonly EVENT = new EntityMetadata('event', 'events', Event);
+	static readonly EVENT_DESCRIPTION = new EntityMetadata('event description', 'event descriptions', EventDescription);
 	static readonly FILE = new EntityMetadata('file', 'files');
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);
 	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
