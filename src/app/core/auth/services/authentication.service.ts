@@ -49,6 +49,7 @@ export class AuthenticationService {
 
 	init() {
 		this.tokenSrv.restoreRefreshToken('auth');
+		this.tokenSrv.restoreFeedToken();
 		// when there is a refresh token that means we are authenticated
 		this.tokenSrv.authRefreshToken$.pipe(
 			map(tokenState => this.refreshTokenToAuthState(tokenState))
