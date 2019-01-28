@@ -17,6 +17,7 @@
 		<dashboard-summary-app
 			[user]="user$ | async"
 			[tasks]="tasks$ | async"
+			[counters]="counters$ | async"
 			(updateTask)="updateTask($event)">
 		</dashboard-summary-app>
 		<team-card-app

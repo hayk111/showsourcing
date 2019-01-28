@@ -32,8 +32,11 @@ export class QueryBuilder {
 	selectOne = (str: string) => gql(`
 		subscription ${this.sing}($query: String!) {
 			${ this.plural}(query: $query) {
-				id
-				${str}
+				items {
+					id
+					${str}
+				},
+				count
 			}
 		}`)
 
@@ -54,8 +57,11 @@ export class QueryBuilder {
 			$descending: Boolean
 			) {
 			${this.plural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-				id,
-				${str}
+				items {
+					id,
+					${str}
+				},
+				count
 			}
 		}`)
 
@@ -68,16 +74,22 @@ export class QueryBuilder {
 			$descending: Boolean
 			) {
 			${this.plural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-				id,
-				${str}
+				items {
+					id,
+					${str}
+				},
+				count
 			}
 		}`)
 
 	selectAll = (str: string) => gql(`
 		subscription ${this.plural} {
 			${this.plural} {
-				id
-				${str}
+				items {
+					id
+					${str}
+				},
+				count
 			}
 		}`)
 
@@ -88,14 +100,19 @@ export class QueryBuilder {
 			$descending: Boolean
 			) {
 			${this.plural}(query: $query, sortBy: $sortBy, descending: $descending) {
-				id
-				${str}
+				items {
+					id
+					${str}
+				},
+				count
 			}
 		}`)
 
 	queryCount = () => gql(`
 		query ${this.plural}Count($query: String) {
-			${this.plural}Count(query: $query)
+			${this.plural}(query: $query) {
+				count
+			}
 		}`)
 
 	create = (str: string) => gql(`
@@ -126,7 +143,9 @@ export class QueryBuilder {
 	openSubscription = () => gql(`
 		mutation create${this.capSing}Subscription($name: String) {
 			create${this.capSing}Subscription(name: $name) {
-				id@skip(if: true)
+				items {
+					id
+				}
 			}
 		}
 	`)

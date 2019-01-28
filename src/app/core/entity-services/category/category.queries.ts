@@ -12,9 +12,7 @@ export abstract class CategoryQueries extends GlobalQueries {
 			id,
 			firstName,
 			lastName
-		},
-		${CategoryQueries.productsCount},
-		${CategoryQueries.suppliersCount}
+		}
 		`;
 
 	static readonly many = `
@@ -23,9 +21,7 @@ export abstract class CategoryQueries extends GlobalQueries {
 			id,
 			firstName,
 			lastName
-		},
-		${CategoryQueries.productsCount},
-		${CategoryQueries.suppliersCount}
+		}
 		`;
 
 }

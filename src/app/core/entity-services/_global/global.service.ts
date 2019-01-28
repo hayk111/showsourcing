@@ -99,7 +99,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
-			map(({ data }) => data[queryName][0]),
+			map(({ data }) => data[queryName].items[0]),
 			tap(data => this.logResult(title, queryName, data)),
 			shareReplay(1)
 		);
@@ -169,7 +169,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
-			map(({ data }) => data[queryName][0]),
+			map(({ data }) => data[queryName].items[0]),
 			tap(data => this.logResult(title, queryName, data)),
 			shareReplay(1)
 		);
@@ -198,7 +198,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
-			map(({ data }) => data[queryName][0]),
+			map(({ data }) => data[queryName].items[0]),
 			tap(data => this.logResult(title, queryName, data)),
 			shareReplay(1)
 		);
@@ -227,7 +227,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
-			map(({ data }) => data[queryName][0]),
+			map(({ data }) => data[queryName].items[0]),
 			// we are only interested when there is an item
 			filter(item => !!item),
 			first(),
@@ -260,7 +260,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
-			map((r) => r.data[queryName]),
+			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			catchError(errors => of(log.table(errors)))
 		);
@@ -288,7 +288,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
-			map((r) => r.data[queryName]),
+			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			catchError(errors => of(log.table(errors)))
 		);
@@ -331,7 +331,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			switchMap(queryRef => queryRef.valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
-			map((r) => r.data[queryName]),
+			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
 			catchError((errors) => of(log.table(errors)))
@@ -465,7 +465,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			map((r: any) => {
 				if (!r.data)
 					throwError(r.errors);
-				return r.data[queryName];
+				return r.data[queryName].items;
 			}),
 			catchError(errors => of(log.table(errors))),
 			tap(data => this.logResult(title, queryName, data)),
@@ -499,7 +499,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			map((r) => {
 				if (!r.data)
 					throwError(r.errors);
-				return r.data[queryName];
+				return r.data[queryName].items;
 			}),
 			catchError(errors => of(log.table(errors))),
 			tap(data => this.logResult(title, queryName, data)),
@@ -528,7 +528,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			map((r) => {
 				if (!r.data)
 					throwError(r.errors);
-				return r.data[queryName];
+				return r.data[queryName].count;
 			}),
 			catchError(errors => of(log.table(errors))),
 			tap(data => this.logResult(title, queryName, data)),
@@ -703,11 +703,11 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return of(this.apolloState.getClient(clientName)).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName)),
 			switchMap(client => {
-				return client.mutate({ mutation: gql, variables: this.sing });
+				return client.mutate({ mutation: gql, variables: this.sing + '-subscription' });
 			}),
 			first(),
 			filter((r: any) => this.checkError(r)),
-			map(({ data }) => data[queryName]),
+			map(({ data }) => data[queryName].count),
 			tap(data => this.logResult(title, queryName, data)),
 			catchError(errors => of(log.table(errors)))
 		);
