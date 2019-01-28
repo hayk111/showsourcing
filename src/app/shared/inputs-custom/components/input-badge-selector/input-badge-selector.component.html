@@ -1,4 +1,4 @@
-<selector2-app
+<selector-app
 	[canCreate]="true"
 	[type]="type"
 	[multiple]="true"
@@ -11,4 +11,4 @@
 		<icon-app name="add"></icon-app>
 	</info-badge-app>
 	<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type">{{ item.name }}</info-badge-app>
-</selector2-app>
+</selector-app>

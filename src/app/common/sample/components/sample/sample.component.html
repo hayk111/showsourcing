@@ -14,7 +14,7 @@
 		</span>
 	</div>
 
-	<selector2-app
+	<selector-app
 		class="flex col-25 sample-user display-name"
 		[offsetY]="-27"
 		type="user"
@@ -24,7 +24,7 @@
 			<user-picture-app [user]="sample?.assignee" [size]="20" [border]="true"></user-picture-app>
 			<span class="ellipsis capitalize">{{ sample?.assignee?.firstName }} {{ sample?.assignee?.lastName ? sample?.assignee?.lastName[0] + '.' : '' }}</span>
 		</div>
-	</selector2-app>
+	</selector-app>
 
 	<!-- sample status -->
 	<div class="col-15 sample-status">

@@ -10,7 +10,7 @@
 
 			<ng-container>
 				<span *ngIf="inlineLabel"
-					class="currencyLabel1 pointer" (click)="showCurrencySelector()">
+					class="currencyLabel1 pointer">
 					{{ currency | const:'currency':'id' }}
 				</span>
 
@@ -24,7 +24,7 @@
 
 		</editable-text-app>
 		<!-- currency goes after after when on double line -->
-		<span *ngIf="!inlineLabel" class="currencyLabel2 pointer" (click)="showCurrencySelector()">
+		<span *ngIf="!inlineLabel" class="currencyLabel2 pointer">
 			{{ currency | const:'currency':'id' }}
 		</span>
 

@@ -68,7 +68,7 @@ A package with 0cm makes no sens -->
 </editable-field-app>
 
 <!-- units -->
-<selector2-app
+<selector-app
 	type="lengthUnit"
 	[width]="180"
 	[offsetY]="-34"
@@ -85,7 +85,7 @@ A package with 0cm makes no sens -->
 			{{ value?.unit || '-' }}
 		</editable-label-app>
 	</editable-field-app>
-</selector2-app>
+</selector-app>
 
 <!-- Quantity -->
 <editable-field-app
@@ -132,7 +132,7 @@ A package with 0cm makes no sens -->
 </editable-field-app>
 
 <!-- weigth units -->
-<selector2-app
+<selector-app
 	type="weightUnit"
 	[value]="accumulator.weightUnit"
 	[width]="180"
@@ -149,4 +149,4 @@ A package with 0cm makes no sens -->
 			{{ value?.weightUnit || '-' }}
 		</editable-label-app>
 	</editable-field-app>
-</selector2-app>
+</selector-app>

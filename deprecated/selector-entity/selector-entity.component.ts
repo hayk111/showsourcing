@@ -12,9 +12,9 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Category, Event, Supplier, SupplierType, Tag } from '~models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
 import { Choice } from '~shared/selectors/utils/choice.interface';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
+import { SelectorDeprecatedComponent } from '~deprecated/selector-deprecated/selector-deprecated.component';
 
 
 @Component({
@@ -54,7 +54,7 @@ export class SelectorEntityComponent extends AbstractInput {
 	@Output() change = new EventEmitter<any>();
 	@Output() blur = new EventEmitter<any>();
 	@Output() closed = new EventEmitter<null>();
-	@ViewChild(SelectorComponent) selector: SelectorComponent;
+	@ViewChild(SelectorDeprecatedComponent) selector: SelectorDeprecatedComponent;
 	@ViewChild('defaultTemplate') defaultTemplate: TemplateRef<any>;
 	@ViewChild('userTemplate') userTemplate: TemplateRef<any>;
 	/** available choices */

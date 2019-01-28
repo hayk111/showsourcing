@@ -1,9 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Output, EventEmitter, ViewChild } from '@angular/core';
-import { makeAccessorProvider, AbstractInput, InputDirective } from '~shared/inputs';
-import { CustomField } from '~shared/dynamic-forms/models';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { Price } from '~models';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
+import { CustomField } from '~shared/dynamic-forms/models';
 import { EditableTextComponent } from '~shared/editable-field';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
 	selector: 'editable-price-app',
@@ -24,7 +31,6 @@ export class EditablePriceComponent extends AbstractInput {
 	@Output() close = new EventEmitter();
 	@Output() blur = new EventEmitter();
 	@ViewChild('editable2') currencyEditable: EditableTextComponent;
-	@ViewChild(SelectorConstComponent) currencySelector: SelectorConstComponent;
 	isOpen: boolean;
 	accumulator;
 	currencySelectorShown: boolean;
@@ -67,21 +73,11 @@ export class EditablePriceComponent extends AbstractInput {
 	onCurrencyChange() {
 		this.isOpen = false;
 		this.onChange();
-		this.currencySelectorShown = false;
 	}
 
 	onBlur() {
 		this.onTouchedFn();
 		this.blur.emit();
-	}
-
-	showCurrencySelector() {
-		this.currencySelectorShown = true;
-		setTimeout(_ => this.currencySelector.open());
-	}
-
-	hideCurrencySelector() {
-		this.currencySelectorShown = false;
 	}
 
 	get amount() {
