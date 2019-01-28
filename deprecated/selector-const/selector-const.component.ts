@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
 import { Choice } from '~shared/selectors/utils/choice.interface';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
+import { SelectorDeprecatedComponent } from '~deprecated/selector-deprecated/selector-deprecated.component';
 
 
 
@@ -42,7 +42,7 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	@Output() change = new EventEmitter<any>();
 	@Output() blur = new EventEmitter<any>();
 
-	@ViewChild(SelectorComponent) selector: SelectorComponent;
+	@ViewChild(SelectorDeprecatedComponent) selector: SelectorDeprecatedComponent;
 	choices: any[];
 
 	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {

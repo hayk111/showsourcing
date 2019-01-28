@@ -1,4 +1,4 @@
-<selector-app
+<selector-deprecated-app
 	[choices]="choices$ | async"
 	[itemName]="type"
 	[canSearch]="true"
@@ -16,7 +16,7 @@
 		<ng-container *ngTemplateOutlet="template; context: { item: item }"></ng-container>
 	</ng-template>
 
-</selector-app>
+</selector-deprecated-app>
 
 <ng-template #defaultTemplate let-item="item">
 

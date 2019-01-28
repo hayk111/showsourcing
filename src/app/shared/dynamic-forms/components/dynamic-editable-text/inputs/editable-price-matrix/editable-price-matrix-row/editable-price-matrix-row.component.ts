@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PriceMatrixRow } from '~models';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
@@ -22,9 +21,7 @@ export class EditablePriceMatrixRowComponent extends AbstractInput {
 	@Output() blur = new EventEmitter();
 	@Output() closed = new EventEmitter();
 
-	@ViewChild(SelectorConstComponent) selector: SelectorConstComponent;
 	accumulator: PriceMatrixRow;
-	selectorShown = false;
 	isOpen = false;
 
 	constructor(protected cd: ChangeDetectorRef) {
@@ -45,22 +42,11 @@ export class EditablePriceMatrixRowComponent extends AbstractInput {
 		/** close currency selector in case it's still open */
 		this.isOpen = false;
 		this.onChange();
-		this.closeSelector();
 		this.closed.emit();
-	}
-
-	openSelector() {
-		this.selectorShown = true;
-		setTimeout(_ => this.selector.open());
-	}
-
-	closeSelector() {
-		this.selectorShown = false;
 	}
 
 	onSelectorChange() {
 		this.onChange();
-		this.closeSelector();
 	}
 
 	onBlur() {

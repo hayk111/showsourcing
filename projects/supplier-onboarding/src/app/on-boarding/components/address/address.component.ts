@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { SelectorConstComponent } from '~deprecated/selector-const/selector-const.component';
 import { InputDirective } from '~shared/inputs';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
-import { AutoUnsub, countries } from '~utils';
+import { AutoUnsub } from '~utils';
+
 import { OnBoardingService } from '../../services';
-import { takeUntil, switchMap, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'address-app',

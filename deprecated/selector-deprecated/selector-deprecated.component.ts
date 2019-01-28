@@ -17,14 +17,14 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 
 
 @Component({
-	selector: 'selector-app',
-	templateUrl: './selector.component.html',
-	styleUrls: ['./selector.component.scss'],
+	selector: 'selector-deprecated-app',
+	templateUrl: './selector-deprecated.component.html',
+	styleUrls: ['./selector-deprecated.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(SelectorComponent)],
+	providers: [makeAccessorProvider(SelectorDeprecatedComponent)],
 	encapsulation: ViewEncapsulation.None
 })
-export class SelectorComponent extends AbstractInput {
+export class SelectorDeprecatedComponent extends AbstractInput {
 	// when we select one
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
