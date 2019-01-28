@@ -1,6 +1,6 @@
 
 <!-- const selector -->
-<selector2-app
+<selector-app
 	*ngIf="customField.metadata.type === 'const'; else entitySelector"
 	[type]="customField.metadata.target"
 	[offsetY]="-30"
@@ -19,11 +19,11 @@
 			{{ (value | const: customField.metadata.target) || '-'}}
 		</editable-label-app>
 	</editable-field-app>
-</selector2-app>
+</selector-app>
 
 <!-- entity selector -->
 <ng-template #entitySelector>
-	<selector2-app
+	<selector-app
 		[value]="value"
 		[offsetY]="-30"
 		[width]="265"
@@ -44,7 +44,7 @@
 				<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 			</editable-label-app>
 		</editable-field-app>
-	</selector2-app>
+	</selector-app>
 </ng-template>
 
 

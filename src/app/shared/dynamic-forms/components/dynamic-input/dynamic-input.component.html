@@ -54,7 +54,7 @@
 
 
   <ng-container *ngSwitchCase="'selector'">
-		<selector2-app
+		<selector-app
 			*ngIf="customField.metadata.type === 'entity'; else const"
 			[offsetY]="-22"
 			[width]="390"
@@ -66,10 +66,10 @@
 			<form-field-app >
 				<label-app>{{ customField.label || customField.name }}</label-app>
 			</form-field-app>
-		</selector2-app>
+		</selector-app>
 
     <ng-template #const>
-			<selector2-app
+			<selector-app
 				[multiple]="customField.multiple"
 				[width]="390"
 				[offsetY]="-22"
@@ -80,7 +80,7 @@
 				<form-field-app>
 					<label-app>{{ customField.label || customField.name }}</label-app>
 				</form-field-app>
-			</selector2-app>
+			</selector-app>
     </ng-template>
   </ng-container>
 

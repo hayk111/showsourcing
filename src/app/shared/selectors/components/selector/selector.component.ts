@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-	selector: 'selector2-app',
-	templateUrl: './selector2.component.html',
-	styleUrls: ['./selector2.component.scss'],
+	selector: 'selector-app',
+	templateUrl: './selector.component.html',
+	styleUrls: ['./selector.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Selector2Component implements OnInit {
+export class SelectorComponent implements OnInit {
 
 	@Input() value: any;
 	@Input() type: string;

@@ -15,7 +15,7 @@ import { UtilsModule } from '~shared/utils';
 
 import {
 	CdkOverlayComponent,
-	Selector2Component,
+	SelectorComponent,
 	SelectorButtonRowComponent,
 	SelectorCategoryRowComponent,
 	SelectorCountryRowComponent,
@@ -35,7 +35,7 @@ import { SelectorTagRowComponent } from './components/selector-tag-row/selector-
 
 const components = [
 	CdkOverlayComponent,
-	Selector2Component,
+	SelectorComponent,
 	SelectorButtonRowComponent,
 	SelectorCategoryRowComponent,
 	SelectorCountryRowComponent,

@@ -2,7 +2,7 @@
 
 	<!-- Product -->
 	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container pointer">
-		<selector2-app
+		<selector-app
 			type="product"
 			[offsetY]="offsetY"
 			[offsetX]="offsetX"
@@ -13,12 +13,12 @@
 				<icon-app name="product" backgroundColor="primary"></icon-app>
 				<span>{{ value || 'Set product' }}</span>
 			</div>
-		</selector2-app>
+		</selector-app>
 	</div>
 
 	<!-- Supplier -->
 	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer">
-		<selector2-app
+		<selector-app
 			type="supplier"
 			[offsetY]="offsetY"
 			[offsetX]="offsetX"
@@ -29,12 +29,12 @@
 				<icon-app name="supplier" backgroundColor="supplier"></icon-app>
 				<span> {{ value || 'Set supplier' }}</span>
 			</div>
-		</selector2-app>
+		</selector-app>
 	</div>
 
 	<!-- Supplier Type -->
 	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container pointer">
-		<selector2-app
+		<selector-app
 			type="supplierType"
 			[offsetY]="offsetY"
 			[offsetX]="offsetX"
@@ -44,12 +44,12 @@
 				<icon-app name="supplier" backgroundColor="supplier"></icon-app>
 				<span> {{ value || 'Set supplier type'}}</span>
 			</div>
-		</selector2-app>
+		</selector-app>
 	</div>
 
 	<!-- Location -->
 	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container pointer">
-		<selector2-app
+		<selector-app
 			type="country"
 			[offsetY]="offsetY"
 			[offsetX]="offsetX"
@@ -59,12 +59,12 @@
 				<icon-app name="location" backgroundColor="secondary-dark"></icon-app>
 				<span> {{ value || 'Set location'}}</span>
 			</div>
-		</selector2-app>
+		</selector-app>
 	</div>
 
 	<!-- Category -->
 	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer">
-		<selector2-app
+		<selector-app
 			type="category"
 			[value]="value"
 			[canCreate]="true"
@@ -85,7 +85,7 @@
 					</ng-template>
 				</div>
 			</div>
-		</selector2-app>
+		</selector-app>
 	</div>
 </ng-container>
 
