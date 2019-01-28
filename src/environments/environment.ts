@@ -10,8 +10,8 @@ export const environment = {
 	version: '0.0.1',
 	production: false,
 	staging: false,
-	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
-	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',
+	graphqlUrl: 'wss://showsourcing-test.us1.cloud.realm.io/graphql',
+	graphqlAuthUrl: 'https://showsourcing-test.us1.cloud.realm.io/auth',
 	apiUrl: 'https://services-dev.showsourcing.com',
 	getStreamKey: 'aner534ygtg9',
 	LOG_LEVEL: LogLevel.DEBUG

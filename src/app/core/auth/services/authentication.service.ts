@@ -67,7 +67,6 @@ export class AuthenticationService {
 		);
 	}
 
-
 	logout() {
 		this.router.navigate(['auth', 'login']);
 		this.tokenSrv.clearTokens();
