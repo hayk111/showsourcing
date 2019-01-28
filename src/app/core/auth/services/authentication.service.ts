@@ -59,7 +59,8 @@ export class AuthenticationService {
 	login(credentials: Credentials) {
 		// lower case for email
 		credentials.login = credentials.login.toLowerCase();
-		return this.http.post<{ jwtToken: string, emailValidated: boolean }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
+		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
+			tap(resp => this.tokenSrv.storeFeedToken(resp.jwtTokenFeed)),
 			map(resp => resp.jwtToken),
 			switchMap((jwt) => this.tokenSrv.getRealmRefreshToken(jwt)),
 		);

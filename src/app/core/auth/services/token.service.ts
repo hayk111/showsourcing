@@ -35,6 +35,9 @@ export class TokenService {
 	rfqRefreshToken$ = this._rfqRefreshToken$.asObservable().pipe(shareReplay(1));
 	rfqRefreshTokenSync: TokenState;
 
+	private _jwtTokenFeed$ = new ReplaySubject<TokenState>();
+	jwtTokenFeed$ = this._jwtTokenFeed$.asObservable();
+
 	constructor(
 		private localStorageSrv: LocalStorageService,
 		private http: HttpClient
@@ -178,6 +181,19 @@ export class TokenService {
 	/** gets the map of access token */
 	private getAccessTokenMap(): { [key: string]: TokenState } {
 		return this.localStorageSrv.getItem(ACCESS_TOKEN_MAP) || {};
+	}
+
+	storeFeedToken(token: TokenState) {
+		this.localStorageSrv.setItem('feed-token', token);
+		this._jwtTokenFeed$.next(token);
+	}
+
+	restoreFeedToken() {
+		const token: TokenState = this.localStorageSrv.getItem('feed-token');
+		// check if token is still valid, minus 10 so we still have some leeway
+		if (token && token.token_data.expires > (Date.now() / 1000) - 10) {
+			this._jwtTokenFeed$.next(token);
+		}
 	}
 
 
