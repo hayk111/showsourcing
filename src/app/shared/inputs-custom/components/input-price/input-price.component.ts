@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { Price } from '~models/price.model';
 import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inputs';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 
 @Component({
 	selector: 'input-price-app',

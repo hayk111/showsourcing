@@ -24,7 +24,7 @@
       <a class="name txtBtn" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
     </div>
     <div class="preview">
-      <button (click)="previewClick.emit(row)" class="secondary-dark">Preview</button>
+      <button (click)="previewClick.emit(row)" class="small secondary-dark preview">Preview</button>
     </div>
   </div>
 </ng-template>

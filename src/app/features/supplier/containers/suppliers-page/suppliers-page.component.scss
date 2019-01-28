@@ -4,6 +4,12 @@
 	height: 100%;
 }
 
+selection-bar-app {
+	status-selector-app {
+		margin-right: var(--spacing-ms);
+	}
+}
+
 action-bar-app {
 	overflow: visible;
 

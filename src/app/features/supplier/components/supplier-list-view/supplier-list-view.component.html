@@ -45,9 +45,11 @@
 		let-row="row"
 		[sortable]="false"
 		width="280">
-		<span *ngFor="let cat of row.categories; let last = last;trackBy: trackByFn">
-			{{ cat.name }} {{ last ? '' : ', '}}
-		</span>
+		<div class="overflow-hidden">
+			<span *ngFor="let cat of row.categories; let last = last;trackBy: trackByFn">
+				{{ cat.name }}{{ last ? '' : ',&nbsp;'}}
+			</span>
+		</div>
 	</ng-template>
 
 	<!-- country -->
@@ -70,7 +72,11 @@
 		let-row="row"
 		[sortable]="false"
 		width="280">
-		<span *ngFor="let tag of row.tags; let last = last;trackBy: trackByFn">{{ tag.name }} {{ last ? '' : ', '}}</span>
+		<div class="overflow-hidden">
+			<span *ngFor="let tag of row.tags; let last = last;trackBy: trackByFn">
+				{{ tag.name }}{{ last ? '' : ',&nbsp;'}}
+			</span>
+		</div>
 	</ng-template>
 
 	<!-- date -->

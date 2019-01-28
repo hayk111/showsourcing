@@ -1,4 +1,4 @@
-<selector2-app
+<selector-app
 	type="project"
 	[canCreate]="true"
 	[value]="(product$ | async)?.projects"
@@ -6,43 +6,43 @@
 	(update)="update($event, 'projects')">
 	<div>OffsetX, OffsetY: Default</div>
 	<button class="mg-ms">Projects selector</button>
-</selector2-app>
+</selector-app>
 <!--  if this is uncommented and since we are not using virtual scroll, on selector2 -> searchTxt = 'light'
 			so we just load part of it -->
-<selector2-app
+<selector-app
 	type="supplier"
 	[canCreate]="true"
 	[offsetX]="300"
 	(update)="update($event, 'supplier')">
 	<div>OffsetX = 300, OffsetY: Default</div>
 	<button class="mg-ms"> Supplier selector </button>
-</selector2-app>
-<selector2-app
+</selector-app>
+<selector-app
 	type="currency"
 	[offsetX]="300"
 	[offsetY]="300">
 	<div>OffsetX = 300, OffsetY: 300</div>
 	<button class="mg-ms"> Currency selector </button>
-</selector2-app>
-<selector2-app
+</selector-app>
+<selector-app
 	type="user"
 	[offsetY]="300">
 	<div>OffsetX: Default, OffsetY: 300</div>
 	<button class="mg-ms"> User Selector </button>
-</selector2-app>
-<selector2-app
+</selector-app>
+<selector-app
 	type="country"
 	[offsetY]="-300">
 	<div>OffsetX: Default, OffsetY: - 300</div>
 	<button class="mg-ms"> Country selector </button>
-</selector2-app>
-<selector2-app
+</selector-app>
+<selector-app
 	type="supplierType">
 	<div>OffsetX, OffsetY: Default</div>
 	<button class="mg-ms"> SupplierType selector </button>
-</selector2-app>
-<selector2-app
+</selector-app>
+<selector-app
 	type="weightUnit">
 	<div>OffsetX, OffsetY: Default</div>
 	<button class="mg-ms"> Weight Unit selector </button>
-</selector2-app>
+</selector-app>

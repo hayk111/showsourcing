@@ -22,3 +22,8 @@
 user-picture-app {
 	font-size: var(--font-size-xs);
 }
+
+.overflow-hidden {
+	max-height: 51px;
+	overflow: hidden;
+}

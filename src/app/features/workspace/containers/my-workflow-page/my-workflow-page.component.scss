@@ -25,6 +25,10 @@ icon-app[name="trash-bin"] {
 }
 selection-bar-app {
 	right: 0;
+
+	status-selector-app {
+		margin-right: var(--spacing-ms);
+	}
 }
 
 action-bar-app {

@@ -1,11 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { SelectorConstComponent } from '~deprecated/selector-const/selector-const.component';
 import { InputDirective } from '~shared/inputs';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
-import { OnBoardingService } from '../../services';
-import { takeUntil, switchMap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
+
+import { OnBoardingService } from '../../services';
 
 @Component({
 	selector: 'business-type-app',

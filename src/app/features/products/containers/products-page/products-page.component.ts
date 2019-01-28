@@ -19,7 +19,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	]
 })
 export class ProductsPageComponent extends TrackingComponent implements OnInit {
-	erm = ERM.PRODUCT;
+	erm = ERM;
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,

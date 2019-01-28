@@ -17,7 +17,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SuppliersPageComponent extends TrackingComponent
 	implements OnInit {
-	erm = ERM.SUPPLIER;
+	erm = ERM;
 
 	filterTypes = [
 		FilterType.CATEGORIES,

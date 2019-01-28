@@ -22,6 +22,7 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 
 	project$: Observable<Project>;
 	private project: Project;
+	erm = ERM;
 
 	constructor(
 		private featureSrv: ProjectFeatureService,

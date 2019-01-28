@@ -1,14 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { TrackingComponent } from '~utils/tracking-component';
-import { ListPageService } from '~core/list-page';
-import { Product, ERM, Supplier } from '~core/models';
-import { ProductService, SupplierService } from '~core/entity-services';
-import { CommonModalService } from '~common/modals';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ID } from '~utils/id.utils';
 import { Observable } from 'rxjs';
-import { CloseEventType } from '~shared/dialog';
-import { filter, first, switchMap } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
+import { CommonModalService } from '~common/modals';
+import { ProductService, SupplierService } from '~core/entity-services';
+import { ListPageService } from '~core/list-page';
+import { ERM, Product, Supplier } from '~core/models';
+import { ID } from '~utils/id.utils';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'supplier-products-page-app',
@@ -20,6 +19,7 @@ export class SupplierProductsPageComponent extends TrackingComponent implements 
 
 	supplierId: ID;
 	supplier$: Observable<Supplier>;
+	erm = ERM;
 
 	constructor(
 		private route: ActivatedRoute,

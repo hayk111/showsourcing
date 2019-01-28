@@ -14,4 +14,3 @@ export * from './selector-supplier-type-row/selector-supplier-type-row.component
 export * from './selector-text-row/selector-text-row.component';
 export * from './selector-user-row/selector-user-row.component';
 export * from './selector/selector.component';
-export * from './selector2/selector2.component';

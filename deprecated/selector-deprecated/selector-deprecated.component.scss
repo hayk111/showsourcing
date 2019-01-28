@@ -1,0 +1,60 @@
+:host {
+	display: block;
+	width: 100%;
+
+}
+
+.canCreate {
+	.createBlock {
+		padding: var(--spacing-s);
+		&:hover {
+			color: var(--color-primary);
+		}
+	}
+}
+
+ng-select {
+	width: 100%;
+}
+
+.ng-select.onboarding-big .selector-select{
+	font-size: var(--font-size-xxs);
+}
+
+.ng-select.onboarding-big .ng-select-container {
+	height: 50px;
+	padding: var(--spacing-ms);
+	background: var(--color-secondary-light);
+	font-size: var(--font-size-l);
+	color: var(--color-txt-secondary);
+	font-style: italic;
+}
+
+.ng-select.onboarding-small .title-selector{
+	border-right: 1px solid var(--color-secondary-dark);
+	padding-right: var(--spacing-ms);
+	height: 36px;
+}
+
+.ng-select.onboarding-small .ng-select-container {
+	height: 36px;
+	width: 160px;
+	background: var(--color-secondary);
+	border-radius: 2px;
+	padding-left: var(--spacing-s);
+	font-weight: 600;
+	line-height: 1.54;
+	color: var(--color-txt-primary);
+}
+
+.ng-select.onboarding-small .selector-select {
+	font-size: 4px;
+	padding-right: var(--spacing-s);
+	color: var(--color-secondary-dark);
+}
+
+.item-selected {
+	color: var(--color-txt-primary);
+	font-style: normal;
+}
+

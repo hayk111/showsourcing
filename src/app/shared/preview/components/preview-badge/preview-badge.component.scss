@@ -3,7 +3,7 @@
 	text-align: left;
 }
 
-selector2-app {
+selector-app {
 	width: 100%;
 }
 
@@ -27,11 +27,5 @@ selector2-app {
 	.category-info {
 		display: flex;
 		flex-wrap: wrap;
-	}
-
-	selector-entity-app {
-		position: absolute;
-    width: 95%;
-    left: 20px;
 	}
 }

@@ -36,7 +36,7 @@
 			<icon-app name="export" size="14"></icon-app>
 		</button>
 
-		<selector2-app
+		<selector-app
 			*ngIf="hasAssignee"
 			type="user"
 			toolTip
@@ -44,7 +44,7 @@
 			[offsetX]="4"
 			(update)="changeUser.emit($event)">
 			<user-picture-app class="pointer" [user]="user" [border]="true"></user-picture-app>
-		</selector2-app>
+		</selector-app>
 		<ng-content select="[action]"></ng-content>
 	</div>
 

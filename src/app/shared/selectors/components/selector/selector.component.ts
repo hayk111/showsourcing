@@ -1,135 +1,48 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ContentChild,
-	EventEmitter,
-	Input,
-	Output,
-	TemplateRef,
-	ViewChild,
-	ViewEncapsulation,
-} from '@angular/core';
-import { NgSelectComponent } from '@ng-select/ng-select';
-import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inputs/components-directives';
-import { Choice } from '~shared/selectors/utils/choice.interface';
-
-
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'selector-app',
 	templateUrl: './selector.component.html',
 	styleUrls: ['./selector.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(SelectorComponent)],
-	encapsulation: ViewEncapsulation.None
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorComponent extends AbstractInput {
-	// when we select one
-	@Output() select = new EventEmitter<Choice>();
-	@Output() unselect = new EventEmitter<Choice>();
-	// when the create button is clicked we want to create an item with what's in the input as name.
-	@Output() create = new EventEmitter<string>();
-	@Output() change = new EventEmitter<any>();
-	@Output() blur = new EventEmitter<any>();
-	@Output() closed = new EventEmitter<null>();
-	// string from input to search through the list of choices
-	searchValue = '';
-	@ViewChild('ngSelect') ngSelect: NgSelectComponent;
-	@ViewChild(InputDirective) searchInp: InputDirective;
-	// When the value is displayed, what property of the entity should be displayed. Default name
-	@Input() bindLabel = 'name';
-	@Input() bindValue;
-	// reference to template transcluded
-	@ContentChild(TemplateRef) template: TemplateRef<any>;
-	// name displayed in messages
-	@Input() itemName = 'Item';
-	// whether we can add multiple items
-	@Input() multiple: boolean;
-	// whether the list is searchable
-	@Input() canSearch = true;
-	// whether we can create new items
+export class SelectorComponent implements OnInit {
+
+	@Input() value: any;
+	@Input() type: string;
+	@Input() multiple = false;
 	@Input() canCreate = false;
-	// whether items must be hiden when picked
-	@Input() hideSelected = true;
-	// how items are compared, to find out if they are already selected
-	@Input() compareWith = (a, b) => a.id === b.id;
-	// the name of the custom style
-	@Input() customStyle: string;
-	/** value displayed */
-	@Input() displayedValue: string = this.value ? this.value[this.bindLabel] : '';
+	@Input() width = 395;
 
-	/* different choices that an user can pick **/
+	@Output() update = new EventEmitter<any>();
 
-	@Input() set choices(value: Array<Choice>) { this._choices = value || []; this.filter(); }
-	get choices() { return this._choices; }
-	// tslint:disable-next-line:member-ordering
-	private _choices: Array<Choice> = [];
-	// tslint:disable-next-line:member-ordering
-	filteredChoices = [];
+	menuOpen = false;
+
+	@Input() offsetX = 0;
+	@Input() offsetY = 8;
+	@Output() menuClosed = new EventEmitter<any>();
 
 
-	constructor(protected cd: ChangeDetectorRef) {
-		super(cd);
+	constructor() { }
+
+	ngOnInit() {
 	}
 
-	onChange(choice: Choice) {
-		this.onChangeFn(this.value);
-		this.change.emit(this.value);
+	/** Toggles the menu between the open and closed states. */
+	toggleMenu(): void {
+		this.menuOpen ? this.closeMenu() : this.openMenu();
 	}
 
-	onSelect(choice: Choice) {
-		this.select.emit(choice);
+	/** Opens the menu. */
+	openMenu(): void {
+		this.menuOpen = true;
 	}
 
-	onUnselect(removeObj: { value: any, index: number }) {
-		this.unselect.emit(removeObj.value);
-	}
-
-	onCreate() {
-		this.create.emit(this.searchValue);
-		this.searchValue = '';
-		this.filter();
-	}
-
-	/** Finds values that contains the term searched */
-	filter() {
-		if (this.searchValue === '')
-			this.filteredChoices = [...this.choices];
-		else
-			this.filteredChoices = this.choices.filter(c => {
-				const searched = (c[this.bindLabel] as string).toLowerCase();
-				const searchString = this.searchValue.toLowerCase();
-				return searched.includes(searchString);
-			});
-	}
-
-	open() {
-		this.ngSelect.open();
-	}
-
-	onOpen() {
-		// needs the set timeout else searchInp is undefined
-		setTimeout(_ => {
-			if (this.searchInp) {
-				this.searchInp.focus();
-			}
-		});
-	}
-
-	onSearchEnter() {
-		if (this.filteredChoices.length === 0 && this.canCreate && this.searchValue) {
-			this.onCreate();
+	/** Closes the menu. */
+	closeMenu(emit = false): void {
+		this.menuOpen = false;
+		if (emit) {
+			this.menuClosed.emit();
 		}
 	}
-
-	onBlur() {
-		this.onTouchedFn();
-		this.blur.emit();
-	}
-
-	writeValue(value: any): void {
-		super.writeValue(value);
-	}
-
 }
