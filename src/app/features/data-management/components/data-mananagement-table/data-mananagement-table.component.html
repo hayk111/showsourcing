@@ -1,7 +1,7 @@
 <ng-template #contextualMenuTemplate let-row="row">
 	<context-menu-item-app
 		class="pointer flexCenter"
-		(click)="delete.emit(row.id)">
+		(click)="delete.emit(row?.id)">
 		Delete
 	</context-menu-item-app>
 </ng-template>
@@ -28,9 +28,9 @@
 		width="250">
 		<div class="flexBetween">
       <!-- <div> {{ row.name }} </div> -->
-      <editable-text-app #editable (closed)="updateNameEntity(row, txtName.value)" [hasAction]="true">
+      <editable-text-app #editable (closed)="updateNameEntity(row, txtName?.value)" [hasAction]="true">
         <editable-label-app class="task-name">
-          {{ row.name }}
+          {{ row?.name }}
         </editable-label-app>
         <input inputApp class="task-name" #txtName [value]="row.name || ''">
       </editable-text-app>
@@ -46,11 +46,11 @@
 		sortBy="description.name">
 		<div class="flexBetween">
       <!-- <div> {{ row.description.name }} </div> -->
-      <editable-text-app #editable (closed)="updateNameEntity(row, txtName.value, 'description')" [hasAction]="true">
+      <editable-text-app #editable (closed)="updateNameEntity(row, txtName?.value, 'description')" [hasAction]="true">
         <editable-label-app class="task-name">
-          {{ row.description.name }}
+          {{ row?.description?.name }}
         </editable-label-app>
-        <input inputApp class="task-name" #txtName [value]="row.description.name || ''">
+        <input inputApp class="task-name" #txtName [value]="row?.description?.name || ''">
       </editable-text-app>
 			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
@@ -63,7 +63,7 @@
 		sortBy="createdBy.firstName"
 		width="140">
 		<span class="centered-text">
-			{{ row.createdBy ? row.createdBy.firstName : '' }} {{ row.createdBy ? row.createdBy.lastName : '' }}
+			{{ row?.createdBy ? row?.createdBy?.firstName : '' }} {{ row?.createdBy ? row?.createdBy?.lastName : '' }}
 		</span>
 	</ng-template>
 
@@ -71,10 +71,10 @@
 	<ng-template *ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
 		columnApp="Products Count"
 		let-row="row"
-		sortBy="productsCount"
+		sortBy="products.count"
 		width="140">
 		<span>
-			{{row.productsCount}}
+			{{ row?.productsLinked?.count }}
 		</span>
 	</ng-template>
 
@@ -82,10 +82,10 @@
 	<ng-template *ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
 	columnApp="Suppliers Count"
 	let-row="row"
-	sortBy="suppliersCount"
+	sortBy="suppliers.count"
 	width="140">
 	<span>
-		{{row.suppliersCount}}
+		{{ row?.suppliersLinked?.count }}
 	</span>
 	</ng-template>
 
@@ -96,7 +96,7 @@
 		sortBy="description.startDate"
 		width="140">
 		<span>
-			{{row.description.startDate | date: 'MMMM d, y'}}
+			{{ row?.description?.startDate | date: 'MMMM d, y' }}
 		</span>
 	</ng-template>
 
@@ -107,7 +107,7 @@
 		sortBy="description.endDate"
 		width="140">
 		<span>
-			{{row.description.endDate | date: 'MMMM d, y'}}
+			{{ row?.description?.endDate | date: 'MMMM d, y' }}
 		</span>
 	</ng-template>
 
@@ -118,7 +118,7 @@
 		width="160">
 		<div class="flex">
 			<!-- If we are hovering over the row and we have nothing selection-->
-			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)" class="button secondary-dark" (click)="removeEntity.emit(row.id)">Delete</button>
+			<button *ngIf="(row?.id === idEntityHovered) && (selection?.size == 0)" class="button secondary-dark" (click)="removeEntity.emit(row?.id)">Delete</button>
 		</div>
 	</ng-template>
 </table-app>

@@ -25,8 +25,8 @@ export class DataMananagementTableComponent extends ListViewComponent<any> {
 		} else {
 			obj.name = newName;
 		}
-		delete obj['suppliersCount'];
-		delete obj['productsCount'];
+		delete obj.suppliers;
+		delete obj.products;
 		this.renameEntity.emit(obj);
 	}
 	onHover(id: string) {

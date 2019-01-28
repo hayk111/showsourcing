@@ -1,12 +1,10 @@
-import gql from 'graphql-tag';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
 
 export abstract class ProjectQueries extends GlobalQueries {
 
-	static readonly products = `products { id, name, description }`;
 	// tslint:disable-next-line:max-line-length
-	static readonly productsCount = `productsCount:  _count(type: "Product", field: "projects.id", query:"archived == false AND deleted == false")`;
+	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"projects" query:"archived == false AND deleted == false") { ... on ProductCollection { count }}`;
 
 	static readonly one = `
 			name,
@@ -14,7 +12,8 @@ export abstract class ProjectQueries extends GlobalQueries {
 			lastUpdatedDate,
 			creationDate,
 			createdBy { id, firstName, lastName },
-			logoImage { id, urls { url } }`;
+			logoImage { id, urls { url } }
+			${ProjectQueries.productsLinked}`;
 
 	static readonly many = `
 		name,
@@ -22,5 +21,6 @@ export abstract class ProjectQueries extends GlobalQueries {
 		lastUpdatedDate,
 		creationDate,
 		description,
-		deleted`;
+		deleted
+		${ProjectQueries.productsLinked}`;
 }

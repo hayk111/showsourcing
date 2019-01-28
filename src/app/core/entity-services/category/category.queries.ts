@@ -3,8 +3,9 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 export abstract class CategoryQueries extends GlobalQueries {
 
 	// tslint:disable-next-line:max-line-length
-	static readonly productsCount = `productsCount:  _count(type: "Product", field: "category.id", query: "archived == false AND deleted == false")`;
-	static readonly suppliersCount = `suppliersCount:  _count(type: "Supplier", field: "categories.id", query: "deleted == false")`;
+	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"category" query:"archived == false AND deleted == false") { ... on ProductCollection { count }}`;
+	// tslint:disable-next-line:max-line-length
+	static readonly suppliersLinked = `suppliersLinked: _linkingObjects(objectType: "Supplier" property:"categories" query:"deleted == false") { ... on SupplierCollection { count }}`;
 
 	static readonly one = `
 		name,
@@ -13,6 +14,8 @@ export abstract class CategoryQueries extends GlobalQueries {
 			firstName,
 			lastName
 		}
+		${CategoryQueries.productsLinked}
+		${CategoryQueries.suppliersLinked}
 		`;
 
 	static readonly many = `
@@ -22,6 +25,8 @@ export abstract class CategoryQueries extends GlobalQueries {
 			firstName,
 			lastName
 		}
+		${CategoryQueries.productsLinked}
+		${CategoryQueries.suppliersLinked}
 		`;
 
 }

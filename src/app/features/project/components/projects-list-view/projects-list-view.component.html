@@ -35,7 +35,7 @@
 			<a class="flexVAlign txtBtn capitalize ellipsis"
 				[routerLink]="['/project', 'details', row.id]">
 				<img [src]="row.logoImage | logo:'project'" class="icon"/>
-				<b class="semi">{{ row.name }}</b>
+				<b class="semi">{{ row?.name }}</b>
 			</a>
 		</div>
 	</ng-template>
@@ -48,7 +48,7 @@
 		sortBy="createdBy.lastName"
 		width="200"
 		[grows]="false">
-		{{ row.createdBy.firstName }} {{ row.createdBy.lastName }}
+		{{ row?.createdBy?.firstName }} {{ row?.createdBy?.lastName }}
 	</ng-template>
 
 	<!-- last updated date -->
@@ -60,7 +60,7 @@
 		width="200"
 		[grows]="false">
 		<span>
-			{{ row.lastUpdatedDate | date: 'dd MMMM y' }}
+			{{ row?.lastUpdatedDate | date: 'dd MMMM y' }}
 		</span>
 	</ng-template>
 
@@ -73,7 +73,7 @@
 		[grows]="false"
 		width="200">
 		<span>
-			<b>{{ row.productsCount }}</b>
+			<b>{{ row?.productsLinked?.count }}</b>
 		</span>
 	</ng-template>
 
