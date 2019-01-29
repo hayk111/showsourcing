@@ -2,21 +2,24 @@
 	position: relative;
 	box-sizing: border-box;
 	// min-width: 676px;
-	min-height: 354px;
+	min-height: 330px;
 	padding: var(--spacing-s);
 	border-radius: var(--border-radius-s);
-	background: var(--color-secondary-light);
 
 
-	product-grid-card-deprecated-app {
-		cursor: pointer;
-		margin-top: 0px;
+	product-grid-card-app {
+		margin-bottom: 0px;
 		margin-right: 0px;
 		&:first-child {
-			margin-right: var(--spacing-ms);
+			margin-left: 0;
 		}
 	}
 }
+
+.grid-section {
+	align-items: flex-start;
+}
+
 .action {
 	visibility: hidden;
 	transition: 0.2s;

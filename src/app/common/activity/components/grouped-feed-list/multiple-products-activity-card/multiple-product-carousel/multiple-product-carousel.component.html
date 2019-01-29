@@ -1,32 +1,50 @@
-<div class="previewCtnr flexCenter">
-	<div class="grid-section flexCenter">
-		<product-grid-card-deprecated-app
+<div class="previewCtnr flexStart">
+	<div class="grid-section flexAround">
+		<product-grid-card-app
 			[hasCheckbox]="false"
 			[product]="products[selectedIndex]"
-			(productFavorite)="updateProduct(products[selectedIndex], {favorite: true})"
-			(productUnfavorite)="updateProduct(products[selectedIndex], {favorite: false})"
+			(favorited)="updateProduct(products[selectedIndex], {favorite: true})"
+			(unfavorited)="updateProduct(products[selectedIndex], {favorite: false})"
+			(open)="open.emit(products[selectedIndex])"
+			(preview)="previewClick.emit(products[selectedIndex])"
 			(liked)="liked.emit( products[selectedIndex] )"
-			(disliked)="disliked.emit( products[selectedIndex] )">
-		</product-grid-card-deprecated-app>
-		<product-grid-card-deprecated-app
+			(disliked)="disliked.emit( products[selectedIndex] )"
+			(update)="update.emit($event)">
+		</product-grid-card-app>
+		<product-grid-card-app
 			[hasCheckbox]="false"
 			[product]="products[selectedIndex + 1]"
-			(productFavorite)="updateProduct(products[selectedIndex + 1], {favorite: true})"
-			(productUnfavorite)="updateProduct(products[selectedIndex + 1], {favorite: false})"
+			(favorited)="updateProduct(products[selectedIndex + 1], {favorite: true})"
+			(unfavorited)="updateProduct(products[selectedIndex + 1], {favorite: false})"
+			(open)="open.emit(products[selectedIndex + 1])"
+			(preview)="previewClick.emit(products[selectedIndex + 1])"
 			(liked)="liked.emit( products[selectedIndex + 1] )"
-			(disliked)="disliked.emit( products[selectedIndex + 1] )">
-		</product-grid-card-deprecated-app>
+			(disliked)="disliked.emit( products[selectedIndex + 1] )"
+			(update)="update.emit($event)">
+		</product-grid-card-app>
+		<product-grid-card-app
+			*ngIf="products?.length > 2"
+			[hasCheckbox]="false"
+			[product]="products[selectedIndex + 2]"
+			(favorited)="updateProduct(products[selectedIndex + 2], {favorite: true})"
+			(unfavorited)="updateProduct(products[selectedIndex + 2], {favorite: false})"
+			(open)="open.emit(products[selectedIndex + 2])"
+			(preview)="previewClick.emit(products[selectedIndex + 2])"
+			(liked)="liked.emit( products[selectedIndex + 2] )"
+			(disliked)="disliked.emit( products[selectedIndex + 2] )"
+			(update)="update.emit($event)">
+		</product-grid-card-app>
 	</div>
 
 	<!-- move back -->
 	<div class="move-btn back flexCenter pointer action"
-		(mousedown)="back($event)" *ngIf="selectedIndex > 0  && products?.length > 2">
+		(mousedown)="back($event)" *ngIf="selectedIndex > 0  && products?.length > 3">
 		<icon-app name="arrow-left-rectangle"></icon-app>
 	</div>
 
 	<!-- move next -->
 	<div class="move-btn next flexCenter pointer action"
-		(mousedown)="next($event)" *ngIf="selectedIndex < (products?.length - 2)  && products?.length > 2">
+		(mousedown)="next($event)" *ngIf="selectedIndex < (products?.length - 3)  && products?.length > 3">
 		<icon-app name="arrow-right-rectangle"></icon-app>
 	</div>
 </div>

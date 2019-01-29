@@ -12,6 +12,8 @@ export class MultipleProductCarouselComponent implements OnInit {
 	@Input() products: Product[];
 	@Input() selectedIndex = 0;
 	@Output() update = new EventEmitter<Product>();
+	@Output() previewClick = new EventEmitter<Product>();
+	@Output() open = new EventEmitter<Product>();
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
 

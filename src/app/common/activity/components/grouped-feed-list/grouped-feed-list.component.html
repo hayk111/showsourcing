@@ -31,6 +31,7 @@
 				[groupFeed]="feed"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
+				(previewClick)="openProductPreview($event)"
 				(disliked)="onThumbDown($event)">
 			</multiple-products-activity-card-app>
 
@@ -47,6 +48,12 @@
   </ng-container>
 
 </ng-container>
+
+<product-preview-app
+	*ngIf="previewOpen"
+	[product]="productPreview"
+	(close)="closeProductPreview()">
+</product-preview-app>
 
 <ng-template #spinner>
   <spinner-app></spinner-app>
