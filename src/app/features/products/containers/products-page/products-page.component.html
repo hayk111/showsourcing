@@ -1,5 +1,5 @@
 <ng-container
-*ngIf="listSrv.items$ | async as products; else spinner">
+	*ngIf="listSrv.items$ | async as products; else spinner">
 		<!-- top panel -->
 		<top-panel-app
 			title="My Products"
@@ -12,6 +12,7 @@
 			[filtersAmount]="listSrv.filterList.asFilters().length"
 			[hasFilter]="true"
 			[hasSwitch]="true"
+			[searchValue]="listSrv.searchValue"
 			(search)="listSrv.search($event)"
 			(showFilters)="listSrv.openFilterPanel()"
 			(viewChange)="onViewChange($event)">

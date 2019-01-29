@@ -1,2 +1,6 @@
 <icon-app *ngIf="hasIcon" name="search" class="class-txt-secondary"></icon-app>
-<input #inp type="text" (blur)="onBlur()" (input)="onChange(inp.value)" [placeholder]="placeHolder" [value]="value"/>
+<input #inp
+	type="text"
+	(blur)="onBlur()"
+	(input)="onChange(inp.value)"
+	[placeholder]="placeHolder" [value]="value"/>
