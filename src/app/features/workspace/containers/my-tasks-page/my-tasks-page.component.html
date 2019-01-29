@@ -1,6 +1,7 @@
 <sub-panel-app
 	[hasFilter]="false"
 	[hasSwitch]="false"
+	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
 	<sub-panel-right-item-app>
 		<div class="flex show-my-tasks">

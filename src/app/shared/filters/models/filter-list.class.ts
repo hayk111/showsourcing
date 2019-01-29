@@ -39,7 +39,7 @@ export class FilterList {
 		this._valueChanges$.next(this);
 	}
 
-	getSearchStr() {
+	private getSearchRealmStr() {
 		if (!this.search) {
 			return '';
 		} else {
@@ -48,7 +48,7 @@ export class FilterList {
 				.join(' OR ');
 		}
 	}
-	private search: string;
+	search: string;
 
 	/** current filters sync */
 	private _filters: Filter[] = [];
@@ -69,7 +69,7 @@ export class FilterList {
 	 */
 	private _query: string;
 	asPredicate(): string {
-		return this.predicateFn(this.constPredicate, this.getSearchStr(), this._query);
+		return this.predicateFn(this.constPredicate, this.getSearchRealmStr(), this._query);
 	}
 
 	constructor(startFilters: Filter[] = [], searchedFields = ['name'], constPredicate?: string) {

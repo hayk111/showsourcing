@@ -48,6 +48,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	/** number of filters set */
 	@Input() filtersAmount: number;
 
+	@Input() searchValue: string;
+
 	// when said view changes
 	@Output() viewChange = new EventEmitter<string>();
 	/** show filter panel */
@@ -70,10 +72,11 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	constructor(private element: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) {
 		super();
-		this.searchControl = new FormControl();
 	}
 
 	ngOnInit() {
+		this.searchControl = new FormControl(this.searchValue);
+
 		if (this.searchAutocomplete) {
 
 			this.searchAutocomplete.itemSelected.pipe(

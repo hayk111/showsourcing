@@ -40,7 +40,8 @@ export class ListPageDataService
 	/** Whether the items are pending */
 	pending = true;
 
-	/** when making a search, fields we are gonna search through */
+	/** initialization flags */
+	private isSetup = false;
 	private initialized = false;
 
 	/** for the smart search feature... */
@@ -57,12 +58,15 @@ export class ListPageDataService
 	 * @param service main global/feature service used for making queries
 	 */
 	setup(config: ListPageDataConfig) {
+		if (this.isSetup)
+			return;
 		Object.assign(this, config);
 		this.filterList = new FilterList(
 			config.initialFilters,
 			config.searchedFields,
 			this.selectParams.query
 		);
+		this.isSetup = true;
 	}
 
 	/** init: helper method to set everything up at once */

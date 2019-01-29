@@ -122,6 +122,10 @@ export class ListPageService
 		};
 	}
 
+	get searchValue() {
+		return this.filterList.search;
+	}
+
 	refetch(config?: SelectParamsConfig) {
 		return this.dataSrv.refetch(config);
 	}
