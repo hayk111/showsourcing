@@ -74,7 +74,6 @@ export class ActivityService {
 		const feed$ = _token$.pipe(
 			switchMap(token => _loadMore$.pipe(
 				mergeScan(prev => this.getNextFeedResult(feedName, feedId, token, prev), [], 1),
-				takeWhile(val => val.length > 0),
 				scan((pre, curr) => [...pre, ...curr], [])
 			)),
 			shareReplay(1)
