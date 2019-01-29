@@ -11,6 +11,8 @@
 		<multiple-product-carousel-app
 			[products]="products"
 			(update)="update.emit($event)"
+			(open)="viewProduct($event)"
+			(previewClick)="previewClick.emit($event)"
 			(liked)="liked.emit($event)"
 			(disliked)="disliked.emit($event)">
 		</multiple-product-carousel-app>

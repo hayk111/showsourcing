@@ -16,6 +16,7 @@ export class MultipleProductsActivityCardComponent extends AutoUnsub implements 
 
 	@Input() groupFeed: GetStreamGroup;
 	@Output() update = new EventEmitter<Product>();
+	@Output() previewClick = new EventEmitter<Product>();
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
 

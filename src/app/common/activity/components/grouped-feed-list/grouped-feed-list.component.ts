@@ -18,8 +18,12 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
+
 	ermSupplier = ERM.SUPPLIER;
 	ermProduct = ERM.PRODUCT;
+
+	previewOpen = false;
+	productPreview: Product;
 
 	@Input() feedResult: GroupedActivityFeed;
 
@@ -66,6 +70,15 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 	onThumbDown(product) {
 		const votes = this.thumbSrv.thumbDown(product);
 		this.updateProduct({ id: product.id, votes });
+	}
+
+	openProductPreview(product: Product) {
+		this.previewOpen = true;
+		this.productPreview = product;
+	}
+
+	closeProductPreview() {
+		this.previewOpen = false;
 	}
 
 	getGroupName(feed: GetStreamGroup) {
