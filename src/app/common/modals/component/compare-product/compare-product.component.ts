@@ -1,16 +1,9 @@
-import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	Component,
-	Input,
-	OnInit
-} from '@angular/core';
-import { Contact, Product, Quote, Packaging } from '~models';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Product } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { AutoUnsub } from '~utils';
 import { ComparisonDataModel } from '~shared/table/models/';
+import { AutoUnsub } from '~utils';
 import { getArrayData, getPackagingString } from '~utils/product.utils';
-import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 @Component({
 	selector: 'compare-product-app',
@@ -18,8 +11,7 @@ import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 	styleUrls: ['./compare-product.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CompareProductComponent extends AutoUnsub
-	implements AfterViewInit, OnInit {
+export class CompareProductComponent extends AutoUnsub {
 	priceMatrixLabels = [];
 	public comparisonData: ComparisonDataModel[] = [];
 
@@ -124,13 +116,13 @@ export class CompareProductComponent extends AutoUnsub
 				title: 'Pcs per Master',
 				dataType: 'text',
 				data: getPackagingString(this.products, 'masterCarton.itemsQuantity')
-			}, {
-				type: 'header',
-				dataType: 'button',
-				data: getArrayData(this.products, 'status.name').map(x => {
-					return this.constPipe.transform(x, 'status');
-				})
-			}
+			},
+			// { // we comment this since this is for the status, when we updated it we dont get the live version
+			// so we will be forced to do a selectMany, here, to avoid this we comment it. we keep it just in case it is needed for some reason
+			// 	type: 'header',
+			// 	dataType: 'status',
+			// 	data: this.products
+			// }
 		];
 	}
 
@@ -139,14 +131,9 @@ export class CompareProductComponent extends AutoUnsub
 	}
 
 	constructor(
-		private dlgSrv: DialogService,
-		private constPipe: ConstPipe) {
+		private dlgSrv: DialogService) {
 		super();
 	}
-
-	ngOnInit() {}
-
-	ngAfterViewInit() {}
 
 	closeDlg() {
 		this.dlgSrv.close();

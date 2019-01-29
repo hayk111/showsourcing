@@ -36,5 +36,5 @@
 
   </div>
   <spinner-app *ngIf="pending"></spinner-app>
-  <em *ngIf="!pending && items && items.length === 0">No shows</em>
+  <em *ngIf="!pending && items && items?.length === 0">No shows</em>
 </card-app>

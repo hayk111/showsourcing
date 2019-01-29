@@ -1,7 +1,7 @@
 
 <card-app padding="none"(fileDrop)="add($event)">
 		<!-- images -->
-		<ng-container *ngIf="images.length > 0; else noImg">
+		<ng-container *ngIf="images?.length > 0; else noImg">
 			<!-- carousel -->
 			<carousel-app
 				[images]="images"

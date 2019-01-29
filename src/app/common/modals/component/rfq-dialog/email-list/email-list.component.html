@@ -1,9 +1,9 @@
-<div *ngIf="!contacts || contacts.length <= 0" class="empty-contacts">
+<div *ngIf="!contacts || contacts?.length <= 0" class="empty-contacts">
 	<icon-app name="envelope"></icon-app>
 	<p>Please add the supplier email address to send the RFQ</p>
 </div>
 <ng-container *ngIf="contacts">
-	<div *ngFor="let contact of contacts; index as i; last as lst;trackBy: trackByFn" class="mail-container" [class.no-divider]="lst && contacts.length > 3">
+	<div *ngFor="let contact of contacts; index as i; last as lst;trackBy: trackByFn" class="mail-container" [class.no-divider]="lst && contacts?.length > 3">
 		<checkbox-app
 		#checkbox
 		(check)="onSelectMail.emit({index: i, contact: contact})"

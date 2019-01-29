@@ -9,9 +9,9 @@
 	</img-app>
 	<ng-container *ngIf="i === 4">
 		<div class="more flexCenter"
-			*ngIf="images.length > 5">
+			*ngIf="images?.length > 5">
 			<div class="flexColumn">
-				<div class="flexCenter">+ {{ images.length - 5 }}</div>
+				<div class="flexCenter">+ {{ images?.length - 5 }}</div>
 				<div>More</div>
 			</div>
 		</div>

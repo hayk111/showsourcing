@@ -10,7 +10,7 @@
     [hasSwitch]="false"
     [hasFilter]="true"
     [buttonIcon]="false"
-    [filtersAmount]="listSrv.filterList.asFilters().length"
+    [filtersAmount]="listSrv.filterList.asFilters()?.length"
     [searchValue]="listSrv.searchValue"
     (search)="listSrv.search($event)"
     (showFilters)="listSrv.openFilterPanel()" >
