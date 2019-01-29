@@ -329,7 +329,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const items$: Observable<T[]> = queryRef$.pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(queryRef => queryRef.valueChanges),
-			tap(d => { debugger; }),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			map((r) => r.data[queryName].items),
