@@ -11,7 +11,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly images = `images { id, urls { url }, orientation }`;
 	static readonly attachments = `attachments { id, fileName, url, size }`;
 	// tslint:disable-next-line:max-line-length
-	static readonly productsCount = `productsCount:  _count(type: "Product", field: "supplier.id", query:"archived == false AND deleted == false")`;
+	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"archived == false AND deleted == false") { ... on ProductCollection { count }}`;
 	static readonly comments = `comments { id, text, ${SupplierQueries.createdBy}, creationDate }`;
 
 	static readonly one = `
@@ -38,6 +38,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 			${SupplierQueries.images}
 			${SupplierQueries.attachments}
 			${SupplierQueries.tags}
+			${SupplierQueries.productsLinked}
 		`;
 
 	static readonly many = `
@@ -52,7 +53,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
 		${SupplierQueries.createdBy}
-	`;
+		${SupplierQueries.productsLinked}
+		`;
 
 	static readonly all = `
 		name,
@@ -66,7 +68,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
 		${SupplierQueries.createdBy}
-	`;
+		${SupplierQueries.productsLinked}
+		`;
 
 	static readonly update = `
 		id,
