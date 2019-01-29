@@ -18,14 +18,14 @@
 </kanban-app>
 
 <ng-template #card  let-data="data" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">
-		<product-card-app
-			[product]="data"
-			[enablePreviewLink]="true"
-			[checked]="(listSrv.selection$ | async).has(data.id)"
-			(clickImage)="listSrv.openPreview(data)"
-			(select)="listSrv.selectOne($event, true)"
-			(unselect)="listSrv.unselectOne($event, true)">
-		</product-card-app>
+  <product-card-app
+    [product]="data"
+    [enablePreviewLink]="true"
+    [checked]="(listSrv.selection$ | async).has(data.id)"
+    (clickImage)="listSrv.openPreview(data)"
+    (select)="listSrv.selectOne($event, true)"
+    (unselect)="listSrv.unselectOne($event, true)">
+  </product-card-app>
 </ng-template>
 
 <ng-template #contextualMenu let-row="row">
