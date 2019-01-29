@@ -12,7 +12,7 @@
 		<h3 *ngIf="title" class="ms"> {{ title }}</h3>
 
 		<!-- images -->
-		<ng-container *ngIf="images.length > 0; else noImg">
+		<ng-container *ngIf="images?.length > 0; else noImg">
 			<!-- carousel -->
 			<carousel-app
 				*ngIf="hasInlineCarousel"

@@ -8,7 +8,7 @@
 	[hasSwitch]="false"
 	[hasFilter]="true"
 	[buttonIcon]="false"
-	[filtersAmount]="listSrv.filterList.asFilters().length"
+	[filtersAmount]="listSrv.filterList.asFilters()?.length"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
 	(search)="listSrv.search($event)">

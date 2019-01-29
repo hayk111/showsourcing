@@ -1,14 +1,7 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	Input,
-	OnInit,
-	Output,
-	EventEmitter
-} from '@angular/core';
-import { Product, Packaging, Quote } from '~models';
-import { TrackingComponent } from '~utils/tracking-component';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ERM } from '~models';
 import { ComparisonDataModel } from '~shared/table/models';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'item-comapre-row-app',
@@ -16,16 +9,17 @@ import { ComparisonDataModel } from '~shared/table/models';
 	styleUrls: ['./item-comapre-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ItemCompareRowComponent extends TrackingComponent
-	implements OnInit {
+export class ItemCompareRowComponent extends TrackingComponent implements OnInit {
 
-		private _comparisonData: ComparisonDataModel[] = [];
+	private _comparisonData: ComparisonDataModel[] = [];
 	@Input() set comparisonData(value: ComparisonDataModel[]) {
 		this._comparisonData = value;
 	}
 	get comparisonData(): ComparisonDataModel[] {
 		return this._comparisonData;
 	}
+
+	erm = ERM;
 
 	constructor() {
 		super();

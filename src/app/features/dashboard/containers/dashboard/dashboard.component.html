@@ -1,7 +1,7 @@
 <div class="ctnr">
 	<div class="left">
 		<ng-container *ngIf="feedResult?.feed$ | async as feed">
-			<grouped-feed-list-app *ngIf="feed.length > 0; else empty" [feedResult]="feedResult"></grouped-feed-list-app>
+			<grouped-feed-list-app *ngIf="feed?.length > 0; else empty" [feedResult]="feedResult"></grouped-feed-list-app>
 			<ng-template #spinner>
 				<spinner-app></spinner-app>
 			</ng-template>

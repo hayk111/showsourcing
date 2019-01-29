@@ -1,6 +1,6 @@
 <div class="previewCtnr flex flexGrow">
 	<!-- no images available -->
-	<ng-container *ngIf="images.length === 0; else carousel">
+	<ng-container *ngIf="images?.length === 0; else carousel">
 		<div class="empty flexCenter flexColumn">
 			<img [src]="defaultImg"/>
 			<span>No picture yet</span>
@@ -10,18 +10,18 @@
 	<!-- images preview  -->
 	<ng-template #carousel>
 		<img-app [image]="images[selectedIndex]" size="xl" (click)="openModal(0)"></img-app>
-		<img-app *ngIf="images.length > 1" class="mg-left" [image]="images[selectedIndex + 1]" size="xl" (click)="openModal(1)"></img-app>
+		<img-app *ngIf="images?.length > 1" class="mg-left" [image]="images[selectedIndex + 1]" size="xl" (click)="openModal(1)"></img-app>
 	</ng-template>
 
 	<!-- move back -->
 	<div class="move-btn back flexCenter pointer action"
-		(mousedown)="back($event)" *ngIf="selectedIndex > 0  && images.length > 2">
+		(mousedown)="back($event)" *ngIf="selectedIndex > 0  && images?.length > 2">
 		<icon-app name="arrow-left-rectangle"></icon-app>
 	</div>
 
 	<!-- move next -->
 	<div class="move-btn next flexCenter pointer action"
-		(mousedown)="next($event)" *ngIf="selectedIndex < (images.length - 2)  && images.length > 2">
+		(mousedown)="next($event)" *ngIf="selectedIndex < (images?.length - 2)  && images?.length > 2">
 		<icon-app name="arrow-right-rectangle"></icon-app>
 	</div>
 

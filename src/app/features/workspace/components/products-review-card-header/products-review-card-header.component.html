@@ -11,7 +11,7 @@
 			<user-picture-app [user]="category.label" *ngIf="currentSort.sortBy === 'createdBy.lastName'"
 					[image]="category.label?.avatar"></user-picture-app>
 		</ng-container>
-    <checkbox-app [checked]="category.checked"
+    <checkbox-app [checked]="category?.checked"
       (check)="checked.emit(category)"
       (uncheck)="unchecked.emit(category)"
       (dragstart)="preventDrag($event)">
@@ -23,21 +23,21 @@
 				<div class="titleCtnr"><h3>{{ category.label.name || 'Unnamed' }}</h3></div>
 				<div class="descriptionCtnr">
 					<h4 class="xs">
-						{{ category.supplierType?.name || 'Supplier' }}
+						{{ category?.supplierType?.name || 'Supplier' }}
 						<ng-container *ngIf="category?.label?.country"> - {{ category?.label?.country | const: 'country'  }}</ng-container>
 					</h4>
 				</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
-					<div class="titleCtnr"><h3>{{ category.label.name || 'Unnamed' }}</h3></div>
+					<div class="titleCtnr"><h3>{{ category?.label?.name || 'Unnamed' }}</h3></div>
 					<div class="descriptionCtnr">
-						<h4 class="xs">{{ category.values.length }} products</h4>
+						<h4 class="xs">{{ category?.values?.length }} products</h4>
 					</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
 				<div class="titleCtnr"><h3>{{ category.label.firstName }} {{ category.label.lastName }}</h3></div>
 				<div class="descriptionCtnr">
-					<h4 class="xs">{{ category.values.length }} products</h4>
+					<h4 class="xs">{{ category?.values?.length }} products</h4>
 				</div>
 			</div>
 		</ng-container>

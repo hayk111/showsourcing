@@ -2,7 +2,7 @@
 <div
 	*ngFor="let tab of tabs; trackBy: trackByFn"
 	class="tab-title"
-	[style.width]="100 / tabs.length + '%'"
+	[style.width]="100 / tabs?.length + '%'"
 	[ngClass]="{'active': currentTab === tab}"
 	[routerLink]="'./' + tab.toLowerCase()"
 	[replaceUrl]="true"
