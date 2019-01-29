@@ -349,14 +349,16 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 					updateQuery: (prev, { fetchMoreResult }) => {
 						if (!fetchMoreResult[queryName]) { return prev; }
 						this.logResult(fetchMoreTitle, queryName, fetchMoreResult[queryName].items);
-						const dataReturned = Object.assign({}, prev, {
+						const dataReturned = {
 							[queryName]: {
 								items: [
 									...prev[queryName].items,
 									...fetchMoreResult[queryName].items
-								]
+								],
+								count: fetchMoreResult[queryName].count,
+								__typename: prev[queryName].__typename
 							},
-						});
+						};
 						return dataReturned;
 					}
 				})));
