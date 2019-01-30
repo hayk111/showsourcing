@@ -32,8 +32,19 @@
 	</span>
 
 	<card-footer-app [class.custom-margin]="projects?.length > 0">
-		<button
-		(click)="addProjectClick.emit()"
-		i18n="button|Add project@@projectCard_addProject">Add to project</button>
+		<selector-app
+			class="selector"
+			type="project"
+			[value]="projects"
+			[canCreate]="true"
+			[offsetY]="8"
+			[offsetX]="210"
+			[multiple]="true"
+			[width]="330"
+			(update)="updated.emit($event)">
+			<button	i18n="button|Add project@@projectCard_addProject">
+				Add to project
+			</button>
+		</selector-app>
 	</card-footer-app>
 </card-app>

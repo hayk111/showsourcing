@@ -24,9 +24,9 @@
 			class="selector"
 			type="project"
 			[value]="product?.projects"
+			[canCreate]="true"
 			[offsetY]="8"
 			[offsetX]="316"
-			[canCreate]="false"
 			[multiple]="true"
 			[width]="330"
 			(update)="update.emit({id: product?.id, projects: $event})">
