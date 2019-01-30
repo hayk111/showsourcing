@@ -5,7 +5,7 @@ import { LogLevel } from '~utils/logger/log-level';
 export const environment = {
 	production: true,
 	staging: false,
-	version: '0.0.2',
+	version: '0.0.3',
 	graphqlUrl: 'wss://showsourcingprod.us1.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingprod.us1.cloud.realm.io/auth',
 	apiUrl: 'https://services.showsourcing.com',
