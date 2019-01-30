@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { filter, map, shareReplay, switchMap, first } from 'rxjs/operators';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { LocalStorageService } from '~core/local-storage';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { TeamQueries } from '~entity-services/team/team.queries';
 import { Team } from '~models';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { LocalStorageService } from '~core/local-storage';
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -46,9 +46,8 @@ export class TeamService extends GlobalService<Team> {
 		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService
-	) {
-		super(apolloState, TeamQueries, 'team', 'teams');
-	}
+
+	) { super(apolloState, TeamQueries, 'team', 'teams'); }
 
 	init() {
 
@@ -77,11 +76,7 @@ export class TeamService extends GlobalService<Team> {
 		this._teamSelectionEvent$.next(team);
 		return this.teamSelectionEvent$.pipe(
 			filter(x => !!x),
-			// then we gotta wait for the team client to be ready
-			switchMap(
-				_ => this.apolloState.getClientWhenReady(Client.TEAM, 'picking team'),
-				_team => team
-			)
+			first()
 		);
 	}
 
@@ -95,5 +90,4 @@ export class TeamService extends GlobalService<Team> {
 	}
 
 }
-
 
