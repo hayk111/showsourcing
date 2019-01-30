@@ -4,9 +4,9 @@ import { ComparisonDataModel } from '~shared/table/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
-	selector: 'item-comapre-row-app',
-	templateUrl: './item-comapre-row.component.html',
-	styleUrls: ['./item-comapre-row.component.scss'],
+	selector: 'item-compare-row-app',
+	templateUrl: './item-compare-row.component.html',
+	styleUrls: ['./item-compare-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemCompareRowComponent extends TrackingComponent implements OnInit {

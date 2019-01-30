@@ -5,7 +5,7 @@
 	</dialog-header-app>
 
   <div class="item-container" [style.width]="100/(quotes?.length + 1) + '%'" *ngFor="let quote of quotes;trackBy: trackByFn" >
-      <item-comapre-row-app [comparisonData]="comparisonData"></item-comapre-row-app>
+      <item-compare-row-app [comparisonData]="comparisonData"></item-compare-row-app>
   </div>
 
 	<!-- <divider-app></divider-app> -->
