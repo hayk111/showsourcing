@@ -39,7 +39,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		this.apolloState.setClientPending(Client.USER);
 
 		const userId = refreshToken.token_data.identity;
-		const uri = `/user/${userId}/__partial/${userId}/web`;
+		const uri = `/user/${userId}/__partial/${userId}/${this.suffix}`;
 		const accessToken$ = this.tokenSrv
 			.getAccessToken(refreshToken, uri).pipe(
 				first(),

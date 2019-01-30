@@ -22,6 +22,7 @@ import { log, LogColor } from '~utils';
 export abstract class AbstractApolloClient {
 	protected initialized = false;
 	protected destroyed$ = new Subject();
+	protected suffix = 'graphql-client0';
 
 	private ws: WebSocketLink;
 

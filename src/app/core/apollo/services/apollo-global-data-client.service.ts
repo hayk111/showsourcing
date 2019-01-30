@@ -34,7 +34,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 	init(refreshToken: TokenState): Observable<Client> {
 		this.checkNotAlreadyInit();
 		const userId = refreshToken.token_data.identity;
-		const uri = `/${this.client}/__partial/${userId}/web`;
+		const uri = `/${this.client}/__partial/${userId}/${this.suffix}`;
 
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
