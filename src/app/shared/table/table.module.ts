@@ -11,8 +11,8 @@ import { PriceModule } from '~shared/price';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { ColumnDirective, TableComponent } from '~shared/table/components';
 import { CustomTableComponent } from '~shared/table/components/custom-table/custom-table.component';
-import { ItemCompareRowComponent } from '~shared/table/components/item-comapre-row/item-comapre-row.component';
 import { UtilsModule } from '~shared/utils';
+import { ItemCompareRowComponent } from './components/item-compare-row/item-compare-row.component';
 
 @NgModule({
 	imports: [
