@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, shareReplay, switchMap, filter } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { UserQueries } from '~entity-services/user/user.queries';
@@ -15,6 +15,7 @@ export class UserService extends GlobalService<User> {
 	private user$ = this.authSrv.userId$.pipe(
 		distinctUntilChanged(),
 		switchMap(id => this.selectOne(id)),
+		filter(user => !!user),
 		shareReplay(1)
 	);
 	userSync: User;
