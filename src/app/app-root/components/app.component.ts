@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'environments/environment';
 import { forkJoin, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
@@ -6,11 +7,9 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
 import { TokenService } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
-import { ListPageService } from '~core/list-page';
-import { Router, ActivatedRoute } from '@angular/router';
-import { environment } from 'environments/environment';
 
 @Component({
 	selector: 'app-root',
@@ -27,7 +26,6 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private companySrv: CompanyService,
 		private tokenSrv: TokenService,
-		private route: ActivatedRoute
 	) { }
 
 	ngOnInit(): void {
@@ -66,11 +64,7 @@ export class AppComponent implements OnInit {
 
 	private startTeamClient(team: Team) {
 		const token = this.tokenSrv.authRefreshTokenSync;
-		// destroy team client first in case there was a previous team selectioned
-		this.teamClient.setPending('switching / no team selected');
-		if (team) {
-			return this.teamClient.init(token, team);
-		}
+		return this.teamClient.init(token, team);
 	}
 
 	private destroyAllClients() {

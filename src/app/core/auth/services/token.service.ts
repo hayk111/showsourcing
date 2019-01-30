@@ -14,10 +14,9 @@ import { log, LogColor } from '~utils';
 
 
 
-
-
 const REFRESH_TOKEN_MAP = 'REFRESH_TOKEN_MAP';
 const ACCESS_TOKEN_MAP = 'ACCESS_TOKEN_MAP';
+const FEED_TOKEN = 'feed-token';
 
 
 @Injectable({
@@ -184,12 +183,12 @@ export class TokenService {
 	}
 
 	storeFeedToken(token: TokenState) {
-		this.localStorageSrv.setItem('feed-token', token);
+		this.localStorageSrv.setItem(FEED_TOKEN, token);
 		this._jwtTokenFeed$.next(token);
 	}
 
 	restoreFeedToken() {
-		const token: TokenState = this.localStorageSrv.getItem('feed-token');
+		const token: TokenState = this.localStorageSrv.getItem(FEED_TOKEN);
 		// check if token is still valid, minus 10 so we still have some leeway
 		if (token && token.token_data.expires > (Date.now() / 1000) - 10) {
 			this._jwtTokenFeed$.next(token);
@@ -202,9 +201,16 @@ export class TokenService {
 		log.info(`%c Clearing tokens`, LogColor.SERVICES);
 		this.localStorageSrv.remove(ACCESS_TOKEN_MAP);
 		this.localStorageSrv.remove(REFRESH_TOKEN_MAP);
+		this.localStorageSrv.remove(FEED_TOKEN);
 		this._authRefreshToken$.next();
 		this._onboardingRefreshToken$.next();
 		this._rfqRefreshToken$.next();
+	}
+
+	removeAccessToken(realmPath: string) {
+		const accessMap: any = this.localStorageSrv.getItem(ACCESS_TOKEN_MAP);
+		delete accessMap[realmPath];
+		this.localStorageSrv.setItem(ACCESS_TOKEN_MAP, accessMap);
 	}
 
 	/** check if a token has expired */
@@ -216,7 +222,6 @@ export class TokenService {
 	private isValidOnServer(refreshToken: TokenState): Promise<boolean> {
 		// we will send a request for an access token to know if the request
 		// token is really valid (the server might have restarted etc).
-		const userId = refreshToken.token_data.identity;
 		const accessObj = {
 			app_id: '',
 			provider: 'realm',

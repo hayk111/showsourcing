@@ -22,6 +22,8 @@ import { ERM, EntityMetadata, QueryBasedSubscription } from '~core/models';
 @Injectable({ providedIn: 'root' })
 export class TeamClientInitializer extends AbstractApolloClient {
 
+	private uri: string;
+
 	constructor(
 		protected apollo: Apollo,
 		protected link: HttpLink,
@@ -40,15 +42,15 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		const userId = refreshToken.token_data.identity;
 
 		// here the user client is ready if a team is selected
-		const uri = `${team.realmPath}/__partial/${userId}/web`;
+		this.uri = `${team.realmPath}/__partial/${userId}/web`;
 
 		const accessToken$ = this.tokenSrv
-			.getAccessToken(refreshToken, uri)
+			.getAccessToken(refreshToken, this.uri)
 			.pipe(first());
 
 		// combine tokens & uri
 		return accessToken$.pipe(
-			switchMap(token => super.createClient(uri, this.client, token)),
+			switchMap(token => super.createClient(this.uri, this.client, token)),
 			takeUntil(this.destroyed$),
 			switchMap(_ => this.createMissingSubscription()),
 			tap(_ => this.apolloState.setClientReady(this.client)),
@@ -82,6 +84,11 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			.map((name: string) => ERM.getEntityMetadata(name))
 			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.TEAM));
 		return forkJoin(newSubs);
+	}
+
+	setPending(reason: string) {
+		this.tokenSrv.removeAccessToken(this.uri);
+		return super.setPending(reason);
 	}
 
 }
