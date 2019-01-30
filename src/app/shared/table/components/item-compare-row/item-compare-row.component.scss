@@ -60,7 +60,11 @@ $cell-width: 200px;
   }
 
   .empty-header-cell {
-    width: $cell-width;
+		width: $cell-width;
+		font-size: var(--font-size-m);
+		font-weight: 600;
+		color: var(--color-secondary-dark);
+		text-transform: capitalize;
   }
 
   .comparison-cell {

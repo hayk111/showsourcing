@@ -31,14 +31,14 @@
 			(mouseenter)="preview.style.display = 'block'"
 			(mouseleave)="preview.style.display = 'none'">
 			<a class="capitalize ellipsis txtBtn" [routerLink]="['/supplier', 'details', row.id]">
-			<icon-app class="supplierIcon" name="supplier" fontSet="svg"></icon-app>
+				<icon-app class="supplierIcon" name="supplier" fontSet="svg"></icon-app>
 				<span class="ellipsis">{{ row.name }}</span>
 			</a>
 			<button #preview class="preview small secondary-dark" (click)="previewClick.emit(row)">Preview</button>
 		</div>
 	</ng-template>
 
-	<!-- category -->
+	<!-- categories -->
 	<ng-template
 		class="capitalize"
 		columnApp="Categories"
@@ -46,8 +46,8 @@
 		[sortable]="false"
 		width="280">
 		<div class="overflow-hidden">
-			<span *ngFor="let cat of row.categories; let last = last;trackBy: trackByFn">
-				{{ cat.name }}{{ last ? '' : ',&nbsp;'}}
+			<span *ngFor="let cat of row.categories; let last = last; trackBy: trackByFn">
+				{{ cat?.name }}{{ last ? '' : ',&nbsp;'}}
 			</span>
 		</div>
 	</ng-template>
@@ -94,7 +94,7 @@
 	<ng-template
 		columnApp="Owner"
 		let-row="row"
-		sortBy="createdBy.firstName"
+		sortBy="createdBy.lastName"
 		width="140"
 		[grows]="false">
 		<div class="flex flexCenter">
@@ -129,7 +129,8 @@
 			<rating-heart-app
 				[favorite]="row?.favorite"
 				(favorited)="favorited.emit(row.id)"
-				(unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
+				(unfavorited)="unfavorited.emit(row.id)">
+			</rating-heart-app>
 		</div>
 
 	</ng-template>

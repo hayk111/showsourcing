@@ -19,6 +19,9 @@
         <p *ngIf="currentSort?.sortBy === 'favorite'" class="flex">Sort By Favorite
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
+        <p *ngIf="currentSort?.sortBy === 'status.step'" class="flex">Sort By Status
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
         <p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">Sort By Created On
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
