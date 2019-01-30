@@ -51,7 +51,7 @@
 
 <!-- price -->
 <ng-template #price let-row="row">
-  <price-app [amount]="row?.price?.value" [currency]="row?.price?.currency  | ssPrice" *ngIf="row?.price?.currency; else noPrice">
+  <price-app [amount]="row?.price?.value" [currency]="row?.price?.currency | ssPrice" *ngIf="row?.price?.currency; else noPrice">
   </price-app>
 
   <ng-template #noPrice>
@@ -114,12 +114,10 @@
 
 <!-- user -->
 <ng-template #user let-row="row">
-  <div class="flexCenter userP">
-    {{ row?.createdBy | formatUserName }}
-  </div>
-  <ng-template>
+	<div class="flexCenter userP">
+		{{ row?.createdBy | formatUserName }}
+	</div>
+<ng-template>
 
-
-
-    <!-- none -->
-    <ng-template #none></ng-template>
+<!-- none -->
+<ng-template #none></ng-template>

@@ -75,7 +75,7 @@
 	<ng-template
 		columnApp="Comments"
 		let-row="row"
-		sortBy="comments.length"
+		[sortable]="false"
 		width="200">
 		<div class="flex">
 			<div class="number">{{ row?.comments?.length || '0' }}</div>
@@ -89,7 +89,7 @@
 		class="capitalize"
 		columnApp="Status"
 		let-row="row"
-		sortBy="status.name"
+		sortBy="status.step"
 		width="200">
 		<status-selector-app
 			[entity]="row"
