@@ -18,7 +18,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Category, Product, Project, Supplier, Tag } from '~core/models';
+import { Category, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -253,6 +253,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case 'category':
 				added = new Category({ name });
 				createObs$ = this.selectorSrv.createCategory(added);
+				break;
+			case 'supplierType':
+				added = new SupplierType({ name });
+				createObs$ = this.selectorSrv.createSupplierType(added);
 				break;
 			default: throw Error(`Unsupported type ${this.type}`);
 		}
