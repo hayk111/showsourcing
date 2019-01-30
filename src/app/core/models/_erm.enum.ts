@@ -1,21 +1,24 @@
-import { Category } from '~models/category.model';
-import { Event } from '~models/event.model';
-import { Product } from '~models/product.model';
-import { Supplier } from '~models/supplier.model';
-import { Show } from '~models/show.model';
-import { Tag } from '~models/tag.model';
-import { Project } from '~models/project.model';
-import { User } from '~models/user.model';
-import { Team } from '~models/team.model';
-import { Task } from '~models/task.model';
-import { Quote } from '~models/quote.model';
-import { Contact } from '~models/contact.model';
-import { Invitation } from '~models/invitation.model';
 import { InjectionToken } from '@angular/core';
-import { Sample } from './sample.model';
-import { SupplierStatus } from './supplier-status.model';
-import { ProductStatus } from './product-status.model';
-import { EventDescription } from './event-description.model';
+import { Category } from '~models/category.model';
+import { Contact } from '~models/contact.model';
+import { Country } from '~models/country.model';
+import { EventDescription } from '~models/event-description.model';
+import { Event } from '~models/event.model';
+import { Harbour } from '~models/harbour.model';
+import { IncoTerm } from '~models/inco-term.model';
+import { Invitation } from '~models/invitation.model';
+import { ProductStatus } from '~models/product-status.model';
+import { Product } from '~models/product.model';
+import { Project } from '~models/project.model';
+import { Quote } from '~models/quote.model';
+import { Sample } from '~models/sample.model';
+import { Show } from '~models/show.model';
+import { SupplierStatus } from '~models/supplier-status.model';
+import { Supplier } from '~models/supplier.model';
+import { Tag } from '~models/tag.model';
+import { Task } from '~models/task.model';
+import { Team } from '~models/team.model';
+import { User } from '~models/user.model';
 
 
 export class EntityMetadata {
@@ -48,11 +51,14 @@ export class ERM {
 	static readonly CATEGORY = new EntityMetadata('category', 'categories', Category);
 	static readonly COMMENT = new EntityMetadata('comment', 'comments');
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts', Contact);
+	static readonly COUNTRY = new EntityMetadata('country', 'countries', Country);
 	static readonly CURRENCY = new EntityMetadata('currency', 'currencies');
 	static readonly EVENT = new EntityMetadata('event', 'events', Event);
 	static readonly EVENT_DESCRIPTION = new EntityMetadata('event description', 'event descriptions', EventDescription);
 	static readonly FILE = new EntityMetadata('file', 'files');
+	static readonly HARBOUR = new EntityMetadata('harbour', 'harbours', Harbour);
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);
+	static readonly INCOTERM = new EntityMetadata('incoterm', 'incoterms', IncoTerm);
 	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
 	static readonly LOCATION = new EntityMetadata('location', 'locations');
 	static readonly MEMBER = new EntityMetadata('member', 'members');

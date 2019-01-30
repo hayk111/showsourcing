@@ -6,15 +6,20 @@ import { EventService } from '~entity-services/event/event.service';
 import { ImageService } from '~entity-services/image/image.service';
 import { ProductService } from '~entity-services/product/product.service';
 import { ProjectService } from '~entity-services/project/project.service';
+import { SampleStatusService } from '~entity-services/sample-status/sample-status.service';
+import { SampleService } from '~entity-services/sample/sample.service';
 import { SupplierService } from '~entity-services/supplier/supplier.service';
 import { TagService } from '~entity-services/tag/tag.service';
 import { TeamService } from '~entity-services/team/team.service';
 import { EntityMetadata, ERM } from '~models';
-import { SampleService } from '~entity-services/sample/sample.service';
-import { SampleStatusService } from '~entity-services/sample-status/sample-status.service';
+
+import { CountryService } from '../country/country.service';
+import { CurrencyService } from '../currency/currency.service';
+import { HarbourService } from '../harbour/harbour.service';
+import { IncoTermService } from '../inco-term/inco-term.service';
+import { InvitationService } from '../invitation/invitation.service';
 import { ProductStatusService } from '../product-status/product-status.service';
 import { SupplierStatusService } from '../supplier-status/supplier-status.service';
-import { InvitationService } from '../invitation/invitation.service';
 import { SupplierTypeService } from '../supplier-type/supplier-type.service';
 import { TaskService } from '../task/task.service';
 
@@ -25,22 +30,26 @@ export class ERMService {
 
 	constructor(
 		private categoryService: CategoryService,
-		private tagService: TagService,
-		private supplierService: SupplierService,
-		private productService: ProductService,
-		private projectService: ProjectService,
-		private imageService: ImageService,
+		private countryService: CountryService,
+		private currencyService: CurrencyService,
 		private eventService: EventService,
-		private teamService: TeamService,
-		private teamUserSrv: TeamUserService,
-		private userSrv: UserService,
+		private harbourService: HarbourService,
+		private imageService: ImageService,
+		private incotermService: IncoTermService,
+		private invitationSrv: InvitationService,
+		private productService: ProductService,
+		private productStatusSrv: ProductStatusService,
+		private projectService: ProjectService,
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
-		private productStatusSrv: ProductStatusService,
+		private supplierService: SupplierService,
 		private supplierStatusSrv: SupplierStatusService,
-		private invitationSrv: InvitationService,
 		private supplierTypeSrv: SupplierTypeService,
-		private taskSrv: TaskService
+		private tagService: TagService,
+		private taskSrv: TaskService,
+		private teamService: TeamService,
+		private teamUserSrv: TeamUserService,
+		private userSrv: UserService
 	) { }
 
 
@@ -49,6 +58,10 @@ export class ERMService {
 		switch (typename) {
 			case 'Category':
 				return this.categoryService;
+			case 'Country':
+				return this.countryService;
+			case 'Currency':
+				return this.currencyService;
 			case 'Supplier':
 				return this.supplierService;
 			case 'Product':
@@ -61,6 +74,10 @@ export class ERMService {
 				return this.tagService;
 			case 'Event':
 				return this.eventService;
+			case 'Harbour':
+				return this.harbourService;
+			case 'Incoterm':
+				return this.incotermService;
 			case 'Team':
 				return this.teamService;
 			case 'User':
@@ -84,6 +101,14 @@ export class ERMService {
 		switch (erm) {
 			case ERM.CATEGORY:
 				return this.categoryService;
+			case ERM.COUNTRY:
+				return this.countryService;
+			case ERM.CURRENCY:
+				return this.currencyService;
+			case ERM.HARBOUR:
+				return this.harbourService;
+			case ERM.INCOTERM:
+				return this.incotermService;
 			case ERM.SUPPLIER:
 				return this.supplierService;
 			case ERM.PRODUCT:
