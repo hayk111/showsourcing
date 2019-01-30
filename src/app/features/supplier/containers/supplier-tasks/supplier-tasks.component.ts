@@ -46,7 +46,7 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 		const newTask = new Task({
 			name,
 			supplier: { id: this.route.parent.snapshot.params.id },
-			assignee: this.userSrv.userSync
+			assignee: { id: this.userSrv.userSync.id }
 		});
 		this.taskSrv.create(newTask).pipe(
 			switchMap(_ => this.listSrv.refetch())

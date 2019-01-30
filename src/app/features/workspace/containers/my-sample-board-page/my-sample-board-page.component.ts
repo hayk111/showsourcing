@@ -133,8 +133,9 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	openCreateDlg() {
+		const assignee = { id: this.userSrv.userSync.id };
 		this.dlgSrv.open(CreationDialogComponent, { type: ERM.SAMPLE }).pipe(
-			map(name => new Sample({ name })),
+			map(name => new Sample({ name, assignee })),
 			switchMap(sample => this.sampleSrv.create(sample), sample => sample)
 		).subscribe(sample => this.kanbanSrv.addItems([sample], null));
 	}

@@ -1,14 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
-import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
+import { SampleService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { ERM, Sample, SampleStatus } from '~core/models';
+import { ERM, Sample } from '~core/models';
 import { FilterType } from '~shared/filters';
-import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 
 @Component({
@@ -35,7 +33,6 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
-		private sampleStatusSrv: SampleStatusService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService,
 		public kanbanSrv: KanbanService
@@ -58,7 +55,7 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 	}
 
 	openCreateDlg() {
-		const assignee = this.userSrv.userSync;
+		const assignee = { id: this.userSrv.userSync.id };
 		this.commonModalSrv.openCreateDlg(ERM.SAMPLE, false).pipe(
 			map(name => new Sample({ name, assignee })),
 			switchMap(sample => this.sampleSrv.create(sample)),
