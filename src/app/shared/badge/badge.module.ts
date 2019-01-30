@@ -8,8 +8,22 @@ import { UtilsModule } from '~shared/utils';
 import { InfoBadgeComponent } from './components/info-badge/info-badge.component';
 
 @NgModule({
-	imports: [CommonModule, IconsModule, UtilsModule],
-	declarations: [BadgeComponent, StatusBadgeComponent, StatusBoxComponent, InfoBadgeComponent],
-	exports: [BadgeComponent, StatusBadgeComponent, StatusBoxComponent, InfoBadgeComponent],
+	imports: [
+		CommonModule,
+		IconsModule,
+		UtilsModule
+	],
+	declarations: [
+		BadgeComponent,
+		StatusBadgeComponent,
+		StatusBoxComponent,
+		InfoBadgeComponent
+	],
+	exports: [
+		BadgeComponent,
+		StatusBadgeComponent,
+		StatusBoxComponent,
+		InfoBadgeComponent
+	],
 })
 export class BadgeModule { }

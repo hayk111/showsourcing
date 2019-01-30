@@ -144,7 +144,7 @@ export class QueryBuilder {
 		mutation create${this.capSing}Subscription($name: String) {
 			create${this.capSing}Subscription(name: $name) {
 				items {
-					id
+					id@skip(if: true)
 				}
 			}
 		}
