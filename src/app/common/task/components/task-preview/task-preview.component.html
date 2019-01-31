@@ -43,13 +43,12 @@
 			<!-- Date -->
 			<div class="left">
 				<editable-field-app #editable [hasAction]="false" [inlineLabel]="false"
-					(opened)="inpDueDate.select()" [canGrow]="true"
-					(closed)="updateDueDate($event, inpDueDate.value)">
+					(opened)="inpDueDate.select()" [canGrow]="true">
 					<label-app>Due date</label-app>
 					<editable-label-app>{{ task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date' }}</editable-label-app>
 					<form-field-app>
-						<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate" [type]="'date'"
-						(keyup.enter)="updateDueDate($event, inpDueDate.value)"/>
+						<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate ? (task?.dueDate | date:'yyyy-MM-dd') : ''" type="date"
+						(keyup.enter)="updateDueDate(false, inpDueDate.value)" (change)="updateDueDate(false, $event.target.value)"/>
 					</form-field-app>
 				</editable-field-app>
 			</div>

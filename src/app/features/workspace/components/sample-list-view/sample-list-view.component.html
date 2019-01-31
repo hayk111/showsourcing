@@ -30,7 +30,7 @@
 		<div class="mainCellWrapper name-container ellipsis">
 			<div class="mainCell">
 				<img-app [image]="row?.images ? row?.images[0] : null" type="sample" size="s"></img-app>
-				<span class="ellipsis pointer txtBtn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+				<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 			</div>
 			<div class="preview">
 				<button (click)="previewClick.emit(row)" class="secondary-dark small">Preview</button>

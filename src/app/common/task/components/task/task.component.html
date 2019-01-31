@@ -2,12 +2,12 @@
 	<!-- name -->
 	<div class="flex task-name ellipsis {{ hasSupplier && hasProduct ? 'col-35' : 'col-50'}}">
 		<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus()"></icon-app>
-		<div class="flexCenter txtBtn pointer" [ngClass]="{'done': task?.done }" (click)="previewClicked.emit(task)">{{ task?.name || 'Unnamed task' }}</div>
+		<div class="flexCenter txt-btn pointer" [ngClass]="{'done': task?.done }" (click)="previewClicked.emit(task)">{{ task?.name || 'Unnamed task' }}</div>
 	</div>
 
 	<!-- if product -->
 	<div *ngIf="hasProduct" class="flexStart task-product ellipsis {{hasSupplier || fullUser ? 'col-25' : 'col-35'}}">
-		<div *ngIf="task?.product" class="flex ellipsis name-container txtBtn" (click)="openProduct.emit(task?.product?.id || null)">
+		<div *ngIf="task?.product" class="flex ellipsis name-container txt-btn" (click)="openProduct.emit(task?.product?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.product?.images"></img-app></div>
 			<div class="text">{{ task?.product?.name || 'Unnamed product' }}</div>
 		</div>
@@ -15,7 +15,7 @@
 
 	<!-- if supplier -->
 	<div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis {{hasProduct || fullUser ? 'col-25' : 'col-35'}}">
-		<div *ngIf="task?.supplier" class="flex ellipsis name-container txtBtn" (click)="openSupplier.emit(task?.supplier?.id || null)">
+		<div *ngIf="task?.supplier" class="flex ellipsis name-container txt-btn" (click)="openSupplier.emit(task?.supplier?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.supplier?.logoImage"></img-app></div>
 			<div class="text">{{ task?.supplier?.name || 'Unnamed suppler' }}</div>
 		</div>
