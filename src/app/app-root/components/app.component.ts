@@ -64,7 +64,6 @@ export class AppComponent implements OnInit {
 	}
 
 	private startTeamClient(team: Team) {
-		debugger;
 		const realmUser = this.tokenSrv.realmUser;
 		return this.teamClient.init(realmUser, team);
 	}
