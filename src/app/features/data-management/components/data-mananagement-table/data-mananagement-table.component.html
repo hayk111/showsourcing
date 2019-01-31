@@ -45,7 +45,6 @@
 		width="250"
 		sortBy="description.name">
 		<div class="flexBetween">
-      <!-- <div> {{ row.description.name }} </div> -->
       <editable-text-app #editable (closed)="updateNameEntity(row, txtName?.value, 'description')" [hasAction]="true">
         <editable-label-app class="task-name">
           {{ row?.description?.name }}
@@ -71,7 +70,7 @@
 	<ng-template *ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
 		columnApp="Products Count"
 		let-row="row"
-		sortBy="products.count"
+		[sortable]="false"
 		width="140">
 		<span>
 			{{ row?.productsLinked?.count }}
@@ -80,13 +79,13 @@
 
 	<!-- Supplier Count -->
 	<ng-template *ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
-	columnApp="Suppliers Count"
-	let-row="row"
-	sortBy="suppliers.count"
-	width="140">
-	<span>
-		{{ row?.suppliersLinked?.count }}
-	</span>
+		columnApp="Suppliers Count"
+		let-row="row"
+		[sortable]="false"
+		width="140">
+		<span>
+			{{ row?.suppliersLinked?.count }}
+		</span>
 	</ng-template>
 
 	<!-- Start Date (Event only) -->
