@@ -12,7 +12,6 @@ import { log, LogColor } from '~utils';
 const REALM_USER = 'REALM_USER';
 const FEED_TOKEN = 'feed-token';
 
-
 @Injectable({
 	providedIn: 'root'
 })
@@ -82,7 +81,7 @@ export class TokenService {
 		);
 	}
 
-	storeFeedToken(token: TokenState) {
+	storeJwtTokens(token: TokenState) {
 		this.localStorageSrv.setItem(FEED_TOKEN, token);
 		this._jwtTokenFeed$.next(token);
 	}

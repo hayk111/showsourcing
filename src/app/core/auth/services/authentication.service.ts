@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -59,7 +59,7 @@ export class AuthenticationService {
 		// lower case for email
 		credentials.login = credentials.login.toLowerCase();
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
-			tap(resp => this.tokenSrv.storeFeedToken(resp.jwtTokenFeed)),
+			tap(resp => this.tokenSrv.storeJwtTokens(resp.jwtTokenFeed)),
 			map(resp => resp.jwtToken),
 			switchMap((jwt) => this.tokenSrv.getRealmUser(jwt)),
 			map(realmUser => this.realmUserToAuthState(realmUser)),
@@ -82,13 +82,11 @@ export class AuthenticationService {
 
 	changePassword(userId: string, password: string): Observable<boolean> {
 		const endpoint = `${environment.apiUrl}/user/signup/user/${userId}/password`;
-		// return this.tokenSrv.getAccessToken(this.tokenSrv.authRefreshTokenSync).pipe(
-		// 	map((tokenState: TokenState) => ({ headers: new HttpHeaders({ Authorization: tokenState.token }) })),
-		// 	switchMap(opts => this.http.post<RefreshTokenResponse>(endpoint, { password }, opts)),
-		// 	map(token => !!token),
-		// 	catchError(_ => of(false))
-		// );
-		throw Error('need to check back on this');
+		const opts = { headers: new HttpHeaders({ Authorization: this.tokenSrv.realmUser.token }) };
+		return this.http.post<any>(endpoint, { password }, opts).pipe(
+			map(token => !!token),
+			catchError(_ => of(false))
+		);
 	}
 
 	resetPassword(cred: { email: string }) {
