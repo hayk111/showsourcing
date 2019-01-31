@@ -6,7 +6,7 @@ import {
 	Output,
 	EventEmitter,
 } from '@angular/core';
-import { Project } from '~models';
+import { Project, Product } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 import { Router } from '@angular/router';
 
@@ -17,9 +17,10 @@ import { Router } from '@angular/router';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectCardComponent extends TrackingComponent {
+
 	@Input() projects: Project[];
 	@Output() removeProject = new EventEmitter<Project>();
-	@Output() addProjectClick = new EventEmitter<null>();
+	@Output() updated = new EventEmitter<Project[]>();
 
 	constructor(private router: Router) {
 		super();

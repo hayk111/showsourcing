@@ -30,7 +30,7 @@
 		<div class="supplier flexBetween"
 			(mouseenter)="preview.style.display = 'block'"
 			(mouseleave)="preview.style.display = 'none'">
-			<a class="capitalize ellipsis txtBtn" [routerLink]="['/supplier', 'details', row.id]">
+			<a class="capitalize ellipsis txt-btn" [routerLink]="['/supplier', 'details', row.id]">
 				<icon-app class="supplierIcon" name="supplier" fontSet="svg"></icon-app>
 				<span class="ellipsis">{{ row.name }}</span>
 			</a>

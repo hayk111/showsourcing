@@ -119,6 +119,7 @@ export class SelectorsService {
 	}
 
 	getCountriesGlobal(): Observable<Country[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'fullName' };
 		this.listResult = this.countrySrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
@@ -129,6 +130,8 @@ export class SelectorsService {
 	}
 
 	getIncoTermsGlobal(): Observable<IncoTerm[]> {
+		// we have to specify that the sort is empty, since when calling another selector can have a different sort
+		this.selectParams = { ...this.selectParams, sortBy: '' };
 		this.listResult = this.incoTermSrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
@@ -139,6 +142,7 @@ export class SelectorsService {
 	}
 
 	getHarboursGlobal(): Observable<Harbour[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.harbourSrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
@@ -149,6 +153,7 @@ export class SelectorsService {
 	}
 
 	getCurrenciesGlobal(): Observable<Currency[]> {
+		this.selectParams = { ...this.selectParams, sortBy: '' };
 		this.listResult = this.currencySrv.getListQuery(this.selectParams);
 		this.setItems();
 		this.getTopCurrencies();
@@ -156,6 +161,7 @@ export class SelectorsService {
 	}
 
 	private getTopCurrencies() {
+		this.selectParams = { ...this.selectParams, sortBy: '' };
 		this.listResult = this.currencySrv.getListQuery({ ...this.selectParams, query: 'symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"' });
 		this.topCurrencies$ = this.listResult.items$;
 	}
@@ -209,7 +215,8 @@ export class SelectorsService {
 		this.selectParams = {
 			descending: false,
 			take: 30,
-			skip: 0
+			skip: 0,
+			sortBy: 'name'
 		};
 		this.listResult = this.supplierSrv.getListQuery(this.selectParams);
 		this.setItems();
@@ -217,30 +224,35 @@ export class SelectorsService {
 	}
 
 	getProducts(): Observable<Product[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.productSrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
 	}
 
 	getProjects(): Observable<Project[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.projectSrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
 	}
 
 	getCategories(): Observable<Category[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.categorySrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
 	}
 
 	getTags(): Observable<Tag[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.tagSrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
 	}
 
 	getSupplierTypes(): Observable<SupplierType[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.supplierTypeSrv.getListQuery(this.selectParams);
 		this.items$ = this.listResult.items$.pipe(
 			map(types => types.map(type => {
@@ -251,6 +263,7 @@ export class SelectorsService {
 	}
 
 	getUsers(): Observable<User[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'lastName' };
 		this.listResult = this.userSrv.getListQuery(this.selectParams, '', Client.TEAM);
 		this.setItems();
 		return this.items$;

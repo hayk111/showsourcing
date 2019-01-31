@@ -2,8 +2,8 @@
 	<ng-container *ngIf="product$ | async; else spinner">
 		<!-- user -->
 		<activity-user-app
-			[user]="product.createdBy"
-			[time]="product.creationDate"
+			[user]="product?.createdBy"
+			[time]="product?.creationDate"
 			[action]="title">
 		</activity-user-app>
 
@@ -16,15 +16,24 @@
 		<!-- actions on buttons -->
 		<div class="action-section flexBetween">
 			<action-bar-app
-					[favorite]="product?.favorite"
-					[votes]="product?.votes"
-					(onFavorite)="onFavorite()"
-					(onUnfavorite)="onUnfavorite()"
-					(liked)="liked.emit(product)"
-					(disliked)="disliked.emit(product)">
-					<button class="icon light" (click)="openAddToProject()">
+				[favorite]="product?.favorite"
+				[votes]="product?.votes"
+				(onFavorite)="onFavorite()"
+				(onUnfavorite)="onUnfavorite()"
+				(liked)="liked.emit(product)"
+				(disliked)="disliked.emit(product)">
+				<selector-app
+					type="project"
+					[value]="product?.projects"
+					[offsetX]="322"
+					[canCreate]="true"
+					[multiple]="true"
+					[width]="360"
+					(update)="updateProduct({id: product?.id, projects: $event})">
+					<button class="icon light">
 						<icon-app class="fs-xl" fontSet="svg" name="folder-light"></icon-app>
 					</button>
+				</selector-app>
 			</action-bar-app>
 			<div class="right flex">
 				<button class="light" (click)="onViewProduct()">Open Product</button>
@@ -39,10 +48,10 @@
 			<span class="name">{{ product?.name }}</span>
 			<div class="flex status-info flexWrap dot-separator">
 				<span *ngIf="product?.price?.value" class="price">
-					{{ product.price.value | ssPrice | currency: product?.price?.currency:'symbol':'1.2-2' }}
+					{{ product?.price?.value | ssPrice | currency: product?.price?.currency:'symbol':'1.2-2' }}
 				</span>
-				<span *ngIf="product?.category?.name">{{ product.category.name }}</span>
-				<span *ngIf="product?.supplier?.name" class="supplier">{{ product.supplier.name }}</span>
+				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
+				<span *ngIf="product?.supplier?.name" class="supplier">{{ product?.supplier?.name }}</span>
 				<stats-icons-app
 					*ngIf="score() != null"
 					class="flex"
@@ -60,9 +69,9 @@
 					[typeEntity]="typeEntity"
 					[status]="product?.status">
 				</status-badge-app>
-				<info-badge-app *ngIf="product?.category?.name" type="category">{{ product.category.name }}</info-badge-app>
-				<info-badge-app *ngFor="let tag of product?.tags;trackBy: trackByFn" type="tag">{{ tag.name }}</info-badge-app>
-				<info-badge-app *ngFor="let project of product?.projects; trackBy: trackByFn" type="project">{{ project.name }}</info-badge-app>
+				<info-badge-app *ngIf="product?.category?.name" type="category">{{ product?.category?.name }}</info-badge-app>
+				<info-badge-app *ngFor="let tag of product?.tags;trackBy: trackByFn" type="tag">{{ tag?.name }}</info-badge-app>
+				<info-badge-app *ngFor="let project of product?.projects; trackBy: trackByFn" type="project">{{ project?.name }}</info-badge-app>
 			</div>
 		</div>
 

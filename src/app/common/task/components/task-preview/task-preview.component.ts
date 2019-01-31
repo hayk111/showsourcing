@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommentService } from '~core/entity-services/comment/comment.service';
@@ -13,7 +13,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./task-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskPreviewComponent extends AutoUnsub implements OnInit {
+export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 
 	private _task: Task;
 	@Input() set task(value: Task) {
@@ -36,7 +36,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
-	ngOnInit() {
+	ngOnChanges() {
 		this.task$ = this.taskSrv.selectOne(this._task.id);
 		this.task$.pipe(takeUntil(this._destroy$))
 			.subscribe(s => this._task = s);

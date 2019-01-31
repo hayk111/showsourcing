@@ -33,7 +33,7 @@
     <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: item }">
     </ng-container>
   </kanban-item-app>
-  <div class="txtBtn flexCenter"
+  <div class="txt-btn flexCenter"
     (click)="loadMore.emit(col)"
     *ngIf="col.data.length < col.totalData">Load More ({{ col.totalData - col.data.length }})</div>
 </main>

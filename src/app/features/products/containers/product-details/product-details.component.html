@@ -42,13 +42,15 @@
 			</product-team-rating-app>
 
 			<project-card-app
+				[projects]="product?.projects"
 				(removeProject)="removeProject($event)"
-				(addProjectClick)="commonModalSrv.openAddToProjectDialog([product])"
-				[projects]="product.projects"></project-card-app>
+				(updated)="updateProduct({id: product?.id, projects: $event})">
+			</project-card-app>
 
 			<files-card-app
-        [files]="product.attachments"
-        [linkedItem]="product"></files-card-app>
+        [files]="product?.attachments"
+				[linkedItem]="product">
+			</files-card-app>
 
 		</div>
 
