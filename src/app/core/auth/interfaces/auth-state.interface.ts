@@ -1,6 +1,4 @@
-import { TokenState } from '~core/auth/interfaces/token-state.interface';
-
-
+import { User as RealmUser } from 'realm-graphql-client';
 
 
 export enum AuthStatus {

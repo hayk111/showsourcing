@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
 import { forkJoin, Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
 import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
 
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelected$.pipe(
+			distinctUntilChanged((x, y) => x.id === y.id),
 			switchMap(team => this.startTeamClient(team) as any),
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
@@ -55,16 +56,16 @@ export class AppComponent implements OnInit {
 
 	private startBaseClients(): Observable<Client[]> {
 		// when we are authenticated it means we have a token
-		const token = this.tokenSrv.authRefreshTokenSync;
+		const realmUser = this.tokenSrv.realmUser;
 		return forkJoin([
-			this.globalDataClient.init(token),
-			this.userClient.init(token)
+			this.globalDataClient.init(realmUser),
+			this.userClient.init(realmUser)
 		]);
 	}
 
 	private startTeamClient(team: Team) {
-		const token = this.tokenSrv.authRefreshTokenSync;
-		return this.teamClient.init(token, team);
+		const realmUser = this.tokenSrv.realmUser;
+		return this.teamClient.init(realmUser, team);
 	}
 
 	private destroyAllClients() {
