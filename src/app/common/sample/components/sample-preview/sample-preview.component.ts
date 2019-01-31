@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { SampleService, UserService } from '~core/entity-services';
@@ -13,7 +13,7 @@ import { Sample, ERM, Comment } from '~core/models';
 	styleUrls: ['./sample-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SamplePreviewComponent extends AutoUnsub implements OnInit {
+export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {
@@ -52,7 +52,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
-	ngOnInit() {
+	ngOnChanges() {
 		this.sample$ = this.sampleSrv.selectOne(this._sample.id);
 		this.sample$.pipe(takeUntil(this._destroy$))
 			.subscribe(s => this._sample = s);

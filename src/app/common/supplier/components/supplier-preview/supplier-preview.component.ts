@@ -1,12 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { AutoUnsub } from '~utils';
-import { Supplier, ERM, AppImage, Comment } from '~core/models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CustomField } from '~shared/dynamic-forms';
-import { SupplierService, ContactService, UserService } from '~core/entity-services';
-import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { SupplierService, UserService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
+import { AppImage, Comment, ERM, Supplier } from '~core/models';
+import { CustomField } from '~shared/dynamic-forms';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -14,7 +14,7 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 	styleUrls: ['./supplier-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
+export class SupplierPreviewComponent extends AutoUnsub implements OnChanges {
 
 	@Input() supplier: Supplier;
 	@Input() canClose = true;
@@ -58,7 +58,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
-	ngOnInit() {
+	ngOnChanges() {
 		if (this.shouldSelect) {
 			this.supplier$ = this.supplierSrv.selectOne(this.supplier.id)
 				.pipe(takeUntil(this._destroy$));
@@ -66,7 +66,6 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 		} else {
 			this.supplier$ = of(this.supplier);
 		}
-
 	}
 
 	update(value: any, prop: string) {

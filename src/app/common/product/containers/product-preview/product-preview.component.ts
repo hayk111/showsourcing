@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, switchMap, takeUntil } from 'rxjs/operators';
@@ -6,7 +6,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { ProductService, UserService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { AppImage, ERM, PreviewActionButton, Product, Comment } from '~models';
+import { AppImage, Comment, ERM, PreviewActionButton, Product } from '~models';
 import { CustomField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent } from '~shared/preview';
@@ -18,7 +18,7 @@ import { AutoUnsub, PendingImage } from '~utils';
 	styleUrls: ['./product-preview.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductPreviewComponent extends AutoUnsub implements OnInit {
+export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() _product: Product;
 	@Input()
@@ -142,7 +142,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		];
 	}
 
-	ngOnInit() {
+	ngOnChanges() {
 		this.product$ = this.productSrv.selectOne(this.product.id);
 		this.product$
 			.pipe(takeUntil(this._destroy$))
