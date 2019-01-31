@@ -11,6 +11,8 @@ import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { log, LogColor } from '~utils';
+import { User as RealmUser } from 'realm-graphql-client';
+import { GraphQLConfig } from 'realm-graphql-client';
 
 
 /**
@@ -22,7 +24,7 @@ import { log, LogColor } from '~utils';
 export abstract class AbstractApolloClient {
 	protected initialized = false;
 	protected destroyed$ = new Subject();
-	protected suffix = 'graphql-client0';
+	protected suffix = 'graphql-client';
 
 	private ws: WebSocketLink;
 
@@ -39,16 +41,6 @@ export abstract class AbstractApolloClient {
 			throw Error('client already initialized');
 		}
 		this.initialized = true;
-	}
-
-	/** initialize apollo team client */
-	protected initClient(uri: string, name: Client, tokenState: TokenState) {
-		try {
-			this.createClient(uri, name, tokenState);
-			this.apolloState.setClientReady(name);
-		} catch (e) {
-			this.apolloState.setClientError(name, e);
-		}
 	}
 
 	/** resets a client */
@@ -81,55 +73,31 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** we use the path as client name.. */
-	protected createClient(path: string, name: Client, tokenState: TokenState): Observable<Client> {
-		const uri = environment.graphqlUrl + path;
-		log.debug(`%c 🌈creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
-
-		return Observable.create((observer: Observer<any>) => {
-			const connectionCallback = (error) => {
-				if (error) {
-					observer.error(error);
-				} else {
-					observer.next(name);
-					observer.complete();
-				}
-			};
-
-			const connectionParams = { token: tokenState.token };
-			let linker;
-			// Create a WebSocket link:
-			if (uri.startsWith('ws')) {
-				this.ws = new WebSocketLink({
-					uri,
-					options: {
-						reconnect: true,
-						connectionParams,
-						connectionCallback
-					}
-				});
-				linker = this.ws;
-			} else {
-				linker = this.httpLink.create({
-					uri,
-
-				});
+	protected async createClient(realmPath: string, user: RealmUser, name: Client): Promise<void> {
+		const config = await GraphQLConfig.create(
+			user,
+			realmPath
+		);
+		log.debug(`%c 🌈creating client ${name}, path: ${realmPath}`, LogColor.APOLLO_CLIENT_PRE);
+		const linker = new WebSocketLink({
+			uri: config.webSocketEndpoint,
+			options: {
+				reconnect: true,
+				connectionParams: config.connectionParams,
 			}
-
-			const link = from([
-				cleanTypenameLink,
-				linker
-			]);
-
-			this.apollo.create({
-				link,
-				connectToDevTools: !environment.production,
-				cache: new InMemoryCache({}),
-				queryDeduplication: true
-			}, name);
 		});
 
-		// need to reset the store so it doesn't have previous data
-		// const cli = this.apollo.use(name).getClient().resetStore();
+		const link = from([
+			cleanTypenameLink,
+			linker
+		]);
+
+		this.apollo.create({
+			link,
+			connectToDevTools: !environment.production,
+			cache: new InMemoryCache({}),
+			queryDeduplication: true,
+		}, name);
 	}
 
 	protected clearClient(clientName?: string) {

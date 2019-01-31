@@ -1,10 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
+import { User as RealmUser } from 'realm-graphql-client';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { AuthState, AuthStatus, Credentials, RefreshTokenResponse } from '~core/auth/interfaces';
+import { AuthState, AuthStatus, Credentials } from '~core/auth/interfaces';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TokenService } from '~core/auth/services/token.service';
 
@@ -48,22 +49,21 @@ export class AuthenticationService {
 	) { }
 
 	init() {
-		this.tokenSrv.restoreRefreshToken('auth');
+		const realmUser = this.tokenSrv.restoreRealmUser();
+		const authState = this.realmUserToAuthState(realmUser);
+		this._authState$.next(authState);
 		this.tokenSrv.restoreFeedToken();
-		// when there is a refresh token that means we are authenticated
-		this.tokenSrv.authRefreshToken$.pipe(
-			map(tokenState => this.refreshTokenToAuthState(tokenState))
-		).subscribe(this._authState$);
 	}
 
-	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
 		// lower case for email
 		credentials.login = credentials.login.toLowerCase();
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
 			tap(resp => this.tokenSrv.storeFeedToken(resp.jwtTokenFeed)),
 			map(resp => resp.jwtToken),
-			switchMap((jwt) => this.tokenSrv.getRealmRefreshToken(jwt)),
+			switchMap((jwt) => this.tokenSrv.getRealmUser(jwt)),
+			map(realmUser => this.realmUserToAuthState(realmUser)),
+			tap(authState => this._authState$.next(authState))
 		);
 	}
 
@@ -82,12 +82,13 @@ export class AuthenticationService {
 
 	changePassword(userId: string, password: string): Observable<boolean> {
 		const endpoint = `${environment.apiUrl}/user/signup/user/${userId}/password`;
-		return this.tokenSrv.getAccessToken(this.tokenSrv.authRefreshTokenSync).pipe(
-			map((tokenState: TokenState) => ({ headers: new HttpHeaders({ Authorization: tokenState.token }) })),
-			switchMap(opts => this.http.post<RefreshTokenResponse>(endpoint, { password }, opts)),
-			map(token => !!token),
-			catchError(_ => of(false))
-		);
+		// return this.tokenSrv.getAccessToken(this.tokenSrv.authRefreshTokenSync).pipe(
+		// 	map((tokenState: TokenState) => ({ headers: new HttpHeaders({ Authorization: tokenState.token }) })),
+		// 	switchMap(opts => this.http.post<RefreshTokenResponse>(endpoint, { password }, opts)),
+		// 	map(token => !!token),
+		// 	catchError(_ => of(false))
+		// );
+		throw Error('need to check back on this');
 	}
 
 	resetPassword(cred: { email: string }) {
@@ -111,11 +112,11 @@ export class AuthenticationService {
 		return this.http.post(`${environment.apiUrl}/user/email-validation`, { token });
 	}
 
-	private refreshTokenToAuthState(tokenState: TokenState): AuthState {
-		if (tokenState) {
+	private realmUserToAuthState(realmUser: RealmUser): AuthState {
+		if (realmUser && realmUser.identity) {
 			return {
 				status: AuthStatus.AUTHENTICATED,
-				userId: tokenState.token_data.identity
+				userId: realmUser.identity
 			};
 		} else {
 			return {

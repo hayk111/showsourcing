@@ -35,11 +35,14 @@ export class SupplierOnboardingClient extends AbstractApolloClient {
 		const uri = `/${Client.SUPPLIER_ONBOARDING}`;
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
-		return this.tokenSrv.getAccessToken(refreshToken, Client.SUPPLIER_ONBOARDING).pipe(
-			switchMap(token => this.createClient(uri, Client.SUPPLIER_ONBOARDING, token)),
-			tap(_ => this.apolloState.setClientReady(Client.SUPPLIER_ONBOARDING)),
-			catchError(e => this.onError(e))
-		);
+
+
+		// deprecated
+		// return this.tokenSrv.getAccessToken(refreshToken, Client.SUPPLIER_ONBOARDING).pipe(
+		// 	switchMap(token => this.createClient(uri, Client.SUPPLIER_ONBOARDING, token)),
+		// 	tap(_ => this.apolloState.setClientReady(Client.SUPPLIER_ONBOARDING)),
+		// 	catchError(e => this.onError(e))
+		// );
 	}
 }
 
