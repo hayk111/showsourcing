@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
 
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
-		).subscribe(m => this.spinner = false);
+		).subscribe(_ => this.spinner = false);
 
 	}
 
