@@ -3,6 +3,7 @@
 	[hasOptions]="true"
 	[data]="product"
 	[user]="product?.assignee"
+	(export)="export.emit($event)"
 	(favorited)="onFavorited()"
 	(unfavorited)="onUnfavorited()"
 	(delete)="delete.emit(product)"
