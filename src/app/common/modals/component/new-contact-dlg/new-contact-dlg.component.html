@@ -62,7 +62,7 @@
 	</form>
 		<!-- no button to save when it's an existing contact -->
 		<dialog-footer-app *ngIf="isNewContact">
-			<input type="submit" [disabled]="!form.valid" value="SAVE" (click)="createContact()"/>
+			<input type="submit" [disabled]="!form.valid" value="Save" (click)="createContact()"/>
 		</dialog-footer-app>
 </dialog-app>
 

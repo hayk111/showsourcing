@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { EntityMetadata, ERM, AppImage } from '~models';
+import { EntityMetadata, ERM, AppImage, Supplier } from '~models';
 
 @Component({
 	selector: 'preview-header-app',
@@ -19,9 +19,11 @@ export class PreviewHeaderComponent implements OnInit {
 	@Input() logoImage: AppImage;
 	/** if it has the top section */
 	@Input() hasTop = true;
+	@Input() supplier: Supplier;
 	/** emits the value that has changed */
 	@Output() update = new EventEmitter<any>();
 	@Output() statusUpdated = new EventEmitter<any>();
+	@Output() updateLogo = new EventEmitter<AppImage>();
 
 	erm = ERM;
 

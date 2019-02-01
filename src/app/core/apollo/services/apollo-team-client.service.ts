@@ -55,7 +55,9 @@ export class TeamClientInitializer extends AbstractApolloClient {
 
 	createMissingSubscription(): Observable<any> {
 		const toSubSet = new Set([
+			'attachment',
 			'category',
+			'contact',
 			// 	'event',
 			// 	'event description',
 			'export request',
