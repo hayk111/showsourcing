@@ -75,7 +75,6 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			'team user',
 			'user'
 		]);
-
 		const newSubs = Array.from(toSubSet)
 			.map((name: string) => ERM.getEntityMetadata(name))
 			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.TEAM));

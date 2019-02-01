@@ -1,4 +1,8 @@
 <router-outlet></router-outlet>
+<spinner-app
+	*ngIf="spinner"
+	[size]="150">
+</spinner-app>
 <!-- icons symbols should stay there. Optimizes icon rendering -->
 <icon-symbols-app></icon-symbols-app>
 <notification-container-app></notification-container-app>
