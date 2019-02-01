@@ -21,7 +21,7 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 		private userSrv: UserService,
 		private teamUserSrv: TeamUserService,
 		private http: HttpClient
-		) {
+	) {
 		super(apolloState, ExportRequestQueries, 'exportRequest', 'exportRequests');
 	}
 
@@ -30,7 +30,7 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 			take(1),
 			tap(user => request.createdBy = { id: user.id }),
 			switchMap(() => super.create(request, ...args)),
-			switchMap(_ => this.waitForOne(`id == "${request.id}" AND status == "ready"`))
+			switchMap(_ => this.waitForOne(`id == "${request.id}" AND (status == "ready" OR status == "rejected")`))
 		);
 	}
 

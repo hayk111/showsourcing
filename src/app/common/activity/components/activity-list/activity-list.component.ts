@@ -5,6 +5,7 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 import { FormControl } from '@angular/forms';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { switchMap } from 'rxjs/operators';
+import { UserService } from '~core/entity-services';
 
 @Component({
 	selector: 'activity-list-app',
@@ -21,7 +22,8 @@ export class ActivityListComponent extends TrackingComponent implements OnInit {
 
 	constructor(
 		private commentSrv: CommentService,
-		private ermSrv: ERMService
+		private ermSrv: ERMService,
+		private userSrv: UserService
 	) {
 		super();
 	}
@@ -31,19 +33,13 @@ export class ActivityListComponent extends TrackingComponent implements OnInit {
 
 	send() {
 		const comment = new Comment({ text: this.commentCtrl.value });
-
-		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.addToEntity(comment))
-		).subscribe(_ => this.commentCtrl.reset());
-	}
-
-	addToEntity(comment: Comment) {
-		// getting the correct srv for that entity
+		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
+		const comments = [...(this.entity.comments || [])];
+		comments.push(commentUser);
 		const entitySrv = this.ermSrv.getGlobalServiceForEntity(this.entity);
-		// adding the comment to its list of comments
-		const comments = [...this.entity.comments, comment].map(c => ({ id: c.id }));
-		// updating it
-		return entitySrv.update({ id: this.entity.id, comments });
+		this.commentSrv.create(comment).pipe(
+			switchMap(_ => entitySrv.update({ id: this.entity.id, comments }))
+		).subscribe();
 	}
 
 }

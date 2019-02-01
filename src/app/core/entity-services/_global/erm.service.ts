@@ -22,6 +22,8 @@ import { ProductStatusService } from '../product-status/product-status.service';
 import { SupplierStatusService } from '../supplier-status/supplier-status.service';
 import { SupplierTypeService } from '../supplier-type/supplier-type.service';
 import { TaskService } from '../task/task.service';
+import { ImageUploadRequestService } from '../image-upload-request/image-upload-request.service';
+import { ExportRequestService } from '../export-request/export-request.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -33,8 +35,10 @@ export class ERMService {
 		private countryService: CountryService,
 		private currencyService: CurrencyService,
 		private eventService: EventService,
+		private exportRequestService: ExportRequestService,
 		private harbourService: HarbourService,
 		private imageService: ImageService,
+		private imageUploadRequestService: ImageUploadRequestService,
 		private incotermService: IncoTermService,
 		private invitationSrv: InvitationService,
 		private productService: ProductService,
@@ -68,8 +72,12 @@ export class ERMService {
 				return this.productService;
 			case 'Project':
 				return this.projectService;
+			case 'ExportRequest':
+				return this.exportRequestService;
 			case 'Image':
 				return this.imageService;
+			case 'ImageUploadRequest':
+				return this.imageUploadRequestService;
 			case 'Tag':
 				return this.tagService;
 			case 'Event':
@@ -109,6 +117,8 @@ export class ERMService {
 				return this.harbourService;
 			case ERM.INCOTERM:
 				return this.incotermService;
+			case ERM.IMAGE_UPLOAD_REQUEST:
+				return this.imageUploadRequestService;
 			case ERM.SUPPLIER:
 				return this.supplierService;
 			case ERM.PRODUCT:
@@ -123,6 +133,8 @@ export class ERMService {
 				return this.tagService;
 			case ERM.EVENT:
 				return this.eventService;
+			case ERM.EXPORT_REQUEST:
+				return this.exportRequestService;
 			case ERM.TEAM:
 				return this.teamService;
 			case ERM.USER:

@@ -5,6 +5,7 @@
 	<product-top-panel-app
 		[product]="product"
 		(update)="updateProduct($event)"
+		(export)="commonModalSrv.openExportDialog([$event])"
 		(delete)="deleteProduct($event)">
 	</product-top-panel-app>
 

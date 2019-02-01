@@ -12,6 +12,7 @@ import { User } from '~core/models';
 export class ProductTopPanelComponent implements OnInit {
 	@Input() product: Product;
 	@Output() delete = new EventEmitter<Product>();
+	@Output() export = new EventEmitter<Product>();
 	@Output() update = new EventEmitter<Product>();
 
 	productEntity = ERM.PRODUCT;
