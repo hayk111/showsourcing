@@ -13,7 +13,8 @@ import { DEFAULT_IMG, PendingImage, AutoUnsub } from '~utils';
 })
 export class PreviewCarouselComponent extends AutoUnsub {
 
-	@Input() entity: Product | Sample | Supplier;
+	@Input() entity: Product | Sample
+		| Supplier;
 	@Input() entityMD: EntityMetadata;
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'cover';
 	@Input() set images(images: AppImage[]) {

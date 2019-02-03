@@ -4,6 +4,8 @@
 		<preview-logo-app
 			*ngIf="entityMD === erm.SUPPLIER"
 			[image]="logoImage"
+			[supplier]="supplier"
+			(updateLogo)="updateLogo.emit($event)"
 			[ngClass]="{ 'mg-bottom': (entityMD === erm.SUPPLIER && !hasTop ) }">
 		</preview-logo-app>
 		<ng-container *ngIf="hasTop">

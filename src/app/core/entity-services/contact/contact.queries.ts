@@ -10,8 +10,11 @@ export abstract class ContactQueries extends GlobalQueries {
 		jobTitle
 		businessCardImage {
 			id,
-			fileName
+			fileName,
+			urls { url }
 		}
+		supplier { id }
+		creationDate
 	`;
 
 	static readonly many = `
@@ -21,9 +24,11 @@ export abstract class ContactQueries extends GlobalQueries {
 		jobTitle
 		businessCardImage {
 			id,
-			fileName
+			fileName,
+			urls { url }
 		}
 		supplier { id }
-	`;
+		creationDate
+		`;
 
 }

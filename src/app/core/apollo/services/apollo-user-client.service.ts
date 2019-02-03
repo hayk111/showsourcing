@@ -8,7 +8,7 @@ import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-clie
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { TokenService } from '~core/auth/services/token.service';
-import { TeamService } from '~core/entity-services';
+import { TeamService, ImageUploadRequestService } from '~core/entity-services';
 import {
 	QueryBasedSubscriptionService,
 } from '~core/entity-services/query-based-subscription/query-based-subscription.service';
@@ -30,7 +30,8 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected userSrv: UserService,
 		protected realmServerSrv: RealmServerService,
 		protected basedSubSrv: QueryBasedSubscriptionService,
-		protected teamSrv: TeamService
+		protected teamSrv: TeamService,
+		private imageUploadRequest: ImageUploadRequestService
 	) {
 		super(apollo, link, apolloState, realmServerSrv, Client.USER);
 	}
@@ -55,7 +56,8 @@ export class UserClientInitializer extends AbstractApolloClient {
 	createMissingSubscription(): Observable<any> {
 		return forkJoin([
 			this.teamSrv.openSubscription(Client.USER),
-			this.userSrv.openSubscription(Client.USER)
+			this.userSrv.openSubscription(Client.USER),
+			this.imageUploadRequest.openSubscription(Client.USER)
 		]);
 	}
 

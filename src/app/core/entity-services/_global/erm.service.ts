@@ -13,17 +13,19 @@ import { TagService } from '~entity-services/tag/tag.service';
 import { TeamService } from '~entity-services/team/team.service';
 import { EntityMetadata, ERM } from '~models';
 
+import { AttachmentService } from '../attachment/attachment.service';
+import { ContactService } from '../contact/contact.service';
 import { CountryService } from '../country/country.service';
 import { CurrencyService } from '../currency/currency.service';
+import { ExportRequestService } from '../export-request/export-request.service';
 import { HarbourService } from '../harbour/harbour.service';
+import { ImageUploadRequestService } from '../image-upload-request/image-upload-request.service';
 import { IncoTermService } from '../inco-term/inco-term.service';
 import { InvitationService } from '../invitation/invitation.service';
 import { ProductStatusService } from '../product-status/product-status.service';
 import { SupplierStatusService } from '../supplier-status/supplier-status.service';
 import { SupplierTypeService } from '../supplier-type/supplier-type.service';
 import { TaskService } from '../task/task.service';
-import { ImageUploadRequestService } from '../image-upload-request/image-upload-request.service';
-import { ExportRequestService } from '../export-request/export-request.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -31,7 +33,9 @@ import { ExportRequestService } from '../export-request/export-request.service';
 export class ERMService {
 
 	constructor(
+		private attachmentService: AttachmentService,
 		private categoryService: CategoryService,
+		private contactService: ContactService,
 		private countryService: CountryService,
 		private currencyService: CurrencyService,
 		private eventService: EventService,
@@ -60,8 +64,12 @@ export class ERMService {
 	getGlobalServiceForEntity({ __typename: typename }: { __typename?: string })
 		: GlobalService<any> {
 		switch (typename) {
+			case 'Attachment':
+				return this.attachmentService;
 			case 'Category':
 				return this.categoryService;
+			case 'Contact':
+				return this.contactService;
 			case 'Country':
 				return this.countryService;
 			case 'Currency':
@@ -107,8 +115,12 @@ export class ERMService {
 
 	getGlobalService(erm: EntityMetadata): GlobalService<any> {
 		switch (erm) {
+			case ERM.ATTACHMENT:
+				return this.attachmentService;
 			case ERM.CATEGORY:
 				return this.categoryService;
+			case ERM.CONTACT:
+				return this.contactService;
 			case ERM.COUNTRY:
 				return this.countryService;
 			case ERM.CURRENCY:

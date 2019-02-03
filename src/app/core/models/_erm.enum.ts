@@ -1,4 +1,5 @@
 import { InjectionToken } from '@angular/core';
+import { Attachment } from '~models/attachment.model';
 import { Category } from '~models/category.model';
 import { Contact } from '~models/contact.model';
 import { Country } from '~models/country.model';
@@ -50,6 +51,7 @@ export class EntityMetadata {
 
 // Must be added alphabetically
 export class ERM {
+	static readonly ATTACHMENT = new EntityMetadata('attachment', 'attachments', Attachment);
 	static readonly CATEGORY = new EntityMetadata('category', 'categories', Category);
 	static readonly COMMENT = new EntityMetadata('comment', 'comments');
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts', Contact);

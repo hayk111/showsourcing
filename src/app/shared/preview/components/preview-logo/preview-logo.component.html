@@ -1,1 +1,2 @@
-<img-app [image]="image" type="supplier" size="m"></img-app>
+<img-app [image]="image" type="supplier" size="m" (click)="inpFile.click()"></img-app>
+<input #inpFile [hidden]="true" class="hidden" type="file" (fileSelect)="addLogo($event)"/>
