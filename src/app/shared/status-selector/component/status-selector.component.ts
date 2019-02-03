@@ -66,7 +66,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 				status: { id: status.id, __typename: status.__typename }
 			},
 				this.typeEntity
-			).subscribe();
+			).subscribe(_ => this.statusUpdated.emit(status));
 		}
 	}
 

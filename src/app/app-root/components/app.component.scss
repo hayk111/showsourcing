@@ -2,6 +2,13 @@
 	height: 100vh;
 }
 
+spinner-app {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
 notification-container-app {
 	position:fixed;
 	z-index: var(--z-notification);

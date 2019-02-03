@@ -99,6 +99,8 @@ export class ThumbService {
 		if (product && product.votes && product.votes.length) {
 			product.votes.forEach(vote => score += vote.value);
 			score /= product.votes.length;
+			// its done this way to cover all cases, this is called scaling number
+			score = Math.round((score + 0.00001) * 100) / 100;
 		}
 		return score;
 	}
