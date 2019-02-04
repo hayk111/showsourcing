@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "start:fr": "ng serve --configuration=fr",
-    "start:local": "ng serve --configuration=local",
+    "start": "sh ./scripts/start.sh",
+    "serve": "ng serve",
+    "serve:fr": "ng serve --configuration=fr",
+    "serve:local": "ng serve --configuration=local",
     "build:sta": "ng build --configuration=sta --aot",
     "build": "ng build --prod --aot",
     "build:fr": "ng build --configuration=fr --prod",
@@ -16,6 +17,7 @@
     "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json",
     "deploy:sta": "npm run build:sta && cd dist/showsourcing && aws s3 sync . s3://app-sta.showsourcing.com --delete && aws s3 cp s3://app-sta.showsourcing.com/index.html s3://app-sta.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0",
     "deploy:production": "npm run build && cd dist/showsourcing && aws s3 sync . s3://app2.showsourcing.com --delete && aws s3 cp s3://app2.showsourcing.com/index.html s3://app2.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0",
+    "deploy:app-dev": "npm run build && cd dist/showsourcing && aws s3 sync . s3://app-dev.showsourcing.com --delete && aws s3 cp s3://app-dev.showsourcing.com/index.html $URL/index.html --metadata-directive REPLACE --cache-control max-age=0",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

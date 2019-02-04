@@ -16,4 +16,3 @@ export class ProductService extends GlobalWithAuditService<Product> {
 	}
 
 }
-
