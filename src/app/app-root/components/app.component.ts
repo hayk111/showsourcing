@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
 import { forkJoin, Observable } from 'rxjs';
-import { switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap, tap, distinctUntilChanged, first } from 'rxjs/operators';
 import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
@@ -17,6 +17,8 @@ import { Team } from '~models';
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+
+	spinner = false;
 
 	constructor(
 		private authSrv: AuthenticationService,
@@ -35,6 +37,8 @@ export class AppComponent implements OnInit {
 		this.teamSrv.init();
 		this.companySrv.init();
 
+		// we only want the loader to appear when we have a team selected
+		this.teamSrv.hasTeamSelected$.pipe(first()).subscribe(has => this.spinner = has);
 		// when authenticated we start the required clients
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.startBaseClients())
@@ -51,7 +55,7 @@ export class AppComponent implements OnInit {
 
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
-		).subscribe();
+		).subscribe(_ => this.spinner = false);
 
 	}
 
