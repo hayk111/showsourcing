@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 echo "Hello, What do you want to do ?"
 
 echo "1) serve"
@@ -14,8 +13,7 @@ case $n in
 		echo "Serving..."
 		npm run serve;;
 		2) npm run build;;
-		3) ./deploy.sh $1;;
-		4) npm run build
-		   ./deploy.sh $1;;
+		3) ./scripts/deploy.sh false $1;;
+		4) ./scripts/deploy.sh true $1;;
 		*) echo "fuck you, that's not a valid choice";;
 esac
