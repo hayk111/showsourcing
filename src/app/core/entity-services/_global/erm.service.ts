@@ -26,6 +26,8 @@ import { ProductStatusService } from '../product-status/product-status.service';
 import { SupplierStatusService } from '../supplier-status/supplier-status.service';
 import { SupplierTypeService } from '../supplier-type/supplier-type.service';
 import { TaskService } from '../task/task.service';
+import { AttachmentUploadRequestService } from '../attachment-upload-request/attachment-upload-request.service';
+import { CommentService } from '../comment/comment.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -34,7 +36,9 @@ export class ERMService {
 
 	constructor(
 		private attachmentService: AttachmentService,
+		private attachmentUploadRequestSrv: AttachmentUploadRequestService,
 		private categoryService: CategoryService,
+		private commentSrv: CommentService,
 		private contactService: ContactService,
 		private countryService: CountryService,
 		private currencyService: CurrencyService,
@@ -66,8 +70,12 @@ export class ERMService {
 		switch (typename) {
 			case 'Attachment':
 				return this.attachmentService;
+			case 'AttachmentUploadRequest':
+				return this.attachmentUploadRequestSrv;
 			case 'Category':
 				return this.categoryService;
+			case 'Comment':
+				return this.commentSrv;
 			case 'Contact':
 				return this.contactService;
 			case 'Country':
@@ -117,8 +125,12 @@ export class ERMService {
 		switch (erm) {
 			case ERM.ATTACHMENT:
 				return this.attachmentService;
+			case ERM.ATTACHMENT_UPLOAD_REQUEST:
+				return this.attachmentUploadRequestSrv;
 			case ERM.CATEGORY:
 				return this.categoryService;
+			case ERM.COMMENT:
+				return this.commentSrv;
 			case ERM.CONTACT:
 				return this.contactService;
 			case ERM.COUNTRY:

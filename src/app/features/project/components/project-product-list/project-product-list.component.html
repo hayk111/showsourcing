@@ -21,7 +21,7 @@
     <div class="mainCell">
       <img class="mini imgCtnr"
         [src]="row | image: 's' : 'product'" />
-      <a class="name txt-btn" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
+      <a class="name txt-btn" [routerLink]="['/', 'product', 'details', row.id]">{{ row.name }}</a>
     </div>
     <div class="preview">
       <button (click)="previewClick.emit(row)" class="small secondary-dark preview">Preview</button>

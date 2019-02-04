@@ -36,6 +36,7 @@ export class ActivityListComponent extends TrackingComponent implements OnInit {
 		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
 		const comments = [...(this.entity.comments || [])];
 		comments.push(commentUser);
+		this.commentCtrl.reset();
 		const entitySrv = this.ermSrv.getGlobalServiceForEntity(this.entity);
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => entitySrv.update({ id: this.entity.id, comments }))
