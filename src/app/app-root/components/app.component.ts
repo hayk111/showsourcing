@@ -18,8 +18,6 @@ import { Team } from '~models';
 })
 export class AppComponent implements OnInit {
 
-	spinner = false;
-
 	constructor(
 		private authSrv: AuthenticationService,
 		private globalDataClient: GlobalDataClientsInitializer,
@@ -49,12 +47,11 @@ export class AppComponent implements OnInit {
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelected$.pipe(
 			distinctUntilChanged((x, y) => x.id === y.id),
-			tap(_ => this.spinner = true),
 			switchMap(team => this.startTeamClient(team) as any),
 
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
-		).subscribe(_ => this.spinner = false);
+		).subscribe();
 
 	}
 
