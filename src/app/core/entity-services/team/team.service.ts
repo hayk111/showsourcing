@@ -84,7 +84,7 @@ export class TeamService extends GlobalService<Team> {
 		return this.storage.getItem(SELECTED_TEAM);
 	}
 
-	private resetSelectedTeam() {
+	resetSelectedTeam() {
 		this.storage.remove(SELECTED_TEAM);
 		this._teamSelectionEvent$.next(undefined);
 	}

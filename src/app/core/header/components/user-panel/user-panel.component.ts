@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { User, Team } from '~models';
 import { DEFAULT_USER_ICON } from '~utils';
+import { TeamClientInitializer } from '~core/apollo';
+import { TeamService } from '~core/entity-services';
 
 @Component({
 	selector: 'user-panel-app',
@@ -15,7 +17,7 @@ export class UserPanelComponent implements OnInit {
 	@Output() logout = new EventEmitter<any>();
 	@Output() close = new EventEmitter<any>();
 	defaultImg = DEFAULT_USER_ICON;
-	constructor(private router: Router) { }
+	constructor(private router: Router, private teamSrv: TeamService) { }
 
 	ngOnInit() { }
 
@@ -34,6 +36,7 @@ export class UserPanelComponent implements OnInit {
 	}
 
 	pickTeam() {
+		this.teamSrv.resetSelectedTeam();
 		this.router.navigateByUrl('/user/pick-a-team');
 		this.close.emit();
 	}
