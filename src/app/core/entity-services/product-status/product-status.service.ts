@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { UserService } from '~entity-services/user/user.service';
-import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { ProductStatusQueries } from '~entity-services/product-status/product-status.queries';
 import { ProductStatus } from '~models';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+
+import { GlobalService } from '../_global/global.service';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class ProductStatusService extends GlobalWithAuditService<ProductStatus> {
+export class ProductStatusService extends GlobalService<ProductStatus> {
 
-	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
-		super(apolloState, ProductStatusQueries, 'productStatus', 'productStatuses', userSrv);
+	constructor(protected apolloState: ApolloStateService) {
+		super(apolloState, ProductStatusQueries, 'productStatus', 'productStatuses');
 	}
 }

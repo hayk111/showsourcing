@@ -58,4 +58,8 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	deleteMany(ids: string[], client?: Client) {
 		return forkJoin(ids.map(id => this.delete(id, client)));
 	}
+
+	openSubscription(clientName?: Client) {
+		return super.openSubscription(clientName, 'deleted == false');
+	}
 }

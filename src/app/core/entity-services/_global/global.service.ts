@@ -702,16 +702,16 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 
-	openSubscription(clientName?: Client) {
+	openSubscription(clientName?: Client, query = '') {
 		const title = 'Opening subscription for ' + this.typeName;
-		const gql = this.queryBuilder.openSubscription();
+		const gql = this.queryBuilder.openSubscription(query);
 		const queryName = this.getQueryName(gql);
 
 		// we need not to wait for the client to be ready
 		return of(this.apolloState.getClient(clientName)).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName)),
 			switchMap(client => {
-				return client.mutate({ mutation: gql, variables: this.sing + '-subscription' });
+				return client.mutate({ mutation: gql });
 			}),
 			first(),
 			filter((r: any) => this.checkError(r)),
