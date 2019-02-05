@@ -27,7 +27,7 @@ export class SettingsProfileService {
 	}
 
 	// changes the password return observable true or false
-	changePassword(password: string) {
-		return this.authSrv.changePassword(this.userSrv.userSync.id, password);
+	changePassword(oldPassword: string, newPassword: string) {
+		return this.authSrv.changePassword(this.userSrv.userSync.email, oldPassword, newPassword);
 	}
 }
