@@ -53,32 +53,32 @@ export class DashboardService {
 
 	getCountProductsNeedReview(): Observable<number> {
 		// products that have no status are the products that need review..
-		return this.productSrv.queryCount('archived == false && deleted == false').pipe(first());
+		return this.productSrv.queryCount('archived == false ').pipe(first());
 	}
 
 	getCountProductsInWorkflow(): Observable<number> {
 		return this.productSrv.queryCount(
 			'status.id != null && status.inWorkflow == true ' +
-			'&& archived == false && deleted == false'
+			'&& archived == false'
 		).pipe(first());
 	}
 
 	getCountSupplierUnderAssessment(): Observable<number> {
 		return this.supplierSrv.queryCount(
-			'status.name == "_UnderAssessment" && deleted == false'
+			'status.name == "_UnderAssessment"'
 		).pipe(first());
 	}
 
 	getCountTotalTasks(): Observable<number> {
 		return this.taskSrv.queryCount(
-			`(dueDate > ${this.weeksAgo} OR dueDate == null)	&& assignee.id == "${this.userId}" && deleted == false`
+			`(dueDate > ${this.weeksAgo} OR dueDate == null)	&& assignee.id == "${this.userId}"`
 		).pipe(first());
 	}
 
 	getCountTasksDone(): Observable<number> {
 		return this.taskSrv.queryCount(
 			`(dueDate > ${this.weeksAgo} OR dueDate == null) ` +
-			`&& done == true && assignee.id == "${this.userId}"	&& deleted == false`
+			`&& done == true && assignee.id == "${this.userId}"`
 		).pipe(first());
 	}
 
@@ -86,7 +86,7 @@ export class DashboardService {
 		return this.taskSrv.queryMany({
 			take: 5,
 			query: `(dueDate > ${this.weeksAgo} OR dueDate == null)	` +
-				`&& done == false && assignee.id == "${this.userId}"	&& deleted == false`,
+				`&& done == false && assignee.id == "${this.userId}"`,
 			descending: false
 		}).pipe();
 	}

@@ -46,7 +46,7 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 			selectParams: {
 				sortBy: 'supplier.name',
 				descending: true,
-				query: `deleted == false && archived == false && status.name != "_Idea"`
+				query: `archived == false && status.name != "_Idea"`
 			},
 			entityMetadata: ERM.PRODUCT
 		});

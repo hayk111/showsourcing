@@ -69,8 +69,8 @@ export class KanbanLibraryPageComponent extends AutoUnsub implements OnInit {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
 			const constQuery = status.id !== null ?
-				`status.id == "${status.id}" && deleted == false`
-				: `status == null && deleted == false`;
+				`status.id == "${status.id}"`
+				: `status == null`;
 
 			const query = [
 				predicate,

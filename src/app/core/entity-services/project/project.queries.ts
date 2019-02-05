@@ -4,7 +4,7 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 export abstract class ProjectQueries extends GlobalQueries {
 
 	// tslint:disable-next-line:max-line-length
-	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"projects" query:"archived == false AND deleted == false") { ... on ProductCollection { count }}`;
+	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"projects" query:"archived == false") { ... on ProductCollection { count }}`;
 
 	static readonly one = `
 			name,

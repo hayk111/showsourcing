@@ -38,7 +38,7 @@ export class SupplierProductsPageComponent extends TrackingComponent implements 
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: {
-				query: `supplier.id == "${this.supplierId}" AND deleted == false AND archived == false`,
+				query: `supplier.id == "${this.supplierId}" AND archived == false`,
 			},
 			entityMetadata: ERM.PRODUCT
 		});
