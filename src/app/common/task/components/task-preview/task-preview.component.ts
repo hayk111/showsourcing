@@ -52,7 +52,8 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 
 	addComment(comment: Comment) {
 		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
-		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
+		// const commentUser = { ...comment, createdBy: this.userSrv.userSync };
+		const commentUser = { ...comment };
 		const comments = [...(this._task.comments || [])];
 		comments.push(commentUser);
 		this.commentSrv.create(comment).pipe(

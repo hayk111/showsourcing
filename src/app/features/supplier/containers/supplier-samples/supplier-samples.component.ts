@@ -52,7 +52,7 @@ export class SupplierSamplesComponent extends AbstractSampleCommonComponent impl
 		const sample = new Sample({
 			name,
 			supplier: { id: this.supplierId },
-			assignee: this.userSrv.userSync
+			assignee: { id: this.userSrv.userSync.id }
 		});
 		this.sampleSrv.create(sample).pipe(
 			switchMap(_ => this.listSrv.refetch())

@@ -112,7 +112,7 @@ export class ThumbService {
 				id: this.userSrv.userSync.id,
 				firstName: this.userSrv.userSync.firstName,
 				lastName: this.userSrv.userSync.lastName,
-				avatar: this.userSrv.userSync.avatar, // uncomment when the Image.creationDate bug is fixed
+				// avatar: this.userSrv.userSync.avatar,
 				__typename: 'User'
 			}
 		});
