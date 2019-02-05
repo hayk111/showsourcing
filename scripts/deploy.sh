@@ -8,25 +8,37 @@ ENDPOINT=$2
 if [ -z "$ENDPOINT" ]
   then
     echo "Please pick an endpoint to deploy to"
-    echo "1) app2.showsourcing.com"
+    echo "1) app-test.showsourcing.com"
     echo "2) app-dev.showsourcing.com"
     echo "3) app-sta.showsourcing.com"
+    echo "4) app2.showsourcing.com"
+    echo "5) app.showsourcing.com"
     read n
     case $n in
-        1) ENDPOINT="app2.showsourcing.com";;
-        2) ENDPOINT="app-dev.showsourcing.com";;
-        3) ENDPOINT="app-sta.showsourcing.com";;
-        *) invalid option;;
+			1) ENDPOINT="app-test.showsourcing.com";;
+			2) ENDPOINT="app-dev.showsourcing.com";;
+			3) ENDPOINT="app-sta.showsourcing.com";;
+			4) ENDPOINT="app2.showsourcing.com";;
+			5) ENDPOINT="app.showsourcing.com";;
+			*) invalid option;;
     esac
 fi
 
 echo "$ENDPOINT"
 
 if $SHOULD_BUILD; then
-    npm run build
+	npm run build
+	echo "build done, about to deploy..."
 fi
 
 DIR="./dist/showsourcing"
+
+# check if aws client installed
+if ! [ -x "$(aws --version)" ]; then
+  echo 'Error: aws is not installed. Check this link to install:'
+  echo 'https://www.google.com/search?q=install+aws+cli'
+  exit 1
+fi
 
 if [ -d "$DIR" ]; then
   # Control will enter here if $DIRECTORY exists.
