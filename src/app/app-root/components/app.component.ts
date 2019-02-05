@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
 
 		const hasTeam$ = this.teamSrv.hasTeamSelected$;
 		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);
-		// we only want the loader to appear when we have a team selected
+		// we only want the loader to appear when we have a team selected and the team client status is pending
 		combineLatest(
 			hasTeam$,
 			teamClientStatus$,
@@ -57,7 +57,6 @@ export class AppComponent implements OnInit {
 
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelected$.pipe(
-			distinctUntilChanged((x, y) => x.id === y.id),
 			switchMap(team => this.startTeamClient(team) as any),
 
 			// we need to reset list page to not have data from other team in cache
