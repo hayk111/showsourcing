@@ -21,7 +21,7 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly category = `category { id, name }`;
 	static readonly projects = `projects { id, name, description }`;
-	static readonly event = ` event { id, name, description { id logoImage { id, urls { id, url } } } }`;
+	static readonly event = `event { id, name, description { id logoImage { id, urls { id, url } } } }`;
 	static readonly status = `status { id, name, category, step, inWorkflow }`;
 	static readonly tags = `tags { id, name }`;
 	// uncomment and replace when the Image.creationDate bug is fixed on votes, avatar { id, fileName, imageType, creationDate }
