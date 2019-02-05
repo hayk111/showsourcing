@@ -52,7 +52,8 @@ export class FilesCardComponent extends AutoUnsub {
 		});
 	}
 
-	onFileRemoved(file: Attachment) {
+	onFileRemoved(file: Attachment, event: MouseEvent) {
+		event.stopPropagation();
 		this.dlgSrv.open(ConfirmDialogComponent, {
 			text: 'Remove 1 file ?'
 		}).pipe(
@@ -68,5 +69,9 @@ export class FilesCardComponent extends AutoUnsub {
 	// dumb function to not have the error: '<anonymous>' does not contain such a member
 	isPending(file: Attachment) {
 		return file.pending;
+	}
+
+	downloadFile(file: Attachment) {
+		this.attachmentSrv.download(file);
 	}
 }

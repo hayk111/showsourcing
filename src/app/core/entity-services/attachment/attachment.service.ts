@@ -14,4 +14,10 @@ export class AttachmentService extends GlobalService<Attachment> {
 	constructor(protected apolloState: ApolloStateService) {
 		super(apolloState, AttachmentQueries, 'attachment', 'attachments');
 	}
+
+	download(file: Attachment) {
+		if (window) {
+			window.open(file.url);
+		}
+	}
 }
