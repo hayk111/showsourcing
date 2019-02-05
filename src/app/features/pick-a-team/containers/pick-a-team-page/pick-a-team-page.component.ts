@@ -41,7 +41,7 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 
 	pickTeam(team: Team) {
 		this.pending$.next(true);
-		this.teamClient.setPending('switching team / no team selected');
+		this.teamClient.setPending('switching team');
 		this.teamSrv.pickTeam(team).pipe(
 			// we need to wait for the team client to be ready
 			switchMap(_ =>

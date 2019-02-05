@@ -1,17 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
-
-import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { take, takeUntil, catchError, tap, switchMap } from 'rxjs/operators';
-import { AutoUnsub } from '~utils';
-import { environment } from 'environments/environment';
-import { UserService } from '~entity-services';
-import { InvitationUser } from '~models';
-import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { NotificationService, NotificationType } from '~shared/notifications';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
+import { InvitationUser } from '~models';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub } from '~utils';
+import { TeamService } from '~core/entity-services';
+import { TeamClientInitializer } from '~core/apollo';
 
 
 @Component({
@@ -31,11 +30,15 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		private location: Location,
 		private authSrv: AuthenticationService,
 		private invitationSrv: InvitationFeatureService,
-		private notifSrv: NotificationService) {
+		private teamSrv: TeamService,
+		private notifSrv: NotificationService,
+		private teamClient: TeamClientInitializer
+	) {
 		super();
 	}
 
 	ngOnInit() {
+		this.teamSrv.resetSelectedTeam();
 		const invitationId = this.route.snapshot.params.id;
 		this.authenticated$ = this.authSrv.isAuthenticated$;
 		this.invitation$ = this.authenticated$.pipe(
@@ -46,6 +49,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	}
 
 	accept(invitation: InvitationUser) {
+		this.teamClient.setPending('switching team');
 		this.invitationSrv.acceptInvitation(invitation).subscribe(_ => {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
