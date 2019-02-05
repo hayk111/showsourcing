@@ -1,17 +1,16 @@
-import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
-import { UserService } from '~entity-services/user/user.service';
-import { SampleStatus } from '~models';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-
-import { SampleStatusQueries } from './sample-status.queries';
 import { Injectable } from '@angular/core';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { SampleStatus } from '~models';
+
+import { GlobalService } from '../_global/global.service';
+import { SampleStatusQueries } from './sample-status.queries';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class SampleStatusService extends GlobalWithAuditService<SampleStatus> {
+export class SampleStatusService extends GlobalService<SampleStatus> {
 
-	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
-		super(apolloState, SampleStatusQueries, 'sampleStatus', 'sampleStatuses', userSrv);
+	constructor(protected apolloState: ApolloStateService) {
+		super(apolloState, SampleStatusQueries, 'sampleStatus', 'sampleStatuses');
 	}
 }

@@ -140,9 +140,9 @@ export class QueryBuilder {
 			delete${this.capPlural}(query: $query)
 		}`)
 
-	openSubscription = () => gql(`
-		mutation create${this.capSing}Subscription($name: String) {
-			create${this.capSing}Subscription(name: $name) {
+	openSubscription = (query: string) => gql(`
+		mutation create${this.capSing}Subscription {
+			create${this.capSing}Subscription(name: "${this.sing}-subscription", query: "${query}") {
 				items {
 					id@skip(if: true)
 				}
