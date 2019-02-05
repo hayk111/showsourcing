@@ -44,7 +44,7 @@ export class ProductSamplesComponent extends AbstractSampleCommonComponent imple
 		const sample = new Sample({
 			name,
 			product: { id: this.productId },
-			assignee: this.userSrv.userSync
+			assignee: { id: this.userSrv.userSync.id }
 		});
 		this.sampleSrv.create(sample).pipe(
 			switchMap(_ => this.listSrv.refetch())

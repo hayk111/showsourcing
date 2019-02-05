@@ -51,7 +51,7 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 		const newTask = new Task({
 			name,
 			product: { id: this.route.parent.snapshot.params.id },
-			assignee: this.userSrv.userSync
+			assignee: { id: this.userSrv.userSync.id }
 		});
 		this.taskSrv.create(newTask).pipe(
 			switchMap(_ => this.listSrv.refetch())
