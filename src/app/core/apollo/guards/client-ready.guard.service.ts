@@ -1,11 +1,10 @@
-import { Injectable, InjectionToken, inject } from '@angular/core';
-import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { log, LogColor } from '~utils';
 import { ApolloStateService, ClientStatus } from '~core/apollo';
-import { Inject } from '@angular/core';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { log, LogColor } from '~utils';
 
 
 export abstract class ClientReadyGuard implements CanActivate, CanActivateChild {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
-import { forkJoin, Observable } from 'rxjs';
-import { switchMap, tap, distinctUntilChanged, first } from 'rxjs/operators';
-import { TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
+import { forkJoin, Observable, combineLatest } from 'rxjs';
+import { switchMap, tap, distinctUntilChanged, first, mergeMap, map } from 'rxjs/operators';
+import { TeamClientInitializer, UserClientInitializer, ApolloStateService, ClientStatus } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
 import { TokenService } from '~core/auth';
@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private companySrv: CompanyService,
 		private tokenSrv: TokenService,
+		private apolloState: ApolloStateService
 	) { }
 
 	ngOnInit(): void {
@@ -37,8 +38,14 @@ export class AppComponent implements OnInit {
 		this.teamSrv.init();
 		this.companySrv.init();
 
+		const hasTeam$ = this.teamSrv.hasTeamSelected$;
+		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);
 		// we only want the loader to appear when we have a team selected
-		this.teamSrv.hasTeamSelected$.pipe(first()).subscribe(has => this.spinner = has);
+		combineLatest(
+			hasTeam$,
+			teamClientStatus$,
+			(hasTeam, teamClientStatus) => hasTeam && teamClientStatus === ClientStatus.PENDING
+		).subscribe(show => this.spinner = show);
 		// when authenticated we start the required clients
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.startBaseClients())
