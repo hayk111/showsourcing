@@ -28,11 +28,11 @@ export class ProductDialogService extends ProductService {
 	}
 
 	getContacts(supplierId: string): Observable<Contact[]> {
-		return this.contactSrv.queryMany({ query: `supplier.id == "${supplierId}" AND deleted == false` });
+		return this.contactSrv.queryMany({ query: `supplier.id == "${supplierId}"` });
 	}
 
 	selectProjects(): Observable<Project[]> {
-		return this.projectSrv.queryMany({ query: 'deleted == false', sortBy: 'name' });
+		return this.projectSrv.queryMany({ sortBy: 'name' });
 	}
 
 	/**

@@ -46,7 +46,7 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: {
-				query: `projects.id == "${id}" AND deleted == false`,
+				query: `projects.id == "${id}"`,
 				sortBy: 'category.name',
 				descending: true
 			},

@@ -11,7 +11,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly images = `images { id, urls { url }, orientation }`;
 	static readonly attachments = `attachments { id, fileName, url, size }`;
 	// tslint:disable-next-line:max-line-length
-	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"archived == false AND deleted == false") { ... on ProductCollection { count }}`;
+	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"archived == false") { ... on ProductCollection { count }}`;
 	static readonly comments = `comments { id, text, ${SupplierQueries.createdBy}, creationDate }`;
 
 	static readonly one = `

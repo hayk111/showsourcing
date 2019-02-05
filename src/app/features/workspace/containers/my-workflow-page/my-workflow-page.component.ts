@@ -73,8 +73,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	loadMore(col: KanbanColumn) {
 		const query = col.id !== null ?
-			`status.id == "${col.id}" && deleted == false`
-			: `status == null && deleted == false`;
+			`status.id == "${col.id}"`
+			: `status == null`;
 		this.productSrv.queryMany({
 			query,
 			take: col.data.length + 6,
@@ -88,8 +88,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
 			const constQuery = status.id !== null ?
-				`status.id == "${status.id}" && deleted == false`
-				: `status == null && deleted == false`;
+				`status.id == "${status.id}"`
+				: `status == null`;
 
 			const query = [
 				predicate,

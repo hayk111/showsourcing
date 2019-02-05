@@ -31,14 +31,14 @@ if $SHOULD_BUILD; then
 	echo "build done, about to deploy..."
 fi
 
-DIR="./dist/showsourcing"
-
 # check if aws client installed
-if ! [ -x "$(aws --version)" ]; then
+if [ -x "$(aws --version)" ]; then
   echo 'Error: aws is not installed. Check this link to install:'
   echo 'https://www.google.com/search?q=install+aws+cli'
   exit 1
 fi
+
+DIR="./dist/showsourcing"
 
 if [ -d "$DIR" ]; then
   # Control will enter here if $DIRECTORY exists.
@@ -46,5 +46,10 @@ if [ -d "$DIR" ]; then
     aws s3 sync . s3://"$ENDPOINT" --delete
     aws s3 cp s3://"$ENDPOINT"/index.html s3://"$ENDPOINT"/index.html --metadata-directive REPLACE --cache-control max-age=0
     else # else we need to build before
-    echo "directory "$DIR" doesn't exist, you have to build first"
+    echo "Build directory "$DIR" doesn't exist, I am gonna build for you"
+    npm run build
+    echo "build done, about to deploy..."
+    cd "$DIR"
+    aws s3 sync . s3://"$ENDPOINT" --delete
+    aws s3 cp s3://"$ENDPOINT"/index.html s3://"$ENDPOINT"/index.html --metadata-directive REPLACE --cache-control max-age=0
 fi
