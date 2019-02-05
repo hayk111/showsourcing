@@ -1,4 +1,4 @@
-<ng-container *ngIf="!(pending$ | async); else spinner">
+<ng-container *ngIf="!(pending$ | async)">
 	<div class="top">
 		<div class="logo">
 			<img src="/assets/img/logo.svg">
@@ -15,9 +15,4 @@
 	</ul>
 
 	<a class="button light flexCenter" [routerLink]="['../create-a-team']">Create a new team</a>
-
 </ng-container>
-
-<ng-template #spinner>
-	<spinner-app [isHaveLogo]="true"></spinner-app>
-</ng-template>
