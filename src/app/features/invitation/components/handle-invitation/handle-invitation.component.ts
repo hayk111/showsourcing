@@ -38,7 +38,6 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.teamSrv.resetSelectedTeam();
 		const invitationId = this.route.snapshot.params.id;
 		this.authenticated$ = this.authSrv.isAuthenticated$;
 		this.invitation$ = this.authenticated$.pipe(

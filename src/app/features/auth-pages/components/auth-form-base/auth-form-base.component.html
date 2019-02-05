@@ -24,7 +24,7 @@
 </form>
 <ng-template #spinner>
 	<div class="spinner">
-		<spinner-app [isHaveLogo]="true"></spinner-app>
+		<spinner-app [isHaveLogo]="true" *ngIf="hasSpinner"></spinner-app>
 		<h3>Please wait this could take a few minutes</h3>
 	</div>
 </ng-template>

@@ -16,6 +16,7 @@ import { AutoUnsub } from '~utils';
 export class AuthFormBaseComponent extends AutoUnsub implements OnInit {
 
 	@Input() form: FormGroup;
+	@Input() hasSpinner = true;
 
 	@Input() error = '';
 	@Input() pending = false;

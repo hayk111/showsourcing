@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
-import { forkJoin, Observable, combineLatest } from 'rxjs';
-import { switchMap, tap, distinctUntilChanged, first, mergeMap, map } from 'rxjs/operators';
+import { forkJoin, Observable, combineLatest, of } from 'rxjs';
+import { switchMap, tap, distinctUntilChanged, first, mergeMap, map, filter } from 'rxjs/operators';
 import { TeamClientInitializer, UserClientInitializer, ApolloStateService, ClientStatus } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
@@ -32,8 +32,6 @@ export class AppComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.setEnvironmentUrls();
-
 		this.authSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
@@ -56,9 +54,9 @@ export class AppComponent implements OnInit {
 			.subscribe(_ => this.destroyAllClients());
 
 		// when a team is selected we start the team client
-		this.teamSrv.teamSelected$.pipe(
-			switchMap(team => this.startTeamClient(team) as any),
-
+		this.teamSrv.teamSelectionEvent$.pipe(
+			distinctUntilChanged((x, y) => x && y && x.id !== y.id),
+			switchMap(team => this.startOrDestroyTeamClient(team)),
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
 		).subscribe(_ => this.spinner = false);
@@ -74,9 +72,12 @@ export class AppComponent implements OnInit {
 		]);
 	}
 
-	private startTeamClient(team: Team) {
+	private startOrDestroyTeamClient(team: Team) {
 		const realmUser = this.tokenSrv.realmUser;
-		return this.teamClient.init(realmUser, team);
+		if (team)
+			return this.teamClient.init(realmUser, team);
+		else
+			return of(this.teamClient.destroy('no team selected'));
 	}
 
 	private destroyAllClients() {
@@ -86,14 +87,5 @@ export class AppComponent implements OnInit {
 		this.teamClient.destroy(reason);
 	}
 
-	/** changes urls in environment based on query params */
-	protected setEnvironmentUrls() {
-		const urlParams = new URLSearchParams(window.location.search);
-		const ros = urlParams.get('ros');
-		if (ros) {
-			environment.graphqlUrl = `wss://${ros}.showsourcing.com/graphql`;
-			environment.graphqlAuthUrl = `https://${ros}.showsourcing.com/auth`;
-			environment.apiUrl = `https://${ros}.showsourcing.com`;
-		}
-	}
+
 }

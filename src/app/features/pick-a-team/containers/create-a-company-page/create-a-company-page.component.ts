@@ -20,6 +20,7 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 
 	listForm: AuthFormElement[];
 	@Input() buttons: AuthFormButton[];
+	@Input() hasSpinner: boolean;
 
 	constructor(
 		private fb: FormBuilder,

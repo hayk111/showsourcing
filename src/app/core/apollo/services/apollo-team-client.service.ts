@@ -43,7 +43,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		const userId = realmUser.identity;
 		// here the user client is ready if a team is selected
 		this.uri = `${team.realmPath}/__partial/${userId}/${this.suffix}`;
-
+		this.setPending('setting pending because creating');
 		return from(super.createClient(this.uri, realmUser, this.client)).pipe(
 			takeUntil(this.destroyed$),
 			switchMap(_ => this.createMissingSubscription()),

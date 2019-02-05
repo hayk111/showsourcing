@@ -6,5 +6,11 @@
 		<h3 class="ms">Create your team and start sourcing</h3>
 </div>
 
-<auth-form-app (onSubmit)="onSubmit($event)" [error]="error" [defaultFocused]="'teamName'" [pending]="pending" [listForm]="listForm" [buttons]="buttons">
+<auth-form-app (onSubmit)="onSubmit($event)"
+	[hasSpinner]="false"
+	[error]="error"
+	[defaultFocused]="'teamName'"
+	[pending]="pending"
+	[listForm]="listForm"
+	[buttons]="buttons">
 </auth-form-app>
