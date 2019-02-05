@@ -63,7 +63,9 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 			// we dont update if we click the same
 			this.statusSlctSrv.updateStatus({
 				id: this.entity.id,
-				status: { id: status.id, __typename: status.__typename }
+				// if we only put the id here, the preview will have issues,
+				// since it will recieve 2 updated (1 with only the id and 1 with the full entity from the cache)
+				status
 			},
 				this.typeEntity
 			).subscribe(_ => this.statusUpdated.emit(status));
