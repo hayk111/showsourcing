@@ -53,7 +53,7 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 
 	onSubmit() {
 		this.pending = true;
-		this.profileSrv.changePassword(this.group.value.confirmPswd).subscribe(response => {
+		this.profileSrv.changePassword(this.group.value.currentPswd, this.group.value.confirmPswd).subscribe(response => {
 			this.pending = false;
 			if (response) {
 				this.notificationSrv.add({
@@ -65,8 +65,8 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 			} else {
 				this.notificationSrv.add({
 					type: NotificationType.ERROR,
-					title: 'Password Uncghanged',
-					message: 'Your password could not be changed, server issues',
+					title: 'Password Unchanged',
+					message: 'Your password could not be changed, current password incorrect',
 					timeout: 4500
 				});
 			}

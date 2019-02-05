@@ -80,10 +80,9 @@ export class AuthenticationService {
 		);
 	}
 
-	changePassword(userId: string, password: string): Observable<boolean> {
-		const endpoint = `${environment.apiUrl}/user/signup/user/${userId}/password`;
-		const opts = { headers: new HttpHeaders({ Authorization: this.tokenSrv.realmUser.token }) };
-		return this.http.post<any>(endpoint, { password }, opts).pipe(
+	changePassword(login: string, password: string, newPassword: string): Observable<boolean> {
+		const endpoint = `${environment.apiUrl}/user/password-change`;
+		return this.http.post<any>(endpoint, { login, password, newPassword }).pipe(
 			map(token => !!token),
 			catchError(_ => of(false))
 		);
