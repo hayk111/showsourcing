@@ -19,14 +19,14 @@ export class HasCompanyGuard implements CanActivate, CanActivateChild {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.companySrv.selectAll().pipe(
-			tap(d => log.debug('%c hasTeamGuard', LogColor.GUARD, d)),
+			tap(d => log.debug('%c hasCompanyGuard', LogColor.GUARD, d)),
 			map(companies => companies.length > 0),
-			tap(hasTeam => this.redirect(hasTeam, route, state))
+			tap(hasCompany => this.redirect(hasCompany, route, state))
 		);
 	}
 
-	redirect(hasTeam: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-		if (!hasTeam) {
+	redirect(hasCompany: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		if (!hasCompany) {
 			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
 			this.router.navigate(['user', 'create-a-company'], { queryParams: { returnUrl } });
 		}
