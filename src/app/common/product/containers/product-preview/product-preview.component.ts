@@ -195,11 +195,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 		this.workspaceSrv.update({ id, archived: true }).subscribe();
 	}
 
-	/** Triggers status update */
-	onStatusUpdated(product, status) {
-		this.workspaceSrv.updateProductStatus(product, status).subscribe();
-	}
-
 	openFileBrowser() {
 		this.inpFile.nativeElement.click();
 	}
