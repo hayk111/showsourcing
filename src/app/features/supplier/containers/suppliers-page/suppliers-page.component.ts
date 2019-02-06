@@ -22,7 +22,6 @@ export class SuppliersPageComponent extends TrackingComponent
 	filterTypes = [
 		FilterType.CATEGORIES,
 		FilterType.CREATED_BY,
-		FilterType.EVENT,
 		FilterType.FAVORITE,
 		FilterType.SUPPLIER_STATUS,
 		FilterType.TAGS
