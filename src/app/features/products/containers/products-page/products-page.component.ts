@@ -22,6 +22,7 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 	erm = ERM;
 	// filter displayed as button in the filter panel
 	filterTypes = [
+		FilterType.EVENT,
 		FilterType.SUPPLIER,
 		FilterType.CATEGORY,
 		FilterType.TAGS,
