@@ -21,11 +21,11 @@ export class SuppliersPageComponent extends TrackingComponent
 
 	filterTypes = [
 		FilterType.CATEGORIES,
-		FilterType.TAGS,
-		FilterType.EVENT,
-		FilterType.SUPPLIER_STATUS,
 		FilterType.CREATED_BY,
-		FilterType.FAVORITE
+		FilterType.EVENT,
+		FilterType.FAVORITE,
+		FilterType.SUPPLIER_STATUS,
+		FilterType.TAGS
 	];
 
 	constructor(

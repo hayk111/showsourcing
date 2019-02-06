@@ -167,6 +167,10 @@ export class FilterList {
 				return `createdBy.id == "${value}"`;
 			case FilterType.DUE_DATE:
 				return `dueDate >= ${value} OR dueDate == null`;
+			case FilterType.PRODUCT_STATUS:
+			case FilterType.SUPPLIER_STATUS:
+			case FilterType.SAMPLE_STATUS:
+				return `status.id == "${value}"`;
 			case FilterType.CUSTOM:
 				return value;
 			// most of the filters from the panel filter by id
