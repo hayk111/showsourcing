@@ -22,12 +22,15 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 	erm = ERM;
 	// filter displayed as button in the filter panel
 	filterTypes = [
-		FilterType.SUPPLIER,
-		FilterType.CATEGORY,
-		FilterType.TAGS,
-		FilterType.PROJECTS,
-		FilterType.FAVORITE,
 		FilterType.ARCHIVED,
+		FilterType.CATEGORY,
+		FilterType.CREATED_BY,
+		FilterType.EVENT,
+		FilterType.FAVORITE,
+		FilterType.PRODUCT_STATUS,
+		FilterType.PROJECTS,
+		FilterType.SUPPLIER,
+		FilterType.TAGS
 	];
 
 	constructor(

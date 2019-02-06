@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'environments/environment';
-import { forkJoin, Observable, combineLatest, of } from 'rxjs';
-import { switchMap, tap, distinctUntilChanged, first, mergeMap, map, filter } from 'rxjs/operators';
-import { TeamClientInitializer, UserClientInitializer, ApolloStateService, ClientStatus } from '~core/apollo/services';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
+import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { ApolloStateService, ClientStatus, TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
 import { TokenService } from '~core/auth';
@@ -18,7 +17,7 @@ import { Team } from '~models';
 })
 export class AppComponent implements OnInit {
 
-	spinner = false;
+	spinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 	constructor(
 		private authSrv: AuthenticationService,
@@ -43,7 +42,7 @@ export class AppComponent implements OnInit {
 			hasTeam$,
 			teamClientStatus$,
 			(hasTeam, teamClientStatus) => hasTeam && teamClientStatus === ClientStatus.PENDING
-		).subscribe(show => this.spinner = show);
+		).subscribe(show => this.spinner$.next(show));
 		// when authenticated we start the required clients
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.startBaseClients())
@@ -59,7 +58,7 @@ export class AppComponent implements OnInit {
 			switchMap(team => this.startOrDestroyTeamClient(team)),
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
-		).subscribe(_ => this.spinner = false);
+		).subscribe(_ => this.spinner$.next(false));
 
 	}
 

@@ -15,8 +15,8 @@
 	<sub-panel-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
 			<button class="button warn" (click)="listSrv.deleteSelected()"> Delete Selected </button>
-			<span class="mg-s"></span>
-			<button (click)="mergeSelected()"> Merge Selected </button>
+			<!-- <span class="mg-s"></span>
+			<button (click)="mergeSelected()"> Merge Selected </button> -->
 		</div>
 	</sub-panel-right-item-app>
 </sub-panel-app>
