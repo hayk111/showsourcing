@@ -76,6 +76,8 @@ export class FilterBtnListComponent {
 			case FilterType.ASSIGNEE:
 			case FilterType.CREATED_BY:
 				return filter.entity.firstName + ' ' + filter.entity.lastName;
+			case FilterType.EVENT:
+				return filter.entity.description.name;
 			default:
 				return filter.entity.name;
 		}
