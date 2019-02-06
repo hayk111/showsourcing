@@ -40,11 +40,13 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			debounceTime(400)
 		).subscribe(str => this.filterChoices(str));
 
-		if (this.type === FilterType.CREATED_BY || this.type === FilterType.ASSIGNEE) {
+		if (this.type === FilterType.CREATED_BY || this.type === FilterType.ASSIGNEE)
 			this.loadUserChoices();
-		} else {
+		else if (this.type === FilterType.EVENT || this.type === FilterType.EVENTS)
+			this.loadEventChoices();
+		else
 			this.loadChoices();
-		}
+
 
 	}
 
@@ -61,7 +63,6 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	}
 
 	loadUserChoices() {
-		// we get the correct service
 		const srv = this.ermSrv.getGlobalService(ERM.USER);
 		// we get the items, but we just need the id and the name
 		this.listResult = srv.getListQuery(
@@ -70,6 +71,19 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		);
 		this.choices$ = this.listResult.items$.pipe(
 			tap(_ => this.pending$.next(false)),
+		);
+	}
+
+	loadEventChoices() {
+		// we get the correct service
+		const srv = this.ermSrv.getGlobalService(ERM.EVENT);
+		// we get the items, but we just need the id and the name
+		this.listResult = srv.getListQuery(
+			{ take: 40, sortBy: 'description.name' }, 'id, name, description { id, name }',
+			Client.TEAM
+		);
+		this.choices$ = this.listResult.items$.pipe(
+			tap(_ => this.pending$.next(false))
 		);
 	}
 
@@ -111,6 +125,9 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			case FilterType.ASSIGNEE:
 			case FilterType.CREATED_BY:
 				return `${choice.lastName} ${choice.firstName}`;
+			case FilterType.EVENT:
+			case FilterType.EVENTS:
+				return `${choice.description.name}`;
 			default:
 				return choice.name;
 		}
