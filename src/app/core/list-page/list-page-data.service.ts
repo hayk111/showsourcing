@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, skip, switchMap, tap } from 'rxjs/operators';
+import { map, skip, switchMap, tap, first } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
@@ -72,6 +72,7 @@ export class ListPageDataService
 	/** init: helper method to set everything up at once */
 	loadData() {
 		if (this.initialized) {
+			this.refetch().subscribe();
 			return;
 		}
 		this.setItems();
@@ -121,7 +122,7 @@ export class ListPageDataService
 	 * @param config configuration used to refetch
 	 */
 	refetch(config?: SelectParamsConfig) {
-		return this.listResult.refetch(config || this.selectParams);
+		return this.listResult.refetch(config || this.selectParams).pipe(first());
 	}
 
 	/** Loads more items when we reach the bottom of the page */

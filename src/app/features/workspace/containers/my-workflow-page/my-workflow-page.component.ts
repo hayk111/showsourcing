@@ -94,7 +94,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			const query = [
 				predicate,
 				constQuery
-			].join(' && ');
+			].filter(x => x !== '')
+				.join(' && ');
 			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));

@@ -105,7 +105,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		const query = [
 			predicate,
 			statusQuery
-		].join(' && ');
+		].filter(x => x !== '').join(' && ');
 
 		this.sampleSrv.queryMany({
 			query: query,

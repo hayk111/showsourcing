@@ -4,7 +4,7 @@
 		[ngClass]="{'field-focused': fieldFocused === formElement.name, 'field-error': (form.get(formElement.name).invalid && !form.get(formElement.name).pristine && !form.get(formElement.name).focussed) }">
 		<label-app>{{formElement.label}}</label-app>
 		<input (focus)="fieldFocused = formElement.name" (blur)="fieldFocused =''" inputApp [required]="formElement.isRequired"
-		 autoFocus [autocomplete]="formElement.autoComplete" [formControlName]="formElement.name" [type]="formElement.type"
+		 [autocomplete]="formElement.autoComplete" [formControlName]="formElement.name" [type]="formElement.type"
 		 [placeholder]="formElement.placeHolder" />
 		<error-app *ngIf="formElement.error && error && (formElement.error.type ? !form.get(formElement.name).dirty : form.get(formElement.name).hasError(formElement.error.type))">
 			{{ formElement.error }}
