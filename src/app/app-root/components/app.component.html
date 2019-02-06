@@ -1,6 +1,6 @@
 <router-outlet></router-outlet>
 <spinner-app
-	*ngIf="spinner"
+	*ngIf="spinner$ | async"
 	[isHaveLogo]="true"
 	[size]="150">
 </spinner-app>
