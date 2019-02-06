@@ -367,8 +367,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		// (will be reflected in items$)
 		const refetch = (config: SelectParamsConfig): Observable<any> => {
 			const refetchTitle = 'Selecting List Refetch' + this.typeName;
-			this.log(refetchTitle, gql, queryName, clientName, config);
 			return queryRef$.pipe(
+				tap(_ => this.log(refetchTitle, gql, queryName, clientName, config)),
 				switchMap(queryRef => queryRef.refetch(config))
 			);
 		};

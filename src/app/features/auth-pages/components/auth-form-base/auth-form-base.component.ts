@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChildren, AfterViewInit, QueryList } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { AutoUnsub } from '~utils';
+import { InputDirective } from '~shared/inputs';
 
 
 /**
@@ -13,7 +14,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './auth-form-base.component.html',
 	styleUrls: ['./auth-form-base.component.scss', '../form-style.scss']
 })
-export class AuthFormBaseComponent extends AutoUnsub implements OnInit {
+export class AuthFormBaseComponent extends AutoUnsub implements AfterViewInit {
 
 	@Input() form: FormGroup;
 	@Input() hasSpinner = true;
@@ -21,6 +22,7 @@ export class AuthFormBaseComponent extends AutoUnsub implements OnInit {
 	@Input() error = '';
 	@Input() pending = false;
 	@Input() defaultFocused = '';
+	@ViewChildren(InputDirective) inputs: QueryList<InputDirective>;
 	@Output() onSubmit = new EventEmitter<any>();
 
 	private _listForm: AuthFormElement[] = [];
@@ -45,7 +47,8 @@ export class AuthFormBaseComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
-	ngOnInit() {
+	ngAfterViewInit() {
+		this.inputs.first.focus();
 	}
 }
 
