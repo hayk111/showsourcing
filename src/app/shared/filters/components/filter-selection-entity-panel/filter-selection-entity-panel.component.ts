@@ -101,6 +101,11 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 					query: `firstName CONTAINS[c] "${value}" OR lastName CONTAINS[c] "${value}"`
 				}).subscribe();
 				break;
+			case FilterType.EVENT:
+			case FilterType.EVENTS:
+				return this.listResult.refetch({
+					query: `description.name CONTAINS[c] "${value}" OR name CONTAINS[c] "${value}"`
+				}).subscribe();
 			default:
 				this.listResult.refetch({ query: `name CONTAINS[c] "${value}"` }).subscribe();
 		}
