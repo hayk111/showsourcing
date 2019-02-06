@@ -3,7 +3,7 @@ import { CommonModalService } from '~common/modals';
 import { ProductService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
-import { FilterType, Filter } from '~shared/filters';
+import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
 
 // dailah lama goes into pizza store
@@ -31,12 +31,6 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 		FilterType.PROJECTS,
 		FilterType.SUPPLIER,
 		FilterType.TAGS
-	];
-
-	filterTypesCard = [
-		FilterType.CATEGORY,
-		FilterType.SUPPLIER,
-		FilterType.FAVORITE
 	];
 
 	constructor(

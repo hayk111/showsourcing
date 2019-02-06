@@ -126,7 +126,7 @@
 
 		<filters-app
 			[filterList]="listSrv.filterList"
-			[filterTypes]="listSrv.view === 'list' ? filterTypes : filterTypesCard"
+			[filterTypes]="filterTypes"
 			(clickOutside)="listSrv.closeFilterPanel()"
 			*ngIf="listSrv.filterPanelOpen">
 		</filters-app>
