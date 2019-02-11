@@ -41,6 +41,7 @@ import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { ScrollingModule, ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { WorkflowManagamentTableModule } from './workflow-managament-table/workflow-managament-table.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -90,7 +91,8 @@ const modules = [
 	TopPanelModule,
 	UserPictureModule,
 	UtilsModule,
-	StatusSelectorModule
+	StatusSelectorModule,
+	WorkflowManagamentTableModule
 ];
 
 @NgModule({

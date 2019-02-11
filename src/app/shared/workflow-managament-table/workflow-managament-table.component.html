@@ -1,4 +1,6 @@
 <div class="header"></div>
-<div *ngFor="let status of status">
-	{{ status.name }}
+<div cdkDropList (cdkDropListDropped)="onDrop($event)">
+	<div *ngFor="let status of status" cdkDrag>
+		{{ status.name }}
+	</div>
 </div>

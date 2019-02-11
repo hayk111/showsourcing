@@ -13,6 +13,7 @@ import { KanbanLibraryPageComponent } from './kanban-library-page/kanban-library
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { ProductCardLibraryPageComponent } from './product-card-library-page/product-card-library-page.component';
 import { SelectorLibraryComponent } from './selector-library/selector-library.component';
+import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table/workflow-mngmnt-table.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SelectorLibraryComponent } from './selector-library/selector-library.co
 		SampleCardTestComponent,
 		SelectorLibraryComponent,
 		KanbanLibraryPageComponent,
-		ProductCardLibraryPageComponent
+		ProductCardLibraryPageComponent,
+		WorkflowMngmntTableLibComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []
