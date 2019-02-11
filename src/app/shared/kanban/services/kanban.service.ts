@@ -1,14 +1,12 @@
-import { Injectable, KeyValueDiffers } from '@angular/core';
-import { Subject } from 'rxjs';
-
-import { KanbanColumn, KanbanConfig } from '../interfaces';
+import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Status } from '~core/models/status.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { statusToColor } from '~utils/status-to-color.function';
-import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { DataManagementPageComponent } from '~features/data-management/containers';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+
+import { KanbanColumn, KanbanConfig } from '../interfaces';
 
 
 /**

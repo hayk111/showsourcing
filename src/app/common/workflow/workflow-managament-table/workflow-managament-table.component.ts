@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Status } from '~core/models/status.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { EntityMetadata } from '~core/models';
 
 @Component({
 	selector: 'workflow-managament-table-app',
@@ -9,9 +10,13 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorkflowManagamentTableComponent {
+
 	@Input() statuses: Status[];
+	@Input() typeEntity: EntityMetadata;
 	@Output() update = new EventEmitter<Status[]>();
 	@Output() previewClick = new EventEmitter<Status>();
+
+	categories = ['inProgress', 'validated', 'refused'];
 
 	onDrop(event: CdkDragDrop<string[]>) {
 		// index 0 cannot be changed
@@ -28,5 +33,23 @@ export class WorkflowManagamentTableComponent {
 			return;
 		status.name = value;
 		this.update.emit(this.statuses);
+	}
+
+	getType(status) {
+		// by default is secondary since is the color for NEW elements
+		if (status) {
+			switch (status.category) {
+				case 'inProgress':
+					return 'in-progress';
+				case 'validated':
+					return 'success';
+				case 'refused':
+					return 'warn';
+				case 'inspiration':
+					return 'secondary-light';
+				default:
+					return 'secondary';
+			}
+		}
 	}
 }

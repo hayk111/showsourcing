@@ -10,6 +10,8 @@ export class StatusBoxComponent implements OnInit {
 
 	@Input() size = 's';
 
+	@Input() displayAttribute: 'name' | 'category' = 'name';
+
 	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
 
 	@Input() round = true;
@@ -26,7 +28,7 @@ export class StatusBoxComponent implements OnInit {
 	}
 
 	isHaveStatus() {
-		return this.status &&  this.status.category !== 'new';
+		return this.status && this.status.category !== 'new';
 	}
 
 	getType() {

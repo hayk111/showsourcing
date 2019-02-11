@@ -1,17 +1,23 @@
 import { Routes } from '@angular/router';
 import {
-	SettingsComponent, SettingsTeamMembersPageComponent, SettingsFieldsPageComponent, SettingsWorkflowsPageComponent
+	CategoryDataManagementPageComponent,
+	DataManagementPageComponent,
+	EventDataManagementPageComponent,
+	TagDataManagementPageComponent,
+} from '~features/data-management';
+import {
+	ProductStatusWorkflowComponent,
+	SampleStatusWorkflowComponent,
+	SettingsProfileComponent,
+	SupplierStatusWorkflowComponent,
+} from '~features/settings/components';
+import {
+	SettingsComponent,
+	SettingsFieldsPageComponent,
+	SettingsTeamMembersPageComponent,
+	SettingsWorkflowsPageComponent,
 } from '~features/settings/containers';
-import { SettingsProfileComponent, SupplierStatusWorkflowComponent, SampleStatusWorkflowComponent } from '~features/settings/components';
-import { DataManagementPageComponent } from '~features/data-management/containers';
-// tslint:disable-next-line:max-line-length
-import { CategoryDataManagementPageComponent } from '~features/data-management/containers/category-data-management-page/category-data-management-page.component';
-import { ERM } from '~models';
-// tslint:disable-next-line:max-line-length
-import { TagDataManagementPageComponent } from '~features/data-management/containers/tag-data-management-page/tag-data-management-page.component';
-// tslint:disable-next-line:max-line-length
-import { EventDataManagementPageComponent } from '~features/data-management/containers/event-data-management-page/event-data-management-page.component';
-import { ProductStatusWorkflowComponent } from './components/product-status-workflow/product-status-workflow.component';
+
 
 export const routes: Routes = [
 	{
