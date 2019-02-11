@@ -14,7 +14,9 @@ export class WorkflowManagamentTableComponent {
 	@Output() previewClick = new EventEmitter<Status>();
 
 	onDrop(event: CdkDragDrop<string[]>) {
-		moveItemInArray(this.statuses, event.previousIndex, event.currentIndex);
+		// index 0 cannot be changed
+		const index = Math.max(event.currentIndex, 1);
+		moveItemInArray(this.statuses, event.previousIndex, index);
 		this.statuses.forEach((status, i) => {
 			status.step = i;
 		});

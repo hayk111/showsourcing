@@ -3,18 +3,18 @@
 	<div class="w-5"></div>
 	<div class="w-5">Step</div>
 	<div class="w-40">Name</div>
-	<div class="w-40">Category</div>
+	<div class="w-20">Category</div>
 	<div class="w-20">Final Step</div>
 	<div class="w-10">preview</div>
 </div>
 
 <div class="list" cdkDropList (cdkDropListDropped)="onDrop($event)">
-	<div class="box" *ngFor="let status of statuses" cdkDrag>
+	<div class="box" *ngFor="let status of statuses" cdkDrag [cdkDragDisabled]="status.step === 0" >
 		<!-- placeholder -->
 		<div class="bg-primary custom-placeholder" *cdkDragPlaceholder></div>
 		<!-- handle -->
-		<div cdkDragHandle class="w-5">
-			<icon-app class="handle" name="grip-vertical" fontSet="fa"></icon-app>
+		<div class="w-5">
+			<icon-app *ngIf="status.step > 0" cdkDragHandle class="handle" name="grip-vertical" fontSet="fa"></icon-app>
 		</div>
 		<!-- step -->
 		<div class="w-5">{{ status.step + 1 }}</div>

@@ -21,12 +21,14 @@ import {
 } from '~features/settings/containers';
 import { routes } from '~features/settings/routes';
 import { SharedModule } from '~shared/shared.module';
+import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
 		DataManagementModule,
+		WorkflowMngmtCommonModule
 	],
 	declarations: [
 		CompanyProfileCardComponent,
