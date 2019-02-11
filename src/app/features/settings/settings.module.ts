@@ -5,11 +5,12 @@ import {
 	InvitationsListViewComponent,
 	SettingsProfileComponent,
 	TeamMembersListViewComponent,
-} from '~features/settings/components';
-import {
+	ProductStatusWorkflowComponent,
 	CompanyProfileCardComponent,
-} from '~features/settings/components/company-profile-card/company-profile-card.component';
-import { ProfileCardComponent } from '~features/settings/components/profile-card/profile-card.component';
+	ProfileCardComponent,
+	SupplierStatusWorkflowComponent,
+	SampleStatusWorkflowComponent,
+} from '~features/settings/components';
 import {
 	SettingsComponent,
 	SettingsFieldsPageComponent,
@@ -30,7 +31,9 @@ import { SharedModule } from '~shared/shared.module';
 	declarations: [
 		CompanyProfileCardComponent,
 		InvitationsListViewComponent,
+		ProductStatusWorkflowComponent,
 		ProfileCardComponent,
+		SampleStatusWorkflowComponent,
 		SettingsComponent,
 		SettingsFieldsPageComponent,
 		SettingsProfileComponent,
@@ -38,6 +41,7 @@ import { SharedModule } from '~shared/shared.module';
 		SettingsTeamMembersPageComponent,
 		SettingsTeamMembersUsersComponent,
 		SettingsWorkflowsPageComponent,
+		SupplierStatusWorkflowComponent,
 		TeamMembersListViewComponent,
 	],
 	entryComponents: [],
