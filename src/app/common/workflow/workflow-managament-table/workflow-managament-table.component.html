@@ -1,39 +1,49 @@
 
 <div class="header flex">
-	<div class="w-5"></div>
-	<div class="w-5">Step</div>
-	<div class="w-40">Name</div>
-	<div class="w-20">Category</div>
-	<div class="w-20">Final Step</div>
-	<div class="w-10">preview</div>
+	<!-- div added for the cell without border -->
+	<div class="spacer mg-s"></div>
+	<div class="flex flexGrow">
+		<div class="w-5"></div>
+		<div class="w-5">Step</div>
+		<div class="w-40">Name</div>
+		<div class="w-20">Category</div>
+		<div class="w-20">Final Step</div>
+		<div class="w-10">preview</div>
+	</div>
+
 </div>
 
 <div class="list" cdkDropList (cdkDropListDropped)="onDrop($event)">
-	<div class="box" *ngFor="let status of statuses" cdkDrag [cdkDragDisabled]="status.step === 0" >
+	<div class="box" *ngFor="let status of statuses; let last = last" cdkDrag [cdkDragDisabled]="status.step === 0" >
 		<!-- placeholder -->
 		<div class="bg-primary custom-placeholder" *cdkDragPlaceholder></div>
-		<!-- handle -->
-		<div class="w-5">
-			<icon-app *ngIf="status.step > 0" cdkDragHandle class="handle" name="grip-vertical" fontSet="fa"></icon-app>
-		</div>
-		<!-- step -->
-		<div class="w-5">{{ status.step + 1 }}</div>
-		<!-- name -->
-		<div class="w-40">
-			<editable-text-app #editable (opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
-				<editable-label-app>{{ status.name }}</editable-label-app>
-				<input #inp inputApp type="text" [value]="status.name" (keyup.enter)="editable.close()"/>
-			</editable-text-app>
-		</div>
-		<!-- category -->
-		<div class="w-20">{{ status?.category }}</div>
-		<!-- final -->
-		<div class="w-20">
-			<checkbox-app [checked]="status.final"></checkbox-app>
-		</div>
-		<!-- preview -->
-		<div class="w-10">
-			<button>preview</button>
+		<!-- no border -->
+		<div class="spacer mg-s"></div>
+
+		<div class="flex flexGrow sub-cell" [ngClass]="{ 'with-border': !last }">
+			<!-- handle -->
+			<div class="w-5 cell">
+				<icon-app *ngIf="status.step > 0" cdkDragHandle class="handle" name="grip-vertical" fontSet="fa"></icon-app>
+			</div>
+			<!-- step -->
+			<div class="w-5 cell">{{ status.step + 1 }}</div>
+			<!-- name -->
+			<div class="w-40 cell">
+				<editable-text-app #editable (opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
+					<editable-label-app>{{ status.name }}</editable-label-app>
+					<input #inp inputApp type="text" [value]="status.name" (keyup.enter)="editable.close()"/>
+				</editable-text-app>
+			</div>
+			<!-- category -->
+			<div class="w-20 cell">{{ status?.category }}</div>
+			<!-- final -->
+			<div class="w-20 cell">
+				<checkbox-app [checked]="status.final"></checkbox-app>
+			</div>
+			<!-- preview -->
+			<div class="w-10 cell">
+				<button>preview</button>
+			</div>
 		</div>
 	</div>
 </div>
