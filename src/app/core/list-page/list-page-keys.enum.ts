@@ -11,6 +11,7 @@ export enum ListPageKey {
 	MY_WORKFLOW,
 	PRODUCTS, // done
 	PRODUCT_SAMPLE, // done Michael
+	PRODUCT_STATUS,
 	PRODUCT_TASK, // done Michael
 	PROJECTS, // done
 	PROJECTS_PRODUCT, // done
@@ -18,11 +19,13 @@ export enum ListPageKey {
 	QUOTE, // done
 	REVIEWPAGE, // DONE
 	SAMPLE, // done Michael
+	SAMPLE_STATUS,
 	SAMPLE_TEST,
 	SHOW, // done
 	SUPPLIER, // done
 	SUPPLIER_PRODUCT, // done Michael
 	SUPPLIER_SAMPLE, // done Michael
+	SUPPLIER_STATUS,
 	SUPPLIER_TASK, // done Michael
 	TAG, // done
 	TASK, // done Michael

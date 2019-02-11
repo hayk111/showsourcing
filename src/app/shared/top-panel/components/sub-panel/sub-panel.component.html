@@ -7,6 +7,7 @@
 			<ng-content select="search-autocomplete-app"></ng-content>
 
 			<search-bar-app
+				*ngIf="hasSearch"
 				class="mg-right"
 				[formControl]="searchControl"
 				[inputFocus]="inputFocus"
