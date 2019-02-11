@@ -6,7 +6,7 @@ import { SampleCardTestComponent } from './sample-card-test/sample-card-test.com
 import { KanbanLibraryPageComponent } from './kanban-library-page/kanban-library-page.component';
 import { ProductCardLibraryPageComponent } from './product-card-library-page/product-card-library-page.component';
 import { SelectorLibraryComponent } from './selector-library/selector-library.component';
-import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table/workflow-mngmnt-table.component';
+import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
 
 
 export const routes: Array<Route> = [
