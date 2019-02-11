@@ -14,8 +14,7 @@ export class WorkflowManagamentTableComponent {
 	@Input() statuses: Status[];
 	@Input() typeEntity: EntityMetadata;
 	@Output() update = new EventEmitter<Status[]>();
-	@Output() previewClick = new EventEmitter<Status>();
-
+	@Output() delete = new EventEmitter<Status>();
 	categories = ['inProgress', 'validated', 'refused'];
 
 	onDrop(event: CdkDragDrop<string[]>) {
