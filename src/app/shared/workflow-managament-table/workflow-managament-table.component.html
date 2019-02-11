@@ -1,8 +1,19 @@
 
-<div class="header"></div>
+<div class="header flex">
+	<div>Step</div>
+	<div class="w-40">Name</div>
+	<div class="w-40">Category</div>
+	<div class="w-20">Final Step</div>
+</div>
 <div class="example-list" cdkDropList (cdkDropListDropped)="onDrop($event)">
 	<div class="example-box" *ngFor="let status of statuses" cdkDrag>
 		<div class="bg-primary example-custom-placeholder" *cdkDragPlaceholder></div>
-		{{ status.name }}
+		<div cdkDragHandle>
+			<icon-app class="handle" name="grip-vertical" fontSet="fa"></icon-app>
+		</div>
+		<div>{{ status.step }}</div>
+		<div class="w-40">{{ status.name }}</div>
+		<div class="w-20">{{ status?.category }}</div>
+		<div class="w-20">{{ status.step }}</div>
 	</div>
 </div>
