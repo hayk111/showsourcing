@@ -2,7 +2,8 @@
   <sidenav-app menuIcon="shape" menuTitle="Settings" (expanded)="onMenuExpanded($event)">
 
 		<sidenav-item-app link="/settings/profile">
-			<icon-app name="user" fontSet="svg"></icon-app> <span sidenavLabelApp>Profile</span>
+			<icon-app name="user" fontSet="svg"></icon-app>
+			<span sidenavLabelApp>Profile</span>
 		</sidenav-item-app>
 		<!-- TODO Uncomment when these tabs are needed -->
 		<!-- <sidenav-item-app link="/settings/workflows">
@@ -12,11 +13,13 @@
 			<icon-app name="fields"></icon-app> <span sidenavLabelApp>Fields Setup</span>
 		</sidenav-item-app> -->
 		<sidenav-item-app link="/settings/team/members">
-			<icon-app name="team" fontSet="svg"></icon-app> <span sidenavLabelApp>Team Members</span>
+			<icon-app name="team"></icon-app>
+			<span sidenavLabelApp>Team Members</span>
 		</sidenav-item-app>
 
 		<sidenav-item-app link="/settings/workflow" [hasChildren]="true">
-			<icon-app name="fields"> <span sidenavLabelApp> Status Workflow </span> </icon-app>
+			<icon-app name="fields"></icon-app>
+			<span sidenavLabelApp> Status Workflow </span>
 
 			<sidenav-item-app link="/settings/workflow/product">
 				<span sidenavLabelApp>Product</span>
@@ -30,7 +33,8 @@
 		</sidenav-item-app>
 
 		<sidenav-item-app [hasChildren]="true">
-			<icon-app name="data-cleansing" fontSet="svg"></icon-app> <span sidenavLabelApp>Data Cleansing</span>
+			<icon-app name="data-cleansing"></icon-app>
+			<span sidenavLabelApp>Data Cleansing</span>
 
 			<sidenav-item-app link="/settings/data/category">
 				<span sidenavLabelApp>Category</span>
@@ -45,6 +49,6 @@
   </sidenav-app>
 
   <div class="settings-page">
-	<router-outlet></router-outlet>
+		<router-outlet></router-outlet>
   </div>
 </div>

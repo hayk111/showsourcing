@@ -122,8 +122,8 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 		}
 
 		this.select.emit(this.icon);
-		// Manage icon selection (bold)
-		if (this.icon && this.icon.name) {
+		// Manage icon selection (bold) if the font set exists (svg)
+		if (this.icon && this.icon.name && this.icon.fontSet) {
 			const { name } = this.icon;
 			if (this.selected || this.subItemSelected) {
 				if (!name.endsWith('-dark')) {
