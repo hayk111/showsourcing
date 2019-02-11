@@ -14,6 +14,21 @@
 		<sidenav-item-app link="/settings/team/members">
 			<icon-app name="team" fontSet="svg"></icon-app> <span sidenavLabelApp>Team Members</span>
 		</sidenav-item-app>
+
+		<sidenav-item-app link="/settings/workflow" [hasChildren]="true">
+			<icon-app name="fields"> <span sidenavLabelApp> Status Workflow </span> </icon-app>
+
+			<sidenav-item-app link="/settings/workflow/product">
+				<span sidenavLabelApp>Product</span>
+			</sidenav-item-app>
+			<sidenav-item-app link="/settings/workflow/supplier">
+				<span sidenavLabelApp>Supplier</span>
+			</sidenav-item-app>
+			<sidenav-item-app link="/settings/workflow/sample">
+				<span sidenavLabelApp>Sample</span>
+			</sidenav-item-app>
+		</sidenav-item-app>
+
 		<sidenav-item-app [hasChildren]="true">
 			<icon-app name="data-cleansing" fontSet="svg"></icon-app> <span sidenavLabelApp>Data Cleansing</span>
 
