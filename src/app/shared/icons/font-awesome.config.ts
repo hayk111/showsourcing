@@ -49,6 +49,7 @@ import { faThumbsUp } from '@fortawesome/free-solid-svg-icons/faThumbsUp';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons/faTimesCircle';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt';
+import { faGripVertical } from '@fortawesome/free-solid-svg-icons/faGripVertical';
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 
@@ -106,6 +107,7 @@ export const faIconsSolid = [
 	faTimesCircle,
 	faTrashAlt,
 	faTrashAlt,
+	faGripVertical
 ];
 
 faIconsSolid.forEach(ic => library.add(ic));

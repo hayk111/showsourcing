@@ -1,5 +1,14 @@
 :host {
 	display: block;
+.w-40 {
+	width: 40%;
+}
+.w-20 {
+	width: 20%;
+}
+
+.handle {
+	cursor: move!important;
 }
 
 .example-list {
@@ -22,7 +31,6 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  cursor: move;
   background: white;
   font-size: 14px;
 }
