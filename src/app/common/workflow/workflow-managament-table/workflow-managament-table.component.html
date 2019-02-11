@@ -8,7 +8,7 @@
 		<div class="w-40">Name</div>
 		<div class="w-20">Category</div>
 		<div class="w-20">Final Step</div>
-		<div class="w-10">preview</div>
+		<div class="w-10"></div>
 	</div>
 
 </div>
@@ -26,7 +26,7 @@
 				<icon-app *ngIf="status.step > 0" cdkDragHandle class="handle" name="grip-vertical" fontSet="fa"></icon-app>
 			</div>
 			<!-- step -->
-			<div class="w-5 cell">{{ status.step + 1 }}</div>
+			<div class="w-5 cell">{{ status.step }}</div>
 			<!-- name -->
 			<div class="w-40 cell">
 				<editable-text-app #editable (opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
@@ -46,8 +46,8 @@
 							<div> <icon-app name="caret-down"></icon-app> </div>
 						</div>
 					</context-menu-trigger-app>
-					<context-menu-item-app *ngFor="let category of categories">
-						{{ category }}
+					<context-menu-item-app *ngFor="let category of categories" (click)="update.emit([{ id: status.id, category: category }])">
+						{{ category | const: 'statusCateogry' }}
 					</context-menu-item-app>
 				</context-menu-app>
 			</div>

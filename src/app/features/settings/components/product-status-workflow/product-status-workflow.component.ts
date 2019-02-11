@@ -14,7 +14,7 @@ export class ProductStatusWorkflowComponent implements OnInit {
 
 	constructor(
 		private productStatusSrv: ProductStatusService,
-		private listSrv: ListPageService<ProductStatus, ProductStatusService>,
+		public listSrv: ListPageService<ProductStatus, ProductStatusService>,
 		public commonModalSrv: CommonModalService
 	) { }
 

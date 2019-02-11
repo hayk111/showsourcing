@@ -1,3 +1,4 @@
+import { uuid } from '~utils';
 
 
 export class Status {
@@ -5,10 +6,11 @@ export class Status {
 	name?: string;
 	category?: string;
 	step?: number;
-	inWorkflow?: boolean;
+	inWorkflow ?= true;
 	final?: boolean;
 
 	constructor(config: any) {
+		this.id = uuid();
 		Object.assign(this, config);
 	}
 }

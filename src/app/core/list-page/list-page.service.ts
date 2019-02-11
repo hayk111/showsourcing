@@ -103,6 +103,10 @@ export class ListPageService
 		return this.dataSrv.items$;
 	}
 
+	get itemsSync() {
+		return this.dataSrv.itemsSync;
+	}
+
 	get pending() {
 		return this.dataSrv.pending;
 	}
@@ -154,6 +158,10 @@ export class ListPageService
 
 	update(value: T) {
 		this.dataSrv.update(value).subscribe();
+	}
+
+	updateMany(values: T[]) {
+		this.dataSrv.updateMany(values).subscribe();
 	}
 
 	onItemFavorited(id: string) {
@@ -249,6 +257,7 @@ export class ListPageService
 
 	private createItem(item) {
 		const entity = new this.entityMetadata.constClass(item);
+		debugger;
 		return this.ermSrv.getGlobalService(this.entityMetadata)
 			.create(entity);
 	}

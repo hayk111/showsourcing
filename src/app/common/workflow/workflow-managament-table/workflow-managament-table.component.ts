@@ -22,7 +22,7 @@ export class WorkflowManagamentTableComponent {
 		const index = Math.max(event.currentIndex, 1);
 		moveItemInArray(this.statuses, event.previousIndex, index);
 		this.statuses.forEach((status, i) => {
-			status.step = i;
+			status.step = i + 1;
 		});
 		this.update.emit(this.statuses);
 	}
@@ -31,7 +31,7 @@ export class WorkflowManagamentTableComponent {
 		if (isCancel)
 			return;
 		status.name = value;
-		this.update.emit(this.statuses);
+		this.update.emit([status]);
 	}
 
 	getType(status) {

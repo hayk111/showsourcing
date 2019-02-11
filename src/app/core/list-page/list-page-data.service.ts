@@ -23,6 +23,8 @@ export class ListPageDataService
 	/** currently loaded items */
 	items$: Observable<Array<T>>;
 
+	itemsSync: Array<T>;
+
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
 	selectParams: SelectParamsConfig = {
@@ -95,6 +97,7 @@ export class ListPageDataService
 			// and we can't use refetch or we lose the pagination
 			map(items => items.filter(itm => !itm.deleted))
 		);
+		this.items$.subscribe(items => this.itemsSync = items);
 	}
 
 	/** when the filter change we want to refetch the items with a new predicate */
