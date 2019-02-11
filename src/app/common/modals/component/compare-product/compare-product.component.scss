@@ -1,12 +1,16 @@
 :host {
-	display: block;
-	height: 100%;
+	display: flex;
+	width: 100%;
 }
+
 dialog-app {
-	width: auto;
+	height: 85vh;
 
 	dialog-header-app {
 		font-size: var(--font-size-l);
 	}
 }
 
+item-compare-row-app {
+	height: 100%;
+}
