@@ -53,11 +53,13 @@
 			</div>
 			<!-- final -->
 			<div class="w-20 cell">
-				<checkbox-app *ngIf="status.step !== 0" [checked]="status.final"></checkbox-app>
+				<!-- when model is changed -->
+				<!-- <checkbox-app *ngIf="status.step !== 0" [checked]="status.final"></checkbox-app> -->
+				<checkbox-app *ngIf="status.step !== 0"></checkbox-app>
 			</div>
 			<!-- preview -->
 			<div class="w-10 cell">
-				<button class="ugly-btn" (click)="delete.emit(status)">Delete Status</button>
+				<button class="ugly-btn" (click)="delete.emit(status.id)">Delete Status</button>
 			</div>
 		</div>
 	</div>

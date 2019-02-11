@@ -4,10 +4,10 @@ import { uuid } from '~utils';
 export class Status {
 	id?: string;
 	name?: string;
-	category?: string;
+	category ?= 'inProgress';
 	step?: number;
 	inWorkflow ?= true;
-	final?: boolean;
+	// final ?= false; // until we add it to the model
 
 	constructor(config: any) {
 		this.id = uuid();

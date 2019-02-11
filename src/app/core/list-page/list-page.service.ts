@@ -223,13 +223,13 @@ export class ListPageService
 		return updated;
 	}
 
-	deleteOne(id: string) {
+	deleteOne(id: string, refetch = false) {
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
 				switchMap(_ => this.dataSrv.deleteOne(id)),
 				// we don't want to refetch or we lose the pagination
-				// switchMap(_ => this.refetch())
+				switchMap(_ => this.refetch())
 			).subscribe();
 	}
 
@@ -257,7 +257,6 @@ export class ListPageService
 
 	private createItem(item) {
 		const entity = new this.entityMetadata.constClass(item);
-		debugger;
 		return this.ermSrv.getGlobalService(this.entityMetadata)
 			.create(entity);
 	}
