@@ -13,7 +13,8 @@ import { KanbanLibraryPageComponent } from './kanban-library-page/kanban-library
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { ProductCardLibraryPageComponent } from './product-card-library-page/product-card-library-page.component';
 import { SelectorLibraryComponent } from './selector-library/selector-library.component';
-import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table/workflow-mngmnt-table.component';
+import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
+import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table/workflo
 		RouterModule.forChild(routes),
 		SharedModule,
 		SampleCommonModule,
-		ProductCommonModule
+		ProductCommonModule,
+		WorkflowMngmtCommonModule
 	],
 	declarations: [
 		ComponentLibraryComponent,

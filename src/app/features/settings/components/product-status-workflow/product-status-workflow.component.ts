@@ -6,7 +6,7 @@ import { ERM, ProductStatus } from '~core/models';
 
 @Component({
 	selector: 'product-status-workflow-app',
-	templateUrl: '../common-status-workflow.component.html',
+	templateUrl: '../../../../common/workflow/common-status-workflow.component.html',
 	styleUrls: ['./product-status-workflow.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -6,7 +6,7 @@ import { ERM, SampleStatus } from '~core/models';
 
 @Component({
 	selector: 'sample-status-workflow-app',
-	templateUrl: '../common-status-workflow.component.html',
+	templateUrl: '../../../../common/workflow/common-status-workflow.component.html',
 	styleUrls: ['./sample-status-workflow.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
