@@ -1,0 +1,18 @@
+<sub-panel-app
+	[title]="listSrv.entityMetadata.plural"
+	buttonName="Add a status"
+	[hasFilter]="false"
+	[hasSearch]="false"
+	[hasSwitch]="false"
+	[buttonIcon]="false"
+	(buttonClick)="listSrv.create(false)">
+</sub-panel-app>
+
+<workflow-managament-table-app>
+
+</workflow-managament-table-app>
+
+<div class="status-tip" *ngIf="listSrv.entityMetadata.singular === 'product status'">
+	All products will be sent to New idea when created. New ideas can then be sent to the <br>
+	workflow or kept as a reference (no action has to be taken)
+</div>
