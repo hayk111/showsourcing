@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import {
-	InvitationsListViewComponent,
-	SettingsProfileComponent,
-	TeamMembersListViewComponent,
-	ProductStatusWorkflowComponent,
 	CompanyProfileCardComponent,
+	InvitationsListViewComponent,
+	ProductStatusWorkflowComponent,
 	ProfileCardComponent,
-	SupplierStatusWorkflowComponent,
 	SampleStatusWorkflowComponent,
+	SettingsProfileComponent,
+	SupplierStatusWorkflowComponent,
+	TeamMembersListViewComponent,
 } from '~features/settings/components';
 import {
 	SettingsComponent,
