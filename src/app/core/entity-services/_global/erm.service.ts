@@ -1,33 +1,35 @@
 import { Injectable } from '@angular/core';
-import { TeamUserService, UserService } from '~entity-services';
-import { GlobalService } from '~entity-services/_global/global.service';
-import { CategoryService } from '~entity-services/category/category.service';
-import { EventService } from '~entity-services/event/event.service';
-import { ImageService } from '~entity-services/image/image.service';
-import { ProductService } from '~entity-services/product/product.service';
-import { ProjectService } from '~entity-services/project/project.service';
-import { SampleStatusService } from '~entity-services/sample-status/sample-status.service';
-import { SampleService } from '~entity-services/sample/sample.service';
-import { SupplierService } from '~entity-services/supplier/supplier.service';
-import { TagService } from '~entity-services/tag/tag.service';
-import { TeamService } from '~entity-services/team/team.service';
+import {
+	SampleStatusService,
+	AttachmentService,
+	AttachmentUploadRequestService,
+	CategoryService,
+	ContactService,
+	EventService,
+	ImageUploadRequestService,
+	InvitationService,
+	ProductService,
+	ProductStatusService,
+	ProjectService,
+	SampleService,
+	SupplierService,
+	SupplierStatusService,
+	SupplierTypeService,
+	TagService,
+	TaskService,
+	TeamService,
+	TeamUserService,
+	UserService,
+	CommentService,
+	CountryService,
+	CurrencyService
+} from '~entity-services';
 import { EntityMetadata, ERM } from '~models';
-
-import { AttachmentService } from '../attachment/attachment.service';
-import { ContactService } from '../contact/contact.service';
-import { CountryService } from '../country/country.service';
-import { CurrencyService } from '../currency/currency.service';
 import { ExportRequestService } from '../export-request/export-request.service';
 import { HarbourService } from '../harbour/harbour.service';
-import { ImageUploadRequestService } from '../image-upload-request/image-upload-request.service';
+import { ImageService } from '../image/image.service';
 import { IncoTermService } from '../inco-term/inco-term.service';
-import { InvitationService } from '../invitation/invitation.service';
-import { ProductStatusService } from '../product-status/product-status.service';
-import { SupplierStatusService } from '../supplier-status/supplier-status.service';
-import { SupplierTypeService } from '../supplier-type/supplier-type.service';
-import { TaskService } from '../task/task.service';
-import { AttachmentUploadRequestService } from '../attachment-upload-request/attachment-upload-request.service';
-import { CommentService } from '../comment/comment.service';
+import { GlobalService } from './global.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -82,40 +84,40 @@ export class ERMService {
 				return this.countryService;
 			case 'Currency':
 				return this.currencyService;
-			case 'Supplier':
-				return this.supplierService;
-			case 'Product':
-				return this.productService;
-			case 'Project':
-				return this.projectService;
+			case 'Event':
+				return this.eventService;
 			case 'ExportRequest':
 				return this.exportRequestService;
+			case 'Harbour':
+				return this.harbourService;
 			case 'Image':
 				return this.imageService;
 			case 'ImageUploadRequest':
 				return this.imageUploadRequestService;
-			case 'Tag':
-				return this.tagService;
-			case 'Event':
-				return this.eventService;
-			case 'Harbour':
-				return this.harbourService;
 			case 'Incoterm':
 				return this.incotermService;
-			case 'Team':
-				return this.teamService;
-			case 'User':
-				return this.userSrv;
-			case 'TeamUser':
-				return this.teamUserSrv;
+			case 'Product':
+				return this.productService;
+			case 'ProductStatus':
+				return this.productStatusSrv;
+			case 'Project':
+				return this.projectService;
 			case 'Sample':
 				return this.sampleSrv;
 			case 'SampleStatus':
 				return this.sampleStatusSrv;
-			case 'ProductStatus':
-				return this.productStatusSrv;
+			case 'Supplier':
+				return this.supplierService;
 			case 'SupplierStatus':
 				return this.supplierStatusSrv;
+			case 'Tag':
+				return this.tagService;
+			case 'Team':
+				return this.teamService;
+			case 'TeamUser':
+				return this.teamUserSrv;
+			case 'User':
+				return this.userSrv;
 			default:
 				throw Error(`__typename ${typename} wasn't found`);
 		}
@@ -137,46 +139,46 @@ export class ERMService {
 				return this.countryService;
 			case ERM.CURRENCY:
 				return this.currencyService;
-			case ERM.HARBOUR:
-				return this.harbourService;
-			case ERM.INCOTERM:
-				return this.incotermService;
-			case ERM.IMAGE_UPLOAD_REQUEST:
-				return this.imageUploadRequestService;
-			case ERM.SUPPLIER:
-				return this.supplierService;
-			case ERM.PRODUCT:
-				return this.productService;
-			case ERM.PROJECT:
-				return this.projectService;
-			case ERM.IMAGE:
-				return this.imageService;
-			case ERM.INVITATION:
-				return this.invitationSrv;
-			case ERM.TAG:
-				return this.tagService;
 			case ERM.EVENT:
 				return this.eventService;
 			case ERM.EXPORT_REQUEST:
 				return this.exportRequestService;
-			case ERM.TEAM:
-				return this.teamService;
-			case ERM.USER:
-				return this.userSrv;
-			case ERM.TEAM_USER:
-				return this.teamUserSrv;
+			case ERM.HARBOUR:
+				return this.harbourService;
+			case ERM.IMAGE:
+				return this.imageService;
+			case ERM.IMAGE_UPLOAD_REQUEST:
+				return this.imageUploadRequestService;
+			case ERM.INCOTERM:
+				return this.incotermService;
+			case ERM.INVITATION:
+				return this.invitationSrv;
+			case ERM.PRODUCT:
+				return this.productService;
+			case ERM.PRODUCT_STATUS:
+				return this.productStatusSrv;
+			case ERM.PROJECT:
+				return this.projectService;
 			case ERM.SAMPLE:
 				return this.sampleSrv;
 			case ERM.SAMPLE_STATUS:
 				return this.sampleStatusSrv;
-			case ERM.PRODUCT_STATUS:
-				return this.productStatusSrv;
+			case ERM.SUPPLIER:
+				return this.supplierService;
 			case ERM.SUPPLIER_STATUS:
 				return this.supplierStatusSrv;
 			case ERM.SUPPLIER_TYPE:
 				return this.supplierTypeSrv;
+			case ERM.TAG:
+				return this.tagService;
 			case ERM.TASK:
 				return this.taskSrv;
+			case ERM.TEAM:
+				return this.teamService;
+			case ERM.TEAM_USER:
+				return this.teamUserSrv;
+			case ERM.USER:
+				return this.userSrv;
 			default:
 				throw Error(`The ERM "${erm.singular}" has not an associated service`);
 		}

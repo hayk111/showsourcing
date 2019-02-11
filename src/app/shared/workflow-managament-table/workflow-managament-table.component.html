@@ -1,0 +1,8 @@
+
+<div class="header"></div>
+<div class="example-list" cdkDropList (cdkDropListDropped)="onDrop($event)">
+	<div class="example-box" *ngFor="let status of statuses" cdkDrag>
+		<div class="bg-primary example-custom-placeholder" *cdkDragPlaceholder></div>
+		{{ status.name }}
+	</div>
+</div>

@@ -4,25 +4,24 @@
 SHOULD_BUILD=$1
 ENDPOINT=$2
 
+CHOICES[1]="app-test.showsourcing.com"
+CHOICES[2]="app-dev.showsourcing.com"
+CHOICES[3]="app-sta.showsourcing.com"
+CHOICES[4]="app2.showsourcing.com"
+CHOICES[5]="app.showsourcing.com"
 
 if [ -z "$ENDPOINT" ]
   then
     echo "Please pick an endpoint to deploy to"
-    echo "1) app-test.showsourcing.com"
-    echo "2) app-dev.showsourcing.com"
-    echo "3) app-sta.showsourcing.com"
-    echo "4) app2.showsourcing.com"
-    echo "5) app.showsourcing.com"
+    for I in 1 2 3 4 5
+    do
+      echo "$I) ${CHOICES[$I]}"
+    done
     read n
-    case $n in
-			1) ENDPOINT="app-test.showsourcing.com";;
-			2) ENDPOINT="app-dev.showsourcing.com";;
-			3) ENDPOINT="app-sta.showsourcing.com";;
-			4) ENDPOINT="app2.showsourcing.com";;
-			5) ENDPOINT="app.showsourcing.com";;
-			*) invalid option;;
-    esac
+    ENDPOINT=${CHOICES[n]}
+    [ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
 fi
+
 
 echo "$ENDPOINT"
 
