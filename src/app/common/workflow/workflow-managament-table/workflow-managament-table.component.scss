@@ -63,6 +63,28 @@
   &.with-border {
     border-bottom: 1px solid var(--color-secondary);
   }
+  &:hover {
+    .ugly-btn {
+      opacity: 1;
+    }
+  }
+  editable-text-app {
+    editable-label-app {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    margin-right: 16px;
+  }
+}
+
+.ugly-btn {
+  padding: 0 var(--spacing-m);
+  border: 1px solid var(--color-secondary);
+  background: var(--color-secondary-light);
+  color: var(--color-secondary-dark);
+  opacity: 0;
+  transition: 0.3ms opacity;
 }
 
 .cdk-drag-preview {
