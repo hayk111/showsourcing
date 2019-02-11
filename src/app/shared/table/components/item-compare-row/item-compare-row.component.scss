@@ -9,6 +9,7 @@ $header-height: 258px;
 .header-container {
 	height: $header-height;
 	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 .body-container {
@@ -80,7 +81,7 @@ $header-height: 258px;
   }
 
   div {
-    display: inline-block;
+    display: inline-flex;
   }
 
 }
