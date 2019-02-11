@@ -35,14 +35,26 @@
 				</editable-text-app>
 			</div>
 			<!-- category -->
-			<div class="w-20 cell">{{ status?.category }}</div>
+			<div class="w-20 cell">
+				<context-menu-app>
+					<context-menu-trigger-app>
+						<div class="flexBetween badge" [ngClass]="getType(status)">
+							<div>	{{ status?.category | const: 'statusCategory'}}	</div>
+							<div> <icon-app name="caret-down"></icon-app> </div>
+						</div>
+					</context-menu-trigger-app>
+					<context-menu-item-app *ngFor="let category of categories">
+						{{ category }}
+					</context-menu-item-app>
+				</context-menu-app>
+			</div>
 			<!-- final -->
 			<div class="w-20 cell">
 				<checkbox-app [checked]="status.final"></checkbox-app>
 			</div>
 			<!-- preview -->
 			<div class="w-10 cell">
-				<button>preview</button>
+				<button>Delete Status</button>
 			</div>
 		</div>
 	</div>

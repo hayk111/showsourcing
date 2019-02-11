@@ -1,5 +1,13 @@
-import { LOCALE_ID, Inject, Pipe, PipeTransform, Optional } from '@angular/core';
-import { currencyMap, countryMap, harbourMap, incoTermsMap, statusMap, supplierTypesMap } from '~utils/constants';
+import { Inject, LOCALE_ID, Optional, Pipe, PipeTransform } from '@angular/core';
+import {
+	countryMap,
+	currencyMap,
+	harbourMap,
+	incoTermsMap,
+	statusCategoriesMap,
+	statusMap,
+	supplierTypesMap,
+} from '~utils/constants';
 
 /**
  * transform a const to it's given name or if any additional param is given the property named with that param
@@ -47,6 +55,10 @@ export class ConstPipe implements PipeTransform {
 			case 'status':
 			case 'statuses':
 				constMap = statusMap;
+				break;
+			case 'statusCategory':
+			case 'statusCategories':
+				constMap = statusCategoriesMap;
 				break;
 			case 'supplierType':
 			case 'supplierTypes':
