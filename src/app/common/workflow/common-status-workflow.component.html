@@ -5,14 +5,14 @@
 	[hasSearch]="false"
 	[hasSwitch]="false"
 	[buttonIcon]="false"
-	(buttonClick)="listSrv.create(false, {step: listSrv.itemsSync.length + 1})">
+	(buttonClick)="create()">
 </sub-panel-app>
 
 <workflow-managament-table-app
 	[statuses]="listSrv.items$ | async"
 	[typeEntity]="listSrv.entityMetadata"
 	(update)="listSrv.updateMany($event)"
-	(delete)="listSrv.deleteOne($event)">
+	(delete)="listSrv.deleteOne($event, true)">
 </workflow-managament-table-app>
 
 <div class="status-tip" *ngIf="listSrv.entityMetadata.singular === 'product status'">

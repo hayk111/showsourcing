@@ -1,4 +1,3 @@
-
 <div class="header flex">
 	<!-- div added for the cell without border -->
 	<div class="spacer mg-s"></div>
@@ -47,7 +46,7 @@
 						</div>
 					</context-menu-trigger-app>
 					<context-menu-item-app *ngFor="let category of categories" (click)="update.emit([{ id: status.id, category: category }])">
-						{{ category | const: 'statusCateogry' }}
+						{{ category?.name | const: 'statusCateogry' }}
 					</context-menu-item-app>
 				</context-menu-app>
 			</div>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { empty } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { ERMService } from '~core/entity-services/_global/erm.service';
@@ -101,10 +102,6 @@ export class ListPageService
 
 	get items$() {
 		return this.dataSrv.items$;
-	}
-
-	get itemsSync() {
-		return this.dataSrv.itemsSync;
 	}
 
 	get pending() {
@@ -223,25 +220,25 @@ export class ListPageService
 		return updated;
 	}
 
+	// most of the time we don't want to refetch or we lose the pagination
 	deleteOne(id: string, refetch = false) {
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
 				switchMap(_ => this.dataSrv.deleteOne(id)),
-				// we don't want to refetch or we lose the pagination
-				switchMap(_ => this.refetch())
+				switchMap(_ => refetch ? this.refetch() : empty())
 			).subscribe();
 	}
 
-	deleteSelected() {
+	// most of the time we don't want to refetch or we lose the pagination
+	deleteSelected(refetch = false) {
 		const itemIds = this.getSelectedIds();
 		const text = `Delete ${itemIds.length} `
 			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural);
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
-			// we don't want to refetch or we lose the pagination
-			// switchMap(_ => this.refetch())
+			switchMap(_ => refetch ? this.refetch() : empty())
 		).subscribe(_ => {
 			this.selectionSrv.unselectAll();
 		});

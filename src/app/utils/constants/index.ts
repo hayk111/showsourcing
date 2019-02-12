@@ -10,6 +10,7 @@ export * from './harbour.map';
 export * from './inco-terms.const';
 export * from './inco-terms.map';
 export * from './request-status.enum';
+export * from './status-categories.const';
 export * from './status-categories.map';
 export * from './statuses.map';
 export * from './supplier-types.map';
