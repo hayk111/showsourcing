@@ -34,32 +34,35 @@ import {
 	imports: [
 		CommonModule,
 		FormsModule,
-		ReactiveFormsModule,
+		// ReactiveFormsModule,
 		InputsModule,
-		InputsCustomModule,
+		// InputsCustomModule,
 		EditableFieldModule,
 		SelectorsModule,
-		BadgeModule, // for displaying multiple values
+		// BadgeModule, // for displaying multiple values
 		UtilsModule,
-		FileModule,
-		ImageModule,
-		NgSelectModule,
-		UserPictureModule
+		// FileModule,
+		// ImageModule,
+		// NgSelectModule,
+		// UserPictureModule
 	],
 	declarations: [
-		DynamicFormComponent,
-		DynamicEditableTextComponent,
-		EditablePriceMatrixComponent,
-		EditablePriceMatrixRowComponent,
-		EditablePriceComponent,
-		EditablePackagingComponent,
-		EditableSelectorComponent,
-		InputPackagingComponent,
-		DynamicInputComponent,
+		// DynamicFormComponent,
+		// DynamicEditableTextComponent,
+		// EditablePriceMatrixComponent,
+		// EditablePriceMatrixRowComponent,
+		// EditablePriceComponent,
+		// EditablePackagingComponent,
+		// EditableSelectorComponent,
+		// InputPackagingComponent,
+		// DynamicInputComponent,
 		DynamicFormNextComponent,
 		DynamicEditableTextNextComponent
 	],
-	exports: [DynamicFormComponent, DynamicFormNextComponent]
+	exports: [
+		// DynamicFormComponent,
+		DynamicFormNextComponent
+	]
 })
 export class DynamicFormsModule {
 

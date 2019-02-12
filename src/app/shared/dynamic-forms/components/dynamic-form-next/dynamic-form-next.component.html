@@ -5,7 +5,7 @@
     *ngFor="let field of fields; trackBy: trackByFn"
     [field]="field"
     [inlineLabel]="inlineLabel"
-    (update)="update.emit($event)">
+    (update)="update($event)">
   </dynamic-editable-text-next-app>
 
 </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { ExtendedField } from '~core/models/extended-field.model';
 
 
@@ -35,10 +35,15 @@ export class DynamicEditableTextNextComponent {
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 
+	constructor(
+		private cd: ChangeDetectorRef
+	) { }
+
 	onClose(isCancel: boolean) {
 		if (!isCancel) {
 			this.onSave();
 		}
+		this.cd.markForCheck();
 	}
 
 	/** saving the value */
