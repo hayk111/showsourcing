@@ -1,0 +1,11 @@
+
+<div class="form">
+
+  <dynamic-editable-text-next-app
+    *ngFor="let field of fields; trackBy: trackByFn"
+    [field]="field"
+    [inlineLabel]="inlineLabel"
+    (update)="update.emit($event)">
+  </dynamic-editable-text-next-app>
+
+</div>

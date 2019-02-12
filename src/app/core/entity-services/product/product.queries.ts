@@ -31,6 +31,7 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { id, url } }}`;
+	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order }}`;
 	// This is the default selection when using selectOne or queryOne
 	static readonly one = `
 			name,
@@ -45,23 +46,24 @@ export abstract class ProductQueries extends GlobalQueries {
 			creationDate,
 			archived,
 			deleted,
-			${ProductQueries.comments}
-			${ProductQueries.supplier}
-			${ProductQueries.images}
+			${ProductQueries.assignee}
 			${ProductQueries.attachments}
-			${ProductQueries.price()}
-			${ProductQueries.price('samplePrice')}
 			${ProductQueries.category}
-			${ProductQueries.projects}
+			${ProductQueries.comments}
+			${ProductQueries.createdBy}
 			${ProductQueries.event}
-			${ProductQueries.status}
-			${ProductQueries.votes}
+			${ProductQueries.extendedFields}
+			${ProductQueries.images}
 			${ProductQueries.packaging('innerCarton')}
 			${ProductQueries.packaging('masterCarton')}
+			${ProductQueries.price('samplePrice')}
+			${ProductQueries.price()}
 			${ProductQueries.priceMatrix}
-			${ProductQueries.createdBy}
-			${ProductQueries.assignee}
+			${ProductQueries.projects}
+			${ProductQueries.status}
+			${ProductQueries.supplier}
 			${ProductQueries.tags}
+			${ProductQueries.votes}
 			`;
 
 	static readonly many = `

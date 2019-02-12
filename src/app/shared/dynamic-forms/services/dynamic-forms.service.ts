@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { FormArray, FormControl } from '@angular/forms';
+import { ExtendedField } from '~core/models/extended-field.model';
 import { CustomField } from '~shared/dynamic-forms/models';
-import { RegexpApp } from '~utils/regexes';
 
 @Injectable({
 	providedIn: 'root'
@@ -10,41 +9,16 @@ import { RegexpApp } from '~utils/regexes';
 export class DynamicFormsService {
 	constructor() { }
 
-	/** creates a form group given an array of custom fields */
-	toFormGroup(customFields: CustomField[]): FormGroup {
-		const formGroup = new FormGroup({});
-		customFields.forEach(field => {
-			const ctrl = this.toFormControl(field);
-			formGroup.addControl(field.name, ctrl);
-		});
-		return formGroup;
+	/** creates a form array given an array of extended fields */
+	toFormArray(fields: ExtendedField[]): FormArray {
+		const ctrls = fields.map(field => this.toFormControl(field));
+		return new FormArray(ctrls);
 	}
 
-	/** transforms a custom field into a form control */
-	toFormControl(field: CustomField): FormControl {
-		// when multiple it means we are dealing with an array of values
+	/** transforms a extended field into a form control */
+	toFormControl(field: ExtendedField): FormControl {
 		const value = field.value;
-		const validators = this.createValidators(field);
-		const ctrl = new FormControl(value, validators);
-		return ctrl;
+		return new FormControl(value);
 	}
 
-	private createValidators(field: CustomField) {
-		const validators = [];
-		if (field.required) validators.push(Validators.required);
-		switch (field.type) {
-			case 'number':
-				validators.push(Validators.pattern(RegexpApp.DIGITS));
-				break;
-			case 'url':
-				validators.push(Validators.pattern(RegexpApp.URL));
-				break;
-			case 'tel':
-				validators.push(Validators.pattern(RegexpApp.PHONE));
-				break;
-			case 'email':
-				validators.push(Validators.email);
-		}
-		return Validators.compose(validators);
-	}
 }

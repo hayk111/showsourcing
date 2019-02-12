@@ -1,4 +1,5 @@
 <card-app>
+
 	<div class="title flex">
 		<div class="space-icon flexAround">
 			<icon-app name="product"></icon-app>
@@ -8,10 +9,9 @@
 		</h3>
 	</div>
 
-	<dynamic-form-app
-		[fields]="customFields"
-		[value]="product"
-		[colAmount]="1"
-		(update)="update.emit($event)">
-	</dynamic-form-app>
+	<dynamic-form-next-app
+		[fields]="product.extendedFields"
+		(update)="update.emit({ extendedFields: $event })">
+	</dynamic-form-next-app>
+
 </card-app>
