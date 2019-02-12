@@ -1,14 +1,14 @@
 export const statusCategories = [
 	{
 		'id': 'inProgress',
-		'name': 'In Progress'
+		'name': 'inProgress'
 	},
 	{
 		'id': 'validated',
-		'name': 'Validated'
+		'name': 'validated'
 	},
 	{
 		'id': 'refused',
-		'name': 'Refused'
+		'name': 'refused'
 	},
 ];
