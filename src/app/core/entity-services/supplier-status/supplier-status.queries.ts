@@ -8,26 +8,26 @@ export abstract class SupplierStatusQueries extends GlobalQueries {
 		inWorkflow,
 		step,
 		category,
-		final,
-		deleted
 	`;
+	// final,
+	// deleted
 
 	static readonly many = `
 		name,
 		inWorkflow,
 		step,
 		category,
-		final,
-		deleted
 	`;
+	// final,
+	// deleted
 
 	static readonly all = `
 		name,
 		inWorkflow,
 		step,
 		category,
-		final,
-		deleted
 	`;
+	// final,
+	// deleted
 
 }

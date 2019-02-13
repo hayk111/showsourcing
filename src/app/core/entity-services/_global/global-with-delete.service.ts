@@ -34,7 +34,7 @@ export class GlobalWithDeleteService<T> extends GlobalService<T> implements Glob
 		return forkJoin(ids.map(id => this.delete(id, client)));
 	}
 
-	openSubscription(clientName?: Client) {
-		return super.openSubscription(clientName, 'deleted == false');
-	}
+	// openSubscription(clientName?: Client) {
+	// 	return super.openSubscription(clientName, 'deleted == false');
+	// }
 }

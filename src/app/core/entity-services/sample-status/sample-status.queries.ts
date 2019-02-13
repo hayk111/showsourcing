@@ -6,25 +6,25 @@ export class SampleStatusQueries extends GlobalQueries {
 		category,
 		inWorkflow,
 		step,
-		final,
-		deleted
 	`;
+	// final,
+	// deleted
 
 	static readonly many = `
 		name,
 		category,
 		inWorkflow,
 		step,
-		final,
-		deleted
 	`;
+	// final,
+	// deleted
 
 	static readonly all = `
 		name,
 		category,
 		inWorkflow,
 		step,
-		final,
-		deleted
 	`;
+	// final,
+	// deleted
 }
