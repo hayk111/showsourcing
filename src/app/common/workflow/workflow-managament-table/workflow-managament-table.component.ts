@@ -12,8 +12,18 @@ import { statusCategories } from '~utils';
 })
 export class WorkflowManagamentTableComponent {
 
-	@Input() statuses: Status[];
 	@Input() typeEntity: EntityMetadata;
+	private _statuses: Status[];
+	@Input() set statuses(statuses: Status[]) {
+		if (statuses) {
+			// capitalize name
+			const name = ('_New' + this.typeEntity.singular.charAt(0).toUpperCase() + this.typeEntity.singular.slice(1)).replace(' ', '');
+			this._statuses = [{ id: '-1', category: 'new', name, step: 0 }, ...statuses];
+		}
+	}
+	get statuses() {
+		return this._statuses;
+	}
 	@Output() update = new EventEmitter<Status[]>();
 	@Output() delete = new EventEmitter<string>();
 	categories = statusCategories;
@@ -23,7 +33,7 @@ export class WorkflowManagamentTableComponent {
 		const index = Math.max(event.currentIndex, 1);
 		moveItemInArray(this.statuses, event.previousIndex, index);
 		this.statuses.forEach((status, i) => {
-			status.step = i + 1;
+			status.step = i;
 		});
 		this.update.emit(this.statuses);
 	}

@@ -1,15 +1,15 @@
-import { Supplier } from '~models/supplier.model';
-import { AppImage } from '~models/app-image.model';
-import { Price } from '~models/price.model';
-import { Category } from '~models/category.model';
+import { Attachment, Project, User } from '~models';
 import { EntityWithAudit } from '~models/_entity.model';
-import { ProductStatus } from '~models/product-status.model';
-import { Tag } from '~models/tag.model';
-import { ProductVote } from '~models/product-vote.model';
+import { AppImage } from '~models/app-image.model';
+import { Category } from '~models/category.model';
+import { Comment } from '~models/comment.model';
 import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
-import { Project, Attachment, User } from '~models';
-import { Comment } from '~models/comment.model';
+import { Price } from '~models/price.model';
+import { ProductStatus } from '~models/product-status.model';
+import { ProductVote } from '~models/product-vote.model';
+import { Supplier } from '~models/supplier.model';
+import { Tag } from '~models/tag.model';
 
 export class Product extends EntityWithAudit<ProductConfig> {
 	id?: string;
@@ -57,7 +57,7 @@ export interface ProductConfig {
 	description?: string;
 	event?: Event;
 	favorite?: boolean;
-	status?: ProductStatus[];
+	status?: ProductStatus;
 	statushistory?: ProductStatus[];
 	tags?: Tag[];
 	minimumOrderQuantity?: number;

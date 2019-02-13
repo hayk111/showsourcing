@@ -1,4 +1,11 @@
 export const statusCategoriesMap = {
+	'new': {
+		locales: {
+			en: {
+				name: 'New'
+			}
+		}
+	},
 	'inProgress': {
 		locales: {
 			en: {
