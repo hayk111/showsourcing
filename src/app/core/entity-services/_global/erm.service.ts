@@ -186,7 +186,7 @@ export class ERMService {
 
 	getStatusService(erm: EntityMetadata): GlobalService<any> {
 		switch (erm) {
-			case ERM.SAMPLE:
+			case ERM.SAMPLE_STATUS:
 				return this.sampleStatusSrv;
 			case ERM.SUPPLIER_STATUS:
 				return this.supplierStatusSrv;

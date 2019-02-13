@@ -1,14 +1,10 @@
-import { Status } from './status.model';
+import { Status, StatusConfig } from './status.model';
 
 export class SampleStatus extends Status {
 
 	__typename ?= 'SampleStatus';
 
-	constructor(config: SampleStatusConfig) {
+	constructor(config: StatusConfig) {
 		super(config);
 	}
-}
-
-export interface SampleStatusConfig {
-	id: string;
 }

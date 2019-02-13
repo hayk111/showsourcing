@@ -4,11 +4,30 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 export abstract class SupplierStatusQueries extends GlobalQueries {
 
 	static readonly one = `
-		id,
 		name,
 		inWorkflow,
 		step,
-		category
+		category,
+		final,
+		deleted
+	`;
+
+	static readonly many = `
+		name,
+		inWorkflow,
+		step,
+		category,
+		final,
+		deleted
+	`;
+
+	static readonly all = `
+		name,
+		inWorkflow,
+		step,
+		category,
+		final,
+		deleted
 	`;
 
 }

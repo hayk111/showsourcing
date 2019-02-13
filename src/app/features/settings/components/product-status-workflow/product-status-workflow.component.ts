@@ -3,6 +3,7 @@ import { CommonModalService } from '~common/modals';
 import { ProductStatusService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, ProductStatus } from '~core/models';
+import { AbstractStatusWorkflowComponent } from '~features/settings/containers/abstract-status-workflow.component';
 
 @Component({
 	selector: 'product-status-workflow-app',
@@ -10,21 +11,12 @@ import { ERM, ProductStatus } from '~core/models';
 	styleUrls: ['./product-status-workflow.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductStatusWorkflowComponent implements OnInit {
+export class ProductStatusWorkflowComponent extends AbstractStatusWorkflowComponent<ProductStatus, ProductStatusService> implements OnInit {
 
 	constructor(
 		private productStatusSrv: ProductStatusService,
-		private listSrv: ListPageService<ProductStatus, ProductStatusService>,
+		public listSrv: ListPageService<ProductStatus, ProductStatusService>,
 		public commonModalSrv: CommonModalService
-	) { }
-
-	ngOnInit() {
-		this.listSrv.setup({
-			key: ListPageKey.PRODUCT_STATUS,
-			entitySrv: this.productStatusSrv,
-			selectParams: { sortBy: 'step', descending: false },
-			entityMetadata: ERM.PRODUCT_STATUS
-		});
-	}
+	) { super(productStatusSrv, listSrv, commonModalSrv, ListPageKey.PRODUCT_STATUS, ERM.PRODUCT_STATUS); }
 
 }

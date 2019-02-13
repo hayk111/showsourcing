@@ -1,4 +1,3 @@
-
 <div class="header flex">
 	<!-- div added for the cell without border -->
 	<div class="spacer mg-s"></div>
@@ -8,7 +7,7 @@
 		<div class="w-40">Name</div>
 		<div class="w-20">Category</div>
 		<div class="w-20">Final Step</div>
-		<div class="w-10">preview</div>
+		<div class="w-10"></div>
 	</div>
 
 </div>
@@ -23,41 +22,51 @@
 		<div class="flex flexGrow sub-cell" [ngClass]="{ 'with-border': !last }">
 			<!-- handle -->
 			<div class="w-5 cell">
-				<icon-app *ngIf="status.step > 0" cdkDragHandle class="handle" name="grip-vertical" fontSet="fa"></icon-app>
+				<icon-app *ngIf="status.step !== 0" cdkDragHandle class="handle" name="grip-vertical" fontSet="fa"></icon-app>
 			</div>
 			<!-- step -->
-			<div class="w-5 cell">{{ status.step + 1 }}</div>
+			<div class="w-5 cell">{{ status.step }}</div>
 			<!-- name -->
 			<div class="w-40 cell">
-				<editable-text-app #editable (opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
-					<editable-label-app>
-						{{ status.name }}
-						<button class="ugly-btn">rename</button>
+				<editable-text-app
+					#editable
+					[openOnClick]="status.step !== 0"
+					(opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
+					<editable-label-app [ngClass]="{ 'no-hover': status.step == 0 }">
+						{{ status.name | const: 'statuses' }}
+						<button *ngIf="status.step !== 0" class="ugly-btn">rename</button>
 					</editable-label-app>
 					<input #inp inputApp type="text" [value]="status.name" (keyup.enter)="editable.close()"/>
 				</editable-text-app>
 			</div>
 			<!-- category -->
 			<div class="w-20 cell">
-				<context-menu-app>
+				<context-menu-app *ngIf="status.step !== 0; else zeroStep">
 					<context-menu-trigger-app>
 						<div class="flexBetween badge" [ngClass]="getType(status)">
-							<div>	{{ status?.category | const: 'statusCategory'}}	</div>
+							<div class="flexCenter fullWidth">	{{ status?.category | const: 'statusCategory'}}	</div>
 							<div> <icon-app name="caret-down"></icon-app> </div>
 						</div>
 					</context-menu-trigger-app>
-					<context-menu-item-app *ngFor="let category of categories">
-						{{ category }}
+					<context-menu-item-app *ngFor="let category of categories" (click)="update.emit([{ id: status.id, category: category.name }])">
+						{{ category?.name | const: 'statusCategory' }}
 					</context-menu-item-app>
 				</context-menu-app>
+				<ng-template #zeroStep>
+					<div class="flexCenter badge" [ngClass]="getType(status)">
+						{{ status?.category | const: 'statusCategory'}}
+					</div>
+				</ng-template>
 			</div>
 			<!-- final -->
 			<div class="w-20 cell">
-				<checkbox-app *ngIf="status.step !== 0" [checked]="status.final"></checkbox-app>
+				<!-- when model is changed -->
+				<!-- <checkbox-app *ngIf="status.step !== 0" [checked]="status.final"></checkbox-app> -->
+				<checkbox-app *ngIf="status.step !== 0"></checkbox-app>
 			</div>
 			<!-- preview -->
 			<div class="w-10 cell">
-				<button class="ugly-btn" (click)="delete.emit(status)">Delete Status</button>
+				<button *ngIf="status.step !== 0" class="ugly-btn" (click)="delete.emit(status.id)">Delete Status</button>
 			</div>
 		</div>
 	</div>

@@ -49,7 +49,7 @@
 		<div
 			*ngIf="!isLast()"
 			toolTip toolTipMessage="Next status {{getNextStatus()?.name | const: 'status'}}" toolTipPosition="above-right" [offsetX]="26"
-			class="pointer caretCtnr bg-{{ entity?.status.category }}"
+			class="pointer caretCtnr bg-{{ entity?.status?.category }}"
 			(click)="next()">
 			<icon-app [ngClass]="{new: entity?.status?.category === 'new'}" fontSet="fa" name="caret-right" ></icon-app>
 		</div>

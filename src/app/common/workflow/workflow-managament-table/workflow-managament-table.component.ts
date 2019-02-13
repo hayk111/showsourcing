@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Status } from '~core/models/status.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityMetadata } from '~core/models';
+import { Status } from '~core/models/status.model';
+import { statusCategories } from '~utils';
 
 @Component({
 	selector: 'workflow-managament-table-app',
@@ -11,11 +12,21 @@ import { EntityMetadata } from '~core/models';
 })
 export class WorkflowManagamentTableComponent {
 
-	@Input() statuses: Status[];
 	@Input() typeEntity: EntityMetadata;
+	private _statuses: Status[];
+	@Input() set statuses(statuses: Status[]) {
+		if (statuses) {
+			// capitalize name
+			const name = ('_New' + this.typeEntity.singular.charAt(0).toUpperCase() + this.typeEntity.singular.slice(1)).replace(' ', '');
+			this._statuses = [{ id: '-1', category: 'new', name, step: 0 }, ...statuses];
+		}
+	}
+	get statuses() {
+		return this._statuses;
+	}
 	@Output() update = new EventEmitter<Status[]>();
-	@Output() delete = new EventEmitter<Status>();
-	categories = ['inProgress', 'validated', 'refused'];
+	@Output() delete = new EventEmitter<string>();
+	categories = statusCategories;
 
 	onDrop(event: CdkDragDrop<string[]>) {
 		// index 0 cannot be changed
@@ -31,7 +42,7 @@ export class WorkflowManagamentTableComponent {
 		if (isCancel)
 			return;
 		status.name = value;
-		this.update.emit(this.statuses);
+		this.update.emit([status]);
 	}
 
 	getType(status) {

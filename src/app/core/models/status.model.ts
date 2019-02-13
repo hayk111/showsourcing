@@ -1,15 +1,24 @@
+import { ID, uuid } from '~utils';
 
 
 export class Status {
-	id?: string;
+	id?: ID;
 	name?: string;
-	category?: string;
+	category ?= 'inProgress';
 	step?: number;
-	inWorkflow?: boolean;
-	final?: boolean;
+	inWorkflow ?= true;
+	final ?= false;
+	deleted ?= false;
 
-	constructor(config: any) {
+	constructor(config: StatusConfig) {
+		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
 	}
+}
+
+export interface StatusConfig {
+	id?: string;
+	name?: string;
+	step?: number;
 }
 

@@ -1,8 +1,22 @@
 export const statusMap = {
-	'_New': {
+	'_NewProductstatus': {
 		locales: {
 			en: {
 				name: 'New Product'
+			}
+		}
+	},
+	'_NewSupplierstatus': {
+		locales: {
+			en: {
+				name: 'New Supplier'
+			}
+		}
+	},
+	'_NewSamplestatus': {
+		locales: {
+			en: {
+				name: 'New Sample'
 			}
 		}
 	},

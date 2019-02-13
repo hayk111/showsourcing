@@ -72,7 +72,12 @@
     editable-label-app {
       width: 100%;
       display: flex;
-      justify-content: space-between;
+			justify-content: space-between;
+
+			&.no-hover:hover {
+				background: none !important;
+				cursor: default !important;
+			}
     }
     margin-right: 16px;
   }
@@ -126,7 +131,6 @@
   }
   &.secondary {
 		background-color: var(--color-secondary);
-		color: white;
   }
   &.primary {
 		background-color: var(--color-primary);

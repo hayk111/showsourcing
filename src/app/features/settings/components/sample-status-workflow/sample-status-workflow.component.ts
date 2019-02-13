@@ -3,6 +3,7 @@ import { CommonModalService } from '~common/modals';
 import { SampleStatusService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, SampleStatus } from '~core/models';
+import { AbstractStatusWorkflowComponent } from '~features/settings/containers/abstract-status-workflow.component';
 
 @Component({
 	selector: 'sample-status-workflow-app',
@@ -10,21 +11,12 @@ import { ERM, SampleStatus } from '~core/models';
 	styleUrls: ['./sample-status-workflow.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleStatusWorkflowComponent implements OnInit {
+export class SampleStatusWorkflowComponent extends AbstractStatusWorkflowComponent<SampleStatus, SampleStatusService> implements OnInit {
 
 	constructor(
 		private sampleStatusSrv: SampleStatusService,
-		private listSrv: ListPageService<SampleStatus, SampleStatusService>,
+		public listSrv: ListPageService<SampleStatus, SampleStatusService>,
 		public commonModalSrv: CommonModalService
-	) { }
-
-	ngOnInit() {
-		this.listSrv.setup({
-			key: ListPageKey.SAMPLE_STATUS,
-			entitySrv: this.sampleStatusSrv,
-			selectParams: { sortBy: 'step', descending: false },
-			entityMetadata: ERM.SAMPLE_STATUS
-		});
-	}
+	) { super(sampleStatusSrv, listSrv, commonModalSrv, ListPageKey.SAMPLE_STATUS, ERM.SAMPLE_STATUS); }
 
 }
