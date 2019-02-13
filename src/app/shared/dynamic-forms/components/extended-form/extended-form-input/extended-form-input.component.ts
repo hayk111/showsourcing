@@ -60,8 +60,11 @@ export class ExtendedFormInputComponent {
 	}
 
 	/** toggle input value from true to false and vice versa */
-	toggleValue() {
-		this.accumulator = !this.accumulator;
+	toggleBoolean() {
+		if (this.accumulator === 'yes')
+			this.accumulator = 'no';
+		else
+			this.accumulator = 'yes';
 		this.onSave();
 	}
 

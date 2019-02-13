@@ -26,6 +26,20 @@
 				(keyup.enter)="editable.close();"/>
     </form-field-app>
 
-  </editable-field-app>
+	</editable-field-app>
+
+
+	<!-- boolean -->
+	<editable-field-app
+		#editable
+		*ngSwitchCase="'boolean'"
+		[inlineLabel]="inlineLabel"
+		[openOnClick]="false"
+		(click)="toggleBoolean()">
+		<label-app>{{ definition.label }}</label-app>
+		<editable-label-app>
+			{{ field?.value || '-' }}
+		</editable-label-app>
+	</editable-field-app>
 
 </ng-container>
