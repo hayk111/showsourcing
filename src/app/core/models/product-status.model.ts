@@ -9,4 +9,6 @@ export class ProductStatus extends Status {
 	}
 }
 
-
+export interface ProductStatusConfig {
+	id: string;
+}

@@ -35,15 +35,10 @@ export class DynamicEditableTextNextComponent {
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 
-	constructor(
-		private cd: ChangeDetectorRef
-	) { }
-
 	onClose(isCancel: boolean) {
 		if (!isCancel) {
 			this.onSave();
 		}
-		this.cd.markForCheck();
 	}
 
 	/** saving the value */

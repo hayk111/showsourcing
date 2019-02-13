@@ -20,7 +20,8 @@
 				#inp
 				inputApp
 				type="text"
-				[(ngModel)]="accumulator"
+				[value]="accumulator"
+				(change)="accumulator = inp.value"
 				(keyup.enter)="editable.close();"/>
     </form-field-app>
 

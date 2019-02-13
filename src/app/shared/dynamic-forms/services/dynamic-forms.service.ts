@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ExtendedField } from '~core/models/extended-field.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomField } from '~shared/dynamic-forms/models';
 import { RegexpApp } from '~utils/regexes';
 
