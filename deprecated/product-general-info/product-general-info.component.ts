@@ -52,14 +52,14 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
-	updateProduct(product: Product, field?: string) {
+	updateProduct(product: Product) {
 		product.id = this.product.id;
 		this.srv.update(product).subscribe();
 	}
 
 	updateProductProp(isCancel: boolean, value: any, prop: string) {
 		if (!isCancel) {
-			this.updateProduct({ [prop]: value }, prop);
+			// this.updateProduct({ [prop]: value }, prop);
 		}
 	}
 

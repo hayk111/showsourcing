@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product, ExtendedFieldDefinition } from '~core/models';
+import { Product, ExtendedFieldDefinition, ExtendedField } from '~core/models';
 import { Observable } from 'rxjs';
 import { ExtendedFieldDefinitionService } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { ProductService } from '~core/entity-services';
+import { stringify } from '@angular/core/src/render3/util';
 
 @Component({
 	selector: 'product-information-app',
@@ -16,10 +18,17 @@ export class ProductInformationComponent implements OnInit {
 	@Output() update = new EventEmitter<Product>();
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
-	constructor(private extendedFieldDefSrv: ExtendedFieldDefinitionService) { }
+	constructor(
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
+		private productSrv: ProductService
+	) { }
 
 	ngOnInit() {
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
+	}
+
+	updateProduct(extendedFields: ExtendedField[]) {
+		this.update.emit({ id: this.product.id, extendedFields });
 	}
 
 }

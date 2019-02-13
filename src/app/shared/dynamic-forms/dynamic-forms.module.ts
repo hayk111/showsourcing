@@ -23,10 +23,8 @@ import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
-import { DynamicFormNextComponent } from './components/dynamic-form-next/dynamic-form-next.component';
-import {
-	DynamicEditableTextNextComponent
-} from './components/dynamic-form-next/dynamic-editable-text-next/dynamic-editable-text-next.component';
+import { ExtendedFormInputComponent } from './components/extended-form/extended-form-input/extended-form-input.component';
+import { ExtendedFormComponent } from './components/extended-form/extended-form.component';
 
 
 
@@ -55,12 +53,12 @@ import {
 		EditableSelectorComponent,
 		InputPackagingComponent,
 		DynamicInputComponent,
-		DynamicFormNextComponent,
-		DynamicEditableTextNextComponent
+		ExtendedFormComponent,
+		ExtendedFormInputComponent
 	],
 	exports: [
 		DynamicFormComponent,
-		DynamicFormNextComponent
+		ExtendedFormComponent
 	]
 })
 export class DynamicFormsModule {

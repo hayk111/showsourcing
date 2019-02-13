@@ -9,9 +9,12 @@
 		</h3>
 	</div>
 
-	<dynamic-form-next-app
+
+	<extended-form-app
 		[definitions]="fieldDefinitions$ | async"
-		[fields]="product.extendedFields">
-	</dynamic-form-next-app>
+		[fields]="product.extendedFields"
+		(update)="updateProduct($event)">
+	</extended-form-app>
 
 </card-app>
+

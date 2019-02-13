@@ -1,12 +1,13 @@
 <ng-container [ngSwitch]="definition.type">
-
 	<!-- default -->
 	<editable-field-app
 		*ngSwitchDefault
 		#editable
 		[inlineLabel]="inlineLabel"
 		(closed)="onClose($event)"
-    (opened)="inp.select();">
+		(opened)="inp.select();">
+
+
 
 		<label-app>{{ definition.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
@@ -20,10 +21,9 @@
 				#inp
 				inputApp
 				type="text"
-				[value]="accumulator"
+				[value]="accumulator || ''"
 				(change)="accumulator = inp.value"
 				(keyup.enter)="editable.close();"/>
-
     </form-field-app>
 
   </editable-field-app>

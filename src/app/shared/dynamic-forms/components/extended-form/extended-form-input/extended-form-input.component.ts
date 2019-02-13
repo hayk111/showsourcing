@@ -3,6 +3,7 @@ import { ExtendedField } from '~core/models/extended-field.model';
 import { ExtendedFieldDefinition } from '~core/models';
 
 
+
 /**
  * Component that selects the correct input and display it as an editable text
  *
@@ -10,16 +11,16 @@ import { ExtendedFieldDefinition } from '~core/models';
  * in case the user cancels.
  */
 @Component({
-	selector: 'dynamic-editable-text-next-app',
-	templateUrl: './dynamic-editable-text-next.component.html',
-	styleUrls: ['./dynamic-editable-text-next.component.scss'],
+	selector: 'extended-form-input-app',
+	templateUrl: './extended-form-input.component.html',
+	styleUrls: ['./extended-form-input.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.oneLine]': 'inlineLabel',
 		'[class.twoLine]': '!inlineLabel'
 	}
 })
-export class DynamicEditableTextNextComponent {
+export class ExtendedFormInputComponent {
 
 	@Input() set field(field: ExtendedField) {
 		if (!field)
@@ -49,7 +50,8 @@ export class DynamicEditableTextNextComponent {
 	/** saving the value */
 	onSave() {
 		this.field.value = this.accumulator;
-		this.update.emit(this.field);
+		const definition = new ExtendedFieldDefinition({ id: this.definition.id });
+		this.update.emit({ ...this.field, definition });
 	}
 
 	/** when the user cancels we put the previous value back in because onClose is gonna be called */

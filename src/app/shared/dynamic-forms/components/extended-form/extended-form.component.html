@@ -1,12 +1,12 @@
 
 <div class="form">
 
-  <dynamic-editable-text-next-app
+  <extended-form-input-app
     *ngFor="let definition of definitions; trackBy: trackByFn"
     [definition]="definition"
     [field]="getFieldForDefinition(definition.id)"
     [inlineLabel]="inlineLabel"
-    (update)="update($event)">
-  </dynamic-editable-text-next-app>
+    (update)="onUpdate($event)">
+  </extended-form-input-app>
 
 </div>
