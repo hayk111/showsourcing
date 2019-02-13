@@ -23,6 +23,7 @@ import { Task } from '~models/task.model';
 import { Team } from '~models/team.model';
 import { User } from '~models/user.model';
 import { ExtendedField } from './extended-field.model';
+import { ExtendedFieldDefinition } from './extended-field-definition.model';
 
 
 export class EntityMetadata {
@@ -63,6 +64,8 @@ export class ERM {
 	static readonly EVENT_DESCRIPTION = new EntityMetadata('event description', 'event descriptions', EventDescription);
 	static readonly EXPORT_REQUEST = new EntityMetadata('export request', 'export requests', ExportRequest);
 	static readonly EXTENDED_FIELD = new EntityMetadata('extended field', 'extended fields', ExtendedField);
+	static readonly EXTENDED_FIELD_DEFINITION = new EntityMetadata(
+		'extended field definition', 'extended field definitions', ExtendedFieldDefinition);
 	static readonly FILE = new EntityMetadata('file', 'files');
 	static readonly HARBOUR = new EntityMetadata('harbour', 'harbours', Harbour);
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);

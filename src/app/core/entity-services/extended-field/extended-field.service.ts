@@ -12,7 +12,7 @@ import { ExtendedFieldQueries } from './extended-field.queries';
 export class ExtendedFieldService extends GlobalService<ExtendedField> {
 
 	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, ExtendedFieldQueries, 'extendedField', 'ExtendedFields');
+		super(apolloState, ExtendedFieldQueries, 'extendedField', 'extendedFields');
 	}
 
 }

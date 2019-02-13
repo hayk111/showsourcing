@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { ExtendedField } from '~core/models/extended-field.model';
+import { ExtendedFieldDefinition } from '~core/models';
 
 
 /**
@@ -21,11 +22,15 @@ import { ExtendedField } from '~core/models/extended-field.model';
 export class DynamicEditableTextNextComponent {
 
 	@Input() set field(field: ExtendedField) {
+		if (!field)
+			field = new ExtendedField();
 		this._field = field;
 		this.accumulator = field.value;
 	}
 	get field() { return this._field; }
 	private _field: ExtendedField;
+
+	@Input() definition: ExtendedFieldDefinition;
 
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;

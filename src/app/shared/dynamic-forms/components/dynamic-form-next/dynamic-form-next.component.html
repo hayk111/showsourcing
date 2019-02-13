@@ -2,8 +2,9 @@
 <div class="form">
 
   <dynamic-editable-text-next-app
-    *ngFor="let field of fields; trackBy: trackByFn"
-    [field]="field"
+    *ngFor="let definition of definitions; trackBy: trackByFn"
+    [definition]="definition"
+    [field]="getFieldForDefinition(definition.id)"
     [inlineLabel]="inlineLabel"
     (update)="update($event)">
   </dynamic-editable-text-next-app>

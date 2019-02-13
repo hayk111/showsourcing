@@ -10,8 +10,8 @@
 	</div>
 
 	<dynamic-form-next-app
-		[fields]="product.extendedFields"
-		(update)="update.emit({ extendedFields: $event })">
+		[definitions]="fieldDefinitions$ | async"
+		[fields]="product.extendedFields">
 	</dynamic-form-next-app>
 
 </card-app>

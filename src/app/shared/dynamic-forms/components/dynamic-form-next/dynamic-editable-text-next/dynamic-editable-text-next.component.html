@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="field.definition.type">
+<ng-container [ngSwitch]="definition.type">
 
 	<!-- default -->
 	<editable-field-app
@@ -8,10 +8,10 @@
 		(closed)="onClose($event)"
     (opened)="inp.select();">
 
-		<label-app>{{ field.definition.label }}</label-app>
+		<label-app>{{ definition.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
-			{{ field.value || '-' }}
+			{{ field?.value || '-' }}
     </editable-label-app>
 
 		<form-field-app class="editable">
@@ -23,6 +23,7 @@
 				[value]="accumulator"
 				(change)="accumulator = inp.value"
 				(keyup.enter)="editable.close();"/>
+
     </form-field-app>
 
   </editable-field-app>
