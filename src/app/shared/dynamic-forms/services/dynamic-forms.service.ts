@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
 import { CustomField } from '~shared/dynamic-forms/models';
 import { RegexpApp } from '~utils/regexes';
 
@@ -47,4 +46,5 @@ export class DynamicFormsService {
 		}
 		return Validators.compose(validators);
 	}
+
 }

@@ -23,6 +23,8 @@ import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
+import { ExtendedFormInputComponent } from './components/extended-form/extended-form-input/extended-form-input.component';
+import { ExtendedFormComponent } from './components/extended-form/extended-form.component';
 
 
 
@@ -39,7 +41,6 @@ import { UtilsModule } from '~shared/utils';
 		UtilsModule,
 		FileModule,
 		ImageModule,
-		NgSelectModule,
 		UserPictureModule
 	],
 	declarations: [
@@ -51,9 +52,14 @@ import { UtilsModule } from '~shared/utils';
 		EditablePackagingComponent,
 		EditableSelectorComponent,
 		InputPackagingComponent,
-		DynamicInputComponent
+		DynamicInputComponent,
+		ExtendedFormComponent,
+		ExtendedFormInputComponent
 	],
-	exports: [DynamicFormComponent]
+	exports: [
+		DynamicFormComponent,
+		ExtendedFormComponent
+	]
 })
 export class DynamicFormsModule {
 

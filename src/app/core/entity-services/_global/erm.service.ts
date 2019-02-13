@@ -30,6 +30,8 @@ import { HarbourService } from '../harbour/harbour.service';
 import { ImageService } from '../image/image.service';
 import { IncoTermService } from '../inco-term/inco-term.service';
 import { GlobalService } from './global.service';
+import { ExtendedFieldService } from '../extended-field/extended-field.service';
+import { ExtendedFieldDefinitionService } from '../extended-field-definition/extended-field-definition.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -46,6 +48,8 @@ export class ERMService {
 		private currencyService: CurrencyService,
 		private eventService: EventService,
 		private exportRequestService: ExportRequestService,
+		private extendedFieldSrv: ExtendedFieldService,
+		private extendedFieldDefinitionSrv: ExtendedFieldDefinitionService,
 		private harbourService: HarbourService,
 		private imageService: ImageService,
 		private imageUploadRequestService: ImageUploadRequestService,
@@ -88,6 +92,10 @@ export class ERMService {
 				return this.eventService;
 			case 'ExportRequest':
 				return this.exportRequestService;
+			case 'ExtendedField':
+				return this.extendedFieldSrv;
+			case 'ExtendedFieldDefinition':
+				return this.extendedFieldDefinitionSrv;
 			case 'Harbour':
 				return this.harbourService;
 			case 'Image':
@@ -143,6 +151,10 @@ export class ERMService {
 				return this.eventService;
 			case ERM.EXPORT_REQUEST:
 				return this.exportRequestService;
+			case ERM.EXTENDED_FIELD:
+				return this.extendedFieldSrv;
+			case ERM.EXTENDED_FIELD_DEFINITION:
+				return this.extendedFieldDefinitionSrv;
 			case ERM.HARBOUR:
 				return this.harbourService;
 			case ERM.IMAGE:

@@ -55,32 +55,31 @@ export class TeamClientInitializer extends AbstractApolloClient {
 
 	createMissingSubscription(): Observable<any> {
 		const toSubSet = new Set([
-			'attachment',
-			'attachment upload request',
-			'category',
-			'contact',
-			'comment',
-			'event',
-			// 'event description',
-			'export request',
-			'invitation',
-			'image upload request',
-			'product',
-			'product status',
-			'project',
-			'sample',
-			'sample status',
-			'supplier',
-			'supplier status',
-			'supplier type',
-			'tag',
-			'task',
-			'team',
-			'team user',
-			'user'
+			ERM.ATTACHMENT,
+			ERM.ATTACHMENT_UPLOAD_REQUEST,
+			ERM.CATEGORY,
+			ERM.CONTACT,
+			ERM.COMMENT,
+			ERM.EVENT,
+			ERM.EXPORT_REQUEST,
+			ERM.EXTENDED_FIELD_DEFINITION,
+			ERM.INVITATION,
+			ERM.IMAGE_UPLOAD_REQUEST,
+			ERM.PRODUCT,
+			ERM.PRODUCT_STATUS,
+			ERM.PROJECT,
+			ERM.SAMPLE,
+			ERM.SAMPLE_STATUS,
+			ERM.SUPPLIER,
+			ERM.SUPPLIER_STATUS,
+			ERM.SUPPLIER_TYPE,
+			ERM.TAG,
+			ERM.TASK,
+			ERM.TEAM,
+			ERM.TEAM_USER,
+			ERM.USER
 		]);
 		const newSubs = Array.from(toSubSet)
-			.map((name: string) => ERM.getEntityMetadata(name))
 			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.TEAM));
 		return forkJoin(newSubs);
 	}

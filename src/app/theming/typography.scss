@@ -1,8 +1,22 @@
 /* */
 
-// @import url('https://fonts.googleapis.com/css?family=Source Sans Pro');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
 
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url('../../assets/fonts/SourceSansPro-Regular.ttf');
+}
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url('../../assets/fonts/SourceSansPro-SemiBold.ttf');
+	weight: 600;
+}
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url('../../assets/fonts/SourceSansPro-Italic.ttf');
+	font-style: italic;
+}
 :root {
 	--font-size-xxs: 8px;
 	--font-size-xs: 10px;

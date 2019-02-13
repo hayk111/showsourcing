@@ -1,6 +1,4 @@
 
-
-
 export * from './_entity.model';
 export * from './_erm.enum';
 export * from './app-image.model';
@@ -18,6 +16,8 @@ export * from './currency.model';
 export * from './event-description.model';
 export * from './event.model';
 export * from './export-request.model';
+export * from './extended-field-definition.model';
+export * from './extended-field.model';
 export * from './external-request.model';
 export * from './harbour.model';
 export * from './image-upload-request.model';
