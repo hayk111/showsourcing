@@ -1,30 +1,35 @@
 
 	<sub-panel-app
-		title="Team Members"
-		buttonName="Invite Collaborator"
+		[title]="'Team Members'"
 		[hasSwitch]="false"
 		[hasFilter]="false"
 		[hasCreate]="teamOwner"
 		[buttonIcon]="false"
-		(search)="listSrv.search($event)"
-		(buttonClick)="openInviteDialog()">
+		(search)="listSrv.search($event)">
 
-		<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">
-			<context-menu-trigger-app class="button flex pointer">
-				<div class="text">Selection</div>
-				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
-			</context-menu-trigger-app>
-			<context-menu-item-app (click)="updateAccessTypeSelected({ accessType: 'TeamMember' })">
-				Team Member
-			</context-menu-item-app>
-			<context-menu-item-app (click)="updateAccessTypeSelected({ accessType: 'Contributor' })">
-				Contributor
-			</context-menu-item-app>
-			<context-menu-divider-app></context-menu-divider-app>
-			<context-menu-item-app class="remove-user" (click)="listSrv.deleteSelected()">
-				<span>Remove User</span>
-			</context-menu-item-app>
-		</context-menu-app>
+		<sub-panel-right-item-app>
+
+			<button [disabled]="!teamOwner" (click)="openInviteDialog()">Invite Collaborator</button>
+
+			<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">
+				<context-menu-trigger-app class="button flex pointer">
+					<div class="text">Selection</div>
+					<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+				</context-menu-trigger-app>
+				<context-menu-item-app (click)="updateAccessTypeSelected({ accessType: 'TeamMember' })">
+					Team Member
+				</context-menu-item-app>
+				<context-menu-item-app (click)="updateAccessTypeSelected({ accessType: 'Contributor' })">
+					Contributor
+				</context-menu-item-app>
+				<context-menu-divider-app></context-menu-divider-app>
+				<context-menu-item-app class="remove-user" (click)="listSrv.deleteSelected()">
+					<span>Remove User</span>
+				</context-menu-item-app>
+			</context-menu-app>
+
+		</sub-panel-right-item-app>
+
 
 	</sub-panel-app>
 

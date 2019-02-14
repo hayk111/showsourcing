@@ -9,9 +9,9 @@ export const environment = {
 	version: '0.0.3',
 	production: false,
 	staging: true,
-	graphqlUrl: 'wss://ros-sta.showsourcing.com/graphql',
-	graphqlAuthUrl: 'https://ros-sta.showsourcing.com/auth',
-	apiUrl: 'https://ros-sta.showsourcing.com',
+	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
+	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',
+	apiUrl: 'https://services.showsourcing.com',
 	getStreamKey: '7mxs7fsf47nu',
 	LOG_LEVEL: LogLevel.DEBUG
 };
