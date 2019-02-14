@@ -1,13 +1,9 @@
 context-menu-trigger-app {
-	width: 100%;
+	margin-left: var(--spacing-ms);
 	display: flex;
-	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 	background-color: var(--color-primary);
-	padding-left: 25px;
-	padding-right: 10px;
-	margin-right: 15px;
 
 	.text {
 		color: #fff;
