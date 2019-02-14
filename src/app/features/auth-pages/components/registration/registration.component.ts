@@ -1,13 +1,12 @@
-import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, AsyncValidator } from '@angular/forms';
-
-import { Observable, Subject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { AutoUnsub } from '~utils';
-import { takeUntil, take, catchError, map, tap } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '~entity-services';
-import { AuthFormElement, AuthFormButton } from '~features/auth-pages/components/auth-form-base/auth-form';
+import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'registration-app',
@@ -25,10 +24,8 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private authSrv: AuthenticationService,
-		private fb: FormBuilder,
 		private router: Router,
 		private route: ActivatedRoute,
-		private userSrv: UserService
 	) {
 		super();
 	}
@@ -96,7 +93,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 				takeUntil(this._destroy$),
 				take(1),
 			).subscribe(
-				r => this.router.navigate(['']),
+				r => this.router.navigateByUrl(this.queryParams.returnUrl),
 				e => this.onError(e, form)
 			);
 		}

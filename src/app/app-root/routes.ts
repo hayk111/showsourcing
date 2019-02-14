@@ -29,7 +29,8 @@ export const routes: Array<Route> = [
 	{
 		path: 'invitation',
 		component: GuestTemplateComponent,
-		loadChildren: 'app/features/invitation/invitation.module#InvitationModule'
+		loadChildren: 'app/features/invitation/invitation.module#InvitationModule',
+		data: { showLogout: true }
 	},
 	{
 		path: '',
