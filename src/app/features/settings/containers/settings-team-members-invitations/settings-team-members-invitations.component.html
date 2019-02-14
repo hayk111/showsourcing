@@ -22,7 +22,7 @@
 		(unselect)="listSrv.unselectOne($event, false)"
 		(selectAll)="listSrv.selectAll($event, false)"
     (unselectAll)="listSrv.unselectAll()"
-		(delete)="listSrv.deleteOne($event)">
+		(delete)="listSrv.deleteOne($event, true)">
 	</invitations-list-view-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">
