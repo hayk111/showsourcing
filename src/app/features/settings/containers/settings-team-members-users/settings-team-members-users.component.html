@@ -42,7 +42,7 @@
 		(selectAll)="listSrv.selectAll($event, false)"
     (unselectAll)="listSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
-		(delete)="listSrv.deleteOne($event, true)">
+		(delete)="listSrv.deleteOne($event)">
 	</team-members-list-view-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">

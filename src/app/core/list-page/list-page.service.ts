@@ -216,7 +216,7 @@ export class ListPageService
 		return updated;
 	}
 
-	deleteOne(id: string, refetch = false) {
+	deleteOne(id: string, refetch = true) {
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
@@ -225,7 +225,7 @@ export class ListPageService
 			).subscribe();
 	}
 
-	deleteSelected(refetch = false) {
+	deleteSelected(refetch = true) {
 		const itemIds = this.getSelectedIds();
 		const text = `Delete ${itemIds.length} `
 			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural);
