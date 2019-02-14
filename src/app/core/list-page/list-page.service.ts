@@ -216,7 +216,11 @@ export class ListPageService
 		return updated;
 	}
 
-	deleteOne(id: string, refetch = true) {
+	// entities with audit have the flag deleted, so when they are deleted they are actually updated
+	// then the query list gets "refetched" automatically since a value inside got updated
+	// but for entities who do NOT have audith we need to refresh it manually since we are deleting it
+	// and not updating it
+	deleteOne(id: string, refetch = false) {
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
@@ -225,7 +229,8 @@ export class ListPageService
 			).subscribe();
 	}
 
-	deleteSelected(refetch = true) {
+	// read comment on deleteOne function
+	deleteSelected(refetch = false) {
 		const itemIds = this.getSelectedIds();
 		const text = `Delete ${itemIds.length} `
 			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural);
