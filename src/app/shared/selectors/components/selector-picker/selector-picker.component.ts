@@ -129,6 +129,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.searched$.next(this.searchTxt);
 	}
 
+	resetInput() {
+		this.inp.control.reset();
+		this.inp.focus();
+		this.search('');
+	}
+
 	search(text) {
 		this.searchTxt = text.trim();
 		this.hasDB ? this.selectorSrv.search(this.type, this.searchTxt) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
@@ -278,6 +284,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			const label = this.keyManager.activeItem.getLabel();
 			if (label === 'create-button') this.create();
 			else this.onSelect(label);
+			this.resetInput();
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
 			let aIndex = this.keyManager.activeItemIndex;
 			const items = this.elementRefItems.toArray();
