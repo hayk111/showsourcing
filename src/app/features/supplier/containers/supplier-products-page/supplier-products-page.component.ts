@@ -36,7 +36,7 @@ export class SupplierProductsPageComponent extends TrackingComponent implements 
 		this.listSrv.setup({
 			key: `supplier-products-${this.supplierId}`,
 			entitySrv: this.productSrv,
-			searchedFields: ['name'],
+			searchedFields: ['name', 'description'],
 			selectParams: {
 				query: `supplier.id == "${this.supplierId}" AND archived == false`,
 			},
