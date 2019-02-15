@@ -33,6 +33,7 @@ export class SampleCardComponent extends TrackingComponent implements OnInit, Af
 	@Output() select = new EventEmitter<any>();
 	/** Trigger the event when the element is unselected via the checkbox */
 	@Output() unselect = new EventEmitter<any>();
+	@Output() previewClick = new EventEmitter<Sample>();
 
 	/** An interaction (check or unckeck) occurred on the checkbox */
 	checkboxAction = false;
