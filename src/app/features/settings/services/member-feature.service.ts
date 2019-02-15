@@ -17,7 +17,7 @@ export class MemberFeatureService extends TeamUserService {
 	selectTeamOwner() {
 		return zip(
 			this.userSrv.selectUser(),
-			this.teamSrv.teamSelected$
+			this.teamSrv.teamSelectedTeam$
 		).pipe(
 			map(([user, team]) => {
 				return {

@@ -10,8 +10,18 @@ import { Invitation, User } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvitationsListViewComponent extends ListViewComponent<Invitation> {
+
 	@Input() teamOwner: boolean;
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
+	isSelectableFn: Function;
 
+	constructor() {
+		super();
+		this.isSelectableFn = (item) => this.isSelectable(item);
+	}
+
+	isSelectable(invitation: Invitation) {
+		return (this.teamOwner);
+	}
 }

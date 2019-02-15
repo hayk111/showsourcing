@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
-import { InvitationService, UserService } from '~entity-services';
+import { InvitationService, UserService, TeamService } from '~entity-services';
 import { Invitation } from '~models';
+import { zip } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class InvitationFeatureService extends InvitationService {
@@ -10,9 +11,24 @@ export class InvitationFeatureService extends InvitationService {
 	constructor(
 		protected apolloState: ApolloStateService,
 		private invitationSrv: InvitationService,
+		private teamSrv: TeamService,
 		protected userSrv: UserService
 	) {
 		super(apolloState);
+	}
+
+	selectTeamOwner() {
+		return zip(
+			this.userSrv.selectUser(),
+			this.teamSrv.teamSelectedTeam$
+		).pipe(
+			map(([user, team]) => {
+				return {
+					teamOwner: (team && team.ownerUser && team.ownerUser.id === user.id),
+					user
+				};
+			})
+		);
 	}
 
 	getInviter() {

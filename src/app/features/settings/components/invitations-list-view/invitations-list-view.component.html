@@ -3,6 +3,7 @@
   [contextualMenu]="contextualMenuTemplate"
 	[pending]="pending"
 	[selected]="selection"
+	[isSelectable]="isSelectableFn"
 	[selectionDisabled]="true"
   placeholder="No invitation"
 	(selectOne)="select.emit($event)"
@@ -38,20 +39,20 @@
 		let-row="row"
 		sortBy="accessType"
 		width="200">
-		<context-menu-app *ngIf="teamOwner && (row.user.id !== user.id)" [closeOnScroll]="true">
+		<context-menu-app *ngIf="teamOwner" [closeOnScroll]="true">
 			<context-menu-trigger-app class="flex pointer">
 				<div class="text" *ngIf="row.accessType === 'TeamMember'"> Team Member </div>
 				<div class="text" *ngIf="row.accessType === 'Contributor'"> Contributor </div>
 				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'TeamMember' })">
+			<context-menu-item-app (click)="accessTypeUpdated.emit({ invitation: row, accessType: 'TeamMember' })">
 				Team Member
 			</context-menu-item-app>
-			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'Contributor' })">
+			<context-menu-item-app (click)="accessTypeUpdated.emit({ invitation: row, accessType: 'Contributor' })">
 				Contributor
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
-			<context-menu-item-app class="remove-user" (click)="delete.emit(row)">
+			<context-menu-item-app class="remove-user" (click)="delete.emit(row.id)">
 				<span>Remove Invitation</span>
 			</context-menu-item-app>
 	   </context-menu-app>

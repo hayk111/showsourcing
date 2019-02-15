@@ -1,19 +1,22 @@
 
 <sub-panel-app
 	title="Invitations"
-	buttonName="Invite Collaborator"
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	[hasCreate]="true"
 	[buttonIcon]="false"
-	(search)="listSrv.search($event)"
-	(buttonClick)="openInviteDialog()">
+	(search)="listSrv.search($event)">
 
+	<sub-panel-right-item-app>
+		<button [disabled]="!teamOwner" (click)="openInviteDialog()">Invite Collaborator</button>
+	</sub-panel-right-item-app>
 </sub-panel-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as invitations">
 	<invitations-list-view-app
 		[rows]="invitations"
+		[teamOwner]="teamOwner"
+		[user]="user"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
 		(bottomReached)="listSrv.loadMore()"
@@ -22,6 +25,7 @@
 		(unselect)="listSrv.unselectOne($event, false)"
 		(selectAll)="listSrv.selectAll($event, false)"
     (unselectAll)="listSrv.unselectAll()"
+		(accessTypeUpdated)="updateAccessType($event)"
 		(delete)="listSrv.deleteOne($event, true)">
 	</invitations-list-view-app>
 

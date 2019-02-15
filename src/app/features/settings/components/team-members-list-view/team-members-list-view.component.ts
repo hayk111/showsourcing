@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { TeamUser, User } from '~models';
 import { ListViewComponent } from '~core/list-page/list-view.component';
+import { TeamUser, User } from '~models';
 
 
 @Component({
@@ -10,6 +10,7 @@ import { ListViewComponent } from '~core/list-page/list-view.component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeamMembersListViewComponent extends ListViewComponent<TeamUser> {
+
 	@Input() teamOwner: boolean;
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
