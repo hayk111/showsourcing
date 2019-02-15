@@ -52,8 +52,6 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 	}
 
 	onViewChange(view: 'list' | 'card') {
-		// Update sorting according to the selected view
-		this.listSrv.sort({ sortBy: 'category.name', descending: false });
 		this.listSrv.changeView(view);
 	}
 
