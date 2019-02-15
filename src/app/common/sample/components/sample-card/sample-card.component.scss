@@ -69,3 +69,26 @@
 		}
 	}
 }
+
+.imgCntr {
+	position: relative;
+	img-app {
+		position: absolute;
+		width: 68px;
+		height: 68px;
+	}
+	.preview {
+		display: none;
+		position: absolute;
+		color: white;
+		font-weight: 600;
+		top: 24px;
+    left: 10px;
+	}
+	&:hover {
+		.preview {
+			display: block;
+		}
+	}
+}
+

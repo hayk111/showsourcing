@@ -1,10 +1,14 @@
 <div class="card-container flex" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
 	<div class="left">
-		<img-app
-			[image]="sample?.images?.length ? sample?.images[0] : null"
-			type="sample"
-			size="s">
-		</img-app>
+
+		<div class="imgCntr" (click)="previewClick.emit(sample)">
+			<img-app
+				[image]="sample?.images?.length ? sample?.images[0] : null"
+				type="sample"
+				size="s">		</img-app>
+			<div class="preview">preview</div>
+		</div>
+
 		<checkbox-app
 			*ngIf="checked || hovered"
 			[checked]="checked"
@@ -13,7 +17,7 @@
 		</checkbox-app>
 	</div>
 	<div class="right">
-		<h3 class="ms"> {{ sample?.reference || 'Undefined Sample Reference' }} </h3>
+		<h3 class="ms"> {{ sample?.name || 'Unnamed' }} </h3>
 		<div class="center-section flex">
 			<div class="name">{{ sample?.name }}</div>
 			<div *ngIf="sample?.supplier" class="supplier">{{ sample?.supplier?.name }}</div>
