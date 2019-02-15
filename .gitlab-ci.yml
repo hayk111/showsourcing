@@ -9,6 +9,7 @@ app-install:
   stage: install
   script:
     - npm install
+    - pip install awscli
   artifacts:
     paths:
       - node_modules
@@ -22,7 +23,6 @@ app-deploy-dev:
   stage: deploy
   image: python:latest
   script:
-    - pip install awscli
     - npm run build --configuration=dev
     - cd dist/showsourcing
     - aws s3 sync . s3://app-dev.showsourcing.com --delete
@@ -35,10 +35,9 @@ app-deploy-sta:
   stage: deploy
   image: python:latest
   script:
-    - pip install awscli
     - npm run build --configuration=sta
     - cd dist/showsourcing
     - aws s3 sync . s3://app-sta.showsourcing.com --delete
     - aws s3 cp s3://app-sta.showsourcing.com/index.html s3://app-sta.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
   only:
-    - prod
+    - staging
