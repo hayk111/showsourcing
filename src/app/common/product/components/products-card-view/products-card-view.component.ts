@@ -29,7 +29,6 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 
 		let groupedObj;
 
-		console.log(sort.sortBy);
 		switch (sort.sortBy) {
 			case 'category.name':
 			case 'supplier.name':
@@ -49,8 +48,6 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 				groupedObj[sort.sortBy] = this.rows;
 				break;
 		}
-		console.log(groupedObj);
-
 
 		return Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
 	}
