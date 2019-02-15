@@ -33,12 +33,21 @@ image-previewer-2-app {
 }
 
 @media only screen and (max-width: 1200px) {
-	.conent {
-		width: 810px;
-		justify-content: center;
-	}
 
-	.left {
-		display: none;
+	$width-right: 600px;
+	$width-left: 452px;
+
+	.content {
+		margin-left: auto;
+		margin-right: auto;
+		width: $width-right + $width-left;
+
+		.left {
+			width: $width-left;
+		}
+
+		.right {
+			width: $width-right;
+		}
 	}
 }
