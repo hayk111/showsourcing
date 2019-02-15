@@ -111,3 +111,9 @@ action-bar-app {
 		margin-right: var(--spacing-ms);
 	}
 }
+
+@media only screen and (max-width: 1000px) {
+	.supplier-container {
+		display: block;
+	}
+}
