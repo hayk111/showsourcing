@@ -38,7 +38,7 @@ export class TeamService extends GlobalService<Team> {
 
 	// since the owwnerUser field is empty on the User realm, we need this observable in order to
 	// identify on settings/team, limits on the contributors and team members
-	teamSelectedTeam$ = this.teamSelectionEvent$.pipe(
+	teamSelectedTeamRealm$ = this.teamSelectionEvent$.pipe(
 		filter(team => !!team),
 		switchMap(team => this.selectOne(team.id, '', Client.TEAM)),
 		shareReplay(1)
