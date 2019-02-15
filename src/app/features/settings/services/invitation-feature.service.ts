@@ -20,7 +20,7 @@ export class InvitationFeatureService extends InvitationService {
 	selectTeamOwner() {
 		return zip(
 			this.userSrv.selectUser(),
-			this.teamSrv.teamSelectedTeam$
+			this.teamSrv.teamSelectedTeamRealm$
 		).pipe(
 			map(([user, team]) => {
 				return {
