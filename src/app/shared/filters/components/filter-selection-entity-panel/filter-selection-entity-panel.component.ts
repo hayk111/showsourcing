@@ -56,7 +56,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		// we get the correct service
 		const srv = this.ermSrv.getGlobalService(erm);
 		// we get the items, but we just need the id and the name
-		this.listResult = srv.getListQuery({ take: 40, sortBy: 'name' }, 'id, name');
+		this.listResult = srv.getListQuery({ take: 40, sortBy: 'name', descending: false }, 'id, name');
 		this.choices$ = this.listResult.items$.pipe(
 			tap(_ => this.pending$.next(false)),
 		);
@@ -66,7 +66,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		const srv = this.ermSrv.getGlobalService(ERM.USER);
 		// we get the items, but we just need the id and the name
 		this.listResult = srv.getListQuery(
-			{ take: 40, sortBy: 'firstName' }, 'id, firstName, lastName ',
+			{ take: 40, sortBy: 'firstName', descending: false }, 'id, firstName, lastName ',
 			Client.TEAM
 		);
 		this.choices$ = this.listResult.items$.pipe(
@@ -79,7 +79,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		const srv = this.ermSrv.getGlobalService(ERM.EVENT);
 		// we get the items, but we just need the id and the name
 		this.listResult = srv.getListQuery(
-			{ take: 40, sortBy: 'description.name' }, 'id, name, description { id, name }',
+			{ take: 40, sortBy: 'description.name', descending: false }, 'id, name, description { id, name }',
 			Client.TEAM
 		);
 		this.choices$ = this.listResult.items$.pipe(
@@ -114,7 +114,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	loadMore() {
 		this.choices$.pipe(take(1)).pipe(
 			switchMap(choices => this.listResult.fetchMore())
-		);
+		).subscribe();
 	}
 
 	onItemAdded(entity) {
