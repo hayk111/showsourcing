@@ -35,11 +35,11 @@
     Clear All
   </side-panel-action-app>
 
-  <filter-selection-entity-panel-app
+	<filter-selection-entity-panel-app
+		*ngIf="view === 'SELECTION'"
     [type]="typeSelected"
     [selected]="filterList.asByType().get(typeSelected)"
     (filterAdded)="addFilter($event)"
-    (filterRemoved)="removeFilter($event)"
-    *ngIf="view === 'SELECTION'">
+    (filterRemoved)="removeFilter($event)">
   </filter-selection-entity-panel-app>
 </side-panel-app>
