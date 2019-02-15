@@ -17,39 +17,10 @@ app-install:
     - staging
 
 
-# staging deployment
-app-staging:
-  stage: staging
-  image: python:latest
-  dependencies:
-    - app-build-staging
-  script:
-    - pip install awscli
-    - cd dist/showsourcing
-    - aws s3 sync . s3://app-sta.showsourcing.com --delete
-    - aws s3 cp s3://app-sta.showsourcing.com/index.html s3://app-sta.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
-  only:
-    - master
-
-# acc deployment
-app-development:
-  stage: deploy
-  image: python:latest
-  dependencies:
-    - app-build
-  script:
-    - pip install awscli
-    - cd dist/showsourcing
-    - aws s3 sync . s3://app-acc.showsourcing.com --delete
-  only:
-    - acceptance
-
 # dev deployment
 app-deploy-dev:
   stage: deploy
   image: python:latest
-  dependencies:
-    - app-build
   script:
     - pip install awscli
     - npm run build --configuration=dev
@@ -63,8 +34,6 @@ app-deploy-dev:
 app-deploy-sta:
   stage: deploy
   image: python:latest
-  dependencies:
-    - app-build
   script:
     - pip install awscli
     - npm run build --configuration=sta
