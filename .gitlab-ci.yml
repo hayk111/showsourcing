@@ -9,35 +9,74 @@ app-install:
   stage: install
   script:
     - npm install
-    - pip install awscli
   artifacts:
     paths:
       - node_modules
   only:
-    - development
-    - staging
+    - master
+    - production
+    - acceptance
 
-
-# dev deployment
-app-deploy-dev:
-  stage: deploy
-  image: python:latest
+# acc & prod build
+app-build:
+  stage: build
+  artifacts:
+    paths:
+      - dist/
   script:
-    - npm run build --configuration=dev
-    - cd dist/showsourcing
-    - aws s3 sync . s3://app-dev.showsourcing.com --delete
-    - aws s3 cp s3://app-dev.showsourcing.com/index.html s3://app-dev.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
+    - npm run build
   only:
-    - development
+    - production
+    - acceptance
 
-# sta deployment
-app-deploy-sta:
-  stage: deploy
-  image: python:latest
+# staging build
+app-build-staging:
+  stage: build
+  artifacts:
+    paths:
+      - dist/
   script:
-    - npm run build --configuration=sta
+    - npm run build:sta
+  only:
+    - master
+
+# staging deployment
+app-staging:
+  stage: staging
+  image: python:latest
+  dependencies:
+    - app-build-staging
+  script:
+    - pip install awscli
     - cd dist/showsourcing
     - aws s3 sync . s3://app-sta.showsourcing.com --delete
     - aws s3 cp s3://app-sta.showsourcing.com/index.html s3://app-sta.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
   only:
-    - staging
+    - master
+
+# acc deployment
+app-acceptance:
+  stage: deploy
+  image: python:latest
+  dependencies:
+    - app-build
+  script:
+    - pip install awscli
+    - cd dist/showsourcing
+    - aws s3 sync . s3://app-acc.showsourcing.com --delete
+  only:
+    - acceptance
+
+# prod deployment
+app-deploy:
+  stage: deploy
+  image: python:latest
+  dependencies:
+    - app-build
+  script:
+    - pip install awscli
+    - cd dist/showsourcing
+    - aws s3 sync . s3://app2.showsourcing.com --delete
+    - aws s3 cp s3://app2.showsourcing.com/index.html s3://app2.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
+  only:
+    - prod
