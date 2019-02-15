@@ -67,6 +67,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		const statuses$ = this.sampleStatusSrv
 			.queryAll(undefined, {
 				query: 'category != "refused" AND category != "inspiration"',
+				sortBy: 'step',
 				descending: false
 			}).pipe(
 				first(),
