@@ -53,7 +53,7 @@ export class DashboardService {
 
 	getCountProductsNeedReview(): Observable<number> {
 		// products that have no status are the products that need review..
-		return this.productSrv.queryCount('archived == false ').pipe(first());
+		return this.productSrv.queryCount('status == null && archived == false ').pipe(first());
 	}
 
 	getCountProductsInWorkflow(): Observable<number> {
