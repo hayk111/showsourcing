@@ -83,7 +83,6 @@ export class ActivityService {
 
 	private getNextFeedResult(feedName: string, feedId: string, token: string, prev: GetStreamGroup[] | GetStreamActivity[])
 		: Observable<GetStreamGroup[] | GetStreamActivity[]> {
-		debugger;
 		if (prev && prev.length === 0)
 			return of([]);
 		// we have a feedname like team:id but we need to do client.feed('team', 'id');
