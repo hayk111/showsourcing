@@ -53,9 +53,9 @@
 						</div>
 					</div>
 					<div *ngSwitchCase="'tag'">
-						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
+						<div class="comparison-cell flexWrap" *ngFor="let value of comparison.data; trackBy: trackByFn">
 							<span *ngFor="let tag of value; let last = last; trackBy: trackByFn">
-								{{ tag.name }}{{ last ? '' : ', ' }}
+								{{ tag.name }}{{ last ? '' : ',&nbsp;' }}
 							</span>
 						</div>
 					</div>
