@@ -19,7 +19,7 @@ if [ -z "$ENDPOINT" ]
 			2) ENDPOINT="app-dev.showsourcing.com";;
 			3) ENDPOINT="app-sta.showsourcing.com";;
 			4) ENDPOINT="app2.showsourcing.com";; # --region us-east-2
-			5) ENDPOINT="app.showsourcing.com";;
+			5) ENDPOINT="app.showsourcing.com";; # --region eu-central-1
 			*) invalid option;;
     esac
 fi
