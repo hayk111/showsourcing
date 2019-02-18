@@ -1,41 +1,25 @@
-
 <preview-app cdk-scrollable *ngIf="product$ | async">
 	<!-- Banner -->
 	<preview-banner-app (closed)="close.emit()">
-		<preview-carousel-app
-			[entity]="product"
-			[entityMD]="erm.SUPPLIER"
-			[images]="product?.images"
-			objectFit="cover">
+		<preview-carousel-app [entity]="product" [entityMD]="erm.SUPPLIER" [images]="product?.images" objectFit="cover">
 		</preview-carousel-app>
 	</preview-banner-app>
 
 	<!-- Header -->
-	<preview-header-app
-		[entityMD]="erm.PRODUCT"
-		[entity]="product"
-		(update)="update($event, 'name')"
+	<preview-header-app [entityMD]="erm.PRODUCT" [entity]="product" (update)="update($event, 'name')"
 		(statusUpdated)="statusUpdated.emit($event)">
 
 		<!-- Price -->
-		<price-with-quantity-app
-			*ngIf="product?.price?.value"
-			[product]="product"
+		<price-with-quantity-app *ngIf="product?.price?.value" [product]="product"
 			(updateField)="update($event.newValue,  $event.field)">
 		</price-with-quantity-app>
 
 		<!-- Badge supplier -->
-		<preview-badge-app
-			[badge]="erm.SUPPLIER"
-			[value]="product?.supplier?.name"
-			(update)="update($event, 'supplier')">
+		<preview-badge-app [badge]="erm.SUPPLIER" [value]="product?.supplier?.name" (update)="update($event, 'supplier')">
 		</preview-badge-app>
 
 		<!-- Badge category -->
-		<preview-badge-app
-			[badge]="erm.CATEGORY"
-			[value]="product?.category"
-			(update)="update($event, 'category')">
+		<preview-badge-app [badge]="erm.CATEGORY" [value]="product?.category" (update)="update($event, 'category')">
 		</preview-badge-app>
 
 	</preview-header-app>
@@ -51,42 +35,37 @@
 
 	<!-- Description -->
 	<preview-section-app [title]="'Description'">
-		<input-description-app
-			[description]="product?.description"
-			(update)="update($event, 'description')">
+		<input-description-app [description]="product?.description" (update)="update($event, 'description')">
 		</input-description-app>
 	</preview-section-app>
 
 	<!-- Tags -->
 	<preview-section-app [title]="'Tags'">
-		<input-badge-selector-app
-			[value]="product?.tags"
-			type="tag"
-			(change)="update($event, 'tags')">
+		<input-badge-selector-app [value]="product?.tags" type="tag" (change)="update($event, 'tags')">
 		</input-badge-selector-app>
 	</preview-section-app>
 
 	<!-- Product details -->
 	<preview-section-app [title]="'Product Details'">
-		<dynamic-form-app
-			[inlineLabel]="true"
-			[fields]="customFields"
-			[value]="product"
-			[colAmount]="1"
+		<dynamic-form-app [inlineLabel]="true" [fields]="customFields" [value]="product" [colAmount]="1"
 			(update)="updateProduct($event)">
 		</dynamic-form-app>
 	</preview-section-app>
 
 	<!-- Trading information -->
 	<preview-section-app [title]="'Trading Information'">
-		<dynamic-form-app
-			[inlineLabel]="true"
-			[fields]="customFields2"
-			[value]="product"
-			[colAmount]="1"
+		<dynamic-form-app [inlineLabel]="true" [fields]="customFields2" [value]="product" [colAmount]="1"
 			(update)="updateProduct($event)">
 		</dynamic-form-app>
 	</preview-section-app>
+
+	<!-- Extended Fields -->
+	<preview-section-app [title]="'Extended Fields'">
+		<extended-form-app inlineLabel="true" [definitions]="fieldDefinitions$ | async" [fields]="product.extendedFields"
+			(update)="updateProduct($event)">
+		</extended-form-app>
+	</preview-section-app>
+
 
 	<!-- Activity -->
 	<preview-section-app>
@@ -95,10 +74,9 @@
 
 	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
 
-	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)" />
 </preview-app>
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>
 </ng-template>
-

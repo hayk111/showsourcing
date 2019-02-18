@@ -94,7 +94,7 @@
 
 		<editable-label-app [vAlign]="false">
 			<span class="fs-s" *ngIf="getPrice()">{{ getPrice().currency | const : 'currency' : 'symbol'}}</span>
-			<span class="mg-xs spacer"></span>
+			<span class="mg-xs spacer" *ngIf="getPrice()"></span>
 			<span>{{ getPrice() !== undefined ? (getPrice().value / 10000) : '-' }}</span>
 		</editable-label-app>
 

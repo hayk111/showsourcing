@@ -13,6 +13,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 	// tslint:disable-next-line:max-line-length
 	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"archived == false") { ... on ProductCollection { count }}`;
 	static readonly comments = `comments { id, text, ${SupplierQueries.createdBy}, creationDate }`;
+	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order }}`;
+
 
 	static readonly one = `
 			name,
@@ -39,6 +41,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 			${SupplierQueries.attachments}
 			${SupplierQueries.tags}
 			${SupplierQueries.productsLinked}
+			${SupplierQueries.extendedFields}
 		`;
 
 	static readonly many = `
