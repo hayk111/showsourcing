@@ -1,4 +1,11 @@
 export const statusMap = {
+	'_New': {
+		locales: {
+			en: {
+				name: 'New Product'
+			}
+		}
+	},
 	'_NewProductstatus': {
 		locales: {
 			en: {

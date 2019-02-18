@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { ProductService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -36,7 +36,8 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 	constructor(
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,
-		public listSrv: ListPageService<Product, ProductService>
+		public listSrv: ListPageService<Product, ProductService>,
+		public elem: ElementRef
 	) {
 		super();
 	}
@@ -49,6 +50,7 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
 		});
+		console.log(this.elem);
 	}
 
 	onViewChange(view: 'list' | 'card') {
