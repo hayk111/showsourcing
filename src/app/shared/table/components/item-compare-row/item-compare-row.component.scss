@@ -1,17 +1,19 @@
 
 $cell-width: 200px;
+$header-height: 258px;
 
 :host {
-	max-height: 880px;
 	display: block;
 }
 
 .header-container {
-	height: 30%;
+	height: $header-height;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 .body-container {
-	max-height: 600px;
+	height: calc(100% - #{$header-height});
 	overflow: auto;
 }
 
@@ -79,7 +81,7 @@ $cell-width: 200px;
   }
 
   div {
-    display: inline-block;
+    display: inline-flex;
   }
 
 }
