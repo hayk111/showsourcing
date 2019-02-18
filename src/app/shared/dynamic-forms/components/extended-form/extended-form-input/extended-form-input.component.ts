@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { ExtendedField } from '~core/models/extended-field.model';
-import { ExtendedFieldDefinition } from '~core/models';
+import { ExtendedFieldDefinition, Price } from '~core/models';
+import { EditableFieldComponent } from '~shared/editable-field';
+import { InputDirective } from '~shared/inputs';
 
 
 
@@ -66,6 +68,20 @@ export class ExtendedFormInputComponent {
 		else
 			this.accumulator = 'yes';
 		this.onSave();
+	}
+
+	isText(type: string) {
+		return type === 'text' || type === 'decimal' || type === 'tel' || type === 'number';
+	}
+
+	getPrice() {
+		return this.accumulator ? JSON.parse(this.accumulator) : undefined;
+	}
+
+	accumulatePrice(price: Price) {
+		// we need to stringify it since it's stored as a string
+		this.accumulator = JSON.stringify(price);
+
 	}
 
 }
