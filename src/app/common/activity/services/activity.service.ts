@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
-import { BehaviorSubject, from, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, from, Observable, ReplaySubject, of } from 'rxjs';
 import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile } from 'rxjs/operators';
 import { TokenService } from '~core/auth';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
@@ -25,7 +25,6 @@ import {
 export class ActivityService {
 	private readonly LIMIT = 8;
 	private client: any;
-	private getStreamToken$ = new ReplaySubject(1);
 
 	constructor(
 		private http: HttpClient,
@@ -73,7 +72,7 @@ export class ActivityService {
 		// then we get the feed result after that previous result
 		const feed$ = _token$.pipe(
 			switchMap(token => _loadMore$.pipe(
-				mergeScan(prev => this.getNextFeedResult(feedName, feedId, token, prev), [], 1),
+				mergeScan(prev => this.getNextFeedResult(feedName, feedId, token, prev), undefined, 1),
 				scan((pre, curr) => [...pre, ...curr], [])
 			)),
 			shareReplay(1)
@@ -84,10 +83,12 @@ export class ActivityService {
 
 	private getNextFeedResult(feedName: string, feedId: string, token: string, prev: GetStreamGroup[] | GetStreamActivity[])
 		: Observable<GetStreamGroup[] | GetStreamActivity[]> {
+		if (prev && prev.length === 0)
+			return of([]);
 		// we have a feedname like team:id but we need to do client.feed('team', 'id');
 		const stream = this.client.feed(feedName, feedId, token);
 		// if it's the first call there is prev is an array of 0 elem
-		const id_lt = prev && prev.length > 0 ? prev[prev.length - 1].id : undefined;
+		const id_lt = prev ? prev[prev.length - 1].id : undefined;
 		return from(stream.get({ limit: this.LIMIT, id_lt })).pipe(
 			map((res: GetStreamResponse) => res.results)
 		);

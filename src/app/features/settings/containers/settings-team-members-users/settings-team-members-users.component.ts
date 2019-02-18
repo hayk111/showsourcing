@@ -47,7 +47,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 		).subscribe(({ user, teamOwner }) => {
 			this.teamOwner = teamOwner;
 			this.user = <User>user;
-			this.teamOwner = true;
 		});
 
 	}

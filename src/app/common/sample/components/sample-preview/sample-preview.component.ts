@@ -36,12 +36,11 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 		{ name: 'product', type: 'selector', metadata: { target: 'product', type: 'entity', labelName: 'name', canCreate: true } },
 		{ name: 'price', type: 'price' },
 		{ name: 'paid', type: 'yesNo' },
-		{ name: 'createdOn', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
 		{
 			name: 'assignee', label: 'Assignee', type: 'selector',
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
-		{ name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
+		{ name: 'createdBy', label: 'Created By', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
 
 	];
 

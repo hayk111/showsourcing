@@ -1,4 +1,13 @@
+<div class="flexBetween mg-l">
+	<span class="spacer fs-l"></span>
 
+	<div class="flex pointer" *ngIf="showLogout && auth$ | async" (click)="logout()">
+		<icon-app fontSet="fa" name="sign-out-alt"></icon-app>
+		<span class="mg-xs"></span>
+		<span>Logout</span>
+	</div>
+
+</div>
 <main class="flex">
 	<router-outlet></router-outlet>
 </main>

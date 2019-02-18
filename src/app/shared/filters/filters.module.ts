@@ -1,14 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/filters/components';
 import { FilterBtnListComponent } from '~shared/filters/components/filter-btn-list/filter-btn-list.component';
-import { RatingModule } from '~shared/rating';
-import { CommonModule } from '@angular/common';
-import { LoadersModule } from '~shared/loaders';
-import { InputsModule } from '~shared/inputs';
-import { PanelModule } from '~shared/panel/panel.module';
 import { IconsModule } from '~shared/icons';
+import { InputsModule } from '~shared/inputs';
+import { LoadersModule } from '~shared/loaders';
+import { PanelModule } from '~shared/panel/panel.module';
+import { RatingModule } from '~shared/rating';
+import { UtilsModule } from '~shared/utils';
 
 @NgModule({
 	imports: [
@@ -20,7 +21,8 @@ import { IconsModule } from '~shared/icons';
 		FormsModule,
 		ReactiveFormsModule,
 		RatingModule,
-		BadgeModule
+		BadgeModule,
+		UtilsModule,
 	],
 	declarations: [
 		FilterSelectionEntityPanelComponent,

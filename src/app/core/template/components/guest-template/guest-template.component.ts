@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class GuestTemplateComponent implements OnInit {
 	auth$: Observable<boolean>;
 	/** sometimes we don't wanna display the logout button */
-	showLogout = true;
+	showLogout = false;
 
 	constructor(
 		private authSrv: AuthenticationService,

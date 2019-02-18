@@ -9,7 +9,7 @@
 
 		<sub-panel-app
 			[buttonIcon]="false"
-			[filtersAmount]="listSrv.filterList.asFilters()?.length"
+			[filtersAmount]="getFilterAmount()"
 			[hasFilter]="true"
 			[hasSwitch]="true"
 			[searchValue]="listSrv.searchValue"

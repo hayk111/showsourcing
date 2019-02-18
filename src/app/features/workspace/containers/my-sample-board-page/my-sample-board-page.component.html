@@ -41,7 +41,8 @@
 			[sample]="data"
 			[checked]="selection?.has(data.id)"
 			(select)="listSrv.selectOne($event)"
-			(unselect)="listSrv.unselectOne($event)">
+			(unselect)="listSrv.unselectOne($event)"
+			(previewClick)="listSrv.openPreview($event)">
 		</sample-card-app>
 	</ng-template>
 
