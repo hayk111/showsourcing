@@ -24,12 +24,13 @@ export function getPriceMatrixRowByLabel(
 		return (priceMatrix && priceMatrix.price.value) || '-';
 	});
 }
+
 export function getPackagingString(array: Array<any>, property: string): Array<any> {
 	return array.map(x => {
-		const packaging = x[property];
+		const packaging = getNestedValue(x, property);
 		if (!packaging) {
 			return '';
-		}
+		} else if (property.endsWith('itemsQuantity')) return packaging;
 		return `${packaging.width || 0} x ${packaging.height ||
 			0} x ${packaging.depth || 0}${packaging.unit}`;
 	});

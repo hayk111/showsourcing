@@ -1,9 +1,7 @@
 <div class="header-container">
-	<div *ngFor="let comparison of comparisonData; trackBy: trackByFn" class="comparison-row">
+	<div *ngFor="let comparison of comparisonData; index as index; trackBy: trackByFn" [ngClass]="{'comparison-row': comparison.type === 'header'}">
 		<div *ngIf="comparison?.type === 'header'">
-			<div class="empty-header-cell">
-				{{ comparison?.dataType === 'text' ? 'name' : comparison?.dataType === 'description' ? 'description' : ''}}
-			</div>
+			<div class="empty-header-cell"></div>
 			<div [ngSwitch]="comparison.dataType" [ngClass]="'comparison-cell-' + comparison.dataType">
 				<div *ngSwitchCase="'description'" class="description">
 					<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
@@ -28,7 +26,7 @@
 	</div>
 </div>
 <div class="body-container">
-	<div *ngFor="let comparison of comparisonData; trackBy: trackByFn" class="comparison-row">
+	<div *ngFor="let comparison of comparisonData; index as index; trackBy: trackByFn" [ngClass]="{'comparison-row': comparison.type !== 'header'}">
 		<div [ngSwitch]="comparison.type" [ngClass]="'comparison-row-' + comparison.type">
 			<div *ngSwitchCase="'title'">
 				<div class="comparison-cell" >
@@ -39,7 +37,7 @@
 				<div class="title">{{ comparison.title }}</div>
 				<div [ngSwitch]="comparison.dataType" [ngClass]="'comparison-cell-' + comparison.dataType">
 					<div *ngSwitchCase="'price'">
-						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
+						<div class="comparison-cell color-txt-strong" *ngFor="let value of comparison.data; trackBy: trackByFn">
 							<price-app
 								[isShort]="true"
 								[amount]="value?.value"
@@ -48,24 +46,25 @@
 						</div>
 					</div>
 					<div *ngSwitchCase="'text'">
-						<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
-							{{ value }}
+						<div class="comparison-cell color-txt-strong" *ngFor="let value of comparison.data; trackBy: trackByFn">
+							{{ value || '-'}}
 						</div>
 					</div>
 					<div *ngSwitchCase="'tag'">
-						<div class="comparison-cell flexWrap" *ngFor="let value of comparison.data; trackBy: trackByFn">
-							<span *ngFor="let tag of value; let last = last; trackBy: trackByFn">
+						<div class="comparison-cell color-txt-strong ellipsis" *ngFor="let value of comparison.data; trackBy: trackByFn">
+							<div *ngFor="let tag of value; let last = last; trackBy: trackByFn">
 								{{ tag.name }}{{ last ? '' : ',&nbsp;' }}
-							</span>
+							</div>
+							<div *ngIf="!value?.length"> - </div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Just in case someone wants this back -->
 			<!-- Check compare-product to see why -->
-			<!-- <div *ngSwitchCase="'header'">
+			<!-- <div *ngSwitchCase="'status'">
 				<div [ngSwitch]="comparison.dataType" [ngClass]="'comparison-cell-' + comparison.dataType">
-					<div *ngSwitchCase="'status'" class="header-title">
+					<div *ngSwitchCase="'status'" class="status-title">
 						<div class="comparison-cell status" *ngFor="let value of comparison.data; trackBy: trackByFn">
 							<div>
 								<status-selector-app
