@@ -27,8 +27,8 @@ $header-height: 258px;
       margin-bottom: 0;
     }
     .comparison-cell-description {
-      margin-bottom: var(--spacing-ms);
-    }
+			margin-bottom: var(--spacing-ms);
+		}
     .comparison-cell-text {
       font-size: var(--font-size-m);
       font-weight: 600;
@@ -73,7 +73,11 @@ $header-height: 258px;
     white-space: normal;
     width: $cell-width;
 		padding: 5px;
-  }
+	}
+
+	.description .comparison-cell {
+		white-space: pre-line;
+	}
 
   .image-container {
     width: 175px;
