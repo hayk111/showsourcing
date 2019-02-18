@@ -9,7 +9,7 @@
 					</div>
 				</div>
 				<div *ngSwitchCase="'text'" class="header-title">
-					<div class="comparison-cell" *ngFor="let value of comparison.data; trackBy: trackByFn">
+					<div class="comparison-cell ellipsis" *ngFor="let value of comparison.data; trackBy: trackByFn">
 						{{ value }}
 					</div>
 				</div>
@@ -29,7 +29,7 @@
 	<div *ngFor="let comparison of comparisonData; index as index; trackBy: trackByFn" [ngClass]="{'comparison-row': comparison.type !== 'header'}">
 		<div [ngSwitch]="comparison.type" [ngClass]="'comparison-row-' + comparison.type">
 			<div *ngSwitchCase="'title'">
-				<div class="comparison-cell" >
+				<div class="comparison-cell">
 					{{ comparison.title }}
 				</div>
 			</div>
@@ -46,7 +46,7 @@
 						</div>
 					</div>
 					<div *ngSwitchCase="'text'">
-						<div class="comparison-cell color-txt-strong" *ngFor="let value of comparison.data; trackBy: trackByFn">
+						<div class="comparison-cell color-txt-strong ellipsis" *ngFor="let value of comparison.data; trackBy: trackByFn">
 							{{ value || '-'}}
 						</div>
 					</div>
