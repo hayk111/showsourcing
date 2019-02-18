@@ -52,9 +52,9 @@
 					</div>
 					<div *ngSwitchCase="'tag'">
 						<div class="comparison-cell color-txt-strong ellipsis" *ngFor="let value of comparison.data; trackBy: trackByFn">
-							<div *ngFor="let tag of value; let last = last; trackBy: trackByFn">
+							<ng-container *ngFor="let tag of value; let last = last; trackBy: trackByFn">
 								{{ tag.name }}{{ last ? '' : ',&nbsp;' }}
-							</div>
+							</ng-container>
 							<div *ngIf="!value?.length"> - </div>
 						</div>
 					</div>
