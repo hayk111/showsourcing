@@ -32,6 +32,6 @@ export function getPackagingString(array: Array<any>, property: string): Array<a
 			return '';
 		} else if (property.endsWith('itemsQuantity')) return packaging;
 		return `${packaging.width || 0} x ${packaging.height ||
-			0} x ${packaging.depth || 0}${packaging.unit}`;
+			0} x ${packaging.depth || 0} ${packaging.unit}`;
 	});
 }
