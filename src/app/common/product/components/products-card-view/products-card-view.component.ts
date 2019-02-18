@@ -27,15 +27,28 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 			return this.rows;
 		}
 
-		const groupedObj = this.rows.reduce((prev, cur) => {
-			const id = (cur[field] && cur[field].id) ? cur[field].id : cur[field];
-			if (!prev[id]) {
-				prev[id] = [cur];
-			} else {
-				prev[id].push(cur);
-			}
-			return prev;
-		}, {});
+		let groupedObj;
+
+		switch (sort.sortBy) {
+			case 'category.name':
+			case 'supplier.name':
+			case 'favorite':
+				groupedObj = this.rows.reduce((prev, cur) => {
+					const id = (cur[field] && cur[field].id) ? cur[field].id : cur[field];
+					if (!prev[id]) {
+						prev[id] = [cur];
+					} else {
+						prev[id].push(cur);
+					}
+					return prev;
+				}, {});
+				break;
+			default:
+				groupedObj = {};
+				groupedObj[sort.sortBy] = this.rows;
+				break;
+		}
+
 		return Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
 	}
 
@@ -46,10 +59,18 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 		let value = null;
 		if (group && group.value.length > 0) {
 			if (group.value[0]) {
-				if (field === 'favorite')
-					value = group.value[0][field] ? 'Favorite' : 'Not Favorite';
-				else
-					value = group.value[0][field] ? group.value[0][field].name : null;
+				switch (field) {
+					case 'favorite':
+						value = group.value[0][field] ? 'Favorite' : 'Not Favorite';
+						break;
+					case 'category':
+					case 'supplier':
+						value = group.value[0][field] ? group.value[0][field].name : null;
+						break;
+					default:
+						value = '';
+						break;
+				}
 			}
 		}
 		return value;

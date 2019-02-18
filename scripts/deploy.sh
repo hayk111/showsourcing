@@ -7,8 +7,8 @@ ENDPOINT=$2
 CHOICES[1]="app-test.showsourcing.com"
 CHOICES[2]="app-dev.showsourcing.com"
 CHOICES[3]="app-sta.showsourcing.com"
-CHOICES[4]="app2.showsourcing.com"
-CHOICES[5]="app.showsourcing.com"
+CHOICES[4]="app2.showsourcing.com" # --region us-east-2
+CHOICES[5]="app.showsourcing.com" # --region eu-central-1
 
 if [ -z "$ENDPOINT" ]
   then
@@ -19,11 +19,11 @@ if [ -z "$ENDPOINT" ]
     done
     read n
     ENDPOINT=${CHOICES[n]}
-    [ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
+		[ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
 fi
 
 
-echo "$ENDPOINT"
+echo "Deploying to: $ENDPOINT"
 
 if $SHOULD_BUILD; then
 	npm run build

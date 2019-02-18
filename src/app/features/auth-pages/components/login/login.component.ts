@@ -1,13 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
-
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { take, takeUntil, catchError } from 'rxjs/operators';
+import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { AutoUnsub } from '~utils';
-import { environment } from 'environments/environment';
-import { AuthFormElement, AuthFormButton } from '~features/auth-pages/components/auth-form-base/auth-form';
 
 @Component({
 	selector: 'login-app',

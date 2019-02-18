@@ -129,6 +129,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.searched$.next(this.searchTxt);
 	}
 
+	resetInput() {
+		this.inp.control.reset();
+		this.inp.focus();
+		this.search('');
+	}
+
 	search(text) {
 		this.searchTxt = text.trim();
 		this.hasDB ? this.selectorSrv.search(this.type, this.searchTxt) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
@@ -233,43 +239,45 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let createObs$: Observable<any>;
 		let added;
 		const name = this.searchTxt;
-		switch (this.type) {
-			case 'supplier':
-				added = new Supplier({ name });
-				createObs$ = this.selectorSrv.createSupplier(added);
-				break;
-			case 'project':
-				added = new Project({ name });
-				createObs$ = this.selectorSrv.createProject(added);
-				break;
-			case 'product':
-				added = new Product({ name });
-				createObs$ = this.selectorSrv.createProduct(added);
-				break;
-			case 'tag':
-				added = new Tag({ name });
-				createObs$ = this.selectorSrv.createTag(added);
-				break;
-			case 'category':
-				added = new Category({ name });
-				createObs$ = this.selectorSrv.createCategory(added);
-				break;
-			case 'supplierType':
-				added = new SupplierType({ name });
-				createObs$ = this.selectorSrv.createSupplierType(added);
-				break;
-			default: throw Error(`Unsupported type ${this.type}`);
+		if (name) {
+			switch (this.type) {
+				case 'supplier':
+					added = new Supplier({ name });
+					createObs$ = this.selectorSrv.createSupplier(added);
+					break;
+				case 'project':
+					added = new Project({ name });
+					createObs$ = this.selectorSrv.createProject(added);
+					break;
+				case 'product':
+					added = new Product({ name });
+					createObs$ = this.selectorSrv.createProduct(added);
+					break;
+				case 'tag':
+					added = new Tag({ name });
+					createObs$ = this.selectorSrv.createTag(added);
+					break;
+				case 'category':
+					added = new Category({ name });
+					createObs$ = this.selectorSrv.createCategory(added);
+					break;
+				case 'supplierType':
+					added = new SupplierType({ name });
+					createObs$ = this.selectorSrv.createSupplierType(added);
+					break;
+				default: throw Error(`Unsupported type ${this.type}`);
+			}
+			// we add it directly to the value
+			if (this.multiple)
+				this.value.push(added);
+			else
+				this.value = added;
+			// we are using take 1 in srv, no need for fancy destroying
+			createObs$.subscribe();
+			// we changed the value directly so we have to notify the formControl
+			this.onChange();
+			this.selectorSrv.refetch();
 		}
-		// we add it directly to the value
-		if (this.multiple)
-			this.value.push(added);
-		else
-			this.value = added;
-		// we are using take 1 in srv, no need for fancy destroying
-		createObs$.subscribe();
-		// we changed the value directly so we have to notify the formControl
-		this.onChange();
-		this.selectorSrv.refetch();
 	}
 
 	onKeydown(event) {
@@ -278,6 +286,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			const label = this.keyManager.activeItem.getLabel();
 			if (label === 'create-button') this.create();
 			else this.onSelect(label);
+			this.resetInput();
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
 			let aIndex = this.keyManager.activeItemIndex;
 			const items = this.elementRefItems.toArray();

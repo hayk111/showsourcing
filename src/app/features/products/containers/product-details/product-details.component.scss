@@ -9,6 +9,7 @@ $width-left: 452px;
 	margin-left: auto;
 	margin-right: auto;
 	width: $width-right + $width-left;
+	transition: width 0.5s;
 
 	.left {
 		width: $width-left;
@@ -16,6 +17,7 @@ $width-left: 452px;
 
 	.right {
 		width: $width-right;
+		transition: width 0.5s;
 	}
 }
 
@@ -33,12 +35,16 @@ image-previewer-2-app {
 }
 
 @media only screen and (max-width: 1200px) {
-	.conent {
-		width: 810px;
-		justify-content: center;
-	}
 
-	.left {
-		display: none;
+	$width-right: 600px;
+
+	.content {
+		margin-left: auto;
+		margin-right: auto;
+		width: $width-right + $width-left;
+
+		.right {
+			width: $width-right;
+		}
 	}
 }
