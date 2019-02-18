@@ -1,5 +1,5 @@
 
-$cell-width: 200px;
+$cell-width: 196px; // we substract the padding-right
 $header-height: 264px;
 
 :host {
@@ -79,7 +79,8 @@ $header-height: 264px;
 
   .comparison-cell {
     white-space: normal;
-    width: $cell-width;
+		width: $cell-width;
+		padding-right: var(--spacing-s);
 	}
 
 	.image-container {
