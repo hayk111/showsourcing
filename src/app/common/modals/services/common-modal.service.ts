@@ -7,13 +7,13 @@ import {
 	InviteUserDlgComponent,
 	MergeDialogComponent,
 	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
+	ExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RfqDialogComponent,
 	VoteDetailsDialogComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { EntityMetadata, Product, ProductVote, Project } from '~models';
+import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 
@@ -48,8 +48,8 @@ export class CommonModalService {
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(products?: Product[]) {
-		return this.dlgSrv.open(ProductExportDlgComponent, { products });
+	openExportDialog(targets?: Product[] | Supplier[]) {
+		return this.dlgSrv.open(ExportDlgComponent, { targets });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */

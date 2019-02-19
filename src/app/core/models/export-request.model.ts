@@ -12,12 +12,12 @@ export class ExportRequest implements ExportRequestConfig {
 	format: string;
 	type: string;
 	query: string;
-	status = 'created';
+	status = 'pending';
 	documentUrl: string;
 	errors: string[];
 	creationDate: string;
 	createdBy: User;
-	__typename ?= 'ExportRequest';
+	__typename?= 'ExportRequest';
 
 	constructor(config: ExportRequestConfig) {
 		Object.assign(this, config);

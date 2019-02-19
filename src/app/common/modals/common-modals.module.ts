@@ -20,7 +20,7 @@ import {
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
+	ExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	VoteDetailsDialogComponent,
 } from './component';
@@ -43,7 +43,7 @@ const modals = [
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
-	ProductExportDlgComponent,
+	ExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RfqDialogComponent,
 	VoteDetailsDialogComponent,
