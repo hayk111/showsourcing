@@ -148,7 +148,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case 'supplier': return this.selectorSrv.getSuppliers();
 			case 'product': return this.selectorSrv.getProducts();
 			case 'category': return this.selectorSrv.getCategories();
-			// case 'event': return this.selectorSrv.getEvents();
+			case 'event': return this.selectorSrv.getEvents();
 			case 'tag': return this.selectorSrv.getTags();
 			case 'supplierType':
 				this.displayName = 'supplier type';

@@ -98,6 +98,9 @@ export class SelectorsService {
 				case 'country':
 					this.currentSearchQuery = `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"`;
 					break;
+				case 'event':
+					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR description.name CONTAINS[c] "${searchTxt}"`;
+					break;
 				case 'category':
 				case 'harbour':
 				case 'incoTerm':
@@ -226,6 +229,13 @@ export class SelectorsService {
 	getProducts(): Observable<Product[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.productSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
+	}
+
+	getEvents(): Observable<Event[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'description.name' };
+		this.listResult = this.eventSrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
 	}

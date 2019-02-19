@@ -38,6 +38,14 @@
 			(update)="update($event, 'category')">
 		</preview-badge-app>
 
+		<!-- Badge event -->
+		<preview-badge-app
+			*ngIf="product?.event"
+			[badge]="erm.EVENT"
+			[value]="product?.event"
+			(update)="update($event, 'event')">
+		</preview-badge-app>
+
 	</preview-header-app>
 
 	<!-- Ask for a quote (disabled temporarily)-->

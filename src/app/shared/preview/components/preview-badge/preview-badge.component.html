@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="badge">
 
 	<!-- Product -->
-	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container">
 		<selector-app
 			type="product"
 			[offsetY]="offsetY"
@@ -24,7 +24,7 @@
 	</div>
 
 	<!-- Supplier -->
-	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container">
 		<selector-app
 			type="supplier"
 			[offsetY]="offsetY"
@@ -47,7 +47,7 @@
 	</div>
 
 	<!-- Supplier Type -->
-	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container">
 		<selector-app
 			type="supplierType"
 			[offsetY]="offsetY"
@@ -63,7 +63,7 @@
 	</div>
 
 	<!-- Location -->
-	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container">
 		<selector-app
 			type="country"
 			[offsetY]="offsetY"
@@ -78,7 +78,7 @@
 	</div>
 
 	<!-- Category -->
-	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container">
 		<selector-app
 			type="category"
 			[value]="value"
@@ -99,6 +99,23 @@
 							<span *ngIf="value?.name"> {{ value?.name }} </span>
 					</ng-template>
 				</div>
+			</div>
+		</selector-app>
+	</div>
+
+	<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container">
+		<selector-app
+			type="event"
+			[value]="value"
+			[canCreate]="true"
+			[offsetY]="offsetY"
+			[offsetX]="offsetX"
+			[canCreate]="true"
+			[width]="370"
+			(update)="update.emit($event)">
+			<div class="flex">
+				<icon-app name="event-calendar" backgroundColor="success"></icon-app>
+				<span>{{ value?.name || value?.description?.name || 'Set event' }}</span>
 			</div>
 		</selector-app>
 	</div>

@@ -31,6 +31,16 @@
 				[offsetX]="210"
 				(update)="update($event, 'category')">
 			</preview-badge-app>
+
+			<!-- Badge event -->
+			<preview-badge-app
+				*ngIf="product?.event"
+				[badge]="erm.EVENT"
+				[value]="product?.event"
+				[offsetX]="210"
+				(update)="update($event, 'event')">
+			</preview-badge-app>
+
 		</preview-header-app>
 
 		<!-- Description -->
