@@ -5,7 +5,7 @@ import { Attachment, AttachmentConfig } from '~models/attachment.model';
 export class AttachmentUploadRequest {
 	id ?= uuid();
 	status ?= 'request';
-	attachment?: any;
+	attachment?: Attachment;
 	__typename ?= 'AttachmentUploadRequest';
 
 	constructor(config: AttachmentConfig) {
