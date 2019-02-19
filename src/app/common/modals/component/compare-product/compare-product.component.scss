@@ -1,6 +1,7 @@
 :host {
 	display: flex;
-	width: 100%;
+	max-width: 70%;
+	overflow: auto;
 }
 
 dialog-app {
