@@ -19,6 +19,8 @@
 				[badge]="erm.SUPPLIER"
 				[value]="product?.supplier?.name"
 				[offsetX]="210"
+				[hasPreview]="true"
+				(openPreview)="openPreview.emit()"
 				(update)="update($event, 'supplier')">
 			</preview-badge-app>
 
