@@ -1,26 +1,29 @@
 <dialog-app>
-  <dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Export Selection</dialog-header-app>
-	<dialog-subtitle-app *ngIf="!pending" i18n="dialog subtitle|Select export type@@productExport_type">Export Type</dialog-subtitle-app>
+	<dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Export Selection</dialog-header-app>
+	<dialog-subtitle-app *ngIf="!pending" i18n="dialog subtitle|Select export type@@productExport_type">Export Type
+	</dialog-subtitle-app>
 
 	<main class="exportRow" *ngIf="!pending; else spinner">
-		<div class="exportCell" (click)="select('xlsx')" [class.selected]="selectedExport === 'xlsx'">
+		<div class="exportCell" (click)="select('xlsx')" [class.selected]="selectedExport === 'xls'">
 			<icon-app name="excel"></icon-app>
 			<div class="title">Excel</div>
-			<div class="subtitle" i18n="div subtitle|Export product for edition porpuses@@productExport_excelEdit">Perfect for edition</div>
+			<div class="subtitle" i18n="div subtitle|Export product for edition porpuses@@productExport_excelEdit">Perfect for
+				edition</div>
 		</div>
 		<div class="exportCell" (click)="select('pdf')" [class.selected]="selectedExport === 'pdf'">
 			<icon-app name="pdf"></icon-app>
 			<div class="title">PDF</div>
-			<div class="subtitle" i18n="div subtitle|Export product for sharing porpuses@@productExport_pdfShare">Perfect for sharing</div>
+			<div class="subtitle" i18n="div subtitle|Export product for sharing porpuses@@productExport_pdfShare">Perfect for
+				sharing</div>
 		</div>
 	</main>
 
-  <dialog-footer-app class="fullWidth flexCenter flexBetween" *ngIf="!pending">
+	<dialog-footer-app class="fullWidth flexCenter flexBetween" *ngIf="!pending">
 		<span class="txt-secondary">{{ products?.length }} product{{ products?.length > 1 ? 's' : '' }} selected</span>
 		<button class="small" (click)="export()" i18n="button|Export product@@productExport_export">
 			Export
 		</button>
-  </dialog-footer-app>
+	</dialog-footer-app>
 </dialog-app>
 
 <ng-template #spinner>

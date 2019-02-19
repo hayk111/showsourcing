@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { saveAs } from 'file-saver';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { ExportRequestService } from '~entity-services/export-request/export-request.service';
-import { ExportRequest, Product } from '~models';
+import { ExportRequest, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 
@@ -15,10 +15,9 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductExportDlgComponent implements OnInit {
-	selectedExport: '' | 'pdf' | 'xlsx' = '';
-	// used to give props from the dialog container
-	notifState = new ReplaySubject<NotificationType>(1);
-	@Input() products: Product[];
+	selectedExport: 'pdf' | 'xls';
+	@Input() targets: Product[] | Supplier[];
+	@Input() type: 'pdf_product_page' | 'xls_product_list';
 
 	pending: boolean;
 
@@ -29,31 +28,29 @@ export class ProductExportDlgComponent implements OnInit {
 		private cdr: ChangeDetectorRef) { }
 
 	ngOnInit() {
-		this.notifState.pipe(
-			tap(type => this.notifSrv.add({
-				type,
-				title: 'Exporting file',
-				message: type === NotificationType.SUCCESS ? 'Export successfully completed' : 'Failed exporting files',
-				timeout: 4000
-			}))
-		).subscribe();
+
 	}
 
-	select(value: '' | 'pdf' | 'xlsx') {
+	addNotif(type: NotificationType) {
+		this.notifSrv.add({
+			type,
+			title: 'Exporting file',
+			message: type === NotificationType.SUCCESS ? 'Export successfully completed' : 'Failed exporting files',
+			timeout: 4000
+		});
+	}
+
+	select(value: 'pdf' | 'xls') {
 		this.selectedExport = value;
 	}
 
 	export() {
 		this.pending = true;
+
 		const request = new ExportRequest({
-			type: 'product',
+			type: this.type,
 			format: this.selectedExport,
-			query: JSON.stringify({
-				products: {
-					query: this.products.map(product => `id == '${product.id}'`).join(' or ')
-				},
-				suppliers: {}
-			})
+			query: (this.targets as any[]).map(target => `id == '${target.id}'`).join(' or ')
 		});
 		this.exportSrv.create(request).pipe(
 			map(exp => {
@@ -66,12 +63,12 @@ export class ProductExportDlgComponent implements OnInit {
 			this.pending = false;
 			this.cdr.detectChanges();
 			this.dlgSrv.close();
-			this.notifState.next(NotificationType.SUCCESS);
+			this.addNotif(NotificationType.SUCCESS);
 			saveAs(file, (request.format === 'pdf') ? 'product-sheet.pdf' : 'product-sheet.xls');
 		},
 			err => {
 				this.pending = false;
-				this.notifState.next(NotificationType.ERROR);
+				this.addNotif(NotificationType.ERROR);
 				this.dlgSrv.close();
 			}
 		);
