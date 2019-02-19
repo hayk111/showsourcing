@@ -129,7 +129,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		).subscribe(_ => this.router.navigate(['product']));
 	}
 
-	closePreivew() {
+	closePreview() {
 		this.previewOpen = false;
 	}
 

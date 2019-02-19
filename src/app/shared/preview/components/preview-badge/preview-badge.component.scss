@@ -17,6 +17,7 @@ selector-app {
 
 	.icon-preview {
 		visibility: hidden;
+		font-size: 10px !important;
 
 		&:hover {
 			color: var(--color-primary);
