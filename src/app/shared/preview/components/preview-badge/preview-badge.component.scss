@@ -4,7 +4,7 @@
 }
 
 selector-app {
-	width: 100%;
+	cursor: pointer;
 }
 
 .icon-container {
@@ -15,18 +15,20 @@ selector-app {
 			visibility: visible;
 	}
 
+	icon-app {
+		margin-right: var(--spacing-s);
+		font-size: 9px;
+	}
+
 	.icon-preview {
 		visibility: hidden;
 		font-size: 10px !important;
+		margin-right: 0px;
+		margin-left: var(--spacing-s);
 
 		&:hover {
 			color: var(--color-primary);
 		}
-	}
-
-	icon-app {
-		margin-right: var(--spacing-s);
-		font-size: 9px;
 	}
 
 	.category-label {

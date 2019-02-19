@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="badge">
 
 	<!-- Product -->
-	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container">
 		<selector-app
 			type="product"
 			[offsetY]="offsetY"
@@ -24,7 +24,7 @@
 	</div>
 
 	<!-- Supplier -->
-	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container">
 		<selector-app
 			type="supplier"
 			[offsetY]="offsetY"
@@ -47,7 +47,7 @@
 	</div>
 
 	<!-- Supplier Type -->
-	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container">
 		<selector-app
 			type="supplierType"
 			[offsetY]="offsetY"
@@ -63,7 +63,7 @@
 	</div>
 
 	<!-- Location -->
-	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container">
 		<selector-app
 			type="country"
 			[offsetY]="offsetY"
@@ -78,7 +78,7 @@
 	</div>
 
 	<!-- Category -->
-	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container">
 		<selector-app
 			type="category"
 			[value]="value"
@@ -103,7 +103,7 @@
 		</selector-app>
 	</div>
 
-	<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container">
 		<selector-app
 			type="event"
 			[value]="value"
