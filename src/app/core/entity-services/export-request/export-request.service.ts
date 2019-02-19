@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ExportRequest, User } from '~models';
-
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { TeamUserService, UserService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { ExportRequestQueries } from '~entity-services/export-request/export-request.queries';
-import { of } from 'rxjs';
-import { SelectParams } from '~entity-services/_global/select-params';
-import { switchMap, tap, map, filter, take } from 'rxjs/operators';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { UserService, TeamUserService } from '~entity-services';
+import { ExportRequest } from '~models';
 
 
 @Injectable({
@@ -34,8 +32,10 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 		);
 	}
 
-	retrieveFile(request: ExportRequest) {
-		return this.http.get(request.documentUrl, { responseType: 'blob' });
+	retrieveFile(request: ExportRequest): Observable<{ file: any, name: string }> {
+		return this.http.get(request.documentUrl, { responseType: 'blob', observe: 'response' }).pipe(
+			map(res => ({ file: res.body, name: request.documentUrl.split('/').pop() }))
+		);
 	}
 }
 
