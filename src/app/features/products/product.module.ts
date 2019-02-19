@@ -6,6 +6,7 @@ import { CommentCommonModule } from '~common/comment';
 import { ProductCommonModule } from '~common/product';
 import { QuoteCommonModule } from '~common/quote/quote-common.module';
 import { SampleCommonModule } from '~common/sample';
+import { SupplierCommonModule } from '~common/supplier';
 import { TaskCommonModule } from '~common/task';
 import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
@@ -39,36 +40,37 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 
 @NgModule({
 	imports: [
-		CommonModule,
-		RouterModule.forChild(routes),
-		SharedModule,
 		ActivityCommonModule,
-		ProductCommonModule,
-		TaskCommonModule,
-		QuoteCommonModule,
 		CommentCommonModule,
+		CommonModule,
 		NavBarModule,
-		SampleCommonModule
+		ProductCommonModule,
+		QuoteCommonModule,
+		RouterModule.forChild(routes),
+		SampleCommonModule,
+		SharedModule,
+		TaskCommonModule,
+		SupplierCommonModule
 	],
 	declarations: [
-		ProductIconsComponent,
-		ProductSubInfoComponent,
-		ProductQuotationComponent,
-		ProductsPageComponent,
-		SelectionActionsComponent,
-		ProductDetailsComponent,
-		ProjectCardComponent,
-		ProductSummaryComponent,
-		SelectableImageComponent,
-		ProductTeamRatingComponent,
 		ProductActivityComponent,
-		ProductTasksComponent,
-		ProductTopPanelComponent,
-		ProductListComponent,
-		ProductSamplesComponent,
-		ProductResumeComponent,
+		ProductDetailsComponent,
+		ProductIconsComponent,
 		ProductInformationComponent,
+		ProductListComponent,
+		ProductQuotationComponent,
+		ProductResumeComponent,
+		ProductSamplesComponent,
 		ProductShippingComponent,
+		ProductSubInfoComponent,
+		ProductSummaryComponent,
+		ProductTasksComponent,
+		ProductTeamRatingComponent,
+		ProductTopPanelComponent,
+		ProductsPageComponent,
+		ProjectCardComponent,
+		SelectableImageComponent,
+		SelectionActionsComponent,
 	],
 	entryComponents: [],
 	exports: [],
