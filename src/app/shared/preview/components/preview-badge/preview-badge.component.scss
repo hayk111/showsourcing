@@ -11,6 +11,19 @@ selector-app {
 	margin-bottom: var(--spacing-xs);
 	position: relative;
 
+	&:hover .icon-preview {
+			visibility: visible;
+	}
+
+	.icon-preview {
+		visibility: hidden;
+		font-size: 10px !important;
+
+		&:hover {
+			color: var(--color-primary);
+		}
+	}
+
 	icon-app {
 		margin-right: var(--spacing-s);
 		font-size: 9px;

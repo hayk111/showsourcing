@@ -15,7 +15,9 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 	@Input() offsetX = 18;
 	@Input() offsetY = -22;
 	@Input() multiple = false;
+	@Input() hasPreview = false;
 	@Output() update = new EventEmitter<any>();
+	@Output() openPreview = new EventEmitter<null>();
 
 	erm = ERM;
 

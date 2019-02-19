@@ -24,7 +24,8 @@
 			</card-app>
 
 			<product-resume-app
-				[product]="product">
+				[product]="product"
+				(openPreview)="openPreview()">
 			</product-resume-app>
 
 			<!-- Product information -->
@@ -61,7 +62,13 @@
 			<router-outlet></router-outlet>
     </div>
 
-  </div>
+	</div>
+
+	<supplier-preview-app
+		*ngIf="previewOpen"
+		[supplier]="product?.supplier"
+		(close)="closePreview()">
+	</supplier-preview-app>
 
 </ng-container>
 

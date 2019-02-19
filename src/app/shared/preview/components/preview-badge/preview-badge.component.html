@@ -14,6 +14,13 @@
 				<span>{{ value || 'Set product' }}</span>
 			</div>
 		</selector-app>
+		<icon-app
+			*ngIf="hasPreview"
+			class="icon-preview"
+			toolTip toolTipMessage="Open Preview" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+			name="eye"
+			(click)="openPreview.emit()">
+		</icon-app>
 	</div>
 
 	<!-- Supplier -->
@@ -30,6 +37,13 @@
 				<span> {{ value || 'Set supplier' }}</span>
 			</div>
 		</selector-app>
+		<icon-app
+			*ngIf="hasPreview"
+			class="icon-preview"
+			toolTip toolTipMessage="Open Preview" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+			name="eye"
+			(click)="openPreview.emit()">
+		</icon-app>
 	</div>
 
 	<!-- Supplier Type -->
