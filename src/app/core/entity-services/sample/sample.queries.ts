@@ -47,6 +47,7 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.createdBy}
 		${SampleQueries.assignee}
 		${SampleQueries.status}
+		${SampleQueries.comments}
 	`;
 
 }
