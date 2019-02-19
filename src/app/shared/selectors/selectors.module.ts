@@ -15,11 +15,12 @@ import { UtilsModule } from '~shared/utils';
 
 import {
 	CdkOverlayComponent,
-	SelectorComponent,
 	SelectorButtonRowComponent,
 	SelectorCategoryRowComponent,
+	SelectorComponent,
 	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
+	SelectorEventRowComponent,
 	SelectorIdRowComponent,
 	SelectorNameRowComponent,
 	SelectorPickerComponent,
@@ -27,19 +28,20 @@ import {
 	SelectorProjectRowComponent,
 	SelectorSupplierRowComponent,
 	SelectorSupplierTypeRowComponent,
+	SelectorTagRowComponent,
 	SelectorTextRowComponent,
 	SelectorUserRowComponent,
 } from './components';
-import { SelectorTagRowComponent } from './components/selector-tag-row/selector-tag-row.component';
 
 
 const components = [
 	CdkOverlayComponent,
-	SelectorComponent,
 	SelectorButtonRowComponent,
 	SelectorCategoryRowComponent,
+	SelectorComponent,
 	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
+	SelectorEventRowComponent,
 	SelectorIdRowComponent,
 	SelectorNameRowComponent,
 	SelectorPickerComponent,

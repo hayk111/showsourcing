@@ -102,6 +102,23 @@
 			</div>
 		</selector-app>
 	</div>
+
+	<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container pointer">
+		<selector-app
+			type="event"
+			[value]="value"
+			[canCreate]="true"
+			[offsetY]="offsetY"
+			[offsetX]="offsetX"
+			[canCreate]="true"
+			[width]="370"
+			(update)="update.emit($event)">
+			<div class="flex">
+				<icon-app name="event-calendar" backgroundColor="success"></icon-app>
+				<span>{{ value?.name || value?.description?.name || 'Set event' }}</span>
+			</div>
+		</selector-app>
+	</div>
 </ng-container>
 
 <ng-content></ng-content>
