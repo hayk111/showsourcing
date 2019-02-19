@@ -33,7 +33,7 @@ export class ActivityListComponent extends TrackingComponent implements OnInit {
 
 	send() {
 		const comment = new Comment({ text: this.commentCtrl.value });
-		const commentUser = { ...comment, createdBy: { id: this.userSrv.userSync.id } };
+		const commentUser = { ...comment };
 		const comments = [...(this.entity.comments || [])];
 		comments.push(commentUser);
 		this.commentCtrl.reset();
