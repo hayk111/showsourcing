@@ -1,13 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { AppImage, Contact, Supplier } from '~models';
-import { DialogService } from '~shared/dialog/services';
-import { AutoUnsub, DEFAULT_IMG, RegexpApp, PendingImage } from '~utils';
-import { ContactService, SupplierService } from '~entity-services';
-import { UploaderService } from '~shared/file/services/uploader.service';
-import { first, switchMap } from 'rxjs/operators';
-import { CloseEventType } from '~shared/dialog';
+import { ReplaySubject, Observable } from 'rxjs';
+import { mapTo, tap, switchMap, takeUntil } from 'rxjs/operators';
+import { ContactService } from '~entity-services';
+import { Contact, Supplier } from '~models';
+import { AutoUnsub, RegexpApp } from '~utils';
 
 // different cases regarding the image upload and saving the contact
 // 1. contact is not created yet and an image is pending
@@ -24,37 +21,24 @@ import { CloseEventType } from '~shared/dialog';
 })
 export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
-	/** preview image */
-	private pendingImg: PendingImage;
-	private uploadedImg;
-	defaultImg = DEFAULT_IMG;
+	contactCreated$ = new ReplaySubject<boolean>(1);
 	// supplier for which we are creating the contact
 	@Input() supplier: Supplier;
 	/** whether the dialog is for a new contact or an existing one */
 	@Input() isNewContact = false;
-	@Input() contact: Contact = {
-		id: '',
-		name: '',
-		jobTitle: '',
-		email: '',
-		phoneNumber: ''
-	};
+	// we only take the contact id so we can reselect and have further updates
+	@Input() contactId: string;
+	contact$: Observable<Contact>;
+	private contact: Contact;
 
 	constructor(
 		private fb: FormBuilder,
-		private cd: ChangeDetectorRef,
 		private contactSrv: ContactService,
-		private dlgSrv: DialogService,
-		private uploader: UploaderService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		// create new contact if doesn't exist ( so we are only gonna update the contact after ward)
-		if (this.isNewContact) {
-
-		}
 		// creating the formGroup
 		this.form = this.fb.group({
 			name: ['', Validators.required],
@@ -62,57 +46,36 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			email: ['', Validators.email],
 			phoneNumber: ['', Validators.pattern(RegexpApp.PHONE)]
 		});
-		// using the contact so if we are editing an existing contact it will be the values of said contact
-		this.form.patchValue(this.contact);
-	}
 
-	/** gives image url */
-	async onFilesAdded(files: File[]) {
-		// only one picture
-		const file = files[0];
-		// creating a pending image so we can see the image in the view instantly
-		const pending = new PendingImage(file);
-		this.pendingImg = await pending.createData();
-		this.cd.markForCheck();
-		// upload img
-		this.uploader.uploadImage(file).pipe(
-			first()
-		).subscribe(img => {
-			// removing pending image
-			this.pendingImg = undefined;
-			this.uploadedImg = img;
-			// updating contact if it's an existing one
-			if (!this.isNewContact) {
-				this.updateContact();
-			}
-		}, e => this.pendingImg = undefined);
+		// create new contact if doesn't exist ( so we are only gonna update the contact after ward)
+		if (this.isNewContact) {
+			this.createContact().subscribe(this.contactCreated$);
+		} else {
+			this.contactCreated$.next(true);
+		}
+		// subscribing to the contact so we have updates
+		this.contact$ = this.contactCreated$.pipe(
+			switchMap(_ => this.contact$ = this.contactSrv.selectOne(this.contactId)),
+			tap(contact => this.contact = contact),
+			tap(contact => this.form.patchValue(contact)),
+			takeUntil(this._destroy$)
+		);
 	}
 
 	updateContact() {
-		if (this.isNewContact)
-			return;
 		const contact = { ...this.form.value, id: this.contact.id };
-		this.addImageToContact(contact);
 		this.contactSrv.update(contact).subscribe();
 	}
 
 	createContact() {
 		const contact = new Contact({ supplier: { id: this.supplier.id } });
-		return this.contactSrv.create(contact);
-	}
-
-	private addImageToContact(contact) {
-		if (this.uploadedImg) {
-			contact.businessCardImage = this.uploadedImg;
-		}
-	}
-
-
-	get images() {
-		if (this.contact.businessCardImage)
-			return [this.contact.businessCardImage];
-		else
-			return [];
+		return this.contactSrv.create(contact).pipe(
+			tap(_ => {
+				this.contactId = contact.id;
+				this.isNewContact = false;
+			}),
+			mapTo(true)
+		);
 	}
 
 }
