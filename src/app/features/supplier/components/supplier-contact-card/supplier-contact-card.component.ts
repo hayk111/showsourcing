@@ -31,7 +31,7 @@ export class SupplierContactCardComponent extends TrackingComponent implements O
 	openContactDlg(contact?: any) {
 		const isNewContact = !contact;
 		if (contact) // if we send an undefined contact, the patchValue on the dialog won't work
-			this.dlgSrv.open(NewContactDlgComponent, { isNewContact, supplier: this.supplier, contact });
+			this.dlgSrv.open(NewContactDlgComponent, { isNewContact, supplier: this.supplier, contactId: contact.id });
 		else
 			this.dlgSrv.open(NewContactDlgComponent, { isNewContact, supplier: this.supplier });
 	}

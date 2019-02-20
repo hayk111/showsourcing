@@ -24,7 +24,7 @@ export class UploaderService {
 		private http: HttpClient
 	) { }
 
-	uploadImages(imgs: File[], linkedItem?: any, client?: Client): Observable<AppImage[]> {
+	uploadImages(imgs: File[], linkedItem?: any, imageProperty = 'images', isPropertyArray = true, client?: Client): Observable<AppImage[]> {
 		const uploads$ = imgs.map(img =>
 			// MaxSize 1200px
 			resizeSizeToLimit(img, 1200).pipe(
@@ -35,7 +35,7 @@ export class UploaderService {
 		);
 		return forkJoin(uploads$).pipe(
 			// link item (we need to do it after the file is ready else we will have 403)
-			mergeMap((files: AppImage[]) => this.linkItem(files, linkedItem, true)),
+			mergeMap((files: AppImage[]) => this.linkItem(files, linkedItem, true, imageProperty, isPropertyArray)),
 			// add notification
 			tap((files: AppImage[]) => {
 				return this.notifSrv.add({
@@ -187,7 +187,13 @@ export class UploaderService {
 	}
 
 	/** Link uploaded file to its entity */
-	private linkItem(files: AppImage[] | Attachment[], linkedItem: any, isImage: boolean): Observable<AppImage[] | Attachment[]> {
+	private linkItem(
+		files: AppImage[] | Attachment[],
+		linkedItem: any,
+		isImage: boolean,
+		imageProperty = 'images',
+		isArray = true
+	): Observable<AppImage[] | Attachment[]> {
 		if (!linkedItem) {
 			return of(files);
 		}
@@ -196,7 +202,7 @@ export class UploaderService {
 		if (isImage) {
 			return srv.update({
 				id: linkedItem.id,
-				images: [...linkedItem.images.map(img => ({ id: img.id })), ...files]
+				[imageProperty]: isArray ? [...linkedItem.images.map(img => ({ id: img.id })), ...files] : files[0]
 			}).pipe(
 				mapTo(files)
 			);

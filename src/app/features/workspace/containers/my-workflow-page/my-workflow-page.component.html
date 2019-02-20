@@ -1,7 +1,9 @@
 <sub-panel-app
   [hasSwitch]="false"
-  [hasFilter]="false"
+  [hasFilter]="true"
   [buttonIcon]="false"
+  [filtersAmount]="listSrv.filterList.asFilters().length"
+  (showFilters)="listSrv.openFilterPanel()"
   [searchValue]="listSrv.searchValue"
   (search)="listSrv.search($event)">
 </sub-panel-app>
@@ -87,6 +89,13 @@
 	</div>
 
 </selection-bar-app>
+
+<filters-app
+  [filterList]="listSrv.filterList"
+  [filterTypes]="filterTypes"
+  (clickOutside)="listSrv.closeFilterPanel()"
+  *ngIf="listSrv.filterPanelOpen">
+</filters-app>
 
 <product-preview-app
   *ngIf="listSrv.previewOpen"
