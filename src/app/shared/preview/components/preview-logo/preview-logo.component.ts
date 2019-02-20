@@ -22,20 +22,12 @@ export class PreviewLogoComponent {
 		return this._image;
 	}
 
-	@Output() updateLogo = new EventEmitter<AppImage>();
-
-
 	private _image: AppImage;
 
-	constructor(
-		private uploaderSrv: UploaderService,
-		private supplierSrv: SupplierService
-	) { }
+	constructor(private uploaderSrv: UploaderService) { }
 
-	addLogo(file) {
-		this.uploaderSrv.uploadImages(file, undefined, Client.TEAM).pipe(
-			tap(img => this.updateLogo.emit(img[0]))
-		).subscribe();
+	addLogo(files: File[]) {
+		this.uploaderSrv.uploadImages(files, this.supplier, 'logoImage', false, Client.TEAM).subscribe();
 	}
 
 }
