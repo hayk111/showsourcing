@@ -7,8 +7,10 @@
 
 		<!-- Banner -->
 		<preview-banner-app
+			[canOpen]="canClose"
 			[canClose]="canClose"
-			(closed)="close.emit()" >
+			(closed)="close.emit()"
+			(opened)="openSupplier()">
 			<preview-carousel-app
 				[entity]="supplier"
 				[entityMD]="erm.SUPPLIER"

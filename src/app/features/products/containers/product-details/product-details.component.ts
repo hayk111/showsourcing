@@ -1,6 +1,7 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil, filter, first, take } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
@@ -9,9 +10,6 @@ import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
-import { CloseEventType } from '~shared/dialog';
-import { Observable } from 'rxjs';
-import { Location } from '@angular/common';
 
 @Component({
 	selector: 'product-details-app',
@@ -19,6 +17,8 @@ import { Location } from '@angular/common';
 	styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
+
+	previewOpen = false;
 	product: Product;
 	files: Array<Attachment>;
 	/** projects for this product */
@@ -27,7 +27,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private location: Location,
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
@@ -131,4 +130,11 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		).subscribe(_ => this.router.navigate(['product']));
 	}
 
+	closePreview() {
+		this.previewOpen = false;
+	}
+
+	openPreview() {
+		this.previewOpen = true;
+	}
 }

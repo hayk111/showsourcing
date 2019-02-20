@@ -24,6 +24,10 @@
 			<selector-supplier-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [supplier]="item" (click)="onSelect(item)"></selector-supplier-row-app>
 		</ng-container>
 
+		<ng-container *ngSwitchCase="'event'">
+			<selector-event-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [event]="item" (click)="onSelect(item)"></selector-event-row-app>
+		</ng-container>
+
 		<ng-container *ngSwitchCase="'project'">
 			<selector-project-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row"  [project]="item" (click)="onSelect(item)"></selector-project-row-app>
 		</ng-container>

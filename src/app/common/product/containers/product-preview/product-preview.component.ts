@@ -176,12 +176,13 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 	openAddToProject() {
 		this.modalSrv.openAddToProjectDialog([this.product]);
 	}
+
 	openExportModal() {
 		this.modalSrv.openExportDialog([this.product]);
 	}
 
 	scrollToCommentButton() {
-		this.previewComment.element.nativeElement.scrollIntoView();
+		this.previewComment.focus();
 	}
 
 	/** Add a product to workflow */

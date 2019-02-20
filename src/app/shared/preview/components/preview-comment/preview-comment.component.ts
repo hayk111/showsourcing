@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { Comment } from '~models';
@@ -15,6 +15,7 @@ import { Comment } from '~models';
 export class PreviewCommentComponent {
 	@Output() added = new EventEmitter<Comment>();
 	commentCtrl = new FormControl();
+	@ViewChild('inp') input: ElementRef<HTMLInputElement>;
 
 	// element is needed if we want to acces the position of the element to scroll (product preview)
 	constructor(
@@ -26,6 +27,11 @@ export class PreviewCommentComponent {
 		this.commentSrv.create(comment);
 		this.added.emit(comment);
 		this.commentCtrl.reset();
+	}
+
+	focus() {
+		this.element.nativeElement.scrollIntoView();
+		this.input.nativeElement.focus();
 	}
 
 }

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierService, UserService } from '~core/entity-services';
@@ -53,6 +54,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges {
 	constructor(
 		private supplierSrv: SupplierService,
 		private commentSrv: CommentService,
+		private router: Router,
 		private userSrv: UserService,
 		private constPipe: ConstPipe) {
 		super();
@@ -103,6 +105,10 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges {
 	onDelete(image: AppImage) {
 		const images = this.supplier.images.filter(img => image.id !== img.id);
 		this.supplierSrv.update({ id: this.supplier.id, images }).subscribe();
+	}
+
+	openSupplier() {
+		this.router.navigate(['supplier', 'details', this.supplier.id]);
 	}
 
 	getLocationName(supplier) {

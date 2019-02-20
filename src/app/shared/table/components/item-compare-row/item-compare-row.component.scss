@@ -1,20 +1,30 @@
 
-$cell-width: 200px;
-$header-height: 258px;
+$cell-width: 196px; // we substract the padding-right
+$header-height: 264px;
 
 :host {
 	display: block;
 }
 
 .header-container {
-	height: $header-height;
+	max-height: $header-height;
+	min-height: 242px;
 	overflow-x: auto;
 	overflow-y: hidden;
+	// if this is modified the calculation on body-container too
+	padding-top: var(--spacing-ml);
+
+	.header-title {
+		color: var(--color-txt-strong);
+		font-weight: 600;
+		letter-spacing: -0.3px;
+	}
 }
 
 .body-container {
-	height: calc(100% - #{$header-height});
+	height: calc(100% - #{$header-height} - 20px - 20px); // one is the padding the other a fixed one
 	overflow: auto;
+	overflow-x: hidden;
 }
 
 .comparison-row {
@@ -27,8 +37,8 @@ $header-height: 258px;
       margin-bottom: 0;
     }
     .comparison-cell-description {
-      margin-bottom: var(--spacing-ms);
-    }
+			margin-bottom: var(--spacing-ms);
+		}
     .comparison-cell-text {
       font-size: var(--font-size-m);
       font-weight: 600;
@@ -38,10 +48,8 @@ $header-height: 258px;
 
   .comparison-row-content {
     border-bottom: 1px solid var(--color-divider);
-    min-height: 33px;
+    height: 33px;
     line-height: 33px;
-    .comparison-cell {
-    }
 
     .title {
       width: $cell-width;
@@ -71,9 +79,27 @@ $header-height: 258px;
 
   .comparison-cell {
     white-space: normal;
-    width: $cell-width;
-		padding: 5px;
-  }
+		width: $cell-width;
+		padding-right: var(--spacing-s);
+	}
+
+	.image-container {
+		padding-bottom: var(--spacing-ms);
+	}
+
+	.header-title {
+		padding-bottom: var(--spacing-xs);
+		height: 20px;
+	}
+
+	.description {
+		padding-bottom: var(--spacing-ms);
+
+		.comparison-cell {
+			white-space: pre-line;
+			font-size: var(--font-size-s);
+		}
+	}
 
   .image-container {
     width: 175px;

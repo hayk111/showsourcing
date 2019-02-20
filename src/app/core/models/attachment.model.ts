@@ -6,7 +6,7 @@ export class Attachment {
 	url: string;
 	size?: number;
 	pending?: boolean;
-	__typename ?= 'File';
+	__typename ?= 'Attachment';
 
 	constructor(config: AttachmentConfig) {
 		this.id = uuid();
