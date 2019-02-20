@@ -22,7 +22,7 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 	@Output() openActionCliked = new EventEmitter<null>();
 
 	@ViewChild(SelectorComponent) elem: SelectorComponent;
-	// this is the default one, but since its calculated dyanmically we don't need this
+	// this is the default one, but since its calculated dyanmically we don't the @Input tag
 	offsetX = 18;
 	erm = ERM;
 
