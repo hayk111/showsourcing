@@ -17,7 +17,7 @@
 		<icon-app
 			*ngIf="hasOpenAction && value"
 			class="icon-preview"
-			toolTip toolTipMessage="Open Preview" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
 			name="eye"
 			(click)="openActionCliked.emit()">
 		</icon-app>
@@ -40,7 +40,7 @@
 		<icon-app
 			*ngIf="hasOpenAction && value"
 			class="icon-preview"
-			toolTip toolTipMessage="Open Preview" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
 			name="eye"
 			(click)="openActionCliked.emit()">
 		</icon-app>

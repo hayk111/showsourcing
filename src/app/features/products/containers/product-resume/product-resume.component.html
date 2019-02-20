@@ -19,6 +19,7 @@
 				[badge]="erm.SUPPLIER"
 				[value]="product?.supplier?.name"
 				[offsetX]="210"
+				toolTipMessage="Open preview"
 				[hasOpenAction]="true"
 				(openActionCliked)="openPreview.emit()"
 				(update)="update($event, 'supplier')">
