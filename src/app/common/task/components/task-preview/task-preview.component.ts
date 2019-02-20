@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { TaskService, UserService } from '~entity-services';
-import { ERM, Task, Comment } from '~models';
+import { Comment, ERM, Task } from '~models';
 import { AutoUnsub } from '~utils';
 
 
@@ -30,6 +31,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 
 	constructor(
 		private commentSrv: CommentService,
+		private router: Router,
 		private userSrv: UserService,
 		private taskSrv: TaskService
 	) {
@@ -59,5 +61,13 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.taskSrv.update({ id: this._task.id, comments }))
 		).subscribe();
+	}
+
+	openSupplier() {
+		this.router.navigate(['supplier', 'details', this.task.supplier.id]);
+	}
+
+	openProduct() {
+		this.router.navigate(['product', 'details', this.task.product.id]);
 	}
 }

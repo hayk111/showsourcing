@@ -15,11 +15,11 @@
 			</div>
 		</selector-app>
 		<icon-app
-			*ngIf="hasPreview"
+			*ngIf="hasOpenAction && value"
 			class="icon-preview"
 			toolTip toolTipMessage="Open Preview" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
 			name="eye"
-			(click)="openPreview.emit()">
+			(click)="openActionCliked.emit()">
 		</icon-app>
 	</div>
 
@@ -38,11 +38,11 @@
 			</div>
 		</selector-app>
 		<icon-app
-			*ngIf="hasPreview"
+			*ngIf="hasOpenAction && value"
 			class="icon-preview"
 			toolTip toolTipMessage="Open Preview" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
 			name="eye"
-			(click)="openPreview.emit()">
+			(click)="openActionCliked.emit()">
 		</icon-app>
 	</div>
 
@@ -95,7 +95,7 @@
 						<span *ngFor="let category of value"> {{ category?.name }}  </span>
 					</div>
 					<ng-template #noArray>
-							<span *ngIf="!value?.name"> {{ multiple ? 'Set categories' : 'Set Category'}} </span>
+							<span *ngIf="!value?.name"> {{ multiple ? 'Set categories' : 'Set category'}} </span>
 							<span *ngIf="value?.name"> {{ value?.name }} </span>
 					</ng-template>
 				</div>
@@ -103,6 +103,7 @@
 		</selector-app>
 	</div>
 
+	<!-- Event -->
 	<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container">
 		<selector-app
 			type="event"
