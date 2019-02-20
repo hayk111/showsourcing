@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { SampleService, UserService } from '~core/entity-services';
+import { CommentService } from '~core/entity-services/comment/comment.service';
+import { Comment, ERM, Sample } from '~core/models';
 import { CustomField } from '~shared/dynamic-forms';
 import { AutoUnsub } from '~utils';
-import { CommentService } from '~core/entity-services/comment/comment.service';
-import { Sample, ERM, Comment } from '~core/models';
-import { Router } from '@angular/router';
 
 @Component({
 	selector: 'sample-preview-app',
