@@ -51,6 +51,10 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		// create new contact if doesn't exist ( so we are only gonna update the contact after ward)
+		if (this.isNewContact) {
+
+		}
 		// creating the formGroup
 		this.form = this.fb.group({
 			name: ['', Validators.required],
@@ -93,13 +97,8 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	createContact() {
-		const contact = new Contact({ ...this.form.value, supplier: { id: this.supplier.id } });
-		this.addImageToContact(contact);
-		this.isNewContact = false;
-		// updating the supplier with a new contact
-		this.contactSrv.create(contact).subscribe(
-			_ => this.dlgSrv.close({ type: CloseEventType.OK, data: contact })
-		);
+		const contact = new Contact({ supplier: { id: this.supplier.id } });
+		return this.contactSrv.create(contact);
 	}
 
 	private addImageToContact(contact) {
@@ -109,8 +108,11 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 
-	get image() {
-		return this.uploadedImg || this.pendingImg || this.contact.businessCardImage;
+	get images() {
+		if (this.contact.businessCardImage)
+			return [this.contact.businessCardImage];
+		else
+			return [];
 	}
 
 }

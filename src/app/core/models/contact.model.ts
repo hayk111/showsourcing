@@ -10,7 +10,7 @@ export class Contact extends EntityWithAudit<ContactConfig> {
 	jobTitle?: string;
 	supplier?: Supplier;
 	deleted?: boolean;
-	__typename ?= 'Contact';
+	__typename?= 'Contact';
 
 	constructor(config: ContactConfig) {
 		super(config);
@@ -19,7 +19,7 @@ export class Contact extends EntityWithAudit<ContactConfig> {
 }
 
 export interface ContactConfig {
-	name: string;
+	name?: string;
 	phoneNumber?: string;
 	email?: string;
 	businessCardImage?: AppImage;

@@ -45,19 +45,7 @@
 		</form-field-app>
 
 		<label>Business card</label>
-		<div class="imgPreview flexColumn flexCenter pointer" (click)="inpFile.click()">
-
-			<ng-container *ngIf="image; else empty">
-				<img-app [image]="image" size="l" class="previewImg"></img-app>
-			</ng-container>
-
-			<ng-template #empty>
-				<img [src]="defaultImg"/>
-				<span class="secondary"> Drag & Drop or pick a file</span>
-			</ng-template>
-
-		</div>
-		<input #inpFile [hidden]="true" class="hidden" type="file" (fileSelect)="onFilesAdded($event)"/>
+		<carousel-app [size]="340" [images]="images"></carousel-app>
 
 	</form>
 		<!-- no button to save when it's an existing contact -->
