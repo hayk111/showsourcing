@@ -11,7 +11,7 @@ import {
 	name: 'logo'
 })
 export class LogoPipe implements PipeTransform {
-	private static readonly baseUrl = 'https://files.showsourcing.com/';
+	private static readonly baseUrl = 'https://files.showsourcing.com';
 
 
 	transform(value: any, type?: string, size: 's' | 'm' | 'l' | 'xl' = 's'): any {

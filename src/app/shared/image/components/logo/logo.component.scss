@@ -1,4 +1,28 @@
 img {
 	width: 100%;
 	height: 100%;
+	&.size-xs {
+		width: var(--spacing-xs);
+		height: var(--spacing-xs);
+	}
+	&.size-s {
+		width: var(--spacing-s);
+		height: var(--spacing-s);
+	}
+	&.size-ms {
+		width: var(--spacing-ms);
+		height: var(--spacing-ms);
+	}
+	&.size-m {
+		width: var(--spacing-m);
+		height: var(--spacing-m);
+	}
+	&.size-l {
+		width: var(--spacing-l);
+		height: var(--spacing-l);
+	}
+	&.size-xl {
+		width: var(--spacing-xl);
+		height: var(--spacing-xl);
+	}
 }

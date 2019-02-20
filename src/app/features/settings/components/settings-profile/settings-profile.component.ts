@@ -8,6 +8,7 @@ import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { UserService } from '~core/entity-services';
 
 @Component({
 	selector: 'settings-profile-app',
@@ -21,7 +22,7 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 	userId: string;
 
 	constructor(
-		private profileSrv: SettingsProfileService,
+		private userSrv: UserService,
 		private dlgSrv: DialogService,
 		private uploaderSrv: UploaderService
 	) {
@@ -29,24 +30,19 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.user$ = this.profileSrv.selectUser();
+		this.user$ = this.userSrv.selectUser();
 		// This way we dont have to call the observable eachtime we need the id
 		this.user$.pipe(first()).subscribe(m => this.userId = m.id);
 	}
 
 	updateUser(user: User) {
 		user.id = this.userId;
-		this.profileSrv.updateUser(user)
+		this.userSrv.update(user)
 			.subscribe();
 	}
 
 	addFile(file: Array<File>) {
-		this.uploaderSrv.uploadImages(file, undefined, Client.USER).pipe(
-			switchMap(img => this.profileSrv.updateUser({
-				id: this.userId,
-				avatar: img[0]
-			}))
-		).subscribe();
+		this.uploaderSrv.uploadImages(file, this.userSrv.userSync, 'avatar', false, Client.USER).subscribe();
 	}
 
 	pswdModal() {
