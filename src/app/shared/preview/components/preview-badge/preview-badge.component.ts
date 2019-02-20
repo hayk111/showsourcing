@@ -11,10 +11,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class PreviewBadgesComponent extends TrackingComponent implements OnInit {
 
-
 	@Input() badge: EntityMetadata;
 	@Input() value: any;
-	@Input() offsetX = 18;
 	@Input() offsetY = -22;
 	@Input() multiple = false;
 	@Input() hasOpenAction = false;
@@ -24,7 +22,8 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 	@Output() openActionCliked = new EventEmitter<null>();
 
 	@ViewChild(SelectorComponent) elem: SelectorComponent;
-
+	// this is the default one, but since its calculated dyanmically we don't need this
+	offsetX = 18;
 	erm = ERM;
 
 	constructor() { super(); }

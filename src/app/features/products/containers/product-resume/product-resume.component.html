@@ -18,7 +18,6 @@
 			<preview-badge-app
 				[badge]="erm.SUPPLIER"
 				[value]="product?.supplier?.name"
-				[offsetX]="210"
 				toolTipMessage="Open preview"
 				[hasOpenAction]="true"
 				(openActionCliked)="openPreview.emit()"
@@ -29,7 +28,6 @@
 			<preview-badge-app
 				[badge]="erm.CATEGORY"
 				[value]="product?.category"
-				[offsetX]="210"
 				(update)="update($event, 'category')">
 			</preview-badge-app>
 
@@ -38,7 +36,6 @@
 				*ngIf="product?.event"
 				[badge]="erm.EVENT"
 				[value]="product?.event"
-				[offsetX]="210"
 				(update)="update($event, 'event')">
 			</preview-badge-app>
 
