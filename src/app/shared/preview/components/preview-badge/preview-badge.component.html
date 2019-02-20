@@ -5,7 +5,7 @@
 		<selector-app
 			type="product"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -28,7 +28,7 @@
 		<selector-app
 			type="supplier"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -51,7 +51,7 @@
 		<selector-app
 			type="supplierType"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -67,7 +67,7 @@
 		<selector-app
 			type="country"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
@@ -85,7 +85,7 @@
 			[canCreate]="true"
 			[multiple]="multiple"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex category-label">
@@ -110,7 +110,7 @@
 			[value]="value"
 			[canCreate]="true"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
