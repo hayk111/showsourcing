@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 
 @Component({
 	selector: 'selector-app',
@@ -22,8 +22,8 @@ export class SelectorComponent implements OnInit {
 	@Input() offsetY = 8;
 	@Output() menuClosed = new EventEmitter<any>();
 
-
-	constructor() { }
+	// we need this in order to calculate dynamically the offsetX on preview badges
+	constructor(public elem: ElementRef) { }
 
 	ngOnInit() {
 	}

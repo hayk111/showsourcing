@@ -81,7 +81,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			: `status == null && projects.id == "${this.project.id}"`;
 		this.productSrv.queryMany({
 			query,
-			take: col.data.length + 6,
+			take: col.data.length + 15,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(
 			first()
@@ -97,7 +97,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			else
 				query = `status == null && projects.id == "${this.project.id}"`;
 
-			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
+			this.productSrv.queryMany({ query, take: 15, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
 			this.productSrv.queryCount(query).pipe(first())

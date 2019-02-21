@@ -8,6 +8,7 @@ import {
 	Injector,
 	Input,
 	OnChanges,
+	OnDestroy,
 	OnInit,
 	ViewContainerRef,
 } from '@angular/core';
@@ -20,7 +21,7 @@ export type TooltipPosition = 'above-right' | 'above-left' | 'below-right' | 'be
 @Directive({
 	selector: '[toolTip]'
 })
-export class TooltipDirective implements OnInit, OnChanges {
+export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
 	@Input() toolTipMessage = 'Insert tool tip message';
 	@Input() toolTipPosition: TooltipPosition = 'below-left';
@@ -57,6 +58,10 @@ export class TooltipDirective implements OnInit, OnChanges {
 		private injector: Injector,
 		private viewContainerRef: ViewContainerRef,
 		private componentFR: ComponentFactoryResolver) { }
+
+	ngOnDestroy() {
+		this.hide();
+	}
 
 	ngOnInit() {
 		this.tooltipPortalHost = new DomPortalHost(

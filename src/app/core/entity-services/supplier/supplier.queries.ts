@@ -54,6 +54,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.tags}
 		${SupplierQueries.createdBy}
 		${SupplierQueries.productsLinked}
+		${SupplierQueries.logoImage}
 		`;
 
 	static readonly all = `

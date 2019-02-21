@@ -1,69 +1,68 @@
-<dialog-app (fileDrop)="onFilesAdded($event)">
+<dialog-app>
 
 	<dialog-header-app>Contact</dialog-header-app>
 
-	<form [formGroup]="form" (ngSubmit)="createContact()">
-		<form-field-app>
-			<label-app>Name</label-app>
-			<input inputApp
-				(blur)="updateContact()"
-				formControlName="name"
-				type="text"
-				autocomplete="new-name"
-				placeholder="Contact name"/>
-		</form-field-app>
+	<ng-container *ngIf="contactCreated$ | async; else spinner">
 
-		<form-field-app>
-			<label-app>Function</label-app>
-			<input inputApp
-				(blur)="updateContact()"
-				formControlName="jobTitle"
-				type="text"
-				autocomplete="new-job"
-				placeholder="Contact Function"/>
-		</form-field-app>
+		<form [formGroup]="form" (ngSubmit)="createContact()">
 
-		<form-field-app>
-			<label-app>Email</label-app>
-			<input inputApp
-				(blur)="updateContact()"
-				formControlName="email"
-				type="email"
-				autocomplete="new-email"
-				placeholder="Contact email address"/>
-		</form-field-app>
+			<form-field-app>
+				<label-app>Name</label-app>
+				<input inputApp
+					(blur)="updateContact()"
+					formControlName="name"
+					type="text"
+					autocomplete="new-name"
+					placeholder="Contact name"/>
+			</form-field-app>
+	
+			<form-field-app>
+				<label-app>Function</label-app>
+				<input inputApp
+					(blur)="updateContact()"
+					formControlName="jobTitle"
+					type="text"
+					autocomplete="new-job"
+					placeholder="Contact Function"/>
+			</form-field-app>
+	
+			<form-field-app>
+				<label-app>Email</label-app>
+				<input inputApp
+					(blur)="updateContact()"
+					formControlName="email"
+					type="email"
+					autocomplete="new-email"
+					placeholder="Contact email address"/>
+			</form-field-app>
+	
+			<form-field-app>
+				<label-app>Phone number</label-app>
+				<input inputApp
+					(blur)="updateContact()"
+					formControlName="phoneNumber"
+					restrictInput="tel"
+					type="tel"
+					autocomplete="new-tel"
+					placeholder="Contact phone number"/>
+			</form-field-app>
+	
+			<label>Business card</label>
+			<carousel-app *ngIf="contact$ | async as contact"
+				[imageProperty]="'businessCardImage'" 
+				[isImagePropertyArray]="false" 
+				[entity]="contact" 
+				[size]="340" 
+				[images]="[contact.businessCardImage]">
+			</carousel-app>
+	
+		</form>
 
-		<form-field-app>
-			<label-app>Phone number</label-app>
-			<input inputApp
-				(blur)="updateContact()"
-				formControlName="phoneNumber"
-				restrictInput="tel"
-				type="tel"
-				autocomplete="new-tel"
-				placeholder="Contact phone number"/>
-		</form-field-app>
+	</ng-container>
 
-		<label>Business card</label>
-		<div class="imgPreview flexColumn flexCenter pointer" (click)="inpFile.click()">
-
-			<ng-container *ngIf="image; else empty">
-				<img-app [image]="image" size="l" class="previewImg"></img-app>
-			</ng-container>
-
-			<ng-template #empty>
-				<img [src]="defaultImg"/>
-				<span class="secondary"> Drag & Drop or pick a file</span>
-			</ng-template>
-
-		</div>
-		<input #inpFile [hidden]="true" class="hidden" type="file" (fileSelect)="onFilesAdded($event)"/>
-
-	</form>
-		<!-- no button to save when it's an existing contact -->
-		<dialog-footer-app *ngIf="isNewContact">
-			<input type="submit" [disabled]="!form.valid" value="Save" (click)="createContact()"/>
-		</dialog-footer-app>
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
 </dialog-app>
 
 
