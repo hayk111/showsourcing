@@ -18,15 +18,19 @@
 
 		<!-- Product badge -->
 		<preview-badge-app
+			[hasOpenAction]="true"
 			[badge]="erm.PRODUCT"
 			[value]="sample?.product?.name"
+			(openActionCliked)="openProduct()"
 			(update)="update($event, 'product')">
 		</preview-badge-app>
 
 		<!-- Supplier badge -->
 		<preview-badge-app
+			[hasOpenAction]="true"
 			[badge]="erm.SUPPLIER"
 			[value]="sample?.supplier?.name"
+			(openActionCliked)="openSupplier()"
 			(update)="update($event, 'supplier')">
 			<divider-app></divider-app>
 		</preview-badge-app>

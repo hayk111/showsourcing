@@ -5,7 +5,7 @@
 		<selector-app
 			type="product"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -15,11 +15,11 @@
 			</div>
 		</selector-app>
 		<icon-app
-			*ngIf="hasPreview"
+			*ngIf="hasOpenAction && value"
 			class="icon-preview"
-			toolTip toolTipMessage="Open Preview" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
 			name="eye"
-			(click)="openPreview.emit()">
+			(click)="openActionCliked.emit()">
 		</icon-app>
 	</div>
 
@@ -28,7 +28,7 @@
 		<selector-app
 			type="supplier"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -38,11 +38,11 @@
 			</div>
 		</selector-app>
 		<icon-app
-			*ngIf="hasPreview"
+			*ngIf="hasOpenAction && value"
 			class="icon-preview"
-			toolTip toolTipMessage="Open Preview" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
 			name="eye"
-			(click)="openPreview.emit()">
+			(click)="openActionCliked.emit()">
 		</icon-app>
 	</div>
 
@@ -51,7 +51,7 @@
 		<selector-app
 			type="supplierType"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -67,7 +67,7 @@
 		<selector-app
 			type="country"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
@@ -85,7 +85,7 @@
 			[canCreate]="true"
 			[multiple]="multiple"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex category-label">
@@ -95,7 +95,7 @@
 						<span *ngFor="let category of value"> {{ category?.name }}  </span>
 					</div>
 					<ng-template #noArray>
-							<span *ngIf="!value?.name"> {{ multiple ? 'Set categories' : 'Set Category'}} </span>
+							<span *ngIf="!value?.name"> {{ multiple ? 'Set categories' : 'Set category'}} </span>
 							<span *ngIf="value?.name"> {{ value?.name }} </span>
 					</ng-template>
 				</div>
@@ -103,13 +103,14 @@
 		</selector-app>
 	</div>
 
+	<!-- Event -->
 	<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container">
 		<selector-app
 			type="event"
 			[value]="value"
 			[canCreate]="true"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">

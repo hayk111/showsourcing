@@ -169,8 +169,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 		this.modalSrv.openRequestQuotationDialog(this.product);
 	}
 
-	onViewProduct() {
+	openProduct() {
 		this.router.navigate(['product', 'details', this.product.id]);
+	}
+
+	openSupplier() {
+		this.router.navigate(['supplier', 'details', this.product.supplier.id]);
 	}
 
 	openAddToProject() {

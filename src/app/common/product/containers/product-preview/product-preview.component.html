@@ -1,7 +1,7 @@
 
 <preview-app cdk-scrollable *ngIf="product$ | async">
 	<!-- Banner -->
-	<preview-banner-app [canOpen]="true" (closed)="close.emit()" (opened)="onViewProduct()">
+	<preview-banner-app [canOpen]="true" (closed)="close.emit()" (opened)="openProduct()">
 		<preview-carousel-app
 			[entity]="product"
 			[entityMD]="erm.SUPPLIER"
@@ -26,8 +26,10 @@
 
 		<!-- Badge supplier -->
 		<preview-badge-app
+			[hasOpenAction]="true"
 			[badge]="erm.SUPPLIER"
 			[value]="product?.supplier?.name"
+			(openActionCliked)="openSupplier()"
 			(update)="update($event, 'supplier')">
 		</preview-badge-app>
 

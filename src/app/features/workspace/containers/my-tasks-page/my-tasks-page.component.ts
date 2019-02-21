@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { AbstractTaskCommonComponent } from '~common/task/containers/abstract-task-common.component';
 import { ListPageService } from '~core/list-page';

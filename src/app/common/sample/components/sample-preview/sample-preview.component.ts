@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { SampleService, UserService } from '~core/entity-services';
+import { CommentService } from '~core/entity-services/comment/comment.service';
+import { Comment, ERM, Sample } from '~core/models';
 import { CustomField } from '~shared/dynamic-forms';
 import { AutoUnsub } from '~utils';
-import { CommentService } from '~core/entity-services/comment/comment.service';
-import { Sample, ERM, Comment } from '~core/models';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -46,6 +47,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 
 	constructor(
 		private commentSrv: CommentService,
+		private router: Router,
 		private userSrv: UserService,
 		private sampleSrv: SampleService) {
 		super();
@@ -74,5 +76,13 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.sampleSrv.update({ id: this._sample.id, comments }))
 		).subscribe();
+	}
+
+	openSupplier() {
+		this.router.navigate(['supplier', 'details', this.sample.supplier.id]);
+	}
+
+	openProduct() {
+		this.router.navigate(['product', 'details', this.sample.product.id]);
 	}
 }
