@@ -7,8 +7,10 @@ import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-globa
 import { TokenService } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { ListPageService } from '~core/list-page';
-import { CompanyService, TeamService } from '~entity-services';
+import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
+import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';
+import { Angulartics2Hubspot } from 'angulartics2/hubspot';
 
 @Component({
 	selector: 'app-root',
@@ -20,6 +22,8 @@ export class AppComponent implements OnInit {
 	spinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 	constructor(
+		private mixpanel: Angulartics2Mixpanel,
+		private hubspot: Angulartics2Hubspot,
 		private authSrv: AuthenticationService,
 		private globalDataClient: GlobalDataClientsInitializer,
 		private userClient: UserClientInitializer,
@@ -27,13 +31,32 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private companySrv: CompanyService,
 		private tokenSrv: TokenService,
-		private apolloState: ApolloStateService
+		private apolloState: ApolloStateService,
+		private userSrv: UserService
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
+		// this.mixpanel.startTracking();
+		this.hubspot.startTracking();
+		// this.userSrv.selectUser().subscribe(user => {
+		// 	this.mixpanel.setUsername(user.id);
+		// 	this.mixpanel.setUserProperties({
+		// 		$name: user.firstName + ' ' + user.lastName,
+		// 		$lastName: user.lastName,
+		// 		$email: user.email
+		// 	});
+		// });
+		this.userSrv.selectUser().subscribe(user => {
+			this.hubspot.setUserProperties({
+				test_id: user.id,
+				first: user.firstName,
+				last_name: user.lastName,
+				email: user.email
+			});
+		});
 
 		const hasTeam$ = this.teamSrv.hasTeamSelected$;
 		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);
@@ -46,11 +69,11 @@ export class AppComponent implements OnInit {
 		// when authenticated we start the required clients
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.startBaseClients())
-		).subscribe();
+		).subscribe(m => console.log(this.userSrv.userSync));
 
 		// when logging off we destroy all clients
 		this.authSrv.notAuthenticated$
-			.subscribe(_ => this.destroyAllClients());
+			.subscribe(_ => { this.destroyAllClients(); console.log(this.userSrv.userSync); });
 
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelectionEvent$.pipe(
