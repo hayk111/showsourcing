@@ -41,6 +41,10 @@ export class AppComponent implements OnInit {
 		this.companySrv.init();
 		// this.mixpanel.startTracking();
 		this.hubspot.startTracking();
+		this.hubspot.eventTrack('update', {
+			id: 'idproductupdated1',
+			name: 'namepoructupdatedA'
+		});
 		// this.userSrv.selectUser().subscribe(user => {
 		// 	this.mixpanel.setUsername(user.id);
 		// 	this.mixpanel.setUserProperties({
@@ -51,11 +55,12 @@ export class AppComponent implements OnInit {
 		// });
 		this.userSrv.selectUser().subscribe(user => {
 			this.hubspot.setUserProperties({
-				test_id: user.id,
-				first: user.firstName,
-				last_name: user.lastName,
+				uniqueId: user.id,
+				firstName: user.firstName,
+				lastName: user.lastName,
 				email: user.email
 			});
+			console.log('man I put the credentials I swear');
 		});
 
 		const hasTeam$ = this.teamSrv.hasTeamSelected$;
@@ -69,11 +74,11 @@ export class AppComponent implements OnInit {
 		// when authenticated we start the required clients
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.startBaseClients())
-		).subscribe(m => console.log(this.userSrv.userSync));
+		).subscribe();
 
 		// when logging off we destroy all clients
 		this.authSrv.notAuthenticated$
-			.subscribe(_ => { this.destroyAllClients(); console.log(this.userSrv.userSync); });
+			.subscribe(_ => this.destroyAllClients());
 
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelectionEvent$.pipe(
