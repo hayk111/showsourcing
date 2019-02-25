@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { first, switchMap, tap } from 'rxjs/operators';
+import { AnalyticsService } from '~common/activity/services/analytics.service';
 import { CommonModalService } from '~common/modals';
 import { ApolloStateService } from '~core/apollo';
 import { Product, ProductStatus, Project } from '~core/models';
@@ -10,6 +11,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 @Injectable({ providedIn: 'root' })
 export class ProjectFeatureService extends ProjectService {
 	constructor(
+		protected analyticsSrv: AnalyticsService,
 		protected apolloState: ApolloStateService,
 		protected productSrv: ProductService,
 		protected productStatusSrv: ProductStatusService,
@@ -17,7 +19,7 @@ export class ProjectFeatureService extends ProjectService {
 		protected notificationSrv: NotificationService,
 		protected commonModalSrv: CommonModalService
 	) {
-		super(apolloState, userSrv);
+		super(analyticsSrv, apolloState, userSrv);
 	}
 
 	/** Returns the products associated with a specific project */
