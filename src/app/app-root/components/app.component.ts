@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { AnalyticsService } from '~common/activity/services/analytics.service';
 import { ApolloStateService, ClientStatus, TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
 import { TokenService } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { ListPageService } from '~core/list-page';
-import { CompanyService, TeamService, UserService } from '~entity-services';
+import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
-import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';
-import { Angulartics2Hubspot } from 'angulartics2/hubspot';
 
 @Component({
 	selector: 'app-root',
@@ -22,46 +21,22 @@ export class AppComponent implements OnInit {
 	spinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 	constructor(
-		private mixpanel: Angulartics2Mixpanel,
-		private hubspot: Angulartics2Hubspot,
+		private analytics: AnalyticsService,
+		private apolloState: ApolloStateService,
 		private authSrv: AuthenticationService,
+		private companySrv: CompanyService,
 		private globalDataClient: GlobalDataClientsInitializer,
-		private userClient: UserClientInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
-		private companySrv: CompanyService,
 		private tokenSrv: TokenService,
-		private apolloState: ApolloStateService,
-		private userSrv: UserService
+		private userClient: UserClientInitializer,
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
-		// this.mixpanel.startTracking();
-		this.hubspot.startTracking();
-		this.hubspot.eventTrack('update', {
-			id: 'idproductupdated1',
-			name: 'namepoructupdatedA'
-		});
-		// this.userSrv.selectUser().subscribe(user => {
-		// 	this.mixpanel.setUsername(user.id);
-		// 	this.mixpanel.setUserProperties({
-		// 		$name: user.firstName + ' ' + user.lastName,
-		// 		$lastName: user.lastName,
-		// 		$email: user.email
-		// 	});
-		// });
-		this.userSrv.selectUser().subscribe(user => {
-			this.hubspot.setUserProperties({
-				uniqueId: user.id,
-				firstName: user.firstName,
-				lastName: user.lastName,
-				email: user.email
-			});
-			console.log('man I put the credentials I swear');
-		});
+		// this.analytics.init();
 
 		const hasTeam$ = this.teamSrv.hasTeamSelected$;
 		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);

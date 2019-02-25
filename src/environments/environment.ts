@@ -15,6 +15,7 @@ export const environment = {
 	apiUrl: 'https://services.showsourcing.com',
 	getStreamKey: 'kn8zj3tgdkf3',
 	mixPanelKey: '9143fc0c3d674a93d201e8d9e12fb4f9',
+	hubspotKey: '5511311',
 	LOG_LEVEL: LogLevel.DEBUG
 };
 
