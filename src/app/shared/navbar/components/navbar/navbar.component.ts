@@ -10,6 +10,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class NavBarComponent extends TrackingComponent implements OnInit {
 	@Input() tabs: string[] = [];
+	@Input() values: string[] = [];
 	@Input() currentTab = '';
 	@Output() tabChange = new EventEmitter<string>();
 

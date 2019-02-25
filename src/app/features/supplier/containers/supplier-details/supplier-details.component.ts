@@ -12,6 +12,7 @@ import { Supplier } from '~models/supplier.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 import { CloseEventType } from '~shared/dialog';
+import { SampleService, TaskService, UserService } from '~core/entity-services';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -24,7 +25,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
-
+	sampleCount$: Observable<number>;
+	taskCount$: Observable<number>;
 
 
 	constructor(
@@ -32,7 +34,10 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private featureSrv: SupplierFeatureService,
 		private notifSrv: NotificationService,
-		public commonModalSrv: CommonModalService
+		public commonModalSrv: CommonModalService,
+		private sampleSrv: SampleService,
+		private taskSrv: TaskService,
+		private userSrv: UserService
 	) {
 		super();
 	}
@@ -53,7 +58,19 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			err => this.onError(err)
 		);
 
-		// getting his products
+		this.sampleCount$ = id$.pipe(
+			switchMap(id => this.sampleSrv
+				.queryCount(`supplier.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND deleted == false`)),
+			takeUntil(this._destroy$)
+		);
+
+		this.taskCount$ = id$.pipe(
+			switchMap(id => this.taskSrv
+				.queryCount(`supplier.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND done == false AND deleted == false`)),
+			takeUntil(this._destroy$)
+		);
+
+		// getting the products
 		this.products$ = id$.pipe(
 			switchMap(id => this.featureSrv.getProducts(id))
 		);
