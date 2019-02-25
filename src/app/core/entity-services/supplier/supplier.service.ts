@@ -4,11 +4,15 @@ import { SupplierQueries } from '~entity-services/supplier/supplier.queries';
 import { UserService } from '~entity-services/user/user.service';
 import { Supplier } from '~models';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { AnalyticsService } from '~common/activity/services/analytics.service';
 
 @Injectable({ providedIn: 'root' })
 export class SupplierService extends GlobalWithAuditService<Supplier> {
 
-	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
+	constructor(
+		protected analyticsSrv: AnalyticsService,
+		protected apolloState: ApolloStateService,
+		protected userSrv: UserService) {
 		super(apolloState, SupplierQueries, 'supplier', 'suppliers', userSrv);
 	}
 
