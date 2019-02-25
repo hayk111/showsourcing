@@ -13,7 +13,7 @@ export class SupplierService extends GlobalWithAuditService<Supplier> {
 		protected analyticsSrv: AnalyticsService,
 		protected apolloState: ApolloStateService,
 		protected userSrv: UserService) {
-		super(apolloState, SupplierQueries, 'supplier', 'suppliers', userSrv);
+		super(apolloState, SupplierQueries, 'supplier', 'suppliers', userSrv, analyticsSrv);
 	}
 
 }

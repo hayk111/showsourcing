@@ -16,7 +16,7 @@ export class ProjectService extends GlobalWithAuditService<Project> {
 		protected analyticsSrv: AnalyticsService,
 		protected apolloState: ApolloStateService,
 		protected userSrv: UserService) {
-		super(apolloState, ProjectQueries, 'project', 'projects', userSrv);
+		super(apolloState, ProjectQueries, 'project', 'projects', userSrv, analyticsSrv);
 	}
 
 }

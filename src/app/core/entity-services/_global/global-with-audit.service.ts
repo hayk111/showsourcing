@@ -5,6 +5,7 @@ import { UserService } from '~entity-services';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 import { GlobalService, GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { EntityWithAudit } from '~models';
+import { AnalyticsService } from '~common/activity/services/analytics.service';
 
 /**
  * Same as global service but adds an audit (created by, last updated date etc)
@@ -16,9 +17,10 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 		protected fields: GlobalQueries,
 		protected sing: string,
 		protected plural: string,
-		protected userSrv: UserService
+		protected userSrv: UserService,
+		protected analyticsSrv?: AnalyticsService
 	) {
-		super(apolloState, fields, sing, plural);
+		super(apolloState, fields, sing, plural, analyticsSrv);
 	}
 
 	/** @inheritDoc

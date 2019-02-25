@@ -16,7 +16,7 @@ export class TaskService extends GlobalWithAuditService<Task> {
 		protected analyticsSrv: AnalyticsService,
 		protected apolloState: ApolloStateService,
 		protected userSrv: UserService) {
-		super(apolloState, TaskQueries, 'task', 'tasks', userSrv);
+		super(apolloState, TaskQueries, 'task', 'tasks', userSrv, analyticsSrv);
 	}
 
 }

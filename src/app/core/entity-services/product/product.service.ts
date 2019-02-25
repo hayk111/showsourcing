@@ -15,7 +15,7 @@ export class ProductService extends GlobalWithAuditService<Product> {
 		protected analytics: AnalyticsService,
 		protected apolloState: ApolloStateService,
 		protected userSrv: UserService) {
-		super(apolloState, ProductQueries, 'product', 'products', userSrv);
+		super(apolloState, ProductQueries, 'product', 'products', userSrv, analytics);
 	}
 
 }

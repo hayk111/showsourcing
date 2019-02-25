@@ -16,6 +16,6 @@ export class SampleService extends GlobalWithAuditService<Sample> {
 		protected analyticsSrv: AnalyticsService,
 		protected apolloState: ApolloStateService,
 		protected userSrv: UserService) {
-		super(apolloState, SampleQueries, 'sample', 'samples', userSrv);
+		super(apolloState, SampleQueries, 'sample', 'samples', userSrv, analyticsSrv);
 	}
 }
