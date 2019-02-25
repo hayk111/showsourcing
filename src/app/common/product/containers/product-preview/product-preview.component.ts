@@ -72,6 +72,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'price', type: 'price' },
 		{
+			name: 'event', type: 'selector',
+			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+		},
+		{
 			name: 'assignee',
 			label: 'Assignee',
 			type: 'selector',
