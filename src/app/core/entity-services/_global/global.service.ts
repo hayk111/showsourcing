@@ -622,7 +622,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
-			tap(data => this.sendTrack('Create ' + this.typeName, data)),
+			tap(data => this.sendTrack('Create ' + this.typeName, data, 'creation')),
 			catchError(errors => of(log.table(errors)))
 		);
 	}
@@ -864,13 +864,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		}
 	}
 
-	sendTrack(action: string, data: any) {
+	sendTrack(action: string, data: any, type: string) {
 		if (this.analyticsSrv) {
 			this.analyticsSrv.evenTrack(action, {
 				id: data.id,
 				name: data.name,
 				entity: this.typeName,
-				date: data.creationDate
+				date: data.creationDate,
+				type
 			});
 		}
 	}

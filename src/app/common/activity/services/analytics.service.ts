@@ -9,6 +9,7 @@ interface Properties {
 	name: string;
 	entity: string;
 	date: Date;
+	type: string;
 }
 
 @Injectable({
