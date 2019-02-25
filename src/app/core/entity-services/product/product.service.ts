@@ -4,13 +4,16 @@ import { GlobalWithAuditService } from '~entity-services/_global/global-with-aud
 import { ProductQueries } from '~entity-services/product/product.queries';
 import { UserService } from '~entity-services/user/user.service';
 import { Product } from '~models';
+import { AnalyticsService } from '~common/activity/services/analytics.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ProductService extends GlobalWithAuditService<Product> {
 
-	constructor(protected apolloState: ApolloStateService,
+	constructor(
+		protected analytics: AnalyticsService,
+		protected apolloState: ApolloStateService,
 		protected userSrv: UserService) {
 		super(apolloState, ProductQueries, 'product', 'products', userSrv);
 	}

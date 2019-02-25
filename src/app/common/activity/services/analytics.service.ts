@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import { Angulartics2Hubspot } from 'angulartics2/hubspot';
 import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';
-import { UserService } from '~core/entity-services';
+import { UserService } from '~core/entity-services/user/user.service';
 
 interface Properties {
 	id: string;

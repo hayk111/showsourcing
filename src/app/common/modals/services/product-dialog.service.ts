@@ -11,11 +11,13 @@ import {
 } from '~entity-services';
 import { ProductVoteRequestService } from '~entity-services/product-vote-request/product-vote-request.service';
 import { Contact, Product, ProductVoteRequest, Project } from '~models';
+import { AnalyticsService } from '~common/activity/services/analytics.service';
 
 @Injectable()
 export class ProductDialogService extends ProductService {
 
 	constructor(
+		protected analyticsSrv: AnalyticsService,
 		protected apolloState: ApolloStateService,
 		protected voteSrv: ProductVoteRequestService,
 		protected projectSrv: ProjectService,
@@ -24,7 +26,7 @@ export class ProductDialogService extends ProductService {
 		protected userSrv: UserService,
 		protected contactSrv: ContactService
 	) {
-		super(apolloState, userSrv);
+		super(analyticsSrv, apolloState, userSrv);
 	}
 
 	getContacts(supplierId: string): Observable<Contact[]> {
