@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
 		this.authSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
-		// this.analytics.init();
+		this.analytics.init();
 
 		const hasTeam$ = this.teamSrv.hasTeamSelected$;
 		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);
