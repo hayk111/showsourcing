@@ -9,7 +9,7 @@
 			<icon-app name="excel"></icon-app>
 			<div class="title">Excel</div>
 			<div class="subtitle" i18n="div subtitle|Export items for edition purpose@@export_excelEdit">
-				Perfect for edition
+				Perfect for editing
 			</div>
 		</div>
 		<div class="exportCell" (click)="select('pdf', 'pdf_product_page')"
@@ -18,6 +18,14 @@
 			<div class="title">PDF</div>
 			<div class="subtitle" i18n="div subtitle|Export items for sharing purpose@@export_pdfShare">
 				Perfect for sharing
+			</div>
+		</div>
+		<div class="exportCell image" (click)="select('pictures', 'product_image')"
+			[class.selected]="selectedType === 'product_image'">
+			<icon-app name="image"></icon-app>
+			<div class="title">Pictures</div>
+			<div class="subtitle" i18n="div subtitle|Export items for sharing purpose@@export_imagesShare">
+				All product pictures
 			</div>
 		</div>
 	</main>

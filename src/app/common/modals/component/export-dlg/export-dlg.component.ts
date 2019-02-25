@@ -6,6 +6,8 @@ import { ExportRequest, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 
+type exportFormat = 'pdf' | 'xls' | 'pictures';
+type exportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
 
 @Component({
 	selector: 'export-dlg-app',
@@ -15,8 +17,8 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 })
 export class ExportDlgComponent implements OnInit {
 	@Input() targets: Product[] | Supplier[];
-	selectedFormat: 'pdf' | 'xls';
-	selectedType: 'pdf_product_page' | 'xls_product_list';
+	selectedFormat: exportFormat;
+	selectedType: exportType;
 	pending: boolean;
 
 	constructor(
@@ -38,7 +40,7 @@ export class ExportDlgComponent implements OnInit {
 		});
 	}
 
-	select(format: 'pdf' | 'xls', type: 'pdf_product_page' | 'xls_product_list') {
+	select(format: exportFormat, type: exportType) {
 		this.selectedFormat = format;
 		this.selectedType = type;
 	}

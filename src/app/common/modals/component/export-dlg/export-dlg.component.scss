@@ -1,5 +1,5 @@
 dialog-app {
-	width: 500px;
+	width: 700px;
 }
 
 .exportRow {
@@ -28,6 +28,13 @@ dialog-app {
 			font-size: 48px;
 			color: var(--color-txt-secondary);
 			margin-bottom: var(--spacing-m);
+		}
+		&.image {
+			margin-top: 8px;
+
+			icon-app {
+				font-size: 40px;
+			}
 		}
 		.title {
 				font-weight: 600;
