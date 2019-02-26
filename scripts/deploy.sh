@@ -17,7 +17,7 @@ if [ -z "$ENDPOINT" ]
     case $n in
 			1) ENDPOINT="app-test.showsourcing.com";;
 			2) ENDPOINT="app-dev.showsourcing.com";;
-			3) ENDPOINT="app-sta.showsourcing.com";;
+			3) ENDPOINT="app-sta.showsourcing.com";; # --region us-west-1
 			4) ENDPOINT="app2.showsourcing.com";; # --region us-east-2
 			5) ENDPOINT="app.showsourcing.com";; # --region eu-central-1
 			*) invalid option;;
