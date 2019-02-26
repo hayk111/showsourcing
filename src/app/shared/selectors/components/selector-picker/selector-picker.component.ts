@@ -221,9 +221,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	onSelect(item) {
 		if (this.multiple) {
-			if (this.isSelected(item)) // if its multiple and is already on the selection we delete the item from our value array
-				this.delete(item);
-			else { // if its multiple and its not selected we add it
+			if (!this.isSelected(item)) { // if its multiple and its not selected we add it
 				this.value.push(item);
 				this.onChange();
 			}
@@ -231,7 +229,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.value = item;
 			this.onChange();
 		}
-
 	}
 
 	/** creates a new entity */
