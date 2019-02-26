@@ -11,7 +11,7 @@ export const environment = {
 	staging: true,
 	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',
-	apiUrl: 'https://services.showsourcing.com',
-	getStreamKey: '7mxs7fsf47nu',
+	apiUrl: 'https://services-dev.showsourcing.com',
+	getStreamKey: 'aner534ygtg9',
 	LOG_LEVEL: LogLevel.DEBUG
 };
