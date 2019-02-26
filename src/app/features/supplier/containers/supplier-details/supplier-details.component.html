@@ -11,7 +11,10 @@
 	<div class="flex supplier-container">
 		<!-- left side -->
 		<div class="left">
-			<navbar-app [tabs]="['Activity','Products','Tasks']"></navbar-app>
+			<navbar-app
+				[tabs]="['Activity','Products','Tasks']"
+				[values]="[null, null, taskCount$ | async]">
+			</navbar-app>
 
 			<main>
 				<router-outlet></router-outlet>
@@ -36,7 +39,7 @@
 				[contacts]="contacts$ | async"
 				[supplier]="supplier">
 			</supplier-contact-card-app>
-			
+
 		</div>
 	</div>
 

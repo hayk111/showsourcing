@@ -1,7 +1,7 @@
 
 <div
-	*ngFor="let tab of tabs; trackBy: trackByFn"
-	class="tab-title"
+	*ngFor="let tab of tabs; index as index; trackBy: trackByFn"
+	class="tab-title flexCenter"
 	[style.width]="100 / tabs?.length + '%'"
 	[ngClass]="{'active': currentTab === tab}"
 	[routerLink]="'./' + tab.toLowerCase()"
@@ -9,4 +9,5 @@
 	routerLinkActive="active"
 	(click)="changeTab(tab)">
 	{{ tab }}
+	<div *ngIf="values[index]" class="filters flexCenter"> {{ values[index] > 99 ? '+99' : values[index] }} </div>
 </div>
