@@ -21,7 +21,7 @@ export class UserPanelComponent implements OnInit {
 
 	ngOnInit() { }
 
-	goToSettings() {
+	goToProfile() {
 		this.router.navigate(['settings', 'profile']);
 		this.close.emit();
 	}
@@ -30,7 +30,7 @@ export class UserPanelComponent implements OnInit {
 		this.router.navigate(['settings', 'team', 'members']);
 	}
 
-	goToDataManagement() {
+	goToSettings() {
 		this.router.navigate(['settings', 'data', 'category']);
 		this.close.emit();
 	}
