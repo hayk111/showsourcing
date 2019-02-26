@@ -6,7 +6,7 @@ import { LogLevel } from '~utils/logger/log-level';
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-	version: '0.0.3',
+	version: '2.1.0',
 	production: false,
 	staging: true,
 	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
