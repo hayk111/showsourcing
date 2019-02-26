@@ -25,7 +25,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
-	sampleCount$: Observable<number>;
 	taskCount$: Observable<number>;
 
 
@@ -35,7 +34,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private featureSrv: SupplierFeatureService,
 		private notifSrv: NotificationService,
 		public commonModalSrv: CommonModalService,
-		private sampleSrv: SampleService,
 		private taskSrv: TaskService,
 		private userSrv: UserService
 	) {
@@ -56,12 +54,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.supplier$.subscribe(
 			supplier => this.onSupplier(supplier),
 			err => this.onError(err)
-		);
-
-		this.sampleCount$ = id$.pipe(
-			switchMap(id => this.sampleSrv
-				.queryCount(`supplier.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND deleted == false`)),
-			takeUntil(this._destroy$)
 		);
 
 		this.taskCount$ = id$.pipe(
