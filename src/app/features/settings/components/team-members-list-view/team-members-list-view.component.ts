@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
-import { TeamUser, User } from '~models';
+import { TeamUser, User, Team } from '~models';
+import { TeamService } from '~core/entity-services';
+import { Observable } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 
 @Component({
@@ -9,16 +12,23 @@ import { TeamUser, User } from '~models';
 	styleUrls: ['./team-members-list-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamMembersListViewComponent extends ListViewComponent<TeamUser> {
+export class TeamMembersListViewComponent extends ListViewComponent<TeamUser> implements OnInit {
 
 	@Input() teamOwner: boolean;
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
 	isSelectableFn: Function;
+	$teamOwner: Observable<User>;
 
-	constructor() {
+	constructor(private teamSrv: TeamService) {
 		super();
 		this.isSelectableFn = (item) => this.isSelectable(item);
+	}
+
+	ngOnInit() {
+		this.$teamOwner = this.teamSrv.teamSelectedTeamRealm$.pipe(
+			map(team => team.ownerUser)
+		);
 	}
 
 	isSelectable(user: TeamUser) {

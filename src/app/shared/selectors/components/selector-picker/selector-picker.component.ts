@@ -18,7 +18,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Category, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
+import { Category, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -241,29 +241,33 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		const name = this.searchTxt;
 		if (name) {
 			switch (this.type) {
-				case 'supplier':
-					added = new Supplier({ name });
-					createObs$ = this.selectorSrv.createSupplier(added);
+				case 'category':
+					added = new Category({ name });
+					createObs$ = this.selectorSrv.createCategory(added);
 					break;
-				case 'project':
-					added = new Project({ name });
-					createObs$ = this.selectorSrv.createProject(added);
+				case 'event':
+					added = new Event({ name });
+					createObs$ = this.selectorSrv.createEvent(added);
 					break;
 				case 'product':
 					added = new Product({ name });
 					createObs$ = this.selectorSrv.createProduct(added);
 					break;
-				case 'tag':
-					added = new Tag({ name });
-					createObs$ = this.selectorSrv.createTag(added);
+				case 'project':
+					added = new Project({ name });
+					createObs$ = this.selectorSrv.createProject(added);
 					break;
-				case 'category':
-					added = new Category({ name });
-					createObs$ = this.selectorSrv.createCategory(added);
+				case 'supplier':
+					added = new Supplier({ name });
+					createObs$ = this.selectorSrv.createSupplier(added);
 					break;
 				case 'supplierType':
 					added = new SupplierType({ name });
 					createObs$ = this.selectorSrv.createSupplierType(added);
+					break;
+				case 'tag':
+					added = new Tag({ name });
+					createObs$ = this.selectorSrv.createTag(added);
 					break;
 				default: throw Error(`Unsupported type ${this.type}`);
 			}

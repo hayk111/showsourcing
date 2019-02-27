@@ -7,13 +7,13 @@ import { LogLevel } from '~utils/logger/log-level';
 
 
 export const environment = {
-	version: '0.0.1',
+	version: '2.1.0',
 	production: false,
 	staging: false,
 	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',
-	apiUrl: 'https://services.showsourcing.com',
-	getStreamKey: 'kn8zj3tgdkf3',
+	apiUrl: 'https://services-dev.showsourcing.com',
+	getStreamKey: 'aner534ygtg9',
 	LOG_LEVEL: LogLevel.DEBUG
 };
 

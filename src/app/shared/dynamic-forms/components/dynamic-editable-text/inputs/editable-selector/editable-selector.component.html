@@ -26,7 +26,7 @@
 	<selector-app
 		[value]="value"
 		[offsetY]="-30"
-		[width]="265"
+		[width]="330"
 		[type]="customField.metadata.target"
 		[multiple]="customField.multiple"
 		[canCreate]="customField.metadata.canCreate"
@@ -75,6 +75,11 @@
 		<!-- supplier type -->
 		<ng-container *ngSwitchCase="'supplierType'">
 			<span>{{ value ? (value[labelName] | const: 'supplierType')  : '-'  }}</span>
+		</ng-container>
+
+		<!-- event -->
+		<ng-container *ngSwitchCase="'event'">
+			<span> {{ value && value['description'] ? value['description'][labelName] : '-' }}</span>
 		</ng-container>
 
 		<!-- others we display an icon and the value next to it -->

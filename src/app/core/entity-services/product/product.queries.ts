@@ -89,7 +89,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.votes},
 			${ProductQueries.projects},
 			${ProductQueries.tags}
-		`;
+			`;
 
 	static readonly update = `
 		favorite

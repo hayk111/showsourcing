@@ -38,7 +38,10 @@
 		</div>
 
 		<div class="right">
-			<navbar-app [tabs]="['Activity', 'Shipping', 'Samples', 'Tasks']"></navbar-app>
+				<navbar-app
+					[tabs]="['Activity', 'Shipping', 'Samples', 'Tasks']"
+					[values]="[null, null, sampleCount$ | async, taskCount$ | async]">
+				</navbar-app>
 			<router-outlet></router-outlet>
     </div>
 
