@@ -73,10 +73,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** index when using manager keys and virtual scrolling */
 	count = 0;
 
-	/** whther the type that we send is a const or not
-	 * if its a const we don't need to emit an object {id, typename}, we only need a string
-	 */
-	isConst = false;
 	/** if current type is in our DB or not */
 	hasDB = false;
 
@@ -143,6 +139,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
+	// ADVICE: when adding a new choice, check the update single method
 	getChoices(type: string): Observable<any[]> {
 		switch (type) {
 			case 'supplier': return this.selectorSrv.getSuppliers();
@@ -155,19 +152,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				return this.selectorSrv.getSupplierTypes();
 			case 'user': return this.selectorSrv.getUsers();
 			case 'project': return this.selectorSrv.getProjects();
-			// Constants
-			case 'currency':
-				this.isConst = true;
-				return this.selectorSrv.getCurrenciesGlobal();
-			case 'country':
-				this.isConst = true;
-				return this.selectorSrv.getCountriesGlobal();
-			case 'harbour':
-				this.isConst = true;
-				return this.selectorSrv.getHarboursGlobal();
-			case 'incoTerm':
-				this.isConst = true;
-				return this.selectorSrv.getIncoTermsGlobal();
+			case 'country': return this.selectorSrv.getCountriesGlobal();
+			case 'currency': return this.selectorSrv.getCurrenciesGlobal();
+			case 'harbour': return this.selectorSrv.getHarboursGlobal();
+			case 'incoTerm': return this.selectorSrv.getIncoTermsGlobal();
 
 			default: throw Error(`Unsupported type ${this.type}`);
 		}
@@ -177,19 +165,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	getChoicesLocal(type, searchTxt) {
 		switch (type) {
 			case 'lengthUnit':
-				this.isConst = true;
 				this.displayName = 'length unit';
 				return this.selectorSrv.getLengthUnits(searchTxt);
 			case 'weightUnit':
-				this.isConst = true;
 				this.displayName = 'weight unit';
 				return this.selectorSrv.getWeigthUnits(searchTxt);
 			case 'businessType':
-				this.isConst = true;
 				this.displayName = 'business type';
 				return this.selectorSrv.getBusinessTypes(searchTxt);
 			case 'categoryBoarding':
-				this.isConst = true;
 				this.displayName = 'category';
 				return this.selectorSrv.getCategoriesBoarding(searchTxt);
 			default: this.hasDB = true;
@@ -198,25 +182,51 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	onChange() {
 		this.onChangeFn(this.value);
-		if (!this.multiple) {
-			if (!this.isConst) { // constants can update directly, wihtout a value name
-				if (this.type === 'user') // specific user case, since the rest use name to update
-					this.update.emit({
-						id: this.value.id,
-						firstName: this.value.firstName ? this.value.firstName : '',
-						lastName: this.value.lastName ? this.value.lastName : '',
-						__typename: this.value.__typename
-					});
-				else
-					this.update.emit({ id: this.value.id, name: this.value.name ? this.value.name : '', __typename: this.value.__typename });
-			} else
-				this.update.emit(this.value);
-			this.close.emit();
-		} else {
-			const trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
-			this.update.emit(trimValues);
-			this.selectorSrv.refetch();
+		if (!this.multiple)
+			this.updateSingle();
+		else
+			this.updateMultiple();
+	}
+
+	updateMultiple() {
+		const trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
+		this.update.emit(trimValues);
+		this.selectorSrv.refetch();
+	}
+
+	updateSingle() {
+		let item;
+		// depending on the entity the way we update it can be different (we only care to update the value that we display)
+		switch (this.type) {
+			case 'user':
+				item = {
+					id: this.value.id,
+					firstName: this.value.firstName ? this.value.firstName : '',
+					lastName: this.value.lastName ? this.value.lastName : '',
+					__typename: this.value.__typename
+				};
+				break;
+			// if its a const we don't need to emit an object {id, typename}, we only need a string (this is for the dynamic form way of updating)
+			case 'businessType':
+			case 'categoryBoarding':
+			case 'country':
+			case 'currency':
+			case 'harbour':
+			case 'incoTerm':
+			case 'lengthUnit':
+			case 'weightUnit':
+				item = this.value;
+				break;
+			default:
+				item = {
+					id: this.value.id,
+					name: this.value.name ? this.value.name : '',
+					__typename: this.value.__typename
+				};
+				break;
 		}
+		if (item) this.update.emit(item);
+		this.close.emit();
 	}
 
 	onSelect(item) {
