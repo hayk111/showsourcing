@@ -14,7 +14,7 @@ import { ERM, ExportRequest } from '~core/models';
 export class ExportListViewComponent extends ListViewComponent<ExportRequest> {
 
 	erm = ERM;
-	@Output() download = new EventEmitter<string>();
+	@Output() download = new EventEmitter<ExportRequest>();
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 

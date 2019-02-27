@@ -21,7 +21,7 @@
 			</context-menu-item-app>
 			<context-menu-item-app
 				class="pointer flexCenter"
-				(click)="download.emit(row.id)"
+				(click)="download.emit(row)"
 				i18n="export menu | delete">
 				Download
 			</context-menu-item-app>
@@ -76,7 +76,7 @@
 			sortBy="createdBy.lastName"
 			[grows]="false"
 			width="100">
-				<icon-app class="download" name="file" (click)="download.emit(row.id)"></icon-app>
+				<icon-app class="download" name="file" (click)="download.emit(row)"></icon-app>
 		</ng-template>
 
 </table-app>
