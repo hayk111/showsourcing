@@ -25,7 +25,7 @@ export class SettingsExportComponent extends TrackingComponent implements OnInit
 		this.listSrv.setup({
 			key: ListPageKey.EXPORT,
 			entitySrv: this.exportSrv,
-			searchedFields: ['creationDate'],
+			searchedFields: ['status', 'createdBy.firstName', 'createdBy.lastName'],
 			entityMetadata: ERM.EXPORT_REQUEST,
 			initialFilters: []
 		});

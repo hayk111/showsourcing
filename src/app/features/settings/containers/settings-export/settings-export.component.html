@@ -1,14 +1,29 @@
 <top-panel-app
-	[title]="'Exports'">
+	[title]="'Exports'"
+	[hasAction]="false">
 </top-panel-app>
 
 <sub-panel-app
 	[hasFilter]="false"
-	[hasSwitch]="false">
+	[hasSwitch]="false"
+	[searchValue]="listSrv.searchValue"
+	(search)="listSrv.search($event)">
 </sub-panel-app>
 
 <export-list-view-app
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
-	[pending]="listSrv.pending">
+	[pending]="listSrv.pending"
+	(select)="listSrv.selectOne($event)"
+	(unselect)="listSrv.unselectOne($event)"
+	(selectAll)="listSrv.selectAll($event)"
+	(unselectAll)="listSrv.unselectAll()"
+	(sort)="listSrv.sort($event)"
+	(delete)="listSrv.deleteOne($event)">
 </export-list-view-app>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>

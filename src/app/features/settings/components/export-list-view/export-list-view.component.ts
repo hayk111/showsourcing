@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
 
@@ -14,6 +14,7 @@ import { ERM, ExportRequest } from '~core/models';
 export class ExportListViewComponent extends ListViewComponent<ExportRequest> {
 
 	erm = ERM;
+	@Output() download = new EventEmitter<string>();
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 

@@ -19,6 +19,12 @@
 				i18n="export menu | delete">
 				Delete
 			</context-menu-item-app>
+			<context-menu-item-app
+				class="pointer flexCenter"
+				(click)="download.emit(row.id)"
+				i18n="export menu | delete">
+				Download
+			</context-menu-item-app>
 		</ng-template>
 
 		<!-- export name -->
@@ -27,7 +33,7 @@
 			sortBy="name"
 			let-row="row"
 			width="280">
-			Export {{ row?.creationDate | date: 'dd-MMM-yy H:mm'}}
+			{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm'}}
 		</ng-template>
 
 		<!-- status -->
@@ -50,7 +56,6 @@
 			{{ row?.creationDate | date: 'MMMM y' }}
 		</ng-template>
 
-
 		<!-- user -->
 		<ng-template
 			columnApp="Created By"
@@ -60,6 +65,16 @@
 			<div class="flex flexCenter">
 				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
 			</div>
+		</ng-template>
+
+		<!-- download -->
+		<ng-template
+			columnApp="Download"
+			let-row="row"
+			sortBy="createdBy.lastName"
+			[grows]="false"
+			width="100">
+				<icon-app class="download" name="file" (click)="download.emit(row.id)"></icon-app>
 		</ng-template>
 
 </table-app>
