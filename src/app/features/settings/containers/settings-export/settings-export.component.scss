@@ -1,0 +1,23 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+selection-bar-app {
+
+	button.icon {
+		margin-right: var(--spacing-ms);
+
+		&.download{
+			font-size: var(--font-size-xl);
+		}
+		&.delete {
+			font-size: var(--font-size-xxl);
+		}
+
+		icon-app {
+			color: var(--color-txt-secondary);
+		}
+	}
+}

@@ -33,7 +33,9 @@
 			sortBy="name"
 			let-row="row"
 			width="280">
-			{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm'}}
+			<div class="capitalize">
+				{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm'}}
+			</div>
 		</ng-template>
 
 		<!-- status -->

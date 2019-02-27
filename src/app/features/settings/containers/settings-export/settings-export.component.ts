@@ -3,7 +3,7 @@ import { ExportRequestService } from '~core/entity-services/export-request/expor
 import { ListPageService, ListPageKey } from '~core/list-page';
 import { ExportRequest, ERM } from '~core/models';
 import { CommonModalService } from '~common/modals';
-import { TrackingComponent } from '~utils';
+import { TrackingComponent, ID } from '~utils';
 
 @Component({
 	selector: 'settings-export-app',
@@ -25,10 +25,18 @@ export class SettingsExportComponent extends TrackingComponent implements OnInit
 		this.listSrv.setup({
 			key: ListPageKey.EXPORT,
 			entitySrv: this.exportSrv,
-			searchedFields: ['status', 'createdBy.firstName', 'createdBy.lastName'],
+			searchedFields: ['format', 'status', 'createdBy.firstName', 'createdBy.lastName'],
 			entityMetadata: ERM.EXPORT_REQUEST,
 			initialFilters: []
 		});
+	}
+
+	downloadOne(id: ID) {
+
+	}
+
+	downloadSelected() {
+
 	}
 
 }

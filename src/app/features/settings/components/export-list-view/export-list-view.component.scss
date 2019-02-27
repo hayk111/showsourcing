@@ -1,3 +1,7 @@
-.download:hover {
-	color: var(--color-primary);
+.download {
+	color: var(--color-txt-secondary);
+
+	&:hover {
+		color: var(--color-primary);
+	}
 }
