@@ -1,0 +1,65 @@
+<table-app
+	[rows]="rows"
+	[selected]="selection"
+	[pending]="pending"
+	[contextualMenu]="contextualMenuTemplate"
+	placeholder="No exports"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(sort)="sort.emit($event)"
+	(bottomReached)="bottomReached.emit()">
+
+		<!-- contextual menu -->
+		<ng-template #contextualMenuTemplate let-row="row">
+			<context-menu-item-app
+				class="pointer flexCenter"
+				(click)="delete.emit(row.id)"
+				i18n="export menu | delete">
+				Delete
+			</context-menu-item-app>
+		</ng-template>
+
+		<!-- export name -->
+		<ng-template
+			columnApp="Export"
+			sortBy="name"
+			let-row="row"
+			width="280">
+			Export {{ row?.creationDate | date: 'dd-MMM-yy H:mm'}}
+		</ng-template>
+
+		<!-- status -->
+		<ng-template
+			columnApp="Status"
+			let-row="row"
+			sortBy="status"
+			width="140"
+			[sortOrder]="'DESC'">
+			{{ row?.status }}
+		</ng-template>
+
+		<!-- date -->
+		<ng-template
+			columnApp="Creation Date"
+			let-row="row"
+			sortBy="creationDate"
+			width="280"
+			[sortOrder]="'DESC'">
+			{{ row?.creationDate | date: 'MMMM y' }}
+		</ng-template>
+
+
+		<!-- user -->
+		<ng-template
+			columnApp="Created By"
+			let-row="row"
+			sortBy="createdBy.lastName"
+			width="280">
+			<div class="flex flexCenter">
+				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
+			</div>
+		</ng-template>
+
+</table-app>

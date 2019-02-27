@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import {
 	InvitationsListViewComponent,
-	SettingsExportComponent,
 	SettingsProfileComponent,
 	TeamMembersListViewComponent,
 } from '~features/settings/components';
@@ -13,6 +12,7 @@ import {
 import { ProfileCardComponent } from '~features/settings/components/profile-card/profile-card.component';
 import {
 	SettingsComponent,
+	SettingsExportComponent,
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersInvitationsComponent,
 	SettingsTeamMembersPageComponent,
@@ -21,6 +21,8 @@ import {
 } from '~features/settings/containers';
 import { routes } from '~features/settings/routes';
 import { SharedModule } from '~shared/shared.module';
+
+import { ExportListViewComponent } from './components/export-list-view/export-list-view.component';
 
 @NgModule({
 	imports: [
@@ -41,6 +43,7 @@ import { SharedModule } from '~shared/shared.module';
 		SettingsTeamMembersUsersComponent,
 		SettingsWorkflowsPageComponent,
 		TeamMembersListViewComponent,
+		ExportListViewComponent,
 	],
 	entryComponents: [],
 	exports: [],

@@ -1,0 +1,14 @@
+<top-panel-app
+	[title]="'Exports'">
+</top-panel-app>
+
+<sub-panel-app
+	[hasFilter]="false"
+	[hasSwitch]="false">
+</sub-panel-app>
+
+<export-list-view-app
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[pending]="listSrv.pending">
+</export-list-view-app>

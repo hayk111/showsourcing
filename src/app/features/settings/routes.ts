@@ -9,9 +9,10 @@ import {
 import {
 	TagDataManagementPageComponent,
 } from '~features/data-management/containers/tag-data-management-page/tag-data-management-page.component';
-import { SettingsExportComponent, SettingsProfileComponent } from '~features/settings/components';
+import { SettingsProfileComponent } from '~features/settings/components';
 import {
 	SettingsComponent,
+	SettingsExportComponent,
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersPageComponent,
 	SettingsWorkflowsPageComponent,
