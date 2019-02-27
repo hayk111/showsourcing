@@ -1,6 +1,22 @@
 dialog-app {
 	width: 700px;
+	min-height: 235px;
+
+	.settings-image {
+		font-size: 150px;
+		margin-right: var(--spacing-l);
+	}
+	.generating-message {
+		color: var(--color-txt-strong);
+		white-space: nowrap;
+	}
+
+	.open-export {
+		margin-right: var(--spacing-ms);
+	}
 }
+
+
 
 .exportRow {
   display: flex;

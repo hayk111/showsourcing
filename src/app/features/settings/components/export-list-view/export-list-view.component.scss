@@ -1,7 +1,8 @@
 .download {
-	color: var(--color-txt-secondary);
+	color: var(--color-primary);
 
-	&:hover {
-		color: var(--color-primary);
+	&.disabled {
+		cursor: default;
+		color: var(--color-txt-secondary);
 	}
 }

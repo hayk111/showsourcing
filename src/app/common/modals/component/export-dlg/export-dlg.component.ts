@@ -5,6 +5,7 @@ import { ExportRequestService } from '~entity-services/export-request/export-req
 import { ExportRequest, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { Router } from '@angular/router';
 
 type exportFormat = 'pdf' | 'xls' | 'pictures';
 type exportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
@@ -16,13 +17,15 @@ type exportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportDlgComponent implements OnInit {
+
 	@Input() targets: Product[] | Supplier[];
 	selectedFormat: exportFormat;
 	selectedType: exportType;
 	pending: boolean;
 
 	constructor(
-		private dlgSrv: DialogService,
+		public dlgSrv: DialogService,
+		private router: Router,
 		private exportSrv: ExportRequestService,
 		private notifSrv: NotificationService,
 		private cdr: ChangeDetectorRef) { }
@@ -73,5 +76,10 @@ export class ExportDlgComponent implements OnInit {
 				this.dlgSrv.close();
 			}
 		);
+	}
+
+	goToExports() {
+		this.router.navigate(['settings', 'exports']);
+		this.dlgSrv.close();
 	}
 }

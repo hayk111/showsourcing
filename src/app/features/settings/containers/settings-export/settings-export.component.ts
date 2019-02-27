@@ -39,8 +39,10 @@ export class SettingsExportComponent extends TrackingComponent implements OnInit
 	}
 
 	downloadOne(exportReq: ExportRequest) {
-		const extension = exportReq.documentUrl.split('.').pop();
-		saveAs(exportReq.documentUrl, exportReq.format + '_' + this.transformDate(exportReq.creationDate) + '.' + extension);
+		if (exportReq.status === 'ready') {
+			const extension = exportReq.documentUrl.split('.').pop();
+			saveAs(exportReq.documentUrl, exportReq.format + '_' + this.transformDate(exportReq.creationDate) + '.' + extension);
+		}
 	}
 
 	downloadSelected() {

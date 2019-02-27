@@ -76,7 +76,7 @@
 			sortBy="createdBy.lastName"
 			[grows]="false"
 			width="100">
-				<icon-app class="download" name="file" (click)="download.emit(row)"></icon-app>
+				<icon-app [ngClass]="{'disabled': row?.status !== 'ready'}" class="download" name="file" (click)="download.emit(row)"></icon-app>
 		</ng-template>
 
 </table-app>

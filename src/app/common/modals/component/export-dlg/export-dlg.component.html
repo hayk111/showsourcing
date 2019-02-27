@@ -1,9 +1,10 @@
 <dialog-app>
-	<dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Export Selection</dialog-header-app>
-	<dialog-subtitle-app *ngIf="!pending" i18n="dialog subtitle|Select export type@@productExport_type">Export Type
-	</dialog-subtitle-app>
+	<dialog-header-app *ngIf="!pending" i18n="dialog header|Export selection@@productExport_selection">Export Selection</dialog-header-app>
+	<dialog-subtitle-app *ngIf="!pending"  i18n="dialog subtitle|Select export type@@productExport_type">Export Type</dialog-subtitle-app>
+	<!-- Pending header -->
+	<dialog-header-app *ngIf="pending" i18n="dialog header|Export selection@@productExport_selection">Your export is being generated</dialog-header-app>
 
-	<main class="exportRow" *ngIf="!pending; else spinner">
+	<main *ngIf="!pending" class="exportRow">
 		<div class="exportCell" (click)="select('xls', 'xls_product_list')"
 			[class.selected]="selectedType === 'xls_product_list'">
 			<icon-app name="excel"></icon-app>
@@ -29,15 +30,28 @@
 			</div>
 		</div>
 	</main>
+	<!-- Pending main -->
+	<main *ngIf="pending" class="flex container">
+		<icon-app class="settings-image" name="settings-multiple" fontSet="svg"></icon-app>
+		<div class="generating-message ">
+			Your export is being generated. This may take a few minutes.<br>
+			You will be notified when the export is ready.<br>
+			You can also retrieve your previous export in:<br>
+			Settings > <span class="color-primary pointer" (click)="goToExports()">Exports</span>
+		</div>
+	</main>
 
-	<dialog-footer-app class="fullWidth flexCenter flexBetween" *ngIf="!pending">
-		<span class="txt-secondary">{{ targets?.length }} items{{ targets?.length > 1 ? 's' : '' }} selected</span>
-		<button class="small" (click)="export()" i18n="button|Export product@@export_export">
-			Export
-		</button>
+	<dialog-footer-app class="fullWidth">
+			<div *ngIf="!pending" class="fullWidth flexCenter flexBetween">
+				<span class="txt-secondary">{{ targets?.length }} items{{ targets?.length > 1 ? 's' : '' }} selected</span>
+				<button class="small" (click)="export()" i18n="button|Export product@@export_export">
+					Export
+				</button>
+			</div>
+			<!-- Pending footer -->
+			<div *ngIf="pending">
+				<button class="open-export secondary" (click)="goToExports()">Open Exports</button>
+				<button (click)="dlgSrv.close()">Close</button>
+			</div>
 	</dialog-footer-app>
 </dialog-app>
-
-<ng-template #spinner>
-	<spinner-app size="xxl"></spinner-app>
-</ng-template>
