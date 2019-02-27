@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import {
 	InvitationsListViewComponent,
+	SettingsExportComponent,
 	SettingsProfileComponent,
 	TeamMembersListViewComponent,
 } from '~features/settings/components';
@@ -32,6 +33,7 @@ import { SharedModule } from '~shared/shared.module';
 		InvitationsListViewComponent,
 		ProfileCardComponent,
 		SettingsComponent,
+		SettingsExportComponent,
 		SettingsFieldsPageComponent,
 		SettingsProfileComponent,
 		SettingsTeamMembersInvitationsComponent,

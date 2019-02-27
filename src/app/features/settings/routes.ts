@@ -1,16 +1,21 @@
 import { Routes } from '@angular/router';
-import {
-	SettingsComponent, SettingsTeamMembersPageComponent, SettingsFieldsPageComponent, SettingsWorkflowsPageComponent
-} from '~features/settings/containers';
-import { SettingsProfileComponent } from '~features/settings/components';
 import { DataManagementPageComponent } from '~features/data-management/containers';
-// tslint:disable-next-line:max-line-length
-import { CategoryDataManagementPageComponent } from '~features/data-management/containers/category-data-management-page/category-data-management-page.component';
-import { ERM } from '~models';
-// tslint:disable-next-line:max-line-length
-import { TagDataManagementPageComponent } from '~features/data-management/containers/tag-data-management-page/tag-data-management-page.component';
-// tslint:disable-next-line:max-line-length
-import { EventDataManagementPageComponent } from '~features/data-management/containers/event-data-management-page/event-data-management-page.component';
+import {
+	CategoryDataManagementPageComponent,
+} from '~features/data-management/containers/category-data-management-page/category-data-management-page.component';
+import {
+	EventDataManagementPageComponent,
+} from '~features/data-management/containers/event-data-management-page/event-data-management-page.component';
+import {
+	TagDataManagementPageComponent,
+} from '~features/data-management/containers/tag-data-management-page/tag-data-management-page.component';
+import { SettingsExportComponent, SettingsProfileComponent } from '~features/settings/components';
+import {
+	SettingsComponent,
+	SettingsFieldsPageComponent,
+	SettingsTeamMembersPageComponent,
+	SettingsWorkflowsPageComponent,
+} from '~features/settings/containers';
 
 export const routes: Routes = [
 	{
@@ -30,6 +35,7 @@ export const routes: Routes = [
 					{ path: 'event', component: EventDataManagementPageComponent }
 				]
 			},
+			{ path: 'exports', component: SettingsExportComponent }
 		]
 	}
 ];
