@@ -206,7 +206,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					__typename: this.value.__typename
 				};
 				break;
-			// if its a const we don't need to emit an object {id, typename}, we only need a string (this is for the dynamic form way of updating)
+			// if its a const we don't need to emit an object {id, typename}, we only need a string (e.g. supplier -> country -> string)
 			case 'businessType':
 			case 'categoryBoarding':
 			case 'country':
