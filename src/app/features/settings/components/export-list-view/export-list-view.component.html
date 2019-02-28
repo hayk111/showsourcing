@@ -1,24 +1,14 @@
 <table-app
 	[rows]="rows"
-	[selected]="selection"
+	[hasSelection]="false"
 	[pending]="pending"
 	[contextualMenu]="contextualMenuTemplate"
 	placeholder="No exports"
-	(selectOne)="select.emit($event)"
-	(unselectOne)="unselect.emit($event)"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit($event)"
 	(sort)="sort.emit($event)"
 	(bottomReached)="bottomReached.emit()">
 
 		<!-- contextual menu -->
 		<ng-template #contextualMenuTemplate let-row="row">
-			<context-menu-item-app
-				class="pointer flexCenter"
-				(click)="delete.emit(row.id)"
-				i18n="export menu | delete">
-				Delete
-			</context-menu-item-app>
 			<context-menu-item-app
 				class="pointer flexCenter"
 				(click)="download.emit(row)"

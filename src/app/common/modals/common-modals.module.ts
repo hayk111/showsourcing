@@ -16,11 +16,11 @@ import {
 	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
+	ExportDlgComponent,
 	InviteUserDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
-	ExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	VoteDetailsDialogComponent,
 } from './component';
@@ -62,7 +62,7 @@ const modals = [
 	entryComponents: modals,
 	providers: [
 		ProductDialogService,
-		CrudDialogService
+		CrudDialogService,
 	]
 })
 export class CommonModalsModule { }

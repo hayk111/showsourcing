@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DataManagementModule } from '~features/data-management/data-management.module';
@@ -48,7 +47,7 @@ import { ExportListViewComponent } from './components/export-list-view/export-li
 	],
 	entryComponents: [],
 	exports: [],
-	providers: [DatePipe]
+	providers: []
 })
 export class SettingsModule {
 

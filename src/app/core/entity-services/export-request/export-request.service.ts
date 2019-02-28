@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -18,24 +19,31 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 		protected apolloState: ApolloStateService,
 		private userSrv: UserService,
 		private teamUserSrv: TeamUserService,
-		private http: HttpClient
+		private http: HttpClient,
+		private datePipe: DatePipe
 	) {
 		super(apolloState, ExportRequestQueries, 'exportRequest', 'exportRequests');
 	}
 
-	create(request: ExportRequest, ...args) {
+	create(request: ExportRequest) {
 		return this.userSrv.selectUser().pipe(
 			take(1),
 			tap(user => request.createdBy = { id: user.id }),
-			switchMap(() => super.create(request, ...args)),
-			switchMap(_ => this.waitForOne(`id == "${request.id}" AND (status == "ready" OR status == "rejected")`))
+			switchMap(() => super.create(request)),
+			switchMap(_ => this.waitForOne(`id == "${request.id}" AND (status == "ready" OR status == "rejected" OR status == "pending")`))
 		);
+	}
+
+	private transformDate(date) {
+		return this.datePipe.transform(date, 'yyy-MM-ddThh:mm:ss');
 	}
 
 	retrieveFile(request: ExportRequest): Observable<{ file: any, name: string }> {
+		const extension = request.documentUrl.split('.').pop();
+		const name = request.format + '_' + this.transformDate(request.creationDate) + '.' + extension;
 		return this.http.get(request.documentUrl, { responseType: 'blob', observe: 'response' }).pipe(
-			map(res => ({ file: res.body, name: request.documentUrl.split('/').pop() }))
+			map(res => ({ file: res.body, name }))
 		);
 	}
-}
 
+}

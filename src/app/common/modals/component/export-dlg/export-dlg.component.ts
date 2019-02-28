@@ -1,11 +1,12 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { ExportRequestService } from '~entity-services/export-request/export-request.service';
 import { ExportRequest, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { Router } from '@angular/router';
 
 type exportFormat = 'pdf' | 'xls' | 'pictures';
 type exportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
@@ -21,10 +22,13 @@ export class ExportDlgComponent implements OnInit {
 	@Input() targets: Product[] | Supplier[];
 	selectedFormat: exportFormat;
 	selectedType: exportType;
-	pending = true;
+	pending = false;
+	fileCreated = false;
 	fileReady = false;
+	exportReq: ExportRequest;
 
 	constructor(
+		private datePipe: DatePipe,
 		public dlgSrv: DialogService,
 		private router: Router,
 		private exportSrv: ExportRequestService,
@@ -32,7 +36,6 @@ export class ExportDlgComponent implements OnInit {
 		private cdr: ChangeDetectorRef) { }
 
 	ngOnInit() {
-
 	}
 
 	addNotif(type: NotificationType) {
@@ -51,23 +54,28 @@ export class ExportDlgComponent implements OnInit {
 
 	export() {
 		this.pending = true;
+		this.cdr.detectChanges();
 
 		const request = new ExportRequest({
 			type: this.selectedType,
 			format: this.selectedFormat,
 			query: (this.targets as any[]).map(target => `id == '${target.id}'`).join(' or ')
 		});
+
 		this.exportSrv.create(request).pipe(
-			map(exp => {
+			switchMap(exp => {
 				if (exp.status === 'rejected')
 					throw new Error('Rejected');
-				else return exp;
+				this.pending = false;
+				this.fileCreated = true;
+				this.cdr.detectChanges();
+				return this.exportSrv.waitForOne(`id == "${exp.id}" AND status == "ready"`);
 			}),
-			switchMap(r => this.exportSrv.retrieveFile(r))
-		).subscribe(({ file, name }) => {
+		).subscribe(exp => {
+			this.exportReq = exp;
+			this.fileReady = true;
 			this.cdr.detectChanges();
 			this.addNotif(NotificationType.SUCCESS);
-			saveAs(file, name);
 		},
 			err => {
 				this.pending = false;
@@ -75,6 +83,14 @@ export class ExportDlgComponent implements OnInit {
 				this.dlgSrv.close();
 			}
 		);
+	}
+
+	downloadFile() {
+		if (this.exportReq && this.exportReq.status === 'ready')
+			this.exportSrv.retrieveFile(this.exportReq).subscribe(({ file, name }) => {
+				saveAs(file, name);
+				this.dlgSrv.close();
+			});
 	}
 
 	goToExports() {
