@@ -21,7 +21,8 @@ export class ExportDlgComponent implements OnInit {
 	@Input() targets: Product[] | Supplier[];
 	selectedFormat: exportFormat;
 	selectedType: exportType;
-	pending: boolean;
+	pending = true;
+	fileReady = false;
 
 	constructor(
 		public dlgSrv: DialogService,
@@ -64,9 +65,7 @@ export class ExportDlgComponent implements OnInit {
 			}),
 			switchMap(r => this.exportSrv.retrieveFile(r))
 		).subscribe(({ file, name }) => {
-			this.pending = false;
 			this.cdr.detectChanges();
-			this.dlgSrv.close();
 			this.addNotif(NotificationType.SUCCESS);
 			saveAs(file, name);
 		},
