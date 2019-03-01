@@ -22,8 +22,7 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 	@Output() openActionCliked = new EventEmitter<null>();
 
 	@ViewChild(SelectorComponent) elem: SelectorComponent;
-	// this is the default one, but since its calculated dyanmically we don't the @Input tag
-	offsetX = 18;
+
 	erm = ERM;
 
 	constructor() { super(); }
@@ -34,9 +33,8 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 	}
 
 	getDynamicOffsetX() {
-		// Y (the offset that we want to move the selector) = -X (size of the selector) + 394, linear function
-		const res = this.elem ? - this.elem.elem.nativeElement.offsetWidth + 395 : this.offsetX;
-		return res;
+		// Y (the offset that we want to move the selector) = -X (size of the selector) + 395, linear function
+		return this.elem ? - this.elem.elem.nativeElement.offsetWidth + 395 : 0;
 	}
 
 }

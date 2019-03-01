@@ -64,12 +64,11 @@ export class SelectorsService {
 
 	setItems() {
 		this.items$ = this.listResult.items$.pipe(
-			tap(m => console.log('coming from set items')),
-			tap(items => this.items = items),
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
-			map(items => items.filter(itm => !itm.deleted))
+			map(items => items.filter(itm => !itm.deleted)),
+			tap(items => this.items = items),
 		);
 	}
 
