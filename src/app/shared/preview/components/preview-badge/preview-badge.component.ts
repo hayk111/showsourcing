@@ -19,7 +19,7 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 	private initialMsg = 'Open';
 	@Input() toolTipMessage = this.initialMsg;
 	@Output() update = new EventEmitter<any>();
-	@Output() openActionCliked = new EventEmitter<null>();
+	@Output() openActionClicked = new EventEmitter<null>();
 
 	@ViewChild(SelectorComponent) elem: SelectorComponent;
 
