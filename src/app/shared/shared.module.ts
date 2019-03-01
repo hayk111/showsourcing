@@ -1,4 +1,7 @@
-import { CommonModule } from '@angular/common';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BadgeModule } from '~shared/badge';
@@ -34,13 +37,10 @@ import { SearchBarModule } from './search-bar-animated/search-bar.module';
 import { SelectionBarModule } from './selection-bar/selection-bar.module';
 import { SideMenuModule } from './side-menu/side-menu.module';
 import { SidenavModule } from './sidenav/sidenav.module';
-import { TableModule } from './table/table.module';
-import { TopPanelModule } from './top-panel/top-panel.module';
 import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
-import { ScrollingModule, ScrollDispatchModule } from '@angular/cdk/scrolling';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { TableModule } from './table/table.module';
+import { TopPanelModule } from './top-panel/top-panel.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -50,9 +50,9 @@ const modules = [
 
 	// cdk modules
 	DragDropModule,
-	ScrollingModule,
 	OverlayModule,
 	ScrollDispatchModule,
+	ScrollingModule,
 
 	// shared modules
 	ActionBarModule,
@@ -61,6 +61,7 @@ const modules = [
 	CardModule,
 	CarouselModule,
 	ContextMenuModule,
+	DatePipe,
 	DialogModule,
 	DividerModule,
 	DynamicFormsModule,
@@ -69,8 +70,8 @@ const modules = [
 	FiltersModule,
 	IconsModule,
 	ImageModule,
-	InputsModule,
 	InputsCustomModule,
+	InputsModule,
 	KanbanModule,
 	ListModule,
 	LoadersModule,
@@ -86,16 +87,16 @@ const modules = [
 	SideMenuModule, // TODO: not used but the alternative sidenav isn't great
 	SidenavModule,
 	StageIndicatorModule,
+	StatusSelectorModule,
 	TableModule,
 	TopPanelModule,
 	UserPictureModule,
 	UtilsModule,
-	StatusSelectorModule
 ];
 
 @NgModule({
-	imports: modules,
 	declarations: [],
-	exports: modules
+	exports: modules,
+	imports: modules,
 })
 export class SharedModule { }
