@@ -139,7 +139,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
-	// ADVICE: when adding a new choice, check the update single method
+	// ARRAYS START AT 1 NOT 0!!!! now that I have your attention ADVICE: when adding a new choice, check the update single method
 	getChoices(type: string): Observable<any[]> {
 		switch (type) {
 			case 'supplier': return this.selectorSrv.getSuppliers();
@@ -206,7 +206,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					__typename: this.value.__typename
 				};
 				break;
-			// if its a const we don't need to emit an object {id, typename}, we only need a string (e.g. supplier -> country -> string)
+			// if its a const we don't need to emit an object {id, typename} (its not an entity update),
+			// we only need a string (e.g. supplier -> country -> string)
 			case 'businessType':
 			case 'categoryBoarding':
 			case 'country':
@@ -217,6 +218,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case 'weightUnit':
 				item = this.value;
 				break;
+			// this is the default if we are updating an entity with name field
 			default:
 				item = {
 					id: this.value.id,
