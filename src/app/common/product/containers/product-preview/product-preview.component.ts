@@ -154,7 +154,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 	}
 
 	updateProduct(productConfig: any) {
-		const product = new Product({ ...productConfig, id: this.product.id });
+		const product = ({ ...productConfig, id: this.product.id });
 		this.productSrv.update(product)
 			.subscribe(_ => this.updated.emit(product));
 	}
