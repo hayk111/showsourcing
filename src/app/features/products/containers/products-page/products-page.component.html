@@ -125,10 +125,10 @@
 		</selection-bar-app>
 
 		<filters-app
+			*ngIf="listSrv.filterPanelOpen"
 			[filterList]="listSrv.filterList"
 			[filterTypes]="filterTypes"
-			(clickOutside)="listSrv.closeFilterPanel()"
-			*ngIf="listSrv.filterPanelOpen">
+			(clickOutside)="listSrv.closeFilterPanel()">
 		</filters-app>
 
 		<product-preview-app
