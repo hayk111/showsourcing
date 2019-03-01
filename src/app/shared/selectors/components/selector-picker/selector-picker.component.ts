@@ -82,6 +82,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** whether the search has a exact match or not to display the create button */
 	nameExists$: Observable<boolean>;
 
+	// this helps the condition of fast typing only apply when typing and pressing Enter (OnKeyDown function)
+	movedArrow = false;
+
 
 	constructor(
 		public selectorSrv: SelectorsService,
@@ -133,6 +136,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	search(text) {
 		this.searchTxt = text.trim();
+		this.movedArrow = false;
 		this.hasDB ? this.selectorSrv.search(this.type, this.searchTxt) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 		this.searched$.next(this.searchTxt);
 		this.keyManager.setFirstItemActive();
@@ -293,14 +297,29 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
+	getLabelName(label) {
+		if (!label.name)
+			throw Error('This entity selector does not have a name property when using multiple, check onkeyDoen else if (this.multiple)');
+		return label.name;
+	}
+
 	onKeydown(event) {
 		if (event.keyCode === ENTER) {
 			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
+			let shouldReset = true;
 			if (label === 'create-button') this.create();
-			else this.onSelect(label);
-			this.resetInput();
+			else if (this.multiple) {
+				// this is made since sometimes the user types faster, this way we assure that the label he types has to be the same
+				// if he moves with the arrow keys, then we don't care about the typing field
+				if (this.getLabelName(label) === this.searchTxt || this.movedArrow) this.onSelect(label);
+				else shouldReset = false;
+			} else this.onSelect(label);
+
+			if (shouldReset) this.resetInput();
+
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+			this.movedArrow = true;
 			let aIndex = this.keyManager.activeItemIndex;
 			const items = this.elementRefItems.toArray();
 			// we call this before the event key sicne we are going back with the arrow key up
