@@ -10,7 +10,7 @@
 	</context-menu-trigger-app>
 
 	<!-- Settings -->
-	<context-menu-item-app (click)="goToSettings()" i18n="menu item|User panel settings@@userPanel_settings">
+	<context-menu-item-app (click)="goToProfile()" i18n="menu item|User panel settings@@userPanel_profile">
 		Profile
 	</context-menu-item-app>
 
@@ -22,6 +22,11 @@
 	<!-- Teams -->
 	<context-menu-item-app (click)="pickTeam()" i18n="menu item|User panel teams@@userPanel_teams">
 		Change Team
+	</context-menu-item-app>
+
+	<!-- Settings -->
+	<context-menu-item-app (click)="goToSettings()" i18n="menu item|User panel teams@@userPanel_settings">
+		Settings
 	</context-menu-item-app>
 
 
