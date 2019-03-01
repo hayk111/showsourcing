@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
@@ -22,13 +21,15 @@ export class ExportDlgComponent implements OnInit {
 	@Input() targets: Product[] | Supplier[];
 	selectedFormat: exportFormat;
 	selectedType: exportType;
+
 	pending = false;
-	fileCreated = false;
+	// when exportRequest Object is created we use another view
+	requestCreated = false;
+	// if the export it is ready on the backend
 	fileReady = false;
 	exportReq: ExportRequest;
 
 	constructor(
-		private datePipe: DatePipe,
 		public dlgSrv: DialogService,
 		private router: Router,
 		private exportSrv: ExportRequestService,
@@ -67,7 +68,7 @@ export class ExportDlgComponent implements OnInit {
 				if (exp.status === 'rejected')
 					throw new Error('Rejected');
 				this.pending = false;
-				this.fileCreated = true;
+				this.requestCreated = true;
 				this.cdr.detectChanges();
 				return this.exportSrv.waitForOne(`id == "${exp.id}" AND status == "ready"`);
 			}),

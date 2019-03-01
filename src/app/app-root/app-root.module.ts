@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,11 +8,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'environments/environment';
 import { AppComponent } from '~app-root/components/app.component';
 import { routes } from '~app-root/routes';
+import { CommonModalsModule } from '~common/modals';
 import { AppApolloModule } from '~core/apollo/apollo.module';
 import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
-import { CommonModalsModule } from '~common/modals';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -36,6 +37,7 @@ import { CommonModalsModule } from '~common/modals';
 	],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
-	entryComponents: []
+	entryComponents: [],
+	providers: [DatePipe]
 })
 export class AppRootModule { }

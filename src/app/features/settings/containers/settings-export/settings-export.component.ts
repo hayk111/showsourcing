@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { ExportRequestService } from '~core/entity-services/export-request/export-request.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
 import { TrackingComponent } from '~utils';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'settings-export-app',
@@ -11,7 +12,7 @@ import { TrackingComponent } from '~utils';
 	styleUrls: ['./settings-export.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsExportComponent extends TrackingComponent implements OnInit {
+export class SettingsExportComponent extends TrackingComponent implements OnInit, AfterViewInit {
 
 	erm = ERM;
 
@@ -29,6 +30,12 @@ export class SettingsExportComponent extends TrackingComponent implements OnInit
 			entityMetadata: ERM.EXPORT_REQUEST,
 			initialFilters: []
 		});
+	}
+
+	ngAfterViewInit() {
+		// we need this refetch on after view init, otherwise if we come from the redirection of the
+		// export-dlg.component we won't see the new request created
+		this.listSrv.refetch().pipe(first()).subscribe();
 	}
 
 	downloadOne(exportReq: ExportRequest) {
