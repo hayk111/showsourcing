@@ -51,13 +51,11 @@
 
 <!-- price -->
 <ng-template #price let-row="row">
-  <price-app [amount]="row?.price?.value" [currency]="row?.price?.currency | ssPrice" *ngIf="row?.price?.currency; else noPrice">
+	<price-app
+		[isShort]="true"
+		[amount]="row?.price?.value"
+		[currency]="row?.price?.currency">
   </price-app>
-
-  <ng-template #noPrice>
-    <div>-</div>
-  </ng-template>
-
 </ng-template>
 
 <!-- moq -->
