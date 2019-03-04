@@ -4,10 +4,10 @@
 	class="tab-title flexCenter"
 	[style.width]="100 / tabs?.length + '%'"
 	[ngClass]="{'active': currentTab === tab}"
-	[routerLink]="'./' + tab.toLowerCase()"
+	[routerLink]="'./' + tab?.name?.toLowerCase()"
 	[replaceUrl]="true"
 	routerLinkActive="active"
 	(click)="changeTab(tab)">
-	{{ tab }}
-	<div *ngIf="values[index]" class="filters flexCenter"> {{ values[index] > 99 ? '+99' : values[index] }} </div>
+	{{ tab.name }}
+	<div *ngIf="tab?.number" class="filters flexCenter"> {{ tab?.number }} </div>
 </div>
