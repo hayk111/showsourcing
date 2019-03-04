@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ERM } from '~core/models';
 import { Packaging } from '~models/packaging.model';
 import { CustomField } from '~shared/dynamic-forms/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
@@ -11,6 +12,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	providers: [makeAccessorProvider(EditablePackagingComponent)]
 })
 export class EditablePackagingComponent extends AbstractInput {
+
 	@Input() set value(packaging: Packaging) {
 		// we add an uuid for new packaging
 		this._value = packaging || new Packaging();
@@ -24,6 +26,7 @@ export class EditablePackagingComponent extends AbstractInput {
 	@Output() rowClosed = new EventEmitter();
 
 	accumulator: Packaging = {};
+	erm = ERM;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);

@@ -1,16 +1,16 @@
 
 <form [formGroup]="group">
 	<form-field-app class="search-input" [ngClass]="{'field-focused': inp.focussed || !!inp.control.value}">
-			<input inputApp formControlName="name" type="text" [placeholder]="'Enter a ' + displayName ? displayName : type" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
+			<input inputApp formControlName="name" type="text" [placeholder]="'Enter a ' + type.singular" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
 	</form-field-app>
 </form>
 
 <div *ngIf="multiple" class="flexWrap current-values-container">
 	<ng-container *ngIf="value?.length; else empty">
-		<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type" [hasDelete]="true" (delete)="delete(item)">{{item.name}}</info-badge-app>
+		<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item.name}}</info-badge-app>
 	</ng-container>
 	<ng-template #empty>
-		<span class="empty-message">There's no {{type}} yet, add one!</span>
+		<span class="empty-message">There's no {{ type.singular }} yet, add one!</span>
 	</ng-template>
 </div>
 
@@ -20,70 +20,62 @@
 
 	<ng-container [ngSwitch]="type">
 
-		<ng-container *ngSwitchCase="'supplier'">
+		<ng-container *ngSwitchCase="erm.SUPPLIER">
 			<selector-supplier-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [supplier]="item" (click)="onSelect(item)"></selector-supplier-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'event'">
+		<ng-container *ngSwitchCase="erm.EVENT">
 			<selector-event-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [event]="item" (click)="onSelect(item)"></selector-event-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'project'">
+		<ng-container *ngSwitchCase="erm.PROJECT">
 			<selector-project-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row"  [project]="item" (click)="onSelect(item)"></selector-project-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'user'">
+		<ng-container *ngSwitchCase="erm.USER">
 			<selector-user-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'currency'">
+		<ng-container *ngSwitchCase="erm.CURRENCY">
 			<!-- we need the top 3 currencies always visible at the top -->
 			<selector-currency-row-app #abstract *ngFor="let item of this.selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
 			<divider-app class="top-3-divider" *ngIf="(this.selectorSrv.topCurrencies$ | async)?.length"></divider-app>
 			<selector-currency-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'product'">
+		<ng-container *ngSwitchCase="erm.PRODUCT">
 			<selector-product-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [product]="item" (click)="onSelect(item)"></selector-product-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'tag'">
+		<ng-container *ngSwitchCase="erm.TAG">
 			<selector-tag-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'category'">
+		<ng-container *ngSwitchCase="erm.CATEGORY">
 			<selector-category-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [category]="item" (click)="onSelect(item)"></selector-category-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'supplierType'">
+		<ng-container *ngSwitchCase="erm.SUPPLIER_TYPE">
 			<selector-supplier-type-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [supplierType]="item" (click)="onSelect(item)"></selector-supplier-type-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'harbour'">
+		<ng-container *ngSwitchCase="erm.HARBOUR">
 			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'incoTerm'">
+		<ng-container *ngSwitchCase="erm.INCOTERM">
 			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'country'">
+		<ng-container *ngSwitchCase="erm.COUNTRY">
 			<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'weightUnit'">
+		<ng-container *ngSwitchCase="erm.WEIGHT_UNIT">
 			<selector-id-row-app #abstract *ngFor="let item of choicesLocal" class="selector-row" [item]="item" (click)="onSelect(item.id)"></selector-id-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="'lengthUnit'">
-			<selector-id-row-app #abstract *ngFor="let item of choicesLocal" class="selector-row" [item]="item" (click)="onSelect(item.id)"></selector-id-row-app>
-		</ng-container>
-
-		<ng-container *ngSwitchCase="'businessType'">
-			<selector-id-row-app #abstract *ngFor="let item of choicesLocal" class="selector-row" [item]="item" (click)="onSelect(item.id)"></selector-id-row-app>
-		</ng-container>
-
-		<ng-container *ngSwitchCase="'categoryBoarding'">
+		<ng-container *ngSwitchCase="erm.LENGTH_UNIT">
 			<selector-id-row-app #abstract *ngFor="let item of choicesLocal" class="selector-row" [item]="item" (click)="onSelect(item.id)"></selector-id-row-app>
 		</ng-container>
 
@@ -93,7 +85,7 @@
 
 	</ng-container>
 
-	<selector-button-row-app #abstract *ngIf="canCreate && !(nameExists$ | async)" class="selector-row" [type]="type" [searchTxt]="searchTxt" (click)="create()"></selector-button-row-app>
+	<selector-button-row-app #abstract *ngIf="canCreate && !(nameExists$ | async)" class="selector-row" [type]="type.singular" [searchTxt]="searchTxt" (click)="create()"></selector-button-row-app>
 
 </div>
 

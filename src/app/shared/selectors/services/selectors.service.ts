@@ -1,8 +1,13 @@
-import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, first, tap } from 'rxjs/operators';
+import { first, map, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { ListQuery } from '~core/entity-services/_global/list-query.interface';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { CountryService } from '~core/entity-services/country/country.service';
 import { CurrencyService } from '~core/entity-services/currency/currency.service';
+import { HarbourService } from '~core/entity-services/harbour/harbour.service';
+import { IncoTermService } from '~core/entity-services/inco-term/inco-term.service';
 import {
 	CategoryService,
 	EventService,
@@ -13,17 +18,26 @@ import {
 	UserService,
 } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
-import { Category, Currency, Event, Product, Project, SupplierType, Tag, User, Country, IncoTerm, Harbour } from '~models';
+import {
+	Category,
+	Country,
+	Currency,
+	EntityMetadata,
+	ERM,
+	Event,
+	Harbour,
+	IncoTerm,
+	Product,
+	Project,
+	SupplierType,
+	Tag,
+	User,
+} from '~models';
 import { Supplier } from '~models/supplier.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
-import { HarbourService } from '~core/entity-services/harbour/harbour.service';
-import { IncoTermService } from '~core/entity-services/inco-term/inco-term.service';
-import { CountryService } from '~core/entity-services/country/country.service';
-import { SelectParamsConfig, SelectParams } from '~core/entity-services/_global/select-params';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 
 
 @Injectable({
@@ -64,30 +78,30 @@ export class SelectorsService {
 
 	setItems() {
 		this.items$ = this.listResult.items$.pipe(
-			tap(items => this.items = items),
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
-			map(items => items.filter(itm => !itm.deleted))
+			map(items => items.filter(itm => !itm.deleted)),
+			tap(items => this.items = items),
 		);
 	}
 
 	refetch(selectParams?: SelectParamsConfig) {
-		this.listResult.refetch(selectParams || this.selectParams).subscribe();
+		this.listResult.refetch(selectParams || this.selectParams).pipe(first()).subscribe();
 	}
 
 	loadMore() {
 		return this.listResult.fetchMore().subscribe();
 	}
 
-	search(type: string, searchTxt: string) {
+	search(type: EntityMetadata, searchTxt: string) {
 		if (searchTxt) {
 			switch (type) {
-				case 'user':
+				case ERM.USER:
 					this.currentSearchQuery = `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"`;
 					break;
 				// Constants
-				case 'currency':
+				case ERM.CURRENCY:
 					// this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
 					this.topCurrencies$ = this.currencySrv.queryMany({
 						query: `((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND symbol CONTAINS[c] "${searchTxt}")` +
@@ -95,20 +109,20 @@ export class SelectorsService {
 					});
 					this.currentSearchQuery = `symbol CONTAINS[c] "${searchTxt}" OR name CONTAINS[c] "${searchTxt}"`;
 					break;
-				case 'country':
+				case ERM.COUNTRY:
 					this.currentSearchQuery = `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"`;
 					break;
-				case 'event':
+				case ERM.EVENT:
 					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR description.name CONTAINS[c] "${searchTxt}"`;
 					break;
-				case 'category':
-				case 'harbour':
-				case 'incoTerm':
-				case 'product':
-				case 'project':
-				case 'supplier':
-				case 'supplierType':
-				case 'tag':
+				case ERM.CATEGORY:
+				case ERM.HARBOUR:
+				case ERM.INCOTERM:
+				case ERM.PRODUCT:
+				case ERM.PROJECT:
+				case ERM.SUPPLIER:
+				case ERM.SUPPLIER_TYPE:
+				case ERM.TAG:
 					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}"`;
 					break;
 				default: throw Error(`Unsupported type for search ${type}`);

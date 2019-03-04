@@ -1,5 +1,13 @@
 #!/bin/bash
 
+#font-style: normal \e[0m
+#font-style: bold \e[1m
+
+#color: default \e[39m
+#color: red \e[31m
+#color: green \e[32m
+#color: magenta \e[35m
+
 # check if we want to build
 SHOULD_BUILD=$1
 ENDPOINT=$2
@@ -29,7 +37,7 @@ if [ -z "$ENDPOINT" ]; then
 	[ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
 fi
 
-echo "Deploying to: $ENDPOINT"
+echo -e "\e[1m \e[35mDeploying to: \e[39m $ENDPOINT \e[0m"
 
 if $SHOULD_BUILD; then
 	echo "building with \`$BUILD\`"
@@ -39,7 +47,7 @@ fi
 
 # check if aws client installed
 if [ -x "$(aws --version)" ]; then
-  echo 'Error: aws is not installed. Check this link to install:'
+  echo '\e[1m \e[31mError: aws is not installed. Check this link to install: \e[39m \e[0m'
   echo 'https://www.google.com/search?q=install+aws+cli'
   exit 1
 fi

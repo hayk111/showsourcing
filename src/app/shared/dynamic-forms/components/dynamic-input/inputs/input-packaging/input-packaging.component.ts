@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
-import { AbstractInput } from '~shared/inputs';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ERM } from '~core/models';
 import { Packaging } from '~models/packaging.model';
+import { AbstractInput } from '~shared/inputs';
 
 @Component({
 	selector: 'input-packaging-app',
@@ -9,6 +10,8 @@ import { Packaging } from '~models/packaging.model';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputPackagingComponent extends AbstractInput {
+
+	erm = ERM;
 
 	@Input() set value(packaging: Packaging) {
 		// we add an uuid for new packaging
