@@ -1,12 +1,19 @@
+// we use these sizes to calculate the translation of the animation
+$dialog-width: 528px;
+$settings-width: 92px;
+$settings-margin-right: 24px; // we cannot use root variables (run time) vs compilation variables (settings-margin-right)
+$loading-bar-width: 120px;
+$loading-bar-translationX: $dialog-width - $settings-width - $settings-margin-right - $loading-bar-width;
+
 dialog-app {
 	min-height: 187px;
-	width: 528px;
+	width: $dialog-width;
 	padding-bottom: var(--spacing-ms);
 
 	.settings-image {
 		height: 87px;
-    width: 92px;
-		margin-right: var(--spacing-l);
+    width: $settings-width;
+		margin-right: $settings-margin-right;
 		font-size: 92px;
 	}
 
@@ -41,9 +48,9 @@ dialog-app {
 			.moving-bar {
 				height: 100%;
 				background: var(--color-primary);
-				width: 120px;
+				width: $loading-bar-width;
 				transition: transform .2s ease-in-out;
-				animation: horizontal-motion 2.5s linear 0.1s infinite normal;
+				animation: horizontal-motion 1.25s linear 0.1s infinite alternate;
 			}
 		}
 	}
@@ -74,10 +81,7 @@ dialog-app {
 	0% {
 		transform: translateX(0px);
 	}
-	50% {
-		transform: translateX(292px);
-	}
 	100% {
-		transform: translateX(0px);
+		transform: translateX($loading-bar-translationX);
 	}
 }
