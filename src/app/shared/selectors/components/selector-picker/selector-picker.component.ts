@@ -18,7 +18,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Category, Event, Product, Project, Supplier, SupplierType, Tag, EntityMetadata } from '~core/models';
+import { Category, Event, Product, Project, Supplier, SupplierType, Tag, EntityMetadata, ERM } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -31,11 +31,11 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit {
 
-	private _type: string;
-	@Input() set type(type: string) {
+	private _type: EntityMetadata;
+	@Input() set type(type: EntityMetadata) {
 		this._type = type;
 	}
-	get type(): string {
+	get type(): EntityMetadata {
 		return this._type;
 	}
 	@Input() multiple = false;
@@ -49,8 +49,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	choices$: Observable<any[]>;
 	/** local choices to iterate, these choices are not in our DB */
 	choicesLocal = [];
-	// for complex names
-	displayName = '';
 
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
@@ -84,6 +82,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	// this helps the condition of fast typing only apply when typing and pressing Enter (OnKeyDown function)
 	movedArrow = false;
+
+	erm = ERM;
 
 
 	constructor(
@@ -144,42 +144,30 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
 	// ARRAYS START AT 1 NOT 0!!!! now that I have your attention ADVICE: when adding a new choice, check the update single method
-	getChoices(type: string): Observable<any[]> {
+	getChoices(type: EntityMetadata): Observable<any[]> {
 		switch (type) {
-			case 'supplier': return this.selectorSrv.getSuppliers();
-			case 'product': return this.selectorSrv.getProducts();
-			case 'category': return this.selectorSrv.getCategories();
-			case 'event': return this.selectorSrv.getEvents();
-			case 'tag': return this.selectorSrv.getTags();
-			case 'supplierType':
-				this.displayName = 'supplier type';
-				return this.selectorSrv.getSupplierTypes();
-			case 'user': return this.selectorSrv.getUsers();
-			case 'project': return this.selectorSrv.getProjects();
-			case 'country': return this.selectorSrv.getCountriesGlobal();
-			case 'currency': return this.selectorSrv.getCurrenciesGlobal();
-			case 'harbour': return this.selectorSrv.getHarboursGlobal();
-			case 'incoTerm': return this.selectorSrv.getIncoTermsGlobal();
+			case ERM.CATEGORY: return this.selectorSrv.getCategories();
+			case ERM.COUNTRY: return this.selectorSrv.getCountriesGlobal();
+			case ERM.CURRENCY: return this.selectorSrv.getCurrenciesGlobal();
+			case ERM.EVENT: return this.selectorSrv.getEvents();
+			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
+			case ERM.INCOTERM: return this.selectorSrv.getIncoTermsGlobal();
+			case ERM.PRODUCT: return this.selectorSrv.getProducts();
+			case ERM.PROJECT: return this.selectorSrv.getProjects();
+			case ERM.SUPPLIER: return this.selectorSrv.getSuppliers();
+			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getSupplierTypes();
+			case ERM.TAG: return this.selectorSrv.getTags();
+			case ERM.USER: return this.selectorSrv.getUsers();
 
-			default: throw Error(`Unsupported type ${this.type}`);
+			default: throw Error(`Unsupported type${this.type} for selector`);
 		}
 	}
 
 	/** Choices that are not registered on out DB */
-	getChoicesLocal(type, searchTxt) {
+	getChoicesLocal(type: EntityMetadata, searchTxt) {
 		switch (type) {
-			case 'lengthUnit':
-				this.displayName = 'length unit';
-				return this.selectorSrv.getLengthUnits(searchTxt);
-			case 'weightUnit':
-				this.displayName = 'weight unit';
-				return this.selectorSrv.getWeigthUnits(searchTxt);
-			case 'businessType':
-				this.displayName = 'business type';
-				return this.selectorSrv.getBusinessTypes(searchTxt);
-			case 'categoryBoarding':
-				this.displayName = 'category';
-				return this.selectorSrv.getCategoriesBoarding(searchTxt);
+			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits(searchTxt);
+			case ERM.WEIGHT_UNIT: return this.selectorSrv.getWeigthUnits(searchTxt);
 			default: this.hasDB = true;
 		}
 	}
@@ -202,7 +190,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let item;
 		// depending on the entity the way we update it can be different (we only care to update the value that we display)
 		switch (this.type) {
-			case 'user':
+			case ERM.USER:
 				item = {
 					id: this.value.id,
 					firstName: this.value.firstName ? this.value.firstName : '',
@@ -212,14 +200,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				break;
 			// if its a const we don't need to emit an object {id, typename} (its not an entity update),
 			// we only need a string (e.g. supplier -> country -> string)
-			case 'businessType':
-			case 'categoryBoarding':
-			case 'country':
-			case 'currency':
-			case 'harbour':
-			case 'incoTerm':
-			case 'lengthUnit':
-			case 'weightUnit':
+			case ERM.COUNTRY:
+			case ERM.CURRENCY:
+			case ERM.HARBOUR:
+			case ERM.INCOTERM:
+			case ERM.LENGTH_UNIT:
+			case ERM.WEIGHT_UNIT:
 				item = this.value;
 				break;
 			// this is the default if we are updating an entity with name field
@@ -254,31 +240,31 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		const name = this.searchTxt;
 		if (name) {
 			switch (this.type) {
-				case 'category':
+				case ERM.CATEGORY:
 					added = new Category({ name });
 					createObs$ = this.selectorSrv.createCategory(added);
 					break;
-				case 'event':
+				case ERM.EVENT:
 					added = new Event({ name });
 					createObs$ = this.selectorSrv.createEvent(added);
 					break;
-				case 'product':
+				case ERM.PRODUCT:
 					added = new Product({ name });
 					createObs$ = this.selectorSrv.createProduct(added);
 					break;
-				case 'project':
+				case ERM.PROJECT:
 					added = new Project({ name });
 					createObs$ = this.selectorSrv.createProject(added);
 					break;
-				case 'supplier':
+				case ERM.SUPPLIER:
 					added = new Supplier({ name });
 					createObs$ = this.selectorSrv.createSupplier(added);
 					break;
-				case 'supplierType':
+				case ERM.SUPPLIER_TYPE:
 					added = new SupplierType({ name });
 					createObs$ = this.selectorSrv.createSupplierType(added);
 					break;
-				case 'tag':
+				case ERM.TAG:
 					added = new Tag({ name });
 					createObs$ = this.selectorSrv.createTag(added);
 					break;

@@ -11,9 +11,13 @@ export class SelectorComponent implements OnInit {
 
 	@Input() value: any;
 
-	typeEM: EntityMetadata;
-	@Input() set type(type: string) {
-		this.typeEM = ERM.getEntityMetadata(type);
+	private _type: EntityMetadata;
+	// it can be both types, since selectors are used inside dynamic forms (customField.metadata.target)
+	@Input() set type(type: EntityMetadata | string) {
+		this._type = typeof (type) === 'string' ? ERM.getEntityMetadata(type) : type;
+	}
+	get type() {
+		return this._type;
 	}
 
 	@Input() multiple = false;
