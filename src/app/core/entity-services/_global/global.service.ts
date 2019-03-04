@@ -867,7 +867,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	sendTrack(action: string, data: any, type: string) {
 		if (this.analyticsSrv) {
 			this.analyticsSrv.evenTrack(action, {
-				id: data.id,
+				id: action,
+				id_element: data.id,
 				name: data.name,
 				entity: this.typeName,
 				date: data.creationDate,

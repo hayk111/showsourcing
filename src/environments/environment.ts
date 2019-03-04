@@ -12,7 +12,7 @@ export const environment = {
 	staging: false,
 	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',
-	apiUrl: 'https://services.showsourcing.com',
+	apiUrl: 'https://services-dev.showsourcing.com',
 	getStreamKey: 'kn8zj3tgdkf3',
 	mixPanelKey: '9143fc0c3d674a93d201e8d9e12fb4f9',
 	hubspotKey: '5511311',

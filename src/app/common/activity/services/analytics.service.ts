@@ -7,6 +7,7 @@ import { UserService } from '~core/entity-services/user/user.service';
 interface Properties {
 	id: string;
 	name: string;
+	id_element: string;
 	entity: string;
 	date: Date;
 	type: string;
@@ -25,22 +26,23 @@ export class AnalyticsService {
 	) { }
 
 	init() {
+		// start the tracking of route changes
 		this.mixpanel.startTracking();
 		this.hubspot.startTracking();
 		this.userSrv.selectUser().subscribe(user => {
-			// MixPanel
+			// MixPanel each analytics page has its own default user properties
 			this.mixpanel.setUsername(user.id);
 			this.mixpanel.setUserProperties({
 				$first_name: user.firstName,
 				$last_name: user.lastName,
-				$eail: user.email
+				$email: user.email
 			});
 
-			// Hubspot
+			// Hubspot each analytics page has its own default user properties
 			this.hubspot.setUserProperties({
-				uniqueId: user.id,
-				first_name: user.firstName,
-				last_name: user.lastName,
+				id: user.id,
+				firstname: user.firstName,
+				lastname: user.lastName,
 				email: user.email
 			});
 		});
