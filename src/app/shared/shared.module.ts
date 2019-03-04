@@ -61,7 +61,6 @@ const modules = [
 	CardModule,
 	CarouselModule,
 	ContextMenuModule,
-	DatePipe,
 	DialogModule,
 	DividerModule,
 	DynamicFormsModule,
@@ -98,5 +97,6 @@ const modules = [
 	declarations: [],
 	exports: modules,
 	imports: modules,
+	providers: [DatePipe]
 })
 export class SharedModule { }

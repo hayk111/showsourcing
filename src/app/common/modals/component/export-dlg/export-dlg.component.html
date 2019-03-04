@@ -1,79 +1,14 @@
-<dialog-app *ngIf="!requestCreated">
+<export-selection-view-app
+	*ngIf="!requestCreated"
+	[targets]="targets"
+	[pending]="pending"
+	(export)="export()"
+	(selected)="select($event)">
+</export-selection-view-app>
 
-	<dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Export Selection</dialog-header-app>
-	<dialog-subtitle-app *ngIf="!pending"  i18n="dialog subtitle|Select export type@@productExport_type">Export Type</dialog-subtitle-app>
-
-	<main *ngIf="!pending; else spinner" class="exportRow">
-		<div class="exportCell" (click)="select('xls', 'xls_product_list')"
-			[class.selected]="selectedType === 'xls_product_list'">
-			<icon-app name="excel"></icon-app>
-			<div class="title">Excel</div>
-			<div class="subtitle" i18n="div subtitle|Export items for edition purpose@@export_excelEdit">
-				Perfect for editing
-			</div>
-		</div>
-		<div class="exportCell" (click)="select('pdf', 'pdf_product_page')"
-			[class.selected]="selectedType === 'pdf_product_page'">
-			<icon-app name="pdf"></icon-app>
-			<div class="title">PDF</div>
-			<div class="subtitle" i18n="div subtitle|Export items for sharing purpose@@export_pdfShare">
-				Perfect for sharing
-			</div>
-		</div>
-		<div class="exportCell image" (click)="select('pictures', 'product_image')"
-			[class.selected]="selectedType === 'product_image'">
-			<icon-app name="image"></icon-app>
-			<div class="title">Pictures</div>
-			<div class="subtitle" i18n="div subtitle|Export items for sharing purpose@@export_imagesShare">
-				All product pictures
-			</div>
-		</div>
-	</main>
-
-	<dialog-footer-app *ngIf="!pending" class="fullWidth flexCenter flexBetween">
-		<span class="txt-secondary">{{ targets?.length }} items{{ targets?.length > 1 ? 's' : '' }} selected</span>
-		<button class="small" (click)="export()" i18n="button|Export product@@export_export">
-			Export
-		</button>
-	</dialog-footer-app>
-</dialog-app>
-
-<!-- When request has been created on DB -->
-<dialog-app *ngIf="requestCreated" [ngClass]="{'request-created': requestCreated}">
-	<dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Your export is being generated</dialog-header-app>
-
-	<main *ngIf="!pending; else spinner" class="flex container">
-		<icon-app class="settings-image" name="settings-multiple" fontSet="svg"></icon-app>
-		<div class="generating-message ">
-			Your export is being generated. This may take a few minutes.<br>
-			You will be notified when the export is ready.<br>
-			You can also retrieve your previous export in:<br>
-			Settings > <span class="color-primary pointer" (click)="goToExports()">Exports</span>
-			<div *ngIf="!fileReady" class="status-container loading">
-				<div class="bar-container fullWidth">
-					<div class="moving-bar"></div>
-				</div>
-				<div class="status-info"> Your export is being generated</div>
-			</div>
-			<div *ngIf="fileReady" class="status-container export-ready flex pointer" (click)="downloadFile()">
-				<icon-app class="file" name="file"></icon-app>
-				<div>
-					Your export is ready!
-					<div class="status-info">Click here to donwload your file</div>
-				</div>
-			</div>
-		</div>
-	</main>
-
-	<dialog-footer-app *ngIf="!pending" class="fullWidth">
-		<button class="open-export secondary" (click)="goToExports()">Open Exports</button>
-		<button (click)="dlgSrv.close()">Close</button>
-	</dialog-footer-app>
-
-	<!-- Pending footer -->
-
-</dialog-app>
-
-<ng-template #spinner>
-	<spinner-app *ngIf="pending" size="xxl"></spinner-app>
-</ng-template>
+<export-waiting-view-app
+	*ngIf="requestCreated"
+	[fileReady]="fileReady"
+	[pending]="pending"
+	(download)="downloadFile()">
+</export-waiting-view-app>
