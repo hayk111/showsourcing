@@ -6,12 +6,24 @@
 
 	<sub-panel-app
 		buttonName="Add Products"
-		[hasSwitch]="false"
-		[hasFilter]="false"
+		[hasSwitch]="true"
+		[filtersAmount]="listSrv.filterList.asFilters()?.length"
+		[hasFilter]="true"
 		[buttonIcon]="false"
 		[searchValue]="listSrv.searchValue"
+		(showFilters)="listSrv.openFilterPanel()"
 		(buttonClick)="openFindProductDlg()"
-		(search)="listSrv.search($event)">
+		(search)="listSrv.search($event)"
+		(viewChange)="listSrv.changeView($event)">
+
+		<sub-panel-right-item-app>
+			<product-sorting-menu-app
+				[currentSort]="listSrv.currentSort"
+				[gridView]="listSrv.view === 'card'"
+				(sortFromMenu)="listSrv.sortFromMenu($event)">
+			</product-sorting-menu-app>
+		</sub-panel-right-item-app>
+
 	</sub-panel-app>
 
 	<project-product-list-app
@@ -33,6 +45,27 @@
 		(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog($event)"
 		(delete)="deassociateProductById($event)">
 	</project-product-list-app>
+
+	<products-card-view-app
+		infiniScroll
+		cdk-scrollable
+		*ngIf="listSrv.view === 'card'"
+		class="card-view"
+		[currentSort]="listSrv.currentSort"
+		[rows]="listSrv.items$ | async"
+		[selection]="listSrv.selection$ | async"
+		(addToProject)="commonModalSrv.openAddToProjectDialog([$event])"
+		(bottomReached)="listSrv.loadMore()"
+		(disliked)="listSrv.onThumbDown($event)"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(liked)="listSrv.onThumbUp($event)"
+		(open)="listSrv.goToDetails($event)"
+		(previewClick)="listSrv.openPreview($event)"
+		(select)="listSrv.selectOne($event, true)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(unselect)="listSrv.unselectOne($event, true)"
+		(update)="listSrv.update($event)">
+	</products-card-view-app>
 
 	<selection-bar-app
 		[isShown]="(listSrv.selection$ | async).size > 0"
@@ -83,6 +116,13 @@
 			</action-bar-app>
 		</div>
 	</selection-bar-app>
+
+	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="listSrv.closeFilterPanel()">
+	</filters-app>
 
   <product-preview-app
 		*ngIf="listSrv.previewOpen"

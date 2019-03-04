@@ -22,6 +22,10 @@ export class ProductInformationComponent implements OnInit {
 			name: 'category', type: 'selector',
 			metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
+		{
+			name: 'event', type: 'selector',
+			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+		},
 		{ name: 'price', type: 'price' },
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' }

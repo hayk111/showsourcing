@@ -1,10 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-
-import { User, Team } from '~models';
-import { DEFAULT_USER_ICON } from '~utils';
-import { TeamClientInitializer } from '~core/apollo';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { TeamService } from '~core/entity-services';
+import { Team, User } from '~models';
+import { DEFAULT_USER_ICON } from '~utils';
 
 @Component({
 	selector: 'user-panel-app',
@@ -12,16 +10,19 @@ import { TeamService } from '~core/entity-services';
 	styleUrls: ['./user-panel.component.scss'],
 })
 export class UserPanelComponent implements OnInit {
+
 	@Input() user: User;
 	@Input() team: Team;
 	@Output() logout = new EventEmitter<any>();
 	@Output() close = new EventEmitter<any>();
+
 	defaultImg = DEFAULT_USER_ICON;
+
 	constructor(private router: Router, private teamSrv: TeamService) { }
 
 	ngOnInit() { }
 
-	goToSettings() {
+	goToProfile() {
 		this.router.navigate(['settings', 'profile']);
 		this.close.emit();
 	}
@@ -30,7 +31,7 @@ export class UserPanelComponent implements OnInit {
 		this.router.navigate(['settings', 'team', 'members']);
 	}
 
-	goToDataManagement() {
+	goToSettings() {
 		this.router.navigate(['settings', 'data', 'category']);
 		this.close.emit();
 	}

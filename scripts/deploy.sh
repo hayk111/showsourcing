@@ -4,30 +4,36 @@
 SHOULD_BUILD=$1
 ENDPOINT=$2
 
+BUILD="npm run build"
+REGION="eu-central-1" # default region for app.show.sourcing.com
 
-if [ -z "$ENDPOINT" ]
-  then
-    echo "Please pick an endpoint to deploy to"
-    echo "1) app-test.showsourcing.com"
-    echo "2) app-dev.showsourcing.com"
-    echo "3) app-sta.showsourcing.com"
-    echo "4) app2.showsourcing.com"
-    echo "5) app.showsourcing.com"
-    read n
-    case $n in
-			1) ENDPOINT="app-test.showsourcing.com";;
-			2) ENDPOINT="app-dev.showsourcing.com";;
-			3) ENDPOINT="app-sta.showsourcing.com";;
-			4) ENDPOINT="app2.showsourcing.com";; # --region us-east-2
-			5) ENDPOINT="app.showsourcing.com";; # --region eu-central-1
-			*) invalid option;;
-    esac
+CHOICES[1]="app-test.showsourcing.com"
+CHOICES[2]="app-dev.showsourcing.com"
+CHOICES[3]="app-sta.showsourcing.com"
+CHOICES[4]="app2.showsourcing.com"
+CHOICES[5]="app.showsourcing.com"
+
+
+if [ -z "$ENDPOINT" ]; then
+	echo "Please pick an endpoint to deploy to"
+	for I in 1 2 3 4 5
+	do
+		echo "$I) ${CHOICES[$I]}"
+	done
+	read n
+	ENDPOINT=${CHOICES[n]}
+	case $n in
+		3) BUILD="npm run build:sta" REGION="eu-west-1";;
+		4) REGION="us-east-2";;
+	esac
+	[ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
 fi
 
-echo "$ENDPOINT"
+echo "Deploying to: $ENDPOINT"
 
 if $SHOULD_BUILD; then
-	npm run build
+	echo "building with \`$BUILD\`"
+	$BUILD
 	echo "build done, about to deploy..."
 fi
 
@@ -43,13 +49,13 @@ DIR="./dist/showsourcing"
 if [ -d "$DIR" ]; then
   # Control will enter here if $DIRECTORY exists.
     cd "$DIR"
-    aws s3 sync . s3://"$ENDPOINT" --delete
-    aws s3 cp s3://"$ENDPOINT"/index.html s3://"$ENDPOINT"/index.html --metadata-directive REPLACE --cache-control max-age=0
+    aws s3 sync . s3://"$ENDPOINT" --delete --region "$REGION"
+    aws s3 cp s3://"$ENDPOINT"/index.html s3://"$ENDPOINT"/index.html --metadata-directive REPLACE --cache-control max-age=0 --region "$REGION"
     else # else we need to build before
-    echo "Build directory "$DIR" doesn't exist, I am gonna build for you"
-    npm run build
+    echo "Build directory $DIR doesn't exist, I am gonna build for you using $BUILD"
+    $BUILD
     echo "build done, about to deploy..."
     cd "$DIR"
-    aws s3 sync . s3://"$ENDPOINT" --delete
-    aws s3 cp s3://"$ENDPOINT"/index.html s3://"$ENDPOINT"/index.html --metadata-directive REPLACE --cache-control max-age=0
+    aws s3 sync . s3://"$ENDPOINT" --delete --region "$REGION"
+    aws s3 cp s3://"$ENDPOINT"/index.html s3://"$ENDPOINT"/index.html --metadata-directive REPLACE --cache-control max-age=0 --region "$REGION"
 fi
