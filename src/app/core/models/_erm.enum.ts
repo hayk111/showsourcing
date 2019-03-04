@@ -49,8 +49,9 @@ export class EntityMetadata {
 
 }
 
-// Must be added alphabetically
+// Must be added ALPHABETICALLY
 export class ERM {
+
 	static readonly ATTACHMENT = new EntityMetadata('attachment', 'attachments', Attachment);
 	static readonly ATTACHMENT_UPLOAD_REQUEST = new EntityMetadata('attachment upload request', 'attachment upload requests', Attachment);
 	static readonly CATEGORY = new EntityMetadata('category', 'categories', Category);
@@ -67,6 +68,7 @@ export class ERM {
 	static readonly IMAGE_UPLOAD_REQUEST = new EntityMetadata('image upload request', 'image upload requests', ImageUploadRequest);
 	static readonly INCOTERM = new EntityMetadata('incoterm', 'incoterms', IncoTerm);
 	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
+	static readonly LENGTH_UNIT = new EntityMetadata('length unit', 'length units');
 	static readonly LOCATION = new EntityMetadata('location', 'locations');
 	static readonly MEMBER = new EntityMetadata('member', 'members');
 	static readonly PRODUCT = new EntityMetadata('product', 'products', Product);
@@ -88,6 +90,7 @@ export class ERM {
 	static readonly TEAM = new EntityMetadata('team', 'teams', Team);
 	static readonly TEAM_USER = new EntityMetadata('team user', 'team users');
 	static readonly USER = new EntityMetadata('user', 'users', User);
+	static readonly WEIGHT_UNIT = new EntityMetadata('weight unit', 'weight units');
 
 	constructor() { }
 

@@ -18,7 +18,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Category, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
+import { Category, Event, Product, Project, Supplier, SupplierType, Tag, EntityMetadata } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -31,7 +31,7 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit {
 
-	private _type;
+	private _type: string;
 	@Input() set type(type: string) {
 		this._type = type;
 	}

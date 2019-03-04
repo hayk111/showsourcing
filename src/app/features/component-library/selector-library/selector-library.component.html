@@ -1,5 +1,5 @@
 <selector-app
-	type="project"
+	type="erm.PROJECT"
 	[canCreate]="true"
 	[value]="(product$ | async)?.projects"
 	[multiple]="true"
@@ -10,7 +10,7 @@
 <!--  if this is uncommented and since we are not using virtual scroll, on selector2 -> searchTxt = 'light'
 			so we just load part of it -->
 <selector-app
-	type="supplier"
+	type="erm.SUPPLIER"
 	[canCreate]="true"
 	[offsetX]="300"
 	(update)="update($event, 'supplier')">
@@ -18,31 +18,31 @@
 	<button class="mg-ms"> Supplier selector </button>
 </selector-app>
 <selector-app
-	type="currency"
+	type="erm.CURRENCY"
 	[offsetX]="300"
 	[offsetY]="300">
 	<div>OffsetX = 300, OffsetY: 300</div>
 	<button class="mg-ms"> Currency selector </button>
 </selector-app>
 <selector-app
-	type="user"
+	type="erm.USER"
 	[offsetY]="300">
 	<div>OffsetX: Default, OffsetY: 300</div>
 	<button class="mg-ms"> User Selector </button>
 </selector-app>
 <selector-app
-	type="country"
+	type="erm.COUNTRY"
 	[offsetY]="-300">
 	<div>OffsetX: Default, OffsetY: - 300</div>
 	<button class="mg-ms"> Country selector </button>
 </selector-app>
 <selector-app
-	type="supplierType">
+	type="erm.SUPPLIER_TYPE">
 	<div>OffsetX, OffsetY: Default</div>
 	<button class="mg-ms"> SupplierType selector </button>
 </selector-app>
 <selector-app
-	type="weightUnit">
+	type="erm-WEIGHT_UNIT">
 	<div>OffsetX, OffsetY: Default</div>
 	<button class="mg-ms"> Weight Unit selector </button>
 </selector-app>

@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { EntityMetadata, ERM } from '~core/models';
 
 @Component({
 	selector: 'selector-app',
@@ -9,7 +10,12 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 export class SelectorComponent implements OnInit {
 
 	@Input() value: any;
-	@Input() type: string;
+
+	typeEM: EntityMetadata;
+	@Input() set type(type: string) {
+		this.typeEM = ERM.getEntityMetadata(type);
+	}
+
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() width = 395;
