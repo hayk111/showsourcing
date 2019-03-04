@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { SupplierService, UserService } from '~core/entity-services';
+import { SupplierService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { AppImage, Comment, ERM, Supplier } from '~core/models';
 import { CustomField } from '~shared/dynamic-forms';
@@ -55,7 +55,6 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges {
 		private supplierSrv: SupplierService,
 		private commentSrv: CommentService,
 		private router: Router,
-		private userSrv: UserService,
 		private constPipe: ConstPipe) {
 		super();
 	}

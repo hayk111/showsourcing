@@ -18,7 +18,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Category, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
+import { Category, Event, Product, Project, Supplier, SupplierType, Tag, EntityMetadata, ERM } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -31,11 +31,11 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit {
 
-	private _type;
-	@Input() set type(type: string) {
+	private _type: EntityMetadata;
+	@Input() set type(type: EntityMetadata) {
 		this._type = type;
 	}
-	get type(): string {
+	get type(): EntityMetadata {
 		return this._type;
 	}
 	@Input() multiple = false;
@@ -49,8 +49,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	choices$: Observable<any[]>;
 	/** local choices to iterate, these choices are not in our DB */
 	choicesLocal = [];
-	// for complex names
-	displayName = '';
 
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
@@ -73,10 +71,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** index when using manager keys and virtual scrolling */
 	count = 0;
 
-	/** whther the type that we send is a const or not
-	 * if its a const we don't need to emit an object {id, typename}, we only need a string
-	 */
-	isConst = false;
 	/** if current type is in our DB or not */
 	hasDB = false;
 
@@ -85,6 +79,11 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	/** whether the search has a exact match or not to display the create button */
 	nameExists$: Observable<boolean>;
+
+	// this helps the condition of fast typing only apply when typing and pressing Enter (OnKeyDown function)
+	movedArrow = false;
+
+	erm = ERM;
 
 
 	constructor(
@@ -137,93 +136,94 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	search(text) {
 		this.searchTxt = text.trim();
+		this.movedArrow = false;
 		this.hasDB ? this.selectorSrv.search(this.type, this.searchTxt) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 		this.searched$.next(this.searchTxt);
 		this.keyManager.setFirstItemActive();
 	}
 
 	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
-	getChoices(type: string): Observable<any[]> {
+	// ARRAYS START AT 1 NOT 0!!!! now that I have your attention ADVICE: when adding a new choice, check the update single method
+	getChoices(type: EntityMetadata): Observable<any[]> {
 		switch (type) {
-			case 'supplier': return this.selectorSrv.getSuppliers();
-			case 'product': return this.selectorSrv.getProducts();
-			case 'category': return this.selectorSrv.getCategories();
-			case 'event': return this.selectorSrv.getEvents();
-			case 'tag': return this.selectorSrv.getTags();
-			case 'supplierType':
-				this.displayName = 'supplier type';
-				return this.selectorSrv.getSupplierTypes();
-			case 'user': return this.selectorSrv.getUsers();
-			case 'project': return this.selectorSrv.getProjects();
-			// Constants
-			case 'currency':
-				this.isConst = true;
-				return this.selectorSrv.getCurrenciesGlobal();
-			case 'country':
-				this.isConst = true;
-				return this.selectorSrv.getCountriesGlobal();
-			case 'harbour':
-				this.isConst = true;
-				return this.selectorSrv.getHarboursGlobal();
-			case 'incoTerm':
-				this.isConst = true;
-				return this.selectorSrv.getIncoTermsGlobal();
+			case ERM.CATEGORY: return this.selectorSrv.getCategories();
+			case ERM.COUNTRY: return this.selectorSrv.getCountriesGlobal();
+			case ERM.CURRENCY: return this.selectorSrv.getCurrenciesGlobal();
+			case ERM.EVENT: return this.selectorSrv.getEvents();
+			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
+			case ERM.INCOTERM: return this.selectorSrv.getIncoTermsGlobal();
+			case ERM.PRODUCT: return this.selectorSrv.getProducts();
+			case ERM.PROJECT: return this.selectorSrv.getProjects();
+			case ERM.SUPPLIER: return this.selectorSrv.getSuppliers();
+			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getSupplierTypes();
+			case ERM.TAG: return this.selectorSrv.getTags();
+			case ERM.USER: return this.selectorSrv.getUsers();
 
-			default: throw Error(`Unsupported type ${this.type}`);
+			default: throw Error(`Unsupported type${this.type} for selector`);
 		}
 	}
 
 	/** Choices that are not registered on out DB */
-	getChoicesLocal(type, searchTxt) {
+	getChoicesLocal(type: EntityMetadata, searchTxt) {
 		switch (type) {
-			case 'lengthUnit':
-				this.isConst = true;
-				this.displayName = 'length unit';
-				return this.selectorSrv.getLengthUnits(searchTxt);
-			case 'weightUnit':
-				this.isConst = true;
-				this.displayName = 'weight unit';
-				return this.selectorSrv.getWeigthUnits(searchTxt);
-			case 'businessType':
-				this.isConst = true;
-				this.displayName = 'business type';
-				return this.selectorSrv.getBusinessTypes(searchTxt);
-			case 'categoryBoarding':
-				this.isConst = true;
-				this.displayName = 'category';
-				return this.selectorSrv.getCategoriesBoarding(searchTxt);
+			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits(searchTxt);
+			case ERM.WEIGHT_UNIT: return this.selectorSrv.getWeigthUnits(searchTxt);
 			default: this.hasDB = true;
 		}
 	}
 
 	onChange() {
 		this.onChangeFn(this.value);
-		if (!this.multiple) {
-			if (!this.isConst) { // constants can update directly, wihtout a value name
-				if (this.type === 'user') // specific user case, since the rest use name to update
-					this.update.emit({
-						id: this.value.id,
-						firstName: this.value.firstName ? this.value.firstName : '',
-						lastName: this.value.lastName ? this.value.lastName : '',
-						__typename: this.value.__typename
-					});
-				else
-					this.update.emit({ id: this.value.id, name: this.value.name ? this.value.name : '', __typename: this.value.__typename });
-			} else
-				this.update.emit(this.value);
-			this.close.emit();
-		} else {
-			const trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
-			this.update.emit(trimValues);
-			this.selectorSrv.refetch();
+		if (!this.multiple)
+			this.updateSingle();
+		else
+			this.updateMultiple();
+	}
+
+	updateMultiple() {
+		const trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
+		this.update.emit(trimValues);
+		this.selectorSrv.refetch();
+	}
+
+	updateSingle() {
+		let item;
+		// depending on the entity the way we update it can be different (we only care to update the value that we display)
+		switch (this.type) {
+			case ERM.USER:
+				item = {
+					id: this.value.id,
+					firstName: this.value.firstName ? this.value.firstName : '',
+					lastName: this.value.lastName ? this.value.lastName : '',
+					__typename: this.value.__typename
+				};
+				break;
+			// if its a const we don't need to emit an object {id, typename} (its not an entity update),
+			// we only need a string (e.g. supplier -> country -> string)
+			case ERM.COUNTRY:
+			case ERM.CURRENCY:
+			case ERM.HARBOUR:
+			case ERM.INCOTERM:
+			case ERM.LENGTH_UNIT:
+			case ERM.WEIGHT_UNIT:
+				item = this.value;
+				break;
+			// this is the default if we are updating an entity with name field
+			default:
+				item = {
+					id: this.value.id,
+					name: this.value.name ? this.value.name : '',
+					__typename: this.value.__typename
+				};
+				break;
 		}
+		if (item) this.update.emit(item);
+		this.close.emit();
 	}
 
 	onSelect(item) {
 		if (this.multiple) {
-			if (this.isSelected(item)) // if its multiple and is already on the selection we delete the item from our value array
-				this.delete(item);
-			else { // if its multiple and its not selected we add it
+			if (!this.isSelected(item)) { // if its multiple and its not selected we add it
 				this.value.push(item);
 				this.onChange();
 			}
@@ -231,7 +231,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.value = item;
 			this.onChange();
 		}
-
 	}
 
 	/** creates a new entity */
@@ -241,31 +240,31 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		const name = this.searchTxt;
 		if (name) {
 			switch (this.type) {
-				case 'category':
+				case ERM.CATEGORY:
 					added = new Category({ name });
 					createObs$ = this.selectorSrv.createCategory(added);
 					break;
-				case 'event':
+				case ERM.EVENT:
 					added = new Event({ name });
 					createObs$ = this.selectorSrv.createEvent(added);
 					break;
-				case 'product':
+				case ERM.PRODUCT:
 					added = new Product({ name });
 					createObs$ = this.selectorSrv.createProduct(added);
 					break;
-				case 'project':
+				case ERM.PROJECT:
 					added = new Project({ name });
 					createObs$ = this.selectorSrv.createProject(added);
 					break;
-				case 'supplier':
+				case ERM.SUPPLIER:
 					added = new Supplier({ name });
 					createObs$ = this.selectorSrv.createSupplier(added);
 					break;
-				case 'supplierType':
+				case ERM.SUPPLIER_TYPE:
 					added = new SupplierType({ name });
 					createObs$ = this.selectorSrv.createSupplierType(added);
 					break;
-				case 'tag':
+				case ERM.TAG:
 					added = new Tag({ name });
 					createObs$ = this.selectorSrv.createTag(added);
 					break;
@@ -284,14 +283,29 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
+	getLabelName(label) {
+		if (!label.name)
+			throw Error('This entity selector does not have a name property when using multiple, check onkeyDoen else if (this.multiple)');
+		return label.name;
+	}
+
 	onKeydown(event) {
 		if (event.keyCode === ENTER) {
 			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
+			let shouldReset = true;
 			if (label === 'create-button') this.create();
-			else this.onSelect(label);
-			this.resetInput();
+			else if (this.multiple) {
+				// this is made since sometimes the user types faster, this way we assure that the label he types has to be the same
+				// if he moves with the arrow keys, then we don't care about the typing field
+				if (this.getLabelName(label) === this.searchTxt || this.movedArrow) this.onSelect(label);
+				else shouldReset = false;
+			} else this.onSelect(label);
+
+			if (shouldReset) this.resetInput();
+
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+			this.movedArrow = true;
 			let aIndex = this.keyManager.activeItemIndex;
 			const items = this.elementRefItems.toArray();
 			// we call this before the event key sicne we are going back with the arrow key up

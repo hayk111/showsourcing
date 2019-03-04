@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { EntityMetadata, ERM } from '~core/models';
 
 @Component({
 	selector: 'selector-app',
@@ -9,7 +10,16 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 export class SelectorComponent implements OnInit {
 
 	@Input() value: any;
-	@Input() type: string;
+
+	private _type: EntityMetadata;
+	// it can be both types, since selectors are used inside dynamic forms (customField.metadata.target)
+	@Input() set type(type: EntityMetadata | string) {
+		this._type = typeof (type) === 'string' ? ERM.getEntityMetadata(type) : type;
+	}
+	get type() {
+		return this._type;
+	}
+
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() width = 395;

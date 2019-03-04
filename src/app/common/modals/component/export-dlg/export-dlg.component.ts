@@ -21,12 +21,12 @@ export class ExportDlgComponent implements OnInit {
 	selectedFormat: ExportFormat;
 	selectedType: ExportType;
 
-	pending = false;
 	// when exportRequest Object is created we use another view
 	requestCreated = false;
 	// if the export it is ready on the backend
 	fileReady = false;
 	exportReq: ExportRequest;
+	pending: boolean;
 
 	constructor(
 		public dlgSrv: DialogService,
@@ -37,9 +37,9 @@ export class ExportDlgComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	select(selected: { format: ExportFormat, type: ExportType }) {
-		this.selectedFormat = selected.format;
-		this.selectedType = selected.type;
+	select(format: ExportFormat, type: ExportType) {
+		this.selectedFormat = format;
+		this.selectedType = type;
 	}
 
 	export() {

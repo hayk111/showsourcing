@@ -12,8 +12,7 @@
 		<!-- left side -->
 		<div class="left">
 			<navbar-app
-				[tabs]="['Activity','Products','Tasks']"
-				[values]="[null, null, taskCount$ | async]">
+					[tabs]="[{name: 'Activity'}, {name: 'Products'}, {name: 'Tasks', number: taskCount$ | async}]">
 			</navbar-app>
 
 			<main>
