@@ -5,7 +5,6 @@ import { switchMap } from 'rxjs/operators';
 import { ExportRequestService } from '~entity-services/export-request/export-request.service';
 import { ExportRequest, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { NotificationService, NotificationType } from '~shared/notifications';
 
 type ExportFormat = 'pdf' | 'xls' | 'pictures';
 type ExportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
@@ -33,19 +32,9 @@ export class ExportDlgComponent implements OnInit {
 		public dlgSrv: DialogService,
 		private router: Router,
 		private exportSrv: ExportRequestService,
-		private notifSrv: NotificationService,
 		private cdr: ChangeDetectorRef) { }
 
 	ngOnInit() {
-	}
-
-	addNotif(type: NotificationType) {
-		this.notifSrv.add({
-			type,
-			title: 'Exporting file',
-			message: type === NotificationType.SUCCESS ? 'Export successfully completed' : 'Failed exporting files',
-			timeout: 4000
-		});
 	}
 
 	select(selected: { format: ExportFormat, type: ExportType }) {
@@ -65,24 +54,17 @@ export class ExportDlgComponent implements OnInit {
 
 		this.exportSrv.create(request).pipe(
 			switchMap(exp => {
-				if (exp.status === 'rejected')
-					throw new Error('Rejected');
 				this.pending = false;
 				this.requestCreated = true;
 				this.cdr.detectChanges();
-				return this.exportSrv.waitForOne(`id == "${exp.id}" AND status == "ready"`);
+				return this.exportSrv.isExportReady(exp);
 			}),
 		).subscribe(exp => {
 			this.exportReq = exp;
 			this.fileReady = true;
 			this.cdr.detectChanges();
-			this.addNotif(NotificationType.SUCCESS);
 		},
-			err => {
-				this.pending = false;
-				this.addNotif(NotificationType.ERROR);
-				this.dlgSrv.close();
-			}
+			err => this.dlgSrv.close()
 		);
 	}
 

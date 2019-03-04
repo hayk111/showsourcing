@@ -1,13 +1,14 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { TeamUserService, UserService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { ExportRequestQueries } from '~entity-services/export-request/export-request.queries';
 import { ExportRequest } from '~models';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 @Injectable({
@@ -15,14 +16,30 @@ import { ExportRequest } from '~models';
 })
 export class ExportRequestService extends GlobalService<ExportRequest> {
 
+	exports$ = new ReplaySubject<any>(1);
+
 	constructor(
 		protected apolloState: ApolloStateService,
 		private userSrv: UserService,
 		private teamUserSrv: TeamUserService,
+		private notifSrv: NotificationService,
 		private http: HttpClient,
 		private datePipe: DatePipe
 	) {
 		super(apolloState, ExportRequestQueries, 'exportRequest', 'exportRequests');
+		this.exports$.subscribe(_ => this.addNotif(NotificationType.SUCCESS));
+	}
+
+	addNotif(type: NotificationType) {
+		this.notifSrv.add({
+			type,
+			title: 'Exporting file',
+			message: type === NotificationType.SUCCESS ?
+				'Export successfully completed' : 'Failed exporting files',
+			uriMessage: 'Click here to be redirected',
+			uri: ['settings', 'exports'],
+			timeout: 8000
+		});
 	}
 
 	create(request: ExportRequest) {
@@ -43,6 +60,18 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 		const name = request.format + '_' + this.transformDate(request.creationDate) + '.' + extension;
 		return this.http.get(request.documentUrl, { responseType: 'blob', observe: 'response' }).pipe(
 			map(res => ({ file: res.body, name }))
+		);
+	}
+
+	isExportReady(exportReq: ExportRequest) {
+		return this.waitForOne(`id == "${exportReq.id}" AND (status == "ready" OR status == "rejected")`).pipe(
+			tap(res => {
+				if (res.status === 'rejected') {
+					this.addNotif(NotificationType.ERROR);
+					throw Error('Abort');
+				} else
+					this.exports$.next(res);
+			}),
 		);
 	}
 

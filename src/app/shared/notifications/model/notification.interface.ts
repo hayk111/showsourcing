@@ -4,6 +4,8 @@ export class Notification {
 	timeout?: number;
 	title?: string;
 	message?: string;
+	uriMessage?: string;
+	uri?: Array<string>;
 }
 
 export enum NotificationType {
