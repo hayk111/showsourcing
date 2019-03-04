@@ -37,7 +37,7 @@ export class ExportDlgComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	select(format: ExportFormat, type: ExportType) {
+	select({ format, type }: { format: ExportFormat, type: ExportType }) {
 		this.selectedFormat = format;
 		this.selectedType = type;
 	}

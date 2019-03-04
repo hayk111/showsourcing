@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { TeamUserService, UserService } from '~entity-services';
@@ -16,8 +16,6 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 })
 export class ExportRequestService extends GlobalService<ExportRequest> {
 
-	exports$ = new ReplaySubject<any>(1);
-
 	constructor(
 		protected apolloState: ApolloStateService,
 		private userSrv: UserService,
@@ -27,7 +25,6 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 		private datePipe: DatePipe
 	) {
 		super(apolloState, ExportRequestQueries, 'exportRequest', 'exportRequests');
-		this.exports$.subscribe(_ => this.addNotif(NotificationType.SUCCESS));
 	}
 
 	addNotif(type: NotificationType) {
@@ -70,7 +67,7 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 					this.addNotif(NotificationType.ERROR);
 					throw Error('Abort');
 				} else
-					this.exports$.next(res);
+					this.addNotif(NotificationType.SUCCESS);
 			}),
 		);
 	}
