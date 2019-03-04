@@ -6,7 +6,7 @@ import { ProductService, ProductStatusService, UserService } from '~entity-servi
 import { ListQuery } from '~entity-services/_global/list-query.interface';
 import { Product, ProductStatus } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
-import { AnalyticsService } from '~common/activity/services/analytics.service';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 
 
 @Injectable({

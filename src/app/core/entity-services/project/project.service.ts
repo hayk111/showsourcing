@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AnalyticsService } from '~common/activity/services/analytics.service';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
 import { ProjectQueries } from '~entity-services/project/project.queries';

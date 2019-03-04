@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { AnalyticsService } from '~common/activity/services/analytics.service';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo';
 import { ContactService, ProductService, UserService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';

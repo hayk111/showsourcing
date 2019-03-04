@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { first, switchMap, tap } from 'rxjs/operators';
-import { AnalyticsService } from '~common/activity/services/analytics.service';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CommonModalService } from '~common/modals';
 import { ApolloStateService } from '~core/apollo';
 import { Product, ProductStatus, Project } from '~core/models';

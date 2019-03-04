@@ -11,7 +11,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { log, LogColor } from '~utils';
 import * as gqlTag from 'graphql-tag';
-import { AnalyticsService } from '~common/activity/services/analytics.service';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 
 
 export interface GlobalServiceInterface<T> {
@@ -866,7 +866,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 	sendTrack(action: string, data: any, type: string) {
 		if (this.analyticsSrv) {
-			this.analyticsSrv.evenTrack(action, {
+			this.analyticsSrv.eventTrack(action, {
 				id: action,
 				id_element: data.id,
 				name: data.name,

@@ -11,7 +11,7 @@ import {
 } from '~entity-services';
 import { ProductVoteRequestService } from '~entity-services/product-vote-request/product-vote-request.service';
 import { Contact, Product, ProductVoteRequest, Project } from '~models';
-import { AnalyticsService } from '~common/activity/services/analytics.service';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 
 @Injectable()
 export class ProductDialogService extends ProductService {
