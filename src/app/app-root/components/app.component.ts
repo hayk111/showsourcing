@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService, ClientStatus, TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
@@ -20,20 +21,22 @@ export class AppComponent implements OnInit {
 	spinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 	constructor(
+		private analytics: AnalyticsService,
+		private apolloState: ApolloStateService,
 		private authSrv: AuthenticationService,
+		private companySrv: CompanyService,
 		private globalDataClient: GlobalDataClientsInitializer,
-		private userClient: UserClientInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
-		private companySrv: CompanyService,
 		private tokenSrv: TokenService,
-		private apolloState: ApolloStateService
+		private userClient: UserClientInitializer,
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
+		this.analytics.init();
 
 		const hasTeam$ = this.teamSrv.hasTeamSelected$;
 		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);
