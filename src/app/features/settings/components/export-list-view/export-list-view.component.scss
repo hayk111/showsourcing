@@ -1,0 +1,8 @@
+.download {
+	color: var(--color-primary);
+
+	&.disabled {
+		cursor: default;
+		color: var(--color-txt-secondary);
+	}
+}

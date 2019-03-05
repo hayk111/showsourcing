@@ -6,6 +6,7 @@ import { ProductService, ProductStatusService, UserService } from '~entity-servi
 import { ListQuery } from '~entity-services/_global/list-query.interface';
 import { Product, ProductStatus } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 
 
 @Injectable({
@@ -16,12 +17,13 @@ export class WorkspaceFeatureService extends ProductService {
 	allProductsResult: ListQuery<Product>;
 
 	constructor(
+		protected analyticsSrv: AnalyticsService,
 		protected apolloState: ApolloStateService,
 		protected productSrv: ProductService,
 		protected productStatusSrv: ProductStatusService,
 		protected userSrv: UserService
 	) {
-		super(apolloState, userSrv);
+		super(analyticsSrv, apolloState, userSrv);
 	}
 
 	getFirstStatus() {

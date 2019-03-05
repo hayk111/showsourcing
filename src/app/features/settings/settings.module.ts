@@ -13,6 +13,7 @@ import {
 } from '~features/settings/components';
 import {
 	SettingsComponent,
+	SettingsExportComponent,
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersInvitationsComponent,
 	SettingsTeamMembersPageComponent,
@@ -22,6 +23,8 @@ import {
 import { routes } from '~features/settings/routes';
 import { SharedModule } from '~shared/shared.module';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
+
+import { ExportListViewComponent } from './components/export-list-view/export-list-view.component';
 
 @NgModule({
 	imports: [
@@ -37,6 +40,7 @@ import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.modul
 		ProfileCardComponent,
 		SampleStatusWorkflowComponent,
 		SettingsComponent,
+		SettingsExportComponent,
 		SettingsFieldsPageComponent,
 		SettingsProfileComponent,
 		SettingsTeamMembersInvitationsComponent,
@@ -45,6 +49,7 @@ import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.modul
 		SettingsWorkflowsPageComponent,
 		SupplierStatusWorkflowComponent,
 		TeamMembersListViewComponent,
+		ExportListViewComponent,
 	],
 	entryComponents: [],
 	exports: [],

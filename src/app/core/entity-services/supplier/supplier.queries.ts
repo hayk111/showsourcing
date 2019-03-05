@@ -20,6 +20,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 			website,
 			phoneNumber,
 			country,
+			city,
 			address,
 			officeEmail,
 			officePhone,

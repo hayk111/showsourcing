@@ -1,7 +1,14 @@
 <ng-container *ngIf="notifications$ | async as notifications">
 	<ng-container *ngFor="let notif of notifications;trackBy: trackByFn">
 
-		<notification-app [type]="notif.type" [id]="notif.id" [title]="notif.title" [message]="notif.message"></notification-app>
+		<notification-app
+			[id]="notif.id"
+			[type]="notif.type"
+			[title]="notif.title"
+			[message]="notif.message"
+			[uriMessage]="notif.uriMessage"
+			[uri]="notif.uri">
+		</notification-app>
 
 	</ng-container>
 </ng-container>

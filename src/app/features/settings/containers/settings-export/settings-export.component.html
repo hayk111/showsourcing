@@ -1,0 +1,35 @@
+<top-panel-app
+	[title]="'Exports'"
+	[hasAction]="false">
+</top-panel-app>
+
+<sub-panel-app
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[searchValue]="listSrv.searchValue"
+	(search)="listSrv.search($event)">
+</sub-panel-app>
+
+<export-list-view-app
+	[rows]="listSrv.items$ | async"
+	[pending]="listSrv.pending"
+	(sort)="listSrv.sort($event)"
+	(download)="downloadOne($event)">
+</export-list-view-app>
+
+<!-- in case selection comes back -->
+<!-- <selection-bar-app
+	[isShown]="(listSrv.selection$ | async)?.size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<div class="flex">
+		<button class="icon light download" (click)="downloadSelected()">
+			<icon-app name="file"></icon-app>
+		</button>
+		<button class="icon light delete">
+			<icon-app name="trash-bin"></icon-app>
+		</button>
+	</div>
+
+</selection-bar-app> -->

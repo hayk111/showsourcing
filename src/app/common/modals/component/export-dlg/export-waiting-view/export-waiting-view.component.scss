@@ -1,0 +1,87 @@
+// we use these sizes to calculate the translation of the animation
+$dialog-width: 528px;
+$settings-width: 92px;
+$settings-margin-right: 24px; // we cannot use root variables (run time) vs compilation variables (settings-margin-right)
+$loading-bar-width: 120px;
+$loading-bar-translationX: $dialog-width - $settings-width - $settings-margin-right - $loading-bar-width;
+
+dialog-app {
+	min-height: 187px;
+	width: $dialog-width;
+	padding-bottom: var(--spacing-ms);
+
+	.settings-image {
+		height: 87px;
+    width: $settings-width;
+		margin-right: $settings-margin-right;
+		font-size: 92px;
+	}
+
+	.generating-message {
+		width: 100%;
+		color: var(--color-txt-strong);
+		white-space: nowrap;
+		font-weight: normal;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: normal;
+		letter-spacing: normal;
+	}
+
+	.status-container {
+		height: 40px;
+		padding: var(--spacing-ms) 0px;
+
+		.status-info {
+			font-size: var(--font-size-s);
+			color: var(--color-txt-primary);
+			margin-top: var(--spacing-xs);
+		}
+	}
+
+	.loading {
+
+		.bar-container {
+			height: 20px;
+			background: var(--color-secondary);
+
+			.moving-bar {
+				height: 100%;
+				background: var(--color-primary);
+				width: $loading-bar-width;
+				transition: transform .2s ease-in-out;
+				animation: horizontal-motion 1.25s linear 0.1s infinite alternate;
+			}
+		}
+	}
+
+	.export-ready {
+		font-size: var(--font-size-l);
+
+		.file {
+			color: var(--color-txt-primary);
+			font-size: 30px;
+			margin-right: var(--spacing-m);
+			margin-left: var(--spacing-s);
+		}
+	}
+
+	.open-export {
+		margin-right: var(--spacing-ms);
+	}
+
+	dialog-footer-app {
+		margin-top: var(--spacing-s);
+		border-top: 1px solid var(--color-divider);
+    padding-top: var(--spacing-s);
+	}
+}
+
+@keyframes horizontal-motion {
+	0% {
+		transform: translateX(0px);
+	}
+	100% {
+		transform: translateX($loading-bar-translationX);
+	}
+}
