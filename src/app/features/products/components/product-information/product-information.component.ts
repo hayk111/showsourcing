@@ -27,8 +27,8 @@ export class ProductInformationComponent implements OnInit {
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
 	}
 
-	updateProduct(extendedFields: ExtendedField[]) {
-		this.update.emit({ id: this.product.id, extendedFields });
+	updateProduct(product: Product) {
+		this.update.emit({ id: this.product.id, ...product });
 	}
 
 }

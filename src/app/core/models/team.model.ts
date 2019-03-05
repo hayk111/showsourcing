@@ -16,13 +16,12 @@ export class Team {
 	realmPath: string;
 	status = 'pending';
 	company: Company;
-	__typename ?= 'Team';
+	__typename?= 'Team';
 
 	constructor(config: TeamConfig) {
 		Object.assign(this, config);
 		this.id = uuid();
 		this.creationDate = '' + new Date();
-		this.realmPath = `team/${this.id}`;
 	}
 }
 

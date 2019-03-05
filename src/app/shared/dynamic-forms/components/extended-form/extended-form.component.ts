@@ -24,7 +24,7 @@ export class ExtendedFormComponent extends TrackingComponent {
 	@Input() definitions: ExtendedFieldDefinition[];
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;
-	@Output() update = new EventEmitter<ExtendedField[]>();
+	@Output() update = new EventEmitter<{ extendedFields: ExtendedField[] }>();
 
 	constructor(
 	) { super(); }
@@ -35,7 +35,7 @@ export class ExtendedFormComponent extends TrackingComponent {
 
 	onUpdate(field: ExtendedField) {
 		const updatedFields = this._fields.filter(f => f.id !== field.id).concat(field);
-		this.update.emit(updatedFields);
+		this.update.emit({ extendedFields: updatedFields });
 	}
 
 }

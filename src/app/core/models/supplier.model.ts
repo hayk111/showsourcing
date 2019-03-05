@@ -6,6 +6,7 @@ import { SupplierStatus } from '~models/supplier-status.model';
 import { SupplierType } from '~models/supplier-type.model';
 import { Tag } from '~models/tag.model';
 import { Comment } from '~models';
+import { ExtendedField } from './extended-field.model';
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
 	name?: string;
@@ -27,11 +28,12 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	generalLeadTime?: number;
 	tags?: Tag[];
 	categories?: Category[];
-	favorite ?= false;
+	favorite?= false;
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
 	comments?: Comment[];
-	__typename ?= 'Supplier';
+	extendedFields?: ExtendedField[];
+	__typename?= 'Supplier';
 }
 
 export interface SupplierConfig {
