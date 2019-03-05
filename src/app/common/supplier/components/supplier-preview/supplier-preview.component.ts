@@ -39,9 +39,9 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{
-			name: 'supplierType',
+			name: ERM.SUPPLIER_TYPE.singular,
 			type: 'selector',
-			metadata: { target: 'supplierType', type: 'entity', canCreate: false, labelName: 'name' },
+			metadata: { target: ERM.SUPPLIER_TYPE.singular, type: 'entity', canCreate: false, labelName: 'name' },
 			label: 'type'
 		},
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
@@ -49,7 +49,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		{ name: 'country', type: 'selector', metadata: { target: 'country', type: 'const' }, label: 'country' },
 		{ name: 'address', type: 'text', label: 'address' },
 		{ name: 'harbour', type: 'selector', metadata: { target: 'harbour', type: 'const' } },
-		{ name: 'incoTerm', type: 'selector', metadata: { target: 'incoTerm', type: 'const' } },
+		{ name: ERM.INCOTERM.singular, type: 'selector', metadata: { target: ERM.INCOTERM.singular, type: 'const' } },
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
 		{ name: 'officePhone', type: 'tel', label: 'Tel' }
