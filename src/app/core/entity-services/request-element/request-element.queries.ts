@@ -17,6 +17,7 @@ export abstract class RequestElementQueries extends GlobalQueries {
 	`;
 
 	static readonly many = `
+		name
 		targetedEntity
 		${RequestElementQueries.reply}
 		${RequestElementQueries.images}
