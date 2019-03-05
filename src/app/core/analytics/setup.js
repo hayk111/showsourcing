@@ -17,7 +17,7 @@ async function loadAsync(src) {
 
 (function (c, a) {
 	if (!a.__SV) {
-		let b = window; try { let d, m, j, k = b.location, f = k.hash; d = function (a, b) { return (m = a.match(RegExp(b + '=([^&]*)'))) ? m[1] : null; }; f && d(f, 'state') && (j = JSON.parse(decodeURIComponent(d(f, 'state'))), 'mpeditor' === j.action && (b.sessionStorage.setItem('_mpcehash', f), history.replaceState(j.desiredHash || '', c.title, k.pathname + k.search))); } catch (n) { } let l, h; window.mixpanel = a; a._i = []; a.init = function (b, d, g) {
+		let b = window; let d, m, j, k = b.location; try { let f = k.hash; d = function (a, b) { return (m = a.match(RegExp(b + '=([^&]*)'))) ? m[1] : null; }; f && d(f, 'state') && (j = JSON.parse(decodeURIComponent(d(f, 'state'))), 'mpeditor' === j.action && (b.sessionStorage.setItem('_mpcehash', f), history.replaceState(j.desiredHash || '', c.title, k.pathname + k.search))); } catch (n) { } let l, h; window.mixpanel = a; a._i = []; a.init = function (b, d, g) {
 			function c(b, i) {
 				const a = i.split('.'); 2 == a.length && (b = b[a[0]], i = a[1]); b[i] = function () {
 					b.push([i].concat(Array.prototype.slice.call(arguments,
