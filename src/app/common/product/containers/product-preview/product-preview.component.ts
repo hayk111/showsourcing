@@ -6,11 +6,12 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { ProductService, UserService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { AppImage, Comment, ERM, PreviewActionButton, Product } from '~models';
+import { AppImage, Comment, ERM, PreviewActionButton, Product, ExtendedFieldDefinition } from '~models';
 import { CustomField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, PendingImage } from '~utils';
+import { ExtendedFieldDefinitionService } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 
 @Component({
 	selector: 'product-preview-app',
@@ -45,6 +46,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 	erm = ERM;
 
 	actions: PreviewActionButton[];
+
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor
 	// so we only have one array of custom fields
@@ -95,6 +97,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 		{ name: 'samplePrice', type: 'price', label: 'Sample Price' }
 	];
 
+	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
+
 	private _images: AppImage[] = [];
 	@Input()
 	set images(images: AppImage[]) {
@@ -114,7 +118,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 		private router: Router,
 		private userSrv: UserService,
 		private workspaceSrv: WorkspaceFeatureService,
-		private commentSrv: CommentService
+		private commentSrv: CommentService,
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService
 	) {
 		super();
 
@@ -144,6 +149,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 				action: this.openExportModal.bind(this)
 			}
 		];
+	}
+
+	ngOnInit() {
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
 	}
 
 	ngOnChanges() {

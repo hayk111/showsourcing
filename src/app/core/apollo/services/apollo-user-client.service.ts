@@ -8,7 +8,7 @@ import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-clie
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { TokenService } from '~core/auth/services/token.service';
-import { TeamService, ImageUploadRequestService } from '~core/entity-services';
+import { TeamService, ImageUploadRequestService, CompanyService } from '~core/entity-services';
 import {
 	QueryBasedSubscriptionService,
 } from '~core/entity-services/query-based-subscription/query-based-subscription.service';
@@ -16,6 +16,7 @@ import { RealmServerService } from '~entity-services/realm-server/realm-server.s
 import { UserService } from '~entity-services/user/user.service';
 
 import { ApolloStateService } from './apollo-state.service';
+import { Company } from '~core/models';
 
 
 @Injectable({ providedIn: 'root' })
@@ -31,7 +32,8 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected realmServerSrv: RealmServerService,
 		protected basedSubSrv: QueryBasedSubscriptionService,
 		protected teamSrv: TeamService,
-		private imageUploadRequest: ImageUploadRequestService
+		private imageUploadRequest: ImageUploadRequestService,
+		private companySrv: CompanyService
 	) {
 		super(apollo, link, apolloState, realmServerSrv, Client.USER);
 	}
@@ -57,6 +59,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		return forkJoin([
 			this.teamSrv.openSubscription(Client.USER),
 			this.userSrv.openSubscription(Client.USER),
+			this.companySrv.openSubscription(Client.USER),
 			this.imageUploadRequest.openSubscription(Client.USER)
 		]);
 	}

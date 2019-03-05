@@ -1,9 +1,5 @@
-<preview-app
-	*ngIf="supplier$ | async"
-	[ngClass]="isRelative ? 'relative' : ''"
-	cdk-scrollable
-	[align]="isRelative ? 'left' : 'right'"
-	[isFixed]="isFixed">
+<preview-app *ngIf="supplier$ | async" [ngClass]="isRelative ? 'relative' : ''" cdk-scrollable
+	[align]="isRelative ? 'left' : 'right'" [isFixed]="isFixed">
 
 		<!-- Banner -->
 		<preview-banner-app
@@ -28,63 +24,73 @@
 			[hasTop]="!isRelative"
 			(update)="update($event, 'name')">
 
-			<!-- Supplier type badge -->
-			<preview-badge-app
-				[badge]="erm.SUPPLIER_TYPE"
-				[value]="supplier?.supplierType?.name | const: 'supplierType'"
-				(update)="update($event, 'supplierType')">
-			</preview-badge-app>
+		<!-- Supplier type badge -->
+		<preview-badge-app
+			[badge]="erm.SUPPLIER_TYPE"
+			[value]="supplier?.supplierType?.name | const: 'supplierType'"
+			(update)="update($event, 'supplierType')">
+		</preview-badge-app>
 
-			<!-- Location badge -->
-			<preview-badge-app
-				[badge]="erm.LOCATION"
-				[value]="getLocationName(supplier)"
-				(update)="update($event, 'country')">
-			</preview-badge-app>
+		<!-- Location badge -->
+		<preview-badge-app
+			[badge]="erm.LOCATION"
+			[value]="getLocationName(supplier)" (update)="update($event, 'country')">
+		</preview-badge-app>
 
-			<!-- Categories badge -->
-			<preview-badge-app
-				[badge]="erm.CATEGORY"
-				[multiple]="true"
-				[value]="supplier?.categories"
-				(update)="update($event, 'categories')">
-				<divider-app></divider-app>
-			</preview-badge-app>
-		</preview-header-app>
+		<!-- Categories badge -->
+		<preview-badge-app
+			[badge]="erm.CATEGORY"
+			[multiple]="true"
+			[value]="supplier?.categories"
+			(update)="update($event, 'categories')">
+			<divider-app></divider-app>
+		</preview-badge-app>
+	</preview-header-app>
 
-		<!-- Description -->
-		<preview-section-app [title]="'Description'">
-			<input-description-app
-				[description]="supplier?.description"
-				(update)="update($event, 'description')">
-			</input-description-app>
-		</preview-section-app>
+	<!-- Description -->
+	<preview-section-app [title]="'Description'">
+		<input-description-app
+			[description]="supplier?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
+	</preview-section-app>
 
-		<!-- Tags -->
-		<preview-section-app [title]="'Tags'">
-			<input-badge-selector-app
-				[value]="supplier?.tags"
-				type="tag"
-				(change)="update($event, 'tags')">
-			</input-badge-selector-app>
-		</preview-section-app>
+	<!-- Tags -->
+	<preview-section-app [title]="'Tags'">
+		<input-badge-selector-app
+			[value]="supplier?.tags"
+			type="tag"
+			(change)="update($event, 'tags')">
+		</input-badge-selector-app>
+	</preview-section-app>
 
-		<!-- Supplier Details -->
-		<preview-section-app [title]="'Supplier Details'">
-			<!-- <dynamic-form-app
-				[fields]="customFields"
-				[inlineLabel]="true"
-				[value]="supplier"
-				[colAmount]="1"
-				(update)="updateSupplier($event)">
-			</dynamic-form-app> -->
-		</preview-section-app>
+	<!-- Supplier Details -->
+	<preview-section-app [title]="'Supplier Details'">
+		<dynamic-form-app
+			[fields]="customFields"
+			[inlineLabel]="true"
+			[value]="supplier"
+			[colAmount]="1"
+			(update)="updateSupplier($event)">
+		</dynamic-form-app>
+	</preview-section-app>
 
-		<!-- Activity -->
-		<preview-section-app *ngIf="!isRelative">
-			<comment-list-app [comments]="supplier.comments"></comment-list-app>
-		</preview-section-app>
 
-		<preview-comment-app *ngIf="!isRelative" (added)="addComment($event)"></preview-comment-app>
+	<!-- Extended Fields -->
+	<preview-section-app [title]="'Extended Fields'">
+		<extended-form-app
+			[inlineLabel]="true"
+			[definitions]="fieldDefinitions$ | async"
+			[fields]="supplier.extendedFields"
+			(update)="updateSupplier($event)">
+		</extended-form-app>
+	</preview-section-app>
 
-	</preview-app>
+	<!-- Activity -->
+	<preview-section-app *ngIf="!isRelative">
+		<comment-list-app [comments]="supplier.comments"></comment-list-app>
+	</preview-section-app>
+
+	<preview-comment-app *ngIf="!isRelative" (added)="addComment($event)"></preview-comment-app>
+
+</preview-app>

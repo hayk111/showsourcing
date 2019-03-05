@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
-import { AppImage, Comment, ERM, Supplier } from '~core/models';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/models';
 import { CustomField } from '~shared/dynamic-forms';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { AutoUnsub } from '~utils';
@@ -15,7 +18,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./supplier-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierPreviewComponent extends AutoUnsub implements OnChanges {
+export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, OnInit {
 
 	@Input() supplier: Supplier;
 	@Input() canClose = true;
@@ -32,6 +35,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges {
 	modalOpen = false;
 	erm = ERM;
 
+	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{
@@ -55,8 +59,13 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges {
 		private supplierSrv: SupplierService,
 		private commentSrv: CommentService,
 		private router: Router,
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		private constPipe: ConstPipe) {
 		super();
+	}
+
+	ngOnInit() {
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Supplier"' });
 	}
 
 	ngOnChanges() {

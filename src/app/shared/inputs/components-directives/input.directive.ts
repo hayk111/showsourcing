@@ -22,6 +22,7 @@ const supportedTypes = new Set([
 
 @Directive({
 	selector: '[inputApp]',
+	exportAs: 'inputApp',
 	host: {
 		'(blur)': 'focussed = false',
 		'(focus)': 'focussed = true',

@@ -1,4 +1,3 @@
-
 <preview-app cdk-scrollable *ngIf="product$ | async">
 	<!-- Banner -->
 	<preview-banner-app [canOpen]="true" (closed)="close.emit()" (opened)="openProduct()">
@@ -11,16 +10,11 @@
 	</preview-banner-app>
 
 	<!-- Header -->
-	<preview-header-app
-		[entityMD]="erm.PRODUCT"
-		[entity]="product"
-		(update)="update($event, 'name')"
+	<preview-header-app [entityMD]="erm.PRODUCT" [entity]="product" (update)="update($event, 'name')"
 		(statusUpdated)="statusUpdated.emit($event)">
 
 		<!-- Price -->
-		<price-with-quantity-app
-			*ngIf="product?.price?.value"
-			[product]="product"
+		<price-with-quantity-app *ngIf="product?.price?.value" [product]="product"
 			(updateField)="update($event.newValue,  $event.field)">
 		</price-with-quantity-app>
 
@@ -54,8 +48,13 @@
 	<preview-section-app>
 		<!-- <button class="btn-ask-quote" (click)="openRfq()">Ask for a Quote</button> -->
 		<!-- <div class="centered-text text-ask-quote">Ask for a quote from the supplier</div> -->
-		<button-action-list-app (clickOnAction)="clickOnAction($event)" [actions]="actions"></button-action-list-app>
+		<button-action-list-app
+			[actions]="actions"
+			(clickOnAction)="clickOnAction($event)">
+		</button-action-list-app>
+
 		<divider-app></divider-app>
+
 	</preview-section-app>
 
 	<!-- Description -->
@@ -97,6 +96,17 @@
 		</dynamic-form-app>
 	</preview-section-app>
 
+	<!-- Extended Fields -->
+	<preview-section-app [title]="'Extended Fields'">
+		<extended-form-app
+			inlineLabel="true"
+			[definitions]="fieldDefinitions$ | async"
+			[fields]="product.extendedFields"
+			(update)="updateProduct($event)">
+		</extended-form-app>
+	</preview-section-app>
+
+
 	<!-- Activity -->
 	<preview-section-app>
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
@@ -104,10 +114,9 @@
 
 	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
 
-	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)" />
 </preview-app>
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>
 </ng-template>
-

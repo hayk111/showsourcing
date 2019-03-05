@@ -1,45 +1,109 @@
 <ng-container [ngSwitch]="definition.type">
-	<!-- default -->
-	<editable-field-app
-		*ngSwitchDefault
-		#editable
-		[inlineLabel]="inlineLabel"
-		(closed)="onClose($event)"
+
+	<!-- text -->
+	<editable-field-app *ngSwitchCase="'text'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
-
-
 
 		<label-app>{{ definition.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
 			{{ field?.value || '-' }}
-    </editable-label-app>
+		</editable-label-app>
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input
-				#inp
-				inputApp
-				type="text"
-				[value]="accumulator || ''"
-				(change)="accumulator = inp.value"
-				(keyup.enter)="editable.close();"/>
-    </form-field-app>
+			<input #inp inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
+				(keyup.enter)="$event.target.blur(); editable.close();" />
+		</form-field-app>
 
 	</editable-field-app>
 
 
+	<!-- tel -->
+	<editable-field-app *ngSwitchCase="'tel'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select();">
+
+		<label-app>{{ definition.label }}</label-app>
+		<!-- hint: editable text is the clickable label that transforms into an input -->
+		<editable-label-app>
+			{{ field?.value || '-' }}
+		</editable-label-app>
+
+		<form-field-app class="editable">
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp restrictInput="tel" type="text" [value]="accumulator || ''"
+				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
+		</form-field-app>
+
+	</editable-field-app>
+
+
+	<!-- int -->
+	<editable-field-app *ngSwitchCase="'int'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select();">
+
+		<label-app>{{ definition.label }}</label-app>
+		<!-- hint: editable text is the clickable label that transforms into an input -->
+		<editable-label-app>
+			{{ field?.value || '-' }}
+		</editable-label-app>
+
+		<form-field-app class="editable">
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp restrictInput="number" type="text" [value]="accumulator || ''"
+				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
+		</form-field-app>
+
+	</editable-field-app>
+
+
+	<!-- decimal -->
+	<editable-field-app *ngSwitchCase="'decimal'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select();">
+
+		<label-app>{{ definition.label }}</label-app>
+		<!-- hint: editable text is the clickable label that transforms into an input -->
+		<editable-label-app>
+			{{ field?.value || '-' }}
+		</editable-label-app>
+
+		<form-field-app class="editable">
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp restrictInput="decimal" type="text" [value]="accumulator || ''"
+				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
+		</form-field-app>
+
+	</editable-field-app>
+
 	<!-- boolean -->
-	<editable-field-app
-		#editable
-		*ngSwitchCase="'boolean'"
-		[inlineLabel]="inlineLabel"
-		[openOnClick]="false"
+	<editable-field-app #editable *ngSwitchCase="'boolean'" [inlineLabel]="inlineLabel" [openOnClick]="false"
 		(click)="toggleBoolean()">
 		<label-app>{{ definition.label }}</label-app>
 		<editable-label-app>
 			{{ field?.value || '-' }}
 		</editable-label-app>
+	</editable-field-app>
+
+
+	<!-- price -->
+
+	<editable-field-app *ngSwitchCase="'price'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select()">
+
+		<label-app>{{ definition.label }}</label-app>
+
+		<editable-label-app [vAlign]="false">
+			<span class="fs-s" *ngIf="getPrice()">{{ getPrice().currency | const : 'currency' : 'symbol'}}</span>
+			<span class="mg-xs spacer" *ngIf="getPrice()"></span>
+			<span>{{ getPrice() !== undefined ? (getPrice().value / 10000) : '-' }}</span>
+		</editable-label-app>
+
+		<form-field-app class="editable">
+			<input-price-app #inp inputApp [price]="getPrice()" (keyup.enter)="editable.close()"
+				(change)="accumulatePrice(inp.price);">
+			</input-price-app>
+		</form-field-app>
+
 	</editable-field-app>
 
 </ng-container>
