@@ -3,7 +3,6 @@ import { Angulartics2 } from 'angulartics2';
 import { Angulartics2Hubspot } from 'angulartics2/hubspot';
 import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';
 import { UserService } from '~core/entity-services/user/user.service';
-import { allAnalyticsLoaded } from './setup';
 
 interface Properties {
 	id: string;
@@ -12,6 +11,7 @@ interface Properties {
 	entity: string;
 	date: Date;
 	type: string;
+	fields: string;
 }
 
 @Injectable({
