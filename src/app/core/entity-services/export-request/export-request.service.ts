@@ -35,7 +35,7 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 				'Export successfully completed' : 'Failed exporting files',
 			uriMessage: 'Click here to be redirected',
 			uri: ['settings', 'exports'],
-			timeout: 8000
+			timeout: 6500
 		});
 	}
 
