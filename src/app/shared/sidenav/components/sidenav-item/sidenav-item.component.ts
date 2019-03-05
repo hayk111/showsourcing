@@ -1,18 +1,22 @@
-import {
-	Component, Input, Output,
-	EventEmitter, ContentChildren, QueryList,
-	ElementRef, Renderer2, OnChanges,
-	AfterContentInit, ContentChild
-} from '@angular/core';
 import { Location } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import {
+	AfterContentInit,
+	Component,
+	ContentChild,
+	ContentChildren,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnChanges,
+	Output,
+	QueryList,
+	Renderer2,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-
-import { AutoUnsub } from '~utils';
-import { SidenavItemLabelDirective } from '~shared/sidenav/components/sidenav-item-label/sidenav-item-label.directive';
-import { SidenavItemGroupComponent } from '../sidenav-item-group/sidenav-item-group.component';
 import { IconComponent } from '~shared/icons/components/icon/icon.component';
+import { SidenavItemLabelDirective } from '~shared/sidenav/components/sidenav-item-label/sidenav-item-label.directive';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'sidenav-item-app',

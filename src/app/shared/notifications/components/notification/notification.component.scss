@@ -75,7 +75,15 @@
   .message {
     color: var(--color-txt-primary);
     font-size: var(--font-size-s);
-  }
+	}
+	.uri-message {
+		cursor: pointer;
+		color: var(--color-txt-strong);
+		font-size: var(--font-size-s);
+		&:hover {
+			color: var(--color-primary);
+		}
+	}
 }
 
 

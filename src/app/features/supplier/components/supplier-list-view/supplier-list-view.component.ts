@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild, TemplateRef } from '@angular/core';
-
-import { Supplier } from '~models';
-import { Sort } from '~shared/table/components/sort.interface';
+import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
+import { Supplier } from '~models';
 
 @Component({
 	selector: 'supplier-list-view-app',
@@ -14,6 +12,7 @@ import { ListViewComponent } from '~core/list-page/list-view.component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierListViewComponent extends ListViewComponent<Supplier> {
+
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 
 	constructor() {

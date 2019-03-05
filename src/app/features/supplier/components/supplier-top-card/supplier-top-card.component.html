@@ -12,9 +12,8 @@
 		<div class="type" *ngIf="supplier?.supplierType">{{ supplier?.supplierType?.name }}</div>
 		<icon-app name="circle" fontSet="fa" *ngIf="supplier?.supplierType"></icon-app>
 		<div class="adress">
-			{{supplier?.address}}
-			{{(supplier?.address && supplier?.country) ? ', ': ''}}
-			{{supplier?.country | const: 'country'}}
+			{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
+			{{ supplier?.country | const: 'country' }}
 		</div>
 	</div>
 

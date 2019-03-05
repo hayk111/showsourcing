@@ -1,7 +1,9 @@
-import gql from 'graphql-tag';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
 export abstract class ExportRequestQueries extends GlobalQueries {
+
+	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, urls { id, url } } }`;
+
 
 	static readonly one = `
       format,
@@ -9,8 +11,10 @@ export abstract class ExportRequestQueries extends GlobalQueries {
       query,
       status,
       documentUrl,
-      errors
-  `;
+			errors,
+			creationDate
+			${ExportRequestQueries.createdBy}
+			`;
 
 	static readonly many = `
       format,
@@ -19,5 +23,7 @@ export abstract class ExportRequestQueries extends GlobalQueries {
       status,
       documentUrl,
       errors
+			creationDate
+			${ExportRequestQueries.createdBy}
   `;
 }

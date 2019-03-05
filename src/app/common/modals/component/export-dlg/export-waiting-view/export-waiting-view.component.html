@@ -1,0 +1,38 @@
+<dialog-app>
+	<dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Your export is being generated</dialog-header-app>
+
+	<main *ngIf="!pending; else spinner" class="flex container">
+		<icon-app class="settings-image" name="settings-multiple" fontSet="svg"></icon-app>
+		<div class="generating-message ">
+			Your export is being generated. This may take a few minutes.<br>
+			You will be notified when the export is ready.<br>
+			You can also retrieve your previous export in:<br>
+			Settings > <span class="color-primary pointer" (click)="goToExports()">Exports</span>
+			<div *ngIf="!fileReady" class="status-container loading">
+				<div class="bar-container fullWidth">
+					<div class="moving-bar"></div>
+				</div>
+				<div class="status-info"> Your export is being generated</div>
+			</div>
+			<div *ngIf="fileReady" class="status-container export-ready flex pointer" (click)="download.emit()">
+				<icon-app class="file" name="file"></icon-app>
+				<div>
+					Your export is ready!
+					<div class="status-info">Click here to donwload your file</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<dialog-footer-app *ngIf="!pending" class="fullWidth">
+		<button class="open-export secondary" (click)="goToExports()">Open Exports</button>
+		<button (click)="dlgSrv.close()">Close</button>
+	</dialog-footer-app>
+
+	<!-- Pending footer -->
+
+</dialog-app>
+
+<ng-template #spinner>
+	<spinner-app *ngIf="pending" size="xxl"></spinner-app>
+</ng-template>

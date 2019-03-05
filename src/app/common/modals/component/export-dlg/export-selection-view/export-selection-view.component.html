@@ -1,0 +1,43 @@
+<dialog-app>
+
+	<dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Export Selection</dialog-header-app>
+	<dialog-subtitle-app *ngIf="!pending"  i18n="dialog subtitle|Select export type@@productExport_type">Export Type</dialog-subtitle-app>
+
+	<main *ngIf="!pending; else spinner" class="exportRow">
+		<div class="exportCell" (click)="select('xls', 'xls_product_list')"
+			[class.selected]="selectedType === 'xls_product_list'">
+			<icon-app name="excel"></icon-app>
+			<div class="title">Excel</div>
+			<div class="subtitle" i18n="div subtitle|Export items for edition purpose@@export_excelEdit">
+				Perfect for editing
+			</div>
+		</div>
+		<div class="exportCell" (click)="select('pdf', 'pdf_product_page')"
+			[class.selected]="selectedType === 'pdf_product_page'">
+			<icon-app name="pdf"></icon-app>
+			<div class="title">PDF</div>
+			<div class="subtitle" i18n="div subtitle|Export items for sharing purpose@@export_pdfShare">
+				Perfect for sharing
+			</div>
+		</div>
+		<div class="exportCell image" (click)="select('pictures', 'product_image')"
+			[class.selected]="selectedType === 'product_image'">
+			<icon-app name="image"></icon-app>
+			<div class="title">Pictures</div>
+			<div class="subtitle" i18n="div subtitle|Export items for sharing purpose@@export_imagesShare">
+				All product pictures
+			</div>
+		</div>
+	</main>
+
+	<dialog-footer-app *ngIf="!pending" class="fullWidth flexCenter flexBetween">
+		<span class="txt-secondary">{{ targets?.length }} items{{ targets?.length > 1 ? 's' : '' }} selected</span>
+		<button class="small" (click)="export.emit()" i18n="button|Export product@@export_export">
+			Export
+		</button>
+	</dialog-footer-app>
+</dialog-app>
+
+<ng-template #spinner>
+	<spinner-app size="xxl"></spinner-app>
+</ng-template>
