@@ -7,6 +7,17 @@ X -> Major changes release, right now we are on X=2 since this is a new app from
 Y -> Changes like adding new features or fixing major/blocking bugs
 Z -> Minor bug-fix changes
 
+# Branching system
+
+## Protected branches
+We have 2 protected branches:
+- Master: latest stable version of the web app that has been pushed to production, this branch should NOT be touched unless we need a hotfix or we are pushing a new build/deploy to production. In case of hotfix, read the section below.
+- Development: all new features start on this branch, only finished and reviewed features can be merged here. This branch will create the staging/app2 build/deploy.
+
+## Methodology
+
+## Hotfixes
+Hotfixes can only happen when a blocking bug in production (master) occur live. The procedure for this is to checkout from `master` and create a new branch `hotfix/number-issue-small-description`. Once this branch has the fix ready to be merged, we have to merge it on both branches `development` and `master`. This way we prevent that master has to be merged in the future on `development`. Since `development` always has to be merged on `master` and not the other way around.
 
 # Overview of the documentation
 
