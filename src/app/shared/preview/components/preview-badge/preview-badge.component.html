@@ -49,7 +49,7 @@
 	<!-- Supplier Type -->
 	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container">
 		<selector-app
-			type="supplierType"
+			[type]="erm.SUPPLIER_TYPE"
 			[offsetY]="offsetY"
 			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
