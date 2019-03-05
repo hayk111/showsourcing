@@ -11,10 +11,22 @@ Z -> Minor bug-fix changes
 
 ## Protected branches
 We have 2 protected branches:
-- Master: latest stable version of the web app that has been pushed to production, this branch should NOT be touched unless we need a hotfix or we are pushing a new build/deploy to production. In case of hotfix, read the section below.
+- Master: latest stable version of the web app that has been pushed to production, this branch should NOT be touched unless we need a [hotfix](README.md/##Hotfixes) or we are pushing a new build/deploy to production. In case of hotfix, read the section below.
 - Development: all new features start on this branch, only finished and reviewed features can be merged here. This branch will create the staging/app2 build/deploy.
 
 ## Methodology
+This would be the flow between branches
+![alt text](branches-flow.png)
+
+For a `feature` branch normally it's a heavy MR to review, since it is this way, we decided to create a branch from that `feature` branch called `ticket` branch, the only purpose of this branch is to be merged on the feature branch, creating smaller PR's to review. This way its easier to keep track of the changes. e.g.
+```
+# we start on development branch
+git checkout -b feature/number-issue-small-description
+git checkout -b ticket/number-issue-small-description
+# after every milestone on the feature, just create a merge request from ticket to feature
+# when the feature is done from feature to development
+```
+For `bug` branches, we just use the normal system, checkout from development and merge request at the end of the fix
 
 ## Hotfixes
 Hotfixes can only happen when a blocking bug in production (master) occur live. The procedure for this is to checkout from `master` and create a new branch `hotfix/number-issue-small-description`. Once this branch has the fix ready to be merged, we have to merge it on both branches `development` and `master`. This way we prevent that master has to be merged in the future on `development`. Since `development` always has to be merged on `master` and not the other way around.
