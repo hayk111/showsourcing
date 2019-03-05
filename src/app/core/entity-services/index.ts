@@ -1,8 +1,8 @@
 
-
 export * from './attachment-upload-request/attachment-upload-request.service';
 export * from './attachment/attachment.service';
 export * from './category/category.service';
+export * from './comment/comment.queries';
 export * from './comment/comment.service';
 export * from './company/company.service';
 export * from './contact/contact.service';
