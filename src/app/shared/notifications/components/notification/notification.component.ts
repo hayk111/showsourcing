@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DialogService } from '~shared/dialog';
 import { NotificationType } from '~shared/notifications/model/notification.interface';
 import { NotificationService } from '~shared/notifications/services/notification.service';
 
@@ -37,16 +39,27 @@ export class NotificationComponent implements OnInit {
 
 	@Input() title: string;
 	@Input() message: string;
+	@Input() uriMessage: string;
+	@Input() uri: Array<String>;
 
 	public NotificationType = NotificationType;
 
 	constructor(
-		protected notifSrv: NotificationService
-	) {}
+		protected notifSrv: NotificationService,
+		private router: Router,
+		private dlgSrv: DialogService
+	) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	forceClose() {
 		this.notifSrv.removeNotification(this.id);
+	}
+
+	goTo() {
+		if (this.uri) {
+			this.router.navigate(this.uri);
+			this.dlgSrv.close();
+		}
 	}
 }

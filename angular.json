@@ -60,7 +60,7 @@
               "buildOptimizer": true,
               "serviceWorker": true
             },
-            "sta":{
+            "sta": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -78,7 +78,7 @@
               "buildOptimizer": true,
               "serviceWorker": true
             },
-            "dev":{
+            "dev": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
@@ -90,7 +90,7 @@
               "buildOptimizer": true,
               "serviceWorker": true
             },
-	          "local":{
+            "local": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

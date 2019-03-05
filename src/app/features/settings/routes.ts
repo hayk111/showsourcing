@@ -5,18 +5,20 @@ import {
 	EventDataManagementPageComponent,
 	TagDataManagementPageComponent,
 } from '~features/data-management';
+
 import {
 	ProductStatusWorkflowComponent,
 	SampleStatusWorkflowComponent,
 	SettingsProfileComponent,
 	SupplierStatusWorkflowComponent,
-} from '~features/settings/components';
+} from './components';
 import {
 	SettingsComponent,
+	SettingsExportComponent,
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersPageComponent,
 	SettingsWorkflowsPageComponent,
-} from '~features/settings/containers';
+} from './containers';
 
 
 export const routes: Routes = [
@@ -44,6 +46,7 @@ export const routes: Routes = [
 					{ path: 'event', component: EventDataManagementPageComponent }
 				]
 			},
+			{ path: 'exports', component: SettingsExportComponent }
 		]
 	}
 ];

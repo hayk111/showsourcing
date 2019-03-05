@@ -1,10 +1,10 @@
 <table-app
-  [rows]="rows"
-  [contextualMenu]="contextualMenuTemplate"
+	[rows]="rows"
+	[contextualMenu]="contextualMenuTemplate"
 	[pending]="pending"
 	[selected]="selection"
 	[isSelectable]="isSelectableFn"
-  placeholder="No team member"
+	placeholder="No team member"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
@@ -50,7 +50,8 @@
 		let-row="row"
 		sortBy="accessType"
 		width="200">
-		<context-menu-app *ngIf="teamOwner && (row.user.id !== user.id)" [closeOnScroll]="true">
+
+		<context-menu-app *ngIf="teamOwner && (row?.user?.id !== user?.id); else noSelector" [closeOnScroll]="true">
 			<context-menu-trigger-app class="flex pointer">
 				<div class="text" *ngIf="row.accessType === 'TeamMember'">Team Member</div>
 				<div class="text" *ngIf="row.accessType === 'Contributor'">Contributor</div>
@@ -66,11 +67,17 @@
 			<context-menu-item-app class="remove-user" (click)="delete.emit(row.id)">
 				<span>Remove User</span>
 			</context-menu-item-app>
-	   </context-menu-app>
-	   <span *ngIf="!teamOwner">
-				<ng-container *ngIf="row.accessType === 'TeamMember'"> Team Member </ng-container>
-				<ng-container *ngIf="row.accessType === 'Contributor'"> Contributor </ng-container>
-			</span>
+		 </context-menu-app>
+
+		 <ng-template #noSelector>
+			 <ng-container *ngIf="!teamOwner && (($teamOwner | async)?.id !== row.user.id); else displayOwner">
+				 <ng-container *ngIf="row.accessType === 'TeamMember'"> Team Member </ng-container>
+				 <ng-container *ngIf="row.accessType === 'Contributor'"> Contributor </ng-container>
+			 </ng-container>
+			 <ng-template #displayOwner>
+				 <span> Team Owner</span>
+				</ng-template>
+		 </ng-template>
 	</ng-template>
 
 	<!-- status -->

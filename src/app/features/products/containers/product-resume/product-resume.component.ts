@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProductService } from '~core/entity-services';
 import { ERM, Product } from '~core/models';
 import { AutoUnsub } from '~utils';
@@ -12,6 +12,7 @@ import { AutoUnsub } from '~utils';
 export class ProductResumeComponent extends AutoUnsub implements OnInit {
 
 	@Input() product: Product;
+	@Output() openPreview = new EventEmitter<null>();
 
 	erm = ERM;
 

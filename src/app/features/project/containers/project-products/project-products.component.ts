@@ -7,6 +7,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, Project } from '~models';
+import { FilterType } from '~shared/filters';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -23,6 +24,18 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 	project$: Observable<Project>;
 	private project: Project;
 	erm = ERM;
+
+	filterTypes = [
+		FilterType.ARCHIVED,
+		FilterType.CATEGORY,
+		FilterType.CREATED_BY,
+		FilterType.EVENT,
+		FilterType.FAVORITE,
+		FilterType.PRODUCT_STATUS,
+		FilterType.PROJECTS,
+		FilterType.SUPPLIER,
+		FilterType.TAGS
+	];
 
 	constructor(
 		private featureSrv: ProjectFeatureService,

@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { filter, first, switchMap, takeUntil } from 'rxjs/operators';
+import { first, switchMap, takeUntil } from 'rxjs/operators';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { ImageService } from '~entity-services/image/image.service';
 import { AppImage } from '~models';
-import { CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
@@ -23,9 +22,15 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** size in px of the main display */
 	@Input() size = 411;
 	@Input() hasPreview = false;
+	// when the uploader service links an image to an item
+	// we need to know to which property we need to link it and if the property is an array
+	@Input() imageProperty = 'images';
+	@Input() isImagePropertyArray = true;
 
 	@Input() set images(images: AppImage[]) {
-		this._images = images;
+		// remove unefined in case we are passing [undefined]
+		// for example in for contact we only have one image so we do [images]="[contact.businessCardImage]"
+		this._images = images.filter(x => !!x);
 	}
 	get images() {
 		return [...this._images, ...(this._pendingImages as any)];
@@ -92,7 +97,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 		const uuids: string[] = await this.addPendingImg(files);
 		this.cd.markForCheck();
-		this.uploader.uploadImages(files, this.entity).pipe(
+		this.uploader.uploadImages(files, this.entity, this.imageProperty, this.isImagePropertyArray).pipe(
 			first()
 		).subscribe(imgs => {
 			// removing pending image

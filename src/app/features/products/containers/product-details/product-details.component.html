@@ -1,5 +1,3 @@
-
-
 <ng-container *ngIf="product">
 
 	<product-top-panel-app
@@ -9,8 +7,8 @@
 		(delete)="deleteProduct($event)">
 	</product-top-panel-app>
 
-  <div class="flex content">
-    <div class="left">
+	<div class="flex content">
+		<div class="left">
 
 			<card-app padding="0">
 				<carousel-app
@@ -24,7 +22,8 @@
 			</card-app>
 
 			<product-resume-app
-				[product]="product">
+				[product]="product"
+				(openPreview)="openPreview()">
 			</product-resume-app>
 
 			<!-- Product information -->
@@ -49,19 +48,26 @@
 			</project-card-app>
 
 			<files-card-app
-        [files]="product?.attachments"
+				[files]="product?.attachments"
 				[linkedItem]="product">
 			</files-card-app>
 
 		</div>
 
-    <div class="right">
-			<navbar-app
-				[tabs]="['Activity', 'Shipping', 'Samples', 'Tasks']"></navbar-app>
+		<div class="right">
+				<navbar-app
+					[tabs]="[{name: 'Activity'}, {name: 'Shipping'}, {name: 'Samples', number: sampleCount$ | async}, {name: 'Tasks', number: taskCount$ | async}]">
+				</navbar-app>
 			<router-outlet></router-outlet>
     </div>
 
-  </div>
+	</div>
+
+	<supplier-preview-app
+		*ngIf="previewOpen"
+		[supplier]="product?.supplier"
+		(close)="closePreview()">
+	</supplier-preview-app>
+
 
 </ng-container>
-

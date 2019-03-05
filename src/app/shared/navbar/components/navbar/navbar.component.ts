@@ -9,7 +9,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./navbar.component.scss']
 })
 export class NavBarComponent extends TrackingComponent implements OnInit {
-	@Input() tabs: string[] = [];
+
+	@Input() tabs: Array<{ name: string, number: string }> = [];
 	@Input() currentTab = '';
 	@Output() tabChange = new EventEmitter<string>();
 

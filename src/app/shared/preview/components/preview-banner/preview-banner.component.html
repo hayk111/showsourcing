@@ -1,5 +1,10 @@
 <ng-content></ng-content>
 <!-- close -->
-<div class="close flexCenter pointer" *ngIf="canClose" (click)="closed.emit()">
-	<icon-app name="close"></icon-app>
+<div class="floating-buttons flex">
+	<button class="open" *ngIf="canOpen" (click)="opened.emit()">
+		Open
+	</button>
+	<div class="close flexCenter pointer" *ngIf="canClose" (click)="closed.emit()">
+		<icon-app name="close"></icon-app>
+	</div>
 </div>

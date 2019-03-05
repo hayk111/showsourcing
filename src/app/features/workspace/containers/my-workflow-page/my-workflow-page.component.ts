@@ -12,7 +12,7 @@ import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { FilterList } from '~shared/filters';
+import { FilterList, FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -28,6 +28,19 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 	erm = ERM;
+
+	// filter displayed as button in the filter panel
+	filterTypes = [
+		FilterType.ARCHIVED,
+		FilterType.CATEGORY,
+		FilterType.CREATED_BY,
+		FilterType.EVENT,
+		FilterType.FAVORITE,
+		FilterType.PRODUCT_STATUS,
+		FilterType.PROJECTS,
+		FilterType.SUPPLIER,
+		FilterType.TAGS
+	];
 
 	constructor(
 		private productSrv: ProductService,
@@ -77,7 +90,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			: `status == null`;
 		this.productSrv.queryMany({
 			query,
-			take: col.data.length + 6,
+			take: col.data.length + 15,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(
 			first()
@@ -96,7 +109,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 				constQuery
 			].filter(x => x !== '')
 				.join(' && ');
-			this.productSrv.queryMany({ query, take: 6, sortBy: 'lastUpdatedDate' })
+			this.productSrv.queryMany({ query, take: 15, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
 			this.productSrv.queryCount(query).pipe(first())

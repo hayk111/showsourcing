@@ -11,6 +11,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { log, LogColor } from '~utils';
 import * as gqlTag from 'graphql-tag';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 
 
 export interface GlobalServiceInterface<T> {
@@ -52,7 +53,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		protected apolloState: ApolloStateService,
 		protected fields: any,
 		protected sing: string,
-		protected plural: string
+		protected plural: string,
+		protected analyticsSrv?: AnalyticsService
 	) {
 		this.queryBuilder = new QueryBuilder(sing, plural);
 		// capitalizing the typename
@@ -578,6 +580,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
+			tap(data => this.sendTrack('Update', data, 'update', fields)),
 			catchError(errors => of(log.table(errors)))
 		);
 	}
@@ -620,6 +623,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
+			tap(data => this.sendTrack('Create', data, 'creation')),
 			catchError(errors => of(log.table(errors)))
 		);
 	}
@@ -858,6 +862,20 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			return '';
 		} else {
 			return key;
+		}
+	}
+
+	sendTrack(action: string, data: any, type: string, fields = '') {
+		if (this.analyticsSrv) {
+			this.analyticsSrv.eventTrack(action, {
+				id: action,
+				id_element: data.id,
+				name: data.name,
+				entity: this.typeName,
+				date: data.creationDate,
+				type,
+				fields
+			});
 		}
 	}
 

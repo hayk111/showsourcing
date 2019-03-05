@@ -1,4 +1,5 @@
 import { LogLevel } from '~utils/logger/log-level';
+import { WEB_VERSION } from './global.const';
 
 // The file contents for the current environment will overwrite these during build.
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
@@ -7,13 +8,15 @@ import { LogLevel } from '~utils/logger/log-level';
 
 
 export const environment = {
-	version: '0.0.1',
+	version: WEB_VERSION,
 	production: false,
 	staging: false,
 	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',
-	apiUrl: 'https://services.showsourcing.com',
-	getStreamKey: 'kn8zj3tgdkf3',
+	apiUrl: 'https://services-dev.showsourcing.com',
+	getStreamKey: 'aner534ygtg9',
+	mixPanelKey: '9143fc0c3d674a93d201e8d9e12fb4f9',
+	hubspotKey: '5511311',
 	LOG_LEVEL: LogLevel.DEBUG
 };
 

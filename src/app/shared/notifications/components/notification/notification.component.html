@@ -3,8 +3,9 @@
       <icon-app fontSet="fa" style="cursor: default;" [name]="iconLeft"></icon-app>
   </div>
   <div class="middle-part">
-    <div class="title" *ngIf="title?.length">{{ title }}</div>
-    <div class="message" *ngIf="message?.length">{{ message }}</div>
+		<div *ngIf="title?.length" class="title">{{ title }}</div>
+		<div *ngIf="message?.length" class="message">{{ message }}</div>
+		<div *ngIf="uriMessage?.length" class="uri-message" (click)="goTo()"> {{ uriMessage }}</div>
   </div>
   <div class="right-part">
       <icon-app name="close" (click)="forceClose()"></icon-app>

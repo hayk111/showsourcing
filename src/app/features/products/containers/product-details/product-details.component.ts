@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil, filter, first, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
+import { SampleService, UserService, TaskService } from '~core/entity-services';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -9,9 +11,6 @@ import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
-import { CloseEventType } from '~shared/dialog';
-import { Observable } from 'rxjs';
-import { Location } from '@angular/common';
 
 @Component({
 	selector: 'product-details-app',
@@ -19,20 +18,26 @@ import { Location } from '@angular/common';
 	styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
+
+	previewOpen = false;
 	product: Product;
 	files: Array<Attachment>;
 	/** projects for this product */
 	typeEntity = ERM.PRODUCT;
+	sampleCount$: Observable<number>;
+	taskCount$: Observable<number>;
 
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private location: Location,
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
 		private thumbSrv: ThumbService,
-		public commonModalSrv: CommonModalService
+		public commonModalSrv: CommonModalService,
+		private sampleSrv: SampleService,
+		private taskSrv: TaskService,
+		private userSrv: UserService
 	) {
 		super();
 	}
@@ -49,6 +54,18 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		).subscribe(
 			product => this.onProduct(product),
 			err => this.onError(err)
+		);
+
+		this.sampleCount$ = id$.pipe(
+			switchMap(id => this.sampleSrv
+				.queryCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND deleted == false`)),
+			takeUntil(this._destroy$)
+		);
+
+		this.taskCount$ = id$.pipe(
+			switchMap(id => this.taskSrv
+				.queryCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND done == false AND deleted == false`)),
+			takeUntil(this._destroy$)
 		);
 
 	}
@@ -131,4 +148,11 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		).subscribe(_ => this.router.navigate(['product']));
 	}
 
+	closePreview() {
+		this.previewOpen = false;
+	}
+
+	openPreview() {
+		this.previewOpen = true;
+	}
 }

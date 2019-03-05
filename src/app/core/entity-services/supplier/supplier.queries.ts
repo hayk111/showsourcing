@@ -22,6 +22,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 			website,
 			phoneNumber,
 			country,
+			city,
 			address,
 			officeEmail,
 			officePhone,
@@ -57,6 +58,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.tags}
 		${SupplierQueries.createdBy}
 		${SupplierQueries.productsLinked}
+		${SupplierQueries.logoImage}
 		`;
 
 	static readonly all = `

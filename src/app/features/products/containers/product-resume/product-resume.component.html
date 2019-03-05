@@ -18,7 +18,9 @@
 			<preview-badge-app
 				[badge]="erm.SUPPLIER"
 				[value]="product?.supplier?.name"
-				[offsetX]="210"
+				toolTipMessage="Open preview"
+				[hasOpenAction]="true"
+				(openActionClicked)="openPreview.emit()"
 				(update)="update($event, 'supplier')">
 			</preview-badge-app>
 
@@ -26,9 +28,16 @@
 			<preview-badge-app
 				[badge]="erm.CATEGORY"
 				[value]="product?.category"
-				[offsetX]="210"
 				(update)="update($event, 'category')">
 			</preview-badge-app>
+
+			<!-- Badge event -->
+			<preview-badge-app
+				[badge]="erm.EVENT"
+				[value]="product?.event"
+				(update)="update($event, 'event')">
+			</preview-badge-app>
+
 		</preview-header-app>
 
 		<!-- Description -->

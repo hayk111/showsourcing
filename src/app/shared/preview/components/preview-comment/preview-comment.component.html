@@ -1,6 +1,7 @@
 <h3 class="m">Add Comment</h3>
 <input
-	type="text"
+  type="text"
+  #inp
   name="comment"
   [formControl]="commentCtrl"
   (keydown.enter)="addComment()"/>

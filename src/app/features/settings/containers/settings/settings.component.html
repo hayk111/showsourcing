@@ -16,7 +16,7 @@
 			<icon-app name="team"></icon-app>
 			<span sidenavLabelApp>Team Members</span>
 		</sidenav-item-app>
-
+<!--
 		<sidenav-item-app link="/settings/workflow" [hasChildren]="true">
 			<icon-app name="fields"></icon-app>
 			<span sidenavLabelApp> Status Workflow </span>
@@ -30,8 +30,9 @@
 			<sidenav-item-app link="/settings/workflow/sample">
 				<span sidenavLabelApp>Sample</span>
 			</sidenav-item-app>
-		</sidenav-item-app>
+		</sidenav-item-app> -->
 
+		<!-- Data cleansing -->
 		<sidenav-item-app [hasChildren]="true">
 			<icon-app name="data-cleansing"></icon-app>
 			<span sidenavLabelApp>Data Cleansing</span>
@@ -45,6 +46,11 @@
 			<sidenav-item-app link="/settings/data/event">
 				<span sidenavLabelApp>Event</span>
 			</sidenav-item-app>
+		</sidenav-item-app>
+
+		<!-- Export -->
+		<sidenav-item-app link="/settings/exports">
+			<icon-app name="export"></icon-app> <span sidenavLabelApp>Exports</span>
 		</sidenav-item-app>
   </sidenav-app>
 

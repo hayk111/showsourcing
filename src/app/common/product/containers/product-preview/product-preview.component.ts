@@ -74,6 +74,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'price', type: 'price' },
 		{
+			name: 'event', type: 'selector',
+			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+		},
+		{
 			name: 'assignee',
 			label: 'Assignee',
 			type: 'selector',
@@ -159,7 +163,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 	}
 
 	updateProduct(productConfig: any) {
-		const product = new Product({ ...productConfig, id: this.product.id });
+		const product = ({ ...productConfig, id: this.product.id });
 		this.productSrv.update(product)
 			.subscribe(_ => this.updated.emit(product));
 	}
@@ -178,19 +182,24 @@ export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
 		this.modalSrv.openRequestQuotationDialog(this.product);
 	}
 
-	onViewProduct() {
+	openProduct() {
 		this.router.navigate(['product', 'details', this.product.id]);
+	}
+
+	openSupplier() {
+		this.router.navigate(['supplier', 'details', this.product.supplier.id]);
 	}
 
 	openAddToProject() {
 		this.modalSrv.openAddToProjectDialog([this.product]);
 	}
+
 	openExportModal() {
 		this.modalSrv.openExportDialog([this.product]);
 	}
 
 	scrollToCommentButton() {
-		this.previewComment.element.nativeElement.scrollIntoView();
+		this.previewComment.focus();
 	}
 
 	/** Add a product to workflow */

@@ -9,6 +9,7 @@ import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
+import { UtilsModule } from '~shared/utils';
 
 import {
 	PreviewBadgesComponent,
@@ -34,7 +35,8 @@ import { PreviewLogoComponent } from './components/preview-logo/preview-logo.com
 		CarouselModule,
 		FileModule,
 		OverlayModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		UtilsModule
 	],
 	declarations: [
 		PreviewComponent,

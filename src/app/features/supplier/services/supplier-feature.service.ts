@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Contact, Product } from '~models';
-import { Apollo } from 'apollo-angular';
-
-import { SelectParams } from '~entity-services/_global/select-params';
-import { ContactService, ProductService, UserService } from '~entity-services';
-import { SupplierService } from '~entity-services/supplier/supplier.service';
+import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { ProductQueries } from '~entity-services/product/product.queries';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo';
+import { ContactService, ProductService, UserService } from '~entity-services';
+import { ProductQueries } from '~entity-services/product/product.queries';
+import { SupplierService } from '~entity-services/supplier/supplier.service';
+import { Contact, Product } from '~models';
 
 
 @Injectable({
@@ -17,12 +15,13 @@ import { ApolloStateService } from '~core/apollo';
 export class SupplierFeatureService extends SupplierService {
 
 	constructor(
+		protected analyticsSrv: AnalyticsService,
 		protected apolloState: ApolloStateService,
 		protected productSrv: ProductService,
 		protected contactSrv: ContactService,
 		protected userSrv: UserService
 	) {
-		super(apolloState, userSrv);
+		super(analyticsSrv, apolloState, userSrv);
 	}
 
 

@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { EntityMetadata, ERM } from '~models';
+import { SelectorComponent } from '~shared/selectors';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -12,16 +13,28 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 
 	@Input() badge: EntityMetadata;
 	@Input() value: any;
-	@Input() offsetX = 18;
 	@Input() offsetY = -22;
 	@Input() multiple = false;
+	@Input() hasOpenAction = false;
+	private initialMsg = 'Open';
+	@Input() toolTipMessage = this.initialMsg;
 	@Output() update = new EventEmitter<any>();
+	@Output() openActionClicked = new EventEmitter<null>();
+
+	@ViewChild(SelectorComponent) elem: SelectorComponent;
 
 	erm = ERM;
 
 	constructor() { super(); }
 
 	ngOnInit() {
+		if (this.toolTipMessage === this.initialMsg)
+			this.toolTipMessage = this.toolTipMessage + ' ' + this.badge.singular;
+	}
+
+	getDynamicOffsetX() {
+		// Y (the offset that we want to move the selector) = -X (size of the selector) + 395, linear function
+		return this.elem ? - this.elem.elem.nativeElement.offsetWidth + 395 : 0;
 	}
 
 }

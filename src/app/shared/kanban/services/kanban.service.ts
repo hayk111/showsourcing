@@ -1,6 +1,6 @@
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Status } from '~core/models/status.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
@@ -24,7 +24,7 @@ import { KanbanColumn, KanbanConfig } from '../interfaces';
 @Injectable()
 export class KanbanService {
 
-	private _kanbanConfig$ = new Subject<KanbanConfig>();
+	private _kanbanConfig$ = new ReplaySubject<KanbanConfig>(1);
 	columns$: Observable<KanbanColumn[]> = this._kanbanConfig$.asObservable().pipe(
 		map(config => this.configToCols(config))
 	);

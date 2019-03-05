@@ -1,5 +1,12 @@
 # Supplier Show Sourcing Web App
 
+# Release versions
+Each time we release a new version we must create a Tag
+X.Y.Z
+X -> Major changes release, right now we are on X=2 since this is a new app from the one that we had before.
+Y -> Changes like adding new features or fixing major/blocking bugs
+Z -> Minor bug-fix changes
+
 
 # Overview of the documentation
 

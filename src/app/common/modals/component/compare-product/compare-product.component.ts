@@ -80,24 +80,7 @@ export class CompareProductComponent extends AutoUnsub {
 			{
 				type: 'title',
 				dataType: 'text',
-				title: 'TRADING'
-			},
-			{
-				type: 'content',
-				title: 'Inco Term',
-				dataType: 'text',
-				data: getArrayData(this.products, 'incoTerms')
-			},
-			{
-				type: 'content',
-				title: 'Harbour',
-				dataType: 'text',
-				data: getArrayData(this.products, 'harbour')
-			},
-			{
-				type: 'title',
-				dataType: 'text',
-				title: 'PACKAGING'
+				title: 'Packaging'
 			},
 			{
 				type: 'content',
@@ -117,9 +100,26 @@ export class CompareProductComponent extends AutoUnsub {
 				dataType: 'text',
 				data: getPackagingString(this.products, 'masterCarton.itemsQuantity')
 			},
+			{
+				type: 'title',
+				dataType: 'text',
+				title: 'Trading'
+			},
+			{
+				type: 'content',
+				title: 'Inco Term',
+				dataType: 'text',
+				data: getArrayData(this.products, 'incoTerms')
+			},
+			{
+				type: 'content',
+				title: 'Harbour',
+				dataType: 'text',
+				data: getArrayData(this.products, 'harbour')
+			},
 			// { // we comment this since this is for the status, when we updated it we dont get the live version
 			// so we will be forced to do a selectMany, here, to avoid this we comment it. we keep it just in case it is needed for some reason
-			// 	type: 'header',
+			// 	type: 'status',
 			// 	dataType: 'status',
 			// 	data: this.products
 			// }

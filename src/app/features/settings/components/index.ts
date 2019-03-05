@@ -1,4 +1,5 @@
 export * from './company-profile-card/company-profile-card.component';
+export * from './export-list-view/export-list-view.component';
 export * from './invitations-list-view/invitations-list-view.component';
 export * from './product-status-workflow/product-status-workflow.component';
 export * from './profile-card/profile-card.component';

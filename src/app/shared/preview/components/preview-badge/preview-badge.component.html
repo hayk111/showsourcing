@@ -1,11 +1,11 @@
 <ng-container [ngSwitch]="badge">
 
 	<!-- Product -->
-	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container">
 		<selector-app
 			type="product"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -14,14 +14,21 @@
 				<span>{{ value || 'Set product' }}</span>
 			</div>
 		</selector-app>
+		<icon-app
+			*ngIf="hasOpenAction && value"
+			class="icon-preview"
+			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+			name="eye"
+			(click)="openActionClicked.emit()">
+		</icon-app>
 	</div>
 
 	<!-- Supplier -->
-	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container">
 		<selector-app
 			type="supplier"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -30,14 +37,21 @@
 				<span> {{ value || 'Set supplier' }}</span>
 			</div>
 		</selector-app>
+		<icon-app
+			*ngIf="hasOpenAction && value"
+			class="icon-preview"
+			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+			name="eye"
+			(click)="openActionClicked.emit()">
+		</icon-app>
 	</div>
 
 	<!-- Supplier Type -->
-	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container">
 		<selector-app
-			type="supplierType"
+			[type]="erm.SUPPLIER_TYPE"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"
 			[width]="370"
 			(update)="update.emit($event)">
@@ -49,11 +63,11 @@
 	</div>
 
 	<!-- Location -->
-	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container">
 		<selector-app
 			type="country"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
@@ -64,14 +78,14 @@
 	</div>
 
 	<!-- Category -->
-	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container pointer">
+	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container">
 		<selector-app
 			type="category"
 			[value]="value"
 			[canCreate]="true"
 			[multiple]="multiple"
 			[offsetY]="offsetY"
-			[offsetX]="offsetX"
+			[offsetX]="getDynamicOffsetX()"
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex category-label">
@@ -81,10 +95,28 @@
 						<span *ngFor="let category of value"> {{ category?.name }}  </span>
 					</div>
 					<ng-template #noArray>
-							<span *ngIf="!value?.name"> {{ multiple ? 'Set categories' : 'Set Category'}} </span>
+							<span *ngIf="!value?.name"> {{ multiple ? 'Set categories' : 'Set category'}} </span>
 							<span *ngIf="value?.name"> {{ value?.name }} </span>
 					</ng-template>
 				</div>
+			</div>
+		</selector-app>
+	</div>
+
+	<!-- Event -->
+	<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container">
+		<selector-app
+			type="event"
+			[value]="value"
+			[canCreate]="true"
+			[offsetY]="offsetY"
+			[offsetX]="getDynamicOffsetX()"
+			[canCreate]="true"
+			[width]="370"
+			(update)="update.emit($event)">
+			<div class="flex">
+				<icon-app name="event-calendar" backgroundColor="success"></icon-app>
+				<span>{{ value?.name || value?.description?.name || 'Set event' }}</span>
 			</div>
 		</selector-app>
 	</div>
