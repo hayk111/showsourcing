@@ -50,7 +50,6 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }],
 			entityMetadata: ERM.PRODUCT,
 		});
-		console.log(this.elem);
 	}
 
 	onViewChange(view: 'list' | 'card') {

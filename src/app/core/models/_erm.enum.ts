@@ -24,6 +24,11 @@ import { Team } from '~models/team.model';
 import { User } from '~models/user.model';
 import { ExtendedField } from './extended-field.model';
 import { ExtendedFieldDefinition } from './extended-field-definition.model';
+import { Request } from './request.model';
+import { RequestElement } from './request-element.model';
+import { RequestField } from './request-field.model';
+import { RequestFieldDefinition } from './request-field-definition.model';
+import { RequestReply } from './request-reply.model';
 
 
 export class EntityMetadata {
@@ -82,6 +87,12 @@ export class ERM {
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
 	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
+	static readonly REQUEST = new EntityMetadata('request', 'requests', Request);
+	static readonly REQUEST_ELEMENT = new EntityMetadata('request element', 'request elements', RequestElement);
+	static readonly REQUEST_FIELD = new EntityMetadata('request field', 'request fields', RequestField);
+	static readonly REQUEST_FIELD_DEFINITION = new EntityMetadata(
+		'request field definition', 'request field definitions', RequestFieldDefinition);
+	static readonly REQUEST_REPLY = new EntityMetadata('request reply', 'request replies', RequestReply);
 	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
 	static readonly SAMPLE = new EntityMetadata('sample', 'samples', Sample);
 	static readonly SAMPLE_STATUS = new EntityMetadata('sample status', 'samples status', Sample, 'sample-status');
