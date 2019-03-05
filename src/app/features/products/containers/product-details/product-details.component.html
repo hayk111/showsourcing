@@ -1,14 +1,22 @@
 <ng-container *ngIf="product">
 
-	<product-top-panel-app [product]="product" (update)="updateProduct($event)"
-		(export)="commonModalSrv.openExportDialog([$event])" (delete)="deleteProduct($event)">
+	<product-top-panel-app
+		[product]="product"
+		(update)="updateProduct($event)"
+		(export)="commonModalSrv.openExportDialog([$event])"
+		(delete)="deleteProduct($event)">
 	</product-top-panel-app>
 
 	<div class="flex content">
 		<div class="left">
 
 			<card-app padding="0">
-				<carousel-app #carousel objectFit="contain" [hasPreview]="true" [images]="product?.images" [size]="411"
+				<carousel-app
+					#carousel
+					objectFit="contain"
+					[hasPreview]="true"
+					[images]="product?.images"
+					[size]="411"
 					[entity]="product">
 				</carousel-app>
 			</card-app>
@@ -19,20 +27,29 @@
 			</product-resume-app>
 
 			<!-- Product information -->
-			<product-information-app [product]="product" (update)="updateProduct($event)">
+			<product-information-app
+				[product]="product"
+				(update)="updateProduct($event)">
 			</product-information-app>
 
 			<!-- team rating here -->
-			<product-team-rating-app [product]="product"
-				(requestTeamVotes)="commonModalSrv.openRequestFeedbackDialog([product])" (liked)="onThumbUp()"
-				(disliked)="onThumbDown()" (openVoteDetails)="commonModalSrv.openVoteDetailsDialog(product?.votes)">
+			<product-team-rating-app
+				[product]="product"
+				(requestTeamVotes)="commonModalSrv.openRequestFeedbackDialog([product])"
+				(liked)="onThumbUp()"
+				(disliked)="onThumbDown()"
+				(openVoteDetails)="commonModalSrv.openVoteDetailsDialog(product?.votes)">
 			</product-team-rating-app>
 
-			<project-card-app [projects]="product?.projects" (removeProject)="removeProject($event)"
+			<project-card-app
+				[projects]="product?.projects"
+				(removeProject)="removeProject($event)"
 				(updated)="updateProduct({id: product?.id, projects: $event})">
 			</project-card-app>
 
-			<files-card-app [files]="product?.attachments" [linkedItem]="product">
+			<files-card-app
+				[files]="product?.attachments"
+				[linkedItem]="product">
 			</files-card-app>
 
 		</div>
