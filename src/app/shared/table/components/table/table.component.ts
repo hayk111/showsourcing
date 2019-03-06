@@ -24,8 +24,6 @@ import { TrackingComponent } from '~utils/tracking-component';
 	}
 })
 export class TableComponent extends TrackingComponent implements OnChanges {
-	// display the dot option
-	@Input() dotsOption = true;
 	// whether the table is currently loading
 	@Input() pending = false;
 	// whether rows are selectable

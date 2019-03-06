@@ -1,5 +1,6 @@
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { Filter, FilterList } from '~shared/filters';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 
 export interface ListPageDataConfig {
@@ -17,4 +18,5 @@ export interface ListPageDataConfig {
 	/** dialog to edit an item in the list.. */
 	editDlgComponent?: any;
 	createDlgComponent?: any;
+	client?: Client;
 }

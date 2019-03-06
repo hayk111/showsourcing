@@ -4,7 +4,7 @@ import { RequestFieldDefinition } from './request-field-definition.model';
 export class RequestField {
 	id: ID;
 	definition?: RequestFieldDefinition;
-	value: string;
+	value?: string;
 	__typename?= 'RequestField';
 
 	constructor(config: RequestFieldConfig) {

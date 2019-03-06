@@ -1,0 +1,82 @@
+<table-app
+	[rows]="rows"
+	[hasSelection]="false"
+	[pending]="pending"
+	[hasMenu]="false"
+	placeholder="No requests"
+	(sort)="sort.emit($event)"
+	(bottomReached)="bottomReached.emit()">
+
+	<!-- export name -->
+	<ng-template
+		columnApp="Request"
+		sortBy="name"
+		let-row="row"
+		width="280">
+		<div class="capitalize">
+			{{ row?.requestElements?.name }}
+		</div>
+	</ng-template>
+
+	<!-- sender -->
+	<ng-template
+		columnApp="Sender"
+		let-row="row"
+		width="280">
+		<div class="capitalize">
+			{{ row?.sender?.name }}
+		</div>
+	</ng-template>
+
+	<!-- recipient -->
+	<ng-template
+		columnApp="Recipient"
+		let-row="row"
+		width="280">
+		<div class="capitalize">
+			{{ row?.recipient?.name }}
+		</div>
+	</ng-template>
+
+	<!-- send copy to -->
+	<ng-template
+		columnApp="Copy"
+		let-row="row"
+		width="280">
+		<div class="ellipsis">
+			{{ row?.sendCopyTo }}
+		</div>
+	</ng-template>
+
+	<!-- recipient name -->
+	<ng-template
+		columnApp="Message"
+		let-row="row"
+		width="280">
+		<div class="capitalize">
+			{{ row?.message }}
+		</div>
+	</ng-template>
+
+	<!-- status-->
+	<ng-template
+		columnApp="Status"
+		let-row="row"
+		width="280">
+		<div class="capitalize">
+			{{ row?.status }}
+		</div>
+	</ng-template>
+
+	<!-- creation date-->
+	<ng-template
+		columnApp="Created On"
+		let-row="row"
+		width="280">
+		<div class="capitalize">
+			{{ row?.creationDate | date: 'dd MMM yy' }}
+		</div>
+	</ng-template>
+
+
+</table-app>

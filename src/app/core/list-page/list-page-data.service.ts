@@ -8,6 +8,7 @@ import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 /**
  * Services that helps us for common functionalities in list pages
@@ -32,6 +33,8 @@ export class ListPageDataService
 		take: 50,
 		skip: 0
 	};
+
+	client = Client.TEAM;
 
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
@@ -86,7 +89,7 @@ export class ListPageDataService
 			...this.selectParams,
 			// overriding query in case there is a filter / search
 			query: this.filterList.asPredicate()
-		});
+		}, '', this.client);
 
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),
