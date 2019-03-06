@@ -52,7 +52,6 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.comments}
 			${ProductQueries.createdBy}
 			${ProductQueries.event}
-			${ProductQueries.extendedFields}
 			${ProductQueries.images}
 			${ProductQueries.packaging('innerCarton')}
 			${ProductQueries.packaging('masterCarton')}

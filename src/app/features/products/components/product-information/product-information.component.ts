@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product, ExtendedFieldDefinition, ExtendedField } from '~core/models';
 import { Observable } from 'rxjs';
-import { ExtendedFieldDefinitionService } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ProductService } from '~core/entity-services';
-import { stringify } from '@angular/core/src/render3/util';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { ExtendedFieldDefinition, Product } from '~core/models';
+import { CustomField } from '~shared/dynamic-forms';
 
 @Component({
 	selector: 'product-information-app',
@@ -16,6 +18,26 @@ export class ProductInformationComponent implements OnInit {
 
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
+
+	customFields: CustomField[] = [
+		{ name: 'name', type: 'text', required: true, label: 'name' },
+		{
+			name: 'supplier', type: 'selector',
+			metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+		},
+		{
+			name: 'event', type: 'selector',
+			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+		},
+		{
+			name: 'category', type: 'selector',
+			metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+		},
+		{ name: 'price', type: 'price' },
+		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
+		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' }
+	];
+
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
@@ -24,7 +46,7 @@ export class ProductInformationComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
+		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
 	}
 
 	updateProduct(product: Product) {
