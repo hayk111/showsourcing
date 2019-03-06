@@ -46,7 +46,7 @@ export class ProductInformationComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
+		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
 	}
 
 	updateProduct(product: Product) {

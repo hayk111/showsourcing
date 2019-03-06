@@ -11,8 +11,6 @@ import { ProductVote } from '~models/product-vote.model';
 import { Supplier } from '~models/supplier.model';
 import { Tag } from '~models/tag.model';
 
-import { ExtendedField } from './extended-field.model';
-
 export class Product extends EntityWithAudit<ProductConfig> {
 	id?: string;
 	name?: string;
@@ -39,13 +37,13 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	leadTimeUnit?: string;
 	sample?: boolean;
 	samplePrice?: number;
-	archived ?= false;
+	archived?= false;
 	taskCount?: number;
 	productCount?: number;
 	projects?: Project[];
 	assignee?: User;
-	extendedFields?: ExtendedField[];
-	__typename ?= 'Product';
+	// extendedFields?: ExtendedField[];
+	__typename?= 'Product';
 
 }
 
