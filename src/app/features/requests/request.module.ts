@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { routes } from '~features/requests/routes';
 import { SharedModule } from '~shared/shared.module';
 
-import { RequestListViewComponent } from './components';
+import { RequestElementFormComponent, RequestListViewComponent } from './components';
+import { RequestDetailsComponent } from './containers';
 import { RequestPageComponent } from './containers/request-page/request-page.component';
-import { routes } from '~features/requests/routes';
 
 @NgModule({
 	imports: [
@@ -12,8 +13,10 @@ import { routes } from '~features/requests/routes';
 		SharedModule
 	],
 	declarations: [
+		RequestDetailsComponent,
+		RequestElementFormComponent,
+		RequestListViewComponent,
 		RequestPageComponent,
-		RequestListViewComponent
 	],
 	entryComponents: [],
 	exports: [],
