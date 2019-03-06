@@ -21,9 +21,9 @@ export class SupplierInfosComponent extends AutoUnsub {
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' },
 		{
-			name: 'supplierType',
+			name: 'supplier type',
 			type: 'selector',
-			metadata: { target: 'supplierType', type: 'entity', canCreate: false, labelName: 'name' },
+			metadata: { target: 'supplier type', type: 'entity', canCreate: false, labelName: 'name' },
 			label: 'type'
 		},
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
@@ -31,7 +31,7 @@ export class SupplierInfosComponent extends AutoUnsub {
 		{ name: 'country', type: 'selector', metadata: { target: 'country', type: 'const' }, label: 'country' },
 		{ name: 'address', type: 'text', label: 'address' },
 		{ name: 'harbour', type: 'selector', metadata: { target: 'harbour', type: 'const' } },
-		{ name: 'incoTerm', type: 'selector', metadata: { target: 'incoTerm', type: 'const' } },
+		{ name: 'incoterm', type: 'selector', metadata: { target: 'incoterm', type: 'const' } },
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
 		{ name: 'officePhone', type: 'tel', label: 'Tel' },
