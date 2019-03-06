@@ -1,3 +1,6 @@
-<p>
-  request-element-form works!
-</p>
+<card-app>
+	<extended-form-app
+		[definitions]="requestElement?.requestedFields"
+		[fields]="requestElement?.reply?.fields || []">
+	</extended-form-app>
+</card-app>

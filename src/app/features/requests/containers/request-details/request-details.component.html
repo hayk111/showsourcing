@@ -1,3 +1,5 @@
-<p>
-  request-details works!
-</p>
+<ng-container *ngIf="request">
+	<request-element-form-app
+		[requestElement]="request?.requestElements">
+	</request-element-form-app>
+</ng-container>

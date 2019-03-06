@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { RequestElement } from '~core/models';
 
 @Component({
 	selector: 'request-element-form-app',
@@ -7,6 +8,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RequestElementFormComponent implements OnInit {
+
+	@Input() requestElement: RequestElement;
+	@Output() update = new EventEmitter<RequestElement>();
 
 	constructor() { }
 
