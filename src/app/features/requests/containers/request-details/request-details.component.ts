@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { RequestService } from '~core/entity-services';
-import { ERM, Request } from '~core/models';
+import { RequestService, RequestReplyService } from '~core/entity-services';
+import { ERM, Request, RequestReply } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 
@@ -22,7 +22,9 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private featureSrv: RequestService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
+		private cdr: ChangeDetectorRef,
+		private requestReplySrv: RequestReplyService
 	) { super(); }
 
 	ngOnInit() {
@@ -50,6 +52,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			this.router.navigate(['request']);
 		} else {
 			this.request = request;
+			this.cdr.detectChanges();
 		}
 	}
 
@@ -61,6 +64,11 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			timeout: 3500
 		});
 		this.router.navigate(['request']);
+	}
+
+	updateReply(requestField) {
+		// this.requestReplySrv.create(new RequestReply({ message: 'miau' })).subscribe();
+		console.log(requestField);
 	}
 
 }

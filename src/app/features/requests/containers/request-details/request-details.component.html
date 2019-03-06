@@ -1,5 +1,4 @@
-<ng-container *ngIf="request">
-	<request-element-form-app
-		[requestElement]="request?.requestElements">
-	</request-element-form-app>
-</ng-container>
+<request-element-form-app
+	[requestElement]="request?.requestElements"
+	(update)="updateReply($event)">
+</request-element-form-app>

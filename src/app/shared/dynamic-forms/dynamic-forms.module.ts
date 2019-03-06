@@ -1,20 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { BadgeModule } from '~shared/badge';
-import {
-	DynamicEditableTextComponent,
-	DynamicFormComponent,
-	EditablePriceMatrixComponent,
-	EditablePriceMatrixRowComponent,
-	EditablePriceComponent,
-	EditablePackagingComponent,
-	EditableSelectorComponent,
-	InputPackagingComponent,
-	DynamicInputComponent,
-} from './components';
-
 import { EditableFieldModule } from '~shared/editable-field';
 import { FileModule } from '~shared/file';
 import { ImageModule } from '~shared/image/image.module';
@@ -23,9 +10,22 @@ import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
-import { ExtendedFormInputComponent } from './components/extended-form/extended-form-input/extended-form-input.component';
-import { ExtendedFormComponent } from './components/extended-form/extended-form.component';
 
+import {
+	DynamicEditableTextComponent,
+	DynamicFormComponent,
+	DynamicInputComponent,
+	EditablePackagingComponent,
+	EditablePriceComponent,
+	EditablePriceMatrixComponent,
+	EditablePriceMatrixRowComponent,
+	EditableSelectorComponent,
+	ExtendedFormComponent,
+	ExtendedFormInputComponent,
+	InputPackagingComponent,
+	RequestFormComponent,
+	RequestFormInputComponent,
+} from './components';
 
 
 @NgModule({
@@ -44,17 +44,19 @@ import { ExtendedFormComponent } from './components/extended-form/extended-form.
 		UserPictureModule
 	],
 	declarations: [
-		DynamicFormComponent,
 		DynamicEditableTextComponent,
+		DynamicFormComponent,
+		DynamicInputComponent,
+		EditablePackagingComponent,
+		EditablePriceComponent,
 		EditablePriceMatrixComponent,
 		EditablePriceMatrixRowComponent,
-		EditablePriceComponent,
-		EditablePackagingComponent,
 		EditableSelectorComponent,
-		InputPackagingComponent,
-		DynamicInputComponent,
 		ExtendedFormComponent,
-		ExtendedFormInputComponent
+		ExtendedFormInputComponent,
+		InputPackagingComponent,
+		RequestFormComponent,
+		RequestFormInputComponent
 	],
 	exports: [
 		DynamicFormComponent,
