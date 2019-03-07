@@ -23,8 +23,6 @@ import {
 	ExtendedFormComponent,
 	ExtendedFormInputComponent,
 	InputPackagingComponent,
-	RequestFormComponent,
-	RequestFormInputComponent,
 } from './components';
 
 
@@ -55,8 +53,6 @@ import {
 		ExtendedFormComponent,
 		ExtendedFormInputComponent,
 		InputPackagingComponent,
-		RequestFormComponent,
-		RequestFormInputComponent
 	],
 	exports: [
 		DynamicFormComponent,

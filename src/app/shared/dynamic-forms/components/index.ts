@@ -9,5 +9,3 @@ export * from './dynamic-input/dynamic-input.component';
 export * from './dynamic-input/inputs/input-packaging/input-packaging.component';
 export * from './extended-form/extended-form-input/extended-form-input.component';
 export * from './extended-form/extended-form.component';
-export * from './request-form/request-form-input/request-form-input.component';
-export * from './request-form/request-form.component';
