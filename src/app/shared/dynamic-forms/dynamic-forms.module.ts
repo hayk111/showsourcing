@@ -20,10 +20,10 @@ import {
 	EditablePriceMatrixComponent,
 	EditablePriceMatrixRowComponent,
 	EditableSelectorComponent,
-	ExtendedFormComponent,
-	ExtendedFormInputComponent,
 	InputPackagingComponent,
 } from './components';
+import { CustomFormInputComponent } from './components/extended-form/custom-form-input/custom-form-input.component';
+import { CustomFormComponent } from './components/extended-form/custom-form.component';
 
 
 @NgModule({
@@ -50,13 +50,13 @@ import {
 		EditablePriceMatrixComponent,
 		EditablePriceMatrixRowComponent,
 		EditableSelectorComponent,
-		ExtendedFormComponent,
-		ExtendedFormInputComponent,
+		CustomFormComponent,
+		CustomFormInputComponent,
 		InputPackagingComponent,
 	],
 	exports: [
 		DynamicFormComponent,
-		ExtendedFormComponent
+		CustomFormComponent
 	]
 })
 export class DynamicFormsModule {

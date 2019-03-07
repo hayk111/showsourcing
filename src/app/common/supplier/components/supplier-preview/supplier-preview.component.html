@@ -78,12 +78,12 @@
 
 	<!-- Extended Fields -->
 	<preview-section-app [title]="'Extended Fields'">
-		<extended-form-app
+		<custom-form-app
 			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="supplier.extendedFields"
 			(update)="updateSupplier($event)">
-		</extended-form-app>
+		</custom-form-app>
 	</preview-section-app>
 
 	<!-- Activity -->

@@ -10,11 +10,11 @@
 	</div>
 
 
-	<extended-form-app
+	<custom-form-app
 		[definitions]="fieldDefinitions$ | async"
 		[fields]="product.extendedFields"
 		(update)="updateProduct($event)">
-	</extended-form-app>
+	</custom-form-app>
 
 </card-app>
 

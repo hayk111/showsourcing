@@ -5,12 +5,12 @@ import { TrackingComponent } from '~utils/tracking-component';
 
 
 @Component({
-	selector: 'extended-form-app',
-	templateUrl: './extended-form.component.html',
-	styleUrls: ['./extended-form.component.scss'],
+	selector: 'custom-form-app',
+	templateUrl: './custom-form.component.html',
+	styleUrls: ['./custom-form.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExtendedFormComponent extends TrackingComponent {
+export class CustomFormComponent extends TrackingComponent {
 	// converting fields to a map of <ExtendedFieldDefinition.id, extendedField> for easy access.
 	@Input() set fields(fields: ExtendedField[]) {
 		const arr: any = (fields || []).map(field => ([field.definition.id, field]));

@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { ExtendedField } from '~core/models/extended-field.model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ExtendedFieldDefinition, Price } from '~core/models';
-import { EditableFieldComponent } from '~shared/editable-field';
-import { InputDirective } from '~shared/inputs';
+import { ExtendedField } from '~core/models/extended-field.model';
 
 
 
@@ -13,16 +11,16 @@ import { InputDirective } from '~shared/inputs';
  * in case the user cancels.
  */
 @Component({
-	selector: 'extended-form-input-app',
-	templateUrl: './extended-form-input.component.html',
-	styleUrls: ['./extended-form-input.component.scss'],
+	selector: 'custom-form-input-app',
+	templateUrl: './custom-form-input.component.html',
+	styleUrls: ['./custom-form-input.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.oneLine]': 'inlineLabel',
 		'[class.twoLine]': '!inlineLabel'
 	}
 })
-export class ExtendedFormInputComponent {
+export class CustomFormInputComponent {
 
 	@Input() set field(field: ExtendedField) {
 		if (!field)

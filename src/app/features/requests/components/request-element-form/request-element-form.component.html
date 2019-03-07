@@ -1,7 +1,7 @@
 <card-app>
-	<extended-form-app
+	<custom-form-app
 		[definitions]="requestElement?.requestedFields"
 		[fields]="requestElement?.reply?.fields || []"
 		(update)="update.emit($event)">
-	</extended-form-app>
+	</custom-form-app>
 </card-app>
