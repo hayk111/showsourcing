@@ -6,7 +6,7 @@ export class RequestFieldDefinition {
 	type: string;
 	__typename?= 'RequestFieldDefinition';
 
-	constructor(config: RequestFieldDefinitionConfig) {
+	constructor(config?: RequestFieldDefinitionConfig) {
 		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
 	}

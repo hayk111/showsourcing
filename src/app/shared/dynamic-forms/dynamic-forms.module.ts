@@ -12,6 +12,8 @@ import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
 
 import {
+	CustomFormComponent,
+	CustomFormInputComponent,
 	DynamicEditableTextComponent,
 	DynamicFormComponent,
 	DynamicInputComponent,
@@ -22,8 +24,6 @@ import {
 	EditableSelectorComponent,
 	InputPackagingComponent,
 } from './components';
-import { CustomFormInputComponent } from './components/extended-form/custom-form-input/custom-form-input.component';
-import { CustomFormComponent } from './components/extended-form/custom-form.component';
 
 
 @NgModule({
@@ -42,6 +42,8 @@ import { CustomFormComponent } from './components/extended-form/custom-form.comp
 		UserPictureModule
 	],
 	declarations: [
+		CustomFormComponent,
+		CustomFormInputComponent,
 		DynamicEditableTextComponent,
 		DynamicFormComponent,
 		DynamicInputComponent,
@@ -50,8 +52,6 @@ import { CustomFormComponent } from './components/extended-form/custom-form.comp
 		EditablePriceMatrixComponent,
 		EditablePriceMatrixRowComponent,
 		EditableSelectorComponent,
-		CustomFormComponent,
-		CustomFormInputComponent,
 		InputPackagingComponent,
 	],
 	exports: [

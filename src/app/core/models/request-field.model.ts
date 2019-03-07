@@ -7,7 +7,7 @@ export class RequestField {
 	value?: string;
 	__typename?= 'RequestField';
 
-	constructor(config: RequestFieldConfig) {
+	constructor(config?: RequestFieldConfig) {
 		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
 	}
