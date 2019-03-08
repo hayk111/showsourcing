@@ -12,6 +12,7 @@
   [cols]="columns$ | async"
   [cardTemplate]="card"
   [selection]="listSrv.selection$ | async"
+  [amountLoaded]="amountLoaded"
   (drop)="onUpdateProductStatus($event)"
   (multipleDrop)="updateProductsStatus($event)"
   (selectColumn)="onColumnSelected($event)"
