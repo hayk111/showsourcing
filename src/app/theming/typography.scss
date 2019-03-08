@@ -1,22 +1,29 @@
 /* */
 
-
 @font-face {
-	font-family: "Source Sans Pro";
-	src: url('../../assets/fonts/SourceSansPro-Regular.ttf');
+	font-family: 'Source Sans Pro';
+	src: url('../../assets/fonts/SourceSansPro-light.ttf');
+	weight: 100;
 }
 
-@font-face {
-	font-family: "Source Sans Pro";
-	src: url('../../assets/fonts/SourceSansPro-SemiBold.ttf');
-	weight: 600;
-}
+// @font-face {
+// 	font-family: 'Source Sans Pro';
+// 	src: url('../../assets/fonts/SourceSansPro-Regular.ttf');
+// 	weight: normal;
+// }
 
-@font-face {
-	font-family: "Source Sans Pro";
-	src: url('../../assets/fonts/SourceSansPro-Italic.ttf');
-	font-style: italic;
-}
+// @font-face {
+// 	font-family: 'Source Sans Pro';
+// 	src: url('../../assets/fonts/SourceSansPro-SemiBold.ttf');
+// 	weight: 600;
+// }
+
+// @font-face {
+// 	font-family: 'Source Sans Pro';
+// 	src: url('../../assets/fonts/SourceSansPro-Italic.ttf');
+// 	font-style: italic;
+// }
+
 :root {
 	--font-size-xxs: 8px;
 	--font-size-xs: 10px;
@@ -90,7 +97,7 @@
 
 /* body 1 */
 body, .body, .body1 {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
 	color: var(--color-txt-primary);
 	font-size: var(--font-size-m);
 	// seems like the commented line below might do some weird stuff
