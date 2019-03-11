@@ -1,8 +1,10 @@
 
-
 export * from './attachment-upload-request/attachment-upload-request.service';
+export * from './attachment/attachment.queries';
 export * from './attachment/attachment.service';
+export * from './category/category.queries';
 export * from './category/category.service';
+export * from './comment/comment.queries';
 export * from './comment/comment.service';
 export * from './company/company.service';
 export * from './contact/contact.service';
@@ -19,6 +21,16 @@ export * from './product/product.service';
 export * from './project/project.service';
 export * from './quote/quote.queries';
 export * from './quote/quote.service';
+export * from './request/request.queries';
+export * from './request/request.service';
+export * from './request-element/request-element.queries';
+export * from './request-element/request-element.service';
+export * from './request-field/request-field.queries';
+export * from './request-field/request-field.service';
+export * from './request-field-definition/request-field-definition.queries';
+export * from './request-field-definition/request-field-definition.service';
+export * from './request-reply/request-reply.queries';
+export * from './request-reply/request-reply.service';
 export * from './sample-status/sample-status.service';
 export * from './sample/sample.service';
 export * from './show/show.service';

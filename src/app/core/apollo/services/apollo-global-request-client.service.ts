@@ -17,7 +17,7 @@ import { ApolloStateService } from './apollo-state.service';
 
 
 @Injectable({ providedIn: 'root' })
-export class GlobalDataClientsInitializer extends AbstractApolloClient {
+export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 
 	constructor(
 		protected apollo: Apollo,
@@ -28,7 +28,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 		protected realmServerSrv: RealmServerService,
 		protected tokenSrv: TokenService,
 	) {
-		super(apollo, httpLink, apolloState, realmServerSrv, Client.GLOBAL_DATA);
+		super(apollo, httpLink, apolloState, realmServerSrv, Client.GLOBAL_REQUEST);
 	}
 
 	init(realmUser: RealmUser): Observable<any> {
@@ -38,7 +38,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
-		return from(this.createClient(path, realmUser, Client.GLOBAL_DATA)).pipe(
+		return from(this.createClient(path, realmUser, Client.GLOBAL_REQUEST)).pipe(
 			takeUntil(this.destroyed$),
 			switchMap(_ => this.createMissingSubscription()),
 			tap(_ => this.apolloState.setClientReady(this.client)),
@@ -50,14 +50,15 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 
 	createMissingSubscription(): Observable<any> {
 		const toSubSet = new Set([
-			ERM.COUNTRY,
-			ERM.CURRENCY,
-			ERM.HARBOUR,
-			ERM.INCOTERM
+			ERM.REQUEST,
+			ERM.REQUEST_ELEMENT,
+			ERM.REQUEST_FIELD,
+			ERM.REQUEST_FIELD_DEFINITION,
+			ERM.REQUEST_REPLY
 		]);
 
 		const newSubs = Array.from(toSubSet)
-			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.GLOBAL_DATA));
+			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.GLOBAL_REQUEST));
 		return forkJoin(newSubs);
 	}
 
