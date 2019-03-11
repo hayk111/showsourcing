@@ -39,9 +39,7 @@ rating-heart-app {
 
 	&:hover {
 		.preview {
-			display: flex;
-			align-items: center;
-			min-width: 70px;
+			opacity: 1;
 		}
 	}
 }
@@ -70,6 +68,8 @@ user-picture-app {
 }
 
 .preview {
-	display: none;
+	opacity: 0;
+	transition: opacity 0.3s;
+	min-width: 70px;
 }
 

@@ -6,8 +6,6 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	// That will force the browser to create a new layer to paint this element, and sometimes fix scroll bottlenecks (especially with Webkit).
-	will-change: transform;
 }
 
 .placeholderCtnr {

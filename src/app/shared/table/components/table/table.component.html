@@ -1,4 +1,4 @@
-<div class="ctnr" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
+<div class="ctnr will-change-scroll" infiniScroll (bottomReached)="bottomReached.emit()" [bottomDistancePercent]="100" cdk-scrollable>
 	<div class="contentCtnr" *ngIf="!pending">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
