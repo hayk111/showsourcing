@@ -5,6 +5,7 @@
   [cardTemplate]="cardTemplate"
   [connectedLists]="getOtherIds()"
   [selection]="selection"
+  [amountLoaded]="amountLoaded"
   (selectAll)="selectColumn.emit($event)"
   (unselectAll)="unselectColumn.emit($event)"
   (drop)="onDrop($event)"

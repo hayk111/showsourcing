@@ -3,9 +3,13 @@
 		<img-app [image]="getImg()" [size]="'xl'" class="loading" objectFit="contain"></img-app>
 	</div>
 	<div class="move-btn back flexCenter pointer"
-		(mousedown)="back($event)"> &lt; </div>
+		(mousedown)="back($event)"> 
+		<icon-app fontSet="fa" name="angle-left"></icon-app>
+	</div>
 	<div class="move-btn next flexCenter pointer"
-		(mousedown)="next($event)"> &gt; </div>
-	<span class="close-btn pointer" (mousedown)="close.emit($event)">x close</span>
+		(mousedown)="next($event)"> 
+		<icon-app fontSet="fa" name="angle-right"></icon-app>
+	</div>
+	<span class="close-btn pointer" (mousedown)="close.emit($event)">close</span>
 	<span class="title">{{ selectedIndex + 1}} / {{ images?.length }}</span>
 </div>

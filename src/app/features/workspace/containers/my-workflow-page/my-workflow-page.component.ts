@@ -28,6 +28,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 	erm = ERM;
+	amountLoaded = this.amountLoaded;
 
 	// filter displayed as button in the filter panel
 	filterTypes = [
@@ -90,7 +91,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			: `status == null`;
 		this.productSrv.queryMany({
 			query,
-			take: col.data.length + 15,
+			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(
 			first()
@@ -109,7 +110,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 				constQuery
 			].filter(x => x !== '')
 				.join(' && ');
-			this.productSrv.queryMany({ query, take: 15, sortBy: 'lastUpdatedDate' })
+			this.productSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
 			this.productSrv.queryCount(query).pipe(first())

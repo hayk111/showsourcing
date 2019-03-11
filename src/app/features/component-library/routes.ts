@@ -7,6 +7,7 @@ import { KanbanLibraryPageComponent } from './kanban-library-page/kanban-library
 import { ProductCardLibraryPageComponent } from './product-card-library-page/product-card-library-page.component';
 import { SelectorLibraryComponent } from './selector-library/selector-library.component';
 import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
+import { LoadersLibPageComponent } from './loaders-lib-page/loaders-lib-page.component';
 
 
 export const routes: Array<Route> = [
@@ -21,7 +22,8 @@ export const routes: Array<Route> = [
 			{ path: 'product-card', component: ProductCardLibraryPageComponent },
 			{ path: 'selector', component: SelectorLibraryComponent },
 			{ path: 'kanban', component: KanbanLibraryPageComponent },
-			{ path: 'workflow-table', component: WorkflowMngmntTableLibComponent }
+			{ path: 'workflow-table', component: WorkflowMngmntTableLibComponent },
+			{ path: 'loaders', component: LoadersLibPageComponent }
 
 		]
 	}
