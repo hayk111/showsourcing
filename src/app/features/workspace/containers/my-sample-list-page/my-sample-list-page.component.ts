@@ -56,11 +56,7 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 
 	openCreateDlg() {
 		const assignee = { id: this.userSrv.userSync.id };
-		this.commonModalSrv.openCreateDlg(ERM.SAMPLE, false).pipe(
-			map(name => new Sample({ name, assignee })),
-			switchMap(sample => this.sampleSrv.create(sample)),
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
+		this.listSrv.create(false, { assignee });
 	}
 
 	goToKanban() {

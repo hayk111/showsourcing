@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { switchMap, takeUntil, debounceTime } from 'rxjs/operators';
+import { switchMap, takeUntil, debounceTime, tap } from 'rxjs/operators';
 import { Observable } from 'subscriptions-transport-ws';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog/services';
@@ -10,6 +10,7 @@ import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 import { CloseEventType } from '~shared/dialog';
+import { ERMService } from '~core/entity-services/_global/erm.service';
 
 @Component({
 	selector: 'creation-dialog-app',
@@ -21,6 +22,8 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 	group: FormGroup;
 	pending = false;
 	@Input() type: EntityMetadata;
+	// extra properties to put on the object
+	@Input() extra: any;
 	@ViewChild(InputDirective) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;
@@ -28,7 +31,9 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 	constructor(
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
-		private crudDlgSrv: CrudDialogService) {
+		private crudDlgSrv: CrudDialogService,
+		private ermSrv: ERMService
+	) {
 		super();
 	}
 
@@ -59,7 +64,15 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		}
 		const name = this.group.value.name.trim();
 		this.pending = true;
-		this.dlgSrv.close({ type: CloseEventType.OK, data: name });
+		this.createItem({ name, ...this.extra }).pipe(
+			tap(_ => this.pending = false)
+		).subscribe(item => this.dlgSrv.close({ type: CloseEventType.OK, data: item }));
+	}
+
+	private createItem(item) {
+		const entity = new this.type.constClass(item);
+		return this.ermSrv.getGlobalService(this.type)
+			.create(entity);
 	}
 
 }

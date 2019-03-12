@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { empty } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
@@ -251,17 +251,11 @@ export class ListPageService
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
 	create(shouldRedirect = true, extra?: any) {
-		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata }).pipe(
-			switchMap(name => this.createItem({ name, ...extra })),
-			switchMap(_ => this.refetch(), item => item),
+		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra }).pipe(
+			// tap(_ => this.refetch(), item => item),
 		).subscribe(item => this.redirectToCreated(item.id, shouldRedirect));
 	}
 
-	private createItem(item) {
-		const entity = new this.entityMetadata.constClass(item);
-		return this.ermSrv.getGlobalService(this.entityMetadata)
-			.create(entity);
-	}
 
 	private redirectToCreated(id: string, shouldRedirect: boolean) {
 		if (shouldRedirect) {
