@@ -28,9 +28,9 @@ export interface GlobalServiceInterface<T> {
 	selectAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client?: Client): Observable<T[]>;
 	queryAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client?: Client): Observable<T[]>;
 	update: (entity: { id?: string }, client?: Client) => Observable<T>;
-	updateMany: (entities: { id?: string }[], fields?: string | string[], client?: Client) => Observable<T[]>;
-	create: (entity: T, fields?: string | string[], client?: Client) => Observable<T>;
-	createMany: (entities: T[], fields?: string | string[], client?: Client) => Observable<T[]>;
+	updateMany: (entities: { id?: string }[], client?: Client) => Observable<T[]>;
+	create: (entity: T, client?: Client) => Observable<T>;
+	createMany: (entities: T[], client?: Client) => Observable<T[]>;
 	delete: (id: string, client?: Client) => Observable<any>;
 	deleteMany: (ids: string[], client?: Client) => Observable<any>;
 }
@@ -350,9 +350,12 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 				map(queryRef => queryRef.fetchMore({
 					variables: { skip: itemsAmount },
 					updateQuery: (prev, { fetchMoreResult }) => {
-						if (!fetchMoreResult[queryName]) { return prev; }
+						if (!fetchMoreResult[queryName]) {
+							return prev;
+						}
 						this.logResult(fetchMoreTitle, queryName, fetchMoreResult[queryName].items);
-						const dataReturned = {
+						// extracting data from response
+						return {
 							[queryName]: {
 								items: [
 									...prev[queryName].items,
@@ -362,7 +365,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 								__typename: prev[queryName].__typename
 							},
 						};
-						return dataReturned;
 					}
 				})));
 		};
@@ -556,7 +558,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/** Update one existing entity
 	 *
 	 * @param entity : entity with an id and the fields we want to update
-	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	update(entity: T, clientName: Client = this.defaultClient, isOptimistic: boolean = true): Observable<T> {
@@ -594,10 +595,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/** Update many existing entities
 	 *
 	 * @param entities : array of entity with an id and the fields we want to update
-	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	updateMany(entities: T[], fields?: string | string[], clientName: Client = this.defaultClient): Observable<T[]> {
+	updateMany(entities: T[], clientName: Client = this.defaultClient): Observable<T[]> {
 		return forkJoin(entities.map(entity => this.update(entity, clientName)));
 	}
 
@@ -608,7 +608,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 	/** create one entity
 	 * @param entity : entity with an id and the fields we want to create
-	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	create(entity: T, clientName: Client = this.defaultClient): Observable<T> {
@@ -636,10 +635,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/////////////////////////////
 	/** create many entities
 	 * @param entity : entity with an id and the fields we want to create
-	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	createMany(entities: T[], fields?: string | string[], clientName: Client = this.defaultClient): Observable<T[]> {
+	createMany(entities: T[], clientName: Client = this.defaultClient): Observable<T[]> {
 		return forkJoin(entities.map(entity => this.create(entity, clientName)));
 	}
 
