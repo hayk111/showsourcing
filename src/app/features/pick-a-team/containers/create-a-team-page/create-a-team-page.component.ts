@@ -68,6 +68,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 
 	onSubmit(form: FormGroup) {
 		this.pending = true;
+		this.hideForm = true;
 		const formValue = form.value;
 		const company: Company = { id: this.companySrv.companySync.id };
 		const team = new Team({ name: formValue.name, company, ownerUser: { id: this.userSrv.userSync.id } });

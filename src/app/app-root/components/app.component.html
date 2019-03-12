@@ -1,9 +1,11 @@
 <router-outlet></router-outlet>
-<spinner-app
-	*ngIf="spinner$ | async"
-	[isHaveLogo]="true"
-	[size]="150">
-</spinner-app>
+<div *ngIf="spinner$ | async" class="spinner">
+	<spinner-app
+		[isHaveLogo]="true"
+		[size]="150">
+	</spinner-app>
+	<h3>We are loading your information, please wait.</h3>
+</div>
 
 <!-- icons symbols should stay there. Optimizes icon rendering -->
 <icon-symbols-app></icon-symbols-app>

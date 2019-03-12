@@ -1,13 +1,11 @@
-import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-
-import { Observable, throwError } from 'rxjs';
-import { AutoUnsub } from '~utils/auto-unsub.component';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { takeUntil, take, catchError } from 'rxjs/operators';
-import { AuthFormElement, AuthFormButton } from '~features/auth-pages/components/auth-form-base/auth-form';
+import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'forgot-password-app',
@@ -72,6 +70,7 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 				})
 			).subscribe(r => {
 				this.pending = false;
+				this.cdr.detectChanges();
 				this.router.navigate(['auth', 'login']);
 			}, err => {
 				this.pending = false;

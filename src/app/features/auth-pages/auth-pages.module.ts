@@ -37,6 +37,11 @@ import { AuthHeaderSubtitleComponent } from './components/auth-header/auth-heade
 		AuthHeaderTitleComponent,
 		AuthHeaderSubtitleComponent
 	],
-	exports: [AuthFormBaseComponent]
+	exports: [
+		AuthFormBaseComponent,
+		AuthFormHeaderComponent,
+		AuthHeaderTitleComponent,
+		AuthHeaderSubtitleComponent
+	]
 })
 export class AuthPagesModule { }

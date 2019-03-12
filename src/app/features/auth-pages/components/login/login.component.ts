@@ -65,7 +65,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 		if (form.valid) {
 			this.pending$.next(true);
 			this.srv.login(form.value).pipe(
-				takeUntil(this._destroy$),
+				takeUntil(this._destroy$)
 			).subscribe(
 				r => this.onSuccess(r),
 				e => this.onError(e)

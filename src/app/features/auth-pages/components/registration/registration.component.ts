@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { UserService } from '~entity-services';
 import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { AutoUnsub } from '~utils';
 

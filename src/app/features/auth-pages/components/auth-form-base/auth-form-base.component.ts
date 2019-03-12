@@ -18,8 +18,10 @@ export class AuthFormBaseComponent extends AutoUnsub implements AfterViewInit {
 
 	@Input() form: FormGroup;
 	@Input() hasSpinner = true;
+	// this indicates if we need to display the form or not,
+	// sometimes we need to specify when we show the form or not (2 spinners at the same time or overlapping issues)
 	@Input() hideForm = false;
-	@Input() spinnerMessage = 'Please wait this could take a few moments';
+	@Input() spinnerMessage = 'Please wait, this could take a few seconds';
 
 	@Input() error = '';
 	@Input() pending = false;
