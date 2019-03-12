@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
 import { AppImage } from '~models';
 
 @Component({
@@ -8,11 +8,16 @@ import { AppImage } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalCarouselComponent {
+
 	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
 	@Output() close = new EventEmitter<Event>();
 	@Output() indexChange = new EventEmitter<number>();
 
+	@HostListener('document:keydown.escape')
+	onKeydownHandler() {
+		this.close.emit();
+	}
 
 	back(event) {
 		if (this.selectedIndex > 0)
