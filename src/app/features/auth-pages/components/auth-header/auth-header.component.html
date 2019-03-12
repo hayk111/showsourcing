@@ -3,12 +3,9 @@
 		<img src="/assets/img/logo.svg">
 	</div>
 	<h1>
-		Welcome to ShowSourcing
+		<ng-content select="auth-header-title-app"></ng-content>
 	</h1>
 	<h3 class="flexCenter ms">
-		Your Collaborative Sourcing Platform for
-		<br/>
-		your team and suppliers
+		<ng-content select="auth-header-subtitle-app"></ng-content>
 	</h3>
-	<h3 class="flexCenter ms">{{subDescription}}</h3>
 </div>

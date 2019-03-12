@@ -14,6 +14,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./registration.component.scss', '../form-style.scss']
 })
 export class RegistrationComponent extends AutoUnsub implements OnInit {
+
 	pending$ = new Subject<boolean>();
 	error: string;
 	queryParams: any;

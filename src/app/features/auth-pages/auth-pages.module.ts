@@ -15,6 +15,8 @@ import {
 	ValidateEmailComponent
 } from './components';
 import { routes } from './routes';
+import { AuthHeaderTitleComponent } from './components/auth-header/auth-header-title/auth-header-title.component';
+import { AuthHeaderSubtitleComponent } from './components/auth-header/auth-header-subtitle/auth-header-subtitle.component';
 
 @NgModule({
 	imports: [
@@ -31,7 +33,9 @@ import { routes } from './routes';
 		RegistrationComponent,
 		ResetPasswordComponent,
 		UnvalidatedEmailComponent,
-		ValidateEmailComponent
+		ValidateEmailComponent,
+		AuthHeaderTitleComponent,
+		AuthHeaderSubtitleComponent
 	],
 	exports: [AuthFormBaseComponent]
 })

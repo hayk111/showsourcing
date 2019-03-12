@@ -1,10 +1,22 @@
 <auth-form-header-app
-	[pending]="(pending$ | async)"
-	[subDescription]="'Please hold as we modify the internet for you!'">
+	[pending]="(pending$ | async)">
+	<auth-header-title-app>Welcome to ShowSourcing</auth-header-title-app>
+	<auth-header-subtitle-app>
+		Your collaborative sourcing platform for
+		<br>
+		your team and suppliers.
+		<br><br>
+		Please hold as we modify the internet for you!
+	</auth-header-subtitle-app>
 </auth-form-header-app>
 
-<auth-form-app (onSubmit)="createAccount($event)" [error]="error"  [defaultFocused]="filedFocused" [pending]="(pending$ | async)"
- [listForm]="listForm" [buttons]="buttons">
+<auth-form-app
+	[error]="error"
+	[defaultFocused]="filedFocused"
+	[pending]="(pending$ | async)"
+	[listForm]="listForm"
+	[buttons]="buttons"
+	(onSubmit)="createAccount($event)">
 	<div class="options">
 		<!-- <div class="checkbox-container">
 					<checkbox-app [size]="16" [labelClass]="'label-rememberme'">

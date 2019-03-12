@@ -1,6 +1,13 @@
 <auth-form-header-app
-	[pending]="(pending$ | async)"
-	[subDescription]="'Please login to your account.'">
+	[pending]="(pending$ | async)">
+	<auth-header-title-app>Welcome to ShowSourcing</auth-header-title-app>
+	<auth-header-subtitle-app>
+		Your collaborative sourcing platform for
+		<br>
+		your team and suppliers.
+		<br><br>
+		Please login to your account.
+	</auth-header-subtitle-app>
 </auth-form-header-app>
 
 <auth-form-app
