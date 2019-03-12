@@ -260,8 +260,7 @@ export class ListPageService
 	private redirectToCreated(id: string, shouldRedirect: boolean) {
 		if (shouldRedirect) {
 			if (this.entityMetadata.destUrl)
-				this.router.navigate([this.entityMetadata.destUrl, id]
-				);
+				this.router.navigate([this.entityMetadata.destUrl, id]);
 			else
 				throw Error(`no destination url`);
 		}

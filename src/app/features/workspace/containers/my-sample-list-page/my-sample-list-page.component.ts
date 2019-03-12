@@ -44,7 +44,6 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 		super.setup();
 	}
 
-
 	// can be moved to abstract
 	toggleMySamples(show: boolean) {
 		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
