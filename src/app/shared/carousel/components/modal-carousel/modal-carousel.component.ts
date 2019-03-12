@@ -1,6 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { log } from '~utils';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { AppImage } from '~models';
 
 @Component({
@@ -17,7 +15,6 @@ export class ModalCarouselComponent {
 
 
 	back(event) {
-		log.debug('[ModalCarouselComponent] back');
 		if (this.selectedIndex > 0)
 			this.selectedIndex--;
 		else
@@ -27,7 +24,6 @@ export class ModalCarouselComponent {
 	}
 
 	next(event) {
-		log.debug('[ModalCarouselComponent] next');
 		if (this.selectedIndex < this.images.length - 1)
 			this.selectedIndex++;
 		else
