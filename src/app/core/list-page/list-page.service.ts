@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { empty } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -53,7 +53,8 @@ export class ListPageService
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
-		private ermSrv: ERMService
+		private ermSrv: ERMService,
+		private zone: NgZone
 	) { }
 
 	static reset() {
@@ -66,11 +67,12 @@ export class ListPageService
 		this.initServices(config.key);
 		this.dataSrv.setup(config);
 		this.viewSrv.setup(config.entityMetadata);
-
-		// by default we start loading
-		if (shouldInitDataLoading) {
-			this.dataSrv.loadData();
-		}
+		this.zone.runOutsideAngular(() => {
+			// by default we start loading
+			if (shouldInitDataLoading) {
+				this.dataSrv.loadData();
+			}
+		});
 	}
 
 	/**

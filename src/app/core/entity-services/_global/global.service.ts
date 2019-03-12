@@ -1,17 +1,17 @@
 import { ApolloBase, QueryRef } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError, merge } from 'rxjs';
+import * as gqlTag from 'graphql-tag';
+import { BehaviorSubject, forkJoin, merge, Observable, of, throwError } from 'rxjs';
 import { catchError, filter, first, map, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { AnalyticsService } from '~core/analytics/analytics.service';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
 import { QueryBuilder } from '~entity-services/_global/query-builder.class';
 import { SelectAllParams, SelectAllParamsConfig } from '~entity-services/_global/select-all-params';
 import { SelectParams, SelectParamsConfig } from '~entity-services/_global/select-params';
 import { Entity } from '~models';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { log, LogColor } from '~utils';
-import * as gqlTag from 'graphql-tag';
-import { AnalyticsService } from '~core/analytics/analytics.service';
 
 
 export interface GlobalServiceInterface<T> {
@@ -54,7 +54,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		protected fields: any,
 		protected sing: string,
 		protected plural: string,
-		protected analyticsSrv?: AnalyticsService
+		protected analyticsSrv?: AnalyticsService,
 	) {
 		this.queryBuilder = new QueryBuilder(sing, plural);
 		// capitalizing the typename
@@ -331,11 +331,13 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const items$: Observable<T[]> = queryRef$.pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(queryRef => queryRef.valueChanges),
+			tap(d => { console.log('debug 1', Date.now()); }),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
+			tap(d => { console.log('debug 2', Date.now()); }),
 			catchError((errors) => of(log.table(errors)))
 		);
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
 import { ProductQueries } from '~entity-services/product/product.queries';
