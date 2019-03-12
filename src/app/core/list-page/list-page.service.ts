@@ -252,7 +252,6 @@ export class ListPageService
 	/** creates a new entity, can also create with defaul values with extra?: any */
 	create(shouldRedirect = true, extra?: any) {
 		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra }).pipe(
-			// tap(_ => this.refetch(), item => item),
 		).subscribe(item => this.redirectToCreated(item.id, shouldRedirect));
 	}
 
@@ -263,6 +262,8 @@ export class ListPageService
 				this.router.navigate([this.entityMetadata.destUrl, id]);
 			else
 				throw Error(`no destination url`);
+		} else {
+			this.refetch().subscribe();
 		}
 	}
 
