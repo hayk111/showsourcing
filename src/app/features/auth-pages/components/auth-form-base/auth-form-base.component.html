@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit.emit(form)" autocomplete="on" class="flexColumn" *ngIf="!pending; else spinner">
+<form *ngIf="!pending && !hideForm; else spinner" [formGroup]="form" (ngSubmit)="onSubmit.emit(form)" autocomplete="on" class="flexColumn">
 	<error-app *ngIf="error">{{ error }}</error-app>
 	<form-field-app *ngFor="let formElement of listForm; trackBy: trackByFn"
 		[ngClass]="{'field-focused': fieldFocused === formElement.name, 'field-error': (form.get(formElement.name).invalid && !form.get(formElement.name).pristine && !form.get(formElement.name).focussed) }">
@@ -22,9 +22,10 @@
 		</div>
 	</div>
 </form>
+
 <ng-template #spinner>
-	<div class="spinner">
-		<spinner-app [isHaveLogo]="true" *ngIf="hasSpinner"></spinner-app>
-		<h3>Please wait this could take a few minutes</h3>
+	<div *ngIf="hasSpinner" class="spinner">
+		<spinner-app [isHaveLogo]="true"></spinner-app>
+		<h3>{{ spinnerMessage }}</h3>
 	</div>
 </ng-template>

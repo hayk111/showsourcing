@@ -6,13 +6,15 @@
   <ng-container *ngIf="(team$ | async) && (members$ | async)?.length > 0; else empty">
 		<div *ngFor="let member of members$ | async; trackBy: trackByFn" class="flex member">
 			<user-picture-app [user]="member.user" [border]="true"></user-picture-app>
-			<div class="flexColumn">
-				<span class="name flex">
+			<div class="flexColumn ellipsis">
+				<div class="name flex ellipsis">
 					{{ member?.user?.firstName }} {{ member?.user?.lastName}}
 					<div *ngIf="(team$ | async)?.ownerUser && member.user?.id === (team$ | async)?.ownerUser?.id"
-						class="team-leader">Team Leader</div>
-				</span>
-				<span>{{ member.user.email }}</span>
+						class="team-leader">
+						Team Leader
+					</div>
+				</div>
+				<div class="ellipsis">{{ member.user.email }}</div>
 			</div>
 		</div>
 

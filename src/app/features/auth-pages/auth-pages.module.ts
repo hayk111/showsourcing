@@ -31,7 +31,7 @@ import { routes } from './routes';
 		RegistrationComponent,
 		ResetPasswordComponent,
 		UnvalidatedEmailComponent,
-		ValidateEmailComponent,
+		ValidateEmailComponent
 	],
 	exports: [AuthFormBaseComponent]
 })

@@ -18,6 +18,8 @@ export class AuthFormBaseComponent extends AutoUnsub implements AfterViewInit {
 
 	@Input() form: FormGroup;
 	@Input() hasSpinner = true;
+	@Input() hideForm = false;
+	@Input() spinnerMessage = 'Please wait this could take a few moments';
 
 	@Input() error = '';
 	@Input() pending = false;

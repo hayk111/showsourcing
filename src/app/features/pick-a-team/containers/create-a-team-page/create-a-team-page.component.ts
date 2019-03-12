@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -16,13 +16,16 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
+
+	@Input() buttons: AuthFormButton[];
+
+	hideForm = false;
 	pending = false;
 	error: string;
 	hasTeam$: Observable<boolean>;
 	returnUrl: string;
 
 	listForm: AuthFormElement[];
-	@Input() buttons: AuthFormButton[];
 
 	constructor(
 		private fb: FormBuilder,
@@ -30,7 +33,8 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		private companySrv: CompanyService,
 		private router: Router,
 		private userSrv: UserService,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private cdr: ChangeDetectorRef
 	) {
 		super();
 		this.listForm = [{
@@ -47,24 +51,6 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		}];
 	}
 
-	onSubmit(form: FormGroup) {
-		this.pending = true;
-		const formValue = form.value;
-		const company: Company = { id: this.companySrv.companySync.id };
-		const team = new Team({ name: formValue.name, company, ownerUser: { id: this.userSrv.userSync.id } });
-		this.srv.create(team)
-			.subscribe(
-				_ => {
-					this.router.navigateByUrl(this.returnUrl);
-					this.pending = false;
-				},
-				e => {
-					this.pending = false;
-					this.error = 'We had an error creating your team. Please try again.';
-				}
-			);
-	}
-
 	ngOnInit() {
 		this.srv.selectAll().pipe(
 			first()
@@ -79,5 +65,27 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		});
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}
+
+	onSubmit(form: FormGroup) {
+		this.pending = true;
+		const formValue = form.value;
+		const company: Company = { id: this.companySrv.companySync.id };
+		const team = new Team({ name: formValue.name, company, ownerUser: { id: this.userSrv.userSync.id } });
+		this.srv.create(team)
+			.subscribe(
+				_ => {
+					this.pending = false;
+					this.router.navigateByUrl(this.returnUrl);
+					this.cdr.detectChanges();
+				},
+				e => {
+					this.hideForm = false;
+					this.pending = false;
+					this.error = 'We had an error creating your team. Please try again.';
+					this.cdr.detectChanges();
+				}
+			);
+	}
+
 
 }
