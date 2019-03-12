@@ -111,7 +111,8 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 				this._showTimeOutId = null;
 				// we attach the first time to know the bounding rectangle of the item
 				this.tooltipPortalHost.attach(this.templatePortal);
-				const boundPortal = this.tooltipPortalHost.outletElement.getElementsByClassName('tooltip-directive')[0].getBoundingClientRect();
+				const elementPortal = this.tooltipPortalHost.outletElement.getElementsByClassName('tooltip-directive')[0];
+				const boundPortal = elementPortal ? elementPortal.getBoundingClientRect() : new ClientRect();
 				// we detach it since we only wanted the rectangle
 				this.tooltipPortalHost.detach();
 				this.setPosition(boundPortal);
