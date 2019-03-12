@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
+import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { AppImage } from '~models';
 
 @Component({
@@ -14,9 +15,17 @@ export class ModalCarouselComponent {
 	@Output() close = new EventEmitter<Event>();
 	@Output() indexChange = new EventEmitter<number>();
 
-	@HostListener('document:keydown.escape')
-	onKeydownHandler() {
-		this.close.emit();
+
+	@HostListener('document:keydown', ['$event'])
+	onKeydownHandler(event: KeyboardEvent) {
+		switch (event.keyCode) {
+			case LEFT_ARROW: this.back(event);
+				break;
+			case RIGHT_ARROW: this.next(event);
+				break;
+			case ESCAPE: this.close.emit();
+				break;
+		}
 	}
 
 	back(event) {
