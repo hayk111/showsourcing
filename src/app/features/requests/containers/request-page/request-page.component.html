@@ -1,0 +1,18 @@
+<top-panel-app
+	[title]="'Requests'"
+	[hasAction]="false">
+</top-panel-app>
+
+<sub-panel-app
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[searchValue]="listSrv.searchValue"
+	(search)="listSrv.search($event)">
+</sub-panel-app>
+
+<request-list-view-app
+	[rows]="listSrv.items$ | async"
+	[pending]="listSrv.pending"
+	(sort)="listSrv.sort($event)"
+	(bottomReached)="listSrv.loadMore()">
+</request-list-view-app>

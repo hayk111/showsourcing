@@ -6,7 +6,6 @@ import { RequestElement } from './request-element.model';
 
 export class Request {
 	id: ID;
-	name: string;
 	requestElements?: RequestElement;
 	message?: string;
 	recipient?: Contact;
@@ -27,5 +26,4 @@ export class Request {
 
 export interface RequestConfig {
 	id?: ID;
-	name?: string;
 }
