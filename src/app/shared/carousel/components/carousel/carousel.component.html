@@ -28,7 +28,7 @@
 
 	<!-- move back -->
 	<div
-		*ngIf="selectedIndex !== 0"
+		*ngIf="images?.length > 1"
 		class="move-btn back flexCenter circle pointer btn action"
 		(mousedown)="back($event)">
 		<icon-app  fontSet="fa" name="angle-left" color="white"></icon-app>
@@ -36,7 +36,7 @@
 
 	<!-- move next -->
 	<div
-		*ngIf="images?.length > 0 && selectedIndex !== (images?.length - 1)"
+		*ngIf="images?.length > 1"
 		class="move-btn next flexCenter circle pointer btn action"
 		(mousedown)="next($event)">
 		<icon-app  fontSet="fa" name="angle-right" color="white"></icon-app>

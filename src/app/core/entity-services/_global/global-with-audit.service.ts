@@ -6,6 +6,7 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 import { GlobalService, GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { EntityWithAudit } from '~models';
 import { AnalyticsService } from '~core/analytics/analytics.service';
+import { NgZone } from '@angular/core';
 
 /**
  * Same as global service but adds an audit (created by, last updated date etc)
@@ -18,7 +19,7 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 		protected sing: string,
 		protected plural: string,
 		protected userSrv: UserService,
-		protected analyticsSrv?: AnalyticsService
+		protected analyticsSrv?: AnalyticsService,
 	) {
 		super(apolloState, fields, sing, plural, analyticsSrv);
 	}
