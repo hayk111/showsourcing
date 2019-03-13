@@ -72,8 +72,7 @@ export class ListPageDataService
 	/** init: helper method to set everything up at once */
 	loadData() {
 		if (this.initialized) {
-			// this.refetch().subscribe();
-			return;
+			return this.refetch().subscribe();
 		}
 		this.setItems();
 		this.listenFilterChanges();
