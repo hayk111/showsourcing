@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { empty } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
@@ -53,7 +53,8 @@ export class ListPageService
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
-		private ermSrv: ERMService
+		private ermSrv: ERMService,
+		private zone: NgZone
 	) { }
 
 	static reset() {
@@ -66,11 +67,12 @@ export class ListPageService
 		this.initServices(config.key);
 		this.dataSrv.setup(config);
 		this.viewSrv.setup(config.entityMetadata);
-
-		// by default we start loading
-		if (shouldInitDataLoading) {
-			this.dataSrv.loadData();
-		}
+		this.zone.runOutsideAngular(() => {
+			// by default we start loading
+			if (shouldInitDataLoading) {
+				this.dataSrv.loadData();
+			}
+		});
 	}
 
 	/**
@@ -249,23 +251,20 @@ export class ListPageService
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
 	create(shouldRedirect = true, extra?: any) {
-		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata }).pipe(
-			switchMap(name => this.createItem({ name, ...extra })),
-			switchMap(_ => this.refetch(), item => item),
-		).subscribe(item => this.redirectToCreated(item.id, shouldRedirect));
+		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra }).pipe(
+		).subscribe(item => {
+			// we don't want to put this in a switchmap because we don't want to wait
+			// for the refect before redirecting
+			this.refetch().subscribe();
+			this.redirectToCreated(item.id, shouldRedirect);
+		});
 	}
 
-	private createItem(item) {
-		const entity = new this.entityMetadata.constClass(item);
-		return this.ermSrv.getGlobalService(this.entityMetadata)
-			.create(entity);
-	}
 
 	private redirectToCreated(id: string, shouldRedirect: boolean) {
 		if (shouldRedirect) {
 			if (this.entityMetadata.destUrl)
-				this.router.navigate([this.entityMetadata.destUrl, id]
-				);
+				this.router.navigate([this.entityMetadata.destUrl, id]);
 			else
 				throw Error(`no destination url`);
 		}

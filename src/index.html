@@ -30,11 +30,16 @@
 	<meta name="mobile-web-app-capable" content="yes">
 
 	<!-- prevent pinterest to add pin button -->
-	<meta name="pinterest" content="nopin"/>
-
+	<meta name="pinterest" content="nopin"/>	
 
 	<style>
-		/* we put the styles here for faster rendering. If http2 is used we could move it in a separate file */
+		/* we put the styles here for faster rendering. If http2 push is used we can think about moving this somewhere else to keep index lean */
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('./assets/fonts/SourceSansPro-Light.ttf');
+			weight: 100;
+		}
+
 		body {
 			color: #182844;
 			padding: 0;

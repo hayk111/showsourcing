@@ -98,8 +98,8 @@ button, input[type="submit"], .button {
 	@extend .ripple;
 	display: inline-block;
 	cursor: pointer;
-	font-weight: 400;
 	box-sizing: border-box;
+	font-weight: 600;
 	height: 32px;
 	min-width: 100px;
 	padding: 0px var(--spacing-ms);

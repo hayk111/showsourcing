@@ -1,5 +1,6 @@
 
-<div *ngFor="let category of getGroupedProducts(currentSort); first as first; index as i; trackBy: trackByFn" class="category-section">
+<div *ngFor="let category of getGroupedProducts(currentSort); first as first; index as i; trackBy: trackByFn" 
+	class="category-section">
 	<div class="section-title">{{ getGroupedValue(category, currentSort) }}</div>
 	<div class="products-section">
 		<ng-container *ngFor="let product of category.value; index as i; trackBy: trackById">
