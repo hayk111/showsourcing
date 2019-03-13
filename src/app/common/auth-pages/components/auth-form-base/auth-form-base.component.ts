@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChildren, AfterViewInit, QueryList } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
-import { AutoUnsub } from '~utils';
 import { InputDirective } from '~shared/inputs';
+import { AutoUnsub } from '~utils';
+
+import { AuthFormButton, AuthFormElement } from './auth-form';
 
 
 /**

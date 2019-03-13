@@ -2,15 +2,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, mergeMap } from 'rxjs/operators';
+import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { CompanyService, TeamService, UserService } from '~entity-services';
-import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { Company, Team } from '~models';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'create-a-company-page-app',
 	templateUrl: './create-a-company-page.component.html',
-	styleUrls: ['./create-a-company-page.component.scss', '../../../auth-pages/components/form-style.scss'],
+	styleUrls: ['./create-a-company-page.component.scss', '../../../../common/auth-pages/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {

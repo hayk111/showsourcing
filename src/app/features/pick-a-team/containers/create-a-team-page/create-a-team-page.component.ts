@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { CompanyService, TeamService, UserService } from '~entity-services';
-import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { Team } from '~models';
 import { Company } from '~models/company.model';
 import { AutoUnsub } from '~utils';
@@ -12,7 +12,7 @@ import { AutoUnsub } from '~utils';
 @Component({
 	selector: 'create-a-team-page-app',
 	templateUrl: './create-a-team-page.component.html',
-	styleUrls: ['./create-a-team-page.component.scss', '../../../auth-pages/components/form-style.scss'],
+	styleUrls: ['./create-a-team-page.component.scss', '../../../../common/auth-pages/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateATeamPageComponent extends AutoUnsub implements OnInit {

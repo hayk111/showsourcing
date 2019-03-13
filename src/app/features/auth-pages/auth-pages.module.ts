@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthPagesCommonModule } from '~common/auth-pages/auth-pages.common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import {
@@ -9,24 +10,19 @@ import {
 	PwResettedComponent,
 	RegistrationComponent,
 	ResetPasswordComponent,
-	AuthFormHeaderComponent,
-	AuthFormBaseComponent,
 	UnvalidatedEmailComponent,
-	ValidateEmailComponent
+	ValidateEmailComponent,
 } from './components';
 import { routes } from './routes';
-import { AuthHeaderTitleComponent } from './components/auth-header/auth-header-title/auth-header-title.component';
-import { AuthHeaderSubtitleComponent } from './components/auth-header/auth-header-subtitle/auth-header-subtitle.component';
 
 @NgModule({
 	imports: [
+		AuthPagesCommonModule,
 		SharedModule,
-		RouterModule.forChild(routes)
+		RouterModule.forChild(routes),
 	],
 	declarations: [
 		AccountCreatedComponent,
-		AuthFormBaseComponent,
-		AuthFormHeaderComponent,
 		ForgotPasswordComponent,
 		LoginComponent,
 		PwResettedComponent,
@@ -34,14 +30,7 @@ import { AuthHeaderSubtitleComponent } from './components/auth-header/auth-heade
 		ResetPasswordComponent,
 		UnvalidatedEmailComponent,
 		ValidateEmailComponent,
-		AuthHeaderTitleComponent,
-		AuthHeaderSubtitleComponent
 	],
-	exports: [
-		AuthFormBaseComponent,
-		AuthFormHeaderComponent,
-		AuthHeaderTitleComponent,
-		AuthHeaderSubtitleComponent
-	]
+	exports: []
 })
 export class AuthPagesModule { }

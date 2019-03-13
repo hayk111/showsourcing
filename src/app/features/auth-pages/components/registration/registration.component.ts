@@ -3,14 +3,14 @@ import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'registration-app',
 	templateUrl: './registration.component.html',
-	styleUrls: ['./registration.component.scss', '../form-style.scss']
+	styleUrls: ['./registration.component.scss', '../../../../common/auth-pages/components/form-style.scss']
 })
 export class RegistrationComponent extends AutoUnsub implements OnInit {
 

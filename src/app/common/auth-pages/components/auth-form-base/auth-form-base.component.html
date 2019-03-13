@@ -26,6 +26,6 @@
 <ng-template #spinner>
 	<div *ngIf="hasSpinner && pending" class="spinner">
 		<spinner-app [isHaveLogo]="true"></spinner-app>
-		<h3>{{ spinnerMessage }}</h3>
+		<h3 class="loading-text">{{ spinnerMessage }}</h3>
 	</div>
 </ng-template>
