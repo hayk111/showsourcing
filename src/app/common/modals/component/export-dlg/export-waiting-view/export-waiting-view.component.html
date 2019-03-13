@@ -1,7 +1,7 @@
 <dialog-app>
 	<dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Your export is being generated</dialog-header-app>
 
-	<main *ngIf="!pending; else spinner" class="flex container">
+	<main class="flex container">
 		<icon-app class="settings-image" name="settings-multiple" fontSet="svg"></icon-app>
 		<div class="generating-message ">
 			Your export is being generated. This may take a few minutes.<br>
@@ -24,7 +24,7 @@
 		</div>
 	</main>
 
-	<dialog-footer-app *ngIf="!pending" class="fullWidth">
+	<dialog-footer-app class="fullWidth">
 		<button class="open-export secondary" (click)="goToExports()">Open Exports</button>
 		<button (click)="dlgSrv.close()">Close</button>
 	</dialog-footer-app>
@@ -33,6 +33,3 @@
 
 </dialog-app>
 
-<ng-template #spinner>
-	<spinner-app *ngIf="pending" size="xxl"></spinner-app>
-</ng-template>

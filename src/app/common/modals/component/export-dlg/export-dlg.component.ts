@@ -26,7 +26,6 @@ export class ExportDlgComponent implements OnInit {
 	// if the export it is ready on the backend
 	fileReady = false;
 	exportReq: ExportRequest;
-	pending: boolean;
 
 	constructor(
 		public dlgSrv: DialogService,
@@ -43,8 +42,6 @@ export class ExportDlgComponent implements OnInit {
 	}
 
 	export() {
-		this.pending = true;
-		this.cdr.detectChanges();
 
 		const request = new ExportRequest({
 			type: this.selectedType,
@@ -52,11 +49,11 @@ export class ExportDlgComponent implements OnInit {
 			query: (this.targets as any[]).map(target => `id == '${target.id}'`).join(' or ')
 		});
 
+		this.requestCreated = true;
+		this.cdr.detectChanges();
+
 		this.exportSrv.create(request).pipe(
 			switchMap(exp => {
-				this.pending = false;
-				this.requestCreated = true;
-				this.cdr.detectChanges();
 				return this.exportSrv.isExportReady(exp);
 			}),
 		).subscribe(exp => {
