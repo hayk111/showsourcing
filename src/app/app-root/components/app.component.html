@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-<div *ngIf="spinner$ | async" class="spinner">
+<div *ngIf="isSpinnerShown$ | async" class="loading-ctnr">
 	<spinner-app
 		[isHaveLogo]="true"
 		[size]="150">
