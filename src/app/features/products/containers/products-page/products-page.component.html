@@ -72,9 +72,12 @@
 	(update)="listSrv.update($event)">
 </products-card-view-app>
 
-<product-selection-bar-app>
-
+<product-selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
 </product-selection-bar-app>
+
 <!-- <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"

@@ -11,8 +11,10 @@ export class ProductSelectionBarComponent implements OnInit {
 
 	@Input() isShown = false;
 	@Input() selection: Map<string, boolean>;
+	@Input() favorite: boolean;
 	@Output() close = new EventEmitter<null>();
 	@Output() compareProducts = new EventEmitter<null>();
+	@Output() requestTeamFeedback = new EventEmitter<null>();
 	@Output() export = new EventEmitter<null>();
 	@Output() deleted = new EventEmitter<null>();
 	@Output() addProject = new EventEmitter<Project[]>();
@@ -22,9 +24,23 @@ export class ProductSelectionBarComponent implements OnInit {
 	@Output() unfavorited = new EventEmitter<null>();
 	@Output() statusUpdated = new EventEmitter<any>();
 
+	like = false;
+	dislike = false;
+
 	constructor() { }
 
 	ngOnInit() {
 	}
 
+	thumbUp() {
+		this.like = this.like ? false : true;
+		this.dislike = false;
+		this.liked.emit(this.like);
+	}
+
+	thumbDown() {
+		this.dislike = this.dislike ? false : true;
+		this.like = false;
+		this.disliked.emit(this.dislike);
+	}
 }
