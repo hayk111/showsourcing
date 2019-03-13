@@ -27,6 +27,7 @@
 	--color-warn-dark: #ca263a;
 
 	--color-supplier-tag: #fca410;
+	--color-action: #fca410;
 
 	--color-success: #71e591;
 	--color-success-dark: #48d26f;
@@ -76,6 +77,10 @@
 
 .color-in-progress, .color-inProgress {
 	color: var(--color-in-progress);
+}
+
+.color-action {
+	color: var(--color-action);
 }
 /** text */
 

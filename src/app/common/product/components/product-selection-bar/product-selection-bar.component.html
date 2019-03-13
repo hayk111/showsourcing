@@ -1,3 +1,34 @@
-<p>
-  product-selection-bar works!
-</p>
+<selection-bar-app
+	[isShown]="true"
+	[selection]="[]">
+	<div class="flex elements-container">
+		<button class="secondary-light flexCenter with-name">
+			<icon-app class="color-action" name="heart"></icon-app>
+			Like
+		</button>
+		<!-- <status-selector-app
+			toolTip toolTipMessage="Change status" toolTipPosition="above-right"
+			#workActionMenu
+			selectSize="s"
+			[typeEntity]="erm.PRODUCT"
+			type="multiple-selection"
+			[internalUpdate]="false"
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
+		</status-selector-app> -->
+		<button class="secondary-light flexCenter with-name">
+			<icon-app class="color-primary" name="project"></icon-app>
+			Add to project
+		</button>
+		<button class="secondary-light flexCenter with-name">
+			<icon-app class="color-success" name="feedback"></icon-app>
+			Compare products
+		</button>
+		<button class="secondary-light flexCenter with-name">
+			<icon-app name="export"></icon-app>
+			Export selection
+		</button>
+		<button class="icon light">
+			<icon-app class="dots" name="dots-vertical" size="m"></icon-app>
+		</button>
+	</div>
+</selection-bar-app>

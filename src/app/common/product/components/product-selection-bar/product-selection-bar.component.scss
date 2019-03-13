@@ -1,0 +1,17 @@
+.elements-container > * {
+	margin-right: var(--spacing-ms);
+}
+
+button {
+	min-width: unset;
+
+	&:hover {
+		icon-app {
+			color: white;
+		}
+	}
+
+	&.with-name icon-app {
+		margin-right: var(--spacing-s);
+	}
+}
