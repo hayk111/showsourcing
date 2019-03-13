@@ -1,36 +1,42 @@
-import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-
-import { Observable, throwError } from 'rxjs';
-import { AutoUnsub } from '~utils/auto-unsub.component';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { takeUntil, take, catchError } from 'rxjs/operators';
-import { AuthFormElement, AuthFormButton } from '~features/auth-pages/components/auth-form-base/auth-form';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'forgot-password-app',
 	templateUrl: './forgot-password.component.html',
-	styleUrls: ['./forgot-password.component.scss', '../form-style.scss']
+	styleUrls: ['./forgot-password.component.scss', '../../../../common/auth-pages/components/form-style.scss']
 })
 export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
+
 	pending: boolean;
 	error: string;
+	queryParams: any;
 
 	filedFocused = 'email';
 
 	listForm: AuthFormElement[];
 	buttons: AuthFormButton[];
 
-	constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,
-		private authSrv: AuthenticationService, private router: Router) {
-
+	constructor(
+		private fb: FormBuilder,
+		private cdr: ChangeDetectorRef,
+		private authSrv: AuthenticationService,
+		private router: Router,
+		private route: ActivatedRoute,
+	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.listForm   = [{
+		this.queryParams = this.route.snapshot.queryParams || '/';
+
+		this.listForm = [{
 			label: 'Email',
 			type: 'email',
 			name: 'email',
@@ -40,8 +46,13 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 			validators: [Validators.required, Validators.email]
 		}];
 		this.buttons = [{
-			label: 'Login',
+			label: 'Send',
 			type: 'button'
+		}, {
+			label: 'Login',
+			type: 'link',
+			link: ['../login'],
+			queryParams: this.queryParams
 		}];
 	}
 
@@ -59,6 +70,7 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 				})
 			).subscribe(r => {
 				this.pending = false;
+				this.cdr.detectChanges();
 				this.router.navigate(['auth', 'login']);
 			}, err => {
 				this.pending = false;
