@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { ListViewComponent } from '~core/list-page/list-view.component';
-import { TeamUser, User, Team } from '~models';
-import { TeamService } from '~core/entity-services';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { TeamService } from '~core/entity-services';
+import { ListViewComponent } from '~core/list-page/list-view.component';
+import { TeamUser, User } from '~models';
 
 
 @Component({
