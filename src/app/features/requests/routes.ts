@@ -10,7 +10,6 @@ export const routes: Routes = [
 	},
 	{
 		path: 'details/:id',
-		component: RequestDetailsComponent,
-		data: { skipScrollTop: true },
+		component: RequestDetailsComponent
 	},
 ];
