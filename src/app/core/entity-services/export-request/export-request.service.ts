@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, take, tap, delay } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { TeamUserService, UserService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
@@ -41,7 +41,6 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 
 	create(request: ExportRequest) {
 		return this.userSrv.selectUser().pipe(
-			delay(4000),
 			take(1),
 			tap(user => request.createdBy = { id: user.id }),
 			switchMap(() => super.create(request)),

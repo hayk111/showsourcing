@@ -53,9 +53,7 @@ export class ExportDlgComponent implements OnInit {
 		this.cdr.detectChanges();
 
 		this.exportSrv.create(request).pipe(
-			switchMap(exp => {
-				return this.exportSrv.isExportReady(exp);
-			}),
+			switchMap(exp => this.exportSrv.isExportReady(exp))
 		).subscribe(exp => {
 			this.exportReq = exp;
 			this.fileReady = true;
