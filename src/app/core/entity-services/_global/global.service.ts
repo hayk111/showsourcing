@@ -333,10 +333,10 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			switchMap(queryRef => queryRef.valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
+
 			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
-			tap(d => { console.log('debug 2', Date.now()); }),
 			catchError((errors) => of(log.table(errors)))
 		);
 
