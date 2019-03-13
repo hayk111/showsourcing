@@ -9,12 +9,12 @@ import { WEB_VERSION } from './global.const';
 export const environment = {
 	version: WEB_VERSION,
 	production: false,
-	staging: true,
-	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
-	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',
-	apiUrl: 'https://services-dev.showsourcing.com',
-	getStreamKey: 'aner534ygtg9',
-	mixPanelKey: '9143fc0c3d674a93d201e8d9e12fb4f9',
-	hubspotKey: '5511311',
+	staging: false,
+	graphqlUrl: 'wss://showsourcingprod.us1.cloud.realm.io/graphql',
+	graphqlAuthUrl: 'https://showsourcingprod.us1.cloud.realm.io/auth',
+	apiUrl: 'https://services.showsourcing.com',
+	mixPanelKey: '750af3bdf60e4df0ebd6d05eee34876c',
+	hubspotKey: '2134370',
+	getStreamKey: 'kn8zj3tgdkf3',
 	LOG_LEVEL: LogLevel.DEBUG
 };
