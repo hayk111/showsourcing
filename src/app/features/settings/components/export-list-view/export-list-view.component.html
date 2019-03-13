@@ -66,7 +66,9 @@
 			sortBy="createdBy.lastName"
 			[grows]="false"
 			width="100">
+			<div toolTip [toolTipMessage]="row?.status !== 'ready' ? 'Your export is beign processed' : null" toolTipPosition="above-right">
 				<icon-app [ngClass]="{'disabled': row?.status !== 'ready'}" class="download" name="file" (click)="download.emit(row)"></icon-app>
+			</div>
 		</ng-template>
 
 </table-app>

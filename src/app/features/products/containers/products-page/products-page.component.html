@@ -13,6 +13,7 @@
 			[hasFilter]="true"
 			[hasSwitch]="true"
 			[searchValue]="listSrv.searchValue"
+			[view]="listSrv.view"
 			(search)="listSrv.search($event)"
 			(showFilters)="listSrv.openFilterPanel()"
 			(viewChange)="onViewChange($event)">
