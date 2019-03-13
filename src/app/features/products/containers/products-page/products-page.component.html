@@ -1,5 +1,3 @@
-
-
 <!-- top panel -->
 <top-panel-app
 	title="My Products"
@@ -7,13 +5,12 @@
 	(buttonClick)="listSrv.create()">
 </top-panel-app>
 
-
-
 <sub-panel-app
 	[buttonIcon]="false"
 	[filtersAmount]="getFilterAmount()"
 	[hasFilter]="true"
 	[hasSwitch]="true"
+	[view]="listSrv.view"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
 	(showFilters)="listSrv.openFilterPanel()"
