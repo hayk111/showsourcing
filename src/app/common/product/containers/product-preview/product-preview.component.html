@@ -97,7 +97,7 @@
 	</preview-section-app>
 
 	<!-- Extended Fields -->
-	<preview-section-app [title]="'Extended Fields'">
+	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'Extended Fields'">
 		<extended-form-app
 			inlineLabel="true"
 			[definitions]="fieldDefinitions$ | async"
@@ -108,7 +108,7 @@
 
 
 	<!-- Activity -->
-	<preview-section-app>
+	<preview-section-app *ngIf="product?.comments?.length" [title]="'Comments'">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 
