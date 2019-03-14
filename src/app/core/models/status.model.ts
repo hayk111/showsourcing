@@ -1,5 +1,7 @@
 import { ID, uuid } from '~utils';
 
+export const DEFAULT_STATUS_CATEGORY = 'inProgress';
+
 export class Status {
 	id?: ID;
 	name?: string;
@@ -21,4 +23,3 @@ export interface StatusConfig {
 	step?: number;
 	category?: string;
 }
-
