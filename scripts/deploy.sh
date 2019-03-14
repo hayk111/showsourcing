@@ -17,8 +17,8 @@ REGION="eu-central-1" # default region for app.show.sourcing.com
 
 CHOICES[1]="app-test.showsourcing.com"
 CHOICES[2]="app-dev.showsourcing.com"
-CHOICES[3]="app-sta.showsourcing.com"
-CHOICES[4]="app2.showsourcing.com"
+CHOICES[3]="app2.showsourcing.com"
+CHOICES[4]="app-sta.showsourcing.com"
 CHOICES[5]="app.showsourcing.com"
 
 
@@ -31,8 +31,9 @@ if [ -z "$ENDPOINT" ]; then
 	read n
 	ENDPOINT=${CHOICES[n]}
 	case $n in
-		3) BUILD="npm run build:sta" REGION="eu-west-1";;
-		4) REGION="us-east-2";;
+		2) BUILD="npm run build:dev" REGION="us-east-2";;
+		3) BUILD="npm run build:dev" REGION="us-east-2";;
+		4) BUILD="npm run build:sta" REGION="eu-west-1";;
 	esac
 	[ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
 fi
