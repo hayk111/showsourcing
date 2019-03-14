@@ -43,7 +43,7 @@
 			[typeEntity]="erm.PRODUCT"
 			type="multiple-selection"
 			[internalUpdate]="false"
-			(statusUpdated)="statusUpdated.emit({status: $event})">
+			(statusUpdated)="statusUpdated.emit($event)">
 		</status-selector-app>
 
 		<!-- Project -->

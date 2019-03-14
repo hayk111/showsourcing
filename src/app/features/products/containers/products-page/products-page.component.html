@@ -84,7 +84,7 @@
 	(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
 	(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 	(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
-	(statusUpdated)="listSrv.updateSelected($event)"
+	(statusUpdated)="listSrv.updateSelected({status: $event})"
 	(deleted)="listSrv.deleteSelected()"
 	(close)="listSrv.unselectAll()">
 </product-selection-bar-app>
@@ -101,5 +101,3 @@
 	[product]="listSrv.previewed"
 	(close)="listSrv.closePreview()">
 </product-preview-app>
-
-
