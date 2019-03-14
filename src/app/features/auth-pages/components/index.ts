@@ -1,6 +1,4 @@
 export * from './account-created/account-created.component';
-export * from './auth-form-base/auth-form-base.component';
-export * from './auth-header/auth-header.component';
 export * from './forgot-password/forgot-password.component';
 export * from './login/login.component';
 export * from './pw-resetted/pw-resetted.component';

@@ -1,13 +1,14 @@
 <ng-container *ngIf="!(pending$ | async)">
-	<div class="top">
-		<div class="logo">
-			<img src="/assets/img/logo.svg">
-		</div>
-		<h1>Join a team</h1>
-		<h3 class="ms">Select the team you wanna connect to or<br>create a new one</h3>
-	</div>
+	<auth-form-header-app>
+		<auth-header-title-app>Join a team</auth-header-title-app>
+		<auth-header-subtitle-app>
+			Select the team you wanna connect to or
+			<br>
+			create a new one
+		</auth-header-subtitle-app>
+	</auth-form-header-app>
 	<ul>
-		<div class="flex pointer item border" *ngFor="let team of (teams$ | async); let last = last;trackBy: trackByFn"
+		<div class="flex pointer item border" *ngFor="let team of (teams$ | async); let last = last; trackBy: trackByFn"
 		 (click)="pickTeam(team)">
 			<icon-app name="team" fontSet="svg" size="m"></icon-app>
 			<span>{{ team.name }}</span>

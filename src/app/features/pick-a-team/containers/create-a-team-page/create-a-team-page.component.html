@@ -1,16 +1,16 @@
-<div *ngIf="!pending" class="top">
-		<div class="logo">
-			<img src="/assets/img/logo.svg">
-		</div>
-		<h1>Create a team</h1>
-		<h3 class="ms">Create your team and start sourcing</h3>
-</div>
+<auth-form-header-app
+	[pending]="(pending || hideForm)">
+	<auth-header-title-app>Create a team</auth-header-title-app>
+	<auth-header-subtitle-app>Create your team and start sourcing</auth-header-subtitle-app>
+</auth-form-header-app>
 
-<auth-form-app (onSubmit)="onSubmit($event)"
-	[hasSpinner]="false"
+<auth-form-app
 	[error]="error"
 	[defaultFocused]="'teamName'"
+	spinnerMessage="We are creating your team, please wait"
+	[hideForm]="hideForm"
 	[pending]="pending"
 	[listForm]="listForm"
-	[buttons]="buttons">
+	[buttons]="buttons"
+	(onSubmit)="onSubmit($event)">
 </auth-form-app>

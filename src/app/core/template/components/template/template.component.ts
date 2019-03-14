@@ -18,20 +18,13 @@ export class TemplateComponent extends AutoUnsub implements AfterViewInit {
 	@ViewChild('main') main: ElementRef<HTMLElement>;
 
 	constructor(
-		private templateSrv: TemplateService,
-		private router: Router,
-		private route: ActivatedRoute,
+		private templateSrv: TemplateService
 	) {
 		super();
 	}
 
 	ngAfterViewInit() {
-		this.router.events.pipe(
-			takeUntil(this._destroy$),
-			filter(evt => evt instanceof NavigationEnd),
-			switchMap(_ => this.route.data),
-			filter(data => !data.skipScrollTop)
-		).subscribe(_ => this.main.nativeElement.scrollTop = 0);
+
 	}
 
 	/**

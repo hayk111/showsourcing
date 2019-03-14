@@ -44,7 +44,6 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 		super.setup();
 	}
 
-
 	// can be moved to abstract
 	toggleMySamples(show: boolean) {
 		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
@@ -56,11 +55,7 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 
 	openCreateDlg() {
 		const assignee = { id: this.userSrv.userSync.id };
-		this.commonModalSrv.openCreateDlg(ERM.SAMPLE, false).pipe(
-			map(name => new Sample({ name, assignee })),
-			switchMap(sample => this.sampleSrv.create(sample)),
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
+		this.listSrv.create(false, { assignee });
 	}
 
 	goToKanban() {

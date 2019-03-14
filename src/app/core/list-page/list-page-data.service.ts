@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, skip, switchMap, tap, first } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
@@ -72,8 +72,7 @@ export class ListPageDataService
 	/** init: helper method to set everything up at once */
 	loadData() {
 		if (this.initialized) {
-			this.refetch().subscribe();
-			return;
+			return this.refetch().subscribe();
 		}
 		this.setItems();
 		this.listenFilterChanges();

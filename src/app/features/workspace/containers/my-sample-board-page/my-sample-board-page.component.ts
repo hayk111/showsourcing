@@ -34,6 +34,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	];
 	erm = ERM;
 	statuses: SampleStatus[];
+	amountLoaded = this.amountLoaded;
 
 	constructor(
 		private kanbanSrv: KanbanService,
@@ -92,7 +93,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 				predicate,
 				statusQuery
 			].join(' && ');
-			this.sampleSrv.queryMany({ query, take: 15, sortBy: 'lastUpdatedDate' })
+			this.sampleSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(samples => this.kanbanSrv.setData(samples, status.id));
 			this.sampleSrv.queryCount(query).pipe(first())
@@ -110,7 +111,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 
 		this.sampleSrv.queryMany({
 			query: query,
-			take: col.data.length + 15,
+			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(
 			first()

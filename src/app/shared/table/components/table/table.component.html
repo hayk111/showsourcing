@@ -1,5 +1,5 @@
-<div class="ctnr" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
-	<div class="contentCtnr" *ngIf="!pending">
+<div class="ctnr will-change-scroll" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
+	<div class="contentCtnr">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
 			<div class="header"></div>
@@ -90,7 +90,7 @@
 
 	<!-- pending -->
 	<div class="pendingCtnr flexCenter" *ngIf="pending">
-		<spinner-app></spinner-app>
+		<dots-app></dots-app>
 	</div>
 </div>
 
