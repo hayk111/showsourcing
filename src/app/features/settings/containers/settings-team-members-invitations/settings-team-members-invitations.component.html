@@ -8,7 +8,9 @@
 	(search)="listSrv.search($event)">
 
 	<sub-panel-right-item-app>
-		<button [disabled]="!teamOwner" (click)="openInviteDialog()">Invite Collaborator</button>
+		<div toolTip [toolTipMessage]="!teamOwner ? 'Only team owners can invite' : null" toolTipPosition="above-right">
+			<button [disabled]="!teamOwner" (click)="openInviteDialog()">Invite Collaborator</button>
+		</div>
 	</sub-panel-right-item-app>
 </sub-panel-app>
 

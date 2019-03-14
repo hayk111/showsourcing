@@ -33,7 +33,7 @@ import { SharedModule } from '~shared/shared.module';
 		}),
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
-			preloadingStrategy: PreloadAllModules
+			preloadingStrategy: PreloadAllModules,
 			// enableTracing: true
 		}),
 		Angulartics2Module.forRoot({

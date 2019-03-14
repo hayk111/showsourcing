@@ -5,15 +5,16 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
-import { AutoUnsub } from '~utils/auto-unsub.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'reset-password-app',
 	templateUrl: './reset-password.component.html',
-	styleUrls: ['./reset-password.component.scss', '../form-style.scss']
+	styleUrls: ['./reset-password.component.scss', '../../../../common/auth-pages/components/form-style.scss']
 })
 export class ResetPasswordComponent extends AutoUnsub implements OnInit {
+
 	form: FormGroup;
 	pending: boolean;
 	error: string;

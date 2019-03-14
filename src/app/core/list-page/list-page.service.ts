@@ -53,7 +53,6 @@ export class ListPageService
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
-		private ermSrv: ERMService,
 		private zone: NgZone
 	) { }
 
@@ -64,10 +63,10 @@ export class ListPageService
 	}
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
-		this.initServices(config.key);
-		this.dataSrv.setup(config);
-		this.viewSrv.setup(config.entityMetadata);
 		this.zone.runOutsideAngular(() => {
+			this.initServices(config.key);
+			this.dataSrv.setup(config);
+			this.viewSrv.setup(config.entityMetadata);
 			// by default we start loading
 			if (shouldInitDataLoading) {
 				this.dataSrv.loadData();

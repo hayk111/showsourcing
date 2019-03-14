@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthPagesCommonModule } from '~common/auth-pages/auth-pages.common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import {
@@ -9,22 +10,19 @@ import {
 	PwResettedComponent,
 	RegistrationComponent,
 	ResetPasswordComponent,
-	AuthFormHeaderComponent,
-	AuthFormBaseComponent,
 	UnvalidatedEmailComponent,
-	ValidateEmailComponent
+	ValidateEmailComponent,
 } from './components';
 import { routes } from './routes';
 
 @NgModule({
 	imports: [
+		AuthPagesCommonModule,
 		SharedModule,
-		RouterModule.forChild(routes)
+		RouterModule.forChild(routes),
 	],
 	declarations: [
 		AccountCreatedComponent,
-		AuthFormBaseComponent,
-		AuthFormHeaderComponent,
 		ForgotPasswordComponent,
 		LoginComponent,
 		PwResettedComponent,
@@ -33,6 +31,6 @@ import { routes } from './routes';
 		UnvalidatedEmailComponent,
 		ValidateEmailComponent,
 	],
-	exports: [AuthFormBaseComponent]
+	exports: []
 })
 export class AuthPagesModule { }

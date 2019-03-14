@@ -3,14 +3,14 @@ import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'login-app',
 	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss', '../form-style.scss'],
+	styleUrls: ['./login.component.scss', '../../../../common/auth-pages/components/form-style.scss'],
 })
 export class LoginComponent extends AutoUnsub implements OnInit {
 	pending$ = new Subject<boolean>();
@@ -65,7 +65,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 		if (form.valid) {
 			this.pending$.next(true);
 			this.srv.login(form.value).pipe(
-				takeUntil(this._destroy$),
+				takeUntil(this._destroy$)
 			).subscribe(
 				r => this.onSuccess(r),
 				e => this.onError(e)

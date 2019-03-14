@@ -12,5 +12,9 @@ p.error {
 	position: absolute;
 	left: 50%;
   top: calc(50% - 100px); // this 100px comes from the guest-template -> main
-  transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+
+	.loading-text {
+		color: var(--color-txt-strong);
+	}
 }
