@@ -93,7 +93,7 @@ export class ListPageDataService
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
-			// map(items => items.filter(itm => !itm.deleted))
+			map(items => items.filter(itm => !itm.deleted))
 		);
 	}
 

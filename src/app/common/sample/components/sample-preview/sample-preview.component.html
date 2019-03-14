@@ -56,7 +56,7 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app>
+	<preview-section-app *ngIf="sample?.comments?.length" [title]="'Comments'">
 		<comment-list-app [comments]="sample.comments"></comment-list-app>
 	</preview-section-app>
 

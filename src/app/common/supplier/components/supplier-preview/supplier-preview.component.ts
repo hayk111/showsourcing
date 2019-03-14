@@ -65,7 +65,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	}
 
 	ngOnInit() {
-		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Supplier"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Supplier"' });
 	}
 
 	ngOnChanges() {
