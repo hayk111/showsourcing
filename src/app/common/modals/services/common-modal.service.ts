@@ -11,6 +11,7 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 	RfqDialogComponent,
 	VoteDetailsDialogComponent,
+	SupplierRequestDialogComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
@@ -78,6 +79,10 @@ export class CommonModalService {
 
 	openRequestQuotationDialog(product: Product) {
 		return this.dlgSrv.open(RfqDialogComponent, { product });
+	}
+
+	openSupplierRequest(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
 	openMergeDialog(data: { type: any, entities: any[] }) {

@@ -85,6 +85,14 @@ form-field-app.field-focused {
 	}
 }
 
+form-field-app.modal {
+	label-app {
+		color: var(--color-txt-strong);
+		font-weight: normal;
+		text-transform: none;
+	}
+}
+
 form-field-app.field-error {
 	&:not(.field-focused) {
 		label-app {

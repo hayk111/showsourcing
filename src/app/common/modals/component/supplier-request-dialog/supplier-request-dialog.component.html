@@ -1,0 +1,55 @@
+<dialog-app>
+	<dialog-header-app>Send Request to Supplier</dialog-header-app>
+
+	<div class="request-container flex">
+		<div class="left">
+			<h2 class="color-txt-strong l">Request Settings</h2>
+
+			<label-app class="title">Product to send</label-app>
+			<form [formGroup]="form">
+				<form-field-app class="modal">
+					<label-app>Request Templates</label-app>
+					<selector-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+			</form>
+		</div>
+
+
+		<div class="right">
+			<h2 class="color-txt-strong l">Recipients</h2>
+
+			<form [formGroup]="form">
+				<form-field-app class="modal">
+					<label-app>Send to</label-app>
+					<selector-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app>Send Copy to</label-app>
+					<selector-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app>Request Title</label-app>
+					<selector-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app>Message for the supplier</label-app>
+					<selector-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+			</form>
+		</div>
+	</div>
+
+	<dialog-footer-app>
+		<button>Send Request</button>
+	</dialog-footer-app>
+</dialog-app>
