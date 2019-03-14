@@ -1,9 +1,10 @@
 import { OnInit } from '@angular/core';
+import { DEFAULT_STATUS_CATEGORY } from 'environments/global.const';
+import { first } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { GlobalService } from '~core/entity-services/_global/global.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { EntityMetadata } from '~core/models';
-import { first } from 'rxjs/operators';
 
 export abstract class AbstractStatusWorkflowComponent<T, G extends GlobalService<T>> implements OnInit {
 
@@ -26,7 +27,7 @@ export abstract class AbstractStatusWorkflowComponent<T, G extends GlobalService
 
 	create() {
 		this.listSrv.items$.pipe(first()).subscribe(items => {
-			this.listSrv.create(false, { step: items.length + 1 });
+			this.listSrv.create(false, { step: items.length + 1, category: DEFAULT_STATUS_CATEGORY }); // default category
 		});
 	}
 }
