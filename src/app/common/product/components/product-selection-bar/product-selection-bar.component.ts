@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
-import { Project } from '~core/models';
+import { Project, ERM } from '~core/models';
 
 @Component({
 	selector: 'product-selection-bar-app',
@@ -26,6 +26,7 @@ export class ProductSelectionBarComponent implements OnInit {
 
 	like = false;
 	dislike = false;
+	erm = ERM;
 
 	constructor() { }
 

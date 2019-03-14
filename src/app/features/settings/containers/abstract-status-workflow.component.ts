@@ -26,7 +26,7 @@ export abstract class AbstractStatusWorkflowComponent<T, G extends GlobalService
 
 	create() {
 		this.listSrv.items$.pipe(first()).subscribe(items => {
-			this.listSrv.create(false, { step: items.length + 1 });
+			this.listSrv.create(false, { step: items.length + 1, category: 'inProgress' });
 		});
 	}
 }
