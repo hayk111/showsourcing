@@ -26,6 +26,12 @@ context-menu-app {
 .change-status {
 	padding: 0 10px 0 6px;
 
+	&:hover {
+		icon-app {
+			color: white;
+		}
+	}
+
 	icon-app {
 		margin-right: 6px;
 	}

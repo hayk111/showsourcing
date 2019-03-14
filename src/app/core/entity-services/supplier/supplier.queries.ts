@@ -33,7 +33,6 @@ export abstract class SupplierQueries extends GlobalQueries {
 			generalLeadTime,
 			creationDate,
 			${SupplierQueries.comments}
-			${SupplierQueries.extendedFields}
 			${SupplierQueries.supplierType}
 			${SupplierQueries.logoImage}
 			${SupplierQueries.createdBy}
