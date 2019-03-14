@@ -31,7 +31,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
 	comments?: Comment[];
-	extendedFields?: ExtendedField[];
+	// extendedFields?: ExtendedField[];
 	__typename?= 'Supplier';
 }
 
