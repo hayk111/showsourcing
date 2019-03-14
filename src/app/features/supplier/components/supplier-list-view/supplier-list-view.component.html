@@ -27,14 +27,12 @@
 		sortBy="name"
 		let-row="row"
 		width="280">
-		<div class="supplier flexBetween"
-			(mouseenter)="preview.style.display = 'block'"
-			(mouseleave)="preview.style.display = 'none'">
+		<div class="supplier mainCellWrapper flexBetween">
 			<a class="capitalize ellipsis txt-btn" [routerLink]="['/supplier', 'details', row.id]">
 				<logo-app [logo]="row" type="supplier" size="l"></logo-app>
 				<span class="ellipsis">{{ row.name }}</span>
 			</a>
-			<button #preview class="preview small secondary-dark" (click)="previewClick.emit(row)">Preview</button>
+			<button class="preview small secondary-dark" (click)="previewClick.emit(row)">Preview</button>
 		</div>
 	</ng-template>
 
