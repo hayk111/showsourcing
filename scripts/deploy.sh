@@ -12,9 +12,6 @@
 SHOULD_BUILD=$1
 ENDPOINT=$2
 
-BUILD="npm run build"
-REGION="eu-central-1" # default region for app.show.sourcing.com
-
 CHOICES[1]="app-dev.showsourcing.com"
 CHOICES[2]="app-sta.showsourcing.com"
 CHOICES[3]="app.showsourcing.com"
@@ -31,6 +28,7 @@ if [ -z "$ENDPOINT" ]; then
 	case $n in
 		1) BUILD="npm run build:dev" REGION="us-east-2";;
 		2) BUILD="npm run build:sta" REGION="eu-west-1";;
+		3) BUILD="npm run build" REGION="eu-central-1"
 	esac
 	[ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
 fi

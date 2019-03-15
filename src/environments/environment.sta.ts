@@ -9,7 +9,7 @@ import { WEB_VERSION } from './global.const';
 export const environment = {
 	version: WEB_VERSION,
 	production: false,
-	staging: false,
+	staging: true,
 	graphqlUrl: 'wss://showsourcingprod.us1.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingprod.us1.cloud.realm.io/auth',
 	apiUrl: 'https://services.showsourcing.com',
