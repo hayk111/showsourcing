@@ -27,7 +27,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 			sendTo: ['', Validators.required],
 			sendCopyTo: ['', Validators.required],
 			requestTitle: ['', Validators.required],
-			message: ['']
+			message: [''],
+			shareInformation: ['']
 		});
 	}
 

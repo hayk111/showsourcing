@@ -26,6 +26,12 @@ dialog-app {
 			padding-left: var(--spacing-l);
 			width: 50%;
 		}
+
+		checkbox-app {
+			margin-top: 1px;
+			display: flex;
+			align-items: flex-start;
+		}
 	}
 
 	dialog-footer-app {

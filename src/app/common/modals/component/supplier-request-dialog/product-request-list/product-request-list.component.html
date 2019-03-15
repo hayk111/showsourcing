@@ -1,7 +1,13 @@
-<div class="container">
-	<div *ngFor="let product of products" class="flexBetween">
-		{{ product?.name }}
+<div class="list-container">
+	<div *ngFor="let product of products" class="list-item flexBetween">
+		<div class="flex">
+			<img-app
+				[image]="product?.images?.length ? product?.images[0] : null"
+				type="product">
+			</img-app>
+			{{ product?.name }}
+		</div>
 		<div class="color-primary pointer fs-s">Remove</div>
 	</div>
 </div>
-<div class="flexEnd">{{ products?.length }} {{ products?.length === 1 ? 'Product' : 'Products' }} selected</div>
+<div class="number-products flexEnd">{{ products?.length }} {{ products?.length === 1 ? 'Product' : 'Products' }} selected</div>
