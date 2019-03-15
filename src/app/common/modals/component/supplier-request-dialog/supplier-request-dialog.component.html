@@ -14,7 +14,11 @@
 				<form-field-app class="modal">
 					<label-app>Request Templates</label-app>
 					<selector-app>
-					</selector-app>
+							<selector-placeholder-app
+								name=""
+								placeHolder="Quick ">
+							</selector-placeholder-app>
+						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
 				<form-field-app class="modal">
@@ -37,12 +41,20 @@
 				<form-field-app class="modal">
 					<label-app>Send to</label-app>
 					<selector-app>
+						<selector-placeholder-app
+							name=""
+							placeHolder="Email or Contact">
+						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
 				<form-field-app class="modal">
 					<label-app>Send Copy to</label-app>
 					<selector-app>
+						<selector-placeholder-app
+							name=""
+							placeHolder="Send copy to">
+						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>

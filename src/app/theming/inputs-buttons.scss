@@ -91,6 +91,9 @@ form-field-app.modal {
 		font-weight: normal;
 		text-transform: none;
 	}
+	input, textarea {
+		background: white;
+	}
 }
 
 form-field-app.field-error {

@@ -4,6 +4,7 @@ export * from './selector-button-row/selector-button-row.component';
 export * from './selector-category-row/selector-category-row.component';
 export * from './selector-country-row/selector-country-row.component';
 export * from './selector-currency-row/selector-currency-row.component';
+export * from './selector-placeholder/selector-placeholder.component';
 export * from './selector-event-row/selector-event-row.component';
 export * from './selector-id-row/selector-id-row.component';
 export * from './selector-name-row/selector-name-row.component';
