@@ -1,0 +1,9 @@
+:host {
+	display: block;
+}
+
+.container {
+	border: 1px solid var(--color-divider);
+	padding: var(--spacing-xs) var(--spacing-ms);
+	max-height: 180px;
+}

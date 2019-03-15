@@ -5,13 +5,26 @@
 		<div class="left">
 			<h2 class="color-txt-strong l">Request Settings</h2>
 
-			<label-app class="title">Product to send</label-app>
 			<form [formGroup]="form">
+				<form-field-app class="modal">
+					<label-app>Send me a copy</label-app>
+					<product-request-list-app [products]="products"></product-request-list-app>
+					<input inputApp [hidden]="true" type="text"/>
+				</form-field-app>
 				<form-field-app class="modal">
 					<label-app>Request Templates</label-app>
 					<selector-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app>Share my product information</label-app>
+					<div class="flex">
+						<checkbox-app>
+						</checkbox-app>
+						Share product information you arleady have with the supplier such as price, moq, etc.
+					</div>
+					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
 			</form>
 		</div>
@@ -35,15 +48,20 @@
 				</form-field-app>
 				<form-field-app class="modal">
 					<label-app>Request Title</label-app>
-					<selector-app>
-					</selector-app>
-					<input [hidden]="true" inputApp type="text"/>
+					<input inputApp type="text" formControlName="requestTitle" placeholder="Quote Request"/>
 				</form-field-app>
 				<form-field-app class="modal">
 					<label-app>Message for the supplier</label-app>
-					<selector-app>
-					</selector-app>
-					<input [hidden]="true" inputApp type="text"/>
+					<textarea inputApp type="text" formControlName="description" cols="30" rows="10" placeholder="Quick RFQ"></textarea>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app>Send me a copy</label-app>
+					<div class="flex">
+						<checkbox-app>
+						</checkbox-app>
+						Send a copy of the request to your email address.
+					</div>
+					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
 			</form>
 		</div>

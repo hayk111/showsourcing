@@ -1,0 +1,7 @@
+<div class="container">
+	<div *ngFor="let product of products" class="flexBetween">
+		{{ product?.name }}
+		<div class="color-primary pointer fs-s">Remove</div>
+	</div>
+</div>
+<div class="flexEnd">{{ products?.length }} {{ products?.length === 1 ? 'Product' : 'Products' }} selected</div>
