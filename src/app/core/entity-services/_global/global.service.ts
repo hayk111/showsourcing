@@ -559,9 +559,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param entity : entity with an id and the fields we want to update
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	update(entity: T, clientName: Client = this.defaultClient, isOptimistic: boolean = true): Observable<T> {
+	update(entity: T, clientName: Client = this.defaultClient, fields?: string, isOptimistic: boolean = true): Observable<T> {
 		const title = 'Update ' + this.typeName;
-		const fields = this.patch(entity);
+		fields = fields ? fields : this.patch(entity);
 		const gql = this.queryBuilder.update(fields);
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
@@ -596,8 +596,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param entities : array of entity with an id and the fields we want to update
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	updateMany(entities: T[], clientName: Client = this.defaultClient): Observable<T[]> {
-		return forkJoin(entities.map(entity => this.update(entity, clientName)));
+	updateMany(entities: T[], clientName: Client = this.defaultClient, fields?: string): Observable<T[]> {
+		return forkJoin(entities.map(entity => this.update(entity, clientName, fields)));
 	}
 
 

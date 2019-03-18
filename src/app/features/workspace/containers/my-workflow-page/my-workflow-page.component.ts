@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
-import { first, switchMap, tap, takeUntil, map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
+import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService } from '~entity-services';
-import { ERM, Product, ProductStatus, ProductVote } from '~models';
+import { ERM, Product, ProductStatus } from '~models';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { FilterList, FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -73,7 +75,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			}).pipe(
 				first(),
 				// adding new status
-				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses]),
+				map(statuses => [{ id: NEW_STATUS_ID, name: 'New Product', category: 'new' }, ...statuses]),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
 
@@ -86,7 +88,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
-		const query = col.id !== null ?
+		const query = col.id !== NEW_STATUS_ID ?
 			`status.id == "${col.id}"`
 			: `status == null`;
 		this.productSrv.queryMany({
@@ -101,7 +103,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	private getProducts(statuses: ProductStatus[], filterList: FilterList) {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
-			const constQuery = status.id !== null ?
+			const constQuery = status.id !== NEW_STATUS_ID ?
 				`status.id == "${status.id}"`
 				: `status == null`;
 
@@ -126,47 +128,35 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		this.kanbanSrv.onExternalStatusChange([product]);
 	}
 
-	getColumnColor(status) {
-		if (status.category === 'validated') {
-			return 'var(--color-success)';
-		}
-		if (status.category === 'refused') {
-			return 'var(--color-warn)';
-		}
-		if (!status.category) {
-			return 'var(--color-accent)';
-		}
-		return 'var(--color-in-progress)';
-	}
-
-	getCurrentColumnFct(data) {
-		return data.cat ? data.cat.id : '';
-	}
-
-	/** updates the products with the new value votes */
-	multipleVotes(votes: Map<string, ProductVote[]>) {
-		votes.forEach((v, k) => this.listSrv.update({ id: k, votes: v }));
-	}
-
 	onUpdateProductStatus(event: KanbanDropEvent) {
 		// if dropped in the same column do nothing
 		if (event.to === event.from) {
 			return;
 		}
 		// we update on the server
-		this.productSrv.update({
-			id: event.item.id,
-			status: new ProductStatus({ id: event.to.id })
-		}).subscribe();
+		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		this.productSrv.update(
+			{
+				id: event.item.id,
+				status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
+			},
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
+		).subscribe();
 	}
 
 	/** multiple */
 	updateProductsStatus(event: KanbanDropEvent) {
+		const isNewStatus = event.to.id === NEW_STATUS_ID;
 		const products = event.items.map(id => ({
 			id,
-			status: new ProductStatus({ id: event.to.id })
+			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
 		}));
-		this.productSrv.updateMany(products).subscribe();
+		this.productSrv.updateMany(
+			products,
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
+		).subscribe();
 	}
 
 	onColumnSelected(products: Product[]) {

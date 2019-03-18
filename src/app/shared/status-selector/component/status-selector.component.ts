@@ -27,7 +27,9 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	public set entity(value: any) {
 		let status;
 		if (value) {
-			status = value.status || { id: '-1', category: 'new', name: '_New', step: 0 };
+			const typeEntityName = this.typeEntity.singular;
+			const name = '_New' + typeEntityName.charAt(0).toUpperCase() + typeEntityName.slice(1) + 'status';
+			status = value.status || { id: '-1', category: 'new', name, step: 0 };
 			this._entity = { ...value, status };
 		}
 	}
