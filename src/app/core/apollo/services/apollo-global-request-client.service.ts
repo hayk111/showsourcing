@@ -50,7 +50,7 @@ export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 
 	createMissingSubscription(): Observable<any> {
 		const toSubSet = new Set([
-			ERM.GLOBAL_REQUEST,
+			ERM.SUPPLIER_REQUEST,
 			ERM.REQUEST_ELEMENT,
 			ERM.EXTENDED_FIELD,
 			ERM.EXTENDED_FIELD_DEFINITION,

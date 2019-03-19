@@ -33,4 +33,5 @@ export interface RequestConfig {
 	requestElements?: RequestElement[];
 	title?: string;
 	status?: string;
+	shareInformation?: boolean;
 }

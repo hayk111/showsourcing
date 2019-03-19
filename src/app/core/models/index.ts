@@ -1,4 +1,3 @@
-
 export * from './_entity.model';
 export * from './_erm.enum';
 export * from './app-image.model';
@@ -19,7 +18,6 @@ export * from './export-request.model';
 export * from './extended-field-definition.model';
 export * from './extended-field.model';
 export * from './external-request.model';
-export * from './global-request.model';
 export * from './harbour.model';
 export * from './image-upload-request.model';
 export * from './inco-term.model';
@@ -45,6 +43,7 @@ export * from './sample-status.model';
 export * from './sample.model';
 export * from './show.model';
 export * from './supplier-claim.model';
+export * from './supplier-request.model';
 export * from './supplier-status.model';
 export * from './supplier-type.model';
 export * from './supplier.model';

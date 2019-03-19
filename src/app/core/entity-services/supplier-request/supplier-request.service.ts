@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { GlobalRequest } from '~core/models';
+import { SupplierRequest } from '~core/models';
 import { GlobalService } from '~entity-services/_global/global.service';
 
-import { GlobalRequestQueries } from './global-request.queries';
+import { SupplierRequestQueries } from './supplier-request.queries';
 
 @Injectable({ providedIn: 'root' })
-export class GlobalRequestService extends GlobalService<GlobalRequest> {
+export class SupplierRequestService extends GlobalService<SupplierRequest> {
 
 	defaultClient = Client.GLOBAL_REQUEST;
 
 	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, GlobalRequestQueries, 'request', 'requests');
+		super(apolloState, SupplierRequestQueries, 'request', 'requests');
 	}
 
 }

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { RequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, GlobalRequest, Request } from '~core/models';
+import { ERM, Request } from '~core/models';
 import { TrackingComponent } from '~utils';
 
 @Component({
@@ -33,7 +33,7 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 
 	createRequest() {
 		const manew = new Request({
-			message: 'miau', title: 'supreme title', status: 'pending'
+			message: 'miau', title: 'supreme title', status: 'pending', shareInformation: true
 		});
 		this.listSrv.update(manew);
 	}

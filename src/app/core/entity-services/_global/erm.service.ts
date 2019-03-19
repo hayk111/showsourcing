@@ -37,8 +37,8 @@ import { RequestFieldDefinitionService } from '../request-field-definition/reque
 import { RequestFieldService } from '../request-field/request-field.service';
 import { RequestReplyService } from '../request-reply/request-reply.service';
 import { RequestService } from '../request/request.service';
+import { SupplierRequestService } from '../supplier-request/supplier-request.service';
 import { GlobalService } from './global.service';
-import { GlobalRequestService } from '../global-request/global-request.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -57,7 +57,6 @@ export class ERMService {
 		private exportRequestService: ExportRequestService,
 		private extendedFieldSrv: ExtendedFieldService,
 		private extendedFieldDefinitionSrv: ExtendedFieldDefinitionService,
-		private globalRequestService: GlobalRequestService,
 		private harbourService: HarbourService,
 		private imageService: ImageService,
 		private imageUploadRequestService: ImageUploadRequestService,
@@ -74,6 +73,7 @@ export class ERMService {
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
 		private supplierService: SupplierService,
+		private supplierRequestSrv: SupplierRequestService,
 		private supplierStatusSrv: SupplierStatusService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagService: TagService,
@@ -178,8 +178,6 @@ export class ERMService {
 				return this.extendedFieldSrv;
 			case ERM.EXTENDED_FIELD_DEFINITION:
 				return this.extendedFieldDefinitionSrv;
-			case ERM.GLOBAL_REQUEST:
-				return this.globalRequestService;;
 			case ERM.HARBOUR:
 				return this.harbourService;
 			case ERM.IMAGE:
@@ -212,6 +210,8 @@ export class ERMService {
 				return this.sampleStatusSrv;
 			case ERM.SUPPLIER:
 				return this.supplierService;
+			case ERM.SUPPLIER_REQUEST:
+				return this.supplierRequestSrv;
 			case ERM.SUPPLIER_STATUS:
 				return this.supplierStatusSrv;
 			case ERM.SUPPLIER_TYPE:

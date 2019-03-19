@@ -4,7 +4,7 @@ import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
 import { RequestElement } from './request-element.model';
 
-export class GlobalRequest {
+export class SupplierRequest {
 	id: ID;
 	requestElements: RequestElement[];
 	sender: Contact;
@@ -20,7 +20,7 @@ export class GlobalRequest {
 	lastUpdatedDate: string;
 	__typename?= 'Request';
 
-	constructor(config: GlobalRequestConfig) {
+	constructor(config: SupplierRequestConfig) {
 		if (!config.id) this.id = uuid();
 		this.creationDate = '' + new Date();
 		this.lastUpdatedDate = '' + new Date();
@@ -28,7 +28,7 @@ export class GlobalRequest {
 	}
 }
 
-export interface GlobalRequestConfig {
+export interface SupplierRequestConfig {
 	id?: ID;
 	message?: string;
 	requestElements?: RequestElement[];
