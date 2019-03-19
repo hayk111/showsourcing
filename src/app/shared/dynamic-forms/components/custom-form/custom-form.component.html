@@ -5,7 +5,7 @@
     *ngFor="let definition of definitions; trackBy: trackByFn"
     [definition]="definition"
     [field]="getFieldForDefinition(definition.id)"
-    [inlineLabel]="inlineLabel"
+		[inlineLabel]="inlineLabel"
     (update)="onUpdate($event)">
   </custom-form-input-app>
 

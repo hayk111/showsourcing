@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService } from '~core/entity-services';
 import { ERM, Product } from '~core/models';
-import { CustomField } from '~shared/dynamic-forms';
+import { DynamicField } from '~shared/dynamic-forms';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -18,7 +18,7 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	product: Product;
 
-	customFields: CustomField[] = [
+	customFields: DynamicField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },

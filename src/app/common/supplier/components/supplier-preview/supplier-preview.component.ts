@@ -8,7 +8,7 @@ import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/models';
-import { CustomField } from '~shared/dynamic-forms';
+import { DynamicField } from '~shared/dynamic-forms';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { AutoUnsub } from '~utils';
 
@@ -36,7 +36,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	erm = ERM;
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
-	customFields: CustomField[] = [
+	customFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{
 			name: 'supplierType',

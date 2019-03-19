@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ExtendedFieldDefinition, Price, RequestField, RequestFieldDefinition } from '~core/models';
 import { ExtendedField } from '~core/models/extended-field.model';
-import { CustomField, CustomFieldDefinition } from '~core/models/custom-field.model';
-import { FieldType } from '~shared/dynamic-forms/models';
+import { CustomField, CustomFieldDefinition } from '~shared/dynamic-forms/models';
 
 
 
@@ -26,7 +25,6 @@ export class CustomFormInputComponent {
 
 	@Input() set field(field: CustomField) {
 		if (!field) {
-			console.log(field.constructor.name);
 			switch (field.constructor.name) {
 				case ExtendedField.name:
 					field = new ExtendedField();

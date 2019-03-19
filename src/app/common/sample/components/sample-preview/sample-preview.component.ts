@@ -5,8 +5,8 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { SampleService, UserService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { Comment, ERM, Sample } from '~core/models';
-import { CustomField } from '~shared/dynamic-forms';
 import { AutoUnsub } from '~utils';
+import { DynamicField } from '~shared/dynamic-forms';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -31,7 +31,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 	modalOpen = false;
 	erm = ERM;
 
-	customFields: CustomField[] = [
+	customFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true } },
 		{ name: 'product', type: 'selector', metadata: { target: 'product', type: 'entity', labelName: 'name', canCreate: true } },

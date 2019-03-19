@@ -9,10 +9,9 @@
 		</h3>
 	</div>
 
-
 	<custom-form-app
 		[definitions]="fieldDefinitions$ | async"
-		[fields]="product.extendedFields"
+		[fields]="product?.extendedFields"
 		(update)="updateProduct($event)">
 	</custom-form-app>
 
