@@ -36,7 +36,7 @@ import { RequestElementService } from '../request-element/request-element.servic
 import { RequestFieldDefinitionService } from '../request-field-definition/request-field-definition.service';
 import { RequestFieldService } from '../request-field/request-field.service';
 import { RequestReplyService } from '../request-reply/request-reply.service';
-import { TeamRequestService } from '../team-request/team-request.service';
+import { RequestService } from '../request/request.service';
 import { GlobalService } from './global.service';
 import { GlobalRequestService } from '../global-request/global-request.service';
 
@@ -66,7 +66,7 @@ export class ERMService {
 		private productService: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private projectService: ProjectService,
-		private teamRequestService: TeamRequestService,
+		private requestService: RequestService,
 		private requestElementService: RequestElementService,
 		private requestFieldService: RequestFieldService,
 		private requestFieldDefinitionService: RequestFieldDefinitionService,
@@ -124,7 +124,7 @@ export class ERMService {
 			case 'Project':
 				return this.projectService;
 			case 'Request':
-				return this.teamRequestService;
+				return this.requestService;
 			case 'RequestElement':
 				return this.requestElementService;
 			case 'RequestField':
@@ -204,6 +204,8 @@ export class ERMService {
 				return this.requestFieldDefinitionService;
 			case ERM.REQUEST_REPLY:
 				return this.requestReplyService;
+			case ERM.REQUEST:
+				return this.requestService;
 			case ERM.SAMPLE:
 				return this.sampleSrv;
 			case ERM.SAMPLE_STATUS:
@@ -220,8 +222,6 @@ export class ERMService {
 				return this.taskSrv;
 			case ERM.TEAM:
 				return this.teamService;
-			case ERM.TEAM_REQUEST:
-				return this.teamRequestService;
 			case ERM.TEAM_USER:
 				return this.teamUserSrv;
 			case ERM.USER:

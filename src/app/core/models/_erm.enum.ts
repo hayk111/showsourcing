@@ -29,7 +29,7 @@ import { RequestElement } from './request-element.model';
 import { RequestFieldDefinition } from './request-field-definition.model';
 import { RequestField } from './request-field.model';
 import { RequestReply } from './request-reply.model';
-import { TeamRequest } from './team-request.model';
+import { Request } from './request.model';
 import { GlobalRequest } from './global-request.model';
 
 
@@ -90,7 +90,7 @@ export class ERM {
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
 	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
 	static readonly GLOBAL_REQUEST = new EntityMetadata('request', 'requests', GlobalRequest);
-	static readonly TEAM_REQUEST = new EntityMetadata('request', 'requests', TeamRequest);
+	static readonly REQUEST = new EntityMetadata('request', 'requests', Request);
 	static readonly REQUEST_ELEMENT = new EntityMetadata('request element', 'request elements', RequestElement);
 	static readonly REQUEST_FIELD = new EntityMetadata('request field', 'request fields', RequestField);
 	static readonly REQUEST_FIELD_DEFINITION = new EntityMetadata(

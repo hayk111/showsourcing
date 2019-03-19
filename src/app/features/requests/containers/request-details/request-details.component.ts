@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { GlobalRequestService, RequestReplyService } from '~core/entity-services';
-import { ERM, TeamRequest } from '~core/models';
+import { RequestReplyService, RequestService } from '~core/entity-services';
+import { ERM, Request } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 
@@ -15,13 +14,13 @@ import { AutoUnsub } from '~utils';
 })
 export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
-	request: TeamRequest;
+	request: Request;
 	erm = ERM;
 
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private featureSrv: GlobalRequestService,
+		private featureSrv: RequestService,
 		private notifSrv: NotificationService,
 		private cdr: ChangeDetectorRef,
 		private requestReplySrv: RequestReplyService
@@ -34,7 +33,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id, '', Client.GLOBAL_REQUEST)),
+			switchMap(id => this.featureSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(
 			request => this.onRequest(request),

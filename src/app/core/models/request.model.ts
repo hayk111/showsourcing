@@ -7,7 +7,7 @@ import { EntityWithAudit } from './_entity.model';
 import { Product } from './product.model';
 import { Supplier } from './supplier.model';
 
-export class TeamRequest extends EntityWithAudit<TeamRequestConfig> {
+export class Request extends EntityWithAudit<RequestConfig> {
 	id: ID;
 	products: Product[];
 	suppliers: Supplier[];
@@ -23,12 +23,12 @@ export class TeamRequest extends EntityWithAudit<TeamRequestConfig> {
 	attachments: Attachment[];
 	__typename?= 'Request';
 
-	constructor(config: TeamRequestConfig) {
+	constructor(config: RequestConfig) {
 		super(config);
 	}
 }
 
-export interface TeamRequestConfig {
+export interface RequestConfig {
 	message?: string;
 	requestElements?: RequestElement[];
 	title?: string;
