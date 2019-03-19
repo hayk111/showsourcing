@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ERM } from '~core/models';
 import { Packaging } from '~models/packaging.model';
-import { CustomField } from '~shared/dynamic-forms/models';
+import { DynamicField } from '~shared/dynamic-forms/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
@@ -21,7 +21,7 @@ export class EditablePackagingComponent extends AbstractInput {
 	get value() { return this._value; }
 	private _value;
 
-	@Input() customField: CustomField;
+	@Input() customField: DynamicField;
 	@Output() change = new EventEmitter<Packaging>();
 	@Output() rowClosed = new EventEmitter();
 

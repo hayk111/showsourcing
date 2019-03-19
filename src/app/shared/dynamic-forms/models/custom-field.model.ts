@@ -1,14 +1,4 @@
+import { ExtendedField, ExtendedFieldDefinition, RequestField, RequestFieldDefinition } from '~core/models';
 
-export interface CustomField {
-	name?: string;
-	value?: any;
-	type?: string;
-	metadata?: any;
-	label?: string;
-	placeholder?: string;
-	required?: boolean;
-	multiple?: boolean;
-	// for when multiple choices
-	choices?: Array<any>;
-}
-
+export type CustomField = ExtendedField | RequestField;
+export type CustomFieldDefinition = ExtendedFieldDefinition | RequestFieldDefinition;

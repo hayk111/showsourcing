@@ -1,0 +1,7 @@
+<card-app>
+	<custom-form-app
+		[definitions]="requestElement?.requestedFields"
+		[fields]="requestElement?.reply?.fields || []"
+		(update)="update.emit($event)">
+	</custom-form-app>
+</card-app>

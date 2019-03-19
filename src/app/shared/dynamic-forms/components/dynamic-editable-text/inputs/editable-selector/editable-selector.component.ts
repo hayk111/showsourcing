@@ -8,7 +8,7 @@ import {
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
-import { CustomField } from '~shared/dynamic-forms';
+import { DynamicField } from '~shared/dynamic-forms/models';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
@@ -28,7 +28,7 @@ export class EditableSelectorComponent extends AbstractInput {
 	@Input() isOpen: boolean;
 	@Input() isShowLabel: true;
 	@Input() inlineLabel: string;
-	@Input() customField: CustomField;
+	@Input() customField: DynamicField;
 	@Input() closeOnOutsideClick: boolean;
 	@Output() opened = new EventEmitter();
 	@Output() closed = new EventEmitter();

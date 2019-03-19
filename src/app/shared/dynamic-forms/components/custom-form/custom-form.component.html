@@ -1,11 +1,12 @@
 
 <div class="form">
-  <extended-form-input-app
+
+  <custom-form-input-app
     *ngFor="let definition of definitions; trackBy: trackByFn"
     [definition]="definition"
     [field]="getFieldForDefinition(definition.id)"
-    [inlineLabel]="inlineLabel"
+		[inlineLabel]="inlineLabel"
     (update)="onUpdate($event)">
-  </extended-form-input-app>
+  </custom-form-input-app>
 
 </div>

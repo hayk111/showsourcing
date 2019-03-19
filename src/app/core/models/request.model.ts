@@ -26,4 +26,5 @@ export class Request {
 
 export interface RequestConfig {
 	id?: ID;
+	message?: string;
 }

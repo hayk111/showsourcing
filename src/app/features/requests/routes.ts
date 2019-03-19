@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { RequestPageComponent } from './containers/request-page/request-page.component';
+import { RequestDetailsComponent, RequestPageComponent } from './containers';
 
 export const routes: Routes = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },
@@ -10,7 +10,6 @@ export const routes: Routes = [
 	},
 	{
 		path: 'details/:id',
-		component: RequestPageComponent,
-		data: { skipScrollTop: true },
+		component: RequestDetailsComponent
 	},
 ];

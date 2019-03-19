@@ -1,5 +1,4 @@
 import {
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
@@ -8,7 +7,7 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { CustomField } from '~shared/dynamic-forms';
+import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
@@ -39,7 +38,7 @@ export class DynamicEditableTextComponent extends AbstractInput {
 		return this._value;
 	}
 	private _value: any;
-	@Input() customField: CustomField;
+	@Input() customField: DynamicField;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
 	/** when the editable field opens */

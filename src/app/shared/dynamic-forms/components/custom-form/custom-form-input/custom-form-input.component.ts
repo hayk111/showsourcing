@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ExtendedFieldDefinition, Price, RequestField, RequestFieldDefinition } from '~core/models';
 import { ExtendedField } from '~core/models/extended-field.model';
-import { ExtendedFieldDefinition, Price } from '~core/models';
-import { EditableFieldComponent } from '~shared/editable-field';
-import { InputDirective } from '~shared/inputs';
+import { CustomField, CustomFieldDefinition } from '~shared/dynamic-forms/models';
 
 
 
@@ -13,33 +12,43 @@ import { InputDirective } from '~shared/inputs';
  * in case the user cancels.
  */
 @Component({
-	selector: 'extended-form-input-app',
-	templateUrl: './extended-form-input.component.html',
-	styleUrls: ['./extended-form-input.component.scss'],
+	selector: 'custom-form-input-app',
+	templateUrl: './custom-form-input.component.html',
+	styleUrls: ['./custom-form-input.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.oneLine]': 'inlineLabel',
 		'[class.twoLine]': '!inlineLabel'
 	}
 })
-export class ExtendedFormInputComponent {
+export class CustomFormInputComponent {
 
-	@Input() set field(field: ExtendedField) {
-		if (!field)
-			field = new ExtendedField();
+	@Input() set field(field: CustomField) {
+		if (!field) {
+			switch (field.constructor.name) {
+				case ExtendedField.name:
+					field = new ExtendedField();
+					break;
+				case RequestField.name:
+					field = new RequestField();
+					break;
+				default:
+					throw Error(`Unsuported field type (${field.constructor.name}) for custom form input`);
+			}
+		}
 		this._field = field;
 		this.accumulator = field.value;
 	}
 	get field() { return this._field; }
-	private _field: ExtendedField;
+	private _field: CustomField;
 
-	@Input() definition: ExtendedFieldDefinition;
+	@Input() definition: CustomFieldDefinition;
 
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
 	/** when the editable field opens */
 	@Output() open = new EventEmitter<null>();
-	@Output() update = new EventEmitter<ExtendedField>();
+	@Output() update = new EventEmitter<CustomField>();
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 
@@ -52,7 +61,17 @@ export class ExtendedFormInputComponent {
 	/** saving the value */
 	onSave() {
 		this.field.value = this.accumulator;
-		const definition = new ExtendedFieldDefinition({ id: this.definition.id });
+		let definition;
+		switch (this.field.constructor.name) {
+			case ExtendedField.name:
+				definition = new ExtendedFieldDefinition({ id: this.definition.id });
+				break;
+			case RequestField.name:
+				definition = new RequestFieldDefinition({ id: this.definition.id });
+				break;
+			default:
+				throw Error(`Unsuported definition field type (${this.field.constructor.name}) for custom form input`);
+		}
 		this.update.emit({ ...this.field, definition });
 	}
 
