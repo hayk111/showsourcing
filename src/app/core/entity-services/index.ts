@@ -24,6 +24,8 @@ export * from './request-element/request-element.queries';
 export * from './request-element/request-element.service';
 export * from './request-reply/request-reply.queries';
 export * from './request-reply/request-reply.service';
+export * from './request-template/request-template.queries';
+export * from './request-template/request-template.service';
 export * from './request/request.queries';
 export * from './request/request.service';
 export * from './sample-status/sample-status.service';

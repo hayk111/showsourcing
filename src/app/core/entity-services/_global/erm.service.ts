@@ -34,6 +34,7 @@ import { ImageService } from '../image/image.service';
 import { IncoTermService } from '../inco-term/inco-term.service';
 import { RequestElementService } from '../request-element/request-element.service';
 import { RequestReplyService } from '../request-reply/request-reply.service';
+import { RequestTemplateService } from '../request-template/request-template.service';
 import { RequestService } from '../request/request.service';
 import { SupplierRequestService } from '../supplier-request/supplier-request.service';
 import { GlobalService } from './global.service';
@@ -66,6 +67,7 @@ export class ERMService {
 		private requestService: RequestService,
 		private requestElementService: RequestElementService,
 		private requestReplyService: RequestReplyService,
+		private requestTemplateService: RequestTemplateService,
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
 		private supplierService: SupplierService,
@@ -125,6 +127,8 @@ export class ERMService {
 				return this.requestElementService;
 			case 'RequestReply':
 				return this.requestReplyService;
+			case 'RequestTemplate':
+				return this.requestTemplateService;
 			case 'Sample':
 				return this.sampleSrv;
 			case 'SampleStatus':
@@ -190,6 +194,8 @@ export class ERMService {
 				return this.requestElementService;
 			case ERM.REQUEST_REPLY:
 				return this.requestReplyService;
+			case ERM.REQUEST_TEMPLATE:
+				return this.requestTemplateService;
 			case ERM.REQUEST:
 				return this.requestService;
 			case ERM.SAMPLE:
