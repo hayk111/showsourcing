@@ -1,38 +1,36 @@
-import { ID, uuid } from '~utils';
+import { ID } from '~utils';
 import { Contact } from './contact.model';
 import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
 import { RequestElement } from './request-element.model';
+import { EntityWithAudit } from './_entity.model';
+import { Product } from './product.model';
+import { Supplier } from './supplier.model';
 
-export class TeamRequest {
+export class TeamRequest extends EntityWithAudit<TeamRequestConfig> {
 	id: ID;
+	products: Product[];
+	suppliers: Supplier[];
+	// requestTtemplate?: RequestTemplate;
 	requestElements: RequestElement[];
-	sender?: Contact;
-	senderTeamId: string;
+	shareInformation: boolean;
 	title: string;
 	message?: string;
-	recipient?: Contact;
-	status: string;
+	recipient: Contact;
 	sendCopyTo: string[];
+	status: string;
 	images: AppImage[];
 	attachments: Attachment[];
-	creationDate: string;
-	lastUpdatedDate: string;
 	__typename?= 'Request';
 
 	constructor(config: TeamRequestConfig) {
-		if (!config.id) this.id = uuid();
-		Object.assign(this, config);
+		super(config);
 	}
 }
 
 export interface TeamRequestConfig {
-	id?: ID;
 	message?: string;
-	requestElements?: RequestElement;
-	senderTeamId?: string;
+	requestElements?: RequestElement[];
 	title?: string;
 	status?: string;
-	creationDate: string;
-	lastUpdatedDate: string;
 }

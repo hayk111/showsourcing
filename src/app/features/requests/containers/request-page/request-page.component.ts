@@ -33,8 +33,7 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 
 	createRequest() {
 		const manew = new GlobalRequest({
-			message: 'miau', title: 'supreme title', senderTeamId: 'really long id', status: 'pending',
-			creationDate: new Date().toString(), lastUpdatedDate: new Date().toString()
+			message: 'miau', title: 'supreme title', senderTeamId: 'really long id', status: 'pending'
 		});
 		this.listSrv.update(manew);
 	}

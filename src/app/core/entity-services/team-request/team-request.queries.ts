@@ -22,6 +22,7 @@ export abstract class TeamRequestQueries extends GlobalQueries {
 		status
 		creationDate
 		lastUpdatedDate
+		deleted
 	`;
 
 	// ${TeamRequestQueries.recipient}
@@ -33,6 +34,7 @@ export abstract class TeamRequestQueries extends GlobalQueries {
 		status
 		creationDate
 		lastUpdatedDate
+		deleted
 	`;
 
 }

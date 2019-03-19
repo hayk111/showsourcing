@@ -7,13 +7,13 @@ import { RequestElement } from './request-element.model';
 export class GlobalRequest {
 	id: ID;
 	requestElements: RequestElement[];
-	sender?: Contact;
+	sender: Contact;
 	senderTeamId: string;
 	title: string;
 	message?: string;
-	recipient?: Contact;
-	status: string;
+	recipient: Contact;
 	sendCopyTo: string[];
+	status: string;
 	images: AppImage[];
 	attachments: Attachment[];
 	creationDate: string;
@@ -22,6 +22,8 @@ export class GlobalRequest {
 
 	constructor(config: GlobalRequestConfig) {
 		if (!config.id) this.id = uuid();
+		this.creationDate = '' + new Date();
+		this.lastUpdatedDate = '' + new Date();
 		Object.assign(this, config);
 	}
 }
@@ -29,10 +31,8 @@ export class GlobalRequest {
 export interface GlobalRequestConfig {
 	id?: ID;
 	message?: string;
-	requestElements?: RequestElement;
+	requestElements?: RequestElement[];
 	senderTeamId?: string;
 	title?: string;
 	status?: string;
-	creationDate: string;
-	lastUpdatedDate: string;
 }

@@ -155,7 +155,6 @@ export class ERMService {
 	}
 
 	getGlobalService(erm: EntityMetadata): GlobalService<any> {
-		console.log(erm);
 		switch (erm) {
 			case ERM.ATTACHMENT:
 				return this.attachmentService;
