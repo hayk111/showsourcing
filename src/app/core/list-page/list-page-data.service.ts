@@ -86,7 +86,7 @@ export class ListPageDataService
 			...this.selectParams,
 			// overriding query in case there is a filter / search
 			query: this.filterList.asPredicate()
-		}, '');
+		});
 
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),
