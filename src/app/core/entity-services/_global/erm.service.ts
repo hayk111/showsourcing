@@ -33,8 +33,6 @@ import { HarbourService } from '../harbour/harbour.service';
 import { ImageService } from '../image/image.service';
 import { IncoTermService } from '../inco-term/inco-term.service';
 import { RequestElementService } from '../request-element/request-element.service';
-import { RequestFieldDefinitionService } from '../request-field-definition/request-field-definition.service';
-import { RequestFieldService } from '../request-field/request-field.service';
 import { RequestReplyService } from '../request-reply/request-reply.service';
 import { RequestService } from '../request/request.service';
 import { SupplierRequestService } from '../supplier-request/supplier-request.service';
@@ -67,8 +65,6 @@ export class ERMService {
 		private projectService: ProjectService,
 		private requestService: RequestService,
 		private requestElementService: RequestElementService,
-		private requestFieldService: RequestFieldService,
-		private requestFieldDefinitionService: RequestFieldDefinitionService,
 		private requestReplyService: RequestReplyService,
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
@@ -127,10 +123,6 @@ export class ERMService {
 				return this.requestService;
 			case 'RequestElement':
 				return this.requestElementService;
-			case 'RequestField':
-				return this.requestFieldService;
-			case 'RequestFieldDescription':
-				return this.requestFieldDefinitionService;
 			case 'RequestReply':
 				return this.requestReplyService;
 			case 'Sample':
@@ -196,10 +188,6 @@ export class ERMService {
 				return this.projectService;
 			case ERM.REQUEST_ELEMENT:
 				return this.requestElementService;
-			case ERM.REQUEST_FIELD:
-				return this.requestFieldService;
-			case ERM.REQUEST_FIELD_DEFINITION:
-				return this.requestFieldDefinitionService;
 			case ERM.REQUEST_REPLY:
 				return this.requestReplyService;
 			case ERM.REQUEST:

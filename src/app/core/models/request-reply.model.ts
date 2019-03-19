@@ -1,11 +1,11 @@
 import { ID, uuid } from '~utils';
-import { RequestField } from './request-field.model';
+import { ExtendedField } from './extended-field.model';
 
 export class RequestReply {
 	id: ID;
 	message: string;
 	status: string;
-	fields: RequestField[];
+	fields: ExtendedField[];
 	__typename?= 'RequestReply';
 
 	constructor(config: RequestReplyConfig) {

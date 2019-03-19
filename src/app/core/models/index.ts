@@ -35,8 +35,6 @@ export * from './query-based-subscription.model';
 export * from './quote.model';
 export * from './realm-server.model';
 export * from './request-element.model';
-export * from './request-field-definition.model';
-export * from './request-field.model';
 export * from './request-reply.model';
 export * from './request.model';
 export * from './sample-status.model';
