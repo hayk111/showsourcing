@@ -98,12 +98,12 @@
 
 	<!-- Extended Fields -->
 	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'Extended Fields'">
-		<custom-form-app
+		<extended-form-app
 			inlineLabel="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="product?.extendedFields"
 			(update)="updateProduct($event)">
-		</custom-form-app>
+		</extended-form-app>
 	</preview-section-app>
 
 

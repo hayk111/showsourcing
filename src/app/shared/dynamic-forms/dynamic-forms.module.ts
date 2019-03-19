@@ -12,8 +12,6 @@ import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
 
 import {
-	CustomFormComponent,
-	CustomFormInputComponent,
 	DynamicEditableTextComponent,
 	DynamicFormComponent,
 	DynamicInputComponent,
@@ -22,6 +20,8 @@ import {
 	EditablePriceMatrixComponent,
 	EditablePriceMatrixRowComponent,
 	EditableSelectorComponent,
+	ExtendedFormComponent,
+	ExtendedFormInputComponent,
 	InputPackagingComponent,
 } from './components';
 
@@ -42,8 +42,8 @@ import {
 		UserPictureModule
 	],
 	declarations: [
-		CustomFormComponent,
-		CustomFormInputComponent,
+		ExtendedFormComponent,
+		ExtendedFormInputComponent,
 		DynamicEditableTextComponent,
 		DynamicFormComponent,
 		DynamicInputComponent,
@@ -56,7 +56,7 @@ import {
 	],
 	exports: [
 		DynamicFormComponent,
-		CustomFormComponent
+		ExtendedFormComponent
 	]
 })
 export class DynamicFormsModule {
