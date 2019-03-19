@@ -38,6 +38,7 @@ import { RequestFieldService } from '../request-field/request-field.service';
 import { RequestReplyService } from '../request-reply/request-reply.service';
 import { TeamRequestService } from '../team-request/team-request.service';
 import { GlobalService } from './global.service';
+import { GlobalRequestService } from '../global-request/global-request.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -56,6 +57,7 @@ export class ERMService {
 		private exportRequestService: ExportRequestService,
 		private extendedFieldSrv: ExtendedFieldService,
 		private extendedFieldDefinitionSrv: ExtendedFieldDefinitionService,
+		private globalRequestService: GlobalRequestService,
 		private harbourService: HarbourService,
 		private imageService: ImageService,
 		private imageUploadRequestService: ImageUploadRequestService,
@@ -153,6 +155,7 @@ export class ERMService {
 	}
 
 	getGlobalService(erm: EntityMetadata): GlobalService<any> {
+		console.log(erm);
 		switch (erm) {
 			case ERM.ATTACHMENT:
 				return this.attachmentService;
@@ -176,6 +179,8 @@ export class ERMService {
 				return this.extendedFieldSrv;
 			case ERM.EXTENDED_FIELD_DEFINITION:
 				return this.extendedFieldDefinitionSrv;
+			case ERM.GLOBAL_REQUEST:
+				return this.globalRequestService;;
 			case ERM.HARBOUR:
 				return this.harbourService;
 			case ERM.IMAGE:

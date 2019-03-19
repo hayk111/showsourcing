@@ -30,6 +30,7 @@ import { RequestFieldDefinition } from './request-field-definition.model';
 import { RequestField } from './request-field.model';
 import { RequestReply } from './request-reply.model';
 import { TeamRequest } from './team-request.model';
+import { GlobalRequest } from './global-request.model';
 
 
 export class EntityMetadata {
@@ -88,7 +89,7 @@ export class ERM {
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
 	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
-	static readonly GLOBAL_REQUEST = new EntityMetadata('request', 'requests', TeamRequest);
+	static readonly GLOBAL_REQUEST = new EntityMetadata('request', 'requests', GlobalRequest);
 	static readonly TEAM_REQUEST = new EntityMetadata('request', 'requests', TeamRequest);
 	static readonly REQUEST_ELEMENT = new EntityMetadata('request element', 'request elements', RequestElement);
 	static readonly REQUEST_FIELD = new EntityMetadata('request field', 'request fields', RequestField);

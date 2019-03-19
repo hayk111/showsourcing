@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
-import { TeamRequestService } from '~core/entity-services';
+import { GlobalRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, TeamRequest } from '~core/models';
+import { ERM, GlobalRequest } from '~core/models';
 import { TrackingComponent } from '~utils';
 
 @Component({
@@ -16,23 +16,23 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 	erm = ERM;
 
 	constructor(
-		private teamRequestSrv: TeamRequestService,
-		public listSrv: ListPageService<TeamRequest, TeamRequestService>,
+		private globalRequestSrv: GlobalRequestService,
+		public listSrv: ListPageService<GlobalRequest, GlobalRequestService>,
 		public commonModalSrv: CommonModalService
 	) { super(); }
 
 	ngOnInit() {
 		this.listSrv.setup({
 			key: ListPageKey.REQUEST,
-			entitySrv: this.teamRequestSrv,
+			entitySrv: this.globalRequestSrv,
 			searchedFields: [],
-			entityMetadata: ERM.TEAM_REQUEST,
+			entityMetadata: ERM.GLOBAL_REQUEST,
 			initialFilters: [],
 		});
 	}
 
 	createRequest() {
-		const manew = new TeamRequest({
+		const manew = new GlobalRequest({
 			message: 'miau', title: 'supreme title', senderTeamId: 'really long id', status: 'pending',
 			creationDate: new Date().toString(), lastUpdatedDate: new Date().toString()
 		});

@@ -1,4 +1,3 @@
-
 export * from './attachment-upload-request/attachment-upload-request.service';
 export * from './attachment/attachment.queries';
 export * from './attachment/attachment.service';
@@ -13,6 +12,8 @@ export * from './currency/currency.service';
 export * from './event/event.service';
 export * from './extended-field/extended-field.service';
 export * from './external-request/external-request.service';
+export * from './global-request/global-request.queries';
+export * from './global-request/global-request.service';
 export * from './image-upload-request/image-upload-request.service';
 export * from './invitation-user/invitation-user.service';
 export * from './invitation/invitation.service';

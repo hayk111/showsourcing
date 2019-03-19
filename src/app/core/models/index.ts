@@ -19,6 +19,7 @@ export * from './export-request.model';
 export * from './extended-field-definition.model';
 export * from './extended-field.model';
 export * from './external-request.model';
+export * from './global-request.model';
 export * from './harbour.model';
 export * from './image-upload-request.model';
 export * from './inco-term.model';

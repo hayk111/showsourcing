@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { RequestService, RequestReplyService } from '~core/entity-services';
-import { ERM, TeamRequest, RequestReply } from '~core/models';
+import { GlobalRequestService, RequestReplyService } from '~core/entity-services';
+import { ERM, TeamRequest } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 
@@ -21,7 +21,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private featureSrv: RequestService,
+		private featureSrv: GlobalRequestService,
 		private notifSrv: NotificationService,
 		private cdr: ChangeDetectorRef,
 		private requestReplySrv: RequestReplyService
