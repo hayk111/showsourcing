@@ -52,8 +52,8 @@ export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 		const toSubSet = new Set([
 			ERM.REQUEST,
 			ERM.REQUEST_ELEMENT,
-			ERM.REQUEST_FIELD,
-			ERM.REQUEST_FIELD_DEFINITION,
+			ERM.EXTENDED_FIELD,
+			ERM.EXTENDED_FIELD_DEFINITION,
 			ERM.REQUEST_REPLY
 		]);
 

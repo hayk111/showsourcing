@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { RequestElement, RequestField } from '~core/models';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { RequestElement, RequestReply } from '~core/models';
 
 @Component({
 	selector: 'request-element-form-app',
@@ -10,11 +10,22 @@ import { RequestElement, RequestField } from '~core/models';
 export class RequestElementFormComponent implements OnInit {
 
 	@Input() requestElement: RequestElement;
-	@Output() update = new EventEmitter<RequestField>();
 
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	updateRequest(request: RequestElement) {
+
+	}
+
+	updateReply(replyR: RequestReply) {
+		// if (this.requestElement && this.requestElement.reply) {
+		// 	this.updateRequest({
+		// 		reply: { id: this.requestElement.reply.id, ...replyR }, ...this.requestElement
+		// 	});
+		// }
 	}
 
 }

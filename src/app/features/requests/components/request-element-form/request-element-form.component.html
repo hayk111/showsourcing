@@ -2,6 +2,6 @@
 	<extended-form-app
 		[definitions]="requestElement?.requestedFields"
 		[fields]="requestElement?.reply?.fields || []"
-		(update)="update.emit($event)">
+		(update)="updateReply({fields: $event})">
 	</extended-form-app>
 </card-app>
