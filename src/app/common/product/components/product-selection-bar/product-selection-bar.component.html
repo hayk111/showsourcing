@@ -1,0 +1,85 @@
+<selection-bar-app
+	[isShown]="isShown"
+	[selection]="selection"
+	(close)="close.emit()">
+	<div class="flex elements-container">
+		<!-- Like actions -->
+		<context-menu-app>
+			<!-- trigger -->
+			<context-menu-trigger-app>
+				<button class="secondary-light flexCenter with-name">
+					<icon-app class="color-action" name="smile"></icon-app>
+					Like
+				</button>
+			</context-menu-trigger-app>
+
+			<!-- items -->
+			<context-menu-item-app (click)="thumbUp()">
+				<icon-app [ngClass]="{'color-primary': like, 'color-txt-secondary': !like}" name="thumbs-up"></icon-app>
+				Like
+			</context-menu-item-app>
+			<context-menu-item-app (click)="thumbDown()">
+				<icon-app [ngClass]="{'color-warn': dislike, 'color-txt-secondary': !dislike}" name="thumbs-down"></icon-app>
+				Dislike
+			</context-menu-item-app>
+			<context-menu-item-app (click)="ratingHeart.onClick()">
+				<rating-heart-app
+					#ratingHeart
+					customClassFavorited="unset-button"
+					customClassUnFavorited="unset-button"
+					size="12"
+					[favorite]="favorite"
+					(favorited)="favorited.emit()"
+					(unfavorited)="unfavorited.emit()">
+				 </rating-heart-app>
+				Favorite
+			</context-menu-item-app>
+		</context-menu-app>
+
+		<status-selector-app
+			toolTip toolTipMessage="Change status of selected" toolTipPosition="above-right"
+			#workActionMenu
+			selectSize="s"
+			[typeEntity]="erm.PRODUCT"
+			type="multiple-selection"
+			[internalUpdate]="false"
+			(statusUpdated)="statusUpdated.emit($event)">
+		</status-selector-app>
+
+		<!-- Project -->
+		<button class="secondary-light flexCenter with-name" (click)="addProject.emit()">
+			<icon-app class="color-primary" name="project"></icon-app>
+			Add to project
+		</button>
+
+		<!-- Compare products -->
+		<button class="secondary-light flexCenter with-name" (click)="compareProducts.emit()">
+			<icon-app class="color-success" name="feedback"></icon-app>
+			Compare products
+		</button>
+
+		<!-- Export -->
+		<button class="secondary-light flexCenter with-name" (click)="export.emit()">
+			<icon-app name="export"></icon-app>
+			Export selection
+		</button>
+
+		<!-- 3 dots menu -->
+		<context-menu-app>
+			<!-- trigger -->
+			<context-menu-trigger-app>
+				<button class="icon light">
+					<icon-app name="dots-vertical" size="m"></icon-app>
+				</button>
+			</context-menu-trigger-app>
+
+			<!-- items -->
+			<context-menu-item-app (click)="requestTeamFeedback.emit()">
+				Request For Team Feedback
+			</context-menu-item-app>
+			<context-menu-item-app (click)="deleted.emit()">
+				Delete
+			</context-menu-item-app>
+		</context-menu-app>
+	</div>
+</selection-bar-app>

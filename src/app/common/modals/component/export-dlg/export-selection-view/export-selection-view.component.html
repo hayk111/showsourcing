@@ -1,9 +1,9 @@
 <dialog-app>
 
 	<dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Export Selection</dialog-header-app>
-	<dialog-subtitle-app *ngIf="!pending"  i18n="dialog subtitle|Select export type@@productExport_type">Export Type</dialog-subtitle-app>
+	<dialog-subtitle-app i18n="dialog subtitle|Select export type@@productExport_type">Export Type</dialog-subtitle-app>
 
-	<main *ngIf="!pending; else spinner" class="exportRow">
+	<main class="exportRow">
 		<div class="exportCell" (click)="select('xls', 'xls_product_list')"
 			[class.selected]="selectedType === 'xls_product_list'">
 			<icon-app name="excel"></icon-app>
@@ -30,14 +30,10 @@
 		</div>
 	</main>
 
-	<dialog-footer-app *ngIf="!pending" class="fullWidth flexCenter flexBetween">
+	<dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">{{ targets?.length }} items{{ targets?.length > 1 ? 's' : '' }} selected</span>
 		<button class="small" (click)="export.emit()" i18n="button|Export product@@export_export">
 			Export
 		</button>
 	</dialog-footer-app>
 </dialog-app>
-
-<ng-template #spinner>
-	<spinner-app size="xxl"></spinner-app>
-</ng-template>

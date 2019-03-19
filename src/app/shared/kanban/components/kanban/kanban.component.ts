@@ -15,6 +15,7 @@ export class KanbanComponent extends TrackingComponent {
 	/** template for the displayed item */
 	@Input() cardTemplate: any;
 	@Input() selection: Map<string, any>;
+	@Input() amountLoaded: number;
 	@Input() set width(width: string) {
 		this._width = width + 'px';
 	}

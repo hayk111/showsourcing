@@ -1,19 +1,21 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, mergeMap } from 'rxjs/operators';
+import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { CompanyService, TeamService, UserService } from '~entity-services';
-import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
 import { Company, Team } from '~models';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'create-a-company-page-app',
 	templateUrl: './create-a-company-page.component.html',
-	styleUrls: ['./create-a-company-page.component.scss', '../../../auth-pages/components/form-style.scss'],
+	styleUrls: ['./create-a-company-page.component.scss', '../../../../common/auth-pages/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
+
+	hideForm = false;
 	pending = false;
 	error: string;
 	returnUrl: string;
@@ -28,7 +30,8 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 		private teamService: TeamService,
 		private router: Router,
 		private userSrv: UserService,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private cdr: ChangeDetectorRef
 	) {
 		super();
 		this.listForm = [{
@@ -52,8 +55,26 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 		}];
 	}
 
+	ngOnInit() {
+		this.srv.selectAll().pipe(
+			first()
+		).subscribe(all => {
+			if (all.length > 0) {
+				this.buttons = [...this.buttons,
+					// 	{
+					// 	label: 'Select Company Instead',
+					// 	type: 'link',
+					// 	link: '../pick-a-company'
+					// }
+				];
+			}
+		});
+		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+	}
+
 	onSubmit(form: FormGroup) {
 		this.pending = true;
+		this.hideForm = true;
 		const formValue = form.value;
 		const company = new Company({ name: formValue.companyName });
 		this.srv.create(company)
@@ -70,29 +91,17 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 			)
 			.subscribe(
 				_ => {
-					this.router.navigateByUrl(this.returnUrl);
 					this.pending = false;
+					this.router.navigateByUrl(this.returnUrl);
+					this.cdr.detectChanges();
 				},
 				e => {
+					this.hideForm = false;
 					this.pending = false;
 					this.error = 'We had an error creating your company. Please try again.';
+					this.cdr.detectChanges();
 				}
 			);
-	}
-
-	ngOnInit() {
-		this.srv.selectAll().pipe(
-			first()
-		).subscribe(all => {
-			if (all.length > 0) {
-				this.buttons = [...this.buttons, {
-					label: 'Select Company Instead',
-					type: 'link',
-					link: '../pick-a-company'
-				}];
-			}
-		});
-		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}
 
 }

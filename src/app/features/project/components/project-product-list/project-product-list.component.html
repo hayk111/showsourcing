@@ -60,7 +60,9 @@
 
 <!-- moq -->
 <ng-template #moq let-row="row">
-  <moq-app [amount]="row?.minimumOrderQuantity" *ngIf="row?.price?.currency; else noMoq">
+	<moq-app
+		*ngIf="row?.price?.currency; else noMoq"
+		[amount]="row?.minimumOrderQuantity">
   </moq-app>
 
   <ng-template #noMoq>
@@ -82,7 +84,11 @@
 <!-- favorite -->
 <ng-template #favorite let-row="row">
   <div>
-    <rating-heart-app [favorite]="row?.favorite" (favorited)="favorited.emit(row.id)" (unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
+		<rating-heart-app
+			[favorite]="row?.favorite"
+			(favorited)="favorited.emit(row.id)"
+			(unfavorited)="unfavorited.emit(row.id)">
+		</rating-heart-app>
   </div>
 </ng-template>
 
@@ -95,7 +101,10 @@
 
 <!-- status -->
 <ng-template #status let-row="row">
-  <status-selector-app [entity]="row" [typeEntity]="prodErm" selectSize="s">
+	<status-selector-app
+		[entity]="row"
+		[typeEntity]="prodErm"
+		selectSize="s">
   </status-selector-app>
 </ng-template>
 

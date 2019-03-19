@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class ExportWaitingViewComponent implements OnInit {
 
 	@Input() fileReady: boolean;
-	@Input() pending: boolean;
 	@Output() download = new EventEmitter<null>();
 
 	constructor(

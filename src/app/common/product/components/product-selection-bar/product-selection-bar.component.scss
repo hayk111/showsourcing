@@ -1,0 +1,26 @@
+.elements-container > * {
+	margin-right: var(--spacing-ms);
+}
+
+button {
+	min-width: unset;
+
+	&:hover {
+		icon-app {
+			color: white;
+		}
+	}
+
+	&.with-name icon-app {
+		margin-right: var(--spacing-s);
+	}
+}
+
+context-menu-item-app {
+	display: flex;
+	align-items: center;
+
+	icon-app {
+		margin-right: var(--spacing-s);
+	}
+}

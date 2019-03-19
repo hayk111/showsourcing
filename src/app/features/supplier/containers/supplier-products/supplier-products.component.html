@@ -35,41 +35,6 @@
 		</div>
 	</ng-template>
 
-	<selection-bar-app
-		[isShown]="(listSrv.selection$ | async).size > 0"
-		[selection]="listSrv.selection$ | async"
-		(close)="listSrv.unselectAll()">
-
-		<action-bar-app
-			[favorite]="listSrv.allSelectedFavorite"
-			[multiple]="true"
-			(onFavorite)="listSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
-			(liked)="listSrv.onMultipleThumbUp($event)"
-			(disliked)="listSrv.onMultipleThumbDown($event)">
-
-			<button class="icon light" (click)="openAddToProjectDialog()">
-				<icon-app class="fs-xl" name="folder-light" fontSet="svg"></icon-app>
-			</button>
-			<context-menu-app>
-				<context-menu-trigger-app>
-					<button class="icon light">
-						<icon-app name="dots-vertical" size="m"></icon-app>
-					</button>
-				</context-menu-trigger-app>
-				<context-menu-item-app (click)="openExportDialog()">
-					Export
-				</context-menu-item-app>
-				<context-menu-item-app (click)="openRequestFeedbackDialog()">
-					Request For Team Feedback
-				</context-menu-item-app>
-			</context-menu-app>
-
-			<button class="icon light" (click)="listSrv.deleteSelected()">
-				<icon-app name="trash-bin"></icon-app>
-			</button>
-		</action-bar-app>
-	</selection-bar-app>
 </card-app>
 
 <product-preview-app

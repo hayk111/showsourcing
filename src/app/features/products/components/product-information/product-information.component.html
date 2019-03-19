@@ -9,6 +9,13 @@
 		</h3>
 	</div>
 
+	<dynamic-form-app
+		[fields]="customFields"
+		[value]="product"
+		[colAmount]="1"
+		(update)="update.emit($event)">
+	</dynamic-form-app>
+
 	<custom-form-app
 		[definitions]="fieldDefinitions$ | async"
 		[fields]="product?.extendedFields"

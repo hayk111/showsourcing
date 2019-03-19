@@ -1,11 +1,10 @@
-import { AppImage, Contact, Attachment } from '~models';
-
+import { AppImage, Attachment, Comment } from '~models';
 import { EntityWithAudit } from '~models/_entity.model';
 import { Category } from '~models/category.model';
 import { SupplierStatus } from '~models/supplier-status.model';
 import { SupplierType } from '~models/supplier-type.model';
 import { Tag } from '~models/tag.model';
-import { Comment } from '~models';
+
 import { ExtendedField } from './extended-field.model';
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
@@ -32,7 +31,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
 	comments?: Comment[];
-	extendedFields?: ExtendedField[];
+	// extendedFields?: ExtendedField[];
 	__typename?= 'Supplier';
 }
 

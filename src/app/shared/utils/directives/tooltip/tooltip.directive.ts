@@ -111,12 +111,14 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 				this._showTimeOutId = null;
 				// we attach the first time to know the bounding rectangle of the item
 				this.tooltipPortalHost.attach(this.templatePortal);
-				const boundPortal = this.tooltipPortalHost.outletElement.getElementsByClassName('tooltip-directive')[0].getBoundingClientRect();
+				const elementPortal = this.tooltipPortalHost.outletElement.getElementsByClassName('tooltip-directive')[0];
 				// we detach it since we only wanted the rectangle
 				this.tooltipPortalHost.detach();
-				this.setPosition(boundPortal);
-				// we render it again with the new positions on the context of tempaltePortal
-				this.tooltipPortalHost.attach(this.templatePortal);
+				if (elementPortal) {
+					this.setPosition(elementPortal.getBoundingClientRect());
+					// we render it again with the new positions on the context of tempaltePortal
+					this.tooltipPortalHost.attach(this.templatePortal);
+				}
 			}, this.toolTipShowDelay);
 		}
 	}

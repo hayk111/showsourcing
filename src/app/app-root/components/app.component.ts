@@ -19,7 +19,7 @@ import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-gl
 })
 export class AppComponent implements OnInit {
 
-	spinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+	isSpinnerShown$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 	constructor(
 		private analytics: AnalyticsService,
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
 			hasTeam$,
 			teamClientStatus$,
 			(hasTeam, teamClientStatus) => hasTeam && teamClientStatus === ClientStatus.PENDING
-		).subscribe(show => this.spinner$.next(show));
+		).subscribe(show => this.isSpinnerShown$.next(show));
 		// when authenticated we start the required clients
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.startBaseClients())
@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
 			switchMap(team => this.startOrDestroyTeamClient(team)),
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
-		).subscribe(_ => this.spinner$.next(false));
+		).subscribe(_ => this.isSpinnerShown$.next(false));
 
 	}
 

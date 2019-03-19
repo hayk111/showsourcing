@@ -42,7 +42,6 @@ export abstract class SupplierQueries extends GlobalQueries {
 			${SupplierQueries.attachments}
 			${SupplierQueries.tags}
 			${SupplierQueries.productsLinked}
-			${SupplierQueries.extendedFields}
 		`;
 
 	static readonly many = `
