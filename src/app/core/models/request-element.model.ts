@@ -8,7 +8,7 @@ import { RequestReply } from './request-reply.model';
 export class RequestElement {
 	id: ID;
 	name: string;
-	targetedEntity: string;
+	targetedEntityType: string;
 	reply?: RequestReply;
 	images: AppImage[];
 	attachments: Attachment[];
@@ -24,5 +24,5 @@ export class RequestElement {
 export interface RequestElementConfig {
 	id?: ID;
 	name?: string;
-	targetedEntity?; string;
+	targetedEntityType?: string;
 }

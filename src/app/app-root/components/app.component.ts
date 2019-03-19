@@ -72,7 +72,7 @@ export class AppComponent implements OnInit {
 		const realmUser = this.tokenSrv.realmUser;
 		return forkJoin([
 			this.globalDataClient.init(realmUser),
-			// this.globalRequestClient.init(realmUser),
+			this.globalRequestClient.init(realmUser),
 			this.userClient.init(realmUser)
 		]);
 	}

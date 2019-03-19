@@ -6,12 +6,14 @@ import { RequestElement } from './request-element.model';
 
 export class Request {
 	id: ID;
-	requestElements?: RequestElement;
+	requestElements: RequestElement[];
+	sender?: Contact;
+	senderTeamId: string;
+	title: string;
 	message?: string;
 	recipient?: Contact;
-	sendCopyTo: string[];
-	sender?: Contact;
 	status: string;
+	sendCopyTo: string[];
 	images: AppImage[];
 	attachments: Attachment[];
 	creationDate: string;
@@ -27,4 +29,10 @@ export class Request {
 export interface RequestConfig {
 	id?: ID;
 	message?: string;
+	requestElements?: RequestElement;
+	senderTeamId?: string;
+	title?: string;
+	status?: string;
+	creationDate: string;
+	lastUpdatedDate: string;
 }

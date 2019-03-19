@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ERM, Request } from '~core/models';
+import { ERM, Request, RequestElement } from '~core/models';
 import { RequestService } from '~core/entity-services';
 import { ListPageService, ListPageKey } from '~core/list-page';
 import { CommonModalService } from '~common/modals';
@@ -31,6 +31,14 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 			initialFilters: [],
 			client: Client.GLOBAL_REQUEST
 		});
+	}
+
+	createRequest() {
+		const manew = new Request({
+			message: 'miau', title: 'supreme title', senderTeamId: 'really long id', status: 'pending',
+			creationDate: new Date().toString(), lastUpdatedDate: new Date().toString()
+		});
+		this.listSrv.update(manew);
 	}
 
 }
