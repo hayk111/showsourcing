@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { ApolloStateService, TeamClientInitializer } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { TeamService } from '~entity-services';
@@ -13,7 +13,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 @Component({
 	selector: 'pick-a-team-page-app',
 	templateUrl: './pick-a-team-page.component.html',
-	styleUrls: ['./pick-a-team-page.component.scss', '../../../auth-pages/components/form-style.scss'],
+	styleUrls: ['./pick-a-team-page.component.scss', '../../../../common/auth-pages/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PickATeamPageComponent extends TrackingComponent implements OnInit {

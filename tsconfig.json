@@ -7,34 +7,68 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-		"baseUrl": "./src/",
+    "target": "es2018",
+    "baseUrl": "./src/",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
       "es2017",
-			"dom",
-			"esnext.asynciterable"
+      "dom",
+      "esnext.asynciterable"
     ],
-		"paths": {
-			"~app-root/*": ["app/app-root/*"],
-      "~app-root/": ["app/app-root/index"],
-      "~common/*": ["app/common/*"],
-			"~common/": ["app/common/index"],
-      "~core/*": ["app/core/*"],
-			"~core/": ["app/core/index"],
-			"~features/*": ["app/features/*"],
-			"~features/": ["app/features/index"],
-			"~models/*": ["app/core/models/*"],
-			"~models": ["app/core/models/index"],
-			"~shared/*": ["app/shared/*"],
-			"~shared": ["app/shared/index"],
-			"~entity-services/*": ["app/core/entity-services/*"],
-      "~entity-services": ["app/core/entity-services/index"],
-      "~utils/*": ["app/utils/*"],
-			"~deprecated/*": ["../deprecated/*"],
-			"~utils": ["app/utils/index"]
+    "paths": {
+      "~app-root/*": [
+        "app/app-root/*"
+      ],
+      "~app-root/": [
+        "app/app-root/index"
+      ],
+      "~common/*": [
+        "app/common/*"
+      ],
+      "~common/": [
+        "app/common/index"
+      ],
+      "~core/*": [
+        "app/core/*"
+      ],
+      "~core/": [
+        "app/core/index"
+      ],
+      "~features/*": [
+        "app/features/*"
+      ],
+      "~features/": [
+        "app/features/index"
+      ],
+      "~models/*": [
+        "app/core/models/*"
+      ],
+      "~models": [
+        "app/core/models/index"
+      ],
+      "~shared/*": [
+        "app/shared/*"
+      ],
+      "~shared": [
+        "app/shared/index"
+      ],
+      "~entity-services/*": [
+        "app/core/entity-services/*"
+      ],
+      "~entity-services": [
+        "app/core/entity-services/index"
+      ],
+      "~utils/*": [
+        "app/utils/*"
+      ],
+      "~deprecated/*": [
+        "../deprecated/*"
+      ],
+      "~utils": [
+        "app/utils/index"
+      ]
     }
   }
 }

@@ -33,6 +33,7 @@
 
 			<!-- Badge event -->
 			<preview-badge-app
+				*ngIf="product?.event"
 				[badge]="erm.EVENT"
 				[value]="product?.event"
 				(update)="update($event, 'event')">

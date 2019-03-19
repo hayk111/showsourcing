@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChildren, AfterViewInit, QueryList } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthFormButton, AuthFormElement } from '~features/auth-pages/components/auth-form-base/auth-form';
-import { AutoUnsub } from '~utils';
 import { InputDirective } from '~shared/inputs';
+import { AutoUnsub } from '~utils';
+
+import { AuthFormButton, AuthFormElement } from './auth-form';
 
 
 /**
@@ -18,6 +19,10 @@ export class AuthFormBaseComponent extends AutoUnsub implements AfterViewInit {
 
 	@Input() form: FormGroup;
 	@Input() hasSpinner = true;
+	// this indicates if we need to display the form or not,
+	// sometimes we need to specify when we show the form or not (2 spinners at the same time or overlapping issues)
+	@Input() hideForm = false;
+	@Input() spinnerMessage = 'Please wait, this could take a few seconds';
 
 	@Input() error = '';
 	@Input() pending = false;

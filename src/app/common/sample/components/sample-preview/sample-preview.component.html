@@ -46,17 +46,17 @@
 
 	<!-- Sample information -->
 	<preview-section-app [title]="'Sample Information'">
-		<!-- <dynamic-form-app
+		<dynamic-form-app
 			[fields]="customFields"
 			[inlineLabel]="true"
 			[value]="sample"
 			[colAmount]="1"
 			(update)="updateSample($event)">
-		</dynamic-form-app> -->
+		</dynamic-form-app>
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app>
+	<preview-section-app *ngIf="sample?.comments?.length" [title]="'Comments'">
 		<comment-list-app [comments]="sample.comments"></comment-list-app>
 	</preview-section-app>
 

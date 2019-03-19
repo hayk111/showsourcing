@@ -39,13 +39,13 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	leadTimeUnit?: string;
 	sample?: boolean;
 	samplePrice?: number;
-	archived ?= false;
+	archived?= false;
 	taskCount?: number;
 	productCount?: number;
 	projects?: Project[];
 	assignee?: User;
 	extendedFields?: ExtendedField[];
-	__typename ?= 'Product';
+	__typename?= 'Product';
 
 }
 

@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap, take, takeUntil, tap, filter, first } from 'rxjs/operators';
-import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
-import { ActivityService } from '~common/activity/services/activity.service';
+import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
+import { TaskService, UserService } from '~core/entity-services';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Product } from '~models';
 import { Contact } from '~models/contact.model';
 import { Supplier } from '~models/supplier.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
-import { CloseEventType } from '~shared/dialog';
-import { SampleService, TaskService, UserService } from '~core/entity-services';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -20,6 +17,7 @@ import { SampleService, TaskService, UserService } from '~core/entity-services';
 	styleUrls: ['./supplier-details.component.scss']
 })
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
+
 	supplier: Supplier;
 
 	supplier$: Observable<Supplier>;

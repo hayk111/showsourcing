@@ -17,6 +17,7 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 	@Input() cardTemplate: TemplateRef<any>;
 	@Input() connectedLists: string[];
 	@Input() selection: Map<string, any>;
+	@Input() amountLoaded: number;
 	@Output() selectAll = new EventEmitter<any[]>();
 	@Output() unselectAll = new EventEmitter<any[]>();
 	@Output() drop = new EventEmitter<CdkDragDrop<any>>();

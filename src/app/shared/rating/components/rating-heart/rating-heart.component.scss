@@ -9,6 +9,16 @@ icon-app {
 		background-color: var(--color-warn);
 	}
 }
+
+.unset-button {
+	width: unset;
+	height: unset;
+	padding: 0;
+	&:hover {
+		background: unset;
+	}
+	margin-right: var(--spacing-s);
+}
 ///
 
 /* ----------------------------------------------

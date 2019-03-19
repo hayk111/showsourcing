@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, switchMap, takeUntil } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { ExtendedFieldDefinitionService } from '~core/entity-services/extended-f
 	styleUrls: ['./product-preview.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductPreviewComponent extends AutoUnsub implements OnChanges {
+export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() _product: Product;
 	@Input()

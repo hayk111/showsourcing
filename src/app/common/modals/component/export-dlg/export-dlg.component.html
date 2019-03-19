@@ -1,14 +1,12 @@
 <export-selection-view-app
-	*ngIf="!requestCreated"
+	[ngClass]="{ 'hide': requestCreated }"
 	[targets]="targets"
-	[pending]="pending"
 	(export)="export()"
 	(selected)="select($event)">
 </export-selection-view-app>
 
 <export-waiting-view-app
-	*ngIf="requestCreated"
+	[ngClass]="{ 'hide': !requestCreated }"
 	[fileReady]="fileReady"
-	[pending]="pending"
 	(download)="downloadFile()">
 </export-waiting-view-app>

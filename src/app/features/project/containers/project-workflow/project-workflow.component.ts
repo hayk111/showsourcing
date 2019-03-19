@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListPageKey, ListPageService } from '~core/list-page';
+import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, ProductStatus, Project } from '~models';
@@ -30,6 +32,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	project: Project;
 	private statuses: ProductStatus[];
 	erm = ERM;
+	amountLoaded = 15;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -81,7 +84,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			: `status == null && projects.id == "${this.project.id}"`;
 		this.productSrv.queryMany({
 			query,
-			take: col.data.length + 15,
+			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(
 			first()
@@ -97,12 +100,19 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			else
 				query = `status == null && projects.id == "${this.project.id}"`;
 
-			this.productSrv.queryMany({ query, take: 15, sortBy: 'lastUpdatedDate' })
+			this.productSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
 			this.productSrv.queryCount(query).pipe(first())
 				.subscribe(total => this.kanbanSrv.setTotal(total, status.id));
 		});
+	}
+
+	/** Open the find products dialog and passing selected products to it */
+	openFindProductDlg() {
+		this.featureSrv.openFindProductDlg(this.project).pipe(
+			tap(data => this.getProducts(this.statuses))
+		).subscribe();
 	}
 
 
@@ -120,19 +130,29 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 		// we update on the server
-		this.productSrv.update({
-			id: event.item.id,
-			status: new ProductStatus({ id: event.to.id })
-		}).subscribe();
+		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		this.productSrv.update(
+			{
+				id: event.item.id,
+				status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
+			},
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
+		).subscribe();
 	}
 
 	/** multiple */
 	updateProductsStatus(event: KanbanDropEvent) {
+		const isNewStatus = event.to.id === NEW_STATUS_ID;
 		const products = event.items.map(id => ({
 			id,
-			status: new ProductStatus({ id: event.to.id })
+			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
 		}));
-		this.productSrv.updateMany(products).subscribe();
+		this.productSrv.updateMany(
+			products,
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
+		).subscribe();
 	}
 
 	onColumnSelected(products: Product[]) {
@@ -141,13 +161,6 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	onColumnUnselected(products: Product[]) {
 		products.forEach(prod => this.listSrv.unselectOne(prod, true));
-	}
-
-	/** Open the find products dialog and passing selected products to it */
-	openFindProductDlg() {
-		this.featureSrv.openFindProductDlg(this.project).pipe(
-			tap(data => this.getProducts(this.statuses))
-		).subscribe();
 	}
 
 	onFavoriteAllSelected() {

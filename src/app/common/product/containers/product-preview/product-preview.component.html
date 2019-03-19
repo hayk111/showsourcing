@@ -36,6 +36,7 @@
 
 		<!-- Badge event -->
 		<preview-badge-app
+			*ngIf="product?.event"
 			[badge]="erm.EVENT"
 			[value]="product?.event"
 			(update)="update($event, 'event')">
@@ -96,18 +97,18 @@
 	</preview-section-app>
 
 	<!-- Extended Fields -->
-	<preview-section-app [title]="'Extended Fields'">
+	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'Extended Fields'">
 		<extended-form-app
 			inlineLabel="true"
 			[definitions]="fieldDefinitions$ | async"
-			[fields]="product.extendedFields"
+			[fields]="product?.extendedFields"
 			(update)="updateProduct($event)">
 		</extended-form-app>
 	</preview-section-app>
 
 
 	<!-- Activity -->
-	<preview-section-app>
+	<preview-section-app *ngIf="product?.comments?.length" [title]="'Comments'">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 
