@@ -4,7 +4,7 @@ import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
 import { RequestElement } from './request-element.model';
 
-export class Request {
+export class TeamRequest {
 	id: ID;
 	requestElements: RequestElement[];
 	sender?: Contact;
@@ -20,13 +20,13 @@ export class Request {
 	lastUpdatedDate: string;
 	__typename?= 'Request';
 
-	constructor(config: RequestConfig) {
+	constructor(config: TeamRequestConfig) {
 		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
 	}
 }
 
-export interface RequestConfig {
+export interface TeamRequestConfig {
 	id?: ID;
 	message?: string;
 	requestElements?: RequestElement;

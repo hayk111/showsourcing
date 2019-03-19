@@ -76,6 +76,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			ERM.TAG,
 			ERM.TASK,
 			ERM.TEAM,
+			// ERM.TEAM_REQUEST,
 			ERM.TEAM_USER,
 			ERM.USER
 		]);

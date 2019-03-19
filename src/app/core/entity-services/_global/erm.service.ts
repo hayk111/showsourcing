@@ -36,7 +36,7 @@ import { RequestElementService } from '../request-element/request-element.servic
 import { RequestFieldDefinitionService } from '../request-field-definition/request-field-definition.service';
 import { RequestFieldService } from '../request-field/request-field.service';
 import { RequestReplyService } from '../request-reply/request-reply.service';
-import { RequestService } from '../request/request.service';
+import { TeamRequestService } from '../team-request/team-request.service';
 import { GlobalService } from './global.service';
 
 @Injectable(
@@ -64,7 +64,7 @@ export class ERMService {
 		private productService: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private projectService: ProjectService,
-		private requestService: RequestService,
+		private teamRequestService: TeamRequestService,
 		private requestElementService: RequestElementService,
 		private requestFieldService: RequestFieldService,
 		private requestFieldDefinitionService: RequestFieldDefinitionService,
@@ -122,7 +122,7 @@ export class ERMService {
 			case 'Project':
 				return this.projectService;
 			case 'Request':
-				return this.requestService;
+				return this.teamRequestService;
 			case 'RequestElement':
 				return this.requestElementService;
 			case 'RequestField':
@@ -192,8 +192,6 @@ export class ERMService {
 				return this.productStatusSrv;
 			case ERM.PROJECT:
 				return this.projectService;
-			case ERM.REQUEST:
-				return this.requestService;
 			case ERM.REQUEST_ELEMENT:
 				return this.requestElementService;
 			case ERM.REQUEST_FIELD:
@@ -218,6 +216,8 @@ export class ERMService {
 				return this.taskSrv;
 			case ERM.TEAM:
 				return this.teamService;
+			case ERM.TEAM_REQUEST:
+				return this.teamRequestService;
 			case ERM.TEAM_USER:
 				return this.teamUserSrv;
 			case ERM.USER:

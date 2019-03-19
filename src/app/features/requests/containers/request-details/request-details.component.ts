@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { RequestService, RequestReplyService } from '~core/entity-services';
-import { ERM, Request, RequestReply } from '~core/models';
+import { ERM, TeamRequest, RequestReply } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 
@@ -15,7 +15,7 @@ import { AutoUnsub } from '~utils';
 })
 export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
-	request: Request;
+	request: TeamRequest;
 	erm = ERM;
 
 	constructor(

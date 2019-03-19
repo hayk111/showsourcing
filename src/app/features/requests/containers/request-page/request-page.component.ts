@@ -1,10 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ERM, Request, RequestElement } from '~core/models';
-import { RequestService } from '~core/entity-services';
-import { ListPageService, ListPageKey } from '~core/list-page';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
+import { TeamRequestService } from '~core/entity-services';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { ERM, TeamRequest } from '~core/models';
 import { TrackingComponent } from '~utils';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 @Component({
 	selector: 'request-page-app',
@@ -17,24 +16,23 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 	erm = ERM;
 
 	constructor(
-		private requestSrv: RequestService,
-		public listSrv: ListPageService<Request, RequestService>,
+		private teamRequestSrv: TeamRequestService,
+		public listSrv: ListPageService<TeamRequest, TeamRequestService>,
 		public commonModalSrv: CommonModalService
 	) { super(); }
 
 	ngOnInit() {
 		this.listSrv.setup({
 			key: ListPageKey.REQUEST,
-			entitySrv: this.requestSrv,
+			entitySrv: this.teamRequestSrv,
 			searchedFields: [],
-			entityMetadata: ERM.REQUEST,
+			entityMetadata: ERM.TEAM_REQUEST,
 			initialFilters: [],
-			client: Client.GLOBAL_REQUEST
 		});
 	}
 
 	createRequest() {
-		const manew = new Request({
+		const manew = new TeamRequest({
 			message: 'miau', title: 'supreme title', senderTeamId: 'really long id', status: 'pending',
 			creationDate: new Date().toString(), lastUpdatedDate: new Date().toString()
 		});

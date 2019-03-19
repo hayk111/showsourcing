@@ -39,7 +39,7 @@ export * from './request-element.model';
 export * from './request-field-definition.model';
 export * from './request-field.model';
 export * from './request-reply.model';
-export * from './request.model';
+export * from './team-request.model';
 export * from './sample-status.model';
 export * from './sample.model';
 export * from './show.model';
