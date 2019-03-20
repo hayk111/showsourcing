@@ -47,7 +47,7 @@
 		sortBy="requestTemplate.name"
 		let-row="row"
 		width="220">
-		<div class="capitalize">
+		<div class="capitalize ellipsis">
 			{{ row?.requestTemplate?.name }}
 		</div>
 	</ng-template>
@@ -68,7 +68,7 @@
 		sortBy="recipient.name"
 		let-row="row"
 		width="280">
-		<div class="capitalize">
+		<div class="capitalize ellipsis">
 			{{ row?.recipient?.name }}
 		</div>
 	</ng-template>
@@ -111,8 +111,8 @@
 		columnApp="Sent By"
 		sortBy="createdBy.firstName"
 		let-row="row"
-		width="280">
-		<div class="capitalize">
+		width="220">
+		<div class="capitalize ellipsis">
 			{{ row?.createdBy?.firstName }} {{ row.createdBy?.lastName }}
 		</div>
 	</ng-template>

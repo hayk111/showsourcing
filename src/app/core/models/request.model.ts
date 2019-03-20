@@ -13,7 +13,7 @@ export class Request extends EntityWithAudit<RequestConfig> {
 	id: ID;
 	products: Product[];
 	suppliers: Supplier[];
-	requestTtemplate?: RequestTemplate;
+	requestTemplate?: RequestTemplate;
 	requestElements: RequestElement[];
 	shareInformation: boolean;
 	title: string;

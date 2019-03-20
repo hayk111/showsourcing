@@ -10,12 +10,14 @@ export abstract class RequestQueries extends GlobalQueries {
 	static readonly images = `images { id, urls { url }, orientation }`;
 	static readonly suppliers = `suppliers { id, name }`;
 	static readonly products = `products { id, name, images { id, fileName, urls { id, url } },  price { id, currency, value } }`;
+	static readonly requestTemplate = `requestTemplate { id, name, targetedEntity }`;
 
 	static readonly one = `
 		${RequestQueries.requestElements}
 		${RequestQueries.images}
 		${RequestQueries.attachments}
 		${RequestQueries.suppliers}
+		${RequestQueries.requestTemplate}
 		${RequestQueries.contact('recipient')}
 		sendCopyTo
 		title
@@ -30,6 +32,7 @@ export abstract class RequestQueries extends GlobalQueries {
 		${RequestQueries.requestElements}
 		${RequestQueries.images}
 		${RequestQueries.suppliers}
+		${RequestQueries.requestTemplate}
 		${RequestQueries.contact('recipient')}
 		sendCopyTo
 		title
