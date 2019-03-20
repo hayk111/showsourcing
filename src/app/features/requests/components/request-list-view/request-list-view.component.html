@@ -1,11 +1,16 @@
 <table-app
 	[rows]="rows"
 	[pending]="pending"
+	[selected]="selection"
 	customStyle="borderless"
 	placeholder="No requests"
 	[contextualMenu]="contextualMenuTemplate"
+	(bottomReached)="bottomReached.emit()"
+	(selectAll)="selectAll.emit($event)"
+	(selectOne)="select.emit($event)"
 	(sort)="sort.emit($event)"
-	(bottomReached)="bottomReached.emit()">
+	(unselectAll)="unselectAll.emit()"
+	(unselectOne)="unselect.emit($event)">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
