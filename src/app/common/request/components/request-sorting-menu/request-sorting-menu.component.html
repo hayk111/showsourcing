@@ -1,0 +1,73 @@
+<context-menu-app>
+  <context-menu-trigger-app>
+    <button class="secondary flexVAlign sort-1">
+        <p *ngIf="currentSort?.sortBy === 'title'" class="flex">Sort By Name
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'requestTemplate.name'" class="flex">Sort By Type
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'status'" class="flex">Sort By Status
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'recipient.name'" class="flex">Sort By Sent to
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'createdBy.firstName'" class="flex">Sort By Sent by
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">Sort By Sent on
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+    </button>
+  </context-menu-trigger-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('title')" class="menu-item">
+    Name
+    <ng-container *ngIf="currentSort?.sortBy === 'title'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('requestTemplate.name')" class="menu-item">
+    Type
+    <ng-container *ngIf="currentSort?.sortBy === 'requestTemplate.name'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+	</context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('status')" class="menu-item">
+    Status
+    <ng-container *ngIf="currentSort?.sortBy === 'status'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+	</context-menu-item-app>
+	<context-menu-item-app (click)="sortFromMenu.emit('recipient.name')" class="menu-item">
+    Sent to
+    <ng-container *ngIf="currentSort?.sortBy === 'recipient.name'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+	<context-menu-item-app (click)="sortFromMenu.emit('createdBy.firstName')" class="menu-item">
+    Sent by
+    <ng-container *ngIf="currentSort?.sortBy === 'createdBy.firstName'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item">
+    Sent on
+    <ng-container *ngIf="currentSort?.sortBy === 'creationDate'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+</context-menu-app>
+
+<ng-template #direction>
+  <ng-container>
+		<icon-app
+			*ngIf="currentSort?.descending; else upArrow;"
+			class="sortIcon fs-xs" fontSet="fa"	name="angle-down">
+		</icon-app>
+    <ng-template #upArrow>
+      <icon-app  class="sortIcon fs-xs" fontSet="fa" name="angle-up"></icon-app>
+    </ng-template>
+  </ng-container>
+</ng-template>

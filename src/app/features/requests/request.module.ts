@@ -7,11 +7,13 @@ import { RequestElementFormComponent, RequestListViewComponent } from './compone
 import { RequestDetailsComponent } from './containers';
 import { RequestPageComponent } from './containers/request-page/request-page.component';
 import { RequestTopPanelComponent } from './components/request-top-panel/request-top-panel.component';
+import { RequestCommonModule } from '~common/request';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
-		SharedModule
+		SharedModule,
+		RequestCommonModule
 	],
 	declarations: [
 		RequestDetailsComponent,
@@ -25,6 +27,5 @@ import { RequestTopPanelComponent } from './components/request-top-panel/request
 	providers: []
 })
 export class RequestModule {
-
 
 }

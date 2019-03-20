@@ -1,7 +1,9 @@
 <table-app
 	[rows]="rows"
 	[pending]="pending"
+	customStyle="borderless"
 	placeholder="No requests"
+	[contextualMenu]="contextualMenuTemplate"
 	(sort)="sort.emit($event)"
 	(bottomReached)="bottomReached.emit()">
 
@@ -16,7 +18,7 @@
 	<!-- export name -->
 	<ng-template
 		columnApp="Title"
-		sortBy="name"
+		sortBy="title"
 		let-row="row"
 		width="400">
 		<div class="mainCell ellipsis">
@@ -27,7 +29,7 @@
 				size="s">
 			</img-app>
 			<span class="capitalize ellipsis">
-				<a class="name txt-btn" [routerLink]="['/request', 'details', row.id]">
+				<a class="name txt-btn title" [routerLink]="['/request', 'details', row.id]">
 					{{ row?.title }}
 				</a>
 			</span>
@@ -37,6 +39,7 @@
 	<!-- type -->
 	<ng-template
 		columnApp="Type"
+		sortBy="requestTemplate.name"
 		let-row="row"
 		width="220">
 		<div class="capitalize">
@@ -57,6 +60,7 @@
 	<!-- recipient -->
 	<ng-template
 		columnApp="Sent to"
+		sortBy="recipient.name"
 		let-row="row"
 		width="280">
 		<div class="capitalize">
@@ -69,7 +73,7 @@
 		columnApp="# Requests"
 		let-row="row"
 		width="120">
-		<div class="capitalize">
+		<div class="fs-l color-black bold-s">
 			{{ row?.requestElements?.length }}
 		</div>
 	</ng-template>
@@ -77,17 +81,19 @@
 	<!-- status-->
 	<ng-template
 		columnApp="Status"
+		sortBy="status"
 		let-row="row"
 		width="220">
-		<badge-app [type]="getType(row)">
+		<badge-app [type]="getType(row)" size="m">
 			<icon-app name="circle" fontSet="fa"></icon-app>
-			{{ row?.status }}
+			{{ row?.status | const: 'statusRequest' }}
 		</badge-app>
 	</ng-template>
 
 	<!-- creation date-->
 	<ng-template
 		columnApp="Sent On"
+		sortBy="creationDate"
 		let-row="row"
 		width="220">
 		<div class="capitalize">
@@ -98,6 +104,7 @@
 	<!-- sender -->
 	<ng-template
 		columnApp="Sent By"
+		sortBy="createdBy.firstName"
 		let-row="row"
 		width="280">
 		<div class="capitalize">

@@ -6,6 +6,14 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+
+	&.borderless {
+		border: unset;
+
+		.header {
+			color: black;
+		}
+	}
 }
 
 .placeholderCtnr {

@@ -8,7 +8,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ProductSortingMenuComponent implements OnInit {
 
 	@Input() currentSort: { sortBy: 'creationDate', descending: true };
-	@Input() gridView = false;
 	@Output() sortFromMenu = new EventEmitter<string>();
 
 	constructor() { }
