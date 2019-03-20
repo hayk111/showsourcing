@@ -12,7 +12,6 @@ import { Supplier } from './supplier.model';
 export class Request extends EntityWithAudit<RequestConfig> {
 	id: ID;
 	products: Product[];
-	suppliers: Supplier[];
 	requestTemplate?: RequestTemplate;
 	requestElements: RequestElement[];
 	shareInformation: boolean;

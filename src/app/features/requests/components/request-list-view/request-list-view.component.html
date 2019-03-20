@@ -55,10 +55,11 @@
 	<!-- supplier -->
 	<ng-template
 		columnApp="Supplier"
+		sortBy="recipient.supplier.name"
 		let-row="row"
 		width="280">
 		<div class="ellipsis">
-			{{ row?.suppliers?.length ? row?.suppliers[0].name : '' }}
+		{{ row?.recipient?.supplier?.name }}
 		</div>
 	</ng-template>
 

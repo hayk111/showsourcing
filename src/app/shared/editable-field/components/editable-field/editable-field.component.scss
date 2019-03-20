@@ -9,7 +9,17 @@
 		editable-text-app {
 			color: var(--color-primary);
 		}
+
+		&.no-hover {
+			background: unset;
+			cursor: default;
+			editable-text-app {
+				color: unset;
+				cursor: default;
+			}
+		}
 	}
+
 
 	/**
 	there are 4 padding cases:
