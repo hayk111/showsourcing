@@ -6,6 +6,7 @@ import { SharedModule } from '~shared/shared.module';
 
 import {
 	RequestElementFormComponent,
+	RequestElementListViewComponent,
 	RequestInformationComponent,
 	RequestListViewComponent,
 	RequestTopPanelComponent,
@@ -21,6 +22,7 @@ import { RequestDetailsComponent, RequestPageComponent } from './containers';
 	declarations: [
 		RequestDetailsComponent,
 		RequestElementFormComponent,
+		RequestElementListViewComponent,
 		RequestInformationComponent,
 		RequestListViewComponent,
 		RequestPageComponent,
