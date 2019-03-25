@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, TemplateRef, ViewChild, Output } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
 import { ExtendedFieldDefinition, RequestElement } from '~core/models';
 
@@ -23,6 +23,7 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	get rows() {
 		return this._rows;
 	}
+	@Output() openRequestDlg = new EventEmitter<null>();
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 	extendedFields: ExtendedFieldDefinition[];

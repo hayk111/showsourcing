@@ -26,7 +26,7 @@
 		sortBy="name"
 		let-row="row"
 		width="300">
-		<div>{{ row?.name }}</div>
+		<div class="txt-btn" (click)="openRequestDlg.emit()">{{ row?.name }}</div>
 	</ng-template>
 
 	<ng-template

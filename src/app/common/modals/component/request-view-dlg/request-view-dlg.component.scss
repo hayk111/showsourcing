@@ -1,0 +1,20 @@
+dialog-app {
+
+	dialog-header-app {
+		padding-right: var(--spacing-ms);
+
+		.header-right .subtitle {
+			color: var(--color-txt-secondary);
+			font-size: var(--font-size-m);
+			font-weight: normal;
+		}
+
+		.header-left {
+			padding-right: var(--spacing-ms);
+
+			:first-child {
+				margin-right: var(--spacing-l);
+			}
+		}
+	}
+}

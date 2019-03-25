@@ -1,3 +1,23 @@
-<p>
-  request-view-dlg works!
-</p>
+<dialog-app>
+	<dialog-header-app class="flex">
+		<div class="header-left flex">
+			<icon-app name="arrow-left-thin"></icon-app>
+			<icon-app name="arrow-right-thin"></icon-app>
+		</div>
+		<div class="header-right">
+				{{ request?.title }}
+				<div class="subtitle">
+					By {{ request?.createdBy.firstName }} {{ request?.createdBy?.lastName }} on {{ request?.creationDate | date: 'MMMM dd y'}}
+				</div>
+		</div>
+	</dialog-header-app>
+
+	<main>
+		<div class="container-left">
+
+		</div>
+		<div class="container-right">
+
+		</div>
+	</main>
+</dialog-app>
