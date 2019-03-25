@@ -17,4 +17,29 @@ dialog-app {
 			}
 		}
 	}
+
+	main {
+		.container-left {
+			.thumb-image {
+				border-radius: var(--border-radius);
+				width: 32px;
+				height: 32px;
+				overflow: hidden;
+				flex-shrink: 0;
+			}
+
+			.list-item {
+				.name {
+					color: var(--color-txt-strong);
+					font-weight: 600;
+				}
+				.subtitle {
+					color: var(--color-txt-secondary);
+				}
+				.price {
+					color: var(--color-primary);
+				}
+			}
+		}
+	}
 }
