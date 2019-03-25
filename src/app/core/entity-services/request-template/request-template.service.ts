@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { GlobalService } from '~entity-services/_global/global.service';
-import { RequestField } from '~models';
+import { RequestTemplate } from '~models';
 
-import { RequestFieldQueries } from './request-field.queries';
+import { RequestTemplateQueries } from './request-template.queries';
 
 
 @Injectable({ providedIn: 'root' })
-export class RequestFieldService extends GlobalService<RequestField> {
+export class RequestTemplateService extends GlobalService<RequestTemplate> {
 
 	constructor(
 		protected apolloState: ApolloStateService,
 	) {
-		super(apolloState, RequestFieldQueries, 'requestField', 'requestFields');
+		super(apolloState, RequestTemplateQueries, 'requestTemplate', 'requestTemplates');
 	}
 
 }

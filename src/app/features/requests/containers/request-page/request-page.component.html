@@ -1,6 +1,7 @@
 <top-panel-app
 	[title]="'Requests'"
-	[hasAction]="false">
+	buttonName="New Request"
+	(buttonClick)="createRequest()">
 </top-panel-app>
 
 <sub-panel-app
@@ -8,11 +9,25 @@
 	[hasSwitch]="false"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
+	<sub-panel-right-item-app>
+		<request-sorting-menu-app
+			[currentSort]="listSrv.currentSort"
+			(sortFromMenu)="listSrv.sortFromMenu($event)">>
+		</request-sorting-menu-app>
+	</sub-panel-right-item-app>
 </sub-panel-app>
-<button (click)="createRequest()">Click me</button>
+
 <request-list-view-app
+	class="borderless"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	(sort)="listSrv.sort($event)"
 	(bottomReached)="listSrv.loadMore()">
 </request-list-view-app>
+
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>

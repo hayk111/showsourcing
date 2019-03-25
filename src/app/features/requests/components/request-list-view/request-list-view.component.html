@@ -1,84 +1,115 @@
 <table-app
 	[rows]="rows"
-	[hasSelection]="false"
 	[pending]="pending"
-	[hasMenu]="false"
+	customStyle="borderless"
 	placeholder="No requests"
+	[contextualMenu]="contextualMenuTemplate"
 	(sort)="sort.emit($event)"
 	(bottomReached)="bottomReached.emit()">
 
-	<!-- export name -->
-	<ng-template
-		columnApp="Request"
-		sortBy="name"
-		let-row="row"
-		width="280">
-		<span class="capitalize ellipsis">
-			<a class="name txt-btn" [routerLink]="['/request', 'details', row.id]">
-				{{ row?.requestElements?.name }}
-			</a>
-		</span>
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter">
+			Options
+		</context-menu-item-app>
 	</ng-template>
 
-	<!-- sender -->
-	<!-- <ng-template
-		columnApp="Sender"
+	<!-- export name -->
+	<ng-template
+		columnApp="Title"
+		sortBy="title"
+		let-row="row"
+		width="400">
+		<div class="mainCell ellipsis">
+			<img-app
+				class="mini imgCtnr"
+				[image]="row?.images?.length ? row?.images[0] : null"
+				type="request"
+				size="s">
+			</img-app>
+			<span class="capitalize ellipsis">
+				<a class="name txt-btn title" [routerLink]="['/request', 'details', row.id]">
+					{{ row?.title }}
+				</a>
+			</span>
+		</div>
+	</ng-template>
+
+	<!-- type -->
+	<ng-template
+		columnApp="Type"
+		sortBy="requestTemplate.name"
+		let-row="row"
+		width="220">
+		<div class="capitalize">
+			{{ row?.requestTemplate?.name }}
+		</div>
+	</ng-template>
+
+	<!-- supplier -->
+	<ng-template
+		columnApp="Supplier"
 		let-row="row"
 		width="280">
-		<div class="capitalize">
-			{{ row?.sender?.name }}
+		<div class="ellipsis">
+			{{ row?.suppliers?.length ? row?.suppliers[0].name : '' }}
 		</div>
-	</ng-template> -->
+	</ng-template>
 
 	<!-- recipient -->
-	<!-- <ng-template
-		columnApp="Recipient"
+	<ng-template
+		columnApp="Sent to"
+		sortBy="recipient.name"
 		let-row="row"
 		width="280">
 		<div class="capitalize">
 			{{ row?.recipient?.name }}
 		</div>
-	</ng-template> -->
+	</ng-template>
 
-	<!-- send copy to -->
-	<!-- <ng-template
-		columnApp="Copy"
-		let-row="row"
-		width="280">
-		<div class="ellipsis">
-			{{ row?.sendCopyTo }}
-		</div>
-	</ng-template> -->
-
-	<!-- recipient name -->
+	<!-- # requests -->
 	<ng-template
-		columnApp="Message"
+		columnApp="# Requests"
 		let-row="row"
-		width="280">
-		<div class="capitalize">
-			{{ row?.message }}
+		width="120">
+		<div class="fs-l color-black bold-s">
+			{{ row?.requestElements?.length }}
 		</div>
 	</ng-template>
 
 	<!-- status-->
 	<ng-template
 		columnApp="Status"
+		sortBy="status"
 		let-row="row"
-		width="280">
-		<div class="capitalize">
-			{{ row?.status }}
-		</div>
+		width="220">
+		<badge-app [type]="getType(row)" size="m">
+			<icon-app name="circle" fontSet="fa"></icon-app>
+			{{ row?.status | const: 'statusRequest' }}
+		</badge-app>
 	</ng-template>
 
 	<!-- creation date-->
 	<ng-template
-		columnApp="Created On"
+		columnApp="Sent On"
+		sortBy="creationDate"
 		let-row="row"
-		width="280">
+		width="220">
 		<div class="capitalize">
-			{{ row?.creationDate | date: 'dd MMM yy' }}
+			{{ row?.creationDate | date: 'dd MMM yyyy' }}
 		</div>
 	</ng-template>
 
+	<!-- sender -->
+	<ng-template
+		columnApp="Sent By"
+		sortBy="createdBy.firstName"
+		let-row="row"
+		width="280">
+		<div class="capitalize">
+			{{ row?.createdBy?.firstName }} {{ row.createdBy?.lastName }}
+		</div>
+	</ng-template>
 
 </table-app>

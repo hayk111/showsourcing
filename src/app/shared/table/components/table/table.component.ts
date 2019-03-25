@@ -42,6 +42,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() contextualMenu: TemplateRef<any>;
 	// current sort
 	@Input() currentSort: Sort;
+	// custom style table
+	@Input() customStyle: string;
 	// event when we select all rows
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();
