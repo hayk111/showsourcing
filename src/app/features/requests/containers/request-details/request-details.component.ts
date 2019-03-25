@@ -64,7 +64,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			this.router.navigate(['request']);
 		} else {
 			this.request = request;
-			console.log(this.request);
 			this.extendedFields = this.request.requestTemplate ? this.request.requestTemplate.requestedFields : [];
 			this.cdr.detectChanges();
 		}
