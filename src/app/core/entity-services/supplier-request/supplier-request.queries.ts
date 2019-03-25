@@ -1,40 +1,38 @@
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
-export abstract class RequestQueries extends GlobalQueries {
+export abstract class SupplierRequestQueries extends GlobalQueries {
 
 	static readonly contact =
 		`id, name, phoneNumber, email, businessCardImage { id, fileName, urls { id, url } }, jobTitle, company`;
 	static readonly attachments = `attachments { id, fileName, url, size }`;
 	static readonly requestElements = `requestElements { id, name, targetedEntityType, images { id, fileName, urls { id, url } }, ` +
-		`${RequestQueries.attachments}, requestedFields { id, label, type }, reply { id, message, status } }`;
-	static readonly recipient = `recipient { ${RequestQueries.contact} }`;
-	static readonly sender = `sender { ${RequestQueries.contact} }`;
+		`${SupplierRequestQueries.attachments}, requestedFields { id, label, type }, reply { id, message, status } }`;
+	static readonly recipient = `recipient { ${SupplierRequestQueries.contact} }`;
+	static readonly sender = `sender { ${SupplierRequestQueries.contact} }`;
 	static readonly images = ` images { id, urls { url }, orientation }`;
 
-	// ${TeamRequestQueries.recipient}
-	// ${TeamRequestQueries.sender}
+	// ${GlobalRequestQueries.recipient}
+	// ${GlobalRequestQueries.sender}
 	// sendCopyTo
 	static readonly one = `
-		${RequestQueries.requestElements}
-		${RequestQueries.images}
-		${RequestQueries.attachments}
+		${SupplierRequestQueries.requestElements}
+		${SupplierRequestQueries.images}
+		${SupplierRequestQueries.attachments}
 		message
 		status
 		creationDate
 		lastUpdatedDate
-		deleted
 	`;
 
-	// ${TeamRequestQueries.recipient}
-	// ${TeamRequestQueries.sender}
+	// ${GlobalRequestQueries.recipient}
+	// ${GlobalRequestQueries.sender}
 	// sendCopyTo
 	static readonly many = `
-		${RequestQueries.requestElements}
+		${SupplierRequestQueries.requestElements}
 		message
 		status
 		creationDate
 		lastUpdatedDate
-		deleted
 	`;
 
 }

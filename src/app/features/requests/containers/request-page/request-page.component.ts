@@ -1,10 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ERM, Request } from '~core/models';
-import { RequestService } from '~core/entity-services';
-import { ListPageService, ListPageKey } from '~core/list-page';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
+import { RequestService } from '~core/entity-services';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { ERM, Request } from '~core/models';
 import { TrackingComponent } from '~utils';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 @Component({
 	selector: 'request-page-app',
@@ -29,8 +28,14 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 			searchedFields: [],
 			entityMetadata: ERM.REQUEST,
 			initialFilters: [],
-			client: Client.GLOBAL_REQUEST
 		});
+	}
+
+	createRequest() {
+		const manew = new Request({
+			message: 'miau', title: 'supreme title', status: 'pending', shareInformation: true
+		});
+		this.listSrv.update(manew);
 	}
 
 }

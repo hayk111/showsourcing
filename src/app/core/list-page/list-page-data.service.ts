@@ -34,8 +34,6 @@ export class ListPageDataService
 		skip: 0
 	};
 
-	client = Client.TEAM;
-
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
 		// initial filters
@@ -88,7 +86,7 @@ export class ListPageDataService
 			...this.selectParams,
 			// overriding query in case there is a filter / search
 			query: this.filterList.asPredicate()
-		}, '', this.client);
+		});
 
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),

@@ -1,4 +1,3 @@
-
 export * from './_entity.model';
 export * from './_erm.enum';
 export * from './app-image.model';
@@ -44,6 +43,7 @@ export * from './sample-status.model';
 export * from './sample.model';
 export * from './show.model';
 export * from './supplier-claim.model';
+export * from './supplier-request.model';
 export * from './supplier-status.model';
 export * from './supplier-type.model';
 export * from './supplier.model';

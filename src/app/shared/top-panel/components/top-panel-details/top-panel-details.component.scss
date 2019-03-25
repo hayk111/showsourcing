@@ -51,35 +51,3 @@
   height: 50px;
   border-radius: 2px;
 }
-
-
-.action-list {
-	user-picture-app,
-	status-selector-app,
-	button {
-		display: inline-block;
-		margin-right: var(--spacing-ms);
-	}
-	.rounded {
-		min-width: var(--spacing-xl);
-    border-radius: var(--spacing-m);
-    height: var(--spacing-xl);
-    font-size: var(--font-size-s);
-    padding: 0;
-	}
-
-	.share,
-	.like {
-		background-color: var(--color-secondary);
-		color: var(--color-black);
-	}
-
-
-	user-picture-app {
-		display: inline-block;
-	}
-	context-menu-app,
-	user-picture-app {
-    vertical-align: middle;
-	}
-}

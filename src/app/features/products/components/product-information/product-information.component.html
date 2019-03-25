@@ -16,11 +16,11 @@
 		(update)="update.emit($event)">
 	</dynamic-form-app>
 
-	<custom-form-app
+	<extended-form-app
 		[definitions]="fieldDefinitions$ | async"
 		[fields]="product?.extendedFields"
-		(update)="updateProduct($event)">
-	</custom-form-app>
+		(update)="updateProduct({extendedFields: $event})">
+	</extended-form-app>
 
 </card-app>
 

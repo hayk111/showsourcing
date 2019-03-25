@@ -6,6 +6,7 @@ import { SharedModule } from '~shared/shared.module';
 import { RequestElementFormComponent, RequestListViewComponent } from './components';
 import { RequestDetailsComponent } from './containers';
 import { RequestPageComponent } from './containers/request-page/request-page.component';
+import { RequestTopPanelComponent } from './components/request-top-panel/request-top-panel.component';
 
 @NgModule({
 	imports: [
@@ -17,6 +18,7 @@ import { RequestPageComponent } from './containers/request-page/request-page.com
 		RequestElementFormComponent,
 		RequestListViewComponent,
 		RequestPageComponent,
+		RequestTopPanelComponent,
 	],
 	entryComponents: [],
 	exports: [],

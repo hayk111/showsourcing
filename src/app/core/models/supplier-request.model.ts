@@ -1,19 +1,14 @@
-import { ID } from '~utils';
+import { ID, uuid } from '~utils';
 import { Contact } from './contact.model';
 import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
 import { RequestElement } from './request-element.model';
-import { EntityWithAudit } from './_entity.model';
-import { Product } from './product.model';
-import { Supplier } from './supplier.model';
 
-export class Request extends EntityWithAudit<RequestConfig> {
+export class SupplierRequest {
 	id: ID;
-	products: Product[];
-	suppliers: Supplier[];
-	// requestTtemplate?: RequestTemplate;
 	requestElements: RequestElement[];
-	shareInformation: boolean;
+	sender: Contact;
+	senderTeamId: string;
 	title: string;
 	message?: string;
 	recipient: Contact;
@@ -21,17 +16,23 @@ export class Request extends EntityWithAudit<RequestConfig> {
 	status: string;
 	images: AppImage[];
 	attachments: Attachment[];
+	creationDate: string;
+	lastUpdatedDate: string;
 	__typename?= 'Request';
 
-	constructor(config: RequestConfig) {
-		super(config);
+	constructor(config: SupplierRequestConfig) {
+		if (!config.id) this.id = uuid();
+		this.creationDate = '' + new Date();
+		this.lastUpdatedDate = '' + new Date();
+		Object.assign(this, config);
 	}
 }
 
-export interface RequestConfig {
+export interface SupplierRequestConfig {
+	id?: ID;
 	message?: string;
 	requestElements?: RequestElement[];
+	senderTeamId?: string;
 	title?: string;
 	status?: string;
-	shareInformation?: boolean;
 }

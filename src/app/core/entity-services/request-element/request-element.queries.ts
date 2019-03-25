@@ -9,7 +9,7 @@ export abstract class RequestElementQueries extends GlobalQueries {
 
 	static readonly one = `
 		name
-		targetedEntity
+		targetedEntityType
 		${RequestElementQueries.reply}
 		${RequestElementQueries.images}
 		${RequestElementQueries.attachments}
@@ -18,7 +18,7 @@ export abstract class RequestElementQueries extends GlobalQueries {
 
 	static readonly many = `
 		name
-		targetedEntity
+		targetedEntityType
 		${RequestElementQueries.reply}
 		${RequestElementQueries.images}
 		${RequestElementQueries.attachments}

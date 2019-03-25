@@ -1,10 +1,5 @@
 <top-panel-details-app
-	[title]="supplier?.name"
-	[data]="supplier"
-	[hasAssignee]="false"
-	(export)="export.emit($event)"
-	(favorited)="changeFavorite(true)"
- 	(unfavorited)="changeFavorite(false)">
+	[title]="supplier?.name">
 
 	<img-app [image]="supplier?.logoImage" type="supplier"></img-app>
 
@@ -17,21 +12,32 @@
 		</div>
 	</div>
 
-	<div class="flex" action>
+	<top-panel-action-buttons-app
+		action
+		[data]="supplier"
+		[hasAssignee]="false"
+		(export)="export.emit($event)"
+		(favorited)="changeFavorite(true)"
+		(unfavorited)="changeFavorite(false)">
+	</top-panel-action-buttons-app>
 
-		<status-selector-app [typeEntity]="typeEntity" [entity]="supplier" selectSize="l" type="button">
-		</status-selector-app>
+	<status-selector-app
+		action
+		[typeEntity]="typeEntity"
+		[entity]="supplier"
+		selectSize="l"
+		type="button">
+	</status-selector-app>
 
-		<context-menu-app>
-			<context-menu-trigger-app>
-				<button class="icon light dots">
-					<icon-app [size]="20" name="dots-vertical"></icon-app>
-				</button>
-			</context-menu-trigger-app>
-			<context-menu-item-app (click)="delete.emit(supplier)">
-				Delete
-			</context-menu-item-app>
-		</context-menu-app>
+	<context-menu-app action>
+		<context-menu-trigger-app>
+			<button class="icon light dots">
+				<icon-app [size]="20" name="dots-vertical"></icon-app>
+			</button>
+		</context-menu-trigger-app>
+		<context-menu-item-app (click)="delete.emit(supplier)">
+			Delete
+		</context-menu-item-app>
+	</context-menu-app>
 
-	</div>
 </top-panel-details-app>

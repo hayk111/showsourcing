@@ -9,7 +9,7 @@
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
 </sub-panel-app>
-
+<button (click)="createRequest()">Click me</button>
 <request-list-view-app
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"

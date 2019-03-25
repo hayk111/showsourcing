@@ -37,6 +37,7 @@ import { RequestFieldDefinitionService } from '../request-field-definition/reque
 import { RequestFieldService } from '../request-field/request-field.service';
 import { RequestReplyService } from '../request-reply/request-reply.service';
 import { RequestService } from '../request/request.service';
+import { SupplierRequestService } from '../supplier-request/supplier-request.service';
 import { GlobalService } from './global.service';
 
 @Injectable(
@@ -72,6 +73,7 @@ export class ERMService {
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
 		private supplierService: SupplierService,
+		private supplierRequestSrv: SupplierRequestService,
 		private supplierStatusSrv: SupplierStatusService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagService: TagService,
@@ -192,8 +194,6 @@ export class ERMService {
 				return this.productStatusSrv;
 			case ERM.PROJECT:
 				return this.projectService;
-			case ERM.REQUEST:
-				return this.requestService;
 			case ERM.REQUEST_ELEMENT:
 				return this.requestElementService;
 			case ERM.REQUEST_FIELD:
@@ -202,12 +202,16 @@ export class ERMService {
 				return this.requestFieldDefinitionService;
 			case ERM.REQUEST_REPLY:
 				return this.requestReplyService;
+			case ERM.REQUEST:
+				return this.requestService;
 			case ERM.SAMPLE:
 				return this.sampleSrv;
 			case ERM.SAMPLE_STATUS:
 				return this.sampleStatusSrv;
 			case ERM.SUPPLIER:
 				return this.supplierService;
+			case ERM.SUPPLIER_REQUEST:
+				return this.supplierRequestSrv;
 			case ERM.SUPPLIER_STATUS:
 				return this.supplierStatusSrv;
 			case ERM.SUPPLIER_TYPE:
