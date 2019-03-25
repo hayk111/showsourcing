@@ -2,13 +2,28 @@
 	[request]="request">
 </request-top-panel-app>
 
-<div class="flex">
-	<div class="left">
+<div>
+	<div>
 		<request-information-app
 			[request]="request">
 		</request-information-app>
 	</div>
-	<div class="right">
-		<request-element-list-view-app></request-element-list-view-app>
+	<div>
+		<card-app>
+			<h3 class="l">Request Items</h3>
+				<request-element-list-view-app
+					class="borderless"
+					[rows]="listSrv.items$ | async"
+					[pending]="listSrv.pending"
+					[extendedFields]="extendedFields"
+					[selection]="listSrv.selection$ | async"
+					(bottomReached)="listSrv.loadMore()"
+					(select)="listSrv.selectOne($event)"
+					(selectAll)="listSrv.selectAll($event)"
+					(sort)="listSrv.sort($event)"
+					(unselect)="listSrv.unselectOne($event)"
+					(unselectAll)="listSrv.unselectAll()">
+				</request-element-list-view-app>
+		</card-app>
 	</div>
 </div>

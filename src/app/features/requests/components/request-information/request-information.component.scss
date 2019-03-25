@@ -1,7 +1,18 @@
 card-app {
  	.message {
-			margin-bottom: var(--spacing-l);
 			white-space: pre-line;
 			word-break: break-all;
+			padding-right: var(--spacing-l);
+	 }
+
+	 .message, .information {
+		 max-width: 50%;
+	 }
+
+	 .left, .center, .right {
+		 width: 33%;
+		 &:not(.right) {
+			 padding-right: var(--spacing-s);
+		 }
 	 }
 }

@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { RequestReplyService, RequestService } from '~core/entity-services';
-import { ERM, Request } from '~core/models';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { RequestService, RequestElementService } from '~core/entity-services';
+import { ERM, Request, RequestElement, ExtendedField } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { ListPageService, ListPageKey } from '~core/list-page';
 
 @Component({
 	selector: 'request-details-app',
@@ -16,6 +17,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	request: Request;
 	erm = ERM;
+	extendedFields: ExtendedField[];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -23,7 +25,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private featureSrv: RequestService,
 		private notifSrv: NotificationService,
 		private cdr: ChangeDetectorRef,
-		private requestReplySrv: RequestReplyService
+		private reqElementSrv: RequestElementService,
+		public listSrv: ListPageService<RequestElement, RequestElementService>
 	) { super(); }
 
 	ngOnInit() {
@@ -33,6 +36,16 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		id$.pipe(
+			tap(id => {
+				this.listSrv.setup({
+					key: `${ListPageKey.REQUEST_ELEMENT}-${id}`,
+					entitySrv: this.reqElementSrv,
+					selectParams: { sortBy: 'name' },
+					searchedFields: [],
+					entityMetadata: ERM.REQUEST_ELEMENT,
+					initialFilters: []
+				});
+			}),
 			switchMap(id => this.featureSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(
@@ -51,6 +64,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			this.router.navigate(['request']);
 		} else {
 			this.request = request;
+			console.log(this.request);
+			this.extendedFields = this.request.requestTemplate ? this.request.requestTemplate.requestedFields : [];
 			this.cdr.detectChanges();
 		}
 	}
@@ -63,11 +78,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			timeout: 3500
 		});
 		this.router.navigate(['request']);
-	}
-
-	updateReply(requestField) {
-		// this.requestReplySrv.create(new RequestReply({ message: 'miau' })).subscribe();
-		console.log(requestField);
 	}
 
 }

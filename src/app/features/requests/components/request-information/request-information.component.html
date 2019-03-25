@@ -1,52 +1,62 @@
 <card-app>
-	<div class="message">
-		<h3 class="l">Message</h3>
-		<div>{{ request?.message }}</div>
-	</div>
-	<div class="information">
-		<h3 class="l">Request Information</h3>
+	<div class="flex">
+		<div class="message">
+			<h3 class="l">Message</h3>
+			<div>{{ request?.message }}</div>
+		</div>
+		<div class="information">
+			<h3 class="l">Request Information</h3>
 
-		<editable-field-app class="no-hover" [openOnClick]="false">
-			<label-app>Sent To</label-app>
-			<editable-label-app>
-				{{ request?.recipient?.name }}
-			</editable-label-app>
-		</editable-field-app>
+			<div class="flex">
+				<div class="left">
+					<editable-field-app class="no-hover" [openOnClick]="false">
+						<label-app>Sent To</label-app>
+						<editable-label-app>
+							{{ request?.recipient?.name }}
+						</editable-label-app>
+					</editable-field-app>
 
-		<editable-field-app class="no-hover" [openOnClick]="false">
-			<label-app>Supplier</label-app>
-			<editable-label-app>
-				{{ request?.recipient?.supplier?.name }}
-			</editable-label-app>
-		</editable-field-app>
+					<editable-field-app class="no-hover" [openOnClick]="false">
+						<label-app>Supplier</label-app>
+						<editable-label-app>
+							{{ request?.recipient?.supplier?.name }}
+						</editable-label-app>
+					</editable-field-app>
 
-		<editable-field-app class="no-hover" [openOnClick]="false">
-			<label-app>Sent On</label-app>
-			<editable-label-app>
-				{{ request?.creationDate | date: 'dd MMMM yyyy' }} at {{ request?.creationDate | date: 'HH:mm' }}
-			</editable-label-app>
-		</editable-field-app>
+				</div>
+				<div class="center">
+					<editable-field-app class="no-hover" [openOnClick]="false">
+						<label-app>Sent On</label-app>
+						<editable-label-app>
+							{{ request?.creationDate | date: 'dd MMMM yyyy' }} at {{ request?.creationDate | date: 'HH:mm' }}
+						</editable-label-app>
+					</editable-field-app>
 
-		<editable-field-app class="no-hover" [openOnClick]="false">
-			<label-app>Sent By</label-app>
-			<editable-label-app>
-				{{ request?.createdBy?.firstName }} {{ request?.createdBy?.lastName }}
-			</editable-label-app>
-		</editable-field-app>
+					<editable-field-app class="no-hover" [openOnClick]="false">
+						<label-app>Sent By</label-app>
+						<editable-label-app>
+							{{ request?.createdBy?.firstName }} {{ request?.createdBy?.lastName }}
+						</editable-label-app>
+					</editable-field-app>
+				</div>
+				<div class="right">
+					<editable-field-app class="no-hover" [openOnClick]="false">
+						<label-app>Template</label-app>
+						<editable-label-app>
+							{{ request?.requestTemplate?.name }}
+						</editable-label-app>
+					</editable-field-app>
 
-		<editable-field-app class="no-hover" [openOnClick]="false">
-			<label-app>Template</label-app>
-			<editable-label-app>
-				{{ request?.requestTemplate?.name }}
-			</editable-label-app>
-		</editable-field-app>
+					<editable-field-app class="no-hover" [openOnClick]="false">
+						<label-app>Status</label-app>
+						<editable-label-app>
+							{{ request?.status | const: 'statusRequest' }}
+						</editable-label-app>
+					</editable-field-app>
+				</div>
+			</div>
 
-		<editable-field-app class="no-hover" [openOnClick]="false">
-			<label-app>Status</label-app>
-			<editable-label-app>
-				{{ request?.status }}
-			</editable-label-app>
-		</editable-field-app>
 
+		</div>
 	</div>
 </card-app>

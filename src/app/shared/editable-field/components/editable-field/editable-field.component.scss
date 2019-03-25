@@ -16,6 +16,10 @@
 			editable-text-app {
 				color: unset;
 				cursor: default;
+
+				editable-label-app:hover {
+					background: unset;
+				}
 			}
 		}
 	}
