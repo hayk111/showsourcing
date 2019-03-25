@@ -80,7 +80,7 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app>
+	<preview-section-app *ngIf="task?.comments?.length" [title]="'Comments'">
 		<comment-list-app [comments]="task.comments"></comment-list-app>
 	</preview-section-app>
 

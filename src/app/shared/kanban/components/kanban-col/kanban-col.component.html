@@ -35,5 +35,5 @@
   </kanban-item-app>
   <div class="txt-btn flexCenter"
     (click)="loadMore.emit(col)"
-    *ngIf="col.data.length < col.totalData">Load More ({{ col.totalData - col.data.length }})</div>
+    *ngIf="col.data.length < col.totalData">Load {{ amountLoaded }} More ({{ col.totalData - col.data.length }})</div>
 </main>

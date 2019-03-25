@@ -44,6 +44,12 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-combined-arrows:before {
+  content: "\e947";
+}
+.icon-smile:before {
+  content: "\e94c";
+}
 .icon-event-calendar:before {
   content: "\e946";
 }

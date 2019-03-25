@@ -48,6 +48,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			deleted,
 			${ProductQueries.assignee}
 			${ProductQueries.attachments}
+			${ProductQueries.extendedFields}
 			${ProductQueries.category}
 			${ProductQueries.comments}
 			${ProductQueries.createdBy}

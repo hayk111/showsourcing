@@ -1,6 +1,7 @@
 import { ID, uuid } from '~utils';
 
 export const DEFAULT_STATUS_CATEGORY = 'inProgress';
+export const NEW_STATUS_ID = 'new-status-id';
 
 export class Status {
 	id?: ID;

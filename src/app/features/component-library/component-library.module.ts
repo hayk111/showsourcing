@@ -15,6 +15,7 @@ import { ProductCardLibraryPageComponent } from './product-card-library-page/pro
 import { SelectorLibraryComponent } from './selector-library/selector-library.component';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
+import { LoadersLibPageComponent } from './loaders-lib-page/loaders-lib-page.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/wor
 		SelectorLibraryComponent,
 		KanbanLibraryPageComponent,
 		ProductCardLibraryPageComponent,
-		WorkflowMngmntTableLibComponent
+		WorkflowMngmntTableLibComponent,
+		LoadersLibPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []

@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { log } from '~utils';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { AppImage } from '~models';
 
 @Component({
@@ -10,14 +9,26 @@ import { AppImage } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalCarouselComponent {
+
 	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
 	@Output() close = new EventEmitter<Event>();
 	@Output() indexChange = new EventEmitter<number>();
 
 
+	@HostListener('document:keydown', ['$event'])
+	onKeydownHandler(event: KeyboardEvent) {
+		switch (event.keyCode) {
+			case LEFT_ARROW: this.back(event);
+				break;
+			case RIGHT_ARROW: this.next(event);
+				break;
+			case ESCAPE: this.close.emit();
+				break;
+		}
+	}
+
 	back(event) {
-		log.debug('[ModalCarouselComponent] back');
 		if (this.selectedIndex > 0)
 			this.selectedIndex--;
 		else
@@ -27,7 +38,6 @@ export class ModalCarouselComponent {
 	}
 
 	next(event) {
-		log.debug('[ModalCarouselComponent] next');
 		if (this.selectedIndex < this.images.length - 1)
 			this.selectedIndex++;
 		else

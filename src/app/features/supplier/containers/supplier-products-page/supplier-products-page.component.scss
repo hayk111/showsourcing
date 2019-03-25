@@ -7,28 +7,3 @@
 products-list-view-app {
 	height: calc(100% - 174px);
 }
-
-
-selection-bar-app {
-
-	status-selector-app {
-		margin-right: var(--spacing-ms);
-	}
-
-	action-bar-app {
-		overflow: visible;
-
-		button.icon {
-			margin-right: var(--spacing-ms);
-		}
-
-		icon-app {
-			font-size: var(--font-size-xl);
-			color: var(--color-txt-secondary);
-		}
-
-		icon-app[name="trash-bin"] {
-			font-size: var(--font-size-xxl);
-		}
-	}
-}

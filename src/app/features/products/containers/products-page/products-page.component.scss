@@ -4,56 +4,6 @@
 	height: 100%;
 }
 
-selection-bar-app {
-	status-selector-app {
-		margin-right: var(--spacing-ms);
-	}
-}
-
-action-bar-app {
-	overflow: visible;
-
-	icon-app {
-		font-size: var(--font-size-xl);
-		color: var(--color-txt-secondary);
-	}
-
-	icon-app[name="trash-bin"] {
-		font-size: var(--font-size-xxl);
-	}
-
-	context-menu-trigger-app {
-		width: 160px;
-		button.icon {
-			margin-right: 0px;
-		}
-	}
-	button.icon {
-		margin-right: var(--spacing-ms);
-	}
-}
-
-context-menu-app, product-sorting-menu-app {
+product-sorting-menu-app {
 	margin-right: var(--spacing-ms);
 }
-
-context-menu-app {
-
-	context-menu-trigger-app {
-		min-width: 121px;
-
-		button.sort-1, button.sort-2 {
-			font-weight: 600;
-			font-size: var(--font-size-m);
-		}
-
-		button.sort-1 div, button.sort-2 div{
-			color: var(color-txt-secondary);
-		}
-
-		button.sort-1:hover div, button.sort-1:hover div{
-			color: white;
-		}
-	}
-}
-
