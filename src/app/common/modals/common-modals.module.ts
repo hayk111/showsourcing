@@ -30,6 +30,7 @@ import { EmailListComponent } from './component/rfq-dialog/email-list/email-list
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
+import { RequestViewDlgComponent } from './component/request-view-dlg/request-view-dlg.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -60,7 +61,7 @@ const modals = [
 		InputsModule,
 		UtilsModule
 	],
-	declarations: [...modals, ProductsCardViewDialogComponent, ExportSelectionViewComponent, ExportWaitingViewComponent],
+	declarations: [...modals, ProductsCardViewDialogComponent, ExportSelectionViewComponent, ExportWaitingViewComponent, RequestViewDlgComponent],
 	entryComponents: modals,
 	providers: [
 		ProductDialogService,
