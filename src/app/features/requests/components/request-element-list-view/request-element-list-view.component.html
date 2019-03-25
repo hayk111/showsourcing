@@ -25,12 +25,13 @@
 		columnApp="Product"
 		sortBy="name"
 		let-row="row"
-		width="200">
+		width="300">
 		<div>{{ row?.name }}</div>
 	</ng-template>
 
 	<ng-template
 		let-row="row"
+		width="250"
 		*ngFor="let r of extendedFields; index as index; trackBy: trackByFn"
 		[columnApp]="r?.label">
 		<div>{{r?.label}}</div>
