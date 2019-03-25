@@ -1,3 +1,11 @@
 <top-panel-details-app
-	[title]="requestElem?.name || 'Quote Request'">
+	[title]="request?.title || 'Quote Request'">
+	<badge-app titleExtra *ngIf="request?.requestTemplate?.name" type="inProgress" size="m">
+		{{ request?.requestTemplate?.name }}
+	</badge-app>
+	<div subinfo class="flex">
+		<div class="bold-s">Sent:&nbsp;</div>
+		<span>{{ request?.creationDate | timeAgo }}</span>
+	</div>
+	<button action (click)="reminder.emit(request)">Sent a Reminder</button>
 </top-panel-details-app>

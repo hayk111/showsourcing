@@ -4,6 +4,9 @@
         <p *ngIf="currentSort?.sortBy === 'title'" class="flex">Sort By Name
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
+        <p *ngIf="currentSort?.sortBy === 'recipient.supplier.name'" class="flex">Sort By Supplier
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
         <p *ngIf="currentSort?.sortBy === 'requestTemplate.name'" class="flex">Sort By Type
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
@@ -25,6 +28,12 @@
   <context-menu-item-app (click)="sortFromMenu.emit('title')" class="menu-item">
     Name
     <ng-container *ngIf="currentSort?.sortBy === 'title'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('recipient.supplier.name')" class="menu-item">
+    Supplier
+    <ng-container *ngIf="currentSort?.sortBy === 'recipient.supplier.name'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>

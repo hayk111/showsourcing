@@ -1,0 +1,10 @@
+badge-app {
+	width: fit-content;
+
+	icon-app[name="circle"] {
+		padding: var(--spacing-xs);
+		padding-top: 5px;
+		padding-left: 0;
+		font-size: 6px;
+	}
+}

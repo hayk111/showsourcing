@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { RequestCommonModule } from '~common/request';
 import { routes } from '~features/requests/routes';
 import { SharedModule } from '~shared/shared.module';
 
-import { RequestElementFormComponent, RequestListViewComponent } from './components';
-import { RequestDetailsComponent } from './containers';
-import { RequestPageComponent } from './containers/request-page/request-page.component';
-import { RequestTopPanelComponent } from './components/request-top-panel/request-top-panel.component';
-import { RequestCommonModule } from '~common/request';
+import {
+	RequestElementFormComponent,
+	RequestElementListViewComponent,
+	RequestInformationComponent,
+	RequestListViewComponent,
+	RequestTopPanelComponent,
+} from './components';
+import { RequestDetailsComponent, RequestPageComponent } from './containers';
 
 @NgModule({
 	imports: [
@@ -18,6 +22,8 @@ import { RequestCommonModule } from '~common/request';
 	declarations: [
 		RequestDetailsComponent,
 		RequestElementFormComponent,
+		RequestElementListViewComponent,
+		RequestInformationComponent,
 		RequestListViewComponent,
 		RequestPageComponent,
 		RequestTopPanelComponent,

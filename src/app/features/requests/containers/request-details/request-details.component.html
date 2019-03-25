@@ -1,5 +1,28 @@
-<!-- <request-element-form-app
-	[requestElement]="request?.requestElements"
-	(update)="updateReply($event)">
-</request-element-form-app> -->
+<request-top-panel-app
+	[request]="request">
+</request-top-panel-app>
 
+<div>
+	<div>
+		<request-information-app
+			[request]="request">
+		</request-information-app>
+	</div>
+	<div>
+		<card-app>
+			<h3 class="l">Request Items</h3>
+				<request-element-list-view-app
+					class="borderless"
+					[rows]="listSrv.items$ | async"
+					[pending]="listSrv.pending"
+					[selection]="listSrv.selection$ | async"
+					(bottomReached)="listSrv.loadMore()"
+					(select)="listSrv.selectOne($event)"
+					(selectAll)="listSrv.selectAll($event)"
+					(sort)="listSrv.sort($event)"
+					(unselect)="listSrv.unselectOne($event)"
+					(unselectAll)="listSrv.unselectAll()">
+				</request-element-list-view-app>
+		</card-app>
+	</div>
+</div>

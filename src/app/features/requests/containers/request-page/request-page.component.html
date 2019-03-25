@@ -21,10 +21,14 @@
 	class="borderless"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
+	[selection]="listSrv.selection$ | async"
+	(bottomReached)="listSrv.loadMore()"
+	(select)="listSrv.selectOne($event)"
+	(selectAll)="listSrv.selectAll($event)"
 	(sort)="listSrv.sort($event)"
-	(bottomReached)="listSrv.loadMore()">
+	(unselect)="listSrv.unselectOne($event)"
+	(unselectAll)="listSrv.unselectAll()">
 </request-list-view-app>
-
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"

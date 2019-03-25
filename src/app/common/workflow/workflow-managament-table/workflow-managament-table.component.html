@@ -29,6 +29,7 @@
 			<!-- name -->
 			<div class="w-40 cell">
 				<editable-text-app
+					class="pointer"
 					#editable
 					[openOnClick]="status.step !== 0"
 					(opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
