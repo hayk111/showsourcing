@@ -1,16 +1,6 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	Input,
-	OnChanges,
-	TemplateRef,
-	ViewChild,
-	AfterViewChecked,
-	OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { ExtendedField, RequestElement, ExtendedFieldDefinition } from '~core/models';
+import { ExtendedFieldDefinition, RequestElement } from '~core/models';
 
 @Component({
 	selector: 'request-element-list-view-app',
@@ -21,24 +11,23 @@ import { ExtendedField, RequestElement, ExtendedFieldDefinition } from '~core/mo
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestElementListViewComponent extends ListViewComponent<RequestElement> implements OnInit {
+export class RequestElementListViewComponent extends ListViewComponent<RequestElement> {
 
-	@Input() extendedFields: ExtendedFieldDefinition[];
 	private _rows: Array<RequestElement>;
 	@Input() set rows(rows: Array<RequestElement>) {
 		this._rows = rows;
+		if (rows && rows.length && rows[0].reply && rows[0].reply.fields
+			&& rows[0].reply.fields.length)
+			this.extendedFields = (rows[0].reply.fields).map(field => field.definition);
 	}
 	get rows() {
 		return this._rows;
 	}
+
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
-	extendedFields2: ExtendedFieldDefinition[];
+	extendedFields: ExtendedFieldDefinition[];
 
 	constructor(private cdr: ChangeDetectorRef) { super(); }
-
-	ngOnInit() {
-		console.log(this.rows);
-	}
 
 	getType(row: RequestElement) {
 		switch (row.name) {

@@ -17,7 +17,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	request: Request;
 	erm = ERM;
-	extendedFields: ExtendedField[];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -64,7 +63,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			this.router.navigate(['request']);
 		} else {
 			this.request = request;
-			this.extendedFields = this.request.requestTemplate ? this.request.requestTemplate.requestedFields : [];
 			this.cdr.detectChanges();
 		}
 	}

@@ -15,7 +15,6 @@
 					class="borderless"
 					[rows]="listSrv.items$ | async"
 					[pending]="listSrv.pending"
-					[extendedFields]="extendedFields"
 					[selection]="listSrv.selection$ | async"
 					(bottomReached)="listSrv.loadMore()"
 					(select)="listSrv.selectOne($event)"
