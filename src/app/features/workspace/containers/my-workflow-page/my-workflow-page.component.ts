@@ -30,7 +30,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 	erm = ERM;
-	amountLoaded = this.amountLoaded;
+	amountLoaded = 15;
 
 	// filter displayed as button in the filter panel
 	filterTypes = [
