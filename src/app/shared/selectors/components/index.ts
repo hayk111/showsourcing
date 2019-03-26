@@ -2,6 +2,7 @@
 export * from './cdk-overlay/cdk-overlay.component';
 export * from './selector-button-row/selector-button-row.component';
 export * from './selector-category-row/selector-category-row.component';
+export * from './selector-contact-row/selector-contact-row.component';
 export * from './selector-country-row/selector-country-row.component';
 export * from './selector-currency-row/selector-currency-row.component';
 export * from './selector-placeholder/selector-placeholder.component';

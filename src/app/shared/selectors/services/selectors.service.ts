@@ -118,8 +118,10 @@ export class SelectorsService {
 				case ERM.EVENT:
 					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR description.name CONTAINS[c] "${searchTxt}"`;
 					break;
-				case ERM.CATEGORY:
 				case ERM.CONTACT:
+					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR email CONTAINS[c] "${searchTxt}"`;
+					break;
+				case ERM.CATEGORY:
 				case ERM.HARBOUR:
 				case ERM.INCOTERM:
 				case ERM.PRODUCT:

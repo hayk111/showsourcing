@@ -52,7 +52,7 @@
 		</ng-container>
 
 		<ng-container *ngSwitchCase="erm.CONTACT">
-			<selector-name-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [item]="item" (click)="onSelect(item)"></selector-name-row-app>
+			<selector-contact-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [contact]="item" (click)="onSelect(item)"></selector-contact-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="erm.CATEGORY">
