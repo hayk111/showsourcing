@@ -9,23 +9,20 @@ export const routes: Array<Route> = [
 		path: 'auth',
 		component: GuestTemplateComponent,
 		canActivateChild: [NotAuthenticatedGuard],
-		loadChildren: '../../src/app/features/auth-pages/auth-pages.module#AuthPagesModule'
-	},
-	{
-		path: 'error',
-		component: GuestTemplateComponent,
-		loadChildren: 'app/features/error-pages/error-pages.module#ErrorPagesModule'
+		loadChildren: './../features/auth-pages/auth-pages-wrapper.module#AuthPagesWrapperModule'
 	},
 	{
 		path: '',
-		component: TemplateComponent,
+		component: GuestTemplateComponent,
 		canActivateChild: [
 			AuthenticatedGuard,
 			GlobalRequestClientReadyGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'request', pathMatch: 'full' },
-			{ path: 'request', loadChildren: 'app/features/request/request.module#RequestModule' },
+			{
+				path: 'request', loadChildren: './../features/request/request.module#RequestModule'
+			},
 		]
 	},
 	{ path: '**', redirectTo: '' }

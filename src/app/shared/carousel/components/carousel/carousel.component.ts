@@ -10,6 +10,7 @@ import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
 import { PendingImage } from '~utils/pending-image.class';
+import { saveAs } from 'file-saver';
 
 @Component({
 	selector: 'carousel-app',
