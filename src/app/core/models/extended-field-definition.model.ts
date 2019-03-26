@@ -1,3 +1,4 @@
+import { uuid } from '~utils';
 
 
 export class ExtendedFieldDefinition {
@@ -7,7 +8,8 @@ export class ExtendedFieldDefinition {
 	order?: number;
 	__typename = 'ExtendedFieldDefinition';
 
-	constructor(config: ExtendedFieldDefinitionConfig) {
+	constructor(config?: ExtendedFieldDefinitionConfig) {
+		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
 	}
 }

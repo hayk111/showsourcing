@@ -1,13 +1,5 @@
 <top-panel-details-app
-	[title]="product?.name || 'Unnamed Product'"
-	[hasOptions]="true"
-	[data]="product"
-	[user]="product?.assignee"
-	(export)="export.emit($event)"
-	(favorited)="onFavorited()"
-	(unfavorited)="onUnfavorited()"
-	(delete)="delete.emit(product)"
-	(changeUser)="onUserChanged($event)">
+	[title]="product?.name || 'Unnamed Product'">
 
 	<img-app [image]="product?.images" type="product" size="s"></img-app>
 
@@ -18,6 +10,17 @@
 		<span *ngIf="product?.category" class="category">{{ product?.category?.name }}</span>
 		<span *ngIf="product?.supplier" class="supplier">{{ product?.supplier?.name }}</span>
 	</div>
+
+	<top-panel-action-buttons-app
+		action
+		[data]="product"
+		[user]="product?.assignee"
+		(export)="export.emit($event)"
+		(favorited)="onFavorited()"
+		(unfavorited)="onUnfavorited()"
+		(delete)="delete.emit(product)"
+		(changeUser)="onUserChanged($event)">
+	</top-panel-action-buttons-app>
 
 	<status-selector-app
 		action
@@ -37,4 +40,5 @@
 			Delete
 		</context-menu-item-app>
 	</context-menu-app>
+
 </top-panel-details-app>

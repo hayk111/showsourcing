@@ -102,7 +102,7 @@
 			inlineLabel="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="product?.extendedFields"
-			(update)="updateProduct($event)">
+			(update)="update($event, 'extendedFields')">
 		</extended-form-app>
 	</preview-section-app>
 

@@ -1,28 +1,12 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	NgModuleRef,
-	OnInit,
-	ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap, take } from 'rxjs/operators';
-import { ERM, Product, Quote } from '~models';
+import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { CompareQuotationComponent, RfqDialogComponent } from '~common/modals';
+import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
+import { Product, Quote } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { CustomField } from '~shared/dynamic-forms';
-import { EditableTextComponent } from '~shared/editable-field';
 import { AutoUnsub } from '~utils';
-import {
-	CompareQuotationComponent,
-	RfqDialogComponent
-} from '~common/modals';
-import {
-	ProductFeatureService,
-	QuoteFeatureService
-} from '~features/products/services';
 
 @Component({
 	selector: 'product-quotation-app',

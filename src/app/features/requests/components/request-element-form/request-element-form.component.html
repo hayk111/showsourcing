@@ -1,0 +1,7 @@
+<card-app>
+	<extended-form-app
+		[definitions]="requestElement?.requestedFields"
+		[fields]="requestElement?.reply?.fields || []"
+		(update)="updateReply({fields: $event})">
+	</extended-form-app>
+</card-app>

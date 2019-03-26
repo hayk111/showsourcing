@@ -1,6 +1,4 @@
-import { Directive, Input, TemplateRef, EventEmitter, Output, OnInit } from '@angular/core';
-import { defaultComparator } from '~shared/table/utils/comparator.function';
-import { Sort } from '~shared/table/components/sort.interface';
+import { Directive, Input, OnInit, TemplateRef } from '@angular/core';
 
 @Directive({
 	selector: '[columnApp]',
