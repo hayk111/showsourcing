@@ -51,6 +51,10 @@
 			<selector-tag-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
 		</ng-container>
 
+		<ng-container *ngSwitchCase="erm.CONTACT">
+			<selector-name-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [item]="item" (click)="onSelect(item)"></selector-name-row-app>
+		</ng-container>
+
 		<ng-container *ngSwitchCase="erm.CATEGORY">
 			<selector-category-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [category]="item" (click)="onSelect(item)"></selector-category-row-app>
 		</ng-container>
