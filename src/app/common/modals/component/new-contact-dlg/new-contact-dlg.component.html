@@ -15,7 +15,21 @@
 					autocomplete="new-name"
 					placeholder="Contact name"/>
 			</form-field-app>
-	
+
+			<form-field-app>
+				<label-app>Supplier</label-app>
+				<selector-app
+					type="supplier"
+					(update)="updateSupplier($event)">
+					<selector-placeholder-app
+						class="bg-secondary-light"
+						[name]="form.get('supplier').value.name || supplier?.name"
+						placeHolder="Select a supplier">
+					</selector-placeholder-app>
+				</selector-app>
+				<input inputApp [hidden]="true" formControlName="supplier" type="text"/>
+			</form-field-app>
+
 			<form-field-app>
 				<label-app>Function</label-app>
 				<input inputApp
@@ -25,7 +39,7 @@
 					autocomplete="new-job"
 					placeholder="Contact Function"/>
 			</form-field-app>
-	
+
 			<form-field-app>
 				<label-app>Email</label-app>
 				<input inputApp
@@ -35,7 +49,7 @@
 					autocomplete="new-email"
 					placeholder="Contact email address"/>
 			</form-field-app>
-	
+
 			<form-field-app>
 				<label-app>Phone number</label-app>
 				<input inputApp
@@ -46,16 +60,16 @@
 					autocomplete="new-tel"
 					placeholder="Contact phone number"/>
 			</form-field-app>
-	
+
 			<label>Business card</label>
 			<carousel-app *ngIf="contact$ | async as contact"
-				[imageProperty]="'businessCardImage'" 
-				[isImagePropertyArray]="false" 
-				[entity]="contact" 
-				[size]="340" 
+				[imageProperty]="'businessCardImage'"
+				[isImagePropertyArray]="false"
+				[entity]="contact"
+				[size]="340"
 				[images]="[contact.businessCardImage]">
 			</carousel-app>
-	
+
 		</form>
 
 	</ng-container>
