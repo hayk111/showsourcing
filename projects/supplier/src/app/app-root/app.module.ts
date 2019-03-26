@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { RequestModule } from './request/request.module';
+import { RequestModule } from '../features/request/request.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +10,10 @@ import { RequestModule } from './request/request.module';
   ],
   imports: [
     BrowserModule,
-    RequestModule
+    RequestModule,
+    RouterModule.forRoot([
+      { path: '' }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { AuthStatus } from '~core/auth';
+import { AuthStatus } from '~core/auth/interfaces/auth-state.interface';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
 
-/** check if the user is authenticated and if so redirect to dashboard. Protects pages like login etc. */
 @Injectable({
 	providedIn: 'root'
 })
-export class UnauthGuardService implements CanActivate, CanActivateChild {
+export class AuthenticatedGuard implements CanActivate, CanActivateChild {
 	constructor(private authSrv: AuthenticationService, private router: Router) { }
 
 	canActivate(
@@ -18,16 +17,20 @@ export class UnauthGuardService implements CanActivate, CanActivateChild {
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
 		return this.authSrv.authStatus$.pipe(
-			tap(status => log.debug('%c unauth guard status :', LogColor.GUARD, status)),
 			filter(status => status !== AuthStatus.PENDING),
-			tap(status => this.redirectOnAuthenticated(status)),
-			map(status => status === AuthStatus.NOT_AUTHENTICATED),
+			tap(status => this.redirectOnUnAuthenticated(status, route, state)),
+			tap(status => log.debug('%c auth guard: auth state ?', LogColor.GUARD, status)),
+			map(status => status === AuthStatus.AUTHENTICATED)
 		);
 	}
 
-	redirectOnAuthenticated(authStatus: AuthStatus) {
-		if (authStatus === AuthStatus.AUTHENTICATED)
-			this.router.navigate(['']);
+	redirectOnUnAuthenticated(status: AuthStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		switch (status) {
+			case AuthStatus.NOT_AUTHENTICATED:
+				const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
+				this.router.navigate(['auth', 'login'], { queryParams: { returnUrl } });
+				break;
+		}
 	}
 
 	canActivateChild(
