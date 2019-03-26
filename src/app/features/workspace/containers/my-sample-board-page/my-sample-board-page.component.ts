@@ -12,6 +12,8 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { CreationDialogComponent } from '~common/modals';
+import { NEW_STATUS_ID } from '~core/models/status.model';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 
 @Component({
@@ -72,7 +74,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 				descending: false
 			}).pipe(
 				first(),
-				map(statuses => [{ id: null, name: 'New Sample', category: 'new' }, ...statuses]),
+				map(statuses => [{ id: NEW_STATUS_ID, name: 'New Sample', category: 'new' }, ...statuses]),
 				tap(statuses => this.statuses = statuses),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
@@ -88,7 +90,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
 			// for sample with null status
-			const statusQuery = status.id ? `status.id == "${status.id}"` : `status == null`;
+			const statusQuery = status.id !== NEW_STATUS_ID ? `status.id == "${status.id}"` : `status == null`;
 			const query = [
 				predicate,
 				statusQuery
@@ -102,7 +104,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
-		const statusQuery = col.id ? `status.id == "${col.id}"` : `status == null`;
+		const statusQuery = col.id !== NEW_STATUS_ID ? `status.id == "${col.id}"` : `status == null`;
 		const predicate = this.listSrv.filterList.asPredicate();
 		const query = [
 			predicate,
@@ -148,10 +150,29 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 		// we update on the server
-		this.sampleSrv.update({
-			id: event.item.id,
-			status: new SampleStatus({ id: event.to.id })
-		}).subscribe();
+		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		this.sampleSrv.update(
+			{
+				id: event.item.id,
+				status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
+			},
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
+		).subscribe();
+	}
+
+	/** multiple */
+	updateSamplesStatus(event: KanbanDropEvent) {
+		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		const samples = event.items.map(id => ({
+			id,
+			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
+		}));
+		this.sampleSrv.updateMany(
+			samples,
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
+		).subscribe();
 	}
 
 	onMultipleStatusUpdated(status: SampleStatus) {

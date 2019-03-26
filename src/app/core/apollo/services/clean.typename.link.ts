@@ -40,11 +40,17 @@ function clearDeep(obj: object): object {
 	const newObj: any = {};
 	keys.forEach((i: any) => {
 		const val: any = obj[i];
-		if (val !== undefined && val != null) {
-			if (val instanceof Date) newObj[i] = val;
-			else if (Array.isArray(val)) newObj[i] = clearDeepArrayWalk(val);
-			else if (typeof val === 'object') newObj[i] = clearDeep(val);
-			else newObj[i] = val;
+		if (val !== undefined) {
+			if (val instanceof Date)
+				newObj[i] = val;
+			else if (Array.isArray(val))
+				newObj[i] = clearDeepArrayWalk(val);
+			else if (val === null)
+				newObj[i] = val;
+			else if (typeof val === 'object')
+				newObj[i] = clearDeep(val);
+			else
+				newObj[i] = val;
 		}
 	});
 	return newObj;
