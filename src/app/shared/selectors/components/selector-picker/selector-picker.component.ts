@@ -147,6 +147,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	getChoices(type: EntityMetadata): Observable<any[]> {
 		switch (type) {
 			case ERM.CATEGORY: return this.selectorSrv.getCategories();
+			case ERM.CONTACT: return this.selectorSrv.getContacts();
 			case ERM.COUNTRY: return this.selectorSrv.getCountriesGlobal();
 			case ERM.CURRENCY: return this.selectorSrv.getCurrenciesGlobal();
 			case ERM.EVENT: return this.selectorSrv.getEvents();
