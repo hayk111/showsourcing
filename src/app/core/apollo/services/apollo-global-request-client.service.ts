@@ -28,7 +28,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 		protected realmServerSrv: RealmServerService,
 		protected tokenSrv: TokenService,
 	) {
-		super(apollo, httpLink, apolloState, realmServerSrv, Client.GLOBAL_DATA);
+		super(apollo, httpLink, apolloState, realmServerSrv, Client.GLOBAL_REQUEST);
 	}
 
 	init(realmUser: RealmUser): Observable<any> {
@@ -50,10 +50,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 
 	createMissingSubscription(): Observable<any> {
 		const toSub = [
-			ERM.COUNTRY,
-			ERM.CURRENCY,
-			ERM.HARBOUR,
-			ERM.INCOTERM,
+
 		];
 
 		const newSubs = toSub

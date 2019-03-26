@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import { AuthenticatedGuard } from '~core/auth';
 import { NotAuthenticatedGuard } from '~core/auth/services/not-authnticated-guard';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
+import { GlobalRequestClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 
 export const routes: Array<Route> = [
 	{
@@ -20,7 +21,7 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivateChild: [
 			AuthenticatedGuard,
-			GlobalRequestClientReady
+			GlobalRequestClientReadyGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'request', pathMatch: 'full' },

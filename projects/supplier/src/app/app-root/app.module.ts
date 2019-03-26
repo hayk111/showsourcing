@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RequestModule } from '../features/request/request.module';
+import { RouterModule } from '@angular/router';
+import { routes } from './routes';
 
 @NgModule({
   declarations: [
@@ -11,9 +13,7 @@ import { RequestModule } from '../features/request/request.module';
   imports: [
     BrowserModule,
     RequestModule,
-    RouterModule.forRoot([
-      { path: '' }
-    ])
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

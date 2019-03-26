@@ -114,11 +114,11 @@ export class TeamClientReadyGuard extends ClientReadyGuard {
 @Injectable({
 	providedIn: 'root'
 })
-export class SupplierOnboardingClientReadyGuard extends ClientReadyGuard {
+export class GlobalRequestClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
 	) {
-		super(router, apolloState, Client.SUPPLIER_ONBOARDING);
+		super(router, apolloState, Client.GLOBAL_REQUEST);
 	}
 }
