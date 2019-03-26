@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "sh ./scripts/start.sh",
-    "serve": "ng serve",
+    "serve": "ng serve --open",
     "serve:fr": "ng serve --configuration=fr",
     "serve:local": "ng serve --configuration=local",
     "build": "ng build --prod --aot",
