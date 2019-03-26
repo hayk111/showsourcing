@@ -11,7 +11,7 @@ import { RealmServerService } from '~entity-services/realm-server/realm-server.s
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 
-import { ApolloStateService } from './apollo-state.service';
+import { ApolloStateService } from '../src/app/core/apollo/services/apollo-state.service';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 
 @Injectable({ providedIn: 'root' })
