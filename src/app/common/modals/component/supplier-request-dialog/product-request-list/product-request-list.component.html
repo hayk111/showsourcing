@@ -7,7 +7,7 @@
 			</img-app>
 			{{ product?.name }}
 		</div>
-		<div class="color-primary pointer fs-s">Remove</div>
+		<div class="color-primary pointer fs-s" (click)="remove.emit(product?.id)">Remove</div>
 	</div>
 </div>
 <div class="number-products flexEnd">{{ products?.length }} {{ products?.length === 1 ? 'Product' : 'Products' }} selected</div>

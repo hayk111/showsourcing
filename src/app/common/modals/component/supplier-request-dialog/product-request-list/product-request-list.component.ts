@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '~core/models';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'product-request-list-app',
@@ -10,7 +11,7 @@ import { Product } from '~core/models';
 export class ProductRequestListComponent implements OnInit {
 
 	@Input() products: Product[];
-	@Output() remove = new EventEmitter<Product>();
+	@Output() remove = new EventEmitter<ID>();
 
 	constructor() { }
 

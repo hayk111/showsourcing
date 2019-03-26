@@ -8,7 +8,10 @@
 			<form [formGroup]="form">
 				<form-field-app class="modal">
 					<label-app>Send me a copy</label-app>
-					<product-request-list-app [products]="products"></product-request-list-app>
+					<product-request-list-app
+						[products]="products"
+						(remove)="removeProduct($event)">
+					</product-request-list-app>
 					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
 				<form-field-app class="modal">

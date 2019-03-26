@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { DialogService } from '~shared/dialog';
 import { Product } from '~core/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -30,6 +31,10 @@ export class SupplierRequestDialogComponent implements OnInit {
 			message: [''],
 			shareInformation: ['']
 		});
+	}
+
+	removeProduct(id: ID) {
+		this.products = this.products.filter(product => product.id !== id);
 	}
 
 }
