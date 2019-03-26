@@ -286,7 +286,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	getLabelName(label) {
 		if (!label.name)
-			throw Error('This entity selector does not have a name property when using multiple, check onkeyDoen else if (this.multiple)');
+			throw Error('This entity selector does not have a name property when using multiple, check onkeyDown else if (this.multiple)');
 		return label.name;
 	}
 

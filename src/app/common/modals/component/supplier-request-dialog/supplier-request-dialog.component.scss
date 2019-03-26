@@ -9,6 +9,10 @@ dialog-app {
 
 	.request-container {
 
+		.pdng-btm-l {
+			padding-bottom: var(--spacing-l);
+		}
+
 		label-app.title {
 			font-size: var(--font-size-m);
 			color: var(--color-txt-strong);

@@ -6,7 +6,7 @@
 			<h2 class="color-txt-strong l">Request Settings</h2>
 
 			<form [formGroup]="form">
-				<form-field-app class="modal">
+				<form-field-app class="modal pdng-btm-l">
 					<label-app>Send me a copy</label-app>
 					<product-request-list-app
 						[products]="products"
@@ -14,9 +14,10 @@
 					</product-request-list-app>
 					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
-				<form-field-app class="modal">
+				<form-field-app class="modal pdng-btm-l">
 					<label-app>Request Templates</label-app>
-					<selector-app>
+					<selector-app
+						type="contact">
 							<selector-placeholder-app
 								name=""
 								placeHolder="Quick ">
@@ -43,7 +44,8 @@
 			<form [formGroup]="form">
 				<form-field-app class="modal">
 					<label-app>Send to</label-app>
-					<selector-app>
+					<selector-app
+						type="contact">
 						<selector-placeholder-app
 							name=""
 							placeHolder="Email or Contact">
@@ -53,7 +55,8 @@
 				</form-field-app>
 				<form-field-app class="modal">
 					<label-app>Send Copy to</label-app>
-					<selector-app>
+					<selector-app
+						type="contact">
 						<selector-placeholder-app
 							name=""
 							placeHolder="Send copy to">
@@ -61,7 +64,7 @@
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
-				<form-field-app class="modal">
+				<form-field-app class="modal pdng-btm-l">
 					<label-app>Request Title</label-app>
 					<input inputApp type="text" formControlName="requestTitle" placeholder="Quote Request"/>
 				</form-field-app>
