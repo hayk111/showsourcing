@@ -74,7 +74,7 @@ const components = [
 		BadgeModule,
 		A11yModule,
 		UtilsModule,
-		ScrollDispatchModule
+		ScrollDispatchModule,
 	],
 	declarations: components,
 	exports: components

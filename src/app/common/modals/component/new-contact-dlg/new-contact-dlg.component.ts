@@ -74,7 +74,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	createContact() {
-		const contact = this.supplier ? new Contact({ supplier: { id: this.supplier.id } }) : new Contact({});
+		const contact = new Contact({ supplier: { id: this.supplier.id } });
 		return this.contactSrv.create(contact).pipe(
 			tap(_ => {
 				this.contactId = contact.id;

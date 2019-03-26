@@ -12,6 +12,7 @@ import {
 	RfqDialogComponent,
 	VoteDetailsDialogComponent,
 	SupplierRequestDialogComponent,
+	NewContactDlgComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
@@ -96,6 +97,10 @@ export class CommonModalService {
 	/** Opens a dialog that let you see the list of people who have voted */
 	openVoteDetailsDialog(votes: ProductVote[]) {
 		return this.dlgSrv.open(VoteDetailsDialogComponent, { votes });
+	}
+
+	openNewContactDlg(data: { isNewContact?: boolean, supplier?: Supplier, contactId?: string }) {
+		return this.dlgSrv.open(NewContactDlgComponent, data);
 	}
 
 	close() {

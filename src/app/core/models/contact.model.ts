@@ -24,5 +24,5 @@ export interface ContactConfig {
 	email?: string;
 	businessCardImage?: AppImage;
 	jobTitle?: string;
-	supplier?: Supplier;
+	supplier: Supplier;
 }

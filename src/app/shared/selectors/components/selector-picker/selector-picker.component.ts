@@ -18,7 +18,8 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Category, Event, Product, Project, Supplier, SupplierType, Tag, EntityMetadata, ERM } from '~core/models';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { Category, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -268,6 +269,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				case ERM.TAG:
 					added = new Tag({ name });
 					createObs$ = this.selectorSrv.createTag(added);
+					break;
+				case ERM.CONTACT:
 					break;
 				default: throw Error(`Unsupported type ${this.type}`);
 			}
