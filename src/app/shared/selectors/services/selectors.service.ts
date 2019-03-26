@@ -322,6 +322,10 @@ export class SelectorsService {
 		return this.categorySrv.create(category);
 	}
 
+	createContact(contact: Contact): Observable<any> {
+		return this.contactSrv.create(contact);
+	}
+
 	createEvent(event: Event): Observable<any> {
 		return this.eventSrv.create(event);
 	}

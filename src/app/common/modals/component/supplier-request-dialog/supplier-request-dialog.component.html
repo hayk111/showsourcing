@@ -16,11 +16,10 @@
 				</form-field-app>
 				<form-field-app class="modal pdng-btm-l">
 					<label-app>Request Templates</label-app>
-					<selector-app
-						type="contact">
+					<selector-app>
 							<selector-placeholder-app
 								name=""
-								placeHolder="Quick ">
+								placeHolder="Quick RFQ">
 							</selector-placeholder-app>
 						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
@@ -45,11 +44,29 @@
 				<form-field-app class="modal">
 					<label-app>Send to</label-app>
 					<selector-app
+						#contactSelector
 						type="contact"
-						[canCreate]="true">
+						[canCreate]="true"
+						formControlName="recipient">
 						<selector-placeholder-app
-							name=""
+							[name]="contactSelector?.value?.email"
 							placeHolder="Email or Contact">
+						</selector-placeholder-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+				<form-field-app
+					*ngIf="contactSelector?.value?.email && !contactSelector?.value?.supplier || opened"
+					class="modal">
+					<label-app>Select supplier for the contact</label-app>
+					<selector-app
+						type="supplier"
+						[canCreate]="true"
+						(click)="opened = true"
+						(update)="contactSelector.value.supplier = $event">
+						<selector-placeholder-app
+							[name]="contactSelector?.value?.supplier?.name"
+							placeHolder="Select a supplier">
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
@@ -67,7 +84,7 @@
 				</form-field-app>
 				<form-field-app class="modal pdng-btm-l">
 					<label-app>Request Title</label-app>
-					<input inputApp type="text" formControlName="requestTitle" placeholder="Quote Request"/>
+					<input inputApp type="text" formControlName="title" placeholder="Quote Request"/>
 				</form-field-app>
 				<form-field-app class="modal">
 					<label-app>Message for the supplier</label-app>
@@ -87,6 +104,6 @@
 	</div>
 
 	<dialog-footer-app>
-		<button>Send Request</button>
+		<button [disabled]="!form.valid">Send Request</button>
 	</dialog-footer-app>
 </dialog-app>

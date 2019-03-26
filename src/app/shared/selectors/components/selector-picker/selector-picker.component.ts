@@ -18,11 +18,11 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { Category, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
+import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
+import { RegexpApp } from '~utils';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -200,6 +200,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					__typename: this.value.__typename
 				};
 				break;
+			case ERM.CONTACT:
+				item = {
+					id: this.value.id,
+					email: this.value.email,
+					supplier: this.value.supplier ? this.value.supplier : null,
+					__typename: this.value.__typename
+				};
+				break;
 			// if its a const we don't need to emit an object {id, typename} (its not an entity update),
 			// we only need a string (e.g. supplier -> country -> string)
 			case ERM.COUNTRY:
@@ -271,6 +279,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					createObs$ = this.selectorSrv.createTag(added);
 					break;
 				case ERM.CONTACT:
+					if (RegExp(RegexpApp.EMAIL).test(name)) {
+						added = new Contact({ email: name });
+						createObs$ = this.selectorSrv.createContact(added);
+					}
 					break;
 				default: throw Error(`Unsupported type ${this.type}`);
 			}

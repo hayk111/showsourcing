@@ -42,7 +42,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		// creating the formGroup
 		this.form = this.fb.group({
 			name: ['', Validators.required],
-			supplier: [this.supplier, Validators.required],
+			supplier: [this.supplier],
 			jobTitle: '',
 			email: ['', Validators.email],
 			phoneNumber: ['', Validators.pattern(RegexpApp.PHONE)]
@@ -74,7 +74,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	createContact() {
-		const contact = new Contact({ supplier: { id: this.supplier.id } });
+		const contact = this.supplier ? new Contact({ supplier: { id: this.supplier.id } }) : new Contact({});
 		return this.contactSrv.create(contact).pipe(
 			tap(_ => {
 				this.contactId = contact.id;
