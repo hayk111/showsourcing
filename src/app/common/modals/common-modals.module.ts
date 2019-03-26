@@ -22,6 +22,7 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	RequestViewDlgComponent,
 	VoteDetailsDialogComponent,
 } from './component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
@@ -40,13 +41,14 @@ const modals = [
 	CreationDialogComponent,
 	EditionDialogComponent,
 	EmailListComponent,
+	ExportDlgComponent,
 	FindProductsDialogComponent,
 	InviteUserDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
-	ExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	RequestViewDlgComponent,
 	RfqDialogComponent,
 	VoteDetailsDialogComponent,
 ];
@@ -60,7 +62,13 @@ const modals = [
 		InputsModule,
 		UtilsModule
 	],
-	declarations: [...modals, ProductsCardViewDialogComponent, ExportSelectionViewComponent, ExportWaitingViewComponent],
+	declarations: [
+		...modals,
+		ProductsCardViewDialogComponent,
+		ExportSelectionViewComponent,
+		ExportWaitingViewComponent,
+		RequestViewDlgComponent
+	],
 	entryComponents: modals,
 	providers: [
 		ProductDialogService,
