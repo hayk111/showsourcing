@@ -82,7 +82,7 @@
 			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="supplier?.extendedFields"
-			(update)="updateSupplier($event)">
+			(update)="updateSupplier({extendedFields: $event})">
 		</extended-form-app>
 	</preview-section-app> -->
 

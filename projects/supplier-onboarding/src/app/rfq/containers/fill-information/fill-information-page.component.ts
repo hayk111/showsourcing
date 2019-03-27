@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CustomField } from '~shared/dynamic-forms';
+import { DynamicField } from '~shared/dynamic-forms';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { CustomField } from '~shared/dynamic-forms';
 export class FillInformationPageComponent {
 
 
-	customFields: CustomField[] = [
+	customFields: DynamicField[] = [
 		{ name: 'name', label: 'Reference', type: 'text' },
 		{ name: 'price', type: 'price' },
 		{ name: 'description', type: 'textarea', label: 'Description' },
@@ -39,7 +39,7 @@ export class FillInformationPageComponent {
 
 	];
 	// those are the custom field for the second form section
-	customFields2: CustomField[] = [
+	customFields2: DynamicField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },

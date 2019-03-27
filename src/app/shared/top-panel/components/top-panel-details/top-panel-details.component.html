@@ -8,7 +8,10 @@
 		</div>
 
 		<div class="info">
-			<h2 class="color-txt-strong">{{ title }}</h2>
+			<div class="flex">
+				<h2 class="color-txt-strong">{{ title }}</h2>
+				<ng-content selecto="[titleExtra]"></ng-content>
+			</div>
 			<ng-content select="[subinfo]"></ng-content>
 		</div>
 
@@ -16,34 +19,6 @@
 
 
 	<div class="flex right container action-list">
-
-		<button class="rounded like" toolTip toolTipMessage="Favorite item" [offsetX]="5">
-			<rating-heart-app
-				[customClassFavorited]="'header-favorited'"
-				[colorNormal]="'color-black'"
-				[colorFavorite]="''"
-				[favorite]="data?.favorite"
-				(favorited)="favorited.emit(data)"
-				(unfavorited)="unfavorited.emit(data)">
-			</rating-heart-app>
-		</button>
-
-		<button
-			toolTip toolTipMessage="Export" [offsetX]="8"
-			class="rounded secondary share"
-			(click)="export.emit(data)">
-			<icon-app name="export" size="14"></icon-app>
-		</button>
-
-		<selector-app
-			*ngIf="hasAssignee"
-			type="user"
-			toolTip
-			toolTipMessage="Change assignee"
-			[offsetX]="4"
-			(update)="changeUser.emit($event)">
-			<user-picture-app class="pointer" [user]="user" [border]="true"></user-picture-app>
-		</selector-app>
 		<ng-content select="[action]"></ng-content>
 	</div>
 

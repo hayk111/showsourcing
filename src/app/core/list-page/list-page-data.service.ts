@@ -8,6 +8,7 @@ import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 /**
  * Services that helps us for common functionalities in list pages

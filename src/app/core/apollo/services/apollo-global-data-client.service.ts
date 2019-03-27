@@ -50,14 +50,13 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 
 	createMissingSubscription(): Observable<any> {
 		const toSubSet = new Set([
-			'country',
-			'currency',
-			'harbour',
-			'incoterm',
+			ERM.COUNTRY,
+			ERM.CURRENCY,
+			ERM.HARBOUR,
+			ERM.INCOTERM
 		]);
 
 		const newSubs = Array.from(toSubSet)
-			.map((name: string) => ERM.getEntityMetadata(name))
 			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.GLOBAL_DATA));
 		return forkJoin(newSubs);
 	}

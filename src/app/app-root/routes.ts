@@ -57,6 +57,10 @@ export const routes: Array<Route> = [
 				loadChildren: 'app/features/products/product.module#ProductModule'
 			},
 			{
+				path: 'request',
+				loadChildren: 'app/features/requests/request.module#RequestModule'
+			},
+			{
 				path: 'supplier',
 				loadChildren: 'app/features/supplier/supplier.module#SuppliersModule'
 			},

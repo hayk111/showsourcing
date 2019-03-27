@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { ExtendedField } from '~core/models/extended-field.model';
-import { ExtendedFieldDefinition, Price } from '~core/models';
-import { EditableFieldComponent } from '~shared/editable-field';
-import { InputDirective } from '~shared/inputs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { EntityMetadata, ExtendedField, ExtendedFieldDefinition, Price } from '~core/models';
+
 
 
 
@@ -24,6 +22,7 @@ import { InputDirective } from '~shared/inputs';
 })
 export class ExtendedFormInputComponent {
 
+	@Input() type: EntityMetadata;
 	@Input() set field(field: ExtendedField) {
 		if (!field)
 			field = new ExtendedField();
@@ -52,7 +51,8 @@ export class ExtendedFormInputComponent {
 	/** saving the value */
 	onSave() {
 		this.field.value = this.accumulator;
-		const definition = new ExtendedFieldDefinition({ id: this.definition.id });
+		let definition;
+		definition = new ExtendedFieldDefinition({ id: this.definition.id });
 		this.update.emit({ ...this.field, definition });
 	}
 

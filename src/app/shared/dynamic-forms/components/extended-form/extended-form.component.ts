@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
-import { ExtendedFieldDefinition } from '~core/models';
-import { ExtendedField } from '~core/models/extended-field.model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ExtendedField, ExtendedFieldDefinition } from '~core/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
@@ -24,7 +23,7 @@ export class ExtendedFormComponent extends TrackingComponent {
 	@Input() definitions: ExtendedFieldDefinition[];
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;
-	@Output() update = new EventEmitter<{ extendedFields: ExtendedField[] }>();
+	@Output() update = new EventEmitter<ExtendedField[]>();
 
 	constructor(
 	) { super(); }
@@ -35,7 +34,7 @@ export class ExtendedFormComponent extends TrackingComponent {
 
 	onUpdate(field: ExtendedField) {
 		const updatedFields = this._fields.filter(f => f.id !== field.id).concat(field);
-		this.update.emit({ extendedFields: updatedFields });
+		this.update.emit(updatedFields);
 	}
 
 }

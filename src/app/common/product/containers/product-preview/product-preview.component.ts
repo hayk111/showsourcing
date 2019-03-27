@@ -4,14 +4,16 @@ import { Observable } from 'rxjs';
 import { first, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { CommentService } from '~core/entity-services/comment/comment.service';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ProductService, UserService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { AppImage, Comment, ERM, PreviewActionButton, Product, ExtendedFieldDefinition } from '~models';
-import { CustomField } from '~shared/dynamic-forms';
+import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product } from '~models';
+import { DynamicField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, PendingImage } from '~utils';
-import { ExtendedFieldDefinitionService } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 
 @Component({
 	selector: 'product-preview-app',
@@ -50,7 +52,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor
 	// so we only have one array of custom fields
-	customFields: CustomField[] = [
+	customFields: DynamicField[] = [
 		{
 			name: 'supplier',
 			type: 'selector',
@@ -88,7 +90,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	];
 
 	// those are the custom field for the second form section
-	customFields2: CustomField[] = [
+	customFields2: DynamicField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		// { name: 'samplePrice', type: 'price', label: 'Sample Price' },

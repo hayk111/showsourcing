@@ -4,8 +4,8 @@ import { ProductService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { ExtendedFieldDefinition, Product } from '~core/models';
-import { CustomField } from '~shared/dynamic-forms';
+import { ERM, ExtendedFieldDefinition, Product } from '~core/models';
+import { DynamicField } from '~shared/dynamic-forms';
 
 @Component({
 	selector: 'product-information-app',
@@ -19,7 +19,7 @@ export class ProductInformationComponent implements OnInit {
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
 
-	customFields: CustomField[] = [
+	customFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{
 			name: 'supplier', type: 'selector',
