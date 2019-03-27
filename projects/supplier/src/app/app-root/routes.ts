@@ -20,28 +20,31 @@ export const routes: Array<Route> = [
 	// },
 	{
 		path: '',
-		component: GuestTemplateComponent,
+		component: TemplateComponent,
 		canActivateChild: [
 			AuthenticatedGuard,
 			GlobalRequestClientReadyGuard
 		],
 		children: [
-			{ path: '', redirectTo: 'request', pathMatch: 'full' },
-			{ path: 'request', loadChildren: './../features/request/request.module#RequestModule' },
+			// { path: '', redirectTo: 'request', pathMatch: 'full' },
+			{
+				path: 'request',
+				loadChildren: './../features/request/request.module#RequestModule'
+			},
 		]
 	},
-	{
-		path: 'anonymous',
-		component: GuestTemplateComponent,
-		canActivateChild: [
-			AnonymouslyAuthenticatedGuard,
-			GlobalRequestClientReadyGuard
-		],
-		children: [
-			{ path: '', redirectTo: 'request', pathMatch: 'full' },
-			{ path: 'request', loadChildren: './../features/request/request.module#RequestModule' },
-		]
-	},
-	{ path: '**', redirectTo: '' }
+	// {
+	// 	path: 'anonymous',
+	// 	component: GuestTemplateComponent,
+	// 	canActivateChild: [
+	// 		AnonymouslyAuthenticatedGuard,
+	// 		GlobalRequestClientReadyGuard
+	// 	],
+	// 	children: [
+	// 		{ path: '', redirectTo: 'request', pathMatch: 'full' },
+	// 		{ path: 'request', loadChildren: './../features/request/request.module#RequestModule' },
+	// 	]
+	// },
+	// { path: '**', redirectTo: '' }
 ];
 
