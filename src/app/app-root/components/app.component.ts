@@ -29,7 +29,6 @@ export class AppComponent implements OnInit {
 		private globalDataClient: GlobalDataClientsInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
-		private tokenSrv: TokenService,
 		private userClient: UserClientInitializer,
 	) { }
 
@@ -68,7 +67,7 @@ export class AppComponent implements OnInit {
 
 	private startBaseClients(): Observable<Client[]> {
 		// when we are authenticated it means we have a token
-		const realmUser = this.tokenSrv.realmUser;
+		const realmUser = this.authSrv.realmUser;
 		return forkJoin([
 			this.globalDataClient.init(realmUser),
 			this.userClient.init(realmUser)
@@ -76,7 +75,7 @@ export class AppComponent implements OnInit {
 	}
 
 	private startOrDestroyTeamClient(team: Team) {
-		const realmUser = this.tokenSrv.realmUser;
+		const realmUser = this.authSrv.realmUser;
 		if (team)
 			return this.teamClient.init(realmUser, team);
 		else

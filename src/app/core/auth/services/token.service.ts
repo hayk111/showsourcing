@@ -6,9 +6,6 @@ import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { LocalStorageService } from '~core/local-storage';
 import { log, LogColor } from '~utils';
 
-
-
-
 const REALM_USER = 'REALM_USER';
 const FEED_TOKEN = 'feed-token';
 
@@ -17,7 +14,6 @@ const FEED_TOKEN = 'feed-token';
 })
 export class TokenService {
 
-	realmUser: RealmUser;
 
 	private _jwtTokenFeed$ = new ReplaySubject<TokenState>();
 	jwtTokenFeed$ = this._jwtTokenFeed$.asObservable();
@@ -29,31 +25,15 @@ export class TokenService {
 	 * so we don't have to relogin on every refresh.
 	 * This is called when the app starts
 	 */
-	restoreRealmUser(): RealmUser {
-		log.info(`%c Restoring refresh token`, LogColor.SERVICES);
-		const realmUserConfig = this.localStorageSrv.getItem(REALM_USER) || {};
-		const user = new RealmUser(realmUserConfig);
-		this.realmUser = user;
-		return user;
-	}
-
-	/**
-	 * @param jwt : jwt
-	 * @param name : name of the token
-	 */
-	async getRealmUser(jwt: string)
-		: Promise<RealmUser> {
-		const credentials = Credentials.jwt(jwt);
-		const user = await RealmUser.authenticate(credentials, environment.graphqlAuthUrl);
-		this.storeRealmUser(REALM_USER, user);
-		this.realmUser = user;
-		return user;
+	getRealmUser(): RealmUser | {} {
+		log.info(`%c Restoring realm user token`, LogColor.SERVICES);
+		return this.localStorageSrv.getItem(REALM_USER) || {};
 	}
 
 
 	/** stores the access token we get on login */
-	private storeRealmUser(name: string, user: RealmUser) {
-		log.info(`%c Storring user: ${user.identity} for ${user.server}`, LogColor.SERVICES);
+	storeRealmUser(user: RealmUser) {
+		log.info(`%c Storring realm user token: ${user.identity} for ${user.server}`, LogColor.SERVICES);
 		this.localStorageSrv.setItem(REALM_USER, user);
 	}
 
