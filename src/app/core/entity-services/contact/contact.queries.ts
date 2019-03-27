@@ -13,7 +13,7 @@ export abstract class ContactQueries extends GlobalQueries {
 			fileName,
 			urls { url }
 		}
-		supplier { id }
+		supplier { id, name }
 		creationDate
 	`;
 
@@ -27,7 +27,7 @@ export abstract class ContactQueries extends GlobalQueries {
 			fileName,
 			urls { url }
 		}
-		supplier { id }
+		supplier { id, name }
 		creationDate
 		`;
 

@@ -61,6 +61,7 @@ export class ERM {
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts', Contact);
 	static readonly COUNTRY = new EntityMetadata('country', 'countries', Country);
 	static readonly CURRENCY = new EntityMetadata('currency', 'currencies');
+	static readonly EMAIL = new EntityMetadata('email', 'emails', Contact);
 	static readonly EVENT = new EntityMetadata('event', 'events', Event);
 	static readonly EVENT_DESCRIPTION = new EntityMetadata('event description', 'event descriptions', EventDescription);
 	static readonly EXPORT_REQUEST = new EntityMetadata('export request', 'export requests', ExportRequest);

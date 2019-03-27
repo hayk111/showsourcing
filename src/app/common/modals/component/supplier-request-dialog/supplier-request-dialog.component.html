@@ -7,7 +7,7 @@
 
 			<form [formGroup]="form">
 				<form-field-app class="modal pdng-btm-l">
-					<label-app>Send me a copy</label-app>
+					<label-app>Send me a copy *</label-app>
 					<product-request-list-app
 						[products]="products"
 						(remove)="removeProduct($event)">
@@ -15,7 +15,7 @@
 					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
 				<form-field-app class="modal pdng-btm-l">
-					<label-app>Request Templates</label-app>
+					<label-app>Request Templates *</label-app>
 					<selector-app>
 							<selector-placeholder-app
 								name=""
@@ -42,7 +42,7 @@
 
 			<form [formGroup]="form">
 				<form-field-app class="modal">
-					<label-app>Send to</label-app>
+					<label-app>Send to *</label-app>
 					<selector-app
 						#contactSelector
 						type="contact"
@@ -58,7 +58,7 @@
 				<form-field-app
 					*ngIf="contactSelector?.value?.email && !contactSelector?.value?.supplier || opened"
 					class="modal">
-					<label-app>Select supplier for the contact</label-app>
+					<label-app>Select supplier for the contact <div class="fs-s color-txt-secondary">This will modify the contact supplier</div></label-app>
 					<selector-app
 						type="supplier"
 						[canCreate]="true"
@@ -74,7 +74,12 @@
 				<form-field-app class="modal">
 					<label-app>Send Copy to</label-app>
 					<selector-app
-						type="contact">
+						#copySelector
+						type="email"
+						[value]="copySelector.value"
+						[canCreate]="true"
+						[multiple]="true"
+						formControlName="sendCopyTo">
 						<selector-placeholder-app
 							name=""
 							placeHolder="Send copy to">
@@ -83,7 +88,7 @@
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
 				<form-field-app class="modal pdng-btm-l">
-					<label-app>Request Title</label-app>
+					<label-app>Request Title *</label-app>
 					<input inputApp type="text" formControlName="title" placeholder="Quote Request"/>
 				</form-field-app>
 				<form-field-app class="modal">
