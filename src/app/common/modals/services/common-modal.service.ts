@@ -11,6 +11,8 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 	RfqDialogComponent,
 	VoteDetailsDialogComponent,
+	SupplierRequestDialogComponent,
+	NewContactDlgComponent,
 	RequestViewDlgComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
@@ -81,6 +83,10 @@ export class CommonModalService {
 		return this.dlgSrv.open(RfqDialogComponent, { product });
 	}
 
+	openSupplierRequest(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	}
+
 	openRequestViewDialog(request: Request) {
 		return this.dlgSrv.open(RequestViewDlgComponent, { request });
 	}
@@ -96,6 +102,10 @@ export class CommonModalService {
 	/** Opens a dialog that let you see the list of people who have voted */
 	openVoteDetailsDialog(votes: ProductVote[]) {
 		return this.dlgSrv.open(VoteDetailsDialogComponent, { votes });
+	}
+
+	openNewContactDlg(data: { isNewContact?: boolean, supplier?: Supplier, contactId?: string }) {
+		return this.dlgSrv.open(NewContactDlgComponent, data);
 	}
 
 	close() {

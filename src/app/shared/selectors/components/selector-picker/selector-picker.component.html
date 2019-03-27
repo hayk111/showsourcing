@@ -7,7 +7,18 @@
 
 <div *ngIf="multiple" class="flexWrap current-values-container">
 	<ng-container *ngIf="value?.length; else empty">
-		<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item.name}}</info-badge-app>
+
+		<ng-container [ngSwitch]="type">
+
+			<ng-container *ngSwitchCase="erm.EMAIL">
+				<info-badge-app *ngFor="let item of value" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item}}</info-badge-app>
+			</ng-container>
+
+			<ng-container *ngSwitchDefault>
+				<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item.name}}</info-badge-app>
+			</ng-container>
+
+		</ng-container>
 	</ng-container>
 	<ng-template #empty>
 		<span class="empty-message">There's no {{ type.singular }} yet, add one!</span>
@@ -49,6 +60,14 @@
 
 		<ng-container *ngSwitchCase="erm.TAG">
 			<selector-tag-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="erm.CONTACT">
+			<selector-contact-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [contact]="item" (click)="onSelect(item)"></selector-contact-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="erm.EMAIL">
+			<selector-contact-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [contact]="item" (click)="onSelect(item)"></selector-contact-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="erm.CATEGORY">

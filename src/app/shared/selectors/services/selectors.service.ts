@@ -10,6 +10,7 @@ import { HarbourService } from '~core/entity-services/harbour/harbour.service';
 import { IncoTermService } from '~core/entity-services/inco-term/inco-term.service';
 import {
 	CategoryService,
+	ContactService,
 	EventService,
 	ProductService,
 	ProjectService,
@@ -20,6 +21,7 @@ import {
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import {
 	Category,
+	Contact,
 	Country,
 	Currency,
 	EntityMetadata,
@@ -62,6 +64,7 @@ export class SelectorsService {
 
 	constructor(
 		private categorySrv: CategoryService,
+		private contactSrv: ContactService,
 		private constPipe: ConstPipe,
 		private currencySrv: CurrencyService,
 		private eventSrv: EventService,
@@ -114,6 +117,10 @@ export class SelectorsService {
 					break;
 				case ERM.EVENT:
 					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR description.name CONTAINS[c] "${searchTxt}"`;
+					break;
+				case ERM.EMAIL:
+				case ERM.CONTACT:
+					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR email CONTAINS[c] "${searchTxt}"`;
 					break;
 				case ERM.CATEGORY:
 				case ERM.HARBOUR:
@@ -268,6 +275,13 @@ export class SelectorsService {
 		return this.items$;
 	}
 
+	getContacts(): Observable<Contact[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
+		this.listResult = this.contactSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
+	}
+
 	getTags(): Observable<Tag[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.tagSrv.getListQuery(this.selectParams);
@@ -307,6 +321,10 @@ export class SelectorsService {
 
 	createCategory(category: Category): Observable<any> {
 		return this.categorySrv.create(category);
+	}
+
+	createContact(contact: Contact): Observable<any> {
+		return this.contactSrv.create(contact);
 	}
 
 	createEvent(event: Event): Observable<any> {

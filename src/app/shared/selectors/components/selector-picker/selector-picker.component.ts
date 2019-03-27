@@ -9,6 +9,7 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
+	OnChanges,
 	OnInit,
 	Output,
 	QueryList,
@@ -18,10 +19,11 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Category, Event, Product, Project, Supplier, SupplierType, Tag, EntityMetadata, ERM } from '~core/models';
+import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
+import { RegexpApp } from '~utils';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -29,7 +31,7 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 	styleUrls: ['./selector-picker.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit {
+export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
 
 	private _type: EntityMetadata;
 	@Input() set type(type: EntityMetadata) {
@@ -96,21 +98,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.group = this.fb.group({
 			name: ['']
 		});
-		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
-		if (this.hasDB) {
-			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
-			if (this.multiple)
-				this.choices$ = this.getChoices(this.type).pipe(
-					map((items) =>
-						// only items that are not on the value array so they don't appear in the options
-						items.filter(i =>
-							// if the array exists we check that the item does not exist on the value array
-							(this.value) ? !((this.value).some(val => val.id === i.id)) : true)
-					)
-				);
-			else
-				this.choices$ = this.getChoices(this.type);
-		}
 		if (this.canCreate) this.nameExists$ = this.searched$.pipe(
 			switchMap(_ => this.choices$.pipe(
 				map(m => m.filter(it => it.name === this.searchTxt)),
@@ -126,6 +113,30 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
 		this.inp.focus();
 		this.searched$.next(this.searchTxt);
+	}
+
+	ngOnChanges() {
+		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
+		if (this.hasDB) {
+			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
+			if (this.multiple)
+				this.choices$ = this.getChoices(this.type).pipe(
+					map((items) => {
+						switch (this.type) {
+							case ERM.EMAIL:
+								return items.filter(i => (this.value) ? !((this.value).some(val => val === i.email)) : true);
+							default:
+								// only items that are not on the value array so they don't appear in the options
+								return items.filter(i =>
+									// if the array exists we check that the item does not exist on the value array
+									(this.value) ? !((this.value).some(val => val.id === i.id)) : true);
+						}
+					}
+					)
+				);
+			else
+				this.choices$ = this.getChoices(this.type);
+		}
 	}
 
 	resetInput() {
@@ -147,6 +158,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	getChoices(type: EntityMetadata): Observable<any[]> {
 		switch (type) {
 			case ERM.CATEGORY: return this.selectorSrv.getCategories();
+			case ERM.EMAIL:
+			case ERM.CONTACT: return this.selectorSrv.getContacts();
 			case ERM.COUNTRY: return this.selectorSrv.getCountriesGlobal();
 			case ERM.CURRENCY: return this.selectorSrv.getCurrenciesGlobal();
 			case ERM.EVENT: return this.selectorSrv.getEvents();
@@ -181,7 +194,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	updateMultiple() {
-		const trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
+		let trimValues;
+		switch (this.type) {
+			case ERM.EMAIL:
+				trimValues = this.value.map(v => v.email || v);
+				break;
+			default:
+				trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
+				break;
+		}
 		this.update.emit(trimValues);
 		this.selectorSrv.refetch();
 	}
@@ -195,6 +216,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					id: this.value.id,
 					firstName: this.value.firstName ? this.value.firstName : '',
 					lastName: this.value.lastName ? this.value.lastName : '',
+					__typename: this.value.__typename
+				};
+				break;
+			case ERM.CONTACT:
+				item = {
+					id: this.value.id,
+					email: this.value.email,
+					supplier: this.value.supplier ? this.value.supplier : null,
 					__typename: this.value.__typename
 				};
 				break;
@@ -268,12 +297,25 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					added = new Tag({ name });
 					createObs$ = this.selectorSrv.createTag(added);
 					break;
-				default: throw Error(`Unsupported type ${this.type}`);
+				case ERM.CONTACT:
+					if (RegExp(RegexpApp.EMAIL).test(name)) {
+						added = new Contact({ email: name });
+						createObs$ = this.selectorSrv.createContact(added);
+					}
+					break;
+				case ERM.EMAIL:
+					if (RegExp(RegexpApp.EMAIL).test(name))
+						added = name;
+					break;
+				default:
+					throw Error(`Unsupported type ${this.type}`);
 			}
 			// we add it directly to the value
-			if (this.multiple)
-				this.value.push(added);
-			else
+			if (this.multiple) {
+				if (added)
+					this.value.push(added);
+				this.resetInput();
+			} else
 				this.value = added;
 			// we are using take 1 in srv, no need for fancy destroying
 			createObs$.subscribe();
@@ -285,7 +327,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	getLabelName(label) {
 		if (!label.name)
-			throw Error('This entity selector does not have a name property when using multiple, check onkeyDoen else if (this.multiple)');
+			throw Error('This entity selector does not have a name property when using multiple, check onkeyDown else if (this.multiple)');
 		return label.name;
 	}
 
@@ -327,7 +369,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let isSelected = false;
 		if (!this.multiple) return isSelected;
 		if (this.value && this.value.length) {
-			isSelected = !!this.value.find(value => value.id === item.id);
+			switch (this.type) {
+				case ERM.EMAIL:
+					isSelected = !!this.value.find(value => value === item.email);
+					break;
+				default:
+					isSelected = !!this.value.find(value => value.id === item.id);
+					break;
+			}
 		}
 		return isSelected;
 	}
@@ -338,14 +387,28 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let hasName = false;
 		if (!this.multiple) return hasName;
 		if (this.value && this.value.length) {
-			hasName = !!this.value.find(value => value.name === name);
+			switch (this.type) {
+				case ERM.EMAIL:
+					hasName = !!this.value.find(value => value === name);
+					break;
+				default:
+					hasName = !!this.value.find(value => value.name === name);
+					break;
+			}
 		}
 		return hasName;
 	}
 
 	/** this is only called when deleting from the current-values-container */
 	delete(item) {
-		this.value = this.value.filter(value => value.id !== item.id);
+		switch (this.type) {
+			case ERM.EMAIL:
+				this.value = this.value.filter(value => value !== item);
+				break;
+			default:
+				this.value = this.value.filter(value => value.id !== item.id);
+				break;
+		}
 		this.onChange();
 	}
 

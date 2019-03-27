@@ -1,0 +1,114 @@
+<dialog-app>
+	<dialog-header-app>Send Request to Supplier</dialog-header-app>
+
+	<div class="request-container flex">
+		<div class="left">
+			<h2 class="color-txt-strong l">Request Settings</h2>
+
+			<form [formGroup]="form">
+				<form-field-app class="modal pdng-btm-l">
+					<label-app>Send me a copy *</label-app>
+					<product-request-list-app
+						[products]="products"
+						(remove)="removeProduct($event)">
+					</product-request-list-app>
+					<input inputApp [hidden]="true" type="text"/>
+				</form-field-app>
+				<form-field-app class="modal pdng-btm-l">
+					<label-app>Request Templates *</label-app>
+					<selector-app>
+							<selector-placeholder-app
+								name=""
+								placeHolder="Quick RFQ">
+							</selector-placeholder-app>
+						</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app>Share my product information</label-app>
+					<div class="flex">
+						<checkbox-app>
+						</checkbox-app>
+						Share product information you arleady have with the supplier such as price, moq, etc.
+					</div>
+					<input inputApp [hidden]="true" type="text"/>
+				</form-field-app>
+			</form>
+		</div>
+
+
+		<div class="right">
+			<h2 class="color-txt-strong l">Recipients</h2>
+
+			<form [formGroup]="form">
+				<form-field-app class="modal">
+					<label-app>Send to *</label-app>
+					<selector-app
+						#contactSelector
+						type="contact"
+						[canCreate]="true"
+						formControlName="recipient">
+						<selector-placeholder-app
+							[name]="contactSelector?.value?.email"
+							placeHolder="Email or Contact">
+						</selector-placeholder-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+				<form-field-app
+					*ngIf="contactSelector?.value?.email && !contactSelector?.value?.supplier || opened"
+					class="modal">
+					<label-app>Select supplier for the contact <div class="fs-s color-txt-secondary">This will modify the contact supplier</div></label-app>
+					<selector-app
+						type="supplier"
+						[canCreate]="true"
+						(click)="opened = true"
+						(update)="contactSelector.value.supplier = $event">
+						<selector-placeholder-app
+							[name]="contactSelector?.value?.supplier?.name"
+							placeHolder="Select a supplier">
+						</selector-placeholder-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app>Send Copy to</label-app>
+					<selector-app
+						#copySelector
+						type="email"
+						[value]="copySelector.value"
+						[canCreate]="true"
+						[multiple]="true"
+						formControlName="sendCopyTo">
+						<selector-placeholder-app
+							name=""
+							placeHolder="Send copy to">
+						</selector-placeholder-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+				<form-field-app class="modal pdng-btm-l">
+					<label-app>Request Title *</label-app>
+					<input inputApp type="text" formControlName="title" placeholder="Quote Request"/>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app>Message for the supplier</label-app>
+					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" placeholder="Quick RFQ"></textarea>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app>Send me a copy</label-app>
+					<div class="flex">
+						<checkbox-app>
+						</checkbox-app>
+						Send a copy of the request to your email address.
+					</div>
+					<input inputApp [hidden]="true" type="text"/>
+				</form-field-app>
+			</form>
+		</div>
+	</div>
+
+	<dialog-footer-app>
+		<button [disabled]="!form.valid">Send Request</button>
+	</dialog-footer-app>
+</dialog-app>

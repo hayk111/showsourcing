@@ -22,6 +22,7 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	SupplierRequestDialogComponent,
 	RequestViewDlgComponent,
 	VoteDetailsDialogComponent,
 } from './component';
@@ -31,6 +32,7 @@ import { EmailListComponent } from './component/rfq-dialog/email-list/email-list
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
+import { ProductRequestListComponent } from './component/supplier-request-dialog/product-request-list/product-request-list.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -50,6 +52,7 @@ const modals = [
 	ProductRequestTeamFeedbackDlgComponent,
 	RequestViewDlgComponent,
 	RfqDialogComponent,
+	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 ];
 
@@ -67,6 +70,7 @@ const modals = [
 		ProductsCardViewDialogComponent,
 		ExportSelectionViewComponent,
 		ExportWaitingViewComponent,
+		ProductRequestListComponent,
 		RequestViewDlgComponent
 	],
 	entryComponents: modals,

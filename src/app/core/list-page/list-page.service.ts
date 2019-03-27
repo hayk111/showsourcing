@@ -171,8 +171,8 @@ export class ListPageService
 	}
 
 	onFavoriteAllSelected() {
-		const ids = this.getSelectedIds();
-		ids.forEach(id => this.onItemFavorited(id));
+		this.getSelectedIds()
+			.forEach(id => this.onItemFavorited(id));
 		this.selectionSrv.allSelectedFavorite = true;
 	}
 

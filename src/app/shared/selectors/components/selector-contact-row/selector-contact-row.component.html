@@ -1,0 +1,4 @@
+<div class="container">
+	<div class="name">{{ contact?.name || 'Unnamed contact' }}</div>
+	<div *ngIf="contact?.email" class="email">{{ contact?.email }}</div>
+</div>

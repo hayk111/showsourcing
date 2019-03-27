@@ -21,6 +21,7 @@
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
+		<button (click)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())">click me</button>
 	</sub-panel-right-item-app>
 
 </sub-panel-app>
