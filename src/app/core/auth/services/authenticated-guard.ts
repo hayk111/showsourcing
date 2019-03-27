@@ -17,8 +17,6 @@ export class AuthenticatedGuard implements CanActivate, CanActivateChild {
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
 		return this.authSrv.authStatus$.pipe(
-			// tap(d => { debugger; }),
-			tap(d => { debugger; }),
 			filter(status => status !== AuthStatus.PENDING),
 			tap(status => this.redirectOnUnAuthenticated(status, route, state)),
 			tap(status => log.debug('%c auth guard: auth state ?', LogColor.GUARD, status)),

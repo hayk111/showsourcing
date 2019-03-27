@@ -18,9 +18,7 @@ export class AnonymouslyAuthenticatedGuard implements CanActivate, CanActivateCh
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
 		// at the moment
-		return of(true).pipe(
-			tap(d => { debugger; })
-		);
+		return of(true);
 	}
 
 	redirectOnAuthenticated(authStatus: AuthStatus) {

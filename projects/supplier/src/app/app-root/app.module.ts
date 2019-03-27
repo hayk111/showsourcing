@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppApolloModule } from '~core/apollo';
 import { Angulartics2Module } from 'angulartics2';
 import { environment } from 'environments/environment';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	declarations: [
@@ -17,9 +18,9 @@ import { environment } from 'environments/environment';
 	],
 	imports: [
 		BrowserModule,
-		RequestModule,
 		TemplateModule,
 		HttpClientModule,
+		SharedModule,
 		AppApolloModule,
 		RouterModule.forRoot(routes, {
 			preloadingStrategy: PreloadAllModules,
