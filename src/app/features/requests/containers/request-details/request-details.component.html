@@ -5,10 +5,11 @@
 <request-information-app
 	[request]="request">
 </request-information-app>
+
 <card-app>
 	<h3 class="l">Request Items</h3>
 		<request-element-list-view-app
-			class="borderless"
+			class="borderless-2"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
 			[selection]="listSrv.selection$ | async"
@@ -21,3 +22,9 @@
 			(unselectAll)="listSrv.unselectAll()">
 		</request-element-list-view-app>
 </card-app>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>

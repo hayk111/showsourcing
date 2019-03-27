@@ -16,9 +16,12 @@
 				</form-field-app>
 				<form-field-app class="modal pdng-btm-l">
 					<label-app>Request Templates *</label-app>
-					<selector-app>
+					<selector-app
+						#selectorReqTemplate
+						type="request template"
+						formControlName="requestTemplate">
 							<selector-placeholder-app
-								name=""
+								[name]="selectorReqTemplate?.value?.name"
 								placeHolder="Quick RFQ">
 							</selector-placeholder-app>
 						</selector-app>

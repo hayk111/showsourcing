@@ -22,6 +22,20 @@
 			}
 		}
 	}
+
+	&.borderless-2 {
+		height: calc(100% - 130px);
+		margin: 0px;
+		background: white;
+
+		a.title {
+			color: var(--color-txt-strong);
+			font-weight: 600;
+			&:hover {
+				color: var(--color-primary);
+			}
+		}
+	}
 }
 
 .list {

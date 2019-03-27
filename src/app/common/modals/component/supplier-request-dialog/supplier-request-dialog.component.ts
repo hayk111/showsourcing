@@ -30,7 +30,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	) {
 		this.form = this.fb.group({
 			products: ['', Validators.required],
-			// requestTemplate: ['', Validators.required],
+			requestTemplate: ['', Validators.required],
 			recipient: ['', Validators.required],
 			sendCopyTo: [''],
 			title: ['', Validators.required],
@@ -52,7 +52,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 
 	createRequest() {
 		if (this.form.valid)
-			this.requestSrv.create({ ...this.request, ...this.form.value }).subscribe(_ => this.dlgSrv.close
+			this.requestSrv.create({ ...this.request, ...this.form.value }).subscribe(_ => this.dlgSrv.close()
 				// TODO write 2 cases succes, error
 			);
 	}
