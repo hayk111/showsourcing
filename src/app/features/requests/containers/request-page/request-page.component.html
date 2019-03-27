@@ -1,0 +1,37 @@
+<top-panel-app
+	[title]="'Requests'"
+	buttonName="New Request"
+	(buttonClick)="createRequest()">
+</top-panel-app>
+
+<sub-panel-app
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[searchValue]="listSrv.searchValue"
+	(search)="listSrv.search($event)">
+	<sub-panel-right-item-app>
+		<request-sorting-menu-app
+			[currentSort]="listSrv.currentSort"
+			(sortFromMenu)="listSrv.sortFromMenu($event)">>
+		</request-sorting-menu-app>
+	</sub-panel-right-item-app>
+</sub-panel-app>
+
+<request-list-view-app
+	class="borderless"
+	[rows]="listSrv.items$ | async"
+	[pending]="listSrv.pending"
+	[selection]="listSrv.selection$ | async"
+	(bottomReached)="listSrv.loadMore()"
+	(select)="listSrv.selectOne($event)"
+	(selectAll)="listSrv.selectAll($event)"
+	(sort)="listSrv.sort($event)"
+	(unselect)="listSrv.unselectOne($event)"
+	(unselectAll)="listSrv.unselectAll()">
+</request-list-view-app>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>

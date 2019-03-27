@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
-	SampleStatusService,
 	AttachmentService,
 	AttachmentUploadRequestService,
 	CategoryService,
+	CommentService,
 	ContactService,
+	CountryService,
+	CurrencyService,
 	EventService,
 	ImageUploadRequestService,
 	InvitationService,
@@ -12,6 +14,7 @@ import {
 	ProductStatusService,
 	ProjectService,
 	SampleService,
+	SampleStatusService,
 	SupplierService,
 	SupplierStatusService,
 	SupplierTypeService,
@@ -20,18 +23,21 @@ import {
 	TeamService,
 	TeamUserService,
 	UserService,
-	CommentService,
-	CountryService,
-	CurrencyService
 } from '~entity-services';
 import { EntityMetadata, ERM } from '~models';
+
 import { ExportRequestService } from '../export-request/export-request.service';
+import { ExtendedFieldDefinitionService } from '../extended-field-definition/extended-field-definition.service';
+import { ExtendedFieldService } from '../extended-field/extended-field.service';
 import { HarbourService } from '../harbour/harbour.service';
 import { ImageService } from '../image/image.service';
 import { IncoTermService } from '../inco-term/inco-term.service';
+import { RequestElementService } from '../request-element/request-element.service';
+import { RequestReplyService } from '../request-reply/request-reply.service';
+import { RequestTemplateService } from '../request-template/request-template.service';
+import { RequestService } from '../request/request.service';
+import { SupplierRequestService } from '../supplier-request/supplier-request.service';
 import { GlobalService } from './global.service';
-import { ExtendedFieldService } from '../extended-field/extended-field.service';
-import { ExtendedFieldDefinitionService } from '../extended-field-definition/extended-field-definition.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -58,9 +64,14 @@ export class ERMService {
 		private productService: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private projectService: ProjectService,
+		private requestService: RequestService,
+		private requestElementService: RequestElementService,
+		private requestReplyService: RequestReplyService,
+		private requestTemplateService: RequestTemplateService,
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
 		private supplierService: SupplierService,
+		private supplierRequestSrv: SupplierRequestService,
 		private supplierStatusSrv: SupplierStatusService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagService: TagService,
@@ -110,6 +121,14 @@ export class ERMService {
 				return this.productStatusSrv;
 			case 'Project':
 				return this.projectService;
+			case 'Request':
+				return this.requestService;
+			case 'RequestElement':
+				return this.requestElementService;
+			case 'RequestReply':
+				return this.requestReplyService;
+			case 'RequestTemplate':
+				return this.requestTemplateService;
 			case 'Sample':
 				return this.sampleSrv;
 			case 'SampleStatus':
@@ -172,12 +191,22 @@ export class ERMService {
 				return this.productStatusSrv;
 			case ERM.PROJECT:
 				return this.projectService;
+			case ERM.REQUEST_ELEMENT:
+				return this.requestElementService;
+			case ERM.REQUEST_REPLY:
+				return this.requestReplyService;
+			case ERM.REQUEST_TEMPLATE:
+				return this.requestTemplateService;
+			case ERM.REQUEST:
+				return this.requestService;
 			case ERM.SAMPLE:
 				return this.sampleSrv;
 			case ERM.SAMPLE_STATUS:
 				return this.sampleStatusSrv;
 			case ERM.SUPPLIER:
 				return this.supplierService;
+			case ERM.SUPPLIER_REQUEST:
+				return this.supplierRequestSrv;
 			case ERM.SUPPLIER_STATUS:
 				return this.supplierStatusSrv;
 			case ERM.SUPPLIER_TYPE:

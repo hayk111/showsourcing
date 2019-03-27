@@ -19,7 +19,7 @@
 	<extended-form-app
 		[definitions]="fieldDefinitions$ | async"
 		[fields]="product?.extendedFields"
-		(update)="updateProduct($event)">
+		(update)="updateProduct({extendedFields: $event})">
 	</extended-form-app>
 
 </card-app>

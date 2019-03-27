@@ -1,3 +1,15 @@
+:host {
+	&.borderless {
+		.ctnr {
+			border: unset;
+		}
+
+		.header {
+			color: black;
+			background: unset;
+		}
+	}
+}
 .ctnr {
 	background: var(--color-bg);
 	border: 1px solid  var(--color-secondary);

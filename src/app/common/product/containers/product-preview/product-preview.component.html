@@ -1,6 +1,9 @@
 <preview-app cdk-scrollable *ngIf="product$ | async">
 	<!-- Banner -->
-	<preview-banner-app [canOpen]="true" (closed)="close.emit()" (opened)="openProduct()">
+	<preview-banner-app
+		[canOpen]="true"
+		(closed)="close.emit()"
+		(opened)="openProduct()">
 		<preview-carousel-app
 			[entity]="product"
 			[entityMD]="erm.SUPPLIER"
@@ -10,11 +13,16 @@
 	</preview-banner-app>
 
 	<!-- Header -->
-	<preview-header-app [entityMD]="erm.PRODUCT" [entity]="product" (update)="update($event, 'name')"
+	<preview-header-app
+		[entityMD]="erm.PRODUCT"
+		[entity]="product"
+		(update)="update($event, 'name')"
 		(statusUpdated)="statusUpdated.emit($event)">
 
 		<!-- Price -->
-		<price-with-quantity-app *ngIf="product?.price?.value" [product]="product"
+		<price-with-quantity-app
+			*ngIf="product?.price?.value"
+			[product]="product"
 			(updateField)="update($event.newValue,  $event.field)">
 		</price-with-quantity-app>
 
@@ -102,7 +110,7 @@
 			inlineLabel="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="product?.extendedFields"
-			(update)="updateProduct($event)">
+			(update)="update($event, 'extendedFields')">
 		</extended-form-app>
 	</preview-section-app>
 

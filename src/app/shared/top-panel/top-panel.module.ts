@@ -24,6 +24,7 @@ import { UtilsModule } from '~shared/utils';
 import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
 import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
 import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
+import { TopPanelActionButtonsComponent } from './components/top-panel-action-buttons/top-panel-action-buttons.component';
 
 @NgModule({
 	imports: [
@@ -54,6 +55,8 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		TopPanelDetailsComponent,
 		SubPanelLeftItemComponent,
 		SubPanelRightItemComponent,
+		TopPanelActionButtonsComponent,
+		TopPanelActionButtonsComponent,
 	],
 	exports: [
 		TopPanelComponent,
@@ -61,7 +64,8 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		BreadCrumbComponent,
 		TopPanelDetailsComponent,
 		SubPanelLeftItemComponent,
-		SubPanelRightItemComponent
+		SubPanelRightItemComponent,
+		TopPanelActionButtonsComponent,
 	],
 })
 export class TopPanelModule { }

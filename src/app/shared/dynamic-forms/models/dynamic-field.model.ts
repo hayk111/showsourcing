@@ -1,5 +1,5 @@
 
-export interface CustomField {
+export interface DynamicField {
 	name?: string;
 	value?: any;
 	type?: string;

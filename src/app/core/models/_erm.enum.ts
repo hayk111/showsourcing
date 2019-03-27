@@ -22,8 +22,14 @@ import { Tag } from '~models/tag.model';
 import { Task } from '~models/task.model';
 import { Team } from '~models/team.model';
 import { User } from '~models/user.model';
-import { ExtendedField } from './extended-field.model';
+
 import { ExtendedFieldDefinition } from './extended-field-definition.model';
+import { ExtendedField } from './extended-field.model';
+import { RequestElement } from './request-element.model';
+import { RequestReply } from './request-reply.model';
+import { RequestTemplate } from './request-template.model';
+import { Request } from './request.model';
+import { SupplierRequest } from './supplier-request.model';
 
 
 export class EntityMetadata {
@@ -83,11 +89,16 @@ export class ERM {
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
 	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
+	static readonly REQUEST = new EntityMetadata('request', 'requests', Request);
+	static readonly REQUEST_ELEMENT = new EntityMetadata('request element', 'request elements', RequestElement);
+	static readonly REQUEST_REPLY = new EntityMetadata('request reply', 'request replies', RequestReply);
+	static readonly REQUEST_TEMPLATE = new EntityMetadata('request template', 'request templates', RequestTemplate);
 	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
 	static readonly SAMPLE = new EntityMetadata('sample', 'samples', Sample);
 	static readonly SAMPLE_STATUS = new EntityMetadata('sample status', 'samples status', Sample, 'sample-status');
 	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
+	static readonly SUPPLIER_REQUEST = new EntityMetadata('request', 'requests', SupplierRequest);
 	static readonly SUPPLIER_STATUS = new EntityMetadata('supplier status', 'supplier status', SupplierStatus, 'supplier-status');
 	static readonly SUPPLIER_TAG = new EntityMetadata('supplier tag', 'supplier tags', Tag, 'supplier-tag');
 	static readonly SUPPLIER_TYPE = new EntityMetadata('supplier type', 'supplier types', Supplier, 'supplier-type');

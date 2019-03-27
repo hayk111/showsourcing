@@ -13,6 +13,7 @@ import {
 	VoteDetailsDialogComponent,
 	SupplierRequestDialogComponent,
 	NewContactDlgComponent,
+	RequestViewDlgComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
@@ -84,6 +85,10 @@ export class CommonModalService {
 
 	openSupplierRequest(products: Product[]) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	}
+
+	openRequestViewDialog(request: Request) {
+		return this.dlgSrv.open(RequestViewDlgComponent, { request });
 	}
 
 	openMergeDialog(data: { type: any, entities: any[] }) {

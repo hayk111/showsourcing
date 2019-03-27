@@ -1,0 +1,42 @@
+<dialog-app>
+	<dialog-header-app class="flex">
+		<div class="header-left flex">
+			<icon-app name="arrow-left-thin"></icon-app>
+			<icon-app name="arrow-right-thin"></icon-app>
+		</div>
+		<div class="header-right">
+				{{ request?.title }}
+				<div class="subtitle">
+					By {{ request?.createdBy.firstName }} {{ request?.createdBy?.lastName }} on {{ request?.creationDate | date: 'MMMM dd y'}}
+				</div>
+		</div>
+	</dialog-header-app>
+
+	<main class="flex">
+		<div class="container-left">
+			<div *ngFor="let element of request?.requestElements" class="flex">
+				<img-app
+					class="thumb-image"
+					type="request"
+					size="s">
+				</img-app>
+				<div class="list-item">
+					<div class="name"></div>
+					<div class="supplier"></div>
+					<div class="price"></div>
+				</div>
+			</div>
+		</div>
+		<div class="container-right">
+			<div class="flex">
+				<img-app
+					type="product"
+					size="xl"
+					objectFit="cover">
+				</img-app>
+				<!-- product resume component-->
+			</div>
+			<!-- list comparison between response and product -->
+		</div>
+	</main>
+</dialog-app>
