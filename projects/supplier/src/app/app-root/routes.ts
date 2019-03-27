@@ -21,7 +21,11 @@ export const routes: Array<Route> = [
 		children: [
 			{ path: '', redirectTo: 'request', pathMatch: 'full' },
 			{
-				path: 'request', loadChildren: './../features/request/request.module#RequestModule'
+				path: 'request', loadChildren: './../features/request/request.module#RequestModule',
+				canActivateChild: [
+					AuthenticatedGuard,
+					GlobalRequestClientReadyGuard
+				]
 			},
 		]
 	},

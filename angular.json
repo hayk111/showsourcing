@@ -323,16 +323,20 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/supplier",
-            "index": "projects/supplier/src/index.html",
+            "index": "src/index.html",
             "main": "projects/supplier/src/main.ts",
             "polyfills": "projects/supplier/src/polyfills.ts",
             "tsConfig": "projects/supplier/tsconfig.app.json",
             "assets": [
-              "projects/supplier/src/favicon.ico",
-              "projects/supplier/src/assets"
+              {
+                "glob": "**/*",
+                "input": "./src/assets/",
+                "output": "./assets"
+              }
             ],
             "styles": [
-              "projects/supplier/src/styles.scss"
+              "projects/supplier/src/styles.scss",
+              "src/app/theming/styles.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true

@@ -49,7 +49,7 @@ export class AuthenticationService {
 	) { }
 
 	init() {
-		const realmUser = this.tokenSrv.restoreRealmUser();
+		const realmUser = this.tokenSrv.restoreRealmUser(); // TODO: realm user should actually be a property of AuthSrv
 		const authState = this.realmUserToAuthState(realmUser);
 		this._authState$.next(authState);
 		this.tokenSrv.restoreFeedToken();
