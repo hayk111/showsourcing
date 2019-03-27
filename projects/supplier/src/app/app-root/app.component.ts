@@ -5,6 +5,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { TokenService } from '~core/auth';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
+import { GlobalDataClientsInitializer } from '~core/apollo';
 
 @Component({
 	selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
 		private authSrv: AuthenticationService,
 		private tokenSrv: TokenService,
 		private globalRequestClient: GlobalRequestClientsInitializer,
+		private globalDataClient: GlobalDataClientsInitializer,
 	) { }
 
 	ngOnInit(): void {
@@ -43,3 +45,5 @@ export class AppComponent implements OnInit {
 		this.globalRequestClient.destroy(reason);
 	}
 }
+
+

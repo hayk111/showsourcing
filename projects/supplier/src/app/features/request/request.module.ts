@@ -1,23 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { RequestPageComponent } from './request-page/request-page.component';
-import { AuthenticatedGuard } from '~core/auth';
-import { GlobalRequestClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
+import { RequestsPageComponent } from './requests-page/requests-page.component';
 
 @NgModule({
-	declarations: [RequestPageComponent],
+	declarations: [RequestsPageComponent],
 	imports: [
 		CommonModule,
 		RouterModule.forChild([
-			{
-				path: 'request',
-				component: RequestPageComponent,
-				canActivate: [
-					AuthenticatedGuard,
-					GlobalRequestClientReadyGuard
-				]
-			}
+			{ path: '', redirectTo: 'all', pathMatch: 'full' },
+			{ path: '', component: RequestsPageComponent }
 		])
 	]
 })

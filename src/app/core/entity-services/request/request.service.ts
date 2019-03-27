@@ -3,12 +3,12 @@ import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { Request } from '~models';
 import { RequestQueries } from './request.queries';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 
 
 @Injectable({ providedIn: 'root' })
 export class RequestService extends GlobalService<Request> {
-
 	constructor(
 		protected apolloState: ApolloStateService,
 	) {

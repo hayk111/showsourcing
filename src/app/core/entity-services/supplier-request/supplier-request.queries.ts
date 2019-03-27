@@ -35,5 +35,13 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 		lastUpdatedDate
 	`;
 
+	static readonly all = `
+		${SupplierRequestQueries.requestElements}
+		message
+		status
+		creationDate
+		lastUpdatedDate
+	`;
+
 }
 

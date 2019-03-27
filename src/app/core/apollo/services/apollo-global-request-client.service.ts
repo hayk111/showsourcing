@@ -40,7 +40,7 @@ export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 		// will wait for user authentication..
 		return from(this.createClient(path, realmUser, this.client)).pipe(
 			takeUntil(this.destroyed$),
-			switchMap(_ => this.createMissingSubscription()),
+			switchMap(_ => this.createMissingSubscription(userId)),
 			tap(_ => this.apolloState.setClientReady(this.client)),
 			catchError(e => this.onError(e)),
 			takeUntil(this.destroyed$),
@@ -48,18 +48,10 @@ export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 		);
 	}
 
-	createMissingSubscription(): Observable<any> {
-		const toSub = [
-			ERM.EXTENDED_FIELD,
-			ERM.EXTENDED_FIELD_DEFINITION,
-			ERM.REQUEST_ELEMENT,
-			ERM.REQUEST_REPLY,
-			ERM.SUPPLIER_REQUEST,
-		];
-
-		const newSubs = toSub
-			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.GLOBAL_REQUEST));
-		return forkJoin(newSubs);
+	createMissingSubscription(userId): Observable<any> {
+		return this.ermSrv.getGlobalService(ERM.SUPPLIER_REQUEST)
+			.openSubscription(this.client);
+		// .openSubscription(this.client, `recipient.id CONTAINS[c] "${userId}"`);
 	}
 
 }

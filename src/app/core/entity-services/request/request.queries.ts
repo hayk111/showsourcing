@@ -43,5 +43,20 @@ export abstract class RequestQueries extends GlobalQueries {
 		deleted
 	`;
 
+	static readonly all = `
+		${RequestQueries.requestElements}
+		${RequestQueries.images}
+		${RequestQueries.requestTemplate}
+		${RequestQueries.createdBy}
+		${RequestQueries.contact('recipient')}
+		sendCopyTo
+		title
+		message
+		status
+		creationDate
+		lastUpdatedDate
+		deleted
+	`;
+
 }
 
