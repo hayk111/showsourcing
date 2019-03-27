@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Observable, forkJoin } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { TokenService } from '~core/auth';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
-import { GlobalDataClientsInitializer } from '~core/apollo';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
 
 @Component({
 	selector: 'app-root',
@@ -16,9 +14,7 @@ export class AppComponent implements OnInit {
 
 	constructor(
 		private authSrv: AuthenticationService,
-		private tokenSrv: TokenService,
 		private globalRequestClient: GlobalRequestClientsInitializer,
-		private globalDataClient: GlobalDataClientsInitializer,
 	) { }
 
 	ngOnInit(): void {
@@ -35,7 +31,7 @@ export class AppComponent implements OnInit {
 
 	private startBaseClients(): Observable<Client[]> {
 		// when we are authenticated it means we have a token
-		const realmUser = this.tokenSrv.realmUserToken;
+		const realmUser = this.authSrv.realmUser;
 		return this.globalRequestClient.init(realmUser);
 	}
 
