@@ -1,18 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { DialogService } from '~shared/dialog';
-import { Product, Contact, Supplier } from '~core/models';
+import { Product, Contact, Supplier, Request } from '~core/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ID } from '~utils';
-import { ContactService } from '~core/entity-services';
-
-interface Req {
-	title: string;
-	recipient?: Contact;
-	message?: string;
-	shareInformation?: boolean;
-	sendCopyTo?: string[];
-	products?: Product[];
-}
+import { ContactService, RequestService } from '~core/entity-services';
+import { NotificationService } from '~shared/notifications';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -24,7 +16,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 
 	form: FormGroup;
 	copyEmail = false;
-	request: Req = { title: '', sendCopyTo: [] };
+	request: Request;
 	// if we open once the supplier selector, we want it open until the dialog closes
 	opened = false;
 
@@ -32,7 +24,9 @@ export class SupplierRequestDialogComponent implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private requestSrv: RequestService,
+		private notifSrv: NotificationService
 	) {
 		this.form = this.fb.group({
 			products: ['', Validators.required],
@@ -41,11 +35,12 @@ export class SupplierRequestDialogComponent implements OnInit {
 			sendCopyTo: [''],
 			title: ['', Validators.required],
 			message: [''],
-			// shareInformation: ['']
+			shareInformation: ['']
 		});
 	}
 
 	ngOnInit() {
+		this.request = new Request({ products: [], sendCopyTo: [], shareInformation: false, status: 'pending' });
 		this.request.products = this.products;
 		this.form.patchValue(this.request);
 	}
@@ -53,6 +48,20 @@ export class SupplierRequestDialogComponent implements OnInit {
 	removeProduct(id: ID) {
 		this.products = this.products.filter(product => product.id !== id);
 		this.request.products = this.products;
+	}
+
+	createRequest() {
+		if (this.form.valid)
+			this.requestSrv.create({ ...this.request, ...this.form.value }).subscribe(_ => this.dlgSrv.close
+				// TODO write 2 cases succes, error
+			);
+	}
+
+	arrayToString(array: string[]) {
+		const len = array.length;
+		let mess = '';
+		array.forEach((item, i) => mess += i !== len - 1 ? item + ', ' : item);
+		return mess;
 	}
 
 }

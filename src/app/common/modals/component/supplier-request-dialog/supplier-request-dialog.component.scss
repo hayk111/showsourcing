@@ -1,6 +1,7 @@
 dialog-app {
 	display: block;
 	min-width: 500px;
+	max-width: 884px;
 	padding-bottom: var(--spacing-ms);
 
 	dialog-header-app {
@@ -29,6 +30,10 @@ dialog-app {
 		.right {
 			padding-left: var(--spacing-l);
 			width: 50%;
+		}
+
+		selector-placeholder-app {
+			width: 400px;
 		}
 
 		checkbox-app {
