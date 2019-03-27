@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, tap, switchMap } from 'rxjs/operators';
 import { AuthStatus } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
@@ -11,14 +11,25 @@ import { log, LogColor } from '~utils';
 	providedIn: 'root'
 })
 export class AnonymouslyAuthenticatedGuard implements CanActivate, CanActivateChild {
+
+	private initialized = false;
+
 	constructor(private authSrv: AuthenticationService, private router: Router) { }
 
 	canActivate(
-		route: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot
-	): boolean | Observable<boolean> | Promise<boolean> {
-		// at the moment
-		return of(true);
+		route: ActivatedRouteSnapshot
+	): Observable<boolean> {
+
+		const token = route.queryParamMap.get('token');
+		return this.authSrv.authStatus$.pipe(
+			switchMap(status => {
+				if (status === AuthStatus.PENDING || status === AuthStatus.NOT_AUTHENTICATED)
+					return this.authSrv.login(token).pipe(map((state) => state.status));
+				else
+					return this.authSrv.authStatus$;
+			}),
+			map(status => status === AuthStatus.ANONYMOUS)
+		);
 	}
 
 	redirectOnAuthenticated(authStatus: AuthStatus) {
@@ -30,6 +41,6 @@ export class AnonymouslyAuthenticatedGuard implements CanActivate, CanActivateCh
 		childRoute: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		return this.canActivate(childRoute, state);
+		return this.canActivate(childRoute);
 	}
 }

@@ -57,9 +57,15 @@ export class AuthenticationService {
 		this.tokenSrv.restoreFeedToken();
 	}
 
-	login(credentials: Credentials) {
-		// lower case for email
-		credentials.login = credentials.login.toLowerCase();
+	/**
+	 * login with credentials or a token
+	 * @param credentials either login + password or token as a string
+	 */
+	login(credentials: Credentials | string) {
+		// lower case for email when using credentials
+		if ((credentials as Credentials).login) {
+			(credentials as Credentials).login = (credentials as Credentials).login.toLowerCase();
+		}
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
 			tap(resp => this.tokenSrv.storeJwtTokens(resp.jwtTokenFeed)),
 			map(resp => resp.jwtToken),
