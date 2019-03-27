@@ -14,7 +14,7 @@
 			[pending]="listSrv.pending"
 			[selection]="listSrv.selection$ | async"
 			(bottomReached)="listSrv.loadMore()"
-			(openRequestDlg)="commonModalSrv.openRequestViewDialog(request)"
+			(openRequestDlg)="commonModalSrv.openRequestViewDialog($event)"
 			(select)="listSrv.selectOne($event)"
 			(selectAll)="listSrv.selectAll($event)"
 			(sort)="listSrv.sort($event)"
