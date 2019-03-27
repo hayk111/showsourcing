@@ -13,6 +13,8 @@ import { RealmServerService } from '~entity-services/realm-server/realm-server.s
 import { log, LogColor } from '~utils';
 import { User as RealmUser } from 'realm-graphql-client';
 import { GraphQLConfig } from 'realm-graphql-client';
+import { showsourcing } from '~utils/debug-object.utils';
+import gql from 'graphql-tag';
 
 
 /**
@@ -34,7 +36,13 @@ export abstract class AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		protected realmServerSrv: RealmServerService,
 		protected client: Client,
-	) { }
+	) {
+		// for debugging purpose
+		if (!showsourcing.clients)
+			showsourcing.clients = new Map<string, any>();
+		if (!showsourcing.gql)
+			showsourcing.gql = gql;
+	}
 
 	protected checkNotAlreadyInit() {
 		if (this.initialized) {
@@ -98,6 +106,8 @@ export abstract class AbstractApolloClient {
 			cache: new InMemoryCache({}),
 			queryDeduplication: true,
 		}, name);
+
+		showsourcing.clients.set(name, this.apollo.use(name));
 	}
 
 	protected clearClient(clientName?: string) {
