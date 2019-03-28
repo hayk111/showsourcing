@@ -32,17 +32,4 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 
 	constructor() { super(); }
 
-	getType(row: RequestElement) {
-		switch (row.name) {
-			case 'accepted':
-				return 'success';
-			case 'toReview':
-				return 'primary';
-			case 'sentToSupplier':
-				return 'accent';
-			default:
-				return 'secondary';
-		}
-	}
-
 }

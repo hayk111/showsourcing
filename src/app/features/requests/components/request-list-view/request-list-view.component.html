@@ -90,10 +90,9 @@
 		sortBy="status"
 		let-row="row"
 		width="220">
-		<badge-app [type]="getType(row)" size="m">
-			<icon-app name="circle" fontSet="fa"></icon-app>
-			{{ row?.status | const: 'statusRequest' }}
-		</badge-app>
+		<request-badge-app
+			[status]="row?.status">
+		</request-badge-app>
 	</ng-template>
 
 	<!-- creation date-->

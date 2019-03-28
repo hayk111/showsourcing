@@ -42,10 +42,9 @@
 		sortBy="status"
 		let-row="row"
 		width="200">
-		<badge-app [type]="getType(row)" size="m">
-			<icon-app name="circle" fontSet="fa"></icon-app>
-			{{ 'pending' | const: 'statusRequest' }}
-		</badge-app>
+		<request-badge-app
+			[status]="row?.status">
+		</request-badge-app>
 	</ng-template>
 
 </table-app>
