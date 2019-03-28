@@ -88,28 +88,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	// this is only done for tasks since we don't have it on the DB
-	getTaskStatus() {
-		let taskStatus = 'pending';
-		if (this.entity.done)
-			taskStatus = 'done';
-		else if (this.entity.dueDate && (new Date().getTime() >= Date.parse(this.entity.dueDate.toString())))
-			taskStatus = 'overdue';
-		return taskStatus;
-	}
-
-	// this is only done for tasks since we don't have it on the DB
-	getTaskColor() {
-		let taskStatusColor = 'secondary'; // pending
-		if (this.entity.done)
-			taskStatusColor = 'success'; // done
-		else if (this.entity.dueDate && (new Date().getTime() >= Date.parse(this.entity.dueDate.toString())))
-			taskStatusColor = 'warn'; // overdue
-		return taskStatusColor;
-	}
-
-	// this is only done for tasks since we don't have it on the DB
-	updateTask() {
-		const done = !this.entity.done;
+	updateTask(done: boolean) {
 		this.statusSlctSrv.updateTask({ id: this.entity.id, done });
 	}
 

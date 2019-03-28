@@ -9,6 +9,7 @@ import {
 	RequestStatusBadgeComponent,
 	StatusBadgeComponent,
 	StatusBoxComponent,
+	TaskStatusBadgeComponent,
 } from './components';
 
 
@@ -24,6 +25,7 @@ import {
 		RequestStatusBadgeComponent,
 		StatusBadgeComponent,
 		StatusBoxComponent,
+		TaskStatusBadgeComponent,
 	],
 	exports: [
 		BadgeComponent,
@@ -31,6 +33,7 @@ import {
 		RequestStatusBadgeComponent,
 		StatusBadgeComponent,
 		StatusBoxComponent,
+		TaskStatusBadgeComponent,
 	],
 })
 export class BadgeModule { }

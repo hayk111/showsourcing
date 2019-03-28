@@ -67,13 +67,8 @@
 </ng-container>
 
 <!-- specific for task since we dont have the status on the DB we just have done, over-due and pending -->
-<badge-app
+<task-status-badge-app
 	*ngIf="typeEntity === erm.TASK"
-	class="task pointer"
-	[type]="getTaskColor()" [size]="selectSize"
-	(click)="updateTask()">
-		<icon-app class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}" name="circle" fontSet="fa"></icon-app>
-		<div class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}">
-			{{ getTaskStatus() }}
-		</div>
-</badge-app>
+	[task]="entity"
+	(update)="updateTask($event)">
+</task-status-badge-app>
