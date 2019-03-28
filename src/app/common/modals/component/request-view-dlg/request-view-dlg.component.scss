@@ -1,0 +1,45 @@
+dialog-app {
+
+	dialog-header-app {
+		padding-right: var(--spacing-ms);
+
+		.header-right .subtitle {
+			color: var(--color-txt-secondary);
+			font-size: var(--font-size-m);
+			font-weight: normal;
+		}
+
+		.header-left {
+			padding-right: var(--spacing-ms);
+
+			:first-child {
+				margin-right: var(--spacing-l);
+			}
+		}
+	}
+
+	main {
+		.container-left {
+			.thumb-image {
+				border-radius: var(--border-radius);
+				width: 32px;
+				height: 32px;
+				overflow: hidden;
+				flex-shrink: 0;
+			}
+
+			.list-item {
+				.name {
+					color: var(--color-txt-strong);
+					font-weight: 600;
+				}
+				.subtitle {
+					color: var(--color-txt-secondary);
+				}
+				.price {
+					color: var(--color-primary);
+				}
+			}
+		}
+	}
+}

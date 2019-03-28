@@ -16,7 +16,7 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter">
-			Options
+			Options by design
 		</context-menu-item-app>
 	</ng-template>
 
@@ -90,7 +90,7 @@
 		sortBy="status"
 		let-row="row"
 		width="220">
-		<badge-app [type]="getType(row)" size="s">
+		<badge-app [type]="getType(row)" size="m">
 			<icon-app name="circle" fontSet="fa"></icon-app>
 			{{ row?.status | const: 'statusRequest' }}
 		</badge-app>

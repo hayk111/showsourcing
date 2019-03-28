@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { RequestService, RequestElementService } from '~core/entity-services';
-import { ERM, Request, RequestElement, ExtendedField } from '~core/models';
+import { CommonModalService } from '~common/modals';
+import { RequestElementService, RequestService } from '~core/entity-services';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { ERM, Request, RequestElement } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
-import { ListPageService, ListPageKey } from '~core/list-page';
 
 @Component({
 	selector: 'request-details-app',
@@ -25,6 +26,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private notifSrv: NotificationService,
 		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
+		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>
 	) { super(); }
 

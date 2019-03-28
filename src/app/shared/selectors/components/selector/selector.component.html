@@ -22,7 +22,7 @@
 		[type]="type"
 		[multiple]="multiple"
 		[canCreate]="canCreate"
-		(update)="update.emit($event)"
+		(update)="onChange($event)"
 		(close)="closeMenu(true)">
 	</selector-picker-app>
 </cdk-overlay-app>

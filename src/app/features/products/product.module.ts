@@ -28,7 +28,6 @@ import {
 import {
 	ProductDetailsComponent,
 	ProductQuotationComponent,
-	ProductResumeComponent,
 	ProductSamplesComponent,
 	ProductShippingComponent,
 	ProductsPageComponent,
@@ -59,7 +58,6 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProductInformationComponent,
 		ProductListComponent,
 		ProductQuotationComponent,
-		ProductResumeComponent,
 		ProductSamplesComponent,
 		ProductShippingComponent,
 		ProductSubInfoComponent,

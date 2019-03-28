@@ -1,0 +1,50 @@
+dialog-app {
+	display: block;
+	min-width: 500px;
+	max-width: 884px;
+	padding-bottom: var(--spacing-ms);
+
+	dialog-header-app {
+		font-size: var(--font-size-l);
+	}
+
+	.request-container {
+
+		.pdng-btm-l {
+			padding-bottom: var(--spacing-l);
+		}
+
+		label-app.title {
+			font-size: var(--font-size-m);
+			color: var(--color-txt-strong);
+			font-weight: normal;
+			text-transform: none;
+		}
+
+		.left {
+			padding-right: var(--spacing-l);
+			width: 50%;
+			border-right: 1px solid var(--color-divider);
+		}
+
+		.right {
+			padding-left: var(--spacing-l);
+			width: 50%;
+		}
+
+		selector-placeholder-app {
+			width: 400px;
+		}
+
+		checkbox-app {
+			margin-top: 1px;
+			display: flex;
+			align-items: flex-start;
+		}
+	}
+
+	dialog-footer-app {
+		border-top: 1px solid var(--color-divider);
+		padding-top: var(--spacing-ms);
+	}
+}

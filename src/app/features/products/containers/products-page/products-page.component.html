@@ -21,6 +21,7 @@
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
+		<button *ngIf="(listSrv.selection$ | async).size > 0" (click)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())">Create Request</button>
 	</sub-panel-right-item-app>
 
 </sub-panel-app>

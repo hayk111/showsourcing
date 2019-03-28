@@ -160,6 +160,7 @@ export class ERMService {
 				return this.categoryService;
 			case ERM.COMMENT:
 				return this.commentSrv;
+			case ERM.EMAIL:
 			case ERM.CONTACT:
 				return this.contactService;
 			case ERM.COUNTRY:

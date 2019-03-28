@@ -1,6 +1,6 @@
 
 <table-app
-	class="borderless"
+	class="secondary-style"
 	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
@@ -17,7 +17,7 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter">
-			Options
+			Options by design
 		</context-menu-item-app>
 	</ng-template>
 
@@ -32,9 +32,9 @@
 	<ng-template
 		let-row="row"
 		width="250"
-		*ngFor="let r of extendedFields; index as index; trackBy: trackByFn"
-		[columnApp]="r?.label">
-		<div>{{r?.label}}</div>
+		*ngFor="let field of fields; index as index; trackBy: trackByFn"
+		[columnApp]="field?.definition?.label">
+		<div>{{field?.value}}</div>
 	</ng-template>
 
 	<ng-template
@@ -42,7 +42,7 @@
 		sortBy="status"
 		let-row="row"
 		width="200">
-		<badge-app [type]="getType(row)">
+		<badge-app [type]="getType(row)" size="m">
 			<icon-app name="circle" fontSet="fa"></icon-app>
 			{{ 'pending' | const: 'statusRequest' }}
 		</badge-app>

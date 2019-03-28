@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { ExtendedFieldDefinition, RequestElement } from '~core/models';
+import { ExtendedField, RequestElement } from '~core/models';
 
 @Component({
 	selector: 'request-element-list-view-app',
@@ -16,18 +16,21 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	private _rows: Array<RequestElement>;
 	@Input() set rows(rows: Array<RequestElement>) {
 		this._rows = rows;
-		if (rows && rows.length && rows[0].reply && rows[0].reply.fields
-			&& rows[0].reply.fields.length)
-			this.extendedFields = (rows[0].reply.fields).map(field => field.definition);
+		let firstRow, reply;
+		if (rows && (firstRow = rows[0]) && (reply = firstRow.reply) && reply.fields && reply.fields.length)
+			this.fields = rows[0].reply.fields;
+		else
+			this.fields = [];
 	}
 	get rows() {
 		return this._rows;
 	}
+	@Output() openRequestDlg = new EventEmitter<null>();
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
-	extendedFields: ExtendedFieldDefinition[];
+	fields: ExtendedField[];
 
-	constructor(private cdr: ChangeDetectorRef) { super(); }
+	constructor() { super(); }
 
 	getType(row: RequestElement) {
 		switch (row.name) {
