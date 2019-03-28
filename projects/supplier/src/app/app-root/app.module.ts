@@ -1,17 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-import { RequestModule } from '../features/request/request.module';
-import { RouterModule, PreloadAllModules } from '@angular/router';
-import { routes } from './routes';
-import { TemplateModule } from '~core/template';
 import { HttpClientModule } from '@angular/common/http';
-import { AppApolloModule } from '~core/apollo';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PreloadAllModules, RouterModule } from '@angular/router';
 import { Angulartics2Module } from 'angulartics2';
 import { environment } from 'environments/environment';
+import { AppApolloModule } from '~core/apollo';
+import { TemplateModule } from '../core/template';
 import { SharedModule } from '~shared/shared.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent } from './app.component';
+import { routes } from './routes';
 
 @NgModule({
 	declarations: [
@@ -26,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		AppApolloModule,
 		RouterModule.forRoot(routes, {
 			preloadingStrategy: PreloadAllModules,
-			enableTracing: !environment.production
+			// enableTracing: !environment.production
 		}),
 		Angulartics2Module.forRoot({
 			pageTracking: {

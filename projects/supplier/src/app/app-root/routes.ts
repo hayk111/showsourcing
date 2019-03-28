@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { AuthenticatedGuard } from '~core/auth';
 import { NotAuthenticatedGuard } from '~core/auth/services/not-authenticated-guard';
-import { GuestTemplateComponent, TemplateComponent } from '~core/template';
+import { GuestTemplateComponent, TemplateComponent } from '../core/template';
 import { GlobalRequestClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { AnonymouslyAuthenticatedGuard } from '~core/auth/services/anonymously-authenticated.guard';
 

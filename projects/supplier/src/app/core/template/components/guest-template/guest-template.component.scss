@@ -1,0 +1,38 @@
+:host {
+	display: block;
+	min-height: 100vh;
+	padding-bottom: var(--spacing-xl);
+	width: 100%;
+	background: var(--color-bg);
+	display:flex;
+	flex-direction: column;
+}
+header {
+	padding: var(--spacing-m);
+	align-items: center;
+	font-family: var(--font-title);
+	color: var(--color-txt-strong);
+
+	.titleLogo {
+		height: 32px;
+		width: 32px;
+		margin-right: var(--spacing-m);
+		display: block;
+	}
+}
+
+b {
+	font-weight: bold;
+}
+
+main {
+	flex-grow: 1;
+	justify-content: center;
+	padding-top: 50px;
+}
+
+@media only screen and (min-width:700px){
+	main {
+		padding-top: 100px;
+	}
+}
