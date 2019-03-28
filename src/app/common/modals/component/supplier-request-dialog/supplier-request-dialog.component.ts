@@ -58,10 +58,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	arrayToString(array: string[]) {
-		const len = array.length;
-		let mess = '';
-		array.forEach((item, i) => mess += i !== len - 1 ? item + ', ' : item);
-		return mess;
+		return array.join(', ');
 	}
 
 }
