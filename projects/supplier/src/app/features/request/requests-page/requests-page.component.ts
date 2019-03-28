@@ -16,7 +16,7 @@ export class RequestsPageComponent implements OnInit {
 	constructor(private requestSrv: SupplierRequestService) { }
 
 	ngOnInit() {
-		this.requests$ = this.requestSrv.queryAll();
+		this.requests$ = this.requestSrv.selectAll();
 	}
 
 }
