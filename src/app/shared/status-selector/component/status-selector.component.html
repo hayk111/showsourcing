@@ -10,6 +10,7 @@
 
 				<ng-container *ngIf="type === 'badge'">
 					<status-badge-app
+						class="pointer"
 						[status]="entity?.status"
 						[typeEntity]="typeEntity"
 						[size]="selectSize">
@@ -19,6 +20,7 @@
 				<ng-container *ngIf="type === 'button'">
 
 					<status-box-app
+						class="pointer"
 						[status]="entity?.status"
 						[typeEntity]="typeEntity"
 						[size]="selectSize">
@@ -40,7 +42,7 @@
 		</context-menu-trigger-app>
 
 		<div *ngFor="let stat of (status$ | async); trackBy: trackByFn" class="{{selectSize}}">
-			<status-box-app [type]="'list'" [status]="stat" [size]="selectSize" [typeEntity]="typeEntity" (click)="updateStatus(stat)"></status-box-app>
+			<status-box-app class="pointer" [type]="'list'" [status]="stat" [size]="selectSize" [typeEntity]="typeEntity" (click)="updateStatus(stat)"></status-box-app>
 		</div>
 
 	</context-menu-app>
