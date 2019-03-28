@@ -9,7 +9,7 @@
 <card-app>
 	<h3 class="l">Request Items</h3>
 		<request-element-list-view-app
-			class="borderless-2"
+			class="no-padding"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
 			[selection]="listSrv.selection$ | async"
