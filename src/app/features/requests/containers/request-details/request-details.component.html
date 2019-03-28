@@ -5,15 +5,16 @@
 <request-information-app
 	[request]="request">
 </request-information-app>
+
 <card-app>
 	<h3 class="l">Request Items</h3>
 		<request-element-list-view-app
-			class="borderless"
+			class="no-padding"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
 			[selection]="listSrv.selection$ | async"
 			(bottomReached)="listSrv.loadMore()"
-			(openRequestDlg)="commonModalSrv.openRequestViewDialog(request)"
+			(openRequestDlg)="commonModalSrv.openRequestViewDialog($event)"
 			(select)="listSrv.selectOne($event)"
 			(selectAll)="listSrv.selectAll($event)"
 			(sort)="listSrv.sort($event)"
@@ -21,3 +22,9 @@
 			(unselectAll)="listSrv.unselectAll()">
 		</request-element-list-view-app>
 </card-app>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>

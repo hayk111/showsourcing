@@ -118,6 +118,8 @@ Spacing and palette use CSS4 variables and should be used throughout the applica
 
 Some scss files are based on google material design guidelinds. For instance `elevation.scss` is a somewhat simplified version of the file in angular material design.
 
+- h1..h5: We have default sizes for each header, so we use the same headers around the app. By default there is no `margin-bottom` but in case it wants to be added, you just have to give the class `xs, s, m, l...` to the element (these classes are defined on `typography.scss`).
+
 # Before starting
 
 To have a smooth time understanding the app, two big features have to be understood first.

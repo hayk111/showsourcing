@@ -1,6 +1,7 @@
 :host {
 	display: block;
 	padding: var(--spacing-ms) var(--spacing-l);
+	border-bottom: 1px solid var(--color-divider);
 }
 
 .showFilters {

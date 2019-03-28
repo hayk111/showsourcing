@@ -29,9 +29,9 @@
 
 		<!-- contextual menu -->
 		<div class="col" *ngIf="hasMenu">
-			<div class="header">
+			<div class="header context-menu">
 			</div>
-			<div class="cell menuCell"
+			<div class="cell context-menu flexCenter"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				(mouseenter)="hoverRow(i)"

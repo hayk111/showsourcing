@@ -1,10 +1,18 @@
 @font-face {
   font-family: 'icomoon';
+<<<<<<< HEAD
   src:  url('fonts/icomoon.eot?dh4mae');
   src:  url('fonts/icomoon.eot?dh4mae#iefix') format('embedded-opentype'),
     url('fonts/icomoon.ttf?dh4mae') format('truetype'),
     url('fonts/icomoon.woff?dh4mae') format('woff'),
     url('fonts/icomoon.svg?dh4mae#icomoon') format('svg');
+=======
+  src:  url('fonts/icomoon.eot?oem6vu');
+  src:  url('fonts/icomoon.eot?oem6vu#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?oem6vu') format('truetype'),
+    url('fonts/icomoon.woff?oem6vu') format('woff'),
+    url('fonts/icomoon.svg?oem6vu#icomoon') format('svg');
+>>>>>>> merge-feature/1253-1254
   font-weight: normal;
   font-style: normal;
 }

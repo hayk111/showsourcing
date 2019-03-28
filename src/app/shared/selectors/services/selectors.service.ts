@@ -10,16 +10,19 @@ import { HarbourService } from '~core/entity-services/harbour/harbour.service';
 import { IncoTermService } from '~core/entity-services/inco-term/inco-term.service';
 import {
 	CategoryService,
+	ContactService,
 	EventService,
 	ProductService,
 	ProjectService,
 	SupplierService,
 	TagService,
 	UserService,
+	RequestTemplateService,
 } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import {
 	Category,
+	Contact,
 	Country,
 	Currency,
 	EntityMetadata,
@@ -32,6 +35,7 @@ import {
 	SupplierType,
 	Tag,
 	User,
+	RequestTemplate,
 } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
@@ -62,11 +66,13 @@ export class SelectorsService {
 
 	constructor(
 		private categorySrv: CategoryService,
+		private contactSrv: ContactService,
 		private constPipe: ConstPipe,
 		private currencySrv: CurrencyService,
 		private eventSrv: EventService,
 		private productSrv: ProductService,
 		private projectSrv: ProjectService,
+		private requestTemplateSrv: RequestTemplateService,
 		private supplierSrv: SupplierService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagSrv: TagService,
@@ -115,11 +121,16 @@ export class SelectorsService {
 				case ERM.EVENT:
 					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR description.name CONTAINS[c] "${searchTxt}"`;
 					break;
+				case ERM.EMAIL:
+				case ERM.CONTACT:
+					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR email CONTAINS[c] "${searchTxt}"`;
+					break;
 				case ERM.CATEGORY:
 				case ERM.HARBOUR:
 				case ERM.INCOTERM:
 				case ERM.PRODUCT:
 				case ERM.PROJECT:
+				case ERM.REQUEST_TEMPLATE:
 				case ERM.SUPPLIER:
 				case ERM.SUPPLIER_TYPE:
 				case ERM.TAG:
@@ -268,6 +279,20 @@ export class SelectorsService {
 		return this.items$;
 	}
 
+	getContacts(): Observable<Contact[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
+		this.listResult = this.contactSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
+	}
+
+	getRequestTemplates(): Observable<RequestTemplate[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
+		this.listResult = this.requestTemplateSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
+	}
+
 	getTags(): Observable<Tag[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.tagSrv.getListQuery(this.selectParams);
@@ -307,6 +332,10 @@ export class SelectorsService {
 
 	createCategory(category: Category): Observable<any> {
 		return this.categorySrv.create(category);
+	}
+
+	createContact(contact: Contact): Observable<any> {
+		return this.contactSrv.create(contact);
 	}
 
 	createEvent(event: Event): Observable<any> {
