@@ -1,14 +1,13 @@
-
-	<div class="flex left container">
+	<div class="flex left container" [ngClass]="{'align-center': hasLogo}">
 
 		<icon-app name="back-arrow" (click)="goBack()" class="backArrow flexStart color-txt-primary"></icon-app>
 
-		<div class="logo">
+		<div *ngIf="hasLogo" class="logo">
 			<ng-content select="img-app"></ng-content>
 		</div>
 
 		<div class="info">
-			<div class="flex">
+			<div class="flex title-container">
 				<h2 class="color-txt-strong">{{ title }}</h2>
 				<ng-content selecto="[titleExtra]"></ng-content>
 			</div>
@@ -16,7 +15,6 @@
 		</div>
 
 	</div>
-
 
 	<div class="flex right container action-list">
 		<ng-content select="[action]"></ng-content>
