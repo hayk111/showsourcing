@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
 	private startBaseClients(): Observable<Client[]> {
 		// when we are authenticated it means we have a token
 		const realmUser = this.authSrv.realmUser;
-		debugger;
 		return this.globalRequestClient.init(realmUser);
 	}
 
