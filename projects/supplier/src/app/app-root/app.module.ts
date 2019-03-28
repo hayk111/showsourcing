@@ -11,6 +11,7 @@ import { AppApolloModule } from '~core/apollo';
 import { Angulartics2Module } from 'angulartics2';
 import { environment } from 'environments/environment';
 import { SharedModule } from '~shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	declarations: [
@@ -18,6 +19,7 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		TemplateModule,
 		HttpClientModule,
 		SharedModule,

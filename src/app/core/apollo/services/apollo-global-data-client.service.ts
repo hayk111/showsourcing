@@ -35,6 +35,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 		this.checkNotAlreadyInit();
 		const userId = realmUser.identity;
 		const path = `/${this.client}/__partial/${userId}/${this.suffix}`;
+		this.setPending('initialization');
 
 		// when accessToken for each of those clients,
 		// will wait for user authentication..

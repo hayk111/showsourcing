@@ -41,12 +41,12 @@ export class UserClientInitializer extends AbstractApolloClient {
 	init(realmUser: RealmUser): Observable<any> {
 		super.checkNotAlreadyInit();
 
-		this.apolloState.setClientPending(Client.USER);
+		this.setPending('initialization');
 
 		const userId = realmUser.identity;
 		const uri = `/user/${userId}/__partial/${userId}/${this.suffix}`;
 
-		return from(this.createClient(uri, realmUser, Client.USER)).pipe(
+		return from(this.createClient(uri, realmUser, this.client)).pipe(
 			takeUntil(this.destroyed$),
 			switchMap(_ => this.createMissingSubscription()),
 			tap(_ => this.apolloState.setClientReady(this.client)),
@@ -57,10 +57,10 @@ export class UserClientInitializer extends AbstractApolloClient {
 
 	createMissingSubscription(): Observable<any> {
 		return forkJoin([
-			this.teamSrv.openSubscription(Client.USER),
-			this.userSrv.openSubscription(Client.USER),
-			this.companySrv.openSubscription(Client.USER),
-			this.imageUploadRequest.openSubscription(Client.USER)
+			this.teamSrv.openSubscription(this.client),
+			this.userSrv.openSubscription(this.client),
+			this.companySrv.openSubscription(this.client),
+			this.imageUploadRequest.openSubscription(this.client)
 		]);
 	}
 

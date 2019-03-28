@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, tap, switchMap } from 'rxjs/operators';
 import { ApolloStateService, ClientStatus } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { log, LogColor } from '~utils';
@@ -16,10 +16,16 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 	) { }
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+
 		return this.apolloState.getClientStatus(this.client).pipe(
 			tap(status => log.debug(`%c ClientsReadyGuard, client: ${this.client}, state: ${status}`, LogColor.GUARD)),
-			tap(status => this.redirect(status, route, state)),
+			// tap(status => {
+			// 	if (status === ClientStatus.NOT_READY) {
+
+			// 	}
+			// }),
 			filter(status => status !== ClientStatus.PENDING),
+			tap(status => this.redirectOnError(status, route, state)),
 			map(status => status === ClientStatus.READY),
 		);
 	}
@@ -28,8 +34,18 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 		return this.canActivate(route.parent, state);
 	}
 
+	protected checkStatus(status: ClientStatus) {
+		// if (status === ClientStatus.NOT_READY) {
+		// 	return this.initializer.init().pipe(
+		// 	switchMap(_ => this.apolloState.getClientStatus())
+		// );
+		// } else {
+		// 	return of(status);
+		// }
+	}
 
-	protected redirect(status: ClientStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+
+	protected redirectOnError(status: ClientStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		if (status === ClientStatus.ERROR) {
 			this.router.navigate(['error', 'generic']);
 		}
@@ -96,7 +112,7 @@ export class TeamClientReadyGuard extends ClientReadyGuard {
 		super(router, apolloState, Client.TEAM);
 	}
 
-	protected redirect(status: ClientStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+	protected redirectOnError(status: ClientStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		if (status === ClientStatus.ERROR) {
 			this.router.navigate(['error', 'generic']);
 		}
