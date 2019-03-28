@@ -167,6 +167,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.INCOTERM: return this.selectorSrv.getIncoTermsGlobal();
 			case ERM.PRODUCT: return this.selectorSrv.getProducts();
 			case ERM.PROJECT: return this.selectorSrv.getProjects();
+			case ERM.REQUEST_TEMPLATE: return this.selectorSrv.getRequestTemplates();
 			case ERM.SUPPLIER: return this.selectorSrv.getSuppliers();
 			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getSupplierTypes();
 			case ERM.TAG: return this.selectorSrv.getTags();

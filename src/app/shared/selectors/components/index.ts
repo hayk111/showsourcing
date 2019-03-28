@@ -12,6 +12,7 @@ export * from './selector-name-row/selector-name-row.component';
 export * from './selector-picker/selector-picker.component';
 export * from './selector-product-row/selector-product-row.component';
 export * from './selector-project-row/selector-project-row.component';
+export * from './selector-request-template-row/selector-request-template-row.component';
 export * from './selector-supplier-row/selector-supplier-row.component';
 export * from './selector-supplier-type-row/selector-supplier-type-row.component';
 export * from './selector-tag-row/selector-tag-row.component';

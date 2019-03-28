@@ -17,6 +17,7 @@ import {
 	SupplierService,
 	TagService,
 	UserService,
+	RequestTemplateService,
 } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import {
@@ -34,6 +35,7 @@ import {
 	SupplierType,
 	Tag,
 	User,
+	RequestTemplate,
 } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
@@ -70,6 +72,7 @@ export class SelectorsService {
 		private eventSrv: EventService,
 		private productSrv: ProductService,
 		private projectSrv: ProjectService,
+		private requestTemplateSrv: RequestTemplateService,
 		private supplierSrv: SupplierService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagSrv: TagService,
@@ -127,6 +130,7 @@ export class SelectorsService {
 				case ERM.INCOTERM:
 				case ERM.PRODUCT:
 				case ERM.PROJECT:
+				case ERM.REQUEST_TEMPLATE:
 				case ERM.SUPPLIER:
 				case ERM.SUPPLIER_TYPE:
 				case ERM.TAG:
@@ -278,6 +282,13 @@ export class SelectorsService {
 	getContacts(): Observable<Contact[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.contactSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
+	}
+
+	getRequestTemplates(): Observable<RequestTemplate[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
+		this.listResult = this.requestTemplateSrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
 	}

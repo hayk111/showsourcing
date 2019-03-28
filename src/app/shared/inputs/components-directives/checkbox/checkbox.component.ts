@@ -43,6 +43,7 @@ export class CheckboxComponent extends AbstractInput {
 	/** Toggles the `checked` state of the checkbox. */
 	toggle(): void {
 		this.checked = !this.checked;
+		this.value = this.checked;
 	}
 
 	/**

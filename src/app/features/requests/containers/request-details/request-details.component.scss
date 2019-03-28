@@ -1,3 +1,14 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.borderless {
+	padding: 0;
+	border-top: unset;
+}
+
 $left-width: 360px;
 
 .left {
@@ -6,4 +17,8 @@ $left-width: 360px;
 
 .right {
 	width: calc(100% - #{$left-width});
+}
+
+selection-bar-app {
+	position: absolute;
 }

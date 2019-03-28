@@ -1,18 +1,13 @@
 :host {
-	&.borderless {
-		.ctnr {
-			border: unset;
-		}
-
+	&.secondary-style {
 		.header {
-			color: black;
-			background: unset;
+			background: white;
 		}
 	}
 }
+
 .ctnr {
 	background: var(--color-bg);
-	border: 1px solid  var(--color-secondary);
 	box-sizing: border-box;
 	overflow: auto;
 	height: 100%;
@@ -28,6 +23,13 @@
 		font-size: 20px;
 	}
 }
+.context-menu {
+	padding: 0 !important;
+	icon-app {
+		padding-left: var(--spacing-s) !important;
+		padding-right: var(--spacing-xs) !important;
+	}
+}
 
 .contentCtnr {
 	display: flex;
@@ -38,7 +40,8 @@
 }
 
 .cell, .header {
-	padding: 0 var(--spacing-m);
+	color: black;
+	padding: 0 var(--spacing-ms);
 	border-bottom: 1px solid  var(--color-secondary);
 	height: 51px;
 	display: flex;
@@ -47,9 +50,9 @@
 }
 
 .cell {
+	color: var(--color-txt-strong);
 	&.selected {
 		background-color: var(--color-secondary-light);
-		color: var(--color-text-primary);
 	}
 
 	&.hover {
@@ -86,7 +89,7 @@
 	}
 	.cell, .header {
 		padding: 0;
-		width: var(--spacing-m);
+		width: var(--spacing-ms);
 	}
 }
 
@@ -100,12 +103,6 @@
 
 .sortIcon {
 	margin-left: var(--spacing-xs);
-}
-
-.menuCell {
-	padding-left: 16px;
-	padding-right: 6px;
-	width: 10px;
 }
 
 .dotSeparator:after {

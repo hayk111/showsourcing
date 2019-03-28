@@ -30,9 +30,12 @@ export class Request extends EntityWithAudit<RequestConfig> {
 }
 
 export interface RequestConfig {
+	products?: Product[];
+	recipient?: Contact;
 	message?: string;
 	requestElements?: RequestElement[];
 	title?: string;
 	status?: string;
 	shareInformation?: boolean;
+	sendCopyTo?: string[];
 }

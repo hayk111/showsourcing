@@ -16,9 +16,12 @@
 				</form-field-app>
 				<form-field-app class="modal pdng-btm-l">
 					<label-app>Request Templates *</label-app>
-					<selector-app>
+					<selector-app
+						#selectorReqTemplate
+						type="request template"
+						formControlName="requestTemplate">
 							<selector-placeholder-app
-								name=""
+								[name]="selectorReqTemplate?.value?.name"
 								placeHolder="Quick RFQ">
 							</selector-placeholder-app>
 						</selector-app>
@@ -27,11 +30,13 @@
 				<form-field-app class="modal">
 					<label-app>Share my product information</label-app>
 					<div class="flex">
-						<checkbox-app>
+						<checkbox-app
+							#checkShare
+							formControlName="shareInformation">
 						</checkbox-app>
+						<input inputApp [hidden]="true"/>
 						Share product information you arleady have with the supplier such as price, moq, etc.
 					</div>
-					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
 			</form>
 		</div>
@@ -81,7 +86,7 @@
 						[multiple]="true"
 						formControlName="sendCopyTo">
 						<selector-placeholder-app
-							name=""
+							[name]="arrayToString(copySelector?.value)"
 							placeHolder="Send copy to">
 						</selector-placeholder-app>
 					</selector-app>
@@ -109,6 +114,6 @@
 	</div>
 
 	<dialog-footer-app>
-		<button [disabled]="!form.valid">Send Request</button>
+		<button [disabled]="!form.valid" (click)="createRequest()">Send Request</button>
 	</dialog-footer-app>
 </dialog-app>
