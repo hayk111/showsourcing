@@ -19,6 +19,18 @@ export const routes: Array<Route> = [
 	// 	loadChildren: 'app/features/error-pages/error-pages.module#ErrorPagesModule'
 	// },
 	{
+		path: 'anonymous',
+		component: GuestTemplateComponent,
+		canActivateChild: [
+			AnonymouslyAuthenticatedGuard,
+			GlobalRequestClientReadyGuard
+		],
+		children: [
+			{ path: '', redirectTo: 'request', pathMatch: 'full' },
+			{ path: 'request', loadChildren: './../features/request/request.module#RequestModule' },
+		]
+	},
+	{
 		path: '',
 		component: TemplateComponent,
 		canActivateChild: [
@@ -32,18 +44,6 @@ export const routes: Array<Route> = [
 				path: 'request',
 				loadChildren: './../features/request/request.module#RequestModule'
 			},
-		]
-	},
-	{
-		path: 'anonymous',
-		component: GuestTemplateComponent,
-		canActivateChild: [
-			AnonymouslyAuthenticatedGuard,
-			GlobalRequestClientReadyGuard
-		],
-		children: [
-			{ path: '', redirectTo: 'request', pathMatch: 'full' },
-			{ path: 'request', loadChildren: './../features/request/request.module#RequestModule' },
 		]
 	},
 	{ path: '**', redirectTo: '' }

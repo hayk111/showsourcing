@@ -12,16 +12,16 @@ import { log, LogColor } from '~utils';
 })
 export class AnonymouslyAuthenticatedGuard implements CanActivate, CanActivateChild {
 
-	private initialized = false;
 
 	constructor(private authSrv: AuthenticationService, private router: Router) { }
 
 	canActivate(
 		route: ActivatedRouteSnapshot
 	): Observable<boolean> {
-
+		debugger;
 		const token = route.queryParamMap.get('token');
 		return this.authSrv.authStatus$.pipe(
+			tap(d => { debugger; }),
 			switchMap(status => {
 				if (status === AuthStatus.PENDING || status === AuthStatus.NOT_AUTHENTICATED)
 					return this.authSrv.login(token).pipe(map((state) => state.status));
@@ -30,11 +30,6 @@ export class AnonymouslyAuthenticatedGuard implements CanActivate, CanActivateCh
 			}),
 			map(status => status === AuthStatus.ANONYMOUS)
 		);
-	}
-
-	redirectOnAuthenticated(authStatus: AuthStatus) {
-		if (authStatus === AuthStatus.ANONYMOUS)
-			this.router.navigate(['']);
 	}
 
 	canActivateChild(
