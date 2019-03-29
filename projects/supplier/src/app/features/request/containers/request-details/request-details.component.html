@@ -1,0 +1,21 @@
+<card-app>
+	<h3 class="l">Request Items</h3>
+		<request-element-list-view-sup
+			class="no-padding"
+			[rows]="listSrv.items$ | async"
+			[pending]="listSrv.pending"
+			[selection]="listSrv.selection$ | async"
+			(bottomReached)="listSrv.loadMore()"
+			(select)="listSrv.selectOne($event)"
+			(selectAll)="listSrv.selectAll($event)"
+			(sort)="listSrv.sort($event)"
+			(unselect)="listSrv.unselectOne($event)"
+			(unselectAll)="listSrv.unselectAll()">
+		</request-element-list-view-sup>
+</card-app>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>

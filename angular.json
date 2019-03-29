@@ -169,7 +169,7 @@
       "root": "projects/supplier/",
       "sourceRoot": "projects/supplier/src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "sup",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -208,7 +208,7 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/supplier/src/environments/environment.ts",
+                  "replace": "src/environments/environment.ts",
                   "with": "projects/supplier/src/environments/environment.prod.ts"
                 }
               ],

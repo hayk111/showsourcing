@@ -1,4 +1,5 @@
 import { ApolloBase, QueryRef } from 'apollo-angular';
+import { environment } from 'environments/environment';
 import { DocumentNode } from 'graphql';
 import * as gqlTag from 'graphql-tag';
 import { BehaviorSubject, forkJoin, merge, Observable, of, throwError } from 'rxjs';
@@ -45,7 +46,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/** the underlying graphql client this service is gonna use by default
 	 * when none is specified
 	 */
-	protected defaultClient = Client.TEAM;
+	protected defaultClient = environment.defaultClient;
 	protected queryBuilder: QueryBuilder;
 	protected typeName: string;
 

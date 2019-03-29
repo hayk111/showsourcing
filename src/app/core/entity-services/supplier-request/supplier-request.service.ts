@@ -15,4 +15,12 @@ export class SupplierRequestService extends GlobalService<SupplierRequest> {
 		super(apolloState, SupplierRequestQueries, 'request', 'requests');
 	}
 
+	/** @inheritDoc
+	 * Updates on entity with an audit will add properties needed by the backend
+	 */
+	update(entity: any, client?: Client, fields?: string, isOptimistic: boolean = true) {
+		entity.lastUpdatedDate = '' + new Date();
+		return super.update(entity, client, fields, isOptimistic);
+	}
+
 }
