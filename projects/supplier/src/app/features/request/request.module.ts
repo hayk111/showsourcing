@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { RequestCommonModule } from '~common/request';
 import { SharedModule } from '~shared/shared.module';
 
-import { RequestListViewComponent } from './components';
+import { RequestListViewComponent, RequestElementListViewComponent } from './components';
 import { RequestDetailsComponent, RequestsPageComponent, RequestElementDetailsComponent } from './containers';
 import { routes } from './routes';
 
@@ -13,6 +13,7 @@ import { routes } from './routes';
 	declarations: [
 		RequestDetailsComponent,
 		RequestElementDetailsComponent,
+		RequestElementListViewComponent,
 		RequestListViewComponent,
 		RequestsPageComponent,
 	],
