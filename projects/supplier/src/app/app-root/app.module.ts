@@ -4,11 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { Angulartics2Module } from 'angulartics2';
-import { environment } from 'environments/environment';
 import { AppApolloModule } from '~core/apollo';
-import { TemplateModule } from '../core/template';
 import { SharedModule } from '~shared/shared.module';
 
+import { TemplateModule } from '../core/template';
 import { AppComponent } from './app.component';
 import { routes } from './routes';
 
