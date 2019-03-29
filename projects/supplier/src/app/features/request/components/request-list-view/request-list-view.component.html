@@ -1,0 +1,85 @@
+<table-app
+	class="borderless"
+	[rows]="rows"
+	[pending]="pending"
+	[selected]="selection"
+	placeholder="No requests"
+	[contextualMenu]="contextualMenuTemplate"
+	(bottomReached)="bottomReached.emit()"
+	(selectAll)="selectAll.emit($event)"
+	(selectOne)="select.emit($event)"
+	(sort)="sort.emit($event)"
+	(unselectAll)="unselectAll.emit()"
+	(unselectOne)="unselect.emit($event)">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter">
+			Options by design
+		</context-menu-item-app>
+	</ng-template>
+
+	<!-- request name -->
+	<ng-template
+		columnApp="Title"
+		sortBy="title"
+		let-row="row"
+		width="400">
+		<div class="mainCell ellipsis">
+			<img-app
+				class="mini imgCtnr"
+				[image]="row?.images?.length ? row?.images[0] : null"
+				type="request"
+				size="s">
+			</img-app>
+			<span class="capitalize ellipsis">
+				<a class="name txt-btn title" [routerLink]="['/request', 'details', row.id]">
+					{{ row?.title }}
+				</a>
+			</span>
+		</div>
+	</ng-template>
+
+	<!-- # requests -->
+	<ng-template
+		columnApp="# Requests"
+		let-row="row"
+		width="120">
+		<div class="fs-l color-black bold-s">
+			{{ row?.requestElements?.length }}
+		</div>
+	</ng-template>
+
+	<!-- status-->
+	<ng-template
+		columnApp="Status"
+		sortBy="status"
+		let-row="row"
+		width="220">
+
+	</ng-template>
+
+	<!-- creation date-->
+	<ng-template
+		columnApp="Sent On"
+		sortBy="creationDate"
+		let-row="row"
+		width="220">
+		<div class="capitalize">
+			{{ row?.creationDate | date: 'dd MMM yyyy' }}
+		</div>
+	</ng-template>
+
+	<!-- sender -->
+	<ng-template
+		columnApp="Sent By"
+		sortBy="createdBy.firstName"
+		let-row="row"
+		width="220">
+		<div class="capitalize ellipsis">
+			{{ row?.sender?.name }}
+		</div>
+	</ng-template>
+
+</table-app>
