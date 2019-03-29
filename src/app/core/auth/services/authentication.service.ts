@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
-import { User as RealmUser, Credentials as RealmCredentials } from 'realm-graphql-client';
+import { Credentials as RealmCredentials, User as RealmUser } from 'realm-graphql-client';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthState, AuthStatus, Credentials } from '~core/auth/interfaces';
@@ -61,10 +61,10 @@ export class AuthenticationService {
 	 * login with credentials or a token
 	 * @param credentials either login + password or token as a string
 	 */
-	login(credentials: Credentials | string) {
+	login(credentials: Credentials) {
 		// lower case for email when using credentials
-		if ((credentials as Credentials).login) {
-			(credentials as Credentials).login = (credentials as Credentials).login.toLowerCase();
+		if (credentials.login) {
+			credentials.login = credentials.login.toLowerCase();
 		}
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
 			tap(resp => this.tokenSrv.storeJwtTokens(resp.jwtTokenFeed)),

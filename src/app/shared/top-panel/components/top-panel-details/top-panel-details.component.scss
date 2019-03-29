@@ -4,22 +4,32 @@
 	background: var(--color-bg);
 	box-sizing: border-box;
 	height: 75px;
+	align-items: center;
 }
 
 
 .left {
-	.backArrow, .logo {
+	.backArrow {
 		margin-left: var(--spacing-l);
+		margin-right: var(--spacing-ms);
 	}
-	.info {
+	.info, .logo {
 		margin-left: var(--spacing-ms);
+		.title-container {
+			align-items: flex-end;
+		}
 	}
 }
 
 .left {
 	max-width: 50%;
 	white-space: nowrap;
-	align-items: center;
+	align-items: baseline;
+
+	// if we have a logo we use center if not we use baseline
+	&.align-center {
+		align-items: center;
+	}
 }
 
 .right {
@@ -37,13 +47,13 @@
 	justify-content: space-around;
 	h2 {
 		line-height: 1;
-		margin-right: var(--spacing-ms);
+		margin-right: var(--spacing-ml);
 	}
 }
 
 .backArrow {
 	align-items: flex-start;
-	font-size: 20px;
+	font-size: 12px;
 }
 
 .logo {

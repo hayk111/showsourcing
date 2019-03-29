@@ -196,13 +196,13 @@
               "src/app/theming/styles.scss"
             ],
             "scripts": [],
-						"es5BrowserSupport": true,
-						"fileReplacements": [
-							{
-								"replace": "src/environments/environment.ts",
-								"with": "projects/supplier/src/environments/environment.ts"
-							}
-						]
+            "es5BrowserSupport": true,
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "projects/supplier/src/environments/environment.ts"
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -247,10 +247,7 @@
           "configurations": {
             "production": {
               "browserTarget": "supplier:build:production"
-						},
-						"development": {
-							"browserTarget": "supplier:build:development"
-						}
+            }
           }
         },
         "extract-i18n": {

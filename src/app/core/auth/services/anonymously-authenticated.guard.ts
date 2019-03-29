@@ -12,19 +12,17 @@ import { log, LogColor } from '~utils';
 })
 export class AnonymouslyAuthenticatedGuard implements CanActivate, CanActivateChild {
 
-	private initialized = false;
 
 	constructor(private authSrv: AuthenticationService, private router: Router) { }
 
 	canActivate(
 		route: ActivatedRouteSnapshot
 	): Observable<boolean> {
-
 		const token = route.queryParamMap.get('token');
 		return this.authSrv.authStatus$.pipe(
 			switchMap(status => {
 				if (status === AuthStatus.PENDING || status === AuthStatus.NOT_AUTHENTICATED)
-					return this.authSrv.login(token).pipe(map((state) => state.status));
+					return this.authSrv.login({ token }).pipe(map((state) => state.status));
 				else
 					return this.authSrv.authStatus$;
 			}),
@@ -32,14 +30,8 @@ export class AnonymouslyAuthenticatedGuard implements CanActivate, CanActivateCh
 		);
 	}
 
-	redirectOnAuthenticated(authStatus: AuthStatus) {
-		if (authStatus === AuthStatus.ANONYMOUS)
-			this.router.navigate(['']);
-	}
-
 	canActivateChild(
-		childRoute: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot
+		childRoute: ActivatedRouteSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
 		return this.canActivate(childRoute);
 	}

@@ -1,6 +1,5 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AppImage, Product, Supplier, User } from '~models';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -15,6 +14,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class TopPanelDetailsComponent extends TrackingComponent {
 	/** title displayed */
 	@Input() title: string;
+	@Input() hasLogo = true;
 
 	constructor(
 		private location: Location
