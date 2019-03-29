@@ -15,9 +15,6 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 	// ${GlobalRequestQueries.sender}
 	// sendCopyTo
 	static readonly one = `
-		${SupplierRequestQueries.requestElements}
-		${SupplierRequestQueries.images}
-		${SupplierRequestQueries.attachments}
 		message
 		status
 		creationDate
@@ -28,7 +25,6 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 	// ${GlobalRequestQueries.sender}
 	// sendCopyTo
 	static readonly many = `
-		${SupplierRequestQueries.requestElements}
 		message
 		status
 		creationDate
@@ -36,7 +32,6 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 	`;
 
 	static readonly all = `
-		${SupplierRequestQueries.requestElements}
 		message
 		status
 		creationDate

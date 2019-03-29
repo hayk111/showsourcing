@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RequestService, SupplierRequestService } from '~core/entity-services';
+import { RequestService, SupplierRequestService, UserService } from '~core/entity-services';
 import { Request, SupplierRequest } from '~models';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'requests-page-app',
@@ -13,10 +14,12 @@ export class RequestsPageComponent implements OnInit {
 
 	requests$: Observable<SupplierRequest[]>;
 
-	constructor(private requestSrv: SupplierRequestService) { }
+	constructor(private requestSrv: SupplierRequestService, private userSrv: UserService) { }
 
 	ngOnInit() {
-		this.requests$ = this.requestSrv.selectAll();
+		this.requests$ = this.userSrv.selectUser().pipe(
+			switchMap(user => this.requestSrv.queryMany({ query: `recipient.email == "${user.email}"` }))
+		);
 	}
 
 }

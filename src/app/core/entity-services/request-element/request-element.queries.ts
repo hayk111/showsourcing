@@ -13,7 +13,6 @@ export abstract class RequestElementQueries extends GlobalQueries {
 		${RequestElementQueries.reply}
 		${RequestElementQueries.images}
 		${RequestElementQueries.attachments}
-		${RequestElementQueries.requestedFields}
 	`;
 
 	static readonly many = `
@@ -22,7 +21,6 @@ export abstract class RequestElementQueries extends GlobalQueries {
 		${RequestElementQueries.reply}
 		${RequestElementQueries.images}
 		${RequestElementQueries.attachments}
-		${RequestElementQueries.requestedFields}
 	`;
 
 }
