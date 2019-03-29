@@ -10,6 +10,7 @@ import { SharedModule } from '~shared/shared.module';
 import { TemplateModule } from '../core/template';
 import { AppComponent } from './app.component';
 import { routes } from './routes';
+import { environment } from 'environments/environment';
 
 @NgModule({
 	declarations: [

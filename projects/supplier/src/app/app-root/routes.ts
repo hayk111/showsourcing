@@ -13,11 +13,11 @@ export const routes: Array<Route> = [
 		loadChildren: './../features/auth-pages/auth-pages-wrapper.module#AuthPagesWrapperModule'
 	},
 	// need wrapper :()
-	// {
-	// 	path: 'error',
-	// 	component: GuestTemplateComponent,
-	// 	loadChildren: 'app/features/error-pages/error-pages.module#ErrorPagesModule'
-	// },
+	{
+		path: 'error',
+		component: GuestTemplateComponent,
+		loadChildren: './../features/error-pages/error-pages-wrapper.module#ErrorPagesWrapperModule'
+	},
 	{
 		path: 'anonymous',
 		component: GuestTemplateComponent,
