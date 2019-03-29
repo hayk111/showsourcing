@@ -6,7 +6,6 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 @Component({
 	selector: 'request-details-sup',

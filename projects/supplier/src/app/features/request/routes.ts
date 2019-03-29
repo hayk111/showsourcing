@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { RequestsPageComponent, RequestDetailsComponent } from './containers';
+import { RequestsPageComponent, RequestDetailsComponent, RequestElementDetailsComponent } from './containers';
 
 
 export const routes: Routes = [
@@ -11,5 +11,9 @@ export const routes: Routes = [
 	{
 		path: 'details/:id',
 		component: RequestDetailsComponent
+	},
+	{
+		path: '/request-element/details/:id',
+		component: RequestElementDetailsComponent
 	},
 ];

@@ -1,3 +1,47 @@
-<p>
-  request-element-list-view works!
-</p>
+
+<table-app
+class="secondary-style"
+[rows]="rows"
+[pending]="pending"
+[selected]="selection"
+placeholder="No requests items"
+[contextualMenu]="contextualMenuTemplate"
+(bottomReached)="bottomReached.emit()"
+(selectAll)="selectAll.emit($event)"
+(selectOne)="select.emit($event)"
+(sort)="sort.emit($event)"
+(unselectAll)="unselectAll.emit()"
+(unselectOne)="unselect.emit($event)">
+
+<!-- contextual menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		class="pointer flexCenter">
+		Options by design
+	</context-menu-item-app>
+</ng-template>
+
+<ng-template
+	columnApp="Product"
+	sortBy="name"
+	let-row="row"
+	width="300">
+	<div>{{ row?.name }}</div>
+</ng-template>
+
+<ng-template
+	let-row="row"
+	width="250"
+	*ngFor="let field of fields; index as index; trackBy: trackByFn"
+	[columnApp]="field?.definition?.label">
+	<div>{{field?.value}}</div>
+</ng-template>
+
+<ng-template
+	columnApp="Status"
+	sortBy="status"
+	let-row="row"
+	width="200">
+</ng-template>
+
+</table-app>
