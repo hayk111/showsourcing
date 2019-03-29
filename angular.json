@@ -228,6 +228,14 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "projects/supplier/src/environments/environment.ts"
+                }
+              ]
             }
           }
         },
@@ -239,6 +247,9 @@
           "configurations": {
             "production": {
               "browserTarget": "supplier:build:production"
+            },
+            "development": {
+              "browserTarget": "supplier:build:development"
             }
           }
         },

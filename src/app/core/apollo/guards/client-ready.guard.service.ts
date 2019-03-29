@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map, tap, switchMap } from 'rxjs/operators';
+import { filter, map, tap, switchMap, delay } from 'rxjs/operators';
 import { ApolloStateService, ClientStatus } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { log, LogColor } from '~utils';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
 
 
 export abstract class ClientReadyGuard implements CanActivate, CanActivateChild {
@@ -12,18 +13,17 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
-		protected client: Client
+		protected client: Client,
+		protected authSrv: AuthenticationService
 	) { }
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 
-		return this.apolloState.getClientStatus(this.client).pipe(
+		return this.authSrv.isAuthenticated$.pipe(
+			tap(d => { debugger; }),
+			delay(100),
+			switchMap(_ => this.apolloState.getClientStatus(this.client)),
 			tap(status => log.debug(`%c ClientsReadyGuard, client: ${this.client}, state: ${status}`, LogColor.GUARD)),
-			// tap(status => {
-			// 	if (status === ClientStatus.NOT_READY) {
-
-			// 	}
-			// }),
 			filter(status => status !== ClientStatus.PENDING),
 			tap(status => this.redirectOnError(status, route, state)),
 			map(status => status === ClientStatus.READY),
@@ -60,8 +60,9 @@ export class GlobalDataClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
+		protected authSrv: AuthenticationService
 	) {
-		super(router, apolloState, Client.GLOBAL_DATA);
+		super(router, apolloState, Client.GLOBAL_DATA, authSrv);
 	}
 }
 
@@ -72,8 +73,9 @@ export class GlobalConstClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
+		protected authSrv: AuthenticationService
 	) {
-		super(router, apolloState, Client.GLOBAL_CONSTANT);
+		super(router, apolloState, Client.GLOBAL_CONSTANT, authSrv);
 	}
 }
 
@@ -84,8 +86,9 @@ export class AllUserClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
+		protected authSrv: AuthenticationService
 	) {
-		super(router, apolloState, Client.ALL_USER);
+		super(router, apolloState, Client.ALL_USER, authSrv);
 	}
 }
 
@@ -96,8 +99,9 @@ export class UserClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
+		protected authSrv: AuthenticationService
 	) {
-		super(router, apolloState, Client.USER);
+		super(router, apolloState, Client.USER, authSrv);
 	}
 }
 
@@ -108,8 +112,9 @@ export class TeamClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
+		protected authSrv: AuthenticationService
 	) {
-		super(router, apolloState, Client.TEAM);
+		super(router, apolloState, Client.TEAM, authSrv);
 	}
 
 	protected redirectOnError(status: ClientStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -134,7 +139,8 @@ export class GlobalRequestClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
+		protected authSrv: AuthenticationService
 	) {
-		super(router, apolloState, Client.GLOBAL_REQUEST);
+		super(router, apolloState, Client.GLOBAL_REQUEST, authSrv);
 	}
 }

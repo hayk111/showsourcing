@@ -23,12 +23,12 @@ export class AuthenticationService {
 	);
 	/** whether the user is authenticated */
 	isAuthenticated$ = this.authStatus$.pipe(
-		map(status => status === AuthStatus.AUTHENTICATED),
+		map(status => status === AuthStatus.AUTHENTICATED || status === AuthStatus.ANONYMOUS),
 		shareReplay(1)
 	);
 	/** sends event when the user authenticates */
 	authenticated$ = this.authStatus$.pipe(
-		filter(status => status === AuthStatus.AUTHENTICATED),
+		filter(status => status === AuthStatus.AUTHENTICATED || status === AuthStatus.ANONYMOUS),
 		shareReplay(1)
 	);
 	/** sends event when the user logs out */

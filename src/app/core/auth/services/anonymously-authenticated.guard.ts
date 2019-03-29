@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { filter, map, tap, switchMap } from 'rxjs/operators';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthStatus } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { log, LogColor } from '~utils';
+import { log } from '~utils/log';
+import { LogColor } from '~utils/log-colors.enum';
+
+
 
 /** check if the user is authenticated and if so redirect to dashboard. Protects pages like login etc. */
 @Injectable({
@@ -13,7 +16,9 @@ import { log, LogColor } from '~utils';
 export class AnonymouslyAuthenticatedGuard implements CanActivate, CanActivateChild {
 
 
-	constructor(private authSrv: AuthenticationService, private router: Router) { }
+	constructor(
+		private authSrv: AuthenticationService,
+	) { }
 
 	canActivate(
 		route: ActivatedRouteSnapshot
@@ -21,11 +26,14 @@ export class AnonymouslyAuthenticatedGuard implements CanActivate, CanActivateCh
 		const token = route.queryParamMap.get('token');
 		return this.authSrv.authStatus$.pipe(
 			switchMap(status => {
-				if (status === AuthStatus.PENDING || status === AuthStatus.NOT_AUTHENTICATED)
-					return this.authSrv.login({ token }).pipe(map((state) => state.status));
+				if (status === AuthStatus.NOT_AUTHENTICATED)
+					return this.authSrv.login({ token }).pipe(
+						map((state) => state.status)
+					);
 				else
 					return this.authSrv.authStatus$;
 			}),
+			tap(status => log.debug(`%c AnonymouslyAuthenticatedGuard, status: ${status} token: ${token}, state: ${status}`, LogColor.GUARD)),
 			map(status => status === AuthStatus.ANONYMOUS)
 		);
 	}

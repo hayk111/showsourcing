@@ -3,10 +3,10 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 export abstract class SupplierRequestQueries extends GlobalQueries {
 
 	static readonly contact = (name: string) =>
-		`${name} { id, name, phoneNumber, email, jobTitle }`
+		`${name} { id, name, email }`
 	static readonly attachments = `attachments { id, fileName, url, size }`;
 	static readonly requestElements = `requestElements { id, name, targetedEntityType, images { id, fileName, urls { id, url } }, ` +
-		`${SupplierRequestQueries.attachments}, requestedFields { id, label, type }, reply { id, message, status } }`;
+		`${SupplierRequestQueries.attachments}, 	reply { id, message, status } }`;
 	static readonly images = ` images { id, urls { url }, orientation }`;
 
 	static readonly one = `
@@ -14,7 +14,6 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 		${SupplierRequestQueries.contact('recipient')}
 		${SupplierRequestQueries.contact('sender')}
 		${SupplierRequestQueries.requestElements}
-		sendCopyTo
 		message
 		status
 		creationDate
@@ -26,7 +25,6 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 		${SupplierRequestQueries.contact('recipient')}
 		${SupplierRequestQueries.requestElements}
 		${SupplierRequestQueries.contact('sender')}
-		sendCopyTo
 		message
 		status
 		creationDate

@@ -36,7 +36,6 @@ export const routes: Array<Route> = [
 		canActivateChild: [
 			AuthenticatedGuard,
 			GlobalRequestClientReadyGuard,
-			UserClientReadyGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'request', pathMatch: 'full' },

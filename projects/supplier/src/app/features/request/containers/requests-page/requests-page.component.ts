@@ -18,21 +18,18 @@ export class RequestsPageComponent implements OnInit {
 
 	constructor(
 		private suppRequestSrv: SupplierRequestService,
-		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
-		private userSrv: UserService
+		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>
 	) { }
 
 
 	ngOnInit() {
-		this.userSrv.selectUser().subscribe(user =>
-			this.listSrv.setup({
-				entityMetadata: ERM.SUPPLIER_REQUEST,
-				entitySrv: this.suppRequestSrv,
-				key: ListPageKey.SUPPLIER_REQUEST,
-				searchedFields: ['sender.name', 'status', 'title'],
-				selectParams: { query: `recipient.email == "${user.email}"`, sortBy: 'creationDate' }
-			})
-		);
+		this.listSrv.setup({
+			entityMetadata: ERM.SUPPLIER_REQUEST,
+			entitySrv: this.suppRequestSrv,
+			key: ListPageKey.SUPPLIER_REQUEST,
+			searchedFields: ['sender.name', 'status', 'title'],
+			selectParams: { sortBy: 'creationDate' }
+		});
 	}
 
 }
