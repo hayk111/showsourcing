@@ -20,22 +20,11 @@ export class TaskComponent {
 
 	constructor() { }
 
-
-	get getStatus() {
-		let status = 'pending';
-		if (this.task.done)
-			status = 'done';
-		else if (this.task.dueDate && (new Date().getTime() >= Date.parse(this.task.dueDate.toString())))
-			status = 'overdue';
-		return status;
-	}
-
 	updateAssignee(user: User) {
 		this.updateTask.emit({ ...this.task, assignee: user });
 	}
 
-	toggleDoneStatus() {
-		const done = !this.task.done;
+	updateStatus(done: boolean) {
 		this.updateTask.emit({ ...this.task, done });
 	}
 }

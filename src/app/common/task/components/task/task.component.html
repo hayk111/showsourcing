@@ -1,7 +1,7 @@
 <div class="flexStart row">
 	<!-- name -->
 	<div class="flex task-name ellipsis {{ hasSupplier && hasProduct ? 'col-35' : 'col-50'}}">
-		<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus()"></icon-app>
+		<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="updateStatus(!task?.done)"></icon-app>
 		<div class="flexCenter txt-btn pointer" [ngClass]="{'done': task?.done }" (click)="previewClicked.emit(task)">{{ task?.name || 'Unnamed task' }}</div>
 	</div>
 
@@ -50,11 +50,9 @@
 				class="pointer" [user]="task?.assignee"	[size]="20"	[border]="true">
 			</user-picture-app>
 		</selector-app>
-		<div class="flex task-status pointer"
-			[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}"
-			(click)="toggleDoneStatus()">
-			<icon-app name="circle" fontSet="fa"></icon-app>
-			<p>{{ getStatus }}</p>
-		</div>
+		<task-status-badge-app
+			[task]="task"
+			(update)="updateStatus($event)">
+		</task-status-badge-app>
 	</div>
 </div>
