@@ -196,7 +196,13 @@
               "src/app/theming/styles.scss"
             ],
             "scripts": [],
-            "es5BrowserSupport": true
+            "es5BrowserSupport": true,
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "projects/supplier/src/environments/environment.ts"
+              }
+            ]
           },
           "configurations": {
             "production": {
