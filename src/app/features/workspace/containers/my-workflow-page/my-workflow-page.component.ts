@@ -104,8 +104,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
 			const constQuery = status.id !== NEW_STATUS_ID ?
-				`status.id == "${status.id}"`
-				: `status == null`;
+				`status.id == "${status.id}" AND deleted == false`
+				: `status == null AND deleted == false`;
 
 			const query = [
 				predicate,
