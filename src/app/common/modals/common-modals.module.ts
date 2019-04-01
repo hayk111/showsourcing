@@ -57,6 +57,7 @@ const modals = [
 	RfqDialogComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	RequestReplyDlgComponent
 ];
 
 @NgModule({
@@ -66,7 +67,7 @@ const modals = [
 		ProductCommonModule,
 		TableModule,
 		InputsModule,
-		UtilsModule
+		UtilsModule,
 	],
 	declarations: [
 		...modals,
@@ -75,7 +76,6 @@ const modals = [
 		ExportWaitingViewComponent,
 		ProductRequestListComponent,
 		RequestViewDlgComponent,
-		RequestReplyDlgComponent
 	],
 	entryComponents: modals,
 	providers: [
