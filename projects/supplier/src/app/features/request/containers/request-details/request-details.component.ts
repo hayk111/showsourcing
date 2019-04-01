@@ -74,8 +74,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		this.router.navigate(['request']);
 	}
 
-	open(requestElem: RequestElement) {
-		this.dlgSrv.open(RequestReplyDlgComponent).subscribe();
+	open(element: RequestElement) {
+		this.dlgSrv.open(RequestReplyDlgComponent, { element }).subscribe();
 	}
 
 }

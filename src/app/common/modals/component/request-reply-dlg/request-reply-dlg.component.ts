@@ -1,4 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { RequestElement, ExtendedField, ExtendedFieldDefinition, RequestReply } from '~core/models';
+import { RequestReplyService } from '~core/entity-services';
+import { request } from 'http';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -6,11 +9,21 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./request-reply-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestReplyDlgComponent implements OnInit {
+export class RequestReplyDlgComponent {
+	@Input() set element(elem: RequestElement) {
+		this.reply = elem.reply;
+		this.fields = this.reply.fields;
+		this.definitions = this.reply.fields.map(field => field.definition);
+	}
+	reply: RequestReply;
+	fields: ExtendedField[];
+	definitions: ExtendedFieldDefinition[];
 
-	constructor() { }
+	constructor(private replySrv: RequestReplyService) { }
 
-	ngOnInit() {
+	save(fields: ExtendedField[]) {
+		const reply = { id: this.reply.id, fields, status: 'done', message: 'reply' };
+		this.replySrv.update(reply);
 	}
 
 }

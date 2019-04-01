@@ -1,7 +1,14 @@
-<div>
-  PREVIEW
-</div>
 
-<div>
-  <h1>Extended Fields</h1>
-</div>
+<dialog-app>
+  <div>
+    PREVIEW
+  </div>
+  
+  <div>
+    <h1>Extended Fields</h1>
+    <extended-form-app 
+      (update)="save({ fields: $event })"
+      [definitions]="definitions" 
+      [fields]="fields"></extended-form-app>
+  </div>
+</dialog-app>
