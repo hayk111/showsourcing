@@ -27,7 +27,7 @@ import { CommonModalsModule } from '~common/modals';
 		CommonModalsModule,
 		RouterModule.forRoot(routes, {
 			preloadingStrategy: PreloadAllModules,
-			enableTracing: !environment.production
+			// enableTracing: !environment.production
 		}),
 		Angulartics2Module.forRoot({
 			pageTracking: {
