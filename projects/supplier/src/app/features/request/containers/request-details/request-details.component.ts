@@ -1,14 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
 import { RequestElementService, SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement, SupplierRequest } from '~core/models';
+import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
-import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
-import { DialogService } from '~shared/dialog';
-import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'request-details-sup',
@@ -25,7 +25,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private suppReqSrv: SupplierRequestService,
 		private notifSrv: NotificationService,
-		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
 		private dlgSrv: DialogService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>
