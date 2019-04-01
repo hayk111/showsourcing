@@ -36,18 +36,15 @@
 	</ng-template>
 
 	<ng-template
-		let-row="row"
-		width="250"
-		*ngFor="let field of fields; index as index; trackBy: trackByFn"
-		[columnApp]="field?.definition?.label">
-		<div>{{field?.value}}</div>
-	</ng-template>
-
-	<ng-template
 		columnApp="Status"
 		sortBy="status"
 		let-row="row"
 		width="200">
+		<request-status-badge-app
+			[status]="row?.reply?.status"
+			[creationDate]="row?.creationDate"
+			[isTeam]="false">
+		</request-status-badge-app>
 	</ng-template>
 
 </table-app>
