@@ -6,6 +6,8 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement, SupplierRequest } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'request-details-sup',
@@ -24,6 +26,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private notifSrv: NotificationService,
 		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
+		private dlgSrv: DialogService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>
 	) { super(); }
 
@@ -74,6 +77,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			timeout: 3500
 		});
 		this.router.navigate(['request']);
+	}
+
+	open(element: RequestElement) {
+		this.dlgSrv.open(RequestReplyDlgComponent, { element }).subscribe();
 	}
 
 }
