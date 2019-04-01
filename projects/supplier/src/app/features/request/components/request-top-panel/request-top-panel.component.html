@@ -2,7 +2,7 @@
 	[title]="request?.title">
 	<img-app [image]="request?.requestElements[0]?.image" type="product" size="s"></img-app>
 
-	<div subinfo class="flex">
+	<div subinfo class="flex dot-separator">
 		<div>{{request?.creationDate | date: 'dd MMMM yy \'at\' HH:mm'}}</div>
 		<div *ngIf="request?.sender?.name">{{ request?.sender?.name }}</div>
 		<!-- <div *ngIf="request?.sender?.company">{{ request?.sender?.company }}</div> -->

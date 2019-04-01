@@ -3,18 +3,14 @@
 	justify-content: space-between;
 	background: var(--color-bg);
 	box-sizing: border-box;
-	height: 75px;
+	padding: var(--spacing-ms) var(--spacing-l);
 	align-items: center;
 }
 
 
 .left {
-	.backArrow {
-		margin-left: var(--spacing-l);
-		margin-right: var(--spacing-ms);
-	}
 	.info, .logo {
-		margin-left: var(--spacing-ms);
+		margin-left: var(--spacing-l);
 		.title-container {
 			align-items: flex-end;
 		}
@@ -24,19 +20,13 @@
 .left {
 	max-width: 50%;
 	white-space: nowrap;
-	align-items: baseline;
-
-	// if we have a logo we use center if not we use baseline
-	&.align-center {
-		align-items: center;
-	}
+	align-items: normal;
 }
 
 .right {
 	max-width: 50%;
 	white-space: nowrap;
 	align-items: center;
-	margin-right: var(--spacing-xl);
 }
 
 
@@ -44,20 +34,27 @@
 	height: 50px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
-	h2 {
-		line-height: 1;
-		margin-right: var(--spacing-ml);
+	justify-content: start;
+	.title-container {
+		margin-bottom: var(--spacing-s);
+
+		h2 {
+			line-height: 1;
+			margin-right: var(--spacing-ml);
+		}
 	}
+
+
 }
 
 .backArrow {
 	align-items: flex-start;
-	font-size: 12px;
+	font-size: var(--font-size-s);
+	margin-top: var(--spacing-s);
 }
 
 .logo {
-  width: 50px;
-  height: 50px;
+  max-width: 50px;
+  max-height: 50px;
   border-radius: 2px;
 }
