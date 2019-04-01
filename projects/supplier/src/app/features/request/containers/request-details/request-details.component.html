@@ -1,3 +1,7 @@
+<request-top-panel-sup
+	[request]="request">
+</request-top-panel-sup>
+
 <card-app>
 	<h3 class="l">Request Items</h3>
 		<request-element-list-view-sup
@@ -5,7 +9,6 @@
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
 			[selection]="listSrv.selection$ | async"
-			(open)="open($event)"
 			(bottomReached)="listSrv.loadMore()"
 			(select)="listSrv.selectOne($event)"
 			(selectAll)="listSrv.selectAll($event)"

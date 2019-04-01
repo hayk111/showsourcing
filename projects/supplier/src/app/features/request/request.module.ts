@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { RequestCommonModule } from '~common/request';
 import { SharedModule } from '~shared/shared.module';
 
-import { RequestListViewComponent, RequestElementListViewComponent } from './components';
-import { RequestDetailsComponent, RequestsPageComponent, RequestElementDetailsComponent } from './containers';
+import { RequestElementListViewComponent, RequestListViewComponent, RequestTopPanelComponent } from './components';
+import { RequestDetailsComponent, RequestElementDetailsComponent, RequestsPageComponent } from './containers';
 import { routes } from './routes';
 
 
@@ -16,6 +16,7 @@ import { routes } from './routes';
 		RequestElementListViewComponent,
 		RequestListViewComponent,
 		RequestsPageComponent,
+		RequestTopPanelComponent,
 	],
 	imports: [
 		CommonModule,
