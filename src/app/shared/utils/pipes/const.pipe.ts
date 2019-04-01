@@ -6,8 +6,9 @@ import {
 	incoTermsMap,
 	statusCategoriesMap,
 	statusMap,
-	statusRequestsMap,
+	statusRequestsTeamMap,
 	supplierTypesMap,
+	statusRequestsSupplierMap,
 } from '~utils/constants';
 
 /**
@@ -61,9 +62,13 @@ export class ConstPipe implements PipeTransform {
 			case 'statusCategories':
 				constMap = statusCategoriesMap;
 				break;
-			case 'statusRequest':
-			case 'statusRequests':
-				constMap = statusRequestsMap;
+			case 'statusRequestSupplier':
+			case 'statusRequestsSupplier':
+				constMap = statusRequestsSupplierMap;
+				break;
+			case 'statusRequestTeam':
+			case 'statusRequestsTeam':
+				constMap = statusRequestsTeamMap;
 				break;
 			case 'supplierType':
 			case 'supplierTypes':
