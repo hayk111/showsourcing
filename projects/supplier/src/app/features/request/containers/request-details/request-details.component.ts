@@ -51,7 +51,9 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$)
 		);
 
-		this.request$.subscribe(
+		this.request$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(
 			request => this.onRequest(request),
 			err => this.onError(err)
 		);
