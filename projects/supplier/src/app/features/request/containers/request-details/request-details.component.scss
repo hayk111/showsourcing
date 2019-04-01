@@ -12,4 +12,25 @@ $left-width: 360px;
 
 .right {
 	width: calc(100% - #{$left-width});
+
+	img-app {
+		height: 40px;
+		width: 40px;
+		margin-right: var(--spacing-l);
+		border-radius: 50%;
+	}
+
+	.message-container {
+		.name {
+			color: var(--color-txt-strong);
+			margin-bottom: var(--spacing-ms);
+			font-weight: 600;
+		}
+		.message {
+			white-space: pre-line;
+			word-break: break-all;
+			padding-right: var(--spacing-l);
+			color: var(--color-txt-strong);
+	 }
+	}
 }

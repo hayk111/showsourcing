@@ -10,6 +10,17 @@
 	</div>
 	<div class="right">
 		<card-app>
+			<h3 class="l">Message</h3>
+			<div class="flex">
+				<img-app type="user"></img-app>
+				<div class="message-container">
+					<div class="name">{{ (request$ | async)?.sender?.name }}</div>
+					<div class="message">{{ (request$ | async)?.message }}</div>
+				</div>
+			</div>
+		</card-app>
+
+		<card-app>
 			<h3 class="l">Request Items</h3>
 				<request-element-list-view-sup
 					class="no-padding"
