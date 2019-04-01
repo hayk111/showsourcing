@@ -11,6 +11,7 @@ import { TemplateModule } from '../core/template';
 import { AppComponent } from './app.component';
 import { routes } from './routes';
 import { environment } from 'environments/environment';
+import { CommonModalsModule } from '~common/modals';
 
 @NgModule({
 	declarations: [
@@ -23,6 +24,7 @@ import { environment } from 'environments/environment';
 		HttpClientModule,
 		SharedModule,
 		AppApolloModule,
+		CommonModalsModule,
 		RouterModule.forRoot(routes, {
 			preloadingStrategy: PreloadAllModules,
 			enableTracing: !environment.production

@@ -6,6 +6,8 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { DialogService } from '~shared/dialog';
+import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
 
 @Component({
 	selector: 'request-details-sup',
@@ -14,7 +16,6 @@ import { AutoUnsub } from '~utils';
 })
 export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
-	request: Request;
 	erm = ERM;
 
 	constructor(
@@ -22,8 +23,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private suppReqSrv: SupplierRequestService,
 		private notifSrv: NotificationService,
-		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
+		private dlgSrv: DialogService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>
 	) { super(); }
 
@@ -60,9 +61,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				timeout: 3500
 			});
 			this.router.navigate(['request']);
-		} else {
-			this.request = request;
-			this.cdr.detectChanges();
 		}
 	}
 
@@ -74,6 +72,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			timeout: 3500
 		});
 		this.router.navigate(['request']);
+	}
+
+	open(requestElem: RequestElement) {
+		this.dlgSrv.open(RequestReplyDlgComponent).subscribe();
 	}
 
 }

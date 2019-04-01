@@ -15,11 +15,9 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	private _rows: Array<RequestElement>;
 	@Input() set rows(rows: Array<RequestElement>) {
 		this._rows = rows;
-		let firstRow, reply;
-		if (rows && (firstRow = rows[0]) && (reply = firstRow.reply) && reply.fields && reply.fields.length)
-			this.fields = rows[0].reply.fields;
-		else
-			this.fields = [];
+		const firstRow = (rows || [])[0];
+		const reply = firstRow ? firstRow.reply : undefined;
+		this.fields = reply ? reply.fields : [];
 	}
 	get rows() {
 		return this._rows;

@@ -28,9 +28,9 @@
 		width="300">
 		<div class="mainCell ellipsis">
 			<span class="capitalize ellipsis">
-				<a class="name txt-btn title" [routerLink]="['/request', 'details', row.id]">
+				<div class="name txt-btn title" (click)="open.emit(row)">
 					{{ row?.name }}
-				</a>
+				</div>
 			</span>
 		</div>
 	</ng-template>
