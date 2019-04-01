@@ -8,6 +8,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
 import { DialogService } from '~shared/dialog';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'request-details-sup',
@@ -16,7 +17,7 @@ import { DialogService } from '~shared/dialog';
 })
 export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
-	request: SupplierRequest;
+	request$: Observable<SupplierRequest>;
 	erm = ERM;
 
 	constructor(
@@ -36,7 +37,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$)
 		);
 
-		id$.pipe(
+		this.request$ = id$.pipe(
 			tap(id => {
 				this.listSrv.setup({
 					key: `${ListPageKey.REQUEST_ELEMENT}-${id}`,
@@ -49,7 +50,9 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			}),
 			switchMap(id => this.suppReqSrv.selectOne(id)),
 			takeUntil(this._destroy$)
-		).subscribe(
+		);
+
+		this.request$.subscribe(
 			request => this.onRequest(request),
 			err => this.onError(err)
 		);
@@ -63,9 +66,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				timeout: 3500
 			});
 			this.router.navigate(['request']);
-		} else {
-			this.request = request;
-			this.cdr.detectChanges();
 		}
 	}
 
