@@ -1,6 +1,6 @@
 <top-panel-details-app
 	[title]="request?.title">
-	<img-app [image]="request?.requestElements[0]?.image" type="product" size="s"></img-app>
+	<img-app [image]="request?.requestElements[0]?.images" type="product" size="s"></img-app>
 
 	<div subinfo class="flex dot-separator">
 		<div>{{request?.creationDate | date: 'dd MMMM yy \'at\' HH:mm'}}</div>
