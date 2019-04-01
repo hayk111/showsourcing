@@ -1,22 +1,22 @@
-export const statusRequestsMap = {
-	'sentToSupplier': {
+export const statusRequestsSupplierMap = {
+	'sent': {
 		locales: {
 			en: {
-				name: 'Sent to Supplier'
+				name: 'To Reply'
 			}
 		}
 	},
-	'toReview': {
+	'opened': {
 		locales: {
 			en: {
-				name: 'To Review'
+				name: 'To Reply'
 			}
 		}
 	},
-	'accepted': {
+	'replied': {
 		locales: {
 			en: {
-				name: 'Accepted'
+				name: 'Replied'
 			}
 		}
 	},

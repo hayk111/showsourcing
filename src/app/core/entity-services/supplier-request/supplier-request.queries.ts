@@ -3,7 +3,7 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 export abstract class SupplierRequestQueries extends GlobalQueries {
 
 	static readonly contact = (name: string) =>
-		`${name} { id, name, email }`
+		`${name} { id, name, email, company }`
 	static readonly attachments = `attachments { id, fileName, url, size }`;
 	static readonly requestElements = `requestElements { id, name, targetedEntityType, images { id, fileName, urls { id, url } }, ` +
 		`${SupplierRequestQueries.attachments}, 	reply { id, message, status } }`;
