@@ -1,3 +1,30 @@
-<p>
-  request-information works!
-</p>
+<card-app>
+	<h3 class="l">Request Information</h3>
+	<editable-field-app class="no-hover" [openOnClick]="false">
+		<label-app>Received From</label-app>
+		<editable-label-app>
+			{{ request?.sender?.name }}
+		</editable-label-app>
+	</editable-field-app>
+
+	<editable-field-app class="no-hover" [openOnClick]="false">
+		<label-app>Sent On</label-app>
+		<editable-label-app>
+			{{ request?.sender?.name }}
+		</editable-label-app>
+	</editable-field-app>
+
+	<!-- <editable-field-app class="no-hover" [openOnClick]="false">
+		<label-app>Sent By</label-app>
+		<editable-label-app>
+			{{ request?.sender?.name }}
+		</editable-label-app>
+	</editable-field-app> -->
+
+	<editable-field-app class="no-hover" [openOnClick]="false">
+		<label-app>Status</label-app>
+		<editable-label-app>
+			{{ request?.status | const: 'statusRequestSupplier' }}
+		</editable-label-app>
+	</editable-field-app>
+</card-app>

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SupplierRequest } from '~core/models';
 
 @Component({
-  selector: 'request-information-sup',
-  templateUrl: './request-information.component.html',
-  styleUrls: ['./request-information.component.scss']
+	selector: 'request-information-sup',
+	templateUrl: './request-information.component.html',
+	styleUrls: ['./request-information.component.scss']
 })
 export class RequestInformationComponent implements OnInit {
 
-  constructor() { }
+	@Input() request: SupplierRequest;
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }

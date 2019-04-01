@@ -1,0 +1,15 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+$left-width: 360px;
+
+.left {
+	width: $left-width;
+}
+
+.right {
+	width: calc(100% - #{$left-width});
+}
