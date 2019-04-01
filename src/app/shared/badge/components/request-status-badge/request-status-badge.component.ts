@@ -9,36 +9,41 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class RequestStatusBadgeComponent implements OnInit {
 
 	@Input() status: string;
+	@Input() creationDate: Date;
+	// wether we are on team page or supplier page
+	@Input() isTeam = true;
+
+	/** magic number for 2 weeks in miliseconds */
+	twoWeeks = 12096e5;
+	twoWeeksAgo = (new Date(+new Date - this.twoWeeks));
 
 	constructor() { }
 
 	ngOnInit() {
 	}
 
-	getType2() {
-		switch (this.status) {
-			case 'sent':
-				return;
-			case 'opened':
-				return 'primary';
-			case 'replied':
-				return 'success';
-			default:
-				return 'secondary';
-		}
-	}
-
 	getType() {
-		switch (this.status) {
-			case 'accepted':
-				return 'success';
-			case 'toReview':
-				return 'primary';
-			case 'sentToSupplier':
-				return 'accent';
-			default:
-				return 'secondary';
+		if (this.isTeam) {
+			switch (this.status) {
+				case 'sent':
+					return this.creationDate.getTime() > this.twoWeeksAgo.getTime() ? 'accent' : 'secondary';
+				case 'opened':
+					return 'primary';
+				case 'replied':
+					return 'success';
+				default:
+					return 'secondary';
+			}
+		} else {
+			switch (this.status) {
+				case 'sent':
+				case 'opened':
+					return 'primary';
+				case 'replied':
+					return 'success';
+				default:
+					return 'secondary';
+			}
 		}
 	}
-
 }

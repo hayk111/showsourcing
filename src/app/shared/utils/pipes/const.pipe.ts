@@ -8,6 +8,7 @@ import {
 	statusMap,
 	statusRequestsTeamMap,
 	supplierTypesMap,
+	statusRequestsSupplierMap,
 } from '~utils/constants';
 
 /**
@@ -60,6 +61,10 @@ export class ConstPipe implements PipeTransform {
 			case 'statusCategory':
 			case 'statusCategories':
 				constMap = statusCategoriesMap;
+				break;
+			case 'statusRequestSupplier':
+			case 'statusRequestsSupplier':
+				constMap = statusRequestsSupplierMap;
 				break;
 			case 'statusRequestTeam':
 			case 'statusRequestsTeam':
