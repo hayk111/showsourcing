@@ -1,4 +1,4 @@
-export const statusRequestsMap = {
+export const statusRequestsTeamMap = {
 	'sentToSupplier': {
 		locales: {
 			en: {

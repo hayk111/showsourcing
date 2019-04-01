@@ -15,6 +15,19 @@ export class RequestStatusBadgeComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	getType2() {
+		switch (this.status) {
+			case 'sent':
+				return;
+			case 'opened':
+				return 'primary';
+			case 'replied':
+				return 'success';
+			default:
+				return 'secondary';
+		}
+	}
+
 	getType() {
 		switch (this.status) {
 			case 'accepted':

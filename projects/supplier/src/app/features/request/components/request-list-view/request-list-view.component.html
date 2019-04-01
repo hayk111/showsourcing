@@ -1,24 +1,11 @@
 <table-app
-	class="borderless"
 	[rows]="rows"
+	[hasSelection]="false"
 	[pending]="pending"
 	[selected]="selection"
 	placeholder="No requests"
-	[contextualMenu]="contextualMenuTemplate"
 	(bottomReached)="bottomReached.emit()"
-	(selectAll)="selectAll.emit($event)"
-	(selectOne)="select.emit($event)"
-	(sort)="sort.emit($event)"
-	(unselectAll)="unselectAll.emit()"
-	(unselectOne)="unselect.emit($event)">
-
-	<!-- contextual menu -->
-	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-app
-			class="pointer flexCenter">
-			Options by design
-		</context-menu-item-app>
-	</ng-template>
+	(sort)="sort.emit($event)">
 
 	<!-- request name -->
 	<ng-template
@@ -41,23 +28,36 @@
 		</div>
 	</ng-template>
 
-	<!-- # requests -->
+	<!-- sender -->
 	<ng-template
-		columnApp="# Requests"
+		columnApp="From"
+		sortBy="sender.name"
+		let-row="row"
+		width="220">
+		<div class="capitalize ellipsis">
+			{{ row?.sender?.name }}
+		</div>
+	</ng-template>
+
+	<!-- company -->
+	<ng-template
+		columnApp="Company"
+		sortBy="sender.name"
+		let-row="row"
+		width="220">
+		<div class="capitalize ellipsis">
+			{{ row?.sender?.name }}
+		</div>
+	</ng-template>
+
+	<!-- # products -->
+	<ng-template
+		columnApp="# Products"
 		let-row="row"
 		width="120">
 		<div class="fs-l color-black bold-s">
 			{{ row?.requestElements?.length }}
 		</div>
-	</ng-template>
-
-	<!-- status-->
-	<ng-template
-		columnApp="Status"
-		sortBy="status"
-		let-row="row"
-		width="220">
-
 	</ng-template>
 
 	<!-- creation date-->
@@ -67,19 +67,19 @@
 		let-row="row"
 		width="220">
 		<div class="capitalize">
-			{{ row?.creationDate | date: 'dd MMM yyyy' }}
+			{{ row?.creationDate | date: 'dd MMM yyyy at HH:mm' }}
 		</div>
 	</ng-template>
 
-	<!-- sender -->
+	<!-- status-->
 	<ng-template
-		columnApp="Sent By"
-		sortBy="createdBy.firstName"
+		columnApp="Status"
+		sortBy="status"
 		let-row="row"
 		width="220">
-		<div class="capitalize ellipsis">
-			{{ row?.sender?.name }}
-		</div>
+		<request-status-badge-app
+			[status]="row?.status">
+		</request-status-badge-app>
 	</ng-template>
 
 </table-app>
