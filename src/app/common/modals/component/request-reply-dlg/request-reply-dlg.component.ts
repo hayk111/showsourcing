@@ -21,9 +21,14 @@ export class RequestReplyDlgComponent {
 
 	constructor(private replySrv: RequestReplyService) { }
 
-	save(fields: ExtendedField[]) {
-		const reply = { id: this.reply.id, fields, status: 'done', message: 'reply' };
-		this.replySrv.update(reply);
+	save() {
+		const reply = { id: this.reply.id, status: 'done', __typename: 'RequestReply' };
+		this.replySrv.update(reply).subscribe();
+	}
+
+	update(fields: ExtendedField[]) {
+		const reply = { id: this.reply.id, fields, message: 'reply', __typename: 'RequestReply' };
+		this.replySrv.update(reply).subscribe();
 	}
 
 }

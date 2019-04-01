@@ -5,10 +5,14 @@
   </div>
   
   <div>
-    <h1>Extended Fields</h1>
-    <extended-form-app 
-      (update)="save({ fields: $event })"
+    <h3>Extended Fields</h3>
+    <extended-form-app
+      (update)="update($event)"
       [definitions]="definitions" 
-      [fields]="fields"></extended-form-app>
+      [fields]="fields">
+    </extended-form-app>
+
+    <button (click)="save()">Save()</button>
+
   </div>
 </dialog-app>
