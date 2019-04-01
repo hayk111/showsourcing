@@ -20,7 +20,6 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 
 		return this.authSrv.isAuthenticated$.pipe(
-			tap(d => { debugger; }),
 			delay(100),
 			switchMap(_ => this.apolloState.getClientStatus(this.client)),
 			tap(status => log.debug(`%c ClientsReadyGuard, client: ${this.client}, state: ${status}`, LogColor.GUARD)),

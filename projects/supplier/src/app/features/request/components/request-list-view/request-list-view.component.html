@@ -14,12 +14,6 @@
 		let-row="row"
 		width="400">
 		<div class="mainCell ellipsis">
-			<img-app
-				class="mini imgCtnr"
-				[image]="row?.images?.length ? row?.images[0] : null"
-				type="request"
-				size="s">
-			</img-app>
 			<span class="capitalize ellipsis">
 				<a class="name txt-btn title" [routerLink]="['/request', 'details', row.id]">
 					{{ row?.title }}
@@ -44,7 +38,7 @@
 		columnApp="Company"
 		sortBy="sender.name"
 		let-row="row"
-		width="220">
+		width="300">
 		<div class="capitalize ellipsis">
 			{{ row?.sender?.name }}
 		</div>
@@ -54,7 +48,7 @@
 	<ng-template
 		columnApp="# Products"
 		let-row="row"
-		width="120">
+		width="180">
 		<div class="fs-l color-black bold-s">
 			{{ row?.requestElements?.length }}
 		</div>
@@ -62,12 +56,12 @@
 
 	<!-- creation date-->
 	<ng-template
-		columnApp="Sent On"
+		columnApp="Recieved On"
 		sortBy="creationDate"
 		let-row="row"
 		width="220">
-		<div class="capitalize">
-			{{ row?.creationDate | date: 'dd MMM yyyy at HH:mm' }}
+		<div>
+			{{ row?.creationDate | date: 'dd MMM yyyy \'at\' HH:mm' }}
 		</div>
 	</ng-template>
 
@@ -76,7 +70,7 @@
 		columnApp="Status"
 		sortBy="status"
 		let-row="row"
-		width="220">
+		width="180">
 		<request-status-badge-app
 			[status]="row?.status"
 			[creationDate]="row?.creationDate"
