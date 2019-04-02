@@ -16,7 +16,7 @@
 
     <div class="flexEnd">
       <button (click)="save(false)">Save</button>
-      <button (click)="save(true)">Save & Next</button>
+      <button (click)="save(true)" *ngIf="hasNext()">Save & Next</button>
     </div>
   </div>
 </dialog-app>

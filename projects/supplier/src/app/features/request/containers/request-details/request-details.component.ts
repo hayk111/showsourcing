@@ -83,16 +83,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	open(element: RequestElement) {
-		this.dlgSrv.open(RequestReplyDlgComponent, { element })
-			.subscribe(({ wantNext }) => {
-				const currIndex = this.requestElements.findIndex(elem => elem.id === element.id);
-				if (wantNext) {
-					const nextIndex = (currIndex + 1) % this.requestElements.length;
-					const nextElement = this.requestElements[nextIndex];
-					debugger;
-					this.dlgSrv.open(RequestReplyDlgComponent, { element: nextElement });
-				}
-			});
+		const selectedIndex = this.requestElements.findIndex(elem => elem.id === element.id);
+		const elements = this.requestElements;
+		this.dlgSrv.open(RequestReplyDlgComponent, { elements, selectedIndex })
+			.subscribe();
 	}
 
 }
