@@ -8,6 +8,7 @@ import {
 	RequestElementListViewComponent,
 	RequestInformationComponent,
 	RequestListViewComponent,
+	RequestSortingMenuComponent,
 	RequestTopPanelComponent,
 } from './components';
 import { RequestDetailsComponent, RequestElementDetailsComponent, RequestsPageComponent } from './containers';
@@ -21,6 +22,7 @@ import { routes } from './routes';
 		RequestElementListViewComponent,
 		RequestInformationComponent,
 		RequestListViewComponent,
+		RequestSortingMenuComponent,
 		RequestTopPanelComponent,
 		RequestsPageComponent,
 	],

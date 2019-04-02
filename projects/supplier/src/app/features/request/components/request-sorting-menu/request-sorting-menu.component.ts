@@ -1,10 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
-	selector: 'request-sorting-menu-app',
+	selector: 'request-sorting-menu-sup',
 	templateUrl: './request-sorting-menu.component.html',
-	styleUrls: ['./request-sorting-menu.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./request-sorting-menu.component.scss']
 })
 export class RequestSortingMenuComponent implements OnInit {
 
