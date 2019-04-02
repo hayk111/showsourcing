@@ -10,7 +10,6 @@ export class RequestSortingMenuComponent implements OnInit {
 
 	@Input() currentSort: { sortBy: 'creationDate', descending: true };
 	// if we need to disable some elements since the models of the request are different
-	@Input() supplierProject = false;
 	@Output() sortFromMenu = new EventEmitter<string>();
 
 	constructor() { }
