@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Attachment, Supplier } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { DEFAULT_FILE_ICON, AutoUnsub } from '~utils';
@@ -10,6 +10,7 @@ import { any } from 'async';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { AttachmentService } from '~core/entity-services';
 import { takeUntil, switchMap } from 'rxjs/operators';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
 
 export enum PageType {
 	product = 'PRODUCT',
@@ -22,13 +23,14 @@ export enum PageType {
 	templateUrl: './files-card.component.html',
 	styleUrls: ['./files-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [UploaderFeedbackService]
 })
-export class FilesCardComponent extends AutoUnsub {
+export class FilesCardComponent extends AutoUnsub implements OnInit {
 	@Input() set files(files: Array<Attachment | PendingFile>) {
-		this._files = files || [];
+		this.uploaderFeedback.setFiles(files);
 	}
 	get files(): Array<Attachment | PendingFile> {
-		return [...this._files, ...this._pendingFiles];
+		return this.uploaderFeedback.getFiles();
 	}
 	private _files = [];
 	private _pendingFiles = [];
@@ -38,18 +40,19 @@ export class FilesCardComponent extends AutoUnsub {
 	@Input() linkedItem: any;
 
 	constructor(
-		private uploader: UploaderService,
+		private uploaderFeedback: UploaderFeedbackService,
 		private dlgSrv: DialogService,
 		private attachmentSrv: AttachmentService
 	) {
 		super();
 	}
 
+	ngOnInit() {
+		this.uploaderFeedback.init({ linkedEntity: this.linkedItem });
+	}
+
 	onFileAdded(files: Array<File>) {
-		this._pendingFiles = files.map(file => new PendingFile(file));
-		this.uploader.uploadFiles(files, this.linkedItem).subscribe(addedFiles => {
-			this._pendingFiles = [];
-		});
+		this.uploaderFeedback.addFiles(files);
 	}
 
 	onFileRemoved(file: Attachment, event: MouseEvent) {

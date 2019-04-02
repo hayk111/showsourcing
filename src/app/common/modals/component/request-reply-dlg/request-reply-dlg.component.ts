@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RequestReplyService } from '~core/entity-services';
 import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply } from '~core/models';
 import { DialogService, CloseEventType } from '~shared/dialog';
+import { UploaderService } from '~shared/file/services/uploader.service';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -19,7 +20,12 @@ export class RequestReplyDlgComponent implements OnInit {
 	definitions: ExtendedFieldDefinition[];
 	private doneStatus = 'done';
 
-	constructor(private replySrv: RequestReplyService, private dlgSrv: DialogService) { }
+	constructor(
+		private replySrv: RequestReplyService,
+		private dlgSrv: DialogService,
+		private cd: ChangeDetectorRef,
+		private uploader: UploaderService
+	) { }
 
 	ngOnInit() {
 		this.setElement();

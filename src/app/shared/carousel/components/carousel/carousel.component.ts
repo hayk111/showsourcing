@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { first, switchMap, takeUntil } from 'rxjs/operators';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { ImageService } from '~entity-services/image/image.service';
@@ -11,12 +11,14 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
 import { PendingImage } from '~utils/pending-image.class';
 import { saveAs } from 'file-saver';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
 
 @Component({
 	selector: 'carousel-app',
 	templateUrl: './carousel.component.html',
 	styleUrls: ['./carousel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [UploaderFeedbackService]
 })
 export class CarouselComponent extends AutoUnsub implements OnInit {
 
@@ -29,16 +31,11 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Input() isImagePropertyArray = true;
 
 	@Input() set images(images: AppImage[]) {
-		// remove unefined in case we are passing [undefined]
-		// for example in for contact we only have one image so we do [images]="[contact.businessCardImage]"
-		this._images = images.filter(x => !!x);
+		this.uploaderFeedback.setImages(images);
 	}
 	get images() {
-		return [...this._images, ...(this._pendingImages as any)];
+		return this.uploaderFeedback.getImages();
 	}
-
-	private _images: AppImage[] = [];
-	private _pendingImages: PendingImage[] = [];
 
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
@@ -56,14 +53,20 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private imageSrv: ImageService,
 		private dlgSrv: DialogService,
-		private uploader: UploaderService,
+		private uploaderFeedback: UploaderFeedbackService,
 		private ermSrv: ERMService,
 		private cd: ChangeDetectorRef
 	) {
 		super();
 	}
 
-	ngOnInit() { }
+	ngOnInit() {
+		this.uploaderFeedback.init({
+			linkedEntity: this.entity,
+			imageProperty: this.imageProperty,
+			isImagePropertyArray: this.isImagePropertyArray
+		});
+	}
 
 	back(event) {
 		if (this.selectedIndex > 0)
@@ -93,28 +96,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
-		if (files.length === 0)
-			return;
-
-		const uuids: string[] = await this.addPendingImg(files);
-		this.cd.markForCheck();
-		this.uploader.uploadImages(files, this.entity, this.imageProperty, this.isImagePropertyArray).pipe(
-			first()
-		).subscribe(imgs => {
-			// removing pending image
-			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
-		}, e => this._pendingImages = []);
-	}
-
-	/** adds pending image to the list */
-	private async addPendingImg(files: File[]) {
-		// adding a pending image so we can see there is an image pending visually
-		let pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
-		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
-		this._pendingImages.push(...pendingImgs);
-		// putting the index at the end so we instantly have feedback the image is being processed
+		await this.uploaderFeedback.addImages(files);
+		// index at the end for instant feedback
 		this.selectedIndex = this.images.length - 1;
-		return pendingImgs.map(p => p.id);
 	}
 
 	/** deletes the image */
