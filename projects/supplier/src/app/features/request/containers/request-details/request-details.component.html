@@ -25,6 +25,7 @@
 				<request-element-list-view-sup
 					class="no-padding"
 					[rows]="listSrv.items$ | async"
+					[creationDate]="(request$ | async)?.creationDate"
 					[pending]="listSrv.pending"
 					[selection]="listSrv.selection$ | async"
 					(bottomReached)="listSrv.loadMore()"
@@ -40,7 +41,9 @@
 
 <bottom-panel-app class="flexEnd">
 	<button class="warn big">Refuse request</button>
-	<button class="big">Reply</button>
+	<div toolTip [toolTipMessage]="allReplied(listSrv.items$ | async) ? null : 'All elements must be replied first'" toolTipPosition="above-right">
+		<button [disabled]="!allReplied(listSrv.items$ | async)" class="big">Reply</button>
+	</div>
 </bottom-panel-app>
 
 <selection-bar-app

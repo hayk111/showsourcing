@@ -2,7 +2,6 @@ import { ID, uuid } from '~utils';
 
 import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
-import { ExtendedFieldDefinition } from './extended-field-definition.model';
 import { RequestReply } from './request-reply.model';
 
 export class RequestElement {

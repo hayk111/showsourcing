@@ -2,9 +2,8 @@
 	background: var(--color-bg);
 	border-top: 3px solid var(--color-primary);
 	box-sizing: border-box;
-	height: 64px;
 	width: 100%;
-	// cause of the border-top
-	margin-bottom: 3px;
+	// cause of the border-top the component gets drown to the bottom of the page
+	margin-bottom: 5px;
 	padding: var(--spacing-ms) var(--spacing-l);
 }

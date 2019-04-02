@@ -12,6 +12,7 @@ import { RequestElement } from '~core/models';
 })
 export class RequestElementListViewComponent extends ListViewComponent<RequestElement> implements OnInit {
 
+	@Input() creationDate: string;
 	private _rows: Array<RequestElement>;
 	@Input() set rows(rows: Array<RequestElement>) {
 		this._rows = rows;
