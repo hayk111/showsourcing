@@ -3,12 +3,14 @@ import { RequestReplyService } from '~core/entity-services';
 import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply } from '~core/models';
 import { DialogService, CloseEventType } from '~shared/dialog';
 import { UploaderService } from '~shared/file/services/uploader.service';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
 
 @Component({
 	selector: 'request-reply-dlg-app',
 	templateUrl: './request-reply-dlg.component.html',
 	styleUrls: ['./request-reply-dlg.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [UploaderFeedbackService]
 })
 export class RequestReplyDlgComponent implements OnInit {
 
@@ -24,11 +26,23 @@ export class RequestReplyDlgComponent implements OnInit {
 		private replySrv: RequestReplyService,
 		private dlgSrv: DialogService,
 		private cd: ChangeDetectorRef,
-		private uploader: UploaderService
+		private uploaderFeedback: UploaderFeedbackService
 	) { }
 
 	ngOnInit() {
 		this.setElement();
+		this.uploaderFeedback.init({ linkedEntity: this.reply });
+		this.uploaderFeedback.setImages(this.reply.images);
+		this.uploaderFeedback.setFiles(this.reply.attachments);
+	}
+
+
+	get images() {
+		return this.uploaderFeedback.getImages();
+	}
+
+	get files() {
+		return this.uploaderFeedback.getFiles();
 	}
 
 	private setElement() {
@@ -67,6 +81,14 @@ export class RequestReplyDlgComponent implements OnInit {
 	update(fields: ExtendedField[]) {
 		const reply = { id: this.reply.id, fields, message: 'reply', __typename: 'RequestReply' };
 		this.replySrv.update(reply).subscribe();
+	}
+
+	addImage(files: File[]) {
+		this.uploaderFeedback.addImages(files);
+	}
+
+	addAttachment() {
+
 	}
 
 }

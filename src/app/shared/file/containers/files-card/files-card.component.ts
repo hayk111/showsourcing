@@ -47,6 +47,7 @@ export class FilesCardComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
+
 	ngOnInit() {
 		this.uploaderFeedback.init({ linkedEntity: this.linkedItem });
 	}

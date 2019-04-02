@@ -1,7 +1,10 @@
 
 <dialog-app>
   <dialog-header-app>Customer Request</dialog-header-app>
-  <image-previewer-2-app [images]="element.images"></image-previewer-2-app>
+  <h3>Images</h3>
+  <image-previewer-2-app [images]="images"></image-previewer-2-app>
+  <button class="secondary" (click)="inpFile.click()">Add Image</button>
+  <input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
   <div>
     <h3>Product details</h3>
@@ -13,6 +16,7 @@
     </extended-form-app>
 
     <h3>Attachments</h3>
+    <!-- <button class="secondary" (click)="addAttachment()">Add Image</button> -->
 
     <div class="flexEnd">
       <button (click)="save(false)">Save</button>
@@ -20,3 +24,5 @@
     </div>
   </div>
 </dialog-app>
+
+
