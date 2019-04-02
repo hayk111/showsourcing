@@ -84,4 +84,11 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		this.dlgSrv.open(RequestReplyDlgComponent, { element }).subscribe();
 	}
 
+	allReplied(reqElements: RequestElement[]) {
+		let areReplied = false;
+		if (reqElements)
+			areReplied = !reqElements.some(element => element.reply.status !== 'replied');
+		return areReplied;
+	}
+
 }

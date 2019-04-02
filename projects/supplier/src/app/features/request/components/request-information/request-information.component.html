@@ -10,7 +10,7 @@
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app>Sent On</label-app>
 		<editable-label-app>
-			{{ request?.sender?.name }}
+			{{ request?.creationDate | date: 'dd MMMM yy \'at\' HH:mm' }}
 		</editable-label-app>
 	</editable-field-app>
 

@@ -3,6 +3,8 @@
 	class="secondary-style"
 	[rows]="rows"
 	[pending]="pending"
+	[hasSelection]="false"
+	[hasMenu]="false"
 	[selected]="selection"
 	placeholder="No requests items"
 	[contextualMenu]="contextualMenuTemplate"
@@ -36,13 +38,20 @@
 	</ng-template>
 
 	<ng-template
+		columnApp="Fields"
+		let-index="index"
+		width="200">
+	 {{ replied[index]?.replied + '/' + replied[index]?.total }}
+	</ng-template>
+
+	<ng-template
 		columnApp="Status"
 		sortBy="status"
 		let-row="row"
 		width="200">
 		<request-status-badge-app
 			[status]="row?.reply?.status"
-			[creationDate]="row?.creationDate"
+			[creationDate]="creationDate"
 			[isTeam]="false">
 		</request-status-badge-app>
 	</ng-template>

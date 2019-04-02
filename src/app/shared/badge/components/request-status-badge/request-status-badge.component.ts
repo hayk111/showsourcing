@@ -9,7 +9,14 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class RequestStatusBadgeComponent implements OnInit {
 
 	@Input() status: string;
-	@Input() creationDate: Date;
+	private _creationDate: Date;
+	// it doesnt need to be a date, can be a string, but cannot change type (compiler)
+	@Input() set creationDate(creationDate: Date) {
+		this._creationDate = new Date(creationDate);
+	}
+	get creationDate() {
+		return this._creationDate;
+	}
 	// wether we are on team page or supplier page
 	@Input() isTeam = true;
 

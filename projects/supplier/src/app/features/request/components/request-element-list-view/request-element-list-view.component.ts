@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { RequestElement, ExtendedField } from '~core/models';
+import { RequestElement } from '~core/models';
 
 @Component({
 	selector: 'request-element-list-view-sup',
@@ -12,16 +12,25 @@ import { RequestElement, ExtendedField } from '~core/models';
 })
 export class RequestElementListViewComponent extends ListViewComponent<RequestElement> implements OnInit {
 
+	@Input() creationDate: string;
 	private _rows: Array<RequestElement>;
 	@Input() set rows(rows: Array<RequestElement>) {
 		this._rows = rows;
+		if (rows) {
+			this.replied = rows.map(row => (
+				{
+					replied: row.reply.fields.filter(field => field.value).length,
+					total: row.reply.fields.length
+				}
+			));
+		}
 	}
 	get rows() {
 		return this._rows;
 	}
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
-	replied: [{ replied: number, total: number }];
+	replied: { replied: number, total: number }[];
 
 	constructor() { super(); }
 

@@ -2,7 +2,7 @@
 	[request]="request$ | async">
 </request-top-panel-sup>
 
-<div class="flex fullWidth">
+<div class="flex full-width full-height">
 	<div class="left">
 		<request-information-sup
 			[request]="request$ | async">
@@ -25,6 +25,7 @@
 				<request-element-list-view-sup
 					class="no-padding"
 					[rows]="listSrv.items$ | async"
+					[creationDate]="(request$ | async)?.creationDate"
 					[pending]="listSrv.pending"
 					[selection]="listSrv.selection$ | async"
 					(bottomReached)="listSrv.loadMore()"
@@ -37,6 +38,13 @@
 		</card-app>
 	</div>
 </div>
+
+<bottom-panel-app class="flexEnd">
+	<button class="warn big">Refuse request</button>
+	<div toolTip [toolTipMessage]="allReplied(listSrv.items$ | async) ? null : 'All elements must be replied first'" toolTipPosition="above-right">
+		<button [disabled]="!allReplied(listSrv.items$ | async)" class="big">Reply</button>
+	</div>
+</bottom-panel-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
