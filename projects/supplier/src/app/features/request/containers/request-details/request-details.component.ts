@@ -18,6 +18,7 @@ import { AutoUnsub } from '~utils';
 export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	request$: Observable<SupplierRequest>;
+	private requestElements: RequestElement[];
 	erm = ERM;
 
 	constructor(
@@ -48,6 +49,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				});
 			}),
 			switchMap(id => this.suppReqSrv.selectOne(id)),
+			tap(req => this.requestElements = req.requestElements),
 			takeUntil(this._destroy$)
 		);
 
@@ -81,7 +83,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	open(element: RequestElement) {
-		this.dlgSrv.open(RequestReplyDlgComponent, { element }).subscribe();
+		const selectedIndex = this.requestElements.findIndex(elem => elem.id === element.id);
+		const elements = this.requestElements;
+		this.dlgSrv.open(RequestReplyDlgComponent, { elements, selectedIndex })
+			.subscribe();
 	}
 
 	allReplied(reqElements: RequestElement[]) {

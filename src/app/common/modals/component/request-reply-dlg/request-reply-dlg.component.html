@@ -1,18 +1,22 @@
 
 <dialog-app>
+  <dialog-header-app>Customer Request</dialog-header-app>
+  <image-previewer-2-app [images]="element.images"></image-previewer-2-app>
+
   <div>
-    PREVIEW
-  </div>
-  
-  <div>
-    <h3>Extended Fields</h3>
+    <h3>Product details</h3>
+
     <extended-form-app
       (update)="update($event)"
       [definitions]="definitions" 
       [fields]="fields">
     </extended-form-app>
 
-    <button (click)="save()">Save()</button>
+    <h3>Attachments</h3>
 
+    <div class="flexEnd">
+      <button (click)="save(false)">Save</button>
+      <button (click)="save(true)" *ngIf="hasNext()">Save & Next</button>
+    </div>
   </div>
 </dialog-app>
