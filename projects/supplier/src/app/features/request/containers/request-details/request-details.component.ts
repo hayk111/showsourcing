@@ -1,13 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
 import { RequestElementService, SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement, SupplierRequest } from '~core/models';
+import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
-import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
-import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'request-details-sup',
@@ -16,7 +17,7 @@ import { DialogService } from '~shared/dialog';
 })
 export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
-	request: SupplierRequest;
+	request$: Observable<SupplierRequest>;
 	erm = ERM;
 
 	constructor(
@@ -24,7 +25,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private suppReqSrv: SupplierRequestService,
 		private notifSrv: NotificationService,
-		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
 		private dlgSrv: DialogService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>
@@ -36,7 +36,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$)
 		);
 
-		id$.pipe(
+		this.request$ = id$.pipe(
 			tap(id => {
 				this.listSrv.setup({
 					key: `${ListPageKey.REQUEST_ELEMENT}-${id}`,
@@ -48,6 +48,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				});
 			}),
 			switchMap(id => this.suppReqSrv.selectOne(id)),
+			takeUntil(this._destroy$)
+		);
+
+		this.request$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(
 			request => this.onRequest(request),
@@ -63,9 +67,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				timeout: 3500
 			});
 			this.router.navigate(['request']);
-		} else {
-			this.request = request;
-			this.cdr.detectChanges();
 		}
 	}
 
