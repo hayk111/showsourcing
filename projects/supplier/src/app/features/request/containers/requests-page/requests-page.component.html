@@ -9,10 +9,10 @@
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
 	<sub-panel-right-item-app>
-		<request-sorting-menu-app
+		<request-sorting-menu-sup
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">>
-		</request-sorting-menu-app>
+		</request-sorting-menu-sup>
 	</sub-panel-right-item-app>
 </sub-panel-app>
 
