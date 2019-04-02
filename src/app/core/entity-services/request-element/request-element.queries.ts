@@ -4,7 +4,7 @@ export abstract class RequestElementQueries extends GlobalQueries {
 
 	static readonly reply = `reply { id, message, status, fields { id, definition { id, label, type }, value } }`;
 	static readonly attachments = `attachments { id, fileName, url, size }`;
-	static readonly images = ` images { id, urls { url }, orientation }`;
+	static readonly images = ` images { id, urls { id, url }, orientation }`;
 
 	static readonly one = `
 		name

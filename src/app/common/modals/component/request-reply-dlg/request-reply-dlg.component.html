@@ -8,15 +8,16 @@
 
     <extended-form-app
       (update)="update($event)"
-      [definitions]="definitions" 
+			[definitions]="definitions"
+			[isFormStyle]="true"
       [fields]="fields">
     </extended-form-app>
 
     <h3>Attachments</h3>
 
     <div class="flexEnd">
-      <button (click)="save(false)">Save</button>
-      <button (click)="save(true)" *ngIf="hasNext()">Save & Next</button>
+      <button (click)="save()">Save</button>
+      <button *ngIf="hasNext()" (click)="saveAndNext()">Save & Next</button>
     </div>
   </div>
 </dialog-app>

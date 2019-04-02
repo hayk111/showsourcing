@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { RequestReplyService } from '~core/entity-services';
 import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply } from '~core/models';
-import { DialogService, CloseEventType } from '~shared/dialog';
+import { CloseEventType, DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -19,7 +19,10 @@ export class RequestReplyDlgComponent implements OnInit {
 	definitions: ExtendedFieldDefinition[];
 	private doneStatus = 'done';
 
-	constructor(private replySrv: RequestReplyService, private dlgSrv: DialogService) { }
+	constructor(
+		private replySrv: RequestReplyService,
+		private dlgSrv: DialogService
+	) { }
 
 	ngOnInit() {
 		this.setElement();

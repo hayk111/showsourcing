@@ -23,6 +23,7 @@ export class ExtendedFormComponent extends TrackingComponent {
 	@Input() definitions: ExtendedFieldDefinition[];
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;
+	@Input() isFormStyle = false;
 	@Output() update = new EventEmitter<ExtendedField[]>();
 
 	constructor(
