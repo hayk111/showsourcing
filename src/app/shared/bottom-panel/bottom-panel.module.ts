@@ -9,5 +9,8 @@ import { BottomPanelComponent } from './components';
 	declarations: [
 		BottomPanelComponent
 	],
+	exports: [
+		BottomPanelComponent
+	],
 })
 export class BottomPanelModule { }
