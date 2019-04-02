@@ -34,3 +34,11 @@ $left-width: 360px;
 	 }
 	}
 }
+
+bottom-panel-app {
+	> * {
+		&:not(:last-child) {
+			margin-right: var(--spacing-ms);
+		}
+	}
+}

@@ -131,6 +131,10 @@ button, input[type="submit"], .button {
 		min-width: 60px;
 		height: 24px;
 	}
+	&.boarding, &.big {
+		height: 40px;
+    min-width: 120px;
+	}
 	&:hover {
 		background: var(--color-primary-dark);
 	}
@@ -200,10 +204,7 @@ button, input[type="submit"], .button {
 		min-width: 0;
 		font-size: inherit;
 	}
-	&.boarding {
-		height: 40px;
-    min-width: 120px;
-	}
+
 }
 
 // disabled buttons
