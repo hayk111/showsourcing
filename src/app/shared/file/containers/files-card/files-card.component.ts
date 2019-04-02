@@ -32,8 +32,6 @@ export class FilesCardComponent extends AutoUnsub implements OnInit {
 	get files(): Array<Attachment | PendingFile> {
 		return this.uploaderFeedback.getFiles();
 	}
-	private _files = [];
-	private _pendingFiles = [];
 
 	defaultImg = DEFAULT_FILE_ICON;
 
@@ -56,26 +54,4 @@ export class FilesCardComponent extends AutoUnsub implements OnInit {
 		this.uploaderFeedback.addFiles(files);
 	}
 
-	onFileRemoved(file: Attachment, event: MouseEvent) {
-		event.stopPropagation();
-		this.dlgSrv.open(ConfirmDialogComponent, {
-			text: 'Remove 1 file ?'
-		}).pipe(
-			takeUntil(this._destroy$),
-			switchMap(_ => this.removeFile(file))
-		).subscribe();
-	}
-
-	private removeFile(file: Attachment) {
-		return this.attachmentSrv.delete(file.id);
-	}
-
-	// dumb function to not have the error: '<anonymous>' does not contain such a member
-	isPending(file: Attachment) {
-		return file.pending;
-	}
-
-	downloadFile(file: Attachment) {
-		this.attachmentSrv.download(file);
-	}
 }

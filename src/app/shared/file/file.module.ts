@@ -8,6 +8,8 @@ import { LoadersModule } from '~shared/loaders';
 import { IconsModule } from '~shared/icons';
 import { ListModule } from '~shared/list/list.module';
 import { FileSizePipe } from './pipes';
+import { NoFilePlaceholderComponent } from './components/no-file-placeholder/no-file-placeholder.component';
+import { FileListComponent } from './components/file-list/file-list.component';
 
 @NgModule({
 	imports: [
@@ -22,7 +24,9 @@ import { FileSizePipe } from './pipes';
 		FileSelectDirective,
 		FilesPageComponent,
 		FilesCardComponent,
-		FileSizePipe
+		FileSizePipe,
+		NoFilePlaceholderComponent,
+		FileListComponent
 	],
 	exports: [
 		FileDropDirective,

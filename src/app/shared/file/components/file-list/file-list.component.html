@@ -1,0 +1,38 @@
+
+
+<ng-container *ngIf="files">
+  <ng-container *ngIf="files?.length > 0; else noFile">
+
+    <!-- file list -->
+    <list-app>
+
+      <list-item-app (click)="downloadFile(file)" *ngFor="let file of files; let last = last;" [border]="!last">
+        <div class="flex">
+          <spinner-app size="35" width="3" *ngIf="isPending(file)"></spinner-app>
+
+          <div class="space-icon flexAround">
+            <icon-app class="fs-m color-txt-secondary" name="file" ></icon-app>
+          </div>
+          <div class="name pointer">
+            <div class="ellipsis">{{ file.fileName }}</div>
+            <div class="file-size">{{ file.size | fileSize }}</div>
+          </div>
+          <div class="flexCenter">
+            <icon-app fontSet="fa" (click)="onFileRemoved(file, $event)" name="minus" class="pointer minus fs-xl color-primary-light"></icon-app>
+          </div>
+        </div>
+      </list-item-app>
+
+    </list-app>
+
+  </ng-container>
+
+  <!-- no file -->
+  <ng-template #noFile>
+    <no-file-placeholder-app (click)="inp.click()"></no-file-placeholder-app>
+  </ng-template>
+</ng-container>
+
+<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
+
+

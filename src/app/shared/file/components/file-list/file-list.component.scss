@@ -1,0 +1,49 @@
+
+
+list-item-app {
+	padding-left: 0;
+	padding-right: 0;
+	position: relative;
+	spinner-app {
+		position: absolute;
+		top: 4px;
+    left: -2px;
+	}
+	.minus {
+		display: none;
+	}
+	&:hover .minus {
+		display: block;
+	}
+	.iconFile {
+		margin-right: var(--spacing-m);
+	}
+}
+
+
+.ellipsis {
+	width: 250px;
+}
+
+.hr {
+	margin: var(--spacing-m) 0;
+}
+
+.circle {
+	width: 32px;
+	height: 32px;
+	background: var(--color-secondary);
+	margin-right: var(--spacing-s);
+}
+
+.name {
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	font-weight: 600;
+}
+
+.hidden {
+	width: 0;
+	visibility: hidden;
+}
