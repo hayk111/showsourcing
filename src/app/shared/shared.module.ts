@@ -41,6 +41,7 @@ import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { TopPanelModule } from './top-panel/top-panel.module';
+import { BottomPanelModule } from './bottom-panel';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -58,6 +59,7 @@ const modules = [
 	ActionBarModule,
 	AnimatedStackModule,
 	BadgeModule,
+	BottomPanelModule,
 	CardModule,
 	CarouselModule,
 	ContextMenuModule,
