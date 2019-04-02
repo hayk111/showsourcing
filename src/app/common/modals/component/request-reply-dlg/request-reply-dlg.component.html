@@ -16,7 +16,8 @@
     </extended-form-app>
 
     <h3>Attachments</h3>
-    <!-- <button class="secondary" (click)="addAttachment()">Add Image</button> -->
+    
+    <file-list-app [files]="files" [linkedItem]="reply"></file-list-app>
 
     <div class="flexEnd">
       <button (click)="save(false)">Save</button>

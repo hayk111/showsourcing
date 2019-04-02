@@ -32,7 +32,9 @@ import { FileListComponent } from './components/file-list/file-list.component';
 		FileDropDirective,
 		FileSelectDirective,
 		FilesPageComponent,
-		FilesCardComponent
+		FilesCardComponent,
+		NoFilePlaceholderComponent,
+		FileListComponent
 	],
 })
 export class FileModule {
