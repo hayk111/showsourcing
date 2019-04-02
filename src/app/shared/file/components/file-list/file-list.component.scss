@@ -3,6 +3,12 @@
 	display: block;
 }
 
+.space-icon {
+	height: var(--spacing-xl);
+	width: var(--spacing-xl);
+	margin-right: var(--spacing-ms);
+}
+
 list-item-app {
 	padding-left: 0;
 	padding-right: 0;
