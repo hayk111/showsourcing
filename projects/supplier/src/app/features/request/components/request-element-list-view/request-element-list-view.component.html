@@ -29,6 +29,12 @@
 		let-row="row"
 		width="300">
 		<div class="mainCell ellipsis">
+			<img-app
+				class="mini imgCtnr"
+				[image]="row?.images?.length ? row?.images[0] : null"
+				type="request"
+				size="s">
+			</img-app>
 			<span class="capitalize ellipsis">
 				<div class="name txt-btn title" (click)="open.emit(row)">
 					{{ row?.name }}
