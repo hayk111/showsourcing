@@ -3,6 +3,8 @@
 	class="secondary-style"
 	[rows]="rows"
 	[pending]="pending"
+	[hasSelection]="false"
+	[hasMenu]="false"
 	[selected]="selection"
 	placeholder="No requests items"
 	[contextualMenu]="contextualMenuTemplate"
@@ -33,6 +35,13 @@
 				</div>
 			</span>
 		</div>
+	</ng-template>
+
+	<ng-template
+		columnApp="Fields"
+		let-index="index"
+		width="200">
+	 {{ replied[index]?.replied + '/' + replied[index]?.total }}
 	</ng-template>
 
 	<ng-template

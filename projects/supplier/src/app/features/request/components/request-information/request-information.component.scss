@@ -1,3 +1,7 @@
-card-app {
-	margin-right: 0;
+:host {
+	&.no-margin-right {
+		card-app {
+			margin-right: 0;
+		}
+	}
 }

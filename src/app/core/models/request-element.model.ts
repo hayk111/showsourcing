@@ -12,7 +12,6 @@ export class RequestElement {
 	reply?: RequestReply;
 	images: AppImage[];
 	attachments: Attachment[];
-	requestedFields: ExtendedFieldDefinition[];
 	__typename?= 'RequestElement';
 
 	constructor(config: RequestElementConfig) {

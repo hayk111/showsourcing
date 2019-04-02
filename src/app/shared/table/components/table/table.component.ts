@@ -30,8 +30,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasSelection = true;
 	// whether the table rows have a contextual menu
 	@Input() hasMenu = true;
-	// whether selection is disabled
-	@Input() selectionDisabled = false;
 	// the placeholder text if no element displayed in the table
 	@Input() placeholder: string;
 	// the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
