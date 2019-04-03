@@ -5,7 +5,7 @@
 	z-index: var(--z-dialog);
 	display: inline-block;
   border-radius: var(--border-radius);
-	padding: var(--spacing-l);
+	padding: var(--spacing-ms) var(--spacing-l);
 	display: flex;
 	flex-direction: column;
 }

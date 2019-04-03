@@ -1,8 +1,6 @@
 
 dialog-app {
 
-	padding-bottom: var(--spacing-ms);
-
 	extended-form-app {
 		margin-bottom: var(--spacing-ms);
 	}
@@ -24,7 +22,7 @@ dialog-app {
 }
 
 .right {
-	width: 500px;
+	width: 700px;
 
 	.info-banner {
 		background: var(--color-secondary-light);

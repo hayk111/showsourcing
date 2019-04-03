@@ -1,6 +1,6 @@
 
 <dialog-app>
-  <dialog-header-app>Customer Request</dialog-header-app>
+  <dialog-header-app>Customer Request {{selectedIndex}}</dialog-header-app>
   <div class="flex">
 
     <div class="left">
@@ -41,8 +41,12 @@
   </div>
 
   <dialog-footer-app>
-    <button class="secondary save" (click)="save()">Save</button>
-    <button *ngIf="hasNext()" class="save-next" (click)="saveAndNext()">Save & Next</button>
+	<div class="save" toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
+		<button class="secondary" [disabled]="hasEmptyField()" (click)="saveAndClose()">Save</button>
+	</div>
+	<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
+		<button *ngIf="hasNext()" [disabled]="hasEmptyField()" (click)="saveAndNext()">Save & Next</button>
+	</div>
   </dialog-footer-app>
 
 </dialog-app>
