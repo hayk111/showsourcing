@@ -29,9 +29,6 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	ngOnInit() {
 		this.setElement();
-		this.uploaderFeedback.init({ linkedEntity: this.reply });
-		this.uploaderFeedback.setImages(this.reply.images);
-		this.uploaderFeedback.setFiles(this.reply.attachments);
 	}
 
 
@@ -44,7 +41,7 @@ export class RequestReplyDlgComponent implements OnInit {
 	}
 
 	next() {
-		this.selectedIndex = (this.selectedIndex + 1) % (this.elements.length - 1);
+		this.selectedIndex = (this.selectedIndex + 1) % (this.elements.length);
 		this.setElement();
 	}
 
@@ -63,6 +60,9 @@ export class RequestReplyDlgComponent implements OnInit {
 		this.reply = this.element.reply;
 		this.fields = this.reply.fields;
 		this.definitions = this.reply.fields.map(field => field.definition);
+		this.uploaderFeedback.init({ linkedEntity: this.reply });
+		this.uploaderFeedback.setImages(this.reply.images);
+		this.uploaderFeedback.setFiles(this.reply.attachments);
 	}
 
 	save() {

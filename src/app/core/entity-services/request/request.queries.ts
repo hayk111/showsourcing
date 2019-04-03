@@ -1,12 +1,11 @@
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
-import { RequestElement } from '~core/models';
-import { RequestElementQueries } from '../request-element/request-element.queries';
 
 export abstract class RequestQueries extends GlobalQueries {
 
 	static readonly attachments = `attachments { id, fileName, url, size }`;
 	static readonly fields = 'fields { id, value, definition { id, label, type, order } }';
-	static readonly requestElements = `requestElements { id, ${RequestElementQueries.one} }`;
+	static readonly requestElements = `requestElements { id, name, targetedEntityType, images { id, fileName, urls { id, url } }, ` +
+		`${RequestQueries.attachments}, reply { id, message, status, fields { id, definition { id, label, type }, value } } }`;
 	static readonly contact = (name: string) =>
 		`${name} { id, name, phoneNumber, email, businessCardImage { id, fileName, urls { id, url } }, jobTitle, supplier { id, name } }`
 	static readonly images = `images { id, urls { url }, orientation }`;
