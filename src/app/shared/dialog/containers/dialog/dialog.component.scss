@@ -8,6 +8,7 @@
 	padding: var(--spacing-ms) var(--spacing-l);
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
 }
 
 .header {
@@ -26,7 +27,7 @@
 
 .spacer {
 	display: flex;
-  flex-direction: row;
+  flex-direction: row;https://gitlab.com/showsourcing/webapps/merge_requests/634
 	align-items: flex-start;
 	justify-content: space-between;
 	margin-top: var(--spacing-xs);
