@@ -6,12 +6,12 @@
 		<img-app
 			#imgApp
 			*ngIf="images?.length !== 0; else noImg"
+			class="pointer"
 			[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }"
 			[image]="getImg()"
 			[size]="'xl'"
 			[objectFit]="objectFit"
-			(click)="openModal()"
-			class="pointer">
+			(click)="modalCarousel.open()">
 		</img-app>
 
 		<!-- no image -->
@@ -25,6 +25,7 @@
 	</div>
 
   <spinner-app *ngIf="getImg()?.pending" size="xl"></spinner-app>
+
 
 	<!-- move back -->
 	<div
@@ -71,11 +72,10 @@
 
 
 	<modal-carousel-app
-		[isOpen]="modalOpen"
+		#modalCarousel
 		[selectedIndex]="selectedIndex"
 		[images]="images"
-		(indexChange)="selectedIndex = $event"
-		(close)="closeModal()">
+		(indexChange)="selectedIndex = $event">
 	</modal-carousel-app>
 
 	<!-- input used to input files -->

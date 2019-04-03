@@ -42,15 +42,14 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
 	@Input() entity: any; // entity to which we can link images after an upload
-	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'cover';
+	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'contain';
 
 	@ViewChild('imgApp') imgApp: ImageComponent;
 	/** hidden file input */
 	@ViewChild('inpFile') inpFile: ElementRef;
 
 	defaultImg = DEFAULT_IMG;
-	// when clicking an image we can open a modal carousel
-	modalOpen = false;
+
 
 	constructor(
 		private imageSrv: ImageService,
@@ -148,20 +147,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	openFileBrowser() {
 		if (!this.static)
 			this.inpFile.nativeElement.click();
-	}
-
-	/** opens the modal carousel */
-	openModal(index?: number) {
-		if (index)
-			this.selectedIndex = index;
-		this.modalOpen = true;
-		// since it can be opened from outside..
-		this.cd.markForCheck();
-	}
-
-	/** closes the modal */
-	closeModal() {
-		this.modalOpen = false;
 	}
 
 	setSelectedIndex(value: number) {
