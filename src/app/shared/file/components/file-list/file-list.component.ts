@@ -15,6 +15,8 @@ import { takeUntil, switchMap } from 'rxjs/operators';
 })
 export class FileListComponent extends AutoUnsub implements OnInit {
 	@Input() files: Attachment[];
+	/** whether we display a place holder when there is no files */
+	@Input() hasPlaceholder = true;
 	@Input() linkedItem: any;
 	/** whether we can add files or not */
 	@Input() static = false;

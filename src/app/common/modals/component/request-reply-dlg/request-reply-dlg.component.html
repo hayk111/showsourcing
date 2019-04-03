@@ -6,42 +6,40 @@
     <div class="left">
       <h3>Product images</h3>
       <carousel-app [hasPreview]="true" [static]="true" [images]="element.images"></carousel-app>
-      <h3>Product attachments</h3>
+      <h3 class="ms">Product attachments</h3>
       <file-list-app [static]="true" [files]="element.attachments"></file-list-app>
     </div>
 
     <div class="right">
-      <h3>Images</h3>
+
+      <h3 class="ms">Product details</h3>
+
+      <extended-form-app
+        (update)="update($event)"
+        [definitions]="definitions"
+        [isFormStyle]="true"
+        [colAmount]="2"
+        [fields]="fields">
+      </extended-form-app>
+
+      <h3 class="ms">Attachments</h3>
+
+      <file-list-app [hasPlaceholder]="false" [files]="files" [linkedItem]="reply"></file-list-app>
+      <button class="secondary">Add Attachments</button>
+
+      <h3 class="ms">Images</h3>
       <image-previewer-2-app [images]="images"></image-previewer-2-app>
       <button class="secondary" (click)="inpFile.click()">Add Image</button>
       <input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
-      <div>
-
-				<h3 class="ms">Product details</h3>
-
-				<extended-form-app
-					(update)="update($event)"
-					[definitions]="definitions"
-					[isFormStyle]="true"
-					[colAmount]="2"
-					[fields]="fields">
-				</extended-form-app>
-
-				<h3>Attachments</h3>
-
-        <file-list-app [files]="files" [linkedItem]="reply"></file-list-app>
-        <button class="secondary">Add Attachments</button>
-
-				<div class="flexEnd">
-					<button class="secondary save" (click)="save()">Save</button>
-					<button *ngIf="hasNext()" class="save-next" (click)="saveAndNext()">Save & Next</button>
-				</div>
-
-      </div>
     </div>
 
   </div>
+
+  <dialog-footer-app>
+    <button class="secondary save" (click)="save()">Save</button>
+    <button *ngIf="hasNext()" class="save-next" (click)="saveAndNext()">Save & Next</button>
+  </dialog-footer-app>
 
 </dialog-app>
 
