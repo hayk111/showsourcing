@@ -24,7 +24,6 @@ export class RequestReplyDlgComponent implements OnInit {
 	constructor(
 		private replySrv: RequestReplyService,
 		private dlgSrv: DialogService,
-		private cd: ChangeDetectorRef,
 		private uploaderFeedback: UploaderFeedbackService
 	) { }
 

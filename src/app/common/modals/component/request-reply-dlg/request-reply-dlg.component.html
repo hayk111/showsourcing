@@ -32,13 +32,14 @@
       <extended-form-app
         (update)="update($event)"
         [definitions]="definitions"
-        [isFormStyle]="true"
+        [isFormStyle]="false"
         [colAmount]="2"
         [fields]="fields">
       </extended-form-app>
 
       <h3 class="ms">Attachments</h3>
 
+      
       <file-list-app [hasPlaceholder]="false" [files]="files" [linkedItem]="reply"></file-list-app>
       <button class="secondary">Add Attachments</button>
       <div class="spacer mg-ms"></div>
