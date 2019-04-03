@@ -1,19 +1,29 @@
-<div class="modal" (mousedown)="close.emit($event)">
-	<div class="img-ctnr" [ngStyle]="{'transform': getRotation(getImg())}">
-		<img-app [image]="getImg()" [size]="'xl'" class="loading" objectFit="contain"></img-app>
-	</div>
-	<div
-		*ngIf="images?.length > 1"
-		class="move-btn back flexCenter pointer"
-		(mousedown)="back($event)">
-		<icon-app fontSet="fa" name="angle-left"></icon-app>
-	</div>
-	<div
-		*ngIf="images?.length > 1"
-		class="move-btn next flexCenter pointer"
-		(mousedown)="next($event)">
-		<icon-app fontSet="fa" name="angle-right"></icon-app>
-	</div>
-	<span class="close-btn pointer" (mousedown)="close.emit($event)">close</span>
-	<span class="title">{{ selectedIndex + 1}} / {{ images?.length }}</span>
+<!-- modal carousel that can be seen when clicking on the normal carousel -->
+<div cdkOverlayOrigin
+	#trigger="cdkOverlayOrigin">
 </div>
+
+<cdk-overlay-app
+	[trigger]="trigger"
+	[isOpen]="isOpen"
+	(clickOutside)="close.emit()">
+	<div class="modal" (mousedown)="close.emit($event)">
+		<div class="img-ctnr" [ngStyle]="{'transform': getRotation(getImg())}">
+			<img-app [image]="getImg()" [size]="'xl'" class="loading" objectFit="contain"></img-app>
+		</div>
+		<div
+			*ngIf="images?.length > 1"
+			class="move-btn back flexCenter pointer"
+			(mousedown)="back($event)">
+			<icon-app fontSet="fa" name="angle-left"></icon-app>
+		</div>
+		<div
+			*ngIf="images?.length > 1"
+			class="move-btn next flexCenter pointer"
+			(mousedown)="next($event)">
+			<icon-app fontSet="fa" name="angle-right"></icon-app>
+		</div>
+		<span class="close-btn pointer" (mousedown)="close.emit($event)">close</span>
+		<span class="title">{{ selectedIndex + 1}} / {{ images?.length }}</span>
+	</div>
+</cdk-overlay-app>

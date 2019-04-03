@@ -131,7 +131,23 @@
 		<form-field-app *ngSwitchCase="'text'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+			<input #inp [disabled]="true" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- string -->
+		<form-field-app *ngSwitchCase="'string'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp [disabled]="true" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- tel -->
+		<form-field-app *ngSwitchCase="'tel'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp [disabled]="true" inputApp restrictInput="tel" type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
@@ -143,6 +159,7 @@
 				(change)="accumulator = inp.value; onClose();" (keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
+		<!-- number (int) -->
 		<form-field-app *ngSwitchCase="'int'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
@@ -150,6 +167,7 @@
 				(change)="accumulator = inp.value; onClose();" (keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
+		<!-- boolean -->
 		<form-field-app *ngSwitchCase="'boolean'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
@@ -160,6 +178,15 @@
 				(click)="toggleBoolean(); onClose()">
 			</selector-placeholder-app>
 			<input #inp inputApp [hidden]="true" type="text" />
+		</form-field-app>
+
+		<!-- price -->
+		<form-field-app *ngSwitchCase="'price'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input-price-app #inp inputApp [price]="getPrice()" (keyup.enter)="onClose()"
+				(change)="accumulatePrice(inp.price);">
+			</input-price-app>
 		</form-field-app>
 
 	</ng-container>

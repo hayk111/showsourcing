@@ -12,6 +12,7 @@ export class ModalCarouselComponent {
 
 	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
+	@Input() isOpen = false;
 	@Output() close = new EventEmitter<Event>();
 	@Output() indexChange = new EventEmitter<number>();
 

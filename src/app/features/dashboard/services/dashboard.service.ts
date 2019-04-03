@@ -71,7 +71,7 @@ export class DashboardService {
 
 	getCountTotalTasks(): Observable<number> {
 		return this.taskSrv.queryCount(
-			`(dueDate > ${this.weeksAgo} OR dueDate == null)	&& assignee.id == "${this.userId}"`
+			`(dueDate > ${this.weeksAgo} OR dueDate == null)&& assignee.id == "${this.userId}"`
 		).pipe(first());
 	}
 
