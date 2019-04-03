@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { RequestReplyService } from '~core/entity-services';
 import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';

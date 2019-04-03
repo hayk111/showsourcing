@@ -39,13 +39,18 @@
 
       <h3 class="ms">Attachments</h3>
 
-      
+
       <file-list-app [hasPlaceholder]="false" [files]="files" [linkedItem]="reply"></file-list-app>
       <button class="secondary">Add Attachments</button>
       <div class="spacer mg-ms"></div>
 
       <h3 class="ms">Images</h3>
-      <image-previewer-2-app [images]="images"></image-previewer-2-app>
+      <image-previewer-2-app [images]="images" (imageClick)="modal.selectedIndex = $event"></image-previewer-2-app>
+      <!-- <modal-carousel-app
+        #modal
+        [selectedIndex]="selectedIndex"
+        [images]="images">
+      </modal-carousel-app> -->
       <button class="secondary" (click)="inpFile.click()">Add Image</button>
       <input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
