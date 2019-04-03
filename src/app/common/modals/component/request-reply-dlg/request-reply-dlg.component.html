@@ -15,7 +15,7 @@
   </dialog-header-app>
 
 
-  <div class="flex main-container">
+  <div class="flex">
 
     <div class="left">
       <h3 class="ms">Product images</h3>
@@ -66,11 +66,9 @@
   </div>
 
   <dialog-footer-app>
-	<div class="save" toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
-		<button class="secondary" [disabled]="hasEmptyField()" (click)="saveAndClose()">Save</button>
-	</div>
+	<button class="secondary save" [disabled]="hasEmptyField()" (click)="saveAndClose()">Save</button>
 	<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
-		<button *ngIf="hasNext()" [disabled]="hasEmptyField()" (click)="saveAndNext()">Save & Next</button>
+		<button *ngIf="hasNext()" [disabled]="hasEmptyField()" (click)="saveAndNext()">Submit & next</button>
 	</div>
   </dialog-footer-app>
 
