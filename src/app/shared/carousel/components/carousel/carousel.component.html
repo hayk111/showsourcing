@@ -19,7 +19,7 @@
 			<div 
 				class="flexColumn flexCenter empty"
 				[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }">
-				<span class="bold">No picture yet</span>
+				<span class="bold">No picture</span>
 				<button class="secondary" (click)="openFileBrowser()" *ngIf="!static">Add Picture</button>
 			</div>
 		</ng-template>
@@ -85,7 +85,7 @@
 </div>
 
 <image-previewer-2-app
-	*ngIf="hasPreview"
+	*ngIf="hasPreview && images.length > 0"
 	[images]="images"
 	(imageClick)="selectedIndex = $event">
 </image-previewer-2-app>
