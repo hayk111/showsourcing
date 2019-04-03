@@ -41,7 +41,7 @@
         [fields]="fields">
       </extended-form-app>
 
-      <h3 class="ms">Images</h3>
+			<h3 class="ms">Images</h3>
 			<image-previewer-2-app [images]="images" (imageClick)="modal.selectedIndex = $event"></image-previewer-2-app>
 			<!-- <modal-carousel-app
         #modal
@@ -61,11 +61,9 @@
   </div>
 
   <dialog-footer-app>
-	<div class="save" toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
-		<button class="secondary" [disabled]="hasEmptyField()" (click)="saveAndClose()">Save</button>
-	</div>
+	<button class="secondary save" [disabled]="hasEmptyField()" (click)="saveAndClose()">Save</button>
 	<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
-		<button *ngIf="hasNext()" [disabled]="hasEmptyField()" (click)="saveAndNext()">Save & Next</button>
+		<button *ngIf="hasNext()" [disabled]="hasEmptyField()" (click)="saveAndNext()">Submit & next</button>
 	</div>
   </dialog-footer-app>
 

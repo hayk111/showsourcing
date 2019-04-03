@@ -65,8 +65,10 @@ export class RequestReplyDlgComponent implements OnInit {
 		this.uploaderFeedback.setFiles(this.reply.attachments);
 	}
 
-	save() {
-		const reply = { id: this.reply.id, fields: this.fields, status: this.doneStatus, __typename: 'RequestReply' };
+	save(updateStatus = false) {
+		const reply = updateStatus ?
+			({ id: this.reply.id, fields: this.fields, status: this.doneStatus, __typename: 'RequestReply' }) :
+			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe();
 		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
 		this.reply = ({ ...this.reply, status: this.doneStatus });
@@ -78,7 +80,7 @@ export class RequestReplyDlgComponent implements OnInit {
 	}
 
 	saveAndNext() {
-		this.save();
+		this.save(true);
 		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
 		let tempElem = this.elements[this.selectedIndex];
 		tempElem = ({ ...tempElem, reply: this.reply });
