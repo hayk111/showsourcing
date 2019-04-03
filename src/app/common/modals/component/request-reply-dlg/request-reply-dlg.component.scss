@@ -20,14 +20,17 @@ dialog-header-app {
 .save {
 	margin-right: var(--spacing-ms);
 }
-.left {
-	width: 456px;
-}
-.right {
-	width: 500px;
-}
 
 .left, .right {
 	padding: var(--spacing-m);
 	padding-top: 0;
+}
+
+.left {
+	padding-left: 0;
+	width: 456px;
+}
+
+.right {
+	width: 500px;
 }
