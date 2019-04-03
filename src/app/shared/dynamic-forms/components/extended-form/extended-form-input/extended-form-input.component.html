@@ -12,7 +12,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
+			<input #inp [attr.disabled]="disabled" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
 				(keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -30,7 +30,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
+			<input #inp inputApp [attr.disabled]="disabled" type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
 				(keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -49,7 +49,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp restrictInput="tel" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [attr.disabled]="disabled" restrictInput="tel" type="text" [value]="accumulator || ''"
 				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -68,7 +68,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp restrictInput="number" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [attr.disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
 				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -87,7 +87,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp restrictInput="decimal" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [attr.disabled]="disabled" restrictInput="decimal" type="text" [value]="accumulator || ''"
 				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -115,7 +115,7 @@
 		</editable-label-app>
 
 		<form-field-app class="editable">
-			<input-price-app #inp inputApp [price]="getPrice()" (keyup.enter)="editable.close()"
+			<input-price-app #inp [disabled]="disabled" inputApp [price]="getPrice()" (keyup.enter)="editable.close()"
 				(change)="accumulatePrice(inp.price);">
 			</input-price-app>
 		</form-field-app>
@@ -131,7 +131,7 @@
 		<form-field-app *ngSwitchCase="'text'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp [disabled]="true" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+			<input #inp [attr.disabled]="disabled" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
@@ -139,7 +139,7 @@
 		<form-field-app *ngSwitchCase="'string'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp [disabled]="true" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+			<input #inp [attr.disabled]="disabled" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
@@ -147,7 +147,7 @@
 		<form-field-app *ngSwitchCase="'tel'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp [disabled]="true" inputApp restrictInput="tel" type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+			<input #inp [attr.disabled]="disabled" inputApp restrictInput="tel" type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
@@ -155,7 +155,7 @@
 		<form-field-app *ngSwitchCase="'decimal'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp restrictInput="decimal" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [attr.disabled]="disabled" restrictInput="decimal" type="text" [value]="accumulator || ''"
 				(change)="accumulator = inp.value; onClose();" (keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
@@ -163,7 +163,7 @@
 		<form-field-app *ngSwitchCase="'int'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp restrictInput="number" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [attr.disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
 				(change)="accumulator = inp.value; onClose();" (keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
@@ -177,14 +177,14 @@
 				[placeholder]="definition.label"
 				(click)="toggleBoolean(); onClose()">
 			</selector-placeholder-app>
-			<input #inp inputApp [hidden]="true" type="text" />
+			<input #inp inputApp [attr.disabled]="disabled" [hidden]="true" type="text" />
 		</form-field-app>
 
 		<!-- price -->
 		<form-field-app *ngSwitchCase="'price'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input-price-app #inp inputApp [price]="getPrice()" (keyup.enter)="onClose()"
+			<input-price-app #inp inputApp [disabled]="disabled" [price]="getPrice()" (keyup.enter)="onClose()"
 				(change)="accumulatePrice(inp.price); onClose();">
 			</input-price-app>
 		</form-field-app>

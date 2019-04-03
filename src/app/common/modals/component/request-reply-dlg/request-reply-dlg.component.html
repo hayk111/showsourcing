@@ -22,7 +22,7 @@
       <carousel-app [hasPreview]="true" [static]="true" [images]="element.images"></carousel-app>
       <span class="spacer mg-ms"></span>
       <h3 class="ms">Product attachments</h3>
-      <file-list-app [static]="true" [files]="element.attachments"></file-list-app>
+      <file-list-app [hasPlaceholder]="false" [static]="true" [files]="element.attachments"></file-list-app>
     </div>
 
     <div class="right">
@@ -34,6 +34,7 @@
       <h3 class="ms">Product details</h3>
 
       <extended-form-app
+        [disabled]="true"
         [definitions]="definitions"
 				[isFormStyle]="true"
         [colAmount]="2"
@@ -41,19 +42,24 @@
 				(update)="save()">
       </extended-form-app>
 
-			<h3 class="ms">Images</h3>
-			<image-previewer-2-app [images]="images" (imageClick)="modal.selectedIndex = $event"></image-previewer-2-app>
-			<!-- <modal-carousel-app
+      <h3 class="ms">Images</h3>
+			<image-previewer-2-app [images]="images" (imageClick)="modal.open($event)"></image-previewer-2-app>
+			<modal-carousel-app
         #modal
-        [selectedIndex]="selectedIndex"
         [images]="images">
-      </modal-carousel-app> -->
+      </modal-carousel-app>
+      <div class="spacer mg-s" *ngIf="images.length > 0"></div>
       <button class="secondary add-image" (click)="inpFile.click()">Add Image</button>
 			<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
       <h3 class="ms">Attachments</h3>
 
-      <file-list-app [hasPlaceholder]="false" [files]="files" [linkedItem]="reply"></file-list-app>
+      <file-list-app
+        [static]="true"
+        [hasPlaceholder]="false"
+        [files]="files"
+        [linkedItem]="reply"></file-list-app>
+      <div class="spacer mg-s" *ngIf="files.length > 0"></div>
       <button class="secondary add-attachment">Add Attachments</button>
 
     </div>

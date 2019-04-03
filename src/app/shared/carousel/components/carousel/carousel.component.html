@@ -6,25 +6,27 @@
 		<img-app
 			#imgApp
 			*ngIf="images?.length !== 0; else noImg"
+			class="pointer"
 			[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }"
 			[image]="getImg()"
 			[size]="'xl'"
 			[objectFit]="objectFit"
-			(click)="openModal()"
-			class="pointer">
+			(click)="modalCarousel.open()">
 		</img-app>
 
 		<!-- no image -->
 		<ng-template #noImg>
-			<div class="flexColumn flexCenter empty">
-				<img [src]="defaultImg"/>
-				<span>No picture yet</span>
+			<div 
+				class="flexColumn flexCenter empty"
+				[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }">
+				<span class="bold">No picture</span>
 				<button class="secondary" (click)="openFileBrowser()" *ngIf="!static">Add Picture</button>
 			</div>
 		</ng-template>
 	</div>
 
   <spinner-app *ngIf="getImg()?.pending" size="xl"></spinner-app>
+
 
 	<!-- move back -->
 	<div
@@ -71,11 +73,10 @@
 
 
 	<modal-carousel-app
-		[isOpen]="modalOpen"
+		#modalCarousel
 		[selectedIndex]="selectedIndex"
 		[images]="images"
-		(indexChange)="selectedIndex = $event"
-		(close)="closeModal()">
+		(indexChange)="selectedIndex = $event">
 	</modal-carousel-app>
 
 	<!-- input used to input files -->
@@ -84,7 +85,7 @@
 </div>
 
 <image-previewer-2-app
-	*ngIf="hasPreview"
+	*ngIf="hasPreview && images.length > 0"
 	[images]="images"
 	(imageClick)="selectedIndex = $event">
 </image-previewer-2-app>
