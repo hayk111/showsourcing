@@ -29,7 +29,7 @@
 
   <!-- no file -->
   <ng-template #noFile>
-    <no-file-placeholder-app (click)="openFileBrowser()"></no-file-placeholder-app>
+    <no-file-placeholder-app *ngIf="hasPlaceholder" (click)="openFileBrowser()"></no-file-placeholder-app>
   </ng-template>
 </ng-container>
 
