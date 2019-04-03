@@ -3,8 +3,10 @@
 	<div *ngFor="let col of cols; let last = last; trackBy: trackByFn" class="col"
 		[ngClass]="{ 'last': last }"
 		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
+		
 		<extended-form-input-app
 			*ngFor="let definition of col; trackBy: trackByFn"
+			[disabled]="disabled"
 			[definition]="definition"
 			[field]="getFieldForDefinition(definition.id)"
 			[inlineLabel]="inlineLabel"
