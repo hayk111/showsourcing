@@ -185,7 +185,7 @@
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input-price-app #inp inputApp [price]="getPrice()" (keyup.enter)="onClose()"
-				(change)="accumulatePrice(inp.price);">
+				(change)="accumulatePrice(inp.price); onClose();">
 			</input-price-app>
 		</form-field-app>
 

@@ -34,11 +34,11 @@
       <h3 class="ms">Product details</h3>
 
       <extended-form-app
-        (update)="update($event)"
         [definitions]="definitions"
-        [isFormStyle]="true"
+				[isFormStyle]="true"
         [colAmount]="2"
-        [fields]="fields">
+				[fields]="fields"
+				(update)="save()">
       </extended-form-app>
 
 			<h3 class="ms">Images</h3>

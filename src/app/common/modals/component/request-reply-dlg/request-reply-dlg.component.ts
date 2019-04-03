@@ -97,11 +97,6 @@ export class RequestReplyDlgComponent implements OnInit {
 		return this.elements.some(elem => elem.reply.status !== this.doneStatus);
 	}
 
-	update(fields: ExtendedField[]) {
-		const reply = { id: this.reply.id, fields, message: 'reply', __typename: 'RequestReply' };
-		// this.update$ = this.replySrv.update(reply);
-	}
-
 	addImage(files: File[]) {
 		this.uploaderFeedback.addImages(files);
 	}
