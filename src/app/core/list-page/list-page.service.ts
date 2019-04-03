@@ -238,8 +238,7 @@ export class ListPageService
 	deleteSelected(refetch = false) {
 		const itemIds = this.getSelectedIds();
 		const text = `Delete ${itemIds.length} `
-			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural);
-
+			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural) + '?';
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
 			switchMap(_ => refetch ? this.refetch() : empty())

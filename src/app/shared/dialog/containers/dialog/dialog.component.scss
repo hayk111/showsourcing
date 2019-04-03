@@ -8,6 +8,7 @@
 	padding: var(--spacing-ms) var(--spacing-l);
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
 }
 
 .header {
@@ -48,6 +49,7 @@
 
 .footer {
 	border-top: 1px solid var(--color-divider);
+	margin-top: var(--spacing-ms);
 }
 
 
