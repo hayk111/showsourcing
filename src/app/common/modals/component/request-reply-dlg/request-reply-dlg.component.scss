@@ -1,4 +1,12 @@
 
 dialog-app {
 	width: 762px;
+
+	extended-form-app {
+		margin-bottom: var(--spacing-ms);
+	}
+}
+
+.save {
+	margin-right: var(--spacing-ms);
 }

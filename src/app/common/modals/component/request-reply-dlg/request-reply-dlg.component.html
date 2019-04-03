@@ -4,7 +4,7 @@
   <image-previewer-2-app [images]="element.images"></image-previewer-2-app>
 
   <div>
-    <h3>Product details</h3>
+    <h3 class="ms">Product details</h3>
 
     <extended-form-app
       (update)="update($event)"
@@ -17,8 +17,8 @@
     <h3>Attachments</h3>
 
     <div class="flexEnd">
-      <button (click)="save()">Save</button>
-      <button *ngIf="hasNext()" (click)="saveAndNext()">Save & Next</button>
+      <button class="secondary save" (click)="save()">Save</button>
+      <button *ngIf="hasNext()" class="save-next" (click)="saveAndNext()">Save & Next</button>
     </div>
   </div>
 </dialog-app>
