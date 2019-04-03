@@ -1,6 +1,5 @@
 
 dialog-app {
-	width: 762px;
 
 	extended-form-app {
 		margin-bottom: var(--spacing-ms);
@@ -9,4 +8,15 @@ dialog-app {
 
 .save {
 	margin-right: var(--spacing-ms);
+}
+.left {
+	border-right: 1px solid var(--color-divider);
+	width: 400px;
+}
+.right {
+	width: 500px;
+}
+
+.left, .right {
+	padding: var(--spacing-m);
 }

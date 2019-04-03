@@ -51,8 +51,12 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	createRequest() {
-		if (this.form.valid)
-			this.requestSrv.create({ ...this.request, ...this.form.value }).subscribe(_ => this.dlgSrv.close()
+		if (!this.form.valid)
+			return;
+		const newRequest: Request = { ...this.request, ...this.form.value };
+		newRequest.products = newRequest.products.map(product => ({ id: product.id }));
+		this.requestSrv.create(newRequest)
+			.subscribe(_ => this.dlgSrv.close()
 				// TODO write 2 cases succes, error
 			);
 	}
