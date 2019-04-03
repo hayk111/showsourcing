@@ -855,7 +855,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			} else {
 				return '';
 			}
-
 		} else if (val instanceof Object) {
 			return `${key} { ${this.patch(val)} }`;
 		} else if (val === null) {
