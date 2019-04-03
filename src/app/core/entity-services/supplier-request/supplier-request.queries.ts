@@ -6,7 +6,7 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 		`${name} { id, name, email, company }`
 	static readonly attachments = `attachments { id, fileName, url, size }`;
 	static readonly requestElements = `requestElements { id, name, targetedEntityType, images { id, fileName, urls { id, url } }, ` +
-		`${SupplierRequestQueries.attachments}, 	reply { id, message, status, fields { id, value, definition { id, type, label, order }} } }`;
+		`${SupplierRequestQueries.attachments}, 	reply { id, message, status, fields { id, value, definition { id, type, label, order } } } }`;
 	static readonly images = ` images { id, urls { url }, orientation }`;
 
 	static readonly one = `

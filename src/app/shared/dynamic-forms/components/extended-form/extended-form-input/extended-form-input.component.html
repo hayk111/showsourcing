@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="definition.type">
+<ng-container *ngIf="!isFormStyle; else otherStyle" [ngSwitch]="definition.type">
 
 	<!-- text -->
 	<editable-field-app *ngSwitchCase="'text'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
@@ -102,9 +102,7 @@
 		</editable-label-app>
 	</editable-field-app>
 
-
 	<!-- price -->
-
 	<editable-field-app *ngSwitchCase="'price'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select()">
 
@@ -125,3 +123,45 @@
 	</editable-field-app>
 
 </ng-container>
+
+<ng-template #otherStyle>
+	<ng-container [ngSwitch]="definition.type">
+
+		<!-- text -->
+		<form-field-app *ngSwitchCase="'text'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- decimal -->
+		<form-field-app *ngSwitchCase="'decimal'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp restrictInput="decimal" type="text" [value]="accumulator || ''"
+				(change)="accumulator = inp.value; onClose();" (keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<form-field-app *ngSwitchCase="'int'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp restrictInput="number" type="text" [value]="accumulator || ''"
+				(change)="accumulator = inp.value; onClose();" (keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<form-field-app *ngSwitchCase="'boolean'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<selector-placeholder-app
+				[name]="field?.value"
+				[hasArrow]="false"
+				[placeholder]="definition.label"
+				(click)="toggleBoolean(); onClose()">
+			</selector-placeholder-app>
+			<input #inp inputApp [hidden]="true" type="text" />
+		</form-field-app>
+
+	</ng-container>
+
+</ng-template>

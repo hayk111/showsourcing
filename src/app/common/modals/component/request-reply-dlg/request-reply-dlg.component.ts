@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { RequestReplyService } from '~core/entity-services';
 import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply } from '~core/models';
-import { DialogService, CloseEventType } from '~shared/dialog';
-import { UploaderService } from '~shared/file/services/uploader.service';
+import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
 
 @Component({
