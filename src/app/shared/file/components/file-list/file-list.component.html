@@ -18,7 +18,7 @@
             <div class="file-size">{{ file.size | fileSize }}</div>
           </div>
           <div class="flexCenter">
-            <icon-app fontSet="fa" (click)="onFileRemoved(file, $event)" name="minus" class="pointer minus fs-xl color-primary-light"></icon-app>
+            <icon-app *ngIf="!static" fontSet="fa" (click)="onFileRemoved(file, $event)" name="minus" class="pointer minus fs-xl color-primary-light"></icon-app>
           </div>
         </div>
       </list-item-app>
@@ -29,10 +29,10 @@
 
   <!-- no file -->
   <ng-template #noFile>
-    <no-file-placeholder-app (click)="inp.click()"></no-file-placeholder-app>
+    <no-file-placeholder-app (click)="openFileBrowser()"></no-file-placeholder-app>
   </ng-template>
 </ng-container>
 
-<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
+<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)" *ngIf="!static"/>
 
 

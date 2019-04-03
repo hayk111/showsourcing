@@ -22,6 +22,8 @@ import { UploaderFeedbackService } from '~shared/file/services/uploader-view.ser
 })
 export class CarouselComponent extends AutoUnsub implements OnInit {
 
+	/** Whether images can be uploaded */
+	@Input() static = false;
 	/** size in px of the main display */
 	@Input() size = 411;
 	@Input() hasPreview = false;
@@ -144,7 +146,8 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** opens the file browser window so the user can select a file he wants to upload */
 	openFileBrowser() {
-		this.inpFile.nativeElement.click();
+		if (!this.static)
+			this.inpFile.nativeElement.click();
 	}
 
 	/** opens the modal carousel */
