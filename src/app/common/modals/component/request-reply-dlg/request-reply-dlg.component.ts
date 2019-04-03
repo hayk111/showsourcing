@@ -66,14 +66,23 @@ export class RequestReplyDlgComponent implements OnInit {
 	}
 
 	save() {
-		const reply = { id: this.reply.id, status: this.doneStatus, __typename: 'RequestReply' };
+		const reply = { id: this.reply.id, fields: this.fields, status: this.doneStatus, __typename: 'RequestReply' };
 		this.replySrv.update(reply).subscribe();
+		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
+		this.reply = ({ ...this.reply, status: this.doneStatus });
+	}
+
+	saveAndClose() {
+		this.save();
 		this.dlgSrv.close({ type: CloseEventType.OK });
 	}
 
 	saveAndNext() {
-		const reply = { id: this.reply.id, status: this.doneStatus, __typename: 'RequestReply' };
-		this.replySrv.update(reply).subscribe();
+		this.save();
+		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
+		let tempElem = this.elements[this.selectedIndex];
+		tempElem = ({ ...tempElem, reply: this.reply });
+		this.elements[this.selectedIndex] = tempElem;
 		this.selectedIndex = this.getNextUnrepliedIndex();
 		this.setElement();
 	}
@@ -88,7 +97,7 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	update(fields: ExtendedField[]) {
 		const reply = { id: this.reply.id, fields, message: 'reply', __typename: 'RequestReply' };
-		this.replySrv.update(reply).subscribe();
+		// this.update$ = this.replySrv.update(reply);
 	}
 
 	addImage(files: File[]) {
@@ -97,6 +106,10 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	addAttachment() {
 
+	}
+
+	hasEmptyField() {
+		return this.fields.some(field => !field.value);
 	}
 
 }
