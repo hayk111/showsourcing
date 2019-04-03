@@ -1,11 +1,26 @@
 
 <dialog-app>
-  <dialog-header-app>Customer Request {{selectedIndex}}</dialog-header-app>
-  <div class="flex">
+  <dialog-header-app class="flex">
+    <div class="flex move">
+      <icon-app name="arrow-left-thin" (click)="back()"></icon-app>
+      <span class="spacer"></span>
+      <icon-app name="arrow-right-thin" (click)="next()"></icon-app>
+    </div>
+
+    <div class="title">
+      <h2>{{ element.name }}</h2>
+      <span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} Products</span>
+    </div>
+
+  </dialog-header-app>
+
+
+  <div class="flex main-container">
 
     <div class="left">
-      <h3>Product images</h3>
+      <h3 class="ms">Product images</h3>
       <carousel-app [hasPreview]="true" [static]="true" [images]="element.images"></carousel-app>
+      <span class="spacer mg-ms"></span>
       <h3 class="ms">Product attachments</h3>
       <file-list-app [static]="true" [files]="element.attachments"></file-list-app>
     </div>
@@ -27,7 +42,12 @@
       </extended-form-app>
 
       <h3 class="ms">Images</h3>
-      <image-previewer-2-app [images]="images"></image-previewer-2-app>
+			<image-previewer-2-app [images]="images" (imageClick)="modal.selectedIndex = $event"></image-previewer-2-app>
+			<!-- <modal-carousel-app
+        #modal
+        [selectedIndex]="selectedIndex"
+        [images]="images">
+      </modal-carousel-app> -->
       <button class="secondary add-image" (click)="inpFile.click()">Add Image</button>
 			<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 

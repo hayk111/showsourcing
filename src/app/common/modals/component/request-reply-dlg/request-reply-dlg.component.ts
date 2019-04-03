@@ -29,9 +29,6 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	ngOnInit() {
 		this.setElement();
-		this.uploaderFeedback.init({ linkedEntity: this.reply });
-		this.uploaderFeedback.setImages(this.reply.images);
-		this.uploaderFeedback.setFiles(this.reply.attachments);
 	}
 
 
@@ -41,6 +38,16 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	get files() {
 		return this.uploaderFeedback.getFiles();
+	}
+
+	next() {
+		this.selectedIndex = (this.selectedIndex + 1) % (this.elements.length);
+		this.setElement();
+	}
+
+	back() {
+		this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : this.elements.length - 1;
+		this.setElement();
 	}
 
 	private setElement() {
@@ -53,6 +60,9 @@ export class RequestReplyDlgComponent implements OnInit {
 		this.reply = this.element.reply;
 		this.fields = this.reply.fields;
 		this.definitions = this.reply.fields.map(field => field.definition);
+		this.uploaderFeedback.init({ linkedEntity: this.reply });
+		this.uploaderFeedback.setImages(this.reply.images);
+		this.uploaderFeedback.setFiles(this.reply.attachments);
 	}
 
 	save() {
@@ -73,11 +83,11 @@ export class RequestReplyDlgComponent implements OnInit {
 		let tempElem = this.elements[this.selectedIndex];
 		tempElem = ({ ...tempElem, reply: this.reply });
 		this.elements[this.selectedIndex] = tempElem;
-		this.selectedIndex = this.getNextIndex();
+		this.selectedIndex = this.getNextUnrepliedIndex();
 		this.setElement();
 	}
 
-	private getNextIndex() {
+	private getNextUnrepliedIndex() {
 		return this.elements.findIndex(elem => elem.reply.status !== this.doneStatus);
 	}
 
