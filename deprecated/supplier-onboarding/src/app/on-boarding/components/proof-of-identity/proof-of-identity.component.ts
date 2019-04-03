@@ -67,8 +67,7 @@ export class ProofOfIdentityComponent extends TrackingComponent
 	onDelete(file: Attachment) {
 		this.listFile = this.listFile.filter(x => x !== file);
 		this.dlgSrv.open(ConfirmDialogComponent, {
-			text: 'Remove 1 file ?',
-			callback: () => this.onBoardSrv.updateClaim({ attachment: this.listFile }).subscribe()
+			text: 'Delete 1 file ?',
 		});
 	}
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { RequestReplyService } from '~core/entity-services';
 import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
@@ -24,15 +24,11 @@ export class RequestReplyDlgComponent implements OnInit {
 	constructor(
 		private replySrv: RequestReplyService,
 		private dlgSrv: DialogService,
-		private cd: ChangeDetectorRef,
 		private uploaderFeedback: UploaderFeedbackService
 	) { }
 
 	ngOnInit() {
 		this.setElement();
-		this.uploaderFeedback.init({ linkedEntity: this.reply });
-		this.uploaderFeedback.setImages(this.reply.images);
-		this.uploaderFeedback.setFiles(this.reply.attachments);
 	}
 
 
@@ -42,6 +38,16 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	get files() {
 		return this.uploaderFeedback.getFiles();
+	}
+
+	next() {
+		this.selectedIndex = (this.selectedIndex + 1) % (this.elements.length);
+		this.setElement();
+	}
+
+	back() {
+		this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : this.elements.length - 1;
+		this.setElement();
 	}
 
 	private setElement() {
@@ -54,6 +60,9 @@ export class RequestReplyDlgComponent implements OnInit {
 		this.reply = this.element.reply;
 		this.fields = this.reply.fields;
 		this.definitions = this.reply.fields.map(field => field.definition);
+		this.uploaderFeedback.init({ linkedEntity: this.reply });
+		this.uploaderFeedback.setImages(this.reply.images);
+		this.uploaderFeedback.setFiles(this.reply.attachments);
 	}
 
 	save() {
@@ -65,11 +74,11 @@ export class RequestReplyDlgComponent implements OnInit {
 	saveAndNext() {
 		const reply = { id: this.reply.id, status: this.doneStatus, __typename: 'RequestReply' };
 		this.replySrv.update(reply).subscribe();
-		this.selectedIndex = this.getNextIndex();
+		this.selectedIndex = this.getNextUnrepliedIndex();
 		this.setElement();
 	}
 
-	private getNextIndex() {
+	private getNextUnrepliedIndex() {
 		return this.elements.findIndex(elem => elem.reply.status !== this.doneStatus);
 	}
 

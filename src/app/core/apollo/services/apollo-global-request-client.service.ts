@@ -55,6 +55,7 @@ export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 			ERM.REQUEST_REPLY,
 			ERM.EXTENDED_FIELD,
 			ERM.EXTENDED_FIELD_DEFINITION,
+			ERM.IMAGE,
 		];
 		const newSubs = toSub
 			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(this.client));
