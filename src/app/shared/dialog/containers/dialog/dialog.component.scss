@@ -9,6 +9,10 @@
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+
+	&.vertical-scroll-content .content{
+		overflow-y: auto;
+	}
 }
 
 .header {

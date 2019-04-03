@@ -1,5 +1,5 @@
 
-<dialog-app>
+<dialog-app class="vertical-scroll-content">
   <dialog-header-app class="flex">
     <div class="flex move">
       <icon-app name="arrow-left-thin" (click)="back()"></icon-app>
@@ -61,7 +61,7 @@
   </div>
 
   <dialog-footer-app>
-	<button class="secondary save" [disabled]="hasEmptyField()" (click)="saveAndClose()">Save</button>
+	<button class="secondary save" (click)="saveAndClose()">Save</button>
 	<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
 		<button *ngIf="hasNext()" [disabled]="hasEmptyField()" (click)="saveAndNext()">Submit & next</button>
 	</div>
