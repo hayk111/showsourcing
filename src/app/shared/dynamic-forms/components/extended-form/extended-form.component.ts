@@ -25,6 +25,7 @@ export class ExtendedFormComponent extends TrackingComponent implements OnInit {
 	@Input() inlineLabel: boolean;
 	@Input() isFormStyle = false;
 	@Input() colAmount = 1;
+	@Input() disabled = false;
 	@Output() update = new EventEmitter<ExtendedField[]>();
 	cols: ExtendedField[][];
 

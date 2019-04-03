@@ -38,7 +38,10 @@ export class InputDirective extends FormFieldControlDirective {
 	set id(value: string) { this._id = value; this.stateChanges.next(); }
 	protected _id: string = 'inp-' + InputDirective.NEXT_UID++;
 
-	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) {
+	constructor(
+		protected _elementRef: ElementRef,
+		@Optional() @Self() public control: NgControl,
+	) {
 		super(control);
 	}
 

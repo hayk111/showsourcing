@@ -33,6 +33,7 @@ export class ExtendedFormInputComponent {
 	private _field: ExtendedField;
 
 	@Input() definition: ExtendedFieldDefinition;
+	@Input() disabled = false;
 
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
@@ -64,6 +65,8 @@ export class ExtendedFormInputComponent {
 
 	/** toggle input value from true to false and vice versa */
 	toggleBoolean() {
+		if (this.disabled)
+			return;
 		if (this.accumulator === 'yes')
 			this.accumulator = 'no';
 		else
