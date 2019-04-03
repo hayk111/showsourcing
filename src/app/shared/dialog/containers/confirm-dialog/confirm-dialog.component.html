@@ -1,11 +1,15 @@
 <dialog-app>
 
 	<dialog-header-app>
-			{{ text?.length > 0 ? text : 'Are you sure you want to delete this?'}}
+		{{ title || 'Confirm'}}
 	</dialog-header-app>
 
+	<h2>
+		{{ text || 'Are you sure you want to do this ?'}}
+	</h2>
+
 	<dialog-footer-app>
-			<button class="warn z-h" (click)="onConfirm()"> Delete </button>
+			<button class="warn z-h" (click)="onConfirm()"> {{ action || 'Delete' }} </button>
 	</dialog-footer-app>
 
 </dialog-app>

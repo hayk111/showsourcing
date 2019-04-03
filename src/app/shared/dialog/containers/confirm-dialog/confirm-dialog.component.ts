@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DialogService } from '~shared/dialog/services/dialog.service';
 import { CloseEventType } from '~shared/dialog/interfaces';
 
@@ -9,8 +9,9 @@ import { CloseEventType } from '~shared/dialog/interfaces';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfirmDialogComponent {
-	// text displayed
-	text: string;
+	@Input() title: string;
+	@Input() text: string;
+	@Input() action: string;
 
 	constructor(protected srv: DialogService) { }
 
