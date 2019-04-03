@@ -49,8 +49,8 @@
         [images]="images">
       </modal-carousel-app>
       <div class="spacer mg-s" *ngIf="images.length > 0"></div>
-      <button class="secondary add-image" (click)="inpFile.click()">Add Image</button>
-			<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
+      <button class="secondary add-image" (click)="inpImg.click()">Add Image</button>
+			<input #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
       <h3 class="ms">Attachments</h3>
 
@@ -60,7 +60,9 @@
         [files]="files" 
         [linkedItem]="reply"></file-list-app>
       <div class="spacer mg-s" *ngIf="files.length > 0"></div>
-      <button class="secondary add-attachment">Add Attachments</button>
+      <button class="secondary add-attachment" (click)="inpFile.click()">Add Attachments</button>
+      <input #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
+
 
     </div>
 

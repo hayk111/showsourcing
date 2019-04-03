@@ -106,8 +106,8 @@ export class RequestReplyDlgComponent implements OnInit {
 		this.uploaderFeedback.addImages(files);
 	}
 
-	addAttachment() {
-
+	addAttachment(files: File[]) {
+		this.uploaderFeedback.addFiles(files);
 	}
 
 	hasEmptyField() {
