@@ -5,7 +5,7 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
 import { RequestElementService, SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, RequestElement, SupplierRequest } from '~core/models';
+import { DEFAULT_REPLIED_STATUS, ERM, RequestElement, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
@@ -92,7 +92,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	allReplied(reqElements: RequestElement[]) {
 		let areReplied = false;
 		if (reqElements)
-			areReplied = !reqElements.some(element => element.reply.status !== 'replied');
+			areReplied = !reqElements.some(element => element.reply.status !== DEFAULT_REPLIED_STATUS);
 		return areReplied;
 	}
 

@@ -20,10 +20,17 @@ export const statusRequestsSupplierMap = {
 			}
 		}
 	},
+	'done': {
+		locales: {
+			en: {
+				name: 'Replied'
+			}
+		}
+	},
 	'pending': {
 		locales: {
 			en: {
-				name: 'Pending'
+				name: 'To Reply'
 			}
 		}
 	},

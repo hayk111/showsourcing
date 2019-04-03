@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { RequestReplyService } from '~core/entity-services';
-import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply } from '~core/models';
+import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply, DEFAULT_REPLIED_STATUS } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
 
@@ -19,7 +19,6 @@ export class RequestReplyDlgComponent implements OnInit {
 	reply: RequestReply;
 	fields: ExtendedField[];
 	definitions: ExtendedFieldDefinition[];
-	private doneStatus = 'done';
 
 	constructor(
 		private replySrv: RequestReplyService,
@@ -67,11 +66,11 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	save(updateStatus = false) {
 		const reply = updateStatus ?
-			({ id: this.reply.id, fields: this.fields, status: this.doneStatus, __typename: 'RequestReply' }) :
+			({ id: this.reply.id, fields: this.fields, status: DEFAULT_REPLIED_STATUS, __typename: 'RequestReply' }) :
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe();
 		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
-		this.reply = ({ ...this.reply, status: this.doneStatus });
+		this.reply = ({ ...this.reply, status: DEFAULT_REPLIED_STATUS });
 	}
 
 	saveAndClose() {
@@ -90,11 +89,11 @@ export class RequestReplyDlgComponent implements OnInit {
 	}
 
 	private getNextUnrepliedIndex() {
-		return this.elements.findIndex(elem => elem.reply.status !== this.doneStatus);
+		return this.elements.findIndex(elem => elem.reply.status !== DEFAULT_REPLIED_STATUS);
 	}
 
 	hasNext() {
-		return this.elements.some(elem => elem.reply.status !== this.doneStatus);
+		return this.elements.some(elem => elem.reply.status !== DEFAULT_REPLIED_STATUS);
 	}
 
 	addImage(files: File[]) {
