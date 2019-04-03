@@ -1,8 +1,19 @@
 
 dialog-app {
-
 	extended-form-app {
 		margin-bottom: var(--spacing-ms);
+	}
+}
+
+dialog-header-app {
+	.move {
+		font-size: var(--font-size-xxl);
+		.spacer {
+			width: var(--spacing-ms);
+		}
+	}
+	.title {
+		margin-left: var(--spacing-ms);
 	}
 }
 
@@ -10,8 +21,7 @@ dialog-app {
 	margin-right: var(--spacing-ms);
 }
 .left {
-	border-right: 1px solid var(--color-divider);
-	width: 400px;
+	width: 456px;
 }
 .right {
 	width: 500px;

@@ -1,11 +1,26 @@
 
 <dialog-app>
-  <dialog-header-app>Customer Request</dialog-header-app>
+  <dialog-header-app class="flex">
+    <div class="flex move">
+      <icon-app name="arrow-left-thin" (click)="back()"></icon-app>
+      <span class="spacer"></span>
+      <icon-app name="arrow-right-thin" (click)="next()"></icon-app>
+    </div>
+
+    <div class="title">
+      <h2>{{ element.name }}</h2>
+      <span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} Products</span>
+    </div>
+
+  </dialog-header-app>
+  
+  
   <div class="flex">
 
     <div class="left">
-      <h3>Product images</h3>
+      <h3 class="ms">Product images</h3>
       <carousel-app [hasPreview]="true" [static]="true" [images]="element.images"></carousel-app>
+      <span class="spacer mg-ms"></span>
       <h3 class="ms">Product attachments</h3>
       <file-list-app [static]="true" [files]="element.attachments"></file-list-app>
     </div>

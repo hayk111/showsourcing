@@ -44,6 +44,16 @@ export class RequestReplyDlgComponent implements OnInit {
 		return this.uploaderFeedback.getFiles();
 	}
 
+	next() {
+		this.selectedIndex = (this.selectedIndex + 1) % (this.elements.length - 1);
+		this.setElement();
+	}
+
+	back() {
+		this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : this.elements.length - 1;
+		this.setElement();
+	}
+
 	private setElement() {
 		this.element = this.elements[this.selectedIndex];
 
@@ -65,11 +75,11 @@ export class RequestReplyDlgComponent implements OnInit {
 	saveAndNext() {
 		const reply = { id: this.reply.id, status: this.doneStatus, __typename: 'RequestReply' };
 		this.replySrv.update(reply).subscribe();
-		this.selectedIndex = this.getNextIndex();
+		this.selectedIndex = this.getNextUnrepliedIndex();
 		this.setElement();
 	}
 
-	private getNextIndex() {
+	private getNextUnrepliedIndex() {
 		return this.elements.findIndex(elem => elem.reply.status !== this.doneStatus);
 	}
 
