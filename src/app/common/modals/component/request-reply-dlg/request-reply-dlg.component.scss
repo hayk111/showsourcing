@@ -1,23 +1,41 @@
 
 dialog-app {
 
+	padding-bottom: var(--spacing-ms);
+
 	extended-form-app {
 		margin-bottom: var(--spacing-ms);
+	}
+
+	dialog-footer-app {
+		border-top: 1px solid var(--color-divider);
+		margin-top: var(--spacing-l);
+		padding-top: var(--spacing-ms);
 	}
 }
 
 .save {
 	margin-right: var(--spacing-ms);
 }
+
 .left {
-	border-right: 1px solid var(--color-divider);
 	width: 400px;
-}
-.right {
-	width: 500px;
+	padding-right: var(--spacing-l);
 }
 
-.left, .right {
-	padding: var(--spacing-m);
-	padding-bottom: 0;
+.right {
+	width: 500px;
+
+	.info-banner {
+		background: var(--color-secondary-light);
+		color: var(--color-primary);
+		font-weight: 600;
+		height: 62px;
+		font-size: var(--font-size-l);
+	}
+
+	.add-image, .info-banner {
+		margin-bottom: var(--spacing-l);
+	}
 }
+

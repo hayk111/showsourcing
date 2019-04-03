@@ -12,6 +12,10 @@
 
     <div class="right">
 
+			<div class="info-banner flexCenter">
+				Please fill in the form below to reply to client
+			</div>
+
       <h3 class="ms">Product details</h3>
 
       <extended-form-app
@@ -22,15 +26,15 @@
         [fields]="fields">
       </extended-form-app>
 
+      <h3 class="ms">Images</h3>
+      <image-previewer-2-app [images]="images"></image-previewer-2-app>
+      <button class="secondary add-image" (click)="inpFile.click()">Add Image</button>
+			<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
+
       <h3 class="ms">Attachments</h3>
 
       <file-list-app [hasPlaceholder]="false" [files]="files" [linkedItem]="reply"></file-list-app>
-      <button class="secondary">Add Attachments</button>
-
-      <h3 class="ms">Images</h3>
-      <image-previewer-2-app [images]="images"></image-previewer-2-app>
-      <button class="secondary" (click)="inpFile.click()">Add Image</button>
-      <input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
+      <button class="secondary add-attachment">Add Attachments</button>
 
     </div>
 
