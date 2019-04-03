@@ -36,12 +36,20 @@ dialog-header-app {
 	.info-banner {
 		background: var(--color-secondary-light);
 		color: var(--color-primary);
-		font-weight: 600;
 		height: 62px;
 		font-size: var(--font-size-l);
 	}
 
 	.add-image, .info-banner {
 		margin-bottom: var(--spacing-l);
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	.right {
+		width: 580px;
+	}
+	.left {
+		width: 392px;
 	}
 }
