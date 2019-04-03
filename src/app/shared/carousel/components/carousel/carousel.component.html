@@ -19,7 +19,7 @@
 			<div class="flexColumn flexCenter empty">
 				<img [src]="defaultImg"/>
 				<span>No picture yet</span>
-				<button class="secondary" (click)="openFileBrowser()">Add Picture</button>
+				<button class="secondary" (click)="openFileBrowser()" *ngIf="!static">Add Picture</button>
 			</div>
 		</ng-template>
 	</div>
@@ -43,7 +43,7 @@
 	</div>
 
 	<!-- menu -->
-	<context-menu-app class="menu action">
+	<context-menu-app class="menu action" *ngIf="!static">
 		<context-menu-trigger-app>
 				<icon-app
 					fontSet="fa"
@@ -59,7 +59,7 @@
 	</context-menu-app>
 
 	<!-- add -->
-	<div class="btn add pointer action" (click)="inpFile.click()">add</div>
+	<div class="btn add pointer action" *ngIf="!static" (click)="openFileBrowser()">add</div>
 
 	<!-- counter -->
 	<div class="counter flexCenter">
@@ -87,7 +87,7 @@
 	</cdk-overlay-app>
 
 	<!-- input used to input files -->
-	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+	<input *ngIf="!static" #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
 
 </div>
 

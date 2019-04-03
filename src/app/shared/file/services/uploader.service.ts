@@ -24,6 +24,7 @@ export class UploaderService {
 		private http: HttpClient
 	) { }
 
+
 	uploadImages(imgs: File[], linkedItem?: any, imageProperty = 'images', isPropertyArray = true, client?: Client): Observable<AppImage[]> {
 		const uploads$ = imgs.map(img =>
 			// MaxSize 1200px
