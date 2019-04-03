@@ -15,9 +15,13 @@ input, textarea {
 		border: 1px solid var(--color-warn);
 		border-left: 4px solid var(--color-warn);
 	}
+	&::placeholder {
+		color: var(--color-txt-secondary);
+	}
 	&:focus {
 		border: 1px solid var(--color-primary);
 		border-left: 4px solid var(--color-primary);
+		padding-left: 5px;
 	}
 	&.small {
 		padding: 3px;
@@ -219,10 +223,6 @@ button:disabled, input[type="submit"]:disabled {
 	color: var(--color-primary);
 	text-decoration: underline;
 	cursor: pointer;
-}
-
-textarea::placeholder, input::placeholder {
-	color: var(--color-txt-secondary);
 }
 
 input[type="file"] {

@@ -36,6 +36,7 @@ export class ExtendedFormInputComponent {
 
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
+	@Input() isFormStyle = false;
 	/** when the editable field opens */
 	@Output() open = new EventEmitter<null>();
 	@Output() update = new EventEmitter<ExtendedField>();
