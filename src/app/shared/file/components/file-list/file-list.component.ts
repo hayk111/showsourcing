@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Attachment } from '~core/models';
 import { AttachmentService } from '~core/entity-services';
 import { DialogService } from '~shared/dialog';
@@ -20,8 +20,8 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 	@Input() linkedItem: any;
 	/** whether we can add files or not */
 	@Input() static = false;
-	@ViewChild('inpFile') inpFile: ElementRef<HTMLInputElement>;
 
+	@ViewChild('inpFile') inpFile: ElementRef<HTMLInputElement>;
 
 	constructor(
 		private uploaderFeedback: UploaderFeedbackService,
@@ -44,6 +44,7 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 	onFileRemoved(file: Attachment, event: MouseEvent) {
 		if (this.static)
 			return;
+
 		event.stopPropagation();
 		this.dlgSrv.open(ConfirmDialogComponent, {
 			text: 'Remove 1 file ?'
