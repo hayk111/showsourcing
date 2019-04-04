@@ -4,8 +4,9 @@
 	border-radius: var(--border-radius);
 	border: 1px solid var(--color-secondary);
 
-	&.request-element-list-view-sup main{
-		height: calc(100% - 48px); // -48px cause of the padding 24+24
+	&.full-height-main main{
+		height: 100%;
+		box-sizing: border-box;
 	}
 }
 
