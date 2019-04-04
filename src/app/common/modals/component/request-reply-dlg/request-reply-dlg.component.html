@@ -89,13 +89,11 @@
   <dialog-footer-app>
 		<button class="secondary save" (click)="saveAndClose()">Save</button>
 
-		<div toolTip [toolTipMessage]="reply.status === defaultStatus ? 'Your request has been already submitted' : null" toolTipPosition="above-right">
+		<div toolTip [toolTipMessage]="reply.status === defaultStatus ? 'Your request has been already submitted' : hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
 			<button *ngIf="reply.status === defaultStatus; else notSubmitted" [disabled]="true">Submitted</button>
 		</div>
 		<ng-template #notSubmitted>
-			<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
-				<button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
-			</div>
+			<button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
 		</ng-template>
   </dialog-footer-app>
 
