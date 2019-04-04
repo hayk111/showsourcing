@@ -26,6 +26,10 @@ input, textarea {
 	&.small {
 		padding: 3px;
 	}
+	&[type="text"]:disabled {
+		background: var(--color-secondary-light);
+		color: var(--color-txt-strong);
+	}
 }
 
 // form-field-app.ng-pristine {

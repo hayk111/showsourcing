@@ -2,14 +2,14 @@
 <div class="flex flexVAlign">
 	<selector-app
 		type="currency"
-		[disabled]="disabledInp"
+		[disabled]="disabled"
 		[multiple]="false"
 		[value]="currency"
 		[width]="200"
 		[offsetX]="-13"
 		[offsetY]="-24"
 		(update)="onCurrencyChange($event)">
-		<span class="currencyLabel pointer">
+		<span class="currencyLabel" [ngClass]="{ 'pointer': !disabled }">
 			{{ currency | const:'currency':'id' }}
 		</span>
 	</selector-app>
@@ -18,7 +18,7 @@
 		inputApp
 		type="text"
 		restrictInput="decimal"
-		[disabled]="disabledInp"
+		[disabled]="disabled"
 		[(ngModel)]="amount"
 		(input)="onChange()"
 		(blur)="onBlur()"/>

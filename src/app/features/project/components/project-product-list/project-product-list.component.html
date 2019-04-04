@@ -20,7 +20,7 @@
   <div class="mainCellWrapper ellipsis">
     <div class="mainCell">
       <img class="mini imgCtnr"
-        [src]="row | image: 's' : 'product'" />
+        [src]="row | image: 's' : 'product-list'" />
       <a class="name txt-btn" [routerLink]="['/', 'product', 'details', row.id]">{{ row.name }}</a>
     </div>
     <div class="preview">

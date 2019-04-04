@@ -82,6 +82,7 @@ export class InputDirective extends FormFieldControlDirective {
 	}
 	protected _type = 'text';
 
+	// we commented this since it was not working when using inputApp on other components besied the native form html (input, textarea...)
 	// /** Whether the element is disabled. */
 	// @Input()
 	// get disabled(): boolean {

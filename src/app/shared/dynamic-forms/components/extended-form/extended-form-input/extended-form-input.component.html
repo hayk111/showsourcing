@@ -118,7 +118,7 @@
 			<input-price-app
 				#inp
 				inputApp
-				[disabledInp]="disabled"
+				[disabled]="disabled"
 				[price]="getPrice()"
 				(keyup.enter)="editable.close()"
 				(change)="accumulatePrice(inp.price)">
@@ -191,7 +191,7 @@
 			<input-price-app
 				#inp
 				inputApp
-				[disabledInp]="disabled"
+				[disabled]="disabled"
 				[price]="getPrice()"
 				(keyup.enter)="onClose()"
 				(change)="accumulatePrice(inp.price); onClose();">
