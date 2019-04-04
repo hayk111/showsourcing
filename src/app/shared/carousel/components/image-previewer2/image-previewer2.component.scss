@@ -12,8 +12,6 @@
 		border-radius: var(--border-radius-s);
 		margin-bottom: var(--spacing-s);
 		margin-right: var(--spacing-s);
-		width: 72px;
-		height: 72px;
 		img-app {
 			min-height: 100%;
 			min-width: 100%;
@@ -23,7 +21,14 @@
 .ctnr {
 	position: relative;
 }
-
+.delete {
+	position: absolute;
+	color: white;
+	right: 0;
+	background: var(--color-warn-light);
+	width: 20px;
+	height: 20px;
+}
 .last-item {
 	margin-right: 0px !important;
 }

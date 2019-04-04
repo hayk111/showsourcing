@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { Observable } from 'rxjs';
 import { RequestReplyService } from '~core/entity-services';
 import {
+	AppImage,
 	DEFAULT_REPLIED_STATUS,
 	ExtendedField,
 	ExtendedFieldDefinition,
@@ -10,7 +11,7 @@ import {
 	SupplierRequest,
 } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -110,12 +111,16 @@ export class RequestReplyDlgComponent implements OnInit {
 		this.uploaderFeedback.addImages(files);
 	}
 
-	addAttachment() {
-
+	addAttachment(files: File[]) {
+		this.uploaderFeedback.addFiles(files);
 	}
 
 	hasEmptyField() {
 		return this.fields.some(field => !field.value);
+	}
+
+	deleteImg(img: AppImage) {
+		this.uploaderFeedback.deleteImg(img);
 	}
 
 }

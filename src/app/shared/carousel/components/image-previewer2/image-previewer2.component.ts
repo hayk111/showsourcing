@@ -12,10 +12,16 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class ImagePreviewer2Component extends TrackingComponent {
 
-	// array of images displayed
+	/** array of images displayed */
 	@Input() images: Array<AppImage> = [];
-	// returns the index of the images clicked
+	/** size in px of the images */
+	@Input() size = 72;
+	/** whether previews can be deleted */
+	@Input() isDeletable = false;
+	/** returns the index of the images clicked */
 	@Output() imageClick = new EventEmitter<number>();
+	@Output() delete = new EventEmitter<AppImage>();
+
 
 	constructor() {
 		super();
@@ -27,6 +33,14 @@ export class ImagePreviewer2Component extends TrackingComponent {
 
 	getPreviews() {
 		return this.images.slice(0, 5);
+	}
+
+	getStyle() {
+		const size = `${this.size}px`;
+		return {
+			width: size,
+			height: size
+		};
 	}
 
 }

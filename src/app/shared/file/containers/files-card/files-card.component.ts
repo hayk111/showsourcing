@@ -10,7 +10,7 @@ import { any } from 'async';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { AttachmentService } from '~core/entity-services';
 import { takeUntil, switchMap } from 'rxjs/operators';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
 export enum PageType {
 	product = 'PRODUCT',

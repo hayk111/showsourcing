@@ -19,10 +19,11 @@ list-item-app {
     left: -2px;
 	}
 	.minus {
-		display: none;
+		visibility: hidden;
+		margin: 0 var(--spacing-s);
 	}
 	&:hover .minus {
-		display: block;
+		visibility: visible;
 	}
 	.iconFile {
 		margin-right: var(--spacing-m);
@@ -55,4 +56,9 @@ list-item-app {
 .hidden {
 	width: 0;
 	visibility: hidden;
+}
+
+.file-size {
+	flex-grow: 1;
+	text-align: right;
 }
