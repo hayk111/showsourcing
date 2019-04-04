@@ -18,7 +18,7 @@ import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inp
 	providers: [makeAccessorProvider(InputPriceComponent)]
 })
 export class InputPriceComponent extends AbstractInput {
-	@Input() disabledInp = false;
+	@Input() disabled = false;
 	@Output() change = new EventEmitter();
 	@Output() blur = new EventEmitter();
 	@ViewChild(InputDirective) inp: InputDirective;
@@ -70,7 +70,7 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	get amount() {
-		return this.price.value ? this.price.value / 10000;
+		return this.price.value / 10000;
 	}
 
 	set amount(amount: any) {

@@ -90,10 +90,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	allReplied(reqElements: RequestElement[]) {
-		let areReplied = false;
+		let allReplied = false;
 		if (reqElements)
-			areReplied = !reqElements.some(element => element.reply.status !== DEFAULT_REPLIED_STATUS);
-		return areReplied;
+			allReplied = !reqElements.some(element => element.reply.status !== DEFAULT_REPLIED_STATUS);
+		return allReplied;
 	}
 
 }
