@@ -27,7 +27,7 @@ const supportedTypes = new Set([
 	host: {
 		'(blur)': 'focussed = false',
 		'(focus)': 'focussed = true',
-		'[disabled]': 'disabled',
+		// '[disabled]': 'disabled',
 		// '[required]': 'required',
 		// '[attr.id]': 'id',
 		//  '[attr.placeholder]': 'placeholder',
