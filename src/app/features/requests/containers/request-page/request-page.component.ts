@@ -26,7 +26,7 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 			key: ListPageKey.REQUEST,
 			entitySrv: this.requestSrv,
 			searchedFields: [],
-			entityMetadata: ERM.REQUEST,
+			entityMetadata: ERM.SUPPLIER_REQUEST,
 			initialFilters: [],
 		});
 	}
