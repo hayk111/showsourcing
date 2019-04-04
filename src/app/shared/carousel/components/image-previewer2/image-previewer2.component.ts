@@ -20,6 +20,7 @@ export class ImagePreviewer2Component extends TrackingComponent {
 	@Input() isDeletable = false;
 	/** returns the index of the images clicked */
 	@Output() imageClick = new EventEmitter<number>();
+	@Output() delete = new EventEmitter<AppImage>();
 
 
 	constructor() {

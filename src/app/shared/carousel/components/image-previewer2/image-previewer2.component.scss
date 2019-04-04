@@ -22,7 +22,12 @@
 	position: relative;
 }
 .delete {
+	position: absolute;
+	color: white;
+	right: 0;
 	background: var(--color-warn-light);
+	width: 20px;
+	height: 20px;
 }
 .last-item {
 	margin-right: 0px !important;

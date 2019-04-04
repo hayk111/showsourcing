@@ -20,6 +20,10 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 	@Input() linkedItem: any;
 	/** whether we can add files or not */
 	@Input() static = false;
+	/** whether we show the confirm dialog before deleting,
+	 * useful when we are already in a dialog and don't want the first
+	 * one to appear */
+	@Input() showConfirmOnDelete = true;
 
 	@ViewChild('inpFile') inpFile: ElementRef<HTMLInputElement>;
 
@@ -46,12 +50,16 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 			return;
 
 		event.stopPropagation();
-		this.dlgSrv.open(ConfirmDialogComponent, {
-			text: 'Remove 1 file ?'
-		}).pipe(
-			takeUntil(this._destroy$),
-			switchMap(_ => this.removeFile(file))
-		).subscribe();
+		if (this.showConfirmOnDelete) {
+			this.dlgSrv.open(ConfirmDialogComponent, {
+				text: 'Remove 1 file ?'
+			}).pipe(
+				takeUntil(this._destroy$),
+				switchMap(_ => this.removeFile(file))
+			).subscribe();
+		} else {
+			this.removeFile(file).subscribe();
+		}
 	}
 
 	private removeFile(file: Attachment) {
