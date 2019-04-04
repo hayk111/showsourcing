@@ -115,6 +115,7 @@ export class RequestReplyDlgComponent implements OnInit {
 	}
 
 	deleteImg(img: AppImage) {
+		debugger;
 		this.uploaderFeedback.deleteImg(img);
 	}
 

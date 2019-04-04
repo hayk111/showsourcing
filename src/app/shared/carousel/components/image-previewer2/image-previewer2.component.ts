@@ -43,4 +43,9 @@ export class ImagePreviewer2Component extends TrackingComponent {
 		};
 	}
 
+	doDelete(event: MouseEvent, img: AppImage) {
+		event.stopPropagation();
+		this.delete.emit(img);
+	}
+
 }
