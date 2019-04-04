@@ -16,7 +16,7 @@ export class ModalCarouselComponent {
 	isOpen = false;
 
 
-	@HostListener('document:keydown', ['$event'])
+	@HostListener('keydown', ['$event'])
 	onKeydownHandler(event: KeyboardEvent) {
 		switch (event.keyCode) {
 			case LEFT_ARROW: this.back(event);

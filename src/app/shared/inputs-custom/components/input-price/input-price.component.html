@@ -9,7 +9,7 @@
 		[offsetX]="-13"
 		[offsetY]="-24"
 		(update)="onCurrencyChange($event)">
-		<span class="currencyLabel pointer">
+		<span class="currencyLabel" [ngClass]="{ 'pointer': !disabledInp }">
 			{{ currency | const:'currency':'id' }}
 		</span>
 	</selector-app>
