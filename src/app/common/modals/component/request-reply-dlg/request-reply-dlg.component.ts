@@ -19,6 +19,7 @@ export class RequestReplyDlgComponent implements OnInit {
 	reply: RequestReply;
 	fields: ExtendedField[];
 	definitions: ExtendedFieldDefinition[];
+	defaultStatus = DEFAULT_REPLIED_STATUS;
 
 	constructor(
 		private replySrv: RequestReplyService,
@@ -66,11 +67,11 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	save(updateStatus = false) {
 		const reply = updateStatus ?
-			({ id: this.reply.id, fields: this.fields, status: DEFAULT_REPLIED_STATUS, __typename: 'RequestReply' }) :
+			({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe();
 		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
-		this.reply = ({ ...this.reply, status: DEFAULT_REPLIED_STATUS });
+		this.reply = ({ ...this.reply, status: this.defaultStatus });
 	}
 
 	saveAndClose() {
@@ -89,11 +90,11 @@ export class RequestReplyDlgComponent implements OnInit {
 	}
 
 	private getNextUnrepliedIndex() {
-		return this.elements.findIndex(elem => elem.reply.status !== DEFAULT_REPLIED_STATUS);
+		return this.elements.findIndex(elem => elem.reply.status !== this.defaultStatus);
 	}
 
 	hasNext() {
-		return this.elements.some(elem => elem.reply.status !== DEFAULT_REPLIED_STATUS);
+		return this.elements.some(elem => elem.reply.status !== this.defaultStatus);
 	}
 
 	addImage(files: File[]) {

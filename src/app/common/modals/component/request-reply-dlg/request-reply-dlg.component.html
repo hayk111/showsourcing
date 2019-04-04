@@ -32,9 +32,8 @@
 			</div>
 
       <h3 class="ms">Product details</h3>
-
       <extended-form-app
-        [disabled]="true"
+        [disabled]="reply.status === defaultStatus"
         [definitions]="definitions"
 				[isFormStyle]="true"
         [colAmount]="2"

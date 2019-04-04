@@ -19,13 +19,22 @@ const supportedTypes = new Set([
 ]);
 
 
-
+// Native input properties that are overwritten by Angular inputs need to be synced with
+// the native input element. Otherwise property bindings for those don't work.
 @Directive({
 	selector: '[inputApp]',
 	exportAs: 'inputApp',
 	host: {
 		'(blur)': 'focussed = false',
 		'(focus)': 'focussed = true',
+		'[disabled]': 'disabled',
+		// '[required]': 'required',
+		// '[attr.id]': 'id',
+		//  '[attr.placeholder]': 'placeholder',
+		//  '[attr.readonly]': 'readonly && !_isNativeSelect || null',
+		//  '[attr.aria-describedby]': '_ariaDescribedby || null',
+		//  '[attr.aria-invalid]': 'errorState',
+		//  '[attr.aria-required]': 'required.toString()',
 	},
 	providers: [{ provide: FormFieldControlDirective, useExisting: InputDirective }],
 
