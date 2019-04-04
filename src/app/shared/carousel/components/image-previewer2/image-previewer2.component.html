@@ -1,11 +1,15 @@
 <div class="ctnr square pointer"
 	[ngClass]="{'last-item': i > 3}"
+	[ngStyle]="getStyle()"
 	*ngFor="let img of getPreviews(); let i = index; trackBy: trackByFn"
 	(click)="imageClick.emit(i)">
+	<div class="delete flexCenter pointer" *ngIf="isDeletable && i < 4" (click)="doDelete($event, img)">
+		<icon-app name="close"></icon-app>
+	</div>
 	<img-app
 		[ngClass]="{ 'pending': img.pending }"
 		[image]="img"
-		size="s">
+		size="xl">
 	</img-app>
 	<ng-container *ngIf="i === 4">
 		<div class="more flexCenter"

@@ -11,7 +11,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
 import { PendingImage } from '~utils/pending-image.class';
 import { saveAs } from 'file-saver';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
 @Component({
 	selector: 'carousel-app',

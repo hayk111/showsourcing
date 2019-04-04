@@ -1,5 +1,6 @@
 
 <dialog-app>
+  <!-- header -->
   <dialog-header-app class="flex">
     <div class="flex move">
       <icon-app name="arrow-left-thin" (click)="back()"></icon-app>
@@ -14,9 +15,10 @@
 
   </dialog-header-app>
 
-
+  <!-- content -->
   <div class="flex">
 
+    <!-- left -->
     <div class="left">
       <h3 class="ms">Product images</h3>
       <carousel-app [hasPreview]="true" [static]="true" [images]="element.images"></carousel-app>
@@ -25,12 +27,14 @@
       <file-list-app [hasPlaceholder]="false" [static]="true" [files]="element.attachments"></file-list-app>
     </div>
 
+    <!-- right -->
     <div class="right">
 
 			<div class="info-banner flexCenter">
 				Please fill in the form below to reply to client
 			</div>
 
+      <!-- details -->
       <h3 class="ms">Product details</h3>
 
       <extended-form-app
@@ -42,8 +46,15 @@
         [fields]="fields">
       </extended-form-app>
 
+      <!-- images -->
       <h3 class="ms">Images</h3>
-			<image-previewer-2-app [images]="images" (imageClick)="modal.open($event)"></image-previewer-2-app>
+      <image-previewer-2-app 
+        [isDeletable]="true" 
+        [size]="120" 
+        [images]="images" 
+        (delete)="deleteImg($event)"
+        (imageClick)="modal.open($event)">
+      </image-previewer-2-app>
 			<modal-carousel-app
         #modal
         [images]="images">
@@ -52,10 +63,10 @@
       <button class="secondary add-image" (click)="inpImg.click()">Add Image</button>
 			<input #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
+      <!-- attachments -->
       <h3 class="ms">Attachments</h3>
-
       <file-list-app 
-        [static]="true" 
+        [showConfirmOnDelete]="false"
         [hasPlaceholder]="false" 
         [files]="files" 
         [linkedItem]="reply"></file-list-app>
@@ -68,6 +79,7 @@
 
   </div>
 
+  <!-- footer -->
   <dialog-footer-app>
 	<button class="secondary save" [disabled]="hasEmptyField()" (click)="saveAndClose()">Save</button>
 	<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">

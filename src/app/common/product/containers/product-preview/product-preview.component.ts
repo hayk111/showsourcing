@@ -180,10 +180,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		}
 	}
 
-	openRfq() {
-		this.modalSrv.openRequestQuotationDialog(this.product);
-	}
-
 	openProduct() {
 		this.router.navigate(['product', 'details', this.product.id]);
 	}

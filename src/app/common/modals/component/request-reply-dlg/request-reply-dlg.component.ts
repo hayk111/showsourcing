@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { RequestReplyService } from '~core/entity-services';
-import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply } from '~core/models';
+import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply, AppImage } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -112,6 +112,10 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	hasEmptyField() {
 		return this.fields.some(field => !field.value);
+	}
+
+	deleteImg(img: AppImage) {
+		this.uploaderFeedback.deleteImg(img);
 	}
 
 }
