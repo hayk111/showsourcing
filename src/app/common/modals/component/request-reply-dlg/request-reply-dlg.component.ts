@@ -1,6 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { RequestReplyService } from '~core/entity-services';
-import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply, DEFAULT_REPLIED_STATUS } from '~core/models';
+import {
+	DEFAULT_REPLIED_STATUS,
+	ExtendedField,
+	ExtendedFieldDefinition,
+	RequestElement,
+	RequestReply,
+	SupplierRequest,
+} from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
 
@@ -15,6 +23,7 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	@Input() elements: RequestElement[] = [];
 	@Input() selectedIndex = 0;
+	@Input() request$: Observable<SupplierRequest>;
 	element: RequestElement;
 	reply: RequestReply;
 	fields: ExtendedField[];

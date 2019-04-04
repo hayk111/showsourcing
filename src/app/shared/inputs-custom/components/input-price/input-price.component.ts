@@ -70,7 +70,7 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	get amount() {
-		return this.price.value / 10000;
+		return this.price.value ? this.price.value / 10000 : '-';
 	}
 
 	set amount(amount: any) {

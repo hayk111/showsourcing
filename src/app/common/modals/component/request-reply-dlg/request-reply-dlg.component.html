@@ -13,11 +13,11 @@
 				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} Products</span>
 			</div>
 		</div>
-		<!-- <request-status-badge-app
+		<request-status-badge-app
 			[status]="element?.reply?.status"
 			[isTeam]="false"
-			[creationDate]="element?.creationDate">
-		</request-status-badge-app> -->
+			[creationDate]="(request$ | async)?.creationDate">
+		</request-status-badge-app>
 	</dialog-header-app>
 
   <div class="flex">
