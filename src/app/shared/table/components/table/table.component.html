@@ -11,14 +11,14 @@
 		<!-- selection column -->
 		<div class="col selectionCol" *ngIf="hasSelection">
 			<div class="header">
-				<ng-container *ngIf="!selectionDisabled">
+				<ng-container>
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
 				</ng-container>
 			</div>
 			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-				<ng-container *ngIf="!selectionDisabled">
+				<ng-container>
 					<checkbox-app [checked]="selected.has(row[idName])"
 						*ngIf="isSelectable(row)"
 						(check)="onSelectOne(row)"
@@ -75,7 +75,7 @@
 				<div class="full-width">
 					<!-- Render the column template when specified -->
 					<ng-container
-						*ngTemplateOutlet="column.template; context: { column: column, row: row }">
+						*ngTemplateOutlet="column.template; context: { column: column, row: row, index: i }">
 					</ng-container>
 				</div>
 			</div>

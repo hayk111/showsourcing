@@ -4,6 +4,7 @@ import { GlobalService } from '~entity-services/_global/global.service';
 import { RequestElement } from '~models';
 
 import { RequestElementQueries } from './request-element.queries';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 
 

@@ -31,7 +31,6 @@ export * from './request/request.service';
 export * from './sample-status/sample-status.service';
 export * from './sample/sample.service';
 export * from './show/show.service';
-export * from './supplier-claim/supplier-claim.service';
 export * from './supplier-request/supplier-request.queries';
 export * from './supplier-request/supplier-request.service';
 export * from './supplier-status/supplier-status.service';

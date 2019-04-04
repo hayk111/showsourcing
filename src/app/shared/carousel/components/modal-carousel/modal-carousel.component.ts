@@ -12,18 +12,18 @@ export class ModalCarouselComponent {
 
 	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
-	@Output() close = new EventEmitter<Event>();
 	@Output() indexChange = new EventEmitter<number>();
+	isOpen = false;
 
 
-	@HostListener('document:keydown', ['$event'])
+	@HostListener('keydown', ['$event'])
 	onKeydownHandler(event: KeyboardEvent) {
 		switch (event.keyCode) {
 			case LEFT_ARROW: this.back(event);
 				break;
 			case RIGHT_ARROW: this.next(event);
 				break;
-			case ESCAPE: this.close.emit();
+			case ESCAPE: this.close();
 				break;
 		}
 	}
@@ -55,6 +55,16 @@ export class ModalCarouselComponent {
 
 	getImg() {
 		return this.images ? this.images[this.selectedIndex] : null;
+	}
+
+	open(index?: number) {
+		if (Number.isInteger(index))
+			this.selectedIndex = index;
+		this.isOpen = true;
+	}
+
+	close() {
+		this.isOpen = false;
 	}
 
 }

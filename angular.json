@@ -27,8 +27,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.json",
-              "src/manifest.json",
               "src/manifest.json"
             ],
             "styles": [
@@ -167,58 +165,51 @@
         }
       }
     },
-    "showsourcing-e2e": {
-      "root": "e2e/",
+    "supplier": {
+      "root": "projects/supplier/",
+      "sourceRoot": "projects/supplier/src",
       "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "showsourcing:serve"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
+      "prefix": "sup",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
         }
-      }
-    },
-    "supplier-onboarding": {
-      "root": "projects/supplier-onboarding/",
-      "sourceRoot": "projects/supplier-onboarding/src",
-      "projectType": "application",
-      "prefix": "app",
-      "schematics": {},
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/supplier-onboarding",
-            "index": "projects/supplier-onboarding/src/index.html",
-            "main": "projects/supplier-onboarding/src/main.ts",
-            "polyfills": "projects/supplier-onboarding/src/polyfills.ts",
-            "tsConfig": "projects/supplier-onboarding/tsconfig.app.json",
+            "outputPath": "dist/supplier",
+            "index": "src/index.html",
+            "main": "projects/supplier/src/main.ts",
+            "polyfills": "projects/supplier/src/polyfills.ts",
+            "tsConfig": "projects/supplier/tsconfig.app.json",
             "assets": [
-              "projects/supplier-onboarding/src/favicon.ico",
-              "projects/supplier-onboarding/src/assets"
+              {
+                "glob": "**/*",
+                "input": "./src/assets/",
+                "output": "./assets"
+              }
             ],
             "styles": [
-              "projects/supplier-onboarding/src/styles.scss"
+              "projects/supplier/src/styles.scss",
+              "src/app/theming/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "es5BrowserSupport": true,
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "projects/supplier/src/environments/environment.ts"
+              }
+            ]
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/supplier-onboarding/src/environments/environment.ts",
-                  "with": "projects/supplier-onboarding/src/environments/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "projects/supplier/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -229,41 +220,59 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "projects/supplier/src/environments/environment.ts"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "supplier-onboarding:build"
+            "browserTarget": "supplier:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "supplier-onboarding:build:production"
+              "browserTarget": "supplier:build:production"
+            },
+            "development": {
+              "browserTarget": "supplier:build:development"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "supplier-onboarding:build"
+            "browserTarget": "supplier:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/supplier-onboarding/src/test.ts",
-            "polyfills": "projects/supplier-onboarding/src/polyfills.ts",
-            "tsConfig": "projects/supplier-onboarding/tsconfig.spec.json",
-            "karmaConfig": "projects/supplier-onboarding/karma.conf.js",
+            "main": "projects/supplier/src/test.ts",
+            "polyfills": "projects/supplier/src/polyfills.ts",
+            "tsConfig": "projects/supplier/tsconfig.spec.json",
+            "karmaConfig": "projects/supplier/karma.conf.js",
             "styles": [
-              "projects/supplier-onboarding/src/styles.css"
+              "projects/supplier/src/styles.scss"
             ],
             "scripts": [],
             "assets": [
-              "projects/supplier-onboarding/src/favicon.ico",
-              "projects/supplier-onboarding/src/assets"
+              "projects/supplier/src/favicon.ico",
+              "projects/supplier/src/assets"
             ]
           }
         },
@@ -271,36 +280,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/supplier-onboarding/tsconfig.app.json",
-              "projects/supplier-onboarding/tsconfig.spec.json"
+              "projects/supplier/tsconfig.app.json",
+              "projects/supplier/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "supplier-onboarding-e2e": {
-      "root": "projects/supplier-onboarding-e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/supplier-onboarding-e2e/protractor.conf.js",
-            "devServerTarget": "supplier-onboarding:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "supplier-onboarding:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "projects/supplier-onboarding-e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]

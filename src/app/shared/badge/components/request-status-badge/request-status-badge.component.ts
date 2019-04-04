@@ -9,6 +9,20 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class RequestStatusBadgeComponent implements OnInit {
 
 	@Input() status: string;
+	private _creationDate: Date;
+	// it doesnt need to be a date, can be a string, but cannot change type (compiler)
+	@Input() set creationDate(creationDate: Date) {
+		this._creationDate = new Date(creationDate);
+	}
+	get creationDate() {
+		return this._creationDate;
+	}
+	// wether we are on team page or supplier page
+	@Input() isTeam = true;
+
+	/** magic number for 2 weeks in miliseconds */
+	twoWeeks = 12096e5;
+	twoWeeksAgo = (new Date(+new Date - this.twoWeeks));
 
 	constructor() { }
 
@@ -16,16 +30,29 @@ export class RequestStatusBadgeComponent implements OnInit {
 	}
 
 	getType() {
-		switch (this.status) {
-			case 'accepted':
-				return 'success';
-			case 'toReview':
-				return 'primary';
-			case 'sentToSupplier':
-				return 'accent';
-			default:
-				return 'secondary';
+		if (this.isTeam) {
+			switch (this.status) {
+				case 'sent':
+					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'secondary';
+				case 'opened':
+					return 'primary';
+				case 'replied':
+					return 'success';
+				default:
+					return 'secondary';
+			}
+		} else {
+			switch (this.status) {
+				case 'sent':
+				case 'opened':
+				case 'pending':
+					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'primary';
+				case 'done':
+				case 'replied':
+					return 'success';
+				default:
+					return 'secondary';
+			}
 		}
 	}
-
 }

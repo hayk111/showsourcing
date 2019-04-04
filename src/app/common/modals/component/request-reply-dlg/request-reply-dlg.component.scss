@@ -1,0 +1,55 @@
+
+dialog-app {
+	height: 80vh;
+	extended-form-app {
+		margin-bottom: var(--spacing-ms);
+	}
+}
+
+dialog-header-app {
+	.move {
+		font-size: var(--font-size-xxl);
+		.spacer {
+			width: var(--spacing-ms);
+		}
+	}
+	.title {
+		margin-left: var(--spacing-ms);
+	}
+	request-status-badge-app {
+		margin-right: var(--spacing-l);
+	}
+}
+
+.save {
+	margin-right: var(--spacing-ms);
+}
+
+.left {
+	width: 456px;
+	padding-right: var(--spacing-l);
+}
+
+.right {
+	width: 700px;
+
+	.info-banner {
+		background: var(--color-secondary-light);
+		color: var(--color-primary);
+		height: 62px;
+		font-size: var(--font-size-l);
+	}
+
+	.add-image, .info-banner {
+		margin-bottom: var(--spacing-l);
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	.right {
+		width: 580px;
+	}
+	.left {
+		width: 392px;
+	}
+}

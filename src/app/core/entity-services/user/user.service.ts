@@ -29,6 +29,10 @@ export class UserService extends GlobalService<User> {
 		this.user$.subscribe(user => this.userSync = user);
 	}
 
+	// getUserId() {
+	// 	this.
+	// }
+
 	selectUser() {
 		return this.user$;
 	}

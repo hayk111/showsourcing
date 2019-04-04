@@ -32,6 +32,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() offsetX = 0;
 	@Input() offsetY = 8;
+	@Input() disabled = false;
 	@Output() menuClosed = new EventEmitter<any>();
 
 	// we need this in order to calculate dynamically the offsetX on preview badges
@@ -47,7 +48,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	/** Opens the menu. */
 	openMenu(): void {
-		this.menuOpen = true;
+		if (!this.disabled)
+			this.menuOpen = true;
 	}
 
 	/** Closes the menu. */

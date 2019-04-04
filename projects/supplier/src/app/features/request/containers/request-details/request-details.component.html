@@ -1,0 +1,55 @@
+<request-top-panel-sup
+	[request]="request$ | async">
+</request-top-panel-sup>
+
+<div class="flex full-width full-height">
+	<div class="left">
+		<request-information-sup
+			class="no-margin-right"
+			[request]="request$ | async">
+		</request-information-sup>
+	</div>
+	<div class="right">
+		<card-app>
+			<h3 class="l">Message</h3>
+			<div class="flex">
+				<img-app type="user"></img-app>
+				<div class="message-container">
+					<div class="name">{{ (request$ | async)?.sender?.name }}</div>
+					<div class="message">{{ (request$ | async)?.message }}</div>
+				</div>
+			</div>
+		</card-app>
+
+		<card-app>
+			<h3 class="l">Request Items</h3>
+				<request-element-list-view-sup
+					class="no-padding"
+					[rows]="listSrv.items$ | async"
+					[creationDate]="(request$ | async)?.creationDate"
+					[pending]="listSrv.pending"
+					[selection]="listSrv.selection$ | async"
+					(open)="open($event)"
+					(bottomReached)="listSrv.loadMore()"
+					(select)="listSrv.selectOne($event)"
+					(selectAll)="listSrv.selectAll($event)"
+					(sort)="listSrv.sort($event)"
+					(unselect)="listSrv.unselectOne($event)"
+					(unselectAll)="listSrv.unselectAll()">
+				</request-element-list-view-sup>
+		</card-app>
+	</div>
+</div>
+
+<bottom-panel-app class="flexEnd">
+	<button class="warn big">Refuse request</button>
+	<div toolTip [toolTipMessage]="allReplied(listSrv.items$ | async) ? null : 'All elements must be replied first'" toolTipPosition="above-right">
+		<button [disabled]="!allReplied(listSrv.items$ | async)" class="big">Reply</button>
+	</div>
+</bottom-panel-app>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>

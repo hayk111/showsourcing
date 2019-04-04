@@ -22,7 +22,7 @@
 						formControlName="requestTemplate">
 							<selector-placeholder-app
 								[name]="selectorReqTemplate?.value?.name"
-								placeHolder="Quick RFQ">
+								placeholder="Quick RFQ">
 							</selector-placeholder-app>
 						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
@@ -55,7 +55,7 @@
 						formControlName="recipient">
 						<selector-placeholder-app
 							[name]="contactSelector?.value?.email"
-							placeHolder="Email or Contact">
+							placeholder="Email or Contact">
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
@@ -71,7 +71,7 @@
 						(update)="contactSelector.value.supplier = $event">
 						<selector-placeholder-app
 							[name]="contactSelector?.value?.supplier?.name"
-							placeHolder="Select a supplier">
+							placeholder="Select a supplier">
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
@@ -87,7 +87,7 @@
 						formControlName="sendCopyTo">
 						<selector-placeholder-app
 							[name]="arrayToString(copySelector?.value)"
-							placeHolder="Send copy to">
+							placeholder="Send copy to">
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>

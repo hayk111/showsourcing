@@ -9,7 +9,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class SelectorPlaceholderComponent implements OnInit {
 
 	@Input() name: string;
-	@Input() placeHolder: string;
+	@Input() placeholder: string;
+	@Input() hasArrow = true;
 
 	constructor() { }
 

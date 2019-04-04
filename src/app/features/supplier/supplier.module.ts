@@ -5,7 +5,6 @@ import { ProductCommonModule } from '~common/product/product-common.module';
 import { SampleCommonModule } from '~common/sample';
 import { SupplierCommonModule } from '~common/supplier';
 import { TaskCommonModule } from '~common/task';
-import { DeprecatedModule } from '~deprecated/deprecated.module';
 import { routes } from '~features/supplier/routes';
 import { NavBarModule } from '~shared/navbar';
 import { RatingModule } from '~shared/rating';
@@ -41,7 +40,6 @@ import { SupplierFeatureService } from './services';
 @NgModule({
 	imports: [
 		ActivityCommonModule,
-		DeprecatedModule,
 		NavBarModule,
 		ProductCommonModule,
 		ProductCommonModule,

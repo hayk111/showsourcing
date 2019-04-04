@@ -1,0 +1,38 @@
+<context-menu-app>
+	<context-menu-trigger-app class="flex flexVAlign">
+		<user-picture-app [user]="user" [image]="user?.avatar"></user-picture-app>
+		<div class="flexColumn">
+			<span class="name">
+				{{ user?.firstName + ' ' + user?.lastName }}
+			</span>
+			<span class="team">{{ team?.name }}</span>
+		</div>
+	</context-menu-trigger-app>
+
+	<!-- Settings -->
+	<context-menu-item-app (click)="goToProfile()" i18n="menu item|User panel settings@@userPanel_profile">
+		Profile
+	</context-menu-item-app>
+
+	<!-- Team Management -->
+	<context-menu-item-app (click)="goToTeamManagement()" i18n="menu item|User panel team management@@userPanel_teams">
+		Manage Team
+	</context-menu-item-app>
+
+	<!-- Teams -->
+	<context-menu-item-app (click)="pickTeam()" i18n="menu item|User panel teams@@userPanel_teams">
+		Change Team
+	</context-menu-item-app>
+
+	<!-- Settings -->
+	<context-menu-item-app (click)="goToSettings()" i18n="menu item|User panel teams@@userPanel_settings">
+		Settings
+	</context-menu-item-app>
+
+
+	<context-menu-divider-app></context-menu-divider-app>
+	<!-- Logout -->
+	<context-menu-item-app (click)="logout.emit()" i18n="menu item|User panel logout@@userPanel_logout">
+		Logout
+	</context-menu-item-app>
+</context-menu-app>

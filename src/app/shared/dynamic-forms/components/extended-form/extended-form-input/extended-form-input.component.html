@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="definition.type">
+<ng-container *ngIf="!isFormStyle; else otherStyle" [ngSwitch]="definition.type">
 
 	<!-- text -->
 	<editable-field-app *ngSwitchCase="'text'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
@@ -12,7 +12,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
+			<input #inp [disabled]="disabled" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
 				(keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -30,7 +30,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
+			<input #inp inputApp [disabled]="disabled" type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
 				(keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -49,7 +49,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp restrictInput="tel" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [disabled]="disabled" restrictInput="tel" type="text" [value]="accumulator || ''"
 				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -68,7 +68,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp restrictInput="number" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
 				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -87,7 +87,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp restrictInput="decimal" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="text" [value]="accumulator || ''"
 				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -102,9 +102,7 @@
 		</editable-label-app>
 	</editable-field-app>
 
-
 	<!-- price -->
-
 	<editable-field-app *ngSwitchCase="'price'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select()">
 
@@ -117,11 +115,89 @@
 		</editable-label-app>
 
 		<form-field-app class="editable">
-			<input-price-app #inp inputApp [price]="getPrice()" (keyup.enter)="editable.close()"
-				(change)="accumulatePrice(inp.price);">
+			<input-price-app
+				#inp
+				inputApp
+				[disabled]="disabled"
+				[price]="getPrice()"
+				(keyup.enter)="editable.close()"
+				(change)="accumulatePrice(inp.price)">
 			</input-price-app>
 		</form-field-app>
 
 	</editable-field-app>
 
 </ng-container>
+
+<ng-template #otherStyle>
+	<ng-container [ngSwitch]="definition.type">
+
+		<!-- text -->
+		<form-field-app *ngSwitchCase="'text'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp [disabled]="disabled" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- string -->
+		<form-field-app *ngSwitchCase="'string'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp [disabled]="disabled" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- tel -->
+		<form-field-app *ngSwitchCase="'tel'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp [disabled]="disabled" inputApp restrictInput="tel" type="text" [value]="accumulator || ''" (change)="accumulator = inp.value; onClose();"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- decimal -->
+		<form-field-app *ngSwitchCase="'decimal'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="text" [value]="accumulator || ''"
+				(change)="accumulator = inp.value; onClose();" (keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- number (int) -->
+		<form-field-app *ngSwitchCase="'int'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp [disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
+				(change)="accumulator = inp.value; onClose();" (keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- boolean -->
+		<form-field-app *ngSwitchCase="'boolean'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<selector-placeholder-app
+				[name]="field?.value"
+				[hasArrow]="false"
+				[placeholder]="definition.label"
+				(click)="toggleBoolean(); onClose()">
+			</selector-placeholder-app>
+			<input #inp inputApp [hidden]="true" type="text" />
+		</form-field-app>
+
+		<!-- price -->
+		<form-field-app *ngSwitchCase="'price'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<input-price-app
+				#inp
+				inputApp
+				[disabled]="disabled"
+				[price]="getPrice()"
+				(keyup.enter)="onClose()"
+				(change)="accumulatePrice(inp.price); onClose();">
+			</input-price-app>
+		</form-field-app>
+
+	</ng-container>
+
+</ng-template>

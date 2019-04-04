@@ -9,6 +9,7 @@ export class Contact extends EntityWithAudit<ContactConfig> {
 	businessCardImage?: AppImage;
 	jobTitle?: string;
 	supplier?: Supplier;
+	company?: string;
 	deleted?: boolean;
 	__typename?= 'Contact';
 
@@ -25,4 +26,5 @@ export interface ContactConfig {
 	businessCardImage?: AppImage;
 	jobTitle?: string;
 	supplier?: Supplier;
+	company?: string;
 }

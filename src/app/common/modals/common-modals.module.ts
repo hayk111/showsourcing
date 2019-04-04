@@ -22,17 +22,18 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	SupplierRequestDialogComponent,
 	RequestViewDlgComponent,
+	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 } from './component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
 import { ExportWaitingViewComponent } from './component/export-dlg/export-waiting-view/export-waiting-view.component';
-import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
-import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
+import {
+	ProductRequestListComponent,
+} from './component/supplier-request-dialog/product-request-list/product-request-list.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
-import { ProductRequestListComponent } from './component/supplier-request-dialog/product-request-list/product-request-list.component';
+import { RequestReplyDlgComponent } from './component/request-reply-dlg/request-reply-dlg.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -42,7 +43,6 @@ const modals = [
 	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
-	EmailListComponent,
 	ExportDlgComponent,
 	FindProductsDialogComponent,
 	InviteUserDlgComponent,
@@ -51,9 +51,9 @@ const modals = [
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RequestViewDlgComponent,
-	RfqDialogComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	RequestReplyDlgComponent
 ];
 
 @NgModule({
@@ -63,7 +63,7 @@ const modals = [
 		ProductCommonModule,
 		TableModule,
 		InputsModule,
-		UtilsModule
+		UtilsModule,
 	],
 	declarations: [
 		...modals,
@@ -71,7 +71,7 @@ const modals = [
 		ExportSelectionViewComponent,
 		ExportWaitingViewComponent,
 		ProductRequestListComponent,
-		RequestViewDlgComponent
+		RequestViewDlgComponent,
 	],
 	entryComponents: modals,
 	providers: [

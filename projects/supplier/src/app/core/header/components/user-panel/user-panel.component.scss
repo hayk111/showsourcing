@@ -1,0 +1,31 @@
+:host {
+	display: block;
+}
+
+user-picture-app {
+	margin-right: var(--spacing-m);
+}
+
+context-menu-app {
+	height: 50px;
+	display: flex;
+	align-items: center;
+	padding-left: var(--spacing-ms);
+	width: 212px;
+}
+
+context-menu-item-app {
+	width: 217px;
+}
+
+.name {
+	font-weight: 600;
+	opacity: 0.8;
+	color: white;
+}
+
+.team {
+	font-size: var(--font-size-s);
+	color: white;
+	opacity: 0.7;
+}

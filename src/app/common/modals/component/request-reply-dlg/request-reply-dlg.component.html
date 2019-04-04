@@ -1,0 +1,102 @@
+
+<dialog-app class="vertical-scroll-content">
+	<!-- header -->
+  <dialog-header-app class="flexBetween">
+		<div class="flex">
+			<div class="flex move">
+				<icon-app name="arrow-left-thin" (click)="back()"></icon-app>
+				<span class="spacer"></span>
+				<icon-app name="arrow-right-thin" (click)="next()"></icon-app>
+			</div>
+
+			<div class="title">
+				<h2>{{ element.name }}</h2>
+				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} Products</span>
+			</div>
+		</div>
+		<request-status-badge-app
+			[status]="element?.reply?.status"
+			[isTeam]="false"
+			[creationDate]="(request$ | async)?.creationDate">
+		</request-status-badge-app>
+	</dialog-header-app>
+
+	<!-- content -->
+  <div class="flex">
+
+    <!-- left -->
+    <div class="left">
+      <h3 class="ms">Product images</h3>
+      <carousel-app [hasPreview]="true" [static]="true" [images]="element.images"></carousel-app>
+      <span class="spacer mg-ms"></span>
+      <h3 class="ms">Product attachments</h3>
+      <file-list-app [hasPlaceholder]="false" [static]="true" [files]="element.attachments"></file-list-app>
+    </div>
+
+    <!-- right -->
+    <div class="right">
+
+			<div class="info-banner flexCenter">
+				Please fill in the form below to reply to client
+			</div>
+
+      <!-- details -->
+      <h3 class="ms">Product details</h3>
+
+      <extended-form-app
+        [disabled]="reply.status === defaultStatus"
+        [definitions]="definitions"
+				[isFormStyle]="true"
+        [colAmount]="2"
+				[fields]="fields"
+				(update)="save()">
+      </extended-form-app>
+
+      <!-- images -->
+      <h3 class="ms">Images</h3>
+      <image-previewer-2-app
+        [isDeletable]="true"
+        [size]="120"
+        [images]="images"
+        (delete)="deleteImg($event)"
+        (imageClick)="modal.open($event)">
+      </image-previewer-2-app>
+			<modal-carousel-app
+        #modal
+        [images]="images">
+      </modal-carousel-app>
+      <div class="spacer mg-s" *ngIf="images.length > 0"></div>
+      <button class="secondary add-image" (click)="inpImg.click()">Add Image</button>
+			<input #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
+
+      <!-- attachments -->
+      <h3 class="ms">Attachments</h3>
+      <file-list-app
+        [showConfirmOnDelete]="false"
+        [hasPlaceholder]="false"
+        [files]="files"
+        [linkedItem]="reply"></file-list-app>
+      <div class="spacer mg-s" *ngIf="files.length > 0"></div>
+      <button class="secondary add-attachment" (click)="inpFile.click()">Add Attachments</button>
+      <input #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
+
+
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <dialog-footer-app>
+		<button class="secondary save" (click)="saveAndClose()">Save</button>
+
+		<div toolTip [toolTipMessage]="reply.status === defaultStatus ? 'Your request has been already submitted' : null" toolTipPosition="above-right">
+			<button *ngIf="reply.status === defaultStatus; else notSubmitted" [disabled]="true">Submitted</button>
+		</div>
+		<ng-template #notSubmitted>
+			<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
+				<button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
+			</div>
+		</ng-template>
+  </dialog-footer-app>
+
+</dialog-app>

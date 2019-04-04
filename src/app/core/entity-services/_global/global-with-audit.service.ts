@@ -38,7 +38,6 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	 */
 	create(entity: any, client?: Client) {
 		const userId = { id: this.userSrv.userSync.id, __typename: 'User' };
-		const user = { ...this.userSrv.userSync };
 		entity.createdBy = userId;
 		entity.creationDate = '' + new Date();
 		entity.lastUpdatedBy = userId;

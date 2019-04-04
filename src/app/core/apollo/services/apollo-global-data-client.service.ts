@@ -35,6 +35,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 		this.checkNotAlreadyInit();
 		const userId = realmUser.identity;
 		const path = `/${this.client}/__partial/${userId}/${this.suffix}`;
+		this.setPending('initialization');
 
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
@@ -49,14 +50,14 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 	}
 
 	createMissingSubscription(): Observable<any> {
-		const toSubSet = new Set([
+		const toSub = [
 			ERM.COUNTRY,
 			ERM.CURRENCY,
 			ERM.HARBOUR,
-			ERM.INCOTERM
-		]);
+			ERM.INCOTERM,
+		];
 
-		const newSubs = Array.from(toSubSet)
+		const newSubs = toSub
 			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.GLOBAL_DATA));
 		return forkJoin(newSubs);
 	}

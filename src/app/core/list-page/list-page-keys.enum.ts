@@ -27,6 +27,7 @@ export enum ListPageKey {
 	SHOW, // done
 	SUPPLIER, // done
 	SUPPLIER_PRODUCT, // done Michael
+	SUPPLIER_REQUEST,
 	SUPPLIER_SAMPLE, // done Michael
 	SUPPLIER_STATUS,
 	SUPPLIER_TASK, // done Michael
