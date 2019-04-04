@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RequestReplyService } from '~core/entity-services';
+import { tap } from 'rxjs/operators';
+import { RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import {
 	AppImage,
 	DEFAULT_REPLIED_STATUS,
@@ -12,6 +14,7 @@ import {
 } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -20,11 +23,13 @@ import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [UploaderFeedbackService]
 })
-export class RequestReplyDlgComponent implements OnInit {
+export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
-	@Input() elements: RequestElement[] = [];
 	@Input() selectedIndex = 0;
-	@Input() request$: Observable<SupplierRequest>;
+	@Input() requestId: string;
+	request$: Observable<SupplierRequest>;
+	request: SupplierRequest;
+	elements: RequestElement[] = [];
 	element: RequestElement;
 	reply: RequestReply;
 	fields: ExtendedField[];
@@ -33,12 +38,18 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	constructor(
 		private replySrv: RequestReplyService,
+		private requestSrv: SupplierRequestService,
 		private dlgSrv: DialogService,
-		private uploaderFeedback: UploaderFeedbackService
-	) { }
+		private uploaderFeedback: UploaderFeedbackService,
+	) {
+		super();
+	}
 
 	ngOnInit() {
-		this.setElement();
+		this.request$ = this.requestSrv.selectOne(this.requestId);
+		this.request$.pipe(
+			tap(request => this.request = request),
+		).subscribe(_ => this.setElement());
 	}
 
 
@@ -61,6 +72,7 @@ export class RequestReplyDlgComponent implements OnInit {
 	}
 
 	private setElement() {
+		this.elements = this.request.requestElements;
 		this.element = this.elements[this.selectedIndex];
 
 		if (!this.element) {
@@ -71,7 +83,7 @@ export class RequestReplyDlgComponent implements OnInit {
 		this.fields = this.reply.fields;
 		this.definitions = this.reply.fields.map(field => field.definition);
 		this.uploaderFeedback.init({ linkedEntity: this.reply });
-		this.uploaderFeedback.setImages(this.reply.images);
+		this.uploaderFeedback.setImages(this.reply.images.filter(img => !img.deleted));
 		this.uploaderFeedback.setFiles(this.reply.attachments);
 	}
 
@@ -80,8 +92,6 @@ export class RequestReplyDlgComponent implements OnInit {
 			({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe();
-		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
-		this.reply = ({ ...this.reply, ...reply });
 	}
 
 	saveAndClose() {
@@ -91,10 +101,6 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	saveAndNext() {
 		this.save(true);
-		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
-		let tempElem = this.elements[this.selectedIndex];
-		tempElem = ({ ...tempElem, reply: this.reply });
-		this.elements[this.selectedIndex] = tempElem;
 		this.selectedIndex = this.getNextUnrepliedIndex();
 		this.setElement();
 	}

@@ -1,4 +1,4 @@
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { UserService } from '~entity-services';
@@ -23,6 +23,7 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	) {
 		super(apolloState, fields, sing, plural, analyticsSrv);
 	}
+
 
 	/** @inheritDoc
 	 * Updates on entity with an audit will add properties needed by the backend
