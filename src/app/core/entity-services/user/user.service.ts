@@ -19,6 +19,7 @@ export class UserService extends GlobalService<User> {
 		shareReplay(1)
 	);
 	userSync: User;
+	userId: string;
 	defaultClient = Client.USER;
 
 	constructor(
@@ -27,11 +28,8 @@ export class UserService extends GlobalService<User> {
 	) {
 		super(apolloState, UserQueries, 'user', 'users');
 		this.user$.subscribe(user => this.userSync = user);
+		this.authSrv.userId$.subscribe(id => this.userId = id);
 	}
-
-	// getUserId() {
-	// 	this.
-	// }
 
 	selectUser() {
 		return this.user$;

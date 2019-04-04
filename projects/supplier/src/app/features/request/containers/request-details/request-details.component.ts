@@ -17,8 +17,9 @@ import { AutoUnsub } from '~utils';
 })
 export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
-	request$: Observable<SupplierRequest>;
 	private requestElements: RequestElement[];
+	request$: Observable<SupplierRequest>;
+	requestId: string;
 	erm = ERM;
 
 	constructor(
@@ -34,6 +35,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const id$ = this.route.params.pipe(
 			map(params => params.id),
+			tap(id => this.requestId = id),
 			takeUntil(this._destroy$)
 		);
 
@@ -84,8 +86,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	open(element: RequestElement) {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === element.id);
-		const elements = this.requestElements;
-		this.dlgSrv.open(RequestReplyDlgComponent, { elements, selectedIndex, request$: this.request$ })
+		this.dlgSrv.open(RequestReplyDlgComponent, { selectedIndex, requestId: this.requestId })
 			.subscribe();
 	}
 

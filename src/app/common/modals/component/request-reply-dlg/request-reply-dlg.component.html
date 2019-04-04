@@ -1,5 +1,5 @@
 
-<dialog-app class="vertical-scroll-content">
+<dialog-app *ngIf="(request$ | async)" class="vertical-scroll-content">
 	<!-- header -->
   <dialog-header-app class="flexBetween">
 		<div class="flex">
@@ -17,7 +17,7 @@
 		<request-status-badge-app
 			[status]="element?.reply?.status"
 			[isTeam]="false"
-			[creationDate]="(request$ | async)?.creationDate">
+			[creationDate]="request.creationDate">
 		</request-status-badge-app>
 	</dialog-header-app>
 
