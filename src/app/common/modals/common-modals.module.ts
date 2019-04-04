@@ -28,8 +28,6 @@ import {
 } from './component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
 import { ExportWaitingViewComponent } from './component/export-dlg/export-waiting-view/export-waiting-view.component';
-import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
-import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import {
 	ProductRequestListComponent,
 } from './component/supplier-request-dialog/product-request-list/product-request-list.component';
@@ -45,7 +43,6 @@ const modals = [
 	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
-	EmailListComponent,
 	ExportDlgComponent,
 	FindProductsDialogComponent,
 	InviteUserDlgComponent,
@@ -54,7 +51,6 @@ const modals = [
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RequestViewDlgComponent,
-	RfqDialogComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 	RequestReplyDlgComponent
