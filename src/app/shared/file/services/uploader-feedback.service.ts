@@ -4,6 +4,8 @@ import { PendingImage } from '~utils/pending-image.class';
 import { UploaderService } from './uploader.service';
 import { first } from 'rxjs/operators';
 import { PendingFile } from '~utils/pending-file.class';
+import { ImageService } from '~core/entity-services/image/image.service';
+import { AttachmentService } from '~core/entity-services';
 
 
 
@@ -30,7 +32,12 @@ export class UploaderFeedbackService {
 	private _pendingFiles: PendingFile[] = [];
 	private _pendingImages: PendingImage[] = [];
 
-	constructor(private cd: ChangeDetectorRef, private uploaderSrv: UploaderService) { }
+	constructor(
+		private cd: ChangeDetectorRef,
+		private uploaderSrv: UploaderService,
+		private imgSrv: ImageService,
+		private attachmentSrv: AttachmentService
+	) { }
 
 
 	init(config: UploaderFeedbackConfig) {
@@ -83,6 +90,10 @@ export class UploaderFeedbackService {
 		this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
 	}
 
+	deleteImg(img: AppImage) {
+		this.imgSrv.delete(img.id).subscribe();
+	}
+
 	addFiles(files: Array<File>) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
 		const uuids = this._pendingFiles.map(f => f.id);
@@ -95,6 +106,10 @@ export class UploaderFeedbackService {
 
 	private onSuccessFile(uuids) {
 		this._pendingFiles = this._pendingFiles.filter(p => !uuids.includes(p.id));
+	}
+
+	deleteFile(file: Attachment) {
+		this.attachmentSrv.delete(file.id).subscribe();
 	}
 
 }

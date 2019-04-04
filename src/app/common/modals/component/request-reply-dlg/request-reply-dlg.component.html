@@ -48,7 +48,13 @@
 
       <!-- images -->
       <h3 class="ms">Images</h3>
-			<image-previewer-2-app [isDeletable]="true" [size]="120" [images]="images" (imageClick)="modal.open($event)"></image-previewer-2-app>
+      <image-previewer-2-app 
+        [isDeletable]="true" 
+        [size]="120" 
+        [images]="images" 
+        (delete)="deleteImg($event)"
+        (imageClick)="modal.open($event)">
+      </image-previewer-2-app>
 			<modal-carousel-app
         #modal
         [images]="images">
