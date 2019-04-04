@@ -17,8 +17,8 @@
             <div class="ellipsis">{{ file.fileName }}</div>
             <div class="file-size">{{ file.size | fileSize }}</div>
           </div>
-          <div class="flexCenter">
-            <icon-app *ngIf="!static" fontSet="fa" (click)="onFileRemoved(file, $event)" name="minus" class="pointer minus fs-xl color-primary-light"></icon-app>
+          <div *ngIf="!static" class="flexCenter">
+            <icon-app fontSet="fa" (click)="onFileRemoved(file, $event)" name="minus" class="pointer minus fs-xl color-primary-light"></icon-app>
           </div>
         </div>
       </list-item-app>

@@ -9,7 +9,6 @@ import {
 	ProductAddToProjectDlgComponent,
 	ExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	RfqDialogComponent,
 	VoteDetailsDialogComponent,
 	SupplierRequestDialogComponent,
 	NewContactDlgComponent,
@@ -77,10 +76,6 @@ export class CommonModalService {
 
 	openConfirmDialog(data: { text: string }) {
 		return this.dlgSrv.open(ConfirmDialogComponent, data);
-	}
-
-	openRequestQuotationDialog(product: Product) {
-		return this.dlgSrv.open(RfqDialogComponent, { product });
 	}
 
 	openSupplierRequest(products: Product[]) {
