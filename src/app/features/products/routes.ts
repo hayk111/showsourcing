@@ -3,7 +3,6 @@ import { Route } from '@angular/router';
 import { ProductActivityComponent } from './components';
 import {
 	ProductDetailsComponent,
-	ProductQuotationComponent,
 	ProductSamplesComponent,
 	ProductShippingComponent,
 	ProductsPageComponent,
@@ -25,7 +24,6 @@ export const routes: Array<Route> = [
 			{ path: 'shipping', component: ProductShippingComponent },
 			{ path: 'activity', component: ProductActivityComponent },
 			{ path: 'samples', component: ProductSamplesComponent },
-			{ path: 'quotation', component: ProductQuotationComponent },
 			{ path: 'tasks', component: ProductTasksComponent }
 		],
 	},

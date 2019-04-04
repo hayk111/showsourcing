@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgModuleRef, OnI
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
-import { CompareQuotationComponent, RfqDialogComponent } from '~common/modals';
+import { CompareQuotationComponent } from '~common/modals';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
 import { Product, Quote } from '~models';
 import { DialogService } from '~shared/dialog/services';
