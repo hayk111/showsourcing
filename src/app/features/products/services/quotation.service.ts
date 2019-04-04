@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-	QuoteService,
-	SupplierService,
-	UserService,
-	QuoteQueries
-} from '~entity-services';
-import { SupplierQueries } from '~entity-services/supplier/supplier.queries';
-import { ApolloStateService } from '~core/apollo';
-import { Product, Quote } from '~models';
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
+import { ApolloStateService } from '~core/apollo';
+import { QuoteService, UserService } from '~entity-services';
+import { Quote } from '~models';
 
 @Injectable()
 export class QuoteFeatureService extends QuoteService {
