@@ -38,6 +38,7 @@ export class AuthenticationService {
 	);
 	userId$ = this._authState$.asObservable().pipe(
 		map(state => state.userId),
+		filter(id => !!id),
 		shareReplay(1)
 	);
 	urlToRedirectOnAuth: string;
