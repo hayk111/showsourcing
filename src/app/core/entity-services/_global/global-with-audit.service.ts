@@ -50,7 +50,7 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	 * a deleted flag set to true
 	 */
 	delete(id: string, client?: Client) {
-		return this.update({ id, deleted: true }, client);
+		return this.update({ id, deleted: true, deletedBy: { id: this.userSrv.userId, __typename: 'User' } }, client);
 	}
 
 	/** @inheritDoc
