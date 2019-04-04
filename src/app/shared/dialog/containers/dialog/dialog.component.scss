@@ -9,6 +9,10 @@
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+
+	&.vertical-scroll-content .content{
+		overflow-y: auto;
+	}
 }
 
 .header {
@@ -31,6 +35,7 @@
 	align-items: flex-start;
 	justify-content: space-between;
 	margin-top: var(--spacing-xs);
+	width: 100%;
 }
 
 .content {

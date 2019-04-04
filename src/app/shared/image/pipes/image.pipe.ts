@@ -1,7 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {
-	DEFAULT_IMG, ImageUrls, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON,
-	DEFAULT_PROJECT_ICON, DEFAULT_CATEGORY_ICON, DEFAULT_PRODUCT_ICON, DEFAULT_SAMPLE_ICON
+	DEFAULT_CATEGORY_ICON,
+	DEFAULT_EVENT_ICON,
+	DEFAULT_IMG,
+	DEFAULT_PRODUCT_ICON,
+	DEFAULT_PRODUCT_LIST_ICON,
+	DEFAULT_PROJECT_ICON,
+	DEFAULT_REQUEST_ICON,
+	DEFAULT_SAMPLE_ICON,
+	DEFAULT_SUPPLIER_ICON,
+	DEFAULT_USER_ICON,
+	ImageUrls,
 } from '~utils';
 
 /**
@@ -82,20 +91,24 @@ export class ImagePipe implements PipeTransform {
 	getDefault(type: string) {
 		// TODO use entity metadata
 		switch (type) {
+			case 'category':
+				return DEFAULT_CATEGORY_ICON;
+			case 'event':
+				return DEFAULT_EVENT_ICON;
+			case 'product':
+				return DEFAULT_PRODUCT_ICON;
+			case 'productList':
+				return DEFAULT_PRODUCT_LIST_ICON;
+			case 'project':
+				return DEFAULT_PROJECT_ICON;
+			case 'request':
+				return DEFAULT_REQUEST_ICON;
+			case 'sample':
+				return DEFAULT_SAMPLE_ICON;
 			case 'supplier':
 				return DEFAULT_SUPPLIER_ICON;
 			case 'user':
 				return DEFAULT_USER_ICON;
-			case 'event':
-				return DEFAULT_EVENT_ICON;
-			case 'project':
-				return DEFAULT_PROJECT_ICON;
-			case 'category':
-				return DEFAULT_CATEGORY_ICON;
-			case 'product':
-				return DEFAULT_PRODUCT_ICON;
-			case 'sample':
-				return DEFAULT_SAMPLE_ICON;
 			default:
 				return DEFAULT_IMG;
 		}

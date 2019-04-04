@@ -1,5 +1,6 @@
 
 dialog-app {
+	height: 80vh;
 	extended-form-app {
 		margin-bottom: var(--spacing-ms);
 	}
@@ -14,6 +15,9 @@ dialog-header-app {
 	}
 	.title {
 		margin-left: var(--spacing-ms);
+	}
+	request-status-badge-app {
+		margin-right: var(--spacing-l);
 	}
 }
 

@@ -1,19 +1,25 @@
 
-<dialog-app>
-  <!-- header -->
-  <dialog-header-app class="flex">
-    <div class="flex move">
-      <icon-app name="arrow-left-thin" (click)="back()"></icon-app>
-      <span class="spacer"></span>
-      <icon-app name="arrow-right-thin" (click)="next()"></icon-app>
-    </div>
+<dialog-app class="vertical-scroll-content">
+	<!-- header -->
+  <dialog-header-app class="flexBetween">
+		<div class="flex">
+			<div class="flex move">
+				<icon-app name="arrow-left-thin" (click)="back()"></icon-app>
+				<span class="spacer"></span>
+				<icon-app name="arrow-right-thin" (click)="next()"></icon-app>
+			</div>
 
-    <div class="title">
-      <h2>{{ element.name }}</h2>
-      <span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} Products</span>
-    </div>
-
-  </dialog-header-app>
+			<div class="title">
+				<h2>{{ element.name }}</h2>
+				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} Products</span>
+			</div>
+		</div>
+		<request-status-badge-app
+			[status]="element?.reply?.status"
+			[isTeam]="false"
+			[creationDate]="(request$ | async)?.creationDate">
+		</request-status-badge-app>
+	</dialog-header-app>
 
   <!-- content -->
   <div class="flex">
@@ -38,20 +44,20 @@
       <h3 class="ms">Product details</h3>
 
       <extended-form-app
-        (update)="update($event)"
-        [disabled]="true"
+        [disabled]="reply.status === defaultStatus"
         [definitions]="definitions"
-        [isFormStyle]="true"
+				[isFormStyle]="true"
         [colAmount]="2"
-        [fields]="fields">
+				[fields]="fields"
+				(update)="save()">
       </extended-form-app>
 
       <!-- images -->
       <h3 class="ms">Images</h3>
-      <image-previewer-2-app 
-        [isDeletable]="true" 
-        [size]="120" 
-        [images]="images" 
+      <image-previewer-2-app
+        [isDeletable]="true"
+        [size]="120"
+        [images]="images"
         (delete)="deleteImg($event)"
         (imageClick)="modal.open($event)">
       </image-previewer-2-app>
@@ -65,10 +71,10 @@
 
       <!-- attachments -->
       <h3 class="ms">Attachments</h3>
-      <file-list-app 
+      <file-list-app
         [showConfirmOnDelete]="false"
-        [hasPlaceholder]="false" 
-        [files]="files" 
+        [hasPlaceholder]="false"
+        [files]="files"
         [linkedItem]="reply"></file-list-app>
       <div class="spacer mg-s" *ngIf="files.length > 0"></div>
       <button class="secondary add-attachment" (click)="inpFile.click()">Add Attachments</button>
@@ -81,10 +87,16 @@
 
   <!-- footer -->
   <dialog-footer-app>
-	<button class="secondary save" [disabled]="hasEmptyField()" (click)="saveAndClose()">Save</button>
-	<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
-		<button *ngIf="hasNext()" [disabled]="hasEmptyField()" (click)="saveAndNext()">Submit & next</button>
-	</div>
+		<button class="secondary save" (click)="saveAndClose()">Save</button>
+
+		<div toolTip [toolTipMessage]="reply.status === defaultStatus ? 'Your request has been already submitted' : null" toolTipPosition="above-right">
+			<button *ngIf="reply.status === defaultStatus; else notSubmitted" [disabled]="true">Submitted</button>
+		</div>
+		<ng-template #notSubmitted>
+			<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
+				<button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
+			</div>
+		</ng-template>
   </dialog-footer-app>
 
 </dialog-app>

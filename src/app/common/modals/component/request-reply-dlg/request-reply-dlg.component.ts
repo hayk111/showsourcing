@@ -1,6 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { RequestReplyService } from '~core/entity-services';
-import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply, AppImage } from '~core/models';
+import {
+	AppImage,
+	DEFAULT_REPLIED_STATUS,
+	ExtendedField,
+	ExtendedFieldDefinition,
+	RequestElement,
+	RequestReply,
+	SupplierRequest,
+} from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
@@ -15,11 +24,12 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	@Input() elements: RequestElement[] = [];
 	@Input() selectedIndex = 0;
+	@Input() request$: Observable<SupplierRequest>;
 	element: RequestElement;
 	reply: RequestReply;
 	fields: ExtendedField[];
 	definitions: ExtendedFieldDefinition[];
-	private doneStatus = 'done';
+	defaultStatus = DEFAULT_REPLIED_STATUS;
 
 	constructor(
 		private replySrv: RequestReplyService,
@@ -67,11 +77,11 @@ export class RequestReplyDlgComponent implements OnInit {
 
 	save(updateStatus = false) {
 		const reply = updateStatus ?
-			({ id: this.reply.id, fields: this.fields, status: this.doneStatus, __typename: 'RequestReply' }) :
+			({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe();
 		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
-		this.reply = ({ ...this.reply, status: this.doneStatus });
+		this.reply = ({ ...this.reply, ...reply });
 	}
 
 	saveAndClose() {
@@ -90,16 +100,11 @@ export class RequestReplyDlgComponent implements OnInit {
 	}
 
 	private getNextUnrepliedIndex() {
-		return this.elements.findIndex(elem => elem.reply.status !== this.doneStatus);
+		return this.elements.findIndex(elem => elem.reply.status !== this.defaultStatus);
 	}
 
 	hasNext() {
-		return this.elements.some(elem => elem.reply.status !== this.doneStatus);
-	}
-
-	update(fields: ExtendedField[]) {
-		const reply = { id: this.reply.id, fields, message: 'reply', __typename: 'RequestReply' };
-		// this.update$ = this.replySrv.update(reply);
+		return this.elements.some(elem => elem.reply.status !== this.defaultStatus && elem.reply.id !== this.reply.id);
 	}
 
 	addImage(files: File[]) {
