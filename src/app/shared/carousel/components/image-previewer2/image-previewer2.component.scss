@@ -21,7 +21,9 @@
 .ctnr {
 	position: relative;
 }
-
+.delete {
+	background: var(--color-warn-light);
+}
 .last-item {
 	margin-right: 0px !important;
 }

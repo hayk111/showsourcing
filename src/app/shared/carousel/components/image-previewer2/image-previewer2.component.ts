@@ -16,8 +16,11 @@ export class ImagePreviewer2Component extends TrackingComponent {
 	@Input() images: Array<AppImage> = [];
 	/** size in px of the images */
 	@Input() size = 72;
+	/** whether previews can be deleted */
+	@Input() isDeletable = false;
 	/** returns the index of the images clicked */
 	@Output() imageClick = new EventEmitter<number>();
+
 
 	constructor() {
 		super();

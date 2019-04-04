@@ -3,6 +3,9 @@
 	[ngStyle]="getStyle()"
 	*ngFor="let img of getPreviews(); let i = index; trackBy: trackByFn"
 	(click)="imageClick.emit(i)">
+	<div class="delete" *ngIf="isDeletable">
+		
+	</div>
 	<img-app
 		[ngClass]="{ 'pending': img.pending }"
 		[image]="img"
