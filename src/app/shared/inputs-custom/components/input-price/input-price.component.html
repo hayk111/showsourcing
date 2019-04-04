@@ -2,7 +2,7 @@
 <div class="flex flexVAlign">
 	<selector-app
 		type="currency"
-		[disabled]="disabled"
+		[disabled]="disabledInp"
 		[multiple]="false"
 		[value]="currency"
 		[width]="200"
@@ -18,7 +18,7 @@
 		inputApp
 		type="text"
 		restrictInput="decimal"
-		[disabled]="disabled"
+		[disabled]="disabledInp"
 		[(ngModel)]="amount"
 		(input)="onChange()"
 		(blur)="onBlur()"/>

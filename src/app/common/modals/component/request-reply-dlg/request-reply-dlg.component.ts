@@ -71,7 +71,7 @@ export class RequestReplyDlgComponent implements OnInit {
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe();
 		// we have to update it locally, since this is a modal and we don't get the updated object form the input when an update is performed
-		this.reply = ({ ...this.reply, status: this.defaultStatus });
+		this.reply = ({ ...this.reply, ...reply });
 	}
 
 	saveAndClose() {
@@ -94,7 +94,7 @@ export class RequestReplyDlgComponent implements OnInit {
 	}
 
 	hasNext() {
-		return this.elements.some(elem => elem.reply.status !== this.defaultStatus);
+		return this.elements.some(elem => elem.reply.status !== this.defaultStatus && elem.reply.id !== this.reply.id);
 	}
 
 	addImage(files: File[]) {

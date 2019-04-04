@@ -118,7 +118,7 @@
 			<input-price-app
 				#inp
 				inputApp
-				[disabled]="disabled"
+				[disabledInp]="disabled"
 				[price]="getPrice()"
 				(keyup.enter)="editable.close()"
 				(change)="accumulatePrice(inp.price)">
@@ -182,7 +182,7 @@
 				[placeholder]="definition.label"
 				(click)="toggleBoolean(); onClose()">
 			</selector-placeholder-app>
-			<input #inp inputApp [disabled]="disabled" [hidden]="true" type="text" />
+			<input #inp inputApp [hidden]="true" type="text" />
 		</form-field-app>
 
 		<!-- price -->
@@ -191,7 +191,7 @@
 			<input-price-app
 				#inp
 				inputApp
-				[disabled]="disabled"
+				[disabledInp]="disabled"
 				[price]="getPrice()"
 				(keyup.enter)="onClose()"
 				(change)="accumulatePrice(inp.price); onClose();">

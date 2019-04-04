@@ -18,7 +18,7 @@ import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inp
 	providers: [makeAccessorProvider(InputPriceComponent)]
 })
 export class InputPriceComponent extends AbstractInput {
-	@Input() disabled = false;
+	@Input() disabledInp = false;
 	@Output() change = new EventEmitter();
 	@Output() blur = new EventEmitter();
 	@ViewChild(InputDirective) inp: InputDirective;

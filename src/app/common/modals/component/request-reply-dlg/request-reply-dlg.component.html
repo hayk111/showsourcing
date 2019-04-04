@@ -36,7 +36,7 @@
 				Please fill in the form below to reply to client
 			</div>
 
-      <h3 class="ms">Product details</h3>
+			<h3 class="ms">Product details</h3>
       <extended-form-app
         [disabled]="reply.status === defaultStatus"
         [definitions]="definitions"
@@ -71,10 +71,16 @@
   </div>
 
   <dialog-footer-app>
-	<button class="secondary save" (click)="saveAndClose()">Save</button>
-	<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
-		<button *ngIf="hasNext()" [disabled]="hasEmptyField()" (click)="saveAndNext()">Submit & next</button>
-	</div>
+		<button class="secondary save" (click)="saveAndClose()">Save</button>
+
+		<div toolTip [toolTipMessage]="reply.status === defaultStatus ? 'Your request has been already submitted' : null" toolTipPosition="above-right">
+			<button *ngIf="reply.status === defaultStatus; else notSubmitted" [disabled]="true">Submitted</button>
+		</div>
+		<ng-template #notSubmitted>
+			<div toolTip [toolTipMessage]="hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
+				<button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
+			</div>
+		</ng-template>
   </dialog-footer-app>
 
 </dialog-app>

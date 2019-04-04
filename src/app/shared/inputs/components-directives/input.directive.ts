@@ -82,19 +82,19 @@ export class InputDirective extends FormFieldControlDirective {
 	}
 	protected _type = 'text';
 
-	/** Whether the element is disabled. */
-	@Input()
-	get disabled(): boolean {
-		if (this.control && this.control.disabled !== null) {
-			return this.control.disabled;
-		}
-		return this._disabled;
-	}
-	set disabled(value: boolean) {
-		this._disabled = value;
-		this.stateChanges.next();
-	}
-	protected _disabled = false;
+	// /** Whether the element is disabled. */
+	// @Input()
+	// get disabled(): boolean {
+	// 	if (this.control && this.control.disabled !== null) {
+	// 		return this.control.disabled;
+	// 	}
+	// 	return this._disabled;
+	// }
+	// set disabled(value: boolean) {
+	// 	this._disabled = value;
+	// 	this.stateChanges.next();
+	// }
+	// protected _disabled = false;
 
 	/** Whether the input is on focus */
 	set focussed(value: boolean) {
