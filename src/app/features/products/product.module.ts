@@ -16,7 +16,6 @@ import {
 	ProductActivityComponent,
 	ProductIconsComponent,
 	ProductInformationComponent,
-	ProductListComponent,
 	ProductSubInfoComponent,
 	ProductSummaryComponent,
 	ProductTeamRatingComponent,
@@ -27,7 +26,6 @@ import {
 } from './components';
 import {
 	ProductDetailsComponent,
-	ProductQuotationComponent,
 	ProductSamplesComponent,
 	ProductShippingComponent,
 	ProductsPageComponent,
@@ -56,8 +54,6 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProductDetailsComponent,
 		ProductIconsComponent,
 		ProductInformationComponent,
-		ProductListComponent,
-		ProductQuotationComponent,
 		ProductSamplesComponent,
 		ProductShippingComponent,
 		ProductSubInfoComponent,

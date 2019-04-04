@@ -7,7 +7,7 @@
 	[trigger]="trigger"
 	[isOpen]="isOpen"
 	(clickOutside)="close()">
-	<div class="modal" (mousedown)="close($event)">
+	<div class="modal" (mousedown)="close()">
 		<div class="img-ctnr" [ngStyle]="{'transform': getRotation(getImg())}">
 			<img-app [image]="getImg()" [size]="'xl'" class="loading" objectFit="contain"></img-app>
 		</div>
@@ -23,7 +23,7 @@
 			(mousedown)="next($event)">
 			<icon-app fontSet="fa" name="angle-right"></icon-app>
 		</div>
-		<span class="close-btn pointer" (mousedown)="close($event)">close</span>
+		<span class="close-btn pointer" (mousedown)="close()">close</span>
 		<span class="title">{{ selectedIndex + 1}} / {{ images?.length }}</span>
 	</div>
 </cdk-overlay-app>
