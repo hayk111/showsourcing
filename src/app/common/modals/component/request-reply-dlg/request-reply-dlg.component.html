@@ -43,7 +43,7 @@
       </extended-form-app>
 
       <h3 class="ms">Images</h3>
-			<image-previewer-2-app [images]="images" (imageClick)="modal.open($event)"></image-previewer-2-app>
+			<image-previewer-2-app [size]="120" [images]="images" (imageClick)="modal.open($event)"></image-previewer-2-app>
 			<modal-carousel-app
         #modal
         [images]="images">

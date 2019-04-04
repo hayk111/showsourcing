@@ -67,10 +67,7 @@ export class UploaderFeedbackService {
 		this.cd.markForCheck();
 		this.uploaderSrv.uploadImages(files, this.linkedEntity, this.imageProperty, this.isImagePropertyArray).pipe(
 			first()
-		).subscribe(imgs => {
-			// removing pending image
-			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
-		}, e => this._pendingImages = []);
+		).subscribe(imgs => this.onSuccessImg(uuids), e => this._pendingImages = []);
 	}
 
 	/** adds pending image to the list */
@@ -82,14 +79,22 @@ export class UploaderFeedbackService {
 		return pendingImgs.map(p => p.id);
 	}
 
+	private onSuccessImg(uuids) {
+		this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
+	}
+
 	addFiles(files: Array<File>) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
 		const uuids = this._pendingFiles.map(f => f.id);
 		this.uploaderSrv.uploadFiles(files, this.linkedEntity)
 			.subscribe(
-				addedFiles => this._pendingFiles = this._pendingFiles.filter(p => !uuids.includes(p.id)),
+				addedFiles => this.onSuccessFile(uuids),
 				e => this._pendingFiles = []
 			);
+	}
+
+	private onSuccessFile(uuids) {
+		this._pendingFiles = this._pendingFiles.filter(p => !uuids.includes(p.id));
 	}
 
 }

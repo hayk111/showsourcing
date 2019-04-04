@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ElementRe
 import { Attachment } from '~core/models';
 import { AttachmentService } from '~core/entity-services';
 import { DialogService } from '~shared/dialog';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { takeUntil, switchMap } from 'rxjs/operators';

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { RequestReplyService } from '~core/entity-services';
 import { ExtendedField, ExtendedFieldDefinition, RequestElement, RequestReply } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-view.service';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
 @Component({
 	selector: 'request-reply-dlg-app',
