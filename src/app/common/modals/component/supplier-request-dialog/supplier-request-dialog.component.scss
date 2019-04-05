@@ -7,6 +7,15 @@ dialog-app {
 	dialog-header-app {
 		font-size: var(--font-size-l);
 	}
+	.left {
+		width: 50%;
+		padding-right: var(--spacing-l);
+	}
+
+	.right {
+		width: 50%;
+		padding-left: var(--spacing-l);
+	}
 
 	.request-container {
 
@@ -22,14 +31,7 @@ dialog-app {
 		}
 
 		.left {
-			padding-right: var(--spacing-l);
-			width: 50%;
 			border-right: 1px solid var(--color-divider);
-		}
-
-		.right {
-			padding-left: var(--spacing-l);
-			width: 50%;
 		}
 
 		selector-placeholder-app {
@@ -44,7 +46,10 @@ dialog-app {
 	}
 
 	dialog-footer-app {
-		border-top: 1px solid var(--color-divider);
-		padding-top: var(--spacing-ms);
+		align-items: center;
+
+		spinner-app {
+			margin-right: var(--spacing-ms);
+		}
 	}
 }
