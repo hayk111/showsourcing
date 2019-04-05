@@ -11,6 +11,7 @@ import { ID } from '~utils';
 export class ProductRequestListComponent implements OnInit {
 
 	@Input() products: Product[];
+	@Output() update = new EventEmitter<Product[]>();
 	@Output() remove = new EventEmitter<ID>();
 
 	constructor() { }

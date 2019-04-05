@@ -200,6 +200,16 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.EMAIL:
 				trimValues = this.value.map(v => v.email || v);
 				break;
+			case ERM.PRODUCT:
+				trimValues = this.value.map(v => (
+					{
+						id: v.id,
+						name: v.name,
+						images: v.images ? v.images : null,
+						__typename: v.__typename
+					}
+				));
+				break;
 			default:
 				trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
 				break;
