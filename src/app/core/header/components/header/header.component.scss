@@ -39,7 +39,7 @@ nav {
 
 	color: var(--color-txt-primary);
 
-	> * {
+	> *:not(:last-child) {
 		margin-right: var(--spacing-ms);
 		// since the request has a notification, with absolute position, it neeeds extra margin
 		&.request-container {
@@ -90,6 +90,7 @@ nav {
 		position: relative;
 
 		notification-badge-app {
+			cursor: pointer;
 			top: -7px;
 			right: -11px;
 		}
