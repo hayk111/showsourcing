@@ -6,6 +6,7 @@ import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ID } from '~utils';
 import { delay } from 'rxjs/operators';
+import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -58,11 +59,10 @@ export class SupplierRequestDialogComponent implements OnInit {
 		const newRequest: Request = { ...this.request, ...this.form.value };
 		newRequest.products = newRequest.products.map(product => ({ id: product.id }));
 		this.pending = true;
-		// this.cdr.detectChanges();
-		this.requestSrv.create(newRequest).pipe(delay(3000))
+		this.requestSrv.create(newRequest)
 			.subscribe(_ => {
 				this.pending = false;
-				// this.cdr.detectChanges();
+				this.dlgSrv.open(ReplySentDlgComponent, { height: '586' });
 			},
 				err => {
 					this.dlgSrv.close();
@@ -72,7 +72,6 @@ export class SupplierRequestDialogComponent implements OnInit {
 						message: 'We could not create the notification due to a server issue'
 					});
 				}
-				// TODO write 2 cases succes, error
 			);
 	}
 
