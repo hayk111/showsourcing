@@ -36,7 +36,17 @@ nav {
 }
 
 .right {
+
 	color: var(--color-txt-primary);
+
+	> * {
+		margin-right: var(--spacing-ms);
+		// since the request has a notification, with absolute position, it neeeds extra margin
+		&.request-container {
+			margin-right: calc(var(--spacing-l));
+		}
+	}
+
 	notif-app, search-bar-animated-app, user-panel-app {
 		&:hover {
 			background: #071327;
@@ -45,7 +55,6 @@ nav {
 
 	search-bar-animated-app {
 		font-size: 24px;
-		margin-right: var(--spacing-ms);
 		cursor: pointer;
 		border-radius: var(--border-radius-s);
 		&.expanded {
@@ -58,14 +67,13 @@ nav {
 		}
 	}
 
-		notif-app {
-			margin-right: var(--spacing-ms);
-			height: 32px;
-			width: 32px;
-			font-size: 24px;
-			cursor: pointer;
-			border-radius: var(--border-radius-s);
-		}
+	notif-app {
+		height: 32px;
+		width: 32px;
+		font-size: 24px;
+		cursor: pointer;
+		border-radius: var(--border-radius-s);
+	}
 
 	.searchInput {
 		background: transparent;
@@ -76,6 +84,20 @@ nav {
 		height: var(--spacing-l);
 		width: 1px;
 		background-color: rgba(255, 255, 255, 0.1);
+	}
+
+	.request-container {
+		position: relative;
+
+		notification-badge-app {
+			top: -7px;
+			right: -11px;
+		}
+
+		.request-icon {
+			font-size: var(--font-size-xxxl);
+			color: var(--color-secondary-dark);
+		}
 	}
 
 }

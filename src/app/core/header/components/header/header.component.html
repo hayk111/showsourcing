@@ -13,8 +13,6 @@
 
 	<a [routerLink]="['/workspace']" routerLinkActive="selected">Workspace</a>
 
-	<a [routerLink]="['/request']" routerLinkActive="selected">Requests</a>
-
   <!-- we don't want those links in production... -->
   <a
     *ngIf="!isProd"
@@ -60,7 +58,11 @@
                           (searchStateChanged)="onSearchBarStateChanged($event)">
     <input inputApp class="searchInput" restrictSpecial [restrictArrows]="true" type="text" (input)="triggerSearch()" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
 	</search-bar-animated-app>
-  <!-- <notif-app></notif-app> -->
+	<!-- <notif-app></notif-app> -->
+	<div class="flex request-container">
+		<notification-badge-app> 20 </notification-badge-app>
+		<icon-app class="request-icon" name="comments" [routerLink]="['/request']" routerLinkActive="selected"></icon-app>
+	</div>
   <div class="divider"></div>
 	<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>
 </div>

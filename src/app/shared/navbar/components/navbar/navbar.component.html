@@ -9,5 +9,5 @@
 	routerLinkActive="active"
 	(click)="changeTab(tab)">
 	{{ tab.name }}
-	<div *ngIf="tab?.number" class="filters flexCenter"> {{ tab?.number }} </div>
+	<notification-badge-app *ngIf="tab?.number"> {{ tab?.number }} </notification-badge-app>
 </div>
