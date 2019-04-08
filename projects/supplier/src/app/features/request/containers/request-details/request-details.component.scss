@@ -14,7 +14,7 @@ $left-width: 360px;
 	height: 100%;
 	width: calc(100% - #{$left-width});
 
-	img-app {
+	img, img-app {
 		height: 40px;
 		width: 40px;
 		margin-right: var(--spacing-l);

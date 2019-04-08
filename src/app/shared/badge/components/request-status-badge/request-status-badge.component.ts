@@ -35,9 +35,9 @@ export class RequestStatusBadgeComponent implements OnInit {
 				case 'sent':
 					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'secondary';
 				case 'opened':
-					return 'primary';
 				case 'replied':
-					return 'success';
+					return 'primary';
+				// return 'success';
 				default:
 					return 'secondary';
 			}
