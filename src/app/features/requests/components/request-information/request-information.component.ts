@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Request } from '~core/models';
+import { SupplierRequest } from '~core/models';
 
 @Component({
 	selector: 'request-information-app',
@@ -9,7 +9,7 @@ import { Request } from '~core/models';
 })
 export class RequestInformationComponent implements OnInit {
 
-	@Input() request: Request;
+	@Input() request: SupplierRequest;
 
 	constructor() { }
 

@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Request } from '~core/models';
 
 @Component({
 	selector: 'request-view-dlg-app',

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
-import { RequestService } from '~core/entity-services';
+import { SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, Request } from '~core/models';
+import { ERM, SupplierRequest } from '~core/models';
 import { TrackingComponent } from '~utils';
 
 @Component({
@@ -16,8 +16,8 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 	erm = ERM;
 
 	constructor(
-		private requestSrv: RequestService,
-		public listSrv: ListPageService<Request, RequestService>,
+		private requestSrv: SupplierRequestService,
+		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
 		public commonModalSrv: CommonModalService
 	) { super(); }
 
@@ -26,7 +26,7 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 			key: ListPageKey.REQUEST,
 			entitySrv: this.requestSrv,
 			searchedFields: [],
-			entityMetadata: ERM.REQUEST,
+			entityMetadata: ERM.SUPPLIER_REQUEST,
 			initialFilters: [],
 		});
 	}

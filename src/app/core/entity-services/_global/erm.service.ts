@@ -35,9 +35,9 @@ import { IncoTermService } from '../inco-term/inco-term.service';
 import { RequestElementService } from '../request-element/request-element.service';
 import { RequestReplyService } from '../request-reply/request-reply.service';
 import { RequestTemplateService } from '../request-template/request-template.service';
-import { RequestService } from '../request/request.service';
 import { SupplierRequestService } from '../supplier-request/supplier-request.service';
 import { GlobalService } from './global.service';
+import { CreateRequestService } from '../create-request/create-request.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -64,7 +64,7 @@ export class ERMService {
 		private productService: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private projectService: ProjectService,
-		private requestService: RequestService,
+		private createRequestService: CreateRequestService,
 		private requestElementService: RequestElementService,
 		private requestReplyService: RequestReplyService,
 		private requestTemplateService: RequestTemplateService,
@@ -121,8 +121,8 @@ export class ERMService {
 				return this.productStatusSrv;
 			case 'Project':
 				return this.projectService;
-			case 'Request':
-				return this.requestService;
+			case 'CreateRequest':
+				return this.createRequestService;
 			case 'RequestElement':
 				return this.requestElementService;
 			case 'RequestReply':
@@ -197,8 +197,8 @@ export class ERMService {
 				return this.requestReplyService;
 			case ERM.REQUEST_TEMPLATE:
 				return this.requestTemplateService;
-			case ERM.REQUEST:
-				return this.requestService;
+			case ERM.CRATE_REQUEST:
+				return this.createRequestService;
 			case ERM.SAMPLE:
 				return this.sampleSrv;
 			case ERM.SAMPLE_STATUS:

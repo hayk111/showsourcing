@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { ERM, Request } from '~core/models';
+import { ERM, SupplierRequest } from '~core/models';
 
 @Component({
 	selector: 'request-list-view-app',
@@ -11,14 +11,14 @@ import { ERM, Request } from '~core/models';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestListViewComponent extends ListViewComponent<Request> {
+export class RequestListViewComponent extends ListViewComponent<SupplierRequest> {
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 	erm = ERM;
 
 	constructor() { super(); }
 
-	getType(row: Request) {
+	getType(row: SupplierRequest) {
 		switch (row.status) {
 			case 'accepted':
 				return 'success';

@@ -5,24 +5,20 @@ import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
 import { Contact } from './contact.model';
 import { Product } from './product.model';
-import { RequestElement } from './request-element.model';
 import { RequestTemplate } from './request-template.model';
-import { Supplier } from './supplier.model';
 
-export class Request extends EntityWithAudit<RequestConfig> {
+export class CreateRequest extends EntityWithAudit<RequestConfig> {
 	id: ID;
 	products: Product[];
 	requestTemplate?: RequestTemplate;
-	requestElements: RequestElement[];
 	shareInformation: boolean;
 	title: string;
 	message?: string;
 	recipient: Contact;
 	sendCopyTo: string[];
-	status: string;
 	images: AppImage[];
 	attachments: Attachment[];
-	__typename?= 'Request';
+	__typename?= 'CreateRequest';
 
 	constructor(config: RequestConfig) {
 		super(config);
@@ -31,11 +27,12 @@ export class Request extends EntityWithAudit<RequestConfig> {
 
 export interface RequestConfig {
 	products?: Product[];
-	recipient?: Contact;
-	message?: string;
-	requestElements?: RequestElement[];
-	title?: string;
-	status?: string;
+	requestTemplate?: RequestTemplate;
 	shareInformation?: boolean;
+	title?: string;
+	message?: string;
+	recipient?: Contact;
 	sendCopyTo?: string[];
+	images?: AppImage[];
+	attachments?: Attachment[];
 }

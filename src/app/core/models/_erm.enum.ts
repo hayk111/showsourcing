@@ -28,7 +28,7 @@ import { ExtendedField } from './extended-field.model';
 import { RequestElement } from './request-element.model';
 import { RequestReply } from './request-reply.model';
 import { RequestTemplate } from './request-template.model';
-import { Request } from './request.model';
+import { CreateRequest } from './request.model';
 import { SupplierRequest } from './supplier-request.model';
 
 
@@ -66,6 +66,7 @@ export class ERM {
 	static readonly COMMENT = new EntityMetadata('comment', 'comments');
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts', Contact);
 	static readonly COUNTRY = new EntityMetadata('country', 'countries', Country);
+	static readonly CRATE_REQUEST = new EntityMetadata('createRequest', 'createRequests', CreateRequest);
 	static readonly CURRENCY = new EntityMetadata('currency', 'currencies');
 	static readonly EMAIL = new EntityMetadata('email', 'emails', Contact);
 	static readonly EVENT = new EntityMetadata('event', 'events', Event);
@@ -89,7 +90,6 @@ export class ERM {
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
 	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
-	static readonly REQUEST = new EntityMetadata('request', 'requests', Request);
 	static readonly REQUEST_ELEMENT = new EntityMetadata('request element', 'request elements', RequestElement);
 	static readonly REQUEST_REPLY = new EntityMetadata('request reply', 'request replies', RequestReply);
 	static readonly REQUEST_TEMPLATE = new EntityMetadata('request template', 'request templates', RequestTemplate);
