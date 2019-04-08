@@ -1,8 +1,8 @@
 <top-panel-details-app
 	[hasLogo]="false"
 	[title]="request?.title || 'Quote Request'">
-	<badge-app titleExtra *ngIf="request?.requestTemplate?.name" type="inProgress" size="m">
-		{{ request?.requestTemplate?.name }}
+	<badge-app titleExtra *ngIf="request?.requestTemplateName" type="inProgress" size="m">
+		{{ request?.requestTemplateName }}
 	</badge-app>
 	<div subinfo class="flex">
 		<div class="bold-s">Sent:&nbsp;</div>

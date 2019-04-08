@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { SupplierRequest } from '~core/models';
 
 @Component({
 	selector: 'request-view-dlg-app',
@@ -8,7 +9,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class RequestViewDlgComponent implements OnInit {
 
-	@Input() request: Request;
+	@Input() request: SupplierRequest;
 
 	constructor() { }
 

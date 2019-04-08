@@ -25,13 +25,13 @@
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app>Sent By</label-app>
 		<editable-label-app>
-			{{ request?.createdBy?.firstName }} {{ request?.createdBy?.lastName }}
+			{{ request?.sender.name }}
 		</editable-label-app>
 	</editable-field-app>
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app>Template</label-app>
 		<editable-label-app>
-			{{ request?.requestTemplate?.name }}
+			<!-- {{ request?.requestTemplateName }} -->
 		</editable-label-app>
 	</editable-field-app>
 
