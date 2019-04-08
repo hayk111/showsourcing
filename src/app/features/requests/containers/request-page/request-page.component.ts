@@ -31,11 +31,4 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 		});
 	}
 
-	createRequest() {
-		// const manew = new Request({
-		// 	message: 'miau', title: 'supreme title', status: 'pending', shareInformation: true
-		// });
-		// this.listSrv.update(manew);
-	}
-
 }

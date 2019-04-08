@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import {
 	AppImage,
@@ -49,6 +48,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		this.request$ = this.requestSrv.selectOne(this.requestId);
 		this.request$.pipe(
 			tap(request => this.request = request),
+			takeUntil(this._destroy$)
 		).subscribe(_ => this.setElement());
 	}
 
@@ -106,7 +106,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	private getNextUnrepliedIndex() {
-		return this.elements.findIndex(elem => elem.reply.status !== this.defaultStatus);
+		return this.elements.findIndex(elem => elem.reply.status !== this.defaultStatus && elem.reply.id !== this.reply.id);
 	}
 
 	hasNext() {
