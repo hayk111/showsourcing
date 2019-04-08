@@ -13,30 +13,29 @@
 		<card-app>
 			<h3 class="l">Message</h3>
 			<div class="flex">
-				<img-app type="user"></img-app>
+				<img src="/assets/img/user-temp.png"/>
 				<div class="message-container">
 					<div class="name">{{ (request$ | async)?.sender?.name }}</div>
 					<div class="message">{{ (request$ | async)?.message }}</div>
 				</div>
 			</div>
 		</card-app>
-
-		<card-app>
+		<card-app class="card-list full-height-main">
 			<h3 class="l">Request Items</h3>
-				<request-element-list-view-sup
-					class="no-padding"
-					[rows]="listSrv.items$ | async"
-					[creationDate]="(request$ | async)?.creationDate"
-					[pending]="listSrv.pending"
-					[selection]="listSrv.selection$ | async"
-					(open)="open($event)"
-					(bottomReached)="listSrv.loadMore()"
-					(select)="listSrv.selectOne($event)"
-					(selectAll)="listSrv.selectAll($event)"
-					(sort)="listSrv.sort($event)"
-					(unselect)="listSrv.unselectOne($event)"
-					(unselectAll)="listSrv.unselectAll()">
-				</request-element-list-view-sup>
+			<request-element-list-view-sup
+				class="no-padding"
+				[rows]="listSrv.items$ | async"
+				[creationDate]="(request$ | async)?.creationDate"
+				[pending]="listSrv.pending"
+				[selection]="listSrv.selection$ | async"
+				(open)="open($event)"
+				(bottomReached)="listSrv.loadMore()"
+				(select)="listSrv.selectOne($event)"
+				(selectAll)="listSrv.selectAll($event)"
+				(sort)="listSrv.sort($event)"
+				(unselect)="listSrv.unselectOne($event)"
+				(unselectAll)="listSrv.unselectAll()">
+			</request-element-list-view-sup>
 		</card-app>
 	</div>
 </div>

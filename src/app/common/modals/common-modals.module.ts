@@ -22,6 +22,8 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	ReplySentDlgComponent,
+	RequestReplyDlgComponent,
 	RequestViewDlgComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
@@ -33,7 +35,6 @@ import {
 } from './component/supplier-request-dialog/product-request-list/product-request-list.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
-import { RequestReplyDlgComponent } from './component/request-reply-dlg/request-reply-dlg.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -50,10 +51,11 @@ const modals = [
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	ReplySentDlgComponent,
+	RequestReplyDlgComponent,
 	RequestViewDlgComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
-	RequestReplyDlgComponent
 ];
 
 @NgModule({
@@ -71,7 +73,6 @@ const modals = [
 		ExportSelectionViewComponent,
 		ExportWaitingViewComponent,
 		ProductRequestListComponent,
-		RequestViewDlgComponent,
 	],
 	entryComponents: modals,
 	providers: [
