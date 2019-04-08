@@ -3,7 +3,7 @@ import { CommonModalService } from '~common/modals';
 import { RequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Request } from '~core/models';
-import { TrackingComponent } from '~utils';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'request-page-app',
@@ -11,7 +11,7 @@ import { TrackingComponent } from '~utils';
 	styleUrls: ['./request-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestPageComponent extends TrackingComponent implements OnInit {
+export class RequestPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM;
 
@@ -28,6 +28,7 @@ export class RequestPageComponent extends TrackingComponent implements OnInit {
 			searchedFields: [],
 			entityMetadata: ERM.REQUEST,
 			initialFilters: [],
+			originComponentDestroy: this._destroy$
 		});
 	}
 
