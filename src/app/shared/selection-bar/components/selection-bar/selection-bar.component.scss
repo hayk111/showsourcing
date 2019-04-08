@@ -1,5 +1,6 @@
 :host {
 	display: block;
+	position: fixed;
 	width: 100%;
 	bottom: 0;
 	z-index: var(--z-selection-bar);

@@ -32,24 +32,27 @@ export class RequestStatusBadgeComponent implements OnInit {
 	getType() {
 		if (this.isTeam) {
 			switch (this.status) {
-				case 'sent':
+				case 'pending':
 					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'secondary';
 				case 'opened':
 				case 'replied':
 					return 'primary';
 				// return 'success';
+				case 'error':
+				case 'refued':
+					return 'warn';
 				default:
 					return 'secondary';
 			}
 		} else {
 			switch (this.status) {
-				case 'sent':
 				case 'opened':
 				case 'pending':
 					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'primary';
-				case 'done':
 				case 'replied':
 					return 'success';
+				case 'error':
+					return 'warn';
 				default:
 					return 'secondary';
 			}

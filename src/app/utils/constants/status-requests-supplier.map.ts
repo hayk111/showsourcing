@@ -1,11 +1,4 @@
 export const statusRequestsSupplierMap = {
-	'sent': {
-		locales: {
-			en: {
-				name: 'To Reply'
-			}
-		}
-	},
 	'opened': {
 		locales: {
 			en: {
@@ -20,13 +13,6 @@ export const statusRequestsSupplierMap = {
 			}
 		}
 	},
-	'done': {
-		locales: {
-			en: {
-				name: 'Replied'
-			}
-		}
-	},
 	'pending': {
 		locales: {
 			en: {
@@ -34,4 +20,11 @@ export const statusRequestsSupplierMap = {
 			}
 		}
 	},
+	'refused': {
+		locales: {
+			en: {
+				name: 'Refused'
+			}
+		}
+	}
 };

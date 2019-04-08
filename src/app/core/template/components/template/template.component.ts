@@ -1,10 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { Router, Event, RouterEvent, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { routerAnimation } from '~core/template/components/animation';
 import { TemplateService } from '~core/template/services/template.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { takeUntil, switchMap, map, tap, filter } from 'rxjs/operators';
-import { Location } from '@angular/common';
 
 @Component({
 	selector: 'template-app',

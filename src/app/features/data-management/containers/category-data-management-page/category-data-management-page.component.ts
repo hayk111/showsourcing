@@ -4,6 +4,7 @@ import { CategoryService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { Category, ERM } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'category-data-management-page-app',
@@ -14,8 +15,7 @@ import { Category, ERM } from '~models';
 		ListPageService
 	]
 })
-export class CategoryDataManagementPageComponent
-	implements OnInit {
+export class CategoryDataManagementPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM.CATEGORY;
 
@@ -24,7 +24,7 @@ export class CategoryDataManagementPageComponent
 		public listSrv: ListPageService<Category, CategoryService>,
 		public commonModalSrv: CommonModalService,
 		private dmSrv: DataManagementService
-	) { }
+	) { super(); }
 
 
 	ngOnInit() {
@@ -33,7 +33,8 @@ export class CategoryDataManagementPageComponent
 			entitySrv: this.categorySrv,
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false },
-			entityMetadata: ERM.CATEGORY
+			entityMetadata: ERM.CATEGORY,
+			originComponentDestroy: this._destroy$
 		});
 	}
 

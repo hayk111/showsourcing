@@ -1,11 +1,4 @@
 export const statusRequestsTeamMap = {
-	'sent': {
-		locales: {
-			en: {
-				name: 'Sent to Supplier'
-			}
-		}
-	},
 	'opened': {
 		locales: {
 			en: {
@@ -23,8 +16,15 @@ export const statusRequestsTeamMap = {
 	'pending': {
 		locales: {
 			en: {
-				name: 'Pending'
+				name: 'Sent to Supplier'
 			}
 		}
 	},
+	'refused': {
+		locales: {
+			en: {
+				name: 'Refused'
+			}
+		}
+	}
 };
