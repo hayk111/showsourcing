@@ -97,7 +97,7 @@ export class ImagePipe implements PipeTransform {
 				return DEFAULT_EVENT_ICON;
 			case 'product':
 				return DEFAULT_PRODUCT_ICON;
-			case 'productList':
+			case 'product-list':
 				return DEFAULT_PRODUCT_LIST_ICON;
 			case 'project':
 				return DEFAULT_PROJECT_ICON;

@@ -3,7 +3,7 @@ import { ExtendedField } from './extended-field.model';
 import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
 
-export const DEFAULT_REPLIED_STATUS = 'done';
+export const DEFAULT_REPLIED_STATUS = 'replied';
 
 export class RequestReply {
 	id?: ID;

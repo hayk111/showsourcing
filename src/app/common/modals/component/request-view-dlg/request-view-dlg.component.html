@@ -7,7 +7,7 @@
 		<div class="header-right">
 				{{ request?.title }}
 				<div class="subtitle">
-					By {{ request?.createdBy.firstName }} {{ request?.createdBy?.lastName }} on {{ request?.creationDate | date: 'MMMM dd y'}}
+					By {{ request?.sender.name }} on {{ request?.creationDate | date: 'MMMM dd y'}}
 				</div>
 		</div>
 	</dialog-header-app>

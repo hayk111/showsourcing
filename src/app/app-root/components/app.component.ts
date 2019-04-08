@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
 		private authSrv: AuthenticationService,
 		private companySrv: CompanyService,
 		private globalDataClient: GlobalDataClientsInitializer,
+		private globalRequestClient: GlobalRequestClientsInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
 		private userClient: UserClientInitializer,
@@ -70,6 +71,7 @@ export class AppComponent implements OnInit {
 		const realmUser = this.authSrv.realmUser;
 		return forkJoin([
 			this.globalDataClient.init(realmUser),
+			this.globalRequestClient.init(realmUser),
 			this.userClient.init(realmUser)
 		]);
 	}

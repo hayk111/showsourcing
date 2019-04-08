@@ -2,26 +2,44 @@
 	[request]="request">
 </request-top-panel-app>
 
-<request-information-app
-	[request]="request">
-</request-information-app>
+<div class="details-container full-width full-height">
+	<!-- Left side -->
+	<div class="left">
+		<request-information-app
+			[request]="request">
+		</request-information-app>
+	</div>
+	<!-- Right side-->
+	<div class="right">
+		<card-app>
+			<h3 class="l">Message</h3>
+			<div class="flex">
+				<img-app type="user"></img-app>
+				<div class="message-container">
+					<div class="name">{{ request?.sender.name }}</div>
+					<div class="message">{{ request?.message }}</div>
+				</div>
+			</div>
+		</card-app>
 
-<card-app>
-	<h3 class="l">Request Items</h3>
-		<request-element-list-view-app
-			class="no-padding"
-			[rows]="listSrv.items$ | async"
-			[pending]="listSrv.pending"
-			[selection]="listSrv.selection$ | async"
-			(bottomReached)="listSrv.loadMore()"
-			(openRequestDlg)="commonModalSrv.openRequestViewDialog($event)"
-			(select)="listSrv.selectOne($event)"
-			(selectAll)="listSrv.selectAll($event)"
-			(sort)="listSrv.sort($event)"
-			(unselect)="listSrv.unselectOne($event)"
-			(unselectAll)="listSrv.unselectAll()">
-		</request-element-list-view-app>
-</card-app>
+		<card-app>
+			<h3 class="l">Request Items</h3>
+				<request-element-list-view-app
+					class="no-padding"
+					[rows]="listSrv.items$ | async"
+					[pending]="listSrv.pending"
+					[selection]="listSrv.selection$ | async"
+					(bottomReached)="listSrv.loadMore()"
+					(openRequestDlg)="commonModalSrv.openRequestViewDialog($event)"
+					(select)="listSrv.selectOne($event)"
+					(selectAll)="listSrv.selectAll($event)"
+					(sort)="listSrv.sort($event)"
+					(unselect)="listSrv.unselectOne($event)"
+					(unselectAll)="listSrv.unselectAll()">
+				</request-element-list-view-app>
+		</card-app>
+	</div>
+</div>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"

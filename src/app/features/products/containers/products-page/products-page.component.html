@@ -21,7 +21,6 @@
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
-		<button *ngIf="(listSrv.selection$ | async).size > 0" (click)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())">Create Request</button>
 	</sub-panel-right-item-app>
 
 </sub-panel-app>
@@ -41,7 +40,7 @@
 	(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
 	(openExportDialog)="commonModalSrv.openExportDialog([$event])"
 	(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
-	(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog([$event])"
+	(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"
 	(previewClick)="listSrv.openPreview($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(selectAll)="listSrv.selectAll($event, true)"
@@ -82,6 +81,7 @@
 	(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 	(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
 	(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+	(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
 	(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 	(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 	(statusUpdated)="listSrv.updateSelected({status: $event})"

@@ -1,10 +1,17 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { DialogService } from '~shared/dialog';
-import { Product, Contact, Supplier, Request } from '~core/models';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CreateRequestService } from '~core/entity-services';
+import { CreateRequest, Product } from '~core/models';
+import { DialogService } from '~shared/dialog';
+import { NotificationService, NotificationType } from '~shared/notifications';
 import { ID } from '~utils';
-import { ContactService, RequestService } from '~core/entity-services';
-import { NotificationService } from '~shared/notifications';
+
+import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -16,7 +23,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 
 	form: FormGroup;
 	copyEmail = false;
-	request: Request;
+	request: CreateRequest;
+	pending = false;
 	// if we open once the supplier selector, we want it open until the dialog closes
 	opened = false;
 
@@ -25,7 +33,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	constructor(
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
-		private requestSrv: RequestService,
+		private requestSrv: CreateRequestService,
 		private notifSrv: NotificationService
 	) {
 		this.form = this.fb.group({
@@ -40,7 +48,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.request = new Request({ products: [], sendCopyTo: [], shareInformation: false, status: 'pending' });
+		this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: false });
 		this.request.products = this.products;
 		this.form.patchValue(this.request);
 	}
@@ -53,11 +61,22 @@ export class SupplierRequestDialogComponent implements OnInit {
 	createRequest() {
 		if (!this.form.valid)
 			return;
-		const newRequest: Request = { ...this.request, ...this.form.value };
+		const newRequest = { ...this.request, ...this.form.value };
 		newRequest.products = newRequest.products.map(product => ({ id: product.id }));
+		this.pending = true;
 		this.requestSrv.create(newRequest)
-			.subscribe(_ => this.dlgSrv.close()
-				// TODO write 2 cases succes, error
+			.subscribe(_ => {
+				this.pending = false;
+				this.dlgSrv.open(ReplySentDlgComponent, { height: '586' });
+			},
+				err => {
+					this.dlgSrv.close();
+					this.notifSrv.add({
+						title: 'Service error when creating request',
+						type: NotificationType.ERROR,
+						message: 'We could not create the request due to a server issue'
+					});
+				}
 			);
 	}
 

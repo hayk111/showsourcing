@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Request } from '~core/models';
+import { SupplierRequest } from '~core/models';
 
 @Component({
 	selector: 'request-top-panel-app',
@@ -9,8 +9,8 @@ import { Request } from '~core/models';
 })
 export class RequestTopPanelComponent implements OnInit {
 
-	@Input() request: Request;
-	@Output() reminder = new EventEmitter<Request>();
+	@Input() request: SupplierRequest;
+	@Output() reminder = new EventEmitter<SupplierRequest>();
 
 	constructor() { }
 

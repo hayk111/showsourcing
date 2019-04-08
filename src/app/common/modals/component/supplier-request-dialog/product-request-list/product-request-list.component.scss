@@ -28,3 +28,14 @@
 .number-products {
 	margin-top: var(--spacing-s);
 }
+
+button.add-products {
+	font-size: var(--font-size-s);
+	margin: var(--spacing-s) 0;
+	font-weight: 600;
+
+	icon-app {
+		margin-right: var(--spacing-xs);
+		font-size: var(--font-size-xs);
+	}
+}

@@ -16,7 +16,7 @@ export const statusRequestsTeamMap = {
 	'replied': {
 		locales: {
 			en: {
-				name: 'Accepted'
+				name: 'To Review'
 			}
 		}
 	},

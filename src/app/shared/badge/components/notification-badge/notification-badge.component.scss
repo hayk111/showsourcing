@@ -1,0 +1,15 @@
+:host {
+	position: absolute;
+	border-radius: 50%;
+	font-size: var(--font-size-s);
+	background-color: var(--color-warn);
+	font-weight: 600;
+	color: #fff;
+	padding: var(--spacing-xs);
+	text-align: center;
+	width: 13px;
+	height: 13px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
