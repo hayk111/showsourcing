@@ -10,7 +10,7 @@ export class PricePipe implements PipeTransform {
 	transform(price: Price | number, roundedTo = 2): any {
 		let value: number | string = price instanceof Object ? price.value : price;
 		if (!isNaN(value)) {
-			value = (value / 10000).toFixed(roundedTo);
+			value = Number((value / 10000).toFixed(roundedTo));
 		} else {
 			value = '-';
 		}
