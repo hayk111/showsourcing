@@ -33,8 +33,6 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() switchContent: ['list', 'kanban' | 'thumbs'] = ['list', 'thumbs'];
 	// whether the screen has a search input
 	@Input() hasSearch = true;
-	// whether the screen has a create button
-	@Input() hasCreate = true;
 
 	@Input() title: string;
 
@@ -43,8 +41,6 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	/** what appears in the button on the right for adding an entity */
 	@Input() buttonName: string;
-	/** specify if the icon should be displayed or not for the adding button */
-	@Input() buttonIcon = true;
 	/** number of filters set */
 	@Input() filtersAmount: number;
 

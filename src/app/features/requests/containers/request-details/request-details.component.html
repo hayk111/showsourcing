@@ -6,6 +6,7 @@
 	<!-- Left side -->
 	<div class="left">
 		<request-information-app
+			class="no-margin-right"
 			[request]="request">
 		</request-information-app>
 	</div>
@@ -14,7 +15,7 @@
 		<card-app>
 			<h3 class="l">Message</h3>
 			<div class="flex">
-				<img-app type="user"></img-app>
+				<img src="/assets/img/user-temp.png"/>
 				<div class="message-container">
 					<div class="name">{{ request?.sender.name }}</div>
 					<div class="message">{{ request?.message }}</div>

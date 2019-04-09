@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { BadgeModule } from '~shared/badge';
 import { CardModule } from '~shared/card';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { DividerModule } from '~shared/divider/divider.module';
@@ -23,28 +24,29 @@ import { UtilsModule } from '~shared/utils';
 
 import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
 import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
-import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
 import { TopPanelActionButtonsComponent } from './components/top-panel-action-buttons/top-panel-action-buttons.component';
+import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
 		RouterModule.forChild([]),
-		SearchBarModule,
-		FiltersModule,
-		IconsModule,
-		LoadersModule,
+		BadgeModule,
 		CardModule,
-		DividerModule,
-		SearchAutocompleteModule,
-		FormsModule,
 		ContextMenuModule,
-		ListModule,
-		RatingModule,
-		UserPictureModule,
+		DividerModule,
 		EditableFieldModule,
+		FiltersModule,
+		FormsModule,
+		IconsModule,
+		ListModule,
+		LoadersModule,
+		RatingModule,
+		SearchAutocompleteModule,
+		SearchBarModule,
 		SelectorsModule,
+		UserPictureModule,
 		UtilsModule
 	],
 	declarations: [

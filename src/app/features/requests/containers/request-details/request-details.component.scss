@@ -1,7 +1,6 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 }
 
 .details-container {
@@ -15,7 +14,7 @@
 	.right {
 		width: 1000px;
 
-		img-app {
+		img-app, img {
 			height: 40px;
 			width: 40px;
 			margin-right: var(--spacing-l);
@@ -36,8 +35,4 @@
 		 }
 		}
 	}
-}
-
-selection-bar-app {
-	position: absolute;
 }

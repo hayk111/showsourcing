@@ -52,6 +52,12 @@
 			Add to project
 		</button>
 
+		<!-- Request supplier -->
+		<button class="secondary-light flexCenter with-name" (click)="createRequest.emit()">
+			<icon-app class="color-supplier" name="edit"></icon-app>
+			Request Supplier
+		</button>
+
 		<!-- Compare products -->
 		<button class="secondary-light flexCenter with-name" (click)="compareProducts.emit()">
 			<icon-app class="color-success" name="feedback"></icon-app>
@@ -76,9 +82,6 @@
 			<!-- items -->
 			<context-menu-item-app (click)="requestTeamFeedback.emit()">
 				Request For Team Feedback
-			</context-menu-item-app>
-			<context-menu-item-app (click)="createRequest.emit()">
-				Request supplier
 			</context-menu-item-app>
 			<context-menu-item-app (click)="deleted.emit()">
 				Delete
