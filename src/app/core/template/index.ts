@@ -1,2 +1,2 @@
-export * from '~core/template/template.module';
-export * from '~core/template/components';
+export * from './template.module';
+export * from './components';

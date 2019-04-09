@@ -2,9 +2,9 @@
 
 :host {
 	display: flex;
-	height: calc(100% - 110px);
 	box-sizing: border-box;
 	padding: var(--spacing-l);
+	padding-bottom: 80px;
 	background: white;
 
 	&.no-padding {
@@ -14,7 +14,6 @@
 
 a.title {
 	color: var(--color-txt-strong);
-	font-weight: 600;
 	&:hover {
 		color: var(--color-primary);
 	}
@@ -35,8 +34,8 @@ rating-heart-app {
 
 .imgCtnr {
 	border-radius: var(--border-radius);
-	width: 32px;
-	height: 32px;
+	width: 28px;
+	height: 28px;
 	overflow: hidden;
 	flex-shrink: 0;
 }
@@ -59,17 +58,11 @@ rating-heart-app {
 .mainCell {
 	display: flex;
 	align-items: center;
-	a {
-		font-weight: 600;
-	}
 }
 
 .mainCell > * {
 	&:not(:first-child) {
 		margin-left: var(--spacing-s);
-	}
-	.name {
-		font-weight: 600;
 	}
 }
 
