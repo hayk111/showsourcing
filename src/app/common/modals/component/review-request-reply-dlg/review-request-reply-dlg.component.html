@@ -2,42 +2,45 @@
   <dialog-header-app>Reply Review</dialog-header-app>
 
   <ng-container *ngIf="element$ | async as element">
-    <ng-container *ngIf="element.reply as reply">
+    <ng-container *ngIf="element?.reply as reply">
 
       <article>
         <h3>Product Details</h3>
-      
+
         <list-app *ngIf="element$ | async as element">
+					<list-item-app>
+						<comparison-row-app class="title" label="" [values]="['Current Values', 'Supplier\'s Answer']"></comparison-row-app>
+					</list-item-app>
           <list-item-app *ngFor="let field of element.reply.fields">
-            <comparison-row-app [label]="field.definition.label" [values]="getValues( field )"></comparison-row-app>
+            <comparison-row-app [label]="field?.definition?.label" [values]="getValues( field )"></comparison-row-app>
           </list-item-app>
         </list-app>
-      
+
         <footer class="flex">
           <button class="primary">Accept All</button>
           <button class="secondary">Refuse All</button>
         </footer>
       </article>
-    
+
       <article *ngIf="reply?.images?.length > 0">
         <h3>Additional Pictures</h3>
-      
+
         <!-- I don't think image previewer can be used because of the overlay, or alternatively we have to pass something to the previewer to see an overlay
         as ng-content -->
-        <image-previewer-2-app [images]="reply.images"></image-previewer-2-app>
-      
+        <image-previewer-2-app [images]="reply?.images"></image-previewer-2-app>
+
         <footer class="flex">
           <button class="primary">Accept All</button>
           <button class="secondary">Refuse All</button>
         </footer>
       </article>
-    
-    
+
+
       <article *ngIf="reply?.attachments?.length > 0">
         <h3>Additional Attachments</h3>
-      
-        <file-list-app [static]="true" [hasPlaceholder]="false" [files]="reply.attachments"></file-list-app>
-      
+
+        <file-list-app [static]="true" [hasPlaceholder]="false" [files]="reply?.attachments"></file-list-app>
+
         <footer class="flex">
           <button class="primary">Accept All</button>
           <button class="secondary">Refuse All</button>

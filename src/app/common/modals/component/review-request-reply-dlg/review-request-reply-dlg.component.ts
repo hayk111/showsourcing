@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { RequestReply, RequestElement, ExtendedField, Product } from '~core/models';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RequestElementService, ProductService } from '~core/entity-services';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { ProductService, RequestElementService } from '~core/entity-services';
+import { ExtendedField, Product, RequestElement } from '~core/models';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
