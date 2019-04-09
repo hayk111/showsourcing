@@ -4,7 +4,7 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { TeamService, UserService, SupplierRequestService } from '~entity-services';
-import { Team } from '~models';
+import { Team, DEFAULT_REPLIED_STATUS } from '~models';
 import { User } from '~models/user.model';
 import {
 	SearchAutocompleteComponent,
@@ -44,7 +44,7 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();
 		this.team$ = this.teamSrv.teamSelected$;
-		this.requestCount$ = this.requestSrv.queryCount('status == "replied"');
+		this.requestCount$ = this.requestSrv.selectCount(`status == "${DEFAULT_REPLIED_STATUS}"`);
 	}
 
 	triggerSearch() {

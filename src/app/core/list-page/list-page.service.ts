@@ -262,24 +262,23 @@ export class ListPageService
 	}
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
-	create(shouldRedirect = true, extra?: any) {
-		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra }).pipe(
-		).subscribe(item => {
+	create(canRedirect = true, extra?: any) {
+		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra, canRedirect }).pipe(
+		).subscribe(({ item, redirect }) => {
 			// we don't want to put this in a switchmap because we don't want to wait
 			// for the refect before redirecting
 			this.refetch().subscribe();
-			this.redirectToCreated(item.id, shouldRedirect);
+			if (redirect)
+				this.redirectToCreated(item.id);
 		});
 	}
 
 
-	private redirectToCreated(id: string, shouldRedirect: boolean) {
-		if (shouldRedirect) {
-			if (this.entityMetadata.destUrl)
-				this.router.navigate([this.entityMetadata.destUrl, id]);
-			else
-				throw Error(`no destination url`);
-		}
+	private redirectToCreated(id: string) {
+		if (this.entityMetadata.destUrl)
+			this.router.navigate([this.entityMetadata.destUrl, id]);
+		else
+			throw Error(`no destination url`);
 	}
 
 	addFilter(_filter: Filter) {

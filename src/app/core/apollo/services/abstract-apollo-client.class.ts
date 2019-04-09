@@ -110,6 +110,7 @@ export abstract class AbstractApolloClient {
 		showsourcing.clients.set(name, this.apollo.use(name));
 	}
 
+	// https://github.com/apollographql/apollo-angular/issues/736
 	protected clearClient(clientName?: string) {
 		// the way apollo works is that for default client it's put in _client
 		// the named clients are put in a map

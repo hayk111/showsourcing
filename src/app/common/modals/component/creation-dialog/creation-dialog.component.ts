@@ -23,6 +23,8 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 	@Input() type: EntityMetadata;
 	// extra properties to put on the object
 	@Input() extra: any;
+	/** whether we display buttons create & stay + create & go */
+	@Input() canRedirect = false;
 	@ViewChild(InputDirective) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;
@@ -57,7 +59,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		this.typed$.next(this.group.get('name').value);
 	}
 
-	onSubmit() {
+	onSubmit(redirect = true) {
 		if (!this.group.valid) {
 			return;
 		}
@@ -65,7 +67,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		this.pending = true;
 		this.createItem({ name, ...this.extra }).pipe(
 			tap(_ => this.pending = false)
-		).subscribe(item => this.dlgSrv.close({ type: CloseEventType.OK, data: item }));
+		).subscribe(item => this.dlgSrv.close({ type: CloseEventType.OK, data: { redirect, item } }));
 	}
 
 	private createItem(item) {

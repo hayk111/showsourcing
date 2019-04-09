@@ -16,7 +16,10 @@
 
 		<dialog-footer-app *ngIf="!pending ">
 			<div class="color-warn" *ngIf="exists$ | async"> That {{type.singular}} name already exists. Please choose another one.</div>
-			<input [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create" (click)="onSubmit()"/>
+			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" class="secondary" value="Create & Stay" (click)="onSubmit(false)"/>
+			<span *ngIf="canRedirect" class="spacer mg-s"></span>
+			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create & Go" (click)="onSubmit()"/>
+			<input *ngIf="!canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create" (click)="onSubmit(false)"/>
 		</dialog-footer-app>
 
 		<!-- when pending -->

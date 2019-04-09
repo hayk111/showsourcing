@@ -16,18 +16,25 @@
 			min-height: 100%;
 			min-width: 100%;
 		}
+		&:hover > .delete {
+			display: flex;
+		}
 	}
 }
 .ctnr {
 	position: relative;
 }
 .delete {
+	display: none;
 	position: absolute;
 	color: white;
 	right: 0;
-	background: var(--color-warn-light);
+	background: var(--color-warn);
 	width: 20px;
 	height: 20px;
+	&:hover {
+		background: var(--color-warn);
+	}
 }
 .last-item {
 	margin-right: 0px !important;
