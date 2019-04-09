@@ -38,6 +38,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	 */
 	getValues(field: ExtendedField) {
 		// TODO: transform values like price. USE a PricePipe !!! you can use it dynamically in here
+
 		const target = field.definition.target;
 		const isProductExtendedField = field.definition.target === 'Product.extendedFields';
 		// if (isProductExtendedField)
