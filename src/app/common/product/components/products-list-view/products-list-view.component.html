@@ -82,9 +82,8 @@
 <!-- price -->
 <ng-template #price let-row="row">
 	<price-app
-		[isShort]="true"
-		[amount]="row?.price?.value"
-		[currency]="row?.price?.currency">
+		class="semi-bold"
+		[price]="row?.price">
 	</price-app>
 </ng-template>
 
