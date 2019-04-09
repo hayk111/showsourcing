@@ -6,7 +6,7 @@
 			(saved)="updateProductField(false, inpPrice.price, 'price')">
 			<editable-label-app>
 					<div *ngIf="product?.price?.value" class="amount">
-						{{ product?.price?.currency | currencySymbol }} {{ product?.price?.value | ssPrice }}
+						{{ product?.price | appPrice }}
 					</div>
 			</editable-label-app>
 			<input-price-app #inpPrice [price]="product?.price" (keyup.enter)="editablePrice.close()"></input-price-app>

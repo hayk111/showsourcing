@@ -1,11 +1,5 @@
-<div *ngIf="!isShort" class="flex {{ big ? 'big' : ''}}"
-	[ngStyle]="styles">
-	<span class="amount">{{ amount | ssPrice }}</span>
-	<span class="currency txt-secondary">{{ currency }}</span>
-</div>
-<div *ngIf="isShort" class="flex"
-	[ngStyle]="styles">
-	<span class="currency">{{ currency | const : 'currency' : 'symbol'}}</span>
-	<span class="mg-xxs spacer"></span>
-	<span class="amount">{{ amount ? (amount | ssPrice) : '-' }}</span>
+
+<div class="flex">
+	<span class="currency">{{ currency | const : 'currency' : 'symbol' : '1.0-2'}}</span>
+	<span class="amount">{{ amount | appPrice }}</span>
 </div>
