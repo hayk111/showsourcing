@@ -16,8 +16,7 @@ export class PricePipe implements PipeTransform {
 		}
 		if (price instanceof Object) {
 			const currencyPipe = new CurrencyPipe(this._locale);
-			const r = currencyPipe.transform(value, price.currency, 'symbol-narrow', '2.0-2');
-			return r;
+			return currencyPipe.transform(value, price.currency, 'symbol-narrow', '2.0-2');
 		} else {
 			return value;
 		}
