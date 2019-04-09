@@ -10,6 +10,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 @Injectable({ providedIn: 'root' })
 export class RequestElementService extends GlobalService<RequestElement> {
+	defaultClient = Client.GLOBAL_REQUEST;
 
 	constructor(
 		protected apolloState: ApolloStateService,
