@@ -23,6 +23,7 @@ export interface GlobalServiceInterface<T> {
 	selectMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
 	queryMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
 	queryCount: (predicate: string, client?: string) => Observable<number>;
+	selectCount: (predicate: string, client?: string) => Observable<number>;
 	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => ListQuery<T>;
 	customQuery: (paramsConfig: SelectParamsConfig, query: string, clientName: Client) => ListQuery<T>;
 	waitForOne: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
@@ -550,6 +551,35 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		);
 	}
 
+
+	/////////////////////////////
+	//       SELECT COUNT       //
+	/////////////////////////////
+	/**
+	 * waits for the first item to resolve
+	 * @param predicate : string  realm predicate / query to filter items
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	*/
+	selectCount(predicate: string, clientName: Client = this.defaultClient): Observable<number> {
+		const title = 'Select Count ' + this.typeName;
+		const gql = this.queryBuilder.selectCount();
+		const queryName = this.getQueryName(gql);
+		const variables = { query: predicate };
+
+		return this.getClient(clientName, title).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.subscribe({ query: gql, variables })),
+			// extracting the result
+			map((r) => {
+				if (!r.data)
+					throwError(r.errors);
+				return r.data[queryName].count;
+			}),
+			catchError(errors => of(log.table(errors))),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
+	}
 
 	/////////////////////////////
 	//          UPDATE         //

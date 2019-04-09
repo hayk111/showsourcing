@@ -115,6 +115,13 @@ export class QueryBuilder {
 			}
 		}`)
 
+	selectCount = () => gql(`
+		subscription ${this.plural}Count($query: String) {
+			${this.plural}(query: $query) {
+				count
+			}
+		}`)
+
 	create = (str: string) => gql(`
 		mutation create${this.capSing}($input: ${this.capSing}Input!) {
 			update${this.capSing}(input: $input) {
