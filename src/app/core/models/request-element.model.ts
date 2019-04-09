@@ -8,6 +8,7 @@ export class RequestElement {
 	id: ID;
 	name: string;
 	targetedEntityType: string;
+	targetId: string;
 	reply?: RequestReply;
 	images: AppImage[];
 	attachments: Attachment[];

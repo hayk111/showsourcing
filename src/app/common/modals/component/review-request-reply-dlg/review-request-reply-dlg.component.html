@@ -1,0 +1,9 @@
+<dialog-app>
+  <dialog-header-app>Reply Review</dialog-header-app>
+
+  <list-app *ngIf="element$ | async as element">
+    <list-item-app *ngFor="let field of element.reply.fields">
+      <comparison-row-app [label]="field.definition.label" [values]="getValues( field )"></comparison-row-app>
+    </list-item-app>
+  </list-app>
+</dialog-app>

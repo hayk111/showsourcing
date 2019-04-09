@@ -154,7 +154,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product.extendedFields"' });
 	}
 
 	ngOnChanges() {
