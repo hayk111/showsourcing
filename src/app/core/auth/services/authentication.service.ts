@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { Credentials as RealmCredentials, User as RealmUser } from 'realm-graphql-client';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, shareReplay, switchMap, tap, first } from 'rxjs/operators';
 import { AuthState, AuthStatus, Credentials } from '~core/auth/interfaces';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TokenService } from '~core/auth/services/token.service';
@@ -52,9 +52,20 @@ export class AuthenticationService {
 	) { }
 
 	init() {
+		// we are going to login the user by taking the data that is in
+		// localStorage.
+		// If there is none and there is a token query in the url we try to login the user with
+		// said token. If none of thise works then the user is not logged in.
+		const token = this.tokenSrv.getAnonymousToken();
 		this.realmUser = new RealmUser(this.tokenSrv.getRealmUser());
 		const authState = this.realmUserToAuthState(this.realmUser);
-		this._authState$.next(authState);
+		if (authState.status !== AuthStatus.NOT_AUTHENTICATED) {
+			this._authState$.next(authState);
+		} else if (token) {
+			this.login({ token }).subscribe();
+		} else {
+			this._authState$.next(authState);
+		}
 		this.tokenSrv.restoreFeedToken();
 	}
 
@@ -74,7 +85,8 @@ export class AuthenticationService {
 			tap(realmUser => this.realmUser = realmUser),
 			tap(realmUser => this.tokenSrv.storeRealmUser(realmUser)),
 			map(realmUser => this.realmUserToAuthState(realmUser)),
-			tap(authState => this._authState$.next(authState))
+			tap(authState => this._authState$.next(authState)),
+			first()
 		);
 	}
 
