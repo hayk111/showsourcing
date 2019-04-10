@@ -32,6 +32,7 @@ import {
 	ProductTasksComponent,
 } from './containers';
 import { ProductFeatureService, QuoteFeatureService } from './services';
+import { ProductQuotesComponent } from './components/product-quotes/product-quotes.component';
 
 
 
@@ -65,6 +66,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProjectCardComponent,
 		SelectableImageComponent,
 		SelectionActionsComponent,
+		ProductQuotesComponent,
 	],
 	entryComponents: [],
 	exports: [],

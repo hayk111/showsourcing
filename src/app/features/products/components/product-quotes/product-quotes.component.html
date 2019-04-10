@@ -1,0 +1,5 @@
+<card-app>
+  <div *ngFor="let elem of requestElements$ | async">
+    {{ elem.name }} - {{ elem.reply.status }}
+  </div>
+</card-app>
