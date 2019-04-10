@@ -4,6 +4,7 @@ import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, SupplierRequestService } from '~core/entity-services';
 import { ExtendedField, Product, RequestElement, SupplierRequest } from '~core/models';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { PricePipe } from '~shared/price/price.pipe';
 
 @Component({
 	selector: 'app-review-request-reply-dlg',
@@ -24,7 +25,8 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	constructor(
 		private productSrv: ProductService,
 		private requestSrv: SupplierRequestService,
-		private elementSrv: RequestElementService
+		private elementSrv: RequestElementService,
+		private appPricePipe: PricePipe
 	) {
 		super();
 	}
@@ -54,19 +56,32 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		const isProductExtendedField = field.definition.target === 'Product.extendedFields';
 		// if (isProductExtendedField)
 		// 	debugger;
-		let currentValue;
+		let currentValue, supplierValue;
 		if (isProductExtendedField) {
 			const originId = field.definition.originId;
 			const currentField = this.product.extendedFields.find(fld => fld.definition.id === originId);
 			currentValue = currentField ? currentField.value : '-';
+			supplierValue = field.value;
+			if (field.definition.type === 'price') {
+				currentValue = this.getPrice(currentValue);
+				supplierValue = this.getPrice(field.value);
+			}
 		} else {
 			// target will be something like Product.price, we only need price
 			const property = target.split('.')[1];
-			console.log(this.product);
-			console.log(property);
 			currentValue = this.product[property];
+			supplierValue = field.value;
+			if (property === 'price') {
+				currentValue = this.getPrice(currentValue);
+				supplierValue = this.getPrice(field.value);
+			}
 		}
-		return [currentValue, field.value];
+		return [currentValue, supplierValue];
+	}
+
+
+	getPrice(item: any) {
+		return item ? this.appPricePipe.transform(JSON.parse(item)) : undefined;
 	}
 
 	next() {

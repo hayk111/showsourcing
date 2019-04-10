@@ -5,6 +5,10 @@ dialog-app {
 	}
 }
 
+list-item-app {
+	height: 33px;
+}
+
 dialog-header-app {
 	.move {
 		font-size: var(--font-size-xxl);
@@ -17,6 +21,27 @@ dialog-header-app {
 	}
 }
 
+.info-banner {
+	background: var(--color-secondary-light);
+	font-size: var(--font-size-xxl);
+	color: var(--color-txt-strong);
+	font-weight: 600;
+	height: 62px;
+	width: 100%;
+}
+
 article {
 	margin: var(--spacing-m) 0;
+
+	.title-row {
+		margin-bottom: var(--spacing-ms);
+	}
+
+	list-app {
+		margin-bottom: var(--spacing-l);
+	}
+}
+
+.accept {
+	margin-right: var(--spacing-ms);
 }

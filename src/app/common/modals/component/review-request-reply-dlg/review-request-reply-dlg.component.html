@@ -14,23 +14,23 @@
 		</div>
 	</dialog-header-app>
 
+	<div class="info-banner flexCenter">This is the reply from your supplier</div>
+
   <ng-container *ngIf="element">
     <ng-container *ngIf="element?.reply as reply">
 
       <article>
-        <h3>Product Details</h3>
+        <h3 class="ms">Product Details</h3>
 
         <list-app *ngIf="element">
-					<list-item-app>
-						<comparison-row-app class="title" label="" [values]="['Current Values', 'Supplier\'s Answer']"></comparison-row-app>
-					</list-item-app>
+					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
           <list-item-app *ngFor="let field of element.reply.fields">
             <comparison-row-app [label]="field?.definition?.label" [values]="getValues( field )"></comparison-row-app>
           </list-item-app>
         </list-app>
 
         <footer class="flex">
-          <button class="primary">Accept All</button>
+          <button class="primary accept">Accept All</button>
           <button class="secondary">Refuse All</button>
         </footer>
       </article>
@@ -43,7 +43,7 @@
         <image-previewer-2-app [images]="reply?.images"></image-previewer-2-app>
 
         <footer class="flex">
-          <button class="primary">Accept All</button>
+          <button class="primary accept">Accept All</button>
           <button class="secondary">Refuse All</button>
         </footer>
       </article>
@@ -55,12 +55,18 @@
         <file-list-app [static]="true" [hasPlaceholder]="false" [files]="reply?.attachments"></file-list-app>
 
         <footer class="flex">
-          <button class="primary">Accept All</button>
+          <button class="primary accept">Accept All</button>
           <button class="secondary">Refuse All</button>
         </footer>
       </article>
 
     </ng-container>
-  </ng-container>
+	</ng-container>
+
+	<dialog-footer-app>
+		<button class="secondary">Close Request</button>
+		<button class="secondary">Send back</button>
+		<button>Accept Request</button>
+	</dialog-footer-app>
 
 </dialog-app>

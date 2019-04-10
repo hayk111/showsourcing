@@ -36,6 +36,7 @@ import {
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
 import { ReviewRequestReplyDlgComponent } from './component/review-request-reply-dlg/review-request-reply-dlg.component';
+import { PricePipe } from '~shared/price/price.pipe';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -80,6 +81,7 @@ const modals = [
 	providers: [
 		ProductDialogService,
 		CrudDialogService,
+		PricePipe
 	]
 })
 export class CommonModalsModule { }

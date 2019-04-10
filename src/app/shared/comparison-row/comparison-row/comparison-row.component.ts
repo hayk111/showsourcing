@@ -12,6 +12,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class ComparisonRowComponent implements OnInit {
 	@Input() values: string[];
 	@Input() label: string;
+	@Input() hasCheckbox = true;
 	isChecked: boolean;
 
 	constructor() { }
