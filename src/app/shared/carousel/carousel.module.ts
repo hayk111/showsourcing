@@ -1,15 +1,20 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CardModule } from '~shared/card';
-import { CarouselComponent, ModalCarouselComponent, ImagePreviewer2Component } from '~shared/carousel/components';
+import {
+	CarouselComponent,
+	ImagePreviewer2Component,
+	ImageReviewerComponent,
+	ModalCarouselComponent,
+} from '~shared/carousel/components';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { FileModule } from '~shared/file/file.module';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { LoadersModule } from '~shared/loaders/loaders.module';
 import { RatingModule } from '~shared/rating';
-import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
-import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
 	imports: [
@@ -25,14 +30,16 @@ import { OverlayModule } from '@angular/cdk/overlay';
 		OverlayModule
 	],
 	declarations: [
-		ModalCarouselComponent,
 		CarouselComponent,
 		ImagePreviewer2Component,
+		ImageReviewerComponent,
+		ModalCarouselComponent,
 	],
 	exports: [
-		ModalCarouselComponent,
 		CarouselComponent,
 		ImagePreviewer2Component,
+		ImageReviewerComponent,
+		ModalCarouselComponent,
 	],
 })
 export class CarouselModule { }

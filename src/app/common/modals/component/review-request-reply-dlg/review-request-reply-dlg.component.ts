@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, SupplierRequestService } from '~core/entity-services';
@@ -7,7 +7,7 @@ import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
-	selector: 'app-review-request-reply-dlg',
+	selector: 'review-request-reply-dlg-app',
 	templateUrl: './review-request-reply-dlg.component.html',
 	styleUrls: ['./review-request-reply-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -21,28 +21,37 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	element: RequestElement;
 	elements: RequestElement[] = [];
 	product: Product;
+	product$: Observable<Product>;
 	selected = new Map<string, ExtendedField>();
 
 	constructor(
 		private productSrv: ProductService,
 		private requestSrv: SupplierRequestService,
 		private elementSrv: RequestElementService,
-		private appPricePipe: PricePipe
+		private appPricePipe: PricePipe,
+		private cdr: ChangeDetectorRef
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.elementSrv.queryOne(this.elementId).pipe(
+		this.product$ = this.elementSrv.queryOne(this.elementId).pipe(
 			switchMap((element: RequestElement) => this.productSrv.queryOne(element.targetId)),
 			takeUntil(this._destroy$)
-		).subscribe(product => this.product = product);
+		);
+		this.product$.subscribe(product => {
+			this.product = product;
+			this.cdr.markForCheck();
+		});
 
 		this.request$ = this.requestSrv.selectOne(this.requestId);
 		this.request$.pipe(
 			tap(request => this.request = request),
 			takeUntil(this._destroy$)
-		).subscribe(_ => this.setElement());
+		).subscribe(_ => {
+			this.setElement();
+			this.cdr.markForCheck();
+		});
 	}
 
 	/**

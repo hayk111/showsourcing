@@ -22,7 +22,7 @@
       <article>
         <h3 class="ms">Product Details</h3>
 
-        <list-app *ngIf="element">
+        <list-app>
 					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
           <list-item-app *ngFor="let field of element.reply.fields; trackBy: trackByFn">
 						<comparison-row-app
@@ -44,7 +44,7 @@
         <h3>Additional Pictures</h3>
 
         <!-- I don't think image previewer can be used because of the overlay, or alternatively we have to pass something to the previewer to see an overlay
-        as ng-content -->
+				as ng-content -->
 				<image-previewer-2-app
 					[size]="120"
 					[images]="reply?.images">
