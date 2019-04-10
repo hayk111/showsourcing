@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
-import { Credentials, GraphQLConfig, User as RealmUser } from 'realm-graphql-client';
+import { GraphQLConfig, User as RealmUser } from 'realm-graphql-client';
 import { ReplaySubject } from 'rxjs';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { LocalStorageService } from '~core/local-storage';
 import { log, LogColor } from '~utils';
-import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { Location } from '@angular/common';
 
 const REALM_USER = 'REALM_USER';
 const FEED_TOKEN = 'feed-token';
@@ -21,11 +17,7 @@ export class TokenService {
 	private _jwtTokenFeed$ = new ReplaySubject<TokenState>();
 	jwtTokenFeed$ = this._jwtTokenFeed$.asObservable();
 
-	constructor(
-		private localStorageSrv: LocalStorageService,
-		private route: ActivatedRoute,
-		private location: Location
-	) { }
+	constructor(private localStorageSrv: LocalStorageService) { }
 
 	/**
 	 * Restores the refresh token from the local storage,
