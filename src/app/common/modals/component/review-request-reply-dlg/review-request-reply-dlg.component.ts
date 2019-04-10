@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, SupplierRequestService } from '~core/entity-services';
-import { ExtendedField, Product, RequestElement, SupplierRequest } from '~core/models';
+import { ExtendedField, Product, RequestElement, SupplierRequest, AppImage } from '~core/models';
 import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
@@ -22,7 +22,8 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	elements: RequestElement[] = [];
 	product: Product;
 	product$: Observable<Product>;
-	selection = new Map<string, ExtendedField>();
+	selectionFields = new Map<string, ExtendedField>();
+	selectionImages = new Map<string, AppImage>();
 
 	constructor(
 		private productSrv: ProductService,
@@ -50,9 +51,28 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			takeUntil(this._destroy$)
 		).subscribe(_ => {
 			this.setElement();
-			this.element.reply.fields.forEach(field => this.selection.set(field.id, field));
+			this.acceptAllFields();
+			this.acceptAllImages();
 			this.cdr.markForCheck();
 		});
+	}
+
+	acceptAllImages() {
+		this.element.reply.images.forEach(image => this.selectionImages.set(image.id, image));
+		this.cdr.detectChanges();
+	}
+
+	refuseAllImages() {
+		this.selectionImages.clear();
+		this.cdr.detectChanges();
+	}
+
+	acceptAllFields() {
+		this.element.reply.fields.forEach(field => this.selectionFields.set(field.id, field));
+	}
+
+	refuseAllFields() {
+		this.selectionFields.clear();
 	}
 
 	/**
@@ -112,17 +132,17 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	selectItem(field: ExtendedField) {
-		this.selection.set(field.id, field);
+		this.selectionFields.set(field.id, field);
 	}
 
 	unselectItem(field: ExtendedField) {
-		this.selection.delete(field.id);
+		this.selectionFields.delete(field.id);
 	}
 
 	acceptRequest() {
 		if (5 > 6) {
 			let tempProd;
-			this.selection.forEach(field => {
+			this.selectionFields.forEach(field => {
 				if (field.definition.target === 'Product.extendedFields') {
 					tempProd.extendedFields[field.definition.originId] = {};
 				} else {

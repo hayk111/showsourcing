@@ -26,7 +26,7 @@
 					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
           <list-item-app *ngFor="let field of element.reply.fields; trackBy: trackByFn">
 						<comparison-row-app
-							[checked]="selection.has(field.id)"
+							[checked]="selectionFields.has(field.id)"
 							[label]="field?.definition?.label"
 							[values]="getValues( field )"
 							(selected)="selectItem(field)"
@@ -36,8 +36,8 @@
         </list-app>
 
         <footer class="flex">
-          <button class="primary accept">Accept All</button>
-          <button class="secondary">Refuse All</button>
+          <button class="primary accept" (click)="acceptAllFields()">Accept All</button>
+          <button class="secondary" (click)="refuseAllFields()">Refuse All</button>
         </footer>
       </article>
 
@@ -47,12 +47,15 @@
         <!-- I don't think image previewer can be used because of the overlay, or alternatively we have to pass something to the previewer to see an overlay
 				as ng-content -->
 				<image-reviewer-app
-					[images]="reply?.images">
+					[images]="reply?.images"
+					[selection]="selectionImages"
+					(selected)="selectionImages.set($event.id, $event)"
+					(unselected)="selectionImages.delete($event.id)">
 				</image-reviewer-app>
 
         <footer class="flex">
-          <button class="primary accept">Accept All</button>
-          <button class="secondary">Refuse All</button>
+          <button class="primary accept" (click)="acceptAllImages()">Accept All</button>
+          <button class="secondary" (click)="refuseAllImages()">Refuse All</button>
         </footer>
       </article>
 

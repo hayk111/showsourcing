@@ -10,22 +10,12 @@ import { TrackingComponent } from '~utils';
 })
 export class ImageReviewerComponent extends TrackingComponent implements OnInit {
 
-	selection = new Map<string, AppImage>();
-	private _images: Array<AppImage> = [];
-	@Input() set images(images: Array<AppImage>) {
-		if (images && images.length) {
-			this._images = images;
-			this.images.forEach(image => this.selection.set(image.id, image));;
-		}
-	}
-	get images() {
-		return this._images;;
-	}
+	@Input() images: Array<AppImage> = [];
+	@Input() selection = new Map<string, AppImage>();
 	@Input() size = 120;
 	@Output() imageClick = new EventEmitter<number>();
 	@Output() selected = new EventEmitter<AppImage>();
 	@Output() unselected = new EventEmitter<AppImage>();
-	@Output() change = new EventEmitter<Map<string, AppImage>>();
 
 	constructor() { super(); }
 
@@ -43,13 +33,11 @@ export class ImageReviewerComponent extends TrackingComponent implements OnInit 
 	onSelect(image: AppImage) {
 		this.selection.set(image.id, image);
 		this.selected.emit(image);
-		this.change.emit(this.selection);
 	}
 
 	onUnselect(image: AppImage) {
 		this.selection.delete(image.id);
 		this.unselected.emit(image);
-		this.change.emit(this.selection);
 	}
 
 }
