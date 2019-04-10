@@ -24,8 +24,13 @@
 
         <list-app *ngIf="element">
 					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
-          <list-item-app *ngFor="let field of element.reply.fields">
-            <comparison-row-app [label]="field?.definition?.label" [values]="getValues( field )"></comparison-row-app>
+          <list-item-app *ngFor="let field of element.reply.fields; trackBy: trackByFn">
+						<comparison-row-app
+							[label]="field?.definition?.label"
+							[values]="getValues( field )"
+							(selected)="selectItem(field)"
+							(unselected)="unselectItem(field)">
+						</comparison-row-app>
           </list-item-app>
         </list-app>
 
@@ -40,7 +45,10 @@
 
         <!-- I don't think image previewer can be used because of the overlay, or alternatively we have to pass something to the previewer to see an overlay
         as ng-content -->
-        <image-previewer-2-app [images]="reply?.images"></image-previewer-2-app>
+				<image-previewer-2-app
+					[size]="120"
+					[images]="reply?.images">
+				</image-previewer-2-app>
 
         <footer class="flex">
           <button class="primary accept">Accept All</button>
@@ -66,7 +74,7 @@
 	<dialog-footer-app>
 		<button class="secondary">Close Request</button>
 		<button class="secondary">Send back</button>
-		<button>Accept Request</button>
+		<button (click)="acceptRequest()">Accept Request</button>
 	</dialog-footer-app>
 
 </dialog-app>

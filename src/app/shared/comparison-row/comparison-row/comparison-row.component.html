@@ -11,6 +11,8 @@
 	<checkbox-app
 		[ngStyle]="{visibility: hasCheckbox ? 'visible' : 'hidden'}"
 		[checked]="isChecked"
-		boxColor="success">
+		boxColor="success"
+		(check)="selected.emit()"
+		(uncheck)="unselected.emit()">
 	</checkbox-app>
 </div>

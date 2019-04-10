@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, SupplierRequestService } from '~core/entity-services';
 import { ExtendedField, Product, RequestElement, SupplierRequest } from '~core/models';
-import { AutoUnsub } from '~utils/auto-unsub.component';
 import { PricePipe } from '~shared/price/price.pipe';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'app-review-request-reply-dlg',
@@ -21,6 +21,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	element: RequestElement;
 	elements: RequestElement[] = [];
 	product: Product;
+	selected = new Map<string, ExtendedField>();
 
 	constructor(
 		private productSrv: ProductService,
@@ -50,17 +51,14 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	 * Said value can be either on the product or product.extendedField
 	 */
 	getValues(field: ExtendedField) {
-		// TODO: transform values like price. USE a PricePipe !!! you can use it dynamically in here
 
 		const target = field.definition.target;
 		const isProductExtendedField = field.definition.target === 'Product.extendedFields';
-		// if (isProductExtendedField)
-		// 	debugger;
 		let currentValue, supplierValue;
 		if (isProductExtendedField) {
 			const originId = field.definition.originId;
-			const currentField = this.product.extendedFields.find(fld => fld.definition.id === originId);
-			currentValue = currentField ? currentField.value : '-';
+			const currentField = this.product ? this.product.extendedFields.find(fld => fld.definition.id === originId) : '';
+			currentValue = currentField ? currentField.value : '';
 			supplierValue = field.value;
 			if (field.definition.type === 'price') {
 				currentValue = this.getPrice(currentValue);
@@ -69,7 +67,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		} else {
 			// target will be something like Product.price, we only need price
 			const property = target.split('.')[1];
-			currentValue = this.product[property];
+			currentValue = this.product ? this.product[property] : '';
 			supplierValue = field.value;
 			if (property === 'price') {
 				currentValue = this.getPrice(currentValue);
@@ -100,6 +98,27 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 
 		if (!this.element) {
 			throw Error(`no element at index ${this.selectedIndex} in array: ${this.elements.toString()}`);
+		}
+	}
+
+	selectItem(field: ExtendedField) {
+		this.selected.set(field.id, field);
+	}
+
+	unselectItem(field: ExtendedField) {
+		this.selected.delete(field.id);
+	}
+
+	acceptRequest() {
+		if (5 > 6) {
+			let tempProd;
+			this.selected.forEach(field => {
+				if (field.definition.target === 'Product.extendedFields') {
+					tempProd.extendedFields[field.definition.originId] = {};
+				} else {
+
+				}
+			});
 		}
 	}
 
