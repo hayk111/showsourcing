@@ -1,5 +1,5 @@
 <card-app>
-  <div *ngFor="let elem of requestElements$ | async">
+  <div *ngFor="let elem of requestElements$ | async" (click)="openReviewDlg(elem)">
     {{ elem.name }} - {{ elem.reply.status }}
   </div>
 </card-app>

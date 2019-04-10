@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RequestElementService } from '~core/entity-services';
 import { RequestElement } from '~core/models';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'app-product-quotes',
@@ -16,11 +17,16 @@ export class ProductQuotesComponent implements OnInit {
 
 	constructor(
 		private requestElementSrv: RequestElementService,
+		private dlgSrv: DialogService,
 		private route: ActivatedRoute
 	) { }
 
 	ngOnInit() {
 		const productId = this.route.parent.snapshot.params.id;
 		this.requestElements$ = this.requestElementSrv.queryMany({ query: `targetedEntityType == "Product" && targetId == "${productId}"` });
+	}
+
+	openReviewDlg(elem: RequestElement) {
+		// this.dlgSrv.open(RequestReviewComponent, {})
 	}
 }
