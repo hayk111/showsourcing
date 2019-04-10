@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
-import { Credentials, GraphQLConfig, User as RealmUser } from 'realm-graphql-client';
+import { GraphQLConfig, User as RealmUser } from 'realm-graphql-client';
 import { ReplaySubject } from 'rxjs';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { LocalStorageService } from '~core/local-storage';
@@ -80,6 +79,11 @@ export class TokenService {
 		log.info(`%c Clearing tokens`, LogColor.SERVICES);
 		this.localStorageSrv.remove(REALM_USER);
 		this.localStorageSrv.remove(FEED_TOKEN);
+	}
+
+	getAnonymousToken() {
+		const urlParams = new URLSearchParams(window.location.search);
+		return urlParams.get('token');
 	}
 
 }
