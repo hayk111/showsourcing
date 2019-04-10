@@ -15,6 +15,7 @@ import { ImageModule } from '~shared/image/image.module';
 import { LoadersModule } from '~shared/loaders/loaders.module';
 import { RatingModule } from '~shared/rating';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { InputsModule } from '~shared/inputs';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,8 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 		LoadersModule,
 		ContextMenuModule,
 		SelectorsModule,
-		OverlayModule
+		OverlayModule,
+		InputsModule
 	],
 	declarations: [
 		CarouselComponent,

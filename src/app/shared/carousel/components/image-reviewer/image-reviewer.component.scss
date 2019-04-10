@@ -1,0 +1,27 @@
+:host {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.image-container {
+	position: relative;
+	margin-right: var(--spacing-s);
+	margin-bottom: var(--spacing-s);
+	border-radius: var(--border-radius-s);
+}
+
+.overlay {
+	position: absolute;
+}
+
+.checkbox {
+	right: var(--spacing-s);
+	top: var(--spacing-s);
+}
+
+.status-banner {
+	color: white;
+	bottom: 0;
+	width: 100%;
+	font-size: var(--font-size-l);
+}

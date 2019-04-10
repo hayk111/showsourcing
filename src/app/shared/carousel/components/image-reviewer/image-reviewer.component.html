@@ -1,3 +1,24 @@
-<p>
-  image-reviewer works!
-</p>
+<div
+	class="image-container"
+	[ngStyle]="getStyle()"
+	*ngFor="let img of images; let i = index; trackBy: trackByFn"
+	(click)="imageClick.emit(i)">
+	<img-app
+		[ngClass]="{ 'pending': img.pending }"
+		[image]="img"
+		size="xl">
+	</img-app>
+	<checkbox-app
+		class="overlay checkbox"
+		boxColor="success"
+		(check)="onSelect(img)"
+		(uncheck)="onUnselect(img)">
+	</checkbox-app>
+	<div
+		class="overlay status-banner flexCenter"
+		[ngClass]="selection.has(img.id) ? 'bg-success' : 'bg-warn'">
+		{{ selection.has(img.id) ? 'Accepted' : 'Refused' }}
+	</div>
+</div>
+
+

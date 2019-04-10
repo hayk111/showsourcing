@@ -41,14 +41,13 @@
       </article>
 
       <article *ngIf="reply?.images?.length > 0">
-        <h3>Additional Pictures</h3>
+        <h3 class="l">Additional Pictures</h3>
 
         <!-- I don't think image previewer can be used because of the overlay, or alternatively we have to pass something to the previewer to see an overlay
 				as ng-content -->
-				<image-previewer-2-app
-					[size]="120"
+				<image-reviewer-app
 					[images]="reply?.images">
-				</image-previewer-2-app>
+				</image-reviewer-app>
 
         <footer class="flex">
           <button class="primary accept">Accept All</button>
