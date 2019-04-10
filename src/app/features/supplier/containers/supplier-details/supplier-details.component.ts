@@ -25,8 +25,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	contacts$: Observable<Contact[]>;
 	taskCount$: Observable<number>;
 
-	tabs = [{ name: 'Activity' }, { name: 'Products' }, { name: 'Tasks', number$: this.taskCount$ }];
-
+	tabs: { name: string, number$?: Observable<number> }[];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -70,6 +69,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.contacts$ = id$.pipe(
 			switchMap(id => this.featureSrv.getContacts(id)),
 		);
+
+		this.tabs = [{ name: 'Activity' }, { name: 'Products' }, { name: 'Tasks', number$: this.taskCount$ }];
 
 	}
 

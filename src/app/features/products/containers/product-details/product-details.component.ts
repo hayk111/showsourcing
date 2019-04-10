@@ -28,13 +28,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	taskCount$: Observable<number>;
 	requestCount$: Observable<number>;
 
-	tabs = [
-		{ name: 'Activity' },
-		{ name: 'Shipping' },
-		{ name: 'Samples', number$: this.sampleCount$ },
-		{ name: 'Tasks', number$: this.taskCount$ },
-		{ name: 'Requests', number$: this.requestCount$ }
-	];
+	tabs: { name: string, number$?: Observable<number> }[];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -83,6 +77,14 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 				.selectCount(`targetId == "${id}" AND targetEntityType "Product"`)),
 			takeUntil(this._destroy$)
 		);
+
+		this.tabs = [
+			{ name: 'Activity' },
+			{ name: 'Shipping' },
+			{ name: 'Samples', number$: this.sampleCount$ },
+			{ name: 'Tasks', number$: this.taskCount$ },
+			{ name: 'Requests', number$: this.requestCount$ }
+		];
 
 	}
 
