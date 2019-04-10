@@ -22,7 +22,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	elements: RequestElement[] = [];
 	product: Product;
 	product$: Observable<Product>;
-	selected = new Map<string, ExtendedField>();
+	selection = new Map<string, ExtendedField>();
 
 	constructor(
 		private productSrv: ProductService,
@@ -50,6 +50,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			takeUntil(this._destroy$)
 		).subscribe(_ => {
 			this.setElement();
+			this.element.reply.fields.forEach(field => this.selection.set(field.id, field));
 			this.cdr.markForCheck();
 		});
 	}
@@ -111,17 +112,17 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	selectItem(field: ExtendedField) {
-		this.selected.set(field.id, field);
+		this.selection.set(field.id, field);
 	}
 
 	unselectItem(field: ExtendedField) {
-		this.selected.delete(field.id);
+		this.selection.delete(field.id);
 	}
 
 	acceptRequest() {
 		if (5 > 6) {
 			let tempProd;
-			this.selected.forEach(field => {
+			this.selection.forEach(field => {
 				if (field.definition.target === 'Product.extendedFields') {
 					tempProd.extendedFields[field.definition.originId] = {};
 				} else {

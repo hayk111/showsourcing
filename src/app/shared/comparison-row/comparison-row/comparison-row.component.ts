@@ -12,10 +12,10 @@ import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output
 export class ComparisonRowComponent implements OnInit {
 	@Input() values: string[];
 	@Input() label: string;
+	@Input() checked: boolean;
 	@Input() hasCheckbox = true;
 	@Output() selected = new EventEmitter<null>();
 	@Output() unselected = new EventEmitter<null>();
-	isChecked: boolean;
 
 	constructor() { }
 

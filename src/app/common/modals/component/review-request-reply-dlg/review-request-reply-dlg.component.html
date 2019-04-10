@@ -26,6 +26,7 @@
 					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
           <list-item-app *ngFor="let field of element.reply.fields; trackBy: trackByFn">
 						<comparison-row-app
+							[checked]="selection.has(field.id)"
 							[label]="field?.definition?.label"
 							[values]="getValues( field )"
 							(selected)="selectItem(field)"
