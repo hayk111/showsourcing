@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
+import { CommonModalService, SupplierRequestDialogComponent } from '~common/modals';
 import { SampleService, UserService, TaskService } from '~core/entity-services';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
@@ -154,5 +154,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	openPreview() {
 		this.previewOpen = true;
+	}
+
+	openSupplierRequest(product: Product) {
+		this.dlgSrv.open(SupplierRequestDialogComponent, { product });
 	}
 }

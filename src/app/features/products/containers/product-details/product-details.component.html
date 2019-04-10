@@ -4,7 +4,8 @@
 		[product]="product"
 		(update)="updateProduct($event)"
 		(export)="commonModalSrv.openExportDialog([$event])"
-		(delete)="deleteProduct($event)">
+		(delete)="deleteProduct($event)"
+		(supplierRequest)="openSupplierRequest($event)">
 	</product-top-panel-app>
 
 	<div class="flex content">
