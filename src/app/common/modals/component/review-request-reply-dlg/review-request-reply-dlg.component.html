@@ -26,11 +26,11 @@
 					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
           <list-item-app *ngFor="let field of element.reply.fields; trackBy: trackByFn">
 						<comparison-row-app
-							[checked]="selectionFields.has(field.id)"
+							[checked]="selectionSrv.selection.has(field.id)"
 							[label]="field?.definition?.label"
 							[values]="getValues( field )"
-							(selected)="selectItem(field)"
-							(unselected)="unselectItem(field)">
+							(selected)="selectionSrv.selectOne(field)"
+							(unselected)="selectionSrv.unselectOne(field)">
 						</comparison-row-app>
           </list-item-app>
         </list-app>
@@ -48,9 +48,9 @@
 				as ng-content -->
 				<image-reviewer-app
 					[images]="reply?.images"
-					[selection]="selectionImages"
-					(selected)="selectionImages.set($event.id, $event)"
-					(unselected)="selectionImages.delete($event.id)">
+					[selection]="selectionSrv.selection$ | async"
+					(selected)="selectionSrv.selectOne($event)"
+					(unselected)="selectionSrv.unselectOne($event)">
 				</image-reviewer-app>
 
         <footer class="flex">

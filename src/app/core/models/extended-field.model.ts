@@ -7,6 +7,7 @@ export class ExtendedField {
 	id: string;
 	definition?: ExtendedFieldDefinition;
 	value?: string;
+	__typename?= 'ExtendedField';
 
 	constructor() {
 		this.id = uuid();

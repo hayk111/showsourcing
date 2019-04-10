@@ -5,6 +5,8 @@ import { ProductService, RequestElementService, SupplierRequestService } from '~
 import { ExtendedField, Product, RequestElement, SupplierRequest, AppImage } from '~core/models';
 import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { SelectionService } from '~core/list-page';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'review-request-reply-dlg-app',
@@ -22,15 +24,15 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	elements: RequestElement[] = [];
 	product: Product;
 	product$: Observable<Product>;
-	selectionFields = new Map<string, ExtendedField>();
-	selectionImages = new Map<string, AppImage>();
 
 	constructor(
 		private productSrv: ProductService,
 		private requestSrv: SupplierRequestService,
 		private elementSrv: RequestElementService,
 		private appPricePipe: PricePipe,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		public selectionSrv: SelectionService,
+		private dlgSrv: DialogService
 	) {
 		super();
 	}
@@ -58,21 +60,19 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	acceptAllImages() {
-		this.element.reply.images.forEach(image => this.selectionImages.set(image.id, image));
-		this.cdr.detectChanges();
+		this.selectionSrv.selectAll(this.element.reply.images as any);
 	}
 
 	refuseAllImages() {
-		this.selectionImages.clear();
-		this.cdr.detectChanges();
+		this.selectionSrv.unselectMany(this.element.reply.images as any);
 	}
 
 	acceptAllFields() {
-		this.element.reply.fields.forEach(field => this.selectionFields.set(field.id, field));
+		this.selectionSrv.selectAll(this.element.reply.fields);
 	}
 
 	refuseAllFields() {
-		this.selectionFields.clear();
+		this.selectionSrv.unselectMany(this.element.reply.fields);
 	}
 
 	/**
@@ -131,25 +131,29 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		}
 	}
 
-	selectItem(field: ExtendedField) {
-		this.selectionFields.set(field.id, field);
-	}
-
-	unselectItem(field: ExtendedField) {
-		this.selectionFields.delete(field.id);
-	}
-
 	acceptRequest() {
-		if (5 > 6) {
-			let tempProd;
-			this.selectionFields.forEach(field => {
-				if (field.definition.target === 'Product.extendedFields') {
-					tempProd.extendedFields[field.definition.originId] = {};
+		let tempProduct = { id: this.product.id, images: this.product.images, extendedFields: this.product.extendedFields };
+		this.selectionSrv.selection.forEach(item => {
+			// if its image
+			if (item.__typename === 'Image') {
+				// tempProduct = ({ ...tempProduct, images: [...tempProduct.images, { ...item }] });
+				// if its extended field
+			} else if (item.__typename === 'ExtendedField') {
+				if (item.definition.target === 'Product.extendedFields') {
+					let fieldReplace = this.product.extendedFields.find(fld => fld.definition.id === item.definition.id);
+					fieldReplace = ({ ...fieldReplace, value: item.value });
+					tempProduct = ({ ...tempProduct, extendedFields: [...tempProduct.extendedFields, { ...fieldReplace }] });
 				} else {
-
+					const property = item.definition.target.split('.')[1];
+					if (property === 'price')
+						tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
+					else
+						tempProduct = ({ ...tempProduct, [property]: item.value });
 				}
-			});
-		}
+			}
+		});
+		// this.productSrv.update(tempProduct).subscribe();
+		// this.dlgSrv.close();
 	}
 
 }
