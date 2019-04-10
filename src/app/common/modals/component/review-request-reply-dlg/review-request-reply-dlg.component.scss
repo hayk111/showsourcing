@@ -1,4 +1,21 @@
+dialog-app {
+	height: 80vh;
+	extended-form-app {
+		margin-bottom: var(--spacing-ms);
+	}
+}
 
+dialog-header-app {
+	.move {
+		font-size: var(--font-size-xxl);
+		.spacer {
+			width: var(--spacing-ms);
+		}
+	}
+	.title {
+		margin-left: var(--spacing-ms);
+	}
+}
 
 article {
 	margin: var(--spacing-m) 0;

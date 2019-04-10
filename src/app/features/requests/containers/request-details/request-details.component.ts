@@ -18,7 +18,9 @@ import { ReviewRequestReplyDlgComponent } from '~common/modals/component/review-
 })
 export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
+	private requestElements: RequestElement[];
 	request: SupplierRequest;
+	requestId: string;
 	erm = ERM;
 
 	constructor(
@@ -36,6 +38,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const id$ = this.route.params.pipe(
 			map(params => params.id),
+			tap(id => this.requestId = id),
 			takeUntil(this._destroy$)
 		);
 
@@ -51,6 +54,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				});
 			}),
 			switchMap(id => this.featureSrv.selectOne(id)),
+			tap(req => this.requestElements = req.requestElements),
 			takeUntil(this._destroy$)
 		).subscribe(
 			request => this.onRequest(request),
@@ -83,7 +87,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openReview(id: string) {
-		this.dlgSrv.open(ReviewRequestReplyDlgComponent, { elementId: id });
+		const selectedIndex = this.requestElements.findIndex(elem => elem.id === id);
+		this.dlgSrv.open(ReviewRequestReplyDlgComponent, { elementId: id, selectedIndex, requestId: this.requestId });
 	}
 
 }
