@@ -8,7 +8,7 @@ import { ProductService } from '~entity-services';
 import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, Project } from '~models';
 import { FilterType } from '~shared/filters';
-import { TrackingComponent } from '~utils/tracking-component';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'project-products-app',
@@ -19,7 +19,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 		ListPageService
 	]
 })
-export class ProjectProductsComponent extends TrackingComponent implements OnInit {
+export class ProjectProductsComponent extends AutoUnsub implements OnInit {
 
 	project$: Observable<Project>;
 	private project: Project;
@@ -63,7 +63,8 @@ export class ProjectProductsComponent extends TrackingComponent implements OnIni
 				sortBy: 'category.name',
 				descending: true
 			},
-			entityMetadata: ERM.PRODUCT
+			entityMetadata: ERM.PRODUCT,
+			originComponentDestroy: this._destroy$
 		});
 	}
 

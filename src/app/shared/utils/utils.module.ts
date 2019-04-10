@@ -7,7 +7,6 @@ import { InfiniScrollDirective, TooltipDirective, TooltipComponent } from '~shar
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { GroupByPipe } from '~shared/utils/pipes/groupby.pipe';
 import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directive';
-import { CurrencySymbolPipe } from './pipes';
 
 @NgModule({
 	imports: [
@@ -23,7 +22,6 @@ import { CurrencySymbolPipe } from './pipes';
 		AutoFocusDirective,
 		TooltipDirective,
 		TooltipComponent,
-		CurrencySymbolPipe
 	],
 	exports: [
 		ClickOutsideDirective,
@@ -34,7 +32,6 @@ import { CurrencySymbolPipe } from './pipes';
 		GroupByPipe,
 		AutoFocusDirective,
 		TooltipDirective,
-		CurrencySymbolPipe
 	],
 	providers: [
 		ConstPipe

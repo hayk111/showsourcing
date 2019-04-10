@@ -50,7 +50,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 					selectParams: { sortBy: 'name', query: `@links.Request.requestElements.id == "${id}"` },
 					searchedFields: [],
 					entityMetadata: ERM.REQUEST_ELEMENT,
-					initialFilters: []
+					initialFilters: [],
+					originComponentDestroy: this._destroy$
 				});
 			}),
 			switchMap(id => this.featureSrv.selectOne(id)),

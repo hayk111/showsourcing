@@ -1,12 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { empty, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
-import { ERMService } from '~core/entity-services/_global/erm.service';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
+import { TemplateService } from '~core/template/services/template.service';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
@@ -28,6 +28,7 @@ const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 export interface ListPageConfig extends ListPageDataConfig {
 	key: ListPageKey | string;
 	entityMetadata: EntityMetadata;
+	originComponentDestroy?: Subject<void>;
 }
 
 /**
@@ -53,7 +54,8 @@ export class ListPageService
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
-		private zone: NgZone
+		private zone: NgZone,
+		private templateSrv: TemplateService
 	) { }
 
 	static reset() {
@@ -64,14 +66,26 @@ export class ListPageService
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
+			this.initOriginCompoentDestroy(config.originComponentDestroy);
 			this.initServices(config.key);
 			this.dataSrv.setup(config);
 			this.viewSrv.setup(config.entityMetadata);
-			// by default we start loading
 			if (shouldInitDataLoading) {
 				this.dataSrv.loadData();
 			}
 		});
+	}
+
+	/**
+	 * Since now the scrolling happens on the the template.html for most of the lists
+	 * we need a way to know when the bottomReach is happening and when to kill that observable
+	 * originComponentDestroy indicates it
+	 */
+	private initOriginCompoentDestroy(destroy$: Subject<void>) {
+		if (destroy$)
+			this.templateSrv.bottomReached$.pipe(
+				takeUntil(destroy$)
+			).subscribe(_ => this.loadMore());
 	}
 
 	/**

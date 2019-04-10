@@ -56,7 +56,7 @@
 		<div class="title"> {{ product?.name || 'Unnamed product'}} </div>
 		<div class="flex" *ngIf="product?.price?.value">
 				<span class="price">
-					{{product?.price?.currency | currencySymbol}} {{ product?.price?.value | ssPrice }}
+					{{product?.price | appPrice }}
 				</span>
 				<span class="moq" *ngIf="product?.minimumOrderQuantity">
 					&nbsp;- Min {{ product?.minimumOrderQuantity }} Pcs
