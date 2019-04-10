@@ -39,7 +39,7 @@
 		<div *ngIf="field?.definition?.type !== 'price'; else isPrice">{{fields[index][i]?.value}}</div>
 		<ng-template #isPrice>
 			<div *ngIf="getPrice(fields[index][i]?.value) as price">
-					{{ price?.value | ssPrice | currency: price?.currency: 'symbol':'1.2-2' }}
+					{{ price | appPrice }}
 			</div>
 		</ng-template>
 
