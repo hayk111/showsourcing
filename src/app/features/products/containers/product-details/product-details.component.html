@@ -56,9 +56,7 @@
 		</div>
 
 		<div class="right">
-				<navbar-app
-					[tabs]="[{name: 'Activity'}, {name: 'Shipping'}, {name: 'Samples', number: sampleCount$ | async}, {name: 'Tasks', number: taskCount$ | async}, { name: 'Quotes' }]">
-				</navbar-app>
+				<navbar-app [tabs]="tabs"></navbar-app>
 			<router-outlet></router-outlet>
     </div>
 

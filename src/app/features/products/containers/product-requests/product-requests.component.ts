@@ -6,12 +6,12 @@ import { RequestElement } from '~core/models';
 import { DialogService } from '~shared/dialog';
 
 @Component({
-	selector: 'app-product-quotes',
-	templateUrl: './product-quotes.component.html',
-	styleUrls: ['./product-quotes.component.scss'],
+	selector: 'product-requests-app',
+	templateUrl: './product-requests.component.html',
+	styleUrls: ['./product-requests.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductQuotesComponent implements OnInit {
+export class ProductRequestsComponent implements OnInit {
 
 	requestElements$: Observable<RequestElement[]>;
 

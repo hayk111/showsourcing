@@ -32,7 +32,7 @@ import {
 	ProductTasksComponent,
 } from './containers';
 import { ProductFeatureService, QuoteFeatureService } from './services';
-import { ProductQuotesComponent } from './components/product-quotes/product-quotes.component';
+import { ProductRequestsComponent } from './containers/product-requests/product-requests.component';
 
 
 
@@ -66,7 +66,7 @@ import { ProductQuotesComponent } from './components/product-quotes/product-quot
 		ProjectCardComponent,
 		SelectableImageComponent,
 		SelectionActionsComponent,
-		ProductQuotesComponent,
+		ProductRequestsComponent,
 	],
 	entryComponents: [],
 	exports: [],

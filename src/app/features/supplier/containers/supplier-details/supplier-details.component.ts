@@ -25,6 +25,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	contacts$: Observable<Contact[]>;
 	taskCount$: Observable<number>;
 
+	tabs = [{ name: 'Activity' }, { name: 'Products' }, { name: 'Tasks', number$: this.taskCount$ }];
+
 
 	constructor(
 		private route: ActivatedRoute,
