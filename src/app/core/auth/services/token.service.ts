@@ -5,6 +5,9 @@ import { ReplaySubject } from 'rxjs';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { LocalStorageService } from '~core/local-storage';
 import { log, LogColor } from '~utils';
+import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 const REALM_USER = 'REALM_USER';
 const FEED_TOKEN = 'feed-token';
@@ -18,7 +21,11 @@ export class TokenService {
 	private _jwtTokenFeed$ = new ReplaySubject<TokenState>();
 	jwtTokenFeed$ = this._jwtTokenFeed$.asObservable();
 
-	constructor(private localStorageSrv: LocalStorageService) { }
+	constructor(
+		private localStorageSrv: LocalStorageService,
+		private route: ActivatedRoute,
+		private location: Location
+	) { }
 
 	/**
 	 * Restores the refresh token from the local storage,
@@ -80,6 +87,11 @@ export class TokenService {
 		log.info(`%c Clearing tokens`, LogColor.SERVICES);
 		this.localStorageSrv.remove(REALM_USER);
 		this.localStorageSrv.remove(FEED_TOKEN);
+	}
+
+	getAnonymousToken() {
+		const urlParams = new URLSearchParams(window.location.search);
+		return urlParams.get('token');
 	}
 
 }
