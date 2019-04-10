@@ -1,11 +1,5 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	Input,
-	OnInit,
-} from '@angular/core';
-import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { Currency } from '~models';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Price } from '~models';
 
 @Component({
 	selector: 'price-app',
@@ -13,32 +7,15 @@ import { Currency } from '~models';
 	styleUrls: ['./price.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PriceComponent implements OnInit {
+export class PriceComponent {
 
-	@Input() big = false;
-	@Input() currency: Currency;
-	@Input() fontWeight = 'inherit';
-	@Input() size = 'inherit';
-	@Input() isShort = false;
-	@Input() get amount() {
-		return this._amount;
+	@Input() price: Price;
+
+	get amount() {
+		return this.price ? this.price.value : undefined;
 	}
 
-	private _amount: number;
-
-	constructor() { }
-
-	ngOnInit() { }
-
-	set amount(v: number) {
-		this._amount = v;
-	}
-
-	get styles() {
-		return {
-			'font-weight': this.fontWeight,
-			'font-size':
-				this.size === 'inherit' ? 'inherit' : 'var(--font-size-' + this.size + ')',
-		};
+	get currency() {
+		return this.price ? this.price.currency : undefined;
 	}
 }

@@ -38,11 +38,7 @@
 				<div [ngSwitch]="comparison.dataType" [ngClass]="'comparison-cell-' + comparison.dataType">
 					<div *ngSwitchCase="'price'">
 						<div class="comparison-cell color-txt-strong" *ngFor="let value of comparison.data; trackBy: trackByFn">
-							<price-app
-								[isShort]="true"
-								[amount]="value?.value"
-								[currency]="value?.currency">
-							</price-app>
+							<price-app [price]="value"> </price-app>
 						</div>
 					</div>
 					<div *ngSwitchCase="'text'">

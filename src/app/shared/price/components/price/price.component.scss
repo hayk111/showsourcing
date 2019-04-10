@@ -1,23 +1,14 @@
 .flex {
 	align-items: baseline;
-	/* justify-content: flex-end */
 }
 
 :host {
 	align-items: baseline;
-	/* justify-content: flex-end; */
 }
 
 .currency {
 	font-size: var(--font-size-s);
-	font-weight: bold;
 	margin-left: 0px;
+	margin-right: var(--spacing-xs);
 }
 
-.amount {
-	font-weight: bold;
-}
-
-.mg-xxs.spacer {
-	margin: var(--spacing-xs);
-}
