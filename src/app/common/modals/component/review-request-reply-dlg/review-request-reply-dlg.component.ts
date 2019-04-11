@@ -177,9 +177,18 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 						tempProduct = this.replaceProductExtendedField(tempProduct, item);
 					else {
 						const property = item.definition.target.split('.')[1];
-						tempProduct = property === 'price' ?
-							({ ...tempProduct, [property]: { ...JSON.parse(item.value) } }) :
-							({ ...tempProduct, [property]: item.value });
+						switch (item.definition.type) {
+							case 'price':
+								tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
+								break;
+							case 'boolean':
+								const toBoolean = item.value === 'yes' ? true : false;
+								tempProduct = ({ ...tempProduct, [property]: toBoolean });
+								break;
+							default:
+								tempProduct = ({ ...tempProduct, [property]: item.value });
+								break;
+						}
 					}
 					break;
 				default:
