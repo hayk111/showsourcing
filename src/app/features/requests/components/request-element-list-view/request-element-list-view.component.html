@@ -31,19 +31,27 @@
 
 	<ng-template
 		let-row="row"
+		let-index="index"
 		width="250"
-		*ngFor="let field of fields; index as index; trackBy: trackByFn"
+		[sortable]="false"
+		*ngFor="let field of fields[0]; index as i; trackBy: trackByFn"
 		[columnApp]="field?.definition?.label">
-		<div>{{field?.value}}</div>
+		<div *ngIf="field?.definition?.type !== 'price'; else isPrice">{{fields[index][i]?.value}}</div>
+		<ng-template #isPrice>
+			<div *ngIf="getPrice(fields[index][i]?.value) as price">
+					{{ price | appPrice }}
+			</div>
+		</ng-template>
+
 	</ng-template>
 
 	<ng-template
 		columnApp="Status"
 		sortBy="status"
 		let-row="row"
-		width="200">
+		width="300">
 		<request-status-badge-app
-			[status]="row?.status"
+			[status]="row?.reply?.status"
 			[creationDate]="row?.creationDate">
 		</request-status-badge-app>
 	</ng-template>

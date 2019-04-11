@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { EntityMetadata, ExtendedField, ExtendedFieldDefinition, Price } from '~core/models';
 
 
@@ -20,7 +22,7 @@ import { EntityMetadata, ExtendedField, ExtendedFieldDefinition, Price } from '~
 		'[class.twoLine]': '!inlineLabel'
 	}
 })
-export class ExtendedFormInputComponent {
+export class ExtendedFormInputComponent implements OnInit {
 
 	@Input() type: EntityMetadata;
 	@Input() set field(field: ExtendedField) {
@@ -44,6 +46,17 @@ export class ExtendedFormInputComponent {
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 
+	inputValue$ = new Subject<({ value: any, isPrice: boolean })>();
+
+	ngOnInit() {
+		this.inputValue$.pipe(
+			debounceTime(200),
+			distinctUntilChanged(),
+			tap(item => item.isPrice ? this.accumulatePrice(item.value) : this.accumulator = item.value),
+			tap(_ => this.onClose(false))
+		).subscribe();
+	}
+
 	onClose(isCancel: boolean) {
 		if (!isCancel) {
 			this.onSave();
@@ -61,6 +74,10 @@ export class ExtendedFormInputComponent {
 	/** when the user cancels we put the previous value back in because onClose is gonna be called */
 	onCancel() {
 		this.accumulator = this.field.value;
+	}
+
+	onInput(value: any, isPrice = false) {
+		this.inputValue$.next({ value, isPrice });
 	}
 
 	/** toggle input value from true to false and vice versa */

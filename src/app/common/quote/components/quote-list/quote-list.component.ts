@@ -4,7 +4,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { QuoteFeatureService } from '~features/products/services';
 import { ERM, Quote } from '~models';
-import { TrackingComponent } from '~utils/tracking-component';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'quote-list-app',
@@ -14,7 +14,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 		ListPageService
 	]
 })
-export class QuoteListComponent extends TrackingComponent implements OnInit {
+export class QuoteListComponent extends AutoUnsub implements OnInit {
 
 	private _quotes: Quote[] = [];
 	@Input() set quotes(quotes: Quote[]) {
@@ -53,7 +53,8 @@ export class QuoteListComponent extends TrackingComponent implements OnInit {
 			entitySrv: this.featureSrv,
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false },
-			entityMetadata: ERM.QUOTE
+			entityMetadata: ERM.QUOTE,
+			originComponentDestroy: this._destroy$
 		});
 	}
 }

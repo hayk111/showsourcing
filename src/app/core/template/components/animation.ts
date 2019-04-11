@@ -16,7 +16,7 @@ export const routerAnimation = trigger('routerAnimation', [
 		// angular that the animation may not apply as it may or may not be in the DOM.
 		query(
 			':enter',
-			[style({ opacity: 0 })],
+			[style({ opacity: 0, height: '100%' })],
 			{ optional: true }
 		),
 		query(
