@@ -1,3 +1,21 @@
-<p>
-  file-reviewer works!
-</p>
+<list-app>
+
+	<list-item-app *ngFor="let file of files; last as last; trackBy: trackById" [border]="!last">
+		<div class="flex">
+			<checkbox-app
+				[checked]="selection.has(file.id)"
+				boxColor="success"
+				(check)="selected.emit(file)"
+				(uncheck)="unselected.emit(file)">
+			</checkbox-app>
+			<div class="space-icon flexAround">
+				<icon-app class="fs-m color-txt-secondary" name="file" ></icon-app>
+			</div>
+			<div class="name pointer">
+				<div class="ellipsis">{{ file.fileName }}</div>
+				<div class="file-size">{{ file.size | fileSize }}</div>
+			</div>
+		</div>
+	</list-item-app>
+
+</list-app>

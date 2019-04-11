@@ -1,0 +1,28 @@
+:host {
+	display: block;
+}
+
+list-item-app {
+	padding-left: 0;
+	padding-right: 0;
+	position: relative;
+
+	.space-icon {
+		height: var(--spacing-xl);
+		width: var(--spacing-xl);
+		margin-right: var(--spacing-ms);
+	}
+
+	.name {
+		display: flex;
+		flex-grow: 1;
+		align-items: center;
+		font-weight: 600;
+
+		.file-size {
+			flex-grow: 1;
+			text-align: right;
+		}
+	}
+
+}

@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Attachment } from '~core/models';
+import { TrackingComponent } from '~utils';
 
 @Component({
 	selector: 'file-reviewer-app',
@@ -6,11 +8,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./file-reviewer.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FileReviewerComponent implements OnInit {
+export class FileReviewerComponent extends TrackingComponent {
 
-	constructor() { }
+	@Input() files: Attachment[];
+	@Input() selection = new Map<string, Attachment>();
+	@Output() selected = new EventEmitter<Attachment>();
+	@Output() unselected = new EventEmitter<Attachment>();
 
-	ngOnInit() {
-	}
+	constructor() { super(); }
 
 }

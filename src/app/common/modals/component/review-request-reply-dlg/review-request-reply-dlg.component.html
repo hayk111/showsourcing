@@ -63,7 +63,12 @@
       <article *ngIf="reply?.attachments?.length > 0">
         <h3>Additional Attachments</h3>
 
-        <file-list-app [static]="true" [hasPlaceholder]="false" [files]="reply?.attachments"></file-list-app>
+				<file-reviewer-app
+					[files]="reply?.attachments"
+					[selection]="selectionSrv.selection$ | async"
+					(selected)="selectionSrv.selectOne($event)"
+					(unselected)="selectionSrv.unselectOne($event)">
+				</file-reviewer-app>
 
         <footer class="flex">
           <button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)">Accept All</button>

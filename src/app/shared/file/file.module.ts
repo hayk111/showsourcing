@@ -5,6 +5,7 @@ import { FilesCardComponent, FilesPageComponent } from '~shared/file/containers'
 import { FileDropDirective } from '~shared/file/directives/file-drop.directive';
 import { FileSelectDirective } from '~shared/file/directives/file-select.directive';
 import { IconsModule } from '~shared/icons';
+import { InputsModule } from '~shared/inputs';
 import { ListModule } from '~shared/list/list.module';
 import { LoadersModule } from '~shared/loaders';
 
@@ -17,7 +18,8 @@ import { FileSizePipe } from './pipes';
 		CardModule,
 		LoadersModule,
 		IconsModule,
-		ListModule
+		ListModule,
+		InputsModule
 	],
 	declarations: [
 		FileDropDirective,
