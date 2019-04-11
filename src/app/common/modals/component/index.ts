@@ -11,6 +11,5 @@ export * from './product-add-to-project-dlg/product-add-to-project-dlg.component
 export * from './product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 export * from './reply-sent-dlg/reply-sent-dlg.component';
 export * from './request-reply-dlg/request-reply-dlg.component';
-export * from './request-view-dlg/request-view-dlg.component';
 export * from './supplier-request-dialog/supplier-request-dialog.component';
 export * from './vote-details-dialog/vote-details-dialog.component';

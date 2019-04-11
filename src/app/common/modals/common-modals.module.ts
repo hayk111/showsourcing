@@ -24,7 +24,6 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
-	RequestViewDlgComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 } from './component';
@@ -55,7 +54,6 @@ const modals = [
 	ProductRequestTeamFeedbackDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
-	RequestViewDlgComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 	ReviewRequestReplyDlgComponent,

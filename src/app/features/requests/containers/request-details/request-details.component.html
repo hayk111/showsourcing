@@ -32,7 +32,6 @@
 					[selection]="listSrv.selection$ | async"
 					(previewClick)="openReview($event)"
 					(bottomReached)="listSrv.loadMore()"
-					(openRequestDlg)="commonModalSrv.openRequestViewDialog($event)"
 					(select)="listSrv.selectOne($event)"
 					(selectAll)="listSrv.selectAll($event)"
 					(sort)="listSrv.sort($event)"
