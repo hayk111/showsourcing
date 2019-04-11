@@ -14,8 +14,9 @@ export class ProductTopPanelComponent implements OnInit {
 	@Output() delete = new EventEmitter<Product>();
 	@Output() export = new EventEmitter<Product>();
 	@Output() update = new EventEmitter<Product>();
-
+	@Output() supplierRequest = new EventEmitter<Product>();
 	productEntity = ERM.PRODUCT;
+
 	constructor() { }
 
 	ngOnInit() {

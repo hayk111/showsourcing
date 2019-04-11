@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 
-import { RequestSortingMenuComponent } from './components/request-sorting-menu/request-sorting-menu.component';
+import { RequestElementListViewComponent, RequestSortingMenuComponent } from './components';
 
 @NgModule({
 	imports: [
@@ -11,7 +11,13 @@ import { RequestSortingMenuComponent } from './components/request-sorting-menu/r
 		RouterModule,
 		SharedModule,
 	],
-	declarations: [RequestSortingMenuComponent],
-	exports: [RequestSortingMenuComponent]
+	declarations: [
+		RequestElementListViewComponent,
+		RequestSortingMenuComponent
+	],
+	exports: [
+		RequestElementListViewComponent,
+		RequestSortingMenuComponent
+	]
 })
 export class RequestCommonModule { }

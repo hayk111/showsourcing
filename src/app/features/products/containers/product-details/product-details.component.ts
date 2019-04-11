@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
-import { SampleService, UserService, TaskService } from '~core/entity-services';
+import { CommonModalService, SupplierRequestDialogComponent } from '~common/modals';
+import { SampleService, UserService, TaskService, SupplierRequestService, RequestElementService } from '~core/entity-services';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -26,6 +26,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	typeEntity = ERM.PRODUCT;
 	sampleCount$: Observable<number>;
 	taskCount$: Observable<number>;
+	requestCount$: Observable<number>;
+
+	tabs: { name: string, number$?: Observable<number> }[];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -37,7 +40,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		public commonModalSrv: CommonModalService,
 		private sampleSrv: SampleService,
 		private taskSrv: TaskService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private requestElementSrv: RequestElementService
 	) {
 		super();
 	}
@@ -58,15 +62,29 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 		this.sampleCount$ = id$.pipe(
 			switchMap(id => this.sampleSrv
-				.queryCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND deleted == false`)),
+				.selectCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND deleted == false`)),
 			takeUntil(this._destroy$)
 		);
 
 		this.taskCount$ = id$.pipe(
 			switchMap(id => this.taskSrv
-				.queryCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND done == false AND deleted == false`)),
+				.selectCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND done == false AND deleted == false`)),
 			takeUntil(this._destroy$)
 		);
+
+		this.requestCount$ = id$.pipe(
+			switchMap(id => this.requestElementSrv
+				.selectCount(`targetId == "${id}" AND targetedEntityType == "Product"`)),
+			takeUntil(this._destroy$)
+		);
+
+		this.tabs = [
+			{ name: 'Activity' },
+			{ name: 'Shipping' },
+			{ name: 'Samples', number$: this.sampleCount$ },
+			{ name: 'Tasks', number$: this.taskCount$ },
+			{ name: 'Requests', number$: this.requestCount$ }
+		];
 
 	}
 
@@ -154,5 +172,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	openPreview() {
 		this.previewOpen = true;
+	}
+
+	openSupplierRequest(product: Product) {
+		this.dlgSrv.open(SupplierRequestDialogComponent, { product });
 	}
 }

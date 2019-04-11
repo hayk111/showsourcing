@@ -5,6 +5,7 @@ import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { CommentCommonModule } from '~common/comment';
 import { ProductCommonModule } from '~common/product';
 import { QuoteCommonModule } from '~common/quote/quote-common.module';
+import { RequestCommonModule } from '~common/request';
 import { SampleCommonModule } from '~common/sample';
 import { SupplierCommonModule } from '~common/supplier';
 import { TaskCommonModule } from '~common/task';
@@ -31,6 +32,7 @@ import {
 	ProductsPageComponent,
 	ProductTasksComponent,
 } from './containers';
+import { ProductRequestsComponent } from './containers/product-requests/product-requests.component';
 import { ProductFeatureService, QuoteFeatureService } from './services';
 
 
@@ -43,11 +45,12 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		NavBarModule,
 		ProductCommonModule,
 		QuoteCommonModule,
+		RequestCommonModule,
 		RouterModule.forChild(routes),
 		SampleCommonModule,
 		SharedModule,
+		SupplierCommonModule,
 		TaskCommonModule,
-		SupplierCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,
@@ -65,6 +68,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProjectCardComponent,
 		SelectableImageComponent,
 		SelectionActionsComponent,
+		ProductRequestsComponent,
 	],
 	entryComponents: [],
 	exports: [],
