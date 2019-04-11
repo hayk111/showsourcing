@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { CommonModalService } from '~common/modals';
 import { RequestElementService } from '~core/entity-services';
-import { RequestElement } from '~core/models';
-import { DialogService } from '~shared/dialog';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { ERM, RequestElement } from '~core/models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-requests-app',
@@ -11,22 +14,31 @@ import { DialogService } from '~shared/dialog';
 	styleUrls: ['./product-requests.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductRequestsComponent implements OnInit {
-
-	requestElements$: Observable<RequestElement[]>;
+export class ProductRequestsComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private requestElementSrv: RequestElementService,
-		private dlgSrv: DialogService,
-		private route: ActivatedRoute
-	) { }
+		private route: ActivatedRoute,
+		public listSrv: ListPageService<RequestElement, RequestElementService>,
+		public commonModalSrv: CommonModalService
+	) { super(); }
 
 	ngOnInit() {
-		const productId = this.route.parent.snapshot.params.id;
-		this.requestElements$ = this.requestElementSrv.queryMany({ query: `targetedEntityType == "Product" && targetId == "${productId}"` });
-	}
+		const id$ = this.route.parent.params.pipe(
+			map(params => params.id),
+			takeUntil(this._destroy$)
+		);
 
-	openReviewDlg(elem: RequestElement) {
-		// this.dlgSrv.open(RequestReviewComponent, {})
+		id$.subscribe(id => {
+			this.listSrv.setup({
+				key: `${ListPageKey.REQUEST_ELEMENT}-${id}`,
+				entitySrv: this.requestElementSrv,
+				selectParams: { sortBy: 'name', query: `targetedEntityType == "Product" && targetId == "${id}` },
+				entityMetadata: ERM.REQUEST_ELEMENT,
+				searchedFields: []
+			});
+		});
+		// const productId = this.route.parent.snapshot.params.id;
+		// this.requestElements$ = this.requestElementSrv.queryMany({ query: `targetedEntityType == "Product" && targetId == "${productId}"` });
 	}
 }
