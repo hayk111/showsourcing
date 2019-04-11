@@ -28,7 +28,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 	// if we open once the supplier selector, we want it open until the dialog closes
 	opened = false;
 
-	@Input() products: Product[];
+	// if we don't initialize it the selector will try to push to an empty object
+	@Input() products: Product[] = [];
 
 	constructor(
 		private fb: FormBuilder,
