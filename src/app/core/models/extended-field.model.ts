@@ -12,7 +12,7 @@ export class ExtendedField {
 	__typename?= 'ExtendedField';
 
 	constructor(config?: ExtendedFieldConfig) {
-		if (!config.id) this.id = uuid();
+		if (!config || !config.id) this.id = uuid();
 		Object.assign(this, config);
 	}
 }
