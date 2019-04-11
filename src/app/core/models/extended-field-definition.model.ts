@@ -6,6 +6,8 @@ export class ExtendedFieldDefinition {
 	label?: string;
 	type?: string;
 	order?: number;
+	target?: string;
+	originId?: string;
 	__typename = 'ExtendedFieldDefinition';
 
 	constructor(config?: ExtendedFieldDefinitionConfig) {

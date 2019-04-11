@@ -25,8 +25,6 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	get rows() {
 		return this._rows;
 	}
-	@Output() openRequestDlg = new EventEmitter<null>();
-
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 
 	// is matrix since we need to iterate over requestElement and then over requestElement.reply.fields

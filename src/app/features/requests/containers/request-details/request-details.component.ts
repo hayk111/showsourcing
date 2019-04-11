@@ -7,6 +7,8 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement, SupplierRequest } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { DialogService } from '~shared/dialog';
+import { ReviewRequestReplyDlgComponent } from '~common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component';
 
 @Component({
 	selector: 'request-details-app',
@@ -27,7 +29,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
 		public commonModalSrv: CommonModalService,
-		public listSrv: ListPageService<RequestElement, RequestElementService>
+		public listSrv: ListPageService<RequestElement, RequestElementService>,
+		private dlgSrv: DialogService
 	) { super(); }
 
 	ngOnInit() {
@@ -78,6 +81,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			timeout: 3500
 		});
 		this.router.navigate(['request']);
+	}
+
+	openReview(id: string) {
+		this.dlgSrv.open(ReviewRequestReplyDlgComponent, { elementId: id });
 	}
 
 }

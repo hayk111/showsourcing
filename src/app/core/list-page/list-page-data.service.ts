@@ -29,7 +29,7 @@ export class ListPageDataService
 		query: '',
 		sortBy: 'creationDate',
 		descending: true,
-		take: 50,
+		take: 25,
 		skip: 0
 	};
 
