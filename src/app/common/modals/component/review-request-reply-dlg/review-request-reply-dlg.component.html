@@ -75,8 +75,8 @@
 	</ng-container>
 
 	<dialog-footer-app>
-		<button class="secondary">Close Request</button>
-		<button class="secondary">Send back</button>
+		<button class="secondary" (click)="close()">Close Request</button>
+		<button class="secondary" (click)="sendBack()">Send back</button>
 		<button (click)="acceptRequest()">Accept Request</button>
 	</dialog-footer-app>
 

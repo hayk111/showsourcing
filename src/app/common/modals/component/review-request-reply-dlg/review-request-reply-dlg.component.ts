@@ -150,6 +150,14 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		}
 	}
 
+	sendBack() {
+		this.requestSrv.update({ id: this.requestId, status: 'refused' }).subscribe();
+	}
+
+	close() {
+		this.dlgSrv.close();
+	}
+
 	acceptRequest() {
 		let tempProduct = { id: this.product.id, images: this.product.images, extendedFields: this.product.extendedFields };
 		this.selectionSrv.selection.forEach(item => {
@@ -172,8 +180,10 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 					throw Error(`__typename ${item.__typename} wasn't found`);
 			}
 		});
-		this.productSrv.update(tempProduct).subscribe();
-		this.dlgSrv.close();
+		this.productSrv.update(tempProduct).subscribe(_ =>
+			this.requestSrv.update({ id: this.requestId, status: 'accepted' })
+		);
+		this.close();
 	}
 
 	private replaceProductExtendedField(tempProduct, item) {
