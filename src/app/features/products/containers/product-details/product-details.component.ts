@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService, SupplierRequestDialogComponent } from '~common/modals';
-import { SampleService, UserService, TaskService, SupplierRequestService } from '~core/entity-services';
+import { SampleService, UserService, TaskService, SupplierRequestService, RequestElementService } from '~core/entity-services';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -41,7 +41,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		private sampleSrv: SampleService,
 		private taskSrv: TaskService,
 		private userSrv: UserService,
-		private requestSrv: SupplierRequestService
+		private requestElementSrv: RequestElementService
 	) {
 		super();
 	}
@@ -73,8 +73,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.requestCount$ = id$.pipe(
-			switchMap(id => this.requestSrv
-				.selectCount(`targetId == "${id}" AND targetEntityType "Product"`)),
+			switchMap(id => this.requestElementSrv
+				.selectCount(`targetId == "${id}" AND targetedEntityType == "Product"`)),
 			takeUntil(this._destroy$)
 		);
 
