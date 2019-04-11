@@ -10,6 +10,7 @@ import { DialogService } from '~shared/dialog';
 export class ReplySentDlgComponent implements OnInit {
 
 	@Input() height: string;
+	@Input() actionName = 'reply';
 
 	constructor(private dlgSrv: DialogService) { }
 

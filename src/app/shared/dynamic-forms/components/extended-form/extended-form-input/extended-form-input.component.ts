@@ -50,7 +50,7 @@ export class ExtendedFormInputComponent implements OnInit {
 
 	ngOnInit() {
 		this.inputValue$.pipe(
-			debounceTime(200),
+			debounceTime(300),
 			distinctUntilChanged(),
 			tap(item => item.isPrice ? this.accumulatePrice(item.value) : this.accumulator = item.value),
 			tap(_ => this.onClose(false))

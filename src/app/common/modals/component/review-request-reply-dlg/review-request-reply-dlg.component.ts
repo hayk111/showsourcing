@@ -177,7 +177,8 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 				definition: { id: item.definition.originId },
 				value: item.value
 			});
-			return ({ ...tempProduct, extendedFields: [...tempProduct.extendedFields, { ...newField }] });
+			tempProduct = ({ ...tempProduct, extendedFields: [...tempProduct.extendedFields, { ...newField }] });
 		}
+		return tempProduct;
 	}
 }
