@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { RequestElementService } from '~core/entity-services';
