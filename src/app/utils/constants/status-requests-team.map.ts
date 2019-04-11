@@ -13,7 +13,7 @@ export const statusRequestsTeamMap = {
 			}
 		}
 	},
-	'pending': {
+	'sent': {
 		locales: {
 			en: {
 				name: 'Sent to Supplier'

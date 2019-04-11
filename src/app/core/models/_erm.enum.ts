@@ -28,7 +28,7 @@ import { ExtendedField } from './extended-field.model';
 import { RequestElement } from './request-element.model';
 import { RequestReply } from './request-reply.model';
 import { RequestTemplate } from './request-template.model';
-import { CreateRequest } from './request.model';
+import { CreateRequest } from './create-request.model';
 import { SupplierRequest } from './supplier-request.model';
 
 

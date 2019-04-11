@@ -3,12 +3,21 @@ import { ExtendedField } from './extended-field.model';
 import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
 
-export const DEFAULT_REPLIED_STATUS = 'replied';
+
+export enum ReplyStatus {
+	PENDING = 'pending',
+	REPLIED = 'replied',
+	ERROR = 'error',
+	REFUSED = 'refused',
+	ACCEPTED = 'accepted',
+}
+
+export const DEFAULT_REPLIED_STATUS = ReplyStatus.REPLIED;
 
 export class RequestReply {
 	id?: ID;
 	message?: string;
-	status?: string;
+	status?: ReplyStatus;
 	fields?: ExtendedField[];
 	images?: AppImage[];
 	attachments?: Attachment[];
@@ -23,5 +32,5 @@ export class RequestReply {
 export interface RequestReplyConfig {
 	id?: ID;
 	message?: string;
-	status?: string;
+	status?: ReplyStatus;
 }
