@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, SupplierRequestService } from '~core/entity-services';
 import { SelectionService } from '~core/list-page';
-import { AppImage, ExtendedField, Price, Product, RequestElement, SupplierRequest } from '~core/models';
+import { AppImage, EntityMetadata, ERM, ExtendedField, Price, Product, RequestElement, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -15,6 +15,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit {
+
 	@Input() elementId: string;
 	@Input() requestId: string;
 	@Input() selectedIndex = 0;
@@ -24,6 +25,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	elements: RequestElement[] = [];
 	product: Product;
 	product$: Observable<Product>;
+	erm = ERM;
 
 	constructor(
 		private productSrv: ProductService,
@@ -57,20 +59,32 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		});
 	}
 
-	acceptAllImages() {
-		this.selectionSrv.selectAll(this.element.reply.images as any);
+	acceptAll(type: EntityMetadata) {
+		switch (type) {
+			case ERM.IMAGE:
+				this.selectionSrv.selectAll(this.element.reply.images as any);
+				break;
+			case ERM.EXTENDED_FIELD:
+				this.selectionSrv.selectAll(this.element.reply.fields);
+				break;
+			case ERM.ATTACHMENT:
+				this.selectionSrv.selectAll(this.element.reply.attachments as any);
+				break;
+		}
 	}
 
-	refuseAllImages() {
-		this.selectionSrv.unselectMany(this.element.reply.images as any);
-	}
-
-	acceptAllFields() {
-		this.selectionSrv.selectAll(this.element.reply.fields);
-	}
-
-	refuseAllFields() {
-		this.selectionSrv.unselectMany(this.element.reply.fields);
+	refuseAll(type: EntityMetadata) {
+		switch (type) {
+			case ERM.IMAGE:
+				this.selectionSrv.unselectMany(this.element.reply.images as any);
+				break;
+			case ERM.EXTENDED_FIELD:
+				this.selectionSrv.unselectMany(this.element.reply.fields);
+				break;
+			case ERM.ATTACHMENT:
+				this.selectionSrv.unselectMany(this.element.reply.attachments as any);
+				break;
+		}
 	}
 
 	/**
@@ -127,8 +141,9 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		this.elements = this.request.requestElements;
 		this.element = this.elements[this.selectedIndex];
 		this.selectionSrv.unselectAll();
-		this.acceptAllFields();
-		this.acceptAllImages();
+		this.acceptAll(ERM.EXTENDED_FIELD);
+		this.acceptAll(ERM.IMAGE);
+		this.acceptAll(ERM.ATTACHMENT);
 
 		if (!this.element) {
 			throw Error(`no element at index ${this.selectedIndex} in array: ${this.elements.toString()}`);

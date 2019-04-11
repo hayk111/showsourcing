@@ -36,8 +36,8 @@
         </list-app>
 
         <footer class="flex">
-          <button class="primary accept" (click)="acceptAllFields()">Accept All</button>
-          <button class="secondary" (click)="refuseAllFields()">Refuse All</button>
+          <button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)">Accept All</button>
+          <button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)">Refuse All</button>
         </footer>
       </article>
 
@@ -54,8 +54,8 @@
 				</image-reviewer-app>
 
         <footer class="flex">
-          <button class="primary accept" (click)="acceptAllImages()">Accept All</button>
-          <button class="secondary" (click)="refuseAllImages()">Refuse All</button>
+          <button class="primary accept" (click)="acceptAll(erm.IMAGE)">Accept All</button>
+          <button class="secondary" (click)="refuseAll(erm.IMAGE)">Refuse All</button>
         </footer>
       </article>
 
@@ -66,8 +66,8 @@
         <file-list-app [static]="true" [hasPlaceholder]="false" [files]="reply?.attachments"></file-list-app>
 
         <footer class="flex">
-          <button class="primary accept">Accept All</button>
-          <button class="secondary">Refuse All</button>
+          <button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)">Accept All</button>
+          <button class="secondary" (click)="refuseAll(erm.ATTACHMENT)">Refuse All</button>
         </footer>
       </article>
 
