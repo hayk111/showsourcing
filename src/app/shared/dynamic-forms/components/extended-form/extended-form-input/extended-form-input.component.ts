@@ -84,10 +84,7 @@ export class ExtendedFormInputComponent implements OnInit {
 	toggleBoolean() {
 		if (this.disabled)
 			return;
-		if (this.accumulator === 'yes')
-			this.accumulator = 'no';
-		else
-			this.accumulator = 'yes';
+		this.accumulator = !this.accumulator;
 		this.onSave();
 	}
 

@@ -98,7 +98,7 @@
 		(click)="toggleBoolean()">
 		<label-app>{{ definition.label }}</label-app>
 		<editable-label-app>
-			{{ field?.value || '-' }}
+			{{ field?.value ? 'yes' : 'no' }}
 		</editable-label-app>
 	</editable-field-app>
 
@@ -182,7 +182,7 @@
 			<label-app>{{ definition.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
 			<selector-placeholder-app
-				[name]="field?.value"
+				[name]="field?.value ? 'yes' : 'no'"
 				[hasArrow]="false"
 				[placeholder]="definition.label"
 				(click)="toggleBoolean(); onClose()">
