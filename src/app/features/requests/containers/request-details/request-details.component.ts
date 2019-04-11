@@ -87,7 +87,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		this.router.navigate(['request']);
 	}
 
-	openReview(id: string) {
+	openReviewRequestReply(id: string) {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === id);
 		this.dlgSrv.open(ReviewRequestReplyDlgComponent, { elementId: id, selectedIndex, requestId: this.requestId });
 	}

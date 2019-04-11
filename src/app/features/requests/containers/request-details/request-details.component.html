@@ -30,7 +30,7 @@
 					[rows]="listSrv.items$ | async"
 					[pending]="listSrv.pending"
 					[selection]="listSrv.selection$ | async"
-					(previewClick)="openReview($event)"
+					(openReviewRequestReply)="openReviewRequestReply($event)"
 					(bottomReached)="listSrv.loadMore()"
 					(select)="listSrv.selectOne($event)"
 					(selectAll)="listSrv.selectAll($event)"
