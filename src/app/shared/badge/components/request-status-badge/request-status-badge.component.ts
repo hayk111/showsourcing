@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { RequestStatus } from '~models';
+
 
 @Component({
 	selector: 'request-status-badge-app',
@@ -32,26 +34,27 @@ export class RequestStatusBadgeComponent implements OnInit {
 	getType() {
 		if (this.isTeam) {
 			switch (this.status) {
-				case 'pending':
+				case RequestStatus.PENDING:
+				case RequestStatus.SENT:
 					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'secondary';
-				case 'opened':
-				case 'replied':
+				case RequestStatus.REPLIED:
 					return 'primary';
 				// return 'success';
-				case 'error':
-				case 'refued':
+				case RequestStatus.ERROR:
+				case RequestStatus.REFUSED:
 					return 'warn';
 				default:
 					return 'secondary';
 			}
 		} else {
 			switch (this.status) {
-				case 'opened':
-				case 'pending':
+				case RequestStatus.PENDING:
+				case RequestStatus.SENT:
 					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'primary';
-				case 'replied':
+				case RequestStatus.REPLIED:
 					return 'success';
-				case 'error':
+				case RequestStatus.ERROR:
+				case RequestStatus.REFUSED:
 					return 'warn';
 				default:
 					return 'secondary';

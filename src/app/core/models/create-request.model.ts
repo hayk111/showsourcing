@@ -7,6 +7,7 @@ import { Contact } from './contact.model';
 import { Product } from './product.model';
 import { RequestTemplate } from './request-template.model';
 
+
 export class CreateRequest extends EntityWithAudit<RequestConfig> {
 	id: ID;
 	products: Product[];

@@ -4,6 +4,16 @@ import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
 import { RequestElement } from './request-element.model';
 
+
+export enum RequestStatus {
+	PENDING = 'pending',
+	SENT = 'sent',
+	REPLIED = 'replied',
+	ERROR = 'error',
+	REFUSED = 'refused',
+	ACCEPTED = 'accepted',
+}
+
 export class SupplierRequest {
 	id: ID;
 	requestElements: RequestElement[];
@@ -14,7 +24,7 @@ export class SupplierRequest {
 	message?: string;
 	recipient: Contact;
 	sendCopyTo: string[];
-	status: string;
+	status: RequestStatus;
 	images: AppImage[];
 	attachments: Attachment[];
 	creationDate: string;
@@ -35,5 +45,5 @@ export interface SupplierRequestConfig {
 	requestElements?: RequestElement[];
 	senderTeamId?: string;
 	title?: string;
-	status?: string;
+	status?: RequestStatus;
 }
