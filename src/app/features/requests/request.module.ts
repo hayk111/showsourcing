@@ -5,11 +5,10 @@ import { routes } from '~features/requests/routes';
 import { SharedModule } from '~shared/shared.module';
 
 import {
-	RequestElementFormComponent,
-	RequestElementListViewComponent,
-	RequestInformationComponent,
-	RequestListViewComponent,
-	RequestTopPanelComponent,
+  RequestElementListViewComponent,
+  RequestInformationComponent,
+  RequestListViewComponent,
+  RequestTopPanelComponent,
 } from './components';
 import { RequestDetailsComponent, RequestPageComponent } from './containers';
 
@@ -21,7 +20,6 @@ import { RequestDetailsComponent, RequestPageComponent } from './containers';
 	],
 	declarations: [
 		RequestDetailsComponent,
-		RequestElementFormComponent,
 		RequestElementListViewComponent,
 		RequestInformationComponent,
 		RequestListViewComponent,
