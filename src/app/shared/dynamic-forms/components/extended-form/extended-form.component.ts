@@ -52,11 +52,13 @@ export class ExtendedFormComponent extends TrackingComponent implements OnChange
 	makeCols() {
 		this.cols = [];
 		const fields = this.definitions;
-		const fieldPerCol = Math.ceil(fields.length / this.colAmount);
-		for (let i = 0; i < this.colAmount; i++) {
-			const start = i * fieldPerCol;
-			const end = i * fieldPerCol + fieldPerCol;
-			this.cols[i] = fields.slice(start, end);
+		if (fields) {
+			const fieldPerCol = Math.ceil(fields.length / this.colAmount);
+			for (let i = 0; i < this.colAmount; i++) {
+				const start = i * fieldPerCol;
+				const end = i * fieldPerCol + fieldPerCol;
+				this.cols[i] = fields.slice(start, end);
+			}
 		}
 	}
 

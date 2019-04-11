@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class NavBarComponent extends TrackingComponent implements OnInit {
 
-	@Input() tabs: Array<{ name: string, number: string }> = [];
+	@Input() tabs: Array<{ name: string, number$: Observable<number> }> = [];
 	@Input() currentTab = '';
 	@Output() tabChange = new EventEmitter<string>();
 

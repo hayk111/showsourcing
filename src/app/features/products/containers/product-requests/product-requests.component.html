@@ -1,0 +1,10 @@
+<card-app>
+	<h3 class="l">Request Items</h3>
+	<request-element-list-view-app
+		class="no-padding"
+		[rows]="listSrv.items$ | async"
+		[pending]="listSrv.pending"
+		(bottomReached)="listSrv.loadMore()"
+		(openRequestDlg)="commonModalSrv.openRequestViewDialog($event)">
+	</request-element-list-view-app>
+</card-app>

@@ -8,6 +8,7 @@ import {
 	ProductsPageComponent,
 	ProductTasksComponent,
 } from './containers';
+import { ProductRequestsComponent } from './containers/product-requests/product-requests.component';
 
 
 export const routes: Array<Route> = [
@@ -24,7 +25,8 @@ export const routes: Array<Route> = [
 			{ path: 'shipping', component: ProductShippingComponent },
 			{ path: 'activity', component: ProductActivityComponent },
 			{ path: 'samples', component: ProductSamplesComponent },
-			{ path: 'tasks', component: ProductTasksComponent }
+			{ path: 'tasks', component: ProductTasksComponent },
+			{ path: 'requests', component: ProductRequestsComponent }
 		],
 	},
 ];

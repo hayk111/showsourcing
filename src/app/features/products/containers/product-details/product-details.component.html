@@ -4,7 +4,8 @@
 		[product]="product"
 		(update)="updateProduct($event)"
 		(export)="commonModalSrv.openExportDialog([$event])"
-		(delete)="deleteProduct($event)">
+		(delete)="deleteProduct($event)"
+		(supplierRequest)="openSupplierRequest($event)">
 	</product-top-panel-app>
 
 	<div class="flex content">
@@ -55,9 +56,7 @@
 		</div>
 
 		<div class="right">
-				<navbar-app
-					[tabs]="[{name: 'Activity'}, {name: 'Shipping'}, {name: 'Samples', number: sampleCount$ | async}, {name: 'Tasks', number: taskCount$ | async}]">
-				</navbar-app>
+				<navbar-app [tabs]="tabs"></navbar-app>
 			<router-outlet></router-outlet>
     </div>
 
