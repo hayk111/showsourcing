@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, SupplierRequestService } from '~core/entity-services';
-import { ExtendedField, Product, RequestElement, SupplierRequest, AppImage } from '~core/models';
+import { SelectionService } from '~core/list-page';
+import { AppImage, ExtendedField, Price, Product, RequestElement, SupplierRequest } from '~core/models';
+import { DialogService } from '~shared/dialog';
 import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { SelectionService } from '~core/list-page';
-import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'review-request-reply-dlg-app',
@@ -53,8 +53,6 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			takeUntil(this._destroy$)
 		).subscribe(_ => {
 			this.setElement();
-			this.acceptAllFields();
-			this.acceptAllImages();
 			this.cdr.markForCheck();
 		});
 	}
@@ -91,8 +89,8 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			currentValue = currentField ? currentField.value : '';
 			supplierValue = field.value;
 			if (field.definition.type === 'price') {
-				currentValue = this.getPrice(currentValue);
-				supplierValue = this.getPrice(field.value);
+				currentValue = this.getPriceExtendedField(currentValue);
+				supplierValue = this.getPriceExtendedField(field.value);
 			}
 		} else {
 			// target will be something like Product.price, we only need price
@@ -101,14 +99,17 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			supplierValue = field.value;
 			if (property === 'price') {
 				currentValue = this.getPrice(currentValue);
-				supplierValue = this.getPrice(field.value);
+				supplierValue = this.getPriceExtendedField(field.value);
 			}
 		}
 		return [currentValue, supplierValue];
 	}
 
 
-	getPrice(item: any) {
+	getPrice(item: Price) {
+		return this.appPricePipe.transform(item);
+	}
+	getPriceExtendedField(item: any) {
 		return item ? this.appPricePipe.transform(JSON.parse(item)) : undefined;
 	}
 
@@ -125,6 +126,9 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	private setElement() {
 		this.elements = this.request.requestElements;
 		this.element = this.elements[this.selectedIndex];
+		this.selectionSrv.unselectAll();
+		this.acceptAllFields();
+		this.acceptAllImages();
 
 		if (!this.element) {
 			throw Error(`no element at index ${this.selectedIndex} in array: ${this.elements.toString()}`);
@@ -134,26 +138,46 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	acceptRequest() {
 		let tempProduct = { id: this.product.id, images: this.product.images, extendedFields: this.product.extendedFields };
 		this.selectionSrv.selection.forEach(item => {
-			// if its image
-			if (item.__typename === 'Image') {
-				// tempProduct = ({ ...tempProduct, images: [...tempProduct.images, { ...item }] });
-				// if its extended field
-			} else if (item.__typename === 'ExtendedField') {
-				if (item.definition.target === 'Product.extendedFields') {
-					let fieldReplace = this.product.extendedFields.find(fld => fld.definition.id === item.definition.id);
-					fieldReplace = ({ ...fieldReplace, value: item.value });
-					tempProduct = ({ ...tempProduct, extendedFields: [...tempProduct.extendedFields, { ...fieldReplace }] });
-				} else {
-					const property = item.definition.target.split('.')[1];
-					if (property === 'price')
-						tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
-					else
-						tempProduct = ({ ...tempProduct, [property]: item.value });
-				}
+			switch (item.__typename) {
+				case 'Image':
+					const newImage = new AppImage({ ...item });
+					tempProduct = ({ ...tempProduct, images: [...tempProduct.images, { ...newImage }] });
+					break;
+				case 'ExtendedField':
+					if (item.definition.target === 'Product.extendedFields')
+						tempProduct = this.replaceProductExtendedField(tempProduct, item);
+					else {
+						const property = item.definition.target.split('.')[1];
+						tempProduct = property === 'price' ?
+							({ ...tempProduct, [property]: { ...JSON.parse(item.value) } }) :
+							({ ...tempProduct, [property]: item.value });
+					}
+					break;
+				default:
+					throw Error(`__typename ${item.__typename} wasn't found`);
 			}
 		});
-		// this.productSrv.update(tempProduct).subscribe();
-		// this.dlgSrv.close();
+		this.productSrv.update(tempProduct).subscribe();
+		this.dlgSrv.close();
 	}
 
+	private replaceProductExtendedField(tempProduct, item) {
+		// we find if the field exists already on the product
+		let fieldToReplace = this.product.extendedFields.find(fld => fld.definition.id === item.definition.originId);
+		// if the field already exists on the product, we update it
+		if (fieldToReplace) {
+			// we remove the field form the existent array, this way we have an array without the value
+			// then we replace the field with the new value and add it to the array of extendedFields
+			const extendedFieldsTrim = tempProduct.extendedFields.filter(field => fieldToReplace.id !== field.id);
+			fieldToReplace = ({ ...fieldToReplace, value: item.value });
+			tempProduct = ({ ...tempProduct, extendedFields: [...extendedFieldsTrim, { ...fieldToReplace }] });
+		} else {
+			// we create a new extended field with the id of the definition as the ORIGINID, important
+			const newField = new ExtendedField({
+				definition: { id: item.definition.originId },
+				value: item.value
+			});
+			return ({ ...tempProduct, extendedFields: [...tempProduct.extendedFields, { ...newField }] });
+		}
+	}
 }
