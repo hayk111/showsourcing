@@ -67,7 +67,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 		this.requestSrv.create(newRequest)
 			.subscribe(_ => {
 				this.pending = false;
-				this.dlgSrv.open(ReplySentDlgComponent, { height: '586' });
+				this.dlgSrv.open(ReplySentDlgComponent, { height: '586px', actionName: 'request' });
 			},
 				err => {
 					this.dlgSrv.close();

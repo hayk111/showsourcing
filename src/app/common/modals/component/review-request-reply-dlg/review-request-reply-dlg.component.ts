@@ -8,6 +8,8 @@ import { DialogService } from '~shared/dialog';
 import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
+import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+
 @Component({
 	selector: 'review-request-reply-dlg-app',
 	templateUrl: './review-request-reply-dlg.component.html',
@@ -151,11 +153,15 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	sendBack() {
-		this.requestSrv.update({ id: this.requestId, status: 'refused' }).subscribe();
+		this.requestSrv.update({ id: this.requestId, status: 'refused' }).subscribe(_ => this.openReplySentDlg());
 	}
 
 	close() {
 		this.dlgSrv.close();
+	}
+
+	openReplySentDlg() {
+		this.dlgSrv.open(ReplySentDlgComponent);
 	}
 
 	acceptRequest() {
@@ -183,7 +189,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		this.productSrv.update(tempProduct).subscribe(_ =>
 			this.requestSrv.update({ id: this.requestId, status: 'accepted' })
 		);
-		this.close();
+		this.openReplySentDlg();
 	}
 
 	private replaceProductExtendedField(tempProduct, item) {
