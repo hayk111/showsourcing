@@ -10,6 +10,7 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-root',
@@ -30,10 +31,19 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private tokenSrv: TokenService,
 		private userClient: UserClientInitializer,
+		private location: Location
 	) { }
 
 	ngOnInit(): void {
-		this.authSrv.init();
+		const isAuthRoute = this.location.path().startsWith('/auth');
+
+
+		if (isAuthRoute)
+			this.authSrv.logout();
+		else
+			this.authSrv.init();
+
+
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
@@ -52,8 +62,7 @@ export class AppComponent implements OnInit {
 		).subscribe();
 
 		// when logging off we destroy all clients
-		this.authSrv.notAuthenticated$
-			.subscribe(_ => this.destroyAllClients());
+		this.authSrv.notAuthenticated$.subscribe(_ => this.destroyAllClients());
 
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelectionEvent$.pipe(
