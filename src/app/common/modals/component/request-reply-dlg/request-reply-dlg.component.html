@@ -44,7 +44,7 @@
       <h3 class="ms">Product details</h3>
 
       <extended-form-app
-        [disabled]="reply.status === defaultStatus"
+        [disabled]="isDisabled()"
         [definitions]="definitions"
 				[isFormStyle]="true"
         [colAmount]="2"
@@ -66,8 +66,8 @@
         [images]="images">
       </modal-carousel-app>
       <div class="spacer mg-s" *ngIf="images.length > 0"></div>
-      <button class="secondary add-image" (click)="inpImg.click()">Add Image</button>
-			<input #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
+      <button [disabled]="isDisabled" class="secondary add-image" (click)="inpImg.click()">Add Image</button>
+			<input [disabled]="isDisabled" #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
       <!-- attachments -->
       <h3 class="ms">Attachments</h3>
@@ -77,8 +77,8 @@
         [files]="files"
         [linkedItem]="reply"></file-list-app>
       <div class="spacer mg-s" *ngIf="files.length > 0"></div>
-      <button class="secondary add-attachment" (click)="inpFile.click()">Add Attachments</button>
-      <input #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
+      <button [disabled]="isDisabled" class="secondary add-attachment" (click)="inpFile.click()">Add Attachments</button>
+      <input [disabled]="isDisabled" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
 
 
     </div>
@@ -87,14 +87,15 @@
 
   <!-- footer -->
   <dialog-footer-app>
-		<button class="secondary save" (click)="saveAndClose()">Save</button>
-
-		<div toolTip [toolTipMessage]="reply.status === defaultStatus ? 'Your request has been already submitted' : hasEmptyField() ? 'All fields must be filled first' : null" toolTipPosition="above-right">
-			<button *ngIf="reply.status === defaultStatus; else notSubmitted" [disabled]="true">Submitted</button>
-		</div>
-		<ng-template #notSubmitted>
-			<button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
-		</ng-template>
+    <ng-container *ngIf="!isDisabled()">
+      <button class="secondary save" (click)="saveAndClose()">Save</button>
+  
+      <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
+        <button *ngIf="reply.status === defaultStatus; else notSubmitted" [disabled]="true">Submitted</button>
+      </div>
+      <ng-template #notSubmitted>
+        <button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
+      </ng-template>
+    </ng-container>
   </dialog-footer-app>
-
 </dialog-app>

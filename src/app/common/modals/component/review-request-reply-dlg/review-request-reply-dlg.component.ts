@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, SupplierRequestService } from '~core/entity-services';
 import { SelectionService } from '~core/list-page';
-import { AppImage, EntityMetadata, ERM, ExtendedField, Price, Product, RequestElement, SupplierRequest } from '~core/models';
+import { AppImage, EntityMetadata, ERM, ExtendedField, Price, Product, RequestElement, SupplierRequest, ReplyStatus } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -152,10 +152,6 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		}
 	}
 
-	sendBack() {
-		this.requestSrv.update({ id: this.requestId, status: 'refused' }).subscribe(_ => this.openReplySentDlg());
-	}
-
 	close() {
 		this.dlgSrv.close();
 	}
@@ -180,7 +176,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			}
 		});
 		this.productSrv.update(tempProduct).subscribe(_ =>
-			this.requestSrv.update({ id: this.requestId, status: 'accepted' })
+			this.requestSrv.update({ id: this.requestId, status: ReplyStatus.VALIDATED })
 		);
 		this.openReplySentDlg();
 	}
