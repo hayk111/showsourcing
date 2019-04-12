@@ -9,7 +9,7 @@ export enum ReplyStatus {
 	REPLIED = 'replied',
 	ERROR = 'error',
 	REFUSED = 'refused',
-	ACCEPTED = 'accepted',
+	VALIDATED = 'validated',
 }
 
 export const DEFAULT_REPLIED_STATUS = ReplyStatus.REPLIED;

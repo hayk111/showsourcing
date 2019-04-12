@@ -39,11 +39,11 @@ export class RequestStatusBadgeComponent implements OnInit {
 					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'secondary';
 				case RequestStatus.REPLIED:
 					return 'primary';
+				case RequestStatus.VALIDATED:
+					return 'success';
 				case RequestStatus.ERROR:
 				case RequestStatus.REFUSED:
 					return 'warn';
-				case RequestStatus.ACCEPTED:
-					return 'success';
 				default:
 					return 'secondary';
 			}
@@ -53,6 +53,7 @@ export class RequestStatusBadgeComponent implements OnInit {
 				case RequestStatus.SENT:
 					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'primary';
 				case RequestStatus.REPLIED:
+				case RequestStatus.VALIDATED:
 					return 'success';
 				case RequestStatus.ERROR:
 				case RequestStatus.REFUSED:

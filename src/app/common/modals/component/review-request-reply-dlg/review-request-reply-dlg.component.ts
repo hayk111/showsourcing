@@ -153,12 +153,6 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		}
 	}
 
-	sendBack() {
-		this.requestReplySrv.update(
-			{ id: this.elements[this.selectedIndex].reply.id, status: ReplyStatus.REFUSED }
-		).subscribe(_ => this.openReplySentDlg());
-	}
-
 	close() {
 		this.dlgSrv.close();
 	}
@@ -182,11 +176,9 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 					throw Error(`__typename ${item.__typename} wasn't found`);
 			}
 		});
-		this.productSrv.update(tempProduct).subscribe(_ =>
-			this.requestReplySrv.update(
-				{ id: this.elements[this.selectedIndex].reply.id, status: ReplyStatus.ACCEPTED }
-			).subscribe()
-		);
+		this.productSrv.update(tempProduct).pipe(
+			switchMap(product => this.requestReplySrv.update({ id: this.elements[this.selectedIndex].reply.id, status: ReplyStatus.VALIDATED }))
+		).subscribe();
 		this.openReplySentDlg();
 	}
 

@@ -10,6 +10,7 @@ import {
 	RequestElement,
 	RequestReply,
 	SupplierRequest,
+	ReplyStatus,
 } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
@@ -131,6 +132,23 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	deleteImg(img: AppImage) {
 		this.uploaderFeedback.deleteImg(img);
+	}
+
+	getTooltipMessage() {
+		switch (this.reply.status) {
+			case ReplyStatus.PENDING:
+			case ReplyStatus.ERROR:
+				return this.hasEmptyField() ? 'All fields must be filled first' : null;
+			case ReplyStatus.VALIDATED:
+			case ReplyStatus.REPLIED:
+				return 'Your request has been already submitted';
+			case ReplyStatus.REFUSED:
+				return 'You refused that request';
+		}
+	}
+
+	isDisabled() {
+		return this.reply.status !== 'pending' && this.reply.status !== 'error';
 	}
 
 }

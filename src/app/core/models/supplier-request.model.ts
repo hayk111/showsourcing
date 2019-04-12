@@ -11,7 +11,7 @@ export enum RequestStatus {
 	REPLIED = 'replied',
 	ERROR = 'error',
 	REFUSED = 'refused',
-	ACCEPTED = 'accepted',
+	VALIDATED = 'validated',
 }
 
 export class SupplierRequest {
