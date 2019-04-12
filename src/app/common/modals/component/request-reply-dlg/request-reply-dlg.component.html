@@ -94,7 +94,7 @@
         <button *ngIf="reply.status === defaultStatus; else notSubmitted" [disabled]="true">Submitted</button>
       </div>
       <ng-template #notSubmitted>
-        <button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
+        <button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
       </ng-template>
     </ng-container>
   </dialog-footer-app>

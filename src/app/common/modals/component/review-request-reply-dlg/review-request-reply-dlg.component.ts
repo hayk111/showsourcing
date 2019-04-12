@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ProductService, RequestElementService, SupplierRequestService } from '~core/entity-services';
+import { ProductService, RequestElementService, SupplierRequestService, RequestReplyService } from '~core/entity-services';
 import { SelectionService } from '~core/list-page';
 import { AppImage, EntityMetadata, ERM, ExtendedField, Price, Product, RequestElement, SupplierRequest, ReplyStatus } from '~core/models';
 import { DialogService } from '~shared/dialog';
@@ -32,6 +32,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	constructor(
 		private productSrv: ProductService,
 		private requestSrv: SupplierRequestService,
+		private requestReplySrv: RequestReplyService,
 		private elementSrv: RequestElementService,
 		private appPricePipe: PricePipe,
 		private cdr: ChangeDetectorRef,
@@ -175,9 +176,9 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 					throw Error(`__typename ${item.__typename} wasn't found`);
 			}
 		});
-		this.productSrv.update(tempProduct).subscribe(_ =>
-			this.requestSrv.update({ id: this.requestId, status: ReplyStatus.VALIDATED })
-		);
+		this.productSrv.update(tempProduct).pipe(
+			switchMap(product => this.requestReplySrv.update({ id: this.elements[this.selectedIndex].reply.id, status: ReplyStatus.VALIDATED }))
+		).subscribe();
 		this.openReplySentDlg();
 	}
 
