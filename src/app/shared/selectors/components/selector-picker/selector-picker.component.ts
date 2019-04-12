@@ -98,15 +98,17 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.group = this.fb.group({
 			name: ['']
 		});
-		if (this.canCreate) this.nameExists$ = this.searched$.pipe(
-			switchMap(_ => this.choices$.pipe(
-				map(m => m.filter(it => it.name === this.searchTxt)),
-				// if text is found on choices$ OR
-				// if the text is empty OR
-				// if the text is inside the value array (only multiple allowed)
-				map(m => (!!m.length || !this.searchTxt || this.hasName(this.searchTxt)))
-			))
-		);
+		if (this.canCreate) {
+			this.nameExists$ = this.searched$.pipe(
+				switchMap(_ => this.choices$.pipe(
+					map(items => this.checkExist(items)),
+					// if text is found on choices$ OR
+					// if the text is empty OR
+					// if the text is inside the value array (only multiple allowed)
+					map(items => (!!items.length || !this.searchTxt || this.hasName(this.searchTxt)))
+				))
+			);
+		}
 	}
 
 	ngAfterViewInit() {
@@ -120,22 +122,21 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (this.hasDB) {
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			if (this.multiple)
-				this.choices$ = this.getChoices(this.type).pipe(
-					map((items) => {
-						switch (this.type) {
-							case ERM.EMAIL:
-								return items.filter(i => (this.value) ? !((this.value).some(val => val === i.email)) : true);
-							default:
-								// only items that are not on the value array so they don't appear in the options
-								return items.filter(i =>
-									// if the array exists we check that the item does not exist on the value array
-									(this.value) ? !((this.value).some(val => val.id === i.id)) : true);
-						}
-					}
-					)
-				);
+				this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
 			else
 				this.choices$ = this.getChoices(this.type);
+		}
+	}
+
+	private filterValues(items: any[]) {
+		switch (this.type) {
+			case ERM.EMAIL:
+				return items.filter(i => (this.value) ? !((this.value).some(val => val === i.email)) : true);
+			default:
+				// only items that are not on the value array so they don't appear in the options
+				return items.filter(i =>
+					// if the array exists we check that the item does not exist on the value array
+					(this.value) ? !((this.value).some(val => val.id === i.id)) : true);
 		}
 	}
 
@@ -270,6 +271,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		} else { // we update and close
 			this.value = item;
 			this.onChange();
+		}
+	}
+
+	checkExist(items: any[]) {
+		switch (this.type) {
+			case ERM.EMAIL:
+				return items.filter(it => it.name === this.searchTxt || it.email === this.searchTxt);
+			default:
+				return items.filter(it => it.name === this.searchTxt);
 		}
 	}
 

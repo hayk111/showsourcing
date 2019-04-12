@@ -37,7 +37,7 @@ export * from './realm-server.model';
 export * from './request-element.model';
 export * from './request-reply.model';
 export * from './request-template.model';
-export * from './request.model';
+export * from './create-request.model';
 export * from './sample-status.model';
 export * from './sample.model';
 export * from './show.model';

@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { delay, first, map, mapTo, mergeMap, retryWhen, take, tap } from 'rxjs/operators';
+import { delay, first, map, mapTo, mergeMap, retryWhen, take, tap, filter } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { ImageUploadRequestService } from '~entity-services';
@@ -99,8 +99,11 @@ export class UploaderService {
 		return service.create(request, client).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ =>
-				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`, undefined, client)
+				service.waitForOne(`id == '${request.id}'`, undefined, client)
 			),
+			// we use filter instead putting the status into the waitForOne predicate because some images are
+			// readonly (meaning we cannot give additional condition beside the id)
+			filter(info => info.status === 'upload-ready'),
 			// when ready we make the upload
 			mergeMap(info => this.uploadFileToAws(info, file, isImage)),
 			// when the upload is done on amazon, the image will give a 403 for a few seconds
