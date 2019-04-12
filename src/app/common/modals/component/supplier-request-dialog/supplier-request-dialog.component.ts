@@ -1,11 +1,6 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	Input,
-	OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreateRequestService } from '~core/entity-services';
+import { CreateRequestService, UserService } from '~core/entity-services';
 import { CreateRequest, Product } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -35,7 +30,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
 		private requestSrv: CreateRequestService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
+		private userSrv: UserService
 	) {
 		this.form = this.fb.group({
 			products: ['', Validators.required],
@@ -51,12 +47,37 @@ export class SupplierRequestDialogComponent implements OnInit {
 	ngOnInit() {
 		this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: false });
 		this.request.products = this.products;
+		this.initFormValues();
 		this.form.patchValue(this.request);
+	}
+
+	private initFormValues() {
+		// title
+		this.form.get('title').setValue(`Request for ${this.products.length} product${this.products.length === 1 ? '' : 's'}`);
+		// message
+		let event;
+		const firstName = this.userSrv.userSync.firstName || '';
+		const lastName = this.userSrv.userSync.lastName || '';
+		this.form.get('message').setValue(
+			'Hello,\n' +
+			(this.products.length && (event = this.products[0].event) && event.description && event.description.name ?
+				'\nWe have met during ' + event.description.name + '.\n' : '') +
+			'\nCould you fill the information attached?\n' +
+			'\nThank you\n' +
+			(firstName ? firstName + ' ' + lastName : lastName)
+		);
+
 	}
 
 	removeProduct(id: ID) {
 		this.products = this.products.filter(product => product.id !== id);
 		this.request.products = this.products;
+		this.form.patchValue(this.request);
+	}
+
+	updateProducts(products: Product[]) {
+		this.request.products = products;
+		this.form.patchValue(this.request);
 	}
 
 	createRequest() {

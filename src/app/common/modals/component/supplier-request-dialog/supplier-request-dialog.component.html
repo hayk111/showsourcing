@@ -12,7 +12,7 @@
 					<label-app>Send me a copy *</label-app>
 					<product-request-list-app
 						[products]="products"
-						(update)="products = $event"
+						(update)="updateProducts($event)"
 						(remove)="removeProduct($event)">
 					</product-request-list-app>
 					<input inputApp [hidden]="true" type="text"/>
@@ -78,7 +78,7 @@
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
-				<form-field-app class="modal">
+				<!-- <form-field-app class="modal">
 					<label-app>Send Copy to</label-app>
 					<selector-app
 						#copySelector
@@ -93,7 +93,7 @@
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
-				</form-field-app>
+				</form-field-app> -->
 				<form-field-app class="modal pdng-btm-l">
 					<label-app>Request Title *</label-app>
 					<input inputApp type="text" formControlName="title" placeholder="Quote Request"/>
