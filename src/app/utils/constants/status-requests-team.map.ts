@@ -26,5 +26,12 @@ export const statusRequestsTeamMap = {
 				name: 'Refused'
 			}
 		}
+	},
+	'accepted': {
+		locales: {
+			en: {
+				name: 'Accepted'
+			}
+		}
 	}
 };

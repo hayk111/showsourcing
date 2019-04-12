@@ -12,6 +12,14 @@
 	border-top: 3px solid var(--color-primary);
 }
 
+.power-off {
+	&:hover {
+		background: #071327;
+	}
+	height: 100%;
+	width: 32px;
+}
+
 .logo {
 	height: 32px;
 	width: 32px;

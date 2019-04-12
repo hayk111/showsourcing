@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ProductService, RequestElementService, SupplierRequestService } from '~core/entity-services';
+import { ProductService, RequestElementService, SupplierRequestService, RequestReplyService } from '~core/entity-services';
 import { SelectionService } from '~core/list-page';
-import { AppImage, EntityMetadata, ERM, ExtendedField, Price, Product, RequestElement, SupplierRequest } from '~core/models';
+import { AppImage, EntityMetadata, ERM, ExtendedField, Price, Product, RequestElement, SupplierRequest, ReplyStatus } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -32,6 +32,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	constructor(
 		private productSrv: ProductService,
 		private requestSrv: SupplierRequestService,
+		private requestReplySrv: RequestReplyService,
 		private elementSrv: RequestElementService,
 		private appPricePipe: PricePipe,
 		private cdr: ChangeDetectorRef,
@@ -153,7 +154,9 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	sendBack() {
-		this.requestSrv.update({ id: this.requestId, status: 'refused' }).subscribe(_ => this.openReplySentDlg());
+		this.requestReplySrv.update(
+			{ id: this.elements[this.selectedIndex].reply.id, status: ReplyStatus.REFUSED }
+		).subscribe(_ => this.openReplySentDlg());
 	}
 
 	close() {
@@ -180,7 +183,9 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			}
 		});
 		this.productSrv.update(tempProduct).subscribe(_ =>
-			this.requestSrv.update({ id: this.requestId, status: 'accepted' })
+			this.requestReplySrv.update(
+				{ id: this.elements[this.selectedIndex].reply.id, status: ReplyStatus.ACCEPTED }
+			).subscribe()
 		);
 		this.openReplySentDlg();
 	}
