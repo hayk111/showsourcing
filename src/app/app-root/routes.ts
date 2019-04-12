@@ -2,7 +2,6 @@ import { Route } from '@angular/router';
 import { TeamClientReadyGuard, UserClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { AuthGuardService } from '~core/auth';
 import { HasUserGuard } from '~core/auth/services/has-user.guard';
-import { UnauthGuardService } from '~core/auth/services/unauth-guard.service';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
 import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-selected.guard';
 import { DevModeGuard } from '~utils/dev-mode.guard';
@@ -11,7 +10,6 @@ export const routes: Array<Route> = [
 	{
 		path: 'auth',
 		component: GuestTemplateComponent,
-		canActivateChild: [UnauthGuardService],
 		loadChildren: 'app/features/auth-pages/auth-pages.module#AuthPagesModule'
 	},
 	{
