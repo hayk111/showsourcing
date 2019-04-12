@@ -62,15 +62,15 @@
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
+				<!-- *ngIf="contactSelector?.value?.email && !contactSelector?.value?.supplier || opened" -->
+				<!-- (click)="opened = true" -->
 				<form-field-app
-					*ngIf="contactSelector?.value?.email && !contactSelector?.value?.supplier || opened"
 					class="modal">
 					<label-app>Select supplier for the contact <div class="fs-s color-txt-secondary">This will modify the contact supplier</div></label-app>
 					<selector-app
 						type="supplier"
 						[canCreate]="true"
-						(click)="opened = true"
-						(update)="contactSelector.value.supplier = $event">
+						(update)="updateSupplier($event)">
 						<selector-placeholder-app
 							[name]="contactSelector?.value?.supplier?.name"
 							placeholder="Select a supplier">

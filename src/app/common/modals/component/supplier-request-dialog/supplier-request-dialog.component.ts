@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateRequestService, UserService } from '~core/entity-services';
-import { CreateRequest, Product } from '~core/models';
+import { CreateRequest, Product, Supplier } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ID } from '~utils';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { FilterList, FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -22,6 +23,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 	pending = false;
 	// if we open once the supplier selector, we want it open until the dialog closes
 	opened = false;
+	filterList: FilterList;
+	supplier: Supplier;
 
 	// if we don't initialize it the selector will try to push to an empty object
 	@Input() products: Product[] = [];
@@ -78,6 +81,10 @@ export class SupplierRequestDialogComponent implements OnInit {
 	updateProducts(products: Product[]) {
 		this.request.products = products;
 		this.form.patchValue(this.request);
+	}
+
+	updateSupplier(supplier: Supplier) {
+		this.supplier = supplier;
 	}
 
 	createRequest() {

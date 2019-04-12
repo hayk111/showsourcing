@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { EntityMetadata, ERM } from '~core/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { FilterList } from '~shared/filters';
 
 @Component({
 	selector: 'selector-app',
@@ -24,6 +25,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() multiple = false;
 	@Input() canCreate = false;
+	@Input() filterList = new FilterList([]);
 	@Input() width = 395;
 
 	@Output() update = new EventEmitter<any>();

@@ -24,6 +24,7 @@ import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 import { RegexpApp } from '~utils';
+import { FilterList, FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -42,6 +43,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 	@Input() multiple = false;
 	@Input() canCreate = false;
+	@Input() filterList = new FilterList([]);
 
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
@@ -118,6 +120,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	ngOnChanges() {
+		this.selectorSrv.setFilters(this.filterList);
 		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 		if (this.hasDB) {
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
