@@ -19,11 +19,10 @@ export class SupplierRequest {
 	requestElements: RequestElement[];
 	sender: Contact;
 	senderTeamId: string;
-	requestTemplateName?: string;
+	templateName?: string;
 	title: string;
 	message?: string;
 	recipient: Contact;
-	sendCopyTo: string[];
 	status: RequestStatus;
 	images: AppImage[];
 	attachments: Attachment[];

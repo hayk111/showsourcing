@@ -12,6 +12,7 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 
 	static readonly one = `
 		title
+		templateName
 		${SupplierRequestQueries.contact('recipient')}
 		${SupplierRequestQueries.contact('sender')}
 		${SupplierRequestQueries.requestElements}
@@ -23,6 +24,7 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 
 	static readonly many = `
 		title
+		templateName
 		${SupplierRequestQueries.contact('recipient')}
 		${SupplierRequestQueries.requestElements}
 		${SupplierRequestQueries.contact('sender')}
@@ -34,6 +36,7 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 
 	static readonly all = `
 		title
+		templateName
 		${SupplierRequestQueries.contact('recipient')}
 		${SupplierRequestQueries.contact('sender')}
 		${SupplierRequestQueries.requestElements}

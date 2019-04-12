@@ -44,22 +44,22 @@
 	<!-- type -->
 	<ng-template
 		columnApp="Type"
-		sortBy="requestTemplate.name"
+		sortBy="templateName"
 		let-row="row"
 		width="220">
 		<div class="capitalize ellipsis">
-			{{ row?.requestTemplate?.name }}
+			{{ row?.templateName }}
 		</div>
 	</ng-template>
 
 	<!-- supplier -->
 	<ng-template
 		columnApp="Supplier"
-		sortBy="recipient.supplier.name"
+		sortBy="recipient.company"
 		let-row="row"
 		width="280">
 		<div class="ellipsis">
-		{{ row?.recipient?.supplier?.name }}
+		{{ row?.recipient?.company }}
 		</div>
 	</ng-template>
 
@@ -111,11 +111,11 @@
 	<!-- sender -->
 	<ng-template
 		columnApp="Sent By"
-		sortBy="createdBy.firstName"
+		sortBy="sender.name"
 		let-row="row"
 		width="220">
 		<div class="capitalize ellipsis">
-			{{ row?.createdBy?.firstName }} {{ row.createdBy?.lastName }}
+			{{ row?.sender?.name }}
 		</div>
 	</ng-template>
 
