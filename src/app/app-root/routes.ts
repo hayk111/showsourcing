@@ -11,7 +11,6 @@ export const routes: Array<Route> = [
 	{
 		path: 'auth',
 		component: GuestTemplateComponent,
-		canActivateChild: [UnauthGuardService],
 		loadChildren: 'app/features/auth-pages/auth-pages.module#AuthPagesModule'
 	},
 	{
