@@ -89,12 +89,12 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		this.uploaderFeedback.setFiles(this.reply.attachments);
 	}
 
-	save(updateStatus = false) {
+	save(updateStatus = false, lastItem = false) {
 		const reply = updateStatus ?
 			({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe(_ => {
-			if (updateStatus) this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
+			if (updateStatus && lastItem) this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
 		});
 	}
 
