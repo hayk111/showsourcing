@@ -11,6 +11,7 @@ import { ProductVote } from '~models/product-vote.model';
 import { Supplier } from '~models/supplier.model';
 import { Tag } from '~models/tag.model';
 
+import { Event } from './event.model';
 import { ExtendedField } from './extended-field.model';
 
 export class Product extends EntityWithAudit<ProductConfig> {

@@ -12,7 +12,7 @@
 					<label-app>Send me a copy *</label-app>
 					<product-request-list-app
 						[products]="products"
-						(update)="products = $event"
+						(update)="updateProducts($event)"
 						(remove)="removeProduct($event)">
 					</product-request-list-app>
 					<input inputApp [hidden]="true" type="text"/>

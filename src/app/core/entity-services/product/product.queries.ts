@@ -81,6 +81,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.createdBy},
 			${ProductQueries.images},
 			${ProductQueries.supplier},
+			${ProductQueries.event},
 			${ProductQueries.category},
 			${ProductQueries.price()},
 			${ProductQueries.packaging('innerCarton')}
