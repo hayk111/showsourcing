@@ -22,7 +22,7 @@ export class SelectorContactRowComponent extends AbstractSelectorHighlightableCo
 	getEmailName() {
 		let name = '';
 		if (this.contact.email) {
-			name = this.contact.email.split('@')[0].split(new RegExp('[-,]')).join(' ');
+			name = this.contact.email.split('@')[0].split(new RegExp('[-._]')).join(' ');
 		}
 		return name;
 	}
