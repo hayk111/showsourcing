@@ -4,20 +4,22 @@ import {
 	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
+	ExportDlgComponent,
 	InviteUserDlgComponent,
 	MergeDialogComponent,
-	ProductAddToProjectDlgComponent,
-	ExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-	VoteDetailsDialogComponent,
-	SupplierRequestDialogComponent,
 	NewContactDlgComponent,
-	RequestViewDlgComponent,
+	ProductAddToProjectDlgComponent,
+	ProductRequestTeamFeedbackDlgComponent,
+	SupplierRequestDialogComponent,
+	VoteDetailsDialogComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
+import { ID } from '~utils';
+
+import { ReviewRequestReplyDlgComponent } from '../component/review-request-reply-dlg/review-request-reply-dlg.component';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
@@ -82,16 +84,16 @@ export class CommonModalService {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
-	openRequestViewDialog(request: Request) {
-		return this.dlgSrv.open(RequestViewDlgComponent, { request });
-	}
-
 	openMergeDialog(data: { type: any, entities: any[] }) {
 		return this.dlgSrv.open(MergeDialogComponent, data);
 	}
 
 	openInvitationDialog() {
 		return this.dlgSrv.open(InviteUserDlgComponent);
+	}
+
+	openReviewRequestReplyDlg(data: { elementId: ID, selectedIndex: number, requestId: ID }) {
+		return this.dlgSrv.open(ReviewRequestReplyDlgComponent, data);
 	}
 
 	/** Opens a dialog that let you see the list of people who have voted */

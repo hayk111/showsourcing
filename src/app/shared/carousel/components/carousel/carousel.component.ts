@@ -1,17 +1,15 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, OnChanges } from '@angular/core';
-import { first, switchMap, takeUntil } from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { saveAs } from 'file-saver';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { ImageService } from '~entity-services/image/image.service';
 import { AppImage } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
-import { UploaderService } from '~shared/file/services/uploader.service';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
-import { PendingImage } from '~utils/pending-image.class';
-import { saveAs } from 'file-saver';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
 @Component({
 	selector: 'carousel-app',

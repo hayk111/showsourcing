@@ -33,6 +33,12 @@ export class SelectionService {
 		this.emit();
 	}
 
+	unselectMany(items: { id: string }[]) {
+		this.selection = new Map(this.selection);
+		items.forEach(item => this.selection.delete(item.id));
+		this.emit();
+	}
+
 	unselectAll() {
 		this.selection = new Map();
 		this.emit();

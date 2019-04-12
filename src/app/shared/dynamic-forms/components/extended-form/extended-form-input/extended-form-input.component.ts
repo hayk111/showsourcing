@@ -50,7 +50,7 @@ export class ExtendedFormInputComponent implements OnInit {
 
 	ngOnInit() {
 		this.inputValue$.pipe(
-			debounceTime(200),
+			debounceTime(250),
 			distinctUntilChanged(),
 			tap(item => item.isPrice ? this.accumulatePrice(item.value) : this.accumulator = item.value),
 			tap(_ => this.onClose(false))
@@ -84,10 +84,7 @@ export class ExtendedFormInputComponent implements OnInit {
 	toggleBoolean() {
 		if (this.disabled)
 			return;
-		if (this.accumulator === 'yes')
-			this.accumulator = 'no';
-		else
-			this.accumulator = 'yes';
+		this.accumulator = this.accumulator === 'yes' ? this.accumulator = 'no' : this.accumulator = 'yes';
 		this.onSave();
 	}
 

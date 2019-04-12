@@ -15,6 +15,8 @@ export class Contact extends EntityWithAudit<ContactConfig> {
 
 	constructor(config: ContactConfig) {
 		super(config);
+		if (config && config.email && !config.name)
+			this.name = config.email.split('@')[0].split(new RegExp('[-._]')).join(' ');
 		this.deleted = false;
 	}
 }

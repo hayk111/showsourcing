@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
 
 @Component({
 	selector: 'comparison-row-app',
@@ -12,7 +12,10 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class ComparisonRowComponent implements OnInit {
 	@Input() values: string[];
 	@Input() label: string;
-	isChecked: boolean;
+	@Input() checked: boolean;
+	@Input() hasCheckbox = true;
+	@Output() selected = new EventEmitter<null>();
+	@Output() unselected = new EventEmitter<null>();
 
 	constructor() { }
 

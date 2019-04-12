@@ -24,9 +24,14 @@ export class InputPriceComponent extends AbstractInput {
 	@ViewChild(InputDirective) inp: InputDirective;
 	currencySelectorShown: boolean;
 
-	private _price: Price = new Price({ value: 0, currency: 'USD' });
+	private _price: Price;
 	@Input()
-	set price(price: Price) { if (price) this._price = { ...price }; }
+	set price(price: Price) {
+		if (price)
+			this._price = { ...price };
+		else
+			this._price = new Price({ value: 0, currency: 'USD' });
+	}
 	get price() { return this._price; }
 
 	constructor(protected cd: ChangeDetectorRef) {

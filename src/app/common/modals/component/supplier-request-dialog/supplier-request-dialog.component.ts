@@ -28,7 +28,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 	// if we open once the supplier selector, we want it open until the dialog closes
 	opened = false;
 
-	@Input() products: Product[];
+	// if we don't initialize it the selector will try to push to an empty object
+	@Input() products: Product[] = [];
 
 	constructor(
 		private fb: FormBuilder,
@@ -67,7 +68,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 		this.requestSrv.create(newRequest)
 			.subscribe(_ => {
 				this.pending = false;
-				this.dlgSrv.open(ReplySentDlgComponent, { height: '586' });
+				this.dlgSrv.open(ReplySentDlgComponent, { height: '586px', actionName: 'request' });
 			},
 				err => {
 					this.dlgSrv.close();

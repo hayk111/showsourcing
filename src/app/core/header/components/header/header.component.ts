@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { TeamService, UserService, SupplierRequestService } from '~entity-services';
-import { Team, DEFAULT_REPLIED_STATUS } from '~models';
+import { DEFAULT_REPLIED_STATUS, Team } from '~core/models';
+import { SupplierRequestService, TeamService, UserService } from '~entity-services';
 import { User } from '~models/user.model';
 import {
 	SearchAutocompleteComponent,

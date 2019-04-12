@@ -70,13 +70,12 @@
 	}
 	&.medium {
 		height: 22px;
-		font-size: var(--font-size-m);
+		font-size: var(--font-size-s);
 		border-radius: var(--border-radius);
 		padding-left: var(--spacing-s);
 		padding-right: 10px;
 		padding-top: 3px;
 		padding-bottom: 4px;
-		font-weight: 600;
 	}
 	&.large {
 		height: 32px;

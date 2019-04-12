@@ -48,10 +48,7 @@ export class UploaderService {
 		);
 	}
 
-	uploadFiles(files: File[],
-		linkedItem?: any,
-		client?: Client
-	): Observable<any> {
+	uploadFiles(files: File[], linkedItem?: any, client?: Client): Observable<any> {
 		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem, client))).pipe(
 			first(),
 			// link item (we need to do it after the file is ready else we will have 403)
@@ -67,20 +64,11 @@ export class UploaderService {
 		);
 	}
 
-	uploadImage(
-		file: File,
-		linkedItem?: any,
-		client?: Client
-	) {
+	uploadImage(file: File, linkedItem?: any, client?: Client) {
 		return this.uploadFile(file, 'image', linkedItem, client);
 	}
 
-	uploadFile(
-		file: File,
-		type: 'file' | 'image' = 'file',
-		linkedItem?: any,
-		client?: Client
-	): Observable<AppImage> {
+	uploadFile(file: File, type: 'file' | 'image' = 'file', linkedItem?: any, client?: Client): Observable<AppImage> {
 		const isImage = type === 'image';
 		const fileName = file.name;
 		const size = file.size;
@@ -99,11 +87,11 @@ export class UploaderService {
 		return service.create(request, client).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ =>
-				service.waitForOne(`id == '${request.id}'`, undefined, client)
+				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`, undefined, client)
 			),
 			// we use filter instead putting the status into the waitForOne predicate because some images are
 			// readonly (meaning we cannot give additional condition beside the id)
-			filter(info => info.status === 'upload-ready'),
+			// filter(info => info.status === 'upload-ready'),
 			// when ready we make the upload
 			mergeMap(info => this.uploadFileToAws(info, file, isImage)),
 			// when the upload is done on amazon, the image will give a 403 for a few seconds
@@ -116,11 +104,7 @@ export class UploaderService {
 		);
 	}
 
-	private uploadFileToAws(
-		awsInfo,
-		file: any,
-		isImage: boolean
-	): Observable<AppImage> {
+	private uploadFileToAws(awsInfo, file: any, isImage: boolean): Observable<AppImage> {
 		log.group('%c uploading to aws', LogColor.SERVICES);
 		log.debug(`%c upload url ${awsInfo.uploadUrl}`, LogColor.SERVICES);
 		log.group('%c form data', LogColor.SERVICES);
@@ -193,8 +177,7 @@ export class UploaderService {
 	/** Link uploaded file to its entity */
 	private linkItem(
 		files: AppImage[] | Attachment[],
-		linkedItem: any,
-		isImage: boolean,
+		linkedItem: any, isImage: boolean,
 		imageProperty = 'images',
 		isArray = true
 	): Observable<AppImage[] | Attachment[]> {

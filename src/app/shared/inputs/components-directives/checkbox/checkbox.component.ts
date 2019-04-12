@@ -15,6 +15,7 @@ export class CheckboxComponent extends AbstractInput {
 	@ViewChild('label') label: ElementRef;
 	@Input() size = 16;
 	@Input() labelClass = '';
+	@Input() boxColor = 'primary';
 	/** id of element, if not specified it will generate automtically */
 	@Input()
 	get id(): string { return this._id; }
@@ -84,7 +85,8 @@ export class CheckboxComponent extends AbstractInput {
 
 	iconSize() {
 		return {
-			'font-size': `${this.size}px`
+			'height': `${this.size}px`,
+			'width': `${this.size}px`
 		};
 	}
 }

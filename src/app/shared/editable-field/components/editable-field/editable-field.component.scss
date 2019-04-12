@@ -32,6 +32,17 @@
 		3. field cell one line with bottom
 		4. field cell one line without bottom
 	*/
+	.labelCtnr {
+		font-size: var(--font-size-m);
+		text-transform: capitalize;
+		font-weight: 600;
+		color: var(--color-txt-secondary);
+	}
+
+	.content {
+		color: var(--color-txt-strong);
+	}
+
 	&.twoLine {
 		min-height: 67px;
 		padding-top: 16px;
@@ -42,9 +53,6 @@
 			height: 18px;
 			margin-bottom: 3px;
 			line-height: 1;
-			font-size: var(--font-size-m);
-			color: var(--color-txt-secondary);
-			font-weight: 600;
 			text-transform: capitalize;
 		}
 
@@ -53,7 +61,6 @@
 			line-height: 1;
 			width: 100%;
 			font-size: var(--font-size-l);
-			color: var(--color-txt-strong);
 		}
 		// when the input has a fixed height
 		&.cannotGrow {
@@ -83,14 +90,9 @@
 			min-height: 33px;
 		}
 		.labelCtnr {
-			font-size: var(--font-size-m);
-			font-weight: 600;
-			color: var(--color-txt-secondary);
-			text-transform: capitalize;
 			width: 50%;
 		}
 		.content {
-			color: var(--color-txt-strong);
 			width: 50%;
 		}
 	}
