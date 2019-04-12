@@ -9,7 +9,9 @@ import { DialogService } from '~shared/dialog';
 })
 export class ReplySentDlgComponent implements OnInit {
 
+	// can be px, vh, 1%...
 	@Input() height: string;
+	@Input() actionName = 'reply';
 
 	constructor(private dlgSrv: DialogService) { }
 
@@ -17,7 +19,7 @@ export class ReplySentDlgComponent implements OnInit {
 	}
 
 	get style() {
-		return { height: this.height ? `${this.height}px` : 'unset' };
+		return { height: this.height ? `${this.height}` : 'unset' };
 	}
 
 	close() {

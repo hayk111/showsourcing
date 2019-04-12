@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit, OnChanges } from '@angular/core';
 import { ExtendedField, ExtendedFieldDefinition } from '~core/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -9,7 +9,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./extended-form.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExtendedFormComponent extends TrackingComponent implements OnInit {
+export class ExtendedFormComponent extends TrackingComponent implements OnChanges {
 	// converting fields to a map of <ExtendedFieldDefinition.id, extendedField> for easy access.
 	@Input() set fields(fields: ExtendedField[]) {
 		const arr: any = (fields || []).map(field => ([field.definition.id, field]));
@@ -32,7 +32,7 @@ export class ExtendedFormComponent extends TrackingComponent implements OnInit {
 	constructor(
 	) { super(); }
 
-	ngOnInit() {
+	ngOnChanges() {
 		this.makeCols();
 	}
 

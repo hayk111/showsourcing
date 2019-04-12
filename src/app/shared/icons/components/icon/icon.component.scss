@@ -44,6 +44,9 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-send-envelope:before {
+  content: "\e94e";
+}
 .icon-combined-arrows:before {
   content: "\e947";
 }

@@ -15,6 +15,8 @@ import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
+import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+
 @Component({
 	selector: 'request-reply-dlg-app',
 	templateUrl: './request-reply-dlg.component.html',
@@ -91,7 +93,9 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		const reply = updateStatus ?
 			({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
-		this.replySrv.update(reply).subscribe();
+		this.replySrv.update(reply).subscribe(_ => {
+			if (updateStatus) this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
+		});
 	}
 
 	saveAndClose() {

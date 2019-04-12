@@ -18,17 +18,4 @@ export class RequestListViewComponent extends ListViewComponent<SupplierRequest>
 
 	constructor() { super(); }
 
-	getType(row: SupplierRequest) {
-		switch (row.status) {
-			case 'accepted':
-				return 'success';
-			case 'toReview':
-				return 'primary';
-			case 'sentToSupplier':
-				return 'accent';
-			default:
-				return 'secondary';
-		}
-	}
-
 }

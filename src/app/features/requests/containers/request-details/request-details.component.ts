@@ -7,6 +7,8 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement, SupplierRequest } from '~core/models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { DialogService } from '~shared/dialog';
+import { ReviewRequestReplyDlgComponent } from '~common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component';
 
 @Component({
 	selector: 'request-details-app',
@@ -16,7 +18,9 @@ import { AutoUnsub } from '~utils';
 })
 export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
+	private requestElements: RequestElement[];
 	request: SupplierRequest;
+	requestId: string;
 	erm = ERM;
 
 	constructor(
@@ -27,12 +31,14 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
 		public commonModalSrv: CommonModalService,
-		public listSrv: ListPageService<RequestElement, RequestElementService>
+		public listSrv: ListPageService<RequestElement, RequestElementService>,
+		private dlgSrv: DialogService
 	) { super(); }
 
 	ngOnInit() {
 		const id$ = this.route.params.pipe(
 			map(params => params.id),
+			tap(id => this.requestId = id),
 			takeUntil(this._destroy$)
 		);
 
@@ -49,6 +55,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				});
 			}),
 			switchMap(id => this.featureSrv.selectOne(id)),
+			tap(req => this.requestElements = req.requestElements),
 			takeUntil(this._destroy$)
 		).subscribe(
 			request => this.onRequest(request),
@@ -78,6 +85,11 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			timeout: 3500
 		});
 		this.router.navigate(['request']);
+	}
+
+	openReviewRequestReply(id: string) {
+		const selectedIndex = this.requestElements.findIndex(elem => elem.id === id);
+		this.dlgSrv.open(ReviewRequestReplyDlgComponent, { elementId: id, selectedIndex, requestId: this.requestId });
 	}
 
 }
