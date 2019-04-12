@@ -32,11 +32,10 @@ input, textarea {
 	}
 }
 
-// form-field-app.ng-pristine {
-// 	label-app {
-// 		color: var(--color-txt-primary);
-// 	}
-// }
+// override the color of the textarea
+textarea {
+	color: var(--color-txt-strong);
+}
 
 form-field-app.editable {
 	padding-bottom: 0;

@@ -67,16 +67,16 @@
 	</div>
 </ng-template>
 
-<!-- name -->
+<!-- supplier -->
 <ng-template #supplier let-row="row">
-	<ng-container *ngIf="row.supplier"> {{ row?.supplier.name }} </ng-container>
-	<ng-container *ngIf="!row.supplier"> - </ng-container>
+	<div class="ellipsis">
+		{{ row?.supplier?.name || '-' }}
+	</div>
 </ng-template>
 
 <!-- category -->
 <ng-template #category let-row="row">
-	<ng-container *ngIf="row.category"> {{ row?.category?.name }} </ng-container>
-	<ng-container *ngIf="!row.category"> - </ng-container>
+	{{ row?.category?.name || '-'}}
 </ng-template>
 
 <!-- price -->
