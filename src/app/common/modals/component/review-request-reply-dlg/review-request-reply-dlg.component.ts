@@ -173,23 +173,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 					tempProduct = ({ ...tempProduct, images: [...tempProduct.images, { ...newImage }] });
 					break;
 				case 'ExtendedField':
-					if (item.definition.target === 'Product.extendedFields')
-						tempProduct = this.replaceProductExtendedField(tempProduct, item);
-					else {
-						const property = item.definition.target.split('.')[1];
-						switch (item.definition.type) {
-							case 'price':
-								tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
-								break;
-							case 'boolean':
-								const toBoolean = item.value === 'yes' ? true : false;
-								tempProduct = ({ ...tempProduct, [property]: toBoolean });
-								break;
-							default:
-								tempProduct = ({ ...tempProduct, [property]: item.value });
-								break;
-						}
-					}
+					tempProduct = this.acceptExtendedField(item, tempProduct);
 					break;
 				default:
 					throw Error(`__typename ${item.__typename} wasn't found`);
@@ -201,7 +185,34 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		this.openReplySentDlg();
 	}
 
-	private replaceProductExtendedField(tempProduct, item) {
+	private acceptExtendedField(item, tempProduct) {
+		// we check if we have to accept an extended field or a product attribute
+		if (item.definition.target === 'Product.extendedFields')
+			tempProduct = this.replaceProductExtendedField(item, tempProduct);
+		else
+			tempProduct = this.replaceProductAttribute(item, tempProduct);
+		return tempProduct;
+	}
+
+	private replaceProductAttribute(item, tempProduct) {
+		const property = item.definition.target.split('.')[1];
+		// this switch case handles the exceptions when we have to convert a extended field string to a value like boolean or price
+		switch (item.definition.type) {
+			case 'price':
+				tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
+				break;
+			case 'boolean':
+				const toBoolean = item.value === 'yes' ? true : false;
+				tempProduct = ({ ...tempProduct, [property]: toBoolean });
+				break;
+			default:
+				tempProduct = ({ ...tempProduct, [property]: item.value });
+				break;
+		}
+		return tempProduct;
+	}
+
+	private replaceProductExtendedField(item, tempProduct) {
 		// we find if the field exists already on the product
 		let fieldToReplace = this.product.extendedFields.find(fld => fld.definition.id === item.definition.originId);
 		// if the field already exists on the product, we update it
