@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { User as RealmUser } from 'realm-graphql-client';
 import { forkJoin, from, Observable } from 'rxjs';
-import { catchError, first, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { catchError, first, switchMap, takeUntil, tap, take } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
@@ -44,7 +44,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 			tap(_ => this.apolloState.setClientReady(this.client)),
 			catchError(e => this.onError(e)),
 			takeUntil(this.destroyed$),
-			first()
+			take(1)
 		);
 	}
 

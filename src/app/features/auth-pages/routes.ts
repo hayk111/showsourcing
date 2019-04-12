@@ -12,12 +12,12 @@ import {
 } from './components';
 
 export const routes: Routes = [
-	{ path: 'login', component: LoginComponent, canActivate: [NotAuthenticatedGuard] },
+	{ path: 'login', component: LoginComponent },
 	{ path: 'forgot-password', component: ForgotPasswordComponent },
 	{ path: 'reset-password/:token', component: ResetPasswordComponent },
-	{ path: 'register', component: RegistrationComponent, canActivate: [NotAuthenticatedGuard] },
+	{ path: 'register', component: RegistrationComponent },
 	{ path: 'password-resetted', component: PwResettedComponent },
-	{ path: 'account-created', component: AccountCreatedComponent, canActivate: [NotAuthenticatedGuard] },
-	{ path: 'validate-email/:token', component: ValidateEmailComponent, canActivate: [NotAuthenticatedGuard] },
-	{ path: 'unvalidated-email', component: UnvalidatedEmailComponent, canActivate: [NotAuthenticatedGuard] }
+	{ path: 'account-created', component: AccountCreatedComponent },
+	{ path: 'validate-email/:token', component: ValidateEmailComponent },
+	{ path: 'unvalidated-email', component: UnvalidatedEmailComponent }
 ];
