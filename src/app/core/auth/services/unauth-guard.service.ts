@@ -20,14 +20,14 @@ export class UnauthGuardService implements CanActivate, CanActivateChild {
 		return this.authSrv.authStatus$.pipe(
 			tap(status => log.debug('%c unauth guard status :', LogColor.GUARD, status)),
 			filter(status => status !== AuthStatus.PENDING),
-			tap(status => this.logoutOnAuthenticated(status)),
+			tap(status => this.redirectOnAuthenticated(status)),
 			map(status => status === AuthStatus.NOT_AUTHENTICATED),
 		);
 	}
 
-	logoutOnAuthenticated(authStatus: AuthStatus) {
+	redirectOnAuthenticated(authStatus: AuthStatus) {
 		if (authStatus === AuthStatus.AUTHENTICATED)
-			this.authSrv.logout();
+			this.router.navigate(['']);
 	}
 
 	canActivateChild(
