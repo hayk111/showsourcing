@@ -35,10 +35,10 @@
 					<div class="flex">
 						<checkbox-app
 							#checkShare
+							inputApp
 							formControlName="shareInformation">
+							<span class="checkbox-label">Share product information you arleady have with the supplier such as price, moq, etc.</span>
 						</checkbox-app>
-						<input inputApp [hidden]="true"/>
-						Share product information you arleady have with the supplier such as price, moq, etc.
 					</div>
 				</form-field-app>
 			</form>
@@ -105,11 +105,11 @@
 				<form-field-app class="modal">
 					<label-app>Send me a copy</label-app>
 					<div class="flex">
-						<checkbox-app>
+						<checkbox-app inputApp>
+							<span class="checkbox-label">Send a copy of the request to your email address.</span>
 						</checkbox-app>
-						Send a copy of the request to your email address.
+						
 					</div>
-					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
 			</form>
 		</div>
