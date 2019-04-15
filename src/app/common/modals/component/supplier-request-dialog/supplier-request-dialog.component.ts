@@ -55,21 +55,21 @@ export class SupplierRequestDialogComponent implements OnInit {
 
 	private initFormValues() {
 		// title
-		this.form.get('title').setValue(`Request for ${this.products.length} product${this.products.length === 1 ? '' : 's'}`);
+		this.setTitle();
 		// message
 		let event;
 		const firstName = this.userSrv.userSync.firstName || '';
 		const lastName = this.userSrv.userSync.lastName || '';
 		this.form.get('message').setValue(
 			'Hello,\n' +
-			(this.products.length && (event = this.products[0].event) && event.description && event.description.name ?
+			(this.request.products.length && (event = this.request.products[0].event) && event.description && event.description.name ?
 				'\nWe have met during ' + event.description.name + '.\n' : '') +
 			'\nCould you fill the information attached?\n' +
 			'\nThank you\n' +
 			(firstName ? firstName + ' ' + lastName : lastName)
 		);
 		// supplier, its not a form value but it has to be initialized
-		const tempProduct = this.products.find(product => !!product.supplier);
+		const tempProduct = this.request.products.find(product => !!product.supplier);
 		this.supplier = tempProduct && tempProduct.supplier ? tempProduct.supplier : null;
 		if (this.supplier)
 			this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
@@ -85,19 +85,26 @@ export class SupplierRequestDialogComponent implements OnInit {
 		}
 	}
 
+	private setTitle() {
+		this.form.get('title').setValue(`Request for ${this.request.products.length} product${this.request.products.length === 1 ? '' : 's'}`);
+	}
+
 	removeProduct(id: ID) {
-		this.products = this.products.filter(product => product.id !== id);
-		this.request.products = this.products;
+		const products = this.request.products.filter(product => product.id !== id);
+		this.request = { ...this.request, products };
+		this.setTitle();
 		this.form.patchValue(this.request);
 	}
 
 	updateProducts(products: Product[]) {
-		this.request.products = products;
+		this.request = { ...this.request, products };
+		this.setTitle();
 		this.form.patchValue(this.request);
 	}
 
 	updateSupplier(supplier: Supplier) {
 		this.supplier = supplier;
+		this.form.get('recipient').reset();
 		this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: supplier.id }]);
 	}
 
