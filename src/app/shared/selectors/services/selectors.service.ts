@@ -42,6 +42,7 @@ import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
+import { FilterList } from '~shared/filters';
 
 
 @Injectable({
@@ -61,6 +62,8 @@ export class SelectorsService {
 		take: 30,
 		skip: 0
 	};
+
+	filterList = new FilterList([]);
 
 	currentSearchQuery = '';
 
@@ -90,6 +93,13 @@ export class SelectorsService {
 			map(items => items.filter(itm => !itm.deleted)),
 			tap(items => this.items = items),
 		);
+	}
+
+	setFilters(filters: FilterList) {
+		if (filters) {
+			this.filterList = filters;
+			this.selectParams = { ...this.selectParams, query: this.filterList.asPredicate() };
+		}
 	}
 
 	refetch(selectParams?: SelectParamsConfig) {
@@ -139,6 +149,10 @@ export class SelectorsService {
 				default: throw Error(`Unsupported type for search ${type}`);
 			}
 		} else this.currentSearchQuery = '';
+		// so we can keep the current search and the filter
+		this.currentSearchQuery = this.currentSearchQuery ?
+			'(' + this.currentSearchQuery + ') AND ' + this.selectParams.query :
+			this.selectParams.query;
 		this.refetch({ ...this.selectParams, query: this.currentSearchQuery });
 	}
 

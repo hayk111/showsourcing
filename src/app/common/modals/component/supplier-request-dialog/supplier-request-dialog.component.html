@@ -48,32 +48,36 @@
 		<div class="right">
 
 			<form [formGroup]="form">
+				<form-field-app
+					class="modal">
+					<label-app>Select supplier for the contact </label-app>
+					<selector-app
+						type="supplier"
+						[canCreate]="true"
+						(update)="updateSupplier($event)">
+						<selector-placeholder-app
+							[name]="supplier?.name"
+							placeholder="Select a supplier">
+						</selector-placeholder-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+
 				<form-field-app class="modal">
 					<label-app>Send to *</label-app>
 					<selector-app
 						#contactSelector
 						type="contact"
+						[disabled]="!supplier"
 						[canCreate]="true"
-						formControlName="recipient">
+						[filterList]="filterList"
+						formControlName="recipient"
+						(update)="contactUpdate($event)">
 						<selector-placeholder-app
+							[ngClass]="{ disabled: !supplier }"
+							[hasArrow]="supplier"
 							[name]="contactSelector?.value?.email"
-							placeholder="Email or Contact">
-						</selector-placeholder-app>
-					</selector-app>
-					<input [hidden]="true" inputApp type="text"/>
-				</form-field-app>
-				<form-field-app
-					*ngIf="contactSelector?.value?.email && !contactSelector?.value?.supplier || opened"
-					class="modal">
-					<label-app>Select supplier for the contact <div class="fs-s color-txt-secondary">This will modify the contact supplier</div></label-app>
-					<selector-app
-						type="supplier"
-						[canCreate]="true"
-						(click)="opened = true"
-						(update)="contactSelector.value.supplier = $event">
-						<selector-placeholder-app
-							[name]="contactSelector?.value?.supplier?.name"
-							placeholder="Select a supplier">
+							[placeholder]="!supplier ? 'Choose a supplier first' : 'Email or Contact'">
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>

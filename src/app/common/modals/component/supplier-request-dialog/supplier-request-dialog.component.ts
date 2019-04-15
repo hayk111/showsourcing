@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreateRequestService, UserService } from '~core/entity-services';
-import { CreateRequest, Product } from '~core/models';
+import { ContactService, CreateRequestService, UserService } from '~core/entity-services';
+import { Contact, CreateRequest, Product, Supplier } from '~core/models';
 import { DialogService } from '~shared/dialog';
+import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ID } from '~utils';
 
@@ -20,8 +21,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 	copyEmail = false;
 	request: CreateRequest;
 	pending = false;
-	// if we open once the supplier selector, we want it open until the dialog closes
-	opened = false;
+	filterList = new FilterList([]);
+	supplier: Supplier;
 
 	// if we don't initialize it the selector will try to push to an empty object
 	@Input() products: Product[] = [];
@@ -30,6 +31,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
 		private requestSrv: CreateRequestService,
+		private contactSrv: ContactService,
 		private notifSrv: NotificationService,
 		private userSrv: UserService
 	) {
@@ -66,7 +68,21 @@ export class SupplierRequestDialogComponent implements OnInit {
 			'\nThank you\n' +
 			(firstName ? firstName + ' ' + lastName : lastName)
 		);
+		// supplier, its not a form value but it has to be initialized
+		const tempProduct = this.products.find(product => !!product.supplier);
+		this.supplier = tempProduct && tempProduct.supplier ? tempProduct.supplier : null;
+		if (this.supplier)
+			this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
+	}
 
+	contactUpdate(contact: Contact) {
+		// we only check the new contacts (those who doesn't have a supplier)
+		if (contact && !contact.supplier) {
+			// we update the contact on the form and on realm, since it's a new contact and we have to insert a supplier
+			// other wise when we create the request its gona get the form value and the supplier will be null again
+			this.form.get('recipient').setValue({ ...contact, supplier: { id: this.supplier.id } });
+			this.contactSrv.update({ id: contact.id, supplier: { id: this.supplier.id } }).subscribe();
+		}
 	}
 
 	removeProduct(id: ID) {
@@ -78,6 +94,11 @@ export class SupplierRequestDialogComponent implements OnInit {
 	updateProducts(products: Product[]) {
 		this.request.products = products;
 		this.form.patchValue(this.request);
+	}
+
+	updateSupplier(supplier: Supplier) {
+		this.supplier = supplier;
+		this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: supplier.id }]);
 	}
 
 	createRequest() {
