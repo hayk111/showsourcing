@@ -104,6 +104,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 
 	updateSupplier(supplier: Supplier) {
 		this.supplier = supplier;
+		this.form.get('recipient').reset();
 		this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: supplier.id }]);
 	}
 
