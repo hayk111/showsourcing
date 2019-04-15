@@ -1,123 +1,125 @@
-<dialog-app>
+<dialog-app class="vertical-scroll-content">
 	<dialog-header-app>Send Request to Supplier</dialog-header-app>
 
-	<div class="title-container flex">
-		<div class="left"><h2 class="color-txt-strong l">Request Settings</h2></div>
-		<div class="right"><h2 class="color-txt-strong l">Recipients</h2></div>
-	</div>
-	<div class="request-container flex" [ngStyle]="{ opacity: pending ? 0.5 : 1 }">
-		<div class="left">
-			<form [formGroup]="form">
-				<form-field-app class="modal pdng-btm-l">
-					<label-app>Send me a copy *</label-app>
-					<product-request-list-app
-						[products]="request?.products"
-						(update)="updateProducts($event)"
-						(remove)="removeProduct($event)">
-					</product-request-list-app>
-					<input inputApp [hidden]="true" type="text"/>
-				</form-field-app>
-				<form-field-app class="modal pdng-btm-l">
-					<label-app>Request Templates *</label-app>
-					<selector-app
-						#selectorReqTemplate
-						type="request template"
-						formControlName="requestTemplate">
+	<!-- <div class="flexColumn"> -->
+		<div class="title-container flex">
+			<div class="left"><h2 class="color-txt-strong l">Request Settings</h2></div>
+			<div class="right"><h2 class="color-txt-strong l">Recipients</h2></div>
+		</div>
+		<div class="request-container flex" [ngStyle]="{ opacity: pending ? 0.5 : 1 }">
+			<div class="left">
+				<form [formGroup]="form">
+					<form-field-app class="modal pdng-btm-l">
+						<label-app>Send me a copy *</label-app>
+						<product-request-list-app
+							[products]="request?.products"
+							(update)="updateProducts($event)"
+							(remove)="removeProduct($event)">
+						</product-request-list-app>
+						<input inputApp [hidden]="true" type="text"/>
+					</form-field-app>
+					<form-field-app class="modal pdng-btm-l">
+						<label-app>Request Templates *</label-app>
+						<selector-app
+							#selectorReqTemplate
+							type="request template"
+							formControlName="requestTemplate">
+								<selector-placeholder-app
+									[name]="selectorReqTemplate?.value?.name"
+									placeholder="Quick RFQ">
+								</selector-placeholder-app>
+							</selector-app>
+						<input [hidden]="true" inputApp type="text"/>
+					</form-field-app>
+					<form-field-app class="modal">
+						<label-app>Share my product information</label-app>
+						<div class="flex">
+							<checkbox-app
+								#checkShare
+								formControlName="shareInformation">
+							</checkbox-app>
+							<input inputApp [hidden]="true"/>
+							Share product information you arleady have with the supplier such as price, moq, etc.
+						</div>
+					</form-field-app>
+				</form>
+			</div>
+
+
+			<div class="right">
+
+				<form [formGroup]="form">
+					<form-field-app
+						class="modal">
+						<label-app>Select supplier for the contact </label-app>
+						<selector-app
+							type="supplier"
+							[canCreate]="true"
+							(update)="updateSupplier($event)">
 							<selector-placeholder-app
-								[name]="selectorReqTemplate?.value?.name"
-								placeholder="Quick RFQ">
+								[name]="supplier?.name"
+								placeholder="Select a supplier">
 							</selector-placeholder-app>
 						</selector-app>
-					<input [hidden]="true" inputApp type="text"/>
-				</form-field-app>
-				<form-field-app class="modal">
-					<label-app>Share my product information</label-app>
-					<div class="flex">
-						<checkbox-app
-							#checkShare
-							formControlName="shareInformation">
-						</checkbox-app>
-						<input inputApp [hidden]="true"/>
-						Share product information you arleady have with the supplier such as price, moq, etc.
-					</div>
-				</form-field-app>
-			</form>
+						<input [hidden]="true" inputApp type="text"/>
+					</form-field-app>
+
+					<form-field-app class="modal">
+						<label-app>Send to *</label-app>
+						<selector-app
+							#contactSelector
+							type="contact"
+							[disabled]="!supplier"
+							[canCreate]="true"
+							[filterList]="filterList"
+							formControlName="recipient"
+							(update)="contactUpdate($event)">
+							<selector-placeholder-app
+								[ngClass]="{ disabled: !supplier }"
+								[hasArrow]="supplier"
+								[name]="contactSelector?.value?.email"
+								[placeholder]="!supplier ? 'Choose a supplier first' : 'Email or Contact'">
+							</selector-placeholder-app>
+						</selector-app>
+						<input [hidden]="true" inputApp type="text"/>
+					</form-field-app>
+					<!-- <form-field-app class="modal">
+						<label-app>Send Copy to</label-app>
+						<selector-app
+							#copySelector
+							type="email"
+							[value]="copySelector.value"
+							[canCreate]="true"
+							[multiple]="true"
+							formControlName="sendCopyTo">
+							<selector-placeholder-app
+								[name]="arrayToString(copySelector?.value)"
+								placeholder="Send copy to">
+							</selector-placeholder-app>
+						</selector-app>
+						<input [hidden]="true" inputApp type="text"/>
+					</form-field-app> -->
+					<form-field-app class="modal pdng-btm-l">
+						<label-app>Request Title *</label-app>
+						<input inputApp type="text" formControlName="title" placeholder="Quote Request"/>
+					</form-field-app>
+					<form-field-app class="modal">
+						<label-app>Message for the supplier</label-app>
+						<textarea inputApp type="text" formControlName="message" cols="30" rows="10" placeholder="Quick RFQ"></textarea>
+					</form-field-app>
+					<form-field-app class="modal">
+						<label-app>Send me a copy</label-app>
+						<div class="flex">
+							<checkbox-app>
+							</checkbox-app>
+							Send a copy of the request to your email address.
+						</div>
+						<input inputApp [hidden]="true" type="text"/>
+					</form-field-app>
+				</form>
+			</div>
 		</div>
-
-
-		<div class="right">
-
-			<form [formGroup]="form">
-				<form-field-app
-					class="modal">
-					<label-app>Select supplier for the contact </label-app>
-					<selector-app
-						type="supplier"
-						[canCreate]="true"
-						(update)="updateSupplier($event)">
-						<selector-placeholder-app
-							[name]="supplier?.name"
-							placeholder="Select a supplier">
-						</selector-placeholder-app>
-					</selector-app>
-					<input [hidden]="true" inputApp type="text"/>
-				</form-field-app>
-
-				<form-field-app class="modal">
-					<label-app>Send to *</label-app>
-					<selector-app
-						#contactSelector
-						type="contact"
-						[disabled]="!supplier"
-						[canCreate]="true"
-						[filterList]="filterList"
-						formControlName="recipient"
-						(update)="contactUpdate($event)">
-						<selector-placeholder-app
-							[ngClass]="{ disabled: !supplier }"
-							[hasArrow]="supplier"
-							[name]="contactSelector?.value?.email"
-							[placeholder]="!supplier ? 'Choose a supplier first' : 'Email or Contact'">
-						</selector-placeholder-app>
-					</selector-app>
-					<input [hidden]="true" inputApp type="text"/>
-				</form-field-app>
-				<!-- <form-field-app class="modal">
-					<label-app>Send Copy to</label-app>
-					<selector-app
-						#copySelector
-						type="email"
-						[value]="copySelector.value"
-						[canCreate]="true"
-						[multiple]="true"
-						formControlName="sendCopyTo">
-						<selector-placeholder-app
-							[name]="arrayToString(copySelector?.value)"
-							placeholder="Send copy to">
-						</selector-placeholder-app>
-					</selector-app>
-					<input [hidden]="true" inputApp type="text"/>
-				</form-field-app> -->
-				<form-field-app class="modal pdng-btm-l">
-					<label-app>Request Title *</label-app>
-					<input inputApp type="text" formControlName="title" placeholder="Quote Request"/>
-				</form-field-app>
-				<form-field-app class="modal">
-					<label-app>Message for the supplier</label-app>
-					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" placeholder="Quick RFQ"></textarea>
-				</form-field-app>
-				<form-field-app class="modal">
-					<label-app>Send me a copy</label-app>
-					<div class="flex">
-						<checkbox-app>
-						</checkbox-app>
-						Send a copy of the request to your email address.
-					</div>
-					<input inputApp [hidden]="true" type="text"/>
-				</form-field-app>
-			</form>
-		</div>
-	</div>
+	<!-- </div> -->
 
 	<dialog-footer-app>
 		<spinner-app *ngIf="pending" size="18"></spinner-app>
