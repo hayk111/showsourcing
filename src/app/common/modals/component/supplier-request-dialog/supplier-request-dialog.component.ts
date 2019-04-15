@@ -71,6 +71,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 		// supplier, its not a form value but it has to be initialized
 		const tempProduct = this.products.find(product => !!product.supplier);
 		this.supplier = tempProduct && tempProduct.supplier ? tempProduct.supplier : null;
+		if (this.supplier)
+			this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
 	}
 
 	contactUpdate(contact: Contact) {
