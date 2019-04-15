@@ -9,7 +9,7 @@ export const routes: Routes = [
 		component: RequestPageComponent
 	},
 	{
-		path: 'details/:id',
+		path: ':id',
 		component: RequestDetailsComponent
 	},
 ];

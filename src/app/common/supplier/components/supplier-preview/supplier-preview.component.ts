@@ -116,7 +116,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	}
 
 	openSupplier() {
-		this.router.navigate(['supplier', 'details', this.supplier.id]);
+		this.router.navigate(['supplier', this.supplier.id]);
 	}
 
 	getLocationName(supplier) {

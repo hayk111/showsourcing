@@ -34,7 +34,7 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 		this._product = product;
 		this.computeLikes();
 		this.computeScore();
-		this.link = '/product/details' + this._product.id + '/general';
+		this.link = '/product/' + this._product.id + '/general';
 	}
 
 	score: number;

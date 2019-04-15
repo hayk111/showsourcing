@@ -32,7 +32,7 @@ export class ProjectCardComponent extends TrackingComponent {
 	}
 
 	openProject(project: Project) {
-		this.router.navigate(['project', 'details', project.id]);
+		this.router.navigate(['project', project.id]);
 	}
 
 }
