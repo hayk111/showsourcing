@@ -149,6 +149,7 @@ export class SelectorsService {
 				default: throw Error(`Unsupported type for search ${type}`);
 			}
 		} else this.currentSearchQuery = '';
+		// so we can keep the current search and the filter
 		this.currentSearchQuery = this.currentSearchQuery ?
 			'(' + this.currentSearchQuery + ') AND ' + this.selectParams.query :
 			this.selectParams.query;
