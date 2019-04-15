@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
-import { RequestElementService, SupplierRequestService } from '~core/entity-services';
+import { RequestElementService, SupplierRequestService, RequestReplyService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { DEFAULT_REPLIED_STATUS, ERM, RequestElement, SupplierRequest } from '~core/models';
+import { DEFAULT_REPLIED_STATUS, ERM, RequestElement, SupplierRequest, ReplyStatus } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { ReplySentDlgComponent } from '~common/modals';
 
 @Component({
 	selector: 'request-details-sup',
@@ -29,6 +30,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private notifSrv: NotificationService,
 		private reqElementSrv: RequestElementService,
 		private dlgSrv: DialogService,
+		private replySrv: RequestReplyService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>
 	) { super(); }
 
@@ -95,6 +97,13 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		if (reqElements)
 			allReplied = !reqElements.some(element => element.reply.status !== DEFAULT_REPLIED_STATUS);
 		return allReplied;
+	}
+
+	refuse() {
+		const updates = this.requestElements.map(elem => {
+			return this.replySrv.update({ id: elem.reply.id, status: ReplyStatus.REFUSED });
+		});
+		forkJoin(updates).subscribe();
 	}
 
 }
