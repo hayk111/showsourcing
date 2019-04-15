@@ -1,4 +1,4 @@
-<dialog-app>
+<dialog-app class="vertical-scroll-content">
 	<dialog-header-app>Send Request to Supplier</dialog-header-app>
 
 	<div class="title-container flex">
@@ -43,25 +43,23 @@
 				</form-field-app>
 			</form>
 		</div>
+			<div class="right">
 
-
-		<div class="right">
-
-			<form [formGroup]="form">
-				<form-field-app
-					class="modal">
-					<label-app>Select supplier for the contact </label-app>
-					<selector-app
-						type="supplier"
-						[canCreate]="true"
-						(update)="updateSupplier($event)">
-						<selector-placeholder-app
-							[name]="supplier?.name"
-							placeholder="Select a supplier">
-						</selector-placeholder-app>
-					</selector-app>
-					<input [hidden]="true" inputApp type="text"/>
-				</form-field-app>
+				<form [formGroup]="form">
+					<form-field-app
+						class="modal">
+						<label-app>Select supplier for the contact </label-app>
+						<selector-app
+							type="supplier"
+							[canCreate]="true"
+							(update)="updateSupplier($event)">
+							<selector-placeholder-app
+								[name]="supplier?.name"
+								placeholder="Select a supplier">
+							</selector-placeholder-app>
+						</selector-app>
+						<input [hidden]="true" inputApp type="text"/>
+					</form-field-app>
 
 				<form-field-app class="modal">
 					<label-app>Send to *</label-app>
@@ -112,7 +110,7 @@
 						<checkbox-app inputApp>
 							<span class="checkbox-label">Send a copy of the request to your email address.</span>
 						</checkbox-app>
-						
+
 					</div>
 				</form-field-app>
 			</form>
