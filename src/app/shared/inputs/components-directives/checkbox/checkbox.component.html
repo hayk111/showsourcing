@@ -18,6 +18,6 @@
 		[checked]="checked"
 		[attr.value]="value"
 		[disabled]="disabled">
-	<label class="label" [ngClass]="{ 'pointer': disabled }" #label [attr.for]="id" (click)="onClick()" class="flexVAlign">
+	<label class="label" [ngClass]="{ 'pointer': !disabled }" #label [attr.for]="id" (click)="onClick()" class="flexVAlign">
 		<ng-content></ng-content>
 	</label>

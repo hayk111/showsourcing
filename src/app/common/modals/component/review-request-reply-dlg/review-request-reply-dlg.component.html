@@ -14,72 +14,70 @@
 		</div>
 	</dialog-header-app>
 
-	<div class="flexColumn">
-		<div class="info-banner flexCenter">This is the reply from your supplier</div>
+	<div class="info-banner flexCenter">This is the reply from your supplier</div>
 
-		<ng-container *ngIf="element">
-			<ng-container *ngIf="element?.reply as reply">
+	<ng-container *ngIf="element">
+		<ng-container *ngIf="element?.reply as reply">
 
-				<article>
-					<h3 class="ms">Product Details</h3>
+			<article>
+				<h3 class="ms">Product Details</h3>
 
-					<list-app>
-						<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
-						<list-item-app *ngFor="let field of element.reply.fields; trackBy: trackByFn">
-							<comparison-row-app
-								[checked]="selectionSrv.selection.has(field.id)"
-								[label]="field?.definition?.label"
-								[values]="getValues( field )"
-								(selected)="selectionSrv.selectOne(field)"
-								(unselected)="selectionSrv.unselectOne(field)">
-							</comparison-row-app>
-						</list-item-app>
-					</list-app>
+				<list-app>
+					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
+					<list-item-app *ngFor="let field of element.reply.fields; trackBy: trackByFn">
+						<comparison-row-app
+							[checked]="selectionSrv.selection.has(field.id)"
+							[label]="field?.definition?.label"
+							[values]="getValues( field )"
+							(selected)="selectionSrv.selectOne(field)"
+							(unselected)="selectionSrv.unselectOne(field)">
+						</comparison-row-app>
+					</list-item-app>
+				</list-app>
 
-					<footer class="flex">
-						<button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)">Accept All</button>
-						<button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)">Refuse All</button>
-					</footer>
-				</article>
+				<footer class="flex">
+					<button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)">Accept All</button>
+					<button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)">Refuse All</button>
+				</footer>
+			</article>
 
-				<article *ngIf="reply?.images?.length > 0">
-					<h3 class="l">Additional Pictures</h3>
+			<article *ngIf="reply?.images?.length > 0">
+				<h3 class="l">Additional Pictures</h3>
 
-					<!-- I don't think image previewer can be used because of the overlay, or alternatively we have to pass something to the previewer to see an overlay
-					as ng-content -->
-					<image-reviewer-app
-						[images]="reply?.images"
-						[selection]="selectionSrv.selection$ | async"
-						(selected)="selectionSrv.selectOne($event)"
-						(unselected)="selectionSrv.unselectOne($event)">
-					</image-reviewer-app>
+				<!-- I don't think image previewer can be used because of the overlay, or alternatively we have to pass something to the previewer to see an overlay
+				as ng-content -->
+				<image-reviewer-app
+					[images]="reply?.images"
+					[selection]="selectionSrv.selection$ | async"
+					(selected)="selectionSrv.selectOne($event)"
+					(unselected)="selectionSrv.unselectOne($event)">
+				</image-reviewer-app>
 
-					<footer class="flex">
-						<button class="primary accept" (click)="acceptAll(erm.IMAGE)">Accept All</button>
-						<button class="secondary" (click)="refuseAll(erm.IMAGE)">Refuse All</button>
-					</footer>
-				</article>
+				<footer class="flex">
+					<button class="primary accept" (click)="acceptAll(erm.IMAGE)">Accept All</button>
+					<button class="secondary" (click)="refuseAll(erm.IMAGE)">Refuse All</button>
+				</footer>
+			</article>
 
 
-				<article *ngIf="reply?.attachments?.length > 0">
-					<h3>Additional Attachments</h3>
+			<article *ngIf="reply?.attachments?.length > 0">
+				<h3>Additional Attachments</h3>
 
-					<file-reviewer-app
-						[files]="reply?.attachments"
-						[selection]="selectionSrv.selection$ | async"
-						(selected)="selectionSrv.selectOne($event)"
-						(unselected)="selectionSrv.unselectOne($event)">
-					</file-reviewer-app>
+				<file-reviewer-app
+					[files]="reply?.attachments"
+					[selection]="selectionSrv.selection$ | async"
+					(selected)="selectionSrv.selectOne($event)"
+					(unselected)="selectionSrv.unselectOne($event)">
+				</file-reviewer-app>
 
-					<footer class="flex">
-						<button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)">Accept All</button>
-						<button class="secondary" (click)="refuseAll(erm.ATTACHMENT)">Refuse All</button>
-					</footer>
-				</article>
+				<footer class="flex">
+					<button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)">Accept All</button>
+					<button class="secondary" (click)="refuseAll(erm.ATTACHMENT)">Refuse All</button>
+				</footer>
+			</article>
 
-			</ng-container>
 		</ng-container>
-	</div>
+	</ng-container>
 
 	<dialog-footer-app>
 		<button class="secondary" (click)="close()">Close Request</button>
