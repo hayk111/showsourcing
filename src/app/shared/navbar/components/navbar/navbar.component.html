@@ -9,5 +9,5 @@
 	routerLinkActive="active"
 	(click)="changeTab(tab)">
 	{{ tab.name }}
-	<notification-badge-app *ngIf="tab?.number$"> {{ tab?.number$ | async }} </notification-badge-app>
+	<notification-badge-app *ngIf="(tab?.number$ | async) > 0"> {{ tab?.number$ | async }} </notification-badge-app>
 </div>

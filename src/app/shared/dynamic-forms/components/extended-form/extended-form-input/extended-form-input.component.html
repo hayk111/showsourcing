@@ -180,7 +180,10 @@
 		<!-- boolean -->
 		<form-field-app *ngSwitchCase="'boolean'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
-			<checkbox-app inputApp [disabled]="disabled" [checked]="field.value === 'yes'" (update)="toggleBoolean()" boxColor="success">
+			<checkbox-app
+				inputApp [disabled]="disabled"
+				[checked]="field.value === 'yes'"
+				(update)="toggleBoolean()">
 				<span>{{ field.value || 'No' }}</span>
 			</checkbox-app>
 		</form-field-app>
