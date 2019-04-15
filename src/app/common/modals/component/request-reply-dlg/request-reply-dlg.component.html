@@ -66,8 +66,8 @@
         [images]="images">
       </modal-carousel-app>
       <div class="spacer mg-s" *ngIf="images.length > 0"></div>
-      <button [disabled]="isDisabled" class="secondary add-image" (click)="inpImg.click()">Add Image</button>
-			<input [disabled]="isDisabled" #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
+      <button [disabled]="isDisabled()" class="secondary add-image" (click)="inpImg.click()">Add Image</button>
+			<input [disabled]="isDisabled()" #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
       <!-- attachments -->
       <h3 class="ms">Attachments</h3>
@@ -77,8 +77,8 @@
         [files]="files"
         [linkedItem]="reply"></file-list-app>
       <div class="spacer mg-s" *ngIf="files.length > 0"></div>
-      <button [disabled]="isDisabled" class="secondary add-attachment" (click)="inpFile.click()">Add Attachments</button>
-      <input [disabled]="isDisabled" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
+      <button [disabled]="isDisabled()" class="secondary add-attachment" (click)="inpFile.click()">Add Attachments</button>
+      <input [disabled]="isDisabled()" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
 
 
     </div>
