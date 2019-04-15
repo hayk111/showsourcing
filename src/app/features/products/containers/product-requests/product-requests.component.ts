@@ -32,12 +32,10 @@ export class ProductRequestsComponent extends AutoUnsub implements OnInit {
 			this.listSrv.setup({
 				key: `${ListPageKey.REQUEST_ELEMENT}-${id}`,
 				entitySrv: this.requestElementSrv,
-				selectParams: { sortBy: 'name', query: `targetedEntityType == "Product" && targetId == "${id}` },
+				selectParams: { sortBy: 'name', query: `targetedEntityType == "Product" && targetId == "${id}"` },
 				entityMetadata: ERM.REQUEST_ELEMENT,
 				searchedFields: []
 			});
 		});
-		// const productId = this.route.parent.snapshot.params.id;
-		// this.requestElements$ = this.requestElementSrv.queryMany({ query: `targetedEntityType == "Product" && targetId == "${productId}"` });
 	}
 }
