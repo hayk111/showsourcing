@@ -57,13 +57,11 @@ export class AuthenticationService {
 		// If there is none and there is a token query in the url we try to login the user with
 		// said token. If none of thise works then the user is not logged in.
 		const token = this.tokenSrv.getAnonymousToken();
-		this.realmUser = new RealmUser(this.tokenSrv.getRealmUser());
-		const authState = this.realmUserToAuthState(this.realmUser);
-		if (authState.status !== AuthStatus.NOT_AUTHENTICATED) {
-			this._authState$.next(authState);
-		} else if (token) {
+		if (token) {
 			this.login({ token }).subscribe();
 		} else {
+			this.realmUser = new RealmUser(this.tokenSrv.getRealmUser());
+			const authState = this.realmUserToAuthState(this.realmUser);
 			this._authState$.next(authState);
 		}
 		this.tokenSrv.restoreFeedToken();

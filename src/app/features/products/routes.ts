@@ -18,7 +18,7 @@ export const routes: Array<Route> = [
 		component: ProductsPageComponent
 	},
 	{
-		path: 'details/:id',
+		path: ':id',
 		component: ProductDetailsComponent,
 		children: [
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' },

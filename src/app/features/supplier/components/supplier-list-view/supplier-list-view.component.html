@@ -28,7 +28,7 @@
 		let-row="row"
 		width="280">
 		<div class="supplier mainCellWrapper flexBetween">
-			<a class="capitalize ellipsis txt-btn" [routerLink]="['/supplier', 'details', row.id]">
+			<a class="capitalize ellipsis txt-btn" [routerLink]="['/supplier', row.id]">
 				<logo-app [logo]="row" type="supplier" size="l"></logo-app>
 				<span class="ellipsis">{{ row.name }}</span>
 			</a>

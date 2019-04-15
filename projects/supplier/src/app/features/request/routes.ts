@@ -9,11 +9,11 @@ export const routes: Routes = [
 		component: RequestsPageComponent
 	},
 	{
-		path: 'details/:id',
+		path: ':id',
 		component: RequestDetailsComponent
 	},
 	{
-		path: '/request-element/details/:id',
+		path: '/request-element/:id',
 		component: RequestElementDetailsComponent
 	},
 ];

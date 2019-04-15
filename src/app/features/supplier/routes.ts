@@ -20,7 +20,7 @@ export const routes: Array<Route> = [
 		component: SuppliersPageComponent
 	},
 	{
-		path: 'details/:id',
+		path: ':id',
 		component: SupplierDetailsComponent,
 		children: [
 			{ path: 'activity', component: SupplierActivityComponent },

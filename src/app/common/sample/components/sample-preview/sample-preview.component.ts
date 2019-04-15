@@ -79,10 +79,10 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 	}
 
 	openSupplier() {
-		this.router.navigate(['supplier', 'details', this.sample.supplier.id]);
+		this.router.navigate(['supplier', this.sample.supplier.id]);
 	}
 
 	openProduct() {
-		this.router.navigate(['product', 'details', this.sample.product.id]);
+		this.router.navigate(['product', this.sample.product.id]);
 	}
 }
