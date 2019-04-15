@@ -11,7 +11,7 @@
 				<form-field-app class="modal pdng-btm-l">
 					<label-app>Send me a copy *</label-app>
 					<product-request-list-app
-						[products]="products"
+						[products]="request?.products"
 						(update)="updateProducts($event)"
 						(remove)="removeProduct($event)">
 					</product-request-list-app>
