@@ -10,7 +10,10 @@
 					<p *ngIf="currentSort?.sortBy === 'sender.company'" class="flex">Sort By Company
 						<ng-container *ngTemplateOutlet="direction"></ng-container>
 					</p>
-					<p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">Sort By Recieved on
+					<p *ngIf="currentSort?.sortBy === 'sentDate'" class="flex">Sort By Recieved on
+						<ng-container *ngTemplateOutlet="direction"></ng-container>
+					</p>
+					<p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">Sort By Created on
 						<ng-container *ngTemplateOutlet="direction"></ng-container>
 					</p>
 					<p *ngIf="currentSort?.sortBy === 'status'" class="flex">Sort By Status
@@ -37,8 +40,14 @@
 				<ng-container *ngTemplateOutlet="direction"></ng-container>
 			</ng-container>
 		</context-menu-item-app>
-		<context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item">
+		<context-menu-item-app (click)="sortFromMenu.emit('sentDate')" class="menu-item">
 			Recieved on
+			<ng-container *ngIf="currentSort?.sortBy === 'sentDate'">
+				<ng-container *ngTemplateOutlet="direction"></ng-container>
+			</ng-container>
+		</context-menu-item-app>
+		<context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item">
+			Created on
 			<ng-container *ngIf="currentSort?.sortBy === 'creationDate'">
 				<ng-container *ngTemplateOutlet="direction"></ng-container>
 			</ng-container>

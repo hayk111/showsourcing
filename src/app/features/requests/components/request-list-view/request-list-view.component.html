@@ -99,14 +99,14 @@
 		</request-status-badge-app>
 	</ng-template>
 
-	<!-- creation date-->
+	<!-- sent date-->
 	<ng-template
 		columnApp="Sent On"
-		sortBy="creationDate"
+		sortBy="sentDate"
 		let-row="row"
 		width="220">
 		<div class="capitalize">
-			{{ row?.creationDate | date: 'dd MMM yyyy' }}
+			{{ row?.sentDate | date: 'dd MMM yyyy' }}
 		</div>
 	</ng-template>
 

@@ -80,9 +80,14 @@
 	</ng-container>
 
 	<dialog-footer-app>
-		<button class="secondary" [disabled]="isDisabled()" (click)="close()">Close Request</button>
-		<button class="secondary" [disabled]="isDisabled()" (click)="resend()">Send Back</button>
-		<button [disabled]="isDisabled()" (click)="acceptRequest()">Accept Request</button>
+		<ng-container *ngIf="!isDisabled(); else notReplied">
+			<button class="secondary" (click)="close()">Close Request</button>
+			<button class="secondary" (click)="resend()">Send Back</button>
+			<button (click)="acceptRequest()">Accept Request</button>
+		</ng-container>
+		<ng-template #notReplied>
+			<span class="bold-s">This product has not been replied yet by the supplier</span>
+		</ng-template>
 	</dialog-footer-app>
 
 </dialog-app>

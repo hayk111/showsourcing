@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { take } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
 import { Contact, CreateRequest, Product, Supplier } from '~core/models';
 import { DialogService } from '~shared/dialog';
@@ -71,6 +72,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 		);
 		// template
 		this.requestTemplateSrv.queryOneByPredicate('targetedEntity == "Product"')
+			.pipe(take(1))
 			.subscribe(reqTemplate => {
 				if (reqTemplate) {
 					this.form.get('requestTemplate').setValue(reqTemplate);

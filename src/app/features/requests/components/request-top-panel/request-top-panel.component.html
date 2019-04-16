@@ -1,6 +1,7 @@
 <top-panel-details-app
 	[hasLogo]="false"
-	[title]="request?.title || 'Quote Request'">
+	[title]="request?.title"
+	[elevated]="false">
 	<badge-app titleExtra *ngIf="request?.templateName" type="inProgress" size="m">
 		{{ request?.templateName }}
 	</badge-app>
