@@ -45,6 +45,7 @@ export class AppComponent implements OnInit {
 	private destroyAllClients() {
 		const reason = 'unauthenticated';
 		this.globalRequestClient.destroy(reason);
+		this.globalDataClient.destroy(reason);
 	}
 }
 
