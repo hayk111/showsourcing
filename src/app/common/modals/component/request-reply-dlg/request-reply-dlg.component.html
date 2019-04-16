@@ -86,7 +86,7 @@
 
   <!-- footer -->
   <dialog-footer-app>
-    <ng-container *ngIf="!isDisabled()">
+    <ng-container *ngIf="!isDisabled(); else replied">
 			<button *ngIf="reply.status !== defaultStatus" class="warn save" (click)="refuse()">Refuse</button>
       <button class="secondary save" (click)="saveAndClose()">Save</button>
 
@@ -96,6 +96,9 @@
       <ng-template #notSubmitted>
         <button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
       </ng-template>
-    </ng-container>
+		</ng-container>
+		<ng-template #replied>
+			<span class="bold-s">This product has already been replied</span>
+		</ng-template>
   </dialog-footer-app>
 </dialog-app>
