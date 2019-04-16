@@ -5,8 +5,7 @@
 	[pending]="pending"
 	[selected]="selection"
 	[hasSelection]="false"
-	[hasMenu]="false"
-	placeholder="No requests items"
+	placeholder="No request items"
 	[contextualMenu]="contextualMenuTemplate"
 	(bottomReached)="bottomReached.emit()"
 	(selectAll)="selectAll.emit($event)"
@@ -18,8 +17,9 @@
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
-			class="pointer flexCenter">
-			Cancel element
+			class="pointer flexCenter".
+			(click)="openRefuseReplyDlg.emit(row.reply.id)">
+			Refuse
 		</context-menu-item-app>
 	</ng-template>
 

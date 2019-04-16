@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
 import { RequestElement } from '~core/models';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'request-element-list-view-sup',
@@ -28,6 +29,7 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	get rows() {
 		return this._rows;
 	}
+	@Output() openRefuseReplyDlg = new EventEmitter<ID>();
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 	replied: { replied: number, total: number }[];

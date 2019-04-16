@@ -1,4 +1,18 @@
 <dialog-app>
- <dialog-header-app>Send Reply</dialog-header-app>
- You are about to send back the infomration you have fileld
+	<dialog-header-app>Send Reply</dialog-header-app>
+	<div class="container" [ngStyle]="{ opacity: pending ? 0.5 : 1 }">
+		<span class="color-txt-strong">You are about to send back the infomration you have filled.</span>
+		<div class="flex contact-container">
+			<img src="/assets/img/user-temp.png"/>
+			<div class="name">{{ senderName }}</div>
+		</div>
+		<h4 class="s bold-s color-txt-strong">Your Message</h4>
+		<textarea inputApp #inp type="text" [value]="message"></textarea>
+	</div>
+
+	<dialog-footer-app>
+		<spinner-app *ngIf="pending" size="18"></spinner-app>
+		<button class="secondary" [disabled]="pending" (click)="close()">Cancel</button>
+		<button class="warn" [disabled]="pending" (click)="refuse(inp.value)">Send</button>
+	</dialog-footer-app>
 </dialog-app>

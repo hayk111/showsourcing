@@ -112,7 +112,12 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	refuse() {
-		this.dlgSrv.open(RefuseReplyDlgComponent);
+		setTimeout(_ =>
+			this.dlgSrv.open(RefuseReplyDlgComponent, {
+				senderName: this.request.sender.name,
+				recipientName: this.request.recipient.name,
+				replyId: this.reply.id
+			}), 100);
 	}
 
 	private getNextUnrepliedIndex() {
