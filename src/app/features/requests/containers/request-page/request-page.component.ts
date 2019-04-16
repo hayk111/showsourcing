@@ -4,6 +4,7 @@ import { SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, SupplierRequest } from '~core/models';
 import { AutoUnsub } from '~utils';
+import { SelectParams } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'request-page-app',
@@ -22,13 +23,15 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 	) { super(); }
 
 	ngOnInit() {
+		const selectParams = new SelectParams({ sortBy: 'sentDate' });
 		this.listSrv.setup({
 			key: ListPageKey.REQUEST,
 			entitySrv: this.requestSrv,
 			searchedFields: [],
 			entityMetadata: ERM.SUPPLIER_REQUEST,
 			initialFilters: [],
-			originComponentDestroy: this._destroy$
+			originComponentDestroy: this._destroy$,
+			selectParams
 		});
 	}
 

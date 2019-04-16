@@ -20,6 +20,7 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 		status
 		creationDate
 		lastUpdatedDate
+		sentDate
 	`;
 
 	static readonly many = `
@@ -32,7 +33,8 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 		status
 		creationDate
 		lastUpdatedDate
-	`;
+		sentDate
+		`;
 
 	static readonly all = `
 		title
@@ -44,7 +46,8 @@ export abstract class SupplierRequestQueries extends GlobalQueries {
 		status
 		creationDate
 		lastUpdatedDate
-	`;
+		sentDate
+		`;
 
 }
 

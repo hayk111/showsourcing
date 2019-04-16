@@ -29,6 +29,7 @@ export class SupplierRequest {
 	attachments: Attachment[];
 	creationDate: string;
 	lastUpdatedDate: string;
+	sentDate: string;
 	__typename?= 'Request';
 
 	constructor(config: SupplierRequestConfig) {
