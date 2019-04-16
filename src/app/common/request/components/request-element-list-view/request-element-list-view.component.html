@@ -4,6 +4,8 @@
 	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
+	[hasSelection]="false"
+	[hasMenu]="false"
 	placeholder="No requests items"
 	[contextualMenu]="contextualMenuTemplate"
 	(bottomReached)="bottomReached.emit()"
@@ -17,7 +19,7 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter">
-			Options by design
+			Cancel element
 		</context-menu-item-app>
 	</ng-template>
 

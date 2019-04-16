@@ -19,6 +19,7 @@ import { AutoUnsub } from '~utils';
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
+
 	erm = ERM;
 	// filter displayed as button in the filter panel
 	filterTypes = [
@@ -42,6 +43,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
+
+
 	ngOnInit() {
 		this.listSrv.setup({
 			key: ListPageKey.PRODUCTS,
@@ -61,10 +64,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		// we filter so we don't count archieved when it's false, so the user doesn't get confused since its the default filter
 		const filters = this.listSrv.filterList.asFilters().filter(fil => !(fil.type === 'archived' && fil.value === false));
 		return filters.length;
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
 	}
 
 }
