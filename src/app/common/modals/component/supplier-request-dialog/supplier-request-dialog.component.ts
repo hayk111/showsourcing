@@ -47,7 +47,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: true });
+		this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: false });
 		this.request.products = this.products;
 		this.initFormValues();
 		this.form.patchValue(this.request);
