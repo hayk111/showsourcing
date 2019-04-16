@@ -199,7 +199,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 				tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
 				break;
 			case 'boolean':
-				const toBoolean = item.value === 'yes' ? true : false;
+				const toBoolean = item.value === 'true' ? true : false;
 				tempProduct = ({ ...tempProduct, [property]: toBoolean });
 				break;
 			default:
