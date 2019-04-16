@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
+import { CommonModalService, RefuseReplyDlgComponent } from '~common/modals';
+import {
+	ReviewRequestReplyDlgComponent,
+} from '~common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component';
 import { RequestElementService, SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement, SupplierRequest } from '~core/models';
-import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils';
 import { DialogService } from '~shared/dialog';
-import { ReviewRequestReplyDlgComponent } from '~common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub, ID } from '~utils';
 
 @Component({
 	selector: 'request-details-app',
@@ -92,4 +94,13 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		this.dlgSrv.open(ReviewRequestReplyDlgComponent, { elementId: id, selectedIndex, requestId: this.requestId });
 	}
 
+	openRefuseReplyDlg(replyId: ID) {
+		this.dlgSrv.open(RefuseReplyDlgComponent,
+			{
+				senderName: this.request.sender.name,
+				recipientName: this.request.recipient.name,
+				replyId
+			}
+		);
+	}
 }

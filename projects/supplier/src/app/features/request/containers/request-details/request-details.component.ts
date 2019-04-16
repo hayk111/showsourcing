@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { RequestReplyDlgComponent } from '~common/modals/component/request-reply-dlg/request-reply-dlg.component';
-import { RequestElementService, SupplierRequestService, RequestReplyService } from '~core/entity-services';
+import { RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { DEFAULT_REPLIED_STATUS, ERM, RequestElement, SupplierRequest, ReplyStatus } from '~core/models';
+import { DEFAULT_REPLIED_STATUS, ERM, RequestElement, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils';
-import { ReplySentDlgComponent } from '~common/modals';
+import { AutoUnsub, ID } from '~utils';
+import { RefuseReplyDlgComponent } from '~common/modals';
 
 @Component({
 	selector: 'request-details-sup',
@@ -20,6 +20,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	private requestElements: RequestElement[];
 	request$: Observable<SupplierRequest>;
+	request: SupplierRequest;
 	requestId: string;
 	erm = ERM;
 
@@ -73,7 +74,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				timeout: 3500
 			});
 			this.router.navigate(['request']);
-		}
+		} else
+			this.request = request;
 	}
 
 	private onError(error) {
@@ -88,8 +90,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	open(element: RequestElement) {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === element.id);
-		this.dlgSrv.open(RequestReplyDlgComponent, { selectedIndex, requestId: this.requestId })
-			.subscribe();
+		this.dlgSrv.open(RequestReplyDlgComponent, { selectedIndex, requestId: this.requestId }).subscribe();
 	}
 
 	allReplied(reqElements: RequestElement[]) {
@@ -99,11 +100,14 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		return allReplied;
 	}
 
-	refuse() {
-		const updates = this.requestElements.map(elem => {
-			return this.replySrv.update({ id: elem.reply.id, status: ReplyStatus.REFUSED });
-		});
-		forkJoin(updates).subscribe();
+	openRefuseReplyDlg(replyId: ID) {
+		this.dlgSrv.open(RefuseReplyDlgComponent,
+			{
+				senderName: this.request.sender.name,
+				recipientName: this.request.recipient.name,
+				replyId
+			}
+		);
 	}
 
 }

@@ -4,9 +4,8 @@
 	[rows]="rows"
 	[pending]="pending"
 	[hasSelection]="false"
-	[hasMenu]="false"
 	[selected]="selection"
-	placeholder="No requests items"
+	placeholder="No request items"
 	[contextualMenu]="contextualMenuTemplate"
 	(bottomReached)="bottomReached.emit()"
 	(selectAll)="selectAll.emit($event)"
@@ -18,8 +17,9 @@
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
-			class="pointer flexCenter">
-			Options by design
+			class="pointer flexCenter"
+			(click)="openRefuseReplyDlg.emit(row.reply.id)">
+			Refuse
 		</context-menu-item-app>
 	</ng-template>
 

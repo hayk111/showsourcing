@@ -29,6 +29,7 @@
 				[pending]="listSrv.pending"
 				[selection]="listSrv.selection$ | async"
 				(open)="open($event)"
+				(openRefuseReplyDlg)="openRefuseReplyDlg($event)"
 				(bottomReached)="listSrv.loadMore()"
 				(select)="listSrv.selectOne($event)"
 				(selectAll)="listSrv.selectAll($event)"

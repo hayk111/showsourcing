@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { ExtendedField, RequestElement, Price } from '~core/models';
+import { ExtendedField, RequestElement } from '~core/models';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'request-element-list-view-app',
@@ -26,6 +27,7 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 		return this._rows;
 	}
 	@Output() openReviewRequestReply = new EventEmitter<string>();
+	@Output() openRefuseReplyDlg = new EventEmitter<ID>();
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 

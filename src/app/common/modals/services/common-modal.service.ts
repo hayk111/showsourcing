@@ -106,8 +106,8 @@ export class CommonModalService {
 		return this.dlgSrv.open(NewContactDlgComponent, data);
 	}
 
-	openRefuseReplyDlg() {
-		return this.dlgSrv.open(RefuseReplyDlgComponent);
+	openRefuseReplyDlg(data: { senderName: string, recipientName: string, replyId: ID }) {
+		return this.dlgSrv.open(RefuseReplyDlgComponent, data);
 	}
 
 	close() {
