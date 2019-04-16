@@ -17,6 +17,7 @@ import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { RefuseReplyDlgComponent } from '../refuse-reply-dlg/refuse-reply-dlg.component';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -108,6 +109,10 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		this.save(true);
 		this.selectedIndex = this.getNextUnrepliedIndex();
 		this.setElement();
+	}
+
+	refuse() {
+		this.dlgSrv.open(RefuseReplyDlgComponent);
 	}
 
 	private getNextUnrepliedIndex() {

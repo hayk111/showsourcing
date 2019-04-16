@@ -4,4 +4,10 @@
 			margin-right: 0;
 		}
 	}
+	&.no-margin-sides {
+		card-app {
+			margin-right: 0;
+			margin-left: 0;
+		}
+	}
 }

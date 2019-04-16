@@ -181,10 +181,11 @@
 		<form-field-app *ngSwitchCase="'boolean'" class="modal">
 			<label-app>{{ definition.label }}</label-app>
 			<checkbox-app
-				inputApp [disabled]="disabled"
-				[checked]="field.value === 'yes'"
+				inputApp
+				[disabled]="disabled"
+				[checked]="field?.value === 'true'"
 				(update)="toggleBoolean()">
-				<span>{{ field.value || 'No' }}</span>
+				<span>{{ field?.value && field?.value === 'true' ? 'Yes' : 'No' }}</span>
 			</checkbox-app>
 		</form-field-app>
 

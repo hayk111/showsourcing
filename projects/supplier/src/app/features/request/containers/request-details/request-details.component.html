@@ -40,10 +40,6 @@
 	</div>
 </div>
 
-<bottom-panel-app class="flexEnd" *ngIf="(request$ | async)?.status !== 'refused'">
-	<button class="warn big" (click)="refuse()">Refuse request</button>
-</bottom-panel-app>
-
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"

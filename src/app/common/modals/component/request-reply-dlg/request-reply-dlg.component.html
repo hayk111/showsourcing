@@ -78,8 +78,7 @@
         [linkedItem]="reply"></file-list-app>
       <div class="spacer mg-s" *ngIf="files.length > 0"></div>
       <button [disabled]="isDisabled()" class="secondary add-attachment" (click)="inpFile.click()">Add Attachments</button>
-      <input [disabled]="isDisabled()" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
-
+			<input [disabled]="isDisabled()" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
 
     </div>
 
@@ -88,8 +87,9 @@
   <!-- footer -->
   <dialog-footer-app>
     <ng-container *ngIf="!isDisabled()">
+			<button *ngIf="reply.status !== defaultStatus" class="warn save" (click)="refuse()">Refuse</button>
       <button class="secondary save" (click)="saveAndClose()">Save</button>
-  
+
       <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
         <button *ngIf="reply.status === defaultStatus; else notSubmitted" [disabled]="true">Submitted</button>
       </div>
