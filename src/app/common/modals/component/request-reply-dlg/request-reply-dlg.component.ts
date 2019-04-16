@@ -92,14 +92,12 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	save(updateStatus = false, lastItem = false) {
-		if (!this.isDisabled()) {
-			const reply = updateStatus ?
-				({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
-				({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
-			this.replySrv.update(reply).subscribe(_ => {
-				if (updateStatus && lastItem) this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
-			});
-		}
+		const reply = updateStatus ?
+			({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
+			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
+		this.replySrv.update(reply).subscribe(_ => {
+			if (updateStatus && lastItem) this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
+		});
 	}
 
 	saveAndClose() {
