@@ -48,7 +48,7 @@
 				<form [formGroup]="form">
 					<form-field-app
 						class="modal">
-						<label-app>Select supplier for the contact </label-app>
+						<label-app>Send to Supplier *</label-app>
 						<selector-app
 							type="supplier"
 							[canCreate]="true"
@@ -62,7 +62,7 @@
 					</form-field-app>
 
 				<form-field-app class="modal">
-					<label-app>Send to *</label-app>
+					<label-app>Select Contact *</label-app>
 					<selector-app
 						#contactSelector
 						type="contact"
@@ -74,8 +74,8 @@
 						<selector-placeholder-app
 							[ngClass]="{ disabled: !supplier }"
 							[hasArrow]="supplier"
-							[name]="contactSelector?.value?.email"
-							[placeholder]="!supplier ? 'Choose a supplier first' : 'Email or Contact'">
+							[name]="!supplier ? 'Select a supplier first' : contactSelector?.value?.email"
+							[placeholder]="'Email or Contact'">
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
