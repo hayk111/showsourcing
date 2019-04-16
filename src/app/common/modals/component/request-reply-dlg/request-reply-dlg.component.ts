@@ -92,12 +92,14 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	save(updateStatus = false, lastItem = false) {
-		const reply = updateStatus ?
-			({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
-			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
-		this.replySrv.update(reply).subscribe(_ => {
-			if (updateStatus && lastItem) this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
-		});
+		if (!this.isDisabled()) {
+			const reply = updateStatus ?
+				({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
+				({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
+			this.replySrv.update(reply).subscribe(_ => {
+				if (updateStatus && lastItem) this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
+			});
+		}
 	}
 
 	saveAndClose() {
@@ -157,8 +159,13 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	// supplier can only reply when the status is pending, error o sentBack
 	isDisabled() {
-		return this.reply.status !== 'pending' && this.reply.status !== 'error';
+		return (
+			this.reply.status !== ReplyStatus.PENDING &&
+			this.reply.status !== ReplyStatus.ERROR &&
+			this.reply.status !== ReplyStatus.RESENT
+		);
 	}
 
 }
