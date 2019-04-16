@@ -11,6 +11,7 @@ export enum RequestStatus {
 	REPLIED = 'replied',
 	ERROR = 'error',
 	REFUSED = 'refused',
+	RESENT = 'resent',
 	VALIDATED = 'validated',
 }
 
