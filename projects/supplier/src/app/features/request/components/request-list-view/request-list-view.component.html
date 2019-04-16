@@ -59,11 +59,11 @@
 	<!-- creation date-->
 	<ng-template
 		columnApp="Recieved On"
-		sortBy="creationDate"
+		sortBy="sentDate"
 		let-row="row"
 		width="220">
 		<div>
-			{{ row?.creationDate | date: 'dd MMM yyyy \'at\' HH:mm' }}
+			{{ row?.sentDate | date: 'dd MMM yyyy \'at\' HH:mm' }}
 		</div>
 	</ng-template>
 
