@@ -158,7 +158,9 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	isDisabled() {
-		return this.reply.status !== 'pending' && this.reply.status !== 'error';
+		return this.reply.status !== ReplyStatus.PENDING
+			&& this.reply.status !== ReplyStatus.ERROR
+			&& this.reply.status !== ReplyStatus.RESENT;
 	}
 
 }

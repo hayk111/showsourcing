@@ -9,6 +9,7 @@ export enum ReplyStatus {
 	REPLIED = 'replied',
 	ERROR = 'error',
 	REFUSED = 'refused',
+	RESENT = 'resent',
 	VALIDATED = 'validated',
 }
 
