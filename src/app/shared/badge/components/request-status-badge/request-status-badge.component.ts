@@ -36,6 +36,7 @@ export class RequestStatusBadgeComponent implements OnInit {
 			switch (this.status) {
 				case RequestStatus.PENDING:
 				case RequestStatus.SENT:
+				case RequestStatus.RESENT:
 					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'secondary';
 				case RequestStatus.REPLIED:
 					return 'primary';
@@ -51,6 +52,7 @@ export class RequestStatusBadgeComponent implements OnInit {
 			switch (this.status) {
 				case RequestStatus.PENDING:
 				case RequestStatus.SENT:
+				case RequestStatus.RESENT:
 					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'primary';
 				case RequestStatus.REPLIED:
 				case RequestStatus.VALIDATED:

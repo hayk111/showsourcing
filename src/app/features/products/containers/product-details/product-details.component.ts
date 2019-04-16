@@ -175,6 +175,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openSupplierRequest(product: Product) {
-		this.dlgSrv.open(SupplierRequestDialogComponent, { product });
+		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [product] });
 	}
 }

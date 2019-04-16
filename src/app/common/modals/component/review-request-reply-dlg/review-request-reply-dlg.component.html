@@ -81,6 +81,7 @@
 
 	<dialog-footer-app>
 		<button class="secondary" [disabled]="isDisabled()" (click)="close()">Close Request</button>
+		<button class="secondary" [disabled]="isDisabled()" (click)="resend()">Send Back</button>
 		<button [disabled]="isDisabled()" (click)="acceptRequest()">Accept Request</button>
 	</dialog-footer-app>
 

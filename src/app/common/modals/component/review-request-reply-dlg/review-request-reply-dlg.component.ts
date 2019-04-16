@@ -169,6 +169,11 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		this.dlgSrv.close();
 	}
 
+	resend() {
+		this.requestReplySrv.update({ id: this.elements[this.selectedIndex].reply.id, status: ReplyStatus.RESENT }).subscribe();
+		this.dlgSrv.close();
+	}
+
 	openReplySentDlg() {
 		this.dlgSrv.open(ReplySentDlgComponent);
 	}
