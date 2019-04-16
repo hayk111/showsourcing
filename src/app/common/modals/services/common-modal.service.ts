@@ -12,6 +12,7 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	RefuseReplyDlgComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
@@ -103,6 +104,10 @@ export class CommonModalService {
 
 	openNewContactDlg(data: { isNewContact?: boolean, supplier?: Supplier, contactId?: string }) {
 		return this.dlgSrv.open(NewContactDlgComponent, data);
+	}
+
+	openRefuseReplyDlg() {
+		return this.dlgSrv.open(RefuseReplyDlgComponent);
 	}
 
 	close() {

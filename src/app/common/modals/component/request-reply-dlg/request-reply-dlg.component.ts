@@ -110,6 +110,10 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		this.setElement();
 	}
 
+	refuse() {
+
+	}
+
 	private getNextUnrepliedIndex() {
 		return this.elements.findIndex(elem => elem.reply.status !== this.defaultStatus && elem.reply.id !== this.reply.id);
 	}

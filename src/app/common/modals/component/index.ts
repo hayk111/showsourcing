@@ -9,6 +9,7 @@ export * from './merge-dialog/merge-dialog.component';
 export * from './new-contact-dlg/new-contact-dlg.component';
 export * from './product-add-to-project-dlg/product-add-to-project-dlg.component';
 export * from './product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
+export * from './refuse-reply-dlg/refuse-reply-dlg.component';
 export * from './reply-sent-dlg/reply-sent-dlg.component';
 export * from './request-reply-dlg/request-reply-dlg.component';
 export * from './supplier-request-dialog/supplier-request-dialog.component';

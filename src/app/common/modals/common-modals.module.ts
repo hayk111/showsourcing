@@ -6,6 +6,7 @@ import {
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { InputsModule } from '~shared/inputs';
+import { PricePipe } from '~shared/price/price.pipe';
 import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { UtilsModule } from '~shared/utils';
@@ -22,6 +23,7 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	RefuseReplyDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
 	SupplierRequestDialogComponent,
@@ -29,13 +31,12 @@ import {
 } from './component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
 import { ExportWaitingViewComponent } from './component/export-dlg/export-waiting-view/export-waiting-view.component';
+import { ReviewRequestReplyDlgComponent } from './component/review-request-reply-dlg/review-request-reply-dlg.component';
 import {
 	ProductRequestListComponent,
 } from './component/supplier-request-dialog/product-request-list/product-request-list.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
-import { ReviewRequestReplyDlgComponent } from './component/review-request-reply-dlg/review-request-reply-dlg.component';
-import { PricePipe } from '~shared/price/price.pipe';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -52,6 +53,7 @@ const modals = [
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	RefuseReplyDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
 	SupplierRequestDialogComponent,
