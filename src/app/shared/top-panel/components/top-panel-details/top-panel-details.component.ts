@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -7,14 +7,12 @@ import { TrackingComponent } from '~utils/tracking-component';
 	templateUrl: './top-panel-details.component.html',
 	styleUrls: ['./top-panel-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'z-1'
-	}
 })
 export class TopPanelDetailsComponent extends TrackingComponent {
 	/** title displayed */
 	@Input() title: string;
 	@Input() hasLogo = true;
+	@HostBinding('class.z-1') @Input() elevated = true;
 
 	constructor(
 		private location: Location
