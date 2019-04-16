@@ -1,11 +1,4 @@
 export const statusRequestsTeamMap = {
-	'opened': {
-		locales: {
-			en: {
-				name: 'To Review'
-			}
-		}
-	},
 	'replied': {
 		locales: {
 			en: {
@@ -13,10 +6,24 @@ export const statusRequestsTeamMap = {
 			}
 		}
 	},
+	'pending': {
+		locales: {
+			en: {
+				name: 'Sent'
+			}
+		}
+	},
 	'sent': {
 		locales: {
 			en: {
-				name: 'Sent to Supplier'
+				name: 'Sent'
+			}
+		}
+	},
+	'resent': {
+		locales: {
+			en: {
+				name: 'Sent Back'
 			}
 		}
 	},
@@ -27,10 +34,10 @@ export const statusRequestsTeamMap = {
 			}
 		}
 	},
-	'accepted': {
+	'validated': {
 		locales: {
 			en: {
-				name: 'Accepted'
+				name: 'Validated'
 			}
 		}
 	}

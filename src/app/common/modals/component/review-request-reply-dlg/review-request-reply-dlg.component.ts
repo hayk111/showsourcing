@@ -1,9 +1,20 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ProductService, RequestElementService, SupplierRequestService, RequestReplyService } from '~core/entity-services';
+import { ProductService, RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import { SelectionService } from '~core/list-page';
-import { AppImage, EntityMetadata, ERM, ExtendedField, Price, Product, RequestElement, SupplierRequest, ReplyStatus } from '~core/models';
+import {
+	AppImage,
+	DEFAULT_REPLIED_STATUS,
+	EntityMetadata,
+	ERM,
+	ExtendedField,
+	Price,
+	Product,
+	ReplyStatus,
+	RequestElement,
+	SupplierRequest,
+} from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -165,6 +176,11 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 
 	openReplySentDlg() {
 		this.dlgSrv.open(ReplySentDlgComponent);
+	}
+
+	// only if the reply status is replied, the buyer can accept, refuse, send back
+	isDisabled() {
+		return !(this.element.reply && this.element.reply.status === DEFAULT_REPLIED_STATUS);
 	}
 
 	acceptRequest() {

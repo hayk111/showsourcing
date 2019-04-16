@@ -1,8 +1,15 @@
 export const statusRequestsSupplierMap = {
-	'opened': {
+	'sent': {
 		locales: {
 			en: {
 				name: 'To Reply'
+			}
+		}
+	},
+	'resent': {
+		locales: {
+			en: {
+				name: 'Sent Back'
 			}
 		}
 	},
@@ -27,10 +34,10 @@ export const statusRequestsSupplierMap = {
 			}
 		}
 	},
-	'accepted': {
+	'validated': {
 		locales: {
 			en: {
-				name: 'Accepted'
+				name: 'Validated'
 			}
 		}
 	}

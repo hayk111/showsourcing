@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ContactService, CreateRequestService, UserService } from '~core/entity-services';
+import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
 import { Contact, CreateRequest, Product, Supplier } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
@@ -33,7 +33,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 		private requestSrv: CreateRequestService,
 		private contactSrv: ContactService,
 		private notifSrv: NotificationService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private requestTemplateSrv: RequestTemplateService
 	) {
 		this.form = this.fb.group({
 			products: ['', Validators.required],
@@ -68,6 +69,14 @@ export class SupplierRequestDialogComponent implements OnInit {
 			'\nThank you\n' +
 			(firstName ? firstName + ' ' + lastName : lastName)
 		);
+		// template
+		this.requestTemplateSrv.queryOneByPredicate('targetedEntity == "Product"')
+			.subscribe(reqTemplate => {
+				if (reqTemplate) {
+					this.form.get('requestTemplate').setValue(reqTemplate);
+					this.form.patchValue(this.request);
+				}
+			});
 		// supplier, its not a form value but it has to be initialized
 		const tempProduct = this.request.products.find(product => !!product.supplier);
 		this.supplier = tempProduct && tempProduct.supplier ? tempProduct.supplier : null;

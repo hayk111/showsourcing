@@ -157,10 +157,13 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	// supplier can only reply when the status is pending, error o sentBack
 	isDisabled() {
-		return this.reply.status !== ReplyStatus.PENDING
-			&& this.reply.status !== ReplyStatus.ERROR
-			&& this.reply.status !== ReplyStatus.RESENT;
+		return (
+			this.reply.status !== ReplyStatus.PENDING &&
+			this.reply.status !== ReplyStatus.ERROR &&
+			this.reply.status !== ReplyStatus.RESENT
+		);
 	}
 
 }
