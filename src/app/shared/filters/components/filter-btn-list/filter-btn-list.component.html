@@ -21,15 +21,15 @@
 					{{ type }}
 				</label>
 				<div>
-					<span class="edit pointer"
+					<span class="edit pointer capitalize"
 						(click)="editClicked.emit(type)"
-						i18n="span|Edit filter selection@@global_edit">
-						Edit
+						i18n="button@@edit">
+						edit
 					</span>
-					<span class="clear pointer"
+					<span class="clear pointer capitalize"
 						(click)="resetClicked.emit(type)"
-						i18n="span|Clear filter selection@@global_clear">
-						Clear
+						i18n="button@@clear">
+						clear
 					</span>
 				</div>
 			</div>
@@ -59,7 +59,7 @@
 		(check)="addFilter({ type: favoriteType, value: true })"
 		(uncheck)="removeFilter({ type: favoriteType, value: true })">
 			<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
-			<span i18n="paragraph|Only favorites checkbox title@@productFilters_showFavorites">
+			<span i18n="button@@only-show-favorite">
 				Only Show Favorites
 			</span>
 	</checkbox-app>
@@ -74,7 +74,7 @@
 		[checked]="isArchived()"
 		(check)="onArchivedChange()"
 		(uncheck)="onArchivedChange()"
-		i18n="checkbox|Archieved checkbox title@@productFilters_showArchived">
+		i18n="button@@show-archived-products">
 		Show Archived Products
 	</checkbox-app>
 </ng-container>
