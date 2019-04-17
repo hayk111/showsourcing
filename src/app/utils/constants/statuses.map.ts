@@ -110,5 +110,26 @@ export const statusMap = {
 				name: 'Received'
 			}
 		}
-	}
+	},
+	'_Pending': {
+		locales: {
+			en: {
+				name: 'Pending'
+			}
+		}
+	},
+	'_Done': {
+		locales: {
+			en: {
+				name: 'Done'
+			}
+		}
+	},
+	'_Overdue': {
+		locales: {
+			en: {
+				name: 'Overdue'
+			}
+		}
+	},
 };

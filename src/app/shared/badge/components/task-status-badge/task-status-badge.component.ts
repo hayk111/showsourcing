@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '~core/models';
+import { TaskStatus } from '~core/models/status.model';
 
 @Component({
 	selector: 'task-status-badge-app',
@@ -14,16 +15,15 @@ export class TaskStatusBadgeComponent implements OnInit {
 
 	constructor() { }
 
-	ngOnInit() {
-	}
+	ngOnInit() { }
 
 	// this is only done for tasks since we don't have it on the DB
 	getTaskStatus() {
-		let taskStatus = 'pending';
+		let taskStatus = TaskStatus.PENDING;
 		if (this.task && this.task.done)
-			taskStatus = 'done';
+			taskStatus = TaskStatus.DONE;
 		else if (this.task && this.task.dueDate && (new Date().getTime() >= Date.parse(this.task.dueDate.toString())))
-			taskStatus = 'overdue';
+			taskStatus = TaskStatus.OVERDUE;
 		return taskStatus;
 	}
 

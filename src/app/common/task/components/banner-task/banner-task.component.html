@@ -1,19 +1,22 @@
-<div class="cntr"
+<div
+	class="cntr"
 	[ngClass]="{
-		'task-done': status === 'done',
-		'task-overdue': status === 'overdue',
-		'task-pending': status === 'pending'}">
+		'task-done': status === enumTaskStatus.DONE,
+		'task-overdue': status === enumTaskStatus.OVERDUE,
+		'task-pending': status === enumTaskStatus.PENDING
+	}">
 
 	<button
-		*ngIf="status != 'done'"
-		class="{{status === 'pending' ? 'secondary-dark' : 'secondary'}} task-mark"
+		*ngIf="status != enumTaskStatus.DONE"
+		class="task-mark"
+		[ngClass]="status === enumTaskStatus.PENDING ? 'secondary-dark' : 'secondary' "
 		(click)="update.emit(true)">
 		Mark as done
 	</button>
 
 	<div class="task-info">
 		<icon-app name="task"></icon-app>
-		<div class="info"> {{ status === 'overdue' ? 'Overdue - ' : 'Task ' + status }} {{ task?.dueDate | date:'dd MM yyyy' || ''}} </div>
+		<div class="info"> {{ status === enumTaskStatus.OVERDUE ? 'Overdue - ' : 'Task ' + (status | const: 'status') }} {{ task?.dueDate | date:'dd MM yyyy' || ''}} </div>
 	</div>
 
 </div>
