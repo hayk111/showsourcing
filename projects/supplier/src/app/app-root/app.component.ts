@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { GlobalDataClientsInitializer, UserClientInitializer } from '~core/apollo';
+import { GlobalDataClientsInitializer } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
 		private authSrv: AuthenticationService,
 		private globalRequestClient: GlobalRequestClientsInitializer,
 		private globalDataClient: GlobalDataClientsInitializer,
-		private userClient: UserClientInitializer
 	) { }
 
 	ngOnInit(): void {
