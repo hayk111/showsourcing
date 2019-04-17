@@ -11,6 +11,6 @@
 		<div>{{request?.creationDate | date: 'dd MMMM yy \'at\' HH:mm'}}</div>
 		<div *ngIf="request?.sender?.name">{{ request?.sender?.name }}</div>
 		<div *ngIf="request?.sender?.company">{{ request?.sender?.company }}</div>
-		<div>{{ request?.requestElements?.length }} {{ request?.requestElements?.length === 1 ? 'Element' : 'Elements' }} </div>
+		<div i18n="text|number of elements selected@@element">{{ request?.requestElements?.length }} { request?.requestElements?.length, plural, =1 { Element } other { Elements } } </div>
 	</div>
 </top-panel-details-app>
