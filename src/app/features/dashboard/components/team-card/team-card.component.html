@@ -1,5 +1,8 @@
 <card-app>
-	<h3 class="ms">{{ (team$ | async)?.name || 'Unnamed Team'}}</h3>
+	<h3 class="ms" *ngIf="(team$ | async)?.name as name; else unnamed">{{ name }}</h3>
+	<ng-template #unnamed>
+		<h3 class="ms" i18n="header | when no team name@@unnamed-team">Unnamed Team</h3>
+	</ng-template>
 	<h4 class="ms color-txt-strong">{{ (team$ | async)?.ownerUser?.firstName }} {{ (team$ | async)?.ownerUser?.lastName }}</h4>
   <divider-app></divider-app>
 
@@ -19,7 +22,7 @@
 		</div>
 
 		<card-footer-app>
-			<button (click)="inviteTeam.emit()">Invite team members</button>
+			<button (click)="inviteTeam.emit()" i18n="button@@invite-team-members">Invite team members</button>
 		</card-footer-app>
 	</ng-container>
 
@@ -28,7 +31,7 @@
 		<span class="no-team">No Team Members</span>
 
 		<card-footer-app>
-			<button (click)="inviteTeam.emit()">Invite team members</button>
+			<button (click)="inviteTeam.emit()" i18n="button@@invite-team-members">Invite team members</button>
 		</card-footer-app>
 	</ng-template>
 
