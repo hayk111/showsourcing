@@ -3,11 +3,13 @@
 
 	<main class="flex container">
 		<icon-app class="settings-image" name="settings-multiple" fontSet="svg"></icon-app>
-		<div class="generating-message " i18n="text@@export-generated-msg">
-			Your export is being generated. This may take a few minutes.<br>
-			You will be notified when the export is ready.<br>
-			You can also retrieve your previous export in:<br>
-			Settings
+		<div class="generating-message">
+			<div i18n="text@@export-generated-msg">
+				Your export is being generated. This may take a few minutes.<br>
+				You will be notified when the export is ready.<br>
+				You can also retrieve your previous export in:<br>
+				Settings
+			</div>
 			<span class="color-primary pointer capitalize" (click)="goToExports()" i18n="link@@exports">
 				exports
 			</span>

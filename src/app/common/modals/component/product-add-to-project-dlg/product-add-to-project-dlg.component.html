@@ -27,11 +27,11 @@
 
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary" i18n="text@@products-selected">
-			{{ products?.length }} 
-			{ products?.length, plural, =0 { product } =1 { Product } other { Products } }} 
+			{{ products?.length }}
+			{ products?.length, plural, =0 { Product } =1 { Product } other { Products } }}
 			selected
 		</span>
-		<input [disabled]="numSelected < 1" type="submit" value="add now" class="capitalize" (click)="submit()" 
+		<input [disabled]="numSelected < 1" type="submit" value="add now" class="capitalize" (click)="submit()"
 			i18n-value="button|Adds product to a project@@add-now"/>
 	</dialog-footer-app>
 </dialog-app>
