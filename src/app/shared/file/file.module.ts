@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CardModule } from '~shared/card/card.module';
-import { FilesCardComponent, FilesPageComponent } from '~shared/file/containers';
+import { FilesCardComponent } from '~shared/file/containers';
 import { FileDropDirective } from '~shared/file/directives/file-drop.directive';
 import { FileSelectDirective } from '~shared/file/directives/file-select.directive';
 import { IconsModule } from '~shared/icons';
@@ -28,7 +28,6 @@ import { FileSizePipe } from './pipes';
 		FileSelectDirective,
 		FileSizePipe,
 		FilesCardComponent,
-		FilesPageComponent,
 		NoFilePlaceholderComponent,
 	],
 	exports: [
@@ -37,7 +36,6 @@ import { FileSizePipe } from './pipes';
 		FileReviewerComponent,
 		FileSelectDirective,
 		FilesCardComponent,
-		FilesPageComponent,
 		NoFilePlaceholderComponent,
 	],
 })

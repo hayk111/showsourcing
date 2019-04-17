@@ -17,8 +17,15 @@
       <div class="flexVAlign">
         <span class="amount">{{ counters?.productsNeedReview }}</span>
         <div class="flexColumn">
-          <span class="taskType">Product{{ counters?.productsNeedReview === 1 ? '' : 's' }} need{{ counters?.productsNeedReview === 1 ? 's' : '' }} review</span>
-          <span><a [routerLink]="['/workspace']" routerLinkActive="active">Review Product{{ counters?.productsNeedReview > 1 ? 's' : '' }}</a></span>
+          <span class="taskType" i18n="text@@product-need-review">
+            { counters?.productsNeedReview, plural, =0 { Product need } =1 { Product needs } other { Products need } }
+            review
+          </span>
+          <span>
+            <a [routerLink]="['/workspace']" routerLinkActive="active" i18n="link@@review-product">
+              Review {counters?.productsNeedReview, plural, =0 { Product } =1 { Product } other { products } }
+            </a>
+          </span>
         </div>
       </div>
 
@@ -26,9 +33,14 @@
       <div class="flexVAlign">
         <span class="amount">{{ counters?.productsInWorkflow }}</span>
         <div class="flexColumn">
-          <span class="taskType">Product{{ counters?.productsInWorkflow === 1 ? '' : 's' }} in progress</span>
+          <span class="taskType" i18n="text@@product-in-progress">
+            { counters?.productsInWorkflow, plural, =0 { Product } =1 { Product } other { Product } }
+            in progress
+          </span>
           <span>
-            <a [routerLink]="['/workspace/my-workflow']" routerLinkActive="active">To my workspace</a>
+            <a [routerLink]="['/workspace/my-workflow']" routerLinkActive="active" i18n="link@@to-my-workspace">
+              To my workspace
+            </a>
           </span>
         </div>
       </div>
@@ -54,12 +66,14 @@
 		<div class="flexVAlign user-tasks pointer" [class.last]="last">
 			<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus(task)"></icon-app>
 			<user-picture-app [size]="14" [user]="task.assignee" (click)="preview(task)"></user-picture-app>
-			<div class="flexCenter txt-btn" (click)="preview(task)">{{ task?.name || 'Unnamed task' }}</div>
+			<div class="flexCenter txt-btn" (click)="preview(task)">
+        {{ task?.name || 'Unnamed task' }}
+      </div>
 		</div>
   </ng-container>
 
   <card-footer-app paddingSide="l">
-    <button (click)="goToWorkspace()">
+    <button (click)="goToWorkspace()" i18n="button@open-workspace">
       Open my workspace
     </button>
   </card-footer-app>

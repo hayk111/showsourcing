@@ -2,117 +2,30 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="pwResetted_reset" datatype="html">
+      <trans-unit id="filesCard_attachedFiles" datatype="html">
         <source>
-	The instructions to reset your password have been sent to your email address.
-</source>
+			Attached Files
+		</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/auth/components/pw-resetted/pw-resetted.component.ts</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="sourcefile">app/shared/file/containers/files-card/files-card.component.html</context>
+          <context context-type="linenumber">6</context>
         </context-group>
-        <note priority="1" from="description">Instruction to reset password</note>
-        <note priority="1" from="meaning">paragraph</note>
+        <note priority="1" from="description">File section card title</note>
+        <note priority="1" from="meaning">header 2</note>
       </trans-unit>
-      <trans-unit id="pwResetted_login" datatype="html">
-        <source>Login</source>
+      <trans-unit id="filesCard_addFile" datatype="html">
+        <source>Add File</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/auth/components/pw-resetted/pw-resetted.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="sourcefile">app/shared/file/containers/files-card/files-card.component.html</context>
+          <context context-type="linenumber">15</context>
         </context-group>
-        <note priority="1" from="description">Login on password reset</note>
+        <note priority="1" from="description">Add file</note>
         <note priority="1" from="meaning">button</note>
-      </trans-unit>
-      <trans-unit id="dataManagementPage_merge" datatype="html">
-        <source>Merge</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/containers/data-management-page/data-management-page.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <note priority="1" from="description">Merge data management items</note>
-        <note priority="1" from="meaning">div click</note>
-      </trans-unit>
-      <trans-unit id="dataManagementPage_delete" datatype="html">
-        <source>Delete</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/containers/data-management-page/data-management-page.component.ts</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-        <note priority="1" from="description">Delete data management items</note>
-        <note priority="1" from="meaning">div click</note>
-      </trans-unit>
-      <trans-unit id="userPanel_settings" datatype="html">
-        <source>
-		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Settings<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-        <note priority="1" from="description">User panel settings</note>
-        <note priority="1" from="meaning">menu item</note>
-      </trans-unit>
-      <trans-unit id="userPanel_dataManagement" datatype="html">
-        <source>
-		 <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Data Management<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-        <note priority="1" from="description">User panel</note>
-        <note priority="1" from="meaning">menu item</note>
-      </trans-unit>
-      <trans-unit id="userPanel_teams" datatype="html">
-        <source>
-		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Teams<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-        <note priority="1" from="description">User panel teams</note>
-        <note priority="1" from="meaning">menu item</note>
-      </trans-unit>
-      <trans-unit id="userPanel_language" datatype="html">
-        <source>
-		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Language<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-        <note priority="1" from="description">User panel language</note>
-        <note priority="1" from="meaning">menu item</note>
-      </trans-unit>
-      <trans-unit id="userPanel_sendFeedback" datatype="html">
-        <source>
-		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Send feedback<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-        <note priority="1" from="description">User panel feedback</note>
-        <note priority="1" from="meaning">menu item</note>
-      </trans-unit>
-      <trans-unit id="userPanel_logout" datatype="html">
-        <source>
-		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>
-			<x id="START_TAG_ICON-APP" ctype="x-icon-app" equiv-text="&lt;icon-app&gt;"/>logout<x id="CLOSE_TAG_ICON-APP" ctype="x-icon-app" equiv-text="&lt;/icon-app&gt;"/>
-			Logout
-		<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-        <note priority="1" from="description">User panel logout</note>
-        <note priority="1" from="meaning">menu item</note>
       </trans-unit>
       <trans-unit id="filesPage_addFile" datatype="html">
         <source>Add File</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
         <note priority="1" from="description">Add file</note>
@@ -121,7 +34,7 @@
       <trans-unit id="filesPage_name" datatype="html">
         <source>Name</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
         <note priority="1" from="description">File section name</note>
@@ -130,7 +43,7 @@
       <trans-unit id="filesPage_uploadDate" datatype="html">
         <source>Upload date</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
         <note priority="1" from="description">File section upload date</note>
@@ -139,7 +52,7 @@
       <trans-unit id="filesPage_uploadBy" datatype="html">
         <source>Uploaded by</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
         <note priority="1" from="description">File section uploaded by</note>
@@ -148,7 +61,7 @@
       <trans-unit id="filesPage_action" datatype="html">
         <source>Action</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
         <note priority="1" from="description">File section action</note>
@@ -159,200 +72,125 @@
 							delete
 					</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">43</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/selection-bar/components/selection-bar/selection-bar.component.ts</context>
-          <context context-type="linenumber">13</context>
         </context-group>
         <note priority="1" from="description">File section delete</note>
         <note priority="1" from="meaning">button</note>
       </trans-unit>
-      <trans-unit id="filesCard_attachedFiles" datatype="html">
-        <source>Attached Files</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/file/containers/files-card/files-card.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-        <note priority="1" from="description">File section card title</note>
-        <note priority="1" from="meaning">header 2</note>
-      </trans-unit>
       <trans-unit id="filesCard_noDocuments" datatype="html">
-        <source>No Documents attached yet</source>
+        <source>No Documents attached</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/file/containers/files-card/files-card.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="sourcefile">app/shared/file/components/no-file-placeholder/no-file-placeholder.component.html</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">spanFile section with no files</note>
       </trans-unit>
-      <trans-unit id="filesCard_addFile" datatype="html">
-        <source>Add File</source>
+      <trans-unit id="global_edit" datatype="html">
+        <source>
+						Edit
+					</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/file/containers/files-card/files-card.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="sourcefile">app/shared/filters/components/filter-btn-list/filter-btn-list.component.html</context>
+          <context context-type="linenumber">26</context>
         </context-group>
-        <note priority="1" from="description">Add file</note>
-        <note priority="1" from="meaning">button</note>
-      </trans-unit>
-      <trans-unit id="global_open" datatype="html">
-        <source> Open </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-list-view/product-list-view.component.ts</context>
-          <context context-type="linenumber">109</context>
-        </context-group>
-        <note priority="1" from="description">Open and view product</note>
-        <note priority="1" from="meaning">div product</note>
-      </trans-unit>
-      <trans-unit id="productSelectableCard_addProduct" datatype="html">
-        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>Add to project</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-selectable-card/product-selectable-card.component.ts</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-        <note priority="1" from="description">Product hover information</note>
-        <note priority="1" from="meaning">button</note>
-      </trans-unit>
-      <trans-unit id="selectionActions_addProject" datatype="html">
-        <source>Add to project</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/selection-actions/selection-actions.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-        <note priority="1" from="description">Selected products add action</note>
+        <note priority="1" from="description">Edit filter selection</note>
         <note priority="1" from="meaning">span</note>
       </trans-unit>
-      <trans-unit id="selectionActions_requestTeamFeedback" datatype="html">
-        <source>Request Team Feedback</source>
+      <trans-unit id="global_clear" datatype="html">
+        <source>
+						Clear
+					</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/selection-actions/selection-actions.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">app/shared/filters/components/filter-btn-list/filter-btn-list.component.html</context>
+          <context context-type="linenumber">31</context>
         </context-group>
-        <note priority="1" from="description">Selected products request feedback action</note>
+        <note priority="1" from="description">Clear filter selection</note>
         <note priority="1" from="meaning">span</note>
       </trans-unit>
-      <trans-unit id="selectionActions_export" datatype="html">
-        <source>Export</source>
+      <trans-unit id="productFilters_showFavorites" datatype="html">
+        <source>
+				Only Show Favorites
+			</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/selection-actions/selection-actions.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="sourcefile">app/shared/filters/components/filter-btn-list/filter-btn-list.component.html</context>
+          <context context-type="linenumber">62</context>
         </context-group>
-        <note priority="1" from="description">Selected products export action</note>
-        <note priority="1" from="meaning">span</note>
+        <note priority="1" from="description">Only favorites checkbox title</note>
+        <note priority="1" from="meaning">paragraph</note>
       </trans-unit>
-      <trans-unit id="projectCard_projects" datatype="html">
-        <source>Projects</source>
+      <trans-unit id="productFilters_showArchived" datatype="html">
+        <source>
+		Show Archived Products
+	</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/project-card/project-card.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="sourcefile">app/shared/filters/components/filter-btn-list/filter-btn-list.component.html</context>
+          <context context-type="linenumber">77</context>
         </context-group>
-        <note priority="1" from="description">Project card</note>
-        <note priority="1" from="meaning">header 2</note>
+        <note priority="1" from="description">Archieved checkbox title</note>
+        <note priority="1" from="meaning">checkbox</note>
       </trans-unit>
-      <trans-unit id="projectCard_products" datatype="html">
-        <source> - Products </source>
+      <trans-unit id="loading-info-please-wait" datatype="html">
+        <source>We are loading your information, please wait...</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/project-card/project-card.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="sourcefile">app/app-root/components/app.component.html</context>
+          <context context-type="linenumber">7</context>
         </context-group>
-        <note priority="1" from="description">Project card</note>
-        <note priority="1" from="meaning">span</note>
+        <note priority="1" from="description">header</note>
       </trans-unit>
-      <trans-unit id="projectCard_addProject" datatype="html">
-        <source>add project</source>
+      <trans-unit id="userPanel_profile" datatype="html">
+        <source>
+		Profile
+	</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/project-card/project-card.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="sourcefile">app/core/header/components/user-panel/user-panel.component.html</context>
+          <context context-type="linenumber">13</context>
         </context-group>
-        <note priority="1" from="description">Add project</note>
-        <note priority="1" from="meaning">button</note>
+        <note priority="1" from="description">User panel settings</note>
+        <note priority="1" from="meaning">menu item</note>
       </trans-unit>
-      <trans-unit id="supplierCard_supplier" datatype="html">
-        <source>Supplier</source>
+      <trans-unit id="userPanel_teams" datatype="html">
+        <source>
+		Manage Team
+	</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/supplier-card/supplier-card.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="sourcefile">app/core/header/components/user-panel/user-panel.component.html</context>
+          <context context-type="linenumber">18</context>
         </context-group>
-        <note priority="1" from="description">Supplier information on product page</note>
-        <note priority="1" from="meaning">header 2</note>
-      </trans-unit>
-      <trans-unit id="supplierCard_viewSupplier" datatype="html">
-        <source>view supplier</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/supplier-card/supplier-card.component.ts</context>
+          <context context-type="sourcefile">app/core/header/components/user-panel/user-panel.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <note priority="1" from="description">User panel team management</note>
+        <note priority="1" from="meaning">menu item</note>
+      </trans-unit>
+      <trans-unit id="userPanel_settings" datatype="html">
+        <source>
+		Settings
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/header/components/user-panel/user-panel.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
-        <note priority="1" from="description">View supplier information on product page</note>
-        <note priority="1" from="meaning">button</note>
+        <note priority="1" from="description">User panel teams</note>
+        <note priority="1" from="meaning">menu item</note>
       </trans-unit>
-      <trans-unit id="productGeneralInfo_general" datatype="html">
-        <source>General</source>
+      <trans-unit id="userPanel_logout" datatype="html">
+        <source>
+		Logout
+	</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/containers/product-general-info/product-general-info.component.ts</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="sourcefile">app/core/header/components/user-panel/user-panel.component.html</context>
+          <context context-type="linenumber">35</context>
         </context-group>
-        <note priority="1" from="description">Product general information</note>
-        <note priority="1" from="meaning">div title</note>
-      </trans-unit>
-      <trans-unit id="productGeneralInfo_shippingTrading" datatype="html">
-        <source>Shipping &amp; Trading</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/containers/product-general-info/product-general-info.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-        <note priority="1" from="description">Product shipping and tranding information</note>
-        <note priority="1" from="meaning">div title</note>
-      </trans-unit>
-      <trans-unit id="productSummary_price" datatype="html">
-        <source>Price</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-        <note priority="1" from="description">Product summary price title</note>
-        <note priority="1" from="meaning">div title</note>
-      </trans-unit>
-      <trans-unit id="productSummary_moq" datatype="html">
-        <source>Moq</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-        <note priority="1" from="description">Product summary Minimum Order Quantity title</note>
-        <note priority="1" from="meaning">div title</note>
-      </trans-unit>
-      <trans-unit id="productSummary_teamRating" datatype="html">
-        <source>Team Rating</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-        <note priority="1" from="description">Product summary team rating title</note>
-        <note priority="1" from="meaning">div title</note>
-      </trans-unit>
-      <trans-unit id="productSummary_tasks" datatype="html">
-        <source>Tasks</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
-          <context context-type="linenumber">29</context>
-        </context-group>
-        <note priority="1" from="description">Product summary tasks title</note>
-        <note priority="1" from="meaning">div title</note>
-      </trans-unit>
-      <trans-unit id="productSummary_status" datatype="html">
-        <source>Status</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
-          <context context-type="linenumber">39</context>
-        </context-group>
-        <note priority="1" from="description">Product summary status title</note>
-        <note priority="1" from="meaning">div title</note>
+        <note priority="1" from="description">User panel logout</note>
+        <note priority="1" from="meaning">menu item</note>
       </trans-unit>
       <trans-unit id="productAddToProject_addProject" datatype="html">
         <source> Add to project </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component.ts</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="sourcefile">app/common/modals/component/product-add-to-project-dlg/product-add-to-project-dlg.component.html</context>
+          <context context-type="linenumber">3</context>
         </context-group>
         <note priority="1" from="description">Add products to project</note>
         <note priority="1" from="meaning">dialog header</note>
@@ -360,25 +198,16 @@
       <trans-unit id="productAddToProject_selectProject" datatype="html">
         <source>Select projects</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="sourcefile">app/common/modals/component/product-add-to-project-dlg/product-add-to-project-dlg.component.html</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">Select project to add product</note>
         <note priority="1" from="meaning">dialog subtitle</note>
       </trans-unit>
-      <trans-unit id="productAddToProject_addNow" datatype="html">
-        <source>ADD NOW</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component.ts</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-        <note priority="1" from="description">Adding product to projects</note>
-        <note priority="1" from="meaning">button</note>
-      </trans-unit>
       <trans-unit id="productRequestTeamFeedback_teamFeedback" datatype="html">
         <source> Team Feedback </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component.ts</context>
+          <context context-type="sourcefile">app/common/modals/component/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
         <note priority="1" from="description">Team feedback</note>
@@ -387,7 +216,7 @@
       <trans-unit id="productRequestTeamFeedback_teamMembers" datatype="html">
         <source>Team members</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component.ts</context>
+          <context context-type="sourcefile">app/common/modals/component/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <note priority="1" from="description">Team members</note>
@@ -398,16 +227,75 @@
 			Request Feedback
 		</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="sourcefile">app/common/modals/component/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component.html</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <note priority="1" from="description">Feedback request</note>
         <note priority="1" from="meaning">button</note>
       </trans-unit>
+      <trans-unit id="bf2c7e66c4201f1e8b0af5648d17ac5a57b4ca8e" datatype="html">
+        <source>
+		Add to project
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <note priority="1" from="description"> add to project</note>
+        <note priority="1" from="meaning">product menu </note>
+      </trans-unit>
+      <trans-unit id="97c185678b37a838f85d80c08d646d322da967ca" datatype="html">
+        <source>
+		Request supplier
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <note priority="1" from="description"> go to request supplier</note>
+        <note priority="1" from="meaning">product menu </note>
+      </trans-unit>
+      <trans-unit id="31e18de9dc9c8708891ea24bfdcc8c559031315a" datatype="html">
+        <source>
+		Request feedback
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <note priority="1" from="description"> go to request feedback</note>
+        <note priority="1" from="meaning">product menu </note>
+      </trans-unit>
+      <trans-unit id="6939c28230c482bc17c54fb46f3125be11a79581" datatype="html">
+        <source>
+		Export
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <note priority="1" from="description"> export</note>
+        <note priority="1" from="meaning">product menu </note>
+      </trans-unit>
+      <trans-unit id="6f391db83422a373fe4fb36b99a2450d3e2de3ee" datatype="html">
+        <source>
+		Delete
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <note priority="1" from="description"> delete</note>
+        <note priority="1" from="meaning">product menu </note>
+      </trans-unit>
       <trans-unit id="productExport_selection" datatype="html">
         <source>Export Selection</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-waiting-view/export-waiting-view.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
         <note priority="1" from="description">Export selection</note>
@@ -416,288 +304,404 @@
       <trans-unit id="productExport_type" datatype="html">
         <source>Export Type</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
+          <context context-type="linenumber">4</context>
         </context-group>
         <note priority="1" from="description">Select export type</note>
         <note priority="1" from="meaning">dialog subtitle</note>
       </trans-unit>
-      <trans-unit id="productExport_excelEdit" datatype="html">
-        <source>Perfect for edition</source>
+      <trans-unit id="export_excelEdit" datatype="html">
+        <source>
+				Perfect for editing
+			</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
-        <note priority="1" from="description">Export product for edition porpuses</note>
+        <note priority="1" from="description">Export items for edition purpose</note>
         <note priority="1" from="meaning">div subtitle</note>
       </trans-unit>
-      <trans-unit id="productExport_pdfShare" datatype="html">
-        <source>Perfect for sharing</source>
+      <trans-unit id="export_pdfShare" datatype="html">
+        <source>
+				Perfect for sharing
+			</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
-        <note priority="1" from="description">Export product for sharing porpuses</note>
+        <note priority="1" from="description">Export items for sharing purpose</note>
         <note priority="1" from="meaning">div subtitle</note>
       </trans-unit>
-      <trans-unit id="productExport_export" datatype="html">
+      <trans-unit id="export_imagesShare" datatype="html">
+        <source>
+				All product pictures
+			</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <note priority="1" from="description">Export items for sharing purpose</note>
+        <note priority="1" from="meaning">div subtitle</note>
+      </trans-unit>
+      <trans-unit id="export_export" datatype="html">
         <source>
 			Export
 		</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <note priority="1" from="description">Export product</note>
         <note priority="1" from="meaning">button</note>
       </trans-unit>
-      <trans-unit id="global_edit" datatype="html">
-        <source>Edit</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">46</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">76</context>
-        </context-group>
-        <note priority="1" from="description">Edit filter selection</note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="global_clear" datatype="html">
-        <source>Clear</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">47</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">77</context>
-        </context-group>
-        <note priority="1" from="description">Clear filter selection</note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="productFilters_created" datatype="html">
+      <trans-unit id="pwResetted_reset" datatype="html">
         <source>
-					Created By
-				</source>
+	The instructions to reset your password have been sent to your email address.
+</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="sourcefile">app/features/auth-pages/components/pw-resetted/pw-resetted.component.html</context>
+          <context context-type="linenumber">1</context>
         </context-group>
-        <note priority="1" from="description">Created by filter title</note>
-        <note priority="1" from="meaning">label</note>
-      </trans-unit>
-      <trans-unit id="productFilters_users" datatype="html">
-        <source>
-				Filter users
-			</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">53</context>
-        </context-group>
-        <note priority="1" from="description">Users filter button</note>
-        <note priority="1" from="meaning">button</note>
-      </trans-unit>
-      <trans-unit id="productFilters_status" datatype="html">
-        <source>
-					Status
-				</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">71</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">83</context>
-        </context-group>
-        <note priority="1" from="description">Status filter title</note>
-        <note priority="1" from="meaning">label</note>
-      </trans-unit>
-      <trans-unit id="productFilters_favorite" datatype="html">
-        <source>
-				Favorite
-			</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">106</context>
-        </context-group>
-        <note priority="1" from="description">Favorite filter title</note>
-        <note priority="1" from="meaning">label</note>
-      </trans-unit>
-      <trans-unit id="productFilters_showFavorites" datatype="html">
-        <source>Only Show Favorites</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">116</context>
-        </context-group>
-        <note priority="1" from="description">Only favorites checkbox title</note>
+        <note priority="1" from="description">Instruction to reset password</note>
         <note priority="1" from="meaning">paragraph</note>
       </trans-unit>
-      <trans-unit id="productFilters_archived" datatype="html">
-        <source>
-				Archived
-			</source>
+      <trans-unit id="pwResetted_login" datatype="html">
+        <source>Login</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">124</context>
-        </context-group>
-        <note priority="1" from="description">Archieved filter title</note>
-        <note priority="1" from="meaning">label</note>
-      </trans-unit>
-      <trans-unit id="productFilters_showArchived" datatype="html">
-        <source>
-			Show Archived Products
-		</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
-          <context context-type="linenumber">133</context>
-        </context-group>
-        <note priority="1" from="description">Archieved checkbox title</note>
-        <note priority="1" from="meaning">checkbox</note>
-      </trans-unit>
-      <trans-unit id="productMainCard_information" datatype="html">
-        <source>General Information</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-main-card/product-main-card.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-        <note priority="1" from="description">Product general information</note>
-        <note priority="1" from="meaning">nav header-link</note>
-      </trans-unit>
-      <trans-unit id="productMainCard_activity" datatype="html">
-        <source>Activity</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-main-card/product-main-card.component.ts</context>
+          <context context-type="sourcefile">app/features/auth-pages/components/pw-resetted/pw-resetted.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
-        <note priority="1" from="description">Product activity</note>
-        <note priority="1" from="meaning">nav header-link</note>
-      </trans-unit>
-      <trans-unit id="commentList_noComment" datatype="html">
-        <source>
-		There doesn&apos;t seem to be any comment yet, leave one !
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/comment/components/comment-list/comment-list.component.ts</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-        <note priority="1" from="description">Comment section with no comments</note>
-        <note priority="1" from="meaning">ng-template</note>
-      </trans-unit>
-      <trans-unit id="newSupplier_newSupplier" datatype="html">
-        <source>
-				New Supplier
-			</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-        <note priority="1" from="description">New supplier title</note>
-        <note priority="1" from="meaning">dialog header</note>
-      </trans-unit>
-      <trans-unit id="supplierSummary_name" datatype="html">
-        <source>Name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-        <note priority="1" from="description">New supplier name title</note>
-        <note priority="1" from="meaning">label</note>
-      </trans-unit>
-      <trans-unit id="supplierSummary_products" datatype="html">
-        <source>PRODUCTS</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-        <note priority="1" from="description">Supplier products information summary section</note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="supplierSummary_contacts" datatype="html">
-        <source>CONTACTS</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-        <note priority="1" from="description">Supplier contacts information summary section</note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="supplierSummary_tasks" datatype="html">
-        <source>TASKS</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-        <note priority="1" from="description">Supplier tasks information summary section</note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="supplierSummary_favorite" datatype="html">
-        <source>FAVORITE</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.ts</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-        <note priority="1" from="description">Supplier favorite information summary section</note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="supplierSummary_status" datatype="html">
-        <source>STATUS</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.ts</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-        <note priority="1" from="description">Supplier status information summary section</note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="supplierLatestProducts_products" datatype="html">
-        <source>Latest Products</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-latest-products/supplier-latest-products.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <note priority="1" from="description">Supplier latest products card</note>
-        <note priority="1" from="meaning">header 2</note>
-      </trans-unit>
-      <trans-unit id="supplierLatestProducts_noProducts" datatype="html">
-        <source>No products for this supplier</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-latest-products/supplier-latest-products.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <note priority="1" from="description">Supplier with no products</note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="supplierLatestProducts_addProduct" datatype="html">
-        <source>add product</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-latest-products/supplier-latest-products.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-        <note priority="1" from="description">Add product for a supplier</note>
+        <note priority="1" from="description">Login on password reset</note>
         <note priority="1" from="meaning">button</note>
       </trans-unit>
-      <trans-unit id="supplierInfos_information" datatype="html">
-        <source>Supplier Information</source>
+      <trans-unit id="no-recent-activity" datatype="html">
+        <source>There is no recent activity</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-infos/supplier-infos.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="sourcefile">app/features/dashboard/containers/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">10</context>
         </context-group>
-        <note priority="1" from="description">Showing supplier information</note>
+        <note priority="1" from="description">header</note>
+      </trans-unit>
+      <trans-unit id="product-need-review" datatype="html">
+        <source>
+            <x id="ICU" equiv-text="{ counters?.productsNeedReview, plural, =0 {...} =1 {...} other {...}}"/>
+            review
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/summary/summary.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="8f28531a3ee05cc14cd7899456c3be9cf3242e3e" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {Product need } =1 {Product needs } other {Products need } }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/summary/summary.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="review-product" datatype="html">
+        <source>
+              Review <x id="ICU" equiv-text="{counters?.productsNeedReview, plural, =0 {...} =1 {...} other {...}}"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/summary/summary.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <note priority="1" from="description">link</note>
+      </trans-unit>
+      <trans-unit id="49de1d162846ecc0959d539ed2ad331034209f8a" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {Product } =1 {Product } other {products } }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/summary/summary.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="product-in-progress" datatype="html">
+        <source>
+            <x id="ICU" equiv-text="{ counters?.productsInWorkflow, plural, =0 {...} =1 {...} other {...}}"/>
+            in progress
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/summary/summary.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="b488ccbfa43c120472b0ebc5fe47761a22081cc3" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {Product } =1 {Product } other {Product } }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/summary/summary.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="to-my-workspace" datatype="html">
+        <source>
+              To my workspace
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/summary/summary.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <note priority="1" from="description">link</note>
+      </trans-unit>
+      <trans-unit id="11bfac414859bdf2e067564915ab335ea49c490f" datatype="html">
+        <source>
+      Open my workspace
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/summary/summary.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+        <note priority="1" from="description">button@open-workspace</note>
+      </trans-unit>
+      <trans-unit id="unnamed-team" datatype="html">
+        <source>Unnamed Team</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/team-card/team-card.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description"> when no team name</note>
+        <note priority="1" from="meaning">header </note>
+      </trans-unit>
+      <trans-unit id="invite-team-members" datatype="html">
+        <source>Invite team members</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/team-card/team-card.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/dashboard/components/team-card/team-card.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <note priority="1" from="description">button</note>
+      </trans-unit>
+      <trans-unit id="productInfoCard_product" datatype="html">
+        <source>
+				Product Information
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-information/product-information.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description">Product information card</note>
         <note priority="1" from="meaning">header 2</note>
+      </trans-unit>
+      <trans-unit id="productSummary_price" datatype="html">
+        <source>Price</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">Product summary price title</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="productSummary_moq" datatype="html">
+        <source>Moq</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Product summary Minimum Order Quantity title</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="productSummary_teamRating" datatype="html">
+        <source>Team Rating</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description">Product summary team rating title</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="productSummary_tasks" datatype="html">
+        <source>Tasks</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description">Product summary tasks title</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="productSummary_status" datatype="html">
+        <source>Status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <note priority="1" from="description">Product summary status title</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="teamRatingCard_product" datatype="html">
+        <source>
+			Team Rating
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-team-rating/product-team-rating.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description">Product card</note>
+        <note priority="1" from="meaning">header 2</note>
+      </trans-unit>
+      <trans-unit id="projectCard_projects" datatype="html">
+        <source>
+			Projects
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/project-card/project-card.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description">Project card</note>
+        <note priority="1" from="meaning">header 2</note>
+      </trans-unit>
+      <trans-unit id="projectCard_description" datatype="html">
+        <source>  <x id="INTERPOLATION" equiv-text="{{ project?.description }}"/>  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/project-card/project-card.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description">Project card</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="projectCard_addProject" datatype="html">
+        <source>
+				Add to project
+			</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/project-card/project-card.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <note priority="1" from="description"> Add project</note>
+        <note priority="1" from="meaning">button</note>
+      </trans-unit>
+      <trans-unit id="selectionActions_addProject" datatype="html">
+        <source>Add to project</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/selection-actions/selection-actions.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Selected products add action</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="selectionActions_requestTeamFeedback" datatype="html">
+        <source>Request Team Feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/selection-actions/selection-actions.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">Selected products request feedback action</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="selectionActions_export" datatype="html">
+        <source>Export</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/selection-actions/selection-actions.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">Selected products export action</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="productShipping" datatype="html">
+        <source>
+				Shipping &amp; Trading
+			</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/containers/product-shipping/product-shipping.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Product shipping and tranding information</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="7546f7fbe7217b54c6c8ee6b6bec3978f4fea987" datatype="html">
+        <source>
+    Delete
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/project/components/project-product-list/project-product-list.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description"> delete</note>
+        <note priority="1" from="meaning">project product menu </note>
+      </trans-unit>
+      <trans-unit id="210127f34b7e1290a4152fc4745f5c5b3a4f2bc8" datatype="html">
+        <source>
+    Request for quotation
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/project/components/project-product-list/project-product-list.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description"> go to request quotation</note>
+        <note priority="1" from="meaning">project product menu </note>
+      </trans-unit>
+      <trans-unit id="global_open" datatype="html">
+        <source> Open </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/project/components/project-product-list/project-product-list.component.html</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+        <note priority="1" from="description">Open and view product</note>
+        <note priority="1" from="meaning">div product</note>
+      </trans-unit>
+      <trans-unit id="0a79bfdb47496fde6baae761ae3f1a12536c3b6f" datatype="html">
+        <source>
+		Delete
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/project/components/projects-list-view/projects-list-view.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description"> delete</note>
+        <note priority="1" from="meaning">supplier menu </note>
+      </trans-unit>
+      <trans-unit id="4bea162f32bedd69b3b4edfbfe24a352848d4e1f" datatype="html">
+        <source>
+				Download
+			</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/settings/components/export-list-view/export-list-view.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description"> delete</note>
+        <note priority="1" from="meaning">export menu </note>
+      </trans-unit>
+      <trans-unit id="d46ac3432406a65154ffe6b4fc16f73c4e1354ca" datatype="html">
+        <source>
+			Delete
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description"> delete</note>
+        <note priority="1" from="meaning">invitation menu </note>
+      </trans-unit>
+      <trans-unit id="43df51dd8537ec0f6c5d31f7fb9781afe6f631e1" datatype="html">
+        <source>
+				Delete
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description"> delete</note>
+        <note priority="1" from="meaning">member menu </note>
+      </trans-unit>
+      <trans-unit id="b96800db0fae6731cdde497250355c575190dd61" datatype="html">
+        <source>
+			<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Remove User<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+        <note priority="1" from="description"> export</note>
+        <note priority="1" from="meaning">member menu </note>
       </trans-unit>
       <trans-unit id="supplierContactCard_contacts" datatype="html">
         <source>Contacts</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-contact-card/supplier-contact-card.component.ts</context>
+          <context context-type="sourcefile">app/features/supplier/components/supplier-contact-card/supplier-contact-card.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <note priority="1" from="description">Supplier contacts card</note>
@@ -706,8 +710,8 @@
       <trans-unit id="supplierContactCard_noContacts" datatype="html">
         <source>No contact for this supplier</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-contact-card/supplier-contact-card.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="sourcefile">app/features/supplier/components/supplier-contact-card/supplier-contact-card.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <note priority="1" from="description">Supplier with no contacts</note>
         <note priority="1" from="meaning">span</note>
@@ -715,140 +719,104 @@
       <trans-unit id="supplierContactCard_newContact" datatype="html">
         <source>New Contact</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-contact-card/supplier-contact-card.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="sourcefile">app/features/supplier/components/supplier-contact-card/supplier-contact-card.component.html</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <note priority="1" from="description">Add new contact for a supplier</note>
         <note priority="1" from="meaning">button</note>
       </trans-unit>
-      <trans-unit id="supplierDescription_description" datatype="html">
-        <source>Description</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-description/supplier-description.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-        <note priority="1" from="description">Supplier desciption card</note>
-        <note priority="1" from="meaning">header 2</note>
-      </trans-unit>
       <trans-unit id="supplierDescription_noDescription" datatype="html">
-        <source>No description yet</source>
+        <source>
+					No description yet
+				</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-description/supplier-description.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="sourcefile">app/features/supplier/components/supplier-description/supplier-description.component.html</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <note priority="1" from="description">Supplier with no description</note>
         <note priority="1" from="meaning">label</note>
       </trans-unit>
-      <trans-unit id="supplierDescription_editDescription" datatype="html">
-        <source>Edit Description</source>
+      <trans-unit id="supplierLatestProducts_products" datatype="html">
+        <source>Latest Products</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-description/supplier-description.component.ts</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-        <note priority="1" from="description">Edit supplier description</note>
-        <note priority="1" from="meaning">button</note>
-      </trans-unit>
-      <trans-unit id="global_cancel" datatype="html">
-        <source>Cancel</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-description/supplier-description.component.ts</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-        <note priority="1" from="description">Cancel edition on supplier description</note>
-        <note priority="1" from="meaning">button</note>
-      </trans-unit>
-      <trans-unit id="global_save" datatype="html">
-        <source>Save</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-description/supplier-description.component.ts</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-        <note priority="1" from="description">Save edition on supplier description</note>
-        <note priority="1" from="meaning">button</note>
-      </trans-unit>
-      <trans-unit id="kanbanCol_move" datatype="html">
-        <source> Move to <x id="INTERPOLATION" equiv-text="{{ label }}"/> </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workflow/components/kanban-col/kanban-col.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-        <note priority="1" from="description">Kanban distribution move to </note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="kanbanCol_caution" datatype="html">
-        <source> Caution, action will apply </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workflow/components/kanban-col/kanban-col.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <note priority="1" from="description">Kanban distribution warning message</note>
-        <note priority="1" from="meaning">span</note>
-      </trans-unit>
-      <trans-unit id="details_viewDetails" datatype="html">
-        <source>
-		view details
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
+          <context context-type="sourcefile">app/features/supplier/components/supplier-latest-products/supplier-latest-products.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
-        <note priority="1" from="description">View details</note>
-        <note priority="1" from="meaning">div button</note>
+        <note priority="1" from="description">Supplier latest products card</note>
+        <note priority="1" from="meaning">header 2</note>
       </trans-unit>
-      <trans-unit id="details_hideDetails" datatype="html">
-        <source>
-		hide details
-	</source>
+      <trans-unit id="supplierLatestProducts_noProducts" datatype="html">
+        <source>No products for this supplier</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-        <note priority="1" from="description">Hide details</note>
-        <note priority="1" from="meaning">div button</note>
-      </trans-unit>
-      <trans-unit id="details_likes" datatype="html">
-        <source>Likes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-        <note priority="1" from="description">Positive vote</note>
-        <note priority="1" from="meaning">header 5</note>
-      </trans-unit>
-      <trans-unit id="details_neutral" datatype="html">
-        <source>Neutral</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <note priority="1" from="description">Neutral vote</note>
-        <note priority="1" from="meaning">header 5</note>
-      </trans-unit>
-      <trans-unit id="details_dislikes" datatype="html">
-        <source>Dislikes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-        <note priority="1" from="description">Negative vote</note>
-        <note priority="1" from="meaning">header 5</note>
-      </trans-unit>
-      <trans-unit id="likesCard_teamFeedback" datatype="html">
-        <source>Team feedback</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/likes-chart/containers/likes-card/likes-card.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <note priority="1" from="description">Team Feedback</note>
-        <note priority="1" from="meaning">header 3</note>
-      </trans-unit>
-      <trans-unit id="likesCard_noVotes" datatype="html">
-        <source>There are no votes yet</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/likes-chart/containers/likes-card/likes-card.component.ts</context>
+          <context context-type="sourcefile">app/features/supplier/components/supplier-latest-products/supplier-latest-products.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
-        <note priority="1" from="description">No votes registered yet</note>
+        <note priority="1" from="description">Supplier with no products</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="supplierLatestProducts_addProduct" datatype="html">
+        <source>Add Product</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/supplier/components/supplier-latest-products/supplier-latest-products.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <note priority="1" from="description">Add product for a supplier</note>
+        <note priority="1" from="meaning">button</note>
+      </trans-unit>
+      <trans-unit id="8c26dd6a8d0083f91ca40ac55f11042a79d3d02c" datatype="html">
+        <source>
+			Delete
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/supplier/components/supplier-list-view/supplier-list-view.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description"> delete</note>
+        <note priority="1" from="meaning">supplier menu </note>
+      </trans-unit>
+      <trans-unit id="supplierSummary_products" datatype="html">
+        <source>PRODUCTS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">Supplier products information summary section</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="supplierSummary_contacts" datatype="html">
+        <source>CONTACTS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Supplier contacts information summary section</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="supplierSummary_tasks" datatype="html">
+        <source>TASKS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description">Supplier tasks information summary section</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="supplierSummary_favorite" datatype="html">
+        <source>FAVORITE</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description">Supplier favorite information summary section</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="supplierSummary_status" datatype="html">
+        <source>STATUS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/supplier/components/supplier-main/supplier-summary/supplier-summary.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <note priority="1" from="description">Supplier status information summary section</note>
         <note priority="1" from="meaning">span</note>
       </trans-unit>
     </body>

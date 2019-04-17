@@ -5,8 +5,5 @@ export * from './supplier-images/supplier-images.component';
 export * from './supplier-infos/supplier-infos.component';
 export * from './supplier-latest-products/supplier-latest-products.component';
 export * from './supplier-list-view/supplier-list-view.component';
-export * from './supplier-main/supplier-main-title/supplier-main-title.component';
-export * from './supplier-main/supplier-main.component';
-export * from './supplier-main/supplier-summary/supplier-summary.component';
 export * from './supplier-products-card-view/supplier-products-card-view.component';
 export * from './supplier-top-card/supplier-top-card.component';

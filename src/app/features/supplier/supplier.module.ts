@@ -18,10 +18,7 @@ import {
 	SupplierInfosComponent,
 	SupplierLatestProductsComponent,
 	SupplierListViewComponent,
-	SupplierMainComponent,
-	SupplierMainTitleComponent,
 	SupplierProductsCardViewComponent,
-	SupplierSummaryComponent,
 	SupplierTopCardComponent,
 } from './components';
 import {
@@ -62,14 +59,11 @@ import { SupplierFeatureService } from './services';
 		SupplierInfosComponent,
 		SupplierLatestProductsComponent,
 		SupplierListViewComponent,
-		SupplierMainComponent,
-		SupplierMainTitleComponent,
 		SupplierProductsCardViewComponent,
 		SupplierProductsComponent,
 		SupplierProductsPageComponent,
 		SupplierPublicProfileComponent,
 		SupplierSamplesComponent,
-		SupplierSummaryComponent,
 		SupplierTasksComponent,
 		SupplierTopCardComponent,
 		SuppliersPageComponent

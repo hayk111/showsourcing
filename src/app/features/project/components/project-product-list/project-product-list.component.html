@@ -7,11 +7,13 @@
 
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">
-  <context-menu-item-app class="pointer flexCenter" (click)="delete.emit(row.id)" i18n="project product menu | delete">
+  <context-menu-item-app class="pointer flexCenter" (click)="delete.emit(row.id)" 
+    i18n="button@@delete">
     Delete
   </context-menu-item-app>
-  <context-menu-item-app *ngIf="row?.status?.status" class="pointer flexCenter" (click)="openRequestQuotationDialog.emit(row)" i18n="project product menu | go to request quotation">
-    Request for quotation
+  <context-menu-item-app *ngIf="row?.status?.status" class="pointer flexCenter" (click)="openRequestQuotationDialog.emit(row)" 
+    i18n="button@@request-information">
+    Request information
   </context-menu-item-app>
 </ng-template>
 
@@ -24,7 +26,10 @@
       <a class="name txt-btn" [routerLink]="['/', 'product', row.id]">{{ row.name }}</a>
     </div>
     <div class="preview">
-      <button (click)="previewClick.emit(row)" class="small secondary-dark preview">Preview</button>
+      <button (click)="previewClick.emit(row)" class="small secondary-dark preview" 
+        i18n="button|to display a preview of an item@@preview">
+        Preview
+      </button>
     </div>
   </div>
 </ng-template>
@@ -107,7 +112,8 @@
 
 <!-- open btn -->
 <ng-template #action let-row="row">
-  <div class="pointer" (click)="open.emit(row.id)" i18n="div product|Open and view product@@global_open"> Open </div>
+  <div class="pointer capitalize" (click)="open.emit(row.id)" 
+    i18n="button@@open"> open </div>
 </ng-template>
 
 <!-- for some mindblowing reason if this is put last,

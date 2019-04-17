@@ -21,32 +21,32 @@
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openAddToProjectDialog.emit(row)"
-		i18n="product menu | add to project">
-		Add to project
+		i18n="button@@add-to-project">
+		add to project
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openCreateRequestDlg.emit(row)"
-		i18n="product menu | go to request supplier">
-		Request supplier
+		i18n="button@@request-supplier">
+		request supplier
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openRequestFeedbackDialog.emit(row)"
-		i18n="product menu | go to request feedback">
-		Request feedback
+		i18n="button@@request-feedback">
+		request feedback
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openExportDialog.emit(row)"
-		i18n="product menu | export">
-		Export
+		i18n="button@@export">
+		export
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="delete.emit(row.id)"
-		i18n="product menu | delete">
-		Delete
+		i18n="button@@delete">
+		delete
 	</context-menu-item-app>
 </ng-template>
 
@@ -58,7 +58,7 @@
 				[src]="row | image: 's' : 'product-list'" />
 			<span class="ellipsis">
 				<a class="name txt-btn" [routerLink]="['/product', row.id]">
-					{{ row.name || 'Unnamed' }}
+					{{ row.name || '-' }}
 				</a>
 			</span>
 
@@ -117,7 +117,7 @@
 <ng-template #projects let-row="row">
 	<div class="flexCenter">
 		<span *ngFor="let project of row.projects; trackBy: trackByFn">
-			{{ project.name }}
+			{{ project.name || '-' }}
 		</span>
 	</div>
 </ng-template>
