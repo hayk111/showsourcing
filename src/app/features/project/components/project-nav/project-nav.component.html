@@ -7,7 +7,9 @@
 		(click)="select.emit(project)">
 
 		<span class="name">{{ project.name }}</span>
-		<span class="productCount">{{ productCount[project.id] || '0' }} Products</span>
+		<span class="productCount" i18n="text@@product-count">
+			{ productCount[project.id], plural, =0 { No Products } =1 { 1 Product} other { {{ productCount[project.id] }} Products } }
+		</span>
 
 	</side-menu-item-app>
 
