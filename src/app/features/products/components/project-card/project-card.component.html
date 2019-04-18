@@ -15,7 +15,9 @@
 					<icon-app class="fs-m pointer" fontSet="svg" name="folder-light" ></icon-app>
 				</div>
 				<div class="flexColumn middle" >
-					<span class="name capitalize">{{ project?.name }}</span>
+					<span class="name capitalize">
+						{{ project?.name }}
+					</span>
 					<span *ngIf="project?.description" class="description" i18n="span|Project card@@projectCard_description">  {{ project?.description }}  </span>
 				</div>
 			</div>

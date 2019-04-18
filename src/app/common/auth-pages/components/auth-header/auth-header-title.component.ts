@@ -2,9 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'auth-header-title-app',
-	templateUrl: './auth-header-title.component.html',
-	styleUrls: ['./auth-header-title.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '<ng-content></ng-content>'
 })
 export class AuthHeaderTitleComponent implements OnInit {
 

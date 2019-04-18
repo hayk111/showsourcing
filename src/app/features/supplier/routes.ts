@@ -24,7 +24,6 @@ export const routes: Array<Route> = [
 		component: SupplierDetailsComponent,
 		children: [
 			{ path: 'activity', component: SupplierActivityComponent },
-			{ path: 'public-profile', component: SupplierPublicProfileComponent },
 			{ path: 'products', component: SupplierProductsComponent },
 			{ path: 'samples', component: SupplierSamplesComponent },
 			{ path: 'tasks', component: SupplierTasksComponent },

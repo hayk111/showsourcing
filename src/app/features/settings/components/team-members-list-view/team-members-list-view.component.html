@@ -57,7 +57,8 @@
 				<div class="text" *ngIf="row.accessType === 'Contributor'">Contributor</div>
 				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'TeamMember' })">
+			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'TeamMember' })"
+				i18n="button@@team-member">
 				Team Member
 			</context-menu-item-app>
 			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'Contributor' })">
@@ -75,7 +76,7 @@
 				 <ng-container *ngIf="row.accessType === 'Contributor'"> Contributor </ng-container>
 			 </ng-container>
 			 <ng-template #displayOwner>
-				 <span> Team Owner</span>
+				 <span> Team Owner </span>
 				</ng-template>
 		 </ng-template>
 	</ng-template>
@@ -90,11 +91,3 @@
 	</ng-template>
 
 </table-app>
-
-<ng-template #contextualMenu let-row="row">
-	<menu class="z-4" *ngIf="teamOwner && (row.user.id !== user.id)">
-		<menuitem class="pointer flexCenter" (click)="delete.emit(row)" i18n="member menu | export">
-			<div class="border">Remove User</div>
-		</menuitem>
-	</menu>
-</ng-template>
