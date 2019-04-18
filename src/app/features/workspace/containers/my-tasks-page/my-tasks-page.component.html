@@ -4,7 +4,7 @@
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
 	<sub-panel-right-item-app>
-		<div class="flexCenter show-my-tasks">
+		<div class="flexCenter show-my-tasks" i18n="text@@show-only-my-tasks">
 			<checkbox-app
 				[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
 				(check)="toggleMyTasks(true)"
@@ -12,7 +12,7 @@
 			</checkbox-app>
 			Show my tasks only
 		</div>
-		<div class="flexCenter show-tasks-done">
+		<div class="flexCenter show-tasks-done" i18n="text@@completed-tasks">
 			<checkbox-app
 				(check)="toggleDoneTasks(true)"
 				(uncheck)="toggleDoneTasks(false)">

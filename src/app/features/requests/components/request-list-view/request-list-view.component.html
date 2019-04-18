@@ -16,9 +16,8 @@
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-app
-			class="pointer flexCenter">
-			Options by design
+		<context-menu-item-app (click)="refuse.emit(row)" i18n="button@@refuse">
+			refuse
 		</context-menu-item-app>
 	</ng-template>
 
