@@ -9,7 +9,7 @@ export const statusRequestsSupplierMap = {
 	'resent': {
 		locales: {
 			en: {
-				name: 'Sent Back'
+				name: 'Sent Back from buyer'
 			}
 		}
 	},
@@ -37,7 +37,7 @@ export const statusRequestsSupplierMap = {
 	'validated': {
 		locales: {
 			en: {
-				name: 'Validated'
+				name: 'Replied'
 			}
 		}
 	}

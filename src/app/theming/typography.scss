@@ -63,6 +63,10 @@
 	text-transform: capitalize;
 }
 
+.first-uppercase::first-letter {
+	text-transform: uppercase;
+}
+
 .bold {
 	font-weight: bold;
 }

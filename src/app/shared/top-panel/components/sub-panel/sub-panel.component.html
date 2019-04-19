@@ -18,7 +18,7 @@
 
 	<div class="items-container flex">
 
-		<button *ngIf="hasFilter" class="bold-s pointer secondary" (click)="showFilters.emit()">Show Filters</button>
+		<button *ngIf="hasFilter" class="bold-s pointer secondary capitalize" (click)="showFilters.emit()" i18n="text@@show-filters">Show Filters</button>
 
 		<notification-badge-app *ngIf="hasFilter">{{ filtersAmount }}</notification-badge-app>
 

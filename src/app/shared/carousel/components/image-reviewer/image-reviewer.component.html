@@ -17,9 +17,7 @@
 	</checkbox-app>
 	<div
 		class="overlay status-banner flexCenter"
-		[ngClass]="selection.has(img.id) ? 'bg-success' : 'bg-warn'">
-		{{ selection.has(img.id) ? 'Accepted' : 'Refused' }}
+		[ngClass]="selection.has(img.id) ? 'bg-success' : 'bg-warn'" i18n="text@@nested_accepted-refused">
+		{	(selection.has(img.id) | json),	select,	true { Accepted }	other { Refused }	}
 	</div>
 </div>
-
-

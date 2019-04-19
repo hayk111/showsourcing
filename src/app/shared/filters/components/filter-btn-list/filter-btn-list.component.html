@@ -9,7 +9,7 @@
 
 		<button class="secondary-light fullWidth"
 			(click)="editClicked.emit(type)">
-			Filter by {{ type }}
+			<ng-container i18n="button@@filter-by">Filter by</ng-container> {{ type }}
 		</button>
 
 	</ng-container>
@@ -50,8 +50,8 @@
 <ng-container *ngIf="hasFavoriteFilter">
 
 	<!-- favorite -->
-	<label>
-		Favorite
+	<label class="capitalize" i18n="text@@favorite">
+		favorite
 	</label>
 
 	<checkbox-app
@@ -59,22 +59,21 @@
 		(check)="addFilter({ type: favoriteType, value: true })"
 		(uncheck)="removeFilter({ type: favoriteType, value: true })">
 			<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
-			<span i18n="button@@only-show-favorite">
+			<span i18n="button@@only-show-favorites">
 				Only Show Favorites
 			</span>
 	</checkbox-app>
 </ng-container>
 
 <ng-container *ngIf="hasArchivedFilter">
-	<label>
-		Archived
+	<label class="capitalize" i18n="text@@archived">
+		archived
 	</label>
 
 	<checkbox-app
 		[checked]="isArchived()"
 		(check)="onArchivedChange()"
-		(uncheck)="onArchivedChange()"
-		i18n="button@@show-archived-products">
-		Show Archived Products
+		(uncheck)="onArchivedChange()">
+		<ng-container i18n="text@@show-archived-products">Show Archived Products</ng-container>
 	</checkbox-app>
 </ng-container>

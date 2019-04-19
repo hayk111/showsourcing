@@ -5,6 +5,7 @@ export * from './countries.map';
 export * from './currencies.const';
 export * from './currencies.map';
 export * from './data.const';
+export * from './erm.map';
 export * from './harbour.const';
 export * from './harbour.map';
 export * from './inco-terms.const';

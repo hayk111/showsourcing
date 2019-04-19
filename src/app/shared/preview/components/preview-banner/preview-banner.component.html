@@ -1,8 +1,8 @@
 <ng-content></ng-content>
 <!-- close -->
 <div class="floating-buttons flex">
-	<button class="open" *ngIf="canOpen" (click)="opened.emit()">
-		Open
+	<button *ngIf="canOpen" class="open capitalize" (click)="opened.emit()" i18n="button@@open">
+		open
 	</button>
 	<div class="close flexCenter pointer" *ngIf="canClose" (click)="closed.emit()">
 		<icon-app name="close"></icon-app>
