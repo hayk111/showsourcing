@@ -86,6 +86,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 			this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
 
 			if (this.supplier.officeEmail) {
+				// we do this since we want the email of the supplier to be selected by default to send the message
+				// since we use contacts what this does is check if we have an existing contact or if we have to create a new one with that email
 				this.contactSrv.queryOneByPredicate(`email == "${this.supplier.officeEmail}"`)
 					.pipe(
 						switchMap(contact => this.createOrUseContact(contact, this.supplier)),
