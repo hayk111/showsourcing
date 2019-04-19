@@ -8,7 +8,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output
 })
 export class RequestSortingMenuComponent implements OnInit {
 
-	@Input() currentSort: { sortBy: 'sentOn', descending: true };
+	@Input() currentSort: { sortBy: 'sentDate', descending: true };
 	// if we need to disable some elements since the models of the request are different
 	@Output() sortFromMenu = new EventEmitter<string>();
 
