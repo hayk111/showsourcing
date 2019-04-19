@@ -11,6 +11,7 @@ export enum ReplyStatus {
 	REFUSED = 'refused',
 	VALIDATED = 'validated',
 	RESENT = 'resent',
+	CANCEL = 'cancel'
 }
 
 export const DEFAULT_REPLIED_STATUS = ReplyStatus.REPLIED;

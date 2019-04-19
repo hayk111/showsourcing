@@ -85,20 +85,22 @@
   </div>
 
   <!-- footer -->
-  <dialog-footer-app>
-    <ng-container *ngIf="!isDisabled(); else replied">
-			<button *ngIf="reply.status !== defaultStatus" class="warn save" (click)="refuse()">Refuse</button>
-      <button class="secondary save" (click)="saveAndClose()">Save</button>
+  <dialog-footer-app class="flexVAlign">
 
-      <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
-        <button *ngIf="reply.status === defaultStatus; else notSubmitted" [disabled]="true">Submitted</button>
-      </div>
+    <span class="bold-s mg-s" *ngIf="isDisabled()">{{ getTooltipMessage() }}</span>
+    
+    <button [disabled]="isDisabled()" class="warn save" (click)="refuse()">Refuse</button>
+    
+    <button [disabled]="isDisabled()" class="secondary save" (click)="saveAndClose()">Save</button>
+
+    <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
+      <button *ngIf="isDisabled(); else notSubmitted" [disabled]="true">Submitted</button>
       <ng-template #notSubmitted>
-        <button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
+        <button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">
+          {{ hasNext() ? 'Submit & next' : 'Submit' }}
+        </button>
       </ng-template>
-		</ng-container>
-		<ng-template #replied>
-			<span class="bold-s">This product has already been replied</span>
-		</ng-template>
+    </div>
+
   </dialog-footer-app>
 </dialog-app>
