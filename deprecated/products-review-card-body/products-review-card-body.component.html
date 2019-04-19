@@ -35,8 +35,11 @@
 					</div>
 
 					<div class="secondary flexBetween sort-1 button-action button-workflow">
-						<div class="send-workflow" (click)="sendToWorkflowFunc(product, card)">
-							Send to {{ firstStatus?.name ? (firstStatus.name | const: 'status') : 'workflow'  }}
+						<div
+							class="send-workflow"
+							(click)="sendToWorkflowFunc(product, card)">
+							Send to
+							{{ firstStatus?.name ? (firstStatus.name | const: 'status') : 'workflow'  }}
 						</div>
 						<div class="button-icon flexCenter">
 							<status-selector-app

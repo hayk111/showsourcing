@@ -23,15 +23,19 @@
 				<div class="titleCtnr"><h3>{{ category.label.name || 'Unnamed' }}</h3></div>
 				<div class="descriptionCtnr">
 					<h4 class="xs">
-						{{ category?.supplierType?.name || 'Supplier' }}
-						<ng-container *ngIf="category?.label?.country"> - {{ category?.label?.country | const: 'country'  }}</ng-container>
+						Supplier
+						<ng-container *ngIf="category?.label?.country">
+							 - {{ category?.label?.country | const: 'country'  }}
+						</ng-container>
 					</h4>
 				</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
 					<div class="titleCtnr"><h3>{{ category?.label?.name || 'Unnamed' }}</h3></div>
 					<div class="descriptionCtnr">
-						<h4 class="xs">{{ category?.values?.length }} products</h4>
+						<h4 class="xs">
+							{{ category?.values?.length }} products
+						</h4>
 					</div>
 			</div>
 			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">

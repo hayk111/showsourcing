@@ -22,15 +22,13 @@
 			[contacts]="contacts$ | async"
 			(newContact)="openContactDlg()"
 			(openContact)="openContactDlg($event)"
-			(deleteContact)="deleteContact($event)"
-		>
+			(deleteContact)="deleteContact($event)">
 		</supplier-contact-card-app>
 
 		<files-card-app
 			[files]="supplier.attachments"
 			[linkedItem]="supplier"
-			(fileRemove)="onFileRemoved($event)"
-		>
+			(fileRemove)="onFileRemoved($event)">
 		</files-card-app>
 	</div>
 </div>

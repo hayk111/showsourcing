@@ -1,7 +1,15 @@
-<custom-table-app class="list" [rows]="rows" [descriptor]="descriptor" [contextualMenu]="contextualMenuTemplate"
+<custom-table-app class="list" 
+  [rows]="rows" 
+  [descriptor]="descriptor" 
+  [contextualMenu]="contextualMenuTemplate"
   placeholder="No product"
-  [selected]="selection" (bottomReached)="bottomReached.emit($event)" (sort)="sort.emit($event)" (selectOne)="select.emit($event)"
-  (unselectOne)="unselect.emit($event)" (selectAll)="selectAll.emit($event)" (unselectAll)="unselectAll.emit()"
+  [selected]="selection" 
+  (bottomReached)="bottomReached.emit($event)" 
+  (sort)="sort.emit($event)" 
+  (selectOne)="select.emit($event)"
+  (unselectOne)="unselect.emit($event)" 
+  (selectAll)="selectAll.emit($event)" 
+  (unselectAll)="unselectAll.emit()"
   [pending]="pending">
 </custom-table-app>
 
@@ -98,7 +106,9 @@
 <!-- projects -->
 <ng-template #projects let-row="row">
   <div class="flexCenter">
-    <span *ngFor="let project of row.projects;trackBy: trackByFn">{{ project.name }}</span>
+    <span *ngFor="let project of row.projects;trackBy: trackByFn">
+      {{ project.name }}
+    </span>
   </div>
 </ng-template>
 
