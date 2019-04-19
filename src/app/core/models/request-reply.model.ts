@@ -6,12 +6,12 @@ import { Attachment } from './attachment.model';
 
 export enum ReplyStatus {
 	PENDING = 'pending',
-	REPLIED = 'replied',
+	CANCELED = 'canceled',
 	ERROR = 'error',
 	REFUSED = 'refused',
-	VALIDATED = 'validated',
+	REPLIED = 'replied',
 	RESENT = 'resent',
-	CANCEL = 'cancel'
+	VALIDATED = 'validated',
 }
 
 export const DEFAULT_REPLIED_STATUS = ReplyStatus.REPLIED;

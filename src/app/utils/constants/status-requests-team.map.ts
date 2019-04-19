@@ -40,5 +40,12 @@ export const statusRequestsTeamMap = {
 				name: 'Validated'
 			}
 		}
+	},
+	'canceled': {
+		locales: {
+			en: {
+				name: 'Canceled'
+			}
+		}
 	}
 };
