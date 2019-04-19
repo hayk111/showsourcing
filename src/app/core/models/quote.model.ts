@@ -4,11 +4,11 @@ import { Price } from '~models/price.model';
 import { Supplier } from '~models/supplier.model';
 import { Product } from '~models/product.model';
 import { uuid } from '~utils';
-import { RequestStatus } from '~utils/constants/request-status.enum';
+import { RequestStatus } from './supplier-request.model';
 
 export class Quote {
 	id: string;
-	status: RequestStatus; // possible values: pending, done, declined
+	status: RequestStatus;
 	comment?: string;
 	// Basic product fields
 	name: string;
@@ -30,7 +30,7 @@ export class Quote {
 	samplePrice?: number;
 	supplier?: Supplier;
 
-	__typename ?= 'Quote';
+	__typename?= 'Quote';
 
 	constructor(config: QuoteConfig) {
 		Object.assign(this, config);

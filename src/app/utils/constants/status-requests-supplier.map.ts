@@ -40,5 +40,12 @@ export const statusRequestsSupplierMap = {
 				name: 'Validated'
 			}
 		}
+	},
+	'canceled': {
+		locales: {
+			en: {
+				name: 'Canceled'
+			}
+		}
 	}
 };

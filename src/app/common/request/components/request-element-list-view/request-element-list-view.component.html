@@ -21,6 +21,12 @@
 			(click)="openRefuseReplyDlg.emit(row.reply.id)">
 			Refuse
 		</context-menu-item-app>
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="cancelReply.emit(row.reply.id)"
+			i18n="@@cancel-request-item">
+			Cancel request item
+		</context-menu-item-app>
 	</ng-template>
 
 	<ng-template

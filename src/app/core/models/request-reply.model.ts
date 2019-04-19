@@ -5,12 +5,13 @@ import { Attachment } from './attachment.model';
 
 
 export enum ReplyStatus {
-	PENDING = 'pending',
-	REPLIED = 'replied',
+	CANCELED = 'canceled',
 	ERROR = 'error',
+	PENDING = 'pending',
 	REFUSED = 'refused',
-	VALIDATED = 'validated',
+	REPLIED = 'replied',
 	RESENT = 'resent',
+	VALIDATED = 'validated',
 }
 
 export const DEFAULT_REPLIED_STATUS = ReplyStatus.REPLIED;

@@ -42,6 +42,7 @@ export class RequestStatusBadgeComponent implements OnInit {
 					return 'primary';
 				case RequestStatus.VALIDATED:
 					return 'success';
+				case RequestStatus.CANCELED:
 				case RequestStatus.ERROR:
 				case RequestStatus.REFUSED:
 					return 'warn';
@@ -57,6 +58,7 @@ export class RequestStatusBadgeComponent implements OnInit {
 				case RequestStatus.REPLIED:
 				case RequestStatus.VALIDATED:
 					return 'success';
+				case RequestStatus.CANCELED:
 				case RequestStatus.ERROR:
 				case RequestStatus.REFUSED:
 					return 'warn';

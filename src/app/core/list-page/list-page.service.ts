@@ -240,6 +240,7 @@ export class ListPageService
 	// but for entities who do NOT have audith we need to refresh it manually since we are deleting it
 	// and not updating it
 	deleteOne(id: string, refetch = false) {
+		// TODO i18n + erm pipe
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
@@ -251,6 +252,7 @@ export class ListPageService
 	// read comment on deleteOne function
 	deleteSelected(refetch = false) {
 		const itemIds = this.getSelectedIds();
+		// TODO i18n + erm pipe
 		const text = `Delete ${itemIds.length} `
 			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural) + '?';
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
