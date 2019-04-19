@@ -13,7 +13,6 @@ import { ERM, SupplierRequest } from '~models';
 })
 export class RequestsPageComponent implements OnInit {
 
-	requests$: Observable<SupplierRequest[]>;
 	erm = ERM;
 
 	constructor(
