@@ -23,7 +23,7 @@ export const statusRequestsTeamMap = {
 	'resent': {
 		locales: {
 			en: {
-				name: 'Sent Back'
+				name: 'Sent Back to supplier'
 			}
 		}
 	},

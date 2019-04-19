@@ -21,7 +21,7 @@
 		</ng-container>
 	</ng-container>
 	<ng-template #empty>
-		<span class="empty-message">There's no {{ type.singular }} yet, add one!</span>
+		<span class="empty-message" i18n="text@@no-item-add-one">There's no {{ type.singular | const: 'erm' }} yet, add one!</span>
 	</ng-template>
 </div>
 
@@ -115,5 +115,5 @@
 <divider-app class="bottom-divider"></divider-app>
 
 <div class="flexEnd">
-	<button class="secondary" (click)="close.emit()">Done</button>
+	<button class="secondary capitalize" (click)="close.emit()" i18n="button@@done">done</button>
 </div>

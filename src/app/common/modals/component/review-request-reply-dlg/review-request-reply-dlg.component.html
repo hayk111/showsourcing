@@ -36,8 +36,8 @@
 				</list-app>
 
 				<footer class="flex">
-					<button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)">Accept All</button>
-					<button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)">Refuse All</button>
+					<button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)" i18n="button@@accept-all">Accept All</button>
+					<button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
@@ -54,8 +54,8 @@
 				</image-reviewer-app>
 
 				<footer class="flex">
-					<button class="primary accept" (click)="acceptAll(erm.IMAGE)">Accept All</button>
-					<button class="secondary" (click)="refuseAll(erm.IMAGE)">Refuse All</button>
+					<button class="primary accept" (click)="acceptAll(erm.IMAGE)" i18n="button@@accept-all">Accept All</button>
+					<button class="secondary" (click)="refuseAll(erm.IMAGE)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
@@ -71,8 +71,8 @@
 				</file-reviewer-app>
 
 				<footer class="flex">
-					<button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)">Accept All</button>
-					<button class="secondary" (click)="refuseAll(erm.ATTACHMENT)">Refuse All</button>
+					<button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)" i18n="button@@accept-all">Accept All</button>
+					<button class="secondary" (click)="refuseAll(erm.ATTACHMENT)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
@@ -81,9 +81,9 @@
 
 	<dialog-footer-app>
 		<ng-container *ngIf="!isDisabled(); else notReplied">
-			<button class="secondary" (click)="close()">Close Request</button>
-			<button class="secondary" (click)="resend()">Send Back</button>
-			<button (click)="acceptRequest()">Accept Request</button>
+			<button class="secondary" (click)="close()" i18n="button@@close-request">Close Request</button>
+			<button class="secondary" (click)="resend()" i18n="button@@send-back">Send Back</button>
+			<button (click)="acceptRequest()" i18n="button@@accept-request">Accept Request</button>
 		</ng-container>
 		<ng-template #notReplied>
 			<span class="bold-s">This product has not been replied yet by the supplier</span>

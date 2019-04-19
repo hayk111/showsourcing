@@ -2,7 +2,7 @@
 <bottom-panel-app *ngIf="isShown" class="z-6 flexBetween" @selectionBarTrigger>
 
   <div class="closeSection pointer">
-      {{ selection.size }} items selected
+      {{ selection.size }} <ng-container i18n="text@@items-selected">items selected</ng-container>
   </div>
 
   <ng-content></ng-content>

@@ -6,12 +6,12 @@ import { RequestElement } from './request-element.model';
 
 
 export enum RequestStatus {
-	PENDING = 'pending',
-	SENT = 'sent',
-	REPLIED = 'replied',
 	ERROR = 'error',
+	PENDING = 'pending',
 	REFUSED = 'refused',
+	REPLIED = 'replied',
 	RESENT = 'resent',
+	SENT = 'sent',
 	VALIDATED = 'validated',
 }
 
