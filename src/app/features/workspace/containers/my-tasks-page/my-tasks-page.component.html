@@ -4,20 +4,21 @@
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
 	<sub-panel-right-item-app>
-		<div class="flexCenter show-my-tasks" i18n="text@@show-only-my-tasks">
+		<div class="flexCenter show-my-tasks">
 			<checkbox-app
 				[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
 				(check)="toggleMyTasks(true)"
 				(uncheck)="toggleMyTasks(false)">
 			</checkbox-app>
-			Show my tasks only
+			<ng-container i18n="text@@show-only-my-tasks">Show my tasks only</ng-container>
 		</div>
-		<div class="flexCenter show-tasks-done" i18n="text@@completed-tasks">
+		<div class="flexCenter show-tasks-done">
 			<checkbox-app
 				(check)="toggleDoneTasks(true)"
 				(uncheck)="toggleDoneTasks(false)">
 			</checkbox-app>
-			Completed tasks
+			<ng-container i18n="text@@completed-tasks">Completed tasks</ng-container>
+
 		</div>
 	</sub-panel-right-item-app>
 </sub-panel-app>

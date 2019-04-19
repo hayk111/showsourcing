@@ -9,9 +9,9 @@
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app>Sent On</label-app>
-		<editable-label-app>
-			{{ request?.creationDate | date: 'dd MMMM yy \'at\' HH:mm' }}
-		</editable-label-app>
+		{{ request?.creationDate | date: 'dd MMMM yyyy' }}
+		<ng-container i18n="time indicator. Example: 12 june at 10.00@@at">at</ng-container>
+		{{ request?.creationDate | date: 'HH:mm' }}
 	</editable-field-app>
 
 	<!-- <editable-field-app class="no-hover" [openOnClick]="false">

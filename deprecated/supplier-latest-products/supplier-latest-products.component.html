@@ -1,6 +1,6 @@
 
 <card-app>
-	<h3 i18n="header@@latest-products" class="ms">Latest Products</h3>
+	<h3 class="ms">Latest Products</h3>
 
 	<div class="flex" *ngIf="products?.length > 0; else noProduct">
 		<a *ngFor="let product of products;trackBy: trackByFn"
@@ -14,12 +14,12 @@
 	<ng-template #noProduct>
 		<div class="flexColumn flexCenter empty">
 			<img src="assets/img/product.svg"/>
-			<span i18n="text@@no-product-for-supplier">No product for this supplier</span>
+			<span>No product for this supplier</span>
 		</div>
 	</ng-template>
 
 	<card-footer-app>
-		<button i18n="button@@add-product">Add Product</button>
+		<button>Add Product</button>
 	</card-footer-app>
 </card-app>
 
