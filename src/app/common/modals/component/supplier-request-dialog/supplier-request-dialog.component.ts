@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { take } from 'rxjs/operators';
+import { take, switchMap } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
 import { Contact, CreateRequest, Product, Supplier } from '~core/models';
 import { DialogService } from '~shared/dialog';
@@ -82,8 +82,26 @@ export class SupplierRequestDialogComponent implements OnInit {
 		// supplier, its not a form value but it has to be initialized
 		const tempProduct = this.request.products.find(product => !!product.supplier);
 		this.supplier = tempProduct && tempProduct.supplier ? tempProduct.supplier : null;
-		if (this.supplier)
+		if (this.supplier) {
 			this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
+
+			if (this.supplier.officeEmail) {
+				this.contactSrv.queryOneByPredicate(`email == "${this.supplier.officeEmail}"`)
+					.pipe(
+						switchMap(contact => this.createOrUseContact(contact, this.supplier)),
+						take(1)
+					)
+					.subscribe(contact => {
+						this.form.get('recipient').setValue(contact);
+						this.form.patchValue(this.request);
+					});
+			}
+		}
+	}
+
+	private createOrUseContact(contact: Contact, supplier: Supplier) {
+		const finalContact = contact ? contact : new Contact({ email: supplier.officeEmail, name: supplier.name ? supplier.name : '' });
+		return contact ? this.contactSrv.queryOne(finalContact.id) : this.contactSrv.create(finalContact);
 	}
 
 	contactUpdate(contact: Contact) {
