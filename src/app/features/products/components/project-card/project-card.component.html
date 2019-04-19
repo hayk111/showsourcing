@@ -4,8 +4,8 @@
 		<div class="space-icon flexAround">
 			<icon-app class="fs-m" fontSet="svg" name="folder-blue" ></icon-app>
 		</div>
-		<h3 i18n="header 2|Project card@@projectCard_projects">
-			Projects
+		<h3 i18n="header@@projects">
+			projects
 		</h3>
 	</div>
 	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
@@ -15,7 +15,9 @@
 					<icon-app class="fs-m pointer" fontSet="svg" name="folder-light" ></icon-app>
 				</div>
 				<div class="flexColumn middle" >
-					<span class="name capitalize">{{ project?.name }}</span>
+					<span class="name capitalize">
+						{{ project?.name }}
+					</span>
 					<span *ngIf="project?.description" class="description" i18n="span|Project card@@projectCard_description">  {{ project?.description }}  </span>
 				</div>
 			</div>
@@ -27,7 +29,8 @@
 		</article>
 		<divider-app *ngIf="!last"></divider-app>
 	</div>
-	<span class="no-projects" *ngIf="projects?.length === 0">
+	<span class="no-projects" *ngIf="projects?.length === 0" 
+		i18n="text@@no-projects-added">
 		No Projects Added
 	</span>
 
@@ -42,7 +45,7 @@
 			[multiple]="true"
 			[width]="330"
 			(update)="updated.emit($event)">
-			<button	i18n="button| Add project@@projectCard_addProject">
+			<button	i18n="button@@add-to-project">
 				Add to project
 			</button>
 		</selector-app>

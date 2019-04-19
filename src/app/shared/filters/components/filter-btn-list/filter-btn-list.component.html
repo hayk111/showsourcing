@@ -59,8 +59,8 @@
 		(check)="addFilter({ type: favoriteType, value: true })"
 		(uncheck)="removeFilter({ type: favoriteType, value: true })">
 			<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
-			<span i18n="text@@only-show-favorite">
-				Only Show Favorite
+			<span i18n="button@@only-show-favorites">
+				Only Show Favorites
 			</span>
 	</checkbox-app>
 </ng-container>
@@ -73,8 +73,7 @@
 	<checkbox-app
 		[checked]="isArchived()"
 		(check)="onArchivedChange()"
-		(uncheck)="onArchivedChange()"
-		i18n="text@@show-archived-products">
-		Show Archived Products
+		(uncheck)="onArchivedChange()">
+		<ng-container i18n="text@@show-archived-products">Show Archived Products</ng-container>
 	</checkbox-app>
 </ng-container>

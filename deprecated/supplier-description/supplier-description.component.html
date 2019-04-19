@@ -1,10 +1,14 @@
 <card-app (clickOutside)="cancel()" padding="0">
 	<card-header-app class="flexCenter">
 		<div class="alignCenter">
-			<h2>{{ supplier.name }}</h2>
+			<h2>
+				{{ supplier.name }}
+			</h2>
 			<h3>
 				{{ supplier?.supplierType?.name | const:'supplierType' || 'Supplier' }}
-				<ng-container *ngIf="supplier.country"> - {{ supplier.country | const: 'country'  }}</ng-container>
+				<ng-container *ngIf="supplier.country">
+					 - {{ supplier.country | const: 'country'  }}
+				</ng-container>
 			</h3>
 		</div>
 	</card-header-app>
@@ -17,8 +21,7 @@
 				{{ supplier.description }}
 			</editable-label-app>
 			<ng-template #noDesc>
-				<editable-label-app class="noDesc"
-					i18n="label|Supplier with no description@@supplierDescription_noDescription">
+				<editable-label-app class="noDesc">
 					No description yet
 				</editable-label-app>
 			</ng-template>

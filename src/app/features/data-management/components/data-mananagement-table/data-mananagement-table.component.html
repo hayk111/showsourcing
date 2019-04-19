@@ -1,7 +1,8 @@
 <ng-template #contextualMenuTemplate let-row="row">
 	<context-menu-item-app
 		class="pointer flexCenter"
-		(click)="delete.emit(row?.id)">
+		(click)="delete.emit(row?.id)"
+		i18n="button@@delete">
 		Delete
 	</context-menu-item-app>
 </ng-template>
@@ -27,7 +28,10 @@
 		width="250">
 		<div class="flexBetween">
       <!-- <div> {{ row.name }} </div> -->
-      <editable-text-app #editable (closed)="updateNameEntity(row, txtName?.value)" [hasAction]="true">
+			<editable-text-app 
+				#editable 
+				(closed)="updateNameEntity(row, txtName?.value)" 
+				[hasAction]="true">
         <editable-label-app class="task-name">
           {{ row?.name }}
         </editable-label-app>
@@ -116,7 +120,13 @@
 		width="160">
 		<div class="flex">
 			<!-- If we are hovering over the row and we have nothing selection-->
-			<button *ngIf="(row?.id === idEntityHovered) && (selection?.size == 0)" class="button secondary-dark" (click)="removeEntity.emit(row?.id)">Delete</button>
+			<button 
+				*ngIf="(row?.id === idEntityHovered) && (selection?.size == 0)" 
+				class="button secondary-dark" 
+				(click)="removeEntity.emit(row?.id)"
+				i18n="button@@delete">
+				Delete
+			</button>
 		</div>
 	</ng-template>
 </table-app>

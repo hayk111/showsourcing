@@ -19,3 +19,17 @@ p.error {
 	color: var(--color-txt-strong);
 	margin-bottom: var(--spacing-ms);
 }
+
+.header:not(:empty) + .header-default {
+	display: none;
+}
+.header:empty {
+	display: none;
+}
+
+.subtitle:not(:empty) + .subtitle-default {
+	display: none;
+}
+.subtitle:empty {
+	display: none;
+}

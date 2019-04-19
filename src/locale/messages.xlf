@@ -125,49 +125,44 @@
           <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
-        <note priority="1" from="description">Add file</note>
-        <note priority="1" from="meaning">button</note>
+        <note priority="1" from="description">button</note>
       </trans-unit>
-      <trans-unit id="filesPage_name" datatype="html">
-        <source>Name</source>
+      <trans-unit id="change-team" datatype="html">
+        <source>
+		change team
+	</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
-        <note priority="1" from="description">File section name</note>
-        <note priority="1" from="meaning">table column header</note>
+        <note priority="1" from="description">button</note>
       </trans-unit>
-      <trans-unit id="filesPage_uploadDate" datatype="html">
-        <source>Upload date</source>
+      <trans-unit id="settings" datatype="html">
+        <source>
+		settings
+	</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
-        <note priority="1" from="description">File section upload date</note>
-        <note priority="1" from="meaning">table column header</note>
+        <note priority="1" from="description">button</note>
       </trans-unit>
-      <trans-unit id="filesPage_uploadBy" datatype="html">
-        <source>Uploaded by</source>
+      <trans-unit id="logout" datatype="html">
+        <source>
+		logout
+	</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
-        <note priority="1" from="description">File section uploaded by</note>
-        <note priority="1" from="meaning">table column header</note>
+        <note priority="1" from="description">button</note>
       </trans-unit>
-      <trans-unit id="filesPage_action" datatype="html">
-        <source>Action</source>
+      <trans-unit id="add-to-project" datatype="html">
+        <source> Add to project </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
-        <note priority="1" from="description">File section action</note>
-        <note priority="1" from="meaning">table column header</note>
-      </trans-unit>
-      <trans-unit id="global_delete" datatype="html">
-        <source>
-							delete
-					</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.html</context>
           <context context-type="linenumber">43</context>
