@@ -92,6 +92,7 @@ export class AuthenticationService {
 		this.router.navigate(['auth', 'login']);
 		this.tokenSrv.clearTokens();
 		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
+		setTimeout(_ => window.location.reload());
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {
