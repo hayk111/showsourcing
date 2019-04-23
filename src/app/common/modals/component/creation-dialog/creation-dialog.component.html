@@ -9,7 +9,7 @@
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
 				<label-app> {{ type.singular | const: 'erm' }} <span class="capitalize" i18n="@@name">name</span> </label-app>
-				<input inputApp type="text" (input)="checkExists()" formControlName="name" placeholder="New {{type.singular}}" (keyup.enter)="onSubmit()"/>
+				<input inputApp type="text" (input)="checkExists()" formControlName="name" placeholder="New {{ type.singular | const: 'erm' }}" (keyup.enter)="onSubmit()" i18n="@@new-OBJ"/>
 			</form-field-app>
 			<label-app i18n="@@provide-name-create"> Please provide the {{ type.singular | const: 'erm' }} name to create </label-app>
 		</form>
