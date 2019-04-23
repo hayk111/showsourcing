@@ -1,4 +1,46 @@
 export const ermMap = {
+	'category': {
+		locales: {
+			en: {
+				name: 'category'
+			}
+		}
+	},
+	'categories': {
+		locales: {
+			en: {
+				name: 'categories'
+			}
+		}
+	},
+	'comment': {
+		locales: {
+			en: {
+				name: 'comment'
+			}
+		}
+	},
+	'comments': {
+		locales: {
+			en: {
+				name: 'comments'
+			}
+		}
+	},
+	'country': {
+		locales: {
+			en: {
+				name: 'country'
+			}
+		}
+	},
+	'countries': {
+		locales: {
+			en: {
+				name: 'countries'
+			}
+		}
+	},
 	'email': {
 		locales: {
 			en: {
@@ -24,6 +66,34 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'events'
+			}
+		}
+	},
+	'image': {
+		locales: {
+			en: {
+				name: 'image'
+			}
+		}
+	},
+	'images': {
+		locales: {
+			en: {
+				name: 'images'
+			}
+		}
+	},
+	'price': {
+		locales: {
+			en: {
+				name: 'price'
+			}
+		}
+	},
+	'prices': {
+		locales: {
+			en: {
+				name: 'prices'
 			}
 		}
 	},
@@ -108,6 +178,20 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'tasks'
+			}
+		}
+	},
+	'user': {
+		locales: {
+			en: {
+				name: 'user'
+			}
+		}
+	},
+	'users': {
+		locales: {
+			en: {
+				name: 'users'
 			}
 		}
 	},

@@ -7,6 +7,7 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 import { Comment, ERM, Sample } from '~core/models';
 import { AutoUnsub } from '~utils';
 import { DynamicField } from '~shared/dynamic-forms';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -32,16 +33,25 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 	erm = ERM;
 
 	customFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: 'name' },
-		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true } },
-		{ name: 'product', type: 'selector', metadata: { target: 'product', type: 'entity', labelName: 'name', canCreate: true } },
-		{ name: 'price', type: 'price' },
-		{ name: 'paid', type: 'yesNo' },
+		{ name: 'name', type: 'text', required: true, label: this.constPipe.transform('name', 'message') },
 		{
-			name: 'assignee', label: 'Assignee', type: 'selector',
+			name: 'supplier', type: 'selector', label: this.constPipe.transform(ERM.SUPPLIER.singular, 'erm'),
+			metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true }
+		},
+		{
+			name: 'product', type: 'selector', label: this.constPipe.transform(ERM.PRODUCT.singular, 'erm'),
+			metadata: { target: 'product', type: 'entity', labelName: 'name', canCreate: true }
+		},
+		{ name: 'price', type: 'price', label: this.constPipe.transform(ERM.PRICE.singular, 'erm') },
+		{ name: 'paid', type: 'yesNo', label: this.constPipe.transform('paid', 'message') },
+		{
+			name: 'assignee', label: this.constPipe.transform('assignee', 'message'), type: 'selector',
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
-		{ name: 'createdBy', label: 'Created By', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
+		{
+			name: 'createdBy', label: this.constPipe.transform('created by', 'message'), type: 'selector',
+			metadata: { target: 'user', type: 'entity', labelName: 'name' }
+		},
 
 	];
 
@@ -49,7 +59,8 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 		private commentSrv: CommentService,
 		private router: Router,
 		private userSrv: UserService,
-		private sampleSrv: SampleService) {
+		private sampleSrv: SampleService,
+		private constPipe: ConstPipe) {
 		super();
 	}
 

@@ -10,7 +10,8 @@
 		*ngIf="status != enumTaskStatus.DONE"
 		class="task-mark"
 		[ngClass]="status === enumTaskStatus.PENDING ? 'secondary-dark' : 'secondary' "
-		(click)="update.emit(true)">
+		(click)="update.emit(true)"
+		i18n="@@mark-done">
 		Mark as done
 	</button>
 
