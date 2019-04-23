@@ -4,20 +4,19 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import {
 	AppImage,
-	DEFAULT_REPLIED_STATUS,
 	ExtendedField,
 	ExtendedFieldDefinition,
+	ReplyStatus,
 	RequestElement,
 	RequestReply,
 	SupplierRequest,
-	ReplyStatus,
 } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
-import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 import { RefuseReplyDlgComponent } from '../refuse-reply-dlg/refuse-reply-dlg.component';
+import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 
 @Component({
 	selector: 'request-reply-dlg-app',

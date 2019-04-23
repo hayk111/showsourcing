@@ -52,6 +52,12 @@
 				(update)="save()">
       </extended-form-app>
 
+			<!-- reply message -->
+			<h3 class="ms">Request Message</h3>
+			<form-field-app class="modal">
+				<textarea inputApp type="text" [value]="element?.reply?.message" placeholder="Reply message to buyer"></textarea>
+			</form-field-app>
+
       <!-- images -->
       <h3 class="ms">Images</h3>
       <image-previewer-2-app
@@ -88,9 +94,9 @@
   <dialog-footer-app class="flexVAlign">
 
     <span class="bold-s mg-s" *ngIf="isDisabled()">{{ getTooltipMessage() }}</span>
-    
+
     <button [disabled]="isDisabled()" class="warn save" (click)="refuse()">Refuse</button>
-    
+
     <button [disabled]="isDisabled()" class="secondary save" (click)="saveAndClose()">Save</button>
 
     <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">

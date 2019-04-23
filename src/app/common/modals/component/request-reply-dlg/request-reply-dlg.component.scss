@@ -42,6 +42,11 @@ dialog-header-app {
 	.add-image, .info-banner {
 		margin-bottom: var(--spacing-l);
 	}
+
+	textarea {
+		height: 90px;
+		resize: none;
+	}
 }
 
 @media only screen and (max-width: 1200px) {
