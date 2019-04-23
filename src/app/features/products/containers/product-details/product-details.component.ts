@@ -108,7 +108,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			message: 'There is an error, please try again later',
 			timeout: 3500
 		});
-		this.router.navigate(['product']);
+		// this.router.navigate(['product']);
 	}
 
 

@@ -13,8 +13,6 @@ export class NotificationService {
 	private defaultTimeout = 5000;
 	notifications$ = this._notifications$.asObservable();
 
-	constructor() { }
-
 	add(notif: Notification) {
 		// adding unique id so we can remove notif after a timeout
 		notif.id = NotificationService.ID++;
