@@ -169,6 +169,10 @@
           <context context-type="sourcefile">app/shared/carousel/components/modal-carousel/modal-carousel.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/vote-details-dialog/vote-details-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
       <trans-unit id="attached-files" datatype="html">
@@ -502,6 +506,42 @@
         </context-group>
         <note priority="1" from="description">text</note>
       </trans-unit>
+      <trans-unit id="new" datatype="html">
+        <source>New</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/creation-dialog/creation-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="name" datatype="html">
+        <source>name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/creation-dialog/creation-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/edition-dialog/edition-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="provide-name-create" datatype="html">
+        <source> Please provide the <x id="INTERPOLATION" equiv-text="{{ type.singular | const: &apos;erm&apos; }}"/> name to create </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/creation-dialog/creation-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="that-already-exists" datatype="html">
+        <source>That <x id="INTERPOLATION" equiv-text="{{ type.singular | const: &apos;erm&apos; }}"/> name already exists. Please choose another one.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/creation-dialog/creation-dialog.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="loading-info-please-wait" datatype="html">
         <source>We are loading your information, please wait...</source>
         <context-group purpose="location">
@@ -580,6 +620,204 @@
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
+      <trans-unit id="change-password" datatype="html">
+        <source>
+			Change Password
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="current-pwd" datatype="html">
+        <source>Current Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="intro-current-pwd" datatype="html">
+        <source>Introduce your current password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="new-pwd" datatype="html">
+        <source>New Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="intro-new-pwd" datatype="html">
+        <source>Introduce the new password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="min-characters-required" datatype="html">
+        <source>Minimum 8 characters required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <note priority="1" from="description">error-message</note>
+      </trans-unit>
+      <trans-unit id="confirm-new-pwd" datatype="html">
+        <source>Confirm New Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="new-pwd-match" datatype="html">
+        <source>
+						New password must match
+					</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="compare-products" datatype="html">
+        <source>
+		Compare Products
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-product.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="compare-quotation" datatype="html">
+        <source>
+		Compare quotation
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-quotation/compare-quotation.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="continue" datatype="html">
+        <source>continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-quotation/compare-quotation.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-name" datatype="html">
+        <source>
+			Change Name
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/edition-dialog/edition-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="new-OBJ-name" datatype="html">
+        <source>New <x id="INTERPOLATION" equiv-text="{{ type.singular | const: &apos;erm&apos; }}"/> name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/edition-dialog/edition-dialog.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/merge-dialog/merge-dialog.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="provide-new-name" datatype="html">
+        <source>Please provide the new <x id="INTERPOLATION" equiv-text="{{ type.singular | const: &apos;erm&apos; }}"/> name for <x id="INTERPOLATION_1" equiv-text="{{ entity.name || &apos;&apos; }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/edition-dialog/edition-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="choose-another-name" datatype="html">
+        <source> That <x id="INTERPOLATION" equiv-text="{{ type.singular | const: &apos;erm&apos; }}"/> name already exists. Please choose another one.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/edition-dialog/edition-dialog.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description">that (Name of object) name already exists...</note>
+      </trans-unit>
+      <trans-unit id="invite-user" datatype="html">
+        <source>Invite a user</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/invite-user-dlg/invite-user-dlg.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="email" datatype="html">
+        <source>email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/invite-user-dlg/invite-user-dlg.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invite" datatype="html">
+        <source>invite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/invite-user-dlg/invite-user-dlg.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/auth-pages/components/account-created/account-created.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <note priority="1" from="description">button</note>
+      </trans-unit>
+      <trans-unit id="merge" datatype="html">
+        <source>merge</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/merge-dialog/merge-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="contact" datatype="html">
+        <source>contact</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-name" datatype="html">
+        <source>Contact name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="function" datatype="html">
+        <source>function</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="phone-number" datatype="html">
+        <source>Phone number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="business-card" datatype="html">
+        <source>Business card</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="add-to-project" datatype="html">
         <source> Add to project </source>
         <context-group purpose="location">
@@ -632,13 +870,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="add-now" datatype="html">
-        <source>add now</source>
+        <source>Add now</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/product-add-to-project-dlg/product-add-to-project-dlg.component.html</context>
           <context context-type="linenumber">34</context>
         </context-group>
-        <note priority="1" from="description">Adds product to a project</note>
-        <note priority="1" from="meaning">button</note>
       </trans-unit>
       <trans-unit id="team-feedback" datatype="html">
         <source> Team Feedback </source>
@@ -674,6 +910,300 @@
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
+      <trans-unit id="send-reply" datatype="html">
+        <source>Send Reply</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about-send-back-info" datatype="html">
+        <source>You are about to send back the infomration you have filled.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="your-message" datatype="html">
+        <source>Your Message</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancel" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="send" datatype="html">
+        <source>Send</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reply-sent" datatype="html">
+        <source>Reply Sent</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/reply-sent-dlg/reply-sent-dlg.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="your-OBJ-been-sent" datatype="html">
+        <source>Your <x id="INTERPOLATION" equiv-text="{{ actionName }}"/> has been sent!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/reply-sent-dlg/reply-sent-dlg.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ok" datatype="html">
+        <source>ok</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/reply-sent-dlg/reply-sent-dlg.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="products" datatype="html">
+        <source>products</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/supplier/containers/supplier-products/supplier-products.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="product-images" datatype="html">
+        <source>Product images</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description">header</note>
+      </trans-unit>
+      <trans-unit id="product-attachments" datatype="html">
+        <source>Product attachments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <note priority="1" from="description">header</note>
+      </trans-unit>
+      <trans-unit id="fill-form-below-reply" datatype="html">
+        <source>
+				Please fill in the form below to reply to client
+			</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="product-details" datatype="html">
+        <source>Product details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="images" datatype="html">
+        <source>images</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="add-image" datatype="html">
+        <source>Add Image</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="attachments" datatype="html">
+        <source>attachments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="add-attachments" datatype="html">
+        <source>Add Attachments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="refuse" datatype="html">
+        <source>refuse</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="save" datatype="html">
+        <source>save</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="submitted" datatype="html">
+        <source>submitted</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="product-already-replied" datatype="html">
+        <source>This product has already been replied</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="send-request-supplier" datatype="html">
+        <source>Send Request to Supplier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="request-settings" datatype="html">
+        <source>Request Settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="recipients" datatype="html">
+        <source>Recipients</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="send-me-copy" datatype="html">
+        <source>Send me a copy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="request-tempaltes" datatype="html">
+        <source>Request Templates</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="quick-rfq" datatype="html">
+        <source>Quick RFQ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="share-product-info" datatype="html">
+        <source>Share my product information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="share-info-text" datatype="html">
+        <source>Share product information you arleady have with the supplier such as price, moq, etc.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="send-to-supplier" datatype="html">
+        <source>Send to Supplier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="select-supplier" datatype="html">
+        <source>Select a supplier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="select-contact" datatype="html">
+        <source>Select Contact</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="request-title" datatype="html">
+        <source>Request Title</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="quote-request" datatype="html">
+        <source>Quote Request</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message-for-supplier" datatype="html">
+        <source>Message for the supplier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="send-request" datatype="html">
+        <source>send request</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="team-votes" datatype="html">
+        <source>Team Votes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/vote-details-dialog/vote-details-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reply-from-supplier" datatype="html">
+        <source>This is the reply from your supplier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ed72fb4053477287ef478f0e160ae05e0c02b4ef" datatype="html">
+        <source>product details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <note priority="1" from="description">product-details</note>
+      </trans-unit>
       <trans-unit id="accept-all" datatype="html">
         <source>Accept All</source>
         <context-group purpose="location">
@@ -706,6 +1236,22 @@
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
+      <trans-unit id="1d491cf9cd23d4694d0677dfeabd9082e5d00b26" datatype="html">
+        <source>additional pictures</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <note priority="1" from="description">additional-pictures</note>
+      </trans-unit>
+      <trans-unit id="0eda407c9356e7e582fbdbb55abfd8ce5eb4b7dd" datatype="html">
+        <source>additional attachments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <note priority="1" from="description">additional-attachments</note>
+      </trans-unit>
       <trans-unit id="close-request" datatype="html">
         <source>Close Request</source>
         <context-group purpose="location">
@@ -729,6 +1275,13 @@
           <context context-type="linenumber">86</context>
         </context-group>
         <note priority="1" from="description">button</note>
+      </trans-unit>
+      <trans-unit id="product-not-yet-replied" datatype="html">
+        <source>This product has not been replied yet by the supplier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="request-supplier" datatype="html">
         <source>
@@ -778,6 +1331,13 @@
         </context-group>
         <note priority="1" from="description">header</note>
       </trans-unit>
+      <trans-unit id="excel" datatype="html">
+        <source>Excel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="perfect-for-editing" datatype="html">
         <source>
 				Perfect for editing
@@ -786,8 +1346,14 @@
           <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
-        <note priority="1" from="description">Excell is perfect for editing</note>
-        <note priority="1" from="meaning">text</note>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="pdf" datatype="html">
+        <source>PDF</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="perfect-for-sharing" datatype="html">
         <source>
@@ -797,8 +1363,14 @@
           <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
-        <note priority="1" from="description">PDF perfect for sharing</note>
-        <note priority="1" from="meaning">text</note>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="pictures" datatype="html">
+        <source>Pictures</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="all-product-pictures" datatype="html">
         <source>
@@ -878,6 +1450,27 @@
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
+      <trans-unit id="remove" datatype="html">
+        <source>remove</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/product-request-list/product-request-list.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="add-products" datatype="html">
+        <source>Add products</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/product-request-list/product-request-list.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nested_product-selected" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {Product selected } other {Products selected } }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/product-request-list/product-request-list.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="welcome-to-showsourcing" datatype="html">
         <source>
 			Welcome to ShowSourcing
@@ -942,14 +1535,6 @@
         </context-group>
         <note priority="1" from="description">text</note>
       </trans-unit>
-      <trans-unit id="invite" datatype="html">
-        <source>invite</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/auth-pages/components/account-created/account-created.component.html</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-        <note priority="1" from="description">button</note>
-      </trans-unit>
       <trans-unit id="we-will-send-you-instructions" datatype="html">
         <source>
 		We will send you instructions to recover your password.
@@ -992,7 +1577,7 @@
         <note priority="1" from="description">button</note>
       </trans-unit>
       <trans-unit id="Please-hold-modif-internet" datatype="html">
-        <source>
+        <source> 
 		Please hold as we modify the internet for you!
 	</source>
         <context-group purpose="location">
@@ -1635,16 +2220,6 @@
         </context-group>
         <note priority="1" from="description">header</note>
       </trans-unit>
-      <trans-unit id="refuse" datatype="html">
-        <source>
-			refuse
-		</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-        <note priority="1" from="description">button</note>
-      </trans-unit>
       <trans-unit id="team-member" datatype="html">
         <source>
 				Team Member
@@ -1680,14 +2255,6 @@
           <context context-type="linenumber">25</context>
         </context-group>
         <note priority="1" from="description">button</note>
-      </trans-unit>
-      <trans-unit id="products" datatype="html">
-        <source>Products</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/containers/supplier-products/supplier-products.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-        <note priority="1" from="description">header</note>
       </trans-unit>
       <trans-unit id="view-all-products" datatype="html">
         <source>
