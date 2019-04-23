@@ -173,7 +173,9 @@ export class ListPageService
 	}
 
 	updateMany(values: T[]) {
-		this.dataSrv.updateMany(values).subscribe();
+		this.dataSrv.updateMany(values).pipe(
+			switchMap(_ => this.refetch())
+		).subscribe();
 	}
 
 	onItemFavorited(id: string) {
@@ -185,15 +187,16 @@ export class ListPageService
 	}
 
 	onFavoriteAllSelected() {
-		this.getSelectedIds()
-			.forEach(id => this.onItemFavorited(id));
+		const elems: any[] = this.getSelectedIds()
+			.map(id => ({ id, favorite: true }));
+		this.updateMany(elems);
 		this.selectionSrv.allSelectedFavorite = true;
 	}
 
 	onUnfavoriteAllSelected() {
-		/** When we unfavorite all selected items, the items that are already unfavorited will stay the same */
-		this.getSelectedIds()
-			.forEach(id => this.onItemUnfavorited(id));
+		const elems: any[] = this.getSelectedIds()
+			.map(id => ({ id, favorite: false }));
+		this.updateMany(elems);
 		this.selectionSrv.allSelectedFavorite = false;
 	}
 

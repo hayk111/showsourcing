@@ -598,11 +598,12 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
+
 		if (isOptimistic) {
 			this.addOptimisticResponse(options, gql, entity, this.typeName);
 		}
 		// updating select one cache so changes are reflected when using selectOne(id)
-		if (this.selectOneCache.has(cacheKey)) {
+		if (this.selectOneCache.has(cacheKey) && isOptimistic) {
 			this.selectOneCache.get(cacheKey).clientChanges.next(entity);
 		}
 
@@ -628,7 +629,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	updateMany(entities: T[], clientName: Client = this.defaultClient, fields?: string): Observable<T[]> {
-		return forkJoin(entities.map(entity => this.update(entity, clientName, fields)));
+		return forkJoin(entities.map(entity => this.update(entity, clientName, fields, false)));
 	}
 
 
