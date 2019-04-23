@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { Product } from '~models';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { Sort } from '~shared/table/components/sort.interface';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 
 @Component({
@@ -17,6 +18,8 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 	@Output() update = new EventEmitter<Product>();
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
+
+	constructor(private constPipe: ConstPipe) { super(); }
 
 	getGroupedProducts(sort: Sort) {
 		const fieldSortyBy = sort.sortBy;
@@ -62,6 +65,7 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 				switch (field) {
 					case 'favorite':
 						value = group.value[0][field] ? 'Favorite' : 'Not Favorite';
+						value = this.constPipe.transform(value);
 						break;
 					case 'category':
 					case 'supplier':

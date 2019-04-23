@@ -56,6 +56,7 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 		this.profileSrv.changePassword(this.group.value.currentPswd, this.group.value.confirmPswd).subscribe(response => {
 			this.pending = false;
 			if (response) {
+				// TODO i18n
 				this.notificationSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Password Changed',

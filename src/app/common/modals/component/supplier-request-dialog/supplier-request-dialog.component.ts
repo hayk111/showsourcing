@@ -59,6 +59,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 		// title
 		this.setTitle();
 		// message
+		// TODO i18n
 		let event;
 		const firstName = this.userSrv.userSync.firstName || '';
 		const lastName = this.userSrv.userSync.lastName || '';
@@ -97,6 +98,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	private setTitle() {
+		// TODO i18n
 		this.form.get('title').setValue(`Request for ${this.request.products.length} product${this.request.products.length === 1 ? '' : 's'}`);
 	}
 
@@ -131,6 +133,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 				this.dlgSrv.open(ReplySentDlgComponent, { height: '586px', actionName: 'request' });
 			},
 				err => {
+					// TODO i18n
 					this.dlgSrv.close();
 					this.notifSrv.add({
 						title: 'Service error when creating request',

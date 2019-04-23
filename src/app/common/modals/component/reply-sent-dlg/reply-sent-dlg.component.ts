@@ -11,8 +11,8 @@ export class ReplySentDlgComponent implements OnInit {
 
 	// can be px, vh, 1%...
 	@Input() height: string;
+	// TODO i18n
 	@Input() actionName = 'reply';
-
 	constructor(private dlgSrv: DialogService) { }
 
 	ngOnInit() {

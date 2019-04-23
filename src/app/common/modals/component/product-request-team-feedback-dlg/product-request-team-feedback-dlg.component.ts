@@ -50,6 +50,7 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 			switchMap(teamMembers => {
 				return this.productDlgSrv.askFeedBackToUsers(teamMembers, this.products);
 			})
+			// TODO i18n
 		).subscribe(
 			r => {
 				this.notificationSrv.add({

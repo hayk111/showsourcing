@@ -50,6 +50,7 @@ export class ProductAddToProjectDlgComponent extends TrackingComponent implement
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { selectedProjects, products: this.products } });
 
 		this.productDlgSrv.addProjectsToProducts(selectedProjects, this.products)
+			// TODO i18n
 			.subscribe(projects => {
 				this.dlgSrv.close();
 				this.notifSrv.add({

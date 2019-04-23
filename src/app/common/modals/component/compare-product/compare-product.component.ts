@@ -19,6 +19,7 @@ export class CompareProductComponent extends AutoUnsub {
 	@Input()
 	set products(products: Product[]) {
 		this._products = products;
+		// TODO i18n
 		this.comparisonData = [
 			{
 				type: 'header',

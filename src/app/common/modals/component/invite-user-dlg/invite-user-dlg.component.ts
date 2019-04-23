@@ -36,7 +36,7 @@ export class InviteUserDlgComponent extends AutoUnsub {
 			this.pending = true;
 			const { email } = this.form.value;
 			this.dlgSrv.close({ type: CloseEventType.OK });
-
+			// TODO i18n
 			this.invitationSrv.createInvitation(email)
 				.subscribe(() => {
 					this.pending = false;

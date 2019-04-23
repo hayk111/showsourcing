@@ -28,6 +28,7 @@ export class CompareQuotationComponent extends AutoUnsub
 			.map(x => x.priceMatrix.rows.map(row => row.label))
 			.reduce((acc, val) => acc.concat(val), [])
 			.filter((el, i, a) => i === a.indexOf(el));
+		// TODO i18n
 		this.comparisonData = [
 			{
 				type: 'header',
@@ -132,7 +133,7 @@ export class CompareQuotationComponent extends AutoUnsub
 		super();
 	}
 
-	
+
 	ngOnInit() { }
 
 	ngAfterViewInit() { }

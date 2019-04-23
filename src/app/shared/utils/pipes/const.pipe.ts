@@ -10,6 +10,7 @@ import {
 	statusRequestsSupplierMap,
 	statusRequestsTeamMap,
 	supplierTypesMap,
+	messagesMap,
 } from '~utils/constants';
 
 /**
@@ -77,6 +78,9 @@ export class ConstPipe implements PipeTransform {
 				break;
 			case 'erm':
 				constMap = ermMap;
+				break;
+			case 'messages':
+				constMap = messagesMap;
 				break;
 			default: return value;
 		}

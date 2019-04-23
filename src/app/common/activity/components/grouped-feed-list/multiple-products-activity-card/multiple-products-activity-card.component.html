@@ -28,7 +28,7 @@
 					<div class="flexColumn">
 						<span class="supplierName flexStart">{{ supplier.name }}</span>
 						<span class="supplierType flexStart">
-							{{ supplier.supplierType || 'Supplier' }}
+							{{ supplier?.supplierType ||  (erm.SUPPLIER.singular | const: 'erm')}}
 							<ng-container *ngIf="supplier.country">
 								{{ supplier.country | const: 'country'  }}
 							</ng-container>

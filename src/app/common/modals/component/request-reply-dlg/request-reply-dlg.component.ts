@@ -145,6 +145,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	getTooltipMessage() {
+		// TODO i18n
 		switch (this.reply.status) {
 			case ReplyStatus.PENDING:
 			case ReplyStatus.ERROR:
