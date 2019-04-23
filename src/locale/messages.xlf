@@ -960,7 +960,7 @@
         </context-group>
         <note priority="1" from="description">text</note>
       </trans-unit>
-      <trans-unit id="f1072ee7c939f5e839c251cffd134926b9ae0d02" datatype="html">
+      <trans-unit id="please-login-to-your-account" datatype="html">
         <source>
 		Please login to your account.
 	</source>
@@ -968,7 +968,7 @@
           <context context-type="sourcefile">app/features/auth-pages/components/login/login.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
-        <note priority="1" from="description">please-login-to-your-account</note>
+        <note priority="1" from="description">text</note>
       </trans-unit>
       <trans-unit id="pw-reset" datatype="html">
         <source>
@@ -992,7 +992,7 @@
         <note priority="1" from="description">button</note>
       </trans-unit>
       <trans-unit id="Please-hold-modif-internet" datatype="html">
-        <source> 
+        <source>
 		Please hold as we modify the internet for you!
 	</source>
         <context-group purpose="location">
