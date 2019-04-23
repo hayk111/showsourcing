@@ -157,7 +157,7 @@
         <source>
 		<x id="ICU" equiv-text="{	(selection.has(img.id) | json), select, true {...} other {...}}"/>
 	</source>
-        <target state="new">
+        <target state="final">
 		<x id="ICU" equiv-text="{	(selection.has(img.id) | json), select, true {...} other {...}}"/>
 	</target>
         <context-group purpose="location">
@@ -529,7 +529,7 @@
         <source>
 								<x id="INTERPOLATION" equiv-text="{{ 'Min ' + (product?.minimumOrderQuantity || 0) + ' pcs' }}"/>
 						</source>
-        <target state="new">
+        <target state="final">
 								<x id="INTERPOLATION" equiv-text="{{ 'Min ' + (product?.minimumOrderQuantity || 0) + ' pcs' }}"/>
 						</target>
         <context-group purpose="location">
@@ -579,7 +579,7 @@
       </trans-unit>
       <trans-unit id="new" datatype="html">
         <source>New</source>
-        <target state="new">New</target>
+        <target state="final">新产品</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/creation-dialog/creation-dialog.component.html</context>
           <context context-type="linenumber">6</context>
@@ -587,7 +587,7 @@
       </trans-unit>
       <trans-unit id="name" datatype="html">
         <source>name</source>
-        <target state="new">name</target>
+        <target state="final">产品名</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/creation-dialog/creation-dialog.component.html</context>
           <context context-type="linenumber">11</context>
@@ -603,7 +603,7 @@
       </trans-unit>
       <trans-unit id="provide-name-create" datatype="html">
         <source> Please provide the <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name to create </source>
-        <target state="new"> Please provide the <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name to create </target>
+        <target state="final"> 请提供 <x id="INTERPOLATION"/> 名以创建 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/creation-dialog/creation-dialog.component.html</context>
           <context context-type="linenumber">14</context>
@@ -611,7 +611,7 @@
       </trans-unit>
       <trans-unit id="that-already-exists" datatype="html">
         <source>That <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name already exists. Please choose another one.</source>
-        <target state="new">That <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name already exists. Please choose another one.</target>
+        <target state="final">此<x id="INTERPOLATION"/> 名称已存在。请换一个名称。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/creation-dialog/creation-dialog.component.html</context>
           <context context-type="linenumber">18</context>
@@ -717,8 +717,8 @@
         <source>
 			Change Password
 		</source>
-        <target state="new">
-			Change Password
+        <target state="final">
+			变更密码
 		</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
@@ -727,7 +727,7 @@
       </trans-unit>
       <trans-unit id="current-pwd" datatype="html">
         <source>Current Password</source>
-        <target state="new">Current Password</target>
+        <target state="final">当前密码</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
           <context context-type="linenumber">11</context>
@@ -735,7 +735,7 @@
       </trans-unit>
       <trans-unit id="intro-current-pwd" datatype="html">
         <source>Introduce your current password</source>
-        <target state="new">Introduce your current password</target>
+        <target state="final">输入您现在的密码</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
           <context context-type="linenumber">13</context>
@@ -743,7 +743,7 @@
       </trans-unit>
       <trans-unit id="new-pwd" datatype="html">
         <source>New Password</source>
-        <target state="new">New Password</target>
+        <target state="final">新密码</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
           <context context-type="linenumber">17</context>
@@ -751,7 +751,7 @@
       </trans-unit>
       <trans-unit id="intro-new-pwd" datatype="html">
         <source>Introduce the new password</source>
-        <target state="new">Introduce the new password</target>
+        <target state="final">输入您的新密码</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
           <context context-type="linenumber">19</context>
@@ -759,7 +759,7 @@
       </trans-unit>
       <trans-unit id="min-characters-required" datatype="html">
         <source>Minimum 8 characters required</source>
-        <target state="new">Minimum 8 characters required</target>
+        <target state="final">至少需要8个字符</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
           <context context-type="linenumber">21</context>
@@ -768,7 +768,7 @@
       </trans-unit>
       <trans-unit id="confirm-new-pwd" datatype="html">
         <source>Confirm New Password</source>
-        <target state="new">Confirm New Password</target>
+        <target state="final">确认新密码</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
           <context context-type="linenumber">24</context>
@@ -782,9 +782,8 @@
         <source>
 						New password must match
 					</source>
-        <target state="new">
-						New password must match
-					</target>
+        <target state="final">
+						新密码必须匹配</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
           <context context-type="linenumber">31</context>
@@ -794,8 +793,7 @@
         <source>
 		Compare Products
 	</source>
-        <target state="new">
-		Compare Products
+        <target state="final">比较产品
 	</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/compare-product/compare-product.component.html</context>
@@ -806,8 +804,8 @@
         <source>
 		Compare quotation
 	</source>
-        <target state="new">
-		Compare quotation
+        <target state="final">
+		比较报价
 	</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/compare-quotation/compare-quotation.component.html</context>
@@ -816,7 +814,7 @@
       </trans-unit>
       <trans-unit id="continue" datatype="html">
         <source>continue</source>
-        <target state="new">continue</target>
+        <target state="final">继续</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/compare-quotation/compare-quotation.component.html</context>
           <context context-type="linenumber">14</context>
@@ -826,8 +824,8 @@
         <source>
 			Change Name
 		</source>
-        <target state="new">
-			Change Name
+        <target state="final">
+			变更名称
 		</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/edition-dialog/edition-dialog.component.html</context>
@@ -836,7 +834,7 @@
       </trans-unit>
       <trans-unit id="new-OBJ-name" datatype="html">
         <source>New <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name</source>
-        <target state="new">New <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name</target>
+        <target state="final">新 <x id="INTERPOLATION"/> 名称</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/edition-dialog/edition-dialog.component.html</context>
           <context context-type="linenumber">12</context>
@@ -848,7 +846,7 @@
       </trans-unit>
       <trans-unit id="provide-new-name" datatype="html">
         <source>Please provide the new <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name for <x id="INTERPOLATION_1" equiv-text="{{ entity.name || '' }}"/></source>
-        <target state="new">Please provide the new <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name for <x id="INTERPOLATION_1" equiv-text="{{ entity.name || '' }}"/></target>
+        <target state="final">提供新 <x id="INTERPOLATION"/>名称 给<x id="INTERPOLATION_1"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/edition-dialog/edition-dialog.component.html</context>
           <context context-type="linenumber">14</context>
@@ -856,7 +854,7 @@
       </trans-unit>
       <trans-unit id="choose-another-name" datatype="html">
         <source> That <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name already exists. Please choose another one.</source>
-        <target state="new"> That <x id="INTERPOLATION" equiv-text="{{ type.singular | const: 'erm' }}"/> name already exists. Please choose another one.</target>
+        <target state="final"> 此<x id="INTERPOLATION"/> 名称已存在。请换一个名称。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/edition-dialog/edition-dialog.component.html</context>
           <context context-type="linenumber">18</context>
@@ -865,7 +863,7 @@
       </trans-unit>
       <trans-unit id="invite-user" datatype="html">
         <source>Invite a user</source>
-        <target state="new">Invite a user</target>
+        <target state="final">邀请用户</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/invite-user-dlg/invite-user-dlg.component.html</context>
           <context context-type="linenumber">3</context>
@@ -873,7 +871,7 @@
       </trans-unit>
       <trans-unit id="email" datatype="html">
         <source>email</source>
-        <target state="new">email</target>
+        <target state="final">邮箱</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/invite-user-dlg/invite-user-dlg.component.html</context>
           <context context-type="linenumber">6</context>
@@ -944,7 +942,7 @@
       </trans-unit>
       <trans-unit id="add-now" datatype="html">
         <source>Add now</source>
-        <target state="translated">添加新产品</target>
+        <target state="final">现在添加</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/product-add-to-project-dlg/product-add-to-project-dlg.component.html</context>
           <context context-type="linenumber">34</context>
@@ -991,7 +989,7 @@
       </trans-unit>
       <trans-unit id="send-reply" datatype="html">
         <source>Send Reply</source>
-        <target state="new">Send Reply</target>
+        <target state="final">发送回复</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
           <context context-type="linenumber">2</context>
@@ -999,7 +997,7 @@
       </trans-unit>
       <trans-unit id="about-send-back-info" datatype="html">
         <source>You are about to send back the infomration you have filled.</source>
-        <target state="new">You are about to send back the infomration you have filled.</target>
+        <target state="final">您即将发送回您填写的信息。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
           <context context-type="linenumber">4</context>
@@ -1007,7 +1005,7 @@
       </trans-unit>
       <trans-unit id="your-message" datatype="html">
         <source>Your Message</source>
-        <target state="new">Your Message</target>
+        <target state="final">您的信息</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
           <context context-type="linenumber">9</context>
@@ -1015,7 +1013,7 @@
       </trans-unit>
       <trans-unit id="cancel" datatype="html">
         <source>Cancel</source>
-        <target state="new">Cancel</target>
+        <target state="final">取消</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
           <context context-type="linenumber">15</context>
@@ -1023,7 +1021,7 @@
       </trans-unit>
       <trans-unit id="send" datatype="html">
         <source>Send</source>
-        <target state="new">Send</target>
+        <target state="final">发送</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/refuse-reply-dlg/refuse-reply-dlg.component.html</context>
           <context context-type="linenumber">16</context>
@@ -1031,7 +1029,7 @@
       </trans-unit>
       <trans-unit id="reply-sent" datatype="html">
         <source>Reply Sent</source>
-        <target state="new">Reply Sent</target>
+        <target state="final">恢复发送</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/reply-sent-dlg/reply-sent-dlg.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1039,7 +1037,7 @@
       </trans-unit>
       <trans-unit id="your-OBJ-been-sent" datatype="html">
         <source>Your <x id="INTERPOLATION" equiv-text="{{ actionName }}"/> has been sent!</source>
-        <target state="new">Your <x id="INTERPOLATION" equiv-text="{{ actionName }}"/> has been sent!</target>
+        <target state="final">您的 <x id="INTERPOLATION"/> 已发送!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/reply-sent-dlg/reply-sent-dlg.component.html</context>
           <context context-type="linenumber">7</context>
@@ -1047,7 +1045,7 @@
       </trans-unit>
       <trans-unit id="ok" datatype="html">
         <source>ok</source>
-        <target state="new">ok</target>
+        <target state="final">同意</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/reply-sent-dlg/reply-sent-dlg.component.html</context>
           <context context-type="linenumber">11</context>
@@ -1089,7 +1087,7 @@
       </trans-unit>
       <trans-unit id="1d491cf9cd23d4694d0677dfeabd9082e5d00b26" datatype="html">
         <source>additional pictures</source>
-        <target state="new">additional pictures</target>
+        <target state="final">附加照片</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
           <context context-type="linenumber">45</context>
@@ -1098,7 +1096,7 @@
       </trans-unit>
       <trans-unit id="0eda407c9356e7e582fbdbb55abfd8ce5eb4b7dd" datatype="html">
         <source>additional attachments</source>
-        <target state="new">additional attachments</target>
+        <target state="final">附加附件</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
           <context context-type="linenumber">64</context>
@@ -1134,7 +1132,7 @@
       </trans-unit>
       <trans-unit id="product-not-yet-replied" datatype="html">
         <source>This product has not been replied yet by the supplier</source>
-        <target state="new">This product has not been replied yet by the supplier</target>
+        <target state="final">供应商还未对此产品进行回复</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
           <context context-type="linenumber">89</context>
@@ -1198,7 +1196,7 @@
       </trans-unit>
       <trans-unit id="excel" datatype="html">
         <source>Excel</source>
-        <target state="new">Excel</target>
+        <target state="final">Excel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
           <context context-type="linenumber">10</context>
@@ -1219,7 +1217,7 @@
       </trans-unit>
       <trans-unit id="pdf" datatype="html">
         <source>PDF</source>
-        <target state="new">PDF</target>
+        <target state="final">PDF</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
           <context context-type="linenumber">18</context>
@@ -1240,7 +1238,7 @@
       </trans-unit>
       <trans-unit id="pictures" datatype="html">
         <source>Pictures</source>
-        <target state="new">Pictures</target>
+        <target state="final">照片</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/export-dlg/export-selection-view/export-selection-view.component.html</context>
           <context context-type="linenumber">26</context>
@@ -1345,7 +1343,7 @@
       </trans-unit>
       <trans-unit id="remove" datatype="html">
         <source>remove</source>
-        <target state="new">remove</target>
+        <target state="final">移除</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/product-request-list/product-request-list.component.html</context>
           <context context-type="linenumber">10</context>
@@ -1353,7 +1351,7 @@
       </trans-unit>
       <trans-unit id="add-products" datatype="html">
         <source>Add products</source>
-        <target state="new">Add products</target>
+        <target state="final">添加产品</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/product-request-list/product-request-list.component.html</context>
           <context context-type="linenumber">19</context>
@@ -1361,7 +1359,7 @@
       </trans-unit>
       <trans-unit id="nested_product-selected" datatype="html">
         <source>{VAR_PLURAL, plural, =1 {Product selected } other {Products selected } }</source>
-        <target state="new">{VAR_PLURAL, plural, =1 {Product selected } other {Products selected } }</target>
+        <target state="final">{VAR_PLURAL, plural, =1 {产品已选} other {产品已选}}</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/product-request-list/product-request-list.component.html</context>
           <context context-type="linenumber">24</context>
@@ -1461,7 +1459,7 @@
       </trans-unit>
       <trans-unit id="merge" datatype="html">
         <source>merge</source>
-        <target state="new">merge</target>
+        <target state="final">合并</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/merge-dialog/merge-dialog.component.html</context>
           <context context-type="linenumber">6</context>
@@ -1470,7 +1468,7 @@
       </trans-unit>
       <trans-unit id="contact" datatype="html">
         <source>contact</source>
-        <target state="new">contact</target>
+        <target state="final">联系人</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1478,7 +1476,7 @@
       </trans-unit>
       <trans-unit id="contact-name" datatype="html">
         <source>Contact name</source>
-        <target state="new">Contact name</target>
+        <target state="final">联系人名字</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
           <context context-type="linenumber">16</context>
@@ -1486,7 +1484,7 @@
       </trans-unit>
       <trans-unit id="function" datatype="html">
         <source>function</source>
-        <target state="new">function</target>
+        <target state="final">职能</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
           <context context-type="linenumber">36</context>
@@ -1494,7 +1492,7 @@
       </trans-unit>
       <trans-unit id="phone-number" datatype="html">
         <source>Phone number</source>
-        <target state="new">Phone number</target>
+        <target state="final">电话号码</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
           <context context-type="linenumber">56</context>
@@ -1502,7 +1500,7 @@
       </trans-unit>
       <trans-unit id="business-card" datatype="html">
         <source>Business card</source>
-        <target state="new">Business card</target>
+        <target state="final">名片</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
           <context context-type="linenumber">66</context>
@@ -2090,7 +2088,7 @@
       </trans-unit>
       <trans-unit id="projectCard_description" datatype="html">
         <source>  <x id="INTERPOLATION" equiv-text="{{ project?.description }}"/>  </source>
-        <target state="new">  <x id="INTERPOLATION" equiv-text="{{ project?.description }}"/>  </target>
+        <target state="final">  <x id="INTERPOLATION" equiv-text="{{ project?.description }}"/>  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/products/components/project-card/project-card.component.html</context>
           <context context-type="linenumber">21</context>
@@ -2149,7 +2147,7 @@
         <source>
 			<x id="ICU" equiv-text="{ productCount[project.id], plural, =0 {...} =1 {...} other {...}}"/>
 		</source>
-        <target state="new">
+        <target state="final">
 			<x id="ICU" equiv-text="{ productCount[project.id], plural, =0 {...} =1 {...} other {...}}"/>
 		</target>
         <context-group purpose="location">
@@ -2342,7 +2340,7 @@
       </trans-unit>
       <trans-unit id="refuse" datatype="html">
         <source>refuse</source>
-        <target state="translated">
+        <target state="final">
 			拒绝
 		</target>
         <context-group purpose="location">
@@ -2356,7 +2354,7 @@
       </trans-unit>
       <trans-unit id="save" datatype="html">
         <source>save</source>
-        <target state="new">save</target>
+        <target state="final">保存</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">91</context>
@@ -2364,7 +2362,7 @@
       </trans-unit>
       <trans-unit id="submitted" datatype="html">
         <source>submitted</source>
-        <target state="new">submitted</target>
+        <target state="final">提交</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">94</context>
@@ -2372,7 +2370,7 @@
       </trans-unit>
       <trans-unit id="product-already-replied" datatype="html">
         <source>This product has already been replied</source>
-        <target state="new">This product has already been replied</target>
+        <target state="final">此产品已被回复</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">101</context>
@@ -2380,7 +2378,7 @@
       </trans-unit>
       <trans-unit id="send-request-supplier" datatype="html">
         <source>Send Request to Supplier</source>
-        <target state="new">Send Request to Supplier</target>
+        <target state="final">发送请求至供应商</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">2</context>
@@ -2388,7 +2386,7 @@
       </trans-unit>
       <trans-unit id="request-settings" datatype="html">
         <source>Request Settings</source>
-        <target state="new">Request Settings</target>
+        <target state="final">请求设置</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">5</context>
@@ -2396,7 +2394,7 @@
       </trans-unit>
       <trans-unit id="recipients" datatype="html">
         <source>Recipients</source>
-        <target state="new">Recipients</target>
+        <target state="final">收件人</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">6</context>
@@ -2404,7 +2402,7 @@
       </trans-unit>
       <trans-unit id="send-me-copy" datatype="html">
         <source>Send me a copy</source>
-        <target state="new">Send me a copy</target>
+        <target state="final">给我发一份副本</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">12</context>
@@ -2412,7 +2410,7 @@
       </trans-unit>
       <trans-unit id="request-tempaltes" datatype="html">
         <source>Request Templates</source>
-        <target state="new">Request Templates</target>
+        <target state="final">请求模版</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">21</context>
@@ -2420,7 +2418,7 @@
       </trans-unit>
       <trans-unit id="quick-rfq" datatype="html">
         <source>Quick RFQ</source>
-        <target state="new">Quick RFQ</target>
+        <target state="final">快速请求议价</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">29</context>
@@ -2432,7 +2430,7 @@
       </trans-unit>
       <trans-unit id="share-product-info" datatype="html">
         <source>Share my product information</source>
-        <target state="new">Share my product information</target>
+        <target state="final">分享我的产品信息</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">35</context>
@@ -2440,7 +2438,7 @@
       </trans-unit>
       <trans-unit id="share-info-text" datatype="html">
         <source>Share product information you arleady have with the supplier such as price, moq, etc.</source>
-        <target state="new">Share product information you arleady have with the supplier such as price, moq, etc.</target>
+        <target state="final">与供应商分享您所拥有的产品信息，如价格，最小订货量等。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">41</context>
@@ -2448,7 +2446,7 @@
       </trans-unit>
       <trans-unit id="send-to-supplier" datatype="html">
         <source>Send to Supplier</source>
-        <target state="new">Send to Supplier</target>
+        <target state="final">发送至供应商</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">52</context>
@@ -2456,7 +2454,7 @@
       </trans-unit>
       <trans-unit id="select-supplier" datatype="html">
         <source>Select a supplier</source>
-        <target state="new">Select a supplier</target>
+        <target state="final">选择一个供应商</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">60</context>
@@ -2464,7 +2462,7 @@
       </trans-unit>
       <trans-unit id="select-contact" datatype="html">
         <source>Select Contact</source>
-        <target state="new">Select Contact</target>
+        <target state="final">选择联系人</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">67</context>
@@ -2472,7 +2470,7 @@
       </trans-unit>
       <trans-unit id="request-title" datatype="html">
         <source>Request Title</source>
-        <target state="new">Request Title</target>
+        <target state="final">请求标题</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">102</context>
@@ -2480,7 +2478,7 @@
       </trans-unit>
       <trans-unit id="quote-request" datatype="html">
         <source>Quote Request</source>
-        <target state="new">Quote Request</target>
+        <target state="final">议价请求</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">103</context>
@@ -2488,7 +2486,7 @@
       </trans-unit>
       <trans-unit id="message-for-supplier" datatype="html">
         <source>Message for the supplier</source>
-        <target state="new">Message for the supplier</target>
+        <target state="final">给供应商的消息</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">106</context>
@@ -2496,7 +2494,7 @@
       </trans-unit>
       <trans-unit id="send-request" datatype="html">
         <source>send request</source>
-        <target state="new">send request</target>
+        <target state="final">发送请求</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">123</context>
@@ -2504,7 +2502,7 @@
       </trans-unit>
       <trans-unit id="team-votes" datatype="html">
         <source>Team Votes</source>
-        <target state="new">Team Votes</target>
+        <target state="final">群组投票</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/vote-details-dialog/vote-details-dialog.component.html</context>
           <context context-type="linenumber">2</context>
@@ -2512,7 +2510,7 @@
       </trans-unit>
       <trans-unit id="reply-from-supplier" datatype="html">
         <source>This is the reply from your supplier</source>
-        <target state="new">This is the reply from your supplier</target>
+        <target state="final">这是您的供应商的回复</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
           <context context-type="linenumber">17</context>
@@ -2520,7 +2518,7 @@
       </trans-unit>
       <trans-unit id="ed72fb4053477287ef478f0e160ae05e0c02b4ef" datatype="html">
         <source>product details</source>
-        <target state="new">product details</target>
+        <target state="final">产品详情</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
           <context context-type="linenumber">23</context>
@@ -2573,7 +2571,7 @@
       </trans-unit>
       <trans-unit id="products" datatype="html">
         <source>products</source>
-        <target state="translated">产品</target>
+        <target state="final">产品</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">14</context>
@@ -2589,7 +2587,7 @@
       </trans-unit>
       <trans-unit id="product-images" datatype="html">
         <source>Product images</source>
-        <target state="new">Product images</target>
+        <target state="final">产品图片</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">29</context>
@@ -2598,7 +2596,7 @@
       </trans-unit>
       <trans-unit id="product-attachments" datatype="html">
         <source>Product attachments</source>
-        <target state="new">Product attachments</target>
+        <target state="final">产品附件</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">32</context>
@@ -2609,8 +2607,9 @@
         <source>
 				Please fill in the form below to reply to client
 			</source>
-        <target state="new">
-				Please fill in the form below to reply to client
+        <target state="final">
+				请填写下面的表格回复客户
+
 			</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
@@ -2619,7 +2618,7 @@
       </trans-unit>
       <trans-unit id="product-details" datatype="html">
         <source>Product details</source>
-        <target state="new">Product details</target>
+        <target state="final">产品详情</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">44</context>
@@ -2627,7 +2626,7 @@
       </trans-unit>
       <trans-unit id="images" datatype="html">
         <source>images</source>
-        <target state="new">images</target>
+        <target state="final">图片</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">56</context>
@@ -2635,7 +2634,7 @@
       </trans-unit>
       <trans-unit id="add-image" datatype="html">
         <source>Add Image</source>
-        <target state="new">Add Image</target>
+        <target state="final">添加图片</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">69</context>
@@ -2643,7 +2642,7 @@
       </trans-unit>
       <trans-unit id="attachments" datatype="html">
         <source>attachments</source>
-        <target state="new">attachments</target>
+        <target state="final">附件</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">73</context>
@@ -2651,7 +2650,7 @@
       </trans-unit>
       <trans-unit id="add-attachments" datatype="html">
         <source>Add Attachments</source>
-        <target state="new">Add Attachments</target>
+        <target state="final">添加附件</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
           <context context-type="linenumber">80</context>
