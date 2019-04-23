@@ -66,7 +66,7 @@ export class ListPageService
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
-			this.initOriginCompoentDestroy(config.originComponentDestroy);
+			this.initOriginComponentDestroy(config.originComponentDestroy);
 			this.initServices(config.key);
 			this.dataSrv.setup(config);
 			this.viewSrv.setup(config.entityMetadata);
@@ -81,7 +81,7 @@ export class ListPageService
 	 * we need a way to know when the bottomReach is happening and when to kill that observable
 	 * originComponentDestroy indicates it
 	 */
-	private initOriginCompoentDestroy(destroy$: Subject<void>) {
+	private initOriginComponentDestroy(destroy$: Subject<void>) {
 		if (destroy$)
 			this.templateSrv.bottomReached$.pipe(
 				takeUntil(destroy$)
