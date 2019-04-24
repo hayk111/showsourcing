@@ -5,7 +5,7 @@ import { Attachment } from './attachment.model';
 
 
 export enum ReplyStatus {
-	CANCELED = 'cancel',
+	CANCELED = 'canceled',
 	ERROR = 'error',
 	PENDING = 'pending',
 	REFUSED = 'refused',
