@@ -754,7 +754,7 @@
       </trans-unit>
       <trans-unit id="logout" datatype="html">
         <source>logout</source>
-        <target state="translated">
+        <target state="final">
 		退出
 	</target>
         <context-group purpose="location">
@@ -1746,7 +1746,7 @@
       </trans-unit>
       <trans-unit id="forgotten-pswd" datatype="html">
         <source>Forgotten password?</source>
-        <target state="new">Forgotten password?</target>
+        <target state="final">忘记密码？</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/auth-pages/components/login/login.component.html</context>
           <context context-type="linenumber">16</context>
@@ -1975,7 +1975,7 @@
       </trans-unit>
       <trans-unit id="unnamed-team" datatype="html">
         <source>Unnamed Team</source>
-        <target state="final">未命名群租</target>
+        <target state="final">未命名群组</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/dashboard/components/team-card/team-card.component.html</context>
           <context context-type="linenumber">4</context>
@@ -1987,8 +1987,8 @@
         <source>
 						Team Leader
 					</source>
-        <target state="new">
-						Team Leader
+        <target state="final">
+						群主
 					</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/dashboard/components/team-card/team-card.component.html</context>
@@ -2010,7 +2010,7 @@
       </trans-unit>
       <trans-unit id="no-team-members" datatype="html">
         <source>No Team Members</source>
-        <target state="new">No Team Members</target>
+        <target state="final">无群组成员</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/dashboard/components/team-card/team-card.component.html</context>
           <context context-type="linenumber">31</context>
@@ -2018,7 +2018,7 @@
       </trans-unit>
       <trans-unit id="no-data" datatype="html">
         <source>No data</source>
-        <target state="new">No data</target>
+        <target state="final">无数据</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/data-management/components/data-mananagement-table/data-mananagement-table.component.html</context>
           <context context-type="linenumber">15</context>
@@ -2105,7 +2105,7 @@
       </trans-unit>
       <trans-unit id="invites-you-join" datatype="html">
         <source>invites you to join</source>
-        <target state="new">invites you to join</target>
+        <target state="final">邀请您加入</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/invitation/components/handle-invitation/handle-invitation.component.html</context>
           <context context-type="linenumber">32</context>
@@ -2217,7 +2217,7 @@
       </trans-unit>
       <trans-unit id="we-are-creating-team" datatype="html">
         <source>We are creating your team, please wait</source>
-        <target state="new">We are creating your team, please wait</target>
+        <target state="final">我们正在创建您的群组，请耐心等待</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/pick-a-team/containers/create-a-team-page/create-a-team-page.component.html</context>
           <context context-type="linenumber">14</context>
@@ -2555,7 +2555,7 @@
       </trans-unit>
       <trans-unit id="no-project" datatype="html">
         <source>No project</source>
-        <target state="new">No project</target>
+        <target state="final">无项目</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/project/components/projects-list-view/projects-list-view.component.html</context>
           <context context-type="linenumber">17</context>
@@ -2607,7 +2607,7 @@
       </trans-unit>
       <trans-unit id="project" datatype="html">
         <source>project</source>
-        <target state="new">project</target>
+        <target state="final">项目</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/project/containers/project-details/project-details.component.html</context>
           <context context-type="linenumber">4</context>
@@ -2680,7 +2680,7 @@
       </trans-unit>
       <trans-unit id="no-product" datatype="html">
         <source>No product</source>
-        <target state="new">No product</target>
+        <target state="final">无产品</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
           <context context-type="linenumber">9</context>
@@ -2701,7 +2701,7 @@
       </trans-unit>
       <trans-unit id="my-projects" datatype="html">
         <source>My Projects</source>
-        <target state="new">My Projects</target>
+        <target state="final">我的项目</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/project/containers/projects-page/projects-page.component.html</context>
           <context context-type="linenumber">3</context>
@@ -2709,7 +2709,7 @@
       </trans-unit>
       <trans-unit id="add-project" datatype="html">
         <source>Add Project</source>
-        <target state="new">Add Project</target>
+        <target state="final">添加项目</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/project/containers/projects-page/projects-page.component.html</context>
           <context context-type="linenumber">4</context>
@@ -2815,7 +2815,7 @@
       </trans-unit>
       <trans-unit id="no-requests" datatype="html">
         <source>No requests</source>
-        <target state="new">No requests</target>
+        <target state="final">无请求</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
           <context context-type="linenumber">8</context>
@@ -2823,7 +2823,7 @@
       </trans-unit>
       <trans-unit id="sent" datatype="html">
         <source>sent</source>
-        <target state="new">sent</target>
+        <target state="final">已发送</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/components/request-top-panel/request-top-panel.component.html</context>
           <context context-type="linenumber">9</context>
@@ -2831,7 +2831,7 @@
       </trans-unit>
       <trans-unit id="message" datatype="html">
         <source>message</source>
-        <target state="new">message</target>
+        <target state="final">消息</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/containers/request-details/request-details.component.html</context>
           <context context-type="linenumber">18</context>
@@ -2840,7 +2840,7 @@
       <trans-unit id="requests" datatype="html">
         <source>
 </source>
-        <target state="new">
+        <target state="final">
 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/containers/request-page/request-page.component.html</context>

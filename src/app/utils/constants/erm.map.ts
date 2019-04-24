@@ -183,6 +183,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'request'
+			},
+			'zh-Hans': {
+				name: '请求'
 			}
 		}
 	},
@@ -190,6 +193,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'requests'
+			},
+			'zh-Hans': {
+				name: '请求'
 			}
 		}
 	},

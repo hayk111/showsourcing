@@ -1,8 +1,18 @@
 export const messagesMap = {
+	'Account type': {
+		locales: {
+			en: {
+				name: 'Account type'
+			}
+		}
+	},
 	'activity': {
 		locales: {
 			en: {
 				name: 'activity'
+			},
+			'zh-Hans': {
+				name: '活动'
 			}
 		}
 	},
@@ -30,6 +40,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Are you sure you want to delete this product?'
+			},
+			'zh-Hans': {
+				name: '您确定要删除此产品吗？'
 			}
 		}
 	},
@@ -57,6 +70,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Company name'
+			},
+			'zh-Hans': {
+				name: '公司名称'
 			}
 		}
 	},
@@ -64,6 +80,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Create a new team'
+			},
+			'zh-Hans': {
+				name: '创建新群租'
 			}
 		}
 	},
@@ -91,6 +110,16 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'created on'
+			},
+			'zh-Hans': {
+				name: '创建日期'
+			}
+		}
+	},
+	'creation date': {
+		locales: {
+			en: {
+				name: 'creation date'
 			}
 		}
 	},
@@ -98,6 +127,16 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'description'
+			},
+			'zh-Hans': {
+				name: '描述'
+			}
+		}
+	},
+	'download': {
+		locales: {
+			en: {
+				name: 'download'
 			}
 		}
 	},
@@ -125,6 +164,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'End Date'
+			},
+			'zh-Hans': {
+				name: '结束日期'
 			}
 		}
 	},
@@ -132,6 +174,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'error'
+			},
+			'zh-Hans': {
+				name: '错误'
 			}
 		}
 	},
@@ -152,6 +197,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '密码重置时出错'
+			}
+		}
+	},
+	'export': {
+		locales: {
+			en: {
+				name: 'export'
 			}
 		}
 	},
@@ -240,6 +292,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Last upadted date'
+			},
+			'zh-Hans': {
+				name: '最近更新日期'
 			}
 		}
 	},
@@ -333,6 +388,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Only team owners can invite': {
+		locales: {
+			en: {
+				name: 'Only team owners can invite'
+			}
+		}
+	},
 	'owner': {
 		locales: {
 			en: {
@@ -407,6 +469,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Product count'
+			},
+			'zh-Hans': {
+				name: '产品数量'
 			}
 		}
 	},
@@ -414,6 +479,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Products count'
+			},
+			'zh-Hans': {
+				name: '产品数量'
 			}
 		}
 	},
@@ -421,6 +489,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Project name'
+			},
+			'zh-Hans': {
+				name: '项目名称'
 			}
 		}
 	},
@@ -438,6 +509,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Select a team instead'
+			},
+			'zh-Hans': {
+				name: '请改为选择一个群组'
 			}
 		}
 	},
@@ -455,6 +529,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'sent by'
+			},
+			'zh-Hans': {
+				name: '发送人'
 			}
 		}
 	},
@@ -462,6 +539,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'sent on'
+			},
+			'zh-Hans': {
+				name: '发送日期'
 			}
 		}
 	},
@@ -469,6 +549,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'sent to'
+			},
+			'zh-Hans': {
+				name: '发送至'
 			}
 		}
 	},
@@ -476,6 +559,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'shipping'
+			},
+			'zh-Hans': {
+				name: '运输'
 			}
 		}
 	},
@@ -493,6 +579,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Start date'
+			},
+			'zh-Hans': {
+				name: '开始日期'
 			}
 		}
 	},
@@ -520,6 +609,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Suppliers count'
+			},
+			'zh-Hans': {
+				name: '供应商数量'
 			}
 		}
 	},
@@ -527,6 +619,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Team name'
+			},
+			'zh-Hans': {
+				name: '群组名称'
 			}
 		}
 	},
@@ -534,6 +629,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'The invitation was accepted'
+			},
+			'zh-Hans': {
+				name: '邀请已被接受'
 			}
 		}
 	},
@@ -541,6 +639,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'The invitation was refused'
+			},
+			'zh-Hans': {
+				name: '邀请已被拒绝'
 			}
 		}
 	},
@@ -548,6 +649,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'The product doesn\'t exist'
+			},
+			'zh-Hans': {
+				name: '产品不存在'
 			}
 		}
 	},
@@ -555,6 +659,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'The request doesn\'t exist'
+			},
+			'zh-Hans': {
+				name: '请求不存在'
 			}
 		}
 	},
@@ -562,6 +669,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'There is an error, please try again later'
+			},
+			'zh-Hans': {
+				name: '有错误，请稍后再试'
 			}
 		}
 	},
@@ -579,6 +689,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'title'
+			},
+			'zh-Hans': {
+				name: '标题'
 			}
 		}
 	},
@@ -586,6 +699,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'type'
+			},
+			'zh-Hans': {
+				name: '类型'
 			}
 		}
 	},
@@ -633,6 +749,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'We had an error creating your company. Please try again.'
+			},
+			'zh-Hans': {
+				name: '我们在创建您的公司时遇到错误。 请再试一次'
 			}
 		}
 	},
@@ -673,41 +792,6 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '您的密码'
-			}
-		}
-	},
-	'Account type': {
-		locales: {
-			en: {
-				name: 'Account type'
-			}
-		}
-	},
-	'export': {
-		locales: {
-			en: {
-				name: 'export'
-			}
-		}
-	},
-	'creation date': {
-		locales: {
-			en: {
-				name: 'creation date'
-			}
-		}
-	},
-	'download': {
-		locales: {
-			en: {
-				name: 'download'
-			}
-		}
-	},
-	'Only team owners can invite': {
-		locales: {
-			en: {
-				name: 'Only team owners can invite'
 			}
 		}
 	},
