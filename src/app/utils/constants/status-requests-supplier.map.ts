@@ -3,6 +3,9 @@ export const statusRequestsSupplierMap = {
 		locales: {
 			en: {
 				name: 'To Reply'
+			},
+			'zh-Hans': {
+				name: '回复'
 			}
 		}
 	},
@@ -10,6 +13,9 @@ export const statusRequestsSupplierMap = {
 		locales: {
 			en: {
 				name: 'Sent Back from buyer'
+			},
+			'zh-Hans': {
+				name: '退回'
 			}
 		}
 	},
@@ -17,6 +23,9 @@ export const statusRequestsSupplierMap = {
 		locales: {
 			en: {
 				name: 'Replied'
+			},
+			'zh-Hans': {
+				name: '已回复'
 			}
 		}
 	},
@@ -24,6 +33,9 @@ export const statusRequestsSupplierMap = {
 		locales: {
 			en: {
 				name: 'To Reply'
+			},
+			'zh-Hans': {
+				name: '回复'
 			}
 		}
 	},
@@ -31,6 +43,9 @@ export const statusRequestsSupplierMap = {
 		locales: {
 			en: {
 				name: 'Refused'
+			},
+			'zh-Hans': {
+				name: '拒绝'
 			}
 		}
 	},
@@ -38,6 +53,9 @@ export const statusRequestsSupplierMap = {
 		locales: {
 			en: {
 				name: 'Replied'
+			},
+			'zh-Hans': {
+				name: '已验证'
 			}
 		}
 	}
