@@ -1,4 +1,18 @@
 export const messagesMap = {
+	'Already have an account?': {
+		locales: {
+			en: {
+				name: 'Already have an account?'
+			}
+		}
+	},
+	'An account already exist with this email address.': {
+		locales: {
+			en: {
+				name: 'An account already exist with this email address.'
+			}
+		}
+	},
 	'assignee': {
 		locales: {
 			en: {
@@ -34,10 +48,24 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Email not validated, please check your inbox': {
+		locales: {
+			en: {
+				name: 'Email not validated, please check your inbox'
+			}
+		}
+	},
 	'Error when requesting password reset': {
 		locales: {
 			en: {
 				name: 'Error when requesting password reset'
+			}
+		}
+	},
+	'Error when resetting password': {
+		locales: {
+			en: {
+				name: 'Error when resetting password'
 			}
 		}
 	},
@@ -56,10 +84,31 @@ export const messagesMap = {
 			}
 		}
 	},
+	'First Name': {
+		locales: {
+			en: {
+				name: 'First Name'
+			}
+		}
+	},
+	'Incorrect credentials': {
+		locales: {
+			en: {
+				name: 'Incorrect credentials'
+			}
+		}
+	},
 	'inner carton': {
 		locales: {
 			en: {
 				name: 'inner carton'
+			}
+		}
+	},
+	'Last Name': {
+		locales: {
+			en: {
+				name: 'Last Name'
 			}
 		}
 	},
@@ -74,6 +123,13 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'master carton'
+			}
+		}
+	},
+	'Minimum 8 characters required': {
+		locales: {
+			en: {
+				name: 'Minimum 8 characters required'
 			}
 		}
 	},
@@ -140,6 +196,27 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Password reset': {
+		locales: {
+			en: {
+				name: 'Password reset'
+			}
+		}
+	},
+	'Password successfully restored': {
+		locales: {
+			en: {
+				name: 'Password successfully restored'
+			}
+		}
+	},
+	'Please pick another email': {
+		locales: {
+			en: {
+				name: 'Please pick another email'
+			}
+		}
+	},
 	'price matrix': {
 		locales: {
 			en: {
@@ -161,10 +238,31 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Sign up': {
+		locales: {
+			en: {
+				name: 'Sign up'
+			}
+		}
+	},
 	'status': {
 		locales: {
 			en: {
 				name: 'status'
+			}
+		}
+	},
+	'Submition failed, please try again in a short while': {
+		locales: {
+			en: {
+				name: 'Submition failed, please try again in a short while'
+			}
+		}
+	},
+	'Tip: the app works better with a company email': {
+		locales: {
+			en: {
+				name: 'Tip: the app works better with a company email'
 			}
 		}
 	},
@@ -200,6 +298,20 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Your email'
+			}
+		}
+	},
+	'Your first name': {
+		locales: {
+			en: {
+				name: 'Your first name'
+			}
+		}
+	},
+	'Your last name': {
+		locales: {
+			en: {
+				name: 'Your last name'
 			}
 		}
 	},

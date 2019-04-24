@@ -79,11 +79,11 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 
 	onError(error: any) {
 		if (error.status === 401)
-			this.error = 'Incorrect credentials';
+			this.error = translate('Incorrect credentials');
 		else if (error.status === 403)
-			this.error = 'Email not validated, please check your inbox';
+			this.error = translate('Email not validated, please check your inbox');
 		else
-			this.error = 'Submition failed, please try again in a short while';
+			this.error = translate('Submition failed, please try again in a short while');
 
 		this.pending$.next(false);
 	}

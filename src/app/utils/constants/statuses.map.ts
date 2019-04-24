@@ -160,6 +160,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Pending'
+			},
+			'zh-Hans': {
+				name: '等待'
 			}
 		}
 	},
@@ -167,6 +170,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Done'
+			},
+			'zh-Hans': {
+				name: '已完成'
 			}
 		}
 	},
@@ -174,6 +180,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Overdue'
+			},
+			'zh-Hans': {
+				name: '已过期'
 			}
 		}
 	},
