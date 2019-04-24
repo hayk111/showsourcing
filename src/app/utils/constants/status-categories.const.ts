@@ -1,3 +1,4 @@
+// this indicates the states of a status, workflow status manager
 export const statusCategories = [
 	{
 		'id': 'inProgress',
