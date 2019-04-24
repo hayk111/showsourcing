@@ -5,9 +5,8 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { SampleService, UserService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { Comment, ERM, Sample } from '~core/models';
-import { AutoUnsub } from '~utils';
 import { DynamicField } from '~shared/dynamic-forms';
-import { ConstPipe } from '~shared/utils/pipes/const.pipe';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -33,23 +32,23 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 	erm = ERM;
 
 	customFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: this.constPipe.transform('name', 'message') },
+		{ name: 'name', type: 'text', required: true, label: translate('name', 'message') },
 		{
-			name: 'supplier', type: 'selector', label: this.constPipe.transform(ERM.SUPPLIER.singular, 'erm'),
+			name: 'supplier', type: 'selector', label: translate(ERM.SUPPLIER.singular, 'erm'),
 			metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true }
 		},
 		{
-			name: 'product', type: 'selector', label: this.constPipe.transform(ERM.PRODUCT.singular, 'erm'),
+			name: 'product', type: 'selector', label: translate(ERM.PRODUCT.singular, 'erm'),
 			metadata: { target: 'product', type: 'entity', labelName: 'name', canCreate: true }
 		},
-		{ name: 'price', type: 'price', label: this.constPipe.transform(ERM.PRICE.singular, 'erm') },
-		{ name: 'paid', type: 'yesNo', label: this.constPipe.transform('paid', 'message') },
+		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
+		{ name: 'paid', type: 'yesNo', label: translate('paid', 'message') },
 		{
-			name: 'assignee', label: this.constPipe.transform('assignee', 'message'), type: 'selector',
+			name: 'assignee', label: translate('assignee', 'message'), type: 'selector',
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
 		{
-			name: 'createdBy', label: this.constPipe.transform('created by', 'message'), type: 'selector',
+			name: 'createdBy', label: translate('created by', 'message'), type: 'selector',
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
 
@@ -59,8 +58,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 		private commentSrv: CommentService,
 		private router: Router,
 		private userSrv: UserService,
-		private sampleSrv: SampleService,
-		private constPipe: ConstPipe) {
+		private sampleSrv: SampleService) {
 		super();
 	}
 

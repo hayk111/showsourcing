@@ -140,4 +140,18 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Unnamed supplier': {
+		locales: {
+			en: {
+				name: 'Unnamed supplier'
+			}
+		}
+	},
+	'Unnamed task': {
+		locales: {
+			en: {
+				name: 'Unnamed task'
+			}
+		}
+	},
 };

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '~core/models';
 import { TaskStatus } from '~core/models/status.model';
-import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 @Component({
 	selector: 'banner-task-app',
@@ -27,17 +26,8 @@ export class BannerTaskComponent implements OnInit {
 	status: TaskStatus = TaskStatus.PENDING;
 	enumTaskStatus = TaskStatus;
 
-	constructor(private constPipe: ConstPipe) { }
+	constructor() { }
 
-	ngOnInit() {
-	}
+	ngOnInit() { }
 
-	getStatusText() {
-		let text = 'Task ';
-		if (status === TaskStatus.OVERDUE)
-			text = this.constPipe.transform(TaskStatus.OVERDUE, 'status') + ' - ' + this.task.dueDate;
-		else
-			text += this.constPipe.transform(this.status, 'status');
-		return text;
-	}
 }
