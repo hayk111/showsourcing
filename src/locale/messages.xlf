@@ -661,6 +661,17 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="logout" datatype="html">
+        <source>logout</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/template/components/guest-template/guest-template.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/header/components/user-panel/user-panel.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="profile" datatype="html">
         <source>
 		profile
@@ -702,16 +713,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/project/containers/project-details/project-details.component.html</context>
           <context context-type="linenumber">15</context>
-        </context-group>
-        <note priority="1" from="description">button</note>
-      </trans-unit>
-      <trans-unit id="logout" datatype="html">
-        <source>
-		logout
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/header/components/user-panel/user-panel.component.html</context>
-          <context context-type="linenumber">35</context>
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
@@ -2117,6 +2118,17 @@
         </context-group>
         <note priority="1" from="description">text</note>
       </trans-unit>
+      <trans-unit id="forgotten-pswd" datatype="html">
+        <source>Forgotten password?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/auth-pages/components/login/login.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/auth-pages/components/registration/registration.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="pw-reset" datatype="html">
         <source>
 	The instructions to reset your password have been sent to your email address.
@@ -2130,7 +2142,7 @@
       </trans-unit>
       <trans-unit id="login" datatype="html">
         <source>
-	Login
+	login
 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/auth-pages/components/pw-resetted/pw-resetted.component.html</context>
@@ -2139,7 +2151,7 @@
         <note priority="1" from="description">button</note>
       </trans-unit>
       <trans-unit id="Please-hold-modif-internet" datatype="html">
-        <source> 
+        <source>
 		Please hold as we modify the internet for you!
 	</source>
         <context-group purpose="location">

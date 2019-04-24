@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'login-app',
@@ -33,7 +33,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 		// get return url from route parameters or default to '/'
 		this.queryParams = this.route.snapshot.queryParams || '/';
 		this.listForm = [{
-			label: 'Email',
+			label: translate('email'),
 			type: 'email',
 			name: 'login',
 			isRequired: true,
@@ -41,20 +41,20 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 			placeHolder: 'example@showsourcing.com',
 			validators: [Validators.required, Validators.email]
 		}, {
-			label: 'Password',
+			label: translate('password'),
 			type: 'password',
 			name: 'password',
 			isRequired: true,
 			autoComplete: 'current-password',
-			placeHolder: 'your password',
+			placeHolder: translate('Your password'),
 			validators: [Validators.required]
 		}];
 
 		this.buttons = [{
-			label: 'Login',
+			label: translate('login'),
 			type: 'button'
 		}, {
-			label: 'Don\'t have an account ?',
+			label: translate('Don\'t have an account ?'),
 			type: 'link',
 			link: ['../register'],
 			queryParams: this.queryParams

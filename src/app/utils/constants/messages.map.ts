@@ -6,6 +6,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Don\'t have an account ?': {
+		locales: {
+			en: {
+				name: 'Don\'t have an account ?'
+			}
+		}
+	},
 	'creation': {
 		locales: {
 			en: {
@@ -17,6 +24,20 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'created by'
+			}
+		}
+	},
+	'email': {
+		locales: {
+			en: {
+				name: 'email'
+			}
+		}
+	},
+	'Error when requesting password reset': {
+		locales: {
+			en: {
+				name: 'Error when requesting password reset'
 			}
 		}
 	},
@@ -39,6 +60,13 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'inner carton'
+			}
+		}
+	},
+	'login': {
+		locales: {
+			en: {
+				name: 'login'
 			}
 		}
 	},
@@ -105,6 +133,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'password': {
+		locales: {
+			en: {
+				name: 'password'
+			}
+		}
+	},
 	'price matrix': {
 		locales: {
 			en: {
@@ -116,6 +151,13 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'sample price'
+			}
+		}
+	},
+	'send': {
+		locales: {
+			en: {
+				name: 'send'
 			}
 		}
 	},
@@ -151,6 +193,20 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Unnamed task'
+			}
+		}
+	},
+	'Your email': {
+		locales: {
+			en: {
+				name: 'Your email'
+			}
+		}
+	},
+	'Your password': {
+		locales: {
+			en: {
+				name: 'Your password'
 			}
 		}
 	},

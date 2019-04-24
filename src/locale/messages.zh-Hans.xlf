@@ -753,17 +753,18 @@
         <note priority="1" from="description">button</note>
       </trans-unit>
       <trans-unit id="logout" datatype="html">
-        <source>
-		logout
-	</source>
-        <target state="final">
+        <source>logout</source>
+        <target state="translated">
 		退出
 	</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/template/components/guest-template/guest-template.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/header/components/user-panel/user-panel.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
-        <note priority="1" from="description">button</note>
       </trans-unit>
       <trans-unit id="change-password" datatype="html">
         <source>
@@ -1719,6 +1720,18 @@
         </context-group>
         <note priority="1" from="description">text</note>
       </trans-unit>
+      <trans-unit id="forgotten-pswd" datatype="html">
+        <source>Forgotten password?</source>
+        <target state="new">Forgotten password?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/auth-pages/components/login/login.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/auth-pages/components/registration/registration.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="pw-reset" datatype="html">
         <source>
 	The instructions to reset your password have been sent to your email address.
@@ -1735,9 +1748,9 @@
       </trans-unit>
       <trans-unit id="login" datatype="html">
         <source>
-	Login
+	login
 </source>
-        <target state="final">
+        <target state="translated">
 	登陆
 </target>
         <context-group purpose="location">
@@ -1747,10 +1760,10 @@
         <note priority="1" from="description">button</note>
       </trans-unit>
       <trans-unit id="Please-hold-modif-internet" datatype="html">
-        <source> 
+        <source>
 		Please hold as we modify the internet for you!
 	</source>
-        <target state="final"> 
+        <target state="translated"> 
 		请保留，因为我们为您修改了网络！
 	</target>
         <context-group purpose="location">

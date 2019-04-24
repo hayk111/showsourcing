@@ -96,7 +96,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe(_ => {
-			if (updateStatus && lastItem) this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
+			if (updateStatus && lastItem) this.dlgSrv.open(ReplySentDlgComponent);
 		});
 	}
 
