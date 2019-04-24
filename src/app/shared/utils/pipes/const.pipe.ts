@@ -28,6 +28,7 @@ export class ConstPipe implements PipeTransform {
 
 	constructor(@Optional() @Inject(LOCALE_ID) private locale?: string) {
 		if (locale) {
+			debugger;
 			const localeTokens = locale.split('-');
 			if (localeTokens && localeTokens.length > 0) {
 				this.localeCountry = localeTokens[0];

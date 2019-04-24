@@ -1,5 +1,5 @@
 <top-panel-details-app
-	[title]="product?.name || 'Unnamed Product'">
+	[title]="product?.name || ('Unnamed Product' | const: 'messages')">
 
 	<img-app [image]="product?.images" type="product" size="s"></img-app>
 

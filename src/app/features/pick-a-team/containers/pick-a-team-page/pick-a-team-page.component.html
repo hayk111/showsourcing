@@ -10,16 +10,17 @@
 		</auth-header-subtitle-app>
 	</auth-form-header-app>
 	<ul>
-		<div class="flex pointer item border" 
+		<div
+			class="flex pointer item border"
 			*ngFor="let team of (teams$ | async); let last = last; trackBy: trackByFn"
-		 (click)="pickTeam(team)">
+		 	(click)="pickTeam(team)">
 			<icon-app name="team" fontSet="svg" size="m"></icon-app>
 			<span>{{ team.name }}</span>
 		</div>
 	</ul>
 
-	<a 
-		class="button light flexCenter" 
+	<a
+		class="button light flexCenter"
 		[routerLink]="['../create-a-team']"
 		i18n="link@@create-new-team">
 		Create a new team
