@@ -676,4 +676,39 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Account type': {
+		locales: {
+			en: {
+				name: 'Account type'
+			}
+		}
+	},
+	'export': {
+		locales: {
+			en: {
+				name: 'export'
+			}
+		}
+	},
+	'creation date': {
+		locales: {
+			en: {
+				name: 'creation date'
+			}
+		}
+	},
+	'download': {
+		locales: {
+			en: {
+				name: 'download'
+			}
+		}
+	},
+	'Only team owners can invite': {
+		locales: {
+			en: {
+				name: 'Only team owners can invite'
+			}
+		}
+	},
 };

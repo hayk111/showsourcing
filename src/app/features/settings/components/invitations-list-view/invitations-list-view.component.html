@@ -11,7 +11,8 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)">
+	(sort)="sort.emit($event)"
+	i18n-placeholder="@@no-invitation">
 
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
@@ -24,7 +25,7 @@
 
 	<!-- email -->
 	<ng-template
-		columnApp="Email"
+		[columnApp]="'email' | const: 'messages'"
 		sortBy="email"
 		let-row="row"
 		width="140"
@@ -35,36 +36,40 @@
 	<!-- acccountType -->
 	<ng-template
 		class="capitalize"
-		columnApp="Account type"
+		[columnApp]="'Account type' | const: 'messages'"
 		let-row="row"
 		sortBy="accessType"
 		width="200">
 		<context-menu-app *ngIf="teamOwner" [closeOnScroll]="true">
 			<context-menu-trigger-app class="flex pointer">
-				<div class="text" *ngIf="row.accessType === 'TeamMember'"> Team Member </div>
-				<div class="text" *ngIf="row.accessType === 'Contributor'"> Contributor </div>
+				<div class="text" *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">Team Member</div>
+				<div class="text capitalize" *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">contributor</div>
 				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="accessTypeUpdated.emit({ invitation: row, accessType: 'TeamMember' })">
+			<context-menu-item-app
+				(click)="accessTypeUpdated.emit({ invitation: row, accessType: 'TeamMember' })"
+				i18n="@@team-member">
 				Team Member
 			</context-menu-item-app>
-			<context-menu-item-app (click)="accessTypeUpdated.emit({ invitation: row, accessType: 'Contributor' })">
-				Contributor
+			<context-menu-item-app
+				(click)="accessTypeUpdated.emit({ invitation: row, accessType: 'Contributor' })"
+				i18n="@@contributor">
+				contributor
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
 			<context-menu-item-app class="remove-user" (click)="delete.emit(row.id)">
-				<span>Remove Invitation</span>
+				<span i18n="@@remove-invitation">Remove Invitation</span>
 			</context-menu-item-app>
 	   </context-menu-app>
-	   <span *ngIf="!teamOwner">
-				<ng-container *ngIf="row.accessType === 'TeamMember'"> Team Member </ng-container>
-				<ng-container *ngIf="row.accessType === 'Contributor'"> Contributor </ng-container>
+	   <span *ngIf="!teamOwner" class="capitalize">
+				<ng-container *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">Team Member</ng-container>
+				<ng-container *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">contributor</ng-container>
 			</span>
 	</ng-template>
 
 	<!-- status -->
 	<ng-template
-		columnApp="Status"
+		[columnApp]="'status' | const: 'messages'"
 		let-row="row"
 		sortBy="status"
 		width="140">
