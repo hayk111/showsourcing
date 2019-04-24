@@ -94,6 +94,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'description': {
+		locales: {
+			en: {
+				name: 'description'
+			}
+		}
+	},
 	'email': {
 		locales: {
 			en: {
@@ -118,6 +125,13 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'End Date'
+			}
+		}
+	},
+	'error': {
+		locales: {
+			en: {
+				name: 'error'
 			}
 		}
 	},
@@ -219,6 +233,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '姓'
+			}
+		}
+	},
+	'Last upadted date': {
+		locales: {
+			en: {
+				name: 'Last upadted date'
 			}
 		}
 	},
@@ -382,10 +403,24 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Product count': {
+		locales: {
+			en: {
+				name: 'Product count'
+			}
+		}
+	},
 	'Products count': {
 		locales: {
 			en: {
 				name: 'Products count'
+			}
+		}
+	},
+	'Project name': {
+		locales: {
+			en: {
+				name: 'Project name'
 			}
 		}
 	},
@@ -413,6 +448,27 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '发送'
+			}
+		}
+	},
+	'sent by': {
+		locales: {
+			en: {
+				name: 'sent by'
+			}
+		}
+	},
+	'sent on': {
+		locales: {
+			en: {
+				name: 'sent on'
+			}
+		}
+	},
+	'sent to': {
+		locales: {
+			en: {
+				name: 'sent to'
 			}
 		}
 	},
@@ -495,6 +551,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'The request doesn\'t exist': {
+		locales: {
+			en: {
+				name: 'The request doesn\'t exist'
+			}
+		}
+	},
 	'There is an error, please try again later': {
 		locales: {
 			en: {
@@ -509,6 +572,20 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '提示：该应用建议使用公司电子邮件'
+			}
+		}
+	},
+	'title': {
+		locales: {
+			en: {
+				name: 'title'
+			}
+		}
+	},
+	'type': {
+		locales: {
+			en: {
+				name: 'type'
 			}
 		}
 	},

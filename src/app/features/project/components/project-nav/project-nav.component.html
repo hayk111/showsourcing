@@ -1,9 +1,9 @@
 
-<side-menu-app title="Projects">
+<side-menu-app [title]="'projects'" i18n-title="@@projects">
 
 	<side-menu-item-app
-		[selected]="isSelected(project)"
 		*ngFor="let project of projects;trackBy: trackByFn"
+		[selected]="isSelected(project)"
 		(click)="select.emit(project)">
 
 		<span class="name">{{ project.name }}</span>

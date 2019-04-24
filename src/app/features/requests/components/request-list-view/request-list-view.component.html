@@ -12,7 +12,8 @@
 	(selectOne)="select.emit($event)"
 	(sort)="sort.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	(unselectOne)="unselect.emit($event)">
+	(unselectOne)="unselect.emit($event)"
+	i18n-placeholder="@@no-requests">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -23,7 +24,7 @@
 
 	<!-- export name -->
 	<ng-template
-		columnApp="Title"
+		[columnApp]="'title' | const: 'messages'"
 		sortBy="title"
 		let-row="row"
 		width="400">
@@ -44,7 +45,7 @@
 
 	<!-- type -->
 	<ng-template
-		columnApp="Type"
+		[columnApp]="'type' | const: 'messages'"
 		sortBy="templateName"
 		let-row="row"
 		width="220">
@@ -55,7 +56,7 @@
 
 	<!-- supplier -->
 	<ng-template
-		columnApp="Supplier"
+		[columnApp]="erm.SUPPLIER | const: 'erm'"
 		sortBy="recipient.company"
 		let-row="row"
 		width="280">
@@ -66,7 +67,7 @@
 
 	<!-- recipient -->
 	<ng-template
-		columnApp="Sent to"
+		[columnApp]="'sent to' | const: 'messages'"
 		sortBy="recipient.name"
 		let-row="row"
 		width="280">
@@ -77,7 +78,7 @@
 
 	<!-- # requests -->
 	<ng-template
-		columnApp="# Requests"
+		[columnApp]="'# ' + (erm.SUPPLIER_REQUEST | const: 'erm')"
 		[sortable]="false"
 		let-row="row"
 		width="120">
@@ -88,7 +89,7 @@
 
 	<!-- status-->
 	<ng-template
-		columnApp="Status"
+		[columnApp]="'status' | const: 'messages'"
 		sortBy="status"
 		let-row="row"
 		width="220">
@@ -100,7 +101,7 @@
 
 	<!-- sent date-->
 	<ng-template
-		columnApp="Sent On"
+		[columnApp]="'sent on' | const: 'messages'"
 		sortBy="sentDate"
 		let-row="row"
 		width="220">
@@ -111,7 +112,7 @@
 
 	<!-- sender -->
 	<ng-template
-		columnApp="Sent By"
+		[columnApp]="'sent by' | const: 'messages'"
 		sortBy="sender.name"
 		let-row="row"
 		width="220">

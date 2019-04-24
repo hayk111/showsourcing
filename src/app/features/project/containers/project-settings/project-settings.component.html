@@ -2,7 +2,8 @@
 	<top-panel-app
 		[title]="project?.name"
 		[buttonName]="'Add Project'"
-		[hasAction]="false">
+		[hasAction]="false"
+		i18n-buttonName="@@add-project">
 	</top-panel-app>
 
 	<card-app>
@@ -39,15 +40,15 @@
 
 		<div class="bottom">
 			<div class="flex">
-				<b class="semi" i18n="text@@created-by">Created By: </b> 
+				<b class="semi" i18n="text@@created-by">Created By:</b>
 				{{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
 			</div>
 			<div class="flex">
-				<b class="semi" i18n="text@@created-on">Created On:</b> 
+				<b class="semi" i18n="text@@created-on">Created On:</b>
 				{{ project?.creationDate | date: 'd MMMM y' }}
 			</div>
 			<div class="flex">
-				<b class="semi" i18n="text@@last-updated-on">Last Update On:</b> 
+				<b class="semi" i18n="text@@last-updated-on">Last Update On:</b>
 				{{ project?.lastUpdatedDate | date: 'd MMMM y' }}
 			</div>
 		</div>
