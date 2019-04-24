@@ -567,6 +567,10 @@
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/workflow/workflow-managament-table/workflow-managament-table.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="provide-name-create" datatype="html">
         <source> Please provide the <x id="INTERPOLATION" equiv-text="{{ type.singular | const: &apos;erm&apos; }}"/> name to create </source>
@@ -1432,26 +1436,6 @@
           <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="trading-information" datatype="html">
-        <source>
-		<x id="START_TAG_DYNAMIC-FORM-APP" ctype="x-dynamic-form-app" equiv-text="&lt;dynamic-form-app&gt;"/>
-		<x id="CLOSE_TAG_DYNAMIC-FORM-APP" ctype="x-dynamic-form-app" equiv-text="&lt;/dynamic-form-app&gt;"/>
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/containers/product-preview/product-preview.component.html</context>
-          <context context-type="linenumber">97</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="extended-fields" datatype="html">
-        <source>
-		<x id="START_TAG_EXTENDED-FORM-APP" ctype="x-extended-form-app" equiv-text="&lt;extended-form-app&gt;"/>
-		<x id="CLOSE_TAG_EXTENDED-FORM-APP" ctype="x-extended-form-app" equiv-text="&lt;/extended-form-app&gt;"/>
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/containers/product-preview/product-preview.component.html</context>
-          <context context-type="linenumber">108</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="open-preview" datatype="html">
         <source>Open preview</source>
         <context-group purpose="location">
@@ -1965,6 +1949,112 @@
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="tasks" datatype="html">
+        <source>tasks</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/task/components/task-list/task-list.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="show-only-my-tasks" datatype="html">
+        <source>
+					Show my tasks only
+				</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/task/components/task-list/task-list.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/workspace/containers/my-tasks-page/my-tasks-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="+-create-new-task" datatype="html">
+        <source>+ Create a new task</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/task/components/task-list/task-list.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="due-date" datatype="html">
+        <source>Due date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/task/components/task-preview/task-preview.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="select-due-date" datatype="html">
+        <source>
+							Select a due date
+						</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/task/components/task-preview/task-preview.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="assigned-to" datatype="html">
+        <source>Assigned to</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/task/components/task-preview/task-preview.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="mark-done" datatype="html">
+        <source>
+		Mark as done
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/task/components/banner-task/banner-task.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="task" datatype="html">
+        <source>task</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/task/components/banner-task/banner-task.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="step" datatype="html">
+        <source>step</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/workflow/workflow-managament-table/workflow-managament-table.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cateogry" datatype="html">
+        <source>category</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/workflow/workflow-managament-table/workflow-managament-table.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="final-step" datatype="html">
+        <source>Final step</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/workflow/workflow-managament-table/workflow-managament-table.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="rename" datatype="html">
+        <source>rename</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/workflow/workflow-managament-table/workflow-managament-table.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="delete-status" datatype="html">
+        <source>Delete status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/workflow/workflow-managament-table/workflow-managament-table.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="account-created" datatype="html">
         <source>Account Created</source>
         <context-group purpose="location">
@@ -2391,14 +2481,6 @@
         </context-group>
         <note priority="1" from="description">header</note>
       </trans-unit>
-      <trans-unit id="tasks" datatype="html">
-        <source>tasks</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
-          <context context-type="linenumber">29</context>
-        </context-group>
-        <note priority="1" from="description">header</note>
-      </trans-unit>
       <trans-unit id="view-vote-details" datatype="html">
         <source>
 				View Vote Details
@@ -2595,6 +2677,24 @@
         </context-group>
         <note priority="1" from="description">header</note>
       </trans-unit>
+      <trans-unit id="products-sent-new-idea" datatype="html">
+        <source>
+	All products will be sent to New idea when created. New ideas can then be sent to the <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+	workflow or kept as a reference (no action has to be taken)
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/workflow/common-status-workflow.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/workflow/common-status-workflow.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/workflow/common-status-workflow.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="team-member" datatype="html">
         <source>
 				Team Member
@@ -2698,14 +2798,6 @@
           <context context-type="linenumber">24</context>
         </context-group>
         <note priority="1" from="description">button</note>
-      </trans-unit>
-      <trans-unit id="show-only-my-tasks" datatype="html">
-        <source>Show my tasks only</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workspace/containers/my-tasks-page/my-tasks-page.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-        <note priority="1" from="description">text</note>
       </trans-unit>
       <trans-unit id="completed-tasks" datatype="html">
         <source>Completed tasks</source>
