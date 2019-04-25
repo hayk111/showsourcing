@@ -3,6 +3,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Account type'
+			},
+			'zh-Hans': {
+				name: '账户类型'
 			}
 		}
 	},
@@ -120,6 +123,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'creation date'
+			},
+			'zh-Hans': {
+				name: '创建日期'
 			}
 		}
 	},
@@ -137,6 +143,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'download'
+			},
+			'zh-Hans': {
+				name: '下载'
 			}
 		}
 	},
@@ -204,6 +213,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'export'
+			},
+			'zh-Hans': {
+				name: '导出'
 			}
 		}
 	},
@@ -392,6 +404,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Only team owners can invite'
+			},
+			'zh-Hans': {
+				name: '仅群主可以邀请'
 			}
 		}
 	},
