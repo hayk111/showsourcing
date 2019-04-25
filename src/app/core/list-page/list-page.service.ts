@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { empty, Observable } from 'rxjs';
+import { switchMap, tap, takeUntil } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
@@ -28,6 +28,7 @@ const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 export interface ListPageConfig extends ListPageDataConfig {
 	key: ListPageKey | string;
 	entityMetadata: EntityMetadata;
+	originComponentDestroy$?: Observable<void>;
 }
 
 /**
@@ -70,6 +71,9 @@ export class ListPageService
 			// by default we start loading
 			if (shouldInitDataLoading) {
 				this.dataSrv.loadData();
+				this.dataSrv.filterList.valueChanges$.pipe(
+					takeUntil(config.destroy)
+				).subscribe(_ => this.selectionSrv.unselectAll());
 			}
 		});
 	}
