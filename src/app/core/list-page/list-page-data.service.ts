@@ -26,10 +26,10 @@ export class ListPageDataService
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
 	selectParams: SelectParamsConfig = {
-		query: '',
+		query: 'deleted == false',
 		sortBy: 'creationDate',
 		descending: true,
-		take: 50,
+		take: 25,
 		skip: 0
 	};
 
@@ -88,7 +88,7 @@ export class ListPageDataService
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
 			map(items => items.filter(itm => !itm.deleted)),
-			takeUntil(destroy$)
+			// takeUntil(destroy$)
 		);
 	}
 

@@ -29,7 +29,6 @@ const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 export interface ListPageConfig extends ListPageDataConfig {
 	key: ListPageKey | string;
 	entityMetadata: EntityMetadata;
-	originComponentDestroy$?: Observable<void>;
 }
 
 /**
@@ -67,18 +66,16 @@ export class ListPageService
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
+			// getting back the services from their map
 			this.initServices(config.key);
 			this.dataSrv.setup(config);
+			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
-			// by default we start loading
-			if (shouldInitDataLoading) {
-				this.setupLoading(config.originComponentDestroy$);
-			}
 		});
 	}
 
 
-	private setupLoading(destroy$: Observable<void>) {
+	loadData(destroy$: Observable<void>) {
 		if (!destroy$) {
 			throw Error('Please provide a originComponentDestroyed$ observable');
 		}
@@ -88,6 +85,7 @@ export class ListPageService
 		this.templateSrv.bottomReached$.pipe(
 			takeUntil(destroy$)
 		).subscribe(_ => this.loadMore());
+
 		this.dataSrv.loadData(destroy$);
 		// we need to reset selection when filter changes
 		this.dataSrv.filterList.valueChanges$.pipe(

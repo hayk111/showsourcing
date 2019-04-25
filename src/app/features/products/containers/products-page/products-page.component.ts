@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { ProductService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -18,7 +18,7 @@ import { AutoUnsub } from '~utils';
 		ListPageService
 	]
 })
-export class ProductsPageComponent extends AutoUnsub implements OnInit {
+export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	erm = ERM;
 	// filter displayed as button in the filter panel
 	filterTypes = [
@@ -32,6 +32,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		FilterType.SUPPLIER,
 		FilterType.TAGS
 	];
+
+	dataLoaded = false;
 
 	constructor(
 		private productSrv: ProductService,
@@ -49,8 +51,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }],
 			entityMetadata: ERM.PRODUCT,
-			originComponentDestroy$: this._destroy$
 		});
+		this.listSrv.loadData(this._destroy$);
+	}
+
+	ngAfterViewInit() {
+		this.dataLoaded = true;
 	}
 
 	onViewChange(view: 'list' | 'card') {

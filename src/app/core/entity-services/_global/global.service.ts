@@ -2,7 +2,7 @@ import { ApolloBase, QueryRef } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
 import * as gqlTag from 'graphql-tag';
 import { BehaviorSubject, forkJoin, merge, Observable, of, throwError } from 'rxjs';
-import { catchError, filter, first, map, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, filter, first, map, shareReplay, switchMap, tap, withLatestFrom, publishReplay } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
@@ -336,9 +336,10 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
-			shareReplay(1),
+			publishReplay(),
 			catchError((errors) => of(log.table(errors)))
 		);
+
 
 		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
 		// (will be reflected in items$)
@@ -832,6 +833,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 	/** check if a graphql call has given any error */
 	protected checkError(r: { data: any, errors: any[] }) {
+		console.log('check error');
 		if (r.errors) {
 			r.errors.forEach(e => log.error(e));
 			return false;
