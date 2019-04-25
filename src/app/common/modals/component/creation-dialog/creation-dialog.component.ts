@@ -43,7 +43,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		});
 		this.exists$ = this.typed$
 			.pipe(
-				debounceTime(1000),
+				debounceTime(300),
 				takeUntil(this._destroy$),
 				switchMap((str) => this.crudDlgSrv.checkExists(this.type, str))
 			);
