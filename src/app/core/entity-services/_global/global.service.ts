@@ -597,7 +597,28 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	updateMany(entities: T[], clientName: Client = this.defaultClient, fields?: string): Observable<T[]> {
-		return forkJoin(entities.map(entity => this.update(entity, clientName, fields)));
+		const title = 'Update many' + this.typeName;
+		fields = fields ? fields : this.patch(entities[0]);
+		const gql = this.queryBuilder.updateMany(fields);
+		const variables = { input: entities };
+		const queryName = this.getQueryName(gql);
+		const options = { mutation: gql, variables };
+
+		// if (isOptimistic) {
+		// 	this.addOptimisticResponse(options, gql, entity, this.typeName);
+		// }
+
+		return this.getClient(clientName, title).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.mutate(options)),
+			first(),
+			filter((r: any) => this.checkError(r)),
+			map(({ data }) => data[queryName]),
+			tap(data => this.logResult(title, queryName, data)),
+			tap(data => this.sendTrack('Update many', data, 'update', fields)),
+			catchError(errors => of(log.table(errors)))
+		);
+
 	}
 
 
