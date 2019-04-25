@@ -5,6 +5,7 @@ import { ProductDialogService } from '~common/modals/services/product-dialog.ser
 import { Product, User } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { translate } from '~utils';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
@@ -50,13 +51,12 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 			switchMap(teamMembers => {
 				return this.productDlgSrv.askFeedBackToUsers(teamMembers, this.products);
 			})
-			// TODO i18n
 		).subscribe(
 			r => {
 				this.notificationSrv.add({
 					type: NotificationType.SUCCESS,
-					title: 'Feedback requested',
-					message: 'Your feedback request has been sent with success',
+					title: translate('Feedback requested'),
+					message: translate('Your feedback request has been sent with success'),
 					timeout: 3500
 				});
 				this.dlgSrv.close();
@@ -64,8 +64,8 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 			e => {
 				this.notificationSrv.add({
 					type: NotificationType.ERROR,
-					title: 'Feedback requested',
-					message: 'Feedback request could not be sent, server issues',
+					title: translate('Feedback requested'),
+					message: translate('Feedback request could not be sent, server issues'),
 					timeout: 3500
 				});
 				this.dlgSrv.close();

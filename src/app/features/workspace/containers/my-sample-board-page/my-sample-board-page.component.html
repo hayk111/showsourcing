@@ -63,7 +63,8 @@
 				[typeEntity]="erm.SAMPLE"
 				type="multiple-selection"
 				[internalUpdate]="false"
-				(statusUpdated)="onMultipleStatusUpdated($event)">
+				(statusUpdated)="onMultipleStatusUpdated($event)"
+				i18n-toolTipMessage="@@change-status">
 			</status-selector-app>
 
 			<button class="icon light" (click)="deleteSelected()">

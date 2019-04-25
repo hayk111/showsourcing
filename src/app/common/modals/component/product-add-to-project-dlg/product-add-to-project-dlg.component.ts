@@ -6,6 +6,7 @@ import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { TrackingComponent } from '~utils/tracking-component';
 import { CloseEventType } from '~shared/dialog';
+import { translate } from '~utils';
 
 
 
@@ -50,13 +51,12 @@ export class ProductAddToProjectDlgComponent extends TrackingComponent implement
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { selectedProjects, products: this.products } });
 
 		this.productDlgSrv.addProjectsToProducts(selectedProjects, this.products)
-			// TODO i18n
 			.subscribe(projects => {
 				this.dlgSrv.close();
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
-					title: 'Projects Added',
-					message: 'Your projects were added to the product with success',
+					title: translate('Projects added'),
+					message: translate('Your projects were added to the product with success'),
 					timeout: 3500
 				});
 			});

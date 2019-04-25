@@ -1,4 +1,5 @@
 export const messagesMap = {
+	// ########### \A ############
 	'Account type': {
 		locales: {
 			en: {
@@ -16,6 +17,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '活动'
+			}
+		}
+	},
+	'All fields must be filled first': {
+		locales: {
+			en: {
+				name: 'All fields must be filled first'
 			}
 		}
 	},
@@ -49,6 +57,20 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Are you sure you want to delete this supplier?': {
+		locales: {
+			en: {
+				name: 'Are you sure you want to delete this supplier?'
+			}
+		}
+	},
+	'Are you sure you want to do this?': {
+		locales: {
+			en: {
+				name: 'Are you sure you want to do this?'
+			}
+		}
+	},
 	'assignee': {
 		locales: {
 			en: {
@@ -59,13 +81,19 @@ export const messagesMap = {
 			}
 		}
 	},
-	'Don\'t have an account ?': {
+	// ########### \B ############
+	// ########### \C ############
+	'carton size': {
 		locales: {
 			en: {
-				name: 'Don\'t have an account ?'
-			},
-			'zh-Hans': {
-				name: '还没有账户？'
+				name: 'carton size'
+			}
+		}
+	},
+	'comments': {
+		locales: {
+			en: {
+				name: 'comments'
 			}
 		}
 	},
@@ -76,6 +104,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '公司名称'
+			}
+		}
+	},
+	'confirm': {
+		locales: {
+			en: {
+				name: 'confirm'
 			}
 		}
 	},
@@ -129,6 +164,14 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \D ############
+	'delete': {
+		locales: {
+			en: {
+				name: 'delete'
+			}
+		}
+	},
 	'description': {
 		locales: {
 			en: {
@@ -136,6 +179,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '描述'
+			}
+		}
+	},
+	'Don\'t have an account ?': {
+		locales: {
+			en: {
+				name: 'Don\'t have an account ?'
 			}
 		}
 	},
@@ -149,6 +199,7 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \E ############
 	'email': {
 		locales: {
 			en: {
@@ -219,6 +270,7 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \F ############
 	// from favorite
 	'Fav': {
 		locales: {
@@ -240,6 +292,20 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Feedback requested': {
+		locales: {
+			en: {
+				name: 'Feedback requested'
+			}
+		}
+	},
+	'Feedback request could not be sent, server issues': {
+		locales: {
+			en: {
+				name: 'Feedback request could not be sent, server issues'
+			}
+		}
+	},
 	'First Name': {
 		locales: {
 			en: {
@@ -250,6 +316,9 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \G ############
+	// ########### \H ############
+	// ########### \I ############
 	'Incorrect credentials': {
 		locales: {
 			en: {
@@ -290,6 +359,16 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Invitation sent': {
+		locales: {
+			en: {
+				name: 'Invitation sent'
+			}
+		}
+	},
+	// ########### \J ############
+	// ########### \K ############
+	// ########### \L ############
 	'Last Name': {
 		locales: {
 			en: {
@@ -320,6 +399,7 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \M ############
 	'master carton': {
 		locales: {
 			en: {
@@ -360,6 +440,7 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \N ############
 	'name': {
 		locales: {
 			en: {
@@ -377,6 +458,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '新产品'
+			}
+		}
+	},
+	'Next status': {
+		locales: {
+			en: {
+				name: 'Next status'
 			}
 		}
 	},
@@ -400,6 +488,7 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \O ############
 	'Only team owners can invite': {
 		locales: {
 			en: {
@@ -417,6 +506,14 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '所有者'
+			}
+		}
+	},
+	// ########### \P ############
+	'packaging': {
+		locales: {
+			en: {
+				name: 'packaging'
 			}
 		}
 	},
@@ -440,6 +537,20 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Password Changed': {
+		locales: {
+			en: {
+				name: 'Password Changed'
+			}
+		}
+	},
+	'Password Unchanged': {
+		locales: {
+			en: {
+				name: 'Password Unchanged'
+			}
+		}
+	},
 	'Password reset': {
 		locales: {
 			en: {
@@ -460,6 +571,14 @@ export const messagesMap = {
 			}
 		}
 	},
+	// pcs = pieces
+	'pcs per master': {
+		locales: {
+			en: {
+				name: 'pcs per master'
+			}
+		}
+	},
 	'Please pick another email': {
 		locales: {
 			en: {
@@ -470,6 +589,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Previous status': {
+		locales: {
+			en: {
+				name: 'Previous status'
+			}
+		}
+	},
 	'price matrix': {
 		locales: {
 			en: {
@@ -477,6 +603,20 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '价格模型'
+			}
+		}
+	},
+	'product': {
+		locales: {
+			en: {
+				name: 'product'
+			}
+		}
+	},
+	'products': {
+		locales: {
+			en: {
+				name: 'products'
 			}
 		}
 	},
@@ -510,6 +650,31 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Projects added': {
+		locales: {
+			en: {
+				name: 'Projects added'
+			}
+		}
+	},
+	// ########### \Q ############
+	// ########### \R ############
+	'reply': {
+		locales: {
+			en: {
+				name: 'reply'
+			}
+		}
+	},
+	// i.e. request for 5 products
+	'Request for': {
+		locales: {
+			en: {
+				name: 'Request for'
+			}
+		}
+	},
+	// ########### \S ############
 	'sample price': {
 		locales: {
 			en: {
@@ -517,6 +682,20 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '样品价格'
+			}
+		}
+	},
+	'sample': {
+		locales: {
+			en: {
+				name: 'sample'
+			}
+		}
+	},
+	'samples': {
+		locales: {
+			en: {
+				name: 'samples'
 			}
 		}
 	},
@@ -570,6 +749,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Service error when creating request': {
+		locales: {
+			en: {
+				name: 'Service error when creating request'
+			}
+		}
+	},
 	'shipping': {
 		locales: {
 			en: {
@@ -620,6 +806,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'supplier': {
+		locales: {
+			en: {
+				name: 'supplier'
+			}
+		}
+	},
 	'Suppliers count': {
 		locales: {
 			en: {
@@ -630,6 +823,14 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \T ############
+	'tasks': {
+		locales: {
+			en: {
+				name: 'tasks'
+			}
+		}
+	},
 	'Team name': {
 		locales: {
 			en: {
@@ -637,6 +838,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '群组名称'
+			}
+		}
+	},
+	'Team Rating': {
+		locales: {
+			en: {
+				name: 'Team Rating'
 			}
 		}
 	},
@@ -680,6 +888,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'The supplier doesn\'t exist': {
+		locales: {
+			en: {
+				name: 'The supplier doesn\'t exist'
+			}
+		}
+	},
 	'There is an error, please try again later': {
 		locales: {
 			en: {
@@ -710,6 +925,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'trading': {
+		locales: {
+			en: {
+				name: 'trading'
+			}
+		}
+	},
 	'type': {
 		locales: {
 			en: {
@@ -720,6 +942,7 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \U ############
 	'Unnamed product': {
 		locales: {
 			en: {
@@ -760,6 +983,15 @@ export const messagesMap = {
 			}
 		}
 	},
+	// ########### \V ############
+	// ########### \W ############
+	'We could not create the request due to a server issue': {
+		locales: {
+			en: {
+				name: 'We could not create the request due to a server issue'
+			}
+		}
+	},
 	'We had an error creating your company. Please try again.': {
 		locales: {
 			en: {
@@ -767,6 +999,15 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '我们在创建您的公司时遇到错误。 请再试一次'
+			}
+		}
+	},
+	// ########### \X ############
+	// ########### \Y ############
+	'You refused that request': {
+		locales: {
+			en: {
+				name: 'You refused that request'
 			}
 		}
 	},
@@ -780,6 +1021,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Your feedback request has been sent with success': {
+		locales: {
+			en: {
+				name: 'Your feedback request has been sent with success'
+			}
+		}
+	},
 	'Your first name': {
 		locales: {
 			en: {
@@ -787,6 +1035,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '您的名字'
+			}
+		}
+	},
+	'Your invitation was sent to': {
+		locales: {
+			en: {
+				name: 'Your invitation was sent to'
 			}
 		}
 	},
@@ -810,4 +1065,33 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Your password could not be changed, current password incorrect': {
+		locales: {
+			en: {
+				name: 'Your password could not be changed, current password incorrect'
+			}
+		}
+	},
+	'Your password has been changed with success': {
+		locales: {
+			en: {
+				name: 'Your password has been changed with success'
+			}
+		}
+	},
+	'Your projects were added to the product with success': {
+		locales: {
+			en: {
+				name: 'Your projects were added to the product with success'
+			}
+		}
+	},
+	'Your request has been already submitted': {
+		locales: {
+			en: {
+				name: 'Your request has been already submitted'
+			}
+		}
+	},
+	// ########### \Z ############
 };

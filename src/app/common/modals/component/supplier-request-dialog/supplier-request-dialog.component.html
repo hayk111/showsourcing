@@ -25,8 +25,8 @@
 						formControlName="requestTemplate">
 							<selector-placeholder-app
 								[name]="selectorReqTemplate?.value?.name"
-								i18n-placeholder="@@quick-rfq"
-								placeholder="Quick RFQ">
+								placeholder="Quick RFQ"
+								i18n-placeholder="@@quick-rfq">
 							</selector-placeholder-app>
 						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
@@ -56,8 +56,8 @@
 							(update)="updateSupplier($event)">
 							<selector-placeholder-app
 								[name]="supplier?.name"
-								i18n-placeholder="@@select-supplier"
-								placeholder="Select a supplier">
+								placeholder="Select a supplier"
+								i18n-placeholder="@@select-supplier">
 							</selector-placeholder-app>
 						</selector-app>
 						<input [hidden]="true" inputApp type="text"/>
@@ -77,7 +77,8 @@
 							[ngClass]="{ disabled: !supplier }"
 							[hasArrow]="supplier"
 							[name]="!supplier ? 'Select a supplier first' : contactSelector?.value?.email"
-							[placeholder]="'Email or Contact'">
+							[placeholder]="'Email or Contact'"
+							i18n-placeholder="@@email-or-contact">
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>

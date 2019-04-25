@@ -1,7 +1,7 @@
 <card-app>
 	<div *ngIf="(listSrv.items$ | async)?.length; else empty" class="container">
-		<div class="title"> 
-			<span i18n="header@@products">Products</span>
+		<div class="title">
+			<span class="capitalize" i18n="header@@products">products</span>
 			<button class="secondary" (click)="viewAll()" i18n="button@@view-all-products">
 				View All Products
 			</button>
@@ -38,7 +38,7 @@
 			<h3 class="xl" i18n="header@@start-adding-products-now">
 				You can start adding products now
 			</h3>
-			<button (click)="listSrv.create(true, {supplier: {id: supplierId}})" 
+			<button (click)="listSrv.create(true, {supplier: {id: supplierId}})"
 				i18n="button@@add-product">
 				Add Product
 			</button>

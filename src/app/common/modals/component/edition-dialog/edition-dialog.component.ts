@@ -52,7 +52,6 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 
 	onSubmit() {
 		if (this.group.valid) {
-			// TODO i18n
 			if (!this.entity) throw Error(`null entity when editing dialog`);
 			this.pending = true;
 			this.crudDlgSrv.edit(this.group, this.type, this.entity)

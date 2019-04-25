@@ -7,7 +7,7 @@ import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'change-pswd-dlg-app',
@@ -56,18 +56,17 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 		this.profileSrv.changePassword(this.group.value.currentPswd, this.group.value.confirmPswd).subscribe(response => {
 			this.pending = false;
 			if (response) {
-				// TODO i18n
 				this.notificationSrv.add({
 					type: NotificationType.SUCCESS,
-					title: 'Password Changed',
-					message: 'Your password has been changed with success',
+					title: translate('Password Changed'),
+					message: translate('Your password has been changed with success'),
 					timeout: 3500
 				});
 			} else {
 				this.notificationSrv.add({
 					type: NotificationType.ERROR,
-					title: 'Password Unchanged',
-					message: 'Your password could not be changed, current password incorrect',
+					title: translate('Password Unchanged'),
+					message: translate('Your password could not be changed, current password incorrect'),
 					timeout: 4500
 				});
 			}

@@ -7,17 +7,18 @@ import {
 	DEFAULT_REPLIED_STATUS,
 	ExtendedField,
 	ExtendedFieldDefinition,
+	ReplyStatus,
 	RequestElement,
 	RequestReply,
 	SupplierRequest,
-	ReplyStatus,
 } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
-import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 import { RefuseReplyDlgComponent } from '../refuse-reply-dlg/refuse-reply-dlg.component';
+import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -145,16 +146,15 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	getTooltipMessage() {
-		// TODO i18n
 		switch (this.reply.status) {
 			case ReplyStatus.PENDING:
 			case ReplyStatus.ERROR:
-				return this.hasEmptyField() ? 'All fields must be filled first' : null;
+				return this.hasEmptyField() ? translate('All fields must be filled first') : null;
 			case ReplyStatus.VALIDATED:
 			case ReplyStatus.REPLIED:
-				return 'Your request has been already submitted';
+				return translate('Your request has been already submitted');
 			case ReplyStatus.REFUSED:
-				return 'You refused that request';
+				return translate('You refused that request');
 		}
 	}
 

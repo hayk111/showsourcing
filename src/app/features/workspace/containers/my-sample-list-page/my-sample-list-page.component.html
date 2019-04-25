@@ -54,7 +54,8 @@
 			[typeEntity]="erm.SAMPLE"
 			type="multiple-selection"
 			[internalUpdate]="false"
-			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})"
+			i18n-toolTipMessage="@@change-status">
 		</status-selector-app>
 
 		<button class="icon light" (click)="listSrv.deleteSelected()">
