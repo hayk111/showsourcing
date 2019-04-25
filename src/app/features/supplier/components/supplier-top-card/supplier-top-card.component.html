@@ -7,7 +7,7 @@
 		<div class="type" *ngIf="supplier?.supplierType">
 			{{ supplier?.supplierType?.name }}
 		</div>
-		<icon-app name="circle" fontSet="fa" *ngIf="supplier?.supplierType"></icon-app>
+		<icon-app *ngIf="supplier?.supplierType" name="circle" fontSet="fa"></icon-app>
 		<div class="adress">
 			{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
 			{{ supplier?.country | const: 'country' }}
@@ -38,7 +38,7 @@
 			</button>
 		</context-menu-trigger-app>
 		<context-menu-item-app (click)="delete.emit(supplier)" i18n="button@@delete">
-			Delete
+			delete
 		</context-menu-item-app>
 	</context-menu-app>
 
