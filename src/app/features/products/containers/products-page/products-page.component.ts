@@ -18,7 +18,7 @@ import { AutoUnsub } from '~utils';
 		ListPageService
 	]
 })
-export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 	// filter displayed as button in the filter panel
 	filterTypes = [
@@ -32,8 +32,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.SUPPLIER,
 		FilterType.TAGS
 	];
-
-	dataLoaded = false;
 
 	constructor(
 		private productSrv: ProductService,
@@ -51,12 +49,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }],
 			entityMetadata: ERM.PRODUCT,
+			originComponentDestroy$: this._destroy$,
 		});
 		this.listSrv.loadData(this._destroy$);
-	}
-
-	ngAfterViewInit() {
-		this.dataLoaded = true;
 	}
 
 	onViewChange(view: 'list' | 'card') {

@@ -88,7 +88,7 @@ export class ListPageDataService
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
 			map(items => items.filter(itm => !itm.deleted)),
-			// takeUntil(destroy$)
+			takeUntil(destroy$)
 		);
 	}
 

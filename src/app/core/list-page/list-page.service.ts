@@ -29,6 +29,7 @@ const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 export interface ListPageConfig extends ListPageDataConfig {
 	key: ListPageKey | string;
 	entityMetadata: EntityMetadata;
+	originComponentDestroy$?: Observable<void>;
 }
 
 /**
@@ -71,6 +72,9 @@ export class ListPageService
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
+			if (shouldInitDataLoading) {
+				this.loadData(config.originComponentDestroy$);
+			}
 		});
 	}
 
