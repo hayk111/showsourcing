@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map, skip, switchMap, tap, first } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { map, skip, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
@@ -42,7 +42,6 @@ export class ListPageDataService
 
 	/** initialization flags */
 	private isSetup = false;
-	private initialized = false;
 
 	/** for the smart search feature... */
 	private searchFilterElements$: Observable<any[]>;
@@ -70,17 +69,13 @@ export class ListPageDataService
 	}
 
 	/** init: helper method to set everything up at once */
-	loadData() {
-		if (this.initialized) {
-			return this.refetch().subscribe();
-		}
-		this.setItems();
+	loadData(destroy$: Observable<void>) {
+		this.setItems(destroy$);
 		this.listenFilterChanges();
-		this.initialized = true;
 	}
 
 	/** subscribe to items and get the list result */
-	setItems() {
+	setItems(destroy$: Observable<void>) {
 		this.listResult = this.entitySrv.getListQuery({
 			...this.selectParams,
 			// overriding query in case there is a filter / search
@@ -92,7 +87,8 @@ export class ListPageDataService
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
-			map(items => items.filter(itm => !itm.deleted))
+			map(items => items.filter(itm => !itm.deleted)),
+			takeUntil(destroy$)
 		);
 	}
 

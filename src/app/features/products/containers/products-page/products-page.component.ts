@@ -4,7 +4,7 @@ import { ProductService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
-import { TrackingComponent } from '~utils/tracking-component';
+import { AutoUnsub } from '~utils';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -18,7 +18,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 		ListPageService
 	]
 })
-export class ProductsPageComponent extends TrackingComponent implements OnInit {
+export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 	// filter displayed as button in the filter panel
 	filterTypes = [
@@ -49,6 +49,7 @@ export class ProductsPageComponent extends TrackingComponent implements OnInit {
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }],
 			entityMetadata: ERM.PRODUCT,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

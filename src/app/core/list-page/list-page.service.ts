@@ -18,6 +18,7 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+import { TemplateService } from '~core/template/services/template.service';
 
 
 // where we can save the services
@@ -54,7 +55,8 @@ export class ListPageService
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
-		private zone: NgZone
+		private zone: NgZone,
+		private templateSrv: TemplateService
 	) { }
 
 	static reset() {
@@ -70,13 +72,29 @@ export class ListPageService
 			this.viewSrv.setup(config.entityMetadata);
 			// by default we start loading
 			if (shouldInitDataLoading) {
-				this.dataSrv.loadData();
-				this.dataSrv.filterList.valueChanges$.pipe(
-					takeUntil(config.destroy)
-				).subscribe(_ => this.selectionSrv.unselectAll());
+				this.setupLoading(config.originComponentDestroy$);
 			}
 		});
 	}
+
+
+	private setupLoading(destroy$: Observable<void>) {
+		if (!destroy$) {
+			throw Error('Please provide a originComponentDestroyed$ observable');
+		}
+		// Since now the scrolling happens on the the template.html for most of the lists
+		// we need a way to know when the bottomReach is happening and when to kill that observable
+		// originComponentDestroy indicates it
+		this.templateSrv.bottomReached$.pipe(
+			takeUntil(destroy$)
+		).subscribe(_ => this.loadMore());
+		this.dataSrv.loadData(destroy$);
+		// we need to reset selection when filter changes
+		this.dataSrv.filterList.valueChanges$.pipe(
+			takeUntil(destroy$)
+		).subscribe(_ => this.selectionSrv.unselectAll());
+	}
+
 
 	/**
 	 * takes the existing stateful services from the maps above,
