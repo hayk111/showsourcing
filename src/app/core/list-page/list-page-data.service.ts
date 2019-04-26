@@ -93,7 +93,7 @@ export class ListPageDataService
 			// and we can't use refetch or we lose the pagination
 			map(items => items.filter(itm => !itm.deleted)),
 			takeUntil(destroy$)
-		);
+		) as ConnectableObservable<T[]>;
 		// then we start listening
 		this.listResult.items$.connect();
 	}
