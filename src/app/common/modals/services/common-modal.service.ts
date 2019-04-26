@@ -48,8 +48,8 @@ export class CommonModalService {
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(targets?: Product[] | Supplier[]) {
-		return this.dlgSrv.open(ExportDlgComponent, { targets });
+	openExportDialog(targets?: Product[] | Supplier[], query?: string) {
+		return this.dlgSrv.open(ExportDlgComponent, { targets, query });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */

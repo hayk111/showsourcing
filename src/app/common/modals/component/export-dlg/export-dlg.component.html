@@ -1,6 +1,7 @@
 <export-selection-view-app
 	[ngClass]="{ 'hide': requestCreated }"
 	[targets]="targets"
+	[length]="length$ | async"
 	(export)="export()"
 	(selected)="select($event)">
 </export-selection-view-app>
