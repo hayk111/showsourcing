@@ -1,8 +1,8 @@
 import { ApolloBase, QueryRef } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
 import * as gqlTag from 'graphql-tag';
-import { BehaviorSubject, forkJoin, merge, Observable, of, throwError } from 'rxjs';
-import { catchError, filter, first, map, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, merge, Observable, of, throwError, ConnectableObservable } from 'rxjs';
+import { catchError, filter, first, map, shareReplay, switchMap, tap, withLatestFrom, publishReplay, publish, multicast } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
@@ -328,7 +328,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 		let itemsAmount = 0;
 		// add items$ wich are the actual items requested
-		const items$: Observable<T[]> = queryRef$.pipe(
+		const items$: ConnectableObservable<T[]> = queryRef$.pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(queryRef => queryRef.valueChanges),
 			filter((r: any) => this.checkError(r)),
@@ -336,10 +336,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
-			shareReplay(1),
-			catchError((errors) => of(log.table(errors)))
-		);
-
+			catchError((errors) => of(log.table(errors))),
+			publishReplay(1)
+		) as ConnectableObservable<T[]>;
 		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
 		// (will be reflected in items$)
 		const fetchMore = (): Observable<any> => {
@@ -412,7 +411,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 		let itemsAmount = 0;
 		// add items$ wich are the actual items requested
-		const items$: Observable<T[]> = queryRef$.pipe(
+		const items$: ConnectableObservable<T[]> = (queryRef$.pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(queryRef => queryRef.valueChanges),
 			filter((r: any) => this.checkError(r)),
@@ -421,7 +420,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
 			catchError((errors) => of(log.table(errors)))
-		);
+		) as ConnectableObservable<T[]>);
 
 		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
 		// (will be reflected in items$)

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, ConnectableObservable } from 'rxjs';
 import { map, skip, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
@@ -21,7 +21,7 @@ export class ListPageDataService
 	/** main global service used */
 	protected entitySrv: G;
 	/** currently loaded items */
-	items$: Observable<Array<T>>;
+	items$: ConnectableObservable<Array<T>>;
 
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
@@ -42,6 +42,7 @@ export class ListPageDataService
 
 	/** initialization flags */
 	private isSetup = false;
+	private initialized = false;
 
 	/** for the smart search feature... */
 	private searchFilterElements$: Observable<any[]>;
@@ -70,8 +71,11 @@ export class ListPageDataService
 
 	/** init: helper method to set everything up at once */
 	loadData(destroy$: Observable<void>) {
-		this.setItems(destroy$);
-		this.listenFilterChanges();
+		if (!this.initialized) {
+			this.setItems(destroy$);
+			this.listenFilterChanges(destroy$);
+			this.initialized = true;
+		}
 	}
 
 	/** subscribe to items and get the list result */
@@ -90,15 +94,18 @@ export class ListPageDataService
 			map(items => items.filter(itm => !itm.deleted)),
 			takeUntil(destroy$)
 		);
+		// then we start listening
+		this.listResult.items$.connect();
 	}
 
 	/** when the filter change we want to refetch the items with a new predicate */
-	listenFilterChanges() {
+	listenFilterChanges(destroy$: Observable<void>) {
 		this.filterList
 			.valueChanges$
 			.pipe(
 				skip(1),
-				switchMap(_ => this.refetch({ query: this.filterList.asPredicate() }))
+				switchMap(_ => this.refetch({ query: this.filterList.asPredicate() })),
+				takeUntil(destroy$)
 			).subscribe();
 	}
 

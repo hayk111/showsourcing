@@ -84,6 +84,7 @@ export class SelectorsService {
 			map(items => items.filter(itm => !itm.deleted)),
 			tap(items => this.items = items),
 		);
+		this.listResult.items$.connect();
 	}
 
 	refetch(selectParams?: SelectParamsConfig) {
