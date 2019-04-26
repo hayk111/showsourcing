@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
 
 
 		if (isAuthRoute)
-			this.authSrv.logout();
+			this.authSrv.logout(false);
 		else
 			this.authSrv.init();
 

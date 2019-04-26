@@ -4,6 +4,7 @@ import { TagService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { ERM, Tag } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'tag-data-management-page-app',
@@ -14,7 +15,7 @@ import { ERM, Tag } from '~models';
 		ListPageService
 	]
 })
-export class TagDataManagementPageComponent implements OnInit {
+export class TagDataManagementPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM.TAG;
 
 	constructor(
@@ -23,6 +24,7 @@ export class TagDataManagementPageComponent implements OnInit {
 		public commonModalSrv: CommonModalService,
 		private dmSrv: DataManagementService
 	) {
+		super();
 	}
 
 	ngOnInit() {
@@ -31,7 +33,8 @@ export class TagDataManagementPageComponent implements OnInit {
 			entitySrv: this.tagSrv,
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false },
-			entityMetadata: this.erm
+			entityMetadata: this.erm,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

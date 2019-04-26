@@ -4,6 +4,7 @@ import { EventService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { ERM, Event } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'event-data-management-page-app',
@@ -14,7 +15,7 @@ import { ERM, Event } from '~models';
 		ListPageService
 	]
 })
-export class EventDataManagementPageComponent implements OnInit {
+export class EventDataManagementPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM.EVENT;
 
 	constructor(
@@ -23,6 +24,7 @@ export class EventDataManagementPageComponent implements OnInit {
 		public commonModalSrv: CommonModalService,
 		private dmSrv: DataManagementService
 	) {
+		super();
 	}
 
 	ngOnInit() {
@@ -31,7 +33,8 @@ export class EventDataManagementPageComponent implements OnInit {
 			entitySrv: this.eventSrv,
 			searchedFields: ['description.name'],
 			selectParams: { sortBy: 'description.name', descending: false },
-			entityMetadata: ERM.EVENT
+			entityMetadata: ERM.EVENT,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

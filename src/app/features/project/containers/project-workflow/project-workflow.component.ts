@@ -70,7 +70,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			}).pipe(
 				first(),
 				// adding new status
-				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses]),
+				map(statuses => [{ id: NEW_STATUS_ID, name: 'New Product', category: 'new' }, ...statuses]),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 				tap(statuses => this.statuses = statuses),
 				takeUntil(this._destroy$)
@@ -79,7 +79,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
-		const query = col.id !== null ?
+		const query = col.id !== NEW_STATUS_ID ?
 			`status.id == "${col.id}" && projects.id == "${this.project.id}"`
 			: `status == null && projects.id == "${this.project.id}"`;
 		this.productSrv.queryMany({
@@ -95,7 +95,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		statuses.forEach(status => {
 			let query;
 			// we need to check for null status
-			if (status.id !== null)
+			if (status.id !== NEW_STATUS_ID)
 				query = `status.id == "${status.id}" && projects.id == "${this.project.id}"`;
 			else
 				query = `status == null && projects.id == "${this.project.id}"`;

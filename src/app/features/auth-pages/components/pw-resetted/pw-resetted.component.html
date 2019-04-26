@@ -1,5 +1,8 @@
 <p i18n="paragraph|Instruction to reset password@@pwResetted_reset">
-	The instructions to reset your password have been sent to your email address.
+	We sent you instructions to recover your password.
 </p>
 
-<button class="small" (click)="back.emit()" i18n="button|Login on password reset@@pwResetted_login">Login</button>
+<span class="spacer mg-s"></span>
+<div class="flexEnd">
+	<button class="small" (click)="goLogin()" i18n="button|Login on password reset@@pwResetted_login">Login</button>
+</div>

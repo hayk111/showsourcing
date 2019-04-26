@@ -1,3 +1,4 @@
+
 <!-- top panel -->
 <top-panel-app
 	title="My Products"
@@ -28,10 +29,10 @@
 	</sub-panel-right-item-app>
 
 </sub-panel-app>
-
 <!-- views: either one will be displayed when the correct view is selected -->
+
+
 <products-list-view-app
-	*ngIf="listSrv.view === 'list'"
 	class="list-view"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
@@ -74,6 +75,7 @@
 	(unselect)="listSrv.unselectOne($event, true)"
 	(update)="listSrv.update($event)">
 </products-card-view-app>
+
 
 <product-selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
