@@ -6,8 +6,8 @@ import { CommonModalService } from '~common/modals';
 import { ProductService, SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, Product, Supplier } from '~core/models';
+import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
-import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'supplier-products-page-app',
@@ -15,7 +15,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./supplier-products-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierProductsPageComponent extends TrackingComponent implements OnInit {
+export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 
 	supplierId: ID;
 	supplier$: Observable<Supplier>;
@@ -40,7 +40,8 @@ export class SupplierProductsPageComponent extends TrackingComponent implements 
 			selectParams: {
 				query: `supplier.id == "${this.supplierId}" AND archived == false`,
 			},
-			entityMetadata: ERM.PRODUCT
+			entityMetadata: ERM.PRODUCT,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

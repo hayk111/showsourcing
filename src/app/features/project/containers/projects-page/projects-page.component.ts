@@ -4,7 +4,7 @@ import { ProjectService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Project } from '~models';
 import { FilterType } from '~shared/filters';
-import { TrackingComponent } from '~utils/tracking-component';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'projects-page-app',
@@ -14,7 +14,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 		ListPageService
 	]
 })
-export class ProjectsPageComponent extends TrackingComponent implements OnInit {
+export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 	filterTypes = [FilterType.CREATED_BY];
 	erm = ERM.PROJECT;
 
@@ -32,7 +32,8 @@ export class ProjectsPageComponent extends TrackingComponent implements OnInit {
 			entitySrv: this.projectSrv,
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false },
-			entityMetadata: ERM.PROJECT
+			entityMetadata: ERM.PROJECT,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 }

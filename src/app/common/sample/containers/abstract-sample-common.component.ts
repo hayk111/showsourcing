@@ -34,7 +34,8 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 				{ type: FilterType.ASSIGNEE, value: userId },
 				{ type: FilterType.DELETED, value: false },
 				...addedFilters
-			]
+			],
+			originComponentDestroy$: this._destroy$
 		});
 	}
 
