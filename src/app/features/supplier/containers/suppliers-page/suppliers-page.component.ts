@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModalService } from '~common/modals';
 import { SupplierService } from '~core/entity-services';
@@ -15,7 +15,7 @@ import { AutoUnsub } from '~utils';
 		ListPageService
 	]
 })
-export class SuppliersPageComponent extends AutoUnsub implements OnInit {
+export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	erm = ERM;
 
@@ -43,7 +43,10 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
 			entityMetadata: ERM.SUPPLIER,
 			initialFilters: [],
-			originComponentDestroy$: this._destroy$,
-		});
+		}, false);
+	}
+
+	ngAfterViewInit() {
+		this.listSrv.loadData(this._destroy$);
 	}
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject, ConnectableObservable } from 'rxjs';
+import { Observable, of, Subject, ConnectableObservable, BehaviorSubject } from 'rxjs';
 import { map, skip, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
@@ -43,6 +43,8 @@ export class ListPageDataService
 	/** initialization flags */
 	private isSetup = false;
 	private initialized = false;
+	/** tells us if loadData has been called */
+	isListening = false;
 
 	/** for the smart search feature... */
 	private searchFilterElements$: Observable<any[]>;
@@ -58,6 +60,7 @@ export class ListPageDataService
 	 * @param service main global/feature service used for making queries
 	 */
 	setup(config: ListPageDataConfig) {
+		this.isListening = false;
 		if (this.isSetup)
 			return;
 		Object.assign(this, config);
@@ -71,15 +74,23 @@ export class ListPageDataService
 
 	/** init: helper method to set everything up at once */
 	loadData(destroy$: Observable<void>) {
+		// since the item$ is a connectable observable we
+		// can just do it once
 		if (!this.initialized) {
-			this.setItems(destroy$);
-			this.listenFilterChanges(destroy$);
+			this.setItems();
 			this.initialized = true;
 		}
+		// here we want to unsubscribe from the filter list
+		// when the component is destroyed so we do it all the time
+		this.listenFilterChanges(destroy$);
+		// since the isListening changes after ngAfterViewInit a lot of the time
+		// let's use setTimeout to not have a ViewChangedAfterItWasCheckedError
+
+		setTimeout(_ => this.isListening = true);
 	}
 
 	/** subscribe to items and get the list result */
-	setItems(destroy$: Observable<void>) {
+	setItems() {
 		this.listResult = this.entitySrv.getListQuery({
 			...this.selectParams,
 			// overriding query in case there is a filter / search
@@ -92,7 +103,6 @@ export class ListPageDataService
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
 			map(items => items.filter(itm => !itm.deleted)),
-			takeUntil(destroy$)
 		) as ConnectableObservable<T[]>;
 		// then we start listening
 		this.listResult.items$.connect();
@@ -107,11 +117,6 @@ export class ListPageDataService
 				switchMap(_ => this.refetch({ query: this.filterList.asPredicate() })),
 				takeUntil(destroy$)
 			).subscribe();
-	}
-
-	/** when the items are loading */
-	onLoad() {
-		this.pending = true;
 	}
 
 	/** when the items are loaded */

@@ -18,7 +18,7 @@ import { AutoUnsub } from '~utils';
 		ListPageService
 	]
 })
-export class ProductsPageComponent extends AutoUnsub implements OnInit {
+export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	erm = ERM;
 	// filter displayed as button in the filter panel
 	filterTypes = [
@@ -49,8 +49,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }],
 			entityMetadata: ERM.PRODUCT,
-			originComponentDestroy$: this._destroy$,
-		});
+		}, false);
+	}
+
+	ngAfterViewInit() {
 		this.listSrv.loadData(this._destroy$);
 	}
 
