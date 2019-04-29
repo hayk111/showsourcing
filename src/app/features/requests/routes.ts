@@ -3,9 +3,8 @@ import { Routes } from '@angular/router';
 import { RequestDetailsComponent, RequestPageComponent } from './containers';
 
 export const routes: Routes = [
-	{ path: '', redirectTo: 'all', pathMatch: 'full' },
 	{
-		path: 'all',
+		path: '',
 		component: RequestPageComponent
 	},
 	{
