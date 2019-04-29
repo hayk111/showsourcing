@@ -23,6 +23,9 @@
 			[gridView]="listSrv.view === 'card'"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
+		<button (click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())" i18n="@@export-all-by-filter">
+			Export all by filter
+		</button>
 	</sub-panel-right-item-app>
 
 </sub-panel-app>
@@ -31,6 +34,7 @@
 <ng-container *ngIf="listSrv.isListening">
 	<products-list-view-app
 		class="list-view"
+		*ngIf="listSrv.view === 'list'"
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"
 		[rows]="listSrv.items$ | async"

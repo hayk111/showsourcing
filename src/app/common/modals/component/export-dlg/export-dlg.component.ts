@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
-import { switchMap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
+import { ProductService } from '~core/entity-services';
 import { ExportRequestService } from '~entity-services/export-request/export-request.service';
 import { ExportRequest, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';
@@ -18,6 +20,7 @@ type ExportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
 export class ExportDlgComponent implements OnInit {
 
 	@Input() targets: Product[] | Supplier[];
+	@Input() query: string;
 	selectedFormat: ExportFormat;
 	selectedType: ExportType;
 
@@ -26,14 +29,20 @@ export class ExportDlgComponent implements OnInit {
 	// if the export it is ready on the backend
 	fileReady = false;
 	exportReq: ExportRequest;
+	length$ = new BehaviorSubject(0);
 
 	constructor(
 		public dlgSrv: DialogService,
 		private router: Router,
 		private exportSrv: ExportRequestService,
+		private productSrv: ProductService,
 		private cdr: ChangeDetectorRef) { }
 
 	ngOnInit() {
+		if (this.query)
+			this.productSrv.queryCount(this.query).pipe(take(1)).subscribe(len => this.length$.next(len > 1000 ? 1000 : len));
+		else
+			this.length$.next(this.targets.length);
 	}
 
 	select({ format, type }: { format: ExportFormat, type: ExportType }) {
@@ -42,11 +51,11 @@ export class ExportDlgComponent implements OnInit {
 	}
 
 	export() {
-
+		const query = this.query ? this.query : (this.targets as any[]).map(target => `id == '${target.id}'`).join(' or ');
 		const request = new ExportRequest({
 			type: this.selectedType,
 			format: this.selectedFormat,
-			query: (this.targets as any[]).map(target => `id == '${target.id}'`).join(' or ')
+			query
 		});
 
 		this.requestCreated = true;

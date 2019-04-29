@@ -809,15 +809,25 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 					return key;
 				}
 			} else {
-				return '';
+				return this.emptyArrayExceptions(key);
 			}
-
 		} else if (val instanceof Object) {
 			return `${key} { ${this.patch(val)} }`;
 		} else if (val === null) {
 			return '';
 		} else {
 			return key;
+		}
+	}
+
+	private emptyArrayExceptions(key: string) {
+		switch (key) {
+			case 'votes':
+				return 'votes { id }';
+			case 'projects':
+				return 'projects { id }';
+			default:
+				return '';
 		}
 	}
 

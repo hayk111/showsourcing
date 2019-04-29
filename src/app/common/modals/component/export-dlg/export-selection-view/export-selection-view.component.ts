@@ -13,6 +13,7 @@ type ExportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
 export class ExportSelectionViewComponent implements OnInit {
 
 	@Input() targets: Product[] | Supplier[];
+	@Input() length: number;
 	@Output() export = new EventEmitter<null>();
 	@Output() selected = new EventEmitter<{ format: ExportFormat, type: ExportType }>();
 
