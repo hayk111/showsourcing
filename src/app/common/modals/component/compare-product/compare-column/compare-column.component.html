@@ -9,51 +9,51 @@
   <div>
     <span>{{ product?.supplier?.name }}</span>
   </div>
-  
+
   <div>
-    <span>{{ product.price | appPrice}}</span>
+    <span>{{ product.price | ssPrice }}</span>
   </div>
-  
+
   <div>
     <span>{{ product.minimumOrderQuantity }}</span>
   </div>
-  
+
   <div>
     <span>{{ product.moqDescription }}</span>
   </div>
-  
+
   <div>
     <span>{{ product?.category?.name }}</span>
   </div>
-  
+
   <div>
     <span>{{ product.tags }}</span>
   </div>
-  
+
   <h3></h3>
-  
+
   <div>
     <ng-container *ngIf="product.innerCarton as c">
       <span>{{ c?.length }} x {{ c?.width }} x {{ c?.depth }} {{ c?.unit }}</span>
     </ng-container>
   </div>
-  
+
   <div>
     <ng-container *ngIf="product.masterCarton as c">
       <span>{{ c?.length }} x {{ c?.width }} x {{ c?.depth }} {{ c?.unit }}</span>
     </ng-container>
   </div>
-  
+
   <div>
       <span>{{ product?.masterCarton?.itemsQuantity}}</span>
   </div>
-  
+
   <h3></h3>
-  
+
   <div>
     <span>{{ product?.supplier?.incoTerm }}</span>
   </div>
-  
+
   <div>
     <span>{{ product?.supplier?.harbour }}</span>
   </div>
