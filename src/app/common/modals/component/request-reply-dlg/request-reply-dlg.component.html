@@ -55,7 +55,7 @@
 			<!-- reply message -->
 			<h3 class="ms">Request Message</h3>
 			<form-field-app class="modal">
-				<textarea inputApp type="text" [value]="element?.reply?.message" placeholder="Reply message to buyer"></textarea>
+				<textarea inputApp [disabled]="isDisabled()" type="text" [value]="element?.reply?.message" placeholder="Reply message to buyer"></textarea>
 			</form-field-app>
 
       <!-- images -->
