@@ -37,6 +37,8 @@ import {
 } from './component/supplier-request-dialog/product-request-list/product-request-list.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
+import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
+import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -76,6 +78,8 @@ const modals = [
 		ExportSelectionViewComponent,
 		ExportWaitingViewComponent,
 		ProductRequestListComponent,
+		CompareLabelsComponent,
+		CompareColumnComponent,
 	],
 	entryComponents: modals,
 	providers: [
