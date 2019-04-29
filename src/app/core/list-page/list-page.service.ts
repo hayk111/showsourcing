@@ -72,10 +72,10 @@ export class ListPageService
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
-			if (shouldInitDataLoading) {
-				this.loadData(config.originComponentDestroy$);
-			}
 		});
+		if (shouldInitDataLoading) {
+			this.loadData(config.originComponentDestroy$);
+		}
 	}
 
 
@@ -131,6 +131,10 @@ export class ListPageService
 
 	get pending() {
 		return this.dataSrv.pending;
+	}
+
+	get isListening() {
+		return this.dataSrv.isListening;
 	}
 
 	get smartSearchFilterElements$() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { ProjectService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -14,7 +14,7 @@ import { AutoUnsub } from '~utils';
 		ListPageService
 	]
 })
-export class ProjectsPageComponent extends AutoUnsub implements OnInit {
+export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	filterTypes = [FilterType.CREATED_BY];
 	erm = ERM.PROJECT;
 
@@ -33,7 +33,10 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false },
 			entityMetadata: ERM.PROJECT,
-			originComponentDestroy$: this._destroy$
-		});
+		}, false);
+	}
+
+	ngAfterViewInit() {
+		this.listSrv.loadData(this._destroy$);
 	}
 }

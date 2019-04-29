@@ -18,7 +18,7 @@ import { AutoUnsub } from '~utils';
 		ListPageService
 	]
 })
-export class ProductsPageComponent extends AutoUnsub implements OnInit {
+export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	erm = ERM;
 	// filter displayed as button in the filter panel
 	filterTypes = [
@@ -50,8 +50,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			// we use the deleted filter there so we can send the query to export all to the export dlg
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
-			originComponentDestroy$: this._destroy$,
-		});
+		}, false);
+	}
+
+	ngAfterViewInit() {
 		this.listSrv.loadData(this._destroy$);
 	}
 

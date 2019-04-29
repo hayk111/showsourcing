@@ -63,5 +63,6 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 
 	export() {
 		this.listSrv.dataSrv.items$.pipe(first()).subscribe((products: Product[]) => this.commonModalSrv.openExportDialog(products));
+		this.listSrv.dataSrv.items$.connect();
 	}
 }
