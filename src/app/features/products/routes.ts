@@ -12,9 +12,8 @@ import { ProductRequestsComponent } from './containers/product-requests/product-
 
 
 export const routes: Array<Route> = [
-	{ path: '', redirectTo: 'all', pathMatch: 'full' },
 	{
-		path: 'all',
+		path: '',
 		component: ProductsPageComponent
 	},
 	{

@@ -13,9 +13,7 @@ import { routes } from './routes';
 	declarations: [
 		HandleInvitationComponent
 	],
-	providers: [
-		InvitationFeatureService
-	],
+	providers: [],
 	exports: [
 	],
 })

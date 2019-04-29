@@ -19,7 +19,10 @@
         <p *ngIf="currentSort?.sortBy === 'createdBy.firstName'" class="flex">Sort By Sent by
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">Sort By Sent on
+        <p *ngIf="currentSort?.sortBy === 'sentDate'" class="flex">Sort By Sent on
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">Sort By Created on
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
@@ -61,8 +64,14 @@
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
-  <context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item">
+  <context-menu-item-app (click)="sortFromMenu.emit('sentDate')" class="menu-item">
     Sent on
+    <ng-container *ngIf="currentSort?.sortBy === 'sentDate'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item">
+    Created on
     <ng-container *ngIf="currentSort?.sortBy === 'creationDate'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>

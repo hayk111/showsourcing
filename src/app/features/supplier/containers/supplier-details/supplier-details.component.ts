@@ -82,7 +82,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.commonModalSrv.openConfirmDialog({ text: 'are you sure you want to delete this supplier ?' }).pipe(
 
 			switchMap(_ => this.featureSrv.delete(supplier.id))
-		).subscribe(_ => this.router.navigate(['supplier', 'all']));
+		).subscribe(_ => this.router.navigate(['supplier']));
 
 	}
 

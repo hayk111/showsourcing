@@ -66,7 +66,7 @@ export class ListPageService
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
-			this.initOriginCompoentDestroy(config.originComponentDestroy);
+			this.initOriginComponentDestroy(config.originComponentDestroy);
 			this.initServices(config.key);
 			this.dataSrv.setup(config);
 			this.viewSrv.setup(config.entityMetadata);
@@ -81,7 +81,7 @@ export class ListPageService
 	 * we need a way to know when the bottomReach is happening and when to kill that observable
 	 * originComponentDestroy indicates it
 	 */
-	private initOriginCompoentDestroy(destroy$: Subject<void>) {
+	private initOriginComponentDestroy(destroy$: Subject<void>) {
 		if (destroy$)
 			this.templateSrv.bottomReached$.pipe(
 				takeUntil(destroy$)
@@ -173,7 +173,9 @@ export class ListPageService
 	}
 
 	updateMany(values: T[]) {
-		this.dataSrv.updateMany(values).subscribe();
+		this.dataSrv.updateMany(values).pipe(
+			switchMap(_ => this.refetch())
+		).subscribe();
 	}
 
 	onItemFavorited(id: string) {
@@ -185,15 +187,16 @@ export class ListPageService
 	}
 
 	onFavoriteAllSelected() {
-		this.getSelectedIds()
-			.forEach(id => this.onItemFavorited(id));
+		const elems: any[] = this.getSelectedIds()
+			.map(id => ({ id, favorite: true }));
+		this.updateMany(elems);
 		this.selectionSrv.allSelectedFavorite = true;
 	}
 
 	onUnfavoriteAllSelected() {
-		/** When we unfavorite all selected items, the items that are already unfavorited will stay the same */
-		this.getSelectedIds()
-			.forEach(id => this.onItemUnfavorited(id));
+		const elems: any[] = this.getSelectedIds()
+			.map(id => ({ id, favorite: false }));
+		this.updateMany(elems);
 		this.selectionSrv.allSelectedFavorite = false;
 	}
 

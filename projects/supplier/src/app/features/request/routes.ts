@@ -3,9 +3,8 @@ import { RequestsPageComponent, RequestDetailsComponent, RequestElementDetailsCo
 
 
 export const routes: Routes = [
-	{ path: '', redirectTo: 'all', pathMatch: 'full' },
 	{
-		path: 'all',
+		path: '',
 		component: RequestsPageComponent
 	},
 	{
