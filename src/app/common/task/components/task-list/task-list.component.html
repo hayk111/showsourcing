@@ -1,6 +1,6 @@
 <card-app>
 	<div class="flex flexBetween top">
-		<h2 class="color-txt-strong">Tasks</h2>
+		<h2 class="color-txt-strong first-uppercase" i18n="@@tasks">tasks</h2>
 		<div class="spacer mg-m"></div>
 		<div *ngIf="hasFilters" class="flex show-my-tasks">
 			<checkbox-app
@@ -8,7 +8,7 @@
 				[checked]="filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 				(check)="toggleMyTasks.emit(true)"
 				(uncheck)="toggleMyTasks.emit(false)">
-				<span>
+				<span i18n="text@@show-only-my-tasks">
 					Show my tasks only
 				</span>
 			</checkbox-app>
@@ -38,7 +38,7 @@
 	</list-app>
 	<div class="flexBetween create-task">
 		<input inputApp type="text" [formControl]="taskCtrl"
-			placeholder="+ Create a new task" (keydown.enter)="onEnter($event)"/>
+			placeholder="+ Create a new task" (keydown.enter)="onEnter($event)" i18n-placeholder="@@+-create-new-task"/>
 		<button *ngIf="inp?.focussed || taskCtrl.value"class="secondary-light" (click)="onSubmit()">Create</button>
 	</div>
 </card-app>

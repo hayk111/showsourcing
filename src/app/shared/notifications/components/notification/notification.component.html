@@ -3,7 +3,7 @@
       <icon-app fontSet="fa" style="cursor: default;" [name]="iconLeft"></icon-app>
   </div>
   <div class="middle-part">
-		<div *ngIf="title?.length" class="title">{{ title }}</div>
+		<div *ngIf="title?.length" class="title first-uppercase">{{ title }}</div>
 		<div *ngIf="message?.length" class="message">{{ message }}</div>
 		<div *ngIf="uriMessage?.length" class="uri-message" (click)="goTo()"> {{ uriMessage }}</div>
   </div>

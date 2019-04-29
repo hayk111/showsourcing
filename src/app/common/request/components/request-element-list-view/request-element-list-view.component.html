@@ -18,13 +18,13 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="openRefuseReplyDlg.emit(row.reply.id)">
-			Refuse
+			(click)="openRefuseReplyDlg.emit(row.reply.id)" i18n="@@refuse">
+			refuse
 		</context-menu-item-app>
 	</ng-template>
 
 	<ng-template
-		columnApp="Product"
+		[columnApp]="erm.PRODUCT.singular | const: 'erm'"
 		sortBy="name"
 		let-row="row"
 		width="300">
@@ -42,7 +42,7 @@
 		[sortable]="false"
 		*ngFor="let field of fields[0]; index as i; trackBy: trackByFn"
 		[columnApp]="field?.definition?.label">
-		<div *ngIf="field?.definition?.type !== 'price'; else isPrice">{{fields[index][i]?.value}}</div>
+		<div *ngIf="field?.definition?.type !== 'price'; else isPrice">{{ fields[index][i]?.value }}</div>
 		<ng-template #isPrice>
 			<div *ngIf="getPrice(fields[index][i]?.value) as price">
 					{{ price | appPrice }}
@@ -52,7 +52,7 @@
 	</ng-template>
 
 	<ng-template
-		columnApp="Status"
+		[columnApp]="'status' | const: 'messages'"
 		sortBy="reply.status"
 		let-row="row"
 		width="300">

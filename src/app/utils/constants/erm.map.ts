@@ -1,8 +1,71 @@
 export const ermMap = {
+	'category': {
+		locales: {
+			en: {
+				name: 'category'
+			},
+			'zh-Hans': {
+				name: '类别'
+			}
+		}
+	},
+	'categories': {
+		locales: {
+			en: {
+				name: 'categories'
+			},
+			'zh-Hans': {
+				name: '类别'
+			}
+		}
+	},
+	'comment': {
+		locales: {
+			en: {
+				name: 'comment'
+			},
+			'zh-Hans': {
+				name: '评论'
+			}
+		}
+	},
+	'comments': {
+		locales: {
+			en: {
+				name: 'comments'
+			},
+			'zh-Hans': {
+				name: '评论'
+			}
+		}
+	},
+	'country': {
+		locales: {
+			en: {
+				name: 'country'
+			},
+			'zh-Hans': {
+				name: '国家'
+			}
+		}
+	},
+	'countries': {
+		locales: {
+			en: {
+				name: 'countries'
+			},
+			'zh-Hans': {
+				name: '国家'
+			}
+		}
+	},
 	'email': {
 		locales: {
 			en: {
 				name: 'email'
+			},
+			'zh-Hans': {
+				name: '邮箱'
 			}
 		}
 	},
@@ -10,6 +73,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'emails'
+			},
+			'zh-Hans': {
+				name: '邮箱'
 			}
 		}
 	},
@@ -17,6 +83,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'event'
+			},
+			'zh-Hans': {
+				name: '活动'
 			}
 		}
 	},
@@ -24,6 +93,49 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'events'
+			},
+			'zh-Hans': {
+				name: '活动'
+			}
+		}
+	},
+	'image': {
+		locales: {
+			en: {
+				name: 'image'
+			},
+			'zh-Hans': {
+				name: '图片'
+			}
+		}
+	},
+	'images': {
+		locales: {
+			en: {
+				name: 'images'
+			},
+			'zh-Hans': {
+				name: '图片'
+			}
+		}
+	},
+	'price': {
+		locales: {
+			en: {
+				name: 'price'
+			},
+			'zh-Hans': {
+				name: '价格'
+			}
+		}
+	},
+	'prices': {
+		locales: {
+			en: {
+				name: 'prices'
+			},
+			'zh-Hans': {
+				name: '价格'
 			}
 		}
 	},
@@ -31,6 +143,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'product'
+			},
+			'zh-Hans': {
+				name: '产品'
 			}
 		}
 	},
@@ -38,6 +153,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'products'
+			},
+			'zh-Hans': {
+				name: '产品'
 			}
 		}
 	},
@@ -45,6 +163,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'project'
+			},
+			'zh-Hans': {
+				name: '项目'
 			}
 		}
 	},
@@ -52,6 +173,29 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'projects'
+			},
+			'zh-Hans': {
+				name: '项目'
+			}
+		}
+	},
+	'request': {
+		locales: {
+			en: {
+				name: 'request'
+			},
+			'zh-Hans': {
+				name: '请求'
+			}
+		}
+	},
+	'requests': {
+		locales: {
+			en: {
+				name: 'requests'
+			},
+			'zh-Hans': {
+				name: '请求'
 			}
 		}
 	},
@@ -59,6 +203,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'sample'
+			},
+			'zh-Hans': {
+				name: '样品'
 			}
 		}
 	},
@@ -66,6 +213,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'samples'
+			},
+			'zh-Hans': {
+				name: '样品'
 			}
 		}
 	},
@@ -73,6 +223,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'supplier'
+			},
+			'zh-Hans': {
+				name: '供应商'
 			}
 		}
 	},
@@ -80,6 +233,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'suppliers'
+			},
+			'zh-Hans': {
+				name: '供应商'
 			}
 		}
 	},
@@ -87,6 +243,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'tag'
+			},
+			'zh-Hans': {
+				name: '标签'
 			}
 		}
 	},
@@ -94,6 +253,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'tags'
+			},
+			'zh-Hans': {
+				name: '标签'
 			}
 		}
 	},
@@ -101,6 +263,9 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'task'
+			},
+			'zh-Hans': {
+				name: '任务'
 			}
 		}
 	},
@@ -108,6 +273,29 @@ export const ermMap = {
 		locales: {
 			en: {
 				name: 'tasks'
+			},
+			'zh-Hans': {
+				name: '任务'
+			}
+		}
+	},
+	'user': {
+		locales: {
+			en: {
+				name: 'user'
+			},
+			'zh-Hans': {
+				name: '用户'
+			}
+		}
+	},
+	'users': {
+		locales: {
+			en: {
+				name: 'users'
+			},
+			'zh-Hans': {
+				name: '用户'
 			}
 		}
 	},

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Product } from '~models';
+import { Product, ERM } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { ComparisonDataModel } from '~shared/table/models/';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 import { getArrayData, getPackagingString } from '~utils/product.utils';
 
 @Component({
@@ -37,83 +37,83 @@ export class CompareProductComponent extends AutoUnsub {
 			},
 			{
 				type: 'content',
-				title: 'Supplier',
+				title: translate(ERM.SUPPLIER.singular, 'erm'),
 				dataType: 'text',
 				data: getArrayData(this.products, 'supplier.name')
 			},
 			{
-				title: 'Price',
+				title: translate(ERM.PRICE.singular, 'erm'),
 				type: 'content',
 				dataType: 'price',
 				data: getArrayData(this.products, 'price')
 			},
 			{
 				type: 'content',
-				title: 'MOQ',
+				title: translate('MOQ'),
 				dataType: 'text',
 				data: getArrayData(this.products, 'minimumOrderQuantity')
 			},
 			{
 				type: 'content',
 				dataType: 'text',
-				title: 'MOQ Description',
+				title: translate('MOQ Description'),
 				data: getArrayData(this.products, 'moqDescription')
 			},
 			{
 				type: 'content',
-				title: 'Team Rating',
+				title: translate('Team Rating'),
 				dataType: 'text',
 				data: getArrayData(this.products, 'score')
 			},
 			{
 				type: 'content',
-				title: 'Category',
+				title: translate(ERM.CATEGORY.singular, 'erm'),
 				dataType: 'text',
 				data: getArrayData(this.products, 'category.name')
 			},
 			{
 				type: 'content',
-				title: 'Tags',
+				title: translate(ERM.TAG.singular, 'erm'),
 				dataType: 'tag',
 				data: getArrayData(this.products, 'tags')
 			},
 			{
 				type: 'title',
 				dataType: 'text',
-				title: 'Packaging'
+				title: translate('packaging')
 			},
 			{
 				type: 'content',
-				title: 'Carton Size',
+				title: translate('carton size'),
 				dataType: 'text',
 				data: getPackagingString(this.products, 'innerCarton')
 			},
 			{
 				type: 'content',
-				title: 'Master Carton',
+				title: translate('master carton'),
 				dataType: 'text',
 				data: getPackagingString(this.products, 'masterCarton')
 			},
 			{
 				type: 'content',
-				title: 'Pcs per Master',
+				title: translate('pcs per master'),
 				dataType: 'text',
 				data: getPackagingString(this.products, 'masterCarton.itemsQuantity')
 			},
 			{
 				type: 'title',
 				dataType: 'text',
-				title: 'Trading'
+				title: translate('trading')
 			},
 			{
 				type: 'content',
-				title: 'Inco Term',
+				title: translate(ERM.INCOTERM.singular, 'erm'),
 				dataType: 'text',
 				data: getArrayData(this.products, 'incoTerms')
 			},
 			{
 				type: 'content',
-				title: 'Harbour',
+				title: translate(ERM.HARBOUR.singular, 'erm'),
 				dataType: 'text',
 				data: getArrayData(this.products, 'harbour')
 			},

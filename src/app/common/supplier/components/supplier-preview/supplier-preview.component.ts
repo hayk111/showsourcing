@@ -9,8 +9,7 @@ import {
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms';
-import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -59,8 +58,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		private supplierSrv: SupplierService,
 		private commentSrv: CommentService,
 		private router: Router,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
-		private constPipe: ConstPipe) {
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService) {
 		super();
 	}
 
@@ -123,11 +121,11 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		let locName = '-';
 		if (supplier) {
 			if (supplier.city && supplier.country)
-				locName = supplier.city + ', ' + this.constPipe.transform(supplier.country, 'country');
+				locName = supplier.city + ', ' + translate(supplier.country, 'country');
 			else if (supplier.city)
 				locName = supplier.city;
 			else
-				locName = this.constPipe.transform(supplier.country, 'country');
+				locName = translate(supplier.country, 'country');
 		}
 		return locName;
 	}

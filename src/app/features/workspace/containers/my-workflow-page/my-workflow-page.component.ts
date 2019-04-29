@@ -14,6 +14,7 @@ import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
@@ -193,8 +194,9 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
-		const text = `Delete ${itemIds.length} `
-			+ (itemIds.length <= 1 ? 'product' : 'products');
+		const del = translate('delete');
+		const prod = itemIds.length <= 1 ? translate('product') : translate('products');
+		const text = `${del} ${itemIds.length} ${prod}`;
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),

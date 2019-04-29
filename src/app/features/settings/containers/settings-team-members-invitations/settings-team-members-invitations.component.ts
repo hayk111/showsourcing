@@ -4,7 +4,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { ERM, Invitation, User } from '~models';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'settings-team-members-invitations-app',
@@ -60,6 +60,10 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 
 	updateAccessType({ invitation, accessType }: { invitation: Invitation, accessType: string }) {
 		this.listSrv.update({ id: invitation.id, accessType });
+	}
+
+	getToolTipMsg() {
+		return !this.teamOwner ? translate('Only team owners can invite') : null;
 	}
 
 }

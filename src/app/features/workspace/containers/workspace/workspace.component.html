@@ -1,23 +1,24 @@
 
 <top-panel-app
-	title="My Workspace"
-	[hasAction]="false">
+	[title]="'My Workspace'"
+	[hasAction]="false"
+	i18n-title="@@my-workspace">
 
 	<nav class="flex">
-		<span 
-			routerLink="/workspace/my-workflow" 
+		<span
+			routerLink="/workspace/my-workflow"
 			routerLinkActive="active"
 			i18n="nav@@my-workflow">
 			My Workflow
 		</span>
-		<span 
-			routerLink="/workspace/my-tasks" 
+		<span
+			routerLink="/workspace/my-tasks"
 			routerLinkActive="active"
 			i18n="nav@@my-tasks">
 			My Tasks
 		</span>
-		<span 
-			routerLink="/workspace/my-samples" 
+		<span
+			routerLink="/workspace/my-samples"
 			routerLinkActive="active"
 			i18n="nav@@my-samples">
 			My Samples

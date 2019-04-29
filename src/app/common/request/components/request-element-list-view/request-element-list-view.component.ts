@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { ExtendedField, RequestElement } from '~core/models';
+import { ExtendedField, RequestElement, ERM } from '~core/models';
 import { ID } from '~utils';
 
 @Component({
@@ -34,6 +34,7 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	// is matrix since we need to iterate over requestElement and then over requestElement.reply.fields
 	// M[i][j] -> i: request element rows // j: fields
 	fields: ExtendedField[][];
+	erm = ERM;
 
 	constructor() { super(); }
 

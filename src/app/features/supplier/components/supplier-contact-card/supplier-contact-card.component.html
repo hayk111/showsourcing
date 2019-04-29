@@ -1,15 +1,15 @@
 
 <card-app padding="ms">
 
-	<h3 i18n="header@@contacts" class="ms">contacts</h3>
+	<h3 class="ms" i18n="header@@contacts">contacts</h3>
 
 	<ul *ngIf="contacts?.length > 0; else noContact">
 		<supplier-contact-app
 			*ngFor="let contact of contacts; let last = last;trackBy: trackByFn"
 			[border]="!last"
+			[contact]="contact"
 			(edit)="openContactDlg(contact)"
-			(delete)="deleteContact(contact)"
-			[contact]="contact">
+			(delete)="deleteContact(contact)">
 		</supplier-contact-app>
 	</ul>
 
@@ -21,7 +21,7 @@
 	</ng-template>
 
 	<card-footer-app>
-		<button (click)="openContactDlg()" 
+		<button (click)="openContactDlg()"
 			i18n="button@@new-contact">
 			New Contact
 		</button>

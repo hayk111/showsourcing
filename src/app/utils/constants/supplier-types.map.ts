@@ -1,21 +1,30 @@
 export const supplierTypesMap = {
 	'_Manufacturer': {
 		locales: {
-			en: {
+			'zh-Hans': {
+				name: '制造商'
+			},
+			'en': {
 				name: 'Manufacturer'
 			}
 		}
 	},
 	'_Supplier': {
 		locales: {
-			en: {
+			'zh-Hans': {
+				name: '供应商'
+			},
+			'en': {
 				name: 'Supplier'
 			}
 		}
 	},
 	'_Trader': {
 		locales: {
-			en: {
+			'zh-Hans': {
+				name: '交易商'
+			},
+			'en': {
 				name: 'Trader'
 			}
 		}

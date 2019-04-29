@@ -1,25 +1,26 @@
-<custom-table-app class="list" 
-  [rows]="rows" 
-  [descriptor]="descriptor" 
+<custom-table-app class="list"
+  [rows]="rows"
+  [descriptor]="descriptor"
   [contextualMenu]="contextualMenuTemplate"
   placeholder="No product"
-  [selected]="selection" 
-  (bottomReached)="bottomReached.emit($event)" 
-  (sort)="sort.emit($event)" 
+  [selected]="selection"
+  (bottomReached)="bottomReached.emit($event)"
+  (sort)="sort.emit($event)"
   (selectOne)="select.emit($event)"
-  (unselectOne)="unselect.emit($event)" 
-  (selectAll)="selectAll.emit($event)" 
+  (unselectOne)="unselect.emit($event)"
+  (selectAll)="selectAll.emit($event)"
   (unselectAll)="unselectAll.emit()"
-  [pending]="pending">
+	[pending]="pending"
+	i18n-placeholder="@@no-product">
 </custom-table-app>
 
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">
-  <context-menu-item-app class="pointer flexCenter" (click)="delete.emit(row.id)" 
+  <context-menu-item-app class="pointer flexCenter" (click)="delete.emit(row.id)"
     i18n="button@@delete">
     Delete
   </context-menu-item-app>
-  <context-menu-item-app *ngIf="row?.status?.status" class="pointer flexCenter" (click)="openRequestQuotationDialog.emit(row)" 
+  <context-menu-item-app *ngIf="row?.status?.status" class="pointer flexCenter" (click)="openRequestQuotationDialog.emit(row)"
     i18n="button@@request-information">
     Request information
   </context-menu-item-app>
@@ -34,7 +35,7 @@
       <a class="name txt-btn" [routerLink]="['/', 'product', row.id]">{{ row.name }}</a>
     </div>
     <div class="preview">
-      <button (click)="previewClick.emit(row)" class="small secondary-dark preview" 
+      <button (click)="previewClick.emit(row)" class="small secondary-dark preview"
         i18n="button|to display a preview of an item@@preview">
         Preview
       </button>
@@ -44,22 +45,12 @@
 
 <!-- name -->
 <ng-template #supplier let-row="row">
-  <ng-container *ngIf="row.supplier">
-    {{ row?.supplier.name }}
-  </ng-container>
-  <ng-container *ngIf="!row.supplier">
-    -
-  </ng-container>
+	{{ row?.supplier.name || '-' }}
 </ng-template>
 
 <!-- category -->
 <ng-template #category let-row="row">
-  <ng-container *ngIf="row.category">
-    {{ row?.category?.name }}
-  </ng-container>
-  <ng-container *ngIf="!row.category">
-    -
-  </ng-container>
+    {{ row?.category?.name || '-'}}
 </ng-template>
 
 <!-- price -->
@@ -122,7 +113,7 @@
 
 <!-- open btn -->
 <ng-template #action let-row="row">
-  <div class="pointer capitalize" (click)="open.emit(row.id)" 
+  <div class="pointer capitalize" (click)="open.emit(row.id)"
     i18n="button@@open"> open </div>
 </ng-template>
 

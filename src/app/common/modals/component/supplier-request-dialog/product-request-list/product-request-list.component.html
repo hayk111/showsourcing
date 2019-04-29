@@ -7,7 +7,7 @@
 			</img-app>
 			{{ product?.name }}
 		</div>
-		<div class="color-primary pointer fs-s" (click)="remove.emit(product?.id)">Remove</div>
+		<div class="color-primary pointer fs-s capitalize" (click)="remove.emit(product?.id)" i18n="@@remove">remove</div>
 	</div>
 	<selector-app
 		type="product"
@@ -16,8 +16,10 @@
 		(update)="update.emit($event)">
 		<button class="selector small flex add-products">
 			<icon-app name="add"></icon-app>
-			<span>Add products</span>
+			<span i18n="@@add-products">Add products</span>
 		</button>
 	</selector-app>
 </div>
-<div class="number-products flexEnd">{{ products?.length }} {{ products?.length === 1 ? 'Product' : 'Products' }} selected</div>
+<div class="number-products flexEnd">
+	{{ products?.length }} <ng-container i18n="@@nested_product-selected">{ products.length, plural, =1 { Product selected } other { Products selected } }</ng-container>
+</div>

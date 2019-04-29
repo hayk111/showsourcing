@@ -6,7 +6,7 @@
 		{{ request?.templateName }}
 	</badge-app>
 	<div subinfo class="flex">
-		<div class="bold-s">Sent:&nbsp;</div>
+		<div class="bold-s capitalize"><ng-container i18n="@@sent">sent</ng-container>:&nbsp;</div>
 		<span>{{ request?.creationDate | timeAgo }}</span>
 	</div>
 	<!-- <button action (click)="reminder.emit(request)">Sent a Reminder</button> -->

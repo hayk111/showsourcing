@@ -14,6 +14,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
@@ -189,7 +190,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
-		const text = `Delete ${itemIds.length} `
+		const del = translate('delete');
+		const text = `${del} ${itemIds.length} `
 			+ (itemIds.length <= 1 ? this.listSrv.entityMetadata.singular : this.listSrv.entityMetadata.plural);
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(

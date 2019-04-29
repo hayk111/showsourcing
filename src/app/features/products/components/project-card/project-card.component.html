@@ -18,7 +18,12 @@
 					<span class="name capitalize">
 						{{ project?.name }}
 					</span>
-					<span *ngIf="project?.description" class="description" i18n="span|Project card@@projectCard_description">  {{ project?.description }}  </span>
+					<span
+						*ngIf="project?.description"
+						class="description"
+						i18n="span|Project card@@projectCard_description">
+						{{ project?.description }}
+					</span>
 				</div>
 			</div>
 			<div class="flexCenter">
@@ -29,7 +34,9 @@
 		</article>
 		<divider-app *ngIf="!last"></divider-app>
 	</div>
-	<span class="no-projects" *ngIf="projects?.length === 0" 
+	<span
+		*ngIf="projects?.length === 0"
+		class="no-projects"
 		i18n="text@@no-projects-added">
 		No Projects Added
 	</span>

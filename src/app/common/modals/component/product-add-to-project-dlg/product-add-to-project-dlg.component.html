@@ -31,7 +31,7 @@
 			{ products?.length, plural, =0 { Product } =1 { Product } other { Products } }}
 			selected
 		</span>
-		<input [disabled]="numSelected < 1" type="submit" value="add now" class="capitalize" (click)="submit()"
-			i18n-value="button|Adds product to a project@@add-now"/>
+		<input [disabled]="numSelected < 1" type="submit" value="Add now" class="capitalize" (click)="submit()"
+			i18n-value="@@add-now"/>
 	</dialog-footer-app>
 </dialog-app>

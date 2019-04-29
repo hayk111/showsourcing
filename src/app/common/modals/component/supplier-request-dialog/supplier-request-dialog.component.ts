@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
-import { Contact, CreateRequest, Product, Supplier } from '~core/models';
+import { Contact, CreateRequest, ERM, Product, Supplier } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { ID } from '~utils';
+import { ID, translate } from '~utils';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 
@@ -59,6 +59,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 		// title
 		this.setTitle();
 		// message
+		// TODO i18n
 		let event;
 		const firstName = this.userSrv.userSync.firstName || '';
 		const lastName = this.userSrv.userSync.lastName || '';
@@ -97,7 +98,9 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	private setTitle() {
-		this.form.get('title').setValue(`Request for ${this.request.products.length} product${this.request.products.length === 1 ? '' : 's'}`);
+		const prod = this.request.products.length === 1 ? translate('product') : translate('products');
+		const reqFor = translate('Request for');
+		this.form.get('title').setValue(`${reqFor} ${this.request.products.length} ${prod}`);
 	}
 
 	removeProduct(id: ID) {
@@ -128,14 +131,14 @@ export class SupplierRequestDialogComponent implements OnInit {
 		this.requestSrv.create(newRequest)
 			.subscribe(_ => {
 				this.pending = false;
-				this.dlgSrv.open(ReplySentDlgComponent, { height: '586px', actionName: 'request' });
+				this.dlgSrv.open(ReplySentDlgComponent, { actionName: translate(ERM.SUPPLIER_REQUEST.singular, 'erm') });
 			},
 				err => {
 					this.dlgSrv.close();
 					this.notifSrv.add({
-						title: 'Service error when creating request',
+						title: translate('Service error when creating request'),
 						type: NotificationType.ERROR,
-						message: 'We could not create the request due to a server issue'
+						message: translate('We could not create the request due to a server issue')
 					});
 				}
 			);
