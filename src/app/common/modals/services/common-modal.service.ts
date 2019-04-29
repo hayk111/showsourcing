@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
 	CompareProductComponent,
-	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
@@ -60,11 +59,6 @@ export class CommonModalService {
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(products?: Product[]) {
 		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
-	}
-
-	/** Opens a dialog that lets the user compare quotation between products */
-	openCompareQuotationDialog(products: Product[]) {
-		return this.dlgSrv.open(CompareQuotationComponent, { products });
 	}
 
 	openFindProductDlg(initialSelectedProducts: Product[], project: Project) {

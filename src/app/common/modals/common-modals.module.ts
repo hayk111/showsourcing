@@ -14,7 +14,6 @@ import { UtilsModule } from '~shared/utils';
 import {
 	ChangePswdDlgComponent,
 	CompareProductComponent,
-	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
@@ -45,7 +44,6 @@ import { CompareColumnComponent } from './component/compare-product/compare-colu
 const modals = [
 	ChangePswdDlgComponent,
 	CompareProductComponent,
-	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
