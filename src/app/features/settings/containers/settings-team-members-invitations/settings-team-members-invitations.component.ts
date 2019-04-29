@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap, takeUntil, delay } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
