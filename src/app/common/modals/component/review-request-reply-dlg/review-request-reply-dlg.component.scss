@@ -32,8 +32,14 @@ dialog-footer-app {
 	width: 100%;
 }
 
+.reply-message {
+	color: var(--color-txt-strong);
+	white-space: pre-line;
+	max-width: 686px;
+}
+
 article {
-	margin: var(--spacing-m) 0;
+	margin: var(--spacing-l) 0;
 
 	list-app {
 		margin-bottom: var(--spacing-l);
