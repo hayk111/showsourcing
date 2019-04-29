@@ -8,6 +8,10 @@
 	padding: var(--spacing-l);
 	display: flex;
 	flex-direction: column;
+
+	&.no-content-height .content {
+		height: unset;
+	}
 }
 
 .header {

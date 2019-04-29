@@ -1,12 +1,14 @@
 <div #container class="descripton-container">
 	<editable-field-app
+		[openOnClick]="!asModal"
 		[ngStyle]="{'padding-top': hasLabel ? 'inherit' : '0px'}"
 		[hasLabel]="hasLabel"
 		[inlineLabel]="false"
 		(closed)="updateDescription($event, inpDescription.value);"
 		(clickOutside)="adaptSize()"
 		(opened)="inpDescription.select();"
-		[canGrow]="true">
+		[canGrow]="true"
+		(click)="openDescModal()">
 		<label-app>Description</label-app>
 		<editable-label-app
 			*ngIf="description?.length && description"
