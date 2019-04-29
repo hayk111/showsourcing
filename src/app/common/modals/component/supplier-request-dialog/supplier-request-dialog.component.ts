@@ -97,6 +97,13 @@ export class SupplierRequestDialogComponent implements OnInit {
 						this.form.get('recipient').setValue(contact);
 						this.form.patchValue(this.request);
 					});
+			} else { // we try to add the first email of that supplier
+				this.contactSrv.queryOneByPredicate(`supplier.id == "${this.supplier.id}"`)
+					.pipe(take(1))
+					.subscribe(contact => {
+						this.form.get('recipient').setValue(contact);
+						this.form.patchValue(this.request);
+					});
 			}
 		}
 	}
