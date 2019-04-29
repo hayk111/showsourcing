@@ -42,4 +42,5 @@ export class DialogComponent {
 		// stopping propagation so it does not close the modal
 		event.stopPropagation();
 	}
+
 }

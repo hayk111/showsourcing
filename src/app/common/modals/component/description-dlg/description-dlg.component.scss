@@ -1,0 +1,13 @@
+dialog-app {
+	min-width: 580px;
+	height: 60vh;
+}
+
+textarea {
+	height: 100%;
+	resize: none;
+}
+
+dialog-footer-app > *:not(:last-child) {
+	margin-right: var(--spacing-ms);
+}
