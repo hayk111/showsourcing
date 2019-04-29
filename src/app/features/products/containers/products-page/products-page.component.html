@@ -30,6 +30,7 @@
 
 
 <products-list-view-app
+	*ngIf="listSrv.view === 'list'"
 	class="list-view"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
