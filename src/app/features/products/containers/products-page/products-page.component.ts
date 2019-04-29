@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { ProductService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
