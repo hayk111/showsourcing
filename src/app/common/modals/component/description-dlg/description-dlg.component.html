@@ -1,0 +1,8 @@
+<dialog-app class="no-content-height">
+	<dialog-header-app class="capitalize">description</dialog-header-app>
+	<textarea inputApp #txtArea [value]="description" (input)="description = txtArea.value"></textarea>
+	<dialog-footer-app>
+		<button class="secondary capitalize" (click)="close()">cancel</button>
+		<button class="capitalize" (click)="save()">save</button>
+	</dialog-footer-app>
+</dialog-app>

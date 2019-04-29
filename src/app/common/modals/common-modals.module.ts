@@ -15,6 +15,7 @@ import {
 	CompareProductComponent,
 	CompareQuotationComponent,
 	CreationDialogComponent,
+	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
@@ -38,6 +39,7 @@ const modals = [
 	CompareProductComponent,
 	CompareQuotationComponent,
 	CreationDialogComponent,
+	DescriptionDlgComponent,
 	EditionDialogComponent,
 	EmailListComponent,
 	FindProductsDialogComponent,
@@ -60,7 +62,12 @@ const modals = [
 		InputsModule,
 		UtilsModule
 	],
-	declarations: [...modals, ProductsCardViewDialogComponent, ExportSelectionViewComponent, ExportWaitingViewComponent],
+	declarations: [
+		...modals,
+		ProductsCardViewDialogComponent,
+		ExportSelectionViewComponent,
+		ExportWaitingViewComponent
+	],
 	entryComponents: modals,
 	providers: [
 		ProductDialogService,
