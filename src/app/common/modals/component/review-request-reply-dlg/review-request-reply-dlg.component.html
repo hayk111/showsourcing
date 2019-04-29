@@ -41,11 +41,14 @@
 				</footer>
 			</article>
 
+			<article *ngIf="reply?.message">
+				<h3 class="ms" i18n="@@supplier-message">Supplier Message</h3>
+				<div class="reply-message">{{ reply?.message }}</div>
+			</article>
+
 			<article *ngIf="reply?.images?.length > 0">
 				<h3 class="l">Additional Pictures</h3>
 
-				<!-- I don't think image previewer can be used because of the overlay, or alternatively we have to pass something to the previewer to see an overlay
-				as ng-content -->
 				<image-reviewer-app
 					[images]="reply?.images"
 					[selection]="selectionSrv.selection$ | async"

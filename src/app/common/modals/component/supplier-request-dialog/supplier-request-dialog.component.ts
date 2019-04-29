@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { take, switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
 import { Contact, CreateRequest, Product, Supplier } from '~core/models';
 import { DialogService } from '~shared/dialog';
@@ -102,8 +102,18 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	private createOrUseContact(contact: Contact, supplier: Supplier) {
-		const finalContact = contact ? contact : new Contact({ email: supplier.officeEmail, name: supplier.name ? supplier.name : '' });
-		return contact ? this.contactSrv.queryOne(finalContact.id) : this.contactSrv.create(finalContact);
+		let obsAction;
+		if (contact)
+			obsAction = this.contactSrv.queryOne(contact.id);
+		else {
+			const newContact = new Contact({
+				email: supplier.officeEmail,
+				name: supplier.name ? supplier.name : '',
+				supplier: { id: supplier.id }
+			});
+			obsAction = this.contactSrv.create(newContact);
+		}
+		return obsAction;
 	}
 
 	contactUpdate(contact: Contact) {
