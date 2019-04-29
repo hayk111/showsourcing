@@ -20,11 +20,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
+import { FilterList } from '~shared/filters';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 import { RegexpApp } from '~utils';
-import { FilterList, FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -88,7 +88,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	movedArrow = false;
 
 	erm = ERM;
-
 
 	constructor(
 		public selectorSrv: SelectorsService,
@@ -341,6 +340,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				this.resetInput();
 			} else
 				this.value = added;
+
+			if (createObs$ === undefined)
+				return;
 			// we are using take 1 in srv, no need for fancy destroying
 			createObs$.subscribe();
 			// we changed the value directly so we have to notify the formControl

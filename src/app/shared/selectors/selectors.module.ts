@@ -10,6 +10,7 @@ import { DividerModule } from '~shared/divider/divider.module';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
+import { LoadersModule } from '~shared/loaders';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
 
@@ -57,7 +58,7 @@ const components = [
 	SelectorSupplierTypeRowComponent,
 	SelectorTagRowComponent,
 	SelectorTextRowComponent,
-	SelectorUserRowComponent
+	SelectorUserRowComponent,
 ];
 
 @NgModule({
@@ -77,6 +78,7 @@ const components = [
 		A11yModule,
 		UtilsModule,
 		ScrollDispatchModule,
+		LoadersModule
 	],
 	declarations: components,
 	exports: components
