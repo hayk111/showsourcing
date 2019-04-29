@@ -31,6 +31,8 @@ import { EmailListComponent } from './component/rfq-dialog/email-list/email-list
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
+import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
+import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -60,13 +62,16 @@ const modals = [
 		ProductCommonModule,
 		TableModule,
 		InputsModule,
-		UtilsModule
+		UtilsModule,
 	],
 	declarations: [
 		...modals,
 		ProductsCardViewDialogComponent,
 		ExportSelectionViewComponent,
-		ExportWaitingViewComponent
+		ExportWaitingViewComponent,
+		CompareLabelsComponent,
+		CompareColumnComponent,
+		DescriptionDlgComponent
 	],
 	entryComponents: modals,
 	providers: [

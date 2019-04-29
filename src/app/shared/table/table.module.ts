@@ -12,7 +12,6 @@ import { StatusSelectorModule } from '~shared/status-selector/status-selector.mo
 import { ColumnDirective, TableComponent } from '~shared/table/components';
 import { CustomTableComponent } from '~shared/table/components/custom-table/custom-table.component';
 import { UtilsModule } from '~shared/utils';
-import { ItemCompareRowComponent } from './components/item-compare-row/item-compare-row.component';
 
 @NgModule({
 	imports: [
@@ -28,7 +27,7 @@ import { ItemCompareRowComponent } from './components/item-compare-row/item-comp
 		StatusSelectorModule,
 		UtilsModule,
 	],
-	declarations: [TableComponent, ColumnDirective, CustomTableComponent, ItemCompareRowComponent],
-	exports: [TableComponent, ColumnDirective, CustomTableComponent, ItemCompareRowComponent],
+	declarations: [TableComponent, ColumnDirective, CustomTableComponent],
+	exports: [TableComponent, ColumnDirective, CustomTableComponent],
 })
 export class TableModule { }

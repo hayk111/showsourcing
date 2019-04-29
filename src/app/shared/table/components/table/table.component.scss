@@ -89,28 +89,3 @@
 .sortIcon {
 	margin-left: var(--spacing-xs);
 }
-
-.menuCell {
-	padding-left: 16px;
-	padding-right: 6px;
-	width: 10px;
-}
-
-.dotSeparator:after {
-	content: '\2807';
-	font-size: 25px;
-	color: var(--color-txt-secondary);
-}
-
-.dotSeparator:hover {
-	color: var(--color-txt-primary);
-}
-
-.dotSeparator:after {
-	content: '\2807';
-	font-size: 25px;
-}
-
-.pagination {
-	margin: 12px 0;
-}

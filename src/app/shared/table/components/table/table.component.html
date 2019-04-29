@@ -1,4 +1,12 @@
 <div class="ctnr will-change-scroll" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
+	
+	<!-- pagination controller -->
+	<!-- <div class="pagination-ctrl flexEnd color-txt-secondary" *ngIf="rows">
+		<span>1 - {{ rows.length }} on {{ totalAmount }}</span>
+		<icon-app fontSet="fa" name="angle-left"></icon-app>
+		<icon-app fontSet="fa" name="angle-right"></icon-app>
+	</div>  -->
+	
 	<div class="contentCtnr">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
