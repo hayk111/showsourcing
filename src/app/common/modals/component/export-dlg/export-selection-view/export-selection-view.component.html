@@ -31,7 +31,7 @@
 	</main>
 
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
-		<span class="txt-secondary">{{ targets?.length }} items{{ targets?.length > 1 ? 's' : '' }} selected</span>
+		<span class="txt-secondary">{{ length }} items{{ length > 1 ? 's' : '' }} selected</span>
 		<button class="small" (click)="export.emit()" i18n="button|Export product@@export_export">
 			Export
 		</button>

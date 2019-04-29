@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { ProductService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -47,7 +47,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.PRODUCTS,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
-			initialFilters: [{ type: FilterType.ARCHIVED, value: false }],
+			// we use the deleted filter there so we can send the query to export all to the export dlg
+			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$,
 		});
@@ -59,8 +60,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	getFilterAmount() {
-		// we filter so we don't count archieved when it's false, so the user doesn't get confused since its the default filter
-		const filters = this.listSrv.filterList.asFilters().filter(fil => !(fil.type === 'archived' && fil.value === false));
+		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
+		const filters = this.listSrv.filterList.asFilters()
+			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
 		return filters.length;
 	}
 
