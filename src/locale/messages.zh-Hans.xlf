@@ -1548,7 +1548,7 @@
       </trans-unit>
       <trans-unit id="added-OBJ-products" datatype="html">
         <source>added <x id="INTERPOLATION" equiv-text="{{ products?.length }}"/> products</source>
-        <target state="new">added <x id="INTERPOLATION" equiv-text="{{ products?.length }}"/> products</target>
+        <target state="final">已添加<x id="INTERPOLATION"/> 产品</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/activity/components/grouped-feed-list/multiple-products-activity-card/multiple-products-activity-card.component.html</context>
           <context context-type="linenumber">8</context>
@@ -1556,7 +1556,7 @@
       </trans-unit>
       <trans-unit id="write-comment-here" datatype="html">
         <source>Write your comment here</source>
-        <target state="new">Write your comment here</target>
+        <target state="final">请在此写下您的评论</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/activity/components/activity-list/activity-list.component.html</context>
           <context context-type="linenumber">9</context>
@@ -1748,7 +1748,7 @@
       </trans-unit>
       <trans-unit id="contact-function" datatype="html">
         <source>Contact Function</source>
-        <target state="new">Contact Function</target>
+        <target state="final">联系人职能</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
           <context context-type="linenumber">42</context>
@@ -1756,7 +1756,7 @@
       </trans-unit>
       <trans-unit id="contact-email-address" datatype="html">
         <source>Contact email address</source>
-        <target state="new">Contact email address</target>
+        <target state="final">联系邮件地址</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
           <context context-type="linenumber">53</context>
@@ -2667,8 +2667,8 @@
         <source>
 			Change Password
 		</source>
-        <target state="new">
-			Change Password
+        <target state="final">
+			变更密码
 		</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
@@ -2941,7 +2941,7 @@
       </trans-unit>
       <trans-unit id="company-name" datatype="html">
         <source>Company Name</source>
-        <target state="new">Company Name</target>
+        <target state="final">公司名称</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/company-profile-card/company-profile-card.component.html</context>
           <context context-type="linenumber">3</context>
@@ -2949,7 +2949,7 @@
       </trans-unit>
       <trans-unit id="country" datatype="html">
         <source>Country</source>
-        <target state="new">Country</target>
+        <target state="final">国家</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/company-profile-card/company-profile-card.component.html</context>
           <context context-type="linenumber">7</context>
@@ -2957,7 +2957,7 @@
       </trans-unit>
       <trans-unit id="address" datatype="html">
         <source>Address</source>
-        <target state="new">Address</target>
+        <target state="final">地址</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/company-profile-card/company-profile-card.component.html</context>
           <context context-type="linenumber">11</context>
@@ -2965,7 +2965,7 @@
       </trans-unit>
       <trans-unit id="tax-id" datatype="html">
         <source>TAX ID</source>
-        <target state="new">TAX ID</target>
+        <target state="final">税号</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/company-profile-card/company-profile-card.component.html</context>
           <context context-type="linenumber">15</context>
@@ -2973,7 +2973,7 @@
       </trans-unit>
       <trans-unit id="no-exports" datatype="html">
         <source>No exports</source>
-        <target state="new">No exports</target>
+        <target state="final">无导出</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/export-list-view/export-list-view.component.html</context>
           <context context-type="linenumber">6</context>
@@ -3002,7 +3002,7 @@
       </trans-unit>
       <trans-unit id="user-profile" datatype="html">
         <source>User Profile</source>
-        <target state="new">User Profile</target>
+        <target state="final">用户资料</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/profile-card/profile-card.component.html</context>
           <context context-type="linenumber">2</context>
@@ -3010,7 +3010,7 @@
       </trans-unit>
       <trans-unit id="profile-picture" datatype="html">
         <source>Profile Picture</source>
-        <target state="new">Profile Picture</target>
+        <target state="final">用户资料照片</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/profile-card/profile-card.component.html</context>
           <context context-type="linenumber">3</context>
@@ -3018,7 +3018,7 @@
       </trans-unit>
       <trans-unit id="select-image" datatype="html">
         <source>Select Image</source>
-        <target state="new">Select Image</target>
+        <target state="final">选择图片</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/profile-card/profile-card.component.html</context>
           <context context-type="linenumber">7</context>
@@ -3026,7 +3026,7 @@
       </trans-unit>
       <trans-unit id="first-name" datatype="html">
         <source>First name</source>
-        <target state="new">First name</target>
+        <target state="final">名</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/profile-card/profile-card.component.html</context>
           <context context-type="linenumber">14</context>
@@ -3034,7 +3034,7 @@
       </trans-unit>
       <trans-unit id="last-name" datatype="html">
         <source>Last name</source>
-        <target state="new">Last name</target>
+        <target state="final">姓</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/profile-card/profile-card.component.html</context>
           <context context-type="linenumber">18</context>
@@ -3042,7 +3042,7 @@
       </trans-unit>
       <trans-unit id="remove-user" datatype="html">
         <source>Remove User</source>
-        <target state="new">Remove User</target>
+        <target state="final">移除用户</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
           <context context-type="linenumber">73</context>
@@ -3054,7 +3054,7 @@
       </trans-unit>
       <trans-unit id="team-owner" datatype="html">
         <source>Team Owner</source>
-        <target state="new">Team Owner</target>
+        <target state="final">群主</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
           <context context-type="linenumber">83</context>
@@ -3062,7 +3062,7 @@
       </trans-unit>
       <trans-unit id="no-team-member" datatype="html">
         <source>No team member</source>
-        <target state="new">No team member</target>
+        <target state="final">无群组成员</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
           <context context-type="linenumber">7</context>
@@ -3070,7 +3070,7 @@
       </trans-unit>
       <trans-unit id="5d3ae2583a5ad00157248c673aaf9ad57ee38c20" datatype="html">
         <source>profile</source>
-        <target state="new">profile</target>
+        <target state="final">用户资料</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/containers/settings/settings.component.html</context>
           <context context-type="linenumber">6</context>
@@ -3079,7 +3079,7 @@
       </trans-unit>
       <trans-unit id="data-cleansing" datatype="html">
         <source>Data Cleansing</source>
-        <target state="new">Data Cleansing</target>
+        <target state="final">数据清理</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/containers/settings/settings.component.html</context>
           <context context-type="linenumber">38</context>
@@ -3087,7 +3087,7 @@
       </trans-unit>
       <trans-unit id="tag" datatype="html">
         <source>tag</source>
-        <target state="new">tag</target>
+        <target state="final">标签</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/containers/settings/settings.component.html</context>
           <context context-type="linenumber">44</context>
@@ -3095,7 +3095,7 @@
       </trans-unit>
       <trans-unit id="event" datatype="html">
         <source>event</source>
-        <target state="new">event</target>
+        <target state="final">活动</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/containers/settings/settings.component.html</context>
           <context context-type="linenumber">47</context>
@@ -3103,7 +3103,7 @@
       </trans-unit>
       <trans-unit id="fields" datatype="html">
         <source>fields</source>
-        <target state="new">fields</target>
+        <target state="final">输入栏</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/containers/settings-fields-page/settings-fields-page.component.html</context>
           <context context-type="linenumber">9</context>
@@ -3111,7 +3111,7 @@
       </trans-unit>
       <trans-unit id="invitations" datatype="html">
         <source>invitations</source>
-        <target state="new">
+        <target state="final">邀请
 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/containers/settings-team-members-page/settings-team-members-page.component.html</context>
@@ -3120,7 +3120,7 @@
       </trans-unit>
       <trans-unit id="invite-collaborator" datatype="html">
         <source>Invite Collaborator</source>
-        <target state="new">Invite Collaborator</target>
+        <target state="final">邀请合作商</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/containers/settings-team-members-invitations/settings-team-members-invitations.component.html</context>
           <context context-type="linenumber">11</context>
@@ -3132,7 +3132,7 @@
       </trans-unit>
       <trans-unit id="selection" datatype="html">
         <source>selection</source>
-        <target state="new">selection</target>
+        <target state="final">选择</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/containers/settings-team-members-users/settings-team-members-users.component.html</context>
           <context context-type="linenumber">17</context>
@@ -3401,7 +3401,7 @@
       </trans-unit>
       <trans-unit id="contributor" datatype="html">
         <source>contributor</source>
-        <target state="new">contributor</target>
+        <target state="final">合作商</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
           <context context-type="linenumber">46</context>
@@ -3433,7 +3433,7 @@
       </trans-unit>
       <trans-unit id="remove-invitation" datatype="html">
         <source>Remove Invitation</source>
-        <target state="new">Remove Invitation</target>
+        <target state="final">移除邀请</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
           <context context-type="linenumber">61</context>
@@ -3441,7 +3441,7 @@
       </trans-unit>
       <trans-unit id="no-invitation" datatype="html">
         <source>No invitation</source>
-        <target state="new">No invitation</target>
+        <target state="final">无邀请</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
           <context context-type="linenumber">8</context>
@@ -3639,7 +3639,7 @@
       </trans-unit>
       <trans-unit id="b5813f46534b30ecd790487bbb5716d7a14d9df0" datatype="html">
         <source>{VAR_PLURAL, plural, =1 {comment } other {comments } }</source>
-        <target state="new">{VAR_PLURAL, plural, =1 {comment } other {comments } }</target>
+        <target state="final">{VAR_PLURAL, plural, =1 {评论} other {评论}}</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
           <context context-type="linenumber">84</context>

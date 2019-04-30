@@ -24,6 +24,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'All fields must be filled first'
+			},
+			'zh-Hans': {
+				name: '所有输入栏需先填写'
 			}
 		}
 	},
@@ -61,6 +64,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Are you sure you want to delete this supplier?'
+			},
+			'zh-Hans': {
+				name: '您确定想要删除此供应商么？'
 			}
 		}
 	},
@@ -68,6 +74,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Are you sure you want to do this?'
+			},
+			'zh-Hans': {
+				name: '您确认此操作么？'
 			}
 		}
 	},
@@ -87,6 +96,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'carton size'
+			},
+			'zh-Hans': {
+				name: '纸箱尺寸'
 			}
 		}
 	},
@@ -94,6 +106,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'comments'
+			},
+			'zh-Hans': {
+				name: '评论'
 			}
 		}
 	},
@@ -111,6 +126,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'confirm'
+			},
+			'zh-Hans': {
+				name: '确认'
 			}
 		}
 	},
@@ -169,6 +187,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'delete'
+			},
+			'zh-Hans': {
+				name: '删除'
 			}
 		}
 	},
@@ -186,6 +207,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Don\'t have an account ?'
+			},
+			'zh-Hans': {
+				name: '您还没有账户？'
 			}
 		}
 	},
@@ -296,6 +320,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Feedback requested'
+			},
+			'zh-Hans': {
+				name: '已请求反馈'
 			}
 		}
 	},
@@ -303,6 +330,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Feedback request could not be sent, server issues'
+			},
+			'zh-Hans': {
+				name: '无法发送反馈请求，服务器有问题'
 			}
 		}
 	},
@@ -363,6 +393,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Invitation sent'
+			},
+			'zh-Hans': {
+				name: '邀请已发送'
 			}
 		}
 	},
@@ -465,6 +498,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Next status'
+			},
+			'zh-Hans': {
+				name: '下一个状态'
 			}
 		}
 	},
@@ -514,6 +550,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'packaging'
+			},
+			'zh-Hans': {
+				name: '正在打包'
 			}
 		}
 	},
@@ -541,6 +580,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Password Changed'
+			},
+			'zh-Hans': {
+				name: '密码已变更'
 			}
 		}
 	},
@@ -548,6 +590,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Password Unchanged'
+			},
+			'zh-Hans': {
+				name: '密码未变更'
 			}
 		}
 	},
@@ -576,6 +621,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'pcs per master'
+			},
+			'zh-Hans': {
+				name: '件/主纸箱'
 			}
 		}
 	},
@@ -593,6 +641,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Previous status'
+			},
+			'zh-Hans': {
+				name: '之前状态'
 			}
 		}
 	},
@@ -610,6 +661,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'product'
+			},
+			'zh-Hans': {
+				name: '产品'
 			}
 		}
 	},
@@ -617,6 +671,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'products'
+			},
+			'zh-Hans': {
+				name: '产品'
 			}
 		}
 	},
@@ -654,6 +711,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Projects added'
+			},
+			'zh-Hans': {
+				name: '已添加项目'
 			}
 		}
 	},
@@ -663,6 +723,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'reply'
+			},
+			'zh-Hans': {
+				name: '回复'
 			}
 		}
 	},
@@ -671,6 +734,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Request for'
+			},
+			'zh-Hans': {
+				name: '请求数量'
 			}
 		}
 	},
@@ -689,6 +755,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'sample'
+			},
+			'zh-Hans': {
+				name: '样品'
 			}
 		}
 	},
@@ -696,6 +765,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'samples'
+			},
+			'zh-Hans': {
+				name: '样品'
 			}
 		}
 	},
@@ -753,6 +825,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Service error when creating request'
+			},
+			'zh-Hans': {
+				name: '创建请求时出现服务错误'
 			}
 		}
 	},
@@ -810,6 +885,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'supplier'
+			},
+			'zh-Hans': {
+				name: '供应商'
 			}
 		}
 	},
@@ -828,6 +906,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'tasks'
+			},
+			'zh-Hans': {
+				name: '任务'
 			}
 		}
 	},
@@ -845,6 +926,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Team Rating'
+			},
+			'zh-Hans': {
+				name: '群组打分'
 			}
 		}
 	},
@@ -892,6 +976,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'The supplier doesn\'t exist'
+			},
+			'zh-Hans': {
+				name: '供应商不存在'
 			}
 		}
 	},
@@ -929,6 +1016,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'trading'
+			},
+			'zh-Hans': {
+				name: '交易'
 			}
 		}
 	},
@@ -989,6 +1079,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'We could not create the request due to a server issue'
+			},
+			'zh-Hans': {
+				name: '由于服务器问题，我们无法创建请求'
 			}
 		}
 	},
@@ -1008,6 +1101,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'You refused that request'
+			},
+			'zh-Hans': {
+				name: '您已拒绝请求'
 			}
 		}
 	},
@@ -1025,6 +1121,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Your feedback request has been sent with success'
+			},
+			'zh-Hans': {
+				name: '您的反馈请求已发送成功'
 			}
 		}
 	},
@@ -1042,6 +1141,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Your invitation was sent to'
+			},
+			'zh-Hans': {
+				name: '您的邀请以发送'
 			}
 		}
 	},
@@ -1069,6 +1171,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Your password could not be changed, current password incorrect'
+			},
+			'zh-Hans': {
+				name: '您的密码不可以变更，当前密码错误'
 			}
 		}
 	},
@@ -1076,6 +1181,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Your password has been changed with success'
+			},
+			'zh-Hans': {
+				name: '您的密码已成功变更'
 			}
 		}
 	},
@@ -1083,6 +1191,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Your projects were added to the product with success'
+			},
+			'zh-Hans': {
+				name: '您的项目已成功添加到产品'
 			}
 		}
 	},
@@ -1090,6 +1201,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Your request has been already submitted'
+			},
+			'zh-Hans': {
+				name: '您的请求已被提交'
 			}
 		}
 	},
