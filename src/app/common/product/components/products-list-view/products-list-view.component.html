@@ -68,16 +68,32 @@
 	</div>
 </ng-template>
 
-<!-- name -->
+<!-- supplier -->
 <ng-template #supplier let-row="row">
-	<ng-container *ngIf="row.supplier"> {{ row?.supplier.name }} </ng-container>
-	<ng-container *ngIf="!row.supplier"> - </ng-container>
+	<selector-app
+		type="supplier"
+		[canCreate]="true"
+		[width]="370">
+		<div class="flex">
+			<!-- <icon-app name="supplier" backgroundColor="supplier"></icon-app> -->
+			<!-- <span class="spacing mg-xs"></span> -->
+			<span class="ellipsis"> {{ row.supplier?.name || 'Set supplier' }}</span>
+		</div>
+	</selector-app>
 </ng-template>
 
 <!-- category -->
 <ng-template #category let-row="row">
-	<ng-container *ngIf="row.category"> {{ row?.category?.name }} </ng-container>
-	<ng-container *ngIf="!row.category"> - </ng-container>
+	<selector-app
+		type="category"
+		[canCreate]="true"
+		[width]="370">
+		<div class="flex">
+			<!-- <icon-app name="category" backgroundColor="accent"></icon-app> -->
+			<!-- <span class="spacing mg-xs"></span> -->
+			<span class="ellipsis"> {{ row.category?.name || 'Set category' }}</span>
+		</div>
+	</selector-app>
 </ng-template>
 
 <!-- price -->
@@ -91,12 +107,16 @@
 
 <!-- moq -->
 <ng-template #moq let-row="row">
-	<moq-app
-		*ngIf="row?.minimumOrderQuantity; else noMoq"
-		[amount]="row?.minimumOrderQuantity">
-	</moq-app>
-
-	<ng-template #noMoq> <div>-</div> </ng-template>
+	<editable-text-app (opened)="inp.focus()" [hasAction]="false">
+		<editable-label-app>
+			<moq-app
+				*ngIf="row?.minimumOrderQuantity; else noMoq"
+				[amount]="row?.minimumOrderQuantity">
+			</moq-app>
+			<ng-template #noMoq> <div>-</div> </ng-template>
+		</editable-label-app>
+		<input #inp inputApp type="number" [value]="row?.minimumOrderQuantity"/>
+	</editable-text-app>
 </ng-template>
 
 <!-- creation date -->
