@@ -127,6 +127,10 @@
           <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/features/workspace/containers/my-workflow-page/my-workflow-page.component.html</context>
           <context context-type="linenumber">59</context>
         </context-group>
@@ -161,7 +165,7 @@
         <source>
 		<x id="ICU" equiv-text="{	(selection.has(img.id) | json), select, true {...} other {...}}"/>
 	</source>
-        <target state="final">
+        <target state="translated">
 		<x id="ICU" equiv-text="{	(selection.has(img.id) | json), select, true {...} other {...}}"/>
 	</target>
         <context-group purpose="location">
@@ -195,7 +199,7 @@
         <source>
 			Attached Files
 		</source>
-        <target state="final">
+        <target state="translated">
 			附加文档
 		</target>
         <context-group purpose="location">
@@ -252,7 +256,7 @@
         <source>
     filters
   </source>
-        <target state="final">
+        <target state="translated">
     筛选
   </target>
         <context-group purpose="location">
@@ -265,7 +269,7 @@
         <source>
     Clear All Filters
   </source>
-        <target state="final">
+        <target state="translated">
     清除全部筛选
   </target>
         <context-group purpose="location">
@@ -287,7 +291,7 @@
         <source>
     Clear All
   </source>
-        <target state="final">
+        <target state="translated">
     全部清除
   </target>
         <context-group purpose="location">
@@ -309,7 +313,7 @@
         <source>
 						edit
 					</source>
-        <target state="final">
+        <target state="translated">
 						编辑
 					</target>
         <context-group purpose="location">
@@ -326,7 +330,7 @@
         <source>
 						clear
 					</source>
-        <target state="final">
+        <target state="translated">
 						清除
 					</target>
         <context-group purpose="location">
@@ -339,7 +343,7 @@
         <source>
 		favorite
 	</source>
-        <target state="final">
+        <target state="translated">
 		收藏
 	</target>
         <note priority="1" from="description">text</note>
@@ -356,7 +360,7 @@
         <source>
 				Only Show Favorites
 			</source>
-        <target state="final">
+        <target state="translated">
 				仅显示收藏
 			</target>
         <context-group purpose="location">
@@ -369,7 +373,7 @@
         <source>
 		archived
 	</source>
-        <target state="final">
+        <target state="translated">
 		存档
 	</target>
         <context-group purpose="location">
@@ -413,7 +417,7 @@
         <source>
 	View more
 </source>
-        <target state="final">
+        <target state="translated">
 	浏览更多
 </target>
         <context-group purpose="location">
@@ -515,7 +519,7 @@
         <source>
 		open
 	</source>
-        <target state="final">
+        <target state="translated">
 		打开
 	</target>
         <note priority="1" from="description">button</note>
@@ -553,7 +557,7 @@
         <source>
 								<x id="INTERPOLATION" equiv-text="{{ 'Min ' + (product?.minimumOrderQuantity || 0) + ' pcs' }}"/>
 						</source>
-        <target state="final">
+        <target state="translated">
 								<x id="INTERPOLATION" equiv-text="{{ 'Min ' + (product?.minimumOrderQuantity || 0) + ' pcs' }}"/>
 						</target>
         <note priority="1" from="description">minimum pieces</note>
@@ -592,13 +596,25 @@
         </context-group>
       </trans-unit>
       <trans-unit id="change-status" datatype="html">
-        <source>change status</source>
-        <target state="final">变更状态</target>
+        <source>Change status</source>
+        <target state="translated">变更状态</target>
+        <note priority="1" from="description">text</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/status-selector/component/status-selector.component.html</context>
           <context context-type="linenumber">38</context>
         </context-group>
-        <note priority="1" from="description">text</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/supplier/containers/suppliers-page/suppliers-page.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/workspace/containers/my-sample-list-page/my-sample-list-page.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/workspace/containers/my-sample-board-page/my-sample-board-page.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="show-filters" datatype="html">
         <source>Show Filters</source>
@@ -700,7 +716,7 @@
         <source>
 		profile
 	</source>
-        <target state="final">
+        <target state="translated">
 		用户资料
 	</target>
         <context-group purpose="location">
@@ -713,7 +729,7 @@
         <source>
 		manage team
 	</source>
-        <target state="final">
+        <target state="translated">
 		管理群组
 	</target>
         <context-group purpose="location">
@@ -726,7 +742,7 @@
         <source>
 		change team
 	</source>
-        <target state="final">
+        <target state="translated">
 		变更群组
 	</target>
         <context-group purpose="location">
@@ -739,7 +755,7 @@
         <source>
 		settings
 	</source>
-        <target state="final">
+        <target state="translated">
 		设置
 	</target>
         <note priority="1" from="description">button</note>
@@ -839,7 +855,7 @@
         <source>
 						New password must match
 					</source>
-        <target state="final">
+        <target state="translated">
 						新密码必须匹配</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/change-pswd-dlg/change-pswd-dlg.component.html</context>
@@ -850,7 +866,7 @@
         <source>
 		Compare Products
 	</source>
-        <target state="final">比较产品
+        <target state="translated">比较产品
 	</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/compare-product/compare-product.component.html</context>
@@ -865,7 +881,7 @@
         <source>
 		Compare quotation
 	</source>
-        <target state="final">
+        <target state="translated">
 		比较报价
 	</target>
         <context-group purpose="location">
@@ -885,7 +901,7 @@
         <source>
 			Change Name
 		</source>
-        <target state="final">
+        <target state="translated">
 			变更名称
 		</target>
         <context-group purpose="location">
@@ -939,7 +955,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">47</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/profile-card/profile-card.component.html</context>
@@ -990,7 +1006,7 @@
 			<x id="ICU" equiv-text="{ products?.length, plural, =0 {...} =1 {...} other {...}}"/>}
 			selected
 		</source>
-        <target state="final">
+        <target state="translated">
 			<x id="INTERPOLATION"/>
 			<x id="ICU"/>}
 			已选
@@ -1047,7 +1063,7 @@
         <source>
 			Request Feedback
 		</source>
-        <target state="final">
+        <target state="translated">
 			请求反馈
 		</target>
         <note priority="1" from="description">button</note>
@@ -1109,7 +1125,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/activity/components/activity-list/activity-list.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reply-sent" datatype="html">
@@ -1257,7 +1273,7 @@
         <source>
 		Export
 	</source>
-        <target state="final">
+        <target state="translated">
 		导出
 	</target>
         <note priority="1" from="description">button</note>
@@ -1284,6 +1300,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/product/components/stats-icons/stats-icons.component.html</context>
           <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="nested_vote" datatype="html">
@@ -1339,7 +1359,7 @@
         <source>
 				Perfect for editing
 			</source>
-        <target state="final">
+        <target state="translated">
 				适合编辑
 			</target>
         <context-group purpose="location">
@@ -1360,7 +1380,7 @@
         <source>
 				Perfect for sharing
 			</source>
-        <target state="final">
+        <target state="translated">
 				适合分享
 			</target>
         <context-group purpose="location">
@@ -1381,7 +1401,7 @@
         <source>
 				All product pictures
 			</source>
-        <target state="final">
+        <target state="translated">
 				全部产品照片
 			</target>
         <context-group purpose="location">
@@ -1418,7 +1438,7 @@
 				You can also retrieve your previous export in:<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
 				Settings
 			</source>
-        <target state="final">
+        <target state="translated">
 				您的导出正在生成. 可能需要几分钟的时间.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
 				导出准备就绪后，您将收到通知.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
 				您可以检索之前的导出:<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
@@ -1434,7 +1454,7 @@
         <source>
 				exports
 			</source>
-        <target state="final">
+        <target state="translated">
 				导出
 			</target>
         <note priority="1" from="description">link</note>
@@ -1469,7 +1489,7 @@
         <source>
 			Open Exports
 		</source>
-        <target state="final">
+        <target state="translated">
 		打开导出文档
 		</target>
         <context-group purpose="location">
@@ -1518,7 +1538,7 @@
         <source>
 		Show previous comments
 	</source>
-        <target state="final">
+        <target state="translated">
 		显示之前的评论
 	</target>
         <context-group purpose="location">
@@ -1526,11 +1546,27 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="added-OBJ-products" datatype="html">
+        <source>added <x id="INTERPOLATION" equiv-text="{{ products?.length }}"/> products</source>
+        <target state="new">added <x id="INTERPOLATION" equiv-text="{{ products?.length }}"/> products</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/activity/components/grouped-feed-list/multiple-products-activity-card/multiple-products-activity-card.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="write-comment-here" datatype="html">
+        <source>Write your comment here</source>
+        <target state="new">Write your comment here</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/activity/components/activity-list/activity-list.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="welcome-to-showsourcing" datatype="html">
         <source>
 			Welcome to ShowSourcing
 	</source>
-        <target state="final">
+        <target state="translated">
 			欢迎使用搜购
 	</target>
         <context-group purpose="location">
@@ -1545,7 +1581,7 @@
 		<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
 		your team and suppliers.
 	</source>
-        <target state="final">
+        <target state="translated">
 		您的协作采购平台为
 		<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
 		您的团队与供应商.
@@ -1655,7 +1691,7 @@
         <source>
 					Invite more team members
 				</source>
-        <target state="final">
+        <target state="translated">
 					邀请更多团队成员
 				</target>
         <context-group purpose="location">
@@ -1710,12 +1746,28 @@
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="contact-function" datatype="html">
+        <source>Contact Function</source>
+        <target state="new">Contact Function</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-email-address" datatype="html">
+        <source>Contact email address</source>
+        <target state="new">Contact email address</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="phone-number" datatype="html">
         <source>Phone number</source>
         <target state="final">电话号码</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/components/profile-card/profile-card.component.html</context>
@@ -1727,14 +1779,14 @@
         <target state="final">名片</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/new-contact-dlg/new-contact-dlg.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="we-will-send-you-instructions" datatype="html">
         <source>
 		We will send you instructions to recover your password.
 	</source>
-        <target state="final">
+        <target state="translated">
 		我们将会发送给您恢复密码说明.
 	</target>
         <context-group purpose="location">
@@ -1747,7 +1799,7 @@
         <source>
 		Please login to your account.
 	</source>
-        <target state="final">
+        <target state="translated">
 		请登录您的账户.
 	</target>
         <context-group purpose="location">
@@ -1772,7 +1824,7 @@
         <source>
 	The instructions to reset your password have been sent to your email address.
 </source>
-        <target state="final">
+        <target state="translated">
 	密码重置说明邮件已发送到您的邮件地址.
 </target>
         <context-group purpose="location">
@@ -1848,7 +1900,7 @@
         <source>
 					New password must match
 				</source>
-        <target state="final">
+        <target state="translated">
 					新密码必须匹配
 				</target>
         <context-group purpose="location">
@@ -1861,7 +1913,7 @@
         <source>
 		Please check your inbox to validate your email..
 	</source>
-        <target state="final">
+        <target state="translated">
 		请检查您的收件箱以验证您的电子邮件..
 	</target>
         <context-group purpose="location">
@@ -1874,7 +1926,7 @@
         <source>
 		Validating email...
 	</source>
-        <target state="final">
+        <target state="translated">
 		验证电子邮件...
 	</target>
         <context-group purpose="location">
@@ -1897,7 +1949,7 @@
             <x id="ICU" equiv-text="{ counters?.productsNeedReview, plural, =0 {...} =1 {...} other {...}}"/>
             review
           </source>
-        <target state="final">
+        <target state="translated">
             <x id="ICU"/>
            评价
           </target>
@@ -1919,7 +1971,7 @@
         <source>
               Review <x id="ICU" equiv-text="{counters?.productsNeedReview, plural, =0 {...} =1 {...} other {...}}"/>
             </source>
-        <target state="final">
+        <target state="translated">
               评价 <x id="ICU"/>
             </target>
         <context-group purpose="location">
@@ -1941,7 +1993,7 @@
             <x id="ICU" equiv-text="{ counters?.productsInWorkflow, plural, =0 {...} =1 {...} other {...}}"/>
             in progress
           </source>
-        <target state="final">
+        <target state="translated">
             <x id="ICU"/>
    进行中
           </target>
@@ -1963,7 +2015,7 @@
         <source>
               To my workspace
             </source>
-        <target state="final">
+        <target state="translated">
               到我的工作区
             </target>
         <context-group purpose="location">
@@ -1976,7 +2028,7 @@
         <source>
       Open my workspace
     </source>
-        <target state="final">
+        <target state="translated">
     打开我的工作区
     </target>
         <context-group purpose="location">
@@ -1999,7 +2051,7 @@
         <source>
 						Team Leader
 					</source>
-        <target state="final">
+        <target state="translated">
 						群主
 					</target>
         <context-group purpose="location">
@@ -2050,7 +2102,7 @@
 	We are having a problem with our server. A team of highly trained monkeys are currently trying to fix that.
 	Please try again at a later time.
 </source>
-        <target state="final">
+        <target state="translated">
 	我们的服务器有问题。一群训练有素的猴子正在努力解决这个问题。请稍后再试。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/error-pages/generic-error-page/generic-error-page.component.html</context>
@@ -2093,7 +2145,7 @@
         <source>
       Yes - Let me log-in
     </source>
-        <target state="final">
+        <target state="translated">
       有-登陆
     </target>
         <context-group purpose="location">
@@ -2106,7 +2158,7 @@
         <source>
       No - Create an account
     </source>
-        <target state="final">
+        <target state="translated">
       无 - 创建账户
     </target>
         <context-group purpose="location">
@@ -2127,7 +2179,7 @@
         <source>
         Yes - Join the team
       </source>
-        <target state="final">
+        <target state="translated">
         是- 加入群组
       </target>
         <context-group purpose="location">
@@ -2140,7 +2192,7 @@
         <source>
         No - I don't wish to join this team
       </source>
-        <target state="final">
+        <target state="translated">
         否 - 我不想加入这个群租
       </target>
         <context-group purpose="location">
@@ -2153,7 +2205,7 @@
         <source>
 			Join a team
 		</source>
-        <target state="final">
+        <target state="translated">
 			加入群组
 		</target>
         <context-group purpose="location">
@@ -2168,7 +2220,7 @@
 			<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
 			create a new one
 		</source>
-        <target state="final">
+        <target state="translated">
 			选择您想联系的群组或
 			<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                         创建新群组
@@ -2184,7 +2236,7 @@
         <source>
 		Create a new team
 	</source>
-        <target state="final">
+        <target state="translated">
 		创建新群组
 	</target>
         <note priority="1" from="description">link</note>
@@ -2201,7 +2253,7 @@
         <source>
 		Create a team
 	</source>
-        <target state="final">
+        <target state="translated">
 		创建新群组
 	</target>
         <context-group purpose="location">
@@ -2218,7 +2270,7 @@
         <source>
 		Create your team and start sourcing
 	</source>
-        <target state="final">
+        <target state="translated">
 		穿件您的群组并开始采购
 	</target>
         <context-group purpose="location">
@@ -2247,7 +2299,7 @@
         <source>
 			product information
 		</source>
-        <target state="final">
+        <target state="translated">
 			产品信息
 		</target>
         <context-group purpose="location">
@@ -2329,7 +2381,7 @@
         <source>
 				View Vote Details
 			</source>
-        <target state="final">
+        <target state="translated">
 				浏览投票详情
 			</target>
         <context-group purpose="location">
@@ -2342,7 +2394,7 @@
         <source>
 			No Votes Yet
 		</source>
-        <target state="final">
+        <target state="translated">
 			还无投票
 		</target>
         <context-group purpose="location">
@@ -2355,7 +2407,7 @@
         <source>
 				Request Team
 			</source>
-        <target state="final">
+        <target state="translated">
 				请求群组
 			</target>
         <context-group purpose="location">
@@ -2368,7 +2420,7 @@
         <source>
 			Supplier Request
 		</source>
-        <target state="final">
+        <target state="translated">
 			供应商请求
 		</target>
         <context-group purpose="location">
@@ -2407,7 +2459,7 @@
         <source>
 		No Projects Added
 	</source>
-        <target state="final">
+        <target state="translated">
 		无添加项目</target>
         <note priority="1" from="description">text</note>
         <context-group purpose="location">
@@ -2419,7 +2471,7 @@
         <source>
 				Request For Team Feedback
 			</source>
-        <target state="final">请求群组反馈</target>
+        <target state="translated">请求群组反馈</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/product/components/product-selection-bar/product-selection-bar.component.html</context>
           <context context-type="linenumber">85</context>
@@ -2513,7 +2565,7 @@
         <source>
 				Shipping &amp; Trading
 			</source>
-        <target state="final">
+        <target state="translated">
 				运输与交易
 			</target>
         <context-group purpose="location">
@@ -2539,7 +2591,7 @@
         <source>
 			<x id="ICU" equiv-text="{ productCount[project.id], plural, =0 {...} =1 {...} other {...}}"/>
 		</source>
-        <target state="final">
+        <target state="translated">
 			<x id="ICU" equiv-text="{ productCount[project.id], plural, =0 {...} =1 {...} other {...}}"/>
 		</target>
         <context-group purpose="location">
@@ -2560,7 +2612,7 @@
         <source>
     Request information
   </source>
-        <target state="final">
+        <target state="translated">
    请求信息
   </target>
         <note priority="1" from="description">button</note>
@@ -2605,6 +2657,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/project/components/project-product-list/project-product-list.component.html</context>
           <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-pwd" datatype="html">
@@ -2653,7 +2709,7 @@
         <source>
 			Project Settings
 		</source>
-        <target state="final">
+        <target state="translated">
 			项目设置
 		</target>
         <note priority="1" from="description">header</note>
@@ -2675,7 +2731,7 @@
         <source>
 					Select Image
 				</source>
-        <target state="final">
+        <target state="translated">
 					原则图片
 				</target>
         <note priority="1" from="description">button</note>
@@ -2803,7 +2859,7 @@
         <source>
 					Show my samples only
 				</source>
-        <target state="final">
+        <target state="translated">
 					仅显示我的样品
 				</target>
         <context-group purpose="location">
@@ -2876,7 +2932,7 @@
       <trans-unit id="requests" datatype="html">
         <source>
 </source>
-        <target state="final">
+        <target state="translated">
 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/containers/request-page/request-page.component.html</context>
@@ -2928,7 +2984,7 @@
 	All products will be sent to New idea when created. New ideas can then be sent to the <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
 	workflow or kept as a reference (no action has to be taken)
 </source>
-        <target state="final">
+        <target state="translated">
 	所有产品在创建时都会被发送给新想法。 然后可以将新想法发送给<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
         工作流程或作为参考（不必采取任何行动）</target>
         <context-group purpose="location">
@@ -3169,11 +3225,11 @@
         <target state="final">快速请求议价</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
-          <context context-type="linenumber">107</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="share-product-info" datatype="html">
@@ -3205,7 +3261,7 @@
         <target state="final">选择一个供应商</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="select-contact" datatype="html">
@@ -3221,7 +3277,7 @@
         <target state="final">请求标题</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
-          <context context-type="linenumber">102</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="quote-request" datatype="html">
@@ -3229,7 +3285,7 @@
         <target state="final">议价请求</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="message-for-supplier" datatype="html">
@@ -3237,7 +3293,7 @@
         <target state="final">给供应商的消息</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="send-request" datatype="html">
@@ -3245,7 +3301,7 @@
         <target state="final">发送请求</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
-          <context context-type="linenumber">123</context>
+          <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
       <trans-unit id="team-votes" datatype="html">
@@ -3260,7 +3316,7 @@
         <source>
     Add Products to project
   </source>
-        <target state="final">
+        <target state="translated">
     添加产品到项目
   </target>
         <context-group purpose="location">
@@ -3413,7 +3469,7 @@
         <source>
 			New Contact
 		</source>
-        <target state="final">
+        <target state="translated">
 			新联系人
 		</target>
         <context-group purpose="location">
@@ -3480,7 +3536,7 @@
         <source>
 				Please fill in the form below to reply to client
 			</source>
-        <target state="final">
+        <target state="translated">
 				请填写下面的表格回复客户
 
 			</target>
@@ -3533,7 +3589,7 @@
         <source>
 				View All Products
 			</source>
-        <target state="final">
+        <target state="translated">
 				浏览全部产品
 			</target>
         <context-group purpose="location">
@@ -3546,7 +3602,7 @@
         <source>
 				Currently this supplier had no products associated
 			</source>
-        <target state="final">
+        <target state="translated">
 				目前该供应商没有相关产品
 			</target>
         <context-group purpose="location">
@@ -3559,7 +3615,7 @@
         <source>
 				You can start adding products now
 			</source>
-        <target state="final">
+        <target state="translated">
 				您可以开始添加产品
 			</target>
         <context-group purpose="location">
@@ -3572,7 +3628,7 @@
         <source>
 				Add Product
 			</source>
-        <target state="final">
+        <target state="translated">
 				添加产品
 			</target>
         <context-group purpose="location">
@@ -3581,11 +3637,19 @@
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
+      <trans-unit id="b5813f46534b30ecd790487bbb5716d7a14d9df0" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {comment } other {comments } }</source>
+        <target state="new">{VAR_PLURAL, plural, =1 {comment } other {comments } }</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="show-only-my-sample" datatype="html">
         <source>
 				Show my samples only
 			</source>
-        <target state="final">
+        <target state="translated">
 				仅显示我的样品
 			</target>
         <context-group purpose="location">
@@ -3602,7 +3666,7 @@
         <source>
 			Add Sample
 		</source>
-        <target state="final">
+        <target state="translated">
 			添加样品
 		</target>
         <context-group purpose="location">
@@ -3619,7 +3683,7 @@
         <source>
 					Show my tasks only
 				</source>
-        <target state="final">仅显示我的任务</target>
+        <target state="translated">仅显示我的任务</target>
         <note priority="1" from="description">text</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/task/components/task-list/task-list.component.html</context>
@@ -3650,7 +3714,7 @@
         <source>
 							Select a due date
 						</source>
-        <target state="final">
+        <target state="translated">
 							选择截止日期
 						</target>
         <context-group purpose="location">
@@ -3670,7 +3734,7 @@
         <source>
 		Mark as done
 	</source>
-        <target state="final">标记为已完成
+        <target state="translated">标记为已完成
 	</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/task/components/banner-task/banner-task.component.html</context>
@@ -3738,40 +3802,40 @@
         <source>
 			My Workflow
 		</source>
-        <target state="final">
+        <target state="translated">
 		我的工作流程
 		</target>
+        <note priority="1" from="description">nav</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/workspace/containers/workspace/workspace.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">11</context>
         </context-group>
-        <note priority="1" from="description">nav</note>
       </trans-unit>
       <trans-unit id="my-tasks" datatype="html">
         <source>
 			My Tasks
 		</source>
-        <target state="final">
+        <target state="translated">
 			我的任务
 		</target>
+        <note priority="1" from="description">nav</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/workspace/containers/workspace/workspace.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
-        <note priority="1" from="description">nav</note>
       </trans-unit>
       <trans-unit id="my-samples" datatype="html">
         <source>
 			My Samples
 		</source>
-        <target state="final">
+        <target state="translated">
 			我的样品
 		</target>
+        <note priority="1" from="description">nav</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/workspace/containers/workspace/workspace.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
         </context-group>
-        <note priority="1" from="description">nav</note>
       </trans-unit>
     </body>
   </file>
