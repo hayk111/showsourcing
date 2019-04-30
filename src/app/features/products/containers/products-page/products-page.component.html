@@ -42,6 +42,7 @@
 		(bottomReached)="listSrv.loadMore()"
 		(delete)="listSrv.deleteOne($event)"
 		(favorited)="listSrv.onItemFavorited($event)"
+		(update)="listSrv.update($event)"
 		(open)="listSrv.goToDetails($event)"
 		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
 		(openExportDialog)="commonModalSrv.openExportDialog([$event])"

@@ -73,12 +73,9 @@
 	<selector-app
 		type="supplier"
 		[canCreate]="true"
-		[width]="370">
-		<div class="flex">
-			<!-- <icon-app name="supplier" backgroundColor="supplier"></icon-app> -->
-			<!-- <span class="spacing mg-xs"></span> -->
-			<span class="ellipsis"> {{ row.supplier?.name || 'Set supplier' }}</span>
-		</div>
+		[width]="370"
+		(update)="update.emit({ id: row.id, supplier: $event })">
+		<div class="ellipsis"> {{ row?.supplier?.name || 'Set supplier' }}</div>
 	</selector-app>
 </ng-template>
 
@@ -87,12 +84,9 @@
 	<selector-app
 		type="category"
 		[canCreate]="true"
-		[width]="370">
-		<div class="flex">
-			<!-- <icon-app name="category" backgroundColor="accent"></icon-app> -->
-			<!-- <span class="spacing mg-xs"></span> -->
-			<span class="ellipsis"> {{ row.category?.name || 'Set category' }}</span>
-		</div>
+		[width]="370"
+		(update)="update.emit({ id: row.id, category: $event })">
+		<div class="ellipsis"> {{ row?.category?.name || 'Set category' }}</div>
 	</selector-app>
 </ng-template>
 
@@ -107,7 +101,10 @@
 
 <!-- moq -->
 <ng-template #moq let-row="row">
-	<editable-text-app (opened)="inp.focus()" [hasAction]="false">
+	<editable-text-app 
+		[hasAction]="false"
+		(opened)="inp.focus()" 
+		(closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
 		<editable-label-app>
 			<moq-app
 				*ngIf="row?.minimumOrderQuantity; else noMoq"
@@ -146,8 +143,7 @@
 
 <!-- status -->
 <ng-template #status let-row="row">
-	<status-selector-app [entity]="row" [typeEntity]="prodErm" selectSize="s">
-	</status-selector-app>
+	<status-selector-app [entity]="row" [typeEntity]="prodErm" selectSize="s"></status-selector-app>
 </ng-template>
 
 
@@ -162,5 +158,6 @@
 	<div class="flexCenter userP">{{ row?.createdBy | formatUserName }}</div>
 	<ng-template>
 		<!-- none -->
-		<ng-template #none></ng-template> </ng-template
-></ng-template>
+		<ng-template #none></ng-template> 
+	</ng-template>
+</ng-template>
