@@ -1,0 +1,31 @@
+:host {
+	display: flex;
+}
+
+search-bar-animated-app {
+	font-size: 24px;
+	margin-right: var(--spacing-ms);
+	cursor: pointer;
+	border-radius: var(--border-radius-s);
+	&.expanded {
+		background: #071327 !important;
+	}
+	&:hover {
+		background: #071327;
+	}
+	input {
+		padding: 0;
+		padding-left: var(--spacing-s);
+		color: white;
+	}
+}
+
+.searchInput {
+	background: transparent;
+	border: none;
+}
+
+.placeholder {
+	font-size: var(--font-size-l);
+	padding: var(--spacing-ms);
+}
