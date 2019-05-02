@@ -20,6 +20,7 @@ type ExportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
 export class ExportDlgComponent implements OnInit {
 
 	@Input() targets: Product[] | Supplier[];
+	// when we want to export by Filter we use query instead of targets
 	@Input() query: string;
 	selectedFormat: ExportFormat;
 	selectedType: ExportType;
@@ -40,7 +41,7 @@ export class ExportDlgComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.query)
-			this.productSrv.queryCount(this.query).pipe(take(1)).subscribe(len => this.length$.next(len > 1000 ? 1000 : len));
+			this.productSrv.queryCount(this.query).pipe(take(1)).subscribe(len => this.length$.next(len));
 		else
 			this.length$.next(this.targets.length);
 	}

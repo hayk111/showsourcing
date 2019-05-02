@@ -53,7 +53,7 @@
 
 	<!-- Content (Non Floating) -->
 	<div class="content">
-		<div class="title"> {{ product?.name || 'Unnamed product'}} </div>
+		<div class="title ellipsis"> {{ product?.name || 'Unnamed product'}} </div>
 		<div class="flex" *ngIf="product?.price?.value">
 				<span class="price">
 					{{product?.price?.currency | currencySymbol}} {{ product?.price?.value | ssPrice }}
