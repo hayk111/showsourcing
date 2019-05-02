@@ -158,6 +158,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getSupplierTypes();
 			case ERM.TAG: return this.selectorSrv.getTags();
 			case ERM.USER: return this.selectorSrv.getUsers();
+			case ERM.TEAM_USER: return this.selectorSrv.getTeamUsers().pipe(
+				map(teamUsers => teamUsers.map(tu => tu.user))
+			);
 
 			default: throw Error(`Unsupported type${this.type} for selector`);
 		}
@@ -190,6 +193,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let item;
 		// depending on the entity the way we update it can be different (we only care to update the value that we display)
 		switch (this.type) {
+			case ERM.TEAM_USER:
 			case ERM.USER:
 				item = {
 					id: this.value.id,

@@ -14,4 +14,5 @@ export class TeamUserService extends GlobalService<TeamUser> {
 		super(apolloState, TeamUserQueries, 'teamUser', 'teamUsers');
 	}
 
+
 }

@@ -16,6 +16,7 @@ import {
 	SupplierService,
 	TagService,
 	UserService,
+	TeamUserService,
 } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import {
@@ -32,6 +33,7 @@ import {
 	SupplierType,
 	Tag,
 	User,
+	TeamUser,
 } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
@@ -73,7 +75,8 @@ export class SelectorsService {
 		private userSrv: UserService,
 		private harbourSrv: HarbourService,
 		private incoTermSrv: IncoTermService,
-		private countrySrv: CountryService
+		private countrySrv: CountryService,
+		private teamUserSrv: TeamUserService
 	) { }
 
 	setItems() {
@@ -81,7 +84,7 @@ export class SelectorsService {
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
-			map(items => items.filter(itm => !itm.deleted)),
+			map(items => (items || []).filter(itm => !itm.deleted)),
 			tap(items => this.items = items),
 		);
 		this.listResult.items$.connect();
@@ -290,6 +293,13 @@ export class SelectorsService {
 	getUsers(): Observable<User[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'lastName' };
 		this.listResult = this.userSrv.getListQuery(this.selectParams, '', Client.TEAM);
+		this.setItems();
+		return this.items$;
+	}
+
+	getTeamUsers(): Observable<TeamUser[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'user.lastName' };
+		this.listResult = this.teamUserSrv.getListQuery(this.selectParams, '', Client.TEAM);
 		this.setItems();
 		return this.items$;
 	}

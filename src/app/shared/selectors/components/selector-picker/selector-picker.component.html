@@ -36,6 +36,10 @@
 			<selector-user-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
 		</ng-container>
 
+		<ng-container *ngSwitchCase="erm.TEAM_USER">
+			<selector-user-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
+		</ng-container>
+
 		<ng-container *ngSwitchCase="erm.CURRENCY">
 			<!-- we need the top 3 currencies always visible at the top -->
 			<selector-currency-row-app #abstract *ngFor="let item of this.selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
