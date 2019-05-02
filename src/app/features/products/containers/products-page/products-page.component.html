@@ -23,8 +23,8 @@
 			[gridView]="listSrv.view === 'card'"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
-		<button (click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())" i18n="@@export-all-by-filter">
-			Export all by filter
+		<button class="capitalize" (click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())" i18n="@@export">
+			export
 		</button>
 	</sub-panel-right-item-app>
 
@@ -56,7 +56,7 @@
 		(unselect)="listSrv.unselectOne($event, true)"
 		(unselectAll)="listSrv.unselectAll()">
 	</products-list-view-app>
-	
+
 	<products-card-view-app
 		infiniScroll
 		cdk-scrollable
@@ -77,8 +77,8 @@
 		(unselect)="listSrv.unselectOne($event, true)"
 		(update)="listSrv.update($event)">
 	</products-card-view-app>
-	
-	
+
+
 	<product-selection-bar-app
 		[isShown]="(listSrv.selection$ | async).size > 0"
 		[selection]="listSrv.selection$ | async"
@@ -95,14 +95,14 @@
 		(deleted)="listSrv.deleteSelected()"
 		(close)="listSrv.unselectAll()">
 	</product-selection-bar-app>
-	
+
 	<filters-app
 		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()">
 	</filters-app>
-	
+
 	<product-preview-app
 		*ngIf="listSrv.previewOpen"
 		[product]="listSrv.previewed"

@@ -9,6 +9,7 @@ kanban-app {
 	/** minus top panel */
 	height: calc(100% - 70px);
 	overflow-x: auto;
+	overflow-y: hidden;
 	box-sizing: border-box;
 }
 

@@ -8,6 +8,7 @@ import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
+import { config } from '@fortawesome/fontawesome-svg-core';
 
 /**
  * Services that helps us for common functionalities in list pages
@@ -102,7 +103,7 @@ export class ListPageDataService
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
-			map(items => items.filter(itm => !itm.deleted)),
+			map(items => (items || []).filter(itm => !itm.deleted)),
 		) as ConnectableObservable<T[]>;
 		// then we start listening
 		this.listResult.items$.connect();

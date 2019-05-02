@@ -135,8 +135,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		}
 		// we update on the server
 		const isNewStatus = event.to.id === NEW_STATUS_ID;
-		this.productSrv.update(
-			{
+		this.productSrv.update({
 				id: event.item.id,
 				status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
 			},
