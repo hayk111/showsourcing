@@ -9,7 +9,7 @@
       <div class="flexBetween actions">
         <button [disabled]="isFirst()" (click)="back()" class="secondary">Previous</button>
         <div class="flex">
-          <div class="cercle" [ngClass]="{ 'selected': onboardingSrv.currentIndex === i }" *ngFor="let screens of onboardingSrv.screens; let i = index"></div>
+          <div class="circle" [ngClass]="{ 'selected': onboardingSrv.currentIndex === i }" *ngFor="let screens of onboardingSrv.screen; let i = index"></div>
         </div>
         <button *ngIf="!isLast()" (click)="next()">Next</button>
         <button *ngIf="isLast()" class="success" (click)="complete()">Finish</button>

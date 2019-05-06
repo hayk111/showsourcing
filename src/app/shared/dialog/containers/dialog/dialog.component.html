@@ -1,6 +1,6 @@
 
 	<!-- header -->
-	<div class="header flexBetween" *ngIf="hasHeader" [ngStyle]="{ 'padding-bottom': 'var(--spacing-' + headerSpacing + ')' }">
+	<div *ngIf="hasHeader" class="header flexBetween" [ngStyle]="{ 'padding-bottom': 'var(--spacing-' + headerSpacing + ')' }">
 		<div class="spacer">
 			<ng-content select="dialog-header-app"></ng-content>
 		</div>

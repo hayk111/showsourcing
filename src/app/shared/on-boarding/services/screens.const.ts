@@ -1,5 +1,7 @@
 import { Screen } from './on-boarding.service';
 
+
+// TODO i18n
 export const SCREENS: Screen[] = [
 	{
 		picture: 'onboarding-1.svg',
