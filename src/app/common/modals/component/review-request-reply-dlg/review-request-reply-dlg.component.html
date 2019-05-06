@@ -35,7 +35,7 @@
 					</list-item-app>
 				</list-app>
 
-				<footer class="flex">
+				<footer class="flex" *ngIf="!isDisabled()">
 					<button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)">Accept All</button>
 					<button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)">Refuse All</button>
 				</footer>
@@ -56,7 +56,7 @@
 					(unselected)="selectionSrv.unselectOne($event)">
 				</image-reviewer-app>
 
-				<footer class="flex">
+				<footer class="flex" *ngIf="!isDisabled()">
 					<button class="primary accept" (click)="acceptAll(erm.IMAGE)">Accept All</button>
 					<button class="secondary" (click)="refuseAll(erm.IMAGE)">Refuse All</button>
 				</footer>
@@ -73,7 +73,7 @@
 					(unselected)="selectionSrv.unselectOne($event)">
 				</file-reviewer-app>
 
-				<footer class="flex">
+				<footer class="flex" *ngIf="!isDisabled()">
 					<button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)">Accept All</button>
 					<button class="secondary" (click)="refuseAll(erm.ATTACHMENT)">Refuse All</button>
 				</footer>

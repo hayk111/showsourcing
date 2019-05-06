@@ -34,10 +34,6 @@ export class RequestStatusBadgeComponent implements OnInit {
 	getType() {
 		if (this.isTeam) {
 			switch (this.status) {
-				case RequestStatus.PENDING:
-				case RequestStatus.SENT:
-				case RequestStatus.RESENT:
-					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'secondary';
 				case RequestStatus.REPLIED:
 					return 'primary';
 				case RequestStatus.VALIDATED:

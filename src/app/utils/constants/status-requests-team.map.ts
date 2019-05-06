@@ -9,21 +9,21 @@ export const statusRequestsTeamMap = {
 	'pending': {
 		locales: {
 			en: {
-				name: 'Sent'
+				name: 'Sent to supplier'
 			}
 		}
 	},
 	'sent': {
 		locales: {
 			en: {
-				name: 'Sent'
+				name: 'Sent to supplier'
 			}
 		}
 	},
 	'resent': {
 		locales: {
 			en: {
-				name: 'Sent Back'
+				name: 'Sent Back to supplier'
 			}
 		}
 	},
