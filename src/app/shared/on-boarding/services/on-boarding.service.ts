@@ -4,7 +4,6 @@ import { LocalStorageService } from '~core/local-storage';
 import { DialogService } from '~shared/dialog';
 import { OnBoardingDlgComponent } from '../components/on-boarding-dlg/on-boarding-dlg.component';
 
-
 export interface Screen {
 	picture: string;
 	title: string;
@@ -29,7 +28,21 @@ export class OnBoardingService {
 	constructor(
 		private storage: LocalStorageService,
 		private dlgSrv: DialogService
-	) { }
+	) {
+		this.preloadImgs();
+	}
+
+	preloadImgs() {
+		return Promise.all([this.screens.map(screen => screen.picture)
+			.forEach(pic => {
+				return new Promise((resolve, reject) => {
+					const img = new Image();
+					img.src = 'assets/img/' + pic;
+					img.onload = () => resolve(true);
+				});
+			})
+		]);
+	}
 
 	next() {
 		this.currentIndex = Math.min(this.length - 1, this.currentIndex + 1);

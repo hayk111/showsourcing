@@ -8,7 +8,7 @@ export const SCREENS: Screen[] = [
 		title: 'Welcome to ShowSourcing!',
 		text: 'ShowSourcing is a powerful collaborative tool to boost your product development processes',
 	}, {
-		picture: 'onboarding-2.png',
+		picture: 'onboarding-2.svg',
 		title: 'Work on the go',
 		text: `Tired of taking notes manually and spending your evenings transcribing data into excel sheets?
 ShowSourcing's mobile app will help you take notes efficiently while attending a trade show or a factory visit.`
