@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 import { ERMService } from '~entity-services/_global/erm.service';
 import { EntityMetadata } from '~models';
 
@@ -30,7 +30,7 @@ export class CrudDialogService {
 	checkExists(type: EntityMetadata, valueInput: string) {
 		return this.ermService.getGlobalService(type)
 			.queryOneByPredicate(`name == "${valueInput.trim()}"`, ['id', 'name'])
-			.pipe(first());
+			.pipe(take(1));
 	}
 }
 
