@@ -1,23 +1,21 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild, ChangeDetectorRef, OnChanges, AfterViewChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { switchMap, takeUntil, debounceTime, tap } from 'rxjs/operators';
-import { Observable } from 'subscriptions-transport-ws';
-import { EntityMetadata } from '~models';
-import { DialogService } from '~shared/dialog/services';
+import { Observable, Subject, empty } from 'rxjs';
+import { debounceTime, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { EntityMetadata } from '~models';
+import { CloseEventType } from '~shared/dialog';
+import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
-import { CloseEventType } from '~shared/dialog';
-import { ERMService } from '~core/entity-services/_global/erm.service';
 
 @Component({
 	selector: 'creation-dialog-app',
 	templateUrl: './creation-dialog.component.html',
 	styleUrls: ['./creation-dialog.component.scss']
 })
-export class CreationDialogComponent extends AutoUnsub implements AfterViewInit, OnInit {
+export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterViewChecked {
 
 	group: FormGroup;
 	pending = false;
@@ -32,9 +30,16 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
 		private crudDlgSrv: CrudDialogService,
+		private cdr: ChangeDetectorRef,
 		private ermSrv: ERMService
 	) {
 		super();
+	}
+
+	// we need this on viewChecked since if the user introduces a name that already exists, we have to focus again
+	ngAfterViewChecked() {
+		if (this.input)
+			this.input.focus();
 	}
 
 	ngOnInit() {
@@ -43,15 +48,10 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		});
 		this.exists$ = this.typed$
 			.pipe(
-				debounceTime(300),
+				debounceTime(200),
 				takeUntil(this._destroy$),
-				switchMap((str) => this.crudDlgSrv.checkExists(this.type, str))
+				switchMap((str) => this.crudDlgSrv.checkExists(this.type, str)),
 			);
-	}
-
-	ngAfterViewInit() {
-		// setTimeout because we can't yet see the input
-		setTimeout(() => this.input.focus(), 0);
 	}
 
 	checkExists() {
@@ -64,9 +64,16 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		}
 		const name = this.group.value.name.trim();
 		this.pending = true;
-		this.createItem({ name, ...this.extra }).pipe(
-			tap(_ => this.pending = false)
-		).subscribe(item => this.dlgSrv.close({ type: CloseEventType.OK, data: item }));
+		this.crudDlgSrv.checkExists(this.type, name).pipe(
+			switchMap(exists => {
+				return exists ? Observable.create(obs => obs.next(false)) : this.createItem({ name, ...this.extra });
+			}),
+		).subscribe(item => {
+			if (item)
+				this.dlgSrv.close({ type: CloseEventType.OK, data: item });
+			this.pending = false;
+			this.cdr.markForCheck();
+		});
 	}
 
 	private createItem(item) {
