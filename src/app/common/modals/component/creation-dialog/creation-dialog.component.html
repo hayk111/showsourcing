@@ -2,11 +2,11 @@
 	<dialog-app>
 
 		<!-- when ready -->
-		<dialog-header-app *ngIf="!pending ">
+		<dialog-header-app *ngIf="!pending">
 			New {{type.singular}}
 		</dialog-header-app>
 
-		<form [formGroup]="group" *ngIf="!pending">
+		<form *ngIf="!pending" [formGroup]="group">
 			<form-field-app>
 				<label-app> {{type.singular}} Name </label-app>
 				<input inputApp type="text" (input)="checkExists()" formControlName="name" placeholder="New {{type.singular}}" (keyup.enter)="onSubmit()"/>
@@ -14,7 +14,7 @@
 			<label-app> Please provide the {{type.singular}} name to create </label-app>
 		</form>
 
-		<dialog-footer-app *ngIf="!pending ">
+		<dialog-footer-app *ngIf="!pending">
 			<div class="color-warn" *ngIf="exists$ | async"> That {{type.singular}} name already exists. Please choose another one.</div>
 			<input [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create" (click)="onSubmit()"/>
 		</dialog-footer-app>
