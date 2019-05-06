@@ -39,7 +39,7 @@ export class ImagePipe implements PipeTransform {
 	 */
 	transform(
 		value: any | string,
-		size: ('xs' | 's' | 'm' | 'l' | 'xl') = 's',
+		size: ('xs' | 's' | 'm' | 'l' | 'xl') = 'xl',
 		type: string = 'image' // can be supplier, product etc..
 	): string {
 		try {

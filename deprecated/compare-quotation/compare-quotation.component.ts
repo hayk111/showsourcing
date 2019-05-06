@@ -1,15 +1,10 @@
-import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	Component,
-	Input,
-	OnInit
-} from '@angular/core';
-import { Contact, Product, Quote, Packaging } from '~models';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Quote } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { AutoUnsub } from '~utils';
 import { ComparisonDataModel } from '~shared/table/models/';
+import { AutoUnsub } from '~utils';
 import { getArrayData, getPackagingString } from '~utils/product.utils';
+
 @Component({
 	selector: 'compare-quotation-app',
 	templateUrl: './compare-quotation.component.html',
@@ -132,7 +127,7 @@ export class CompareQuotationComponent extends AutoUnsub
 		super();
 	}
 
-	
+
 	ngOnInit() { }
 
 	ngAfterViewInit() { }
