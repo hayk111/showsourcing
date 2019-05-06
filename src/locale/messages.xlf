@@ -10,7 +10,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/preview/components/preview-carousel/preview-carousel.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <note priority="1" from="description">text</note>
       </trans-unit>
@@ -22,7 +22,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/preview/components/preview-carousel/preview-carousel.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
@@ -217,6 +217,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/product/components/product-selection-bar/product-selection-bar.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/product/components/product-selection-bar/product-selection-bar.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -310,6 +314,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/filters/components/filter-btn-list/filter-btn-list.component.html</context>
           <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/product/components/product-selection-bar/product-selection-bar.component.html</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/product/components/product-sorting-menu/product-sorting-menu.component.html</context>
@@ -407,7 +415,7 @@
         <source>done</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/selectors/components/selector-picker/selector-picker.component.html</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">128</context>
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
@@ -581,7 +589,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/workflow/workflow-managament-table/workflow-managament-table.component.html</context>
@@ -609,6 +617,20 @@
           <context context-type="linenumber">7</context>
         </context-group>
         <note priority="1" from="description">header</note>
+      </trans-unit>
+      <trans-unit id="yes" datatype="html">
+        <source>yes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/dynamic-forms/components/extended-form/extended-form-input/extended-form-input.component.html</context>
+          <context context-type="linenumber">190</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no" datatype="html">
+        <source>no</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/dynamic-forms/components/extended-form/extended-form-input/extended-form-input.component.html</context>
+          <context context-type="linenumber">197</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="list" datatype="html">
         <source>List</source>
@@ -855,22 +877,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/product/components/product-selection-bar/product-selection-bar.component.html</context>
           <context context-type="linenumber">66</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="compare-quotation" datatype="html">
-        <source>
-		Compare quotation
-	</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/common/modals/component/compare-quotation/compare-quotation.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="continue" datatype="html">
-        <source>continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/common/modals/component/compare-quotation/compare-quotation.component.html</context>
-          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-name" datatype="html">
@@ -1203,68 +1209,76 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="reply-message-buyer" datatype="html">
+        <source>Reply message to buyer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="images" datatype="html">
         <source>images</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add-image" datatype="html">
         <source>Add Image</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="attachments" datatype="html">
         <source>attachments</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add-attachments" datatype="html">
         <source>Add Attachments</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="refuse" datatype="html">
         <source>refuse</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
-          <context context-type="linenumber">90</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/common/request/components/request-element-list-view/request-element-list-view.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="save" datatype="html">
         <source>save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="submitted" datatype="html">
         <source>submitted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="product-already-replied" datatype="html">
-        <source>This product has already been replied</source>
+      <trans-unit id="submit-next" datatype="html">
+        <source>
+						submit &amp; next
+					</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="submit" datatype="html">
+        <source>submit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/request-reply-dlg/request-reply-dlg.component.html</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="send-request-supplier" datatype="html">
@@ -1272,6 +1286,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/product/components/product-selection-bar/product-selection-bar.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="request-settings" datatype="html">
@@ -1288,8 +1310,8 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="send-me-copy" datatype="html">
-        <source>Send me a copy</source>
+      <trans-unit id="select-products" datatype="html">
+        <source>Select products</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/supplier-request-dialog/supplier-request-dialog.component.html</context>
           <context context-type="linenumber">12</context>
@@ -1436,11 +1458,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">77</context>
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
@@ -1452,19 +1474,26 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">78</context>
         </context-group>
         <note priority="1" from="description">button</note>
+      </trans-unit>
+      <trans-unit id="supplier-message" datatype="html">
+        <source>Supplier Message</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="1d491cf9cd23d4694d0677dfeabd9082e5d00b26" datatype="html">
         <source>additional pictures</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">50</context>
         </context-group>
         <note priority="1" from="description">additional-pictures</note>
       </trans-unit>
@@ -1472,7 +1501,7 @@
         <source>additional attachments</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <note priority="1" from="description">additional-attachments</note>
       </trans-unit>
@@ -1480,7 +1509,7 @@
         <source>Close Request</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">87</context>
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
@@ -1488,7 +1517,7 @@
         <source>Send Back</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">88</context>
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
@@ -1496,7 +1525,7 @@
         <source>Accept Request</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">89</context>
         </context-group>
         <note priority="1" from="description">button</note>
       </trans-unit>
@@ -1504,7 +1533,7 @@
         <source>This product has not been replied yet by the supplier</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">92</context>
         </context-group>
       </trans-unit>
       <trans-unit id="open-preview" datatype="html">
@@ -1519,17 +1548,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/product/components/product-selection-bar/product-selection-bar.component.html</context>
           <context context-type="linenumber">40</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="request-supplier" datatype="html">
-        <source>Request Supplier</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/product-selection-bar/product-selection-bar.component.html</context>
-          <context context-type="linenumber">59</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
-          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="export-selection" datatype="html">
@@ -1615,12 +1633,20 @@
           <context context-type="sourcefile">app/common/product/components/product-sorting-menu/product-sorting-menu.component.html</context>
           <context context-type="linenumber">33</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="category" datatype="html">
         <source>Category</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/product/components/product-sorting-menu/product-sorting-menu.component.html</context>
           <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/settings/containers/settings/settings.component.html</context>
@@ -1634,8 +1660,12 @@
           <context context-type="linenumber">52</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/components/request-information/request-information.component.html</context>
@@ -1649,6 +1679,10 @@
           <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
@@ -1660,6 +1694,14 @@
           <context context-type="linenumber">64</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
@@ -1669,6 +1711,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/product/components/product-sorting-menu/product-sorting-menu.component.html</context>
           <context context-type="linenumber">76</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
+          <context context-type="linenumber">82</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/project/containers/project-settings/project-settings.component.html</context>
@@ -1901,6 +1947,54 @@
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="tags" datatype="html">
+        <source>tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="carton-size" datatype="html">
+        <source>Carton size</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="master-carton" datatype="html">
+        <source>Master carton</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="pcs-per-master" datatype="html">
+        <source>Pieces per master</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="inco-term" datatype="html">
+        <source>Inco term</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
+      <trans-unit id="harbour" datatype="html">
+        <source>Harbour</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/modals/component/compare-product/compare-labels/compare-labels.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <note priority="1" from="description">text</note>
+      </trans-unit>
       <trans-unit id="show-previous-comments" datatype="html">
         <source>
 		Show previous comments
@@ -1946,6 +2040,23 @@
         </context-group>
         <note priority="1" from="description">text</note>
       </trans-unit>
+      <trans-unit id="cancel-request-item" datatype="html">
+        <source>
+			Cancel request item
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/request/components/request-element-list-view/request-element-list-view.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5313519814cf2648330b1ccc2131af46b4622481" datatype="html">
+        <source>No request items</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/request/components/request-element-list-view/request-element-list-view.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">no-request-items</note>
+      </trans-unit>
       <trans-unit id="sort-by-suppli" datatype="html">
         <source>Sort By Supplier</source>
         <context-group purpose="location">
@@ -1967,42 +2078,39 @@
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9bf5a72532fd9d8fa63ecf4caa1735fe1280ad00" datatype="html">
+      <trans-unit id="sort-by-sent-to" datatype="html">
         <source>Sort By Sent to</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
-        <note priority="1" from="description">sort-by-sent-to</note>
       </trans-unit>
-      <trans-unit id="932a858720ab6403a90b7325b61a75022c333d61" datatype="html">
+      <trans-unit id="sort-by-sent-by" datatype="html">
         <source>Sort By Sent by</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
-        <note priority="1" from="description">sort-by-sent-by</note>
       </trans-unit>
-      <trans-unit id="7c869191ff6fc7070f6075b9bf7240b8852335c6" datatype="html">
+      <trans-unit id="sort-by-sent-on" datatype="html">
         <source>Sort By Sent on</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
           <context context-type="linenumber">29</context>
         </context-group>
-        <note priority="1" from="description">sort-by-sent-on</note>
       </trans-unit>
       <trans-unit id="type" datatype="html">
         <source>type</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="status" datatype="html">
         <source>status</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.html</context>
@@ -2017,7 +2125,7 @@
         <source>sent to</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/components/request-information/request-information.component.html</context>
@@ -2028,7 +2136,7 @@
         <source>sent by</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/components/request-information/request-information.component.html</context>
@@ -2039,7 +2147,7 @@
         <source>sent on</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/request/components/request-sorting-menu/request-sorting-menu.component.html</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">76</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/components/request-information/request-information.component.html</context>
@@ -2887,11 +2995,20 @@
         </context-group>
         <note priority="1" from="description">header</note>
       </trans-unit>
+      <trans-unit id="cancel-request" datatype="html">
+        <source>
+			Cancel request
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="no-requests" datatype="html">
         <source>No requests</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sent" datatype="html">
