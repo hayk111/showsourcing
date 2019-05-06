@@ -8,8 +8,8 @@
 			<!-- trigger -->
 			<context-menu-trigger-app>
 				<button class="secondary-light flexCenter with-name">
-					<icon-app class="color-action" name="smile"></icon-app>
-					Like
+					<icon-app class="color-action first-uppercase" name="smile"></icon-app>
+					<ng-container i18n="@@like">like</ng-container>
 				</button>
 			</context-menu-trigger-app>
 
@@ -32,7 +32,7 @@
 					(favorited)="favorited.emit()"
 					(unfavorited)="unfavorited.emit()">
 				 </rating-heart-app>
-				Favorite
+				<ng-container i18n="@@favorite">favorite</ng-container>
 			</context-menu-item-app>
 		</context-menu-app>
 
@@ -56,7 +56,7 @@
 		<!-- Request supplier -->
 		<button class="secondary-light flexCenter with-name" (click)="createRequest.emit()">
 			<icon-app class="color-supplier" name="edit"></icon-app>
-			<span i18n="@@request-supplier">Request Supplier</span>
+			<span i18n="@@send-request-supplier">Send request to supplier</span>
 
 		</button>
 

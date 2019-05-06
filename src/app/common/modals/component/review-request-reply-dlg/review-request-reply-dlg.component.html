@@ -35,17 +35,20 @@
 					</list-item-app>
 				</list-app>
 
-				<footer class="flex">
+				<footer *ngIf="!isDisabled()" class="flex">
 					<button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)" i18n="button@@accept-all">Accept All</button>
 					<button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
+			<article *ngIf="reply?.message">
+				<h3 class="ms" i18n="@@supplier-message">Supplier Message</h3>
+				<div class="reply-message">{{ reply?.message }}</div>
+			</article>
+
 			<article *ngIf="reply?.images?.length > 0">
 				<h3 class="l" i18n="additional-pictures">additional pictures</h3>
 
-				<!-- I don't think image previewer can be used because of the overlay, or alternatively we have to pass something to the previewer to see an overlay
-				as ng-content -->
 				<image-reviewer-app
 					[images]="reply?.images"
 					[selection]="selectionSrv.selection$ | async"
@@ -53,7 +56,7 @@
 					(unselected)="selectionSrv.unselectOne($event)">
 				</image-reviewer-app>
 
-				<footer class="flex">
+				<footer *ngIf="!isDisabled()" class="flex">
 					<button class="primary accept" (click)="acceptAll(erm.IMAGE)" i18n="button@@accept-all">Accept All</button>
 					<button class="secondary" (click)="refuseAll(erm.IMAGE)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
@@ -70,7 +73,7 @@
 					(unselected)="selectionSrv.unselectOne($event)">
 				</file-reviewer-app>
 
-				<footer class="flex">
+				<footer *ngIf="!isDisabled()" class="flex">
 					<button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)" i18n="button@@accept-all">Accept All</button>
 					<button class="secondary" (click)="refuseAll(erm.ATTACHMENT)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>

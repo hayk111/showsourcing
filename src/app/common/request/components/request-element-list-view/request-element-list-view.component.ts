@@ -28,6 +28,7 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	}
 	@Output() openReviewRequestReply = new EventEmitter<string>();
 	@Output() openRefuseReplyDlg = new EventEmitter<ID>();
+	@Output() cancelReply = new EventEmitter<ID>();
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 

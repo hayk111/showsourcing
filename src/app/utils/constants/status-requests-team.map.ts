@@ -12,30 +12,21 @@ export const statusRequestsTeamMap = {
 	'pending': {
 		locales: {
 			en: {
-				name: 'Sent'
-			},
-			'zh-Hans': {
-				name: '发送'
+				name: 'Sent to supplier'
 			}
 		}
 	},
 	'sent': {
 		locales: {
 			en: {
-				name: 'Sent'
-			},
-			'zh-Hans': {
-				name: '发送'
+				name: 'Sent to supplier'
 			}
 		}
 	},
 	'resent': {
 		locales: {
 			en: {
-				name: 'Sent Back'
-			},
-			'zh-Hans': {
-				name: '退回'
+				name: 'Sent Back to supplier'
 			}
 		}
 	},
@@ -56,6 +47,13 @@ export const statusRequestsTeamMap = {
 			},
 			'zh-Hans': {
 				name: '已验证'
+			}
+		}
+	},
+	'cancel': {
+		locales: {
+			en: {
+				name: 'Canceled'
 			}
 		}
 	}

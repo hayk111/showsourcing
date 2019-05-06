@@ -52,6 +52,12 @@
 				(update)="save()">
       </extended-form-app>
 
+			<!-- reply message -->
+			<h3 class="ms">Request Message</h3>
+			<form-field-app class="modal">
+				<textarea inputApp [disabled]="isDisabled()" type="text" [value]="element?.reply?.message" placeholder="Reply message to buyer" i18n-placeholder="@@reply-message-buyer"></textarea>
+			</form-field-app>
+
       <!-- images -->
       <h3 class="ms capitalize" i18n="@@images">images</h3>
       <image-previewer-2-app
@@ -85,20 +91,27 @@
   </div>
 
   <!-- footer -->
-  <dialog-footer-app>
-    <ng-container *ngIf="!isDisabled(); else replied">
-			<button *ngIf="reply.status !== defaultStatus" class="warn save capitalize" (click)="refuse()" i18n="@@refuse">refuse</button>
-      <button class="secondary save capitalize" (click)="saveAndClose()" i18n="@@save">save</button>
+  <dialog-footer-app class="flexVAlign">
 
-      <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
-        <button *ngIf="reply.status === defaultStatus; else notSubmitted" class="capitalize" [disabled]="true" i18n="@@submitted">submitted</button>
-      </div>
+    <span class="bold-s mg-s" *ngIf="isDisabled()">{{ getTooltipMessage() }}</span>
+
+    <button [disabled]="isDisabled()" class="warn save first-uppercase" (click)="refuse()" i18n="@@refuse">refuse</button>
+
+    <button [disabled]="isDisabled()" class="secondary save first-uppercase" (click)="saveAndClose()" i18n="@@save">save</button>
+
+    <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
+      <button *ngIf="isDisabled(); else notSubmitted" class="first-uppercase" [disabled]="true" i18n="@@submitted">submitted</button>
       <ng-template #notSubmitted>
-        <button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">{{ hasNext() ? 'Submit & next' : 'Submit' }}</button>
+        <button class="first-uppercase" [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">
+					<ng-container *ngIf="hasNext(); else noNext" i18n="@@submit-next">
+						submit & next
+					</ng-container>
+					<ng-template #noNext>
+						<ng-container i18n="@@submit">submit</ng-container>
+				</ng-template>
+        </button>
       </ng-template>
-		</ng-container>
-		<ng-template #replied>
-			<span class="bold-s" i18n="@@product-already-replied">This product has already been replied</span>
-		</ng-template>
+    </div>
+
   </dialog-footer-app>
 </dialog-app>

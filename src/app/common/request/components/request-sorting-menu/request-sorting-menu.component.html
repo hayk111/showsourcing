@@ -18,15 +18,19 @@
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'recipient.name'" class="flex">
-					<ng-container i18n="sort-by-sent-to">Sort By Sent to</ng-container>
+					<ng-container i18n="@@sort-by-sent-to">Sort By Sent to</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'createdBy.firstName'" class="flex">
-					<ng-container i18n="sort-by-sent-by">Sort By Sent by</ng-container>
+					<ng-container i18n="@@sort-by-sent-by">Sort By Sent by</ng-container>
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'sentDate'" class="flex">
+					<ng-container i18n="@@sort-by-sent-on">Sort By Sent on</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">
-					<ng-container i18n="sort-by-sent-on">Sort By Sent on</ng-container>
+					<ng-container i18n="@@sort-by-created-on">Sort By Created on</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
@@ -68,8 +72,14 @@
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
-  <context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item first-uppercase">
+  <context-menu-item-app (click)="sortFromMenu.emit('sentDate')" class="menu-item">
 		<ng-container i18n="@@sent-on">sent on</ng-container>
+    <ng-container *ngIf="currentSort?.sortBy === 'sentDate'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item">
+    <ng-container i18n="@@created-on">created on</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'creationDate'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>

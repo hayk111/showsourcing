@@ -34,6 +34,7 @@
 					[selection]="listSrv.selection$ | async"
 					(openReviewRequestReply)="openReviewRequestReply($event)"
 					(openRefuseReplyDlg)="openRefuseReplyDlg($event)"
+					(cancelReply)="cancelReply($event)"
 					(bottomReached)="listSrv.loadMore()"
 					(select)="listSrv.selectOne($event)"
 					(selectAll)="listSrv.selectAll($event)"

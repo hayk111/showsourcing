@@ -1,8 +1,9 @@
 import { Quote } from '~models/quote.model';
 import { Supplier } from '~models/supplier.model';
-import { AppImage } from './app-image.model';
+
 import { EntityWithAudit } from './_entity.model';
-import { RequestStatus } from '~utils/constants/request-status.enum';
+import { AppImage } from './app-image.model';
+import { RequestStatus } from './supplier-request.model';
 
 export class ExternalRequest extends EntityWithAudit<ExternalRequestConfig> {
 	name: string;
@@ -11,11 +12,11 @@ export class ExternalRequest extends EntityWithAudit<ExternalRequestConfig> {
 	quotes: Quote[];
 	descriptor: string;
 	targetedMOQ?: number;
-	status: string; // possible values: pending, replied, busy, resent, declined, validated
+	status: RequestStatus;
 	supplier: Supplier;
 	recipients: string[];
 	images: AppImage[];
-	__typename ?= 'ExternalRequest';
+	__typename?= 'ExternalRequest';
 
 	constructor(config: ExternalRequestConfig) {
 		super(config);

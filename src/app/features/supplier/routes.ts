@@ -11,9 +11,8 @@ import { SupplierTasksComponent } from '~features/supplier/containers/supplier-t
 import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
 
 export const routes: Array<Route> = [
-	{ path: '', redirectTo: 'all', pathMatch: 'full' },
 	{
-		path: 'all',
+		path: '',
 		component: SuppliersPageComponent
 	},
 	{

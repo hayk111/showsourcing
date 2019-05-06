@@ -24,6 +24,7 @@
 	[pending]="listSrv.pending"
 	[selection]="listSrv.selection$ | async"
 	(bottomReached)="listSrv.loadMore()"
+	(cancelRequest)="cancelRequest($event)"
 	(select)="listSrv.selectOne($event)"
 	(selectAll)="listSrv.selectAll($event)"
 	(sort)="listSrv.sort($event)"

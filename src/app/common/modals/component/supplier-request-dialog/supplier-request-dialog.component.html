@@ -9,7 +9,7 @@
 		<div class="left">
 			<form [formGroup]="form">
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container i18n="@@send-me-copy">Send me a copy</ng-container> *</label-app>
+					<label-app><ng-container i18n="@@select-products">Select products</ng-container> *</label-app>
 					<product-request-list-app
 						[products]="request?.products"
 						(update)="updateProducts($event)"
@@ -76,7 +76,7 @@
 						<selector-placeholder-app
 							[ngClass]="{ disabled: !supplier }"
 							[hasArrow]="supplier"
-							[name]="!supplier ? 'Select a supplier first' : contactSelector?.value?.email"
+							[name]="!supplier ? ('Select a supplier first' | const: 'messages') : contactSelector?.value?.email"
 							[placeholder]="'Email or Contact'"
 							i18n-placeholder="@@email-or-contact">
 						</selector-placeholder-app>

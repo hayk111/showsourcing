@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { ERM, SupplierRequest, RequestElement } from '~core/models';
+import { ERM, SupplierRequest } from '~core/models';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'request-list-view-app',
@@ -13,10 +14,9 @@ import { ERM, SupplierRequest, RequestElement } from '~core/models';
 })
 export class RequestListViewComponent extends ListViewComponent<SupplierRequest> {
 
+	@Output() cancelRequest = new EventEmitter<ID>();
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
-	@Output() refuse = new EventEmitter<SupplierRequest>();
 	erm = ERM;
-
 
 	constructor() { super(); }
 

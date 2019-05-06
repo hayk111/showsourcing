@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
-import { ExternalRequest, Quote } from '~models';
-import { RequestStatus } from '~utils/constants/request-status.enum';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Quote, RequestStatus } from '~models';
 
 @Component({
 	selector: 'quote-row-app',

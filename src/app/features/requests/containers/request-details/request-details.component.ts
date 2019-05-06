@@ -5,10 +5,11 @@ import { CommonModalService, RefuseReplyDlgComponent } from '~common/modals';
 import {
 	ReviewRequestReplyDlgComponent,
 } from '~common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component';
-import { RequestElementService, SupplierRequestService } from '~core/entity-services';
+import { RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, RequestElement, SupplierRequest } from '~core/models';
+import { ERM, ReplyStatus, RequestElement, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, ID, translate } from '~utils';
 
@@ -30,6 +31,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private featureSrv: SupplierRequestService,
 		private notifSrv: NotificationService,
+		private requestReplySrv: RequestReplyService,
 		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
 		public commonModalSrv: CommonModalService,
@@ -102,5 +104,15 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				replyId
 			}
 		);
+	}
+
+	cancelReply(replyId: ID) {
+		//TODO i18n
+		const text = 'Are you sure you want to cancel this request item ?';
+		const action = 'Cancel item';
+		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
+			switchMap(_ => this.requestReplySrv.update({ id: replyId, status: ReplyStatus.CANCELED })),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 }

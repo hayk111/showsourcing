@@ -149,9 +149,10 @@ export class SelectorsService {
 			}
 		} else this.currentSearchQuery = '';
 		// so we can keep the current search and the filter
-		this.currentSearchQuery = this.currentSearchQuery ?
-			'(' + this.currentSearchQuery + ') AND ' + this.selectParams.query :
-			this.selectParams.query;
+		if (this.currentSearchQuery && this.selectParams.query)
+			this.currentSearchQuery = '(' + this.currentSearchQuery + ') AND ' + this.selectParams.query;
+		else if (this.selectParams.query)
+			this.currentSearchQuery = this.selectParams.query;
 		this.refetch({ ...this.selectParams, query: this.currentSearchQuery });
 	}
 

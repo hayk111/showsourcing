@@ -12,14 +12,16 @@
 	(selectOne)="select.emit($event)"
 	(sort)="sort.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	(unselectOne)="unselect.emit($event)">
+	(unselectOne)="unselect.emit($event)"
+	i18n-placeholder="no-request-items">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="openRefuseReplyDlg.emit(row.reply.id)" i18n="@@refuse">
-			refuse
+			(click)="cancelReply.emit(row.reply.id)"
+			i18n="@@cancel-request-item">
+			Cancel request item
 		</context-menu-item-app>
 	</ng-template>
 

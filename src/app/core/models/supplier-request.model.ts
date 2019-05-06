@@ -6,6 +6,7 @@ import { RequestElement } from './request-element.model';
 
 
 export enum RequestStatus {
+	CANCELED = 'canceled',
 	ERROR = 'error',
 	PENDING = 'pending',
 	REFUSED = 'refused',

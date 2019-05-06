@@ -771,6 +771,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Select a supplier first': {
+		locales: {
+			en: {
+				name: 'Select a supplier first'
+			}
+		}
+	},
 	'Select a team instead': {
 		locales: {
 			en: {
@@ -848,6 +855,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '注册'
+			}
+		}
+	},
+	'Something bad happened, please resubmit': {
+		locales: {
+			en: {
+				name: 'Something bad happened, please resubmit'
 			}
 		}
 	},

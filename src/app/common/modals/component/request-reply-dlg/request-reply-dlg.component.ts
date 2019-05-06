@@ -4,7 +4,6 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import {
 	AppImage,
-	DEFAULT_REPLIED_STATUS,
 	ExtendedField,
 	ExtendedFieldDefinition,
 	ReplyStatus,
@@ -38,7 +37,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	reply: RequestReply;
 	fields: ExtendedField[];
 	definitions: ExtendedFieldDefinition[];
-	defaultStatus = DEFAULT_REPLIED_STATUS;
+
 
 	constructor(
 		private replySrv: RequestReplyService,
@@ -94,7 +93,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	save(updateStatus = false, lastItem = false) {
 		const reply = updateStatus ?
-			({ id: this.reply.id, fields: this.fields, status: this.defaultStatus, __typename: 'RequestReply' }) :
+			({ id: this.reply.id, fields: this.fields, status: ReplyStatus.REPLIED, __typename: 'RequestReply' }) :
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe(_ => {
 			if (updateStatus && lastItem) this.dlgSrv.open(ReplySentDlgComponent);
@@ -122,11 +121,19 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	private getNextUnrepliedIndex() {
-		return this.elements.findIndex(elem => elem.reply.status !== this.defaultStatus && elem.reply.id !== this.reply.id);
+		return this.elements.findIndex(elem => (
+			elem.reply.status === ReplyStatus.PENDING ||
+			elem.reply.status === ReplyStatus.ERROR ||
+			elem.reply.status === ReplyStatus.RESENT
+		) && elem.reply.id !== this.reply.id);
 	}
 
 	hasNext() {
-		return this.elements.some(elem => elem.reply.status !== this.defaultStatus && elem.reply.id !== this.reply.id);
+		return this.elements.some(elem => (
+			elem.reply.status === ReplyStatus.PENDING ||
+			elem.reply.status === ReplyStatus.ERROR ||
+			elem.reply.status === ReplyStatus.RESENT
+		) && elem.reply.id !== this.reply.id);
 	}
 
 	addImage(files: File[]) {
@@ -148,8 +155,9 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	getTooltipMessage() {
 		switch (this.reply.status) {
 			case ReplyStatus.PENDING:
-			case ReplyStatus.ERROR:
 				return this.hasEmptyField() ? translate('All fields must be filled first') : null;
+			case ReplyStatus.ERROR:
+				return translate('Something bad happened, please resubmit');
 			case ReplyStatus.VALIDATED:
 			case ReplyStatus.REPLIED:
 				return translate('Your request has been already submitted');

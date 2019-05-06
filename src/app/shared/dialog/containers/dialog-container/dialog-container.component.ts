@@ -5,7 +5,6 @@ import {
 	Component,
 	ComponentFactoryResolver,
 	HostListener,
-	NgModuleRef,
 	ViewChild,
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
