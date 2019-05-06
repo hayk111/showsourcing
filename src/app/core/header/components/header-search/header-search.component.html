@@ -1,0 +1,44 @@
+<search-autocomplete-app
+	#searchAutocomplete
+	[xPosition]="0"
+	[yPosition]="35"
+	[width]="400"
+	[closeOnDisplay]="true"
+	(close)="searchBar.shrinkSearch()">
+	<ng-container *ngIf="searchResults$ | async as searchResults; else spinner">
+		<ng-container *ngIf="searchResults?.length; else placeholder">
+			<search-autocomplete-item-app *ngFor="let result of searchResults; trackBy: trackByFn">
+				<search-autocomplete-item-content-app
+					*ngIf="result.type === 'product'"
+					[type]="result.type"
+					[selectable]="false"
+					[status]="result?.status?.status" [title]="result.name" [subtitle]="result.supplier?.name"
+					[image]="result.images[0]"
+					[link]="'/product/details/' + result.id">
+				</search-autocomplete-item-content-app>
+				<search-autocomplete-item-content-app
+					*ngIf="result.type === 'supplier'"
+					[type]="result.type"
+					[selectable]="false"
+					[status]="result?.status?.status" [title]="result.name" [subtitle]="supplierSubtitle(result)"
+					[image]="result.images[0]"
+					[link]="'/supplier/details/' + result.id ">
+				</search-autocomplete-item-content-app>
+			</search-autocomplete-item-app>
+		</ng-container>
+		<ng-template #placeholder>
+			<div class="placeholder" i18n="@@no-items-found">No items found</div>
+		</ng-template>
+	</ng-container>
+	<ng-template #spinner>
+		<dots-app class="flexCenter"></dots-app>
+	</ng-template>
+</search-autocomplete-app>
+<search-bar-animated-app
+	#searchBar
+	[disableClickOutside]="true"
+	[hasBorder]="false"
+	[ngClass]="{ expanded: searchBarExpanded }"
+	(searchStateChanged)="onSearchBarStateChanged($event)">
+	<input inputApp class="searchInput" restrictSpecial [restrictArrows]="true" type="text" (input)="triggerSearch()" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
+</search-bar-animated-app>
