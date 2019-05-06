@@ -24,7 +24,7 @@ export class OnBoardingDlgComponent implements OnInit {
 
 	async preload() {
 		await this.onboardingSrv.preloadImgs();
-		this.pending = true;
+		this.pending = false;
 		this.cd.markForCheck();
 	}
 
