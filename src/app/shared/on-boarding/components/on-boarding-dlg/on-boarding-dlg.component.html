@@ -1,10 +1,13 @@
 
 <dialog-app [hasHeader]="false">
   <div *ngIf="!pending; else spinner">
+    
     <img [src]="'assets/img/' + currentScreen.picture"/>
+    
     <div class="mg-l">
       <h2>{{ currentScreen.title }}</h2>
-      <p>{{ currentScreen.text }}</p>
+      <!-- innerhtml used to keep line breaks -->
+      <p [innerHTML]="currentScreen.text"></p>
 
       <div class="flexBetween actions">
         <button [disabled]="isFirst()" (click)="back()" class="secondary">Previous</button>
@@ -20,7 +23,13 @@
   </div>
 
   <ng-template #spinner>
-    <spinner-app></spinner-app>
+    <div class="img flexCenter">
+      <spinner-app [size]="128" [width]="2"></spinner-app>
+    </div>
+    <div class="mg-l">
+      <div class="h2"></div>
+      <div class="p"></div>
+    </div>
   </ng-template>
 
 </dialog-app>
