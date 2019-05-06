@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, HostListener, forwardRef, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, HostListener, forwardRef, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { OnBoardingService } from '../../services/on-boarding.service';
 
@@ -10,10 +10,22 @@ import { OnBoardingService } from '../../services/on-boarding.service';
 })
 export class OnBoardingDlgComponent implements OnInit {
 	@ViewChild('transition') transitionElem: ElementRef<HTMLElement>;
+	pending = true;
 
-	constructor(public onboardingSrv: OnBoardingService, private renderer: Renderer2) { }
+	constructor(
+		public onboardingSrv: OnBoardingService,
+		private renderer: Renderer2,
+		private cd: ChangeDetectorRef
+	) { }
 
 	ngOnInit() {
+		this.preload();
+	}
+
+	async preload() {
+		await this.onboardingSrv.preloadImgs();
+		this.pending = false;
+		this.cd.markForCheck();
 	}
 
 	@HostListener('document:keydown', ['$event'])
