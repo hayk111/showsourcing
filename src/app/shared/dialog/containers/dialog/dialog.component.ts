@@ -16,6 +16,7 @@ import { DialogService } from '~shared/dialog/services/dialog.service';
 })
 export class DialogComponent {
 	@Input() closeIcon = true;
+	@Input() hasHeader = true;
 	@Output() close = new EventEmitter<any>();
 	@ContentChild(DialogFooterComponent) footer: DialogFooterComponent;
 	@ContentChild(DialogHeaderComponent) header: DialogHeaderComponent;
@@ -24,13 +25,6 @@ export class DialogComponent {
 
 	constructor(private srv: DialogService) { }
 
-	get hasFooter() {
-		return !!this.footer;
-	}
-
-	get hasHeader() {
-		return !!this.header;
-	}
 
 	doClose() {
 		this.srv.close();

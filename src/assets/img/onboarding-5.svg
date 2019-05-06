@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="378" viewBox="0 0 800 378">
+    <defs>
+        <linearGradient id="a" x1="-53.757%" x2="129.071%" y1="-53.819%" y2="128.754%">
+            <stop offset="0%" stop-color="#3023AE"/>
+            <stop offset="100%" stop-color="#C86DD7"/>
+        </linearGradient>
+        <rect id="b" width="529" height="333" rx="8"/>
+        <filter id="c" width="102.6%" height="104.2%" x="-1.3%" y="-1.5%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+        </filter>
+        <circle id="e" cx="12" cy="12" r="12"/>
+        <path id="g" d="M2.493 3.84c.219 0 .398.161.398.359v6.443c0 .198-.178.358-.398.358H.899c-.22 0-.399-.16-.399-.358V4.2C.5 4 .68 3.84.899 3.84h1.594zm8.11-.07c.958.158 1.232 1.418.412 1.928.278.477.116 1.099-.36 1.394.279.478.117 1.1-.359 1.395.399.683-.13 1.559-.938 1.558H3.37V4.468s1.732-1.523 2.29-2.051c.32-.303.527-.706.61-1.13.032-.168.023-.344.115-.494A.598.598 0 0 1 6.75.526c.265-.065.595-.003.83.12.725.375.894 1.431.633 2.123L7.836 3.77s2.71-.01 2.767 0z"/>
+        <linearGradient id="i" x1="100%" x2="0%" y1="50%" y2="50%">
+            <stop offset="0%" stop-color="#D0D8E5"/>
+            <stop offset="100%" stop-color="#A3AFC6"/>
+        </linearGradient>
+        <path id="j" d="M8.571 16.6L22.286 3 24 4.7 8.571 20l-1.714-1.7L0 11.5l1.714-1.7 6.857 6.8z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="url(#a)" fill-rule="nonzero" d="M0 0h800v378H0z"/>
+        <g fill="#FFF" opacity=".8">
+            <path d="M198.833 159h-31.666a3.157 3.157 0 0 0-3.167 3.15V222h6.333v-6.3H183v-6.3h-12.667v-6.3h19v-6.3h-19v-6.3H183v-6.3h-12.667v-6.3H183v-6.3h-12.667v-6.3h25.334V222H202v-59.85a3.157 3.157 0 0 0-3.167-3.15z"/>
+            <path fill-rule="nonzero" d="M220.847 161.155c-.411-1.289-1.554-2.155-2.847-2.155s-2.436.866-2.847 2.155l-6 18.9a3.295 3.295 0 0 0-.153.995V222h6v-37.8h6V222h6v-40.95c0-.337-.051-.674-.153-.995l-6-18.9zm-1.008 16.745h-3.675l1.836-5.79 1.839 5.79z"/>
+            <path d="M223.773 25h-12.906v6.286h5.117l-8.343 8.127-7.399-7.206a3.284 3.284 0 0 0-4.562 0L186 41.635l4.562 4.444 7.399-7.206 7.398 7.206c.63.613 1.456.921 2.282.921.826 0 1.652-.308 2.28-.92l10.626-10.35v4.984H227V28.143c0-1.738-1.446-3.143-3.227-3.143z"/>
+            <path fill-rule="nonzero" d="M223.786 54h-12.857c-1.775 0-3.215 1.416-3.215 3.167v3.166h-9.643c-1.774 0-3.214 1.416-3.214 3.167v3.167h-9.643c-1.774 0-3.214 1.415-3.214 3.166v19c0 1.752 1.44 3.167 3.214 3.167h38.572c1.774 0 3.214-1.415 3.214-3.167V57.167c0-1.752-1.44-3.167-3.214-3.167zm-35.357 19h6.428v12.667h-6.428V73zm12.857-3.167v-3.166h6.428v19h-6.428V69.833zm19.285 15.834h-6.428V60.333h6.428v25.334zM182 123.5c0-15.716-12.787-28.5-28.5-28.5S125 107.784 125 123.5s12.787 28.5 28.5 28.5 28.5-12.784 28.5-28.5zm-50.667 0c0-11.144 8.275-20.368 19-21.913v6.08A6.34 6.34 0 0 0 144 114v6.333a6.34 6.34 0 0 0 6.333 6.334h6.334V133H144v6.333h6.333v6.08c-10.725-1.545-19-10.77-19-21.913zm25.334 21.913v-6.08A6.34 6.34 0 0 0 163 133v-6.333a6.34 6.34 0 0 0-6.333-6.334h-6.334V114H163v-6.333h-6.333v-6.08c10.725 1.545 19 10.77 19 21.913 0 11.144-8.275 20.368-19 21.913zM65.328 77.876c3.222-2.93 5.297-7.152 5.297-11.898C70.625 57.168 63.615 50 55 50c-8.616 0-15.625 7.168-15.625 15.978 0 4.746 2.075 8.967 5.297 11.898C36.032 81.906 30 90.802 30 101.13v28.761c0 1.768 1.4 3.196 3.125 3.196h3.125v60.717c0 1.768 1.4 3.196 3.125 3.196h31.25c1.725 0 3.125-1.428 3.125-3.196v-60.717h3.125c1.725 0 3.125-1.428 3.125-3.196v-28.76c0-10.329-6.031-19.226-14.672-23.255zM45.625 65.978c0-5.285 4.206-9.587 9.375-9.587s9.375 4.302 9.375 9.587c0 5.286-4.206 9.587-9.375 9.587s-9.375-4.301-9.375-9.587zM67.5 190.608h-9.375V145.87h-6.25v44.739H42.5v-57.522h25v57.522zm6.25-63.912h-37.5V101.13c0-10.574 8.41-19.173 18.75-19.173s18.75 8.599 18.75 19.173v25.566z"/>
+            <path d="M99.316 127.19h18.947v-6.38H99.316V63.38H153V57H96.158C94.415 57 93 58.426 93 60.19v127.62c0 1.764 1.415 3.19 3.158 3.19h53.684v-6.381H99.316V127.19z"/>
+        </g>
+        <g transform="translate(195 25)">
+            <mask id="d" fill="#fff">
+                <use xlink:href="#b"/>
+            </mask>
+            <g fill-rule="nonzero">
+                <use fill="#000" filter="url(#c)" xlink:href="#b"/>
+                <use fill="#FFF" xlink:href="#b"/>
+            </g>
+            <path fill="#E6EBF5" fill-rule="nonzero" stroke="#E6EBF5" d="M.5.5h528v23H.5z" mask="url(#d)"/>
+            <circle cx="515" cy="12" r="5" fill="#E6007D" fill-rule="nonzero" mask="url(#d)"/>
+            <circle cx="499" cy="12" r="5" fill="#A3AFC6" fill-rule="nonzero" mask="url(#d)"/>
+            <circle cx="483" cy="12" r="5" fill="#A3AFC6" fill-rule="nonzero" mask="url(#d)"/>
+            <rect width="128" height="35" x="182" y="270" fill="#E6EBF5" fill-opacity=".6" fill-rule="nonzero" mask="url(#d)" rx="8"/>
+            <g mask="url(#d)">
+                <g transform="translate(190 276)">
+                    <mask id="f" fill="#fff">
+                        <use xlink:href="#e"/>
+                    </mask>
+                    <use fill="#D8D8D8" xlink:href="#e"/>
+                    <g fill-rule="nonzero" mask="url(#f)">
+                        <path fill="#71E591" d="M0 0h24v24H0z"/>
+                    </g>
+                    <g mask="url(#f)">
+                        <g transform="translate(6 6)">
+                            <mask id="h" fill="#fff">
+                                <use xlink:href="#g"/>
+                            </mask>
+                            <use fill="#A3AFC6" fill-rule="nonzero" xlink:href="#g"/>
+                            <g fill-rule="nonzero" mask="url(#h)">
+                                <path fill="#FFF" d="M0 0h12v12H0z"/>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <text fill="#182844" font-family="SourceSansPro-Bold, Source Sans Pro" font-size="12" font-weight="bold" mask="url(#d)">
+                <tspan x="224" y="284">Mark Lee</tspan> <tspan x="271.7" y="284" font-family="SourceSansPro-Regular, Source Sans Pro" font-weight="normal"> loves </tspan> <tspan x="224" y="299" font-family="SourceSansPro-Regular, Source Sans Pro" font-weight="normal">this product!</tspan>
+            </text>
+            <g fill-rule="nonzero" mask="url(#d)">
+                <g transform="translate(22 75)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#50C2FF"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <g transform="translate(22 279)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#50C2FF"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <g transform="translate(22 228)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#50C2FF"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <g transform="translate(22 177)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#50C2FF"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <g transform="translate(22 126)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#50C2FF"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+            </g>
+            <g fill-rule="nonzero" mask="url(#d)">
+                <g transform="translate(180 75)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#F5A623"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <g transform="translate(180 177)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#F5A623"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <g transform="translate(180 126)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#F5A623"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+            </g>
+            <g fill-rule="nonzero" mask="url(#d)">
+                <g transform="translate(338 75)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+            </g>
+            <g fill-rule="nonzero" mask="url(#d)">
+                <g transform="translate(338 228)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+            </g>
+            <g fill-rule="nonzero" mask="url(#d)">
+                <g transform="translate(338 177)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+            </g>
+            <g fill-rule="nonzero" mask="url(#d)">
+                <g transform="translate(338 126)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                    <path fill="url(#i)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+            </g>
+            <text fill="#182844" font-family="SourceSansPro-SemiBold, Source Sans Pro" font-size="16" font-weight="500" mask="url(#d)">
+                <tspan x="22" y="55">Validate Sample</tspan>
+            </text>
+            <text fill="#182844" font-family="SourceSansPro-SemiBold, Source Sans Pro" font-size="16" font-weight="500" mask="url(#d)">
+                <tspan x="185" y="55">Team Meeting</tspan>
+            </text>
+            <text fill="#182844" font-family="SourceSansPro-SemiBold, Source Sans Pro" font-size="16" font-weight="500" mask="url(#d)">
+                <tspan x="338" y="55">Validated</tspan>
+            </text>
+            <g mask="url(#d)">
+                <g transform="translate(417 35)">
+                    <mask id="k" fill="#fff">
+                        <use xlink:href="#j"/>
+                    </mask>
+                    <use fill="#A3AFC6" xlink:href="#j"/>
+                    <g fill-rule="nonzero" mask="url(#k)">
+                        <path fill="#71E591" d="M0 0h24v24H0z"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

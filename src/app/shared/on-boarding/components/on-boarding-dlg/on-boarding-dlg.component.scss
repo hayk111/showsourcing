@@ -1,0 +1,41 @@
+
+dialog-app {
+	padding: 0;
+	width: 800px;
+	height: 548px;
+}
+
+img {
+	width: 800px;
+	height: 378px;
+}
+
+h2 {
+	font-weight: 600;
+	font-size: 28px;
+	color: var(--color-txt-strong);
+}
+
+p {
+	height: 48px;
+}
+
+.transition {
+	animation-name: fadeInOut;
+  animation-duration: 0.6s;
+}
+
+.action {
+	margin-top: 4px;
+}
+
+.circle {
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+	margin: var(--spacing-xs);
+	background: var(--color-secondary);
+	&.selected {
+		background: var(--color-secondary-dark);
+	}
+}
