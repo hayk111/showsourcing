@@ -92,11 +92,21 @@
 
 <!-- price -->
 <ng-template #price let-row="row">
-	<price-app
-		[isShort]="true"
-		[amount]="row?.price?.value"
-		[currency]="row?.price?.currency">
-	</price-app>
+	<editable-text-app
+		[hasAction]="false"
+		(opened)="inp.focus()"
+		(closed)="update.emit({ id: row.id, price: inp.price })">
+		<editable-label-app>
+			<price-app
+				[isShort]="true"
+				[amount]="row?.price?.value"
+				[currency]="row?.price?.currency">
+			</price-app>
+		</editable-label-app>
+		<input-price-app
+			#inp
+			[price]="row?.price"></input-price-app>
+	</editable-text-app>
 </ng-template>
 
 <!-- moq -->
