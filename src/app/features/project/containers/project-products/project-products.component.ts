@@ -63,6 +63,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 				sortBy: 'category.name',
 				descending: true
 			},
+			originComponentDestroy$: this._destroy$,
 			entityMetadata: ERM.PRODUCT,
 		});
 	}
