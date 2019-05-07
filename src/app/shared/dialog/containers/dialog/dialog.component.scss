@@ -8,6 +8,11 @@
 	padding: var(--spacing-l);
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
+
+	&.no-content-height .content {
+		height: unset;
+	}
 }
 
 .header {

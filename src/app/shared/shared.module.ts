@@ -41,6 +41,7 @@ import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { TopPanelModule } from './top-panel/top-panel.module';
+import { OnBoardingModule } from './on-boarding/on-boarding.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -91,6 +92,7 @@ const modules = [
 	TopPanelModule,
 	UserPictureModule,
 	UtilsModule,
+	OnBoardingModule
 ];
 
 @NgModule({

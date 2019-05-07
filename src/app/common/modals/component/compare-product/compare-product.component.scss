@@ -6,8 +6,10 @@
 
 dialog-app {
 	height: 85vh;
+	padding-right: 0;
+	padding-bottom: 0;
 }
 
-item-compare-row-app {
-	height: 100%;
+.ctnr {
+	overflow: auto;
 }

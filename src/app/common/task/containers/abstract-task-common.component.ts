@@ -1,14 +1,14 @@
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
 import { Filter, FilterType } from '~shared/filters';
-import { TrackingComponent } from '~utils/tracking-component';
+import { AutoUnsub } from '~utils';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
-export abstract class AbstractTaskCommonComponent extends TrackingComponent {
+export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 	assigneeFilterType = FilterType.ASSIGNEE;
 
 	constructor(
@@ -37,7 +37,8 @@ export abstract class AbstractTaskCommonComponent extends TrackingComponent {
 				{ type: FilterType.DONE, value: false },
 				...addedFilters
 			],
-			entityMetadata: ERM.TASK
+			entityMetadata: ERM.TASK,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

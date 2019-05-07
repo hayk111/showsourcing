@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModalService } from '~common/modals';
 import { SupplierService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
-import { TrackingComponent } from '~utils/tracking-component';
-import { CommonModalService } from '~common/modals';
-import { Router, ActivatedRoute } from '@angular/router';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -15,7 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 		ListPageService
 	]
 })
-export class SuppliersPageComponent extends TrackingComponent implements OnInit {
+export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	erm = ERM;
 
@@ -43,6 +43,10 @@ export class SuppliersPageComponent extends TrackingComponent implements OnInit 
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
 			entityMetadata: ERM.SUPPLIER,
 			initialFilters: [],
-		});
+		}, false);
+	}
+
+	ngAfterViewInit() {
+		this.listSrv.loadData(this._destroy$);
 	}
 }

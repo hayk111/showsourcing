@@ -1,6 +1,6 @@
 
 	<!-- header -->
-	<div class="header flexBetween" [ngStyle]="{ 'padding-bottom': 'var(--spacing-' + headerSpacing + ')' }">
+	<div *ngIf="hasHeader" class="header flexBetween" [ngStyle]="{ 'padding-bottom': 'var(--spacing-' + headerSpacing + ')' }">
 		<div class="spacer">
 			<ng-content select="dialog-header-app"></ng-content>
 		</div>
@@ -14,13 +14,12 @@
 
 
 	<!-- content -->
-	<div class="content">
+	<div class="content flexColumn">
 		<ng-content></ng-content>
 	</div>
 
 	<!-- footer -->
 	<!-- <divider-app></divider-app> -->
-	<div class="footer" *ngIf="hasFooter">
+	<div class="footer">
 		<ng-content select="dialog-footer-app"></ng-content>
 	</div>
-

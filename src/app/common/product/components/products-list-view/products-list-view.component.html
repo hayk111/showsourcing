@@ -7,13 +7,13 @@
 	[selected]="selection"
 	[currentSort]="currentSort"
 	placeholder="No product"
+	[pending]="pending"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()"
-	[pending]="pending">
+	(unselectAll)="unselectAll.emit()">
 </custom-table-app>
 
 <!-- contextual menu -->
@@ -45,7 +45,7 @@
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
-		(click)="delete.emit(row.id)"
+		(click)="delete.emit(row)"
 		i18n="product menu | delete">
 		Delete
 	</context-menu-item-app>

@@ -17,8 +17,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { Category, Event, Product, Project, Supplier, SupplierType, Tag, EntityMetadata, ERM } from '~core/models';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { Category, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
@@ -55,7 +55,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * each row on the virtual scroll has to implement the AbstractSelectorHighlightableComponent,
 	 * since they keyManager needs it to update state of selection
 	*/
-	// for some reason it doesnt work without the string
+	// for some reason it doesnt work without the id string
 	@ViewChildren('abstract') virtualItems: QueryList<AbstractSelectorHighlightableComponent>;
 	/** Exact same list but with elementRef type so it can be scrolles */
 	@ViewChildren('abstract', { read: ElementRef }) elementRefItems: QueryList<ElementRef>;
@@ -113,7 +113,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 		if (this.canCreate) this.nameExists$ = this.searched$.pipe(
 			switchMap(_ => this.choices$.pipe(
-				map(m => m.filter(it => it.name === this.searchTxt)),
+				map(m => m.filter(it => it.name.toLowerCase() === this.searchTxt)),
 				// if text is found on choices$ OR
 				// if the text is empty OR
 				// if the text is inside the value array (only multiple allowed)
@@ -135,7 +135,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	search(text) {
-		this.searchTxt = text.trim();
+		this.searchTxt = text.trim().toLowerCase();
 		this.movedArrow = false;
 		this.hasDB ? this.selectorSrv.search(this.type, this.searchTxt) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 		this.searched$.next(this.searchTxt);
@@ -158,6 +158,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getSupplierTypes();
 			case ERM.TAG: return this.selectorSrv.getTags();
 			case ERM.USER: return this.selectorSrv.getUsers();
+			case ERM.TEAM_USER: return this.selectorSrv.getTeamUsers().pipe(
+				map(teamUsers => teamUsers.map(tu => tu.user))
+			);
 
 			default: throw Error(`Unsupported type${this.type} for selector`);
 		}
@@ -190,6 +193,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let item;
 		// depending on the entity the way we update it can be different (we only care to update the value that we display)
 		switch (this.type) {
+			case ERM.TEAM_USER:
 			case ERM.USER:
 				item = {
 					id: this.value.id,
@@ -338,7 +342,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let hasName = false;
 		if (!this.multiple) return hasName;
 		if (this.value && this.value.length) {
-			hasName = !!this.value.find(value => value.name === name);
+			hasName = !!this.value.find(value => value.name.toLowerCase() === name);
 		}
 		return hasName;
 	}

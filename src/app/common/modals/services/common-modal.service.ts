@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
 	CompareProductComponent,
-	CompareQuotationComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
 	InviteUserDlgComponent,
@@ -48,18 +47,13 @@ export class CommonModalService {
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(targets?: Product[] | Supplier[]) {
-		return this.dlgSrv.open(ExportDlgComponent, { targets });
+	openExportDialog(targets?: Product[] | Supplier[], query?: string) {
+		return this.dlgSrv.open(ExportDlgComponent, { targets, query });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(products?: Product[]) {
 		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
-	}
-
-	/** Opens a dialog that lets the user compare quotation between products */
-	openCompareQuotationDialog(products: Product[]) {
-		return this.dlgSrv.open(CompareQuotationComponent, { products });
 	}
 
 	openFindProductDlg(initialSelectedProducts: Product[], project: Project) {

@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ExportRequestService } from '~core/entity-services/export-request/export-request.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
-import { TrackingComponent } from '~utils';
-import { first } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'settings-export-app',
@@ -12,7 +12,7 @@ import { first } from 'rxjs/operators';
 	styleUrls: ['./settings-export.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsExportComponent extends TrackingComponent implements OnInit, AfterViewInit {
+export class SettingsExportComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	erm = ERM;
 
@@ -28,7 +28,8 @@ export class SettingsExportComponent extends TrackingComponent implements OnInit
 			entitySrv: this.exportSrv,
 			searchedFields: ['format', 'status', 'createdBy.firstName', 'createdBy.lastName'],
 			entityMetadata: ERM.EXPORT_REQUEST,
-			initialFilters: []
+			initialFilters: [],
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

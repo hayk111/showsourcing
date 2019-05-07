@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { empty, Observable } from 'rxjs';
+import { switchMap, tap, takeUntil } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
@@ -18,6 +18,7 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+import { TemplateService } from '~core/template/services/template.service';
 
 
 // where we can save the services
@@ -28,6 +29,7 @@ const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 export interface ListPageConfig extends ListPageDataConfig {
 	key: ListPageKey | string;
 	entityMetadata: EntityMetadata;
+	originComponentDestroy$?: Observable<void>;
 }
 
 /**
@@ -53,7 +55,8 @@ export class ListPageService
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
-		private zone: NgZone
+		private zone: NgZone,
+		private templateSrv: TemplateService
 	) { }
 
 	static reset() {
@@ -64,15 +67,36 @@ export class ListPageService
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
+			// getting back the services from their map
 			this.initServices(config.key);
 			this.dataSrv.setup(config);
+			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
-			// by default we start loading
-			if (shouldInitDataLoading) {
-				this.dataSrv.loadData();
-			}
 		});
+		if (shouldInitDataLoading) {
+			this.loadData(config.originComponentDestroy$);
+		}
 	}
+
+
+	loadData(destroy$: Observable<void>) {
+		if (!destroy$) {
+			throw Error('Please provide a originComponentDestroyed$ observable');
+		}
+		// Since now the scrolling happens on the the template.html for most of the lists
+		// we need a way to know when the bottomReach is happening and when to kill that observable
+		// originComponentDestroy indicates it
+		this.templateSrv.bottomReached$.pipe(
+			takeUntil(destroy$)
+		).subscribe(_ => this.loadMore());
+
+		this.dataSrv.loadData(destroy$);
+		// we need to reset selection when filter changes
+		this.dataSrv.filterList.valueChanges$.pipe(
+			takeUntil(destroy$)
+		).subscribe(_ => this.selectionSrv.unselectAll());
+	}
+
 
 	/**
 	 * takes the existing stateful services from the maps above,
@@ -107,6 +131,10 @@ export class ListPageService
 
 	get pending() {
 		return this.dataSrv.pending;
+	}
+
+	get isListening() {
+		return this.dataSrv.isListening;
 	}
 
 	get smartSearchFilterElements$() {
@@ -159,7 +187,9 @@ export class ListPageService
 	}
 
 	updateMany(values: T[]) {
-		this.dataSrv.updateMany(values).subscribe();
+		this.dataSrv.updateMany(values).pipe(
+			switchMap(_ => this.refetch())
+		).subscribe();
 	}
 
 	onItemFavorited(id: string) {
@@ -171,15 +201,16 @@ export class ListPageService
 	}
 
 	onFavoriteAllSelected() {
-		const ids = this.getSelectedIds();
-		ids.forEach(id => this.onItemFavorited(id));
+		const elems: any[] = this.getSelectedIds()
+			.map(id => ({ id, favorite: true }));
+		this.updateMany(elems);
 		this.selectionSrv.allSelectedFavorite = true;
 	}
 
 	onUnfavoriteAllSelected() {
-		/** When we unfavorite all selected items, the items that are already unfavorited will stay the same */
-		this.getSelectedIds()
-			.forEach(id => this.onItemUnfavorited(id));
+		const elems: any[] = this.getSelectedIds()
+			.map(id => ({ id, favorite: false }));
+		this.updateMany(elems);
 		this.selectionSrv.allSelectedFavorite = false;
 	}
 
@@ -225,11 +256,12 @@ export class ListPageService
 	// then the query list gets "refetched" automatically since a value inside got updated
 	// but for entities who do NOT have audith we need to refresh it manually since we are deleting it
 	// and not updating it
-	deleteOne(id: string, refetch = false) {
+	deleteOne(entity: T, refetch = false) {
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
-				switchMap(_ => this.dataSrv.deleteOne(id)),
+				tap(_ => this.selectionSrv.unselectOne(entity)),
+				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
 				switchMap(_ => refetch ? this.refetch() : empty())
 			).subscribe();
 	}

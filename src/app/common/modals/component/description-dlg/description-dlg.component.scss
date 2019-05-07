@@ -1,0 +1,32 @@
+dialog-app {
+	min-width: 580px;
+	height: 60vh;
+}
+
+.description-container {
+	white-space: pre-line;
+	overflow: hidden;
+	height: 100%;
+
+	.placeholder {
+		color: var(--color-txt-secondary);
+    font-style: italic;
+	}
+}
+
+textarea {
+	resize: none;
+
+	&.show {
+		height: 100%;
+		visibility: visible;
+	}
+	&.hide {
+		height: 1%; //otherwise overflow-y gets triggered if its full
+		visibility: hidden;
+	}
+}
+
+dialog-footer-app > *:not(:last-child) {
+	margin-right: var(--spacing-ms);
+}
