@@ -10,7 +10,7 @@ import { CloseEventType } from '~shared/dialog';
 
 
 @Component({
-	selector: 'product-add-to-project-dlapp',
+	selector: 'product-add-to-project-dlg-app',
 	templateUrl: './product-add-to-project-dlg.component.html',
 	styleUrls: ['./product-add-to-project-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
