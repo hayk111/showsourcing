@@ -23,7 +23,7 @@ export abstract class AbstractStatusWorkflowComponent<T, G extends GlobalService
 		this.listSrv.setup({
 			key: this.pageKey,
 			entitySrv: this.statusSrv,
-			selectParams: { sortBy: 'step', descending: false },
+			selectParams: { sortBy: 'step', descending: false, query: 'deleted == false' },
 			entityMetadata: this.entityMetadata,
 			originComponentDestroy$: this._destroy$
 		});

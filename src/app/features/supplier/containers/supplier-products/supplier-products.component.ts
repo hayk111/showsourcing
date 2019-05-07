@@ -42,7 +42,7 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 			key: `supplier-products-${this.supplierId}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
-			selectParams: { query: `supplier.id == "${this.supplierId}" AND archived == false` },
+			selectParams: { query: `supplier.id == "${this.supplierId}" AND archived == false AND deleted == false` },
 			entityMetadata: ERM.PRODUCT
 		});
 	}

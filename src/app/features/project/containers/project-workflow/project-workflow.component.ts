@@ -55,7 +55,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			key: ListPageKey.PROJECT_WORKFLOW,
 			entitySrv: this.productSrv,
-			entityMetadata: ERM.PRODUCT
+			entityMetadata: ERM.PRODUCT,
+			selectParams: { query: 'deleted == false' }
 		}, false);
 
 		this.project$.pipe(

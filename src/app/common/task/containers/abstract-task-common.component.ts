@@ -31,7 +31,8 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 			searchedFields: ['name', 'supplier.name', 'product.name'],
 			selectParams: {
 				sortBy: 'creationDate',
-				descending: true
+				descending: true,
+				query: 'deleted == false'
 			},
 			initialFilters: [
 				{ type: FilterType.DONE, value: false },
