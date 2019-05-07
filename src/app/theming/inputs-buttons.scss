@@ -164,6 +164,14 @@ button, input[type="submit"], .button {
 			background: var(--color-warn-dark);
 		}
 	}
+	
+	&.success {
+		background: var(--color-success);
+		&:hover {
+			background: var(--color-success-dark);
+		}
+	}
+
 	&.transparent {
 		background: transparent;
 		&:hover {

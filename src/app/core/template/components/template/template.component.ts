@@ -5,6 +5,9 @@ import { TemplateService } from '~core/template/services/template.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { takeUntil, switchMap, map, tap, filter } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { OnBoardingService } from '~shared/on-boarding/services/on-boarding.service';
+import { DialogService } from '~shared/dialog';
+import { OnBoardingDlgComponent } from '~shared/on-boarding/components';
 
 @Component({
 	selector: 'template-app',
@@ -14,17 +17,21 @@ import { Location } from '@angular/common';
 		routerAnimation
 	]
 })
-export class TemplateComponent extends AutoUnsub implements AfterViewInit {
+export class TemplateComponent extends AutoUnsub implements OnInit {
 	@ViewChild('main') main: ElementRef<HTMLElement>;
 
 	constructor(
-		private templateSrv: TemplateService
+		private templateSrv: TemplateService,
+		private onboardingSrv: OnBoardingService,
+		private dlgSrv: DialogService
 	) {
 		super();
 	}
 
-	ngAfterViewInit() {
-
+	ngOnInit() {
+		if (!this.onboardingSrv.isCompleted) {
+			this.dlgSrv.open(OnBoardingDlgComponent, undefined, false);
+		}
 	}
 
 	/**

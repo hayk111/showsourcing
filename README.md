@@ -113,7 +113,7 @@ So you'll be notified of changes that happen on the back end (it could be change
 There is one special method that is `getListQuery` that return a `ListQuery`
 that can be used for `refetching`, `loadMore`, etc...
 
-## To Subscribe or not to unsubscribe ?
+## To Subscribe or not to unsubscribe, that is the question
 
 All the methods except the ones that retrieve data use `first()` as rxjs pipe.
 That means that you don't have to worry about unsubscribing and things like this are
@@ -215,7 +215,7 @@ The AutoUnsub class should be used as a standard app wise.
 
 # Translation
 
-(13/06/18) by Michael
+(13/06/1) by Michael
 
 [Documentation on xliffmerge](https://github.com/martinroob/ngx-i18nsupport)
 `npm run translate` will generate `messages.xlf`
@@ -261,9 +261,6 @@ In each `messages.lang.xlf` we have 3 different types of target. When we transla
 <target state='translated'>Bonjour</target> 'translated' indicates that it has been translated
 ```
 
-# Refactor List
-- Status selector updates, not inside the component but above. `<status-selector-app (updateStatus)="update({id: entity.id, status: $event })>`
-
 # Apollo Cache wonkyness
 
 Sometimes apollo cache bugs can be pretty fucking hard to debug. One instance for example is something around the lines of
@@ -275,3 +272,9 @@ Sometimes this can be the cause:
 
 You query products : `{ id, supplier { id, name, categories }}` and update the supplier with `{ id, name }`. 
 Apollo might fail to make the optimistic UI work in this instance because the update value of the supplier isn't the same as the queried one. A fix would be to update with  `{ id, name, categories }` or just quiery `{ id, name }`
+
+# Important sneaky hotfix to consider
+This section contains tricky/sneaky fixes for the app, that are abit confusing and can make the app be a bit more complex in some occasions
+
+- Updating empty arrays: Since we trim the entity before updating (all the non empty fields are considered for the query). This means that if we try to update and empty array, the trim function will trim it out, it just won't be considered for the query. A work around this issue was on `GlobalService` in the function `emptyArrayExceptions(key: string)`, we manually insert on the switch case which arrays have to be considered when null, in order to be updated with the empty value.
+- Null status on workflows: Since the status of a sample, product, supplier... is considered as `New` when there is no status at all, sometimes we have issues with this, specially when we are working with kanban. When we want to send back a status to null, we have a fake null ID, so the kanban-col can accept the item, otherwise you can't drag to that column when the id is empty. This variable is called `NEW_STATUS_ID`.

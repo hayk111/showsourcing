@@ -7,14 +7,14 @@ import { filter, first, map } from 'rxjs/operators';
 	providedIn: 'root'
 })
 export class DialogService {
-	private _toOpen$ = new Subject<{ component: any, props: any }>();
+	private _toOpen$ = new Subject<{ component: any, props: any, closeOnOutsideClick: boolean }>();
 	toOpen$ = this._toOpen$.asObservable();
 	private _toClose$ = new Subject<CloseEvent>();
 	toClose$ = this._toClose$.asObservable();
 
 	/** opens a dialog, returns an observable of data that emits when it closes (not when it cancels) */
-	open(component: new (...args: any[]) => any, props?: Object): Observable<any> {
-		this._toOpen$.next({ component, props });
+	open(component: new (...args: any[]) => any, props?: Object, closeOnOutsideClick = true): Observable<any> {
+		this._toOpen$.next({ component, props, closeOnOutsideClick });
 		return this.toClose$.pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			first(),
