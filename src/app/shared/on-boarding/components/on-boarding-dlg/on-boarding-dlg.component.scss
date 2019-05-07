@@ -5,7 +5,7 @@ dialog-app {
 	height: 548px;
 }
 
-img {
+img, .img {
 	width: 800px;
 	height: 378px;
 }
@@ -16,7 +16,7 @@ h2 {
 	color: var(--color-txt-strong);
 }
 
-p {
+p, .p {
 	height: 48px;
 }
 
@@ -38,4 +38,23 @@ p {
 	&.selected {
 		background: var(--color-secondary-dark);
 	}
+}
+
+
+.img {
+	background: var(--color-secondary-light);
+}
+
+.h2 {
+	width: 722px;
+  height: 27px;
+	background-image: linear-gradient(to left, #eeeeee, #d8d8d8);
+	margin-top: 6px;
+	margin-bottom: 11px;
+}
+
+.p {
+	width: 546px;
+  height: 15px;
+  background-image: linear-gradient(to left, #eeeeee, #d8d8d8);
 }

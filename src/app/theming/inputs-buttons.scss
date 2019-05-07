@@ -168,9 +168,6 @@ button, input[type="submit"], .button {
 	&.success {
 		background: var(--color-success);
 		&:hover {
-			background: var(--color-success-light);
-		}
-		&:active {
 			background: var(--color-success-dark);
 		}
 	}

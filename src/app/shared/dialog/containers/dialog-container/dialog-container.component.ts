@@ -25,6 +25,8 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	@ViewChild(DialogHostDirective) host: DialogHostDirective;
 	// view container of said host.
 	protected viewContainerRef;
+	/** whether clicking */
+	closeOnOutsideClick = true;
 	isOpen = false;
 
 	constructor(
@@ -38,8 +40,8 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 		this.viewContainerRef = this.host.viewContainerRef;
 		this.srv.toOpen$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(({ component, props }) => {
-				this.open(component, props);
+			.subscribe(({ component, props, closeOnOutsideClick }) => {
+				this.open(component, props, closeOnOutsideClick);
 			});
 		this.srv.toClose$
 			.pipe(takeUntil(this._destroy$))
@@ -47,8 +49,9 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	}
 
 	/** will put a component in the host container */
-	open(component, props: any) {
+	open(component, props: any, closeOnOutsideClick = true) {
 		this.isOpen = true;
+		this.closeOnOutsideClick = closeOnOutsideClick;
 		const componentFactoryResolver = this.componentFactoryResolver;
 		const componentFactory = componentFactoryResolver.resolveComponentFactory(component);
 		this.viewContainerRef.clear();
@@ -77,6 +80,12 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 			this.viewContainerRef.clear();
 			this.isOpen = false;
 			this.cdRef.markForCheck();
+		}
+	}
+
+	closeIfNeeded() {
+		if (this.closeOnOutsideClick) {
+			this.close();
 		}
 	}
 

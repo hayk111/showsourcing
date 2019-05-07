@@ -30,7 +30,7 @@ export class TemplateComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		if (!this.onboardingSrv.isCompleted) {
-			this.dlgSrv.open(OnBoardingDlgComponent);
+			this.dlgSrv.open(OnBoardingDlgComponent, undefined, false);
 		}
 	}
 
