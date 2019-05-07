@@ -50,8 +50,6 @@ export class SelectorsService {
 	bindLabel = 'name';
 	listResult: ListQuery<any>;
 	items$: Observable<any[]>;
-	/** non observable version of the above */
-	private items = [];
 	topCurrencies$: Observable<Currency[]>;
 
 	selectParams: SelectParamsConfig = {
@@ -85,7 +83,6 @@ export class SelectorsService {
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
 			map(items => (items || []).filter(itm => !itm.deleted)),
-			tap(items => this.items = items),
 		);
 		this.listResult.items$.connect();
 	}
