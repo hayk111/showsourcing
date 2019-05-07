@@ -12,7 +12,7 @@ import { StatusSelectorService } from '../service/status-selector.service';
 	templateUrl: './status-selector.component.html',
 	styleUrls: ['./status-selector.component.scss'],
 	host: {
-		class: 'flex'
+		class: 'flex pointer'
 	}
 })
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {

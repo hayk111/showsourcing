@@ -261,6 +261,18 @@ In each `messages.lang.xlf` we have 3 different types of target. When we transla
 <target state='translated'>Bonjour</target> 'translated' indicates that it has been translated
 ```
 
+# Apollo Cache wonkyness
+
+Sometimes apollo cache bugs can be pretty fucking hard to debug. One instance for example is something around the lines of
+`an object with this primary key was provided but already exists in the store`, this usually happens when the store cannot find something because the `__typename` wasn't specified.
+
+Another weird bug is when you update something but the optimistic ui is not triggered. 
+
+Sometimes this can be the cause:
+
+You query products : `{ id, supplier { id, name, categories }}` and update the supplier with `{ id, name }`. 
+Apollo might fail to make the optimistic UI work in this instance because the update value of the supplier isn't the same as the queried one. A fix would be to update with  `{ id, name, categories }` or just quiery `{ id, name }`
+
 # Important sneaky hotfix to consider
 This section contains tricky/sneaky fixes for the app, that are abit confusing and can make the app be a bit more complex in some occasions
 
