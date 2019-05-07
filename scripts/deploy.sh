@@ -41,7 +41,7 @@ if $SHOULD_BUILD; then
 	echo "build done, about to deploy..."
 fi
 
-# check if aws client installed
+# check if aws client installed hey
 if [ -x "$(aws --version)" ]; then
   echo '\e[1m \e[31mError: aws is not installed. Check this link to install: \e[39m \e[0m'
   echo 'https://www.google.com/search?q=install+aws+cli'
