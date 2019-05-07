@@ -50,7 +50,11 @@ export class ProductDialogService extends ProductService {
 	 */
 	addProjectsToProducts(addedProjects: Project[], products: Product[]): Observable<Product[]> {
 		addedProjects = addedProjects.map(p => ({ id: p.id }));
-		products.forEach(product => product.projects = [...product.projects, ...addedProjects]);
+		products = products.map(p => ({ id: p.id, projects: p.projects }));
+		products.forEach(product => {
+			const currentProjects = product.projects.map(p => ({ id: p.id }));
+			product.projects = [...currentProjects, ...addedProjects];
+		});
 		return this.updateMany(products);
 	}
 
