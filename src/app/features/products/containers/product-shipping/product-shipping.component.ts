@@ -24,6 +24,17 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
+		{
+			name: 'incoTerm', type: 'selector', label: 'incoterm',
+			metadata: { target: ERM.INCOTERM.singular, canCreate: false, multiple: false, labelName: 'test' }
+		},
+		{
+			name: 'harbour', type: 'selector', label: 'harbour',
+			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'test' }
+		},
+		{ name: 'cbm', type: 'number', label: 'cubic meters' },
+		{ name: 'pcsPer20ft', type: 'number', label: 'pieces per 20 feet' },
+		{ name: 'pcsPer40ft', type: 'number', label: 'pieces per 40 feet' },
 	];
 
 	erm = ERM;
