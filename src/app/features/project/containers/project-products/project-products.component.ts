@@ -59,7 +59,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: {
-				query: `projects.id == "${id}" AND deleted == false`,
+				query: `projects.id == "${id}" AND deleted == false AND archived == false`,
 				sortBy: 'category.name',
 				descending: true
 			},
