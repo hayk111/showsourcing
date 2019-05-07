@@ -38,7 +38,7 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'description'],
 			selectParams: {
-				query: `supplier.id == "${this.supplierId}" AND archived == false`,
+				query: `supplier.id == "${this.supplierId}" AND archived == false AND deleted == false`,
 			},
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$

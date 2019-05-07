@@ -17,6 +17,7 @@ export class ListViewComponent<T> extends TrackingComponent {
 	@Output() open = new EventEmitter<string>();
 	@Output() favorited = new EventEmitter<string>();
 	@Output() unfavorited = new EventEmitter<string>();
+	@Output() update = new EventEmitter<T>();
 	@Output() bottomReached = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<Sort>();
 	@Output() previewClick = new EventEmitter<T>();

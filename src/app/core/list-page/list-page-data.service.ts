@@ -4,7 +4,7 @@ import { map, skip, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
-import { SelectParamsConfig } from '~entity-services/_global/select-params';
+import { SelectParamsConfig, SelectParams } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
@@ -27,7 +27,7 @@ export class ListPageDataService
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
 	selectParams: SelectParamsConfig = {
-		query: 'deleted == false',
+		query: '',
 		sortBy: 'creationDate',
 		descending: true,
 		take: 25,
@@ -64,7 +64,10 @@ export class ListPageDataService
 		this.isListening = false;
 		if (this.isSetup)
 			return;
+		// we need to keep the previous state of the params so it doesn't break
+		const beforeParams = { ...this.selectParams, ...config.selectParams };
 		Object.assign(this, config);
+		this.selectParams = beforeParams;
 		this.filterList = new FilterList(
 			config.initialFilters,
 			config.searchedFields,
@@ -80,6 +83,8 @@ export class ListPageDataService
 		if (!this.initialized) {
 			this.setItems();
 			this.initialized = true;
+		} else {
+			this.refetch().subscribe();
 		}
 		// here we want to unsubscribe from the filter list
 		// when the component is destroyed so we do it all the time

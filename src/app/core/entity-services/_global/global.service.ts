@@ -514,11 +514,11 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.mutate(options)),
-			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => this.sendTrack('Update', data, 'update', fields)),
+			first(),
 			catchError(errors => of(log.table(errors)))
 		);
 	}
