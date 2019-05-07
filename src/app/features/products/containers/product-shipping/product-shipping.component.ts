@@ -39,7 +39,7 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 			name: 'harbour', type: 'selector', label: 'harbour',
 			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'test' }
 		},
-		{ name: 'cbm2', type: 'decimal', label: 'cubic meters' },
+		{ name: 'cbm', type: 'decimal', label: 'cubic meters' },
 		{ name: 'pcsPer20ft', type: 'number', label: 'pieces per 20 feet' },
 		{ name: 'pcsPer40ft', type: 'number', label: 'pieces per 40 feet' },
 	];
