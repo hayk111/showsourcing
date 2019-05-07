@@ -20,10 +20,17 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 
 	customFields: DynamicField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
+		{ name: 'sample', type: 'title' },
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
-		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
+		// we need this empty objects since innercarton, mastercarton, pricematrix, have more rows inside the dynamic form
+		// therefore we have to add extra spaces, so we get the correct alignment
+		{},
+		{},
+		{},
+		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
+		{ name: 'shipping', type: 'title' },
 		{
 			name: 'incoTerm', type: 'selector', label: 'incoterm',
 			metadata: { target: ERM.INCOTERM.singular, canCreate: false, multiple: false, labelName: 'test' }
@@ -32,7 +39,7 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 			name: 'harbour', type: 'selector', label: 'harbour',
 			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'test' }
 		},
-		{ name: 'cbm', type: 'number', label: 'cubic meters' },
+		{ name: 'cbm2', type: 'decimal', label: 'cubic meters' },
 		{ name: 'pcsPer20ft', type: 'number', label: 'pieces per 20 feet' },
 		{ name: 'pcsPer40ft', type: 'number', label: 'pieces per 40 feet' },
 	];
