@@ -81,8 +81,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	loadMore(col: KanbanColumn) {
 		const query = col.id !== NEW_STATUS_ID ?
-			`status.id == "${col.id}" && projects.id == "${this.project.id}"`
-			: `status == null && projects.id == "${this.project.id}"`;
+			`status.id == "${col.id}" && projects.id == "${this.project.id}" && deleted == false && archived == false`
+			: `status == null && projects.id == "${this.project.id}" && deleted == false && archived == false`;
 		this.productSrv.queryMany({
 			query,
 			take: col.data.length + this.amountLoaded,
@@ -97,9 +97,9 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			let query;
 			// we need to check for null status
 			if (status.id !== NEW_STATUS_ID)
-				query = `status.id == "${status.id}" && projects.id == "${this.project.id}"`;
+				query = `status.id == "${status.id}" && projects.id == "${this.project.id}" && deleted == false && archived == false`;
 			else
-				query = `status == null && projects.id == "${this.project.id}"`;
+				query = `status == null && projects.id == "${this.project.id}" && deleted == false && archived == false`;
 
 			this.productSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
 				.pipe(first())

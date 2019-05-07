@@ -84,7 +84,7 @@ export class ListPageDataService
 			this.setItems();
 			this.initialized = true;
 		} else {
-			this.refetch().subscribe();
+			this.refetch({}).subscribe();
 		}
 		// here we want to unsubscribe from the filter list
 		// when the component is destroyed so we do it all the time
