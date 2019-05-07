@@ -9,18 +9,18 @@
 
 			<div class="title">
 				<h2>{{ element?.name }}</h2>
-				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} Products</span>
+				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} <ng-container i18n="@@products">products</ng-container></span>
 			</div>
 		</div>
 	</dialog-header-app>
 
-	<div class="info-banner flexCenter">This is the reply from your supplier</div>
+	<div class="info-banner flexCenter" i18n="@@reply-from-supplier">This is the reply from your supplier</div>
 
 	<ng-container *ngIf="element">
 		<ng-container *ngIf="element?.reply as reply">
 
 			<article>
-				<h3 class="ms">Product Details</h3>
+				<h3 class="ms" i18n="product-details">product details</h3>
 
 				<list-app>
 					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
@@ -35,9 +35,9 @@
 					</list-item-app>
 				</list-app>
 
-				<footer class="flex" *ngIf="!isDisabled()">
-					<button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)">Accept All</button>
-					<button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)">Refuse All</button>
+				<footer *ngIf="!isDisabled()" class="flex">
+					<button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)" i18n="button@@accept-all">Accept All</button>
+					<button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
@@ -47,7 +47,7 @@
 			</article>
 
 			<article *ngIf="reply?.images?.length > 0">
-				<h3 class="l">Additional Pictures</h3>
+				<h3 class="l" i18n="additional-pictures">additional pictures</h3>
 
 				<image-reviewer-app
 					[images]="reply?.images"
@@ -56,15 +56,15 @@
 					(unselected)="selectionSrv.unselectOne($event)">
 				</image-reviewer-app>
 
-				<footer class="flex" *ngIf="!isDisabled()">
-					<button class="primary accept" (click)="acceptAll(erm.IMAGE)">Accept All</button>
-					<button class="secondary" (click)="refuseAll(erm.IMAGE)">Refuse All</button>
+				<footer *ngIf="!isDisabled()" class="flex">
+					<button class="primary accept" (click)="acceptAll(erm.IMAGE)" i18n="button@@accept-all">Accept All</button>
+					<button class="secondary" (click)="refuseAll(erm.IMAGE)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
 
 			<article *ngIf="reply?.attachments?.length > 0">
-				<h3>Additional Attachments</h3>
+				<h3 class="l" i18n="additional-attachments">additional attachments</h3>
 
 				<file-reviewer-app
 					[files]="reply?.attachments"
@@ -73,9 +73,9 @@
 					(unselected)="selectionSrv.unselectOne($event)">
 				</file-reviewer-app>
 
-				<footer class="flex" *ngIf="!isDisabled()">
-					<button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)">Accept All</button>
-					<button class="secondary" (click)="refuseAll(erm.ATTACHMENT)">Refuse All</button>
+				<footer *ngIf="!isDisabled()" class="flex">
+					<button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)" i18n="button@@accept-all">Accept All</button>
+					<button class="secondary" (click)="refuseAll(erm.ATTACHMENT)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
@@ -84,12 +84,12 @@
 
 	<dialog-footer-app>
 		<ng-container *ngIf="!isDisabled(); else notReplied">
-			<button class="secondary" (click)="close()">Close Request</button>
-			<button class="secondary" (click)="resend()">Send Back</button>
-			<button (click)="acceptRequest()">Accept Request</button>
+			<button class="secondary" (click)="close()" i18n="button@@close-request">Close Request</button>
+			<button class="secondary" (click)="resend()" i18n="button@@send-back">Send Back</button>
+			<button (click)="acceptRequest()" i18n="button@@accept-request">Accept Request</button>
 		</ng-container>
 		<ng-template #notReplied>
-			<span class="bold-s">This product has not been replied yet by the supplier</span>
+			<span class="bold-s" i18n="@@product-not-yet-replied">This product has not been replied yet by the supplier</span>
 		</ng-template>
 	</dialog-footer-app>
 

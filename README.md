@@ -276,6 +276,8 @@ e.g. `ng serve --aot --i18n-file src/locale/messages.fr.xlf --i18n-locale fr --i
 }
 ```
 Now to run the serve with this config we have to `npm run start:fr` that is the same as `ng serve --configuration=fr`
+In order to merge the already translate file with the new translations we have to `npm run translate` and then
+`xliffmerge --profile xliffmerge.json LANGUAGES HERE`, this will add the new item to be translated to the already existent translation file.
 
 Everytime we execute `npm run translate:fr` the `messages.fr.xlf` file will contain the original data and, if there are new `i18n` translations, it will update the file and let us know in that same file which translations are new using the target state.
 
@@ -285,6 +287,6 @@ In each `messages.lang.xlf` we have 3 different types of target. When we transla
 <target state='final'>Hello</target> 'final' indicates that it matches with our default language translation
 <target state='translated'>Bonjour</target> 'translated' indicates that it has been translated
 ```
-
+locale name by default is english since we always translate english to another language`ng xi18n --i18nLocale LOCALE_NAME --outFile NAMEOFFILE.xlf --outputPath locale`
 # Refactor List
 - Status selector updates, not inside the component but above. `<status-selector-app (updateStatus)="update({id: entity.id, status: $event })>`

@@ -11,7 +11,7 @@
 
 			<div class="title">
 				<h2>{{ element.name }}</h2>
-				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} Products</span>
+				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} <ng-container i18n="@@products">products</ng-container></span>
 			</div>
 		</div>
 		<request-status-badge-app
@@ -26,22 +26,22 @@
 
     <!-- left -->
     <div class="left">
-      <h3 class="ms">Product images</h3>
+      <h3 class="ms" i18n="header@@product-images">Product images</h3>
       <carousel-app [hasPreview]="true" [static]="true" [images]="element.images"></carousel-app>
       <span class="spacer mg-ms"></span>
-      <h3 class="ms">Product attachments</h3>
+      <h3 class="ms" i18n="header@@product-attachments">Product attachments</h3>
       <file-list-app [hasPlaceholder]="false" [static]="true" [files]="element.attachments"></file-list-app>
     </div>
 
     <!-- right -->
     <div class="right">
 
-			<div class="info-banner flexCenter">
+			<div class="info-banner flexCenter" i18n="@@fill-form-below-reply">
 				Please fill in the form below to reply to client
 			</div>
 
       <!-- details -->
-      <h3 class="ms">Product details</h3>
+      <h3 class="ms" i18n="@@product-details">Product details</h3>
 
       <extended-form-app
         [disabled]="isDisabled()"
@@ -59,7 +59,7 @@
 			</form-field-app>
 
       <!-- images -->
-      <h3 class="ms">Images</h3>
+      <h3 class="ms capitalize" i18n="@@images">images</h3>
       <image-previewer-2-app
         [isDeletable]="true"
         [size]="120"
@@ -72,18 +72,18 @@
         [images]="images">
       </modal-carousel-app>
       <div class="spacer mg-s" *ngIf="images.length > 0"></div>
-      <button [disabled]="isDisabled()" class="secondary add-image" (click)="inpImg.click()">Add Image</button>
+      <button [disabled]="isDisabled()" class="secondary add-image capitalize" (click)="inpImg.click()" i18n="@@add-image">Add Image</button>
 			<input [disabled]="isDisabled()" #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
       <!-- attachments -->
-      <h3 class="ms">Attachments</h3>
+      <h3 class="ms capitalize" i18n="@@attachments">attachments</h3>
       <file-list-app
         [showConfirmOnDelete]="false"
         [hasPlaceholder]="false"
         [files]="files"
         [linkedItem]="reply"></file-list-app>
       <div class="spacer mg-s" *ngIf="files.length > 0"></div>
-      <button [disabled]="isDisabled()" class="secondary add-attachment" (click)="inpFile.click()">Add Attachments</button>
+      <button [disabled]="isDisabled()" class="secondary add-attachment" (click)="inpFile.click()" i18n="@@add-attachments">Add Attachments</button>
 			<input [disabled]="isDisabled()" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
 
     </div>
@@ -95,15 +95,20 @@
 
     <span class="bold-s mg-s" *ngIf="isDisabled()">{{ getTooltipMessage() }}</span>
 
-    <button [disabled]="isDisabled()" class="warn save" (click)="refuse()">Refuse</button>
+    <button [disabled]="isDisabled()" class="warn save first-uppercase" (click)="refuse()" i18n="@@refuse">refuse</button>
 
-    <button [disabled]="isDisabled()" class="secondary save" (click)="saveAndClose()">Save</button>
+    <button [disabled]="isDisabled()" class="secondary save first-uppercase" (click)="saveAndClose()" i18n="@@save">save</button>
 
     <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
-      <button *ngIf="isDisabled(); else notSubmitted" [disabled]="true">Submitted</button>
+      <button *ngIf="isDisabled(); else notSubmitted" class="first-uppercase" [disabled]="true" i18n="@@submitted">submitted</button>
       <ng-template #notSubmitted>
-        <button [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">
-          {{ hasNext() ? 'Submit & next' : 'Submit' }}
+        <button class="first-uppercase" [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">
+					<ng-container *ngIf="hasNext(); else noNext" i18n="@@submit-next">
+						submit & next
+					</ng-container>
+					<ng-template #noNext>
+						<ng-container i18n="@@submit">submit</ng-container>
+				</ng-template>
         </button>
       </ng-template>
     </div>

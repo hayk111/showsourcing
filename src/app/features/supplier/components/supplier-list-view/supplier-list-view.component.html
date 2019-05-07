@@ -16,14 +16,14 @@
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="delete.emit(row.id)"
-			i18n="supplier menu | delete">
-			Delete
+			i18n="button@@delete">
+			delete
 		</context-menu-item-app>
 	</ng-template>
 
 	<!-- supplier row -->
 	<ng-template
-		columnApp="Supplier"
+		[columnApp]="erm.SUPPLIER.singular | const: 'erm'"
 		sortBy="name"
 		let-row="row"
 		width="280">
@@ -39,7 +39,7 @@
 	<!-- categories -->
 	<ng-template
 		class="capitalize"
-		columnApp="Categories"
+		[columnApp]="erm.CATEGORY.plural | const: 'erm'"
 		let-row="row"
 		[sortable]="false"
 		width="280">
@@ -53,7 +53,7 @@
 	<!-- country -->
 	<ng-template
 		class="capitalize"
-		columnApp="Country"
+		[columnApp]="erm.COUNTRY.singular | const: 'erm'"
 		let-row="row"
 		sortBy="country"
 		[grows]="false"
@@ -66,7 +66,7 @@
 	<!-- tags -->
 	<ng-template
 		class="capitalize"
-		columnApp="Tags"
+		[columnApp]="erm.TAG.plural | const: 'erm'"
 		let-row="row"
 		[sortable]="false"
 		width="280">
@@ -79,7 +79,7 @@
 
 	<!-- date -->
 	<ng-template
-		columnApp="Created"
+		[columnApp]="'creation' | const: 'messages'"
 		let-row="row"
 		sortBy="creationDate"
 		width="140"
@@ -90,7 +90,7 @@
 
 	<!-- user -->
 	<ng-template
-		columnApp="Owner"
+		[columnApp]="'owner' | const: 'messages'"
 		let-row="row"
 		sortBy="createdBy.lastName"
 		width="140"
@@ -107,7 +107,7 @@
 
 	<!-- info -->
 	<ng-template
-		columnApp="Products"
+		[columnApp]="erm.PRODUCT.plural | const: 'erm'"
 		class="capitalize"
 		let-row="row"
 		[sortable]="false"
@@ -118,7 +118,7 @@
 
 	<!-- Action -->
 	<ng-template
-		columnApp="Fav"
+		[columnApp]="'Fav' | const: 'messages'"
 		let-row="row"
 		sortBy="favorite"
 		width="60"

@@ -2,35 +2,39 @@
 	<dialog-app>
 
 		<!-- when ready -->
-		<dialog-header-app *ngIf="!pending ">
+		<dialog-header-app *ngIf="!pending" i18n="@@change-pwd">
 			Change Password
 		</dialog-header-app>
 
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
-				<label-app> Current Password </label-app>
+				<label-app i18n="@@current-pwd">Current Password</label-app>
 				<input autocomplete="current-password"
-					inputApp type="password" formControlName="currentPswd" placeholder="Introduce your current password"/>
+					inputApp type="password" formControlName="currentPswd" placeholder="Introduce your current password"
+					i18n-placeholder="@@intro-current-pwd"/>
 			</form-field-app>
 			<form-field-app>
-				<label-app> New Password</label-app>
+				<label-app i18n="@@new-pwd">New Password</label-app>
 				<input [class.warn-border]="group.get('newPswd').touched  && group.hasError('nomatch')"
 					minlength="8"	inputApp type="password" formControlName="newPswd" placeholder="Introduce the new password"
-					autocomplete="new-password"/>
-				<error-app *ngIf="group.get('newPswd').hasError('minlength')">Minimum 8 characters required</error-app>
+					autocomplete="new-password" i18n-placeholder="@@intro-new-pwd"/>
+				<error-app *ngIf="group.get('newPswd').hasError('minlength')" i18n="error-message@@min-characters-required">Minimum 8 characters required</error-app>
 			</form-field-app>
 			<form-field-app>
-				<label-app> Confirm New Password </label-app>
+				<label-app i18n="@@confirm-new-pwd">Confirm New Password</label-app>
 				<input [class.warn-border]="group.get('confirmPswd').touched && group.hasError('nomatch')"
 					minlength="8"	inputApp type="password" formControlName="confirmPswd" placeholder="Confirm the new password"
-					autocomplete="new-password"/>
-					<p class="color-warn fs-s italic" *ngIf="group.get('newPswd').touched && group.get('confirmPswd').touched && group.hasError('nomatch')">
+					autocomplete="new-password" i18n-placeholder="@@confirm-new-pwd"/>
+					<p
+						*ngIf="group.get('newPswd').touched && group.get('confirmPswd').touched && group.hasError('nomatch')"
+						class="color-warn fs-s italic"
+						i18n="@@new-pwd-match">
 						New password must match
 					</p>
 			</form-field-app>
 		</form>
 
-		<dialog-footer-app *ngIf="!pending ">
+		<dialog-footer-app *ngIf="!pending">
 			<input [disabled]="!group.valid" type="submit" value="change" (click)="onSubmit()"/>
 		</dialog-footer-app>
 

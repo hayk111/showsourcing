@@ -3,6 +3,9 @@ export const statusRequestsTeamMap = {
 		locales: {
 			en: {
 				name: 'To Review'
+			},
+			'zh-Hans': {
+				name: '评论'
 			}
 		}
 	},
@@ -31,6 +34,9 @@ export const statusRequestsTeamMap = {
 		locales: {
 			en: {
 				name: 'Refused'
+			},
+			'zh-Hans': {
+				name: '拒绝'
 			}
 		}
 	},
@@ -38,6 +44,9 @@ export const statusRequestsTeamMap = {
 		locales: {
 			en: {
 				name: 'Validated'
+			},
+			'zh-Hans': {
+				name: '已验证'
 			}
 		}
 	},
@@ -49,3 +58,4 @@ export const statusRequestsTeamMap = {
 		}
 	}
 };
+

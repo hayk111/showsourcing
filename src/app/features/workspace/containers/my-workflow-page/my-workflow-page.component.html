@@ -19,7 +19,15 @@
   (loadMore)="loadMore($event)">
 </kanban-app>
 
-<ng-template #card  let-data="data" let-column="column" let-dragInProgress="dragInProgress" let-checked="checked" let-selectItem="selectItem" let-unselectItem="unselectItem" let-previewClick="previewClick" let-dragDropEnable$="dragDropEnable$">
+<ng-template #card
+  let-data="data"
+  let-column="column"
+  let-dragInProgress="dragInProgress"
+  let-checked="checked"
+  let-selectItem="selectItem"
+  let-unselectItem="unselectItem"
+  let-previewClick="previewClick"
+  let-dragDropEnable$="dragDropEnable$">
   <product-card-app
     [product]="data"
     [enablePreviewLink]="true"
@@ -37,20 +45,18 @@
         <icon-app name="dots-vertical" size="m"></icon-app>
       </button>
     </context-menu-trigger-app>
-    <context-menu-item-app (click)="commonModalSrv.openAddToProjectDialog([row])">
-      <div class="border">Add to project</div>
-    </context-menu-item-app>
-    <context-menu-item-app (click)="commonModalSrv.openRequestQuotationDialog([row])">
-      <div class="border">Request for quotation</div>
+    <context-menu-item-app
+      (click)="commonModalSrv.openAddToProjectDialog([row])">
+      <div class="border" i18n="button@@add-to-project">Add to project</div>
     </context-menu-item-app>
     <context-menu-item-app (click)="commonModalSrv.openRequestFeedbackDialog([row])">
-      <div class="border">Request feedback</div>
+      <div class="border" i18n="button@@request-feedback">Request feedback</div>
     </context-menu-item-app>
     <context-menu-item-app (click)="commonModalSrv.openExportDialog([row])">
-      <div class="border">Export</div>
+      <div class="border" i18n="button@@export">export</div>
     </context-menu-item-app>
     <context-menu-item-app (click)="listSrv.deleteOne(row)">
-      <div class="border">Delete</div>
+      <div class="border" i18n="button@@delete">delete</div>
     </context-menu-item-app>
   </context-menu-app>
 </ng-template>
@@ -73,10 +79,10 @@
 </product-selection-bar-app>
 
 <filters-app
+	*ngIf="listSrv.filterPanelOpen"
   [filterList]="listSrv.filterList"
   [filterTypes]="filterTypes"
-  (clickOutside)="listSrv.closeFilterPanel()"
-  *ngIf="listSrv.filterPanelOpen">
+  (clickOutside)="listSrv.closeFilterPanel()">
 </filters-app>
 
 <product-preview-app

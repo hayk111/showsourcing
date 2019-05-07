@@ -1,77 +1,85 @@
 <context-menu-app>
   <context-menu-trigger-app>
     <button class="secondary flexVAlign sort-1">
-        <p *ngIf="currentSort?.sortBy === 'title'" class="flex">Sort By Name
+        <p *ngIf="currentSort?.sortBy === 'title'" class="flex">
+					<ng-container i18n="@@sort-by-name">Sort By Name</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'recipient.supplier.name'" class="flex">Sort By Supplier
+        <p *ngIf="currentSort?.sortBy === 'recipient.supplier.name'" class="flex">
+					<ng-container i18n="@@sort-by-suppli">Sort By Supplier</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'requestTemplate.name'" class="flex">Sort By Type
+        <p *ngIf="currentSort?.sortBy === 'requestTemplate.name'" class="flex">
+					<ng-container i18n="@@sort-by-type">Sort By Type</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'status'" class="flex">Sort By Status
+        <p *ngIf="currentSort?.sortBy === 'status'" class="flex">
+					<ng-container i18n="@@sort-by-status">Sort By Status</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'recipient.name'" class="flex">Sort By Sent to
+        <p *ngIf="currentSort?.sortBy === 'recipient.name'" class="flex">
+					<ng-container i18n="@@sort-by-sent-to">Sort By Sent to</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'createdBy.firstName'" class="flex">Sort By Sent by
+        <p *ngIf="currentSort?.sortBy === 'createdBy.firstName'" class="flex">
+					<ng-container i18n="@@sort-by-sent-by">Sort By Sent by</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'sentDate'" class="flex">Sort By Sent on
+        <p *ngIf="currentSort?.sortBy === 'sentDate'" class="flex">
+					<ng-container i18n="@@sort-by-sent-on">Sort By Sent on</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">Sort By Created on
+        <p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">
+					<ng-container i18n="@@sort-by-created-on">Sort By Created on</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
     </button>
   </context-menu-trigger-app>
-  <context-menu-item-app (click)="sortFromMenu.emit('title')" class="menu-item">
-    Name
+  <context-menu-item-app (click)="sortFromMenu.emit('title')" class="menu-item first-uppercase">
+		<ng-container i18n="@@name">name</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'title'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
-  <context-menu-item-app (click)="sortFromMenu.emit('recipient.supplier.name')" class="menu-item">
-    Supplier
+  <context-menu-item-app (click)="sortFromMenu.emit('recipient.supplier.name')" class="menu-item first-uppercase">
+		<ng-container i18n="@@supplier">supplier</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'recipient.supplier.name'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
-  <context-menu-item-app (click)="sortFromMenu.emit('requestTemplate.name')" class="menu-item">
-    Type
+  <context-menu-item-app (click)="sortFromMenu.emit('requestTemplate.name')" class="menu-item first-uppercase">
+		<ng-container i18n="@@type">type</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'requestTemplate.name'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
 	</context-menu-item-app>
-  <context-menu-item-app (click)="sortFromMenu.emit('status')" class="menu-item">
-    Status
+  <context-menu-item-app (click)="sortFromMenu.emit('status')" class="menu-item first-uppercase">
+		<ng-container i18n="@@status">status</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'status'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
 	</context-menu-item-app>
-	<context-menu-item-app (click)="sortFromMenu.emit('recipient.name')" class="menu-item">
-    Sent to
+	<context-menu-item-app (click)="sortFromMenu.emit('recipient.name')" class="menu-item first-uppercase">
+		<ng-container i18n="@@sent-to">sent to</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'recipient.name'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
-	<context-menu-item-app (click)="sortFromMenu.emit('createdBy.firstName')" class="menu-item">
-    Sent by
+	<context-menu-item-app (click)="sortFromMenu.emit('createdBy.firstName')" class="menu-item first-uppercase">
+		<ng-container i18n="@@sent-by">sent by</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'createdBy.firstName'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
   <context-menu-item-app (click)="sortFromMenu.emit('sentDate')" class="menu-item">
-    Sent on
+		<ng-container i18n="@@sent-on">sent on</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'sentDate'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
   <context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item">
-    Created on
+    <ng-container i18n="@@created-on">created on</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'creationDate'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>

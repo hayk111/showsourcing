@@ -1,7 +1,10 @@
 <card-app>
 	<div *ngIf="(listSrv.items$ | async)?.length; else empty" class="container">
-		<div class="title"> Products
-			<button class="secondary" (click)="viewAll()">View All Products</button>
+		<div class="title">
+			<span class="capitalize" i18n="header@@products">products</span>
+			<button class="secondary" (click)="viewAll()" i18n="button@@view-all-products">
+				View All Products
+			</button>
 		</div>
 		<div class="products-section">
 			<ng-container *ngFor="let product of listSrv.items$ | async; index as i; trackBy: trackById">
@@ -29,9 +32,16 @@
 	<ng-template #empty>
 		<div class="empty flexCenter flexColumn">
 			<icon-app name="product" fontSet="svg"></icon-app>
-			<h2>Currently this supplier had no products associated</h2>
-			<h3 class="xl">You can start adding products now</h3>
-			<button (click)="listSrv.create(true, {supplier: {id: supplierId}})">Add Product</button>
+			<h2 i18n="header@@supplier-no-product">
+				Currently this supplier had no products associated
+			</h2>
+			<h3 class="xl" i18n="header@@start-adding-products-now">
+				You can start adding products now
+			</h3>
+			<button (click)="listSrv.create(true, {supplier: {id: supplierId}})"
+				i18n="button@@add-product">
+				Add Product
+			</button>
 		</div>
 	</ng-template>
 

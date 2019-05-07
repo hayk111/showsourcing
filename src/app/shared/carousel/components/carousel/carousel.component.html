@@ -16,11 +16,11 @@
 
 		<!-- no image -->
 		<ng-template #noImg>
-			<div 
+			<div
 				class="flexColumn flexCenter empty"
 				[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }">
-				<span class="bold">No picture</span>
-				<button class="secondary" (click)="openFileBrowser()" *ngIf="!static">Add Picture</button>
+				<span class="bold" i18n="text@@no-picture">No picture</span>
+				<button *ngIf="!static" class="secondary" (click)="openFileBrowser()" i18n="button@@add-picture">Add picutre</button>
 			</div>
 		</ng-template>
 	</div>
@@ -40,7 +40,7 @@
 		*ngIf="images?.length > 1"
 		class="move-btn next flexCenter circle pointer btn action"
 		(mousedown)="next($event)">
-		<icon-app  fontSet="fa" name="angle-right" color="white"></icon-app>
+		<icon-app fontSet="fa" name="angle-right" color="white"></icon-app>
 	</div>
 
 	<!-- menu -->
@@ -54,13 +54,13 @@
 					aria-label="more">
 				</icon-app>
 		</context-menu-trigger-app>
-		<context-menu-item-app> <a [href]="getImg() | image:'xl'" download>download</a> </context-menu-item-app>
-		<context-menu-item-app (click)="rotate()"> rotate </context-menu-item-app>
-		<context-menu-item-app (click)="delete()"> delete </context-menu-item-app>
+		<context-menu-item-app> <a [href]="getImg() | image:'xl'" download i18n="button@@download">download</a> </context-menu-item-app>
+		<context-menu-item-app (click)="rotate()" i18n="button@@rotate"> rotate </context-menu-item-app>
+		<context-menu-item-app (click)="delete()" i18n="button@@delete"> delete </context-menu-item-app>
 	</context-menu-app>
 
 	<!-- add -->
-	<div class="btn add pointer action" *ngIf="!static" (click)="openFileBrowser()">add</div>
+	<div *ngIf="!static" class="btn add pointer action" (click)="openFileBrowser()" i18n="button@@add">add</div>
 
 	<!-- counter -->
 	<div class="counter flexCenter">

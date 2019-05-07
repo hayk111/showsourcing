@@ -2,21 +2,21 @@
     <div class="border"></div>
     <div class="content">
 
-			<h3 class="ms">Account Created</h3>
+			<h3 class="ms" i18n="header@@account-created">Account Created</h3>
 
-			<p>Now invite your team members</p>
+			<p i18n="text@@now-invite-members">Now invite your team members</p>
 
 			<form [formGroup]="form">
 				<div *ngFor="let c of form.controls; let i = index;trackBy: trackByFn">
 					<div class="flex members" [formGroupName]="i">
 						<!-- email -->
 						<form-field-app>
-							<label-app>Email</label-app>
+							<label-app i18n="text@email">Email</label-app>
 							<input inputApp type="email" placeholder="example@email.com" formControlName="email"/>
 						</form-field-app>
 						<!-- full name -->
 						<form-field-app>
-							<label-app>Full Name</label-app>
+							<label-app i18n="text@@full-name">Full Name</label-app>
 							<input inputApp type="text" placeholder="Jhon Doe" formControlName="fullName"/>
 						</form-field-app>
 
@@ -24,12 +24,12 @@
 
 				</div>
 
-				<div (click)="addMore()" class="flex pointer">
+				<div (click)="addMore()" class="flex pointer" i18n="text@@invite-more-members">
 					Invite more team members
 				</div>
 
 				<div class="right">
-					<input type="submit" value="invite" (click)="goHome()"/>
+					<input type="submit" value="invite" (click)="goHome()" i18n-value="button@@invite"/>
 				</div>
 			</form>
 	</div>

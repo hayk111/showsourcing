@@ -14,6 +14,7 @@ import { DynamicField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, PendingImage } from '~utils';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 @Component({
 	selector: 'product-preview-app',
@@ -56,6 +57,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		{
 			name: 'supplier',
 			type: 'selector',
+			label: this.constPipe.transform(ERM.SUPPLIER.singular, 'erm'),
 			metadata: {
 				target: 'supplier',
 				type: 'entity',
@@ -66,6 +68,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		{
 			name: 'category',
 			type: 'selector',
+			label: this.constPipe.transform(ERM.CATEGORY.singular, 'erm'),
 			metadata: {
 				target: 'category',
 				type: 'entity',
@@ -73,30 +76,30 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 				canCreate: true
 			}
 		},
-		{ name: 'name', type: 'text', required: true, label: 'name' },
-		{ name: 'price', type: 'price' },
+		{ name: 'name', type: 'text', required: true, label: this.constPipe.transform('name', 'messages') },
+		{ name: 'price', type: 'price', label: this.constPipe.transform(ERM.PRICE.singular, 'erm') },
 		{
-			name: 'event', type: 'selector',
+			name: 'event', type: 'selector', label: this.constPipe.transform(ERM.EVENT.singular, 'erm'),
 			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{
 			name: 'assignee',
-			label: 'Assignee',
+			label: this.constPipe.transform('assignee', 'messages'),
 			type: 'selector',
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
-		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
-		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' }
+		{ name: 'minimumOrderQuantity', type: 'number', label: this.constPipe.transform('MOQ', 'messages') },
+		{ name: 'moqDescription', type: 'textarea', label: this.constPipe.transform('MOQ description', 'messages') }
 	];
 
 	// those are the custom field for the second form section
 	customFields2: DynamicField[] = [
-		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
-		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
+		{ name: 'innerCarton', type: 'packaging', label: this.constPipe.transform('inner carton', 'messages') },
+		{ name: 'masterCarton', type: 'packaging', label: this.constPipe.transform('master carton', 'messages') },
 		// { name: 'samplePrice', type: 'price', label: 'Sample Price' },
-		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
+		{ name: 'priceMatrix', type: 'priceMatrix', label: this.constPipe.transform('price matrix', 'messages') },
 		{ name: 'sample', type: 'yesNo' },
-		{ name: 'samplePrice', type: 'price', label: 'Sample Price' }
+		{ name: 'samplePrice', type: 'price', label: this.constPipe.transform('sample price', 'messages') }
 	];
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
@@ -121,7 +124,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private userSrv: UserService,
 		private workspaceSrv: WorkspaceFeatureService,
 		private commentSrv: CommentService,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
+		private constPipe: ConstPipe
 	) {
 		super();
 
@@ -129,24 +133,24 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			{
 				icon: 'camera',
 				fontSet: '',
-				text: 'Add Picture',
+				text: this.constPipe.transform('add picture', 'messages'),
 				action: this.openFileBrowser.bind(this)
 			},
 			{
 				icon: 'project',
 				fontSet: '',
-				text: 'Add',
+				text: this.constPipe.transform('add', 'messages'),
 				action: this.openAddToProject.bind(this)
 			},
 			{
 				icon: 'comments',
 				fontSet: '',
-				text: 'Comment',
+				text: this.constPipe.transform(ERM.COMMENT.singular, 'erm'),
 				action: this.scrollToCommentButton.bind(this)
 			},
 			{
 				icon: 'export',
-				text: 'Share',
+				text: this.constPipe.transform('share', 'messages'),
 				fontSet: '',
 				action: this.openExportModal.bind(this)
 			}

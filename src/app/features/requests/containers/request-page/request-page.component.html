@@ -1,7 +1,8 @@
 <top-panel-app
-	[title]="'Requests'"
+	[title]="'requests'"
 	buttonName="New Request"
-	(buttonClick)="commonModalSrv.openSupplierRequest([])">
+	(buttonClick)="commonModalSrv.openSupplierRequest([])"
+	i18n="@@requests">
 </top-panel-app>
 
 <sub-panel-app
@@ -12,7 +13,7 @@
 	<sub-panel-right-item-app>
 		<request-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">>
+			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</request-sorting-menu-app>
 	</sub-panel-right-item-app>
 </sub-panel-app>

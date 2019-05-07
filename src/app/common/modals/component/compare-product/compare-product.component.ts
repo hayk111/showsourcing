@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Product } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { ComparisonDataModel } from '~shared/table/models/';
 import { AutoUnsub } from '~utils';
-import { getArrayData, getPackagingString } from '~utils/product.utils';
 
 @Component({
 	selector: 'compare-product-app',
@@ -12,6 +10,7 @@ import { getArrayData, getPackagingString } from '~utils/product.utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CompareProductComponent extends AutoUnsub {
+
 	@Input() products: Product[] = [];
 
 	constructor(

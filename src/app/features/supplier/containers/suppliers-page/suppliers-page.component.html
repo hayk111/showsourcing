@@ -1,7 +1,8 @@
 <top-panel-app
-	title="My Suppliers"
+	[title]="'My suppliers'"
 	buttonName="Add Supplier"
-	(buttonClick)="listSrv.create()">
+	(buttonClick)="listSrv.create()"
+	i18-title="@@my-suppliers">
 </top-panel-app>
 
 <sub-panel-app
@@ -43,14 +44,15 @@
 			[typeEntity]="erm.SUPPLIER"
 			type="multiple-selection"
 			[internalUpdate]="false"
-			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})"
+			i18n-toolTipMessage="@@change-status">
 		</status-selector-app>
 		<action-bar-app
 			[favorite]="listSrv.allSelectedFavorite"
 			[hasLikes]="false"
 			[multiple]="true"
 			(onFavorite)="listSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
+			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()">
 			<button class="icon light" (click)="listSrv.deleteSelected()">
 				<icon-app name="trash-bin"></icon-app>
 			</button>
@@ -65,10 +67,10 @@
 </supplier-preview-app>
 
 <filters-app
+	*ngIf="listSrv.filterPanelOpen"
 	[filterList]="listSrv.filterList"
 	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()"
-	*ngIf="listSrv.filterPanelOpen">
+	(clickOutside)="listSrv.closeFilterPanel()">
 </filters-app>
 
 

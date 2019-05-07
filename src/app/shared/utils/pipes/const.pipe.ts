@@ -2,13 +2,15 @@ import { Inject, LOCALE_ID, Optional, Pipe, PipeTransform } from '@angular/core'
 import {
 	countryMap,
 	currencyMap,
+	ermMap,
 	harbourMap,
 	incoTermsMap,
 	statusCategoriesMap,
 	statusMap,
+	statusRequestsSupplierMap,
 	statusRequestsTeamMap,
 	supplierTypesMap,
-	statusRequestsSupplierMap,
+	messagesMap,
 } from '~utils/constants';
 
 /**
@@ -26,6 +28,7 @@ export class ConstPipe implements PipeTransform {
 
 	constructor(@Optional() @Inject(LOCALE_ID) private locale?: string) {
 		if (locale) {
+			debugger;
 			const localeTokens = locale.split('-');
 			if (localeTokens && localeTokens.length > 0) {
 				this.localeCountry = localeTokens[0];
@@ -73,6 +76,12 @@ export class ConstPipe implements PipeTransform {
 			case 'supplierType':
 			case 'supplierTypes':
 				constMap = supplierTypesMap;
+				break;
+			case 'erm':
+				constMap = ermMap;
+				break;
+			case 'messages':
+				constMap = messagesMap;
 				break;
 			default: return value;
 		}

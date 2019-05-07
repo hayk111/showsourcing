@@ -5,8 +5,8 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { SampleService, UserService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { Comment, ERM, Sample } from '~core/models';
-import { AutoUnsub } from '~utils';
 import { DynamicField } from '~shared/dynamic-forms';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -32,16 +32,25 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 	erm = ERM;
 
 	customFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: 'name' },
-		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true } },
-		{ name: 'product', type: 'selector', metadata: { target: 'product', type: 'entity', labelName: 'name', canCreate: true } },
-		{ name: 'price', type: 'price' },
-		{ name: 'paid', type: 'yesNo' },
+		{ name: 'name', type: 'text', required: true, label: translate('name', 'message') },
 		{
-			name: 'assignee', label: 'Assignee', type: 'selector',
+			name: 'supplier', type: 'selector', label: translate(ERM.SUPPLIER.singular, 'erm'),
+			metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true }
+		},
+		{
+			name: 'product', type: 'selector', label: translate(ERM.PRODUCT.singular, 'erm'),
+			metadata: { target: 'product', type: 'entity', labelName: 'name', canCreate: true }
+		},
+		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
+		{ name: 'paid', type: 'yesNo', label: translate('paid', 'message') },
+		{
+			name: 'assignee', label: translate('assignee', 'message'), type: 'selector',
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
 		},
-		{ name: 'createdBy', label: 'Created By', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
+		{
+			name: 'createdBy', label: translate('created by', 'message'), type: 'selector',
+			metadata: { target: 'user', type: 'entity', labelName: 'name' }
+		},
 
 	];
 

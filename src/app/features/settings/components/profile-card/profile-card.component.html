@@ -1,31 +1,31 @@
 
-<h2 class="color-txt-strong">User Profile </h2>
-<label-app>Profile Picture</label-app>
+<h2 class="color-txt-strong" i18n="@@user-profile">User Profile</h2>
+<label-app i18n="@@profile-picture">Profile Picture</label-app>
 
 <div class="photoContainer flex">
 	<user-picture-app class="z-3 z-h pointer" [user]="user" [size]="48" [image]="user.avatar" (click)="openFileBrowser()"></user-picture-app>
-	<p class="color-primary pointer" (click)="openFileBrowser()">Select Image</p>
+	<p class="color-primary pointer" (click)="openFileBrowser()" i18n="@@select-image">Select Image</p>
 </div>
 
 <input #inpFile type="file" accept="image/*" (fileSelect)="addFile.emit($event)" class="hidden"/>
 
 <form [formGroup]="form">
 	<form-field-app class="borderless">
-		<label-app>First Name</label-app>
+		<label-app class="capitalize" i18n="@@first-name">First name</label-app>
 		<input inputApp type="text" formControlName="firstName" autocomplete='given-name'/>
 	</form-field-app>
 	<form-field-app class="borderless">
-		<label-app>Last Name</label-app>
+		<label-app class="capitalize" i18n="@@last-name">Last name</label-app>
 		<input inputApp type="text"  formControlName="lastName"/>
 	</form-field-app>
 	<form-field-app class="borderless">
-		<label-app>Email</label-app>
+		<label-app class="capitalize" i18n="@@email">email</label-app>
 		<input inputApp type="text" formControlName="email"/>
 	</form-field-app>
 	<form-field-app class="borderless">
-		<label-app>Phone Number</label-app>
+		<label-app class="capitalize" i18n="@@phone-number">Phone number</label-app>
 		<input restrictInput="tel" inputApp type="text"  formControlName="phoneNumber"/>
 	</form-field-app>
 </form>
 
-<button class="auto" (click)="changePswd.emit()">Change Password</button>
+<button class="auto" (click)="changePswd.emit()" i18n="@@change-pwd">Change Password</button>

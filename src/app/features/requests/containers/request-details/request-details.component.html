@@ -15,7 +15,7 @@
 	<!-- Right side-->
 	<div class="right">
 		<card-app>
-			<h3 class="l">Message</h3>
+			<h3 class="l" i18n="@@message">message</h3>
 			<div class="flex">
 				<img src="/assets/img/user-temp.png"/>
 				<div class="message-container">
@@ -26,7 +26,7 @@
 		</card-app>
 
 		<card-app>
-			<h3 class="l">Request Items</h3>
+			<h3 class="l" i18n="header@@request-items">Request Items</h3>
 				<request-element-list-view-app
 					class="no-padding"
 					[rows]="listSrv.items$ | async"
