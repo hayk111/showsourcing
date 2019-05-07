@@ -38,7 +38,7 @@ export class FindProductsDialogComponent extends AutoUnsub implements OnInit, Af
 			key: `${ListPageKey.FIND_PRODUCT}-${this.project.id}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			selectParams: { sortBy: 'category.name', descending: true, take: 15 },
+			selectParams: { sortBy: 'category.name', descending: true, take: 15, query: 'deleted == false' },
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});

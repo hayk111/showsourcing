@@ -41,6 +41,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
+			selectParams: { query: 'deleted == false' },
 			entityMetadata: ERM.SUPPLIER,
 			initialFilters: [],
 		}, false);

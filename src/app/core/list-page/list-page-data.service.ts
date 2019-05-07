@@ -27,7 +27,7 @@ export class ListPageDataService
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
 	selectParams: SelectParamsConfig = {
-		query: 'deleted == false',
+		query: '',
 		sortBy: 'creationDate',
 		descending: true,
 		take: 25,

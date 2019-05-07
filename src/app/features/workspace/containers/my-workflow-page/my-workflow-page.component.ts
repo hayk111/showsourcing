@@ -61,7 +61,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.MY_WORKFLOW,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
-			entityMetadata: ERM.PRODUCT
+			entityMetadata: ERM.PRODUCT,
+			selectParams: { query: 'deleted == false' }
 		}, false);
 		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
 			takeUntil(this._destroy$)
@@ -136,9 +137,9 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		// we update on the server
 		const isNewStatus = event.to.id === NEW_STATUS_ID;
 		this.productSrv.update({
-				id: event.item.id,
-				status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
-			},
+			id: event.item.id,
+			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
+		},
 			Client.TEAM,
 			isNewStatus ? 'status { id }' : ''
 		).subscribe();
