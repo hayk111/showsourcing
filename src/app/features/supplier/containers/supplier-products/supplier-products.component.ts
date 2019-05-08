@@ -6,8 +6,8 @@ import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
-import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'supplier-products-app',
@@ -18,7 +18,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 		ListPageService
 	]
 })
-export class SupplierProductsComponent extends TrackingComponent implements OnInit {
+export class SupplierProductsComponent extends AutoUnsub implements OnInit {
 
 	hasSearch = false;
 	supplierId: ID;
@@ -33,7 +33,6 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 		public commonModalSrv: CommonModalService
 	) {
 		super();
-
 	}
 
 	ngOnInit() {
@@ -43,7 +42,8 @@ export class SupplierProductsComponent extends TrackingComponent implements OnIn
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: { query: `supplier.id == "${this.supplierId}" AND archived == false AND deleted == false` },
-			entityMetadata: ERM.PRODUCT
+			entityMetadata: ERM.PRODUCT,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 
