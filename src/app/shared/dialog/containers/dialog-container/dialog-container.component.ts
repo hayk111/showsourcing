@@ -51,7 +51,6 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 		const componentFactoryResolver = this.componentFactoryResolver;
 		const componentFactory = componentFactoryResolver.resolveComponentFactory(component);
 		this.viewContainerRef.clear();
-
 		const componentRef = this.viewContainerRef.createComponent(componentFactory);
 		const instance = (<any>componentRef.instance);
 		// adding properties to dialog

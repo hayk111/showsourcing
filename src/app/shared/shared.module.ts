@@ -43,6 +43,7 @@ import { TableModule } from './table/table.module';
 import { TopPanelModule } from './top-panel/top-panel.module';
 import { BottomPanelModule } from './bottom-panel';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
+import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -94,7 +95,8 @@ const modules = [
 	TopPanelModule,
 	UserPictureModule,
 	UtilsModule,
-	ComparisonRowModule
+	ComparisonRowModule,
+	TemplateMngmtModule
 ];
 
 @NgModule({

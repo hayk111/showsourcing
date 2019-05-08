@@ -1,13 +1,17 @@
 <dialog-app class="vertical-scroll-content">
+
 	<dialog-header-app>Send Request to Supplier</dialog-header-app>
 
 	<div class="title-container flex">
 		<div class="left"><h2 class="color-txt-strong l">Request Settings</h2></div>
 		<div class="right"><h2 class="color-txt-strong l">Recipients</h2></div>
 	</div>
+
 	<div class="request-container flex" [ngStyle]="{ opacity: pending ? 0.5 : 1 }">
+
 		<div class="left">
 			<form [formGroup]="form">
+
 				<form-field-app class="modal pdng-btm-l">
 					<label-app>Select products *</label-app>
 					<product-request-list-app
@@ -17,6 +21,7 @@
 					</product-request-list-app>
 					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
+
 				<form-field-app class="modal pdng-btm-l">
 					<label-app>Request Templates *</label-app>
 					<selector-app
@@ -30,6 +35,9 @@
 						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
+
+				<div class="flexEnd txtBtn" (click)="openTemplateMngmtDialog($event)">Browse templates</div>
+
 				<form-field-app class="modal">
 					<label-app>Share my product information</label-app>
 					<div class="flex">
@@ -41,8 +49,10 @@
 						</checkbox-app>
 					</div>
 				</form-field-app>
+
 			</form>
 		</div>
+
 			<div class="right">
 
 				<form [formGroup]="form">
@@ -80,6 +90,7 @@
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
+
 				<!-- <form-field-app class="modal">
 					<label-app>Send Copy to</label-app>
 					<selector-app
@@ -96,6 +107,7 @@
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app> -->
+
 				<form-field-app class="modal pdng-btm-l">
 					<label-app>Request Title *</label-app>
 					<input inputApp type="text" formControlName="title" placeholder="Quote Request"/>
@@ -104,6 +116,7 @@
 					<label-app>Message for the supplier</label-app>
 					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" placeholder="Quick RFQ"></textarea>
 				</form-field-app>
+
 				<!-- <form-field-app class="modal">
 					<label-app>Send me a copy</label-app>
 					<div class="flex">
@@ -112,12 +125,15 @@
 						</checkbox-app>
 					</div>
 				</form-field-app> -->
+
 			</form>
 		</div>
+
 	</div>
 
 	<dialog-footer-app>
 		<spinner-app *ngIf="pending" size="18"></spinner-app>
 		<button [disabled]="!form.valid || pending" (click)="createRequest()">Send Request</button>
 	</dialog-footer-app>
+
 </dialog-app>
