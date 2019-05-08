@@ -62,6 +62,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor
 	// so we only have one array of custom fields
+	// TODO i18n
 	customFields: DynamicField[] = [
 		{
 			name: 'supplier',

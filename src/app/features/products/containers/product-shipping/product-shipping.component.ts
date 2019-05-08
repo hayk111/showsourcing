@@ -19,6 +19,7 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 	product: Product;
 
 	customFields: DynamicField[] = [
+		// TODO i18n
 		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
 		{ name: 'sample', type: 'title' },
 		{ name: 'sample', type: 'yesNo' },
