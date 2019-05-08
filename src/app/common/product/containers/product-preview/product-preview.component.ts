@@ -99,16 +99,17 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
 		{ name: 'shipping', type: 'title' },
 		{
-			name: 'incoTerm', type: 'selector', label: 'incoterm',
-			metadata: { target: ERM.INCOTERM.singular, canCreate: false, multiple: false, labelName: 'test' }
+			name: 'incoTerm', type: 'selector', label: 'INCO Term',
+			metadata: { target: ERM.INCOTERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
 		},
 		{
-			name: 'harbour', type: 'selector', label: 'harbour',
-			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'test' }
+			name: 'harbour', type: 'selector', label: 'loading port',
+			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
 		},
-		{ name: 'cbm', type: 'decimal', label: 'cubic meters' },
-		{ name: 'pcsPer20ft', type: 'number', label: 'pieces per 20 feet' },
-		{ name: 'pcsPer40ft', type: 'number', label: 'pieces per 40 feet' },
+		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
+		{ name: 'quantityPer20ft', type: 'number', label: `Quantity per 20'` },
+		{ name: 'quantityPer40ft', type: 'number', label: `Quantity per 40'` },
+		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
 	];
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
