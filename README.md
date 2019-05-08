@@ -7,6 +7,12 @@ X -> Major changes release, right now we are on X=2 since this is a new app from
 Y -> Changes like adding new features or fixing major/blocking bugs
 Z -> Minor bug-fix changes
 
+# Git golden rules
+- NEVER merge `master` into `development`, `development` is merged into `master` always.
+- Try to avoid features inside features unless it's necessary. Doing a feature inside a feature means that we cannot release none of them until all of them are finished.
+- Do not create a tag, until the version has been validated on staging.
+- When a release has multiple hotfixes, checkout a branch from `master` called `hotfix`, and from there checkout all the other hotfix branches, this way we do not corrupt `development` branch and we have all the changes visible on the hotfix branch. The previous rule is applied here too!.
+
 
 # Overview of the documentation
 
@@ -266,11 +272,11 @@ In each `messages.lang.xlf` we have 3 different types of target. When we transla
 Sometimes apollo cache bugs can be pretty fucking hard to debug. One instance for example is something around the lines of
 `an object with this primary key was provided but already exists in the store`, this usually happens when the store cannot find something because the `__typename` wasn't specified.
 
-Another weird bug is when you update something but the optimistic ui is not triggered. 
+Another weird bug is when you update something but the optimistic ui is not triggered.
 
 Sometimes this can be the cause:
 
-You query products : `{ id, supplier { id, name, categories }}` and update the supplier with `{ id, name }`. 
+You query products : `{ id, supplier { id, name, categories }}` and update the supplier with `{ id, name }`.
 Apollo might fail to make the optimistic UI work in this instance because the update value of the supplier isn't the same as the queried one. A fix would be to update with  `{ id, name, categories }` or just quiery `{ id, name }`
 
 # Important sneaky hotfix to consider
