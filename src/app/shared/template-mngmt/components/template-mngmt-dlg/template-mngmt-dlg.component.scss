@@ -1,0 +1,43 @@
+
+dialog-app {
+	width: 975px;
+	height: 80vh;
+}
+
+.left, .right {
+	padding: var(--spacing-l);
+}
+
+.left {
+	border-right: 1px solid var(--color-divider);
+	background: var(--color-secondary-light);
+	width: 363px;
+	input {
+		background: white;
+		margin-right: var(--spacing-s);
+	}
+	span {
+		margin-bottom: 6px;
+	}
+	.input-box {
+		margin-bottom: var(--spacing-l);
+	}
+}
+
+.right {
+	span {
+		margin-bottom: var(--spacing-ms);
+	}
+}
+
+h2, h3{
+	text-align: left;
+}
+
+h2 {
+	color: var(--color-txt-strong);
+}
+
+h3 {
+	margin-bottom: var(--spacing-ms);
+}

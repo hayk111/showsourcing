@@ -16,5 +16,11 @@ export abstract class RequestTemplateQueries extends GlobalQueries {
 		${RequestTemplateQueries.requestedFields}
 	`;
 
+	static readonly all = `
+		name
+		targetedEntity
+		${RequestTemplateQueries.requestedFields}
+	`;
+
 }
 

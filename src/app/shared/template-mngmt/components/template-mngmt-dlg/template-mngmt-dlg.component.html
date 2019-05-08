@@ -6,8 +6,47 @@
     Request Templates
   </dialog-header-app>
   
-  <div>
-    content
+  <div class="flex">
+    
+    <div class="left">
+
+      <h2 i18n="header@@my-request-templates">My Request Templates</h2>
+
+      <span i18n="text@@new-template">New Template</span>
+
+      <div class="input-box flexVAlign">
+        <input type="text" placeholder="Quick RFQ">
+        <button>New</button>
+      </div>
+
+      <h3 i18n="header@@templates">Templates</h3>
+      <list-app>
+        <list-item-app *ngFor="let template of templates$ | async">
+          <span>{{ template.name }}</span>
+        </list-item-app>
+      </list-app>
+    </div>
+    
+    <div class="right">
+
+      <h1>Quick RFQ</h1>
+
+      <h3 i18n="header@@template-elements">Template elements</h3>
+
+      <span i18n="select-info-template-supplier">
+        Select the information you want to request the supplier.
+      </span>
+
+      <list-app>
+        <list-item-app *ngFor="let fc of (fieldChecked$ | async)">
+          <div class="flexBetween fullWidth">
+            <span> {{ fc.field.label }}</span>
+            <checkbox-app [checked]="fc.checked"></checkbox-app>
+          </div>
+        </list-item-app>
+      </list-app>
+    </div>
+
   </div>
   
   <dialog-footer-app>

@@ -7,20 +7,17 @@
 	<main *ngIf="projects$ | async as projects" class="scrollable">
 		<list-app>
 			<list-item-app *ngFor="let project of projects;trackBy: trackByFn" (click)="checkbox.onClick()">
-				<div class="flex" (click)="checkbox.onClick()">
-					<checkbox-app
-						#checkbox
-						[size]="14"
-						(check)="select(project.id, project)"
-						(uncheck)="unselect(project.id)"
-						[checked]="selected[project.id]">
-					</checkbox-app>
-					<div class="flexCenter flexBetween flexGrow" (click)="checkbox.onClick()">
-						<span class="name">{{ project.name }}</span>
-						<div class="productNumber" >{{ project.productCount }}</div>
-					</div>
+				<checkbox-app
+					#checkbox
+					[size]="14"
+					(check)="select(project.id, project)"
+					(uncheck)="unselect(project.id)"
+					[checked]="selected[project.id]">
+				</checkbox-app>
+				<div class="flexCenter flexBetween flexGrow">
+					<span class="name">{{ project.name }}</span>
+					<div class="productNumber" >{{ project.productCount }}</div>
 				</div>
-
 			</list-item-app>
 		</list-app>
 	</main>
