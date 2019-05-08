@@ -11,7 +11,7 @@ Z -> Minor bug-fix changes
 - NEVER merge `master` into `development`, `development` is merged into `master` always.
 - Try to avoid features inside features unless it's necessary. Doing a feature inside a feature means that we cannot release none of them until all of them are finished.
 - Do not create a tag, until the version has been validated on staging.
-- When a release has multiple hotfixes, checkout a branch from `master` called `hotfix`, and from there checkout all the other hotfix branches, this way we do not corrupt `development` branch and we have all the changes visible on the hotfix branch. The previous rule is applied here too!.
+- When a release has multiple hotfixes that has to be solved by more than 1 person, checkout a branch from `master` called `hotfix`, and from there checkout all the other hotfix branches, this way we do not corrupt `development` branch and we have all the changes visible on the hotfix branch. The previous rule is applied here too!.
 
 
 # Overview of the documentation
