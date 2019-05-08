@@ -1,9 +1,8 @@
-
 <dialog-app [hasHeader]="false">
   <div *ngIf="!pending; else spinner">
-    
+
     <img [src]="'assets/img/' + currentScreen.picture"/>
-    
+
     <div class="mg-l">
       <h2>{{ currentScreen.title }}</h2>
       <!-- innerhtml used to keep line breaks -->
@@ -12,8 +11,8 @@
       <div class="flexBetween actions">
         <button [disabled]="isFirst()" (click)="back()" class="secondary">Previous</button>
         <div class="flex">
-          <div *ngFor="let screen of onboardingSrv.screens; let i = index" 
-          class="circle" 
+          <div *ngFor="let screen of onboardingSrv.screens; let i = index"
+          class="circle"
           [ngClass]="{ 'selected': onboardingSrv.currentIndex === i }"></div>
         </div>
         <button *ngIf="!isLast()" (click)="next()">Next</button>
