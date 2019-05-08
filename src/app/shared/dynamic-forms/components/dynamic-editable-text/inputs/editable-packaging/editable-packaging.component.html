@@ -174,16 +174,18 @@ A package with 0cm makes no sens -->
 		<form-field-app class="modal col-25">
 			<label-app>Units</label-app>
 			<selector-app
-				[type]="erm.LENGTH_UNIT"
+			 	[disabled]="disabled"
+				 [type]="erm.LENGTH_UNIT"
 				[value]="value.unit"
 				(update)="updateAcummulator($event, 'unit')">
 				<selector-placeholder-app
+					[ngClass]="{ 'disabled': disabled }"
 					[name]="value.unit"
 					placeholder="Unit"
 					i18n-placeholder="@@unit">
 				</selector-placeholder-app>
 			</selector-app>
-			<input inputApp [disabled]="disabled" [hidden ]="true" type="text">
+			<input inputApp [disabled]="disabled" [hidden]="true" type="text">
 		</form-field-app>
 	</div>
 
@@ -201,16 +203,18 @@ A package with 0cm makes no sens -->
 		<form-field-app class="modal col-25">
 			<label-app>Description</label-app>
 			<selector-app
+			 	[disabled]="disabled"
 				[type]="erm.WEIGHT_UNIT"
 				[value]="value.weightUnit"
 				(update)="updateAcummulator('weightUnit', $event)">
 				<selector-placeholder-app
+					[ngClass]="{ 'disabled': disabled }"
 					[name]="value.weightUnit"
 					placeholder="Kg"
 					i18n-placeholder="kilograms@@kg">
 				</selector-placeholder-app>
 			</selector-app>
-			<input inputApp [disabled]="disabled" [hidden ]="true" type="text">
+			<input inputApp [disabled]="disabled" [hidden]="true" type="text">
 		</form-field-app>
 	</div>
 </ng-template>

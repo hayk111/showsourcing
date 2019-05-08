@@ -26,7 +26,7 @@ input, textarea {
 	&.small {
 		padding: 3px;
 	}
-	&[type="text"]:disabled {
+	&[type="text"]:disabled, &[type="number"]:disabled{
 		background: var(--color-secondary-light);
 		color: var(--color-txt-strong);
 	}
