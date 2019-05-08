@@ -8,7 +8,7 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { InvitationUser } from '~models';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 import { TeamService } from '~core/entity-services';
 import { TeamClientInitializer } from '~core/apollo';
 
@@ -53,8 +53,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.SUCCESS,
-				title: 'Invitation Accepted',
-				message: 'The invitation was accepted',
+				title: translate('Invitation accepted'),
+				message: translate('The invitation was accepted'),
 				timeout: 3500
 			});
 		});
@@ -65,8 +65,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: 'Invitation Refused',
-				message: 'The invitation was refused',
+				title: translate('Invitation Refused'),
+				message: translate('The invitation was refused'),
 				timeout: 3500
 			});
 		});

@@ -2,7 +2,9 @@
 <top-panel-app
   title="My Projects"
   buttonName="Add Project"
-  (buttonClick)="listSrv.create()">
+	(buttonClick)="listSrv.create()"
+	i18n-title="@@my-projects"
+	i18n-buttonName="@@add-project">
 </top-panel-app>
 
 <sub-panel-app
@@ -38,10 +40,10 @@
 </selection-bar-app>
 
 <filters-app
+	*ngIf="listSrv.filterPanelOpen"
   [filterList]="listSrv.filterList"
   [filterTypes]="filterTypes"
-  (clickOutside)="listSrv.closeFilterPanel()"
-  *ngIf="listSrv.filterPanelOpen">
+  (clickOutside)="listSrv.closeFilterPanel()" >
 </filters-app>
 
 

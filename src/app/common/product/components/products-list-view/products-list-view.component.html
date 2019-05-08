@@ -13,7 +13,8 @@
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	[pending]="pending">
+	[pending]="pending"
+	i18n-placeholder="@@no-product">
 </custom-table-app>
 
 <!-- contextual menu -->
@@ -21,31 +22,31 @@
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openAddToProjectDialog.emit(row)"
-		i18n="product menu | add to project">
+		i18n="button@@add-to-project">
 		Add to project
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openCreateRequestDlg.emit(row)"
-		i18n="product menu | go to request supplier">
+		i18n="button@@send-request-supplier">
 		Send request to supplier
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openRequestFeedbackDialog.emit(row)"
-		i18n="product menu | go to request feedback">
+		i18n="button@@request-feedback">
 		Request feedback
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openExportDialog.emit(row)"
-		i18n="product menu | export">
+		i18n="button@@export">
 		Export
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="delete.emit(row.id)"
-		i18n="product menu | delete">
+		i18n="button@@delete">
 		Delete
 	</context-menu-item-app>
 </ng-template>
@@ -58,11 +59,11 @@
 				[src]="row | image: 's' : 'product-list'" />
 			<span class="ellipsis">
 				<a class="name txt-btn" [routerLink]="['/product', row.id]">
-					{{ row.name || 'Unnamed' }}
+					{{ row.name || '-' }}
 				</a>
 			</span>
 
-			<button class="small secondary-dark preview" (click)="previewClick.emit(row)">Preview</button>
+			<button class="small secondary-dark preview" (click)="previewClick.emit(row)" i18n="@@preview">Preview</button>
 		</div>
 	</div>
 </ng-template>
@@ -117,7 +118,7 @@
 <ng-template #projects let-row="row">
 	<div class="flexCenter">
 		<span *ngFor="let project of row.projects; trackBy: trackByFn">
-			{{ project.name }}
+			{{ project.name || '-' }}
 		</span>
 	</div>
 </ng-template>

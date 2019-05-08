@@ -11,7 +11,7 @@ import { ERM, ReplyStatus, RequestElement, SupplierRequest } from '~core/models'
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, ID } from '~utils';
+import { AutoUnsub, ID, translate } from '~utils';
 
 @Component({
 	selector: 'request-details-app',
@@ -71,7 +71,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		if (!request) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: 'The request doesn\'t exist',
+				title: translate('The request doesn\'t exist'),
 				timeout: 3500
 			});
 			this.router.navigate(['request']);
@@ -84,8 +84,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	private onError(error) {
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
-			title: 'Error',
-			message: 'There is an error, please try again later',
+			title: translate('error'),
+			message: translate('There is an error, please try again later'),
 			timeout: 3500
 		});
 		this.router.navigate(['request']);

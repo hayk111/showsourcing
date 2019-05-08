@@ -14,10 +14,10 @@ import {
 	EventService,
 	ProductService,
 	ProjectService,
+	RequestTemplateService,
 	SupplierService,
 	TagService,
 	UserService,
-	RequestTemplateService,
 } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import {
@@ -32,17 +32,17 @@ import {
 	IncoTerm,
 	Product,
 	Project,
+	RequestTemplate,
 	SupplierType,
 	Tag,
 	User,
-	RequestTemplate,
 } from '~models';
 import { Supplier } from '~models/supplier.model';
-import { ConstPipe } from '~shared/utils/pipes/const.pipe';
+import { FilterList } from '~shared/filters';
+import { translate } from '~utils';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
-import { FilterList } from '~shared/filters';
 
 
 @Injectable({
@@ -70,7 +70,6 @@ export class SelectorsService {
 	constructor(
 		private categorySrv: CategoryService,
 		private contactSrv: ContactService,
-		private constPipe: ConstPipe,
 		private currencySrv: CurrencyService,
 		private eventSrv: EventService,
 		private productSrv: ProductService,
@@ -320,7 +319,7 @@ export class SelectorsService {
 		this.listResult = this.supplierTypeSrv.getListQuery(this.selectParams);
 		this.items$ = this.listResult.items$.pipe(
 			map(types => types.map(type => {
-				return { ...type, name: this.constPipe.transform(type.name, 'supplierType') };
+				return { ...type, name: translate(type.name, 'supplierType') };
 			}))
 		);
 		return this.items$;

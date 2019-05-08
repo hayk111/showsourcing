@@ -1,19 +1,20 @@
 <dialog-app>
 
-	<dialog-header-app>Contact</dialog-header-app>
+	<dialog-header-app class="capitalize" i18n="@@contact">contact</dialog-header-app>
 
 	<ng-container *ngIf="contactCreated$ | async; else spinner">
 
 		<form [formGroup]="form" (ngSubmit)="createContact()">
 
 			<form-field-app>
-				<label-app>Name</label-app>
+				<label-app class="capitalize" i18n="@@name">name</label-app>
 				<input inputApp
 					(blur)="updateContact()"
 					formControlName="name"
 					type="text"
 					autocomplete="new-name"
-					placeholder="Contact name"/>
+					placeholder="Contact name"
+					i18n-placeholder="@@contact-name"/>
 			</form-field-app>
 
 			<!-- if we ever need the supplier on the dialog -->
@@ -32,37 +33,40 @@
 			</form-field-app> -->
 
 			<form-field-app>
-				<label-app>Function</label-app>
+				<label-app class="capitalize" i18n="@@function">function</label-app>
 				<input inputApp
 					(blur)="updateContact()"
 					formControlName="jobTitle"
 					type="text"
 					autocomplete="new-job"
-					placeholder="Contact Function"/>
+					placeholder="Contact Function"
+					i18n-placeholder="@@contact-function"/>
 			</form-field-app>
 
 			<form-field-app>
-				<label-app>Email</label-app>
+				<label-app class="capitalize" i18n="@@email">email</label-app>
 				<input inputApp
 					(blur)="updateContact()"
 					formControlName="email"
 					type="email"
 					autocomplete="new-email"
-					placeholder="Contact email address"/>
+					placeholder="Contact email address"
+					i18n-placeholder="@@contact-email-address"/>
 			</form-field-app>
 
 			<form-field-app>
-				<label-app>Phone number</label-app>
+				<label-app i18n="@@phone-number">Phone number</label-app>
 				<input inputApp
 					(blur)="updateContact()"
 					formControlName="phoneNumber"
 					restrictInput="tel"
 					type="tel"
 					autocomplete="new-tel"
-					placeholder="Contact phone number"/>
+					placeholder="Contact phone number"
+					i18n="@@contact-phone-number"/>
 			</form-field-app>
 
-			<label>Business card</label>
+			<label i18n="@@business-card">Business card</label>
 			<carousel-app *ngIf="contact$ | async as contact"
 				[imageProperty]="'businessCardImage'"
 				[isImagePropertyArray]="false"

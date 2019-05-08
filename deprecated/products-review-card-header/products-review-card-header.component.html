@@ -1,0 +1,69 @@
+<div class="category-header">
+  <div class="imgCtnr">
+		<ng-container *ngIf="category?.label">
+			<img class="mini image ng-star-inserted" src="assets/icons/supplier.svg"
+					*ngIf="currentSort.sortBy === 'supplier.name'"
+					(dragstart)="preventDrag($event)">
+			<div *ngIf="currentSort.sortBy === 'category.name'" class="imgSubCtnr">
+				<img class="mini image category ng-star-inserted" src="assets/icons/category-white.svg"
+					(dragstart)="preventDrag($event)">
+			</div>
+			<user-picture-app [user]="category.label" *ngIf="currentSort.sortBy === 'createdBy.lastName'"
+					[image]="category.label?.avatar"></user-picture-app>
+		</ng-container>
+    <checkbox-app [checked]="category?.checked"
+      (check)="checked.emit(category)"
+      (uncheck)="unchecked.emit(category)"
+      (dragstart)="preventDrag($event)">
+    </checkbox-app>
+  </div>
+  <div class="description flexBetween">
+		<ng-container *ngIf="category.label; else noLabel">
+			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
+				<div class="titleCtnr"><h3>{{ category.label.name || 'Unnamed' }}</h3></div>
+				<div class="descriptionCtnr">
+					<h4 class="xs">
+						Supplier
+						<ng-container *ngIf="category?.label?.country">
+							 - {{ category?.label?.country | const: 'country'  }}
+						</ng-container>
+					</h4>
+				</div>
+			</div>
+			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
+					<div class="titleCtnr"><h3>{{ category?.label?.name || 'Unnamed' }}</h3></div>
+					<div class="descriptionCtnr">
+						<h4 class="xs">
+							{{ category?.values?.length }} products
+						</h4>
+					</div>
+			</div>
+			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
+				<div class="titleCtnr"><h3>{{ category.label.firstName }} {{ category.label.lastName }}</h3></div>
+				<div class="descriptionCtnr">
+					<h4 class="xs">{{ category?.values?.length }} products</h4>
+				</div>
+			</div>
+		</ng-container>
+		<ng-template #noLabel>
+			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
+				<div class="titleCtnr"><h3>No supplier</h3></div>
+				<div class="descriptionCtnr">
+					<h4 class="xs">Product with no supplier defined</h4>
+				</div>
+			</div>
+			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
+				<div class="titleCtnr"><h3>No category</h3></div>
+				<div class="descriptionCtnr">
+					<h4 class="xs">Product with no category defined</h4>
+				</div>
+			</div>
+			<div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
+				<div class="titleCtnr"><h3>No user</h3></div>
+				<div class="descriptionCtnr">
+					<h4 class="xs">Product with no user defined</h4>
+				</div>
+			</div>
+		</ng-template>
+	</div>
+</div>

@@ -27,6 +27,7 @@ export class RefuseReplyDlgComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
+		// TODO i18n
 		this.message =
 			'Dear ' + this.senderName +
 			',\n\nI think you send us the wrong request, we cannot help you with this one\n\n' +

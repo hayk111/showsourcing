@@ -7,7 +7,7 @@
 		(clickOutside)="adaptSize()"
 		(opened)="inpDescription.select();"
 		[canGrow]="true">
-		<label-app>Description</label-app>
+		<label-app class="capitalize" i18n="text@@description">description</label-app>
 		<editable-label-app
 			*ngIf="description?.length && description"
 			class="fs-m">
@@ -18,7 +18,7 @@
 			class="fullWidth fs-m">
 			<button class="secondary flexCenter edit-description" [ngStyle]="{'width': isBig ? '30%' : '100%'}">
 				<icon-app class="edit" name="edit"></icon-app>
-				<span>Add Description</span>
+				<span class="capitalize" i18n="text@@add-description">Add Description</span>
 			</button>
 		</editable-label-app>
 		<textarea inputApp #inpDescription autofocus="true"
@@ -31,11 +31,13 @@
 <button
 	*ngIf="showMore && !isBig"
 	class="secondary-light flexCenter view-more"
-	(click)="showAll()">
-	View More
+	(click)="showAll()"
+	i18n="button@@view-more">
+	View more
 </button>
 <span *ngIf="showMore && isBig"
 	class="text-more"
-	(click)="showAll()">
-	View more...
+	(click)="showAll()"
+	i18n="text@@view-more">
+	View more
 </span>

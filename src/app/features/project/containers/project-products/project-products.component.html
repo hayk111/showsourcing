@@ -14,7 +14,8 @@
 		(showFilters)="listSrv.openFilterPanel()"
 		(buttonClick)="openFindProductDlg()"
 		(search)="listSrv.search($event)"
-		(viewChange)="listSrv.changeView($event)">
+		(viewChange)="listSrv.changeView($event)"
+		i18n="@@add-products">
 
 		<sub-panel-right-item-app>
 			<product-sorting-menu-app
@@ -41,7 +42,6 @@
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"
-		(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog($event)"
 		(delete)="deassociateProductById($event)">
 	</project-product-list-app>
 

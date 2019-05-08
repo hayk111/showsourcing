@@ -5,7 +5,7 @@ import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService } from '~core/entity-services';
 import { ERM, Product } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'product-shipping-app',
@@ -19,17 +19,17 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 	product: Product;
 
 	customFields: DynamicField[] = [
-		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
+		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
 		{ name: 'sample', type: 'title' },
 		{ name: 'sample', type: 'yesNo' },
-		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
-		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
+		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
+		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
 		// we need this empty objects since innercarton, mastercarton, pricematrix, have more rows inside the dynamic form
 		// therefore we have to add extra spaces, so we get the correct alignment
 		{},
 		{},
 		{},
-		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
+		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
 		{ name: 'shipping', type: 'title' },
 		{
 			name: 'incoTerm', type: 'selector', label: 'INCO Term',

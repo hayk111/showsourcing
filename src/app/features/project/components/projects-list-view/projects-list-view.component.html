@@ -4,8 +4,8 @@
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="delete.emit(row.id)"
-		i18n="supplier menu | delete">
-		Delete
+		i18n="button@@delete">
+		delete
 	</context-menu-item-app>
 </ng-template>
 
@@ -20,13 +20,14 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)">
+	(sort)="sort.emit($event)"
+	i18n-placeholder="@@no-project">
 
 
 
 	<!-- name -->
 	<ng-template
-		columnApp="Project Name"
+		[columnApp]="'Project name' | const: 'messages'"
 		sortBy="name"
 		let-row="row"
 		width="300"
@@ -43,7 +44,7 @@
 	<!-- owner -->
 	<ng-template
 		class="capitalize"
-		columnApp="Owner"
+		[columnApp]="'owner' | const: 'messages'"
 		let-row="row"
 		sortBy="createdBy.lastName"
 		width="200"
@@ -54,7 +55,7 @@
 	<!-- last updated date -->
 	<ng-template
 		class="capitalize"
-		columnApp="Last Upadted Date"
+		[columnApp]="'Last upadted date' | const: 'messages'"
 		let-row="row"
 		sortBy="lastUpdatedDate"
 		width="200"
@@ -67,7 +68,7 @@
 	<!-- product count -->
 	<ng-template
 		class="capitalize"
-		columnApp="Product Count"
+		[columnApp]="'Product count' | const: 'messages'"
 		let-row="row"
 		[sortable]="false"
 		[grows]="false"
@@ -79,7 +80,7 @@
 
 	<!-- date -->
 	<ng-template
-		columnApp="Created on"
+		[columnApp]="'created on' | const: 'messages'"
 		let-row="row"
 		sortBy="creationDate"
 		width="200"
@@ -90,7 +91,7 @@
 
 	<!-- description -->
 	<ng-template
-		columnApp="Description"
+		[columnApp]="'description' | const: 'messages'"
 		let-row="row"
 		[sortable]="false"
 		width="240">

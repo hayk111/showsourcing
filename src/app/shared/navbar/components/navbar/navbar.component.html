@@ -1,7 +1,7 @@
 
 <div
 	*ngFor="let tab of tabs; index as index; trackBy: trackByFn"
-	class="tab-title flexCenter"
+	class="tab-title flexCenter first-uppercase"
 	[style.width]="100 / tabs?.length + '%'"
 	[ngClass]="{'active': currentTab === tab}"
 	[routerLink]="'./' + tab?.name?.toLowerCase()"

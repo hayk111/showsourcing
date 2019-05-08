@@ -17,9 +17,10 @@
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
-			class="pointer flexCenter"
-			(click)="openRefuseReplyDlg.emit(row.reply.id)">
-			Refuse
+			class="pointer flexCenter capitalize"
+			(click)="openRefuseReplyDlg.emit(row.reply.id)"
+			i18n="button@@refuse">
+			refuse
 		</context-menu-item-app>
 	</ng-template>
 

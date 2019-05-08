@@ -6,6 +6,7 @@ import {
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ERM, ExtendedFieldDefinition, Product } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'product-information-app',
@@ -20,22 +21,22 @@ export class ProductInformationComponent implements OnInit {
 	@Output() update = new EventEmitter<Product>();
 
 	customFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: 'name' },
+		{ name: 'name', type: 'text', required: true, label: translate('name') },
 		{
-			name: 'supplier', type: 'selector',
+			name: 'supplier', type: 'selector', label: translate(ERM.SUPPLIER.singular, 'erm'),
 			metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{
-			name: 'event', type: 'selector',
+			name: 'event', type: 'selector', label: translate(ERM.EVENT.singular, 'erm'),
 			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{
-			name: 'category', type: 'selector',
+			name: 'category', type: 'selector', label: translate(ERM.CATEGORY.singular, 'erm'),
 			metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
-		{ name: 'price', type: 'price' },
-		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
-		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' }
+		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm'), },
+		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
+		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') }
 	];
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product } from '~models';
 import { ListViewComponent } from '~core/list-page/list-view.component';
+import { Product } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
+import { translate } from '~utils';
 
 
 @Component({
@@ -17,6 +18,8 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 	@Output() update = new EventEmitter<Product>();
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
+
+	constructor() { super(); }
 
 	getGroupedProducts(sort: Sort) {
 		const fieldSortyBy = sort.sortBy;
@@ -62,6 +65,7 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 				switch (field) {
 					case 'favorite':
 						value = group.value[0][field] ? 'Favorite' : 'Not Favorite';
+						value = translate(value);
 						break;
 					case 'category':
 					case 'supplier':

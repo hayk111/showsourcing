@@ -3,17 +3,17 @@
 	<div class="spacer mg-s"></div>
 	<div class="flex flexGrow">
 		<div class="w-5"></div>
-		<div class="w-5">Step</div>
-		<div class="w-40">Name</div>
-		<div class="w-20">Category</div>
-		<div class="w-20">Final Step</div>
+		<div class="w-5 capitalize" i18n="@@step">step</div>
+		<div class="w-40 capitalize" i18n="@@name">name</div>
+		<div class="w-20 capitalize" i18n="@@cateogry">category</div>
+		<div class="w-20 capitalize" i18n="@@final-step">Final step</div>
 		<div class="w-10"></div>
 	</div>
 
 </div>
 
 <div class="list" cdkDropList (cdkDropListDropped)="onDrop($event)">
-	<div class="box" *ngFor="let status of statuses; let last = last" cdkDrag [cdkDragDisabled]="status.step === 0" >
+	<div class="box" *ngFor="let status of statuses; let last = last" cdkDrag [cdkDragDisabled]="status?.step === 0" >
 		<!-- placeholder -->
 		<div class="bg-primary custom-placeholder" *cdkDragPlaceholder></div>
 		<!-- no border -->
@@ -22,22 +22,22 @@
 		<div class="flex flexGrow sub-cell" [ngClass]="{ 'with-border': !last }">
 			<!-- handle -->
 			<div class="w-5 cell">
-				<icon-app *ngIf="status.step !== 0" cdkDragHandle class="handle" name="grip-vertical" fontSet="fa"></icon-app>
+				<icon-app *ngIf="status?.step !== 0" cdkDragHandle class="handle" name="grip-vertical" fontSet="fa"></icon-app>
 			</div>
 			<!-- step -->
-			<div class="w-5 cell">{{ status.step }}</div>
+			<div class="w-5 cell">{{ status?.step }}</div>
 			<!-- name -->
 			<div class="w-40 cell">
 				<editable-text-app
 					class="pointer"
 					#editable
-					[openOnClick]="status.step !== 0"
+					[openOnClick]="status?.step !== 0"
 					(opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
 					<editable-label-app [ngClass]="{ 'no-hover': status.step == 0 }">
 						{{ status.name | const: 'statuses' }}
-						<button *ngIf="status.step !== 0" class="ugly-btn">rename</button>
+						<button *ngIf="status?.step !== 0" class="ugly-btn" i18n="@@rename">rename</button>
 					</editable-label-app>
-					<input #inp inputApp type="text" [value]="status.name" (keyup.enter)="editable.close()"/>
+					<input #inp inputApp type="text" [value]="status?.name" (keyup.enter)="editable.close()"/>
 				</editable-text-app>
 			</div>
 			<!-- category -->
@@ -67,7 +67,7 @@
 			</div>
 			<!-- preview -->
 			<div class="w-10 cell">
-				<button *ngIf="status.step !== 0" class="ugly-btn" (click)="delete.emit(status.id)">Delete Status</button>
+				<button *ngIf="status.step !== 0" class="ugly-btn capitalize" (click)="delete.emit(status.id)" i18n="@@delete-status">Delete status</button>
 			</div>
 		</div>
 	</div>

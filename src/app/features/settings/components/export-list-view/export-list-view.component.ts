@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'export-list-view-app',
@@ -19,5 +20,9 @@ export class ExportListViewComponent extends ListViewComponent<ExportRequest> {
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 
 	constructor() { super(); }
+
+	getToolTipMsg(status: string) {
+		return status !== 'ready' ? translate('Your export is being processed') : null;
+	}
 
 }
