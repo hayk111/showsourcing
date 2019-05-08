@@ -212,8 +212,11 @@
 			</input-price-app>
 		</form-field-app>
 
-		<!-- inner carton -->
-		<!-- master carton -->
+		<!-- packaging -->
+		<form-field-app *ngSwitchCase="'packaging'" class="modal">
+			<label-app>{{ definition.label }}</label-app>
+			<editable-packaging-app inputApp></editable-packaging-app>
+		</form-field-app>
 
 	</ng-container>
 

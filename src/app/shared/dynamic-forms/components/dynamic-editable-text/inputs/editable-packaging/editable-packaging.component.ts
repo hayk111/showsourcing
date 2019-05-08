@@ -21,6 +21,8 @@ export class EditablePackagingComponent extends AbstractInput {
 	get value() { return this._value; }
 	private _value;
 
+	@Input() isFormStyle = false;
+	@Input() disabled = false;
 	@Input() customField: DynamicField;
 	@Output() change = new EventEmitter<Packaging>();
 	@Output() rowClosed = new EventEmitter();
@@ -50,7 +52,7 @@ export class EditablePackagingComponent extends AbstractInput {
 
 	onChange() {
 		this.onChangeFn(this.value);
-		this.change.emit();
+		this.change.emit(this.value);
 	}
 
 	updateAcummulator(name, prop) {
