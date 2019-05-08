@@ -5,7 +5,7 @@ import { ExtendedFieldDefinition } from './extended-field-definition.model';
 export class RequestTemplate {
 	id: ID;
 	name: string;
-	targetedEntity: string;
+	targetedEntity = 'Product';
 	requestedFields: ExtendedFieldDefinition[];
 	__typename?= 'RequestTemplate';
 
@@ -19,4 +19,5 @@ export interface RequestTemplateConfig {
 	id?: ID;
 	name?: string;
 	targetedEntity?: string;
+	requestedFields?: ExtendedFieldDefinition[];
 }

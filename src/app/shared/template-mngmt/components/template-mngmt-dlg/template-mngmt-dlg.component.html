@@ -12,45 +12,53 @@
 
       <h2 i18n="header@@my-request-templates">My Request Templates</h2>
 
-      <span i18n="text@@new-template">New Template</span>
+      <div class="info" i18n="text@@new-template">New Template</div>
 
       <div class="input-box flexVAlign">
-        <input type="text" placeholder="Quick RFQ">
-        <button>New</button>
+        <input #inp type="text" placeholder="Template Name">
+        <button (click)="createTemplate(inp.value)">New</button>
       </div>
 
       <h3 i18n="header@@templates">Templates</h3>
       <list-app>
-        <list-item-app *ngFor="let template of templates$ | async">
-          <span>{{ template.name }}</span>
+        <list-item-app *ngFor="let template of templates$ | async" (click)="templateSelected = template">
+          <div class="flexBetween fullWidth">
+            <span>{{ template.name }}</span>
+            <span class="delete" (click)="deleteTemplate($event, template)">delete</span>
+          </div>
         </list-item-app>
       </list-app>
     </div>
     
-    <div class="right">
+    <div class="right flexGrow">
 
-      <h1>Quick RFQ</h1>
+      <h2>{{ templateSelected.name }}</h2>
 
       <h3 i18n="header@@template-elements">Template elements</h3>
 
-      <span i18n="select-info-template-supplier">
+      <div class="info" i18n="select-info-template-supplier">
         Select the information you want to request the supplier.
-      </span>
+      </div>
 
       <list-app>
-        <list-item-app *ngFor="let fc of (fieldChecked$ | async)">
-          <div class="flexBetween fullWidth">
-            <span> {{ fc.field.label }}</span>
-            <checkbox-app [checked]="fc.checked"></checkbox-app>
+        <list-item-app *ngFor="let fc of (newState | keyvalue)" (click)="toggle(fc.key)">
+          <div class="flexBetween flexVAlign fullWidth">
+            <span> {{ fc.key.label }}</span>
+            <checkbox-app [checked]="fc.value"></checkbox-app>
           </div>
         </list-item-app>
       </list-app>
+
+      <div class="actions flexEnd">
+        <button class="secondary" (click)="reset()">Reset</button>
+        <button (click)="save()">Save Changes</button>
+      </div>
     </div>
 
   </div>
   
   <dialog-footer-app>
-    <button (click)="close($event)">close</button>
+    <button class="secondary" (click)="close($event)">close</button>
   </dialog-footer-app>
 
 </dialog-app>

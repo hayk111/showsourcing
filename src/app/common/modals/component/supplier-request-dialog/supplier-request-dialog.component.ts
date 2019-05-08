@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { switchMap, take } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
-import { Contact, CreateRequest, Product, Supplier } from '~core/models';
+import { Contact, CreateRequest, Product, Supplier, RequestTemplate } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -10,7 +10,7 @@ import { ID } from '~utils';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 import { TemplateMngmtDlgComponent } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
-import { of } from 'rxjs';
+import { of, Subject, Observable } from 'rxjs';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -26,7 +26,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 	pending = false;
 	filterList = new FilterList([]);
 	supplier: Supplier;
-
+	private templateSelectedAction$ = new Subject<ID>();
+	selectedTemplate$: Observable<RequestTemplate>;
 	// if we don't initialize it the selector will try to push to an empty object
 	@Input() products: Product[] = [];
 
@@ -57,6 +58,10 @@ export class SupplierRequestDialogComponent implements OnInit {
 			this.initFormValues();
 		}
 		this.form.patchValue(this.request);
+		this.selectedTemplate$ = this.templateSelectedAction$.pipe(
+			switchMap(id => this.requestTemplateSrv.queryOne(id))
+		);
+
 	}
 
 	private initFormValues() {
@@ -78,7 +83,10 @@ export class SupplierRequestDialogComponent implements OnInit {
 		// template, selecting the first one
 		this.requestTemplateSrv.queryOneByPredicate('targetedEntity == "Product"')
 			.pipe(take(1))
-			.subscribe(reqTemplate => this.form.patchValue({ requestTemplate: reqTemplate }));
+			.subscribe(reqTemplate => {
+				this.templateSelectedAction$.next(reqTemplate.id);
+				this.form.patchValue({ requestTemplate: reqTemplate });
+			});
 
 		// supplier, its not a form value but it has to be initialized
 
@@ -181,12 +189,20 @@ export class SupplierRequestDialogComponent implements OnInit {
 		return array.join(', ');
 	}
 
-	openTemplateMngmtDialog(event: MouseEvent) {
+	selectTemplate(tmp: RequestTemplate) {
+		this.templateSelectedAction$.next(tmp.id);
+	}
+
+	openTemplateMngmtDialog(event: MouseEvent, templateSelected: RequestTemplate) {
 		event.stopPropagation();
 		const request = new CreateRequest(this.form.value);
-		this.dlgSrv.open(TemplateMngmtDlgComponent, {})
+		this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected })
 			// we are reopening this dlg when the other one closes
 			.subscribe(({ template }) => this.dlgSrv.open(SupplierRequestDialogComponent, { request }));
+	}
+
+	getTemplateFields(tmp: RequestTemplate) {
+		return tmp.requestedFields.map(f => f.label).join(', ');
 	}
 
 }

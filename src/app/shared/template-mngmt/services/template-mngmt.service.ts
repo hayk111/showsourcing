@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { RequestTemplate } from '~core/models';
+import { map } from 'rxjs/operators';
 import { RequestTemplateService } from '~core/entity-services';
-import { ExtendedFieldDefinitionService } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { map, tap } from 'rxjs/operators';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { ExtendedFieldDefinition, RequestTemplate } from '~core/models';
 
 @Injectable({
 	providedIn: 'root'
@@ -12,10 +14,12 @@ export class TemplateMngmtService {
 	constructor(
 		private templateSrv: RequestTemplateService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService
-	) { }
+	) {
+	}
 
 	getTemplates() {
-		return this.templateSrv.queryAll();
+		// TODO don't use selectAll here, it will reset the form
+		return this.templateSrv.selectAll();
 	}
 
 	createNewTemplate(template: RequestTemplate) {
@@ -24,10 +28,10 @@ export class TemplateMngmtService {
 
 	getExtendedFields(template: RequestTemplate) {
 		return this.extendedFieldDefSrv.queryMany({ query: 'target contains[c] "product."' }).pipe(
-			map(fields => fields.map(field => {
-				const isFound = !!template.requestedFields.find(f => f.target === field.target);
-				return { field, checked: isFound };
-			})),
+			map(fields => fields.reduce((prev, curr) => {
+				const isFound = !!template.requestedFields.find(f => f.id === curr.id);
+				return prev.set(curr, isFound);
+			}, new Map<ExtendedFieldDefinition, boolean>())),
 		);
 	}
 

@@ -27,7 +27,8 @@
 					<selector-app
 						#selectorReqTemplate
 						type="request template"
-						formControlName="requestTemplate">
+						formControlName="requestTemplate"
+						(update)="selectTemplate($event)">
 							<selector-placeholder-app
 								[name]="selectorReqTemplate?.value?.name"
 								placeholder="Quick RFQ">
@@ -36,7 +37,12 @@
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
 
-				<div class="flexEnd txtBtn" (click)="openTemplateMngmtDialog($event)">Browse templates</div>
+				<ng-container *ngIf="selectedTemplate$ | async as tmpSlctd">
+					<div class="flexEnd btnTxt pointer" (click)="openTemplateMngmtDialog($event, tmpSlctd)">Browse templates</div>
+					<span class="spacer mg-xs"></span>
+					<div><b>Template Fields:</b> {{ getTemplateFields(tmpSlctd) }}</div>
+					<span class="spacer mg-xs"></span>
+				</ng-container>
 
 				<form-field-app class="modal">
 					<label-app>Share my product information</label-app>

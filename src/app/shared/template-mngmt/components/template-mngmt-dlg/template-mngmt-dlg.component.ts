@@ -1,9 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { DialogService, CloseEventType } from '~shared/dialog';
-import { RequestTemplate, ExtendedField, ExtendedFieldDefinition } from '~core/models';
+import { ChangeDetectionStrategy, Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { combineLatest, Observable, Subject, ReplaySubject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { ExtendedFieldDefinition, RequestTemplate } from '~core/models';
+import { CloseEventType, DialogService } from '~shared/dialog';
 import { TemplateMngmtService } from '~shared/template-mngmt/services/template-mngmt.service';
-import { Observable } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'template-mngmt-dlg-app',
@@ -11,22 +13,41 @@ import { tap, switchMap } from 'rxjs/operators';
 	styleUrls: ['./template-mngmt-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TemplateMngmtDlgComponent implements OnInit {
+export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
-	templateSelected: RequestTemplate;
+
+	private templateSelected$ = new ReplaySubject<RequestTemplate>(1);
+	@Input()
+	set templateSelected(tmp: RequestTemplate) {
+		this.templateSelected$.next(tmp);
+		this._templateSelected = tmp;
+	}
+	get templateSelected() {
+		return this._templateSelected;
+	}
+	private _templateSelected: RequestTemplate;
+
 	templates$: Observable<RequestTemplate[]>;
-	fieldChecked$: Observable<{ field: ExtendedFieldDefinition, checked: boolean }[]>;
+	initialState: Map<ExtendedFieldDefinition, boolean>;
+	newState: Map<ExtendedFieldDefinition, boolean>;
 
-	constructor(private dlgSrv: DialogService, private templateMngmtSrv: TemplateMngmtService) { }
+	constructor(
+		private dlgSrv: DialogService,
+		public templateMngmtSrv: TemplateMngmtService,
+		private cd: ChangeDetectorRef
+	) {
+		super();
+	}
 
 	ngOnInit() {
-		this.templates$ = this.templateMngmtSrv.getTemplates().pipe(
-			tap(templates => this.templateSelected = templates[0])
-		);
-		this.fieldChecked$ = this.templates$.pipe(
-			switchMap(_ => this.templateMngmtSrv.getExtendedFields(this.templateSelected))
-		);
-
+		this.templates$ = this.templateMngmtSrv.getTemplates();
+		combineLatest(this.templates$, this.templateSelected$).pipe(
+			switchMap(([_, templateSelected]) => this.templateMngmtSrv.getExtendedFields(templateSelected)),
+		).subscribe(fieldsChecked => {
+			this.initialState = new Map(fieldsChecked);
+			this.newState = new Map(fieldsChecked);
+			this.cd.markForCheck();
+		});
 	}
 
 	close(event: MouseEvent) {
@@ -34,4 +55,33 @@ export class TemplateMngmtDlgComponent implements OnInit {
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { template: this.templateSelected } });
 	}
 
+	createTemplate(name: string) {
+		const reqTmp = new RequestTemplate({ name });
+		this.templateMngmtSrv.createNewTemplate(reqTmp).subscribe();
+	}
+
+	deleteTemplate(event: MouseEvent, tmp: RequestTemplate) {
+		event.stopPropagation();
+		this.templateMngmtSrv.deleteTemplate(tmp);
+	}
+
+	toggle(field: ExtendedFieldDefinition) {
+		this.newState.set(field, !this.newState.get(field));
+		this.cd.markForCheck();
+	}
+
+	reset() {
+		this.newState = new Map(this.initialState);
+		this.cd.markForCheck();
+	}
+
+	save() {
+		const requestedFields: ExtendedFieldDefinition[] = [];
+		this.newState.forEach((value, key) => {
+			if (value)
+				requestedFields.push(key);
+		});
+		const tmp = new RequestTemplate({ id: this.templateSelected.id, requestedFields });
+		this.templateMngmtSrv.updateTemplate(tmp).subscribe();
+	}
 }

@@ -1,9 +1,13 @@
 @import './ripple';
 
 // default style for inputs
+input {
+	height: 32px;
+}
+
 input, textarea {
 	background: var(--color-secondary-light);
-	padding: var(--spacing-s);
+	padding: 0 var(--spacing-s);
 	width: 100%;
 	font-size: var(--font-size-m);
 	box-sizing: border-box;
