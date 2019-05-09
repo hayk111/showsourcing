@@ -109,9 +109,9 @@
 		<label-app>{{ definition.label }}</label-app>
 
 		<editable-label-app [vAlign]="false">
-			<span class="fs-s" *ngIf="getPrice()">{{ getPrice().currency | const : 'currency' : 'symbol'}}</span>
-			<span class="mg-xs spacer" *ngIf="getPrice()"></span>
-			<span>{{ getPrice() !== undefined ? (getPrice().value / 10000) : '-' }}</span>
+			<span *ngIf="getObject()" class="fs-s">{{ getObject().currency | const : 'currency' : 'symbol'}}</span>
+			<span *ngIf="getObject()" class="mg-xs spacer"></span>
+			<span>{{ getObject() !== undefined ? (getObject().value / 10000) : '-' }}</span>
 		</editable-label-app>
 
 		<form-field-app class="editable">
@@ -119,9 +119,9 @@
 				#inp
 				inputApp
 				[disabled]="disabled"
-				[price]="getPrice()"
+				[price]="getObject()"
 				(keyup.enter)="editable.close()"
-				(change)="accumulatePrice(inp.price)">
+				(change)="accumulateJSON(inp.price)">
 			</input-price-app>
 		</form-field-app>
 
@@ -206,7 +206,7 @@
 				#inp
 				inputApp
 				[disabled]="disabled"
-				[price]="getPrice()"
+				[price]="getObject()"
 				(keyup.enter)="onSave()"
 				(change)="onInput(inp.price, true)">
 			</input-price-app>
@@ -217,8 +217,10 @@
 			<label-app>{{ definition.label }}</label-app>
 			<editable-packaging-app
 				inputApp
+				[value]="getObject()"
 				[isFormStyle]="true"
-				[disabled]="disabled">
+				[disabled]="disabled"
+				(update)="onInput($event, true)">
 			</editable-packaging-app>
 		</form-field-app>
 
