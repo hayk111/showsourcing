@@ -1,13 +1,13 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { empty, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
 import { TemplateService } from '~core/template/services/template.service';
-import { DialogService } from '~shared/dialog';
+import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
@@ -259,6 +259,7 @@ export class ListPageService
 		const text = `Delete ${itemIds.length} `
 			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural) + '?';
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
 			switchMap(_ => refetch ? this.refetch() : empty())
 		).subscribe(_ => {
@@ -269,6 +270,8 @@ export class ListPageService
 	/** creates a new entity, can also create with defaul values with extra?: any */
 	create(canRedirect = true, extra?: any) {
 		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra, canRedirect }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			map((evt: CloseEvent) => evt.data)
 		).subscribe(({ item, redirect }) => {
 			// we don't want to put this in a switchmap because we don't want to wait
 			// for the refect before redirecting

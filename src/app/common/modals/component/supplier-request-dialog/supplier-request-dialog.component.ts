@@ -173,16 +173,14 @@ export class SupplierRequestDialogComponent implements OnInit {
 			.subscribe(_ => {
 				this.pending = false;
 				this.dlgSrv.open(ReplySentDlgComponent, { height: '586px', actionName: 'request' });
-			},
-				err => {
-					this.dlgSrv.close();
-					this.notifSrv.add({
-						title: 'Service error when creating request',
-						type: NotificationType.ERROR,
-						message: 'We could not create the request due to a server issue'
-					});
-				}
-			);
+			}, err => {
+				this.dlgSrv.close();
+				this.notifSrv.add({
+					title: 'Service error when creating request',
+					type: NotificationType.ERROR,
+					message: 'We could not create the request due to a server issue'
+				});
+			});
 	}
 
 	arrayToString(array: string[]) {
@@ -198,7 +196,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 		const request = new CreateRequest(this.form.value);
 		this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected })
 			// we are reopening this dlg when the other one closes
-			.subscribe(({ template }) => this.dlgSrv.open(SupplierRequestDialogComponent, { request }));
+			.subscribe(({ type, data }) => this.dlgSrv.open(SupplierRequestDialogComponent, { request }));
 	}
 
 	getTemplateFields(tmp: RequestTemplate) {

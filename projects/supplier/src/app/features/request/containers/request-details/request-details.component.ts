@@ -90,7 +90,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	open(element: RequestElement) {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === element.id);
-		this.dlgSrv.open(RequestReplyDlgComponent, { selectedIndex, requestId: this.requestId }).subscribe();
+		this.dlgSrv.open(RequestReplyDlgComponent, { selectedIndex, requestId: this.requestId });
 	}
 
 	allReplied(reqElements: RequestElement[]) {
@@ -101,13 +101,11 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openRefuseReplyDlg(replyId: ID) {
-		this.dlgSrv.open(RefuseReplyDlgComponent,
-			{
-				senderName: this.request.sender.name,
-				recipientName: this.request.recipient.name,
-				replyId
-			}
-		);
+		this.dlgSrv.open(RefuseReplyDlgComponent, {
+			senderName: this.request.sender.name,
+			recipientName: this.request.recipient.name,
+			replyId
+		});
 	}
 
 }

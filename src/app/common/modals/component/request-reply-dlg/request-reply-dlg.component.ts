@@ -95,7 +95,8 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			({ id: this.reply.id, fields: this.fields, status: ReplyStatus.REPLIED, __typename: 'RequestReply' }) :
 			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
 		this.replySrv.update(reply).subscribe(_ => {
-			if (updateStatus && lastItem) this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
+			if (updateStatus && lastItem)
+				this.dlgSrv.open(ReplySentDlgComponent, { height: '80vh' });
 		});
 	}
 
@@ -111,12 +112,11 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	refuse() {
-		setTimeout(_ =>
-			this.dlgSrv.open(RefuseReplyDlgComponent, {
-				senderName: this.request.sender.name,
-				recipientName: this.request.recipient.name,
-				replyId: this.reply.id
-			}), 100);
+		setTimeout(_ => this.dlgSrv.open(RefuseReplyDlgComponent, {
+			senderName: this.request.sender.name,
+			recipientName: this.request.recipient.name,
+			replyId: this.reply.id
+		}), 100);
 	}
 
 	private getNextUnrepliedIndex() {

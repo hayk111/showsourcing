@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
 import { CommonModalService, SupplierRequestDialogComponent } from '~common/modals';
 import { SampleService, UserService, TaskService, SupplierRequestService, RequestElementService } from '~core/entity-services';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService } from '~shared/dialog/services';
+import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
@@ -162,6 +162,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	deleteProduct(product: Product) {
 		const text = `Are you sure you want to delete this product?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.featureSrv.delete(product.id))
 		).subscribe(_ => this.router.navigate(['product']));
 	}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { first, map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
@@ -8,7 +8,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
@@ -197,6 +197,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			+ (itemIds.length <= 1 ? 'product' : 'products');
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
 		).subscribe(_ => {
 			this.listSrv.selectionSrv.unselectAll();

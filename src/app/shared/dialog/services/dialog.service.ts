@@ -16,9 +16,7 @@ export class DialogService {
 	open(component: new (...args: any[]) => any, props?: Object): Observable<any> {
 		this._toOpen$.next({ component, props });
 		return this.toClose$.pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			first(),
-			map((evt: CloseEvent) => evt.data),
 		);
 	}
 

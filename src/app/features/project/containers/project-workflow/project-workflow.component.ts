@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { first, map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -9,7 +9,7 @@ import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, ProductStatus, Project } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
@@ -193,6 +193,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			+ (itemIds.length <= 1 ? this.listSrv.entityMetadata.singular : this.listSrv.entityMetadata.plural);
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
 		).subscribe(_ => {
 			this.listSrv.selectionSrv.unselectAll();

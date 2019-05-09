@@ -6,7 +6,7 @@ export enum CloseEventType {
 }
 
 export interface CloseEvent {
-	type: CloseEventType | string;
+	type: CloseEventType;
 	data?: any;
 }
 
