@@ -8,5 +8,6 @@ export enum CloseEventType {
 export interface CloseEvent {
 	type: CloseEventType;
 	data?: any;
+	component?: any;
 }
 

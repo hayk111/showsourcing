@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { combineLatest, Observable, Subject, ReplaySubject } from 'rxjs';
-import { switchMap, takeUntil, tap, map } from 'rxjs/operators';
+import { combineLatest, Observable, Subject, ReplaySubject, of } from 'rxjs';
+import { switchMap, takeUntil, tap, map, filter } from 'rxjs/operators';
 import { ExtendedFieldDefinition, RequestTemplate } from '~core/models';
-import { CloseEventType, DialogService } from '~shared/dialog';
+import { CloseEventType, DialogService, CloseEvent } from '~shared/dialog';
 import { TemplateMngmtService } from '~shared/template-mngmt/services/template-mngmt.service';
 import { AutoUnsub } from '~utils';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
@@ -75,8 +75,14 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	deleteTemplate(event: MouseEvent, tmp: RequestTemplate) {
 		event.stopPropagation();
-		this.dlgSrv.open(ConfirmDialogComponent).subscribe();
-		this.templateMngmtSrv.deleteTemplate(tmp).subscribe();
+		this.dlgSrv.open(ConfirmDialogComponent).pipe(
+			switchMap((evt: CloseEvent) => {
+				if (evt.type === CloseEventType.OK)
+					return this.templateMngmtSrv.deleteTemplate(tmp);
+				else
+					of(false);
+			})
+		).subscribe();
 	}
 
 	toggle(field: ExtendedFieldDefinition) {
