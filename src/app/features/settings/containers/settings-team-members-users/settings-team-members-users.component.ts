@@ -5,6 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { ERM, TeamUser, User } from '~models';
 import { AutoUnsub, translate } from '~utils';
+import { UserService } from '~core/entity-services';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -22,7 +23,8 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	constructor(
 		private featureSrv: MemberFeatureService,
 		public listSrv: ListPageService<TeamUser, MemberFeatureService>,
-		public commonModalSrv: CommonModalService
+		public commonModalSrv: CommonModalService,
+		private userSrv: UserService
 	) {
 		super();
 	}
@@ -34,7 +36,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 			searchedFields: ['user.firstName', 'user.lastName', 'user.email'],
 			selectParams: { query: '', sortBy: 'user.firstName', descending: true },
 			entityMetadata: ERM.TEAM_USER,
-			originComponentDestroy: this._destroy$
+			originComponentDestroy$: this._destroy$
 		});
 
 		this.listSrv.selectionSrv.selection$.pipe(

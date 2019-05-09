@@ -38,10 +38,10 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'description'],
 			selectParams: {
-				query: `supplier.id == "${this.supplierId}" AND archived == false`,
+				query: `supplier.id == "${this.supplierId}" AND archived == false AND deleted == false`,
 			},
 			entityMetadata: ERM.PRODUCT,
-			originComponentDestroy: this._destroy$
+			originComponentDestroy$: this._destroy$
 		});
 	}
 
@@ -63,5 +63,6 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 
 	export() {
 		this.listSrv.dataSrv.items$.pipe(first()).subscribe((products: Product[]) => this.commonModalSrv.openExportDialog(products));
+		this.listSrv.dataSrv.items$.connect();
 	}
 }

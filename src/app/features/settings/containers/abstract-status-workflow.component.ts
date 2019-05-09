@@ -15,15 +15,17 @@ export abstract class AbstractStatusWorkflowComponent<T, G extends GlobalService
 		public commonModalSrv: CommonModalService,
 		public pageKey: ListPageKey,
 		public entityMetadata: EntityMetadata
-	) { super(); }
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.listSrv.setup({
 			key: this.pageKey,
 			entitySrv: this.statusSrv,
-			selectParams: { sortBy: 'step', descending: false },
+			selectParams: { sortBy: 'step', descending: false, query: 'deleted == false' },
 			entityMetadata: this.entityMetadata,
-			originComponentDestroy: this._destroy$
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

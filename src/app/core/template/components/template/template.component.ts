@@ -1,6 +1,9 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { routerAnimation } from '~core/template/components/animation';
 import { TemplateService } from '~core/template/services/template.service';
+import { DialogService } from '~shared/dialog';
+import { OnBoardingDlgComponent } from '~shared/on-boarding/components';
+import { OnBoardingService } from '~shared/on-boarding/services/on-boarding.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
@@ -11,17 +14,21 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 		routerAnimation
 	]
 })
-export class TemplateComponent extends AutoUnsub implements AfterViewInit {
+export class TemplateComponent extends AutoUnsub implements OnInit {
 	@ViewChild('main') main: ElementRef<HTMLElement>;
 
 	constructor(
-		private templateSrv: TemplateService
+		private templateSrv: TemplateService,
+		private onboardingSrv: OnBoardingService,
+		private dlgSrv: DialogService
 	) {
 		super();
 	}
 
-	ngAfterViewInit() {
-
+	ngOnInit() {
+		if (!this.onboardingSrv.isCompleted) {
+			this.dlgSrv.open(OnBoardingDlgComponent, undefined, false);
+		}
 	}
 
 	/**

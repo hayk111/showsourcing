@@ -11,6 +11,7 @@ import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-root',
@@ -31,10 +32,18 @@ export class AppComponent implements OnInit {
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
 		private userClient: UserClientInitializer,
+		private location: Location
 	) { }
 
 	ngOnInit(): void {
+		const isAuthRoute = this.location.path().startsWith('/auth');
+
+		// TODO Cedric take a look on why this doesn't work pls
+		// if (isAuthRoute)
+		// 	this.authSrv.logout(true);
+		// else
 		this.authSrv.init();
+
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
@@ -53,8 +62,7 @@ export class AppComponent implements OnInit {
 		).subscribe();
 
 		// when logging off we destroy all clients
-		this.authSrv.notAuthenticated$
-			.subscribe(_ => this.destroyAllClients());
+		this.authSrv.notAuthenticated$.subscribe(_ => this.destroyAllClients());
 
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelectionEvent$.pipe(

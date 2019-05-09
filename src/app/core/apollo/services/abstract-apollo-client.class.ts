@@ -86,6 +86,7 @@ export abstract class AbstractApolloClient {
 			user,
 			realmPath
 		);
+
 		log.debug(`%c 🌈creating client ${name}, path: ${realmPath}`, LogColor.APOLLO_CLIENT_PRE);
 		const linker = new WebSocketLink({
 			uri: config.webSocketEndpoint,

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { first, map, skip, switchMap, tap } from 'rxjs/operators';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import { ConnectableObservable, Observable } from 'rxjs';
+import { first, map, skip, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
@@ -21,7 +22,7 @@ export class ListPageDataService
 	/** main global service used */
 	protected entitySrv: G;
 	/** currently loaded items */
-	items$: Observable<Array<T>>;
+	items$: ConnectableObservable<Array<T>>;
 
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
@@ -43,6 +44,8 @@ export class ListPageDataService
 	/** initialization flags */
 	private isSetup = false;
 	private initialized = false;
+	/** tells us if loadData has been called */
+	isListening = false;
 
 	/** for the smart search feature... */
 	private searchFilterElements$: Observable<any[]>;
@@ -58,9 +61,13 @@ export class ListPageDataService
 	 * @param service main global/feature service used for making queries
 	 */
 	setup(config: ListPageDataConfig) {
+		this.isListening = false;
 		if (this.isSetup)
 			return;
+		// we need to keep the previous state of the params so it doesn't break
+		const beforeParams = { ...this.selectParams, ...config.selectParams };
 		Object.assign(this, config);
+		this.selectParams = beforeParams;
 		this.filterList = new FilterList(
 			config.initialFilters,
 			config.searchedFields,
@@ -70,13 +77,22 @@ export class ListPageDataService
 	}
 
 	/** init: helper method to set everything up at once */
-	loadData() {
-		if (this.initialized) {
-			return this.refetch().subscribe();
+	loadData(destroy$: Observable<void>) {
+		// since the item$ is a connectable observable we
+		// can just do it once
+		if (!this.initialized) {
+			this.setItems();
+			this.initialized = true;
+		} else {
+			this.refetch({}).subscribe();
 		}
-		this.setItems();
-		this.listenFilterChanges();
-		this.initialized = true;
+		// here we want to unsubscribe from the filter list
+		// when the component is destroyed so we do it all the time
+		this.listenFilterChanges(destroy$);
+		// since the isListening changes after ngAfterViewInit a lot of the time
+		// let's use setTimeout to not have a ViewChangedAfterItWasCheckedError
+
+		setTimeout(_ => this.isListening = true);
 	}
 
 	/** subscribe to items and get the list result */
@@ -92,23 +108,21 @@ export class ListPageDataService
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
-			map(items => items.filter(itm => !itm.deleted))
-		);
+			map(items => (items || []).filter(itm => !itm.deleted)),
+		) as ConnectableObservable<T[]>;
+		// then we start listening
+		this.listResult.items$.connect();
 	}
 
 	/** when the filter change we want to refetch the items with a new predicate */
-	listenFilterChanges() {
+	listenFilterChanges(destroy$: Observable<void>) {
 		this.filterList
 			.valueChanges$
 			.pipe(
 				skip(1),
-				switchMap(_ => this.refetch({ query: this.filterList.asPredicate() }))
+				switchMap(_ => this.refetch({ query: this.filterList.asPredicate() })),
+				takeUntil(destroy$)
 			).subscribe();
-	}
-
-	/** when the items are loading */
-	onLoad() {
-		this.pending = true;
 	}
 
 	/** when the items are loaded */

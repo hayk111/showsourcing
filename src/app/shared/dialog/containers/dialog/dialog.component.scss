@@ -13,6 +13,9 @@
 	&.vertical-scroll-content .content{
 		overflow-y: auto;
 	}
+	&.no-content-height .content {
+		height: unset;
+	}
 }
 
 .header {

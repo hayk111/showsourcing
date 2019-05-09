@@ -16,7 +16,7 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 				class="pointer flexCenter"
-				(click)="delete.emit(row.id)"
+				(click)="delete.emit(row)"
 				i18n="button@@delete">
 				delete
 		</context-menu-item-app>
@@ -69,7 +69,7 @@
 				contributor
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
-			<context-menu-item-app class="remove-user" (click)="delete.emit(row.id)">
+			<context-menu-item-app class="remove-user" (click)="delete.emit(row)">
 				<span i18n="@@remove-user">Remove User</span>
 			</context-menu-item-app>
 		 </context-menu-app>

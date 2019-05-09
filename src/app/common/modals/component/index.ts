@@ -1,6 +1,7 @@
 export * from './change-pswd-dlg/change-pswd-dlg.component';
 export * from './compare-product/compare-product.component';
 export * from './creation-dialog/creation-dialog.component';
+export * from './description-dlg/description-dlg.component';
 export * from './edition-dialog/edition-dialog.component';
 export * from './export-dlg/export-dlg.component';
 export * from './invite-user-dlg/invite-user-dlg.component';

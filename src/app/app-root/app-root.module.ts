@@ -47,6 +47,7 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
+	providers: [],
 	entryComponents: [],
 })
 export class AppRootModule { }

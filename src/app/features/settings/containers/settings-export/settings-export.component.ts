@@ -29,7 +29,7 @@ export class SettingsExportComponent extends AutoUnsub implements OnInit, AfterV
 			searchedFields: ['format', 'status', 'createdBy.firstName', 'createdBy.lastName'],
 			entityMetadata: ERM.EXPORT_REQUEST,
 			initialFilters: [],
-			originComponentDestroy: this._destroy$
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

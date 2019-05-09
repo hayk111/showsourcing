@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { CompareQuotationComponent } from '~common/modals';
+import { RfqDialogComponent } from '~common/modals';
 import { ProductFeatureService, QuoteFeatureService } from '~features/products/services';
 import { Product, Quote } from '~models';
 import { DialogService } from '~shared/dialog/services';
@@ -59,12 +60,6 @@ export class ProductQuotationComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
-	/** Opens a dialog that lets the user compare quotation of this product */
-	openCompareQuotationDialog(quotes) {
-		this.dlgSrv.open(CompareQuotationComponent, {
-			quotes: quotes
-		});
-	}
 
 	loadMoreQuote() {
 		// TODO need to implement

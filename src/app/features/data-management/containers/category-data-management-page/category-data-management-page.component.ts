@@ -32,9 +32,9 @@ export class CategoryDataManagementPageComponent extends AutoUnsub implements On
 			key: ListPageKey.CATEGORY,
 			entitySrv: this.categorySrv,
 			searchedFields: ['name'],
-			selectParams: { sortBy: 'name', descending: false },
+			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
 			entityMetadata: ERM.CATEGORY,
-			originComponentDestroy: this._destroy$
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

@@ -90,4 +90,8 @@ export class InputPriceComponent extends AbstractInput {
 	set currency(currencyId: string) {
 		this.price.currency = currencyId;
 	}
+
+	focus() {
+		this.inp.focus();
+	}
 }

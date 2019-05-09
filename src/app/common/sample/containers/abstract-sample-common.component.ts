@@ -28,13 +28,14 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 			key: `${ListPageKey.SAMPLE}-${id}`,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
-			selectParams: { sortBy: 'name', descending: false },
+			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
 			entityMetadata: ERM.SAMPLE,
 			initialFilters: [
 				{ type: FilterType.ASSIGNEE, value: userId },
 				{ type: FilterType.DELETED, value: false },
 				...addedFilters
-			]
+			],
+			originComponentDestroy$: this._destroy$
 		});
 	}
 
