@@ -1,29 +1,37 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { RequestTemplateService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ExtendedFieldDefinition, RequestTemplate } from '~core/models';
+import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class TemplateMngmtService {
 
+	private listQuery: ListQuery<RequestTemplate>;
+
 	constructor(
 		private templateSrv: RequestTemplateService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService
 	) {
+		this.listQuery = this.templateSrv.getListQuery({ take: 1000 });
+		// TODO dev merge
+		// this.listQuery.items$.connect();
 	}
 
 	getTemplates() {
-		// TODO don't use selectAll here, it will reset the form
-		return this.templateSrv.selectAll();
+		// we use list query here because the user can create templates
+		return this.listQuery.items$;
 	}
 
 	createNewTemplate(template: RequestTemplate) {
-		return this.templateSrv.create(template);
+		return this.templateSrv.create(template).pipe(
+			switchMap(_ => this.listQuery.refetch({}))
+		);
 	}
 
 	getExtendedFields(template: RequestTemplate) {
@@ -36,10 +44,18 @@ export class TemplateMngmtService {
 	}
 
 	deleteTemplate(template: RequestTemplate) {
-		return this.templateSrv.delete(template.id);
+		return this.templateSrv.delete(template.id).pipe(
+			switchMap(_ => this.listQuery.refetch({}))
+		);
 	}
 
 	updateTemplate(template: RequestTemplate) {
-		return this.templateSrv.update(template);
+		return this.templateSrv.update(template).pipe(
+			switchMap(_ => this.listQuery.refetch({}))
+		);
+	}
+
+	getOne(id: string) {
+		return this.templateSrv.queryOne(id);
 	}
 }

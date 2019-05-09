@@ -15,16 +15,19 @@
       <div class="info" i18n="text@@new-template">New Template</div>
 
       <div class="input-box flexVAlign">
-        <input #inp type="text" placeholder="Template Name">
-        <button (click)="createTemplate(inp.value)">New</button>
+        <input [formControl]="createCtrl" type="text" placeholder="Template Name" (keyup.enter)="btn.click()">
+        <button #btn (click)="createTemplate()">New</button>
       </div>
 
       <h3 i18n="header@@templates">Templates</h3>
       <list-app>
-        <list-item-app *ngFor="let template of templates$ | async" (click)="templateSelected = template">
-          <div class="flexBetween fullWidth">
-            <span>{{ template.name }}</span>
-            <span class="delete" (click)="deleteTemplate($event, template)">delete</span>
+        <list-item-app 
+          *ngFor="let template of templates$ | async" 
+          [ngClass]="{ 'selected': isSelected(template) }"
+          (click)="templateSelected = template">
+          <div class="item flexBetween fullWidth">
+            <span class="name">{{ template.name }} {{ isSelected(template) }}</span>
+            <span class="delete txt-clickable" (click)="deleteTemplate($event, template)">delete</span>
           </div>
         </list-item-app>
       </list-app>
@@ -50,8 +53,8 @@
       </list-app>
 
       <div class="actions flexEnd">
-        <button class="secondary" (click)="reset()">Reset</button>
-        <button (click)="save()">Save Changes</button>
+        <button [disabled]="!hasChanged()" class="secondary" (click)="reset()">Reset</button>
+        <button [disabled]="!hasChanged()" (click)="save()">Save Changes</button>
       </div>
     </div>
 

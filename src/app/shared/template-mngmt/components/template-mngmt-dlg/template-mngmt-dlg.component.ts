@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { combineLatest, Observable, Subject, ReplaySubject } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map } from 'rxjs/operators';
 import { ExtendedFieldDefinition, RequestTemplate } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { TemplateMngmtService } from '~shared/template-mngmt/services/template-mngmt.service';
 import { AutoUnsub } from '~utils';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 @Component({
 	selector: 'template-mngmt-dlg-app',
@@ -15,11 +16,18 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
+	createCtrl = new FormControl();
 
-	private templateSelected$ = new ReplaySubject<RequestTemplate>(1);
+
+	private _templateSelected$ = new ReplaySubject<RequestTemplate>(1);
+	// let's call queryOne to have the updates from cache
+	private templateSelected$ = this._templateSelected$.asObservable().pipe(
+		switchMap(tmp => this.templateMngmtSrv.getOne(tmp.id))
+	);
+
 	@Input()
 	set templateSelected(tmp: RequestTemplate) {
-		this.templateSelected$.next(tmp);
+		this._templateSelected$.next(tmp);
 		this._templateSelected = tmp;
 	}
 	get templateSelected() {
@@ -28,8 +36,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	private _templateSelected: RequestTemplate;
 
 	templates$: Observable<RequestTemplate[]>;
-	initialState: Map<ExtendedFieldDefinition, boolean>;
-	newState: Map<ExtendedFieldDefinition, boolean>;
+	initialState = new Map<ExtendedFieldDefinition, boolean>();
+	newState = new Map<ExtendedFieldDefinition, boolean>();
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -41,8 +49,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.templates$ = this.templateMngmtSrv.getTemplates();
-		combineLatest(this.templates$, this.templateSelected$).pipe(
-			switchMap(([_, templateSelected]) => this.templateMngmtSrv.getExtendedFields(templateSelected)),
+		this.templateSelected$.pipe(
+			switchMap(templateSelected => this.templateMngmtSrv.getExtendedFields(templateSelected)),
 		).subscribe(fieldsChecked => {
 			this.initialState = new Map(fieldsChecked);
 			this.newState = new Map(fieldsChecked);
@@ -55,14 +63,20 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { template: this.templateSelected } });
 	}
 
-	createTemplate(name: string) {
-		const reqTmp = new RequestTemplate({ name });
-		this.templateMngmtSrv.createNewTemplate(reqTmp).subscribe();
+	createTemplate() {
+		const name = this.createCtrl.value;
+		if (name) {
+			const reqTmp = new RequestTemplate({ name });
+			this.templateMngmtSrv.createNewTemplate(reqTmp)
+				.subscribe(tmp => this.templateSelected = tmp);
+			this.createCtrl.reset();
+		}
 	}
 
 	deleteTemplate(event: MouseEvent, tmp: RequestTemplate) {
 		event.stopPropagation();
-		this.templateMngmtSrv.deleteTemplate(tmp);
+		this.dlgSrv.open(ConfirmDialogComponent).subscribe();
+		this.templateMngmtSrv.deleteTemplate(tmp).subscribe();
 	}
 
 	toggle(field: ExtendedFieldDefinition) {
@@ -83,5 +97,13 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		});
 		const tmp = new RequestTemplate({ id: this.templateSelected.id, requestedFields });
 		this.templateMngmtSrv.updateTemplate(tmp).subscribe();
+	}
+
+	hasChanged() {
+		return !Array.from(this.initialState).every(([key, val]) => val === this.newState.get(key));
+	}
+
+	isSelected(template: RequestTemplate) {
+		return this.templateSelected.id === template.id;
 	}
 }

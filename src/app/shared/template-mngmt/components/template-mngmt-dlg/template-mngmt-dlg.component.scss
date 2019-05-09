@@ -10,23 +10,28 @@ dialog-app {
 
 .left {
 	border-right: 1px solid var(--color-divider);
-	background: var(--color-secondary-light);
+	// background: var(--color-secondary-light);
 	width: 363px;
 	input {
-		background: white;
+		// background: white;
 		margin-right: var(--spacing-s);
 	}
 	.info {
-		margin-bottom: 6px;
+		margin-bottom: var(--spacing-xs);
 	}
 	.input-box {
 		margin-bottom: var(--spacing-l);
 	}
-	list-app {
+
+	list-item-app.selected {
 		background: var(--color-secondary-light);
+		color: var(--color-txt);
 	}
+
 	list-item-app:hover {
-		color: var(--color-primary);
+		.name {
+			color: var(--color-primary);
+		}
 		.delete {
 			visibility: visible;
 		}

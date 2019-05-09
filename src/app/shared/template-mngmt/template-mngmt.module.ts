@@ -4,6 +4,7 @@ import { TemplateMngmtDlgComponent } from './components/template-mngmt-dlg/templ
 import { DialogModule } from '~shared/dialog';
 import { ListModule } from '~shared/list/list.module';
 import { InputsModule } from '~shared/inputs';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [TemplateMngmtDlgComponent],
@@ -11,7 +12,8 @@ import { InputsModule } from '~shared/inputs';
 		CommonModule,
 		DialogModule,
 		ListModule,
-		InputsModule
+		InputsModule,
+		ReactiveFormsModule
 	],
 	exports: [TemplateMngmtDlgComponent],
 	entryComponents: [TemplateMngmtDlgComponent]
