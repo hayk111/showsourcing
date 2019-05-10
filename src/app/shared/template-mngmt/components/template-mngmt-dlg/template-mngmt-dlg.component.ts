@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { combineLatest, Observable, Subject, ReplaySubject, of } from 'rxjs';
-import { switchMap, takeUntil, tap, map, filter } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map, filter, delay } from 'rxjs/operators';
 import { ExtendedFieldDefinition, RequestTemplate } from '~core/models';
 import { CloseEventType, DialogService, CloseEvent } from '~shared/dialog';
 import { TemplateMngmtService } from '~shared/template-mngmt/services/template-mngmt.service';
@@ -15,7 +15,8 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
-
+	static count = 0;
+	count = TemplateMngmtDlgComponent.count++;
 	createCtrl = new FormControl();
 
 
@@ -75,14 +76,14 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	deleteTemplate(event: MouseEvent, tmp: RequestTemplate) {
 		event.stopPropagation();
+		return this.templateMngmtSrv.deleteTemplate(tmp).subscribe();
+	}
+
+	openCnfrm(event) {
+		event.stopPropagation();
+		const templateSelected = this.templateSelected;
 		this.dlgSrv.open(ConfirmDialogComponent).pipe(
-			switchMap((evt: CloseEvent) => {
-				if (evt.type === CloseEventType.OK)
-					return this.templateMngmtSrv.deleteTemplate(tmp);
-				else
-					of(false);
-			})
-		).subscribe();
+		).subscribe(_ => this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected }));
 	}
 
 	toggle(field: ExtendedFieldDefinition) {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, delay } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
 import { Contact, CreateRequest, Product, Supplier, RequestTemplate } from '~core/models';
 import { DialogService } from '~shared/dialog';
@@ -21,6 +21,8 @@ import { of, Subject, Observable } from 'rxjs';
 export class SupplierRequestDialogComponent implements OnInit {
 
 	@Input() request: CreateRequest;
+	// if we don't initialize it the selector will try to push to an empty object
+	@Input() products: Product[] = [];
 	form: FormGroup;
 	copyEmail = false;
 	pending = false;
@@ -28,8 +30,6 @@ export class SupplierRequestDialogComponent implements OnInit {
 	supplier: Supplier;
 	private templateSelectedAction$ = new Subject<ID>();
 	selectedTemplate$: Observable<RequestTemplate>;
-	// if we don't initialize it the selector will try to push to an empty object
-	@Input() products: Product[] = [];
 
 	constructor(
 		private fb: FormBuilder,
@@ -196,7 +196,9 @@ export class SupplierRequestDialogComponent implements OnInit {
 		const request = new CreateRequest(this.form.value);
 		this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected })
 			// we are reopening this dlg when the other one closes
-			.subscribe(({ type, data }) => this.dlgSrv.open(SupplierRequestDialogComponent, { request }));
+			.subscribe(({ type, data }) => {
+				return this.dlgSrv.open(SupplierRequestDialogComponent, { request });
+			});
 	}
 
 	getTemplateFields(tmp: RequestTemplate) {

@@ -5,6 +5,7 @@ import { DialogModule } from '~shared/dialog';
 import { ListModule } from '~shared/list/list.module';
 import { InputsModule } from '~shared/inputs';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 
 @NgModule({
 	declarations: [TemplateMngmtDlgComponent],
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 		DialogModule,
 		ListModule,
 		InputsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		ContextMenuModule
 	],
 	exports: [TemplateMngmtDlgComponent],
 	entryComponents: [TemplateMngmtDlgComponent]
