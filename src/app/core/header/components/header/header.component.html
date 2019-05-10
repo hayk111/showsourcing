@@ -3,15 +3,20 @@
 </a>
 
 <nav>
-  <a [routerLink]="['/dashboard']" routerLinkActive="selected">Home</a>
+  <a class="first-uppercase" [routerLink]="['/dashboard']" routerLinkActive="selected" i18n="@@home">home</a>
 
-  <a [routerLink]="['/project']" routerLinkActive="selected">Projects</a>
+  <a class="first-uppercase" [routerLink]="['/project']" routerLinkActive="selected" i18n="@@projects">projects</a>
 
-  <a [routerLink]="['/product']" routerLinkActive="selected">Products</a>
+  <a class="first-uppercase" [routerLink]="['/product']" routerLinkActive="selected" i18n="@@products">products</a>
 
-  <a [routerLink]="['/supplier']" routerLinkActive="selected">Suppliers</a>
+  <a class="first-uppercase" [routerLink]="['/supplier']" routerLinkActive="selected" i18n="@@suppliers">suppliers</a>
 
-	<a [routerLink]="['/workspace']" routerLinkActive="selected">Workspace</a>
+	<a class="first-uppercase" [routerLink]="['/workspace']" routerLinkActive="selected" i18n="@@workspace">workspace</a>
+
+	<a class="request-container" [routerLink]="['/requests']" routerLinkActive="selected" i18n="@@requests">
+		requests
+		<notification-badge-app *ngIf="(requestCount$ | async) as reqCount"> {{ reqCount }} </notification-badge-app>
+	</a>
 
   <!-- we don't want those links in production... -->
   <a
@@ -59,10 +64,9 @@
     <input inputApp class="searchInput" restrictSpecial [restrictArrows]="true" type="text" (input)="triggerSearch()" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
 	</search-bar-animated-app>
 	<!-- <notif-app></notif-app> -->
-	<div class="flex request-container" [routerLink]="['/request']" routerLinkActive="selected">
-		<notification-badge-app *ngIf="(requestCount$ | async) as reqCount"> {{ reqCount }} </notification-badge-app>
+	<!-- <div class="flex request-container" [routerLink]="['/request']" routerLinkActive="selected">
 		<icon-app class="request-icon" name="comments"></icon-app>
-	</div>
+	</div> -->
   <div class="divider"></div>
 	<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>
 </div>

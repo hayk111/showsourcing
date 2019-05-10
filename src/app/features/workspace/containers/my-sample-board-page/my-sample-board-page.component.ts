@@ -13,6 +13,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
@@ -191,8 +192,10 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
-		const text = `Delete ${itemIds.length} `
-			+ (itemIds.length <= 1 ? 'sample' : 'samples');
+		const del = translate('delete');
+		const smpl = itemIds.length <= 1 ? translate('sample') : translate('samples');
+		const text = `${del} ${itemIds.length} ${smpl}`;
+
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),

@@ -5,6 +5,6 @@
 	(click)="update.emit(!task.done)">
 		<icon-app class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}" name="circle" fontSet="fa"></icon-app>
 		<div class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}">
-			{{ getTaskStatus() }}
+			{{ getTaskStatus() | const: 'status' }}
 		</div>
 </badge-app>

@@ -2,20 +2,20 @@
 	<dialog-app>
 
 		<!-- when ready -->
-		<dialog-header-app *ngIf="!pending ">
+		<dialog-header-app *ngIf="!pending" i18n="@@change-name">
 			Change Name
 		</dialog-header-app>
 
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
-				<label-app> {{type.singular}} Name </label-app>
-				<input inputApp type="text" (input)="checkExists()" formControlName="name" placeholder="New {{type.singular}} name" (keyup.enter)="onSubmit()"/>
+				<label-app class="capitalize"> {{ type.singular | const: 'erm' }} <ng-container i18n="@@name">name</ng-container></label-app>
+				<input inputApp type="text" (input)="checkExists()" formControlName="name" placeholder="New {{ type.singular | const: 'erm' }} name" (keyup.enter)="onSubmit()" i18n-placeholder="@@new-OBJ-name"/>
 			</form-field-app>
-			<label-app> Please provide the new {{type.singular}} name for {{entity.name || ''}}</label-app>
+			<label-app i18n="@@provide-new-name">Please provide the new {{ type.singular | const: 'erm' }} name for {{ entity.name || '' }}</label-app>
 		</form>
 
 		<dialog-footer-app *ngIf="!pending ">
-				<div class="color-warn" *ngIf="exists$ | async"> That {{type.singular}} name already exists. Please choose another one.</div>
+				<div class="color-warn" *ngIf="exists$ | async" i18n="that (Name of object) name already exists...@@choose-another-name"> That {{ type.singular | const: 'erm' }} name already exists. Please choose another one.</div>
 				<input [disabled]="!group.valid || (exists$ | async)" type="submit" value="Rename" (click)="onSubmit()"/>
 		</dialog-footer-app>
 

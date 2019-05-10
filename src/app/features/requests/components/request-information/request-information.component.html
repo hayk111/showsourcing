@@ -1,42 +1,44 @@
 <card-app>
-	<h3 class="l">Request Information</h3>
+	<h3 class="l" i18n="header@@request-information">Request Information</h3>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
-		<label-app>Sent To</label-app>
+		<label-app i18n="header@@sent-to">Sent To</label-app>
 		<editable-label-app>
 			{{ request?.recipient?.name }}
 		</editable-label-app>
 	</editable-field-app>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
-		<label-app>Supplier</label-app>
+		<label-app i18n="header@@supplier">Supplier</label-app>
 		<editable-label-app>
 			{{ request?.recipient?.company }}
 		</editable-label-app>
 	</editable-field-app>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
-		<label-app>Sent On</label-app>
+		<label-app i18n="header@@sent-on">Sent On</label-app>
 		<editable-label-app>
-			{{ request?.creationDate | date: 'dd MMMM yyyy' }} at {{ request?.creationDate | date: 'HH:mm' }}
+			{{ request?.creationDate | date: 'dd MMMM yyyy' }}
+			<ng-container i18n="time indicator. Example: 12 june at 10.00@@at">at</ng-container>
+			{{ request?.creationDate | date: 'HH:mm' }}
 		</editable-label-app>
 	</editable-field-app>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
-		<label-app>Sent By</label-app>
+		<label-app i18n="header@@sent-by">Sent By</label-app>
 		<editable-label-app>
 			{{ request?.sender.name }}
 		</editable-label-app>
 	</editable-field-app>
 	<editable-field-app class="no-hover" [openOnClick]="false">
-		<label-app>Template</label-app>
+		<label-app i18n="header@@template">Template</label-app>
 		<editable-label-app>
 			{{ request?.templateName }}
 		</editable-label-app>
 	</editable-field-app>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
-		<label-app>Status</label-app>
+		<label-app i18n="header@@status">Status</label-app>
 		<editable-label-app>
 			{{ request?.status | const: 'statusRequestTeam' }}
 		</editable-label-app>

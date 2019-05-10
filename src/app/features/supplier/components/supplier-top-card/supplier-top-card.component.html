@@ -4,8 +4,10 @@
 	<img-app [image]="supplier?.logoImage" type="supplier"></img-app>
 
 	<div subinfo class="flex flexVAlign">
-		<div class="type" *ngIf="supplier?.supplierType">{{ supplier?.supplierType?.name }}</div>
-		<icon-app name="circle" fontSet="fa" *ngIf="supplier?.supplierType"></icon-app>
+		<div class="type" *ngIf="supplier?.supplierType">
+			{{ supplier?.supplierType?.name }}
+		</div>
+		<icon-app *ngIf="supplier?.supplierType" name="circle" fontSet="fa"></icon-app>
 		<div class="adress">
 			{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
 			{{ supplier?.country | const: 'country' }}
@@ -35,8 +37,8 @@
 				<icon-app [size]="20" name="dots-vertical"></icon-app>
 			</button>
 		</context-menu-trigger-app>
-		<context-menu-item-app (click)="delete.emit(supplier)">
-			Delete
+		<context-menu-item-app (click)="delete.emit(supplier)" i18n="button@@delete">
+			delete
 		</context-menu-item-app>
 	</context-menu-app>
 

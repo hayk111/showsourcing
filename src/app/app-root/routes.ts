@@ -69,10 +69,6 @@ export const routes: Array<Route> = [
 				loadChildren: 'app/features/settings/settings.module#SettingsModule'
 			},
 			{
-				path: 'shows',
-				loadChildren: 'app/features/shows/shows.module#ShowsModule'
-			},
-			{
 				path: 'workspace',
 				loadChildren: 'app/features/workspace/workspace.module#WorkspaceModule'
 			},

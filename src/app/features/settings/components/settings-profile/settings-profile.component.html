@@ -1,13 +1,15 @@
 
 <top-panel-app
 	*ngIf="user$ | async as user"
-	[title]="'Profile'"
-	[hasAction]="false">
+	[title]="'profile'"
+	[hasAction]="false"
+	i18n-title="@@profile">
 </top-panel-app>
 
 <ng-container *ngIf="user$ | async as user">
 
-	<profile-card-app class="card-style"
+	<profile-card-app
+		class="card-style"
 		[user]="user"
 		(valueChange)="updateUser($event)"
 		(addFile)="addFile($event)"

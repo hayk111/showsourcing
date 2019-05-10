@@ -64,7 +64,7 @@
 		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'" [style.minWidth]="column.minWidth + 'px'"
 			class="col {{ column.grows ? 'flexGrow' : '' }}">
 			<!-- header -->
-			<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}}" (click)="onSort(column)">
+			<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize" (click)="onSort(column)">
 				{{ column.title }}
 				<ng-container *ngIf="column.sortOrder !== 'NONE'">
 					<icon-app class="sortIcon fs-xs"  fontSet="fa" name="angle-down"

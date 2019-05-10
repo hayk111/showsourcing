@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="flex name-container" [ngStyle]="{'margin-bottom': supplier?.categories?.length ? 'var(--spacing-xs)' : 'var(--spacing-ms)'}">
 		<icon-app class="circle color-{{color}}" name="circle" fontSet="fa"></icon-app>
-		<div class="name">{{supplier?.name || 'Unnamed supplier'}}</div>
+		<div class="name">{{ supplier?.name || '-'}}</div>
 	</div>
 	<div *ngIf="supplier?.categories?.length" class="flex categories">
 		<icon-app class="circle" name="circle" fontSet="fa"></icon-app>

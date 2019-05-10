@@ -2,22 +2,39 @@
 
   <div class="overlay hide" [class.hide]="!showOverlay">
     <div>
-      <div *ngIf="!selected; else selIc" class="selectionIc pointer icon-circle-unchecked" (click)="select.emit()">
+      <div *ngIf="!selected; else selIc" 
+        class="selectionIc pointer icon-circle-unchecked" 
+        (click)="select.emit()">
       </div>
+
       <ng-template #selIc>
-        <div class="selectionIc pointer icon-circle-checked" name="check" (click)="unselect.emit()"></div>
+        <div class="selectionIc pointer icon-circle-checked" 
+          name="check" 
+          (click)="unselect.emit()">
+        </div>
       </ng-template>
     </div>
 
     <div class="openCtnr">
-      <div class="open pointer" (click)="open.emit()">OPEN</div>
-      <thumb-buttons-app class="feedback" color="white" (vote)="vote.emit($event)"></thumb-buttons-app>
+
+      <div class="open pointer uppercase" (click)="open.emit()" i18n="button@@open">
+        OPEN
+      </div>
+
+      <thumb-buttons-app class="feedback" color="white" (vote)="vote.emit($event)">
+      </thumb-buttons-app>
+
     </div>
+
     <div class="icon-delete pointer" name="trash-alt" (click)="trash.emit()"></div>
+
   </div>
+
   <img class="cardImg" [class.blurred]="showOverlay" [src]="url || defaultImg" />
+
   <div class="imgNumber flex flexCenter" [class.hide]="showOverlay">
-    <span>{{imgCount || '-'}}</span>
+    <span>{{ imgCount || '-' }}</span>
     <div class="icon-img"></div>
   </div>
+
 </div>

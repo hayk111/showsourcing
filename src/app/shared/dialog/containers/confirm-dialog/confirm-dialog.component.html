@@ -1,15 +1,15 @@
 <dialog-app>
 
 	<dialog-header-app>
-		{{ title || 'Confirm'}}
+		{{ title || ('confirm' | const: 'messages') }}
 	</dialog-header-app>
 
-	<h2>
-		{{ text || 'Are you sure you want to do this ?'}}
+	<h2 class="first-uppercase">
+		{{ text || ('Are you sure you want to do this?' | const: 'messages') }}
 	</h2>
 
 	<dialog-footer-app>
-			<button class="warn z-h" (click)="onConfirm()"> {{ action || 'Delete' }} </button>
+			<button class="warn z-h" (click)="onConfirm()"> {{ action || ('delete' | const: 'messages') }} </button>
 	</dialog-footer-app>
 
 </dialog-app>

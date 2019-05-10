@@ -12,6 +12,7 @@ import { ListViewComponent } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'project-product-list-app',
@@ -46,14 +47,14 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	prodErm = ERM.PRODUCT;
 
 	descriptor: TableDescriptor = [
-		{ title: 'Name', type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
-		{ title: 'Category', type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
-		{ title: 'Supplier', type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
-		{ title: 'Price', type: 'price.value', sortBy: 'price', width: 50, minWidth: 50 },
-		{ title: 'MOQ', type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50, minWidth: 50 },
-		{ title: 'FAV', type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
-		{ title: 'Status', type: 'status', sortBy: 'status.step', width: 85, minWidth: 120 },
-		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
+		{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
+		{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
+		{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
+		{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price.value', sortBy: 'price', width: 50, minWidth: 50 },
+		{ title: translate('MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50, minWidth: 50 },
+		{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
+		{ title: translate('status'), type: 'status', sortBy: 'status.step', width: 85, minWidth: 120 },
+		{ title: translate('created on'), type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
 	];
 
 	constructor(

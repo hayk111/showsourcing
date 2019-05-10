@@ -64,6 +64,10 @@
 	text-transform: capitalize;
 }
 
+.first-uppercase::first-letter {
+	text-transform: uppercase;
+}
+
 .bold {
 	font-weight: bold;
 }
@@ -125,7 +129,8 @@ h3 {
 	display: flex;
 	font-family: var(--font-normal);
 	font-size: var(--font-size-l);
-  font-weight: 600;
+	font-weight: 600;
+	text-transform: capitalize;
 }
 
 h4 {

@@ -37,7 +37,7 @@
 	</preview-header-app>
 
 	<!-- Description -->
-	<preview-section-app [title]="'Description'">
+	<preview-section-app [title]="'description'" i18n-title="@@description">
 		<input-description-app
 			[description]="sample?.description"
 			(update)="update($event, 'description')">
@@ -45,7 +45,7 @@
 	</preview-section-app>
 
 	<!-- Sample information -->
-	<preview-section-app [title]="'Sample Information'">
+	<preview-section-app [title]="'sample information'" i18n-title="@@sample-information">
 		<dynamic-form-app
 			[fields]="customFields"
 			[inlineLabel]="true"
@@ -56,7 +56,7 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="sample?.comments?.length" [title]="'Comments'">
+	<preview-section-app *ngIf="sample?.comments?.length" [title]="'comments'" i18n-title="@@comments">
 		<comment-list-app [comments]="sample.comments"></comment-list-app>
 	</preview-section-app>
 

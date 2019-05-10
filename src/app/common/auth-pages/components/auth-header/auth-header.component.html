@@ -2,10 +2,25 @@
 	<div class="logo">
 		<img src="/assets/img/logo.svg">
 	</div>
-	<h1>
-		<ng-content select="auth-header-title-app"></ng-content>
+
+	<h1 class="header" #titleRef><ng-content select="auth-header-title-app"></ng-content></h1>
+	<!-- default (check scss) -->
+	<h1 class="header-default" i18n="header@@welcome-to-showsourcing">
+			Welcome to ShowSourcing
 	</h1>
-	<h3 class="flexCenter ms">
+
+	<h3 class="subtitle flexCenter ms" #subtitleRef>
 		<ng-content select="auth-header-subtitle-app"></ng-content>
 	</h3>
+	<!-- default  (check scss)-->
+	<h3 class="subtitle-default flexCenter ms" i18n="text@@your-collab-plat">
+		Your collaborative sourcing platform for
+		<br>
+		your team and suppliers.
+	</h3>
+
+	<h3 class="content-wrapper">
+		<ng-content select="auth-header-content-app"></ng-content>
+	</h3>
+
 </div>

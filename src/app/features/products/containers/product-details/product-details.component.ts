@@ -10,7 +10,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'product-details-app',
@@ -79,11 +79,11 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.tabs = [
-			{ name: 'Activity' },
-			{ name: 'Shipping' },
-			{ name: 'Samples', number$: this.sampleCount$ },
-			{ name: 'Tasks', number$: this.taskCount$ },
-			{ name: 'Requests', number$: this.requestCount$ }
+			{ name: translate('activity') },
+			{ name: translate('shipping') },
+			{ name: translate(ERM.SAMPLE.plural, 'erm'), number$: this.sampleCount$ },
+			{ name: translate(ERM.TASK.plural, 'erm'), number$: this.taskCount$ },
+			{ name: translate(ERM.SUPPLIER_REQUEST.plural, 'erm'), number$: this.requestCount$ }
 		];
 
 	}
@@ -92,7 +92,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		if (!product) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: 'The product doesn\'t exist',
+				title: translate('The product doesn\'t exist'),
 				timeout: 3500
 			});
 			this.router.navigate(['product']);
@@ -105,7 +105,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
 			title: 'Error',
-			message: 'There is an error, please try again later',
+			message: translate('There is an error, please try again later'),
 			timeout: 3500
 		});
 		this.router.navigate(['product']);
@@ -160,7 +160,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	/** when deleting this product */
 	deleteProduct(product: Product) {
-		const text = `Are you sure you want to delete this product?`;
+		const text = translate('Are you sure you want to delete this product?');
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.featureSrv.delete(product.id))
