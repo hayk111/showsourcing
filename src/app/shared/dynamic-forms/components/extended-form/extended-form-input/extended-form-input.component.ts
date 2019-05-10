@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { EntityMetadata, ExtendedField, ExtendedFieldDefinition, Price } from '~core/models';
+import { EntityMetadata, ExtendedField, ExtendedFieldDefinition, Price, Packaging } from '~core/models';
 
 
 
@@ -46,13 +46,13 @@ export class ExtendedFormInputComponent implements OnInit {
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 
-	inputValue$ = new Subject<({ value: any, isPrice: boolean })>();
+	inputValue$ = new Subject<({ value: any, isJson: boolean })>();
 
 	ngOnInit() {
 		this.inputValue$.pipe(
 			debounceTime(250),
 			distinctUntilChanged(),
-			tap(item => item.isPrice ? this.accumulatePrice(item.value) : this.accumulator = item.value),
+			tap(item => item.isJson ? this.accumulateJSON(item.value) : this.accumulator = item.value),
 			tap(_ => this.onClose(false))
 		).subscribe();
 	}
@@ -76,8 +76,8 @@ export class ExtendedFormInputComponent implements OnInit {
 		this.accumulator = this.field.value;
 	}
 
-	onInput(value: any, isPrice = false) {
-		this.inputValue$.next({ value, isPrice });
+	onInput(value: any, isJson = false) {
+		this.inputValue$.next({ value, isJson });
 	}
 
 	/** toggle input value from true to false and vice versa */
@@ -92,13 +92,13 @@ export class ExtendedFormInputComponent implements OnInit {
 		return type === 'text' || type === 'decimal' || type === 'tel' || type === 'number';
 	}
 
-	getPrice() {
+	getObject() {
 		return this.accumulator ? JSON.parse(this.accumulator) : undefined;
 	}
 
-	accumulatePrice(price: Price) {
+	accumulateJSON(json: Price | Packaging) {
 		// we need to stringify it since it's stored as a string
-		this.accumulator = JSON.stringify(price);
+		this.accumulator = JSON.stringify(json);
 
 	}
 
