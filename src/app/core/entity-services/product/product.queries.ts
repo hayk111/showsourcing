@@ -46,6 +46,12 @@ export abstract class ProductQueries extends GlobalQueries {
 			creationDate,
 			archived,
 			deleted,
+			incoTerm,
+			harbour,
+			masterCbm,
+			quantityPer20ft,
+			quantityPer40ft,
+			quantityPer40ftHC,
 			${ProductQueries.assignee}
 			${ProductQueries.attachments}
 			${ProductQueries.extendedFields}
