@@ -4,17 +4,15 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
-import { Observable, Observer, of, Subject, throwError } from 'rxjs';
+import gql from 'graphql-tag';
+import { GraphQLConfig, User as RealmUser } from 'realm-graphql-client';
+import { Observable, of, Subject, throwError } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
-import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { log, LogColor } from '~utils';
-import { User as RealmUser } from 'realm-graphql-client';
-import { GraphQLConfig } from 'realm-graphql-client';
 import { showsourcing } from '~utils/debug-object.utils';
-import gql from 'graphql-tag';
 
 
 /**
@@ -71,13 +69,6 @@ export abstract class AbstractApolloClient {
 	protected onError(e) {
 		this.apolloState.setClientError(this.client, e);
 		return throwError(e);
-	}
-
-	/**
- 	* to create the uri we need to concatena every parts we got from different DB's.
-	*/
-	protected getUri(port: number | string, hostName: string, path: string, isSecure = true): string {
-		return `ws${isSecure ? 's' : ''}://${hostName}:${port}/graphql${path.startsWith('/') ? path : '/' + path}`;
 	}
 
 	/** we use the path as client name.. */

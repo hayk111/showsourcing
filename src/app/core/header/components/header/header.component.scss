@@ -32,6 +32,16 @@ nav {
 			background: #071327;
 			color: white;
 		}
+		&.request-container {
+			display: flex;
+			// position: relative;
+			notification-badge-app {
+				margin-left: var(--spacing-s);
+				// top: 2px;
+				// right: -4px;
+				position: unset;
+			}
+		}
 	}
 }
 
@@ -84,21 +94,6 @@ nav {
 		height: var(--spacing-l);
 		width: 1px;
 		background-color: rgba(255, 255, 255, 0.1);
-	}
-
-	.request-container {
-		position: relative;
-
-		notification-badge-app {
-			cursor: pointer;
-			top: -7px;
-			right: -11px;
-		}
-
-		.request-icon {
-			font-size: var(--font-size-xxxl);
-			color: var(--color-secondary-dark);
-		}
 	}
 
 }

@@ -31,7 +31,8 @@
     <label-app>{{ customField.label || customField.name }}</label-app>
     <input inputApp
       restrictInput="decimal"
-      [type]="customField.type"
+			type="number"
+			step="any"
       [(ngModel)]="accumulator"
       (blur)="onChange()"/>
   </form-field-app>
