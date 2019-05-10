@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { User as RealmUser } from 'realm-graphql-client';
 import { forkJoin, from, Observable } from 'rxjs';
-import { catchError, first, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { catchError, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { TokenService } from '~core/auth/services/token.service';
@@ -48,7 +48,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			takeUntil(this.destroyed$),
 			switchMap(_ => this.createMissingSubscription()),
 			tap(_ => this.apolloState.setClientReady(this.client)),
-			first(),
+			take(1),
 			catchError(e => this.onError(e))
 		);
 	}

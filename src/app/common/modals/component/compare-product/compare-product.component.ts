@@ -10,7 +10,6 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CompareProductComponent extends AutoUnsub {
-
 	@Input() products: Product[] = [];
 
 	constructor(

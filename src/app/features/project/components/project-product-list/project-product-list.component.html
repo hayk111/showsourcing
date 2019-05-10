@@ -16,7 +16,7 @@
 
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">
-  <context-menu-item-app class="pointer flexCenter" (click)="delete.emit(row.id)"
+  <context-menu-item-app class="pointer flexCenter" (click)="delete.emit(row)"
     i18n="button@@delete">
     Delete
   </context-menu-item-app>
@@ -32,7 +32,7 @@
     <div class="mainCell">
       <img class="mini imgCtnr"
         [src]="row | image: 's' : 'product-list'" />
-      <a class="name txt-btn" [routerLink]="['/', 'product', row.id]">{{ row.name }}</a>
+      <a class="name txt-btn" [routerLink]="['/', 'product', row.id]">{{ row?.name }}</a>
     </div>
     <div class="preview">
       <button (click)="previewClick.emit(row)" class="small secondary-dark preview"
@@ -45,7 +45,7 @@
 
 <!-- name -->
 <ng-template #supplier let-row="row">
-	{{ row?.supplier.name || '-' }}
+	{{ row?.supplier?.name || '-' }}
 </ng-template>
 
 <!-- category -->
@@ -97,8 +97,8 @@
 <!-- projects -->
 <ng-template #projects let-row="row">
   <div class="flexCenter">
-    <span *ngFor="let project of row.projects;trackBy: trackByFn">
-      {{ project.name }}
+    <span *ngFor="let project of row?.projects; trackBy: trackByFn">
+      {{ project?.name }}
     </span>
   </div>
 </ng-template>

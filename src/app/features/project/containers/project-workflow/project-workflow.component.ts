@@ -56,7 +56,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			key: ListPageKey.PROJECT_WORKFLOW,
 			entitySrv: this.productSrv,
-			entityMetadata: ERM.PRODUCT
+			entityMetadata: ERM.PRODUCT,
+			selectParams: { query: 'deleted == false' }
 		}, false);
 
 		this.project$.pipe(
@@ -71,7 +72,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			}).pipe(
 				first(),
 				// adding new status
-				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses]),
+				map(statuses => [{ id: NEW_STATUS_ID, name: 'New Product', category: 'new' }, ...statuses]),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 				tap(statuses => this.statuses = statuses),
 				takeUntil(this._destroy$)
@@ -80,9 +81,9 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
-		const query = col.id !== null ?
-			`status.id == "${col.id}" && projects.id == "${this.project.id}"`
-			: `status == null && projects.id == "${this.project.id}"`;
+		const query = col.id !== NEW_STATUS_ID ?
+			`status.id == "${col.id}" && projects.id == "${this.project.id}" && deleted == false && archived == false`
+			: `status == null && projects.id == "${this.project.id}" && deleted == false && archived == false`;
 		this.productSrv.queryMany({
 			query,
 			take: col.data.length + this.amountLoaded,
@@ -96,10 +97,10 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		statuses.forEach(status => {
 			let query;
 			// we need to check for null status
-			if (status.id !== null)
-				query = `status.id == "${status.id}" && projects.id == "${this.project.id}"`;
+			if (status.id !== NEW_STATUS_ID)
+				query = `status.id == "${status.id}" && projects.id == "${this.project.id}" && deleted == false && archived == false`;
 			else
-				query = `status == null && projects.id == "${this.project.id}"`;
+				query = `status == null && projects.id == "${this.project.id}" && deleted == false && archived == false`;
 
 			this.productSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
 				.pipe(first())

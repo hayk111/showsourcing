@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="378" viewBox="0 0 800 378">
+    <defs>
+        <linearGradient id="a" x1="138.902%" x2="-32.718%" y1="137.905%" y2="-31.502%">
+            <stop offset="0%" stop-color="#FAD961"/>
+            <stop offset="100%" stop-color="#F76B1C"/>
+        </linearGradient>
+        <rect id="b" width="477" height="302" rx="8"/>
+        <filter id="c" width="102.9%" height="104.6%" x="-1.5%" y="-1.7%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+        </filter>
+        <linearGradient id="e" x1="100%" x2="0%" y1="50%" y2="50%">
+            <stop offset="0%" stop-color="#D0D8E5"/>
+            <stop offset="100%" stop-color="#A3AFC6"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="url(#a)" fill-rule="nonzero" d="M0 0h800v378H0z"/>
+        <path fill="#FFF" fill-opacity=".8" fill-rule="nonzero" d="M291.729 91.796a40.044 40.044 0 0 0-32.793-16.984c-22.091.024-39.994 17.888-40.019 39.93 0 .413.05.808.063 1.216l-23.522 7.827c-11.625-13.222-30.6-17.199-46.573-9.761l-40.379-40.29c9.258-20.066.462-43.821-19.648-53.059s-43.917-.46-53.175 19.606c-9.258 20.065-.461 43.82 19.649 53.058a40.162 40.162 0 0 0 36.496-1.517l38.898 38.809a39.306 39.306 0 0 0-3.85 29.664l-25.039 16.655c-17.271-14.107-42.734-11.572-56.872 5.662-14.139 17.234-11.598 42.64 5.673 56.747 17.272 14.108 42.735 11.573 56.872-5.66a40.257 40.257 0 0 0 7.804-35.833l25.038-16.656a39.807 39.807 0 0 0 37.609 6.961l12.45 18.39c-15.908 15.915-15.873 41.685.077 57.557 15.95 15.873 41.776 15.838 57.683-.077 15.907-15.915 15.873-41.684-.077-57.556a40.844 40.844 0 0 0-35.335-11.357l-14.58-21.82a38.924 38.924 0 0 0 6.954-28.603l21.094-7.015c12.701 18.048 37.66 22.405 55.748 9.732 18.088-12.674 22.455-37.578 9.754-55.626zM72.183 88.122C55 88.102 41.077 74.21 41.057 57.065c0-17.153 13.936-31.057 31.126-31.057s31.125 13.904 31.125 31.057c0 17.152-13.935 31.057-31.125 31.057zm26.919-1.597a40.568 40.568 0 0 0 4.651-5l47.435 47.335a3.403 3.403 0 0 1-.52 5.245 3.434 3.434 0 0 1-4.304-.444L99.102 86.525zM76.629 238.972c-17.19 0-31.125-13.905-31.125-31.058 0-17.152 13.935-31.057 31.125-31.057 17.19 0 31.126 13.905 31.126 31.057-.02 17.145-13.943 31.038-31.126 31.058zm35.412-49.594a40.033 40.033 0 0 0-3.886-5.977l21.992-14.64a40.033 40.033 0 0 0 3.887 5.975l-21.993 14.642zm58.467-12.224l2.224 3.284c-16.663 4.001-33.422-6.234-37.432-22.86a30.9 30.9 0 0 1 2.05-20.341l2.73 2.72c4.887 4.715 12.679 4.586 17.405-.29a12.261 12.261 0 0 0 0-17.076l-1.78-1.774c16.194-5.511 33.799 3.12 39.322 19.277a30.85 30.85 0 0 1 1.658 10.143 30.66 30.66 0 0 1-3.877 15.036l-1.246-1.873c-3.881-5.752-11.701-7.275-17.466-3.401-5.66 3.802-7.25 11.412-3.588 17.155zm48.41 26.324c17.181.02 31.105 13.913 31.125 31.057 0 17.152-13.935 31.057-31.126 31.057-17.19 0-31.125-13.905-31.125-31.057 0-17.153 13.935-31.057 31.125-31.057zm-15.194-5.875a39.645 39.645 0 0 0-6.381 3.355l-19.382-28.644a3.676 3.676 0 0 1 1.098-5.089 3.694 3.694 0 0 1 5.1 1.096l19.565 29.282zm-.783-61.515a40.066 40.066 0 0 0-2.13-4.73l19.467-6.473c.433 1.66.972 3.29 1.614 4.88l-18.95 6.323zm55.995 9.712c-17.19 0-31.126-13.905-31.126-31.057 0-17.153 13.936-31.058 31.126-31.058s31.125 13.905 31.125 31.058c-.02 17.144-13.943 31.037-31.125 31.057z"/>
+        <g transform="translate(213 40)">
+            <mask id="d" fill="#fff">
+                <use xlink:href="#b"/>
+            </mask>
+            <g fill-rule="nonzero">
+                <use fill="#000" filter="url(#c)" xlink:href="#b"/>
+                <use fill="#FFF" xlink:href="#b"/>
+            </g>
+            <path fill="#E6EBF5" fill-rule="nonzero" stroke="#E6EBF5" d="M.5.5h476v23H.5z" mask="url(#d)"/>
+            <circle cx="463" cy="12" r="5" fill="#E6007D" fill-rule="nonzero" mask="url(#d)"/>
+            <circle cx="447" cy="12" r="5" fill="#A3AFC6" fill-rule="nonzero" mask="url(#d)"/>
+            <circle cx="431" cy="12" r="5" fill="#A3AFC6" fill-rule="nonzero" mask="url(#d)"/>
+            <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" mask="url(#d)">
+                <tspan x="370" y="111">Factory Visit</tspan>
+            </text>
+            <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" mask="url(#d)">
+                <tspan x="369" y="166">Factory Visit</tspan>
+            </text>
+            <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" mask="url(#d)">
+                <tspan x="367" y="213">Trade Show</tspan>
+            </text>
+            <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" mask="url(#d)">
+                <tspan x="367" y="268">Showroom</tspan>
+            </text>
+            <g mask="url(#d)">
+                <g fill-rule="nonzero" transform="translate(16 245)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                    <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <path fill="#50C2FF" fill-rule="nonzero" d="M200.5 256a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm.023 11.038h-3.25c0-2.343 2.058-2.342 2.515-2.955l.052-.28c-.642-.324-1.095-1.108-1.095-2.025 0-1.207.786-2.187 1.755-2.187.969 0 1.754.98 1.754 2.187 0 .91-.444 1.688-1.077 2.018l.06.318c.5.583 2.49.62 2.49 2.924h-3.204z"/>
+                <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" transform="translate(16 245)">
+                    <tspan x="200" y="22">Ida Peters</tspan>
+                </text>
+                <g fill-rule="nonzero" transform="translate(16 194)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                    <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <path fill="#71E591" fill-rule="nonzero" d="M200.5 205a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm.023 11.038h-3.25c0-2.343 2.058-2.342 2.515-2.955l.052-.28c-.642-.324-1.095-1.108-1.095-2.025 0-1.207.786-2.187 1.755-2.187.969 0 1.754.98 1.754 2.187 0 .91-.444 1.688-1.077 2.018l.06.318c.5.583 2.49.62 2.49 2.924h-3.204z"/>
+                <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" transform="translate(16 194)">
+                    <tspan x="200" y="22">Francis Mendoza</tspan>
+                </text>
+                <g>
+                    <g fill-rule="nonzero" transform="translate(16 143)">
+                        <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                        <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                        <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                        <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                    </g>
+                    <path fill="#F5A623" fill-rule="nonzero" d="M200.5 154a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm.023 11.038h-3.25c0-2.343 2.058-2.342 2.515-2.955l.052-.28c-.642-.324-1.095-1.108-1.095-2.025 0-1.207.786-2.187 1.755-2.187.969 0 1.754.98 1.754 2.187 0 .91-.444 1.688-1.077 2.018l.06.318c.5.583 2.49.62 2.49 2.924h-3.204z"/>
+                    <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" transform="translate(16 143)">
+                        <tspan x="200" y="22">Sylvia James</tspan>
+                    </text>
+                </g>
+                <g>
+                    <g fill-rule="nonzero" transform="translate(16 92)">
+                        <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                        <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                        <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                        <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                    </g>
+                    <path fill="#71E591" fill-rule="nonzero" d="M200.5 103a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm.023 11.038h-3.25c0-2.343 2.058-2.342 2.515-2.955l.052-.28c-.642-.324-1.095-1.108-1.095-2.025 0-1.207.786-2.187 1.755-2.187.969 0 1.754.98 1.754 2.187 0 .91-.444 1.688-1.077 2.018l.06.318c.5.583 2.49.62 2.49 2.924h-3.204z"/>
+                    <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" transform="translate(16 92)">
+                        <tspan x="200" y="22">Nannie Patrick</tspan>
+                    </text>
+                </g>
+                <g>
+                    <g fill-rule="nonzero" transform="translate(16 41)">
+                        <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                        <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                        <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                        <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                    </g>
+                    <path fill="#50C2FF" fill-rule="nonzero" d="M200.5 52a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm.023 11.038h-3.25c0-2.343 2.058-2.342 2.515-2.955l.052-.28c-.642-.324-1.095-1.108-1.095-2.025 0-1.207.786-2.187 1.755-2.187.969 0 1.754.98 1.754 2.187 0 .91-.444 1.688-1.077 2.018l.06.318c.5.583 2.49.62 2.49 2.924h-3.204z"/>
+                    <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" transform="translate(16 41)">
+                        <tspan x="200" y="22">Johanna Diaz</tspan>
+                    </text>
+                    <text fill="#5D6D8B" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12" transform="translate(16 41)">
+                        <tspan x="354" y="23">Trade show</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

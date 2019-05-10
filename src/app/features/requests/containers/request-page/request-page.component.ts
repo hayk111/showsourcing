@@ -34,7 +34,7 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 			searchedFields: [],
 			entityMetadata: ERM.SUPPLIER_REQUEST,
 			initialFilters: [],
-			originComponentDestroy: this._destroy$,
+			originComponentDestroy$: this._destroy$,
 			selectParams
 		});
 	}

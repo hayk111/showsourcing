@@ -26,79 +26,82 @@
 
 	</sub-panel-app>
 
-	<project-product-list-app
-		*ngIf="listSrv.view === 'list'"
-		class="list-view"
-		[selection]="listSrv.selection$ | async"
-		[rows]="listSrv.items$ | async"
-		[pending]="listSrv.pending"
-		(previewClick)="listSrv.openPreview($event)"
-		(select)="listSrv.selectOne($event, true)"
-		(unselect)="listSrv.unselectOne($event, true)"
-		(selectAll)="listSrv.selectAll($event, true)"
-		(unselectAll)="listSrv.unselectAll()"
-		(open)="listSrv.goToDetails($event)"
-		(favorited)="listSrv.onItemFavorited($event)"
-		(unfavorited)="listSrv.onItemUnfavorited($event)"
-		(bottomReached)="listSrv.loadMore()"
-		(sort)="listSrv.sort($event)"
-		(delete)="deassociateProductById($event)">
-	</project-product-list-app>
+<ng-container>
 
-	<products-card-view-app
-		infiniScroll
-		cdk-scrollable
-		*ngIf="listSrv.view === 'card'"
-		class="card-view"
-		[currentSort]="listSrv.currentSort"
-		[rows]="listSrv.items$ | async"
-		[selection]="listSrv.selection$ | async"
-		(addToProject)="commonModalSrv.openAddToProjectDialog([$event])"
-		(bottomReached)="listSrv.loadMore()"
-		(disliked)="listSrv.onThumbDown($event)"
-		(favorited)="listSrv.onItemFavorited($event)"
-		(liked)="listSrv.onThumbUp($event)"
-		(open)="listSrv.goToDetails($event)"
-		(previewClick)="listSrv.openPreview($event)"
-		(select)="listSrv.selectOne($event, true)"
-		(unfavorited)="listSrv.onItemUnfavorited($event)"
-		(unselect)="listSrv.unselectOne($event, true)"
-		(update)="listSrv.update($event)">
-	</products-card-view-app>
+		<project-product-list-app
+			*ngIf="listSrv.view === 'list'"
+			class="list-view"
+			[selection]="listSrv.selection$ | async"
+			[rows]="listSrv.items$ | async"
+			[pending]="listSrv.pending"
+			(previewClick)="listSrv.openPreview($event)"
+			(select)="listSrv.selectOne($event, true)"
+			(unselect)="listSrv.unselectOne($event, true)"
+			(selectAll)="listSrv.selectAll($event, true)"
+			(unselectAll)="listSrv.unselectAll()"
+			(open)="listSrv.goToDetails($event)"
+			(favorited)="listSrv.onItemFavorited($event)"
+			(unfavorited)="listSrv.onItemUnfavorited($event)"
+			(bottomReached)="listSrv.loadMore()"
+			(sort)="listSrv.sort($event)"
+			(delete)="deassociateProductById(($event)?.id)">
+		</project-product-list-app>
 
-	<product-selection-bar-app
-		[isShown]="(listSrv.selection$ | async).size > 0"
-		[selection]="listSrv.selection$ | async"
-		[favorite]="listSrv.allSelectedFavorite"
-		(disliked)="listSrv.onMultipleThumbDown($event)"
-		(liked)="listSrv.onMultipleThumbUp($event)"
-		(favorited)="listSrv.onFavoriteAllSelected()"
-		(unfavorited)="listSrv.onUnfavoriteAllSelected()"
-		(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
-		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
-		(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
-		(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
-		(statusUpdated)="listSrv.updateSelected({status: $event})"
-		(deleted)="deassociateSelectedProducts()"
-		(close)="listSrv.unselectAll()">
-	</product-selection-bar-app>
+		<products-card-view-app
+			infiniScroll
+			cdk-scrollable
+			*ngIf="listSrv.view === 'card'"
+			class="card-view"
+			[currentSort]="listSrv.currentSort"
+			[rows]="listSrv.items$ | async"
+			[selection]="listSrv.selection$ | async"
+			(addToProject)="commonModalSrv.openAddToProjectDialog([$event])"
+			(bottomReached)="listSrv.loadMore()"
+			(disliked)="listSrv.onThumbDown($event)"
+			(favorited)="listSrv.onItemFavorited($event)"
+			(liked)="listSrv.onThumbUp($event)"
+			(open)="listSrv.goToDetails($event)"
+			(previewClick)="listSrv.openPreview($event)"
+			(select)="listSrv.selectOne($event, true)"
+			(unfavorited)="listSrv.onItemUnfavorited($event)"
+			(unselect)="listSrv.unselectOne($event, true)"
+			(update)="listSrv.update($event)">
+		</products-card-view-app>
 
-	<filters-app
-		*ngIf="listSrv.filterPanelOpen"
-		[filterList]="listSrv.filterList"
-		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()">
-	</filters-app>
+		<product-selection-bar-app
+			[isShown]="(listSrv.selection$ | async).size > 0"
+			[selection]="listSrv.selection$ | async"
+			[favorite]="listSrv.allSelectedFavorite"
+			(disliked)="listSrv.onMultipleThumbDown($event)"
+			(liked)="listSrv.onMultipleThumbUp($event)"
+			(favorited)="listSrv.onFavoriteAllSelected()"
+			(unfavorited)="listSrv.onUnfavoriteAllSelected()"
+			(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
+			(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+			(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
+			(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
+			(statusUpdated)="listSrv.updateSelected({status: $event})"
+			(deleted)="deassociateSelectedProducts()"
+			(close)="listSrv.unselectAll()">
+		</product-selection-bar-app>
 
-  <product-preview-app
-		*ngIf="listSrv.previewOpen"
-		[product]="listSrv.previewed"
-		(close)="listSrv.closePreview()">
-	</product-preview-app>
+		<filters-app
+			*ngIf="listSrv.filterPanelOpen"
+			[filterList]="listSrv.filterList"
+			[filterTypes]="filterTypes"
+			(clickOutside)="listSrv.closeFilterPanel()">
+		</filters-app>
+
+		<product-preview-app
+			*ngIf="listSrv.previewOpen"
+			[product]="listSrv.previewed"
+			(close)="listSrv.closePreview()">
+		</product-preview-app>
+	</ng-container>
+
+
 </ng-container>
-
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>
 </ng-template>
-

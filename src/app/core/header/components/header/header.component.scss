@@ -48,52 +48,24 @@ nav {
 .right {
 
 	color: var(--color-txt-primary);
-
-	> *:not(:last-child) {
-		margin-right: var(--spacing-ms);
-		// since the request has a notification, with absolute position, it neeeds extra margin
-		&.request-container {
-			margin-right: calc(var(--spacing-l));
-		}
-	}
-
-	notif-app, search-bar-animated-app, user-panel-app {
+	notif-app, user-panel-app {
 		&:hover {
 			background: #071327;
 		}
 	}
 
-	search-bar-animated-app {
-		font-size: 24px;
-		cursor: pointer;
-		border-radius: var(--border-radius-s);
-		&.expanded {
-			background: #071327 !important;
+		notif-app {
+			margin-right: var(--spacing-ms);
+			height: 32px;
+			width: 32px;
+			font-size: 24px;
+			cursor: pointer;
+			border-radius: var(--border-radius-s);
 		}
-		input {
-			padding: 0;
-			padding-left: var(--spacing-s);
-			color: white;
-		}
-	}
-
-	notif-app {
-		height: 32px;
-		width: 32px;
-		font-size: 24px;
-		cursor: pointer;
-		border-radius: var(--border-radius-s);
-	}
-
-	.searchInput {
-		background: transparent;
-		border: none;
-	}
 
 	.divider {
 		height: var(--spacing-l);
 		width: 1px;
 		background-color: rgba(255, 255, 255, 0.1);
 	}
-
 }

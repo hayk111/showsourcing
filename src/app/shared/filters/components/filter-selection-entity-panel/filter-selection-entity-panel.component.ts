@@ -60,6 +60,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		this.choices$ = this.listResult.items$.pipe(
 			tap(_ => this.pending$.next(false)),
 		);
+		this.listResult.items$.connect();
 	}
 
 	loadUserChoices() {
@@ -72,6 +73,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		this.choices$ = this.listResult.items$.pipe(
 			tap(_ => this.pending$.next(false)),
 		);
+		this.listResult.items$.connect();
 	}
 
 	loadEventChoices() {

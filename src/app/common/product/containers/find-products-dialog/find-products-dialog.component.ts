@@ -5,7 +5,7 @@ import { ListPageService } from '~core/list-page/list-page.service';
 import { ProductService } from '~entity-services';
 import { ERM, Product, Project } from '~models';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { TrackingComponent } from '~utils/tracking-component';
+import { AutoUnsub } from '~utils';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	providers: [ListPageService],
 
 })
-export class FindProductsDialogComponent extends TrackingComponent implements OnInit, AfterViewInit {
+export class FindProductsDialogComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	@Input() initialSelectedProducts: Product[];
 	@Input() project: Project;
@@ -38,8 +38,9 @@ export class FindProductsDialogComponent extends TrackingComponent implements On
 			key: `${ListPageKey.FIND_PRODUCT}-${this.project.id}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			selectParams: { sortBy: 'category.name', descending: true, take: 15 },
+			selectParams: { sortBy: 'category.name', descending: true, take: 15, query: 'deleted == false' },
 			entityMetadata: ERM.PRODUCT,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

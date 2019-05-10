@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { AutoUnsub } from '~utils';
 		ListPageService
 	]
 })
-export class ProjectProductsComponent extends AutoUnsub implements OnInit {
+export class ProjectProductsComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	project$: Observable<Project>;
 	private project: Project;
@@ -59,13 +59,17 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit {
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: {
-				query: `projects.id == "${id}"`,
+				query: `projects.id == "${id}" AND deleted == false AND archived == false`,
 				sortBy: 'category.name',
 				descending: true
 			},
+			originComponentDestroy$: this._destroy$,
 			entityMetadata: ERM.PRODUCT,
-			originComponentDestroy: this._destroy$
 		});
+	}
+
+	ngAfterViewInit() {
+		this.listSrv.loadData(this._destroy$);
 	}
 
 	/**

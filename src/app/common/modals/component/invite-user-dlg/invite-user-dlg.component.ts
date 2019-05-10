@@ -35,12 +35,12 @@ export class InviteUserDlgComponent extends AutoUnsub {
 		if (this.form.valid) {
 			this.pending = true;
 			const { email } = this.form.value;
-			this.dlgSrv.close({ type: CloseEventType.OK });
+
 			this.invitationSrv.createInvitation(email)
 				.subscribe(() => {
 					this.pending = false;
-					this.dlgSrv.close();
 					const invtSent = translate('Your invitation was sent to');
+					this.dlgSrv.close({ type: CloseEventType.OK });
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
 						title: translate('Invitation sent'),

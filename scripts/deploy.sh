@@ -12,6 +12,8 @@
 SHOULD_BUILD=$1
 ENDPOINT=$2
 
+ASK_PSWD=false
+
 CHOICES[1]="app-dev.showsourcing.com"
 CHOICES[2]="app-sta.showsourcing.com"
 CHOICES[3]="app.showsourcing.com"
@@ -28,12 +30,20 @@ if [ -z "$ENDPOINT" ]; then
 	case $n in
 		1) BUILD="npm run build:dev" REGION="us-east-2";;
 		2) BUILD="npm run build:sta" REGION="eu-west-1";;
-		3) BUILD="npm run build" REGION="eu-central-1"
+		3) BUILD="npm run build" REGION="eu-central-1" ASK_PSWD=true;;
 	esac
 	[ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
 fi
 
-echo -e "\e[1m \e[35mDeploying to: \e[39m $ENDPOINT \e[0m"
+if $ASK_PSWD; then
+	read -p "Please type 'yes deploy to prod' if you are sure to deploy to production: " accept
+	if [ "$accept" != "yes deploy to prod" ]; then
+		echo -e "\e[1m\e[31mSorry you just missed your chance to ruin prod, good luck with your life (: !"
+		exit 0
+	fi
+fi
+
+echo -e "\e[1m\e[35mDeploying to: \e[39m $ENDPOINT \e[0m"
 
 if $SHOULD_BUILD; then
 	echo "building with \`$BUILD\`"
