@@ -47,7 +47,7 @@ export class ProductSamplesComponent extends AbstractSampleCommonComponent imple
 			assignee: { id: this.userSrv.userSync.id }
 		});
 		this.sampleSrv.create(sample).pipe(
-			switchMap(_ => this.listSrv.refetch())
+			switchMap(_ => this.listSrv.refetch({ query: this.listSrv.filterList.asPredicate() }))
 		).subscribe();
 	}
 }
