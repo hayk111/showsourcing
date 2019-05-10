@@ -19,11 +19,31 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 	product: Product;
 
 	customFields: DynamicField[] = [
+		// TODO i18n
 		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
+		{ name: 'sample', type: 'title' },
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
-		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
+		// we need this empty objects since innercarton, mastercarton, pricematrix, have more rows inside the dynamic form
+		// therefore we have to add extra spaces, so we get the correct alignment
+		{},
+		{},
+		{},
+		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
+		{ name: 'shipping', type: 'title' },
+		{
+			name: 'incoTerm', type: 'selector', label: 'INCO Term',
+			metadata: { target: ERM.INCOTERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
+		},
+		{
+			name: 'harbour', type: 'selector', label: 'loading port',
+			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
+		},
+		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
+		{ name: 'quantityPer20ft', type: 'number', label: `Quantity per 20'` },
+		{ name: 'quantityPer40ft', type: 'number', label: `Quantity per 40'` },
+		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
 	];
 
 	erm = ERM;

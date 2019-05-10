@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { UserService, TeamService } from '~entity-services';
+import { SearchService } from '~core/header/services/search.service';
+import { TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
 import { User } from '~models/user.model';
 import {
 	SearchAutocompleteComponent,
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { AutoUnsub } from '~utils';
-import { SearchService } from '../../services/search.service';
-import { environment } from 'environments/environment';
 
 
 @Component({

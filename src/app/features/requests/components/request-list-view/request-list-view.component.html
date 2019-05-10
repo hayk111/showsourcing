@@ -58,7 +58,7 @@
 
 	<!-- supplier -->
 	<ng-template
-		[columnApp]="erm.SUPPLIER | const: 'erm'"
+		[columnApp]="erm.SUPPLIER.singular | const: 'erm'"
 		sortBy="recipient.company"
 		let-row="row"
 		width="280">
@@ -80,7 +80,7 @@
 
 	<!-- # requests -->
 	<ng-template
-		[columnApp]="'# ' + (erm.SUPPLIER_REQUEST | const: 'erm')"
+		[columnApp]="'# ' + (erm.SUPPLIER_REQUEST.singular | const: 'erm')"
 		[sortable]="false"
 		let-row="row"
 		width="120">

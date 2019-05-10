@@ -11,14 +11,13 @@ import {
 	RequestSortingMenuComponent,
 	RequestTopPanelComponent,
 } from './components';
-import { RequestDetailsComponent, RequestElementDetailsComponent, RequestsPageComponent } from './containers';
+import { RequestDetailsComponent, RequestsPageComponent } from './containers';
 import { routes } from './routes';
 
 
 @NgModule({
 	declarations: [
 		RequestDetailsComponent,
-		RequestElementDetailsComponent,
 		RequestElementListViewComponent,
 		RequestInformationComponent,
 		RequestListViewComponent,
