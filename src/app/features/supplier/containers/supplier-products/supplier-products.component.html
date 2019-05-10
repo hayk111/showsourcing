@@ -1,29 +1,31 @@
 <card-app>
-	<div *ngIf="(listSrv.items$ | async)?.length; else empty" class="container">
-		<div class="title"> Products
-			<button class="secondary" (click)="viewAll()">View All Products</button>
-		</div>
-		<div class="products-section">
-			<ng-container *ngFor="let product of listSrv.items$ | async; index as i; trackBy: trackById">
-				<!-- only the last item has a margin bottom, and if its the final row, no margin-bottom -->
-				<product-grid-card-app
-					*ngIf="i < maxItemsDisplay"
-					[ngClass]="{'no-left-margin': i % 3 == 0, 'margin-bottom-card': (i !== maxItemsDisplay - 1) && (i % 3 == 2)}"
-					[hasCheckbox]="false"
-					[product]="product"
-					[selected]="(listSrv.selection$ | async)?.has(product?.id)"
-					(favorited)="listSrv.onItemFavorited(product?.id)"
-					(unfavorited)="listSrv.onItemUnfavorited(product?.id)"
-					(liked)="listSrv.onThumbUp(product)"
-					(disliked)="listSrv.onThumbDown(product)"
-					(open)="listSrv.goToDetails(product.id)"
-					(preview)="listSrv.openPreview(product)"
-					(select)="listSrv.selectOne(product, true)"
-					(unselect)="listSrv.unselectOne(product, true)"
-					(update)="listSrv.update($event)">
-				</product-grid-card-app>
-			</ng-container>
-		</div>
+	<div *ngIf="listSrv.items$ | async as products; else pending" class="container">
+		<ng-container *ngIf="products?.length; else empty">
+			<div class="title"> Products
+				<button class="secondary" (click)="viewAll()">View All Products</button>
+			</div>
+			<div class="products-section">
+				<ng-container *ngFor="let product of products; index as i; trackBy: trackById">
+					<!-- only the last item has a margin bottom, and if its the final row, no margin-bottom -->
+					<product-grid-card-app
+						*ngIf="i < maxItemsDisplay"
+						[ngClass]="{'no-left-margin': i % 3 == 0, 'margin-bottom-card': (i !== maxItemsDisplay - 1) && (i % 3 == 2)}"
+						[hasCheckbox]="false"
+						[product]="product"
+						[selected]="(listSrv.selection$ | async)?.has(product?.id)"
+						(favorited)="listSrv.onItemFavorited(product?.id)"
+						(unfavorited)="listSrv.onItemUnfavorited(product?.id)"
+						(liked)="listSrv.onThumbUp(product)"
+						(disliked)="listSrv.onThumbDown(product)"
+						(open)="listSrv.goToDetails(product.id)"
+						(preview)="listSrv.openPreview(product)"
+						(select)="listSrv.selectOne(product, true)"
+						(unselect)="listSrv.unselectOne(product, true)"
+						(update)="listSrv.update($event)">
+					</product-grid-card-app>
+				</ng-container>
+			</div>
+		</ng-container>
 	</div>
 
 	<ng-template #empty>
@@ -33,6 +35,10 @@
 			<h3 class="xl">You can start adding products now</h3>
 			<button (click)="listSrv.create(true, {supplier: {id: supplierId}})">Add Product</button>
 		</div>
+	</ng-template>
+
+	<ng-template #pending>
+		<spinner-app width="3" size="xxxxl"></spinner-app>
 	</ng-template>
 
 </card-app>
