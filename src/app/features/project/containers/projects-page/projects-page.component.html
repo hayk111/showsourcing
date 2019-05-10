@@ -16,34 +16,38 @@
   (showFilters)="listSrv.openFilterPanel()" >
 </sub-panel-app>
 
-<projects-list-view-app
-  (select)="listSrv.selectOne($event, true)"
-  (unselect)="listSrv.unselectOne($event, true)"
-  (selectAll)="listSrv.selectAll($event, true)"
-  (unselectAll)="listSrv.unselectAll()"
-  [selection]="listSrv.selection$ | async"
-  (sort)="listSrv.sort($event)"
-  [rows]="listSrv.items$ | async"
-  [pending]="listSrv.pending"
-  (bottomReached)="listSrv.loadMore()"
-  (delete)="listSrv.deleteOne($event)"></projects-list-view-app>
+<ng-container *ngIf="listSrv.isListening">
 
-<selection-bar-app
-  [isShown]="(listSrv.selection$ | async).size > 0"
-  [selection]="listSrv.selection$ | async"
-  (close)="listSrv.unselectAll()">
-  <action-bar-app [hasHeart]="false" [hasLikes]="false">
-    <button class="icon light" (click)="listSrv.deleteSelected()">
-      <icon-app name="trash-bin" size="m"></icon-app>
-    </button>
-  </action-bar-app>
-</selection-bar-app>
+  <projects-list-view-app
+    (select)="listSrv.selectOne($event, true)"
+    (unselect)="listSrv.unselectOne($event, true)"
+    (selectAll)="listSrv.selectAll($event, true)"
+    (unselectAll)="listSrv.unselectAll()"
+    [selection]="listSrv.selection$ | async"
+    (sort)="listSrv.sort($event)"
+    [rows]="listSrv.items$ | async"
+    [pending]="listSrv.pending"
+    (bottomReached)="listSrv.loadMore()"
+		(delete)="listSrv.deleteOne($event)">
+	</projects-list-view-app>
 
-<filters-app
-	*ngIf="listSrv.filterPanelOpen"
-  [filterList]="listSrv.filterList"
-  [filterTypes]="filterTypes"
-  (clickOutside)="listSrv.closeFilterPanel()" >
-</filters-app>
+  <selection-bar-app
+    [isShown]="(listSrv.selection$ | async).size > 0"
+    [selection]="listSrv.selection$ | async"
+    (close)="listSrv.unselectAll()">
+    <action-bar-app [hasHeart]="false" [hasLikes]="false">
+      <button class="icon light" (click)="listSrv.deleteSelected()">
+        <icon-app name="trash-bin" size="m"></icon-app>
+      </button>
+    </action-bar-app>
+  </selection-bar-app>
+
+	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
+    [filterList]="listSrv.filterList"
+    [filterTypes]="filterTypes"
+    (clickOutside)="listSrv.closeFilterPanel()">
+  </filters-app>
 
 
+</ng-container>

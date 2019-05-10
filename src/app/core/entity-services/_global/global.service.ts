@@ -1,9 +1,19 @@
 import { ApolloBase, QueryRef } from 'apollo-angular';
 import { environment } from 'environments/environment';
 import { DocumentNode } from 'graphql';
-import * as gqlTag from 'graphql-tag';
-import { BehaviorSubject, forkJoin, merge, Observable, of, throwError } from 'rxjs';
-import { catchError, filter, first, map, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, ConnectableObservable, forkJoin, merge, Observable, of, throwError } from 'rxjs';
+import {
+	catchError,
+	distinctUntilChanged,
+	filter,
+	first,
+	map,
+	publishReplay,
+	shareReplay,
+	switchMap,
+	tap,
+	withLatestFrom,
+} from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
@@ -25,7 +35,6 @@ export interface GlobalServiceInterface<T> {
 	queryCount: (predicate: string, client?: string) => Observable<number>;
 	selectCount: (predicate: string, client?: string) => Observable<number>;
 	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => ListQuery<T>;
-	customQuery: (paramsConfig: SelectParamsConfig, query: string, clientName: Client) => ListQuery<T>;
 	waitForOne: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
 	selectAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client?: Client): Observable<T[]>;
 	queryAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client?: Client): Observable<T[]>;
@@ -330,18 +339,18 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 		let itemsAmount = 0;
 		// add items$ wich are the actual items requested
-		const items$: Observable<T[]> = queryRef$.pipe(
+		const items$: ConnectableObservable<T[]> = queryRef$.pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(queryRef => queryRef.valueChanges),
 			filter((r: any) => this.checkError(r)),
+			distinctUntilChanged(),
 			// extracting the result
 			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
-			shareReplay(1),
-			catchError((errors) => of(log.table(errors)))
-		);
-
+			catchError((errors) => of(log.table(errors))),
+			publishReplay(1)
+		) as ConnectableObservable<T[]>;
 		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
 		// (will be reflected in items$)
 		const fetchMore = (): Observable<any> => {
@@ -376,80 +385,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			const refetchTitle = 'Selecting List Refetch' + this.typeName;
 			return queryRef$.pipe(
 				tap(_ => this.log(refetchTitle, gql, queryName, clientName, config)),
-				switchMap(queryRef => queryRef.refetch(config))
-			);
-		};
-
-		return { queryName, items$, fetchMore, refetch };
-	}
-
-	//////////////////////////////
-	//      CUSTOM QUERY        //
-	//////////////////////////////
-
-	/** Query entities in accordance to the conditions supplied
-	 * what is returned is a SelectListResult that allows us to do
-	 * additional work after the query is done (like fetching more items for infini scroll)
-	 * @param params : SelectParamsConfig to specify what slice of data we are querying
-	 * @param query: instead of fields, pass the whole query
-	 * @param client: name of the client you want to use, if none is specified the default one is used
-	 * @returns ListQuery that items$ and also allows you to fetchMore and refetch
-	*/
-	customQuery(paramsConfig: SelectParamsConfig, query: string, clientName: Client = this.defaultClient)
-		: ListQuery<any> {
-		const title = 'Custom query';
-		const gql = gqlTag.default(query);
-		const queryName = this.getQueryName(gql);
-		const variables = new SelectParams(paramsConfig);
-
-
-		// get query ref
-		const queryRef$: Observable<QueryRef<any>> = this.getClient(clientName, title).pipe(
-			map(client => client.watchQuery<any>({
-				query: gql,
-				variables
-			})),
-			shareReplay(1)
-		);
-
-		let itemsAmount = 0;
-		// add items$ wich are the actual items requested
-		const items$: Observable<T[]> = queryRef$.pipe(
-			tap(_ => this.log(title, gql, queryName, clientName, variables)),
-			switchMap(queryRef => queryRef.valueChanges),
-			filter((r: any) => this.checkError(r)),
-			// extracting the result
-			map((r) => r.data[queryName]),
-			tap(data => this.logResult(title, queryName, data)),
-			tap(data => itemsAmount = data.length),
-			catchError((errors) => of(log.table(errors)))
-		);
-
-		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
-		// (will be reflected in items$)
-		const fetchMore = (): Observable<any> => {
-			const fetchMoreTitle = 'Custom Query Fetch More ' + this.typeName;
-			return queryRef$.pipe(
-				tap(_ => this.log(fetchMoreTitle, gql, queryName, clientName, { skip: itemsAmount })),
-				map(queryRef => queryRef.fetchMore({
-					variables: { skip: itemsAmount },
-					updateQuery: (prev, { fetchMoreResult }) => {
-						if (!fetchMoreResult[queryName]) { return prev; }
-						this.logResult(fetchMoreTitle, queryName, fetchMoreResult.data);
-						return Object.assign({}, prev, {
-							[queryName]: [...prev[queryName], ...fetchMoreResult[queryName]],
-						});
-					}
-				})));
-		};
-
-		// add refetch query so we can tell apollo to that the variables have changed
-		// (will be reflected in items$)
-		const refetch = (config: SelectParamsConfig): Observable<any> => {
-			const refetchTitle = 'Custom Query Refetch' + this.typeName;
-			this.log(refetchTitle, gql, queryName, clientName, config);
-			return queryRef$.pipe(
-				switchMap(queryRef => queryRef.refetch(config))
+				switchMap(queryRef => queryRef.refetch({ ...config }))
 			);
 		};
 
@@ -610,11 +546,11 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.mutate(options)),
-			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => this.sendTrack('Update', data, 'update', fields)),
+			first(),
 			catchError(errors => of(log.table(errors)))
 		);
 	}
@@ -904,7 +840,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 					return key;
 				}
 			} else {
-				return '';
+				return this.emptyArrayExceptions(key);
 			}
 		} else if (val instanceof Object) {
 			return `${key} { ${this.patch(val)} }`;
@@ -912,6 +848,17 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			return '';
 		} else {
 			return key;
+		}
+	}
+
+	private emptyArrayExceptions(key: string) {
+		switch (key) {
+			case 'votes':
+				return 'votes { id }';
+			case 'projects':
+				return 'projects { id }';
+			default:
+				return '';
 		}
 	}
 

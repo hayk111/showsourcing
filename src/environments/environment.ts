@@ -8,6 +8,16 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 
+// TODO: we should add a log config like:
+// config = {
+//   guards: true,
+//   components: false,
+//   entitySrv: true,
+//   showSubscriptions: false,
+//   routing: false
+// }
+// so we can have more fine grained logs
+
 export const environment = {
 	version: WEB_VERSION,
 	production: false,

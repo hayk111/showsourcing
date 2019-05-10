@@ -49,18 +49,13 @@ export class ProductDialogService extends ProductService {
 	 * Associate products to projects.
 	 */
 	addProjectsToProducts(addedProjects: Project[], products: Product[]): Observable<Product[]> {
-		return forkJoin(products.map(prod => this.addProjectsToOneProduct(addedProjects, prod)));
-	}
-
-	private addProjectsToOneProduct(addedProjects: Project[], product: Product) {
-		// mapping current projects to only have the ids
-		addedProjects = Array.from(addedProjects, project => ({ id: project.id, __typename: 'Project' }));
-		const projects: Project[] = Array.from(product.projects, project => ({ id: project.id, __typename: 'Project' }));
-		// removing duplicates
-		addedProjects = addedProjects.filter(project => !projects.some(p => p.id === project.id));
-
-		projects.push(...addedProjects);
-		return this.update({ id: product.id, projects });
+		addedProjects = addedProjects.map(p => ({ id: p.id }));
+		products = products.map(p => ({ id: p.id, projects: p.projects }));
+		products.forEach(product => {
+			const currentProjects = product.projects.map(p => ({ id: p.id }));
+			product.projects = [...currentProjects, ...addedProjects];
+		});
+		return this.updateMany(products);
 	}
 
 	/**

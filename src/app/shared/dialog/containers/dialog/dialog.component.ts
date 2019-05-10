@@ -16,21 +16,15 @@ import { DialogService } from '~shared/dialog/services/dialog.service';
 })
 export class DialogComponent {
 	@Input() closeIcon = true;
+	@Input() hasHeader = true;
 	@Output() close = new EventEmitter<any>();
 	@ContentChild(DialogFooterComponent) footer: DialogFooterComponent;
 	@ContentChild(DialogHeaderComponent) header: DialogHeaderComponent;
 
-	@Input() headerSpacing = 'xl';
+	@Input() headerSpacing = 'ms';
 
 	constructor(private srv: DialogService) { }
 
-	get hasFooter() {
-		return !!this.footer;
-	}
-
-	get hasHeader() {
-		return !!this.header;
-	}
 
 	doClose() {
 		this.srv.close();
@@ -42,4 +36,5 @@ export class DialogComponent {
 		// stopping propagation so it does not close the modal
 		event.stopPropagation();
 	}
+
 }

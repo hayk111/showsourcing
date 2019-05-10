@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Subject } from 'rxjs';
-import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
+import { empty, Observable } from 'rxjs';
+import { switchMap, takeUntil, tap, filter, map } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -28,7 +28,7 @@ const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 export interface ListPageConfig extends ListPageDataConfig {
 	key: ListPageKey | string;
 	entityMetadata: EntityMetadata;
-	originComponentDestroy?: Subject<void>;
+	originComponentDestroy$?: Observable<void>;
 }
 
 /**
@@ -66,27 +66,36 @@ export class ListPageService
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
-			this.initOriginComponentDestroy(config.originComponentDestroy);
+			// getting back the services from their map
 			this.initServices(config.key);
 			this.dataSrv.setup(config);
+			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
-			if (shouldInitDataLoading) {
-				this.dataSrv.loadData();
-			}
 		});
+		if (shouldInitDataLoading) {
+			this.loadData(config.originComponentDestroy$);
+		}
 	}
 
-	/**
-	 * Since now the scrolling happens on the the template.html for most of the lists
-	 * we need a way to know when the bottomReach is happening and when to kill that observable
-	 * originComponentDestroy indicates it
-	 */
-	private initOriginComponentDestroy(destroy$: Subject<void>) {
-		if (destroy$)
-			this.templateSrv.bottomReached$.pipe(
-				takeUntil(destroy$)
-			).subscribe(_ => this.loadMore());
+
+	loadData(destroy$: Observable<void>) {
+		if (!destroy$) {
+			throw Error('Please provide a originComponentDestroyed$ observable');
+		}
+		// Since now the scrolling happens on the the template.html for most of the lists
+		// we need a way to know when the bottomReach is happening and when to kill that observable
+		// originComponentDestroy indicates it
+		this.templateSrv.bottomReached$.pipe(
+			takeUntil(destroy$)
+		).subscribe(_ => this.loadMore());
+
+		this.dataSrv.loadData(destroy$);
+		// we need to reset selection when filter changes
+		this.dataSrv.filterList.valueChanges$.pipe(
+			takeUntil(destroy$)
+		).subscribe(_ => this.selectionSrv.unselectAll());
 	}
+	y;
 
 	/**
 	 * takes the existing stateful services from the maps above,
@@ -121,6 +130,10 @@ export class ListPageService
 
 	get pending() {
 		return this.dataSrv.pending;
+	}
+
+	get isListening() {
+		return this.dataSrv.isListening;
 	}
 
 	get smartSearchFilterElements$() {
@@ -170,6 +183,11 @@ export class ListPageService
 
 	update(value: T) {
 		this.dataSrv.update(value).subscribe();
+		// .pipe(
+		// 	// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
+		// 	// so we just refetch to cover the bug, fuck this.
+		// 	switchMap(_ => this.refetch())
+		// ).subscribe();
 	}
 
 	updateMany(values: T[]) {
@@ -242,12 +260,12 @@ export class ListPageService
 	// then the query list gets "refetched" automatically since a value inside got updated
 	// but for entities who do NOT have audith we need to refresh it manually since we are deleting it
 	// and not updating it
-	deleteOne(id: string, refetch = false) {
-		// TODO i18n + erm pipe
+	deleteOne(entity: T, refetch = false) {
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
-				switchMap(_ => this.dataSrv.deleteOne(id)),
+				tap(_ => this.selectionSrv.unselectOne(entity)),
+				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
 				switchMap(_ => refetch ? this.refetch() : empty())
 			).subscribe();
 	}

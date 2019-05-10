@@ -31,9 +31,9 @@ export class TagDataManagementPageComponent extends AutoUnsub implements OnInit 
 			key: ListPageKey.TAG,
 			entitySrv: this.tagSrv,
 			searchedFields: ['name'],
-			selectParams: { sortBy: 'name', descending: false },
+			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
 			entityMetadata: this.erm,
-			originComponentDestroy: this._destroy$
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

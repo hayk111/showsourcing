@@ -15,6 +15,7 @@ import {
 	ChangePswdDlgComponent,
 	CompareProductComponent,
 	CreationDialogComponent,
+	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
@@ -45,6 +46,7 @@ const modals = [
 	ChangePswdDlgComponent,
 	CompareProductComponent,
 	CreationDialogComponent,
+	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	FindProductsDialogComponent,
@@ -78,6 +80,7 @@ const modals = [
 		ProductRequestListComponent,
 		CompareLabelsComponent,
 		CompareColumnComponent,
+		DescriptionDlgComponent
 	],
 	entryComponents: modals,
 	providers: [

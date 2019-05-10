@@ -9,7 +9,7 @@ import { Product } from '~models';
 import { Contact } from '~models/contact.model';
 import { Supplier } from '~models/supplier.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub, log, translate } from '~utils';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -103,7 +103,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	onError(err) {
+	onError(error: Error) {
+		log.error(error);
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
 			title: translate('error'),

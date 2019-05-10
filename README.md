@@ -30,6 +30,12 @@ For `bug` branches, we just use the normal system, checkout from `development` a
 
 ## Hotfixes
 Hotfixes can only happen when a blocking bug in production (master) occur live. The procedure for this is to checkout from `master` and create a new branch `hotfix/number-issue-small-description`. Once this branch has the fix ready to be merged, we have to merge it on both branches `development` and `master`. This way we prevent that master has to be merged in the future on `development`. Since `development` always has to be merged on `master` and not the other way around.
+# Git golden rules
+- NEVER merge `master` into `development`, `development` is merged into `master` always.
+- Try to avoid features inside features unless it's necessary. Doing a feature inside a feature means that we cannot release none of them until all of them are finished.
+- Do not create a tag, until the version has been validated on staging.
+- When a release has multiple hotfixes, checkout a branch from `master` called `hotfix`, and from there checkout all the other hotfix branches, this way we do not corrupt `development` branch and we have all the changes visible on the hotfix branch. The previous rule is applied here too!.
+
 
 # Overview of the documentation
 
@@ -138,7 +144,7 @@ So you'll be notified of changes that happen on the back end (it could be change
 There is one special method that is `getListQuery` that return a `ListQuery`
 that can be used for `refetching`, `loadMore`, etc...
 
-## To Subscribe or not to unsubscribe ?
+## To Subscribe or not to unsubscribe, that is the question
 
 All the methods except the ones that retrieve data use `first()` as rxjs pipe.
 That means that you don't have to worry about unsubscribing and things like this are
@@ -240,7 +246,7 @@ The AutoUnsub class should be used as a standard app wise.
 
 # Translation
 
-(13/06/18) by Michael
+(13/06/1) by Michael
 
 [Documentation on xliffmerge](https://github.com/martinroob/ngx-i18nsupport)
 `npm run translate` will generate `messages.xlf`
@@ -290,3 +296,21 @@ In each `messages.lang.xlf` we have 3 different types of target. When we transla
 locale name by default is english since we always translate english to another language`ng xi18n --i18nLocale LOCALE_NAME --outFile NAMEOFFILE.xlf --outputPath locale`
 # Refactor List
 - Status selector updates, not inside the component but above. `<status-selector-app (updateStatus)="update({id: entity.id, status: $event })>`
+
+# Apollo Cache wonkyness
+
+Sometimes apollo cache bugs can be pretty fucking hard to debug. One instance for example is something around the lines of
+`an object with this primary key was provided but already exists in the store`, this usually happens when the store cannot find something because the `__typename` wasn't specified.
+
+Another weird bug is when you update something but the optimistic ui is not triggered.
+
+Sometimes this can be the cause:
+
+You query products : `{ id, supplier { id, name, categories }}` and update the supplier with `{ id, name }`.
+Apollo might fail to make the optimistic UI work in this instance because the update value of the supplier isn't the same as the queried one. A fix would be to update with  `{ id, name, categories }` or just quiery `{ id, name }`
+
+# Important sneaky hotfix to consider
+This section contains tricky/sneaky fixes for the app, that are abit confusing and can make the app be a bit more complex in some occasions
+
+- Updating empty arrays: Since we trim the entity before updating (all the non empty fields are considered for the query). This means that if we try to update and empty array, the trim function will trim it out, it just won't be considered for the query. A work around this issue was on `GlobalService` in the function `emptyArrayExceptions(key: string)`, we manually insert on the switch case which arrays have to be considered when null, in order to be updated with the empty value.
+- Null status on workflows: Since the status of a sample, product, supplier... is considered as `New` when there is no status at all, sometimes we have issues with this, specially when we are working with kanban. When we want to send back a status to null, we have a fake null ID, so the kanban-col can accept the item, otherwise you can't drag to that column when the id is empty. This variable is called `NEW_STATUS_ID`.

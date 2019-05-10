@@ -31,9 +31,9 @@ export class EventDataManagementPageComponent extends AutoUnsub implements OnIni
 			key: ListPageKey.EVENT,
 			entitySrv: this.eventSrv,
 			searchedFields: ['description.name'],
-			selectParams: { sortBy: 'description.name', descending: false },
+			selectParams: { sortBy: 'description.name', descending: false, query: 'deleted == false' },
 			entityMetadata: ERM.EVENT,
-			originComponentDestroy: this._destroy$
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

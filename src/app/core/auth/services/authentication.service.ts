@@ -88,8 +88,9 @@ export class AuthenticationService {
 		);
 	}
 
-	logout() {
-		this.router.navigate(['auth', 'login']);
+	logout(redirect = true) {
+		if (redirect)
+			this.router.navigate(['auth', 'login']);
 		this.tokenSrv.clearTokens();
 		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
 		setTimeout(_ => window.location.reload());

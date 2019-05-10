@@ -22,13 +22,15 @@ esac
 # https://stackoverflow.com/questions/2953646/how-to-declare-and-use-boolean-variables-in-shell-script/21210966#21210966
 if $SHOULD_BUILD; then
 	echo "Please pick an enviroment to build:"
-	echo "1) production"
+	echo "1) development"
 	echo "2) staging"
+	echo "3) production"
 
 	read n
 	case $n in
-		1) npm run build;;
+		1) npm run build:dev;;
 		2) npm run build:sta;;
+		3) npm run build;;
 		*) echo "Apparently you can't see the forest for the trees, cy@" && exit 0
 	esac
 fi

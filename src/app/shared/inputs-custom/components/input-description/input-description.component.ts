@@ -10,6 +10,8 @@ import {
 	Renderer2,
 	ViewChild,
 } from '@angular/core';
+import { DialogService } from '~shared/dialog';
+import { DescriptionDlgComponent } from '~common/modals/component/description-dlg/description-dlg.component';
 
 @Component({
 	selector: 'input-description-app',
@@ -22,6 +24,8 @@ export class InputDescriptionComponent implements AfterViewInit {
 	@Input() description = '';
 	@Input() hasLabel = false;
 	@Input() isBig = false;
+	// wether we display a modal or not
+	@Input() asModal = true;
 	@Output() update = new EventEmitter<string>();
 
 	@ViewChild('container') container: ElementRef<HTMLElement>;
@@ -30,6 +34,7 @@ export class InputDescriptionComponent implements AfterViewInit {
 
 	constructor(
 		private render: Renderer2,
+		private dlgSrv: DialogService,
 		private cd: ChangeDetectorRef) { }
 
 
@@ -60,5 +65,11 @@ export class InputDescriptionComponent implements AfterViewInit {
 			this.showMore = false;
 		}
 		this.cd.detectChanges();
+	}
+
+	openDescModal() {
+		if (this.asModal)
+			this.dlgSrv.open(DescriptionDlgComponent, { description: this.description })
+				.subscribe(item => this.update.emit(item.description));
 	}
 }

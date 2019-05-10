@@ -33,8 +33,8 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 			entitySrv: this.featureSrv,
 			searchedFields: ['email'],
 			selectParams: { query: '', sortBy: 'email', descending: true },
-			entityMetadata: ERM.TEAM_USER,
-			originComponentDestroy: this._destroy$
+			entityMetadata: ERM.INVITATION,
+			originComponentDestroy$: this._destroy$
 		});
 
 		this.listSrv.selectionSrv.selection$.pipe(

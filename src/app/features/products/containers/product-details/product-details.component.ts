@@ -10,7 +10,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub, log, translate } from '~utils';
 
 @Component({
 	selector: 'product-details-app',
@@ -102,6 +102,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	private onError(error) {
+		log.error(error);
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
 			title: 'Error',

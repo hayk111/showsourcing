@@ -60,7 +60,8 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 			initialFilters: [
 				{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id },
 				{ type: FilterType.DELETED, value: false }
-			]
+			],
+			selectParams: { query: 'deleted == false' }
 		}, false);
 
 		const filters$ = this.listSrv.filterList.valueChanges$.pipe(

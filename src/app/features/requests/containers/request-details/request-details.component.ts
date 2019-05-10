@@ -55,7 +55,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 					searchedFields: [],
 					entityMetadata: ERM.REQUEST_ELEMENT,
 					initialFilters: [],
-					originComponentDestroy: this._destroy$
+					originComponentDestroy$: this._destroy$
 				});
 			}),
 			switchMap(id => this.featureSrv.selectOne(id)),

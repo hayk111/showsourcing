@@ -3,12 +3,12 @@ import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { User as RealmUser } from 'realm-graphql-client';
 import { forkJoin, from, Observable } from 'rxjs';
-import { catchError, first, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { catchError, first, switchMap, takeUntil, tap, take } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { TokenService } from '~core/auth/services/token.service';
-import { TeamService, ImageUploadRequestService, CompanyService } from '~core/entity-services';
+import { CompanyService, ImageUploadRequestService, TeamService } from '~core/entity-services';
 import {
 	QueryBasedSubscriptionService,
 } from '~core/entity-services/query-based-subscription/query-based-subscription.service';
@@ -16,7 +16,6 @@ import { RealmServerService } from '~entity-services/realm-server/realm-server.s
 import { UserService } from '~entity-services/user/user.service';
 
 import { ApolloStateService } from './apollo-state.service';
-import { Company } from '~core/models';
 
 
 @Injectable({ providedIn: 'root' })
@@ -50,7 +49,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 			takeUntil(this.destroyed$),
 			switchMap(_ => this.createMissingSubscription()),
 			tap(_ => this.apolloState.setClientReady(this.client)),
-			first(),
+			take(1),
 			catchError(e => this.onError(e))
 		);
 	}
