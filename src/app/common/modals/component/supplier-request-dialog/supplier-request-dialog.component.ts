@@ -44,7 +44,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	filterList = new FilterList([]);
 	supplier: Supplier;
 	private templateSelectedAction$ = new ReplaySubject<ID>(1);
-	selectedTemplate$: Observable<RequestTemplate>;;
+	selectedTemplate$: Observable<RequestTemplate>;
 
 	constructor(
 		private fb: FormBuilder,
