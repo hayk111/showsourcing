@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { User as RealmUser } from 'realm-graphql-client';
-import { from, Observable, forkJoin } from 'rxjs';
+import { forkJoin, from, Observable } from 'rxjs';
 import { catchError, first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { TokenService } from '~core/auth/services/token.service';
 import { ERMService } from '~core/entity-services/_global/erm.service';
-import { ERM, EntityMetadata } from '~core/models';
+import { EntityMetadata, ERM } from '~core/models';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 
 import { ApolloStateService } from './apollo-state.service';
