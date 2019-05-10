@@ -61,4 +61,12 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 	goToKanban() {
 		this.router.navigate(['../board'], { relativeTo: this.route });
 	}
+
+	// this is used on sample board page too
+	getFilterAmount() {
+		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
+		const filters = this.listSrv.filterList.asFilters()
+			.filter(fil => !(fil.type === FilterType.DELETED && fil.value === false) && !(fil.type === FilterType.ASSIGNEE));
+		return filters.length;
+	}
 }
