@@ -16,6 +16,7 @@ app-install:
     paths:
       - node_modules
   only:
+    - supplier-connect
     - development
     - staging
 
@@ -30,6 +31,7 @@ app-deploy-dev:
     - aws s3 cp s3://app-dev.showsourcing.com/index.html s3://app-dev.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
   only:
     - supplier-connect
+    - development
 
 # sta deployment
 app-deploy-sta:
