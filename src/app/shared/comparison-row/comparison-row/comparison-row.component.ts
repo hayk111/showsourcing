@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output, ContentChild, TemplateRef } from '@angular/core';
+import { ComparisonRowTemplateDirective } from './comparison-row-template.directive';
 
 @Component({
 	selector: 'comparison-row-app',
@@ -9,17 +10,15 @@ import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output
 		class: 'flexBetween'
 	}
 })
-export class ComparisonRowComponent implements OnInit {
+export class ComparisonRowComponent {
 	@Input() values: string[];
 	@Input() label: string;
 	@Input() checked: boolean;
 	@Input() hasCheckbox = true;
 	@Output() selected = new EventEmitter<null>();
 	@Output() unselected = new EventEmitter<null>();
+	@ContentChild(ComparisonRowTemplateDirective, { read: TemplateRef }) template: ComparisonRowTemplateDirective;
 
 	constructor() { }
-
-	ngOnInit() {
-	}
 
 }

@@ -107,7 +107,6 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	 * Said value can be either on the product or product.extendedField
 	 */
 	getValues(field: ExtendedField) {
-
 		const target = field.definition.target;
 		const isProductExtendedField = field.definition.target === 'Product.extendedFields';
 		let currentValue, supplierValue;
@@ -115,31 +114,16 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			const originId = field.definition.originId;
 			const currentField = this.product ? this.product.extendedFields.find(fld => fld.definition.id === originId) : '';
 			currentValue = currentField ? currentField.value : '';
-			supplierValue = field.value;
-			if (field.definition.type === 'price') {
-				currentValue = this.getPriceExtendedField(currentValue);
-				supplierValue = this.getPriceExtendedField(field.value);
-			}
+			supplierValue = JSON.parse(field.value);
 		} else {
 			// target will be something like Product.price, we only need price
 			const property = target.split('.')[1];
 			currentValue = this.product ? this.product[property] : '';
-			supplierValue = field.value;
-			if (property === 'price') {
-				currentValue = this.getPrice(currentValue);
-				supplierValue = this.getPriceExtendedField(field.value);
-			}
+			supplierValue = JSON.parse(field.value);
 		}
 		return [currentValue, supplierValue];
 	}
 
-
-	getPrice(item: Price) {
-		return this.appPricePipe.transform(item);
-	}
-	getPriceExtendedField(item: any) {
-		return item ? this.appPricePipe.transform(JSON.parse(item)) : undefined;
-	}
 
 	next() {
 		this.selectedIndex = (this.selectedIndex + 1) % (this.elements.length);

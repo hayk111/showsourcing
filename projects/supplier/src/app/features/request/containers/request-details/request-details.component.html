@@ -45,7 +45,8 @@
 </div>
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
+	*ngIf="(listSrv.selection$ | async) as selection"
+	[isShown]="selection.size > 0"
+	[selection]="selection"
 	(close)="listSrv.unselectAll()">
 </selection-bar-app>
