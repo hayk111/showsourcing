@@ -72,7 +72,9 @@ export class UploaderFeedbackService {
 
 		const uuids: string[] = await this.addPendingImgs(files);
 		this.cd.markForCheck();
-		this.uploaderSrv.uploadImages(files, this.linkedEntity, this.imageProperty, this.isImagePropertyArray).pipe(
+		// since the this.linkedEntity is only set in the init, its image array is not up to date, so we need to update it
+		const linkedEntity = { ...this.linkedEntity, images: this._images };
+		this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray).pipe(
 			first()
 		).subscribe(imgs => this.onSuccessImg(uuids), e => this._pendingImages = []);
 	}
@@ -97,7 +99,8 @@ export class UploaderFeedbackService {
 	addFiles(files: Array<File>) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
 		const uuids = this._pendingFiles.map(f => f.id);
-		this.uploaderSrv.uploadFiles(files, this.linkedEntity)
+		// since the linked entity is setup once at the start we need to update the attachments
+		this.uploaderSrv.uploadFiles(files, { ...this.linkedEntity, attachments: this._files })
 			.subscribe(
 				addedFiles => this.onSuccessFile(uuids),
 				e => this._pendingFiles = []
