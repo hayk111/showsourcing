@@ -10,6 +10,7 @@ app-install:
   script:
     - npm install
     - npm i @angular/cli -g
+    - npm install --save-dev --unsafe-perm node-sass # avoid sass errors
   artifacts:
     paths:
       - node_modules
