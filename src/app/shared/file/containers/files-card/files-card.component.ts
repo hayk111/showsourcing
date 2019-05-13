@@ -1,16 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Attachment, Supplier } from '~models';
-import { UploaderService } from '~shared/file/services/uploader.service';
-import { DEFAULT_FILE_ICON, AutoUnsub } from '~utils';
-import { PendingFile } from '~utils/pending-file.class';
-import { DialogService } from '~shared/dialog/services';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { TrackingComponent } from '~utils/tracking-component';
-import { any } from 'async';
-import { ERMService } from '~core/entity-services/_global/erm.service';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { AttachmentService } from '~core/entity-services';
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { Attachment } from '~models';
+import { DialogService } from '~shared/dialog/services';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { AutoUnsub, DEFAULT_FILE_ICON } from '~utils';
+import { PendingFile } from '~utils/pending-file.class';
 
 export enum PageType {
 	product = 'PRODUCT',
@@ -26,6 +20,7 @@ export enum PageType {
 	providers: [UploaderFeedbackService]
 })
 export class FilesCardComponent extends AutoUnsub implements OnInit {
+
 	@Input() set files(files: Array<Attachment | PendingFile>) {
 		this.uploaderFeedback.setFiles(files);
 	}
@@ -38,9 +33,7 @@ export class FilesCardComponent extends AutoUnsub implements OnInit {
 	@Input() linkedItem: any;
 
 	constructor(
-		private uploaderFeedback: UploaderFeedbackService,
-		private dlgSrv: DialogService,
-		private attachmentSrv: AttachmentService
+		private uploaderFeedback: UploaderFeedbackService
 	) {
 		super();
 	}
