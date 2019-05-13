@@ -9,6 +9,7 @@ app-install:
   stage: install
   script:
     - npm install
+    - npm i @angular/cli -g
     - RUN apt-get update && apt-get install -y python-pip
     - pip3 install awscli --upgrade --user
   artifacts:
