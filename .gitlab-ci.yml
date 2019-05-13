@@ -1,4 +1,4 @@
-image: nexusuw/node-8-python-aws-cli
+image: cedvdb/node-12-aws-python
 stages:
   - install
   - build
