@@ -35,15 +35,15 @@
 							</selector-placeholder-app>
 						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
-					
+
 					<ng-container *ngIf="selectedTemplate$ | async as tmpSlctd">
-						<small class="browse flexEnd color-primary pointer" 
+						<small class="browse flexEnd color-primary pointer"
 							(click)="openTemplateMngmtDialog($event, tmpSlctd)">
 							Browse templates
 						</small>
 						<div><b>Template Fields:</b> {{ getTemplateFields(tmpSlctd) }}</div>
 					</ng-container>
-					
+
 				</form-field-app>
 
 

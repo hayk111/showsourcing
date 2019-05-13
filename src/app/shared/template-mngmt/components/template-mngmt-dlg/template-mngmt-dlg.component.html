@@ -1,13 +1,13 @@
 
 
 <dialog-app>
-  
-  <dialog-header-app>
+
+  <dialog-header-app i18n="@@request-templates">
     Request Templates
   </dialog-header-app>
-  
+
   <div class="flex">
-    
+
     <div class="left">
 
       <h2 i18n="header@@my-request-templates">My Request Templates</h2>
@@ -15,24 +15,24 @@
       <div class="info" i18n="text@@new-template">New Template</div>
 
       <div class="input-box flexVAlign">
-        <input [formControl]="createCtrl" type="text" placeholder="Template Name" (keyup.enter)="btn.click()">
+        <input [formControl]="createCtrl" type="text" placeholder="Template Name" (keyup.enter)="btn.click()" i18n-placeholder="@@tempalte-name"/>
         <button #btn (click)="createTemplate()">New</button>
       </div>
 
       <h3 i18n="header@@templates">Templates</h3>
-      
+
       <list-app>
-        <list-item-app 
-          *ngFor="let template of templates$ | async" 
+        <list-item-app
+          *ngFor="let template of templates$ | async"
           [ngClass]="{ 'selected': isSelected(template) }"
           (click)="templateSelected = template">
           <div class="item flexBetween fullWidth">
             <span class="name">{{ template.name }}</span>
             <context-menu-app>
               <context-menu-trigger-app>
-                <span class="delete txt-clickable">delete</span>
+                <span class="delete txt-clickable" i18n="@@delete">delete</span>
               </context-menu-trigger-app>
-              <context-menu-item-app (click)="deleteTemplate($event, template)">
+              <context-menu-item-app (click)="deleteTemplate($event, template)" i18n="@@delete">
                 delete
               </context-menu-item-app>
             </context-menu-app>
@@ -40,14 +40,14 @@
         </list-item-app>
       </list-app>
     </div>
-    
+
     <div class="right flexGrow">
 
       <h2>{{ templateSelected.name }}</h2>
 
       <h3 i18n="header@@template-elements">Template elements</h3>
 
-      <div class="info" i18n="select-info-template-supplier">
+      <div class="info" i18n="@@select-info-template-supplier">
         Select the information you want to request the supplier.
       </div>
 
@@ -61,15 +61,15 @@
       </list-app>
 
       <div class="actions flexEnd">
-        <button [disabled]="!hasChanged()" class="secondary" (click)="reset()">Reset</button>
-        <button [disabled]="!hasChanged()" (click)="save()">Save Changes</button>
+        <button [disabled]="!hasChanged()" class="secondary" (click)="reset()" i18n="reset">Reset</button>
+        <button [disabled]="!hasChanged()" (click)="save()" i18n="@@save-changes">Save Changes</button>
       </div>
     </div>
 
   </div>
-  
+
   <dialog-footer-app>
-    <button class="secondary" (click)="close($event)">close</button>
+    <button class="secondary" (click)="close($event)" i18n="@@close">close</button>
   </dialog-footer-app>
 
 </dialog-app>

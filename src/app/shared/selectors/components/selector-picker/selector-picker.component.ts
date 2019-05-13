@@ -212,6 +212,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 						id: v.id,
 						name: v.name,
 						images: v.images ? v.images : null,
+						supplier: v.supplier ? v.supplier : null,
 						__typename: v.__typename
 					}
 				));
