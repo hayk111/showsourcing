@@ -49,7 +49,7 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 			assignee: { id: this.userSrv.userSync.id }
 		});
 		this.taskSrv.create(newTask).pipe(
-			switchMap(_ => this.listSrv.refetch({ query: this.listSrv.filterList.asPredicate() }))
+			switchMap(_ => this.listSrv.refetch({}))
 		).subscribe();
 	}
 }
