@@ -1,4 +1,4 @@
-image: node:9.11
+image: nexusuw/node-8-python-aws-cli
 stages:
   - install
   - build
@@ -10,8 +10,6 @@ app-install:
   script:
     - npm install
     - npm i @angular/cli -g
-    - apt-get update && apt install python3-pip
-    - pip3 install awscli --upgrade --user
   artifacts:
     paths:
       - node_modules
