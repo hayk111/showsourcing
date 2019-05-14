@@ -30,6 +30,6 @@ export interface ExtendedFieldDefinitionConfig {
 	order?: number;
 	target?: string;
 	originId?: string;
-	metadata?: ExtendedFieldDefinitionMetadata;
+	metadata?: string;
 }
 

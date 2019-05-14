@@ -234,7 +234,7 @@
 				(update)="onInput($event, definition?.type === 'const')">
 				<selector-placeholder-app
 					[ngClass]="{ 'disabled': disabled }"
-					[name]="definition?.type === 'const' ? accumulator : accumulator">
+					[name]="definition?.type === 'const' ? accumulator : getLinkingObject()">
 				</selector-placeholder-app>
 			</selector-app>
 			<input inputApp [hidden]="true" type="text"/>

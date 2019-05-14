@@ -76,6 +76,10 @@ export class ExtendedFormInputComponent implements OnInit {
 		return ERM.getEntityMetadata(name) || null;
 	}
 
+	getLinkingObject() {
+		throw Error('linkingobject selector hasn\'t been implemented');
+	}
+
 	/** saving the value */
 	onSave() {
 		this.field.value = this.accumulator;
