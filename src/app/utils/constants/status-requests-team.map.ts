@@ -13,6 +13,9 @@ export const statusRequestsTeamMap = {
 		locales: {
 			en: {
 				name: 'Sent to supplier'
+			},
+			'zh-Hans': {
+				name: '已发送至供应商'
 			}
 		}
 	},
@@ -20,6 +23,9 @@ export const statusRequestsTeamMap = {
 		locales: {
 			en: {
 				name: 'Sent to supplier'
+			},
+			'zh-Hans': {
+				name: '已发送至供应商'
 			}
 		}
 	},
@@ -27,6 +33,9 @@ export const statusRequestsTeamMap = {
 		locales: {
 			en: {
 				name: 'Sent Back to supplier'
+			},
+			'zh-Hans': {
+				name: '已发送回供应商'
 			}
 		}
 	},
@@ -54,8 +63,10 @@ export const statusRequestsTeamMap = {
 		locales: {
 			en: {
 				name: 'Canceled'
+			},
+			'zh-Hans': {
+				name: '已取消'
 			}
 		}
 	}
 };
-

@@ -775,6 +775,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Select a supplier first'
+			},
+			'zh-Hans': {
+				name: '首先选择供应商'
 			}
 		}
 	},
@@ -862,6 +865,9 @@ export const messagesMap = {
 		locales: {
 			en: {
 				name: 'Something bad happened, please resubmit'
+			},
+			'zh-Hans': {
+				name: '有异常情况发生，请重新提交'
 			}
 		}
 	},
