@@ -29,10 +29,6 @@
 					<ng-container i18n="@@sort-by-sent-on">Sort By Sent on</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">
-					<ng-container i18n="@@sort-by-created-on">Sort By Created on</ng-container>
-          <ng-container *ngTemplateOutlet="direction"></ng-container>
-        </p>
         <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
     </button>
   </context-menu-trigger-app>
@@ -75,12 +71,6 @@
   <context-menu-item-app (click)="sortFromMenu.emit('sentDate')" class="menu-item">
 		<ng-container i18n="@@sent-on">sent on</ng-container>
     <ng-container *ngIf="currentSort?.sortBy === 'sentDate'">
-      <ng-container *ngTemplateOutlet="direction"></ng-container>
-    </ng-container>
-  </context-menu-item-app>
-  <context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item">
-    <ng-container i18n="@@created-on">created on</ng-container>
-    <ng-container *ngIf="currentSort?.sortBy === 'creationDate'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
