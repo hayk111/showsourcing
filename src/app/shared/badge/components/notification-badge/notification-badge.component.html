@@ -1,16 +1,1 @@
 <ng-content></ng-content>
-
-<ng-template
-		#notification
-		let-badge="badge"
-		let-badgeSize="badgeSize"
-		let-badgePosition="badgePosition"
-		let-badgeOverlap="badgeOverlap"
-		let-badgeHidden="badgeHidden">
-		<div
-			*ngIf="badge"
-			class="notification {{ badgePosition }} {{ badgeSize }}"
-			[ngClass]="{'hidden': badgeHidden, 'overlap': badgeOverlap }">
-			{{ badge }}
-		</div>
-</ng-template>
