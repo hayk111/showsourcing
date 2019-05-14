@@ -114,12 +114,12 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			const originId = field.definition.originId;
 			const currentField = this.product ? this.product.extendedFields.find(fld => fld.definition.id === originId) : '';
 			currentValue = currentField ? currentField.value : '';
-			supplierValue = JSON.parse(field.value);
+			supplierValue = field.value ? JSON.parse(field.value) : '';
 		} else {
 			// target will be something like Product.price, we only need price
 			const property = target.split('.')[1];
 			currentValue = this.product ? this.product[property] : '';
-			supplierValue = JSON.parse(field.value);
+			supplierValue = field.value ? JSON.parse(field.value) : '';
 		}
 		return [currentValue, supplierValue];
 	}
