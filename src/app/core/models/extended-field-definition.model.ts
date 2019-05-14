@@ -13,7 +13,7 @@ export class ExtendedFieldDefinition {
 	order?: number;
 	target?: string;
 	originId?: string;
-	metadata?: ExtendedFieldDefinitionMetadata;
+	metadata?: string;
 
 	__typename?= 'ExtendedFieldDefinition';
 

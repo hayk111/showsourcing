@@ -226,17 +226,18 @@
 
 		<!-- selector -->
 		<form-field-app *ngSwitchCase="'selector'" class="modal">
-			<label-app>{{ definition?.metadata?.source }}</label-app>
+			<label-app>{{ definition?.label }}</label-app>
 			<selector-app
 				[disabled]="disabled"
-				[type]="definition?.metadata?.source"
-				[canCreate]="definition?.metadata?.canCreate"
+				[type]="getERM(metadata?.source)"
+				[canCreate]="metadata?.canCreate"
 				(update)="onInput($event, definition?.type === 'const')">
 				<selector-placeholder-app
 					[ngClass]="{ 'disabled': disabled }"
 					[name]="definition?.type === 'const'">
 				</selector-placeholder-app>
 			</selector-app>
+			<input inputApp [hidden]="true" type="text"/>
 		</form-field-app>
 
 	</ng-container>
