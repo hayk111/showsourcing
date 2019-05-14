@@ -1,0 +1,9 @@
+<span *ngIf="packaging?.length || packaging?.width || packaging?.depth; else empty">
+  {{ packaging?.length || 0 }} x 
+  {{ packaging?.width || 0 }} x 
+  {{ packaging?.depth || 0 }} 
+  {{ packaging?.unit }}
+</span>
+<ng-template #empty>
+  -
+</ng-template>

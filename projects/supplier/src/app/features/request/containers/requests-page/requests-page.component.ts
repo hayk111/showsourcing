@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { SupplierRequestService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, SupplierRequest } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'requests-page-sup',
@@ -11,14 +11,16 @@ import { ERM, SupplierRequest } from '~models';
 	styleUrls: ['./requests-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestsPageComponent implements OnInit {
+export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM;
 
 	constructor(
 		private suppRequestSrv: SupplierRequestService,
 		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>
-	) { }
+	) {
+		super();
+	}
 
 
 	ngOnInit() {
@@ -28,7 +30,8 @@ export class RequestsPageComponent implements OnInit {
 			entitySrv: this.suppRequestSrv,
 			key: ListPageKey.SUPPLIER_REQUEST,
 			searchedFields: ['sender.name', 'status', 'title', 'sender.company'],
-			selectParams
+			selectParams,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 
