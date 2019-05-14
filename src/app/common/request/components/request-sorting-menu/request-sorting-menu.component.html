@@ -5,11 +5,11 @@
 					<ng-container i18n="@@sort-by-name">Sort By Name</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'recipient.supplier.name'" class="flex">
-					<ng-container i18n="@@sort-by-suppli">Sort By Supplier</ng-container>
+        <p *ngIf="currentSort?.sortBy === 'recipient.company'" class="flex">
+					<ng-container i18n="@@sort-by-supplier">Sort By Supplier</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'requestTemplate.name'" class="flex">
+        <p *ngIf="currentSort?.sortBy === 'templateName'" class="flex">
 					<ng-container i18n="@@sort-by-type">Sort By Type</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
@@ -21,7 +21,7 @@
 					<ng-container i18n="@@sort-by-sent-to">Sort By Sent to</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <p *ngIf="currentSort?.sortBy === 'createdBy.firstName'" class="flex">
+        <p *ngIf="currentSort?.sortBy === 'sender.name'" class="flex">
 					<ng-container i18n="@@sort-by-sent-by">Sort By Sent by</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
@@ -42,15 +42,15 @@
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
-  <context-menu-item-app (click)="sortFromMenu.emit('recipient.supplier.name')" class="menu-item first-uppercase">
+  <context-menu-item-app (click)="sortFromMenu.emit('recipient.company')" class="menu-item first-uppercase">
 		<ng-container i18n="@@supplier">supplier</ng-container>
-    <ng-container *ngIf="currentSort?.sortBy === 'recipient.supplier.name'">
+    <ng-container *ngIf="currentSort?.sortBy === 'recipient.company'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
-  <context-menu-item-app (click)="sortFromMenu.emit('requestTemplate.name')" class="menu-item first-uppercase">
+  <context-menu-item-app (click)="sortFromMenu.emit('templateName')" class="menu-item first-uppercase">
 		<ng-container i18n="@@type">type</ng-container>
-    <ng-container *ngIf="currentSort?.sortBy === 'requestTemplate.name'">
+    <ng-container *ngIf="currentSort?.sortBy === 'templateName'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
 	</context-menu-item-app>
@@ -66,9 +66,9 @@
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
-	<context-menu-item-app (click)="sortFromMenu.emit('createdBy.firstName')" class="menu-item first-uppercase">
+	<context-menu-item-app (click)="sortFromMenu.emit('sender.name')" class="menu-item first-uppercase">
 		<ng-container i18n="@@sent-by">sent by</ng-container>
-    <ng-container *ngIf="currentSort?.sortBy === 'createdBy.firstName'">
+    <ng-container *ngIf="currentSort?.sortBy === 'sender.name'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
