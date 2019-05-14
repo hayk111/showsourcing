@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Attachment } from '~core/models';
 import { AttachmentService } from '~core/entity-services';
-import { DialogService } from '~shared/dialog';
+import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { takeUntil, switchMap, filter } from 'rxjs/operators';
 
 @Component({
 	selector: 'file-list-app',
@@ -54,8 +54,9 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 			this.dlgSrv.open(ConfirmDialogComponent, {
 				text: 'Remove 1 file ?'
 			}).pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				switchMap(_ => this.removeFile(file)),
 				takeUntil(this._destroy$),
-				switchMap(_ => this.removeFile(file))
 			).subscribe();
 		} else {
 			this.removeFile(file).subscribe();

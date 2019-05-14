@@ -7,19 +7,17 @@
     <list-app>
 
       <list-item-app (click)="downloadFile(file)" *ngFor="let file of files; let last = last;" [border]="!last">
-        <div class="flex">
-          <spinner-app size="35" width="3" *ngIf="isPending(file)"></spinner-app>
+        <spinner-app size="35" width="3" *ngIf="isPending(file)"></spinner-app>
 
-          <div class="space-icon flexAround">
-            <icon-app class="fs-m color-txt-secondary" name="file" ></icon-app>
-          </div>
-          <div class="name pointer">
-            <div class="ellipsis">{{ file.fileName }}</div>
-            <div class="file-size">{{ file.size | fileSize }}</div>
-          </div>
-          <div *ngIf="!static" class="flexCenter">
-            <icon-app fontSet="fa" (click)="onFileRemoved(file, $event)" name="minus" class="pointer minus fs-xl color-primary-light"></icon-app>
-          </div>
+        <div class="space-icon flexAround">
+          <icon-app class="fs-m color-txt-secondary" name="file" ></icon-app>
+        </div>
+        <div class="name pointer">
+          <div class="ellipsis">{{ file.fileName }}</div>
+          <div class="file-size">{{ file.size | fileSize }}</div>
+        </div>
+        <div *ngIf="!static" class="flexCenter">
+          <icon-app fontSet="fa" (click)="onFileRemoved(file, $event)" name="minus" class="pointer minus fs-xl color-primary-light"></icon-app>
         </div>
       </list-item-app>
 

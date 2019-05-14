@@ -2,12 +2,15 @@
 	<dialog-header-app i18n="@@send-request-supplier">Send Request to Supplier</dialog-header-app>
 
 	<div class="title-container flex">
-		<div class="left"><h2 class="color-txt-strong l" i18n="@@request-settings">Request Settings</h2></div>
-		<div class="right"><h2 class="color-txt-strong l" i18n="@@recipients">Recipients</h2></div>
+		<div class="left"><h2 class="l" i18n="@@request-settings">Request Settings</h2></div>
+		<div class="right"><h2 class="l" i18n="@@recipients">Recipients</h2></div>
 	</div>
+
 	<div class="request-container flex" [ngStyle]="{ opacity: pending ? 0.5 : 1 }">
+
 		<div class="left">
 			<form [formGroup]="form">
+
 				<form-field-app class="modal pdng-btm-l">
 					<label-app><ng-container i18n="@@select-products">Select products</ng-container> *</label-app>
 					<product-request-list-app
@@ -17,12 +20,14 @@
 					</product-request-list-app>
 					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
+
 				<form-field-app class="modal pdng-btm-l">
 					<label-app><ng-container i18n="@@request-tempaltes">Request Templates</ng-container> *</label-app>
 					<selector-app
 						#selectorReqTemplate
 						type="request template"
-						formControlName="requestTemplate">
+						formControlName="requestTemplate"
+						(update)="selectTemplate($event)">
 							<selector-placeholder-app
 								[name]="selectorReqTemplate?.value?.name"
 								placeholder="Quick RFQ"
@@ -30,7 +35,18 @@
 							</selector-placeholder-app>
 						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
+
+					<ng-container *ngIf="selectedTemplate$ | async as tmpSlctd">
+						<small class="browse flexEnd color-primary pointer"
+							(click)="openTemplateMngmtDialog($event, tmpSlctd)">
+							Browse templates
+						</small>
+						<div><b>Template Fields:</b> {{ getTemplateFields(tmpSlctd) }}</div>
+					</ng-container>
+
 				</form-field-app>
+
+
 				<form-field-app class="modal">
 					<label-app i18n="@@share-product-info">Share my product information</label-app>
 					<div class="flex">
@@ -38,12 +54,16 @@
 							#checkShare
 							inputApp
 							formControlName="shareInformation">
-							<span class="checkbox-label" i18n="@@share-info-text">Share product information you arleady have with the supplier such as price, moq, etc.</span>
+							<span class="checkbox-label" i18n="@@share-info-text">
+								Share product information you arleady have with the supplier such as price, moq, etc.
+							</span>
 						</checkbox-app>
 					</div>
 				</form-field-app>
+
 			</form>
 		</div>
+
 			<div class="right">
 
 				<form [formGroup]="form">
@@ -83,6 +103,7 @@
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
+
 				<!-- <form-field-app class="modal">
 					<label-app>Send Copy to</label-app>
 					<selector-app
@@ -99,6 +120,7 @@
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app> -->
+
 				<form-field-app class="modal pdng-btm-l">
 					<label-app><ng-container i18n="@@request-title">Request Title</ng-container> *</label-app>
 					<input inputApp type="text" formControlName="title" placeholder="Quote Request" i18n-placeholder="@@quote-request"/>
@@ -107,6 +129,7 @@
 					<label-app i18n="@@message-for-supplier">Message for the supplier</label-app>
 					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" placeholder="Quick RFQ" i18n-placeholder="@@quick-rfq"></textarea>
 				</form-field-app>
+
 				<!-- <form-field-app class="modal">
 					<label-app>Send me a copy</label-app>
 					<div class="flex">
@@ -115,12 +138,15 @@
 						</checkbox-app>
 					</div>
 				</form-field-app> -->
+
 			</form>
 		</div>
+
 	</div>
 
 	<dialog-footer-app>
 		<spinner-app *ngIf="pending" size="18"></spinner-app>
 		<button class="capitalize" [disabled]="!form.valid || pending" (click)="createRequest()" i18n="@@send-request">send request</button>
 	</dialog-footer-app>
+
 </dialog-app>

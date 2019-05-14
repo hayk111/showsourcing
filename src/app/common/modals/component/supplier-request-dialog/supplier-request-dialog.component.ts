@@ -1,14 +1,16 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, delay } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
-import { Contact, CreateRequest, ERM, Product, Supplier } from '~core/models';
+import { Contact, CreateRequest, ERM, Product, Supplier, RequestTemplate } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ID, translate } from '~utils';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { TemplateMngmtDlgComponent } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
+import { of, Subject, Observable, ReplaySubject } from 'rxjs';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -18,15 +20,31 @@ import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.componen
 })
 export class SupplierRequestDialogComponent implements OnInit {
 
+	private _request: CreateRequest;
+	@Input() set request(request: CreateRequest) {
+		this._request = request;
+		this.initFormValues();
+	}
+	get request() {
+		return this._request;
+	}
+	// if we don't initialize it the selector will try to push to an empty object
+	private _products: Product[];
+	@Input() set products(products: Product[]) {
+		this._products = products || [];
+		if (!this.request)
+			this.request = new CreateRequest({ products: this._products, sendCopyTo: [], shareInformation: false });
+	}
+	get products() {
+		return this._products;
+	}
 	form: FormGroup;
 	copyEmail = false;
-	request: CreateRequest;
 	pending = false;
 	filterList = new FilterList([]);
 	supplier: Supplier;
-
-	// if we don't initialize it the selector will try to push to an empty object
-	@Input() products: Product[] = [];
+	private templateSelectedAction$ = new ReplaySubject<ID>(1);
+	selectedTemplate$: Observable<RequestTemplate>;
 
 	constructor(
 		private fb: FormBuilder,
@@ -49,10 +67,13 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: false });
-		this.request.products = this.products;
-		this.initFormValues();
+		if (!this.request)
+			this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: false });
 		this.form.patchValue(this.request);
+		this.selectedTemplate$ = this.templateSelectedAction$.pipe(
+			switchMap(id => this.requestTemplateSrv.queryOne(id))
+		);
+
 	}
 
 	private initFormValues() {
@@ -71,57 +92,62 @@ export class SupplierRequestDialogComponent implements OnInit {
 			'\nThank you\n' +
 			(firstName ? firstName + ' ' + lastName : lastName)
 		);
-		// template
-		this.requestTemplateSrv.queryOneByPredicate('targetedEntity == "Product"')
-			.pipe(take(1))
-			.subscribe(reqTemplate => {
-				if (reqTemplate) {
-					this.form.get('requestTemplate').setValue(reqTemplate);
-					this.form.patchValue(this.request);
-				}
-			});
+		// template, selecting the first one
+		this.setTemplate();
 		// supplier, its not a form value but it has to be initialized
-		const tempProduct = this.request.products.find(product => !!product.supplier);
-		this.supplier = tempProduct && tempProduct.supplier ? tempProduct.supplier : null;
+		this.setSupplier();
+	}
+
+	private setTemplate() {
+		if (this.request && !this.request.requestTemplate) {
+			this.requestTemplateSrv.queryOneByPredicate('targetedEntity == "Product"')
+				.pipe(take(1))
+				.subscribe(reqTemplate => {
+					this.templateSelectedAction$.next(reqTemplate.id);
+					this.form.patchValue({ requestTemplate: reqTemplate });
+				});
+		} else if (this.request && this.request.requestTemplate)
+			this.templateSelectedAction$.next(this.request.requestTemplate.id);
+	}
+
+	private setSupplier() {
+		// 1. find the first product that has a supplier
+		const productWithSupplier = this.request.products.find(product => !!product.supplier);
+		this.supplier = productWithSupplier && productWithSupplier.supplier;
+
 		if (this.supplier) {
 			this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
 
 			if (this.supplier.officeEmail) {
 				// we do this since we want the email of the supplier to be selected by default to send the message
-				// since we use contacts what this does is check if we have an existing contact or if we have to create a new one with that email
+				// since we use contacts what this does is to check if we have an existing contact or
+				// if we have to create a new one with that email
 				this.contactSrv.queryOneByPredicate(`email == "${this.supplier.officeEmail}"`)
 					.pipe(
 						switchMap(contact => this.createOrUseContact(contact, this.supplier)),
 						take(1)
-					)
-					.subscribe(contact => {
-						this.form.get('recipient').setValue(contact);
-						this.form.patchValue(this.request);
-					});
+					).subscribe(contact => this.form.patchValue({ recipient: contact }));
+
 			} else { // we try to add the first email of that supplier
 				this.contactSrv.queryOneByPredicate(`supplier.id == "${this.supplier.id}"`)
 					.pipe(take(1))
-					.subscribe(contact => {
-						this.form.get('recipient').setValue(contact);
-						this.form.patchValue(this.request);
-					});
+					.subscribe(contact => this.form.patchValue({ recipient: contact }));
 			}
 		}
 	}
 
 	private createOrUseContact(contact: Contact, supplier: Supplier) {
-		let obsAction;
-		if (contact)
-			obsAction = this.contactSrv.queryOne(contact.id);
-		else {
+
+		if (contact) {
+			return of(contact);
+		} else {
 			const newContact = new Contact({
 				email: supplier.officeEmail,
 				name: supplier.name ? supplier.name : '',
 				supplier: { id: supplier.id }
 			});
-			obsAction = this.contactSrv.create(newContact);
+			return this.contactSrv.create(newContact);
 		}
-		return obsAction;
 	}
 
 	contactUpdate(contact: Contact) {
@@ -169,20 +195,36 @@ export class SupplierRequestDialogComponent implements OnInit {
 			.subscribe(_ => {
 				this.pending = false;
 				this.dlgSrv.open(ReplySentDlgComponent, { actionName: translate(ERM.SUPPLIER_REQUEST.singular, 'erm') });
-			},
-				err => {
-					this.dlgSrv.close();
-					this.notifSrv.add({
-						title: translate('Service error when creating request'),
-						type: NotificationType.ERROR,
-						message: translate('We could not create the request due to a server issue')
-					});
-				}
-			);
+			}, err => {
+				this.dlgSrv.close();
+				this.notifSrv.add({
+					title: 'Service error when creating request',
+					type: NotificationType.ERROR,
+					message: 'We could not create the request due to a server issue'
+				});
+			});
 	}
 
 	arrayToString(array: string[]) {
 		return array.join(', ');
+	}
+
+	selectTemplate(tmp: RequestTemplate) {
+		this.templateSelectedAction$.next(tmp.id);
+	}
+
+	openTemplateMngmtDialog(event: MouseEvent, templateSelected: RequestTemplate) {
+		event.stopPropagation();
+		const request = new CreateRequest(this.form.value);
+		this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected })
+			// we are reopening this dlg when the other one closes
+			.subscribe(({ type, data }) => {
+				return this.dlgSrv.open(SupplierRequestDialogComponent, { request });
+			});
+	}
+
+	getTemplateFields(tmp: RequestTemplate) {
+		return tmp.requestedFields.map(f => f.label).join(', ');
 	}
 
 }

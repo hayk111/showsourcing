@@ -8,6 +8,7 @@
 			projects
 		</h3>
 	</div>
+	
 	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
 		<article class="flexBetween pointer" [class.last-item]="last">
 			<div class="flex">

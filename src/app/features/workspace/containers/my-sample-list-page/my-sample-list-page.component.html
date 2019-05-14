@@ -2,7 +2,7 @@
 	[hasSwitch]="true"
 	[switchContent]="['list', 'kanban']"
 	[hasFilter]="true"
-	[filtersAmount]="listSrv.filterList.asFilters()?.length"
+	[filtersAmount]="getFilterAmount()"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
 	(search)="listSrv.search($event)"

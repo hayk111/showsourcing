@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { saveAs } from 'file-saver';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, filter } from 'rxjs/operators';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { ImageService } from '~entity-services/image/image.service';
 import { AppImage } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService } from '~shared/dialog/services';
+import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -107,8 +107,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		this.dlgSrv.open(ConfirmDialogComponent, {
 			text: 'Are you sure you want to remove this image ?',
 		}).pipe(
+			switchMap(_ => this.onDeleteAccepted(img)),
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			takeUntil(this._destroy$),
-			switchMap(_ => this.onDeleteAccepted(img))
 		).subscribe();
 	}
 

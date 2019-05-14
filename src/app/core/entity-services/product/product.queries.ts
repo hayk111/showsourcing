@@ -33,6 +33,12 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { id, url } }}`;
 	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order }}`;
 	// This is the default selection when using selectOne or queryOne
+	// incoTerm,
+	// harbour,
+	// masterCbm,
+	// quantityPer20ft,
+	// quantityPer40ft,
+	// quantityPer40ftHC,
 	static readonly one = `
 			name,
 			description
@@ -46,12 +52,6 @@ export abstract class ProductQueries extends GlobalQueries {
 			creationDate,
 			archived,
 			deleted,
-			incoTerm,
-			harbour,
-			masterCbm,
-			quantityPer20ft,
-			quantityPer40ft,
-			quantityPer40ftHC,
 			${ProductQueries.assignee}
 			${ProductQueries.attachments}
 			${ProductQueries.extendedFields}

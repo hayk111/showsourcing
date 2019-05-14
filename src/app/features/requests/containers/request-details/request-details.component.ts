@@ -93,21 +93,23 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	openReviewRequestReply(id: string) {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === id);
-		this.dlgSrv.open(ReviewRequestReplyDlgComponent, { elementId: id, selectedIndex, requestId: this.requestId });
+		this.dlgSrv.open(ReviewRequestReplyDlgComponent, {
+			elementId: id,
+			selectedIndex,
+			requestId: this.requestId
+		});
 	}
 
 	openRefuseReplyDlg(replyId: ID) {
-		this.dlgSrv.open(RefuseReplyDlgComponent,
-			{
-				senderName: this.request.sender.name,
-				recipientName: this.request.recipient.name,
-				replyId
-			}
-		);
+		this.dlgSrv.open(RefuseReplyDlgComponent, {
+			senderName: this.request.sender.name,
+			recipientName: this.request.recipient.name,
+			replyId
+		});
 	}
 
 	cancelReply(replyId: ID) {
-		//TODO i18n
+		// TODO i18n
 		const text = 'Are you sure you want to cancel this request item ?';
 		const action = 'Cancel item';
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(

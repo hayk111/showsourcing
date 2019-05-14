@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { first, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { filter, first, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, Sample, SampleStatus } from '~core/models';
 import { NEW_STATUS_ID } from '~core/models/status.model';
-import { DialogService } from '~shared/dialog';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
@@ -141,6 +141,8 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	openCreateDlg() {
 		const assignee = { id: this.userSrv.userSync.id };
 		this.dlgSrv.open(CreationDialogComponent, { type: ERM.SAMPLE, extra: { assignee } }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			map((evt: CloseEvent) => evt.data)
 		).subscribe(({ item }) => this.kanbanSrv.addItems([item], NEW_STATUS_ID));
 	}
 
@@ -197,10 +199,19 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
 		).subscribe(_ => {
 			this.listSrv.selectionSrv.unselectAll();
 			this.kanbanSrv.deleteItems(itemIds);
 		});
+	}
+
+	// this is used on sample list page too
+	getFilterAmount() {
+		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
+		const filters = this.listSrv.filterList.asFilters()
+			.filter(fil => !(fil.type === FilterType.DELETED && fil.value === false) && !(fil.type === FilterType.ASSIGNEE));
+		return filters.length;
 	}
 }
