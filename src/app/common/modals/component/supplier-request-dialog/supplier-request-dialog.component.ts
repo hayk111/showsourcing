@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { switchMap, take, delay } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
@@ -10,7 +10,7 @@ import { ID, translate } from '~utils';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 import { TemplateMngmtDlgComponent } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
-import { of, Subject, Observable } from 'rxjs';
+import { of, Subject, Observable, ReplaySubject } from 'rxjs';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -20,15 +20,30 @@ import { of, Subject, Observable } from 'rxjs';
 })
 export class SupplierRequestDialogComponent implements OnInit {
 
-	@Input() request: CreateRequest;
+	private _request: CreateRequest;
+	@Input() set request(request: CreateRequest) {
+		this._request = request;
+		this.initFormValues();
+	}
+	get request() {
+		return this._request;
+	}
 	// if we don't initialize it the selector will try to push to an empty object
-	@Input() products: Product[] = [];
+	private _products: Product[];
+	@Input() set products(products: Product[]) {
+		this._products = products || [];
+		if (!this.request)
+			this.request = new CreateRequest({ products: this._products, sendCopyTo: [], shareInformation: false });
+	}
+	get products() {
+		return this._products;
+	}
 	form: FormGroup;
 	copyEmail = false;
 	pending = false;
 	filterList = new FilterList([]);
 	supplier: Supplier;
-	private templateSelectedAction$ = new Subject<ID>();
+	private templateSelectedAction$ = new ReplaySubject<ID>(1);
 	selectedTemplate$: Observable<RequestTemplate>;
 
 	constructor(
@@ -52,11 +67,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		if (!this.request) {
+		if (!this.request)
 			this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: false });
-			this.request.products = this.products;
-			this.initFormValues();
-		}
 		this.form.patchValue(this.request);
 		this.selectedTemplate$ = this.templateSelectedAction$.pipe(
 			switchMap(id => this.requestTemplateSrv.queryOne(id))
@@ -80,23 +92,30 @@ export class SupplierRequestDialogComponent implements OnInit {
 			'\nThank you\n' +
 			(firstName ? firstName + ' ' + lastName : lastName)
 		);
-
 		// template, selecting the first one
-		this.requestTemplateSrv.queryOneByPredicate('targetedEntity == "Product"')
-			.pipe(take(1))
-			.subscribe(reqTemplate => {
-				this.templateSelectedAction$.next(reqTemplate.id);
-				this.form.patchValue({ requestTemplate: reqTemplate });
-			});
-
+		this.setTemplate();
 		// supplier, its not a form value but it has to be initialized
+		this.setSupplier();
+	}
 
+	private setTemplate() {
+		if (this.request && !this.request.requestTemplate) {
+			this.requestTemplateSrv.queryOneByPredicate('targetedEntity == "Product"')
+				.pipe(take(1))
+				.subscribe(reqTemplate => {
+					this.templateSelectedAction$.next(reqTemplate.id);
+					this.form.patchValue({ requestTemplate: reqTemplate });
+				});
+		} else if (this.request && this.request.requestTemplate)
+			this.templateSelectedAction$.next(this.request.requestTemplate.id);
+	}
+
+	private setSupplier() {
 		// 1. find the first product that has a supplier
 		const productWithSupplier = this.request.products.find(product => !!product.supplier);
 		this.supplier = productWithSupplier && productWithSupplier.supplier;
 
 		if (this.supplier) {
-
 			this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
 
 			if (this.supplier.officeEmail) {

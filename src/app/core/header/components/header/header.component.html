@@ -13,7 +13,7 @@
 
 	<a class="first-uppercase" [routerLink]="['/workspace']" routerLinkActive="selected" i18n="@@workspace">workspace</a>
 
-	<a class="request-container first-uppercase" [routerLink]="['/requests']" routerLinkActive="selected" i18n="@@requests">
+	<a class="request-container capitalize" [routerLink]="['/request']" routerLinkActive="selected" i18n="@@requests">
 		requests
 		<notification-badge-app *ngIf="(requestCount$ | async) as reqCount"> {{ reqCount }} </notification-badge-app>
 	</a>
