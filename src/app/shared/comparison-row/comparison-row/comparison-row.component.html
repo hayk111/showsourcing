@@ -3,7 +3,9 @@
 </div>
 
 <div *ngFor="let value of values" class="value">
-  {{ value }}
+	<ng-container
+		*ngTemplateOutlet="template; context: { value: value }">
+	</ng-container>
 </div>
 
 <div class="checkbox">

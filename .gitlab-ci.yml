@@ -1,4 +1,4 @@
-image: node:9.11
+image: cedvdb/node-12-aws-python
 stages:
   - install
   - build
@@ -9,11 +9,13 @@ app-install:
   stage: install
   script:
     - npm install
-    - pip install awscli
+    - npm i @angular/cli -g
+    - npm install --save-dev --unsafe-perm node-sass # avoid sass errors
   artifacts:
     paths:
       - node_modules
   only:
+    - supplier-connect
     - development
     - staging
 
@@ -21,19 +23,18 @@ app-install:
 # dev deployment
 app-deploy-dev:
   stage: deploy
-  image: python:latest
   script:
     - npm run build --configuration=dev
     - cd dist/showsourcing
     - aws s3 sync . s3://app-dev.showsourcing.com --delete
     - aws s3 cp s3://app-dev.showsourcing.com/index.html s3://app-dev.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
   only:
+    - supplier-connect
     - development
 
 # sta deployment
 app-deploy-sta:
   stage: deploy
-  image: python:latest
   script:
     - npm run build --configuration=sta
     - cd dist/showsourcing

@@ -45,6 +45,7 @@ import { BottomPanelModule } from './bottom-panel';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
 import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 import { OnBoardingModule } from './on-boarding/on-boarding.module';
+import { PackagingModule } from './packaging/packaging.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -98,7 +99,8 @@ const modules = [
 	UtilsModule,
 	ComparisonRowModule,
 	TemplateMngmtModule,
-	OnBoardingModule
+	OnBoardingModule,
+	PackagingModule
 ];
 
 @NgModule({

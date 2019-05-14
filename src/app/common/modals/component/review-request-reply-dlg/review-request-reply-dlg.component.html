@@ -31,6 +31,13 @@
 							[values]="getValues( field )"
 							(selected)="selectionSrv.selectOne(field)"
 							(unselected)="selectionSrv.unselectOne(field)">
+							<ng-template comparisonRowTemplateApp let-value="value">
+								<ng-container [ngSwitch]="field.definition.type">
+									<span *ngSwitchDefault>{{ value }}</span>
+									<price-app *ngSwitchCase="'price'" [price]="value"></price-app>
+									<packaging-app [packaging]="value" *ngSwitchCase="'packaging'"></packaging-app>
+								</ng-container>
+							</ng-template>
 						</comparison-row-app>
 					</list-item-app>
 				</list-app>
