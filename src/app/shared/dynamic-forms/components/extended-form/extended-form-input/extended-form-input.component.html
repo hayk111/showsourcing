@@ -224,6 +224,21 @@
 			</editable-packaging-app>
 		</form-field-app>
 
+		<!-- selector -->
+		<form-field-app *ngSwitchCase="'selector'" class="modal">
+			<label-app>{{ definition?.metadata?.source }}</label-app>
+			<selector-app
+				[disabled]="disabled"
+				[type]="definition?.metadata?.source"
+				[canCreate]="definition?.metadata?.canCreate"
+				(update)="onInput($event, definition?.type === 'const')">
+				<selector-placeholder-app
+					[ngClass]="{ 'disabled': disabled }"
+					[name]="definition?.type === 'const'">
+				</selector-placeholder-app>
+			</selector-app>
+		</form-field-app>
+
 	</ng-container>
 
 </ng-template>

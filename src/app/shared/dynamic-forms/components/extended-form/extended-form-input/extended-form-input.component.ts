@@ -99,7 +99,6 @@ export class ExtendedFormInputComponent implements OnInit {
 	accumulateJSON(json: Price | Packaging) {
 		// we need to stringify it since it's stored as a string
 		this.accumulator = JSON.stringify(json);
-
 	}
 
 }
