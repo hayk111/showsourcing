@@ -41,5 +41,6 @@ import {
 		StatusBoxComponent,
 		TaskStatusBadgeComponent,
 	],
+	entryComponents: [NotificationBadgeComponent]
 })
 export class BadgeModule { }

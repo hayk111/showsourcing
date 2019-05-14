@@ -1,13 +1,4 @@
 :host {
-	position: absolute;
-	border-radius: 50%;
-	background-color: var(--color-warn);
-	font-weight: 600;
-	color: #fff;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	&.notification {
 		// position
 		&.above-right {
@@ -58,4 +49,16 @@
 			display: none;
 		}
 	}
+}
+
+.notification {
+	position: absolute;
+	border-radius: 50%;
+	background-color: var(--color-warn);
+	font-weight: 600;
+	color: #fff;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
