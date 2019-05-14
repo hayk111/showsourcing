@@ -81,7 +81,7 @@
 		<div class="flex">
 			<div class="number">{{ row?.comments?.length || '0' }}</div>
 			&nbsp;
-			<ng-container i18n="@@nested_comment">{ row?.comments?.length, plural, =1 { comment } other { comments } } </ng-container>
+			<ng-container i18n="@@nested_comment">{ row?.comments?.length || 0, plural, =1 { comment } other { comments } } </ng-container>
 		</div>
 	</ng-template>
 

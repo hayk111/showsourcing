@@ -8,7 +8,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { DEFAULT_REPLIED_STATUS, ERM, RequestElement, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, ID } from '~utils';
+import { AutoUnsub, ID, translate } from '~utils';
 import { RefuseReplyDlgComponent } from '~common/modals';
 
 @Component({
@@ -70,7 +70,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		if (!request) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: 'The request doesn\'t exist',
+				title: translate('The request doesn\'t exist'),
 				timeout: 3500
 			});
 			this.router.navigate(['request']);
@@ -81,8 +81,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	private onError(error) {
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
-			title: 'Error',
-			message: 'There is an error, please try again later',
+			title: translate('error'),
+			message: translate('There is an error, please try again later'),
 			timeout: 3500
 		});
 		this.router.navigate(['request']);
