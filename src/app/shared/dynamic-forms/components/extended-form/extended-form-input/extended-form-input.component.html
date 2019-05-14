@@ -4,7 +4,7 @@
 	<editable-field-app *ngSwitchCase="'text'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
-		<label-app>{{ definition.label }}</label-app>
+		<label-app>{{ definition?.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
 			{{ field?.value || '-' }}
@@ -22,7 +22,7 @@
 	<editable-field-app *ngSwitchCase="'string'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
-		<label-app>{{ definition.label }}</label-app>
+		<label-app>{{ definition?.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
 			{{ field?.value || '-' }}
@@ -41,7 +41,7 @@
 	<editable-field-app *ngSwitchCase="'tel'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
-		<label-app>{{ definition.label }}</label-app>
+		<label-app>{{ definition?.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
 			{{ field?.value || '-' }}
@@ -60,7 +60,7 @@
 	<editable-field-app *ngSwitchCase="'int'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
-		<label-app>{{ definition.label }}</label-app>
+		<label-app>{{ definition?.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
 			{{ field?.value || '-' }}
@@ -79,7 +79,7 @@
 	<editable-field-app *ngSwitchCase="'decimal'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
-		<label-app>{{ definition.label }}</label-app>
+		<label-app>{{ definition?.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
 		<editable-label-app>
 			{{ field?.value || '-' }}
@@ -96,7 +96,7 @@
 	<!-- boolean -->
 	<editable-field-app #editable *ngSwitchCase="'boolean'" [inlineLabel]="inlineLabel" [openOnClick]="false"
 		(click)="toggleBoolean()">
-		<label-app>{{ definition.label }}</label-app>
+		<label-app>{{ definition?.label }}</label-app>
 		<editable-label-app>
 			{{ field?.value || '-' }}
 		</editable-label-app>
@@ -106,7 +106,7 @@
 	<editable-field-app *ngSwitchCase="'price'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select()">
 
-		<label-app>{{ definition.label }}</label-app>
+		<label-app>{{ definition?.label }}</label-app>
 
 		<editable-label-app [vAlign]="false">
 			<span *ngIf="getObject()" class="fs-s">{{ getObject().currency | const : 'currency' : 'symbol'}}</span>
@@ -134,7 +134,7 @@
 
 		<!-- text -->
 		<form-field-app *ngSwitchCase="'text'" class="modal">
-			<label-app>{{ definition.label }}</label-app>
+			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input #inp [disabled]="disabled" inputApp type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
@@ -143,7 +143,7 @@
 
 		<!-- string -->
 		<form-field-app *ngSwitchCase="'string'" class="modal">
-			<label-app>{{ definition.label }}</label-app>
+			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input #inp [disabled]="disabled" inputApp type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
@@ -152,7 +152,7 @@
 
 		<!-- tel -->
 		<form-field-app *ngSwitchCase="'tel'" class="modal">
-			<label-app>{{ definition.label }}</label-app>
+			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input #inp [disabled]="disabled" inputApp restrictInput="tel" type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
@@ -161,7 +161,7 @@
 
 		<!-- decimal -->
 		<form-field-app *ngSwitchCase="'decimal'" class="modal">
-			<label-app>{{ definition.label }}</label-app>
+			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
@@ -170,7 +170,7 @@
 
 		<!-- number (int) -->
 		<form-field-app *ngSwitchCase="'int'" class="modal">
-			<label-app>{{ definition.label }}</label-app>
+			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input #inp inputApp [disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
@@ -179,7 +179,7 @@
 
 		<!-- boolean -->
 		<form-field-app *ngSwitchCase="'boolean'" class="modal">
-			<label-app>{{ definition.label }}</label-app>
+			<label-app>{{ definition?.label }}</label-app>
 			<div class="flex">
 				<checkbox-app
 					class="mg-right-ms"
@@ -201,7 +201,7 @@
 
 		<!-- price -->
 		<form-field-app *ngSwitchCase="'price'" class="modal">
-			<label-app>{{ definition.label }}</label-app>
+			<label-app>{{ definition?.label }}</label-app>
 			<input-price-app
 				#inp
 				inputApp
@@ -214,7 +214,7 @@
 
 		<!-- packaging -->
 		<form-field-app *ngSwitchCase="'packaging'" class="modal">
-			<label-app>{{ definition.label }}</label-app>
+			<label-app>{{ definition?.label }}</label-app>
 			<editable-packaging-app
 				inputApp
 				[value]="getObject()"
@@ -234,7 +234,7 @@
 				(update)="onInput($event, definition?.type === 'const')">
 				<selector-placeholder-app
 					[ngClass]="{ 'disabled': disabled }"
-					[name]="definition?.type === 'const'">
+					[name]="definition?.type === 'const' ? accumulator : accumulator">
 				</selector-placeholder-app>
 			</selector-app>
 			<input inputApp [hidden]="true" type="text"/>
