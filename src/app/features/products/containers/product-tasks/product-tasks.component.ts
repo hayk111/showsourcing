@@ -55,7 +55,7 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 			assignee: { id: this.userSrv.userSync.id }
 		});
 		this.taskSrv.create(newTask).pipe(
-			switchMap(_ => this.listSrv.refetch())
+			switchMap(_ => this.listSrv.refetch({}))
 		).subscribe();
 	}
 

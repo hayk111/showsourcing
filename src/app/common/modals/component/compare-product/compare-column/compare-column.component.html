@@ -27,25 +27,25 @@
   </div>
 
   <div>
-    <span>{{ product.tags }}</span>
+    <span *ngFor="let tag of product?.tags">{{ tag?.name }}</span>
   </div>
 
   <h3></h3>
 
   <div>
     <ng-container *ngIf="product.innerCarton as c">
-      <span>{{ c?.length }} x {{ c?.width }} x {{ c?.depth }} {{ c?.unit }}</span>
+      <packaging-app [packaging]="c"></packaging-app>
     </ng-container>
   </div>
 
   <div>
     <ng-container *ngIf="product.masterCarton as c">
-      <span>{{ c?.length }} x {{ c?.width }} x {{ c?.depth }} {{ c?.unit }}</span>
+      <packaging-app [packaging]="c"></packaging-app>
     </ng-container>
   </div>
 
   <div>
-      <span>{{ product?.masterCarton?.itemsQuantity}}</span>
+    <span>{{ product?.masterCarton?.itemsQuantity}}</span>
   </div>
 
   <h3></h3>

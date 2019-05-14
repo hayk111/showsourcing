@@ -42,15 +42,13 @@
 		let-index="index"
 		width="250"
 		[sortable]="false"
-		*ngFor="let field of fields[0]; index as i; trackBy: trackByFn"
+		*ngFor="let field of fields[0]; index as j; trackBy: trackByFn"
 		[columnApp]="field?.definition?.label">
-		<div *ngIf="field?.definition?.type !== 'price'; else isPrice">{{ fields[index][i]?.value }}</div>
-		<ng-template #isPrice>
-			<div *ngIf="getPrice(fields[index][i]?.value) as price">
-					{{ price | appPrice }}
-			</div>
-		</ng-template>
-
+		<ng-container [ngSwitch]="field.definition.type">
+			<span *ngSwitchDefault>{{ fields[index][j]?.value }}</span>
+			<price-app *ngSwitchCase="'price'" [price]="fields[index][j]?.value"></price-app>
+			<packaging-app *ngSwitchCase="'packaging'" [packaging]="fields[index][j]?.value"></packaging-app>
+		</ng-container>
 	</ng-template>
 
 	<ng-template
@@ -58,10 +56,12 @@
 		sortBy="reply.status"
 		let-row="row"
 		width="300">
+
 		<request-status-badge-app
 			[status]="row?.reply?.status"
 			[creationDate]="row?.creationDate">
 		</request-status-badge-app>
+		
 	</ng-template>
 
 </table-app>

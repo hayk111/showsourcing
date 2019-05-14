@@ -19,8 +19,7 @@ export class TemplateMngmtService {
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService
 	) {
 		this.listQuery = this.templateSrv.getListQuery({ take: 1000 });
-		// TODO dev merge
-		// this.listQuery.items$.connect();
+		this.listQuery.items$.connect();
 	}
 
 	getTemplates() {

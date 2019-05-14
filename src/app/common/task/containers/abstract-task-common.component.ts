@@ -71,7 +71,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 	createTask(name: string) {
 		const newTask = new Task({ name, assignee: { id: this.userSrv.userSync.id } });
 		this.taskSrv.create(newTask).pipe(
-			switchMap(_ => this.listSrv.refetch())
+			switchMap(_ => this.listSrv.refetch({}))
 		).subscribe();
 	}
 
