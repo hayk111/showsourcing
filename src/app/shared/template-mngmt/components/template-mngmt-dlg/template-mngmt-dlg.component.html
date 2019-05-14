@@ -1,5 +1,3 @@
-
-
 <dialog-app>
 
   <dialog-header-app i18n="@@request-templates">
@@ -10,7 +8,7 @@
 
     <div class="left">
 
-      <h2 i18n="header@@my-request-templates">My Request Templates</h2>
+      <h2 class="ms" i18n="header@@my-request-templates">My Request Templates</h2>
 
       <div class="info" i18n="text@@new-template">New Template</div>
 
@@ -19,7 +17,7 @@
         <button #btn (click)="createTemplate()">New</button>
       </div>
 
-      <h3 i18n="header@@templates">Templates</h3>
+      <h3 class="ms" i18n="header@@templates">Templates</h3>
 
       <list-app>
         <list-item-app
@@ -43,9 +41,9 @@
 
     <div class="right flexGrow">
 
-      <h2>{{ templateSelected.name }}</h2>
+      <h2 class="ms">{{ templateSelected.name }}</h2>
 
-      <h3 i18n="header@@template-elements">Template elements</h3>
+      <h3 class="ms" i18n="header@@template-elements">Template elements</h3>
 
       <div class="info" i18n="@@select-info-template-supplier">
         Select the information you want to request the supplier.
@@ -61,7 +59,7 @@
       </list-app>
 
       <div class="actions flexEnd">
-        <button [disabled]="!hasChanged()" class="secondary" (click)="reset()" i18n="reset">Reset</button>
+        <button [disabled]="!hasChanged()" class="secondary" (click)="reset()" i18n="@@reset">Reset</button>
         <button [disabled]="!hasChanged()" (click)="save()" i18n="@@save-changes">Save Changes</button>
       </div>
     </div>
