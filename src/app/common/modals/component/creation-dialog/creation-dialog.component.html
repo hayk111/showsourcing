@@ -19,7 +19,7 @@
 			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" class="secondary" value="Create & Stay" (click)="onSubmit(false)"/>
 			<span *ngIf="canRedirect" class="spacer mg-s"></span>
 			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create & Go" (click)="onSubmit()"/>
-			<input *ngIf="!canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Creater" (click)="onSubmit(false)"/>
+			<input *ngIf="!canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create" (click)="onSubmit(false)"/>
 		</dialog-footer-app>
 
 		<!-- when pending -->
