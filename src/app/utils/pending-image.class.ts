@@ -1,3 +1,4 @@
+import { SafeUrl } from '@angular/platform-browser';
 import { uuid } from '~utils/uuid.utils';
 
 /** class that represent an image that is not yet fully uploaded.
