@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { PendingFile } from '~utils/pending-file.class';
 import { ImageService } from '~core/entity-services/image/image.service';
 import { AttachmentService } from '~core/entity-services';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 
@@ -36,7 +37,8 @@ export class UploaderFeedbackService {
 		private cd: ChangeDetectorRef,
 		private uploaderSrv: UploaderService,
 		private imgSrv: ImageService,
-		private attachmentSrv: AttachmentService
+		private attachmentSrv: AttachmentService,
+		private sanitizer: DomSanitizer
 	) { }
 
 
