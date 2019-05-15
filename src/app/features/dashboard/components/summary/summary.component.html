@@ -17,13 +17,13 @@
       <div class="flexVAlign">
         <span class="amount">{{ counters?.productsNeedReview }}</span>
         <div class="flexColumn">
-          <span class="taskType" i18n="text@@product-need-review">
-            { counters?.productsNeedReview, plural, =0 { Product need } =1 { Product needs } other { Products need } }
+          <span class="taskType" i18n="text@@nested_product-need-review">
+            { counters?.productsNeedReview ||0, plural, =0 { Product need } =1 { Product needs } other { Products need } }
             review
           </span>
           <span>
-            <a [routerLink]="['/workspace']" routerLinkActive="active" i18n="link@@review-product">
-              Review {counters?.productsNeedReview, plural, =0 { Product } =1 { Product } other { products } }
+            <a [routerLink]="['/workspace']" routerLinkActive="active" i18n="link@@nested_review-product">
+              Review {counters?.productsNeedReview || 0, plural, =0 { Product } =1 { Product } other { products } }
             </a>
           </span>
         </div>
@@ -34,7 +34,7 @@
         <span class="amount">{{ counters?.productsInWorkflow }}</span>
         <div class="flexColumn">
           <span class="taskType" i18n="text@@product-in-progress">
-            { counters?.productsInWorkflow, plural, =0 { Product } =1 { Product } other { Product } }
+            { counters?.productsInWorkflow || 0, plural, =0 { Product } =1 { Product } other { Product } }
             in progress
           </span>
           <span>

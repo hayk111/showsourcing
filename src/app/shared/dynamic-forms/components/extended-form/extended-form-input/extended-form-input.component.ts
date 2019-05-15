@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { EntityMetadata, ExtendedField, ExtendedFieldDefinition, Price, Packaging } from '~core/models';
+import { EntityMetadata, ExtendedField, ExtendedFieldDefinition, Price, Packaging, ERM, ExtendedFieldDefinitionMetadata } from '~core/models';
 
 
 
@@ -34,7 +34,15 @@ export class ExtendedFormInputComponent implements OnInit {
 	get field() { return this._field; }
 	private _field: ExtendedField;
 
-	@Input() definition: ExtendedFieldDefinition;
+	private _definition: ExtendedFieldDefinition;
+	@Input() set definition(definition: ExtendedFieldDefinition) {
+		this._definition = definition;
+		if (this._definition && this._definition.metadata)
+			this.metadata = JSON.parse(this._definition.metadata);
+	}
+	get definition() {
+		return this._definition;
+	}
 	@Input() disabled = false;
 
 	/** whether the input should be on the same line as the label */
@@ -47,6 +55,7 @@ export class ExtendedFormInputComponent implements OnInit {
 	accumulator: any;
 
 	inputValue$ = new Subject<({ value: any, isJson: boolean })>();
+	metadata: ExtendedFieldDefinitionMetadata;
 
 	ngOnInit() {
 		this.inputValue$.pipe(
@@ -61,6 +70,14 @@ export class ExtendedFormInputComponent implements OnInit {
 		if (!isCancel) {
 			this.onSave();
 		}
+	}
+
+	getERM(name) {
+		return ERM.getEntityMetadata(name) || null;
+	}
+
+	getLinkingObject() {
+		throw Error('linkingobject selector hasn\'t been implemented');
 	}
 
 	/** saving the value */
@@ -99,7 +116,6 @@ export class ExtendedFormInputComponent implements OnInit {
 	accumulateJSON(json: Price | Packaging) {
 		// we need to stringify it since it's stored as a string
 		this.accumulator = JSON.stringify(json);
-
 	}
 
 }

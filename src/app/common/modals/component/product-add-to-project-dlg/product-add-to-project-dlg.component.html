@@ -25,8 +25,7 @@
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary" i18n="text@@products-selected">
 			{{ products?.length }}
-			{ products?.length, plural, =0 { Product } =1 { Product } other { Products } }}
-			selected
+			<ng-container i18n="@@nested_product-selected">{ products?.length ||0, plural, =1 { Product } other { Products } }} selected</ng-container>
 		</span>
 		<input [disabled]="numSelected < 1" type="submit" value="Add now" class="capitalize" (click)="submit()"
 			i18n-value="@@add-now"/>

@@ -1,13 +1,20 @@
 import { ID, uuid } from '~utils';
 
+export interface ExtendedFieldDefinitionMetadata {
+	type?: string;
+	source?: string;
+	canCreate?: boolean;
+}
 
 export class ExtendedFieldDefinition {
-	id: string;
+	id: ID;
 	label?: string;
 	type?: string;
 	order?: number;
 	target?: string;
 	originId?: string;
+	metadata?: string;
+
 	__typename?= 'ExtendedFieldDefinition';
 
 	constructor(config?: ExtendedFieldDefinitionConfig) {
@@ -23,5 +30,6 @@ export interface ExtendedFieldDefinitionConfig {
 	order?: number;
 	target?: string;
 	originId?: string;
+	metadata?: string;
 }
 
