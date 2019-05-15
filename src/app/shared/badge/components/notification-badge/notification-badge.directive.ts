@@ -1,6 +1,6 @@
-import { Directive, Input, OnInit, ElementRef } from '@angular/core';
+import { Directive, Input, OnInit, ElementRef, ViewContainerRef, TemplateRef } from '@angular/core';
 
-export type BadgePosition = 'above-right' | 'above-left' | 'below-right' | 'below-left' | 'left' | 'right';
+export type BadgePosition = 'above-after' | 'above-before' | 'below-after' | 'below-before' | 'before' | 'after';
 
 @Directive({
 	selector: '[notifBadge]'
@@ -11,9 +11,9 @@ export class NotificationBadgeDirective implements OnInit {
 	@Input() badgeOverlap = true;
 	@Input() badgeSize: 'l' | 'm' | 's' = 'm';
 	@Input() badgeHidden = false;
-	@Input() badgePosition: BadgePosition = 'above-right';
+	@Input() badgePosition: BadgePosition = 'above-after';
 
-	constructor(private elementRef: ElementRef) { }
+	constructor(private element: ElementRef) { }
 
 	ngOnInit() {
 
