@@ -36,6 +36,7 @@ input, textarea {
 // override the color of the textarea
 textarea {
 	color: var(--color-txt-strong);
+	padding-top: var(--spacing-s);
 }
 
 form-field-app.editable {

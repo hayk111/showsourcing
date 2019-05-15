@@ -27,10 +27,10 @@
     <!-- left -->
     <div class="left">
       <h3 class="ms" i18n="header@@product-images">Product images</h3>
-      <carousel-app [hasPreview]="true" [static]="true" [images]="element.images"></carousel-app>
+      <carousel-app [hasPreview]="true" [static]="true" [images]="element?.images"></carousel-app>
       <span class="spacer mg-ms"></span>
-      <h3 class="ms" i18n="header@@product-attachments">Product attachments</h3>
-      <file-list-app [hasPlaceholder]="false" [static]="true" [files]="element.attachments"></file-list-app>
+      <h3 *ngIf="element?.attachments" class="ms" i18n="header@@product-attachments">Product attachments</h3>
+      <file-list-app [hasPlaceholder]="false" [static]="true" [files]="element?.attachments"></file-list-app>
     </div>
 
     <!-- right -->
@@ -97,7 +97,7 @@
 
     <button [disabled]="isDisabled()" class="warn save first-uppercase" (click)="refuse()" i18n="@@refuse">refuse</button>
 
-    <button [disabled]="isDisabled()" class="secondary save first-uppercase" (click)="saveAndClose()" i18n="@@save">save</button>
+    <!-- <button [disabled]="isDisabled()" class="secondary save first-uppercase" (click)="saveAndClose()" i18n="@@save">save</button> -->
 
     <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
       <button *ngIf="isDisabled(); else notSubmitted" class="first-uppercase" [disabled]="true" i18n="@@submitted">submitted</button>
