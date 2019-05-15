@@ -1,0 +1,87 @@
+@mixin _notif-badge-size($size) {
+  .notif-badge-content {
+    width: $size;
+    height: $size;
+		line-height: $size;
+		font-size: $size;
+  }
+
+  &.notif-badge-above {
+    .notif-badge-content {
+      top: -$size / 2;
+    }
+  }
+
+  &.notif-badge-below {
+    .notif-badge-content {
+      bottom: -$size / 2;
+    }
+  }
+
+  &.notif-badge-before {
+    .notif-badge-content {
+      left: -$size;
+    }
+  }
+
+  &.notif-badge-after {
+    .notif-badge-content {
+      right: -$size;
+    }
+  }
+
+  &.notif-badge-overlap {
+    &.notif-badge-before {
+      .notif-badge-content {
+        left: -$size / 2;
+      }
+    }
+
+    &.notif-badge-after {
+      .notif-badge-content {
+        right: -$size / 2;
+      }
+    }
+  }
+}
+
+.notif-badge {
+	position: relative;
+}
+
+.notif-badge-hidden {
+	.notif-badge-content {
+		display: none;
+	}
+}
+
+.notif-badge-content {
+	position: absolute;
+	text-align: center;
+	display: inline-block;
+	border-radius: 50%;
+	transition: transform 200ms ease-in-out;
+	transform: scale(0.6);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	pointer-events: none;
+}
+
+
+// The active class is added after the element is added
+// so it can aninotife scale to default
+.notif-badge-content.notif-badge-active {
+	// Scale to `none` instead of `1` to avoid blurry text in some browsers.
+	transform: none;
+}
+
+.notif-badge-s {
+	@include _notif-badge-size(12px);
+}
+.notif-badge-m {
+	@include _notif-badge-size(14px);
+}
+.notif-badge-l {
+	@include _notif-badge-size(16px);
+}
