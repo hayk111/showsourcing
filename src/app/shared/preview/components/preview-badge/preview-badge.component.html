@@ -131,7 +131,7 @@
 			<div class="flex">
 				<icon-app name="event-calendar" backgroundColor="success"></icon-app>
 				<span>{{ value?.name || value?.description?.name || 'Set event' }}</span>
-				<span *ngIf="(value?.name || value?.description?.name); else empty">{{ value  }}</span>
+				<span *ngIf="(value?.name || value?.description?.name); else empty">{{ value }}</span>
 				<ng-template #empty>
 					<span i18n="text@@set-location">Set location</span>
 				</ng-template>
