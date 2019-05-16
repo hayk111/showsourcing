@@ -47,7 +47,6 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 		const items = request.requestElements.map(element => (
 			{ id: element.reply.id, status: ReplyStatus.CANCELED }
 		));
-		console.log(items);
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
 			switchMap(_ => this.replySrv.updateMany(items)),
 			switchMap(_ => this.listSrv.refetch())
