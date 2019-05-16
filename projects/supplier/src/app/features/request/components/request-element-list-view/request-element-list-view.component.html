@@ -47,6 +47,7 @@
 
 	<ng-template
 		[columnApp]="'fields' | const: 'messages'"
+		[sortable]="false"
 		let-index="index"
 		width="200">
 	 {{ replied[index]?.replied + '/' + replied[index]?.total }}
@@ -55,7 +56,7 @@
 
 	<ng-template
 		[columnApp]="'status' | const: 'messages'"
-		sortBy="status"
+		sortBy="reply.status"
 		let-row="row"
 		width="200">
 		<request-status-badge-app
