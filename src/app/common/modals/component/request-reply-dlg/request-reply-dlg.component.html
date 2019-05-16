@@ -59,7 +59,7 @@
 			</form-field-app>
 
       <!-- images -->
-      <h3 class="ms capitalize" i18n="@@request-images">request images</h3>
+      <h3 class="ms capitalize" i18n="@@images">images</h3>
       <image-previewer-2-app
         [isDeletable]="true"
         [size]="120"
@@ -76,7 +76,7 @@
 			<input [disabled]="isDisabled()" #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
       <!-- attachments -->
-      <h3 class="ms capitalize" i18n="@@request-attachments">request attachments</h3>
+      <h3 class="ms capitalize" i18n="@@attachments">attachments</h3>
       <file-list-app
         [showConfirmOnDelete]="false"
         [hasPlaceholder]="false"
