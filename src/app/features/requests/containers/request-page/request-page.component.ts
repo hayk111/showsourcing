@@ -9,6 +9,7 @@ import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { access } from 'fs';
 
 @Component({
 	selector: 'request-page-app',
@@ -65,13 +66,8 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 		const text = 'Are you sure you want to cancel these requests ?';
 		const action = 'Cancel requests';
 		const items = this.listSrv.selectionSrv.getSelectionValues()
-			.map(request =>
-				request.requestElements
-					.map(element =>
-						({
-							id: element.reply.id, status: ReplyStatus.CANCELED
-						})
-					)).reduce((acc, val) => acc.concat(val));
+			.reduce((acc, request) => acc.concat(request.requestElements), [])
+			.map(element => ({ id: element.reply.id, status: ReplyStatus.CANCELED }));
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
 			switchMap(_ => this.replySrv.updateMany(items)),
 			switchMap(_ => this.listSrv.refetch())
