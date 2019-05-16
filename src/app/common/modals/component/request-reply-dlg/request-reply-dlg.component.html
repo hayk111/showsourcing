@@ -26,10 +26,10 @@
 
     <!-- left -->
     <div class="left">
-      <h3 class="ms" i18n="header@@product-images">Product images</h3>
+      <h3 class="ms" i18n="header@@product-images">product images</h3>
       <carousel-app [hasPreview]="true" [static]="true" [images]="element?.images"></carousel-app>
-      <span class="spacer mg-ms"></span>
-      <h3 *ngIf="element?.attachments" class="ms" i18n="header@@product-attachments">Product attachments</h3>
+			<span class="spacer mg-ms"></span>
+      <h3 *ngIf="element?.attachments?.length" class="ms" i18n="header@@product-attachments">product attachments</h3>
       <file-list-app [hasPlaceholder]="false" [static]="true" [files]="element?.attachments"></file-list-app>
     </div>
 
@@ -41,7 +41,7 @@
 			</div>
 
       <!-- details -->
-      <h3 class="ms" i18n="@@product-details">Product details</h3>
+      <h3 class="ms" i18n="@@product-details">product details</h3>
 
       <extended-form-app
         [disabled]="isDisabled()"
@@ -53,13 +53,13 @@
       </extended-form-app>
 
 			<!-- reply message -->
-			<h3 class="ms">Request Message</h3>
+			<h3 class="ms" i18n="@@request-message">request message</h3>
 			<form-field-app class="modal">
 				<textarea inputApp [disabled]="isDisabled()" type="text" [value]="element?.reply?.message" placeholder="Reply message to buyer" i18n-placeholder="@@reply-message-buyer"></textarea>
 			</form-field-app>
 
       <!-- images -->
-      <h3 class="ms capitalize" i18n="@@images">images</h3>
+      <h3 class="ms capitalize" i18n="@@request-images">request images</h3>
       <image-previewer-2-app
         [isDeletable]="true"
         [size]="120"
@@ -76,14 +76,14 @@
 			<input [disabled]="isDisabled()" #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
       <!-- attachments -->
-      <h3 class="ms capitalize" i18n="@@attachments">attachments</h3>
+      <h3 class="ms capitalize" i18n="@@request-attachments">request attachments</h3>
       <file-list-app
         [showConfirmOnDelete]="false"
         [hasPlaceholder]="false"
         [files]="files"
         [linkedItem]="reply"></file-list-app>
       <div class="spacer mg-s" *ngIf="files.length > 0"></div>
-      <button [disabled]="isDisabled()" class="secondary add-attachment" (click)="inpFile.click()" i18n="@@add-attachments">Add Attachments</button>
+      <button [disabled]="isDisabled()" class="secondary add-attachment capitalize" (click)="inpFile.click()" i18n="@@add-attachments">add attachments</button>
 			<input [disabled]="isDisabled()" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
 
     </div>

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
 import { ERM, SupplierRequest } from '~core/models';
-import { ID } from '~utils';
 
 @Component({
 	selector: 'request-list-view-app',
