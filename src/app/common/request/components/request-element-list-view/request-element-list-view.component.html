@@ -4,7 +4,6 @@
 	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
-	[hasSelection]="false"
 	placeholder="No request items"
 	[contextualMenu]="contextualMenuTemplate"
 	(bottomReached)="bottomReached.emit()"
@@ -61,7 +60,7 @@
 			[status]="row?.reply?.status"
 			[creationDate]="row?.creationDate">
 		</request-status-badge-app>
-		
+
 	</ng-template>
 
 </table-app>

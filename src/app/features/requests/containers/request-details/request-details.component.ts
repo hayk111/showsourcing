@@ -117,4 +117,15 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}
+
+	cancelReplies() {
+		// TODO i18n
+		const text = 'Are you sure you want to cancel these request items ?';
+		const action = 'Cancel items';
+		const items = this.listSrv.selectionSrv.getSelectionValues().map(element => ({ id: element.reply.id, status: ReplyStatus.CANCELED }));
+		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
+			switchMap(_ => this.requestReplySrv.updateMany(items)),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe(_ => this.listSrv.selectionSrv.unselectAll());
+	}
 }

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { SupplierRequestService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
@@ -7,7 +8,6 @@ import { ERM, RequestStatus, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { AutoUnsub, ID } from '~utils';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'request-page-app',
@@ -47,6 +47,17 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 			switchMap(_ => this.requestSrv.update({ id: requestId, status: RequestStatus.CANCELED })),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
+	}
+
+	cancelSelectedRequests() {
+		// TODO i18n
+		const text = 'Are you sure you want to cancel these requests ?';
+		const action = 'Cancel requests';
+		const items = this.listSrv.selectionSrv.getSelectionIds().map(id => ({ id, status: RequestStatus.CANCELED }));
+		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
+			switchMap(_ => this.requestSrv.updateMany(items as SupplierRequest[])),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe(_ => this.listSrv.unselectAll());
 	}
 
 }
