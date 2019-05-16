@@ -50,6 +50,7 @@
 					(mouseleave)="hoverRow(-1)">
 					<context-menu-app
 						*ngIf="isSelectable(row)"
+						class="menu-context"
 						[ngClass]="{ hover: (i === hoverIndex) }"
 						[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
 						[closeOnScroll]="true">

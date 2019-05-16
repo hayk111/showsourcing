@@ -14,7 +14,7 @@ import { ID } from '~utils';
 })
 export class RequestListViewComponent extends ListViewComponent<SupplierRequest> {
 
-	@Output() cancelRequest = new EventEmitter<ID>();
+	@Output() cancelRequest = new EventEmitter<SupplierRequest>();
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 	erm = ERM;
 
