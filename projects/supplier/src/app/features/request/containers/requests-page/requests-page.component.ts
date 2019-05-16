@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SupplierRequestService } from '~core/entity-services';
+import { SupplierRequestService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, SupplierRequest } from '~models';
 import { AutoUnsub } from '~utils';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'requests-page-sup',
@@ -17,7 +18,8 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private suppRequestSrv: SupplierRequestService,
-		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>
+		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
+		private userSrv: UserService
 	) {
 		super();
 	}
@@ -30,6 +32,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 			entitySrv: this.suppRequestSrv,
 			key: ListPageKey.SUPPLIER_REQUEST,
 			searchedFields: ['sender.name', 'status', 'title', 'sender.company'],
+			initialFilters: [{ type: FilterType.CUSTOM, value: `recipientUser.id == "${this.userSrv.userId}"` }],
 			selectParams,
 			originComponentDestroy$: this._destroy$
 		});
