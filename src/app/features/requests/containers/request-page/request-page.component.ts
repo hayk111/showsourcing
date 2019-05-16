@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
-import { SupplierRequestService } from '~core/entity-services';
+import { SupplierRequestService, TeamService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestStatus, SupplierRequest } from '~core/models';
@@ -8,6 +8,7 @@ import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { AutoUnsub, ID } from '~utils';
 import { switchMap } from 'rxjs/operators';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'request-page-app',
@@ -23,7 +24,8 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 		private requestSrv: SupplierRequestService,
 		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
 		public commonModalSrv: CommonModalService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private teamSrv: TeamService
 	) { super(); }
 
 	ngOnInit() {
@@ -33,7 +35,12 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 			entitySrv: this.requestSrv,
 			searchedFields: [],
 			entityMetadata: ERM.SUPPLIER_REQUEST,
-			initialFilters: [],
+			initialFilters: [
+				{
+					type: FilterType.CUSTOM,
+					value: `senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
+				}
+			],
 			originComponentDestroy$: this._destroy$,
 			selectParams
 		});

@@ -26,7 +26,9 @@ export class HeaderComponent implements OnInit {
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();
 		this.team$ = this.teamSrv.teamSelected$;
-		this.requestCount$ = this.requestSrv.selectCount(`status == "${DEFAULT_REPLIED_STATUS}"`);
+		this.requestCount$ = this.requestSrv.selectCount(
+			`status == "${DEFAULT_REPLIED_STATUS}" AND senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
+		);
 	}
 
 	logout() {
