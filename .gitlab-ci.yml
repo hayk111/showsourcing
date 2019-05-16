@@ -24,7 +24,7 @@ app-install:
 app-deploy-dev:
   stage: deploy
   script:
-    - npm run build --configuration=dev
+    - npm run build:dev
     - cd dist/showsourcing
     - aws s3 sync . s3://app-dev.showsourcing.com --delete
     - aws s3 cp s3://app-dev.showsourcing.com/index.html s3://app-dev.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
@@ -36,7 +36,7 @@ app-deploy-dev:
 app-deploy-sta:
   stage: deploy
   script:
-    - npm run build --configuration=sta
+    - npm run build:sta
     - cd dist/showsourcing
     - aws s3 sync . s3://app-sta.showsourcing.com --delete
     - aws s3 cp s3://app-sta.showsourcing.com/index.html s3://app-sta.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
