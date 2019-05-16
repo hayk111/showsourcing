@@ -1,7 +1,7 @@
 
 <div
 	*ngFor="let tab of tabs; index as index; trackBy: trackByFn"
-	class="tab-title flexCenter first-uppercase"
+	class="tab-title flexCenter capitalize"
 	[style.width]="100 / tabs?.length + '%'"
 	[ngClass]="{'active': currentTab === tab}"
 	[routerLink]="'./' + tab?.name?.toLowerCase()"
@@ -9,5 +9,5 @@
 	routerLinkActive="active"
 	(click)="changeTab(tab)">
 	{{ tab.name }}
-	<notification-badge-app *ngIf="(tab?.number$ | async) > 0"> {{ tab?.number$ | async }} </notification-badge-app>
+	<notification-badge-app *ngIf="(tab?.number$ | async) > 0">{{ tab?.number$ | async }}</notification-badge-app>
 </div>

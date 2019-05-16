@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { SupplierRequestService, TeamService } from '~core/entity-services';
+import { RequestReplyService, SupplierRequestService, TeamService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, RequestStatus, SupplierRequest } from '~core/models';
+import { ERM, ReplyStatus, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { AutoUnsub, ID } from '~utils';
-import { switchMap } from 'rxjs/operators';
 import { FilterType } from '~shared/filters';
+import { AutoUnsub } from '~utils';
+import { access } from 'fs';
 
 @Component({
 	selector: 'request-page-app',
@@ -22,6 +23,7 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private requestSrv: SupplierRequestService,
+		private replySrv: RequestReplyService,
 		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
 		public commonModalSrv: CommonModalService,
 		private dlgSrv: DialogService,
@@ -46,14 +48,30 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
-	cancelRequest(requestId: ID) {
+	cancelRequest(request: SupplierRequest) {
 		// TODO i18n
 		const text = 'Are you sure you want to cancel this request ?';
 		const action = 'Cancel request';
+		const items = request.requestElements.map(element => (
+			{ id: element.reply.id, status: ReplyStatus.CANCELED }
+		));
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
-			switchMap(_ => this.requestSrv.update({ id: requestId, status: RequestStatus.CANCELED })),
+			switchMap(_ => this.replySrv.updateMany(items)),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
+	}
+
+	cancelSelectedRequests() {
+		// TODO i18n
+		const text = 'Are you sure you want to cancel these requests ?';
+		const action = 'Cancel requests';
+		const items = this.listSrv.selectionSrv.getSelectionValues()
+			.reduce((acc, request) => acc.concat(request.requestElements), [])
+			.map(element => ({ id: element.reply.id, status: ReplyStatus.CANCELED }));
+		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
+			switchMap(_ => this.replySrv.updateMany(items)),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe(_ => this.listSrv.unselectAll());
 	}
 
 }

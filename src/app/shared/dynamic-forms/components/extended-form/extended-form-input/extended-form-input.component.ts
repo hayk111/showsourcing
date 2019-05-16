@@ -1,7 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { EntityMetadata, ExtendedField, ExtendedFieldDefinition, Price, Packaging, ERM, ExtendedFieldDefinitionMetadata } from '~core/models';
+import {
+	EntityMetadata,
+	ERM,
+	ExtendedField,
+	ExtendedFieldDefinition,
+	ExtendedFieldDefinitionMetadata,
+	Packaging,
+	Price,
+} from '~core/models';
 
 
 
@@ -94,6 +102,7 @@ export class ExtendedFormInputComponent implements OnInit {
 	}
 
 	onInput(value: any, isJson = false) {
+		console.log(value);
 		this.inputValue$.next({ value, isJson });
 	}
 
