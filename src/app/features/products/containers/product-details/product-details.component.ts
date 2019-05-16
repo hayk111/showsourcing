@@ -85,7 +85,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			{ name: translate(ERM.TASK.plural, 'erm'), number$: this.taskCount$ },
 			{ name: translate(ERM.SUPPLIER_REQUEST.plural, 'erm'), number$: this.requestCount$ }
 		];
-
 	}
 
 	private onProduct(product) {

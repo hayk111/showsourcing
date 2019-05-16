@@ -12,6 +12,7 @@ import {
 	DEFAULT_USER_ICON,
 	ImageUrls,
 } from '~utils';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 /**
  * Pipes that adds the begining url for images,
@@ -22,6 +23,9 @@ import {
 	name: 'image'
 })
 export class ImagePipe implements PipeTransform {
+
+	constructor(private sanitizer: DomSanitizer) { }
+
 	sizeIndexMap = new Map([
 		['xs', 0],
 		['s', 1],
@@ -50,7 +54,7 @@ export class ImagePipe implements PipeTransform {
 		value: any | string,
 		size: ('xs' | 's' | 'm' | 'l' | 'xl') = 'xl',
 		type: string = 'image' // can be supplier, product etc..
-	): string {
+	): string | SafeUrl {
 		try {
 			// we get the size index from the map
 			const sizeIndex = this.sizeIndexMap.get(size);
@@ -72,7 +76,7 @@ export class ImagePipe implements PipeTransform {
 
 				// PendingImage Object
 				if (value.data) {
-					return `${value.data}`;
+					return this.sanitizer.bypassSecurityTrustUrl(value.data);
 				}
 
 				// Supplier, product, Entity object...

@@ -36,7 +36,8 @@ export class ProductRequestsComponent extends AutoUnsub implements OnInit {
 				entitySrv: this.requestElementSrv,
 				selectParams: { sortBy: 'name', query: `targetedEntityType == "Product" && targetId == "${id}"` },
 				entityMetadata: ERM.REQUEST_ELEMENT,
-				searchedFields: []
+				searchedFields: [],
+				originComponentDestroy$: this._destroy$
 			});
 		});
 	}
