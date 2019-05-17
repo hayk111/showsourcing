@@ -215,10 +215,13 @@ export class SupplierRequestDialogComponent implements OnInit {
 
 	openTemplateMngmtDialog(event: MouseEvent, templateSelected: RequestTemplate) {
 		event.stopPropagation();
-		const request = new CreateRequest(this.form.value);
+		let request = new CreateRequest(this.form.value);
 		this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected })
 			// we are reopening this dlg when the other one closes
 			.subscribe(({ type, data }) => {
+				// we update the request with the latest tempalte selected if there is any
+				if (data && data.template)
+					request = ({ ...request, requestTemplate: data.template });
 				return this.dlgSrv.open(SupplierRequestDialogComponent, { request });
 			});
 	}
