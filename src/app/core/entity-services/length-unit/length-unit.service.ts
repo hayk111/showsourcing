@@ -14,7 +14,7 @@ export class LengthUnitService extends GlobalService<LengthUnit> {
 	defaultClient = Client.GLOBAL_DATA;
 
 	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, LengthUnitQueries, 'lengthunit', 'lengthunits');
+		super(apolloState, LengthUnitQueries, 'lengthUnit', 'lengthUnits');
 	}
 
 }

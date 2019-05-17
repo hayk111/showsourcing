@@ -14,7 +14,7 @@ export class WeightUnitService extends GlobalService<WeightUnit> {
 	defaultClient = Client.GLOBAL_DATA;
 
 	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, WeightUnitQueries, 'weightunit', 'weightunits');
+		super(apolloState, WeightUnitQueries, 'weightUnit', 'weightUnits');
 	}
 
 }
