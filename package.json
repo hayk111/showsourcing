@@ -9,7 +9,7 @@
     "serve:fr": "ng serve --configuration=fr",
     "serve:local": "ng serve --configuration=local",
     "build": "ng build --prod --aot",
-    "build:dev": "ng build --configuration=dev --aot",
+    "build:dev": "ng build --aot",
     "build:sta": "ng build --configuration=sta --aot",
     "build:prod": "npm run build",
     "translate": "ng xi18n --output-path locale",
