@@ -75,7 +75,7 @@
 		[canCreate]="true"
 		[width]="370"
 		(update)="update.emit({ id: row.id, supplier: $event })">
-		<div class="ellipsis pointer txt-btn"> {{ row?.supplier?.name || 'Set supplier' }}</div>
+		<div class="ellipsis pointer txt-btn"> {{ row?.supplier?.name || '-' }}</div>
 	</selector-app>
 </ng-template>
 
@@ -86,7 +86,7 @@
 		[canCreate]="true"
 		[width]="370"
 		(update)="update.emit({ id: row.id, category: $event })">
-		<div class="ellipsis pointer txt-btn"> {{ row?.category?.name || 'Set category' }}</div>
+		<div class="ellipsis pointer txt-btn"> {{ row?.category?.name || '-' }}</div>
 	</selector-app>
 </ng-template>
 
