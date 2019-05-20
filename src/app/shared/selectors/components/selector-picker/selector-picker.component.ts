@@ -75,9 +75,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** index when using manager keys and virtual scrolling */
 	count = 0;
 
-	/** if current type is in our DB or not */
-	hasDB = false;
-
 	searched$: Subject<string> = new Subject();
 	searchTxt = '';
 
@@ -120,14 +117,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	ngOnChanges() {
 		this.selectorSrv.setFilters(this.filterList);
-		this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
-		if (this.hasDB) {
-			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
-			if (this.multiple)
-				this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
-			else
-				this.choices$ = this.getChoices(this.type);
-		}
+		// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
+		if (this.multiple)
+			this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
+		else
+			this.choices$ = this.getChoices(this.type);
+
 		// we use this refetch, cause sometimes selector wasn't loading the latest data added
 		// the observable was already initialized and didn't trigger the latest changes until you used the search
 		this.selectorSrv.refetch();
@@ -154,7 +149,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	search(text) {
 		this.searchTxt = text.trim().toLowerCase();
 		this.movedArrow = false;
-		this.hasDB ? this.selectorSrv.search(this.type, this.searchTxt) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
+		this.selectorSrv.search(this.type, this.searchTxt);
 		this.searched$.next(this.searchTxt);
 		this.keyManager.setFirstItemActive();
 	}
@@ -171,6 +166,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.EVENT: return this.selectorSrv.getEvents();
 			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
 			case ERM.INCOTERM: return this.selectorSrv.getIncoTermsGlobal();
+			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits();
 			case ERM.PRODUCT: return this.selectorSrv.getProducts();
 			case ERM.PROJECT: return this.selectorSrv.getProjects();
 			case ERM.REQUEST_TEMPLATE: return this.selectorSrv.getRequestTemplates();
@@ -181,17 +177,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.TEAM_USER: return this.selectorSrv.getTeamUsers().pipe(
 				map(teamUsers => teamUsers.map(tu => tu.user))
 			);
+			case ERM.WEIGHT_UNIT: return this.selectorSrv.getWeigthUnits();
 
 			default: throw Error(`Unsupported type${this.type} for selector`);
-		}
-	}
-
-	/** Choices that are not registered on out DB */
-	getChoicesLocal(type: EntityMetadata, searchTxt) {
-		switch (type) {
-			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits(searchTxt);
-			case ERM.WEIGHT_UNIT: return this.selectorSrv.getWeigthUnits(searchTxt);
-			default: this.hasDB = true;
 		}
 	}
 

@@ -1,6 +1,6 @@
 import { GlobalQueries } from '../_global/global-queries.class';
 
-export class IncoTermQueries extends GlobalQueries {
+export class LengthUnitQueries extends GlobalQueries {
 	static readonly one = `
 		name
 	`;

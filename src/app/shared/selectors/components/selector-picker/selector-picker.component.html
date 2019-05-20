@@ -101,11 +101,11 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.WEIGHT_UNIT">
-				<selector-id-row-app #abstract *ngFor="let item of choicesLocal" class="selector-row" [item]="item" (click)="onSelect(item.id)"></selector-id-row-app>
+				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.LENGTH_UNIT">
-				<selector-id-row-app #abstract *ngFor="let item of choicesLocal" class="selector-row" [item]="item" (click)="onSelect(item.id)"></selector-id-row-app>
+				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchDefault>

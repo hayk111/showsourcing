@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { first, map, tap } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -12,13 +12,15 @@ import {
 	CategoryService,
 	ContactService,
 	EventService,
+	LengthUnitService,
 	ProductService,
 	ProjectService,
 	RequestTemplateService,
 	SupplierService,
 	TagService,
-	UserService,
 	TeamUserService,
+	UserService,
+	WeightUnitService,
 } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import {
@@ -31,18 +33,20 @@ import {
 	Event,
 	Harbour,
 	IncoTerm,
+	LengthUnit,
 	Product,
 	Project,
 	RequestTemplate,
 	SupplierType,
 	Tag,
-	User,
 	TeamUser,
+	User,
+	WeightUnit,
 } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { FilterList } from '~shared/filters';
 import { translate } from '~utils';
-import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
+import { countries, currencies, harbours, incoTerms, weightUnits } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
 
@@ -82,7 +86,9 @@ export class SelectorsService {
 		private harbourSrv: HarbourService,
 		private incoTermSrv: IncoTermService,
 		private countrySrv: CountryService,
-		private teamUserSrv: TeamUserService
+		private teamUserSrv: TeamUserService,
+		private weightUnitsrv: WeightUnitService,
+		private lengthUnitSrv: LengthUnitService,
 	) { }
 
 	setItems() {
@@ -138,12 +144,14 @@ export class SelectorsService {
 				case ERM.CATEGORY:
 				case ERM.HARBOUR:
 				case ERM.INCOTERM:
+				case ERM.LENGTH_UNIT:
 				case ERM.PRODUCT:
 				case ERM.PROJECT:
 				case ERM.REQUEST_TEMPLATE:
 				case ERM.SUPPLIER:
 				case ERM.SUPPLIER_TYPE:
 				case ERM.TAG:
+				case ERM.WEIGHT_UNIT:
 					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}"`;
 					break;
 				default: throw Error(`Unsupported type for search ${type}`);
@@ -210,26 +218,18 @@ export class SelectorsService {
 	}
 
 
-	getLengthUnits(searchTxt?: string): any[] {
-		if (searchTxt) {
-			return lengthUnits.filter(c => {
-				const searched = (c[this.bindLabel] as string).toLowerCase();
-				const searchString = searchTxt.toLowerCase();
-				return searched.includes(searchString);
-			});
-		}
-		return lengthUnits;
+	getLengthUnits(): Observable<LengthUnit[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
+		this.listResult = this.lengthUnitSrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
-	getWeigthUnits(searchTxt?: string): any[] {
-		if (searchTxt) {
-			return weightUnits.filter(c => {
-				const searched = (c[this.bindLabel] as string).toLowerCase();
-				const searchString = searchTxt.toLowerCase();
-				return searched.includes(searchString);
-			});
-		}
-		return weightUnits;
+	getWeigthUnits(): Observable<WeightUnit[]> {
+		this.selectParams = { ...this.selectParams, sortBy: 'name' };
+		this.listResult = this.weightUnitsrv.getListQuery(this.selectParams);
+		this.setItems();
+		return this.items$;
 	}
 
 	getBusinessTypes(searchTxt?: string): any[] {
