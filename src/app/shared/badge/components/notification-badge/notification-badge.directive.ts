@@ -9,15 +9,15 @@ let nextId = 0;
 	selector: '[notifBadge]',
 	host: {
 		'class': 'notif-badge',
-		'[class.notif-badge-overlap]': 'overlap',
+		'[class.notif-badge-overlap]': 'badgeOverlap',
 		'[class.notif-badge-above]': 'isAbove()',
 		'[class.notif-badge-below]': '!isAbove()',
 		'[class.notif-badge-before]': '!isAfter()',
 		'[class.notif-badge-after]': 'isAfter()',
-		'[class.notif-badge-small]': 'size === "small"',
-		'[class.notif-badge-medium]': 'size === "medium"',
-		'[class.notif-badge-large]': 'size === "large"',
-		'[class.notif-badge-hidden]': 'hidden || !_hasContent',
+		'[class.notif-badge-s]': 'badgeSize === "s"',
+		'[class.notif-badge-m]': 'badgeSize === "m"',
+		'[class.notif-badge-l]': 'badgeSize === "l"',
+		'[class.notif-badge-hidden]': 'badgeHidden || !_hasContent',
 		'[class.notif-badge-disabled]': 'disabled',
 	}
 })
@@ -25,7 +25,7 @@ export class NotificationBadgeDirective implements OnChanges {
 
 	@Input() badge: string;
 	@Input() badgeOverlap = true;
-	@Input() badgeSize: BadgeSize = 'm';
+	@Input() badgeSize: BadgeSize = 's';
 	@Input() badgeHidden = false;
 	@Input() badgePosition: BadgePosition = 'above-after';
 	/** The color of the badge. Can be `primary`, `accent`, or `warn`. */

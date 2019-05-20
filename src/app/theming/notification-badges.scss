@@ -3,7 +3,8 @@
     width: $size;
     height: $size;
 		line-height: $size;
-		font-size: $size;
+		font-size: $size - 1;
+		padding: var(--spacing-xs);
   }
 
   &.notif-badge-above {
@@ -15,18 +16,6 @@
   &.notif-badge-below {
     .notif-badge-content {
       bottom: -$size / 2;
-    }
-  }
-
-  &.notif-badge-before {
-    .notif-badge-content {
-      left: -$size;
-    }
-  }
-
-  &.notif-badge-after {
-    .notif-badge-content {
-      right: -$size;
     }
   }
 
@@ -60,8 +49,7 @@
 	text-align: center;
 	display: inline-block;
 	border-radius: 50%;
-	transition: transform 200ms ease-in-out;
-	transform: scale(0.6);
+	// transform: scale(0.6);
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -77,7 +65,7 @@
 }
 
 .notif-badge-s {
-	@include _notif-badge-size(12px);
+	@include _notif-badge-size(11px);
 }
 .notif-badge-m {
 	@include _notif-badge-size(14px);
