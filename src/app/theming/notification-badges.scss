@@ -2,7 +2,7 @@
   .notif-badge-content {
     width: $size;
     height: $size;
-		line-height: $size;
+		line-height: $size - 1;
 		font-size: $size - 1;
 		padding: var(--spacing-xs);
   }
@@ -17,7 +17,15 @@
     .notif-badge-content {
       bottom: -$size / 2;
     }
-  }
+	}
+
+  &.notif-badge-center {
+    .notif-badge-content {
+      bottom: 0;
+			top: 0;
+			margin-left: 10px;
+    }
+	}
 
   &.notif-badge-overlap {
     &.notif-badge-before {
