@@ -4,7 +4,7 @@ import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { LengthUnit } from '~core/models';
 
 import { GlobalService } from '../_global/global.service';
-import { LengthUnitQueries } from './Length-unit.queries';
+import { LengthUnitQueries } from './length-unit.queries';
 
 @Injectable({
 	providedIn: 'root'
