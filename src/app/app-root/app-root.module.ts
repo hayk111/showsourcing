@@ -40,7 +40,7 @@ import { SharedModule } from '~shared/shared.module';
 			pageTracking: {
 				clearIds: true,
 				// this is for hubspot since the validate email has a token, it cannot be the same for all, we just avoid to check this route
-				excludedRoutes: [new RegExp('(?<=validate-email)[/a-zA-Z0-9]+')]
+				// excludedRoutes: [new RegExp('(?<=validate-email)[/a-zA-Z0-9]+')]
 			}
 		}),
 		PortalModule
