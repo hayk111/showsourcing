@@ -1,11 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TemplateMngmtDlgComponent } from './components/template-mngmt-dlg/template-mngmt-dlg.component';
-import { DialogModule } from '~shared/dialog';
-import { ListModule } from '~shared/list/list.module';
-import { InputsModule } from '~shared/inputs';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { DialogModule } from '~shared/dialog';
+import { InputsModule } from '~shared/inputs';
+import { ListModule } from '~shared/list/list.module';
+import { LoadersModule } from '~shared/loaders';
+
+import { TemplateMngmtDlgComponent } from './components/template-mngmt-dlg/template-mngmt-dlg.component';
 
 @NgModule({
 	declarations: [TemplateMngmtDlgComponent],
@@ -15,7 +17,8 @@ import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 		ListModule,
 		InputsModule,
 		ReactiveFormsModule,
-		ContextMenuModule
+		ContextMenuModule,
+		LoadersModule
 	],
 	exports: [TemplateMngmtDlgComponent],
 	entryComponents: [TemplateMngmtDlgComponent]

@@ -122,6 +122,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
 		else
 			this.choices$ = this.getChoices(this.type);
+
+		// we use this refetch, cause sometimes selector wasn't loading the latest data added
+		// the observable was already initialized and didn't trigger the latest changes until you used the search
+		this.selectorSrv.refetch();
 	}
 
 	private filterValues(items: any[]) {

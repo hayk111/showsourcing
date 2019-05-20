@@ -28,9 +28,7 @@ export class TemplateMngmtService {
 	}
 
 	createNewTemplate(template: RequestTemplate) {
-		return this.templateSrv.create(template).pipe(
-			switchMap(_ => this.listQuery.refetch({}))
-		);
+		return this.templateSrv.create(template);
 	}
 
 	getExtendedFields(template: RequestTemplate) {
@@ -56,5 +54,9 @@ export class TemplateMngmtService {
 
 	getOne(id: string) {
 		return this.templateSrv.queryOne(id);
+	}
+
+	refetch() {
+		return this.listQuery.refetch({});
 	}
 }
