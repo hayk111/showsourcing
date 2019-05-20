@@ -14,10 +14,7 @@ app-install:
     paths:
       - node_modules
   only:
-    - supplier-connect
-    - development
-    - staging
-
+    - run-gitlab-install # we have to push to this branch if we want the cache to have the latest dependencies
 
 # dev deployment
 app-deploy-dev:
