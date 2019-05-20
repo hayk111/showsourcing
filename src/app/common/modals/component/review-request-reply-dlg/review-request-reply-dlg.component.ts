@@ -167,6 +167,12 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		return !(this.element.reply && this.element.reply.status === DEFAULT_REPLIED_STATUS);
 	}
 
+	// whether the supplier has replied
+	isPending() {
+		const status = this.element.reply.status;
+		return status === ReplyStatus.PENDING || status === ReplyStatus.RESENT;
+	}
+
 	acceptRequest() {
 		let tempProduct = { id: this.product.id, images: this.product.images, extendedFields: this.product.extendedFields };
 		this.selectionSrv.selection.forEach(item => {
