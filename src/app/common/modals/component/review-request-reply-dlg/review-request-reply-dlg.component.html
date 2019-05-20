@@ -1,4 +1,5 @@
 <dialog-app class="vertical-scroll-content">
+
   <dialog-header-app>
 		<div class="flex">
 			<div class="flex move">
@@ -14,7 +15,15 @@
 		</div>
 	</dialog-header-app>
 
-	<div class="info-banner flexCenter" i18n="@@reply-from-supplier">This is the reply from your supplier</div>
+	<div *ngIf="!isPending(); else pending" class="info-banner flexCenter" i18n="@@reply-from-supplier">
+		This is the reply from your supplier
+	</div>
+
+	<ng-template #pending>
+		<div  class="info-banner flexCenter" i18n="@@no-reply-from-supplier">
+			The supplier hasn't answered yet.
+		</div>
+	</ng-template>
 
 	<ng-container *ngIf="element">
 		<ng-container *ngIf="element?.reply as reply">
@@ -29,6 +38,7 @@
 							[checked]="selectionSrv.selection.has(field.id)"
 							[label]="field?.definition?.label"
 							[values]="getValues( field )"
+							[hasCheckbox]="!isDisabled()"
 							(selected)="selectionSrv.selectOne(field)"
 							(unselected)="selectionSrv.unselectOne(field)">
 							<ng-template comparisonRowTemplateApp let-value="value">
