@@ -42,10 +42,10 @@ import { SharedModule } from '~shared/shared.module';
 				// this is for hubspot since the validate email has a token, it cannot be the same for all, we just avoid to check this route
 				excludedRoutes: [new RegExp('(validate-email)[\/a-zA-Z0-9]+')]
 			}
-					}),
-					PortalModule
-				],
-				exports: [RouterModule],
+		}),
+		PortalModule
+	],
+	exports: [RouterModule],
 	bootstrap: [AppComponent],
 	providers: [],
 	entryComponents: [],
