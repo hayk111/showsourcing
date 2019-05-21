@@ -222,8 +222,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		// this switch case handles the exceptions when we have to convert a extended field string to a value like boolean or price
 		switch (item.definition.type) {
 			case 'price':
-			case 'innerCarton':
-			case 'masterCarton':
+			case 'packaging':
 				tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
 				break;
 			case 'boolean':
