@@ -9,7 +9,6 @@ import {
 	EntityMetadata,
 	ERM,
 	ExtendedField,
-	Price,
 	Product,
 	ReplyStatus,
 	RequestElement,
