@@ -59,6 +59,8 @@ export class EntityMetadata {
 }
 
 // Must be added ALPHABETICALLY
+// Laziness is your best friend.  Never do twice what you can automate once
+// - Ghandi
 export class ERM {
 
 	static readonly ATTACHMENT = new EntityMetadata('attachment', 'attachments', Attachment);
@@ -80,7 +82,7 @@ export class ERM {
 	static readonly HARBOUR = new EntityMetadata('harbour', 'harbours', Harbour);
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);
 	static readonly IMAGE_UPLOAD_REQUEST = new EntityMetadata('image upload request', 'image upload requests', ImageUploadRequest);
-	static readonly INCOTERM = new EntityMetadata('incoterm', 'incoterms', IncoTerm);
+	static readonly INCOTERM = new EntityMetadata('inco term', 'inco terms', IncoTerm);
 	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
 	static readonly LENGTH_UNIT = new EntityMetadata('length unit', 'length units');
 	static readonly LOCATION = new EntityMetadata('location', 'locations');
