@@ -115,13 +115,12 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			currentValue = currentField ? currentField.value : '';
 			supplierValue = field.value ? field.value : '';
 		} else {
-			// target will be something like Product.price, we only need price
+			// target will be something like Product.price, we only need the attribute to parse it or not
 			const property = target.split('.')[1];
 			switch (property) {
 				case 'price':
 				case 'innerCarton':
 				case 'masterCarton':
-				case 'category':
 					supplierValue = field.value ? JSON.parse(field.value) : '';
 					break;
 				default:
@@ -219,6 +218,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	private replaceProductAttribute(item, tempProduct) {
 		const property = item.definition.target.split('.')[1];
 		// this switch case handles the exceptions when we have to convert a extended field string to a value like boolean or price
+		// this types are coming from the extended field
 		switch (item.definition.type) {
 			case 'price':
 			case 'packaging':
