@@ -35,21 +35,21 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 		{ name: 'name', type: 'text', required: true, label: translate('name', 'message') },
 		{
 			name: 'supplier', type: 'selector', label: translate(ERM.SUPPLIER.singular, 'erm'),
-			metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true }
+			metadata: { target: ERM.SUPPLIER.singular, type: 'entity', labelName: 'name', canCreate: true }
 		},
 		{
 			name: 'product', type: 'selector', label: translate(ERM.PRODUCT.singular, 'erm'),
-			metadata: { target: 'product', type: 'entity', labelName: 'name', canCreate: true }
+			metadata: { target: ERM.PRODUCT.singular, type: 'entity', labelName: 'name', canCreate: true }
 		},
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
 		{ name: 'paid', type: 'yesNo', label: translate('paid', 'message') },
 		{
 			name: 'assignee', label: translate('assignee', 'message'), type: 'selector',
-			metadata: { target: 'user', type: 'entity', labelName: 'name' }
+			metadata: { target: ERM.USER.singular, type: 'entity', labelName: 'name' }
 		},
 		{
 			name: 'createdBy', label: translate('created by', 'message'), type: 'selector',
-			metadata: { target: 'user', type: 'entity', labelName: 'name' }
+			metadata: { target: ERM.USER.singular, type: 'entity', labelName: 'name' }
 		},
 
 	];

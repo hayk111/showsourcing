@@ -25,15 +25,15 @@ export class ProductInformationComponent implements OnInit {
 		{ name: 'name', type: 'text', required: true, label: translate('name') },
 		{
 			name: 'supplier', type: 'selector', label: translate(ERM.SUPPLIER.singular, 'erm'),
-			metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+			metadata: { target: ERM.SUPPLIER.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{
 			name: 'event', type: 'selector', label: translate(ERM.EVENT.singular, 'erm'),
-			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+			metadata: { target: ERM.EVENT.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{
 			name: 'category', type: 'selector', label: translate(ERM.CATEGORY.singular, 'erm'),
-			metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+			metadata: { target: ERM.CATEGORY.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm'), },
 		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
@@ -44,11 +44,11 @@ export class ProductInformationComponent implements OnInit {
 		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
 		{
 			name: 'incoTerm', type: 'selector', label: 'inco term',
-			metadata: { target: 'incoterm', type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
+			metadata: { target: ERM.INCOTERM.singular, type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
 		},
 		{
 			name: 'harbour', type: 'selector', label: 'harbour',
-			metadata: { target: 'harbour', type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
+			metadata: { target: ERM.HARBOUR.singular, type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
 		},
 	];
 
