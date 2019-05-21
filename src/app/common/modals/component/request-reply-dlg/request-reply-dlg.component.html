@@ -55,7 +55,14 @@
 			<!-- reply message -->
 			<h3 class="ms" i18n="@@request-message">request message</h3>
 			<form-field-app class="modal">
-				<textarea inputApp [disabled]="isDisabled()" type="text" [value]="element?.reply?.message" placeholder="Reply message to buyer" i18n-placeholder="@@reply-message-buyer"></textarea>
+        <textarea inputApp 
+          [disabled]="isDisabled()" 
+          [value]="element?.reply?.message" 
+          [formControl]="descriptionCtrl"
+          type="text" 
+          placeholder="Reply message to buyer" 
+          i18n-placeholder="@@reply-message-buyer">
+        </textarea>
 			</form-field-app>
 
       <!-- images -->
