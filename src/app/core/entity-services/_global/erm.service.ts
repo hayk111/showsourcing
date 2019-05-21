@@ -117,7 +117,7 @@ export class ERMService {
 				return this.imageService;
 			case 'ImageUploadRequest':
 				return this.imageUploadRequestService;
-			case 'Incoterm':
+			case 'IncoTerm':
 				return this.incotermService;
 			case 'LengthUnit':
 				return this.lenghtUnitSrv;
