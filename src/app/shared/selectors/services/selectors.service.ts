@@ -127,7 +127,7 @@ export class SelectorsService {
 					// this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
 					this.topCurrencies$ = this.currencySrv.queryMany({
 						query: `((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND symbol CONTAINS[c] "${searchTxt}")` +
-							` OR ((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND name CONTAINS[c]"${searchTxt}")`
+							` OR ((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND name CONTAINS[c] "${searchTxt}")`
 					});
 					this.currentSearchQuery = `symbol CONTAINS[c] "${searchTxt}" OR name CONTAINS[c] "${searchTxt}"`;
 					break;
@@ -212,9 +212,9 @@ export class SelectorsService {
 	}
 
 	private getTopCurrencies() {
-		this.selectParams = { ...this.selectParams, sortBy: '' };
-		this.listResult = this.currencySrv.getListQuery({ ...this.selectParams, query: 'symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"' });
-		this.topCurrencies$ = this.listResult.items$;
+		this.topCurrencies$ = this.currencySrv.queryMany(
+			{ ...this.selectParams, sortBy: '', query: 'symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"' }
+		);
 	}
 
 
