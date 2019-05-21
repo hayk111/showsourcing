@@ -108,18 +108,28 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	 */
 	getValues(field: ExtendedField) {
 		const target = field.definition.target;
-		const isProductExtendedField = field.definition.target === 'Product.extendedFields';
+		const isProductExtendedField = field.definition.target === 'product.extendedFields';
 		let currentValue, supplierValue;
 		if (isProductExtendedField) {
 			const originId = field.definition.originId;
 			const currentField = this.product ? this.product.extendedFields.find(fld => fld.definition.id === originId) : '';
 			currentValue = currentField ? currentField.value : '';
-			supplierValue = field.value ? JSON.parse(field.value) : '';
+			supplierValue = field.value ? field.value : '';
 		} else {
 			// target will be something like Product.price, we only need price
 			const property = target.split('.')[1];
+			switch (property) {
+				case 'price':
+				case 'innerCarton':
+				case 'masterCarton':
+				case 'category':
+					supplierValue = field.value ? JSON.parse(field.value) : '';
+					break;
+				default:
+					supplierValue = field.value;
+					break;
+			}
 			currentValue = this.product ? this.product[property] : '';
-			supplierValue = field.value ? JSON.parse(field.value) : '';
 		}
 		return [currentValue, supplierValue];
 	}
@@ -167,6 +177,10 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		return !(this.element.reply && this.element.reply.status === DEFAULT_REPLIED_STATUS);
 	}
 
+	isValidated() {
+		return (this.element.reply && this.element.reply.status === ReplyStatus.VALIDATED);
+	}
+
 	// whether the supplier has replied
 	isPending() {
 		const status = this.element.reply.status;
@@ -196,7 +210,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 
 	private acceptExtendedField(item, tempProduct) {
 		// we check if we have to accept an extended field or a product attribute
-		if (item.definition.target === 'Product.extendedFields')
+		if (item.definition.target === 'product.extendedFields')
 			tempProduct = this.replaceProductExtendedField(item, tempProduct);
 		else
 			tempProduct = this.replaceProductAttribute(item, tempProduct);
@@ -208,6 +222,8 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		// this switch case handles the exceptions when we have to convert a extended field string to a value like boolean or price
 		switch (item.definition.type) {
 			case 'price':
+			case 'innerCarton':
+			case 'masterCarton':
 				tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
 				break;
 			case 'boolean':

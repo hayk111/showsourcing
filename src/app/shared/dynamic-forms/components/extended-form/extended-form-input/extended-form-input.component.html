@@ -87,7 +87,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
 				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -163,7 +163,7 @@
 		<form-field-app *ngSwitchCase="'decimal'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 			 	(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>

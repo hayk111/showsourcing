@@ -37,7 +37,7 @@
 						<comparison-row-app
 							[checked]="selectionSrv.selection.has(field.id)"
 							[label]="field?.definition?.label"
-							[values]="getValues( field )"
+							[values]="getValues(field)"
 							[hasCheckbox]="!isDisabled()"
 							(selected)="selectionSrv.selectOne(field)"
 							(unselected)="selectionSrv.unselectOne(field)">
@@ -106,7 +106,14 @@
 			<button (click)="acceptRequest()" i18n="button@@accept-request">Accept Request</button>
 		</ng-container>
 		<ng-template #notReplied>
-			<span class="bold-s" i18n="@@product-not-yet-replied">This product has not been replied yet by the supplier</span>
+			<span class="bold-s">
+				<ng-container *ngIf="isValidated(); else notValid" i18n="@@product-already-validated">
+					This product has already been validated
+				</ng-container>
+				<ng-template #notValid i18n="@@product-not-yet-replied">
+					This product has not been replied yet by the supplier
+				</ng-template>
+			</span>
 		</ng-template>
 	</dialog-footer-app>
 

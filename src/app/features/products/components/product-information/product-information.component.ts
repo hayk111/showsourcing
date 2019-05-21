@@ -20,6 +20,7 @@ export class ProductInformationComponent implements OnInit {
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
 
+	// TODO i18n
 	customFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: translate('name') },
 		{
@@ -36,7 +37,19 @@ export class ProductInformationComponent implements OnInit {
 		},
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm'), },
 		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
-		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') }
+		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
+		{ name: 'pricePer20ft', type: 'number', label: 'Price per 20 feet' },
+		{ name: 'pricePer40ft', type: 'number', label: 'Price per 40 feet' },
+		{ name: 'pricePer40ftHC', type: 'number', label: 'Price per 40 feet HC' },
+		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
+		{
+			name: 'incoTerm', type: 'selector', label: 'inco term',
+			metadata: { target: 'incoterm', type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
+		},
+		{
+			name: 'harbour', type: 'selector', label: 'harbour',
+			metadata: { target: 'harbour', type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
+		},
 	];
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
