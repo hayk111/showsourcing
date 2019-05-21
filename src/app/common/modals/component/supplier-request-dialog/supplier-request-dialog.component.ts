@@ -23,6 +23,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	private _request: CreateRequest;
 	@Input() set request(request: CreateRequest) {
 		this._request = request;
+		console.log('>> the input request: ', this._request);
 		this.initFormValues();
 	}
 	get request() {
@@ -226,10 +227,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 			// we are reopening this dlg when the other one closes
 			.subscribe(({ type, data }) => {
 				// we update the request with the latest tempalte selected if there is any
-				console.log('>> updating template');
 				if (data && data.template)
 					request = ({ ...request, requestTemplate: data.template });
-				console.log(request);
 				return this.dlgSrv.open(SupplierRequestDialogComponent, { request });
 			});
 	}
