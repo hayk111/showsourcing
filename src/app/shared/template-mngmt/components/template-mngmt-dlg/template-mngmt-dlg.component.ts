@@ -91,6 +91,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		event.stopPropagation();
 		const templateSelected = this.templateSelected;
 		this.dlgSrv.open(ConfirmDialogComponent).pipe(
+			tap(_ => console.log(templateSelected))
 		).subscribe(_ => this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected }));
 	}
 

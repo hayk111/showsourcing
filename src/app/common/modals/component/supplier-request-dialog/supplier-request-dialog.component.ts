@@ -77,6 +77,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	private initFormValues() {
+		console.log('>> initing form values');
 		// title
 		this.setTitle();
 		// message
@@ -161,6 +162,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	private setTitle() {
+		console.log('>>> we are setting the title');
 		const prod = this.request.products.length === 1 ? translate('product') : translate('products');
 		const reqFor = translate('Request for');
 		this.form.get('title').setValue(`${reqFor} ${this.request.products.length} ${prod}`);
@@ -174,9 +176,13 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	updateProducts(products: Product[]) {
-		this.request = { ...this.request, products };
+		this.request = { ...this.request, ...this.form.value, products };
 		this.setTitle();
+		console.log('>> updating prod');
+		console.log(this.request);
+		console.log(this.form);
 		this.form.patchValue(this.request);
+		console.log(this.form);
 	}
 
 	updateSupplier(supplier: Supplier) {
@@ -220,8 +226,10 @@ export class SupplierRequestDialogComponent implements OnInit {
 			// we are reopening this dlg when the other one closes
 			.subscribe(({ type, data }) => {
 				// we update the request with the latest tempalte selected if there is any
+				console.log('>> updating template');
 				if (data && data.template)
 					request = ({ ...request, requestTemplate: data.template });
+				console.log(request);
 				return this.dlgSrv.open(SupplierRequestDialogComponent, { request });
 			});
 	}
