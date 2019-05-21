@@ -102,7 +102,6 @@ export class ExtendedFormInputComponent implements OnInit {
 	}
 
 	onInput(value: any, isJson = false) {
-		console.log(value);
 		this.inputValue$.next({ value, isJson });
 	}
 

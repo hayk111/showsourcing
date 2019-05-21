@@ -9,7 +9,6 @@ import {
 	EntityMetadata,
 	ERM,
 	ExtendedField,
-	Price,
 	Product,
 	ReplyStatus,
 	RequestElement,
@@ -108,20 +107,34 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	 */
 	getValues(field: ExtendedField) {
 		const target = field.definition.target;
-		const isProductExtendedField = field.definition.target === 'Product.extendedFields';
+		const isProductExtendedField = field.definition.target === 'product.extendedFields';
 		let currentValue, supplierValue;
-		if (isProductExtendedField) {
-			const originId = field.definition.originId;
-			const currentField = this.product ? this.product.extendedFields.find(fld => fld.definition.id === originId) : '';
-			currentValue = currentField ? currentField.value : '';
-			supplierValue = field.value ? JSON.parse(field.value) : '';
-		} else {
-			// target will be something like Product.price, we only need price
-			const property = target.split('.')[1];
-			currentValue = this.product ? this.product[property] : '';
-			supplierValue = field.value ? JSON.parse(field.value) : '';
+		const property = target.split('.')[1];
+		currentValue = isProductExtendedField ?
+			this.getCurrentExtendedFieldValue(field) : this.getCurrentPropertyValue(property);
+
+		switch (field.definition.type) {
+			case 'price':
+			case 'packaging':
+				supplierValue = field.value ? JSON.parse(field.value) : '';
+				break;
+			default:
+				supplierValue = field.value ? field.value : '';
+				break;
 		}
 		return [currentValue, supplierValue];
+	}
+
+	// we get the value from the extended field
+	private getCurrentExtendedFieldValue(field) {
+		const originId = field.definition.originId;
+		const extendedField = this.product ? this.product.extendedFields.find(fld => fld.definition.id === originId) : '';
+		return extendedField ? extendedField.value : '';
+	}
+
+	// we get the value from the product according to the property
+	private getCurrentPropertyValue(property) {
+		return this.product && this.product[property] ? this.product[property] : '';
 	}
 
 
@@ -167,6 +180,10 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		return !(this.element.reply && this.element.reply.status === DEFAULT_REPLIED_STATUS);
 	}
 
+	isValidated() {
+		return (this.element.reply && this.element.reply.status === ReplyStatus.VALIDATED);
+	}
+
 	// whether the supplier has replied
 	isPending() {
 		const status = this.element.reply.status;
@@ -196,7 +213,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 
 	private acceptExtendedField(item, tempProduct) {
 		// we check if we have to accept an extended field or a product attribute
-		if (item.definition.target === 'Product.extendedFields')
+		if (item.definition.target === 'product.extendedFields')
 			tempProduct = this.replaceProductExtendedField(item, tempProduct);
 		else
 			tempProduct = this.replaceProductAttribute(item, tempProduct);
@@ -206,8 +223,10 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	private replaceProductAttribute(item, tempProduct) {
 		const property = item.definition.target.split('.')[1];
 		// this switch case handles the exceptions when we have to convert a extended field string to a value like boolean or price
+		// this types are coming from the extended field
 		switch (item.definition.type) {
 			case 'price':
+			case 'packaging':
 				tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
 				break;
 			case 'boolean':
