@@ -109,27 +109,32 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		const target = field.definition.target;
 		const isProductExtendedField = field.definition.target === 'product.extendedFields';
 		let currentValue, supplierValue;
-		if (isProductExtendedField) {
-			const originId = field.definition.originId;
-			const currentField = this.product ? this.product.extendedFields.find(fld => fld.definition.id === originId) : '';
-			currentValue = currentField ? currentField.value : '';
-			supplierValue = field.value ? field.value : '';
-		} else {
-			// target will be something like Product.price, we only need the attribute to parse it or not
-			const property = target.split('.')[1];
-			switch (property) {
-				case 'price':
-				case 'innerCarton':
-				case 'masterCarton':
-					supplierValue = field.value ? JSON.parse(field.value) : '';
-					break;
-				default:
-					supplierValue = field.value;
-					break;
-			}
-			currentValue = this.product ? this.product[property] : '';
+		const property = target.split('.')[1];
+		currentValue = isProductExtendedField ?
+			this.getCurrentExtendedFieldValue(field) : this.getCurrentPropertyValue(property);
+
+		switch (field.definition.type) {
+			case 'price':
+			case 'packaging':
+				supplierValue = field.value ? JSON.parse(field.value) : '';
+				break;
+			default:
+				supplierValue = field.value ? field.value : '';
+				break;
 		}
 		return [currentValue, supplierValue];
+	}
+
+	// we get the value from the extended field
+	private getCurrentExtendedFieldValue(field) {
+		const originId = field.definition.originId;
+		const extendedField = this.product ? this.product.extendedFields.find(fld => fld.definition.id === originId) : '';
+		return extendedField ? extendedField.value : '';
+	}
+
+	// we get the value from the product according to the property
+	private getCurrentPropertyValue(property) {
+		return this.product && this.product[property] ? this.product[property] : '';
 	}
 
 
