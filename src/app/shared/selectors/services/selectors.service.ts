@@ -295,7 +295,10 @@ export class SelectorsService {
 	}
 
 	getContacts(): Observable<Contact[]> {
-		this.selectParams = { ...this.selectParams, sortBy: 'name' };
+		const query = this.selectParams.query ?
+			this.selectParams.query + ' AND email contains "@"' :
+			'email contains "@"';
+		this.selectParams = { ...this.selectParams, sortBy: 'name', query };
 		this.listResult = this.contactSrv.getListQuery(this.selectParams);
 		this.setItems();
 		return this.items$;
