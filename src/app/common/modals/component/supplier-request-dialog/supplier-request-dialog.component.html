@@ -36,13 +36,20 @@
 						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 
-					<ng-container *ngIf="selectedTemplate$ | async as tmpSlctd">
+					<ng-container *ngIf="selectedTemplate$ | async as tmpSlctd; else noTemplate">
 						<small class="browse flexEnd color-primary pointer"
 							(click)="openTemplateMngmtDialog($event, tmpSlctd)">
 							Browse templates
 						</small>
 						<div><b>Template Fields:</b> {{ getTemplateFields(tmpSlctd) }}</div>
 					</ng-container>
+					<!-- we have to display the browse templates, when we have no templates on the DB -->
+					<ng-template #noTemplate>
+							<small class="browse flexEnd color-primary pointer"
+							(click)="openTemplateMngmtDialog($event, null)">
+							Browse templates
+						</small>
+					</ng-template>
 
 				</form-field-app>
 

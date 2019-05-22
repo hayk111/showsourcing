@@ -23,8 +23,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	private _request: CreateRequest;
 	@Input() set request(request: CreateRequest) {
 		this._request = request;
-		console.log('>> the input request: ', this._request);
-		this.initFormValues();
+		this.setTemplate();
 	}
 	get request() {
 		return this._request;
@@ -39,6 +38,9 @@ export class SupplierRequestDialogComponent implements OnInit {
 	get products() {
 		return this._products;
 	}
+	// wether if we come from the template dialog or not
+	@Input() fromTemplateDlg = false;
+
 	form: FormGroup;
 	copyEmail = false;
 	pending = false;
@@ -74,14 +76,30 @@ export class SupplierRequestDialogComponent implements OnInit {
 		this.selectedTemplate$ = this.templateSelectedAction$.pipe(
 			switchMap(id => this.requestTemplateSrv.queryOne(id))
 		);
-
+		if (!this.fromTemplateDlg)
+			this.initFormValues();
 	}
 
 	private initFormValues() {
-		console.log('>> initing form values');
 		// title
 		this.setTitle();
 		// message
+		this.setMessage();
+		// template, selecting the first one
+		this.setTemplate();
+		// supplier, its not a form value but it has to be initialized
+		this.setSupplier();
+	}
+
+	private setTitle() {
+		const prod = this.request.products.length === 1 ? translate('product') : translate('products');
+		const reqFor = translate('Request for');
+		const title = `${reqFor} ${this.request.products.length} ${prod}`;
+		this.request = { ...this.request, title };
+		this.form.patchValue(this.request);
+	}
+
+	private setMessage() {
 		// TODO i18n
 		let event;
 		const firstName = this.userSrv.userSync.firstName || '';
@@ -94,10 +112,6 @@ export class SupplierRequestDialogComponent implements OnInit {
 			'\nThank you\n' +
 			(firstName ? firstName + ' ' + lastName : lastName)
 		);
-		// template, selecting the first one
-		this.setTemplate();
-		// supplier, its not a form value but it has to be initialized
-		this.setSupplier();
 	}
 
 	private setTemplate() {
@@ -105,17 +119,22 @@ export class SupplierRequestDialogComponent implements OnInit {
 			this.requestTemplateSrv.queryOneByPredicate('targetedEntity == "Product"')
 				.pipe(take(1))
 				.subscribe(reqTemplate => {
-					this.templateSelectedAction$.next(reqTemplate.id);
-					this.form.patchValue({ requestTemplate: reqTemplate });
+					if (reqTemplate) {
+						this.templateSelectedAction$.next(reqTemplate.id);
+						this.request = { ...this.request, requestTemplate: reqTemplate };
+						this.form.patchValue(this.request);
+					}
 				});
 		} else if (this.request && this.request.requestTemplate)
 			this.templateSelectedAction$.next(this.request.requestTemplate.id);
 	}
 
 	private setSupplier() {
-		// 1. find the first product that has a supplier
-		const productWithSupplier = this.request.products.find(product => !!product.supplier);
-		this.supplier = productWithSupplier && productWithSupplier.supplier;
+		// 1. find the first product that has a supplier, if we have not selected a supplier yet
+		if (!this.supplier) {
+			const productWithSupplier = this.request.products.find(product => !!product.supplier);
+			this.supplier = productWithSupplier && productWithSupplier.supplier;
+		}
 
 		if (this.supplier) {
 			this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
@@ -128,12 +147,18 @@ export class SupplierRequestDialogComponent implements OnInit {
 					.pipe(
 						switchMap(contact => this.createOrUseContact(contact, this.supplier)),
 						take(1)
-					).subscribe(contact => this.form.patchValue({ recipient: contact }));
+					).subscribe(contact => {
+						this.request = { ...this.request, recipient: contact };
+						this.form.patchValue(this.request);
+					});
 
 			} else { // we try to add the first email of that supplier
-				this.contactSrv.queryOneByPredicate(`supplier.id == "${this.supplier.id}"`)
+				this.contactSrv.queryOneByPredicate(`supplier.id == "${this.supplier.id}" AND email contains "@"`)
 					.pipe(take(1))
-					.subscribe(contact => this.form.patchValue({ recipient: contact }));
+					.subscribe(contact => {
+						this.request = { ...this.request, recipient: contact };
+						this.form.patchValue(this.request);
+					});
 			}
 		}
 	}
@@ -157,38 +182,28 @@ export class SupplierRequestDialogComponent implements OnInit {
 		if (contact && !contact.supplier) {
 			// we update the contact on the form and on realm, since it's a new contact and we have to insert a supplier
 			// other wise when we create the request its gona get the form value and the supplier will be null again
-			this.form.get('recipient').setValue({ ...contact, supplier: { id: this.supplier.id } });
-			this.contactSrv.update({ id: contact.id, supplier: { id: this.supplier.id } }).subscribe();
+			this.request = { ...this.request, recipient: { ...contact, supplier: { id: this.supplier.id } } };
+			this.contactSrv
+				.update({ id: contact.id, supplier: { id: this.supplier.id } })
+				.subscribe(_ => this.form.patchValue(this.request));
 		}
-	}
-
-	private setTitle() {
-		console.log('>>> we are setting the title');
-		const prod = this.request.products.length === 1 ? translate('product') : translate('products');
-		const reqFor = translate('Request for');
-		this.form.get('title').setValue(`${reqFor} ${this.request.products.length} ${prod}`);
 	}
 
 	removeProduct(id: ID) {
 		const products = this.request.products.filter(product => product.id !== id);
 		this.request = { ...this.request, products };
 		this.setTitle();
-		this.form.patchValue(this.request);
 	}
 
 	updateProducts(products: Product[]) {
-		this.request = { ...this.request, ...this.form.value, products };
+		this.request = { ...this.request, products };
 		this.setTitle();
-		console.log('>> updating prod');
-		console.log(this.request);
-		console.log(this.form);
-		this.form.patchValue(this.request);
-		console.log(this.form);
 	}
 
 	updateSupplier(supplier: Supplier) {
 		this.supplier = supplier;
 		this.form.get('recipient').reset();
+		this.setSupplier();
 		this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: supplier.id }]);
 	}
 
@@ -229,7 +244,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 				// we update the request with the latest tempalte selected if there is any
 				if (data && data.template)
 					request = ({ ...request, requestTemplate: data.template });
-				return this.dlgSrv.open(SupplierRequestDialogComponent, { request });
+				return this.dlgSrv.open(SupplierRequestDialogComponent, { request, fromTemplateDlg: true });
 			});
 	}
 

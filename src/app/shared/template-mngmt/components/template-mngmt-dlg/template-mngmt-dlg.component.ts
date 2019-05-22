@@ -25,8 +25,10 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	@Input()
 	set templateSelected(tmp: RequestTemplate) {
-		this._templateSelected$.next(tmp);
-		this._templateSelected = tmp;
+		if (tmp) {
+			this._templateSelected$.next(tmp);
+			this._templateSelected = tmp;
+		}
 	}
 	get templateSelected() {
 		return this._templateSelected;
@@ -110,9 +112,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 			if (value)
 				requestedFields.push(key);
 		});
-		const tmp = new RequestTemplate({ id: this.templateSelected.id, requestedFields });
-		this.templateSelected = tmp;
-		this.templateMngmtSrv.updateTemplate(tmp).subscribe();
+		this.templateSelected = { ...this.templateSelected, requestedFields };
+		this.templateMngmtSrv.updateTemplate(this.templateSelected).subscribe();
 	}
 
 	hasChanged() {
