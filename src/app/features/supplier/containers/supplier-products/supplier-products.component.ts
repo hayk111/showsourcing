@@ -33,7 +33,6 @@ export class SupplierProductsComponent extends AutoUnsub implements OnInit {
 		public commonModalSrv: CommonModalService
 	) {
 		super();
-
 	}
 
 	ngOnInit() {
@@ -43,7 +42,8 @@ export class SupplierProductsComponent extends AutoUnsub implements OnInit {
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: { query: `supplier.id == "${this.supplierId}" AND archived == false AND deleted == false` },
-			entityMetadata: ERM.PRODUCT
+			entityMetadata: ERM.PRODUCT,
+			originComponentDestroy$: this._destroy$
 		});
 	}
 

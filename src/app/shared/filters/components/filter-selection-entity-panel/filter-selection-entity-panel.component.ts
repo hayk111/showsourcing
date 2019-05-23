@@ -39,7 +39,6 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			takeUntil(this._destroy$),
 			debounceTime(400)
 		).subscribe(str => this.filterChoices(str));
-
 		if (this.type === FilterType.CREATED_BY || this.type === FilterType.ASSIGNEE)
 			this.loadUserChoices();
 		else if (this.type === FilterType.EVENT || this.type === FilterType.EVENTS)
@@ -87,6 +86,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		this.choices$ = this.listResult.items$.pipe(
 			tap(_ => this.pending$.next(false))
 		);
+		this.listResult.items$.connect();
 	}
 
 	/** filters the choices when the user types something in the search bar */

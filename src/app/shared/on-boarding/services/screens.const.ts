@@ -20,7 +20,7 @@ Invite your entire team - purchasers, marketers, and more - and share all your f
 	}, {
 		picture: 'onboarding-4.svg',
 		title: 'Communicate with your suppliers',
-		text: `Integrate your supplier in your product development, ask the mquestions, request quote, information and much more!`
+		text: `Integrate your supplier in your product development, ask them questions, request quote, information and much more!`
 	}, {
 		picture: 'onboarding-5.svg',
 		title: 'Make Better Decisions, Faster',
