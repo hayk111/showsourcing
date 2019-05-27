@@ -1,4 +1,4 @@
-import { SUPPLIER_WEB_VERSION } from 'environments/global.const';
+import { WEB_VERSION } from 'environments/global.const';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { LogLevel } from '~utils';
 
@@ -7,7 +7,7 @@ import { LogLevel } from '~utils';
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-	version: SUPPLIER_WEB_VERSION,
+	version: WEB_VERSION,
 	production: false,
 	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',

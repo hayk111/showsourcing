@@ -1,10 +1,10 @@
-import { SUPPLIER_WEB_VERSION } from 'environments/global.const';
+import { WEB_VERSION } from 'environments/global.const';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { LogLevel } from '~utils';
 
 export const environment = {
 	production: true,
-	version: SUPPLIER_WEB_VERSION,
+	version: WEB_VERSION,
 	graphqlUrl: 'wss://showsourcingprod.us1.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingprod.us1.cloud.realm.io/auth',
 	apiUrl: 'https://services.showsourcing.com',

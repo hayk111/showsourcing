@@ -186,14 +186,14 @@
 					inputApp
 					[disabled]="disabled"
 					[checked]="field?.value === 'true'"
-					(update)="toggleBoolean()">
+					(update)="toggleBoolean(true)">
 					<span class="capitalize" i18n="@@yes">yes</span>
 				</checkbox-app>
 				<checkbox-app
 					inputApp
 					[disabled]="disabled"
 					[checked]="field?.value === 'false'"
-					(update)="toggleBoolean()">
+					(update)="toggleBoolean(false)">
 					<span class="capitalize" i18n="@@no">no</span>
 				</checkbox-app>
 			</div>

@@ -106,10 +106,14 @@ export class ExtendedFormInputComponent implements OnInit {
 	}
 
 	/** toggle input value from true to false and vice versa */
-	toggleBoolean() {
+	toggleBoolean(check) {
 		if (this.disabled)
 			return;
-		this.accumulator = this.accumulator === 'true' ? this.accumulator = 'false' : this.accumulator = 'true';
+		// we need this condition, cause when the accumulator is empty we need to take the value of the event
+		if (!this.accumulator)
+			this.accumulator = check ? 'true' : 'false';
+		else
+			this.accumulator = this.accumulator === 'true' ? 'false' : 'true';
 		this.onSave();
 	}
 
