@@ -2,7 +2,7 @@
   .notif-badge-content {
     width: $size;
     height: $size;
-		line-height: $size - 1;
+		line-height: $size - 2;
 		font-size: $size - 1;
 		padding: var(--spacing-xs);
   }
@@ -64,6 +64,12 @@
 	pointer-events: none;
 }
 
+.notif-badge-no-content {
+	.notif-badge-content {
+		position: unset;
+		top: unset;
+	}
+}
 
 // The active class is added after the element is added
 // so it can aninotife scale to default
@@ -73,7 +79,7 @@
 }
 
 .notif-badge-s {
-	@include _notif-badge-size(11px);
+	@include _notif-badge-size(12px);
 }
 .notif-badge-m {
 	@include _notif-badge-size(14px);

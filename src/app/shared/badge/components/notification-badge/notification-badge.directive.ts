@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
 
-export type BadgePosition = 'above-after' | 'above-before' | 'below-after' | 'below-before' | 'center';
+export type BadgePosition = 'above-after' | 'above-before' | 'below-after' | 'below-before' | 'center' | 'no-content';
 export type BadgeSize = 's' | 'm' | 'l';
 export type BadgeColor = 'primary' | 'accent' | 'warn' | 'success';
 let nextId = 0;
@@ -15,6 +15,7 @@ let nextId = 0;
 		'[class.notif-badge-before]': '!isAfter()',
 		'[class.notif-badge-after]': 'isAfter()',
 		'[class.notif-badge-center]': 'isCenter()',
+		'[class.notif-badge-no-content]': 'hasContent()', // this is when we just need the badge bu itself
 		'[class.notif-badge-s]': 'badgeSize === "s"',
 		'[class.notif-badge-m]': 'badgeSize === "m"',
 		'[class.notif-badge-l]': 'badgeSize === "l"',
@@ -24,7 +25,14 @@ let nextId = 0;
 })
 export class NotificationBadgeDirective implements OnChanges {
 
-	@Input() badge: string;
+	@Input()
+	get badge() {
+		return this._badge;
+	}
+	set badge(badge: string) {
+		this._badge = parseInt(badge, 10) > 99 ? '99' : badge;
+	}
+	private _badge: string;
 	@Input() badgeOverlap = false;
 	@Input() badgeSize: BadgeSize = 's';
 	@Input() badgeHidden = false;
@@ -70,6 +78,11 @@ export class NotificationBadgeDirective implements OnChanges {
 	/** Whether the badge is centered or not*/
 	isCenter(): boolean {
 		return this.badgePosition.indexOf('center') !== -1;
+	}
+
+	/** Whether the badge has content or not*/
+	hasContent(): boolean {
+		return this.badgePosition.indexOf('no-content') !== -1;
 	}
 
 	getbadgeElement(): HTMLElement | undefined {
