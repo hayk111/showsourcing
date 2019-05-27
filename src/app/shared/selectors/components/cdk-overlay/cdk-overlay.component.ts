@@ -35,6 +35,7 @@ export class CdkOverlayComponent implements OnInit {
 			{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' },
 			{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'bottom' },
 			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'bottom' },
+			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
 		];
 		this.cdkConnectedOverlay.positionChange.pipe(first()).subscribe(posChange => {
 			// when its upside down we eliminate the offsets
