@@ -1,17 +1,20 @@
 <div class="flex top inline">
 	<form-field-app>
+		<label-app>Length</label-app>
+		<input inputApp name="length" [(ngModel)]="value.length"
+			placeholder="Length" type="number" restrictInput="number"/>
+	</form-field-app>
+	<div class="spacer mg-xs"></div>
+	<form-field-app>
 		<label-app>Width</label-app>
-		<input inputApp name="width" [(ngModel)]="value.width" type="number" restrictInput="number"/>
+		<input inputApp name="width" [(ngModel)]="value.width"
+		placeholder="Width" type="number" restrictInput="number"/>
 	</form-field-app>
 	<div class="spacer mg-xs"></div>
 	<form-field-app>
 		<label-app>Height</label-app>
-		<input inputApp name="height" [(ngModel)]="value.height" type="number" restrictInput="number"/>
-	</form-field-app>
-	<div class="spacer mg-xs"></div>
-	<form-field-app>
-		<label-app>Depth</label-app>
-		<input inputApp name="depth" [(ngModel)]="value.length" type="number" restrictInput="number"/>
+		<input inputApp name="height" [(ngModel)]="value.height"
+		placeholder="height" type="number" restrictInput="number"/>
 	</form-field-app>
 	<div class="spacer mg-xs"></div>
 
@@ -20,9 +23,10 @@
 			[type]="erm.LENGTH_UNIT"
 			[value]="value.unit"
 			(update)="update($event, 'unit')">
-			<label-app>Units</label-app>
+			<label-app>Unit</label-app>
 		</selector-app>
-		<input inputApp name="quantity" [(ngModel)]="value.itemsQuantity" type="number" restrictInput="number"/>
+		<input inputApp name="unit" [(ngModel)]="value.unit"
+		placeholder="Unit" type="text"/>
 	</form-field-app>
 </div>
 
@@ -42,8 +46,9 @@
 			[type]="erm.WEIGHT_UNIT"
 			[value]="value.weightUnit"
 			(update)="update($event, 'weightUnit')">
-			<label-app>Units</label-app>
+			<label-app>Unit</label-app>
 		</selector-app>
-		<input inputApp name="quantity" [(ngModel)]="value.itemsQuantity" type="number" restrictInput="number"/>
+		<input inputApp name="weightUnit" [(ngModel)]="value.weightUnit"
+		placeholder="Unit" type="text"/>
 	</form-field-app>
 </div>

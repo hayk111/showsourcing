@@ -138,7 +138,7 @@ export class QueryBuilder {
 		}`)
 
 	updateMany = (str: string) => gql(`
-	mutation updateMany${this.capPlural}($input: [ProductInput!]){
+	mutation updateMany${this.capPlural}($input: [${this.capSing}Input!]){
 		create${this.capPlural}(input: $input, updatePolicy: MODIFIED) {
 			${str}
 		}

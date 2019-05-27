@@ -130,10 +130,9 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app name="event-calendar" backgroundColor="success"></icon-app>
-				<span>{{ value?.name || value?.description?.name || 'Set event' }}</span>
-				<span *ngIf="(value?.name || value?.description?.name); else empty">{{ value  }}</span>
+				<span *ngIf="(value?.name || value?.description?.name); else empty">{{ value?.name || value?.description?.name }}</span>
 				<ng-template #empty>
-					<span i18n="text@@set-location">Set location</span>
+					<span i18n="text@@set-event">Set event</span>
 				</ng-template>
 			</div>
 		</selector-app>

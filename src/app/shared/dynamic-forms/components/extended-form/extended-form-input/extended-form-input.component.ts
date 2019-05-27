@@ -1,7 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { EntityMetadata, ExtendedField, ExtendedFieldDefinition, Price, Packaging, ERM, ExtendedFieldDefinitionMetadata } from '~core/models';
+import {
+	EntityMetadata,
+	ERM,
+	ExtendedField,
+	ExtendedFieldDefinition,
+	ExtendedFieldDefinitionMetadata,
+	Packaging,
+	Price,
+} from '~core/models';
 
 
 
@@ -76,6 +84,10 @@ export class ExtendedFormInputComponent implements OnInit {
 		return ERM.getEntityMetadata(name) || null;
 	}
 
+	getLinkingObject() {
+		throw Error('linkingobject selector hasn\'t been implemented');
+	}
+
 	/** saving the value */
 	onSave() {
 		this.field.value = this.accumulator;
@@ -94,10 +106,14 @@ export class ExtendedFormInputComponent implements OnInit {
 	}
 
 	/** toggle input value from true to false and vice versa */
-	toggleBoolean() {
+	toggleBoolean(check) {
 		if (this.disabled)
 			return;
-		this.accumulator = this.accumulator === 'true' ? this.accumulator = 'false' : this.accumulator = 'true';
+		// we need this condition, cause when the accumulator is empty we need to take the value of the event
+		if (!this.accumulator)
+			this.accumulator = check ? 'true' : 'false';
+		else
+			this.accumulator = this.accumulator === 'true' ? 'false' : 'true';
 		this.onSave();
 	}
 

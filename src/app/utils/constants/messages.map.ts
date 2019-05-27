@@ -336,6 +336,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'fields': {
+		locales: {
+			en: {
+				name: 'fields'
+			}
+		}
+	},
 	'First Name': {
 		locales: {
 			en: {

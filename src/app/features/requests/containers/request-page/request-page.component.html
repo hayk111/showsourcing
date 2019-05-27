@@ -36,4 +36,5 @@
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
 	(close)="listSrv.unselectAll()">
+	<button class="warn" (click)="cancelSelectedRequests()" i18n="@@cancel-requests">cancel requests</button>
 </selection-bar-app>

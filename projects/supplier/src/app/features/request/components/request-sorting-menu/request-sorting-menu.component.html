@@ -13,9 +13,6 @@
 					<p *ngIf="currentSort?.sortBy === 'sentDate'" class="flex capitalize" i18n="button@@sort-by-recieved">sort by recieved on
 						<ng-container *ngTemplateOutlet="direction"></ng-container>
 					</p>
-					<p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex capitalize" i18n="button@@sort-by-created">sort by created on
-						<ng-container *ngTemplateOutlet="direction"></ng-container>
-					</p>
 					<p *ngIf="currentSort?.sortBy === 'status'" class="flex capitalize" i18n="button@@sort-by-status">sort by status
 						<ng-container *ngTemplateOutlet="direction"></ng-container>
 					</p>
@@ -43,12 +40,6 @@
 		<context-menu-item-app (click)="sortFromMenu.emit('sentDate')" class="menu-item capitalize" i18n="button@@recieved-on">
 			recieved on
 			<ng-container *ngIf="currentSort?.sortBy === 'sentDate'">
-				<ng-container *ngTemplateOutlet="direction"></ng-container>
-			</ng-container>
-		</context-menu-item-app>
-		<context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item capitalize" i18n="button@@created-on">
-			created on
-			<ng-container *ngIf="currentSort?.sortBy === 'creationDate'">
 				<ng-container *ngTemplateOutlet="direction"></ng-container>
 			</ng-container>
 		</context-menu-item-app>

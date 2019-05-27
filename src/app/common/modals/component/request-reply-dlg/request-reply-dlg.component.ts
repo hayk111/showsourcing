@@ -18,6 +18,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 
 import { RefuseReplyDlgComponent } from '../refuse-reply-dlg/refuse-reply-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -37,6 +38,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	reply: RequestReply;
 	fields: ExtendedField[];
 	definitions: ExtendedFieldDefinition[];
+	descriptionCtrl = new FormControl('');
 
 
 	constructor(
@@ -93,12 +95,24 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	save(updateStatus = false, lastItem = false) {
 		const reply = updateStatus ?
-			({ id: this.reply.id, fields: this.fields, status: ReplyStatus.REPLIED, __typename: 'RequestReply' }) :
-			({ id: this.reply.id, fields: this.fields, __typename: 'RequestReply' });
+			({
+				id: this.reply.id,
+				message: this.descriptionCtrl.value,
+				fields: this.fields,
+				status: ReplyStatus.REPLIED,
+				__typename: 'RequestReply'
+			}) :
+			({
+				id: this.reply.id,
+				message: this.descriptionCtrl.value,
+				fields: this.fields,
+				__typename: 'RequestReply'
+			});
 		this.replySrv.update(reply).subscribe(_ => {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
 		});
+		this.descriptionCtrl.reset();
 	}
 
 	saveAndClose() {

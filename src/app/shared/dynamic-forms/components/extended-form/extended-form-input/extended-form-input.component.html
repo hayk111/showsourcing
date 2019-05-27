@@ -87,7 +87,7 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
 				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -163,7 +163,7 @@
 		<form-field-app *ngSwitchCase="'decimal'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="text" [value]="accumulator || ''"
+			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 			 	(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
@@ -186,14 +186,14 @@
 					inputApp
 					[disabled]="disabled"
 					[checked]="field?.value === 'true'"
-					(update)="toggleBoolean()">
+					(update)="toggleBoolean(true)">
 					<span class="capitalize" i18n="@@yes">yes</span>
 				</checkbox-app>
 				<checkbox-app
 					inputApp
 					[disabled]="disabled"
 					[checked]="field?.value === 'false'"
-					(update)="toggleBoolean()">
+					(update)="toggleBoolean(false)">
 					<span class="capitalize" i18n="@@no">no</span>
 				</checkbox-app>
 			</div>
@@ -231,10 +231,11 @@
 				[disabled]="disabled"
 				[type]="getERM(metadata?.source)"
 				[canCreate]="metadata?.canCreate"
-				(update)="onInput($event, definition?.type === 'const')">
+				(update)="onInput($event, metadata?.type !== 'const')">
 				<selector-placeholder-app
 					[ngClass]="{ 'disabled': disabled }"
-					[name]="definition?.type === 'const' ? accumulator : accumulator">
+					[placeholder]="definition?.label"
+					[name]="metadata?.type === 'const' ? accumulator : getLinkingObject()">
 				</selector-placeholder-app>
 			</selector-app>
 			<input inputApp [hidden]="true" type="text"/>

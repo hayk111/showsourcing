@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { combineLatest, Observable, Subject, ReplaySubject, of } from 'rxjs';
-import { switchMap, takeUntil, tap, map, filter, delay } from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable, ReplaySubject } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { ExtendedFieldDefinition, RequestTemplate } from '~core/models';
-import { CloseEventType, DialogService, CloseEvent } from '~shared/dialog';
+import { CloseEventType, DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { InputDirective } from '~shared/inputs';
 import { TemplateMngmtService } from '~shared/template-mngmt/services/template-mngmt.service';
 import { AutoUnsub } from '~utils';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 @Component({
 	selector: 'template-mngmt-dlg-app',
@@ -15,10 +16,6 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
-	static count = 0;
-	count = TemplateMngmtDlgComponent.count++;
-	createCtrl = new FormControl();
-
 
 	private _templateSelected$ = new ReplaySubject<RequestTemplate>(1);
 	// let's call queryOne to have the updates from cache
@@ -28,13 +25,22 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	@Input()
 	set templateSelected(tmp: RequestTemplate) {
-		this._templateSelected$.next(tmp);
-		this._templateSelected = tmp;
+		if (tmp) {
+			this._templateSelected$.next(tmp);
+			this._templateSelected = tmp;
+		}
 	}
 	get templateSelected() {
 		return this._templateSelected;
 	}
 	private _templateSelected: RequestTemplate;
+
+	@ViewChild(InputDirective) inp: InputDirective;
+
+	static count = 0;
+	count = TemplateMngmtDlgComponent.count++;
+	createCtrl = new FormControl();
+	pending = false;
 
 	templates$: Observable<RequestTemplate[]>;
 	initialState = new Map<ExtendedFieldDefinition, boolean>();
@@ -57,6 +63,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 			this.newState = new Map(fieldsChecked);
 			this.cd.markForCheck();
 		});
+		this.inp.focus();
 	}
 
 	close(event: MouseEvent) {
@@ -67,9 +74,12 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	createTemplate() {
 		const name = this.createCtrl.value;
 		if (name) {
+			this.pending = true;
 			const reqTmp = new RequestTemplate({ name });
-			this.templateMngmtSrv.createNewTemplate(reqTmp)
-				.subscribe(tmp => this.templateSelected = tmp);
+			this.templateMngmtSrv.createNewTemplate(reqTmp).pipe(
+				tap(tmp => this.templateSelected = tmp),
+				switchMap(_ => this.templateMngmtSrv.refetch())
+			).subscribe(_ => { this.pending = false; this.cd.markForCheck(); });
 			this.createCtrl.reset();
 		}
 	}
@@ -102,8 +112,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 			if (value)
 				requestedFields.push(key);
 		});
-		const tmp = new RequestTemplate({ id: this.templateSelected.id, requestedFields });
-		this.templateMngmtSrv.updateTemplate(tmp).subscribe();
+		this.templateSelected = { ...this.templateSelected, requestedFields };
+		this.templateMngmtSrv.updateTemplate(this.templateSelected).subscribe();
 	}
 
 	hasChanged() {

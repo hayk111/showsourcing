@@ -34,7 +34,7 @@ export class ProductDialogService extends ProductService {
 	}
 
 	selectProjects(): Observable<Project[]> {
-		return this.projectSrv.queryMany({ sortBy: 'name' });
+		return this.projectSrv.queryMany({ query: 'deleted == false', sortBy: 'name' });
 	}
 
 	/**

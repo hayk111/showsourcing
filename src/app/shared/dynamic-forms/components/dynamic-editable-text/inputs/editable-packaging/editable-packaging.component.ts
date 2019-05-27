@@ -57,7 +57,7 @@ export class EditablePackagingComponent extends AbstractInput {
 		this.change.emit(this.value);
 	}
 
-	updateAcummulator(name, prop) {
+	updateAcummulator(prop, name) {
 		this.accumulator = { ...this.accumulator, [prop]: name };
 		this.update.emit(this.accumulator);
 	}

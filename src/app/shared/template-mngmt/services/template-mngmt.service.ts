@@ -28,15 +28,13 @@ export class TemplateMngmtService {
 	}
 
 	createNewTemplate(template: RequestTemplate) {
-		return this.templateSrv.create(template).pipe(
-			switchMap(_ => this.listQuery.refetch({}))
-		);
+		return this.templateSrv.create(template);
 	}
 
 	getExtendedFields(template: RequestTemplate) {
-		return this.extendedFieldDefSrv.queryMany({ query: 'target contains[c] "product."' }).pipe(
+		return this.extendedFieldDefSrv.queryMany({ query: 'target contains[c] "product."', sortBy: 'order', descending: false }).pipe(
 			map(fields => fields.reduce((prev, curr) => {
-				const isFound = !!template.requestedFields.find(f => f.id === curr.id);
+				const isFound = template && !!template.requestedFields.find(f => f.id === curr.id);
 				return prev.set(curr, isFound);
 			}, new Map<ExtendedFieldDefinition, boolean>())),
 		);
@@ -56,5 +54,9 @@ export class TemplateMngmtService {
 
 	getOne(id: string) {
 		return this.templateSrv.queryOne(id);
+	}
+
+	refetch() {
+		return this.listQuery.refetch({});
 	}
 }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
-import { RequestElement } from '~core/models';
+import { RequestElement, ERM } from '~core/models';
 import { ID } from '~utils';
 
 @Component({
@@ -33,6 +33,7 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 	replied: { replied: number, total: number }[];
+	erm = ERM;
 
 	constructor() { super(); }
 

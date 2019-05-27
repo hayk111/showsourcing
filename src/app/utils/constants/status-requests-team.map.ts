@@ -59,7 +59,7 @@ export const statusRequestsTeamMap = {
 			}
 		}
 	},
-	'cancel': {
+	'canceled': {
 		locales: {
 			en: {
 				name: 'Canceled'

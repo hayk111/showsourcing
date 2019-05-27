@@ -1,4 +1,5 @@
 <dialog-app class="vertical-scroll-content">
+
   <dialog-header-app>
 		<div class="flex">
 			<div class="flex move">
@@ -14,7 +15,15 @@
 		</div>
 	</dialog-header-app>
 
-	<div class="info-banner flexCenter" i18n="@@reply-from-supplier">This is the reply from your supplier</div>
+	<div *ngIf="!isPending(); else pending" class="info-banner flexCenter" i18n="@@reply-from-supplier">
+		This is the reply from your supplier
+	</div>
+
+	<ng-template #pending>
+		<div  class="info-banner flexCenter" i18n="@@no-reply-from-supplier">
+			The supplier hasn't answered yet.
+		</div>
+	</ng-template>
 
 	<ng-container *ngIf="element">
 		<ng-container *ngIf="element?.reply as reply">
@@ -23,19 +32,24 @@
 				<h3 class="ms" i18n="product-details">product details</h3>
 
 				<list-app>
-					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false"></comparison-row-app>
+					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false">
+						<ng-template comparisonRowTemplateApp let-value="value">
+							{{ value }}
+						</ng-template>
+					</comparison-row-app>
 					<list-item-app *ngFor="let field of element.reply.fields; trackBy: trackByFn">
 						<comparison-row-app
 							[checked]="selectionSrv.selection.has(field.id)"
 							[label]="field?.definition?.label"
-							[values]="getValues( field )"
+							[values]="getValues(field)"
+							[hasCheckbox]="!isDisabled()"
 							(selected)="selectionSrv.selectOne(field)"
 							(unselected)="selectionSrv.unselectOne(field)">
 							<ng-template comparisonRowTemplateApp let-value="value">
 								<ng-container [ngSwitch]="field.definition.type">
 									<span *ngSwitchDefault>{{ value }}</span>
 									<price-app *ngSwitchCase="'price'" [price]="value"></price-app>
-									<packaging-app [packaging]="value" *ngSwitchCase="'packaging'"></packaging-app>
+									<packaging-app *ngSwitchCase="'packaging'" [packaging]="value"></packaging-app>
 								</ng-container>
 							</ng-template>
 						</comparison-row-app>
@@ -96,7 +110,14 @@
 			<button (click)="acceptRequest()" i18n="button@@accept-request">Accept Request</button>
 		</ng-container>
 		<ng-template #notReplied>
-			<span class="bold-s" i18n="@@product-not-yet-replied">This product has not been replied yet by the supplier</span>
+			<span class="bold-s">
+				<ng-container *ngIf="isValidated(); else notValid" i18n="@@product-already-validated">
+					This product has already been validated
+				</ng-container>
+				<ng-template #notValid i18n="@@product-not-yet-replied">
+					This product has not been replied yet by the supplier
+				</ng-template>
+			</span>
 		</ng-template>
 	</dialog-footer-app>
 

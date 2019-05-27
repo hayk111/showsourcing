@@ -69,7 +69,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			type: 'selector',
 			label: translate(ERM.SUPPLIER.singular, 'erm'),
 			metadata: {
-				target: 'supplier',
+				target: ERM.SUPPLIER.singular,
 				type: 'entity',
 				labelName: 'name',
 				canCreate: true
@@ -80,7 +80,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			type: 'selector',
 			label: translate(ERM.CATEGORY.singular, 'erm'),
 			metadata: {
-				target: 'category',
+				target: ERM.CATEGORY.singular,
 				type: 'entity',
 				labelName: 'name',
 				canCreate: true
@@ -90,13 +90,13 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
 		{
 			name: 'event', type: 'selector', label: translate(ERM.EVENT.singular, 'erm'),
-			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+			metadata: { target: ERM.EVENT.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{
 			name: 'assignee',
 			label: translate('assignee'),
 			type: 'selector',
-			metadata: { target: 'user', type: 'entity', labelName: 'name' }
+			metadata: { target: ERM.USER.singular, type: 'entity', labelName: 'name' }
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
 		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') }

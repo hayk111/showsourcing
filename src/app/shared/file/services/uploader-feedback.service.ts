@@ -1,11 +1,12 @@
-import { AppImage, Attachment } from '~core/models';
-import { Injectable, ChangeDetectorRef } from '@angular/core';
-import { PendingImage } from '~utils/pending-image.class';
-import { UploaderService } from './uploader.service';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { PendingFile } from '~utils/pending-file.class';
-import { ImageService } from '~core/entity-services/image/image.service';
 import { AttachmentService } from '~core/entity-services';
+import { ImageService } from '~core/entity-services/image/image.service';
+import { AppImage, Attachment } from '~core/models';
+import { PendingFile } from '~utils/pending-file.class';
+import { PendingImage } from '~utils/pending-image.class';
+
+import { UploaderService } from './uploader.service';
 
 
 
@@ -36,7 +37,7 @@ export class UploaderFeedbackService {
 		private cd: ChangeDetectorRef,
 		private uploaderSrv: UploaderService,
 		private imgSrv: ImageService,
-		private attachmentSrv: AttachmentService
+		private attachmentSrv: AttachmentService,
 	) { }
 
 

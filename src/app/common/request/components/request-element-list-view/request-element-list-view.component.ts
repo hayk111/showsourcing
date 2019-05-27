@@ -39,7 +39,7 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 
 	constructor() { super(); }
 
-	getPrice(item: any) {
+	parseJson(item: any) {
 		return item ? JSON.parse(item) : undefined;
 	}
 

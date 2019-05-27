@@ -1,6 +1,7 @@
 
 <!-- when the value is undefined, null or 0 we display '-'.
 A package with 0cm makes no sens -->
+<!-- TODO i18n -->
 <ng-container *ngIf="!isFormStyle; else other">
 	<!-- length -->
 	<editable-field-app
@@ -74,7 +75,7 @@ A package with 0cm makes no sens -->
 		[width]="180"
 		[offsetY]="-34"
 		[value]="accumulator.unit"
-		(update)="updateAcummulator($event, 'unit')"
+		(update)="updateAcummulator('unit', $event)"
 		(menuClosed)="cell4.close()">
 		<editable-field-app
 			#cell4
@@ -138,7 +139,7 @@ A package with 0cm makes no sens -->
 		[value]="accumulator.weightUnit"
 		[width]="180"
 		[offsetY]="-34"
-		(update)="updateAcummulator($event, 'weightUnit')"
+		(update)="updateAcummulator('weightUnit', $event)"
 		(menuClosed)="cell7.close()">
 		<editable-field-app
 			#cell7
@@ -151,24 +152,28 @@ A package with 0cm makes no sens -->
 			</editable-label-app>
 		</editable-field-app>
 	</selector-app>
-	1234
+
 </ng-container>
 
+<!-- TODO i18n -->
 <ng-template #other>
 	<div class="flex form-section">
 		<form-field-app class="modal col-25">
 			<label-app>Length</label-app>
-			<input inputApp #inp1 [disabled]="disabled" [value]="value.length" type="number" restrictInput="number" (input)="accumulateNested('length', +inp1.value)"/>
+			<input inputApp #inp1 [disabled]="disabled" [value]="value.length" type="number"
+			placeholder="Length" restrictInput="number" (input)="accumulateNested('length', +inp1.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
 			<label-app>Width</label-app>
-			<input inputApp #inp2 [disabled]="disabled" [value]="value.width" type="number" restrictInput="number" (input)="accumulateNested('width', +inp2.value)"/>
+			<input inputApp #inp2 [disabled]="disabled" [value]="value.width" type="number"
+			placeholder="Width" restrictInput="number" (input)="accumulateNested('width', +inp2.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
 			<label-app>Height</label-app>
-			<input inputApp #inp3 [disabled]="disabled" [value]="value.height" type="number" restrictInput="number" (input)="accumulateNested('height', +inp3.value)"/>
+			<input inputApp #inp3 [disabled]="disabled" [value]="value.height" type="number"
+			placeholder="Height" restrictInput="number" (input)="accumulateNested('height', +inp3.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
@@ -177,7 +182,7 @@ A package with 0cm makes no sens -->
 			 	[disabled]="disabled"
 				[type]="erm.LENGTH_UNIT"
 				[value]="value.unit"
-				(update)="updateAcummulator($event, 'unit')">
+				(update)="updateAcummulator('unit', $event)">
 				<selector-placeholder-app
 					[ngClass]="{ 'disabled': disabled }"
 					[name]="value.unit"
@@ -192,16 +197,18 @@ A package with 0cm makes no sens -->
 	<div class="flex form-section">
 		<form-field-app class="modal col-50">
 			<label-app>Quantity</label-app>
-			<input inputApp #inp4 [disabled]="disabled" [value]="value.itemsQuantity" type="number" restrictInput="number" (input)="accumulateNested('itemsQuantity', +inp4.value)"/>
+			<input inputApp #inp4 [disabled]="disabled" [value]="value.itemsQuantity" type="number"
+			placeholder="Quantity" restrictInput="number" (input)="accumulateNested('itemsQuantity', +inp4.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
 			<label-app>Weight</label-app>
-			<input inputApp #inp5 [disabled]="disabled" [value]="value.weight" type="number" restrictInput="number" (input)="accumulateNested('weight', +inp5.value)"/>
+			<input inputApp #inp5 [disabled]="disabled" [value]="value.weight"
+			placeholder="Weight" type="number" restrictInput="number" (input)="accumulateNested('weight', +inp5.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app>Description</label-app>
+			<label-app>Unit</label-app>
 			<selector-app
 			 	[disabled]="disabled"
 				[type]="erm.WEIGHT_UNIT"
@@ -210,8 +217,8 @@ A package with 0cm makes no sens -->
 				<selector-placeholder-app
 					[ngClass]="{ 'disabled': disabled }"
 					[name]="value.weightUnit"
-					placeholder="Kg"
-					i18n-placeholder="kilograms@@kg">
+					placeholder="Unit"
+					i18n-placeholder="@@unit">
 				</selector-placeholder-app>
 			</selector-app>
 			<input inputApp [disabled]="disabled" [hidden]="true" type="text">

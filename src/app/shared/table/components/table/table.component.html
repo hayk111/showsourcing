@@ -1,4 +1,4 @@
-<div class="ctnr will-change-scroll" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
+<div class="ctnr will-change-scroll">
 
 	<!-- pagination controller -->
 	<!-- <div class="pagination-ctrl flexEnd color-txt-secondary" *ngIf="rows">
@@ -50,6 +50,7 @@
 					(mouseleave)="hoverRow(-1)">
 					<context-menu-app
 						*ngIf="isSelectable(row)"
+						class="menu-context"
 						[ngClass]="{ hover: (i === hoverIndex) }"
 						[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
 						[closeOnScroll]="true">

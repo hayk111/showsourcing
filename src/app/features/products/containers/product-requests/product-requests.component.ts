@@ -6,8 +6,6 @@ import { RequestElementService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement } from '~core/models';
 import { AutoUnsub } from '~utils';
-import { DialogService } from '~shared/dialog';
-import { TemplateMngmtDlgComponent } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
 
 @Component({
 	selector: 'product-requests-app',
@@ -36,7 +34,8 @@ export class ProductRequestsComponent extends AutoUnsub implements OnInit {
 				entitySrv: this.requestElementSrv,
 				selectParams: { sortBy: 'name', query: `targetedEntityType == "Product" && targetId == "${id}"` },
 				entityMetadata: ERM.REQUEST_ELEMENT,
-				searchedFields: []
+				searchedFields: [],
+				originComponentDestroy$: this._destroy$
 			});
 		});
 	}

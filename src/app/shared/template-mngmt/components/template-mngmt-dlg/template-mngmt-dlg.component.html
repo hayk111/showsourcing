@@ -1,4 +1,4 @@
-<dialog-app>
+<dialog-app class="vertical-scroll-content">
 
   <dialog-header-app i18n="@@request-templates">
     Request Templates
@@ -13,16 +13,16 @@
       <div class="info" i18n="text@@new-template">New Template</div>
 
       <div class="input-box flexVAlign">
-        <input [formControl]="createCtrl" type="text" placeholder="Template Name" (keyup.enter)="btn.click()" i18n-placeholder="@@tempalte-name"/>
-        <button #btn (click)="createTemplate()">New</button>
+        <input #inp inputApp [formControl]="createCtrl" type="text" placeholder="Template Name" (keyup.enter)="btn.click()" i18n-placeholder="@@tempalte-name"/>
+        <button #btn (click)="createTemplate()" i18n="@@new">New</button>
       </div>
 
       <h3 class="ms" i18n="header@@templates">Templates</h3>
 
       <list-app>
         <list-item-app
-          *ngFor="let template of templates$ | async"
-          [ngClass]="{ 'selected': isSelected(template) }"
+					*ngFor="let template of templates$ | async"
+					[selected]="isSelected(template)"
           (click)="templateSelected = template">
           <div class="item flexBetween fullWidth">
             <span class="name">{{ template.name }}</span>
@@ -41,28 +41,36 @@
 
     <div class="right flexGrow">
 
-      <h2 class="ms">{{ templateSelected.name }}</h2>
+			<ng-container *ngIf="!pending; else spinner">
+				<h2 class="ms">{{ templateSelected?.name }}</h2>
 
-      <h3 class="ms" i18n="header@@template-elements">Template elements</h3>
+				<h3 class="ms" i18n="header@@template-elements">Template elements</h3>
 
-      <div class="info" i18n="@@select-info-template-supplier">
-        Select the information you want to request the supplier.
-      </div>
+				<div class="info" i18n="@@select-info-template-supplier">
+					Select the information you want to request the supplier.
+				</div>
 
-      <list-app>
-        <list-item-app *ngFor="let fc of (newState | keyvalue)" (click)="toggle(fc.key)">
-          <div class="flexBetween flexVAlign fullWidth">
-            <span> {{ fc.key.label }}</span>
-            <checkbox-app [checked]="fc.value"></checkbox-app>
-          </div>
-        </list-item-app>
-      </list-app>
+				<list-app>
+					<list-item-app *ngFor="let fc of (newState | keyvalue)" (click)="toggle(fc.key)">
+						<div class="flexBetween flexVAlign fullWidth">
+							<span> {{ fc.key.label }}</span>
+							<checkbox-app [checked]="fc.value"></checkbox-app>
+						</div>
+					</list-item-app>
+				</list-app>
 
-      <div class="actions flexEnd">
-        <button [disabled]="!hasChanged()" class="secondary" (click)="reset()" i18n="@@reset">Reset</button>
-        <button [disabled]="!hasChanged()" (click)="save()" i18n="@@save-changes">Save Changes</button>
-      </div>
-    </div>
+				<div class="actions flexEnd">
+					<button [disabled]="!hasChanged()" class="secondary" (click)="reset()" i18n="@@reset">Reset</button>
+					<button [disabled]="!hasChanged()" (click)="save()" i18n="@@save-changes">Save Changes</button>
+				</div>
+			</ng-container>
+
+			<ng-template #spinner>
+				<spinner-app size="xxxxl"></spinner-app>
+			</ng-template>
+
+		</div>
+
 
   </div>
 

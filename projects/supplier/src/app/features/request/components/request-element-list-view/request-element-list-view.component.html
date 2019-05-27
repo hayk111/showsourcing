@@ -12,7 +12,8 @@
 	(selectOne)="select.emit($event)"
 	(sort)="sort.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	(unselectOne)="unselect.emit($event)">
+	(unselectOne)="unselect.emit($event)"
+	i18n-placeholder="@@no-request-items">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -25,7 +26,7 @@
 	</ng-template>
 
 	<ng-template
-		columnApp="Product"
+		[columnApp]="erm.PRODUCT.singular | const: 'erm'"
 		sortBy="name"
 		let-row="row"
 		width="300">
@@ -45,20 +46,22 @@
 	</ng-template>
 
 	<ng-template
-		columnApp="Fields"
+		[columnApp]="'fields' | const: 'messages'"
+		[sortable]="false"
 		let-index="index"
 		width="200">
 	 {{ replied[index]?.replied + '/' + replied[index]?.total }}
 	</ng-template>
 
+
 	<ng-template
-		columnApp="Status"
-		sortBy="status"
+		[columnApp]="'status' | const: 'messages'"
+		sortBy="reply.status"
 		let-row="row"
 		width="200">
 		<request-status-badge-app
 			[status]="row?.reply?.status"
-			[creationDate]="creationDate"
+			[creationDate]="row?.sentDate"
 			[isTeam]="false">
 		</request-status-badge-app>
 	</ng-template>

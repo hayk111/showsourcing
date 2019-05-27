@@ -3,6 +3,9 @@
 // default style for inputs
 input {
 	height: 32px;
+	&::placeholder {
+		color: var(--color-secondary-dark);
+	}
 }
 
 input, textarea {
@@ -36,6 +39,7 @@ input, textarea {
 // override the color of the textarea
 textarea {
 	color: var(--color-txt-strong);
+	padding-top: var(--spacing-s);
 }
 
 form-field-app.editable {
@@ -135,6 +139,9 @@ button, input[type="submit"], .button {
 	white-space: nowrap;
 	text-align: center;
 	transition: background 0.3s;
+	&::first-letter {
+		text-transform: capitalize;
+	}
 	&.small {
 		min-width: 60px;
 		height: 24px;

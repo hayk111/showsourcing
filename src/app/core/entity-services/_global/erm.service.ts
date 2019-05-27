@@ -10,6 +10,7 @@ import {
 	EventService,
 	ImageUploadRequestService,
 	InvitationService,
+	LengthUnitService,
 	ProductService,
 	ProductStatusService,
 	ProjectService,
@@ -23,9 +24,11 @@ import {
 	TeamService,
 	TeamUserService,
 	UserService,
+	WeightUnitService,
 } from '~entity-services';
 import { EntityMetadata, ERM } from '~models';
 
+import { CreateRequestService } from '../create-request/create-request.service';
 import { ExportRequestService } from '../export-request/export-request.service';
 import { ExtendedFieldDefinitionService } from '../extended-field-definition/extended-field-definition.service';
 import { ExtendedFieldService } from '../extended-field/extended-field.service';
@@ -37,7 +40,6 @@ import { RequestReplyService } from '../request-reply/request-reply.service';
 import { RequestTemplateService } from '../request-template/request-template.service';
 import { SupplierRequestService } from '../supplier-request/supplier-request.service';
 import { GlobalService } from './global.service';
-import { CreateRequestService } from '../create-request/create-request.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -61,6 +63,7 @@ export class ERMService {
 		private imageUploadRequestService: ImageUploadRequestService,
 		private incotermService: IncoTermService,
 		private invitationSrv: InvitationService,
+		private lenghtUnitSrv: LengthUnitService,
 		private productService: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private projectService: ProjectService,
@@ -78,7 +81,8 @@ export class ERMService {
 		private taskSrv: TaskService,
 		private teamService: TeamService,
 		private teamUserSrv: TeamUserService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private weightUnitSrv: WeightUnitService
 	) { }
 
 
@@ -113,8 +117,10 @@ export class ERMService {
 				return this.imageService;
 			case 'ImageUploadRequest':
 				return this.imageUploadRequestService;
-			case 'Incoterm':
+			case 'IncoTerm':
 				return this.incotermService;
+			case 'LengthUnit':
+				return this.lenghtUnitSrv;
 			case 'Product':
 				return this.productService;
 			case 'ProductStatus':
@@ -145,6 +151,8 @@ export class ERMService {
 				return this.teamUserSrv;
 			case 'User':
 				return this.userSrv;
+			case 'WeightUnit':
+				return this.weightUnitSrv;
 			default:
 				throw Error(`__typename ${typename} wasn't found`);
 		}
@@ -185,6 +193,8 @@ export class ERMService {
 				return this.incotermService;
 			case ERM.INVITATION:
 				return this.invitationSrv;
+			case ERM.LENGTH_UNIT:
+				return this.lenghtUnitSrv;
 			case ERM.PRODUCT:
 				return this.productService;
 			case ERM.PRODUCT_STATUS:
@@ -221,6 +231,8 @@ export class ERMService {
 				return this.teamUserSrv;
 			case ERM.USER:
 				return this.userSrv;
+			case ERM.WEIGHT_UNIT:
+				return this.weightUnitSrv;
 			default:
 				throw Error(`The ERM "${erm.singular}" has not an associated service`);
 		}
