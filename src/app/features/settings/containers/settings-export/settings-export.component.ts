@@ -27,6 +27,8 @@ export class SettingsExportComponent extends AutoUnsub implements OnInit, AfterV
 			key: ListPageKey.EXPORT,
 			entitySrv: this.exportSrv,
 			searchedFields: ['format', 'status', 'createdBy.firstName', 'createdBy.lastName'],
+			// by default we have deleted == false
+			selectParams: { query: '' },
 			entityMetadata: ERM.EXPORT_REQUEST,
 			initialFilters: [],
 			originComponentDestroy$: this._destroy$
