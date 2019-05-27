@@ -32,7 +32,7 @@ export class TemplateMngmtService {
 	}
 
 	getExtendedFields(template: RequestTemplate) {
-		return this.extendedFieldDefSrv.queryMany({ query: 'target contains[c] "product."', sortBy: 'order' }).pipe(
+		return this.extendedFieldDefSrv.queryMany({ query: 'target contains[c] "product."', sortBy: 'order', descending: false }).pipe(
 			map(fields => fields.reduce((prev, curr) => {
 				const isFound = template && !!template.requestedFields.find(f => f.id === curr.id);
 				return prev.set(curr, isFound);
