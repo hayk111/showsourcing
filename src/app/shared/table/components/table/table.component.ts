@@ -51,6 +51,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		this._count = count;
 		const numberSections = Math.ceil(this._count / this.itemsPerPage);
 		this.sections = Array(numberSections).fill(0).map((x, i) => i);
+		if (this.skipped)
+			this.indexPagination = this.skipped / this.itemsPerPage;
 		this.setPageIndex();
 	}
 	get count() {

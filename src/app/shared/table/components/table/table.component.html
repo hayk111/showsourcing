@@ -1,5 +1,4 @@
 <div class="ctnr will-change-scroll" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
-
 	<div class="contentCtnr">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
@@ -93,12 +92,12 @@
 
 	</div>
 
-	<div class="flexAround placeholderCtnr" *ngIf="rows?.length === 0">
+	<div *ngIf="rows?.length === 0" class="flexAround placeholderCtnr">
 		<div class="placeholder">{{ placeholder }}</div>
 	</div>
 
 	<!-- pending -->
-	<div class="pendingCtnr flexCenter" *ngIf="pending">
+	<div *ngIf="pending" class="pendingCtnr flexCenter" >
 		<dots-app></dots-app>
 	</div>
 </div>

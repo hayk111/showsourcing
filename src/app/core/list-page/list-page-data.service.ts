@@ -133,6 +133,10 @@ export class ListPageDataService
 		this.pending = false;
 	}
 
+	onLoading() {
+		this.pending = true;
+	}
+
 	/**
 	 * refetchs the query and will merge with existing config
 	 * @param config configuration used to refetch

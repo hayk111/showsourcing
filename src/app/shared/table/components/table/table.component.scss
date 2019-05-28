@@ -4,6 +4,7 @@
 }
 
 .ctnr {
+	position: relative;
 	background: var(--color-bg);
 	border: 1px solid  var(--color-secondary);
 	box-sizing: border-box;
@@ -40,6 +41,7 @@
 		width: 14px;
 		line-height: 1;
 		border-bottom: 2px solid transparent;
+		font-weight: 600;
 
 		&.selected {
 			color: var(--color-primary);
@@ -76,6 +78,10 @@
 
 .pendingCtnr {
 	padding: var(--spacing-xl);
+	position: absolute;
+	left: 50%;
+	top: 50px;
+	transform: translateX(-50%);
 }
 
 .cell, .header {
