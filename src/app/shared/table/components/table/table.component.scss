@@ -10,10 +10,14 @@
 
 .pagination-ctrl {
 	user-select: none;
-	height: 20px;
+	box-sizing: border-box;
+	margin: var(--spacing-ms) 0;
 	icon-app {
+		color: var(--color-primary);
+		font-size: var(--spacing-l);
 		cursor: pointer;
 		margin: 0 var(--spacing-s);
+		margin-top: 2px;
 
 		&.disabled {
 			color: var(--color-txt-secondary);
@@ -23,12 +27,21 @@
 
 	.pagination-item {
 		cursor: pointer;
-		margin: 0 2px;
-		width: 18px;
-		height: 18px;
+		margin: 0 var(--spacing-xs);
+		padding: 6px;
+		text-align: center;
+		height: 12px;
+		width: 14px;
+		line-height: 1;
+		border-bottom: 2px solid transparent;
 
 		&.selected {
 			color: var(--color-primary);
+			border-bottom: 2px solid var(--color-primary);
+			// border-radius: var(--border-radius-s);
+		}
+		&:hover {
+			background-color: var(--color-divider);
 		}
 	}
 
