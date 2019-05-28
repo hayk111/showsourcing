@@ -16,7 +16,7 @@ import { Location } from '@angular/common';
 // [skipped]="skipped"
 // (next)="next.emit()"
 // (previous)="previous.emit()"
-// (goToPage)="goToPage.emit($event)
+// (goToPage)="goToPage.emit($event)"
 
 // [count]="listSrv.count$ | async"
 // [skipped]="listSrv.skipped"
