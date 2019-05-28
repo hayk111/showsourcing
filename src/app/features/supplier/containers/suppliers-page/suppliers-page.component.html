@@ -24,6 +24,7 @@
 		[skipped]="listSrv.skipped"
 		(previous)="listSrv.loadPreviousPage()"
 		(next)="listSrv.loadNextPage()"
+		(goToPage)="listSrv.loadPage($event)"
 		(sort)="listSrv.sort($event)"
 		(select)="listSrv.selectOne($event, true)"
 		(unselect)="listSrv.unselectOne($event, true)"

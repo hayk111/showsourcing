@@ -8,6 +8,7 @@
 	placeholder="No supplier"
 	(previous)="previous.emit()"
 	(next)="next.emit()"
+	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"

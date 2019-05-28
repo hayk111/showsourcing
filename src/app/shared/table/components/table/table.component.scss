@@ -1,9 +1,15 @@
+:host {
+	display: block;
+	height: 100%;
+}
+
 .ctnr {
 	background: var(--color-bg);
 	border: 1px solid  var(--color-secondary);
 	box-sizing: border-box;
 	overflow: auto;
-	height: 100%;
+	// pagination
+	height: calc(100% - 32px);
 	display: flex;
 	flex-direction: column;
 }
