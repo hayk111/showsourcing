@@ -8,6 +8,14 @@
 	flex-direction: column;
 }
 
+.pagination-ctrl {
+	margin-bottom: var(--spacing-s);
+	icon-app {
+		margin: 0 var(--spacing-s);
+	}
+}
+
+
 .placeholderCtnr {
 	height: 100%;
 

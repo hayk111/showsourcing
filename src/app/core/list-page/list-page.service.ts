@@ -55,8 +55,7 @@ export class ListPageService
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
-		private zone: NgZone,
-		private templateSrv: TemplateService
+		private zone: NgZone
 	) { }
 
 	static reset() {
@@ -83,12 +82,6 @@ export class ListPageService
 		if (!destroy$) {
 			throw Error('Please provide a originComponentDestroyed$ observable');
 		}
-		// Since now the scrolling happens on the the template.html for most of the lists
-		// we need a way to know when the bottomReach is happening and when to kill that observable
-		// originComponentDestroy indicates it
-		this.templateSrv.bottomReached$.pipe(
-			takeUntil(destroy$)
-		).subscribe(_ => this.loadMore());
 
 		this.dataSrv.loadData(destroy$);
 		// we need to reset selection when filter changes
@@ -133,6 +126,14 @@ export class ListPageService
 		return this.dataSrv.pending;
 	}
 
+	get count$() {
+		return this.dataSrv.count$;
+	}
+
+	get skipped() {
+		return this.dataSrv.selectParams.skip;
+	}
+
 	get isListening() {
 		return this.dataSrv.isListening;
 	}
@@ -162,6 +163,26 @@ export class ListPageService
 
 	loadMore() {
 		this.dataSrv.loadMore().subscribe();
+	}
+
+	loadPage(page: number) {
+		this.dataSrv.loadPage(page).subscribe();
+	}
+
+	loadNextPage() {
+		this.dataSrv.loadNextPage().subscribe();
+	}
+
+	loadPreviousPage() {
+		this.dataSrv.loadPreviousPage().subscribe();
+	}
+
+	loadFirstPage() {
+		this.dataSrv.loadFirstPage().subscribe();
+	}
+
+	loadLastPage() {
+		this.dataSrv.loadLastPage().subscribe();
 	}
 
 	sort(sort: Sort) {

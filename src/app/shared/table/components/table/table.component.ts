@@ -44,6 +44,20 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() contextualMenu: TemplateRef<any>;
 	// current sort
 	@Input() currentSort: Sort;
+	/** total number of items for pagination */
+	@Input()
+	set count(count: number) {
+		this._count = count;
+		const numberSections = Math.ceil(this._count / 25);
+		this.sections = Array(numberSections > 11 ? 11 : numberSections);
+	}
+	get count() {
+		return this._count;
+	}
+	private _count = 0;
+	/** how many items were skipped so we can display the pages */
+	@Input() skipped: number;
+
 	// event when we select all rows
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();
@@ -62,6 +76,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 	// currently sorted column
 	currentSortedColumn: ColumnDirective;
+	sections: Array<number> = [1];
 
 	/** Different rows displayed */
 	@Input() rows;
@@ -76,7 +91,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	trackByIdentify = (index, item) => this.identify(index, item);
 
 	// track by for column
-	columnTrackByFn = (index) => index;
+	columnTrackByFn = (index: any) => index;
 
 	constructor() {
 		super();

@@ -10,6 +10,10 @@ export class ListViewComponent<T> extends TrackingComponent {
 	@Input() rows: Array<T>;
 	/** whether it's loading */
 	@Input() pending = true;
+	/** when using pagination, that's the total number of items */
+	@Input() count: number;
+	/** how many items were skipped (useful to display pages) */
+	@Input() skipped: number;
 	@Output() select = new EventEmitter<any>();
 	@Output() unselect = new EventEmitter<any>();
 	@Output() selectAll = new EventEmitter<Map<string, boolean>>();

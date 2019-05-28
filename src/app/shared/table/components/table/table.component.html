@@ -1,12 +1,5 @@
 <div class="ctnr will-change-scroll" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
-	
-	<!-- pagination controller -->
-	<!-- <div class="pagination-ctrl flexEnd color-txt-secondary" *ngIf="rows">
-		<span>1 - {{ rows.length }} on {{ totalAmount }}</span>
-		<icon-app fontSet="fa" name="angle-left"></icon-app>
-		<icon-app fontSet="fa" name="angle-right"></icon-app>
-	</div>  -->
-	
+
 	<div class="contentCtnr">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
@@ -24,16 +17,16 @@
 				</ng-container>
 			</div>
 			<ng-container *ngIf="!pending">
-				<div class="cell" 
+				<div class="cell"
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-					<ng-container *ngIf="!selectionDisabled">
-						<checkbox-app [checked]="selected.has(row[idName])"
-							*ngIf="isSelectable(row)"
-							(check)="onSelectOne(row)"
-							(uncheck)="onUnselectOne(row)"></checkbox-app>
-					</ng-container>
+					<checkbox-app
+						*ngIf="isSelectable(row)"
+						[checked]="selected.has(row[idName])"
+						(check)="onSelectOne(row)"
+						(uncheck)="onUnselectOne(row)">
+					</checkbox-app>
 				</div>
 			</ng-container>
 		</div>
@@ -43,15 +36,14 @@
 			<div class="header">
 			</div>
 			<ng-container *ngIf="!pending">
-				<div class="cell menuCell"
-					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
+				<div
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+					class="cell menuCell"
+					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 					(mouseenter)="hoverRow(i)"
 					(mouseleave)="hoverRow(-1)">
 					<context-menu-app
 						*ngIf="isSelectable(row)"
-						[ngClass]="{ hover: (i === hoverIndex) }"
-						[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
 						[closeOnScroll]="true">
 						<context-menu-trigger-app>
 							<icon-app class="color-txt-secondary" name="dots-vertical" size="18"></icon-app>
@@ -109,7 +101,10 @@
 	</div>
 </div>
 
-
-
-
-
+	<!-- pagination controller -->
+	<div class="pagination-ctrl flexEnd color-txt-secondary" *ngIf="rows">
+		<icon-app fontSet="fa" name="angle-left" (click)="previous.emit()"></icon-app>
+		<span *ngFor="let sect of sections; index as index">{{ index  }}</span>
+		<icon-app fontSet="fa" name="angle-right" (click)="next.emit()"></icon-app>
+		<span>{{ skipped }} - {{ skipped + rows.length }} on {{ count }}</span>
+	</div>
