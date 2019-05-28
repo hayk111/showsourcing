@@ -31,6 +31,7 @@ export class CustomTableComponent extends TrackingComponent {
 	// pagination events
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
+	@Output() goToPage = new EventEmitter<number>();
 
 	constructor() {
 		super();

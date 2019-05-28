@@ -12,6 +12,7 @@
 	[skipped]="skipped"
 	(next)="next.emit()"
 	(previous)="previous.emit()"
+	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(selectOne)="select.emit($event)"

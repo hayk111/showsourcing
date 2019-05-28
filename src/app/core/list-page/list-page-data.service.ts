@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject, ConnectableObservable, BehaviorSubject } from 'rxjs';
-import { map, skip, switchMap, tap, first, takeUntil } from 'rxjs/operators';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import { ConnectableObservable, Observable } from 'rxjs';
+import { first, map, skip, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
-import { SelectParamsConfig, SelectParams } from '~entity-services/_global/select-params';
+import { DEFAULT_TAKE_PAGINATION, SelectParamsConfig } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
-import { config } from '@fortawesome/fontawesome-svg-core';
 
 /**
  * Services that helps us for common functionalities in list pages
@@ -32,7 +32,7 @@ export class ListPageDataService
 		query: '',
 		sortBy: 'creationDate',
 		descending: true,
-		take: 15,
+		take: DEFAULT_TAKE_PAGINATION,
 		skip: 0
 	};
 

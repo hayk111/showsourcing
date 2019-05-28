@@ -29,6 +29,7 @@ export class ListViewComponent<T> extends TrackingComponent {
 	// pagination
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
+	@Output() goToPage = new EventEmitter<number>();
 
 
 	constructor() {

@@ -9,9 +9,31 @@
 }
 
 .pagination-ctrl {
-	margin-bottom: var(--spacing-s);
+	user-select: none;
+	height: 20px;
 	icon-app {
+		cursor: pointer;
 		margin: 0 var(--spacing-s);
+
+		&.disabled {
+			color: var(--color-txt-secondary);
+			cursor: default;
+		}
+	}
+
+	.pagination-item {
+		cursor: pointer;
+		margin: 0 2px;
+		width: 18px;
+		height: 18px;
+
+		&.selected {
+			color: var(--color-primary);
+		}
+	}
+
+	.pagination-text {
+		width: 150px;
 	}
 }
 
@@ -23,6 +45,10 @@
 		font-weight: 600;
 		font-size: 20px;
 	}
+}
+
+.hide {
+	display: none;
 }
 
 .contentCtnr {

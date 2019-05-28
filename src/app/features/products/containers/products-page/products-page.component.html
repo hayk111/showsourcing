@@ -43,6 +43,7 @@
 		[skipped]="listSrv.skipped"
 		(previous)="listSrv.loadPreviousPage()"
 		(next)="listSrv.loadNextPage()"
+		(goToPage)="listSrv.loadPage($event)"
 		(delete)="listSrv.deleteOne($event)"
 		(favorited)="listSrv.onItemFavorited($event)"
 		(update)="listSrv.update($event)"
