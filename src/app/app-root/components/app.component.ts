@@ -12,17 +12,6 @@ import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
 import { Location } from '@angular/common';
 
-// [count]="count"
-// [skipped]="skipped"
-// (next)="next.emit()"
-// (previous)="previous.emit()"
-// (goToPage)="goToPage.emit($event)"
-
-// [count]="listSrv.count$ | async"
-// [skipped]="listSrv.skipped"
-// (next)="listSrv.loadNextPage()"
-// (previous)="listSrv.loadPreviousPage()"
-// (goToPage)="listSrv.loadPage($event)"
 
 @Component({
 	selector: 'app-root',
