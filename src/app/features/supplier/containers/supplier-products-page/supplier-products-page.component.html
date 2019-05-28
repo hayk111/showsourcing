@@ -47,6 +47,7 @@
 		class="flexWrap"
 		[rows]="products"
 		[selection]="listSrv.selection$ | async"
+		(bottomReached)="listSrv.loadMore()"
 		(favorited)="listSrv.onItemFavorited($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(liked)="listSrv.onThumbUp($event)"
