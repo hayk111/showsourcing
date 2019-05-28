@@ -20,7 +20,7 @@
 
 		<button *ngIf="hasFilter" class="bold-s pointer secondary capitalize" (click)="showFilters.emit()" i18n="text@@show-filters">Show Filters</button>
 
-		<notification-badge-app *ngIf="hasFilter">{{ filtersAmount }}</notification-badge-app>
+		<div *ngIf="hasFilter" class="notification" notifBadge [badge]="filtersAmount" badgePosition="no-content"></div>
 
 		<ng-content select="sub-panel-left-item-app"></ng-content>
 

@@ -6,7 +6,7 @@ import { UtilsModule } from '~shared/utils';
 import {
 	BadgeComponent,
 	InfoBadgeComponent,
-	NotificationBadgeComponent,
+	NotificationBadgeDirective,
 	RequestStatusBadgeComponent,
 	StatusBadgeComponent,
 	StatusBoxComponent,
@@ -23,7 +23,7 @@ import {
 	declarations: [
 		BadgeComponent,
 		InfoBadgeComponent,
-		NotificationBadgeComponent,
+		NotificationBadgeDirective,
 		RequestStatusBadgeComponent,
 		StatusBadgeComponent,
 		StatusBoxComponent,
@@ -32,11 +32,12 @@ import {
 	exports: [
 		BadgeComponent,
 		InfoBadgeComponent,
-		NotificationBadgeComponent,
+		NotificationBadgeDirective,
 		RequestStatusBadgeComponent,
 		StatusBadgeComponent,
 		StatusBoxComponent,
 		TaskStatusBadgeComponent,
 	],
+	entryComponents: []
 })
 export class BadgeModule { }

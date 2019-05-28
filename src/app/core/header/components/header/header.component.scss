@@ -32,16 +32,6 @@ nav {
 			background: #071327;
 			color: white;
 		}
-		&.request-container {
-			display: flex;
-			// position: relative;
-			notification-badge-app {
-				margin-left: var(--spacing-s);
-				// top: 2px;
-				// right: -4px;
-				position: unset;
-			}
-		}
 	}
 }
 
