@@ -15,6 +15,10 @@ dialog-app {
 	}
 }
 
+checkbox-app:not(:last-child) {
+	margin-right: var(--spacing-ms);
+}
+
 .selector-placeholder {
 	background: white;
 	display: block;

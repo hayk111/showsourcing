@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DialogService } from '~shared/dialog';
 import { MassEditDlgComponent } from '~common/modals';
+import { ERM } from '~core/models';
 
 @Component({
 	selector: 'app-test-page',
@@ -16,7 +17,7 @@ export class TestPageComponent implements OnInit {
 	}
 
 	test() {
-		this.dlgSrv.open(MassEditDlgComponent);
+		this.dlgSrv.open(MassEditDlgComponent, { type: ERM.PRODUCT });
 	}
 
 }

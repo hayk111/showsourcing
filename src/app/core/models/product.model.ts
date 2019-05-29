@@ -15,6 +15,7 @@ import { ExtendedField } from './extended-field.model';
 import { PickerField } from '~shared/selectors';
 
 export const productFields: PickerField[] = [
+	{ name: 'name', type: 'text' },
 	{ name: 'category', type: 'selector' },
 	{ name: 'supplier', type: 'selector' },
 	{ name: 'price', type: 'price' },
