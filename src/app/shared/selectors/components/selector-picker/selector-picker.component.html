@@ -71,8 +71,8 @@
 			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 		</ng-container>
 
-		<ng-container *ngSwitchCase="erm.STATIC">
-			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
+		<ng-container *ngSwitchCase="erm.PICKER_FIELD">
+			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="erm.COUNTRY">

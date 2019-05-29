@@ -1,0 +1,42 @@
+dialog-app {
+	min-height: 250px;
+	width: 500px;
+
+	.container {
+		.property-picker {
+			margin-bottom: var(--spacing-l);
+		}
+	}
+
+	dialog-footer-app {
+		> *:not(:last-child) {
+			margin-right: var(--spacing-ms);
+		}
+	}
+}
+
+.selector-placeholder {
+	background: white;
+	display: block;
+	cursor: pointer;
+	padding: var(--spacing-s);
+	border: 1px solid var(--color-divider);
+	border-radius: var(--border-radius);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	icon-app {
+		font-size: 4px;
+		color: var(--color-secondary-dark);
+	}
+	&.placeholder {
+		color: var(--color-txt-secondary);
+		font-style: italic;
+	}
+	&.disabled {
+		cursor: default;
+		background: var(--color-secondary-light);
+		color: var(--color-txt-strong);
+	}
+}

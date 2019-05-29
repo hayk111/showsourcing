@@ -12,6 +12,23 @@ import { Supplier } from '~models/supplier.model';
 import { Tag } from '~models/tag.model';
 
 import { ExtendedField } from './extended-field.model';
+import { PickerField } from '~shared/selectors';
+
+export const productFields: PickerField[] = [
+	{ name: 'category', type: 'selector' },
+	{ name: 'supplier', type: 'selector' },
+	{ name: 'price', type: 'price' },
+	{ name: 'event', type: 'selector' },
+	{ name: 'tag', type: 'selector', metadata: { multiple: true } },
+	{ name: 'favorite', type: 'boolean' },
+	// { name: 'inner carton', attribute: 'innerCarton', type: 'packaging' },
+	// { name: 'master carton', attribute: 'masterCarton', type: 'packaging' },
+	{ name: 'moq', attribute: 'minimumOrderQuantity', type: 'number' },
+	{ name: 'sample', type: 'boolean' },
+	{ name: 'sample price', attribute: 'samplePrice', type: 'number' },
+	{ name: 'projects', type: 'selector', metadata: { multiple: true } },
+	{ name: 'status', type: 'status' }
+];
 
 export class Product extends EntityWithAudit<ProductConfig> {
 	id?: string;

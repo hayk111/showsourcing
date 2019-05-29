@@ -25,7 +25,14 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 
 export interface PickerField {
 	name: string;
-	metadata?: any;
+	type: string;
+	attribute?: string; // if the name is different than the attribute name e.g. moq != minimunOrderQuantity
+	metadata?: PickerFieldMetadata;
+}
+
+export interface PickerFieldMetadata {
+	multiple?: boolean;
+	canCreate?: boolean;
 }
 
 @Component({

@@ -1,3 +1,86 @@
-<p>
-  mass-edit-dlg works!
-</p>
+<dialog-app>
+
+	<dialog-header-app>Mass edit of X items</dialog-header-app>
+
+	<div class="container">
+		<h5 class="ms">Property to update</h5>
+		<selector-app
+			[type]="erm.PICKER_FIELD"
+			[width]="500"
+			[pickerFields]="pickerFields"
+			(update)="updateChoice($event)">
+			<!-- TODO change when merged with supplier connect to selector-placeholder-app -->
+			<div class="property-picker capitalize selector-placeholder ellipsis" [ngClass]="{ placeholder: !(choice$ | async)?.name }">
+				{{ (choice$ | async)?.name || 'choose something dammit' }}
+				<icon-app name="caret-down"></icon-app>
+			</div>
+		</selector-app>
+	</div>
+
+	<ng-container [ngSwitch]="(choice$ | async)?.type">
+		<ng-container *ngIf="choice$ | async as choice">
+			<h5 class="ms">{{ choice?.name }}</h5>
+
+			<!-- text -->
+			<ng-container *ngSwitchCase="'text'">
+				<input type="text"/>
+			</ng-container>
+
+			<!-- number -->
+			<ng-container *ngSwitchCase="'number'">
+				<input type="number" />
+
+			</ng-container>
+			<!-- boolean -->
+			<ng-container *ngSwitchCase="'boolean'">
+				<div class="flex">
+					<checkbox-app>
+						Yes
+					</checkbox-app>
+					<checkbox-app>
+						No
+					</checkbox-app>
+				</div>
+			</ng-container>
+
+			<!-- decimal -->
+			<ng-container *ngSwitchCase="'decimal'">
+				<input type="number" step="0.01" >
+			</ng-container>
+
+			<!-- price -->
+			<ng-container *ngSwitchCase="'price'">
+				<input-price-app></input-price-app>
+			</ng-container>
+
+			<!-- status -->
+			<ng-container *ngSwitchCase="'status'">
+				<status-selector-app></status-selector-app>
+			</ng-container>
+
+			<!-- selector -->
+			<ng-container *ngSwitchCase="'selector'">
+				<selector-app
+					[width]="500"
+					[type]="erm.getEntityMetadata(choice?.name)">
+					<!-- TODO change when merged with supplier connect to selector-placeholder-app -->
+					<div class="capitalize selector-placeholder ellipsis">
+						{{ 'choose something dammit' }}
+						<icon-app name="caret-down"></icon-app>
+					</div>
+				</selector-app>
+			</ng-container>
+			<!-- <ng-container *ngSwitchCase="'packaging'">
+				PACKAGING
+			</ng-container> -->
+		</ng-container>
+		<ng-container *ngSwitchDefault>
+			This is the default
+		</ng-container>
+	</ng-container>
+
+	<dialog-footer-app>
+		<button class="secondary ">cancel</button>
+		<button class="">update</button>
+	</dialog-footer-app>
+</dialog-app>
