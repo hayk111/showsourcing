@@ -4,6 +4,7 @@ export * from './creation-dialog/creation-dialog.component';
 export * from './description-dlg/description-dlg.component';
 export * from './edition-dialog/edition-dialog.component';
 export * from './invite-user-dlg/invite-user-dlg.component';
+export * from './mass-edit-dlg/mass-edit-dlg.component';
 export * from './merge-dialog/merge-dialog.component';
 export * from './new-contact-dlg/new-contact-dlg.component';
 export * from './product-add-to-project-dlg/product-add-to-project-dlg.component';

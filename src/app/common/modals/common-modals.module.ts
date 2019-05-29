@@ -18,20 +18,21 @@ import {
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	VoteDetailsDialogComponent,
 } from './component';
+import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
+import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
 import { ExportWaitingViewComponent } from './component/export-dlg/export-waiting-view/export-waiting-view.component';
 import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
 import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
-import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
-import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -44,6 +45,7 @@ const modals = [
 	EmailListComponent,
 	FindProductsDialogComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
@@ -69,7 +71,6 @@ const modals = [
 		ExportWaitingViewComponent,
 		CompareLabelsComponent,
 		CompareColumnComponent,
-		DescriptionDlgComponent
 	],
 	entryComponents: modals,
 	providers: [
