@@ -143,7 +143,7 @@ export class ListPageDataService
 	 */
 	refetch(config?: SelectParamsConfig) {
 		this.selectParams = { ...this.selectParams, ...config };
-		this.pending = true;
+		this.onLoading();
 		return this.listResult.refetch(this.selectParams).pipe(first());
 	}
 

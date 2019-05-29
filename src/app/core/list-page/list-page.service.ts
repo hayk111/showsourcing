@@ -166,43 +166,23 @@ export class ListPageService
 	}
 
 	loadPage(page: number) {
-		this.dataSrv.onLoading();
-		this.dataSrv.loadPage(page).subscribe(_ => {
-			this.dataSrv.onLoaded();
-			this.selectionSrv.unselectAll();
-		});
+		this.dataSrv.loadPage(page).subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadNextPage() {
-		this.dataSrv.onLoading();
-		this.dataSrv.loadNextPage().subscribe(_ => {
-			this.dataSrv.onLoaded();
-			this.selectionSrv.unselectAll();
-		});
+		this.dataSrv.loadNextPage().subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadPreviousPage() {
-		this.dataSrv.onLoading();
-		this.dataSrv.loadPreviousPage().subscribe(_ => {
-			this.dataSrv.onLoaded();
-			this.selectionSrv.unselectAll();
-		});
+		this.dataSrv.loadPreviousPage().subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadFirstPage() {
-		this.dataSrv.onLoading();
-		this.dataSrv.loadFirstPage().subscribe(_ => {
-			this.dataSrv.onLoaded();
-			this.selectionSrv.unselectAll();
-		});
+		this.dataSrv.loadFirstPage().subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadLastPage() {
-		this.dataSrv.onLoading();
-		this.dataSrv.loadLastPage().subscribe(_ => {
-			this.dataSrv.onLoaded();
-			this.selectionSrv.unselectAll();
-		});
+		this.dataSrv.loadLastPage().subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	sort(sort: Sort) {
