@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { first, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { first, map, switchMap, take } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -15,8 +15,8 @@ import {
 	ProjectService,
 	SupplierService,
 	TagService,
-	UserService,
 	TeamUserService,
+	UserService,
 } from '~entity-services';
 import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
 import {
@@ -32,8 +32,8 @@ import {
 	Project,
 	SupplierType,
 	Tag,
-	User,
 	TeamUser,
+	User,
 } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
@@ -41,6 +41,7 @@ import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } 
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
 
+import { PickerField } from '../components';
 
 @Injectable({
 	providedIn: 'root',
@@ -57,6 +58,9 @@ export class SelectorsService {
 		take: 30,
 		skip: 0
 	};
+
+	// we use this to trigger the search when we use a map instead of the global data
+	search$: BehaviorSubject<string> = new BehaviorSubject('');
 
 	currentSearchQuery = '';
 
@@ -88,7 +92,8 @@ export class SelectorsService {
 	}
 
 	refetch(selectParams?: SelectParamsConfig) {
-		this.listResult.refetch(selectParams || this.selectParams).pipe(first()).subscribe();
+		if (this.listResult)
+			this.listResult.refetch(selectParams || this.selectParams).pipe(first()).subscribe();
 	}
 
 	loadMore() {
@@ -126,9 +131,15 @@ export class SelectorsService {
 				case ERM.TAG:
 					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}"`;
 					break;
+				case ERM.PICKER_FIELD:
+					this.search$.next(searchTxt);
+					break;
 				default: throw Error(`Unsupported type for search ${type}`);
 			}
-		} else this.currentSearchQuery = '';
+		} else {
+			this.currentSearchQuery = '';
+			this.search$.next('');
+		}
 		this.refetch({ ...this.selectParams, query: this.currentSearchQuery });
 	}
 
@@ -298,6 +309,15 @@ export class SelectorsService {
 		this.selectParams = { ...this.selectParams, sortBy: 'user.lastName' };
 		this.listResult = this.teamUserSrv.getListQuery(this.selectParams, '', Client.TEAM);
 		this.setItems();
+		return this.items$;
+	}
+
+	getPickerFields(fields: PickerField[]): Observable<PickerField[]> {
+		this.items$ = this.search$.pipe(
+			switchMap((str) => of(fields).pipe(
+				map(item => item.filter(it => it.name.toLowerCase().includes(str)))
+			))
+		);
 		return this.items$;
 	}
 

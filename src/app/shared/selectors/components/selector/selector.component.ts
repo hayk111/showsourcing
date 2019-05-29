@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { EntityMetadata, ERM } from '~core/models';
+import { PickerField } from '../selector-picker/selector-picker.component';
 
 @Component({
 	selector: 'selector-app',
@@ -23,6 +24,7 @@ export class SelectorComponent implements OnInit {
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() width = 395;
+	@Input() pickerFields: PickerField[];
 
 	@Output() update = new EventEmitter<any>();
 

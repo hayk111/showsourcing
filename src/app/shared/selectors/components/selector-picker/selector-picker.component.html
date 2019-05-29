@@ -71,6 +71,10 @@
 			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 		</ng-container>
 
+		<ng-container *ngSwitchCase="erm.STATIC">
+			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
+		</ng-container>
+
 		<ng-container *ngSwitchCase="erm.COUNTRY">
 			<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
 		</ng-container>

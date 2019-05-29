@@ -23,6 +23,11 @@ import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
+export interface PickerField {
+	name: string;
+	metadata?: any;
+}
+
 @Component({
 	selector: 'selector-picker-app',
 	templateUrl: './selector-picker.component.html',
@@ -40,6 +45,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 	@Input() multiple = false;
 	@Input() canCreate = false;
+	@Input() pickerFields: PickerField[];
 
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
@@ -137,7 +143,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	search(text) {
 		this.searchTxt = text.trim().toLowerCase();
 		this.movedArrow = false;
-		this.hasDB ? this.selectorSrv.search(this.type, this.searchTxt) : this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
+		this.hasDB ?
+			this.selectorSrv.search(this.type, this.searchTxt) :
+			this.choicesLocal = this.getChoicesLocal(this.type, this.searchTxt);
 		this.searched$.next(this.searchTxt);
 		this.keyManager.setFirstItemActive();
 	}
@@ -152,6 +160,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.EVENT: return this.selectorSrv.getEvents();
 			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
 			case ERM.INCOTERM: return this.selectorSrv.getIncoTermsGlobal();
+			case ERM.PICKER_FIELD: return this.selectorSrv.getPickerFields(this.pickerFields);
 			case ERM.PRODUCT: return this.selectorSrv.getProducts();
 			case ERM.PROJECT: return this.selectorSrv.getProjects();
 			case ERM.SUPPLIER: return this.selectorSrv.getSuppliers();
@@ -209,6 +218,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.HARBOUR:
 			case ERM.INCOTERM:
 			case ERM.LENGTH_UNIT:
+			case ERM.PICKER_FIELD:
 			case ERM.WEIGHT_UNIT:
 				item = this.value;
 				break;
