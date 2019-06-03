@@ -29,8 +29,8 @@
 			<!-- number -->
 			<ng-container *ngSwitchCase="'number'">
 				<input #inp type="number" (input)="statusUpdated(inp.value)"/>
-
 			</ng-container>
+
 			<!-- boolean -->
 			<ng-container *ngSwitchCase="'boolean'">
 				<div class="flex">
@@ -68,11 +68,12 @@
 			<ng-container *ngSwitchCase="'selector'">
 				<selector-app
 					[width]="500"
-					[type]="erm.getEntityMetadata(choice?.name)"
+					[type]="erm.getEntityMetadata(choice?.metadata?.ermName || choice?.name)"
 					(update)="statusUpdated($event)">
 					<!-- TODO change when merged with supplier connect to selector-placeholder-app -->
 					<div class="capitalize selector-placeholder ellipsis" [ngClass]="{ placeholder: value === null || value === undefined }">
 						{{ value ? value?.name : 'Choose ' + choice?.name }}
+						<!-- not all the time is the property name to display so maybe a switch case idk -->
 						<icon-app name="caret-down"></icon-app>
 					</div>
 				</selector-app>
@@ -86,7 +87,7 @@
 	</ng-container>
 
 	<dialog-footer-app>
-		<button class="secondary ">cancel</button>
-		<button class="">update</button>
+		<button class="capitalize secondary ">cancel</button>
+		<button class="capitalize">update</button>
 	</dialog-footer-app>
 </dialog-app>

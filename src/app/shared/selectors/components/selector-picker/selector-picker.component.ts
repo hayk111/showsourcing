@@ -33,6 +33,7 @@ export interface PickerField {
 export interface PickerFieldMetadata {
 	multiple?: boolean;
 	canCreate?: boolean;
+	ermName?: string;
 }
 
 @Component({
