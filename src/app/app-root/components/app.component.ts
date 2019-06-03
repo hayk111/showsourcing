@@ -12,6 +12,7 @@ import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
 import { Location } from '@angular/common';
 
+
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
