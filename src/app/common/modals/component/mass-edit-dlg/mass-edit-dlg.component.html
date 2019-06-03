@@ -34,10 +34,15 @@
 			<!-- boolean -->
 			<ng-container *ngSwitchCase="'boolean'">
 				<div class="flex">
-					<checkbox-app>
+					<checkbox-app
+						[checked]="value"
+						(update)="value = !value">
 						Yes
 					</checkbox-app>
-					<checkbox-app>
+					<!-- we have to check the false condition with null, cause of the falsies condition (first state is null not false) -->
+					<checkbox-app
+						[checked]="value === null ? false : !value"
+						(update)="value = value === null ? false : !value">
 						No
 					</checkbox-app>
 				</div>
