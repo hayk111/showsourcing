@@ -253,6 +253,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.value = item;
 			this.onChange();
 		}
+		this.resetInput();
 	}
 
 	/** creates a new entity */
@@ -302,6 +303,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// we changed the value directly so we have to notify the formControl
 			this.onChange();
 			this.selectorSrv.refetch();
+			this.resetInput();
 		}
 	}
 
@@ -315,16 +317,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (event.keyCode === ENTER) {
 			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
-			let shouldReset = true;
-			if (label === 'create-button') this.create();
+			if (label === 'create-button')
+				this.create();
 			else if (this.multiple) {
 				// this is made since sometimes the user types faster, this way we assure that the label he types has to be the same
 				// if he moves with the arrow keys, then we don't care about the typing field
-				if (this.getLabelName(label) === this.searchTxt || this.movedArrow) this.onSelect(label);
-				else shouldReset = false;
-			} else this.onSelect(label);
-
-			if (shouldReset) this.resetInput();
+				if (this.getLabelName(label) === this.searchTxt || this.movedArrow)
+					this.onSelect(label);
+			} else
+				this.onSelect(label);
 
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
 			this.movedArrow = true;
