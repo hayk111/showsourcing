@@ -59,7 +59,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				});
 			}),
 			switchMap(id => this.featureSrv.selectOne(id)),
-			tap(req => this.requestElements = req.requestElements),
+			tap(req => this.requestElements = req ? req.requestElements : []),
 			takeUntil(this._destroy$)
 		).subscribe(
 			request => this.onRequest(request),

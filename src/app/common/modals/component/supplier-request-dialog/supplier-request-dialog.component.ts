@@ -1,16 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { switchMap, take, delay } from 'rxjs/operators';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
-import { Contact, CreateRequest, ERM, Product, Supplier, RequestTemplate } from '~core/models';
+import { Contact, CreateRequest, ERM, Product, RequestTemplate, Supplier } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import {
+	TemplateMngmtDlgComponent,
+} from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
 import { ID, translate } from '~utils';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
-import { TemplateMngmtDlgComponent } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
-import { of, Subject, Observable, ReplaySubject } from 'rxjs';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -23,6 +25,8 @@ export class SupplierRequestDialogComponent implements OnInit {
 	private _request: CreateRequest;
 	@Input() set request(request: CreateRequest) {
 		this._request = request;
+		if (request && request.recipient && request.recipient.supplier)
+			this.supplier = request.recipient.supplier;
 		this.setTemplate();
 	}
 	get request() {
@@ -244,6 +248,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 				// we update the request with the latest tempalte selected if there is any
 				if (data && data.template)
 					request = ({ ...request, requestTemplate: data.template });
+				console.log(request);
 				return this.dlgSrv.open(SupplierRequestDialogComponent, { request, fromTemplateDlg: true });
 			});
 	}
