@@ -2,6 +2,11 @@ dialog-app {
 	min-height: 250px;
 	width: 500px;
 
+	.status-selector {
+		width: 500px;
+    box-sizing: border-box;
+	}
+
 	.container {
 		.property-picker {
 			margin-bottom: var(--spacing-l);

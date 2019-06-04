@@ -31,10 +31,11 @@
 				</ng-container>
 
 				<ng-container *ngIf="type === 'multiple-selection'">
-					<button class="secondary-light flexCenter change-status">
+					<ng-content></ng-content>
+					<!-- <button class="secondary-light flexCenter change-status">
 						<icon-app class="color-primary" name="status"></icon-app>
 						<span>Change Status</span>
-					</button>
+					</button> -->
 				</ng-container>
 
 		</context-menu-trigger-app>

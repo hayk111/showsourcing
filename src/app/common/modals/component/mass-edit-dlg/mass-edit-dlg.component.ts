@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { EntityMetadata, ERM, productFields } from '~core/models';
+import { Observable, ReplaySubject } from 'rxjs';
+import { ProductService } from '~core/entity-services';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { EntityMetadata, ERM, ExtendedFieldDefinition, Product, productFields } from '~core/models';
 import { PickerField } from '~shared/selectors';
 
 @Component({
@@ -17,14 +21,16 @@ export class MassEditDlgComponent implements OnInit {
 	pickerFields: PickerField[] = productFields;
 	erm = ERM;
 	choice$: ReplaySubject<PickerField> = new ReplaySubject<PickerField>(1);
+	definitions$: Observable<ExtendedFieldDefinition[]>;
 	value: any;
 
-	constructor() { }
+	constructor(private extendedFDSrv: ExtendedFieldDefinitionService) { }
 
 	ngOnInit() {
 		switch (this.type) {
 			case ERM.PRODUCT:
 				this.pickerFields = productFields;
+				this.definitions$ = this.extendedFDSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 				break;
 			default: throw Error(`No PickerField associated to this ERM ${this.type}`);
 		}
@@ -36,11 +42,31 @@ export class MassEditDlgComponent implements OnInit {
 		this.value = null;
 	}
 
+	getName(type) {
+		let name;
+		const entityName = ERM.getEntityMetadata(type);
+		switch (entityName) {
+			case ERM.USER:
+				const firstName = this.value.firstName || '', lastName = this.value.lastName || '';
+				// TODO use the pipe on supplier-connect
+				name = firstName + (lastName ? ' ' : '') + lastName;
+				break;
+			default:
+				name = this.value.name || '';
+				break;
+		}
+		return name;
+	}
+
 	statusUpdated(item) {
 		// this condition exists since input price, when blur drop a change that returns the element in the DOM
 		// instead of the price object. This way we don't store the DOM element
 		if (item.__proto__.constructor.name !== 'Event')
 			this.value = item;
-		console.log(this.value);
+	}
+
+	getMultipleName() {
+		const name = (this.value || []).map(val => val.name).join(', ');
+		return name;
 	}
 }

@@ -66,6 +66,12 @@
 					type="multiple-selection"
 					[internalUpdate]="false"
 					(statusUpdated)="statusUpdated($event)">
+					<!-- TODO change when merged with supplier connect to selector-placeholder-app -->
+					<div class="capitalize selector-placeholder ellipsis status-selector" [ngClass]="{ placeholder: value === null || value === undefined }">
+						{{ value ? value?.name : 'Choose a status' }}
+						<!-- not all the time is the property name to display so maybe a switch case idk -->
+						<icon-app name="caret-down"></icon-app>
+					</div>
 				</status-selector-app>
 			</ng-container>
 
@@ -73,12 +79,18 @@
 			<ng-container *ngSwitchCase="'selector'">
 				<selector-app
 					[width]="500"
+					[value]="(product$ | async)?.projects"
 					[type]="erm.getEntityMetadata(choice?.metadata?.ermName || choice?.name)"
+					[multiple]="choice?.metadata?.multiple"
 					(update)="statusUpdated($event)">
 					<!-- TODO change when merged with supplier connect to selector-placeholder-app -->
 					<div class="capitalize selector-placeholder ellipsis" [ngClass]="{ placeholder: value === null || value === undefined }">
-						{{ value ? value?.name : 'Choose ' + choice?.name }}
-						<!-- not all the time is the property name to display so maybe a switch case idk -->
+						<ng-container *ngIf="choice?.metadata?.multiple; else singleLine">
+							{{ getMultipleName() || 'Choose ' + choice?.name }}
+						</ng-container>
+						<ng-template #singleLine>
+							{{ value ? getName(choice?.metadata?.ermName || choice?.name) : 'Choose ' + choice?.name }}
+						</ng-template>
 						<icon-app name="caret-down"></icon-app>
 					</div>
 				</selector-app>
@@ -86,6 +98,16 @@
 			<!-- <ng-container *ngSwitchCase="'packaging'">
 				PACKAGING
 			</ng-container> -->
+
+			<!-- extended fields -->
+			<ng-container *ngSwitchCase="'extendedField'">
+				<extended-form-app
+					*ngIf="definitions$ | async as definitions; else spinner"
+					[fields]="[]"
+					[definitions]="definitions">
+				</extended-form-app>
+			</ng-container>
+
 		</ng-container>
 		<ng-container *ngSwitchDefault>
 		</ng-container>
@@ -96,3 +118,7 @@
 		<button class="capitalize">update</button>
 	</dialog-footer-app>
 </dialog-app>
+
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>
