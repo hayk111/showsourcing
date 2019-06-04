@@ -1,6 +1,6 @@
 {
   "name": "showsourcin-supplier-app",
-  "version": "2.4.0-11",
+  "version": "2.4.0-12",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -12,7 +12,8 @@
     "build:dev": "npm run version:build && ng build --aot",
     "build:sta": "npm run version:build && ng build --configuration=sta --aot",
     "build:prod": "npm run version:build && npm run build",
-    "build:supp": "npm run version:build && ng build supplier",
+    "build:supp": "npm run version:build && ng build supplier --configuration=production --aot",
+    "build:supp:dev": "npm run version:build && ng build supplier",
     "translate": "ng xi18n --output-path locale",
     "translate:fr": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json fr",
     "translate:zh-Hans": "ng xi18n --outputPath locale && xliffmerge --profile xliffmerge.json zh-Hans",
