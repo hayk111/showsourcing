@@ -2,7 +2,7 @@
 	[title]="'requests'"
 	buttonName="New Request"
 	(buttonClick)="commonModalSrv.openSupplierRequest([])"
-	i18n="@@requests">
+	i18n-title="@@requests">
 </top-panel-app>
 
 <sub-panel-app
@@ -23,7 +23,11 @@
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[selection]="listSrv.selection$ | async"
-	(bottomReached)="listSrv.loadMore()"
+	[count]="listSrv.count$ | async"
+	[skipped]="listSrv.skipped"
+	(next)="listSrv.loadNextPage()"
+	(previous)="listSrv.loadPreviousPage()"
+	(goToPage)="listSrv.loadPage($event)"
 	(cancelRequest)="cancelRequest($event)"
 	(select)="listSrv.selectOne($event)"
 	(selectAll)="listSrv.selectAll($event)"

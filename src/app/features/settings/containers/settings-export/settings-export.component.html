@@ -12,6 +12,7 @@
 </sub-panel-app>
 
 <export-list-view-app
+	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"

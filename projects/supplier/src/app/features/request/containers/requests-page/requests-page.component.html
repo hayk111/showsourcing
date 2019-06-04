@@ -17,10 +17,15 @@
 </sub-panel-app>
 
 <request-list-view-sup
+	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[selection]="listSrv.selection$ | async"
-	(bottomReached)="listSrv.loadMore()"
+	[count]="listSrv.count$ | async"
+	[skipped]="listSrv.skipped"
+	(next)="listSrv.loadNextPage()"
+	(previous)="listSrv.loadPreviousPage()"
+	(goToPage)="listSrv.loadPage($event)"
 	(select)="listSrv.selectOne($event)"
 	(selectAll)="listSrv.selectAll($event)"
 	(sort)="listSrv.sort($event)"
