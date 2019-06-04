@@ -19,15 +19,19 @@
 <ng-container *ngIf="listSrv.isListening">
 
   <projects-list-view-app
+		[selection]="listSrv.selection$ | async"
+		[rows]="listSrv.items$ | async"
+		[pending]="listSrv.pending"
+		[count]="listSrv.count$ | async"
+		[skipped]="listSrv.skipped"
+		(next)="listSrv.loadNextPage()"
+		(previous)="listSrv.loadPreviousPage()"
+		(goToPage)="listSrv.loadPage($event)"
     (select)="listSrv.selectOne($event, true)"
     (unselect)="listSrv.unselectOne($event, true)"
     (selectAll)="listSrv.selectAll($event, true)"
     (unselectAll)="listSrv.unselectAll()"
-    [selection]="listSrv.selection$ | async"
     (sort)="listSrv.sort($event)"
-    [rows]="listSrv.items$ | async"
-    [pending]="listSrv.pending"
-    (bottomReached)="listSrv.loadMore()"
 		(delete)="listSrv.deleteOne($event)">
 	</projects-list-view-app>
 

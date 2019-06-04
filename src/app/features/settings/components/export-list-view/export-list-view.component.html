@@ -3,7 +3,12 @@
 	[hasSelection]="false"
 	[pending]="pending"
 	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[skipped]="skipped"
 	placeholder="No exports"
+	(next)="next.emit()"
+	(previous)="previous.emit()"
+	(goToPage)="goToPage.emit($event)"
 	(sort)="sort.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	i18n-placeholder="@@no-exports">

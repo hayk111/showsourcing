@@ -338,19 +338,28 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		);
 
 		let itemsAmount = 0;
-		// add items$ wich are the actual items requested
-		const items$: ConnectableObservable<T[]> = queryRef$.pipe(
+
+		const data$ = queryRef$.pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(queryRef => queryRef.valueChanges),
-			filter((r: any) => this.checkError(r)),
 			distinctUntilChanged(),
-			// extracting the result
-			map((r) => r.data[queryName].items),
+			filter((r: any) => this.checkError(r)),
+			map(r => r.data[queryName])
+		);
+
+		const count$ = data$.pipe(
+			map(data => data.count)
+		);
+
+		// add items$ wich are the actual items requested
+		const items$: ConnectableObservable<T[]> = data$.pipe(
+			map(data => data.items),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
 			catchError((errors) => of(log.table(errors))),
 			publishReplay(1)
 		) as ConnectableObservable<T[]>;
+
 		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
 		// (will be reflected in items$)
 		const fetchMore = (): Observable<any> => {
@@ -389,7 +398,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			);
 		};
 
-		return { queryName, items$, fetchMore, refetch };
+		return { queryName, items$, count$, fetchMore, refetch };
 	}
 
 	/////////////////////////////

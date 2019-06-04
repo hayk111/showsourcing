@@ -1,12 +1,4 @@
-<div class="ctnr will-change-scroll">
-
-	<!-- pagination controller -->
-	<!-- <div class="pagination-ctrl flexEnd color-txt-secondary" *ngIf="rows">
-		<span>1 - {{ rows.length }} on {{ totalAmount }}</span>
-		<icon-app fontSet="fa" name="angle-left"></icon-app>
-		<icon-app fontSet="fa" name="angle-right"></icon-app>
-	</div>  -->
-
+<div class="ctnr will-change-scroll" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
 	<div class="contentCtnr">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
@@ -28,12 +20,12 @@
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-					<ng-container *ngIf="!selectionDisabled">
-						<checkbox-app [checked]="selected.has(row[idName])"
-							*ngIf="isSelectable(row)"
-							(check)="onSelectOne(row)"
-							(uncheck)="onUnselectOne(row)"></checkbox-app>
-					</ng-container>
+					<checkbox-app
+						*ngIf="isSelectable(row)"
+						[checked]="selected.has(row[idName])"
+						(check)="onSelectOne(row)"
+						(uncheck)="onUnselectOne(row)">
+					</checkbox-app>
 				</div>
 			</ng-container>
 		</div>
@@ -43,9 +35,10 @@
 			<div class="header context-menu">
 			</div>
 			<ng-container *ngIf="!pending">
-				<div class="cell context-menu flexCenter"
-					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
+				<div
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+					class="menuCell cell context-menu flexCenter"
+					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 					(mouseenter)="hoverRow(i)"
 					(mouseleave)="hoverRow(-1)">
 					<context-menu-app
@@ -100,17 +93,25 @@
 
 	</div>
 
-	<div class="flexAround placeholderCtnr" *ngIf="rows?.length === 0">
+	<div *ngIf="rows?.length === 0" class="flexAround placeholderCtnr">
 		<div class="placeholder">{{ placeholder }}</div>
 	</div>
 
 	<!-- pending -->
-	<div class="pendingCtnr flexCenter" *ngIf="pending">
+	<div *ngIf="pending" class="pendingCtnr flexCenter" >
 		<dots-app></dots-app>
 	</div>
 </div>
 
-
-
-
-
+	<!-- pagination controller -->
+	<div *ngIf="rows" class="flexCenter pagination-ctrl">
+		<icon-app [ngClass]="{ disabled: indexPagination === 0 }" fontSet="fa" name="angle-left" (click)="previousPage()"></icon-app>
+		<span *ngFor="let sect of sections; index as index"
+			class="pagination-item"
+			[ngClass]="{ hide: isHidden(index), selected: index === indexPagination }"
+			(click)="goToIndexPage(index)">
+			{{ index + 1 }}
+		</span>
+		<icon-app [ngClass]="{ disabled: indexPagination === (sections?.length - 1) }" fontSet="fa" name="angle-right" (click)="nextPage()"></icon-app>
+		<!-- <span class="pagination-text">{{ skipped }} - {{ skipped + rows.length }} of {{ count }}</span> -->
+	</div>
