@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { first, map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -93,7 +93,7 @@ export class SelectorsService {
 
 	refetch(selectParams?: SelectParamsConfig) {
 		if (this.listResult)
-			this.listResult.refetch(selectParams || this.selectParams).pipe(first()).subscribe();
+			this.listResult.refetch(selectParams || this.selectParams).pipe(take(1)).subscribe();
 	}
 
 	loadMore() {

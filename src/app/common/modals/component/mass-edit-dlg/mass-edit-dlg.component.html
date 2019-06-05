@@ -79,7 +79,7 @@
 			<ng-container *ngSwitchCase="'selector'">
 				<selector-app
 					[width]="500"
-					[value]="(product$ | async)?.projects"
+					[value]="value || []"
 					[type]="erm.getEntityMetadata(choice?.metadata?.ermName || choice?.name)"
 					[multiple]="choice?.metadata?.multiple"
 					(update)="statusUpdated($event)">

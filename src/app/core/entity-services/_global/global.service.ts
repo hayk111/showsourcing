@@ -349,6 +349,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			catchError((errors) => of(log.table(errors))),
 			publishReplay(1)
 		) as ConnectableObservable<T[]>;
+
 		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
 		// (will be reflected in items$)
 		const fetchMore = (): Observable<any> => {

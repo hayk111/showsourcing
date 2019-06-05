@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { ProductService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { EntityMetadata, ERM, ExtendedFieldDefinition, Product, productFields } from '~core/models';
+import { EntityMetadata, ERM, ExtendedFieldDefinition, productFields } from '~core/models';
 import { PickerField } from '~shared/selectors';
 
 @Component({

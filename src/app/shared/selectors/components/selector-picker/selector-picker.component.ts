@@ -239,7 +239,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				};
 				break;
 		}
-		if (item) this.update.emit(item);
+		if (item)
+			this.update.emit(item);
 		this.close.emit();
 	}
 
@@ -348,7 +349,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** checks if the item matches with any of the values stored */
 	isSelected(item: any) {
 		let isSelected = false;
-		if (!this.multiple) return isSelected;
+		if (!this.multiple)
+			return isSelected;
 		if (this.value && this.value.length) {
 			isSelected = !!this.value.find(value => value.id === item.id);
 		}
@@ -359,7 +361,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** checks if the name given matches with any of the values stored */
 	hasName(name: string) {
 		let hasName = false;
-		if (!this.multiple) return hasName;
+		if (!this.multiple)
+			return hasName;
 		if (this.value && this.value.length) {
 			hasName = !!this.value.find(value => value.name.toLowerCase() === name);
 		}
@@ -374,7 +377,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	/** we needed this in case we want to display multiple items active class, for some reason with ngClass didn't work */
 	getActiveClass(item) {
-		if (!this.multiple) return [];
+		if (!this.multiple)
+			return [];
 		return this.isSelected(item) ? ['active'] : [];
 	}
 }
