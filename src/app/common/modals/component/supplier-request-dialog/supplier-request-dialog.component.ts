@@ -186,7 +186,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 		if (contact && !contact.supplier) {
 			// we update the contact on the form and on realm, since it's a new contact and we have to insert a supplier
 			// other wise when we create the request its gona get the form value and the supplier will be null again
-			this.request = { ...this.request, recipient: { ...contact, supplier: { id: this.supplier.id } } };
+			this.request = { ...this.request, recipient: { ...contact, supplier: { id: this.supplier.id, name: this.supplier.name } } };
 			this.contactSrv
 				.update({ id: contact.id, supplier: { id: this.supplier.id } })
 				.subscribe(_ => this.form.patchValue(this.request));
@@ -248,7 +248,6 @@ export class SupplierRequestDialogComponent implements OnInit {
 				// we update the request with the latest tempalte selected if there is any
 				if (data && data.template)
 					request = ({ ...request, requestTemplate: data.template });
-				console.log(request);
 				return this.dlgSrv.open(SupplierRequestDialogComponent, { request, fromTemplateDlg: true });
 			});
 	}
