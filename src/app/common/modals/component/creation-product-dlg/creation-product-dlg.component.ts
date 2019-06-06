@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { Product, ERM } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { translate } from '~utils';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
 @Component({
 	selector: 'creation-product-dlg-app',
@@ -14,6 +15,7 @@ export class CreationProductDlgComponent implements OnInit {
 
 	@Input() product: Product;
 
+	// TODO i18n
 	dynamicFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: translate('name') },
 		{
@@ -96,6 +98,10 @@ export class CreationProductDlgComponent implements OnInit {
 	updateProduct(product: Product) {
 		// retourne un objet { name: value }
 		console.log(product);
+	}
+
+	imageCreated(item) {
+		console.log(item);
 	}
 
 }

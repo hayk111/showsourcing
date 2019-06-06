@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { saveAs } from 'file-saver';
-import { switchMap, takeUntil, filter } from 'rxjs/operators';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { ImageService } from '~entity-services/image/image.service';
 import { AppImage } from '~models';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
