@@ -11,6 +11,7 @@ export class RadioComponent extends AbstractInput {
 	protected static NEXT_UID = 0;
 
 	@Input() isVeritical = false;
+	@Output() change = new EventEmitter();
 	@Output() update = new EventEmitter<boolean>();
 	@Output() select = new EventEmitter<null>();
 	/** list of possible values and labels */
@@ -42,20 +43,20 @@ export class RadioComponent extends AbstractInput {
 		super(cd);
 	}
 
-	/**
-	 * Event handler for checkbox input element.
-	 * Toggles checked state if element is not disabled.
-	 * @param event
-	 */
-	onClick() {
+	onChange() {
+		this.onChangeFn(this.checked);
+		this.change.emit(this.checked);
+	}
+
+	onCheckedChange(checked: boolean) {
 		if (!this.disabled) {
+			this.checked = checked;
 			this.emit();
 		}
 	}
 
 	private emit() {
-		if (this.onChangeFn)
-			this.onChangeFn(this.checked);
+		this.onChange();
 		this.update.emit(this.checked);
 		this.select.emit();
 	}
@@ -65,7 +66,10 @@ export class RadioComponent extends AbstractInput {
 	}
 
 	writeValue(value: any): void {
-		super.writeValue(value);
+		if (value === null)
+			return;
+		this.checked = value;
+		this.cd.markForCheck();
 	}
 
 }

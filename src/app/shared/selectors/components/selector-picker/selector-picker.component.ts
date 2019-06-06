@@ -93,6 +93,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	) { super(cd); }
 
 	ngOnInit() {
+		if (this.multiple && !this.value)
+			this.value = [];
 		this.group = this.fb.group({
 			name: ['']
 		});

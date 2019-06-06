@@ -12,9 +12,10 @@
 		<!-- right -->
 		<div class="right">
 			<dynamic-form-app
-				[fields]="dynamicFields"
-				[value]="product"
 				[colAmount]="1"
+				[fields]="dynamicFields"
+				[textMode]="false"
+				[value]="product"
 				(update)="updateProduct($event)">
 			</dynamic-form-app>
 			<!-- dynamic form -->

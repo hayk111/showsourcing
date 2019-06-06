@@ -75,11 +75,11 @@ export class CreationProductDlgComponent implements OnInit {
 		{ name: 'quantityPer40ft', type: 'number', label: `Quantity per 40'` },
 		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
 		{
-			name: 'incoTerm', type: 'selector', label: 'INCO Term',
+			name: 'incoTerm', type: 'selector', label: 'Inco Term',
 			metadata: { target: ERM.INCOTERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
 		},
 		{
-			name: 'harbour', type: 'selector', label: 'loading port',
+			name: 'harbour', type: 'selector', label: 'Harbour',
 			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
 		},
 	];
@@ -94,6 +94,7 @@ export class CreationProductDlgComponent implements OnInit {
 	}
 
 	updateProduct(product: Product) {
+		// retourne un objet { name: value }
 		console.log(product);
 	}
 

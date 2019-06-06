@@ -58,10 +58,12 @@ export class InputPriceComponent extends AbstractInput {
 		if (item) this.price = { ...this.price, currency: item };
 		this.hideCurrencySelector();
 		this.onChange();
+		this.blur.emit();
 	}
 
 	onBlur() {
 		this.onTouchedFn();
+		this.blur.emit();
 		// prevent view changed after it was checked error
 		this.cd.detectChanges();
 	}

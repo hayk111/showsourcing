@@ -41,6 +41,7 @@ export class EditablePackagingComponent extends AbstractInput {
 			...this.value,
 			[propName]: value
 		};
+		this.onChange();
 		this.update.emit(this.accumulator);
 	}
 
@@ -59,6 +60,7 @@ export class EditablePackagingComponent extends AbstractInput {
 
 	updateAcummulator(prop, name) {
 		this.accumulator = { ...this.accumulator, [prop]: name };
+		this.onChange();
 		this.update.emit(this.accumulator);
 	}
 }
