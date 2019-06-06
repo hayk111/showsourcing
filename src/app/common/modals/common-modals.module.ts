@@ -28,6 +28,7 @@ import {
 	RequestReplyDlgComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	CreationProductDlgComponent,
 } from './component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
 import { ExportWaitingViewComponent } from './component/export-dlg/export-waiting-view/export-waiting-view.component';
@@ -46,6 +47,7 @@ const modals = [
 	ChangePswdDlgComponent,
 	CompareProductComponent,
 	CreationDialogComponent,
+	CreationProductDlgComponent,
 	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
@@ -80,7 +82,8 @@ const modals = [
 		ProductRequestListComponent,
 		CompareLabelsComponent,
 		CompareColumnComponent,
-		DescriptionDlgComponent
+		DescriptionDlgComponent,
+		CreationProductDlgComponent
 	],
 	entryComponents: modals,
 	providers: [
