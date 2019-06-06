@@ -6,7 +6,7 @@
 
 		<!-- left -->
 		<div class="left">
-¡
+
 		</div>
 
 		<!-- right -->
@@ -22,11 +22,13 @@
 	</div>
 
 	<dialog-footer-app>
-		<checkbox-app>
+		<checkbox-app
+			[checked]="createAnother"
+			(update)="createAnother = !createAnother">
 			create another
 		</checkbox-app>
-		<button class="secondary">cancel</button>
-		<button>save product</button>
+		<button class="secondary" (click)="cancel()">cancel</button>
+		<button [disabled]="!(product?.name)" (click)="save()">save product</button>
 	</dialog-footer-app>
 
 </dialog-app>

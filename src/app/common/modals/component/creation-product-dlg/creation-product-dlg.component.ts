@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
-import { Product, ERM } from '~core/models';
-import { DialogService } from '~shared/dialog';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ProductService } from '~core/entity-services';
+import { ERM, Product } from '~core/models';
+import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
-import { translate } from '~utils';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { translate, uuid } from '~utils';
 
 @Component({
 	selector: 'creation-product-dlg-app',
@@ -85,10 +86,13 @@ export class CreationProductDlgComponent implements OnInit {
 			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
 		},
 	];
+	createAnother = false;
 
-	// map with all the values needed
-
-	constructor(private dlgSrv: DialogService) { }
+	constructor(
+		private dlgSrv: DialogService,
+		private productSrv: ProductService,
+		private notifSrv: NotificationService
+	) { }
 
 	ngOnInit() {
 		if (!this.product)
@@ -97,11 +101,45 @@ export class CreationProductDlgComponent implements OnInit {
 
 	updateProduct(product: Product) {
 		// retourne un objet { name: value }
-		console.log(product);
+		this.product = { ...this.product, ...product };
 	}
 
 	imageCreated(item) {
 		console.log(item);
+	}
+
+	cancel() {
+		this.dlgSrv.close({ type: CloseEventType.CANCEL });
+	}
+
+	close() {
+		this.dlgSrv.close({ type: CloseEventType.OK });
+	}
+
+	save() {
+		if (this.product && this.product.name) {
+			this.productSrv.create(this.product).subscribe(product => {
+				// if we create a new product we create a new id
+				if (this.createAnother) {
+					product = { ...product, id: uuid() };
+					this.dlgSrv.open(CreationProductDlgComponent, { product });
+				} else
+					this.close();
+				// success
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: `Product created`,
+					message: 'Your product has been created with success'
+				});
+			},
+				err => {
+					this.notifSrv.add({
+						type: NotificationType.ERROR,
+						title: `Product created`,
+						message: 'Your product could not been created'
+					});
+				});
+		}
 	}
 
 }

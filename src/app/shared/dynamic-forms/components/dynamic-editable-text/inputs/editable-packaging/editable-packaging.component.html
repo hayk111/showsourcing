@@ -1,4 +1,3 @@
-
 <!-- when the value is undefined, null or 0 we display '-'.
 A package with 0cm makes no sens -->
 <!-- TODO i18n -->
@@ -20,7 +19,7 @@ A package with 0cm makes no sens -->
 				autofocus="true"
 				[value]="value?.length"
 				[type]="'number'"
-				(input)="accumulateNested('length', +inp1.value)"
+				(input)="onChangePackaging('length', +inp1.value)"
 				(keyup.enter)="cell1.close();"/>
 		</form-field-app>
 	</editable-field-app>
@@ -41,7 +40,7 @@ A package with 0cm makes no sens -->
 				restrictInput="number"
 				autofocus="true"
 				[value]="value?.width"
-				(input)="accumulateNested('width', +inp2.value)"
+				(input)="onChangePackaging('width', +inp2.value)"
 				(keyup.enter)="cell2.close();"
 				[type]="'number'"/>
 		</form-field-app>
@@ -63,7 +62,7 @@ A package with 0cm makes no sens -->
 					restrictInput="number"
 					autofocus="true"
 					[value]="value?.height"
-					(input)="accumulateNested('height', +inp3.value)"
+					(input)="onChangePackaging('height', +inp3.value)"
 					(keyup.enter)="cell3.close();"
 					[type]="'number'"/>
 			</form-field-app>
@@ -74,8 +73,8 @@ A package with 0cm makes no sens -->
 		[type]="erm.LENGTH_UNIT"
 		[width]="180"
 		[offsetY]="-34"
-		[value]="accumulator.unit"
-		(update)="updateAcummulator('unit', $event)"
+		[value]="value.unit"
+		(update)="onChangePackaging('unit', $event)"
 		(menuClosed)="cell4.close()">
 		<editable-field-app
 			#cell4
@@ -106,7 +105,7 @@ A package with 0cm makes no sens -->
 				autofocus="true"
 				[value]="value?.itemsQuantity"
 				[type]="'number'"
-				(input)="accumulateNested('itemsQuantity', +inp5.value)"
+				(input)="onChangePackaging('itemsQuantity', +inp5.value)"
 				(keyup.enter)="cell5.close();"/>
 		</form-field-app>
 	</editable-field-app>
@@ -127,7 +126,7 @@ A package with 0cm makes no sens -->
 				restrictInput="number"
 				autofocus="true"
 				[value]="value?.weight"
-				(input)="accumulateNested('weight', +inp6.value)"
+				(input)="onChangePackaging('weight', +inp6.value)"
 				(keyup.enter)="cell6.close();"
 				[type]="'number'"/>
 		</form-field-app>
@@ -136,10 +135,10 @@ A package with 0cm makes no sens -->
 	<!-- weigth units -->
 	<selector-app
 		[type]="erm.WEIGHT_UNIT"
-		[value]="accumulator.weightUnit"
+		[value]="value.weightUnit"
 		[width]="180"
 		[offsetY]="-34"
-		(update)="updateAcummulator('weightUnit', $event)"
+		(update)="onChangePackaging('weightUnit', $event)"
 		(menuClosed)="cell7.close()">
 		<editable-field-app
 			#cell7
@@ -161,19 +160,19 @@ A package with 0cm makes no sens -->
 		<form-field-app class="modal col-25">
 			<label-app>Length</label-app>
 			<input inputApp #inp1 [disabled]="disabled" [value]="value.length" type="number"
-			placeholder="Length" restrictInput="number" (input)="accumulateNested('length', +inp1.value)"/>
+			placeholder="Length" restrictInput="number" (input)="onChangePackaging('length', +inp1.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
 			<label-app>Width</label-app>
 			<input inputApp #inp2 [disabled]="disabled" [value]="value.width" type="number"
-			placeholder="Width" restrictInput="number" (input)="accumulateNested('width', +inp2.value)"/>
+			placeholder="Width" restrictInput="number" (input)="onChangePackaging('width', +inp2.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
 			<label-app>Height</label-app>
 			<input inputApp #inp3 [disabled]="disabled" [value]="value.height" type="number"
-			placeholder="Height" restrictInput="number" (input)="accumulateNested('height', +inp3.value)"/>
+			placeholder="Height" restrictInput="number" (input)="onChangePackaging('height', +inp3.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
@@ -182,7 +181,7 @@ A package with 0cm makes no sens -->
 			 	[disabled]="disabled"
 				[type]="erm.LENGTH_UNIT"
 				[value]="value.unit"
-				(update)="updateAcummulator('unit', $event)">
+				(update)="onChangePackaging('unit', $event)">
 				<selector-placeholder-app
 					[ngClass]="{ 'disabled': disabled }"
 					[name]="value.unit"
@@ -198,13 +197,13 @@ A package with 0cm makes no sens -->
 		<form-field-app class="modal col-50">
 			<label-app>Quantity</label-app>
 			<input inputApp #inp4 [disabled]="disabled" [value]="value.itemsQuantity" type="number"
-			placeholder="Quantity" restrictInput="number" (input)="accumulateNested('itemsQuantity', +inp4.value)"/>
+			placeholder="Quantity" restrictInput="number" (input)="onChangePackaging('itemsQuantity', +inp4.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
 			<label-app>Weight</label-app>
 			<input inputApp #inp5 [disabled]="disabled" [value]="value.weight"
-			placeholder="Weight" type="number" restrictInput="number" (input)="accumulateNested('weight', +inp5.value)"/>
+			placeholder="Weight" type="number" restrictInput="number" (input)="onChangePackaging('weight', +inp5.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
@@ -213,7 +212,7 @@ A package with 0cm makes no sens -->
 			 	[disabled]="disabled"
 				[type]="erm.WEIGHT_UNIT"
 				[value]="value.weightUnit"
-				(update)="updateAcummulator('weightUnit', $event)">
+				(update)="onChangePackaging('weightUnit', $event)">
 				<selector-placeholder-app
 					[ngClass]="{ 'disabled': disabled }"
 					[name]="value.weightUnit"

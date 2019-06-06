@@ -38,9 +38,9 @@ export class ProductInformationComponent implements OnInit {
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm'), },
 		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
 		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
-		{ name: 'pricePer20ft', type: 'number', label: 'Price per 20 feet' },
-		{ name: 'pricePer40ft', type: 'number', label: 'Price per 40 feet' },
-		{ name: 'pricePer40ftHC', type: 'number', label: 'Price per 40 feet HC' },
+		{ name: 'quantityPer20ft', type: 'number', label: 'Quantity per 20 feet' },
+		{ name: 'quantityPer40ft', type: 'number', label: 'Quantity per 40 feet' },
+		{ name: 'quantityPer40ftHC', type: 'number', label: 'Quantity per 40 feet HC' },
 		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
 		{
 			name: 'incoTerm', type: 'selector', label: 'inco term',

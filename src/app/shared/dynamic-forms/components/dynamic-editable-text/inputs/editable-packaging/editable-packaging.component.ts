@@ -16,7 +16,6 @@ export class EditablePackagingComponent extends AbstractInput {
 	@Input() set value(packaging: Packaging) {
 		// we add an uuid for new packaging
 		this._value = packaging || new Packaging();
-		this.accumulator = { ...this._value };
 	}
 	get value() { return this._value; }
 	private _value;
@@ -28,29 +27,31 @@ export class EditablePackagingComponent extends AbstractInput {
 	@Output() update = new EventEmitter<Packaging>();
 	@Output() rowClosed = new EventEmitter();
 
-	accumulator: Packaging = {};
 	erm = ERM;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
 	}
 
-	/** same as accumulate but the value is an object and we are changing only one field */
-	accumulateNested(propName: string, value: any) {
-		this.accumulator = {
-			...this.value,
-			[propName]: value
-		};
+	onChangePackaging(prop, value) {
+		if (value) this.value = { ...this.value, [prop]: value };
 		this.onChange();
-		this.update.emit(this.accumulator);
+		this.update.emit(this.value);
 	}
 
 	onClose(isCancel) {
 		if (!isCancel) {
-			this.value = this.accumulator;
+			this.value = this.value;
 			this.onChange();
 		}
 		this.rowClosed.emit(isCancel);
+	}
+
+	writeValue(value: any): void {
+		if (value === null)
+			return;
+		this.value = value;
+		this.cd.markForCheck();
 	}
 
 	onChange() {
@@ -58,9 +59,4 @@ export class EditablePackagingComponent extends AbstractInput {
 		this.change.emit(this.value);
 	}
 
-	updateAcummulator(prop, name) {
-		this.accumulator = { ...this.accumulator, [prop]: name };
-		this.onChange();
-		this.update.emit(this.accumulator);
-	}
 }
