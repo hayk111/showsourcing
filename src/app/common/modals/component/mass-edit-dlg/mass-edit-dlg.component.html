@@ -1,6 +1,9 @@
 <dialog-app>
 
-	<dialog-header-app>Mass edit of X items</dialog-header-app>
+	<dialog-header-app>
+		<ng-container i18n="mass edit of X products@@mass-edit">Mass edit of</ng-container> {{ items?.length || 0}}
+		<ng-container i18n="@@nested_items">{	items?.length || 0, plural, =1 { item } other { items } }</ng-container>
+	</dialog-header-app>
 
 	<div class="container">
 		<h5 class="ms">Property to update</h5>
@@ -103,8 +106,9 @@
 			<ng-container *ngSwitchCase="'extendedField'">
 				<extended-form-app
 					*ngIf="definitions$ | async as definitions; else spinner"
-					[fields]="[]"
-					[definitions]="definitions">
+					[fields]="value || []"
+					[definitions]="definitions"
+					(update)="statusUpdated($event.extendedFields, choice)">
 				</extended-form-app>
 			</ng-container>
 
@@ -114,8 +118,8 @@
 	</ng-container>
 
 	<dialog-footer-app>
-		<button class="capitalize secondary ">cancel</button>
-		<button class="capitalize">update</button>
+		<button class="capitalize secondary" (click)="close()">cancel</button>
+		<button class="capitalize" (click)="update()">update</button>
 	</dialog-footer-app>
 </dialog-app>
 

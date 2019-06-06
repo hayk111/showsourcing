@@ -36,6 +36,7 @@
 			</context-menu-item-app>
 		</context-menu-app>
 
+		<!-- Multiple status selector -->
 		<status-selector-app
 			toolTip toolTipMessage="Change status of selected" toolTipPosition="above-right"
 			#workActionMenu
@@ -45,6 +46,12 @@
 			[internalUpdate]="false"
 			(statusUpdated)="statusUpdated.emit($event)">
 		</status-selector-app>
+
+		<!-- Mass edit -->
+		<button class="secondary-light flexCenter with-name" (click)="massEdit.emit()">
+			<icon-app class="color-primary" name="edit"></icon-app>
+			Mass edit
+		</button>
 
 		<!-- Project -->
 		<button class="secondary-light flexCenter with-name" (click)="addProject.emit()">

@@ -34,7 +34,12 @@ export class ExtendedFormComponent extends TrackingComponent {
 	}
 
 	onUpdate(field: ExtendedField) {
-		const updatedFields = this._fields.filter(f => f.id !== field.id).concat(field);
+		let updatedFields;
+		if (field.value !== undefined)
+			updatedFields = this._fields.filter(f => f.id !== field.id).concat(field);
+		else
+			updatedFields = this._fields;
+
 		this.update.emit({ extendedFields: updatedFields });
 	}
 

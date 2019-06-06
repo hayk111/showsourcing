@@ -23,6 +23,7 @@ export class ProductSelectionBarComponent implements OnInit {
 	@Output() favorited = new EventEmitter<null>();
 	@Output() unfavorited = new EventEmitter<null>();
 	@Output() statusUpdated = new EventEmitter<any>();
+	@Output() massEdit = new EventEmitter<null>();
 
 	like = false;
 	dislike = false;

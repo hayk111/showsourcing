@@ -78,7 +78,6 @@
 		(update)="listSrv.update($event)">
 	</products-card-view-app>
 
-
 	<product-selection-bar-app
 		[isShown]="(listSrv.selection$ | async).size > 0"
 		[selection]="listSrv.selection$ | async"
@@ -92,6 +91,7 @@
 		(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 		(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 		(statusUpdated)="listSrv.updateSelected({status: $event})"
+		(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
 		(deleted)="listSrv.deleteSelected()"
 		(close)="listSrv.unselectAll()">
 	</product-selection-bar-app>
