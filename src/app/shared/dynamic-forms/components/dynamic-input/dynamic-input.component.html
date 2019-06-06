@@ -85,7 +85,7 @@
     </ng-template>
   </ng-container>
 
-  <ng-container *ngSwitchCase="'yesNo'">
+  <ng-container *ngSwitchCase="'boolean'">
     <form-field-app>
       <label-app>{{ customField.label || customField.name }}</label-app>
       <radio-app formFieldCtrl [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" [(ngModel)]="value"></radio-app>

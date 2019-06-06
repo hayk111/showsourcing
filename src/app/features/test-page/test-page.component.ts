@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { DialogService } from '~shared/dialog';
+import { CreationProductDlgComponent } from '~common/modals';
 
 @Component({
 	selector: 'app-test-page',
@@ -8,9 +10,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class TestPageComponent implements OnInit {
 
-	constructor() { }
+	constructor(private dlgSrv: DialogService) { }
 
 	ngOnInit() {
 	}
 
+	open() {
+		this.dlgSrv.open(CreationProductDlgComponent);
+	}
 }

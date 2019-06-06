@@ -22,7 +22,7 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 		// TODO i18n
 		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
 		{ name: 'sample', type: 'title' },
-		{ name: 'sample', type: 'yesNo' },
+		{ name: 'sample', type: 'boolean' },
 		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
 		// we need this empty objects since innercarton, mastercarton, pricematrix, have more rows inside the dynamic form

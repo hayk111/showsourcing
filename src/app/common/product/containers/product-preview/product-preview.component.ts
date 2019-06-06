@@ -108,7 +108,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
 		{ name: translate(ERM.SAMPLE.singular, 'erm'), type: 'title' },
-		{ name: 'sample', type: 'yesNo' },
+		{ name: 'sample', type: 'boolean' },
 		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
 		{ name: 'shipping', type: 'title' },
 		{

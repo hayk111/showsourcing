@@ -1,8 +1,8 @@
-<dialog-app>
+<dialog-app class="vertical-scroll-content">
 
 	<dialog-header-app i18n="@@new-product">new product</dialog-header-app>
 
-	<div class="container">
+	<div class="container flex">
 
 		<!-- left -->
 		<div class="left">
@@ -11,6 +11,12 @@
 
 		<!-- right -->
 		<div class="right">
+			<dynamic-form-app
+				[fields]="dynamicFields"
+				[value]="product"
+				[colAmount]="1"
+				(update)="updateProduct($event)">
+			</dynamic-form-app>
 			<!-- dynamic form -->
 		</div>
 	</div>
