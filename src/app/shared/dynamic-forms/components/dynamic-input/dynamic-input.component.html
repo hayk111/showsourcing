@@ -75,6 +75,7 @@
 		<form-field-app  class="modal">
 			<label-app inputApp>{{ customField?.label || customField?.name }}</label-app>
 			<input-selector-app
+				[width]="390"
 				[(ngModel)]="accumulator"
 				[multiple]="customField?.metadata?.multiple"
 				[type]="customField?.metadata?.target"
