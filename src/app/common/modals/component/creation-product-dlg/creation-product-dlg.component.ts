@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductService } from '~core/entity-services';
-import { ERM, Product } from '~core/models';
+import { ERM, Product, Packaging, Price } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -121,7 +121,7 @@ export class CreationProductDlgComponent implements OnInit {
 			this.productSrv.create(this.product).subscribe(product => {
 				// if we create a new product we create a new id
 				if (this.createAnother) {
-					product = { ...product, id: uuid() };
+					product = this.resetIds(product);
 					this.dlgSrv.open(CreationProductDlgComponent, { product });
 				} else
 					this.close();
@@ -140,6 +140,21 @@ export class CreationProductDlgComponent implements OnInit {
 					});
 				});
 		}
+	}
+
+	private resetIds(product) {
+		product = { ...product, id: uuid() };
+		if (product.masterCarton)
+			product = { ...product, masterCarton: new Packaging(product.masterCarton) };
+		if (product.innerCarton)
+			product = { ...product, innerCarton: new Packaging(product.innerCarton) };
+		if (product.price)
+			product = { ...product, price: new Price(product.price) };
+		if (product.samplePrice)
+			product = { ...product, samplePrice: new Price(product.samplePrice) };
+		// images
+		// files
+		return product;
 	}
 
 }
