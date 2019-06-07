@@ -62,9 +62,4 @@ export class DynamicInputComponent extends AbstractInput implements OnInit, Afte
 	get labelName() {
 		return this.customField.metadata.labelName || 'name';
 	}
-
-	test(item) {
-		console.log(item);
-		console.log(this.accumulator);
-	}
 }
