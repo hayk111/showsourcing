@@ -85,6 +85,10 @@ export class CreationProductDlgComponent implements OnInit {
 			name: 'harbour', type: 'selector', label: 'Harbour',
 			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
 		},
+		{
+			name: 'extendedFields', type: 'extendedField', label: 'extended fields',
+			metadata: { target: 'product.extendedFields' }
+		}
 	];
 	createAnother = false;
 

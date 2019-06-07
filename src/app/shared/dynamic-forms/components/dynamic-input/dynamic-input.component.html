@@ -85,6 +85,7 @@
 				<selector-placeholder-app
 					[name]="accumulator"
 					[placeholder]="customField?.metadata.target">
+					{{ customField?.metadata?.type === 'entity' ? accumulator?.name : accumulator }}
 				</selector-placeholder-app>
 			</selector-app>
 		</form-field-app>
@@ -111,7 +112,20 @@
   <form-field-app *ngSwitchCase="'price'" class="modal">
 		<label-app>{{ customField?.label || customField?.name }}</label-app>
     <input-price-app inputApp [(ngModel)]="accumulator" (blur)="onChange()"></input-price-app>
-  </form-field-app>
+	</form-field-app>
+
+	<!--  extended fields -->
+	<ng-container	*ngSwitchCase="'extendedField'">
+		<ng-container *ngIf="definitions$ | async as definitions">
+			<h3 class="ms" i18n="@@extended-fields">extended fields</h3>
+			<extended-form-app
+				[fields]="accumulator || []"
+				[isFormStyle]="true"
+				[definitions]="definitions"
+				(update)="accumulator = $event; onChange();">
+			</extended-form-app>
+		</ng-container>
+	</ng-container>
 
 	<!-- title -->
 	<ng-container *ngSwitchCase="'title'">
