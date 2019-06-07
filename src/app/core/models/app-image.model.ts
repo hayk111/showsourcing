@@ -14,8 +14,7 @@ export class AppImage extends EntityWithAudit<AppImageConfig> {
 
 	constructor(config?: AppImageConfig) {
 		super(config);
-		const ext = (config.fileName || ' .jpg').split('.').pop();
-		this.fileName = `${this.id}.${ext}`;
+		this.fileName = `${this.id}.jpg`;
 	}
 }
 
