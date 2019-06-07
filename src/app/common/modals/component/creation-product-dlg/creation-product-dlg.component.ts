@@ -39,7 +39,8 @@ export class CreationProductDlgComponent implements OnInit {
 				target: ERM.CATEGORY.singular,
 				type: 'entity',
 				labelName: 'name',
-				canCreate: true
+				canCreate: true,
+				hasBadge: true
 			}
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
