@@ -1,0 +1,57 @@
+<selector-app
+	[width]="390"
+	[(ngModel)]="value"
+	[multiple]="multiple"
+	[type]="type"
+	[canCreate]="canCreate"
+	(update)="onValueChange($event)">
+	<selector-placeholder-app
+		[name]="value"
+		[placeholder]="type">
+		<div *ngIf="isEntity && value" #content class="flexWrap">
+			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
+		</div>
+	</selector-placeholder-app>
+</selector-app>
+
+<ng-template #oneValueLabel>
+	<!-- with badge -->
+	<info-badge-app *ngIf="hasBadge; else noSingleBadge" [type]="type">
+		<ng-container *ngTemplateOutlet="switchType; context: { item: value }"></ng-container>
+	</info-badge-app>
+	<!-- without badge, plain text -->
+	<ng-template #noSingleBadge>
+		<ng-container *ngTemplateOutlet="switchType; context: { item: value }"></ng-container>
+	</ng-template>
+</ng-template>
+
+<ng-template #multipleValuesLabel>
+	<!-- with badge -->
+	<ng-container *ngIf="hasBadge; else noMultipleBadge">
+		<info-badge-app *ngFor="let item of value" [type]="type" class="multi-badge">
+			<ng-container *ngTemplateOutlet="switchType; context: { item: item }"></ng-container>
+		</info-badge-app>
+	</ng-container>
+	<!-- without badge, plain text -->
+	<ng-template #noMultipleBadge>
+		<span *ngFor="let item of value; last as last">
+			<ng-container *ngTemplateOutlet="switchType; context: { item: item }"></ng-container>
+			<ng-container *ngIf="!last">-&nbsp;</ng-container>
+		</span>
+	</ng-template>
+</ng-template>
+
+<!-- detects the type and display certain property -->
+<ng-template #switchType let-item="item">
+	<ng-container [ngSwitch]="type">
+		<ng-container *ngSwitchCase="erm.USER.singular">
+			{{ item | formatUserName }}
+		</ng-container>
+		<ng-container *ngSwitchCase="erm.EVENT.singular">
+			{{ item?.descriptor?.name }}
+		</ng-container>
+		<ng-container *ngSwitchDefault>
+			{{ item?.name || 'none' }}
+		</ng-container>
+	</ng-container>
+</ng-template>

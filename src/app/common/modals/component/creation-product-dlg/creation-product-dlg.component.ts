@@ -49,11 +49,11 @@ export class CreationProductDlgComponent implements OnInit {
 			type: 'selector',
 			label: translate(ERM.TAG.plural, 'erm'),
 			metadata: {
-				target: ERM.TAG.plural,
+				target: ERM.TAG.singular,
 				type: 'entity',
 				labelName: 'name',
 				multiple: true,
-				canCreate: true
+				canCreate: true,
 			}
 		},
 		{
@@ -61,11 +61,12 @@ export class CreationProductDlgComponent implements OnInit {
 			type: 'selector',
 			label: translate(ERM.PROJECT.plural, 'erm'),
 			metadata: {
-				target: ERM.PROJECT.plural,
+				target: ERM.PROJECT.singular,
 				type: 'entity',
 				labelName: 'name',
 				multiple: true,
-				canCreate: true
+				canCreate: true,
+				hasBadge: true
 			}
 		},
 		{ name: 'sample', type: 'boolean' },

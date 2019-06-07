@@ -24,6 +24,7 @@ import {
 	ExtendedFormInputComponent,
 	InputPackagingComponent,
 } from './components';
+import { InputSelectorComponent } from './components/dynamic-input/inputs/input-selector/input-selector.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import {
 		EditablePriceMatrixRowComponent,
 		EditableSelectorComponent,
 		InputPackagingComponent,
+		InputSelectorComponent,
 	],
 	exports: [
 		DynamicFormComponent,

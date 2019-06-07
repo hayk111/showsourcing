@@ -2,3 +2,14 @@
 <h2> You can do anything here, it's just to test stuff</h2>
 <!-- don't remove me end -->
 <button (click)="open()">clickme</button>
+{{ test }}
+<input #inp inputApp type="text" (input)="test = inp.value"/>
+
+<ng-container [ngSwitch]="test">
+	<ng-container *ngSwitchCase="test === 'con' || test === 'nope' ? test : 'con'">
+		this is not the default
+	</ng-container>
+	<ng-container *ngSwitchDefault>
+		This is the default
+	</ng-container>
+</ng-container>

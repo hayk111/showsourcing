@@ -74,20 +74,14 @@
   <ng-container *ngSwitchCase="'selector'">
 		<form-field-app  class="modal">
 			<label-app inputApp>{{ customField?.label || customField?.name }}</label-app>
-			<selector-app
-				[offsetY]="-22"
-				[width]="390"
+			<input-selector-app
 				[(ngModel)]="accumulator"
-				[multiple]="customField?.metadata.multiple"
-				[type]="customField?.metadata.target"
-				[canCreate]="customField?.metadata.canCreate"
+				[multiple]="customField?.metadata?.multiple"
+				[type]="customField?.metadata?.target"
+				[canCreate]="customField?.metadata?.canCreate"
+				[hasBadge]="customField?.metadata?.hasBadge"
 				(update)="onChange()">
-				<selector-placeholder-app
-					[name]="accumulator"
-					[placeholder]="customField?.metadata.target">
-					{{ customField?.metadata?.type === 'entity' ? accumulator?.name : accumulator }}
-				</selector-placeholder-app>
-			</selector-app>
+			</input-selector-app>
 		</form-field-app>
   </ng-container>
 

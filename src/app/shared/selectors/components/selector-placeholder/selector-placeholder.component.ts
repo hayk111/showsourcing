@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ContentChild, ElementRef } from '@angular/core';
 
 @Component({
 	selector: 'selector-placeholder-app',
@@ -11,6 +11,9 @@ export class SelectorPlaceholderComponent implements OnInit {
 	@Input() name: string;
 	@Input() placeholder: string;
 	@Input() hasArrow = true;
+
+	// if we are using transclusion on this component, we must give to the transcluded child the #content (id)
+	@ContentChild('content') content: ElementRef;
 
 	constructor() { }
 

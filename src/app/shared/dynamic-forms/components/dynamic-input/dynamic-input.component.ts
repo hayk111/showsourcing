@@ -22,6 +22,7 @@ import { ExtendedFieldDefinition } from '~core/models';
 	providers: [makeAccessorProvider(DynamicInputComponent)]
 })
 export class DynamicInputComponent extends AbstractInput implements OnInit, AfterViewInit {
+
 	@Input() customField: DynamicField;
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */

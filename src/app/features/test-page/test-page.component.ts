@@ -10,6 +10,8 @@ import { CreationProductDlgComponent } from '~common/modals';
 })
 export class TestPageComponent implements OnInit {
 
+	test = 'nop';
+
 	constructor(private dlgSrv: DialogService) { }
 
 	ngOnInit() {
