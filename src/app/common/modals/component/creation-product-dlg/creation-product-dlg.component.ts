@@ -54,6 +54,7 @@ export class CreationProductDlgComponent implements OnInit {
 				labelName: 'name',
 				multiple: true,
 				canCreate: true,
+				hasBadge: true
 			}
 		},
 		{
