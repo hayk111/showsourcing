@@ -34,7 +34,7 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 		{ name: 'shipping', type: 'title' },
 		{
 			name: 'incoTerm', type: 'selector', label: 'INCO Term',
-			metadata: { target: ERM.INCOTERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
+			metadata: { target: ERM.INCO_TERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
 		},
 		{
 			name: 'harbour', type: 'selector', label: 'loading port',

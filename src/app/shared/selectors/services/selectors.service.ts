@@ -143,7 +143,7 @@ export class SelectorsService {
 					break;
 				case ERM.CATEGORY:
 				case ERM.HARBOUR:
-				case ERM.INCOTERM:
+				case ERM.INCO_TERM:
 				case ERM.LENGTH_UNIT:
 				case ERM.PRODUCT:
 				case ERM.PROJECT:

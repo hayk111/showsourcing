@@ -44,7 +44,7 @@ export class ProductInformationComponent implements OnInit {
 		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
 		{
 			name: 'incoTerm', type: 'selector', label: 'inco term',
-			metadata: { target: ERM.INCOTERM.singular, type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
+			metadata: { target: ERM.INCO_TERM.singular, type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
 		},
 		{
 			name: 'harbour', type: 'selector', label: 'harbour',

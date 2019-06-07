@@ -79,7 +79,7 @@ export class CreationProductDlgComponent implements OnInit {
 		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
 		{
 			name: 'incoTerm', type: 'selector', label: 'Inco Term',
-			metadata: { target: ERM.INCOTERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
+			metadata: { target: ERM.INCO_TERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
 		},
 		{
 			name: 'harbour', type: 'selector', label: 'Harbour',

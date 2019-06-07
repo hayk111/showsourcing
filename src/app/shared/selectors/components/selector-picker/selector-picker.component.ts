@@ -167,7 +167,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.CURRENCY: return this.selectorSrv.getCurrenciesGlobal();
 			case ERM.EVENT: return this.selectorSrv.getEvents();
 			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
-			case ERM.INCOTERM: return this.selectorSrv.getIncoTermsGlobal();
+			case ERM.INCO_TERM: return this.selectorSrv.getIncoTermsGlobal();
 			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits();
 			case ERM.PRODUCT: return this.selectorSrv.getProducts();
 			case ERM.PROJECT: return this.selectorSrv.getProjects();
@@ -244,7 +244,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.COUNTRY:
 			case ERM.CURRENCY:
 			case ERM.HARBOUR:
-			case ERM.INCOTERM:
+			case ERM.INCO_TERM:
 			case ERM.LENGTH_UNIT:
 			case ERM.WEIGHT_UNIT:
 				item = this.value;

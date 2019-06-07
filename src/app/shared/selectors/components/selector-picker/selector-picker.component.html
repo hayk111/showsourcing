@@ -92,7 +92,7 @@
 				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.INCOTERM">
+			<ng-container *ngSwitchCase="erm.INCO_TERM">
 				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 			</ng-container>
 
