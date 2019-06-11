@@ -1,5 +1,6 @@
 dialog-app {
 	min-height: 250px;
+	max-height: 80vh;
 	width: 500px;
 
 	.status-selector {
@@ -8,6 +9,7 @@ dialog-app {
 	}
 
 	.container {
+		padding-right: var(--spacing-s);
 		.property-picker {
 			margin-bottom: var(--spacing-l);
 		}

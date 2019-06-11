@@ -10,6 +10,9 @@
 	flex-direction: column;
 	overflow: hidden;
 
+	&.vertical-scroll-content .content{
+		overflow-y: auto;
+	}
 	&.no-content-height .content {
 		height: unset;
 	}
