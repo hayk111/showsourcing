@@ -25,7 +25,7 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 
 export interface PickerField {
 	name: string;
-	type: string;
+	type: string; // TODO when merge with supplier-connect, try make a type, with the different types
 	attribute?: string; // if the name is different than the attribute name e.g. moq != minimunOrderQuantity
 	metadata?: PickerFieldMetadata;
 }

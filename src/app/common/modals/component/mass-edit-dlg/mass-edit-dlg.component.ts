@@ -89,7 +89,7 @@ export class MassEditDlgComponent implements OnInit {
 
 	}
 
-	private mapItems(choice) {
+	private mapItems(choice: PickerField) {
 		const prop = choice.attribute || choice.name;
 		let mapped;
 		// checks if the type needs to update the id's so they don't share the same entity (Price, ExtendedField, Packaging)
