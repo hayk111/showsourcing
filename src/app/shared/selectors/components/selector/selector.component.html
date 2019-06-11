@@ -2,8 +2,8 @@
 <div
 	#trigger="cdkOverlayOrigin"
 	cdkOverlayOrigin
-	class="fullWidth pointer"
-	(click)="menuOpen = !menuOpen">
+	class="fullWidth"
+	(click)="openMenu()">
 	<ng-content></ng-content>
 </div>
 
@@ -21,8 +21,9 @@
 		[value]="value"
 		[type]="type"
 		[multiple]="multiple"
+		[filterList]="filterList"
 		[canCreate]="canCreate"
-		(update)="update.emit($event)"
+		(update)="onChange($event)"
 		(close)="closeMenu(true)">
 	</selector-picker-app>
 </cdk-overlay-app>

@@ -9,18 +9,17 @@
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.filterList.asFilters()?.length"
 		[hasFilter]="true"
-		[buttonIcon]="false"
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
 		(showFilters)="listSrv.openFilterPanel()"
 		(buttonClick)="openFindProductDlg()"
 		(search)="listSrv.search($event)"
-		(viewChange)="listSrv.changeView($event)">
+		(viewChange)="listSrv.changeView($event)"
+		i18n="@@add-products">
 
 		<sub-panel-right-item-app>
 			<product-sorting-menu-app
 				[currentSort]="listSrv.currentSort"
-				[gridView]="listSrv.view === 'card'"
 				(sortFromMenu)="listSrv.sortFromMenu($event)">
 			</product-sorting-menu-app>
 		</sub-panel-right-item-app>
@@ -49,8 +48,7 @@
 			(favorited)="listSrv.onItemFavorited($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(sort)="listSrv.sort($event)"
-			(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog($event)"
-			(delete)="deassociateProductById($event)">
+			(delete)="deassociateProductById(($event)?.id)">
 		</project-product-list-app>
 
 		<products-card-view-app

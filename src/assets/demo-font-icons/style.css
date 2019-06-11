@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?flhbaj');
-  src:  url('fonts/icomoon.eot?flhbaj#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?flhbaj') format('truetype'),
-    url('fonts/icomoon.woff?flhbaj') format('woff'),
-    url('fonts/icomoon.svg?flhbaj#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?5fo4d9');
+  src:  url('fonts/icomoon.eot?5fo4d9#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?5fo4d9') format('truetype'),
+    url('fonts/icomoon.woff?5fo4d9') format('woff'),
+    url('fonts/icomoon.svg?5fo4d9#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-send-envelope:before {
+  content: "\e94e";
+}
 .icon-combined-arrows:before {
   content: "\e947";
 }
@@ -108,10 +111,13 @@
 .icon-check:before {
   content: "\e911";
 }
-.icon-chevron__right:before {
+.icon-arrow-right-thin:before {
   content: "\e912";
 }
-.icon-chevron__bottom:before {
+.icon-arrow-left-thin:before {
+  content: "\e94d";
+}
+.icon-arrow-bottom-thin:before {
   content: "\e913";
 }
 .icon-more:before {

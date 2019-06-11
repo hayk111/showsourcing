@@ -1,4 +1,16 @@
 :host {
+	&.secondary-style {
+		.header {
+			background: white;
+		}
+	}
+// .pagination-ctrl {
+// 	margin-bottom: var(--spacing-s);
+// 	icon-app {
+// 		margin-left: var(--spacing-m);
+// 	}
+// }
+
 	display: block;
 	height: 100%;
 }
@@ -6,13 +18,16 @@
 .ctnr {
 	position: relative;
 	background: var(--color-bg);
-	border: 1px solid  var(--color-secondary);
 	box-sizing: border-box;
 	overflow: auto;
 	// pagination
 	height: calc(100% - 32px);
 	display: flex;
 	flex-direction: column;
+}
+
+.menu-context {
+	margin-top: var(--spacing-xs);
 }
 
 .pagination-ctrl {
@@ -63,8 +78,16 @@
 	height: 100%;
 
 	.placeholder {
+		padding-top: var(--spacing-xxl);
 		font-weight: 600;
 		font-size: 20px;
+	}
+}
+.context-menu {
+	padding: 0 !important;
+	icon-app {
+		padding-left: var(--spacing-s) !important;
+		padding-right: var(--spacing-xs) !important;
 	}
 }
 
@@ -85,18 +108,19 @@
 }
 
 .cell, .header {
-	padding: 0 var(--spacing-m);
+	color: black;
+	padding: 0 var(--spacing-ms);
 	border-bottom: 1px solid  var(--color-secondary);
-	height: 51px;
+	height: 47px;
 	display: flex;
 	align-items: center;
 	position: relative;
 }
 
 .cell {
+	color: var(--color-txt-strong);
 	&.selected {
 		background-color: var(--color-secondary-light);
-		color: var(--color-text-primary);
 	}
 
 	&.hover {
@@ -133,15 +157,11 @@
 	}
 	.cell, .header {
 		padding: 0;
-		width: var(--spacing-m);
+		width: var(--spacing-ms);
 	}
 }
 
 .ellipsis {
-	width: 100%;
-}
-
-.full-width {
 	width: 100%;
 }
 

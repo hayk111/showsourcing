@@ -29,7 +29,7 @@ export class ListPageDataService
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
 	selectParams: SelectParamsConfig = {
-		query: '',
+		query: 'deleted == false',
 		sortBy: 'creationDate',
 		descending: true,
 		take: DEFAULT_TAKE_PAGINATION,

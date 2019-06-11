@@ -15,8 +15,7 @@ import { AutoUnsub } from '~utils';
 		ListPageService
 	]
 })
-export class CategoryDataManagementPageComponent extends AutoUnsub
-	implements OnInit {
+export class CategoryDataManagementPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM.CATEGORY;
 
@@ -25,9 +24,7 @@ export class CategoryDataManagementPageComponent extends AutoUnsub
 		public listSrv: ListPageService<Category, CategoryService>,
 		public commonModalSrv: CommonModalService,
 		private dmSrv: DataManagementService
-	) {
-		super();
-	}
+	) { super(); }
 
 
 	ngOnInit() {

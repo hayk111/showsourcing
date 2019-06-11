@@ -16,4 +16,5 @@ export * from './realm-date-format.util';
 export * from './regexes';
 export * from './status-to-color.function';
 export * from './tracking-component';
+export * from './translate.utils';
 export * from './uuid.utils';

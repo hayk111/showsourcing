@@ -14,12 +14,15 @@ export class CheckboxComponent extends AbstractInput {
 	@Output() uncheck = new EventEmitter<null>();
 	@ViewChild('label') label: ElementRef;
 	@Input() size = 16;
-	@Input() labelClass = '';
+	@Input() boxColor = 'primary';
+	@Input() disabled = false;
+
 	/** id of element, if not specified it will generate automtically */
 	@Input()
 	get id(): string { return this._id; }
 	set id(value: string) { this._id = value; }
 	protected _id: string = 'checkbox-' + CheckboxComponent.NEXT_UID++;
+
 	/**
    * Whether the checkbox is checked.
    */
@@ -29,6 +32,13 @@ export class CheckboxComponent extends AbstractInput {
 		this._checked = value;
 	}
 	private _checked = false;
+
+	// (alias for checked)
+	@Input()
+	get value(): boolean { return this._checked; }
+	set value(value: boolean) {
+		this._checked = value;
+	}
 
 	/** Whether the checkbox is required. */
 	@Input()
@@ -42,7 +52,9 @@ export class CheckboxComponent extends AbstractInput {
 
 	/** Toggles the `checked` state of the checkbox. */
 	toggle(): void {
-		this.checked = !this.checked;
+		if (!this.disabled) {
+			this.checked = !this.checked;
+		}
 	}
 
 	/**
@@ -73,8 +85,8 @@ export class CheckboxComponent extends AbstractInput {
 
 	uncheckedStyle() {
 		// it's -2 since the div of the unchecked grows by 2 for some reason
-		const unWidth = this.size - 2;
-		const unHeight = this.size - 2;
+		const unWidth = this.size - 1;
+		const unHeight = this.size - 1;
 		return {
 			width: `${unWidth}px`,
 			height: `${unHeight}px`
@@ -83,7 +95,16 @@ export class CheckboxComponent extends AbstractInput {
 
 	iconSize() {
 		return {
-			'font-size': `${this.size}px`
+			'height': `${this.size}px`,
+			'width': `${this.size}px`
 		};
 	}
+
+	// Implemented as part of ControlValueAccessor.
+	// to give accessor its formControl value associated to it
+	writeValue(value: any): void {
+		this.checked = value;
+		this.cd.markForCheck();
+	}
+
 }

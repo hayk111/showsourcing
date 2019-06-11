@@ -2,21 +2,24 @@
 	<dialog-app>
 
 		<!-- when ready -->
-		<dialog-header-app *ngIf="!pending">
-			New {{type.singular}}
+		<dialog-header-app *ngIf="!pending" class="first-uppercase">
+			<ng-container i18n="@@new">New</ng-container> {{ type.singular | const: 'erm' }}
 		</dialog-header-app>
 
 		<form *ngIf="!pending" [formGroup]="group">
 			<form-field-app>
-				<label-app> {{type.singular}} Name </label-app>
-				<input inputApp type="text" (input)="checkExists()" formControlName="name" placeholder="New {{type.singular}}" (keyup.enter)="onSubmit()"/>
+				<label-app> {{ type.singular | const: 'erm' }} <span class="capitalize" i18n="@@name">name</span> </label-app>
+				<input inputApp type="text" (input)="checkExists()" formControlName="name" placeholder="New {{ type.singular | const: 'erm' }}" (keyup.enter)="onSubmit(canRedirect)" i18n="@@new-OBJ"/>
 			</form-field-app>
-			<label-app> Please provide the {{type.singular}} name to create </label-app>
+			<label-app i18n="@@provide-name-create"> Please provide the {{ type.singular | const: 'erm' }} name to create </label-app>
 		</form>
 
-		<dialog-footer-app *ngIf="!pending">
-			<div class="color-warn" *ngIf="exists$ | async"> That {{type.singular}} name already exists. Please choose another one.</div>
-			<input [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create" (click)="onSubmit()"/>
+		<dialog-footer-app *ngIf="!pending ">
+			<div class="color-warn" *ngIf="exists$ | async" i18n="@@that-already-exists">That {{ type.singular | const: 'erm' }} name already exists. Please choose another one.</div>
+			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" class="secondary" value="Create & Stay" (click)="onSubmit(false)"/>
+			<span *ngIf="canRedirect" class="spacer mg-s"></span>
+			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create & Go" (click)="onSubmit()"/>
+			<input *ngIf="!canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create" (click)="onSubmit(false)"/>
 		</dialog-footer-app>
 
 		<!-- when pending -->

@@ -22,8 +22,15 @@ import { Tag } from '~models/tag.model';
 import { Task } from '~models/task.model';
 import { Team } from '~models/team.model';
 import { User } from '~models/user.model';
-import { ExtendedField } from './extended-field.model';
+
+import { CreateRequest } from './create-request.model';
 import { ExtendedFieldDefinition } from './extended-field-definition.model';
+import { ExtendedField } from './extended-field.model';
+import { Price } from './price.model';
+import { RequestElement } from './request-element.model';
+import { RequestReply } from './request-reply.model';
+import { RequestTemplate } from './request-template.model';
+import { SupplierRequest } from './supplier-request.model';
 
 
 export class EntityMetadata {
@@ -45,13 +52,15 @@ export class EntityMetadata {
 		this.singular = singular;
 		this.plural = plural;
 		this.url = url || singular;
-		this.destUrl = destUrl || this.url + '/details';
+		this.destUrl = destUrl || this.url;
 		this.constClass = constClass;
 	}
 
 }
 
 // Must be added ALPHABETICALLY
+// Laziness is your best friend.  Never do twice what you can automate once
+// - Ghandi
 export class ERM {
 
 	static readonly ATTACHMENT = new EntityMetadata('attachment', 'attachments', Attachment);
@@ -60,7 +69,9 @@ export class ERM {
 	static readonly COMMENT = new EntityMetadata('comment', 'comments');
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts', Contact);
 	static readonly COUNTRY = new EntityMetadata('country', 'countries', Country);
+	static readonly CRATE_REQUEST = new EntityMetadata('createRequest', 'createRequests', CreateRequest);
 	static readonly CURRENCY = new EntityMetadata('currency', 'currencies');
+	static readonly EMAIL = new EntityMetadata('email', 'emails', Contact);
 	static readonly EVENT = new EntityMetadata('event', 'events', Event);
 	static readonly EVENT_DESCRIPTION = new EntityMetadata('event description', 'event descriptions', EventDescription);
 	static readonly EXPORT_REQUEST = new EntityMetadata('export request', 'export requests', ExportRequest);
@@ -71,22 +82,27 @@ export class ERM {
 	static readonly HARBOUR = new EntityMetadata('harbour', 'harbours', Harbour);
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);
 	static readonly IMAGE_UPLOAD_REQUEST = new EntityMetadata('image upload request', 'image upload requests', ImageUploadRequest);
-	static readonly INCOTERM = new EntityMetadata('incoterm', 'incoterms', IncoTerm);
+	static readonly INCOTERM = new EntityMetadata('inco term', 'inco terms', IncoTerm);
 	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
 	static readonly LENGTH_UNIT = new EntityMetadata('length unit', 'length units');
 	static readonly LOCATION = new EntityMetadata('location', 'locations');
 	static readonly MEMBER = new EntityMetadata('member', 'members');
+	static readonly PRICE = new EntityMetadata('price', 'prices', Price);
 	static readonly PRODUCT = new EntityMetadata('product', 'products', Product);
 	static readonly PRODUCT_STATUS = new EntityMetadata('product status', 'product status', ProductStatus, 'product-status');
 	static readonly PRODUCT_VOTE = new EntityMetadata('product vote', 'product votes', Product, 'product-vote');
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
 	static readonly QUOTE = new EntityMetadata('quote', 'quotes', Quote);
+	static readonly REQUEST_ELEMENT = new EntityMetadata('request element', 'request elements', RequestElement);
+	static readonly REQUEST_REPLY = new EntityMetadata('request reply', 'request replies', RequestReply);
+	static readonly REQUEST_TEMPLATE = new EntityMetadata('request template', 'request templates', RequestTemplate);
 	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
 	static readonly SAMPLE = new EntityMetadata('sample', 'samples', Sample);
 	static readonly SAMPLE_STATUS = new EntityMetadata('sample status', 'samples status', Sample, 'sample-status');
 	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
+	static readonly SUPPLIER_REQUEST = new EntityMetadata('request', 'requests', SupplierRequest);
 	static readonly SUPPLIER_STATUS = new EntityMetadata('supplier status', 'supplier status', SupplierStatus, 'supplier-status');
 	static readonly SUPPLIER_TAG = new EntityMetadata('supplier tag', 'supplier tags', Tag, 'supplier-tag');
 	static readonly SUPPLIER_TYPE = new EntityMetadata('supplier type', 'supplier types', Supplier, 'supplier-type');

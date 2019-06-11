@@ -1,2 +1,2 @@
-export * from '~shared/card/components';
-export * from '~shared/card/card.module';
+export * from './components';
+export * from './card.module';

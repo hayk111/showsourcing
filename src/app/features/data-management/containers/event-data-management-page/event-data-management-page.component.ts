@@ -22,8 +22,7 @@ export class EventDataManagementPageComponent extends AutoUnsub implements OnIni
 		private eventSrv: EventService,
 		public listSrv: ListPageService<Event, EventService>,
 		public commonModalSrv: CommonModalService,
-		private dmSrv: DataManagementService
-	) {
+		private dmSrv: DataManagementService) {
 		super();
 	}
 

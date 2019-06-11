@@ -1,13 +1,14 @@
 
 <!-- top panel -->
 <top-panel-app
-	title="My Products"
+	[title]="'My products'"
 	buttonName="Add Product"
-	(buttonClick)="listSrv.create()">
+	(buttonClick)="listSrv.create()"
+	i18n-title="@@my-products"
+	i18n-buttonName="@@add-products">
 </top-panel-app>
 
 <sub-panel-app
-	[buttonIcon]="false"
 	[filtersAmount]="getFilterAmount()"
 	[hasFilter]="true"
 	[hasSwitch]="true"
@@ -17,10 +18,9 @@
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
-	<sub-panel-right-item-app>
+	<sub-panel-right-item-app class="flex">
 		<product-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
-			[gridView]="listSrv.view === 'card'"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
 		<button class="capitalize" (click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())" i18n="@@export">
@@ -51,7 +51,7 @@
 		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
 		(openExportDialog)="commonModalSrv.openExportDialog([$event])"
 		(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
-		(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog([$event])"
+		(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"
 		(previewClick)="listSrv.openPreview($event)"
 		(select)="listSrv.selectOne($event, true)"
 		(selectAll)="listSrv.selectAll($event, true)"
@@ -93,6 +93,7 @@
 		(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 		(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
 		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+		(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
 		(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 		(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 		(statusUpdated)="listSrv.updateSelected({status: $event})"

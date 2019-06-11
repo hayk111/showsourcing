@@ -1,0 +1,63 @@
+<card-app>
+	<preview-app>
+		<!-- Header -->
+		<preview-header-app
+			[entityMD]="erm.PRODUCT"
+			[entity]="product"
+			[hasTop]="false"
+			(update)="update($event, 'name')">
+
+			<!-- Price -->
+			<price-with-quantity-app
+				*ngIf="product?.price?.value"
+				[product]="product"
+				(updateField)="update($event.newValue,  $event.field)">
+			</price-with-quantity-app>
+
+			<!-- Badge supplier -->
+			<preview-badge-app
+				[badge]="erm.SUPPLIER"
+				[value]="product?.supplier?.name"
+				i18n-toolTipMessage="@@open-preview"
+				toolTipMessage="Open preview"
+				[hasOpenAction]="true"
+				(openActionClicked)="openPreview.emit()"
+				(update)="update($event, 'supplier')">
+			</preview-badge-app>
+
+			<!-- Badge category -->
+			<preview-badge-app
+				[badge]="erm.CATEGORY"
+				[value]="product?.category"
+				(update)="update($event, 'category')">
+			</preview-badge-app>
+
+			<!-- Badge event -->
+			<preview-badge-app
+				*ngIf="product?.event"
+				[badge]="erm.EVENT"
+				[value]="product?.event"
+				(update)="update($event, 'event')">
+			</preview-badge-app>
+
+		</preview-header-app>
+
+		<!-- Description -->
+		<preview-section-app [title]="'Description'">
+			<input-description-app
+				[description]="product?.description"
+				(update)="update($event, 'description')">
+			</input-description-app>
+		</preview-section-app>
+
+		<!-- Tags -->
+		<preview-section-app [title]="'Tags'" class="noMarginBottom">
+			<input-badge-selector-app
+				[value]="product?.tags"
+				type="tag"
+				[offsetX]="15"
+				(change)="update($event, 'tags')">
+			</input-badge-selector-app>
+		</preview-section-app>
+	</preview-app>
+</card-app>

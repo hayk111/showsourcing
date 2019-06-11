@@ -1,13 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { EntityMetadata, ERM } from '~core/models';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { FilterList } from '~shared/filters';
 
 @Component({
 	selector: 'selector-app',
 	templateUrl: './selector.component.html',
 	styleUrls: ['./selector.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [makeAccessorProvider(SelectorComponent)],
 })
-export class SelectorComponent implements OnInit {
+export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() value: any;
 
@@ -22,6 +25,7 @@ export class SelectorComponent implements OnInit {
 
 	@Input() multiple = false;
 	@Input() canCreate = false;
+	@Input() filterList = new FilterList([]);
 	@Input() width = 395;
 
 	@Output() update = new EventEmitter<any>();
@@ -30,10 +34,11 @@ export class SelectorComponent implements OnInit {
 
 	@Input() offsetX = 0;
 	@Input() offsetY = 8;
+	@Input() disabled = false;
 	@Output() menuClosed = new EventEmitter<any>();
 
 	// we need this in order to calculate dynamically the offsetX on preview badges
-	constructor(public elem: ElementRef) { }
+	constructor(public elem: ElementRef, private cdr: ChangeDetectorRef) { super(cdr); }
 
 	ngOnInit() {
 	}
@@ -45,7 +50,8 @@ export class SelectorComponent implements OnInit {
 
 	/** Opens the menu. */
 	openMenu(): void {
-		this.menuOpen = true;
+		if (!this.disabled)
+			this.menuOpen = true;
 	}
 
 	/** Closes the menu. */
@@ -54,5 +60,11 @@ export class SelectorComponent implements OnInit {
 		if (emit) {
 			this.menuClosed.emit();
 		}
+	}
+
+	onChange(value: any) {
+		this.value = value;
+		this.onChangeFn(this.value);
+		this.update.emit(this.value);
 	}
 }

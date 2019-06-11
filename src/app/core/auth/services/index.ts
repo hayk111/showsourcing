@@ -1,2 +1,2 @@
-export * from '~core/auth/services/auth-guard.service';
+export * from '~core/auth/services/authenticated-guard';
 export * from '~core/auth/services/token.service';

@@ -6,6 +6,7 @@ import {
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { InputsModule } from '~shared/inputs';
+import { PricePipe } from '~shared/price/price.pipe';
 import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { UtilsModule } from '~shared/utils';
@@ -22,12 +23,18 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	RefuseReplyDlgComponent,
+	ReplySentDlgComponent,
+	RequestReplyDlgComponent,
+	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 } from './component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
 import { ExportWaitingViewComponent } from './component/export-dlg/export-waiting-view/export-waiting-view.component';
-import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
-import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
+import { ReviewRequestReplyDlgComponent } from './component/review-request-reply-dlg/review-request-reply-dlg.component';
+import {
+	ProductRequestListComponent,
+} from './component/supplier-request-dialog/product-request-list/product-request-list.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
 import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
@@ -41,16 +48,19 @@ const modals = [
 	CreationDialogComponent,
 	DescriptionDlgComponent,
 	EditionDialogComponent,
-	EmailListComponent,
+	ExportDlgComponent,
 	FindProductsDialogComponent,
 	InviteUserDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
-	ExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	RfqDialogComponent,
+	RefuseReplyDlgComponent,
+	ReplySentDlgComponent,
+	RequestReplyDlgComponent,
+	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	ReviewRequestReplyDlgComponent,
 ];
 
 @NgModule({
@@ -67,6 +77,7 @@ const modals = [
 		ProductsCardViewDialogComponent,
 		ExportSelectionViewComponent,
 		ExportWaitingViewComponent,
+		ProductRequestListComponent,
 		CompareLabelsComponent,
 		CompareColumnComponent,
 		DescriptionDlgComponent
@@ -75,6 +86,7 @@ const modals = [
 	providers: [
 		ProductDialogService,
 		CrudDialogService,
+		PricePipe
 	]
 })
 export class CommonModalsModule { }

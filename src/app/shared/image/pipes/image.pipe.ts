@@ -1,8 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {
-	DEFAULT_IMG, ImageUrls, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON,
-	DEFAULT_PROJECT_ICON, DEFAULT_CATEGORY_ICON, DEFAULT_PRODUCT_ICON, DEFAULT_SAMPLE_ICON
+	DEFAULT_CATEGORY_ICON,
+	DEFAULT_EVENT_ICON,
+	DEFAULT_IMG,
+	DEFAULT_PRODUCT_ICON,
+	DEFAULT_PRODUCT_LIST_ICON,
+	DEFAULT_PROJECT_ICON,
+	DEFAULT_REQUEST_ICON,
+	DEFAULT_SAMPLE_ICON,
+	DEFAULT_SUPPLIER_ICON,
+	DEFAULT_USER_ICON,
+	ImageUrls,
 } from '~utils';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 /**
  * Pipes that adds the begining url for images,
@@ -13,6 +23,9 @@ import {
 	name: 'image'
 })
 export class ImagePipe implements PipeTransform {
+
+	constructor(private sanitizer: DomSanitizer) { }
+
 	sizeIndexMap = new Map([
 		['xs', 0],
 		['s', 1],
@@ -41,7 +54,7 @@ export class ImagePipe implements PipeTransform {
 		value: any | string,
 		size: ('xs' | 's' | 'm' | 'l' | 'xl') = 'xl',
 		type: string = 'image' // can be supplier, product etc..
-	): string {
+	): string | SafeUrl {
 		try {
 			// we get the size index from the map
 			const sizeIndex = this.sizeIndexMap.get(size);
@@ -63,7 +76,7 @@ export class ImagePipe implements PipeTransform {
 
 				// PendingImage Object
 				if (value.data) {
-					return `${value.data}`;
+					return this.sanitizer.bypassSecurityTrustUrl(value.data);
 				}
 
 				// Supplier, product, Entity object...
@@ -82,20 +95,24 @@ export class ImagePipe implements PipeTransform {
 	getDefault(type: string) {
 		// TODO use entity metadata
 		switch (type) {
+			case 'category':
+				return DEFAULT_CATEGORY_ICON;
+			case 'event':
+				return DEFAULT_EVENT_ICON;
+			case 'product':
+				return DEFAULT_PRODUCT_ICON;
+			case 'product-list':
+				return DEFAULT_PRODUCT_LIST_ICON;
+			case 'project':
+				return DEFAULT_PROJECT_ICON;
+			case 'request':
+				return DEFAULT_REQUEST_ICON;
+			case 'sample':
+				return DEFAULT_SAMPLE_ICON;
 			case 'supplier':
 				return DEFAULT_SUPPLIER_ICON;
 			case 'user':
 				return DEFAULT_USER_ICON;
-			case 'event':
-				return DEFAULT_EVENT_ICON;
-			case 'project':
-				return DEFAULT_PROJECT_ICON;
-			case 'category':
-				return DEFAULT_CATEGORY_ICON;
-			case 'product':
-				return DEFAULT_PRODUCT_ICON;
-			case 'sample':
-				return DEFAULT_SAMPLE_ICON;
 			default:
 				return DEFAULT_IMG;
 		}

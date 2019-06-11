@@ -1,12 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CardModule } from '~shared/card/card.module';
-import { FilesCardComponent, FilesPageComponent } from '~shared/file/containers';
+import { FilesCardComponent } from '~shared/file/containers';
 import { FileDropDirective } from '~shared/file/directives/file-drop.directive';
 import { FileSelectDirective } from '~shared/file/directives/file-select.directive';
-import { CommonModule } from '@angular/common';
-import { LoadersModule } from '~shared/loaders';
 import { IconsModule } from '~shared/icons';
+import { InputsModule } from '~shared/inputs';
 import { ListModule } from '~shared/list/list.module';
+import { LoadersModule } from '~shared/loaders';
+
+import { FileListComponent, FileReviewerComponent, NoFilePlaceholderComponent } from './components';
 import { FileSizePipe } from './pipes';
 
 @NgModule({
@@ -15,20 +18,25 @@ import { FileSizePipe } from './pipes';
 		CardModule,
 		LoadersModule,
 		IconsModule,
-		ListModule
+		ListModule,
+		InputsModule
 	],
 	declarations: [
 		FileDropDirective,
+		FileListComponent,
+		FileReviewerComponent,
 		FileSelectDirective,
-		FilesPageComponent,
+		FileSizePipe,
 		FilesCardComponent,
-		FileSizePipe
+		NoFilePlaceholderComponent,
 	],
 	exports: [
 		FileDropDirective,
+		FileListComponent,
+		FileReviewerComponent,
 		FileSelectDirective,
-		FilesPageComponent,
-		FilesCardComponent
+		FilesCardComponent,
+		NoFilePlaceholderComponent,
 	],
 })
 export class FileModule {

@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'forgot-password-app',
@@ -37,17 +38,22 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 		this.queryParams = this.route.snapshot.queryParams || '/';
 
 		this.listForm = [{
-			label: 'Email',
+			label: translate('email'),
 			type: 'email',
 			name: 'email',
 			isRequired: true,
 			autoComplete: 'current-email',
-			placeHolder: 'Your email',
+			placeHolder: translate('Your email'),
 			validators: [Validators.required, Validators.email]
 		}];
 		this.buttons = [{
-			label: 'Send',
+			label: translate('send'),
 			type: 'button'
+		}, {
+			label: translate('login'),
+			type: 'link',
+			link: ['../login'],
+			queryParams: this.queryParams
 		}];
 	}
 
@@ -60,7 +66,7 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 					if (error.error && error.error.errors && error.error.errors.length > 0) {
 						this.error = error.error.errors[0];
 					} else {
-						this.error = 'Error when requesting password reset';
+						this.error = translate('Error when requesting password reset');
 					}
 					return throwError(error);
 				})

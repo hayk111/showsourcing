@@ -3,6 +3,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'New Product'
+			},
+			'zh-Hans': {
+				name: '新产品'
 			}
 		}
 	},
@@ -10,6 +13,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'New Product'
+			},
+			'zh-Hans': {
+				name: '新产品'
 			}
 		}
 	},
@@ -17,6 +23,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'New Supplier'
+			},
+			'zh-Hans': {
+				name: '新供应商'
 			}
 		}
 	},
@@ -24,6 +33,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'New Sample'
+			},
+			'zh-Hans': {
+				name: '新样品'
 			}
 		}
 	},
@@ -31,6 +43,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Get Quotation'
+			},
+			'zh-Hans': {
+				name: '获取报价'
 			}
 		}
 	},
@@ -38,6 +53,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Get Quotation'
+			},
+			'zh-Hans': {
+				name: '获取报价'
 			}
 		}
 	},
@@ -45,6 +63,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Refused'
+			},
+			'zh-Hans': {
+				name: '拒绝'
 			}
 		}
 	},
@@ -52,6 +73,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Team Review'
+			},
+			'zh-Hans': {
+				name: '团队评论'
 			}
 		}
 	},
@@ -59,6 +83,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Validated'
+			},
+			'zh-Hans': {
+				name: '已验证'
 			}
 		}
 	},
@@ -66,6 +93,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Validate Sample'
+			},
+			'zh-Hans': {
+				name: '验证样品'
 			}
 		}
 	},
@@ -73,6 +103,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Under Assessment'
+			},
+			'zh-Hans': {
+				name: '正在评估中'
 			}
 		}
 	},
@@ -80,6 +113,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Inspiration'
+			},
+			'zh-Hans': {
+				name: '意见'
 			}
 		}
 	},
@@ -87,13 +123,16 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Onboarding'
+			},
+			'zh-Hans': {
+				name: '新手上路'
 			}
 		}
 	},
 	'_toOrder': {
 		locales: {
-			en: {
-				name: 'To order'
+			'zh-Hans': {
+				name: '订购'
 			}
 		}
 	},
@@ -101,6 +140,9 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Ordered'
+			},
+			'zh-Hans': {
+				name: '已订购'
 			}
 		}
 	},
@@ -108,7 +150,40 @@ export const statusMap = {
 		locales: {
 			en: {
 				name: 'Received'
+			},
+			'zh-Hans': {
+				name: '已接受'
 			}
 		}
-	}
+	},
+	'_Pending': {
+		locales: {
+			en: {
+				name: 'Pending'
+			},
+			'zh-Hans': {
+				name: '等待'
+			}
+		}
+	},
+	'_Done': {
+		locales: {
+			en: {
+				name: 'Done'
+			},
+			'zh-Hans': {
+				name: '已完成'
+			}
+		}
+	},
+	'_Overdue': {
+		locales: {
+			en: {
+				name: 'Overdue'
+			},
+			'zh-Hans': {
+				name: '已过期'
+			}
+		}
+	},
 };

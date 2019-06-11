@@ -1,5 +1,5 @@
 <dialog-app>
-  <dialog-header-app>
+  <dialog-header-app i18n="@@add-products-to-project">
     Add Products to project
   </dialog-header-app>
 
@@ -7,7 +7,6 @@
     <sub-panel-app
       [hasSwitch]="false"
       [hasFilter]="false"
-      [buttonIcon]="false"
       (search)="listSrv.search($event)"
       (smartSearch)="listSrv.smartSearch($event)">
 
@@ -41,13 +40,15 @@
     <div class="flexBetween footer">
       <div class="left flexCenter">
         <ng-container	*ngIf="(listSrv.selection$ | async) as selected">
-          <div *ngIf="(listSrv.selection$ | async).size > 0" style="align-items: center">{{selected.size}} Product{{(selected.size > 1) ? 's' : ''}} Selected</div>
+					<div *ngIf="(listSrv.selection$ | async).size > 0" style="align-items: center" class="capitalize alignCenter">
+						{{selected.size}} <ng-container i18n="@@nested_product">{ selected?.size, plural, =1 { product } other { products } }</ng-container> <ng-container i18n="@@selected">selected</ng-container>
+					</div>
         </ng-container>
       </div>
       <div class="right flexCenter">
         <dialog-footer-app>
-          <button class="cancel" (click)="closeDlg()">Cancel</button>
-          <button class="save" (click)="submit()">Update Products</button> <!-- disabled]="!hasSelectedProducts()" -->
+          <button class="cancel capitalize" (click)="closeDlg()" i18n="@@cancel">cancel</button>
+          <button class="save capitalize" (click)="submit()" i18n="@@update-products">Update products</button> <!-- disabled]="!hasSelectedProducts()" -->
         </dialog-footer-app>
       </div>
     </div>

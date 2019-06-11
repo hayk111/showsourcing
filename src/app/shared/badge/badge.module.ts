@@ -1,11 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BadgeComponent } from '~shared/badge/components/badge/badge.component';
 import { IconsModule } from '~shared/icons';
-import { StatusBadgeComponent } from '~shared/badge/components/status-badge/status-badge.component';
-import { StatusBoxComponent } from '~shared/badge/components/status-box/status-box.component';
 import { UtilsModule } from '~shared/utils';
-import { InfoBadgeComponent } from './components/info-badge/info-badge.component';
+
+import {
+	BadgeComponent,
+	InfoBadgeComponent,
+	NotificationBadgeDirective,
+	RequestStatusBadgeComponent,
+	StatusBadgeComponent,
+	StatusBoxComponent,
+	TaskStatusBadgeComponent,
+} from './components';
+
 
 @NgModule({
 	imports: [
@@ -15,15 +22,22 @@ import { InfoBadgeComponent } from './components/info-badge/info-badge.component
 	],
 	declarations: [
 		BadgeComponent,
+		InfoBadgeComponent,
+		NotificationBadgeDirective,
+		RequestStatusBadgeComponent,
 		StatusBadgeComponent,
 		StatusBoxComponent,
-		InfoBadgeComponent
+		TaskStatusBadgeComponent,
 	],
 	exports: [
 		BadgeComponent,
+		InfoBadgeComponent,
+		NotificationBadgeDirective,
+		RequestStatusBadgeComponent,
 		StatusBadgeComponent,
 		StatusBoxComponent,
-		InfoBadgeComponent
+		TaskStatusBadgeComponent,
 	],
+	entryComponents: []
 })
 export class BadgeModule { }

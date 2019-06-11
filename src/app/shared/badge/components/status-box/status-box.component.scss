@@ -1,7 +1,10 @@
 :host {
   display: flex;
   cursor: default;
-  user-select: none;
+
+	&.pointer {
+		cursor: pointer;
+	}
 }
 
 div.selector {

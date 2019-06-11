@@ -22,6 +22,6 @@ export class SupplierCardComponent extends TrackingComponent implements OnInit {
 	ngOnInit() { }
 
 	goToSupplier() {
-		this.router.navigate(['supplier', 'details', this.supplier.id]);
+		this.router.navigate(['supplier', this.supplier.id]);
 	}
 }

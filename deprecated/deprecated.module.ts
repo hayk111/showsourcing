@@ -15,6 +15,9 @@ import { InputsModule } from '~shared/inputs';
 import { ImageModule } from '~shared/image/image.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { IconsModule } from '~shared/icons';
+import { ImagePreviewerComponent } from './image-previewer/image-previewer.component';
+
+// TODO: one of those components is imported in the real app...
 
 @NgModule({
 	imports: [
@@ -35,7 +38,8 @@ import { IconsModule } from '~shared/icons';
 		ProductGeneralInfoComponent,
 		SelectorEntityComponent,
 		SelectorConstComponent,
-		SelectorDeprecatedComponent
+		SelectorDeprecatedComponent,
+		ImagePreviewerComponent
 	],
 	exports: [
 		ProductGridCardDeprecatedComponent,

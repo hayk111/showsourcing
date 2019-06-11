@@ -1,0 +1,56 @@
+
+<div class="top-panel-ctnr flexCenter z-1">
+	<request-top-panel-sup
+		[request]="request$ | async">
+	</request-top-panel-sup>
+</div>
+
+<div class="details-container full-width full-height">
+	<div class="left">
+		<request-information-sup
+			class="no-margin-right"
+			[request]="request$ | async">
+		</request-information-sup>
+	</div>
+	<div class="right">
+		<card-app>
+			<h3 class="l capitalize" i18n="header@@message">message</h3>
+			<div class="flex">
+				<img src="/assets/img/user-temp.png"/>
+				<div class="message-container">
+					<div class="name">{{ (request$ | async)?.sender?.name }}</div>
+					<div class="message">{{ (request$ | async)?.message }}</div>
+				</div>
+			</div>
+		</card-app>
+		<card-app class="card-list full-height-main">
+			<h3 class="l capitalize" i18n="header@@request-items">request items</h3>
+			<request-element-list-view-sup
+				class="no-padding"
+				[rows]="listSrv.items$ | async"
+				[creationDate]="(request$ | async)?.creationDate"
+				[pending]="listSrv.pending"
+				[selection]="listSrv.selection$ | async"
+				[count]="listSrv.count$ | async"
+				[skipped]="listSrv.skipped"
+				(next)="listSrv.loadNextPage()"
+				(previous)="listSrv.loadPreviousPage()"
+				(goToPage)="listSrv.loadPage($event)"
+				(open)="open($event)"
+				(openRefuseReplyDlg)="openRefuseReplyDlg($event)"
+				(select)="listSrv.selectOne($event)"
+				(selectAll)="listSrv.selectAll($event)"
+				(sort)="listSrv.sort($event)"
+				(unselect)="listSrv.unselectOne($event)"
+				(unselectAll)="listSrv.unselectAll()">
+			</request-element-list-view-sup>
+		</card-app>
+	</div>
+</div>
+
+<selection-bar-app
+	*ngIf="(listSrv.selection$ | async) as selection"
+	[isShown]="selection.size > 0"
+	[selection]="selection"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>

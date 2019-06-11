@@ -22,8 +22,7 @@ export class TagDataManagementPageComponent extends AutoUnsub implements OnInit 
 		private tagSrv: TagService,
 		public listSrv: ListPageService<Tag, TagService>,
 		public commonModalSrv: CommonModalService,
-		private dmSrv: DataManagementService
-	) {
+		private dmSrv: DataManagementService) {
 		super();
 	}
 

@@ -2,8 +2,7 @@
 	[hasSwitch]="true"
 	[switchContent]="['list', 'kanban']"
 	[hasFilter]="true"
-	[buttonIcon]="false"
-	[filtersAmount]="listSrv.filterList.asFilters()?.length"
+	[filtersAmount]="getFilterAmount()"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
 	(search)="listSrv.search($event)"
@@ -15,11 +14,15 @@
 				(check)="toggleMySamples(true)"
 				(uncheck)="toggleMySamples(false)">
 			</checkbox-app>
-			<span class="ellipsis">Show my samples only</span>
+			<span class="ellipsis" i18n="text@@show-only-my-sample">
+				Show my samples only
+			</span>
 		</div>
 	</sub-panel-left-item-app>
 	<sub-panel-right-item-app>
-		<button (click)="openCreateDlg()">Add Sample</button>
+		<button (click)="openCreateDlg()" i18n="button@@add-sample">
+			Add Sample
+		</button>
 	</sub-panel-right-item-app>
 </sub-panel-app>
 
@@ -55,7 +58,8 @@
 			[typeEntity]="erm.SAMPLE"
 			type="multiple-selection"
 			[internalUpdate]="false"
-			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})"
+			i18n-toolTipMessage="@@change-status">
 		</status-selector-app>
 
 		<button class="icon light" (click)="listSrv.deleteSelected()">

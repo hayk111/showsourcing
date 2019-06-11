@@ -17,6 +17,11 @@
 	}
 }
 
-sub-panel-right-item-app {
-	display: flex;
+sub-panel-app {
+	padding-left: 0;
+	padding-right: 0;
+	sub-panel-right-item-app {
+		display: flex;
+		min-width: 285px;
+	}
 }

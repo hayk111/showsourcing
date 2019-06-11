@@ -1,13 +1,13 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { empty, Observable } from 'rxjs';
-import { switchMap, tap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, filter, map } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
-import { ERMService } from '~core/entity-services/_global/erm.service';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
-import { DialogService } from '~shared/dialog';
+import { TemplateService } from '~core/template/services/template.service';
+import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
@@ -18,7 +18,6 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
-import { TemplateService } from '~core/template/services/template.service';
 
 
 // where we can save the services
@@ -89,7 +88,7 @@ export class ListPageService
 			takeUntil(destroy$)
 		).subscribe(_ => this.selectionSrv.unselectAll());
 	}
-
+	y;
 
 	/**
 	 * takes the existing stateful services from the maps above,
@@ -295,10 +294,11 @@ export class ListPageService
 	// read comment on deleteOne function
 	deleteSelected(refetch = false) {
 		const itemIds = this.getSelectedIds();
+		// TODO i18n + erm pipe
 		const text = `Delete ${itemIds.length} `
-			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural);
-
+			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural) + '?';
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
 			switchMap(_ => refetch ? this.refetch() : empty())
 		).subscribe(_ => {
@@ -307,24 +307,25 @@ export class ListPageService
 	}
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
-	create(shouldRedirect = true, extra?: any) {
-		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra }).pipe(
-		).subscribe(item => {
+	create(canRedirect = true, extra?: any) {
+		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra, canRedirect }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			map((evt: CloseEvent) => evt.data)
+		).subscribe(({ item, redirect }) => {
 			// we don't want to put this in a switchmap because we don't want to wait
 			// for the refect before redirecting
 			this.refetch().subscribe();
-			this.redirectToCreated(item.id, shouldRedirect);
+			if (redirect)
+				this.redirectToCreated(item.id);
 		});
 	}
 
 
-	private redirectToCreated(id: string, shouldRedirect: boolean) {
-		if (shouldRedirect) {
-			if (this.entityMetadata.destUrl)
-				this.router.navigate([this.entityMetadata.destUrl, id]);
-			else
-				throw Error(`no destination url`);
-		}
+	private redirectToCreated(id: string) {
+		if (this.entityMetadata.destUrl)
+			this.router.navigate([this.entityMetadata.destUrl, id]);
+		else
+			throw Error(`no destination url`);
 	}
 
 	addFilter(_filter: Filter) {

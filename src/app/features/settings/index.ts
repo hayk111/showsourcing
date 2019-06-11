@@ -1,1 +1,3 @@
-export * from '~features/settings/settings.module';
+export * from './components';
+export * from './containers';
+export * from './settings.module';

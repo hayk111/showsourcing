@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import {
 	CompanyProfileCardComponent,
+	ExportListViewComponent,
 	InvitationsListViewComponent,
 	ProductStatusWorkflowComponent,
 	ProfileCardComponent,
@@ -22,9 +24,7 @@ import {
 } from '~features/settings/containers';
 import { routes } from '~features/settings/routes';
 import { SharedModule } from '~shared/shared.module';
-import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 
-import { ExportListViewComponent } from './components/export-list-view/export-list-view.component';
 
 @NgModule({
 	imports: [
@@ -35,6 +35,7 @@ import { ExportListViewComponent } from './components/export-list-view/export-li
 	],
 	declarations: [
 		CompanyProfileCardComponent,
+		ExportListViewComponent,
 		InvitationsListViewComponent,
 		ProductStatusWorkflowComponent,
 		ProfileCardComponent,
@@ -49,7 +50,6 @@ import { ExportListViewComponent } from './components/export-list-view/export-li
 		SettingsWorkflowsPageComponent,
 		SupplierStatusWorkflowComponent,
 		TeamMembersListViewComponent,
-		ExportListViewComponent,
 	],
 	entryComponents: [],
 	exports: [],

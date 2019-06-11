@@ -9,11 +9,14 @@ export class Contact extends EntityWithAudit<ContactConfig> {
 	businessCardImage?: AppImage;
 	jobTitle?: string;
 	supplier?: Supplier;
+	company?: string;
 	deleted?: boolean;
 	__typename?= 'Contact';
 
 	constructor(config: ContactConfig) {
 		super(config);
+		if (config && config.email && !config.name)
+			this.name = config.email.split('@')[0].split(new RegExp('[-._]')).join(' ');
 		this.deleted = false;
 	}
 }
@@ -24,5 +27,6 @@ export interface ContactConfig {
 	email?: string;
 	businessCardImage?: AppImage;
 	jobTitle?: string;
-	supplier: Supplier;
+	supplier?: Supplier;
+	company?: string;
 }

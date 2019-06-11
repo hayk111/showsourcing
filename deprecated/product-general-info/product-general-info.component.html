@@ -1,8 +1,7 @@
 <ng-container *ngIf="product$ | async">
 	<card-app>
 		<!-- product name -->
-		<div class="mainTitle shipping flex"
-			i18n="div title|Product general information@@productGeneralInfo_general">
+		<div class="mainTitle shipping flex">
 
 			<editable-text-app #edt
 				(closed)="updateProductProp($event, inpName.value, 'name')"
@@ -56,7 +55,7 @@
 			<div class="space-icon flexAround">
 				<icon-app class="color-primary" name="poll"></icon-app>
 			</div>
-			<h3 i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading" class="flex">
+			<h3 class="flex">
 				Shipping & Trading
 			</h3>
 		</div>

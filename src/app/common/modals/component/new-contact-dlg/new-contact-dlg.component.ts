@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReplaySubject, Observable } from 'rxjs';
-import { mapTo, tap, switchMap, takeUntil } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { mapTo, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ContactService } from '~entity-services';
 import { Contact, Supplier } from '~models';
 import { AutoUnsub, RegexpApp } from '~utils';
@@ -42,6 +42,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		// creating the formGroup
 		this.form = this.fb.group({
 			name: ['', Validators.required],
+			supplier: [this.supplier],
 			jobTitle: '',
 			email: ['', Validators.email],
 			phoneNumber: ['', Validators.pattern(RegexpApp.PHONE)]
@@ -62,13 +63,18 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
+	updateSupplier(item: any) {
+		this.form.get('supplier').setValue(item);
+		this.updateContact();
+	}
+
 	updateContact() {
 		const contact = { ...this.form.value, id: this.contact.id };
 		this.contactSrv.update(contact).subscribe();
 	}
 
 	createContact() {
-		const contact = new Contact({ supplier: { id: this.supplier.id } });
+		const contact = this.supplier ? new Contact({ supplier: { id: this.supplier.id } }) : new Contact({});
 		return this.contactSrv.create(contact).pipe(
 			tap(_ => {
 				this.contactId = contact.id;

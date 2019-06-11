@@ -20,15 +20,16 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row)">
-			Delete
+			(click)="delete.emit(row)"
+			i18n="@@delete">
+			delete
 		</context-menu-item-app>
 	</ng-template>
 
 	<!-- name -->
 	<ng-template
 		class="capitalize"
-		columnApp="Samples"
+		[columnApp]="'samples' | const: 'messages'"
 		let-row="row"
 		sortBy="name"
 		width="400">
@@ -38,7 +39,7 @@
 				<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 			</div>
 			<div class="preview">
-				<button (click)="previewClick.emit(row)" class="secondary-dark small">Preview</button>
+				<button class="secondary-dark small" (click)="previewClick.emit(row)" i18n="@@preview">preview</button>
 			</div>
 		</div>
 	</ng-template>
@@ -46,7 +47,7 @@
 	<!-- assignee -->
 	<ng-template
 		class="capitalize"
-		columnApp="Assignee"
+		[columnApp]="'assignee' | const: 'messages'"
 		let-row="row"
 		sortBy="assignee.lastName"
 		width="200">
@@ -59,7 +60,7 @@
 	<!-- product -->
 	<ng-template
 		class="capitalize"
-		columnApp="Product"
+		[columnApp]="'product' | const: 'messages'"
 		let-row="row"
 		sortBy="product.name"
 		width="250">
@@ -69,7 +70,7 @@
 	<!-- supplier -->
 	<ng-template
 		class="capitalize"
-		columnApp="Supplier"
+		[columnApp]="'supplier' | const: 'messages'"
 		let-row="row"
 		sortBy="supplier.name"
 		width="300">
@@ -78,35 +79,34 @@
 
 	<!-- comments -->
 	<ng-template
-		columnApp="Comments"
+		[columnApp]="'comments' | const: 'messages'"
 		let-row="row"
 		[sortable]="false"
 		width="200">
 		<div class="flex">
 			<div class="number">{{ row?.comments?.length || '0' }}</div>
 			&nbsp;
-			{{ row?.comments?.length === 1 ? 'comment' : 'comments'}}
+			<ng-container i18n="@@nested_comment">{ row?.comments?.length || 0, plural, =1 { comment } other { comments } } </ng-container>
 		</div>
 	</ng-template>
 
 	<!-- status -->
 		<ng-template
 		class="capitalize"
-		columnApp="Status"
+		[columnApp]="'status' | const: 'messages'"
 		let-row="row"
 		sortBy="status.step"
 		width="200">
 		<status-selector-app
 			[entity]="row"
-			[typeEntity]="erm.SAMPLE"
-			selectSize="s">
+			[typeEntity]="erm.SAMPLE">
 		</status-selector-app>
 	</ng-template>
 
 	<!-- created on -->
 	<ng-template
 		class="capitalize"
-		columnApp="Created On"
+		[columnApp]="'created on' | const: 'messages'"
 		let-row="row"
 		sortBy="createdBy.lastName"
 		width="200">

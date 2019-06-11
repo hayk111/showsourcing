@@ -1,0 +1,50 @@
+<div class="step-container">
+	<div class="step">
+		<stage-indicator-app
+			[titles]="['Review', 'Fill Information', 'Review & Send']"
+			[index]="1">
+		</stage-indicator-app>
+
+		<div class="flex description">
+			<div class="left">
+				<carousel-card-app
+					[hasFooter]="false"
+					[images]="product.images"></carousel-card-app>
+			</div>
+
+			<div class="right">
+				<card-app>
+					<div class="sectionTitle information">
+						General Information
+					</div>
+					<!-- <dynamic-form-app
+						[inlineLabel]="false"
+						[colAmount]="2"
+						[fields]="customFields"
+						[textMode]="false">
+					</dynamic-form-app> -->
+				</card-app>
+
+				<card-app>
+					<div class="sectionTitle shipping">
+						Shipping & Trading
+					</div>
+
+					<!-- <dynamic-form-app
+						[inlineLabel]="false"
+						[colAmount]="2"
+						[fields]="customFields2"
+						[textMode]="false">
+					</dynamic-form-app> -->
+				</card-app>
+			</div>
+		</div>
+	</div>
+
+	<div class="toolbar-wrapper">
+		<div class="toolbar">
+			<button class="btn back" routerLink="../new-request">Back</button>
+			<button class="btn" routerLink="../review-send">Validate & Review</button>
+		</div>
+	</div>
+</div>

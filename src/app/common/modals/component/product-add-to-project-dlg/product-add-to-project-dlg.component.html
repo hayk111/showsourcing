@@ -1,32 +1,33 @@
 <dialog-app>
 
-	<dialog-header-app i18n="dialog header|Add products to project@@productAddToProject_addProject"> Add to project </dialog-header-app>
+	<dialog-header-app i18n="header@@add-to-project"> Add to project </dialog-header-app>
 
-	<dialog-subtitle-app i18n="dialog subtitle|Select project to add product@@productAddToProject_selectProject">Select projects</dialog-subtitle-app>
+	<dialog-subtitle-app i18n="header@@select-project">Select projects</dialog-subtitle-app>
 
 	<main *ngIf="projects$ | async as projects" class="scrollable">
 		<list-app>
 			<list-item-app *ngFor="let project of projects;trackBy: trackByFn" (click)="checkbox.onClick()">
-				<div class="flex" (click)="checkbox.onClick()">
-					<checkbox-app
-						#checkbox
-						[size]="14"
-						(check)="select(project.id, project)"
-						(uncheck)="unselect(project.id)"
-						[checked]="selected[project.id]">
-					</checkbox-app>
-					<div class="flexCenter flexBetween flexGrow" (click)="checkbox.onClick()">
-						<span class="name">{{ project.name }}</span>
-						<div class="productNumber" >{{ project.productCount }}</div>
-					</div>
+				<checkbox-app
+					#checkbox
+					[size]="14"
+					(check)="select(project.id, project)"
+					(uncheck)="unselect(project.id)"
+					[checked]="selected[project.id]">
+				</checkbox-app>
+				<div class="flexCenter flexBetween flexGrow">
+					<span class="name">{{ project.name }}</span>
+					<div class="productNumber" >{{ project.productCount }}</div>
 				</div>
-
 			</list-item-app>
 		</list-app>
 	</main>
 
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
-		<span class="txt-secondary">{{ products?.length }} product{{ products?.length > 1 ? 's' : '' }} selected</span>
-		<input [disabled]="numSelected < 1" type="submit" value="Add Now" (click)="submit()" i18n="button|Adding product to projects@@productAddToProject_addNow"/>
+		<span class="txt-secondary" i18n="text@@products-selected">
+			{{ products?.length }}
+			<ng-container i18n="@@nested_product-selected">{ products?.length ||0, plural, =1 { Product } other { Products } }} selected</ng-container>
+		</span>
+		<input [disabled]="numSelected < 1" type="submit" value="Add now" class="capitalize" (click)="submit()"
+			i18n-value="@@add-now"/>
 	</dialog-footer-app>
 </dialog-app>

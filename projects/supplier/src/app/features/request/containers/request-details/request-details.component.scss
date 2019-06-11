@@ -1,0 +1,57 @@
+:host {
+	display: flex;
+	flex-direction: column;
+}
+
+.top-panel-ctnr {
+	background: white;
+	width: 100%;
+}
+
+.details-container {
+	display: flex;
+	justify-content: center;
+
+	.left {
+		width: 430px;
+	}
+
+	.right {
+		width: 1000px;
+
+		img, img-app {
+			height: 40px;
+			width: 40px;
+			margin-right: var(--spacing-l);
+			border-radius: 50%;
+		}
+
+		.message-container {
+			.name {
+				color: var(--color-txt-strong);
+				margin-bottom: var(--spacing-ms);
+				font-weight: 600;
+			}
+			.message {
+				white-space: pre-line;
+				word-break: break-all;
+				padding-right: var(--spacing-l);
+				color: var(--color-txt-strong);
+		 }
+		}
+
+		.card-list {
+			height: calc(100% - 210px);
+		}
+	}
+}
+
+bottom-panel-app {
+	position: absolute;
+	bottom: 0;
+	> * {
+		&:not(:last-child) {
+			margin-right: var(--spacing-ms);
+		}
+	}
+}

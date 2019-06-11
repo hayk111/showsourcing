@@ -10,6 +10,7 @@ import { DividerModule } from '~shared/divider/divider.module';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
+import { LoadersModule } from '~shared/loaders';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
 
@@ -18,14 +19,17 @@ import {
 	SelectorButtonRowComponent,
 	SelectorCategoryRowComponent,
 	SelectorComponent,
+	SelectorContactRowComponent,
 	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
 	SelectorEventRowComponent,
 	SelectorIdRowComponent,
 	SelectorNameRowComponent,
 	SelectorPickerComponent,
+	SelectorPlaceholderComponent,
 	SelectorProductRowComponent,
 	SelectorProjectRowComponent,
+	SelectorRequestTemplateRowComponent,
 	SelectorSupplierRowComponent,
 	SelectorSupplierTypeRowComponent,
 	SelectorTagRowComponent,
@@ -39,19 +43,22 @@ const components = [
 	SelectorButtonRowComponent,
 	SelectorCategoryRowComponent,
 	SelectorComponent,
+	SelectorContactRowComponent,
 	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
+	SelectorPlaceholderComponent,
 	SelectorEventRowComponent,
 	SelectorIdRowComponent,
 	SelectorNameRowComponent,
 	SelectorPickerComponent,
 	SelectorProductRowComponent,
 	SelectorProjectRowComponent,
+	SelectorRequestTemplateRowComponent,
 	SelectorSupplierRowComponent,
 	SelectorSupplierTypeRowComponent,
 	SelectorTagRowComponent,
 	SelectorTextRowComponent,
-	SelectorUserRowComponent
+	SelectorUserRowComponent,
 ];
 
 @NgModule({
@@ -70,7 +77,8 @@ const components = [
 		BadgeModule,
 		A11yModule,
 		UtilsModule,
-		ScrollDispatchModule
+		ScrollDispatchModule,
+		LoadersModule
 	],
 	declarations: components,
 	exports: components

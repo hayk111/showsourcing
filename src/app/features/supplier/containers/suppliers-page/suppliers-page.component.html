@@ -1,13 +1,13 @@
 <top-panel-app
-	title="My Suppliers"
+	[title]="'My suppliers'"
 	buttonName="Add Supplier"
-	(buttonClick)="listSrv.create()">
+	(buttonClick)="listSrv.create()"
+	i18-title="@@my-suppliers">
 </top-panel-app>
 
 <sub-panel-app
 	[hasSwitch]="false"
 	[hasFilter]="true"
-	[buttonIcon]="false"
 	[filtersAmount]="listSrv.filterList.asFilters()?.length"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
@@ -50,7 +50,8 @@
 				[typeEntity]="erm.SUPPLIER"
 				type="multiple-selection"
 				[internalUpdate]="false"
-				(statusUpdated)="this.listSrv.updateSelected({status: $event})">
+				(statusUpdated)="this.listSrv.updateSelected({status: $event})"
+				i18n-toolTipMessage="@@change-status">
 			</status-selector-app>
 			<action-bar-app
 				[favorite]="listSrv.allSelectedFavorite"

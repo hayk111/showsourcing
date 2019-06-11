@@ -10,6 +10,7 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
+import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { Location } from '@angular/common';
 
 
@@ -28,9 +29,9 @@ export class AppComponent implements OnInit {
 		private authSrv: AuthenticationService,
 		private companySrv: CompanyService,
 		private globalDataClient: GlobalDataClientsInitializer,
+		private globalRequestClient: GlobalRequestClientsInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
-		private tokenSrv: TokenService,
 		private userClient: UserClientInitializer,
 		private location: Location
 	) { }
@@ -38,12 +39,11 @@ export class AppComponent implements OnInit {
 	ngOnInit(): void {
 		const isAuthRoute = this.location.path().startsWith('/auth');
 
-
-		if (isAuthRoute)
-			this.authSrv.logout(false);
-		else
-			this.authSrv.init();
-
+		// TODO Cedric take a look on why this doesn't work pls
+		// if (isAuthRoute)
+		// 	this.authSrv.logout(true);
+		// else
+		this.authSrv.init();
 
 		this.teamSrv.init();
 		this.companySrv.init();
@@ -77,15 +77,16 @@ export class AppComponent implements OnInit {
 
 	private startBaseClients(): Observable<Client[]> {
 		// when we are authenticated it means we have a token
-		const realmUser = this.tokenSrv.realmUser;
+		const realmUser = this.authSrv.realmUser;
 		return forkJoin([
 			this.globalDataClient.init(realmUser),
+			this.globalRequestClient.init(realmUser),
 			this.userClient.init(realmUser)
 		]);
 	}
 
 	private startOrDestroyTeamClient(team: Team) {
-		const realmUser = this.tokenSrv.realmUser;
+		const realmUser = this.authSrv.realmUser;
 		if (team)
 			return this.teamClient.init(realmUser, team);
 		else
@@ -95,6 +96,7 @@ export class AppComponent implements OnInit {
 	private destroyAllClients() {
 		const reason = 'unauthenticated';
 		this.globalDataClient.destroy(reason);
+		this.globalRequestClient.destroy(reason);
 		this.userClient.destroy(reason);
 		this.teamClient.destroy(reason);
 	}

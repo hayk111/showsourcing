@@ -4,15 +4,15 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
-import { Observable, Observer, of, Subject, throwError } from 'rxjs';
+import gql from 'graphql-tag';
+import { GraphQLConfig, User as RealmUser } from 'realm-graphql-client';
+import { Observable, of, Subject, throwError } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
-import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { log, LogColor } from '~utils';
-import { User as RealmUser } from 'realm-graphql-client';
-import { GraphQLConfig } from 'realm-graphql-client';
+import { showsourcing } from '~utils/debug-object.utils';
 
 
 /**
@@ -34,7 +34,13 @@ export abstract class AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		protected realmServerSrv: RealmServerService,
 		protected client: Client,
-	) { }
+	) {
+		// for debugging purpose
+		if (!showsourcing.clients)
+			showsourcing.clients = new Map<string, any>();
+		if (!showsourcing.gql)
+			showsourcing.gql = gql;
+	}
 
 	protected checkNotAlreadyInit() {
 		if (this.initialized) {
@@ -65,13 +71,6 @@ export abstract class AbstractApolloClient {
 		return throwError(e);
 	}
 
-	/**
- 	* to create the uri we need to concatena every parts we got from different DB's.
-	*/
-	protected getUri(port: number | string, hostName: string, path: string, isSecure = true): string {
-		return `ws${isSecure ? 's' : ''}://${hostName}:${port}/graphql${path.startsWith('/') ? path : '/' + path}`;
-	}
-
 	/** we use the path as client name.. */
 	protected async createClient(realmPath: string, user: RealmUser, name: Client): Promise<void> {
 		const config = await GraphQLConfig.create(
@@ -99,8 +98,11 @@ export abstract class AbstractApolloClient {
 			cache: new InMemoryCache({}),
 			queryDeduplication: true,
 		}, name);
+
+		showsourcing.clients.set(name, this.apollo.use(name));
 	}
 
+	// https://github.com/apollographql/apollo-angular/issues/736
 	protected clearClient(clientName?: string) {
 		// the way apollo works is that for default client it's put in _client
 		// the named clients are put in a map

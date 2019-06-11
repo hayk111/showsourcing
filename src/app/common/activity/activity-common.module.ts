@@ -11,8 +11,6 @@ import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import { ActivityUserComponent } from './components/activity-user/activity-user.component';
-import { FlatFeedCardComponent } from '~deprecated/flat-feed-card/flat-feed-card.component';
-import { FlatFeedListComponent } from '~deprecated/flat-feed-list/flat-feed-list.component';
 import { GroupedFeedListComponent } from './components/grouped-feed-list/grouped-feed-list.component';
 import {
 	MultipleProductCarouselComponent,
@@ -23,7 +21,6 @@ import {
 import {
 	OneProductActivityCardComponent,
 } from './components/grouped-feed-list/one-product-activity-card/one-product-activity-card.component';
-import { DeprecatedModule } from '~deprecated/deprecated.module';
 
 import { ActivityCardComponent } from '~common/activity/components/activity-card/activity-card.component';
 import { ActivityListComponent } from '~common/activity/components/activity-list/activity-list.component';
@@ -35,7 +32,6 @@ import { UtilsModule } from '~shared/utils/utils.module';
 		ProductCommonModule,
 		UtilsModule,
 		CommentCommonModule,
-		DeprecatedModule
 	],
 	declarations: [
 		OneProductActivityCardComponent,
@@ -45,10 +41,8 @@ import { UtilsModule } from '~shared/utils/utils.module';
 		GroupedFeedListComponent,
 		OneActivityCarouselComponent,
 		MultipleProductCarouselComponent,
-		FlatFeedListComponent,
 		ActivityCardComponent,
 		ActivityListComponent,
-		FlatFeedCardComponent
 	],
 	exports: [
 		OneProductActivityCardComponent,
@@ -56,9 +50,7 @@ import { UtilsModule } from '~shared/utils/utils.module';
 		MultipleProductsActivityCardComponent,
 		GroupedFeedListComponent,
 		ActivityUserComponent,
-		FlatFeedListComponent,
 		ActivityListComponent,
-		FlatFeedCardComponent
 	]
 })
 export class ActivityCommonModule { }

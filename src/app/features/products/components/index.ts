@@ -1,7 +1,6 @@
 export * from './product-activity/product-activity.component';
 export * from './product-icons/product-icons.component';
 export * from './product-information/product-information.component';
-export * from './product-list/product-list.component';
 export * from './product-sub-info/product-sub-info.component';
 export * from './product-summary/product-summary.component';
 export * from './product-team-rating/product-team-rating.component';
