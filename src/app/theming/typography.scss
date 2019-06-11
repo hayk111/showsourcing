@@ -136,7 +136,9 @@ h4 {
 }
 
 h5 {
-	text-transform: capitalize;
+	&::first-letter {
+		text-transform: capitalize;
+	}
 }
 
 label {

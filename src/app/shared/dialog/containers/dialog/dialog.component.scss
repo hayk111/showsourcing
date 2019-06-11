@@ -12,6 +12,7 @@
 
 	&.vertical-scroll-content .content{
 		overflow-y: auto;
+		padding-right: var(--spacing-xs);
 	}
 	&.no-content-height .content {
 		height: unset;

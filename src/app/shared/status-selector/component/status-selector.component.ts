@@ -36,10 +36,11 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 	// use for the cdk overlay
 	@Input() offsetX = 0;
-	@Input() offsetY: number;
+	@Input() offsetY = 8;
 	@Input() selectSize = 'm';
 	@Input() internalUpdate = true;
 	@Input() type: 'badge' | 'dropdown' | 'multiple-selection' | 'button' = 'badge';
+	@Input() width: number;
 	@Output() statusUpdated = new EventEmitter<any>();
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	/** string[] since tasks does not have a status entity */
