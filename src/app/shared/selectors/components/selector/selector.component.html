@@ -2,7 +2,9 @@
 <div
 	#trigger="cdkOverlayOrigin"
 	cdkOverlayOrigin
-	class="fullWidth"
+	class="fullWidth selector-wrap"
+	tabindex="0"
+	(keyup.enter)="openMenu()"
 	(click)="openMenu()">
 	<ng-content></ng-content>
 </div>
@@ -24,6 +26,7 @@
 		[filterList]="filterList"
 		[canCreate]="canCreate"
 		(update)="onChange($event)"
-		(close)="closeMenu(true)">
+		(close)="closeMenu(true)"
+		cdkTrapFocus>
 	</selector-picker-app>
 </cdk-overlay-app>

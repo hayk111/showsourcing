@@ -1,0 +1,5 @@
+.selector-wrap :first-child {
+	&:focus {
+		border: 1px red solid;
+	}
+}
