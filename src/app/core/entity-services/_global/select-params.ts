@@ -1,4 +1,4 @@
-export const DEFAULT_TAKE_PAGINATION = 15;
+export const DEFAULT_TAKE_PAGINATION = 20;
 
 /** utility class used to manage a selection of items */
 export class SelectParams {

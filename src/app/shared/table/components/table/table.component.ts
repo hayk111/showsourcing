@@ -45,8 +45,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input()
 	set count(count: number) {
 		this._count = count;
-		const numberSections = Math.ceil(this._count / this.itemsPerPage);
-		this.sections = Array(numberSections).fill(0).map((x, i) => i);
+		this.totalSections = Math.ceil(this._count / this.itemsPerPage);
 		if (this.skipped)
 			this.indexPagination = this.skipped / this.itemsPerPage;
 		this.setPageIndex();
@@ -83,10 +82,10 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	itemsPerPage = DEFAULT_TAKE_PAGINATION;
 	// current index of the pagination
 	indexPagination = 0;
-	// this index allows us to track which is the most left item that we display
-	leftIndex = 0;
-	// this index allows us to track which is the most right item that we display
-	rightIndex = 0;
+	// total of sections obtained by the count and items per page
+	totalSections = 1;
+	// sideItems
+	sideItems = 5;
 
 	/** Different rows displayed */
 	@Input() rows;
@@ -191,13 +190,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		});
 	}
 
-	/** returns if the index should be hidden or not */
-	isHidden(index) {
-		return index < this.leftIndex || index > this.rightIndex;
-	}
-
 	nextPage() {
-		if (this.indexPagination < this.sections.length - 1) {
+		if (this.indexPagination < this.totalSections - 1) {
 			this.indexPagination++;
 			this.setPageIndex();
 			this.next.emit();
@@ -213,33 +207,19 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	}
 
 	setPageIndex() {
-		// the amount of items will be right and left of the selected item
-		// e.g. < Previous  1 2 3 4 IND 6 7 8 9 Next > where IND is the current index and sideItems is 4
-		const sideItems = 5;
-		let leftIndex = 0;
-		let offsetLeft = this.indexPagination - sideItems;
-		// if we haven't stepped the left boundaries, we use this index and reset the offset
-		// if we have stepped the boundaries,
-		// we need the offset to add it to the right index if possible to keep the size of the pagination the same
-		// < Previous 1 IND 3 4 5 6 7 8 9 Next > the index is not at the center cause it's not possible
-		if (offsetLeft > 0) {
-			leftIndex = offsetLeft;
-			offsetLeft = 0;
-		}
-		let rightIndex = this.sections.length - 1;
-		// if we have an offsetLeft we add it
-		const offsetRight = this.indexPagination + sideItems + Math.abs(offsetLeft);
-		// < Previous 5 6 7 8 9 10 IND 12 13 Next > the offsetRight is bigger than our pagination size
-		// this means that if the left index is not 0 (the start one), we will try to add it to the left
-		if (offsetRight > rightIndex && leftIndex > 0) {
-			const diff = offsetRight - rightIndex;
-			// if the difference is negative it means that we just need to set the minimum index on the left, 0
-			leftIndex = leftIndex - diff > 0 ? leftIndex - diff : 0;
-		}
-		rightIndex = Math.min(offsetRight, rightIndex);
+		const width = Math.min(this.sideItems * 2 + 1, this.totalSections);
+		const leftIndex = Math.max(this.indexPagination - this.sideItems, 0);
+		const pages = [];
+		// we want to readd items from the right to the left (-1 since we don't take into account the last index)
+		const rightAmount = Math.min(this.sideItems, ((this.totalSections - 1) - this.indexPagination));
 
-		this.leftIndex = leftIndex;
-		this.rightIndex = rightIndex;
+		let cursor = Math.max(leftIndex - (this.sideItems - rightAmount), 0);
+
+		while ((pages.length < width) && (cursor <= this.totalSections)) {
+			pages.push(cursor);
+			cursor++;
+		}
+		this.sections = pages.length ? pages : [0];
 	}
 
 	goToIndexPage(index) {
