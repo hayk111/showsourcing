@@ -1,3 +1,5 @@
+export const DEFAULT_TAKE_PAGINATION = 20;
+
 /** utility class used to manage a selection of items */
 export class SelectParams {
 	/** used for pagination,
@@ -13,7 +15,7 @@ export class SelectParams {
 	/** whether it's ASC or DESC */
 	descending = true;
 	/** how much items we request */
-	take = 30;
+	take = DEFAULT_TAKE_PAGINATION;
 
 	constructor(config?: SelectParamsConfig) {
 		Object.assign(this, config);

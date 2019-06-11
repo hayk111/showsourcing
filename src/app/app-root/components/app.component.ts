@@ -13,6 +13,7 @@ import { Team } from '~models';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { Location } from '@angular/common';
 
+
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',

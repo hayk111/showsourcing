@@ -5,7 +5,11 @@
 	[pending]="pending"
 	[selected]="selection"
 	placeholder="No requests"
-	(bottomReached)="bottomReached.emit()"
+	[count]="count"
+	[skipped]="skipped"
+	(next)="next.emit()"
+	(previous)="previous.emit()"
+	(goToPage)="goToPage.emit($event)"
 	(sort)="sort.emit($event)">
 
 	<!-- request name -->
