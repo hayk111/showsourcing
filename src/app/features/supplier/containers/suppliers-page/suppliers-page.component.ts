@@ -28,7 +28,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 	];
 
 	constructor(
-		private route: ActivatedRoute,
 		private supplierSrv: SupplierService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
 		public commonModalSrv: CommonModalService

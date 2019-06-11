@@ -1,0 +1,33 @@
+dialog-app {
+	width: 580px;
+}
+
+.contact-container {
+	margin-bottom: var(--spacing-ml);
+	margin-top: var(--spacing-ml);
+	align-items: center;
+
+	img, img-app {
+		height: 24px;
+		width: 24px;
+		margin-right: var(--spacing-ms);
+	}
+
+	.name {
+		color: var(--color-txt-strong);
+		font-weight: 600;
+	}
+}
+
+textarea {
+	min-height: 278px;
+	resize: none;
+	background: none;
+}
+
+dialog-footer-app {
+	align-items: center;
+	> *:not(:last-child) {
+		margin-right: var(--spacing-ms);
+	}
+}

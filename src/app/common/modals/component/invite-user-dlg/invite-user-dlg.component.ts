@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 import { CloseEventType } from '~shared/dialog';
 
 
@@ -39,11 +39,12 @@ export class InviteUserDlgComponent extends AutoUnsub {
 			this.invitationSrv.createInvitation(email)
 				.subscribe(() => {
 					this.pending = false;
+					const invtSent = translate('Your invitation was sent to');
 					this.dlgSrv.close({ type: CloseEventType.OK });
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Invitation Sent',
-						message: `Your invitation was sent to ${email}`,
+						title: translate('Invitation sent'),
+						message: `${invtSent} ${email}`,
 						timeout: 3500
 					});
 				});

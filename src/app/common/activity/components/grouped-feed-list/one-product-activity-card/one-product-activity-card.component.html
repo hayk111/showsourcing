@@ -45,10 +45,10 @@
 
 		<!-- information of the product -->
 		<div class="flexColumn prodInfo">
-			<span class="name">{{ product?.name }}</span>
+			<span class="name ellipsis">{{ product?.name }}</span>
 			<div class="flex status-info flexWrap dot-separator">
 				<span *ngIf="product?.price?.value" class="price">
-					{{ product?.price?.value | ssPrice | currency: product?.price?.currency:'symbol':'1.2-2' }}
+					{{ product?.price | appPrice }}
 				</span>
 				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
 				<span *ngIf="product?.supplier?.name" class="supplier">{{ product?.supplier?.name }}</span>

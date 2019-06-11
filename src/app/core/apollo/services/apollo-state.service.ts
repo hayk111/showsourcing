@@ -5,6 +5,7 @@ import { log, LogColor } from '~utils';
 import { Router } from '@angular/router';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { Apollo, ApolloBase } from 'apollo-angular';
+import { showsourcing } from '~utils/debug-object.utils';
 
 export interface AllClientState {
 	[client: string]: ClientStatus;
@@ -40,7 +41,11 @@ export class ApolloStateService {
 	);
 
 	constructor(protected router: Router, public apollo: Apollo) {
-		this.clientsState$.subscribe(all => this.redirect(all));
+		// for debugging
+		this.clientsState$.subscribe(all => {
+			showsourcing.clientsState = all;
+			this.redirect(all);
+		});
 	}
 
 	getClientStatus(name: Client): Observable<ClientStatus> {

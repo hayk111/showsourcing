@@ -13,6 +13,7 @@ export class FileSelectDirective {
 	@HostListener('change', ['$event'])
 	onFileDrop(event) {
 		event.preventDefault();
+		event.stopPropagation();
 		const files = [];
 		const fileList = event.target.files;
 		if (fileList) {

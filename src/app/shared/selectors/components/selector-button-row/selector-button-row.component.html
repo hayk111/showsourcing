@@ -1,4 +1,7 @@
 <button class="selector small flex create">
 	<icon-app name="add"></icon-app>
-	<span>Create new {{type}} "{{searchTxt}}"</span>
+	<span>
+		<ng-container i18n="text@@create-new">Create new</ng-container>&nbsp;
+		{{type}} "{{searchTxt}}"
+	</span>
 </button>

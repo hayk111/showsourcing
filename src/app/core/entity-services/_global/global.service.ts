@@ -1,4 +1,5 @@
 import { ApolloBase, QueryRef } from 'apollo-angular';
+import { environment } from 'environments/environment';
 import { DocumentNode } from 'graphql';
 import { BehaviorSubject, ConnectableObservable, forkJoin, merge, Observable, of, throwError } from 'rxjs';
 import {
@@ -32,6 +33,7 @@ export interface GlobalServiceInterface<T> {
 	selectMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
 	queryMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
 	queryCount: (predicate: string, client?: string) => Observable<number>;
+	selectCount: (predicate: string, client?: string) => Observable<number>;
 	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => ListQuery<T>;
 	waitForOne: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
 	selectAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig, client?: Client): Observable<T[]>;
@@ -54,7 +56,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/** the underlying graphql client this service is gonna use by default
 	 * when none is specified
 	 */
-	protected defaultClient = Client.TEAM;
+	protected defaultClient = environment.defaultClient;
 	protected queryBuilder: QueryBuilder;
 	protected typeName: string;
 
@@ -336,14 +338,22 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		);
 
 		let itemsAmount = 0;
-		// add items$ wich are the actual items requested
-		const items$: ConnectableObservable<T[]> = queryRef$.pipe(
+
+		const data$ = queryRef$.pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(queryRef => queryRef.valueChanges),
-			filter((r: any) => this.checkError(r)),
 			distinctUntilChanged(),
-			// extracting the result
-			map((r) => r.data[queryName].items),
+			filter((r: any) => this.checkError(r)),
+			map(r => r.data[queryName])
+		);
+
+		const count$ = data$.pipe(
+			map(data => data.count)
+		);
+
+		// add items$ wich are the actual items requested
+		const items$: ConnectableObservable<T[]> = data$.pipe(
+			map(data => data.items),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => itemsAmount = data.length),
 			catchError((errors) => of(log.table(errors))),
@@ -388,7 +398,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			);
 		};
 
-		return { queryName, items$, fetchMore, refetch };
+		return { queryName, items$, count$, fetchMore, refetch };
 	}
 
 	/////////////////////////////
@@ -488,6 +498,35 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 
 	/////////////////////////////
+	//       SELECT COUNT       //
+	/////////////////////////////
+	/**
+	 * waits for the first item to resolve
+	 * @param predicate : string  realm predicate / query to filter items
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	*/
+	selectCount(predicate: string, clientName: Client = this.defaultClient): Observable<number> {
+		const title = 'Select Count ' + this.typeName;
+		const gql = this.queryBuilder.selectCount();
+		const queryName = this.getQueryName(gql);
+		const variables = { query: predicate };
+
+		return this.getClient(clientName, title).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
+			switchMap(client => client.subscribe({ query: gql, variables })),
+			// extracting the result
+			map((r) => {
+				if (!r.data)
+					throwError(r.errors);
+				return r.data[queryName].count;
+			}),
+			catchError(errors => of(log.table(errors))),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
+	}
+
+	/////////////////////////////
 	//          UPDATE         //
 	/////////////////////////////
 
@@ -504,11 +543,12 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
+
 		if (isOptimistic) {
 			this.addOptimisticResponse(options, gql, entity, this.typeName);
 		}
 		// updating select one cache so changes are reflected when using selectOne(id)
-		if (this.selectOneCache.has(cacheKey)) {
+		if (this.selectOneCache.has(cacheKey) && isOptimistic) {
 			this.selectOneCache.get(cacheKey).clientChanges.next(entity);
 		}
 
@@ -555,7 +595,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			tap(data => this.sendTrack('Update many', data, 'update', fields)),
 			catchError(errors => of(log.table(errors)))
 		);
-
 	}
 
 

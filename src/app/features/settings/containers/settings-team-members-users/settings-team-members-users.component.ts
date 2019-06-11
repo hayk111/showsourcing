@@ -4,7 +4,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { ERM, TeamUser, User } from '~models';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 import { UserService } from '~core/entity-services';
 
 @Component({
@@ -75,4 +75,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 			});
 	}
 
+	getTooltipMsg() {
+		return !this.teamOwner ? translate('Only team owners can invite') : null;
+	}
 }

@@ -5,7 +5,7 @@ selector-app {
 .currencyLabel {
 	margin-right: var(--spacing-s);
 	color: var(--color-txt-secondary);
-	&:hover {
+	&.pointer:hover {
 		color: var(--color-primary);
 		text-decoration: underline;
 	}

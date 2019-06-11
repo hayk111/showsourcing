@@ -1,0 +1,20 @@
+:host {
+	display: inline-block;
+	cursor: default;
+
+	&.pointer {
+		cursor: pointer;
+	}
+}
+
+badge-app {
+	text-transform: capitalize;
+	color: var(--color-txt-strong);
+
+	icon-app[name="circle"] {
+		padding: var(--spacing-xs);
+		padding-top: 5px;
+		padding-left: 0;
+		font-size: 6px;
+	}
+}

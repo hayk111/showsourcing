@@ -3,17 +3,19 @@
 </a>
 
 <nav>
-  <a [routerLink]="['/dashboard']" routerLinkActive="selected">Home</a>
+  <a class="first-uppercase" [routerLink]="['/dashboard']" routerLinkActive="selected" i18n="@@home">home</a>
 
-  <a [routerLink]="['/project']" routerLinkActive="selected">Projects</a>
+  <a class="first-uppercase" [routerLink]="['/project']" routerLinkActive="selected" i18n="@@projects">projects</a>
 
-  <a [routerLink]="['/product']" routerLinkActive="selected">Products</a>
+  <a class="first-uppercase" [routerLink]="['/product']" routerLinkActive="selected" i18n="@@products">products</a>
 
-  <a [routerLink]="['/supplier']" routerLinkActive="selected">Suppliers</a>
+  <a class="first-uppercase" [routerLink]="['/supplier']" routerLinkActive="selected" i18n="@@suppliers">suppliers</a>
 
-  <!-- <a [routerLink]="['/shows']" routerLinkActive="selected">Shows</a> -->
+	<a class="first-uppercase" [routerLink]="['/workspace']" routerLinkActive="selected" i18n="@@workspace">workspace</a>
 
-  <a [routerLink]="['/workspace']" routerLinkActive="selected">Workspace</a>
+	<a [routerLink]="['/request']" routerLinkActive="selected">
+		<div class="first-uppercase" notifBadge [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null" i18n="@@requests">requests</div>
+	</a>
 
   <!-- we don't want those links in production... -->
   <a

@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
-import { User as RealmUser } from 'realm-graphql-client';
+import { Credentials as RealmCredentials, User as RealmUser } from 'realm-graphql-client';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, shareReplay, switchMap, tap, first } from 'rxjs/operators';
 import { AuthState, AuthStatus, Credentials } from '~core/auth/interfaces';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TokenService } from '~core/auth/services/token.service';
@@ -23,12 +23,12 @@ export class AuthenticationService {
 	);
 	/** whether the user is authenticated */
 	isAuthenticated$ = this.authStatus$.pipe(
-		map(status => status === AuthStatus.AUTHENTICATED),
+		map(status => status === AuthStatus.AUTHENTICATED || status === AuthStatus.ANONYMOUS),
 		shareReplay(1)
 	);
 	/** sends event when the user authenticates */
 	authenticated$ = this.authStatus$.pipe(
-		filter(status => status === AuthStatus.AUTHENTICATED),
+		filter(status => status === AuthStatus.AUTHENTICATED || status === AuthStatus.ANONYMOUS),
 		shareReplay(1)
 	);
 	/** sends event when the user logs out */
@@ -38,9 +38,12 @@ export class AuthenticationService {
 	);
 	userId$ = this._authState$.asObservable().pipe(
 		map(state => state.userId),
+		filter(id => !!id),
 		shareReplay(1)
 	);
 	urlToRedirectOnAuth: string;
+
+	realmUser: RealmUser;
 
 	constructor(
 		private tokenSrv: TokenService,
@@ -49,21 +52,39 @@ export class AuthenticationService {
 	) { }
 
 	init() {
-		const realmUser = this.tokenSrv.restoreRealmUser();
-		const authState = this.realmUserToAuthState(realmUser);
-		this._authState$.next(authState);
+		// we are going to login the user by taking the data that is in
+		// localStorage.
+		// If there is none and there is a token query in the url we try to login the user with
+		// said token. If none of thise works then the user is not logged in.
+		const token = this.tokenSrv.getAnonymousToken();
+		if (token) {
+			this.login({ token }).subscribe();
+		} else {
+			this.realmUser = new RealmUser(this.tokenSrv.getRealmUser());
+			const authState = this.realmUserToAuthState(this.realmUser);
+			this._authState$.next(authState);
+		}
 		this.tokenSrv.restoreFeedToken();
 	}
 
+	/**
+	 * login with credentials or a token
+	 * @param credentials either login + password or token as a string
+	 */
 	login(credentials: Credentials) {
-		// lower case for email
-		credentials.login = credentials.login.toLowerCase();
+		// lower case for email when using credentials
+		if (credentials.login) {
+			credentials.login = credentials.login.toLowerCase();
+		}
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
 			tap(resp => this.tokenSrv.storeJwtTokens(resp.jwtTokenFeed)),
 			map(resp => resp.jwtToken),
-			switchMap((jwt) => this.tokenSrv.getRealmUser(jwt)),
+			switchMap(jwt => this.jwtToRealmUser(jwt)),
+			tap(realmUser => this.realmUser = realmUser),
+			tap(realmUser => this.tokenSrv.storeRealmUser(realmUser)),
 			map(realmUser => this.realmUserToAuthState(realmUser)),
-			tap(authState => this._authState$.next(authState))
+			tap(authState => this._authState$.next(authState)),
+			first()
 		);
 	}
 
@@ -72,6 +93,7 @@ export class AuthenticationService {
 			this.router.navigate(['auth', 'login']);
 		this.tokenSrv.clearTokens();
 		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
+		setTimeout(_ => window.location.reload());
 	}
 
 	checkPassword(credentials: Credentials): Observable<boolean> {
@@ -121,5 +143,10 @@ export class AuthenticationService {
 				status: AuthStatus.NOT_AUTHENTICATED
 			};
 		}
+	}
+
+	private jwtToRealmUser(jwt: string) {
+		const credentials = RealmCredentials.jwt(jwt);
+		return RealmUser.authenticate(credentials, environment.graphqlAuthUrl);
 	}
 }

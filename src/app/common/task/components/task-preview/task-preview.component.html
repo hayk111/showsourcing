@@ -33,7 +33,7 @@
 	</preview-header-app>
 
 	<!-- Description -->
-	<preview-section-app [title]="'Description'">
+	<preview-section-app [title]="'description'" i18n-title="@@description">
 		<input-description-app
 			[description]="task?.description"
 			(update)="update($event, 'description')">
@@ -48,8 +48,13 @@
 			<div class="left">
 				<editable-field-app #editable [hasAction]="false" [inlineLabel]="false"
 					(opened)="inpDueDate.select()" [canGrow]="true">
-					<label-app>Due date</label-app>
-					<editable-label-app>{{ task?.dueDate ? (task?.dueDate | date:'dd-MM-yyyy') : 'Select a due date' }}</editable-label-app>
+					<label-app i18n="@@due-date">Due date</label-app>
+					<editable-label-app>
+						<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy') }}</ng-container>
+						<ng-template #selectDue><ng-container i18n="@@select-due-date">
+							Select a due date
+						</ng-container></ng-template>
+					</editable-label-app>
 					<form-field-app>
 						<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate ? (task?.dueDate | date:'yyyy-MM-dd') : ''" type="date"
 						(keyup.enter)="updateDueDate(false, inpDueDate.value)" (change)="updateDueDate(false, $event.target.value)"/>
@@ -66,7 +71,7 @@
 					(update)="update($event, 'assignee')">
 					<editable-field-app
 						#editable [hasAction]="false" [inlineLabel]="false" [canGrow]="true" [openOnClick]="false">
-						<label-app>Assigned to</label-app>
+						<label-app i18n="@@assigned-to">Assigned to</label-app>
 						<editable-label-app class="flex">
 							<user-picture-app
 								[user]="task?.assignee" [size]="16" [border]="true">
@@ -80,7 +85,7 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="task?.comments?.length" [title]="'Comments'">
+	<preview-section-app *ngIf="task?.comments?.length" [title]="'comments'" i18n-title="@@comments">
 		<comment-list-app [comments]="task.comments"></comment-list-app>
 	</preview-section-app>
 

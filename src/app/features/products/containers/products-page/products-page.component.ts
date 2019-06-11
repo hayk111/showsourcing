@@ -42,6 +42,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		super();
 	}
 
+
+
 	ngOnInit() {
 		this.listSrv.setup({
 			key: ListPageKey.PRODUCTS,

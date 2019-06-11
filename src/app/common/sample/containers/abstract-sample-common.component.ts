@@ -40,11 +40,11 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 	}
 
 	openProduct(id: string) {
-		this.router.navigate([ERM.PRODUCT.singular, 'details', id]);
+		this.router.navigate([ERM.PRODUCT.singular, id]);
 	}
 
 	openSupplier(id: string) {
-		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
+		this.router.navigate([ERM.SUPPLIER.singular, id]);
 	}
 
 	toggleMySamples(show: boolean) {

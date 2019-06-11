@@ -64,10 +64,10 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 	}
 
 	openSupplier() {
-		this.router.navigate(['supplier', 'details', this.task.supplier.id]);
+		this.router.navigate(['supplier', this.task.supplier.id]);
 	}
 
 	openProduct() {
-		this.router.navigate(['product', 'details', this.task.product.id]);
+		this.router.navigate(['product', this.task.product.id]);
 	}
 }

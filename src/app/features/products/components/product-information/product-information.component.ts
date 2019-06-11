@@ -4,8 +4,9 @@ import { ProductService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { ExtendedFieldDefinition, Product } from '~core/models';
-import { CustomField } from '~shared/dynamic-forms';
+import { ERM, ExtendedFieldDefinition, Product } from '~core/models';
+import { DynamicField } from '~shared/dynamic-forms';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'product-information-app',
@@ -19,23 +20,36 @@ export class ProductInformationComponent implements OnInit {
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
 
-	customFields: CustomField[] = [
-		{ name: 'name', type: 'text', required: true, label: 'name' },
+	// TODO i18n
+	customFields: DynamicField[] = [
+		{ name: 'name', type: 'text', required: true, label: translate('name') },
 		{
-			name: 'supplier', type: 'selector',
-			metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+			name: 'supplier', type: 'selector', label: translate(ERM.SUPPLIER.singular, 'erm'),
+			metadata: { target: ERM.SUPPLIER.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{
-			name: 'event', type: 'selector',
-			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+			name: 'event', type: 'selector', label: translate(ERM.EVENT.singular, 'erm'),
+			metadata: { target: ERM.EVENT.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{
-			name: 'category', type: 'selector',
-			metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+			name: 'category', type: 'selector', label: translate(ERM.CATEGORY.singular, 'erm'),
+			metadata: { target: ERM.CATEGORY.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
-		{ name: 'price', type: 'price' },
-		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
-		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' }
+		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm'), },
+		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
+		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
+		{ name: 'pricePer20ft', type: 'number', label: 'Price per 20 feet' },
+		{ name: 'pricePer40ft', type: 'number', label: 'Price per 40 feet' },
+		{ name: 'pricePer40ftHC', type: 'number', label: 'Price per 40 feet HC' },
+		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
+		{
+			name: 'incoTerm', type: 'selector', label: 'inco term',
+			metadata: { target: ERM.INCOTERM.singular, type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
+		},
+		{
+			name: 'harbour', type: 'selector', label: 'harbour',
+			metadata: { target: ERM.HARBOUR.singular, type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
+		},
 	];
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
@@ -46,7 +60,7 @@ export class ProductInformationComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product.extendedFields"' });
 	}
 
 	updateProduct(product: Product) {

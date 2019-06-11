@@ -1,15 +1,14 @@
 
 <sub-panel-app
-	title="Invitations"
+	[title]="'invitations'"
 	[hasSwitch]="false"
 	[hasFilter]="false"
-	[hasCreate]="true"
-	[buttonIcon]="false"
-	(search)="listSrv.search($event)">
+	(search)="listSrv.search($event)"
+	i18n-title="@@invitations">
 
 	<sub-panel-right-item-app>
-		<div toolTip [toolTipMessage]="!teamOwner ? 'Only team owners can invite' : null" toolTipPosition="above-right">
-			<button [disabled]="!teamOwner" (click)="openInviteDialog()">Invite Collaborator</button>
+		<div toolTip [toolTipMessage]="getToolTipMsg()" toolTipPosition="above-right">
+			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
 		</div>
 	</sub-panel-right-item-app>
 </sub-panel-app>
@@ -21,7 +20,11 @@
 		[user]="user"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
-		(bottomReached)="listSrv.loadMore()"
+		[count]="listSrv.count$ | async"
+		[skipped]="listSrv.skipped"
+		(next)="listSrv.loadNextPage()"
+		(pevious)="listSrv.loadPreviousPage()"
+		(goTorPage)="listSrv.loadPage($event)"
 		(sort)="listSrv.sort($event)"
     (select)="listSrv.selectOne($event, false)"
 		(unselect)="listSrv.unselectOne($event, false)"

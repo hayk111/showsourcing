@@ -9,18 +9,17 @@
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.filterList.asFilters()?.length"
 		[hasFilter]="true"
-		[buttonIcon]="false"
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
 		(showFilters)="listSrv.openFilterPanel()"
 		(buttonClick)="openFindProductDlg()"
 		(search)="listSrv.search($event)"
-		(viewChange)="listSrv.changeView($event)">
+		(viewChange)="listSrv.changeView($event)"
+		i18n="@@add-products">
 
 		<sub-panel-right-item-app>
 			<product-sorting-menu-app
 				[currentSort]="listSrv.currentSort"
-				[gridView]="listSrv.view === 'card'"
 				(sortFromMenu)="listSrv.sortFromMenu($event)">
 			</product-sorting-menu-app>
 		</sub-panel-right-item-app>
@@ -35,6 +34,11 @@
 			[selection]="listSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
+			[count]="listSrv.count$ | async"
+			[skipped]="listSrv.skipped"
+			(next)="listSrv.loadNextPage()"
+			(previous)="listSrv.loadPreviousPage()"
+			(goToPage)="listSrv.loadPage($event)"
 			(previewClick)="listSrv.openPreview($event)"
 			(select)="listSrv.selectOne($event, true)"
 			(unselect)="listSrv.unselectOne($event, true)"
@@ -43,10 +47,8 @@
 			(open)="listSrv.goToDetails($event)"
 			(favorited)="listSrv.onItemFavorited($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
-			(bottomReached)="listSrv.loadMore()"
 			(sort)="listSrv.sort($event)"
-			(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog($event)"
-			(delete)="deassociateProductById($event)">
+			(delete)="deassociateProductById(($event)?.id)">
 		</project-product-list-app>
 
 		<products-card-view-app

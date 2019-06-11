@@ -12,7 +12,8 @@
 				(createComment)="createComment($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
-				(disliked)="onThumbDown($event)">
+				(disliked)="onThumbDown($event)"
+				i18n-title="@@new-comment">
 			</one-product-activity-card-app>
 
 			<!-- product created -->
@@ -23,7 +24,8 @@
 				(createComment)="createComment($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
-				(disliked)="onThumbDown($event)">
+				(disliked)="onThumbDown($event)"
+				i18n-title="@@created-new-product">
 			</one-product-activity-card-app>
 
 			<multiple-products-activity-card-app
@@ -41,7 +43,8 @@
 				[groupFeed]="feed"
 				[title]="'created a new supplier'"
 				(createComment)="createComment($event)"
-				(update)="updateSupplier($event)">
+				(update)="updateSupplier($event)"
+				i18n-title="@@created-new-supplier">
 			</one-supplier-activity-card-app>
 
     </ng-container>

@@ -1,4 +1,6 @@
 import { EntityWithAudit } from '~models/_entity.model';
+import { ID } from '~utils';
+
 import { ImageUrl } from './image-url.model';
 
 export class AppImage extends EntityWithAudit<AppImageConfig> {
@@ -8,7 +10,7 @@ export class AppImage extends EntityWithAudit<AppImageConfig> {
 	deleted = false;
 	pending?: boolean;
 	urls?: ImageUrl[];
-	__typename ?= 'Image';
+	__typename?= 'Image';
 
 	constructor(config?: AppImageConfig) {
 		super(config);
@@ -17,6 +19,10 @@ export class AppImage extends EntityWithAudit<AppImageConfig> {
 }
 
 export interface AppImageConfig {
-	id?: string;
+	id?: ID;
 	fileName?: string;
+	orientation?: number;
+	imageType?: string;
+	pending?: boolean;
+	urls?: ImageUrl[];
 }

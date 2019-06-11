@@ -3,51 +3,16 @@
 		<div class="space-icon flexAround">
 			<icon-app class="fs-m color-primary" name="file" ></icon-app>
 		</div>
-		<h3 i18n="header 2|File section card title@@filesCard_attachedFiles" class="ms">
+		<h3 i18n="header@@attached-files" class="ms">
 			Attached Files
 		</h3>
 	</div>
 
-	<ng-container *ngIf="files">
-		<ng-container *ngIf="files?.length > 0; else noFile">
-
-			<!-- file list -->
-			<list-app>
-
-				<list-item-app (click)="downloadFile(file)" *ngFor="let file of files; let last = last;" [border]="!last">
-					<div class="flex">
-						<spinner-app size="35" width="3" *ngIf="isPending(file)"></spinner-app>
-
-						<div class="space-icon flexAround">
-							<icon-app class="fs-m color-txt-secondary" name="file" ></icon-app>
-						</div>
-						<div class="name pointer">
-							<div class="ellipsis">{{ file.fileName }}</div>
-							<div class="file-size">{{ file.size | fileSize }}</div>
-						</div>
-						<div class="flexCenter">
-							<icon-app fontSet="fa" (click)="onFileRemoved(file, $event)" name="minus" class="pointer minus fs-xl color-primary-light"></icon-app>
-						</div>
-					</div>
-				</list-item-app>
-
-			</list-app>
-
-		</ng-container>
-
-		<!-- no file -->
-		<ng-template #noFile>
-			<div class="flexColumn flexCenter empty">
-				<img [src]="defaultImg" class="pointer" (click)="inp.click()"/>
-				<span i18n="spanFile section with no files@@filesCard_noDocuments">No Documents attached yet</span>
-			</div>
-
-		</ng-template>
-	</ng-container>
+	<file-list-app [linkedItem]="linkedItem" [files]="files"></file-list-app>
 
 	<card-footer-app>
 		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
-		<button (click)="inp.click()" i18n="button|Add file@@filesCard_addFile">Add File</button>
+		<button (click)="inp.click()" i18n="button@@add-file">Add File</button>
 	</card-footer-app>
 
 </card-app>

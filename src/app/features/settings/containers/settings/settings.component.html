@@ -1,9 +1,9 @@
 <div class="flex settings">
-  <sidenav-app menuIcon="shape" menuTitle="Settings" (expanded)="onMenuExpanded($event)">
+  <sidenav-app menuIcon="shape" menuTitle="settings" (expanded)="onMenuExpanded($event)" i18n-menuTitle="@@settings">
 
 		<sidenav-item-app link="/settings/profile">
 			<icon-app name="user" fontSet="svg"></icon-app>
-			<span sidenavLabelApp>Profile</span>
+			<span sidenavLabelApp i18n="profile">profile</span>
 		</sidenav-item-app>
 		<!-- TODO Uncomment when these tabs are needed -->
 		<!-- <sidenav-item-app link="/settings/workflows">
@@ -14,7 +14,7 @@
 		</sidenav-item-app> -->
 		<sidenav-item-app link="/settings/team/members">
 			<icon-app name="team"></icon-app>
-			<span sidenavLabelApp>Team Members</span>
+			<span sidenavLabelApp i18n="@@team-members">Team Members</span>
 		</sidenav-item-app>
 <!--
 		<sidenav-item-app link="/settings/workflow" [hasChildren]="true">
@@ -35,24 +35,25 @@
 		<!-- Data cleansing -->
 		<sidenav-item-app [hasChildren]="true">
 			<icon-app name="data-cleansing"></icon-app>
-			<span sidenavLabelApp>Data Cleansing</span>
+			<span sidenavLabelApp i18n="@@data-cleansing">Data Cleansing</span>
 
 			<sidenav-item-app link="/settings/data/category">
-				<span sidenavLabelApp>Category</span>
+				<span sidenavLabelApp i18n="@@category">category</span>
 			</sidenav-item-app>
 			<sidenav-item-app link="/settings/data/tag">
-				<span sidenavLabelApp>Tag</span>
+				<span sidenavLabelApp i18n="@@tag">tag</span>
 			</sidenav-item-app>
 			<sidenav-item-app link="/settings/data/event">
-				<span sidenavLabelApp>Event</span>
+				<span sidenavLabelApp i18n="@@event">event</span>
 			</sidenav-item-app>
 		</sidenav-item-app>
 
 		<!-- Export -->
 		<sidenav-item-app link="/settings/exports">
-			<icon-app name="export"></icon-app> <span sidenavLabelApp>Exports</span>
+			<icon-app name="export"></icon-app> <span sidenavLabelApp i18n="@@exports">exports</span>
 		</sidenav-item-app>
-  </sidenav-app>
+
+	</sidenav-app>
 
   <div class="settings-page">
 		<router-outlet></router-outlet>

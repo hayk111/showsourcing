@@ -1,19 +1,20 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { first, tap, switchMap, takeUntil, startWith, map } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest } from 'rxjs';
+import { filter, first, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { CreationDialogComponent } from '~common/modals';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { Sample, SampleStatus, ERM } from '~core/models';
+import { ERM, Sample, SampleStatus } from '~core/models';
+import { NEW_STATUS_ID } from '~core/models/status.model';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { FilterList, FilterType } from '~shared/filters';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FilterType, FilterList } from '~shared/filters';
-import { Observable, combineLatest } from 'rxjs';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService } from '~shared/dialog';
+import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { CreationDialogComponent } from '~common/modals';
-import { NEW_STATUS_ID } from '~core/models/status.model';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 
 @Component({
@@ -139,10 +140,10 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 
 	openCreateDlg() {
 		const assignee = { id: this.userSrv.userSync.id };
-		this.dlgSrv.open(CreationDialogComponent, { type: ERM.SAMPLE }).pipe(
-			map(name => new Sample({ name, assignee })),
-			switchMap(sample => this.sampleSrv.create(sample), sample => sample)
-		).subscribe(sample => this.kanbanSrv.addItems([sample], null));
+		this.dlgSrv.open(CreationDialogComponent, { type: ERM.SAMPLE, extra: { assignee } }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			map((evt: CloseEvent) => evt.data)
+		).subscribe(({ item }) => this.kanbanSrv.addItems([item], NEW_STATUS_ID));
 	}
 
 	updateSampleStatus(event: KanbanDropEvent) {
@@ -192,14 +193,25 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
-		const text = `Delete ${itemIds.length} `
-			+ (itemIds.length <= 1 ? 'sample' : 'samples');
+		const del = translate('delete');
+		const smpl = itemIds.length <= 1 ? translate('sample') : translate('samples');
+		const text = `${del} ${itemIds.length} ${smpl}`;
+
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
 		).subscribe(_ => {
 			this.listSrv.selectionSrv.unselectAll();
 			this.kanbanSrv.deleteItems(itemIds);
 		});
+	}
+
+	// this is used on sample list page too
+	getFilterAmount() {
+		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
+		const filters = this.listSrv.filterList.asFilters()
+			.filter(fil => !(fil.type === FilterType.DELETED && fil.value === false) && !(fil.type === FilterType.ASSIGNEE));
+		return filters.length;
 	}
 }

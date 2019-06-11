@@ -48,7 +48,7 @@ export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit 
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {
 					this.pending = false;
-					this.router.navigate(['/supplier', 'details', id]);
+					this.router.navigate(['/supplier', id]);
 					this.dlgSrv.close();
 				});
 		}

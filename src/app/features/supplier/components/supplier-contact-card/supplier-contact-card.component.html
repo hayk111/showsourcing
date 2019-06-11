@@ -1,27 +1,30 @@
 
 <card-app padding="ms">
 
-	<h3 i18n="header 2|Supplier contacts card@@supplierContactCard_contacts" class="ms">Contacts</h3>
+	<h3 class="ms" i18n="header@@contacts">contacts</h3>
 
 	<ul *ngIf="contacts?.length > 0; else noContact">
 		<supplier-contact-app
 			*ngFor="let contact of contacts; let last = last;trackBy: trackByFn"
 			[border]="!last"
+			[contact]="contact"
 			(edit)="openContactDlg(contact)"
-			(delete)="deleteContact(contact)"
-			[contact]="contact">
+			(delete)="deleteContact(contact)">
 		</supplier-contact-app>
 	</ul>
 
 	<ng-template #noContact>
 		<div class="flexColumn flexCenter empty">
 			<img [src]="defaultImg" class="pointer" (click)="openContactDlg()"/>
-			<span i18n="span|Supplier with no contacts@@supplierContactCard_noContacts">No contact for this supplier</span>
+			<span i18n="text@@no-contact-for-supplier">No contact for this supplier</span>
 		</div>
 	</ng-template>
 
 	<card-footer-app>
-		<button (click)="openContactDlg()" i18n="button|Add new contact for a supplier@@supplierContactCard_newContact">New Contact</button>
+		<button (click)="openContactDlg()"
+			i18n="button@@new-contact">
+			New Contact
+		</button>
 	</card-footer-app>
 
 </card-app>

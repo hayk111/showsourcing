@@ -1,0 +1,65 @@
+dialog-app {
+	height: 80vh;
+	min-width: 500px;
+	max-width: 890px;
+	padding-bottom: var(--spacing-ms);
+
+	dialog-header-app {
+		font-size: var(--font-size-l);
+	}
+	.left {
+		width: 50%;
+		padding-right: var(--spacing-l);
+		.browse {
+			margin-top: var(--spacing-s);
+			margin-bottom: var(--spacing-xs);
+		}
+	}
+
+	.right {
+		width: 50%;
+		padding-left: var(--spacing-l);
+	}
+
+	.request-container {
+		overflow-x: hidden;
+
+		.pdng-btm-l {
+			padding-bottom: var(--spacing-l);
+		}
+
+		label-app.title {
+			font-size: var(--font-size-m);
+			color: var(--color-txt-strong);
+			font-weight: normal;
+			text-transform: none;
+		}
+
+		.left {
+			border-right: 1px solid var(--color-divider);
+		}
+
+		selector-placeholder-app {
+			width: 400px;
+		}
+
+		checkbox-app {
+			margin-top: 1px;
+			display: flex;
+			align-items: flex-start;
+		}
+	}
+
+	.checkbox-label {
+		font-weight: 400;
+		text-transform: none;
+	}
+
+	dialog-footer-app {
+		align-items: center;
+
+		spinner-app {
+			margin-right: var(--spacing-ms);
+		}
+	}
+}

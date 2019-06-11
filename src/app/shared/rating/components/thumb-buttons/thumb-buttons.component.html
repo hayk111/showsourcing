@@ -11,11 +11,11 @@
 <ng-container *ngIf="!lineStyle; else other">
 	<button class="icon light first flex" [ngClass]="{'total-width': hasText}" (click)="thumbUp()">
 		<icon-app [ngClass]="{'color-primary': like, 'color-txt-secondary': !like}" name="thumbs-up" [size]="size" ></icon-app>
-		<p *ngIf="hasText">Like</p>
+		<p *ngIf="hasText" i18n="text@@like">Like</p>
 	</button>
 	<button class="icon light second flex" [ngClass]="{'total-width': hasText}" (click)="thumbDown()">
 		<icon-app [ngClass]="{'color-warn': dislike, 'color-txt-secondary': !dislike}" name="thumbs-down" [size]="size"></icon-app>
-		<p *ngIf="hasText">Dislike</p>
+		<p *ngIf="hasText" i18n="text@@dislike">Dislike</p>
 	</button>
 </ng-container>
 

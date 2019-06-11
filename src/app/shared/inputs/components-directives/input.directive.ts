@@ -19,13 +19,22 @@ const supportedTypes = new Set([
 ]);
 
 
-
+// Native input properties that are overwritten by Angular inputs need to be synced with
+// the native input element. Otherwise property bindings for those don't work.
 @Directive({
 	selector: '[inputApp]',
 	exportAs: 'inputApp',
 	host: {
 		'(blur)': 'focussed = false',
 		'(focus)': 'focussed = true',
+		// '[disabled]': 'disabled',
+		// '[required]': 'required',
+		// '[attr.id]': 'id',
+		//  '[attr.placeholder]': 'placeholder',
+		//  '[attr.readonly]': 'readonly && !_isNativeSelect || null',
+		//  '[attr.aria-describedby]': '_ariaDescribedby || null',
+		//  '[attr.aria-invalid]': 'errorState',
+		//  '[attr.aria-required]': 'required.toString()',
 	},
 	providers: [{ provide: FormFieldControlDirective, useExisting: InputDirective }],
 
@@ -38,7 +47,10 @@ export class InputDirective extends FormFieldControlDirective {
 	set id(value: string) { this._id = value; this.stateChanges.next(); }
 	protected _id: string = 'inp-' + InputDirective.NEXT_UID++;
 
-	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) {
+	constructor(
+		protected _elementRef: ElementRef,
+		@Optional() @Self() public control: NgControl,
+	) {
 		super(control);
 	}
 
@@ -70,19 +82,20 @@ export class InputDirective extends FormFieldControlDirective {
 	}
 	protected _type = 'text';
 
-	/** Whether the element is disabled. */
-	@Input()
-	get disabled(): boolean {
-		if (this.control && this.control.disabled !== null) {
-			return this.control.disabled;
-		}
-		return this._disabled;
-	}
-	set disabled(value: boolean) {
-		this._disabled = value;
-		this.stateChanges.next();
-	}
-	protected _disabled = false;
+	// we commented this since it was not working when using inputApp on other components besied the native form html (input, textarea...)
+	// /** Whether the element is disabled. */
+	// @Input()
+	// get disabled(): boolean {
+	// 	if (this.control && this.control.disabled !== null) {
+	// 		return this.control.disabled;
+	// 	}
+	// 	return this._disabled;
+	// }
+	// set disabled(value: boolean) {
+	// 	this._disabled = value;
+	// 	this.stateChanges.next();
+	// }
+	// protected _disabled = false;
 
 	/** Whether the input is on focus */
 	set focussed(value: boolean) {

@@ -3,16 +3,11 @@ import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SampleCommonModule } from '~common/sample';
 import { TaskCommonModule } from '~common/task';
+import { SampleListViewComponent } from '~features/workspace/components';
 import {
-	ProductsReviewCardHeaderComponent,
-	ProductsReviewCardViewComponent,
-	ProductsReviewSortingMenuComponent,
-	SampleListViewComponent
-} from '~features/workspace/components';
-import {
-	MySamplePageComponent,
 	MySampleBoardPageComponent,
 	MySampleListPageComponent,
+	MySamplePageComponent,
 	MyTasksPageComponent,
 	MyWorkflowPageComponent,
 	WorkspaceComponent,
@@ -20,7 +15,6 @@ import {
 import { routes } from '~features/workspace/routes';
 import { SharedModule } from '~shared/shared.module';
 
-import { ProductsReviewCardBodyComponent } from './components/products-review-card-body/products-review-card-body.component';
 
 
 @NgModule({
@@ -36,10 +30,6 @@ import { ProductsReviewCardBodyComponent } from './components/products-review-ca
 		WorkspaceComponent,
 		MyWorkflowPageComponent,
 		MyTasksPageComponent,
-		ProductsReviewCardViewComponent,
-		ProductsReviewCardHeaderComponent,
-		ProductsReviewSortingMenuComponent,
-		ProductsReviewCardBodyComponent,
 		MySamplePageComponent,
 		MySampleBoardPageComponent,
 		MySampleListPageComponent,

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject, ConnectableObservable, BehaviorSubject } from 'rxjs';
-import { map, skip, switchMap, tap, first, takeUntil } from 'rxjs/operators';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import { ConnectableObservable, Observable } from 'rxjs';
+import { first, map, skip, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
-import { SelectParamsConfig, SelectParams } from '~entity-services/_global/select-params';
+import { DEFAULT_TAKE_PAGINATION, SelectParamsConfig } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
-import { config } from '@fortawesome/fontawesome-svg-core';
 
 /**
  * Services that helps us for common functionalities in list pages
@@ -23,14 +23,16 @@ export class ListPageDataService
 	protected entitySrv: G;
 	/** currently loaded items */
 	items$: ConnectableObservable<Array<T>>;
+	/** number of total items */
+	count$: Observable<number>;
 
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
 	selectParams: SelectParamsConfig = {
-		query: '',
+		query: 'deleted == false',
 		sortBy: 'creationDate',
 		descending: true,
-		take: 25,
+		take: DEFAULT_TAKE_PAGINATION,
 		skip: 0
 	};
 
@@ -112,6 +114,7 @@ export class ListPageDataService
 		) as ConnectableObservable<T[]>;
 		// then we start listening
 		this.listResult.items$.connect();
+		this.count$ = this.listResult.count$;
 	}
 
 	/** when the filter change we want to refetch the items with a new predicate */
@@ -130,18 +133,49 @@ export class ListPageDataService
 		this.pending = false;
 	}
 
+	onLoading() {
+		this.pending = true;
+	}
+
 	/**
 	 * refetchs the query and will merge with existing config
 	 * @param config configuration used to refetch
 	 */
 	refetch(config?: SelectParamsConfig) {
-		return this.listResult.refetch(config || this.selectParams).pipe(first());
+		this.selectParams = { ...this.selectParams, ...config };
+		this.onLoading();
+		return this.listResult.refetch(this.selectParams).pipe(first());
 	}
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
 		return this.listResult.fetchMore();
 	}
+
+	loadPage(page: number): Observable<any> {
+		this.selectParams.skip = this.selectParams.take * page;
+		return this.refetch();
+	}
+
+	loadNextPage(): Observable<any> {
+		this.selectParams.skip = this.selectParams.skip + this.selectParams.take;
+		return this.refetch();
+	}
+
+	loadPreviousPage(): Observable<any> {
+		this.selectParams.skip = Math.max(this.selectParams.skip - this.selectParams.take, 0);
+		return this.refetch();
+	}
+
+	loadFirstPage(): Observable<any> {
+		this.selectParams.skip = 0;
+		return this.refetch();
+	}
+
+	loadLastPage(): Observable<any> {
+		throw Error('not implemented yet');
+	}
+
 
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {

@@ -115,6 +115,13 @@ export class QueryBuilder {
 			}
 		}`)
 
+	selectCount = () => gql(`
+		subscription ${this.plural}Count($query: String) {
+			${this.plural}(query: $query) {
+				count
+			}
+		}`)
+
 	create = (str: string) => gql(`
 		mutation create${this.capSing}($input: ${this.capSing}Input!) {
 			update${this.capSing}(input: $input) {
@@ -131,12 +138,12 @@ export class QueryBuilder {
 		}`)
 
 	updateMany = (str: string) => gql(`
-		mutation updateMany${this.capPlural}($input: [ProductInput!]){
-			create${this.capPlural}(input: $input, updatePolicy: MODIFIED) {
-				${str}
-			}
+	mutation updateMany${this.capPlural}($input: [${this.capSing}Input!]){
+		create${this.capPlural}(input: $input, updatePolicy: MODIFIED) {
+			${str}
 		}
-		`)
+	}
+	`)
 
 	deleteOne = () => gql(`
 		mutation delete${this.capSing}($id: String!) {

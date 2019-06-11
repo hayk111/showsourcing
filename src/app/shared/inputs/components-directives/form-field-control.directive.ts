@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef, Self, Optional, OnChanges } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, ReplaySubject } from 'rxjs';
 
 
 

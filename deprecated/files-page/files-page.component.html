@@ -1,0 +1,53 @@
+<div (fileDrop)="onFileAdded($event)">
+	<div class="flexBetween">
+		<h3 class="ms">Files &amp; Documents</h3>
+
+		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
+		<button class="small" (click)="inp.click()">Add File</button>
+	</div>
+
+	<ng-container *ngIf="files$ | async as files">
+		<table class="fullWidth">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Name</th>
+					<th>Upload date</th>
+					<th>Uploaded by</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr *ngFor="let file of files;trackBy: trackByFn" class="pointer">
+					<td>
+						<ng-container *ngIf="!file.pending; else spinner">
+							<i class="fa fa-download pointer" (click)="download(file)" aria-hidden="true"></i>
+						</ng-container>
+						<ng-template #spinner>
+							<spinner-app></spinner-app>
+						</ng-template>
+					</td>
+					<td>
+							{{ file.fileName }}
+					</td>
+
+					<td>
+							{{ file.audit.creationDate | date }}
+					</td>
+
+					<td>
+							{{ file.audit.createdBy.firstName }}
+					</td>
+
+					<td (click)="deleteFile(file)">
+							delete
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+
+	</ng-container>
+</div>
+

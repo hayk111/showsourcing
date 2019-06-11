@@ -8,7 +8,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { InvitationUserService, TeamService, UserService } from '~entity-services';
 import { InvitationUser } from '~models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class InvitationFeatureService extends InvitationUserService {
 
 	constructor(

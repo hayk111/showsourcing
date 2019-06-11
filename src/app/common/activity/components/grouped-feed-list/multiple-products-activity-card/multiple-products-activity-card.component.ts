@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { ProductService } from '~entity-services';
-import { Product, Supplier } from '~models';
+import { ERM, Product, Supplier } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -22,6 +22,7 @@ export class MultipleProductsActivityCardComponent extends AutoUnsub implements 
 
 	time: Date;
 	products$: Observable<Product[]>;
+	erm = ERM;
 
 	constructor(
 		private router: Router,
@@ -37,11 +38,11 @@ export class MultipleProductsActivityCardComponent extends AutoUnsub implements 
 	}
 
 	viewProduct(product: Product) {
-		this.router.navigate(['product', 'details', product.id]);
+		this.router.navigate(['product', product.id]);
 	}
 
 	viewSupplier(supplier: Supplier) {
-		this.router.navigate(['supplier', 'details', supplier.id]);
+		this.router.navigate(['supplier', supplier.id]);
 	}
 
 }

@@ -3,9 +3,24 @@
 :host {
 	display: flex;
 	margin: 0 var(--spacing-l);
-	height: calc(100% - 110px);
+	height: calc(100% - 120px);
 	box-sizing: border-box;
-	padding-bottom: var(--spacing-l);
+	padding: var(--spacing-l);
+	padding-bottom: 80px;
+	background: white;
+
+	&.no-padding {
+		padding: 0;
+		// we want to keep always the bottom one cause of the selection
+		padding-bottom: var(--spacing-l);
+	}
+}
+
+a.title {
+	color: var(--color-txt-strong);
+	&:hover {
+		color: var(--color-primary);
+	}
 }
 
 .list {
@@ -23,8 +38,8 @@ rating-heart-app {
 
 .imgCtnr {
 	border-radius: var(--border-radius);
-	width: 32px;
-	height: 32px;
+	width: 28px;
+	height: 28px;
 	overflow: hidden;
 	flex-shrink: 0;
 }
@@ -47,15 +62,11 @@ rating-heart-app {
 .mainCell {
 	display: flex;
 	align-items: center;
-	a {
-		font-weight: 600;
-	}
 }
 
 .mainCell > * {
-	margin-left: var(--spacing-s);
-	.name {
-		font-weight: 600;
+	&:not(:first-child) {
+		margin-left: var(--spacing-s);
 	}
 }
 

@@ -48,11 +48,11 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	}
 
 	openProduct(id: string) {
-		this.router.navigate([ERM.PRODUCT.singular, 'details', id]);
+		this.router.navigate([ERM.PRODUCT.singular, id]);
 	}
 
 	openSupplier(id: string) {
-		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
+		this.router.navigate([ERM.SUPPLIER.singular, id]);
 	}
 
 	onEnter(event) {

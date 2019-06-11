@@ -6,7 +6,7 @@ import { CommonModalService } from '~common/modals';
 import { ProductService, SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, Product, Supplier } from '~core/models';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 import { ID } from '~utils/id.utils';
 
 @Component({
@@ -50,9 +50,9 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	delete(supplier: Supplier) {
-		this.commonModalSrv.openConfirmDialog({ text: 'are you sure you want to delete this supplier ?' }).pipe(
+		this.commonModalSrv.openConfirmDialog({ text: translate('Are you sure you want to delete this supplier?') }).pipe(
 			switchMap(_ => this.supplierSrv.delete(supplier.id))
-		).subscribe(_ => this.router.navigate(['supplier', 'all']));
+		).subscribe(_ => this.router.navigate(['supplier']));
 	}
 
 	onViewChange(view: 'list' | 'card') {

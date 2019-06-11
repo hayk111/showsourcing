@@ -52,11 +52,11 @@ export class PreviewPageComponent implements OnInit {
 	// 	let locName = '-';
 	// 	if (this.entity) {
 	// 		if (this.entity.city && this.entity.country)
-	// 			locName = this.entity.city + ', ' + this.constPipe.transform(this.entity.country, 'country');
+	// 			locName = this.entity.city + ', ' + translate(this.entity.country, 'country');
 	// 		else if (this.entity.city)
 	// 			locName = this.entity.city;
 	// 		else
-	// 			locName = this.constPipe.transform(this.entity.country, 'country');
+	// 			locName = translate(this.entity.country, 'country');
 	// 	}
 	// 	return locName;
 	// }

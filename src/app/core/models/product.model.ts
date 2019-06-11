@@ -1,4 +1,4 @@
-import { Attachment, Project, User } from '~models';
+import { Attachment, Project, User, IncoTerm, Harbour } from '~models';
 import { EntityWithAudit } from '~models/_entity.model';
 import { AppImage } from '~models/app-image.model';
 import { Category } from '~models/category.model';
@@ -11,6 +11,7 @@ import { ProductVote } from '~models/product-vote.model';
 import { Supplier } from '~models/supplier.model';
 import { Tag } from '~models/tag.model';
 
+import { Event } from './event.model';
 import { ExtendedField } from './extended-field.model';
 import { PickerField } from '~shared/selectors';
 
@@ -40,60 +41,66 @@ export const productFields: PickerField[] = [
 
 export class Product extends EntityWithAudit<ProductConfig> {
 	id?: string;
-	name?: string;
-	comments?: Comment[];
-	supplier?: Supplier;
-	images?: AppImage[];
+	archived?= false;
+	assignee?: User;
 	attachments?: Attachment[];
-	price?: Price;
 	category?: Category;
+	comments?: Comment[];
 	description?: string;
 	event?: Event;
+	extendedFields?: ExtendedField[];
 	favorite?: boolean;
-	status?: ProductStatus;
-	statushistory?: ProductStatus[];
-	tags?: Tag[];
+	harbour?: string;
+	images?: AppImage[];
+	incoTerm?: string;
+	innerCarton?: Packaging;
+	leadTimeUnit?: string;
+	leadTimeValue?: number;
+	masterCarton?: Packaging;
+	masterCbm?: number;
 	minimumOrderQuantity?: number;
 	moqDescription?: string;
-	votes?: ProductVote[];
-	score?: number;
-	innerCarton?: Packaging;
-	masterCarton?: Packaging;
+	name?: string;
+	price?: Price;
 	priceMatrix?: PriceMatrix;
-	leadTimeValue?: number;
-	leadTimeUnit?: string;
-	sample?: boolean;
-	samplePrice?: number;
-	archived?= false;
-	taskCount?: number;
 	productCount?: number;
 	projects?: Project[];
-	assignee?: User;
-	extendedFields?: ExtendedField[];
+	quantityPer20ft?: number;
+	quantityPer40ft?: number;
+	quantityPer40ftHC?: number;
+	sample?: boolean;
+	samplePrice?: number;
+	score?: number;
+	status?: ProductStatus;
+	statushistory?: ProductStatus[];
+	supplier?: Supplier;
+	tags?: Tag[];
+	taskCount?: number;
+	votes?: ProductVote[];
 	__typename?= 'Product';
 
 }
 
 export interface ProductConfig {
 	id?: string;
-	name?: string;
-	supplier?: Supplier;
-	images?: AppImage[];
-	comments?: Comment[];
-	price?: Price;
 	category?: Category;
+	comments?: Comment[];
 	description?: string;
 	event?: Event;
 	favorite?: boolean;
-	status?: ProductStatus;
-	statushistory?: ProductStatus[];
-	tags?: Tag[];
+	images?: AppImage[];
+	innerCarton?: Packaging;
+	leadTimeUnit?: string;
+	leadTimeValue?: number;
+	masterCarton?: Packaging;
 	minimumOrderQuantity?: number;
 	moqDescription?: string;
-	innerCarton?: Packaging;
-	masterCarton?: Packaging;
+	name?: string;
+	price?: Price;
 	priceMatrix?: PriceMatrix;
-	leadTimeValue?: number;
-	leadTimeUnit?: string;
+	status?: ProductStatus;
+	statushistory?: ProductStatus[];
+	supplier?: Supplier;
+	tags?: Tag[];
 }
 

@@ -1,46 +1,44 @@
-	<div class="left">
-		<h3 *ngIf="title" class="ms"> {{ title }} </h3>
+<h3 *ngIf="title" class="ms"> {{ title }} </h3>
+
+<div class="flex">
+
+	<div class="search-container flex">
+
+		<ng-content select="search-autocomplete-app"></ng-content>
+
+		<search-bar-app
+			*ngIf="hasSearch"
+			[formControl]="searchControl"
+			[inputFocus]="inputFocus"
+			(focus)="onFocusSearch($event)"
+			(search)="search.emit($event)"
+			(keydown.enter)="triggerSmartSearch($event)">
+		</search-bar-app>
 	</div>
-	<div class="flexBetween">
-		<div class="left flexCenter">
 
-			<ng-content select="search-autocomplete-app"></ng-content>
+	<div class="items-container flex">
 
-			<search-bar-app
-				*ngIf="hasSearch"
-				class="mg-right"
-				[formControl]="searchControl"
-				[inputFocus]="inputFocus"
-				(focus)="onFocusSearch($event)"
-				(search)="search.emit($event)"
-				(keydown.enter)="triggerSmartSearch($event)">
-			</search-bar-app>
+		<button *ngIf="hasFilter" class="bold-s pointer secondary capitalize" (click)="showFilters.emit()" i18n="text@@show-filters">Show Filters</button>
 
-			<button *ngIf="hasFilter" class="showFilters pointer secondary" (click)="showFilters.emit()">Show Filters</button>
+		<div *ngIf="hasFilter" class="notification" notifBadge [badge]="filtersAmount" badgePosition="no-content"></div>
 
-			<span *ngIf="hasFilter" class="filters">{{ filtersAmount }}</span>
+		<ng-content select="sub-panel-left-item-app"></ng-content>
 
-			<ng-content select="sub-panel-left-item-app"></ng-content>
+		<ng-content select="sub-panel-right-item-app"></ng-content>
 
-		</div>
+		<view-switcher-app
+			*ngIf="hasSwitch"
+			[switchContent]="switchContent"
+			[view]="view"
+			(viewChange)="viewChange.emit($event)">
+		</view-switcher-app>
 
-		<div class="right flexCenter">
+		<button
+			*ngIf="buttonName"
+			class="create first-uppercase"
+			(click)="buttonClick.emit()">
+			<span class="first-uppercase">{{ buttonName }}</span>
+		</button>
 
-			<ng-content select="sub-panel-right-item-app"></ng-content>
-
-			<view-switcher-app
-				*ngIf="hasSwitch"
-				[switchContent]="switchContent"
-				[view]="view"
-				(viewChange)="viewChange.emit($event)">
-			</view-switcher-app>
-
-			<button *ngIf="hasCreate && buttonName"
-							class="create"
-							(click)="buttonClick.emit()">
-							<!-- TODO check this icon if matches the curfrent ones -->
-				<icon-app *ngIf="buttonIcon" class="plusIc fs-s" name="plus" fontSet="fa"></icon-app>
-				<span>{{ buttonName }}</span>
-			</button>
-		</div>
 	</div>
+</div>

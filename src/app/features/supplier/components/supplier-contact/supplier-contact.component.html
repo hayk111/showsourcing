@@ -1,7 +1,12 @@
 <div class="flex flexVAlign">
 
 	<!-- block without border -->
-	<user-picture-app [image]="contact?.businessCardImage" [initials]="initials" class="pointer" (click)="edit.emit()"></user-picture-app>
+	<user-picture-app
+		class="pointer"
+		[image]="contact?.businessCardImage"
+		[initials]="initials"
+		(click)="edit.emit()">
+	</user-picture-app>
 	<!-- border block -->
 	<div class="right flexBetween flexGrow {{ border ? 'border' : '' }}">
 		<div class="flexColumn middle">
@@ -18,12 +23,16 @@
 
 			<!-- email -->
 			<div class="col valign">
-				<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+				<a href="mailto:{{ contact.email }}">
+					{{ contact.email }}
+				</a>
 			</div>
 
 			<!-- phone -->
 			<div class="col valign">
-				<a href="tel:{{ contact.phoneNumber }}">{{ contact.phoneNumber }}</a>
+				<a href="tel:{{ contact.phoneNumber }}">
+					{{ contact.phoneNumber }}
+				</a>
 			</div>
 		</div>
 
@@ -31,12 +40,15 @@
 			<context-menu-trigger-app>
 				<icon-app fontSet="fa" name="ellipsis-v"></icon-app>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="edit.emit()">
-				Edit
+			<context-menu-item-app (click)="edit.emit()" i18n="button@@edit">
+				edit
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
-			<context-menu-item-app class="color-warn" (click)="delete.emit()">
-				Delete
+			<context-menu-item-app
+				class="color-warn"
+				(click)="delete.emit()"
+				i18n="button@@delete">
+				delete
 			</context-menu-item-app>
 		</context-menu-app>
 

@@ -21,7 +21,7 @@ export class DialogComponent {
 	@ContentChild(DialogFooterComponent) footer: DialogFooterComponent;
 	@ContentChild(DialogHeaderComponent) header: DialogHeaderComponent;
 
-	@Input() headerSpacing = 'xl';
+	@Input() headerSpacing = 'ms';
 
 	constructor(private srv: DialogService) { }
 

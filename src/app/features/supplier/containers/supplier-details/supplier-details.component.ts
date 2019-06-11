@@ -9,7 +9,7 @@ import { Product } from '~models';
 import { Contact } from '~models/contact.model';
 import { Supplier } from '~models/supplier.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, log } from '~utils';
+import { AutoUnsub, log, translate } from '~utils';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -25,6 +25,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	contacts$: Observable<Contact[]>;
 	taskCount$: Observable<number>;
 
+	tabs: { name: string, number$?: Observable<number> }[];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -69,6 +70,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			switchMap(id => this.featureSrv.getContacts(id)),
 		);
 
+		this.tabs = [{ name: translate('activity') }, { name: translate('products') }, { name: translate('tasks'), number$: this.taskCount$ }];
+
 	}
 
 	update(supplier: Supplier) {
@@ -76,10 +79,10 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	delete(supplier: Supplier) {
-		this.commonModalSrv.openConfirmDialog({ text: 'are you sure you want to delete this supplier ?' }).pipe(
+		this.commonModalSrv.openConfirmDialog({ text: translate('Are you sure you want to delete this supplier?') }).pipe(
 
 			switchMap(_ => this.featureSrv.delete(supplier.id))
-		).subscribe(_ => this.router.navigate(['supplier', 'all']));
+		).subscribe(_ => this.router.navigate(['supplier']));
 
 	}
 
@@ -91,7 +94,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		if (!supplier) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: 'The supplier doesn\'t exist',
+				title: translate('The supplier doesn\'t exist'),
 				timeout: 3500
 			});
 			this.router.navigate(['supplier']);
@@ -104,8 +107,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		log.error(error);
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
-			title: 'Error',
-			message: 'There is an error, please try again later',
+			title: translate('error'),
+			message: translate('There is an error, please try again later'),
 			timeout: 3500
 		});
 		this.router.navigate(['supplier']);
