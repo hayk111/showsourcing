@@ -82,9 +82,9 @@ export class MassEditDlgComponent implements OnInit {
 		this.choice$.pipe(
 			take(1),
 			map(choice => this.mapItems(choice)),
-			// switchMap(items => this.productSrv.updateMany(items))
-			tap(itmes => console.log(itmes)),
-			tap(_ => console.log(this.items))
+			switchMap(items => this.productSrv.updateMany(items))
+			// tap(itmes => console.log(itmes)),
+			// tap(_ => console.log(this.items))
 		).subscribe(_ => this.close());
 
 	}

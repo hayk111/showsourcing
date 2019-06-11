@@ -36,18 +36,6 @@
 			</context-menu-item-app>
 		</context-menu-app>
 
-		<!-- Multiple status selector -->
-		<status-selector-app
-			toolTip toolTipMessage="Change status of selected" toolTipPosition="above-right"
-			#workActionMenu
-			selectSize="s"
-			[typeEntity]="erm.PRODUCT"
-			type="multiple-selection"
-			[internalUpdate]="false"
-			(statusUpdated)="statusUpdated.emit($event)"
-			i18n-toolTipMessage="@@change-status-selected">
-		</status-selector-app>
-
 		<!-- Mass edit -->
 		<button class="secondary-light flexCenter with-name" (click)="massEdit.emit()">
 			<icon-app class="color-primary" name="edit"></icon-app>
@@ -62,7 +50,7 @@
 
 		<!-- Request supplier -->
 		<button class="secondary-light flexCenter with-name" (click)="createRequest.emit()">
-			<icon-app class="color-supplier" name="edit"></icon-app>
+			<icon-app class="color-supplier" name="shipping"></icon-app>
 			<span i18n="@@send-request-supplier">Send request to supplier</span>
 
 		</button>
