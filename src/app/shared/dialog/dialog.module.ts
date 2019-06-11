@@ -11,6 +11,7 @@ import { DialogModalComponent } from '~shared/dialog/components/dialog-modal/dia
 import { DialogHeaderComponent } from '~shared/dialog/components/dialog-header/dialog-header.component';
 import { DialogFooterComponent } from '~shared/dialog/components/dialog-footer/dialog-footer.component';
 import { DialogSubtitleComponent } from '~shared/dialog/components/dialog-subtitle/dialog-subtitle.component';
+import { A11yModule } from '@angular/cdk/a11y';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { DialogSubtitleComponent } from '~shared/dialog/components/dialog-subtit
 		CommonModule,
 		UtilsModule,
 		IconsModule,
+		A11yModule,
 	],
 	declarations: [
 		DialogComponent,
