@@ -58,12 +58,12 @@ export class MassEditDlgComponent implements OnInit {
 		const entityName = ERM.getEntityMetadata(type);
 		switch (entityName) {
 			case ERM.USER:
-				const firstName = this.value.firstName || '', lastName = this.value.lastName || '';
-				// TODO use the pipe on supplier-connect
+				const firstName = this.value && this.value.firstName ? this.value.firstName : '';
+				const lastName = this.value && this.value.lastName ? this.value.lastName : '';
 				name = firstName + (lastName ? ' ' : '') + lastName;
 				break;
 			default:
-				name = this.value.name || '';
+				name = this.value && this.value.name ? this.value.name : '';
 				break;
 		}
 		return name;

@@ -12,11 +12,11 @@
 			[width]="500"
 			[pickerFields]="pickerFields"
 			(update)="updateChoice($event)">
-			<!-- TODO change when merged with supplier connect to selector-placeholder-app -->
-			<div class="property-picker selector-placeholder capitalize ellipsis" [ngClass]="{ placeholder: !(choice$ | async)?.name }">
-				{{ (choice$ | async)?.name || 'choose a property' }}
-				<icon-app name="caret-down"></icon-app>
-			</div>
+			<selector-placeholder-app
+				[name]="(choice$ | async)?.name"
+				placeholder="choose a property"
+				i18n-placeholder="@@choose-property">
+			</selector-placeholder-app>
 		</selector-app>
 
 		<ng-container [ngSwitch]="(choice$ | async)?.type">
@@ -69,12 +69,13 @@
 						[internalUpdate]="false"
 						[width]="460"
 						(statusUpdated)="statusUpdated($event)">
-						<!-- TODO change when merged with supplier connect to selector-placeholder-app -->
-						<div class="capitalize selector-placeholder ellipsis status-selector" [ngClass]="{ placeholder: value === null || value === undefined }">
-							{{ value ? value?.name : 'Choose a status' }}
-							<!-- not all the time is the property name to display so maybe a switch case idk -->
-							<icon-app name="caret-down"></icon-app>
-						</div>
+						<selector-placeholder-app
+							class="status-selector"
+							[name]="value?.name"
+							placeholder="choose a status"
+							i18n-placeholder="@@choose-status">
+						</selector-placeholder-app>
+						<!-- not all the time is the property name to display so maybe a switch case idk -->
 					</status-selector-app>
 				</ng-container>
 
@@ -86,16 +87,10 @@
 						[type]="erm.getEntityMetadata(choice?.metadata?.ermName || choice?.name)"
 						[multiple]="choice?.metadata?.multiple"
 						(update)="statusUpdated($event)">
-						<!-- TODO change when merged with supplier connect to selector-placeholder-app -->
-						<div class="capitalize selector-placeholder ellipsis" [ngClass]="{ placeholder: value === null || value === undefined }">
-							<ng-container *ngIf="choice?.metadata?.multiple; else singleLine">
-								{{ getMultipleName() || 'Choose ' + choice?.name }}
-							</ng-container>
-							<ng-template #singleLine>
-								{{ value ? getName(choice?.metadata?.ermName || choice?.name) : 'Choose ' + choice?.name }}
-							</ng-template>
-							<icon-app name="caret-down"></icon-app>
-						</div>
+						<selector-placeholder-app
+							[name]="choice?.metadata?.multiple ? getMultipleName() : getName(choice?.metadata?.ermName || choice?.name)"
+							[placeholder]="('choose' | const: 'messages') + ' ' + choice?.name">
+						</selector-placeholder-app>
 					</selector-app>
 				</ng-container>
 

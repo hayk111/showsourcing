@@ -102,6 +102,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'choose': {
+		locales: {
+			en: {
+				name: 'choose'
+			}
+		}
+	},
 	'comments': {
 		locales: {
 			en: {
