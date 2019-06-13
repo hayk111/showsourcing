@@ -72,7 +72,7 @@ const modals = [
 		ProductCommonModule,
 		TableModule,
 		InputsModule,
-		UtilsModule,
+		UtilsModule
 	],
 	declarations: [
 		...modals,

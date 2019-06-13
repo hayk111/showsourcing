@@ -98,18 +98,25 @@
 						</div>
 					</selector-app>
 				</ng-container>
-				<!-- <ng-container *ngSwitchCase="'packaging'">
-					PACKAGING
-				</ng-container> -->
+
+				<!-- packaging -->
+				<ng-container *ngSwitchCase="'packaging'">
+					<editable-packaging-app
+						[value]="value"
+						[isFormStyle]="true"
+						(update)="statusUpdated($event)">
+					</editable-packaging-app>
+				</ng-container>
 
 				<!-- TODO use new form style when supplier-conect is merged -->
 				<!-- extended fields -->
 				<ng-container *ngSwitchCase="'extendedField'">
 					<extended-form-app
 						*ngIf="definitions$ | async as definitions; else spinner"
+						[isFormStyle]="true"
 						[fields]="value || []"
 						[definitions]="definitions"
-						(update)="statusUpdated($event.extendedFields, choice)">
+						(update)="statusUpdated($event.extendedFields)">
 					</extended-form-app>
 				</ng-container>
 
