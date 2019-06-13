@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { ProductService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { EntityMetadata, ERM, ExtendedFieldDefinition, productFields, Product } from '~core/models';
+import { EntityMetadata, ERM, ExtendedFieldDefinition, productFields } from '~core/models';
+import { CloseEventType, DialogService } from '~shared/dialog';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { PickerField } from '~shared/selectors';
-import { take, map, switchMap, tap } from 'rxjs/operators';
-import { DialogService, CloseEventType } from '~shared/dialog';
 import { uuid } from '~utils';
-import { ProductService } from '~core/entity-services';
 
 @Component({
 	selector: 'mass-edit-dlg-app',
@@ -26,11 +27,14 @@ export class MassEditDlgComponent implements OnInit {
 	choice$: ReplaySubject<PickerField> = new ReplaySubject<PickerField>(1);
 	definitions$: Observable<ExtendedFieldDefinition[]>;
 	value: any;
+	like = false;
+	dislike = false;
 
 	constructor(
 		private extendedFDSrv: ExtendedFieldDefinitionService,
 		private productSrv: ProductService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private thumbSrv: ThumbService
 	) { }
 
 	ngOnInit() {
@@ -107,9 +111,13 @@ export class MassEditDlgComponent implements OnInit {
 		else
 			mapped = this.items.map(item => {
 				let auxVal = this.value;
+				// since the votes are complex and it has its own service, we have to make this condition here
+				// the votes are an array, so we have to put this condition first
+				if (prop === 'votes')
+					auxVal = this.getVotes(item);
 				// if the value is an array we need to merge it with the current item[property] (i.e. tags, projects)
 				// array in order not to override it with the new values
-				if (this.isArray(this.value)) {
+				else if (this.isArray(this.value)) {
 					const currentArray = item[prop];
 					// these are the items that are not in the array of the original item
 					const difference = (auxVal || []).filter(val =>
@@ -138,6 +146,18 @@ export class MassEditDlgComponent implements OnInit {
 	private isArray(item) {
 		// we could use Array.isArray(item) but for compatibility we use this
 		return Object.prototype.toString.call(item) === '[object Array]';
+	}
+
+	private getVotes(item) {
+		let votes;
+		if (this.like)
+			votes = this.thumbSrv.thumbUpFromMulti(item, true);
+		else if (this.dislike)
+			votes = this.thumbSrv.thumbDownFromMulti(item, true);
+		else
+			// it could be thumbUpFromMulti or thumbDownFromMulti, we just want to delete the vote
+			votes = this.thumbSrv.thumbUpFromMulti(item, false);
+		return votes;
 	}
 
 	close() {

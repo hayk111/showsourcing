@@ -25,7 +25,7 @@
 
 				<!-- text -->
 				<ng-container *ngSwitchCase="'text'">
-					<input #inp type="text" (input)="statusUpdated(inp.value)"/>
+					<input #inp type="text" (input)="statusUpdated(inp.value)" [placeholder]="choice?.name"/>
 				</ng-container>
 
 				<!-- number -->
@@ -107,6 +107,16 @@
 						(update)="statusUpdated($event)">
 					</editable-packaging-app>
 				</ng-container>
+
+				<!-- votes -->
+				<thumb-buttons-app
+					*ngSwitchCase="'votes'"
+					size="m"
+					[multiple]="true"
+					[hasText]="true"
+					(liked)="like = $event"
+					(disliked)="dislike = $event">
+				</thumb-buttons-app>
 
 				<!-- TODO use new form style when supplier-conect is merged -->
 				<!-- extended fields -->
