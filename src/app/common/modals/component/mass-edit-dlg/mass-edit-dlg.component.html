@@ -31,7 +31,7 @@
 
 				<!-- number -->
 				<ng-container *ngSwitchCase="'number'">
-					<input #inp type="number" (input)="statusUpdated(inp.value)"/>
+					<input #inp type="number" (input)="statusUpdated(inp.value)" [placeholder]="choice?.name"/>
 				</ng-container>
 
 				<!-- boolean -->
@@ -53,7 +53,7 @@
 
 				<!-- decimal -->
 				<ng-container *ngSwitchCase="'decimal'">
-					<input #inp type="number" step="0.01" (input)="statusUpdated(inp.value)">
+					<input #inp type="number" step="0.01" (input)="statusUpdated(inp.value)" [placeholder]="choice?.name">
 				</ng-container>
 
 				<!-- price -->
@@ -76,7 +76,6 @@
 							placeholder="choose a status"
 							i18n-placeholder="@@choose-status">
 						</selector-placeholder-app>
-						<!-- not all the time is the property name to display so maybe a switch case idk -->
 					</status-selector-app>
 				</ng-container>
 
@@ -115,7 +114,6 @@
 					(disliked)="dislike = $event">
 				</thumb-buttons-app>
 
-				<!-- TODO use new form style when supplier-conect is merged -->
 				<!-- extended fields -->
 				<ng-container *ngSwitchCase="'extendedField'">
 					<extended-form-app
@@ -123,7 +121,7 @@
 						[isFormStyle]="true"
 						[fields]="value || []"
 						[definitions]="definitions"
-						(update)="statusUpdated($event.extendedFields)">
+						(update)="statusUpdated($event)">
 					</extended-form-app>
 				</ng-container>
 

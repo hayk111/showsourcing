@@ -14,6 +14,10 @@
 		background: var(--color-secondary-light);
 		color: var(--color-txt-strong);
 	}
+
+	&.first-uppercase .container::first-letter{
+		text-transform: uppercase;
+	}
 }
 
 .place-holder {

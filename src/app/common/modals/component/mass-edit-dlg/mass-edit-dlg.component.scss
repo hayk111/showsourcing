@@ -22,6 +22,10 @@ dialog-app {
 	}
 }
 
+input::placeholder {
+	text-transform: capitalize;
+}
+
 checkbox-app:not(:last-child) {
 	margin-right: var(--spacing-ms);
 }
