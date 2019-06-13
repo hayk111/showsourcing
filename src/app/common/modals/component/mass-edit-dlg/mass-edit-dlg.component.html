@@ -57,7 +57,7 @@
 
 				<!-- price -->
 				<ng-container *ngSwitchCase="'price'">
-					<input-price-app (change)="statusUpdated($event)">
+					<input-price-app [price]="value" (change)="statusUpdated($event)">
 					</input-price-app>
 				</ng-container>
 

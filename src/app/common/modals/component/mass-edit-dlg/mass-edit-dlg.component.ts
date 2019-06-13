@@ -68,7 +68,7 @@ export class MassEditDlgComponent implements OnInit {
 	statusUpdated(item) {
 		// this condition exists since input price, when blur drop a change that returns the element in the DOM
 		// instead of the price object. This way we don't store the DOM element
-		if (item.__proto__.constructor.name !== 'Event')
+		if (item && item.__proto__.constructor.name !== 'Event')
 			this.value = item;
 	}
 
@@ -105,7 +105,20 @@ export class MassEditDlgComponent implements OnInit {
 				return ({ id: item.id, [prop]: this.value });
 			});
 		else
-			mapped = this.items.map(item => ({ id: item.id, [prop]: this.value }));
+			mapped = this.items.map(item => {
+				let auxVal = this.value;
+				// if the value is an array we need to merge it with the current item[property] (i.e. tags, projects)
+				// array in order not to override it with the new values
+				if (this.isArray(this.value)) {
+					const currentArray = item[prop];
+					// these are the items that are not in the array of the original item
+					const difference = (auxVal || []).filter(val =>
+						!currentArray.some(temp => temp.id === val.id)
+					);
+					auxVal = [...currentArray, ...difference];
+				}
+				return ({ id: item.id, [prop]: auxVal });
+			});
 
 		return mapped;
 	}
