@@ -487,6 +487,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Multiple edition': {
+		locales: {
+			en: {
+				name: 'Multiple edition'
+			}
+		}
+	},
 	// ########### \N ############
 	'name': {
 		locales: {
@@ -1168,6 +1175,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '您的名字'
+			}
+		}
+	},
+	'Your items have been updated': {
+		locales: {
+			en: {
+				name: 'Your items have been updated'
 			}
 		}
 	},

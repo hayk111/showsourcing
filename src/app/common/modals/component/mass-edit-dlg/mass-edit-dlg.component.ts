@@ -9,7 +9,8 @@ import { EntityMetadata, ERM, ExtendedFieldDefinition, productFields } from '~co
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { PickerField } from '~shared/selectors';
-import { uuid, AutoUnsub, isArray } from '~utils';
+import { uuid, AutoUnsub, isArray, translate } from '~utils';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 @Component({
 	selector: 'mass-edit-dlg-app',
@@ -34,7 +35,8 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 		private extendedFDSrv: ExtendedFieldDefinitionService,
 		private productSrv: ProductService,
 		private dlgSrv: DialogService,
-		private thumbSrv: ThumbService
+		private thumbSrv: ThumbService,
+		private notificationSrv: NotificationService
 	) { super(); }
 
 	ngOnInit() {
@@ -86,7 +88,15 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			map(choice => this.mapItems(choice)),
 			switchMap(items => this.productSrv.updateMany(items))
-		).subscribe(_ => this.close());
+		).subscribe(_ => {
+			this.close();
+			this.notificationSrv.add({
+				type: NotificationType.SUCCESS,
+				title: translate('Multiple edition'),
+				message: translate('Your items have been updated'),
+				timeout: 3500
+			});
+		});
 
 	}
 
