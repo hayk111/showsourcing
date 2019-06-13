@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap, takeUntil } from 'rxjs/operators';
 import { ProductService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
@@ -9,7 +9,7 @@ import { EntityMetadata, ERM, ExtendedFieldDefinition, productFields } from '~co
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { PickerField } from '~shared/selectors';
-import { uuid } from '~utils';
+import { uuid, AutoUnsub, isArray } from '~utils';
 
 @Component({
 	selector: 'mass-edit-dlg-app',
@@ -17,7 +17,7 @@ import { uuid } from '~utils';
 	styleUrls: ['./mass-edit-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MassEditDlgComponent implements OnInit {
+export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 
 	@Input() type: EntityMetadata;
 	@Input() items: any[];
@@ -35,7 +35,7 @@ export class MassEditDlgComponent implements OnInit {
 		private productSrv: ProductService,
 		private dlgSrv: DialogService,
 		private thumbSrv: ThumbService
-	) { }
+	) { super(); }
 
 	ngOnInit() {
 		switch (this.type) {
@@ -82,13 +82,10 @@ export class MassEditDlgComponent implements OnInit {
 	}
 
 	update() {
-		// MAYBE this._destroy take until
 		this.choice$.pipe(
-			take(1),
+			takeUntil(this._destroy$),
 			map(choice => this.mapItems(choice)),
 			switchMap(items => this.productSrv.updateMany(items))
-			// tap(itmes => console.log(itmes)),
-			// tap(_ => console.log(this.items))
 		).subscribe(_ => this.close());
 
 	}
@@ -101,7 +98,7 @@ export class MassEditDlgComponent implements OnInit {
 		if (this.resetId(choice))
 			mapped = this.items.map(item => {
 				// if its an array we have to update the ids of all the elements inside the array
-				if (this.isArray(this.value))
+				if (isArray(this.value))
 					this.value = this.value.map(val => ({ ...val, id: uuid() }));
 				// otherwise we only update the object
 				else
@@ -117,7 +114,7 @@ export class MassEditDlgComponent implements OnInit {
 					auxVal = this.getVotes(item);
 				// if the value is an array we need to merge it with the current item[property] (i.e. tags, projects)
 				// array in order not to override it with the new values
-				else if (this.isArray(this.value)) {
+				else if (isArray(this.value)) {
 					const currentArray = item[prop];
 					// these are the items that are not in the array of the original item
 					const difference = (auxVal || []).filter(val =>
@@ -141,11 +138,6 @@ export class MassEditDlgComponent implements OnInit {
 			default:
 				return false;
 		}
-	}
-
-	private isArray(item) {
-		// we could use Array.isArray(item) but for compatibility we use this
-		return Object.prototype.toString.call(item) === '[object Array]';
 	}
 
 	private getVotes(item) {

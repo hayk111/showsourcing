@@ -6,13 +6,14 @@
 	</dialog-header-app>
 
 	<div class="container">
-		<h5 class="ms">Property to update</h5>
+		<h5 class="ms" i18n="@@property-update">Property to update</h5>
 		<selector-app
 			[type]="erm.PICKER_FIELD"
 			[width]="500"
 			[pickerFields]="pickerFields"
 			(update)="updateChoice($event)">
 			<selector-placeholder-app
+				class="first-uppercase"
 				[name]="(choice$ | async)?.name"
 				placeholder="choose a property"
 				i18n-placeholder="@@choose-property">
@@ -70,7 +71,7 @@
 						[width]="460"
 						(statusUpdated)="statusUpdated($event)">
 						<selector-placeholder-app
-							class="status-selector"
+							class="status-selector first-uppercase"
 							[name]="value?.name"
 							placeholder="choose a status"
 							i18n-placeholder="@@choose-status">
@@ -88,6 +89,7 @@
 						[multiple]="choice?.metadata?.multiple"
 						(update)="statusUpdated($event)">
 						<selector-placeholder-app
+							class="first-uppercase"
 							[name]="choice?.metadata?.multiple ? getMultipleName() : getName(choice?.metadata?.ermName || choice?.name)"
 							[placeholder]="('choose' | const: 'messages') + ' ' + choice?.name">
 						</selector-placeholder-app>
@@ -132,8 +134,8 @@
 	</div>
 
 	<dialog-footer-app>
-		<button class="capitalize secondary" (click)="close()">cancel</button>
-		<button class="capitalize" (click)="update()">update</button>
+		<button class="capitalize secondary" (click)="close()" i18n="@@cancel">cancel</button>
+		<button class="capitalize" (click)="update()" i18n="@@update">update</button>
 	</dialog-footer-app>
 </dialog-app>
 
