@@ -1,8 +1,7 @@
 <div class="ctnr" (fileDrop)="add($event)">
 
 	<!-- image -->
-	<div class="img-ctnr flexCenter"
-	[ngStyle]="{'transform': getRotation(getImg())}">
+	<div class="img-ctnr flexCenter"	[ngStyle]="{'transform': getRotation(getImg())}">
 		<img-app
 			#imgApp
 			*ngIf="images?.length !== 0; else noImg"
@@ -54,9 +53,11 @@
 					aria-label="more">
 				</icon-app>
 		</context-menu-trigger-app>
-		<context-menu-item-app> <a [href]="getImg() | image:'xl'" download i18n="button@@download">download</a> </context-menu-item-app>
-		<context-menu-item-app (click)="rotate()" i18n="button@@rotate"> rotate </context-menu-item-app>
-		<context-menu-item-app (click)="delete()" i18n="button@@delete"> delete </context-menu-item-app>
+		<context-menu-item-app>
+			<a [href]="getImg() | image:'xl'" download i18n="button@@download">download</a>
+		</context-menu-item-app>
+		<context-menu-item-app (click)="rotate()" i18n="button@@rotate">rotate</context-menu-item-app>
+		<context-menu-item-app (click)="delete()" i18n="button@@delete">delete</context-menu-item-app>
 	</context-menu-app>
 
 	<!-- add -->

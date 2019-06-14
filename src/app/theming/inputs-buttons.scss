@@ -37,6 +37,9 @@ input, textarea {
 		border-left: 4px solid var(--color-primary);
 		padding-left: 5px;
 	}
+	&:focus:not(input) {
+		border: 1px solid var(--color-primary);
+	}
 	&.small {
 		padding: 3px;
 	}
