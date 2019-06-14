@@ -7,10 +7,12 @@ import {
 	Input,
 	OnInit,
 	Output,
+	ContentChild,
 } from '@angular/core';
 import { EntityMetadata, ERM } from '~core/models';
 import { FilterList } from '~shared/filters';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { TabFocusDirective } from '~shared/utils';
 
 @Component({
 	selector: 'selector-app',
@@ -39,6 +41,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Output() update = new EventEmitter<any>();
 
+	@ContentChild(TabFocusDirective) tab: TabFocusDirective;
+
 	menuOpen = false;
 
 	@Input() offsetX = 0;
@@ -50,6 +54,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	constructor(public elem: ElementRef, private cdr: ChangeDetectorRef) { super(cdr); }
 
 	ngOnInit() {
+		if (this.tab)
+			this.tab.keyEnter.subscribe(_ => this.openMenu());
 	}
 
 	/** Toggles the menu between the open and closed states. */
@@ -70,6 +76,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 		this.menuOpen = false;
 		if (emit) {
 			this.menuClosed.emit();
+			if (this.tab)
+				this.tab.focusOrigin();
 		}
 	}
 

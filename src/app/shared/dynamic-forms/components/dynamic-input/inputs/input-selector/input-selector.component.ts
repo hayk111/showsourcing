@@ -35,7 +35,6 @@ export class InputSelectorComponent extends AbstractInput implements OnInit {
 	@ViewChild('oneValueLabel') oneLabel: TemplateRef<any>;
 	@ViewChild('multipleValuesLabel') manyLabel: TemplateRef<any>;
 	@ViewChild('switchType') switchType: TemplateRef<any>;
-	@ViewChild(TabFocusDirective) tab: TabFocusDirective;
 
 	// wether the value is a literal string or an Object e.g.(harbour vs category)
 	isEntity = true;

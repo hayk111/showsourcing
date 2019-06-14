@@ -8,14 +8,24 @@ import {
 	NgZone,
 	OnDestroy,
 	Output,
+	HostListener,
 } from '@angular/core';
 
 @Directive({
-	selector: '[tabFocus]'
+	selector: '[tabFocus]',
+	exportAs: 'tabFocusId',
+	host: {
+		'[attr.tabindex]': '0'
+	}
 })
 export class TabFocusDirective implements AfterViewInit, OnDestroy {
 
-	@Output() enter = new EventEmitter<null>();
+	@Output() keyEnter = new EventEmitter<null>();
+
+	@HostListener('keydown.enter', ['$event'])
+	onKeydownEnter(event) {
+		this.keyEnter.emit();
+	}
 
 	elementOrigin = this.formatOrigin(null);
 
