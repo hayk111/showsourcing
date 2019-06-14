@@ -15,14 +15,8 @@
 		color: var(--color-txt-strong);
 	}
 
-	&.cdk-focused.cdk-keyboard-focused {
-		border: 1px solid var(--color-primary);
-		border-left: 4px solid var(--color-primary);
-		border-radius: 4px;
-
-		.content {
-			margin-left: -3px;
-		}
+	&.cdk-focused.cdk-keyboard-focused .content {
+		margin-left: -3px;
 	}
 }
 

@@ -6,7 +6,9 @@ import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, Input, On
 	styleUrls: ['./selector-placeholder.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[attr.tabindex]': '0'
+		'[attr.tabindex]': '0',
+		// this class adds the left border when focussed
+		'[class.focus-left-border]': 'true'
 	}
 })
 export class SelectorPlaceholderComponent implements OnInit {
