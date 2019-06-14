@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	QueryList,
+	ViewChildren,
+} from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
 
 @Component({
@@ -15,8 +24,7 @@ export class RadioComponent extends AbstractInput {
 	@Output() update = new EventEmitter<boolean>();
 	@Output() select = new EventEmitter<null>();
 	/** list of possible values and labels */
-	@Input()
-	items: any[];
+	@Input() items: any[];
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()
@@ -38,6 +46,8 @@ export class RadioComponent extends AbstractInput {
 	get required(): boolean { return this._required; }
 	set required(value: boolean) { this._required = value; }
 	private _required: boolean;
+
+	@ViewChildren('inp') inps: QueryList<ElementRef>;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
