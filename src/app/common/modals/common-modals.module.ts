@@ -83,7 +83,6 @@ const modals = [
 		CompareLabelsComponent,
 		CompareColumnComponent,
 		DescriptionDlgComponent,
-		CreationProductDlgComponent
 	],
 	entryComponents: modals,
 	providers: [

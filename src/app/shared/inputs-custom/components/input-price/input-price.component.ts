@@ -77,7 +77,7 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	get amount() {
-		return this.price.value / 10000;
+		return this.price && this.price.value ? this.price.value / 10000 : 0;
 	}
 
 	set amount(amount: any) {
@@ -86,7 +86,7 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	get currency() {
-		return this.price.currency;
+		return this.price && this.price.currency ? this.price.currency : 'USD';
 	}
 
 	set currency(currencyId: string) {

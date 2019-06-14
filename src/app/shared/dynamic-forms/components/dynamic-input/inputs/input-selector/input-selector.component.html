@@ -1,12 +1,16 @@
 <selector-app
+	#selectorApp
 	[(ngModel)]="value"
 	[multiple]="multiple"
 	[type]="type"
 	[canCreate]="canCreate"
-	(update)="onValueChange($event)">
+	(update)="onValueChange($event)"
+	(menuClosed)="tab?.focusOrigin()">
 	<selector-placeholder-app
+		tabFocus
 		[name]="value"
-		[placeholder]="type">
+		[placeholder]="type"
+		(keydown.enter)="selectorApp.openMenu()">
 		<div *ngIf="isEntity && value" #content class="flexWrap">
 			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 		</div>

@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { ERM } from '~core/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { TabFocusDirective } from '~shared/utils';
 
 @Component({
 	selector: 'input-selector-app',
@@ -34,6 +35,7 @@ export class InputSelectorComponent extends AbstractInput implements OnInit {
 	@ViewChild('oneValueLabel') oneLabel: TemplateRef<any>;
 	@ViewChild('multipleValuesLabel') manyLabel: TemplateRef<any>;
 	@ViewChild('switchType') switchType: TemplateRef<any>;
+	@ViewChild(TabFocusDirective) tab: TabFocusDirective;
 
 	// wether the value is a literal string or an Object e.g.(harbour vs category)
 	isEntity = true;

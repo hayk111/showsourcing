@@ -1,10 +1,22 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ContentChild, ElementRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ContentChild,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
 
 @Component({
 	selector: 'selector-placeholder-app',
 	templateUrl: './selector-placeholder.component.html',
 	styleUrls: ['./selector-placeholder.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[attr.tabindex]': '0'
+	}
 })
 export class SelectorPlaceholderComponent implements OnInit {
 

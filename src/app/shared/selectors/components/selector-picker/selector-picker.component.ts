@@ -356,7 +356,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	onKeydown(event) {
-		if (event.keyCode === ENTER) {
+		if (event.keyCode === ENTER && this.keyManager && this.keyManager.activeItem) {
 			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
 			let shouldReset = true;

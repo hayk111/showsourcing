@@ -1,14 +1,23 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
 import { EntityMetadata, ERM } from '~core/models';
-import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { FilterList } from '~shared/filters';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
 	selector: 'selector-app',
 	templateUrl: './selector.component.html',
 	styleUrls: ['./selector.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(SelectorComponent)],
+	providers: [makeAccessorProvider(SelectorComponent)]
 })
 export class SelectorComponent extends AbstractInput implements OnInit {
 
@@ -50,8 +59,10 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	/** Opens the menu. */
 	openMenu(): void {
-		if (!this.disabled)
+		if (!this.disabled) {
 			this.menuOpen = true;
+			this.cdr.markForCheck();
+		}
 	}
 
 	/** Closes the menu. */

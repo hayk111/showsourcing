@@ -1,4 +1,4 @@
-<div class="ellipsis" [ngClass]="{ 'place-holder': !name }">
+<div class="ellipsis content" [ngClass]="{ 'place-holder': !name }">
 	<ng-content></ng-content>
 	<span *ngIf="!content">{{ name ? name : placeholder }}</span>
 </div>
