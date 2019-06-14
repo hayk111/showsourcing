@@ -150,13 +150,13 @@ button, input[type="submit"], .button {
 		height: 40px;
     min-width: 120px;
 	}
-	&:hover {
+	&:hover, &.cdk-keyboard-focused {
 		background: var(--color-primary-dark);
 	}
 	&.secondary {
 		background: var(--color-secondary);
 		color: var(--color-txt-primary);
-		&:hover {
+		&:hover, &.cdk-keyboard-focused {
 			background: var(--color-secondary-dark);
 			color: white;
 		}
@@ -164,7 +164,7 @@ button, input[type="submit"], .button {
 	&.secondary-light {
 		background: var(--color-secondary-light);
 		color: var(--color-txt-primary);
-		&:hover {
+		&:hover, &.cdk-keyboard-focused {
 			background: var(--color-secondary-dark);
 			color: white;
 		}
@@ -172,7 +172,7 @@ button, input[type="submit"], .button {
 	&.secondary-dark {
 		background: var(--color-txt-primary);
 		color: white;
-		&:hover {
+		&:hover, &.cdk-keyboard-focused {
 			background: var(--color-secondary-dark);
 			color: white;
 		}
@@ -180,14 +180,14 @@ button, input[type="submit"], .button {
 	&.light {
 		background: transparent;
 		color: var(--color-txt);
-		&:hover {
+		&:hover, &.cdk-keyboard-focused {
 			background: var(--color-secondary);
 		}
 	}
 
 	&.warn {
 		background: var(--color-warn);
-		&:hover {
+		&:hover, &.cdk-keyboard-focused {
 			background: var(--color-warn-light);
 		}
 		&:active {
@@ -197,14 +197,14 @@ button, input[type="submit"], .button {
 
 	&.success {
 		background: var(--color-success);
-		&:hover {
+		&:hover, &.cdk-keyboard-focused {
 			background: var(--color-success-dark);
 		}
 	}
 
 	&.transparent {
 		background: transparent;
-		&:hover {
+		&:hover, &.cdk-keyboard-focused {
 			background: var(--color-secondary);
 		}
 		color: inherit;
@@ -215,7 +215,7 @@ button, input[type="submit"], .button {
 		align-items: center;
 		background: var(--color-secondary);
 		color: var(--color-txt-primary);
-		&:hover {
+		&:hover, &.cdk-keyboard-focused {
 			background: white;
 		}
 	}
