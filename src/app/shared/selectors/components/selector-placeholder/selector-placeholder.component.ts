@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ContentChild,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'selector-placeholder-app',
