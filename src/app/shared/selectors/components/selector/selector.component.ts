@@ -41,6 +41,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Output() update = new EventEmitter<any>();
 
+	// some times we want to focus the focus directive on the content inside the selector
 	@ContentChild(TabFocusDirective) tab: TabFocusDirective;
 
 	menuOpen = false;
@@ -55,6 +56,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	ngOnInit() {
 		if (this.tab)
+			// everytime we focus the content and hit enter, we are opening the menu
 			this.tab.keyEnter.subscribe(_ => this.openMenu());
 	}
 
@@ -77,6 +79,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 		if (emit) {
 			this.menuClosed.emit();
 			if (this.tab)
+				// when we close the menu we want to be focused again
 				this.tab.focusOrigin();
 		}
 	}

@@ -51,6 +51,7 @@ export class TabFocusDirective implements AfterViewInit, OnDestroy {
 		return origin ? origin + ' focused' : 'blurred';
 	}
 
+	// function to focus the element on the directive once again (focus via keyboard)
 	focusOrigin(origin: FocusOrigin = 'keyboard') {
 		this._focusMonitor.focusVia(this.element, origin);
 	}
