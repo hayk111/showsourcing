@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, ElementRef, Input, OnInit, ViewChild, Output } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { ERMService } from '~core/entity-services/_global/erm.service';
@@ -41,6 +41,8 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Input() selectedIndex = 0;
 	@Input() entity: any; // entity to which we can link images after an upload
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'contain';
+
+	@Output() uploaded = new EventEmitter<AppImage[]>();
 
 	@ViewChild('imgApp') imgApp: ImageComponent;
 	/** hidden file input */
@@ -96,6 +98,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
 		await this.uploaderFeedback.addImages(files);
+		await setTimeout(_ => console.log('this is async?'), 100);
 		// index at the end for instant feedback
 		this.selectedIndex = this.images.length - 1;
 	}
