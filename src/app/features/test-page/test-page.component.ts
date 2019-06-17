@@ -13,4 +13,8 @@ export class TestPageComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	test() {
+		// Test function
+	}
+
 }

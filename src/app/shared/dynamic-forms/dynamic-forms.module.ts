@@ -56,6 +56,7 @@ import {
 	],
 	exports: [
 		DynamicFormComponent,
+		EditablePackagingComponent,
 		ExtendedFormComponent
 	]
 })

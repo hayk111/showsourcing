@@ -102,6 +102,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'choose': {
+		locales: {
+			en: {
+				name: 'choose'
+			}
+		}
+	},
 	'comments': {
 		locales: {
 			en: {
@@ -477,6 +484,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '最小订货量描述'
+			}
+		}
+	},
+	'Multiple edition': {
+		locales: {
+			en: {
+				name: 'Multiple edition'
 			}
 		}
 	},
@@ -1161,6 +1175,13 @@ export const messagesMap = {
 			},
 			'zh-Hans': {
 				name: '您的名字'
+			}
+		}
+	},
+	'Your items have been updated': {
+		locales: {
+			en: {
+				name: 'Your items have been updated'
 			}
 		}
 	},

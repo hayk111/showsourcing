@@ -87,6 +87,7 @@ export class ERM {
 	static readonly LENGTH_UNIT = new EntityMetadata('length unit', 'length units');
 	static readonly LOCATION = new EntityMetadata('location', 'locations');
 	static readonly MEMBER = new EntityMetadata('member', 'members');
+	static readonly PICKER_FIELD = new EntityMetadata('picker field', 'picker fields');
 	static readonly PRICE = new EntityMetadata('price', 'prices', Price);
 	static readonly PRODUCT = new EntityMetadata('product', 'products', Product);
 	static readonly PRODUCT_STATUS = new EntityMetadata('product status', 'product status', ProductStatus, 'product-status');

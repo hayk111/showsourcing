@@ -80,6 +80,13 @@
 				<selector-category-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [category]="item" (click)="onSelect(item)"></selector-category-row-app>
 			</ng-container>
 
+		<ng-container *ngSwitchCase="erm.PICKER_FIELD">
+			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="erm.COUNTRY">
+			<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
+		</ng-container>
 			<ng-container *ngSwitchCase="erm.REQUEST_TEMPLATE">
 				<selector-request-template-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [requestTemplate]="item" (click)="onSelect(item)"></selector-request-template-row-app>
 			</ng-container>

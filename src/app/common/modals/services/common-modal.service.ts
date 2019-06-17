@@ -11,6 +11,7 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	MassEditDlgComponent,
 	RefuseReplyDlgComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
@@ -94,6 +95,10 @@ export class CommonModalService {
 	/** Opens a dialog that let you see the list of people who have voted */
 	openVoteDetailsDialog(votes: ProductVote[]) {
 		return this.dlgSrv.open(VoteDetailsDialogComponent, { votes });
+	}
+
+	openMassEditDialog(items: any[], type: EntityMetadata) {
+		return this.dlgSrv.open(MassEditDlgComponent, { items, type });
 	}
 
 	openNewContactDlg(data: { isNewContact?: boolean, supplier?: Supplier, contactId?: string }) {

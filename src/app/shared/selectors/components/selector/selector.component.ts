@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { EntityMetadata, ERM } from '~core/models';
+import { PickerField } from '../selector-picker/selector-picker.component';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { FilterList } from '~shared/filters';
 
@@ -27,6 +28,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() canCreate = false;
 	@Input() filterList = new FilterList([]);
 	@Input() width = 395;
+	@Input() pickerFields: PickerField[];
 
 	@Output() update = new EventEmitter<any>();
 
