@@ -30,6 +30,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	value: any;
 	like = false;
 	dislike = false;
+	pending = false;
 
 	constructor(
 		private extendedFDSrv: ExtendedFieldDefinitionService,
@@ -84,11 +85,13 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	update() {
+		this.pending = true;
 		this.choice$.pipe(
 			takeUntil(this._destroy$),
 			map(choice => this.mapItems(choice)),
 			switchMap(items => this.productSrv.updateMany(items))
 		).subscribe(_ => {
+			this.pending = true;
 			this.close();
 			this.notificationSrv.add({
 				type: NotificationType.SUCCESS,
