@@ -9,7 +9,7 @@ import { EntityMetadata, ERM, ExtendedFieldDefinition, productFields } from '~co
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { PickerField } from '~shared/selectors';
-import { uuid, AutoUnsub, isArray, translate } from '~utils';
+import { uuid, AutoUnsub, translate } from '~utils';
 import { NotificationService, NotificationType } from '~shared/notifications';
 
 @Component({
@@ -108,7 +108,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 		if (this.resetId(choice))
 			mapped = this.items.map(item => {
 				// if its an array we have to update the ids of all the elements inside the array
-				if (isArray(this.value))
+				if (Array.isArray(this.value))
 					this.value = this.value.map(val => ({ ...val, id: uuid() }));
 				// otherwise we only update the object
 				else
@@ -124,7 +124,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 					auxVal = this.getVotes(item);
 				// if the value is an array we need to merge it with the current item[property] (i.e. tags, projects)
 				// array in order not to override it with the new values
-				else if (isArray(this.value)) {
+				else if (Array.isArray(this.value)) {
 					const currentArray = item[prop];
 					// these are the items that are not in the array of the original item
 					const difference = (auxVal || []).filter(val =>

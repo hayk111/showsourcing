@@ -3,7 +3,6 @@ export * from './constants';
 export * from './logger';
 
 // files
-export * from './array.utils';
 export * from './auto-unsub.component';
 export * from './dev-mode.guard';
 export * from './id.utils';

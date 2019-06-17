@@ -355,9 +355,7 @@ export class SelectorsService {
 
 	getPickerFields(fields: PickerField[]): Observable<PickerField[]> {
 		this.items$ = this.search$.pipe(
-			switchMap((str) => of(fields).pipe(
-				map(item => item.filter(it => it.name.toLowerCase().includes(str)))
-			))
+			map(item => fields.filter(field => field.name.toLocaleLowerCase().includes(item))),
 		);
 		return this.items$;
 	}
