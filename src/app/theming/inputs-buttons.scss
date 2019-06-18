@@ -10,7 +10,8 @@ input {
 
 // when cdk focuses with a11y module they use this classes to tell the user the focus/selection/hover...
 // buttons have already a style for it
-:not(button).cdk-focused.cdk-keyboard-focused {
+// :not(button)
+.cdk-focused.cdk-keyboard-focused {
 	border: 1px solid var(--color-primary);
 	border-radius: var(--border-radius);
 	&.focus-left-border {

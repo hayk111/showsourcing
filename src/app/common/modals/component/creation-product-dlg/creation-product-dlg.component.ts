@@ -136,7 +136,7 @@ export class CreationProductDlgComponent implements OnInit {
 	}
 
 	close() {
-		this.dlgSrv.close({ type: CloseEventType.OK });
+		this.dlgSrv.close({ type: CloseEventType.OK, data: { product: this.product } });
 	}
 
 	save() {

@@ -51,15 +51,20 @@ input[type=radio] {
 	visibility: hidden;
 	margin: 0;
 
-  &:checked + label .dot::before {
-		content: '';
-		position: absolute;
-    display: block;
-		height: 11px;
-    width: 11px;
-    top: 2.6px;
-    left: 2.7px;
-    background: var(--color-primary-light);
-    border-radius: 50%;
-  }
+
+	&:checked + label .dot {
+		border: 1px solid var(--color-primary);
+
+		&::before {
+			content: '';
+			position: absolute;
+			display: block;
+			height: 10.7px;
+			width: 10.7px;
+			top: 2.6px;
+			left: 2.7px;
+			background: var(--color-primary-light);
+			border-radius: 50%;
+		}
+	}
 }

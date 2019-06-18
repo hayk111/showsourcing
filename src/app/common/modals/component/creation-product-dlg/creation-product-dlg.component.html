@@ -44,8 +44,8 @@
 			(update)="createAnother = !createAnother">
 			create another
 		</checkbox-app>
-		<button class="secondary" (click)="cancel()" i18n="@@cancel">cancel</button>
-		<button [disabled]="!(product?.name)" (click)="save()"  i18n="@@save-product">save product</button>
+		<button tabFocus class="secondary" (click)="cancel()" i18n="@@cancel">cancel</button>
+		<button tabFocus [disabled]="!(product?.name)" (click)="save()"  i18n="@@save-product">save product</button>
 	</dialog-footer-app>
 
 </dialog-app>
