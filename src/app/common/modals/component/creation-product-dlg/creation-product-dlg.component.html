@@ -7,9 +7,10 @@
 		<!-- left -->
 		<div class="left">
 			<carousel-app
-				[images]="images"
+				[images]="product?.images"
 				(uploaded)="imageCreated($event)">
 			</carousel-app>
+
 		</div>
 
 		<!-- right -->

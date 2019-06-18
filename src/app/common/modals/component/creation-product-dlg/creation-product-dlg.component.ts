@@ -93,7 +93,6 @@ export class CreationProductDlgComponent implements OnInit {
 			metadata: { target: 'product.extendedFields' }
 		}
 	];
-	images: AppImage[] = [];
 	createAnother = false;
 
 	constructor(
@@ -104,16 +103,16 @@ export class CreationProductDlgComponent implements OnInit {
 
 	ngOnInit() {
 		if (!this.product)
-			this.product = new Product();
+			this.product = new Product({ images: [], attachments: [] });
 	}
 
 	updateProduct(product: Product) {
 		this.product = { ...this.product, ...product };
 	}
 
-	imageCreated(item) {
-		this.images = [...this.images, ...item];
-		this.product = { ...this.product, images: this.images };
+	imageCreated(createdImages) {
+		const images = [...this.product.images, ...createdImages];
+		this.product = { ...this.product, images };
 	}
 
 	cancel() {

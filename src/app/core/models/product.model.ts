@@ -83,6 +83,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 
 export interface ProductConfig {
 	id?: string;
+	attachments?: Attachment[];
 	category?: Category;
 	comments?: Comment[];
 	description?: string;
