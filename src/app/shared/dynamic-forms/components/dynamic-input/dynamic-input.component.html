@@ -12,7 +12,7 @@
       type="text"
 			[(ngModel)]="accumulator"
 			[placeholder]="customField?.label || customField?.name"
-      (blur)="onChange()"/>
+      (input)="onChange()"/>
 	</form-field-app>
 
 	<!-- tel -->
@@ -23,7 +23,7 @@
       type="tel"
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"
-      (blur)="onChange()"/>
+      (input)="onChange()"/>
   </form-field-app>
 
 	<!-- number -->
@@ -34,7 +34,7 @@
       type="number"
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"
-      (blur)="onChange()"/>
+      (input)="onChange()"/>
   </form-field-app>
 
 	<!-- decimal -->
@@ -46,7 +46,7 @@
 			step="any"
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"
-      (blur)="onChange()"/>
+      (input)="onChange()"/>
   </form-field-app>
 
 	<!-- days -->
@@ -56,7 +56,7 @@
 			type="number"
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"
-      (blur)="onChange()"/>
+      (input)="onChange()"/>
   </form-field-app>
 
 	<!-- textarea -->
@@ -66,7 +66,7 @@
       type="text"
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"
-      (blur)="onChange()">
+      (input)="onChange()">
     </textarea>
   </form-field-app>
 
@@ -106,7 +106,7 @@
 	<!-- price -->
   <form-field-app *ngSwitchCase="'price'" class="modal">
 		<label-app>{{ customField?.label || customField?.name }}</label-app>
-    <input-price-app inputApp [(ngModel)]="accumulator" (blur)="onChange()"></input-price-app>
+    <input-price-app inputApp [(ngModel)]="accumulator" (input)="onChange()"></input-price-app>
 	</form-field-app>
 
 	<!--  extended fields -->

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductService } from '~core/entity-services';
-import { ERM, Product, Packaging, Price, AppImage } from '~core/models';
+import { AppImage, ERM, ExtendedField, Packaging, Price, Product } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -151,7 +151,7 @@ export class CreationProductDlgComponent implements OnInit {
 	}
 
 	private resetIds(product) {
-		product = { ...product, id: uuid() };
+		product = { ...product, id: uuid(), name: null };
 		if (product.masterCarton)
 			product = { ...product, masterCarton: new Packaging(product.masterCarton) };
 		if (product.innerCarton)
@@ -161,11 +161,19 @@ export class CreationProductDlgComponent implements OnInit {
 		if (product.samplePrice)
 			product = { ...product, samplePrice: new Price(product.samplePrice) };
 		// images
-		// files
+		if (product.images) {
+			product = { ...product, images: [] };
+		}
+		// attachments
+		if (product.attachments) {
+			product = { ...product, attachments: [] };
+		}
 		// extendedfields
-		if (product.extendedFields)
-			// product = { ...product, extendedFields:  }
-			return product;
+		if (product.extendedFields) {
+			const extendedFields = this.product.extendedFields.map(field => new ExtendedField(field));
+			product = { ...product, extendedFields };
+		}
+		return product;
 	}
 
 }
