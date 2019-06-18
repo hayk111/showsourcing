@@ -67,6 +67,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 			imageProperty: this.imageProperty,
 			isImagePropertyArray: this.isImagePropertyArray
 		});
+		this.uploaderFeedback.getUploadedEvent()
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(imgs => this.uploaded.emit(imgs));
 	}
 
 	back(event) {
@@ -98,7 +101,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
 		await this.uploaderFeedback.addImages(files);
-		await setTimeout(_ => console.log('this is async?'), 100);
 		// index at the end for instant feedback
 		this.selectedIndex = this.images.length - 1;
 	}

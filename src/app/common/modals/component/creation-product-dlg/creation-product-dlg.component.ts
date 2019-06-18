@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductService } from '~core/entity-services';
-import { ERM, Product, Packaging, Price } from '~core/models';
+import { ERM, Product, Packaging, Price, AppImage } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -93,6 +93,7 @@ export class CreationProductDlgComponent implements OnInit {
 			metadata: { target: 'product.extendedFields' }
 		}
 	];
+	images: AppImage[] = [];
 	createAnother = false;
 
 	constructor(
@@ -107,12 +108,12 @@ export class CreationProductDlgComponent implements OnInit {
 	}
 
 	updateProduct(product: Product) {
-		// retourne un objet { name: value }
 		this.product = { ...this.product, ...product };
 	}
 
 	imageCreated(item) {
-		console.log(item);
+		this.images = [...this.images, ...item];
+		this.product = { ...this.product, images: this.images };
 	}
 
 	cancel() {
@@ -161,6 +162,7 @@ export class CreationProductDlgComponent implements OnInit {
 			product = { ...product, samplePrice: new Price(product.samplePrice) };
 		// images
 		// files
+		// extendedfields
 		return product;
 	}
 

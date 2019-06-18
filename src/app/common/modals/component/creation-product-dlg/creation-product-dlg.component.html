@@ -7,7 +7,8 @@
 		<!-- left -->
 		<div class="left">
 			<carousel-app
-				[images]="[]">
+				[images]="images"
+				(uploaded)="imageCreated($event)">
 			</carousel-app>
 		</div>
 

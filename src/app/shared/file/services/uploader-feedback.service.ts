@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AttachmentService } from '~core/entity-services';
 import { ImageService } from '~core/entity-services/image/image.service';
@@ -32,6 +33,7 @@ export class UploaderFeedbackService {
 	private _files: Array<Attachment | PendingFile>;
 	private _pendingFiles: PendingFile[] = [];
 	private _pendingImages: PendingImage[] = [];
+	private _uploaded$: Subject<AppImage[]> = new Subject();
 
 	constructor(
 		private cd: ChangeDetectorRef,
@@ -65,6 +67,10 @@ export class UploaderFeedbackService {
 		return [...this._files, ...this._pendingFiles];
 	}
 
+	getUploadedEvent() {
+		return this._uploaded$;
+	}
+
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async addImages(files: Array<File>) {
@@ -77,7 +83,10 @@ export class UploaderFeedbackService {
 		const linkedEntity = { ...this.linkedEntity, images: this._images };
 		this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray).pipe(
 			first()
-		).subscribe(imgs => this.onSuccessImg(uuids), e => this._pendingImages = []);
+		).subscribe(imgs => {
+			this._uploaded$.next(imgs);
+			this.onSuccessImg(uuids);
+		}, e => this._pendingImages = []);
 	}
 
 	/** adds pending image to the list */

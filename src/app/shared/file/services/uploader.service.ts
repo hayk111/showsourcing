@@ -1,12 +1,15 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { delay, first, map, mapTo, mergeMap, retryWhen, take, tap, filter } from 'rxjs/operators';
+import { delay, first, map, mapTo, mergeMap, retryWhen, switchMap, take, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ERMService } from '~core/entity-services/_global/erm.service';
-import { ImageUploadRequestService } from '~entity-services';
+import { ImageService } from '~core/entity-services/image/image.service';
+import { AttachmentService, ImageUploadRequestService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
-import { AttachmentUploadRequestService } from '~entity-services/attachment-upload-request/attachment-upload-request.service';
+import {
+	AttachmentUploadRequestService,
+} from '~entity-services/attachment-upload-request/attachment-upload-request.service';
 import { AppImage, Attachment, ImageUploadRequest } from '~models';
 import { AttachmentUploadRequest } from '~models/attachment-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -19,6 +22,8 @@ export class UploaderService {
 	constructor(
 		private imageUploadRequestSrv: ImageUploadRequestService,
 		private fileUploadRequestSrv: AttachmentUploadRequestService,
+		private imageSrv: ImageService,
+		private attachmentSrv: AttachmentService,
 		private ermSrv: ERMService,
 		private notifSrv: NotificationService,
 		private http: HttpClient
@@ -31,7 +36,7 @@ export class UploaderService {
 			resizeSizeToLimit(img, 1200).pipe(
 				first(),
 				tap(imgResized => log.debug(`about to upload image ${imgResized.name}, with size: ${imgResized.size} and type ${imgResized.type}`)),
-				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem, client))
+				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem, client)),
 			)
 		);
 		return forkJoin(uploads$).pipe(
@@ -68,7 +73,7 @@ export class UploaderService {
 		return this.uploadFile(file, 'image', linkedItem, client);
 	}
 
-	uploadFile(file: File, type: 'file' | 'image' = 'file', linkedItem?: any, client?: Client): Observable<AppImage> {
+	uploadFile(file: File, type: 'file' | 'image' = 'file', linkedItem?: any, client?: Client): Observable<AppImage | Attachment> {
 		const isImage = type === 'image';
 		const fileName = file.name;
 		const size = file.size;
@@ -100,7 +105,7 @@ export class UploaderService {
 			// putting the request status to uploaded
 			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' }, client)),
 			// sending the image back
-			map(_ => returned),
+			map(_ => returned)
 		);
 	}
 
@@ -181,9 +186,26 @@ export class UploaderService {
 		imageProperty = 'images',
 		isArray = true
 	): Observable<AppImage[] | Attachment[]> {
-		if (!linkedItem) {
-			return of(files);
+		const baseSrv = isImage
+			? this.imageSrv
+			: this.attachmentSrv;
+
+		// when there is no linked item that means that we are watiting for the item to emit
+		if (!linkedItem || !linkedItem.id) {
+			const ids = (files as any[]).map(file => file.id);
+			let query = ids.join('" OR id == "');
+			if (ids.length >= 1)
+				query = 'id == "' + query + '"';
+			// if its an image we have to wait for the first item to have the urls ready
+			// then we queryMany
+			if (isImage && files.length)
+				return baseSrv.waitForOne(`id == "${files[0].id}" AND urls.@size > 0`).pipe(
+					switchMap(_ => baseSrv.queryMany({ query }))
+				);
+			else
+				return baseSrv.queryMany({ query });
 		}
+
 		const srv = this.ermSrv.getGlobalServiceForEntity(linkedItem);
 
 		if (isImage) {
