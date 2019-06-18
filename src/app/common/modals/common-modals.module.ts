@@ -19,6 +19,7 @@ import {
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
@@ -30,6 +31,8 @@ import {
 	VoteDetailsDialogComponent,
 	CreationProductDlgComponent,
 } from './component';
+import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
+import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
 import { ExportWaitingViewComponent } from './component/export-dlg/export-waiting-view/export-waiting-view.component';
 import { ReviewRequestReplyDlgComponent } from './component/review-request-reply-dlg/review-request-reply-dlg.component';
@@ -38,8 +41,6 @@ import {
 } from './component/supplier-request-dialog/product-request-list/product-request-list.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
-import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
-import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -53,6 +54,7 @@ const modals = [
 	ExportDlgComponent,
 	FindProductsDialogComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
@@ -72,7 +74,7 @@ const modals = [
 		ProductCommonModule,
 		TableModule,
 		InputsModule,
-		UtilsModule,
+		UtilsModule
 	],
 	declarations: [
 		...modals,
@@ -82,7 +84,6 @@ const modals = [
 		ProductRequestListComponent,
 		CompareLabelsComponent,
 		CompareColumnComponent,
-		DescriptionDlgComponent,
 	],
 	entryComponents: modals,
 	providers: [

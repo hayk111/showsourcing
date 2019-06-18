@@ -26,6 +26,19 @@ import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 import { RegexpApp } from '~utils';
 
+export interface PickerField {
+	name: string;
+	type: string; // TODO when merge with supplier-connect, try make a type, with the different types
+	attribute?: string; // if the name is different than the attribute name e.g. moq != minimunOrderQuantity
+	metadata?: PickerFieldMetadata;
+}
+
+export interface PickerFieldMetadata {
+	multiple?: boolean;
+	canCreate?: boolean;
+	ermName?: string;
+}
+
 @Component({
 	selector: 'selector-picker-app',
 	templateUrl: './selector-picker.component.html',
@@ -43,6 +56,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 	@Input() multiple = false;
 	@Input() canCreate = false;
+	@Input() pickerFields: PickerField[];
 	@Input() filterList = new FilterList([]);
 
 	@Output() update = new EventEmitter<any>();
@@ -169,6 +183,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
 			case ERM.INCO_TERM: return this.selectorSrv.getIncoTermsGlobal();
 			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits();
+			case ERM.PICKER_FIELD: return this.selectorSrv.getPickerFields(this.pickerFields);
 			case ERM.PRODUCT: return this.selectorSrv.getProducts();
 			case ERM.PROJECT: return this.selectorSrv.getProjects();
 			case ERM.REQUEST_TEMPLATE: return this.selectorSrv.getRequestTemplates();
@@ -246,6 +261,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.HARBOUR:
 			case ERM.INCO_TERM:
 			case ERM.LENGTH_UNIT:
+			case ERM.PICKER_FIELD:
 			case ERM.WEIGHT_UNIT:
 				item = this.value;
 				break;
@@ -258,7 +274,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				};
 				break;
 		}
-		if (item) this.update.emit(item);
+		if (item)
+			this.update.emit(item);
 		this.close.emit();
 	}
 
@@ -272,6 +289,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.value = item;
 			this.onChange();
 		}
+		this.resetInput();
 	}
 
 	checkExist(items: any[]) {
@@ -346,6 +364,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// we changed the value directly so we have to notify the formControl
 			this.onChange();
 			this.selectorSrv.refetch();
+			this.resetInput();
 		}
 	}
 
@@ -359,16 +378,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (event.keyCode === ENTER && this.keyManager && this.keyManager.activeItem) {
 			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
-			let shouldReset = true;
-			if (label === 'create-button') this.create();
+			if (label === 'create-button')
+				this.create();
 			else if (this.multiple) {
 				// this is made since sometimes the user types faster, this way we assure that the label he types has to be the same
 				// if he moves with the arrow keys, then we don't care about the typing field
-				if (this.getLabelName(label) === this.searchTxt || this.movedArrow) this.onSelect(label);
-				else shouldReset = false;
-			} else this.onSelect(label);
-
-			if (shouldReset) this.resetInput();
+				if (this.getLabelName(label) === this.searchTxt || this.movedArrow)
+					this.onSelect(label);
+			} else
+				this.onSelect(label);
 
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
 			this.movedArrow = true;
@@ -391,7 +409,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** checks if the item matches with any of the values stored */
 	isSelected(item: any) {
 		let isSelected = false;
-		if (!this.multiple) return isSelected;
+		if (!this.multiple)
+			return isSelected;
 		if (this.value && this.value.length) {
 			switch (this.type) {
 				case ERM.EMAIL:
@@ -409,7 +428,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** checks if the name given matches with any of the values stored */
 	hasName(name: string) {
 		let hasName = false;
-		if (!this.multiple) return hasName;
+		if (!this.multiple)
+			return hasName;
 		if (this.value && this.value.length) {
 			switch (this.type) {
 				case ERM.EMAIL:
@@ -438,7 +458,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	/** we needed this in case we want to display multiple items active class, for some reason with ngClass didn't work */
 	getActiveClass(item) {
-		if (!this.multiple) return [];
+		if (!this.multiple)
+			return [];
 		return this.isSelected(item) ? ['active'] : [];
 	}
 }

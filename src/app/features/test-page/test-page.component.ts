@@ -10,7 +10,7 @@ import { CreationProductDlgComponent } from '~common/modals';
 })
 export class TestPageComponent implements OnInit {
 
-	test = 'nop';
+	testt = 'nop';
 
 	constructor(private dlgSrv: DialogService) { }
 
@@ -20,4 +20,8 @@ export class TestPageComponent implements OnInit {
 	open() {
 		this.dlgSrv.open(CreationProductDlgComponent);
 	}
+	test() {
+		// Test function
+	}
+
 }

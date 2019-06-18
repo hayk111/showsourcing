@@ -72,7 +72,7 @@ icon-app {
     color: black !important;
   }
   .status-item {
-    width: 200px;
+		min-width: 200px;
     color: var(--color-txt-strong);
     margin: 5px 10px;
     padding: 5px 10px;

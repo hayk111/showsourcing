@@ -141,6 +141,12 @@ h4 {
 	font-size: var(--font-size-m);
 }
 
+h5 {
+	&::first-letter {
+		text-transform: capitalize;
+	}
+}
+
 label {
 	font-weight: 600;
 	display: block;

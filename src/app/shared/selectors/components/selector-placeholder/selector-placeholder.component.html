@@ -1,5 +1,5 @@
-<div class="ellipsis content" [ngClass]="{ 'place-holder': !name }">
+<div class="container ellipsis" [ngClass]="{ 'place-holder': !name }">
 	<ng-content></ng-content>
-	<span *ngIf="!content">{{ name ? name : placeholder }}</span>
+	<span *ngIf="!content" class="name">{{ name ? name : placeholder }}</span>
 </div>
 <icon-app *ngIf="hasArrow" name="caret-down"></icon-app>

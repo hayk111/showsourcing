@@ -2,11 +2,11 @@
 <h2> You can do anything here, it's just to test stuff</h2>
 <!-- don't remove me end -->
 <button (click)="open()">clickme</button>
-{{ test }}
-<input #inp inputApp type="text" (input)="test = inp.value"/>
+{{ testt }}
+<input #inp inputApp type="text" (input)="testt = inp.value"/>
 
-<ng-container [ngSwitch]="test">
-	<ng-container *ngSwitchCase="test === 'con' || test === 'nope' ? test : 'con'">
+<ng-container [ngSwitch]="testt">
+	<ng-container *ngSwitchCase="testt === 'con' || testt === 'nope' ? testt : 'con'">
 		this is not the default
 	</ng-container>
 	<ng-container *ngSwitchDefault>

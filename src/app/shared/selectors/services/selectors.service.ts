@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -46,10 +46,11 @@ import {
 import { Supplier } from '~models/supplier.model';
 import { FilterList } from '~shared/filters';
 import { translate } from '~utils';
-import { countries, currencies, harbours, incoTerms, weightUnits } from '~utils/constants';
+import { countries, currencies, harbours, incoTerms } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
 
+import { PickerField } from '../components';
 
 @Injectable({
 	providedIn: 'root',
@@ -67,6 +68,8 @@ export class SelectorsService {
 		skip: 0
 	};
 
+	// we use this to trigger the search when we use a map instead of the global data
+	search$: BehaviorSubject<string> = new BehaviorSubject('');
 	filterList = new FilterList([]);
 
 	currentSearchQuery = '';
@@ -109,7 +112,8 @@ export class SelectorsService {
 	}
 
 	refetch(selectParams?: SelectParamsConfig) {
-		this.listResult.refetch(selectParams || this.selectParams).pipe(first()).subscribe();
+		if (this.listResult)
+			this.listResult.refetch(selectParams || this.selectParams).pipe(take(1)).subscribe();
 	}
 
 	loadMore() {
@@ -154,9 +158,15 @@ export class SelectorsService {
 				case ERM.WEIGHT_UNIT:
 					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}"`;
 					break;
+				case ERM.PICKER_FIELD:
+					this.search$.next(searchTxt);
+					break;
 				default: throw Error(`Unsupported type for search ${type}`);
 			}
-		} else this.currentSearchQuery = '';
+		} else {
+			this.currentSearchQuery = '';
+			this.search$.next('');
+		}
 		// so we can keep the current search and the filter
 		if (this.currentSearchQuery && this.selectParams.query)
 			this.currentSearchQuery = '(' + this.currentSearchQuery + ') AND ' + this.selectParams.query;
@@ -340,6 +350,13 @@ export class SelectorsService {
 		this.selectParams = { ...this.selectParams, sortBy: 'user.lastName' };
 		this.listResult = this.teamUserSrv.getListQuery(this.selectParams, '', Client.TEAM);
 		this.setItems();
+		return this.items$;
+	}
+
+	getPickerFields(fields: PickerField[]): Observable<PickerField[]> {
+		this.items$ = this.search$.pipe(
+			map(item => fields.filter(field => field.name.toLocaleLowerCase().includes(item))),
+		);
 		return this.items$;
 	}
 

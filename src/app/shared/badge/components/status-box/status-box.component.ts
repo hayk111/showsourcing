@@ -1,20 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { EntityMetadata, SampleStatus, SupplierStatus, ProductStatus } from '~models';
+import { Component, Input } from '@angular/core';
+import { EntityMetadata, ProductStatus, SampleStatus, SupplierStatus } from '~models';
 
 @Component({
 	selector: 'status-box-app',
 	templateUrl: './status-box.component.html',
 	styleUrls: ['./status-box.component.scss']
 })
-export class StatusBoxComponent implements OnInit {
-
-	@Input() size = 's';
+export class StatusBoxComponent {
 
 	@Input() displayAttribute: 'name' | 'category' = 'name';
-
 	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
-
 	@Input() round = true;
+	@Input() width = 200;
 
 	// we need to pass this so when the
 	// status is null, because the product or supplier are new
@@ -22,9 +19,6 @@ export class StatusBoxComponent implements OnInit {
 	@Input() type: ('list' | 'badge') = 'badge';
 
 	constructor() {
-	}
-
-	ngOnInit() {
 	}
 
 	isHaveStatus() {

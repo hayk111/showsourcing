@@ -58,6 +58,7 @@ import { InputSelectorComponent } from './components/dynamic-input/inputs/input-
 	],
 	exports: [
 		DynamicFormComponent,
+		EditablePackagingComponent,
 		ExtendedFormComponent
 	]
 })

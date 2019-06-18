@@ -2,17 +2,19 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	ContentChild,
 	ElementRef,
 	EventEmitter,
 	Input,
 	OnInit,
 	Output,
-	ContentChild,
 } from '@angular/core';
 import { EntityMetadata, ERM } from '~core/models';
 import { FilterList } from '~shared/filters';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { TabFocusDirective } from '~shared/utils';
+
+import { PickerField } from '../selector-picker/selector-picker.component';
 
 @Component({
 	selector: 'selector-app',
@@ -38,6 +40,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() canCreate = false;
 	@Input() filterList = new FilterList([]);
 	@Input() width = 395;
+	@Input() pickerFields: PickerField[];
 
 	@Output() update = new EventEmitter<any>();
 
