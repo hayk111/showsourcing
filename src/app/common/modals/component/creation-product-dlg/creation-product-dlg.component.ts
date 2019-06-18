@@ -163,7 +163,9 @@ export class CreationProductDlgComponent implements OnInit {
 		// images
 		// files
 		// extendedfields
-		return product;
+		if (product.extendedFields)
+			// product = { ...product, extendedFields:  }
+			return product;
 	}
 
 }

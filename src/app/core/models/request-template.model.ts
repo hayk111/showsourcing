@@ -10,8 +10,8 @@ export class RequestTemplate {
 	__typename?= 'RequestTemplate';
 
 	constructor(config: RequestTemplateConfig) {
-		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
+		if (!config.id) this.id = uuid();
 	}
 }
 

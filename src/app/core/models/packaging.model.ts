@@ -11,13 +11,13 @@ export class Packaging {
 	weight?: number;
 	depth?: number;
 	weightUnit?: string;
-	__typename ?= 'Packaging';
+	__typename?= 'Packaging';
 
 	constructor(config?: PackagingConfig) {
-		this.id = uuid();
 		this.unit = 'cm';
 		this.weightUnit = 'kg';
 		Object.assign(this, config);
+		this.id = uuid();
 	}
 }
 

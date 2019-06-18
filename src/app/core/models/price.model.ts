@@ -10,8 +10,8 @@ export class Price {
 
 
 	constructor(config: PriceConfig) {
-		this.id = uuid();
 		Object.assign(this, config);
+		this.id = uuid();
 	}
 }
 
