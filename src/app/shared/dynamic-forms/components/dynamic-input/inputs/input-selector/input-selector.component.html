@@ -6,6 +6,7 @@
 	(update)="onValueChange($event)">
 	<selector-placeholder-app
 		tabFocus
+		class="first-uppercase"
 		[name]="value"
 		[placeholder]="type">
 		<div *ngIf="isEntity && value" #content class="flexWrap">
