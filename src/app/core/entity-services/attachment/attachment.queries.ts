@@ -6,14 +6,12 @@ export abstract class AttachmentQueries extends GlobalQueries {
 		fileName
 		url
 		size
-		pending
 	`;
 
 	static readonly many = `
 		fileName
 		url
 		size
-		pending
 	`;
 
 }

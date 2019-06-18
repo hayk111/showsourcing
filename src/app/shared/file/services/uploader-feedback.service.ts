@@ -33,7 +33,7 @@ export class UploaderFeedbackService {
 	private _files: Array<Attachment | PendingFile>;
 	private _pendingFiles: PendingFile[] = [];
 	private _pendingImages: PendingImage[] = [];
-	private _uploaded$: Subject<AppImage[]> = new Subject();
+	private _uploaded$: Subject<AppImage[] | Attachment[]> = new Subject();
 
 	constructor(
 		private cd: ChangeDetectorRef,
@@ -111,8 +111,11 @@ export class UploaderFeedbackService {
 		const uuids = this._pendingFiles.map(f => f.id);
 		// since the linked entity is setup once at the start we need to update the attachments
 		this.uploaderSrv.uploadFiles(files, { ...this.linkedEntity, attachments: this._files })
-			.subscribe(
-				addedFiles => this.onSuccessFile(uuids),
+			.pipe(first())
+			.subscribe(addedFiles => {
+				this._uploaded$.next(addedFiles);
+				this.onSuccessFile(uuids);
+			},
 				e => this._pendingFiles = []
 			);
 	}

@@ -1,4 +1,4 @@
-<card-app (fileDrop)="onFileAdded($event)">
+<card-app *ngIf="!secondaryStyle; else secondary" (fileDrop)="onFileAdded($event)">
 	<div class="title flex">
 		<div class="space-icon flexAround">
 			<icon-app class="fs-m color-primary" name="file" ></icon-app>
@@ -8,12 +8,24 @@
 		</h3>
 	</div>
 
-	<file-list-app [linkedItem]="linkedItem" [files]="files"></file-list-app>
+	<file-list-app [linkedItem]="linkedItem" [files]="files" (deleted)="deleted.emit($event)"></file-list-app>
 
 	<card-footer-app>
-		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
-		<button (click)="inp.click()" i18n="button@@add-file">Add File</button>
+		<button (click)="inp.click()" i18n="button@@add-file">add file</button>
 	</card-footer-app>
-
 </card-app>
+
+<ng-template #secondary>
+	<file-list-app
+		class="secondary"
+		[linkedItem]="linkedItem"
+		[files]="files"
+		[showConfirmOnDelete]="false"
+		(deleted)="deleted.emit($event)">
+	</file-list-app>
+	<button class="secondary" (click)="inp.click()" i18n="button@@add-file">add file</button>
+</ng-template>
+
+<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
+
 

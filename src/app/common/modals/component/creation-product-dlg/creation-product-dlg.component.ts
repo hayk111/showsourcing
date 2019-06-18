@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductService } from '~core/entity-services';
-import { AppImage, ERM, ExtendedField, Packaging, Price, Product } from '~core/models';
+import { AppImage, Attachment, ERM, ExtendedField, Packaging, Price, Product } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -111,9 +111,24 @@ export class CreationProductDlgComponent implements OnInit {
 		this.product = { ...this.product, ...product };
 	}
 
-	imageCreated(createdImages) {
+	imagesCreated(createdImages: AppImage[]) {
 		const images = [...this.product.images, ...createdImages];
 		this.product = { ...this.product, images };
+	}
+
+	imageDeleted(image: AppImage) {
+		const images = this.product.images.filter(img => img.id !== image.id);
+		this.product = { ...this.product, images };
+	}
+
+	filesCreated(createdFiles: Attachment[]) {
+		const attachments = [...this.product.attachments, ...createdFiles];
+		this.product = { ...this.product, attachments };
+	}
+
+	fileDeleted(file: Attachment) {
+		const attachments = this.product.attachments.filter(fl => fl.id !== file.id);
+		this.product = { ...this.product, attachments };
 	}
 
 	cancel() {
