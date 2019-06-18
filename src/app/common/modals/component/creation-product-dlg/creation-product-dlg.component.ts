@@ -27,7 +27,8 @@ export class CreationProductDlgComponent implements OnInit {
 				target: ERM.SUPPLIER.singular,
 				type: 'entity',
 				labelName: 'name',
-				canCreate: true
+				canCreate: true,
+				hasBadge: true
 			}
 		},
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },

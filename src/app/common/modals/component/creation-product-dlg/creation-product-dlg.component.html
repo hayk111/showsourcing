@@ -8,6 +8,7 @@
 		<div class="left">
 			<carousel-app
 				[images]="product?.images"
+				[hasPreview]="true"
 				(uploaded)="imageCreated($event)">
 			</carousel-app>
 
