@@ -10,8 +10,8 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 export const environment = {
 	production: true,
 	version: WEB_VERSION,
-	graphqlUrl: 'wss://showsourcing.us1.cloud.realm.io/graphql',
-	graphqlAuthUrl: 'https://showsourcing.us1.cloud.realm.io/auth',
+	graphqlUrl: 'wss://showsourcingprod.us1.cloud.realm.io/graphql',
+	graphqlAuthUrl: 'https://showsourcingprod.us1.cloud.realm.io/auth',
 	apiUrl: 'https://services.showsourcing.com',
 	mixPanelKey: 'fd1633b6288f31d3d7e4554c1c4f5e44',
 	hubspotKey: '2134370',

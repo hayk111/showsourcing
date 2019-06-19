@@ -58,8 +58,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	constructor(public elem: ElementRef, private cdr: ChangeDetectorRef) { super(cdr); }
 
 	ngOnInit() {
+		// everytime we focus the content and hit enter, we are opening the menu
 		if (this.tab)
-			// everytime we focus the content and hit enter, we are opening the menu
 			this.tab.keyEnter.subscribe(_ => this.openMenu());
 	}
 
@@ -81,8 +81,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 		this.menuOpen = false;
 		if (emit) {
 			this.menuClosed.emit();
+			// when we close the menu we want to be focused again
 			if (this.tab)
-				// when we close the menu we want to be focused again
 				this.tab.focusOrigin();
 		}
 	}
