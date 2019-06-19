@@ -112,7 +112,7 @@
 	<!--  extended fields -->
 	<ng-container	*ngSwitchCase="'extendedField'">
 		<ng-container *ngIf="definitions$ | async as definitions">
-			<h3 class="ms" i18n="@@extended-fields">extended fields</h3>
+			<h3 *ngIf="definitions?.length" class="ms" i18n="@@extended-fields">extended fields</h3>
 			<extended-form-app
 				[fields]="accumulator || []"
 				[isFormStyle]="true"
