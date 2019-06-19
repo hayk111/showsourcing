@@ -165,14 +165,19 @@ export class CreationProductDlgComponent implements OnInit {
 		}
 	}
 
+	// we keep the same old values, but we reset the ids that cannot be the same as before
 	private resetIds(product) {
 		product = { ...product, id: uuid(), name: null };
+		// master carton
 		if (product.masterCarton)
 			product = { ...product, masterCarton: new Packaging(product.masterCarton) };
+		// inner carton
 		if (product.innerCarton)
 			product = { ...product, innerCarton: new Packaging(product.innerCarton) };
+		// price
 		if (product.price)
 			product = { ...product, price: new Price(product.price) };
+		// smaple price
 		if (product.samplePrice)
 			product = { ...product, samplePrice: new Price(product.samplePrice) };
 		// images
@@ -185,7 +190,7 @@ export class CreationProductDlgComponent implements OnInit {
 		}
 		// extendedfields
 		if (product.extendedFields) {
-			const extendedFields = this.product.extendedFields.map(field => new ExtendedField(field));
+			const extendedFields = product.extendedFields.map(field => new ExtendedField(field));
 			product = { ...product, extendedFields };
 		}
 		return product;
