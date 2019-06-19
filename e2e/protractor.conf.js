@@ -10,10 +10,10 @@ exports.config = {
   ],
   capabilities: {
     'browserName': 'chrome',
-    chromeOptions: {
-      binary: process.env.CHROME_BIN,
-      args: ['--headless', '--no-sandbox']
-    }
+    // chromeOptions: {
+    //   binary: process.env.CHROME_BIN,
+    //   args: ['--headless', '--no-sandbox']
+    // }
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',

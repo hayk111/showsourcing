@@ -6,15 +6,17 @@ export class LoginPage {
 		return browser.get('/auth/login');
 	}
 
-	loginAndGetUrl(email: string, password: string): Promise<string> {
+	async login(email: string, password: string) {
 		const emailInp = element(by.css('input[name="login"]'));
 		const pwInp = element(by.css('input[name="password"]'));
 		const btn = element(by.css('input[type="submit"]'));
-		emailInp.sendKeys('hr8pgr+vhayjmg377s0@sharklasers.com');
-		pwInp.sendKeys('test1234');
-		btn.click();
-		return new Promise(resolve => {
-			browser.driver.wait(_ => resolve(browser.getCurrentUrl()), 5000);
-		});
+		await emailInp.sendKeys(email);
+		await pwInp.sendKeys(password);
+		await btn.click();
+	}	
+
+	get errorElem() {
+		return element(by.tagName('error-app'));
 	}
+
 }
