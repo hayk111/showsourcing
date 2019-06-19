@@ -1,10 +1,13 @@
 import { uuid } from '~utils';
+import { User } from './user.model';
 
 
 export class Company {
 	id: string;
 	name?: string;
-	__typename ?= 'Company';
+	owner?: User;
+	status = 'pending';
+	__typename = 'Company';
 
 	constructor(config: CompanyConfig) {
 		Object.assign(this, config);

@@ -12,6 +12,7 @@ import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { Location } from '@angular/common';
+import { CentralClientInitializer } from '~core/apollo/services/apollo-central-client.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit {
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
 		private userClient: UserClientInitializer,
+		private centralClient: CentralClientInitializer,
 		private location: Location
 	) { }
 
@@ -81,7 +83,8 @@ export class AppComponent implements OnInit {
 		return forkJoin([
 			this.globalDataClient.init(realmUser),
 			this.globalRequestClient.init(realmUser),
-			this.userClient.init(realmUser)
+			this.userClient.init(realmUser),
+			this.centralClient.init(realmUser)
 		]);
 	}
 
