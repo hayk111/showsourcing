@@ -95,13 +95,15 @@
   </ng-container>
 
 	<!-- packaging -->
-  <editable-packaging-app
-    *ngSwitchCase="'packaging'"
-		[isFormStyle]="true"
-		name="packaging"
-		[(ngModel)]="accumulator"
-		(update)="onChange()">
-	</editable-packaging-app>
+	<ng-container *ngSwitchCase="'packaging'">
+		<h4 class="ms capitalize bold-s" i18n="@@extended-fields">{{ customField?.label || customField?.name }}</h4>
+		<editable-packaging-app
+			[isFormStyle]="true"
+			name="packaging"
+			[(ngModel)]="accumulator"
+			(update)="onChange()">
+		</editable-packaging-app>
+	</ng-container>
 
 	<!-- price -->
   <form-field-app *ngSwitchCase="'price'" class="modal">

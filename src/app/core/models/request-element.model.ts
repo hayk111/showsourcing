@@ -16,7 +16,7 @@ export class RequestElement {
 
 	constructor(config: RequestElementConfig) {
 		Object.assign(this, config);
-		if (!config.id) this.id = uuid();
+		this.id = uuid();
 	}
 }
 

@@ -79,7 +79,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 			imageProperty: this.imageProperty,
 			isImagePropertyArray: this.isImagePropertyArray
 		});
-		this.uploaderFeedback.getUploadedEvent()
+		this.uploaderFeedback.uploaded$
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(imgs => this.uploaded.emit(imgs as AppImage[]));
 	}

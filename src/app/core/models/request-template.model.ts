@@ -11,7 +11,7 @@ export class RequestTemplate {
 
 	constructor(config: RequestTemplateConfig) {
 		Object.assign(this, config);
-		if (!config.id) this.id = uuid();
+		this.id = uuid();
 	}
 }
 

@@ -35,6 +35,8 @@ export class UploaderFeedbackService {
 	private _pendingImages: PendingImage[] = [];
 	private _uploaded$: Subject<AppImage[] | Attachment[]> = new Subject();
 
+	uploaded$ = this._uploaded$.asObservable();
+
 	constructor(
 		private cd: ChangeDetectorRef,
 		private uploaderSrv: UploaderService,
@@ -66,11 +68,6 @@ export class UploaderFeedbackService {
 	getFiles(): Array<Attachment | PendingFile> {
 		return [...this._files, ...this._pendingFiles];
 	}
-
-	getUploadedEvent() {
-		return this._uploaded$;
-	}
-
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async addImages(files: Array<File>) {

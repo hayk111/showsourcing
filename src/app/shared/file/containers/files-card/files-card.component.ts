@@ -43,7 +43,7 @@ export class FilesCardComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.uploaderFeedback.init({ linkedEntity: this.linkedItem });
-		this.uploaderFeedback.getUploadedEvent()
+		this.uploaderFeedback.uploaded$
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(attachments => this.uploaded.emit(attachments as Attachment[]));
 	}
