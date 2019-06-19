@@ -72,7 +72,7 @@ export class CreationProductDlgComponent implements OnInit {
 				hasBadge: true
 			}
 		},
-		{ name: 'sample', type: 'boolean' },
+		{ name: 'sample', type: 'boolean', label: translate('sample available') },
 		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
 		{ name: 'trading information', type: 'title' },
 		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
