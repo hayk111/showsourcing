@@ -42,6 +42,8 @@ export class UploaderService {
 		return forkJoin(uploads$).pipe(
 			// link item (we need to do it after the file is ready else we will have 403)
 			mergeMap((files: AppImage[]) => this.linkItem(files, linkedItem, true, imageProperty, isPropertyArray)),
+			// we query the files once again, so we have the latest fromt he backend
+			mergeMap(images => this.queryFiles(true, images)),
 			// add notification
 			tap((files: AppImage[]) => {
 				return this.notifSrv.add({
@@ -58,6 +60,8 @@ export class UploaderService {
 			first(),
 			// link item (we need to do it after the file is ready else we will have 403)
 			mergeMap((attachments: any[]) => this.linkItem(attachments, linkedItem, false)),
+			// we query the files once again, so we have the latest fromt he backend
+			mergeMap(attachments => this.queryFiles(false, attachments)),
 			// add notification
 			tap((attachments: Attachment[]) => {
 				return this.notifSrv.add({
@@ -186,28 +190,12 @@ export class UploaderService {
 		imageProperty = 'images',
 		isArray = true
 	): Observable<AppImage[] | Attachment[]> {
-		const baseSrv = isImage
-			? this.imageSrv
-			: this.attachmentSrv;
 
-		// when there is no linked item that means that we are watiting for the item to emit
-		if (!linkedItem || !linkedItem.id) {
-			const ids = (files as any[]).map(file => file.id);
-			let query = ids.join('" OR id == "');
-			if (ids.length >= 1)
-				query = 'id == "' + query + '"';
-			// if its an image we have to wait for the first item to have the urls ready
-			// then we queryMany
-			if (isImage && files.length)
-				return baseSrv.waitForOne(`id == "${files[0].id}" AND urls.@size > 0`).pipe(
-					switchMap(_ => baseSrv.queryMany({ query }))
-				);
-			else
-				return baseSrv.queryMany({ query });
-		}
-
+		// there is no linkedItem
+		if (!linkedItem || !linkedItem.id)
+			return of(files);
+		// there is a linkedItem to update to and its an Image
 		const srv = this.ermSrv.getGlobalServiceForEntity(linkedItem);
-
 		if (isImage) {
 			return srv.update({
 				id: linkedItem.id,
@@ -215,11 +203,32 @@ export class UploaderService {
 			}).pipe(
 				mapTo(files)
 			);
+			// there is a linkedItem to update to and its a File
 		} else {
 			const attachments = [...linkedItem.attachments, ...files];
 			return srv.update({ id: linkedItem.id, attachments }).pipe(
 				mapTo(files)
 			);
 		}
+	}
+
+	private queryFiles(isImage: boolean, files: AppImage[] | Attachment[]) {
+		const baseSrv = isImage
+			? this.imageSrv
+			: this.attachmentSrv;
+
+		const ids = (files as any[]).map(file => file.id);
+		let query = ids.join('" OR id == "');
+		if (ids.length >= 1)
+			query = 'id == "' + query + '"';
+		// if its an image we have to wait for the first item to have the urls ready
+		// then we queryMany
+		if (isImage && files.length)
+			return baseSrv.waitForOne(`id == "${files[0].id}" AND urls.@size > 0`).pipe(
+				switchMap(_ => baseSrv.queryMany({ query }))
+			);
+		// if its a file we don't need to wait to send the results
+		else
+			return baseSrv.queryMany({ query });
 	}
 }

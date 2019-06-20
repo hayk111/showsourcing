@@ -97,6 +97,7 @@ export class UploaderFeedbackService {
 
 	private onSuccessImg(uuids) {
 		this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
+		this.cd.markForCheck();
 	}
 
 	deleteImg(img: AppImage) {
@@ -119,6 +120,7 @@ export class UploaderFeedbackService {
 
 	private onSuccessFile(uuids) {
 		this._pendingFiles = this._pendingFiles.filter(p => !uuids.includes(p.id));
+		this.cd.markForCheck();
 	}
 
 	deleteFile(file: Attachment) {
