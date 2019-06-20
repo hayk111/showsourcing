@@ -22,6 +22,7 @@ export interface DynamicField {
 		· multiple: if it can select multiple // Default false
 		· canCreate: if it can create an entity // Default false
 		· hasBadge: if we display the result with a badge or plain text // Default false
+		· width: indicated the width of the selector // Default 390 on dynamic form
 */
 
 export type DynamicFieldType =
