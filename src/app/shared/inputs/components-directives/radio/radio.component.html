@@ -5,9 +5,11 @@
 			<input #inp type="radio" class="radio-btn" [name]="_id" [id]="getId(i)"
 						 [value]="item.value" [(ngModel)]="value" (click)="onCheckedChange(item.value)"/>
       <label class="label flex" [for]="getId(i)">
-				<span tabFocus class="dot flexCenter" (keyEnter)="inps?.toArray()[i]?.nativeElement?.click()">
-					<div *ngIf="inps?.toArray()[i]?.nativeElement?.checked" class="overlay"></div>
-				</span>
+				<div tabFocus class="focus-wrapper" (keyEnter)="inps?.toArray()[i]?.nativeElement?.click()">
+					<span class="dot flexCenter">
+						<div *ngIf="inps?.toArray()[i]?.nativeElement?.checked" class="overlay"></div>
+					</span>
+				</div>
 				{{item.name}}
 			</label>
     </div>

@@ -28,7 +28,8 @@ export class CreationProductDlgComponent implements OnInit {
 				type: 'entity',
 				labelName: 'name',
 				canCreate: true,
-				hasBadge: true
+				hasBadge: true,
+				width: 495
 			}
 		},
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
@@ -41,7 +42,8 @@ export class CreationProductDlgComponent implements OnInit {
 				type: 'entity',
 				labelName: 'name',
 				canCreate: true,
-				hasBadge: true
+				hasBadge: true,
+				width: 495
 			}
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
@@ -56,7 +58,8 @@ export class CreationProductDlgComponent implements OnInit {
 				labelName: 'name',
 				multiple: true,
 				canCreate: true,
-				hasBadge: true
+				hasBadge: true,
+				width: 495
 			}
 		},
 		{
@@ -69,7 +72,8 @@ export class CreationProductDlgComponent implements OnInit {
 				labelName: 'name',
 				multiple: true,
 				canCreate: true,
-				hasBadge: true
+				hasBadge: true,
+				width: 495
 			}
 		},
 		{ name: 'sample', type: 'boolean', label: translate('sample available') },
@@ -83,11 +87,23 @@ export class CreationProductDlgComponent implements OnInit {
 		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
 		{
 			name: 'incoTerm', type: 'selector', label: 'Inco Term',
-			metadata: { target: ERM.INCO_TERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
+			metadata: {
+				target: ERM.INCO_TERM.singular,
+				canCreate: false, multiple: false,
+				labelName: 'name',
+				type: 'const',
+			}
 		},
 		{
 			name: 'harbour', type: 'selector', label: 'Harbour',
-			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
+			metadata: {
+				target: ERM.HARBOUR.singular,
+				canCreate: false,
+				multiple: false,
+				labelName: 'name',
+				type: 'const',
+				width: 495
+			}
 		},
 		{
 			name: 'extendedFields', type: 'extendedField', label: 'extended fields',

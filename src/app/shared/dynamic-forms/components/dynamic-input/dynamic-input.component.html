@@ -75,12 +75,12 @@
 		<form-field-app  class="modal">
 			<label-app inputApp>{{ customField?.label || customField?.name }}</label-app>
 			<input-selector-app
-				[width]="390"
 				[(ngModel)]="accumulator"
 				[multiple]="customField?.metadata?.multiple"
 				[type]="customField?.metadata?.target"
 				[canCreate]="customField?.metadata?.canCreate"
 				[hasBadge]="customField?.metadata?.hasBadge"
+				[width]="customField?.metadata?.width || 390"
 				(update)="onChange()">
 			</input-selector-app>
 		</form-field-app>

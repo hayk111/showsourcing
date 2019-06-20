@@ -1,12 +1,21 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
-import { DynamicField } from '~shared/dynamic-forms/models';
-import { TemplateService } from '~core/template/services/template.service';
-import { RequestTemplateService } from '~core/entity-services';
-import { ExtendedFieldDefinitionService } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { Observable, throwError } from 'rxjs';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ExtendedFieldDefinition } from '~core/models';
+import { DynamicField } from '~shared/dynamic-forms/models';
+import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 /**
  * Component that selects the correct input and display it as an editable text

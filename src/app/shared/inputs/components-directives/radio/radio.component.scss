@@ -18,7 +18,9 @@
 
 .item {
   margin-right: var(--spacing-ms);
-  position: relative;
+	position: relative;
+	box-sizing: border-box;
+	height: 20px;
 }
 
 .label {
@@ -30,6 +32,10 @@
 	margin-bottom: 0;
 }
 
+.focus-wrapper {
+	margin-right: var(--spacing-s);
+}
+
 .dot {
 	position: relative;
 	display: flex;
@@ -39,10 +45,6 @@
   background: var(--color-secondary-light);
 	border-radius: 50%;
 	cursor: pointer;
-
-	&:first-child {
-		margin-right: var(--spacing-s);
-	}
 }
 
 input[type=radio] {

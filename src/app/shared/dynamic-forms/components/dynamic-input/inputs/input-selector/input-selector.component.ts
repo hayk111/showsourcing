@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { ERM } from '~core/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { TabFocusDirective } from '~shared/utils';
 
 @Component({
 	selector: 'input-selector-app',

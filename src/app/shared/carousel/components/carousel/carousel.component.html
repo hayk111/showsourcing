@@ -19,7 +19,7 @@
 				class="flexColumn flexCenter empty"
 				[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }">
 				<span class="bold" i18n="text@@no-picture">No picture</span>
-				<button *ngIf="!static" class="secondary" (click)="openFileBrowser()" i18n="button@@add-picture">Add picutre</button>
+				<button *ngIf="!static" class="secondary" tabFocus (click)="openFileBrowser()" (keyEnter)="openFileBrowser()"  i18n="button@@add-picture">Add picutre</button>
 			</div>
 		</ng-template>
 	</div>

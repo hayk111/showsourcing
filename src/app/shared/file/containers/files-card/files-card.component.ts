@@ -10,7 +10,6 @@ export enum PageType {
 	supplier = 'SUPPLIER'
 }
 
-
 @Component({
 	selector: 'files-card-app',
 	templateUrl: './files-card.component.html',
