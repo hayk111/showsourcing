@@ -24,7 +24,7 @@ export class RadioComponent extends AbstractInput {
 	@Output() update = new EventEmitter<boolean>();
 	@Output() select = new EventEmitter<null>();
 	/** list of possible values and labels */
-	@Input() items: any[];
+	@Input() items: { name: string, value: boolean }[];
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()

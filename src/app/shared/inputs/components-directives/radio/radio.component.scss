@@ -13,14 +13,16 @@
 
 .items {
   display: flex;
-  flex-direction: row;
+	flex-direction: row;
+}
+
+input {
+	height: unset;
 }
 
 .item {
   margin-right: var(--spacing-ms);
 	position: relative;
-	box-sizing: border-box;
-	height: 20px;
 }
 
 .label {
@@ -34,6 +36,9 @@
 
 .focus-wrapper {
 	margin-right: var(--spacing-s);
+	box-sizing: border-box;
+	width: 20px;
+	height: 20px;
 }
 
 .dot {
