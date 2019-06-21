@@ -13,10 +13,14 @@ export class LoginPage {
 		await emailInp.sendKeys(email);
 		await pwInp.sendKeys(password);
 		await btn.click();
-	}	
+	}
 
 	get errorElem() {
 		return element(by.tagName('error-app'));
+	}
+
+	get spinnerElem() {
+		return element(by.tagName('spinner-app'));
 	}
 
 }
