@@ -39,7 +39,7 @@ describe('login test suite', () => {
 	it('should display error message when incorrect credentials', async () => {
 		await browser.debugger();
 		const email = 'false-email@false-provider.com';
-		const password = 'false-password';
+		const password = 'false-password-1';
 		await page.login(email, password);
 		const EC = protractor.ExpectedConditions;
 		// await browser.wait(() => {
@@ -53,7 +53,7 @@ describe('login test suite', () => {
 		const email = 'hr8pgr+vhayjmg377s0@sharklasers.com';
 		const password = 'test1234';
 
-		page.login(email, password);
+		await page.login(email, password);
 		const hasLeftLogin = await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();
 			// when we login we will get out of the login page
