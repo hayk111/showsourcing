@@ -26,6 +26,8 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	get rows() {
 		return this._rows;
 	}
+	@Input() hasSelection = true;
+
 	@Output() openReviewRequestReply = new EventEmitter<string>();
 	@Output() openRefuseReplyDlg = new EventEmitter<ID>();
 	@Output() cancelReply = new EventEmitter<ID>();
