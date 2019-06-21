@@ -42,9 +42,10 @@ describe('login test suite', () => {
 		const password = 'false-password';
 		await page.login(email, password);
 		const EC = protractor.ExpectedConditions;
-		await browser.wait(() => {
-			return EC.visibilityOf(page.errorElem);
-		}, 10000);
+		// await browser.wait(() => {
+		// 	return EC.visibilityOf(page.errorElem);
+		// }, 10000);
+		await browser.wait(EC.visibilityOf(page.errorElem));
 		return expect(page.errorElem.getText()).toEqual('Incorrect credentials');
 	});
 
