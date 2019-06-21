@@ -108,12 +108,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
 		{ name: translate(ERM.SAMPLE.singular, 'erm'), type: 'title' },
-		{ name: 'sample', type: 'yesNo' },
+		{ name: 'sample', type: 'boolean' },
 		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
 		{ name: 'shipping', type: 'title' },
 		{
 			name: 'incoTerm', type: 'selector', label: 'INCO Term',
-			metadata: { target: ERM.INCOTERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
+			metadata: { target: ERM.INCO_TERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
 		},
 		{
 			name: 'harbour', type: 'selector', label: 'loading port',
@@ -180,7 +180,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product.extendedFields"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "product.extendedFields"' });
 	}
 
 	ngOnChanges() {

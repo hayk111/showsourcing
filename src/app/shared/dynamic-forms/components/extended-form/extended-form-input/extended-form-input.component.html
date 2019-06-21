@@ -180,23 +180,12 @@
 		<!-- boolean -->
 		<form-field-app *ngSwitchCase="'boolean'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
-			<div class="flex">
-				<checkbox-app
-					class="mg-right-ms"
-					inputApp
-					[disabled]="disabled"
-					[checked]="field?.value === 'true'"
-					(update)="toggleBoolean(true)">
-					<span class="capitalize" i18n="@@yes">yes</span>
-				</checkbox-app>
-				<checkbox-app
-					inputApp
-					[disabled]="disabled"
-					[checked]="field?.value === 'false'"
-					(update)="toggleBoolean(false)">
-					<span class="capitalize" i18n="@@no">no</span>
-				</checkbox-app>
-			</div>
+			<radio-app
+				inputApp
+				[checked]="field?.value === 'true' ? true : field?.value === 'false' ? false : null"
+				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
+				(update)="toggleBoolean($event)">
+			</radio-app>
 		</form-field-app>
 
 		<!-- price -->

@@ -1,11 +1,21 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { saveAs } from 'file-saver';
-import { switchMap, takeUntil, filter } from 'rxjs/operators';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { ImageService } from '~entity-services/image/image.service';
 import { AppImage } from '~models';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -41,6 +51,10 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Input() selectedIndex = 0;
 	@Input() entity: any; // entity to which we can link images after an upload
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'contain';
+	@Input() showConfirmOnDelete = true;
+
+	@Output() uploaded = new EventEmitter<AppImage[]>();
+	@Output() deleted = new EventEmitter<AppImage>();
 
 	@ViewChild('imgApp') imgApp: ImageComponent;
 	/** hidden file input */
@@ -65,6 +79,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 			imageProperty: this.imageProperty,
 			isImagePropertyArray: this.isImagePropertyArray
 		});
+		this.uploaderFeedback.uploaded$
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(imgs => this.uploaded.emit(imgs as AppImage[]));
 	}
 
 	back(event) {
@@ -103,22 +120,27 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** deletes the image */
 	delete() {
 		const img = this.getImg();
-
-		this.dlgSrv.open(ConfirmDialogComponent, {
-			text: 'Are you sure you want to remove this image ?',
-		}).pipe(
-			switchMap(_ => this.onDeleteAccepted(img)),
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			takeUntil(this._destroy$),
-		).subscribe();
+		if (this.showConfirmOnDelete) {
+			this.dlgSrv.open(ConfirmDialogComponent, {
+				text: 'Are you sure you want to remove this image ?',
+			}).pipe(
+				switchMap(_ => this.onDeleteAccepted(img)),
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				takeUntil(this._destroy$),
+			).subscribe(_ => this.deleted.emit(img));
+		} else {
+			this.deleted.emit(img);
+		}
 	}
 
 	/** when image is deleted */
 	onDeleteAccepted(image: AppImage) {
-		const images = this.entity.images.filter(img => image.id !== img.id);
-		this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
-		const srv = this.ermSrv.getGlobalServiceForEntity(this.entity);
-		return srv.update({ id: this.entity.id, images });
+		if (this.entity) {
+			const images = this.entity.images.filter(img => image.id !== img.id);
+			this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+			const srv = this.ermSrv.getGlobalServiceForEntity(this.entity);
+			return srv.update({ id: this.entity.id, images });
+		}
 	}
 
 	/** start downloading the image */

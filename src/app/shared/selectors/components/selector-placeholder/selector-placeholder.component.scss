@@ -15,14 +15,17 @@
 		color: var(--color-txt-strong);
 	}
 
-	&.first-uppercase .container::first-letter{
-		text-transform: uppercase;
+	&.cdk-focused.cdk-keyboard-focused .container {
+		margin-left: -3px;
 	}
 }
 
 .place-holder {
 	color: var(--color-txt-secondary);
 	font-style: italic;
+	&::first-letter {
+		text-transform: capitalize;
+	}
 }
 
 icon-app {

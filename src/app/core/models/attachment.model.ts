@@ -6,11 +6,11 @@ export class Attachment {
 	url: string;
 	size?: number;
 	pending?: boolean;
-	__typename ?= 'Attachment';
+	__typename?= 'Attachment';
 
 	constructor(config: AttachmentConfig) {
-		this.id = uuid();
 		Object.assign(this, config);
+		this.id = uuid();
 	}
 }
 

@@ -5,6 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { Router } from '@angular/router';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -34,6 +35,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	];
 
 	constructor(
+		private router: Router,
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
@@ -41,8 +43,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	) {
 		super();
 	}
-
-
 
 	ngOnInit() {
 		this.listSrv.setup({

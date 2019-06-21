@@ -18,10 +18,13 @@ import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inp
 	providers: [makeAccessorProvider(InputPriceComponent)]
 })
 export class InputPriceComponent extends AbstractInput {
+
 	@Input() disabled = false;
 	@Output() change = new EventEmitter();
 	@Output() blur = new EventEmitter();
+
 	@ViewChild(InputDirective) inp: InputDirective;
+
 	currencySelectorShown: boolean;
 
 	private _price: Price;
@@ -58,10 +61,12 @@ export class InputPriceComponent extends AbstractInput {
 		if (item) this.price = { ...this.price, currency: item };
 		this.hideCurrencySelector();
 		this.onChange();
+		this.blur.emit();
 	}
 
 	onBlur() {
 		this.onTouchedFn();
+		this.blur.emit();
 		// prevent view changed after it was checked error
 		this.cd.detectChanges();
 	}
@@ -75,7 +80,7 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	get amount() {
-		return this.price.value / 10000;
+		return this.price && this.price.value ? this.price.value / 10000 : 0;
 	}
 
 	set amount(amount: any) {
@@ -84,7 +89,7 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	get currency() {
-		return this.price.currency;
+		return this.price && this.price.currency ? this.price.currency : 'USD';
 	}
 
 	set currency(currencyId: string) {

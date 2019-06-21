@@ -18,8 +18,8 @@ export class ExtendedFieldDefinition {
 	__typename?= 'ExtendedFieldDefinition';
 
 	constructor(config?: ExtendedFieldDefinitionConfig) {
-		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
+		if (!config.id) this.id = uuid();
 	}
 }
 
