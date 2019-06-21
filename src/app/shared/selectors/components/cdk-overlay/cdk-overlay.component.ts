@@ -18,7 +18,7 @@ export class CdkOverlayComponent implements OnInit {
 	@Output() positionChange = new EventEmitter<any>();
 	updated = false;
 
-	@ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
+	@ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 	scrollStrat: ScrollStrategy;
 
 	constructor(private sso: ScrollStrategyOptions, private scd: ScrollDispatcher) {

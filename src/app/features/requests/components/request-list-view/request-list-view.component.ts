@@ -14,7 +14,7 @@ import { ERM, SupplierRequest } from '~core/models';
 export class RequestListViewComponent extends ListViewComponent<SupplierRequest> {
 
 	@Output() cancelRequest = new EventEmitter<SupplierRequest>();
-	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	erm = ERM;
 
 	constructor() { super(); }

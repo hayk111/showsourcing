@@ -56,9 +56,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Output() uploaded = new EventEmitter<AppImage[]>();
 	@Output() deleted = new EventEmitter<AppImage>();
 
-	@ViewChild('imgApp') imgApp: ImageComponent;
+	@ViewChild('imgApp', { static: false }) imgApp: ImageComponent;
 	/** hidden file input */
-	@ViewChild('inpFile') inpFile: ElementRef;
+	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
 
 	defaultImg = DEFAULT_IMG;
 

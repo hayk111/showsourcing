@@ -51,7 +51,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	@Output() statusUpdated = new EventEmitter<Product>();
 	@Output() clickOutside = new EventEmitter<null>();
 	// component to scroll into view
-	@ViewChild(PreviewCommentComponent) previewComment: PreviewCommentComponent;
+	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
@@ -136,7 +136,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		return [...this._images, ...(this._pendingImages as any)];
 	}
 	private _pendingImages: PendingImage[] = [];
-	@ViewChild('inpFile') inpFile: ElementRef;
+	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
 
 	constructor(
 		private uploader: UploaderService,

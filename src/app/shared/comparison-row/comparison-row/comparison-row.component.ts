@@ -17,7 +17,7 @@ export class ComparisonRowComponent {
 	@Input() hasCheckbox = true;
 	@Output() selected = new EventEmitter<null>();
 	@Output() unselected = new EventEmitter<null>();
-	@ContentChild(ComparisonRowTemplateDirective, { read: TemplateRef }) template: ComparisonRowTemplateDirective;
+	@ContentChild(ComparisonRowTemplateDirective, { static: false, read: TemplateRef }) template: ComparisonRowTemplateDirective;
 
 	constructor() { }
 

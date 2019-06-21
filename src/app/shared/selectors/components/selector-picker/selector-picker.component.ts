@@ -78,9 +78,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** Exact same list but with elementRef type so it can be scrolles */
 	@ViewChildren('abstract', { read: ElementRef }) elementRefItems: QueryList<ElementRef>;
 	/** cdk virtual scroll viewport so we can determine the scroll index in combination with cdk a11y */
-	@ViewChild(CdkVirtualScrollViewport) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
+	@ViewChild(CdkVirtualScrollViewport, { static: false }) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
 	group: FormGroup;
 
 

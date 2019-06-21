@@ -45,7 +45,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Output() update = new EventEmitter<any>();
 
 	// some times we want to focus the focus directive on the content inside the selector
-	@ContentChild(TabFocusDirective) tab: TabFocusDirective;
+	@ContentChild(TabFocusDirective, { static: true }) tab: TabFocusDirective;
 
 	menuOpen = false;
 

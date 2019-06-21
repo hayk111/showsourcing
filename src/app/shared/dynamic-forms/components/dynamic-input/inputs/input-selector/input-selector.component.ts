@@ -31,9 +31,9 @@ export class InputSelectorComponent extends AbstractInput implements OnInit {
 	@Input() hasBadge = false;
 	@Output() update = new EventEmitter<any>();
 
-	@ViewChild('oneValueLabel') oneLabel: TemplateRef<any>;
-	@ViewChild('multipleValuesLabel') manyLabel: TemplateRef<any>;
-	@ViewChild('switchType') switchType: TemplateRef<any>;
+	@ViewChild('oneValueLabel', { static: true }) oneLabel: TemplateRef<any>;
+	@ViewChild('multipleValuesLabel', { static: true }) manyLabel: TemplateRef<any>;
+	@ViewChild('switchType', { static: true }) switchType: TemplateRef<any>;
 
 	// wether the value is a literal string or an Object e.g.(harbour vs category)
 	isEntity = true;

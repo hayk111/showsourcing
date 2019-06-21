@@ -28,7 +28,7 @@ export class InputDescriptionComponent implements AfterViewInit {
 	@Input() asModal = true;
 	@Output() update = new EventEmitter<string>();
 
-	@ViewChild('container') container: ElementRef<HTMLElement>;
+	@ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
 
 	showMore = false;
 
