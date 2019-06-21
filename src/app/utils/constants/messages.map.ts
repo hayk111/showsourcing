@@ -762,6 +762,13 @@ export const messagesMap = {
 		}
 	},
 	// ########### \S ############
+	'sample available': {
+		locales: {
+			en: {
+				name: 'sample available'
+			}
+		}
+	},
 	'sample price': {
 		locales: {
 			en: {

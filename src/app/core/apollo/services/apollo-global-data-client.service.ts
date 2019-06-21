@@ -54,7 +54,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 			ERM.COUNTRY,
 			ERM.CURRENCY,
 			ERM.HARBOUR,
-			ERM.INCOTERM,
+			ERM.INCO_TERM,
 			ERM.LENGTH_UNIT,
 			ERM.WEIGHT_UNIT,
 		];

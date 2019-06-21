@@ -29,7 +29,7 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	@Output() taskUnselect = new EventEmitter<Task>();
 	@Output() updateTask = new EventEmitter<Task>();
 
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
 	taskCtrl = new FormControl('');
 	hoverIndex: number;
 	filterTypeEnum = FilterType;

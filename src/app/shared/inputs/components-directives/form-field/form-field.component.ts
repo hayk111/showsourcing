@@ -21,10 +21,10 @@ import { FormFieldControlDirective } from '~shared/inputs/components-directives/
 export class FormFieldComponent implements OnInit, AfterContentInit {
 	// whenever the * next to required field should be hidden
 	@Input() hideRequiredMarker: boolean;
-	@ContentChild(FormFieldControlDirective) input: FormFieldControlDirective;
-	@ContentChild(LabelComponent) label: LabelComponent;
-	@ContentChild(HintComponent) hint: HintComponent;
-	@ContentChild(ErrorComponent) error: ErrorComponent;
+	@ContentChild(FormFieldControlDirective, { static: true }) input: FormFieldControlDirective;
+	@ContentChild(LabelComponent, { static: true }) label: LabelComponent;
+	@ContentChild(HintComponent, { static: true }) hint: HintComponent;
+	@ContentChild(ErrorComponent, { static: true }) error: ErrorComponent;
 
 
 	constructor(private changeDetectorRef: ChangeDetectorRef) { }

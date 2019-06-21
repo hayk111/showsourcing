@@ -1,17 +1,27 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { Attachment } from '~core/models';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { AttachmentService } from '~core/entity-services';
-import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { Attachment } from '~core/models';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { takeUntil, switchMap, filter } from 'rxjs/operators';
 
 @Component({
 	selector: 'file-list-app',
 	templateUrl: './file-list.component.html',
 	styleUrls: ['./file-list.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [UploaderFeedbackService]
 })
 export class FileListComponent extends AutoUnsub implements OnInit {
 	@Input() files: Attachment[];
@@ -24,13 +34,14 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 	 * useful when we are already in a dialog and don't want the first
 	 * one to appear */
 	@Input() showConfirmOnDelete = true;
+	@Output() deleted = new EventEmitter<Attachment>();
 
-	@ViewChild('inpFile') inpFile: ElementRef<HTMLInputElement>;
+	@ViewChild('inpFile', { static: false }) inpFile: ElementRef<HTMLInputElement>;
 
 	constructor(
 		private uploaderFeedback: UploaderFeedbackService,
 		private dlgSrv: DialogService,
-		private attachmentSrv: AttachmentService
+		private attachmentSrv: AttachmentService,
 	) {
 		super();
 	}
@@ -57,9 +68,10 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.removeFile(file)),
 				takeUntil(this._destroy$),
-			).subscribe();
+			).subscribe(_ => this.deleted.emit(file));
 		} else {
 			this.removeFile(file).subscribe();
+			this.deleted.emit(file);
 		}
 	}
 

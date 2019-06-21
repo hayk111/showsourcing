@@ -35,7 +35,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	}
 	private _templateSelected: RequestTemplate;
 
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
 
 	static count = 0;
 	count = TemplateMngmtDlgComponent.count++;

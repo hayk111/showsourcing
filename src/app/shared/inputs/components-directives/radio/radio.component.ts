@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	QueryList,
+	ViewChildren,
+} from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
 
 @Component({
@@ -11,11 +20,11 @@ export class RadioComponent extends AbstractInput {
 	protected static NEXT_UID = 0;
 
 	@Input() isVeritical = false;
+	@Output() change = new EventEmitter();
 	@Output() update = new EventEmitter<boolean>();
 	@Output() select = new EventEmitter<null>();
 	/** list of possible values and labels */
-	@Input()
-	items: any[];
+	@Input() items: { name: string, value: boolean }[];
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()
@@ -38,24 +47,26 @@ export class RadioComponent extends AbstractInput {
 	set required(value: boolean) { this._required = value; }
 	private _required: boolean;
 
+	@ViewChildren('inp') inps: QueryList<ElementRef>;
+
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
 	}
 
-	/**
-	 * Event handler for checkbox input element.
-	 * Toggles checked state if element is not disabled.
-	 * @param event
-	 */
-	onClick() {
+	onChange() {
+		this.onChangeFn(this.checked);
+		this.change.emit(this.checked);
+	}
+
+	onCheckedChange(checked: boolean) {
 		if (!this.disabled) {
+			this.checked = checked;
 			this.emit();
 		}
 	}
 
 	private emit() {
-		if (this.onChangeFn)
-			this.onChangeFn(this.checked);
+		this.onChange();
 		this.update.emit(this.checked);
 		this.select.emit();
 	}
@@ -65,7 +76,10 @@ export class RadioComponent extends AbstractInput {
 	}
 
 	writeValue(value: any): void {
-		super.writeValue(value);
+		if (value === null)
+			return;
+		this.checked = value;
+		this.cd.markForCheck();
 	}
 
 }

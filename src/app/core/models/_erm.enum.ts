@@ -84,7 +84,7 @@ export class ERM {
 	static readonly HARBOUR = new EntityMetadata('harbour', 'harbours', Harbour);
 	static readonly IMAGE = new EntityMetadata('image', 'images', Image);
 	static readonly IMAGE_UPLOAD_REQUEST = new EntityMetadata('image upload request', 'image upload requests', ImageUploadRequest);
-	static readonly INCOTERM = new EntityMetadata('inco term', 'inco terms', IncoTerm);
+	static readonly INCO_TERM = new EntityMetadata('inco term', 'inco terms', IncoTerm);
 	static readonly INVITATION = new EntityMetadata('invitation', 'invitations', Invitation);
 	static readonly LENGTH_UNIT = new EntityMetadata('length unit', 'length units');
 	static readonly LOCATION = new EntityMetadata('location', 'locations');

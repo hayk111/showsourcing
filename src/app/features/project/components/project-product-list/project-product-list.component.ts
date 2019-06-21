@@ -31,19 +31,19 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	@Output() openRequestQuotationDialog = new EventEmitter<Product>();
 	// templates
 	// load cells template for custom table
-	@ViewChild('main') mainTemplate: TemplateRef<any>;
-	@ViewChild('supplier') supplierTemplate: TemplateRef<any>;
-	@ViewChild('category') categoryTemplate: TemplateRef<any>;
-	@ViewChild('price') priceTemplate: TemplateRef<any>;
-	@ViewChild('moq') moqTemplate: TemplateRef<any>;
-	@ViewChild('feedback') feedbackTemplate: TemplateRef<any>;
-	@ViewChild('status') statusTemplate: TemplateRef<any>;
-	@ViewChild('creationDate') creationDateTemplate: TemplateRef<any>;
-	@ViewChild('favorite') ratingTemplate: TemplateRef<any>;
-	@ViewChild('user') userTemplate: TemplateRef<any>;
-	@ViewChild('action') actionTemplate: TemplateRef<any>;
-	@ViewChild('default') defaultTemplate: TemplateRef<any>;
-	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	@ViewChild('main', { static: true }) mainTemplate: TemplateRef<any>;
+	@ViewChild('supplier', { static: true }) supplierTemplate: TemplateRef<any>;
+	@ViewChild('category', { static: true }) categoryTemplate: TemplateRef<any>;
+	@ViewChild('price', { static: true }) priceTemplate: TemplateRef<any>;
+	@ViewChild('moq', { static: true }) moqTemplate: TemplateRef<any>;
+	@ViewChild('feedback', { static: true }) feedbackTemplate: TemplateRef<any>;
+	@ViewChild('status', { static: true }) statusTemplate: TemplateRef<any>;
+	@ViewChild('creationDate', { static: true }) creationDateTemplate: TemplateRef<any>;
+	@ViewChild('favorite', { static: true }) ratingTemplate: TemplateRef<any>;
+	@ViewChild('user', { static: true }) userTemplate: TemplateRef<any>;
+	@ViewChild('action', { static: true }) actionTemplate: TemplateRef<any>;
+	@ViewChild('default', { static: true }) defaultTemplate: TemplateRef<any>;
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	prodErm = ERM.PRODUCT;
 
 	descriptor: TableDescriptor = [

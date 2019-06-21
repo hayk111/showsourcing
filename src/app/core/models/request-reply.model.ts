@@ -26,8 +26,8 @@ export class RequestReply {
 	__typename?= 'RequestReply';
 
 	constructor(config: RequestReplyConfig) {
-		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
+		this.id = uuid();
 	}
 }
 
