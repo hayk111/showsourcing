@@ -21,7 +21,7 @@ import { AutoUnsub } from '~utils';
 })
 export class DialogContainerComponent extends AutoUnsub implements AfterViewInit {
 	// host where we will put dynamically generated components
-	@ViewChild(DialogHostDirective) host: DialogHostDirective;
+	@ViewChild(DialogHostDirective, { static: true }) host: DialogHostDirective;
 	// view container of said host.
 	protected viewContainerRef;
 	/** whether clicking */

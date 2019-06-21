@@ -22,7 +22,7 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 	@Input() type: EntityMetadata;
 	@Input() entity: any;
 	@Input() callback: Function;
-	@ViewChild(InputDirective) input: InputDirective;
+	@ViewChild(InputDirective, { static: false }) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;
 

@@ -23,7 +23,7 @@ export class InputPriceComponent extends AbstractInput {
 	@Output() change = new EventEmitter();
 	@Output() blur = new EventEmitter();
 
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
 
 	currencySelectorShown: boolean;
 

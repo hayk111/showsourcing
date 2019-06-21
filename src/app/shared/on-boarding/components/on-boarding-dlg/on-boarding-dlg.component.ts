@@ -9,7 +9,7 @@ import { OnBoardingService } from '../../services/on-boarding.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OnBoardingDlgComponent implements OnInit {
-	@ViewChild('transition') transitionElem: ElementRef<HTMLElement>;
+	@ViewChild('transition', { static: false }) transitionElem: ElementRef<HTMLElement>;
 	pending = true;
 
 	constructor(

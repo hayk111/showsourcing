@@ -18,7 +18,7 @@ export class SelectorPlaceholderComponent implements OnInit {
 	@Input() hasArrow = true;
 
 	// if we are using transclusion on this component, we must give to the transcluded child the #content (id)
-	@ContentChild('content') content: ElementRef;
+	@ContentChild('content', { static: false }) content: ElementRef;
 
 	constructor() { }
 

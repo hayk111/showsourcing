@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 	]
 })
 export class TemplateComponent extends AutoUnsub implements AfterViewInit {
-	@ViewChild('main') main: ElementRef<HTMLElement>;
+	@ViewChild('main', { static: true }) main: ElementRef<HTMLElement>;
 
 	constructor(
 		private templateSrv: TemplateService

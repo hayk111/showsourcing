@@ -47,7 +47,7 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	@Output() blur = new EventEmitter<null>();
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** editable field ref, used to close it programmatically */
-	@ViewChild('editable') editable: EditableTextComponent;
+	@ViewChild('editable', { static: false }) editable: EditableTextComponent;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 	/** whenever someone cancels an input this flag goes true */
