@@ -52,7 +52,7 @@ export class CompanyService extends GlobalService<Company> {
 	create(company: Company): Observable<any> {
 		return super.create({ ...company, owner: { id: this.userSrv.userId, __typename: 'User' } }).pipe(
 			switchMap(_ => this.saveCompany(company)),
-			switchMap(_ => this.waitForOne(`id == "${company.id}"`))
+			switchMap(_ => this.waitForOne(`id == "${company.id}" AND status == "active"`))
 		);
 	}
 

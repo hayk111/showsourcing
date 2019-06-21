@@ -55,7 +55,8 @@ export class CentralClientInitializer extends AbstractApolloClient {
 			ERM.TEAM,
 			ERM.IMAGE,
 			ERM.TEAM_USER,
-			ERM.COMPANY
+			ERM.COMPANY,
+			ERM.INVITATION
 		];
 
 		const newSubs = toSub
