@@ -13,6 +13,7 @@
 			[pickerFields]="pickerFields"
 			(update)="updateChoice($event)">
 			<selector-placeholder-app
+				tabFocus
 				class="first-uppercase"
 				[name]="(choice$ | async)?.name"
 				placeholder="choose a property"
@@ -69,15 +70,18 @@
 					<!-- status -->
 					<ng-container *ngSwitchCase="'status'">
 						<status-selector-app
+							#statusSelector
 							[typeEntity]="erm.PRODUCT"
 							type="multiple-selection"
 							[internalUpdate]="false"
 							[width]="460"
 							(statusUpdated)="statusUpdated($event)">
 							<selector-placeholder-app
+								tabFocus
 								class="status-selector first-uppercase"
 								[name]="value?.name"
 								placeholder="choose a status"
+								(keyEnter)="statusSelector?.openMenu()"
 								i18n-placeholder="@@choose-status">
 							</selector-placeholder-app>
 						</status-selector-app>
@@ -92,6 +96,7 @@
 							[multiple]="choice?.metadata?.multiple"
 							(update)="statusUpdated($event)">
 							<selector-placeholder-app
+								tabFocus
 								class="first-uppercase"
 								[name]="choice?.metadata?.multiple ? getMultipleName() : getName(choice?.metadata?.ermName || choice?.name)"
 								[placeholder]="('choose' | const: 'messages') + ' ' + choice?.name">
@@ -138,9 +143,10 @@
 	</div>
 
 	<dialog-footer-app>
-		<button class="capitalize secondary" (click)="close()" i18n="@@cancel">cancel</button>
-		<button class="capitalize" (click)="update()" i18n="@@update">update</button>
+		<button tabFocus class="capitalize secondary" (click)="close()" i18n="@@cancel">cancel</button>
+		<button tabFocus class="capitalize" (click)="update()" i18n="@@update">update</button>
 	</dialog-footer-app>
+
 </dialog-app>
 
 <ng-template #spinner>
