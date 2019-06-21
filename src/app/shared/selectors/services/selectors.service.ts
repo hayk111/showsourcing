@@ -331,11 +331,7 @@ export class SelectorsService {
 	getSupplierTypes(): Observable<SupplierType[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
 		this.listResult = this.supplierTypeSrv.getListQuery(this.selectParams);
-		this.items$ = this.listResult.items$.pipe(
-			map(types => types.map(type => {
-				return { ...type, name: translate(type.name, 'supplierType') };
-			}))
-		);
+		this.setItems();
 		return this.items$;
 	}
 
