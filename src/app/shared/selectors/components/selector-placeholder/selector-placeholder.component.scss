@@ -18,14 +18,15 @@
 	&.cdk-focused.cdk-keyboard-focused .container {
 		margin-left: -3px;
 	}
+
+	&.first-uppercase .name:first-letter {
+		text-transform: capitalize;
+	}
 }
 
 .place-holder {
 	color: var(--color-txt-secondary);
 	font-style: italic;
-	&::first-letter {
-		text-transform: capitalize;
-	}
 }
 
 icon-app {
