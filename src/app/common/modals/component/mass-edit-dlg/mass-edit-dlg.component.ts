@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { map, switchMap, take, tap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { ProductService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { EntityMetadata, ERM, ExtendedFieldDefinition, productFields } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
+import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { PickerField } from '~shared/selectors';
-import { uuid, AutoUnsub, translate } from '~utils';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub, translate, uuid } from '~utils';
 
 @Component({
 	selector: 'mass-edit-dlg-app',
