@@ -1,12 +1,13 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	overflow: auto;
+	overflow-y: hidden;
+	overflow-x: auto;
 	height: 100%;
 }
 
 kanban-app {
-	height: 100%;
+	height: calc(100% - 59px);
 	flex-grow: 1;
 	padding: 0 20px 20px 20px;
 	box-sizing: border-box;
