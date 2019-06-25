@@ -222,6 +222,7 @@
 				[canCreate]="metadata?.canCreate"
 				(update)="onInput($event, metadata?.type !== 'const')">
 				<selector-placeholder-app
+					tabFocus
 					[ngClass]="{ 'disabled': disabled }"
 					[placeholder]="definition?.label"
 					[name]="metadata?.type === 'const' ? accumulator : getLinkingObject()">
