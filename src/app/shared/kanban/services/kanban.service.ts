@@ -71,6 +71,8 @@ export class KanbanService {
 
 	/** sets data of specific column */
 	setData(data: any[] = [], colId: string) {
+		if (colId === '736e38e6-238d-4a41-bcf2-23488321dda8')
+			debugger;
 		this.kanbanConfig.get(colId).dataMap = this.mapFromArray(data);
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
@@ -85,7 +87,10 @@ export class KanbanService {
 
 	/** sets total of specific column */
 	setTotal(total: number, colId: string) {
+		if (colId === '736e38e6-238d-4a41-bcf2-23488321dda8')
+			debugger;
 		this.kanbanConfig.get(colId).totalData = total;
+		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
 	/** since we are working with copy of data we need
