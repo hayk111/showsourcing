@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
+import { TabFocusDirective } from '~shared/utils';
 
 @Component({
 	selector: 'checkbox-app',
@@ -12,10 +13,11 @@ export class CheckboxComponent extends AbstractInput {
 	@Output() update = new EventEmitter<boolean>();
 	@Output() check = new EventEmitter<null>();
 	@Output() uncheck = new EventEmitter<null>();
-	@ViewChild('label') label: ElementRef;
+	@ViewChild('label', { static: true }) label: ElementRef;
 	@Input() size = 16;
 	@Input() boxColor = 'primary';
 	@Input() disabled = false;
+	@ViewChild(TabFocusDirective, { static: true }) tab: TabFocusDirective;
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()
@@ -54,6 +56,7 @@ export class CheckboxComponent extends AbstractInput {
 	toggle(): void {
 		if (!this.disabled) {
 			this.checked = !this.checked;
+			this.cd.markForCheck();
 		}
 	}
 
@@ -65,6 +68,13 @@ export class CheckboxComponent extends AbstractInput {
 		if (!this.disabled) {
 			this.toggle();
 			this.emit();
+		}
+	}
+
+	focusClick() {
+		if (!this.disabled) {
+			this.onClick();
+			this.tab.focusOrigin();
 		}
 	}
 

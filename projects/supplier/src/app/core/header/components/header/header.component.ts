@@ -23,7 +23,7 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	team$: Observable<Team>;
 	isProd = environment.production;
 
-	@ViewChild('searchAutocomplete') searchAutocomplete: SearchAutocompleteComponent;
+	@ViewChild('searchAutocomplete', { static: false }) searchAutocomplete: SearchAutocompleteComponent;
 
 	searchControl: FormControl;
 	searchResults$: Observable<any[]>;

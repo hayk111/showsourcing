@@ -31,7 +31,7 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	}
 	@Output() openRefuseReplyDlg = new EventEmitter<ID>();
 
-	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	replied: { replied: number, total: number }[];
 	erm = ERM;
 

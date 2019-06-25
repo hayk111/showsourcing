@@ -19,7 +19,7 @@ export class RefuseReplyDlgComponent implements OnInit {
 	pending = false;
 	message = '';
 
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
 
 	constructor(
 		private dlgSrv: DialogService,

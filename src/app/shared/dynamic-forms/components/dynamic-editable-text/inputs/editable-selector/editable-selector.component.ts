@@ -34,10 +34,10 @@ export class EditableSelectorComponent extends AbstractInput {
 	@Output() closed = new EventEmitter();
 	@Output() change = new EventEmitter<any>();
 	@Output() blur = new EventEmitter<null>();
-	@ViewChild('editable') editable: EditableTextComponent;
-	@ViewChild('selector') selector: any;
-	@ViewChild('oneValueLabel') oneLabel: TemplateRef<any>;
-	@ViewChild('multipleValuesLabel') manyLabel: TemplateRef<any>;
+	@ViewChild('editable', { static: false }) editable: EditableTextComponent;
+	@ViewChild('selector', { static: false }) selector: any;
+	@ViewChild('oneValueLabel', { static: true }) oneLabel: TemplateRef<any>;
+	@ViewChild('multipleValuesLabel', { static: true }) manyLabel: TemplateRef<any>;
 
 
 	constructor(protected cd: ChangeDetectorRef) {

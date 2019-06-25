@@ -8,7 +8,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 })
 export class InfoBadgeComponent implements OnInit {
 
-	@Input() type: 'category' | 'tag' | 'project' = 'category';
+	@Input() type: 'category' | 'tag' | 'project';
 	@Input() size = 'mini';
 	@Input() hasDelete = false;
 	@Output() delete = new EventEmitter<null>();

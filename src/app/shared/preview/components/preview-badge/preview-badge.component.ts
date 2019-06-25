@@ -21,7 +21,7 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 	@Output() update = new EventEmitter<any>();
 	@Output() openActionClicked = new EventEmitter<null>();
 
-	@ViewChild(SelectorComponent) elem: SelectorComponent;
+	@ViewChild(SelectorComponent, { static: false }) elem: SelectorComponent;
 
 	erm = ERM;
 

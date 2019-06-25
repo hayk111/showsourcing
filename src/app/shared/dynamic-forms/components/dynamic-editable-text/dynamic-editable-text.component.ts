@@ -47,7 +47,7 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	@Output() blur = new EventEmitter<null>();
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** editable field ref, used to close it programmatically */
-	@ViewChild('editable') editable: EditableTextComponent;
+	@ViewChild('editable', { static: false }) editable: EditableTextComponent;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 	/** whenever someone cancels an input this flag goes true */
@@ -73,7 +73,7 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	onSave(isAccumulated = true) {
 		const type = this.customField.type;
 		// do nothing when no changes made, we don't need this condition for the types that do not use accumulator
-		if ((type !== 'selector' && type !== 'yesNo') && this.value === this.accumulator)
+		if ((type !== 'selector' && type !== 'boolean') && this.value === this.accumulator)
 			return;
 		if (isAccumulated)
 			this._value = this.accumulator;

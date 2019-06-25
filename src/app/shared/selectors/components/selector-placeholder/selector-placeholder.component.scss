@@ -15,8 +15,12 @@
 		color: var(--color-txt-strong);
 	}
 
-	&.first-uppercase .container::first-letter{
-		text-transform: uppercase;
+	&.cdk-focused.cdk-keyboard-focused .container {
+		margin-left: -3px;
+	}
+
+	&.first-uppercase .name:first-letter {
+		text-transform: capitalize;
 	}
 }
 

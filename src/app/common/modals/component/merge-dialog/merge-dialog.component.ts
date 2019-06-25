@@ -18,7 +18,7 @@ export class MergeDialogComponent extends AutoUnsub implements AfterViewInit {
 	pending = false;
 	@Input() type: EntityMetadata;
 	@Input() entities: Array<any>;
-	@ViewChild(InputDirective) input: InputDirective;
+	@ViewChild(InputDirective, { static: false }) input: InputDirective;
 
 	constructor(
 		private fb: FormBuilder,

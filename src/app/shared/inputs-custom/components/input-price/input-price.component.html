@@ -9,9 +9,12 @@
 		[offsetX]="-13"
 		[offsetY]="-24"
 		(update)="onCurrencyChange($event)">
-		<div class="currencyLabel" [ngClass]="{ 'pointer': !disabled }">
+		<div
+			tabFocus
+			class="currency-label flexCenter ellipsis"
+			[ngClass]="{ 'pointer': !disabled }">
 			{{ currency | const:'currency':'id' }}
-		</div   >
+		</div>
 	</selector-app>
 
 	<input #inp
