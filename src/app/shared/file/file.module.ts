@@ -11,6 +11,7 @@ import { LoadersModule } from '~shared/loaders';
 
 import { FileListComponent, FileReviewerComponent, NoFilePlaceholderComponent } from './components';
 import { FileSizePipe } from './pipes';
+import { UtilsModule } from '~shared/utils';
 
 @NgModule({
 	imports: [
@@ -19,7 +20,8 @@ import { FileSizePipe } from './pipes';
 		LoadersModule,
 		IconsModule,
 		ListModule,
-		InputsModule
+		InputsModule,
+		UtilsModule
 	],
 	declarations: [
 		FileDropDirective,

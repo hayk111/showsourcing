@@ -48,7 +48,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		{ name: 'country', type: 'selector', metadata: { target: ERM.COUNTRY.singular, type: 'const' }, label: 'country' },
 		{ name: 'address', type: 'text', label: 'address' },
 		{ name: 'harbour', type: 'selector', metadata: { target: ERM.HARBOUR.singular, type: 'const' } },
-		{ name: 'incoTerm', type: 'selector', metadata: { target: ERM.INCOTERM.singular, type: 'const' } },
+		{ name: 'incoTerm', type: 'selector', metadata: { target: ERM.INCO_TERM.singular, type: 'const' } },
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
 		{ name: 'officePhone', type: 'tel', label: 'Tel' }
@@ -63,7 +63,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	}
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Supplier.extendedFields"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"' });
 	}
 
 	ngOnChanges() {

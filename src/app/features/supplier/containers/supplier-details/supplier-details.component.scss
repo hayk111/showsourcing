@@ -9,15 +9,16 @@
 }
 
 // if this value is modified, take care of the supplier/products section since it has to fit the content with the cards
-$left-side: 755px;
-$right-side: 472px;
+$width-left: 755px;
+$width-right: 472px;
 
 .left {
-	width: $left-side;
+	width: $width-left;
+	transition: width 0.5s;
 }
 
 .right {
-	width: $right-side;
+	width: $width-right;
 }
 
 .top {
@@ -25,7 +26,7 @@ $right-side: 472px;
 }
 
 .supplier-container {
-	width: $left-side + $right-side;
+	width: $width-left + $width-right;
 	margin: var(--spacing-xxxxl) auto;
 
 	sub-panel-app {
@@ -112,8 +113,17 @@ action-bar-app {
 	}
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1200px) {
+
+	$width-left: 600px;
+
 	.supplier-container {
-		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: $width-right + $width-left;
+
+		.left {
+			width: $width-left;
+		}
 	}
 }

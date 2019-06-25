@@ -42,7 +42,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 			metadata: { target: ERM.PRODUCT.singular, type: 'entity', labelName: 'name', canCreate: true }
 		},
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
-		{ name: 'paid', type: 'yesNo', label: translate('paid', 'message') },
+		{ name: 'paid', type: 'boolean', label: translate('paid', 'message') },
 		{
 			name: 'assignee', label: translate('assignee', 'message'), type: 'selector',
 			metadata: { target: ERM.USER.singular, type: 'entity', labelName: 'name' }

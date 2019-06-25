@@ -18,8 +18,8 @@ export class Status {
 	deleted?= false;
 
 	constructor(config: StatusConfig) {
-		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
+		if (!config.id) this.id = uuid();
 	}
 }
 

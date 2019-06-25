@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AttachmentService } from '~core/entity-services';
 import { ImageService } from '~core/entity-services/image/image.service';
@@ -32,6 +33,9 @@ export class UploaderFeedbackService {
 	private _files: Array<Attachment | PendingFile>;
 	private _pendingFiles: PendingFile[] = [];
 	private _pendingImages: PendingImage[] = [];
+	private _uploaded$: Subject<AppImage[] | Attachment[]> = new Subject();
+
+	uploaded$ = this._uploaded$.asObservable();
 
 	constructor(
 		private cd: ChangeDetectorRef,
@@ -65,7 +69,6 @@ export class UploaderFeedbackService {
 		return [...this._files, ...this._pendingFiles];
 	}
 
-
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async addImages(files: Array<File>) {
 		if (files.length === 0)
@@ -77,7 +80,10 @@ export class UploaderFeedbackService {
 		const linkedEntity = { ...this.linkedEntity, images: this._images };
 		this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray).pipe(
 			first()
-		).subscribe(imgs => this.onSuccessImg(uuids), e => this._pendingImages = []);
+		).subscribe(imgs => {
+			this._uploaded$.next(imgs);
+			this.onSuccessImg(uuids);
+		}, e => this._pendingImages = []);
 	}
 
 	/** adds pending image to the list */
@@ -91,6 +97,7 @@ export class UploaderFeedbackService {
 
 	private onSuccessImg(uuids) {
 		this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
+		this.cd.markForCheck();
 	}
 
 	deleteImg(img: AppImage) {
@@ -102,14 +109,18 @@ export class UploaderFeedbackService {
 		const uuids = this._pendingFiles.map(f => f.id);
 		// since the linked entity is setup once at the start we need to update the attachments
 		this.uploaderSrv.uploadFiles(files, { ...this.linkedEntity, attachments: this._files })
-			.subscribe(
-				addedFiles => this.onSuccessFile(uuids),
+			.pipe(first())
+			.subscribe(addedFiles => {
+				this._uploaded$.next(addedFiles);
+				this.onSuccessFile(uuids);
+			},
 				e => this._pendingFiles = []
 			);
 	}
 
 	private onSuccessFile(uuids) {
 		this._pendingFiles = this._pendingFiles.filter(p => !uuids.includes(p.id));
+		this.cd.markForCheck();
 	}
 
 	deleteFile(file: Attachment) {

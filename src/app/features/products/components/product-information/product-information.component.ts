@@ -38,13 +38,13 @@ export class ProductInformationComponent implements OnInit {
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm'), },
 		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
 		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
-		{ name: 'pricePer20ft', type: 'number', label: 'Price per 20 feet' },
-		{ name: 'pricePer40ft', type: 'number', label: 'Price per 40 feet' },
-		{ name: 'pricePer40ftHC', type: 'number', label: 'Price per 40 feet HC' },
+		{ name: 'quantityPer20ft', type: 'number', label: 'Quantity per 20 feet' },
+		{ name: 'quantityPer40ft', type: 'number', label: 'Quantity per 40 feet' },
+		{ name: 'quantityPer40ftHC', type: 'number', label: 'Quantity per 40 feet HC' },
 		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
 		{
 			name: 'incoTerm', type: 'selector', label: 'inco term',
-			metadata: { target: ERM.INCOTERM.singular, type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
+			metadata: { target: ERM.INCO_TERM.singular, type: 'const', labelName: 'name', canCreate: false, hideLogo: true }
 		},
 		{
 			name: 'harbour', type: 'selector', label: 'harbour',
@@ -60,7 +60,7 @@ export class ProductInformationComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product.extendedFields"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "product.extendedFields"' });
 	}
 
 	updateProduct(product: Product) {

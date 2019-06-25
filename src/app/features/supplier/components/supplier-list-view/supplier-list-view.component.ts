@@ -15,7 +15,7 @@ export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 
 	erm = ERM;
 
-	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
 	constructor() {
 		super();

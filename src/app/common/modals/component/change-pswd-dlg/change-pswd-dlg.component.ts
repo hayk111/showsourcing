@@ -19,7 +19,7 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 
 	group: FormGroup;
 	pending = false;
-	@ViewChild(InputDirective) input: InputDirective;
+	@ViewChild(InputDirective, { static: false }) input: InputDirective;
 	private onBlur$: Subject<string> = new Subject();
 	isCurrentPswd$: Observable<boolean>;
 	itemRandom: Observable<any>;

@@ -3,7 +3,10 @@
 	<request-element-list-view-app
 		class="no-padding"
 		[rows]="listSrv.items$ | async"
+		[hasSelection]="false"
 		[pending]="listSrv.pending"
+		(cancelReply)="cancelReply($event)"
+		(openReviewRequestReply)="openRequestDetails($event)"
 		(bottomReached)="listSrv.loadMore()">
 	</request-element-list-view-app>
 </card-app>

@@ -1,12 +1,11 @@
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin } from 'rxjs';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { UserService } from '~entity-services';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 import { GlobalService, GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { EntityWithAudit } from '~models';
-import { AnalyticsService } from '~core/analytics/analytics.service';
-import { NgZone } from '@angular/core';
 
 /**
  * Same as global service but adds an audit (created by, last updated date etc)

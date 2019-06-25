@@ -1,2 +1,2 @@
-// this file was updated on Mon Jun 17 2019 13:11:29 GMT+0200 (Romance Daylight Time)
-export const WEB_VERSION = '2.4.0-24';
+// this file was updated on Tue Jun 25 2019 09:54:22 GMT+0200 (Central European Summer Time)
+export const WEB_VERSION = '2.5.0-3';
