@@ -27,7 +27,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	@Output() update = new EventEmitter<Product>();
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: false }) inp: InputDirective;
 	product$: Observable<Product>;
 	product: Product;
 	commentCtrl = new FormControl('');

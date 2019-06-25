@@ -3,10 +3,10 @@ import { uuid } from '~utils';
 
 export class Price {
 	id?: string;
-	currency ?= 'USD';
+	currency?= 'USD';
 	value?: number;
 	baseCurrencyValue?: number;
-	__typename ?= 'Price';
+	__typename?= 'Price';
 
 
 	constructor(config: PriceConfig) {
@@ -18,4 +18,5 @@ export class Price {
 export interface PriceConfig {
 	currency?: string;
 	value?: number;
+	baseCurrencyValue?: number;
 }

@@ -24,7 +24,7 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 	@Input() extra: any;
 	/** whether we display buttons create & stay + create & go */
 	@Input() canRedirect = false;
-	@ViewChild(InputDirective) input: InputDirective;
+	@ViewChild(InputDirective, { static: false }) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;
 

@@ -16,6 +16,6 @@ export const environment = {
 	mixPanelKey: 'fd1633b6288f31d3d7e4554c1c4f5e44',
 	hubspotKey: '2134370',
 	getStreamKey: 'kn8zj3tgdkf3',
-	LOG_LEVEL: LogLevel.DEBUG,
+	LOG_LEVEL: LogLevel.ERROR,
 	defaultClient: Client.TEAM
 };

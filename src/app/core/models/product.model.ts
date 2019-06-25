@@ -24,7 +24,7 @@ export const productFields: PickerField[] = [
 	{ name: 'price', type: 'price' },
 	{ name: 'event', type: 'selector' },
 	{ name: 'tags', type: 'selector', metadata: { multiple: true } },
-	{ name: 'favorite', type: 'boolean' },
+	// { name: 'favorite', type: 'boolean' },
 	{ name: 'extended fields', attribute: 'extendedFields', type: 'extendedField' },
 	{ name: 'inner carton', attribute: 'innerCarton', type: 'packaging' },
 	{ name: 'master carton', attribute: 'masterCarton', type: 'packaging' },
@@ -33,7 +33,7 @@ export const productFields: PickerField[] = [
 	{ name: 'moq', attribute: 'minimumOrderQuantity', type: 'number' },
 	{ name: 'moq description', attribute: 'moqDescription', type: 'text' },
 	{ name: 'votes', attribute: 'votes', type: 'votes' },
-	{ name: 'sample', type: 'boolean' },
+	// { name: 'sample', type: 'boolean' },
 	{ name: 'sample price', attribute: 'samplePrice', type: 'price' },
 	{ name: 'projects', type: 'selector', metadata: { multiple: true } },
 	{ name: 'status', type: 'status' },
@@ -69,7 +69,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	quantityPer40ft?: number;
 	quantityPer40ftHC?: number;
 	sample?: boolean;
-	samplePrice?: number;
+	samplePrice?: Price;
 	score?: number;
 	status?: ProductStatus;
 	statushistory?: ProductStatus[];
@@ -83,21 +83,32 @@ export class Product extends EntityWithAudit<ProductConfig> {
 
 export interface ProductConfig {
 	id?: string;
+	attachments?: Attachment[];
 	category?: Category;
 	comments?: Comment[];
 	description?: string;
 	event?: Event;
+	extendedFields?: ExtendedField[];
 	favorite?: boolean;
+	harbour?: string;
 	images?: AppImage[];
+	incoTerm?: string;
 	innerCarton?: Packaging;
 	leadTimeUnit?: string;
 	leadTimeValue?: number;
 	masterCarton?: Packaging;
+	masterCbm?: number;
 	minimumOrderQuantity?: number;
 	moqDescription?: string;
 	name?: string;
 	price?: Price;
 	priceMatrix?: PriceMatrix;
+	projects?: Project[];
+	quantityPer20ft?: number;
+	quantityPer40ft?: number;
+	quantityPer40ftHC?: number;
+	sample?: boolean;
+	samplePrice?: Price;
 	status?: ProductStatus;
 	statushistory?: ProductStatus[];
 	supplier?: Supplier;

@@ -15,7 +15,7 @@ import { AutoUnsub } from '~utils';
 })
 export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 
-	@ViewChild('searchAutocomplete') searchAutocomplete: SearchAutocompleteComponent;
+	@ViewChild('searchAutocomplete', { static: true }) searchAutocomplete: SearchAutocompleteComponent;
 
 	searchControl: FormControl;
 	searchResults$: Observable<any[]>;

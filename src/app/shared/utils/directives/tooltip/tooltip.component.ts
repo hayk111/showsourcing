@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@ang
 })
 export class TooltipComponent {
 
-	@ViewChild('tooltip') tooltip: TemplateRef<any>;
+	@ViewChild('tooltip', { static: true }) tooltip: TemplateRef<any>;
 
 	constructor() { }
 

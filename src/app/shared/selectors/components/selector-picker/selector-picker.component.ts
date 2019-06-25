@@ -78,9 +78,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** Exact same list but with elementRef type so it can be scrolles */
 	@ViewChildren('abstract', { read: ElementRef }) elementRefItems: QueryList<ElementRef>;
 	/** cdk virtual scroll viewport so we can determine the scroll index in combination with cdk a11y */
-	@ViewChild(CdkVirtualScrollViewport) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
+	@ViewChild(CdkVirtualScrollViewport, { static: false }) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
 	group: FormGroup;
 
 
@@ -107,6 +107,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	) { super(cd); }
 
 	ngOnInit() {
+		if (this.multiple && !this.value)
+			this.value = [];
 		this.group = this.fb.group({
 			name: ['']
 		});
@@ -179,7 +181,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.CURRENCY: return this.selectorSrv.getCurrenciesGlobal();
 			case ERM.EVENT: return this.selectorSrv.getEvents();
 			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
-			case ERM.INCOTERM: return this.selectorSrv.getIncoTermsGlobal();
+			case ERM.INCO_TERM: return this.selectorSrv.getIncoTermsGlobal();
 			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits();
 			case ERM.PICKER_FIELD: return this.selectorSrv.getPickerFields(this.pickerFields);
 			case ERM.PRODUCT: return this.selectorSrv.getProducts();
@@ -257,7 +259,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.COUNTRY:
 			case ERM.CURRENCY:
 			case ERM.HARBOUR:
-			case ERM.INCOTERM:
+			case ERM.INCO_TERM:
 			case ERM.LENGTH_UNIT:
 			case ERM.PICKER_FIELD:
 			case ERM.WEIGHT_UNIT:
@@ -373,7 +375,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	onKeydown(event) {
-		if (event.keyCode === ENTER) {
+		if (event.keyCode === ENTER && this.keyManager && this.keyManager.activeItem) {
 			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
 			if (label === 'create-button')

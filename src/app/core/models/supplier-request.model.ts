@@ -34,10 +34,10 @@ export class SupplierRequest {
 	__typename?= 'Request';
 
 	constructor(config: SupplierRequestConfig) {
-		if (!config.id) this.id = uuid();
 		this.creationDate = '' + new Date();
 		this.lastUpdatedDate = '' + new Date();
 		Object.assign(this, config);
+		if (!config.id) this.id = uuid();
 	}
 }
 

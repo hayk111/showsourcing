@@ -26,11 +26,13 @@ export class RequestElementListViewComponent extends ListViewComponent<RequestEl
 	get rows() {
 		return this._rows;
 	}
+	@Input() hasSelection = true;
+
 	@Output() openReviewRequestReply = new EventEmitter<string>();
 	@Output() openRefuseReplyDlg = new EventEmitter<ID>();
 	@Output() cancelReply = new EventEmitter<ID>();
 
-	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
 	// is matrix since we need to iterate over requestElement and then over requestElement.reply.fields
 	// M[i][j] -> i: request element rows // j: fields

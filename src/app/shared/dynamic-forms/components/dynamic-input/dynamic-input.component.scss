@@ -1,0 +1,7 @@
+h3 {
+	display: block;
+	margin-top: var(--spacing-m);
+	&::first-letter {
+		text-transform: uppercase;
+	}
+}

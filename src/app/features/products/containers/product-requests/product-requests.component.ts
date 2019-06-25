@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map, takeUntil } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, takeUntil, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { RequestElementService } from '~core/entity-services';
+import { RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, RequestElement } from '~core/models';
-import { AutoUnsub } from '~utils';
+import { ERM, RequestElement, ReplyStatus } from '~core/models';
+import { AutoUnsub, ID, translate } from '~utils';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'product-requests-app',
@@ -16,7 +18,11 @@ import { AutoUnsub } from '~utils';
 export class ProductRequestsComponent extends AutoUnsub implements OnInit {
 
 	constructor(
+		private router: Router,
 		private requestElementSrv: RequestElementService,
+		private requestReplySrv: RequestReplyService,
+		private requestSrv: SupplierRequestService,
+		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		public listSrv: ListPageService<RequestElement, RequestElementService>,
 		public commonModalSrv: CommonModalService
@@ -40,4 +46,20 @@ export class ProductRequestsComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
+	cancelReply(replyId: ID) {
+		const text = translate('Are you sure you want to cancel this request item?');
+		const action = translate('cancel item');
+		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
+			switchMap(_ => this.requestReplySrv.update({ id: replyId, status: ReplyStatus.CANCELED })),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
+	}
+
+	openRequestDetails(reqElemId: ID) {
+		this.requestSrv.queryOneByPredicate(`requestElements.id == "${reqElemId}"`)
+			.subscribe(request => {
+				if (request && request.id)
+					this.router.navigate([ERM.SUPPLIER_REQUEST.destUrl, request.id]);
+			});
+	}
 }
