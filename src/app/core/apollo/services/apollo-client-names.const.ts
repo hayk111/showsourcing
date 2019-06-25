@@ -7,6 +7,6 @@ export enum Client {
 	GUEST = 'guest',
 	TEAM = 'team',
 	USER = 'user',
-	CENTRAL = 'temp015/central'
+	CENTRAL = 'temp020/central'
 }
 
