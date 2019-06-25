@@ -10,24 +10,22 @@ describe('register test suite', () => {
 	});
 
 	it('should display spinner after clicking the sign up button', async () => {
-		// await browser.debugger();
-		// browser.ignoreSynchronization = true;
+		await browser.debugger();
+		browser.ignoreSynchronization = true;
 
-		// const firstName = 'Joseph';
-		// const lastName = 'NGUYEN';
-		// const email = 'sp123@gmail.com';
-		// const password = '12345';
-		// await page.register(firstName, lastName, email, password);
+		const firstName = 'Joseph';
+		const lastName = 'NGUYEN';
+		const email = 'sp@gmail.com';
+		const password = '12345';
+		await page.register(firstName, lastName, email, password);
 
-		// const EC = protractor.ExpectedConditions;
-		// await browser.wait(EC.visibilityOf(page.spinnerElem));
+		const EC = protractor.ExpectedConditions;
+		await browser.wait(EC.visibilityOf(page.spinnerElem));
 
-		// return expect(page.spinnerElem.isDisplayed()).toBe(true);
-		return expect(true).toBe(true);
+		return expect(page.spinnerElem.isDisplayed()).toBe(true);
 	});
 
 	it('should display error msg when incorrect credentials', async () => {
-		
 		return expect(true).toBe(true);
 	});
 

@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 
 export class RegisterPage {
 
@@ -7,20 +7,15 @@ export class RegisterPage {
 	}
 
 	async register(firstName: string, lastName: string, email: string, password: string) {
-		// const firstNameInp = element(by.css('input[name="firstName"]'));
-		// const lastNameInp = element(by.css('input[name="lastName"]'));
-		// const emailInp = element(by.css('input[name="email"]'));
-		// const pwInp = element(by.css('input[name="password"]'));
+		const firstNameInp = element(by.css('input[name="firstName"]'));
+		const lastNameInp = element(by.css('input[name="lastName"]'));
+		const emailInp = element(by.css('input[name="email"]'));
+		const pwInp = element(by.css('input[name="password"]'));
 
-		// await firstNameInp.sendKeys(firstName);
-		// await lastNameInp.sendKeys(lastName);
-		// await emailInp.sendKeys(email);
-		// await pwInp.sendKeys(password);
-
-		await this.sendKey(firstName, 'input[name="firstName"]');
-		await this.sendKey(lastName, 'input[name="lastName"]');
-		await this.sendKey(email, 'input[name="email"]');
-		await this.sendKey(password, 'input[name="password"]');
+		await firstNameInp.sendKeys(firstName);
+		await lastNameInp.sendKeys(lastName);
+		await emailInp.sendKeys(email);
+		await pwInp.sendKeys(password);
 
 		const btn = element(by.css('input[type="submit"]'));
 
