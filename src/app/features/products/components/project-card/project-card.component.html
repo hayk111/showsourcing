@@ -8,7 +8,7 @@
 			projects
 		</h3>
 	</div>
-	
+
 	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
 		<article class="flexBetween pointer" [class.last-item]="last">
 			<div class="flex">
@@ -42,7 +42,7 @@
 		No Projects Added
 	</span>
 
-	<card-footer-app [class.custom-margin]="projects?.length > 0">
+	<card-footer-app>
 		<selector-app
 			class="selector"
 			type="project"
