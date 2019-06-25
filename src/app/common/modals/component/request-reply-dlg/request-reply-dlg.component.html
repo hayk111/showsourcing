@@ -109,8 +109,8 @@
     <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
       <button *ngIf="isDisabled(); else notSubmitted" tabFocus class="first-uppercase" [disabled]="true" i18n="@@submitted">submitted</button>
       <ng-template #notSubmitted>
-        <button class="first-uppercase" [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">
-					<ng-container *ngIf="hasNext(); else noNext" tabFocus i18n="@@submit-next">
+        <button tabFocus class="first-uppercase" [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">
+					<ng-container *ngIf="hasNext(); else noNext" i18n="@@submit-next">
 						submit & next
 					</ng-container>
 					<ng-template #noNext>

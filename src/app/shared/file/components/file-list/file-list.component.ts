@@ -36,7 +36,7 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 	@Input() showConfirmOnDelete = true;
 	@Output() deleted = new EventEmitter<Attachment>();
 
-	@ViewChild('inpFile', { static: false }) inpFile: ElementRef<HTMLInputElement>;
+	@ViewChild('inp', { static: false }) inpFile: ElementRef<HTMLInputElement>;
 
 	constructor(
 		private uploaderFeedback: UploaderFeedbackService,
