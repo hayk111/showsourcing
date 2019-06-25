@@ -67,24 +67,24 @@ describe('login test suite', () => {
 		const forgotPw = element(by.className('forgot-password'));
 		await forgotPw.click();
 
-		const hasLeftLogin = await browser.driver.wait(async _ => {
+		const isUrlForgotPw = await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();
 			// when we login we will get out of the login page
 			return /forgot-password/.test(url);
 		}, 10000);
-		return expect(hasLeftLogin).toEqual(true);
+		return expect(isUrlForgotPw).toEqual(true);
 	});
 
 	it('should navigate to correct link register', async () => {
 		const registerBtn = element(by.tagName('a'));
 		await registerBtn.click();
 
-		const hasLeftLogin = await browser.driver.wait(async _ => {
+		const isUrlRegister = await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();
 			// when we login we will get out of the login page
 			return /register/.test(url);
 		}, 10000);
-		return expect(hasLeftLogin).toEqual(true);
+		return expect(isUrlRegister).toEqual(true);
 	});
 
 	it('should redirect to return page if already logged in', async () => {
@@ -92,7 +92,7 @@ describe('login test suite', () => {
 		// const password = '12345';
 		// await page.login(email, password);
 
-		// const hasLeftLogin = await browser.driver. .wait(async _ => {
+		// const hasLeftLogin = await browser.driver.wait(async _ => {
 		// 	const url: string = await browser.driver.getCurrentUrl();
 		// 	// when we login we will get out of the login page
 		// 	console.log('url', url)
