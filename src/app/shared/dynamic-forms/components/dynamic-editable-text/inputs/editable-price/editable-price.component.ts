@@ -30,7 +30,7 @@ export class EditablePriceComponent extends AbstractInput {
 	@Output() open = new EventEmitter();
 	@Output() close = new EventEmitter();
 	@Output() blur = new EventEmitter();
-	@ViewChild('editable2') currencyEditable: EditableTextComponent;
+	@ViewChild('editable2', { static: false }) currencyEditable: EditableTextComponent;
 	isOpen: boolean;
 	accumulator;
 	currencySelectorShown: boolean;

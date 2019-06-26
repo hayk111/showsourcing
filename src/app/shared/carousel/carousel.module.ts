@@ -12,10 +12,11 @@ import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { FileModule } from '~shared/file/file.module';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
+import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders/loaders.module';
 import { RatingModule } from '~shared/rating';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
-import { InputsModule } from '~shared/inputs';
+import { UtilsModule } from '~shared/utils';
 
 @NgModule({
 	imports: [
@@ -29,7 +30,8 @@ import { InputsModule } from '~shared/inputs';
 		ContextMenuModule,
 		SelectorsModule,
 		OverlayModule,
-		InputsModule
+		InputsModule,
+		UtilsModule
 	],
 	declarations: [
 		CarouselComponent,

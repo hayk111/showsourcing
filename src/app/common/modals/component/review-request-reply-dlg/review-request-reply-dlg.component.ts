@@ -4,15 +4,16 @@ import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import { SelectionService } from '~core/list-page';
 import {
-	AppImage,
-	DEFAULT_REPLIED_STATUS,
-	EntityMetadata,
-	ERM,
-	ExtendedField,
-	Product,
-	ReplyStatus,
-	RequestElement,
-	SupplierRequest,
+  AppImage,
+  Attachment,
+  DEFAULT_REPLIED_STATUS,
+  EntityMetadata,
+  ERM,
+  ExtendedField,
+  Product,
+  ReplyStatus,
+  RequestElement,
+  SupplierRequest,
 } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { PricePipe } from '~shared/price/price.pipe';
@@ -191,9 +192,18 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	acceptRequest() {
-		let tempProduct = { id: this.product.id, images: this.product.images, extendedFields: this.product.extendedFields };
+		let tempProduct = {
+			id: this.product.id,
+			images: this.product.images,
+			extendedFields: this.product.extendedFields,
+			attachments: this.product.attachments
+		};
 		this.selectionSrv.selection.forEach(item => {
 			switch (item.__typename) {
+				case 'Attachment':
+					const newAttachment = new Attachment({ ...item });
+					tempProduct = ({ ...tempProduct, attachments: [...tempProduct.attachments, { ...newAttachment }] });
+					break;
 				case 'Image':
 					const newImage = new AppImage({ ...item });
 					tempProduct = ({ ...tempProduct, images: [...tempProduct.images, { ...newImage }] });

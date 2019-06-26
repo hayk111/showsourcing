@@ -17,7 +17,7 @@ export class ExportListViewComponent extends ListViewComponent<ExportRequest> {
 	erm = ERM;
 	@Output() download = new EventEmitter<ExportRequest>();
 
-	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
 	constructor() { super(); }
 

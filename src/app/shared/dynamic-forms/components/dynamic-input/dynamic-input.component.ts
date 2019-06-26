@@ -1,7 +1,21 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, Output, EventEmitter } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { ExtendedFieldDefinition } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms/models';
+import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 /**
  * Component that selects the correct input and display it as an editable text
@@ -16,18 +30,31 @@ import { DynamicField } from '~shared/dynamic-forms/models';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(DynamicInputComponent)]
 })
-export class DynamicInputComponent extends AbstractInput implements AfterViewInit {
+export class DynamicInputComponent extends AbstractInput implements OnInit, AfterViewInit {
+
 	@Input() customField: DynamicField;
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
+	definitions$: Observable<ExtendedFieldDefinition[]>;
 
-	constructor(protected cd: ChangeDetectorRef) {
+	constructor(
+		protected cd: ChangeDetectorRef,
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService) {
 		super(cd);
+	}
+
+	ngOnInit() {
+		if (this.customField && this.customField.type === 'extendedField')
+			if (this.customField.metadata.target)
+				this.definitions$ = this.extendedFieldDefSrv.queryMany({ query: `target == "${this.customField.metadata.target}"` });
+			else
+				throw new Error('target not defined for extendedField on dynamic inputs');
 	}
 
 	ngAfterViewInit() {
 		this.accumulator = this.value;
+
 	}
 
 	/** saves the value because an user might cancel */

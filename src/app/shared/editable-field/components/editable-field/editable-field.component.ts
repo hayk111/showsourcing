@@ -31,7 +31,7 @@ export class EditableFieldComponent {
 	@Output() opened = new EventEmitter<null>();
 	@Output() closed = new EventEmitter<boolean>();
 
-	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
+	@ViewChild(EditableTextComponent, { static: true }) editable: EditableTextComponent;
 	isOpen = false;
 
 

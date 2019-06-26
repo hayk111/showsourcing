@@ -37,7 +37,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 	/** the label as a component */
 	@ContentChildren(SidenavItemLabelDirective, { descendants: true, read: ElementRef }) labelRefs: QueryList<ElementRef>;
 	/** the icon contained in the item component */
-	@ContentChild(IconComponent) icon: IconComponent;
+	@ContentChild(IconComponent, { static: true }) icon: IconComponent;
 	/** the usb items if any */
 	@ContentChildren(SidenavItemComponent) items: QueryList<SidenavItemComponent>;
 
