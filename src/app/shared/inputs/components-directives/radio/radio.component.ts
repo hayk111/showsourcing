@@ -38,7 +38,7 @@ export class RadioComponent extends AbstractInput {
 	set checked(value: boolean) {
 		this._checked = value;
 	}
-	private _checked = false;
+	private _checked = null;
 
 	/** Whether the checkbox is required. */
 	@Input()
