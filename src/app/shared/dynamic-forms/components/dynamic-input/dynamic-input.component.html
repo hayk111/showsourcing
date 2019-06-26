@@ -9,7 +9,8 @@
   <form-field-app *ngSwitchCase="'text'" class="modal">
     <label-app>{{ customField?.label || customField?.name }}</label-app>
     <input inputApp
-      type="text"
+			type="text"
+			[autofocus]="focus"
 			[(ngModel)]="accumulator"
 			[placeholder]="customField?.label || customField?.name"
       (input)="onChange()"/>
@@ -19,6 +20,7 @@
   <form-field-app *ngSwitchCase="'tel'"  class="modal">
     <label-app>{{ customField?.label || customField?.name }}</label-app>
     <input inputApp
+			[autofocus]="focus"
 			restrictInput="tel"
       type="tel"
 			[placeholder]="customField?.label || customField?.name"
@@ -30,6 +32,7 @@
   <form-field-app *ngSwitchCase="'number'"  class="modal">
     <label-app>{{ customField?.label || customField?.name }}</label-app>
     <input inputApp
+			[autofocus]="focus"
       restrictInput="number"
       type="number"
 			[placeholder]="customField?.label || customField?.name"
@@ -41,6 +44,7 @@
   <form-field-app *ngSwitchCase="'decimal'"  class="modal">
     <label-app>{{ customField?.label || customField?.name }}</label-app>
     <input inputApp
+			[autofocus]="focus"
       restrictInput="decimal"
 			type="number"
 			step="any"
@@ -53,6 +57,7 @@
   <form-field-app *ngSwitchCase="'days'"  class="modal">
     <label-app>{{ customField?.label || customField?.name }}</label-app>
     <input inputApp
+			[autofocus]="focus"
 			type="number"
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"
@@ -63,6 +68,7 @@
   <form-field-app *ngSwitchCase="'textarea'" class="modal">
     <label-app>{{ customField?.label || customField?.name }}</label-app>
     <textarea inputApp
+			[autofocus]="focus"
       type="text"
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"

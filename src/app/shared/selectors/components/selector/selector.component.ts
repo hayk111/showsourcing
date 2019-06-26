@@ -83,7 +83,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 			this.menuClosed.emit();
 			// when we close the menu we want to be focused again
 			if (this.tab)
-				this.tab.focusOrigin();
+				this.tab.focus();
 		}
 	}
 
