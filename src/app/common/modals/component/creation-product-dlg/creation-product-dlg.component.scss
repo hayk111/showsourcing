@@ -1,0 +1,25 @@
+dialog-app {
+	height: 80vh;
+	min-width: 950px;
+
+	dialog-footer-app {
+		> *:not(:last-child) {
+			margin-right: var(--spacing-ms);
+		}
+	}
+}
+
+.container {
+	width: 100%;
+
+	.left, .right {
+		box-sizing: border-box;
+		width: 50%;
+		margin-right: var(--spacing-ms);
+	}
+
+	carousel-app {
+		margin-bottom: var(--spacing-l);
+	}
+
+}

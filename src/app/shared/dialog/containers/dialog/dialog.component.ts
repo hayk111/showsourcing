@@ -18,8 +18,8 @@ export class DialogComponent {
 	@Input() closeIcon = true;
 	@Input() hasHeader = true;
 	@Output() close = new EventEmitter<any>();
-	@ContentChild(DialogFooterComponent) footer: DialogFooterComponent;
-	@ContentChild(DialogHeaderComponent) header: DialogHeaderComponent;
+	@ContentChild(DialogFooterComponent, { static: false }) footer: DialogFooterComponent;
+	@ContentChild(DialogHeaderComponent, { static: false }) header: DialogHeaderComponent;
 
 	@Input() headerSpacing = 'ms';
 

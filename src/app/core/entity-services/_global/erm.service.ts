@@ -189,7 +189,7 @@ export class ERMService {
 				return this.imageService;
 			case ERM.IMAGE_UPLOAD_REQUEST:
 				return this.imageUploadRequestService;
-			case ERM.INCOTERM:
+			case ERM.INCO_TERM:
 				return this.incotermService;
 			case ERM.INVITATION:
 				return this.invitationSrv;

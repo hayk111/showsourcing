@@ -41,7 +41,7 @@ export class FillInformationPageComponent {
 	// those are the custom field for the second form section
 	customFields2: DynamicField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
-		{ name: 'sample', type: 'yesNo' },
+		{ name: 'sample', type: 'boolean' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		{ name: 'samplePrice', type: 'price', label: 'Sample Price' },
 	];

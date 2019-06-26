@@ -26,7 +26,8 @@ if $SHOULD_BUILD; then
 	echo "2) app staging"
 	echo "3) app production"
 	echo "4) supplier development"
-	echo "5) supplier production"
+	echo "5) supplier development"
+	echo "6) supplier production"
 
 	read n
 	case $n in
@@ -34,7 +35,8 @@ if $SHOULD_BUILD; then
 		2) npm run build:sta;;
 		3) npm run build;;
 		4) npm run build:supp:dev;;
-		5) npm run build:supp;;
+		5) npm run build:supp:sta;;
+		6) npm run build:supp;;
 		*) echo "Apparently you can't see the forest for the trees, cy@" && exit 0
 	esac
 fi

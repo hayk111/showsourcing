@@ -15,7 +15,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	]
 })
 export class TemplateComponent extends AutoUnsub implements OnInit {
-	@ViewChild('main') main: ElementRef<HTMLElement>;
+	@ViewChild('main', { static: true }) main: ElementRef<HTMLElement>;
 
 	constructor(
 		private templateSrv: TemplateService,

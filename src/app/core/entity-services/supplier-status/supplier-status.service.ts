@@ -3,13 +3,13 @@ import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { SupplierStatusQueries } from '~entity-services/supplier-status/supplier-status.queries';
 import { SupplierStatus } from '~models';
 
-import { GlobalWithDeleteService } from '../_global/global-with-delete.service';
+import { GlobalService } from '../_global/global.service';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class SupplierStatusService extends GlobalWithDeleteService<SupplierStatus> {
+export class SupplierStatusService extends GlobalService<SupplierStatus> {
 
 	constructor(protected apolloState: ApolloStateService) {
 		super(apolloState, SupplierStatusQueries, 'supplierStatus', 'supplierStatuses');

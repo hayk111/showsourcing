@@ -59,7 +59,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	// smart search event
 	@Output() smartSearch = new EventEmitter<string>();
 
-	@ContentChild(SearchAutocompleteComponent) searchAutocomplete: SearchAutocompleteComponent;
+	@ContentChild(SearchAutocompleteComponent, { static: true }) searchAutocomplete: SearchAutocompleteComponent;
 
 	private search$ = new Subject<string>();
 
