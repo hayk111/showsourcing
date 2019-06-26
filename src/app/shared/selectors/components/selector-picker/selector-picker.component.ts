@@ -8,6 +8,7 @@ import {
 	Component,
 	ElementRef,
 	EventEmitter,
+	HostListener,
 	Input,
 	OnChanges,
 	OnInit,
@@ -62,6 +63,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
 
+	// this closes the selector without closing dialogs, etc
+	@HostListener('keydown.escape', ['$event'])
+	onKeydownEsc(event) {
+		event.stopPropagation();
+		this.close.emit();
+	}
 
 	/** choices to iterate */
 	choices$: Observable<any[]>;
