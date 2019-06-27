@@ -27,7 +27,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "e2e:headless": "ng e2e --capabilities.chromeOptions.args=\"--headless\""
+    "e2e:headless": "ng e2e --capabilities.chromeOptions.args=\"--headless\"",
+    "e2e-watch": "concurrently --kill-others \"npm start\" \"npm run e2e-watch-no-serve\"",
+    "e2e-watch-no-serve": "watch \"npm run e2e -- --dev-server-target=\" src e2e --wait=1"
   },
   "private": true,
   "dependencies": {
@@ -80,6 +82,7 @@
     "@types/node": "~11.9.3",
     "@types/uuid": "^3.4.3",
     "codelyzer": "~4.5.0",
+    "concurrently": "^4.1.1",
     "jasmine-core": "~3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.0.0",
@@ -91,6 +94,7 @@
     "ts-node": "~8.0.2",
     "tslint": "~5.12.1",
     "typescript": "^3.4.5",
+    "watch": "^1.0.2",
     "webpack-bundle-analyzer": "^3.0.3"
   }
 }
