@@ -6,7 +6,7 @@ export class RegisterPage {
 		return browser.get('/auth/register');
 	}
 
-	async register(firstName: string, lastName: string, email: string, password: string) {
+	async register(firstName: string, lastName: string, email: string, password: string, isSubmit: boolean) {
 		const firstNameInp = element(by.css('input[name="firstName"]'));
 		const lastNameInp = element(by.css('input[name="lastName"]'));
 		const emailInp = element(by.css('input[name="email"]'));
@@ -17,9 +17,10 @@ export class RegisterPage {
 		await emailInp.sendKeys(email);
 		await pwInp.sendKeys(password);
 
-		const btn = element(by.css('input[type="submit"]'));
-
-		await btn.click();
+		if (isSubmit) {
+			const btn = element(by.css('input[type="submit"]'));
+			await btn.click();
+		}
 	}
 
 	async sendKey(value: string, elemCss: string) {
@@ -33,6 +34,18 @@ export class RegisterPage {
 
 	get spinnerElem() {
 		return element(by.tagName('spinner-app'));
+	}
+
+	get forgotPwElem() {
+		return element(by.className('forgot-password'));
+	}
+
+	get alHaveAccBtn() {
+		return element(by.css('a.button'));
+	}
+
+	get errorMessElem() {
+		return element.all(by.css('div.error'));
 	}
 
 }

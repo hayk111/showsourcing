@@ -1,5 +1,5 @@
 import { RegisterPage } from './registration.po';
-import { protractor, browser, element, by } from 'protractor';
+import { protractor, browser } from 'protractor';
 
 describe('register test suite', () => {
 	let page: RegisterPage;
@@ -17,7 +17,7 @@ describe('register test suite', () => {
 		const lastName = 'NGUYEN';
 		const email = 'sp@gmail.com';
 		const password = '12345';
-		await page.register(firstName, lastName, email, password);
+		await page.register(firstName, lastName, email, password, true);
 
 		const EC = protractor.ExpectedConditions;
 		await browser.wait(EC.visibilityOf(page.spinnerElem));
@@ -26,16 +26,23 @@ describe('register test suite', () => {
 	});
 
 	it('should display error msg when incorrect credentials', async () => {
-		return expect(true).toBe(true);
+		const firstName = ' ';
+		const lastName = ' ';
+		const email = ' ';
+		const password = ' ';
+
+		await page.register(firstName, lastName, email, password, false);
+
+		return expect(page.errorMessElem.count()).toBeGreaterThan(3);
 	});
 
 	it('should sign up when using correct credentials', async () => {
 		const firstName = 'Joseph';
 		const lastName = 'NGUYEN';
-		const email = 'sptest123@gmail.com';
+		const email = 'sptest1234@gmail.com';
 		const password = '12345';
 
-		await page.register(firstName, lastName, email, password);
+		await page.register(firstName, lastName, email, password, true);
 
 		const isUrlCreateCompany = await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();
@@ -47,8 +54,7 @@ describe('register test suite', () => {
 
 	it('should navigate to correct link forgot password', async () => {
 		browser.ignoreSynchronization = true;
-		const forgotPw = element(by.className('forgot-password'));
-		await forgotPw.click();
+		await page.forgotPwElem.click();
 
 		const isUrlForgotPw = await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();
@@ -58,12 +64,24 @@ describe('register test suite', () => {
 		return expect(isUrlForgotPw).toEqual(true);
 	});
 
+	it('should navigate to correct link already have account', async () => {
+		browser.ignoreSynchronization = true;
+		await page.alHaveAccBtn.click();
+
+		const isUrlLogin = await browser.driver.wait(async _ => {
+			const url: string = await browser.driver.getCurrentUrl();
+			// when we login we will get out of the login page
+			return /login/.test(url);
+		}, 10000);
+		return expect(isUrlLogin).toEqual(true);
+	});
+
 	it('should display "An account already exist with this email address." when using existing email', async () => {
 		const firstName = 'Joseph';
 		const lastName = 'NGUYEN';
 		const email = 'sp123@gmail.com';
 		const password = '12345';
-		await page.register(firstName, lastName, email, password);
+		await page.register(firstName, lastName, email, password, true);
 
 		const EC = protractor.ExpectedConditions;
 		await browser.wait(EC.visibilityOf(page.errorElem));
