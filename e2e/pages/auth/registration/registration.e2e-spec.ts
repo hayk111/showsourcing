@@ -39,8 +39,8 @@ describe('register test suite', () => {
 	it('should sign up when using correct credentials', async () => {
 		const firstName = 'Joseph';
 		const lastName = 'NGUYEN';
-		const email = 'sptest1234@gmail.com';
-		const password = '12345';
+		const email = 'sptest12345@gmail.com';
+		const password = '123456789';
 
 		await page.register(firstName, lastName, email, password, true);
 

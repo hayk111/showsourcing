@@ -27,4 +27,12 @@ export class ForgotPwPage {
 		return element(by.tagName('pw-resetted-app'));
 	}
 
+	get submitBtn() {
+		return element(by.css('input[type="submit"]'));
+	}
+
+	get btnElem() {
+		return element(by.tagName('button'));
+	}
+
 }

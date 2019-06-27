@@ -11,7 +11,7 @@ describe('change password test suite', () => {
 		pageChangePw = new ChangePasswordPage();
 		pageLogin = new LoginPage();
 		await pageChangePw.navigateToProfile();
-		await pageLogin.login('sp@gmail.com', '12345');
+		await pageLogin.login('sp@gmail.com', '12345', true);
 
 		await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();

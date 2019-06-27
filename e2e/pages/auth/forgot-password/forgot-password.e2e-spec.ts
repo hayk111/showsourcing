@@ -1,5 +1,5 @@
 import { ForgotPwPage } from './forgot-password.po';
-import { protractor, browser, element, by } from 'protractor';
+import { protractor, browser } from 'protractor';
 
 describe('forgot password test suite', () => {
 	let page: ForgotPwPage;
@@ -24,10 +24,7 @@ describe('forgot password test suite', () => {
 	it('send button should turn grey when incorrect email', async () => {
 		await page.submit('special-character%>.#@gmail.com');
 
-		const btn = element(by.css('input[type="submit"]'));
-		const isEnabled = btn.isEnabled();
-
-		return expect(isEnabled).toBe(false);
+		return expect(page.submitBtn.isEnabled()).toBe(false);
 	});
 
 	it('should send when using correct credentials', async () => {
@@ -51,8 +48,7 @@ describe('forgot password test suite', () => {
 			return /password-resetted/.test(url);
 		}, 10000);
 
-		const btn = element(by.tagName('button'));
-		await btn.click();
+		await page.btnElem.click();
 
 		const isUrlLogin = await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();

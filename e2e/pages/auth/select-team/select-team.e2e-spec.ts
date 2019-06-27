@@ -11,7 +11,7 @@ describe('select team test suite', () => {
 		loginPage = new LoginPage();
 		selectTeamPage = new SelectTeamPage();
 		await loginPage.navigateTo();
-		await loginPage.login('sp@gmail.com', '12345'); // this account has teams
+		await loginPage.login('sp@gmail.com', '12345', true); // this account has teams
 
 		await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();
@@ -26,7 +26,7 @@ describe('select team test suite', () => {
 
 
 	it('should display spinner after clicking the existing team then should enter app', async () => {
-
+		browser.ignoreSynchronization = true;
 		const EC = protractor.ExpectedConditions;
 		await browser.wait(() => {
 			return EC.visibilityOf(selectTeamPage.pickATeamElem);
