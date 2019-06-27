@@ -101,9 +101,6 @@ describe('login test suite', () => {
 		const isUrlPickATeam = await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();
 			// when we login we will get out of the login page
-			if (/pick-a-team/.test(url) && !/login/.test(url)) {
-				console.log(url)
-			}
 			return /pick-a-team/.test(url) && !/login/.test(url);
 		}, 10000);
 		return expect(isUrlPickATeam).toEqual(true);
