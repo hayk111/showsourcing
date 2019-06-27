@@ -13,4 +13,17 @@ export class SelectTeamPage {
 	get spinnerElem() {
 		return element(by.tagName('spinner-app'));
 	}
+
+	get createATeamBtn() {
+		return element(by.id('createATeam'));
+	}
+
+	get logoutBtn() {
+		return element(by.id('logout'));
+	}
+
+	get firstDivOfUl() {
+		return browser.driver.findElement(by.xpath('.//*[@id="teams"]/div[1]')); // get 1st team
+	}
+
 }
