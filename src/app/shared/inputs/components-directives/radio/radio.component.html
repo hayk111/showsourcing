@@ -1,10 +1,17 @@
 
 <div class="container">
   <div class=" list " [ngClass]="isVeritical ? '' : 'items'">
-    <div *ngFor="let item of items; index as i;trackBy: trackByFn" class="item list__item">
-      <input type="radio" class="radio-btn" [name]="_id" [id]="getId(i)"
-             [value]="item.value" [(ngModel)]="value" (click)="update.emit(item.value)"/>
-      <label class="label" [for]="getId(i)">{{item.name}}<span class="dot"></span></label>
+    <div *ngFor="let item of items; index as i;trackBy: trackByFn" class="item list__item flex">
+			<input #inp type="radio" class="radio-btn" [name]="_id" [id]="getId(i)"
+						 [value]="item.value" [(ngModel)]="value" (click)="onCheckedChange(item.value)"/>
+      <label class="label flex" [for]="getId(i)">
+				<div tabFocus class="focus-wrapper" (keyEnter)="inps?.toArray()[i]?.nativeElement?.click()">
+					<span class="dot flexCenter">
+						<div *ngIf="inps?.toArray()[i]?.nativeElement?.checked" class="overlay"></div>
+					</span>
+				</div>
+				{{item.name}}
+			</label>
     </div>
   </div>
 </div>

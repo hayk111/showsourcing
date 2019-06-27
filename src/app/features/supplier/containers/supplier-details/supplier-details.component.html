@@ -31,8 +31,9 @@
 			</supplier-preview-app>
 
 			<files-card-app
-				[files]="supplier.attachments"
-				[linkedItem]="supplier"></files-card-app>
+				[files]="supplier?.attachments"
+				[linkedItem]="supplier">
+			</files-card-app>
 
 			<supplier-contact-card-app
 				[contacts]="contacts$ | async"

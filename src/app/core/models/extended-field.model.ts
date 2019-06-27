@@ -12,8 +12,8 @@ export class ExtendedField {
 	__typename?= 'ExtendedField';
 
 	constructor(config?: ExtendedFieldConfig) {
-		if (!config || !config.id) this.id = uuid();
 		Object.assign(this, config);
+		this.id = uuid();
 	}
 }
 

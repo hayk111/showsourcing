@@ -25,7 +25,7 @@ export class DescriptionDlgComponent {
 	// to store the value of the txtArea, since sometimes we will cancel instead of save, this way we don't override initial description
 	txtAreaDesc: string;
 
-	@ViewChild(InputDirective) txtArea: InputDirective;
+	@ViewChild(InputDirective, { static: true }) txtArea: InputDirective;
 
 	constructor(private dlgSrv: DialogService) { }
 

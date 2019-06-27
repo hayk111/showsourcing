@@ -6,6 +6,10 @@ dialog-app {
 
 	dialog-header-app {
 		font-size: var(--font-size-l);
+
+		.beta {
+			margin-left: var(--spacing-ms);
+		}
 	}
 	.left {
 		width: 50%;

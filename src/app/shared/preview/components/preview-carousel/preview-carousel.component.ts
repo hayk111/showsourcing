@@ -25,7 +25,7 @@ export class PreviewCarouselComponent extends AutoUnsub {
 	}
 
 	/** hidden file input */
-	@ViewChild('inpFile') inpFile: ElementRef;
+	@ViewChild('inpFile', { static: true }) inpFile: ElementRef;
 
 	private _images: AppImage[] = [];
 	private _pendingImages: PendingImage[] = [];

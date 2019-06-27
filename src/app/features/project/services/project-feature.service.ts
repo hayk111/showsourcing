@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { first, switchMap, tap } from 'rxjs/operators';
-import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CommonModalService } from '~common/modals';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo';
 import { Product, ProductStatus, Project } from '~core/models';
 import { ProductService, ProductStatusService, ProjectService, UserService } from '~entity-services';
@@ -46,7 +46,7 @@ export class ProjectFeatureService extends ProjectService {
 			return this.getProjectProducts(project).pipe(
 				first(),
 				switchMap((products: Product[]) => this.commonModalSrv.openFindProductDlg(products, project)),
-				switchMap((data: any) => this.manageProjectsToProductsAssociations([project], data), data => data)
+				switchMap((data: any) => this.manageProjectsToProductsAssociations([project], data.data))
 			);
 		} return of();
 	}
@@ -58,8 +58,7 @@ export class ProjectFeatureService extends ProjectService {
 	 */
 	manageProjectsToProductsAssociations(
 		projects: Project[],
-		{ selectedProducts, unselectedProducts }:
-			{ selectedProducts?: Product[], unselectedProducts?: Product[] }
+		{ selectedProducts, unselectedProducts }: { selectedProducts?: Product[], unselectedProducts?: Product[] }
 	) {
 		const requests = [];
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~models';
@@ -42,7 +42,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Input() type: 'badge' | 'dropdown' | 'multiple-selection' | 'button' = 'badge';
 	@Input() width: number;
 	@Output() statusUpdated = new EventEmitter<any>();
-	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
+	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
 	/** string[] since tasks does not have a status entity */
 	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
 	@Input() statuses: any[];
@@ -93,10 +93,15 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		this.statusSlctSrv.updateTask({ id: this.entity.id, done });
 	}
 
+	openMenu() {
+		if (this.menu) {
+			this.menu.openMenu();
+		}
+	}
+
 	closeMenu() {
-		if (this.menus && this.menus.length > 0) {
-			const contextualMenu = this.menus.first;
-			contextualMenu.closeMenu();
+		if (this.menu) {
+			this.menu.closeMenu();
 		}
 	}
 

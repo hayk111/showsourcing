@@ -16,8 +16,8 @@ export class PreviewComponent implements AfterViewInit {
 	@Input() align: 'left' | 'right' = 'right';
 	/** wether the top image is fixed or not for the scrolling effect*/
 	@Input() isFixed = true;
-	@ViewChild('top') topSection: ElementRef<HTMLElement>;
-	@ViewChild('scrollSection') scrollSection: ElementRef<HTMLElement>;
+	@ViewChild('top', { static: true }) topSection: ElementRef<HTMLElement>;
+	@ViewChild('scrollSection', { static: true }) scrollSection: ElementRef<HTMLElement>;
 
 	constructor(private renderer: Renderer2) { }
 

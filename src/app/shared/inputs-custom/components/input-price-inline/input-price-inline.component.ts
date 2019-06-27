@@ -9,9 +9,14 @@ import { Price } from '~models';
 })
 export class InputPriceInlineComponent implements OnInit {
 
-	private _price: Price = new Price({ value: 0, currency: 'USD' });
+	private _price: Price;
 	@Input()
-	set price(price: Price) { if (price) this._price = { ...price }; }
+	set price(price: Price) {
+		if (price)
+			this._price = { ...price };
+		else
+			this._price = new Price({ value: 0, currency: 'USD' });
+	}
 	get price() { return this._price; }
 
 
