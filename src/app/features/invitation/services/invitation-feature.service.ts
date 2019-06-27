@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
@@ -19,12 +17,6 @@ export class InvitationFeatureService extends InvitationUserService {
 		protected http: HttpClient
 	) {
 		super(apolloState);
-	}
-
-	getInvitation(id: string): Observable<InvitationUser> {
-		return this.http.get<InvitationUser>(
-			`${environment.apiUrl}/token/invitation/${id}`
-		);
 	}
 
 	acceptInvitation(invitation: InvitationUser) {
