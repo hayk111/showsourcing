@@ -6,13 +6,22 @@ export class LoginPage {
 		return browser.get('/auth/login');
 	}
 
-	async login(email: string, password: string) {
+	navigateToPickATeam() {
+		return browser.get('/user/pick-a-team');
+	}
+
+	async login(email: string, password: string, isSubmit: boolean) {
 		const emailInp = element(by.css('input[name="login"]'));
 		const pwInp = element(by.css('input[name="password"]'));
-		const btn = element(by.css('input[type="submit"]'));
 		await emailInp.sendKeys(email);
 		await pwInp.sendKeys(password);
-		await btn.click();
+		if (isSubmit) {
+			await this.submitBtn.click();
+		}
+	}
+
+	get submitBtn() {
+		return element(by.css('input[type="submit"]'));
 	}
 
 	get errorElem() {
@@ -21,6 +30,14 @@ export class LoginPage {
 
 	get spinnerElem() {
 		return element(by.tagName('spinner-app'));
+	}
+
+	get forgotPwElem() {
+		return element(by.className('forgot-password'));
+	}
+
+	get registerElem() {
+		return element(by.tagName('a'));
 	}
 
 }
