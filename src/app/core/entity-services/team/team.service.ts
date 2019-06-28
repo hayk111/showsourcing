@@ -8,6 +8,7 @@ import { LocalStorageService } from '~core/local-storage';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { TeamQueries } from '~entity-services/team/team.queries';
 import { Team } from '~models';
+import { UserService } from '../user/user.service';
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -19,7 +20,7 @@ const SELECTED_TEAM = 'selected-team';
 @Injectable({ providedIn: 'root' })
 export class TeamService extends GlobalService<Team> {
 
-	defaultClient = Client.USER;
+	defaultClient = Client.CENTRAL;
 
 	/** event the team selected at the moment of the selection */
 	private _teamSelectionEvent$ = new ReplaySubject<Team>(1);
@@ -53,8 +54,8 @@ export class TeamService extends GlobalService<Team> {
 	constructor(
 		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
-		protected authSrv: AuthenticationService
-
+		protected authSrv: AuthenticationService,
+		protected userSrv: UserService
 	) { super(apolloState, TeamQueries, 'team', 'teams'); }
 
 	init() {
@@ -72,7 +73,7 @@ export class TeamService extends GlobalService<Team> {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return super.create(team).pipe(
+		return super.create({ ...team, ownerUser: { id: this.userSrv.userId, __typename: 'User' } }).pipe(
 			switchMap(_ => this.waitForOne(`id == "${team.id}" AND status == "active"`)),
 			switchMap(_team => this.pickTeam(_team))
 		);

@@ -1,19 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { InvitationUserService, TeamService, UserService } from '~entity-services';
-import { InvitationUser } from '~models';
+import { TeamService, UserService, InvitationService } from '~entity-services';
+import { Invitation } from '~models';
 
 @Injectable({ providedIn: 'root' })
-export class InvitationFeatureService extends InvitationUserService {
+export class InvitationFeatureService extends InvitationService {
 
 	constructor(
 		protected apolloState: ApolloStateService,
-		private invitationSrv: InvitationUserService,
 		protected userSrv: UserService,
 		protected teamSrv: TeamService,
 		protected http: HttpClient
@@ -21,35 +18,27 @@ export class InvitationFeatureService extends InvitationUserService {
 		super(apolloState);
 	}
 
-	getInvitation(id: string): Observable<InvitationUser> {
-		return this.http.get<InvitationUser>(
-			`${environment.apiUrl}/token/invitation/${id}`
-		);
-	}
-
-	acceptInvitation(invitation: InvitationUser) {
+	acceptInvitation(invitation: Invitation) {
 		return this.userSrv.selectUser().pipe(
 			take(1),
 			map(user => ({
 				...invitation,
-				userId: user.id,
 				status: 'accepted'
 			})),
-			switchMap(invit => this.invitationSrv.create(invit, Client.USER)),
+			switchMap(invit => this.create(invit, Client.USER)),
 			switchMap(invit => this.teamSrv.waitForOne(`id == "${invit.teamId}"`, undefined, Client.USER)),
 			switchMap(team => this.teamSrv.pickTeam(team))
 		);
 	}
 
-	refuseInvitation(invitation: InvitationUser) {
+	refuseInvitation(invitation: Invitation) {
 		return this.userSrv.selectUser().pipe(
 			take(1),
 			map(user => ({
 				...invitation,
-				userId: user.id,
 				status: 'refused'
 			})),
-			switchMap(invit => this.invitationSrv.create(invit, Client.USER))
+			switchMap(invit => this.create(invit, Client.USER))
 		);
 	}
 

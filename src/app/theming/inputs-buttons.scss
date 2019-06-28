@@ -28,6 +28,7 @@ input, textarea {
 	color: var(--color-txt-primary);
 	border: 1px solid var(--color-secondary);
 	border-radius: var(--border-radius);
+	background: transparent;
 	&:not(.borderless).ng-invalid.ng-dirty:not(:focus) {
 		border: 1px solid var(--color-warn);
 		border-left: 4px solid var(--color-warn);

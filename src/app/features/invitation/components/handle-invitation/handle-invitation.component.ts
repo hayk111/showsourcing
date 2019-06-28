@@ -6,11 +6,11 @@ import { switchMap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
-import { InvitationUser } from '~models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, translate } from '~utils';
 import { TeamService } from '~core/entity-services';
 import { TeamClientInitializer } from '~core/apollo';
+import { Invitation } from '~core/models';
 
 
 @Component({
@@ -20,7 +20,7 @@ import { TeamClientInitializer } from '~core/apollo';
 })
 export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	authenticated$: Observable<boolean>;
-	invitation$: Observable<InvitationUser>;
+	invitation$: Observable<Invitation>;
 	client: Client;
 	returnUrl: string;
 
@@ -30,7 +30,6 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		private location: Location,
 		private authSrv: AuthenticationService,
 		private invitationSrv: InvitationFeatureService,
-		private teamSrv: TeamService,
 		private notifSrv: NotificationService,
 		private teamClient: TeamClientInitializer
 	) {
@@ -41,13 +40,13 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		const invitationId = this.route.snapshot.params.id;
 		this.authenticated$ = this.authSrv.isAuthenticated$;
 		this.invitation$ = this.authenticated$.pipe(
-			switchMap(_ => this.invitationSrv.getInvitation(invitationId))
+			switchMap(_ => this.invitationSrv.queryOne(invitationId))
 		);
 
 		this.returnUrl = this.location.path();
 	}
 
-	accept(invitation: InvitationUser) {
+	accept(invitation: Invitation) {
 		this.teamClient.setPending('switching team');
 		this.invitationSrv.acceptInvitation(invitation).subscribe(_ => {
 			this.router.navigateByUrl('/');

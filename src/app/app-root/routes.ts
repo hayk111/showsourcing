@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { TeamClientReadyGuard, UserClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
+import { TeamClientReadyGuard, CentralClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { AuthenticatedGuard } from '~core/auth';
 import { HasUserGuard } from '~core/auth/services/has-user.guard';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
@@ -20,7 +20,7 @@ export const routes: Array<Route> = [
 	{
 		path: 'user',
 		component: GuestTemplateComponent,
-		canActivateChild: [AuthenticatedGuard, UserClientReadyGuard],
+		canActivateChild: [AuthenticatedGuard, CentralClientReadyGuard],
 		loadChildren: 'app/features/pick-a-team/pick-a-team.module#PickATeamModule',
 		data: { showLogout: true }
 	},
@@ -35,7 +35,7 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivateChild: [
 			AuthenticatedGuard,
-			UserClientReadyGuard,
+			CentralClientReadyGuard,
 			HasTeamSelectedGuard,
 			TeamClientReadyGuard,
 			HasUserGuard
