@@ -23,6 +23,8 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit, O
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;
 	@Input() isShowLabel = true;
+	// index of the item in the dynamic form that we want to focus by default
+	@Input() indexFocus = 0;
 	@Output() formCreated = new EventEmitter<FormGroup>();
 	@Output() update = new EventEmitter<DynamicUpdate>();
 

@@ -1,14 +1,15 @@
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import {
-	AfterViewInit,
 	ChangeDetectorRef,
 	Directive,
 	ElementRef,
 	EventEmitter,
+	HostListener,
+	Input,
 	NgZone,
 	OnDestroy,
+	OnInit,
 	Output,
-	HostListener,
 } from '@angular/core';
 
 @Directive({
@@ -18,7 +19,7 @@ import {
 		'[attr.tabindex]': '0'
 	}
 })
-export class TabFocusDirective implements AfterViewInit, OnDestroy {
+export class TabFocusDirective implements OnDestroy, OnInit {
 
 	@Output() keyEnter = new EventEmitter<null>();
 
@@ -35,7 +36,7 @@ export class TabFocusDirective implements AfterViewInit, OnDestroy {
 		private _ngZone: NgZone,
 		private element: ElementRef<any>) { }
 
-	ngAfterViewInit() {
+	ngOnInit() {
 		this._focusMonitor.monitor(this.element)
 			.subscribe(origin => this._ngZone.run(() => {
 				this.elementOrigin = this.formatOrigin(origin);
