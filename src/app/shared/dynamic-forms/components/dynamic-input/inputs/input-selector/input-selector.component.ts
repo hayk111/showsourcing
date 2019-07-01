@@ -1,5 +1,5 @@
 import {
-	AfterContentInit,
+	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
@@ -21,7 +21,7 @@ import { TabFocusDirective } from '~shared/utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(InputSelectorComponent)],
 })
-export class InputSelectorComponent extends AbstractInput implements OnInit, AfterContentInit {
+export class InputSelectorComponent extends AbstractInput implements OnInit, AfterViewInit {
 
 	@Input() value: any;
 
@@ -59,7 +59,7 @@ export class InputSelectorComponent extends AbstractInput implements OnInit, Aft
 		}
 	}
 
-	ngAfterContentInit() {
+	ngAfterViewInit() {
 		if (this.autofocus && this.tab)
 			this.tab.focus();
 	}
