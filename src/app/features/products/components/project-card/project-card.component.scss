@@ -2,8 +2,6 @@
 	display: block;
 }
 
-$margin-bar: 54px;
-
 card-app {
 
 	.space-icon {
@@ -23,6 +21,7 @@ card-app {
 
 	article {
 		padding: var(--spacing-ms);
+		padding-left: 0px;
 		border-radius: var(--border-radius);
 
 		.middle {
@@ -54,7 +53,6 @@ card-app {
 	divider-app {
 		margin-top: 3px;
 		margin-right: var(--spacing-ms);
-		margin-left: $margin-bar;
 	}
 
 	.no-projects {
@@ -64,10 +62,6 @@ card-app {
     display: flex;
     justify-content: center;
     margin: var(--spacing-xl) 0px;
-	}
-
-	.custom-margin {
-		margin-left: $margin-bar;
 	}
 
 	card-footer-app {
