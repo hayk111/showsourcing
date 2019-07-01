@@ -10,7 +10,7 @@
     <label-app>{{ customField?.label || customField?.name }}</label-app>
 		<input inputApp
 			autoFocus
-			[canFocus]="focus"
+			[canFocus]="autofocus"
 			type="text"
 			[(ngModel)]="accumulator"
 			[placeholder]="customField?.label || customField?.name"
@@ -22,7 +22,7 @@
     <label-app>{{ customField?.label || customField?.name }}</label-app>
     <input inputApp
 			autoFocus
-			[canFocus]="focus"
+			[canFocus]="autofocus"
 			restrictInput="tel"
       type="tel"
 			[placeholder]="customField?.label || customField?.name"
@@ -35,7 +35,7 @@
     <label-app>{{ customField?.label || customField?.name }}</label-app>
     <input inputApp
 			autoFocus
-			[canFocus]="focus"
+			[canFocus]="autofocus"
       restrictInput="number"
       type="number"
 			[placeholder]="customField?.label || customField?.name"
@@ -48,7 +48,7 @@
     <label-app>{{ customField?.label || customField?.name }}</label-app>
 		<input inputApp
 			autoFocus
-			[canFocus]="focus"
+			[canFocus]="autofocus"
       restrictInput="decimal"
 			type="number"
 			step="any"
@@ -62,7 +62,7 @@
     <label-app>{{ customField?.label || customField?.name }}</label-app>
     <input inputApp
 			autoFocus
-			[canFocus]="focus"
+			[canFocus]="autofocus"
 			type="number"
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"
@@ -74,7 +74,7 @@
     <label-app>{{ customField?.label || customField?.name }}</label-app>
 		<textarea inputApp
 			autoFocus
-			[canFocus]="focus"
+			[canFocus]="autofocus"
       type="text"
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"
@@ -93,7 +93,7 @@
 				[canCreate]="customField?.metadata?.canCreate"
 				[hasBadge]="customField?.metadata?.hasBadge"
 				[width]="customField?.metadata?.width || 390"
-				[autofocus]="focus"
+				[autofocus]="autofocus"
 				(update)="onChange()">
 			</input-selector-app>
 		</form-field-app>
@@ -104,7 +104,7 @@
     <form-field-app class="modal">
       <label-app>{{ customField?.label || customField?.name }}</label-app>
       <radio-app 	autoFocus inputApp
-			[canFocus]="focus" [(ngModel)]="accumulator" [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" (update)="onChange()"></radio-app>
+			[canFocus]="autofocus" [(ngModel)]="accumulator" [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" (update)="onChange()"></radio-app>
     </form-field-app>
   </ng-container>
 
@@ -113,7 +113,7 @@
 		<h4 class="ms capitalize bold-s" i18n="@@extended-fields">{{ customField?.label || customField?.name }}</h4>
 		<editable-packaging-app
 			[isFormStyle]="true"
-			[autofocus]="focus"
+			[autofocus]="autofocus"
 			name="packaging"
 			[(ngModel)]="accumulator"
 			(update)="onChange()">

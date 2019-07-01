@@ -33,7 +33,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 export class DynamicInputComponent extends AbstractInput implements OnInit, AfterViewInit {
 
 	@Input() customField: DynamicField;
-	@Input() focus = false;
+	@Input() autofocus = false;
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
