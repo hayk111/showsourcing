@@ -56,11 +56,11 @@ export class ChangePasswordPage {
 	}
 
 	get onBoardingNextBtn() {
-		return browser.driver.findElement(by.css('button.ng-star-inserted'));
+		return browser.driver.findElement(by.id('dlgNext'));
 	}
 
 	get onBoardingSuccessBtn() {
-		return browser.driver.findElement(by.css('button.success'));
+		return browser.driver.findElement(by.id('dlgSuccess'));
 	}
 
 	get errorElem() {
