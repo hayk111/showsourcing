@@ -7,7 +7,7 @@
 						 [value]="item.value" [(ngModel)]="value" (click)="onCheckedChange(item.value)"/>
       <label class="label flex" [ngClass]="{ 'pointer': !disabled }" [for]="getId(i)">
 				<div tabFocus class="focus-wrapper" (keyEnter)="inps?.toArray()[i]?.nativeElement?.click()">
-					<span class="dot flexCenter" [ngClass]="{ 'pointer': !disabled }">
+					<span class="dot flexCenter" [ngClass]="{ 'pointer': !disabled, 'selected-border': inps?.toArray()[i]?.nativeElement?.checked }">
 						<div *ngIf="inps?.toArray()[i]?.nativeElement?.checked" class="overlay"></div>
 					</span>
 				</div>
