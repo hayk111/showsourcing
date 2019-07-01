@@ -126,7 +126,7 @@
     <input-price-app inputApp [(ngModel)]="accumulator" (input)="onChange()"></input-price-app>
 	</form-field-app>
 
-	<!--  extended fields -->
+	<!-- extended fields -->
 	<ng-container	*ngSwitchCase="'extendedField'">
 		<ng-container *ngIf="definitions$ | async as definitions">
 			<h3 *ngIf="definitions?.length" class="ms" i18n="@@extended-fields">extended fields</h3>

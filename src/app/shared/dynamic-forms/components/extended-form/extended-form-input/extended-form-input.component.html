@@ -198,6 +198,7 @@
 			<radio-app
 				inputApp autoFocus
 				[canFocus]="autofocus"
+				[disabled]="disabled"
 				[checked]="field?.value === 'true' ? true : field?.value === 'false' ? false : null"
 				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
 				(update)="toggleBoolean($event)">

@@ -74,7 +74,7 @@
 	(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 	(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 	(statusUpdated)="onMultipleStatusChange($event)"
-	(deleted)="listSrv.deleteSelected()"
+	(deleted)="deleteSelected()"
 	(close)="listSrv.unselectAll()">
 </product-selection-bar-app>
 

@@ -52,7 +52,8 @@
 			[offsetX]="210"
 			[multiple]="true"
 			[width]="330"
-			(update)="updated.emit($event)">
+			(menuClosed)="updated.emit(tempProject)"
+			(update)="addLocalProjects($event)">
 			<button	i18n="button@@add-to-project">
 				Add to project
 			</button>

@@ -86,6 +86,7 @@ export class KanbanService {
 	/** sets total of specific column */
 	setTotal(total: number, colId: string) {
 		this.kanbanConfig.get(colId).totalData = total;
+		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
 	/** since we are working with copy of data we need

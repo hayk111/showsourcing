@@ -50,6 +50,20 @@ export const messagesMap = {
 			}
 		}
 	},
+	'Are you sure you want to cancel this request item?': {
+		locales: {
+			en: {
+				name: 'Are you sure you want to cancel this request item?'
+			}
+		}
+	},
+	'Are you sure you want to cancel this request items?': {
+		locales: {
+			en: {
+				name: 'Are you sure you want to cancel this request items?'
+			}
+		}
+	},
 	'Are you sure you want to delete this product?': {
 		locales: {
 			en: {
@@ -92,6 +106,20 @@ export const messagesMap = {
 	},
 	// ########### \B ############
 	// ########### \C ############
+	'cancel item': {
+		locales: {
+			en: {
+				name: 'cancel item'
+			}
+		}
+	},
+	'cancel items': {
+		locales: {
+			en: {
+				name: 'cancel items'
+			}
+		}
+	},
 	'carton size': {
 		locales: {
 			en: {

@@ -1,6 +1,6 @@
 	<div
 		class="icon flexCenter bg-{{ boxColor }}"
-		[ngClass]="{ 'mg-right': hasContent, 'pointer': disabled }"
+		[ngClass]="{ 'mg-right': hasContent, 'pointer': !disabled }"
 		[ngStyle]="iconSize()"
 		(click)="onClick()">
 		<!-- we need this to wrap both items, we cannot use the container above cause of the styling that has -->

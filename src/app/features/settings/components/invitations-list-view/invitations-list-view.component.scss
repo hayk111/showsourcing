@@ -1,9 +1,9 @@
 :host {
 	display: flex;
-	margin: 0 var(--spacing-l);
-	height: calc(100% - 155px);
+	background: var(--color-bg);
+	height: calc(100% - 156px);
 	box-sizing: border-box;
-	padding-bottom: var(--spacing-l);
+	padding: var(--spacing-l);
 }
 
 .member a {
