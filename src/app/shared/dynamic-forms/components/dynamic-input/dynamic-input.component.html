@@ -1,5 +1,4 @@
 <!-- TODO i18n -->
-{{ focus }}
 <ng-container [ngSwitch]="customField?.type">
 
   <form-field-app *ngSwitchDefault class="modal">
@@ -114,6 +113,7 @@
 		<h4 class="ms capitalize bold-s" i18n="@@extended-fields">{{ customField?.label || customField?.name }}</h4>
 		<editable-packaging-app
 			[isFormStyle]="true"
+			[autofocus]="focus"
 			name="packaging"
 			[(ngModel)]="accumulator"
 			(update)="onChange()">
