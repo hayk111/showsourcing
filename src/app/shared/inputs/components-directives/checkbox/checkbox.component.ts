@@ -74,7 +74,7 @@ export class CheckboxComponent extends AbstractInput {
 	focusClick() {
 		if (!this.disabled) {
 			this.onClick();
-			this.tab.focusOrigin();
+			this.tab.focus();
 		}
 	}
 

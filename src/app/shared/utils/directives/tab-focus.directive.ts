@@ -1,14 +1,14 @@
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import {
-	AfterViewInit,
 	ChangeDetectorRef,
 	Directive,
 	ElementRef,
 	EventEmitter,
+	HostListener,
 	NgZone,
 	OnDestroy,
+	OnInit,
 	Output,
-	HostListener,
 } from '@angular/core';
 
 @Directive({
@@ -18,13 +18,24 @@ import {
 		'[attr.tabindex]': '0'
 	}
 })
-export class TabFocusDirective implements AfterViewInit, OnDestroy {
+export class TabFocusDirective implements OnDestroy, OnInit {
 
 	@Output() keyEnter = new EventEmitter<null>();
+	@Output() keydown = new EventEmitter<string>();
 
 	@HostListener('keydown.enter', ['$event'])
 	onKeydownEnter(event) {
 		this.keyEnter.emit();
+	}
+
+	@HostListener('keydown', ['$event'])
+	onKeydown(event: KeyboardEvent) {
+		// only characters or enter key or space key
+		if ((event.key && event.key.length === 1) || event.keyCode === 13 || event.keyCode === 32) {
+			// we use this since the space event would reset scroll
+			event.preventDefault();
+			this.keydown.emit(event.key);
+		}
 	}
 
 	elementOrigin = this.formatOrigin(null);
@@ -35,7 +46,7 @@ export class TabFocusDirective implements AfterViewInit, OnDestroy {
 		private _ngZone: NgZone,
 		private element: ElementRef<any>) { }
 
-	ngAfterViewInit() {
+	ngOnInit() {
 		this._focusMonitor.monitor(this.element)
 			.subscribe(origin => this._ngZone.run(() => {
 				this.elementOrigin = this.formatOrigin(origin);
@@ -52,7 +63,7 @@ export class TabFocusDirective implements AfterViewInit, OnDestroy {
 	}
 
 	// function to focus the element on the directive once again (focus via keyboard)
-	focusOrigin(origin: FocusOrigin = 'keyboard') {
+	focus(origin: FocusOrigin = 'keyboard') {
 		this._focusMonitor.focusVia(this.element, origin);
 	}
 }

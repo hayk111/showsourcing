@@ -159,7 +159,7 @@ A package with 0cm makes no sens -->
 	<div class="flex form-section">
 		<form-field-app class="modal col-25">
 			<label-app>Length</label-app>
-			<input inputApp #inp1 [disabled]="disabled" [value]="value.length" type="number"
+			<input inputApp autoFocus [canFocus]="autofocus" #inp1 [disabled]="disabled" [value]="value.length" type="number"
 			placeholder="Length" restrictInput="number" (input)="onChangePackaging('length', +inp1.value)"/>
 		</form-field-app>
 
