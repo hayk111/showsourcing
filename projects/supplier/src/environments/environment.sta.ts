@@ -4,7 +4,7 @@ import { LogLevel } from '~utils';
 
 export const environment = {
 	production: true,
-	version: WEB_VERSION,
+	version: WEB_VERSION + '-RC',
 	graphqlUrl: 'wss://showsourcingprod.us1.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingprod.us1.cloud.realm.io/auth',
 	apiUrl: 'https://services.showsourcing.com',
