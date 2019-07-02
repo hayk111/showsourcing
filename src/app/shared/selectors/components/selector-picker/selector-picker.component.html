@@ -1,7 +1,7 @@
 
 <form [formGroup]="group">
 	<form-field-app class="search-input" [ngClass]="{'field-focused': inp.focussed || !!inp.control.value}">
-			<input inputApp formControlName="name" type="text" [placeholder]="'Enter a ' + type.singular" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
+			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'Enter a ' + type.singular" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
 	</form-field-app>
 </form>
 
