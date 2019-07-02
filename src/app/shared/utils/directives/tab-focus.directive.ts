@@ -1,6 +1,5 @@
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import {
-	AfterViewInit,
 	ChangeDetectorRef,
 	Directive,
 	ElementRef,
@@ -8,6 +7,7 @@ import {
 	HostListener,
 	NgZone,
 	OnDestroy,
+	OnInit,
 	Output,
 } from '@angular/core';
 
@@ -18,7 +18,7 @@ import {
 		'[attr.tabindex]': '0'
 	}
 })
-export class TabFocusDirective implements AfterViewInit, OnDestroy {
+export class TabFocusDirective implements OnDestroy, OnInit {
 
 	@Output() keyEnter = new EventEmitter<null>();
 	@Output() keydown = new EventEmitter<string>();
@@ -46,7 +46,7 @@ export class TabFocusDirective implements AfterViewInit, OnDestroy {
 		private _ngZone: NgZone,
 		private element: ElementRef<any>) { }
 
-	ngAfterViewInit() {
+	ngOnInit() {
 		this._focusMonitor.monitor(this.element)
 			.subscribe(origin => this._ngZone.run(() => {
 				this.elementOrigin = this.formatOrigin(origin);
@@ -63,7 +63,7 @@ export class TabFocusDirective implements AfterViewInit, OnDestroy {
 	}
 
 	// function to focus the element on the directive once again (focus via keyboard)
-	focusOrigin(origin: FocusOrigin = 'keyboard') {
+	focus(origin: FocusOrigin = 'keyboard') {
 		this._focusMonitor.focusVia(this.element, origin);
 	}
 }
