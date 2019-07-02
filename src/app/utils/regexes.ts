@@ -20,5 +20,6 @@ export enum RegexpApp {
 	PASSWORD_SPACE = '^[^\ ]{1,}$',
 	// Password must have a number (?=.*[0-9]), and length from 6 to 20, // Used for validation
 	// PASSWORD = '^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*-.,?+]{6,20}$'
+	ALPHA_NUMERIC = '[ A-Za-z0-9]'
 }
 
