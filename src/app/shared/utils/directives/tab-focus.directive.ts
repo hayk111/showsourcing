@@ -5,10 +5,10 @@ import {
 	Directive,
 	ElementRef,
 	EventEmitter,
+	HostListener,
 	NgZone,
 	OnDestroy,
 	Output,
-	HostListener,
 } from '@angular/core';
 
 @Directive({
@@ -21,10 +21,21 @@ import {
 export class TabFocusDirective implements AfterViewInit, OnDestroy {
 
 	@Output() keyEnter = new EventEmitter<null>();
+	@Output() keydown = new EventEmitter<string>();
 
 	@HostListener('keydown.enter', ['$event'])
 	onKeydownEnter(event) {
 		this.keyEnter.emit();
+	}
+
+	@HostListener('keydown', ['$event'])
+	onKeydown(event: KeyboardEvent) {
+		// only characters or enter key or space key
+		if ((event.key && event.key.length === 1) || event.keyCode === 13 || event.keyCode === 32) {
+			// we use this since the space event would reset scroll
+			event.preventDefault();
+			this.keydown.emit(event.key);
+		}
 	}
 
 	elementOrigin = this.formatOrigin(null);
