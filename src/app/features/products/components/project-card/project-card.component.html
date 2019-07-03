@@ -8,7 +8,7 @@
 			projects
 		</h3>
 	</div>
-	
+
 	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
 		<article class="flexBetween pointer" [class.last-item]="last">
 			<div class="flex">
@@ -52,7 +52,8 @@
 			[offsetX]="210"
 			[multiple]="true"
 			[width]="330"
-			(update)="updated.emit($event)">
+			(menuClosed)="updated.emit(tempProject)"
+			(update)="addLocalProjects($event)">
 			<button	i18n="button@@add-to-project">
 				Add to project
 			</button>
