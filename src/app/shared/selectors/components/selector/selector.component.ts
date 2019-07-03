@@ -69,8 +69,10 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 				debounceTime(300),
 			).subscribe(_ => {
 				this.openMenu(word);
-				word = '';
+				word = ' ';
 			});
+
+			this.tab.keyEnter.subscribe(_ => this.openMenu());
 		}
 	}
 

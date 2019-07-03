@@ -98,7 +98,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	searched$: Subject<string> = new Subject();
 	// sometimes we want to start with something to search already
-	@Input() searchTxt = '';
+	@Input() searchTxt = ' ';
 
 	/** whether the search has a exact match or not to display the create button */
 	nameExists$: Observable<boolean>;
