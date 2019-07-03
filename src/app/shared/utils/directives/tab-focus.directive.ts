@@ -34,7 +34,9 @@ export class TabFocusDirective implements OnDestroy, OnInit {
 		if ((event.key && event.key.length === 1) || event.keyCode === 13 || event.keyCode === 32) {
 			// we use this since the space event would reset scroll
 			event.preventDefault();
-			this.keydown.emit(event.key);
+			// if we find anything different than a character we just send empty
+			const key = event.key.length === 1 ? event.key : ' ';
+			this.keydown.emit(key);
 		}
 	}
 
