@@ -43,7 +43,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() width = 395;
 	@Input() pickerFields: PickerField[];
 	// we use it only if we have to initialize the selector with a search
-	@Input() searchTxt: string;
+	@Input() searchTxt = '';
 
 	@Output() update = new EventEmitter<any>();
 
@@ -71,6 +71,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 				this.openMenu(word);
 				word = '';
 			});
+
+			this.tab.keyEnter.subscribe(_ => this.openMenu());
 		}
 	}
 

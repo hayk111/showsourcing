@@ -24,14 +24,15 @@ export class TabFocusDirective implements OnDestroy, OnInit {
 	@Output() keydown = new EventEmitter<string>();
 
 	@HostListener('keydown.enter', ['$event'])
-	onKeydownEnter(event) {
+	onKeydownEnter(event: KeyboardEvent) {
+		event.stopImmediatePropagation();
 		this.keyEnter.emit();
 	}
 
 	@HostListener('keydown', ['$event'])
 	onKeydown(event: KeyboardEvent) {
 		// only characters or enter key or space key
-		if ((event.key && event.key.length === 1) || event.keyCode === 13 || event.keyCode === 32) {
+		if ((event.key && event.key.length === 1) || event.keyCode === 32) {
 			// we use this since the space event would reset scroll
 			event.preventDefault();
 			this.keydown.emit(event.key);
