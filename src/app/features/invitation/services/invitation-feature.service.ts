@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { InvitationUserService, TeamService, UserService } from '~entity-services';
@@ -37,6 +37,7 @@ export class InvitationFeatureService extends InvitationUserService {
 			})),
 			switchMap(invit => this.invitationSrv.create(invit, Client.USER)),
 			switchMap(invit => this.teamSrv.waitForOne(`id == "${invit.teamId}"`, undefined, Client.USER)),
+			tap(_ => this.teamSrv.resetSelectedTeam()),
 			switchMap(team => this.teamSrv.pickTeam(team))
 		);
 	}
