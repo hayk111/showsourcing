@@ -152,7 +152,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		// we search for an element who's index is bigger than the current index
 		const newIndex = unrepliedElements.find(index => index >= this.selectedIndex);
 		// if we didn't find any element we just pick up the first one
-		return newIndex ? newIndex : unrepliedElements.pop();
+		return newIndex ? newIndex : unrepliedElements.shift();
 	}
 
 	hasNext() {
