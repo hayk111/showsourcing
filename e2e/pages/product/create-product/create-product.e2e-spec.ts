@@ -1,7 +1,7 @@
 import { CreateProductPage } from './create-product.po';
 import { LoginPage } from '../../auth/login/login.po';
 import { ChangePasswordPage } from '../../auth/change-password/change-password.po';
-import { protractor, browser, by } from 'protractor';
+import { protractor, browser, by, ExpectedConditions, WebDriver } from 'protractor';
 
 describe('create product test suite', () => {
 	let pageCreateProduct: CreateProductPage;
@@ -126,4 +126,13 @@ describe('create product test suite', () => {
 		}
 		return expect(btn.isEnabled()).toBe(false);
 	});
+
+	it('dialog should be closed if "escape" key is pressed and selector field is closed', async () => {
+		if (await pageCreateProduct.isOpenedSelPickerApp()) { // if select picker app opened, we will close it
+			await browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
+		}
+		await browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
+		return expect(await pageCreateProduct.isOpenedCreProDlgApp()).toBeFalsy();
+	});
+
 });

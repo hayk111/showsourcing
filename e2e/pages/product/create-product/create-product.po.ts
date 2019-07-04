@@ -1,4 +1,4 @@
-import { browser, by, element, protractor } from 'protractor';
+import { browser, by, element, protractor, ExpectedConditions } from 'protractor';
 
 export class CreateProductPage {
 
@@ -88,6 +88,14 @@ export class CreateProductPage {
 		return dynamicInpApp[0].findElement(by.tagName('input'));
 	}
 
+	async isOpenedSelPickerApp() {
+		return (await browser.driver.findElements(by.tagName('selector-picker-app')) || []).length;
+	}
+
+	async isOpenedCreProDlgApp() {
+		return (await browser.driver.findElements(by.tagName('creation-product-dlg-app')) || []).length;
+	}
+
 	get selectorPlaceHolderApp() {
 		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
 		return dlgApp.findElements(by.tagName('selector-placeholder-app'));
@@ -112,4 +120,5 @@ export class CreateProductPage {
 	get selPickerApp() {
 		return browser.driver.findElement(by.tagName('selector-picker-app'));
 	}
+
 }
