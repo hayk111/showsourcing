@@ -9,9 +9,8 @@ describe('create product test suite', () => {
 	let pageChangePw: ChangePasswordPage;
 	let numTabAvailable: any;
 
-	beforeAll(async () => {
-		console.log('starting beforeAll....');
-		await browser.restart();
+	beforeEach(async () => {
+		console.log('starting beforeEach....');
 		pageCreateProduct = new CreateProductPage();
 		pageLogin = new LoginPage();
 		pageChangePw = new ChangePasswordPage();
@@ -38,11 +37,6 @@ describe('create product test suite', () => {
 		if (isOnBoardingDisplayed) {
 			await pageChangePw.completeOnBoarding();
 		}
-		console.log('beforeAll is done');
-	});
-
-	beforeEach(async () => {
-		console.log('starting beforeEach....');
 		if (await pageCreateProduct.topPanelBtn.isDisplayed()) {
 			await pageCreateProduct.topPanelBtn.click();
 
@@ -59,7 +53,7 @@ describe('create product test suite', () => {
 		console.log('beforeEach is done');
 	});
 
-	afterAll(async () => {
+	afterEach(async () => {
 		await browser.restart();
 	});
 
@@ -156,5 +150,25 @@ describe('create product test suite', () => {
 
 		expect(isUrlProductActivity).toBe(true, 'not redirect to product page');
 		return expect(await pageCreateProduct.isOpenedCreProDlgApp()).toBeFalsy();
+	});
+
+	it('succes toast should appear if product was created with success', async () => {
+		const fieldName = await pageCreateProduct.getFieldName();
+		await fieldName.sendKeys('test');
+		await pageCreateProduct.createProdBtn.click();
+		browser.sleep(2000);
+		// check product has been created with success
+		const isSuccess = await pageCreateProduct.isNotiSuccess();
+		return expect(isSuccess).toBe(true);
+	});
+
+	it('error toast should appear if product was not created', async () => {
+		const fieldName = await pageCreateProduct.getFieldName();
+		await fieldName.sendKeys('test');
+		await pageCreateProduct.createProdBtn.click();
+		browser.sleep(2000);
+		// check product has been created with success
+		const isSuccess = await pageCreateProduct.isNotiSuccess();
+		return expect(isSuccess).toBe(false);
 	});
 });
