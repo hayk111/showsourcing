@@ -82,7 +82,7 @@ describe('create product test suite', () => {
 		}
 		let currentActiveElem = await browser.driver.switchTo().activeElement();
 
-		// when field "name" not be focused, we will trigger tab to focus field "name"
+		// when field "name" not be focused, we will trigger tab to focus any field
 		if (!currentActiveElem || !await currentActiveElem.getId()) {
 			await browser.actions().sendKeys(protractor.Key.TAB).perform();
 			currentActiveElem = await browser.driver.switchTo().activeElement();
@@ -110,5 +110,20 @@ describe('create product test suite', () => {
 			}
 		}
 		return expect(count).toEqual(selectors.length, `Failed: ${failures.join(',')}`);
+	});
+
+	it('create product button should be disabled if the form has no name', async () => {
+		const fieldName = await pageCreateProduct.getFieldName();
+		if (!fieldName || !await fieldName.isDisplayed()) {
+			fail('can not get input field "Name"');
+		}
+		if (await fieldName.getText() && (await fieldName.getText()).length) {
+			await fieldName.clear();
+		}
+		const btn = await pageCreateProduct.createProdBtn;
+		if (!await btn.isDisplayed()) {
+			fail('can not get button "Save product" with id "createProduct"');
+		}
+		return expect(btn.isEnabled()).toBe(false);
 	});
 });

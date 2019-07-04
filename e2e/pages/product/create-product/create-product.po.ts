@@ -6,10 +6,6 @@ export class CreateProductPage {
 		return browser.get('/product');
 	}
 
-	// navigateToDashboard() {
-	// 	return browser.get('/dashboard');
-	// }
-
 	async submit(email: string) {
 		const emailInp = element(by.css('input[name="email"]'));
 		await emailInp.sendKeys(email);
@@ -32,7 +28,7 @@ export class CreateProductPage {
 		const array = [];
 		let currentActiveElem = await browser.driver.switchTo().activeElement(), firstId;
 
-		// when field "name" not be focused, we will trigger tab to focus field "name"
+		// when field "name" not be focused, we will trigger tab to focus any field
 		if (!currentActiveElem || !await currentActiveElem.getId()) {
 			await browser.actions().sendKeys(protractor.Key.TAB).perform();
 			currentActiveElem = await browser.driver.switchTo().activeElement();
@@ -87,6 +83,11 @@ export class CreateProductPage {
 		await doneBtn.click();
 	}
 
+	async getFieldName() {
+		const dynamicInpApp = await this.dynamicformApp.findElements(by.tagName('dynamic-input-app'));
+		return dynamicInpApp[0].findElement(by.tagName('input'));
+	}
+
 	get selectorPlaceHolderApp() {
 		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
 		return dlgApp.findElements(by.tagName('selector-placeholder-app'));
@@ -94,6 +95,10 @@ export class CreateProductPage {
 
 	get dynamicformApp() {
 		return browser.driver.findElement(by.tagName('dynamic-form-app'));
+	}
+
+	get createProdBtn() {
+		return browser.driver.findElement(by.id('createProduct'));
 	}
 
 	get topPanelBtn() {
