@@ -54,6 +54,7 @@ describe('create product test suite', () => {
 	});
 
 	afterEach(async () => {
+		console.log('afterEach');
 		await browser.restart();
 	});
 
@@ -119,6 +120,22 @@ describe('create product test suite', () => {
 			fail('can not get button "Save product" with id "createProduct"');
 		}
 		return expect(btn.isEnabled()).toBe(false);
+	});
+
+	it('create product button should open create product dialog, if checkbox "create another" is marked', async () => {
+		const fieldName = await pageCreateProduct.getFieldName();
+		await fieldName.sendKeys('test');
+
+		const createAnoCheckbox = await pageCreateProduct.createAnotherBtn;
+		if ((await createAnoCheckbox.getAttribute('value') === 'false')) { // if checkbox "create another" is marked, we will unmark
+			await pageCreateProduct.clickAnotherCheckbox();
+		}
+
+		await pageCreateProduct.createProdBtn.click();
+		browser.sleep(2000);
+		// check product has been created with success
+		await pageCreateProduct.isNotiSuccess();
+		return expect(await pageCreateProduct.isOpenedCreProDlgApp()).toBeTruthy();
 	});
 
 	it('dialog should be closed if "escape" key is pressed and selector field is closed', async () => {
