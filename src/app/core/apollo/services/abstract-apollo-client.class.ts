@@ -96,6 +96,7 @@ export abstract class AbstractApolloClient {
 		// with the same parameters, it will look at the cache instead of waiting for network response,
 		// we use 'cache-and-network' since first it looks at the cache and regardless of whether any data was found,
 		// it passes the query along to the APi to get the most up-to-date data.
+		// https://medium.com/@galen.corey/understanding-apollo-fetch-policies-705b5ad71980
 		this.apollo.create({
 			link,
 			connectToDevTools: !environment.production,
