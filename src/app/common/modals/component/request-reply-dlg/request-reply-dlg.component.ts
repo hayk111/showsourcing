@@ -139,11 +139,20 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	private getNextUnrepliedIndex() {
-		return this.elements.findIndex(elem => (
-			elem.reply.status === ReplyStatus.PENDING ||
-			elem.reply.status === ReplyStatus.ERROR ||
-			elem.reply.status === ReplyStatus.RESENT
-		) && elem.reply.id !== this.reply.id);
+		// we map the elements that are still unreplied and we filter the undefined ones
+		const unrepliedElements = this.elements.map(
+			(elem, index) => {
+				if ((
+					elem.reply.status === ReplyStatus.PENDING ||
+					elem.reply.status === ReplyStatus.ERROR ||
+					elem.reply.status === ReplyStatus.RESENT
+				) && elem.reply.id !== this.reply.id)
+					return index;
+			}).filter(index => index !== undefined);
+		// we search for an element who's index is bigger than the current index
+		const newIndex = unrepliedElements.find(index => index >= this.selectedIndex);
+		// if we didn't find any element we just pick up the first one
+		return newIndex ? newIndex : unrepliedElements.shift();
 	}
 
 	hasNext() {
