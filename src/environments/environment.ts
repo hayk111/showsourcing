@@ -19,7 +19,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 // so we can have more fine grained logs
 
 export const environment = {
-	version: WEB_VERSION,
+	version: WEB_VERSION + '-DEV',
 	production: false,
 	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',

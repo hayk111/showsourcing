@@ -52,6 +52,7 @@ export class ExtendedFormInputComponent implements OnInit {
 		return this._definition;
 	}
 	@Input() disabled = false;
+	@Input() autofocus = false;
 
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;

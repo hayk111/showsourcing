@@ -9,6 +9,7 @@ import {
 	OnInit,
 	Output,
 } from '@angular/core';
+import { debounceTime, tap } from 'rxjs/operators';
 import { EntityMetadata, ERM } from '~core/models';
 import { FilterList } from '~shared/filters';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
@@ -41,6 +42,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() filterList = new FilterList([]);
 	@Input() width = 395;
 	@Input() pickerFields: PickerField[];
+	// we use it only if we have to initialize the selector with a search
+	@Input() searchTxt: string;
 
 	@Output() update = new EventEmitter<any>();
 
@@ -59,8 +62,16 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	ngOnInit() {
 		// everytime we focus the content and hit enter, we are opening the menu
-		if (this.tab)
-			this.tab.keyEnter.subscribe(_ => this.openMenu());
+		if (this.tab) {
+			let word = '';
+			this.tab.keydown.pipe(
+				tap(key => word += key),
+				debounceTime(300),
+			).subscribe(_ => {
+				this.openMenu(word);
+				word = '';
+			});
+		}
 	}
 
 	/** Toggles the menu between the open and closed states. */
@@ -69,8 +80,10 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	}
 
 	/** Opens the menu. */
-	openMenu(): void {
+	openMenu(searchTxt?: string): void {
 		if (!this.disabled) {
+			if (searchTxt)
+				this.searchTxt = searchTxt;
 			this.menuOpen = true;
 			this.cdr.markForCheck();
 		}
@@ -81,9 +94,10 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 		this.menuOpen = false;
 		if (emit) {
 			this.menuClosed.emit();
+			this.searchTxt = '';
 			// when we close the menu we want to be focused again
 			if (this.tab)
-				this.tab.focusOrigin();
+				this.tab.focus();
 		}
 	}
 

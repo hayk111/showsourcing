@@ -26,6 +26,9 @@ export class ExtendedFormComponent extends TrackingComponent implements OnChange
 	@Input() isFormStyle = false;
 	@Input() colAmount = 1;
 	@Input() disabled = false;
+	@Input() autofocus = false;
+	// index where the focus starts
+	@Input() indexFocus = 0;
 	@Output() update = new EventEmitter<ExtendedField[]>();
 	cols: ExtendedField[][];
 
