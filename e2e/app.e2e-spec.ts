@@ -6,5 +6,7 @@
 // import './pages/auth/change-password/change-password.e2e-spec';
 // import './pages/auth/flow/flow.e2e-spec';
 
-import './pages/invitation/invitation.e2e-spec';
+// import './pages/invitation/invitation.e2e-spec';
+
+import './pages/product/create-product/create-product.e2e-spec';
 
