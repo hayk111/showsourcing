@@ -96,6 +96,25 @@ export class CreateProductPage {
 		return (await browser.driver.findElements(by.tagName('creation-product-dlg-app')) || []).length;
 	}
 
+	async clickAnotherCheckbox() {
+		const checkboxApp = await browser.driver.findElement(by.css('checkbox-app[id="createAnother"]'));
+		// const label = checkboxApp.findElement(by.tagName('label'));
+		await checkboxApp.findElement(by.tagName('label')).click();
+	}
+
+	async isNotiSuccess() {
+		const notificationApp = await browser.driver.wait(async _ => {
+			return browser.driver.findElement(by.tagName('notification-app'));
+		}, 10000);
+
+		if (await notificationApp.isDisplayed()) {
+			return await notificationApp.findElement(by.css('div.success')).isDisplayed();
+		} else {
+			console.log('can not get notification-app');
+			return false;
+		}
+	}
+
 	get selectorPlaceHolderApp() {
 		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
 		return dlgApp.findElements(by.tagName('selector-placeholder-app'));
@@ -111,6 +130,10 @@ export class CreateProductPage {
 
 	get topPanelBtn() {
 		return browser.driver.findElement(by.id('topPanelBtn'));
+	}
+
+	get createAnotherBtn() {
+		return browser.driver.findElement(by.css('input[id="createAnother"]'));
 	}
 
 	get creationProductDlgApp() {

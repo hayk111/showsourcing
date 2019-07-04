@@ -135,4 +135,26 @@ describe('create product test suite', () => {
 		return expect(await pageCreateProduct.isOpenedCreProDlgApp()).toBeFalsy();
 	});
 
+	it('create product button should close dialog and redirect to product page, if checkbox "create another" is unmarked', async () => {
+		const createAnoCheckbox = await pageCreateProduct.createAnotherBtn;
+		if ((await createAnoCheckbox.getAttribute('value') === 'true')) { // if checkbox "create another" is marked, we will unmark
+			await pageCreateProduct.clickAnotherCheckbox();
+		}
+		const fieldName = await pageCreateProduct.getFieldName();
+		await fieldName.sendKeys('test');
+
+		await pageCreateProduct.createProdBtn.click();
+		browser.sleep(2000);
+		// check product has been created with success
+		const isSuccess = await pageCreateProduct.isNotiSuccess();
+		expect(isSuccess).toBe(true, 'failed: product could not been created');
+
+		const isUrlProductActivity = await browser.driver.wait(async _ => {
+			const url: string = await browser.driver.getCurrentUrl();
+			return /product\/.*?\/activity/g.test(url);
+		}, 10000);
+
+		expect(isUrlProductActivity).toBe(true, 'not redirect to product page');
+		return expect(await pageCreateProduct.isOpenedCreProDlgApp()).toBeFalsy();
+	});
 });
