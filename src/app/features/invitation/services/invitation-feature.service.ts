@@ -37,7 +37,6 @@ export class InvitationFeatureService extends InvitationUserService {
 			})),
 			switchMap(invit => this.invitationSrv.create(invit, Client.USER)),
 			switchMap(invit => this.teamSrv.waitForOne(`id == "${invit.teamId}"`, undefined, Client.USER)),
-			tap(_ => this.teamSrv.resetSelectedTeam()),
 			switchMap(team => this.teamSrv.pickTeam(team))
 		);
 	}

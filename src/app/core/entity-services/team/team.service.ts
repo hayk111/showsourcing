@@ -80,6 +80,7 @@ export class TeamService extends GlobalService<Team> {
 
 	/** picks a team, puts the selection in local storage */
 	pickTeam(team: Team): Observable<Team> {
+		this.resetSelectedTeam();
 		this.storage.setItem(SELECTED_TEAM, team);
 		this._teamSelectionEvent$.next(team);
 		return this.teamSelectionEvent$.pipe(
