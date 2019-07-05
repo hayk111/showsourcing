@@ -194,6 +194,29 @@ export class CreateProductPage {
 
 	// for describe 'add attachment button should upload attachment'
 
+	async setAttachment(url: string) {
+		const inpAttachment = await browser.driver.findElement(by.id('inpAttachment'));
+		const script = `arguments[0].style.visibility = "visible"; arguments[0].style.height = "1px";
+		arguments[0].style.width = "1px"; arguments[0].style.opacity = 1`;
+		await browser.driver.executeScript(script, inpAttachment);
+		browser.sleep(1000);
+		await inpAttachment.sendKeys(url);
+	}
+
+	async isListAppExisted() {
+		return (await browser.driver.findElements(by.tagName('list-app')) || []).length;
+	}
+
+	async isAttachmentUploaded() {
+		const listItemApp = await browser.driver.findElements(by.tagName('list-item-app'));
+		if (!listItemApp || !listItemApp.length) {
+			fail('can not get "list-item-app"');
+		} else {
+			const newAttachment = listItemApp[listItemApp.length - 1]; // get the last one
+			return (await newAttachment.findElements(by.tagName('spinner-app')) || []).length;
+		}
+	}
+
 	get addFileBtn() {
 		return browser.driver.findElement(by.id('addFile'));
 	}

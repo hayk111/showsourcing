@@ -112,6 +112,7 @@ describe('create product test suite', () => {
 		return expect(count).toEqual(selectors.length, `Failed: ${failures.join(',')}`);
 	});
 
+	// ------------ TEST SUITE UPLOAD IMAGE ------------
 	describe('add image button should upload image', () => {
 
 		it('"add picture" button should be displayed if there is no picture', async () => {
@@ -162,27 +163,58 @@ describe('create product test suite', () => {
 
 	});
 
-	// describe('add attachment button should upload attachment', () => {
-	// 	it('"add file" button should be displayed', async () => {
-	// 		browser.sleep(1000);
-	// 		return expect(pageCreateProduct.addFileBtn.isDisplayed()).toBe(true);
-	// 	});
-	// });
+	// ------------ TEST SUITE UPLOAD ATTACHMENT ------------
+	describe('add attachment button should upload attachment', () => {
 
-	// it('create product button should be disabled if the form has no name', async () => {
-	// 	const fieldName = await pageCreateProduct.getFieldName();
-	// 	if (!fieldName || !await fieldName.isDisplayed()) {
-	// 		fail('can not get input field "Name"');
-	// 	}
-	// 	if (await fieldName.getText() && (await fieldName.getText()).length) {
-	// 		await fieldName.clear();
-	// 	}
-	// 	const btn = await pageCreateProduct.createProdBtn;
-	// 	if (!await btn.isDisplayed()) {
-	// 		fail('can not get button "Save product" with id "createProduct"');
-	// 	}
-	// 	return expect(btn.isEnabled()).toBe(false);
-	// });
+		it('"add file" button should be displayed', async () => {
+			browser.sleep(1000);
+			return expect(pageCreateProduct.addFileBtn.isDisplayed()).toBe(true);
+		});
+
+		it('spinner should appear if file is being uploaded', async () => {
+			const urlImg = '/Users/macuser/Pictures/WP/background.JPG'; // it will be img's url on your PC
+			await pageCreateProduct.setAttachment(urlImg);
+			browser.sleep(5000);
+			return expect(await pageCreateProduct.isOpenedSpinnerApp()).toBeTruthy();
+		});
+
+		it('spinner should disappear if file is uploaded', async () => { // how to know the file is uploaded???
+			browser.sleep(1000);
+			const urlImg = '/Users/macuser/Pictures/WP/background.JPG'; // it will be img's url on your PC
+			await pageCreateProduct.setAttachment(urlImg);
+			browser.sleep(5000);
+
+			expect(await pageCreateProduct.isListAppExisted()).toBeTruthy('can not get "img-app"');
+
+			return expect(await pageCreateProduct.isAttachmentUploaded()).toBeFalsy();
+		});
+
+		it('a toast massege should appear if file is uploaded', async () => {
+			browser.sleep(1000);
+			const urlImg = '/Users/macuser/Pictures/WP/background.JPG'; // it will be img's url on your PC
+			await pageCreateProduct.setAttachment(urlImg);
+			browser.sleep(5000);
+
+			expect(await pageCreateProduct.isListAppExisted()).toBeTruthy('can not get "img-app"');
+			expect(await pageCreateProduct.isAttachmentUploaded()).toBeFalsy('can not upload attachment');
+			return expect(await pageCreateProduct.isNotiSuccess()).toBe(true);
+		});
+	});
+
+	it('create product button should be disabled if the form has no name', async () => {
+		const fieldName = await pageCreateProduct.getFieldName();
+		if (!fieldName || !await fieldName.isDisplayed()) {
+			fail('can not get input field "Name"');
+		}
+		if (await fieldName.getText() && (await fieldName.getText()).length) {
+			await fieldName.clear();
+		}
+		const btn = await pageCreateProduct.createProdBtn;
+		if (!await btn.isDisplayed()) {
+			fail('can not get button "Save product" with id "createProduct"');
+		}
+		return expect(btn.isEnabled()).toBe(false);
+	});
 
 	it('create product button should open create product dialog, if checkbox "create another" is marked', async () => {
 		const fieldName = await pageCreateProduct.getFieldName();
