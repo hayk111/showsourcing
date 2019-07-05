@@ -8,6 +8,7 @@ describe('create product test suite', () => {
 	let pageLogin: LoginPage;
 	let pageChangePw: ChangePasswordPage;
 	let numTabAvailable: any;
+	let fieldFocusableIds: any = [];
 
 	beforeEach(async () => {
 		console.log('starting beforeEach....');
@@ -50,7 +51,8 @@ describe('create product test suite', () => {
 			}
 
 			if (!numTabAvailable) {
-				numTabAvailable = await pageCreateProduct.countTabs();
+				fieldFocusableIds = await pageCreateProduct.countTabs();
+				numTabAvailable = fieldFocusableIds.length;
 			}
 		} else {
 			fail('can not find button "Add product" with id "topPanelBtn"');
@@ -74,6 +76,35 @@ describe('create product test suite', () => {
 		} else {
 			fail('can not get input with name "name"');
 		}
+	});
+
+	it('all fields should be focusable when navigating with "tab" key', async () => {
+		if (!numTabAvailable) {
+			fail('can not count all fields focusable');
+		}
+
+		// input field
+		let inpFieldIds = await pageCreateProduct.getInpFieldIds();
+		inpFieldIds = inpFieldIds.filter(o => !fieldFocusableIds.includes(o));
+		expect(inpFieldIds.length).toBeFalsy('all input field can not be focusable');
+
+		// boolean field
+		let booleanFieldIds = await pageCreateProduct.getBooleanFieldIds();
+		booleanFieldIds = booleanFieldIds.filter(o => !fieldFocusableIds.includes(o));
+		expect(booleanFieldIds.length).toBeFalsy('all boolean field can not be focusable');
+
+		// checkbox
+		let checkboxIds = await pageCreateProduct.getCheckboxIds();
+		checkboxIds = checkboxIds.filter(o => !fieldFocusableIds.includes(o));
+		expect(checkboxIds.length).toBeFalsy('all checkbox field can not be focusable');
+
+		// buttons
+		let btnIds = await pageCreateProduct.getButtonIds();
+		btnIds = btnIds.filter(o => !fieldFocusableIds.includes(o));
+		expect(btnIds.length).toBeFalsy('all checkbox field can not be focusable');
+
+		browser.driver.sleep(50000);
+		return expect(true).toBe(true);
 	});
 
 	it('when selector field is focused it should be opened when typing', async () => {

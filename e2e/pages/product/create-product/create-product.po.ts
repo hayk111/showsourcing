@@ -27,28 +27,24 @@ export class CreateProductPage {
 	async countTabs() {
 		const array = [];
 		let currentActiveElem = await browser.driver.switchTo().activeElement(), firstId;
-
 		// when field "name" not be focused, we will trigger tab to focus any field
 		if (!currentActiveElem || !await currentActiveElem.getId()) {
 			await browser.actions().sendKeys(protractor.Key.TAB).perform();
 			currentActiveElem = await browser.driver.switchTo().activeElement();
 		}
 		firstId = await currentActiveElem.getId();
-		array.push(firstId, await currentActiveElem.getId()); // add id of field "name" to array
-
+		array.push(await currentActiveElem.getId()); // add id of field "name" to array
+		await currentActiveElem.sendKeys('123');  // for check focusable of "save product" button
 		// trigger next focus
 		await browser.actions().sendKeys(protractor.Key.TAB).perform();
 		currentActiveElem = await browser.driver.switchTo().activeElement();
-		console.log(await currentActiveElem.getTagName());
 
 		while (firstId !== await currentActiveElem.getId()) {
 			array.push(await currentActiveElem.getId());
 			await browser.actions().sendKeys(protractor.Key.TAB).perform();
 			currentActiveElem = await browser.driver.switchTo().activeElement();
-			console.log(await currentActiveElem.getTagName(), await currentActiveElem.getId());
 		}
-		await this.fieldsOfDlgApp();
-		return array.length || 0; // length will be 37 (except button "Save product")
+		return array || [];
 	}
 
 	async isOpenedSelPicker() {
@@ -56,30 +52,44 @@ export class CreateProductPage {
 		return app && await app.isDisplayed();
 	}
 
-	get inputsOfDynamicformApp() {
-		const dynamicformApp = browser.driver.findElement(by.tagName('dynamic-form-app'));
-		return dynamicformApp.findElements(by.tagName('input'));
+	async getInpFieldIds() {
+		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
+		const formFieldApps = await dlgApp.findElements(by.tagName('form-field-app'));
+		const inpFields = [];
+		for (let i = 0; i < formFieldApps.length; i++) {
+			if ((await formFieldApps[i].findElements(by.tagName('input'))).length) {
+				const inp = formFieldApps[i].findElement(by.tagName('input'));
+				if (await inp.isDisplayed() && await inp.getAttribute('type') !== 'radio' && await inp.getAttribute('type') !== 'file') {
+					inpFields.push(await inp.getId());
+				}
+			}
+		}
+		return inpFields;
+	}
+
+	async getBooleanFieldIds() {
+		const dlgApp = await browser.driver.findElement(by.tagName('dialog-app'));
+		const radioApp = await dlgApp.findElement(by.tagName('radio-app'));
+		const divFocusWrappers = await radioApp.findElements(by.css('div.focus-wrapper'));
+		return Promise.all(divFocusWrappers.map(async e => (await e.getId())));
+	}
+
+	async getCheckboxIds() {
+		const dlgApp = await browser.driver.findElement(by.tagName('dialog-app'));
+		const checkboxApps = await dlgApp.findElements(by.tagName('checkbox-app'));
+		// *[@id="createAnother"]/div/div/div
+		return Promise.all(checkboxApps.map(async e => (await e.findElement(by.xpath('div/div')).getId())));
+	}
+
+	async getButtonIds() {
+		const dlgApp = await browser.driver.findElement(by.tagName('dialog-app'));
+		const btns = await dlgApp.findElements(by.tagName('button'));
+		return Promise.all(btns.map(async e => (await e.getId())));
 	}
 
 	get inpRadiosOfDlgApp() {
 		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
 		return dlgApp.findElements(by.css('input[type="radio"]'));
-	}
-
-	async fieldsOfDlgApp() {
-		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
-		const textInps = await dlgApp.findElements(by.css('input[type="text"]'));
-		const numInps = await dlgApp.findElements(by.css('input[type="number"]'));
-		const radioInps = await dlgApp.findElements(by.css('input[type="radio"]'));
-		const btns = await dlgApp.findElements(by.css('button.secondary'));
-		// const aaa = await textInps[0].
-		console.log({
-			textInps: textInps.length,
-			numInps: numInps.length,
-			radioInps: radioInps.length,
-			btns: btns.length
-		});
-		return [...textInps, ...numInps, ...radioInps, ...btns];
 	}
 
 	async closeSelPickerApp() {
