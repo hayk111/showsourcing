@@ -1,4 +1,4 @@
-import { browser, by, element, protractor, ExpectedConditions } from 'protractor';
+import { browser, by, element, protractor, ExpectedConditions, FileDetector } from 'protractor';
 
 export class CreateProductPage {
 
@@ -34,17 +34,20 @@ export class CreateProductPage {
 			currentActiveElem = await browser.driver.switchTo().activeElement();
 		}
 		firstId = await currentActiveElem.getId();
-		array.push(firstId); // add id of field "name" to array
+		array.push(firstId, await currentActiveElem.getId()); // add id of field "name" to array
 
 		// trigger next focus
 		await browser.actions().sendKeys(protractor.Key.TAB).perform();
 		currentActiveElem = await browser.driver.switchTo().activeElement();
+		console.log(await currentActiveElem.getTagName());
 
 		while (firstId !== await currentActiveElem.getId()) {
 			array.push(await currentActiveElem.getId());
 			await browser.actions().sendKeys(protractor.Key.TAB).perform();
 			currentActiveElem = await browser.driver.switchTo().activeElement();
+			console.log(await currentActiveElem.getTagName(), await currentActiveElem.getId());
 		}
+		await this.fieldsOfDlgApp();
 		return array.length || 0; // length will be 37 (except button "Save product")
 	}
 
@@ -69,6 +72,7 @@ export class CreateProductPage {
 		const numInps = await dlgApp.findElements(by.css('input[type="number"]'));
 		const radioInps = await dlgApp.findElements(by.css('input[type="radio"]'));
 		const btns = await dlgApp.findElements(by.css('button.secondary'));
+		// const aaa = await textInps[0].
 		console.log({
 			textInps: textInps.length,
 			numInps: numInps.length,
@@ -115,6 +119,10 @@ export class CreateProductPage {
 		}
 	}
 
+	async isOpenedSpinnerApp() {
+		return (await browser.driver.findElements(by.tagName('spinner-app')) || []).length;
+	}
+
 	get selectorPlaceHolderApp() {
 		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
 		return dlgApp.findElements(by.tagName('selector-placeholder-app'));
@@ -144,4 +152,49 @@ export class CreateProductPage {
 		return browser.driver.findElement(by.tagName('selector-picker-app'));
 	}
 
+	// for describe 'add image button should upload image'
+	async isImgAppExisted() {
+		return (await browser.driver.findElements(by.tagName('img-app')) || []).length;
+	}
+
+	async setImg(url: string) {
+		const inpImg = await browser.driver.findElement(by.id('inpImg'));
+		const script = `arguments[0].style.visibility = "visible"; arguments[0].style.height = "1px";
+		arguments[0].style.width = "1px"; arguments[0].style.opacity = 1`;
+		await browser.driver.executeScript(script, inpImg);
+		browser.sleep(1000);
+		await inpImg.sendKeys(url);
+	}
+
+	async isImgUploaded() {
+		const imgApp = await browser.driver.findElement(by.tagName('img-app')); // get 1st img-app, it means "img-app" (the biggest one)
+		const img = await imgApp.findElement(by.tagName('img'));
+		return await browser.driver.wait(async _ => {
+			const src = await img.getAttribute('src');
+			return /files\.showsourcing\.com/.test(src);
+		}, 15000);
+	}
+
+	async hoverImgAppCarousel() {
+		const imgApp = await browser.driver.findElement(by.tagName('img-app')); // get 1st img-app, it means "img-app" (the biggest one)
+		await browser.driver.actions().mouseMove(imgApp).perform();
+	}
+
+	async isDisplayAddBtn() {
+		if ((await browser.driver.findElements(by.id('divAdd')) || []).length) {
+			return await browser.driver.findElement(by.id('divAdd')).isDisplayed();
+		} else {
+			fail('can not get button "Add" of "carousel-app"');
+		}
+	}
+
+	get addPictureBtn() {
+		return browser.driver.findElement(by.id('addPicture'));
+	}
+
+	// for describe 'add attachment button should upload attachment'
+
+	get addFileBtn() {
+		return browser.driver.findElement(by.id('addFile'));
+	}
 }

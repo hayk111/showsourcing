@@ -16,16 +16,20 @@ describe('create product test suite', () => {
 		pageChangePw = new ChangePasswordPage();
 
 		await pageCreateProduct.navigateTo();
-		browser.waitForAngular();
+		// await browser.waitForAngular();
 		await pageLogin.login('sp@gmail.com', '12345', true);
 
+		console.log('waiting pick-a-team...');
 		await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();
 			return /pick-a-team/.test(url);
-		}, 10000);
+		}, 20000);
 
 		browser.sleep(1000);
+		console.log('waiting for teams...');
+
 		await pageChangePw.firstDivOfUl.click();
+		console.log('selected 1st team....');
 		await browser.driver.wait(async _ => {
 			const url: string = await browser.driver.getCurrentUrl();
 			return /product/.test(url) && !/pick-a-team/.test(url);
@@ -35,6 +39,7 @@ describe('create product test suite', () => {
 
 		const isOnBoardingDisplayed = await pageChangePw.onBoardingElem.isDisplayed();
 		if (isOnBoardingDisplayed) {
+			console.log('completing onboarding...');
 			await pageChangePw.completeOnBoarding();
 		}
 		if (await pageCreateProduct.topPanelBtn.isDisplayed()) {
@@ -107,20 +112,77 @@ describe('create product test suite', () => {
 		return expect(count).toEqual(selectors.length, `Failed: ${failures.join(',')}`);
 	});
 
-	it('create product button should be disabled if the form has no name', async () => {
-		const fieldName = await pageCreateProduct.getFieldName();
-		if (!fieldName || !await fieldName.isDisplayed()) {
-			fail('can not get input field "Name"');
-		}
-		if (await fieldName.getText() && (await fieldName.getText()).length) {
-			await fieldName.clear();
-		}
-		const btn = await pageCreateProduct.createProdBtn;
-		if (!await btn.isDisplayed()) {
-			fail('can not get button "Save product" with id "createProduct"');
-		}
-		return expect(btn.isEnabled()).toBe(false);
+	describe('add image button should upload image', () => {
+
+		it('"add picture" button should be displayed if there is no picture', async () => {
+			expect(await pageCreateProduct.isImgAppExisted()).toBeFalsy();
+			return expect(pageCreateProduct.addPictureBtn.isDisplayed()).toBe(true);
+		});
+
+		it('"Add picture button": spinner should appear if image is being uploaded', async () => {
+			const urlImg = '/Users/macuser/Pictures/WP/background.JPG'; // it will be img's url on your PC
+			await pageCreateProduct.setImg(urlImg);
+			browser.sleep(5000);
+			return expect(await pageCreateProduct.isOpenedSpinnerApp()).toBeTruthy();
+		});
+
+		it('"Add picture button": spinner should disappear if image is uploaded', async () => {
+			browser.sleep(1000);
+			const urlImg = '/Users/macuser/Pictures/WP/background.JPG'; // it will be img's url on your PC
+			await pageCreateProduct.setImg(urlImg);
+			browser.sleep(5000);
+
+			expect(await pageCreateProduct.isImgAppExisted()).toBeTruthy('can not get "img-app"');
+			expect(await pageCreateProduct.isImgUploaded()).toBe(true, 'can not upload image');
+			return expect(await pageCreateProduct.isOpenedSpinnerApp()).toBeFalsy();
+		});
+
+		it('"Add picture button": a toast massege should appear if image is uploaded', async () => {
+			browser.sleep(1000);
+			const urlImg = '/Users/macuser/Pictures/WP/background.JPG'; // it will be img's url on your PC
+			await pageCreateProduct.setImg(urlImg);
+			browser.sleep(5000);
+
+			expect(await pageCreateProduct.isImgAppExisted()).toBeTruthy('can not get "img-app"');
+			expect(await pageCreateProduct.isImgUploaded()).toBe(true, 'can not upload image');
+			browser.sleep(2000);
+
+			return expect(await pageCreateProduct.isNotiSuccess()).toBe(true);
+		});
+
+		it('"Add picture button": "add" button should be displayed when hovering over the image carousel', async () => {
+			browser.sleep(1000);
+			const urlImg = '/Users/macuser/Pictures/WP/background.JPG'; // it will be img's url on your PC
+			await pageCreateProduct.setImg(urlImg);
+			browser.sleep(5000);
+			await pageCreateProduct.hoverImgAppCarousel();
+
+			return expect(await pageCreateProduct.isDisplayAddBtn()).toBe(true);
+		});
+
 	});
+
+	// describe('add attachment button should upload attachment', () => {
+	// 	it('"add file" button should be displayed', async () => {
+	// 		browser.sleep(1000);
+	// 		return expect(pageCreateProduct.addFileBtn.isDisplayed()).toBe(true);
+	// 	});
+	// });
+
+	// it('create product button should be disabled if the form has no name', async () => {
+	// 	const fieldName = await pageCreateProduct.getFieldName();
+	// 	if (!fieldName || !await fieldName.isDisplayed()) {
+	// 		fail('can not get input field "Name"');
+	// 	}
+	// 	if (await fieldName.getText() && (await fieldName.getText()).length) {
+	// 		await fieldName.clear();
+	// 	}
+	// 	const btn = await pageCreateProduct.createProdBtn;
+	// 	if (!await btn.isDisplayed()) {
+	// 		fail('can not get button "Save product" with id "createProduct"');
+	// 	}
+	// 	return expect(btn.isEnabled()).toBe(false);
+	// });
 
 	it('create product button should open create product dialog, if checkbox "create another" is marked', async () => {
 		const fieldName = await pageCreateProduct.getFieldName();
