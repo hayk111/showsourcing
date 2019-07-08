@@ -2,6 +2,11 @@ import { ID, uuid } from '~utils';
 
 export const DEFAULT_STATUS_CATEGORY = 'inProgress';
 export const NEW_STATUS_ID = 'new-status-id';
+export enum TaskStatus {
+	DONE = '_Done',
+	PENDING = '_Pending',
+	OVERDUE = '_Overdue',
+}
 
 export class Status {
 	id?: ID;
@@ -13,8 +18,8 @@ export class Status {
 	deleted?= false;
 
 	constructor(config: StatusConfig) {
-		if (!config.id) this.id = uuid();
 		Object.assign(this, config);
+		if (!config.id) this.id = uuid();
 	}
 }
 

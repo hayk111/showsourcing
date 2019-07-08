@@ -6,7 +6,7 @@
 				[image]="sample?.images?.length ? sample?.images[0] : null"
 				type="sample"
 				size="s">		</img-app>
-			<div class="preview">preview</div>
+			<div class="preview first-uppercase" i18n="@@preview">preview</div>
 		</div>
 
 		<checkbox-app
@@ -17,7 +17,7 @@
 		</checkbox-app>
 	</div>
 	<div class="right">
-		<h3 class="ms"> {{ sample?.name || 'Unnamed' }} </h3>
+		<h3 class="ms"> {{ sample?.name || '-' }} </h3>
 		<div class="center-section flex">
 			<div class="name">{{ sample?.name }}</div>
 			<div *ngIf="sample?.supplier" class="supplier">{{ sample?.supplier?.name }}</div>

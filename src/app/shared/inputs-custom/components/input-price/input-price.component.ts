@@ -18,14 +18,23 @@ import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inp
 	providers: [makeAccessorProvider(InputPriceComponent)]
 })
 export class InputPriceComponent extends AbstractInput {
+
+	@Input() disabled = false;
 	@Output() change = new EventEmitter();
 	@Output() blur = new EventEmitter();
-	@ViewChild(InputDirective) inp: InputDirective;
+
+	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
+
 	currencySelectorShown: boolean;
 
-	private _price: Price = new Price({ value: 0, currency: 'USD' });
+	private _price: Price;
 	@Input()
-	set price(price: Price) { if (price) this._price = { ...price }; }
+	set price(price: Price) {
+		if (price)
+			this._price = { ...price };
+		else
+			this._price = new Price({ value: 0, currency: 'USD' });
+	}
 	get price() { return this._price; }
 
 	constructor(protected cd: ChangeDetectorRef) {
@@ -52,10 +61,12 @@ export class InputPriceComponent extends AbstractInput {
 		if (item) this.price = { ...this.price, currency: item };
 		this.hideCurrencySelector();
 		this.onChange();
+		this.blur.emit();
 	}
 
 	onBlur() {
 		this.onTouchedFn();
+		this.blur.emit();
 		// prevent view changed after it was checked error
 		this.cd.detectChanges();
 	}
@@ -69,7 +80,7 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	get amount() {
-		return this.price.value / 10000;
+		return this.price && this.price.value ? this.price.value / 10000 : 0;
 	}
 
 	set amount(amount: any) {
@@ -78,10 +89,14 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	get currency() {
-		return this.price.currency;
+		return this.price && this.price.currency ? this.price.currency : 'USD';
 	}
 
 	set currency(currencyId: string) {
 		this.price.currency = currencyId;
+	}
+
+	focus() {
+		this.inp.focus();
 	}
 }

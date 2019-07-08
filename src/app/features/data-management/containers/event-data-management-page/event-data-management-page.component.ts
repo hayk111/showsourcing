@@ -22,8 +22,7 @@ export class EventDataManagementPageComponent extends AutoUnsub implements OnIni
 		private eventSrv: EventService,
 		public listSrv: ListPageService<Event, EventService>,
 		public commonModalSrv: CommonModalService,
-		private dmSrv: DataManagementService
-	) {
+		private dmSrv: DataManagementService) {
 		super();
 	}
 
@@ -32,7 +31,7 @@ export class EventDataManagementPageComponent extends AutoUnsub implements OnIni
 			key: ListPageKey.EVENT,
 			entitySrv: this.eventSrv,
 			searchedFields: ['description.name'],
-			selectParams: { sortBy: 'description.name', descending: false },
+			selectParams: { sortBy: 'description.name', descending: false, query: 'deleted == false' },
 			entityMetadata: ERM.EVENT,
 			originComponentDestroy$: this._destroy$
 		});

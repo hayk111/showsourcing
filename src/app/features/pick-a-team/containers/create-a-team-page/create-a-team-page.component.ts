@@ -7,7 +7,7 @@ import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
 import { Company } from '~models/company.model';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -38,7 +38,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 	) {
 		super();
 		this.listForm = [{
-			label: 'Team Name',
+			label: translate('Team name'),
 			type: 'text',
 			name: 'name',
 			isRequired: true,
@@ -46,7 +46,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 			validators: [Validators.required]
 		}];
 		this.buttons = [{
-			label: 'Create a new team',
+			label: translate('Create a new team'),
 			type: 'button'
 		}];
 	}
@@ -57,7 +57,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		).subscribe(all => {
 			if (all.length > 0) {
 				this.buttons = [...this.buttons, {
-					label: 'Select a team Instead',
+					label: translate('Select a team instead'),
 					type: 'link',
 					link: '../pick-a-team'
 				}];
@@ -82,7 +82,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 				e => {
 					this.hideForm = false;
 					this.pending = false;
-					this.error = 'We had an error creating your team. Please try again.';
+					this.error = translate('We had an error creating your team. Please try again.');
 					this.cdr.detectChanges();
 				}
 			);

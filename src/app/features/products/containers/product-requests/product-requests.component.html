@@ -1,0 +1,12 @@
+<card-app>
+	<h2 class="l" i18n="header@@request-items">Request Items</h2>
+	<request-element-list-view-app
+		class="no-padding"
+		[rows]="listSrv.items$ | async"
+		[hasSelection]="false"
+		[pending]="listSrv.pending"
+		(cancelReply)="cancelReply($event)"
+		(openReviewRequestReply)="openRequestDetails($event)"
+		(bottomReached)="listSrv.loadMore()">
+	</request-element-list-view-app>
+</card-app>

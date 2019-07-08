@@ -34,7 +34,8 @@
 		<!-- Location badge -->
 		<preview-badge-app
 			[badge]="erm.LOCATION"
-			[value]="getLocationName(supplier)" (update)="update($event, 'country')">
+			[value]="getLocationName(supplier)"
+			(update)="update($event, 'country')">
 		</preview-badge-app>
 
 		<!-- Categories badge -->
@@ -48,7 +49,7 @@
 	</preview-header-app>
 
 	<!-- Description -->
-	<preview-section-app [title]="'Description'">
+	<preview-section-app [title]="'description'" i18n-title="@@description">
 		<input-description-app
 			[description]="supplier?.description"
 			(update)="update($event, 'description')">
@@ -82,7 +83,7 @@
 			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="supplier?.extendedFields"
-			(update)="updateSupplier($event)">
+			(update)="updateSupplier({extendedFields: $event})">
 		</extended-form-app>
 	</preview-section-app> -->
 

@@ -36,40 +36,21 @@ nav {
 }
 
 .right {
+
 	color: var(--color-txt-primary);
-	notif-app, search-bar-animated-app, user-panel-app {
+	notif-app, user-panel-app {
 		&:hover {
 			background: #071327;
 		}
 	}
 
-	search-bar-animated-app {
-		font-size: 24px;
+	notif-app {
 		margin-right: var(--spacing-ms);
+		height: 32px;
+		width: 32px;
+		font-size: 24px;
 		cursor: pointer;
 		border-radius: var(--border-radius-s);
-		&.expanded {
-			background: #071327 !important;
-		}
-		input {
-			padding: 0;
-			padding-left: var(--spacing-s);
-			color: white;
-		}
-	}
-
-		notif-app {
-			margin-right: var(--spacing-ms);
-			height: 32px;
-			width: 32px;
-			font-size: 24px;
-			cursor: pointer;
-			border-radius: var(--border-radius-s);
-		}
-
-	.searchInput {
-		background: transparent;
-		border: none;
 	}
 
 	.divider {
@@ -77,5 +58,4 @@ nav {
 		width: 1px;
 		background-color: rgba(255, 255, 255, 0.1);
 	}
-
 }

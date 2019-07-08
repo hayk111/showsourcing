@@ -6,6 +6,7 @@ import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Company, Team } from '~models';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'create-a-company-page-app',
@@ -35,14 +36,14 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 	) {
 		super();
 		this.listForm = [{
-			label: 'Company Name',
+			label: translate('Company name'),
 			type: 'text',
 			name: 'companyName',
 			isRequired: true,
 			placeHolder: '',
 			validators: [Validators.required]
 		}, {
-			label: 'Team Name',
+			label: translate('Team name'),
 			type: 'text',
 			name: 'teamName',
 			isRequired: true,
@@ -50,7 +51,7 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 			validators: [Validators.required]
 		}];
 		this.buttons = [{
-			label: 'Create a new team',
+			label: translate('Create a new team'),
 			type: 'button'
 		}];
 	}
@@ -98,7 +99,7 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 				e => {
 					this.hideForm = false;
 					this.pending = false;
-					this.error = 'We had an error creating your company. Please try again.';
+					this.error = translate('We had an error creating your company. Please try again.');
 					this.cdr.detectChanges();
 				}
 			);

@@ -8,7 +8,7 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { Price } from '~models';
-import { CustomField } from '~shared/dynamic-forms/models';
+import { DynamicField } from '~shared/dynamic-forms/models';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
@@ -25,12 +25,12 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 })
 export class EditablePriceComponent extends AbstractInput {
 	@Input() inlineLabel: boolean;
-	@Input() customField: CustomField;
+	@Input() customField: DynamicField;
 	@Output() change = new EventEmitter();
 	@Output() open = new EventEmitter();
 	@Output() close = new EventEmitter();
 	@Output() blur = new EventEmitter();
-	@ViewChild('editable2') currencyEditable: EditableTextComponent;
+	@ViewChild('editable2', { static: false }) currencyEditable: EditableTextComponent;
 	isOpen: boolean;
 	accumulator;
 	currencySelectorShown: boolean;

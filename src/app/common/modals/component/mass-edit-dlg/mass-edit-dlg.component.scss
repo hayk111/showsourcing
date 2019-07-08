@@ -1,0 +1,31 @@
+dialog-app {
+	min-height: 250px;
+	max-height: 80vh;
+	width: 500px;
+
+	.status-selector {
+		width: 500px;
+    box-sizing: border-box;
+	}
+
+	.container {
+		margin-bottom: var(--spacing-ms);
+		selector-placeholder-app:not(.status-selector), status-selector-app {
+			margin-bottom: var(--spacing-l);
+		}
+	}
+
+	dialog-footer-app {
+		> *:not(:last-child) {
+			margin-right: var(--spacing-ms);
+		}
+	}
+}
+
+input::placeholder {
+	text-transform: capitalize;
+}
+
+checkbox-app:not(:last-child) {
+	margin-right: var(--spacing-ms);
+}

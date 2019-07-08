@@ -1,17 +1,29 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild, OnInit } from '@angular/core';
+import {
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnChanges,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { CommentService } from '~core/entity-services/comment/comment.service';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ProductService, UserService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { AppImage, Comment, ERM, PreviewActionButton, Product, ExtendedFieldDefinition } from '~models';
-import { CustomField } from '~shared/dynamic-forms';
+import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product } from '~models';
+import { DynamicField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent } from '~shared/preview';
-import { AutoUnsub, PendingImage } from '~utils';
-import { ExtendedFieldDefinitionService } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { AutoUnsub, PendingImage, translate } from '~utils';
 
 @Component({
 	selector: 'product-preview-app',
@@ -39,7 +51,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	@Output() statusUpdated = new EventEmitter<Product>();
 	@Output() clickOutside = new EventEmitter<null>();
 	// component to scroll into view
-	@ViewChild(PreviewCommentComponent) previewComment: PreviewCommentComponent;
+	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
@@ -50,12 +62,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor
 	// so we only have one array of custom fields
-	customFields: CustomField[] = [
+	// TODO i18n
+	customFields: DynamicField[] = [
 		{
 			name: 'supplier',
 			type: 'selector',
+			label: translate(ERM.SUPPLIER.singular, 'erm'),
 			metadata: {
-				target: 'supplier',
+				target: ERM.SUPPLIER.singular,
 				type: 'entity',
 				labelName: 'name',
 				canCreate: true
@@ -64,37 +78,51 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		{
 			name: 'category',
 			type: 'selector',
+			label: translate(ERM.CATEGORY.singular, 'erm'),
 			metadata: {
-				target: 'category',
+				target: ERM.CATEGORY.singular,
 				type: 'entity',
 				labelName: 'name',
 				canCreate: true
 			}
 		},
-		{ name: 'name', type: 'text', required: true, label: 'name' },
-		{ name: 'price', type: 'price' },
+		{ name: 'name', type: 'text', required: true, label: translate('name') },
+		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
 		{
-			name: 'event', type: 'selector',
-			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
+			name: 'event', type: 'selector', label: translate(ERM.EVENT.singular, 'erm'),
+			metadata: { target: ERM.EVENT.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
 		{
 			name: 'assignee',
-			label: 'Assignee',
+			label: translate('assignee'),
 			type: 'selector',
-			metadata: { target: 'user', type: 'entity', labelName: 'name' }
+			metadata: { target: ERM.USER.singular, type: 'entity', labelName: 'name' }
 		},
-		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
-		{ name: 'moqDescription', type: 'textarea', label: 'MOQ description' }
+		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
+		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') }
 	];
 
 	// those are the custom field for the second form section
-	customFields2: CustomField[] = [
-		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
-		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
-		// { name: 'samplePrice', type: 'price', label: 'Sample Price' },
-		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
-		{ name: 'sample', type: 'yesNo' },
-		{ name: 'samplePrice', type: 'price', label: 'Sample Price' }
+	customFields2: DynamicField[] = [
+		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
+		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
+		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
+		{ name: translate(ERM.SAMPLE.singular, 'erm'), type: 'title' },
+		{ name: 'sample', type: 'boolean' },
+		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
+		{ name: 'shipping', type: 'title' },
+		{
+			name: 'incoTerm', type: 'selector', label: 'INCO Term',
+			metadata: { target: ERM.INCO_TERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
+		},
+		{
+			name: 'harbour', type: 'selector', label: 'loading port',
+			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
+		},
+		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
+		{ name: 'quantityPer20ft', type: 'number', label: `Quantity per 20'` },
+		{ name: 'quantityPer40ft', type: 'number', label: `Quantity per 40'` },
+		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
 	];
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
@@ -108,7 +136,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		return [...this._images, ...(this._pendingImages as any)];
 	}
 	private _pendingImages: PendingImage[] = [];
-	@ViewChild('inpFile') inpFile: ElementRef;
+	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
 
 	constructor(
 		private uploader: UploaderService,
@@ -127,24 +155,24 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			{
 				icon: 'camera',
 				fontSet: '',
-				text: 'Add Picture',
+				text: translate('add picture'),
 				action: this.openFileBrowser.bind(this)
 			},
 			{
 				icon: 'project',
 				fontSet: '',
-				text: 'Add',
+				text: translate('add'),
 				action: this.openAddToProject.bind(this)
 			},
 			{
 				icon: 'comments',
 				fontSet: '',
-				text: 'Comment',
+				text: translate(ERM.COMMENT.singular, 'erm'),
 				action: this.scrollToCommentButton.bind(this)
 			},
 			{
 				icon: 'export',
-				text: 'Share',
+				text: translate('share'),
 				fontSet: '',
 				action: this.openExportModal.bind(this)
 			}
@@ -152,7 +180,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "product.extendedFields"' });
 	}
 
 	ngOnChanges() {
@@ -178,16 +206,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		}
 	}
 
-	openRfq() {
-		this.modalSrv.openRequestQuotationDialog(this.product);
-	}
-
 	openProduct() {
-		this.router.navigate(['product', 'details', this.product.id]);
+		this.router.navigate(['product', this.product.id]);
 	}
 
 	openSupplier() {
-		this.router.navigate(['supplier', 'details', this.product.supplier.id]);
+		this.router.navigate(['supplier', this.product.supplier.id]);
 	}
 
 	openAddToProject() {

@@ -37,7 +37,7 @@ export class KanbanLibraryPageComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.LIB_KANBAN,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			selectParams: { sortBy: 'category.name', descending: true },
+			selectParams: { sortBy: 'category.name', descending: true, query: 'deleted == false' },
 			entityMetadata: ERM.PRODUCT
 		});
 

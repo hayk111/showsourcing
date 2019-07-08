@@ -3,6 +3,9 @@ export const statusCategoriesMap = {
 		locales: {
 			en: {
 				name: 'New'
+			},
+			'zh-Hans': {
+				name: '新产品'
 			}
 		}
 	},
@@ -10,6 +13,9 @@ export const statusCategoriesMap = {
 		locales: {
 			en: {
 				name: 'In Progress'
+			},
+			'zh-Hans': {
+				name: '进行中'
 			}
 		}
 	},
@@ -17,6 +23,9 @@ export const statusCategoriesMap = {
 		locales: {
 			en: {
 				name: 'Validated'
+			},
+			'zh-Hans': {
+				name: '已验证'
 			}
 		}
 	},
@@ -24,6 +33,9 @@ export const statusCategoriesMap = {
 		locales: {
 			en: {
 				name: 'Refused'
+			},
+			'zh-Hans': {
+				name: '拒绝'
 			}
 		}
 	}

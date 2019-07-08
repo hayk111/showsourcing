@@ -1,6 +1,7 @@
 <top-panel-app
-	[title]="'Exports'"
-	[hasAction]="false">
+	[title]="'exports'"
+	[hasAction]="false"
+	i18n-title="@@exports">
 </top-panel-app>
 
 <sub-panel-app
@@ -11,8 +12,14 @@
 </sub-panel-app>
 
 <export-list-view-app
+	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
+	[count]="listSrv.count$ | async"
+	[skipped]="listSrv.skipped"
+	(next)="listSrv.loadNextPage()"
+	(previous)="listSrv.loadPreviousPage()"
+	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(download)="downloadOne($event)">
 </export-list-view-app>

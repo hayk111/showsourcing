@@ -5,6 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { Router } from '@angular/router';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -34,6 +35,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	];
 
 	constructor(
+		private router: Router,
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
@@ -47,9 +49,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			key: ListPageKey.PRODUCTS,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
+			selectParams: { query: 'deleted == false' },
 			// we use the deleted filter there so we can send the query to export all to the export dlg
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
+			originComponentDestroy$: this._destroy$
 		}, false);
 	}
 

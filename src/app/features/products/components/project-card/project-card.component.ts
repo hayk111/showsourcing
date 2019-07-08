@@ -22,6 +22,8 @@ export class ProjectCardComponent extends TrackingComponent {
 	@Output() removeProject = new EventEmitter<Project>();
 	@Output() updated = new EventEmitter<Project[]>();
 
+	tempProject = [];
+
 	constructor(private router: Router) {
 		super();
 	}
@@ -31,8 +33,13 @@ export class ProjectCardComponent extends TrackingComponent {
 		this.removeProject.emit(project);
 	}
 
+	// since we don't want the card to reupdate (selectOne) each time we update, we save the values to update when the selector is closed
+	addLocalProjects(projects: Project[]) {
+		this.tempProject = projects;
+	}
+
 	openProject(project: Project) {
-		this.router.navigate(['project', 'details', project.id]);
+		this.router.navigate(['project', project.id]);
 	}
 
 }

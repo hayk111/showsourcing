@@ -8,7 +8,7 @@ import {
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
-import { CustomField } from '~shared/dynamic-forms';
+import { DynamicField } from '~shared/dynamic-forms/models';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
@@ -28,16 +28,16 @@ export class EditableSelectorComponent extends AbstractInput {
 	@Input() isOpen: boolean;
 	@Input() isShowLabel: true;
 	@Input() inlineLabel: string;
-	@Input() customField: CustomField;
+	@Input() customField: DynamicField;
 	@Input() closeOnOutsideClick: boolean;
 	@Output() opened = new EventEmitter();
 	@Output() closed = new EventEmitter();
 	@Output() change = new EventEmitter<any>();
 	@Output() blur = new EventEmitter<null>();
-	@ViewChild('editable') editable: EditableTextComponent;
-	@ViewChild('selector') selector: any;
-	@ViewChild('oneValueLabel') oneLabel: TemplateRef<any>;
-	@ViewChild('multipleValuesLabel') manyLabel: TemplateRef<any>;
+	@ViewChild('editable', { static: false }) editable: EditableTextComponent;
+	@ViewChild('selector', { static: false }) selector: any;
+	@ViewChild('oneValueLabel', { static: true }) oneLabel: TemplateRef<any>;
+	@ViewChild('multipleValuesLabel', { static: true }) manyLabel: TemplateRef<any>;
 
 
 	constructor(protected cd: ChangeDetectorRef) {

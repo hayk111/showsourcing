@@ -51,7 +51,7 @@ export class ProductGridCardDeprecatedComponent extends AutoUnsub implements OnI
 	}
 
 	onViewProduct() {
-		this.router.navigate(['product', 'details', this.product.id]);
+		this.router.navigate(['product', this.product.id]);
 	}
 
 	openAddToProject() {

@@ -1,13 +1,14 @@
 
 <!-- top panel -->
 <top-panel-app
-	title="My Products"
+	[title]="'My products'"
 	buttonName="Add Product"
-	(buttonClick)="listSrv.create()">
+	(buttonClick)="commonModalSrv.openCreationProductDlg()"
+	i18n-title="@@my-products"
+	i18n-buttonName="@@add-products">
 </top-panel-app>
 
 <sub-panel-app
-	[buttonIcon]="false"
 	[filtersAmount]="getFilterAmount()"
 	[hasFilter]="true"
 	[hasSwitch]="true"
@@ -17,10 +18,9 @@
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
-	<sub-panel-right-item-app>
+	<sub-panel-right-item-app class="flex">
 		<product-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
-			[gridView]="listSrv.view === 'card'"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
 		<button class="capitalize" (click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())" i18n="@@export">
@@ -39,14 +39,19 @@
 		[pending]="listSrv.pending"
 		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
-		(bottomReached)="listSrv.loadMore()"
+		[count]="listSrv.count$ | async"
+		[skipped]="listSrv.skipped"
+		(previous)="listSrv.loadPreviousPage()"
+		(next)="listSrv.loadNextPage()"
+		(goToPage)="listSrv.loadPage($event)"
 		(delete)="listSrv.deleteOne($event)"
 		(favorited)="listSrv.onItemFavorited($event)"
+		(update)="listSrv.update($event)"
 		(open)="listSrv.goToDetails($event)"
 		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
 		(openExportDialog)="commonModalSrv.openExportDialog([$event])"
 		(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
-		(openRequestQuotationDialog)="commonModalSrv.openRequestQuotationDialog([$event])"
+		(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"
 		(previewClick)="listSrv.openPreview($event)"
 		(select)="listSrv.selectOne($event, true)"
 		(selectAll)="listSrv.selectAll($event, true)"
@@ -77,7 +82,6 @@
 		(update)="listSrv.update($event)">
 	</products-card-view-app>
 
-
 	<product-selection-bar-app
 		[isShown]="(listSrv.selection$ | async).size > 0"
 		[selection]="listSrv.selection$ | async"
@@ -88,9 +92,11 @@
 		(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 		(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
 		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+		(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
 		(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 		(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 		(statusUpdated)="listSrv.updateSelected({status: $event})"
+		(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
 		(deleted)="listSrv.deleteSelected()"
 		(close)="listSrv.unselectAll()">
 	</product-selection-bar-app>

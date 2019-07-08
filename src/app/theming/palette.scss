@@ -30,6 +30,7 @@
 	--color-action: #fca410;
 
 	--color-success: #71e591;
+	--color-success-light: #9cf1b4;
 	--color-success-dark: #48d26f;
 
 
@@ -37,7 +38,7 @@
 
 	--color-in-progress: #45d8ff;
 
-	--color-supplier: #9013fe;
+	--color-supplier: #9639e8;
 }
 
 
@@ -82,6 +83,11 @@
 .color-action {
 	color: var(--color-action);
 }
+
+.color-supplier {
+	color: var(--color-supplier);
+}
+
 /** text */
 
 .color-txt-primary {

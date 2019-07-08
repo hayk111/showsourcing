@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
-import { Supplier } from '~models';
+import { Supplier, ERM } from '~models';
 
 @Component({
 	selector: 'supplier-list-view-app',
@@ -13,7 +13,9 @@ import { Supplier } from '~models';
 })
 export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 
-	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	erm = ERM;
+
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
 	constructor() {
 		super();

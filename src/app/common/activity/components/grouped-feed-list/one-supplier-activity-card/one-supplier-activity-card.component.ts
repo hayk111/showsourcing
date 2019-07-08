@@ -27,7 +27,7 @@ export class OneSupplierActivityCardComponent extends AutoUnsub implements OnIni
 	@Input() title: string;
 	@Output() createComment = new EventEmitter<{ comment: any, entity: any, erm: any }>();
 	@Output() update = new EventEmitter<Supplier>();
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: false }) inp: InputDirective;
 	supplier$: Observable<Supplier>;
 	supplier: Supplier;
 	commentCtrl = new FormControl('');
@@ -71,7 +71,7 @@ export class OneSupplierActivityCardComponent extends AutoUnsub implements OnIni
 	}
 
 	onViewSupplier() {
-		this.router.navigate(['supplier', 'details', this.supplier.id]);
+		this.router.navigate(['supplier', this.supplier.id]);
 	}
 
 	onEnter(event) {

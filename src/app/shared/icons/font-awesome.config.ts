@@ -1,6 +1,5 @@
-
-
-// Icons should be imported individually to keep bundle size down
+import { dom, library } from '@fortawesome/fontawesome-svg-core';
+import { faBell } from '@fortawesome/free-regular-svg-icons/faBell';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight';
@@ -8,15 +7,14 @@ import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons/faArrowCircleDown';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';
-import { faBell } from '@fortawesome/free-regular-svg-icons/faBell';
 import { faBolt } from '@fortawesome/free-solid-svg-icons/faBolt';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown';
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons/faCaretLeft';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons/faCaretRight';
 import { faChartBar } from '@fortawesome/free-solid-svg-icons/faChartBar';
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle';
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons/faCheckSquare';
-import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faComment } from '@fortawesome/free-solid-svg-icons/faComment';
@@ -29,6 +27,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
 import { faFire } from '@fortawesome/free-solid-svg-icons/faFire';
 import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
+import { faGripVertical } from '@fortawesome/free-solid-svg-icons/faGripVertical';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons/faMapMarkerAlt';
@@ -36,8 +35,9 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons/faPencilAlt';
 import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons/faQuestionCircle';
+import { faPowerOff } from '@fortawesome/free-solid-svg-icons/faPowerOff';
 import { faQuestion } from '@fortawesome/free-solid-svg-icons/faQuestion';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons/faQuestionCircle';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { faShare } from '@fortawesome/free-solid-svg-icons/faShare';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
@@ -46,13 +46,13 @@ import { faSortUp } from '@fortawesome/free-solid-svg-icons/faSortUp';
 import { faTag } from '@fortawesome/free-solid-svg-icons/faTag';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons/faThumbsDown';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons/faThumbsUp';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons/faTimesCircle';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons/faTimesCircle';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt';
-import { faGripVertical } from '@fortawesome/free-solid-svg-icons/faGripVertical';
 
-import { library, dom } from '@fortawesome/fontawesome-svg-core';
 
+
+// Icons should be imported individually to keep bundle size down
 
 export const faIconsRegular = [
 	faBell
@@ -86,6 +86,7 @@ export const faIconsSolid = [
 	faFire,
 	faFolder,
 	faGlobe,
+	faGripVertical,
 	faHeart,
 	faInfoCircle,
 	faMapMarkerAlt,
@@ -93,6 +94,7 @@ export const faIconsSolid = [
 	faPencilAlt,
 	faPhone,
 	faPlus,
+	faPowerOff,
 	faQuestion,
 	faQuestionCircle,
 	faSearch,
@@ -107,7 +109,6 @@ export const faIconsSolid = [
 	faTimesCircle,
 	faTrashAlt,
 	faTrashAlt,
-	faGripVertical
 ];
 
 faIconsSolid.forEach(ic => library.add(ic));

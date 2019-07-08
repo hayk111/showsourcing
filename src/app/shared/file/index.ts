@@ -1,3 +1,4 @@
-export * from '~shared/file/file.module';
-export * from '~shared/file/directives';
-export * from '~shared/file/containers';
+export * from './containers';
+export * from './components';
+export * from './directives';
+export * from './file.module';

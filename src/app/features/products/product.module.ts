@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { CommentCommonModule } from '~common/comment';
 import { ProductCommonModule } from '~common/product';
-import { QuoteCommonModule } from '~common/quote/quote-common.module';
+import { RequestCommonModule } from '~common/request';
 import { SampleCommonModule } from '~common/sample';
 import { SupplierCommonModule } from '~common/supplier';
 import { TaskCommonModule } from '~common/task';
@@ -16,7 +16,6 @@ import {
 	ProductActivityComponent,
 	ProductIconsComponent,
 	ProductInformationComponent,
-	ProductListComponent,
 	ProductSubInfoComponent,
 	ProductSummaryComponent,
 	ProductTeamRatingComponent,
@@ -27,13 +26,12 @@ import {
 } from './components';
 import {
 	ProductDetailsComponent,
-	ProductQuotationComponent,
-	ProductResumeComponent,
 	ProductSamplesComponent,
 	ProductShippingComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
 } from './containers';
+import { ProductRequestsComponent } from './containers/product-requests/product-requests.component';
 import { ProductFeatureService, QuoteFeatureService } from './services';
 
 
@@ -45,21 +43,18 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		CommonModule,
 		NavBarModule,
 		ProductCommonModule,
-		QuoteCommonModule,
+		RequestCommonModule,
 		RouterModule.forChild(routes),
 		SampleCommonModule,
 		SharedModule,
+		SupplierCommonModule,
 		TaskCommonModule,
-		SupplierCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,
 		ProductDetailsComponent,
 		ProductIconsComponent,
 		ProductInformationComponent,
-		ProductListComponent,
-		ProductQuotationComponent,
-		ProductResumeComponent,
 		ProductSamplesComponent,
 		ProductShippingComponent,
 		ProductSubInfoComponent,
@@ -71,6 +66,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProjectCardComponent,
 		SelectableImageComponent,
 		SelectionActionsComponent,
+		ProductRequestsComponent,
 	],
 	entryComponents: [],
 	exports: [],

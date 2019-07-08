@@ -1,24 +1,37 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { first, switchMap, takeUntil } from 'rxjs/operators';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
+import { saveAs } from 'file-saver';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { ImageService } from '~entity-services/image/image.service';
 import { AppImage } from '~models';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService } from '~shared/dialog/services';
-import { UploaderService } from '~shared/file/services/uploader.service';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
-import { PendingImage } from '~utils/pending-image.class';
 
 @Component({
 	selector: 'carousel-app',
 	templateUrl: './carousel.component.html',
 	styleUrls: ['./carousel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [UploaderFeedbackService]
 })
 export class CarouselComponent extends AutoUnsub implements OnInit {
 
+	/** Whether images can be uploaded */
+	@Input() static = false;
 	/** size in px of the main display */
 	@Input() size = 411;
 	@Input() hasPreview = false;
@@ -28,41 +41,48 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Input() isImagePropertyArray = true;
 
 	@Input() set images(images: AppImage[]) {
-		// remove unefined in case we are passing [undefined]
-		// for example in for contact we only have one image so we do [images]="[contact.businessCardImage]"
-		this._images = images.filter(x => !!x);
+		this.uploaderFeedback.setImages(images);
 	}
 	get images() {
-		return [...this._images, ...(this._pendingImages as any)];
+		return this.uploaderFeedback.getImages();
 	}
-
-	private _images: AppImage[] = [];
-	private _pendingImages: PendingImage[] = [];
 
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
 	@Input() entity: any; // entity to which we can link images after an upload
-	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'cover';
+	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'contain';
+	@Input() showConfirmOnDelete = true;
 
-	@ViewChild('imgApp') imgApp: ImageComponent;
+	@Output() uploaded = new EventEmitter<AppImage[]>();
+	@Output() deleted = new EventEmitter<AppImage>();
+
+	@ViewChild('imgApp', { static: false }) imgApp: ImageComponent;
 	/** hidden file input */
-	@ViewChild('inpFile') inpFile: ElementRef;
+	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
 
 	defaultImg = DEFAULT_IMG;
-	// when clicking an image we can open a modal carousel
-	modalOpen = false;
+
 
 	constructor(
 		private imageSrv: ImageService,
 		private dlgSrv: DialogService,
-		private uploader: UploaderService,
+		private uploaderFeedback: UploaderFeedbackService,
 		private ermSrv: ERMService,
 		private cd: ChangeDetectorRef
 	) {
 		super();
 	}
 
-	ngOnInit() { }
+	ngOnInit() {
+		this.uploaderFeedback.init({
+			linkedEntity: this.entity,
+			imageProperty: this.imageProperty,
+			isImagePropertyArray: this.isImagePropertyArray
+		});
+		this.uploaderFeedback.uploaded$
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(imgs => this.uploaded.emit(imgs as AppImage[]));
+	}
 
 	back(event) {
 		if (this.selectedIndex > 0)
@@ -92,48 +112,35 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
-		if (files.length === 0)
-			return;
-
-		const uuids: string[] = await this.addPendingImg(files);
-		this.cd.markForCheck();
-		this.uploader.uploadImages(files, this.entity, this.imageProperty, this.isImagePropertyArray).pipe(
-			first()
-		).subscribe(imgs => {
-			// removing pending image
-			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
-		}, e => this._pendingImages = []);
-	}
-
-	/** adds pending image to the list */
-	private async addPendingImg(files: File[]) {
-		// adding a pending image so we can see there is an image pending visually
-		let pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
-		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
-		this._pendingImages.push(...pendingImgs);
-		// putting the index at the end so we instantly have feedback the image is being processed
+		await this.uploaderFeedback.addImages(files);
+		// index at the end for instant feedback
 		this.selectedIndex = this.images.length - 1;
-		return pendingImgs.map(p => p.id);
 	}
 
 	/** deletes the image */
 	delete() {
 		const img = this.getImg();
-
-		this.dlgSrv.open(ConfirmDialogComponent, {
-			text: 'Are you sure you want to remove this image ?',
-		}).pipe(
-			takeUntil(this._destroy$),
-			switchMap(_ => this.onDeleteAccepted(img))
-		).subscribe();
+		if (this.showConfirmOnDelete) {
+			this.dlgSrv.open(ConfirmDialogComponent, {
+				text: 'Are you sure you want to remove this image ?',
+			}).pipe(
+				switchMap(_ => this.onDeleteAccepted(img)),
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				takeUntil(this._destroy$),
+			).subscribe(_ => this.deleted.emit(img));
+		} else {
+			this.deleted.emit(img);
+		}
 	}
 
 	/** when image is deleted */
 	onDeleteAccepted(image: AppImage) {
-		const images = this.entity.images.filter(img => image.id !== img.id);
-		this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
-		const srv = this.ermSrv.getGlobalServiceForEntity(this.entity);
-		return srv.update({ id: this.entity.id, images });
+		if (this.entity) {
+			const images = this.entity.images.filter(img => image.id !== img.id);
+			this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+			const srv = this.ermSrv.getGlobalServiceForEntity(this.entity);
+			return srv.update({ id: this.entity.id, images });
+		}
 	}
 
 	/** start downloading the image */
@@ -159,21 +166,8 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** opens the file browser window so the user can select a file he wants to upload */
 	openFileBrowser() {
-		this.inpFile.nativeElement.click();
-	}
-
-	/** opens the modal carousel */
-	openModal(index?: number) {
-		if (index)
-			this.selectedIndex = index;
-		this.modalOpen = true;
-		// since it can be opened from outside..
-		this.cd.markForCheck();
-	}
-
-	/** closes the modal */
-	closeModal() {
-		this.modalOpen = false;
+		if (!this.static)
+			this.inpFile.nativeElement.click();
 	}
 
 	setSelectedIndex(value: number) {

@@ -28,7 +28,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 	];
 
 	constructor(
-		private route: ActivatedRoute,
 		private supplierSrv: SupplierService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
 		public commonModalSrv: CommonModalService
@@ -41,6 +40,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
+			selectParams: { query: 'deleted == false' },
 			entityMetadata: ERM.SUPPLIER,
 			initialFilters: [],
 		}, false);

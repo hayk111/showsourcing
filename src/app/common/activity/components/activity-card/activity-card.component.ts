@@ -20,7 +20,7 @@ export class ActivityCardComponent extends AutoUnsub implements OnInit {
 	@Input() entity: Product | Supplier;
 	@Input() typeEntity: EntityMetadata;
 	@Output() createComment = new EventEmitter<any>();
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: false }) inp: InputDirective;
 
 	actor$: Observable<User>;
 	actor: User;

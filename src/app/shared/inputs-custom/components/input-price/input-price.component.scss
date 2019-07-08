@@ -1,7 +1,14 @@
-.currencyLabel {
+selector-app {
 	margin-right: var(--spacing-s);
+}
+
+.currency-label {
+	width: 35px;
+	padding: var(--spacing-xs);
 	color: var(--color-txt-secondary);
-	&:hover {
+	box-sizing: border-box;
+
+	&.pointer:hover {
 		color: var(--color-primary);
 		text-decoration: underline;
 	}

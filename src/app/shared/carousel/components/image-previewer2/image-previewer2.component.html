@@ -1,18 +1,21 @@
 <div class="ctnr square pointer"
 	[ngClass]="{'last-item': i > 3}"
+	[ngStyle]="getStyle()"
 	*ngFor="let img of getPreviews(); let i = index; trackBy: trackByFn"
 	(click)="imageClick.emit(i)">
+	<div *ngIf="(isDeletable && images.length <= 5) || (isDeletable && i < 4)" class="delete flexCenter pointer" (click)="doDelete($event, img)">
+		<icon-app name="close"></icon-app>
+	</div>
 	<img-app
 		[ngClass]="{ 'pending': img.pending }"
 		[image]="img"
-		size="s">
+		size="xl">
 	</img-app>
 	<ng-container *ngIf="i === 4">
-		<div class="more flexCenter"
-			*ngIf="images?.length > 5">
+		<div *ngIf="images?.length > 5" class="more flexCenter">
 			<div class="flexColumn">
 				<div class="flexCenter">+ {{ images?.length - 5 }}</div>
-				<div>More</div>
+				<div class="capitalize" i18n="text@@more">more</div>
 			</div>
 		</div>
 	</ng-container>

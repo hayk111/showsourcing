@@ -1,15 +1,17 @@
-import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavBarComponent } from '~shared/navbar/components/navbar/navbar.component';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { BadgeModule } from '~shared/badge';
+import { NavBarComponent } from '~shared/navbar/components/navbar/navbar.component';
 
 // spinners, progress bar..
 @NgModule({
 	imports: [
 		CommonModule,
-		RouterModule
+		RouterModule,
+		BadgeModule
 	],
-	declarations: [ NavBarComponent ],
-	exports: [ NavBarComponent ]
+	declarations: [NavBarComponent],
+	exports: [NavBarComponent]
 })
 export class NavBarModule { }

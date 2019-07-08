@@ -1,23 +1,30 @@
 <top-panel-details-app
-	[title]="product?.name || 'Unnamed Product'"
-	[hasOptions]="true"
-	[data]="product"
-	[user]="product?.assignee"
-	(export)="export.emit($event)"
-	(favorited)="onFavorited()"
-	(unfavorited)="onUnfavorited()"
-	(delete)="delete.emit(product)"
-	(changeUser)="onUserChanged($event)">
+	[title]="product?.name || ('Unnamed Product' | const: 'messages')">
 
 	<img-app [image]="product?.images" type="product" size="s"></img-app>
 
 	<div subinfo class="flex flexVAlign info-container dot-separator">
 		<span class="price" *ngIf="product.price && product.price.value !== null">
-			{{ product?.price?.value | ssPrice | currency: product?.price?.currency:'symbol':'1.2-2'}}
+			{{ product?.price | appPrice }}
 		</span>
-		<span *ngIf="product?.category" class="category">{{ product?.category?.name }}</span>
-		<span *ngIf="product?.supplier" class="supplier">{{ product?.supplier?.name }}</span>
+		<span *ngIf="product?.category" class="category">
+			{{ product?.category?.name }}
+		</span>
+		<span *ngIf="product?.supplier" class="supplier">
+			{{ product?.supplier?.name }}
+		</span>
 	</div>
+
+	<top-panel-action-buttons-app
+		action
+		[data]="product"
+		[user]="product?.assignee"
+		(export)="export.emit($event)"
+		(favorited)="onFavorited()"
+		(unfavorited)="onUnfavorited()"
+		(delete)="delete.emit(product)"
+		(changeUser)="onUserChanged($event)">
+	</top-panel-action-buttons-app>
 
 	<status-selector-app
 		action
@@ -33,8 +40,12 @@
 				<icon-app [size]="20" name="dots-vertical"></icon-app>
 			</button>
 		</context-menu-trigger-app>
-		<context-menu-item-app (click)="delete.emit(product)">
+		<context-menu-item-app (click)="delete.emit(product)" i18n="button@@delete">
 			Delete
 		</context-menu-item-app>
+		<context-menu-item-app (click)="supplierRequest.emit(product)"  i18n="button@@supplier-request">
+			Supplier Request
+		</context-menu-item-app>
 	</context-menu-app>
+
 </top-panel-details-app>

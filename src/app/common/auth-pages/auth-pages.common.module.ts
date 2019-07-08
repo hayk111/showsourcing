@@ -9,6 +9,7 @@ import {
 	AuthHeaderSubtitleComponent,
 	AuthHeaderTitleComponent,
 } from './components';
+import { AuthHeaderContentComponent } from './components/auth-header/auth-header-content.component';
 
 @NgModule({
 	imports: [
@@ -21,12 +22,14 @@ import {
 		AuthFormHeaderComponent,
 		AuthHeaderSubtitleComponent,
 		AuthHeaderTitleComponent,
+		AuthHeaderContentComponent
 	],
 	exports: [
 		AuthFormBaseComponent,
 		AuthFormHeaderComponent,
 		AuthHeaderSubtitleComponent,
 		AuthHeaderTitleComponent,
+		AuthHeaderContentComponent
 	],
 })
 export class AuthPagesCommonModule { }

@@ -30,6 +30,8 @@ img-app {
 	}
 }
 
-status-selector-app {
-	margin-right: var(--spacing-s);
+[action] {
+	&:not(:last-child) {
+		margin-right: var(--spacing-ms);
+	}
 }

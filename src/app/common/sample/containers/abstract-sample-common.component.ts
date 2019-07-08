@@ -28,7 +28,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 			key: `${ListPageKey.SAMPLE}-${id}`,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
-			selectParams: { sortBy: 'name', descending: false },
+			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
 			entityMetadata: ERM.SAMPLE,
 			initialFilters: [
 				{ type: FilterType.ASSIGNEE, value: userId },
@@ -40,11 +40,11 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 	}
 
 	openProduct(id: string) {
-		this.router.navigate([ERM.PRODUCT.singular, 'details', id]);
+		this.router.navigate([ERM.PRODUCT.singular, id]);
 	}
 
 	openSupplier(id: string) {
-		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
+		this.router.navigate([ERM.SUPPLIER.singular, id]);
 	}
 
 	toggleMySamples(show: boolean) {

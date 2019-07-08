@@ -1,8 +1,12 @@
 
 <auth-form-header-app
 	[pending]="(pending || hideForm)">
-	<auth-header-title-app>Create a team</auth-header-title-app>
-	<auth-header-subtitle-app>Create your team and start sourcing</auth-header-subtitle-app>
+	<auth-header-title-app i18n="header@@create-team">
+		Create a team
+	</auth-header-title-app>
+	<auth-header-subtitle-app i18n="text@@create-team-and-source">
+		Create your team and start sourcing
+	</auth-header-subtitle-app>
 </auth-form-header-app>
 
 <auth-form-app
@@ -13,5 +17,6 @@
 	[pending]="pending"
 	[listForm]="listForm"
 	[buttons]="buttons"
-	(onSubmit)="onSubmit($event)">
+	(onSubmit)="onSubmit($event)"
+	i18n-spinnerMessage="@@we-are-creating-team">
 </auth-form-app>

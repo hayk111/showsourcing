@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomField } from '~shared/dynamic-forms/models';
+import { DynamicField } from '~shared/dynamic-forms/models';
 import { RegexpApp } from '~utils/regexes';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class DynamicFormsService {
 	constructor() { }
 
 	/** creates a form group given an array of custom fields */
-	toFormGroup(customFields: CustomField[]): FormGroup {
+	toFormGroup(customFields: DynamicField[]): FormGroup {
 		const formGroup = new FormGroup({});
 		customFields.forEach(field => {
 			const ctrl = this.toFormControl(field);
@@ -20,7 +20,7 @@ export class DynamicFormsService {
 	}
 
 	/** transforms a custom field into a form control */
-	toFormControl(field: CustomField): FormControl {
+	toFormControl(field: DynamicField): FormControl {
 		// when multiple it means we are dealing with an array of values
 		const value = field.value;
 		const validators = this.createValidators(field);
@@ -28,7 +28,7 @@ export class DynamicFormsService {
 		return ctrl;
 	}
 
-	private createValidators(field: CustomField) {
+	private createValidators(field: DynamicField) {
 		const validators = [];
 		if (field.required) validators.push(Validators.required);
 		switch (field.type) {

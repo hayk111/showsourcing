@@ -8,12 +8,19 @@
 	[currentSort]="currentSort"
 	placeholder="No product"
 	[pending]="pending"
+	[count]="count"
+	[skipped]="skipped"
+	(next)="next.emit()"
+	(previous)="previous.emit()"
+	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()">
+	(unselectAll)="unselectAll.emit()"
+	[pending]="pending"
+	i18n-placeholder="@@no-product">
 </custom-table-app>
 
 <!-- contextual menu -->
@@ -21,32 +28,31 @@
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openAddToProjectDialog.emit(row)"
-		i18n="product menu | add to project">
+		i18n="button@@add-to-project">
 		Add to project
 	</context-menu-item-app>
 	<context-menu-item-app
-		*ngIf="row?.status?.status"
 		class="pointer flexCenter"
-		(click)="openRequestQuotationDialog.emit(row)"
-		i18n="product menu | go to request quotation">
-		Request for quotation
+		(click)="openCreateRequestDlg.emit(row)"
+		i18n="button@@send-request-supplier">
+		Send request to supplier
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openRequestFeedbackDialog.emit(row)"
-		i18n="product menu | go to request feedback">
+		i18n="button@@request-feedback">
 		Request feedback
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="openExportDialog.emit(row)"
-		i18n="product menu | export">
+		i18n="button@@export">
 		Export
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="delete.emit(row)"
-		i18n="product menu | delete">
+		i18n="button@@delete">
 		Delete
 	</context-menu-item-app>
 </ng-template>
@@ -56,47 +62,75 @@
 	<div class="mainCellWrapper ellipsis name-container contain-strict">
 		<div class="mainCell ellipsis">
 			<img class="mini imgCtnr"
-				[src]="row | image: 's' : 'product'" />
+				[src]="row | image: 's' : 'product-list'" />
 			<span class="ellipsis">
-				<a class="name txt-btn" [routerLink]="['/product', 'details', row.id]">
-					{{ row.name || 'Unnamed' }}
+				<a class="name txt-btn" [routerLink]="['/product', row.id]">
+					{{ row.name || '-' }}
 				</a>
 			</span>
-
-			<button class="small secondary-dark preview" (click)="previewClick.emit(row)">Preview</button>
+			<button class="small secondary-dark preview" (click)="previewClick.emit(row)" i18n="@@preview">Preview</button>
 		</div>
 	</div>
 </ng-template>
 
-<!-- name -->
+<!-- supplier -->
 <ng-template #supplier let-row="row">
-	<ng-container *ngIf="row.supplier"> {{ row?.supplier.name }} </ng-container>
-	<ng-container *ngIf="!row.supplier"> - </ng-container>
+	<selector-app
+		type="supplier"
+		[canCreate]="true"
+		[width]="370"
+		(update)="update.emit({ id: row.id, supplier: $event })">
+		<div class="ellipsis pointer txt-btn"> {{ row?.supplier?.name || '-' }}</div>
+	</selector-app>
 </ng-template>
 
 <!-- category -->
 <ng-template #category let-row="row">
-	<ng-container *ngIf="row.category"> {{ row?.category?.name }} </ng-container>
-	<ng-container *ngIf="!row.category"> - </ng-container>
+	<selector-app
+		type="category"
+		[canCreate]="true"
+		[width]="370"
+		(update)="update.emit({ id: row.id, category: $event })">
+		<div class="ellipsis pointer txt-btn"> {{ row?.category?.name || '-' }}</div>
+	</selector-app>
 </ng-template>
 
 <!-- price -->
 <ng-template #price let-row="row">
-	<price-app
-		[isShort]="true"
-		[amount]="row?.price?.value"
-		[currency]="row?.price?.currency">
-	</price-app>
+	<editable-text-app
+		#editable
+		[hasAction]="false"
+		(opened)="inp.focus()"
+		(closed)="update.emit({ id: row.id, price: inp.price })">
+		<editable-label-app>
+			<price-app
+				[price]="row?.price">
+			</price-app>
+		</editable-label-app>
+		<input-price-app
+			#inp
+			(keyup.enter)="editable.close()"
+			[price]="row?.price">
+		</input-price-app>
+	</editable-text-app>
 </ng-template>
 
 <!-- moq -->
 <ng-template #moq let-row="row">
-	<moq-app
-		*ngIf="row?.minimumOrderQuantity; else noMoq"
-		[amount]="row?.minimumOrderQuantity">
-	</moq-app>
-
-	<ng-template #noMoq> <div>-</div> </ng-template>
+	<editable-text-app
+		#editable
+		[hasAction]="false"
+		(opened)="inp.focus()"
+		(closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
+		<editable-label-app>
+			<moq-app
+				*ngIf="row?.minimumOrderQuantity; else noMoq"
+				[amount]="row?.minimumOrderQuantity">
+			</moq-app>
+			<ng-template #noMoq> <div>-</div> </ng-template>
+		</editable-label-app>
+		<input #inp inputApp type="number" [value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
+	</editable-text-app>
 </ng-template>
 
 <!-- creation date -->
@@ -119,15 +153,14 @@
 <ng-template #projects let-row="row">
 	<div class="flexCenter">
 		<span *ngFor="let project of row.projects; trackBy: trackByFn">
-			{{ project.name }}
+			{{ project.name || '-' }}
 		</span>
 	</div>
 </ng-template>
 
 <!-- status -->
 <ng-template #status let-row="row">
-	<status-selector-app [entity]="row" [typeEntity]="prodErm" selectSize="s">
-	</status-selector-app>
+	<status-selector-app [entity]="row" [typeEntity]="prodErm" selectSize="s"></status-selector-app>
 </ng-template>
 
 
@@ -142,5 +175,6 @@
 	<div class="flexCenter userP">{{ row?.createdBy | formatUserName }}</div>
 	<ng-template>
 		<!-- none -->
-		<ng-template #none></ng-template> </ng-template
-></ng-template>
+		<ng-template #none></ng-template>
+	</ng-template>
+</ng-template>

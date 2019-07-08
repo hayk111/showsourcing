@@ -4,13 +4,7 @@ dialog-app {
 }
 
 sub-panel-app {
-  padding-top: 10px;
-  padding-bottom: 0;
-  margin-top: 12px;
-}
-
-sub-panel-app ::ng-deep search-bar-app {
-  background-color: var(--color-secondary-light);
+	padding-top: 0px;
 }
 
 dialog-header-app {

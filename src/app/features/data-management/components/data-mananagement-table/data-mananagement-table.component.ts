@@ -18,14 +18,14 @@ export class DataMananagementTableComponent extends ListViewComponent<any> {
 	idEntityHovered: string;
 
 	updateNameEntity(obj, newName, subProp?) {
-		if (subProp) {
-			obj[subProp].name = newName;
-		} else {
-			obj.name = newName;
-		}
-		delete obj.suppliers;
-		delete obj.products;
-		this.renameEntity.emit(obj);
+		let item;
+		// this subprop is needed cause we acces the event.description.name
+		if (subProp)
+			item = { id: obj.id, [subProp]: { name: newName } };
+		else
+			item = { id: obj.id, name: newName };
+
+		this.renameEntity.emit(item);
 	}
 	onHover(id: string) {
 		this.idEntityHovered = id;

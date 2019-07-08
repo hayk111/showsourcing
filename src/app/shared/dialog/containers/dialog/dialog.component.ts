@@ -16,21 +16,15 @@ import { DialogService } from '~shared/dialog/services/dialog.service';
 })
 export class DialogComponent {
 	@Input() closeIcon = true;
+	@Input() hasHeader = true;
 	@Output() close = new EventEmitter<any>();
-	@ContentChild(DialogFooterComponent) footer: DialogFooterComponent;
-	@ContentChild(DialogHeaderComponent) header: DialogHeaderComponent;
+	@ContentChild(DialogFooterComponent, { static: false }) footer: DialogFooterComponent;
+	@ContentChild(DialogHeaderComponent, { static: false }) header: DialogHeaderComponent;
 
-	@Input() headerSpacing = 'xl';
+	@Input() headerSpacing = 'ms';
 
 	constructor(private srv: DialogService) { }
 
-	get hasFooter() {
-		return !!this.footer;
-	}
-
-	get hasHeader() {
-		return !!this.header;
-	}
 
 	doClose() {
 		this.srv.close();

@@ -1,0 +1,124 @@
+
+<dialog-app *ngIf="(request$ | async)" class="vertical-scroll-content">
+	<!-- header -->
+  <dialog-header-app class="flexBetween">
+		<div class="flex">
+			<div class="flex move">
+				<icon-app name="arrow-left-thin" (click)="back()"></icon-app>
+				<span class="spacer"></span>
+				<icon-app name="arrow-right-thin" (click)="next()"></icon-app>
+			</div>
+
+			<div class="title">
+				<h2>{{ element.name }}</h2>
+				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} <ng-container i18n="@@products">products</ng-container></span>
+			</div>
+		</div>
+		<request-status-badge-app
+			[status]="element?.reply?.status"
+			[isTeam]="false"
+			[creationDate]="request.creationDate">
+		</request-status-badge-app>
+	</dialog-header-app>
+
+	<!-- content -->
+  <div class="flex">
+
+    <!-- left -->
+    <div class="left">
+      <h3 class="ms" i18n="header@@product-images">product images</h3>
+      <carousel-app [hasPreview]="true" [static]="true" [images]="element?.images"></carousel-app>
+			<span class="spacer mg-ms"></span>
+      <h3 *ngIf="element?.attachments?.length" class="ms" i18n="header@@product-attachments">product attachments</h3>
+      <file-list-app [hasPlaceholder]="false" [static]="true" [files]="element?.attachments"></file-list-app>
+    </div>
+
+    <!-- right -->
+    <div class="right">
+
+			<div class="info-banner flexCenter" i18n="@@fill-form-below-reply">
+				Please fill in the form below to reply to client
+			</div>
+
+      <!-- details -->
+      <h3 class="ms" i18n="@@product-details">product details</h3>
+
+      <extended-form-app
+        [disabled]="isDisabled()"
+        [definitions]="definitions"
+				[isFormStyle]="true"
+        [colAmount]="2"
+				[fields]="fields"
+				(update)="save()">
+      </extended-form-app>
+
+			<!-- reply message -->
+			<h3 class="ms" i18n="@@request-message">request message</h3>
+			<form-field-app class="modal">
+        <textarea inputApp
+          [disabled]="isDisabled()"
+          [value]="element?.reply?.message"
+          [formControl]="descriptionCtrl"
+          type="text"
+          placeholder="Reply message to buyer"
+          i18n-placeholder="@@reply-message-buyer">
+        </textarea>
+			</form-field-app>
+
+      <!-- images -->
+      <h3 class="ms capitalize" i18n="@@images">images</h3>
+      <image-previewer-2-app
+        [isDeletable]="true"
+        [size]="120"
+        [images]="images"
+        (delete)="deleteImg($event)"
+        (imageClick)="modal.open($event)">
+      </image-previewer-2-app>
+			<modal-carousel-app
+        #modal
+        [images]="images">
+      </modal-carousel-app>
+      <div class="spacer mg-s" *ngIf="images.length > 0"></div>
+      <button tabFocus [disabled]="isDisabled()" class="secondary add-image capitalize" (click)="inpImg.click()" i18n="@@add-image">Add Image</button>
+			<input [disabled]="isDisabled()" #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
+
+      <!-- attachments -->
+      <h3 class="ms capitalize" i18n="@@attachments">attachments</h3>
+      <file-list-app
+        [showConfirmOnDelete]="false"
+        [hasPlaceholder]="false"
+        [files]="files"
+        [linkedItem]="reply"></file-list-app>
+      <div class="spacer mg-s" *ngIf="files.length > 0"></div>
+      <button tabFocus [disabled]="isDisabled()" class="secondary add-attachment capitalize" (click)="inpFile.click()" i18n="@@add-attachments">add attachments</button>
+			<input [disabled]="isDisabled()" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
+
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <dialog-footer-app class="flexVAlign">
+
+    <span class="bold-s mg-s" *ngIf="isDisabled()">{{ getTooltipMessage() }}</span>
+
+    <button tabFocus [disabled]="isDisabled()" class="warn save first-uppercase" (click)="refuse()" i18n="@@refuse">refuse</button>
+
+    <!-- <button [disabled]="isDisabled()" class="secondary save first-uppercase" (click)="saveAndClose()" i18n="@@save">save</button> -->
+
+    <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
+      <button *ngIf="isDisabled(); else notSubmitted" tabFocus class="first-uppercase" [disabled]="true" i18n="@@submitted">submitted</button>
+      <ng-template #notSubmitted>
+        <button tabFocus class="first-uppercase" [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">
+					<ng-container *ngIf="hasNext(); else noNext" i18n="@@submit-next">
+						submit & next
+					</ng-container>
+					<ng-template #noNext>
+						<ng-container i18n="@@submit">submit</ng-container>
+				</ng-template>
+        </button>
+      </ng-template>
+    </div>
+
+  </dialog-footer-app>
+</dialog-app>

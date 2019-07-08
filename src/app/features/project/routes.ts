@@ -9,10 +9,9 @@ import {
 } from './containers';
 
 export const routes: Array<Route> = [
-	{ path: '', redirectTo: 'all', pathMatch: 'full' },
-	{ path: 'all', component: ProjectsPageComponent },
+	{ path: '', component: ProjectsPageComponent },
 	{
-		path: 'details/:id',
+		path: ':id',
 		component: ProjectDetailsComponent,
 		children: [
 			{ path: 'products', component: ProjectProductsComponent },

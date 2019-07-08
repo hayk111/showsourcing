@@ -2,13 +2,14 @@
 <top-panel-app
   title="My Projects"
   buttonName="Add Project"
-  (buttonClick)="listSrv.create()">
+	(buttonClick)="listSrv.create()"
+	i18n-title="@@my-projects"
+	i18n-buttonName="@@add-project">
 </top-panel-app>
 
 <sub-panel-app
   [hasSwitch]="false"
   [hasFilter]="true"
-  [buttonIcon]="false"
   [filtersAmount]="listSrv.filterList.asFilters()?.length"
   [searchValue]="listSrv.searchValue"
   (search)="listSrv.search($event)"
@@ -18,17 +19,22 @@
 <ng-container *ngIf="listSrv.isListening">
 
   <projects-list-view-app
+		[selection]="listSrv.selection$ | async"
+		[rows]="listSrv.items$ | async"
+		[pending]="listSrv.pending"
+		[count]="listSrv.count$ | async"
+		[skipped]="listSrv.skipped"
+		(next)="listSrv.loadNextPage()"
+		(previous)="listSrv.loadPreviousPage()"
+		(goToPage)="listSrv.loadPage($event)"
     (select)="listSrv.selectOne($event, true)"
     (unselect)="listSrv.unselectOne($event, true)"
     (selectAll)="listSrv.selectAll($event, true)"
     (unselectAll)="listSrv.unselectAll()"
-    [selection]="listSrv.selection$ | async"
     (sort)="listSrv.sort($event)"
-    [rows]="listSrv.items$ | async"
-    [pending]="listSrv.pending"
-    (bottomReached)="listSrv.loadMore()"
-    (delete)="listSrv.deleteOne($event)"></projects-list-view-app>
-  
+		(delete)="listSrv.deleteOne($event)">
+	</projects-list-view-app>
+
   <selection-bar-app
     [isShown]="(listSrv.selection$ | async).size > 0"
     [selection]="listSrv.selection$ | async"
@@ -39,13 +45,13 @@
       </button>
     </action-bar-app>
   </selection-bar-app>
-  
-  <filters-app
+
+	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
     [filterList]="listSrv.filterList"
     [filterTypes]="filterTypes"
-    (clickOutside)="listSrv.closeFilterPanel()"
-    *ngIf="listSrv.filterPanelOpen">
+    (clickOutside)="listSrv.closeFilterPanel()">
   </filters-app>
-  
 
-</ng-container>  
+
+</ng-container>

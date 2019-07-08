@@ -3,10 +3,10 @@
 <!-- BTN PANEL -->
 <side-panel-app *ngIf="view === 'BTNS'">
 
-  <side-panel-title-app>
-    Filters
+  <side-panel-title-app class="capitalize" i18n="text@@filters">
+    filters
   </side-panel-title-app>
-  <side-panel-action-app class="clear" (click)="resetAll()">
+  <side-panel-action-app class="clear" (click)="resetAll()" i18n="text@@clear-all-filters">
     Clear All Filters
   </side-panel-action-app>
 
@@ -28,10 +28,10 @@
   <side-panel-title-app (click)="openBtnPanel()">
     <div class="flex pointer">
       <icon-app fontSet="fa" name="angle-left"></icon-app>
-      <span>BACK</span>
+      <span class="capitalize" i18n="button@@back">back</span>
     </div>
   </side-panel-title-app>
-  <side-panel-action-app class="clear" (click)="resetType(typeSelected)">
+  <side-panel-action-app class="clear" (click)="resetType(typeSelected)" i18n="button@@clear-all">
     Clear All
   </side-panel-action-app>
 

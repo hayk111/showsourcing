@@ -12,6 +12,7 @@ import { ListViewComponent } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'project-product-list-app',
@@ -30,30 +31,30 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	@Output() openRequestQuotationDialog = new EventEmitter<Product>();
 	// templates
 	// load cells template for custom table
-	@ViewChild('main') mainTemplate: TemplateRef<any>;
-	@ViewChild('supplier') supplierTemplate: TemplateRef<any>;
-	@ViewChild('category') categoryTemplate: TemplateRef<any>;
-	@ViewChild('price') priceTemplate: TemplateRef<any>;
-	@ViewChild('moq') moqTemplate: TemplateRef<any>;
-	@ViewChild('feedback') feedbackTemplate: TemplateRef<any>;
-	@ViewChild('status') statusTemplate: TemplateRef<any>;
-	@ViewChild('creationDate') creationDateTemplate: TemplateRef<any>;
-	@ViewChild('favorite') ratingTemplate: TemplateRef<any>;
-	@ViewChild('user') userTemplate: TemplateRef<any>;
-	@ViewChild('action') actionTemplate: TemplateRef<any>;
-	@ViewChild('default') defaultTemplate: TemplateRef<any>;
-	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	@ViewChild('main', { static: true }) mainTemplate: TemplateRef<any>;
+	@ViewChild('supplier', { static: true }) supplierTemplate: TemplateRef<any>;
+	@ViewChild('category', { static: true }) categoryTemplate: TemplateRef<any>;
+	@ViewChild('price', { static: true }) priceTemplate: TemplateRef<any>;
+	@ViewChild('moq', { static: true }) moqTemplate: TemplateRef<any>;
+	@ViewChild('feedback', { static: true }) feedbackTemplate: TemplateRef<any>;
+	@ViewChild('status', { static: true }) statusTemplate: TemplateRef<any>;
+	@ViewChild('creationDate', { static: true }) creationDateTemplate: TemplateRef<any>;
+	@ViewChild('favorite', { static: true }) ratingTemplate: TemplateRef<any>;
+	@ViewChild('user', { static: true }) userTemplate: TemplateRef<any>;
+	@ViewChild('action', { static: true }) actionTemplate: TemplateRef<any>;
+	@ViewChild('default', { static: true }) defaultTemplate: TemplateRef<any>;
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	prodErm = ERM.PRODUCT;
 
 	descriptor: TableDescriptor = [
-		{ title: 'Name', type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
-		{ title: 'Category', type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
-		{ title: 'Supplier', type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
-		{ title: 'Price', type: 'price.value', sortBy: 'price', width: 50, minWidth: 50 },
-		{ title: 'MOQ', type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50, minWidth: 50 },
-		{ title: 'FAV', type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
-		{ title: 'Status', type: 'status', sortBy: 'status.step', width: 85, minWidth: 120 },
-		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
+		{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
+		{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
+		{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
+		{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price.value', sortBy: 'price', width: 50, minWidth: 50 },
+		{ title: translate('MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50, minWidth: 50 },
+		{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
+		{ title: translate('status'), type: 'status', sortBy: 'status.step', width: 85, minWidth: 120 },
+		{ title: translate('created on'), type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
 	];
 
 	constructor(

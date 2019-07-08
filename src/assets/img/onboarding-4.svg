@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="378" viewBox="0 0 800 378">
+    <defs>
+        <linearGradient id="a" x1="143.082%" x2="-26.998%" y1="-48.185%" y2="129.778%">
+            <stop offset="0%" stop-color="#71E591"/>
+            <stop offset="100%" stop-color="#5FCD7D"/>
+        </linearGradient>
+        <rect id="b" width="529" height="333" rx="8"/>
+        <filter id="c" width="102.6%" height="104.2%" x="-1.3%" y="-1.5%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+        </filter>
+        <linearGradient id="e" x1="100%" x2="0%" y1="50%" y2="50%">
+            <stop offset="0%" stop-color="#D0D8E5"/>
+            <stop offset="100%" stop-color="#A3AFC6"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="url(#a)" fill-rule="nonzero" d="M0 0h800v378H0z"/>
+        <path fill="#FFF" fill-rule="nonzero" d="M142.1 17c12.912 0 23.38 10.467 23.38 23.38-.013 12.907-10.473 23.368-23.38 23.38-12.913 0-23.38-10.467-23.38-23.38 0-12.913 10.467-23.38 23.38-23.38zm0 38.967c8.608 0 15.586-6.979 15.586-15.587s-6.978-15.587-15.587-15.587c-8.608 0-15.586 6.979-15.586 15.587s6.978 15.587 15.586 15.587zm15.72 12.59c10.846.012 19.637 8.824 19.65 19.697v23.637c0 6.527-5.28 11.818-11.79 11.818h-47.16c-6.512 0-11.79-5.291-11.79-11.818V88.254c.012-10.873 8.803-19.685 19.65-19.698h.927l.83.414a31.26 31.26 0 0 0 27.926 0l.829-.414h.927zm11.79 43.334V88.254c-.002-6.201-4.783-11.347-10.953-11.787a39.244 39.244 0 0 1-33.115 0c-6.17.44-10.951 5.586-10.952 11.787v23.637c0 2.175 1.76 3.94 3.93 3.94h47.16c2.17 0 3.93-1.765 3.93-3.94zm55.22 35.798c12.906.012 23.367 10.473 23.38 23.38 0 12.913-10.468 23.38-23.38 23.38-12.914 0-23.381-10.467-23.381-23.38 0-12.913 10.467-23.38 23.38-23.38zm0 38.967c8.607 0 15.586-6.979 15.586-15.587s-6.979-15.587-15.587-15.587-15.587 6.979-15.587 15.587 6.979 15.587 15.587 15.587zm14.52 10.19c10.847.014 19.637 8.825 19.65 19.698v23.637c0 6.528-5.278 11.819-11.79 11.819h-47.16c-6.511 0-11.79-5.291-11.79-11.819v-23.637c.013-10.873 8.803-19.684 19.65-19.697h.928l.829.394a31.264 31.264 0 0 0 27.926 0l.83-.394h.927zm11.79 43.335v-23.637c-.001-6.2-4.782-11.346-10.953-11.787a39.244 39.244 0 0 1-33.114 0c-6.17.44-10.952 5.587-10.953 11.787v23.637c0 2.176 1.76 3.94 3.93 3.94h47.16c2.17 0 3.93-1.764 3.93-3.94zM60.569 147.69c12.907.012 23.367 10.473 23.38 23.38 0 12.913-10.467 23.38-23.38 23.38-12.913 0-23.38-10.467-23.38-23.38 0-12.913 10.467-23.38 23.38-23.38zm0 38.967c8.608 0 15.587-6.979 15.587-15.587s-6.979-15.587-15.587-15.587-15.587 6.979-15.587 15.587 6.979 15.587 15.587 15.587zm14.52 10.19c10.848.014 19.638 8.825 19.65 19.698v23.637c0 6.528-5.278 11.819-11.79 11.819H35.79C29.278 252 24 246.709 24 240.181v-23.637c.013-10.873 8.803-19.684 19.65-19.697h.927l.83.394a31.264 31.264 0 0 0 27.926 0l.83-.394h.927zm11.79 43.335v-23.637c0-6.2-4.781-11.346-10.952-11.787a39.244 39.244 0 0 1-33.114 0c-6.17.44-10.952 5.587-10.953 11.787v23.637c0 2.176 1.76 3.94 3.93 3.94h47.16c2.17 0 3.93-1.764 3.93-3.94zm93.879-25.209c.838 2.09-.09 4.501-2.07 5.385-20.144 8.999-42.637 10.29-63.588 3.648l3.172 6.394c.997 2.013.257 4.496-1.652 5.547-1.909 1.05-4.264.27-5.26-1.742l-7.793-15.725c-.043-.057-.02-.123-.043-.18a13.237 13.237 0 0 1-.39-1.644 4.313 4.313 0 0 1 .296-1.697 3.98 3.98 0 0 1 .955-1.397c.124-.096.254-.182.39-.259a3.809 3.809 0 0 1 1.005-.588c.055-.02.097-.09.156-.09l15.586-4.82c2.066-.637 4.23.612 4.835 2.79.605 2.179-.58 4.461-2.645 5.1l-3.647 1.13c18.44 5.159 37.98 3.74 55.575-4.036 1.98-.89 4.268.082 5.112 2.17l.006.014zm66.283-94.188a3.902 3.902 0 0 1 .008 5.56l-11.926 11.797-.007.007a4.006 4.006 0 0 1-5.622-.007l-11.926-11.797a3.902 3.902 0 0 1 0-5.464 4.006 4.006 0 0 1 5.621-.096l4.484 4.435c-3.633-30.826-23.706-57.355-52.581-69.494-2.02-.852-2.96-3.161-2.1-5.16.861-1.998 3.196-2.927 5.216-2.076 32.189 13.53 54.295 43.417 57.587 77.859l5.625-5.564a4.006 4.006 0 0 1 5.621 0zM110.214 51.25c.062.245.1.497.113.75a4.016 4.016 0 0 1-.149.641 3.73 3.73 0 0 1-.21.824c-.031.04-.031.082-.031.12l-7.794 16.223a3.897 3.897 0 0 1-3.507 2.204 3.844 3.844 0 0 1-1.687-.389 3.883 3.883 0 0 1-1.82-5.182l2.818-5.874c-26.148 15.355-42.194 43.373-42.174 73.642a3.892 3.892 0 0 1-3.897 3.887 3.892 3.892 0 0 1-3.896-3.887c-.022-34.376 18.935-65.97 49.316-82.19l-8.07-3.681a3.883 3.883 0 0 1-1.85-4.948 3.9 3.9 0 0 1 5.084-2.12l15.587 7.103c.153.093.3.199.436.315.275.14.53.313.76.517.17.199.318.413.444.641.138.168.26.348.367.537 0 .03-.016.058 0 .097.015.039.058.062.058.097.055.22.089.446.102.673z"/>
+        <g transform="translate(199 24)">
+            <mask id="d" fill="#fff">
+                <use xlink:href="#b"/>
+            </mask>
+            <g fill-rule="nonzero">
+                <use fill="#000" filter="url(#c)" xlink:href="#b"/>
+                <use fill="#FFF" xlink:href="#b"/>
+            </g>
+            <path fill="#E6EBF5" fill-rule="nonzero" stroke="#E6EBF5" d="M.5.5h528v23H.5z" mask="url(#d)"/>
+            <circle cx="515" cy="12" r="5" fill="#E6007D" fill-rule="nonzero" mask="url(#d)"/>
+            <circle cx="499" cy="12" r="5" fill="#A3AFC6" fill-rule="nonzero" mask="url(#d)"/>
+            <circle cx="483" cy="12" r="5" fill="#A3AFC6" fill-rule="nonzero" mask="url(#d)"/>
+            <g mask="url(#d)">
+                <g fill-rule="nonzero" transform="translate(17 99)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                    <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <g transform="translate(201 110)">
+                    <rect width="99" height="20" fill="#50C2FF" fill-rule="nonzero" rx="10"/>
+                    <text fill="#FFF" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12">
+                        <tspan x="9" y="14">Request for Price</tspan>
+                    </text>
+                </g>
+                <g fill-rule="nonzero" transform="translate(17 48)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                    <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <g transform="translate(201 59)">
+                    <rect width="99" height="20" fill="#50C2FF" fill-rule="nonzero" rx="10"/>
+                    <text fill="#FFF" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12">
+                        <tspan x="9" y="14">Request for Price</tspan>
+                    </text>
+                </g>
+                <g fill-rule="nonzero" transform="translate(17 252)">
+                    <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                    <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                    <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                    <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                </g>
+                <g transform="translate(201 263)">
+                    <rect width="99" height="20" fill="#FFB900" fill-rule="nonzero" rx="10"/>
+                    <text fill="#FFF" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12">
+                        <tspan x="13" y="14">Pending - RFQ</tspan>
+                    </text>
+                </g>
+                <g>
+                    <g fill-rule="nonzero" transform="translate(17 201)">
+                        <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                        <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                        <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                        <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                    </g>
+                    <g transform="translate(201 212)">
+                        <rect width="99" height="20" fill="#71E591" fill-rule="nonzero" rx="10"/>
+                        <text fill="#FFF" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12">
+                            <tspan x="7" y="14">Quote - Validated</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g>
+                    <g fill-rule="nonzero" transform="translate(17 150)">
+                        <path fill="#E6EBF5" d="M0 0h39v39H0z"/>
+                        <path fill="#A3AFC6" d="M47 4h46v6H47z"/>
+                        <circle cx="49" cy="32" r="2" fill="#71E591"/>
+                        <path fill="url(#e)" fill-opacity=".29" d="M47 14h87v5H47zM47 21h87v5H47zM54 30h37v4H54z"/>
+                    </g>
+                    <g transform="translate(201 161)">
+                        <rect width="99" height="20" fill="#71E591" fill-rule="nonzero" rx="10"/>
+                        <text fill="#FFF" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="12">
+                            <tspan x="7" y="14">Quote - Validated</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -31,7 +31,8 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 			searchedFields: ['name', 'supplier.name', 'product.name'],
 			selectParams: {
 				sortBy: 'creationDate',
-				descending: true
+				descending: true,
+				query: 'deleted == false'
 			},
 			initialFilters: [
 				{ type: FilterType.DONE, value: false },
@@ -70,15 +71,15 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 	createTask(name: string) {
 		const newTask = new Task({ name, assignee: { id: this.userSrv.userSync.id } });
 		this.taskSrv.create(newTask).pipe(
-			switchMap(_ => this.listSrv.refetch())
+			switchMap(_ => this.listSrv.refetch({}))
 		).subscribe();
 	}
 
 	openProduct(id: string) {
-		this.router.navigate([ERM.PRODUCT.singular, 'details', id]);
+		this.router.navigate([ERM.PRODUCT.singular, id]);
 	}
 
 	openSupplier(id: string) {
-		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
+		this.router.navigate([ERM.SUPPLIER.singular, id]);
 	}
 }

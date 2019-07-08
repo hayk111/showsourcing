@@ -1,13 +1,15 @@
-	<div class="icon pointer flexCenter {{ hasContent ? 'mg-right' : '' }}">
-		<icon-app
-			*ngIf="checked; else unchecked"
-			class="color-primary"
-			[ngStyle]="iconSize()"
-			fontSet="svg"
-			name="check-square" (click)="onClick()"></icon-app>
-		<ng-template #unchecked>
-			<div class="unChecked" [ngStyle]="uncheckedStyle()" (click)="onClick()"></div>
-		</ng-template>
+	<div
+		class="icon flexCenter bg-{{ boxColor }}"
+		[ngClass]="{ 'mg-right': hasContent, 'pointer': disabled }"
+		[ngStyle]="iconSize()"
+		(click)="onClick()">
+		<!-- we need this to wrap both items, we cannot use the container above cause of the styling that has -->
+		<div tabFocus (keyEnter)="focusClick()">
+			<icon-app *ngIf="checked; else unchecked" class="check-icon" name="check"></icon-app>
+			<ng-template #unchecked>
+				<div class="unChecked" [ngStyle]="uncheckedStyle()"></div>
+			</ng-template>
+		</div>
 	</div>
 
 	<input #input
@@ -19,6 +21,6 @@
 		[checked]="checked"
 		[attr.value]="value"
 		[disabled]="disabled">
-	<label class="label" [ngClass]="labelClass" #label [attr.for]="id" (click)="onClick()" class="flexVAlign">
+	<label class="label" [ngClass]="{ 'pointer': !disabled }" #label [attr.for]="id" (click)="onClick()" class="flexVAlign">
 		<ng-content></ng-content>
 	</label>

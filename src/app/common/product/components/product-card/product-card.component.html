@@ -8,7 +8,7 @@
         <img class="mini image ng-star-inserted"
           [src]="product | image:'m':'product'"
           (click)="clickImage.emit()">
-        <div *ngIf="enablePreviewLink" class="preview" (click)="clickImage.emit()"><div>Preview</div></div>
+        <div *ngIf="enablePreviewLink" class="preview capitalize" (click)="clickImage.emit()" i18n="@@preview">preview</div>
         <div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
           <checkbox-app
 						[checked]="checked"
@@ -27,12 +27,12 @@
           <div class="descriptionCtnr">
             <div class="descriptionCtnr-first">
               <span class="subtitle">
-                <ng-container *ngIf="product?.price">{{product?.price?.currency}} {{product?.price?.value | ssPrice}}</ng-container>
+                <ng-container *ngIf="product?.price">{{ product?.price | appPrice }}</ng-container>
                 <ng-container *ngIf="product?.price && product?.minimumOrderQuantity">&nbsp;-&nbsp;</ng-container>
-                <ng-container *ngIf="product?.minimumOrderQuantity">Min {{product?.minimumOrderQuantity}} pcs</ng-container>
+                <ng-container *ngIf="product?.minimumOrderQuantity" i18n="example: min (minimum) 150 pcs (pieces)@@min-pcs">Min {{ product?.minimumOrderQuantity }} pcs</ng-container>
               </span>
-              <span class="descriptionText"> {{product?.description || ''}} </span>
-              <span class="descriptionText">{{product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : ''}} {{product?.category?.name}}</span>
+              <span class="descriptionText"> {{ product?.description || '' }} </span>
+              <span class="descriptionText">{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}</span>
             </div>
             <div class="descriptionCtnr-last flex">
               <icon-app
@@ -41,12 +41,12 @@
                 [name]="thumbsName"
                 [ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
 							</icon-app>
-              <span *ngIf="score !== null" class="score" [ngClass]="{ 'like-txt': score >= 50, 'dislike-txt': score < 50 }">{{score}}%</span>
+              <span *ngIf="score !== null" class="score" [ngClass]="{ 'like-txt': score >= 50, 'dislike-txt': score < 50 }">{{ score }}%</span>
             </div>
           </div>
         </div>
         <div class="descriptionBottomCtnr">
-          <badge-app size="xs" type="secondary-light" *ngFor="let tag of product?.tags | slice:0:1;trackBy: trackByFn">{{tag.name}}</badge-app>
+          <badge-app size="xs" type="secondary-light" *ngFor="let tag of product?.tags | slice:0:1;trackBy: trackByFn">{{ tag.name }}</badge-app>
         </div>
       </div>
       <div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">

@@ -31,7 +31,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			key: ListPageKey.PROJECTS,
 			entitySrv: this.projectSrv,
 			searchedFields: ['name'],
-			selectParams: { sortBy: 'name', descending: false },
+			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
 			entityMetadata: ERM.PROJECT,
 		}, false);
 	}

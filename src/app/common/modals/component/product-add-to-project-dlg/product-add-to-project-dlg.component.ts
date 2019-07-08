@@ -6,11 +6,12 @@ import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { TrackingComponent } from '~utils/tracking-component';
 import { CloseEventType } from '~shared/dialog';
+import { translate } from '~utils';
 
 
 
 @Component({
-	selector: 'product-add-to-project-dlapp',
+	selector: 'product-add-to-project-dlg-app',
 	templateUrl: './product-add-to-project-dlg.component.html',
 	styleUrls: ['./product-add-to-project-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -54,8 +55,8 @@ export class ProductAddToProjectDlgComponent extends TrackingComponent implement
 				this.dlgSrv.close();
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
-					title: 'Projects Added',
-					message: 'Your projects were added to the product with success',
+					title: translate('Projects added'),
+					message: translate('Your projects were added to the product with success'),
 					timeout: 3500
 				});
 			});

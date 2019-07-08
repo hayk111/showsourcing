@@ -5,7 +5,6 @@ import {
 	Component,
 	ComponentFactoryResolver,
 	HostListener,
-	NgModuleRef,
 	ViewChild,
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
@@ -22,9 +21,11 @@ import { AutoUnsub } from '~utils';
 })
 export class DialogContainerComponent extends AutoUnsub implements AfterViewInit {
 	// host where we will put dynamically generated components
-	@ViewChild(DialogHostDirective) host: DialogHostDirective;
+	@ViewChild(DialogHostDirective, { static: true }) host: DialogHostDirective;
 	// view container of said host.
 	protected viewContainerRef;
+	/** whether clicking */
+	closeOnOutsideClick = true;
 	isOpen = false;
 
 	constructor(
@@ -38,8 +39,8 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 		this.viewContainerRef = this.host.viewContainerRef;
 		this.srv.toOpen$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(({ component, props }) => {
-				this.open(component, props);
+			.subscribe(({ component, props, closeOnOutsideClick }) => {
+				this.open(component, props, closeOnOutsideClick);
 			});
 		this.srv.toClose$
 			.pipe(takeUntil(this._destroy$))
@@ -47,12 +48,12 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	}
 
 	/** will put a component in the host container */
-	open(component, props: any) {
+	open(component, props: any, closeOnOutsideClick = true) {
 		this.isOpen = true;
+		this.closeOnOutsideClick = closeOnOutsideClick;
 		const componentFactoryResolver = this.componentFactoryResolver;
 		const componentFactory = componentFactoryResolver.resolveComponentFactory(component);
 		this.viewContainerRef.clear();
-
 		const componentRef = this.viewContainerRef.createComponent(componentFactory);
 		const instance = (<any>componentRef.instance);
 		// adding properties to dialog
@@ -77,6 +78,12 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 			this.viewContainerRef.clear();
 			this.isOpen = false;
 			this.cdRef.markForCheck();
+		}
+	}
+
+	closeIfNeeded() {
+		if (this.closeOnOutsideClick) {
+			this.close();
 		}
 	}
 

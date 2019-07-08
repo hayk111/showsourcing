@@ -3,23 +3,29 @@
 	[hasSelection]="false"
 	[pending]="pending"
 	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[skipped]="skipped"
 	placeholder="No exports"
+	(next)="next.emit()"
+	(previous)="previous.emit()"
+	(goToPage)="goToPage.emit($event)"
 	(sort)="sort.emit($event)"
-	(bottomReached)="bottomReached.emit()">
+	(bottomReached)="bottomReached.emit()"
+	i18n-placeholder="@@no-exports">
 
 		<!-- contextual menu -->
 		<ng-template #contextualMenuTemplate let-row="row">
 			<context-menu-item-app
 				class="pointer flexCenter"
 				(click)="download.emit(row)"
-				i18n="export menu | delete">
-				Download
+				i18n="button@@download">
+				download
 			</context-menu-item-app>
 		</ng-template>
 
 		<!-- export name -->
 		<ng-template
-			columnApp="Export"
+			[columnApp]="'export' | const: 'messages'"
 			sortBy="name"
 			let-row="row"
 			width="280">
@@ -30,7 +36,7 @@
 
 		<!-- status -->
 		<ng-template
-			columnApp="Status"
+			[columnApp]="'status' | const: 'messages'"
 			let-row="row"
 			sortBy="status"
 			width="140"
@@ -40,7 +46,7 @@
 
 		<!-- date -->
 		<ng-template
-			columnApp="Creation Date"
+			[columnApp]="'creation date' | const: 'messages'"
 			let-row="row"
 			sortBy="creationDate"
 			width="280"
@@ -50,7 +56,7 @@
 
 		<!-- user -->
 		<ng-template
-			columnApp="Created By"
+			[columnApp]="'created by' | const: 'messages'"
 			let-row="row"
 			sortBy="createdBy.lastName"
 			width="280">
@@ -61,12 +67,12 @@
 
 		<!-- download -->
 		<ng-template
-			columnApp="Download"
+			[columnApp]="'download' | const: 'messages'"
 			let-row="row"
 			sortBy="createdBy.lastName"
 			[grows]="false"
 			width="100">
-			<div class="tool-tip" toolTip [toolTipMessage]="row?.status !== 'ready' ? 'Your export is being processed' : null" toolTipPosition="above-right">
+			<div class="tool-tip" toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
 				<icon-app
 					[ngClass]="{'disabled': row?.status !== 'ready'}"
 					class="download" name="file" (click)="download.emit(row)">

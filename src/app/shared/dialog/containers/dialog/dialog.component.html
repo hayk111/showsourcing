@@ -1,11 +1,11 @@
 
 	<!-- header -->
-	<div class="header flexBetween" [ngStyle]="{ 'padding-bottom': 'var(--spacing-' + headerSpacing + ')' }">
+	<div *ngIf="hasHeader" class="header flexBetween" [ngStyle]="{ 'padding-bottom': 'var(--spacing-' + headerSpacing + ')' }">
 		<div class="spacer">
 			<ng-content select="dialog-header-app"></ng-content>
 		</div>
 
-		<icon-app name="close" class="pointer color-txt-secondary" (click)="doClose()"></icon-app>
+		<icon-app *ngIf="closeIcon" name="close" class="pointer color-txt-secondary" (click)="doClose()"></icon-app>
 	</div>
 	<!-- <divider-app></divider-app> -->
 
@@ -20,6 +20,6 @@
 
 	<!-- footer -->
 	<!-- <divider-app></divider-app> -->
-	<div class="footer" *ngIf="hasFooter">
+	<div class="footer">
 		<ng-content select="dialog-footer-app"></ng-content>
 	</div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~models';
@@ -12,7 +12,7 @@ import { StatusSelectorService } from '../service/status-selector.service';
 	templateUrl: './status-selector.component.html',
 	styleUrls: ['./status-selector.component.scss'],
 	host: {
-		class: 'flex'
+		class: 'flex pointer'
 	}
 })
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {
@@ -36,12 +36,13 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 	// use for the cdk overlay
 	@Input() offsetX = 0;
-	@Input() offsetY: number;
+	@Input() offsetY = 8;
 	@Input() selectSize = 'm';
 	@Input() internalUpdate = true;
 	@Input() type: 'badge' | 'dropdown' | 'multiple-selection' | 'button' = 'badge';
+	@Input() width: number;
 	@Output() statusUpdated = new EventEmitter<any>();
-	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
+	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
 	/** string[] since tasks does not have a status entity */
 	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
 	@Input() statuses: any[];
@@ -88,35 +89,19 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	// this is only done for tasks since we don't have it on the DB
-	getTaskStatus() {
-		let taskStatus = 'pending';
-		if (this.entity.done)
-			taskStatus = 'done';
-		else if (this.entity.dueDate && (new Date().getTime() >= Date.parse(this.entity.dueDate.toString())))
-			taskStatus = 'overdue';
-		return taskStatus;
-	}
-
-	// this is only done for tasks since we don't have it on the DB
-	getTaskColor() {
-		let taskStatusColor = 'secondary'; // pending
-		if (this.entity.done)
-			taskStatusColor = 'success'; // done
-		else if (this.entity.dueDate && (new Date().getTime() >= Date.parse(this.entity.dueDate.toString())))
-			taskStatusColor = 'warn'; // overdue
-		return taskStatusColor;
-	}
-
-	// this is only done for tasks since we don't have it on the DB
-	updateTask() {
-		const done = !this.entity.done;
+	updateTask(done: boolean) {
 		this.statusSlctSrv.updateTask({ id: this.entity.id, done });
 	}
 
+	openMenu() {
+		if (this.menu) {
+			this.menu.openMenu();
+		}
+	}
+
 	closeMenu() {
-		if (this.menus && this.menus.length > 0) {
-			const contextualMenu = this.menus.first;
-			contextualMenu.closeMenu();
+		if (this.menu) {
+			this.menu.closeMenu();
 		}
 	}
 

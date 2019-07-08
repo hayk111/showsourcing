@@ -24,8 +24,8 @@ export class ProfileCardComponent extends AutoUnsub implements OnInit {
 	@Input() user: User;
 	@Input() form: FormGroup;
 	/** hidden file input */
-	@ViewChild('inpFile') inpFile: ElementRef;
-	@ViewChild(InputDirective) input: InputDirective;
+	@ViewChild('inpFile', { static: true }) inpFile: ElementRef;
+	@ViewChild(InputDirective, { static: true }) input: InputDirective;
 	@Output() valueChange = new EventEmitter<User>();
 	@Output() addFile = new EventEmitter<any>();
 	@Output() changePswd = new EventEmitter<undefined>();

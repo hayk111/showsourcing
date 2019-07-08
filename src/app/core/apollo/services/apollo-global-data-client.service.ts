@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { User as RealmUser } from 'realm-graphql-client';
 import { forkJoin, from, Observable } from 'rxjs';
-import { catchError, first, switchMap, takeUntil, tap, take } from 'rxjs/operators';
+import { catchError, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
@@ -35,6 +35,7 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 		this.checkNotAlreadyInit();
 		const userId = realmUser.identity;
 		const path = `/${this.client}/__partial/${userId}/${this.suffix}`;
+		this.setPending('initialization');
 
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
@@ -49,15 +50,16 @@ export class GlobalDataClientsInitializer extends AbstractApolloClient {
 	}
 
 	createMissingSubscription(): Observable<any> {
-		const toSubSet = new Set([
-			'country',
-			'currency',
-			'harbour',
-			'incoterm',
-		]);
+		const toSub = [
+			ERM.COUNTRY,
+			ERM.CURRENCY,
+			ERM.HARBOUR,
+			ERM.INCO_TERM,
+			ERM.LENGTH_UNIT,
+			ERM.WEIGHT_UNIT,
+		];
 
-		const newSubs = Array.from(toSubSet)
-			.map((name: string) => ERM.getEntityMetadata(name))
+		const newSubs = toSub
 			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.GLOBAL_DATA));
 		return forkJoin(newSubs);
 	}

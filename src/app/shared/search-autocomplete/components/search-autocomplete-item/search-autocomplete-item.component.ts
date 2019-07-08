@@ -32,7 +32,7 @@ export class SearchAutocompleteItemComponent extends AutoUnsub implements OnInit
 	/** The item is selected. */
 	selected = false;
 
-	@ContentChild(SearchAutocompleteItemContentComponent) content: SearchAutocompleteItemContentComponent;
+	@ContentChild(SearchAutocompleteItemContentComponent, { static: true }) content: SearchAutocompleteItemContentComponent;
 
 	constructor(private element: ElementRef, private renderer: Renderer2) {
 		super();

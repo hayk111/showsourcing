@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CustomField } from '~shared/dynamic-forms/models';
+import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 import { TrackingComponent } from '~utils/tracking-component';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
@@ -12,7 +12,7 @@ import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.inter
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent extends TrackingComponent implements OnInit, OnChanges {
-	@Input() fields: CustomField[];
+	@Input() fields: DynamicField[];
 	/** value of those custom field */
 	@Input() value: any;
 	/** number of columns */
@@ -25,7 +25,7 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit, O
 	@Output() formCreated = new EventEmitter<FormGroup>();
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	form: FormGroup;
-	cols: CustomField[][];
+	cols: DynamicField[][];
 
 	constructor(private dfSrv: DynamicFormsService) {
 		super();

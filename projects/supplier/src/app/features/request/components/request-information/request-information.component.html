@@ -1,0 +1,32 @@
+<card-app>
+	<h3 class="l" i18n="header|card header@@request-information">Request Information</h3>
+	<editable-field-app class="no-hover" [openOnClick]="false">
+		<label-app i18n="@@received-from">received from</label-app>
+		<editable-label-app>
+			{{ request?.sender?.name }}
+		</editable-label-app>
+	</editable-field-app>
+
+	<editable-field-app class="no-hover" [openOnClick]="false">
+		<label-app i18n="@@sent-on">sent on</label-app>
+		<editable-label-app>
+			{{ request?.creationDate | date: 'dd MMMM yyyy' }}
+			<ng-container i18n="time indicator. Example: 12 june at 10.00@@at">at</ng-container>
+			{{ request?.creationDate | date: 'HH:mm' }}
+		</editable-label-app>
+	</editable-field-app>
+
+	<!-- <editable-field-app class="no-hover" [openOnClick]="false">
+		<label-app>Sent By</label-app>
+		<editable-label-app>
+			{{ request?.sender?.name }}
+		</editable-label-app>
+	</editable-field-app> -->
+
+	<editable-field-app class="no-hover" [openOnClick]="false">
+		<label-app i18n="@@status">status</label-app>
+		<editable-label-app>
+			{{ request?.status | const: 'statusRequestSupplier' }}
+		</editable-label-app>
+	</editable-field-app>
+</card-app>
