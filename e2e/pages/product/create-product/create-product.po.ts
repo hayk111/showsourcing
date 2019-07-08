@@ -38,7 +38,7 @@ export class CreateProductPage {
 		// trigger next focus
 		await browser.actions().sendKeys(protractor.Key.TAB).perform();
 		currentActiveElem = await browser.driver.switchTo().activeElement();
-
+		console.log('currentActiveElem', await currentActiveElem.getTagName());
 		while (firstId !== await currentActiveElem.getId()) {
 			array.push(await currentActiveElem.getId());
 			await browser.actions().sendKeys(protractor.Key.TAB).perform();
@@ -65,6 +65,16 @@ export class CreateProductPage {
 			}
 		}
 		return inpFields;
+	}
+
+	async getSelFieldIds() {
+		const dlgApp = await browser.driver.findElement(by.tagName('dialog-app'));
+		const selApps = await dlgApp.findElements(by.tagName('selector-placeholder-app'));
+		const selFields = [];
+		for (let i = 0; i < selApps.length; i++) {
+			selFields.push(await selApps[i].getId());
+		}
+		return selFields;
 	}
 
 	async getBooleanFieldIds() {

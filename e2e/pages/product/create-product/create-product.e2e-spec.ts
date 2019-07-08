@@ -50,10 +50,8 @@ describe('create product test suite', () => {
 				fail('can not open "creation-product-dlg-app"');
 			}
 
-			if (!numTabAvailable) {
-				fieldFocusableIds = await pageCreateProduct.countTabs();
-				numTabAvailable = fieldFocusableIds.length;
-			}
+			fieldFocusableIds = await pageCreateProduct.countTabs();
+			numTabAvailable = fieldFocusableIds.length;
 		} else {
 			fail('can not find button "Add product" with id "topPanelBtn"');
 		}
@@ -88,6 +86,11 @@ describe('create product test suite', () => {
 		inpFieldIds = inpFieldIds.filter(o => !fieldFocusableIds.includes(o));
 		expect(inpFieldIds.length).toBeFalsy('all input field can not be focusable');
 
+		// selector fields
+		let selFieldIds = await pageCreateProduct.getSelFieldIds();
+		selFieldIds = selFieldIds.filter(o => !fieldFocusableIds.includes(o));
+		expect(selFieldIds.length).toBeFalsy('all selector field can not be focusable');
+
 		// boolean field
 		let booleanFieldIds = await pageCreateProduct.getBooleanFieldIds();
 		booleanFieldIds = booleanFieldIds.filter(o => !fieldFocusableIds.includes(o));
@@ -103,7 +106,6 @@ describe('create product test suite', () => {
 		btnIds = btnIds.filter(o => !fieldFocusableIds.includes(o));
 		expect(btnIds.length).toBeFalsy('all checkbox field can not be focusable');
 
-		browser.driver.sleep(50000);
 		return expect(true).toBe(true);
 	});
 
