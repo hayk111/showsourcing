@@ -26,7 +26,7 @@ export class DataMananagementTableComponent extends ListViewComponent<any> {
 		else
 			item = { id: obj.id, name: newName };
 
-			this.renameEntity.emit(item);
+		this.renameEntity.emit(item);
 	}
 	onHover(id: string) {
 		this.idEntityHovered = id;
