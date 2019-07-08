@@ -141,8 +141,13 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "styles": [
-              "app/theming/styles.scss"
+              "src/app/theming/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/theming"
+              ]
+            },
             "scripts": [],
             "assets": [
               "src/favicon.ico",
