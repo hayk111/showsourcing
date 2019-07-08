@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { ProductService } from '~core/entity-services';
@@ -10,7 +10,6 @@ import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { PickerField } from '~shared/selectors';
-import { TabFocusDirective } from '~shared/utils';
 import { AutoUnsub, translate, uuid } from '~utils';
 
 @Component({
@@ -23,8 +22,6 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 
 	@Input() type: EntityMetadata;
 	@Input() items: any[];
-
-	@ViewChild('tab', { static: true }) tab: TabFocusDirective;
 
 	pickerFields: PickerField[] = productFields;
 	erm = ERM;
@@ -50,9 +47,6 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 				this.definitions$ = this.extendedFDSrv.queryMany({ query: 'target == "product.extendedFields"', sortBy: 'order' });
 				break;
 			default: throw Error(`No PickerField associated to this ERM ${this.type}`);
-		}
-		if (this.tab) {
-			setTimeout(_ => this.tab.focus(), 10);
 		}
 	}
 
