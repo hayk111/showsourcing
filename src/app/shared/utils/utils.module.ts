@@ -5,7 +5,6 @@ import { DateToTimeAgoPipe } from '~shared/utils/pipes/date-ago.pipe';
 import { UserNamePipe } from '~shared/utils/pipes/user-name.pipe';
 import { InfiniScrollDirective, TooltipDirective, TooltipComponent } from '~shared/utils/directives';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { GroupByPipe } from '~shared/utils/pipes/groupby.pipe';
 import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directive';
 import { TabFocusDirective } from './directives/tab-focus.directive';
 
@@ -17,7 +16,6 @@ import { TabFocusDirective } from './directives/tab-focus.directive';
 		ClickOutsideDirective,
 		DateToTimeAgoPipe,
 		UserNamePipe,
-		GroupByPipe,
 		InfiniScrollDirective,
 		ConstPipe,
 		AutoFocusDirective,
@@ -31,7 +29,6 @@ import { TabFocusDirective } from './directives/tab-focus.directive';
 		UserNamePipe,
 		InfiniScrollDirective,
 		ConstPipe,
-		GroupByPipe,
 		AutoFocusDirective,
 		TooltipDirective,
 		TabFocusDirective
