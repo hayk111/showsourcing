@@ -59,7 +59,8 @@
           [disabled]="isDisabled()"
           [value]="element?.reply?.message"
           [formControl]="descriptionCtrl"
-          type="text"
+					type="text"
+					(blur)="save()"
           placeholder="Reply message to buyer"
           i18n-placeholder="@@reply-message-buyer">
         </textarea>

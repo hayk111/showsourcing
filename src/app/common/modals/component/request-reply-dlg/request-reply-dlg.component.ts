@@ -115,8 +115,10 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
 		});
-		this.descriptionCtrl.reset();
-		this.content.nativeElement.scrollIntoView();
+		if (updateStatus) {
+			this.descriptionCtrl.reset();
+			this.content.nativeElement.scrollIntoView();
+		}
 	}
 
 	saveAndClose() {
