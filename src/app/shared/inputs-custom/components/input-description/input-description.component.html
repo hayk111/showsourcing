@@ -17,6 +17,7 @@
 		</editable-label-app>
 		<editable-label-app
 			*ngIf="!(description?.length && description)"
+			[disabled]="true"
 			class="fullWidth fs-m">
 			<button class="secondary flexCenter edit-description" [ngStyle]="{'width': isBig ? '30%' : '100%'}">
 				<icon-app class="edit" name="edit"></icon-app>
