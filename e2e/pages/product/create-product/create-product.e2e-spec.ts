@@ -1,7 +1,7 @@
 import { CreateProductPage } from './create-product.po';
 import { LoginPage } from '../../auth/login/login.po';
 import { ChangePasswordPage } from '../../auth/change-password/change-password.po';
-import { protractor, browser, by, ExpectedConditions, WebDriver } from 'protractor';
+import { protractor, browser } from 'protractor';
 
 describe('create product test suite', () => {
 	let pageCreateProduct: CreateProductPage;
@@ -106,6 +106,16 @@ describe('create product test suite', () => {
 		btnIds = btnIds.filter(o => !fieldFocusableIds.includes(o));
 		expect(btnIds.length).toBeFalsy('all checkbox field can not be focusable');
 
+		// selector price
+		let selPriceIds = await pageCreateProduct.getSelPriceIds();
+		selPriceIds = selPriceIds.filter(o => !fieldFocusableIds.includes(o));
+		expect(selPriceIds.length).toBeFalsy('all selector price can not be focusable');
+
+		// textarea
+		let textareaIds = await pageCreateProduct.getTextareaIds();
+		textareaIds = textareaIds.filter(o => !fieldFocusableIds.includes(o));
+		expect(textareaIds.length).toBeFalsy('all textarea can not be focusable');
+
 		return expect(true).toBe(true);
 	});
 
@@ -121,28 +131,122 @@ describe('create product test suite', () => {
 			currentActiveElem = await browser.driver.switchTo().activeElement();
 		}
 		// find selector fields
-		const selectors = await pageCreateProduct.selectorPlaceHolderApp;
+		const selectors = await pageCreateProduct.selectors();
 		let count = 0;
 		const failures = [];
 		for (let i = 0; i < numTabAvailable; i++) {
 			await browser.actions().sendKeys(protractor.Key.TAB).perform();
 
 			const curActiveElem = await browser.driver.switchTo().activeElement();
-			if (await curActiveElem.getTagName() === 'selector-placeholder-app') {
+			const tagName = await curActiveElem.getTagName();
+			if (tagName === 'selector-placeholder-app' ||
+				(tagName === 'div' && (await curActiveElem.getAttribute('class')).includes('currency'))) {
 				await curActiveElem.sendKeys('abc');
-
 				browser.sleep(1000);
-				const isOpenedSelPickerApp = await pageCreateProduct.selPickerApp.isDisplayed();
-
-				if (isOpenedSelPickerApp) { // opened "selector-picker-app"
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
 					count++;
 					await pageCreateProduct.closeSelPickerApp();
 				} else {
 					failures.push(await curActiveElem.getText());
+					fail('can not get selector-picker-app');
 				}
 			}
 		}
-		return expect(count).toEqual(selectors.length, `Failed: ${failures.join(',')}`);
+		return expect(count).toEqual(selectors.length, `Failed: ${failures.join(', ')}`);
+	});
+
+	describe('select 1 can not create', async () => {
+		it('the field should be focused when the picker opens', async () => {
+			const selectors = await pageCreateProduct.selectors();
+			let count = 0;
+			const failures = [{ text: 'can not open picker', array: [] }, { text: 'the field not be focused', array: [] }];
+			for (let i = 0; i < selectors.length; i++) {
+				await selectors[i].click();
+				browser.sleep(1000);
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					const curActiveElem = await browser.driver.switchTo().activeElement();
+					const inp = await pageCreateProduct.getFieldNamePickerApp;
+					if (await inp.getId() === await curActiveElem.getId()) {
+						count++;
+					} else {
+						failures[1].array.push(await selectors[i].getAttribute('placeholder'));
+					}
+					await pageCreateProduct.closeSelPickerApp();
+				} else {
+					failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				}
+			}
+
+			return expect(count).toEqual(selectors.length,
+				`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+		});
+
+		it('should display the selector items', async () => {
+			const selectors = await pageCreateProduct.selectors();
+			let count = 0;
+			const failures = [{ text: 'can not open picker', array: [] }, { text: 'not display selector items', array: [] }];
+			console.log('selectors.length', selectors.length);
+
+			for (let i = 0; i < selectors.length; i++) {
+				await selectors[i].click();
+				browser.sleep(1000);
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					const text = await selectors[i].getText();
+					switch (text) {
+						case 'supplier':
+							if (await pageCreateProduct.countSelRowAppByName('supplier')) {
+								count++;
+							} else {
+								failures[1].array.push(text);
+							}
+							break;
+						case 'category':
+							if (await pageCreateProduct.countSelRowAppByName('category')) {
+								count++;
+							} else {
+								failures[1].array.push(text);
+							}
+							break;
+						case 'tag':
+							if (await pageCreateProduct.countSelRowAppByName('tag')) {
+								count++;
+							} else {
+								failures[1].array.push(text);
+							}
+							break;
+						case 'project':
+							if (await pageCreateProduct.countSelRowAppByName('project')) {
+								count++;
+							} else {
+								failures[1].array.push(text);
+							}
+							break;
+						case 'USD':
+							if (await pageCreateProduct.countSelRowAppByName('currency')) {
+								count++;
+							} else {
+								failures[1].array.push(text);
+							}
+							break;
+						default: // case USD, cm, kg, inco term, harbour
+							if (await pageCreateProduct.countSelRowAppByName('name')) {
+								count++;
+							} else {
+								failures[1].array.push(text);
+							}
+							break;
+					}
+					await pageCreateProduct.closeSelPickerApp();
+				} else {
+					failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				}
+			}
+
+			return expect(count).toEqual(selectors.length,
+				`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+		});
 	});
 
 	// ------------ TEST SUITE UPLOAD IMAGE ------------

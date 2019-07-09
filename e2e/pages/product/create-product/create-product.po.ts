@@ -68,8 +68,7 @@ export class CreateProductPage {
 	}
 
 	async getSelFieldIds() {
-		const dlgApp = await browser.driver.findElement(by.tagName('dialog-app'));
-		const selApps = await dlgApp.findElements(by.tagName('selector-placeholder-app'));
+		const selApps = await this.selectorPlaceHolderApp;
 		const selFields = [];
 		for (let i = 0; i < selApps.length; i++) {
 			selFields.push(await selApps[i].getId());
@@ -95,6 +94,22 @@ export class CreateProductPage {
 		const dlgApp = await browser.driver.findElement(by.tagName('dialog-app'));
 		const btns = await dlgApp.findElements(by.tagName('button'));
 		return Promise.all(btns.map(async e => (await e.getId())));
+	}
+
+	async getSelPriceIds() {
+		const selectors = await this.selectorPriceApp;
+		return Promise.all(selectors.map(async e => (await e.findElement(by.xpath('div/div')).getId())));
+	}
+
+	async getTextareaIds() {
+		const dlgApp = await browser.driver.findElement(by.tagName('dialog-app'));
+		const textareas = await dlgApp.findElements(by.css('textarea[type="text"]'));
+		return Promise.all(textareas.map(async e => (await e.getId())));
+	}
+
+	async countSelRowAppByName(name: string) {
+		const tagName = name && name.length ? `selector-${name}-row-app` : 'selector-name-row-app';
+		return (await this.selPickerApp.findElements(by.tagName(tagName)) || []).length;
 	}
 
 	get inpRadiosOfDlgApp() {
@@ -143,9 +158,25 @@ export class CreateProductPage {
 		return (await browser.driver.findElements(by.tagName('spinner-app')) || []).length;
 	}
 
+	async selectors() {
+		const dlgApp = await browser.driver.findElement(by.tagName('dialog-app'));
+		const placeApps = await dlgApp.findElements(by.tagName('selector-placeholder-app'));
+		const priceApps = await dlgApp.findElements(by.css('selector-app[type="currency"]'));
+		return placeApps.concat(priceApps);
+	}
+
+	get getFieldNamePickerApp() { // get field name of selector-picker-app
+		return this.selPickerApp.findElement(by.tagName('input'));
+	}
+
 	get selectorPlaceHolderApp() {
 		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
 		return dlgApp.findElements(by.tagName('selector-placeholder-app'));
+	}
+
+	get selectorPriceApp() {
+		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
+		return dlgApp.findElements(by.css('selector-app[type="currency"]'));
 	}
 
 	get dynamicformApp() {
@@ -170,6 +201,10 @@ export class CreateProductPage {
 
 	get selPickerApp() {
 		return browser.driver.findElement(by.tagName('selector-picker-app'));
+	}
+
+	get selNameRowApp() {
+		return browser.driver.findElement(by.tagName('selector-picker-app')).findElements(by.tagName('selector-name-row-app'));
 	}
 
 	// for describe 'add image button should upload image'
@@ -213,7 +248,6 @@ export class CreateProductPage {
 	}
 
 	// for describe 'add attachment button should upload attachment'
-
 	async setAttachment(url: string) {
 		const inpAttachment = await browser.driver.findElement(by.id('inpAttachment'));
 		const script = `arguments[0].style.visibility = "visible"; arguments[0].style.height = "1px";
