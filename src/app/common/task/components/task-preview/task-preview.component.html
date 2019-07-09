@@ -32,14 +32,6 @@
 		</preview-badge-app>
 	</preview-header-app>
 
-	<!-- Description -->
-	<preview-section-app [title]="'description'" i18n-title="@@description">
-		<input-description-app
-			[description]="task?.description"
-			(update)="update($event, 'description')">
-		</input-description-app>
-	</preview-section-app>
-
 	<!-- Date & Assignee -->
 	<preview-section-app>
 		<div class="date-assignee-section flexAround">
@@ -82,6 +74,28 @@
 				</selector-app>
 			</div>
 		</div>
+
+		<divider-app class="mg-bottom-l"></divider-app>
+
+	</preview-section-app>
+
+	<!-- Description -->
+	<preview-section-app [title]="'description'" i18n-title="@@description">
+		<input-description-app
+			[description]="task?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
+	</preview-section-app>
+
+	<!-- Task details form -->
+	<preview-section-app>
+		<dynamic-form-app
+			[inlineLabel]="true"
+			[fields]="dynamicFields"
+			[value]="task"
+			[colAmount]="1"
+			(update)="updateTask($event)">
+		</dynamic-form-app>
 	</preview-section-app>
 
 	<!-- Activity -->

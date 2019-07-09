@@ -13,7 +13,8 @@ export class Task extends EntityWithAudit<TaskConfig> {
 	product?: Product;
 	supplier?: Supplier;
 	comments?: Comment[];
-	__typename ?= 'Task';
+	lastUpdatedBy: User;
+	__typename?= 'Task';
 }
 
 export interface TaskConfig {
