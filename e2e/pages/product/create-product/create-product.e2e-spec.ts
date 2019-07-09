@@ -186,7 +186,6 @@ describe('create product test suite', () => {
 			const selectors = await pageCreateProduct.selectors();
 			let count = 0;
 			const failures = [{ text: 'can not open picker', array: [] }, { text: 'not display selector items', array: [] }];
-			console.log('selectors.length', selectors.length);
 
 			for (let i = 0; i < selectors.length; i++) {
 				await selectors[i].click();
@@ -237,6 +236,34 @@ describe('create product test suite', () => {
 								failures[1].array.push(text);
 							}
 							break;
+					}
+					await pageCreateProduct.closeSelPickerApp();
+				} else {
+					failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				}
+			}
+
+			return expect(count).toEqual(selectors.length,
+				`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+		});
+
+		it('should be able to type in the field', async () => {
+			const selectors = await pageCreateProduct.selectors();
+			let count = 0;
+			const failures = [{ text: 'can not open picker', array: [] }, { text: 'the field not able too type', array: [] }];
+			for (let i = 0; i < selectors.length; i++) {
+				await selectors[i].click();
+				browser.sleep(1000);
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					const inp = await pageCreateProduct.getFieldNamePickerApp;
+					const text = 'abc';
+					await inp.clear();
+					await inp.sendKeys(text);
+					if (await inp.getAttribute('value') === text) {
+						count++;
+					} else {
+						failures[1].array.push(await selectors[i].getAttribute('placeholder'));
 					}
 					await pageCreateProduct.closeSelPickerApp();
 				} else {
