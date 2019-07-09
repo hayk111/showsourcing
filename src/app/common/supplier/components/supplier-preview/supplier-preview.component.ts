@@ -38,7 +38,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	customFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{
-			name: 'supplierType',
+			name: ERM.SUPPLIER_TYPE.singular,
 			type: 'selector',
 			metadata: { target: ERM.SUPPLIER_TYPE.singular, type: 'entity', canCreate: true, labelName: 'name' },
 			label: 'type'
@@ -51,7 +51,19 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		{ name: 'incoTerm', type: 'selector', metadata: { target: ERM.INCO_TERM.singular, type: 'const' } },
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
-		{ name: 'officePhone', type: 'tel', label: 'Tel' }
+		{ name: 'officePhone', type: 'tel', label: 'Tel' },
+		{
+			name: 'createdBy',
+			type: 'selector',
+			label: translate('created by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'lastUpdatedBy',
+			type: 'selector',
+			label: translate('last updated by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		}
 	];
 
 	constructor(

@@ -49,7 +49,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	description?: string;
 	event?: Event;
 	extendedFields?: ExtendedField[];
-	favorite?: boolean;
+	favorite?= false;
 	harbour?: string;
 	images?: AppImage[];
 	incoTerm?: string;
