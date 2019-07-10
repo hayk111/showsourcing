@@ -8,9 +8,8 @@ import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/models';
-import { CustomField } from '~shared/dynamic-forms';
-import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { AutoUnsub } from '~utils';
+import { DynamicField } from '~shared/dynamic-forms';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -36,7 +35,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	erm = ERM;
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
-	customFields: CustomField[] = [
+	customFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{
 			name: 'supplierType',
@@ -46,10 +45,10 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		},
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
 		{ name: 'generalLeadTime', type: 'days', label: 'Lead Time' },
-		{ name: 'country', type: 'selector', metadata: { target: 'country', type: 'const' }, label: 'country' },
+		{ name: 'country', type: 'selector', metadata: { target: ERM.COUNTRY.singular, type: 'const' }, label: 'country' },
 		{ name: 'address', type: 'text', label: 'address' },
-		{ name: 'harbour', type: 'selector', metadata: { target: 'harbour', type: 'const' } },
-		{ name: 'incoTerm', type: 'selector', metadata: { target: ERM.INCOTERM.singular, type: 'const' } },
+		{ name: 'harbour', type: 'selector', metadata: { target: ERM.HARBOUR.singular, type: 'const' } },
+		{ name: 'incoTerm', type: 'selector', metadata: { target: ERM.INCO_TERM.singular, type: 'const' } },
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
 		{ name: 'officePhone', type: 'tel', label: 'Tel' }
@@ -59,13 +58,12 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		private supplierSrv: SupplierService,
 		private commentSrv: CommentService,
 		private router: Router,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
-		private constPipe: ConstPipe) {
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Supplier"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"' });
 	}
 
 	ngOnChanges() {
@@ -116,18 +114,18 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	}
 
 	openSupplier() {
-		this.router.navigate(['supplier', 'details', this.supplier.id]);
+		this.router.navigate(['supplier', this.supplier.id]);
 	}
 
 	getLocationName(supplier) {
 		let locName = '-';
 		if (supplier) {
 			if (supplier.city && supplier.country)
-				locName = supplier.city + ', ' + this.constPipe.transform(supplier.country, 'country');
+				locName = supplier.city + ', ' + translate(supplier.country, 'country');
 			else if (supplier.city)
 				locName = supplier.city;
 			else
-				locName = this.constPipe.transform(supplier.country, 'country');
+				locName = translate(supplier.country, 'country');
 		}
 		return locName;
 	}

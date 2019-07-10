@@ -34,7 +34,7 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 		this._product = product;
 		this.computeLikes();
 		this.computeScore();
-		this.link = '/product/details' + this._product.id + '/general';
+		this.link = '/product/' + this._product.id + '/general';
 	}
 
 	score: number;
@@ -64,7 +64,7 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	/** Trigger the event when the left image is clicked (to display preview for example) */
 	@Output() clickImage = new EventEmitter<any>();
 
-	@ContentChild(ContextMenuComponent) contextMenu: ContextMenuComponent;
+	@ContentChild(ContextMenuComponent, { static: false }) contextMenu: ContextMenuComponent;
 
 
 	/** The contextual menu is opened */

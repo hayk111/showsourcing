@@ -48,24 +48,25 @@
 		</rating-heart-app>
 	</div>
 
-	<button class="preview primary overlay" (click)="preview.emit()">Preview</button>
-	<button class="open secondary overlay" (click)="open.emit()">Open</button>
+	<button class="preview primary overlay capitalize" (click)="preview.emit()" i18n="@@preview">preview</button>
+	<button class="open secondary overlay capitalize" (click)="open.emit()" i18n="@@open">open</button>
 
 	<!-- Content (Non Floating) -->
 	<div class="content">
-		<div class="title ellipsis"> {{ product?.name || 'Unnamed product'}} </div>
+		<div class="title ellipsis"> {{ product?.name || ('Unnamed product' | const: 'messages') }} </div>
 		<div class="flex" *ngIf="product?.price?.value">
 				<span class="price">
-					{{product?.price?.currency | currencySymbol}} {{ product?.price?.value | ssPrice }}
+					{{product?.price | appPrice }}
 				</span>
 				<span class="moq" *ngIf="product?.minimumOrderQuantity">
-					&nbsp;- Min {{ product?.minimumOrderQuantity }} Pcs
+					&nbsp;- <ng-container i18n="@@min-pcs">Min {{ product?.minimumOrderQuantity }} pcs</ng-container>
 				</span>
 			</div>
-		<div class="category"> {{ product?.category?.name }}</div>
+		<div class="category">{{ product?.category?.name }}</div>
 		<div class="flex status-info">
 			<icon-app class="circle color-{{product?.status?.category || 'secondary'}}" name="circle" fontSet="fa"></icon-app>
-			{{ product?.status?.step || '0' }}.  {{ product?.status?.name ? (product?.status?.name | const:'status') : 'New Product' }}
+			<!-- TODO i18n -->
+			{{ product?.status?.step || '0' }}.  {{ product?.status?.name ? (product?.status?.name | const:'status') : ('New Product' | const: 'messages') }}
 		</div>
 	</div>
 

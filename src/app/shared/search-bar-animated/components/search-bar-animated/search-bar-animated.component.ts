@@ -19,7 +19,7 @@ import { animation } from '~shared/search-bar-animated/components/search-bar-ani
 	}
 })
 export class SearchBarAnimatedComponent implements OnInit {
-	@ContentChild(InputDirective) input: InputDirective;
+	@ContentChild(InputDirective, { static: true }) input: InputDirective;
 	@Input() animated = true;
 	@Input() hasBorder = true;
 	@Input() disableClickOutside = false;

@@ -3,18 +3,28 @@ import {
 	CompareProductComponent,
 	CreationDialogComponent,
 	EditionDialogComponent,
+	ExportDlgComponent,
 	InviteUserDlgComponent,
 	MergeDialogComponent,
+	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
-	ExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	RfqDialogComponent,
+	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	MassEditDlgComponent,
+	RefuseReplyDlgComponent,
+	CreationProductDlgComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
+import { EntityMetadata, Product, ProductVote, Project, Supplier, ERM } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
+import { ID } from '~utils';
+
+import { ReviewRequestReplyDlgComponent } from '../component/review-request-reply-dlg/review-request-reply-dlg.component';
+import { filter, map } from 'rxjs/operators';
+import { CloseEventType, CloseEvent } from '~shared/dialog';
+import { Router } from '@angular/router';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
@@ -25,6 +35,7 @@ import { DialogService } from '~shared/dialog/services';
 export class CommonModalService {
 
 	constructor(
+		private router: Router,
 		private dlgSrv: DialogService,
 	) { }
 
@@ -70,8 +81,8 @@ export class CommonModalService {
 		return this.dlgSrv.open(ConfirmDialogComponent, data);
 	}
 
-	openRequestQuotationDialog(product: Product) {
-		return this.dlgSrv.open(RfqDialogComponent, { product });
+	openSupplierRequest(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
 	openMergeDialog(data: { type: any, entities: any[] }) {
@@ -82,9 +93,34 @@ export class CommonModalService {
 		return this.dlgSrv.open(InviteUserDlgComponent);
 	}
 
+	openReviewRequestReplyDlg(data: { elementId: ID, selectedIndex: number, requestId: ID }) {
+		return this.dlgSrv.open(ReviewRequestReplyDlgComponent, data);
+	}
+
 	/** Opens a dialog that let you see the list of people who have voted */
 	openVoteDetailsDialog(votes: ProductVote[]) {
 		return this.dlgSrv.open(VoteDetailsDialogComponent, { votes });
+	}
+
+	openMassEditDialog(items: any[], type: EntityMetadata) {
+		return this.dlgSrv.open(MassEditDlgComponent, { items, type });
+	}
+
+	openNewContactDlg(data: { isNewContact?: boolean, supplier?: Supplier, contactId?: string }) {
+		return this.dlgSrv.open(NewContactDlgComponent, data);
+	}
+
+	openRefuseReplyDlg(data: { senderName: string, recipientName: string, replyId: ID }) {
+		return this.dlgSrv.open(RefuseReplyDlgComponent, data);
+	}
+
+	openCreationProductDlg() {
+		this.dlgSrv.open(CreationProductDlgComponent).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			map((evt: CloseEvent) => evt.data)
+		).subscribe(({ product }) => {
+			this.router.navigate([ERM.PRODUCT.destUrl, product.id]);
+		});
 	}
 
 	close() {

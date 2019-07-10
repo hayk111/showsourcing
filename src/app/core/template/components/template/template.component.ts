@@ -1,13 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { Router, Event, RouterEvent, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { routerAnimation } from '~core/template/components/animation';
 import { TemplateService } from '~core/template/services/template.service';
-import { AutoUnsub } from '~utils/auto-unsub.component';
-import { takeUntil, switchMap, map, tap, filter } from 'rxjs/operators';
-import { Location } from '@angular/common';
-import { OnBoardingService } from '~shared/on-boarding/services/on-boarding.service';
 import { DialogService } from '~shared/dialog';
 import { OnBoardingDlgComponent } from '~shared/on-boarding/components';
+import { OnBoardingService } from '~shared/on-boarding/services/on-boarding.service';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'template-app',
@@ -18,7 +15,7 @@ import { OnBoardingDlgComponent } from '~shared/on-boarding/components';
 	]
 })
 export class TemplateComponent extends AutoUnsub implements OnInit {
-	@ViewChild('main') main: ElementRef<HTMLElement>;
+	@ViewChild('main', { static: true }) main: ElementRef<HTMLElement>;
 
 	constructor(
 		private templateSrv: TemplateService,

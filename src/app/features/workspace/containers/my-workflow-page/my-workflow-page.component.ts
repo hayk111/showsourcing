@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { first, map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
@@ -8,12 +8,13 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';
-import { DialogService } from '~shared/dialog';
+import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
@@ -105,19 +106,23 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
 			const constQuery = status.id !== NEW_STATUS_ID ?
-				`status.id == "${status.id}"`
-				: `status == null`;
+				`status.id == "${status.id}" AND deleted == false`
+				: `status == null AND deleted == false`;
 
 			const query = [
 				predicate,
 				constQuery
 			].filter(x => x !== '')
 				.join(' && ');
-			this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
-				.pipe(first())
-				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
-			this.productSrv.queryCount(query).pipe(first())
-				.subscribe(total => this.kanbanSrv.setTotal(total, status.id));
+			this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' }).
+				pipe(
+					first(),
+					// we use selectCount instead of queryCount, since queryCount wasn't giving the latest values, when requerying
+					switchMap(_ => this.productSrv.selectCount(query).pipe(first()), (prods, total) => ({ prods, total }))
+				).subscribe(data => {
+					this.kanbanSrv.setData(data.prods, status.id);
+					this.kanbanSrv.setTotal(data.total, status.id);
+				});
 		});
 	}
 
@@ -193,10 +198,12 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
-		const text = `Delete ${itemIds.length} `
-			+ (itemIds.length <= 1 ? 'product' : 'products');
+		const del = translate('delete');
+		const prod = itemIds.length <= 1 ? translate('product') : translate('products');
+		const text = `${del} ${itemIds.length} ${prod}`;
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
 		).subscribe(_ => {
 			this.listSrv.selectionSrv.unselectAll();

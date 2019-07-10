@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '~core/models';
+import { TaskStatus } from '~core/models/status.model';
 
 @Component({
 	selector: 'banner-task-app',
@@ -11,31 +12,22 @@ export class BannerTaskComponent implements OnInit {
 
 	@Input() set task(task: Task) {
 		this._task = task;
-		this.status = 'pending';
+		this.status = TaskStatus.PENDING;
 		if (task.done)
-			this.status = 'done';
+			this.status = TaskStatus.DONE;
 		else if (task.dueDate && (new Date().getTime() >= Date.parse(task.dueDate.toString())))
-			this.status = 'overdue';
+			this.status = TaskStatus.OVERDUE;
 	}
 	get task() {
 		return this._task;
 	}
 	@Output() update = new EventEmitter<any>();
 	_task: Task;
-	status: 'overdue' | 'done' | 'pending' = 'pending';
+	status: TaskStatus = TaskStatus.PENDING;
+	enumTaskStatus = TaskStatus;
 
 	constructor() { }
 
-	ngOnInit() {
-	}
+	ngOnInit() { }
 
-	getStatusText() {
-		let text = 'Task ';
-		if (status === 'overdue') {
-			text = 'Overdue - ' + this.task.dueDate;
-		} else {
-			text += this.status;
-		}
-		return text;
-	}
 }

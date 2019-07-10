@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild, ChangeDetectorRef, OnChanges, AfterViewChecked } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject, empty } from 'rxjs';
-import { debounceTime, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { EntityMetadata } from '~models';
@@ -22,7 +22,9 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 	@Input() type: EntityMetadata;
 	// extra properties to put on the object
 	@Input() extra: any;
-	@ViewChild(InputDirective) input: InputDirective;
+	/** whether we display buttons create & stay + create & go */
+	@Input() canRedirect = false;
+	@ViewChild(InputDirective, { static: false }) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;
 
@@ -58,7 +60,7 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 		this.typed$.next(this.group.get('name').value);
 	}
 
-	onSubmit() {
+	onSubmit(redirect = true) {
 		if (!this.group.valid) {
 			return;
 		}
@@ -70,7 +72,7 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 			}),
 		).subscribe(item => {
 			if (item)
-				this.dlgSrv.close({ type: CloseEventType.OK, data: item });
+				this.dlgSrv.close({ type: CloseEventType.OK, data: { redirect, item } });
 			this.pending = false;
 			this.cdr.markForCheck();
 		});

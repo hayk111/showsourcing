@@ -1,20 +1,98 @@
+:host {
+	&.secondary-style {
+		.header {
+			background: white;
+		}
+	}
+// .pagination-ctrl {
+// 	margin-bottom: var(--spacing-s);
+// 	icon-app {
+// 		margin-left: var(--spacing-m);
+// 	}
+// }
+
+	display: block;
+	height: 100%;
+}
+
 .ctnr {
+	position: relative;
 	background: var(--color-bg);
-	border: 1px solid  var(--color-secondary);
 	box-sizing: border-box;
 	overflow: auto;
-	height: 100%;
+	// pagination
+	height: calc(100% - 32px);
 	display: flex;
 	flex-direction: column;
 }
+
+.menu-context {
+	margin-top: var(--spacing-xs);
+}
+
+.pagination-ctrl {
+	user-select: none;
+	box-sizing: border-box;
+	margin: var(--spacing-ms) 0;
+	icon-app {
+		color: var(--color-primary);
+		font-size: var(--spacing-l);
+		cursor: pointer;
+		margin: 0 var(--spacing-s);
+		margin-top: 2px;
+
+		&.disabled {
+			color: var(--color-txt-secondary);
+			cursor: default;
+		}
+	}
+
+	.pagination-item {
+		cursor: pointer;
+		margin: 0 var(--spacing-xs);
+		padding: 6px;
+		text-align: center;
+		height: 12px;
+		width: 14px;
+		line-height: 1;
+		border-bottom: 2px solid transparent;
+		font-weight: 600;
+
+		&.selected {
+			color: var(--color-primary);
+			border-bottom: 2px solid var(--color-primary);
+			// border-radius: var(--border-radius-s);
+		}
+		&:hover {
+			background-color: var(--color-divider);
+		}
+	}
+
+	.pagination-text {
+		width: 150px;
+	}
+}
+
 
 .placeholderCtnr {
 	height: 100%;
 
 	.placeholder {
+		padding-top: var(--spacing-xxl);
 		font-weight: 600;
 		font-size: 20px;
 	}
+}
+.context-menu {
+	padding: 0 !important;
+	icon-app {
+		padding-left: var(--spacing-s) !important;
+		padding-right: var(--spacing-xs) !important;
+	}
+}
+
+.hide {
+	display: none;
 }
 
 .contentCtnr {
@@ -23,21 +101,26 @@
 
 .pendingCtnr {
 	padding: var(--spacing-xl);
+	position: absolute;
+	left: 50%;
+	top: 50px;
+	transform: translateX(-50%);
 }
 
 .cell, .header {
-	padding: 0 var(--spacing-m);
+	color: black;
+	padding: 0 var(--spacing-ms);
 	border-bottom: 1px solid  var(--color-secondary);
-	height: 51px;
+	height: 47px;
 	display: flex;
 	align-items: center;
 	position: relative;
 }
 
 .cell {
+	color: var(--color-txt-strong);
 	&.selected {
 		background-color: var(--color-secondary-light);
-		color: var(--color-text-primary);
 	}
 
 	&.hover {
@@ -74,15 +157,11 @@
 	}
 	.cell, .header {
 		padding: 0;
-		width: var(--spacing-m);
+		width: var(--spacing-ms);
 	}
 }
 
 .ellipsis {
-	width: 100%;
-}
-
-.full-width {
 	width: 100%;
 }
 

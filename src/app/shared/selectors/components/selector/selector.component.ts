@@ -1,13 +1,30 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ContentChild,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
+import { debounceTime, tap } from 'rxjs/operators';
 import { EntityMetadata, ERM } from '~core/models';
+import { FilterList } from '~shared/filters';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { TabFocusDirective } from '~shared/utils';
+
+import { PickerField } from '../selector-picker/selector-picker.component';
 
 @Component({
 	selector: 'selector-app',
 	templateUrl: './selector.component.html',
 	styleUrls: ['./selector.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [makeAccessorProvider(SelectorComponent)]
 })
-export class SelectorComponent implements OnInit {
+export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() value: any;
 
@@ -22,20 +39,41 @@ export class SelectorComponent implements OnInit {
 
 	@Input() multiple = false;
 	@Input() canCreate = false;
+	@Input() filterList = new FilterList([]);
 	@Input() width = 395;
+	@Input() pickerFields: PickerField[];
+	// we use it only if we have to initialize the selector with a search
+	@Input() searchTxt = '';
 
 	@Output() update = new EventEmitter<any>();
+
+	// some times we want to focus the focus directive on the content inside the selector
+	@ContentChild(TabFocusDirective, { static: true }) tab: TabFocusDirective;
 
 	menuOpen = false;
 
 	@Input() offsetX = 0;
 	@Input() offsetY = 8;
+	@Input() disabled = false;
 	@Output() menuClosed = new EventEmitter<any>();
 
 	// we need this in order to calculate dynamically the offsetX on preview badges
-	constructor(public elem: ElementRef) { }
+	constructor(public elem: ElementRef, private cdr: ChangeDetectorRef) { super(cdr); }
 
 	ngOnInit() {
+		// everytime we focus the content and hit enter, we are opening the menu
+		if (this.tab) {
+			let word = '';
+			this.tab.keydown.pipe(
+				tap(key => word += key),
+				debounceTime(300),
+			).subscribe(_ => {
+				this.openMenu(word);
+				word = '';
+			});
+
+			this.tab.keyEnter.subscribe(_ => this.openMenu());
+		}
 	}
 
 	/** Toggles the menu between the open and closed states. */
@@ -44,8 +82,13 @@ export class SelectorComponent implements OnInit {
 	}
 
 	/** Opens the menu. */
-	openMenu(): void {
-		this.menuOpen = true;
+	openMenu(searchTxt?: string): void {
+		if (!this.disabled) {
+			if (searchTxt)
+				this.searchTxt = searchTxt;
+			this.menuOpen = true;
+			this.cdr.markForCheck();
+		}
 	}
 
 	/** Closes the menu. */
@@ -53,6 +96,16 @@ export class SelectorComponent implements OnInit {
 		this.menuOpen = false;
 		if (emit) {
 			this.menuClosed.emit();
+			this.searchTxt = '';
+			// when we close the menu we want to be focused again
+			if (this.tab)
+				this.tab.focus();
 		}
+	}
+
+	onChange(value: any) {
+		this.value = value;
+		this.onChangeFn(this.value);
+		this.update.emit(this.value);
 	}
 }

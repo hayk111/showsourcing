@@ -4,7 +4,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ElementRef } from '@angular
 	selector: 'label-app',
 	templateUrl: './label.component.html',
 	styleUrls: ['./label.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LabelComponent {
 

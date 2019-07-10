@@ -1,4 +1,15 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	QueryList,
+	ViewChildren,
+	AfterViewInit,
+	OnInit,
+} from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
 
 @Component({
@@ -7,15 +18,14 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-d
 	styleUrls: ['./radio.component.scss'],
 	providers: [makeAccessorProvider(RadioComponent)],
 })
-export class RadioComponent extends AbstractInput {
+export class RadioComponent extends AbstractInput implements OnInit {
 	protected static NEXT_UID = 0;
 
 	@Input() isVeritical = false;
-	@Output() update = new EventEmitter<boolean>();
-	@Output() select = new EventEmitter<null>();
+	@Input() disabled = false;
+
 	/** list of possible values and labels */
-	@Input()
-	items: any[];
+	@Input() items: { name: string, value: boolean }[];
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()
@@ -30,7 +40,7 @@ export class RadioComponent extends AbstractInput {
 	set checked(value: boolean) {
 		this._checked = value;
 	}
-	private _checked = false;
+	private _checked = null;
 
 	/** Whether the checkbox is required. */
 	@Input()
@@ -38,24 +48,37 @@ export class RadioComponent extends AbstractInput {
 	set required(value: boolean) { this._required = value; }
 	private _required: boolean;
 
+	@Output() change = new EventEmitter();
+	@Output() update = new EventEmitter<boolean>();
+	@Output() select = new EventEmitter<null>();
+
+	@ViewChildren('inp') inps: QueryList<ElementRef>;
+
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
 	}
 
-	/**
-	 * Event handler for checkbox input element.
-	 * Toggles checked state if element is not disabled.
-	 * @param event
-	 */
-	onClick() {
-		if (!this.disabled) {
-			this.emit();
-		}
+	ngOnInit() {
+		// for some reason if we didn't use explicitly detect changes, it would detect the value from checked
+		this.cd.detectChanges();
+	}
+
+	onChange() {
+		if (this.disabled)
+			return;
+		this.onChangeFn(this.checked);
+		this.change.emit(this.checked);
+	}
+
+	onCheckedChange(checked: boolean) {
+		if (this.disabled)
+			return;
+		this.checked = checked;
+		this.emit();
 	}
 
 	private emit() {
-		if (this.onChangeFn)
-			this.onChangeFn(this.checked);
+		this.onChange();
 		this.update.emit(this.checked);
 		this.select.emit();
 	}
@@ -65,7 +88,10 @@ export class RadioComponent extends AbstractInput {
 	}
 
 	writeValue(value: any): void {
-		super.writeValue(value);
+		if (value === null || this.disabled)
+			return;
+		this.checked = value;
+		this.cd.markForCheck();
 	}
 
 }

@@ -1,0 +1,72 @@
+<table-app
+	class="secondary-style"
+	[rows]="rows"
+	[pending]="pending"
+	[hasSelection]="false"
+	[selected]="selection"
+	placeholder="No request items"
+	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[skipped]="skipped"
+	(next)="next.emit()"
+	(previous)="previous.emit()"
+	(goToPage)="goToPage.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(selectOne)="select.emit($event)"
+	(sort)="sort.emit($event)"
+	(unselectAll)="unselectAll.emit()"
+	(unselectOne)="unselect.emit($event)"
+	i18n-placeholder="@@no-request-items">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter capitalize"
+			(click)="openRefuseReplyDlg.emit(row.reply.id)"
+			i18n="button@@refuse">
+			refuse
+		</context-menu-item-app>
+	</ng-template>
+
+	<ng-template
+		[columnApp]="erm.PRODUCT.singular | const: 'erm'"
+		sortBy="name"
+		let-row="row"
+		width="300">
+		<div class="mainCell ellipsis">
+			<img-app
+				class="mini imgCtnr"
+				[image]="row?.images?.length ? row?.images[0] : null"
+				type="request"
+				size="s">
+			</img-app>
+			<span class="capitalize ellipsis">
+				<div class="name txt-btn title" (click)="open.emit(row)">
+					{{ row?.name }}
+				</div>
+			</span>
+		</div>
+	</ng-template>
+
+	<ng-template
+		[columnApp]="'fields' | const: 'messages'"
+		[sortable]="false"
+		let-index="index"
+		width="200">
+	 {{ replied[index]?.replied + '/' + replied[index]?.total }}
+	</ng-template>
+
+
+	<ng-template
+		[columnApp]="'status' | const: 'messages'"
+		sortBy="reply.status"
+		let-row="row"
+		width="200">
+		<request-status-badge-app
+			[status]="row?.reply?.status"
+			[creationDate]="row?.sentDate"
+			[isTeam]="false">
+		</request-status-badge-app>
+	</ng-template>
+
+</table-app>

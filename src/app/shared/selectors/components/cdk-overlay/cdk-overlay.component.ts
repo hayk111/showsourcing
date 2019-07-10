@@ -18,17 +18,24 @@ export class CdkOverlayComponent implements OnInit {
 	@Output() positionChange = new EventEmitter<any>();
 	updated = false;
 
-	@ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
+	@ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 	scrollStrat: ScrollStrategy;
 
 	constructor(private sso: ScrollStrategyOptions, private scd: ScrollDispatcher) {
 	}
 
 	ngOnInit() {
+		// to understand ConnectedPositions
+		// originX/Y -> origin position where the overlay will open
+		// i.e. originX: 'start' originY: 'end' would mean left-bottom of the item
+		// overlayX/Y -> position where the overlay will be attached.
+		// i.e. overlayX: 'start', overlayY: 'bottom' is attaching the left bottom part to the origin
 		this.scrollStrat = this.closeOnScroll ? this.sso.close() : this.sso.reposition();
 		this.cdkConnectedOverlay.positions = [
 			{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' },
 			{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'bottom' },
+			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'bottom' },
+			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
 		];
 		this.cdkConnectedOverlay.positionChange.pipe(first()).subscribe(posChange => {
 			// when its upside down we eliminate the offsets

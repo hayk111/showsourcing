@@ -13,7 +13,7 @@ export class CompanyProfileCardComponent extends AutoUnsub implements OnInit {
 
 	// @Input() item: Company;
 	form: FormGroup;
-	@ViewChild(InputDirective) input: InputDirective;
+	@ViewChild(InputDirective, { static: true }) input: InputDirective;
 	// @Output() valueChange = new EventEmitter<Company>();
 
 	constructor(private fb: FormBuilder) {

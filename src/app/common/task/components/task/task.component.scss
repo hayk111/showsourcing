@@ -1,3 +1,7 @@
+:host {
+	width: 100%;
+}
+
 .row {
 	padding-right: var(--spacing-ms);
 
@@ -45,41 +49,6 @@
 
 	.task-user {
 		margin-left: var(--spacing-ms);
-	}
-
-
-
-	.task-user-status {
-
-		.task-status {
-			padding-top: 2px;
-			border-radius: 500px;
-
-			&.task-done {
-				color: white;
-				background: var(--color-success);
-			}
-
-			&.task-overdue {
-				color: white;
-				background: var(--color-warn);
-			}
-
-			&.task-pending {
-				background: var(--color-secondary);
-			}
-
-			icon-app {
-				padding: var(--spacing-s);
-				padding-top: 6px;
-				font-size: 6px;
-			}
-
-			p {
-				padding-right: var(--spacing-s);
-				text-transform: capitalize;
-			}
-		}
 	}
 
 }

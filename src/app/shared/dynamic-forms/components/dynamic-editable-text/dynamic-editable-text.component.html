@@ -1,195 +1,195 @@
-<ng-container [ngSwitch]="customField.type">
-	<!-- hint: the onTouched and onChanged function must be called when needed (refer to ng doc)
-	to avoid very hard to debug ExpressionChangedAfterItWasCheckedError -->
-	<!-- default -->
-	<editable-field-app
-		*ngSwitchDefault
-		#editable
-		[inlineLabel]="inlineLabel"
-		(closed)="onClose($event)"
-		(opened)="inp.select();">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<!-- hint: editable text is the clickable label that transforms into an input -->
-		<editable-label-app>
-			{{ value || '-' }}
-		</editable-label-app>
-		<form-field-app class="editable">
-			<!-- hint: couldn't ngModel to accumulator -->
-			<input
-				#inp
-				inputApp
-				[type]="customField.type"
-				[value]="accumulator"
-				(input)="accumulate(inp.value)"
-				(keyup.enter)="editable.close();"/>
-		</form-field-app>
-	</editable-field-app>
+<ng-container *ngIf="customField.type">
+	<ng-container [ngSwitch]="customField.type">
+		<!-- hint: the onTouched and onChanged function must be called when needed (refer to ng doc)
+		to avoid very hard to debug ExpressionChangedAfterItWasCheckedError -->
+		<!-- default -->
+		<editable-field-app
+			*ngSwitchDefault
+			#editable
+			[inlineLabel]="inlineLabel"
+			(closed)="onClose($event)"
+			(opened)="inp.select();">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<!-- hint: editable text is the clickable label that transforms into an input -->
+			<editable-label-app>
+				{{ value || '-' }}
+			</editable-label-app>
+			<form-field-app class="editable">
+				<!-- hint: couldn't ngModel to accumulator -->
+				<input
+					#inp
+					inputApp
+					[type]="customField.type"
+					[value]="accumulator"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close();"/>
+			</form-field-app>
+		</editable-field-app>
 
-	<!-- tel (restricted input)-->
-	<editable-field-app
-		*ngSwitchCase="'tel'"
-		#editable
-		[inlineLabel]="inlineLabel"
-		(closed)="onClose($event)"
-		(opened)="inp.select()">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>{{ value || '-' }}</editable-label-app>
-		<form-field-app class="editable">
-			<input inputApp
-				#inp
-				restrictInput="tel"
-				autofocus="true"
-				[value]="accumulator"
-				[type]="customField.type"
-				(input)="accumulate(inp.value)"
-				(keyup.enter)="editable.close();"/>
-		</form-field-app>
-	</editable-field-app>
+		<!-- tel (restricted input)-->
+		<editable-field-app
+			*ngSwitchCase="'tel'"
+			#editable
+			[inlineLabel]="inlineLabel"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-label-app>{{ value || '-' }}</editable-label-app>
+			<form-field-app class="editable">
+				<input inputApp
+					#inp
+					restrictInput="tel"
+					autofocus="true"
+					[value]="accumulator"
+					[type]="customField.type"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close();"/>
+			</form-field-app>
+		</editable-field-app>
 
-	<!-- number -->
-	<editable-field-app
-		*ngSwitchCase="'number'"
-		#editable
-		[inlineLabel]="inlineLabel"
-		(closed)="onClose($event)"
-		(opened)="inp.select()">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>{{ value || '-' }}</editable-label-app>
-		<form-field-app class="editable">
-			<input inputApp
-				#inp
-				restrictInput="number"
-				autofocus="true"
-				[value]="accumulator"
-				[type]="customField.type"
-				(input)="accumulate(+inp.value)"
-				(keyup.enter)="editable.close();"/>
-		</form-field-app>
-	</editable-field-app>
+		<!-- number -->
+		<editable-field-app
+			*ngSwitchCase="'number'"
+			#editable
+			[inlineLabel]="inlineLabel"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-label-app>{{ value || '-' }}</editable-label-app>
+			<form-field-app class="editable">
+				<input inputApp
+					#inp
+					restrictInput="number"
+					autofocus="true"
+					[value]="accumulator"
+					[type]="customField.type"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close();"/>
+			</form-field-app>
+		</editable-field-app>
 
-	<!-- decimal -->
-	<editable-field-app
-		*ngSwitchCase="'decimal'"
-		#editable
-		[inlineLabel]="inlineLabel"
-		(closed)="onClose($event)"
-		(opened)="inp.select()">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>{{ value || '-' }}</editable-label-app>
-		<form-field-app class="editable">
-			<input inputApp
-				#inp
-				restrictInput="decimal"
-				autofocus="true"
-				[value]="accumulator"
-				[type]="customField.type"
-				(input)="accumulate(+inp.value)"
-				(keyup.enter)="editable.close();"/>
-		</form-field-app>
-	</editable-field-app>
+		<!-- decimal -->
+		<editable-field-app
+			*ngSwitchCase="'decimal'"
+			#editable
+			[inlineLabel]="inlineLabel"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-label-app>{{ value || '-' }}</editable-label-app>
+			<form-field-app class="editable">
+				<input inputApp
+					#inp
+					restrictInput="decimal"
+					autofocus="true"
+					[value]="accumulator"
+					type="number"
+					step="any"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close();"/>
+			</form-field-app>
+		</editable-field-app>
 
-	<!-- days -->
-	<editable-field-app
-		*ngSwitchCase="'days'"
-		#editable
-		[inlineLabel]="inlineLabel"
-		(closed)="onClose($event)"
-		(opened)="inp.select()">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>{{ value || '-' }} days</editable-label-app>
-		<form-field-app class="editable">
-			<input inputApp
-				#inp
-				autofocus="true"
-				[value]="accumulator"
-				[type]="'number'"
-				(input)="accumulate(+inp.value)"
-				(keyup.enter)="editable.close();"/>
-		</form-field-app>
-	</editable-field-app>
+		<!-- days -->
+		<editable-field-app
+			*ngSwitchCase="'days'"
+			#editable
+			[inlineLabel]="inlineLabel"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-label-app>{{ value || '-' }} days</editable-label-app>
+			<form-field-app class="editable">
+				<input inputApp
+					#inp
+					autofocus="true"
+					[value]="accumulator"
+					[type]="'number'"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close();"/>
+			</form-field-app>
+		</editable-field-app>
 
-	<!-- textarea -->
-	<editable-field-app
-		*ngSwitchCase="'textarea'"
-		#editable
-		[canGrow]="true"
-		[inlineLabel]="inlineLabel"
-		(closed)="onClose($event)"
-		(opened)="inp.select()">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app style="white-space: pre-line">{{ value || '-' }}</editable-label-app>
-		<form-field-app class="editable">
-			<textarea
-				inputApp
-				#inp
-				autofocus="true"
-				[value]="accumulator"
-				(input)="accumulate(inp.value)">
-			</textarea>
-		</form-field-app>
-	</editable-field-app>
+		<!-- textarea -->
+		<editable-field-app
+			*ngSwitchCase="'textarea'"
+			#editable
+			[canGrow]="true"
+			[inlineLabel]="inlineLabel"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-label-app style="white-space: pre-line">{{ value || '-' }}</editable-label-app>
+			<form-field-app class="editable">
+				<textarea
+					inputApp
+					#inp
+					autofocus="true"
+					[value]="accumulator"
+					(input)="accumulate(inp.value)">
+				</textarea>
+			</form-field-app>
+		</editable-field-app>
 
-	<!-- address -->
+		<!-- address -->
 
 
-	<!-- price -->
-	<editable-field-app
-		*ngSwitchCase="'price'"
-		#editable
-		[inlineLabel]="inlineLabel"
-		(closed)="onClose($event)"
-		(opened)="inp.select()">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app [vAlign]="false">
-			<span class="fs-s"
-				*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
-			<span class="mg-xs spacer"></span>
-			<span>{{ value && (value.value) ? (value.value / 10000) : '-' }}</span>
-		</editable-label-app>
-		<form-field-app class="editable">
-			<input-price-app
-				#inp
-				formFieldCtrl
-				[price]="accumulator"
-				(keyup.enter)="editable.close()"
-				(change)="accumulate(inp.price);">
-			</input-price-app>
-		</form-field-app>
-	</editable-field-app>
+		<!-- price -->
+		<editable-field-app
+			*ngSwitchCase="'price'"
+			#editable
+			[inlineLabel]="inlineLabel"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-label-app [vAlign]="false">
+				<span class="fs-s"
+					*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
+				<span *ngIf="value && value.currency" class="mg-xs spacer"></span>
+				<span>{{ value && (value.value) ? (value.value / 10000) : '-' }}</span>
+			</editable-label-app>
+			<form-field-app class="editable">
+				<input-price-app
+					#inp
+					formFieldCtrl
+					[price]="accumulator"
+					(keyup.enter)="editable.close()"
+					(change)="accumulate(inp.price);">
+				</input-price-app>
+			</form-field-app>
+		</editable-field-app>
 
-	<!-- yesNo -->
-	<editable-field-app
-		#editable
-		*ngSwitchCase="'yesNo'"
-		[inlineLabel]="inlineLabel"
-		[openOnClick]="false"
-		(click)="toggleValue()">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app>
-			{{ value ? 'Yes' : 'No' }}
-		</editable-label-app>
-	</editable-field-app>
+		<!-- boolean -->
+		<editable-field-app
+			#editable
+			*ngSwitchCase="'boolean'"
+			[inlineLabel]="inlineLabel"
+			[openOnClick]="false"
+			(click)="toggleValue()">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-label-app>
+				{{ value ? 'Yes' : 'No' }}
+			</editable-label-app>
+		</editable-field-app>
 
-	<!-- price matrix -->
-	<ng-container *ngSwitchCase="'priceMatrix'">
-		<h3 class="s">
-			{{ customField.label || customField.name }}
-		</h3>
-		<div class="inputCtnr">
+		<!-- price matrix -->
+		<ng-container *ngSwitchCase="'priceMatrix'">
+			<h3 class="s">
+				{{ customField.label || customField.name }}
+			</h3>
 			<editable-price-matrix-app
 				[(ngModel)]="accumulator"
 				(change)="onChange()"
 				(rowClosed)="onClose($event)"
-				(blur)="onBlur()"></editable-price-matrix-app>
-		</div>
-	</ng-container>
+				(blur)="onBlur()">
+			</editable-price-matrix-app>
+		</ng-container>
 
-	<!-- packaging -->
-	<ng-container *ngSwitchCase="'packaging'">
-		<h3 class="s">
-			{{ customField.label || customField.name }}
-		</h3>
-		<div class="inputCtnr">
+		<!-- packaging -->
+		<ng-container *ngSwitchCase="'packaging'">
+			<h3 class="s">
+				{{ customField.label || customField.name }}
+			</h3>
 			<editable-packaging-app
 				[customField]="customField"
 				[(ngModel)]="accumulator"
@@ -197,17 +197,22 @@
 				(blur)="onBlur()"
 				(rowClosed)="onClose($event)">
 			</editable-packaging-app>
-		</div>
+		</ng-container>
+
+		<!-- selector -->
+		<editable-selector-app
+			*ngSwitchCase="'selector'"
+			[customField]="customField"
+			[inlineLabel]="inlineLabel"
+			[(ngModel)]="value"
+			(change)="onSave(false)"
+			(blur)="onBlur()">
+		</editable-selector-app>
+
+		<!-- title -->
+		<h3 *ngSwitchCase="'title'">
+			{{ customField.label || customField.name }}
+		</h3>
+
 	</ng-container>
-
-	<!-- selector -->
-	<editable-selector-app
-		*ngSwitchCase="'selector'"
-		[customField]="customField"
-		[inlineLabel]="inlineLabel"
-		[(ngModel)]="value"
-		(change)="onSave(false)"
-		(blur)="onBlur()">
-	</editable-selector-app>
-
 </ng-container>

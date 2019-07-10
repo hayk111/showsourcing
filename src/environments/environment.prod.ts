@@ -1,5 +1,6 @@
 import { LogLevel } from '~utils/logger/log-level';
 import { WEB_VERSION } from './global.const';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 
 
@@ -9,9 +10,10 @@ export const environment = {
 	graphqlUrl: 'wss://showsourcingprod.us1.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingprod.us1.cloud.realm.io/auth',
 	apiUrl: 'https://services.showsourcing.com',
-	mixPanelKey: 'fd1633b6288f31d3d7e4554c1c4f5e44',
+	mixPanelKey: 'b59449e8af12d91ac73a9aa92b1a29a7',
 	hubspotKey: '2134370',
 	getStreamKey: 'kn8zj3tgdkf3',
 	LOG_LEVEL: LogLevel.ERROR,
+	defaultClient: Client.TEAM
 };
 

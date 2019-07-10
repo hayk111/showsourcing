@@ -7,6 +7,29 @@ X -> Major changes release, right now we are on X=2 since this is a new app from
 Y -> Changes like adding new features or fixing major/blocking bugs
 Z -> Minor bug-fix changes
 
+# Branching system
+
+## Protected branches
+We have 2 protected branches:
+- Master: latest stable version of the web app that has been pushed to production, this branch should NOT be touched unless we need a [hotfix](README.md/##Hotfixes) or we are pushing a new build/deploy to production. In case of hotfix, read the section below.
+- Development: all new features start on this branch, only finished and reviewed features can be merged here. This branch will create the staging/app2 build/deploy.
+
+## Methodology
+This would be the flow between branches
+![alt text](branches-flow.png)
+
+For a `feature` branch we checkout from `development`, but normally it's a heavy MR to review. After the assessment of the `feature` it is decided the size of the `feature`. If it is big we create a branch from that `feature` branch called `ticket` branch, the only purpose of this branch is to be merged on the feature branch, creating smaller PR's to review. This way its easier to keep track of the changes. e.g.
+```
+# we start on development branch
+git checkout -b feature/number-issue-small-description
+git checkout -b ticket/number-issue-small-description
+# after every milestone on the feature, just create a merge request from ticket to feature
+# when the feature is done from feature to development
+```
+For `bug` branches, we just use the normal system, checkout from `development` and merge request at the end of the fix
+
+## Hotfixes
+Hotfixes can only happen when a blocking bug in production (master) occur live. The procedure for this is to checkout from `master` and create a new branch `hotfix/number-issue-small-description`. Once this branch has the fix ready to be merged, we have to merge it on both branches `development` and `master`. This way we prevent that master has to be merged in the future on `development`. Since `development` always has to be merged on `master` and not the other way around.
 # Git golden rules
 - NEVER merge `master` into `development`, `development` is merged into `master` always.
 - Try to avoid features inside features unless it's necessary. Doing a feature inside a feature means that we cannot release none of them until all of them are finished.
@@ -100,6 +123,8 @@ The theming is done in ./src/app/theming and should be straight forward. `styles
 Spacing and palette use CSS4 variables and should be used throughout the application. CSS4 variables are used with a fallback (meaning that even if the browser doesn't support CSS4 vars it's gonna work).
 
 Some scss files are based on google material design guidelinds. For instance `elevation.scss` is a somewhat simplified version of the file in angular material design.
+
+- h1..h5: We have default sizes for each header, so we use the same headers around the app. By default there is no `margin-bottom` but in case it wants to be added, you just have to give the class `xs, s, m, l...` to the element (these classes are defined on `typography.scss`).
 
 # Before starting
 
@@ -257,6 +282,8 @@ e.g. `ng serve --aot --i18n-file src/locale/messages.fr.xlf --i18n-locale fr --i
 }
 ```
 Now to run the serve with this config we have to `npm run start:fr` that is the same as `ng serve --configuration=fr`
+In order to merge the already translate file with the new translations we have to `npm run translate` and then
+`xliffmerge --profile xliffmerge.json LANGUAGES HERE`, this will add the new item to be translated to the already existent translation file.
 
 Everytime we execute `npm run translate:fr` the `messages.fr.xlf` file will contain the original data and, if there are new `i18n` translations, it will update the file and let us know in that same file which translations are new using the target state.
 
@@ -266,6 +293,9 @@ In each `messages.lang.xlf` we have 3 different types of target. When we transla
 <target state='final'>Hello</target> 'final' indicates that it matches with our default language translation
 <target state='translated'>Bonjour</target> 'translated' indicates that it has been translated
 ```
+locale name by default is english since we always translate english to another language`ng xi18n --i18nLocale LOCALE_NAME --outFile NAMEOFFILE.xlf --outputPath locale`
+# Refactor List
+- Status selector updates, not inside the component but above. `<status-selector-app (updateStatus)="update({id: entity.id, status: $event })>`
 
 # Apollo Cache wonkyness
 

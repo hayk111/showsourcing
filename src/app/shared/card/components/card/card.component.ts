@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/c
 })
 export class CardComponent {
 	@Input() padding: 'none' | 'xs' | 's' | 'ms' | 'm' | 'ml' | 'l' | 'xl' = 'l';
-	@ViewChild('ref') ctnrRef;
+	@ViewChild('ref', { static: true }) ctnrRef;
 
 	get style() {
 		if (this.ctnrRef.children === 0)

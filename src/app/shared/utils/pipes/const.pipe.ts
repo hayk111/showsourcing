@@ -2,11 +2,15 @@ import { Inject, LOCALE_ID, Optional, Pipe, PipeTransform } from '@angular/core'
 import {
 	countryMap,
 	currencyMap,
+	ermMap,
 	harbourMap,
 	incoTermsMap,
 	statusCategoriesMap,
 	statusMap,
+	statusRequestsSupplierMap,
+	statusRequestsTeamMap,
 	supplierTypesMap,
+	messagesMap,
 } from '~utils/constants';
 
 /**
@@ -60,9 +64,23 @@ export class ConstPipe implements PipeTransform {
 			case 'statusCategories':
 				constMap = statusCategoriesMap;
 				break;
+			case 'statusRequestSupplier':
+			case 'statusRequestsSupplier':
+				constMap = statusRequestsSupplierMap;
+				break;
+			case 'statusRequestTeam':
+			case 'statusRequestsTeam':
+				constMap = statusRequestsTeamMap;
+				break;
 			case 'supplierType':
 			case 'supplierTypes':
 				constMap = supplierTypesMap;
+				break;
+			case 'erm':
+				constMap = ermMap;
+				break;
+			case 'messages':
+				constMap = messagesMap;
 				break;
 			default: return value;
 		}

@@ -15,6 +15,7 @@ export class ProductSelectionBarComponent implements OnInit {
 	@Output() close = new EventEmitter<null>();
 	@Output() compareProducts = new EventEmitter<null>();
 	@Output() requestTeamFeedback = new EventEmitter<null>();
+	@Output() createRequest = new EventEmitter<null>();
 	@Output() export = new EventEmitter<null>();
 	@Output() deleted = new EventEmitter<null>();
 	@Output() addProject = new EventEmitter<Project[]>();
@@ -23,6 +24,7 @@ export class ProductSelectionBarComponent implements OnInit {
 	@Output() favorited = new EventEmitter<null>();
 	@Output() unfavorited = new EventEmitter<null>();
 	@Output() statusUpdated = new EventEmitter<any>();
+	@Output() massEdit = new EventEmitter<null>();
 
 	like = false;
 	dislike = false;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { filter, map, shareReplay, switchMap, first } from 'rxjs/operators';
+import { filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
@@ -80,6 +80,7 @@ export class TeamService extends GlobalService<Team> {
 
 	/** picks a team, puts the selection in local storage */
 	pickTeam(team: Team): Observable<Team> {
+		this.resetSelectedTeam();
 		this.storage.setItem(SELECTED_TEAM, team);
 		this._teamSelectionEvent$.next(team);
 		return this.teamSelectionEvent$.pipe(

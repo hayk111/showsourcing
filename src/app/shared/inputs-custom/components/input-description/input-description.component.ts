@@ -10,8 +10,8 @@ import {
 	Renderer2,
 	ViewChild,
 } from '@angular/core';
-import { DialogService } from '~shared/dialog';
 import { DescriptionDlgComponent } from '~common/modals/component/description-dlg/description-dlg.component';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'input-description-app',
@@ -28,7 +28,7 @@ export class InputDescriptionComponent implements AfterViewInit {
 	@Input() asModal = true;
 	@Output() update = new EventEmitter<string>();
 
-	@ViewChild('container') container: ElementRef<HTMLElement>;
+	@ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
 
 	showMore = false;
 
@@ -70,6 +70,6 @@ export class InputDescriptionComponent implements AfterViewInit {
 	openDescModal() {
 		if (this.asModal)
 			this.dlgSrv.open(DescriptionDlgComponent, { description: this.description })
-				.subscribe(item => this.update.emit(item.description));
+				.subscribe(({ type, data }) => this.update.emit(data.description));
 	}
 }

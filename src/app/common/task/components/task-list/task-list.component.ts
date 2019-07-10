@@ -29,7 +29,7 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	@Output() taskUnselect = new EventEmitter<Task>();
 	@Output() updateTask = new EventEmitter<Task>();
 
-	@ViewChild(InputDirective) inp: InputDirective;
+	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
 	taskCtrl = new FormControl('');
 	hoverIndex: number;
 	filterTypeEnum = FilterType;
@@ -48,11 +48,11 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	}
 
 	openProduct(id: string) {
-		this.router.navigate([ERM.PRODUCT.singular, 'details', id]);
+		this.router.navigate([ERM.PRODUCT.singular, id]);
 	}
 
 	openSupplier(id: string) {
-		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
+		this.router.navigate([ERM.SUPPLIER.singular, id]);
 	}
 
 	onEnter(event) {

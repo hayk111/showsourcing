@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, HostListener, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { DialogFooterComponent } from '~shared/dialog/components/dialog-footer/dialog-footer.component';
 import { DialogHeaderComponent } from '~shared/dialog/components/dialog-header/dialog-header.component';
 import { DialogService } from '~shared/dialog/services/dialog.service';
@@ -15,16 +15,16 @@ import { DialogService } from '~shared/dialog/services/dialog.service';
 	}
 })
 export class DialogComponent {
+
 	@Input() closeIcon = true;
 	@Input() hasHeader = true;
 	@Output() close = new EventEmitter<any>();
-	@ContentChild(DialogFooterComponent) footer: DialogFooterComponent;
-	@ContentChild(DialogHeaderComponent) header: DialogHeaderComponent;
+	@ContentChild(DialogFooterComponent, { static: false }) footer: DialogFooterComponent;
+	@ContentChild(DialogHeaderComponent, { static: false }) header: DialogHeaderComponent;
 
-	@Input() headerSpacing = 'xl';
+	@Input() headerSpacing = 'ms';
 
 	constructor(private srv: DialogService) { }
-
 
 	doClose() {
 		this.srv.close();

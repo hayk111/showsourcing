@@ -1,0 +1,22 @@
+dialog-app {
+	display: block;
+	width: 700px;
+	.container {
+		justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+		icon-app {
+			font-size: 95px;
+			color: var(--color-primary);
+			margin-bottom: var(--spacing-l);
+		}
+
+		h2 {
+			text-align: center;
+		}
+	}
+}
+
+

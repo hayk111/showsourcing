@@ -1,4 +1,7 @@
-import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ProductService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -33,7 +36,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.TAGS
 	];
 
+	productsCount$: Observable<number>;
+
 	constructor(
+		private router: Router,
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
@@ -53,6 +59,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		}, false);
+
+		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
+			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
+		);
 	}
 
 	ngAfterViewInit() {

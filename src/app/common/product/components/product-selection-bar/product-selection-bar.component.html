@@ -8,19 +8,19 @@
 			<!-- trigger -->
 			<context-menu-trigger-app>
 				<button class="secondary-light flexCenter with-name">
-					<icon-app class="color-action" name="smile"></icon-app>
-					Like
+					<icon-app class="color-action first-uppercase" name="smile"></icon-app>
+					<ng-container i18n="@@like">like</ng-container>
 				</button>
 			</context-menu-trigger-app>
 
 			<!-- items -->
 			<context-menu-item-app (click)="thumbUp()">
 				<icon-app [ngClass]="{'color-primary': like, 'color-txt-secondary': !like}" name="thumbs-up"></icon-app>
-				Like
+				<span class="capitalize" i18n="@@like">like</span>
 			</context-menu-item-app>
 			<context-menu-item-app (click)="thumbDown()">
 				<icon-app [ngClass]="{'color-warn': dislike, 'color-txt-secondary': !dislike}" name="thumbs-down"></icon-app>
-				Dislike
+				<span class="capitalize" i18n="@@dislike">dislike</span>
 			</context-menu-item-app>
 			<context-menu-item-app (click)="ratingHeart.onClick()">
 				<rating-heart-app
@@ -32,36 +32,39 @@
 					(favorited)="favorited.emit()"
 					(unfavorited)="unfavorited.emit()">
 				 </rating-heart-app>
-				Favorite
+				<ng-container i18n="@@favorite">favorite</ng-container>
 			</context-menu-item-app>
 		</context-menu-app>
 
-		<status-selector-app
-			toolTip toolTipMessage="Change status of selected" toolTipPosition="above-right"
-			#workActionMenu
-			selectSize="s"
-			[typeEntity]="erm.PRODUCT"
-			type="multiple-selection"
-			[internalUpdate]="false"
-			(statusUpdated)="statusUpdated.emit($event)">
-		</status-selector-app>
+		<!-- Mass edit -->
+		<button class="secondary-light flexCenter with-name" (click)="massEdit.emit()">
+			<icon-app class="color-primary" name="edit"></icon-app>
+			Mass edit
+		</button>
 
 		<!-- Project -->
 		<button class="secondary-light flexCenter with-name" (click)="addProject.emit()">
 			<icon-app class="color-primary" name="project"></icon-app>
-			Add to project
+			<span i18n="@@add-to-project">Add to project</span>
+		</button>
+
+		<!-- Request supplier -->
+		<button class="secondary-light flexCenter with-name" (click)="createRequest.emit()">
+			<icon-app class="color-supplier" name="shipping"></icon-app>
+			<span i18n="@@send-request-supplier">Send request to supplier</span>
+
 		</button>
 
 		<!-- Compare products -->
 		<button class="secondary-light flexCenter with-name" (click)="compareProducts.emit()">
 			<icon-app class="color-success" name="feedback"></icon-app>
-			Compare products
+			<span i18n="@@compare-products">Compare products</span>
 		</button>
 
 		<!-- Export -->
 		<button class="secondary-light flexCenter with-name" (click)="export.emit()">
 			<icon-app name="export"></icon-app>
-			Export selection
+			<span i18n="@@export-selection">Export selection</span>
 		</button>
 
 		<!-- 3 dots menu -->
@@ -74,10 +77,10 @@
 			</context-menu-trigger-app>
 
 			<!-- items -->
-			<context-menu-item-app (click)="requestTeamFeedback.emit()">
+			<context-menu-item-app (click)="requestTeamFeedback.emit()" i18n="@@request-team-feedback">
 				Request For Team Feedback
 			</context-menu-item-app>
-			<context-menu-item-app (click)="deleted.emit()">
+			<context-menu-item-app (click)="deleted.emit()" i18n="@@delete">
 				Delete
 			</context-menu-item-app>
 		</context-menu-app>

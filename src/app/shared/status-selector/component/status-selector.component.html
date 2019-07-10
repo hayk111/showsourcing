@@ -10,6 +10,7 @@
 
 				<ng-container *ngIf="type === 'badge'">
 					<status-badge-app
+						class="pointer"
 						[status]="entity?.status"
 						[typeEntity]="typeEntity"
 						[size]="selectSize">
@@ -19,9 +20,9 @@
 				<ng-container *ngIf="type === 'button'">
 
 					<status-box-app
+						class="pointer"
 						[status]="entity?.status"
-						[typeEntity]="typeEntity"
-						[size]="selectSize">
+						[typeEntity]="typeEntity">
 					</status-box-app>
 
 				</ng-container>
@@ -31,16 +32,17 @@
 				</ng-container>
 
 				<ng-container *ngIf="type === 'multiple-selection'">
-					<button class="secondary-light flexCenter change-status">
+					<ng-content></ng-content>
+					<!-- <button class="secondary-light flexCenter change-status">
 						<icon-app class="color-primary" name="status"></icon-app>
 						<span>Change Status</span>
-					</button>
+					</button> -->
 				</ng-container>
 
 		</context-menu-trigger-app>
 
-		<div *ngFor="let stat of (status$ | async); trackBy: trackByFn" class="{{selectSize}}">
-			<status-box-app [type]="'list'" [status]="stat" [size]="selectSize" [typeEntity]="typeEntity" (click)="updateStatus(stat)"></status-box-app>
+		<div *ngFor="let stat of (status$ | async); trackBy: trackByFn" class="{{ selectSize }}">
+			<status-box-app class="pointer" [type]="'list'" [status]="stat" [typeEntity]="typeEntity" [width]="width" (click)="updateStatus(stat)"></status-box-app>
 		</div>
 
 	</context-menu-app>
@@ -48,14 +50,14 @@
 	<ng-container *ngIf="type === 'button'">
 		<div
 			*ngIf="!isLast()"
-			toolTip toolTipMessage="Next status {{getNextStatus()?.name | const: 'status'}}" toolTipPosition="above-right" [offsetX]="26"
+			toolTip [toolTipMessage]="('Next status' | const: 'messages') + ' ' + (getNextStatus()?.name | const: 'status')" toolTipPosition="above-right" [offsetX]="26"
 			class="pointer caretCtnr bg-{{ entity?.status?.category }}"
 			(click)="next()">
 			<icon-app [ngClass]="{new: entity?.status?.category === 'new'}" fontSet="fa" name="caret-right" ></icon-app>
 		</div>
 		<div
 			*ngIf="isLast()"
-			toolTip toolTipMessage="Previous status {{getPreviousStatus()?.name | const: 'status'}}" toolTipPosition="above-right" [offsetX]="20"
+			toolTip [toolTipMessage]="('Previous status' | const: 'messages') + ' ' + (getPreviousStatus()?.name | const: 'status')" toolTipPosition="above-right" [offsetX]="20"
 			class="pointer caretCtnr bg-{{ entity?.status.category }}"
 			(click)="previous()">
 			<icon-app fontSet="fa" name="caret-left"></icon-app>
@@ -65,13 +67,8 @@
 </ng-container>
 
 <!-- specific for task since we dont have the status on the DB we just have done, over-due and pending -->
-<badge-app
+<task-status-badge-app
 	*ngIf="typeEntity === erm.TASK"
-	class="task pointer"
-	[type]="getTaskColor()" [size]="selectSize"
-	(click)="updateTask()">
-		<icon-app class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}" name="circle" fontSet="fa"></icon-app>
-		<div class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}">
-			{{ getTaskStatus() }}
-		</div>
-</badge-app>
+	[task]="entity"
+	(update)="updateTask($event)">
+</task-status-badge-app>

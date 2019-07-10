@@ -1,30 +1,33 @@
 <dialog-app>
-	<dialog-header-app i18n="dialog header|Team feedback@@productRequestTeamFeedback_teamFeedback"> Team Feedback </dialog-header-app>
+	<dialog-header-app i18n="header@@team-feedback">Team Feedback</dialog-header-app>
 
-	<dialog-subtitle-app i18n="dialog subtitle|Team members@@productRequestTeamFeedback_teamMembers">Team members</dialog-subtitle-app>
+	<dialog-subtitle-app i18n="header@@team-members">Team members</dialog-subtitle-app>
 
 	<main class="scrollable">
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
 			<list-item-app *ngFor="let member of teamMembers;trackBy: trackByFn" [selected]="selected[member.id]" (click)="checkbox.onClick()">
-				<div class="flex">
-					<checkbox-app
-						#checkbox
-						[checked]="selected[member.id]"
-						(check)="select(member.id, member)"
-						(uncheck)="unselect(member.id, member)"
-						(click)="checkbox.onClick()">
-					</checkbox-app>
-					<span class="name" (click)="checkbox.onClick()">{{ member.user.firstName }} {{ member.user.lastName }}</span>
-				</div>
-				</list-item-app>
+				<checkbox-app
+					#checkbox
+					[checked]="selected[member.id]"
+					(check)="select(member.id, member)"
+					(uncheck)="unselect(member.id, member)"
+					(click)="checkbox.onClick()">
+				</checkbox-app>
+				<span class="name" (click)="checkbox.onClick()">{{ member.user.firstName }} {{ member.user.lastName }}</span>
+			</list-item-app>
 		</list-app>
 	</main>
 
   <dialog-footer-app class="fullWidth flexCenter flexBetween">
-		<span class="txt-secondary">{{ products?.length }} {{ !products?.length  ? '' : products?.length > 1 ? 'products selected for feedback' : 'product selected for feedback' }} </span>
-		<button [disabled]="numSelected < 1"class="small" (click)="submit()" i18n="button|Feedback request@@productRequestTeamFeedback_requestFeedback">
+		<span class="txt-secondary">
+			{{ products?.length }}
+			<ng-container i18n="@@nested_product-selected-feedback">{
+				products?.length || 0, plural, =1 { product } other { products } } selected for feedback
+			</ng-container>
+		</span>
+		<button [disabled]="numSelected < 1" (click)="submit()"
+			i18n="button@@request-feedback">
 			Request Feedback
 		</button>
 	</dialog-footer-app>
-
 </dialog-app>

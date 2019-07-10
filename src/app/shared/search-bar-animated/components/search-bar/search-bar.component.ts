@@ -33,7 +33,7 @@ export class SearchBarComponent extends AbstractInput implements OnChanges, OnIn
 	@Output() search = new EventEmitter<string>();
 	private _searchSubject$ = new Subject();
 
-	@ViewChild('inp') inputRef: ElementRef;
+	@ViewChild('inp', { static: true }) inputRef: ElementRef;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);

@@ -1,7 +1,9 @@
 :host {
 	display: block;
+	position: fixed;
 	width: 100%;
 	bottom: 0;
+	left: 0;
 	z-index: var(--z-selection-bar);
 
 	&.expanded-menu {
@@ -12,15 +14,11 @@
 	}
 }
 
-.ctnr {
-	background: var(--color-bg);
-	border-top: 3px solid var(--color-primary);
+bottom-panel-app {
 	height: 64px;
-	box-sizing: border-box;
 }
 
 .closeSection {
-	margin-left: var(--spacing-l);
 	font-size: var(--font-size-l);
 	display: flex;
 	align-items: center;
@@ -31,5 +29,4 @@
 .icon-close {
 	color: var(--color-secondary-dark);
 	font-size: var(--font-size-l);
-	margin-right: var(--spacing-l);
 }

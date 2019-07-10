@@ -1,0 +1,155 @@
+<dialog-app class="vertical-scroll-content">
+
+	<dialog-header-app>
+		<ng-container i18n="mass edit of X products@@mass-edit">Mass edit of</ng-container> {{ items?.length || 0}}
+		<ng-container i18n="@@nested_items">{	items?.length || 0, plural, =1 { item } other { items } }</ng-container>
+	</dialog-header-app>
+
+	<div class="container">
+		<h5 class="ms" i18n="@@property-update">Property to update</h5>
+		<selector-app
+			[type]="erm.PICKER_FIELD"
+			[width]="500"
+			[pickerFields]="pickerFields"
+			(update)="updateChoice($event)">
+			<selector-placeholder-app
+				tabFocus
+				autoFocus
+				class="first-uppercase"
+				[name]="(choice$ | async)?.name"
+				placeholder="choose a property"
+				i18n-placeholder="@@choose-property">
+			</selector-placeholder-app>
+		</selector-app>
+
+		<!-- content when no pending -->
+		<ng-container *ngIf="!pending; else spinner">
+			<!-- switch case with out choices -->
+			<ng-container [ngSwitch]="(choice$ | async)?.type">
+				<!-- this way we just subscribe once and its cleaner -->
+				<ng-container *ngIf="choice$ | async as choice">
+					<h5 class="ms">{{ choice?.name }}</h5>
+
+					<!-- text -->
+					<ng-container *ngSwitchCase="'text'">
+						<input #inp type="text" (input)="statusUpdated(inp.value)" [placeholder]="choice?.name"/>
+					</ng-container>
+
+					<!-- number -->
+					<ng-container *ngSwitchCase="'number'">
+						<input #inp type="number" (input)="statusUpdated(inp.value)" [placeholder]="choice?.name"/>
+					</ng-container>
+
+					<!-- boolean -->
+					<ng-container *ngSwitchCase="'boolean'">
+						<div class="flex">
+							<checkbox-app
+								[checked]="value"
+								(update)="value = !value">
+								Yes
+							</checkbox-app>
+							<!-- we have to check the false condition with null, cause of the falsies condition (first state is null not false) -->
+							<checkbox-app
+								[checked]="value === null ? false : !value"
+								(update)="value = value === null ? false : !value">
+								No
+							</checkbox-app>
+						</div>
+					</ng-container>
+
+					<!-- decimal -->
+					<ng-container *ngSwitchCase="'decimal'">
+						<input #inp type="number" step="0.01" (input)="statusUpdated(inp.value)" [placeholder]="choice?.name">
+					</ng-container>
+
+					<!-- price -->
+					<ng-container *ngSwitchCase="'price'">
+						<input-price-app [price]="value" (change)="statusUpdated($event)">
+						</input-price-app>
+					</ng-container>
+
+					<!-- status -->
+					<ng-container *ngSwitchCase="'status'">
+						<status-selector-app
+							#statusSelector
+							[typeEntity]="erm.PRODUCT"
+							type="multiple-selection"
+							[internalUpdate]="false"
+							[width]="460"
+							(statusUpdated)="statusUpdated($event)">
+							<selector-placeholder-app
+								tabFocus
+								class="status-selector first-uppercase"
+								[name]="value?.name"
+								placeholder="choose a status"
+								(keyEnter)="statusSelector?.openMenu()"
+								i18n-placeholder="@@choose-status">
+							</selector-placeholder-app>
+						</status-selector-app>
+					</ng-container>
+
+					<!-- selector -->
+					<ng-container *ngSwitchCase="'selector'">
+						<selector-app
+							[width]="500"
+							[value]="value || []"
+							[type]="erm.getEntityMetadata(choice?.metadata?.ermName || choice?.name)"
+							[multiple]="choice?.metadata?.multiple"
+							(update)="statusUpdated($event)">
+							<selector-placeholder-app
+								tabFocus
+								class="first-uppercase"
+								[name]="choice?.metadata?.multiple ? getMultipleName() : getName(choice?.metadata?.ermName || choice?.name)"
+								[placeholder]="('choose' | const: 'messages') + ' ' + choice?.name">
+							</selector-placeholder-app>
+						</selector-app>
+					</ng-container>
+
+					<!-- packaging -->
+					<ng-container *ngSwitchCase="'packaging'">
+						<editable-packaging-app
+							[value]="value"
+							[isFormStyle]="true"
+							(update)="statusUpdated($event)">
+						</editable-packaging-app>
+					</ng-container>
+
+					<!-- votes -->
+					<thumb-buttons-app
+						*ngSwitchCase="'votes'"
+						size="m"
+						[multiple]="true"
+						[hasText]="true"
+						(liked)="like = $event"
+						(disliked)="dislike = $event">
+					</thumb-buttons-app>
+
+					<!-- extended fields -->
+					<ng-container *ngSwitchCase="'extendedField'">
+						<extended-form-app
+							*ngIf="definitions$ | async as definitions; else spinner"
+							[isFormStyle]="true"
+							[fields]="value || []"
+							[definitions]="definitions"
+							(update)="statusUpdated($event)">
+						</extended-form-app>
+					</ng-container>
+
+				</ng-container>
+				<ng-container *ngSwitchDefault>
+				</ng-container>
+			</ng-container>
+		</ng-container>
+
+	</div>
+
+	<dialog-footer-app>
+		<button tabFocus class="capitalize secondary" (click)="close()" i18n="@@cancel">cancel</button>
+		<button tabFocus class="capitalize" (click)="update()" i18n="@@update">update</button>
+	</dialog-footer-app>
+
+</dialog-app>
+
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>

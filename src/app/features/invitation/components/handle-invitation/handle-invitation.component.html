@@ -1,44 +1,62 @@
+<ng-container *ngIf="!(hasAccepted$ | async)">
 
-<div class="invite" *ngIf="!(authenticated$ | async)">
-  <div class="title">Congratulation!</div>
-  <div class="subtitle">You are invited to join ShowSourcing</div>
-  <div class="subtitle">Do you have an account</div>
-  <div class="flexColumn buttons">
-    <button class="secondary" routerLink="/auth/login" [queryParams]="{ returnUrl: returnUrl }">Yes - Let me log-in</button>
-    <button class="secondary" routerLink="/auth/register" [queryParams]="{ returnUrl: returnUrl }">No - Create an account</button>
-  </div>
-</div>
+	<div class="invite" *ngIf="!(authenticated$ | async)">
+		<div class="title" i18n="header@@congratz">Congratulations!</div>
+		<div class="subtitle" i18n="text@@you-r-invited">You are invited to join ShowSourcing</div>
+		<div class="subtitle" i18n="text@@do-you-have-acc">Do you have an account</div>
+		<div class="flexColumn buttons">
+			<button class="secondary"
+				routerLink="/auth/login"
+				[queryParams]="{ returnUrl: returnUrl }"
+				i18n="button@@yes-log-me-in">
+				Yes - Let me log-in
+			</button>
+			<button class="secondary"
+				routerLink="/auth/register"
+				[queryParams]="{ returnUrl: returnUrl }"
+				i18n="button@@no-create-account">
+				No - Create an account
+			</button>
+		</div>
+	</div>
 
-<div class="invite large" *ngIf="authenticated$ | async">
+	<div *ngIf="authenticated$ | async" class="invite large">
 
-  <ng-container *ngIf="invitation$ | async as invitation; else spinner">
+		<ng-container *ngIf="invitation$ | async as invitation; else spinner">
 
-    <div class="title">Congratulation!</div>
+			<div class="title" i18n="header@@congratz">Congratulations!</div>
 
-    <div class="subtitle">
-      <span class="name">
-        {{invitation?.inviterFirstName}} {{invitation?.inviterLastName}}
-      </span>
-      invites you to join
-      <span class="name">
-        {{invitation?.teamName}}.
-      </span>
-    </div>
+			<div class="subtitle">
+				<span class="name">
+					{{invitation?.inviterFirstName}} {{invitation?.inviterLastName}}
+				</span>
+				<ng-container i18n="@@invites-you-join">invites you to join</ng-container>
+				<span class="name">
+					{{invitation?.teamName}}.
+				</span>
+			</div>
 
-    <div class="flexColumn buttons">
-      <button (click)="accept(invitation)">
-        Yes - Join the team
-      </button>
-      <button class="secondary" (click)="refuse(invitation)">
-        No - I don't wish to join this team
-      </button>
-    </div>
+			<div class="flexColumn buttons">
+				<button (click)="accept(invitation)" i18n="button@@yes-join-team">
+					Yes - Join the team
+				</button>
+				<button class="secondary" (click)="refuse(invitation)" i18n="button@@no-no-join-team">
+					No - I don't wish to join this team
+				</button>
+			</div>
 
-  </ng-container>
+		</ng-container>
 
-  <ng-template #spinner>
-    <spinner-app></spinner-app>
-  </ng-template>
+		<ng-template #spinner>
+			<div class="loading-ctnr">
+				<spinner-app
+					[isHaveLogo]="true"
+					[size]="150">
+				</spinner-app>
+				<h3 i18n="header@@loading-info-please-wait">We are loading your information, please wait...</h3>
+			</div>
+		</ng-template>
 
-</div>
+	</div>
 
+</ng-container>

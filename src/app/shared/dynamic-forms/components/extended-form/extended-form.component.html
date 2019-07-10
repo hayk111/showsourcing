@@ -1,11 +1,19 @@
+<div class="form" [ngClass]="{ multiple: (cols?.length > 0) }">
 
-<div class="form">
-  <extended-form-input-app
-    *ngFor="let definition of definitions; trackBy: trackByFn"
-    [definition]="definition"
-    [field]="getFieldForDefinition(definition.id)"
-    [inlineLabel]="inlineLabel"
-    (update)="onUpdate($event)">
-  </extended-form-input-app>
+	<div *ngFor="let col of cols; let last = last; trackBy: trackByFn" class="col"
+		[ngClass]="{ 'last': last }"
+		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
+
+		<extended-form-input-app
+			*ngFor="let definition of col; index as index; trackBy: trackByFn"
+			[autofocus]="autofocus && index === indexFocus"
+			[disabled]="disabled"
+			[definition]="definition"
+			[field]="getFieldForDefinition(definition.id)"
+			[inlineLabel]="inlineLabel"
+			[isFormStyle]="isFormStyle"
+			(update)="onUpdate($event)">
+		</extended-form-input-app>
+	</div>
 
 </div>

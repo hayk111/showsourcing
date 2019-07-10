@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'app-test-page',
@@ -11,6 +11,10 @@ export class TestPageComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	test() {
+		// Test function
 	}
 
 }

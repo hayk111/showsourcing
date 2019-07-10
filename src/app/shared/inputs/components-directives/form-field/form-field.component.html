@@ -1,8 +1,9 @@
 
 <label
+	*ngIf="label"
+	class="first-uppercase"
 	[attr.for]="input.id"
-	[attr.aria-owns]="input.id"
-	*ngIf="label">
+	[attr.aria-owns]="input.id">
 
 	<ng-content select="label-app"></ng-content>
 </label>

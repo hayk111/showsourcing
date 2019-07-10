@@ -1,6 +1,9 @@
 <preview-app cdk-scrollable *ngIf="product$ | async">
 	<!-- Banner -->
-	<preview-banner-app [canOpen]="true" (closed)="close.emit()" (opened)="openProduct()">
+	<preview-banner-app
+		[canOpen]="true"
+		(closed)="close.emit()"
+		(opened)="openProduct()">
 		<preview-carousel-app
 			[entity]="product"
 			[entityMD]="erm.SUPPLIER"
@@ -10,11 +13,16 @@
 	</preview-banner-app>
 
 	<!-- Header -->
-	<preview-header-app [entityMD]="erm.PRODUCT" [entity]="product" (update)="update($event, 'name')"
+	<preview-header-app
+		[entityMD]="erm.PRODUCT"
+		[entity]="product"
+		(update)="update($event, 'name')"
 		(statusUpdated)="statusUpdated.emit($event)">
 
 		<!-- Price -->
-		<price-with-quantity-app *ngIf="product?.price?.value" [product]="product"
+		<price-with-quantity-app
+			*ngIf="product?.price?.value"
+			[product]="product"
 			(updateField)="update($event.newValue,  $event.field)">
 		</price-with-quantity-app>
 
@@ -58,7 +66,7 @@
 	</preview-section-app>
 
 	<!-- Description -->
-	<preview-section-app [title]="'Description'">
+	<preview-section-app [title]="'description'" i18n-title="@@description">
 		<input-description-app
 			[description]="product?.description"
 			(update)="update($event, 'description')">
@@ -66,7 +74,7 @@
 	</preview-section-app>
 
 	<!-- Tags -->
-	<preview-section-app [title]="'Tags'">
+	<preview-section-app [title]="'tags'" i18n-title="@@tags">
 		<input-badge-selector-app
 			[value]="product?.tags"
 			type="tag"
@@ -75,7 +83,7 @@
 	</preview-section-app>
 
 	<!-- Product details -->
-	<preview-section-app [title]="'Product Details'">
+	<preview-section-app [title]="'product details'" i18n-title="@@product-details">
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="customFields"
@@ -86,7 +94,7 @@
 	</preview-section-app>
 
 	<!-- Trading information -->
-	<preview-section-app [title]="'Trading Information'">
+	<preview-section-app [title]="'trading information'" i18n-title="@@trading-information">
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="customFields2"
@@ -97,18 +105,18 @@
 	</preview-section-app>
 
 	<!-- Extended Fields -->
-	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'Extended Fields'">
+	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'extended fields'" i18n-title="@@extended-fields">
 		<extended-form-app
 			inlineLabel="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="product?.extendedFields"
-			(update)="updateProduct($event)">
+			(update)="update($event, 'extendedFields')">
 		</extended-form-app>
 	</preview-section-app>
 
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="product?.comments?.length" [title]="'Comments'">
+	<preview-section-app *ngIf="product?.comments?.length" [title]="'comments'" i18n-title="@@comments">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 

@@ -36,6 +36,7 @@ nav {
 }
 
 .right {
+
 	color: var(--color-txt-primary);
 	notif-app, user-panel-app {
 		&:hover {
@@ -43,14 +44,14 @@ nav {
 		}
 	}
 
-		notif-app {
-			margin-right: var(--spacing-ms);
-			height: 32px;
-			width: 32px;
-			font-size: 24px;
-			cursor: pointer;
-			border-radius: var(--border-radius-s);
-		}
+	notif-app {
+		margin-right: var(--spacing-ms);
+		height: 32px;
+		width: 32px;
+		font-size: 24px;
+		cursor: pointer;
+		border-radius: var(--border-radius-s);
+	}
 
 	.divider {
 		height: var(--spacing-l);

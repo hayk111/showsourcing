@@ -15,7 +15,7 @@ import { Comment } from '~models';
 export class PreviewCommentComponent {
 	@Output() added = new EventEmitter<Comment>();
 	commentCtrl = new FormControl();
-	@ViewChild('inp') input: ElementRef<HTMLInputElement>;
+	@ViewChild('inp', { static: true }) input: ElementRef<HTMLInputElement>;
 
 	// element is needed if we want to acces the position of the element to scroll (product preview)
 	constructor(

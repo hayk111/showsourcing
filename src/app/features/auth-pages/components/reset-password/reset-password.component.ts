@@ -7,6 +7,7 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'reset-password-app',
@@ -47,11 +48,11 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 					if (error.error && error.error.errors && error.error.errors.length > 0) {
 						this.error = error.error.errors[0];
 					} else {
-						this.error = 'Error when resetting password';
+						this.error = translate('Error when resetting password');
 					}
 					this.notificationSrv.add({
 						type: NotificationType.ERROR,
-						title: 'Password Reset',
+						title: translate('Password reset'),
 						message: this.error,
 						timeout: 4500
 					});
@@ -62,8 +63,8 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 				this.router.navigate(['auth', 'login']);
 				this.notificationSrv.add({
 					type: NotificationType.SUCCESS,
-					title: 'Password Reset',
-					message: 'Password successfully restored',
+					title: translate('Password reset'),
+					message: translate('Password successfully restored'),
 					timeout: 3500
 				});
 			}, err => {

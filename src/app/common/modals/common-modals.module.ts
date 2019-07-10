@@ -6,6 +6,7 @@ import {
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { InputsModule } from '~shared/inputs';
+import { PricePipe } from '~shared/price/price.pipe';
 import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { UtilsModule } from '~shared/utils';
@@ -18,20 +19,28 @@ import {
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	RefuseReplyDlgComponent,
+	ReplySentDlgComponent,
+	RequestReplyDlgComponent,
+	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	CreationProductDlgComponent,
 } from './component';
+import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
+import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
 import { ExportWaitingViewComponent } from './component/export-dlg/export-waiting-view/export-waiting-view.component';
-import { EmailListComponent } from './component/rfq-dialog/email-list/email-list.component';
-import { RfqDialogComponent } from './component/rfq-dialog/rfq-dialog.component';
+import { ReviewRequestReplyDlgComponent } from './component/review-request-reply-dlg/review-request-reply-dlg.component';
+import {
+	ProductRequestListComponent,
+} from './component/supplier-request-dialog/product-request-list/product-request-list.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
-import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
-import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -39,18 +48,23 @@ const modals = [
 	ChangePswdDlgComponent,
 	CompareProductComponent,
 	CreationDialogComponent,
+	CreationProductDlgComponent,
 	DescriptionDlgComponent,
 	EditionDialogComponent,
-	EmailListComponent,
+	ExportDlgComponent,
 	FindProductsDialogComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
-	ExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	RfqDialogComponent,
+	RefuseReplyDlgComponent,
+	ReplySentDlgComponent,
+	RequestReplyDlgComponent,
+	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	ReviewRequestReplyDlgComponent,
 ];
 
 @NgModule({
@@ -60,21 +74,22 @@ const modals = [
 		ProductCommonModule,
 		TableModule,
 		InputsModule,
-		UtilsModule,
+		UtilsModule
 	],
 	declarations: [
 		...modals,
 		ProductsCardViewDialogComponent,
 		ExportSelectionViewComponent,
 		ExportWaitingViewComponent,
+		ProductRequestListComponent,
 		CompareLabelsComponent,
 		CompareColumnComponent,
-		DescriptionDlgComponent
 	],
 	entryComponents: modals,
 	providers: [
 		ProductDialogService,
 		CrudDialogService,
+		PricePipe
 	]
 })
 export class CommonModalsModule { }

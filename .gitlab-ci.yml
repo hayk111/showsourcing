@@ -1,4 +1,4 @@
-image: node:9.11
+image: cedvdb/ss-gitlab-pipeline-docker
 stages:
   - install
   - build
@@ -9,21 +9,18 @@ app-install:
   stage: install
   script:
     - npm install
-    - pip install awscli
+    - npm install --save-dev --unsafe-perm node-sass # avoid sass errors
   artifacts:
     paths:
       - node_modules
   only:
-    - development
-    - staging
-
+    - run-gitlab-install # we have to push to this branch if we want the cache to have the latest dependencies
 
 # dev deployment
 app-deploy-dev:
   stage: deploy
-  image: python:latest
   script:
-    - npm run build --configuration=dev
+    - npm run build:dev
     - cd dist/showsourcing
     - aws s3 sync . s3://app-dev.showsourcing.com --delete
     - aws s3 cp s3://app-dev.showsourcing.com/index.html s3://app-dev.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
@@ -33,9 +30,8 @@ app-deploy-dev:
 # sta deployment
 app-deploy-sta:
   stage: deploy
-  image: python:latest
   script:
-    - npm run build --configuration=sta
+    - npm run build:sta
     - cd dist/showsourcing
     - aws s3 sync . s3://app-sta.showsourcing.com --delete
     - aws s3 cp s3://app-sta.showsourcing.com/index.html s3://app-sta.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0

@@ -2,8 +2,8 @@
 <div
 	#trigger="cdkOverlayOrigin"
 	cdkOverlayOrigin
-	class="fullWidth pointer"
-	(click)="menuOpen = !menuOpen">
+	class="fullWidth"
+	(click)="openMenu()">
 	<ng-content></ng-content>
 </div>
 
@@ -18,11 +18,15 @@
 	<selector-picker-app
 		class="z-2"
 		[ngStyle]="{ width: width + 'px'}"
+		[searchTxt]="searchTxt"
 		[value]="value"
 		[type]="type"
+		[pickerFields]="pickerFields"
 		[multiple]="multiple"
+		[filterList]="filterList"
 		[canCreate]="canCreate"
-		(update)="update.emit($event)"
-		(close)="closeMenu(true)">
+		(update)="onChange($event)"
+		(close)="closeMenu(true)"
+		cdkTrapFocus>
 	</selector-picker-app>
 </cdk-overlay-app>

@@ -4,8 +4,8 @@
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="delete.emit(row)"
-		i18n="supplier menu | delete">
-		Delete
+		i18n="button@@delete">
+		delete
 	</context-menu-item-app>
 </ng-template>
 
@@ -14,28 +14,34 @@
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[skipped]="skipped"
 	placeholder="No project"
+	(next)="next.emit()"
+	(previous)="previous.emit()"
+	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)">
+	(sort)="sort.emit($event)"
+	i18n-placeholder="@@no-project">
 
 
 
 	<!-- name -->
 	<ng-template
-		columnApp="Project Name"
+		[columnApp]="'Project name' | const: 'messages'"
 		sortBy="name"
 		let-row="row"
 		width="300"
 		sortBy="name">
 		<div class="project">
 			<a class="flexVAlign txt-btn capitalize ellipsis"
-				[routerLink]="['/project', 'details', row.id]">
+				[routerLink]="['/project', row.id]">
 				<img [src]="row.logoImage | logo:'project'" class="icon"/>
-				<b class="semi">{{ row?.name }}</b>
+				{{ row?.name }}
 			</a>
 		</div>
 	</ng-template>
@@ -43,7 +49,7 @@
 	<!-- owner -->
 	<ng-template
 		class="capitalize"
-		columnApp="Owner"
+		[columnApp]="'owner' | const: 'messages'"
 		let-row="row"
 		sortBy="createdBy.lastName"
 		width="200"
@@ -54,7 +60,7 @@
 	<!-- last updated date -->
 	<ng-template
 		class="capitalize"
-		columnApp="Last Upadted Date"
+		[columnApp]="'Last upadted date' | const: 'messages'"
 		let-row="row"
 		sortBy="lastUpdatedDate"
 		width="200"
@@ -67,7 +73,7 @@
 	<!-- product count -->
 	<ng-template
 		class="capitalize"
-		columnApp="Product Count"
+		[columnApp]="'Product count' | const: 'messages'"
 		let-row="row"
 		[sortable]="false"
 		[grows]="false"
@@ -79,7 +85,7 @@
 
 	<!-- date -->
 	<ng-template
-		columnApp="Created on"
+		[columnApp]="'created on' | const: 'messages'"
 		let-row="row"
 		sortBy="creationDate"
 		width="200"
@@ -90,7 +96,7 @@
 
 	<!-- description -->
 	<ng-template
-		columnApp="Description"
+		[columnApp]="'description' | const: 'messages'"
 		let-row="row"
 		[sortable]="false"
 		width="240">

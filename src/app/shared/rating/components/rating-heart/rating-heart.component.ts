@@ -32,7 +32,7 @@ export class RatingHeartComponent {
 	@Input() customClassFavorited = '';
 	@Input() customClassUnFavorited = '';
 
-	@ViewChild(IconComponent, { read: ElementRef }) icon;
+	@ViewChild(IconComponent, { read: ElementRef, static: false }) icon;
 
 	constructor(private renderer: Renderer2) {
 

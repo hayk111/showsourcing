@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
 export abstract class ContactQueries extends GlobalQueries {
@@ -13,7 +12,7 @@ export abstract class ContactQueries extends GlobalQueries {
 			fileName,
 			urls { url }
 		}
-		supplier { id }
+		supplier { id, name }
 		creationDate
 	`;
 
@@ -27,7 +26,7 @@ export abstract class ContactQueries extends GlobalQueries {
 			fileName,
 			urls { url }
 		}
-		supplier { id }
+		supplier { id, name }
 		creationDate
 		`;
 

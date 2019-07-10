@@ -10,6 +10,7 @@ import {
 	QueryList,
 	TemplateRef,
 } from '@angular/core';
+import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-params';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -24,16 +25,12 @@ import { TrackingComponent } from '~utils/tracking-component';
 	}
 })
 export class TableComponent extends TrackingComponent implements OnChanges {
-	// display the dot option
-	@Input() dotsOption = true;
 	// whether the table is currently loading
 	@Input() pending = false;
 	// whether rows are selectable
 	@Input() hasSelection = true;
 	// whether the table rows have a contextual menu
 	@Input() hasMenu = true;
-	// whether selection is disabled
-	@Input() selectionDisabled = false;
 	// the placeholder text if no element displayed in the table
 	@Input() placeholder: string;
 	// the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
@@ -44,6 +41,22 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() contextualMenu: TemplateRef<any>;
 	// current sort
 	@Input() currentSort: Sort;
+	/** total number of items for pagination */
+	@Input()
+	set count(count: number) {
+		this._count = count;
+		this.totalSections = Math.ceil(this._count / this.itemsPerPage);
+		if (this.skipped)
+			this.indexPagination = this.skipped / this.itemsPerPage;
+		this.setPageIndex();
+	}
+	get count() {
+		return this._count;
+	}
+	private _count = 0;
+	/** how many items were skipped so we can display the pages */
+	@Input() skipped: number;
+
 	// event when we select all rows
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();
@@ -58,10 +71,21 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	// pagination events
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
+	@Output() goToPage = new EventEmitter<number>();
 	// all the columns
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 	// currently sorted column
 	currentSortedColumn: ColumnDirective;
+	// how many pages our pagination will have
+	sections: Array<number> = [0];
+	// items that we will see per page
+	itemsPerPage = DEFAULT_TAKE_PAGINATION;
+	// current index of the pagination
+	indexPagination = 0;
+	// total of sections obtained by the count and items per page
+	totalSections = 1;
+	// sideItems
+	sideItems = 5;
 
 	/** Different rows displayed */
 	@Input() rows;
@@ -76,7 +100,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	trackByIdentify = (index, item) => this.identify(index, item);
 
 	// track by for column
-	columnTrackByFn = (index) => index;
+	columnTrackByFn = (index: any) => index;
 
 	constructor() {
 		super();
@@ -164,5 +188,43 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		Object.keys(this.contextualMenuOpened).forEach(key => {
 			this.contextualMenuOpened[key] = false;
 		});
+	}
+
+	nextPage() {
+		if (this.indexPagination < this.totalSections - 1) {
+			this.indexPagination++;
+			this.setPageIndex();
+			this.next.emit();
+		}
+	}
+
+	previousPage() {
+		if (this.indexPagination > 0) {
+			this.indexPagination--;
+			this.setPageIndex();
+			this.previous.emit();
+		}
+	}
+
+	setPageIndex() {
+		const width = Math.min(this.sideItems * 2 + 1, this.totalSections);
+		const leftIndex = Math.max(this.indexPagination - this.sideItems, 0);
+		const pages = [];
+		// we want to readd items from the right to the left (-1 since we don't take into account the last index)
+		const rightAmount = Math.min(this.sideItems, ((this.totalSections - 1) - this.indexPagination));
+
+		let cursor = Math.max(leftIndex - (this.sideItems - rightAmount), 0);
+
+		while ((pages.length < width) && (cursor <= this.totalSections)) {
+			pages.push(cursor);
+			cursor++;
+		}
+		this.sections = pages.length ? pages : [0];
+	}
+
+	goToIndexPage(index) {
+		this.indexPagination = index;
+		this.setPageIndex();
+		this.goToPage.emit(index);
 	}
 }

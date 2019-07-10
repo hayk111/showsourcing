@@ -6,7 +6,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 	styleUrls: ['./editable-label.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[class.flexVAlign]': 'vAlign'
+		'[class.flexVAlign]': 'vAlign',
+		'class': 'pointer txt-btn'
 	}
 })
 export class EditableValueComponent implements OnInit {

@@ -1,19 +1,28 @@
 <ng-container *ngIf="!(pending$ | async)">
 	<auth-form-header-app>
-		<auth-header-title-app>Join a team</auth-header-title-app>
-		<auth-header-subtitle-app>
+		<auth-header-title-app i18n="header@@join-team">
+			Join a team
+		</auth-header-title-app>
+		<auth-header-subtitle-app i18n="text@@select-team-or-create">
 			Select the team you wanna connect to or
 			<br>
 			create a new one
 		</auth-header-subtitle-app>
 	</auth-form-header-app>
 	<ul>
-		<div class="flex pointer item border" *ngFor="let team of (teams$ | async); let last = last; trackBy: trackByFn"
-		 (click)="pickTeam(team)">
+		<div
+			class="flex pointer item border"
+			*ngFor="let team of (teams$ | async); let last = last; trackBy: trackByFn"
+		 	(click)="pickTeam(team)">
 			<icon-app name="team" fontSet="svg" size="m"></icon-app>
 			<span>{{ team.name }}</span>
 		</div>
 	</ul>
 
-	<a class="button light flexCenter" [routerLink]="['../create-a-team']">Create a new team</a>
+	<a
+		class="button light flexCenter"
+		[routerLink]="['../create-a-team']"
+		i18n="link@@create-new-team">
+		Create a new team
+	</a>
 </ng-container>

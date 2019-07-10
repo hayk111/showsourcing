@@ -5,7 +5,6 @@ import {
 	Component,
 	ComponentFactoryResolver,
 	HostListener,
-	NgModuleRef,
 	ViewChild,
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
@@ -22,7 +21,7 @@ import { AutoUnsub } from '~utils';
 })
 export class DialogContainerComponent extends AutoUnsub implements AfterViewInit {
 	// host where we will put dynamically generated components
-	@ViewChild(DialogHostDirective) host: DialogHostDirective;
+	@ViewChild(DialogHostDirective, { static: true }) host: DialogHostDirective;
 	// view container of said host.
 	protected viewContainerRef;
 	/** whether clicking */
@@ -55,7 +54,6 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 		const componentFactoryResolver = this.componentFactoryResolver;
 		const componentFactory = componentFactoryResolver.resolveComponentFactory(component);
 		this.viewContainerRef.clear();
-
 		const componentRef = this.viewContainerRef.createComponent(componentFactory);
 		const instance = (<any>componentRef.instance);
 		// adding properties to dialog

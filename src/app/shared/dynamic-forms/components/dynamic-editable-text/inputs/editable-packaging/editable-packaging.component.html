@@ -1,152 +1,228 @@
-
 <!-- when the value is undefined, null or 0 we display '-'.
 A package with 0cm makes no sens -->
-<!-- length -->
-<editable-field-app
-	#cell1
-	[inlineLabel]="true"
-	(closed)="onClose($event)"
-	(opened)="inp1.select();">
-	<label-app>length</label-app>
-	<editable-label-app>
-		{{ value?.length ? (value?.length + ' ' + value?.unit) : '-' }}
-	</editable-label-app>
-	<form-field-app class="editable edit">
-		<input inputApp
-			#inp1
-			restrictInput="number"
-			autofocus="true"
-			[value]="value?.length"
-			[type]="'number'"
-			(input)="accumulateNested('length', +inp1.value)"
-			(keyup.enter)="cell1.close();"/>
-	</form-field-app>
-</editable-field-app>
-
-<!-- width -->
-<editable-field-app
-	#cell2
-	[inlineLabel]="true"
-	(closed)="onClose($event)"
-	(opened)="inp2.select();">
-	<label-app>width</label-app>
-	<editable-label-app>
-		{{ value?.width ? (value?.width + ' ' + value?.unit) : '-' }}
-	</editable-label-app>
-	<form-field-app class="editable edit">
-		<input inputApp
-			#inp2
-			restrictInput="number"
-			autofocus="true"
-			[value]="value?.width"
-			(input)="accumulateNested('width', +inp2.value)"
-			(keyup.enter)="cell2.close();"
-			[type]="'number'"/>
-	</form-field-app>
-</editable-field-app>
-
-<!-- height -->
-<editable-field-app
-	#cell3
-	[inlineLabel]="true"
-	(closed)="onClose($event)"
-	(opened)="inp3.select();">
-	<label-app>Height</label-app>
+<!-- TODO i18n -->
+<ng-container *ngIf="!isFormStyle; else other">
+	<!-- length -->
+	<editable-field-app
+		#cell1
+		[inlineLabel]="true"
+		(closed)="onClose($event)"
+		(opened)="inp1.select();">
+		<label-app>length</label-app>
 		<editable-label-app>
-			{{ value?.height ? (value?.height + ' ' + value?.unit) : '-' }}
+			{{ value?.length ? (value?.length + ' ' + value?.unit) : '-' }}
 		</editable-label-app>
 		<form-field-app class="editable edit">
 			<input inputApp
-				#inp3
+				#inp1
 				restrictInput="number"
 				autofocus="true"
-				[value]="value?.height"
-				(input)="accumulateNested('height', +inp3.value)"
-				(keyup.enter)="cell3.close();"
+				[value]="value?.length"
+				[type]="'number'"
+				(input)="onChangePackaging('length', +inp1.value)"
+				(keyup.enter)="cell1.close();"/>
+		</form-field-app>
+	</editable-field-app>
+
+	<!-- width -->
+	<editable-field-app
+		#cell2
+		[inlineLabel]="true"
+		(closed)="onClose($event)"
+		(opened)="inp2.select();">
+		<label-app>width</label-app>
+		<editable-label-app>
+			{{ value?.width ? (value?.width + ' ' + value?.unit) : '-' }}
+		</editable-label-app>
+		<form-field-app class="editable edit">
+			<input inputApp
+				#inp2
+				restrictInput="number"
+				autofocus="true"
+				[value]="value?.width"
+				(input)="onChangePackaging('width', +inp2.value)"
+				(keyup.enter)="cell2.close();"
 				[type]="'number'"/>
 		</form-field-app>
-</editable-field-app>
-
-<!-- units -->
-<selector-app
-	[type]="erm.LENGTH_UNIT"
-	[width]="180"
-	[offsetY]="-34"
-	[value]="accumulator.unit"
-	(update)="updateAcummulator($event, 'unit')"
-	(menuClosed)="cell4.close()">
-	<editable-field-app
-		#cell4
-		[hasAction]="false"
-		[inlineLabel]="true"
-		(closed)="onClose($event)">
-		<label-app>Dimension units</label-app>
-		<editable-label-app>
-			{{ value?.unit || '-' }}
-		</editable-label-app>
 	</editable-field-app>
-</selector-app>
 
-<!-- Quantity -->
-<editable-field-app
-	#cell5
-	[inlineLabel]="true"
-	(closed)="onClose($event)"
-	(opened)="inp5.select();">
-	<label-app>Quantity</label-app>
-	<editable-label-app>
-		{{ value?.itemsQuantity ? value.itemsQuantity : '-' }}
-	</editable-label-app>
-	<form-field-app class="editable edit">
-		<input inputApp
-			#inp5
-			restrictInput="number"
-			autofocus="true"
-			[value]="value?.itemsQuantity"
-			[type]="'number'"
-			(input)="accumulateNested('itemsQuantity', +inp5.value)"
-			(keyup.enter)="cell5.close();"/>
-	</form-field-app>
-</editable-field-app>
-
-<!-- weight -->
-<editable-field-app
-	#cell6
-	[inlineLabel]="true"
-	(closed)="onClose($event)"
-	(opened)="inp6.select();">
-	<label-app>Weight</label-app>
-	<editable-label-app>
-		{{ value?.weight ? (value?.weight + ' ' + value?.weightUnit) : '-' }}
-	</editable-label-app>
-	<form-field-app class="editable edit">
-		<input inputApp
-			#inp6
-			restrictInput="number"
-			autofocus="true"
-			[value]="value?.weight"
-			(input)="accumulateNested('weight', +inp6.value)"
-			(keyup.enter)="cell6.close();"
-			[type]="'number'"/>
-	</form-field-app>
-</editable-field-app>
-
-<!-- weigth units -->
-<selector-app
-	[type]="erm.WEIGHT_UNIT"
-	[value]="accumulator.weightUnit"
-	[width]="180"
-	[offsetY]="-34"
-	(update)="updateAcummulator($event, 'weightUnit')"
-	(menuClosed)="cell7.close()">
+	<!-- height -->
 	<editable-field-app
-		#cell7
+		#cell3
 		[inlineLabel]="true"
-		[hasAction]="false"
-		(closed)="onClose($event)">
-		<label-app>units</label-app>
-		<editable-label-app>
-			{{ value?.weightUnit || '-' }}
-		</editable-label-app>
+		(closed)="onClose($event)"
+		(opened)="inp3.select();">
+		<label-app>Height</label-app>
+			<editable-label-app>
+				{{ value?.height ? (value?.height + ' ' + value?.unit) : '-' }}
+			</editable-label-app>
+			<form-field-app class="editable edit">
+				<input inputApp
+					#inp3
+					restrictInput="number"
+					autofocus="true"
+					[value]="value?.height"
+					(input)="onChangePackaging('height', +inp3.value)"
+					(keyup.enter)="cell3.close();"
+					[type]="'number'"/>
+			</form-field-app>
 	</editable-field-app>
-</selector-app>
+
+	<!-- units -->
+	<selector-app
+		[type]="erm.LENGTH_UNIT"
+		[width]="180"
+		[offsetY]="-34"
+		[value]="value.unit"
+		(update)="onChangePackaging('unit', $event)"
+		(menuClosed)="cell4.close()">
+		<editable-field-app
+			#cell4
+			[hasAction]="false"
+			[inlineLabel]="true"
+			(closed)="onClose($event)">
+			<label-app>Dimension units</label-app>
+			<editable-label-app>
+				{{ value?.unit || '-' }}
+			</editable-label-app>
+		</editable-field-app>
+	</selector-app>
+
+	<!-- Quantity -->
+	<editable-field-app
+		#cell5
+		[inlineLabel]="true"
+		(closed)="onClose($event)"
+		(opened)="inp5.select();">
+		<label-app>Quantity</label-app>
+		<editable-label-app>
+			{{ value?.itemsQuantity ? value.itemsQuantity : '-' }}
+		</editable-label-app>
+		<form-field-app class="editable edit">
+			<input inputApp
+				#inp5
+				restrictInput="number"
+				autofocus="true"
+				[value]="value?.itemsQuantity"
+				[type]="'number'"
+				(input)="onChangePackaging('itemsQuantity', +inp5.value)"
+				(keyup.enter)="cell5.close();"/>
+		</form-field-app>
+	</editable-field-app>
+
+	<!-- weight -->
+	<editable-field-app
+		#cell6
+		[inlineLabel]="true"
+		(closed)="onClose($event)"
+		(opened)="inp6.select();">
+		<label-app>Weight</label-app>
+		<editable-label-app>
+			{{ value?.weight ? (value?.weight + ' ' + value?.weightUnit) : '-' }}
+		</editable-label-app>
+		<form-field-app class="editable edit">
+			<input inputApp
+				#inp6
+				restrictInput="number"
+				autofocus="true"
+				[value]="value?.weight"
+				(input)="onChangePackaging('weight', +inp6.value)"
+				(keyup.enter)="cell6.close();"
+				[type]="'number'"/>
+		</form-field-app>
+	</editable-field-app>
+
+	<!-- weigth units -->
+	<selector-app
+		[type]="erm.WEIGHT_UNIT"
+		[value]="value.weightUnit"
+		[width]="180"
+		[offsetY]="-34"
+		(update)="onChangePackaging('weightUnit', $event)"
+		(menuClosed)="cell7.close()">
+		<editable-field-app
+			#cell7
+			[inlineLabel]="true"
+			[hasAction]="false"
+			(closed)="onClose($event)">
+			<label-app>units</label-app>
+			<editable-label-app>
+				{{ value?.weightUnit || '-' }}
+			</editable-label-app>
+		</editable-field-app>
+	</selector-app>
+
+</ng-container>
+
+<!-- TODO i18n -->
+<ng-template #other>
+	<div class="flex form-section">
+		<form-field-app class="modal col-25">
+			<label-app>Length</label-app>
+			<input inputApp autoFocus [canFocus]="autofocus" #inp1 [disabled]="disabled" [value]="value.length" type="number"
+			placeholder="Length" restrictInput="number" (input)="onChangePackaging('length', +inp1.value)"/>
+		</form-field-app>
+
+		<form-field-app class="modal col-25">
+			<label-app>Width</label-app>
+			<input inputApp #inp2 [disabled]="disabled" [value]="value.width" type="number"
+			placeholder="Width" restrictInput="number" (input)="onChangePackaging('width', +inp2.value)"/>
+		</form-field-app>
+
+		<form-field-app class="modal col-25">
+			<label-app>Height</label-app>
+			<input inputApp #inp3 [disabled]="disabled" [value]="value.height" type="number"
+			placeholder="Height" restrictInput="number" (input)="onChangePackaging('height', +inp3.value)"/>
+		</form-field-app>
+
+		<form-field-app class="modal col-25">
+			<label-app>Units</label-app>
+			<selector-app
+			 	[disabled]="disabled"
+				[type]="erm.LENGTH_UNIT"
+				[value]="value.unit"
+				(update)="onChangePackaging('unit', $event)">
+				<selector-placeholder-app
+					tabFocus
+					[ngClass]="{ 'disabled': disabled }"
+					[name]="value.unit"
+					placeholder="Unit"
+					i18n-placeholder="@@unit">
+				</selector-placeholder-app>
+			</selector-app>
+			<input inputApp [disabled]="disabled" [hidden]="true" type="text">
+		</form-field-app>
+	</div>
+
+	<div class="flex form-section">
+		<form-field-app class="modal col-50">
+			<label-app>Quantity</label-app>
+			<input inputApp #inp4 [disabled]="disabled" [value]="value.itemsQuantity" type="number"
+			placeholder="Quantity" restrictInput="number" (input)="onChangePackaging('itemsQuantity', +inp4.value)"/>
+		</form-field-app>
+
+		<form-field-app class="modal col-25">
+			<label-app>Weight</label-app>
+			<input inputApp #inp5 [disabled]="disabled" [value]="value.weight"
+			placeholder="Weight" type="number" restrictInput="number" (input)="onChangePackaging('weight', +inp5.value)"/>
+		</form-field-app>
+
+		<form-field-app class="modal col-25">
+			<label-app>Unit</label-app>
+			<selector-app
+				[disabled]="disabled"
+				[type]="erm.WEIGHT_UNIT"
+				[value]="value.weightUnit"
+				(update)="onChangePackaging('weightUnit', $event)">
+				<selector-placeholder-app
+					tabFocus
+					[ngClass]="{ 'disabled': disabled }"
+					[name]="value.weightUnit"
+					placeholder="Unit"
+					i18n-placeholder="@@unit">
+				</selector-placeholder-app>
+			</selector-app>
+			<input inputApp [disabled]="disabled" [hidden]="true" type="text">
+		</form-field-app>
+	</div>
+</ng-template>

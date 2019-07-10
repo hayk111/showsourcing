@@ -22,7 +22,7 @@ import { AutoUnsub } from '~utils';
 export class PortalContainerComponent extends AutoUnsub implements AfterViewInit {
 
 	// host where we will put dynamically generated components
-	@ViewChild(PortalHostDirective) host: PortalHostDirective;
+	@ViewChild(PortalHostDirective, { static: true }) host: PortalHostDirective;
 	// view container of said host.
 	protected viewContainerRef;
 	isOpen = false;

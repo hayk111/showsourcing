@@ -1,13 +1,8 @@
 <auth-form-header-app
 	[pending]="(pending$ | async)">
-	<auth-header-title-app>Welcome to ShowSourcing</auth-header-title-app>
-	<auth-header-subtitle-app>
-		Your collaborative sourcing platform for
-		<br>
-		your team and suppliers.
-		<br><br>
+	<auth-header-content-app i18n="text@@please-login-to-your-account">
 		Please login to your account.
-	</auth-header-subtitle-app>
+	</auth-header-content-app>
 </auth-form-header-app>
 
 <auth-form-app
@@ -18,12 +13,7 @@
 	[buttons]="buttons"
 	(onSubmit)="onSubmit($event)">
 	<div class="options">
-		<!-- <div class="checkbox-container">
-			<checkbox-app [size]="16" [labelClass]="'label-rememberme'">
-				Remember me
-			</checkbox-app>
-		</div> -->
-		<div class="pointer forgot-password" (click)="forgotPw()">Forgotten password?</div>
+		<div class="pointer forgot-password" (click)="forgotPw()" i18n="@@forgotten-pswd">Forgotten password?</div>
 	</div>
 
 </auth-form-app>

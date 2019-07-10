@@ -1,0 +1,51 @@
+<dialog-app class="vertical-scroll-content">
+
+	<dialog-header-app i18n="@@new-product">new product</dialog-header-app>
+
+	<div class="container flex">
+
+		<!-- left -->
+		<div class="left">
+			<h3 class="ms" i18n="@@product-picture">product picture</h3>
+			<carousel-app
+				[images]="product?.images"
+				[hasPreview]="true"
+				[showConfirmOnDelete]="false"
+				(uploaded)="imagesCreated($event)"
+				(deleted)="imageDeleted($event)">
+			</carousel-app>
+
+			<h3 class="ms" i18n="@@attachments">attachments</h3>
+			<files-card-app
+				[files]="product?.attachments"
+				[secondaryStyle]="true"
+				(uploaded)="filesCreated($event)"
+				(deleted)="fileDeleted($event)">
+			</files-card-app>
+
+		</div>
+
+		<!-- right -->
+		<div class="right">
+			<h3 class="ms" i18n="@@product-details">product details</h3>
+			<dynamic-form-app
+				[colAmount]="1"
+				[fields]="dynamicFields"
+				[textMode]="false"
+				[value]="product"
+				(update)="updateProduct($event)">
+			</dynamic-form-app>
+		</div>
+	</div>
+
+	<dialog-footer-app>
+		<checkbox-app
+			[checked]="createAnother"
+			(update)="createAnother = !createAnother">
+			create another
+		</checkbox-app>
+		<button tabFocus class="secondary" (click)="cancel()" i18n="@@cancel">cancel</button>
+		<button tabFocus [disabled]="!(product?.name)" (click)="save()" i18n="@@save-product">save product</button>
+	</dialog-footer-app>
+
+</dialog-app>

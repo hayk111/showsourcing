@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
-import { SampleService, UserService, TaskService } from '~core/entity-services';
+import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
+import { CommonModalService, SupplierRequestDialogComponent } from '~common/modals';
+import { SampleService, UserService, TaskService, SupplierRequestService, RequestElementService } from '~core/entity-services';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService } from '~shared/dialog/services';
+import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { AutoUnsub, log } from '~utils';
+import { AutoUnsub, log, translate } from '~utils';
 
 @Component({
 	selector: 'product-details-app',
@@ -26,6 +26,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	typeEntity = ERM.PRODUCT;
 	sampleCount$: Observable<number>;
 	taskCount$: Observable<number>;
+	requestCount$: Observable<number>;
+
+	tabs: { name: string, number$?: Observable<number> }[];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -37,7 +40,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		public commonModalSrv: CommonModalService,
 		private sampleSrv: SampleService,
 		private taskSrv: TaskService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private requestElementSrv: RequestElementService
 	) {
 		super();
 	}
@@ -58,23 +62,36 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 		this.sampleCount$ = id$.pipe(
 			switchMap(id => this.sampleSrv
-				.queryCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND deleted == false`)),
+				.selectCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND deleted == false`)),
 			takeUntil(this._destroy$)
 		);
 
 		this.taskCount$ = id$.pipe(
 			switchMap(id => this.taskSrv
-				.queryCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND done == false AND deleted == false`)),
+				.selectCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND done == false AND deleted == false`)),
 			takeUntil(this._destroy$)
 		);
 
+		this.requestCount$ = id$.pipe(
+			switchMap(id => this.requestElementSrv
+				.selectCount(`targetId == "${id}" AND targetedEntityType == "Product"`)),
+			takeUntil(this._destroy$)
+		);
+
+		this.tabs = [
+			{ name: translate('activity') },
+			{ name: translate('shipping') },
+			{ name: translate(ERM.SAMPLE.plural, 'erm'), number$: this.sampleCount$ },
+			{ name: translate(ERM.TASK.plural, 'erm'), number$: this.taskCount$ },
+			{ name: translate(ERM.SUPPLIER_REQUEST.plural, 'erm'), number$: this.requestCount$ }
+		];
 	}
 
 	private onProduct(product) {
 		if (!product) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: 'The product doesn\'t exist',
+				title: translate('The product doesn\'t exist'),
 				timeout: 3500
 			});
 			this.router.navigate(['product']);
@@ -88,7 +105,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
 			title: 'Error',
-			message: 'There is an error, please try again later',
+			message: translate('There is an error, please try again later'),
 			timeout: 3500
 		});
 		this.router.navigate(['product']);
@@ -143,8 +160,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	/** when deleting this product */
 	deleteProduct(product: Product) {
-		const text = `Are you sure you want to delete this product?`;
+		const text = translate('Are you sure you want to delete this product?');
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.featureSrv.delete(product.id))
 		).subscribe(_ => this.router.navigate(['product']));
 	}
@@ -155,5 +173,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	openPreview() {
 		this.previewOpen = true;
+	}
+
+	openSupplierRequest(product: Product) {
+		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [product] });
 	}
 }

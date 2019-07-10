@@ -1,0 +1,54 @@
+<div class="top-panel-ctnr flexCenter z-1">
+	<request-top-panel-app
+		[request]="request">
+	</request-top-panel-app>
+</div>
+
+<div class="details-container full-width full-height">
+	<!-- Left side -->
+	<div class="left">
+		<request-information-app
+			class="no-margin-right"
+			[request]="request">
+		</request-information-app>
+	</div>
+	<!-- Right side-->
+	<div class="right">
+		<card-app>
+			<h3 class="l" i18n="@@message">message</h3>
+			<div class="flex">
+				<img src="/assets/img/user-temp.png"/>
+				<div class="message-container">
+					<div class="name">{{ request?.sender?.name }}</div>
+					<div class="message">{{ request?.message }}</div>
+				</div>
+			</div>
+		</card-app>
+
+		<card-app>
+			<h3 class="l" i18n="header@@request-items">Request Items</h3>
+				<request-element-list-view-app
+					class="no-padding"
+					[rows]="listSrv.items$ | async"
+					[pending]="listSrv.pending"
+					[selection]="listSrv.selection$ | async"
+					(openReviewRequestReply)="openReviewRequestReply($event)"
+					(openRefuseReplyDlg)="openRefuseReplyDlg($event)"
+					(cancelReply)="cancelReply($event)"
+					(bottomReached)="listSrv.loadMore()"
+					(select)="listSrv.selectOne($event)"
+					(selectAll)="listSrv.selectAll($event)"
+					(sort)="listSrv.sort($event)"
+					(unselect)="listSrv.unselectOne($event)"
+					(unselectAll)="listSrv.unselectAll()">
+				</request-element-list-view-app>
+		</card-app>
+	</div>
+</div>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+	<button class="warn" (click)="cancelReplies()" i18n="@@cancel-items">cancel items</button>
+</selection-bar-app>
