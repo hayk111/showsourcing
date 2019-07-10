@@ -45,6 +45,7 @@
 		<!-- Description -->
 		<preview-section-app [title]="'Description'">
 			<input-description-app
+				[isSmall]="true"
 				[description]="product?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
