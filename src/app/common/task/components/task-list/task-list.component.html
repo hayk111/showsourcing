@@ -37,8 +37,8 @@
 		</list-item-app>
 	</list-app>
 	<div class="flexBetween create-task">
-		<input inputApp type="text" [formControl]="taskCtrl"
-			placeholder="+ Create a new task" (keydown.enter)="onEnter($event)" i18n-placeholder="@@+-create-new-task"/>
-		<button *ngIf="inp?.focussed || taskCtrl.value"class="secondary-light" (click)="onSubmit()">Create</button>
+			<button class="primary" (click)="commonModalSrv.openCreationTaskDlg()" i18n="button@@create">
+				Create
+			</button>
 	</div>
 </card-app>

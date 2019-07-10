@@ -5,6 +5,7 @@ import { ERM, Task } from '~models';
 import { InputDirective } from '~shared/inputs';
 import { TrackingComponent } from '~utils/tracking-component';
 import { FilterList, FilterType } from '~shared/filters';
+import { CommonModalService } from '~common/modals';
 
 @Component({
 	selector: 'task-list-app',
@@ -36,6 +37,7 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 
 	constructor(
 		protected router: Router,
+		public commonModalSrv: CommonModalService,
 	) {
 		super();
 	}

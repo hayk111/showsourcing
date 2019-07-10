@@ -35,7 +35,17 @@
 			[placeholder]="customField?.label || customField?.name"
       [(ngModel)]="accumulator"
       (input)="onChange()"/>
-  </form-field-app>
+	</form-field-app>
+
+		<!-- date -->
+	<form-field-app *ngSwitchCase="'date'"  class="modal">
+			<label-app>{{ customField?.label || customField?.name }}</label-app>
+			<input inputApp
+				type="date"
+				[placeholder]="customField?.label || customField?.name"
+				[(ngModel)]="accumulator"
+				(input)="onChange()"/>
+		</form-field-app>
 
 	<!-- decimal -->
   <form-field-app *ngSwitchCase="'decimal'"  class="modal">
@@ -65,6 +75,7 @@
     <textarea inputApp
       type="text"
 			[placeholder]="customField?.label || customField?.name"
+			[rows]="customField?.metadata?.rows"
       [(ngModel)]="accumulator"
       (input)="onChange()">
     </textarea>
