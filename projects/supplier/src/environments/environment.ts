@@ -7,7 +7,7 @@ import { LogLevel } from '~utils';
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-	version: WEB_VERSION,
+	version: WEB_VERSION + '-DEV',
 	production: false,
 	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',

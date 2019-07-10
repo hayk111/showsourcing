@@ -136,7 +136,10 @@
 		<form-field-app *ngSwitchCase="'text'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp [disabled]="disabled" inputApp type="text" [value]="accumulator || ''"
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
@@ -145,7 +148,10 @@
 		<form-field-app *ngSwitchCase="'string'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp [disabled]="disabled" inputApp type="text" [value]="accumulator || ''"
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
@@ -154,7 +160,10 @@
 		<form-field-app *ngSwitchCase="'tel'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp [disabled]="disabled" inputApp restrictInput="tel" type="text" [value]="accumulator || ''"
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" restrictInput="tel" type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
@@ -163,7 +172,10 @@
 		<form-field-app *ngSwitchCase="'decimal'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 			 	(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
@@ -172,7 +184,10 @@
 		<form-field-app *ngSwitchCase="'int'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp [disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 			 	(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
@@ -181,7 +196,9 @@
 		<form-field-app *ngSwitchCase="'boolean'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<radio-app
-				inputApp
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				[disabled]="disabled"
 				[checked]="field?.value === 'true' ? true : field?.value === 'false' ? false : null"
 				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
 				(update)="toggleBoolean($event)">
@@ -208,6 +225,7 @@
 				inputApp
 				[value]="getObject()"
 				[isFormStyle]="true"
+				[autofocus]="autofocus"
 				[disabled]="disabled"
 				(update)="onInput($event, true)">
 			</editable-packaging-app>
@@ -222,7 +240,8 @@
 				[canCreate]="metadata?.canCreate"
 				(update)="onInput($event, metadata?.type !== 'const')">
 				<selector-placeholder-app
-					tabFocus
+					tabFocus autoFocus
+					[canFocus]="autofocus"
 					[ngClass]="{ 'disabled': disabled }"
 					[placeholder]="definition?.label"
 					[name]="metadata?.type === 'const' ? accumulator : getLinkingObject()">

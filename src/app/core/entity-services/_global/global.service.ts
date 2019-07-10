@@ -455,6 +455,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
+			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			map((r) => {
 				if (!r.data)
@@ -484,6 +485,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
+			filter((r: any) => this.checkError(r)),
 			// extracting the result
 			map((r) => {
 				if (!r.data)
