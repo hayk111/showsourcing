@@ -12,7 +12,9 @@
 					[size]="14"
 					(check)="select(project.id, project)"
 					(uncheck)="unselect(project.id)"
-					[checked]="selected[project.id]">
+					[checked]="selected[project.id]"
+					(click)="checkbox.onClick()"
+					>
 				</checkbox-app>
 				<div class="flexCenter flexBetween flexGrow">
 					<span class="name">{{ project.name }}</span>
