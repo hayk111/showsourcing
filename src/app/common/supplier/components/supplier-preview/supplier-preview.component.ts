@@ -59,10 +59,22 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
 		},
 		{
+			name: 'creationDate',
+			type: 'date',
+			label: translate('creation date'),
+			metadata: { disabled: true }
+		},
+		{
 			name: 'lastUpdatedBy',
 			type: 'selector',
 			label: translate('last updated by'),
 			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'lastUpdatedDate',
+			type: 'date',
+			label: translate('last updated date'),
+			metadata: { disabled: true }
 		}
 	];
 

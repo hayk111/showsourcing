@@ -38,10 +38,22 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
 		},
 		{
+			name: 'creationDate',
+			type: 'date',
+			label: translate('creation date'),
+			metadata: { disabled: true }
+		},
+		{
 			name: 'lastUpdatedBy',
 			type: 'selector',
 			label: translate('last updated by'),
 			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'lastUpdatedDate',
+			type: 'date',
+			label: translate('last updated date'),
+			metadata: { disabled: true }
 		}
 	];
 
@@ -69,7 +81,8 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 	}
 
 	updateDueDate(isCancel: boolean, value: Date) {
-		if (!isCancel && isCancel !== undefined) this.update(value, 'dueDate');
+		if (!isCancel && isCancel !== undefined)
+			this.update(value, 'dueDate');
 	}
 
 	addComment(comment: Comment) {

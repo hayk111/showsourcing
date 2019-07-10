@@ -64,7 +64,7 @@
 					[value]="accumulator"
 					[type]="customField.type"
 					(input)="accumulate(+inp.value)"
-					(keyup.enter)="editable.close();"/>
+					(keyup.enter)="editable.close()"/>
 			</form-field-app>
 		</editable-field-app>
 
@@ -86,7 +86,32 @@
 					type="number"
 					step="any"
 					(input)="accumulate(+inp.value)"
-					(keyup.enter)="editable.close();"/>
+					(keyup.enter)="editable.close()"/>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- date -->
+		<editable-field-app
+			*ngSwitchCase="'date'"
+			#editable
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
+			[inlineLabel]="inlineLabel"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ customField?.label || customField?.name }}</label-app>
+			<editable-label-app [disabled]="customField?.metadata?.disabled">
+				{{ value ? (value | date: 'dd MMMM yyyy') : '-' }}
+			</editable-label-app>
+			<form-field-app class="editable">
+				<input
+					inputApp #inpDueDate
+					[disabled]="customField?.metadata?.disabled"
+					autofocus="true"
+					[value]="value ? (value | date:'yyyy-MM-dd') : '-'"
+					type="date"
+					(keyup.enter)="accumulate(inpDueDate.value)"
+					(change)="accumulate($event.target.value)"/>
 			</form-field-app>
 		</editable-field-app>
 
