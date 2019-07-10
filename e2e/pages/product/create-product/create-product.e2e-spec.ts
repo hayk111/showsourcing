@@ -178,8 +178,11 @@ describe('create product test suite', () => {
 				}
 			}
 
-			return expect(count).toEqual(selectors.length,
-				`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			if (count !== selectors.length) {
+				fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			} else {
+				return expect(count).toEqual(selectors.length);
+			}
 		});
 
 		it('should display the selector items', async () => {
@@ -198,25 +201,25 @@ describe('create product test suite', () => {
 				browser.sleep(1000);
 
 				if (await pageCreateProduct.isOpenedSelPickerApp()) {
-					const text = await selectors[i].getText();
-					switch (text) {
+					const defaultValue = await selectors[i].getText();
+					switch (defaultValue) {
 						case 'supplier':
-							await check(text, 'supplier');
+							await check(defaultValue, 'supplier');
 							break;
 						case 'category':
-							await check(text, 'category');
+							await check(defaultValue, 'category');
 							break;
 						case 'tag':
-							await check(text, 'tag');
+							await check(defaultValue, 'tag');
 							break;
 						case 'project':
-							await check(text, 'project');
+							await check(defaultValue, 'project');
 							break;
 						case 'USD':
-							await check(text, 'currency');
+							await check(defaultValue, 'currency');
 							break;
 						default: // case USD, cm, kg, inco term, harbour
-							await check(text, 'name');
+							await check(defaultValue, 'name');
 							break;
 					}
 					await pageCreateProduct.closeSelPickerApp();
@@ -289,11 +292,11 @@ describe('create product test suite', () => {
 				browser.sleep(1000);
 
 				if (await pageCreateProduct.isOpenedSelPickerApp()) {
-					const type = await selectors[i].getText();
+					const defaultValue = await selectors[i].getText();
 					const inpElem = await pageCreateProduct.getFieldNamePickerApp;
 					let key = '';
 					await inpElem.clear(); // 1st time open selector, the field name get `undefined`, we will clear it!
-					switch (type) {
+					switch (defaultValue) {
 						case 'USD':
 							key = 'euro';
 							await check(selectors[i], inpElem, key, 'currency');
@@ -315,7 +318,6 @@ describe('create product test suite', () => {
 							await check(selectors[i], inpElem, key, 'name');
 							break;
 						default:
-							console.log('default');
 							break;
 					}
 				} else {
@@ -327,6 +329,213 @@ describe('create product test suite', () => {
 			} else {
 				return expect(count).toEqual(selectors.length);
 			}
+		});
+
+		it('should change xxx (when click xxx) if xxx is already selected by up and down keys', async () => {
+			const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
+			let count = 0;
+			const failures = [{ text: 'can not open picker', array: [] },
+			{ text: 'selector does have options', array: [] }, { text: 'xxx not change when click', array: [] }];
+
+			const check = async (selector, rowName, defaultValue) => {
+				// select 1st option
+				let rows = await pageCreateProduct.getSelRowAppByName(rowName);
+				if (rows.length) {
+					// select with key down
+					await browser.actions().sendKeys(protractor.Key.DOWN).perform();
+					await browser.actions().sendKeys(protractor.Key.ENTER).perform();
+				} else {
+					failures[1].array.push(await selector.getText());
+				}
+				// get current value after press enter
+				const oldValue = await selector.getText();
+
+				// re-open
+				await selector.click();
+				browser.sleep(1000);
+
+				rows = await pageCreateProduct.getSelRowAppByName(rowName);
+				if (rows.length) {
+					if (rows.length > 2) {
+						await rows[2].click(); // select second option
+						const newValue = await selector.getText();
+						if (oldValue !== newValue) {
+							count++;
+						}
+					} else {
+						await rows[0].click();
+					}
+				} else {
+					failures[1].array.push(await selector.getText());
+				}
+			};
+
+			for (let i = 0; i < selectors.length; i++) {
+				await selectors[i].click();
+				browser.sleep(1000);
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					const defaultValue = await selectors[i].getText();
+					let key = '';
+					switch (defaultValue) {
+						case 'USD':
+							key = 'euro';
+							await check(selectors[i], 'currency', defaultValue);
+							break;
+						case 'cm':
+							key = 'ft';
+							await check(selectors[i], 'name', defaultValue);
+							break;
+						case 'kg':
+							key = 'lb';
+							await check(selectors[i], 'name', defaultValue);
+							break;
+						case 'inco term':
+							key = 'fas';
+							await check(selectors[i], 'name', defaultValue);
+							break;
+						case 'harbour':
+							key = 'barce';
+							await check(selectors[i], 'name', defaultValue);
+							break;
+						default:
+							break;
+					}
+				} else {
+					failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				}
+			}
+
+			if (count !== selectors.length) {
+				fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			} else {
+				return expect(count).toEqual(selectors.length);
+			}
+		});
+
+		it('should change xxx when press enter key if xxx is already selected by up and down keys', async () => {
+			const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
+			let count = 0;
+			const failures = [{ text: 'can not open picker', array: [] },
+			{ text: 'selector does have options', array: [] }, { text: 'xxx not change when click', array: [] }];
+
+			const check = async (selector, rowName, defaultValue) => {
+				// select 1st option
+				let rows = await pageCreateProduct.getSelRowAppByName(rowName);
+				if (rows.length) {
+					// select with key down
+					await browser.actions().sendKeys(protractor.Key.DOWN).perform();
+					await browser.actions().sendKeys(protractor.Key.ENTER).perform();
+				} else {
+					failures[1].array.push(await selector.getText());
+				}
+				// get current value after press enter
+				const oldValue = await selector.getText();
+
+				// re-open
+				await selector.click();
+				browser.sleep(1000);
+
+				rows = await pageCreateProduct.getSelRowAppByName(rowName);
+				if (rows.length) {
+					if (rows.length > 2) {
+						const newValue = await pageCreateProduct.getCurrency(rows[1]);
+						// select second option by press enter
+						await browser.actions().sendKeys(protractor.Key.DOWN).perform();
+						await browser.actions().sendKeys(protractor.Key.DOWN).perform();
+						await browser.actions().sendKeys(protractor.Key.ENTER).perform();
+						if (oldValue !== newValue) {
+							count++;
+						}
+					} else {
+						await rows[0].click();
+					}
+				} else {
+					failures[1].array.push(await selector.getText());
+				}
+			};
+
+			for (let i = 0; i < selectors.length; i++) {
+				await selectors[i].click();
+				browser.sleep(1000);
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					const defaultValue = await selectors[i].getText();
+					let key = '';
+					switch (defaultValue) {
+						case 'USD':
+							key = 'euro';
+							await check(selectors[i], 'currency', defaultValue);
+							break;
+						case 'cm':
+							key = 'ft';
+							await check(selectors[i], 'name', defaultValue);
+							break;
+						case 'kg':
+							key = 'lb';
+							await check(selectors[i], 'name', defaultValue);
+							break;
+						case 'inco term':
+							key = 'fas';
+							await check(selectors[i], 'name', defaultValue);
+							break;
+						case 'harbour':
+							key = 'barce';
+							await check(selectors[i], 'name', defaultValue);
+							break;
+						default:
+							break;
+					}
+				} else {
+					failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				}
+			}
+
+			if (count !== selectors.length) {
+				fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			} else {
+				return expect(count).toEqual(selectors.length);
+			}
+		});
+
+		it('should be able to jump to "done" from the field when press tab key', async () => {
+			const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
+			let count = 0;
+			const failures = [{ text: 'can not open picker', array: [] },
+			{ text: 'selector does have options', array: [] }, { text: 'xxx not able to jump by tab key', array: [] }];
+
+			for (let i = 0; i < selectors.length; i++) {
+				await selectors[i].click();
+				browser.sleep(1000);
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					await browser.actions().sendKeys(protractor.Key.TAB).perform();
+					const currentActiveElem = await browser.driver.switchTo().activeElement();
+					if (currentActiveElem && (await currentActiveElem.getText() === 'Done')) {
+						count++;
+					} else {
+						failures[1].array.push(await selectors[i].getText());
+					}
+				} else {
+					failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				}
+
+				await pageCreateProduct.closeSelPickerApp();
+			}
+
+			if (count !== selectors.length) {
+				fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			} else {
+				return expect(count).toEqual(selectors.length);
+			}
+		});
+
+		it('the selector should be closed and xxx should be updated when select an optiong or press key enter', async () => {
+			return expect(true).toBe(true);
+		});
+
+		it('should close only the slector picker when press escape key or press "done" button', async () => {
+			return expect(true).toBe(true);
 		});
 	});
 

@@ -185,6 +185,11 @@ export class CreateProductPage {
 		return (await this.selPickerApp.findElements(by.css('active')) || []).length;
 	}
 
+	async getCurrency(row) {
+		const childs = await row.findElements(by.tagName('div'));
+		return childs.length ? await childs[0].getText() : await row.getText();
+	}
+
 	get getActiveRowApp() { // get active "selector-name-row-app" when using selector-picker-app
 		return this.selPickerApp.findElement(by.css('active'));
 	}
