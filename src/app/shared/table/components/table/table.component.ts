@@ -1,4 +1,5 @@
 import {
+	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	ContentChildren,
@@ -24,7 +25,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 		class: 'fullWidth'
 	}
 })
-export class TableComponent extends TrackingComponent implements OnChanges {
+export class TableComponent extends TrackingComponent implements OnChanges, AfterViewInit {
 	// whether the table is currently loading
 	@Input() pending = false;
 	// whether rows are selectable
@@ -92,6 +93,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	hoverIndex: number;
 
 	contextualMenuOpened = {};
+	// width of the content based on the width of each column
+	width = 0;
 
 	// whether specific rows are selectable or not
 	@Input() isSelectable = (item) => true;
@@ -106,6 +109,15 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		super();
 	}
 
+	ngAfterViewInit() {
+		// version where we need only the width after view init
+		this.width = 0;
+		this.columns.forEach(column => {
+			// tslint:disable-next-line: radix
+			this.width += typeof (column.width) === 'string' ? parseInt(column.width) : column.width;
+		});
+	}
+
 	ngOnChanges(changes) {
 		if (changes.currentSort && changes.currentSort.currentValue) {
 			const currentSort = changes.currentSort.currentValue;
@@ -115,6 +127,19 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 				column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
 			}
 		}
+	}
+
+	// check with Cedric which is the best aproach,
+	// @Input() needs style after the view init (when we get the fields from *ngFor requestElement.reply)
+	// needds the style only on after view init (all other cases)
+	getWidth() {
+		// version with the calculation here
+		let width = 0;
+		this.columns.forEach(column => {
+			// tslint:disable-next-line: radix
+			width += typeof (column.width) === 'string' ? parseInt(column.width) : column.width;
+		});
+		return width;
 	}
 
 	onSelectOne(entity: any) {
