@@ -1,5 +1,4 @@
 import { browser, by, element, protractor, ExpectedConditions, FileDetector } from 'protractor';
-
 export class CreateProductPage {
 
 	navigateTo() {
@@ -107,9 +106,15 @@ export class CreateProductPage {
 		return Promise.all(textareas.map(async e => (await e.getId())));
 	}
 
-	async countSelRowAppByName(name: string) {
+	async getSelRowAppByName(name: string) {
 		const tagName = name && name.length ? `selector-${name}-row-app` : 'selector-name-row-app';
-		return (await this.selPickerApp.findElements(by.tagName(tagName)) || []).length;
+		return (await this.selPickerApp.findElements(by.tagName(tagName)) || []);
+	}
+
+	async getTextRowApp(elem) {
+		const childs = await elem.findElements(by.tagName('div'));
+		const items = await Promise.all(childs.map(async e => (await e.getText() || '')));
+		return items.join(' ');
 	}
 
 	get inpRadiosOfDlgApp() {
@@ -158,11 +163,30 @@ export class CreateProductPage {
 		return (await browser.driver.findElements(by.tagName('spinner-app')) || []).length;
 	}
 
-	async selectors() {
+	async selectors(filter?) {
 		const dlgApp = await browser.driver.findElement(by.tagName('dialog-app'));
 		const placeApps = await dlgApp.findElements(by.tagName('selector-placeholder-app'));
 		const priceApps = await dlgApp.findElements(by.css('selector-app[type="currency"]'));
-		return placeApps.concat(priceApps);
+		let results = [];
+		if (filter && filter.length) {
+			const selectors = placeApps.concat(priceApps);
+			for (let i = 0; i < selectors.length; i++) {
+				if (filter.includes(await selectors[i].getText())) {
+					results.push(selectors[i]);
+				}
+			}
+		} else {
+			results = placeApps.concat(priceApps);
+		}
+		return results;
+	}
+
+	async isHaveActiveRow() {
+		return (await this.selPickerApp.findElements(by.css('active')) || []).length;
+	}
+
+	get getActiveRowApp() { // get active "selector-name-row-app" when using selector-picker-app
+		return this.selPickerApp.findElement(by.css('active'));
 	}
 
 	get getFieldNamePickerApp() { // get field name of selector-picker-app

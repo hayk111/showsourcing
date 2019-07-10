@@ -155,9 +155,9 @@ describe('create product test suite', () => {
 		return expect(count).toEqual(selectors.length, `Failed: ${failures.join(', ')}`);
 	});
 
-	describe('select 1 can not create', async () => {
+	describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco term', 'harbour'
 		it('the field should be focused when the picker opens', async () => {
-			const selectors = await pageCreateProduct.selectors();
+			const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 			let count = 0;
 			const failures = [{ text: 'can not open picker', array: [] }, { text: 'the field not be focused', array: [] }];
 			for (let i = 0; i < selectors.length; i++) {
@@ -183,10 +183,16 @@ describe('create product test suite', () => {
 		});
 
 		it('should display the selector items', async () => {
-			const selectors = await pageCreateProduct.selectors();
+			const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 			let count = 0;
 			const failures = [{ text: 'can not open picker', array: [] }, { text: 'not display selector items', array: [] }];
-
+			const check = async (text, rowName) => {
+				if ((await pageCreateProduct.getSelRowAppByName(rowName)).length) {
+					count++;
+				} else {
+					failures[1].array.push(text);
+				}
+			};
 			for (let i = 0; i < selectors.length; i++) {
 				await selectors[i].click();
 				browser.sleep(1000);
@@ -195,46 +201,22 @@ describe('create product test suite', () => {
 					const text = await selectors[i].getText();
 					switch (text) {
 						case 'supplier':
-							if (await pageCreateProduct.countSelRowAppByName('supplier')) {
-								count++;
-							} else {
-								failures[1].array.push(text);
-							}
+							await check(text, 'supplier');
 							break;
 						case 'category':
-							if (await pageCreateProduct.countSelRowAppByName('category')) {
-								count++;
-							} else {
-								failures[1].array.push(text);
-							}
+							await check(text, 'category');
 							break;
 						case 'tag':
-							if (await pageCreateProduct.countSelRowAppByName('tag')) {
-								count++;
-							} else {
-								failures[1].array.push(text);
-							}
+							await check(text, 'tag');
 							break;
 						case 'project':
-							if (await pageCreateProduct.countSelRowAppByName('project')) {
-								count++;
-							} else {
-								failures[1].array.push(text);
-							}
+							await check(text, 'project');
 							break;
 						case 'USD':
-							if (await pageCreateProduct.countSelRowAppByName('currency')) {
-								count++;
-							} else {
-								failures[1].array.push(text);
-							}
+							await check(text, 'currency');
 							break;
 						default: // case USD, cm, kg, inco term, harbour
-							if (await pageCreateProduct.countSelRowAppByName('name')) {
-								count++;
-							} else {
-								failures[1].array.push(text);
-							}
+							await check(text, 'name');
 							break;
 					}
 					await pageCreateProduct.closeSelPickerApp();
@@ -242,15 +224,17 @@ describe('create product test suite', () => {
 					failures[0].array.push(await selectors[i].getAttribute('placeholder'));
 				}
 			}
-
-			return expect(count).toEqual(selectors.length,
-				`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			if (count !== selectors.length) {
+				fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			} else {
+				return expect(count).toEqual(selectors.length);
+			}
 		});
 
 		it('should be able to type in the field', async () => {
-			const selectors = await pageCreateProduct.selectors();
+			const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 			let count = 0;
-			const failures = [{ text: 'can not open picker', array: [] }, { text: 'the field not able too type', array: [] }];
+			const failures = [{ text: 'can not open picker', array: [] }, { text: 'the field not able to type', array: [] }];
 			for (let i = 0; i < selectors.length; i++) {
 				await selectors[i].click();
 				browser.sleep(1000);
@@ -270,9 +254,79 @@ describe('create product test suite', () => {
 					failures[0].array.push(await selectors[i].getAttribute('placeholder'));
 				}
 			}
+			if (count !== selectors.length) {
+				fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			} else {
+				return expect(count).toEqual(selectors.length);
+			}
+		});
 
-			return expect(count).toEqual(selectors.length,
-				`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+		it('the first xxx should be focused when type the letter of existing xxx', async () => {
+			const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
+			let count = 0;
+			const failures = [{ text: 'can not open picker', array: [] },
+			{ text: 'selector does have options', array: [] }, { text: 'the 1st xxx not be focused', array: [] }];
+
+			const check = async (selector, inpElem, key, rowName) => {
+				await inpElem.sendKeys(key);
+				browser.sleep(1000); // wait until finish load options
+				const rows = await pageCreateProduct.getSelRowAppByName(rowName);
+				if (rows.length) {
+					const textRowApp = await pageCreateProduct.getTextRowApp(rows[0]);
+					if (textRowApp.includes(key) && await pageCreateProduct.isHaveActiveRow()) {
+						count++;
+					} else {
+						failures[2].array.push(await selector.getText());
+					}
+				} else {
+					failures[1].array.push(await selector.getText());
+				}
+				await pageCreateProduct.closeSelPickerApp();
+			};
+
+			for (let i = 0; i < selectors.length; i++) {
+				await selectors[i].click();
+				browser.sleep(1000);
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					const type = await selectors[i].getText();
+					const inpElem = await pageCreateProduct.getFieldNamePickerApp;
+					let key = '';
+					await inpElem.clear(); // 1st time open selector, the field name get `undefined`, we will clear it!
+					switch (type) {
+						case 'USD':
+							key = 'euro';
+							await check(selectors[i], inpElem, key, 'currency');
+							break;
+						case 'cm':
+							key = 'ft';
+							await check(selectors[i], inpElem, key, 'name');
+							break;
+						case 'kg':
+							key = 'lb';
+							await check(selectors[i], inpElem, key, 'name');
+							break;
+						case 'inco term':
+							key = 'fas';
+							await check(selectors[i], inpElem, key, 'name');
+							break;
+						case 'harbour':
+							key = 'barce';
+							await check(selectors[i], inpElem, key, 'name');
+							break;
+						default:
+							console.log('default');
+							break;
+					}
+				} else {
+					failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				}
+			}
+			if (count !== selectors.length) {
+				fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			} else {
+				return expect(count).toEqual(selectors.length);
+			}
 		});
 	});
 
