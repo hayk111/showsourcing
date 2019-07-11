@@ -7,6 +7,8 @@ import {
 	Output,
 	QueryList,
 	ViewChildren,
+	AfterViewInit,
+	OnInit,
 } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
 
@@ -16,7 +18,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-d
 	styleUrls: ['./radio.component.scss'],
 	providers: [makeAccessorProvider(RadioComponent)],
 })
-export class RadioComponent extends AbstractInput {
+export class RadioComponent extends AbstractInput implements OnInit {
 	protected static NEXT_UID = 0;
 
 	@Input() isVeritical = false;
@@ -54,6 +56,11 @@ export class RadioComponent extends AbstractInput {
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
+	}
+
+	ngOnInit() {
+		// for some reason if we didn't use explicitly detect changes, it would detect the value from checked
+		this.cd.detectChanges();
 	}
 
 	onChange() {

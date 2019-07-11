@@ -39,7 +39,6 @@ export class AppComponent implements OnInit {
 
 	ngOnInit(): void {
 		const isAuthRoute = this.location.path().startsWith('/auth');
-
 		// TODO Cedric take a look on why this doesn't work pls
 		// if (isAuthRoute)
 		// 	this.authSrv.logout(true);

@@ -1,15 +1,15 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { TeamClientInitializer } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, translate } from '~utils';
 import { TeamService } from '~core/entity-services';
-import { TeamClientInitializer } from '~core/apollo';
 import { Invitation } from '~core/models';
 
 
@@ -19,10 +19,15 @@ import { Invitation } from '~core/models';
 	styleUrls: ['./handle-invitation.component.scss'],
 })
 export class HandleInvitationComponent extends AutoUnsub implements OnInit {
+
 	authenticated$: Observable<boolean>;
 	invitation$: Observable<Invitation>;
 	client: Client;
 	returnUrl: string;
+
+	// this is used to hide then DOM when accepting in the meaintime we fix how we handle
+	// the spinner located at `app.component.html`
+	hasAccepted$ = new BehaviorSubject(false);
 
 	constructor(
 		private router: Router,
@@ -42,11 +47,11 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		this.invitation$ = this.authenticated$.pipe(
 			switchMap(_ => this.invitationSrv.queryOne(invitationId))
 		);
-
 		this.returnUrl = this.location.path();
 	}
 
 	accept(invitation: Invitation) {
+		this.hasAccepted$.next(true);
 		this.teamClient.setPending('switching team');
 		this.invitationSrv.acceptInvitation(invitation).subscribe(_ => {
 			this.router.navigateByUrl('/');
