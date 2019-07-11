@@ -84,7 +84,7 @@ export class CreationTaskDlgComponent implements OnInit {
 		if (this.task && this.task.name) {
 			this.taskSrv.create(this.task).subscribe(task => {
 				if (this.createAnother) {
-					this.dlgSrv.open(CreationTaskDlgComponent, { task });
+					this.dlgSrv.open(CreationTaskDlgComponent, { task: { ...task, name: ''} });
 				} else {
 					this.close();
 				}
