@@ -37,7 +37,7 @@ export class CreateProductPage {
 		// trigger next focus
 		await browser.actions().sendKeys(protractor.Key.TAB).perform();
 		currentActiveElem = await browser.driver.switchTo().activeElement();
-		console.log('currentActiveElem', await currentActiveElem.getTagName());
+
 		while (firstId !== await currentActiveElem.getId()) {
 			array.push(await currentActiveElem.getId());
 			await browser.actions().sendKeys(protractor.Key.TAB).perform();
@@ -122,9 +122,13 @@ export class CreateProductPage {
 		return dlgApp.findElements(by.css('input[type="radio"]'));
 	}
 
-	async closeSelPickerApp() {
+	async pressDoneBtn() {
 		const doneBtn = await this.selPickerApp.findElement(by.css('button.secondary'));
 		await doneBtn.click();
+	}
+
+	async closeSelPickerApp() {
+		await browser.executeScript('document.getElementsByTagName("selector-picker-app")[0].remove()');
 	}
 
 	async getFieldName() {
