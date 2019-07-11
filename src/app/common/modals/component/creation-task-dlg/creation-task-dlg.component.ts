@@ -18,7 +18,7 @@ export class CreationTaskDlgComponent implements OnInit {
 	@Input() task: Task;
 
 	dynamicFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: translate('name') },
+		{ name: 'name', type: 'text', required: true, label: translate('name'), placeholder: translate('Task name'), },
 		{
 			name: 'assignee',
 			type: 'selector',
@@ -26,14 +26,14 @@ export class CreationTaskDlgComponent implements OnInit {
 			metadata: {
 				target: ERM.USER.singular,
 				type: 'entity',
-				labelName: 'name',
+				placeholder: translate('select assignee'),
 				canCreate: true,
 				hasBadge: true,
 				width: 495
 			}
 		},
 		{ name: 'dueDate', type: 'date', label: translate('due date') },
-		{ name: 'description', type: 'textarea', label: translate('description'), metadata:  { rows: 10 } },
+		{ name: 'description', type: 'textarea', label: translate('Description'), metadata:  { rows: 5 } },
 		{
 			name: 'product',
 			type: 'selector',
@@ -41,7 +41,7 @@ export class CreationTaskDlgComponent implements OnInit {
 			metadata: {
 				target: ERM.PRODUCT.singular,
 				type: 'entity',
-				labelName: 'name',
+				placeholder: translate('search for your product'),
 				canCreate: true,
 				hasBadge: true,
 				width: 495
@@ -54,7 +54,7 @@ export class CreationTaskDlgComponent implements OnInit {
 			metadata: {
 				target: ERM.SUPPLIER.singular,
 				type: 'entity',
-				labelName: 'name',
+				placeholder: translate('search for your supplier'),
 				canCreate: true,
 				hasBadge: true,
 				width: 495
