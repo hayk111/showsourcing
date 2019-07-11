@@ -3,6 +3,9 @@
 // default style for inputs
 input {
 	height: 32px;
+}
+
+input, textarea {
 	&::placeholder {
 		color: var(--color-secondary-dark);
 	}

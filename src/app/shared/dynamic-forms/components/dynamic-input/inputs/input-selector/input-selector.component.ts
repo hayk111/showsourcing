@@ -30,6 +30,7 @@ export class InputSelectorComponent extends AbstractInput implements OnInit, Aft
 	@Input() canCreate = false;
 	@Input() width: number;
 	@Input() autofocus = false;
+	@Input() placeholder: string;
 	// wether we display a info-badge-app or just plain tex
 	@Input() hasBadge = false;
 	@Output() update = new EventEmitter<any>();
