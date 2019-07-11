@@ -386,7 +386,7 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 		const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 		let count = 0;
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'selector does not have options', array: [] },
-		{ text: 'selector not close', array: [] }, { text: 'xxx not update', array: [] }];
+		{ text: 'selector not be close', array: [] }, { text: 'xxx not be updated', array: [] }];
 
 		const check = async (selector, rowName, defaultValue) => {
 			const rows = await pageCreateProduct.getSelRowAppByName(rowName);
@@ -437,7 +437,7 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 		const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 		let count = 0;
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'selector does not have options', array: [] },
-		{ text: 'selector not close', array: [] }, { text: 'xxx not update', array: [] }];
+		{ text: 'selector not be close', array: [] }, { text: 'xxx not be updated', array: [] }];
 
 		const check = async (selector, rowName, defaultValue) => {
 			const rows = await pageCreateProduct.getSelRowAppByName(rowName);
@@ -489,7 +489,7 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 		const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 		let count = 0;
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'selector not close when press escape', array: [] },
-		{ text: 'selector not close when press "done" button', array: [] }];
+		{ text: 'selector not be closed when press "done" button', array: [] }];
 
 		for (let i = 0; i < selectors.length; i++) {
 			await selectors[i].click();
@@ -519,7 +519,7 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 	it('should close only the slector picker when press "done" button', async () => {
 		const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 		let count = 0;
-		const failures = [{ text: 'can not open picker', array: [] }, { text: 'selector not close when press "done" button', array: [] }];
+		const failures = [{ text: 'can not open picker', array: [] }, { text: 'selector not be closed when press "done" button', array: [] }];
 
 		for (let i = 0; i < selectors.length; i++) {
 			await selectors[i].click();

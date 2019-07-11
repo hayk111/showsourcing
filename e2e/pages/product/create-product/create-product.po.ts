@@ -117,6 +117,14 @@ export class CreateProductPage {
 		return items.join(' ');
 	}
 
+	async getTextSupplierApp(elem) {
+		return await elem.findElement(by.css('div.name')).getText();
+	}
+
+	async getTextCategoryApp(elem) {
+		return await elem.getText();
+	}
+
 	get inpRadiosOfDlgApp() {
 		const dlgApp = browser.driver.findElement(by.tagName('dialog-app'));
 		return dlgApp.findElements(by.css('input[type="radio"]'));
@@ -196,6 +204,14 @@ export class CreateProductPage {
 
 	async isHaveSelBtnRowApp() {
 		return (await this.selPickerApp.findElements(by.css('selector-button-row-app.selector-row')) || []).length;
+	}
+
+	async isHaveSupplierActiveRow() {
+		return (await this.selPickerApp.findElements(by.css('selector-supplier-row-app.active')) || []).length;
+	}
+
+	async isHaveCategoryActiveRow() {
+		return (await this.selPickerApp.findElements(by.css('selector-category-row-app.active')) || []).length;
 	}
 
 	get getActiveRowApp() { // get active "selector-name-row-app" when using selector-picker-app
