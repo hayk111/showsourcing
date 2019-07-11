@@ -4,10 +4,7 @@ import { ERM, Task } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { translate, AutoUnsub } from '~utils';
-import { ListPageService, ListPageKey } from '~core/list-page';
-import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'creation-task-dlg-app',
@@ -16,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: []
 })
-export class CreationTaskDlgComponent extends AutoUnsub implements OnInit {
+export class CreationTaskDlgComponent implements OnInit {
 
 	@Input() task: Task;
 
@@ -70,23 +67,7 @@ export class CreationTaskDlgComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private taskSrv: TaskService,
 		private notifSrv: NotificationService,
-		private listSrv: ListPageService<Task, TaskService>,
-		protected route: ActivatedRoute,
 	) {
-		super();
-		const routeId = this.route.snapshot.params.id;
-		this.listSrv.setup({
-			key: `${ListPageKey.TASK}-${routeId}`,
-			entitySrv: this.taskSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name'],
-			selectParams: {
-				sortBy: 'creationDate',
-				descending: true,
-				query: 'deleted == false'
-			},
-			entityMetadata: ERM.TASK,
-			originComponentDestroy$: this._destroy$
-		});
 	}
 
 	ngOnInit() {
@@ -112,7 +93,6 @@ export class CreationTaskDlgComponent extends AutoUnsub implements OnInit {
 					title: `Task created`,
 					message: 'Your task has been created with success'
 				});
-				this.listSrv.refetch({});
 			},
 			err => {
 				this.notifSrv.add({

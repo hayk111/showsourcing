@@ -23,7 +23,7 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	@Input() hasFilters = true;
 	@Input() filterList: FilterList;
 	@Output() toggleMyTasks = new EventEmitter<boolean>();
-	@Output() createTask = new EventEmitter<string>();
+	@Output() openCreationTaskDlg = new EventEmitter<string>();
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() previewClicked = new EventEmitter<Task>();
 	@Output() taskSelect = new EventEmitter<Task>();
@@ -55,15 +55,5 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 
 	openSupplier(id: string) {
 		this.router.navigate([ERM.SUPPLIER.singular, id]);
-	}
-
-	onEnter(event) {
-		event.preventDefault();
-		this.onSubmit();
-	}
-
-	onSubmit() {
-		this.createTask.emit(this.taskCtrl.value);
-		this.taskCtrl.reset();
 	}
 }
