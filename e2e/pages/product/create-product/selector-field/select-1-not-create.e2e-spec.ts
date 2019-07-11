@@ -109,25 +109,10 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
 				const defaultValue = await selectors[i].getText();
-				switch (defaultValue) {
-					case 'supplier':
-						await check(defaultValue, 'supplier');
-						break;
-					case 'category':
-						await check(defaultValue, 'category');
-						break;
-					case 'tag':
-						await check(defaultValue, 'tag');
-						break;
-					case 'project':
-						await check(defaultValue, 'project');
-						break;
-					case 'USD':
-						await check(defaultValue, 'currency');
-						break;
-					default: // case USD, cm, kg, inco term, harbour
-						await check(defaultValue, 'name');
-						break;
+				if (defaultValue === 'USD') {
+					await check(selectors[i], 'currency');
+				} else { // case USD, cm, kg, inco term, harbour
+					await check(selectors[i], 'name');
 				}
 				await pageCreateProduct.closeSelPickerApp();
 			} else {
@@ -283,24 +268,10 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
 				const defaultValue = await selectors[i].getText();
-				switch (defaultValue) {
-					case 'USD':
-						await check(selectors[i], 'currency', defaultValue);
-						break;
-					case 'cm':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'kg':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'inco term':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'harbour':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					default:
-						break;
+				if (defaultValue === 'USD') {
+					await check(selectors[i], 'currency', defaultValue);
+				} else { // case USD, cm, kg, inco term, harbour
+					await check(selectors[i], 'name', defaultValue);
 				}
 			} else {
 				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
@@ -362,24 +333,10 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
 				const defaultValue = await selectors[i].getText();
-				switch (defaultValue) {
-					case 'USD':
-						await check(selectors[i], 'currency', defaultValue);
-						break;
-					case 'cm':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'kg':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'inco term':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'harbour':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					default:
-						break;
+				if (defaultValue === 'USD') {
+					await check(selectors[i], 'currency', defaultValue);
+				} else { // case USD, cm, kg, inco term, harbour
+					await check(selectors[i], 'name', defaultValue);
 				}
 			} else {
 				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
@@ -459,24 +416,10 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
 				const defaultValue = await selectors[i].getText();
-				switch (defaultValue) {
-					case 'USD':
-						await check(selectors[i], 'currency', defaultValue);
-						break;
-					case 'cm':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'kg':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'inco term':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'harbour':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					default:
-						break;
+				if (defaultValue === 'USD') {
+					await check(selectors[i], 'currency', defaultValue);
+				} else { // case USD, cm, kg, inco term, harbour
+					await check(selectors[i], 'name', defaultValue);
 				}
 			} else {
 				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
@@ -525,24 +468,10 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
 				const defaultValue = await selectors[i].getText();
-				switch (defaultValue) {
-					case 'USD':
-						await check(selectors[i], 'currency', defaultValue);
-						break;
-					case 'cm':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'kg':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'inco term':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					case 'harbour':
-						await check(selectors[i], 'name', defaultValue);
-						break;
-					default:
-						break;
+				if (defaultValue === 'USD') {
+					await check(selectors[i], 'currency', defaultValue);
+				} else { // case USD, cm, kg, inco term, harbour
+					await check(selectors[i], 'name', defaultValue);
 				}
 			} else {
 				failures[0].array.push(await selectors[i].getAttribute('placeholder'));

@@ -194,6 +194,10 @@ export class CreateProductPage {
 		return childs.length ? await childs[0].getText() : await row.getText();
 	}
 
+	async isHaveSelBtnRowApp() {
+		return (await this.selPickerApp.findElements(by.css('selector-button-row-app.selector-row')) || []).length;
+	}
+
 	get getActiveRowApp() { // get active "selector-name-row-app" when using selector-picker-app
 		return this.selPickerApp.findElement(by.css('active'));
 	}
