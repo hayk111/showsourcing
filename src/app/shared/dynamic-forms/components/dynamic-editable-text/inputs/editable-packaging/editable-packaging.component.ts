@@ -23,6 +23,7 @@ export class EditablePackagingComponent extends AbstractInput {
 	@Input() isFormStyle = false;
 	@Input() disabled = false;
 	@Input() customField: DynamicField;
+	@Input() autofocus = false;
 	@Output() change = new EventEmitter<Packaging>();
 	@Output() update = new EventEmitter<Packaging>();
 	@Output() rowClosed = new EventEmitter();

@@ -4,6 +4,7 @@ import { AuthenticatedGuard } from '~core/auth';
 import { HasUserGuard } from '~core/auth/services/has-user.guard';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
 import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-selected.guard';
+import { InvitationGuard } from '~features/pick-a-team/services/invitation.guard';
 import { DevModeGuard } from '~utils/dev-mode.guard';
 
 export const routes: Array<Route> = [
@@ -27,6 +28,7 @@ export const routes: Array<Route> = [
 	{
 		path: 'invitation',
 		component: GuestTemplateComponent,
+		canActivateChild: [InvitationGuard],
 		loadChildren: 'app/features/invitation/invitation.module#InvitationModule',
 		data: { showLogout: true }
 	},

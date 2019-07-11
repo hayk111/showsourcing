@@ -141,10 +141,9 @@ export class ListPageDataService
 	 * refetchs the query and will merge with existing config
 	 * @param config configuration used to refetch
 	 */
-	refetch(config?: SelectParamsConfig) {
-		this.selectParams = { ...this.selectParams, ...config };
+	refetch(config: SelectParamsConfig = {}) {
 		this.onLoading();
-		return this.listResult.refetch(this.selectParams).pipe(first());
+		return this.listResult.refetch(config).pipe(first());
 	}
 
 	/** Loads more items when we reach the bottom of the page */
@@ -154,22 +153,22 @@ export class ListPageDataService
 
 	loadPage(page: number): Observable<any> {
 		this.selectParams.skip = this.selectParams.take * page;
-		return this.refetch();
+		return this.refetch(this.selectParams);
 	}
 
 	loadNextPage(): Observable<any> {
 		this.selectParams.skip = this.selectParams.skip + this.selectParams.take;
-		return this.refetch();
+		return this.refetch(this.selectParams);
 	}
 
 	loadPreviousPage(): Observable<any> {
 		this.selectParams.skip = Math.max(this.selectParams.skip - this.selectParams.take, 0);
-		return this.refetch();
+		return this.refetch(this.selectParams);
 	}
 
 	loadFirstPage(): Observable<any> {
 		this.selectParams.skip = 0;
-		return this.refetch();
+		return this.refetch(this.selectParams);
 	}
 
 	loadLastPage(): Observable<any> {
@@ -180,7 +179,7 @@ export class ListPageDataService
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
 		this.selectParams = { ...this.selectParams, ...sort };
-		return this.refetch();
+		return this.refetch(this.selectParams);
 	}
 
 	sortFromMenu(fieldName: string) {
@@ -190,7 +189,7 @@ export class ListPageDataService
 			this.selectParams.sortBy = fieldName;
 			this.selectParams.descending = false;
 		}
-		return this.refetch();
+		return this.refetch(this.selectParams);
 	}
 
 	/** when we want to search through the list we only search the name */

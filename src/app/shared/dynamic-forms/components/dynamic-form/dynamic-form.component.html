@@ -15,7 +15,8 @@
 
 		<ng-template #inputs>
 			<dynamic-input-app
-				*ngFor="let field of col; trackBy: trackByFn"
+				*ngFor="let field of col; index as index; trackBy: trackByFn"
+				[autofocus]="index === indexFocus"
 				[customField]="field"
 				[formControlName]="field.name"
 				(update)="update.emit($event)">
