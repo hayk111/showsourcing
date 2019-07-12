@@ -113,16 +113,24 @@ export class CreateProductPage {
 
 	async getTextRowApp(elem) {
 		const childs = await elem.findElements(by.tagName('div'));
-		const items = await Promise.all(childs.map(async e => (await e.getText() || '')));
-		return items.join(' ');
+		if (childs && childs.length) {
+			const items = await Promise.all(childs.map(async e => (await e.getText() || '')));
+			return items.join(' ');
+		} else {
+			return await elem.getText();
+		}
 	}
 
 	async getTextSupplierApp(elem) {
 		return await elem.findElement(by.css('div.name')).getText();
 	}
 
-	async getTextCategoryApp(elem) {
-		return await elem.getText();
+	// async getTextCategoryApp(elem) {
+	// 	return await elem.getText();
+	// }
+
+	async isHaveInfoBadgeApp() {
+		return (await this.selPickerApp.findElements(by.tagName('info-badge-app')) || []).length;
 	}
 
 	get inpRadiosOfDlgApp() {
@@ -219,6 +227,14 @@ export class CreateProductPage {
 		return await this.selPickerApp.findElement(by.css(`${tagName}.active`));
 	}
 
+	async isHaveTagActiveRow() {
+		return (await this.selPickerApp.findElements(by.css('selector-tag-row-app.active')) || []).length;
+	}
+
+	async isHaveProjectActiveRow() {
+		return (await this.selPickerApp.findElements(by.css('selector-project-row-app.active')) || []).length;
+	}
+
 	get creatBtn() {
 		return this.selPickerApp.findElement(by.css('selector-button-row-app.selector-row'));
 	}
@@ -229,6 +245,14 @@ export class CreateProductPage {
 
 	get categoryActiveRow() {
 		return this.selPickerApp.findElement(by.css('selector-category-row-app.active'));
+	}
+
+	get tagActiveRow() {
+		return this.selPickerApp.findElement(by.css('selector-tag-row-app.active'));
+	}
+
+	get projectActiveRow() {
+		return this.selPickerApp.findElement(by.css('selector-project-row-app.active'));
 	}
 
 	get getActiveRowApp() { // get active "selector-name-row-app" when using selector-picker-app

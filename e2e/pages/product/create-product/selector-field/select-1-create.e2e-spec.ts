@@ -217,7 +217,7 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 				browser.sleep(5000);
 				const rows = await pageCreateProduct.getSelRowAppByName(defaultValue);
 				if (rows.length) {
-					const textRowApp = await pageCreateProduct[defaultValue === 'supplier' ? 'getTextSupplierApp' : 'getTextCategoryApp'](rows[0]);
+					const textRowApp = await pageCreateProduct[defaultValue === 'supplier' ? 'getTextSupplierApp' : 'getTextApp'](rows[0]);
 					if (textRowApp.includes(defaultValue) &&
 						await pageCreateProduct[defaultValue === 'supplier' ? 'isHaveSupplierActiveRow' : 'isHaveCategoryActiveRow']()) {
 						count++;
@@ -270,7 +270,7 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 					if (await pageCreateProduct[defaultValue === 'supplier' ? 'isHaveSupplierActiveRow' : 'isHaveCategoryActiveRow']()) {
 						up = true;
 					} else {
-						failures[2].array.push(`${defaultValue} (key down failed)`);
+						failures[2].array.push(`${defaultValue} (key up failed)`);
 					}
 
 					if (down && up) {
@@ -280,7 +280,6 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 				} else {
 					failures[1].array.push(defaultValue);
 				}
-
 
 			} else {
 				failures[0].array.push(defaultValue);
