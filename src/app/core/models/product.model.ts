@@ -54,6 +54,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	images?: AppImage[];
 	incoTerm?: string;
 	innerCarton?: Packaging;
+	lastUpdatedBy?: User;
 	leadTimeUnit?: string;
 	leadTimeValue?: number;
 	masterCarton?: Packaging;
