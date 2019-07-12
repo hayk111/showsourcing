@@ -107,7 +107,7 @@ export class CreationProductDlgComponent implements OnInit {
 		},
 		{
 			name: 'extendedFields', type: 'extendedField', label: 'extended fields',
-			metadata: { target: 'product.extendedFields' }
+			metadata: { target: 'Product' }
 		}
 	];
 	createAnother = false;
