@@ -7,6 +7,7 @@ import { TaskService, UserService } from '~entity-services';
 import { Task } from '~models';
 import { FilterType } from '~shared/filters';
 import { switchMap } from 'rxjs/operators';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'supplier-tasks-app',
@@ -23,6 +24,7 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 		protected userSrv: UserService,
 		protected router: Router,
 		protected taskSrv: TaskService,
+		protected dlgSrv: DialogService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
@@ -31,6 +33,7 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 			route,
 			userSrv,
 			taskSrv,
+			dlgSrv,
 			commonModalSrv,
 			listSrv
 		);

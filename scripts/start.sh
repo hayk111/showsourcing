@@ -26,7 +26,7 @@ if $SHOULD_BUILD; then
 	echo "2) app staging"
 	echo "3) app production"
 	echo "4) supplier development"
-	echo "5) supplier development"
+	echo "5) supplier staging"
 	echo "6) supplier production"
 
 	read n

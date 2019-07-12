@@ -5,7 +5,7 @@ import { SupplierStatus } from '~models/supplier-status.model';
 import { SupplierType } from '~models/supplier-type.model';
 import { Tag } from '~models/tag.model';
 
-import { ExtendedField } from './extended-field.model';
+import { User } from './user.model';
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
 	name?: string;
@@ -31,6 +31,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
 	comments?: Comment[];
+	lastUpdatedBy?: User;
 	// extendedFields?: ExtendedField[];
 	__typename?= 'Supplier';
 }

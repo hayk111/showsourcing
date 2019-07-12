@@ -6,4 +6,8 @@
 	.deep-class:not(:empty):not(.no-padding) {
 		padding-top: var(--spacing-ms);
 	}
+
+	&.no-mg-bottom {
+		margin-bottom: 0px;
+	}
 }
