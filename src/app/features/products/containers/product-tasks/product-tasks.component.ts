@@ -7,6 +7,7 @@ import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
 import { FilterType } from '~shared/filters';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'product-tasks-app',
@@ -28,6 +29,7 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 		protected userSrv: UserService,
 		protected router: Router,
 		protected taskSrv: TaskService,
+		protected dlgSrv: DialogService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
@@ -36,8 +38,9 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 			route,
 			userSrv,
 			taskSrv,
+			dlgSrv,
 			commonModalSrv,
-			listSrv
+			listSrv,
 		);
 	}
 

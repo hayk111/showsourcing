@@ -13,7 +13,7 @@
           <icon-app class="fs-m color-txt-secondary" name="file" ></icon-app>
         </div>
         <div class="name pointer">
-          <div class="ellipsis">{{ file.fileName }}</div>
+          <div class="file-name ellipsis">{{ file.fileName }}</div>
           <div class="file-size">{{ file.size | fileSize }}</div>
         </div>
         <div *ngIf="!static" class="flexCenter">

@@ -92,11 +92,21 @@ export abstract class AbstractApolloClient {
 			linker
 		]);
 
+		// by default the fetchPolicy is 'cache-first', this means that if a query that has been done in the past
+		// with the same parameters, it will look at the cache instead of waiting for network response,
+		// we use 'cache-and-network' since first it looks at the cache and regardless of whether any data was found,
+		// it passes the query along to the APi to get the most up-to-date data.
+		// https://medium.com/@galen.corey/understanding-apollo-fetch-policies-705b5ad71980
 		this.apollo.create({
 			link,
 			connectToDevTools: !environment.production,
 			cache: new InMemoryCache({}),
 			queryDeduplication: true,
+			defaultOptions: {
+				watchQuery: {
+					fetchPolicy: 'cache-and-network'
+				}
+			}
 		}, name);
 
 		showsourcing.clients.set(name, this.apollo.use(name));

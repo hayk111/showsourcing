@@ -14,6 +14,7 @@ import {
 	MassEditDlgComponent,
 	RefuseReplyDlgComponent,
 	CreationProductDlgComponent,
+	CreationTaskDlgComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { EntityMetadata, Product, ProductVote, Project, Supplier, ERM } from '~models';
@@ -121,6 +122,10 @@ export class CommonModalService {
 		).subscribe(({ product }) => {
 			this.router.navigate([ERM.PRODUCT.destUrl, product.id]);
 		});
+	}
+
+	openCreationTaskDlg() {
+		this.dlgSrv.open(CreationTaskDlgComponent);
 	}
 
 	close() {
