@@ -33,12 +33,15 @@
 </div>
 <button
 	*ngIf="showMore && !isSmall"
+	tabFocus
 	class="secondary-light flexCenter view-more"
 	(click)="showAll()"
 	i18n="button@@view-more">
 	View more
 </button>
-<span *ngIf="showMore && isSmall"
+<span
+	*ngIf="showMore && isSmall"
+	tabFocus
 	class="text-more"
 	(click)="showAll()"
 	i18n="text@@view-more">
