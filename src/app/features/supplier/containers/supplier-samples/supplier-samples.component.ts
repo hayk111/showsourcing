@@ -7,7 +7,8 @@ import { UserService } from '~entity-services';
 import { SampleService } from '~entity-services/sample/sample.service';
 import { Sample } from '~models';
 import { FilterType } from '~shared/filters';
-import { switchMap, takeUntil, map } from 'rxjs/operators';
+import { takeUntil, map } from 'rxjs/operators';
+import { DialogService } from '~shared/dialog';
 
 
 @Component({
@@ -28,10 +29,11 @@ export class SupplierSamplesComponent extends AbstractSampleCommonComponent impl
 		protected router: Router,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
+		protected dlgSrv: DialogService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService
 	) {
-		super(router, route, userSrv, sampleSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, commonModalSrv);
 	}
 
 	ngOnInit() {
@@ -46,17 +48,4 @@ export class SupplierSamplesComponent extends AbstractSampleCommonComponent impl
 			map(params => params.id)
 		).subscribe(id => this.supplierId = id);
 	}
-
-
-	createSample(name: string) {
-		const sample = new Sample({
-			name,
-			supplier: { id: this.supplierId },
-			assignee: { id: this.userSrv.userSync.id }
-		});
-		this.sampleSrv.create(sample).pipe(
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
-	}
-
 }

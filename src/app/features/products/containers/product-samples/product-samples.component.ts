@@ -7,6 +7,7 @@ import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
 import { FilterType } from '~shared/filters';
 import { switchMap } from 'rxjs/operators';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'product-samples-app',
@@ -24,10 +25,11 @@ export class ProductSamplesComponent extends AbstractSampleCommonComponent imple
 		protected router: Router,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
+		protected dlgSrv: DialogService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService
 	) {
-		super(router, route, userSrv, sampleSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, commonModalSrv);
 	}
 
 	ngOnInit() {
@@ -38,16 +40,5 @@ export class ProductSamplesComponent extends AbstractSampleCommonComponent imple
 				value: this.productId
 			}
 		]);
-	}
-
-	createSample(name: string) {
-		const sample = new Sample({
-			name,
-			product: { id: this.productId },
-			assignee: { id: this.userSrv.userSync.id }
-		});
-		this.sampleSrv.create(sample).pipe(
-			switchMap(_ => this.listSrv.refetch({}))
-		).subscribe();
 	}
 }

@@ -5,6 +5,9 @@ import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
+import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
+import { filter, switchMap } from 'rxjs/operators';
 
 /** since we use the sample component on different pages, this page will keep the methods clean */
 export abstract class AbstractSampleCommonComponent extends AutoUnsub {
@@ -15,6 +18,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
+		protected dlgSrv: DialogService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService
 	) {
@@ -58,5 +62,12 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 			this.listSrv.addFilter(filterAssignee);
 		else
 			this.listSrv.removeFilter(filterAssignee);
+	}
+
+	openCreationSampleDlg() {
+		this.dlgSrv.open(CreationSampleDlgComponent).pipe(
+			filter((event: CloseEvent) => event.type === CloseEventType.OK),
+			switchMap(_ => this.listSrv.refetch({}))
+		).subscribe();
 	}
 }
