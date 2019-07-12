@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { RequestReplyService, SupplierRequestService } from '~core/entity-services';
@@ -18,7 +19,6 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 
 import { RefuseReplyDlgComponent } from '../refuse-reply-dlg/refuse-reply-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
-import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -31,6 +31,9 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	@Input() selectedIndex = 0;
 	@Input() requestId: string;
+
+	@ViewChild('content', { static: false }) content: ElementRef;
+
 	request$: Observable<SupplierRequest>;
 	request: SupplierRequest;
 	elements: RequestElement[] = [];
@@ -45,7 +48,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		private replySrv: RequestReplyService,
 		private requestSrv: SupplierRequestService,
 		private dlgSrv: DialogService,
-		private uploaderFeedback: UploaderFeedbackService,
+		private uploaderFeedback: UploaderFeedbackService
 	) {
 		super();
 	}
@@ -112,7 +115,10 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
 		});
-		this.descriptionCtrl.reset();
+		if (updateStatus) {
+			this.descriptionCtrl.reset();
+			this.content.nativeElement.scrollIntoView();
+		}
 	}
 
 	saveAndClose() {
@@ -135,11 +141,20 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	private getNextUnrepliedIndex() {
-		return this.elements.findIndex(elem => (
-			elem.reply.status === ReplyStatus.PENDING ||
-			elem.reply.status === ReplyStatus.ERROR ||
-			elem.reply.status === ReplyStatus.RESENT
-		) && elem.reply.id !== this.reply.id);
+		// we map the elements that are still unreplied and we filter the undefined ones
+		const unrepliedElements = this.elements.map(
+			(elem, index) => {
+				if ((
+					elem.reply.status === ReplyStatus.PENDING ||
+					elem.reply.status === ReplyStatus.ERROR ||
+					elem.reply.status === ReplyStatus.RESENT
+				) && elem.reply.id !== this.reply.id)
+					return index;
+			}).filter(index => index !== undefined);
+		// we search for an element who's index is bigger than the current index
+		const newIndex = unrepliedElements.find(index => index >= this.selectedIndex);
+		// if we didn't find any element we just pick up the first one
+		return newIndex ? newIndex : unrepliedElements.shift();
 	}
 
 	hasNext() {

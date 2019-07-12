@@ -8,6 +8,7 @@ import {
 	Component,
 	ElementRef,
 	EventEmitter,
+	HostListener,
 	Input,
 	OnChanges,
 	OnInit,
@@ -62,6 +63,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
 
+	// this closes the selector without closing dialogs, etc
+	@HostListener('keydown.escape', ['$event'])
+	onKeydownEsc(event) {
+		event.stopPropagation();
+		this.close.emit();
+	}
 
 	/** choices to iterate */
 	choices$: Observable<any[]>;
@@ -90,7 +97,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	count = 0;
 
 	searched$: Subject<string> = new Subject();
-	searchTxt = '';
+	// sometimes we want to start with something to search already
+	@Input() searchTxt = '';
 
 	/** whether the search has a exact match or not to display the create button */
 	nameExists$: Observable<boolean>;
@@ -138,6 +146,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
 		else
 			this.choices$ = this.getChoices(this.type);
+
+		if (this.searchTxt)
+			this.search(this.searchTxt);
 
 		// we use this refetch, cause sometimes selector wasn't loading the latest data added
 		// the observable was already initialized and didn't trigger the latest changes until you used the search
