@@ -5,7 +5,7 @@
 		[filterList]="listSrv.filterList"
 		(toggleMySamples)="toggleMySamples($event)"
 		(bottomReached)="listSrv.loadMore()"
-		(openCreationSampleDlg)="openCreationSampleDlg()"
+		(openCreationSampleDlg)="openCreationSampleDlg(null, supplier)"
 		(previewClicked)="listSrv.openPreview($event)"
 		(updateSample)="listSrv.update($event)">
 	</sample-list-app>

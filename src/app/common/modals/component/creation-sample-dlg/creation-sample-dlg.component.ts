@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { SampleService } from '~core/entity-services';
-import { ERM, Sample } from '~core/models';
+import { ERM, Sample, Product, Supplier } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -17,6 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 export class CreationSampleDlgComponent implements OnInit {
 
 	@Input() sample: Sample;
+	@Input() product: Product;
+	@Input() supplier: Supplier;
 
 	dynamicFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: translate('name'), placeholder: translate('Sample name'), },
@@ -73,7 +75,11 @@ export class CreationSampleDlgComponent implements OnInit {
 
 	ngOnInit() {
 		if (!this.sample) {
-			this.sample = new Sample({});
+			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
+			this.sample = new Sample({
+				...this.product && {product: {id: this.product.id, name: this.product.name}},
+				...supplier && {supplier: {id: supplier.id, name: supplier.name}}
+			});
 		}
 	}
 

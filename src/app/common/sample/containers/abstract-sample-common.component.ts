@@ -64,8 +64,8 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 			this.listSrv.removeFilter(filterAssignee);
 	}
 
-	openCreationSampleDlg() {
-		this.dlgSrv.open(CreationSampleDlgComponent).pipe(
+	openCreationSampleDlg(product, supplier) {
+		this.dlgSrv.open(CreationSampleDlgComponent, {product, supplier}).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch({}))
 		).subscribe();
