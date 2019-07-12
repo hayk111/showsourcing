@@ -1,0 +1,18 @@
+dialog-app {
+	height: 73vh;
+	min-width: 496px;
+
+	dialog-footer-app {
+		> *:not(:last-child) {
+			margin-right: var(--spacing-ms);
+		}
+	}
+}
+.container {
+	width: 100%;
+	.inner-container {
+		box-sizing: border-box;
+		width: 100%;
+		margin-right: var(--spacing-ms);
+	}
+}
