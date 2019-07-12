@@ -68,6 +68,7 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 		let count = 0;
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'the field not be focused', array: [] }];
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
@@ -77,16 +78,16 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 				if (await inp.getId() === await curActiveElem.getId()) {
 					count++;
 				} else {
-					failures[1].array.push(await selectors[i].getAttribute('placeholder'));
+					failures[1].array.push(defaultValue);
 				}
 				await pageCreateProduct.closeSelPickerApp();
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -98,11 +99,11 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'not display selector items', array: [] }];
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText();
 				if ((await pageCreateProduct.getSelRowAppByName(defaultValue)).length) {
 					count++;
 				} else {
@@ -110,12 +111,12 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 				}
 				await pageCreateProduct.closeSelPickerApp();
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -126,11 +127,11 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 		let count = 0;
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'the field not be focused', array: [] }];
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText();
 
 				const inp = await pageCreateProduct.getFieldNamePickerApp;
 				await inp.clear();
@@ -147,12 +148,12 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 
 				await pageCreateProduct.closeSelPickerApp();
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -165,10 +166,11 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'not display create btn', array: [] }];
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
+
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText();
 				const newItem = `${defaultValue}-${new Date().getTime()}`; // make sure new supplier or category does not exist
 
 				const inp = await pageCreateProduct.getFieldNamePickerApp;
@@ -185,12 +187,12 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 
 				await pageCreateProduct.closeSelPickerApp();
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -203,11 +205,11 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 		{ text: 'selector does not have options', array: [] }, { text: 'the first xxx not be focused', array: [] }];
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText(); // will be supplier or category
 			await selectors[i].click();
 			browser.sleep(1000);
-			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText(); // will be supplier or category
 
+			if (await pageCreateProduct.isOpenedSelPickerApp()) {
 				const inp = await pageCreateProduct.getFieldNamePickerApp;
 				await inp.clear();
 				await inp.sendKeys(defaultValue);
@@ -228,12 +230,12 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 
 				await pageCreateProduct.closeSelPickerApp();
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${(failures.filter(o => o.array.length)).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${(failures.filter(o => o.array.length)).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -246,12 +248,11 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 		{ text: 'selector does not have options', array: [] }, { text: 'not be able to select', array: [] }];
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText(); // will be supplier or category
 			await selectors[i].click();
 			browser.sleep(1000);
-			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText(); // will be supplier or category
 
-				browser.sleep(5000);
+			if (await pageCreateProduct.isOpenedSelPickerApp()) {
 				const rows = await pageCreateProduct.getSelRowAppByName(defaultValue);
 				if (rows.length) {
 					let up, down;
@@ -282,30 +283,288 @@ describe('select 1 and create', async () => { // 'USD', 'cm', 'kg', 'inco term',
 
 
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${(failures.filter(o => o.array.length)).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
 	});
 
-	// it('should change xxx when click xxx or when press enter key if xxx is alredy selected by up and down keys', async () => {
-	// 	return expect(true).toBe(true);
-	// });
+	it('should change xxx when click xxx if xxx is already selected by up and down keys', async () => {
+		const selectors = await pageCreateProduct.selectors(['supplier', 'category']);
+		let count = 0;
+		const failures = [{ text: 'can not open picker', array: [] },
+		{ text: 'selector does not have options', array: [] }, { text: 'xxx not change when click', array: [] }];
 
-	// it('xxx should always appear the first option when press enter key directly after type in the field', async () => {
-	// 	return expect(true).toBe(true);
-	// });
+		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
+			await selectors[i].click();
+			browser.sleep(1000);
 
-	// it('should be able to jump to "done" from the field when press tab key', async () => {
-	// 	return expect(true).toBe(true);
-	// });
+			if (await pageCreateProduct.isOpenedSelPickerApp()) {
+				// select 1st option
+				let rows = await pageCreateProduct.getSelRowAppByName(defaultValue);
+				if (rows.length) {
+					// select with key down
+					await browser.actions().sendKeys(protractor.Key.DOWN).perform();
+					await browser.actions().sendKeys(protractor.Key.DOWN).perform();
+					// click active row
+					await pageCreateProduct[defaultValue === 'supplier' ? 'supplierActiveRow' : 'categoryActiveRow'].click();
+				} else {
+					failures[1].array.push(defaultValue);
+				}
+				// get current value after press enter
+				const oldValue = await selectors[i].getText();
 
-	// it('should close only the slector picker when press escape key or press "done" button', async () => {
-	// 	return expect(true).toBe(true);
-	// });
+				// re-open
+				await selectors[i].click();
+				browser.sleep(3000);
+
+				rows = await pageCreateProduct.getSelRowAppByName(defaultValue);
+				if (rows.length) {
+					await rows[0].click();
+					const newValue = await selectors[i].getText();
+					if (oldValue !== newValue) {
+						count++;
+					}
+				} else {
+					failures[1].array.push(defaultValue);
+				}
+			} else {
+				failures[0].array.push(defaultValue);
+			}
+		}
+
+		if (count !== selectors.length) {
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+		} else {
+			return expect(count).toEqual(selectors.length);
+		}
+	});
+
+	it('should change xxx when press enter key if xxx is already selected by up and down keys', async () => {
+		const selectors = await pageCreateProduct.selectors(['supplier', 'category']);
+		let count = 0;
+		const failures = [{ text: 'can not open picker', array: [] },
+		{ text: 'selector does not have options', array: [] }, { text: 'xxx not change when press enter', array: [] }];
+
+		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
+			await selectors[i].click();
+			browser.sleep(1000);
+
+			if (await pageCreateProduct.isOpenedSelPickerApp()) {
+				// select 1st option
+				let rows = await pageCreateProduct.getSelRowAppByName(defaultValue);
+				if (rows.length) {
+					// select with key down
+					await browser.actions().sendKeys(protractor.Key.DOWN).perform();
+					await browser.actions().sendKeys(protractor.Key.DOWN).perform();
+					await browser.actions().sendKeys(protractor.Key.ENTER).perform();
+				} else {
+					failures[1].array.push(defaultValue);
+				}
+				// get current value after press enter
+				const oldValue = await selectors[i].getText();
+
+				// re-open
+				await selectors[i].click();
+				browser.sleep(3000);
+
+				rows = await pageCreateProduct.getSelRowAppByName(defaultValue);
+				if (rows.length) {
+					await rows[0].click();
+					const newValue = await selectors[i].getText();
+					if (oldValue !== newValue) {
+						count++;
+					}
+				} else {
+					failures[1].array.push(defaultValue);
+				}
+			} else {
+				failures[0].array.push(defaultValue);
+			}
+		}
+
+		if (count !== selectors.length) {
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+		} else {
+			return expect(count).toEqual(selectors.length);
+		}
+	});
+
+	describe('should change xxx when click xxx or when press enter key if xxx is already selected by up and down keys', () => {
+		it('picker should be closed after choosing one xxx', async () => {
+			const selectors = await pageCreateProduct.selectors(['supplier', 'category']);
+			let count = 0;
+			const failures = [{ text: 'can not open picker', array: [] },
+			{ text: 'selector does not have options', array: [] }, { text: 'xxx not be closed ', array: [] }];
+
+			for (let i = 0; i < selectors.length; i++) {
+				const defaultValue = await selectors[i].getText();
+				await selectors[i].click();
+				browser.sleep(1000);
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					const rows = await pageCreateProduct.getSelRowAppByName(defaultValue);
+					if (rows.length) {
+						await rows[0].click();
+						if (await pageCreateProduct.isOpenedSelPickerApp()) {
+							failures[2].array.push(defaultValue);
+						} else {
+							count++;
+						}
+					} else {
+						failures[1].array.push(defaultValue);
+					}
+				} else {
+					failures[0].array.push(defaultValue);
+				}
+			}
+
+			if (count !== selectors.length) {
+				fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			} else {
+				return expect(count).toEqual(selectors.length);
+			}
+		});
+
+		it('picker should be closed after creating a new xxx "yyy"', async () => {
+			const selectors = await pageCreateProduct.selectors(['supplier', 'category']);
+			let count = 0;
+			const failures = [{ text: 'can not open picker', array: [] },
+			{ text: 'not show create button', array: [] }, { text: 'xxx not be closed ', array: [] }];
+
+			for (let i = 0; i < selectors.length; i++) {
+				const defaultValue = await selectors[i].getText();
+				await selectors[i].click();
+				browser.sleep(1000);
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					const inp = await pageCreateProduct.getFieldNamePickerApp;
+					await inp.clear();
+
+					const newItem = `${defaultValue}-${new Date().getTime()}`; // make sure new supplier or category does not exist
+					await inp.sendKeys(newItem);
+					browser.sleep(1000);
+					if (await pageCreateProduct.isHaveSelBtnRowApp()) {
+						await pageCreateProduct.creatBtn.click();
+						if (await pageCreateProduct.isOpenedSelPickerApp()) {
+							failures[2].array.push(defaultValue);
+						} else {
+							count++;
+						}
+					} else {
+						failures[1].array.push(defaultValue);
+					}
+				} else {
+					failures[0].array.push(defaultValue);
+				}
+			}
+
+			if (count !== selectors.length) {
+				fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			} else {
+				return expect(count).toEqual(selectors.length);
+			}
+		});
+	});
+
+
+	it('should be able to jump to "done" from the field when press tab key', async () => {
+		const selectors = await pageCreateProduct.selectors(['supplier', 'category']);
+		let count = 0;
+		const failures = [{ text: 'can not open picker', array: [] }, { text: 'xxx not able to jump by tab key', array: [] }];
+		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
+			await selectors[i].click();
+			browser.sleep(1000);
+
+			if (await pageCreateProduct.isOpenedSelPickerApp()) {
+				await browser.actions().sendKeys(protractor.Key.TAB).perform();
+
+				const currentActiveElem = await browser.driver.switchTo().activeElement();
+				if (currentActiveElem && (await currentActiveElem.getText() === 'Done')) {
+					count++;
+				} else {
+					failures[1].array.push(defaultValue);
+				}
+				await pageCreateProduct.closeSelPickerApp();
+			} else {
+				failures[0].array.push(defaultValue);
+			}
+		}
+
+		if (count !== selectors.length) {
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+		} else {
+			return expect(count).toEqual(selectors.length);
+		}
+	});
+
+	it('should close only the slector picker when press escape key', async () => {
+		const selectors = await pageCreateProduct.selectors(['supplier', 'category']);
+		let count = 0;
+		const failures = [{ text: 'can not open picker', array: [] }, { text: 'selector not close when press escape', array: [] },
+		{ text: 'selector not be closed when press "done" button', array: [] }];
+
+		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
+			await selectors[i].click();
+			browser.sleep(1000);
+
+			if (await pageCreateProduct.isOpenedSelPickerApp()) {
+				await browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					failures[1].array.push(await selectors[i].getText());
+					await pageCreateProduct.closeSelPickerApp();
+				} else {
+					count++;
+				}
+			} else {
+				failures[0].array.push(defaultValue);
+			}
+		}
+
+		if (count !== selectors.length) {
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+		} else {
+			return expect(count).toEqual(selectors.length);
+		}
+	});
+
+	it('should close only the slector picker when press "done" button', async () => {
+		const selectors = await pageCreateProduct.selectors(['supplier', 'category']);
+		let count = 0;
+		const failures = [{ text: 'can not open picker', array: [] }, { text: 'selector not be closed when press "done" button', array: [] }];
+
+		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
+			await selectors[i].click();
+			browser.sleep(1000);
+
+			if (await pageCreateProduct.isOpenedSelPickerApp()) {
+				await pageCreateProduct.pressDoneBtn();
+
+				if (await pageCreateProduct.isOpenedSelPickerApp()) {
+					failures[1].array.push(await selectors[i].getText());
+				} else {
+					count++;
+				}
+			} else {
+				failures[0].array.push(defaultValue);
+			}
+		}
+
+		if (count !== selectors.length) {
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+		} else {
+			return expect(count).toEqual(selectors.length);
+		}
+	});
 });

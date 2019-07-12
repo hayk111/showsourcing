@@ -67,7 +67,9 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 		const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 		let count = 0;
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'the field not be focused', array: [] }];
+
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
@@ -77,16 +79,16 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 				if (await inp.getId() === await curActiveElem.getId()) {
 					count++;
 				} else {
-					failures[1].array.push(await selectors[i].getAttribute('placeholder'));
+					failures[1].array.push(defaultValue);
 				}
 				await pageCreateProduct.closeSelPickerApp();
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -104,11 +106,11 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 			}
 		};
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText();
 				if (defaultValue === 'USD') {
 					await check(selectors[i], 'currency');
 				} else { // case USD, cm, kg, inco term, harbour
@@ -116,11 +118,11 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 				}
 				await pageCreateProduct.closeSelPickerApp();
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -131,6 +133,7 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 		let count = 0;
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'the field not able to type', array: [] }];
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
@@ -142,15 +145,15 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 				if (await inp.getAttribute('value') === text) {
 					count++;
 				} else {
-					failures[1].array.push(await selectors[i].getAttribute('placeholder'));
+					failures[1].array.push(defaultValue);
 				}
 				await pageCreateProduct.closeSelPickerApp();
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -180,11 +183,11 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 		};
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText();
 				const inpElem = await pageCreateProduct.getFieldNamePickerApp;
 				let key = '';
 				await inpElem.clear(); // 1st time open selector, the field name get `undefined`, we will clear it!
@@ -213,29 +216,31 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 						break;
 				}
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
 	});
 
-	it('should change xxx (when click xxx) if xxx is already selected by up and down keys', async () => {
+	it('should change xxx when click xxx if xxx is already selected by up and down keys', async () => {
 		const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 		let count = 0;
 		const failures = [{ text: 'can not open picker', array: [] },
 		{ text: 'selector does not have options', array: [] }, { text: 'xxx not change when click', array: [] }];
 
-		const check = async (selector, rowName, defaultValue) => {
+		const check = async (selector, rowName) => {
 			// select 1st option
 			let rows = await pageCreateProduct.getSelRowAppByName(rowName);
 			if (rows.length) {
 				// select with key down
 				await browser.actions().sendKeys(protractor.Key.DOWN).perform();
-				await browser.actions().sendKeys(protractor.Key.ENTER).perform();
+				// click active row
+				const avtiveRow = await pageCreateProduct.getActiveRowAppByName(rowName);
+				await avtiveRow.click();
 			} else {
 				failures[1].array.push(await selector.getText());
 			}
@@ -263,23 +268,23 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 		};
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText();
 				if (defaultValue === 'USD') {
-					await check(selectors[i], 'currency', defaultValue);
+					await check(selectors[i], 'currency');
 				} else { // case USD, cm, kg, inco term, harbour
-					await check(selectors[i], 'name', defaultValue);
+					await check(selectors[i], 'name');
 				}
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -299,7 +304,7 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 				await browser.actions().sendKeys(protractor.Key.DOWN).perform();
 				await browser.actions().sendKeys(protractor.Key.ENTER).perform();
 			} else {
-				failures[1].array.push(await selector.getText());
+				failures[1].array.push(defaultValue);
 			}
 			// get current value after press enter
 			const oldValue = await selector.getText();
@@ -323,28 +328,28 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 					await rows[0].click();
 				}
 			} else {
-				failures[1].array.push(await selector.getText());
+				failures[1].array.push(defaultValue);
 			}
 		};
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText();
 				if (defaultValue === 'USD') {
 					await check(selectors[i], 'currency', defaultValue);
 				} else { // case USD, cm, kg, inco term, harbour
 					await check(selectors[i], 'name', defaultValue);
 				}
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -353,10 +358,10 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 	it('should be able to jump to "done" from the field when press tab key', async () => {
 		const selectors = await pageCreateProduct.selectors(['USD', 'cm', 'kg', 'inco term', 'harbour']);
 		let count = 0;
-		const failures = [{ text: 'can not open picker', array: [] },
-		{ text: 'xxx not able to jump by tab key', array: [] }];
+		const failures = [{ text: 'can not open picker', array: [] }, { text: 'xxx not able to jump by tab key', array: [] }];
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
@@ -366,17 +371,16 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 				if (currentActiveElem && (await currentActiveElem.getText() === 'Done')) {
 					count++;
 				} else {
-					failures[1].array.push(await selectors[i].getText());
+					failures[1].array.push(defaultValue);
 				}
+				await pageCreateProduct.closeSelPickerApp();
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
-
-			await pageCreateProduct.closeSelPickerApp();
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -400,34 +404,34 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 					if ((await selector.getText()) !== defaultValue) {
 						count++;
 					} else {
-						failures[3].array.push(await selector.getText());
+						failures[3].array.push(defaultValue);
 					}
 				} else {
-					failures[2].array.push(await selector.getText());
+					failures[2].array.push(defaultValue);
 				}
 			} else {
-				failures[1].array.push(await selector.getText());
+				failures[1].array.push(defaultValue);
 			}
 		};
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText();
 				if (defaultValue === 'USD') {
 					await check(selectors[i], 'currency', defaultValue);
 				} else { // case USD, cm, kg, inco term, harbour
 					await check(selectors[i], 'name', defaultValue);
 				}
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -452,34 +456,34 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 					if ((await selector.getText()) !== defaultValue) {
 						count++;
 					} else {
-						failures[3].array.push(await selector.getText());
+						failures[3].array.push(defaultValue);
 					}
 				} else {
-					failures[2].array.push(await selector.getText());
+					failures[2].array.push(defaultValue);
 				}
 			} else {
-				failures[1].array.push(await selector.getText());
+				failures[1].array.push(defaultValue);
 			}
 		};
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
 			if (await pageCreateProduct.isOpenedSelPickerApp()) {
-				const defaultValue = await selectors[i].getText();
 				if (defaultValue === 'USD') {
 					await check(selectors[i], 'currency', defaultValue);
 				} else { // case USD, cm, kg, inco term, harbour
 					await check(selectors[i], 'name', defaultValue);
 				}
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -492,6 +496,7 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 		{ text: 'selector not be closed when press "done" button', array: [] }];
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
@@ -505,12 +510,12 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 					count++;
 				}
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}
@@ -522,6 +527,7 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 		const failures = [{ text: 'can not open picker', array: [] }, { text: 'selector not be closed when press "done" button', array: [] }];
 
 		for (let i = 0; i < selectors.length; i++) {
+			const defaultValue = await selectors[i].getText();
 			await selectors[i].click();
 			browser.sleep(1000);
 
@@ -535,12 +541,12 @@ describe('select 1 can not create', async () => { // 'USD', 'cm', 'kg', 'inco te
 					count++;
 				}
 			} else {
-				failures[0].array.push(await selectors[i].getAttribute('placeholder'));
+				failures[0].array.push(defaultValue);
 			}
 		}
 
 		if (count !== selectors.length) {
-			fail(`Failed: ${failures.map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
+			fail(`${failures.filter(o => o.array.length).map(e => (e.array.length ? `${e.text}: ${e.array.join(', ')}\n` : ''))}`);
 		} else {
 			return expect(count).toEqual(selectors.length);
 		}

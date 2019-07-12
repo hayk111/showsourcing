@@ -181,14 +181,14 @@ export class CreateProductPage {
 		const priceApps = await dlgApp.findElements(by.css('selector-app[type="currency"]'));
 		let results = [];
 		if (filter && filter.length) {
-			const selectors = placeApps.concat(priceApps);
+			const selectors = priceApps.concat(placeApps);
 			for (let i = 0; i < selectors.length; i++) {
 				if (filter.includes(await selectors[i].getText())) {
 					results.push(selectors[i]);
 				}
 			}
 		} else {
-			results = placeApps.concat(priceApps);
+			results = priceApps.concat(placeApps);
 		}
 		return results;
 	}
@@ -212,6 +212,23 @@ export class CreateProductPage {
 
 	async isHaveCategoryActiveRow() {
 		return (await this.selPickerApp.findElements(by.css('selector-category-row-app.active')) || []).length;
+	}
+
+	async getActiveRowAppByName(name: string) {
+		const tagName = name && name.length ? `selector-${name}-row-app` : 'selector-name-row-app';
+		return await this.selPickerApp.findElement(by.css(`${tagName}.active`));
+	}
+
+	get creatBtn() {
+		return this.selPickerApp.findElement(by.css('selector-button-row-app.selector-row'));
+	}
+
+	get supplierActiveRow() {
+		return this.selPickerApp.findElement(by.css('selector-supplier-row-app.active'));
+	}
+
+	get categoryActiveRow() {
+		return this.selPickerApp.findElement(by.css('selector-category-row-app.active'));
 	}
 
 	get getActiveRowApp() { // get active "selector-name-row-app" when using selector-picker-app
