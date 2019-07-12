@@ -3,7 +3,7 @@
 <div class="ctnr fullWidth" [ngClass]="{ 'flexVAlign': inlineLabel }" (clickOutside)="close()">
 
   <!-- label -->
-  <div class="labelCtnr" *ngIf="hasLabel">
+  <div *ngIf="hasLabel" class="labelCtnr">
     <ng-content select="label-app"></ng-content>
   </div>
 
