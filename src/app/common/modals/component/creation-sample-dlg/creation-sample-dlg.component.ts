@@ -91,7 +91,7 @@ export class CreationSampleDlgComponent implements OnInit {
 		if (this.sample && this.sample.name) {
 			this.sampleSrv.create(this.sample).subscribe(sample => {
 				if (this.createAnother) {
-					this.dlgSrv.open(CreationSampleDlgComponent, { sample: { ...this.sample, name: ''} });
+					this.dlgSrv.open(CreationSampleDlgComponent, { sample: { ...this.sample, name: '', description: ''} });
 				} else {
 					this.close();
 				}
