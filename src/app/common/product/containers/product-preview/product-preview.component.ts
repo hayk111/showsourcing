@@ -92,14 +92,38 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			name: 'event', type: 'selector', label: translate(ERM.EVENT.singular, 'erm'),
 			metadata: { target: ERM.EVENT.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
+		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
+		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
 		{
 			name: 'assignee',
-			label: translate('assignee'),
+			label: translate('assigned to'),
 			type: 'selector',
-			metadata: { target: ERM.USER.singular, type: 'entity', labelName: 'name' }
+			metadata: { target: ERM.USER.singular, type: 'entity' }
 		},
-		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
-		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') }
+		{
+			name: 'createdBy',
+			type: 'selector',
+			label: translate('created by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'creationDate',
+			type: 'date',
+			label: translate('creation date'),
+			metadata: { disabled: true }
+		},
+		{
+			name: 'lastUpdatedBy',
+			type: 'selector',
+			label: translate('last updated by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'lastUpdatedDate',
+			type: 'date',
+			label: translate('last updated date'),
+			metadata: { disabled: true }
+		}
 	];
 
 	// those are the custom field for the second form section

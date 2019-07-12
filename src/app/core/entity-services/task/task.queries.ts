@@ -7,8 +7,8 @@ export abstract class TaskQueries extends GlobalQueries {
 	static readonly supplier = `supplier { id, name, logoImage { id, fileName, urls { id, url} }}`;
 	static readonly product = `product { id, name, images { id, fileName, urls { id, url} }}`;
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, fileName, urls { id, url} } }`;
-	static readonly createdBy = `createdBy { id, lastName, firstName, avatar { id, fileName, urls { id, url} } }`;
-	static readonly comments = `comments { id, text, ${TaskQueries.createdBy}, creationDate }`;
+	static readonly user = (name) => `${name} { id, lastName, firstName, avatar { id, fileName, urls { id, url} } }`;
+	static readonly comments = `comments { id, text, ${TaskQueries.user('createdBy')}, creationDate }`;
 
 	static one = `
 		${TaskQueries.type}
@@ -17,6 +17,10 @@ export abstract class TaskQueries extends GlobalQueries {
 		done
 		dueDate
 		completionDate
+		creationDate
+		lastUpdatedDate
+		${TaskQueries.user('createdBy')}
+		${TaskQueries.user('lastUpdatedBy')}
 		${TaskQueries.product}
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
@@ -31,6 +35,10 @@ export abstract class TaskQueries extends GlobalQueries {
 		done
 		dueDate
 		completionDate
+		creationDate
+		lastUpdatedDate
+		${TaskQueries.user('createdBy')}
+		${TaskQueries.user('lastUpdatedBy')}
 		${TaskQueries.product}
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
