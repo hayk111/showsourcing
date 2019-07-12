@@ -1,22 +1,27 @@
-
 <!-- const selector -->
 <selector-app
-	*ngIf="customField.metadata.type === 'const'; else entitySelector"
-	[type]="customField.metadata.target"
+	*ngIf="customField?.metadata?.type === 'const'; else entitySelector"
+	[type]="customField?.metadata?.target"
+	[disabled]="disabled"
 	[offsetY]="-30"
 	[width]="265"
-	[multiple]="customField.multiple"
+	[multiple]="customField?.multiple"
 	[value]="value"
 	(update)="onSelectorChange($event)"
 	(menuClosed)="editable.close()">
 	<editable-field-app
 		#editable
+		[class.no-hover]="disabled"
+		[openOnClick]="!disabled"
 		[inlineLabel]="inlineLabel"
 		[hasAction]="false"
-		[canGrow]="customField.multiple">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
-			{{ (value | const: customField.metadata.target) || '-'}}
+		[canGrow]="customField?.multiple">
+		<label-app>{{ customField?.label || customField?.name }}</label-app>
+		<editable-label-app
+			class="flex"
+			[class.flexWrap]="customField?.multiple"
+			[disabled]="disabled">
+			{{ (value | const: customField?.metadata?.target) || '-'}}
 		</editable-label-app>
 	</editable-field-app>
 </selector-app>
@@ -27,20 +32,25 @@
 		[value]="value"
 		[offsetY]="-30"
 		[width]="330"
-		[type]="customField.metadata.target"
-		[multiple]="customField.multiple"
-		[canCreate]="customField.metadata.canCreate"
+		[disabled]="disabled"
+		[type]="customField?.metadata?.target"
+		[multiple]="customField?.multiple"
+		[canCreate]="customField?.metadata?.canCreate"
 		(update)="onSelectorChange($event)"
 		(menuClosed)="editable.close()">
 		<editable-field-app
 			#editable
+			[class.no-hover]="disabled"
 			[inlineLabel]="inlineLabel"
+			[openOnClick]="!(disabled)"
 			[hasAction]="false"
-			[canGrow]="customField.multiple">
-			<label-app>{{ customField.label || customField.name }}</label-app>
-			<editable-label-app class="flex"
+			[canGrow]="customField?.multiple">
+			<label-app>{{ customField?.label || customField?.name }}</label-app>
+			<editable-label-app
+				class="flex"
 				[class.flexEnd]="inlineLabel"
-				[class.flexWrap]="customField.multiple">
+				[class.flexWrap]="customField?.multiple"
+				[disabled]="disabled">
 				<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 			</editable-label-app>
 		</editable-field-app>
@@ -52,9 +62,9 @@
 <!-- one value, label template -->
 <!-- hint: we don't display icons when using inlineLabel -->
 <ng-template #oneValueLabel>
-	<ng-container [ngSwitch]="customField.metadata.target">
+	<ng-container [ngSwitch]="customField?.metadata?.target">
 		<!-- user -->
-		<div class="flexVAlign" *ngSwitchCase="'user'">
+		<div class="flexVAlign" *ngSwitchCase="erm.USER.singular">
 			<user-picture-app
 				*ngIf="value && !inlineLabel"
 				class="user-icon"
@@ -62,23 +72,23 @@
 				[user]="value"
 				[image]="value?.avatar">
 			</user-picture-app>
-			<span class="ellipsis">{{ value ? (value.firstName +  ' ' + value.lastName ) : '-'}}</span>
+			<span class="ellipsis">{{ value ? (value?.firstName +  ' ' + value?.lastName ) : '-'}}</span>
 		</div>
 
 		<!-- category -->
 		<!-- hidelogo is whether we want to display the info-badge or not -->
-		<ng-container *ngSwitchCase="'category'">
-			<info-badge-app *ngIf="!customField.metadata.hideLogo; else noLogo" type="category"> {{ value?.name }}</info-badge-app>
+		<ng-container *ngSwitchCase="erm.CATEGORY.singular">
+			<info-badge-app *ngIf="!customField?.metadata?.hideLogo; else noLogo" type="category"> {{ value?.name }}</info-badge-app>
 			<ng-template #noLogo> {{ value?.name}} </ng-template>
 		</ng-container>
 
 		<!-- supplier type -->
-		<ng-container *ngSwitchCase="'supplierType'">
+		<ng-container *ngSwitchCase="erm.SUPPLIER_TYPE.singular">
 			<span>{{ value ? (value[labelName] | const: 'supplierType')  : '-'  }}</span>
 		</ng-container>
 
 		<!-- event -->
-		<ng-container *ngSwitchCase="'event'">
+		<ng-container *ngSwitchCase="erm.EVENT.singular">
 			<span> {{ value && value['description'] ? value['description'][labelName] : '-' }}</span>
 		</ng-container>
 
@@ -86,8 +96,8 @@
 		<!-- hidelogo is whether we want to display the default logos or not, by default we display them -->
 		<ng-container *ngSwitchDefault>
 			<img class="defaultLabelIcon"
-				*ngIf="(value | logo:customField.metadata.target) && !inlineLabel && !customField.metadata.hideLogo"
-				[src]="value | logo:customField.metadata.target" />
+				*ngIf="(value | logo:customField?.metadata?.target) && !inlineLabel && !customField?.metadata?.hideLogo"
+				[src]="value | logo:customField?.metadata?.target" />
 			<span class="ellipsis fullWidth">
 				{{ value ? value[labelName] : '-' }}
 			</span>
@@ -99,19 +109,19 @@
 <!-- multiple values, label template (we display badges) -->
 <ng-template #multipleValuesLabel>
 	<!-- hidelogo is whether we want to display the info-badge or not -->
-	<ng-container *ngIf="!customField.metadata.hideLogo; else noBadge">
+	<ng-container *ngIf="!customField?.metadata?.hideLogo; else noBadge">
 		<info-badge-app
-			class="tag"
-			*ngFor="let tag of value; trackBy: trackByFn"
-			[type]="customField.metadata.target">
-			{{ tag.name }}
+			class="multiple-item"
+			*ngFor="let item of value; trackBy: trackByFn"
+			[type]="customField?.metadata?.target">
+			{{ item.name }}
 		</info-badge-app>
 	</ng-container>
 	<ng-template #noBadge>
 		<span
-			*ngFor="let tag of value; trackBy: trackByFn; last as last"
-			class="tag">
-			{{ tag.name }}{{last ? '' : ', '}}
+			*ngFor="let item of value; trackBy: trackByFn; last as last"
+			class="multiple-item">
+			{{ item.name }}{{last ? '' : ', '}}
 		</span>
 	</ng-template>
 </ng-template>
