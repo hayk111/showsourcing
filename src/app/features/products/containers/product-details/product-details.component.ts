@@ -62,13 +62,13 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 		this.sampleCount$ = id$.pipe(
 			switchMap(id => this.sampleSrv
-				.selectCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND deleted == false`)),
+				.selectCount(`product.id == "${id}" AND deleted == false`)),
 			takeUntil(this._destroy$)
 		);
 
 		this.taskCount$ = id$.pipe(
 			switchMap(id => this.taskSrv
-				.selectCount(`product.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND done == false AND deleted == false`)),
+				.selectCount(`product.id == "${id}" AND done == false AND deleted == false`)),
 			takeUntil(this._destroy$)
 		);
 

@@ -1,9 +1,31 @@
 <div class="list-action-button-container">
 	<div class="pointer action-button-container centered-text"
 	*ngFor="let btn of actions; trackBy: trackByFn">
-		<div class="btn-icon round-button">
-				<icon-app [name]="btn.icon" (click)="clickOnAction.emit(btn)" [fontSet]="btn.fontSet"></icon-app>
+		<div *ngIf="btn.subMenuItems !== undefined; else action_buttons">
+			<div class="btn-icon round-button">
+				<icon-app [name]="btn.icon" (click)="toggleContext()" [fontSet]="btn.fontSet"></icon-app>
+			</div>
+			<context-menu-app [menuOpen]="isMenuOpened">
+				<context-menu-item-app
+					class="pointer"
+					(click)="clickOnAction.emit(btn.subMenuItems[0])">
+					<icon-app name="task"></icon-app>
+					<span class="context-menu-item-text">{{btn.subMenuItems[0].text}}</span>
+				</context-menu-item-app>
+				<context-menu-item-app
+					class="pointer"
+					(click)="clickOnAction.emit(btn.subMenuItems[1])">
+					<icon-app name="sample"></icon-app>
+					<span class="context-menu-item-text">{{btn.subMenuItems[1].text}}</span>
+				</context-menu-item-app>
+			</context-menu-app>
+			<div class="btn-text first-uppercase">{{ btn.text }}</div>
 		</div>
-		<div class="btn-text first-uppercase">{{ btn.text }}</div>
+		<ng-template #action_buttons>
+			<div class="btn-icon round-button">
+					<icon-app [name]="btn.icon" (click)="clickOnAction.emit(btn)" [fontSet]="btn.fontSet"></icon-app>
+			</div>
+			<div class="btn-text first-uppercase">{{ btn.text }}</div>
+		</ng-template>
 	</div>
 </div>
