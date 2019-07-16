@@ -23,7 +23,14 @@
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
-
+		<checkbox-app
+			[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
+			(check)="toggleMyProducts(true)"
+			(uncheck)="toggleMyProducts(false)">
+			<span i18n="text@@assigned-to-me">
+				Assigned to me
+			</span>
+		</checkbox-app>
 		<button
 			*ngIf="productsCount$ | async as count"
 			class="capitalize"
