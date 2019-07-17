@@ -71,8 +71,8 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 		this.listSrv.update(task);
 	}
 
-	openCreationTaskDlg() {
-		this.dlgSrv.open(CreationTaskDlgComponent).pipe(
+	openCreationTaskDlg(product, supplier) {
+		this.dlgSrv.open(CreationTaskDlgComponent, {product, supplier}).pipe(
 				filter((event: CloseEvent) => event.type === CloseEventType.OK),
 				switchMap(_ => this.listSrv.refetch())
 		).subscribe();
