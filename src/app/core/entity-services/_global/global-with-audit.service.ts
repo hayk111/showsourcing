@@ -2,7 +2,7 @@ import { forkJoin } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { UserService } from '~entity-services';
+import { UserService } from '~entity-services/user/user.service';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 import { GlobalService, GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { EntityWithAudit } from '~models';
