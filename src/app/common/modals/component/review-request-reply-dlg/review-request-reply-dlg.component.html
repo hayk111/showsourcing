@@ -57,8 +57,8 @@
 				</list-app>
 
 				<footer *ngIf="!isDisabled()" class="flex">
-					<button class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)" i18n="button@@accept-all">Accept All</button>
-					<button class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)" i18n="button@@refuse-all">Refuse All</button>
+					<button tabFocus class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)" i18n="button@@accept-all">Accept All</button>
+					<button tabFocus class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
@@ -78,8 +78,8 @@
 				</image-reviewer-app>
 
 				<footer *ngIf="!isDisabled()" class="flex">
-					<button class="primary accept" (click)="acceptAll(erm.IMAGE)" i18n="button@@accept-all">Accept All</button>
-					<button class="secondary" (click)="refuseAll(erm.IMAGE)" i18n="button@@refuse-all">Refuse All</button>
+					<button tabFocus class="primary accept" (click)="acceptAll(erm.IMAGE)" i18n="button@@accept-all">Accept All</button>
+					<button tabFocus class="secondary" (click)="refuseAll(erm.IMAGE)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
@@ -95,8 +95,8 @@
 				</file-reviewer-app>
 
 				<footer *ngIf="!isDisabled()" class="flex">
-					<button class="primary accept" (click)="acceptAll(erm.ATTACHMENT)" i18n="button@@accept-all">Accept All</button>
-					<button class="secondary" (click)="refuseAll(erm.ATTACHMENT)" i18n="button@@refuse-all">Refuse All</button>
+					<button tabFocus class="primary accept" (click)="acceptAll(erm.ATTACHMENT)" i18n="button@@accept-all">Accept All</button>
+					<button tabFocus class="secondary" (click)="refuseAll(erm.ATTACHMENT)" i18n="button@@refuse-all">Refuse All</button>
 				</footer>
 			</article>
 
@@ -105,9 +105,9 @@
 
 	<dialog-footer-app>
 		<ng-container *ngIf="!isDisabled(); else notReplied">
-			<button class="secondary" (click)="close()" i18n="button@@close-request">Close Request</button>
-			<button class="secondary" (click)="resend()" i18n="button@@send-back">Send Back</button>
-			<button (click)="acceptRequest()" i18n="button@@accept-request">Accept Request</button>
+			<button tabFocus class="secondary" (click)="close()" i18n="button@@close-request">Close Request</button>
+			<button tabFocus class="secondary" (click)="resend()" i18n="button@@send-back">Send Back</button>
+			<button tabFocus (click)="acceptRequest()" i18n="button@@accept-request">Accept Request</button>
 		</ng-container>
 		<ng-template #notReplied>
 			<span class="bold-s">
