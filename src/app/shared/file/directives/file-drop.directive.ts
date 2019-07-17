@@ -1,4 +1,4 @@
-import { Directive, HostListener, Output, HostBinding, EventEmitter } from '@angular/core';
+import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 
 
 

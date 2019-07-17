@@ -1,4 +1,4 @@
-import { PricePipe } from "./price.pipe";
+import { PricePipe } from './price.pipe';
 
 
 
