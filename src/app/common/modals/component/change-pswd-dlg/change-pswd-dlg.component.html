@@ -9,7 +9,9 @@
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
 				<label-app i18n="@@current-pwd">Current Password</label-app>
-				<input autocomplete="current-password"
+				<input
+					autoFocus
+					autocomplete="current-password"
 					inputApp type="password" formControlName="currentPswd" placeholder="Introduce your current password"
 					i18n-placeholder="@@intro-current-pwd"/>
 			</form-field-app>
@@ -35,7 +37,7 @@
 		</form>
 
 		<dialog-footer-app *ngIf="!pending">
-			<input [disabled]="!group.valid" type="submit" value="change" (click)="onSubmit()"/>
+			<input tabFocus [disabled]="!group.valid" type="submit" value="change" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
 		<spinner-app *ngIf="pending"></spinner-app>

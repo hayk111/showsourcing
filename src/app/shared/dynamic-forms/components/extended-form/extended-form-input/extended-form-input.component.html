@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isFormStyle; else otherStyle" [ngSwitch]="definition.type">
+<ng-container *ngIf="!isFormStyle; else formStyle" [ngSwitch]="definition.type">
 
 	<!-- text -->
 	<editable-field-app *ngSwitchCase="'text'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
@@ -129,7 +129,7 @@
 
 </ng-container>
 
-<ng-template #otherStyle>
+<ng-template #formStyle>
 	<ng-container [ngSwitch]="definition.type">
 
 		<!-- text -->

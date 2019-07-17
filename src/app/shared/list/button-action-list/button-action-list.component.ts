@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
 import { PreviewActionButton } from '~models';
 
@@ -11,6 +11,13 @@ import { PreviewActionButton } from '~models';
 export class ListActionButtonsComponent extends TrackingComponent implements OnInit {
 	@Input() actions: PreviewActionButton[] = [];
 	@Output() clickOnAction = new EventEmitter<PreviewActionButton>();
+
+	isMenuOpened = false;
+
+	toggleContext() {
+		this.isMenuOpened = !this.isMenuOpened;
+	}
+	
 	constructor() {
 		super();
 	}

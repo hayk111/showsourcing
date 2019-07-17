@@ -12,7 +12,7 @@ export class ColumnDirective implements OnInit {
 	// we default the sorting property to the title lower cased
 	@Input() sortBy = '';
 	// width of the column
-	@Input() width;
+	@Input() width: number;
 	// whether the column grows if the table hasn't reached full width
 	@Input() minWidth = 50;
 	@Input() grows = true;

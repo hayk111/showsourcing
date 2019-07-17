@@ -16,8 +16,8 @@
         <note priority="1" from="description">text</note>
       </trans-unit>
       <trans-unit id="add-picture" datatype="html">
-        <source>Add picutre</source>
-        <target state="new">Add picutre</target>
+        <source>Add picture</source>
+        <target state="new">Add picture</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/carousel/components/carousel/carousel.component.html</context>
           <context context-type="linenumber">23</context>

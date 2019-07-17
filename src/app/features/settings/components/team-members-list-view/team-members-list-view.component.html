@@ -32,7 +32,7 @@
 		[columnApp]="'name' | const: 'messages'"
 		sortBy="user.firstName"
 		let-row="row"
-		width="140"
+		width="250"
 		[sortOrder]="'DESC'">
 		{{ row.user.firstName }} {{ row.user.lastName }}
 	</ng-template>
@@ -43,7 +43,7 @@
 		[columnApp]="'email' | const: 'messages'"
 		let-row="row"
 		sortBy="user.email"
-		width="140">
+		width="250">
 		<span>
 			{{ row.user.email  }}
 		</span>
@@ -95,7 +95,7 @@
 		[columnApp]="'status' | const: 'messages'"
 		let-row="row"
 		sortBy="status"
-		width="140">
+		width="80">
 		{{ row.status }}
 	</ng-template>
 

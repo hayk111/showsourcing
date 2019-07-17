@@ -8,6 +8,7 @@ import {
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
+import { ERM } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms/models';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
@@ -39,9 +40,20 @@ export class EditableSelectorComponent extends AbstractInput {
 	@ViewChild('oneValueLabel', { static: true }) oneLabel: TemplateRef<any>;
 	@ViewChild('multipleValuesLabel', { static: true }) manyLabel: TemplateRef<any>;
 
+	erm = ERM;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
+	}
+
+	get disabled() {
+		const meta = this.customField.metadata;
+		return meta && meta.disabled;
+	}
+
+	get labelName() {
+		const meta = this.customField.metadata;
+		return meta && meta.labelName ? meta.labelName : 'name';
 	}
 
 	getLabelTemplate() {
@@ -77,9 +89,5 @@ export class EditableSelectorComponent extends AbstractInput {
 	onBlur() {
 		this.onTouchedFn();
 		this.blur.emit();
-	}
-
-	get labelName() {
-		return this.customField.metadata.labelName || 'name';
 	}
 }

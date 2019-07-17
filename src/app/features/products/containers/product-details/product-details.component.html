@@ -22,11 +22,6 @@
 				</carousel-app>
 			</card-app>
 
-			<product-resume-app
-				[product]="product"
-				(openPreview)="openPreview()">
-			</product-resume-app>
-
 			<!-- Product information -->
 			<product-information-app
 				[product]="product"
@@ -42,12 +37,14 @@
 				(openVoteDetails)="commonModalSrv.openVoteDetailsDialog(product?.votes)">
 			</product-team-rating-app>
 
+			<!-- projects card -->
 			<project-card-app
 				[projects]="product?.projects"
 				(removeProject)="removeProject($event)"
 				(updated)="updateProduct({id: product?.id, projects: $event})">
 			</project-card-app>
 
+			<!-- files card -->
 			<files-card-app
 				[files]="product?.attachments"
 				[linkedItem]="product">
@@ -56,8 +53,18 @@
 		</div>
 
 		<div class="right">
+
+			<!-- Product resume -->
+			<product-resume-app
+				[product]="product"
+				(openPreview)="openPreview()"
+				(update)="updateProduct($event)">
+			</product-resume-app>
+
+			<!-- navigation bar -->
 			<navbar-app [tabs]="tabs"></navbar-app>
 			<router-outlet></router-outlet>
+
     </div>
 
 	</div>

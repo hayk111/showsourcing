@@ -70,7 +70,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			switchMap(id => this.featureSrv.getContacts(id)),
 		);
 
-		this.tabs = [{ name: translate('activity') }, { name: translate('products') }, { name: translate('tasks'), number$: this.taskCount$ }];
+		this.tabs = [{ name: translate('activity') }, { name: translate('products') },  { name: translate('samples') },
+			{ name: translate('tasks'), number$: this.taskCount$ }];
 
 	}
 

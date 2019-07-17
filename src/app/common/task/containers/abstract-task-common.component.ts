@@ -1,11 +1,13 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, filter } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { CreationTaskDlgComponent } from '~common/modals';
+import { CloseEventType, CloseEvent, DialogService } from '~shared/dialog';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends AutoUnsub {
@@ -16,8 +18,9 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected taskSrv: TaskService,
+		protected dlgSrv: DialogService,
 		public commonModalSrv: CommonModalService,
-		public listSrv: ListPageService<Task, TaskService>
+		public listSrv: ListPageService<Task, TaskService>,
 	) {
 		super();
 	}
@@ -68,12 +71,12 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 		this.listSrv.update(task);
 	}
 
-	createTask(name: string) {
-		const newTask = new Task({ name, assignee: { id: this.userSrv.userSync.id } });
-		this.taskSrv.create(newTask).pipe(
-			switchMap(_ => this.listSrv.refetch({}))
+	openCreationTaskDlg(product, supplier) {
+		this.dlgSrv.open(CreationTaskDlgComponent, {product, supplier}).pipe(
+				filter((event: CloseEvent) => event.type === CloseEventType.OK),
+				switchMap(_ => this.listSrv.refetch())
 		).subscribe();
-	}
+}
 
 	openProduct(id: string) {
 		this.router.navigate([ERM.PRODUCT.singular, id]);

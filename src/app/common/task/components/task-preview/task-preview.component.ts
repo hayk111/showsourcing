@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommentService } from '~core/entity-services/comment/comment.service';
-import { TaskService, UserService } from '~entity-services';
+import { TaskService } from '~entity-services';
 import { Comment, ERM, Task } from '~models';
-import { AutoUnsub } from '~utils';
+import { DynamicField } from '~shared/dynamic-forms';
+import { AutoUnsub, translate } from '~utils';
 
 
 @Component({
@@ -29,10 +30,36 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 	task$: Observable<Task>;
 	erm = ERM;
 
+	dynamicFields: DynamicField[] = [
+		{
+			name: 'createdBy',
+			type: 'selector',
+			label: translate('created by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'creationDate',
+			type: 'date',
+			label: translate('creation date'),
+			metadata: { disabled: true }
+		},
+		{
+			name: 'lastUpdatedBy',
+			type: 'selector',
+			label: translate('last updated by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'lastUpdatedDate',
+			type: 'date',
+			label: translate('last updated date'),
+			metadata: { disabled: true }
+		}
+	];
+
 	constructor(
 		private commentSrv: CommentService,
 		private router: Router,
-		private userSrv: UserService,
 		private taskSrv: TaskService
 	) {
 		super();
@@ -44,12 +71,18 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 			.subscribe(s => this._task = s);
 	}
 
+	updateTask(taskConfig: any) {
+		const task = ({ ...taskConfig, id: this.task.id });
+		this.taskSrv.update(task).subscribe();
+	}
+
 	update(value: any, prop: string) {
-		this.taskSrv.update({ id: this._task.id, [prop]: value }).subscribe();
+		this.updateTask({ [prop]: value });
 	}
 
 	updateDueDate(isCancel: boolean, value: Date) {
-		if (!isCancel && isCancel !== undefined) this.update(value, 'dueDate');
+		if (!isCancel && isCancel !== undefined)
+			this.update(value, 'dueDate');
 	}
 
 	addComment(comment: Comment) {

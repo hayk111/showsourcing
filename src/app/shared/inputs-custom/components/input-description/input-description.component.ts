@@ -23,7 +23,7 @@ export class InputDescriptionComponent implements AfterViewInit {
 
 	@Input() description = '';
 	@Input() hasLabel = false;
-	@Input() isBig = false;
+	@Input() isSmall = false;
 	// wether we display a modal or not
 	@Input() asModal = true;
 	@Output() update = new EventEmitter<string>();

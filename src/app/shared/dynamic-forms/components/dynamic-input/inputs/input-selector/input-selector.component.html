@@ -9,7 +9,7 @@
 		tabFocus
 		class="first-uppercase"
 		[name]="value"
-		[placeholder]="type">
+		[placeholder]="placeholder || type">
 		<div *ngIf="isEntity && value" #content class="flexWrap">
 			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 		</div>

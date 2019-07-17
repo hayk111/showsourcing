@@ -4,7 +4,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 
 	static readonly supplierType = `supplierType { id, name }`;
 	static readonly logoImage = `logoImage { id, fileName, urls { url } }`;
-	static readonly createdBy = `createdBy { id, lastName, firstName, avatar { id, fileName, urls { id, url } } }`;
+	static readonly user = (name) => `${name} { id, lastName, firstName, avatar { id, fileName, urls { id, url } } }`;
 	static readonly status = `status { id, name, category, step, inWorkflow }`;
 	static readonly categories = `categories { id, name }`;
 	static readonly tags = ` tags { id, name }`;
@@ -12,7 +12,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly attachments = `attachments { id, fileName, url, size }`;
 	// tslint:disable-next-line:max-line-length
 	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false AND archived == false") { ... on ProductCollection { count }}`;
-	static readonly comments = `comments { id, text, ${SupplierQueries.createdBy}, creationDate }`;
+	static readonly comments = `comments { id, text, ${SupplierQueries.user('createdBy')}, creationDate }`;
 	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order }}`;
 
 
@@ -32,10 +32,12 @@ export abstract class SupplierQueries extends GlobalQueries {
 			generalMOQ,
 			generalLeadTime,
 			creationDate,
+			lastUpdatedDate,
 			${SupplierQueries.comments}
 			${SupplierQueries.supplierType}
 			${SupplierQueries.logoImage}
-			${SupplierQueries.createdBy}
+			${SupplierQueries.user('createdBy')}
+			${SupplierQueries.user('lastUpdatedBy')}
 			${SupplierQueries.status}
 			${SupplierQueries.categories}
 			${SupplierQueries.images}
@@ -51,14 +53,16 @@ export abstract class SupplierQueries extends GlobalQueries {
 		favorite,
 		deleted,
 		creationDate,
+		lastUpdatedDate,
 		${SupplierQueries.status}
 		${SupplierQueries.categories}
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
-		${SupplierQueries.createdBy}
+		${SupplierQueries.user('createdBy')}
+		${SupplierQueries.user('lastUpdatedBy')}
 		${SupplierQueries.productsLinked}
 		${SupplierQueries.logoImage}
-		`;
+	`;
 
 	static readonly all = `
 		name,
@@ -67,13 +71,15 @@ export abstract class SupplierQueries extends GlobalQueries {
 		favorite,
 		deleted,
 		creationDate,
+		lastUpdatedDate,
 		${SupplierQueries.status}
 		${SupplierQueries.categories}
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
-		${SupplierQueries.createdBy}
+		${SupplierQueries.user('createdBy')}
+		${SupplierQueries.user('lastUpdatedBy')}
 		${SupplierQueries.productsLinked}
-		`;
+	`;
 
 	static readonly update = `
 		id,

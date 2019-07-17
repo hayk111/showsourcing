@@ -5,9 +5,10 @@
 
 	<main class="scrollable">
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
-			<list-item-app *ngFor="let member of teamMembers;trackBy: trackByFn" [selected]="selected[member.id]" (click)="checkbox.onClick()">
+			<list-item-app *ngFor="let member of teamMembers; first as first; trackBy: trackByFn" [selected]="selected[member.id]" (click)="checkbox.onClick()">
 				<checkbox-app
 					#checkbox
+					[autoFocus]="first"
 					[checked]="selected[member.id]"
 					(check)="select(member.id, member)"
 					(uncheck)="unselect(member.id, member)"

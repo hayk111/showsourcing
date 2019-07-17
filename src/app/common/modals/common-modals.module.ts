@@ -30,6 +30,8 @@ import {
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 	CreationProductDlgComponent,
+	CreationTaskDlgComponent,
+	CreationSampleDlgComponent,
 } from './component';
 import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
@@ -65,6 +67,8 @@ const modals = [
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 	ReviewRequestReplyDlgComponent,
+	CreationTaskDlgComponent,
+	CreationSampleDlgComponent,
 ];
 
 @NgModule({
