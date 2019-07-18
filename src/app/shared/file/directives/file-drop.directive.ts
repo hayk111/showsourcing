@@ -16,10 +16,12 @@ export class FileDropDirective {
 
 	@HostListener('drop', ['$event'])
 	onFileDrop(event) {
+		debugger
 		// If dropped items aren't files, reject them
 		event.preventDefault();
 		const dt = event.dataTransfer;
 		let files = [];
+		// when drag and droping an image from the page only dataTransfer.item is set, not dataTransfer.files
 		if (dt.items) {
 			// Use DataTransferItemList interface to access the file(s)
 			for (let i = 0; i < dt.items.length; i++) {
@@ -32,7 +34,9 @@ export class FileDropDirective {
 			files = dt.files;
 		}
 		event.preventDefault();
-		this.fileDrop.emit(files);
+		if (files.length > 0) {
+			this.fileDrop.emit(files);
+		}
 	}
 
 }

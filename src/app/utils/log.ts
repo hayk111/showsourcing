@@ -4,7 +4,7 @@ import { LogLevel } from './logger';
 
 // using an instance so the logger can be used in other projects
 const urlParams = new URLSearchParams(window.location.search);
-const logLevelUrl = urlParams.get('LOG_LEVEL').toUpperCase();
+const logLevelUrl = (urlParams.get('LOG_LEVEL') || '').toUpperCase();
 let logLevel: LogLevel ;
 
 switch (logLevelUrl) {
