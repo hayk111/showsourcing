@@ -15,6 +15,7 @@ import {
 	RefuseReplyDlgComponent,
 	CreationProductDlgComponent,
 	CreationTaskDlgComponent,
+	ProductSelectDlgComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { EntityMetadata, Product, ProductVote, Project, Supplier, ERM } from '~models';
@@ -70,6 +71,12 @@ export class CommonModalService {
 
 	openFindProductDlg(initialSelectedProducts: Product[], project: Project) {
 		return this.dlgSrv.open(FindProductsDialogComponent, {
+			initialSelectedProducts, project
+		});
+	}
+
+	openSelectProductDlg(initialSelectedProducts: Product[], project: Project) {
+		return this.dlgSrv.open(ProductSelectDlgComponent, {
 			initialSelectedProducts, project
 		});
 	}

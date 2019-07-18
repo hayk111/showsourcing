@@ -32,6 +32,7 @@ import {
 	CreationProductDlgComponent,
 	CreationTaskDlgComponent,
 	CreationSampleDlgComponent,
+	ProductSelectDlgComponent
 } from './component';
 import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
@@ -69,6 +70,7 @@ const modals = [
 	ReviewRequestReplyDlgComponent,
 	CreationTaskDlgComponent,
 	CreationSampleDlgComponent,
+	ProductSelectDlgComponent
 ];
 
 @NgModule({

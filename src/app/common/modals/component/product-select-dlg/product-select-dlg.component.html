@@ -1,0 +1,82 @@
+<dialog-app class="vertical-scroll-content">
+
+	<dialog-header-app i18n="@@select-products">
+		select products
+	</dialog-header-app>
+
+	<sub-panel-app
+		[filtersAmount]="getFilterAmount()"
+		[hasFilter]="true"
+		[hasSwitch]="false"
+		[view]="listSrv.view"
+		[searchValue]="listSrv.searchValue"
+		(search)="listSrv.search($event)"
+		(showFilters)="listSrv.openFilterPanel()"
+		(viewChange)="onViewChange($event)">
+
+		<sub-panel-left-item-app class="flex">
+			<span class="capitalize" *ngIf="productsCount$ | async as count"> 
+				<b> {{ count || 0 }} products </b>
+			</span>
+		</sub-panel-left-item-app>
+
+		<sub-panel-left-item-app class="flex">
+			<div class="flex show-my-samples">
+				<checkbox-app
+					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
+					(check)="toggleMySamples(true)"
+					(uncheck)="toggleMySamples(false)">
+				</checkbox-app>
+				<span class="ellipsis" i18n="text@@show-only-my-sample">
+					Show my samples only
+				</span>
+			</div>
+		</sub-panel-left-item-app>
+
+	</sub-panel-app>
+
+	<products-list-view-app
+		class="list-view"
+		*ngIf="listSrv.view === 'list'"
+		[currentSort]="listSrv.currentSort"
+		[pending]="listSrv.pending"
+		[rows]="listSrv.items$ | async"
+		[selection]="listSrv.selection$ | async"
+		[count]="listSrv.count$ | async"
+		[skipped]="listSrv.skipped"
+		(previous)="listSrv.loadPreviousPage()"
+		(next)="listSrv.loadNextPage()"
+		(goToPage)="listSrv.loadPage($event)"
+		(delete)="listSrv.deleteOne($event)"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(update)="listSrv.update($event)"
+		(open)="listSrv.goToDetails($event)"
+		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
+		(openExportDialog)="commonModalSrv.openExportDialog([$event])"
+		(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
+		(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"
+		(previewClick)="listSrv.openPreview($event)"
+		(select)="onItemSelected($event, true)"
+		(selectAll)="onSelectAll($event, true)"
+		(sort)="listSrv.sort($event)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(unselect)="onItemUnselected($event)"
+		(unselectAll)="onUnselectAll()">
+	</products-list-view-app>
+	
+	<dialog-footer-app>
+		<sub-panel-left-item-app><b>{{ selectedProductsCount }} Products selected</b></sub-panel-left-item-app>
+		<button class="capitalize" (click)="submit()" i18n="@@continue">add to project</button>
+	</dialog-footer-app>
+
+	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="listSrv.closeFilterPanel()">
+	</filters-app>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+</dialog-app>

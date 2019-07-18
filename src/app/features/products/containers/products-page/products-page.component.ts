@@ -18,7 +18,8 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
-		ListPageService
+		ListPageService,
+		CommonModalService
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
