@@ -4,13 +4,13 @@ import {
 	DEFAULT_IMG, DEFAULT_PROJECT_ICON, DEFAULT_SUPPLIER_PROD_ICON
 } from '~utils/constants';
 
-import { TestBed } from '@angular/core/testing';
 import { Supplier, Event, EventDescription } from '~core/models';
 
 describe('LogoPipe', () => {
 	// just keep things simple, no need for much logic in unit testing, we can hard code the data
 	let pipe: LogoPipe;
 	const baseUrl = 'https://files.showsourcing.com';
+
 	const logoImage = {
 		id: '18511884-666d-4518-8380-8e2c1fe6908a',
 		fileName: '18511884-666d-4518-8380-8e2c1fe6908a.jpg',
@@ -22,7 +22,8 @@ describe('LogoPipe', () => {
 			{ url: 'https://files.showsourcing.com/l/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
 			{ url: 'https://files.showsourcing.com/xl/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' }
 		], '__typename': 'Image'
-	}
+	};
+
 	const supplierWithLogo: Supplier = {
 		id: '75b45384-0748-49c5-868d-24951abf757e',
 		name: 'Fake supplier with logo',
@@ -34,6 +35,7 @@ describe('LogoPipe', () => {
 		id: '75b45384-0748-49c5-868d-24951abf757e',
 		name: 'Fake supplier without logo',
 	};
+
 	const descriptionWithLogo: EventDescription = {
 		id: '75b45384-0748-49c5-868d-24951abf757e',
 		name: 'Event description',
@@ -43,6 +45,7 @@ describe('LogoPipe', () => {
 		logoImage,
 		'__typename': 'EventDescription'
 	};
+
 	const descriptionWithoutLogo: EventDescription = {
 		id: '75b45384-0748-49c5-868d-24951abf757e',
 		name: 'Event description',
@@ -51,20 +54,24 @@ describe('LogoPipe', () => {
 		supplierCount: 2,
 		'__typename': 'EventDescription'
 	};
+
 	const eventWithDescription: Event = {
 		id: '75b45384-0748-49c5-868d-24951abf757e',
 		name: 'Fake event with description',
 		description: descriptionWithLogo
 	};
+
 	const eventWithoutDescription: Event = {
 		id: '75b45384-0748-49c5-868d-24951abf757e',
 		name: 'Fake event without description'
 	};
+
 	const eventWithDesButWithoutLogo: Event = {
 		id: '75b45384-0748-49c5-868d-24951abf757e',
 		name: 'Fake event without description',
 		description: descriptionWithoutLogo
 	};
+
 	beforeEach(() => {
 		pipe = new LogoPipe();
 	});
