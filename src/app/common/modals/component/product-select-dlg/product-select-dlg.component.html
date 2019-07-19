@@ -66,7 +66,8 @@
 	
 	<dialog-footer-app>
 		<sub-panel-left-item-app><b>{{ selectedProductsCount }} Products selected</b></sub-panel-left-item-app>
-		<button class="capitalize" (click)="submit()" i18n="@@continue">add to project</button>
+		<button *ngIf="submitProducts" class="capitalize" (click)="submit()" i18n="button@@add-to-project">add to project</button>
+		<button *ngIf="!submitProducts" class="capitalize" (click)="done()" i18n="button@@done">done</button>
 	</dialog-footer-app>
 
 	<filters-app

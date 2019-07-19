@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Injector, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
@@ -11,8 +11,11 @@ import {
 	TemplateMngmtDlgComponent,
 } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
 import { ID, translate } from '~utils';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { ProductService } from '~entity-services';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -60,7 +63,9 @@ export class SupplierRequestDialogComponent implements OnInit {
 		private contactSrv: ContactService,
 		private notifSrv: NotificationService,
 		private userSrv: UserService,
-		private requestTemplateSrv: RequestTemplateService
+		private requestTemplateSrv: RequestTemplateService,
+		private injector: Injector,
+		public listSrv: ListPageService<Product, ProductService>,
 	) {
 		this.form = this.fb.group({
 			products: ['', Validators.required],
@@ -191,6 +196,25 @@ export class SupplierRequestDialogComponent implements OnInit {
 				.update({ id: contact.id, supplier: { id: this.supplier.id } })
 				.subscribe(_ => this.form.patchValue(this.request));
 		}
+	}
+
+	addProduct(ev: any) {
+		this.listSrv.selectedProds$.subscribe((products: Product[]) => {
+			products.forEach((product: Product) => {
+				if (this._products.filter((p: Product) => p.id === product.id).length === 0) {
+					this._products.push(product);
+				}
+			});
+			
+			setTimeout(_ => this.injector.get(CommonModalService).openSupplierRequest(this._products));
+		});
+
+		setTimeout(_ => {
+			this.injector.get(CommonModalService)
+				.openSelectProductDlg([], false).pipe(
+				switchMap(_ => this.listSrv.refetch())
+			).subscribe();
+		})
 	}
 
 	removeProduct(id: ID) {

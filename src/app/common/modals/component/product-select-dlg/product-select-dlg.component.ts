@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -14,7 +14,6 @@ import { UserService } from '~core/entity-services';
 	templateUrl: './product-select-dlg.component.html',
 	styleUrls: ['./product-select-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService]
 })
 export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
@@ -33,6 +32,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	];
 
 	@Input() initialSelectedProducts: Product[];
+	@Input() submitProducts = true;
 
 	private searchFilterElements$: Observable<any[]>;
 	private unselectedProducts: { [key: string]: Product } = {};
@@ -61,10 +61,24 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});
+		
+		this.initialSelection();
 
 		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
+	}
+
+	private initialSelection() {
+		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
+			this.selectedProductsCount = this.initialSelectedProducts.length;
+
+			this.listSrv.selectAll(this.initialSelectedProducts.map(product => {
+				this.selectedProducts[product.id] = product;
+				
+				return ({ id: product.id });
+			}));
+		}
 	}
 
 	hasSelectedProducts() {
@@ -125,6 +139,10 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 			type: CloseEventType.OK,
 			data
 		});
+	}
+
+	done() {
+		this.listSrv.addProducts(Object.values(this.selectedProducts));
 	}
 
 	toggleMySamples(show: boolean) {

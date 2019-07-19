@@ -68,9 +68,10 @@ export class CommonModalService {
 		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
 	}
 
-	openSelectProductDlg(initialSelectedProducts: Product[]) {
+	openSelectProductDlg(initialSelectedProducts?: Product[], submitProducts?: boolean) {
 		return this.dlgSrv.open(ProductSelectDlgComponent, {
-			initialSelectedProducts
+			initialSelectedProducts,
+			submitProducts
 		});
 	}
 
