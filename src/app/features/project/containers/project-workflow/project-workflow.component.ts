@@ -112,7 +112,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
-		this.featureSrv.openFindProductDlg(this.project).pipe(
+		this.commonModalSrv.openSelectProductDlg([this.project]).pipe(
 			tap(data => this.getProducts(this.statuses))
 		).subscribe();
 	}

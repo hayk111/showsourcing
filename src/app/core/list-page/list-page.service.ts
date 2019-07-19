@@ -26,7 +26,7 @@ const dataSrvMap = new Map<ListPageKey | string, ListPageDataService<any, any>>(
 const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 
 export interface ListPageConfig extends ListPageDataConfig {
-	key: ListPageKey | string;
+	key?: ListPageKey | string;
 	entityMetadata: EntityMetadata;
 	originComponentDestroy$?: Observable<void>;
 }
@@ -66,7 +66,7 @@ export class ListPageService
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
 			// getting back the services from their map
-			this.initServices(config.key);
+			this.initServices(config.key || '')
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);

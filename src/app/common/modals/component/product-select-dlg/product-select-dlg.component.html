@@ -5,13 +5,14 @@
 	</dialog-header-app>
 
 	<sub-panel-app
-		[filtersAmount]="getFilterAmount()"
 		[hasFilter]="true"
 		[hasSwitch]="false"
+		[filtersPanelOpened]="filtersPanelOpened"
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
 		(search)="listSrv.search($event)"
-		(showFilters)="listSrv.openFilterPanel()"
+		(showFilters)="showFilters()"
+		(hideFilters)="hideFilters()"
 		(viewChange)="onViewChange($event)">
 
 		<sub-panel-left-item-app class="flex">
@@ -38,6 +39,9 @@
 	<products-list-view-app
 		class="list-view"
 		*ngIf="listSrv.view === 'list'"
+		[isInProductSelectDlg]="true"
+		[hasMenu]="false"
+		[productPreview]="false"
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"
 		[rows]="listSrv.items$ | async"
@@ -51,10 +55,6 @@
 		(favorited)="listSrv.onItemFavorited($event)"
 		(update)="listSrv.update($event)"
 		(open)="listSrv.goToDetails($event)"
-		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
-		(openExportDialog)="commonModalSrv.openExportDialog([$event])"
-		(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
-		(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"
 		(previewClick)="listSrv.openPreview($event)"
 		(select)="onItemSelected($event, true)"
 		(selectAll)="onSelectAll($event, true)"
@@ -70,10 +70,9 @@
 	</dialog-footer-app>
 
 	<filters-app
-		*ngIf="listSrv.filterPanelOpen"
+		*ngIf="filtersPanelOpened"
 		[filterList]="listSrv.filterList"
-		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()">
+		[filterTypes]="filterTypes">
 	</filters-app>
 
 	<ng-template #spinner>

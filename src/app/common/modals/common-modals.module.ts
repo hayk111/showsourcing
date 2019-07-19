@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import {
 	ProductsCardViewDialogComponent,
 } from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
-import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { InputsModule } from '~shared/inputs';
 import { PricePipe } from '~shared/price/price.pipe';
@@ -55,7 +54,6 @@ const modals = [
 	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
-	FindProductsDialogComponent,
 	InviteUserDlgComponent,
 	MassEditDlgComponent,
 	MergeDialogComponent,

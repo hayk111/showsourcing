@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, 
-	NgModuleRef, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { QuoteFeatureService } from '~features/products/services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { AutoUnsub } from '~utils';
-import { ERM, Product, Project } from '~models';
+import { ERM, Product } from '~models';
 import { ProductService } from '~core/entity-services';
 import { FilterType } from '~shared/filters';
 import { CloseEventType, DialogService } from '~shared/dialog';
@@ -35,7 +33,6 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	];
 
 	@Input() initialSelectedProducts: Product[];
-	@Input() project: Project;
 
 	private searchFilterElements$: Observable<any[]>;
 	private unselectedProducts: { [key: string]: Product } = {};
@@ -44,6 +41,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	productsCount$: Observable<number>;
 	private selectedProductsCount: number = 0;
 	private selectedAllCount: number = 15;
+
+	filtersPanelOpened = false;
 
 	constructor(
 		private productSrv: ProductService,
@@ -56,7 +55,6 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: `${ListPageKey.FIND_PRODUCT}-${this.project.id}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
 			selectParams: { sortBy: 'category.name', descending: true, take: 15, query: 'deleted == false' },
@@ -71,6 +69,16 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
 	hasSelectedProducts() {
 		return (Array.from(this.listSrv.selectionSrv.selection.values()).length > 0);
+	}
+
+	showFilters() {
+		this.filtersPanelOpened = true;
+		this.listSrv.openFilterPanel();
+	}
+
+	hideFilters() {
+		this.filtersPanelOpened = false;
+		this.listSrv.closeFilterPanel();
 	}
 
 	onItemSelected(entity: any) {
@@ -109,7 +117,6 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	submit() {
-		// we add each project one by one to the store
 		const selectedProducts = Object.values(this.selectedProducts);
 		const unselectedProducts = Object.values(this.unselectedProducts);
 		const data = { selectedProducts, unselectedProducts };
@@ -128,9 +135,4 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 			this.listSrv.removeFilter(filterAssignee);
 	}
 
-	getSelectedProductsCount() {		
-		return Object.keys(this.selectedProducts).length || 0;
-	}
-
-	getFilterAmount() {}
 }
