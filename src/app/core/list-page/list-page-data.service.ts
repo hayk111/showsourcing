@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { config } from '@fortawesome/fontawesome-svg-core';
 import { ConnectableObservable, Observable } from 'rxjs';
 import { first, map, skip, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
@@ -66,10 +65,10 @@ export class ListPageDataService
 		this.isListening = false;
 		if (this.isSetup)
 			return;
-		// we need to keep the previous state of the params so it doesn't break
-		const beforeParams = { ...this.selectParams, ...config.selectParams };
+		// we merge the default parameter
+		const mergedParams = { ...this.selectParams, ...config.selectParams };
 		Object.assign(this, config);
-		this.selectParams = beforeParams;
+		this.selectParams = mergedParams;
 		this.filterList = new FilterList(
 			config.initialFilters,
 			config.searchedFields,
@@ -123,7 +122,8 @@ export class ListPageDataService
 			.valueChanges$
 			.pipe(
 				skip(1),
-				switchMap(_ => this.refetch({ query: this.filterList.asPredicate() })),
+				tap(filterList => this.selectParams.query = filterList.asPredicate()),
+				switchMap(_ => this.refetch()),
 				takeUntil(destroy$)
 			).subscribe();
 	}
@@ -141,9 +141,9 @@ export class ListPageDataService
 	 * refetchs the query and will merge with existing config
 	 * @param config configuration used to refetch
 	 */
-	refetch(config: SelectParamsConfig = {}) {
+	refetch(config?: SelectParamsConfig) {
 		this.onLoading();
-		return this.listResult.refetch(config).pipe(first());
+		return this.listResult.refetch(config || this.selectParams).pipe(first());
 	}
 
 	/** Loads more items when we reach the bottom of the page */
