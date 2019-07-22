@@ -16,7 +16,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="add-picture" datatype="html">
-        <source>Add picutre</source>
+        <source>Add picture</source>
         <target state="final">添加照片</target>
         <note priority="1" from="description">button</note>
         <context-group purpose="location">

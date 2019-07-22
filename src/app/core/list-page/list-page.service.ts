@@ -88,7 +88,6 @@ export class ListPageService
 			takeUntil(destroy$)
 		).subscribe(_ => this.selectionSrv.unselectAll());
 	}
-	y;
 
 	/**
 	 * takes the existing stateful services from the maps above,

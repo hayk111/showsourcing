@@ -32,7 +32,7 @@
 		[columnApp]="'samples' | const: 'messages'"
 		let-row="row"
 		sortBy="name"
-		width="400">
+		width="350">
 		<div class="mainCellWrapper name-container ellipsis">
 			<div class="mainCell">
 				<img-app [image]="row?.images ? row?.images[0] : null" type="sample" size="s"></img-app>
@@ -82,7 +82,7 @@
 		[columnApp]="'comments' | const: 'messages'"
 		let-row="row"
 		[sortable]="false"
-		width="200">
+		width="150">
 		<div class="flex">
 			<div class="number">{{ row?.comments?.length || '0' }}</div>
 			&nbsp;
@@ -96,7 +96,7 @@
 		[columnApp]="'status' | const: 'messages'"
 		let-row="row"
 		sortBy="status.step"
-		width="200">
+		width="170">
 		<status-selector-app
 			[entity]="row"
 			[typeEntity]="erm.SAMPLE">
@@ -109,7 +109,7 @@
 		[columnApp]="'created on' | const: 'messages'"
 		let-row="row"
 		sortBy="createdBy.lastName"
-		width="200">
+		width="150">
 		{{ row?.creationDate | date: 'dd MMMM y' }}
 	</ng-template>
 

@@ -24,6 +24,8 @@ import { DynamicField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, PendingImage, translate } from '~utils';
+import { DialogService } from '~shared/dialog/services';
+import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
 
 @Component({
 	selector: 'product-preview-app',
@@ -167,6 +169,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private cd: ChangeDetectorRef,
 		private productSrv: ProductService,
 		private modalSrv: CommonModalService,
+		private dlgSrv: DialogService,
 		private router: Router,
 		private userSrv: UserService,
 		private workspaceSrv: WorkspaceFeatureService,
@@ -186,7 +189,18 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 				icon: 'project',
 				fontSet: '',
 				text: translate('add'),
-				action: this.openAddToProject.bind(this)
+				action: null,
+				subMenuItems: [{
+					icon: 'new_task',
+					fontSet: '',
+					text: translate('add a task'),
+					action: this.openNewTask.bind(this),
+				}, {
+					icon: 'sample',
+					fontSet: '',
+					text: translate('add a sample'),
+					action: this.openNewSample.bind(this),
+				}]
 			},
 			{
 				icon: 'comments',
@@ -204,7 +218,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "product.extendedFields"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
 	}
 
 	ngOnChanges() {
@@ -240,6 +254,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 
 	openAddToProject() {
 		this.modalSrv.openAddToProjectDialog([this.product]);
+	}
+
+	openNewTask() {
+		this.modalSrv.openCreationTaskDlg();
+	}
+
+	openNewSample() {
+		this.dlgSrv.open(CreationSampleDlgComponent, {}).subscribe();
 	}
 
 	openExportModal() {

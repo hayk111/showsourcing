@@ -29,7 +29,7 @@
 		[columnApp]="erm.PRODUCT.singular | const: 'erm'"
 		sortBy="name"
 		let-row="row"
-		width="300">
+		width="250">
 		<div class="mainCell ellipsis">
 			<span class="ellipsis">
 				<a class="name txt-btn title" (click)="openReviewRequestReply.emit(row.id)">{{ row?.name }}</a>
@@ -40,7 +40,7 @@
 	<ng-template
 		let-row="row"
 		let-index="index"
-		width="250"
+		width="150"
 		[sortable]="false"
 		*ngFor="let field of fields[0]; index as j; trackBy: trackByFn"
 		[columnApp]="field?.definition?.label">
@@ -55,7 +55,7 @@
 		[columnApp]="'status' | const: 'messages'"
 		sortBy="reply.status"
 		let-row="row"
-		width="300">
+		width="200">
 
 		<request-status-badge-app
 			[status]="row?.reply?.status"

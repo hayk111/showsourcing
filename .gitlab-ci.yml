@@ -37,3 +37,5 @@ app-deploy-sta:
     - aws s3 cp s3://app-sta.showsourcing.com/index.html s3://app-sta.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
   only:
     - staging
+
+    

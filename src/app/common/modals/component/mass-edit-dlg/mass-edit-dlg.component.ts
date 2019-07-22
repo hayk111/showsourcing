@@ -44,7 +44,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 		switch (this.type) {
 			case ERM.PRODUCT:
 				this.pickerFields = productFields;
-				this.definitions$ = this.extendedFDSrv.queryMany({ query: 'target == "product.extendedFields"', sortBy: 'order' });
+				this.definitions$ = this.extendedFDSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 				break;
 			default: throw Error(`No PickerField associated to this ERM ${this.type}`);
 		}

@@ -6,15 +6,15 @@
 
 	<main *ngIf="projects$ | async as projects" class="scrollable">
 		<list-app>
-			<list-item-app *ngFor="let project of projects;trackBy: trackByFn" (click)="checkbox.onClick()">
+			<list-item-app *ngFor="let project of projects; first as first; trackBy: trackByFn" (click)="checkbox.onClick()">
 				<checkbox-app
 					#checkbox
 					[size]="14"
+					[autoFocus]="first"
 					(check)="select(project.id, project)"
 					(uncheck)="unselect(project.id)"
 					[checked]="selected[project.id]"
-					(click)="checkbox.onClick()"
-					>
+					(click)="checkbox.onClick()">
 				</checkbox-app>
 				<div class="flexCenter flexBetween flexGrow">
 					<span class="name">{{ project.name }}</span>
@@ -27,9 +27,9 @@
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary" i18n="text@@products-selected">
 			{{ products?.length }}
-			<ng-container i18n="@@nested_product-selected">{ products?.length ||0, plural, =1 { Product } other { Products } }} selected</ng-container>
+			<ng-container i18n="@@nested_product-selected">{ products?.length || 0, plural, =1 { Product } other { Products } }} selected</ng-container>
 		</span>
-		<input [disabled]="numSelected < 1" type="submit" value="Add now" class="capitalize" (click)="submit()"
-			i18n-value="@@add-now"/>
+		<button tabFocus [disabled]="numSelected < 1" class="capitalize" (click)="submit()"
+			i18n-value="@@add-now">Add now</button>
 	</dialog-footer-app>
 </dialog-app>

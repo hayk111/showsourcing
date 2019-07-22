@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { ProductService } from '~core/entity-services';
+import { ProductService, UserService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
@@ -24,6 +24,7 @@ import { AutoUnsub } from '~utils';
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	erm = ERM;
+	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.ARCHIVED,
@@ -44,11 +45,19 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public elem: ElementRef
+		public elem: ElementRef,
+		private userSrv: UserService,
 	) {
 		super();
 	}
 
+	toggleMyProducts(show: boolean) {
+		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
+		if (show)
+			this.listSrv.addFilter(filterAssignee);
+		else
+			this.listSrv.removeFilter(filterAssignee);
+	}
 	ngOnInit() {
 		this.listSrv.setup({
 			key: ListPageKey.PRODUCTS,

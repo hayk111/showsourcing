@@ -93,17 +93,6 @@
 		</dynamic-form-app>
 	</preview-section-app>
 
-	<!-- Trading information -->
-	<preview-section-app [title]="'trading information'" i18n-title="@@trading-information">
-		<dynamic-form-app
-			[inlineLabel]="true"
-			[fields]="customFields2"
-			[value]="product"
-			[colAmount]="1"
-			(update)="updateProduct($event)">
-		</dynamic-form-app>
-	</preview-section-app>
-
 	<!-- Extended Fields -->
 	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'extended fields'" i18n-title="@@extended-fields">
 		<extended-form-app
@@ -114,6 +103,16 @@
 		</extended-form-app>
 	</preview-section-app>
 
+	<!-- Trading information -->
+	<preview-section-app [title]="'trading information'" i18n-title="@@trading-information">
+		<dynamic-form-app
+			[inlineLabel]="true"
+			[fields]="customFields2"
+			[value]="product"
+			[colAmount]="1"
+			(update)="updateProduct($event)">
+		</dynamic-form-app>
+	</preview-section-app>
 
 	<!-- Activity -->
 	<preview-section-app *ngIf="product?.comments?.length" [title]="'comments'" i18n-title="@@comments">

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { TaskService } from '~core/entity-services';
-import { ERM, Task } from '~core/models';
+import { ERM, Task, Product, Supplier } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -16,6 +16,8 @@ import { translate } from '~utils';
 export class CreationTaskDlgComponent implements OnInit {
 
 	@Input() task: Task;
+	@Input() product: Product;
+	@Input() supplier: Supplier;
 
 	dynamicFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: translate('name'), placeholder: translate('Task name'), },
@@ -72,7 +74,11 @@ export class CreationTaskDlgComponent implements OnInit {
 
 	ngOnInit() {
 		if (!this.task) {
-			this.task = new Task();
+			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
+			this.task = new Task({
+				...this.product && {product: {id: this.product.id, name: this.product.name}},
+				...supplier && {supplier: {id: supplier.id, name: supplier.name}}
+			});
 		}
 	}
 
@@ -84,7 +90,7 @@ export class CreationTaskDlgComponent implements OnInit {
 		if (this.task && this.task.name) {
 			this.taskSrv.create(this.task).subscribe(task => {
 				if (this.createAnother) {
-					this.dlgSrv.open(CreationTaskDlgComponent, { task: { ...task, name: ''} });
+					this.dlgSrv.open(CreationTaskDlgComponent, { task: { ...this.task, name: '', description: ''} });
 				} else {
 					this.close();
 				}
