@@ -2,12 +2,13 @@ import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testin
 import { TextareaAutoGrowsDirective } from './textarea-auto-grows.directive';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
+
 @Component({
 	template: `
 	<textarea autoGrows></textarea>
   `
 })
-
 class TestComponent {
 
 }

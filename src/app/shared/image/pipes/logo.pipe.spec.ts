@@ -7,7 +7,6 @@ import {
 import { Supplier, Event, EventDescription } from '~core/models';
 
 describe('LogoPipe', () => {
-	// just keep things simple, no need for much logic in unit testing, we can hard code the data
 	let pipe: LogoPipe;
 	const baseUrl = 'https://files.showsourcing.com';
 

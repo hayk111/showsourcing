@@ -2,13 +2,12 @@ import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testin
 import { ClickOutsideDirective } from './click-outside.directive';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
 @Component({
 	template: `
 	<div (clickOutside)="click()">test click outside</div>
   `
-})
-
-class TestClickOutSideComponent {
+}) class TestClickOutSideComponent {
 	click() {
 		console.log('clicked outside');
 	}
@@ -38,6 +37,7 @@ describe('ClickOutsideDirective', () => {
 
 	it('should call onClick when click', () => {
 		spyOn(directive, 'onClick');
+		// the directive uses the mousedown event
 		document.dispatchEvent(new MouseEvent('mousedown', {view: window, bubbles: true}));
 		fixture.detectChanges();
 		expect(directive.onClick).toHaveBeenCalled();
@@ -46,6 +46,7 @@ describe('ClickOutsideDirective', () => {
 	it('should emit clickOutside when click outside element', () => {
 		spyOn(directive.clickOutside, 'emit').and.callThrough();
 		spyOn(component, 'click');
+		// the directive uses the mousedown event
 		document.dispatchEvent(new MouseEvent('mousedown', {view: window, bubbles: true}));
 		fixture.detectChanges();
 		expect(directive.clickOutside.emit).toHaveBeenCalled();
@@ -55,6 +56,7 @@ describe('ClickOutsideDirective', () => {
 	it('should not emit clickOutside when click inside element', () => {
 		spyOn(directive.clickOutside, 'emit').and.callThrough();
 		spyOn(directive, 'onClick');
+		// the directive uses the mousedown event
 		dbgEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {view: window, bubbles: true}));
 		expect(directive.onClick).toHaveBeenCalled();
 		expect(directive.clickOutside.emit).not.toHaveBeenCalled();
