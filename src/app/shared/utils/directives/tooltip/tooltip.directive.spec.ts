@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core/testing';
 import { TooltipDirective } from './tooltip.directive';
 import { TooltipComponent } from './tooltip.component';
 import { Component, DebugElement } from '@angular/core';
@@ -45,6 +45,11 @@ describe('TooltipDirective', () => {
 		dbgEls = fixture.debugElement.queryAll(By.directive(TooltipDirective));
 		fixture.detectChanges();
 	});
+
+	// afterEach(async() => {
+	// 	fixture.destroy();
+	// 	flush();
+	// })
 
 	it('should create TestToolTipComponent', () => {
 		expect(component).toBeDefined();
@@ -105,6 +110,13 @@ describe('TooltipDirective', () => {
 		fixture.detectChanges();
 		tick(1000); // jasmine.clock().tick(1000);
 		expect(document.querySelectorAll('div.above-right').length).toBeGreaterThan(0);
+
+		spyOn(directive, 'onMouseLeave').and.callThrough();
+		dbgEls[0].triggerEventHandler('mouseleave', new MouseEvent('mouseleave'));
+		fixture.detectChanges();
+		expect(directive.onMouseLeave).toHaveBeenCalled();
+		fixture.destroy();
+		flush();
 	}));
 
 	it('should open Tooltip (above-left) when mouseenter the element', fakeAsync(() => {
@@ -122,6 +134,13 @@ describe('TooltipDirective', () => {
 		fixture.detectChanges();
 		tick(1000); // jasmine.clock().tick(1000);
 		expect(document.querySelectorAll('div.above-left').length).toBeGreaterThan(0);
+
+		spyOn(directive, 'onMouseLeave').and.callThrough();
+		dbgEls[1].triggerEventHandler('mouseleave', new MouseEvent('mouseleave'));
+		fixture.detectChanges();
+		expect(directive.onMouseLeave).toHaveBeenCalled();
+		fixture.destroy();
+		flush();
 	}));
 
 	it('should open Tooltip (below-right) when mouseenter the element', fakeAsync(() => {
@@ -139,6 +158,13 @@ describe('TooltipDirective', () => {
 		fixture.detectChanges();
 		tick(1000); // jasmine.clock().tick(1000);
 		expect(document.querySelectorAll('div.below-right').length).toBeGreaterThan(0);
+
+		spyOn(directive, 'onMouseLeave').and.callThrough();
+		dbgEls[2].triggerEventHandler('mouseleave', new MouseEvent('mouseleave'));
+		fixture.detectChanges();
+		expect(directive.onMouseLeave).toHaveBeenCalled();
+		fixture.destroy();
+		flush();
 	}));
 
 	it('should open Tooltip (below-left) when mouseenter the element', fakeAsync(() => {
@@ -156,6 +182,13 @@ describe('TooltipDirective', () => {
 		fixture.detectChanges();
 		tick(1000); // jasmine.clock().tick(1000);
 		expect(document.querySelectorAll('div.below-left').length).toBeGreaterThan(0);
+
+		spyOn(directive, 'onMouseLeave').and.callThrough();
+		dbgEls[3].triggerEventHandler('mouseleave', new MouseEvent('mouseleave'));
+		fixture.detectChanges();
+		expect(directive.onMouseLeave).toHaveBeenCalled();
+		fixture.destroy();
+		flush();
 	}));
 
 	it('should open Tooltip (right) when mouseenter the element', fakeAsync(() => {
@@ -173,6 +206,13 @@ describe('TooltipDirective', () => {
 		fixture.detectChanges();
 		tick(1000); // jasmine.clock().tick(1000);
 		expect(document.querySelectorAll('div.right').length).toBeGreaterThan(0);
+
+		spyOn(directive, 'onMouseLeave').and.callThrough();
+		dbgEls[4].triggerEventHandler('mouseleave', new MouseEvent('mouseleave'));
+		fixture.detectChanges();
+		expect(directive.onMouseLeave).toHaveBeenCalled();
+		fixture.destroy();
+		flush();
 	}));
 
 	it('should open Tooltip (left) when mouseenter the element', fakeAsync(() => {
@@ -190,6 +230,13 @@ describe('TooltipDirective', () => {
 		fixture.detectChanges();
 		tick(1000); // jasmine.clock().tick(1000);
 		expect(document.querySelectorAll('div.left').length).toBeGreaterThan(0);
+
+		spyOn(directive, 'onMouseLeave').and.callThrough();
+		dbgEls[5].triggerEventHandler('mouseleave', new MouseEvent('mouseleave'));
+		fixture.detectChanges();
+		expect(directive.onMouseLeave).toHaveBeenCalled();
+		fixture.destroy();
+		flush();
 	}));
 
 	it('should hide Tooltip when mouseover the element', fakeAsync(() => {
@@ -213,5 +260,8 @@ describe('TooltipDirective', () => {
 
 		tick(1000);
 		expect(document.querySelectorAll('div.tooltip-directive').length).toBe(0);
+
+		fixture.destroy();
+		flush();
 	}));
 });
