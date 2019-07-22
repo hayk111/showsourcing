@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Injector, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Injector, OnChanges, AfterViewChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
@@ -16,14 +16,16 @@ import { ProductService } from '~entity-services';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
 	templateUrl: './supplier-request-dialog.component.html',
 	styleUrls: ['./supplier-request-dialog.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [ListPageService]
 })
-export class SupplierRequestDialogComponent implements OnInit {
+export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked {
 
 	private _request: CreateRequest;
 	@Input() set request(request: CreateRequest) {
@@ -64,7 +66,9 @@ export class SupplierRequestDialogComponent implements OnInit {
 		private notifSrv: NotificationService,
 		private userSrv: UserService,
 		private requestTemplateSrv: RequestTemplateService,
+		private productSrv: ProductService,
 		private injector: Injector,
+		private cd: ChangeDetectorRef,
 		public listSrv: ListPageService<Product, ProductService>,
 	) {
 		this.form = this.fb.group({
@@ -87,6 +91,10 @@ export class SupplierRequestDialogComponent implements OnInit {
 		);
 		if (!this.fromTemplateDlg)
 			this.initFormValues();
+	}
+
+	ngAfterViewChecked() {
+		this.cd.detectChanges();
 	}
 
 	private initFormValues() {
@@ -199,7 +207,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	addProduct(ev: any) {
-		this.listSrv.selectedProds$.subscribe((products: Product[]) => {
+		this.productSrv.selectedProds$.subscribe((products: Product[]) => {
 			products.forEach((product: Product) => {
 				if (this._products.filter((p: Product) => p.id === product.id).length === 0) {
 					this._products.push(product);

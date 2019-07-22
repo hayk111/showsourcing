@@ -12,7 +12,6 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
-import { Product } from '~models';
 
 import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
@@ -50,9 +49,6 @@ export class ListPageService
 	selectionSrv: SelectionWithFavoriteService;
 	dataSrv: ListPageDataService<T, G>;
 	viewSrv: ListPageViewService<T>;
-
-	private _selectedProds$ = new Subject<Product[]>();
-	selectedProds$ = this._selectedProds$.asObservable();
 
 	constructor(
 		private router: Router,
@@ -432,10 +428,6 @@ export class ListPageService
 
 	getSelectedValues() {
 		return this.selectionSrv.getSelectionValues();
-	}
-
-	addProducts(products: Product[]) {
-		this._selectedProds$.next(products);
 	}
 
 }

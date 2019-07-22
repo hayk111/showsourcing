@@ -14,6 +14,7 @@ import { UserService } from '~core/entity-services';
 	templateUrl: './product-select-dlg.component.html',
 	styleUrls: ['./product-select-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [ListPageService]
 })
 export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
@@ -142,7 +143,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	done() {
-		this.listSrv.addProducts(Object.values(this.selectedProducts));
+		this.productSrv.addProducts(Object.values(this.selectedProducts));
 	}
 
 	toggleMySamples(show: boolean) {
