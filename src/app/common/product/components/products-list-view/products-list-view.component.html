@@ -51,6 +51,12 @@
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
+		(click)="archiveProduct.emit(row)"
+		i18n="button@@delete">
+		Archive
+	</context-menu-item-app>
+	<context-menu-item-app
+		class="pointer flexCenter"
 		(click)="delete.emit(row)"
 		i18n="button@@delete">
 		Delete

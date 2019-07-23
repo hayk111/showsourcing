@@ -9,14 +9,15 @@ import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, Project } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-
+import { ProductFeatureService } from '~features/products/services';
+import { NotificationService, NotificationType } from '~shared/notifications';
 @Component({
 	selector: 'project-products-app',
 	styleUrls: ['project-products.component.scss'],
 	templateUrl: './project-products.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService
+		ListPageService, ProductFeatureService
 	]
 })
 export class ProjectProductsComponent extends AutoUnsub implements OnInit, AfterViewInit {
@@ -39,10 +40,12 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 
 	constructor(
 		private featureSrv: ProjectFeatureService,
+		private productFeatureSrv: ProductFeatureService, 
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public commonModalSrv: CommonModalService
+		public commonModalSrv: CommonModalService,
+		private notifSrv: NotificationService
 	) {
 		super();
 	}
@@ -100,6 +103,29 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		this.featureSrv.openFindProductDlg(this.project).pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
+	}
+
+	onArchive(product: Product | Product[]) {
+		if(Array.isArray(product)) {
+			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Products archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		} else {
+			const { id } = product;
+			this.featureSrv.update({ id, archived: true })
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Product archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		}
 	}
 
 }

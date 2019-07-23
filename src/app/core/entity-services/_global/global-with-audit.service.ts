@@ -34,6 +34,17 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	}
 
 	/** @inheritDoc
+	 * Updates on entities with an audit will add properties needed by the backend
+	 */
+	updateMany(entities: any[], client?: Client, fields?: string) {
+		entities.forEach(entity => {
+			entity.lastUpdatedBy = { id: this.userSrv.userId, __typename: 'User' };
+			entity.lastUpdatedDate = '' + new Date();
+		});
+		return super.updateMany(entities, client, fields);
+	}
+
+	/** @inheritDoc
 	 * create on entity with an audit will add properties needed by the backend
 	 */
 	create(entity: any, client?: Client) {

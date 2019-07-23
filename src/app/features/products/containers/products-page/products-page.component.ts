@@ -1,13 +1,15 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { Observable, interval } from 'rxjs';
+import { switchMap, takeUntil, timeout, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ProductService, UserService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { ProductFeatureService } from '~features/products/services';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -44,8 +46,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
+		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
+		private notifSrv: NotificationService
 	) {
 		super();
 	}
@@ -87,6 +91,29 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		const filters = this.listSrv.filterList.asFilters()
 			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
 		return filters.length;
+	}
+
+	onArchive(product: Product | Product[]) {
+		if(Array.isArray(product)) {
+			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Products archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		} else {
+			const { id } = product;
+			this.featureSrv.update({ id, archived: true })
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Product archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		}
 	}
 
 }

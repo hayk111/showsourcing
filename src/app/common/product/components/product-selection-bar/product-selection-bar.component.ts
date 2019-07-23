@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
-import { Project, ERM } from '~core/models';
+import { Project, ERM, Product } from '~core/models';
 
 @Component({
 	selector: 'product-selection-bar-app',
@@ -14,6 +14,7 @@ export class ProductSelectionBarComponent implements OnInit {
 	@Input() favorite: boolean;
 	@Output() close = new EventEmitter<null>();
 	@Output() compareProducts = new EventEmitter<null>();
+	@Output() archiveProducts = new EventEmitter<Product[]>();
 	@Output() requestTeamFeedback = new EventEmitter<null>();
 	@Output() createRequest = new EventEmitter<null>();
 	@Output() export = new EventEmitter<null>();
