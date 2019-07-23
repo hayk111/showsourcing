@@ -24,7 +24,6 @@ app-install:
 
 # tests
 app-test:karma:
-  image: trion/ng-cli-karma
   stage: test
   allow_failure: false
   script:
@@ -35,7 +34,6 @@ app-test:karma:
       - coverage/
 
 app-test:e2e:
-  image: trion/ng-cli-e2e
   stage: test
   allow_failure: false
   script:
@@ -45,7 +43,6 @@ app-test:e2e:
 
 app-test:lint:
   stage: test
-  image: trion/ng-cli
   allow_failure: true
   script:
     - ng lint
