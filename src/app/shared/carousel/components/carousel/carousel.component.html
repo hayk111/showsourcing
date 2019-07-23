@@ -39,7 +39,7 @@
 		*ngIf="images?.length > 1"
 		class="move-btn next flexCenter circle pointer btn action"
 		(mousedown)="next($event)">
-		<icon-app fontSet="fa" name="angle-right" color="white"></icon-app>
+	<icon-app fontSet="fa" name="angle-right" color="white"></icon-app>
 	</div>
 
 	<!-- menu -->
@@ -76,6 +76,8 @@
 		#modalCarousel
 		[selectedIndex]="selectedIndex"
 		[images]="images"
+		[product]="product"
+		(delete)="delete()"
 		(indexChange)="selectedIndex = $event">
 	</modal-carousel-app>
 
