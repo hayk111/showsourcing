@@ -43,7 +43,7 @@ app-test:e2e:
     - ng e2e
 
 
-test:nglint:
+app-test:lint:
   stage: test
   image: trion/ng-cli
   allow_failure: true
