@@ -26,6 +26,11 @@ app-install:
 app-test:karma:
   stage: test
   allow_failure: false
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+    policy: pull
   script:
     - ng test --code-coverage --progress false --watch false
   coverage: '/Lines \W+: (\d+\.\d+)%.*/'
@@ -36,6 +41,11 @@ app-test:karma:
 app-test:e2e:
   stage: test
   allow_failure: false
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+    policy: pull
   script:
     - npm install
     - ng e2e
@@ -43,6 +53,11 @@ app-test:e2e:
 
 app-test:lint:
   stage: test
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+    policy: pull
   allow_failure: true
   script:
     - ng lint
