@@ -25,6 +25,7 @@ app-install:
 # tests
 app-test:karma:
   stage: test
+  image: trion/ng-cli-karma
   allow_failure: false
   cache: 
     key: cache_key
@@ -40,6 +41,7 @@ app-test:karma:
 
 app-test:e2e:
   stage: test
+  image: trion/ng-cli-e2e
   allow_failure: false
   cache: 
     key: cache_key
@@ -53,6 +55,7 @@ app-test:e2e:
 
 app-test:lint:
   stage: test
+  image: trion/ng-cli
   cache: 
     key: cache_key
     paths:
