@@ -85,6 +85,7 @@ app-build-sta:
 app-deploy-dev:
   image: cedvdb/ss-gitlab-pipeline-docker
   stage: deploy
+  when: manual
   allow_failure: false
   script:
     - cd dist/showsourcing
