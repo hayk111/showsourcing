@@ -42,7 +42,7 @@ app-test:karma:
 app-test:e2e:
   stage: test
   image: trion/ng-cli-e2e
-  allow_failure: false
+  allow_failure: true
   cache: 
     key: cache_key
     paths:
