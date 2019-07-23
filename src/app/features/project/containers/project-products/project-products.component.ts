@@ -9,6 +9,8 @@ import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, Project } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { DialogService } from '~shared/dialog';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 @Component({
 	selector: 'project-products-app',
@@ -39,6 +41,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 
 	constructor(
 		private featureSrv: ProjectFeatureService,
+		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
@@ -100,6 +103,10 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		this.commonModalSrv.openSelectProductDlg([], true).pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
+	}
+
+	onOpenCreateRequestDlg(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
 }

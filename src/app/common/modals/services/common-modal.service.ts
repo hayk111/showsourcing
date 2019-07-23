@@ -9,7 +9,6 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 	MassEditDlgComponent,
 	RefuseReplyDlgComponent,
@@ -18,6 +17,7 @@ import {
 	ProductSelectDlgComponent,
 } from '~common/modals/component';
 import { EntityMetadata, Product, ProductVote, Project, Supplier, ERM } from '~models';
+
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';
@@ -81,10 +81,6 @@ export class CommonModalService {
 
 	openConfirmDialog(data: { text: string }) {
 		return this.dlgSrv.open(ConfirmDialogComponent, data);
-	}
-
-	openSupplierRequest(products: Product[]) {
-		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
 	openMergeDialog(data: { type: any, entities: any[] }) {

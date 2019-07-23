@@ -26,13 +26,13 @@ import {
 	RefuseReplyDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
-	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
 	CreationProductDlgComponent,
 	CreationTaskDlgComponent,
 	CreationSampleDlgComponent,
 	ProductSelectDlgComponent
 } from './component';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';

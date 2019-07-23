@@ -105,11 +105,14 @@ export class ListPageService
 			this.selectionSrv = new SelectionWithFavoriteService();
 			this.viewSrv = new ListPageViewService<T>(this.router);
 			this.dataSrv = new ListPageDataService<T, G>();
-
-			selectionSrvMap.set(key, this.selectionSrv);
-			viewSrvMap.set(key, this.viewSrv);
-			dataSrvMap.set(key, this.dataSrv);
+	
+			if (key) {
+				selectionSrvMap.set(key, this.selectionSrv);
+				viewSrvMap.set(key, this.viewSrv);
+				dataSrvMap.set(key, this.dataSrv);
+			}
 		}
+		
 	}
 
 	/** Here we are gonna bridge the functions from the other services */

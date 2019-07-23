@@ -214,7 +214,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 				}
 			});
 			
-			setTimeout(_ => this.injector.get(CommonModalService).openSupplierRequest(this._products));
+			setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products }));
 		});
 
 		setTimeout(_ => {
