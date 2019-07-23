@@ -6,24 +6,34 @@
     "ng": "ng",
     "start": "sh ./scripts/start.sh",
     "serve": "ng serve",
+    "serve:supp": "ng serve supplier --port 4300",
     "serve:fr": "ng serve --configuration=fr",
-    "serve:local": "ng serve --configuration=local",
-    "build": "npm run version:build && ng build --prod",
-    "build:dev": "npm run version:build && ng build",
-    "build:sta": "npm run version:build && ng build --configuration=sta",
-    "build:prod": "npm run version:build && npm run build",
-    "build:supp": "npm run version:build && ng build supplier --prod",
-    "build:supp:dev": "npm run version:build && ng build supplier",
-    "build:supp:sta": "npm run version:build && ng build supplier --configuration=sta",
-    "version:build": "npm version prerelease -f --git-tag-version false && node ./scripts/build-pre.js",
+		"serve:local": "ng serve --configuration=local",
+
+    "build": "ng build --prod",
+    "build:dev": "ng build",
+    "build:sta": "ng build --configuration=sta",
+		"build:prod": "npm run build",
+
+    "build:supp": "ng build supplier --prod",
+    "build:supp:dev": "ng build supplier",
+		"build:supp:sta": "ng build supplier --configuration=sta",
+
+		"version:build": "npm version prerelease -f --git-tag-version false && node ./scripts/build-pre.js",
+		"version:patch": "npm version patch -f --git-tag-version false && node ./scripts/build-pre.js",
+		"version:minor": "npm version minor -f --git-tag-version false && node ./scripts/build-pre.js",
+
     "translate": "ng xi18n --output-path locale",
     "translate:fr": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json fr",
-    "translate:zh-Hans": "ng xi18n --outputPath locale && xliffmerge --profile xliffmerge.json zh-Hans",
+		"translate:zh-Hans": "ng xi18n --outputPath locale && xliffmerge --profile xliffmerge.json zh-Hans",
+
     "analyze": "ng build --stats-json && webpack-bundle-analyzer dist/showsourcing/stats.json",
-    "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json",
+		"compodoc": "./node_modules/.bin/compodoc -p tsconfig.json",
+
     "deploy:dev": "npm run build:dev && cd dist/showsourcing && aws s3 sync . s3://app-dev.showsourcing.com --delete && aws s3 cp s3://app-dev.showsourcing.com/index.html $URL/index.html --metadata-directive REPLACE --cache-control max-age=0",
     "deploy:sta": "npm run build:sta && cd dist/showsourcing && aws s3 sync . s3://app-sta.showsourcing.com --delete && aws s3 cp s3://app-sta.showsourcing.com/index.html s3://app-sta.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0",
-    "deploy:production": "npm run build && cd dist/showsourcing && aws s3 sync . s3://app.showsourcing.com --delete && aws s3 cp s3://app.showsourcing.com/index.html s3://app.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0",
+		"deploy:production": "npm run build && cd dist/showsourcing && aws s3 sync . s3://app.showsourcing.com --delete && aws s3 cp s3://app.showsourcing.com/index.html s3://app.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0",
+
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
