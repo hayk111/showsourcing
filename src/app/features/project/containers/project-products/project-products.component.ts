@@ -100,7 +100,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
-		this.commonModalSrv.openSelectProductDlg([], true).pipe(
+		this.featureSrv.openFindProductDlg(this.project).pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}

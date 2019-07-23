@@ -1,4 +1,4 @@
-<dialog-app class="vertical-scroll-content">
+<dialog-app class="zero-content-height">
 
 	<dialog-header-app i18n="@@select-products">
 		select products
@@ -16,7 +16,7 @@
 		(viewChange)="onViewChange($event)">
 
 		<sub-panel-left-item-app class="flex">
-			<span class="capitalize" *ngIf="productsCount$ | async as count"> 
+			<span class="select-products-count capitalize" *ngIf="productsCount$ | async as count"> 
 				<b> {{ count || 0 }} products </b>
 			</span>
 		</sub-panel-left-item-app>
