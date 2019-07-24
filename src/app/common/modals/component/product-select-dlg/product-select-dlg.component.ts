@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -64,12 +64,32 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		});
 		
 		this.initialSelection();
-
+		
 		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
 	}
 
+	searchProduct(value) {
+		this.listSrv.search(value);
+		setTimeout(_ => this.initialSelection());
+	}
+
+	loadPage(page) {
+		this.listSrv.loadPage(page);
+		setTimeout(_ => this.initialSelection());
+	}
+
+	loadNextPage() {
+		this.listSrv.loadNextPage();
+		setTimeout(_ => this.initialSelection());		
+	}
+
+	loadPreviousPage() {
+		this.listSrv.loadPreviousPage();
+		setTimeout(_ => this.initialSelection());
+	}
+		
 	private initialSelection() {
 		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
 			this.selectedProductsCount = this.initialSelectedProducts.length;
