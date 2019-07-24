@@ -94,6 +94,7 @@
 							[width]="500"
 							[value]="value || []"
 							[type]="erm.getEntityMetadata(choice?.metadata?.ermName || choice?.name)"
+							[canCreate]="choice?.metadata?.canCreate"
 							[multiple]="choice?.metadata?.multiple"
 							(update)="statusUpdated($event)">
 							<selector-placeholder-app

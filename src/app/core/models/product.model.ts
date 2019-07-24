@@ -19,11 +19,11 @@ export const productFields: PickerField[] = [
 	{ name: 'name', type: 'text' },
 	{ name: 'assignee', type: 'selector', metadata: { ermName: 'user' } },
 	{ name: 'description', type: 'text' },
-	{ name: 'category', type: 'selector' },
-	{ name: 'supplier', type: 'selector' },
+	{ name: 'category', type: 'selector', metadata: { canCreate: true } },
+	{ name: 'supplier', type: 'selector', metadata: { canCreate: true } },
 	{ name: 'price', type: 'price' },
 	{ name: 'event', type: 'selector' },
-	{ name: 'tags', type: 'selector', metadata: { multiple: true } },
+	{ name: 'tags', type: 'selector', metadata: { multiple: true, canCreate: true } },
 	// { name: 'favorite', type: 'boolean' },
 	{ name: 'extended fields', attribute: 'extendedFields', type: 'extendedField' },
 	{ name: 'inner carton', attribute: 'innerCarton', type: 'packaging' },
@@ -35,7 +35,7 @@ export const productFields: PickerField[] = [
 	{ name: 'votes', attribute: 'votes', type: 'votes' },
 	// { name: 'sample', type: 'boolean' },
 	{ name: 'sample price', attribute: 'samplePrice', type: 'price' },
-	{ name: 'projects', type: 'selector', metadata: { multiple: true } },
+	{ name: 'projects', type: 'selector', metadata: { multiple: true, canCreate: true } },
 	{ name: 'status', type: 'status' },
 ];
 
