@@ -12,29 +12,27 @@
 		<div (mousedown)="close()">
 			<div class="img-ctnr" [ngStyle]="{ transform: getRotation(getImg()) }">
 				<img-app
+					[@slideAnimationTrigger]="slideAnimationState"
+					(@slideAnimationTrigger.done)="slideAnimationDone()"
 					[image]="getImg()"
 					[size]="'xl'"
 					class="loading"
 					objectFit="contain"
 				></img-app>
 			</div>
-
-			<div
-				*ngIf="images?.length > 1"
-				class="move-btn back flexCenter pointer"
-				(mousedown)="back($event)"
-			>
-				<div toolTip toolTipMessage="Previous picture" toolTipShowDelay="100">
+			<div toolTip 	*ngIf="images?.length > 1" class="tooltip back" toolTipMessage="Previous picture" toolTipShowDelay="100">
+				<div
+					class="move-btn back flexCenter pointer"
+					(mousedown)="back($event)"
+				>
 					<icon-app fontSet="fa" name="angle-left"></icon-app>
 				</div>
 			</div>
-
+			<div toolTip 	*ngIf="images?.length > 1" class="tooltip next" toolTipMessage="Next picture" toolTipShowDelay="100">
 			<div
-				*ngIf="images?.length > 1"
 				class="move-btn next flexCenter pointer"
 				(mousedown)="next($event)"
 			>
-				<div toolTip toolTipMessage="Next picture" toolTipShowDelay="100">
 					<icon-app fontSet="fa" name="angle-right"></icon-app>
 				</div>
 			</div>
