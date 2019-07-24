@@ -79,6 +79,10 @@ export class ImagePipe implements PipeTransform {
 					return this.sanitizer.bypassSecurityTrustUrl(value.data);
 				}
 
+				if (!value.images || !value.images.length) {
+					return this.getDefault(type);
+				}
+
 				// Supplier, product, Entity object...
 				if (Array.isArray(value.images)) {
 					return value.images[0].urls[sizeIndex].url;
