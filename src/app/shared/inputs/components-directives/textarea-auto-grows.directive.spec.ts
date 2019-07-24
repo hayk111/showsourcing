@@ -1,17 +1,14 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core/testing';
 import { TextareaAutoGrowsDirective } from './textarea-auto-grows.directive';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-
 
 @Component({
 	template: `
 	<textarea autoGrows></textarea>
   `
 })
-class TestComponent {
-
-}
+class TestComponent { }
 
 describe('TextareaAutoGrowsDirective', () => {
 	let component: TestComponent;
@@ -23,12 +20,6 @@ describe('TextareaAutoGrowsDirective', () => {
 		TestBed.configureTestingModule({
 			declarations: [TextareaAutoGrowsDirective, TestComponent]
 		});
-
-		// fixture = TestBed.createComponent(TestComponent);
-		// component = fixture.componentInstance;
-		// dbgEl = fixture.debugElement.query(By.directive(TextareaAutoGrowsDirective));
-
-		// fixture.detectChanges();
 	});
 
 	it('should create TestComponent', () => {
@@ -82,28 +73,25 @@ describe('TextareaAutoGrowsDirective', () => {
 		expect(directive.onInput).toHaveBeenCalled();
 	});
 
-	it('should increase height', async () => {
+	it('should resize when the textarea value is changed programmatically', fakeAsync(() => {
 		fixture = TestBed.createComponent(TestComponent);
 		component = fixture.componentInstance;
 		dbgEl = fixture.debugElement.query(By.directive(TextareaAutoGrowsDirective));
 		directive = dbgEl.injector.get(TextareaAutoGrowsDirective);
-		fixture.detectChanges();
 
-		spyOn(directive, 'onInput');
-		const oldHeight = dbgEl.nativeElement.style.height;
+		const textarea = dbgEl.nativeElement;
+		const previousHeight = textarea.clientHeight;
 
-		dbgEl.nativeElement.value = '\nLorem Ipsum is simply dummy text of the printing and type setting industry \n';
-		dbgEl.nativeElement.dispatchEvent(new Event('input', {
-			bubbles: true
-		}));
-
-		const enter = new KeyboardEvent('keydown', {
-			key: 'Enter',
-			code: 'Enter',
-		});
-		dbgEl.nativeElement.dispatchEvent(enter);
+		textarea.value = `
+      How much wood would a woodchuck chuck
+      if a woodchuck could chuck wood?
+		`;
 
 		fixture.detectChanges();
-		expect(directive.onInput).toHaveBeenCalled();
-	});
+		flush();
+		fixture.detectChanges();
+
+		expect(textarea.clientHeight)
+			.toBeGreaterThan(previousHeight, 'Expected the textarea height to have increased.');
+	}));
 });
