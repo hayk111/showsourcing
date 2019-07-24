@@ -4,16 +4,16 @@ import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import { SelectionService } from '~core/list-page';
 import {
-  AppImage,
-  Attachment,
-  DEFAULT_REPLIED_STATUS,
-  EntityMetadata,
-  ERM,
-  ExtendedField,
-  Product,
-  ReplyStatus,
-  RequestElement,
-  SupplierRequest,
+	AppImage,
+	Attachment,
+	DEFAULT_REPLIED_STATUS,
+	EntityMetadata,
+	ERM,
+	ExtendedField,
+	Product,
+	ReplyStatus,
+	RequestElement,
+	SupplierRequest,
 } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { PricePipe } from '~shared/price/price.pipe';
@@ -108,7 +108,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	 */
 	getValues(field: ExtendedField) {
 		const target = field.definition.target;
-		const isProductExtendedField = field.definition.target === 'product.extendedFields';
+		const isProductExtendedField = field.definition.target === 'Product';
 		let currentValue, supplierValue;
 		const property = target.split('.')[1];
 		currentValue = isProductExtendedField ?
@@ -223,7 +223,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 
 	private acceptExtendedField(item, tempProduct) {
 		// we check if we have to accept an extended field or a product attribute
-		if (item.definition.target === 'product.extendedFields')
+		if (item.definition.target === 'Product')
 			tempProduct = this.replaceProductExtendedField(item, tempProduct);
 		else
 			tempProduct = this.replaceProductAttribute(item, tempProduct);

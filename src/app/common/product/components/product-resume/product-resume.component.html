@@ -45,19 +45,28 @@
 		<!-- Description -->
 		<preview-section-app [title]="'Description'">
 			<input-description-app
+				[isSmall]="true"
 				[description]="product?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
 		</preview-section-app>
 
 		<!-- Tags -->
-		<preview-section-app [title]="'Tags'" class="noMarginBottom">
+		<preview-section-app [title]="'Tags'">
 			<input-badge-selector-app
 				[value]="product?.tags"
 				type="tag"
 				[offsetX]="15"
 				(change)="update($event, 'tags')">
 			</input-badge-selector-app>
+		</preview-section-app>
+
+		<!-- Info -->
+		<preview-section-app [title]="'Info'"  class="no-mg-bottom">
+			<div class="flexColumn">
+				<span class="color-txt-strong">Created by {{ product?.createdBy | formatUserName: true }} on {{ product?.creationDate | date: 'dd MMMM yyyy' }}</span>
+				<span class="color-txt-strong">Last updated by {{ product?.lastUpdatedBy | formatUserName: true }} on {{ (product?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy' }}</span>
+			</div>
 		</preview-section-app>
 	</preview-app>
 </card-app>

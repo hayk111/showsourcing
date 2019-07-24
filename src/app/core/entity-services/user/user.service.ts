@@ -6,10 +6,6 @@ import { UserQueries } from '~entity-services/user/user.queries';
 import { User } from '~models';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { SelectParamsConfig } from '../_global/select-params';
-import { ListQuery } from '../_global/list-query.interface';
-import { TeamUserService } from '../team-user/team-user.service';
-import { combineLatest, ConnectableObservable } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 
 @Injectable({

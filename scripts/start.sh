@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
 
-SHOULD_BUILD=false
+# wheter we target the app side (buyer) or the supplier side
+PROJECT=""
 
-echo "Hello, What do you want to do ?"
+echo -e "\n\e[1mPick a project\e[0m"
+echo "1) Quick ng serve app"
+echo "2) app"
+echo "3) supplier"
+read n
+case $n in
+	1) npm run serve && exit 0;;
+	2) PROJECT="app";;
+	3) PROJECT="supplier";;
+	*) echo "you chose... POORLY" && exit 0;;
+esac
+
+echo -e "\nHello, What do you want to do?"
 echo "1) serve"
 echo "2) build"
 echo "3) deploy"
@@ -11,32 +24,15 @@ read n
 case $n in
 	1)
 	echo "Serving..."
-	npm run serve;;
-	2) SHOULD_BUILD=true;;
-	3) ./scripts/deploy.sh false $1;;
-	4) ./scripts/deploy.sh true $1;;
+	if [ "$PROJECT" = "app" ]; then
+		npm run serve
+	elif [ "$PROJECT" = "supplier" ]; then
+	 	npm run serve:supp
+	else
+		echo "Project is not correct"
+	fi;;
+	2) ./scripts/build.sh $PROJECT;;
+	3) ./scripts/deploy.sh false $PROJECT;;
+	4) ./scripts/deploy.sh true $PROJECT;;
 	*) echo "fuck you, that's not a valid choice";;
 esac
-
-# About booleans in shell
-# https://stackoverflow.com/questions/2953646/how-to-declare-and-use-boolean-variables-in-shell-script/21210966#21210966
-if $SHOULD_BUILD; then
-	echo "Please pick an enviroment to build:"
-	echo "1) app development"
-	echo "2) app staging"
-	echo "3) app production"
-	echo "4) supplier development"
-	echo "5) supplier development"
-	echo "6) supplier production"
-
-	read n
-	case $n in
-		1) npm run build:dev;;
-		2) npm run build:sta;;
-		3) npm run build;;
-		4) npm run build:supp:dev;;
-		5) npm run build:supp:sta;;
-		6) npm run build:supp;;
-		*) echo "Apparently you can't see the forest for the trees, cy@" && exit 0
-	esac
-fi

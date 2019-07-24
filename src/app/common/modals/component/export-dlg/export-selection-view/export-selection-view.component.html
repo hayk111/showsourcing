@@ -12,7 +12,11 @@
 				Perfect for editing
 			</div>
 		</div>
-		<div class="exportCell" (click)="select('pdf', 'pdf_product_page')"
+		<div
+			toolTip
+			toolTipMessage="Limit of 50 PDF per export"
+			toolTipShowDelay="100"
+			class="exportCell" (click)="select('pdf', 'pdf_product_page')"
 			[class.selected]="selectedType === 'pdf_product_page'">
 			<icon-app name="pdf"></icon-app>
 			<div class="title" i18n="@@pdf">PDF</div>
@@ -32,10 +36,10 @@
 
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">
-			{{ targets?.length }}
-			<ng-container i18n="text@@items-selected">{ targets?.length || 0, plural, =0 { item } =1 { item } other { items } } selected</ng-container>
+			{{ length }}
+			<ng-container i18n="text@@items-selected">{ length || 0, plural, =0 { item } =1 { item } other { items } } selected</ng-container>
 		</span>
-		<button class="small capitalize" (click)="export.emit()" i18n="button@@export">
+		<button tabFocus class="small capitalize" (click)="export.emit()" i18n="button@@export">
 			export
 		</button>
 	</dialog-footer-app>

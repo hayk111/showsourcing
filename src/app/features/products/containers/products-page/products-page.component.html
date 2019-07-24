@@ -23,9 +23,23 @@
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
-		<button class="capitalize" (click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())" i18n="@@export">
-			export
+		<checkbox-app
+			[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
+			(check)="toggleMyProducts(true)"
+			(uncheck)="toggleMyProducts(false)">
+			<span i18n="text@@assigned-to-me">
+				Assigned to me
+			</span>
+		</checkbox-app>
+		<button
+			*ngIf="productsCount$ | async as count"
+			class="capitalize"
+			(click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())">
+			<ng-container i18n="@@export">export</ng-container>
+			<span> {{ count || 0 }} </span>
+			<ng-container i18n="@@items">{ count || 0, plural, =1 { item } other { items } }</ng-container>
 		</button>
+
 	</sub-panel-right-item-app>
 
 </sub-panel-app>

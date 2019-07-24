@@ -26,8 +26,8 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly tags = `tags { id, name }`;
 	// uncomment and replace when the Image.creationDate bug is fixed on votes, avatar { id, fileName, imageType, creationDate }
 	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
-	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, urls { id, url } } }`;
-	static readonly comments = `comments { id, text, ${ProductQueries.createdBy}, creationDate }`;
+	static readonly user = (name: string) => `${name} { id, firstName, lastName, avatar { id, urls { id, url } } }`;
+	static readonly comments = `comments { id, text, ${ProductQueries.user('createdBy')}, creationDate }`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { id, url } }}`;
@@ -39,6 +39,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			favorite,
 			minimumOrderQuantity,
 			moqDescription,
+			lastUpdatedDate,
 			score,
 			leadTimeValue,
 			leadTimeUnit,
@@ -57,7 +58,8 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.extendedFields}
 			${ProductQueries.category}
 			${ProductQueries.comments}
-			${ProductQueries.createdBy}
+			${ProductQueries.user('createdBy')}
+			${ProductQueries.user('lastUpdatedBy')}
 			${ProductQueries.event}
 			${ProductQueries.images}
 			${ProductQueries.packaging('innerCarton')}
@@ -84,7 +86,8 @@ export abstract class ProductQueries extends GlobalQueries {
 			archived,
 			deleted,
 			${ProductQueries.comments},
-			${ProductQueries.createdBy},
+			${ProductQueries.user('createdBy')},
+			${ProductQueries.user('lastUpdatedBy')},
 			${ProductQueries.images},
 			${ProductQueries.event},
 			supplier { id, name },

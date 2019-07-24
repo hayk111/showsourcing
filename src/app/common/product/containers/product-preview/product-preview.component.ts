@@ -24,6 +24,8 @@ import { DynamicField } from '~shared/dynamic-forms';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, PendingImage, translate } from '~utils';
+import { DialogService } from '~shared/dialog/services';
+import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
 
 @Component({
 	selector: 'product-preview-app',
@@ -92,14 +94,38 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			name: 'event', type: 'selector', label: translate(ERM.EVENT.singular, 'erm'),
 			metadata: { target: ERM.EVENT.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
 		},
+		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
+		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
 		{
 			name: 'assignee',
-			label: translate('assignee'),
+			label: translate('assigned to'),
 			type: 'selector',
-			metadata: { target: ERM.USER.singular, type: 'entity', labelName: 'name' }
+			metadata: { target: ERM.USER.singular, type: 'entity' }
 		},
-		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
-		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') }
+		{
+			name: 'createdBy',
+			type: 'selector',
+			label: translate('created by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'creationDate',
+			type: 'date',
+			label: translate('creation date'),
+			metadata: { disabled: true }
+		},
+		{
+			name: 'lastUpdatedBy',
+			type: 'selector',
+			label: translate('last updated by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'lastUpdatedDate',
+			type: 'date',
+			label: translate('last updated date'),
+			metadata: { disabled: true }
+		}
 	];
 
 	// those are the custom field for the second form section
@@ -143,6 +169,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private cd: ChangeDetectorRef,
 		private productSrv: ProductService,
 		private modalSrv: CommonModalService,
+		private dlgSrv: DialogService,
 		private router: Router,
 		private userSrv: UserService,
 		private workspaceSrv: WorkspaceFeatureService,
@@ -162,7 +189,18 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 				icon: 'project',
 				fontSet: '',
 				text: translate('add'),
-				action: this.openAddToProject.bind(this)
+				action: null,
+				subMenuItems: [{
+					icon: 'new_task',
+					fontSet: '',
+					text: translate('add a task'),
+					action: this.openNewTask.bind(this),
+				}, {
+					icon: 'sample',
+					fontSet: '',
+					text: translate('add a sample'),
+					action: this.openNewSample.bind(this),
+				}]
 			},
 			{
 				icon: 'comments',
@@ -216,6 +254,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 
 	openAddToProject() {
 		this.modalSrv.openAddToProjectDialog([this.product]);
+	}
+
+	openNewTask() {
+		this.modalSrv.openCreationTaskDlg();
+	}
+
+	openNewSample() {
+		this.dlgSrv.open(CreationSampleDlgComponent, {}).subscribe();
 	}
 
 	openExportModal() {

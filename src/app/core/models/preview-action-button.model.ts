@@ -3,5 +3,6 @@ export class PreviewActionButton {
 	fontSet: 'fa' | 'svg' | '';
 	text: string;
 	action: Function;
+	subMenuItems?: PreviewActionButton[];
 	type?: 'rounded' | 'normal' | 'context';
 }

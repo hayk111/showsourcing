@@ -94,4 +94,12 @@
 
 	<preview-comment-app *ngIf="!isRelative" (added)="addComment($event)"></preview-comment-app>
 
+	<!-- Info -->
+	<preview-section-app *ngIf="isRelative && !isFixed" [title]="'Info'"  class="no-mg-bottom">
+		<div class="flexColumn">
+			<span class="color-txt-strong">Created by {{ supplier?.createdBy | formatUserName: true }} on {{ supplier?.creationDate | date: 'dd MMMM yyyy' }}</span>
+			<span class="color-txt-strong">Last updated by {{ supplier?.lastUpdatedBy | formatUserName: true }} on {{ (supplier?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy' }}</span>
+		</div>
+	</preview-section-app>
+
 </preview-app>

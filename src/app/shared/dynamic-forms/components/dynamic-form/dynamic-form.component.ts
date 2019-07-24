@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChildren, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicField } from '~shared/dynamic-forms/models';
+import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 
 @Component({
 	selector: 'dynamic-form-app',
@@ -22,8 +22,11 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit, O
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;
 	@Input() isShowLabel = true;
+	// index of the item in the dynamic form that we want to focus by default
+	@Input() indexFocus = 0;
 	@Output() formCreated = new EventEmitter<FormGroup>();
 	@Output() update = new EventEmitter<DynamicUpdate>();
+
 	form: FormGroup;
 	cols: DynamicField[][];
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListPageKey } from '~core/list-page/list-page-keys.enum';
 import { ListPageService } from '~core/list-page/list-page.service';
@@ -16,7 +16,7 @@ import { AutoUnsub } from '~utils';
 	providers: [ListPageService],
 
 })
-export class FindProductsDialogComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class FindProductsDialogComponent extends AutoUnsub implements OnInit {
 
 	@Input() initialSelectedProducts: Product[];
 	@Input() project: Project;
@@ -42,12 +42,12 @@ export class FindProductsDialogComponent extends AutoUnsub implements OnInit, Af
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});
+		this.initialSelection();
 	}
 
-	ngAfterViewInit() {
-		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
+	private initialSelection() {
+		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0)
 			this.listSrv.selectAll(this.initialSelectedProducts.map(product => ({ id: product.id })));
-		}
 	}
 
 	hasSelectedProducts() {

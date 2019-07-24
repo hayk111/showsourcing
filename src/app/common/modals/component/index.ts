@@ -16,3 +16,5 @@ export * from './reply-sent-dlg/reply-sent-dlg.component';
 export * from './request-reply-dlg/request-reply-dlg.component';
 export * from './supplier-request-dialog/supplier-request-dialog.component';
 export * from './vote-details-dialog/vote-details-dialog.component';
+export * from './creation-task-dlg/creation-task-dlg.component';
+export * from './creation-sample-dlg/creation-sample-dlg.component';
