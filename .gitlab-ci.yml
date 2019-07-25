@@ -42,14 +42,13 @@ app-test:karma:
 app-test:e2e:
   stage: test
   image: trion/ng-cli-e2e
-  allow_failure: true
+  allow_failure: false
   cache: 
     key: cache_key
     paths:
       - node_modules/
     policy: pull
   script:
-    - npm install
     - ng e2e
 
 
