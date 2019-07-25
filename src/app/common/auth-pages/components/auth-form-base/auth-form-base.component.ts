@@ -36,7 +36,7 @@ export class AuthFormBaseComponent extends AutoUnsub implements AfterViewInit {
 		this._listForm = value;
 		const formGroup = {};
 		this._listForm.forEach((element: AuthFormElement) => {
-			formGroup[element.name] = ['', Validators.compose(element.validators)];
+			formGroup[element.name] = [element.value || '', Validators.compose(element.validators)];
 		});
 		this.form = this.fb.group(formGroup);
 	}
