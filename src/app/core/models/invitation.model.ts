@@ -1,6 +1,6 @@
-import { EntityWithAudit } from '~models/_entity.model';
 import { User } from '~models/user.model';
 import { uuid } from '~utils';
+import { Team } from './team.model';
 
 export class Invitation {
 	id: string;
@@ -8,7 +8,13 @@ export class Invitation {
 	inviter: User;
 	accessType: string;
 	status: string;
+	team?: Team;
+	inviterFirstName?: string;
+	inviterLastName?: string;
+	teamName?: string;
+	teamId?: string;
 	__typename?= 'Invitation';
+
 
 	constructor(config?: InvitationConfig) {
 		Object.assign(this, config);
@@ -27,35 +33,5 @@ export interface InvitationConfig {
 	inviter: User;
 	accessType?: string;
 	status?: string;
-}
-
-export class InvitationUser {
-	id: string;
-	email: string;
-	inviterFirstName: string;
-	inviterLastName: string;
-	teamName: string;
-	teamId: string;
-	accessType: string;
-	status: string;
-	__typename?= 'Invitation';
-
-	constructor(config?: InvitationUserConfig) {
-		Object.assign(this, config);
-		this.id = uuid();
-		if (!this.accessType) {
-			this.accessType = 'Contributor';
-		}
-		if (!this.status) {
-			this.status = 'pending';
-		}
-	}
-}
-
-export interface InvitationUserConfig {
-	email: string;
-	inviterFirstName: string;
-	inviterLastName: string;
-	accessType?: string;
-	status?: string;
+	team?: Team;
 }

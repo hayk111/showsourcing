@@ -29,7 +29,10 @@
     "deploy:production": "npm run build && cd dist/showsourcing && aws s3 sync . s3://app.showsourcing.com --delete && aws s3 cp s3://app.showsourcing.com/index.html s3://app.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "e2e:headless": "ng e2e --capabilities.chromeOptions.args=\"--headless\"",
+    "e2e-watch": "concurrently --kill-others \"npm start\" \"npm run e2e-watch-no-serve\"",
+    "e2e-watch-no-serve": "watch \"npm run e2e -- --dev-server-target=\" src e2e --wait=1"
   },
   "private": true,
   "dependencies": {
@@ -82,6 +85,7 @@
     "@types/node": "~11.9.3",
     "@types/uuid": "^3.4.3",
     "codelyzer": "~4.5.0",
+    "concurrently": "^4.1.1",
     "jasmine-core": "~3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.0.0",
@@ -90,6 +94,7 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "karma-scss-preprocessor": "^4.0.0",
+    "mail-listener2": "^0.3.1",
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "node-sass-tilde-importer": "^1.0.2",

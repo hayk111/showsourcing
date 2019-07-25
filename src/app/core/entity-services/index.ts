@@ -11,7 +11,6 @@ export * from './event/event.service';
 export * from './extended-field/extended-field.service';
 export * from './external-request/external-request.service';
 export * from './image-upload-request/image-upload-request.service';
-export * from './invitation-user/invitation-user.service';
 export * from './invitation/invitation.service';
 export * from './length-unit/length-unit.service';
 export * from './product-status/product-status.service';
