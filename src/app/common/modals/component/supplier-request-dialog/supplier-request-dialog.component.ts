@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Injector, OnChanges, AfterViewChecked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges, AfterViewChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
@@ -67,8 +67,8 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 		private userSrv: UserService,
 		private requestTemplateSrv: RequestTemplateService,
 		private productSrv: ProductService,
-		private injector: Injector,
 		private cd: ChangeDetectorRef,
+		private commonModalService: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
 	) {
 		this.form = this.fb.group({
@@ -213,16 +213,15 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 					this._products.push(product);
 				}
 			});
-			
+
 			setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products }));
 		});
 
 		setTimeout(_ => {
-			this.injector.get(CommonModalService)
-				.openSelectProductDlg([], false).pipe(
+			this.commonModalService.openSelectProductDlg([], false).pipe(
 				switchMap(_ => this.listSrv.refetch())
 			).subscribe();
-		})
+		});
 	}
 
 	removeProduct(id: ID) {
