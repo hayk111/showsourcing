@@ -81,7 +81,8 @@ export class CreationProductDlgComponent implements OnInit {
 			name: 'incoTerm', type: 'selector', label: translate(ERM.INCO_TERM.singular, 'erm'),
 			metadata: {
 				target: ERM.INCO_TERM.singular,
-				canCreate: false, multiple: false,
+				canCreate: false,
+				multiple: false,
 				labelName: 'name',
 				type: 'const',
 			}
