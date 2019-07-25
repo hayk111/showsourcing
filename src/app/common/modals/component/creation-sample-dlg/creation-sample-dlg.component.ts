@@ -89,25 +89,27 @@ export class CreationSampleDlgComponent implements OnInit {
 
 	save() {
 		if (this.sample && this.sample.name) {
-			this.sampleSrv.create(this.sample).subscribe(sample => {
-				if (this.createAnother) {
-					this.dlgSrv.open(CreationSampleDlgComponent, { sample: { ...this.sample, name: '', description: '' } });
-				} else {
-					this.close();
-				}
-				this.notifSrv.add({
-					type: NotificationType.SUCCESS,
-					title: `Sample created`,
-					message: 'Your sample has been created with success'
-				});
-			},
+			this.sampleSrv.create(this.sample).subscribe(
+				sample => {
+					if (this.createAnother) {
+						this.dlgSrv.open(CreationSampleDlgComponent, { sample: { ...this.sample, name: '', description: '' } });
+					} else {
+						this.close();
+					}
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: `Sample created`,
+						message: 'Your sample has been created with success'
+					});
+				},
 				err => {
 					this.notifSrv.add({
 						type: NotificationType.ERROR,
 						title: `Sample created`,
 						message: 'Your sample could not been created'
 					});
-				});
+				}
+			);
 		}
 	}
 	cancel() {
