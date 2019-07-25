@@ -50,11 +50,11 @@ export class InputSelectorComponent extends AbstractInput implements OnInit, Aft
 
 	ngOnInit() {
 		switch (this.type) {
-			case 'length unit':
-			case 'weight unit':
-			case 'harbour':
-			case 'inco term':
-			case 'country':
+			case ERM.LENGTH_UNIT.singular:
+			case ERM.WEIGHT_UNIT.singular:
+			case ERM.HARBOUR.singular:
+			case ERM.INCO_TERM.singular:
+			case ERM.COUNTRY.singular:
 				this.isEntity = false;
 				break;
 		}
