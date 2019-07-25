@@ -108,6 +108,7 @@ app-deploy-dev:
     - aws s3 cp s3://app-dev.showsourcing.com/index.html s3://app-dev.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
   only:
     - development
+    - unit-testing-is-a-thang
 
 
 app-deploy-sta:

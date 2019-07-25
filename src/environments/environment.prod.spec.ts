@@ -9,6 +9,7 @@ describe('test prod environment variables, in case someone change those', () => 
 			expect(environment.mixPanelKey).toBe('b59449e8af12d91ac73a9aa92b1a29a7');
 			expect(environment.hubspotKey).toBe('2134370');
 			expect(environment.getStreamKey).toBe('kn8zj3tgdkf3');
+			expect(environment.getStreamAppID).toBe('39385');
 		});
 });
 
