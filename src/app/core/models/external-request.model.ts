@@ -16,7 +16,7 @@ export class ExternalRequest extends EntityWithAudit<ExternalRequestConfig> {
 	supplier: Supplier;
 	recipients: string[];
 	images: AppImage[];
-	__typename?= 'ExternalRequest';
+	__typename ?= 'ExternalRequest';
 
 	constructor(config: ExternalRequestConfig) {
 		super(config);

@@ -27,7 +27,7 @@
   </div>
 
   <div>
-    <span *ngFor="let tag of product?.tags">{{ tag?.name }}</span>
+    <span *ngFor="let tag of product?.tags; trackBy: trackByFn">{{ tag?.name }}</span>
   </div>
 
   <h3></h3>

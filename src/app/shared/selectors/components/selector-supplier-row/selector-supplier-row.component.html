@@ -6,7 +6,7 @@
 	<div *ngIf="supplier?.categories?.length" class="flex categories">
 		<icon-app class="circle" name="circle" fontSet="fa"></icon-app>
 		<div class="categories-container ellipsis">
-			<span *ngFor="let category of supplier?.categories" class="category">{{ category?.name }}</span>
+			<span *ngFor="let category of supplier?.categories; trackBy: category?.id" class="category">{{ category?.name }}</span>
 		</div>
 	</div>
 </div>

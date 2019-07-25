@@ -41,7 +41,7 @@ export const productFields: PickerField[] = [
 
 export class Product extends EntityWithAudit<ProductConfig> {
 	id?: string;
-	archived?= false;
+	archived ?= false;
 	assignee?: User;
 	attachments?: Attachment[];
 	category?: Category;
@@ -49,7 +49,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	description?: string;
 	event?: Event;
 	extendedFields?: ExtendedField[];
-	favorite?= false;
+	favorite ?= false;
 	harbour?: string;
 	images?: AppImage[];
 	incoTerm?: string;
@@ -78,7 +78,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	tags?: Tag[];
 	taskCount?: number;
 	votes?: ProductVote[];
-	__typename?= 'Product';
+	__typename ?= 'Product';
 
 }
 

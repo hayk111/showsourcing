@@ -2,7 +2,7 @@
   <label-app>{{ label }}</label-app>
 </div>
 
-<div *ngFor="let value of values" class="value ellipsis">
+<div *ngFor="let value of values; trackBy: trackByFn" class="value ellipsis">
 	<ng-container
 		*ngTemplateOutlet="template; context: { value: value }">
 	</ng-container>

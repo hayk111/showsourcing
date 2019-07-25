@@ -104,7 +104,7 @@
 				<icon-app name="category" backgroundColor="accent"></icon-app>
 				<div class="flex flexWrap">
 					<div *ngIf="value?.length; else noArray" class="ellipsis category-info dot-separator">
-						<span *ngFor="let category of value"> {{ category?.name }}  </span>
+						<span *ngFor="let category of value; trackBy: trackByFn"> {{ category?.name }}  </span>
 					</div>
 					<ng-template #noArray>
 						<span *ngIf="value?.name; else empty"> {{ value?.name }} </span>
