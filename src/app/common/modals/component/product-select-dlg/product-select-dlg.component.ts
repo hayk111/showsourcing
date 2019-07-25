@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { ListPageKey, ListPageService } from '~core/list-page';
-import { AutoUnsub } from '~utils';
+import { ProductService, UserService } from '~core/entity-services';
+import { ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
-import { ProductService } from '~core/entity-services';
-import { FilterType } from '~shared/filters';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { UserService } from '~core/entity-services';
+import { FilterType } from '~shared/filters';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-select-dlg',
@@ -35,13 +34,12 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	@Input() initialSelectedProducts: Product[];
 	@Input() submitProducts = true;
 
-	private searchFilterElements$: Observable<any[]>;
 	private unselectedProducts: { [key: string]: Product } = {};
 	selectedProducts: { [key: string]: Product } = {};
 
 	productsCount$: Observable<number>;
-	private selectedProductsCount: number = 0;
-	private selectedAllCount: number = 15;
+	private selectedProductsCount = 0;
+	private selectedAllCount = 15;
 
 	filtersPanelOpened = false;
 
@@ -62,9 +60,9 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});
-		
+
 		this.initialSelection();
-		
+
 		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
@@ -82,21 +80,21 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
 	loadNextPage() {
 		this.listSrv.loadNextPage();
-		setTimeout(_ => this.initialSelection());		
+		setTimeout(_ => this.initialSelection());
 	}
 
 	loadPreviousPage() {
 		this.listSrv.loadPreviousPage();
 		setTimeout(_ => this.initialSelection());
 	}
-		
+
 	private initialSelection() {
 		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
 			this.selectedProductsCount = this.initialSelectedProducts.length;
 
 			this.listSrv.selectAll(this.initialSelectedProducts.map(product => {
 				this.selectedProducts[product.id] = product;
-				
+
 				return ({ id: product.id });
 			}));
 		}
@@ -117,7 +115,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemSelected(entity: any) {
-		this.selectedProducts[entity.id] = entity;		
+		this.selectedProducts[entity.id] = entity;
 		delete this.unselectedProducts[entity.id];
 		this.listSrv.selectionSrv.selectOne(entity, false);
 		this.selectedProductsCount++;
@@ -127,7 +125,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		this.unselectedProducts[entity.id] = entity;
 		delete this.selectedProducts[entity.id];
 		this.listSrv.selectionSrv.unselectOne(entity, false);
-		this.selectedProductsCount--;		
+		this.selectedProductsCount--;
 	}
 
 	onSelectAll(entities: any[]) {
@@ -147,7 +145,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
 		this.unselectedProducts = Object.assign({}, this.selectedProducts);
 		this.selectedProducts = {};
-		
+
 		this.selectedProductsCount -= this.selectedAllCount;
 	}
 
@@ -155,7 +153,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		const selectedProducts = Object.values(this.selectedProducts);
 		const unselectedProducts = Object.values(this.unselectedProducts);
 		const data = { selectedProducts, unselectedProducts };
-		
+
 		this.dlgSrv.close({
 			type: CloseEventType.OK,
 			data

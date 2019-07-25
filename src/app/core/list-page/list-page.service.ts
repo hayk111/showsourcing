@@ -66,7 +66,7 @@ export class ListPageService
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
 			// getting back the services from their map
-			this.initServices(config.key || '')
+			this.initServices(config.key || '');
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
@@ -105,14 +105,14 @@ export class ListPageService
 			this.selectionSrv = new SelectionWithFavoriteService();
 			this.viewSrv = new ListPageViewService<T>(this.router);
 			this.dataSrv = new ListPageDataService<T, G>();
-	
+
 			if (key) {
 				selectionSrvMap.set(key, this.selectionSrv);
 				viewSrvMap.set(key, this.viewSrv);
 				dataSrvMap.set(key, this.dataSrv);
 			}
 		}
-		
+
 	}
 
 	/** Here we are gonna bridge the functions from the other services */
