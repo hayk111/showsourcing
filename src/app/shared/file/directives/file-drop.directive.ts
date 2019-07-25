@@ -16,7 +16,6 @@ export class FileDropDirective {
 
 	@HostListener('drop', ['$event'])
 	onFileDrop(event) {
-		debugger
 		// If dropped items aren't files, reject them
 		event.preventDefault();
 		const dt = event.dataTransfer;
