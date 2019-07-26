@@ -1,5 +1,6 @@
 export class AuthFormElement {
 	label?: string;
+	value?: string;
 	type?: 'email' | 'password' | 'username' | 'tel' | 'text';
 	name?: string;
 	isRequired?: boolean;
