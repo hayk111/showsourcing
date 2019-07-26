@@ -13,9 +13,7 @@
 
 	<a class="first-uppercase" [routerLink]="['/workspace']" routerLinkActive="selected" i18n="@@workspace">workspace</a>
 
-	<a [routerLink]="['/request']" routerLinkActive="selected">
-		<div class="first-uppercase" notifBadge [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null" i18n="@@requests">requests</div>
-	</a>
+	<a class="first-uppercase" [routerLink]="['/request']" routerLinkActive="selected" i18n="@@requests">requests</a>
 
   <!-- we don't want those links in production... -->
   <a
