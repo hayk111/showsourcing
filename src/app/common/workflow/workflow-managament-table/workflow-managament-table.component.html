@@ -13,7 +13,7 @@
 </div>
 
 <div class="list" cdkDropList (cdkDropListDropped)="onDrop($event)">
-	<div class="box" *ngFor="let status of statuses; let last = last" cdkDrag [cdkDragDisabled]="status?.step === 0" >
+	<div class="box" *ngFor="let status of statuses; let last = last; trackBy: trackByFn" cdkDrag [cdkDragDisabled]="status?.step === 0" >
 		<!-- placeholder -->
 		<div class="bg-primary custom-placeholder" *cdkDragPlaceholder></div>
 		<!-- no border -->
@@ -49,7 +49,7 @@
 							<div> <icon-app name="caret-down"></icon-app> </div>
 						</div>
 					</context-menu-trigger-app>
-					<context-menu-item-app *ngFor="let category of categories" (click)="update.emit([{ id: status.id, category: category.name }])">
+					<context-menu-item-app *ngFor="let category of categories; trackBy: trackByCategoryFn" (click)="update.emit([{ id: status.id, category: category.name }])">
 						{{ category?.name | const: 'statusCategory' }}
 					</context-menu-item-app>
 				</context-menu-app>

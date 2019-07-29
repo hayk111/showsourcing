@@ -1,5 +1,5 @@
 <div class="list-container">
-	<div *ngFor="let product of products" class="list-item flexBetween">
+	<div *ngFor="let product of products; trackBy: trackByFn" class="list-item flexBetween">
 		<div class="flex">
 			<img-app
 				[image]="product?.images?.length ? product?.images[0] : null"

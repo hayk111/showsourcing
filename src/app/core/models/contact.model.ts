@@ -11,7 +11,7 @@ export class Contact extends EntityWithAudit<ContactConfig> {
 	supplier?: Supplier;
 	company?: string;
 	deleted?: boolean;
-	__typename?= 'Contact';
+	__typename ?= 'Contact';
 
 	constructor(config: ContactConfig) {
 		super(config);

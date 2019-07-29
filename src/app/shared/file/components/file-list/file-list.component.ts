@@ -93,4 +93,8 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 			this.inpFile.nativeElement.click();
 	}
 
+	trackByFn(index, attachment) {
+		return attachment.id;
+	}
+
 }

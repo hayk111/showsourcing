@@ -81,7 +81,7 @@
 			</ng-container>
 
 		<ng-container *ngSwitchCase="erm.PICKER_FIELD">
-			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
+			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item?.label || item?.name)"></selector-name-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="erm.COUNTRY">

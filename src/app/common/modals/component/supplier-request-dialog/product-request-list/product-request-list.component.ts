@@ -20,4 +20,9 @@ export class ProductRequestListComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	/** Trackby function for ngFor */
+	trackByFn(index, product) {
+		return product.id;
+	}
+
 }

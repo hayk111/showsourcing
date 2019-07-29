@@ -9,7 +9,7 @@ export class ExtendedField {
 	id: string;
 	definition?: ExtendedFieldDefinition;
 	value?: string;
-	__typename?= 'ExtendedField';
+	__typename ?= 'ExtendedField';
 
 	constructor(config?: ExtendedFieldConfig) {
 		Object.assign(this, config);

@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
+import { CloseEventType, CloseEvent } from '~shared/dialog';
 import {
 	CompareProductComponent,
 	CreationDialogComponent,
@@ -23,9 +26,6 @@ import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';
 
 import { ReviewRequestReplyDlgComponent } from '../component/review-request-reply-dlg/review-request-reply-dlg.component';
-import { filter, map } from 'rxjs/operators';
-import { CloseEventType, CloseEvent } from '~shared/dialog';
-import { Router } from '@angular/router';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
