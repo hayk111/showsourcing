@@ -39,12 +39,12 @@ Z -> Minor bug-fix changes
 
 ## Protected branches
 We have 2 protected branches:
-- Master: latest stable version of the web app that has been pushed to production, this branch should NOT be touched unless we need a [hotfix](README.md/##Hotfixes) or we are pushing a new build/deploy to production. In case of hotfix, read the section below.
+- Master: latest stable version of the web app that has been pushed to production, this branch should NOT be touched unless we need a [hotfix](#hotfixes) or we are pushing a new build/deploy to production. In case of hotfix, read the section below.
 - Development: all new features start on this branch, only finished and reviewed features can be merged here. This branch will create the staging/app2 build/deploy.
 
 ## Methodology
 This would be the flow between branches
-![alt text](branches-flow.png)
+![branch flow](branches-flow.png)
 
 For a `feature` branch we checkout from `development`, but normally it's a heavy MR to review. After the assessment of the `feature` it is decided the size of the `feature`. If it is big we create a branch from that `feature` branch called `ticket` branch, the only purpose of this branch is to be merged on the feature branch, creating smaller PR's to review. This way its easier to keep track of the changes. e.g.
 ```
