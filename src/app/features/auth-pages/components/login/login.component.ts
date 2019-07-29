@@ -4,13 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { AuthenticationService, STORAGE_EMAIL } from '~core/auth/services/authentication.service';
+import { LocalStorageService } from '~core/local-storage';
 import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'login-app',
 	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss', '../../../../common/auth-pages/components/form-style.scss'],
+	styleUrls: ['./login.component.scss', '../../../../common/auth-pages/components/form-style.scss']
 })
 export class LoginComponent extends AutoUnsub implements OnInit {
 	pending$ = new Subject<boolean>();
@@ -24,15 +25,16 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private srv: AuthenticationService,
 		private router: Router,
-		private route: ActivatedRoute) {
-
+		private route: ActivatedRoute,
+		private localStrg: LocalStorageService
+	) {
 		super();
 	}
 
 	ngOnInit() {
 		// get return url from route parameters or default to '/'
 		this.queryParams = this.route.snapshot.queryParams || '/';
-		const email = this.queryParams.email;
+		const email = this.localStrg.getString(STORAGE_EMAIL);
 		this.listForm = [{
 			label: translate('email'),
 			value: email,
