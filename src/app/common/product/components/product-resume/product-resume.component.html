@@ -55,6 +55,7 @@
 		<preview-section-app [title]="'Tags'">
 			<input-badge-selector-app
 				[value]="product?.tags"
+				[leftSideOrientationSelector]="true"
 				type="tag"
 				[offsetX]="15"
 				(change)="update($event, 'tags')">
