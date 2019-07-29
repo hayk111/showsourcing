@@ -1,6 +1,34 @@
 # Supplier Show Sourcing Web App
 
-# Release versions
+# Table of Content
+ - Running the app
+ - Semantic version
+ - Branching system
+ - Git golden rules
+ - Other scripts
+ - File structure
+ - Style structure
+ - Before starting
+ - Entity services
+ - List page service
+ - Auto unsub
+ - Translation
+
+
+# Overview of the documentation
+The goal of this readme is to present the guidelines followed throughout the application and furnish a clear path to follow to understand the app.
+
+# Running the app
+No surprise here
+
+```
+git clone this_repo
+cd project
+npm i
+npm start
+```
+
+# Semantic version
 Each time we release a new version we must create a Tag
 X.Y.Z
 X -> Major changes release, right now we are on X=2 since this is a new app from the one that we had before.
@@ -30,6 +58,7 @@ For `bug` branches, we just use the normal system, checkout from `development` a
 
 ## Hotfixes
 Hotfixes can only happen when a blocking bug in production (master) occur live. The procedure for this is to checkout from `master` and create a new branch `hotfix/number-issue-small-description`. Once this branch has the fix ready to be merged, we have to merge it on both branches `development` and `master`. This way we prevent that master has to be merged in the future on `development`. Since `development` always has to be merged on `master` and not the other way around.
+
 # Git golden rules
 - NEVER merge `master` into `development`, `development` is merged into `master` always.
 - Try to avoid features inside features unless it's necessary. Doing a feature inside a feature means that we cannot release none of them until all of them are finished.
@@ -37,36 +66,7 @@ Hotfixes can only happen when a blocking bug in production (master) occur live. 
 - When a release has multiple hotfixes that has to be solved by more than 1 person, checkout a branch from `master` called `hotfix`, and from there checkout all the other hotfix branches, this way we do not corrupt `development` branch and we have all the changes visible on the hotfix branch. The previous rule is applied here too!.
 
 
-# Overview of the documentation
-
-The goal of this readme is to present the guidelines followed throughout the application and furnish a clear path to follow to understand the app.
-
-# Table of Content
-
- - Running the app
- - Other Scripts
- - File structure
- - Style structure
- - Before starting
- - Entity Services
- - List Page Service
- - Auto Unsub
- - Translation
-
-
-# Running the app
-
-No surprise here
-
-```
-git clone this_repo
-cd project
-npm i
-npm start
-```
-
 ## Other Scripts
-
 For an up-to-date version of the scripts just open package.json and those figure in the `script` part.
 
 You can run every script with `npm run`, for example `npm run start`.
@@ -80,7 +80,6 @@ You can run every script with `npm run`, for example `npm run start`.
 
 
 # File Structure & guidelines
-
 At the root of src/app we have
 
  ```
@@ -110,7 +109,6 @@ In each module the division of the file structure is with those folders (each on
 ```
 
 # Style Structure
-
 The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs. Inside this file we import some core styling files:
 
 - `elevation.scss`: is a somewhat simplified version of the file in angular material design.
@@ -127,12 +125,10 @@ Some scss files are based on google material design guidelinds. For instance `el
 - h1..h5: We have default sizes for each header, so we use the same headers around the app. By default there is no `margin-bottom` but in case it wants to be added, you just have to give the class `xs, s, m, l...` to the element (these classes are defined on `typography.scss`).
 
 # Before starting
-
 To have a smooth time understanding the app, two big features have to be understood first.
 The Entity Services and the ListPageService. Those will be described below
 
 # Entity Services
-
 When accessing the db for an entity we use its entity service. For example if we want to access the ProductVotes in the database we will use `ProductVoteService`. If you open the file you'll notice the file is quite empty, the class `ProductVoteService` merely extends GlobalService that does the heavy lifting.
 
 So At the base of the data business logic we have a bunch of entity service that provide CRUD
@@ -145,7 +141,6 @@ There is one special method that is `getListQuery` that return a `ListQuery`
 that can be used for `refetching`, `loadMore`, etc...
 
 ## To Subscribe or not to unsubscribe, that is the question
-
 All the methods except the ones that retrieve data use `first()` as rxjs pipe.
 That means that you don't have to worry about unsubscribing and things like this are
 perfectly valid without ever unsubscribing:
@@ -155,7 +150,6 @@ perfectly valid without ever unsubscribing:
 ```
 
 ## Updating Subentity
-
 When a subentity is updated it has to be by making a new one. Example:
 
 ```
@@ -179,7 +173,6 @@ We don't have to do it for the root entity because the global service automatica
 it himself.
 
 ## Under the hood
-
 Understanding what's under the hood is not important to understand the rest of the application. However the following can be interesting if there is a need for debugging.
 Entity services extend `GlobalService` that adds crud operations, and more. It will do heavy logging and do some other behind the scene work. To do the querying automatically it uses the `QueryBuilder`.
 
@@ -187,7 +180,6 @@ To understand more about it you'll have to check the implementation.
 
 
 ## QueryBuilder
-
 The query builder create graphQL queries.
 
 ```
@@ -208,7 +200,6 @@ The content of the queryOne method in query builder is simple to understand, it 
 ```
 
 ## GlobalQueries
-
 The `GlobalQuery` class is really simple as it is supposed to be extended.
 
 ```
@@ -233,19 +224,16 @@ It will basically make the application request for a `name` and a `description` 
 
 
 # List Page Service
-
 List and tables are used extensively in the application. We have a service that deals with
 most of the logic for those lists. This service is called `ListPageService`. To understand this app it's paramount that one understand that first.
 
 
 # AutoUnsub
-
 To prevent memory leaks, components which are using observables should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables when the component is destroyed.
 The AutoUnsub class should be used as a standard app wise.
 
 
 # Translation
-
 (13/06/1) by Michael
 
 [Documentation on xliffmerge](https://github.com/martinroob/ngx-i18nsupport)
@@ -294,11 +282,11 @@ In each `messages.lang.xlf` we have 3 different types of target. When we transla
 <target state='translated'>Bonjour</target> 'translated' indicates that it has been translated
 ```
 locale name by default is english since we always translate english to another language`ng xi18n --i18nLocale LOCALE_NAME --outFile NAMEOFFILE.xlf --outputPath locale`
+
 # Refactor List
 - Status selector updates, not inside the component but above. `<status-selector-app (updateStatus)="update({id: entity.id, status: $event })>`
 
 # Apollo Cache wonkyness
-
 Sometimes apollo cache bugs can be pretty fucking hard to debug. One instance for example is something around the lines of
 `an object with this primary key was provided but already exists in the store`, this usually happens when the store cannot find something because the `__typename` wasn't specified.
 
@@ -307,7 +295,7 @@ Another weird bug is when you update something but the optimistic ui is not trig
 Sometimes this can be the cause:
 
 You query products : `{ id, supplier { id, name, categories }}` and update the supplier with `{ id, name }`.
-Apollo might fail to make the optimistic UI work in this instance because the update value of the supplier isn't the same as the queried one. A fix would be to update with  `{ id, name, categories }` or just quiery `{ id, name }`
+Apollo might fail to make the optimistic UI work in this instance because the update value of the supplier isn't the same as the queried one. A fix would be to update with  `{ id, name, categories }` or just query `{ id, name }`
 
 # Important sneaky hotfix to consider
 This section contains tricky/sneaky fixes for the app, that are abit confusing and can make the app be a bit more complex in some occasions
