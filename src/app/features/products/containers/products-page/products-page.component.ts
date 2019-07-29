@@ -8,7 +8,6 @@ import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
-import { Router } from '@angular/router';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 // dailah lama goes into pizza store
@@ -43,7 +42,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	productsCount$: Observable<number>;
 
 	constructor(
-		private router: Router,
 		private dlgSrv: DialogService,
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,

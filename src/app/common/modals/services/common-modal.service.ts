@@ -7,23 +7,24 @@ import {
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	VoteDetailsDialogComponent,
-	MassEditDlgComponent,
 	RefuseReplyDlgComponent,
 	CreationProductDlgComponent,
 	CreationTaskDlgComponent,
 	ProductSelectDlgComponent,
 } from '~common/modals/component';
-import { EntityMetadata, Product, ProductVote, Project, Supplier, ERM } from '~models';
 
+import { EntityMetadata, ERM, Product, ProductVote, Supplier } from '~models';
+import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';
-import { CloseEventType, CloseEvent } from '~shared/dialog';
+
 import { ReviewRequestReplyDlgComponent } from '../component/review-request-reply-dlg/review-request-reply-dlg.component';
 
 /**

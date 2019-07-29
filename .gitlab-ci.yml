@@ -2,8 +2,8 @@
 image: cedvdb/ss-gitlab-pipeline-docker
 stages:
   - install
-  - test
   - build
+  - test
   - staging
   - deploy
 
