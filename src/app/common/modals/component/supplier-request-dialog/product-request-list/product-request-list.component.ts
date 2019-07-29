@@ -13,6 +13,7 @@ export class ProductRequestListComponent implements OnInit {
 	@Input() products: Product[];
 	@Output() update = new EventEmitter<Product[]>();
 	@Output() remove = new EventEmitter<ID>();
+	@Output() addProduct = new EventEmitter<void>();
 
 	constructor() { }
 

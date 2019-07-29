@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
-import { CommonModalService, SupplierRequestDialogComponent } from '~common/modals';
+import { CommonModalService } from '~common/modals';
 import { SampleService, UserService, TaskService, SupplierRequestService, RequestElementService } from '~core/entity-services';
 import { ProductFeatureService } from '~features/products/services';
 import { Attachment, ERM, Product, Project } from '~models';
@@ -11,6 +11,7 @@ import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, log, translate } from '~utils';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 @Component({
 	selector: 'product-details-app',

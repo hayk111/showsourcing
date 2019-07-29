@@ -10,6 +10,8 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { access } from 'fs';
+import { Product } from '~models';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 @Component({
 	selector: 'request-page-app',
@@ -72,6 +74,10 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 			switchMap(_ => this.replySrv.updateMany(items)),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe(_ => this.listSrv.unselectAll());
+	}
+
+	onOpenCreateRequestDlg(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
 }

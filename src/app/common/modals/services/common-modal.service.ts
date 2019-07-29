@@ -4,23 +4,22 @@ import { filter, map } from 'rxjs/operators';
 import {
 	CompareProductComponent,
 	CreationDialogComponent,
-	CreationProductDlgComponent,
-	CreationTaskDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
-	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	RefuseReplyDlgComponent,
-	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
+	MassEditDlgComponent,
+	RefuseReplyDlgComponent,
+	CreationProductDlgComponent,
+	CreationTaskDlgComponent,
+	ProductSelectDlgComponent,
 } from '~common/modals/component';
-import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { EntityMetadata, ERM, Product, ProductVote, Project, Supplier } from '~models';
-import { CloseEvent, CloseEventType } from '~shared/dialog';
+import { EntityMetadata, Product, ProductVote, Project, Supplier, ERM } from '~models';
+
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';
@@ -68,9 +67,10 @@ export class CommonModalService {
 		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
 	}
 
-	openFindProductDlg(initialSelectedProducts: Product[], project: Project) {
-		return this.dlgSrv.open(FindProductsDialogComponent, {
-			initialSelectedProducts, project
+	openSelectProductDlg(initialSelectedProducts?: Product[], submitProducts = true) {
+		return this.dlgSrv.open(ProductSelectDlgComponent, {
+			initialSelectedProducts,
+			submitProducts
 		});
 	}
 
@@ -80,10 +80,6 @@ export class CommonModalService {
 
 	openConfirmDialog(data: { text: string }) {
 		return this.dlgSrv.open(ConfirmDialogComponent, data);
-	}
-
-	openSupplierRequest(products: Product[]) {
-		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
 	openMergeDialog(data: { type: any, entities: any[] }) {
