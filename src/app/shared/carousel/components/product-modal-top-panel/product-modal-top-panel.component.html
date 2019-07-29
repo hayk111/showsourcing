@@ -47,9 +47,12 @@
 					<icon-app [size]="20" name="dots-vertical"></icon-app>
 				</button>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="delete.emit()" i18n="button@@delete"
-				><span class="warning-text">Delete this Picture</span></context-menu-item-app
-			>
+				<context-menu-item-app (click)="delete.emit()" i18n="button@@delete">
+					<span class="warning-text">Delete this Picture</span>
+				</context-menu-item-app>
+				<context-menu-item-app (click)="openFileBrowser.emit()" i18n="button@@upload-picture">
+					<span>Upload Picture</span>
+				</context-menu-item-app>
 		</context-menu-app>
 		<divider-app [vertical]="true"></divider-app>
 		<div class="close flexCenter pointer" (click)="close.emit()">
