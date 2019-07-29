@@ -47,7 +47,7 @@
 <ng-template #switchType let-item="item">
 	<ng-container [ngSwitch]="type">
 		<ng-container *ngSwitchCase="erm.USER.singular">
-			{{ item | formatUserName }}
+			{{ item | formatUserName: true }}
 		</ng-container>
 		<ng-container *ngSwitchCase="erm.EVENT.singular">
 			{{ item?.descriptor?.name }}

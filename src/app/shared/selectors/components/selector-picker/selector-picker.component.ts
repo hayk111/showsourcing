@@ -29,15 +29,18 @@ import { RegexpApp } from '~utils';
 
 export interface PickerField {
 	name: string;
-	type: string; // TODO when merge with supplier-connect, try make a type, with the different types
-	attribute?: string; // if the name is different than the attribute name e.g. moq != minimunOrderQuantity
+	type: string;
+	label?: string; // if the name do not coincide with the label that we want e.g. moq != minimunOrderQuantity
 	metadata?: PickerFieldMetadata;
 }
 
 export interface PickerFieldMetadata {
 	multiple?: boolean;
 	canCreate?: boolean;
-	ermName?: string;
+	target?: string;
+	hasBadge?: boolean;
+	width?: number;
+	placeholder?: string;
 }
 
 @Component({

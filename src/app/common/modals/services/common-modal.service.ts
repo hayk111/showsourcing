@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 import {
 	CompareProductComponent,
 	CreationDialogComponent,
+	CreationProductDlgComponent,
+	CreationTaskDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	RefuseReplyDlgComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
-	MassEditDlgComponent,
-	RefuseReplyDlgComponent,
-	CreationProductDlgComponent,
-	CreationTaskDlgComponent,
 } from '~common/modals/component';
 import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { EntityMetadata, Product, ProductVote, Project, Supplier, ERM } from '~models';
+import { EntityMetadata, ERM, Product, ProductVote, Project, Supplier } from '~models';
+import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';
 
 import { ReviewRequestReplyDlgComponent } from '../component/review-request-reply-dlg/review-request-reply-dlg.component';
-import { filter, map } from 'rxjs/operators';
-import { CloseEventType, CloseEvent } from '~shared/dialog';
-import { Router } from '@angular/router';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
