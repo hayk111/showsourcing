@@ -7,6 +7,7 @@ import {
 	ImagePreviewer2Component,
 	ImageReviewerComponent,
 	ModalCarouselComponent,
+	PreviewTopPanelComponent,
 } from '~shared/carousel/components';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { FileModule } from '~shared/file/file.module';
@@ -17,6 +18,8 @@ import { LoadersModule } from '~shared/loaders/loaders.module';
 import { RatingModule } from '~shared/rating';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils';
+import { PriceModule } from '~shared/price';
+import { DividerModule } from '~shared/divider/divider.module';
 
 @NgModule({
 	imports: [
@@ -31,19 +34,23 @@ import { UtilsModule } from '~shared/utils';
 		SelectorsModule,
 		OverlayModule,
 		InputsModule,
-		UtilsModule
+		UtilsModule,
+		PriceModule,
+		DividerModule,
 	],
 	declarations: [
 		CarouselComponent,
 		ImagePreviewer2Component,
 		ImageReviewerComponent,
 		ModalCarouselComponent,
+		PreviewTopPanelComponent,
 	],
 	exports: [
 		CarouselComponent,
 		ImagePreviewer2Component,
 		ImageReviewerComponent,
 		ModalCarouselComponent,
-	],
+		PreviewTopPanelComponent,
+	]
 })
 export class CarouselModule { }
