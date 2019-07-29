@@ -1,10 +1,7 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableComponent } from './table.component';
 import { TableModule } from '../../table.module';
 import { By } from '@angular/platform-browser';
-import { ListViewComponent } from '~core/list-page';
-import { ID, uuid } from '~utils';
 
 describe('TableComponent', () => {
 	let tableComponent: TableComponent;
@@ -16,16 +13,6 @@ describe('TableComponent', () => {
 		});
 
 	});
-
-	// beforeEach(() => {
-	// 	fixture = TestBed.createComponent(TableComponent);
-	// 	tableComponent = fixture.componentInstance;
-	// 	fixture.detectChanges();
-	// });
-
-	// afterEach(async() => {
-	// 	fixture.destroy();
-	// });
 
 	it('should create TableComponent', () => {
 		fixture = TestBed.createComponent(TableComponent);

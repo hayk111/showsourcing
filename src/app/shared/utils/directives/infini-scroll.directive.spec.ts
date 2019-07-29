@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 
 @Component({
 	template: `
-	<div infiniScroll style="max-height: 200px; border: 1px solid"
+	<div infiniScroll style="max-height: 200px; border: 1px solid; visibility: hidden;"
 	(bottomReached)="bottomReachedFnc()" (topReached)="topReachedFnc()">
 		<div *ngFor="let item of [0,1,2,3,4,5]; trackBy: index;">
 			<div style="height: 75px">{{item}}</div>
