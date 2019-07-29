@@ -1,6 +1,7 @@
 <div class="container">
 
 	<task-list-app
+		[filterList]="listSrv.filterList"
 		[tasks]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
 		[hasProduct]="true"

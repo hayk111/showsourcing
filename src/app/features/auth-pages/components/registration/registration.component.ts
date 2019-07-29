@@ -32,6 +32,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.queryParams = this.route.snapshot.queryParams || '/';
+		const email = this.queryParams.email;
 
 		this.listForm = [{
 			label: translate('First Name'),
@@ -51,6 +52,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 			validators: [Validators.required]
 		}, {
 			label: translate('email'),
+			value: email,
 			type: 'email',
 			name: 'email',
 			isRequired: true,
