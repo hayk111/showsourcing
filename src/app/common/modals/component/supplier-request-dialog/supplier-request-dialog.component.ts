@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges, AfterViewChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
@@ -11,16 +11,21 @@ import {
 	TemplateMngmtDlgComponent,
 } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
 import { ID, translate } from '~utils';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { ProductService } from '~entity-services';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
 	templateUrl: './supplier-request-dialog.component.html',
 	styleUrls: ['./supplier-request-dialog.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [ListPageService]
 })
-export class SupplierRequestDialogComponent implements OnInit {
+export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked {
 
 	private _request: CreateRequest;
 	@Input() set request(request: CreateRequest) {
@@ -60,7 +65,11 @@ export class SupplierRequestDialogComponent implements OnInit {
 		private contactSrv: ContactService,
 		private notifSrv: NotificationService,
 		private userSrv: UserService,
-		private requestTemplateSrv: RequestTemplateService
+		private requestTemplateSrv: RequestTemplateService,
+		private productSrv: ProductService,
+		private cd: ChangeDetectorRef,
+		private commonModalService: CommonModalService,
+		public listSrv: ListPageService<Product, ProductService>,
 	) {
 		this.form = this.fb.group({
 			products: ['', Validators.required],
@@ -82,6 +91,10 @@ export class SupplierRequestDialogComponent implements OnInit {
 		);
 		if (!this.fromTemplateDlg)
 			this.initFormValues();
+	}
+
+	ngAfterViewChecked() {
+		this.cd.detectChanges();
 	}
 
 	private initFormValues() {
@@ -191,6 +204,24 @@ export class SupplierRequestDialogComponent implements OnInit {
 				.update({ id: contact.id, supplier: { id: this.supplier.id } })
 				.subscribe(_ => this.form.patchValue(this.request));
 		}
+	}
+
+	addProduct(ev: any) {
+		this.productSrv.selectedProds$.subscribe((products: Product[]) => {
+			products.forEach((product: Product) => {
+				if (this._products.filter((p: Product) => p.id === product.id).length === 0) {
+					this._products.push(product);
+				}
+			});
+
+			setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products }));
+		});
+
+		setTimeout(_ => {
+			this.commonModalService.openSelectProductDlg([], false).pipe(
+				switchMap(_ => this.listSrv.refetch())
+			).subscribe();
+		});
 	}
 
 	removeProduct(id: ID) {

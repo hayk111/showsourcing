@@ -37,4 +37,8 @@ export class PreviewBadgesComponent extends TrackingComponent implements OnInit 
 		return this.elem ? - this.elem.elem.nativeElement.offsetWidth + 395 : 0;
 	}
 
+	/** Trackby function for ngFor */
+	trackByFn(index, category) {
+		return category.key;
+	}
 }

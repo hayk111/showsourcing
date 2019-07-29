@@ -1,41 +1,135 @@
+# run comment 
 image: cedvdb/ss-gitlab-pipeline-docker
 stages:
   - install
   - build
+  - test
   - staging
   - deploy
 
+# install
 app-install:
   stage: install
+  allow_failure: false
   script:
     - npm install
     - npm install --save-dev --unsafe-perm node-sass # avoid sass errors
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+  only:
+    changes:
+      - package-lock.json
+
+# tests
+app-test:karma:
+  stage: test
+  image: trion/ng-cli-karma
+  allow_failure: false
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - ng test --code-coverage --progress false --watch false
+  coverage: '/Lines \W+: (\d+\.\d+)%.*/'
   artifacts:
     paths:
-      - node_modules
-  only:
-    - run-gitlab-install # we have to push to this branch if we want the cache to have the latest dependencies
+      - coverage/
 
-# dev deployment
-app-deploy-dev:
-  stage: deploy
+app-test:e2e:
+  stage: test
+  image: trion/ng-cli-e2e
+  allow_failure: false
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - ng e2e
+
+
+app-test:lint:
+  stage: test
+  image: trion/ng-cli
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+    policy: pull
+  allow_failure: true
+  script:
+    - ng lint
+
+# build
+app-build-dev:
+  stage: build
+  allow_failure: false
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+    policy: pull
   script:
     - npm run build:dev
+  artifacts:
+    paths:
+      - dist
+
+app-build-sta:
+  stage: build
+  allow_failure: false
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - npm run build:prod
+  artifacts:
+    paths:
+      - dist
+  only:
+    - master
+
+# deployment
+app-deploy-dev:
+  image: cedvdb/ss-gitlab-pipeline-docker
+  stage: deploy
+  when: manual
+  allow_failure: false
+  script:
     - cd dist/showsourcing
     - aws s3 sync . s3://app-dev.showsourcing.com --delete
     - aws s3 cp s3://app-dev.showsourcing.com/index.html s3://app-dev.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
   only:
     - development
+    - unit-testing-is-a-thang
 
-# sta deployment
+
 app-deploy-sta:
   stage: deploy
+  allow_failure: false
+  when: manual
   script:
-    - npm run build:sta
     - cd dist/showsourcing
     - aws s3 sync . s3://app-sta.showsourcing.com --delete
     - aws s3 cp s3://app-sta.showsourcing.com/index.html s3://app-sta.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
   only:
-    - staging
+    - master
 
-    
+app-deploy-prod:
+  stage: deploy
+  allow_failure: false
+  when: manual
+  script:
+    - cd dist/showsourcing
+    - aws s3 sync . s3://app.showsourcing.com --delete
+    - aws s3 cp s3://app.showsourcing.com/index.html s3://app.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
+  only:
+    - master
+
+

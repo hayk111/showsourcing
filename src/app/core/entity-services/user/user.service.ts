@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, shareReplay, switchMap, filter, publishReplay, first } from 'rxjs/operators';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { GlobalService } from '~entity-services/_global/global.service';
-import { UserQueries } from '~entity-services/user/user.queries';
-import { User } from '~models';
+import { distinctUntilChanged, filter, shareReplay, switchMap } from 'rxjs/operators';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { AnalyticsService } from '~core/analytics/analytics.service';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { UserQueries } from '~entity-services/user/user.queries';
+import { GlobalService } from '~entity-services/_global/global.service';
+import { User } from '~models';
 
 @Injectable({
 	providedIn: 'root',
@@ -21,7 +21,7 @@ export class UserService extends GlobalService<User> {
 	);
 	userSync: User;
 	userId: string;
-	defaultClient = Client.USER;
+	defaultClient = Client.CENTRAL;
 
 	constructor(
 		private authSrv: AuthenticationService,

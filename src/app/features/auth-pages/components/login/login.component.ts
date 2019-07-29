@@ -32,8 +32,10 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// get return url from route parameters or default to '/'
 		this.queryParams = this.route.snapshot.queryParams || '/';
+		const email = this.queryParams.email;
 		this.listForm = [{
 			label: translate('email'),
+			value: email,
 			type: 'email',
 			name: 'login',
 			isRequired: true,

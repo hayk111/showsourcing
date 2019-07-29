@@ -4,9 +4,9 @@
 		[ngStyle]="{'padding-top': hasLabel ? 'inherit' : '0px'}"
 		[hasLabel]="hasLabel"
 		[inlineLabel]="false"
-		(closed)="updateDescription($event, inpDescription.value);"
+		(closed)="updateDescription($event, inpDescription.value)"
 		(clickOutside)="adaptSize()"
-		(opened)="inpDescription.select();"
+		(opened)="inpDescription.select()"
 		[canGrow]="true"
 		(click)="openDescModal()">
 		<label-app class="capitalize" i18n="text@@description">description</label-app>

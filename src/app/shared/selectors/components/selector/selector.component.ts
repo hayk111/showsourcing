@@ -44,6 +44,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() pickerFields: PickerField[];
 	// we use it only if we have to initialize the selector with a search
 	@Input() searchTxt = '';
+	// wheter the selector opens to the most right side or the most left side
+	@Input() leftSideOrientation = false;
 
 	@Output() update = new EventEmitter<any>();
 

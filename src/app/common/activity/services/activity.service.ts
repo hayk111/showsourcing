@@ -31,7 +31,7 @@ export class ActivityService {
 		private teamSrv: TeamService,
 		private tokenSrv: TokenService
 	) {
-		this.client = getstream.connect(environment.getStreamKey, null, '39385');
+		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
 	}
 
 	getDashboardFeed(): GroupedActivityFeed {

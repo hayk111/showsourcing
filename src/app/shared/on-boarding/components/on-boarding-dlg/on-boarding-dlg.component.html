@@ -11,12 +11,12 @@
       <div class="flexBetween actions">
         <button [disabled]="isFirst()" (click)="back()" class="secondary">Previous</button>
         <div class="flex">
-          <div *ngFor="let screen of onboardingSrv.screens; let i = index"
+          <div *ngFor="let screen of onboardingSrv.screens; let i = index; trackBy: trackByFn"
           class="circle"
           [ngClass]="{ 'selected': onboardingSrv.currentIndex === i }"></div>
         </div>
-        <button *ngIf="!isLast()" (click)="next()">Next</button>
-        <button *ngIf="isLast()" class="success" (click)="complete()">Finish</button>
+        <button id="dlgNext" *ngIf="!isLast()" (click)="next()">Next</button>
+        <button id="dlgSuccess" *ngIf="isLast()" class="success" (click)="complete()">Finish</button>
       </div>
     </div>
   </div>

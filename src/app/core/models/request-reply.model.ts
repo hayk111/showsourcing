@@ -23,7 +23,7 @@ export class RequestReply {
 	fields?: ExtendedField[];
 	images?: AppImage[];
 	attachments?: Attachment[];
-	__typename?= 'RequestReply';
+	__typename ?= 'RequestReply';
 
 	constructor(config: RequestReplyConfig) {
 		Object.assign(this, config);

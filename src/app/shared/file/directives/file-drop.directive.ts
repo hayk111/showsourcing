@@ -1,4 +1,4 @@
-import { Directive, HostListener, Output, HostBinding, EventEmitter } from '@angular/core';
+import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 
 
 
@@ -20,6 +20,7 @@ export class FileDropDirective {
 		event.preventDefault();
 		const dt = event.dataTransfer;
 		let files = [];
+		// when drag and droping an image from the page only dataTransfer.item is set, not dataTransfer.files
 		if (dt.items) {
 			// Use DataTransferItemList interface to access the file(s)
 			for (let i = 0; i < dt.items.length; i++) {
@@ -32,7 +33,9 @@ export class FileDropDirective {
 			files = dt.files;
 		}
 		event.preventDefault();
-		this.fileDrop.emit(files);
+		if (files.length > 0) {
+			this.fileDrop.emit(files);
+		}
 	}
 
 }

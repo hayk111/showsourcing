@@ -17,7 +17,7 @@ export class ExportRequest implements ExportRequestConfig {
 	errors: string[];
 	creationDate: string;
 	createdBy: User;
-	__typename?= 'ExportRequest';
+	__typename ?= 'ExportRequest';
 
 	constructor(config: ExportRequestConfig) {
 		Object.assign(this, config);

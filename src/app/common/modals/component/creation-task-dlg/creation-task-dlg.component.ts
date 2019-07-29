@@ -20,7 +20,7 @@ export class CreationTaskDlgComponent implements OnInit {
 	@Input() supplier: Supplier;
 
 	dynamicFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: translate('name'), placeholder: translate('Task name'), },
+		{ name: 'name', type: 'text', required: true, label: translate('name'), metadata: { placeholder: translate('Task name') } },
 		{
 			name: 'assignee',
 			type: 'selector',
@@ -35,7 +35,7 @@ export class CreationTaskDlgComponent implements OnInit {
 			}
 		},
 		{ name: 'dueDate', type: 'date', label: translate('due date') },
-		{ name: 'description', type: 'textarea', label: translate('Description'), metadata:  { rows: 5 } },
+		{ name: 'description', type: 'textarea', label: translate('Description'), metadata: { rows: 5 } },
 		{
 			name: 'product',
 			type: 'selector',
@@ -76,8 +76,8 @@ export class CreationTaskDlgComponent implements OnInit {
 		if (!this.task) {
 			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
 			this.task = new Task({
-				...this.product && {product: {id: this.product.id, name: this.product.name}},
-				...supplier && {supplier: {id: supplier.id, name: supplier.name}}
+				...this.product && { product: { id: this.product.id, name: this.product.name } },
+				...supplier && { supplier: { id: supplier.id, name: supplier.name } }
 			});
 		}
 	}
@@ -86,11 +86,11 @@ export class CreationTaskDlgComponent implements OnInit {
 		this.task = { ...this.task, ...task };
 	}
 
-	save ()  {
+	save() {
 		if (this.task && this.task.name) {
 			this.taskSrv.create(this.task).subscribe(task => {
 				if (this.createAnother) {
-					this.dlgSrv.open(CreationTaskDlgComponent, { task: { ...this.task, name: '', description: ''} });
+					this.dlgSrv.open(CreationTaskDlgComponent, { task: { ...this.task, name: '', description: '' } });
 				} else {
 					this.close();
 				}
@@ -100,13 +100,13 @@ export class CreationTaskDlgComponent implements OnInit {
 					message: 'Your task has been created with success'
 				});
 			},
-			err => {
-				this.notifSrv.add({
-					type: NotificationType.ERROR,
-					title: `Task created`,
-					message: 'Your task could not been created'
+				err => {
+					this.notifSrv.add({
+						type: NotificationType.ERROR,
+						title: `Task created`,
+						message: 'Your task could not been created'
+					});
 				});
-			});
 		}
 	}
 	cancel() {

@@ -82,4 +82,13 @@ export class FilterBtnListComponent {
 				return filter.entity.name;
 		}
 	}
+
+	trackByFn(index, filter) {
+		return filter.value;
+	}
+
+
+	trackByFiltersFn(index) {
+		return index;
+	}
 }
