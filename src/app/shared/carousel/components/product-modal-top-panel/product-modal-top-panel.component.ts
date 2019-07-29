@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '~models/product.model';
 import { ERM } from '~models/_erm.enum';
-import { AttachmentService } from '~core/entity-services';
 
 @Component({
 	selector: 'product-modal-top-panel',
@@ -16,7 +15,7 @@ export class PreviewTopPanelComponent implements OnInit {
 	@Output () close = new EventEmitter<any>();
 	productEntity = ERM.PRODUCT;
 
-	constructor(private attachmentSrv: AttachmentService) { }
+	constructor() { }
 
 	ngOnInit() {
 	}

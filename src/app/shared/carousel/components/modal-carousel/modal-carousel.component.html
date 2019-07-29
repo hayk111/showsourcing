@@ -3,7 +3,7 @@
 
 <cdk-overlay-app [trigger]="trigger" [isOpen]="isOpen" (clickOutside)="close()">
 	<div class="modal">
-			<ng-container [ngSwitch]="entity.__typename">
+			<ng-container [ngSwitch]="entity?.__typename">
 				<product-modal-top-panel
 					*ngSwitchCase="'Product'"
 					[product]="entity"
