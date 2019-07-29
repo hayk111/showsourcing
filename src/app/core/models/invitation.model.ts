@@ -8,6 +8,7 @@ export class Invitation {
 	inviter: User;
 	accessType: string;
 	status: string;
+	teamId: string;
 	__typename ?= 'Invitation';
 
 	constructor(config?: InvitationConfig) {

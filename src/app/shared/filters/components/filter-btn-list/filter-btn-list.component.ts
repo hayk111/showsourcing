@@ -87,7 +87,8 @@ export class FilterBtnListComponent {
 		return filter.value;
 	}
 
-	trackByFiltersFn(index, trackByFilterBtnsFn) {
+
+	trackByFiltersFn(index) {
 		return index;
 	}
 }
