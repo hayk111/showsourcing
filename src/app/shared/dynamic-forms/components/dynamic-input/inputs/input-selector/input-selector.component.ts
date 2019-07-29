@@ -79,4 +79,8 @@ export class InputSelectorComponent extends AbstractInput implements OnInit, Aft
 		this.onChange(item);
 	}
 
+	trackByFn(index, value) {
+		return index;
+	}
+
 }

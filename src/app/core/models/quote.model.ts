@@ -30,7 +30,7 @@ export class Quote {
 	samplePrice?: number;
 	supplier?: Supplier;
 
-	__typename?= 'Quote';
+	__typename ?= 'Quote';
 
 	constructor(config: QuoteConfig) {
 		Object.assign(this, config);

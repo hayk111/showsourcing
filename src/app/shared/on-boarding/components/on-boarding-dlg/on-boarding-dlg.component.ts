@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, HostListener, forwardRef, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, HostListener, forwardRef,
+	ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { OnBoardingService } from '../../services/on-boarding.service';
 
@@ -62,6 +63,11 @@ export class OnBoardingDlgComponent implements OnInit {
 
 	complete() {
 		this.onboardingSrv.complete();
+	}
+
+	/** Trackby function for ngFor */
+	trackByFn(index, screen) {
+		return screen.title;
 	}
 
 }
