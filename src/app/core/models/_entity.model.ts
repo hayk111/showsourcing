@@ -1,6 +1,5 @@
-import { uuid } from '~utils';
+import { ID, uuid } from '~utils';
 import { User } from '~models/user.model';
-import { ID } from '~utils/id.utils';
 
 export interface Entity {
 	id?: ID;

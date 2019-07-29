@@ -15,7 +15,7 @@ export class ExtendedFieldDefinition {
 	originId?: string;
 	metadata?: string;
 
-	__typename?= 'ExtendedFieldDefinition';
+	__typename ?= 'ExtendedFieldDefinition';
 
 	constructor(config?: ExtendedFieldDefinitionConfig) {
 		Object.assign(this, config);

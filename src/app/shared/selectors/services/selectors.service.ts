@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -45,7 +45,6 @@ import {
 } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { FilterList } from '~shared/filters';
-import { translate } from '~utils';
 import { countries, currencies, harbours, incoTerms } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
@@ -351,7 +350,12 @@ export class SelectorsService {
 
 	getPickerFields(fields: PickerField[]): Observable<PickerField[]> {
 		this.items$ = this.search$.pipe(
-			map(item => fields.filter(field => field.name.toLocaleLowerCase().includes(item))),
+			map(item => fields.filter(field => {
+				const isMatch = field.label ?
+					field.label.toLocaleLowerCase().includes(item) : field.name.toLocaleLowerCase().includes(item);
+				return isMatch;
+			}
+			)),
 		);
 		return this.items$;
 	}

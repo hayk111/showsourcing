@@ -123,4 +123,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	isSelected(template: RequestTemplate) {
 		return this.templateSelected.id === template.id;
 	}
+
+	trackByFn(index, item) {
+		return item.fc.key;
+	}
 }

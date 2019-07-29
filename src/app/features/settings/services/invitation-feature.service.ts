@@ -42,7 +42,7 @@ export class InvitationFeatureService extends InvitationService {
 					email,
 					inviter: { id: inviter.id },
 					accessType: 'TeamMember',
-					team: { id: this.teamSrv.selectedTeamSync.id }
+					team: { id: this.teamSrv.selectedTeamSync.id } as any
 				}));
 			}),
 			take(1)

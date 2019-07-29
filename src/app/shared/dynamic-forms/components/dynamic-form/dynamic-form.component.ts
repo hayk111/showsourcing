@@ -12,7 +12,15 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent extends TrackingComponent implements OnInit, OnChanges {
-	@Input() fields: DynamicField[];
+
+	private _fields: DynamicField[];
+	@Input() set fields(fields: DynamicField[]) {
+		this._fields = fields;
+		this.makeCols();
+	}
+	get fields() {
+		return this._fields;
+	}
 	/** value of those custom field */
 	@Input() value: any;
 	/** number of columns */

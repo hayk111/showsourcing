@@ -6,8 +6,10 @@ import { ProductService, UserService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
+import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { Router } from '@angular/router';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -18,7 +20,8 @@ import { Router } from '@angular/router';
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
-		ListPageService
+		ListPageService,
+		CommonModalService
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
@@ -41,6 +44,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	constructor(
 		private router: Router,
+		private dlgSrv: DialogService,
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
@@ -89,4 +93,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		return filters.length;
 	}
 
+	onOpenCreateRequestDlg(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	}
 }

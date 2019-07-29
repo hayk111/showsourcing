@@ -19,7 +19,8 @@
 					<product-request-list-app
 						[products]="request?.products"
 						(update)="updateProducts($event)"
-						(remove)="removeProduct($event)">
+						(remove)="removeProduct($event)"
+						(addProduct)="addProduct($event)">
 					</product-request-list-app>
 					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>

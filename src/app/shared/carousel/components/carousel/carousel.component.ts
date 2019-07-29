@@ -176,4 +176,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		this.cd.markForCheck();
 	}
 
+	/** Trackby function for ngFor */
+	trackByFn(index, image) {
+		return index;
+	}
+
 }

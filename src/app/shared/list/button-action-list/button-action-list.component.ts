@@ -17,7 +17,7 @@ export class ListActionButtonsComponent extends TrackingComponent implements OnI
 	toggleContext() {
 		this.isMenuOpened = !this.isMenuOpened;
 	}
-	
+
 	constructor() {
 		super();
 	}
