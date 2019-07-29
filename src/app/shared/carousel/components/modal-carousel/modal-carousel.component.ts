@@ -1,6 +1,6 @@
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, OnInit, OnChanges } from '@angular/core';
-import { AppImage, Product } from '~models';
+import { AppImage } from '~models';
 import {slideAnimation} from '~shared/carousel/components/animations/slide.animations'
 
 @Component({
@@ -14,7 +14,7 @@ export class ModalCarouselComponent {
 
 	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
-	@Input() product: Product;
+	@Input() entity: any;
 	@Output() indexChange = new EventEmitter<number>();
 	@Output() delete = new EventEmitter();
 	isOpen = false;

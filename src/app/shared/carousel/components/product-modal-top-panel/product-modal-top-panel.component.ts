@@ -4,9 +4,9 @@ import { ERM } from '~models/_erm.enum';
 import { AttachmentService } from '~core/entity-services';
 
 @Component({
-	selector: 'preview-top-panel-app',
-	templateUrl: './preview-top-panel.component.html',
-	styleUrls: ['./preview-top-panel.component.scss'],
+	selector: 'product-modal-top-panel',
+	templateUrl: './product-modal-top-panel.component.html',
+	styleUrls: ['./product-modal-top-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreviewTopPanelComponent implements OnInit {

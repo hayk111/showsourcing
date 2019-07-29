@@ -3,12 +3,15 @@
 
 <cdk-overlay-app [trigger]="trigger" [isOpen]="isOpen" (clickOutside)="close()">
 	<div class="modal">
-		<preview-top-panel-app
-			[product]="product"
-			(delete)="delete.emit()"
-			[selectedIndex]="selectedIndex"
-			(close)="close()"
-		></preview-top-panel-app>
+			<ng-container [ngSwitch]="entity.__typename">
+				<product-modal-top-panel
+					*ngSwitchCase="'Product'"
+					[product]="entity"
+					(delete)="delete.emit()"
+					[selectedIndex]="selectedIndex"
+					(close)="close()"
+				></product-modal-top-panel>
+			</ng-container>
 		<div (mousedown)="close()">
 			<div class="img-ctnr" [ngStyle]="{ transform: getRotation(getImg()) }">
 				<img-app

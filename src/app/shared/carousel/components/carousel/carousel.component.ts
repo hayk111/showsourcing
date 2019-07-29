@@ -13,7 +13,7 @@ import { saveAs } from 'file-saver';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { ImageService } from '~entity-services/image/image.service';
-import { AppImage, Product } from '~models';
+import { AppImage } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
@@ -32,7 +32,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** Whether images can be uploaded */
 	@Input() static = false;
-	@Input()product: Product;
 	/** size in px of the main display */
 	@Input() size = 411;
 	@Input() hasPreview = false;
