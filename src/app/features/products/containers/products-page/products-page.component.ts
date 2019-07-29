@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
@@ -43,7 +42,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	productsCount$: Observable<number>;
 
 	constructor(
-		private router: Router,
 		private dlgSrv: DialogService,
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,

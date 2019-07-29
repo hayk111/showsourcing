@@ -7,9 +7,10 @@ import { TeamClientInitializer } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
-import { InvitationUser } from '~models';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, translate } from '~utils';
+import { TeamService } from '~core/entity-services';
+import { Invitation } from '~core/models';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { AutoUnsub, translate } from '~utils';
 export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 
 	authenticated$: Observable<boolean>;
-	invitation$: Observable<InvitationUser>;
+	invitation$: Observable<Invitation>;
 	client: Client;
 	returnUrl: string;
 
@@ -44,12 +45,12 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		const invitationId = this.route.snapshot.params.id;
 		this.authenticated$ = this.authSrv.isAuthenticated$;
 		this.invitation$ = this.authenticated$.pipe(
-			switchMap(_ => this.invitationSrv.getInvitation(invitationId))
+			switchMap(_ => this.invitationSrv.queryOne(invitationId))
 		);
 		this.returnUrl = this.location.path();
 	}
 
-	accept(invitation: InvitationUser) {
+	accept(invitation: Invitation) {
 		this.hasAccepted$.next(true);
 		this.teamClient.setPending('switching team');
 		this.invitationSrv.acceptInvitation(invitation).subscribe(_ => {

@@ -2,8 +2,8 @@
 image: cedvdb/ss-gitlab-pipeline-docker
 stages:
   - install
-  - test
   - build
+  - test
   - staging
   - deploy
 
@@ -42,14 +42,13 @@ app-test:karma:
 app-test:e2e:
   stage: test
   image: trion/ng-cli-e2e
-  allow_failure: true
+  allow_failure: false
   cache: 
     key: cache_key
     paths:
       - node_modules/
     policy: pull
   script:
-    - npm install
     - ng e2e
 
 
@@ -108,6 +107,7 @@ app-deploy-dev:
     - aws s3 cp s3://app-dev.showsourcing.com/index.html s3://app-dev.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0
   only:
     - development
+    - unit-testing-is-a-thang
 
 
 app-deploy-sta:

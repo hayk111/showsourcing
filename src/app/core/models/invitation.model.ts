@@ -1,6 +1,6 @@
-import { EntityWithAudit } from '~models/_entity.model';
 import { User } from '~models/user.model';
 import { uuid } from '~utils';
+import { Team } from './team.model';
 
 export class Invitation {
 	id: string;
@@ -8,6 +8,7 @@ export class Invitation {
 	inviter: User;
 	accessType: string;
 	status: string;
+	teamId: string;
 	__typename ?= 'Invitation';
 
 	constructor(config?: InvitationConfig) {
@@ -27,6 +28,7 @@ export interface InvitationConfig {
 	inviter: User;
 	accessType?: string;
 	status?: string;
+	team?: Team;
 }
 
 export class InvitationUser {

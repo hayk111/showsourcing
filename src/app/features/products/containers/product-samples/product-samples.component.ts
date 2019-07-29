@@ -22,6 +22,7 @@ import { ProductFeatureService } from '~features/products/services';
 export class ProductSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
 	private productId: string;
 	product: Product;
+
 	constructor(
 		protected route: ActivatedRoute,
 		protected router: Router,

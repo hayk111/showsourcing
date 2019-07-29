@@ -9,7 +9,7 @@
 
 <div class="right flexCenter">
 
-	<button *ngIf="hasAction" (click)="buttonClick.emit()" class="button auto">
+	<button id="topPanelBtn" *ngIf="hasAction" (click)="buttonClick.emit()" class="button auto">
 		<span class="spacing"> {{ buttonName }} </span>
 	</button>
 

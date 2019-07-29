@@ -4,8 +4,6 @@ import { filter, map } from 'rxjs/operators';
 import {
 	CompareProductComponent,
 	CreationDialogComponent,
-	CreationProductDlgComponent,
-	CreationTaskDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
@@ -14,10 +12,13 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	ProductSelectDlgComponent,
-	RefuseReplyDlgComponent,
 	VoteDetailsDialogComponent,
+	RefuseReplyDlgComponent,
+	CreationProductDlgComponent,
+	CreationTaskDlgComponent,
+	ProductSelectDlgComponent,
 } from '~common/modals/component';
+
 import { EntityMetadata, ERM, Product, ProductVote, Supplier } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';

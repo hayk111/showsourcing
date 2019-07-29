@@ -5,9 +5,9 @@ import { ImageUrl } from './image-url.model';
 
 export class AppImage extends EntityWithAudit<AppImageConfig> {
 	fileName: string;
-	orientation = 0;
-	imageType = 'Photo';
-	deleted = false;
+	orientation ?= 0;
+	imageType ?= 'Photo';
+	deleted ?= false;
 	pending?: boolean;
 	urls?: ImageUrl[];
 	__typename ?= 'Image';
