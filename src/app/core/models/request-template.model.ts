@@ -7,7 +7,7 @@ export class RequestTemplate {
 	name: string;
 	targetedEntity = 'Product';
 	requestedFields: ExtendedFieldDefinition[];
-	__typename?= 'RequestTemplate';
+	__typename ?= 'RequestTemplate';
 
 	constructor(config: RequestTemplateConfig) {
 		Object.assign(this, config);

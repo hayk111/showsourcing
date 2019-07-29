@@ -10,7 +10,7 @@ export class AppImage extends EntityWithAudit<AppImageConfig> {
 	deleted = false;
 	pending?: boolean;
 	urls?: ImageUrl[];
-	__typename?= 'Image';
+	__typename ?= 'Image';
 
 	constructor(config?: AppImageConfig) {
 		super(config);

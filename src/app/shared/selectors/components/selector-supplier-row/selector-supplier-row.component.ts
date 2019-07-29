@@ -52,4 +52,8 @@ export class SelectorSupplierRowComponent extends AbstractSelectorHighlightableC
 		}
 		return style;
 	}
+
+	trackByC(category) {
+		return category.id;
+	}
 }
