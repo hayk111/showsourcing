@@ -80,7 +80,7 @@
 	</modal-carousel-app>
 
 	<!-- input used to input files -->
-	<input *ngIf="!static" #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+	<input *ngIf="!static" #inpFile [multiple]="isImagePropertyArray" type="file" accept="image/*" (fileSelect)="add($event)"/>
 
 </div>
 
