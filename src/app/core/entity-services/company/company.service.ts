@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { combineLatest, ReplaySubject, Observable, of } from 'rxjs';
+import { map, shareReplay, tap, filter, switchMapTo, switchMap } from 'rxjs/operators';
+import { AuthStatus } from '~core/auth/interfaces';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { LocalStorageService } from '~core/local-storage';
-import { GlobalService } from '~entity-services/_global/global.service';
+import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
 import { CompanyQueries } from '~entity-services/company/company.queries';
+import { UserService } from '~entity-services/user/user.service';
 import { Company } from '~models';
-import { UserService } from '../user/user.service';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { LocalStorageService } from '~core/local-storage';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { GlobalService } from '~entity-services/_global/global.service';
 
 
 const COMPANY = 'company';
@@ -18,7 +20,7 @@ const COMPANY = 'company';
 })
 export class CompanyService extends GlobalService<Company> {
 
-	defaultClient = Client.CENTRAL;
+	defaultClient = Client.USER;
 
 	// an user has only 1 company
 	private _company$ = new ReplaySubject<Company>(1);
@@ -33,8 +35,7 @@ export class CompanyService extends GlobalService<Company> {
 	constructor(
 		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
-		protected authSrv: AuthenticationService,
-		protected userSrv: UserService
+		protected authSrv: AuthenticationService
 	) {
 		super(apolloState, CompanyQueries, 'company', 'companies');
 	}
@@ -50,9 +51,8 @@ export class CompanyService extends GlobalService<Company> {
 
 	/** creates and picks it */
 	create(company: Company): Observable<any> {
-		return super.create({ ...company, owner: { id: this.userSrv.userId, __typename: 'User' } }).pipe(
-			switchMap(_ => this.saveCompany(company)),
-			switchMap(_ => this.waitForOne(`id == "${company.id}" AND status == "active"`))
+		return super.create(company).pipe(
+			switchMap(_ => this.saveCompany(company))
 		);
 	}
 

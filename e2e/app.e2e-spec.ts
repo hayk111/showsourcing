@@ -1,15 +1,14 @@
-import './pages/auth/login/login.e2e-spec';
-import './pages/auth/registration/registration.e2e-spec';
-import './pages/auth/forgot-password/forgot-password.e2e-spec';
-import './pages/auth/select-team/select-team.e2e-spec';
-import './pages/auth/create-a-team/create-a-team.e2e-spec';
-import './pages/auth/change-password/change-password.e2e-spec';
-import './pages/auth/flow/flow.e2e-spec';
+import { AppPage } from './app.po';
 
-import './pages/invitation/invitation.e2e-spec';
+describe('ngrx-tests2 App', () => {
+	let page: AppPage;
 
-import './pages/product/create-product/create-product.e2e-spec';
-import './pages/product/create-product/selector-field/select-1-not-create.e2e-spec';
-import './pages/product/create-product/selector-field/select-1-create.e2e-spec';
-import './pages/product/create-product/selector-field/select-multiple-create.e2e-spect';
+	beforeEach(() => {
+		page = new AppPage();
+	});
 
+	it('should display welcome message', () => {
+		page.navigateTo();
+		expect(page.getParagraphText()).toEqual('Welcome to app!');
+	});
+});

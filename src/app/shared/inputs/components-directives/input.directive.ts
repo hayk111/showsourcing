@@ -29,7 +29,7 @@ const supportedTypes = new Set([
 		'(focus)': 'focussed = true',
 		// '[disabled]': 'disabled',
 		// '[required]': 'required',
-		'[attr.id]': 'id',
+		// '[attr.id]': 'id',
 		//  '[attr.placeholder]': 'placeholder',
 		//  '[attr.readonly]': 'readonly && !_isNativeSelect || null',
 		//  '[attr.aria-describedby]': '_ariaDescribedby || null',

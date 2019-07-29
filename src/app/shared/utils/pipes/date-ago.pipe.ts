@@ -8,7 +8,7 @@ export class DateToTimeAgoPipe implements PipeTransform {
 	transform(dateData: Date | number, args?: any): any {
 		if (dateData === undefined || dateData === null)
 			return '';
-		const timestamp = ((typeof dateData) === 'number') ? new Date(dateData).getTime() : Date.parse(dateData.toString());
+		const timestamp = Date.parse(dateData.toString());
 		const seconds = Math.floor((+new Date() - timestamp) * 0.001);
 
 		if (seconds < 10) {

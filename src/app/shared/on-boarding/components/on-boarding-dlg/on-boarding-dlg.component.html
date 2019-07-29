@@ -15,8 +15,8 @@
           class="circle"
           [ngClass]="{ 'selected': onboardingSrv.currentIndex === i }"></div>
         </div>
-        <button id="dlgNext" *ngIf="!isLast()" (click)="next()">Next</button>
-        <button id="dlgSuccess" *ngIf="isLast()" class="success" (click)="complete()">Finish</button>
+        <button *ngIf="!isLast()" (click)="next()">Next</button>
+        <button *ngIf="isLast()" class="success" (click)="complete()">Finish</button>
       </div>
     </div>
   </div>
