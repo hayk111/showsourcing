@@ -12,7 +12,7 @@ export class RequestElement {
 	reply?: RequestReply;
 	images: AppImage[];
 	attachments: Attachment[];
-	__typename?= 'RequestElement';
+	__typename ?= 'RequestElement';
 
 	constructor(config: RequestElementConfig) {
 		Object.assign(this, config);

@@ -11,7 +11,7 @@ export class Packaging {
 	weight?: number;
 	depth?: number;
 	weightUnit?: string;
-	__typename?= 'Packaging';
+	__typename ?= 'Packaging';
 
 	constructor(config?: PackagingConfig) {
 		this.unit = 'cm';

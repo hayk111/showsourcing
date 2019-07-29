@@ -45,7 +45,7 @@ export class ProjectFeatureService extends ProjectService {
 		if (project) {
 			return this.getProjectProducts(project).pipe(
 				first(),
-				switchMap((products: Product[]) => this.commonModalSrv.openFindProductDlg(products, project)),
+				switchMap((products: Product[]) => this.commonModalSrv.openSelectProductDlg(products)),
 				switchMap((data: any) => this.manageProjectsToProductsAssociations([project], data.data))
 			);
 		} return of();

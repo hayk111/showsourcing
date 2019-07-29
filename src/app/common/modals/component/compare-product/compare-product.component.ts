@@ -21,4 +21,8 @@ export class CompareProductComponent extends AutoUnsub {
 		this.dlgSrv.close();
 	}
 
+	/** Trackby function for ngFor */
+	trackByFn(index, product) {
+		return product.id;
+	}
 }

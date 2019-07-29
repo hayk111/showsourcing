@@ -12,7 +12,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class ExtendedFormComponent extends TrackingComponent implements OnChanges {
 	// converting fields to a map of <ExtendedFieldDefinition.id, extendedField> for easy access.
 	@Input() set fields(fields: ExtendedField[]) {
-		const arr: any = (fields || []).map(field => ([field.definition.id, field]));
+		const arr: any = (fields || []).map(field => ([field.definition && field.definition.id, field]));
 		this._fieldMap = new Map(arr);
 		this._fields = fields;
 	}

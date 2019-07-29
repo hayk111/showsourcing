@@ -21,4 +21,7 @@ export class ComparisonRowComponent {
 
 	constructor() { }
 
+	trackByFn(index, value) {
+		return index;
+	}
 }

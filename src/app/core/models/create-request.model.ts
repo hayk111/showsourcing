@@ -19,7 +19,7 @@ export class CreateRequest extends EntityWithAudit<RequestConfig> {
 	sendCopyTo: string[];
 	images: AppImage[];
 	attachments: Attachment[];
-	__typename?= 'CreateRequest';
+	__typename ?= 'CreateRequest';
 
 	constructor(config: RequestConfig) {
 		super(config);
