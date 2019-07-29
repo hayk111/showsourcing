@@ -1,7 +1,7 @@
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, OnInit, OnChanges } from '@angular/core';
 import { AppImage } from '~models';
-import {slideAnimation} from '~shared/carousel/components/animations/slide.animations'
+import {slideAnimation} from '~shared/carousel/components/animations/slide.animations';
 
 @Component({
 	selector: 'modal-carousel-app',

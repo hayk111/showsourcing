@@ -25,7 +25,7 @@ import { translate } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
-	
+
 	@Input() hasMenu = true;
 	@Input() productPreview = true;
 	@Input() isInProductSelectDlg = false;
@@ -61,7 +61,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	}
 
 	ngOnInit() {
-		if(this.isInProductSelectDlg) {
+		if (this.isInProductSelectDlg) {
 			this.descriptor =  [
 				{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
 				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
