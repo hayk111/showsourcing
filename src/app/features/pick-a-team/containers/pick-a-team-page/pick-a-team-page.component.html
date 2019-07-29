@@ -9,7 +9,7 @@
 			create a new one
 		</auth-header-subtitle-app>
 	</auth-form-header-app>
-	<ul id="teams">
+	<ul>
 		<div
 			class="flex pointer item border"
 			*ngFor="let team of (teams$ | async); let last = last; trackBy: trackByFn"
@@ -19,7 +19,7 @@
 		</div>
 	</ul>
 
-	<a id="createATeam"
+	<a
 		class="button light flexCenter"
 		[routerLink]="['../create-a-team']"
 		i18n="link@@create-new-team">

@@ -55,7 +55,6 @@ export class DynamicInputComponent extends AbstractInput implements OnInit, Afte
 
 	ngAfterViewInit() {
 		this.accumulator = this.value;
-
 	}
 
 	/** saves the value because an user might cancel */

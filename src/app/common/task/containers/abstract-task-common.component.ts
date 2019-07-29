@@ -3,7 +3,7 @@ import { switchMap, filter } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
-import { ERM, Task, Product, Supplier } from '~models';
+import { ERM, Task } from '~models';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { CreationTaskDlgComponent } from '~common/modals';
@@ -71,7 +71,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 		this.listSrv.update(task);
 	}
 
-	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
+	openCreationTaskDlg(product, supplier) {
 		this.dlgSrv.open(CreationTaskDlgComponent, {product, supplier}).pipe(
 				filter((event: CloseEvent) => event.type === CloseEventType.OK),
 				switchMap(_ => this.listSrv.refetch())

@@ -12,7 +12,8 @@
 		[searchValue]="listSrv.searchValue"
 		(search)="searchProduct($event)"
 		(showFilters)="showFilters()"
-		(hideFilters)="hideFilters()">
+		(hideFilters)="hideFilters()"
+		(viewChange)="onViewChange($event)">
 
 		<sub-panel-left-item-app class="flex">
 			<span class="select-products-count capitalize" *ngIf="productsCount$ | async as count"> 

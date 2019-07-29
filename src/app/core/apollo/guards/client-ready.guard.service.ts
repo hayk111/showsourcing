@@ -78,17 +78,29 @@ export class GlobalConstClientReadyGuard extends ClientReadyGuard {
 	}
 }
 
-
 @Injectable({
 	providedIn: 'root'
 })
-export class CentralClientReadyGuard extends ClientReadyGuard {
+export class AllUserClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
 		protected authSrv: AuthenticationService
 	) {
-		super(router, apolloState, Client.CENTRAL, authSrv);
+		super(router, apolloState, Client.ALL_USER, authSrv);
+	}
+}
+
+@Injectable({
+	providedIn: 'root'
+})
+export class UserClientReadyGuard extends ClientReadyGuard {
+	constructor(
+		protected router: Router,
+		protected apolloState: ApolloStateService,
+		protected authSrv: AuthenticationService
+	) {
+		super(router, apolloState, Client.USER, authSrv);
 	}
 }
 

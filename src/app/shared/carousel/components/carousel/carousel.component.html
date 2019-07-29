@@ -19,7 +19,7 @@
 				class="flexColumn flexCenter empty"
 				[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }">
 				<span class="bold" i18n="text@@no-picture">No picture</span>
-				<button id="addPicture" *ngIf="!static" class="secondary" tabFocus (click)="openFileBrowser()" (keyEnter)="openFileBrowser()"  i18n="button@@add-picture">Add picture</button>
+				<button *ngIf="!static" class="secondary" tabFocus (click)="openFileBrowser()" (keyEnter)="openFileBrowser()"  i18n="button@@add-picture">Add picture</button>
 			</div>
 		</ng-template>
 	</div>
@@ -61,7 +61,7 @@
 	</context-menu-app>
 
 	<!-- add -->
-	<div id="divAdd" *ngIf="!static" class="btn add pointer action" (click)="openFileBrowser()" i18n="button@@add">add</div>
+	<div *ngIf="!static" class="btn add pointer action" (click)="openFileBrowser()" i18n="button@@add">add</div>
 
 	<!-- counter -->
 	<div class="counter flexCenter">
@@ -82,7 +82,7 @@
 	</modal-carousel-app>
 
 	<!-- input used to input files -->
-	<input id="inpImg" *ngIf="!static" #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+	<input *ngIf="!static" #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
 
 </div>
 
