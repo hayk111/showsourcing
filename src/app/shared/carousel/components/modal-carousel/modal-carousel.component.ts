@@ -16,6 +16,7 @@ export class ModalCarouselComponent {
 	@Input() selectedIndex = 0;
 	@Input() entity: any;
 	@Output() indexChange = new EventEmitter<number>();
+	@Output() openFileBrowser = new EventEmitter<void>();
 	@Output() delete = new EventEmitter();
 	isOpen = false;
 	slideAnimationState = 'inactive';
