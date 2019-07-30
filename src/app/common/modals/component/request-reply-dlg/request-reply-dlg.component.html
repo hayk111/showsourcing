@@ -55,8 +55,9 @@
 			<!-- reply message -->
 			<h3 class="ms" i18n="@@request-message">request message</h3>
 			<form-field-app class="modal">
-        <textarea inputApp
-          [disabled]="isDisabled()"
+				<textarea
+					inputApp
+					[attr.disabled]="isDisabled()"
           [value]="element?.reply?.message"
           [formControl]="descriptionCtrl"
 					type="text"
