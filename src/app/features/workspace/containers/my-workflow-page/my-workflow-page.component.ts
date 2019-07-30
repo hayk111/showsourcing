@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { first, map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
+import { filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
@@ -8,7 +8,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';
-import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
@@ -63,6 +63,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			entityMetadata: ERM.PRODUCT,
+			// if we delete this query, we will have to add it to the func getColQuery()
 			selectParams: { query: 'deleted == false' }
 		}, false);
 		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
@@ -90,9 +91,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
-		const query = col.id !== NEW_STATUS_ID ?
-			`status.id == "${col.id}"`
-			: `status == null`;
+		const query = this.getColQuery(col.id);
 		this.productSrv.queryMany({
 			query,
 			take: col.data.length + this.amountLoaded,
@@ -103,17 +102,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	private getProducts(statuses: ProductStatus[], filterList: FilterList) {
-		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
-			const constQuery = status.id !== NEW_STATUS_ID ?
-				`status.id == "${status.id}" AND deleted == false`
-				: `status == null AND deleted == false`;
-
-			const query = [
-				predicate,
-				constQuery
-			].filter(x => x !== '')
-				.join(' && ');
+			const query = this.getColQuery(status.id, filterList);
 			this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' }).
 				pipe(
 					first(),
@@ -124,6 +114,18 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 					this.kanbanSrv.setTotal(data.total, status.id);
 				});
 		});
+	}
+
+	// returns the query for the columns
+	private getColQuery(colId: string, filterList?: FilterList) {
+		const constQuery = colId !== NEW_STATUS_ID ?
+			`status.id == "${colId}"` : `status == null`;
+		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
+		return [
+			predicate,
+			constQuery
+		].filter(x => x !== '')
+			.join(' && ');
 	}
 
 	onUpdate(product: Product) {
