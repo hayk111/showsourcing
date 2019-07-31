@@ -10,8 +10,7 @@ import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TokenService } from '~core/auth/services/token.service';
 import { LocalStorageService } from '~core/local-storage';
 
-
-export const STORAGE_EMAIL = 'EMAIL';
+const STORAGE_EMAIL = 'EMAIL';
 
 @Injectable({
 	providedIn: 'root'
