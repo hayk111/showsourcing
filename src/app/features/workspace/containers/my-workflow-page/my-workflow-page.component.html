@@ -71,9 +71,11 @@
 	(unfavorited)="onUnfavoriteAllSelected()"
 	(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
 	(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+	(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
 	(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 	(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 	(statusUpdated)="onMultipleStatusChange($event)"
+	(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
 	(deleted)="deleteSelected()"
 	(close)="listSrv.unselectAll()">
 </product-selection-bar-app>

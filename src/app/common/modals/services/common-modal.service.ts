@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
+import { CloseEventType, CloseEvent } from '~shared/dialog';
 import {
 	CompareProductComponent,
 	CreationDialogComponent,
