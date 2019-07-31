@@ -94,10 +94,11 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	private getProducts(statuses: ProductStatus[]) {
 		statuses.forEach(status => {
 			const query = this.getColQuery(status.id);
-			this.productSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
-				.pipe(first())
+			this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
+				.pipe(take(1))
 				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
-			this.productSrv.queryCount(query).pipe(first())
+			this.productSrv.selectCount(query)
+				.pipe(take(1))
 				.subscribe(total => this.kanbanSrv.setTotal(total, status.id));
 		});
 	}
@@ -118,7 +119,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
 		this.featureSrv.openFindProductDlg(this.project).pipe(
-			tap(data => this.getProducts(this.statuses)),
+			first(),
+			tap(data => this.getProducts(this.statuses))
 		).subscribe();
 	}
 
@@ -160,6 +162,14 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			Client.TEAM,
 			isNewStatus ? 'status { id }' : ''
 		).subscribe();
+	}
+
+	deassociateProducts() {
+		const unselectedProducts = this.listSrv.getSelectedIds().map(id => ({ id }));
+		this.featureSrv.manageProjectsToProductsAssociations([this.project], { unselectedProducts }).pipe(
+			tap(_ => this.getProducts(this.statuses))
+		).subscribe();
+		this.listSrv.unselectAll();
 	}
 
 	onColumnSelected(products: Product[]) {
