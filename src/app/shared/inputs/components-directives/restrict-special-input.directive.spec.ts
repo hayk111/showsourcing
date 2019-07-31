@@ -1,5 +1,5 @@
 import { RestrictSpecialInputDirective } from './restrict-special-input.directive';
-import { async, ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -20,223 +20,77 @@ describe('RestrictSpecialInputDirective', () => {
 	let dbgEls: DebugElement[];
 	let directive: RestrictSpecialInputDirective;
 
+	const createKeyboardEvent = (key) => {
+		return new KeyboardEvent('keydown', {
+			bubbles: true, cancelable: true, shiftKey: false, key, view: window, altKey: false,
+			ctrlKey: false
+		});
+	};
+
 	beforeEach(async () => {
-		TestBed.configureTestingModule({ declarations: [TestComponent, RestrictSpecialInputDirective], imports: [FormsModule] });
+		TestBed.configureTestingModule({
+			declarations: [TestComponent, RestrictSpecialInputDirective],
+			imports: [FormsModule],
+			providers: [
+				{ provide: ComponentFixtureAutoDetect, useValue: true }
+			]
+		});
 		fixture = TestBed.createComponent(TestComponent);
 		component = fixture.componentInstance;
 		dbgEls = fixture.debugElement.queryAll(By.directive(RestrictSpecialInputDirective));
-		fixture.detectChanges();
 	});
 
 	it('should create TestComponent', () => {
-		expect(component).toBeDefined();
+		expect(component).withContext('Can not create TestComponent for testing').toBeDefined();
 	});
 
-	// 1st input
-	it('should not allow ArrowUp when restrictArrows = true', () => {
+	it('should not allow any arrow when restrictArrows true (expect for up down left right)', () => {
 		const inp = dbgEls[0].nativeElement;
 		directive = dbgEls[0].injector.get(RestrictSpecialInputDirective);
 		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowUp', view: window, altKey: false,
-			ctrlKey: false
-		});
 
+		let event;
+
+		event = createKeyboardEvent('ArrowUp');
 		spyOn(event, 'preventDefault');
 		inp.dispatchEvent(event);
-		fixture.detectChanges();
+		expect(event.preventDefault).withContext('ArrowUp was triggered').toHaveBeenCalled();
 
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).toHaveBeenCalled();
-	});
-
-	it('should not allow ArrowDown when restrictArrows = true', () => {
-		const inp = dbgEls[0].nativeElement;
-		directive = dbgEls[0].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowDown', view: window, altKey: false,
-			ctrlKey: false
-		});
-
+		event = createKeyboardEvent('ArrowDown');
 		spyOn(event, 'preventDefault');
 		inp.dispatchEvent(event);
-		fixture.detectChanges();
+		expect(event.preventDefault).withContext('ArrowDown was triggered').toHaveBeenCalled();
 
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).toHaveBeenCalled();
-	});
-
-	it('should not allow ArrowRight when restrictArrows = true', () => {
-		const inp = dbgEls[0].nativeElement;
-		directive = dbgEls[0].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowRight', view: window, altKey: false,
-			ctrlKey: false
-		});
-
+		event = createKeyboardEvent('ArrowLeft');
 		spyOn(event, 'preventDefault');
 		inp.dispatchEvent(event);
-		fixture.detectChanges();
+		expect(event.preventDefault).withContext('ArrowLeft was triggered').toHaveBeenCalled();
 
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).toHaveBeenCalled();
-	});
-
-	it('should not allow ArrowLeft when restrictArrows = true', () => {
-		const inp = dbgEls[0].nativeElement;
-		directive = dbgEls[0].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowLeft', view: window, altKey: false,
-			ctrlKey: false
-		});
-
+		event = createKeyboardEvent('ArrowRight');
 		spyOn(event, 'preventDefault');
 		inp.dispatchEvent(event);
-		fixture.detectChanges();
+		expect(event.preventDefault).withContext('ArrowRight was triggered').toHaveBeenCalled();
 
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).toHaveBeenCalled();
+		expect(directive.onKeyDown).toHaveBeenCalledTimes(4);
 	});
 
-	// 2nd input
-	it('should not allow ArrowUp when restrictUpDownArrows = true', () => {
+	it('should not allow any arrow when restrictUpDownArrows true (expect for up down)', () => {
 		const inp = dbgEls[1].nativeElement;
 		directive = dbgEls[1].injector.get(RestrictSpecialInputDirective);
 		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowUp', view: window, altKey: false,
-			ctrlKey: false
-		});
 
+		let event;
+
+		event = createKeyboardEvent('ArrowUp');
 		spyOn(event, 'preventDefault');
 		inp.dispatchEvent(event);
-		fixture.detectChanges();
+		expect(event.preventDefault).withContext('ArrowUp was triggered').toHaveBeenCalled();
 
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).toHaveBeenCalled();
-	});
-
-	it('should not allow ArrowDown when restrictUpDownArrows = true', () => {
-		const inp = dbgEls[1].nativeElement;
-		directive = dbgEls[1].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowDown', view: window, altKey: false,
-			ctrlKey: false
-		});
-
+		event = createKeyboardEvent('ArrowDown');
 		spyOn(event, 'preventDefault');
 		inp.dispatchEvent(event);
-		fixture.detectChanges();
+		expect(event.preventDefault).withContext('ArrowDown was triggered').toHaveBeenCalled();
 
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).toHaveBeenCalled();
+		expect(directive.onKeyDown).toHaveBeenCalledTimes(2);
 	});
-
-	it('should allow ArrowRight when restrictUpDownArrows = true', () => {
-		const inp = dbgEls[1].nativeElement;
-		directive = dbgEls[1].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowRight', view: window, altKey: false,
-			ctrlKey: false
-		});
-
-		spyOn(event, 'preventDefault');
-		inp.dispatchEvent(event);
-		fixture.detectChanges();
-
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).not.toHaveBeenCalled();
-	});
-
-	it('should allow ArrowLeft when restrictUpDownArrows = true', () => {
-		const inp = dbgEls[1].nativeElement;
-		directive = dbgEls[1].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowLeft', view: window, altKey: false,
-			ctrlKey: false
-		});
-
-		spyOn(event, 'preventDefault');
-		inp.dispatchEvent(event);
-		fixture.detectChanges();
-
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).not.toHaveBeenCalled();
-	});
-
-	// 3nd input
-	it('should allow ArrowUp when not set restrictArrows and restrictUpDownArrows', () => {
-		const inp = dbgEls[2].nativeElement;
-		directive = dbgEls[2].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowUp', view: window, altKey: false,
-			ctrlKey: false
-		});
-
-		spyOn(event, 'preventDefault');
-		inp.dispatchEvent(event);
-		fixture.detectChanges();
-
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).not.toHaveBeenCalled();
-	});
-
-	it('should allow ArrowDown when not set restrictArrows and restrictUpDownArrows', () => {
-		const inp = dbgEls[2].nativeElement;
-		directive = dbgEls[2].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowDown', view: window, altKey: false,
-			ctrlKey: false
-		});
-
-		spyOn(event, 'preventDefault');
-		inp.dispatchEvent(event);
-		fixture.detectChanges();
-
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).not.toHaveBeenCalled();
-	});
-
-	it('should allow ArrowRight when not set restrictArrows and restrictUpDownArrows', () => {
-		const inp = dbgEls[2].nativeElement;
-		directive = dbgEls[2].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowRight', view: window, altKey: false,
-			ctrlKey: false
-		});
-
-		spyOn(event, 'preventDefault');
-		inp.dispatchEvent(event);
-		fixture.detectChanges();
-
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).not.toHaveBeenCalled();
-	});
-
-	it('should allow ArrowLeft when not set restrictArrows and restrictUpDownArrows', () => {
-		const inp = dbgEls[2].nativeElement;
-		directive = dbgEls[2].injector.get(RestrictSpecialInputDirective);
-		spyOn(directive, 'onKeyDown').and.callThrough();
-		const event = new KeyboardEvent('keydown', {
-			bubbles: true, cancelable: true, shiftKey: false, key: 'ArrowLeft', view: window, altKey: false,
-			ctrlKey: false
-		});
-
-		spyOn(event, 'preventDefault');
-		inp.dispatchEvent(event);
-		fixture.detectChanges();
-
-		expect(directive.onKeyDown).toHaveBeenCalled();
-		expect(event.preventDefault).not.toHaveBeenCalled();
-	});
-
 });
