@@ -12,13 +12,13 @@ import {
 } from '@angular/core';
 
 @Directive({
-	selector: '[tabFocus]',
-	exportAs: 'tabFocusId',
+	selector: '[tabFocusAction]',
+	exportAs: 'tabFocusActionId',
 	host: {
 		'[attr.tabindex]': '0'
 	}
 })
-// the purpose of this directive is to add focus to elements that do not have focus by default (e.g. <div>)
+// the purpose of this directive is to add keyboard focus to elements that do not have focus by default (e.g. <div>)
 // furthermore this components listens and emits events, since the purpose on focusing elements
 // is to actually interact with them most of the time too
 export class TabFocusActionDirective implements OnDestroy, OnInit {
