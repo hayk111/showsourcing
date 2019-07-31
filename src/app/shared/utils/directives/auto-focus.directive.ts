@@ -1,5 +1,5 @@
 import { AfterContentInit, Directive, ElementRef, Input, Optional } from '@angular/core';
-import { TabFocusDirective } from './tab-focus.directive';
+import { TabFocusActionDirective } from './tab-focus-action.directive';
 
 @Directive({
 	selector: '[autoFocus]'
@@ -8,7 +8,7 @@ export class AutoFocusDirective implements AfterContentInit {
 
 	@Input() canFocus = true;
 
-	constructor(private el: ElementRef<any>, @Optional() private tab: TabFocusDirective) { }
+	constructor(private el: ElementRef<any>, @Optional() private tab: TabFocusActionDirective) { }
 
 	ngAfterContentInit() {
 		if (this.canFocus) {
