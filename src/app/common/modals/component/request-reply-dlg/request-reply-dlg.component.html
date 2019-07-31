@@ -81,7 +81,7 @@
         [images]="images">
       </modal-carousel-app>
       <div class="spacer mg-s" *ngIf="images.length > 0"></div>
-      <button tabFocus [disabled]="isDisabled()" class="secondary add-image capitalize" (click)="inpImg.click()" i18n="@@add-image">Add Image</button>
+      <button tabFocusAction [disabled]="isDisabled()" class="secondary add-image capitalize" (click)="inpImg.click()" i18n="@@add-image">Add Image</button>
 			<input [disabled]="isDisabled()" #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
       <!-- attachments -->
@@ -92,7 +92,7 @@
         [files]="files"
         [linkedItem]="reply"></file-list-app>
       <div class="spacer mg-s" *ngIf="files.length > 0"></div>
-      <button tabFocus [disabled]="isDisabled()" class="secondary add-attachment capitalize" (click)="inpFile.click()" i18n="@@add-attachments">add attachments</button>
+      <button tabFocusAction [disabled]="isDisabled()" class="secondary add-attachment capitalize" (click)="inpFile.click()" i18n="@@add-attachments">add attachments</button>
 			<input [disabled]="isDisabled()" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>
 
     </div>
@@ -104,14 +104,14 @@
 
     <span class="bold-s mg-s" *ngIf="isDisabled()">{{ getTooltipMessage() }}</span>
 
-    <button tabFocus [disabled]="isDisabled()" class="warn save first-uppercase" (click)="refuse()" i18n="@@refuse">refuse</button>
+    <button tabFocusAction [disabled]="isDisabled()" class="warn save first-uppercase" (click)="refuse()" i18n="@@refuse">refuse</button>
 
     <!-- <button [disabled]="isDisabled()" class="secondary save first-uppercase" (click)="saveAndClose()" i18n="@@save">save</button> -->
 
     <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
-      <button *ngIf="isDisabled(); else notSubmitted" tabFocus class="first-uppercase" [disabled]="true" i18n="@@submitted">submitted</button>
+      <button *ngIf="isDisabled(); else notSubmitted" tabFocusAction class="first-uppercase" [disabled]="true" i18n="@@submitted">submitted</button>
       <ng-template #notSubmitted>
-        <button tabFocus class="first-uppercase" [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">
+        <button tabFocusAction class="first-uppercase" [disabled]="hasEmptyField()" (click)="hasNext() ? saveAndNext() : save(true, true)">
 					<ng-container *ngIf="hasNext(); else noNext" i18n="@@submit-next">
 						submit & next
 					</ng-container>

@@ -240,7 +240,7 @@
 				[canCreate]="metadata?.canCreate"
 				(update)="onInput($event, metadata?.type !== 'const')">
 				<selector-placeholder-app
-					tabFocus autoFocus
+					tabFocusAction autoFocus
 					[canFocus]="autofocus"
 					[ngClass]="{ 'disabled': disabled }"
 					[placeholder]="definition?.label"

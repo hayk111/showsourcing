@@ -1,5 +1,5 @@
 :root {
-  --z-max:                  9999;
+	--z-max:                  9999;
   --z-base:                 1;
 	--z-button:               2;
 	--z-top-selection:				3;
@@ -9,5 +9,6 @@
   --z-dialog:               7;
   --z-dialog-container:     8;
   --z-draganddrop-progress: 9;
-  --z-notification:         10;
+	--z-notification:         10;
+	// by itself cdk material adds z-index: 1000 to cdk-overlay-container
 }

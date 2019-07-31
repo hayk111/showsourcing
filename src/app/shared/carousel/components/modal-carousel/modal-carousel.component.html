@@ -7,7 +7,7 @@
 				<product-modal-top-panel
 					*ngSwitchCase="'Product'"
 					[product]="entity"
-					(delete)="delete.emit()"
+					(delete)="onDelete()"
 					[selectedIndex]="selectedIndex"
 					(openFileBrowser)="openFileBrowser.emit()"
 					(close)="close()"
