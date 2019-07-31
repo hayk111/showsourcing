@@ -13,6 +13,7 @@ export class PreviewTopPanelComponent implements OnInit {
 	@Input() selectedIndex: number;
 	@Output () delete = new EventEmitter<Product>();
 	@Output () close = new EventEmitter<any>();
+	@Output() openFileBrowser = new EventEmitter<void>();
 	productEntity = ERM.PRODUCT;
 
 	constructor() { }

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
-import { TabFocusDirective } from '~shared/utils';
+import { TabFocusActionDirective } from '~shared/utils';
 
 @Component({
 	selector: 'checkbox-app',
@@ -19,7 +19,7 @@ export class CheckboxComponent extends AbstractInput {
 	// if the checkbox should be autofocussed
 	@Input() autoFocus = false;
 	@Input() disabled = false;
-	@ViewChild(TabFocusDirective, { static: true }) tab: TabFocusDirective;
+	@ViewChild(TabFocusActionDirective, { static: true }) tab: TabFocusActionDirective;
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()

@@ -32,7 +32,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 			key: `${ListPageKey.SAMPLE}-${id}`,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
-			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
+			selectParams: { query: 'deleted == false' },
 			entityMetadata: ERM.SAMPLE,
 			initialFilters: [
 				{ type: FilterType.ASSIGNEE, value: userId },
@@ -65,7 +65,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 	}
 
 	openCreationSampleDlg(product, supplier) {
-		this.dlgSrv.open(CreationSampleDlgComponent, {product, supplier}).pipe(
+		this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier }).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch({}))
 		).subscribe();
