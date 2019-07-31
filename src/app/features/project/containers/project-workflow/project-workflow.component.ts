@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
+import { filter, first, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -9,7 +9,7 @@ import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, ProductStatus, Project } from '~models';
-import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
@@ -57,7 +57,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			key: ListPageKey.PROJECT_WORKFLOW,
 			entitySrv: this.productSrv,
 			entityMetadata: ERM.PRODUCT,
-			selectParams: { query: 'deleted == false' }
+			selectParams: { query: 'deleted == false AND archived == false' }
 		}, false);
 
 		this.project$.pipe(
@@ -81,9 +81,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
-		const query = col.id !== NEW_STATUS_ID ?
-			`status.id == "${col.id}" && projects.id == "${this.project.id}" && deleted == false && archived == false`
-			: `status == null && projects.id == "${this.project.id}" && deleted == false && archived == false`;
+		const query = this.getColQuery(col.id);
 		this.productSrv.queryMany({
 			query,
 			take: col.data.length + this.amountLoaded,
@@ -95,13 +93,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	private getProducts(statuses: ProductStatus[]) {
 		statuses.forEach(status => {
-			let query;
-			// we need to check for null status
-			if (status.id !== NEW_STATUS_ID)
-				query = `status.id == "${status.id}" && projects.id == "${this.project.id}" && deleted == false && archived == false`;
-			else
-				query = `status == null && projects.id == "${this.project.id}" && deleted == false && archived == false`;
-
+			const query = this.getColQuery(status.id);
 			this.productSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
 				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
@@ -110,10 +102,23 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
+	// returns the query of the columns based on the parameters on the list srv and a constant query
+	private getColQuery(colId: string) {
+		const predicate = this.listSrv.filterList.asPredicate();
+		const constQuery = colId !== NEW_STATUS_ID ?
+			`status.id == "${colId}" AND projects.id == "${this.project.id}"` :
+			`status == null AND projects.id == "${this.project.id}"`;
+		return [
+			predicate,
+			constQuery
+		].filter(x => x !== '')
+			.join(' && ');
+	}
+
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
-		this.commonModalSrv.openSelectProductDlg([this.project]).pipe(
-			tap(data => this.getProducts(this.statuses))
+		this.featureSrv.openFindProductDlg(this.project).pipe(
+			tap(data => this.getProducts(this.statuses)),
 		).subscribe();
 	}
 

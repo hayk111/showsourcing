@@ -116,7 +116,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
-	// returns the query for the columns
+	// returns the query of the columns based on the parameters on the list srv and a constant query
 	private getColQuery(colId: string, filterList?: FilterList) {
 		const constQuery = colId !== NEW_STATUS_ID ?
 			`status.id == "${colId}"` : `status == null`;
