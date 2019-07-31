@@ -66,7 +66,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 		// everytime we focus the content and hit enter, we are opening the menu
 		if (this.tab) {
 			let word = '';
-			this.tab.keydown.pipe(
+			this.tab.typing.pipe(
 				tap(key => word += key),
 				debounceTime(300),
 			).subscribe(_ => {
