@@ -10,7 +10,6 @@ import {
 	QueryList,
 	TemplateRef,
 } from '@angular/core';
-import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-params';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -42,18 +41,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	// current sort
 	@Input() currentSort: Sort;
 	/** total number of items for pagination */
-	@Input()
-	set count(count: number) {
-		this._count = count;
-		this.totalSections = Math.ceil(this._count / this.itemsPerPage);
-		if (this.skipped)
-			this.indexPagination = this.skipped / this.itemsPerPage;
-		this.setPageIndex();
-	}
-	get count() {
-		return this._count;
-	}
-	private _count = 0;
+	@Input() count = 0;
 	/** how many items were skipped so we can display the pages */
 	@Input() skipped: number;
 
@@ -76,16 +64,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 	// currently sorted column
 	currentSortedColumn: ColumnDirective;
-	// how many pages our pagination will have
-	sections: Array<number> = [0];
-	// items that we will see per page
-	itemsPerPage = DEFAULT_TAKE_PAGINATION;
-	// current index of the pagination
-	indexPagination = 0;
-	// total of sections obtained by the count and items per page
-	totalSections = 1;
-	// sideItems
-	sideItems = 5;
 
 	/** Different rows displayed */
 	@Input() rows;
@@ -201,41 +179,15 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		});
 	}
 
-	nextPage() {
-		if (this.indexPagination < this.totalSections - 1) {
-			this.indexPagination++;
-			this.setPageIndex();
-			this.next.emit();
-		}
+	onNext() {
+		this.next.emit();
 	}
 
-	previousPage() {
-		if (this.indexPagination > 0) {
-			this.indexPagination--;
-			this.setPageIndex();
-			this.previous.emit();
-		}
+	onPrevious() {
+		this.previous.emit();
 	}
 
-	setPageIndex() {
-		const width = Math.min(this.sideItems * 2 + 1, this.totalSections);
-		const leftIndex = Math.max(this.indexPagination - this.sideItems, 0);
-		const pages = [];
-		// we want to readd items from the right to the left (-1 since we don't take into account the last index)
-		const rightAmount = Math.min(this.sideItems, ((this.totalSections - 1) - this.indexPagination));
-
-		let cursor = Math.max(leftIndex - (this.sideItems - rightAmount), 0);
-
-		while ((pages.length < width) && (cursor <= this.totalSections)) {
-			pages.push(cursor);
-			cursor++;
-		}
-		this.sections = pages.length ? pages : [0];
-	}
-
-	goToIndexPage(index) {
-		this.indexPagination = index;
-		this.setPageIndex();
-		this.goToPage.emit(index);
+	goToIndexPage(page) {
+		this.goToPage.emit(page);
 	}
 }

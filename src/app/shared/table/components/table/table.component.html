@@ -105,10 +105,9 @@
 
 <pagination-app
 	[rows]="rows"
-	[sections]="sections"
-	[totalSections]="totalSections"
-	[indexPagination]="indexPagination"
-	(next)="nextPage()"
-	(previous)="previousPage()"
+	[count]="count"
+	[skipped]="skipped"
+	(next)="onNext()"
+	(previous)="onPrevious()"
 	(goToPage)="goToIndexPage($event)">	
 </pagination-app>
