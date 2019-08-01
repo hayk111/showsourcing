@@ -25,7 +25,7 @@ describe('Component: PaginationComponent', () => {
 		fixture = TestBed.createComponent(PaginationComponent);
 		component = fixture.componentInstance;
 
-		expect(component.indexPagination).toEqual(0);
+		expect(component.currentIndex).toEqual(0);
 	});
 
 	it('should start with default section count 1', () => {

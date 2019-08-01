@@ -21,24 +21,20 @@ import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-pa
 })
 export class PaginationComponent {
 
-	private _count = 0;
-
 	/** Different rows displayed */
 	@Input() rows;
-	// whether the table is currently loading
-	@Input() pending = false;
 	/** how many items were skipped so we can display the pages */
 	@Input() skipped: number;
+
 	@Input() totalSections = 1;
 
 	/** how many pages our pagination will have */
 	sections: Array<number> = [0];
 	/** items that we will see per page */
 	itemsPerPage = DEFAULT_TAKE_PAGINATION;
-
 	/** current index of the pagination */
-	indexPagination = 0;
-	/** sideItems */
+	currentIndex = 0;
+	/** number of pages displayed on either sides of the current page */
 	sideItems = 5;
 
 	/** total number of items for pagination */
@@ -47,21 +43,22 @@ export class PaginationComponent {
 		this._count = count;
 		this.totalSections = Math.ceil(this._count / this.itemsPerPage);
 		if (this.skipped)
-			this.indexPagination = this.skipped / this.itemsPerPage;
+		this.currentIndex = this.skipped / this.itemsPerPage;
 		this.setPageIndex();
 	}
 	get count() {
 		return this._count;
 	}
+	private _count = 0;
 
 	@Output() goToPage = new EventEmitter<number>();
 
 	setPageIndex() {
 		const width = Math.min(this.sideItems * 2 + 1, this.totalSections);
-		const leftIndex = Math.max(this.indexPagination - this.sideItems, 0);
+		const leftIndex = Math.max(this.currentIndex - this.sideItems, 0);
 		const pages = [];
 		// we want to readd items from the right to the left (-1 since we don't take into account the last index)
-		const rightAmount = Math.min(this.sideItems, ((this.totalSections - 1) - this.indexPagination));
+		const rightAmount = Math.min(this.sideItems, ((this.totalSections - 1) - this.currentIndex));
 
 		let cursor = Math.max(leftIndex - (this.sideItems - rightAmount), 0);
 
@@ -74,13 +71,13 @@ export class PaginationComponent {
 
 	goToIndexPage(index, disabled?: boolean) {
 		if (!disabled) {
-			this.indexPagination = index;
+			this.currentIndex = index;
 			this.setPageIndex();
 			this.goToPage.emit(index);
 		}
 	}
 
 	resetIndex() {
-		this.indexPagination = 0;
+		this.currentIndex = 0;
 	}
 }

@@ -24,45 +24,45 @@ import { TrackingComponent } from '~utils/tracking-component';
 	}
 })
 export class TableComponent extends TrackingComponent implements OnChanges {
-	// whether the table is currently loading
+	/** whether the table is currently loading */
 	@Input() pending = false;
-	// whether rows are selectable
+	/** whether rows are selectable */
 	@Input() hasSelection = true;
-	// whether the table rows have a contextual menu
+	/** whether the table rows have a contextual menu */
 	@Input() hasMenu = true;
-	// the placeholder text if no element displayed in the table
+	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
-	// the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
-	// so this is only useful when the table has selection enabled.
+	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
+	so this is only useful when the table has selection enabled. */
 	@Input() idName = 'id';
-	// maps of the <id, true> so we can access the items that are selected
+	/** maps of the <id, true> so we can access the items that are selected */
 	@Input() selected: Map<string, boolean> = new Map();
 	@Input() contextualMenu: TemplateRef<any>;
-	// current sort
+	/** current sort */
 	@Input() currentSort: Sort;
 	/** total number of items for pagination */
 	@Input() count = 0;
 	/** how many items were skipped so we can display the pages */
 	@Input() skipped: number;
 
-	// event when we select all rows
+	/** event when we select all rows */
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();
-	// selecting one row with the checkbox
+	/** selecting one row with the checkbox */
 	@Output() selectOne = new EventEmitter<string>();
 	@Output() unselectOne = new EventEmitter<string>();
-	// when we scroll down to the end of the table
+	/** when we scroll down to the end of the table */
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() sort = new EventEmitter<Sort>();
-	// when we hover and we want to get the id of the object
+	/** when we hover and we want to get the id of the object */
 	@Output() hovered = new EventEmitter<string>();
-	// pagination events
+	/** pagination events */
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
-	// all the columns
+	/** all the columns */
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
-	// currently sorted column
+	/** currently sorted column */
 	currentSortedColumn: ColumnDirective;
 
 	/** Different rows displayed */
@@ -71,13 +71,13 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 
 	contextualMenuOpened = {};
 
-	// whether specific rows are selectable or not
+	/** whether specific rows are selectable or not */
 	@Input() isSelectable = (item) => true;
 
-	// function used by the ng for, using an arrow to not lose this context
+	/** function used by the ng for, using an arrow to not lose this context */
 	trackByIdentify = (index, item) => this.identify(index, item);
 
-	// track by for column
+	/** function used by the ng for, using an arrow to not lose this context */
 	columnTrackByFn = (index: any) => index;
 
 	constructor() {
