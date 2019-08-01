@@ -31,14 +31,14 @@ export class PaginationComponent {
 	@Input() skipped: number;
 	@Input() totalSections = 1;
 
-	// how many pages our pagination will have
+	/** how many pages our pagination will have */
 	sections: Array<number> = [0];
-	// items that we will see per page
+	/** items that we will see per page */
 	itemsPerPage = DEFAULT_TAKE_PAGINATION;
 
-	// current index of the pagination
+	/** current index of the pagination */
 	indexPagination = 0;
-	// sideItems
+	/** sideItems */
 	sideItems = 5;
 
 	/** total number of items for pagination */
