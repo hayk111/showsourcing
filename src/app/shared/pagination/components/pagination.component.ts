@@ -15,17 +15,17 @@ export class PaginationComponent implements OnChanges {
 	@Input() itemsPerPage = DEFAULT_TAKE_PAGINATION;
 	/** total number of items */
 	@Input() count = 0;
-	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20] */
+	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20] if 3 we display [1, 2, 3 ] */
 	@Input() width = 5;
 
 	@Output() goToPage = new EventEmitter<number>();
 
-	/** how many pages our pagination will have */
-	totalPages = 1;
-	/** the range of  */
+	/** how many pages our pagination has */
+	totalPages;
+	/** the pages displayed */
 	range: Array<number> = [];
-	/** current index of the pagination */
-	currentIndex = 1;
+	/** current index of the pagination (starts at 1) */
+	currentIndex = 1; // TODO might be clearer if this started at 0 instead.
 
 	ngOnChanges() {
 		this.totalPages = Math.ceil(this.count / this.itemsPerPage);
