@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { SampleService, UserService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
-import { Comment, ERM, Sample } from '~core/models';
+import { Comment, ERM, Sample, ExtendedFieldDefinition } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms';
 import { AutoUnsub, translate } from '~utils';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -14,7 +17,7 @@ import { AutoUnsub, translate } from '~utils';
 	styleUrls: ['./sample-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
+export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {
@@ -31,6 +34,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 	modalOpen = false;
 	erm = ERM;
 
+	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 	customFields: DynamicField[] = [
 		{ name: 'name', type: 'text', required: true, label: translate('name', 'message') },
 		{
@@ -58,8 +62,14 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 		private commentSrv: CommentService,
 		private router: Router,
 		private userSrv: UserService,
-		private sampleSrv: SampleService) {
+		private sampleSrv: SampleService,
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService
+	) {
 		super();
+	}
+
+	ngOnInit() {
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"' });
 	}
 
 	ngOnChanges() {
