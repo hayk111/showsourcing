@@ -244,7 +244,7 @@ describe('TableComponent', () => {
 		expect(pendingApp).toBeTruthy();
 	});
 
-	header + sort
+	// header + sort
 	it('should display header of table and number of columns is as same as templates defined', () => {
 		testComponent.pending = false;
 		fixtureTestComponent.detectChanges();
