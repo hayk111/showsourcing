@@ -40,6 +40,7 @@ import { SidenavModule } from './sidenav/sidenav.module';
 import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
+import { PaginationModule } from './pagination/pagination.module';
 import { TopPanelModule } from './top-panel/top-panel.module';
 import { BottomPanelModule } from './bottom-panel';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
@@ -94,6 +95,7 @@ const modules = [
 	StageIndicatorModule,
 	StatusSelectorModule,
 	TableModule,
+	PaginationModule,
 	TopPanelModule,
 	UserPictureModule,
 	UtilsModule,

@@ -21,7 +21,7 @@ export class CreationSampleDlgComponent implements OnInit {
 	@Input() supplier: Supplier;
 
 	dynamicFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: translate('name'), placeholder: translate('Sample name'), },
+		{ name: 'name', type: 'text', required: true, label: translate('name'), metadata: { placeholder: translate('Sample name') } },
 		{
 			name: 'assignee',
 			type: 'selector',
@@ -35,7 +35,7 @@ export class CreationSampleDlgComponent implements OnInit {
 				width: 495
 			}
 		},
-		{ name: 'description', type: 'textarea', label: translate('Description'), metadata:  { rows: 5 } },
+		{ name: 'description', type: 'textarea', label: translate('Description'), metadata: { rows: 5 } },
 		{
 			name: 'product',
 			type: 'selector',
@@ -77,8 +77,8 @@ export class CreationSampleDlgComponent implements OnInit {
 		if (!this.sample) {
 			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
 			this.sample = new Sample({
-				...this.product && {product: {id: this.product.id, name: this.product.name}},
-				...supplier && {supplier: {id: supplier.id, name: supplier.name}}
+				...this.product && { product: { id: this.product.id, name: this.product.name } },
+				...supplier && { supplier: { id: supplier.id, name: supplier.name } }
 			});
 		}
 	}
@@ -87,27 +87,29 @@ export class CreationSampleDlgComponent implements OnInit {
 		this.sample = { ...this.sample, ...sample };
 	}
 
-	save ()  {
+	save() {
 		if (this.sample && this.sample.name) {
-			this.sampleSrv.create(this.sample).subscribe(sample => {
-				if (this.createAnother) {
-					this.dlgSrv.open(CreationSampleDlgComponent, { sample: { ...this.sample, name: '', description: ''} });
-				} else {
-					this.close();
+			this.sampleSrv.create(this.sample).subscribe(
+				sample => {
+					if (this.createAnother) {
+						this.dlgSrv.open(CreationSampleDlgComponent, { sample: { ...this.sample, name: '', description: '' } });
+					} else {
+						this.close();
+					}
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: `Sample created`,
+						message: 'Your sample has been created with success'
+					});
+				},
+				err => {
+					this.notifSrv.add({
+						type: NotificationType.ERROR,
+						title: `Sample created`,
+						message: 'Your sample could not been created'
+					});
 				}
-				this.notifSrv.add({
-					type: NotificationType.SUCCESS,
-					title: `Sample created`,
-					message: 'Your sample has been created with success'
-				});
-			},
-			err => {
-				this.notifSrv.add({
-					type: NotificationType.ERROR,
-					title: `Sample created`,
-					message: 'Your sample could not been created'
-				});
-			});
+			);
 		}
 	}
 	cancel() {

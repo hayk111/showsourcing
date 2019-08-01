@@ -62,4 +62,13 @@ export class WorkflowManagamentTableComponent {
 			}
 		}
 	}
+
+	/** Trackby function for ngFor */
+	trackByFn(index, status) {
+		return status.id;
+	}
+
+	trackByCategoryFn(index, category) {
+		return category.key;
+	}
 }

@@ -1,24 +1,18 @@
 <div class="list-container">
-	<div *ngFor="let product of products" class="list-item flexBetween">
-		<div class="flex">
+	<div *ngFor="let product of products; trackBy: trackByFn" class="list-item flexBetween">
+		<div class="product-info flex">
 			<img-app
 				[image]="product?.images?.length ? product?.images[0] : null"
 				type="product">
 			</img-app>
-			{{ product?.name }}
+			<div class="product-name ellipsis">{{ product?.name }}</div>
 		</div>
 		<div class="color-primary pointer fs-s capitalize" (click)="remove.emit(product?.id)" i18n="@@remove">remove</div>
 	</div>
-	<selector-app
-		type="product"
-		[value]="products"
-		[multiple]="true"
-		(update)="update.emit($event)">
-		<button tabFocus class="selector small flex add-products">
-			<icon-app name="add"></icon-app>
-			<span i18n="@@add-products">Add products</span>
-		</button>
-	</selector-app>
+	<button class="selector small flex add-products" (click)="addProduct.emit()">
+		<icon-app name="add"></icon-app>
+		<span i18n="@@add-products">Add products</span>
+	</button>
 </div>
 <div class="number-products flexEnd">
 	{{ products?.length }} <ng-container i18n="@@nested_product-selected">{ products.length, plural, =1 { Product selected } other { Products selected } }</ng-container>

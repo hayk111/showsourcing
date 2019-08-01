@@ -68,7 +68,7 @@ export class ListPageDataService
 		// we merge the default parameter
 		const mergedParams = { ...this.selectParams, ...config.selectParams };
 		Object.assign(this, config);
-		this.selectParams = mergedParams;
+		this.selectParams = { ...mergedParams };
 		this.filterList = new FilterList(
 			config.initialFilters,
 			config.searchedFields,
@@ -98,10 +98,13 @@ export class ListPageDataService
 
 	/** subscribe to items and get the list result */
 	setItems() {
+		// in case we have an initial query and we have to apply a filter
+		const query = this.selectParams.query &&
+			this.filterList.asPredicate() ? this.selectParams.query + ' AND (' + this.filterList.asPredicate() + ')' :
+			this.filterList.asPredicate();
+		this.selectParams = { ...this.selectParams, query };
 		this.listResult = this.entitySrv.getListQuery({
 			...this.selectParams,
-			// overriding query in case there is a filter / search
-			query: this.filterList.asPredicate()
 		});
 
 		this.items$ = this.listResult.items$.pipe(

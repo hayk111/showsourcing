@@ -31,7 +31,7 @@ export class SupplierRequest {
 	creationDate: string;
 	lastUpdatedDate: string;
 	sentDate: string;
-	__typename?= 'Request';
+	__typename ?= 'Request';
 
 	constructor(config: SupplierRequestConfig) {
 		this.creationDate = '' + new Date();

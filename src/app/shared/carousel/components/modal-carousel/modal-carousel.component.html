@@ -1,30 +1,50 @@
 <!-- modal carousel that can be seen when clicking on the normal carousel -->
-<div cdkOverlayOrigin
-	#trigger="cdkOverlayOrigin">
-</div>
+<div cdkOverlayOrigin #trigger="cdkOverlayOrigin"></div>
 
-<cdk-overlay-app
-	[trigger]="trigger"
-	[isOpen]="isOpen"
-	(clickOutside)="close()">
-	<div class="modal" (mousedown)="close()">
-		<div class="img-ctnr" [ngStyle]="{'transform': getRotation(getImg())}">
-			<img-app [image]="getImg()" [size]="'xl'" class="loading" objectFit="contain"></img-app>
+<cdk-overlay-app [trigger]="trigger" [isOpen]="isOpen" (clickOutside)="close()">
+	<div class="modal">
+			<ng-container [ngSwitch]="entity?.__typename">
+				<product-modal-top-panel
+					*ngSwitchCase="'Product'"
+					[product]="entity"
+					(delete)="onDelete()"
+					[selectedIndex]="selectedIndex"
+					(openFileBrowser)="openFileBrowser.emit()"
+					(close)="close()"
+				></product-modal-top-panel>
+			</ng-container>
+		<div (mousedown)="close()">
+			<div class="img-ctnr" [ngStyle]="{ transform: getRotation(getImg()) }">
+				<img-app
+					[@slideAnimationTrigger]="slideAnimationState"
+					(@slideAnimationTrigger.done)="slideAnimationDone()"
+					[image]="getImg()"
+					[size]="'xl'"
+					class="loading"
+					objectFit="contain"
+				></img-app>
+			</div>
+			<div class="spinner-container">
+					<spinner-app  size="xxl"></spinner-app>
+			</div>
+			<div toolTip 	*ngIf="images?.length > 1" class="tooltip back" toolTipMessage="Previous picture" toolTipShowDelay="100">
+				<div
+					class="move-btn back flexCenter pointer"
+					(mousedown)="back($event)"
+				>
+					<icon-app fontSet="fa" name="angle-left"></icon-app>
+				</div>
+			</div>
+			<div toolTip 	*ngIf="images?.length > 1" class="tooltip next" toolTipMessage="Next picture" toolTipShowDelay="100">
+			<div
+				class="move-btn next flexCenter pointer"
+				(mousedown)="next($event)"
+			>
+					<icon-app fontSet="fa" name="angle-right"></icon-app>
+				</div>
+			</div>
+
+			<span class="title">{{ selectedIndex + 1 }} / {{ images?.length }}</span>
 		</div>
-		<div
-			*ngIf="images?.length > 1"
-			class="move-btn back flexCenter pointer"
-			(mousedown)="back($event)">
-			<icon-app fontSet="fa" name="angle-left"></icon-app>
-		</div>
-		<div
-			*ngIf="images?.length > 1"
-			class="move-btn next flexCenter pointer"
-			(mousedown)="next($event)">
-			<icon-app fontSet="fa" name="angle-right"></icon-app>
-		</div>
-		<span class="close-btn pointer" (mousedown)="close()" i18n="button@@close">close</span>
-		<span class="title">{{ selectedIndex + 1}} / {{ images?.length }}</span>
 	</div>
 </cdk-overlay-app>
-

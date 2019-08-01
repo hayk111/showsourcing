@@ -8,7 +8,7 @@ export class Invitation {
 	inviter: User;
 	accessType: string;
 	status: string;
-	__typename?= 'Invitation';
+	__typename ?= 'Invitation';
 
 	constructor(config?: InvitationConfig) {
 		Object.assign(this, config);
@@ -38,7 +38,7 @@ export class InvitationUser {
 	teamId: string;
 	accessType: string;
 	status: string;
-	__typename?= 'Invitation';
+	__typename ?= 'Invitation';
 
 	constructor(config?: InvitationUserConfig) {
 		Object.assign(this, config);

@@ -18,7 +18,7 @@ export class DataMananagementTableComponent extends ListViewComponent<any> {
 	idEntityHovered: string;
 
 	updateNameEntity(isCancel: boolean, obj, newName, subProp?) {
-		if(isCancel) return;
+		if (isCancel) return;
 		let item;
 		// this subprop is needed cause we acces the event.description.name
 		if (subProp)

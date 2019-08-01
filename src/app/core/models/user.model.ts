@@ -14,7 +14,7 @@ export class User {
 	realmServerName?: string;
 	realmPath?: string;
 	avatar?: AppImage;
-	__typename?= 'User';
+	__typename ?= 'User';
 
 	constructor(config: UserConfig) {
 		Object.assign(this, config);

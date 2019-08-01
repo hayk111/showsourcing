@@ -11,7 +11,7 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app name="product" backgroundColor="primary"></icon-app>
-				<span *ngIf="value; else empty">{{ value }}</span>
+				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span i18n="text@@set-product">Set product</span>
 				</ng-template>
@@ -37,7 +37,7 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app name="supplier" backgroundColor="supplier"></icon-app>
-				<span *ngIf="value; else empty">{{ value }}</span>
+				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span i18n="text@@set-supplier">Set supplier</span>
 				</ng-template>
@@ -63,7 +63,7 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app name="supplier" backgroundColor="supplier"></icon-app>
-				<span *ngIf="value; else empty">{{ value }}</span>
+				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span i18n="text@@set-supplier-type">Set supplier type</span>
 				</ng-template>
@@ -102,12 +102,12 @@
 			(update)="update.emit($event)">
 			<div class="flex category-label">
 				<icon-app name="category" backgroundColor="accent"></icon-app>
-				<div class="flex flexWrap">
+				<div class="category-wrap flex flexWrap">
 					<div *ngIf="value?.length; else noArray" class="ellipsis category-info dot-separator">
-						<span *ngFor="let category of value"> {{ category?.name }}  </span>
+						<span *ngFor="let category of value; trackBy: trackByFn" class="ellipsis"> {{ category?.name }}  </span>
 					</div>
 					<ng-template #noArray>
-						<span *ngIf="value?.name; else empty"> {{ value?.name }} </span>
+						<span *ngIf="value?.name; else empty" class="ellipsis"> {{ value?.name }} </span>
 						<ng-template #empty>
 							<span i18n="text@@nested_set-category">{(multiple | json), select, true { Set categories } other { Set cateogry }}</span>
 						</ng-template>
@@ -130,7 +130,9 @@
 			(update)="update.emit($event)">
 			<div class="flex">
 				<icon-app name="event-calendar" backgroundColor="success"></icon-app>
-				<span *ngIf="(value?.name || value?.description?.name); else empty">{{ value?.name || value?.description?.name }}</span>
+				<span *ngIf="(value?.name || value?.description?.name); else empty" class="ellipsis">
+					{{ value?.name || value?.description?.name }}
+				</span>
 				<ng-template #empty>
 					<span i18n="text@@set-event">Set event</span>
 				</ng-template>

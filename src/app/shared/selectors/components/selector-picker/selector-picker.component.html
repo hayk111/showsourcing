@@ -81,7 +81,7 @@
 			</ng-container>
 
 		<ng-container *ngSwitchCase="erm.PICKER_FIELD">
-			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
+			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item?.label || item?.name)"></selector-name-row-app>
 		</ng-container>
 
 		<ng-container *ngSwitchCase="erm.COUNTRY">
@@ -136,5 +136,5 @@
 <divider-app class="bottom-divider"></divider-app>
 
 <div class="flexEnd">
-	<button tabFocus class="secondary capitalize" (click)="close.emit()" i18n="button@@done">done</button>
+	<button tabFocusAction class="secondary capitalize" (click)="close.emit()" i18n="button@@done">done</button>
 </div>

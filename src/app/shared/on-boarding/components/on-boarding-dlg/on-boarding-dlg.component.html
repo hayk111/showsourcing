@@ -11,7 +11,7 @@
       <div class="flexBetween actions">
         <button [disabled]="isFirst()" (click)="back()" class="secondary">Previous</button>
         <div class="flex">
-          <div *ngFor="let screen of onboardingSrv.screens; let i = index"
+          <div *ngFor="let screen of onboardingSrv.screens; let i = index; trackBy: trackByFn"
           class="circle"
           [ngClass]="{ 'selected': onboardingSrv.currentIndex === i }"></div>
         </div>
