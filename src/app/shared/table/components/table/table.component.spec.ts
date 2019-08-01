@@ -1,39 +1,179 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, ComponentFixtureAutoDetect, fakeAsync, flush, tick } from '@angular/core/testing';
+import {
+	TemplateRef,
+	Component,
+	ViewChild,
+	AfterViewInit,
+	ViewContainerRef,
+	QueryList,
+	ContentChildren,
+	DebugElement
+} from '@angular/core';
 import { TableComponent } from './table.component';
 import { TableModule } from '../../table.module';
 import { By } from '@angular/platform-browser';
+import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-params';
+import { ColumnDirective } from '~shared/table/components/column.directive';
+import { ListViewComponent } from '~core/list-page/list-view.component';
+import { Sort } from '~shared/table/components/sort.interface';
+
+class Item {
+	name?: string;
+	price?: number;
+}
+@Component({
+	template: `
+		<ng-template #contextualMenuTemplate let-row="row">
+				{{row?.name}}
+		</ng-template>
+
+		<table-app #table
+			[rows]="rows"
+			[pending]="pending"
+			[hasSelection]="hasSelection"
+			[selected]="selection"
+			[contextualMenu]="contextualMenuTemplate"
+			[count]="count"
+			[skipped]="skipped"
+			placeholder="'No items'"
+			(next)="next.emit()"
+			(previous)="previous.emit()"
+			(goToPage)="goToPage.emit($event)"
+			(selectOne)="select.emit($event)"
+			(unselectOne)="unselect.emit($event)"
+			(selectAll)="selectAll.emit($event)"
+			(unselectAll)="unselectAll.emit($event)"
+			(bottomReached)="bottomReached.emit()"
+			(sort)="sort.emit($event)"
+			[currentSort]="currentSort">
+
+			<!-- name -->
+			<ng-template
+				[columnApp]="'Item name'"
+				sortBy="name"
+				let-row="row"
+				width="300">
+				{{ row?.name }}
+			</ng-template>
+
+			<!-- name -->
+			<ng-template
+				[columnApp]="'Price'"
+				sortBy="price"
+				let-row="row"
+				width="300">
+				{{ row?.price }}
+			</ng-template>
+
+		</table-app>
+	`
+})
+
+class TestComponent extends ListViewComponent<Item> implements AfterViewInit {
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
+	@ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
+	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
+	@ViewChild('table', { static: false }) table;
+
+	hasSelection: boolean;
+	currentSort: Sort;
+
+	ngAfterViewInit() {
+		console.log('contextualMenu', this.contextualMenuTemplate);
+	}
+}
 
 describe('TableComponent', () => {
 	let tableComponent: TableComponent;
-	let fixture: ComponentFixture<TableComponent>;
+	let testComponent: TestComponent;
+	let fixtureTestComponent: ComponentFixture<TestComponent>;
+	let dest: DebugElement;
 
 	beforeEach(async () => {
 		TestBed.configureTestingModule({
-			imports: [TableModule]
-		});
+			declarations: [TestComponent],
+			imports: [TableModule],
+			providers: [TableComponent]
+		}).compileComponents();
 
 	});
 
-	it('should create TableComponent', () => {
-		fixture = TestBed.createComponent(TableComponent);
-		tableComponent = fixture.componentInstance;
+	beforeEach(() => {
+		fixtureTestComponent = TestBed.createComponent(TestComponent);
+		testComponent = fixtureTestComponent.componentInstance;
+		dest = fixtureTestComponent.debugElement.query(By.directive(TableComponent));
+		tableComponent = dest.componentInstance;
+		fixtureTestComponent.detectChanges();
+	});
 
-		expect(tableComponent).toBeDefined();
+	afterEach(async () => {
+		if (fixtureTestComponent) {
+			await fixtureTestComponent.destroy();
+		}
+	});
+
+	it('should create TestComponent and Table component', () => {
+		expect(testComponent).withContext('Can not create TestComponent').toBeDefined();
+		expect(tableComponent).withContext('Can not create TableComponent').toBeDefined();
 	});
 
 	it('should select all when click checkbox', () => {
-		fixture = TestBed.createComponent(TableComponent);
-		tableComponent = fixture.componentInstance;
-		const rows = [{}, {}];
-		fixture.detectChanges();
-		tableComponent.selectAll.subscribe((res) => expect(res.length).toBe(rows.length));
+		const rows = [{ id: '1', name: 'Campaign' }, { id: '2', name: 'Theme' }];
+		testComponent.rows = rows;
+		fixtureTestComponent.detectChanges();
+
+		tableComponent.selectAll.subscribe((res) => expect(res.length)
+		.withContext('The checkbox not emit all current items')
+		.toBe(rows.length));
 		tableComponent.onSelectAll(rows);
 	});
 
-	it('should unselect all when click checkbox', () => {
-		fixture = TestBed.createComponent(TableComponent);
-		tableComponent = fixture.componentInstance;
+	it('should display checked when all the items are selected (expect for checkbox select all)', () => {
+		const rows = [{ id: '1', name: 'Campaign' }, { id: '2', name: 'Theme' }];
+		testComponent.rows = rows;
+		testComponent.selection = new Map(rows.map(e => ([e.id, true])));
+		testComponent.pending = false;
+		testComponent.hasSelection = true;
 
+		fixtureTestComponent.detectChanges();
+		const inpCheckboxApp = dest.query(By.css('checkbox-app')).query(By.css('input'));
+
+		expect(inpCheckboxApp.nativeElement.getAttribute('value'))
+			.withContext('Checkbox select all not checked when all the items are selected')
+			.toBe('true');
+	});
+
+	it('should display unchecked when all the items are not selected (expect for checkbox select all)', () => {
+		const rows = [{ id: '1', name: 'test1' }, { id: '2', name: 'test2' }];
+		testComponent.rows = rows;
+		testComponent.selection = new Map([['1', true]]);
+		testComponent.pending = false;
+		testComponent.hasSelection = true;
+
+		fixtureTestComponent.detectChanges();
+		const inpCheckboxApp = fixtureTestComponent.debugElement.query(By.css('checkbox-app')).query(By.css('input'));
+
+		expect(inpCheckboxApp.nativeElement.getAttribute('value'))
+			.withContext('Checkbox select all not checked when all the items are selected')
+			.toBe('false');
+	});
+
+	it('should checked when the item has been selected (expect for checkbox select item)', () => {
+		const rows = [{ id: '1', name: 'test1' }];
+		testComponent.rows = rows;
+		testComponent.selection = new Map([['1', true]]);
+		testComponent.pending = false;
+		testComponent.hasSelection = true;
+
+		fixtureTestComponent.detectChanges();
+		const inpCheckboxApp = fixtureTestComponent.debugElement.query(By.css('.selectionCol>.cell')).query(By.css('input'));
+
+		expect(inpCheckboxApp.nativeElement.getAttribute('value'))
+			.withContext('Checkbox select not checked when the item has been selected')
+			.toBe('true');
+	});
+
+	it('should unselect all when click checkbox (the checkbox is selected) (expect for checkbox select all', () => {
 		const rows = [{}, {}];
 		tableComponent.selectAll.subscribe((res) => expect(res.length).toBe(rows.length));
 		tableComponent.onSelectAll(rows);
@@ -41,44 +181,161 @@ describe('TableComponent', () => {
 		tableComponent.onUnselectAll();
 	});
 
+	it('should throw error when variable "selected" is undefined', () => {
+		spyOn(tableComponent, 'isSelected').and.callThrough();
+		tableComponent.selected = undefined;
+		fixtureTestComponent.detectChanges();
+		expect(true).toBe(true);
+	});
+
+	it('should checked when click checkbox (the checkbox is selected) (expect for checkbox of item)', () => {
+		const rows = [{ id: '1', name: 'test1' }, { id: '2', name: 'test1' }];
+		testComponent.rows = rows;
+		testComponent.hasSelection = true;
+		testComponent.selection = new Map([['2', true]]);
+		testComponent.pending = false;
+
+		spyOn(tableComponent, 'onSelectOne');
+		tableComponent.selectOne.subscribe(res =>
+			expect(res)
+				.withContext('Input "selectOne" should be emitted')
+				.toBe(rows[0])
+		);
+		tableComponent.onSelectOne(rows[0]);
+		fixtureTestComponent.detectChanges();
+		expect(tableComponent.onSelectOne).withContext('Should call fnc "onSelectOne"').toHaveBeenCalled();
+	});
+
+	it('should unchecked when click checkbox (the checkbox is selected) (expect for checkbox of item)', () => {
+		const rows = [{ id: '1', name: 'test1' }, { id: '2', name: 'test1' }];
+		testComponent.rows = rows;
+		testComponent.hasSelection = true;
+		testComponent.selection = new Map([['1', true]]);
+		testComponent.pending = false;
+
+		spyOn(tableComponent, 'onUnselectOne');
+		tableComponent.unselectOne.subscribe(res =>
+			expect(res)
+				.withContext('Input "unselectOne" should be emitted')
+				.toBe(rows[0])
+		);
+		tableComponent.onUnselectOne(rows[0]);
+		fixtureTestComponent.detectChanges();
+		expect(tableComponent.onUnselectOne).withContext('Should call fnc "onUnselectOne"').toHaveBeenCalled();
+	});
+
+	// placeholder
 	it('should display placeholder', () => {
-		fixture = TestBed.createComponent(TableComponent);
-		tableComponent = fixture.componentInstance;
+		testComponent.rows = [];
+		testComponent.pending = false;
 
-		tableComponent.rows = [];
-		tableComponent.placeholder = 'No items';
-
-		fixture.detectChanges();
-		const placeholder = fixture.debugElement.query(By.css('.placeholder'));
+		fixtureTestComponent.detectChanges();
+		const placeholder = fixtureTestComponent.debugElement.query(By.css('.placeholder'));
 		expect(placeholder).toBeTruthy();
 		expect(placeholder.nativeElement.innerText).toContain('No items');
 	});
 
+	// loading
 	it('should display loading when getting data', () => {
-		fixture = TestBed.createComponent(TableComponent);
-		tableComponent = fixture.componentInstance;
+		testComponent.pending = true;
+		fixtureTestComponent.detectChanges();
 
-		tableComponent.pending = true;
-		fixture.detectChanges();
-
-		const pendingApp = fixture.debugElement.query(By.css('.pendingCtnr'));
+		const pendingApp = fixtureTestComponent.debugElement.query(By.css('.pendingCtnr'));
 		expect(pendingApp).toBeTruthy();
 	});
 
-	it('should display pagination and current page is 1 when have items', () => {
-		fixture = TestBed.createComponent(TableComponent);
-		tableComponent = fixture.componentInstance;
+	header + sort
+	it('should display header of table and number of columns is as same as templates defined', () => {
+		testComponent.pending = false;
+		fixtureTestComponent.detectChanges();
 
-		tableComponent.rows = [{}, {}];
-		tableComponent.skipped = 0;
-
-		fixture.detectChanges();
-		const pagination = fixture.debugElement.query(By.css('.pagination-ctrl'));
-
-		expect(pagination).toBeTruthy();
-		const currentPage = pagination.query(By.css('.selected')).nativeElement;
-
-		expect(currentPage.innerText).toBe('1');
+		const columns = fixtureTestComponent.debugElement.queryAll(By.css('.header.capitalize'));
+		expect(columns.length).toEqual(tableComponent.columns.length);
 	});
 
+	it('should display sort icon (expert for angle down and up)', () => {
+		testComponent.currentSort = {
+			sortBy: 'name',
+			descending: true
+		};
+
+		fixtureTestComponent.detectChanges();
+		const column = fixtureTestComponent.debugElement.query(By.css('.header.capitalize'));
+		let icon = column.query(By.css('.sortIcon'));
+		expect(icon.nativeElement.getAttribute('name'))
+			.withContext('should display angle down when descending true')
+			.toBe('angle-down');
+
+		testComponent.currentSort = {
+			sortBy: 'name',
+			descending: false
+		};
+
+		fixtureTestComponent.detectChanges();
+		icon = column.query(By.css('.sortIcon'));
+
+		expect(icon.nativeElement.getAttribute('name'))
+			.withContext('should display angle up when descending false')
+			.toBe('angle-up');
+	});
+
+	it('should change sort icon when click column title', () => {
+		const columnDirective = testComponent.columns[0];
+		testComponent.currentSort = {
+			sortBy: 'name',
+			descending: true
+		};
+
+		spyOn(tableComponent, 'onSort');
+		tableComponent.onSort(columnDirective);
+		fixtureTestComponent.detectChanges();
+
+		const column = fixtureTestComponent.debugElement.query(By.css('.header.capitalize'));
+		const icon = column.query(By.css('.sortIcon'));
+
+		expect(icon.nativeElement.getAttribute('name'))
+			.withContext('should display angle down when descending true')
+			.toBe('angle-down');
+
+		tableComponent.sort.subscribe(res =>
+			expect(res)
+				.withContext('Input "sort" should be emitted')
+				.toBe({
+					sortBy: 'name',
+					descending: false
+				}));
+		expect(tableComponent.onSort)
+			.withContext('Should call fnc "onSort"')
+			.toHaveBeenCalled();
+		expect(tableComponent.currentSortedColumn)
+			.withContext('Current sorted column should as same as column clicked')
+			.toBe(columnDirective);
+
+	});
+
+	it('should emit property "sort" and sorting on all column when click column title', () => {
+		const column = testComponent.columns[0];
+		testComponent.currentSort = {
+			sortBy: 'name',
+			descending: true
+		};
+
+		spyOn(tableComponent, 'onSort');
+		tableComponent.onSort(column);
+		fixtureTestComponent.detectChanges();
+
+		tableComponent.sort.subscribe(res =>
+			expect(res)
+				.withContext('Input "sort" should be emitted')
+				.toBe({
+					sortBy: 'name',
+					descending: false
+				}));
+		expect(tableComponent.onSort)
+			.withContext('Should call fnc "onSort"')
+			.toHaveBeenCalled();
+		expect(tableComponent.currentSortedColumn)
+			.withContext('Current sorted column should as same as column clicked')
+			.toBe(column);
+	});
 });
