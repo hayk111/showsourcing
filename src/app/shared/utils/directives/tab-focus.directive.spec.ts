@@ -1,15 +1,8 @@
-import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core/testing';
-import { TAB } from '@angular/cdk/keycodes';
-// import {
-// 	dispatchFakeEvent,
-// 	dispatchKeyboardEvent,
-// 	dispatchMouseEvent,
-// 	patchElementFocus,
-// } from '@angular/cdk/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+
 import { TabFocusDirective } from './tab-focus.directive';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 
 @Component({
 	template: `
@@ -18,7 +11,7 @@ import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 })
 class TestComponent { }
 
-describe('TabFocusDirective', () => {
+fdescribe('TabFocusDirective', () => {
 	let component: TestComponent;
 	let fixture: ComponentFixture<TestComponent>;
 	let dbgEl: DebugElement;
@@ -37,20 +30,10 @@ describe('TabFocusDirective', () => {
 		expect(component).toBeDefined();
 	});
 
-	it('should contains focused', fakeAsync(() => {
-		const btnElem = dbgEl.nativeElement;
-		spyOn(directive, 'formatOrigin').and.callThrough();
-		btnElem.focus();
-		fixture.detectChanges();
-		flush();
-		expect(directive.formatOrigin).toHaveBeenCalled();
-		expect(directive.elementOrigin).toContain('focused');
-	}));
 
-	it('should call "onKeydown" when using keydown', () => {
-		spyOn(directive, 'onKeydown');
-		dbgEl.triggerEventHandler('keydown', {});
-		fixture.detectChanges();
-		expect(directive.onKeydown).toHaveBeenCalled();
+	it('should call output typing when typing characters or space', () => {
+	});
+
+	it('should call output onEnter when enter', () => {
 	});
 });
