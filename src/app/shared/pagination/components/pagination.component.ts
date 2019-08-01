@@ -56,7 +56,7 @@ export class PaginationComponent implements OnChanges {
 	}
 
 	private buildPaginatorRange() {
-		this.range = this.getPagingRange(this.currentIndex, 1, this.totalPages, this.width);
+		this.range = this.getPagingRange(this.currentIndex);
 	}
 
 	/**
@@ -67,11 +67,12 @@ export class PaginationComponent implements OnChanges {
 	 * @param width length of the cursor
 	 *
 	 * Examples:
-	 * console.log(getPagingRange(20)); // [16, 17, 18, 19, 20]
-	 * console.log(getPagingRange(3, { total: 4, width: 3 })); // [2, 3, 4]
-	 * console.log(getPagingRange(3, { min: 0, total: 4, width: 3 })); // [1, 2, 3]
+	 * console.log(getPagingRange(20, { min: 1, total: 20, width: 5 })); // [16, 17, 18, 19, 20]
+	 * console.log(getPagingRange(15, { min: 1, total: 20, width: 5 })); // [13, 14, 15, 16, 17]
+	 * console.log(getPagingRange(3, { min: 1, total: 4, width: 3})); // [2, 3, 4]
+	 * console.log(getPagingRange(2, { min: 1, total: 4, width: 3})); // [1, 2, 3]
 	 */
-	private getPagingRange(currentIndex, min, total, width) {
+	private getPagingRange(currentIndex, { min = 1, total = this.totalPages, width = this.width } = {}) {
 
 		if (width > total)
 			width = total;
