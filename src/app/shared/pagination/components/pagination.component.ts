@@ -54,8 +54,6 @@ export class PaginationComponent {
 		return this._count;
 	}
 
-	@Output() previous = new EventEmitter<undefined>();
-	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
 
 	setPageIndex() {
@@ -74,25 +72,15 @@ export class PaginationComponent {
 		this.sections = pages.length ? pages : [0];
 	}
 
-	nextPage() {
-		if (this.indexPagination < this.totalSections - 1) {
-			this.indexPagination++;
+	goToIndexPage(index, disabled?: boolean) {
+		if (!disabled) {
+			this.indexPagination = index;
 			this.setPageIndex();
-			this.next.emit();
+			this.goToPage.emit(index);
 		}
 	}
 
-	previousPage() {
-		if (this.indexPagination > 0) {
-			this.indexPagination--;
-			this.setPageIndex();
-			this.previous.emit();
-		}
-	}
-
-	goToIndexPage(index) {
-		this.indexPagination = index;
-		this.setPageIndex();
-		this.goToPage.emit(index);
+	resetIndex() {
+		this.indexPagination = 0;
 	}
 }

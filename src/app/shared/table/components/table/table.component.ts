@@ -179,14 +179,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		});
 	}
 
-	onNext() {
-		this.next.emit();
-	}
-
-	onPrevious() {
-		this.previous.emit();
-	}
-
 	goToIndexPage(page) {
 		this.goToPage.emit(page);
 	}
