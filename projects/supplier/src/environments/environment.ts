@@ -9,8 +9,8 @@ import { LogLevel } from '~utils';
 export const environment = {
 	version: WEB_VERSION + '-DEV',
 	production: false,
-	graphqlUrl: 'wss://showsourcingdev.us1a.cloud.realm.io/graphql',
-	graphqlAuthUrl: 'https://showsourcingdev.us1a.cloud.realm.io/auth',
+	graphqlUrl: 'wss://showsourcingdev.us1.cloud.realm.io/graphql',
+	graphqlAuthUrl: 'https://showsourcingdev.us1.cloud.realm.io/auth',
 	apiUrl: 'https://services-dev.showsourcing.com',
 	getStreamKey: 'aner534ygtg9',
 	getStreamAppID: '39385',
