@@ -69,7 +69,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 	}
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"' });
 	}
 
 	ngOnChanges() {

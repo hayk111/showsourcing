@@ -70,7 +70,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 	}
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"' });
 	}
 
 	ngOnChanges() {
