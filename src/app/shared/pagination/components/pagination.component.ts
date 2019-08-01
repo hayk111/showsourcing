@@ -1,16 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ContentChildren,
-	EventEmitter,
-	HostListener,
-	Input,
-	OnChanges,
-	Output,
-	QueryList,
-	TemplateRef,
-	OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-params';
 
 @Component({
@@ -19,65 +7,80 @@ import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-pa
 	styleUrls: ['./pagination.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginationComponent {
+export class PaginationComponent implements OnChanges {
 
 	/** Different rows displayed */
 	@Input() rows;
-	/** how many items were skipped so we can display the pages */
-	@Input() skipped: number;
-
-	@Input() totalSections = 1;
-
-	/** how many pages our pagination will have */
-	sections: Array<number> = [0];
 	/** items that we will see per page */
-	itemsPerPage = DEFAULT_TAKE_PAGINATION;
-	/** current index of the pagination */
-	currentIndex = 0;
-	/** number of pages displayed on either sides of the current page */
-	sideItems = 5;
-
-	/** total number of items for pagination */
-	@Input()
-	set count(count: number) {
-		this._count = count;
-		this.totalSections = Math.ceil(this._count / this.itemsPerPage);
-		if (this.skipped)
-		this.currentIndex = this.skipped / this.itemsPerPage;
-		this.setPageIndex();
-	}
-	get count() {
-		return this._count;
-	}
-	private _count = 0;
+	@Input() itemsPerPage = DEFAULT_TAKE_PAGINATION;
+	/** total number of items */
+	@Input() count = 0;
+	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20] */
+	@Input() width = 5;
 
 	@Output() goToPage = new EventEmitter<number>();
 
-	setPageIndex() {
-		const width = Math.min(this.sideItems * 2 + 1, this.totalSections);
-		const leftIndex = Math.max(this.currentIndex - this.sideItems, 0);
-		const pages = [];
-		// we want to readd items from the right to the left (-1 since we don't take into account the last index)
-		const rightAmount = Math.min(this.sideItems, ((this.totalSections - 1) - this.currentIndex));
+	/** how many pages our pagination will have */
+	totalPages = 1;
+	/** the range of  */
+	range: Array<number> = [];
+	/** current index of the pagination */
+	currentIndex = 1;
 
-		let cursor = Math.max(leftIndex - (this.sideItems - rightAmount), 0);
-
-		while ((pages.length < width) && (cursor <= this.totalSections)) {
-			pages.push(cursor);
-			cursor++;
-		}
-		this.sections = pages.length ? pages : [0];
+	ngOnChanges() {
+		this.totalPages = Math.ceil(this.count / this.itemsPerPage);
+		this.buildPaginatorRange();
 	}
 
 	goToIndexPage(index, disabled?: boolean) {
 		if (!disabled) {
 			this.currentIndex = index;
-			this.setPageIndex();
-			this.goToPage.emit(index);
+			this.buildPaginatorRange();
+			// emitting index - 1 because our pages start at 1 while pagination stars at 0
+			this.goToPage.emit(index - 1);
 		}
 	}
 
-	resetIndex() {
-		this.currentIndex = 0;
+	goToPreviousPage() {
+		if (this.currentIndex > 0)
+			this.goToIndexPage(this.currentIndex - 1);
 	}
+
+	goToNextPage() {
+		if (this.currentIndex < this.totalPages)
+			this.goToIndexPage( this.currentIndex + 1);
+	}
+
+	goToFirstPage() {
+		this.currentIndex = 1;
+	}
+
+	private buildPaginatorRange() {
+		this.range = this.getPagingRange(this.currentIndex, 1, this.totalPages, this.width);
+	}
+
+	/**
+	 *
+	 * @param currentIndex current index we are at
+	 * @param min the last page on the left (usually 0 or 1)
+	 * @param total total number of pages
+	 * @param width length of the cursor
+	 *
+	 * Examples:
+	 * console.log(getPagingRange(20)); // [16, 17, 18, 19, 20]
+	 * console.log(getPagingRange(3, { total: 4, width: 3 })); // [2, 3, 4]
+	 * console.log(getPagingRange(3, { min: 0, total: 4, width: 3 })); // [1, 2, 3]
+	 */
+	private getPagingRange(currentIndex, min, total, width) {
+
+		if (width > total)
+			width = total;
+
+		let start = currentIndex - Math.floor(width / 2);
+		start = Math.max(start, min);
+		start = Math.min(start, min + total - width);
+
+		return Array.from({ length: width }, (el, i) => start + i);
+	}
+
 }

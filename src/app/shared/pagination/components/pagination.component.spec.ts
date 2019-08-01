@@ -32,6 +32,6 @@ describe('Component: PaginationComponent', () => {
 		fixture = TestBed.createComponent(PaginationComponent);
 		component = fixture.componentInstance;
 
-		expect(component.totalSections).toEqual(1);
+		expect(component.totalPages).toEqual(1);
 	});
 });
