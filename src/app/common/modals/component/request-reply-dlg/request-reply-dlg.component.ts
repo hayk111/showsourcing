@@ -59,6 +59,9 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			tap(request => this.request = request),
 			takeUntil(this._destroy$)
 		).subscribe(_ => this.setElement());
+
+		if (this.isDisabled())
+			this.descriptionCtrl.disable();
 	}
 
 
