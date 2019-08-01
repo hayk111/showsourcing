@@ -110,8 +110,12 @@ export class CreationProductDlgComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
+		// if there is not a product created, we create one
+		// else if a product exists but it does not have images or attachments initialized
 		if (!this.product)
 			this.product = new Product({ images: [], attachments: [] });
+		else if (!this.product.images || !this.product.attachments)
+			this.product = { ...this.product, images: [], attachments: [] };
 	}
 
 	updateProduct(product: Product) {
