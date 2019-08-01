@@ -5,6 +5,7 @@
 
 selector-app {
 	cursor: pointer;
+	max-width: 100%;
 }
 
 .icon-container {
@@ -29,6 +30,10 @@ selector-app {
 		&:hover {
 			color: var(--color-primary);
 		}
+	}
+
+	.category-wrap {
+		width: 100%;
 	}
 
 	.category-label {

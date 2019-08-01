@@ -35,28 +35,24 @@
       (bottomReached)="listSrv.loadMore()"
 			(sort)="listSrv.sort($event)">
 		</products-card-view-dialog-app>
+	</div>
 
-    <divider-app></divider-app>
-
-    <div class="flexBetween footer">
-      <div class="left flexCenter">
-        <ng-container	*ngIf="(listSrv.selection$ | async) as selected">
-					<div *ngIf="(listSrv.selection$ | async).size > 0" style="align-items: center" class="capitalize alignCenter">
-						{{selected.size}} <ng-container i18n="@@nested_product">{ selected?.size, plural, =1 { product } other { products } }</ng-container> <ng-container i18n="@@selected">selected</ng-container>
-					</div>
-        </ng-container>
-      </div>
-      <div class="right flexCenter">
-        <dialog-footer-app>
-          <button class="cancel capitalize" (click)="closeDlg()" i18n="@@cancel">cancel</button>
-          <button class="save capitalize" (click)="submit()" i18n="@@update-products">Update products</button> <!-- disabled]="!hasSelectedProducts()" -->
-        </dialog-footer-app>
-      </div>
-    </div>
-  </div>
-
-  <ng-template #spinner>
-    <spinner-app></spinner-app>
-  </ng-template>
+	<dialog-footer-app class="flexBetween">
+		<div class="left flexCenter">
+			<ng-container	*ngIf="(listSrv.selection$ | async) as selected">
+				<div *ngIf="(listSrv.selection$ | async).size > 0" style="align-items: center" class="capitalize alignCenter">
+					{{ selected.size }} <ng-container i18n="@@nested_product">{ selected?.size, plural, =1 { product } other { products } }</ng-container> <ng-container i18n="@@selected">selected</ng-container>
+				</div>
+			</ng-container>
+		</div>
+		<div class="right flexCenter">
+				<button class="cancel secondary" (click)="closeDlg()" i18n="@@cancel">cancel</button>
+				<button class="save" (click)="submit()" i18n="@@update-products">update products</button> <!-- disabled]="!hasSelectedProducts()" -->
+		</div>
+	</dialog-footer-app>
 
 </dialog-app>
+
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>

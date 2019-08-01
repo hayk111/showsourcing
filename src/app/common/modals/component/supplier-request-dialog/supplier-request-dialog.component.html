@@ -33,7 +33,7 @@
 						formControlName="requestTemplate"
 						(update)="selectTemplate($event)">
 							<selector-placeholder-app
-								tabFocus
+								tabFocusAction
 								autoFocus
 								[name]="selectorReqTemplate?.value?.name"
 								placeholder="Select a template"
@@ -88,7 +88,7 @@
 							[canCreate]="true"
 							(update)="updateSupplier($event)">
 							<selector-placeholder-app
-								tabFocus
+								tabFocusAction
 								[name]="supplier?.name"
 								placeholder="Select a supplier"
 								i18n-placeholder="@@select-supplier">
@@ -108,7 +108,7 @@
 						formControlName="recipient"
 						(update)="contactUpdate($event)">
 						<selector-placeholder-app
-							tabFocus
+							tabFocusAction
 							[ngClass]="{ disabled: !supplier }"
 							[hasArrow]="supplier"
 							[name]="!supplier ? ('Select a supplier first' | const: 'messages') : contactSelector?.value?.email"
@@ -161,7 +161,7 @@
 
 	<dialog-footer-app>
 		<spinner-app *ngIf="pending" size="18"></spinner-app>
-		<button tabFocus class="capitalize" [disabled]="!form.valid || pending" (click)="createRequest()" i18n="@@send-request">send request</button>
+		<button tabFocusAction class="capitalize" [disabled]="!form.valid || pending" (click)="createRequest()" i18n="@@send-request">send request</button>
 	</dialog-footer-app>
 
 </dialog-app>

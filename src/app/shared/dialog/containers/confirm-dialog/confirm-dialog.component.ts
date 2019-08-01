@@ -11,6 +11,7 @@ import { CloseEventType } from '~shared/dialog/interfaces';
 export class ConfirmDialogComponent {
 	@Input() title: string;
 	@Input() text: string;
+	@Input() subtext: string;
 	@Input() action: string;
 
 	constructor(protected srv: DialogService) { }

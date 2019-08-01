@@ -7,8 +7,9 @@
 				<product-modal-top-panel
 					*ngSwitchCase="'Product'"
 					[product]="entity"
-					(delete)="delete.emit()"
+					(delete)="onDelete()"
 					[selectedIndex]="selectedIndex"
+					(openFileBrowser)="openFileBrowser.emit()"
 					(close)="close()"
 				></product-modal-top-panel>
 			</ng-container>
@@ -22,6 +23,9 @@
 					class="loading"
 					objectFit="contain"
 				></img-app>
+			</div>
+			<div class="spinner-container">
+					<spinner-app  size="xxl"></spinner-app>
 			</div>
 			<div toolTip 	*ngIf="images?.length > 1" class="tooltip back" toolTipMessage="Previous picture" toolTipShowDelay="100">
 				<div
