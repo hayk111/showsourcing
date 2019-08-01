@@ -51,7 +51,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				this.listSrv.setup({
 					key: `${ListPageKey.REQUEST_ELEMENT}-${id}`,
 					entitySrv: this.reqElementSrv,
-					selectParams: { sortBy: 'name', query: `@links.Request.requestElements.id == "${id}"` },
+					selectParams: { sortBy: 'name', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
 					searchedFields: [],
 					entityMetadata: ERM.REQUEST_ELEMENT,
 					initialFilters: [],
@@ -59,7 +59,11 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				});
 			}),
 			switchMap(id => this.featureSrv.selectOne(id)),
-			tap(req => this.requestElements = req ? req.requestElements : []),
+			tap(req => this.requestElements = req ?
+				// this sort is made so it matches the sort of the query, since the order of the elements
+				// inside the request it is what it is we have to find a way to match the order
+				req.requestElements.sort((a, b) => a.name > b.name ? 1 : -1) : []
+			),
 			takeUntil(this._destroy$)
 		).subscribe(
 			request => this.onRequest(request),
