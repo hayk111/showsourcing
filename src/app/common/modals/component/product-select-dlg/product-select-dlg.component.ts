@@ -48,7 +48,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private userSrv: UserService,
 		public listSrv: ListPageService<Product, ProductService>,
-		) {
+	) {
 		super();
 	}
 
@@ -64,8 +64,9 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		this.initialSelection();
 
 		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
-			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
-		);
+			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate())),
+			takeUntil(this._destroy$));
+
 	}
 
 	searchProduct(value) {

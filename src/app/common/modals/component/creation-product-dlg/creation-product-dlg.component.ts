@@ -15,6 +15,7 @@ import { translate, uuid } from '~utils';
 export class CreationProductDlgComponent implements OnInit {
 
 	@Input() product: Product;
+	@Input() createAnother = false;
 
 	// TODO i18n
 	dynamicFields: DynamicField[] = [
@@ -101,7 +102,6 @@ export class CreationProductDlgComponent implements OnInit {
 			metadata: { target: 'Product' }
 		}
 	];
-	createAnother = false;
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -152,7 +152,7 @@ export class CreationProductDlgComponent implements OnInit {
 				// if we create a new product we create a new id
 				if (this.createAnother) {
 					product = this.resetIds(product);
-					this.dlgSrv.open(CreationProductDlgComponent, { product });
+					this.dlgSrv.open(CreationProductDlgComponent, { product, createAnother: true });
 					this.productSrv.onUpdateProductList();
 				} else
 					this.close();
