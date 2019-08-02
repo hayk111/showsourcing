@@ -5,7 +5,7 @@ debug helper
 range: {{ range | json }} <br>
 count: {{ count }} <br>
 total pages: {{ totalPages }} <br>
-index: {{ currentIndex }} 
+index: {{ currentPage }} 
 
 
 
@@ -14,21 +14,21 @@ index: {{ currentIndex }}
 	<icon-app 
 		fontSet="fa" 
 		name="angle-left" 
-		[ngClass]="{ disabled: currentIndex === 1 }" 
+		[ngClass]="{ disabled: currentPage === 1 }" 
 		(click)="goToPreviousPage()">
 	</icon-app>
 	
 	<span *ngFor="let page of range"
 		class="pagination-item"
-		[ngClass]="{ selected: page === currentIndex }"
-		(click)="goToIndexPage(currentIndex)">
+		[ngClass]="{ selected: page === currentPage }"
+		(click)="goToIndexPage(currentPage)">
 		{{ page }}
 	</span>
 
 	<icon-app 
 		fontSet="fa" 
 		name="angle-right" 
-		[ngClass]="{ disabled: currentIndex === totalPages }" 
+		[ngClass]="{ disabled: currentPage === totalPages }" 
 		(click)="goToNextPage()">
 	</icon-app>
 

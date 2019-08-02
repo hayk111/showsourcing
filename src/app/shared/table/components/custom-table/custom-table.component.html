@@ -6,7 +6,8 @@
 	[currentSort]="currentSort"
 	[placeholder]="placeholder"
 	[count]="count"
-	[skipped]="skipped"
+	[currentPage]="currentPage"
+	[pending]="pending"
 	(next)="next.emit()"
 	(previous)="previous.emit()"
 	(goToPage)="goToPage.emit($event)"
@@ -15,7 +16,6 @@
 	(unselectOne)="unselectOne.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
-	[pending]="pending"
 	(sort)="sort.emit($event)">
 		<ng-template
 			*ngFor="let column of descriptor;trackBy: trackByFn"

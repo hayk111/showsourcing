@@ -44,6 +44,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() count = 0;
 	/** how many items were skipped so we can display the pages */
 	@Input() skipped: number;
+	@Input() currentPage: number;
 
 	/** event when we select all rows */
 	@Output() selectAll = new EventEmitter<string[]>();
@@ -57,8 +58,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** when we hover and we want to get the id of the object */
 	@Output() hovered = new EventEmitter<string>();
 	/** pagination events */
-	@Output() previous = new EventEmitter<undefined>();
-	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
 	/** all the columns */
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;

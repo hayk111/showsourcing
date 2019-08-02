@@ -19,44 +19,44 @@ export class PaginationComponent implements OnChanges {
 	@Input() width = 5;
 
 	@Output() goToPage = new EventEmitter<number>();
+	/** current index of the pagination (starts at 1) */
+	@Input() currentPage = 1; // TODO might be clearer if this started at 0 instead.
 
 	/** how many pages our pagination has */
 	totalPages;
 	/** the pages displayed */
 	range: Array<number> = [];
-	/** current index of the pagination (starts at 1) */
-	currentIndex = 1; // TODO might be clearer if this started at 0 instead.
 
 	ngOnChanges() {
 		this.totalPages = Math.ceil(this.count / this.itemsPerPage);
 		this.buildPaginatorRange();
 	}
 
-	goToIndexPage(index, disabled?: boolean) {
+	goToIndexPage(page, disabled?: boolean) {
 		if (!disabled) {
-			this.currentIndex = index;
+			this.currentPage = page;
 			this.buildPaginatorRange();
 			// emitting index - 1 because our pages start at 1 while pagination stars at 0
-			this.goToPage.emit(index - 1);
+			this.goToPage.emit(page - 1);
 		}
 	}
 
 	goToPreviousPage() {
-		if (this.currentIndex > 0)
-			this.goToIndexPage(this.currentIndex - 1);
+		if (this.currentPage > 0)
+			this.goToIndexPage(this.currentPage - 1);
 	}
 
 	goToNextPage() {
-		if (this.currentIndex < this.totalPages)
-			this.goToIndexPage( this.currentIndex + 1);
+		if (this.currentPage < this.totalPages)
+			this.goToIndexPage( this.currentPage + 1);
 	}
 
 	goToFirstPage() {
-		this.currentIndex = 1;
+		this.currentPage = 1;
 	}
 
 	private buildPaginatorRange() {
-		this.range = this.getPagingRange(this.currentIndex);
+		this.range = this.getPagingRange(this.currentPage);
 	}
 
 	/**
