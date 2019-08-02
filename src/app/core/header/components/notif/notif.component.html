@@ -1,1 +1,18 @@
-<icon-app name="bell" class="color-txt-secondary"></icon-app>
+<icon-app
+	name="bell"
+	#trigger="cdkOverlayOrigin"
+	cdkOverlayOrigin
+	class="color-txt-secondary"
+	(click)="open()"
+></icon-app>
+
+<cdk-overlay-app
+	[trigger]="trigger"
+	[isOpen]="isOpen"
+	(clickOutside)="close()"
+>
+	<notif-panel-app
+		[fullScreen]="fullScreen"
+		(makeFullScreen)="makeFullScreen()"
+	></notif-panel-app>
+</cdk-overlay-app>

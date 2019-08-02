@@ -5,7 +5,15 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
 import { UserPictureModule } from '~shared/user-picture';
 
-import { HeaderComponent, HeaderSearchComponent, NotifComponent, UserPanelComponent } from './components';
+import {
+	HeaderComponent,
+	HeaderSearchComponent,
+	NotifComponent,
+	UserPanelComponent,
+	NotifHeaderComponent,
+	NotifItemComponent,
+	NotifPanelComponent
+} from './components';
 
 @NgModule({
 	imports: [
@@ -19,8 +27,11 @@ import { HeaderComponent, HeaderSearchComponent, NotifComponent, UserPanelCompon
 		HeaderComponent,
 		NotifComponent,
 		UserPanelComponent,
-		HeaderSearchComponent
+		HeaderSearchComponent,
+		NotifHeaderComponent,
+		NotifItemComponent,
+		NotifPanelComponent
 	],
-	exports: [HeaderComponent],
+	exports: [HeaderComponent]
 })
-export class HeaderModule { }
+export class HeaderModule {}

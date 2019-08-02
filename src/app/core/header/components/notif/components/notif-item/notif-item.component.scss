@@ -1,0 +1,24 @@
+.notif-avatar {
+  padding: 8px 12px;
+}
+.notif-card {
+  justify-content: space-between;
+  align-items: center;
+}
+.notif-info {
+  justify-content: center;
+	font-size: var(--font-size-m);
+}
+.notif-datetime {
+  font-size: var(--font-size-s);
+  color: var(--color-txt-secondary);
+}
+
+.circle {
+  margin: 12px;
+  width:8px;
+  height: 8px;
+  background: #45adff;
+  border-radius: 50%;
+  cursor: pointer;
+}

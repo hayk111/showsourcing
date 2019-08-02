@@ -1,0 +1,26 @@
+.notif-header {
+	justify-content: space-between;
+	padding: 12px;
+	box-shadow: 0 2px 8px 0 rgba(163, 175, 198, 0.1);
+	.mark-read-text {
+		color: #45adff;
+		cursor: pointer;
+	}
+	&.full-screen {
+		align-items: center;
+		height: 65px;
+		padding: 0 24px;
+		padding-left: 24px;
+		padding-right: 24px;
+		.title {
+			font-size: var(--font-size-xxl);
+			height: 25px;
+			font-weight: 600;
+			color: var(--color-txt-strong);
+		}
+		.mark-read-button {
+			width: 130px;
+			height: 40px;
+		}
+	}
+}

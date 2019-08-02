@@ -1,0 +1,10 @@
+<div class="flex notif-header container {{ fullScreen ? 'full-screen' : '' }}">
+	<p class="bold-s title">Notification</p>
+	<div *ngIf="fullScreen;then button else text"></div>    
+	<ng-template #text>
+		<p class="mark-read-text">Mark all as read</p>
+	</ng-template>
+	<ng-template #button>
+		<button class="mark-read-button">Mark all as read</button> 
+	</ng-template>
+</div>

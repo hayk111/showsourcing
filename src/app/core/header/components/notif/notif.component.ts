@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'notif-app',
@@ -7,9 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotifComponent implements OnInit {
 
+	isOpen = false;
+	fullScreen = false;
+
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	open() {
+		this.isOpen = true;
+	}
+
+	close() {
+		this.isOpen = false;
+		this.fullScreen = false;
+	}
+
+	makeFullScreen() {
+		this.fullScreen = true;
 	}
 
 }

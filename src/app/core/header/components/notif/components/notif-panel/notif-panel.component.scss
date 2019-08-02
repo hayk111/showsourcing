@@ -1,0 +1,33 @@
+.notification-container {
+  position: relative;
+  width: 430px;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
+  border: solid 1px var(--color-secondary);
+  background-color: white;
+  margin-top: var(--spacing-ml);
+  background: white;
+	z-index: var(--z-dialog-container);
+  .notif-feed {
+    max-height: 433px;
+    overflow-y: auto;
+    margin-bottom: 14px;
+    background: #f9fafc;
+	}
+	.norif-footer {
+		padding: 6.5px;
+		text-align: center;
+		cursor: pointer;
+		color: #45adff;
+  }
+  &.full-screen {
+    position: fixed;
+    top: 30px;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    .notif-feed {
+      width: 723px;
+      margin: 35px auto;
+    }
+  }
+}
