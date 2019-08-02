@@ -9,19 +9,19 @@ import { Supplier, Event, EventDescription } from '~core/models';
 describe('LogoPipe', () => {
 	let pipe: LogoPipe;
 	const baseUrl = 'https://files.showsourcing.com';
+	const urls = ['xs', 's', 'm', 'l', 'xl'].map(size => ({
+		url: `https://files.showsourcing.com/${size}/18511884-666d-4518-8380-8e2c1fe6908a.jpg`,
+		__typename: 'ImageUrl',
+		id: '',
+		maxHeight: 1,
+		maxWidth: 1
+	}));
 
 	const logoImage = {
 		id: '18511884-666d-4518-8380-8e2c1fe6908a',
 		fileName: '18511884-666d-4518-8380-8e2c1fe6908a.jpg',
-		urls: [
-			{ url: 'https://files.showsourcing.com/xs/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/s/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/m/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/xm/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/l/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/xl/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' }
-		], '__typename': 'Image'
-	};
+		urls, '__typename': 'Image'
+	} as any;
 
 	const supplierWithLogo: Supplier = {
 		id: '75b45384-0748-49c5-868d-24951abf757e',

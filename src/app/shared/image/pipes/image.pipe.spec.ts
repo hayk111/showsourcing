@@ -9,6 +9,7 @@ import { Supplier, AppImage } from '~core/models';
 import { PendingImage } from '~utils';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { ImageUrl } from '~core/models/image-url.model';
 
 @Component({ template: `` })
 class TestComponent {
@@ -30,17 +31,17 @@ describe('ImagePipe', () => {
 	});
 
 	const fileName = '18511884-666d-4518-8380-8e2c1fe6908a.jpg';
+	const urls = ['xs', 's', 'm', 'l', 'xl'].map(size => ({
+		url: `https://files.showsourcing.com/${size}/18511884-666d-4518-8380-8e2c1fe6908a.jpg`,
+		__typename: 'ImageUrl',
+		id: '',
+		maxHeight: 1,
+		maxWidth: 1
+	}));
 	const appImage: AppImage = {
 		fileName,
-		urls: [
-			{ url: 'https://files.showsourcing.com/xs/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/s/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/m/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/xm/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/l/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' },
-			{ url: 'https://files.showsourcing.com/xl/18511884-666d-4518-8380-8e2c1fe6908a.jpg', __typename: 'ImageUrl' }
-		], '__typename': 'Image'
-	};
+		urls, '__typename': 'Image',
+	} as any;
 
 	const fakePendingImage = {
 		data: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='
