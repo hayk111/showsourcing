@@ -54,6 +54,7 @@ export class UploaderFeedbackService {
 			// remove unefined in case we are passing [undefined]
 			// for example in for contact we only have one image so we do [images]="[contact.businessCardImage]"
 			this._images = images.filter(x => !!x);
+			this._pendingImages = [];
 		}
 	}
 
