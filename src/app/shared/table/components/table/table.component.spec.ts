@@ -1,9 +1,8 @@
-import { ComponentFixture, TestBed, ComponentFixtureAutoDetect, fakeAsync, flush, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
 	TemplateRef,
 	Component,
 	ViewChild,
-	AfterViewInit,
 	ViewContainerRef,
 	QueryList,
 	ContentChildren,
@@ -12,7 +11,6 @@ import {
 import { TableComponent } from './table.component';
 import { TableModule } from '../../table.module';
 import { By } from '@angular/platform-browser';
-import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-params';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -56,7 +54,7 @@ class Item {
 				{{ row?.name }}
 			</ng-template>
 
-			<!-- name -->
+			<!-- price -->
 			<ng-template
 				[columnApp]="'Price'"
 				sortBy="price"
@@ -69,7 +67,7 @@ class Item {
 	`
 })
 
-class TestComponent extends ListViewComponent<Item> implements AfterViewInit {
+class TestComponent extends ListViewComponent<Item> {
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	@ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
@@ -77,10 +75,6 @@ class TestComponent extends ListViewComponent<Item> implements AfterViewInit {
 
 	hasSelection: boolean;
 	currentSort: Sort;
-
-	ngAfterViewInit() {
-		console.log('contextualMenu', this.contextualMenuTemplate);
-	}
 }
 
 describe('TableComponent', () => {
@@ -93,7 +87,7 @@ describe('TableComponent', () => {
 		TestBed.configureTestingModule({
 			declarations: [TestComponent],
 			imports: [TableModule],
-			providers: [TableComponent]
+			providers: [TableComponent, ColumnDirective, TemplateRef]
 		}).compileComponents();
 
 	});
@@ -117,14 +111,14 @@ describe('TableComponent', () => {
 		expect(tableComponent).withContext('Can not create TableComponent').toBeDefined();
 	});
 
-	it('should select all when click checkbox', () => {
+	it('should select all when clicking checkbox', () => {
 		const rows = [{ id: '1', name: 'Campaign' }, { id: '2', name: 'Theme' }];
 		testComponent.rows = rows;
 		fixtureTestComponent.detectChanges();
 
 		tableComponent.selectAll.subscribe((res) => expect(res.length)
-		.withContext('The checkbox not emit all current items')
-		.toBe(rows.length));
+			.withContext('The checkbox not emit all current items')
+			.toBe(rows.length));
 		tableComponent.onSelectAll(rows);
 	});
 
@@ -173,7 +167,7 @@ describe('TableComponent', () => {
 			.toBe('true');
 	});
 
-	it('should unselect all when click checkbox (the checkbox is selected) (expect for checkbox select all', () => {
+	it('should unselect all when clicking checkbox (the checkbox is selected) (expect for checkbox select all', () => {
 		const rows = [{}, {}];
 		tableComponent.selectAll.subscribe((res) => expect(res.length).toBe(rows.length));
 		tableComponent.onSelectAll(rows);
@@ -188,7 +182,7 @@ describe('TableComponent', () => {
 		expect(true).toBe(true);
 	});
 
-	it('should checked when click checkbox (the checkbox is selected) (expect for checkbox of item)', () => {
+	it('should checked when clicking checkbox (the checkbox is selected) (expect for checkbox of item)', () => {
 		const rows = [{ id: '1', name: 'test1' }, { id: '2', name: 'test1' }];
 		testComponent.rows = rows;
 		testComponent.hasSelection = true;
@@ -206,7 +200,7 @@ describe('TableComponent', () => {
 		expect(tableComponent.onSelectOne).withContext('Should call fnc "onSelectOne"').toHaveBeenCalled();
 	});
 
-	it('should unchecked when click checkbox (the checkbox is selected) (expect for checkbox of item)', () => {
+	it('should unchecked when clicking checkbox (the checkbox is selected) (expect for checkbox of item)', () => {
 		const rows = [{ id: '1', name: 'test1' }, { id: '2', name: 'test1' }];
 		testComponent.rows = rows;
 		testComponent.hasSelection = true;
@@ -279,14 +273,14 @@ describe('TableComponent', () => {
 			.toBe('angle-up');
 	});
 
-	it('should change sort icon when click column title', () => {
-		const columnDirective = testComponent.columns[0];
+	it('should change sort icon when click column title', async () => {
+		const columnDirective = tableComponent.columns.first;
 		testComponent.currentSort = {
 			sortBy: 'name',
 			descending: true
 		};
 
-		spyOn(tableComponent, 'onSort');
+		spyOn(tableComponent, 'onSort').and.callThrough();
 		tableComponent.onSort(columnDirective);
 		fixtureTestComponent.detectChanges();
 
@@ -309,19 +303,20 @@ describe('TableComponent', () => {
 			.toHaveBeenCalled();
 		expect(tableComponent.currentSortedColumn)
 			.withContext('Current sorted column should as same as column clicked')
-			.toBe(columnDirective);
-
+			.toEqual(columnDirective);
 	});
 
-	it('should emit property "sort" and sorting on all column when click column title', () => {
-		const column = testComponent.columns[0];
+	it('should emit property "sort", sorting on all column and call resetSort when clicking column title', () => {
+		const firstColumn = tableComponent.columns.first;
+		const secondColumn = tableComponent.columns.last;
 		testComponent.currentSort = {
 			sortBy: 'name',
 			descending: true
 		};
 
-		spyOn(tableComponent, 'onSort');
-		tableComponent.onSort(column);
+		spyOn(tableComponent, 'onSort').and.callThrough();
+		tableComponent.onSort(firstColumn);
+		spyOn(secondColumn, 'resetSort').and.callThrough();
 		fixtureTestComponent.detectChanges();
 
 		tableComponent.sort.subscribe(res =>
@@ -336,6 +331,50 @@ describe('TableComponent', () => {
 			.toHaveBeenCalled();
 		expect(tableComponent.currentSortedColumn)
 			.withContext('Current sorted column should as same as column clicked')
-			.toBe(column);
+			.toEqual(firstColumn);
+		expect(secondColumn.resetSort)
+			.withContext('Should call reset sort')
+			.toHaveBeenCalledTimes(1);
+	});
+
+	it('should call ngOnChanges and reset all columns when changing currentSort', () => {
+		const firstColumn = tableComponent.columns.first;
+		const secondColumn = tableComponent.columns.last;
+		testComponent.currentSort = {
+			sortBy: 'name',
+			descending: true
+		};
+
+		spyOn(tableComponent, 'ngOnChanges').and.callThrough();
+		spyOn(secondColumn, 'resetSort').and.callThrough();
+		spyOn(firstColumn, 'resetSort').and.callThrough();
+
+		fixtureTestComponent.detectChanges();
+
+		expect(tableComponent.ngOnChanges)
+			.withContext('Should detect changes of table component')
+			.toHaveBeenCalled();
+		expect(firstColumn.resetSort)
+			.withContext('Should call reset sort')
+			.toHaveBeenCalledTimes(1);
+		expect(secondColumn.resetSort)
+			.withContext('Should call reset sort')
+			.toHaveBeenCalledTimes(1);
+	});
+
+	// width
+
+	it('should setting width of table and width of table will be total width of columns', () => {
+		spyOn(tableComponent, 'getWidth').and.callThrough();
+		// tslint:disable-next-line:radix
+		const widthDefined = tableComponent.columns.reduce((a, b) => a + (typeof (b.width) === 'string' ? parseInt(b.width) : b.width) || 0, 0)
+		const width = tableComponent.getWidth();
+
+		expect(tableComponent.getWidth)
+			.withContext('Should call fnc "getWidth"')
+			.toHaveBeenCalled();
+		expect(width)
+			.withContext('Width of table should equal total width of columns')
+			.toEqual(widthDefined);
 	});
 });

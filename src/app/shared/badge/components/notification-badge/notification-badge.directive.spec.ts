@@ -134,7 +134,7 @@ describe('NotificationBadgeDirective', () => {
 	});
 
 	// 4nd badge
-	it('should contain "notif-badge-hidden" class when does not have badge value', () => {
+	it('should contain "notif-badge-hidden" class when the element does not have badge value', () => {
 		const badgeDbgEl = debugEls[3];
 
 		expect(badgeDbgEl.nativeElement.classList.contains('notif-badge-hidden'))
