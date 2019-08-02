@@ -11,6 +11,8 @@
 		(update)="onCurrencyChange($event)">
 		<div
 			tabFocusAction
+			autoFocus
+			[canFocus]="canFocus"
 			class="currency-label flexCenter ellipsis"
 			[ngClass]="{ 'pointer': !disabled }">
 			{{ currency | const:'currency':'id' }}

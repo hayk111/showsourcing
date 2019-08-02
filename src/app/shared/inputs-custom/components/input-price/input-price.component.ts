@@ -20,6 +20,7 @@ import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inp
 export class InputPriceComponent extends AbstractInput {
 
 	@Input() disabled = false;
+	@Input() canFocus = false;
 	@Output() change = new EventEmitter();
 	@Output() blur = new EventEmitter();
 
