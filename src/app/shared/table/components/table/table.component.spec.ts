@@ -14,6 +14,7 @@ import { By } from '@angular/platform-browser';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { Sort } from '~shared/table/components/sort.interface';
+import { Subscription } from 'rxjs';
 
 class Item {
 	name?: string;
@@ -82,6 +83,7 @@ describe('TableComponent', () => {
 	let testComponent: TestComponent;
 	let fixtureTestComponent: ComponentFixture<TestComponent>;
 	let dest: DebugElement;
+	const subscriptions = new Subscription();
 
 	beforeEach(async () => {
 		TestBed.configureTestingModule({
@@ -89,7 +91,6 @@ describe('TableComponent', () => {
 			imports: [TableModule],
 			providers: [TableComponent, ColumnDirective, TemplateRef]
 		}).compileComponents();
-
 	});
 
 	beforeEach(() => {
@@ -104,6 +105,10 @@ describe('TableComponent', () => {
 		if (fixtureTestComponent) {
 			await fixtureTestComponent.destroy();
 		}
+
+		if (subscriptions) {
+			subscriptions.unsubscribe();
+		}
 	});
 
 	it('should create TestComponent and Table component', () => {
@@ -116,9 +121,9 @@ describe('TableComponent', () => {
 		testComponent.rows = rows;
 		fixtureTestComponent.detectChanges();
 
-		tableComponent.selectAll.subscribe((res) => expect(res.length)
+		subscriptions.add(tableComponent.selectAll.subscribe((res) => expect(res.length)
 			.withContext('The checkbox not emit all current items')
-			.toBe(rows.length));
+			.toBe(rows.length)));
 		tableComponent.onSelectAll(rows);
 	});
 
@@ -169,9 +174,9 @@ describe('TableComponent', () => {
 
 	it('should unselect all when clicking checkbox (the checkbox is selected) (expect for checkbox select all', () => {
 		const rows = [{}, {}];
-		tableComponent.selectAll.subscribe((res) => expect(res.length).toBe(rows.length));
+		subscriptions.add(tableComponent.selectAll.subscribe((res) => expect(res.length).toBe(rows.length)));
 		tableComponent.onSelectAll(rows);
-		tableComponent.unselectAll.subscribe((res) => expect(res).toBeFalsy());
+		subscriptions.add(tableComponent.unselectAll.subscribe((res) => expect(res).toBeFalsy()));
 		tableComponent.onUnselectAll();
 	});
 
@@ -190,11 +195,12 @@ describe('TableComponent', () => {
 		testComponent.pending = false;
 
 		spyOn(tableComponent, 'onSelectOne');
-		tableComponent.selectOne.subscribe(res =>
+		subscriptions.add(tableComponent.selectOne.subscribe(res =>
 			expect(res)
 				.withContext('Input "selectOne" should be emitted')
 				.toBe(rows[0])
-		);
+		));
+
 		tableComponent.onSelectOne(rows[0]);
 		fixtureTestComponent.detectChanges();
 		expect(tableComponent.onSelectOne).withContext('Should call fnc "onSelectOne"').toHaveBeenCalled();
@@ -208,14 +214,17 @@ describe('TableComponent', () => {
 		testComponent.pending = false;
 
 		spyOn(tableComponent, 'onUnselectOne');
-		tableComponent.unselectOne.subscribe(res =>
+		subscriptions.add(tableComponent.unselectOne.subscribe(res =>
 			expect(res)
 				.withContext('Input "unselectOne" should be emitted')
 				.toBe(rows[0])
-		);
+		));
 		tableComponent.onUnselectOne(rows[0]);
 		fixtureTestComponent.detectChanges();
-		expect(tableComponent.onUnselectOne).withContext('Should call fnc "onUnselectOne"').toHaveBeenCalled();
+
+		expect(tableComponent.onUnselectOne)
+			.withContext('Should call fnc "onUnselectOne"')
+			.toHaveBeenCalled();
 	});
 
 	// placeholder
@@ -225,6 +234,7 @@ describe('TableComponent', () => {
 
 		fixtureTestComponent.detectChanges();
 		const placeholder = fixtureTestComponent.debugElement.query(By.css('.placeholder'));
+
 		expect(placeholder).toBeTruthy();
 		expect(placeholder.nativeElement.innerText).toContain('No items');
 	});
@@ -291,13 +301,13 @@ describe('TableComponent', () => {
 			.withContext('should display angle down when descending true')
 			.toBe('angle-down');
 
-		tableComponent.sort.subscribe(res =>
+		subscriptions.add(tableComponent.sort.subscribe(res =>
 			expect(res)
 				.withContext('Input "sort" should be emitted')
 				.toBe({
 					sortBy: 'name',
 					descending: false
-				}));
+				})));
 		expect(tableComponent.onSort)
 			.withContext('Should call fnc "onSort"')
 			.toHaveBeenCalled();
@@ -319,13 +329,13 @@ describe('TableComponent', () => {
 		spyOn(secondColumn, 'resetSort').and.callThrough();
 		fixtureTestComponent.detectChanges();
 
-		tableComponent.sort.subscribe(res =>
+		subscriptions.add(tableComponent.sort.subscribe(res =>
 			expect(res)
 				.withContext('Input "sort" should be emitted')
 				.toBe({
 					sortBy: 'name',
 					descending: false
-				}));
+				})));
 		expect(tableComponent.onSort)
 			.withContext('Should call fnc "onSort"')
 			.toHaveBeenCalled();
