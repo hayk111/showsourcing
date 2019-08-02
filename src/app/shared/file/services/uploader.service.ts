@@ -45,6 +45,7 @@ export class UploaderService {
 			// we query the files once again, so we have the latest fromt he backend
 			mergeMap(images => this.queryFiles(true, images)),
 			// add notification
+			first(),
 			tap((files: AppImage[]) => {
 				return this.notifSrv.add({
 					type: NotificationType.SUCCESS,

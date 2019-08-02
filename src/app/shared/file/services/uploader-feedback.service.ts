@@ -78,12 +78,11 @@ export class UploaderFeedbackService {
 		this.cd.markForCheck();
 		// since the this.linkedEntity is only set in the init, its image array is not up to date, so we need to update it
 		const linkedEntity = { ...this.linkedEntity, images: this._images };
-		this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray).pipe(
-			first()
-		).subscribe(imgs => {
-			this._uploaded$.next(imgs);
-			this.onSuccessImg(uuids);
-		}, e => this._pendingImages = []);
+		this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray)
+			.subscribe(imgs => {
+				this._uploaded$.next(imgs);
+				this.onSuccessImg(uuids);
+			}, e => this._pendingImages = []);
 	}
 
 	/** adds pending image to the list */

@@ -85,9 +85,7 @@ export class CarouselCardComponent extends AutoUnsub {
 
 		const uuids: string[] = await this.addPendingImg(files);
 
-		this.uploader.uploadImages(files).pipe(
-			first()
-		).subscribe(imgs => {
+		this.uploader.uploadImages(files).subscribe(imgs => {
 			this.imgUploaded.emit(imgs);
 			// removing pending image
 			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
