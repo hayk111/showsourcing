@@ -21,7 +21,7 @@ export class UserService extends GlobalService<User> {
 	);
 	userSync: User;
 	userId: string;
-	defaultClient = Client.CENTRAL;
+	defaultClient = Client.USER;
 
 	constructor(
 		private authSrv: AuthenticationService,

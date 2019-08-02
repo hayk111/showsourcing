@@ -1,7 +1,7 @@
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, OnInit, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { AppImage } from '~models';
-import {slideAnimation} from '~shared/carousel/components/animations/slide.animations'
+import { slideAnimation } from '~shared/carousel/components/animations/slide.animations';
 
 @Component({
 	selector: 'modal-carousel-app',
@@ -16,6 +16,7 @@ export class ModalCarouselComponent {
 	@Input() selectedIndex = 0;
 	@Input() entity: any;
 	@Output() indexChange = new EventEmitter<number>();
+	@Output() openFileBrowser = new EventEmitter<void>();
 	@Output() delete = new EventEmitter();
 	isOpen = false;
 	slideAnimationState = 'inactive';
@@ -92,6 +93,11 @@ export class ModalCarouselComponent {
 
 	getImg() {
 		return this.images ? this.images[this.selectedIndex] : null;
+	}
+
+	onDelete() {
+		this.close();
+		this.delete.emit();
 	}
 
 	open(index?: number) {

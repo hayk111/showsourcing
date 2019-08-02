@@ -63,6 +63,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	// selecting one row with the checkbox
 	@Output() selectOne = new EventEmitter<string>();
 	@Output() unselectOne = new EventEmitter<string>();
+	// when we scroll down to the end of the table
+	@Output() bottomReached = new EventEmitter<null>();
 	@Output() sort = new EventEmitter<Sort>();
 	// when we hover and we want to get the id of the object
 	@Output() hovered = new EventEmitter<string>();

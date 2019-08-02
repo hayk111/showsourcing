@@ -30,50 +30,6 @@
 	margin-top: var(--spacing-xs);
 }
 
-.pagination-ctrl {
-	user-select: none;
-	box-sizing: border-box;
-	margin: var(--spacing-ms) 0;
-	icon-app {
-		color: var(--color-primary);
-		font-size: var(--spacing-l);
-		cursor: pointer;
-		margin: 0 var(--spacing-s);
-		margin-top: 2px;
-
-		&.disabled {
-			color: var(--color-txt-secondary);
-			cursor: default;
-		}
-	}
-
-	.pagination-item {
-		cursor: pointer;
-		margin: 0 var(--spacing-xs);
-		padding: 6px;
-		text-align: center;
-		height: 12px;
-		width: 14px;
-		line-height: 1;
-		border-bottom: 2px solid transparent;
-		font-weight: 600;
-
-		&.selected {
-			color: var(--color-primary);
-			border-bottom: 2px solid var(--color-primary);
-			// border-radius: var(--border-radius-s);
-		}
-		&:hover {
-			background-color: var(--color-divider);
-		}
-	}
-
-	.pagination-text {
-		width: 150px;
-	}
-}
-
-
 .placeholderCtnr {
 	height: 100%;
 

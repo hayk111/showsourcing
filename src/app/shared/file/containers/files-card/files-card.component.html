@@ -11,7 +11,7 @@
 	<file-list-app [linkedItem]="linkedItem" [files]="files" (deleted)="deleted.emit($event)"></file-list-app>
 
 	<card-footer-app>
-		<button id="addFile" (click)="inp.click()" i18n="button@@add-file">add file</button>
+		<button (click)="inp.click()" i18n="button@@add-file">add file</button>
 	</card-footer-app>
 </card-app>
 
@@ -23,9 +23,9 @@
 		[showConfirmOnDelete]="false"
 		(deleted)="deleted.emit($event)">
 	</file-list-app>
-	<button class="secondary" tabFocus (click)="inp.click()" i18n="button@@add-file">add file</button>
+	<button class="secondary" tabFocusAction (click)="inp.click()" i18n="button@@add-file">add file</button>
 </ng-template>
 
-<input id="inpAttachment" #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
+<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
 
 

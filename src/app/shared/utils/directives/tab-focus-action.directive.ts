@@ -13,16 +13,20 @@ import {
 
 
 @Directive({
-	selector: '[tabFocus]',
-	exportAs: 'tabFocusId',
+	selector: '[tabFocusAction]',
+	exportAs: 'tabFocusActionId',
 	host: {
 		'[attr.tabindex]': '0'
 	}
 })
-export class TabFocusDirective implements OnDestroy, OnInit {
+// the purpose of this directive is to add keyboard focus to elements that do not have focus by default (e.g. <div>)
+// furthermore this components listens and emits events, since the purpose on focusing elements
+// is to actually interact with them most of the time too
+export class TabFocusActionDirective implements OnDestroy, OnInit {
 
 	@Output() keyEnter = new EventEmitter<null>();
-	@Output() keydown = new EventEmitter<string>();
+	// we will use this output when we want to register what has been typed
+	@Output() typing = new EventEmitter<string>();
 
 	@HostListener('keydown.enter', ['$event'])
 	onKeydownEnter(event: KeyboardEvent) {
@@ -31,12 +35,12 @@ export class TabFocusDirective implements OnDestroy, OnInit {
 	}
 
 	@HostListener('keydown', ['$event'])
-	onKeydown(event: KeyboardEvent) {
-		// only characters or space key
+	onTyping(event: KeyboardEvent) {
+		// only characters (key.length) or space keyCode (32)
 		if ((event.key && event.key.length === 1) || event.keyCode === 32) {
 			// we use this since the space event would reset scroll
 			event.preventDefault();
-			this.keydown.emit(event.key);
+			this.typing.emit(event.key);
 		}
 	}
 

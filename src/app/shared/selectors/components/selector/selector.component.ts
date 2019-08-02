@@ -13,7 +13,7 @@ import { debounceTime, tap } from 'rxjs/operators';
 import { EntityMetadata, ERM } from '~core/models';
 import { FilterList } from '~shared/filters';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { TabFocusDirective } from '~shared/utils';
+import { TabFocusActionDirective } from '~shared/utils';
 
 import { PickerField } from '../selector-picker/selector-picker.component';
 
@@ -50,7 +50,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Output() update = new EventEmitter<any>();
 
 	// some times we want to focus the focus directive on the content inside the selector
-	@ContentChild(TabFocusDirective, { static: true }) tab: TabFocusDirective;
+	@ContentChild(TabFocusActionDirective, { static: true }) tab: TabFocusActionDirective;
 
 	menuOpen = false;
 
@@ -66,7 +66,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 		// everytime we focus the content and hit enter, we are opening the menu
 		if (this.tab) {
 			let word = '';
-			this.tab.keydown.pipe(
+			this.tab.typing.pipe(
 				tap(key => word += key),
 				debounceTime(300),
 			).subscribe(_ => {

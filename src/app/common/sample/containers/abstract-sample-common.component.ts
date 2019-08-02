@@ -2,7 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
-import { ERM, Sample, Product, Supplier } from '~models';
+import { ERM, Sample } from '~models';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
@@ -32,7 +32,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 			key: `${ListPageKey.SAMPLE}-${id}`,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
-			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
+			selectParams: { query: 'deleted == false' },
 			entityMetadata: ERM.SAMPLE,
 			initialFilters: [
 				{ type: FilterType.ASSIGNEE, value: userId },
@@ -64,7 +64,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 			this.listSrv.removeFilter(filterAssignee);
 	}
 
-	openCreationSampleDlg(product?: Product, supplier?: Supplier) {
+	openCreationSampleDlg(product, supplier) {
 		this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier }).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch({}))

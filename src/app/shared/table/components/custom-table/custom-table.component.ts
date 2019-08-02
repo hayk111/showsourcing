@@ -18,7 +18,7 @@ export class CustomTableComponent extends TrackingComponent {
 	@Input() contextualMenu: TemplateRef<any>;
 	@Input() rows: Array<any> = [];
 	@Input() pending: boolean;
-	@Input() hasMenu = true;	
+	@Input() hasMenu = true;
 	/** total number of items for pagination */
 	@Input() count = 0;
 	/** how many items were skipped so we can display the pages */

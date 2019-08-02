@@ -24,7 +24,7 @@ import { SupplierFeatureService } from '~features/supplier/services';
 
 export class SupplierSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
 	private supplierId: string;
-	supplier: Supplier;
+	private supplier: Supplier;
 
 	constructor(
 		protected route: ActivatedRoute,

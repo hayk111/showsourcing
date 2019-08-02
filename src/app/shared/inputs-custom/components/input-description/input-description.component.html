@@ -33,7 +33,7 @@
 </div>
 <button
 	*ngIf="showMore && !isSmall"
-	tabFocus
+	tabFocusAction
 	class="secondary-light flexCenter view-more"
 	(click)="showAll()"
 	i18n="button@@view-more">
@@ -41,7 +41,7 @@
 </button>
 <span
 	*ngIf="showMore && isSmall"
-	tabFocus
+	tabFocusAction
 	class="text-more"
 	(click)="showAll()"
 	i18n="text@@view-more">

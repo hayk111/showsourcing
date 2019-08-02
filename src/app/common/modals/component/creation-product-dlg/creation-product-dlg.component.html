@@ -40,13 +40,12 @@
 
 	<dialog-footer-app>
 		<checkbox-app
-			id="createAnother"
 			[checked]="createAnother"
 			(update)="createAnother = !createAnother">
 			create another
 		</checkbox-app>
-		<button tabFocus class="secondary" (click)="cancel()" i18n="@@cancel">cancel</button>
-		<button id="createProduct" tabFocus [disabled]="!(product?.name)" (click)="save()" i18n="@@save-product">save product</button>
+		<button tabFocusAction class="secondary" (click)="cancel()" i18n="@@cancel">cancel</button>
+		<button tabFocusAction [disabled]="!(product?.name)" (click)="save()" i18n="@@save-product">save product</button>
 	</dialog-footer-app>
 
 </dialog-app>

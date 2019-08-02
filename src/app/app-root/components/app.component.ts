@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-import { ApolloStateService, ClientStatus, TeamClientInitializer } from '~core/apollo/services';
+import { ApolloStateService, ClientStatus, TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
 import { TokenService } from '~core/auth';
@@ -12,7 +12,6 @@ import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { Location } from '@angular/common';
-import { CentralClientInitializer } from '~core/apollo/services/apollo-central-client.service';
 
 
 @Component({
@@ -33,7 +32,7 @@ export class AppComponent implements OnInit {
 		private globalRequestClient: GlobalRequestClientsInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
-		private centralClient: CentralClientInitializer,
+		private userClient: UserClientInitializer,
 		private location: Location
 	) { }
 
@@ -81,7 +80,7 @@ export class AppComponent implements OnInit {
 		return forkJoin([
 			this.globalDataClient.init(realmUser),
 			this.globalRequestClient.init(realmUser),
-			this.centralClient.init(realmUser)
+			this.userClient.init(realmUser)
 		]);
 	}
 
@@ -97,8 +96,8 @@ export class AppComponent implements OnInit {
 		const reason = 'unauthenticated';
 		this.globalDataClient.destroy(reason);
 		this.globalRequestClient.destroy(reason);
+		this.userClient.destroy(reason);
 		this.teamClient.destroy(reason);
-		this.centralClient.destroy(reason);
 	}
 
 

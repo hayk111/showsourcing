@@ -31,7 +31,6 @@ import { RequestElement } from './request-element.model';
 import { RequestReply } from './request-reply.model';
 import { RequestTemplate } from './request-template.model';
 import { SupplierRequest } from './supplier-request.model';
-import { Company } from './company.model';
 
 
 export class EntityMetadata {
@@ -67,7 +66,6 @@ export class ERM {
 	static readonly ATTACHMENT = new EntityMetadata('attachment', 'attachments', Attachment);
 	static readonly ATTACHMENT_UPLOAD_REQUEST = new EntityMetadata('attachment upload request', 'attachment upload requests', Attachment);
 	static readonly CATEGORY = new EntityMetadata('category', 'categories', Category);
-	static readonly COMPANY = new EntityMetadata('company', 'companies', Company);
 	static readonly COMMENT = new EntityMetadata('comment', 'comments');
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts', Contact);
 	static readonly COUNTRY = new EntityMetadata('country', 'countries', Country);

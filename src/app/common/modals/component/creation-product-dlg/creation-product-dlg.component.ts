@@ -153,6 +153,7 @@ export class CreationProductDlgComponent implements OnInit {
 				if (this.createAnother) {
 					product = this.resetIds(product);
 					this.dlgSrv.open(CreationProductDlgComponent, { product });
+					this.productSrv.onUpdateProductList();
 				} else
 					this.close();
 				// success
