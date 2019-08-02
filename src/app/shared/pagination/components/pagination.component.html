@@ -21,7 +21,7 @@ index: {{ currentPage }}  -->
 	<span *ngFor="let page of range"
 		class="pagination-item"
 		[ngClass]="{ selected: page === currentPage }"
-		(click)="goToIndexPage(currentPage)">
+		(click)="goToIndexPage(page)">
 		{{ page + 1 }}
 	</span>
 
