@@ -32,7 +32,7 @@
 				[pending]="listSrv.pending"
 				[selection]="listSrv.selection$ | async"
 				[count]="listSrv.count$ | async"
-				[skipped]="listSrv.skipped"
+				[currentPage]="listSrv.currentPage"
 				(next)="listSrv.loadNextPage()"
 				(previous)="listSrv.loadPreviousPage()"
 				(goToPage)="listSrv.loadPage($event)"

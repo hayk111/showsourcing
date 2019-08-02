@@ -1,11 +1,11 @@
 
-
+<!-- 
 debug helper
 
 range: {{ range | json }} <br>
 count: {{ count }} <br>
 total pages: {{ totalPages }} <br>
-index: {{ currentPage }} 
+index: {{ currentPage }}  -->
 
 
 
@@ -14,7 +14,7 @@ index: {{ currentPage }}
 	<icon-app 
 		fontSet="fa" 
 		name="angle-left" 
-		[ngClass]="{ disabled: currentPage === 1 }" 
+		[ngClass]="{ disabled: currentPage === 0 }" 
 		(click)="goToPreviousPage()">
 	</icon-app>
 	
@@ -22,13 +22,13 @@ index: {{ currentPage }}
 		class="pagination-item"
 		[ngClass]="{ selected: page === currentPage }"
 		(click)="goToIndexPage(currentPage)">
-		{{ page }}
+		{{ page + 1 }}
 	</span>
 
 	<icon-app 
 		fontSet="fa" 
 		name="angle-right" 
-		[ngClass]="{ disabled: currentPage === totalPages }" 
+		[ngClass]="{ disabled: currentPage === totalPages - 1 }" 
 		(click)="goToNextPage()">
 	</icon-app>
 

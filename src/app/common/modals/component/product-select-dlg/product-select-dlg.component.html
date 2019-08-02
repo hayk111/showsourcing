@@ -47,7 +47,7 @@
 		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
 		[count]="listSrv.count$ | async"
-		[skipped]="listSrv.skipped"
+		[currentPage]="listSrv.currentPage"
 		(previous)="loadPreviousPage()"
 		(next)="loadNextPage()"
 		(goToPage)="loadPage($event)"

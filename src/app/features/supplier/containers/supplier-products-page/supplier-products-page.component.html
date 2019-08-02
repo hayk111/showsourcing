@@ -20,7 +20,7 @@
 		[selection]="listSrv.selection"
 		[rows]="products"
 		[count]="listSrv.count$ | async"
-		[skipped]="listSrv.skipped"
+		[currentPage]="listSrv.currentPage"
 		(next)="listSrv.loadNextPage()"
 		(previous)="listSrv.loadPreviousPage()"
 		(goToPage)="listSrv.loadPage($event)"

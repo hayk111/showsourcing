@@ -20,7 +20,7 @@ export class PaginationComponent implements OnChanges {
 
 	@Output() goToPage = new EventEmitter<number>();
 	/** current index of the pagination (starts at 1) */
-	@Input() currentPage = 1; // TODO might be clearer if this started at 0 instead.
+	@Input() currentPage = 0;
 
 	/** how many pages our pagination has */
 	totalPages;
@@ -28,7 +28,7 @@ export class PaginationComponent implements OnChanges {
 	range: Array<number> = [];
 
 	ngOnChanges() {
-		this.totalPages = Math.ceil(this.count / this.itemsPerPage);
+		this.totalPages = Math.max(1, Math.ceil(this.count / this.itemsPerPage));
 		this.buildPaginatorRange();
 	}
 
@@ -36,8 +36,7 @@ export class PaginationComponent implements OnChanges {
 		if (!disabled) {
 			this.currentPage = page;
 			this.buildPaginatorRange();
-			// emitting index - 1 because our pages start at 1 while pagination stars at 0
-			this.goToPage.emit(page - 1);
+			this.goToPage.emit(page);
 		}
 	}
 
@@ -47,8 +46,8 @@ export class PaginationComponent implements OnChanges {
 	}
 
 	goToNextPage() {
-		if (this.currentPage < this.totalPages)
-			this.goToIndexPage( this.currentPage + 1);
+		if (this.currentPage < this.totalPages - 1)
+			this.goToIndexPage(this.currentPage + 1);
 	}
 
 	goToFirstPage() {
@@ -72,7 +71,7 @@ export class PaginationComponent implements OnChanges {
 	 * console.log(getPagingRange(3, { min: 1, total: 4, width: 3})); // [2, 3, 4]
 	 * console.log(getPagingRange(2, { min: 1, total: 4, width: 3})); // [1, 2, 3]
 	 */
-	private getPagingRange(currentIndex, { min = 1, total = this.totalPages, width = this.width } = {}) {
+	private getPagingRange(currentIndex, { min = 0, total = this.totalPages, width = this.width } = {}) {
 
 		if (width > total)
 			width = total;

@@ -21,7 +21,7 @@
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
-		[skipped]="listSrv.skipped"
+		[currentPage]="listSrv.currentPage"
 		(previous)="listSrv.loadPreviousPage()"
 		(next)="listSrv.loadNextPage()"
 		(goToPage)="listSrv.loadPage($event)"

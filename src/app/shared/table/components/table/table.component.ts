@@ -42,8 +42,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() currentSort: Sort;
 	/** total number of items for pagination */
 	@Input() count = 0;
-	/** how many items were skipped so we can display the pages */
-	@Input() skipped: number;
+
 	@Input() currentPage: number;
 
 	/** event when we select all rows */
