@@ -5,6 +5,7 @@
 		(update)="updateProduct($event)"
 		(export)="commonModalSrv.openExportDialog([$event])"
 		(delete)="deleteProduct($event)"
+		(archive)="onArchive($event)"	
 		(supplierRequest)="openSupplierRequest($event)">
 	</product-top-panel-app>
 
@@ -13,6 +14,7 @@
 
 			<card-app padding="0">
 				<carousel-app
+					[entity]="product"
 					#carousel
 					objectFit="contain"
 					[hasPreview]="true"

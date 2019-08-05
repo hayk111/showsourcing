@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
@@ -14,7 +14,8 @@ export class SelectorNameRowComponent extends AbstractSelectorHighlightableCompo
 	constructor() { super(); }
 
 	getLabel() {
-		return this.item.name;
+		const label = this.item.label ? this.item.label : this.item.name;
+		return label;
 	}
 
 }

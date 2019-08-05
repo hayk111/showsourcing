@@ -119,13 +119,14 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** deletes the image */
 	delete() {
+		// TODO i18n
 		const img = this.getImg();
 		if (this.showConfirmOnDelete) {
 			this.dlgSrv.open(ConfirmDialogComponent, {
 				text: 'Are you sure you want to remove this image ?',
 			}).pipe(
-				switchMap(_ => this.onDeleteAccepted(img)),
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				switchMap(_ => this.onDeleteAccepted(img)),
 				takeUntil(this._destroy$),
 			).subscribe(_ => this.deleted.emit(img));
 		} else {
@@ -174,6 +175,11 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		this.selectedIndex = value;
 		// change coming from above
 		this.cd.markForCheck();
+	}
+
+	/** Trackby function for ngFor */
+	trackByFn(index, image) {
+		return index;
 	}
 
 }

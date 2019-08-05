@@ -1,4 +1,4 @@
-import { CdkConnectedOverlay, ScrollDispatcher, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ScrollDispatcher, ScrollStrategy, ScrollStrategyOptions, ConnectedPosition } from '@angular/cdk/overlay';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 
@@ -15,6 +15,8 @@ export class CdkOverlayComponent implements OnInit {
 	@Input() closeOnScroll = true;
 	@Input() offsetY = 0;
 	@Input() offsetX = 0;
+	// wheter the selector opens first to the most right side or the most left side
+	@Input() leftSideOrientation = false;
 	@Output() positionChange = new EventEmitter<any>();
 	updated = false;
 
@@ -31,12 +33,13 @@ export class CdkOverlayComponent implements OnInit {
 		// overlayX/Y -> position where the overlay will be attached.
 		// i.e. overlayX: 'start', overlayY: 'bottom' is attaching the left bottom part to the origin
 		this.scrollStrat = this.closeOnScroll ? this.sso.close() : this.sso.reposition();
-		this.cdkConnectedOverlay.positions = [
+		const positions: ConnectedPosition[] = [
 			{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' },
 			{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'bottom' },
 			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'bottom' },
 			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
 		];
+		this.cdkConnectedOverlay.positions = this.leftSideOrientation ? positions.reverse() : positions;
 		this.cdkConnectedOverlay.positionChange.pipe(first()).subscribe(posChange => {
 			// when its upside down we eliminate the offsets
 			if (posChange.connectionPair.overlayY === 'bottom') {

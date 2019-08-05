@@ -4,10 +4,13 @@ import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { Credentials as RealmCredentials, User as RealmUser } from 'realm-graphql-client';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap, tap, first } from 'rxjs/operators';
+import { catchError, filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthState, AuthStatus, Credentials } from '~core/auth/interfaces';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TokenService } from '~core/auth/services/token.service';
+import { LocalStorageService } from '~core/local-storage';
+
+const STORAGE_EMAIL = 'EMAIL';
 
 @Injectable({
 	providedIn: 'root'
@@ -49,20 +52,25 @@ export class AuthenticationService {
 		private tokenSrv: TokenService,
 		private router: Router,
 		private http: HttpClient,
+		private localStorage: LocalStorageService
 	) { }
 
 	init() {
-		// we are going to login the user by taking the data that is in
-		// localStorage.
-		// If there is none and there is a token query in the url we try to login the user with
-		// said token. If none of thise works then the user is not logged in.
+		// if there is an anonymous auth token present in the url, we login the user with said url
+		// if we find the a auth token in the local storage, we login the user with said token
+		// but only if there is no email specified in the url
 		const token = this.tokenSrv.getAnonymousToken();
+		const email = this.getEmailFromUrl();
 		if (token) {
+			// check anonymous
 			this.login({ token }).subscribe();
 		} else {
-			this.realmUser = new RealmUser(this.tokenSrv.getRealmUser());
-			const authState = this.realmUserToAuthState(this.realmUser);
-			this._authState$.next(authState);
+			// check auth token
+			if (!email || (email === this.localStorage.getString(STORAGE_EMAIL))) {
+				this.realmUser = new RealmUser(this.tokenSrv.getRealmUser());
+				const authState = this.realmUserToAuthState(this.realmUser);
+				this._authState$.next(authState);
+			}
 		}
 		this.tokenSrv.restoreFeedToken();
 	}
@@ -75,6 +83,7 @@ export class AuthenticationService {
 		// lower case for email when using credentials
 		if (credentials.login) {
 			credentials.login = credentials.login.toLowerCase();
+			this.localStorage.setString(STORAGE_EMAIL, credentials.login);
 		}
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
 			tap(resp => this.tokenSrv.storeJwtTokens(resp.jwtTokenFeed)),
@@ -145,8 +154,18 @@ export class AuthenticationService {
 		}
 	}
 
+	getEmailFromUrl() {
+		const search = new URLSearchParams(window.location.search);
+		const emailBase64 = search.get('email');
+		if (!emailBase64) {
+			return undefined;
+		}
+		return atob(emailBase64);
+	}
+
 	private jwtToRealmUser(jwt: string) {
 		const credentials = RealmCredentials.jwt(jwt);
 		return RealmUser.authenticate(credentials, environment.graphqlAuthUrl);
 	}
+
 }

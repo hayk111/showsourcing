@@ -7,9 +7,11 @@ import { ProductService, UserService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
+import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { ProductFeatureService } from '~features/products/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -20,7 +22,8 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
-		ListPageService
+		ListPageService,
+		CommonModalService
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
@@ -43,6 +46,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	constructor(
 		private router: Router,
+		private dlgSrv: DialogService,
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
@@ -73,6 +77,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			originComponentDestroy$: this._destroy$
 		}, false);
 
+		this.productSrv.productListUpdate$.pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
+
 		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
@@ -94,8 +102,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	onArchive(product: Product | Product[]) {
-		if(Array.isArray(product)) {
+		if (Array.isArray(product)) {
 			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
@@ -106,6 +115,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		} else {
 			const { id } = product;
 			this.featureSrv.update({ id, archived: true })
+				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
@@ -116,4 +126,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		}
 	}
 
+	onOpenCreateRequestDlg(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	}
 }

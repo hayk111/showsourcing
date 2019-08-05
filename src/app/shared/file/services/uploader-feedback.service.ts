@@ -54,6 +54,7 @@ export class UploaderFeedbackService {
 			// remove unefined in case we are passing [undefined]
 			// for example in for contact we only have one image so we do [images]="[contact.businessCardImage]"
 			this._images = images.filter(x => !!x);
+			this._pendingImages = [];
 		}
 	}
 
@@ -78,12 +79,11 @@ export class UploaderFeedbackService {
 		this.cd.markForCheck();
 		// since the this.linkedEntity is only set in the init, its image array is not up to date, so we need to update it
 		const linkedEntity = { ...this.linkedEntity, images: this._images };
-		this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray).pipe(
-			first()
-		).subscribe(imgs => {
-			this._uploaded$.next(imgs);
-			this.onSuccessImg(uuids);
-		}, e => this._pendingImages = []);
+		this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray)
+			.subscribe(imgs => {
+				this._uploaded$.next(imgs);
+				this.onSuccessImg(uuids);
+			}, e => this._pendingImages = []);
 	}
 
 	/** adds pending image to the list */

@@ -4,9 +4,9 @@
 		[ngStyle]="{'padding-top': hasLabel ? 'inherit' : '0px'}"
 		[hasLabel]="hasLabel"
 		[inlineLabel]="false"
-		(closed)="updateDescription($event, inpDescription.value);"
+		(closed)="updateDescription($event, inpDescription.value)"
 		(clickOutside)="adaptSize()"
-		(opened)="inpDescription.select();"
+		(opened)="inpDescription.select()"
 		[canGrow]="true"
 		(click)="openDescModal()">
 		<label-app class="capitalize" i18n="text@@description">description</label-app>
@@ -33,7 +33,7 @@
 </div>
 <button
 	*ngIf="showMore && !isSmall"
-	tabFocus
+	tabFocusAction
 	class="secondary-light flexCenter view-more"
 	(click)="showAll()"
 	i18n="button@@view-more">
@@ -41,7 +41,7 @@
 </button>
 <span
 	*ngIf="showMore && isSmall"
-	tabFocus
+	tabFocusAction
 	class="text-more"
 	(click)="showAll()"
 	i18n="text@@view-more">

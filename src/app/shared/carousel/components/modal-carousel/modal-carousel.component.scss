@@ -7,7 +7,11 @@
 	bottom: 0;
 	z-index: var(--z-dialog-container);
 }
-
+.tooltip {
+	position: absolute;
+	top: 50%;
+	padding: var(--spacing-xl);
+}
 .move-btn {
 	position: absolute;
 	background: rgba(0, 0, 0, 0.3);
@@ -52,4 +56,11 @@ img-app {
 	position: absolute;
 	bottom: 0;
 	color: rgba(255, 255, 255, 0.7);
+}
+
+.spinner-container {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }

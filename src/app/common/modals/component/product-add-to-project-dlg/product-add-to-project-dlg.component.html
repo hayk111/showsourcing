@@ -27,9 +27,9 @@
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary" i18n="text@@products-selected">
 			{{ products?.length }}
-			<ng-container i18n="@@nested_product-selected">{ products?.length || 0, plural, =1 { Product } other { Products } }} selected</ng-container>
+			<ng-container i18n="@@nested_product-selected">{ products?.length || 0, plural, =1 { Product } other { Products } } selected</ng-container>
 		</span>
-		<button tabFocus [disabled]="numSelected < 1" class="capitalize" (click)="submit()"
+		<button tabFocusAction [disabled]="numSelected < 1" class="capitalize" (click)="submit()"
 			i18n-value="@@add-now">Add now</button>
 	</dialog-footer-app>
 </dialog-app>

@@ -4,6 +4,7 @@
 	[rows]="rows"
 	[descriptor]="descriptor"
 	[contextualMenu]="contextualMenuTemplate"
+	[hasMenu]="hasMenu"
 	[selected]="selection"
 	[currentSort]="currentSort"
 	placeholder="No product"
@@ -74,7 +75,7 @@
 					{{ row.name || '-' }}
 				</a>
 			</span>
-			<button class="small secondary-dark preview" (click)="previewClick.emit(row)" i18n="@@preview">Preview</button>
+			<button class="small secondary-dark preview" *ngIf="productPreview" (click)="previewClick.emit(row)" i18n="@@preview">Preview</button>
 		</div>
 	</div>
 </ng-template>
@@ -142,6 +143,11 @@
 <!-- creation date -->
 <ng-template #creationDate let-row="row">
 	{{ row?.creationDate | date: 'dd MMMM y' }}
+</ng-template>
+
+<!-- created by -->
+<ng-template #createdBy let-row="row">
+	{{ row?.createdBy | formatUserName }}
 </ng-template>
 
 <!-- favorite -->

@@ -7,6 +7,7 @@ import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
+import { PaginationModule } from '~shared/pagination/pagination.module';
 import { PriceModule } from '~shared/price';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { ColumnDirective, TableComponent } from '~shared/table/components';
@@ -26,6 +27,7 @@ import { UtilsModule } from '~shared/utils';
 		ScrollingModule,
 		StatusSelectorModule,
 		UtilsModule,
+		PaginationModule,
 	],
 	declarations: [TableComponent, ColumnDirective, CustomTableComponent],
 	exports: [TableComponent, ColumnDirective, CustomTableComponent],

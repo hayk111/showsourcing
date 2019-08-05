@@ -5,7 +5,6 @@ export interface DynamicField {
 	type?: DynamicFieldType;
 	metadata?: any;
 	label?: string;
-	placeholder?: string;
 	required?: boolean;
 	multiple?: boolean;
 	// when multiple choices
@@ -23,6 +22,7 @@ export interface DynamicField {
 		· canCreate: if it can create an entity // Default false
 		· hasBadge: if we display the result with a badge or plain text // Default false
 		· width: indicated the width of the selector // Default 390 on dynamic form
+		· placeholder: placeholder if we need one different from label/name
 */
 
 export type DynamicFieldType =

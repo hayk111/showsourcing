@@ -1,5 +1,5 @@
 
-<ng-container *ngFor="let type of filterBtns">
+<ng-container *ngFor="let type of filterBtns; trackBy: trackByFilterBtnsFn">
 
 	<ng-container *ngIf="!hasFilterFor(type); else list">
 
@@ -36,7 +36,7 @@
 
 			<div class="flexColumn">
 				<checkbox-app
-					*ngFor="let filter of getFiltersFor(type)"
+					*ngFor="let filter of getFiltersFor(type); trackBy: trackByFn"
 					[checked]="true"
 					(uncheck)="removeFilter(filter)">
 					{{ getDisplayName(filter, type) }}

@@ -6,7 +6,7 @@
 
 	<div class="flex ctnr">
 		<compare-labels-app></compare-labels-app>
-		<compare-column-app *ngFor="let product of products" [product]="product"></compare-column-app>
+		<compare-column-app *ngFor="let product of products; trackBy: trackByFn" [product]="product"></compare-column-app>
 	</div>
 
 </dialog-app>
