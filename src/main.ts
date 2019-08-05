@@ -4,10 +4,12 @@ import { environment } from 'environments/environment';
 import { log, LogColor } from '~utils';
 
 import { AppRootModule } from './app/app-root/app-root.module';
+import * as packageJson from '../package.json';
 
 log.info('%c 🐱‍🚀 App init ', LogColor.METADATA);
+
 // using console log so it's not removed in production..
-console.log(`%c 🎱 App version: ${environment.version}`, 'color: salmon');
+console.log(`%c 🎱 App version: ${packageJson.version}`, 'color: salmon');
 
 if (environment.production) {
 	enableProdMode();
