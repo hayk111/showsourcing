@@ -1,14 +1,13 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconComponent } from '~shared/icons';
 import { PaginationComponent } from './pagination.component';
-import { of } from 'rxjs';
+
+
+const ITEMS_PER_PAGE = 30;
 
 describe('Component: PaginationComponent', () => {
 	let component: PaginationComponent;
 	let fixture: ComponentFixture<PaginationComponent>;
-	let de: DebugElement;
-	let spy: jasmine.Spy;
 
 	beforeEach(async () => {
 		TestBed.configureTestingModule({
@@ -19,6 +18,7 @@ describe('Component: PaginationComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(PaginationComponent);
 		component = fixture.componentInstance;
+		component.itemsPerPage = ITEMS_PER_PAGE;
 
 		fixture.detectChanges();
 	});
@@ -27,44 +27,61 @@ describe('Component: PaginationComponent', () => {
 		expect(component).toBeDefined();
 	});
 
-	it('should start with pagination index 0', () => {
-		expect(component.currentPage).toEqual(0);
+	it('should have the correct number of total pages', () => {
+		component.count = 0;
+		fixture.detectChanges();
+		expect(component.totalPages).toEqual(1);
+		component.count = 20;
+		fixture.detectChanges();
+		expect(component.totalPages).toEqual(1);
+		component.count = ITEMS_PER_PAGE * 20;
+		fixture.detectChanges();
+		expect(component.totalPages).toEqual(20);
+		component.count = ITEMS_PER_PAGE * 20 + 1;
+		fixture.detectChanges();
+		expect(component.totalPages).toEqual(21);
 	});
 
+	it('should build build the correct range', () => {
+		component.width = 5;
+		component.count = ITEMS_PER_PAGE * 20;
+		component.currentPage = 0;
+		fixture.detectChanges();
+		expect(component.range).toEqual([0, 1, 2, 4, 5]);
+		component.currentPage = 10;
+		fixture.detectChanges();
+		expect(component.range).toEqual([8, 9, 10, 11, 12]);
+		component.currentPage = 18;
+		fixture.detectChanges();
+		expect(component.range).toEqual([16, 17, 18, 19, 20]);
+		component.currentPage = 18;
+		fixture.detectChanges();
+		expect(component.range).toEqual([16, 17, 18, 19, 20]);
+
+		component.count = ITEMS_PER_PAGE * 2;
+		component.currentPage = 0;
+		fixture.detectChanges();
+		expect(component.range).toEqual([0, 1]);
+	});
+
+
 	it('goToNextPage should increment currentPage', () => {
-		component.totalPages = 2; // assuming there are 2 total pages
 		const currPage = component.currentPage;
 		component.goToNextPage();
 		expect(component.currentPage).toEqual(currPage + 1);
 	});
 
 	it('goToPreviousPage should decrement currentPage', () => {
-		component.totalPages = 2; // assuming there are 2 total pages
-		const currPage = 1; // assuming we are on the page 2
+		const currPage = component.currentPage;
 		component.goToPreviousPage();
 		expect(component.currentPage).toEqual(currPage - 1);
 	});
 
 	it('goToIndexPage should navigate to the page and call buildPaginatorRange', () => {
-		// spy = spyOn<any>(component, 'buildPaginatorRange');
-
 		component.goToIndexPage(5);
 		fixture.detectChanges();
 		expect(component.currentPage).toEqual(5);
-		// expect(spy).toHaveBeenCalled();
 	});
 
-	it('should build range with even number width', () => {
-		component.width = 4;
-		component.currentPage = 0;
-		fixture.detectChanges();
-		expect(component.range).toEqual([0, 1, 2, 3, 4]);
-	});
 
-	it('should build range with odd number width', () => {
-		component.width = 3;
-		component.currentPage = 0;
-		fixture.detectChanges();
-		expect(component.range).toEqual([0, 1, 2]);
-	});
 });

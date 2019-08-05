@@ -16,7 +16,13 @@ export class PaginationComponent implements OnChanges {
 	/** total number of items */
 	@Input() count = 0;
 	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20] if 3 we display [1, 2, 3 ] */
-	@Input() width = 5;
+	@Input() set width(value: number) {
+		if (value % 2 !== 0)
+			throw Error(`Width must be an odd number, received ${value}`);
+		this._width = value;
+	}
+	get width() { return this._width; }
+	private _width = 5;
 
 	@Output() goToPage = new EventEmitter<number>();
 	/** current index of the pagination (starts at 1) */
@@ -71,7 +77,7 @@ export class PaginationComponent implements OnChanges {
 	 * console.log(getPagingRange(3, { min: 1, total: 4, width: 3})); // [2, 3, 4]
 	 * console.log(getPagingRange(2, { min: 1, total: 4, width: 3})); // [1, 2, 3]
 	 */
-	private getPagingRange(currentIndex, { min = 0, total = this.totalPages, width = this.width } = {}) {
+	private getPagingRange(currentIndex, { min = 0, total = this.totalPages, width = this._width } = {}) {
 
 		if (width > total)
 			width = total;
