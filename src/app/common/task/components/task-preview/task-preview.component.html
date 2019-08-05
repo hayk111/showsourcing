@@ -98,6 +98,16 @@
 		</dynamic-form-app>
 	</preview-section-app>
 
+	<!-- Extended Fields -->
+	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'Extended Fields'">
+		<extended-form-app
+			[inlineLabel]="true"
+			[definitions]="fieldDefinitions$ | async"
+			[fields]="task?.extendedFields"
+			(update)="updateTask({extendedFields: $event})">
+		</extended-form-app>
+	</preview-section-app>
+
 	<!-- Activity -->
 	<preview-section-app *ngIf="task?.comments?.length" [title]="'comments'" i18n-title="@@comments">
 		<comment-list-app [comments]="task.comments"></comment-list-app>

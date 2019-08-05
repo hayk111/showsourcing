@@ -1,6 +1,6 @@
 {
   "name": "showsourcin-supplier-app",
-  "version": "2.6.0-4",
+  "version": "2.6.0-5",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -89,10 +89,10 @@
     "karma-coverage-istanbul-reporter": "~2.0.4",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
-    "protractor": "^5.4.0",
+    "moment": "^2.24.0",
     "ts-node": "~8.0.2",
     "tslint": "~5.12.1",
-    "typescript": "^3.4.5",
+    "typescript": "3.4.5",
     "webpack-bundle-analyzer": "^3.0.3"
   }
 }

@@ -1,13 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { TaskService } from '~entity-services';
-import { Comment, ERM, Task } from '~models';
+import { Comment, ERM, Task, ExtendedFieldDefinition } from '~models';
 import { DynamicField } from '~shared/dynamic-forms';
 import { AutoUnsub, translate } from '~utils';
-
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 
 @Component({
 	selector: 'task-preview-app',
@@ -15,7 +17,7 @@ import { AutoUnsub, translate } from '~utils';
 	styleUrls: ['./task-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
+export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 
 	private _task: Task;
 	@Input() set task(value: Task) {
@@ -30,6 +32,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 	task$: Observable<Task>;
 	erm = ERM;
 
+	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 	dynamicFields: DynamicField[] = [
 		{
 			name: 'createdBy',
@@ -60,9 +63,14 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 	constructor(
 		private commentSrv: CommentService,
 		private router: Router,
-		private taskSrv: TaskService
+		private taskSrv: TaskService,
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService
 	) {
 		super();
+	}
+
+	ngOnInit() {
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"' });
 	}
 
 	ngOnChanges() {

@@ -10,7 +10,6 @@ import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TokenService } from '~core/auth/services/token.service';
 import { LocalStorageService } from '~core/local-storage';
 
-
 const STORAGE_EMAIL = 'EMAIL';
 
 @Injectable({
@@ -84,7 +83,7 @@ export class AuthenticationService {
 		// lower case for email when using credentials
 		if (credentials.login) {
 			credentials.login = credentials.login.toLowerCase();
-			this.localStorage.setString(STORAGE_EMAIL, credentials.login );
+			this.localStorage.setString(STORAGE_EMAIL, credentials.login);
 		}
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
 			tap(resp => this.tokenSrv.storeJwtTokens(resp.jwtTokenFeed)),

@@ -25,7 +25,7 @@
 				></img-app>
 			</div>
 			<div class="spinner-container">
-					<spinner-app  size="xxl"></spinner-app>
+					<spinner-app *ngIf="getImg()?.pending"  size="xxl"></spinner-app>
 			</div>
 			<div toolTip 	*ngIf="images?.length > 1" class="tooltip back" toolTipMessage="Previous picture" toolTipShowDelay="100">
 				<div
