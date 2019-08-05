@@ -9,24 +9,22 @@ import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-pa
 })
 export class PaginationComponent implements OnChanges {
 
-	/** Different rows displayed */
-	@Input() rows;
 	/** items that we will see per page */
 	@Input() itemsPerPage = DEFAULT_TAKE_PAGINATION;
 	/** total number of items */
 	@Input() count = 0;
 	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20] if 3 we display [1, 2, 3 ] */
 	@Input() set width(value: number) {
-		if (value % 2 !== 0)
+		if (value % 2 === 0)
 			throw Error(`Width must be an odd number, received ${value}`);
 		this._width = value;
 	}
 	get width() { return this._width; }
 	private _width = 5;
 
-	@Output() goToPage = new EventEmitter<number>();
 	/** current index of the pagination (starts at 1) */
 	@Input() currentPage = 0;
+	@Output() goToPage = new EventEmitter<number>();
 
 	/** how many pages our pagination has */
 	totalPages;
@@ -34,7 +32,7 @@ export class PaginationComponent implements OnChanges {
 	range: Array<number> = [];
 
 	ngOnChanges() {
-		this.totalPages = Math.max(1, Math.ceil(this.count / this.itemsPerPage));
+		this.totalPages = this.getTotalPages(this.count, this.itemsPerPage);
 		this.buildPaginatorRange();
 	}
 
@@ -58,6 +56,10 @@ export class PaginationComponent implements OnChanges {
 
 	goToFirstPage() {
 		this.currentPage = 1;
+	}
+
+	getTotalPages(count: number, itemsPerPage: number) {
+		return Math.max(1, Math.ceil(count / itemsPerPage));
 	}
 
 	private buildPaginatorRange() {
