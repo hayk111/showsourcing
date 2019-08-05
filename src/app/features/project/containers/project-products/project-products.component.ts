@@ -2,15 +2,11 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angu
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {
-	SupplierRequestDialogComponent,
-} from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, Project } from '~models';
-import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 
@@ -43,7 +39,6 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 
 	constructor(
 		private featureSrv: ProjectFeatureService,
-		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
@@ -105,10 +100,6 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		this.featureSrv.openFindProductDlg(this.project).pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
-	}
-
-	onOpenCreateRequestDlg(products: Product[]) {
-		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
 }
