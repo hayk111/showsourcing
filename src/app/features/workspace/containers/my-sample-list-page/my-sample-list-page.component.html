@@ -32,8 +32,6 @@
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
-	(next)="listSrv.loadNextPage()"
-	(previous)="listSrv.loadPreviousPage()"
 	(goToPage)="listSrv.loadPage($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(select)="listSrv.selectOne($event)"

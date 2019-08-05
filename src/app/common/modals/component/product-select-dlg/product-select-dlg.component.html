@@ -48,8 +48,6 @@
 		[selection]="listSrv.selection$ | async"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
-		(previous)="loadPreviousPage()"
-		(next)="loadNextPage()"
 		(goToPage)="loadPage($event)"
 		(delete)="listSrv.deleteOne($event)"
 		(favorited)="listSrv.onItemFavorited($event)"

@@ -23,8 +23,6 @@
 	[selection]="listSrv.selection$ | async"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
-	(next)="listSrv.loadNextPage()"
-	(previous)="listSrv.loadPreviousPage()"
 	(goToPage)="listSrv.loadPage($event)"
 	(select)="listSrv.selectOne($event)"
 	(selectAll)="listSrv.selectAll($event)"

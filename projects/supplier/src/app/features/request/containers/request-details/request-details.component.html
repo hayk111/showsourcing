@@ -33,8 +33,6 @@
 				[selection]="listSrv.selection$ | async"
 				[count]="listSrv.count$ | async"
 				[currentPage]="listSrv.currentPage"
-				(next)="listSrv.loadNextPage()"
-				(previous)="listSrv.loadPreviousPage()"
 				(goToPage)="listSrv.loadPage($event)"
 				(open)="open($event)"
 				(openRefuseReplyDlg)="openRefuseReplyDlg($event)"

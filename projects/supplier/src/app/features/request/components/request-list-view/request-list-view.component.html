@@ -7,8 +7,6 @@
 	placeholder="No requests"
 	[count]="count"
 	[currentPage]="currentPage"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
 	(goToPage)="goToPage.emit($event)"
 	(sort)="sort.emit($event)">
 

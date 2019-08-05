@@ -17,8 +17,6 @@
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
-	(next)="listSrv.loadNextPage()"
-	(previous)="listSrv.loadPreviousPage()"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(download)="downloadOne($event)">

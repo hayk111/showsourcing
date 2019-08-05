@@ -8,8 +8,6 @@
 	[count]="count"
 	[currentPage]="currentPage"
 	placeholder="No product"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
 	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit($event)"
 	(sort)="sort.emit($event)"
