@@ -87,8 +87,8 @@ describe('TableComponent', () => {
 
 	beforeEach(async () => {
 		TestBed.configureTestingModule({
-			declarations: [TestComponent],
 			imports: [TableModule],
+			declarations: [TestComponent],
 			providers: [TableComponent, ColumnDirective, TemplateRef]
 		}).compileComponents();
 	});
