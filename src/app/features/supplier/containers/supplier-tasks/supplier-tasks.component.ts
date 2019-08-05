@@ -54,7 +54,8 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 			takeUntil(this._destroy$)
 		).subscribe(supplier => this.supplier = supplier);
 		super.setup([
-			{ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id }
+			{ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id },
+			{ type: FilterType.DONE, value: true }
 		]);
 	}
 

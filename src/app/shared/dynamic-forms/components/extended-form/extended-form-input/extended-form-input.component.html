@@ -211,6 +211,7 @@
 			<input-price-app
 				#inp
 				inputApp
+				[canFocus]="autofocus"
 				[disabled]="disabled"
 				[price]="getObject()"
 				(keyup.enter)="onSave()"
