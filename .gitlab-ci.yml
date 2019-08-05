@@ -100,7 +100,6 @@ app-build-sta:
 app-deploy-dev:
   image: cedvdb/ss-gitlab-pipeline-docker
   stage: deploy
-  when: manual
   allow_failure: false
   script:
     - cd dist/showsourcing
@@ -113,7 +112,6 @@ app-deploy-dev:
 app-deploy-sta:
   stage: deploy
   allow_failure: false
-  when: manual
   script:
     - cd dist/showsourcing
     - aws s3 sync . s3://app-sta.showsourcing.com --delete

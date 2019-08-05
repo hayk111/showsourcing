@@ -1,10 +1,8 @@
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
-
-import { TabFocusActionDirective } from './tab-focus-action.directive';
 import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { takeUntil } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { TabFocusActionDirective } from './tab-focus-action.directive';
 
 @Component({
 	template: `
@@ -13,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 class TestComponent { }
 
-fdescribe('TabFocusActionDirective', () => {
+describe('TabFocusActionDirective', () => {
 	let component: TestComponent;
 	let fixture: ComponentFixture<TestComponent>;
 	let dbgEl: DebugElement;
