@@ -1,19 +1,21 @@
 import { InputDirective } from './input.directive';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 @Component({
 	template: `
-	<input inputApp [type]="typeInp" style="" style="visibility: hidden;"/>
-	<input inputApp [type]="text" readonly value="unable to change" style="visibility: hidden"/>
+	<input inputApp [type]="typeInp"/>
+	<input inputApp type="text" readonly value="unable to change" />
+	<textarea inputApp type="text"></textarea>
 	`
 })
+
 class TestComponent {
 	typeInp: any = 'text';
 }
 
-describe('InputDirective', () => {
+fdescribe('InputDirective', () => {
 	let component: TestComponent;
 	let fixture: ComponentFixture<TestComponent>;
 	let dbgEls: DebugElement[];
@@ -23,7 +25,6 @@ describe('InputDirective', () => {
 		TestBed.configureTestingModule({ declarations: [TestComponent, InputDirective] });
 		fixture = TestBed.createComponent(TestComponent);
 		component = fixture.componentInstance;
-		// directive = dbgEl.injector.get(TabFocusDirective);
 		fixture.detectChanges();
 	});
 
@@ -31,69 +32,77 @@ describe('InputDirective', () => {
 		expect(component).toBeDefined();
 	});
 
-	// it('should prevent characters not fit the regex', fakeAsync(() => {
-	// 	const dbgEl = dbgEls[0];
-	// 	directive = dbgEl.injector.get(InputDirective);
-	// 	const inp = dbgEl.nativeElement;
-	// 	spyOn(directive, 'focus').and.callThrough();
-	// 	spyOnProperty(directive, 'type', 'set').and.callThrough();
-	// 	inp.focus();
-	// 	fixture.detectChanges();
-	// 	expect(true).toBe(true);
-	// fixture.detectChanges();
-	// dbgEl = fixture.debugElement.query(By.directive(InputDirective));
-	// directive = dbgEl.injector.get(InputDirective);
+	fit('should setting cursor at the end of text when focus the element', () => {
+		dbgEls = fixture.debugElement.queryAll(By.directive(InputDirective));
 
-	// const inp = dbgEl.nativeElement;
-	// console.log(inp);
-	// // spyOnProperty(directive, 'type', 'set').and.callThrough();
-	// spyOnProperty(directive, 'type', 'set');
-	// fixture.detectChanges();
-	// }));
+		const dbgEl = dbgEls[0];
+		directive = dbgEl.injector.get(InputDirective);
+		spyOn(directive, 'focus').and.callThrough();
 
-	it('should throw error when type is not supported (button)', () => {
+		const inp: HTMLInputElement = dbgEl.nativeElement;
+		inp.value = 'hello';
+		spyOn(inp, 'setSelectionRange').and.callThrough();
+		directive.focus();
+		fixture.detectChanges();
+
+		expect(directive.focus)
+			.withContext('Should call fnc "focus"')
+			.toHaveBeenCalled();
+
+		expect(inp.selectionStart)
+			.withContext('"selectionStart" of input should as same as length of value input')
+			.toEqual(inp.value.length);
+		expect(inp.selectionEnd)
+			.withContext('"selectionEnd" of input should as same as length of value input')
+			.toEqual(inp.value.length);
+	});
+
+	it('should call next() method of stateChanges when blur or focus the element', () => {
+		component.typeInp = 'text';
+		dbgEls = fixture.debugElement.queryAll(By.directive(InputDirective));
+		directive = dbgEls[0].injector.get(InputDirective);
+
+		spyOnProperty(directive, 'focussed', 'set').and.callThrough();
+		spyOnProperty(directive, 'focussed', 'get').and.returnValue(true);
+		spyOn(directive.stateChanges, 'next');
+		directive.focussed = true;
+		fixture.detectChanges();
+
+		expect(directive.focussed)
+			.withContext('Should change _focussed')
+			.toBe(true);
+		expect(directive.stateChanges.next)
+			.withContext('Should call next() method')
+			.toHaveBeenCalled();
+	});
+
+	it('should throw error when type is not supported', () => {
 		component.typeInp = 'button';
-		expect(() => fixture.detectChanges()).toThrowError(Error);
-	});
+		expect(() => fixture.detectChanges()).withContext('should throw error when type is "button"').toThrowError(Error);
 
-	it('should throw error when type is not supported (checkbox)', () => {
 		component.typeInp = 'checkbox';
-		expect(() => fixture.detectChanges()).toThrowError(Error);
-	});
+		expect(() => fixture.detectChanges()).withContext('should throw error when type is "checkbox"').toThrowError(Error);
 
-	it('should throw error when type is not supported (file)', () => {
 		component.typeInp = 'file';
-		expect(() => fixture.detectChanges()).toThrowError(Error);
-	});
+		expect(() => fixture.detectChanges()).withContext('should throw error when type is "file"').toThrowError(Error);
 
-	it('should throw error when type is not supported (hidden)', () => {
 		component.typeInp = 'hidden';
-		expect(() => fixture.detectChanges()).toThrowError(Error);
-	});
+		expect(() => fixture.detectChanges()).withContext('should throw error when type is "hidden"').toThrowError(Error);
 
-	it('should throw error when type is not supported (image)', () => {
 		component.typeInp = 'image';
-		expect(() => fixture.detectChanges()).toThrowError(Error);
-	});
+		expect(() => fixture.detectChanges()).withContext('should throw error when type is "image"').toThrowError(Error);
 
-	it('should throw error when type is not supported (radio)', () => {
 		component.typeInp = 'radio';
-		expect(() => fixture.detectChanges()).toThrowError(Error);
-	});
+		expect(() => fixture.detectChanges()).withContext('should throw error when type is "radio"').toThrowError(Error);
 
-	it('should throw error when type is not supported (range)', () => {
 		component.typeInp = 'range';
-		expect(() => fixture.detectChanges()).toThrowError(Error);
-	});
+		expect(() => fixture.detectChanges()).withContext('should throw error when type is "range"').toThrowError(Error);
 
-	it('should throw error when type is not supported (reset)', () => {
 		component.typeInp = 'reset';
-		expect(() => fixture.detectChanges()).toThrowError(Error);
-	});
+		expect(() => fixture.detectChanges()).withContext('should throw error when type is "reset"').toThrowError(Error);
 
-	it('should throw error when type is not supported (submit)', () => {
 		component.typeInp = 'submit';
-		expect(() => fixture.detectChanges()).toThrowError(Error);
+		expect(() => fixture.detectChanges()).withContext('should throw error when type is "submit"').toThrowError(Error);
 	});
 
 	it('should be unable to change value when element have "readonly"', () => {
@@ -104,6 +113,26 @@ describe('InputDirective', () => {
 		expect(directive.readonly).toBe(true);
 	});
 
+	it('should call next() method of stateChanges when setting property "readonly"', () => {
+		dbgEls = fixture.debugElement.queryAll(By.directive(InputDirective));
+		const dbgEl = dbgEls[0];
+		directive = dbgEl.injector.get(InputDirective);
+
+		spyOnProperty(directive, 'readonly', 'set').and.callThrough();
+		spyOnProperty(directive, 'readonly', 'get').and.returnValue(true);
+		spyOn(directive.stateChanges, 'next');
+		directive.readonly = true;
+		fixture.detectChanges();
+
+		expect(directive.readonly)
+			.withContext('Property "readonly" should be true')
+			.toBeTruthy();
+
+		expect(directive.stateChanges.next)
+			.withContext('Should call next() method')
+			.toHaveBeenCalled();
+	});
+
 	it('should notice required value when element have "required"', () => {
 		dbgEls = fixture.debugElement.queryAll(By.directive(InputDirective));
 		const dbgEl = dbgEls[1];
@@ -111,5 +140,4 @@ describe('InputDirective', () => {
 		spyOnProperty(directive, 'required', 'get').and.returnValue(true);
 		expect(directive.required).toBe(true);
 	});
-
 });
