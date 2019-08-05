@@ -31,12 +31,12 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	@Input() selectedIndex = 0;
 	@Input() requestId: string;
+	@Input() elements: RequestElement[] = [];
 
 	@ViewChild('content', { static: false }) content: ElementRef;
 
 	request$: Observable<SupplierRequest>;
 	request: SupplierRequest;
-	elements: RequestElement[] = [];
 	element: RequestElement;
 	reply: RequestReply;
 	fields: ExtendedField[];
@@ -114,6 +114,10 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		this.replySrv.update(reply).subscribe(_ => {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
+			else if (updateStatus) {
+				// since we are sending the elements as an Input, we have to manually set the status so it does not show as not replied
+				this.elements[this.selectedIndex].reply.status = ReplyStatus.REPLIED;
+			}
 		});
 		if (updateStatus) {
 			this.descriptionCtrl.reset();

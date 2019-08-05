@@ -52,12 +52,9 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 					originComponentDestroy$: this._destroy$
 				});
 			}),
-			switchMap(id => this.suppReqSrv.selectOne(id)),
-			tap(req => this.requestElements = req ?
-				// this sort is made so it matches the sort of the query, since the order of the elements
-				// inside the request it is what it is we have to find a way to match the order
-				req.requestElements.sort((a, b) => a.name > b.name ? 1 : -1) : []
-			),
+			switchMap(id => this.listSrv.items$, (id, items) => [id, items]),
+			tap(([id, items]) => this.requestElements = items ? items : []),
+			switchMap(([id, items]) => this.suppReqSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		);
 
@@ -93,7 +90,11 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	open(element: RequestElement) {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === element.id);
-		this.dlgSrv.open(RequestReplyDlgComponent, { selectedIndex, requestId: this.requestId });
+		this.dlgSrv.open(RequestReplyDlgComponent, {
+			elements: this.requestElements,
+			selectedIndex,
+			requestId: this.requestId
+		});
 	}
 
 	allReplied(reqElements: RequestElement[]) {

@@ -29,7 +29,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private featureSrv: SupplierRequestService,
+		private suppReqSrv: SupplierRequestService,
 		private notifSrv: NotificationService,
 		private requestReplySrv: RequestReplyService,
 		private cdr: ChangeDetectorRef,
@@ -58,12 +58,9 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 					originComponentDestroy$: this._destroy$
 				});
 			}),
-			switchMap(id => this.featureSrv.selectOne(id)),
-			tap(req => this.requestElements = req ?
-				// this sort is made so it matches the sort of the query, since the order of the elements
-				// inside the request it is what it is we have to find a way to match the order
-				req.requestElements.sort((a, b) => a.name > b.name ? 1 : -1) : []
-			),
+			switchMap(id => this.listSrv.items$, (id, items) => [id, items]),
+			tap(([id, items]) => this.requestElements = items ? items : []),
+			switchMap(([id, items]) => this.suppReqSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(
 			request => this.onRequest(request),
@@ -99,6 +96,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === id);
 		this.dlgSrv.open(ReviewRequestReplyDlgComponent, {
 			elementId: id,
+			elements: this.requestElements,
 			selectedIndex,
 			requestId: this.requestId
 		});
