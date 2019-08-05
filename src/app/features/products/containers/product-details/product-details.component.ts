@@ -113,6 +113,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	onArchive(product: Product | Product[]) {
+		// TODO i18n
 		if (Array.isArray(product)) {
 			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
 				.subscribe(_ => {

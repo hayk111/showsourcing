@@ -102,6 +102,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	onArchive(product: Product | Product[]) {
+		// TODO i18n
 		if (Array.isArray(product)) {
 			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
 				.pipe(switchMap(_ => this.listSrv.refetch()))

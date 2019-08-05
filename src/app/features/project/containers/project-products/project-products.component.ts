@@ -114,7 +114,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 	}
 
 	onArchive(product: Product | Product[]) {
-		console.log('TCL: ProjectProductsComponent -> onArchive -> product', product);
+		// TODO i18n
 		if (Array.isArray(product)) {
 			this.productFeatureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
