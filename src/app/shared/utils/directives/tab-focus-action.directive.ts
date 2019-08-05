@@ -11,6 +11,7 @@ import {
 	Output,
 } from '@angular/core';
 
+
 @Directive({
 	selector: '[tabFocusAction]',
 	exportAs: 'tabFocusActionId',
