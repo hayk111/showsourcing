@@ -9,6 +9,7 @@ export abstract class TaskQueries extends GlobalQueries {
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, fileName, urls { id, url} } }`;
 	static readonly user = (name) => `${name} { id, lastName, firstName, avatar { id, fileName, urls { id, url} } }`;
 	static readonly comments = `comments { id, text, ${TaskQueries.user('createdBy')}, creationDate }`;
+	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order }}`;
 
 	static one = `
 		${TaskQueries.type}
@@ -25,6 +26,7 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
 		${TaskQueries.comments}
+		${TaskQueries.extendedFields}
 		description
 	`;
 
@@ -42,6 +44,7 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.product}
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
+		${TaskQueries.extendedFields}
 		description
 	`;
 }

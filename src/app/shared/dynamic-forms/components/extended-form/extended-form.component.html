@@ -1,12 +1,12 @@
 <div class="form" [ngClass]="{ multiple: (cols?.length > 0) }">
 
-	<div *ngFor="let col of cols; let last = last; trackBy: trackByFn" class="col"
+	<div *ngFor="let col of cols; let last = last; index as colIndex; trackBy: trackByFn" class="col"
 		[ngClass]="{ 'last': last }"
 		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
 
 		<extended-form-input-app
-			*ngFor="let definition of col; index as index; trackBy: trackByFn"
-			[autofocus]="autofocus && index === indexFocus"
+			*ngFor="let definition of col; index as indexInput; trackBy: trackByFn"
+			[autofocus]="autofocus && !disabled && indexInput === indexFocus && colIndex === 0"
 			[disabled]="disabled"
 			[definition]="definition"
 			[field]="getFieldForDefinition(definition.id)"

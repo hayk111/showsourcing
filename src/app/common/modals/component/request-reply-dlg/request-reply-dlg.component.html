@@ -45,7 +45,8 @@
 
       <extended-form-app
         [disabled]="isDisabled()"
-        [definitions]="definitions"
+				[definitions]="definitions"
+				[autofocus]="true"
 				[isFormStyle]="true"
         [colAmount]="2"
 				[fields]="fields"
@@ -57,7 +58,6 @@
 			<form-field-app class="modal">
 				<textarea
 					inputApp
-					[attr.disabled]="isDisabled()"
           [value]="element?.reply?.message"
           [formControl]="descriptionCtrl"
 					type="text"
