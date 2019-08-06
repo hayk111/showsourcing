@@ -26,7 +26,6 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
 		${TaskQueries.comments}
-		${TaskQueries.extendedFields}
 		description
 	`;
 
@@ -44,7 +43,6 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.product}
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
-		${TaskQueries.extendedFields}
 		description
 	`;
 }
