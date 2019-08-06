@@ -102,13 +102,9 @@
 		<dots-app></dots-app>
 	</div>
 </div>
-
 <pagination-app
 	[rows]="rows"
-	[sections]="sections"
-	[totalSections]="totalSections"
-	[indexPagination]="indexPagination"
-	(next)="nextPage()"
-	(previous)="previousPage()"
+	[count]="count"
+	[currentPage]="currentPage"
 	(goToPage)="goToIndexPage($event)">	
 </pagination-app>

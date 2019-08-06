@@ -6,9 +6,7 @@
 	[selected]="selection"
 	placeholder="No requests"
 	[count]="count"
-	[skipped]="skipped"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
+	[currentPage]="currentPage"
 	(goToPage)="goToPage.emit($event)"
 	(sort)="sort.emit($event)">
 

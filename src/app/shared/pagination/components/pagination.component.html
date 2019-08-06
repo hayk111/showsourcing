@@ -1,11 +1,35 @@
-<div *ngIf="rows" class="flexCenter pagination-ctrl">
-	<icon-app [ngClass]="{ disabled: indexPagination === 0 }" fontSet="fa" name="angle-left" (click)="previous.emit()"></icon-app>
-	<span *ngFor="let section of sections; trackBy: trackByFn"
+
+<!-- 
+debug helper
+
+range: {{ range | json }} <br>
+count: {{ count }} <br>
+total pages: {{ totalPages }} <br>
+index: {{ currentPage }}  -->
+
+
+
+<div class="flexCenter pagination-ctrl">
+
+	<icon-app 
+		fontSet="fa" 
+		name="angle-left" 
+		[ngClass]="{ disabled: currentPage === 0 }" 
+		(click)="goToPreviousPage()">
+	</icon-app>
+	
+	<span *ngFor="let page of range; trackBy: trackByFn"
 		class="pagination-item"
-		[ngClass]="{ selected: section === indexPagination }"
-		(click)="goToPage.emit(section)">
-		{{ section + 1}}
+		[ngClass]="{ selected: page === currentPage }"
+		(click)="goToIndexPage(page)">
+		{{ page + 1 }}
 	</span>
-	<icon-app [ngClass]="{ disabled: indexPagination === totalSections - 1	 }" fontSet="fa" name="angle-right" (click)="next.emit()"></icon-app>
-	<!-- <span class="pagination-text">{{ skipped }} - {{ skipped + rows.length }} of {{ count }}</span> -->
+
+	<icon-app 
+		fontSet="fa" 
+		name="angle-right" 
+		[ngClass]="{ disabled: currentPage === totalPages - 1 }" 
+		(click)="goToNextPage()">
+	</icon-app>
+
 </div>
