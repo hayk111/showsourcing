@@ -8,7 +8,7 @@ import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-pa
 const ITEMS_PER_PAGE = DEFAULT_TAKE_PAGINATION;
 
 /* In the host component's template we will pass the inputs to the actual
- * component to else ngOnChanges is not triggered.
+ * component. Else ngOnChanges is not triggered.
  * see: https://stackoverflow.com/questions/37408801/testing-ngonchanges-lifecycle-hook-in-angular-2
  */
 @Component({
