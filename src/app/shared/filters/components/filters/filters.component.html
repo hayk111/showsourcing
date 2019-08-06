@@ -1,7 +1,7 @@
 
 
 <!-- BTN PANEL -->
-<side-panel-app *ngIf="view === 'BTNS'">
+<side-panel-app *ngIf="view === 'BTNS' && sidePanel">
 
   <side-panel-title-app class="capitalize" i18n="text@@filters">
     filters
@@ -24,7 +24,7 @@
 
 
 <!-- SELECT ENTITY PANEL -->
-<side-panel-app *ngIf="view === 'SELECTION'">
+<side-panel-app *ngIf="view === 'SELECTION' && sidePanel">
   <side-panel-title-app (click)="openBtnPanel()">
     <div class="flex pointer">
       <icon-app fontSet="fa" name="angle-left"></icon-app>
@@ -43,3 +43,22 @@
     (filterRemoved)="removeFilter($event)">
   </filter-selection-entity-panel-app>
 </side-panel-app>
+
+<!-- DIALOG PANEL -->
+<dialog-side-panel-app *ngIf="!sidePanel">
+	<side-panel-title-app class="capitalize" i18n="text@@filters">
+		filters
+	</side-panel-title-app>
+	<side-panel-action-app class="clear" (click)="resetAll()" i18n="text@@clear-all-filters">
+		Clear All Filters
+	</side-panel-action-app>
+
+	<filter-btn-list-app
+		[filterTypes]="filterTypes"
+		[filterMap]="filterList.asByType()"
+		(filterAdded)="addFilter($event)"
+		(filterRemoved)="removeFilter($event)"
+		(editClicked)="openEditPanel($event)"
+		(resetClicked)="resetType($event)">
+	</filter-btn-list-app>
+</dialog-side-panel-app>

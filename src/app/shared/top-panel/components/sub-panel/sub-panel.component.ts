@@ -17,10 +17,14 @@ import {
 	SearchAutocompleteComponent,
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { AutoUnsub } from '~utils';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'sub-panel-app',
 	templateUrl: './sub-panel.component.html',
+	host: {
+		'[class.no-padding-border-bottom]': 'subPanelDialog'
+	},
 	styleUrls: ['./sub-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -33,6 +37,13 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() switchContent: ['list', 'kanban' | 'thumbs'] = ['list', 'thumbs'];
 	// whether the screen has a search input
 	@Input() hasSearch = true;
+
+	// whether the subpanel is inside dialog
+	@Input() subPanelDialog = false;
+
+	@Input() searchFullWidth = true;
+
+	@Input() productsCount$: Observable<number>;
 
 	@Input() title: string;
 

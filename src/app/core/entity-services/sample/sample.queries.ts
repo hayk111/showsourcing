@@ -17,6 +17,7 @@ export class SampleQueries extends GlobalQueries {
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly status = `status { id, name, category, inWorkflow, step }`;
 	static readonly comments = `comments { id, text, ${SampleQueries.createdBy}, creationDate }`;
+	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order }}`;
 
 	static readonly one = `
 		name,
@@ -32,6 +33,7 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.assignee}
 		${SampleQueries.status}
 		${SampleQueries.comments}
+		${SampleQueries.extendedFields}
 	`;
 
 	static readonly many = `
@@ -48,6 +50,7 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.assignee}
 		${SampleQueries.status}
 		${SampleQueries.comments}
+		${SampleQueries.extendedFields}
 	`;
 
 }

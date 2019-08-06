@@ -38,8 +38,8 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 				query: 'deleted == false'
 			},
 			initialFilters: [
-				{ type: FilterType.DONE, value: false },
-				...addedFilters
+				...addedFilters,
+				{ type: FilterType.DONE, value: false }
 			],
 			entityMetadata: ERM.TASK,
 			originComponentDestroy$: this._destroy$

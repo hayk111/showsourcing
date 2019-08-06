@@ -1,26 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
-import { CloseEventType, CloseEvent } from '~shared/dialog';
 import {
 	CompareProductComponent,
 	CreationDialogComponent,
+	CreationProductDlgComponent,
+	CreationTaskDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	VoteDetailsDialogComponent,
-	MassEditDlgComponent,
-	RefuseReplyDlgComponent,
-	CreationProductDlgComponent,
-	CreationTaskDlgComponent,
 	ProductSelectDlgComponent,
+	RefuseReplyDlgComponent,
+	VoteDetailsDialogComponent,
 } from '~common/modals/component';
-import { EntityMetadata, Product, ProductVote, Project, Supplier, ERM } from '~models';
-
+import { EntityMetadata, ERM, Product, ProductVote, Supplier } from '~models';
+import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';

@@ -4,8 +4,17 @@
 	border-bottom: 1px solid var(--color-divider);
 }
 
+.select-products-count {
+	min-width: 80px;
+	color: black;
+}
+
+.dialog-show-filters {
+	background-color: var(--bg);
+	color: #5d6d8b;
+}
+
 .search-container {
-	width: 100%;
 	align-items: center;
 
 	> *:not(:first-child) {

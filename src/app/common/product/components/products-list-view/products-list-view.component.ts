@@ -25,7 +25,7 @@ import { translate } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
-	
+
 	@Input() hasMenu = true;
 	@Input() productPreview = true;
 	@Input() isInProductSelectDlg = false;
@@ -61,13 +61,13 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	}
 
 	ngOnInit() {
-		if(this.isInProductSelectDlg) {
+		if (this.isInProductSelectDlg) {
 			this.descriptor =  [
 				{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
 				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
 				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
 				{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', width: 50, minWidth: 50 },
-				{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
+				{ title: translate('FAV'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
 				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', width: 120, minWidth: 120 }
 			];
 		} else {

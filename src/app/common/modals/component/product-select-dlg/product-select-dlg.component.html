@@ -10,16 +10,13 @@
 		[filtersPanelOpened]="filtersPanelOpened"
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
+		[searchFullWidth]="false"
+		[subPanelDialog]="true"
+		[productsCount$]="productsCount$"
 		(search)="searchProduct($event)"
 		(showFilters)="showFilters()"
 		(hideFilters)="hideFilters()"
 		(viewChange)="onViewChange($event)">
-
-		<sub-panel-left-item-app class="flex">
-			<span class="select-products-count capitalize" *ngIf="productsCount$ | async as count"> 
-				<b> {{ count || 0 }} products </b>
-			</span>
-		</sub-panel-left-item-app>
 
 		<sub-panel-left-item-app class="flex">
 			<div class="flex show-my-samples">
@@ -29,7 +26,7 @@
 					(uncheck)="toggleMySamples(false)">
 				</checkbox-app>
 				<span class="ellipsis" i18n="text@@show-only-my-sample">
-					Show my samples only
+					<b>Show my samples only</b>
 				</span>
 			</div>
 		</sub-panel-left-item-app>
@@ -73,7 +70,8 @@
 	<filters-app
 		*ngIf="filtersPanelOpened"
 		[filterList]="listSrv.filterList"
-		[filterTypes]="filterTypes">
+		[filterTypes]="filterTypes"
+		[sidePanel]="false">
 	</filters-app>
 
 	<ng-template #spinner>

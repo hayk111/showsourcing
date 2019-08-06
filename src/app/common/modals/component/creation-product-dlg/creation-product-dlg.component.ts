@@ -15,6 +15,7 @@ import { translate, uuid } from '~utils';
 export class CreationProductDlgComponent implements OnInit {
 
 	@Input() product: Product;
+	@Input() createAnother = false;
 
 	// TODO i18n
 	dynamicFields: DynamicField[] = [
@@ -101,7 +102,6 @@ export class CreationProductDlgComponent implements OnInit {
 			metadata: { target: 'Product' }
 		}
 	];
-	createAnother = false;
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -110,8 +110,12 @@ export class CreationProductDlgComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
+		// if there is not a product created, we create one
+		// else if a product exists but it does not have images or attachments initialized
 		if (!this.product)
 			this.product = new Product({ images: [], attachments: [] });
+		else if (!this.product.images || !this.product.attachments)
+			this.product = { ...this.product, images: [], attachments: [] };
 	}
 
 	updateProduct(product: Product) {
@@ -152,7 +156,8 @@ export class CreationProductDlgComponent implements OnInit {
 				// if we create a new product we create a new id
 				if (this.createAnother) {
 					product = this.resetIds(product);
-					this.dlgSrv.open(CreationProductDlgComponent, { product });
+					this.dlgSrv.open(CreationProductDlgComponent, { product, createAnother: true });
+					this.productSrv.onUpdateProductList();
 				} else
 					this.close();
 				// success

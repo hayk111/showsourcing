@@ -2,7 +2,7 @@
 
 <div class="flex">
 
-	<div class="search-container flex">
+	<div class="search-container flex" [ngStyle]="{ 'width': searchFullWidth ? '100%' : '358px' }">
 
 		<ng-content select="search-autocomplete-app"></ng-content>
 
@@ -14,12 +14,20 @@
 			(search)="search.emit($event)"
 			(keydown.enter)="triggerSmartSearch($event)">
 		</search-bar-app>
+
+		<sub-panel-left-item-app class="flex" *ngIf="subPanelDialog">
+			<span class="select-products-count capitalize" *ngIf="productsCount$ | async as count"> 
+				<b> {{ count || 0 }} products </b>
+			</span>
+		</sub-panel-left-item-app>
 	</div>
 
 	<div class="items-container flex">
 
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="showFilters.emit()" i18n="text@@show-filters">Show Filters</button>
-		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">Hide Filters</button>
+		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="showFilters.emit()" i18n="text@@show-filters"
+		[class.dialog-show-filters]="subPanelDialog">Show Filters</button>
+		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters"
+		[class.dialog-show-filters]="subPanelDialog">Hide Filters</button>
 
 		<div *ngIf="hasFilter" class="notification" notifBadge [badge]="filtersAmount" badgePosition="no-content"></div>
 
