@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-params';
+import { TrackingComponent } from '~utils';
 
 @Component({
 	selector: 'pagination-app',
@@ -7,7 +8,7 @@ import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-pa
 	styleUrls: ['./pagination.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginationComponent implements OnChanges {
+export class PaginationComponent extends TrackingComponent implements OnChanges {
 
 	/** items that we will see per page */
 	@Input() itemsPerPage = DEFAULT_TAKE_PAGINATION;

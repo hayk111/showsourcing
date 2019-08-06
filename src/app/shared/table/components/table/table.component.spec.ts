@@ -377,7 +377,7 @@
 // 	it('should setting width of table and width of table will be total width of columns', () => {
 // 		spyOn(tableComponent, 'getWidth').and.callThrough();
 // 		// tslint:disable-next-line:radix
-// 		const widthDefined = tableComponent.columns.reduce((a, b) => a + (typeof (b.width) === 'string' ? parseInt(b.width) : b.width) || 0, 0)
+// 		const widthDefined = tableComponent.columns.reduce((a, b) => a + (typeof (b.width) === 'string' ? parseInt(b.width) : b.width) || 0, 0);
 // 		const width = tableComponent.getWidth();
 
 // 		expect(tableComponent.getWidth)
