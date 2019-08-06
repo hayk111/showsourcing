@@ -36,4 +36,9 @@ export class PaginationComponent {
 	// current index of the pagination
 	@Input() indexPagination = 0;
 	@Input() totalSections = 1;
+
+	/** Trackby function for ngFor */
+	trackByFn(index, section) {
+		return index;
+	}
 }
