@@ -302,10 +302,10 @@ export class ListPageService
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
+			// unselect must go before refetch, otherwise it won't update
+			tap(_ => this.selectionSrv.unselectAll()),
 			switchMap(_ => refetch ? this.refetch() : empty())
-		).subscribe(_ => {
-			this.selectionSrv.unselectAll();
-		});
+		).subscribe();
 	}
 
 	/** creates a new entity, can also create with defaul values with extra?: any */

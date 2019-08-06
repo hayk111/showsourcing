@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import {
 	EntityMetadata,
 	ERM,
@@ -30,7 +28,7 @@ import {
 		'[class.twoLine]': '!inlineLabel'
 	}
 })
-export class ExtendedFormInputComponent implements OnInit {
+export class ExtendedFormInputComponent {
 
 	@Input() type: EntityMetadata;
 	@Input() set field(field: ExtendedField) {
@@ -63,17 +61,7 @@ export class ExtendedFormInputComponent implements OnInit {
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 
-	inputValue$ = new Subject<({ value: any, isJson: boolean })>();
 	metadata: ExtendedFieldDefinitionMetadata;
-
-	ngOnInit() {
-		this.inputValue$.pipe(
-			debounceTime(250),
-			distinctUntilChanged(),
-			tap(item => item.isJson ? this.accumulateJSON(item.value) : this.accumulator = item.value),
-			tap(_ => this.onClose(false))
-		).subscribe();
-	}
 
 	onClose(isCancel: boolean) {
 		if (!isCancel) {
@@ -103,7 +91,8 @@ export class ExtendedFormInputComponent implements OnInit {
 	}
 
 	onInput(value: any, isJson = false) {
-		this.inputValue$.next({ value, isJson });
+		isJson ? this.accumulateJSON(value) : this.accumulator = value;
+		this.onClose(false);
 	}
 
 	/** toggle input value from true to false and vice versa */

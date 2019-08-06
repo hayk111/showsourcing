@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges, AfterViewChecked } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
+import { ListPageService } from '~core/list-page';
 import { Contact, CreateRequest, ERM, Product, RequestTemplate, Supplier } from '~core/models';
+import { ProductService } from '~entity-services';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -11,12 +14,8 @@ import {
 	TemplateMngmtDlgComponent,
 } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
 import { ID, translate } from '~utils';
-import { ListPageKey, ListPageService } from '~core/list-page';
-import { ProductService } from '~entity-services';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -219,7 +218,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 
 		setTimeout(_ => {
 			this.commonModalService.openSelectProductDlg([], false).pipe(
-				switchMap(_ => this.listSrv.refetch())
+				switchMap(() => this.listSrv.refetch())
 			).subscribe();
 		});
 	}

@@ -50,9 +50,8 @@ export class ProjectSettingsComponent extends AutoUnsub implements OnInit {
 	}
 
 	onNewFiles(files: File[]) {
-		this.uploader.uploadImages(files).subscribe(imgs => {
-			this.updateProject({ logoImage: imgs[0] });
-		});
+		this.uploader.uploadImages(files)
+			.subscribe(imgs => this.updateProject({ logoImage: imgs[0] }));
 	}
 
 	updateProject(proj: Project) {

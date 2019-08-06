@@ -13,7 +13,7 @@
 			[pickerFields]="pickerFields"
 			(update)="updateChoice($event)">
 			<selector-placeholder-app
-				tabFocus
+				tabFocusAction
 				autoFocus
 				class="first-uppercase"
 				[name]="(choice$ | async)?.label || (choice$ | async)?.name"
@@ -40,7 +40,7 @@
 							[width]="460"
 							(statusUpdated)="valueUpdate($event)">
 							<selector-placeholder-app
-								tabFocus
+								tabFocusAction
 								class="status-selector first-uppercase"
 								[name]="value?.name"
 								placeholder="choose a status"
@@ -90,8 +90,8 @@
 	</div>
 
 	<dialog-footer-app>
-		<button tabFocus class="capitalize secondary" (click)="close()" i18n="@@cancel">cancel</button>
-		<button tabFocus class="capitalize" (click)="update()" i18n="@@update">update</button>
+		<button tabFocusAction class="capitalize secondary" (click)="close()" i18n="@@cancel">cancel</button>
+		<button tabFocusAction class="capitalize" (click)="update()" i18n="@@update">update</button>
 	</dialog-footer-app>
 
 </dialog-app>

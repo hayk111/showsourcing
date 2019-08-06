@@ -59,6 +59,9 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			tap(request => this.request = request),
 			takeUntil(this._destroy$)
 		).subscribe(_ => this.setElement());
+
+		if (this.isDisabled())
+			this.descriptionCtrl.disable();
 	}
 
 
@@ -111,14 +114,15 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 				fields: this.fields,
 				__typename: 'RequestReply'
 			});
+
 		this.replySrv.update(reply).subscribe(_ => {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
+			else if (updateStatus) {
+				this.descriptionCtrl.reset();
+				this.content.nativeElement.scrollIntoView();
+			}
 		});
-		if (updateStatus) {
-			this.descriptionCtrl.reset();
-			this.content.nativeElement.scrollIntoView();
-		}
 	}
 
 	saveAndClose() {

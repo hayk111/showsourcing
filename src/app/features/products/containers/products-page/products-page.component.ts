@@ -73,6 +73,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			originComponentDestroy$: this._destroy$
 		}, false);
 
+		this.productSrv.productListUpdate$.pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
+
 		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
