@@ -16,7 +16,6 @@ import {
 	SupplierRequest,
 } from '~core/models';
 import { DialogService } from '~shared/dialog';
-import { PricePipe } from '~shared/price/price.pipe';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
@@ -32,10 +31,12 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	@Input() elementId: string;
 	@Input() requestId: string;
 	@Input() selectedIndex = 0;
+	// we pass the elements instead of querying them here, since the array sort from js != Realm sort
+	/** elements inside the request */
+	@Input() elements: RequestElement[] = [];
 	request$: Observable<SupplierRequest>;
 	request: SupplierRequest;
 	element: RequestElement;
-	elements: RequestElement[] = [];
 	product: Product;
 	product$: Observable<Product>;
 	erm = ERM;
@@ -45,7 +46,6 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		private requestSrv: SupplierRequestService,
 		private requestReplySrv: RequestReplyService,
 		private elementSrv: RequestElementService,
-		private appPricePipe: PricePipe,
 		private cdr: ChangeDetectorRef,
 		public selectionSrv: SelectionService,
 		private dlgSrv: DialogService
@@ -150,7 +150,6 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	private setElement() {
-		this.elements = this.request.requestElements;
 		this.element = this.elements[this.selectedIndex];
 		this.selectionSrv.unselectAll();
 		this.acceptAll(ERM.EXTENDED_FIELD);
@@ -217,7 +216,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		});
 		this.productSrv.update(tempProduct).pipe(
 			switchMap(product => this.requestReplySrv.update({ id: this.elements[this.selectedIndex].reply.id, status: ReplyStatus.VALIDATED }))
-		).subscribe();
+		).subscribe(_ => this.elements[this.selectedIndex].reply.status = ReplyStatus.VALIDATED);
 		this.openReplySentDlg();
 	}
 
