@@ -53,73 +53,9 @@ fdescribe('Component: PaginationComponent', () => {
 		currentPageElem = fixture.nativeElement.querySelector('.selected');
 	});
 
-	it('displayed current page is + 1 current page', () => {
+	it('should display current page + 1 as the selected page', () => {
 		fixture.detectChanges();
 		expect(currentPageElem.textContent).toContain('1');
-	});
-
-	// it('should set the fields of the pagination component and call ngOnChanges', () => {
-	// 	testComp.width = 7;
-	// 	spyOn(paginationComp, 'ngOnChanges').and.callThrough();
-
-	// 	fixture.detectChanges();
-	// 	expect(paginationComp.width).toEqual(7);
-	// 	expect(paginationComp.ngOnChanges).toHaveBeenCalled();
-	// });
-
-	it('should have the correct number of total pages', () => {
-		// 0 items
-		testComp.count = 0;
-		fixture.detectChanges();
-		expect(paginationComp.totalPages).toEqual(1);
-		// 1 page
-		testComp.count = ITEMS_PER_PAGE;
-		fixture.detectChanges();
-		expect(paginationComp.totalPages).toEqual(1);
-		// 20 pages
-		testComp.count = ITEMS_PER_PAGE * 20;
-		fixture.detectChanges();
-		expect(paginationComp.totalPages).toEqual(20);
-		// 21 pages
-		testComp.count = (ITEMS_PER_PAGE * 20) + 1;
-		fixture.detectChanges();
-		expect(paginationComp.totalPages).toEqual(21);
-	});
-
-	it('should build the correct range', () => {
-
-		testComp.count = ITEMS_PER_PAGE * 7;
-		fixture.detectChanges();
-		expect(paginationComp.range).toEqual([0, 1, 2, 3, 4]);
-
-		testComp.currentPage = 2;
-		fixture.detectChanges();
-		expect(paginationComp.range).toEqual([0, 1, 2, 3, 4]);
-
-		testComp.currentPage = 4;
-		fixture.detectChanges();
-		expect(paginationComp.range).toEqual([2, 3, 4, 5, 6]);
-
-		testComp.currentPage = 6;
-		fixture.detectChanges();
-		expect(paginationComp.range).toEqual([2, 3, 4, 5, 6]);
-
-	});
-
-	it('should build the range [0] when no items', () => {
-		// when no items
-		testComp.count = 0;
-		testComp.currentPage = 0;
-		fixture.detectChanges();
-		expect(paginationComp.range).toEqual([0]);
-	});
-
-	it('should build the correct range when less page than width', () => {
-		// when only two pages
-		testComp.count = ITEMS_PER_PAGE * 2;
-		testComp.currentPage = 0;
-		fixture.detectChanges();
-		expect(paginationComp.range).toEqual([0, 1]);
 	});
 
 	it('previous button should be disabled when on page 0', () => {
@@ -144,6 +80,7 @@ fdescribe('Component: PaginationComponent', () => {
 
 	it('clicking on previous icon should go to previous page', () => {
 		spyOn(paginationComp.goToPage, 'emit');
+		// starting on page 1 so button isn't disabled
 		testComp.currentPage = 1;
 		fixture.detectChanges();
 		const currPage = paginationComp.currentPage;
@@ -161,6 +98,61 @@ fdescribe('Component: PaginationComponent', () => {
 		fourthPage.click();
 		expect(paginationComp.currentPage).toEqual(4);
 		expect(paginationComp.goToPage.emit).toHaveBeenCalledWith(paginationComp.currentPage);
+	});
+
+	it('should have the correct number of total pages', () => {
+		// 0 items
+		testComp.count = 0;
+		fixture.detectChanges();
+		expect(paginationComp.totalPages).toEqual(1);
+		// 1 page
+		testComp.count = ITEMS_PER_PAGE;
+		fixture.detectChanges();
+		expect(paginationComp.totalPages).toEqual(1);
+		// 20 pages
+		testComp.count = ITEMS_PER_PAGE * 20;
+		fixture.detectChanges();
+		expect(paginationComp.totalPages).toEqual(20);
+		// 21 pages (20 pages + 1 item)
+		testComp.count = (ITEMS_PER_PAGE * 20) + 1;
+		fixture.detectChanges();
+		expect(paginationComp.totalPages).toEqual(21);
+	});
+
+	it('should display the correct range', () => {
+
+		testComp.count = ITEMS_PER_PAGE * 7;
+		fixture.detectChanges();
+		expect(paginationComp.range).toEqual([0, 1, 2, 3, 4]);
+
+		testComp.currentPage = 2;
+		fixture.detectChanges();
+		expect(paginationComp.range).toEqual([0, 1, 2, 3, 4]);
+
+		testComp.currentPage = 4;
+		fixture.detectChanges();
+		expect(paginationComp.range).toEqual([2, 3, 4, 5, 6]);
+
+		testComp.currentPage = 6;
+		fixture.detectChanges();
+		expect(paginationComp.range).toEqual([2, 3, 4, 5, 6]);
+
+	});
+
+	it('should display the range [0] when no items', () => {
+		// when no items
+		testComp.count = 0;
+		testComp.currentPage = 0;
+		fixture.detectChanges();
+		expect(paginationComp.range).toEqual([0]);
+	});
+
+	it('should display the correct range when we have less pages than fits the width', () => {
+		// when only two pages
+		testComp.count = ITEMS_PER_PAGE * 2;
+		testComp.currentPage = 0;
+		fixture.detectChanges();
+		expect(paginationComp.range).toEqual([0, 1]);
 	});
 
 
