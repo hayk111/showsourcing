@@ -33,7 +33,6 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.assignee}
 		${SampleQueries.status}
 		${SampleQueries.comments}
-		${SampleQueries.extendedFields}
 	`;
 
 	static readonly many = `
@@ -50,7 +49,6 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.assignee}
 		${SampleQueries.status}
 		${SampleQueries.comments}
-		${SampleQueries.extendedFields}
 	`;
 
 }
