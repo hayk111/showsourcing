@@ -15,7 +15,7 @@ class TestComponent {
 	typeInp: any = 'text';
 }
 
-fdescribe('InputDirective', () => {
+describe('InputDirective', () => {
 	let component: TestComponent;
 	let fixture: ComponentFixture<TestComponent>;
 	let dbgEls: DebugElement[];
@@ -32,7 +32,7 @@ fdescribe('InputDirective', () => {
 		expect(component).toBeDefined();
 	});
 
-	fit('should setting cursor at the end of text when focus the element', () => {
+	it('should setting cursor at the end of text when focus the element', () => {
 		dbgEls = fixture.debugElement.queryAll(By.directive(InputDirective));
 
 		const dbgEl = dbgEls[0];

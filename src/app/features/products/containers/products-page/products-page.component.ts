@@ -43,7 +43,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	productsCount$: Observable<number>;
 
 	constructor(
-		private router: Router,
 		private dlgSrv: DialogService,
 		private productSrv: ProductService,
 		public commonModalSrv: CommonModalService,

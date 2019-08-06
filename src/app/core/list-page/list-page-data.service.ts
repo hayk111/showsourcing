@@ -24,6 +24,8 @@ export class ListPageDataService
 	items$: ConnectableObservable<Array<T>>;
 	/** number of total items */
 	count$: Observable<number>;
+	/** current page we are at */
+	currentPage = 0;
 
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
@@ -125,6 +127,7 @@ export class ListPageDataService
 			.valueChanges$
 			.pipe(
 				skip(1),
+				tap(_ => this.currentPage = 0),
 				tap(filterList => this.selectParams.query = filterList.asPredicate()),
 				switchMap(_ => this.refetch()),
 				takeUntil(destroy$)
@@ -155,21 +158,25 @@ export class ListPageDataService
 	}
 
 	loadPage(page: number): Observable<any> {
+		this.currentPage = page;
 		this.selectParams.skip = this.selectParams.take * page;
 		return this.refetch(this.selectParams);
 	}
 
 	loadNextPage(): Observable<any> {
+		this.currentPage++;
 		this.selectParams.skip = this.selectParams.skip + this.selectParams.take;
 		return this.refetch(this.selectParams);
 	}
 
 	loadPreviousPage(): Observable<any> {
+		this.currentPage--;
 		this.selectParams.skip = Math.max(this.selectParams.skip - this.selectParams.take, 0);
 		return this.refetch(this.selectParams);
 	}
 
 	loadFirstPage(): Observable<any> {
+		this.currentPage = 0;
 		this.selectParams.skip = 0;
 		return this.refetch(this.selectParams);
 	}
