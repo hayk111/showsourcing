@@ -1,6 +1,6 @@
 <div *ngIf="rows" class="flexCenter pagination-ctrl">
 	<icon-app [ngClass]="{ disabled: indexPagination === 0 }" fontSet="fa" name="angle-left" (click)="previous.emit()"></icon-app>
-	<span *ngFor="let section of sections"
+	<span *ngFor="let section of sections; trackBy: trackByFn"
 		class="pagination-item"
 		[ngClass]="{ selected: section === indexPagination }"
 		(click)="goToPage.emit(section)">
