@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  EntityMetadata,
-  ERM,
-  ExtendedField,
-  ExtendedFieldDefinition,
-  ExtendedFieldDefinitionMetadata,
-  Packaging,
-  Price,
+	EntityMetadata,
+	ERM,
+	ExtendedField,
+	ExtendedFieldDefinition,
+	ExtendedFieldDefinitionMetadata,
+	Packaging,
+	Price,
 } from '~core/models';
 
 

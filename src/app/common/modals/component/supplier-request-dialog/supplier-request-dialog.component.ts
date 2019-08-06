@@ -218,7 +218,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 
 		setTimeout(_ => {
 			this.commonModalService.openSelectProductDlg([], false).pipe(
-				switchMap(_ => this.listSrv.refetch())
+				switchMap(() => this.listSrv.refetch())
 			).subscribe();
 		});
 	}

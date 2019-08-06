@@ -43,8 +43,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 			${SupplierQueries.images}
 			${SupplierQueries.attachments}
 			${SupplierQueries.tags}
-			${SupplierQueries.productsLinked},
-			${SupplierQueries.extendedFields}
+			${SupplierQueries.productsLinked}
 		`;
 
 	static readonly many = `
@@ -62,8 +61,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.user('createdBy')}
 		${SupplierQueries.user('lastUpdatedBy')}
 		${SupplierQueries.productsLinked}
-		${SupplierQueries.logoImage},
-		${SupplierQueries.extendedFields}
+		${SupplierQueries.logoImage}
 	`;
 
 	static readonly all = `
@@ -80,8 +78,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.tags}
 		${SupplierQueries.user('createdBy')}
 		${SupplierQueries.user('lastUpdatedBy')}
-	${SupplierQueries.productsLinked},
-		${SupplierQueries.extendedFields}
+		${SupplierQueries.productsLinked}
 	`;
 
 	static readonly update = `

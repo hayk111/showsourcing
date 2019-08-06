@@ -26,7 +26,7 @@ describe('RestrictInputDirective', () => {
 		ctrlKey: false, charCode
 	} as any);
 
-	const telKeyNotAllow = [['x', 120], [',', 44], ['[', 91], ['z', 122]]
+	const telKeyNotAllow = [['x', 120], [',', 44], ['[', 91], ['z', 122]];
 	const telKeyAllow = [['.', 46], ['-', 45], ['/', 47], ['+', 43], [' ', 32], ['(', 40], [')', 41], ['1', 49], ['0', 48]];
 
 	const decimalKeyNotAllow = [['x', 120], ['/', 47], ['[', 91], ['z', 122]];
