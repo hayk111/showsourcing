@@ -1,15 +1,19 @@
-import { ImagePipe } from './image.pipe';
-import {
-	DEFAULT_EVENT_ICON, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON,
-	DEFAULT_IMG, DEFAULT_PROJECT_ICON, DEFAULT_REQUEST_ICON,
-	DEFAULT_CATEGORY_ICON, DEFAULT_PRODUCT_ICON, DEFAULT_PRODUCT_LIST_ICON
-} from '~utils/constants';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Supplier, AppImage } from '~core/models';
-import { PendingImage } from '~utils';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { ImageUrl } from '~core/models/image-url.model';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DomSanitizer } from '@angular/platform-browser';
+import { AppImage, Supplier } from '~core/models';
+import {
+	DEFAULT_CATEGORY_ICON,
+	DEFAULT_EVENT_ICON,
+	DEFAULT_IMG,
+	DEFAULT_PRODUCT_ICON,
+	DEFAULT_PRODUCT_LIST_ICON,
+	DEFAULT_PROJECT_ICON,
+	DEFAULT_REQUEST_ICON,
+	DEFAULT_SUPPLIER_ICON,
+	DEFAULT_USER_ICON
+} from '~utils/constants';
+import { ImagePipe } from './image.pipe';
 
 @Component({ template: `` })
 class TestComponent {
