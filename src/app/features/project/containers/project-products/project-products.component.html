@@ -80,7 +80,7 @@
 			(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 			(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
 			(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
-			(createRequest)="onOpenCreateRequestDlg(listSrv.getSelectedValues())"
+			(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
 			(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 			(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 			(statusUpdated)="listSrv.updateSelected({status: $event})"
