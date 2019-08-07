@@ -1,28 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	selector: 'card-app',
 	templateUrl: './card.component.html',
 	styleUrls: ['./card.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'mg-l'
-	}
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CardComponent {
-	@Input() padding: 'none' | 'xs' | 's' | 'ms' | 'm' | 'ml' | 'l' | 'xl' = 'l';
-	@ViewChild('ref', { static: true }) ctnrRef;
-
-	get style() {
-		if (this.ctnrRef.children === 0)
-			return { padding: 0 };
-		else
-			return {
-				padding: `var(--spacing-${this.padding})`
-			};
-	}
-
-	get footerStyle() {
-		return { padding: `0 var(--spacing-${this.padding}) 0 var(--spacing-${this.padding})` };
-	}
-}
+export class CardComponent {}
