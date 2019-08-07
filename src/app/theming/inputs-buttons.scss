@@ -167,7 +167,7 @@ button, input[type="submit"], .button {
     min-width: 120px;
 	}
 	&:hover, &.cdk-keyboard-focused {
-		background: var(--color-primary-dark);
+		background: var(--color-bg-dark);
 	}
 	&.secondary {
 		background: var(--color-secondary);

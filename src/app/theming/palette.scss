@@ -1,37 +1,39 @@
 
 :root{
-	--color-primary: #41AFFF;
-	--color-primary-contrast: white;
-	--color-black: black;
-	--color-primary-light: #6bbeff;
-	--color-primary-dark: #2e88cf;
-
-	--color-secondary-light: #f9fafc;
-	--color-secondary: #e6ebf5;
-	--color-secondary-dark: #a3afc6;
-
-	--color-accent: #fbb917;
-
-	--color-txt-primary: #5D6D8B;
-	--color-txt-secondary: #A3AFC6;
-	--color-txt-third: #e0e0e0;
-	--color-txt-strong: #182844;
-	--color-divider:  #e6ebf5;
-	--color-list-hover:  #f8f9fc;
 
 	--color-bg: #fff;
-	--color-bg-secondary: #f3f5f8;
+	--color-bg-secondary: #e6ebf5;
 
-	--color-warn: #ec495d;
-	--color-warn-light: #f94259;
-	--color-warn-dark: #ca263a;
+	--color-primary: #45ADFF;
+	--color-primary-light: #ecf6ff;
+
+	--color-secondary: #fbb917;
+	--color-secondary-light: #fef6e9;
+
+	--color-warn: #f94259;
+	--color-warn-light: rgb(254, 236, 238);
+
+	--color-success: #49c76c;
+	--color-success-light: rgb(240, 252, 244);
+
+	--color-divider:  #e6ebf5; 
+
+	--color-txt-primary: #000000;
+	--color-txt-secondary: #5d6d8b;
+	--color-txt-third: #a3afc6;
+
+	--color-bg: #fff;
+	--color-bg-dark: #182844;
+	--color-bg-secondary: #e6ebf5;
+
+
+
+	// entities
 
 	--color-supplier-tag: #fca410;
 	--color-action: #fca410;
 
-	--color-success: #71e591;
-	--color-success-light: #9cf1b4;
-	--color-success-dark: #48d26f;
+
 
 
 	/** Status colors */
@@ -52,8 +54,8 @@
 	color: var(--color-primary-light);
 }
 
-.color-primary-dark {
-	color: var(--color-primary-dark);
+.color-bg-dark {
+	color: var(--color-bg-dark);
 }
 
 .color-secondary, .color-new {
@@ -65,7 +67,7 @@
 }
 
 .color-black {
-	color: var(--color-black);
+	color: black;
 }
 
 .color-warn, .color-refused {
