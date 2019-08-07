@@ -6,13 +6,7 @@
 	(click)="open()"
 ></icon-app>
 
-<cdk-overlay-app
-	[trigger]="trigger"
-	[isOpen]="isOpen"
-	(clickOutside)="close()"
->
-	<notif-panel-app
-		[fullScreen]="fullScreen"
-		(makeFullScreen)="makeFullScreen()"
-	></notif-panel-app>
-</cdk-overlay-app>
+<notif-panel-app
+*ngIf="isOpen"
+(clickOutside)="close()"
+></notif-panel-app>

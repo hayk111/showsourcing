@@ -1,12 +1,8 @@
-<div class="notification-container {{ fullScreen ? 'full-screen' : '' }}">
-	<notif-header-app [fullScreen]="fullScreen"></notif-header-app>
+<div class="notification-container">
+	<notif-header-app></notif-header-app>
 	<divider-app></divider-app>
 	<div class="notif-feed">
 		<notif-item-app></notif-item-app>
 		<notif-item-app></notif-item-app>
-	</div>
-	<div *ngIf="!fullScreen">
-		<divider-app></divider-app>
-		<p class="norif-footer" (click)="makeFullScreen.emit()">See all</p>
 	</div>
 </div>

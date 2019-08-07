@@ -6,9 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 	styleUrls: ['./notif.component.scss']
 })
 export class NotifComponent implements OnInit {
-
+	leftSideOrientation = false;
 	isOpen = false;
-	fullScreen = false;
 
 	constructor() { }
 
@@ -21,11 +20,6 @@ export class NotifComponent implements OnInit {
 
 	close() {
 		this.isOpen = false;
-		this.fullScreen = false;
-	}
-
-	makeFullScreen() {
-		this.fullScreen = true;
 	}
 
 }

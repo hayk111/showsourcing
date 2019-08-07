@@ -6,10 +6,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input
 	styleUrls: ['./notif-panel.component.scss'],
 })
 export class NotifPanelComponent implements OnInit {
-
-	@Input() fullScreen;
-	@Output() makeFullScreen = new EventEmitter<undefined>();
-
+	@Output() close = new EventEmitter<void>();
 	constructor() {
 	}
 

@@ -1,14 +1,14 @@
 .notification-container {
-  position: relative;
-  width: 430px;
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
-  border: solid 1px var(--color-secondary);
-  background-color: white;
-  margin-top: var(--spacing-ml);
-  background: white;
+  position: absolute;
+	width: 604px;
+  height: 1100px;
+  box-shadow: 4px 0 12px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+	left: 0;
+	top: 0;
 	z-index: var(--z-dialog-container);
+
   .notif-feed {
-    max-height: 433px;
     overflow-y: auto;
     margin-bottom: 14px;
     background: #f9fafc;

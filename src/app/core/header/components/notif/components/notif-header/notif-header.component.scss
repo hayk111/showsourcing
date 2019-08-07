@@ -1,26 +1,39 @@
 .notif-header {
+	display: flex;
 	justify-content: space-between;
-	padding: 12px;
-	box-shadow: 0 2px 8px 0 rgba(163, 175, 198, 0.1);
-	.mark-read-text {
-		color: #45adff;
-		cursor: pointer;
-	}
-	&.full-screen {
-		align-items: center;
-		height: 65px;
-		padding: 0 24px;
-		padding-left: 24px;
-		padding-right: 24px;
+	height: 22px;
+	padding: 30px 24px 28px 24px;
+	.left {
+		display: flex;
+		justify-content: space-between;
+		width: 147px;
+		.back-button {
+			width: 24px;
+			height: 24px;
+		}
 		.title {
-			font-size: var(--font-size-xxl);
-			height: 25px;
+			width: 99px;
+			height: 23px;
+			font-size: 18px;
 			font-weight: 600;
-			color: var(--color-txt-strong);
+			font-style: normal;
+			font-stretch: normal;
+			line-height: normal;
+			letter-spacing: normal;
+			color: rgb( 24, 40, 68)
 		}
-		.mark-read-button {
-			width: 130px;
-			height: 40px;
-		}
+	}
+	.mark-read-button {
+		width: 126px;
+		height: 20px;
+		font-size: 14px;
+		font-weight: 600;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: 1.43;
+		letter-spacing: normal;
+		text-align: center;
+		color: #45adff ;
 	}
 }
+
