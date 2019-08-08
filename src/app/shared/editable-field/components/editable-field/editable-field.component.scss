@@ -4,10 +4,10 @@
 	box-sizing: border-box;
 	// when closed and on hover
 	&.closed:hover {
-		background: var(--color-secondary-light);
+		background: var(--legacy-color-secondary-light);
 		cursor: pointer;
 		editable-text-app {
-			color: var(--color-primary);
+			color: var(--legacy-color-primary);
 		}
 
 		&.no-hover {
@@ -36,11 +36,11 @@
 		font-size: var(--font-size-m);
 		text-transform: capitalize;
 		font-weight: 600;
-		color: var(--color-txt-secondary);
+		color: var(--legacy-color-txt-secondary);
 	}
 
 	.content {
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 	}
 
 	&.twoLine {
@@ -78,7 +78,7 @@
 
 	&.oneLine {
 		// we always display the border on single line
-		border-bottom: 1px solid var(--color-secondary);
+		border-bottom: 1px solid var(--legacy-color-secondary);
 		// label on same line as input, label on left, input on right side
 		.ctnr {
 			display: flex;

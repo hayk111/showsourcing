@@ -8,7 +8,7 @@ user-picture-app {
 }
 
 .comment-content {
-	background: var(--color-secondary-light);
+	background: var(--legacy-color-secondary-light);
 	margin-bottom: var(--spacing-xs);
 	margin-left: var(--spacing-s);
 	padding: var(--spacing-s);
@@ -17,7 +17,7 @@ user-picture-app {
 	.title {
 		.name {
 			font-weight: 600;
-			color: var(--color-txt-strong);
+			color: var(--legacy-color-txt-strong);
 			letter-spacing: -0.3px;
 		}
 		.date {

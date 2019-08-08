@@ -33,7 +33,7 @@ $image-height: 219px;
 
 .card-container {
 	&.selected-card {
-		box-shadow: 0px 0px 0px 2px var(--color-primary);
+		box-shadow: 0px 0px 0px 2px var(--legacy-color-primary);
 	}
 }
 
@@ -100,16 +100,16 @@ img-app {
 	}
 
 	.title {
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 		font-weight: 600;
 	}
 
 	.price {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 	}
 
 	.moq {
-		color: var(--color-secondary-dark);
+		color: var(--legacy-color-secondary-dark);
 	}
 
 	.price, .moq, .category, .status-info {

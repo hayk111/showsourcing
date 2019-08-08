@@ -13,7 +13,7 @@ img, .img {
 h2 {
 	font-weight: 600;
 	font-size: 28px;
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 }
 
 p, .p {
@@ -34,15 +34,15 @@ p, .p {
 	width: 8px;
 	border-radius: 50%;
 	margin: var(--spacing-xs);
-	background: var(--color-secondary);
+	background: var(--legacy-color-secondary);
 	&.selected {
-		background: var(--color-secondary-dark);
+		background: var(--legacy-color-secondary-dark);
 	}
 }
 
 
 .img {
-	background: var(--color-secondary-light);
+	background: var(--legacy-color-secondary-light);
 }
 
 .h2 {

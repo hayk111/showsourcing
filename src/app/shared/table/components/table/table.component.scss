@@ -17,7 +17,7 @@
 
 .ctnr {
 	position: relative;
-	background: var(--color-bg);
+	background: var(--legacy-color-bg);
 	box-sizing: border-box;
 	overflow: auto;
 	// pagination
@@ -67,7 +67,7 @@
 .cell, .header {
 	color: black;
 	padding: 0 var(--spacing-ms);
-	border-bottom: 1px solid  var(--color-secondary);
+	border-bottom: 1px solid  var(--legacy-color-secondary);
 	height: 47px;
 	display: flex;
 	align-items: center;
@@ -75,20 +75,20 @@
 }
 
 .cell {
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	&.selected {
-		background-color: var(--color-secondary-light);
+		background-color: var(--legacy-color-secondary-light);
 	}
 
 	&.hover {
 		&.main {
-			color: var(--color-primary);
+			color: var(--legacy-color-primary);
 		}
 	}
 }
 
 .header {
-	background: var(--color-secondary-light);
+	background: var(--legacy-color-secondary-light);
 	text-transform: capitalize;
 	font-weight: 600;
 }

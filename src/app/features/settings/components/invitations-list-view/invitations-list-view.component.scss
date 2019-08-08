@@ -1,6 +1,6 @@
 :host {
 	display: flex;
-	background: var(--color-bg);
+	background: var(--legacy-color-bg);
 	height: calc(100% - 156px);
 	box-sizing: border-box;
 	padding: var(--spacing-l);
@@ -17,11 +17,11 @@
 
 .review {
 	font-weight: 600;
-	background: var(--color-secondary);
-	color: var(--color-txt);
+	background: var(--legacy-color-secondary);
+	color: var(--legacy-color-txt);
 	padding: var(--spacing-xs) var(--spacing-l);
 	border-radius: var(--border-radius);
-	border: 1px solid var(--color-txt);
+	border: 1px solid var(--legacy-color-txt);
 }
 
 user-picture-app {
@@ -42,13 +42,13 @@ table-app {
 
 a:hover {
 	text-decoration: underline;
-	color: var(--color-primary);
+	color: var(--legacy-color-primary);
 }
 
 menu {
 	left: 10px;
-	border: solid 1px var(--color-secondary-light);
-	background-color: var(--color-secondary);
+	border: solid 1px var(--legacy-color-secondary-light);
+	background-color: var(--legacy-color-secondary);
 	width: 150px;
 	z-index: var(--z-draganddrop-progress);
 }
@@ -62,18 +62,18 @@ context-menu-trigger-app {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: var(--color-secondary);
+	background-color: var(--legacy-color-secondary);
 	height: 32px;
 	width: 111px;
 	padding-left: 25px;
 	padding-right: 10px;
 
 	.text {
-		color: var(--color-txt-primary);
+		color: var(--legacy-color-txt-primary);
 	}
 
 	.selector {
-		color: var(--color-txt-secondary);
+		color: var(--legacy-color-txt-secondary);
 	}
 }
 
@@ -81,6 +81,6 @@ context-menu-item-app {
 	width: 200px;
 
 	&.remove-user {
-		color: var(--color-warn);
+		color: var(--legacy-color-warn);
 	}
 }

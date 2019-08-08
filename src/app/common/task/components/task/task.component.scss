@@ -6,7 +6,7 @@
 	padding-right: var(--spacing-ms);
 
 	.task-name {
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 
 		icon-app {
 			font-size: var(--spacing-m);
@@ -18,7 +18,7 @@
         opacity: 1;
 			}
 			div.name {
-				color: var(--color-primary);
+				color: var(--legacy-color-primary);
 			}
     }
 

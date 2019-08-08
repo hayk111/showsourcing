@@ -10,10 +10,10 @@ import { EntityMetadata, SampleStatus, SupplierStatus, ProductStatus } from '~mo
 export class StatusBadgeComponent implements OnInit {
 
 	@Input() size = 's';
-
-	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
+	/** @deprecated */
 	@Input() round = true;
 
+	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
 	// we need to pass this so when the
 	// status is null, because the product or supplier are new
 	@Input() typeEntity: EntityMetadata;
@@ -25,7 +25,7 @@ export class StatusBadgeComponent implements OnInit {
 
 	}
 
-	get getType() {
+	get type() {
 		// by default is secondary since is the color for NEW elements
 		if (this.status) {
 			switch (this.status.category) {

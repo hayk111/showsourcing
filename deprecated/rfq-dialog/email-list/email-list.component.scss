@@ -1,7 +1,7 @@
 :host {
 	display: block;
-	background-color: var(--color-secondary-light);
-	border: 1px solid var(--color-secondary);
+	background-color: var(--legacy-color-secondary-light);
+	border: 1px solid var(--legacy-color-secondary);
 	border-radius: var(--border-radius-s);
 	overflow: overlay;
 	height: 223px;
@@ -9,7 +9,7 @@
 
 icon-app {
 	cursor: default;
-	color: var(--color-secondary-dark);
+	color: var(--legacy-color-secondary-dark);
 }
 
 .empty-contacts{
@@ -30,7 +30,7 @@ icon-app {
 	display: flex;
 	height: 55px;
 	margin: 0px 11px;
-	border-bottom: 1px solid var(--color-divider);
+	border-bottom: 1px solid var(--legacy-color-divider);
 
 	checkbox-app {
 		margin-top: 2px;
@@ -43,12 +43,12 @@ icon-app {
 	}
 	p {
 		font-size: var(--font-size-s);
-		color: var(--color-txt-secondary)
+		color: var(--legacy-color-txt-secondary)
 	}
 }
 
 .no-divider {
-	border-bottom: 0px solid var(--color-divider);
+	border-bottom: 0px solid var(--legacy-color-divider);
 }
 
 .contact-info {

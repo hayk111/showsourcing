@@ -3,14 +3,14 @@
 	box-sizing: border-box;
 	margin: var(--spacing-ms) 0;
 	icon-app {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 		font-size: var(--spacing-l);
 		cursor: pointer;
 		margin: 0 var(--spacing-s);
 		margin-top: 2px;
 
 		&.disabled {
-			color: var(--color-txt-secondary);
+			color: var(--legacy-color-txt-secondary);
 			cursor: default;
 		}
 	}
@@ -27,12 +27,12 @@
 		font-weight: 600;
 
 		&.selected {
-			color: var(--color-primary);
-			border-bottom: 2px solid var(--color-primary);
+			color: var(--legacy-color-primary);
+			border-bottom: 2px solid var(--legacy-color-primary);
 			// border-radius: var(--border-radius-s);
 		}
 		&:hover {
-			background-color: var(--color-divider);
+			background-color: var(--legacy-color-divider);
 		}
 	}
 

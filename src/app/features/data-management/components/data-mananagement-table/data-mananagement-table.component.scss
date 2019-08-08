@@ -1,7 +1,7 @@
 :host {
 	display: flex;
 	padding: var(--spacing-l);
-	background: var(--color-bg);
+	background: var(--legacy-color-bg);
 	height: calc(100% - 160px);
 	box-sizing: border-box;
 }

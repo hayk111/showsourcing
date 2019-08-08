@@ -7,14 +7,14 @@
 
 .ctnr {
 	background-color: #fff;
-	border: solid 1px var(--color-secondary);
+	border: solid 1px var(--legacy-color-secondary);
 	border-left: 0;
 }
 
 .actions {
 	text-transform: uppercase;
 	font-size: var(--font-size-s);
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 	padding-bottom: 10px;
 }
 
