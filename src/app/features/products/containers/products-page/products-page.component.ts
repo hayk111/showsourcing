@@ -7,11 +7,11 @@ import { ProductService, UserService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
-import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { ProductFeatureService } from '~features/products/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogService } from '~shared/dialog/services';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -45,9 +45,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	productsCount$: Observable<number>;
 
 	constructor(
-		private router: Router,
-		private dlgSrv: DialogService,
 		private productSrv: ProductService,
+		private dlgSrv: DialogService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
 		private featureSrv: ProductFeatureService,

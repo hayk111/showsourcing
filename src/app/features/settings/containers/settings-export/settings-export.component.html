@@ -16,9 +16,7 @@
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
-	[skipped]="listSrv.skipped"
-	(next)="listSrv.loadNextPage()"
-	(previous)="listSrv.loadPreviousPage()"
+	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(download)="downloadOne($event)">

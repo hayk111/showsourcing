@@ -66,6 +66,20 @@ app-test:lint:
     - ng lint
 
 # build
+app-build-test:
+  stage: build
+  allow_failure: false
+  cache: 
+    key: cache_key
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - npm run version:build && npm run build:dev
+  artifacts:
+    paths:
+      - dist
+
 app-build-dev:
   stage: build
   allow_failure: false
@@ -75,10 +89,12 @@ app-build-dev:
       - node_modules/
     policy: pull
   script:
-    - npm run build:dev
+    - npm run version:build && npm run build:dev
   artifacts:
     paths:
       - dist
+  only:
+    - development
 
 app-build-sta:
   stage: build
@@ -89,7 +105,7 @@ app-build-sta:
       - node_modules/
     policy: pull
   script:
-    - npm run build:prod
+    - npm run version:build && npm run build:sta
   artifacts:
     paths:
       - dist
@@ -100,7 +116,6 @@ app-build-sta:
 app-deploy-dev:
   image: cedvdb/ss-gitlab-pipeline-docker
   stage: deploy
-  when: manual
   allow_failure: false
   script:
     - cd dist/showsourcing
@@ -113,7 +128,6 @@ app-deploy-dev:
 app-deploy-sta:
   stage: deploy
   allow_failure: false
-  when: manual
   script:
     - cd dist/showsourcing
     - aws s3 sync . s3://app-sta.showsourcing.com --delete

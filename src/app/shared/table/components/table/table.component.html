@@ -104,11 +104,7 @@
 </div>
 
 <pagination-app
-	[rows]="rows"
-	[sections]="sections"
-	[totalSections]="totalSections"
-	[indexPagination]="indexPagination"
-	(next)="nextPage()"
-	(previous)="previousPage()"
-	(goToPage)="goToIndexPage($event)">	
+	[count]="count"
+	[currentPage]="currentPage"
+	(goToPage)="goToIndexPage($event)">
 </pagination-app>

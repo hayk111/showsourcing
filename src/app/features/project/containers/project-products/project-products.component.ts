@@ -2,19 +2,17 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angu
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {
-	SupplierRequestDialogComponent,
-} from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product, Project } from '~models';
-import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ProductFeatureService } from '~features/products/services';
 import { ProjectFeatureService } from '~features/project/services';
+import { DialogService } from '~shared/dialog/services';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 @Component({
 	selector: 'project-products-app',
