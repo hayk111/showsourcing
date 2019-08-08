@@ -1,12 +1,15 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, filter } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ProductService, UserService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
+import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
+import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -45,6 +48,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		public listSrv: ListPageService<Product, ProductService>,
 		public elem: ElementRef,
 		private userSrv: UserService,
+		private featureSrv: WorkspaceFeatureService,
+		protected dlgSrv: DialogService,
 	) {
 		super();
 	}
@@ -85,11 +90,19 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.changeView(view);
 	}
 
+	onFavourite(product: Product) {
+		this.listSrv.onItemFavorited(product.id);
+	}
+
+	/** Triggers archive product */
+	onArchive(product: Product) {
+		alert('archive');
+	}
+
 	getFilterAmount() {
 		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
 		const filters = this.listSrv.filterList.asFilters()
 			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
 		return filters.length;
 	}
-
 }

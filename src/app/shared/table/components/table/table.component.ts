@@ -32,6 +32,9 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasMenu = true;
 	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
+
+	@Input() rowHeight: number;
+
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	so this is only useful when the table has selection enabled. */
 	@Input() idName = 'id';
@@ -88,7 +91,10 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			if (this.columns) {
 				this.columns.forEach(c => c.resetSort());
 				const column = this.columns.find(c => c.sortBy === currentSort.sortBy);
-				column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
+
+				if (column) {
+					column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
+				}
 			}
 		}
 	}

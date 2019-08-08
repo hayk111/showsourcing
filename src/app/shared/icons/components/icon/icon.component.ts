@@ -33,12 +33,25 @@ export class IconComponent implements OnChanges {
 	// the fontset used, could be font awesome, svg or anything else added
 	@Input() fontSet: FontSet;
 
+	@Input() set color(value: string) {
+		this._color = value;
+		if (this._color) {
+			this.customStyle = {
+				...this.customStyle,
+				'color': value,
+			};
+		}
+	}
+	get color(): string {
+		return this._color;
+	}
+
 	@Input() set backgroundColor(value: string) {
 		this._backgroundColor = value;
 		if (this._backgroundColor) {
 			this.customStyle = {
 				'background-color': `var(--color-${value})`,
-				'color': 'white',
+				'color': this._color ? this._color : 'white',
 				'border-radius': 'var(--spacing-xs)',
 				'padding': '3px'
 			};
@@ -49,6 +62,7 @@ export class IconComponent implements OnChanges {
 	}
 
 	private _backgroundColor = null;
+	private _color = null;
 	customStyle = {};
 
 

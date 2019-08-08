@@ -25,27 +25,34 @@
 <ng-template #contextualMenu let-row="row">
 	<context-menu-item-app
 		class="pointer flexCenter"
+		(click)="setFavourite.emit(row)"
+		i18n="button@@set-as-favourite">
+		Set as Favourite
+	</context-menu-item-app>
+	<context-menu-item-app
+		class="pointer flexCenter"
 		(click)="openAddToProjectDialog.emit(row)"
 		i18n="button@@add-to-project">
-		Add to project
+		Add to Project
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
-		(click)="openCreateRequestDlg.emit(row)"
-		i18n="button@@send-request-supplier">
-		Send request to supplier
+		(click)="openAddTaskDialog.emit(row)"
+		i18n="button@@add-task">
+		Add Task
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
-		(click)="openRequestFeedbackDialog.emit(row)"
-		i18n="button@@request-feedback">
-		Request feedback
+		(click)="openAddSampleDialog.emit(row)"
+		i18n="button@@add-sample">
+		Add Sample
 	</context-menu-item-app>
+	<divider-app></divider-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
-		(click)="openExportDialog.emit(row)"
-		i18n="button@@export">
-		Export
+		(click)="archive.emit(row)"
+		i18n="button@@archive">
+		Archive
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
@@ -57,16 +64,23 @@
 
 <!-- product preview -->
 <ng-template #main let-row="row">
-	<div class="mainCellWrapper ellipsis name-container contain-strict">
-		<div class="mainCell ellipsis">
-			<img class="mini imgCtnr"
-				[src]="row | image: 's' : 'product-list'" />
-			<span class="ellipsis">
+	<div class="ellipsis name-container contain-strict">
+		<div class="ellipsis">
+			<div class="preview-imgs" (click)="previewClick.emit(row)">
+				<img class="mini imgCtnr"
+					[src]="row | image: 's' : 'product-list'" />
+				<div class="hover-img">
+					<icon-app name="eye" class="preview-hover-img" color="white"></icon-app>
+				</div>
+			</div>
+			<span class="product-ref ellipsis">
 				<a class="name txt-btn" [routerLink]="['/product', row.id]">
 					{{ row.name || '-' }}
 				</a>
 			</span>
-			<button class="small secondary-dark preview" *ngIf="productPreview" (click)="previewClick.emit(row)" i18n="@@preview">Preview</button>
+			<div class="product-name-ref">
+				{{ row.name || '-' }}
+			</div>
 		</div>
 	</div>
 </ng-template>
@@ -89,8 +103,17 @@
 		[canCreate]="true"
 		[width]="370"
 		(update)="update.emit({ id: row.id, category: $event })">
-		<div class="ellipsis pointer txt-btn"> {{ row?.category?.name || '-' }}</div>
+		<div class="ellipsis pointer txt-btn" class="category"> {{ row?.category?.name || '-' }}</div>
 	</selector-app>
+</ng-template>
+
+<!-- activities -->
+<ng-template #activities let-row="row">
+	<activities-bar-app
+		[favourite]="row?.favorite"
+		[hasComments]="!!row?.comments.length"
+		[votes]="row?.votes">
+	</activities-bar-app>
 </ng-template>
 
 <!-- price -->
@@ -102,7 +125,9 @@
 		(closed)="update.emit({ id: row.id, price: inp.price })">
 		<editable-label-app>
 			<price-app
-				[price]="row?.price">
+				[price]="row?.price"
+				[moq]="row?.minimumOrderQuantity"
+				[moqDesc]="row?.moqDescription">
 			</price-app>
 		</editable-label-app>
 		<input-price-app
@@ -138,7 +163,10 @@
 
 <!-- created by -->
 <ng-template #createdBy let-row="row">
-	{{ row?.createdBy | formatUserName }}
+	<span class="created-by">{{ row?.createdBy | formatUserName }}</span>
+	<div class="created-by-date">
+		{{ row?.creationDate | date: 'dd MMMM y' }}
+	</div>
 </ng-template>
 
 <!-- favorite -->

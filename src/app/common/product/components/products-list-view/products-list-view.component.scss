@@ -1,0 +1,150 @@
+:host {
+	display: flex;
+	// if we put a margin here, the style will look wrong
+	// margin: 0 var(--spacing-l);
+	height: calc(100% - 120px);
+	box-sizing: border-box;
+	margin: 0 var(--spacing-l) var(--spacing-l) var(--spacing-l);
+	background: white;
+
+	&.no-padding {
+		padding: 0;
+		// we want to keep always the bottom one cause of the selection
+		padding-bottom: var(--spacing-l);
+	}
+}
+
+:host ::ng-deep icon-app.preview-hover-img {
+	position: absolute;
+	top: calc(50% - 5.5px);
+	left: calc(50% - 9px);
+	width: 18px;
+  height: 11px;
+  background-color: var(--bg);
+}
+
+.preview-imgs {
+  position: relative;
+  float: left;
+}
+
+.imgCtnr {
+	border-radius: var(--border-radius);
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+	float: left;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.hover-img {
+	background-color: rgba(69, 173, 255, 0.5);
+}
+
+.preview-imgs:hover .hover-img {
+  display: block;
+}
+
+.preview-imgs .hover-img {
+	position: absolute;
+  left: 0px;
+	top: 0px;
+	border-radius: var(--border-radius);
+	width: 32px;
+	height: 32px;
+	display: none;
+	cursor: pointer;
+	float: left;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.ellipsis {
+	width: 100%;
+}
+
+.mainCellWrapper {
+	display: flex;
+	justify-content: space-between;
+
+	&:hover {
+		.preview {
+			opacity: 1;
+		}
+	}
+}
+
+.mainCell {
+	display: flex;
+	align-items: center;
+}
+
+.mainCell > * {
+	&:not(:first-child) {
+		margin-left: var(--spacing-s);
+	}
+}
+
+.preview {
+	opacity: 0;
+	transition: opacity 0.3s;
+	min-width: 70px;
+}
+
+.product-ref {
+	margin-left: 12px;
+	width: 160px;
+  height: 18px;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.product-name-ref {
+	margin-left: 44px;
+  height: 15px;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--txt-primary);
+}
+
+.created-by {
+  height: 18px;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--txt-primary);
+}
+
+.created-by-date {
+  height: 15px;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--txt-primary);
+}
+
+.category {
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #f5a623;
+}

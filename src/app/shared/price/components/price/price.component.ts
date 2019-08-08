@@ -10,6 +10,8 @@ import { Price } from '~models';
 export class PriceComponent {
 
 	@Input() price: Price;
+	@Input() moq: number;
+	@Input() moqDesc: string;
 
 	get amount() {
 		return this.price ? this.price.value : undefined;

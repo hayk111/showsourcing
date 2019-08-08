@@ -76,21 +76,12 @@
 
 .cell {
 	color: var(--color-txt-strong);
-	&.selected {
-		background-color: var(--color-secondary-light);
-	}
-
-	&.hover {
-		&.main {
-			color: var(--color-primary);
-		}
-	}
 }
 
 .header {
-	background: var(--color-secondary-light);
 	text-transform: capitalize;
 	font-weight: 600;
+	font-size: 14px;
 }
 
 
