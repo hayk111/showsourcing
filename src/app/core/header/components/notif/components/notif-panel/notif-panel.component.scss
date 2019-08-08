@@ -7,27 +7,8 @@
 	left: 0;
 	top: 0;
 	z-index: var(--z-dialog-container);
-
   .notif-feed {
+    padding: 0 31px 0 70px;
     overflow-y: auto;
-    margin-bottom: 14px;
-    background: #f9fafc;
 	}
-	.norif-footer {
-		padding: 6.5px;
-		text-align: center;
-		cursor: pointer;
-		color: #45adff;
-  }
-  &.full-screen {
-    position: fixed;
-    top: 30px;
-    left: 0;
-    right: 0;
-    width: 100vw;
-    .notif-feed {
-      width: 723px;
-      margin: 35px auto;
-    }
-  }
 }

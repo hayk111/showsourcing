@@ -11,8 +11,10 @@ import {
 	NotifComponent,
 	UserPanelComponent,
 	NotifHeaderComponent,
+	NotifListComponent,
 	NotifItemComponent,
-	NotifPanelComponent
+	NotifPanelComponent,
+	NotifLayoutComponent,
 } from './components';
 
 @NgModule({
@@ -30,7 +32,9 @@ import {
 		HeaderSearchComponent,
 		NotifHeaderComponent,
 		NotifItemComponent,
-		NotifPanelComponent
+		NotifPanelComponent,
+		NotifLayoutComponent,
+		NotifListComponent
 	],
 	exports: [HeaderComponent]
 })

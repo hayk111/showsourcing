@@ -5,8 +5,11 @@
 	class="color-txt-secondary"
 	(click)="open()"
 ></icon-app>
+<notif-layout-app
+	[isOpen]="isOpen"
+>
+	<notif-panel-app
+	(clickOutside)="close()"
+	></notif-panel-app>
+</notif-layout-app>
 
-<notif-panel-app
-*ngIf="isOpen"
-(clickOutside)="close()"
-></notif-panel-app>
