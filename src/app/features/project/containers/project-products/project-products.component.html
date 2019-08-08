@@ -46,7 +46,8 @@
 			(favorited)="listSrv.onItemFavorited($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(sort)="listSrv.sort($event)"
-			(delete)="deassociateProductById(($event)?.id)">
+			(delete)="deassociateProductById(($event)?.id)"
+			(archiveProduct)="onArchive($event)">
 		</project-product-list-app>
 
 		<products-card-view-app
@@ -82,6 +83,7 @@
 			(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
 			(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
 			(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
+			(archiveProducts)="onArchive(listSrv.getSelectedValues())"
 			(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 			(statusUpdated)="listSrv.updateSelected({status: $event})"
 			(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"

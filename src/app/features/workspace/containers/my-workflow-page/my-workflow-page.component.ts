@@ -108,7 +108,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 				pipe(
 					first(),
 					// we use selectCount instead of queryCount, since queryCount wasn't giving the latest values, when requerying
-					switchMap(_ => this.productSrv.selectCount(query).pipe(first()), (prods, total) => ({ prods, total }))
+					switchMap(_ => this.productSrv.selectCount(query).pipe(first()), (prods, total) => ({ prods, total })),
 				).subscribe(data => {
 					this.kanbanSrv.setData(data.prods, status.id);
 					this.kanbanSrv.setTotal(data.total, status.id);
