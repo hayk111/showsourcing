@@ -17,15 +17,15 @@ img-app {
 	font-size: var(--font-size-m);
 
 	.price {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 	}
 
 	.category {
-		color: var(--color-supplier-tag);
+		color: var(--legacy-color-supplier-tag);
 	}
 
 	icon-app {
-		color: var(--color-txt-secondary);
+		color: var(--legacy-color-txt-secondary);
 		font-size: 4px;
 	}
 }

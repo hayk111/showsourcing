@@ -15,12 +15,12 @@ $circle-size: 32px;
 		.circle {
 			width: $circle-size;
 			height: $circle-size;
-			background: var(--color-secondary);
+			background: var(--legacy-color-secondary);
 			border-radius: 50%;
 		}
 
 		.border-middle {
-			border-right: 2px dashed var(--color-secondary);
+			border-right: 2px dashed var(--legacy-color-secondary);
 			margin-right: ($circle-size/2)-1;
 			height: 100%;
 		}

@@ -20,7 +20,7 @@
 		context-menu-trigger-app {
 			width: 150px;
 			height: 36px;
-			background: var(--color-secondary);
+			background: var(--legacy-color-secondary);
 			border-radius: 2px;
 			padding: 0px var(--spacing-s);
 
@@ -30,10 +30,10 @@
 			}
 
 			icon-app {
-				color: var(--color-secondary-dark);
+				color: var(--legacy-color-secondary-dark);
 				height: 100%;
 				padding-left: var(--spacing-s);
-				border-left: 1px solid var(--color-secondary-dark);
+				border-left: 1px solid var(--legacy-color-secondary-dark);
 			}
 		}
 	}

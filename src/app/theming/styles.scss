@@ -1,6 +1,7 @@
 @import './z-layer.scss';
 @import './browser-fixes';
 @import './spacing';
+@import './legacy_palette.scss'; // to be removed
 @import './palette';
 @import './elevation';
 @import './typography';

@@ -1,9 +1,9 @@
 .download {
-	color: var(--color-primary);
+	color: var(--legacy-color-primary);
 
 	&.disabled {
 		cursor: default;
-		color: var(--color-txt-secondary);
+		color: var(--legacy-color-txt-secondary);
 	}
 }
 

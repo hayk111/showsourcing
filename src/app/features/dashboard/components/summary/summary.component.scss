@@ -1,7 +1,7 @@
 .circle {
 	width: 68px;
 	height: 68px;
-	border: 2px solid var(--color-primary);
+	border: 2px solid var(--legacy-color-primary);
 	margin-bottom: var(--spacing-ms);
 }
 
@@ -32,14 +32,14 @@
 		font-size: var(--font-size-l);
 	}
 	a {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 	}
 }
 
 .taskTitle {
 	text-align: center;
 	font-weight: 600;
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	margin: var(--spacing-ms) 0;
 }
 

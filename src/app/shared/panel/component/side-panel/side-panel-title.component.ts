@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 		font-family: var(--font-title);
 		font-size: var(--font-size-l);
 		font-weight: 600;
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 	}
 	`],
 	changeDetection: ChangeDetectionStrategy.OnPush

@@ -3,11 +3,11 @@
 }
 
 .title {
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	font-size: var(--font-size-xxxl);
 	font-weight: 600;
 	padding-bottom: var(--spacing-ms);
-	border-bottom: 1px solid var(--color-divider);
+	border-bottom: 1px solid var(--legacy-color-divider);
 }
 
 list-app {
@@ -16,7 +16,7 @@ list-app {
 }
 
 .quotation-empty {
-	// border-top: 1px solid var(--color-secondary);
+	// border-top: 1px solid var(--legacy-color-secondary);
 	padding-top: 40px;
 	padding-bottom: var(--spacing-m);
 	text-align: center;
@@ -30,9 +30,9 @@ list-app {
 		font-size: 13px;
 		font-style: italic;
 		text-align: center;
-		color: var(--color-secondary-dark);
+		color: var(--legacy-color-secondary-dark);
 		.link {
-			color: var(--color-primary);
+			color: var(--legacy-color-primary);
 		}
 	}
 }
@@ -40,13 +40,13 @@ list-app {
 .quote-container {
 	margin: 0px 6px;
 	&.selected {
-		background: var(--color-secondary-light);
+		background: var(--legacy-color-secondary-light);
 	}
 	&:hover {
-		background: var(--color-secondary-light);
+		background: var(--legacy-color-secondary-light);
 	}
 	&:not(:first-child) {
-		border-top: 1px solid var(--color-secondary);
+		border-top: 1px solid var(--legacy-color-secondary);
 	}
 
 	.checkbox {

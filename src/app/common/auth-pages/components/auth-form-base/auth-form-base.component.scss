@@ -5,7 +5,7 @@ form {
 
 
 p.error {
-	color: var(--color-warn);
+	color: var(--legacy-color-warn);
 }
 
 .spinner {
@@ -15,6 +15,6 @@ p.error {
 	transform: translate(-50%, -50%);
 
 	.loading-text {
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 	}
 }

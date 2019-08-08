@@ -6,7 +6,7 @@
  divider-app {
 		width: 1px;
 		height: 64px;
-		background: var(--color-secondary);
+		background: var(--legacy-color-secondary);
 		margin: 0 var(--spacing-l);
 	}
 	.block {
@@ -18,7 +18,7 @@
 	.title {
 		font-weight: 600;
 		font-size: var(--font-size-s);
-		color: var(--color-txt-secondary);
+		color: var(--legacy-color-txt-secondary);
 		text-transform: uppercase;
 	}
 	.content {
@@ -26,7 +26,7 @@
 		height: 29px;
 		font-weight: 600;
 		font-size: 23px;
-		color: var(--color-txt-primary);
+		color: var(--legacy-color-txt-primary);
 		padding: 0;
 		margin-top: 9px;
 		flex-direction: row;
