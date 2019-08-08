@@ -1,4 +1,8 @@
-<div class="card-container flex">
+<div
+	class="card-container flex"
+	[ngClass]="{ 'pointer' : clickable, 'hover-content-enabled': enabledHoverContent }"
+	(clickOutside)="onClickOutsideCard()"
+	(click)="clickable && openProduct()">
 
 	<!-- left side -->
 	<div class="left">
@@ -9,12 +13,21 @@
 			size="m"
 			(click)="clickImage.emit()">
 		</img-app>
+		<div *ngIf="enablePreviewLink" class="preview capitalize" (click)="clickImage.emit()" i18n="@@preview">preview</div>
+		<div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
+			<checkbox-app
+				[checked]="checked"
+				size="12"
+				(check)="onChecked()"
+				(uncheck)="onUnchecked()">
+			</checkbox-app>
+		</div>
 	</div>
 
 	<!-- right side -->
 	<div class="right flexColumn">
 		<!-- title -->
-		<div class="title-section flex">
+		<div class="title-section flex" (click)="clickTitle()">
 			<h5 class="title ellipsis">{{ product?.name }}</h5>
 			<icon-app *ngIf="product?.favorite" class="icon-heart" name="heart"></icon-app>
 		</div>
@@ -41,7 +54,7 @@
 		</div>
 		<!-- tags -->
 		<div class="tags-section">
-			<badge-app *ngFor="let tag of product?.tags | slice:0:1; trackBy: trackByFn" class="ellipsis" size="xs" type="secondary-light" >{{ tag?.name }}</badge-app>
+			<badge-app *ngFor="let tag of product?.tags | slice:0:2; trackBy: trackByFn" class="ellipsis" size="xs" type="secondary-light" >{{ tag?.name }}</badge-app>
 		</div>
 	</div>
 
