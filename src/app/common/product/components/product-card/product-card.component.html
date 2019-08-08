@@ -1,57 +1,52 @@
-<div class="kanban__item cell ng-star-inserted main flexBetween"
-     [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked), 'pointer' : clickable }"
-     (clickOutside)="onClickOutsideCard()"
-	   (click)="clickable && openProduct()">
-  <div class="mainCellWrapper ellipsis ng-star-inserted" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
-    <div class="mainCell">
-      <div class="imgCtnr">
-        <img class="mini image ng-star-inserted"
-          [src]="product | image:'m':'product'"
-          (click)="clickImage.emit()">
-        <div *ngIf="enablePreviewLink" class="preview capitalize" (click)="clickImage.emit()" i18n="@@preview">preview</div>
-        <div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
-          <checkbox-app
-						[checked]="checked"
-						size="12"
-            (check)="onChecked()"
-            (uncheck)="onUnchecked()">
-          </checkbox-app>
-        </div>
-      </div>
-      <div class="description flexBetween" (click)="clickTitle()">
-        <div class="descriptionTopCtnr ellipsis">
-          <div class="titleCtnr">
-            <a class="title">{{ product?.name }}</a>
-            <icon-app *ngIf="product?.favorite" name="heart"></icon-app>
-          </div>
-          <div class="descriptionCtnr">
-            <div class="descriptionCtnr-first">
-              <span class="subtitle">
-                <ng-container *ngIf="product?.price">{{ product?.price | appPrice }}</ng-container>
-                <ng-container *ngIf="product?.price && product?.minimumOrderQuantity">&nbsp;-&nbsp;</ng-container>
-                <ng-container *ngIf="product?.minimumOrderQuantity" i18n="example: min (minimum) 150 pcs (pieces)@@min-pcs">Min {{ product?.minimumOrderQuantity }} pcs</ng-container>
-              </span>
-              <span class="descriptionText"> {{ product?.description || '' }} </span>
-              <span class="descriptionText">{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}</span>
-            </div>
-            <div class="descriptionCtnr-last flex">
-              <icon-app
-                *ngIf="thumbsName"
-								[style.visibility]="thumbsName === 'thumbs-up' ? 'hidden' : 'visible'"
-                [name]="thumbsName"
-                [ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
-							</icon-app>
-              <span *ngIf="score !== null" class="score" [ngClass]="{ 'like-txt': score >= 50, 'dislike-txt': score < 50 }">{{ score }}%</span>
-            </div>
-          </div>
-        </div>
-        <div class="descriptionBottomCtnr">
-          <badge-app size="xs" type="secondary-light" *ngFor="let tag of product?.tags | slice:0:1;trackBy: trackByFn">{{ tag.name }}</badge-app>
-        </div>
-      </div>
-      <div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
-        <ng-content></ng-content>
-      </div>
-    </div>
-  </div>
+<div class="card-container flex">
+
+	<!-- left side -->
+	<div class="left">
+		<img-app
+			class="image"
+			[image]="product?.images"
+			type="product"
+			size="m"
+			(click)="clickImage.emit()">
+		</img-app>
+	</div>
+
+	<!-- right side -->
+	<div class="right flexColumn">
+		<!-- title -->
+		<div class="title-section flex">
+			<h5 class="title ellipsis">{{ product?.name }}</h5>
+			<icon-app *ngIf="product?.favorite" class="icon-heart" name="heart"></icon-app>
+		</div>
+		<div class="information-section flexWrap">
+			<!-- price - moq -->
+			<span class="price-container ellipsis">
+				<ng-container *ngIf="product?.price">{{ product?.price | appPrice }}</ng-container>
+				<ng-container *ngIf="product?.price && product?.minimumOrderQuantity">&nbsp;-&nbsp;</ng-container>
+				<ng-container *ngIf="product?.minimumOrderQuantity" i18n="example: min (minimum) 150 pcs (pieces)@@min-pcs">Min {{ product?.minimumOrderQuantity }} pcs</ng-container>
+			</span>
+			<!-- description - supplier-->
+			<span class="description-text ellipsis"> {{ product?.description || '' }} </span>
+			<span class="description-text ellipsis">{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}</span>
+		</div>
+		<!-- thumb -->
+		<div class="thumb-section flex">
+			<icon-app
+				*ngIf="thumbsName"
+				[style.visibility]="thumbsName === 'thumbs-up' ? 'hidden' : 'visible'"
+				[name]="thumbsName"
+				[ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
+			</icon-app>
+			<span *ngIf="score !== null" class="score" [ngClass]="{ 'color-success': score >= 50, 'color-warn': score < 50 }">{{ score }}%</span>
+		</div>
+		<!-- tags -->
+		<div class="tags-section">
+			<badge-app *ngFor="let tag of product?.tags | slice:0:1; trackBy: trackByFn" class="ellipsis" size="xs" type="secondary-light" >{{ tag?.name }}</badge-app>
+		</div>
+	</div>
+
+	<!-- hover effect -->
+	<div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
+		<ng-content></ng-content>
+	</div>
 </div>
