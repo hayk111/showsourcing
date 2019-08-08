@@ -20,7 +20,7 @@
 }
 
 .ng-select-container {
-	background: var(--color-secondary-light)!important;
+	background: var(--legacy-color-secondary-light)!important;
 	border-radius: 2px!important;
 }
 
@@ -30,9 +30,9 @@
 
 	&.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
 			border-radius: var(--border-radius);
-			background: var(--color-bg-fourth);
-			border: 1px solid var(--color-secondary);
-			color: var(--color-txt-primary);
+			background: var(--legacy-color-bg-fourth);
+			border: 1px solid var(--legacy-color-secondary);
+			color: var(--legacy-color-txt-primary);
 			padding: var(--spacing-xs) var(--spacing-s);
 		}
 	&.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.left {
@@ -44,11 +44,11 @@
 }
 
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked  {
-	background: var(--color-secondary-light);
+	background: var(--legacy-color-secondary-light);
 }
 
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
-	background: var(--color-primary);
+	background: var(--legacy-color-primary);
 	color: white;
 }
 
@@ -69,7 +69,7 @@
 }
 
 .ng-dropdown-panel {
-	border: 1px solid var(--color-secondary);
+	border: 1px solid var(--legacy-color-secondary);
 	.ng-dropdown-header {
 		border-bottom: 0;
 		input {

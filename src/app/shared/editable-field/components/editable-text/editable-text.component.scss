@@ -26,10 +26,10 @@
 		align-items: center;
 		justify-content: center;
 		&.save{
-			background: var(--color-primary);
+			background: var(--legacy-color-primary);
 		}
 		&.cancel {
-			background: var(--color-secondary-dark);
+			background: var(--legacy-color-secondary-dark);
 		}
 	}
 	.confirmIconSave {

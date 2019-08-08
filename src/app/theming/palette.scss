@@ -6,15 +6,23 @@
 
 	--color-primary: #45ADFF;
 	--color-primary-light: #ecf6ff;
+	--color-primary-contrast: #fff;
 
-	--color-secondary: #fbb917;
-	--color-secondary-light: #fef6e9;
+	--color-secondary-light: #f9fafc;
+	--color-secondary: #f9fafc;
+	--color-secondary-contrast: #5d6d8b;
+
+	--color-vibrant: #d97bff;
+	--color-vibrant-light: #ffefff;
+
+	--color-accent: #fbb917;
+	--color-accent-light: #fef6e9;
 
 	--color-warn: #f94259;
-	--color-warn-light: rgb(254, 236, 238);
+	--color-warn-light: #feecee;
 
 	--color-success: #49c76c;
-	--color-success-light: rgb(240, 252, 244);
+	--color-success-light: #f0fcf4;
 
 	--color-divider:  #e6ebf5; 
 
@@ -24,23 +32,31 @@
 
 	--color-bg: #fff;
 	--color-bg-dark: #182844;
-	--color-bg-secondary: #e6ebf5;
-
-
+	--color-bg-secondary: #f9fafc;
 
 	// entities
+	--color-product: var(--color-primary);
+	--color-product-light: var(--color-primary-light);
+	--color-supplier: var(--color-vibrant);
+	--color-supplier-light: var(--color-vibrant-light);
+	--color-tag: var(--color-secondary);
+	--color-tag-light: var(--color-accent-light);
+	--color-category: var(--color-accent);
+	--color-category-light: var(--color-accent-light);
+	--color-sample: var(--color-accent);
+	--color-sample-light: var(--color-accent-light);
+	--color-task: var(--color-success);
+	--color-task-light: var(--color-success-light);
 
-	--color-supplier-tag: #fca410;
-	--color-action: #fca410;
-
-
-
-
-	/** Status colors */
-
-	--color-in-progress: #45d8ff;
-
-	--color-supplier: #9639e8;
+	// status
+	--color-status-new: var(--color-secondary-contrast);
+	--color-status-new-light: var(--color-secondary);
+	--color-status-in-progress: var(--color-primary);
+	--color-status-in-progress-light: var(--color-primary-light);
+	--color-status-refused: var(--color-warn);
+	--color-status-refused-light: var(--color-warn-light);
+	--color-status-validated: var(--color-success);
+	--color-status-validated-light: var(--color-success-light);
 }
 
 

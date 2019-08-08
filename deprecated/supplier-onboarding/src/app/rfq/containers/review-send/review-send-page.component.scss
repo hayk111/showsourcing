@@ -21,14 +21,14 @@
     margin-bottom: 45px;
     font-size: 21px;
     font-weight: bold;
-    color: var(--color-txt-strong);
+    color: var(--legacy-color-txt-strong);
     text-align: center;
   }
 
   h2 {
     font-size: 13px;
     font-weight: bold;
-    color: var(--color-txt-strong);
+    color: var(--legacy-color-txt-strong);
     margin-top: 24px;
     margin-bottom: 10px;
   }
@@ -36,12 +36,12 @@
   h3 {
     font-size: 13px;
     font-weight: bold;
-    color: var(--color-txt-primary);
+    color: var(--legacy-color-txt-primary);
     text-align: left;
   }
 
   .text {
-    color: var(--color-txt-primary);
+    color: var(--legacy-color-txt-primary);
     font-size: 13px;
   }
 
@@ -53,14 +53,14 @@
     overflow: hidden;
     width: 32px;
     height: 32px;
-    border: 2px solid var(--color-primary)
+    border: 2px solid var(--legacy-color-primary)
   }
 
   .person {
     margin-left: 15px;
 
     .name {
-      color: var(--color-txt-primary);
+      color: var(--legacy-color-txt-primary);
       font-weight: bold;
     }
   }
@@ -88,8 +88,8 @@
       text-align: center;
 
       &.back {
-        color: var(--color-text-primary);
-        background-color: var(--color-secondary);
+        color: var(--legacy-color-text-primary);
+        background-color: var(--legacy-color-secondary);
       }
     } 
   }

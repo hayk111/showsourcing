@@ -5,19 +5,19 @@
 .title {
 	font-size: var(--font-size-l);
   font-weight: 600;
-  color: var(--color-txt-strong);
+  color: var(--legacy-color-txt-strong);
 }
 
 
 .supplier-name {  
 	font-size: var(--font-size-xxl);
   font-weight: 600;
-  color: var(--color-txt-strong);
+  color: var(--legacy-color-txt-strong);
 	padding-bottom: var(--spacing-m);
 }
 
 .general-info {
-	border-bottom: 1px solid var(--color-divider);
+	border-bottom: 1px solid var(--legacy-color-divider);
 	padding-bottom: var(--spacing-ms);
 }
 

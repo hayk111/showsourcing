@@ -1,5 +1,5 @@
 :host {
-	background-color: var(--color-secondary-light);
+	background-color: var(--legacy-color-secondary-light);
 	display: block;
 }
 
@@ -14,8 +14,8 @@
 	padding-top: 15px;
   padding-bottom: var(--spacing-s);
   width: 1061px;
-	/* background-color: var(--color-secondary-light);
-	border: solid 1px var(--color-divider);
+	/* background-color: var(--legacy-color-secondary-light);
+	border: solid 1px var(--legacy-color-divider);
 	height: 480px; */
 }
 
@@ -23,7 +23,7 @@
   width: 1057px;
   margin-bottom: 35px;
   &:hover {
-    background-color: var(--color-bg-secondary);
+    background-color: var(--legacy-color-bg-secondary);
     box-shadow: 0 2px 8px 0 rgba(93, 109, 139, 0.1);
 
     .category-header {
@@ -95,11 +95,11 @@ product-card-app {
 
   &.button-archive {
     color: #5d6d8b;
-    background-color: var(--color-secondary);
+    background-color: var(--legacy-color-secondary);
     margin-top: 10px;
 
 		&:hover {
-			background-color: var(--color-secondary-dark);
+			background-color: var(--legacy-color-secondary-dark);
 			color: white;
 
 			icon-app {
@@ -113,7 +113,7 @@ product-card-app {
     }
 
     icon-app {
-      color: var(--color-secondary-dark);
+      color: var(--legacy-color-secondary-dark);
     }
   }
 
@@ -124,7 +124,7 @@ product-card-app {
 		padding-right: 5px;
 
 		&:hover {
-			background: var(--color-bg-dark);
+			background: var(--legacy-color-bg-dark);
 		}
     icon-app {
       color: #fff;
@@ -133,7 +133,7 @@ product-card-app {
 
   &.button-archive {
     color: #5d6d8b;
-    background-color: var(--color-secondary);
+    background-color: var(--legacy-color-secondary);
 		padding-right: 5px;
 
     .button-label {
@@ -141,7 +141,7 @@ product-card-app {
       text-align: left;
     }
 		&:hover {
-			background: var(--color-secondary-dark);
+			background: var(--legacy-color-secondary-dark);
 		}
     icon-app {
       color: #5d6d8b;

@@ -4,7 +4,7 @@
 	cursor: pointer;
 
 	&.active, &:hover {
-		background-color: var(--color-primary);
+		background-color: var(--legacy-color-primary);
 		color: #fff;
 
 		.container > * {
@@ -18,6 +18,6 @@
 	width: 100%;
 	padding: var(--spacing-s) 0;
 	.name {
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 	}
 }

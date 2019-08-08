@@ -1,7 +1,7 @@
 :host {
 	display: block;
 	padding: var(--spacing-ms) var(--spacing-l);
-	border-bottom: 1px solid var(--color-divider);
+	border-bottom: 1px solid var(--legacy-color-divider);
 }
 
 .search-container {
@@ -14,7 +14,7 @@
 
 	search-bar-app {
 		width: 100%;
-		background-color: var(--color-secondary-light);
+		background-color: var(--legacy-color-secondary-light);
 	}
 }
 

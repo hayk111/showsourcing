@@ -17,9 +17,9 @@
 }
 
 a.title {
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	&:hover {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 	}
 }
 
@@ -33,7 +33,7 @@ table-app {
 }
 
 rating-heart-app {
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 }
 
 .imgCtnr {

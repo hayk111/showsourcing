@@ -2,7 +2,7 @@
 .price {
 	min-height: 31px;
 	.amount {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 		font-size: var(--font-size-xxxl);
 		font-weight: bold;
 	}
@@ -10,7 +10,7 @@
 
 .moq {
 	margin-left: var(--spacing-xs);
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 }
 
 editable-text-app {

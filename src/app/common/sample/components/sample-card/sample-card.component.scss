@@ -1,16 +1,16 @@
 :host {
 	display: block;
 	min-height: 84px;
-	background: var(--color-bg);
+	background: var(--legacy-color-bg);
 	border-radius: var(--border-radius);
-	box-shadow: 0 2px 4px 0 va(--color-secondary);
-	border: solid 1px var(--color-secondary);
+	box-shadow: 0 2px 4px 0 va(--legacy-color-secondary);
+	border: solid 1px var(--legacy-color-secondary);
 	padding: 1px;
 	cursor: pointer;
 
 	&:hover {
-		background-color: var(--color-secondary-light);
-		box-shadow: 0px 1px 4px 0 var(--color-secondary-dark);
+		background-color: var(--legacy-color-secondary-light);
+		box-shadow: 0px 1px 4px 0 var(--legacy-color-secondary-dark);
 	}
 }
 
@@ -41,7 +41,7 @@
 
 		.center-section {
 			.name {
-				color: var(--color-primary);
+				color: var(--legacy-color-primary);
 			}
 			.supplier::before {
 				content: "\00a0 \00a0 \2022 \00a0 \00a0";
@@ -57,13 +57,13 @@
 
 			.number-comments {
 				icon-app {
-					color: var(--color-secondary);
+					color: var(--legacy-color-secondary);
 					margin-right: 6px;
 					cursor: default;
 				}
 
 				span {
-					color: var(--color-secondary-dark);
+					color: var(--legacy-color-secondary-dark);
 				}
 			}
 		}

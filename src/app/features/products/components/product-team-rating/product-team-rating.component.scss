@@ -42,7 +42,7 @@ card-app {
 				margin-left: var(--spacing-m);
 
 				.number {
-					color: var(--color-txt-strong);
+					color: var(--legacy-color-txt-strong);
 					font-size: var( --font-size-xxxl);
 					font-weight: 600;
 				}
@@ -56,7 +56,7 @@ card-app {
 
 	.no-vote {
 		font-size: var( --font-size-xxxl);
-    color: var(--color-txt-strong);
+    color: var(--legacy-color-txt-strong);
     font-weight: 600;
     display: flex;
     justify-content: center;

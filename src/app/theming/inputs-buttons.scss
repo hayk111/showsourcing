@@ -7,7 +7,7 @@ input {
 
 input, textarea {
 	&::placeholder {
-		color: var(--color-secondary-dark);
+		color: var(--legacy-color-secondary-dark);
 	}
 }
 
@@ -15,10 +15,10 @@ input, textarea {
 // buttons have already a style for it
 // :not(button)
 .cdk-focused.cdk-keyboard-focused {
-	border: 1px solid var(--color-primary);
+	border: 1px solid var(--legacy-color-primary);
 	border-radius: var(--border-radius);
 	&.focus-left-border {
-		border-left: 4px solid var(--color-primary);
+		border-left: 4px solid var(--legacy-color-primary);
 	}
 }
 
@@ -28,33 +28,33 @@ input, textarea {
 	font-size: var(--font-size-m);
 	box-sizing: border-box;
 	font-family: inherit;
-	color: var(--color-txt-primary);
-	border: 1px solid var(--color-secondary);
+	color: var(--legacy-color-txt-primary);
+	border: 1px solid var(--legacy-color-secondary);
 	border-radius: var(--border-radius);
 	&:not(.borderless).ng-invalid.ng-dirty:not(:focus) {
-		border: 1px solid var(--color-warn);
-		border-left: 4px solid var(--color-warn);
+		border: 1px solid var(--legacy-color-warn);
+		border-left: 4px solid var(--legacy-color-warn);
 	}
 	&:focus:not(textarea) {
-		border: 1px solid var(--color-primary);
-		border-left: 4px solid var(--color-primary);
+		border: 1px solid var(--legacy-color-primary);
+		border-left: 4px solid var(--legacy-color-primary);
 		padding-left: 5px;
 	}
 	&:focus:not(input) {
-		border: 1px solid var(--color-primary);
+		border: 1px solid var(--legacy-color-primary);
 	}
 	&.small {
 		padding: 3px;
 	}
 	&:not([type="submit"]):disabled {
-		background: var(--color-secondary-light);
-		color: var(--color-txt-strong);
+		background: var(--legacy-color-secondary-light);
+		color: var(--legacy-color-txt-strong);
 	}
 }
 
 // override the color of the textarea
 textarea {
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	padding-top: var(--spacing-s);
 }
 
@@ -81,10 +81,10 @@ form-field-app.borderless {
 		border-bottom: 1px solid #e6ebf5;
 		padding-bottom: 7px;
 		&:not(.ng-pristine).ng-invalid {
-			border-bottom: 1px solid var(--color-warn);
+			border-bottom: 1px solid var(--legacy-color-warn);
 		}
 		&:focus {
-			border-bottom: 1px solid var(--color-primary);
+			border-bottom: 1px solid var(--legacy-color-primary);
 		}
 	}
 }
@@ -106,16 +106,16 @@ form-field-app.boarding {
 
 form-field-app.field-focused {
 	label-app {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 	}
 	input {
-		border-left: 4px solid var(--color-primary)
+		border-left: 4px solid var(--legacy-color-primary)
 	}
 }
 
 form-field-app.modal {
 	label-app {
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 		font-weight: normal;
 		text-transform: none;
 	}
@@ -127,7 +127,7 @@ form-field-app.modal {
 form-field-app.field-error {
 	&:not(.field-focused) {
 		label-app {
-			color: var(--color-warn);
+			color: var(--legacy-color-warn);
 		}
 	}
 }
@@ -145,10 +145,10 @@ button, input[type="submit"], .button {
 	width: auto;
 	border-radius: 2px;
 	font-size: var(--font-size-m);
-	background: var(--color-primary);
+	background: var(--legacy-color-primary);
 	border: none;
 	outline: none;
-	color: var(--color-primary-contrast);
+	color: var(--legacy-color-primary-contrast);
 	margin: 0;
   box-sizing: border-box;
 	font-family: inherit;
@@ -167,61 +167,61 @@ button, input[type="submit"], .button {
     min-width: 120px;
 	}
 	&:hover, &.cdk-keyboard-focused {
-		background: var(--color-bg-dark);
+		background: var(--legacy-color-bg-dark);
 	}
 	&.secondary {
-		background: var(--color-secondary);
-		color: var(--color-txt-primary);
+		background: var(--legacy-color-secondary);
+		color: var(--legacy-color-txt-primary);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-secondary-dark);
+			background: var(--legacy-color-secondary-dark);
 			color: white;
 		}
 	}
 	&.secondary-light {
-		background: var(--color-secondary-light);
-		color: var(--color-txt-primary);
+		background: var(--legacy-color-secondary-light);
+		color: var(--legacy-color-txt-primary);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-secondary-dark);
+			background: var(--legacy-color-secondary-dark);
 			color: white;
 		}
 	}
 	&.secondary-dark {
-		background: var(--color-txt-primary);
+		background: var(--legacy-color-txt-primary);
 		color: white;
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-secondary-dark);
+			background: var(--legacy-color-secondary-dark);
 			color: white;
 		}
 	}
 	&.light {
 		background: transparent;
-		color: var(--color-txt);
+		color: var(--legacy-color-txt);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-secondary);
+			background: var(--legacy-color-secondary);
 		}
 	}
 
 	&.warn {
-		background: var(--color-warn);
+		background: var(--legacy-color-warn);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-warn-light);
+			background: var(--legacy-color-warn-light);
 		}
 		&:active {
-			background: var(--color-warn-dark);
+			background: var(--legacy-color-warn-dark);
 		}
 	}
 
 	&.success {
-		background: var(--color-success);
+		background: var(--legacy-color-success);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-success-dark);
+			background: var(--legacy-color-success-dark);
 		}
 	}
 
 	&.transparent {
 		background: transparent;
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-secondary);
+			background: var(--legacy-color-secondary);
 		}
 		color: inherit;
 	}
@@ -229,8 +229,8 @@ button, input[type="submit"], .button {
 		border-radius: var(--border-radius);
 		padding: 0 var(--spacing-s);
 		align-items: center;
-		background: var(--color-secondary);
-		color: var(--color-txt-primary);
+		background: var(--legacy-color-secondary);
+		color: var(--legacy-color-txt-primary);
 		&:hover, &.cdk-keyboard-focused {
 			background: white;
 		}
@@ -248,20 +248,20 @@ button, input[type="submit"], .button {
 
 // disabled buttons
 button:disabled, input[type="submit"]:disabled {
-	background: var(--color-secondary);
-	color: var(--color-secondary-dark);
+	background: var(--legacy-color-secondary);
+	color: var(--legacy-color-secondary-dark);
 	border: none;
 	cursor: default;
 	&:hover {
-		background: var(--color-secondary);
-		color: var(--color-secondary-dark);
+		background: var(--legacy-color-secondary);
+		color: var(--legacy-color-secondary-dark);
 		border: none;
 		cursor: default;
 	}
 }
 
 .txt-btn:hover{
-	color: var(--color-primary);
+	color: var(--legacy-color-primary);
 	text-decoration: underline;
 	cursor: pointer;
 }

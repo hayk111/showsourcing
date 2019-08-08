@@ -48,13 +48,13 @@ card-app {
 		}
 
 		.from {
-			color: var(--color-txt-strong);
+			color: var(--legacy-color-txt-strong);
 		}
 
 		.categories {
 			margin-top: var(--spacing-xs);
 			.single {
-				color: var(--color-txt-primary);
+				color: var(--legacy-color-txt-primary);
 				margin-right: 6px;
 			}
 		}
@@ -62,7 +62,7 @@ card-app {
 
 	.no-supplier {
 		font-size: var( --font-size-xxxl);
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 		font-weight: 600;
 		display: flex;
 		justify-content: center;
