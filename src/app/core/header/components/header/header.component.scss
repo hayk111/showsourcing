@@ -6,10 +6,10 @@
 	align-items: center;
 	box-sizing: border-box;
 	width: 100%;
-	background: var(--legacy-color-bg-dark);
+	background: var(--color-txt-strong);
 	color: white;
 	padding-left: var(--spacing-m);
-	border-top: 3px solid var(--legacy-color-primary);
+	border-top: 3px solid var(--color-primary);
 }
 
 .logo {
@@ -37,7 +37,7 @@ nav {
 
 .right {
 
-	color: var(--legacy-color-txt-primary);
+	color: var(--color-txt-primary);
 	notif-app, user-panel-app {
 		&:hover {
 			background: #071327;
