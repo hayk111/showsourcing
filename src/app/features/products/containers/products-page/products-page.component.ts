@@ -10,6 +10,7 @@ import { AutoUnsub } from '~utils';
 import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
 import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -44,6 +45,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	constructor(
 		private productSrv: ProductService,
+		private notifSrv: NotificationService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public elem: ElementRef,
@@ -94,9 +96,30 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.onItemFavorited(product.id);
 	}
 
-	/** Triggers archive product */
-	onArchive(product: Product) {
-		alert('archive');
+	onArchive(product: Product | Product[]) {
+		// TODO i18n
+		if (Array.isArray(product)) {
+			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Products archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		} else {
+			const { id } = product;
+			this.featureSrv.update({ id, archived: true })
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Product archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		}
 	}
 
 	getFilterAmount() {

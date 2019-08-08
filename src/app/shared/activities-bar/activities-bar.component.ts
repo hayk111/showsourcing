@@ -12,7 +12,7 @@ export class ActivitiesBarComponent implements OnInit {
 	@Input() hasSamples = false;
 	@Input() hasTasks = false;
 	@Input() hasComments = false;
-	@Input() hasOpenRequest = false;
+	@Input() openRequestsCount = 0;
 	@Input() votes: any[];
 
 	constructor() { }

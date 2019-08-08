@@ -111,7 +111,10 @@
 <ng-template #activities let-row="row">
 	<activities-bar-app
 		[favourite]="row?.favorite"
+		[hasSamples]="!!row?.samplesLinked.count"
+		[hasTasks]="!!row?.tasksLinked.count"
 		[hasComments]="!!row?.comments.length"
+		[openRequestsCount]="getProductOpenRequests(row) | async"		
 		[votes]="row?.votes">
 	</activities-bar-app>
 </ng-template>

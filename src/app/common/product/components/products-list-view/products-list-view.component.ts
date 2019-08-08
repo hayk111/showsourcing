@@ -15,7 +15,10 @@ import { ERM, Product } from '~models';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { Sort } from '~shared/table/components/sort.interface';
 import { translate } from '~utils';
-
+import { RequestElementService, SupplierRequestService } from '~core/entity-services';
+import { ReplyStatus } from '~core/models';
+import { first } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Component({
 	selector: 'products-list-view-app',
@@ -61,7 +64,9 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	prodErm = ERM.PRODUCT;
 
 	descriptor: TableDescriptor = [];
-	constructor() {
+	constructor(
+		private requestElementService: RequestElementService,
+		) {
 		super();
 	}
 
@@ -88,6 +93,12 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 		}
 
 		this.linkColumns();
+	}
+
+	// should be fixed. The function should return open requests count for every product
+	getProductOpenRequests(product: Product): Observable<number> {
+		// return this.requestElementService.queryCount(`targetId == "${product.id}"`).pipe(first());
+		return of(1);
 	}
 
 	// links a column in the descriptor with one of the template defined in product-list-view.component.html
