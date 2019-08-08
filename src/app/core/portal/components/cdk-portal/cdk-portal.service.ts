@@ -1,15 +1,13 @@
-import { Injectable, Inject, OnInit, ComponentFactoryResolver, ApplicationRef, Injector, ElementRef } from '@angular/core';
-import { Overlay, OverlayConfig, OverlayPositionBuilder } from '@angular/cdk/overlay';
-import { ComponentPortal, DomPortalHost } from '@angular/cdk/portal';
-
-import { CdkPortalComponent } from './cdk-portal.component';
+import { Overlay, OverlayPositionBuilder } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { ElementRef, Injectable } from '@angular/core';
 import { CdkPortalRef } from './cdk-porta-ref.component';
-import { longStackSupport } from 'q';
-
+import { CdkPortalComponent } from './cdk-portal.component';
 
 
 @Injectable({ providedIn: 'root' })
 export class CdkPortalService {
+
 	/** PORTAL SHIET */
 	// private cdkPortalComponent: ComponentPortal<CdkPortalComponent>;
 	// private bodyPortalHost: DomPortalHost;

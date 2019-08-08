@@ -25,6 +25,7 @@ import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';
 
 import { ReviewRequestReplyDlgComponent } from '../component/review-request-reply-dlg/review-request-reply-dlg.component';
+import { SupplierRequestDialogComponent } from '../component/supplier-request-dialog/supplier-request-dialog.component';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
@@ -118,6 +119,10 @@ export class CommonModalService {
 		).subscribe(({ product }) => {
 			this.router.navigate([ERM.PRODUCT.destUrl, product.id]);
 		});
+	}
+
+	openSupplierRequest(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
 	openCreationTaskDlg() {

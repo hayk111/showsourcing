@@ -21,10 +21,10 @@ export class CustomTableComponent extends TrackingComponent {
 	@Input() hasMenu = true;
 	/** total number of items for pagination */
 	@Input() count = 0;
-	/** how many items were skipped so we can display the pages */
-	@Input() skipped: number;
+
 	// maps of the <id, true> so we can access the items that are selected
 	@Input() selected: Map<string, boolean> = new Map();
+	@Input() currentPage: number;
 	@Output() selectOne = new EventEmitter<string>();
 	@Output() unselectOne = new EventEmitter<string>();
 	@Output() selectAll = new EventEmitter<string[]>();

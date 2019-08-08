@@ -10,9 +10,7 @@
 	placeholder="No product"
 	[pending]="pending"
 	[count]="count"
-	[skipped]="skipped"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
+	[currentPage]="currentPage"
 	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
@@ -20,7 +18,6 @@
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	[pending]="pending"
 	i18n-placeholder="@@no-product">
 </custom-table-app>
 

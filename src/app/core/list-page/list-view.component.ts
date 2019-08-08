@@ -14,6 +14,7 @@ export class ListViewComponent<T> extends TrackingComponent {
 	@Input() count: number;
 	/** how many items were skipped (useful to display pages) */
 	@Input() skipped: number;
+	@Input() currentPage: number;
 	@Output() select = new EventEmitter<any>();
 	@Output() unselect = new EventEmitter<any>();
 	@Output() selectAll = new EventEmitter<Map<string, boolean>>();

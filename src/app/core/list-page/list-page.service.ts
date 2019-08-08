@@ -123,6 +123,10 @@ export class ListPageService
 		return this.dataSrv.items$;
 	}
 
+	get currentPage() {
+		return this.dataSrv.currentPage;
+	}
+
 	get pending() {
 		return this.dataSrv.pending;
 	}

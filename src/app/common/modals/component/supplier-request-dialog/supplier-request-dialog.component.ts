@@ -2,7 +2,6 @@ import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { Contact, CreateRequest, ERM, Product, RequestTemplate, Supplier } from '~core/models';
@@ -15,6 +14,7 @@ import {
 } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
 import { ID, translate } from '~utils';
 
+import { ProductSelectDlgComponent } from '../product-select-dlg/product-select-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 
 @Component({
@@ -67,7 +67,6 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 		private requestTemplateSrv: RequestTemplateService,
 		private productSrv: ProductService,
 		private cd: ChangeDetectorRef,
-		private commonModalService: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
 	) {
 		this.form = this.fb.group({
@@ -217,9 +216,10 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 		});
 
 		setTimeout(_ => {
-			this.commonModalService.openSelectProductDlg([], false).pipe(
-				switchMap(() => this.listSrv.refetch())
-			).subscribe();
+			this.dlgSrv.open(ProductSelectDlgComponent, { initialSelectedProducts: [], submitProducts: false })
+				.pipe(
+					switchMap(_ => this.listSrv.refetch())
+				).subscribe();
 		});
 	}
 
