@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NotifListComponent implements OnInit {
 
-	@Input() items: any[] = [];
+	notifications: any[] = [];
 
 	constructor() {
 	}

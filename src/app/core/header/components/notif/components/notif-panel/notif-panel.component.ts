@@ -7,6 +7,9 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input
 })
 export class NotifPanelComponent implements OnInit {
 	@Output() close = new EventEmitter<void>();
+
+	items = [];
+
 	constructor() {
 	}
 

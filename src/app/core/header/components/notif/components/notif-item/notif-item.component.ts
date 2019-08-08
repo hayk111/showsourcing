@@ -8,7 +8,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class NotifItemComponent implements OnInit {
 
-	@Input() item: any = null;
+	@Input() notification: any = null;
 
 	constructor() {
 	}

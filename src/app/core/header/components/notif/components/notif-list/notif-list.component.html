@@ -1,3 +1,10 @@
-<notif-item-app [item]="item" *ngFor="let item of items">
-</notif-item-app>
+<div class="result-container">
+	<div class="notif-feed"
+		*ngFor="let notification of notifications">
+		<notif-item-app [notification]="notification"></notif-item-app>
+	</div>
+	<notif-empty-app *ngIf="notifications.length === 0"></notif-empty-app>
+</div>
+
+
 
