@@ -17,8 +17,8 @@ card-footer-app {
 
 		&:focus {
 			border-radius: 500px;
-			border: 1px solid var(--color-secondary);
-			background: var(--color-secondary-light);
+			border: 1px solid var(--legacy-color-secondary);
+			background: var(--legacy-color-secondary-light);
 		}
 	}
 

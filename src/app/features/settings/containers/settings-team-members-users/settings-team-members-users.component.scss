@@ -3,7 +3,7 @@ context-menu-trigger-app {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: var(--color-primary);
+	background-color: var(--legacy-color-primary);
 
 	.text {
 		color: #fff;
@@ -20,6 +20,6 @@ context-menu-item-app {
 	width: 200px;
 
 	&.remove-user {
-		color: var(--color-warn);
+		color: var(--legacy-color-warn);
 	}
 }

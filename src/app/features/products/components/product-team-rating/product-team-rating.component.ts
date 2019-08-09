@@ -39,6 +39,6 @@ export class ProductTeamRatingComponent implements OnInit {
 			state = this.score >= 50 ? 'success' : 'warn';
 			this.name = this.score >= 50 ? 'thumbs-up-background' : 'thumbs-down-background';
 		}
-		return { color: `var(--color-${state})` };
+		return { color: `var(--legacy-color-${state})` };
 	}
 }

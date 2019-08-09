@@ -13,7 +13,7 @@
 .right {
 	margin-left: var(--spacing-l);
 	&.border {
-		border-bottom: 1px solid var(--color-secondary);
+		border-bottom: 1px solid var(--legacy-color-secondary);
 	}
 }
 
@@ -44,6 +44,6 @@ img-app {
 }
 
 a:hover, .name:hover {
-	color: var(--color-primary);
+	color: var(--legacy-color-primary);
 	text-decoration: underline;
 }

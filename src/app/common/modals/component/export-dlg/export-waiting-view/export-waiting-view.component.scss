@@ -19,7 +19,7 @@ dialog-app {
 
 	.generating-message {
 		width: 100%;
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 		white-space: nowrap;
 		font-weight: normal;
 		font-style: normal;
@@ -34,7 +34,7 @@ dialog-app {
 
 		.status-info {
 			font-size: var(--font-size-s);
-			color: var(--color-txt-primary);
+			color: var(--legacy-color-txt-primary);
 			margin-top: var(--spacing-xs);
 		}
 	}
@@ -43,11 +43,11 @@ dialog-app {
 
 		.bar-container {
 			height: 20px;
-			background: var(--color-secondary);
+			background: var(--legacy-color-secondary);
 
 			.moving-bar {
 				height: 100%;
-				background: var(--color-primary);
+				background: var(--legacy-color-primary);
 				width: $loading-bar-width;
 				transition: transform .2s ease-in-out;
 				animation: horizontal-motion 1.25s linear 0.1s infinite alternate;
@@ -59,7 +59,7 @@ dialog-app {
 		font-size: var(--font-size-l);
 
 		.file {
-			color: var(--color-txt-primary);
+			color: var(--legacy-color-txt-primary);
 			font-size: 30px;
 			margin-right: var(--spacing-m);
 			margin-left: var(--spacing-s);

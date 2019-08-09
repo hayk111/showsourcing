@@ -37,13 +37,13 @@ dialog-app {
 
 		label-app.title {
 			font-size: var(--font-size-m);
-			color: var(--color-txt-strong);
+			color: var(--legacy-color-txt-strong);
 			font-weight: normal;
 			text-transform: none;
 		}
 
 		.left {
-			border-right: 1px solid var(--color-divider);
+			border-right: 1px solid var(--legacy-color-divider);
 		}
 
 		selector-placeholder-app {

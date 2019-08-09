@@ -5,11 +5,11 @@ selector-app {
 .currency-label {
 	width: 35px;
 	padding: var(--spacing-xs);
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 	box-sizing: border-box;
 
 	&.pointer:hover {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 		text-decoration: underline;
 	}
 }

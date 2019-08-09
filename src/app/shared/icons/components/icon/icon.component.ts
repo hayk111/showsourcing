@@ -28,7 +28,8 @@ export class IconComponent implements OnChanges {
 	@Input() name: string;
 	// symbols give perf gains but are less configurable
 	// the fontset used, could be font awesome, svg or anything else added
-	@Input() fontSet: FontSet;
+	@Input() fontSet: FontSet = FontSet.ICOMOON;
+
 	// the size accepts any number and specific sizes as: xs, s, m and l.
 	@Input()
 	set size(size: number | string) {

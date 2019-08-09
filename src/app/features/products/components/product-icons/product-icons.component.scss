@@ -1,7 +1,7 @@
 :host{
 	align-items: baseline;
 	font-size: var(--font-size-s);
-	color: var(--color-icon);
+	color: var(--legacy-color-icon);
 }
 .spacer {
 	margin-right: var(--spacing-m);
@@ -10,7 +10,7 @@
 .icon-thumb-up, .icon-folder {
   margin-right: var(--spacing-xs);
   font-size:  var(--font-size-s);
-  color: var(--color-txt-secondary);
+  color: var(--legacy-color-txt-secondary);
 }
 // icon-app {
 // 	margin-right: var(--spacing-xs);
@@ -23,7 +23,7 @@
 .num {
 	line-height: 1.2;
 	// fix for wrong alignement, not sure what's happening here.
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 }
 .big {
 	.num {

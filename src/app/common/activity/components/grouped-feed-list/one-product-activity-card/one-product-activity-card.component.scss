@@ -17,7 +17,7 @@ one-activity-carousel-app {
 
 .actions {
 	font-size: var(--font-size-xxl);
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 	& > * {
 		margin-right: var(--spacing-l);
 	}
@@ -27,7 +27,7 @@ one-activity-carousel-app {
 	margin-top: var(--spacing-s);
 
 	.name {
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 		font-weight: 600;
 		font-size: var(--font-size-l);
 		letter-spacing: -0.4px;
@@ -40,7 +40,7 @@ one-activity-carousel-app {
 			margin-right: -8px;
 		}
 		.price {
-			color: var(--color-primary);
+			color: var(--legacy-color-primary);
 		}
 	}
 }
@@ -72,8 +72,8 @@ card-footer-app {
 
 		&:focus {
 			border-radius: 500px;
-			border: 1px solid var(--color-secondary);
-			background: var(--color-secondary-light);
+			border: 1px solid var(--legacy-color-secondary);
+			background: var(--legacy-color-secondary-light);
 		}
 	}
 

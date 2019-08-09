@@ -3,13 +3,13 @@
 }
 
 .quotation-title {
-  color: var(--color-txt-strong);
+  color: var(--legacy-color-txt-strong);
   font-family: var(--font-title);
   font-size: 23px;
 }
 .quotation-body {
-  border-bottom: 1px solid var(--color-secondary-light);
-  border-top: 1px solid var(--color-secondary-light);
+  border-bottom: 1px solid var(--legacy-color-secondary-light);
+  border-top: 1px solid var(--legacy-color-secondary-light);
   margin-top: 20px;
   margin-bottom: 10px;
   margin-left: 20px;
@@ -23,9 +23,9 @@
       font-size: 13px;
       font-style: italic;
       text-align: center;
-      color: var(--color-secondary-dark);
+      color: var(--legacy-color-secondary-dark);
       .link {
-        color: var(--color-primary);
+        color: var(--legacy-color-primary);
       }
     }
   }

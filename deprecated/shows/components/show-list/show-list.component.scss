@@ -5,7 +5,7 @@
 }
 
 small {
-	color: var(--color-primary);
+	color: var(--legacy-color-primary);
 }
 
 img-show-app {
@@ -24,7 +24,7 @@ p {
 }
 
 .border {
-	border-bottom: 1px solid var(--color-divider);
+	border-bottom: 1px solid var(--legacy-color-divider);
 }
 
 .showActions {
@@ -38,7 +38,7 @@ p {
 	transition: background 0.4s;
 	padding: 0 var(--spacing-ms);
 	&:hover {
-		background: var(--color-secondary-light);
+		background: var(--legacy-color-secondary-light);
 		.showActions {
 			opacity: 1;
 		}
@@ -54,10 +54,10 @@ p {
 }
 
 .saved {
-	background: var(--color-accent);
+	background: var(--legacy-color-accent);
 	color: white;
 }
 
 .supplierCount {
-	background: var(--color-secondary);
+	background: var(--legacy-color-secondary);
 }

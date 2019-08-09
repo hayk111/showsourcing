@@ -4,7 +4,7 @@ context-menu-trigger-app {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	background-color: var(--color-primary);
+	background-color: var(--legacy-color-primary);
 	padding-left: 25px;
 	padding-right: 10px;
 	margin-right: 15px;
@@ -24,6 +24,6 @@ context-menu-item-app {
 	width: 200px;
 
 	&.remove-user {
-		color: var(--color-warn);
+		color: var(--legacy-color-warn);
 	}
 }
