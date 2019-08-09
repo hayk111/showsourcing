@@ -1,7 +1,7 @@
 import { StatusBadgeComponent } from './status-badge.component';
 
 
-fdescribe('Status Badge component', () => {
+describe('Status Badge component', () => {
 
 	let badge: StatusBadgeComponent;
 

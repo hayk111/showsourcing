@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { AppImage, EntityName } from '~models';
 import { Colors, Color } from '~utils';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 export const colorMap = {
@@ -24,6 +25,7 @@ type Sizes = 's' | 'm' | 'l' | 'xl';
 	styleUrls: ['./logo.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'class': 'flexCenter',
 		// colors
 		'[class.primary]': 'color === "primary"',
 		'[class.secondary]': 'color === "secondary"',
@@ -45,43 +47,50 @@ export class LogoComponent {
 	@Input() logo: AppImage;
 	/** type of entity so we can display its icon */
 	@Input() type: EntityName;
-	/** size of icon that can be overriden */
-	@Input() iconSize: number;
 	/** whether the background is a circle */
 	@Input() circle: boolean;
 	/** whether a background is displayed */
 	@Input() background = true;
+	/** size of the logo (background included) */
+	@Input() size: number | Sizes = 'm';
+	/** size of icon that can be overriden */
+	@Input() iconSize: number | Sizes;
 
 	// getset to override the color if type is specified
 	/** displayed color */
-	@Input()
-	set color(color: Colors) { this._color = color; }
-	get color() {
-		if (this._color)
-			return this._color;
-		if (colorMap[this.type])
-			return colorMap[this.type];
-		throw Error('no color or type specified in logo');
-	}
-	private _color: Colors;
-
-	/** size of the logo (background included) */
-	@Input()
-	set size(size: number | Sizes) {
-		this._size = size;
-		this.refreshSize();
-	}
-	get size() {
-		return this._size;
-	}
-	private _size: number | Sizes = 'm';
+	@Input() color: Colors;
 
 	constructor(
 		private elRef: ElementRef,
 		private renderer: Renderer2
 	) {}
 
-	private refreshSize() {
+	ngOnChange() {
+		this.renderContainerSize();
+		this.iconSize = this.computeIconSize();
+		this.color = this.computeColor();
+	}
+
+	private computeColor() {
+		if (this.color)
+			return this.color;
+		if (colorMap[this.type])
+			return colorMap[this.type];
+		throw Error('no color or type specified in logo');
+	}
+
+	private computeIconSize() {
+		if (this.iconSize) {
+			return this.iconSize;
+		}
+		switch (this.size) {
+			case 'm': return 16;
+			case 'l': return 23;
+			case 'xl': return 40;
+		}
+	}
+
+	private renderContainerSize() {
 		const value = parseInt(this.size as any);
 		const el = this.elRef.nativeElement;
 		if (Number.isInteger(value)) {

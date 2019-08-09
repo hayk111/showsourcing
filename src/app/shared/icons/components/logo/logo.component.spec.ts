@@ -11,49 +11,76 @@ fdescribe('Logo component', () => {
 	let component: LogoComponent;
 	let fixture: ComponentFixture<LogoComponent>;
 	let el: HTMLElement;
+	let i: HTMLElement;
 
+	function change() {
+		fixture.detectChanges();
+		component.ngOnChange();
+	}
 
 	beforeEach(async () => {
 		TestBed.configureTestingModule({ imports: [IconsModule] });
 		fixture = TestBed.createComponent(LogoComponent);
 		component = fixture.componentInstance;
 		el = fixture.nativeElement;
+		i = el.querySelector('i');
+
 
 		component.type = EntityName.PRODUCT;
 		component.size = 'm';
-		fixture.detectChanges();
+		change();
 	});
 
-	fit('should change size depending of the size input which can be number or string', () => {
+	fit('should change size to size as number input', () => {
 		component.size = 24;
-		fixture.detectChanges();
-		let rect = el.getBoundingClientRect();
-		const i = el.querySelector('i');
+		change();
+		const rect = el.getBoundingClientRect();
 		expect(rect.height).toEqual(24);
 		expect(rect.width).toEqual(24);
+	});
+
+	fit('should have the correct medium size', () => {
+		// putting a wrong value at first just in case previous state has impact
+		component.size = 24;
+		change();
 		component.size = 'm';
-		fixture.detectChanges();
-		rect = el.getBoundingClientRect();
+		change();
+		component.ngOnChange();
+		const rect = el.getBoundingClientRect();
+		expect(rect.height).not.toEqual(24);
 		expect(rect.height).toEqual(32);
 		expect(rect.width).toEqual(32);
 		expect(i.style.fontSize).toEqual('16px');
-		// component.size = 'l';
-		// fixture.detectChanges();
-		// rect = el.getBoundingClientRect();
-		// expect(rect.height).toEqual(36);
-		// expect(rect.width).toEqual(36);
-		// component.size = 'xl';
-		// fixture.detectChanges();
-		// rect = el.getBoundingClientRect();
-		// expect(rect.height).toEqual(92);
-		// expect(rect.width).toEqual(92);
+
+	});
+
+	it('should have the correct large sizes', () => {
+		component.size = 'l';
+		change();
+		const rect = el.getBoundingClientRect();
+		expect(rect.height).toEqual(36);
+		expect(rect.width).toEqual(36);
+		expect(i.style.fontSize).toEqual('23px');
+	});
+
+	it('should have the correct extra large sizes', () => {
+		component.size = 'xl';
+		change();
+		const rect = el.getBoundingClientRect();
+		expect(rect.height).toEqual(92);
+		expect(rect.width).toEqual(92);
+		expect(i.style.fontSize).toEqual('40px');
 	});
 
 	it('should change size of icon if iconSize is specified', () => {
+		component.size = 'l';
 		component.iconSize = 17;
-		fixture.detectChanges();
-		const ic = el.querySelector('i');
-		expect(ic.style.fontSize).toEqual('17px');
+		change();
+		expect(i.style.fontSize).toEqual('17px');
+		component.size = 50;
+		component.iconSize = 19;
+		change();
+		expect(i.style.fontSize).toEqual('19px');
 	});
 
 	it('should display logo (image) if supplied', () => {
@@ -70,7 +97,7 @@ fdescribe('Logo component', () => {
 			__typename: 'Image',
 		} as any;
 		component.logo = appImage;
-		fixture.detectChanges();
+		change();
 		const img = el.querySelector('img');
 		expect(img).toBeDefined();
 	});
