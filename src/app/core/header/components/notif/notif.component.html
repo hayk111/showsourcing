@@ -1,15 +1,16 @@
 <icon-app
 	name="bell"
-	class="color-txt-secondary"
+	class="bell-color-primary-contrast"
 	(click)="open()"
 ></icon-app>
 <notif-layout-app
 	[isOpen]="isOpen"
 >
 	<notif-panel-app
+	(close)="close()"
 	(clickOutside)="close()"
 	>
-	<notif-empty-app></notif-empty-app>
+		<notif-empty-app></notif-empty-app>
 	</notif-panel-app>
 </notif-layout-app>
 

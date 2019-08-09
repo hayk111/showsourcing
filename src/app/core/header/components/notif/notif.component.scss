@@ -2,6 +2,9 @@
 	cursor: auto
 }
 icon-app {
-	margin-top: 4px;
+	margin-top: var(--spacing-xs);
+}
+.bell-color-primary-contrast {
+	color: var(--color-primary-contrast)
 }
 

@@ -1,18 +1,17 @@
 import {
 	Component,
 	OnInit,
-	ChangeDetectionStrategy,
-	Input
+	EventEmitter,
+	Output
 } from '@angular/core';
 
 @Component({
 	selector: 'notif-header-app',
 	templateUrl: './notif-header.component.html',
 	styleUrls: ['./notif-header.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotifHeaderComponent implements OnInit {
-	@Input() fullScreen = false;
+	@Output() close = new EventEmitter<void>();
 
 	constructor() {}
 

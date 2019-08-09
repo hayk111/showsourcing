@@ -1,17 +1,12 @@
 <div class="notif-header">
 	<!-- bold-s -->
 	<div class="left">
-		<span class="back-button">
-			<!-- TODO: replace with back icon -->
-		</span>
-
-		<!-- <img-app class="square pointer"
-		[ngStyle]="styleBox"
-		[ngClass]="{ 'pending': image.pending }"
-		*ngFor="let image of images; let i = index;trackBy: trackByFn"
-		[image]="image"
-		size="s"
-		(click)="imageClick.emit(i)"></img-app> -->
+		<icon-app
+			class="close-pane-button"
+			name="close-pane-left"
+			(click)="close.emit();"
+		>
+		</icon-app>
 		<p class="title">
 			Notifications
 		</p>

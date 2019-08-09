@@ -7,15 +7,15 @@
 		display: flex;
 		justify-content: space-between;
 		width: 147px;
-		.back-button {
+		.close-pane-button {
 			width: 24px;
 			height: 24px;
-			background: #a3afc6;
+			color: var(--color-txt-third)
 		}
 		.title {
 			width: 99px;
 			height: 23px;
-			font-size: 18px;
+			font-size: var(--font-size-xl);
 			font-weight: 600;
 			font-style: normal;
 			font-stretch: normal;
@@ -27,14 +27,14 @@
 	.mark-read-button {
 		width: 126px;
 		height: 20px;
-		font-size: 14px;
+		font-size: var(--font-size-m);
 		font-weight: 600;
 		font-style: normal;
 		font-stretch: normal;
 		line-height: 1.43;
 		letter-spacing: normal;
 		text-align: center;
-		color: #45adff ;
+		color: var(--color-primary) ;
 	}
 }
 
