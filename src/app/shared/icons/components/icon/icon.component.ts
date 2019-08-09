@@ -24,33 +24,24 @@ import { FontSet } from '~shared/icons/components/font-set.enum';
 	}
 })
 export class IconComponent implements OnChanges {
-	// the size accepts any number and specific sizes as: xs, s, m and l.
-	@Input() size = 'inherit';
+
 	@Input() name: string;
-	// type solid by default https://fontawesome.com/icons/heart?style=regular
-	@Input() type: 's' | 'r' | 'l' = 's';
 	// symbols give perf gains but are less configurable
 	// the fontset used, could be font awesome, svg or anything else added
 	@Input() fontSet: FontSet;
-
-	@Input() set backgroundColor(value: string) {
-		this._backgroundColor = value;
-		if (this._backgroundColor) {
-			this.customStyle = {
-				'background-color': `var(--color-${value})`,
-				'color': 'white',
-				'border-radius': 'var(--spacing-xs)',
-				'padding': '3px'
-			};
+	// the size accepts any number and specific sizes as: xs, s, m and l.
+	@Input()
+	set size(size: number | string) {
+		this._size = size;
+	}
+	get size() {
+		if (isNaN(this.size as any)) {
+			return `var(--fs-${this.size})`;
+		} else {
+			return `${this.size}px`;
 		}
 	}
-	get backgroundColor(): string {
-		return this._backgroundColor;
-	}
-
-	private _backgroundColor = null;
-	customStyle = {};
-
+	private _size: number | string = 'inherit';
 
 	constructor(
 		elementRef: ElementRef,
@@ -66,7 +57,7 @@ export class IconComponent implements OnChanges {
 
 	ngOnChanges(changes) {
 		if (changes.name && changes.name.currentValue) {
-			this.cdr.detectChanges();
+			this.cdr.markForCheck();
 		}
 	}
 }

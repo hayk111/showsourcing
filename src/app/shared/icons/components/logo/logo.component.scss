@@ -1,0 +1,43 @@
+:host {
+	box-sizing: border-box;
+	// colors
+	&.primary {
+		background: var(--color-primary-light);
+		color: var(--color-primary);
+	}
+	&.secondary {
+		background: var(--color-secondary);
+		color: var(--color-secondary-contrast);
+	}
+	&.vibrant {
+		background: var(--color-vibrant-light);
+		color: var(--color-vibrant);
+	}
+	&.accent {
+		background: var(--color-accent-light);
+		color: var(--color-accent-contrast);
+	}
+	&.warn {
+		background: var(--color-warn-light);
+		color: var(--color-warn);
+	}
+	&.success {
+		background: var(--color-success-light);
+		color: var(--color-success);
+	}
+
+	// sizes
+	&.size-m {
+		width: 32px;
+		height: 32px;
+	}
+	&.size-l {
+		width: 36px;
+		height: 36px;
+	}
+	&.size-xl {
+		width: 92px;
+		height: 92px;
+	}
+
+}

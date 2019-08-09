@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IconSymbolsComponent } from '~shared/icons/components/icon-symbols/icon-symbols.component';
 import { IconComponent } from '~shared/icons/components/icon/icon.component';
+import { LogoComponent } from './components/logo/logo.component';
 
 @NgModule({
 	imports: [
 		CommonModule
 	],
-	declarations: [IconComponent, IconSymbolsComponent],
-	exports: [IconComponent, IconSymbolsComponent]
+	declarations: [IconComponent, IconSymbolsComponent, LogoComponent],
+	exports: [IconComponent, IconSymbolsComponent, LogoComponent]
 })
 export class IconsModule { }
