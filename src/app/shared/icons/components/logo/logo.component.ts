@@ -83,10 +83,13 @@ export class LogoComponent {
 
 	private refreshSize() {
 		const value = parseInt(this.size as any);
+		const el = this.elRef.nativeElement;
 		if (Number.isInteger(value)) {
-			const el = this.elRef.nativeElement;
 			this.renderer.setStyle(el, 'height', `${value}px`);
 			this.renderer.setStyle(el, 'width', `${value}px`);
+		} else {
+			this.renderer.removeStyle(el, 'height');
+			this.renderer.removeStyle(el, 'width');
 		}
 	}
 }

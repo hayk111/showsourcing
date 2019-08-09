@@ -24,27 +24,29 @@ fdescribe('Logo component', () => {
 		fixture.detectChanges();
 	});
 
-	it('should change size depending of the size input which can be number or string', () => {
+	fit('should change size depending of the size input which can be number or string', () => {
 		component.size = 24;
 		fixture.detectChanges();
 		let rect = el.getBoundingClientRect();
+		const i = el.querySelector('i');
 		expect(rect.height).toEqual(24);
-		expect(rect.bottom).toEqual(24);
-		component.size = 's';
-		fixture.detectChanges();
-		rect = el.getBoundingClientRect();
-		expect(rect.height).toEqual(32);
-		expect(rect.bottom).toEqual(32);
+		expect(rect.width).toEqual(24);
 		component.size = 'm';
 		fixture.detectChanges();
 		rect = el.getBoundingClientRect();
-		expect(rect.height).toEqual(36);
-		expect(rect.bottom).toEqual(36);
-		component.size = 'l';
-		fixture.detectChanges();
-		rect = el.getBoundingClientRect();
-		expect(rect.height).toEqual(92);
-		expect(rect.bottom).toEqual(92);
+		expect(rect.height).toEqual(32);
+		expect(rect.width).toEqual(32);
+		expect(i.style.fontSize).toEqual('16px');
+		// component.size = 'l';
+		// fixture.detectChanges();
+		// rect = el.getBoundingClientRect();
+		// expect(rect.height).toEqual(36);
+		// expect(rect.width).toEqual(36);
+		// component.size = 'xl';
+		// fixture.detectChanges();
+		// rect = el.getBoundingClientRect();
+		// expect(rect.height).toEqual(92);
+		// expect(rect.width).toEqual(92);
 	});
 
 	it('should change size of icon if iconSize is specified', () => {

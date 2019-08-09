@@ -35,7 +35,7 @@ export class IconComponent implements OnChanges {
 		this._size = size;
 	}
 	get size() {
-		if (isNaN(this._size as any)) {
+		if (!isNaN(this._size as any)) {
 			return `var(--fs-${this._size})`;
 		} else {
 			return `${this._size}px`;

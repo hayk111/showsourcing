@@ -26,10 +26,11 @@
 		color: var(--color-success);
 	}
 
-	// sizes
+	// size
 	&.size-m {
 		width: 32px;
 		height: 32px;
+		font-size: 16px;
 	}
 	&.size-l {
 		width: 36px;
