@@ -31,7 +31,7 @@ export class IconComponent implements OnChanges {
 	@Input() type: 's' | 'r' | 'l' = 's';
 	// symbols give perf gains but are less configurable
 	// the fontset used, could be font awesome, svg or anything else added
-	@Input() fontSet: FontSet;
+	@Input() fontSet: FontSet = FontSet.ICOMOON;
 
 	@Input() set backgroundColor(value: string) {
 		this._backgroundColor = value;

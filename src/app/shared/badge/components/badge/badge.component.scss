@@ -3,32 +3,47 @@
 	white-space: nowrap;
 	margin-right: var(--spacing-xs);
 
-	&.in-progress {
-		background: var(--legacy-color-in-progress);
-		color: white;
+	// colors
+	&.primary {
+		background: var(--color-primary-light);
+		color: var(--color-primary);
 	}
 	&.secondary {
-		background: var(--legacy-color-secondary);
+		background: var(--color-secondary);
+		color: var(--color-secondary-contrast);
 	}
-	&.primary {
-		background: var(--legacy-color-primary);
-		color: white;
-	}
-	&.secondary-light {
-		background: var(--legacy-color-secondary-light);
+	&.vibrant {
+		background: var(--color-vibrant-light);
+		color: var(--color-vibrant);
 	}
 	&.accent {
-		background: var(--legacy-color-accent);
-		color: white;
+		background: var(--color-accent-light);
+		color: var(--color-accent-contrast);
 	}
 	&.warn {
-		background: var(--legacy-color-warn);
-		color: white;
+		background: var(--color-warn-light);
+		color: var(--color-warn);
 	}
 	&.success {
-		background: var(--legacy-color-success);
-		color: white;
+		background: var(--color-success-light);
+		color: var(--color-success);
 	}
+
+	// sizes
+	&.small {
+		padding: 2px 4px;
+		font-size: var(--font-size-s);
+		border-radius: var(--border-radius-s);
+	}
+	&.medium {
+		padding: 6px 12px;
+		font-size: var(--font-size-s);
+		border-radius: var(--border-radius);
+		font-weight: 600;
+		border-radius: var(--border-radius);
+	}
+
+	/** @deprecated */
 	&.tiny {
 		font-family: var(--font-title);
 		font-size: var(--font-size-xxs);
@@ -59,23 +74,6 @@
 		text-transform: uppercase;
 		border-radius: var(--border-radius-s);
 		font-weight: 600;
-	}
-	&.small {
-		font-size: var(--font-size-s);
-		font-weight: bold;
-		padding: 2px  var(--spacing-s);
-		min-width: 110px;
-		border-radius: var(--border-radius-s);
-		font-weight: 600;
-	}
-	&.medium {
-		height: 22px;
-		font-size: var(--font-size-s);
-		border-radius: var(--border-radius);
-		padding-left: var(--spacing-s);
-		padding-right: 10px;
-		padding-top: 3px;
-		padding-bottom: 4px;
 	}
 	&.large {
 		height: 32px;
