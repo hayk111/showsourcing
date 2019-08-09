@@ -28,7 +28,7 @@ export class TestHostComponent {
 }
 
 
-fdescribe('Component: PaginationComponent', () => {
+describe('Component: PaginationComponent', () => {
 	let testComp: TestHostComponent;
 	let paginationComp: PaginationComponent;
 	let fixture: ComponentFixture<TestHostComponent>;

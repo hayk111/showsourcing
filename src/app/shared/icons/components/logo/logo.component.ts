@@ -16,6 +16,8 @@ export const colorMap = {
 	[EntityName.SUPPLIER]: Color.VIBRANT,
 };
 
+type Sizes = 's' | 'm' | 'l' | 'xl';
+
 @Component({
 	selector: 'logo-app',
 	templateUrl: './logo.component.html',
@@ -38,13 +40,11 @@ export const colorMap = {
 		'[class.size-xl]': 'size === "xl"',
 	}
 })
-export class LogoComponent implements OnInit {
+export class LogoComponent {
 	/** we can supply an image to override the icon */
 	@Input() logo: AppImage;
 	/** type of entity so we can display its icon */
 	@Input() type: EntityName;
-	/** size of the logo (background included) */
-	@Input() size: number | 's' | 'm' | 'l' | 'xl' = 'm';
 	/** size of icon that can be overriden */
 	@Input() iconSize: number;
 	/** whether the background is a circle */
@@ -57,29 +57,34 @@ export class LogoComponent implements OnInit {
 	@Input()
 	set color(color: Colors) { this._color = color; }
 	get color() {
-		if (this.color)
-			return this.color;
+		if (this._color)
+			return this._color;
 		if (colorMap[this.type])
 			return colorMap[this.type];
 		throw Error('no color or type specified in logo');
 	}
 	private _color: Colors;
 
+	/** size of the logo (background included) */
+	@Input()
+	set size(size: number | Sizes) {
+		this._size = size;
+		this.refreshSize();
+	}
+	get size() {
+		return this._size;
+	}
+	private _size: number | Sizes = 'm';
+
 	constructor(
 		private elRef: ElementRef,
 		private renderer: Renderer2
 	) {}
 
-	ngOnInit() {
-		// setting the size only once on init
-		// if we want to have dynamic size we need to change this
-		this.refreshSize();
-	}
-
 	private refreshSize() {
 		const value = parseInt(this.size as any);
-		const el = this.elRef.nativeElement;
 		if (Number.isInteger(value)) {
+			const el = this.elRef.nativeElement;
 			this.renderer.setStyle(el, 'height', `${value}px`);
 			this.renderer.setStyle(el, 'width', `${value}px`);
 		}

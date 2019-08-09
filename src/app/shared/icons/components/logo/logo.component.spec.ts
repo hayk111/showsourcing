@@ -1,19 +1,20 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { LogoComponent, colorMap } from './logo.component';
 import { EntityName, AppImage } from '~core/models';
+import { IconsModule } from '~shared/icons/icons.module';
 
 
 
 
 
-describe('Logo component', () => {
+fdescribe('Logo component', () => {
 	let component: LogoComponent;
 	let fixture: ComponentFixture<LogoComponent>;
 	let el: HTMLElement;
 
 
 	beforeEach(async () => {
-		TestBed.configureTestingModule({ declarations: [LogoComponent] });
+		TestBed.configureTestingModule({ imports: [IconsModule] });
 		fixture = TestBed.createComponent(LogoComponent);
 		component = fixture.componentInstance;
 		el = fixture.nativeElement;
@@ -24,17 +25,26 @@ describe('Logo component', () => {
 	});
 
 	it('should change size depending of the size input which can be number or string', () => {
-		component.size = 32;
+		component.size = 24;
 		fixture.detectChanges();
 		let rect = el.getBoundingClientRect();
+		expect(rect.height).toEqual(24);
+		expect(rect.bottom).toEqual(24);
+		component.size = 's';
+		fixture.detectChanges();
+		rect = el.getBoundingClientRect();
 		expect(rect.height).toEqual(32);
 		expect(rect.bottom).toEqual(32);
+		component.size = 'm';
+		fixture.detectChanges();
+		rect = el.getBoundingClientRect();
+		expect(rect.height).toEqual(36);
+		expect(rect.bottom).toEqual(36);
 		component.size = 'l';
 		fixture.detectChanges();
 		rect = el.getBoundingClientRect();
-		debugger;
-		expect(rect.height).toEqual(32);
-		expect(rect.bottom).toEqual(32);
+		expect(rect.height).toEqual(92);
+		expect(rect.bottom).toEqual(92);
 	});
 
 	it('should change size of icon if iconSize is specified', () => {
@@ -78,8 +88,7 @@ describe('Logo component', () => {
 	it('should be circle if circle is true', () => {
 		component.circle = true;
 		fixture.detectChanges();
-		const bg: HTMLElement = el.querySelector('.background');
-		expect(bg.className).toContain('circle');
+		expect(el.className).toContain('circle');
 	});
 
 	it('should not have background if background is false', () => {
