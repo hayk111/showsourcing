@@ -14,6 +14,9 @@ import { CardModule } from '~shared/card/card.module';
 		This is the card content
 	</card-app>
 
+	<card-app>
+		Just content
+	</card-app>
 `})
 class TestComponent {
 }
@@ -44,22 +47,26 @@ fdescribe('card component', () => {
 		expect(wrongElem).not.toBeTruthy();
 		expect(elem).toBeDefined();
 	});
-	it('should display header separator', () => {
+
+	it('should display header separator if there is an header', () => {
 		const elem = fixture.nativeElement.querySelector('card-app divider-app');
 		expect(elem).toBeDefined();
 	});
-	it('should display title', () => {
+
+	it('should display title at the top', () => {
 		const elem = fixture.nativeElement.querySelector('card-app card-title-app');
 		expect(elem).toBeDefined();
 		expect(elem.textContent).toEqual('Title');
 
 	});
+
 	it('should display count, next to title', () => {
 		const elem = fixture.nativeElement.querySelector('card-app card-title-badge-app');
 		expect(elem).toBeDefined();
 		expect(elem.textContent).toEqual('78');
 	});
-	it('should display actions on the right side of the card', () => {
+
+	it('should display actions on the top right of the card', () => {
 		const elem = fixture.nativeElement.querySelector('card-app card-action-app');
 		expect(elem).toBeDefined();
 		expect(elem.textContent).toEqual('Action');
