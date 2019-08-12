@@ -18,7 +18,7 @@ nav {
 		padding: var(--spacing-m) var(--spacing-l);
 		&:hover, &.selected {
 			color: white;
-			background: var(--legacy-color-bg-dark);
+			background: var(--color-primary);
 		}
 	}
 }

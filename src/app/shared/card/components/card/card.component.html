@@ -1,17 +1,18 @@
 
 <ng-content select="card-header-app"></ng-content>
 
-<divider-app></divider-app>
+<divider-app *ngIf="header"></divider-app>
 
 <main class="pd-l">
+
 	<div class="top flexBetween flexVAlign">
 
 		<div class="flex flexVAlign">
 			<ng-content select="card-title-app"></ng-content>
-			<ng-content select="card-title-badge"></ng-content>
+			<ng-content select="card-title-badge-app"></ng-content>
 		</div>
 
-		<ng-content select="card-action"></ng-content>
+		<ng-content select="card-action-app"></ng-content>
 
 	</div>
 

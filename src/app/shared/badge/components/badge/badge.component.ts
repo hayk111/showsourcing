@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Colors } from '~utils';
 
 @Component({
 	selector: 'badge-app',
@@ -6,18 +7,17 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./badge.component.scss'],
 	/** @deprecated */
 	host: {
-		'[class.primary]': 'type === "primary"',
-		'[class.secondary]': 'type === "secondary"',
-		'[class.warn]': 'type === "warn"',
-		'[class.success]': 'type === "success"',
-		'[class.accent]': 'type === "accent"',
-		'[class.vibrant]': 'type === "vibrant"',
-		'[class.small]': 'size === "s" || size === "small"',
-		'[class.medium]': 'size === "m" || size === "medium"',
+		'[class.primary]': 'color === "primary"',
+		'[class.secondary]': 'color === "secondary"',
+		'[class.warn]': 'color === "warn"',
+		'[class.success]': 'color === "success"',
+		'[class.accent]': 'color === "accent"',
+		'[class.vibrant]': 'color === "vibrant"',
 		'[class.flexVAlign]': 'true',
 		'[class.flexCenter]': 'true',
-		/** @deprecated we won't have rounds anymore*/
-		'[class.round]': 'round',
+		'[class.circle]': 'circle',
+		'[class.small]': 'size === "s" || size === "small"',
+		'[class.medium]': 'size === "m" || size === "medium"',
 		/** @deprecated legacy sizes please remove the scss as well*/
 		'[class.tiny]': 'size === "tiny"',
 		'[class.mini]': 'size === "mini"',
@@ -27,11 +27,13 @@ import { Component, OnInit, Input } from '@angular/core';
 	}
 })
 export class BadgeComponent {
-	@Input() type: 'primary' | 'secondary' | 'accent' | 'vibrant' | 'success' | 'warn' | 'none' = 'secondary';
-	@Input() size = 's';
-	/** type gives us the possibility to have predefined color set
-	 * for background and color. The none type is when we want to inherit
-	 */
+	@Input() color = 'secondary';
+
+	/** @deprecated use color */
+	@Input() set type(color: Colors) {
+		this.color = color;
+	}
 	/** @deprecated */
-	@Input() round = false;
+	@Input() size = 's';
+	@Input() circle = false;
 }

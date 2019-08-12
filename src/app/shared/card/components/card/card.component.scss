@@ -1,12 +1,11 @@
 :host {
-	display: block;
 	background: var(--legacy-color-bg);
 	border-radius: var(--border-radius);
-
 	// TODO check supplier request details dialog
 }
 
-
-
+.top {
+	margin-bottom: var(--spacing-l);
+}
 
 

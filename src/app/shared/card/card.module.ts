@@ -7,6 +7,7 @@ import { DividerModule } from '~shared/divider/divider.module';
 import { CardTitleComponent } from './components/card-title/card-title.component';
 import { CardTitleBadgeComponent } from './components/card-title-badge/card-title-badge.component';
 import { CardActionComponent } from './components/card-action/card-action.component';
+import { BadgeModule } from '~shared/badge';
 
 
 const components = [
@@ -22,6 +23,7 @@ const components = [
 	imports: [
 		CommonModule,
 		DividerModule,
+		BadgeModule
 	],
 	declarations: components,
 	exports: components

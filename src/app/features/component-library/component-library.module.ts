@@ -17,6 +17,9 @@ import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.modul
 import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
 import { LoadersLibPageComponent } from './loaders-lib-page/loaders-lib-page.component';
 import { IconsLibPageComponent } from './icons-lib-page/icons-lib-page.component';
+import { BadgeModule } from '~shared/badge';
+import { CardLibPageComponent } from './card-lib-page/card-lib-page.component';
+import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component';
 
 
 @NgModule({
@@ -25,7 +28,7 @@ import { IconsLibPageComponent } from './icons-lib-page/icons-lib-page.component
 		SharedModule,
 		SampleCommonModule,
 		ProductCommonModule,
-		WorkflowMngmtCommonModule
+		WorkflowMngmtCommonModule,
 	],
 	declarations: [
 		ComponentLibraryComponent,
@@ -37,7 +40,9 @@ import { IconsLibPageComponent } from './icons-lib-page/icons-lib-page.component
 		ProductCardLibraryPageComponent,
 		WorkflowMngmntTableLibComponent,
 		LoadersLibPageComponent,
-		IconsLibPageComponent
+		IconsLibPageComponent,
+		CardLibPageComponent,
+		BadgeLibPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []
