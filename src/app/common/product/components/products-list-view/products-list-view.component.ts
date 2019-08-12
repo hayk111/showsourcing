@@ -34,6 +34,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	@Input() productPreview = true;
 	@Input() isInProductSelectDlg = false;
 	@Input() currentSort: Sort;
+	@Input() tableWidth: number;
 	// TODO, I think we will have to rethink the descriptor / custom table thing
 	// because this won't really work with the type of descriptor Antoine is envisaging
 	@Output() setFavourite = new EventEmitter<Product>();
@@ -82,13 +83,13 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 			];
 		} else {
 			this.descriptor =  [
-				{ title: translate('reference'), type: 'main', sortable: true, sortBy: 'name', width: 200, minWidth: 120 },
-				{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', width: 120, minWidth: 50 },
-				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
-				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
-				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', width: 120, minWidth: 120 },
-				{ title: translate('activity'), type: 'activities', width: 120, minWidth: 120 },
-				{ title: translate('status'), type: 'status', sortBy: 'status.step', width: 85, minWidth: 120 },
+				{ title: translate('reference'), type: 'main', sortable: true, sortBy: 'name', minWidth: 120 },
+				{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', minWidth: 50 },
+				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', minWidth: 120 },
+				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', minWidth: 120 },
+				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', minWidth: 120 },
+				{ title: translate('activity'), type: 'activities', minWidth: 120 },
+				{ title: translate('status'), type: 'status', sortBy: 'status.step', minWidth: 120 },
 			];
 		}
 

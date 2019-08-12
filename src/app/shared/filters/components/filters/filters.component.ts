@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { Filter, FilterType, FilterList } from '~shared/filters/models';
 
 @Component({
@@ -12,6 +12,7 @@ export class FiltersComponent {
 	@Input() filterTypes = [];
 	typeSelected: FilterType;
 
+	@Output() close = new EventEmitter<undefined>();
 
 	openEditPanel(type: FilterType) {
 		this.typeSelected = type;

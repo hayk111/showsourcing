@@ -1,3 +1,42 @@
+:host ::ng-deep .filters-title-section icon-app {
+	display: inline-block;
+	width: 24px;
+  height: 24px;
+}
+
+.filters-title-section {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 16px;
+	height: 47px;
+}
+
+.clear-filters {
+	width: 106px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+	text-align: center;
+	margin-right: 12px;
+  color: var(--color-warn);
+}
+
+.filters-title {
+	width: 49px;
+  height: 23px;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--color-bg-dark);
+}
+
 .clear {
 	cursor: pointer;
 	&:hover{

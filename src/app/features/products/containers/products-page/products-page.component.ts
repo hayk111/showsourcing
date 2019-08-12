@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges, ViewChild, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
@@ -12,7 +12,7 @@ import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/filters/components';
-import { FiltersService } from '~shared/filters/services';
+import { ProductListComponent } from '~deprecated/product-list/product-list.component';
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
 // dailah lama: Make me one with everything.
@@ -27,8 +27,13 @@ import { FiltersService } from '~shared/filters/services';
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-	@ViewChildren('child')
-	public children: QueryList<FiltersComponent>;
+	@ViewChildren('filters', { read: ElementRef })
+	public filtersElem: QueryList<ElementRef>;
+
+	@ViewChild('productList', { read: ElementRef, static: false })
+	public productListElem: ElementRef;
+
+	public tableWidth: number;
 
 	erm = ERM;
 	filterTypeEnum = FilterType;
@@ -56,7 +61,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private userSrv: UserService,
 		private featureSrv: WorkspaceFeatureService,
 		protected dlgSrv: DialogService,
-		private filtersService: FiltersService,
 	) {
 		super();
 	}
@@ -125,6 +129,37 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		const assigneeFilter = { type: FilterType.ASSIGNEE, value: true };
 		this.listSrv.removeFilter(assigneeFilter);
 	}
+
+	@HostListener('window:resize', ['$event'])
+	onResize(event) {
+		if (this.tableWidth) {
+			this.tableWidth = null;
+		}
+	}
+
+	onShowFilters() {
+		const width = window.innerWidth || document.documentElement.clientWidth
+																		|| document.body.clientWidth;
+
+		// for browser window less than 1200px show filters tab over the table
+		if (width > 1200) {
+			this.tableWidth = this.productListElem.nativeElement.offsetWidth - 300;
+		}
+
+		this.listSrv.openFilterPanel();
+	}
+
+	onCloseFilter() {
+		const width = window.innerWidth || document.documentElement.clientWidth
+																		|| document.body.clientWidth;
+
+		// for browser window less than 1200px show filters tab over the table
+		if (width > 1200) {
+			this.tableWidth = this.productListElem.nativeElement.offsetWidth + 300;
+		}
+		this.listSrv.closeFilterPanel();
+	}
+
 
 	onExport() {
 		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());

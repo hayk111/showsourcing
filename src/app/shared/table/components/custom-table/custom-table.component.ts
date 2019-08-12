@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, OnChanges } from '@angular/core';
 import { TableDescriptor } from '~shared/table';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -9,9 +9,10 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./custom-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomTableComponent extends TrackingComponent {
+export class CustomTableComponent extends TrackingComponent implements OnChanges {
 	@Input() currentSort: Sort;
 	@Input() placeholder: string;
+	@Input() width: number;
 	@Output() bottomReached = new EventEmitter<any>();
 	@Output() sort = new EventEmitter<Sort>();
 	@Input() descriptor: TableDescriptor = [];

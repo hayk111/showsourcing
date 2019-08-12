@@ -33,6 +33,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
 
+	@Input() width: number;
 	@Input() rowHeight: number;
 
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned

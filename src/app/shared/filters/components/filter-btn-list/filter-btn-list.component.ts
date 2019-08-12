@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Filter, FilterType } from '~shared/filters/models/filter.class';
 import { FilterByType } from '~shared/filters';
-import { FiltersService } from '../../services';
 
 /**
  * displays a label with its active filters under it. If no active filters it displays a btn, ence the name
@@ -12,17 +11,9 @@ import { FiltersService } from '../../services';
 	styleUrls: ['./filter-btn-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterBtnListComponent implements OnInit {
+export class FilterBtnListComponent {
 
-	constructor(private filtersService: FiltersService) {}
-
-	ngOnInit() {
-		console.log('on iniiit');
-		this.filtersService.showArchivedProds$.subscribe(_ => {
-			console.log('subscribe called');
-			this.onArchivedChange();
-		});
-	}
+	constructor() {}
 
 	/** btns displayed */
 	@Input() set filterTypes(types: FilterType[]) {

@@ -24,7 +24,7 @@
 	(showAssigned)="onShowAssignee()"
 	(hideAssigned)="onHideAssignee()"
 	(export)="onExport()"
-	(showFilters)="listSrv.openFilterPanel()"
+	(showFilters)="onShowFilters()"
 	(viewChange)="onViewChange($event)">
 
 	<sub-panel-right-item-app class="flex">
@@ -64,6 +64,7 @@
 		[selection]="listSrv.selection$ | async"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
+		[ngStyle]="tableWidth && {'width': tableWidth + 'px'}"
 		(goToPage)="listSrv.loadPage($event)"
 		(delete)="listSrv.deleteOne($event)"
 		(update)="listSrv.update($event)"
@@ -81,7 +82,7 @@
 		(sort)="listSrv.sort($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(unselect)="listSrv.unselectOne($event, true)"
-		(unselectAll)="listSrv.unselectAll()">
+		(unselectAll)="listSrv.unselectAll()" #productList>
 	</products-list-view-app>
 
 	<products-card-view-app
@@ -128,8 +129,9 @@
 		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()"
-		#child>
+		(clickOutside)="onCloseFilter()"
+		(close)="onCloseFilter()"
+		#filters>
 	</filters-app>
 
 	<product-preview-app
