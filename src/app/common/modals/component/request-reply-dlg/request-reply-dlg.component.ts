@@ -84,7 +84,6 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	private setElement() {
-		this.elements = this.request.requestElements;
 		this.element = this.elements[this.selectedIndex];
 
 		if (!this.element) {
