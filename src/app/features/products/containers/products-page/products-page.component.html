@@ -118,6 +118,7 @@
 		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
 		(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
 		(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
+		(archiveProducts)="onArchive(listSrv.getSelectedValues())"
 		(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 		(statusUpdated)="listSrv.updateSelected({status: $event})"
 		(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"

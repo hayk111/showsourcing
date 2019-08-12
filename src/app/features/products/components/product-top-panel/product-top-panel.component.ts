@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Product } from '~models/product.model';
 import { ERM } from '~models/_erm.enum';
 import { User } from '~core/models';
@@ -14,6 +14,7 @@ export class ProductTopPanelComponent implements OnInit {
 	@Output() delete = new EventEmitter<Product>();
 	@Output() export = new EventEmitter<Product>();
 	@Output() update = new EventEmitter<Product>();
+	@Output() archive = new EventEmitter<Product>();
 	@Output() supplierRequest = new EventEmitter<Product>();
 	productEntity = ERM.PRODUCT;
 

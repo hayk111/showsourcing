@@ -28,7 +28,7 @@
   let-unselectItem="unselectItem"
   let-previewClick="previewClick"
   let-dragDropEnable$="dragDropEnable$">
-  <product-card-app
+	<product-card-app
     [product]="data"
     [enablePreviewLink]="true"
     [checked]="(listSrv.selection$ | async).has(data.id)"

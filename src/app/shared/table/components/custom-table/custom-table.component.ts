@@ -9,7 +9,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./custom-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomTableComponent extends TrackingComponent implements OnChanges {
+export class CustomTableComponent extends TrackingComponent {
 	@Input() currentSort: Sort;
 	@Input() placeholder: string;
 	@Input() width: number;

@@ -13,6 +13,9 @@ import { WorkspaceFeatureService } from '~features/workspace/services/workspace-
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/filters/components';
 import { ProductListComponent } from '~deprecated/product-list/product-list.component';
+import { ProductFeatureService } from '~features/products/services';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
 // dailah lama: Make me one with everything.
@@ -57,9 +60,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private notifSrv: NotificationService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
+		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
-		private featureSrv: WorkspaceFeatureService,
 		protected dlgSrv: DialogService,
 	) {
 		super();
@@ -165,6 +168,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
 	}
 
+	getFilterAmount() {
+		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
+		const filters = this.listSrv.filterList.asFilters()
+			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
+		return filters.length;
+	}
+
 	onArchive(product: Product | Product[]) {
 		// TODO i18n
 		if (Array.isArray(product)) {
@@ -191,10 +201,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		}
 	}
 
-	getFilterAmount() {
-		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
-		const filters = this.listSrv.filterList.asFilters()
-			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
-		return filters.length;
+	onOpenCreateRequestDlg(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 }
