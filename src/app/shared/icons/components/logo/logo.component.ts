@@ -1,7 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, ElementRef, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
 import { AppImage, EntityName } from '~models';
 import { Colors, Color } from '~utils';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 export const colorMap = {
@@ -17,7 +16,15 @@ export const colorMap = {
 	[EntityName.SUPPLIER]: Color.VIBRANT,
 };
 
-type Sizes = 's' | 'm' | 'l' | 'xl';
+
+export type Size = 's' | 'm' | 'l' | 'xl';
+
+export const sizeMap: { [key in Size]: { background: number, icon: number } } = {
+	s: { background: 20, icon: 12 },
+	m: { background: 32, icon: 16 },
+	l: { background: 36, icon: 24 },
+	xl: { background: 92, icon: 40 }
+};
 
 @Component({
 	selector: 'logo-app',
@@ -26,35 +33,22 @@ type Sizes = 's' | 'm' | 'l' | 'xl';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'class': 'flexCenter',
-		// colors
-		'[class.primary]': 'color === "primary"',
-		'[class.secondary]': 'color === "secondary"',
-		'[class.warn]': 'color === "warn"',
-		'[class.success]': 'color === "success"',
-		'[class.accent]': 'color === "accent"',
-		'[class.vibrant]': 'color === "vibrant"',
-		// circle
 		'[class.circle]': 'circle === true',
-		// size
-		'[class.size-s]': 'size === "s"',
-		'[class.size-m]': 'size === "m"',
-		'[class.size-l]': 'size === "l"',
-		'[class.size-xl]': 'size === "xl"',
 	}
 })
-export class LogoComponent {
+export class LogoComponent implements OnInit {
 	/** we can supply an image to override the icon */
 	@Input() logo: AppImage;
 	/** type of entity so we can display its icon */
 	@Input() type: EntityName;
 	/** whether the background is a circle */
 	@Input() circle: boolean;
-	/** whether a background is displayed */
-	@Input() background = true;
 	/** size of the logo (background included) */
-	@Input() size: number | Sizes = 'm';
+	@Input() size: Size = 'm';
 	/** size of icon that can be overriden */
-	@Input() iconSize: number | Sizes;
+	@Input() iconSize: number;
+	/** size of background that can be overriden */
+	@Input() backgroundSize: number;
 
 	// getset to override the color if type is specified
 	/** displayed color */
@@ -65,13 +59,17 @@ export class LogoComponent {
 		private renderer: Renderer2
 	) {}
 
-	ngOnChange() {
+	ngOnInit() {
 		this.renderContainerSize();
-		this.iconSize = this.computeIconSize();
-		this.color = this.computeColor();
+		this.renderColor();
 	}
 
-	private computeColor() {
+	private renderColor() {
+		const el = this.elRef.nativeElement;
+		this.renderer.addClass(el, this.getComputedColor());
+	}
+
+	private getComputedColor() {
 		if (this.color)
 			return this.color;
 		if (colorMap[this.type])
@@ -79,26 +77,26 @@ export class LogoComponent {
 		throw Error('no color or type specified in logo');
 	}
 
-	private computeIconSize() {
-		if (this.iconSize) {
-			return this.iconSize;
-		}
-		switch (this.size) {
-			case 'm': return 16;
-			case 'l': return 23;
-			case 'xl': return 40;
-		}
+	private renderContainerSize() {
+		const backgroundSize = this.getComputedBgSize();
+		const iconSize = this.getComputedIconSize();
+		const el = this.elRef.nativeElement;
+		this.renderer.setStyle(el, 'height', `${backgroundSize}px`);
+		this.renderer.setStyle(el, 'width', `${backgroundSize}px`);
+		this.renderer.setStyle(el, 'font-size', `${iconSize}px`);
 	}
 
-	private renderContainerSize() {
-		const value = parseInt(this.size as any);
-		const el = this.elRef.nativeElement;
-		if (Number.isInteger(value)) {
-			this.renderer.setStyle(el, 'height', `${value}px`);
-			this.renderer.setStyle(el, 'width', `${value}px`);
-		} else {
-			this.renderer.removeStyle(el, 'height');
-			this.renderer.removeStyle(el, 'width');
-		}
+	private getComputedBgSize() {
+		return this.backgroundSize || this.getComputedSize().background;
+	}
+
+	private getComputedIconSize() {
+		return this.iconSize || this.getComputedSize().icon;
+	}
+
+	private getComputedSize() {
+		if (sizeMap[this.size])
+			return sizeMap[this.size];
+		throw Error(`${this.size} is not a valid size`);
 	}
 }

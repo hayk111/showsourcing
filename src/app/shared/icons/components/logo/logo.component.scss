@@ -1,5 +1,12 @@
 :host {
 	box-sizing: border-box;
+	border-radius: var(--border-radius);
+	overflow: hidden;
+
+	img {
+		width: 100%;
+		height: 100%;
+	}
 	// colors
 	&.primary {
 		background: var(--color-primary-light);

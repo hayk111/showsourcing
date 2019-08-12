@@ -1,13 +1,8 @@
-import {
-	Attribute,
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	Input,
-	ChangeDetectorRef,
-	OnChanges
-} from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, Renderer2, OnInit } from '@angular/core';
 import { FontSet } from '~shared/icons/components/font-set.enum';
+
+
+export type Sizes = 's' | 'm' | 'l' | 'inherit';
 
 @Component({
 	selector: 'icon-app',
@@ -16,14 +11,10 @@ import { FontSet } from '~shared/icons/components/font-set.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.flexCenter]': 'true',
-		'[class.fs-xxs]': 'size === \'xs\'',
-		'[class.fs-l]': 'size === \'s\'',
-		'[class.fs-xxl]': 'size === \'m\'',
-		'[class.fs-huge]': 'size === \'l\'',
-		'[style.font-size]': 'size + \'px\''
+		'[style.font-size]': 'getComputedSize()'
 	}
 })
-export class IconComponent implements OnChanges {
+export class IconComponent implements OnInit {
 
 	@Input() name: string;
 	// symbols give perf gains but are less configurable
@@ -32,22 +23,12 @@ export class IconComponent implements OnChanges {
 
 	// the size accepts any number and specific sizes as: xs, s, m and l.
 	@Input()
-	set size(size: number | string) {
-		this._size = size;
-	}
-	get size() {
-		if (isNaN(this._size as any)) {
-			return `var(--fs-${this._size})`;
-		} else {
-			return `${this._size}px`;
-		}
-	}
-	private _size: number | string = 'inherit';
+	size: number | Sizes = 'inherit';
 
 	constructor(
-		elementRef: ElementRef,
-		@Attribute('aria-hidden') ariaHidden: string,
-		private cdr: ChangeDetectorRef
+		private elementRef: ElementRef,
+		private renderer: Renderer2,
+		@Attribute('aria-hidden') ariaHidden: string
 	) {
 		// If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
 		// the right thing to do for the majority of icon use-cases.
@@ -56,9 +37,26 @@ export class IconComponent implements OnChanges {
 		}
 	}
 
-	ngOnChanges(changes) {
-		if (changes.name && changes.name.currentValue) {
-			this.cdr.markForCheck();
+	ngOnInit() {
+		this.setSizeElem();
+	}
+
+	private setSizeElem() {
+		const el = this.elementRef.nativeElement;
+		this.renderer.setStyle(el, 'font-size', this.getComputedSize());
+	}
+
+	private getComputedSize() {
+		switch (this.size) {
+			case 's':
+			case 'm':
+			case 'l':
+				return `var(--font-size-icon-${this.size})`;
+			case 'inherit':
+				return 'inherit';
+			default:
+				return `${this.size}px`;
 		}
 	}
+
 }

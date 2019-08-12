@@ -1,8 +1,8 @@
 
 
-<img *ngIf="logo; else icon" [src]="logo"/>
+<img *ngIf="logo; else icon" [src]="logo | image:'s'"/>
 
 <ng-template #icon>
-	<icon-app [name]="type" [size]="iconSize"></icon-app>
+	<icon-app [name]="type"></icon-app>
 </ng-template>
 
