@@ -4,26 +4,26 @@ export abstract class AbstractDescriptorComponent {
 
 	descriptor: DynamicField[];
 
-	constructor() { }
-
-	/**
-	 * returns a full descriptor except the names that match in the excpetion array
-	 * @param exception array containing the name of the attributes of the entity that we want to filter
-	 */
-	getAll(exception?: string[]) {
-		const filteredDescriptor = exception ?
-			this.descriptor.filter(item => !(exception.includes(item.name))) :
-			this.descriptor;
-		return filteredDescriptor;
+	constructor(only?: string[]) {
+		this.getOnly(only);
 	}
 
 	/**
-	 * returns a descriptor only taking into account the names that match inside the array only
+	 * returns an orderded descriptor only taking into account the order and names that match inside the array only. o
 	 * @param only string array containing the name of the attributes of the entity that we want to filter
 	 */
 	getOnly(only: string[]) {
-		const filteredDescriptor = this.descriptor.filter(item => only.includes(item.name));
-		return filteredDescriptor;
+		if (only && only.length) {
+			const orderedDescriptor = only.reduce((acc, val) => {
+				const descriptorFound = this.descriptor.find(item => item.name === val);
+				if (descriptorFound)
+					acc.concat(descriptorFound);
+				return acc;
+			}, []);
+			this.descriptor = [...orderedDescriptor];
+		}
+
+		return this.descriptor;
 	}
 
 	/**
