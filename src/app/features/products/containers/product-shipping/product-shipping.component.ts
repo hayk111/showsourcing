@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { ProductDescriptor } from '~core/descriptors';
 import { ProductService } from '~core/entity-services';
-import { ERM, Product } from '~core/models';
-import { DynamicField } from '~shared/dynamic-forms';
-import { AutoUnsub, translate } from '~utils';
+import { Product } from '~core/models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-shipping-app',
@@ -17,36 +17,7 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 
 	product$: Observable<Product>;
 	product: Product;
-
-	customFields: DynamicField[] = [
-		// TODO i18n
-		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
-		{ name: 'sample', type: 'title' },
-		{ name: 'sample', type: 'boolean' },
-		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
-		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
-		// we need this empty objects since innercarton, mastercarton, pricematrix, have more rows inside the dynamic form
-		// therefore we have to add extra spaces, so we get the correct alignment
-		{},
-		{},
-		{},
-		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
-		{ name: 'shipping', type: 'title' },
-		{
-			name: 'incoTerm', type: 'selector', label: 'INCO Term',
-			metadata: { target: ERM.INCO_TERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
-		},
-		{
-			name: 'harbour', type: 'selector', label: 'loading port',
-			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
-		},
-		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
-		{ name: 'quantityPer20ft', type: 'number', label: `Quantity per 20'` },
-		{ name: 'quantityPer40ft', type: 'number', label: `Quantity per 40'` },
-		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
-	];
-
-	erm = ERM;
+	productDescriptor: ProductDescriptor;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -63,6 +34,19 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 			tap(product => this.product = product),
 			tap(_ => this.cd.markForCheck())
 		);
+
+		this.productDescriptor = new ProductDescriptor([
+			'innerCarton', 'sample', 'samplePrice', 'priceMatrix', 'masterCarton', 'incoTerm',
+			'harbour', 'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC'
+		]);
+
+		this.productDescriptor.insert({ name: 'sample', type: 'title' }, 'sample');
+		this.productDescriptor.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
+		// we need this empty objects since innercarton, mastercarton, pricematrix, have more rows inside the dynamic form
+		// therefore we have to add extra spaces, so we get the correct alignment
+		this.productDescriptor.insert({ name: 'blank' }, 'masterCarton');
+		this.productDescriptor.insert({ name: 'blank' }, 'masterCarton');
+		this.productDescriptor.insert({ name: 'blank' }, 'masterCarton');
 	}
 
 	update(product: Product) {

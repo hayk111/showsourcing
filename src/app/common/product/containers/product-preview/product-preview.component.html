@@ -86,7 +86,7 @@
 	<preview-section-app [title]="'product details'" i18n-title="@@product-details">
 		<dynamic-form-app
 			[inlineLabel]="true"
-			[fields]="customFields"
+			[fields]="productDescriptor1?.descriptor"
 			[value]="product"
 			[colAmount]="1"
 			(update)="updateProduct($event)">
@@ -107,7 +107,7 @@
 	<preview-section-app [title]="'trading information'" i18n-title="@@trading-information">
 		<dynamic-form-app
 			[inlineLabel]="true"
-			[fields]="customFields2"
+			[fields]="productDescriptor2?.descriptor"
 			[value]="product"
 			[colAmount]="1"
 			(update)="updateProduct($event)">

@@ -2,11 +2,12 @@ import { DynamicField } from '~shared/dynamic-forms';
 
 export abstract class AbstractDescriptorComponent {
 
-	descriptor: DynamicField[];
-
-	constructor(only?: string[]) {
-		this.getOnly(only);
+	protected _descriptor: DynamicField[];
+	get descriptor() {
+		return this._descriptor;
 	}
+
+	constructor() { }
 
 	/**
 	 * returns an orderded descriptor only taking into account the order and names that match inside the array only. o
@@ -15,15 +16,16 @@ export abstract class AbstractDescriptorComponent {
 	getOnly(only: string[]) {
 		if (only && only.length) {
 			const orderedDescriptor = only.reduce((acc, val) => {
-				const descriptorFound = this.descriptor.find(item => item.name === val);
-				if (descriptorFound)
-					acc.concat(descriptorFound);
+				const descriptorFound = this._descriptor.find(item => item.name === val);
+				if (descriptorFound) {
+					acc.push(descriptorFound);
+				}
 				return acc;
 			}, []);
-			this.descriptor = [...orderedDescriptor];
+			this._descriptor = [...orderedDescriptor];
 		}
 
-		return this.descriptor;
+		return this._descriptor;
 	}
 
 	/**
@@ -32,17 +34,28 @@ export abstract class AbstractDescriptorComponent {
 	 */
 	modify(newValues: DynamicField[]) {
 		this.itemsAreValid(newValues);
-		const modifiedDescriptor = this.descriptor.map(item => {
-			let updateDescriptor = item;
+		const modifiedDescriptor = this._descriptor.map(item => {
+			let currentValue = item;
 			// if the name is the same that means that we have to udpate
-			const index = newValues.findIndex(value => value.name === item.name);
-			if (index !== -1) {
-				updateDescriptor = ({ ...updateDescriptor, ...newValues[index] });
+			const updatedValue = newValues.find(value => value.name === item.name && item.type !== 'title');
+			if (updatedValue) {
+				if (updatedValue.metadata && currentValue.metadata) {
+					currentValue = ({
+						...currentValue,
+						...updatedValue,
+						metadata: { ...currentValue.metadata, ...updatedValue.metadata }
+					});
+				} else {
+					currentValue = ({
+						...currentValue,
+						...updatedValue
+					});
+				}
 			}
-			return updateDescriptor;
+			return currentValue;
 		});
 
-		this.descriptor = [...modifiedDescriptor];
+		this._descriptor = [...modifiedDescriptor];
 	}
 
 	/**
@@ -53,12 +66,12 @@ export abstract class AbstractDescriptorComponent {
 	insert(newValue: DynamicField, name: string) {
 		this.itemsAreValid([newValue], 'insert to');
 		// if the index
-		const indexToInsert = this.descriptor.findIndex(item => item.name === name);
+		const indexToInsert = this._descriptor.findIndex(item => item.name === name);
 		if (indexToInsert === -1)
 			throw Error(`there is no name on the descriptor with name ${name} to insert new value`);
 
 		// we insert the new value
-		this.descriptor.splice(indexToInsert, 0, newValue);
+		this._descriptor.splice(indexToInsert, 0, newValue);
 	}
 
 	/**

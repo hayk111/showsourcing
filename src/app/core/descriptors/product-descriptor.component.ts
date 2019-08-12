@@ -3,10 +3,10 @@ import { DynamicField } from '~shared/dynamic-forms';
 import { translate } from '~utils';
 import { AbstractDescriptorComponent } from './abstract-descriptor.component';
 
-export class ProductDescriptorComponent extends AbstractDescriptorComponent {
+export class ProductDescriptor extends AbstractDescriptorComponent {
 
 	// TODO i18n
-	descriptor: DynamicField[] = [
+	protected _descriptor: DynamicField[] = [
 		{ name: 'archived', type: 'boolean' },
 		{ name: 'favorite', type: 'boolean' },
 		{ name: 'sample', type: 'boolean', label: translate('sample available') },
@@ -22,6 +22,7 @@ export class ProductDescriptorComponent extends AbstractDescriptorComponent {
 
 		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
 		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
+		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
 
 		{ name: 'description', type: 'text' },
 		{ name: 'name', type: 'text', required: true, label: translate('name') },
@@ -34,8 +35,8 @@ export class ProductDescriptorComponent extends AbstractDescriptorComponent {
 
 		{
 			name: 'assignee', type: 'selector',
+			label: translate('assigned to'),
 			metadata: {
-				width: 500,
 				target: ERM.USER.singular,
 				placeholder: `${translate('choose')} ${translate('assignee')}`
 			}
@@ -47,7 +48,6 @@ export class ProductDescriptorComponent extends AbstractDescriptorComponent {
 				target: ERM.CATEGORY.singular,
 				canCreate: true,
 				hasBadge: true,
-				width: 495
 			}
 		},
 		{
@@ -58,7 +58,7 @@ export class ProductDescriptorComponent extends AbstractDescriptorComponent {
 				type: 'entity',
 				labelName: 'name',
 				canCreate: true,
-				hideLogo: true
+				hasBadge: true
 			}
 		},
 		{
@@ -68,7 +68,6 @@ export class ProductDescriptorComponent extends AbstractDescriptorComponent {
 				target: ERM.HARBOUR.singular,
 				canCreate: false,
 				multiple: false,
-				width: 495
 			}
 		},
 		{
@@ -78,7 +77,6 @@ export class ProductDescriptorComponent extends AbstractDescriptorComponent {
 				target: ERM.INCO_TERM.singular,
 				canCreate: false,
 				multiple: false,
-				width: 495
 			}
 		},
 		{
@@ -90,7 +88,6 @@ export class ProductDescriptorComponent extends AbstractDescriptorComponent {
 				multiple: true,
 				canCreate: true,
 				hasBadge: true,
-				width: 495
 			}
 		},
 		{
@@ -100,7 +97,6 @@ export class ProductDescriptorComponent extends AbstractDescriptorComponent {
 				target: ERM.SUPPLIER.singular,
 				canCreate: true,
 				hasBadge: true,
-				width: 495
 			}
 		},
 		{
@@ -112,13 +108,38 @@ export class ProductDescriptorComponent extends AbstractDescriptorComponent {
 				multiple: true,
 				canCreate: true,
 				hasBadge: true,
-				width: 495
 			}
+		},
+
+		{
+			name: 'createdBy',
+			type: 'selector',
+			label: translate('created by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'creationDate',
+			type: 'date',
+			label: translate('creation date'),
+			metadata: { disabled: true }
+		},
+		{
+			name: 'lastUpdatedBy',
+			type: 'selector',
+			label: translate('last updated by'),
+			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+		},
+		{
+			name: 'lastUpdatedDate',
+			type: 'date',
+			label: translate('last updated date'),
+			metadata: { disabled: true }
 		}
 	];
 
-	constructor() {
+	constructor(only?: string[]) {
 		super();
+		this.getOnly(only);
 	}
 
 }

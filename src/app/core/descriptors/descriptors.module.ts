@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ProductDescriptorComponent } from './product-descriptor.component';
+import { ProductDescriptor } from './product-descriptor.component';
 
 const common = [
-	ProductDescriptorComponent
+	ProductDescriptor
 ];
 
 @NgModule({
