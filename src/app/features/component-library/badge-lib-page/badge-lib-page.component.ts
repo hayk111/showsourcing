@@ -13,6 +13,6 @@ export class BadgeLibPageComponent {
 	statuses = [
 		{ step: 1, name: 'in progress', category: 'inProgress'},
 		{ step: 2, name: 'validated', category: 'validated'},
-		{ step: 3, name: 'rejected', category: 'rejected'}
+		{ step: 3, name: 'refused', category: 'refused'}
 	];
 }
