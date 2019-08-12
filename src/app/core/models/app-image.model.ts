@@ -26,3 +26,22 @@ export interface AppImageConfig {
 	pending?: boolean;
 	urls?: ImageUrl[];
 }
+
+
+// MOCK
+const urls = ['xs', 's', 'm', 'l', 'xl'].map(size => ({
+	url: `https://files.showsourcing.com/${size}/84815f96-27d8-42c7-9f4f-1d8df5a9558d.jpg`,
+	__typename: 'ImageUrl',
+	id: '',
+	maxHeight: 1,
+	maxWidth: 1
+}));
+
+export const imageMock: AppImage = {
+	fileName: 'test.jpg',
+	urls,
+	__typename: 'Image',
+	orientation: 0,
+	deleted: false,
+	imageType: 'Photo'
+} as any;

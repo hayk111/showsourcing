@@ -10,6 +10,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
+				<!-- TODO change those icons to use logo instead -->
 				<icon-app name="product" backgroundColor="primary"></icon-app>
 				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>

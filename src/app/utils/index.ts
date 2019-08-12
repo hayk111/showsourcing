@@ -18,3 +18,5 @@ export * from './status-to-color.function';
 export * from './tracking-component';
 export * from './translate.utils';
 export * from './uuid.utils';
+export * from './colors.enum';
+
