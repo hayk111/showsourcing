@@ -4,7 +4,6 @@ import {
 	DEFAULT_EVENT_ICON,
 	DEFAULT_IMG,
 	DEFAULT_PRODUCT_ICON,
-	DEFAULT_PRODUCT_LIST_ICON,
 	DEFAULT_PROJECT_ICON,
 	DEFAULT_REQUEST_ICON,
 	DEFAULT_SAMPLE_ICON,
@@ -91,9 +90,9 @@ export class ImagePipe implements PipeTransform {
 		}
 	}
 
+	/** @deprecated logo is used where there needs a default */
 	/** gets the correct icon for selectors inputs */
 	getDefault(type: string) {
-		// TODO use entity metadata
 		switch (type) {
 			case 'category':
 				return DEFAULT_CATEGORY_ICON;
@@ -101,8 +100,6 @@ export class ImagePipe implements PipeTransform {
 				return DEFAULT_EVENT_ICON;
 			case 'product':
 				return DEFAULT_PRODUCT_ICON;
-			case 'product-list':
-				return DEFAULT_PRODUCT_LIST_ICON;
 			case 'project':
 				return DEFAULT_PROJECT_ICON;
 			case 'request':

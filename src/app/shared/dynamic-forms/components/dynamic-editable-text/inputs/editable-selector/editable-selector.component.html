@@ -95,9 +95,10 @@
 		<!-- others we display an icon and the value next to it -->
 		<!-- hidelogo is whether we want to display the default logos or not, by default we display them -->
 		<ng-container *ngSwitchDefault>
-			<img class="defaultLabelIcon"
+			<!-- TODO change this to logo -->
+			<!-- <img class="defaultLabelIcon"
 				*ngIf="(value | logo:customField?.metadata?.target) && !inlineLabel && !customField?.metadata?.hideLogo"
-				[src]="value | logo:customField?.metadata?.target" />
+				[src]="value | logo:customField?.metadata?.target" /> -->
 			<span class="ellipsis fullWidth">
 				{{ value ? value[labelName] : '-' }}
 			</span>

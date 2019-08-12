@@ -33,6 +33,31 @@ import { RequestTemplate } from './request-template.model';
 import { SupplierRequest } from './supplier-request.model';
 
 
+export enum EntityName {
+	ATTACHMENT = 'attachment',
+	CATEGORY = 'category',
+	COMMENT = 'comment',
+	CONTACT = 'contact',
+	COUNTRY = 'country',
+	CURRENCY = 'currency',
+	EMAIL = 'email',
+	EVENT = 'event',
+	FILE = 'file',
+	HARBOUR = 'harbour',
+	IMAGE = 'image',
+	INVITATION = 'invitation',
+	PRODUCT = 'product',
+	PROJECT = 'project',
+	REQUEST = 'request',
+	SAMPLE = 'sample',
+	SUPPLIER = 'supplier',
+	TAG = 'tag',
+	TASK = 'task',
+	TEAM = 'team',
+	USER = 'user'
+}
+
+
 export class EntityMetadata {
 	readonly constClass: new (...args: any[]) => any;
 	readonly singular: string;

@@ -8,8 +8,8 @@ dialog-app {
 }
 
 .left {
-	border-right: 1px solid var(--color-divider);
-	// background: var(--color-secondary-light);
+	border-right: 1px solid var(--legacy-color-divider);
+	// background: var(--legacy-color-secondary-light);
 	width: 363px;
 	input {
 		// background: white;
@@ -23,13 +23,13 @@ dialog-app {
 	}
 
 	list-item-app.selected {
-		background: var(--color-secondary-light);
-		color: var(--color-txt);
+		background: var(--legacy-color-secondary-light);
+		color: var(--legacy-color-txt);
 	}
 
 	list-item-app:hover {
 		.name {
-			color: var(--color-primary);
+			color: var(--legacy-color-primary);
 		}
 		.delete {
 			visibility: visible;

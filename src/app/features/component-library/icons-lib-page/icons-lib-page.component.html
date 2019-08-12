@@ -1,0 +1,58 @@
+
+<card-app>
+	<h3 class="mg-l">Icons</h3>
+	name="product" (default to inherit font-size)
+	<icon-app name="product"></icon-app>
+	name="product" [size]="24"
+	<icon-app name="product" [size]="24"></icon-app>
+	name="product" [size]="'s'" || [size]="'m'" ||  [size]="'l'" 
+	<div class="flex">
+		<icon-app name="product" [size]="'s'"></icon-app>
+		<icon-app name="product" [size]="'m'"></icon-app>
+		<icon-app name="product" [size]="'l'"></icon-app>
+	</div>
+</card-app>
+
+
+<card-app>
+	<h3 class="mg-l">Logos</h3>
+	
+	<b>Color</b> <br>
+	type="product" || type="supplier" || type="sample" (use type color)
+	<div class="flex">
+		<logo-app type="product"></logo-app>
+		<logo-app type="supplier"></logo-app>
+		<logo-app type="sample"></logo-app>
+	</div>
+	type="product" color="primary" || color="secondary" || color="vibrant" 
+	<div class="flex">
+		<logo-app type="product" color="primary"></logo-app>
+		<logo-app type="product" color="secondary"></logo-app>
+		<logo-app type="product" color="vibrant"></logo-app>
+	</div>
+
+	<br><br> 
+	<b>Circle</b> <br>
+	type="product" [circle]="true" color="accent" (makes it round)
+	<logo-app type="product" [circle]="true" color="accent"></logo-app>
+
+	<br><br>
+	<b>Size</b> <br>
+	<div class="flex">
+		type="product" size="s" | size="m" | size="l"
+		<logo-app type="product" size="s"></logo-app>
+		<logo-app type="product" size="m"></logo-app>
+		<logo-app type="product" size="l"></logo-app>
+	</div>
+
+
+	<div class="flex">
+		type="product" [backgroundSize]="60" [iconSize]="35"
+		<logo-app type="product" [backgroundSize]="60" [iconSize]="35"></logo-app>
+	</div>
+
+	<br><br>
+	<b>Image</b> <br>
+	type="product" [logo]="imageMock"
+	<logo-app type="product" [logo]="imageMock"></logo-app>
+</card-app>

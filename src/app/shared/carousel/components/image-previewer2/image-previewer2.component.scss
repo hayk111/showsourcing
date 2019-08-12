@@ -29,11 +29,11 @@
 	position: absolute;
 	color: white;
 	right: 0;
-	background: var(--color-warn);
+	background: var(--legacy-color-warn);
 	width: 20px;
 	height: 20px;
 	&:hover {
-		background: var(--color-warn);
+		background: var(--legacy-color-warn);
 	}
 }
 .last-item {

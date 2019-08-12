@@ -1,7 +1,9 @@
 :host {
 	display: block;
-	background: var(--color-bg);
+	background: var(--legacy-color-bg);
 	border-radius: var(--border-radius);
+
+	// TODO check supplier request details dialog
 }
 
 

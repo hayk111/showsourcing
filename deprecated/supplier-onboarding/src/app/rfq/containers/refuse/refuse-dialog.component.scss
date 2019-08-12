@@ -4,14 +4,14 @@ dialog-app {
   h2 {
     font-size: 13px;
     font-weight: bold;
-    color: var(--color-txt-strong);
+    color: var(--legacy-color-txt-strong);
     margin-top: 24px;
     margin-bottom: 10px;
     text-transform: none;
   }
 
   .text {
-    color: var(--color-txt-primary);
+    color: var(--legacy-color-txt-primary);
     font-size: 13px;
   }
 

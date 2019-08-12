@@ -34,8 +34,8 @@ dialog-header-app {
 	margin-right: var(--spacing-xs);
 
 	.info-banner {
-		background: var(--color-secondary-light);
-		color: var(--color-primary);
+		background: var(--legacy-color-secondary-light);
+		color: var(--legacy-color-primary);
 		height: 62px;
 		font-size: var(--font-size-l);
 	}

@@ -9,7 +9,7 @@
   .description-text {
     font-family: var(--font-normal);
     font-size: var(--font-size-m);
-    color: var(--color-txt-strong);
+    color: var(--legacy-color-txt-strong);
 	}
 
 }
@@ -43,5 +43,5 @@ button.view-more {
 
 .text-more {
 	cursor: pointer;
-	color: var(--color-primary);
+	color: var(--legacy-color-primary);
 }

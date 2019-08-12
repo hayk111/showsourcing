@@ -11,13 +11,13 @@
 
 	h1 {
 		font-size: var(--font-size-xxxl);
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 		font-weight: 600;
 		margin-bottom: var(--spacing-m);
 	}
 	label {
 		font-size: var(--font-size-xl);
-		color: var(--color-txt-primary);
+		color: var(--legacy-color-txt-primary);
 		font-weight: normal;
 	}
 }
@@ -32,7 +32,7 @@
 		icon-app {
 			font-size: 44px;
 			cursor: default;
-			color: var(--color-secondary-dark);
+			color: var(--legacy-color-secondary-dark);
 			margin-bottom: var(--spacing-ms);
 			margin-left: var(--spacing-s);
 		}
