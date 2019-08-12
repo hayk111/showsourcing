@@ -24,7 +24,12 @@ card-app {
 		padding-left: 0px;
 		border-radius: var(--border-radius);
 
+		.project-row-info {
+			width: calc(100% - 22px); // width - size of the minus icon
+		}
+
 		.middle {
+			width: calc(100% - 44px); // width - (project icon + margin)
 			justify-content: center;
 
 			.name {

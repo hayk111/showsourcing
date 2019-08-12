@@ -10,25 +10,32 @@ activity-user-app {
 	padding-bottom: var(--spacing-ms);
 }
 
+.supplier {
+	width: 100%;
+}
 
-.supplierImg {
+.supplier-img {
 	height: 32px;
 	width: 32px;
 	margin-right: var(--spacing-ms);
 }
 
-.supplierName {
-	line-height: 1;
-	font-weight: 600;
-	color: var(--color-txt-strong);
-	letter-spacing: -0.3px;
-}
+.supplier-info {
+	width: calc(100% - 44px); // .supplier-image width + margin
 
-.supplierType {
-	margin-top: var(--spacing-xs);
-	font-size: var(--font-size-s);
-	color: var(--color-txt-secondary);
-	letter-spacing: -0.1px;
+	.supplier-type {
+		margin-top: var(--spacing-xs);
+		font-size: var(--font-size-s);
+		color: var(--color-txt-secondary);
+		letter-spacing: -0.1px;
+	}
+
+	.supplier-name {
+		line-height: 1;
+		font-weight: 600;
+		color: var(--color-txt-strong);
+		letter-spacing: -0.3px;
+	}
 }
 
 card-footer-app {

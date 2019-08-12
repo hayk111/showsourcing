@@ -14,12 +14,14 @@
 	}
 }
 
+$left-width: 68px;
+
 .card-container {
 	height: 100%;
 	margin: var(--spacing-s);
 
 	.left {
-    width: 68px;
+    width: $left-width;
 		margin-right: var(--spacing-s);
 		position: relative;
 
@@ -32,7 +34,7 @@
 	}
 
 	.right {
-		width: 232px;
+		width: calc(100% - #{$left-width} - #{var(--spacing-s)});
 		margin: 0px var(--spacing-xs);
 
 		& > * {
@@ -42,10 +44,16 @@
 		.center-section {
 			.name {
 				color: var(--color-primary);
+				max-width: 50%;
 			}
-			.supplier::before {
-				content: "\00a0 \00a0 \2022 \00a0 \00a0";
-				font-weight: bolder;
+
+			.supplier {
+				max-width: 50%;
+
+				&::before {
+					content: "\00a0 \00a0 \2022 \00a0 \00a0";
+					font-weight: bolder;
+				}
 			}
 		}
 
