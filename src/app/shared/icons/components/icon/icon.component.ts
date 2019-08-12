@@ -38,7 +38,7 @@ export class IconComponent implements OnChanges {
 		if (this._color) {
 			this.customStyle = {
 				...this.customStyle,
-				'color': value,
+				'color': `var(--color-${value})`,
 			};
 		}
 	}
@@ -51,7 +51,7 @@ export class IconComponent implements OnChanges {
 		if (this._backgroundColor) {
 			this.customStyle = {
 				'background-color': `var(--color-${value})`,
-				'color': this._color ? this._color : 'white',
+				'color': this._color ? `var(--color-${this._color})` : 'white' ,
 				'border-radius': 'var(--spacing-xs)',
 				'padding': '3px'
 			};

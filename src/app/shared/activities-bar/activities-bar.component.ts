@@ -22,8 +22,12 @@ export class ActivitiesBarComponent implements OnInit {
 	}
 
 	getAvgVotes(votes: any[]): number {
-		const votesVals = votes.map(v => v.value);
-		const sum = votesVals.reduce((a, b) => a + b, 0);
-		return Math.round( sum / votes.length * 10 ) / 10;
+		if (votes.length) {
+			const votesVals = votes.map(v => v.value);
+			const sum = votesVals.reduce((a, b) => a + b, 0);
+			return Math.round( sum / votes.length * 10 ) / 10;
+		} else {
+			return -1;
+		}
 	}
 }

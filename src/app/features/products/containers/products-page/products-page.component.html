@@ -13,8 +13,17 @@
 	[hasFilter]="true"
 	[hasSwitch]="true"
 	[view]="listSrv.view"
+	[count]="listSrv.count$ | async"
+	entityType="products"
+	searchType="short"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
+	(clearFilters)="onClearFilters()"
+	(showArchived)="onShowArchived()"
+	(hideArchived)="onHideArchived()"
+	(showAssigned)="onShowAssignee()"
+	(hideAssigned)="onHideAssignee()"
+	(export)="onExport()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
@@ -119,7 +128,8 @@
 		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()">
+		(clickOutside)="listSrv.closeFilterPanel()"
+		#child>
 	</filters-app>
 
 	<product-preview-app

@@ -98,7 +98,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	// should be fixed. The function should return open requests count for every product
 	getProductOpenRequests(product: Product): Observable<number> {
 		// return this.requestElementService.queryCount(`targetId == "${product.id}"`).pipe(first());
-		return of(1);
+		return of(1); // just a value for testing
 	}
 
 	// links a column in the descriptor with one of the template defined in product-list-view.component.html

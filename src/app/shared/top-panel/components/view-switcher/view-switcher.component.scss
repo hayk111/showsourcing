@@ -10,9 +10,10 @@
 }
 
 :host {
-	border-radius: 2px;
 	background: var(--color-secondary);
 	position: relative;
+  height: 32px;
+  border-radius: 4px;
 }
 
 .ctnr {

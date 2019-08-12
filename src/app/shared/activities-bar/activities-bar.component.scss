@@ -1,3 +1,33 @@
 :host ::ng-deep icon-app {
 	margin: 0 5px;
 }
+
+:host ::ng-deep icon-app.star {
+	display: inline;
+	margin: 0 2px 0 0;
+}
+
+.vote-star-container {
+	cursor: pointer;
+	width: 45px;
+	border-radius: 4px;
+	color: var(--color-accent);
+	margin: 0 5px;
+}
+
+.vote-star-value {
+	width: 19px;
+  height: 18px;
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+	color: var(--color-accent-contrast);
+	margin: 0 0 0 2px;	
+}
+
+.light-background {
+	background-color: var(--color-accent-light);
+}

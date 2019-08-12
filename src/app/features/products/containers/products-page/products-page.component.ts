@@ -1,17 +1,18 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, filter } from 'rxjs/operators';
+import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ProductService, UserService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
-import { FilterType } from '~shared/filters';
+import { FilterType, Filter } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
 import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
-
+import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/filters/components';
+import { FiltersService } from '~shared/filters/services';
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
 // dailah lama: Make me one with everything.
@@ -26,6 +27,9 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+	@ViewChildren('child')
+	public children: QueryList<FiltersComponent>;
+
 	erm = ERM;
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
@@ -52,6 +56,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private userSrv: UserService,
 		private featureSrv: WorkspaceFeatureService,
 		protected dlgSrv: DialogService,
+		private filtersService: FiltersService,
 	) {
 		super();
 	}
@@ -86,6 +91,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	ngAfterViewInit() {
 		this.listSrv.loadData(this._destroy$);
+		this.onClearFilters();
 	}
 
 	onViewChange(view: 'list' | 'card') {
@@ -94,6 +100,34 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	onFavourite(product: Product) {
 		this.listSrv.onItemFavorited(product.id);
+	}
+
+	onClearFilters() {
+		this.listSrv.filterList.resetAll();
+	}
+
+	onShowArchived() {
+		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
+		this.listSrv.addFilter(archivedFilter);
+	}
+
+	onHideArchived() {
+		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
+		this.listSrv.removeFilter(archivedFilter);
+	}
+
+	onShowAssignee() {
+		const assigneeFilter = { type: FilterType.ASSIGNEE, value: true };
+		this.listSrv.addFilter(assigneeFilter);
+	}
+
+	onHideAssignee() {
+		const assigneeFilter = { type: FilterType.ASSIGNEE, value: true };
+		this.listSrv.removeFilter(assigneeFilter);
+	}
+
+	onExport() {
+		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
 	}
 
 	onArchive(product: Product | Product[]) {
