@@ -3,10 +3,10 @@ icon-app {
 }
 
 .header-favorited {
-	background-color: var(--color-warn);
+	background-color: var(--legacy-color-warn);
 	color: white;
 	&:hover {
-		background-color: var(--color-warn);
+		background-color: var(--legacy-color-warn);
 	}
 }
 

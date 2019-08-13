@@ -10,7 +10,7 @@ card-header-app, image-previewer-app{
 
 .empty {
 	font-style: italic;
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 	img {
 		margin-bottom: var(--spacing-s);
 	}
@@ -22,7 +22,7 @@ rating-heart-app {
 	left: 40px;
 	width: 40px;
 	height: 40px;
-	color: var(--color-txt);
+	color: var(--legacy-color-txt);
 	background: rgba(255, 255, 255, 0.2);
 	border-radius: 50%;
 	z-index: var(--z-button);

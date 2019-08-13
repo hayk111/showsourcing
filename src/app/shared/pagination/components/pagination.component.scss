@@ -42,14 +42,14 @@
 	box-sizing: border-box;
 	margin: var(--spacing-ms) 0;
 	icon-app {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 		font-size: var(--spacing-l);
 		cursor: pointer;
 		margin: 0 var(--spacing-s);
 		margin-top: 2px;
 
 		&.disabled {
-			color: var(--color-txt-secondary);
+			color: var(--legacy-color-txt-secondary);
 			cursor: default;
 		}
 	}

@@ -3,7 +3,7 @@ context-menu-trigger-app {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: var(--color-primary);
+	background-color: var(--legacy-color-primary);
 	padding-left: 25px;
 	padding-right: 10px;
 	margin-right: 15px;
@@ -24,7 +24,7 @@ context-menu-item-app {
 	width: 200px;
 
 	&.remove-user {
-		color: var(--color-warn);
+		color: var(--legacy-color-warn);
 	}
 }
 
@@ -43,8 +43,8 @@ nav {
 		cursor: pointer;
 		&.active {
 			font-weight: bold;
-			color: var(--color-primary);
-			border-color: var(--color-primary);
+			color: var(--legacy-color-primary);
+			border-color: var(--legacy-color-primary);
 		}
 	}
 }

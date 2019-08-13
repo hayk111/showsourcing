@@ -33,18 +33,18 @@ card-app {
 			justify-content: center;
 
 			.name {
-				color: var(--color-txt-strong);
+				color: var(--legacy-color-txt-strong);
 			}
 			.description {
 				margin-top: 2px;
 				height: var(--spacing-m);
-				color: var(--color-txt-primary);
+				color: var(--legacy-color-txt-primary);
 				font-size: var(--font-size-s);
 			}
 		}
 		.minus {
 			display: none;
-			color: var(--color-warn);
+			color: var(--legacy-color-warn);
 		}
 		&:hover .minus {
 			display: block;
@@ -62,7 +62,7 @@ card-app {
 
 	.no-projects {
 		font-size: var( --font-size-xxxl);
-    color: var(--color-txt-strong);
+    color: var(--legacy-color-txt-strong);
     font-weight: 600;
     display: flex;
     justify-content: center;

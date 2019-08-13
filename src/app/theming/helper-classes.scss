@@ -129,19 +129,19 @@
 
 // colors
 .selected {
-	color: var(--color-primary);
+	color: var(--legacy-color-primary);
 }
 
 // hr
 .hr {
 	height: 1px;
-	background: var(--color-divider);
+	background: var(--legacy-color-divider);
 	width: 100%;
 }
 
 .hr2 {
 	height: 2px;
-	background: var(--color-divider);
+	background: var(--legacy-color-divider);
 	width: 100%;
 }
 
@@ -197,7 +197,7 @@
 		&:not(:last-child)::before {
 			content: " ";
 			position: absolute;
-			border-left: 1px var(--color-secondary) solid;
+			border-left: 1px var(--legacy-color-secondary) solid;
 			top: 20%;
 			right: 0;
 			height: 80%;

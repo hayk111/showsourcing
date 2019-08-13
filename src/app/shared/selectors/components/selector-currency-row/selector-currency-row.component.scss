@@ -4,7 +4,7 @@
 	cursor: pointer;
 
 	&.active, &:hover {
-		background-color: var(--color-primary);
+		background-color: var(--legacy-color-primary);
 		color: #fff;
 		.currency {
 			color: white;
@@ -15,6 +15,6 @@
 .currency {
 	margin-right: var(--spacing-ms);
 	font-weight: 600;
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	width: 26px;
 }

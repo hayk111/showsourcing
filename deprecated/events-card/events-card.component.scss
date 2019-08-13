@@ -5,22 +5,22 @@ h4 { //ms color-txt-strong
 .event {
 	margin: var(--spacing-l) 0;
 	.dateSquare {
-		background: var(--color-secondary-light);
+		background: var(--legacy-color-secondary-light);
 		font-size: var(--font-size-xs);
 		width: 34px;
 		height: 34px;
 		margin-right: var(--spacing-s);
 		.month {
-			color: var(--color-primary);
+			color: var(--legacy-color-primary);
 			font-weight: 600;
 		}
 	}
 	.name {
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 		font-size: var(--fopnt-size-l);
 		font-weight: 600;
 	}
 	.address {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 	}
 }

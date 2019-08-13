@@ -1,7 +1,7 @@
 
 h1 {
 	font-size: var(--font-size-xxxl);
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	font-weight: 600;
 	margin-bottom: 53px;
 }
@@ -11,7 +11,7 @@ search-bar-app {
 	width: 100%;
 	margin-bottom: 60px;
 	margin-top: var(--spacing-m);
-	background: var(--color-secondary-light);
+	background: var(--legacy-color-secondary-light);
 }
 
 label {
@@ -24,5 +24,5 @@ button {
 }
 
 a {
-	color: var(--color-primary);
+	color: var(--legacy-color-primary);
 }

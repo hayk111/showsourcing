@@ -1,16 +1,11 @@
 :host {
-	display: block;
-	background: var(--color-bg);
+	background: var(--legacy-color-bg);
 	border-radius: var(--border-radius);
-	border: 1px solid var(--color-secondary);
-
-	&.full-height-main main{
-		height: 100%;
-		box-sizing: border-box;
-	}
+	// TODO check supplier request details dialog
 }
 
-main.padding {
-	padding: var(--spacing-ms);
+.top {
+	margin-bottom: var(--spacing-l);
 }
+
 

@@ -20,7 +20,7 @@ carousel-app {
 	width: 100%;
 	overflow: hidden;
 	min-height: 200px;
-	background: var(--color-secondary-light);
+	background: var(--legacy-color-secondary-light);
 }
 
 .action {
@@ -71,7 +71,7 @@ carousel-app {
 	border-radius: var(--border-radius-s);
 	overflow: hidden;
 	img-app {
-		background: var(--color-secondary-light);
+		background: var(--legacy-color-secondary-light);
 		min-width: 100%;
 		min-height: 100%;
 	}

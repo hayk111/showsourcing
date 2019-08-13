@@ -20,22 +20,18 @@ activity-user-app {
 	margin-right: var(--spacing-ms);
 }
 
-.supplier-info {
-	width: calc(100% - 44px); // .supplier-image width + margin
+.supplierName {
+	line-height: 1;
+	font-weight: 600;
+	color: var(--legacy-color-txt-strong);
+	letter-spacing: -0.3px;
+}
 
-	.supplier-type {
-		margin-top: var(--spacing-xs);
-		font-size: var(--font-size-s);
-		color: var(--color-txt-secondary);
-		letter-spacing: -0.1px;
-	}
-
-	.supplier-name {
-		line-height: 1;
-		font-weight: 600;
-		color: var(--color-txt-strong);
-		letter-spacing: -0.3px;
-	}
+.supplierType {
+	margin-top: var(--spacing-xs);
+	font-size: var(--font-size-s);
+	color: var(--legacy-color-txt-secondary);
+	letter-spacing: -0.1px;
 }
 
 card-footer-app {

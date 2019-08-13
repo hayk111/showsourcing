@@ -1,6 +1,6 @@
 .btn {
     margin-right: var(--spacing-edge);
-    color: var(--color-primary);
+    color: var(--legacy-color-primary);
     font-weight: 600;
 }
 
@@ -10,7 +10,7 @@
 
 [class^="icon-"],
 [class*=" icon-"] {
-    color: var(--color-primary);
+    color: var(--legacy-color-primary);
     font-size: 14px;
     margin-right: 13px;
 }

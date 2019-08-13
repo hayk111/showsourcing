@@ -3,7 +3,7 @@
 	min-height: 100vh;
 	padding-bottom: var(--spacing-xl);
 	width: 100%;
-	background: var(--color-bg);
+	background: var(--legacy-color-bg);
 	display:flex;
 	flex-direction: column;
 }
@@ -11,7 +11,7 @@ header {
 	padding: var(--spacing-m);
 	align-items: center;
 	font-family: var(--font-title);
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 
 	.titleLogo {
 		height: 32px;

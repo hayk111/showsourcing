@@ -1,5 +1,5 @@
 .selected {
-	// background: var(--color-txt-primary);
+	// background: var(--legacy-color-txt-primary);
 	color: white;
 	>[class^="icon-"],
 	[class*=" icon-"] {
@@ -10,7 +10,8 @@
 }
 
 :host {
-	background: var(--color-secondary);
+	border-radius: 2px;
+	background: var(--legacy-color-secondary);
 	position: relative;
   height: 32px;
   border-radius: 4px;
@@ -30,7 +31,7 @@ button {
 	align-items: center;
 	font-size: var(--font-size-s);
 	background: transparent;
-	color:  var(--color-txt-primary);
+	color:  var(--legacy-color-txt-primary);
 	padding: var(--spacing-s) var(--spacing-ms);
 	z-index: var(--z-button);
 	text-transform: none;
@@ -48,12 +49,12 @@ icon-app {
 		font-size: var(--font-size-xxs);
 	}
 	&:before {
-		color: var(--color-txt-primary);
+		color: var(--legacy-color-txt-primary);
 	}
 }
 
 .slider {
-	background: var(--color-txt-primary);
+	background: var(--legacy-color-txt-primary);
 	height: 32px;
 	border-radius: 2px;
 	position: absolute;

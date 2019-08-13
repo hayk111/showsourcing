@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild } from '@angular/core';
+import { CardHeaderComponent } from '../card-header/card-header.component';
 
 @Component({
 	selector: 'card-app',
@@ -6,23 +7,9 @@ import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/c
 	styleUrls: ['./card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'mg-l'
+		class: 'flexColumn mg-l'
 	}
 })
 export class CardComponent {
-	@Input() padding: 'none' | 'xs' | 's' | 'ms' | 'm' | 'ml' | 'l' | 'xl' = 'l';
-	@ViewChild('ref', { static: true }) ctnrRef;
-
-	get style() {
-		if (this.ctnrRef.children === 0)
-			return { padding: 0 };
-		else
-			return {
-				padding: `var(--spacing-${this.padding})`
-			};
-	}
-
-	get footerStyle() {
-		return { padding: `0 var(--spacing-${this.padding}) 0 var(--spacing-${this.padding})` };
-	}
+	@ContentChild(CardHeaderComponent, { static: true }) header: CardHeaderComponent;
 }

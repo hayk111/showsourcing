@@ -6,11 +6,11 @@ export const thumbAnimation = [
 	trigger('thumbAnimation', [
 		state('none', style({})),
 		state('up', style({
-			color: 'var(--color-primary)',
+			color: 'var(--legacy-color-primary)',
 			transform: 'rotateX(0deg)'
 		})),
 		state('down', style({
-			color: 'var(--color-warn)',
+			color: 'var(--legacy-color-warn)',
 			transform: 'rotateX(180deg)'
 		})),
 		transition('none => up', animate('400ms ease-in')),
