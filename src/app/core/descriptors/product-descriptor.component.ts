@@ -38,6 +38,9 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 			label: translate('assigned to'),
 			metadata: {
 				target: ERM.USER.singular,
+				canCreate: false,
+				multiple: false,
+				hasBadge: false,
 				placeholder: `${translate('choose')} ${translate('assignee')}`
 			}
 		},
@@ -47,7 +50,8 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 			metadata: {
 				target: ERM.CATEGORY.singular,
 				canCreate: true,
-				hasBadge: true,
+				multiple: false,
+				hasBadge: true
 			}
 		},
 		{
@@ -58,6 +62,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 				type: 'entity',
 				labelName: 'name',
 				canCreate: true,
+				multiple: false,
 				hasBadge: true
 			}
 		},
@@ -68,6 +73,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 				target: ERM.HARBOUR.singular,
 				canCreate: false,
 				multiple: false,
+				hasBadge: false
 			}
 		},
 		{
@@ -77,6 +83,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 				target: ERM.INCO_TERM.singular,
 				canCreate: false,
 				multiple: false,
+				hasBadge: false
 			}
 		},
 		{
@@ -85,9 +92,9 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 			label: translate(ERM.PROJECT.plural, 'erm'),
 			metadata: {
 				target: ERM.PROJECT.singular,
-				multiple: true,
 				canCreate: true,
-				hasBadge: true,
+				multiple: true,
+				hasBadge: true
 			}
 		},
 		{
@@ -96,7 +103,8 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 			metadata: {
 				target: ERM.SUPPLIER.singular,
 				canCreate: true,
-				hasBadge: true,
+				multiple: false,
+				hasBadge: true
 			}
 		},
 		{
@@ -105,9 +113,9 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 			label: translate(ERM.TAG.plural, 'erm'),
 			metadata: {
 				target: ERM.TAG.singular,
-				multiple: true,
 				canCreate: true,
-				hasBadge: true,
+				multiple: true,
+				hasBadge: true
 			}
 		},
 
