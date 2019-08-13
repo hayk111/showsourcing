@@ -2,7 +2,17 @@
 
 :host {
 	line-height: 1;
-	cursor: pointer;
+  cursor: pointer;
+  font-size: inherit; // just for clarity
+  &.size-s {
+    font-size: var(--font-size-icon-s);
+  }
+  &.size-m {
+    font-size: var(--font-size-icon-m);
+  }
+  &.size-l {
+    font-size: var(--font-size-icon-l);
+  }
 }
 
 /** make svg same size as font-size */

@@ -132,22 +132,26 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 			if (this.selected || this.subItemSelected) {
 				if (!name.endsWith('-dark')) {
 					this.icon.name = name + '-dark';
-					this.icon.ngOnChanges({
-						name: {
-							currentValue: name,
-							previousValue: this.icon.name
-						}
-					});
+					// TODO : commenting this so i can render icons for WEB-2050 for the moment
+					// this is fugly anyway
+					// this.icon.ngOnChanges({
+					// 	name: {
+					// 		currentValue: name,
+					// 		previousValue: this.icon.name
+					// 	}
+					// });
 				}
 			} else {
 				if (name.endsWith('-dark')) {
 					this.icon.name = name.replace('-dark', '');
-					this.icon.ngOnChanges({
-						name: {
-							currentValue: name,
-							previousValue: this.icon.name
-						}
-					});
+					// TODO : commenting this so i can render icons for WEB-2050 for the moment
+					// this is fugly anyway
+					// this.icon.ngOnChanges({
+					// 	name: {
+					// 		currentValue: name,
+					// 		previousValue: this.icon.name
+					// 	}
+					// });
 				}
 			}
 		}
