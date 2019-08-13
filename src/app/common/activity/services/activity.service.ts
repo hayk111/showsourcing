@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, from, Observable, ReplaySubject, of } from 'rxjs';
-import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile } from 'rxjs/operators';
+import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile, tap } from 'rxjs/operators';
 import { TokenService } from '~core/auth';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
-import { TeamService } from '~entity-services';
+import { TeamService, UserService } from '~entity-services';
 import { ActivityFeed, GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import {
 	GetStreamActivity,
@@ -29,7 +29,9 @@ export class ActivityService {
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
-		private tokenSrv: TokenService
+		private tokenSrv: TokenService,
+		private userSrv: UserService,
+
 	) {
 		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
 	}
@@ -107,4 +109,32 @@ export class ActivityService {
 	}
 
 
+	// Notifications
+
+	getNotifications() {
+		const teamId = this.teamSrv.selectedTeamSync.id;
+		const userId = this.userSrv.userSync.id;
+		const tokenUrl = `${environment.apiUrl}/feed/token/user/${teamId}/${userId}`;
+		return this.getToken(tokenUrl).pipe(
+				tap(d => { console.log(`notifications:${teamId}-${userId}`); }),
+				map(token => this.client.feed('notifications', `${teamId}-${userId}`, token)),
+				switchMap(feed => feed.get({ limit: this.LIMIT })),
+		);
 }
+// real time
+
+	getRealTimeNotifications() {
+		const teamId = this.teamSrv.selectedTeamSync.id;
+		const userId = this.userSrv.userSync.id;
+		const tokenUrl = `${environment.apiUrl}/feed/token/user/${teamId}/${userId}`;
+		return this.getToken(tokenUrl).pipe(
+			map(token => this.client.feed('notifications', `${teamId}-${userId}`, token)),
+			switchMap(feed => Observable.create(observer => feed.subscribe(data => observer.next(data)))),
+		);
+	}
+
+}
+
+
+
+

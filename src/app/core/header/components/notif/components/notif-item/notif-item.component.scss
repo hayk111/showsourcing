@@ -1,5 +1,9 @@
+.container {
+	padding-top: 12px;
+}
+
 .notif-avatar {
-  padding: 8px 12px;
+  padding: 0 12px;
 }
 .notif-card {
   justify-content: space-between;
@@ -10,15 +14,29 @@
 	font-size: var(--font-size-m);
 }
 .notif-datetime {
-  font-size: var(--font-size-s);
-  color: var(--color-txt-secondary);
+	height: 15px;
+	padding-bottom: 12px;
+  font-size: 12px;
+  color: var(--color-txt-third);
 }
 
-.circle {
-  margin: 12px;
-  width:8px;
-  height: 8px;
-  background: #45adff;
-  border-radius: 50%;
-  cursor: pointer;
+.unread {
+	background:  var(--color-bg-secondary)
 }
+
+.notif-message {
+	font-size: 14px;
+	color: var(--color-secondary-contrast);
+	.bold-message {
+		color: var(--color-bg-dark);
+	}
+}
+
+// .circle {
+//   margin: 12px;
+//   width:8px;
+//   height: 8px;
+//   background: #45adff;
+//   border-radius: 50%;
+//   cursor: pointer;
+// }

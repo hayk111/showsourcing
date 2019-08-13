@@ -4,7 +4,9 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
 import { UserPictureModule } from '~shared/user-picture';
-
+import { ActivityCommonModule } from '~common/activity/activity-common.module';
+import { BadgeModule } from '~shared/badge';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
 	HeaderComponent,
 	HeaderSearchComponent,
@@ -15,7 +17,8 @@ import {
 	NotifItemComponent,
 	NotifPanelComponent,
 	NotifLayoutComponent,
-	NotifEmptyComponent
+	NotifEmptyComponent,
+	NameQueryComponent
 } from './components';
 
 @NgModule({
@@ -24,7 +27,10 @@ import {
 		SearchBarModule,
 		RouterModule.forChild([]),
 		UserPictureModule,
-		SearchAutocompleteModule
+		SearchAutocompleteModule,
+		ActivityCommonModule,
+		BadgeModule,
+		BrowserAnimationsModule
 	],
 	declarations: [
 		HeaderComponent,
@@ -36,7 +42,8 @@ import {
 		NotifPanelComponent,
 		NotifLayoutComponent,
 		NotifListComponent,
-		NotifEmptyComponent
+		NotifEmptyComponent,
+		NameQueryComponent
 	],
 	exports: [HeaderComponent]
 })

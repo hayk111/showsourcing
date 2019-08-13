@@ -1,16 +1,21 @@
-<icon-app
-	name="bell"
-	class="bell-color-primary-contrast"
-	(click)="open()"
-></icon-app>
+
+<div style="position: relative" >
+	<icon-app
+		name="bell"
+		class="bell-color-primary-contrast"
+		(click)="open()"
+	></icon-app>
+	<span class="notif-badge circle flexCenter" *ngIf="notifications?.unseen > 0">
+		{{notifications?.unread}}
+	</span>
+</div>
 <notif-layout-app
 	[isOpen]="isOpen"
 >
 	<notif-panel-app
+	[results] = "notifications?.results"
 	(close)="close()"
 	(clickOutside)="close()"
-	>
-		<notif-empty-app></notif-empty-app>
-	</notif-panel-app>
+	></notif-panel-app>
 </notif-layout-app>
 

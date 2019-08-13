@@ -1,9 +1,9 @@
 .notif-feed {
 	padding: 0 31px 0 70px;
-	overflow-y: auto;
 }
 
 .list-container {
 	width: 100%;
 	height: calc(100vh - 80px);
+	overflow-y: auto;
 }

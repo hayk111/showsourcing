@@ -1,9 +1,9 @@
-<div class="list-container flexCenter">
+<div class="list-container" [ngClass]="{ 'flexCenter': activites?.length === 0}">
 	<div class="notif-feed"
-		*ngFor="let notification of notifications">
-		<notif-item-app [notification]="notification"></notif-item-app>
+		*ngFor="let activity of activites">
+		<notif-item-app (close)="close.emit()" [activity]="activity"></notif-item-app>
 	</div>
-	<notif-empty-app *ngIf="notifications.length === 0"></notif-empty-app>
+	<notif-empty-app *ngIf="activites?.length === 0"></notif-empty-app>
 </div>
 
 

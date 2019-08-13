@@ -1,4 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ProductService, SupplierService, TaskService } from '~core/entity-services';
+import { Router } from '@angular/router';
+import { Product } from '~models';
+import { Observable } from 'apollo-link';
 
 @Component({
 	selector: 'notif-item-app',
@@ -8,13 +12,100 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class NotifItemComponent implements OnInit {
 
-	@Input() notification: any = null;
+	@Input() activity: any = null;
+	@Output() close = new EventEmitter<void>();
 
-	constructor() {
+	activityMessage: string;
+	navigateRout: string;
+	targetId: string;
+	target$: any;
+	constructor(
+		private router: Router,
+		private productSrv: ProductService,
+		private supplierSrv: SupplierService,
+		private taskSrv: TaskService
+	) {
+	}
+
+	get actorName() {
+		return this.activity.activities[0].actor_name;
+	}
+
+	get multipleActorMessage(): string {
+		const { actor_count } = this.activity;
+		if (actor_count === 2) {
+			return 'and 1 other';
+		}
+		if (actor_count > 2) {
+			return `and ${this.activity.actor_count - 1} others`;
+		}
+		return '';
+	}
+
+	get target() {
+		return this.activity.activities[0].target;
+	}
+
+	getProduct() {
+		return this.productSrv.queryOne(this.targetId);
+	}
+
+	getSupplier() {
+		return this.supplierSrv.queryOne(this.targetId);
+	}
+
+	getTask() {
+		return this.taskSrv.queryOne(this.targetId);
+	}
+
+	detail() {
+		console.log('item', this.activity);
+		this.close.emit();
+		const { target_id } = this.activity.activities[0];
+
+		this.router.navigate([this.navigateRout]);
 	}
 
 	ngOnInit() {
+		const { verb } = this.activity;
+		this.initialSetup();
+	}
 
+	initialSetup() {
+		const { verb } = this.activity;
+		const [firstActivity] = this.activity.activities;
+		const { target } = firstActivity;
+		switch (verb) {
+			case 'create_comment':
+				this.activityMessage = `has commented on the ${target}`;
+				this.targetId = firstActivity.target_id;
+				if (target.toLowerCase() === 'product') {
+					this.target$ = this.getProduct();
+					this.navigateRout = `/product/${this.targetId}/activity`;
+				} else {
+					this.target$ = this.getSupplier();
+					this.navigateRout = `/supplier/${this.targetId}/activity`;
+				}
+				break;
+			case 'create_task':
+				this.activityMessage = 'assign you a task';
+				this.targetId = firstActivity.object;
+				this.target$ = this.getTask();
+				this.navigateRout = `/workspace/my-tasks`;
+				break;
+			case 'task_complete':
+				this.activityMessage = 'has completed your task';
+				this.targetId = firstActivity.object;
+				this.target$ = this.getTask();
+				this.navigateRout = `/workspace/my-tasks`;
+				break;
+			case 'create_vote':
+				this.activityMessage = 'like / disliked you product';
+				this.targetId = firstActivity.target_id;
+				this.navigateRout = `/product/${this.targetId}/activity`;
+				this.target$ = this.getProduct();
+				break;
+		}
 	}
 
 }

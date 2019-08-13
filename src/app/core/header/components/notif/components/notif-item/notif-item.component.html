@@ -1,20 +1,134 @@
-<div class="flex container notif-card">
-	<div class="flex left container">
+<div
+	class="flex container notif-card"
+	[ngClass]="{ unread: !activity.is_read }"
+	(click)="detail()"
+>
+	<div class="flex left">
 		<user-picture-app
 			size="32"
 			[image]=""
 			[border]="true"
 			class="notif-avatar"
 		></user-picture-app>
-		<div class="flexColumn notif-info">
-			<p><span class="bold-s">Christian</span>has commented on the product</p>
-			<p>P-00133 Garden Chairs Lovel Flower</p>
-			<p class="notif-datetime">2h - 11 June 12:33</p>
+		<div class="flexColumn notif-info" [ngSwitch]="activity.verb">
+			<ng-container>
+				<!-- create comment -->
+				<ng-container *ngSwitchCase="'create_comment'">
+					<p class="notif-message">
+						<span class="bold-message">{{
+							actorName
+						}}</span>
+						{{ multipleActorMessage }}
+						{{ activityMessage }}
+						<span class="bold-message">
+							<name-query-app [obj]="target$ | async" [field]="'name'"></name-query-app>
+						</span>
+					</p>
+				</ng-container>
+
+				<!-- create task -->
+				<ng-container *ngSwitchCase="'create_task'">
+					<p class="notif-message">
+						<span class="bold-message">{{
+							actorName
+						}}</span>
+						{{ multipleActorMessage }}
+						{{ activityMessage}}
+						<span class="bold-message">
+							<name-query-app [obj]="target$ | async" [field]="'name'"></name-query-app>
+						</span>
+					</p>
+				</ng-container>
+
+				<!-- task complete -->
+				<ng-container *ngSwitchCase="'task_complete'">
+					<p class="notif-message">
+						<span class="bold-message">{{
+							actorName
+						}}</span>
+						{{activityMessage}}
+						<span class="bold-message">
+							<name-query-app [obj]="target$ | async" [field]="'name'"></name-query-app>
+						</span>
+					</p>
+				</ng-container>
+
+				<!-- create sample -->
+				<ng-container *ngSwitchCase="'create_sample'">
+					<p class="notif-message">
+						<span class="bold-message">{{
+							actorName
+						}}</span>
+						has created sample
+						<span class="bold-message">
+							P-00133 Garden Chairs Lovel Flower
+						</span>
+					</p>
+				</ng-container>
+
+				<!-- create product -->
+				<ng-container *ngSwitchCase="'create_product'">
+					<p class="notif-message">
+						<span class="bold-message">{{
+							actorName
+						}}</span>
+						has created product
+						<span class="bold-message">
+							<name-query-app [obj]="target$ | async" [field]="'name'"></name-query-app>
+						</span>
+					</p>
+				</ng-container>
+
+				<!-- create supplier -->
+				<ng-container *ngSwitchCase="'create_supplier'">
+					<p class="notif-message">
+						<span class="bold-message">{{
+							actorName
+						}}</span>
+						has created supplier
+						<span class="bold-message">
+							P-00133 Garden Chairs Lovel Flower
+						</span>
+					</p>
+				</ng-container>
+
+				<!-- create vote -->
+				<ng-container *ngSwitchCase="'create_vote'">
+					<p class="notif-message">
+						<span class="bold-message">{{
+							actorName
+						}}</span>
+						{{ multipleActorMessage }}
+						{{ activityMessage}}
+						<span class="bold-message">
+							<name-query-app [obj]="target$ | async" [field]="'name'"></name-query-app>
+						</span>
+					</p>
+				</ng-container>
+
+				<!-- new task assign -->
+				<ng-container *ngSwitchCase="'new_task_assignee'">
+					<p class="notif-message">
+						<span class="bold-message">{{
+							actorName
+						}}</span>
+						has assigned a task
+						<span class="bold-message">
+							P-00133 Garden Chairs Lovel Flower
+						</span>
+					</p>
+				</ng-container>
+
+				<ng-container *ngSwitchDefault> </ng-container>
+			</ng-container>
+			<p class="notif-datetime">
+				{{ activity.updated_at | timeAgo }}
+				{{ activity.updated_at | date: "d MMM H:mm" }}
+			</p>
+			<divider-app [style.width]="'430px'"></divider-app>
 		</div>
 	</div>
-	<div class="flex right container">
-		<div class="circle"></div>
-	</div>
+	<!-- <div class="flex right container">
+			<div class="circle"></div>
+		</div> -->
 </div>
-<divider-app></divider-app>
-

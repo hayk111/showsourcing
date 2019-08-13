@@ -1,4 +1,7 @@
 <div class="notification-container">
 	<notif-header-app (close)="close.emit()"></notif-header-app>
-	<notif-list-app></notif-list-app>
+	<notif-list-app
+	(close) = "close.emit()"
+	[activites]="results"
+	></notif-list-app>
 </div>

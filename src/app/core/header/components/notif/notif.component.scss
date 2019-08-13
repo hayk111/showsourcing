@@ -8,3 +8,16 @@ icon-app {
 	color: var(--color-primary-contrast)
 }
 
+.notif-badge {
+	background-color: var(--color-warn);
+	width: 20px;
+	height: 18px;
+	padding-bottom: var(--spacing-xxs);
+	position: absolute;
+	right: -4px;
+	top: -6px;
+  font-size: var(--font-size-s);
+  text-align: center;
+  color: var(--color-primary-contrast);
+}
+
