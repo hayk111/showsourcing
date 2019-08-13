@@ -144,8 +144,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		const width = window.innerWidth || document.documentElement.clientWidth
 																		|| document.body.clientWidth;
 
-		// for browser window less than 1200px show filters tab over the table
-		if (width > 1200) {
+		// for browser window less than 1500px show filters tab over the table
+		if (width > 1500) {
 			this.tableWidth = this.productListElem.nativeElement.offsetWidth - 300;
 		}
 
@@ -156,8 +156,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		const width = window.innerWidth || document.documentElement.clientWidth
 																		|| document.body.clientWidth;
 
-		// for browser window less than 1200px show filters tab over the table
-		if (width > 1200) {
+		// for browser window less than 1500px show filters tab over the table
+		if (width > 1500) {
 			this.tableWidth = this.productListElem.nativeElement.offsetWidth + 300;
 		}
 		this.listSrv.closeFilterPanel();

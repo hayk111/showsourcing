@@ -10,7 +10,7 @@
 .vote-star-container {
 	cursor: pointer;
 	width: 45px;
-	border-radius: 4px;
+	border-radius: var(--border-radius);
 	color: var(--color-accent);
 	margin: 0 5px;
 }

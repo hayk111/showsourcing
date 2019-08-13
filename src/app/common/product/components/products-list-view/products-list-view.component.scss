@@ -5,7 +5,7 @@
 	height: calc(100% - 120px);
 	box-sizing: border-box;
 	margin: 0 var(--spacing-l) var(--spacing-l) var(--spacing-l);
-	background: white;
+	background: var(--color-bg);
 
 	&.no-padding {
 		padding: 0;
@@ -39,7 +39,7 @@
 }
 
 .hover-img {
-	background-color: rgba(69, 173, 255, 0.5);
+	background-color: rgba(var(--color-primary-rgb), 0.5);
 }
 
 .preview-imgs:hover .hover-img {
@@ -96,55 +96,31 @@
 	margin-left: 12px;
 	width: 160px;
   height: 18px;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #000000;
+  font-size: var(--font-size-m);
+  color: var(--color-txt);
 }
 
 .product-name-ref {
 	margin-left: 44px;
   height: 15px;
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--txt-primary);
+  font-size: var(--font-size-s);
+  color: var(--color-txt-primary);
 }
 
 .created-by {
   height: 18px;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--txt-primary);
+  font-size: var(--font-size-m);
+  color: var(--color-txt-primary);
 }
 
 .created-by-date {
   height: 15px;
   font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--txt-primary);
+  color: var(--color-txt-primary);
 }
 
 .category {
-  font-size: 14px;
+  font-size: var(--font-size-m);
   font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: #f5a623;
 }
