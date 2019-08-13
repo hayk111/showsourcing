@@ -10,7 +10,8 @@ import {
 	HeaderSearchComponent,
 	NotifComponent,
 	UserPanelComponent,
-	SidebarComponent
+	SidebarComponent,
+	SidebarItemComponent
 } from './components';
 
 @NgModule({
@@ -26,7 +27,8 @@ import {
 		NotifComponent,
 		UserPanelComponent,
 		HeaderSearchComponent,
-		SidebarComponent
+		SidebarComponent,
+		SidebarItemComponent
 	],
 	exports: [HeaderComponent, SidebarComponent],
 })

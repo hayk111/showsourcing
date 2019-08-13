@@ -5,39 +5,11 @@
 </div>
 
 <nav>
-
-	<ng-container *ngIf="navItems?.length">
-		<ng-container *ngFor="let navItem of navItems; let i = index; trackBy: trackByFn">
-
-			<div class="sidebar-item-content" (mouseenter)="hoverItem(i)" (mouseleave)="hoverItem(-1)">
-				<a [routerLink]="navItem?.link" routerLinkActive="selected">
-					<icon-app [size]="'l'" [name]="navItem?.icon"></icon-app>
-
-					<ng-container *ngIf="navItem?.notifBadge">
-						<div class="first-uppercase" notifBadge
-							[badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null"></div>
-					</ng-container>
-
-					<div class="selected-nav"></div>
-				</a>
-
-				<ng-container *ngIf="hoverIndex === i && navItem?.children?.length">
-
-					<div class="child-content">
-						<ng-container *ngFor="let child of navItem.children; trackBy: trackByFn">
-							<a class="first-uppercase" [routerLink]="child?.link">
-								<icon-app [size]="'m'" [name]="child?.icon"></icon-app>
-								{{child.label}}
-							</a>
-						</ng-container>
-					</div>
-
-				</ng-container>
-			</div>
-
-		</ng-container>
-	</ng-container>
-
+	<sidebar-item-app [icon]="'product'" [link]="['/product']" [subItems]="sideNavItems.get('product')"></sidebar-item-app>
+	<sidebar-item-app [icon]="'supplier'" [link]="['/supplier']"></sidebar-item-app>
+	<sidebar-item-app [icon]="'project'" [link]="['/project']"></sidebar-item-app>
+	<sidebar-item-app [icon]="'check-round'" [link]="['/workspace']"></sidebar-item-app>
+	<sidebar-item-app [icon]="'envelope'" [link]="['/request']" [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null"></sidebar-item-app>
 </nav>
 
 <div class="flexCenter bottom">

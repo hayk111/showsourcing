@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { DEFAULT_REPLIED_STATUS, Team, User } from '~core/models';
 import { SupplierRequestService, TeamService, UserService } from '~entity-services';
-import { Router } from '@angular/router';
-import { translate } from '~utils';
+import { sideNavItems } from '~utils';
 
 @Component({
 	selector: 'sidebar-app',
@@ -18,8 +17,9 @@ export class SidebarComponent implements OnInit {
 	team$: Observable<Team>;
 	requestCount$: Observable<number>;
 	isProd = environment.production;
-	navItems: any[];
+	sideNavItems: any;
 	hoverIndex: boolean;
+
 	constructor(
 		private authSrv: AuthenticationService,
 		private userSrv: UserService,
@@ -32,40 +32,7 @@ export class SidebarComponent implements OnInit {
 		this.requestCount$ = this.requestSrv.selectCount(
 			`status == "${DEFAULT_REPLIED_STATUS}" AND senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
 		);
-		this.navItems = [{
-			icon: 'product',
-			link: ['/product'],
-			children: [{
-				icon: 'product',
-				label: translate('products')
-			},
-			{
-				icon: 'sample',
-				label: translate('samples')
-			},
-			{
-				icon: 'kanban',
-				label: translate('boards')
-			}]
-		},
-		{
-			icon: 'supplier',
-			link: ['/supplier']
-		},
-		{
-			icon: 'project',
-			link: ['/project']
-		},
-		{
-			icon: 'check-round',
-			link: ['/workspace']
-		},
-		{
-			icon: 'envelope',
-			link: ['/request'],
-			notifBadge: true
-		}
-	];
+		this.sideNavItems = sideNavItems;
 	}
 
 	logout() {

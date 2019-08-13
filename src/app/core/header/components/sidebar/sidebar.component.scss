@@ -33,41 +33,6 @@ nav {
 	flex-grow: 1;
 	flex-direction: column;
 	width: 100%;
-
-	a {
-		opacity: 0.9;
-		flex: 1;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 64px;
-
-		.selected-nav {
-			visibility: hidden;
-		}
-
-		&.selected {
-			background: #071327;
-			color: white;
-
-			.selected-nav {
-				visibility: visible;
-				position: absolute;
-				left: 0;
-				height: 32px;
-				width: 4px;
-				border-radius: 2px;
-				background-color: var(--color-primary);
-			}
-		}
-
-		icon-app {
-			height: 24px;
-			width: 24px;
-			display: block;
-		}
-	}
-
 }
 
 .sidebar-item-content {
@@ -81,37 +46,6 @@ nav {
 	&:hover {
 		background: #071327;
 	}
-
-	.child-content {
-		position: absolute;
-		top: 0;
-		left: 100%;
-		z-index: 1;
-		padding: var(--spacing-s) 0;
-		background-color: var(--color-txt-primary);
-		border-top-right-radius: var(--border-radius);
-		border-bottom-right-radius: var(--border-radius);
-		box-shadow: 0 2px 4px 0 var(--color-txt-primary);
-		width: 170px;
-
-		a {
-			height: 42px;
-			padding: 0 var(--spacing-m);
-			justify-content: start;
-			text-transform: capitalize;
-
-			&:hover {
-				background-image: linear-gradient(73deg, var(--color-vibrant), var(--color-primary));
-			}
-
-			icon-app {
-				height: 16px;
-				width: 16px;
-				display: block;
-				margin-right: var(--spacing-s)
-			}
-		}
-	}
 }
 
 .bottom {
@@ -121,13 +55,6 @@ nav {
 	justify-content: space-between;
 	width: 100%;
 	height: 200px;
-
-	// header-search-app,
-	// notif-app,
-	// user-panel-app {
-	// 	flex: 1;
-	// 	// height:100%;
-	// }
 
 	notif-app {
 		height: 32px;
