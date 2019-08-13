@@ -1,42 +1,51 @@
 .container {
+	position: relative;
 	padding-top: 12px;
+	cursor: pointer;
 }
-
-.notif-avatar {
-  padding: 0 12px;
+.unread {
+	background: var(--color-bg-secondary);
 }
 .notif-card {
-  justify-content: space-between;
-  align-items: center;
-}
-.notif-info {
-  justify-content: center;
-	font-size: var(--font-size-m);
-}
-.notif-datetime {
-	height: 15px;
-	padding-bottom: 12px;
-  font-size: 12px;
-  color: var(--color-txt-third);
-}
-
-.unread {
-	background:  var(--color-bg-secondary)
-}
-
-.notif-message {
-	font-size: 14px;
-	color: var(--color-secondary-contrast);
-	.bold-message {
-		color: var(--color-bg-dark);
+	justify-content: space-between;
+	align-items: center;
+	.logo {
+		margin: 0 10px;
+	}
+	.notif-info {
+		justify-content: center;
+		font-size: var(--font-size-m);
+	}
+	.notif-datetime {
+		height: 15px;
+		padding-bottom: 12px;
+		font-size: 12px;
+		color: var(--color-txt-third);
+	}
+	.notif-message {
+		font-size: 14px;
+		color: var(--color-secondary-contrast);
+		.bold-message {
+			color: var(--color-bg-dark);
+		}
+	}
+	.mark-read {
+		display: none;
+		width: 10px;
+		height: 10px;
+		position: absolute;
+		top: 11px;
+		right: 11px;
+		border-radius: 50%;
+		background: var(--color-primary);
+	}
+	&:hover {
+		background: var(--color-secondary);
+		.mark-read {
+			display: block;
+		}
+		divider-app {
+			visibility: hidden;
+		}
 	}
 }
-
-// .circle {
-//   margin: 12px;
-//   width:8px;
-//   height: 8px;
-//   background: #45adff;
-//   border-radius: 50%;
-//   cursor: pointer;
-// }

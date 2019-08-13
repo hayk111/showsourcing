@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { ProductService, SupplierService, TaskService } from '~core/entity-services';
+import { ProductService, SupplierService, TaskService, SampleService } from '~core/entity-services';
 import { Router } from '@angular/router';
 import { Product } from '~models';
 import { Observable } from 'apollo-link';
@@ -17,13 +17,15 @@ export class NotifItemComponent implements OnInit {
 
 	activityMessage: string;
 	navigateRout: string;
+	badgeType: string;
 	targetId: string;
 	target$: any;
 	constructor(
 		private router: Router,
 		private productSrv: ProductService,
 		private supplierSrv: SupplierService,
-		private taskSrv: TaskService
+		private taskSrv: TaskService,
+		private sampleSrv: SampleService,
 	) {
 	}
 
@@ -56,6 +58,10 @@ export class NotifItemComponent implements OnInit {
 
 	getTask() {
 		return this.taskSrv.queryOne(this.targetId);
+	}
+
+	getSample() {
+		return this.sampleSrv.queryOne(this.targetId);
 	}
 
 	detail() {
@@ -105,6 +111,26 @@ export class NotifItemComponent implements OnInit {
 				this.navigateRout = `/product/${this.targetId}/activity`;
 				this.target$ = this.getProduct();
 				break;
+			case 'new_assignee':
+				this.activityMessage = `assigned you a ${target}`;
+				this.targetId = firstActivity.object;
+				if (target === 'sample') {
+					this.target$ = this.getSample();
+					this.navigateRout = '/workspace/my-samples/list';
+				} else if (target === 'product') {
+					this.target$ = this.getProduct();
+					this.navigateRout = `/product/${this.targetId}/activity`;
+				} else {
+					this.target$ = this.getSupplier();
+					this.navigateRout = `/supplier/${this.targetId}/activity`;
+				}
+				break;
+			case 'new_task_assignee' :
+					this.activityMessage = 'assign you a task';
+					this.targetId = firstActivity.object;
+					this.target$ = this.getTask();
+					this.navigateRout = `/workspace/my-tasks`;
+					break;
 		}
 	}
 

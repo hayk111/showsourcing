@@ -23,7 +23,7 @@ import {
 	providedIn: 'root'
 })
 export class ActivityService {
-	private readonly LIMIT = 8;
+	private readonly LIMIT = 100;
 	private client: any;
 
 	constructor(
