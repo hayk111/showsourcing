@@ -65,7 +65,7 @@
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
 		[ngStyle]="tableWidth && {'width': tableWidth + 'px'}"
-		(goToPage)="listSrv.loadPage($event)"
+		(goToPage)="listSrv.loadPage($event, selectItemsConfig)"
 		(delete)="listSrv.deleteOne($event)"
 		(update)="listSrv.update($event)"
 		(open)="listSrv.goToDetails($event)"
@@ -80,6 +80,7 @@
 		(select)="listSrv.selectOne($event, true)"
 		(selectAll)="listSrv.selectAll($event, true)"
 		(sort)="listSrv.sort($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(unselect)="listSrv.unselectOne($event, true)"
 		(unselectAll)="listSrv.unselectAll()" #productList>

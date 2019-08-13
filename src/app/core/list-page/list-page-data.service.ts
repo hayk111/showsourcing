@@ -157,8 +157,9 @@ export class ListPageDataService
 		return this.listResult.fetchMore();
 	}
 
-	loadPage(page: number): Observable<any> {
+	loadPage(page: number, config?: SelectParamsConfig): Observable<any> {
 		this.currentPage = page;
+		this.selectParams.take = config && config.take ? config.take : this.selectParams.take;
 		this.selectParams.skip = this.selectParams.take * page;
 		return this.refetch(this.selectParams);
 	}

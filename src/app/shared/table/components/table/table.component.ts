@@ -48,6 +48,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() count = 0;
 
 	@Input() currentPage: number;
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	/** event when we select all rows */
 	@Output() selectAll = new EventEmitter<string[]>();

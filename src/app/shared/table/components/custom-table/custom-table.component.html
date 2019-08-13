@@ -17,6 +17,7 @@
 	(unselectOne)="unselectOne.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(sort)="sort.emit($event)">
 		<ng-template
 			*ngFor="let column of descriptor;trackBy: trackByFn"

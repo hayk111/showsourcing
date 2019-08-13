@@ -26,13 +26,24 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	/** current index of the pagination (starts at 1) */
 	@Input() currentPage = 0;
 	@Output() goToPage = new EventEmitter<number>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	/** how many pages our pagination has */
 	totalPages;
 	/** the pages displayed */
 	range: Array<number> = [];
+	pageItemsCount = [25, 50, 100, 200];
 
 	ngOnChanges() {
+		this.totalPages = this.getTotalPages(this.count, this.itemsPerPage);
+		this.buildPaginatorRange();
+	}
+
+	onChangePerPageCount(count) {
+		this.goToIndexPage(0);
+		this.showItemsPerPage.emit(count);
+		this.itemsPerPage = count;
+
 		this.totalPages = this.getTotalPages(this.count, this.itemsPerPage);
 		this.buildPaginatorRange();
 	}
@@ -45,22 +56,41 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 		}
 	}
 
-	goToPreviousPage() {
+	goToPreviousPage(disabled = false) {
+		if (disabled)
+			return;
 		if (this.currentPage > 0)
 			this.goToIndexPage(this.currentPage - 1);
 	}
 
-	goToNextPage() {
+	goToNextPage(disabled = false) {
+		if (disabled)
+			return;
 		if (this.currentPage < this.totalPages - 1)
 			this.goToIndexPage(this.currentPage + 1);
 	}
 
-	goToFirstPage() {
-		this.currentPage = 1;
+	goToFirstPage(disabled = false) {
+		if (disabled)
+			return;
+		this.goToIndexPage(0);
+	}
+
+	goToLastPage(disabled = false) {
+		if (disabled)
+			return;
+		this.goToIndexPage(this.totalPages - 1);
 	}
 
 	getTotalPages(count: number, itemsPerPage: number) {
 		return Math.max(1, Math.ceil(count / itemsPerPage));
+	}
+
+	getProductsShown() {
+		const perPageItems = Number(this.itemsPerPage);
+		const fromProductNumber = this.currentPage * perPageItems;
+		const toProductNumber = fromProductNumber + perPageItems < this.count ? fromProductNumber + perPageItems : this.count;
+		return `Showing ${fromProductNumber} - ${toProductNumber} of ${this.count}`;
 	}
 
 	private buildPaginatorRange() {

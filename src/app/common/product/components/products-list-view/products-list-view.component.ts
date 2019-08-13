@@ -19,6 +19,7 @@ import { RequestElementService, SupplierRequestService } from '~core/entity-serv
 import { ReplyStatus } from '~core/models';
 import { first } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'products-list-view-app',
@@ -44,6 +45,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 
 	@Output() archive = new EventEmitter<Product>();
 	@Output() delete = new EventEmitter<Product>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	// templates
 	// load cells template for custom table
@@ -79,7 +81,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
 				{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', width: 50, minWidth: 50 },
 				{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
-				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', width: 120, minWidth: 120 }
+				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', sortable: false, width: 120, minWidth: 120 }
 			];
 		} else {
 			this.descriptor =  [
@@ -87,8 +89,8 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 				{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', minWidth: 50 },
 				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', minWidth: 120 },
 				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', minWidth: 120 },
-				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', minWidth: 120 },
-				{ title: translate('activity'), type: 'activities', minWidth: 120 },
+				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', sortable: false, minWidth: 120 },
+				{ title: translate('activity'), type: 'activities', sortable: false, minWidth: 120 },
 				{ title: translate('status'), type: 'status', sortBy: 'status.step', minWidth: 120 },
 			];
 		}

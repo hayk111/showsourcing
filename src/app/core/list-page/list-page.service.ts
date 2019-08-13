@@ -170,8 +170,8 @@ export class ListPageService
 		this.dataSrv.loadMore().subscribe();
 	}
 
-	loadPage(page: number) {
-		this.dataSrv.loadPage(page).subscribe(_ => this.selectionSrv.unselectAll());
+	loadPage(page: number, config?: SelectParamsConfig) {
+		this.dataSrv.loadPage(page, config).subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadNextPage() {

@@ -4,6 +4,10 @@
 	height: 100%;
 }
 
+:host ::ng-deep products-list-view-app {
+	padding: 24px;
+}
+
 product-sorting-menu-app {
 	margin-right: var(--spacing-ms);
 }

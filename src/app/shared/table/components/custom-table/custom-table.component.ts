@@ -34,6 +34,7 @@ export class CustomTableComponent extends TrackingComponent {
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	constructor() {
 		super();

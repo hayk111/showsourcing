@@ -9,27 +9,51 @@ index: {{ currentPage }}  -->
 
 
 
-<div class="flexCenter pagination-ctrl">
+<div class="pagination-ctrl">
 
-	<icon-app 
-		fontSet="fa" 
-		name="angle-left" 
-		[ngClass]="{ disabled: currentPage === 0 }" 
-		(click)="goToPreviousPage()">
-	</icon-app>
-	
-	<span *ngFor="let page of range; trackBy: trackByFn"
-		class="pagination-item"
-		[ngClass]="{ selected: page === currentPage }"
-		(click)="goToIndexPage(page)">
+	<button
+		class="arrow-btn"
+		(click)="goToFirstPage(currentPage === 0)"
+		[ngClass]="{ disabled: currentPage === 0 }">
+		<i class="fa fa-angle-left"></i>
+		<i class="fa fa-angle-left"></i>
+	</button>
+
+	<button
+		class="arrow-btn"
+		(click)="goToPreviousPage(currentPage === 0)"
+		[ngClass]="{ disabled: currentPage === 0 }">
+		<i class="fa fa-angle-left"></i>
+	</button>
+
+	<button [ngClass]="{ selected: page === currentPage }" 
+		*ngFor="let page of range; trackBy: trackByFn"
+		(click)="goToIndexPage(page, page === currentPage)">
 		{{ page + 1 }}
-	</span>
+	</button>
 
-	<icon-app 
-		fontSet="fa" 
-		name="angle-right" 
-		[ngClass]="{ disabled: currentPage === totalPages - 1 }" 
-		(click)="goToNextPage()">
-	</icon-app>
+	<button
+		class="arrow-btn"
+		(click)="goToNextPage(currentPage === totalPages - 1)"
+		[ngClass]="{ disabled: currentPage === totalPages - 1 }">
+		<i class="fa fa-angle-right"></i>
+	</button>
+
+	<button
+		class="arrow-btn"
+		(click)="goToLastPage(currentPage === totalPages - 1)"
+		[ngClass]="{ disabled: currentPage === totalPages - 1 }">
+		<i class="fa fa-angle-right"></i>
+		<i class="fa fa-angle-right"></i>
+	</button>
+
+	<div class="right">
+		<select class="custom-select" (change)="onChangePerPageCount($event.target.value)">
+			<option *ngFor="let i of pageItemsCount">{{i}}</option>
+		</select>
+		<span class="items-page-count">
+			{{getProductsShown()}}
+		</span>
+	</div>
 
 </div>

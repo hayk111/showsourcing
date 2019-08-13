@@ -15,6 +15,7 @@ import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/f
 import { ProductListComponent } from '~deprecated/product-list/product-list.component';
 import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -54,6 +55,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	];
 
 	productsCount$: Observable<number>;
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private productSrv: ProductService,
@@ -163,6 +165,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.closeFilterPanel();
 	}
 
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = {take: Number(count)};
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+	}
 
 	onExport() {
 		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());

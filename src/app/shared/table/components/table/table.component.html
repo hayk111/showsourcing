@@ -40,7 +40,7 @@
 			class="col {{ column.grows ? 'flexGrow' : '' }}">
 			<!-- header -->
 			<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize" (click)="onSort(column)"
-				[style.height]="rowHeight + 'px'">
+				[style.height]="rowHeight + 'px'" [class.sorted]="currentSortedColumn?.type === column?.type">
 				{{ column.title }}
 				<ng-container *ngIf="column.sortOrder !== 'NONE'">
 					<icon-app class="sortIcon fs-xs"  fontSet="fa" name="angle-down"
@@ -113,5 +113,6 @@
 <pagination-app
 	[count]="count"
 	[currentPage]="currentPage"
-	(goToPage)="goToIndexPage($event)">
+	(goToPage)="goToIndexPage($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)">
 </pagination-app>
