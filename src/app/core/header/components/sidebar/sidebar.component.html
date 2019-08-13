@@ -7,11 +7,11 @@
 <nav>
 
 	<ng-container *ngIf="navItems?.length">
-		<ng-container *ngFor="let navItem of navItems; let i = index;">
+		<ng-container *ngFor="let navItem of navItems; let i = index; trackBy: trackByFn">
 
 			<div class="sidebar-item-content" (mouseenter)="hoverItem(i)" (mouseleave)="hoverItem(-1)">
 				<a [routerLink]="navItem?.link" routerLinkActive="selected">
-					<img [src]="navItem?.icon" />
+					<icon-app [size]="'l'" [name]="navItem?.icon"></icon-app>
 
 					<ng-container *ngIf="navItem?.notifBadge">
 						<div class="first-uppercase" notifBadge
@@ -24,9 +24,9 @@
 				<ng-container *ngIf="hoverIndex === i && navItem?.children?.length">
 
 					<div class="child-content">
-						<ng-container *ngFor="let child of navItem.children">
+						<ng-container *ngFor="let child of navItem.children; trackBy: trackByFn">
 							<a class="first-uppercase" [routerLink]="child?.link">
-								<img [src]="child?.icon" class="child-item-logo" />
+								<icon-app [size]="'m'" [name]="child?.icon"></icon-app>
 								{{child.label}}
 							</a>
 						</ng-container>

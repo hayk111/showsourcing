@@ -33,35 +33,35 @@ export class SidebarComponent implements OnInit {
 			`status == "${DEFAULT_REPLIED_STATUS}" AND senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
 		);
 		this.navItems = [{
-			icon: 'assets/icons/product-sidebar.svg',
+			icon: 'product',
 			link: ['/product'],
 			children: [{
-				icon: 'assets/icons/product-sidebar.svg',
+				icon: 'product',
 				label: translate('products')
 			},
 			{
-				icon: 'assets/icons/product-sidebar.svg',
+				icon: 'sample',
 				label: translate('samples')
 			},
 			{
-				icon: 'assets/icons/product-sidebar.svg',
+				icon: 'kanban',
 				label: translate('boards')
 			}]
 		},
 		{
-			icon: 'assets/icons/product-sidebar.svg',
-			link: ['/project']
-		},
-		{
-			icon: 'assets/icons/product-sidebar.svg',
+			icon: 'supplier',
 			link: ['/supplier']
 		},
 		{
-			icon: 'assets/icons/product-sidebar.svg',
+			icon: 'project',
+			link: ['/project']
+		},
+		{
+			icon: 'check-round',
 			link: ['/workspace']
 		},
 		{
-			icon: 'assets/icons/product-sidebar.svg',
+			icon: 'envelope',
 			link: ['/request'],
 			notifBadge: true
 		}
