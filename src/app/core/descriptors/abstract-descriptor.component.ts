@@ -22,7 +22,9 @@ export abstract class AbstractDescriptorComponent {
 				}
 				return acc;
 			}, []);
-			this._descriptor = [...orderedDescriptor];
+			// if we got any match with the only string array we override the descriptor
+			if (orderedDescriptor.length)
+				this._descriptor = [...orderedDescriptor];
 		}
 
 		return this._descriptor;
@@ -36,7 +38,7 @@ export abstract class AbstractDescriptorComponent {
 		this.itemsAreValid(newValues);
 		const modifiedDescriptor = this._descriptor.map(item => {
 			let currentValue = item;
-			// if the name is the same that means that we have to udpate
+			// if the name is the same that means that we have to udpate, we don't take into account type titles
 			const updatedValue = newValues.find(value => value.name === item.name && item.type !== 'title');
 			if (updatedValue) {
 				if (updatedValue.metadata && currentValue.metadata) {
@@ -65,8 +67,8 @@ export abstract class AbstractDescriptorComponent {
 	 */
 	insert(newValue: DynamicField, name: string) {
 		this.itemsAreValid([newValue], 'insert to');
-		// if the index
-		const indexToInsert = this._descriptor.findIndex(item => item.name === name);
+		// we find the index matching the names and we don't take into account type title
+		const indexToInsert = this._descriptor.findIndex(item => item.name === name && item.type !== 'title');
 		if (indexToInsert === -1)
 			throw Error(`there is no name on the descriptor with name ${name} to insert new value`);
 
@@ -82,7 +84,7 @@ export abstract class AbstractDescriptorComponent {
 	private itemsAreValid(items: DynamicField[], action = 'modify') {
 		const hasEmptyName = items.some(item => !item.name);
 		if (hasEmptyName)
-			throw Error(`the values that you are using to modify the descriptor, do not have the property 'name'`);
+			throw Error(`the values that you are using to ${action} the descriptor, do not have the property 'name'`);
 	}
 
 }

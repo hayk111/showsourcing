@@ -8,7 +8,6 @@ const common = [
 	ProductDescriptor,
 	SampleDescriptor,
 	SupplierDescriptor,
-	TaskDescriptor
 ];
 
 @NgModule({

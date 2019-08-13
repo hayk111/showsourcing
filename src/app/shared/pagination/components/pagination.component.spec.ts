@@ -12,9 +12,9 @@ const ITEMS_PER_PAGE = DEFAULT_TAKE_PAGINATION;
  * see: https://stackoverflow.com/questions/37408801/testing-ngonchanges-lifecycle-hook-in-angular-2
  */
 @Component({
-	selector : `test-host-component`,
-	template :
-	`<pagination-app
+	selector: `test-host-component`,
+	template:
+		`<pagination-app
 		[width]="width"
 		[count]="count"
 		[currentPage]="currentPage"><pagination-app>`
@@ -28,7 +28,7 @@ export class TestHostComponent {
 }
 
 
-fdescribe('Component: PaginationComponent', () => {
+describe('Component: PaginationComponent', () => {
 	let testComp: TestHostComponent;
 	let paginationComp: PaginationComponent;
 	let fixture: ComponentFixture<TestHostComponent>;
