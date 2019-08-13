@@ -1,0 +1,75 @@
+:host {
+	display: flex;
+	z-index: auto;
+	position: relative;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	width: 64px;
+	background: var(--color-bg-dark);
+	color: white;
+	flex-direction: column;
+}
+
+.logo-content {
+	max-width: 100%;
+	padding: var(--spacing-s);
+	background-image: linear-gradient(39deg, var(--color-vibrant), var(--color-primary));
+	border-radius: 4px;
+	margin: var(--spacing-s);
+
+	>a {
+
+		>.logo {
+			height: 32px;
+			width: 32px;
+			display: block;
+		}
+	}
+}
+
+nav {
+	font-size: var(--font-size-l);
+	display: flex;
+	justify-content: flex-start;
+	flex-grow: 1;
+	flex-direction: column;
+
+	a {
+		opacity: 0.9;
+		display: block;
+		padding: var(--spacing-m);
+
+		&.selected {
+			background: #071327;
+			color: white;
+		}
+	}
+}
+
+.right {
+
+	color: var(--color-txt-primary);
+
+	notif-app,
+	user-panel-app {
+		&:hover {
+			background: #071327;
+		}
+	}
+
+	notif-app {
+		margin-right: var(--spacing-ms);
+		height: 32px;
+		width: 32px;
+		font-size: 24px;
+		cursor: pointer;
+		border-radius: var(--border-radius-s);
+	}
+
+	.divider {
+		height: var(--spacing-l);
+		width: 1px;
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+}
