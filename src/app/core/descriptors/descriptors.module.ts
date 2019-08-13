@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ProductDescriptor } from './product-descriptor.component';
-import { SampleDescriptor } from './sample-descriptor.component';
-import { SupplierDescriptor } from './supplier-descriptor.component';
-import { TaskDescriptor } from './task-descriptor.component';
+import { ProductDescriptor, SampleDescriptor, SupplierDescriptor, TaskDescriptor } from './entity-descriptors';
+
 
 const common = [
 	ProductDescriptor,

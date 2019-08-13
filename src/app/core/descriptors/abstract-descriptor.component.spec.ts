@@ -1,4 +1,4 @@
-import { SampleDescriptor } from './sample-descriptor.component';
+import { SampleDescriptor } from './entity-descriptors/sample-descriptor.component';
 
 describe('SampleDescriptor', () => {
 	it('should create an instance', () => {

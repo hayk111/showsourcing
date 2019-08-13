@@ -1,7 +1,7 @@
 import { ERM } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms';
 import { translate } from '~utils';
-import { AbstractDescriptorComponent } from './abstract-descriptor.component';
+import { AbstractDescriptorComponent } from '../abstract-descriptor.component';
 
 export class ProductDescriptor extends AbstractDescriptorComponent {
 
