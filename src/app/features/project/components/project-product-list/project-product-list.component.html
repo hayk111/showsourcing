@@ -53,12 +53,16 @@
 
 <!-- name -->
 <ng-template #supplier let-row="row">
-	{{ row?.supplier?.name || '-' }}
+	<div class="ellipsis">
+		{{ row?.supplier?.name || '-' }}
+	</div>
 </ng-template>
 
 <!-- category -->
 <ng-template #category let-row="row">
-    {{ row?.category?.name || '-'}}
+	<div class="ellipsis">
+		{{ row?.category?.name || '-'}}
+	</div>
 </ng-template>
 
 <!-- price -->
