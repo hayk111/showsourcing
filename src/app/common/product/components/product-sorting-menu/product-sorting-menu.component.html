@@ -33,7 +33,6 @@
 					<ng-container i18n="@@sort-by-created-on">Sort By Created On</ng-container>
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <div><icon-app name="angle-down"></icon-app></div>
     </button>
   </context-menu-trigger-app>
   <context-menu-item-app (click)="sortFromMenu.emit('name')" class="menu-item">
@@ -84,7 +83,7 @@
   <ng-container>
 		<icon-app
 			*ngIf="currentSort?.descending; else upArrow;"
-			class="sortIcon fs-xs"	name="angle-down">
+			class="sortIcon fs-xs" name="angle-down">
 		</icon-app>
     <ng-template #upArrow>
       <icon-app  class="sortIcon fs-xs" name="angle-up"></icon-app>

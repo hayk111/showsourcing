@@ -5,13 +5,17 @@
 		By default icons inherit the font size
 		<small>name="product"</small>
 	</p>
-	<icon-app name="product"></icon-app>
+	<div class="flex">
+		<icon-app name="product"></icon-app>
+	</div>
 
 	<p>
 		You can give a number in the [size] input
 		<small>name="product" [size]="24"</small>
 	</p>
-	<icon-app name="product" [size]="24"></icon-app>
+	<div class="flex">
+		<icon-app name="product" [size]="24"></icon-app>
+	</div>
 
 	<p>
 		Or you can give one of our default size "s", "m" or "l"
@@ -60,8 +64,13 @@
 
 	<br><br>
 	<b>Circle</b> <br>
+
+	
+	<p>
+		You can use the [circle] input to make it a circle
+		<small>type="product" | "comment" | "task" [circle]="true" </small>
+	</p>
 	<div class="flex">
-		type="product" | "comment" | "task" [circle]="true"
 		<logo-app type="product" [circle]="true"></logo-app>
 		<logo-app type="comment" [circle]="true"></logo-app>
 		<logo-app type="task" [circle]="true"></logo-app>
@@ -69,29 +78,40 @@
 
 	<br><br>
 	<b>Size</b> <br>
+	<p>
+		You can specify one of the [size] "s", "m" or "l"
+		<small>type="product" size="s" | size="m" | size="l"</small>
+	</p>
 	<div class="flex">
-		<p>
-			<small>type="product" size="s" | size="m" | size="l"</small>
-		</p>
 		<logo-app type="product" size="s"></logo-app>
 		<logo-app type="product" size="m"></logo-app>
 		<logo-app type="product" size="l"></logo-app>
 	</div>
 
+	<p>
+		You can however select specific sizes for [backgroundSize] and [iconSize]
+		<small>type="product" [backgroundSize]="60" [iconSize]="35"</small>
+	</p>
 	<div class="flex">
-		<p>
-			<small>type="product" [backgroundSize]="60" [iconSize]="35"</small>
-		</p>
 		<logo-app type="product" [backgroundSize]="60" [iconSize]="35"></logo-app>
 	</div>
 
 	<br><br>
 	<b>Image</b> <br>
-	type="product" [logo]="imageMock"
+
+	<p>
+		If you specify a [logo] it will be used
+		<small>type="product" [logo]="imageMock"</small>
+	</p>
+	
 	<logo-app type="product" [logo]="imageMock"></logo-app>
 
 	<br><br>
 	<b>Icon</b> <br>
-	icon="star" color="accent"
+
+	<p>
+		You can set a specific icon
+		<small>icon="star" color="accent"</small>
+	</p>
 	<logo-app icon="star" color="accent"></logo-app>
 </card-app>
