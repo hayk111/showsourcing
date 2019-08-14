@@ -11,12 +11,12 @@
 
 	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
 		<article class="flexBetween pointer" [class.last-item]="last">
-			<div class="flex">
+			<div class="flex project-row-info">
 				<div class="space-icon flexAround">
 					<icon-app class="fs-m pointer" fontSet="svg" name="folder-light" ></icon-app>
 				</div>
 				<div class="flexColumn middle" >
-					<span class="name capitalize">
+					<span class="name capitalize ellipsis">
 						{{ project?.name }}
 					</span>
 					<span

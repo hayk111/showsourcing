@@ -33,7 +33,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private contactSrv: ContactService,
+		private contactSrv: ContactService
 	) {
 		super();
 	}
@@ -56,7 +56,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		}
 		// subscribing to the contact so we have updates
 		this.contact$ = this.contactCreated$.pipe(
-			switchMap(_ => this.contact$ = this.contactSrv.selectOne(this.contactId)),
+			switchMap(_ => this.contactSrv.selectOne(this.contactId)),
 			tap(contact => this.contact = contact),
 			tap(contact => this.form.patchValue(contact)),
 			takeUntil(this._destroy$)
