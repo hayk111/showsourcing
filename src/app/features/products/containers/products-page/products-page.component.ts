@@ -37,7 +37,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	@ViewChild('productList', { read: ElementRef, static: false })
 	public productListElem: ElementRef;
 
-	public tableWidth: number;
+	public tableWidth: string;
 
 	erm = ERM;
 	filterTypeEnum = FilterType;
@@ -138,6 +138,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	@HostListener('window:resize', ['$event'])
 	onResize(event) {
 		if (this.tableWidth) {
+			console.log('TCL: ProductsPageComponent -> onResize -> this.tableWidth', this.tableWidth);
 			this.tableWidth = null;
 		}
 	}
@@ -147,8 +148,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 																		|| document.body.clientWidth;
 
 		// for browser window less than 1500px show filters tab over the table
-		if (width > 1500) {
-			this.tableWidth = this.productListElem.nativeElement.offsetWidth - 300;
+		if (width > 1000) {
+			this.tableWidth = (this.productListElem.nativeElement.offsetWidth - 300) + 'px';
 		}
 
 		this.listSrv.openFilterPanel();
@@ -159,10 +160,19 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 																		|| document.body.clientWidth;
 
 		// for browser window less than 1500px show filters tab over the table
-		if (width > 1500) {
-			this.tableWidth = this.productListElem.nativeElement.offsetWidth + 300;
+		if (width > 1000) {
+			this.tableWidth = 'unset';
 		}
 		this.listSrv.closeFilterPanel();
+	}
+
+	getSubPanelWidth() {
+		return this.tableWidth && this.tableWidth !== 'unset' ?
+			(this.getWidthNumerical(this.tableWidth) - 24) + 'px' : 'unset';
+	}
+
+	private getWidthNumerical(txt: string): number {
+		return txt.match(/\d+/g).map(Number)[0];
 	}
 
 	showItemsPerPage(count: number) {

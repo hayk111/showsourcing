@@ -34,15 +34,17 @@
 	<div class="right-container flex">
 		<div class="show-archived-container">
 			<label class="pointer">
-				<input class="show-archived pointer" type="checkbox" 
+				<input class="show-archived pointer" type="checkbox" id="show-archived" 
 					[(ngModel)]="isArchivedShown" (change)="archiveChange($event)" />Show Archived
+				<label for="show-archived"></label>
 			</label>
 		</div>
 
 		<div class="assigned-to-me-container">
 			<label class="pointer">
-				<input class="assigned-to-me pointer" type="checkbox" 
+				<input class="assigned-to-me pointer" type="checkbox" id="assigned-to-me" 
 					[(ngModel)]="isAssigned" (change)="assignedChange($event)" />Assigned to me
+				<label for="assigned-to-me"></label>
 			</label>
 		</div>
 

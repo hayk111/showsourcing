@@ -7,11 +7,11 @@
 		<side-panel-title-app class="capitalize filters-title" i18n="text@@filters">
 			filters
 		</side-panel-title-app>
-		<div>
+		<div class="clear-filters-container">
 			<side-panel-action-app class="clear" (click)="resetAll()" i18n="text@@clear-all-filters">
 				<span class="clear-filters">Clear All Filters</span>
 			</side-panel-action-app>
-			<icon-app name="arrow-right-thin" color="txt-third" (click)="close.emit()"></icon-app>
+			<icon-app name="close-pane-right" size="24" color="txt-third" (click)="close.emit()"></icon-app>
 		</div>
 	</div>
 	<divider-app></divider-app>

@@ -1,7 +1,5 @@
 :host ::ng-deep .filters-title-section icon-app {
 	display: inline-block;
-	width: 24px;
-  height: 24px;
 }
 
 .filters-title-section {
@@ -11,7 +9,15 @@
 	height: 47px;
 }
 
+.clear-filters-container {
+	height: 24px;
+	position: relative;
+}
+
 .clear-filters {
+	position: absolute;
+	right: 16px;
+	top: 1px;
 	width: 106px;
   height: 20px;
   font-size: var(--font-size-m);

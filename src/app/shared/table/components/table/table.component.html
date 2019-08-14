@@ -10,7 +10,7 @@
 		</div>
 
 		<!-- selection column -->
-		<div class="col selectionCol" *ngIf="hasSelection" [style.height]="rowHeight + 'px'">
+		<div class="col selectionCol" *ngIf="hasSelection && hasSelectPagination" [style.height]="rowHeight + 'px'">
 			<div class="header" [style.height]="rowHeight + 'px'">
 				<ng-container>
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
@@ -111,6 +111,7 @@
 </div>
 
 <pagination-app
+	*ngIf="hasSelectPagination"
 	[count]="count"
 	[currentPage]="currentPage"
 	(goToPage)="goToIndexPage($event)"

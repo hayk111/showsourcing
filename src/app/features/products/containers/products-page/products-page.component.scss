@@ -8,6 +8,10 @@
 	padding: 24px;
 }
 
+:host ::ng-deep sub-panel-app {
+	overflow: hidden;
+}
+
 product-sorting-menu-app {
 	margin-right: var(--spacing-ms);
 }

@@ -2,7 +2,7 @@
 <!-- top panel -->
 <top-panel-app
 	[title]="'My products'"
-	buttonName="Add Product"
+	buttonName="Create Product"
 	(buttonClick)="commonModalSrv.openCreationProductDlg()"
 	i18n-title="@@my-products"
 	i18n-buttonName="@@add-products">
@@ -17,6 +17,7 @@
 	entityType="products"
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
+	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
 	(search)="listSrv.search($event)"
 	(clearFilters)="onClearFilters()"
 	(showArchived)="onShowArchived()"
@@ -64,7 +65,7 @@
 		[selection]="listSrv.selection$ | async"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
-		[ngStyle]="tableWidth && {'width': tableWidth + 'px'}"
+		[ngStyle]="tableWidth && {'width': tableWidth}"
 		(goToPage)="listSrv.loadPage($event, selectItemsConfig)"
 		(delete)="listSrv.deleteOne($event)"
 		(update)="listSrv.update($event)"

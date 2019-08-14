@@ -32,6 +32,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasMenu = true;
 	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
+	/** whether rows are selectable and pagination is visible */
+	@Input() hasSelectPagination = true;
 
 	@Input() width: number;
 	@Input() rowHeight: number;

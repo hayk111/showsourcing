@@ -1,8 +1,16 @@
 :host {
-	padding: 0 var(--spacing-l);
+	margin: 0 var(--spacing-l);
 	height: 65px;
-	background: white;
 	flex-shrink: 0;
+	border-bottom: 1px solid var(--legacy-color-divider);
+
+	h2 {
+		width: 149px;
+		height: 36px;
+		font-size: var(--font-size-xxxxl);
+		font-weight: 600;
+		color: var(--color-bg-dark);
+	}
 }
 
 .ctnr {

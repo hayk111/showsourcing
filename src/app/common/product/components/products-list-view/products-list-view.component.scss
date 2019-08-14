@@ -39,7 +39,7 @@
 }
 
 .hover-img {
-	background-color: rgba(var(--color-primary-rgb), 0.5);
+	background-color: rgba(var(--color-primary), 0.5);
 }
 
 .preview-imgs:hover .hover-img {
@@ -115,7 +115,7 @@
 
 .created-by-date {
   height: 15px;
-  font-size: 12px;
+  font-size: var(--font-size-s);
   color: var(--color-txt-primary);
 }
 
