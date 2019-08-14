@@ -54,7 +54,8 @@ export enum EntityName {
 	TAG = 'tag',
 	TASK = 'task',
 	TEAM = 'team',
-	USER = 'user'
+	USER = 'user',
+	LOCATION = 'location'
 }
 
 
