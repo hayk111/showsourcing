@@ -11,7 +11,7 @@ import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, translate, uuid } from '~utils';
-import { productFields } from '~utils/constants/product-field.const';
+import { ProductDescriptor } from '~core/descriptors';
 
 @Component({
 	selector: 'mass-edit-dlg-app',
@@ -24,10 +24,11 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	@Input() type: EntityMetadata;
 	@Input() items: any[];
 
-	dynamicFields: DynamicField[] = productFields;
+	dynamicFields: DynamicField[];
 	erm = ERM;
 	choice$: ReplaySubject<DynamicField> = new ReplaySubject<DynamicField>(1);
 	definitions$: Observable<ExtendedFieldDefinition[]>;
+	private _productDescriptor: ProductDescriptor;
 	value: any;
 	like = false;
 	dislike = false;
@@ -44,7 +45,22 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		switch (this.type) {
 			case ERM.PRODUCT:
-				this.dynamicFields = productFields;
+				this._productDescriptor = new ProductDescriptor([
+					'name', 'assignee', 'description', 'category', 'supplier', 'price', 'event', 'tags', 'extendedFields',
+					'innerCarton', 'masterCarton', 'minimumOrderQuantity', 'moqDescription', 'votes', 'samplePrice', 'projects',
+					'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC', 'incoTerm', 'harbour', 'status'
+				]);
+				this._productDescriptor.modify([
+					{ name: 'assignee', metadata: { placeholder: `${translate('choose')} ${translate('assignee')}`, width: 500 } },
+					{ name: 'category', metadata: { placeholder: `${translate('choose')} ${translate(ERM.CATEGORY.singular, 'erm')}`, width: 500 } },
+					{ name: 'supplier', metadata: { placeholder: `${translate('choose')} ${translate(ERM.SUPPLIER.singular, 'erm')}`, width: 500 } },
+					{ name: 'event', metadata: { placeholder: `${translate('choose')} ${translate(ERM.EVENT.singular, 'erm')}`, width: 500 } },
+					{ name: 'tags', metadata: { placeholder: `${translate('choose')} ${translate(ERM.TAG.plural, 'erm')}`, width: 500 } },
+					{ name: 'projects', metadata: { placeholder: `${translate('choose')} ${translate(ERM.PROJECT.plural, 'erm')}`, width: 500 } },
+					{ name: 'incoTerm', metadata: { width: 500 } },
+					{ name: 'harbour', metadata: { width: 500 } }
+				]);
+				this.dynamicFields = this._productDescriptor.descriptor;
 				this.definitions$ = this.extendedFDSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 				break;
 			default: throw Error(`No DynamicField associated to this ERM ${this.type}`);

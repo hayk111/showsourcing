@@ -24,7 +24,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
 
-		{ name: 'description', type: 'text' },
+		{ name: 'description', type: 'textarea', metadata: { rows: 5 } },
 		{ name: 'name', type: 'text', required: true, label: translate('name') },
 		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
 
