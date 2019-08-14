@@ -1,13 +1,9 @@
 <card-app>
 
-	<div class="title flex">
-		<div class="space-icon flexAround">
-			<icon-app name="poll" class="color-primary"></icon-app>
-		</div>
-		<h3 class="flex capitalize" i18n="header@@team-rating">
-			team rating
-		</h3>
-	</div>
+	<card-title-app>
+		<icon-app name="poll"></icon-app> 
+		<span i18n="header@@team-rating">team rating</span>
+	</card-title-app>
 
 	<ng-container *ngIf="votes?.length > 0; else noVotes">
 		<div class="rating-info">

@@ -47,7 +47,7 @@
 			<context-menu-trigger-app class="flex pointer">
 				<div class="text" *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">Team Member</div>
 				<div class="text capitalize" *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">contributor</div>
-				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+				<div class="selector"><icon-app name="angle-down"></icon-app></div>
 			</context-menu-trigger-app>
 			<context-menu-item-app
 				(click)="accessTypeUpdated.emit({ invitation: row, accessType: 'TeamMember' })"

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, ElementRef, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
 import { AppImage, EntityName } from '~models';
-import { Colors, Color } from '~utils';
+import { Colors, Color, log } from '~utils';
 
 
 export const colorMap = {
@@ -14,6 +14,21 @@ export const colorMap = {
 	[EntityName.TAG]: Color.SECONDARY,
 	[EntityName.TASK]: Color.SUCCESS,
 	[EntityName.SUPPLIER]: Color.VIBRANT,
+	[EntityName.LOCATION]: Color.SECONDARY
+};
+
+export const iconMap = {
+	[EntityName.CATEGORY]: 'category',
+	[EntityName.COMMENT]: 'comments',
+	[EntityName.CONTACT]: 'team',
+	[EntityName.EVENT]: 'event',
+	[EntityName.PRODUCT]: 'product',
+	[EntityName.PROJECT]: 'project',
+	[EntityName.SAMPLE]: 'sample',
+	[EntityName.TAG]: 'tag',
+	[EntityName.TASK]: 'check-circle',
+	[EntityName.SUPPLIER]: 'supplier',
+	[EntityName.LOCATION]: 'location'
 };
 
 
@@ -49,6 +64,8 @@ export class LogoComponent implements OnInit {
 	@Input() iconSize: number;
 	/** size of background that can be overriden */
 	@Input() backgroundSize: number;
+	/** to override the default icon given by type */
+	@Input() icon: string;
 
 	// getset to override the color if type is specified
 	/** displayed color */
@@ -62,6 +79,13 @@ export class LogoComponent implements OnInit {
 	ngOnInit() {
 		this.renderContainerSize();
 		this.renderColor();
+		if (!this.type) {
+			log.error('No type specified in logo');
+		}
+	}
+
+	get computedIcon() {
+		return this.icon || iconMap[this.type];
 	}
 
 	private renderColor() {

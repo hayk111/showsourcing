@@ -12,7 +12,6 @@ index: {{ currentPage }}  -->
 <div class="flexCenter pagination-ctrl">
 
 	<icon-app 
-		fontSet="fa" 
 		name="angle-left" 
 		[ngClass]="{ disabled: currentPage === 0 }" 
 		(click)="goToPreviousPage()">
@@ -26,7 +25,6 @@ index: {{ currentPage }}  -->
 	</span>
 
 	<icon-app 
-		fontSet="fa" 
 		name="angle-right" 
 		[ngClass]="{ disabled: currentPage === totalPages - 1 }" 
 		(click)="goToNextPage()">
