@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 
 @Component({
 	selector: 'notif-app',
@@ -10,7 +11,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 export class NotifComponent implements OnInit {
 	leftSideOrientation = false;
 	isOpen = false;
-	@Input() notifications: any = null;
+	@Input() notifications: GetStreamNotification = null;
 	constructor() { }
 
 	ngOnInit() {

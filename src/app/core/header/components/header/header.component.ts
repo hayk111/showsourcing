@@ -6,6 +6,7 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { DEFAULT_REPLIED_STATUS, Team, User } from '~core/models';
 import { SupplierRequestService, TeamService, UserService } from '~entity-services';
 import { ActivityService } from '~common/activity/services/activity.service';
+import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 
 @Component({
 	selector: 'header-app',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
 	user$: Observable<User>;
 	team$: Observable<Team>;
 	requestCount$: Observable<number>;
-	notification$: Observable<unknown>;
+	notification$: Observable<GetStreamNotification>;
 	isProd = environment.production;
 
 	constructor(
@@ -34,8 +35,6 @@ export class HeaderComponent implements OnInit {
 			`status == "${DEFAULT_REPLIED_STATUS}" AND senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
 		);
 		this.notification$ = this.activitySrv.getNotifications();
-		this.activitySrv.getRealTimeNotifications().subscribe(() => this.notification$ = this.activitySrv.getNotifications());
-
 	}
 
 	logout() {

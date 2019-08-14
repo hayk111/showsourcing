@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
 	selector: 'name-query-app',
@@ -9,10 +9,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 export class NameQueryComponent implements OnInit {
 
 	@Input() obj: any;
-	@Input() field: string;
 
 	ngOnInit() {
-		console.log(this.obj);
 	}
 
 }

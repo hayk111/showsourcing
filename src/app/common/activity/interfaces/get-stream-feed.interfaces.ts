@@ -26,3 +26,11 @@ export interface GetStreamActivity {
 	time: Date;
 	verb: string;
 }
+
+export interface GetStreamNotification {
+	duration: string;
+	next: string;
+	results: GetStreamGroup[];
+	unread: number;
+	unseen: number;
+}

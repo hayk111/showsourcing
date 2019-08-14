@@ -12,6 +12,7 @@ import {
 	GetStreamActivity,
 	GetStreamGroup,
 	GetStreamResponse,
+	GetStreamNotification
 } from '~common/activity/interfaces/get-stream-feed.interfaces';
 
 
@@ -25,7 +26,7 @@ import {
 export class ActivityService {
 	private readonly LIMIT = 100;
 	private client: any;
-
+	shouldRefetch$ = new BehaviorSubject(true);
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
@@ -34,6 +35,7 @@ export class ActivityService {
 
 	) {
 		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
+		this.enableRealTimeNotifications();
 	}
 
 	getDashboardFeed(): GroupedActivityFeed {
@@ -109,28 +111,35 @@ export class ActivityService {
 	}
 
 
-	// Notifications
+	/* Notifications */
 
-	getNotifications() {
-		const teamId = this.teamSrv.selectedTeamSync.id;
-		const userId = this.userSrv.userSync.id;
-		const tokenUrl = `${environment.apiUrl}/feed/token/user/${teamId}/${userId}`;
-		return this.getToken(tokenUrl).pipe(
-				tap(d => { console.log(`notifications:${teamId}-${userId}`); }),
-				map(token => this.client.feed('notifications', `${teamId}-${userId}`, token)),
-				switchMap(feed => feed.get({ limit: this.LIMIT })),
+	getNotifications(): Observable<GetStreamNotification> {
+		return this.shouldRefetch$.asObservable().pipe(
+			tap(_ => console.log('updating notifications...')),
+			switchMap(_ => this.getPastNotifications())
 		);
-}
-// real time
+	}
 
-	getRealTimeNotifications() {
+	private getPastNotifications(): Observable<GetStreamNotification> {
 		const teamId = this.teamSrv.selectedTeamSync.id;
 		const userId = this.userSrv.userSync.id;
 		const tokenUrl = `${environment.apiUrl}/feed/token/user/${teamId}/${userId}`;
 		return this.getToken(tokenUrl).pipe(
+			tap(_ => { console.log(`notifications:${teamId}-${userId}`); }),
 			map(token => this.client.feed('notifications', `${teamId}-${userId}`, token)),
-			switchMap(feed => Observable.create(observer => feed.subscribe(data => observer.next(data)))),
-		);
+			switchMap(feed => feed.get({ limit: this.LIMIT })),
+			tap(data => console.log(data))
+		) as Observable<GetStreamNotification>;
+	}
+
+	private enableRealTimeNotifications(): void {
+		const teamId = this.teamSrv.selectedTeamSync.id;
+		const userId = this.userSrv.userSync.id;
+		const tokenUrl = `${environment.apiUrl}/feed/token/user/${teamId}/${userId}`;
+		this.getToken(tokenUrl).toPromise().then(token => {
+			const feed = this.client.feed('notifications', `${teamId}-${userId}`, token);
+			feed.subscribe(_ => this.shouldRefetch$.next(true));
+		});
 	}
 
 }
