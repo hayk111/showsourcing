@@ -68,7 +68,4 @@ export class DynamicInputComponent extends AbstractInput implements OnInit, Afte
 		this.update.emit({ [this.customField.name]: this.accumulator });
 	}
 
-	get labelName() {
-		return this.customField.metadata.labelName || 'name';
-	}
 }

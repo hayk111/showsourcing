@@ -78,17 +78,17 @@
 		<!-- category -->
 		<ng-container *ngSwitchCase="erm.CATEGORY.singular">
 			<info-badge-app *ngIf="customField?.metadata?.hasBadge; else noLogo" type="category"> {{ value?.name }}</info-badge-app>
-			<ng-template #noLogo> {{ value?.name}} </ng-template>
+			<ng-template #noLogo> {{ value?.name }} </ng-template>
 		</ng-container>
 
 		<!-- supplier type -->
 		<ng-container *ngSwitchCase="erm.SUPPLIER_TYPE.singular">
-			<span>{{ value ? (value[labelName] | const: 'supplierType')  : '-'  }}</span>
+			<span>{{ value ? (value['name'] | const: 'supplierType')  : '-'  }}</span>
 		</ng-container>
 
 		<!-- event -->
 		<ng-container *ngSwitchCase="erm.EVENT.singular">
-			<span> {{ value && value['description'] ? value['description'][labelName] : '-' }}</span>
+			<span> {{ value && value['description'] ? value['description']['name'] : '-' }}</span>
 		</ng-container>
 
 		<!-- others we display an icon and the value next to it -->
@@ -97,7 +97,7 @@
 				*ngIf="(value | logo:customField?.metadata?.target) && !inlineLabel && customField?.metadata?.hasBadge"
 				[src]="value | logo:customField?.metadata?.target" />
 			<span class="ellipsis fullWidth">
-				{{ value ? value[labelName] : '-' }}
+				{{ value ? value['name'] : '-' }}
 			</span>
 		</ng-container>
 

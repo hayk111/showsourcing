@@ -51,11 +51,6 @@ export class EditableSelectorComponent extends AbstractInput {
 		return meta && meta.disabled;
 	}
 
-	get labelName() {
-		const meta = this.customField.metadata;
-		return meta && meta.labelName ? meta.labelName : 'name';
-	}
-
 	getLabelTemplate() {
 		return this.customField.multiple ? this.manyLabel : this.oneLabel;
 	}
