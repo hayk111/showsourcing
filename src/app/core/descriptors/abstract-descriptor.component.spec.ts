@@ -15,6 +15,8 @@ export class TestDescriptor extends AbstractDescriptorComponent {
 		}
 	};
 
+	emptyField = this.blankField;
+
 	// WARN: if more fields are added, some test won't work, since they depend on the order and quantity of items inside here
 	protected _descriptor: DynamicField[] = [
 		this.name,
@@ -24,7 +26,7 @@ export class TestDescriptor extends AbstractDescriptorComponent {
 
 	constructor(only?: string[]) {
 		super();
-		this.getOnly(only);
+		this.pickFields(only);
 	}
 
 }
@@ -37,17 +39,17 @@ describe('EntityDescriptors', () => {
 		testDesc = new TestDescriptor();
 	});
 
-	// getOnly
+	// pickFields
 	it('should filter and order the descriptor leaving only the items that match the keys ("name"), given a set of strings', () => {
-		testDesc.getOnly(['sample', 'name']);
+		testDesc = new TestDescriptor(['sample', 'name']);
 		expect(testDesc.descriptor).toEqual([testDesc.sample, testDesc.name]);
-		testDesc.getOnly(['sample', 'doesntExist']);
+		testDesc = new TestDescriptor(['sample', 'doesntExist']);
 		expect(testDesc.descriptor).toEqual([testDesc.sample]);
 	});
 
 	it('descriptor should stay the same when all set of string given does not match with the current descriptor', () => {
 		const oldDescriptor = [...testDesc.descriptor];
-		testDesc.getOnly(['hey', 'we', 'dont', 'exist']);
+		testDesc = new TestDescriptor(['hey', 'we', 'dont', 'exist']);
 		expect(testDesc.descriptor).toEqual(oldDescriptor);
 	});
 
@@ -97,5 +99,11 @@ describe('EntityDescriptors', () => {
 		const newField: DynamicField = { name: 'newField', type: 'title' };
 		expect(() => testDesc.insert(newField, 'doesntExist'))
 			.toThrowError(Error);
+	});
+
+	// insert blank
+	it('should insert a empty field above a given key ("name") that exists on the descriptor', () => {
+		testDesc.insertBlank('sample');
+		expect(testDesc.descriptor).toEqual([testDesc.name, testDesc.emptyField, testDesc.sample, testDesc.category]);
 	});
 });

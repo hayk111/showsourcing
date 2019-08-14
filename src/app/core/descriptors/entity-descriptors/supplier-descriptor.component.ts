@@ -82,6 +82,6 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 
 	constructor(only?: string[]) {
 		super();
-		this.getOnly(only);
+		this.pickFields(only);
 	}
 }

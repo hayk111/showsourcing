@@ -44,9 +44,9 @@ export class ProductShippingComponent extends AutoUnsub implements OnInit {
 		this.productDescriptor.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
 		// we need this empty objects since innercarton, mastercarton, pricematrix, have more rows inside the dynamic form
 		// therefore we have to add extra spaces, so we get the correct alignment
-		this.productDescriptor.insert({ name: 'blank' }, 'masterCarton');
-		this.productDescriptor.insert({ name: 'blank' }, 'masterCarton');
-		this.productDescriptor.insert({ name: 'blank' }, 'masterCarton');
+		this.productDescriptor.insertBlank('masterCarton');
+		this.productDescriptor.insertBlank('masterCarton');
+		this.productDescriptor.insertBlank('masterCarton');
 	}
 
 	update(product: Product) {

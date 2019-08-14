@@ -7,15 +7,17 @@ export abstract class AbstractDescriptorComponent {
 		return this._descriptor;
 	}
 
+	protected blankField: DynamicField = { name: 'blank' };
+
 	constructor() { }
 
 	/**
 	 * returns an orderded descriptor only taking into account the order and names that match inside the array only. o
-	 * @param only string array containing the name of the attributes of the entity that we want to filter
+	 * @param fields string array containing the name of the attributes of the entity that we want to filter
 	 */
-	getOnly(only: string[]) {
-		if (only && only.length) {
-			const orderedDescriptor = only.reduce((acc, val) => {
+	protected pickFields(fields: string[]) {
+		if (fields && fields.length) {
+			const orderedDescriptor = fields.reduce((acc, val) => {
 				const descriptorFound = this._descriptor.find(item => item.name === val);
 				if (descriptorFound) {
 					acc.push(descriptorFound);
@@ -74,6 +76,15 @@ export abstract class AbstractDescriptorComponent {
 
 		// we insert the new value
 		this._descriptor.splice(indexToInsert, 0, newValue);
+	}
+
+	/**
+	 * inserts a blank descriptor that is not displayed, above a given existing name inside the descriptor
+	 * its used when we have more than 1 column and we want to distribute the items in a certain way
+	 * @param name name where we are going to insert the new value
+	 */
+	insertBlank(name: string) {
+		this.insert(this.blankField, name);
 	}
 
 	/**

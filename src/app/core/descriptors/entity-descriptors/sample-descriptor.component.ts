@@ -53,6 +53,6 @@ export class SampleDescriptor extends AbstractDescriptorComponent {
 
 	constructor(only?: string[]) {
 		super();
-		this.getOnly(only);
+		this.pickFields(only);
 	}
 }

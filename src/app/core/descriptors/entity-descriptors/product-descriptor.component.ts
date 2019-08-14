@@ -147,7 +147,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 
 	constructor(only?: string[]) {
 		super();
-		this.getOnly(only);
+		this.pickFields(only);
 	}
 
 }
