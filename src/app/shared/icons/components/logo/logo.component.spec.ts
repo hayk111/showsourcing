@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { LogoComponent, colorMap, sizeMap, Size } from './logo.component';
-import { EntityName, AppImage, imageMock } from '~core/models';
+import { LogoComponent, colorMap, iconMap, sizeMap, Size } from './logo.component';
+import { EntityName, imageMock } from '~core/models';
 import { IconsModule } from '~shared/icons/icons.module';
 import { Color } from '~utils';
 
@@ -35,7 +35,7 @@ fdescribe('Logo component', () => {
 		component.size = 'm';
 	});
 
-	it('should display logo (image) if supplied', () => {
+	it('should display [logo] (image) if supplied', () => {
 		component.logo = imageMock;
 		fixture.detectChanges();
 		const img = el.querySelector('img');
@@ -44,7 +44,7 @@ fdescribe('Logo component', () => {
 		expect(img.src).toEqual(imageMock.urls[1].url);
 	});
 
-	it('should display the colors of the color input', () => {
+	it('should display the colors of the [color] input', () => {
 		colors.forEach(color => {
 			component.color = color;
 			component.ngOnInit();
@@ -53,7 +53,7 @@ fdescribe('Logo component', () => {
 		});
 	});
 
-	it('should display the colors depending on the entity if no color specified', () => {
+	it('should display the color depending on the entity if no [color] specified', () => {
 		Object.entries(colorMap).forEach(([name, color]) => {
 			component.type = name as EntityName;
 			component.ngOnInit();
@@ -62,7 +62,7 @@ fdescribe('Logo component', () => {
 		});
 	});
 
-	it('should be circle if circle is true', () => {
+	it('should be circle if [circle] is true', () => {
 		component.circle = true;
 		fixture.detectChanges();
 		expect(el.className).toContain('circle');
@@ -94,8 +94,21 @@ fdescribe('Logo component', () => {
 		expect(el.style.width).toEqual('30px');
 	});
 
+	it('should display the [icon] icon if no [logo] specified', () => {
+		types.forEach(type => {
+			const newFixture = TestBed.createComponent(LogoComponent);
+			const newComponent = newFixture.componentInstance;
+			const newEl = newFixture.nativeElement;
+			newComponent.icon = 'files';
+			newComponent.type = type;
+			newFixture.detectChanges();
+			const i = newEl.querySelector('i');
+			expect(i.className).toContain('files');
+		});
+	});
 
-	it('should display the entity icon if no image specified', () => {
+
+	it('should display the [type] icon if no [logo] nor [icon] specified', () => {
 		types.forEach(type => {
 			const newFixture = TestBed.createComponent(LogoComponent);
 			const newComponent = newFixture.componentInstance;
@@ -103,7 +116,7 @@ fdescribe('Logo component', () => {
 			newComponent.type = type;
 			newFixture.detectChanges();
 			const i = newEl.querySelector('i');
-			expect(i.className).toContain(type);
+			expect(i.className).toContain(iconMap[type]);
 		});
 	});
 

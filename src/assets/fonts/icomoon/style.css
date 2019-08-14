@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?3d33wv');
-  src:  url('fonts/icomoon.eot?3d33wv#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?3d33wv') format('truetype'),
-    url('fonts/icomoon.woff?3d33wv') format('woff'),
-    url('fonts/icomoon.svg?3d33wv#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?waaum');
+  src:  url('fonts/icomoon.eot?waaum#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?waaum') format('truetype'),
+    url('fonts/icomoon.woff?waaum') format('woff'),
+    url('fonts/icomoon.svg?waaum#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,45 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-fat-angle-right:before {
+  content: "\e94d";
+}
+.icon-circle:before {
+  content: "\e908";
+}
+.icon-double-fat-angle-right:before {
+  content: "\e912";
+}
+.icon-angle-down:before {
+  content: "\e913";
+}
+.icon-angle-left:before {
+  content: "\e91f";
+}
+.icon-angle-right:before {
+  content: "\e920";
+}
+.icon-angle-up:before {
+  content: "\e929";
+}
+.icon-logout:before {
+  content: "\e941";
+}
+.icon-search:before {
+  content: "\e944";
+}
+.icon-fat-angle-left:before {
+  content: "\e955";
+}
+.icon-close-pane-bottom:before {
+  content: "\e957";
+}
+.icon-close-pane-top:before {
+  content: "\e958";
+}
+.icon-double-fat-angle-left:before {
+  content: "\e959";
+}
 .icon-close-pane-left:before {
   content: "\e954";
 }
@@ -51,16 +90,16 @@
 .icon-eye:before {
   content: "\1f441";
 }
-.icon-thumbs-down-line:before {
+.icon-thumbs-down-light:before {
   content: "\e93d";
 }
-.icon-thumbs-up-line:before {
+.icon-thumbs-up-light:before {
   content: "\e93e";
 }
-.icon-heart-line:before {
+.icon-heart-light:before {
   content: "\e942";
 }
-.icon-folder-line:before {
+.icon-folder-light:before {
   content: "\e945";
 }
 .icon-comments:before {
@@ -93,9 +132,6 @@
 .icon-files:before {
   content: "\e907";
 }
-.icon-edit:before {
-  content: "\e908";
-}
 .icon-dots-horizontal:before {
   content: "\e909";
 }
@@ -108,13 +144,13 @@
 .icon-star:before {
   content: "\e90c";
 }
-.icon-plus-square-background:before {
+.icon-plus-circle:before {
   content: "\e90d";
 }
 .icon-camera:before {
   content: "\e90e";
 }
-.icon-shipping:before {
+.icon-square-arrow-diagonal:before {
   content: "\e90f";
 }
 .icon-share:before {
@@ -122,15 +158,6 @@
 }
 .icon-check:before {
   content: "\e911";
-}
-.icon-arrow-right-thin:before {
-  content: "\e912";
-}
-.icon-arrow-left-thin:before {
-  content: "\e94d";
-}
-.icon-arrow-bottom-thin:before {
-  content: "\e913";
 }
 .icon-more:before {
   content: "\e914";
@@ -150,85 +177,73 @@
 .icon-check-square:before {
   content: "\e919";
 }
-.icon-thumbs-up-background:before {
+.icon-thumbs-up-circle:before {
   content: "\e91a";
 }
-.icon-thumbs-down-background:before {
+.icon-thumbs-down-circle:before {
   content: "\e91b";
 }
-.icon-check-round:before {
+.icon-check-circle:before {
   content: "\e91c";
 }
 .icon-workflow:before {
   content: "\e952";
 }
-.icon-kanban-2:before {
+.icon-kanban-alt:before {
   content: "\e953";
 }
 .icon-fields:before {
   content: "\e949";
 }
-.icon-check-empty-round:before {
+.icon-check-circle-light:before {
   content: "\e94a";
 }
-.icon-bell-lined:before {
+.icon-bell-light:before {
   content: "\e94b";
 }
-.icon-thumbs:before {
+.icon-cards:before {
   content: "\e91d";
 }
 .icon-team:before {
   content: "\e91e";
 }
-.icon-task1:before {
-  content: "\e91f";
-}
-.icon-supplier-icon:before {
-  content: "\e920";
-}
-.icon-settings-project-menu:before {
+.icon-settings:before {
   content: "\e921";
 }
 .icon-sample-box:before {
   content: "\e922";
 }
-.icon-poll:before {
+.icon-poll-square:before {
   content: "\e925";
 }
-.icon-plus-square:before {
+.icon-plus:before {
   content: "\e926";
 }
 .icon-pencil:before {
   content: "\e927";
 }
-.icon-list-project-menu:before {
+.icon-list-menu:before {
   content: "\e928";
 }
-.icon-list:before {
-  content: "\e929";
-}
-.icon-home-project-menu:before {
+.icon-bar-chart:before {
   content: "\e92a";
 }
-.icon-feedback:before {
+.icon-poll:before {
   content: "\e932";
-}
-.icon-export1:before {
-  content: "\e933";
 }
 .icon-excel:before {
   content: "\e934";
 }
-.icon-event-icon:before {
+.icon-event:before {
   content: "\e935";
 }
 .icon-delete:before {
   content: "\e938";
 }
-.icon-data-cleansing:before {
+.icon-cleansing:before {
   content: "\e939";
 }
-.icon-comment:before {
+.icon-comment-alt:before {
   content: "\e93a";
 }
 .icon-close:before {
@@ -237,25 +252,16 @@
 .icon-category:before {
   content: "\e93f";
 }
-.icon-caret:before {
-  content: "\e940";
-}
-.icon-back-arrow:before {
-  content: "\e941";
-}
-.icon-arrow-right-rectangle:before {
+.icon-caret-right:before {
   content: "\e923";
 }
-.icon-arrow-left-rectangle:before {
+.icon-caret-left:before {
   content: "\e943";
-}
-.icon-search:before {
-  content: "\e944";
 }
 .icon-dots-vertical:before {
   content: "\e924";
 }
-.icon-add:before {
+.icon-fat-plus:before {
   content: "\e92b";
 }
 .icon-envelope:before {
@@ -276,7 +282,7 @@
 .icon-thumbs-up:before {
   content: "\e931";
 }
-.icon-trash-bin:before {
+.icon-trash:before {
   content: "\e936";
 }
 .icon-user:before {

@@ -22,7 +22,7 @@
 		<div class="flex flexGrow sub-cell" [ngClass]="{ 'with-border': !last }">
 			<!-- handle -->
 			<div class="w-5 cell">
-				<icon-app *ngIf="status?.step !== 0" cdkDragHandle class="handle" name="grip-vertical" fontSet="fa"></icon-app>
+				<icon-app *ngIf="status?.step !== 0" cdkDragHandle class="handle" name="grip-vertical"></icon-app>
 			</div>
 			<!-- step -->
 			<div class="w-5 cell">{{ status?.step }}</div>

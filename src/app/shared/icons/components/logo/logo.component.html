@@ -3,6 +3,6 @@
 <img *ngIf="logo; else icon" [src]="logo | image:'s'"/>
 
 <ng-template #icon>
-	<icon-app [name]="type"></icon-app>
+	<icon-app [name]="computedIcon"></icon-app>
 </ng-template>
 

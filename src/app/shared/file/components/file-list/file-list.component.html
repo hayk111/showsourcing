@@ -17,7 +17,7 @@
           <div class="file-size">{{ file.size | fileSize }}</div>
         </div>
         <div *ngIf="!static" class="flexCenter">
-          <icon-app fontSet="fa" (click)="onFileRemoved(file, $event)" name="minus" class="pointer minus fs-xl color-primary-light"></icon-app>
+          <icon-app (click)="onFileRemoved(file, $event)" name="trash" class="pointer minus fs-xl color-primary-light"></icon-app>
         </div>
       </list-item-app>
 
