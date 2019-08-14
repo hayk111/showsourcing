@@ -1,11 +1,23 @@
 
 <card-app>
 	<h3 class="mg-l">Icons</h3>
-	name="product" (default to inherit font-size)
+	<p>
+		By default icons inherit the font size
+		<small>name="product"</small>
+	</p>
 	<icon-app name="product"></icon-app>
-	name="product" [size]="24"
+
+	<p>
+		You can give a number in the [size] input
+		<small>name="product" [size]="24"</small>
+	</p>
 	<icon-app name="product" [size]="24"></icon-app>
-	name="product" [size]="'s'" || [size]="'m'" ||  [size]="'l'" 
+
+	<p>
+		Or you can give one of our default size "s", "m" or "l"
+		<small>name="product" [size]="'s'" || [size]="'m'" ||  [size]="'l'" </small>
+	</p>
+	
 	<div class="flex">
 		<icon-app name="product" [size]="'s'"></icon-app>
 		<icon-app name="product" [size]="'m'"></icon-app>
@@ -18,14 +30,21 @@
 	<h3 class="mg-l">Logos</h3>
 	
 	<b>Color</b> <br>
-	type="product" || type="supplier" || type="sample" (use type color)
+
+	<p>
+		By default if a type is specified the color associated with the [type] will be used <br>
+		<small>type="product" | "supplier" | ... (use type color)</small>
+	</p>
+
 	<div class="flex">
-		<logo-app type="product"></logo-app>
-		<logo-app type="supplier"></logo-app>
-		<logo-app type="sample"></logo-app>
+		<logo-app *ngFor="let type of types" [type]="type"></logo-app>
 	</div>
 
-	type="product" color="primary" || color="secondary" || color="vibrant" 
+	<p>
+		You can however override the color by specifying the [color] attribute
+		<br>
+		<small>type="product" color="primary" || color="secondary" || color="vibrant" </small>
+	</p>
 	<div class="flex">
 		<logo-app type="product" color="primary"></logo-app>
 		<logo-app type="product" color="secondary"></logo-app>
@@ -34,20 +53,26 @@
 
 	<br><br> 
 	<b>Circle</b> <br>
-	type="product" [circle]="true" color="accent"
+	<p>
+		<small>type="product" [circle]="true" color="accent"</small>
+	</p>
 	<logo-app type="product" [circle]="true" color="accent"></logo-app>
 
 	<br><br>
 	<b>Size</b> <br>
 	<div class="flex">
-		type="product" size="s" | size="m" | size="l"
+		<p>
+			<small>type="product" size="s" | size="m" | size="l"</small>
+		</p>
 		<logo-app type="product" size="s"></logo-app>
 		<logo-app type="product" size="m"></logo-app>
 		<logo-app type="product" size="l"></logo-app>
 	</div>
 
 	<div class="flex">
-		type="product" [backgroundSize]="60" [iconSize]="35"
+		<p>
+			<small>type="product" [backgroundSize]="60" [iconSize]="35"</small>
+		</p>
 		<logo-app type="product" [backgroundSize]="60" [iconSize]="35"></logo-app>
 	</div>
 
