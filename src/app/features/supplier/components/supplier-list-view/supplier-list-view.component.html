@@ -32,7 +32,7 @@
 		width="280">
 		<div class="supplier mainCellWrapper flexBetween">
 			<a class="capitalize ellipsis txt-btn" [routerLink]="['/supplier', row.id]">
-				<logo-app [logo]="row" type="supplier" size="l"></logo-app>
+				<logo-app [logo]="row.logoImage" type="supplier" size="m"></logo-app>
 				<span class="ellipsis">{{ row.name }}</span>
 			</a>
 			<button class="preview small secondary-dark" (click)="previewClick.emit(row)">Preview</button>

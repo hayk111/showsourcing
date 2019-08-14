@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, ElementRef, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
 import { AppImage, EntityName } from '~models';
-import { Colors, Color } from '~utils';
+import { Colors, Color, log } from '~utils';
 
 
 export const colorMap = {
@@ -79,6 +79,9 @@ export class LogoComponent implements OnInit {
 	ngOnInit() {
 		this.renderContainerSize();
 		this.renderColor();
+		if (!this.type) {
+			log.error('No type specified in logo');
+		}
 	}
 
 	get computedIcon() {
