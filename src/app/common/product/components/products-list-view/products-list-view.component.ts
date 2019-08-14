@@ -34,6 +34,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	// because this won't really work with the type of descriptor Antoine is envisaging
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openExportDialog = new EventEmitter<Product>();
+	@Output() archiveProduct = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
 	@Output() openCreateRequestDlg = new EventEmitter<Product>();
 

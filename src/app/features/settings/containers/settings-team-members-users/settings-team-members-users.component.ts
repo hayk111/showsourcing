@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
@@ -60,19 +60,20 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	}
 
 	updateAccessType({ member, accessType }: { member: TeamUser, accessType: string }) {
-		this.featureSrv.updateAccessType([{ id: member.id, accessType }]).subscribe(() => {
-			this.listSrv.refetch();
-			this.listSrv.selectionSrv.unselectAll();
-		});
+		this.featureSrv.updateAccessType([{ id: member.id, accessType }])
+			.pipe(
+				switchMap(_ => this.listSrv.refetch())
+			)
+			.subscribe(_ => this.listSrv.selectionSrv.unselectAll());
 	}
 
 	updateAccessTypeSelected({ accessType }) {
 		const ids = this.listSrv.getSelectedIds();
 		this.featureSrv.updateAccessType(ids.map(id => ({ id, accessType })))
-			.subscribe(() => {
-				this.listSrv.refetch();
-				this.listSrv.selectionSrv.unselectAll();
-			});
+			.pipe(
+				switchMap(_ => this.listSrv.refetch())
+			)
+			.subscribe(_ => this.listSrv.selectionSrv.unselectAll());
 	}
 
 	getTooltipMsg() {
