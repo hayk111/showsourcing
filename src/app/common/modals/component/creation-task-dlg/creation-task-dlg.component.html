@@ -5,7 +5,7 @@
 				<div class="inner-container">
 					<dynamic-form-app
 						[colAmount]="1"
-						[fields]="dynamicFields"
+						[fields]="taskDescriptor?.descriptor"
 						[textMode]="false"
 						[value]="task"
 						(update)="updateTask($event)">
