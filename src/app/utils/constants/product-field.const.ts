@@ -1,8 +1,8 @@
 import { ERM } from '~core/models';
-import { PickerField } from '~shared/selectors';
+import { DynamicField } from '~shared/dynamic-forms';
 import { translate } from '~utils/translate.utils';
 
-export const productFields: PickerField[] = [
+export const productFields: DynamicField[] = [
 	{ name: 'name', type: 'text' },
 	{
 		name: 'assignee', type: 'selector',

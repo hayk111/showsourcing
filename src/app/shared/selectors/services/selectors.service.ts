@@ -44,12 +44,12 @@ import {
 	WeightUnit,
 } from '~models';
 import { Supplier } from '~models/supplier.model';
+import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters';
 import { countries, currencies, harbours, incoTerms } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
 
-import { PickerField } from '../components';
 
 @Injectable({
 	providedIn: 'root',
@@ -348,7 +348,7 @@ export class SelectorsService {
 		return this.items$;
 	}
 
-	getPickerFields(fields: PickerField[]): Observable<PickerField[]> {
+	getDynamicFields(fields: DynamicField[]): Observable<DynamicField[]> {
 		this.items$ = this.search$.pipe(
 			map(item => fields.filter(field => {
 				const isMatch = field.label ?

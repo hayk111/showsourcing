@@ -21,27 +21,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
+import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 import { RegexpApp } from '~utils';
-
-export interface PickerField {
-	name: string;
-	type: string;
-	label?: string; // if the name do not coincide with the label that we want e.g. moq != minimunOrderQuantity
-	metadata?: PickerFieldMetadata;
-}
-
-export interface PickerFieldMetadata {
-	multiple?: boolean;
-	canCreate?: boolean;
-	target?: string;
-	hasBadge?: boolean;
-	width?: number;
-	placeholder?: string;
-}
 
 @Component({
 	selector: 'selector-picker-app',
@@ -60,7 +45,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 	@Input() multiple = false;
 	@Input() canCreate = false;
-	@Input() pickerFields: PickerField[];
+	@Input() dynamicFields: DynamicField[];
 	@Input() filterList = new FilterList([]);
 
 	@Output() update = new EventEmitter<any>();
@@ -197,7 +182,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
 			case ERM.INCO_TERM: return this.selectorSrv.getIncoTermsGlobal();
 			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits();
-			case ERM.PICKER_FIELD: return this.selectorSrv.getPickerFields(this.pickerFields);
+			case ERM.PICKER_FIELD: return this.selectorSrv.getDynamicFields(this.dynamicFields);
 			case ERM.PRODUCT: return this.selectorSrv.getProducts();
 			case ERM.PROJECT: return this.selectorSrv.getProjects();
 			case ERM.REQUEST_TEMPLATE: return this.selectorSrv.getRequestTemplates();

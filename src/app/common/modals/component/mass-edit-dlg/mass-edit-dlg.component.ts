@@ -7,9 +7,9 @@ import {
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { EntityMetadata, ERM, ExtendedFieldDefinition } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
+import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { PickerField } from '~shared/selectors';
 import { AutoUnsub, translate, uuid } from '~utils';
 import { productFields } from '~utils/constants/product-field.const';
 
@@ -24,9 +24,9 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	@Input() type: EntityMetadata;
 	@Input() items: any[];
 
-	pickerFields: PickerField[] = productFields;
+	dynamicFields: DynamicField[] = productFields;
 	erm = ERM;
-	choice$: ReplaySubject<PickerField> = new ReplaySubject<PickerField>(1);
+	choice$: ReplaySubject<DynamicField> = new ReplaySubject<DynamicField>(1);
 	definitions$: Observable<ExtendedFieldDefinition[]>;
 	value: any;
 	like = false;
@@ -44,15 +44,15 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		switch (this.type) {
 			case ERM.PRODUCT:
-				this.pickerFields = productFields;
+				this.dynamicFields = productFields;
 				this.definitions$ = this.extendedFDSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 				break;
-			default: throw Error(`No PickerField associated to this ERM ${this.type}`);
+			default: throw Error(`No DynamicField associated to this ERM ${this.type}`);
 		}
 	}
 
 	updateChoice(choice) {
-		const temp = this.pickerFields.find(field => field.label === choice || field.name === choice);
+		const temp = this.dynamicFields.find(field => field.label === choice || field.name === choice);
 		this.choice$.next(temp || null);
 		this.value = null;
 	}
@@ -86,7 +86,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 
 	}
 
-	private mapItems(choice: PickerField) {
+	private mapItems(choice: DynamicField) {
 		const prop = choice.name;
 		let mapped;
 		// checks if the type needs to update the id's so they don't share the same entity (Price, ExtendedField, Packaging)
