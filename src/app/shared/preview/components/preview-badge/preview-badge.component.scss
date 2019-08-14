@@ -16,9 +16,8 @@ selector-app {
 			visibility: visible;
 	}
 
-	icon-app {
+	logo-app {
 		margin-right: var(--spacing-s);
-		font-size: 9px;
 	}
 
 	.icon-preview {
@@ -29,18 +28,6 @@ selector-app {
 
 		&:hover {
 			color: var(--legacy-color-primary);
-		}
-	}
-
-	.category-wrap {
-		width: 100%;
-	}
-
-	.category-label {
-		display: flex;
-		align-items: flex-start;
-		icon-app {
-			margin-top: 2px;
 		}
 	}
 

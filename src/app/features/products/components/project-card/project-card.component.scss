@@ -4,20 +4,15 @@
 
 card-app {
 
-	.space-icon {
-		height: var(--spacing-xl);
-		width: var(--spacing-xl);
-		margin-right: var(--spacing-ms);
-	}
-
-	.title {
-		margin-bottom: var(--spacing-ms);
-
-		icon-app[name="folder-blue"] {
-			font-size: var(--font-size-xxl);
+	card-title-app {
+		icon-app {
+			margin-right: var(--spacing-ms);
+			color: var(--legacy-color-primary);
 			cursor: default;
+			font-size: var(--font-size-xxl);
 		}
 	}
+
 
 	article {
 		padding: var(--spacing-ms);

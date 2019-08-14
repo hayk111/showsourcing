@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faIconsRegular, faIconsSolid } from '~shared/icons/font-awesome.config';
+import { faIconsRegular, faIconsSolid } from '~deprecated/font-awesome.config';
 import { TrackingComponent } from '~utils/tracking-component';
 
 // This component should be put once in the app so it can create symbols for enhanced performances

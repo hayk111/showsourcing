@@ -3,9 +3,9 @@
 
 <divider-app *ngIf="header"></divider-app>
 
-<main class="pd-l">
+<main class="pd-{{ padding }}">
 
-	<div class="top flexBetween flexVAlign">
+	<div class="top flexBetween flexVAlign" *ngIf="title || action">
 
 		<div class="flex flexVAlign">
 			<ng-content select="card-title-app"></ng-content>

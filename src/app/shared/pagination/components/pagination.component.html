@@ -15,15 +15,14 @@ index: {{ currentPage }}  -->
 		class="arrow-btn"
 		(click)="goToFirstPage(currentPage === 0)"
 		[ngClass]="{ disabled: currentPage === 0 }">
-		<i class="fa fa-angle-left"></i>
-		<i class="fa fa-angle-left"></i>
+		<logo-app icon="double-fat-angle-left" size="s"></logo-app>
 	</button>
 
 	<button
 		class="arrow-btn"
 		(click)="goToPreviousPage(currentPage === 0)"
 		[ngClass]="{ disabled: currentPage === 0 }">
-		<i class="fa fa-angle-left"></i>
+		<logo-app icon="fat-angle-left" size="s"></logo-app>
 	</button>
 
 	<button [ngClass]="{ selected: page === currentPage }" 
@@ -36,15 +35,14 @@ index: {{ currentPage }}  -->
 		class="arrow-btn"
 		(click)="goToNextPage(currentPage === totalPages - 1)"
 		[ngClass]="{ disabled: currentPage === totalPages - 1 }">
-		<i class="fa fa-angle-right"></i>
+		<logo-app icon="fat-angle-right" size="s"></logo-app>
 	</button>
 
 	<button
 		class="arrow-btn"
 		(click)="goToLastPage(currentPage === totalPages - 1)"
 		[ngClass]="{ disabled: currentPage === totalPages - 1 }">
-		<i class="fa fa-angle-right"></i>
-		<i class="fa fa-angle-right"></i>
+		<logo-app icon="double-fat-angle-right" size="s"></logo-app>
 	</button>
 
 	<div class="right">
