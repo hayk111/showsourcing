@@ -44,7 +44,7 @@ class Item {
 		</sub-panel-app>
 	`
 })
-class TestComponent extends SubPanelComponent {
+class TestComponent {
 	filtersAmount: number;
 	view: 'list' | 'card';
 	count: number;
@@ -93,20 +93,51 @@ fdescribe('SubPanelComponent', () => {
 		expect(subPanelComponent).withContext('Can not create SubPanelComponent').toBeDefined();
 	});
 
-	it('FilterBtnListComponent\'s isArchived should return true when showArchived() is called', () => {
-		testComponent.isArchivedShown = true;
+	it('`showArchived` should be called when archive checkbox changed and `isArchivedShown` is true', () => {
+		subPanelComponent.isArchivedShown = true;
 
-		spyOn(subPanelComponent, 'archiveChange');
+		spyOn(subPanelComponent.showArchived, 'emit');
 		subPanelComponent.archiveChange();
 		fixtureTestComponent.detectChanges();
 
-		subscriptions.add(subPanelComponent.showArchived.subscribe(res =>
-			expect(res)
-				.withContext('Input "unselectOne" should be emitted')
-				.toBe(5)));
+		expect(subPanelComponent.showArchived.emit)
+				.withContext('Should call fnc `showArchived`')
+				.toHaveBeenCalledTimes(1);
+	});
 
-		expect(subPanelComponent.archiveChange)
-				.withContext('Should call fnc "showArchived"')
-				.toHaveBeenCalled();
+	it('`hideArchived` should be called when archive checkbox changed and `isArchivedShown` is false', () => {
+		subPanelComponent.isArchivedShown = false;
+
+		spyOn(subPanelComponent.hideArchived, 'emit');
+		subPanelComponent.archiveChange();
+		fixtureTestComponent.detectChanges();
+
+		expect(subPanelComponent.hideArchived.emit)
+				.withContext('Should call fnc `hideArchived`')
+				.toHaveBeenCalledTimes(1);
+	});
+
+	it('`showAssigned` should be called when `Assigned To Me` checkbox changed and `isAssigned` is true', () => {
+		subPanelComponent.isAssigned = true;
+
+		spyOn(subPanelComponent.showAssigned, 'emit');
+		subPanelComponent.assignedChange();
+		fixtureTestComponent.detectChanges();
+
+		expect(subPanelComponent.showAssigned.emit)
+				.withContext('Should call fnc `showAssigned`')
+				.toHaveBeenCalledTimes(1);
+	});
+
+	it('`hideAssigned` should be called when `Assigned To Me` checkbox changed and `isAssigned` is false', () => {
+		subPanelComponent.isAssigned = false;
+
+		spyOn(subPanelComponent.hideAssigned, 'emit');
+		subPanelComponent.assignedChange();
+		fixtureTestComponent.detectChanges();
+
+		expect(subPanelComponent.hideAssigned.emit)
+				.withContext('Should call fnc `hideAssigned`')
+				.toHaveBeenCalledTimes(1);
 	});
 });
