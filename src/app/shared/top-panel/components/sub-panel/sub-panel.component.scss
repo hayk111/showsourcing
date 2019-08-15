@@ -32,11 +32,7 @@
 	align-items: center;
 
 	> * {
-		margin-right: var(--spacing-ms);
-	}
-
-	view-switcher-app {
-		margin-right: unset;		
+		margin-left: var(--spacing-ms);
 	}
 
 	.notification {

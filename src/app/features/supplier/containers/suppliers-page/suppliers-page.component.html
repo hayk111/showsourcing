@@ -1,16 +1,23 @@
 <top-panel-app
 	[title]="'My suppliers'"
-	buttonName="Add Supplier"
+	buttonName="Create Supplier"
 	(buttonClick)="listSrv.create()"
 	i18-title="@@my-suppliers">
 </top-panel-app>
 
 <sub-panel-app
+	entityType="suppliers"
+	[count]="listSrv.count$ | async"
 	[hasSwitch]="false"
 	[hasFilter]="true"
 	[filtersAmount]="listSrv.filterList.asFilters()?.length"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
+	(showArchived)="onShowArchived()"
+	(hideArchived)="onHideArchived()"
+	(showAssigned)="onShowAssignee()"
+	(hideAssigned)="onHideAssignee()"
+	(clearFilters)="listSrv.filterList.resetAll()"
 	(search)="listSrv.search($event)">
 </sub-panel-app>
 
@@ -32,6 +39,7 @@
 		(favorited)="listSrv.onItemFavorited($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(previewClick)="listSrv.openPreview($event)"
+		(archive)="onArchive($event)"
 		(delete)="listSrv.deleteOne($event)">
 	</supplier-list-view-app>
 
