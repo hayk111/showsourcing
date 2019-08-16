@@ -39,6 +39,7 @@
 		(favorited)="listSrv.onItemFavorited($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(previewClick)="listSrv.openPreview($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
 		(archive)="onArchive($event)"
 		(delete)="listSrv.deleteOne($event)">
 	</supplier-list-view-app>
@@ -82,6 +83,7 @@
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
+		(close)="listSrv.closeFilterPanel()"
 		*ngIf="listSrv.filterPanelOpen">
 	</filters-app>
 

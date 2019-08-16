@@ -9,6 +9,7 @@ import { AutoUnsub } from '~utils';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { switchMap } from 'rxjs/operators';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -30,6 +31,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		FilterType.TAGS
 	];
 
+	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND archived == false' };
+
 	constructor(
 		private supplierSrv: SupplierService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
@@ -45,7 +48,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
-			selectParams: { query: 'deleted == false AND archived == false' },
+			selectParams: this.selectItemsConfig,
 			entityMetadata: ERM.SUPPLIER,
 			initialFilters: [],
 		}, false);
@@ -55,18 +58,21 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
 		this.listSrv.addFilter(archivedFilter);
 
-		this.listSrv.refetch({
-			query: 'deleted == false AND archived == true',
-		}).subscribe();
+		this.selectItemsConfig.query = 'deleted == false AND archived == true';
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 	onHideArchived() {
 		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
 		this.listSrv.removeFilter(archivedFilter);
 
-		this.listSrv.refetch({
-			query: 'deleted == false AND archived == false',
-		}).subscribe();
+		this.selectItemsConfig.query = 'deleted == false AND archived == false';
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig.take = Number(count);
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 	onShowAssignee() {

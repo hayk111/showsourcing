@@ -18,6 +18,7 @@ export class SupplierListViewComponent extends ListViewComponent<Supplier> imple
 	supplierErm = ERM.SUPPLIER;
 
 	@Output() archive = new EventEmitter<Supplier>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
