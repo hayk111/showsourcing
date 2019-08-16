@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
-import { NotifModule } from '~shared/notif';
 import { UserPictureModule } from '~shared/user-picture';
 
 import { HeaderComponent, HeaderSearchComponent, UserPanelComponent } from './components';
@@ -15,7 +14,6 @@ import { HeaderComponent, HeaderSearchComponent, UserPanelComponent } from './co
 		RouterModule.forChild([]),
 		UserPictureModule,
 		SearchAutocompleteModule,
-		NotifModule
 	],
 	declarations: [
 		HeaderComponent,

@@ -1,40 +1,32 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { SharedModule } from '~shared/shared.module';
-import { ActivityCommonModule } from '~common/activity/activity-common.module';
-import { BadgeModule } from '~shared/badge';
+import { IconsModule } from '~shared/icons/icons.module';
 import { UtilsModule } from '~shared/utils';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DividerModule } from '~shared/divider/divider.module';
 import {
 	NotifComponent,
-	NotifHeaderComponent,
-	NotifListComponent,
-	NotifItemComponent,
-	NotifPanelComponent,
-	NotifLayoutComponent,
 	NotifEmptyComponent,
-	NameQueryComponent
-} from './';
+	NameQueryComponent,
+	NotifHeaderComponent,
+	NotifItemComponent,
+	NotifLayoutComponent,
+	NotifListComponent,
+	NotifPanelComponent
+} from '~shared/notif/components';
 
 @NgModule({
-	imports: [
-		SharedModule,
-		RouterModule.forChild([]),
-		ActivityCommonModule,
-		BadgeModule,
-		BrowserAnimationsModule,
-		UtilsModule
-	],
+	imports: [CommonModule, IconsModule, UtilsModule, DividerModule],
+
 	declarations: [
 		NotifComponent,
+		NotifEmptyComponent,
+		NameQueryComponent,
 		NotifHeaderComponent,
+		NotifLayoutComponent,
 		NotifItemComponent,
 		NotifPanelComponent,
-		NotifLayoutComponent,
-		NotifListComponent,
-		NotifEmptyComponent,
-		NameQueryComponent
-	],
-	exports: [NotifComponent]
+		NotifListComponent],
+	exports: [NotifComponent],
+	providers: [],
 })
-export class NotifModule {}
+export class NotifModule { }
