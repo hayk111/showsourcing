@@ -3,14 +3,14 @@
 		<icon-app
 			class="close-pane-button"
 			name="close-pane-left"
-			(click)="close.emit()"
+			(click)="notifActivitySrv.closeNotifiactionPanel()"
 		>
 		</icon-app>
 		<p class="title">
 			Notifications
 		</p>
 	</div>
-	<p class="mark-read-button" (click)="activitySrv.markAllAsRead()">
+	<p class="mark-read-button" (click)="notifActivitySrv.markAllAsRead()">
 		Mark all as read
 	</p>
 </div>

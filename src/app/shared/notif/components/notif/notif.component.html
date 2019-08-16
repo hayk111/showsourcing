@@ -3,19 +3,18 @@
 	<icon-app
 		name="bell"
 		class="bell-color-primary-contrast"
-		(click)="open()"
+		(click)="openPanel()"
 	></icon-app>
 	<span class="notif-badge circle flexCenter" *ngIf="notifications?.unread > 0">
 		{{notifications?.unread}}
 	</span>
 </div>
 <notif-layout-app
-	[isOpen]="isOpen"
+	[isOpen]="notifActivitySrv.isPanelOpen"
 >
 	<notif-panel-app
 	[results] = "notifications?.results"
-	(close)="close()"
-	(clickOutside)="close()"
+	(clickOutside)="closePanel()"
 	></notif-panel-app>
 </notif-layout-app>
 

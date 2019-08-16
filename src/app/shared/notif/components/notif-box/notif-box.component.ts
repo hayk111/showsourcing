@@ -19,4 +19,8 @@ export class NotifBoxComponent implements OnInit {
 	ngOnInit() {
 		this.notifications$ = this.notifActivitySrv.getNotifications();
 	}
+
+	openPanel() {
+		this.notifActivitySrv.openNotificationPanel();
+	}
 }

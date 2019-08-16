@@ -7,7 +7,7 @@
 
 		</notif-list-app>
 		<footer class="flexCenter" *ngIf="notifications?.results.length > 0">
-			<span>View All</span>
+			<span (click)="openPanel()">View All</span>
 		</footer>
 
 	</ng-container>

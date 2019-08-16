@@ -4,7 +4,7 @@ import {
 	EventEmitter,
 	Output
 } from '@angular/core';
-import { ActivityService } from '~common/activity/services/activity.service';
+import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 
 @Component({
 	selector: 'notif-header-app',
@@ -12,10 +12,8 @@ import { ActivityService } from '~common/activity/services/activity.service';
 	styleUrls: ['./notif-header.component.scss'],
 })
 export class NotifHeaderComponent implements OnInit {
-	@Output() close = new EventEmitter<void>();
-	@Output() markAllAsRead = new EventEmitter<void>();
 
-	constructor(public activitySrv: ActivityService) { }
+	constructor(public notifActivitySrv: NotificationActivityService) { }
 
 	ngOnInit() { }
 }

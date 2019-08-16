@@ -1,10 +1,9 @@
 import {
 	Component,
 	OnInit,
-	EventEmitter,
-	Output
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 
 
 @Component({
@@ -13,14 +12,12 @@ import { Router } from '@angular/router';
 	styleUrls: ['./notif-empty.component.scss'],
 })
 export class NotifEmptyComponent implements OnInit {
-	@Output() close = new EventEmitter<void>();
-
-	constructor(public router: Router) { }
+	constructor(public router: Router, private notifActivitySrv: NotificationActivityService) { }
 
 	ngOnInit() { }
 
 	redirect() {
-		this.close.emit();
+		this.notifActivitySrv.closeNotifiactionPanel();
 		this.router.navigate(['/settings/team/members']);
 	}
 }

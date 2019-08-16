@@ -16,13 +16,15 @@ import {
  * The activity service gets a feed from getStream as a GetStreamResponse and
  * transform it into a ActivityFeed or a GroupedActivityFeed.
  */
+
 @Injectable({
 	providedIn: 'root'
 })
-export class NotificationActivityService {
+ export class NotificationActivityService {
 	private readonly LIMIT = 10;
 	private client: getstream.Client;
 	private shouldRefetch$ = new BehaviorSubject(true);
+	public isPanelOpen = false;
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
@@ -92,6 +94,14 @@ export class NotificationActivityService {
 			const feed: getstream.Feed = this.client.feed('notifications', this.getNotificationUserId(), token);
 			feed.get({ limit: 0, mark_read: true }).then(_ => this.shouldRefetch$.next(true));
 		});
+	}
+
+	public openNotificationPanel() {
+		this.isPanelOpen = true;
+	}
+
+	public closeNotifiactionPanel() {
+		this.isPanelOpen = false;
 	}
 
 

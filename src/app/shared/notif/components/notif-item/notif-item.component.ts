@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { ProductService, SupplierService, TaskService, SampleService } from '~core/entity-services';
 import { Router } from '@angular/router';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { ActivityService } from '~common/activity/services/activity.service';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 
 @Component({
@@ -71,7 +70,7 @@ export class NotifItemComponent implements OnInit {
 			this.activity.is_read = true;
 			return this.notifActivitySrv.markAsRead(this.activity.id);
 		}
-		this.close.emit();
+		this.notifActivitySrv.closeNotifiactionPanel();
 		this.router.navigate([this.navigateRout]);
 	}
 
