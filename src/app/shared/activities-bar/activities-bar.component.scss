@@ -7,6 +7,14 @@
 	margin: 0 2px 0 0;
 }
 
+:host ::ng-deep .icons-container > icon-app:not(.favourite) {
+	color: var(--color-txt-third);
+}
+
+:host ::ng-deep .icons-container > icon-app.favourite {
+	color: var(--color-warn);
+}
+
 .vote-star-container {
 	cursor: pointer;
 	width: 45px;
