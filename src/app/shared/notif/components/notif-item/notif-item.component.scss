@@ -24,6 +24,7 @@
 	}
 	.notif-message {
 		font-size: 14px;
+		max-width: 420px;
 		color: var(--color-secondary-contrast);
 		.bold-message {
 			color: var(--color-bg-dark);
