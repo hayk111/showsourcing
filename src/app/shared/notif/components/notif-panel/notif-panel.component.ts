@@ -14,7 +14,6 @@ export class NotifPanelComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {
-		console.log(this.results);
 	}
 
 }

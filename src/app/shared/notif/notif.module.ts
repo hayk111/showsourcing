@@ -11,7 +11,8 @@ import {
 	NotifItemComponent,
 	NotifLayoutComponent,
 	NotifListComponent,
-	NotifPanelComponent
+	NotifPanelComponent,
+	NotifBoxComponent
 } from '~shared/notif/components';
 
 @NgModule({
@@ -25,8 +26,10 @@ import {
 		NotifLayoutComponent,
 		NotifItemComponent,
 		NotifPanelComponent,
-		NotifListComponent],
-	exports: [NotifComponent],
+		NotifListComponent,
+		NotifBoxComponent
+	],
+	exports: [NotifComponent, NotifBoxComponent],
 	providers: [],
 })
 export class NotifModule { }

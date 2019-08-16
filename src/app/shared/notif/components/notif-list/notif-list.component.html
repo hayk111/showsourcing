@@ -1,5 +1,5 @@
-<div class="list-container" [ngClass]="{ 'flexCenter': activites?.length === 0}">
-	<div class="notif-feed"
+<div [ngClass]="{'list-container': !isDashboardBox, 'flexCenter': activites?.length === 0}">
+	<div [ngClass]="{'notif-feed': !isDashboardBox}"
 		*ngFor="let activity of activites">
 		<notif-item-app (close)="close.emit()" [activity]="activity"></notif-item-app>
 	</div>

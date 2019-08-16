@@ -11,6 +11,8 @@ import { GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.i
 export class NotifListComponent implements OnInit {
 
 	@Input() activites: GetStreamActivity[] = [];
+	@Input() isDashboardBox = false;
+
 	@Output() close = new EventEmitter<void>();
 
 	constructor() {

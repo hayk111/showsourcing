@@ -1,0 +1,15 @@
+<div class="notif-box">
+	<header>
+		Latest Notifications
+	</header>
+	<ng-container *ngIf="notifications$ | async as notifications">
+		<notif-list-app [isDashboardBox]="true" [activites]="notifications?.results.slice(0,4)">
+
+		</notif-list-app>
+		<footer class="flexCenter" *ngIf="notifications?.results.length > 0">
+			<span>View All</span>
+		</footer>
+
+	</ng-container>
+
+</div>

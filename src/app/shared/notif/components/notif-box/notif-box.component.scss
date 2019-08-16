@@ -1,0 +1,23 @@
+.notif-box {
+	width: 722px;
+	background: var(--color-primary-contrast);
+	border-radius: 4px;
+	padding: 0 25px;
+	header {
+		padding: 24px 0 24px 24px ;
+		font-size: var(--font-size-xxl);
+		font-weight: 600;
+		color: var(--color-bg-dark);
+	}
+	footer {
+		padding: 20px 0 30px 0;
+		span {
+			height: 20px;
+			padding: 6px 0;
+			font-size: var(--font-size-m);
+			font-weight: 600;
+			color: var(--color-primary);
+			cursor: pointer
+		}
+	}
+}
