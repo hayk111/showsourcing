@@ -149,7 +149,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 		const nativeEl = this.elementRef.nativeElement;
 		const bound = nativeEl.getBoundingClientRect();
 		// for some reason when it loads the second time the same element, the bound.x is displaced 6px
-		if (!this.firstTime) bound.x = bound.x - 6;
+		// if (!this.firstTime) bound.x = bound.x - 6;
 		this.firstTime = false;
 		switch (this.toolTipPosition) {
 			case 'above-right':

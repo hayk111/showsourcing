@@ -6,6 +6,7 @@ import { SharedModule } from '~shared/shared.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { BadgeModule } from '~shared/badge';
+import { UtilsModule } from '~shared/utils';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
 	HeaderComponent,
@@ -30,7 +31,8 @@ import {
 		SearchAutocompleteModule,
 		ActivityCommonModule,
 		BadgeModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		UtilsModule
 	],
 	declarations: [
 		HeaderComponent,

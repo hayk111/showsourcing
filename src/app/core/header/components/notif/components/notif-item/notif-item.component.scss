@@ -37,7 +37,12 @@
 		top: 11px;
 		right: 11px;
 		border-radius: 50%;
+	}
+	.primary-dot {
 		background: var(--color-primary);
+	}
+	.grey-dot {
+		background: var(--color-secondary-contrast)
 	}
 	&:hover {
 		background: var(--color-secondary);

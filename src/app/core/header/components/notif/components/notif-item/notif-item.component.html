@@ -1,10 +1,16 @@
 <div
 	class="flex container notif-card"
 	[ngClass]="{ unread: !activity.is_read }"
-	(click)="detail()"
+	(click)="detail($event)"
 >
 	<div class="flex left">
-		<logo-app class="logo" size="m" type="task" [circle]="true"></logo-app>
+		<logo-app
+			class="logo"
+			size="m"
+			[type]="badgeType"
+			[color]="badgeColor"
+			[circle]="true"
+		></logo-app>
 
 		<div class="flexColumn notif-info">
 			<p class="notif-message">
@@ -12,9 +18,7 @@
 				{{ multipleActorMessage }}
 				{{ activityMessage }}
 				<span class="bold-message">
-					<name-query-app
-						[obj]="target$ | async"
-					></name-query-app>
+					<name-query-app [entity]="target$ | async"></name-query-app>
 				</span>
 			</p>
 			<p class="notif-datetime">
@@ -23,6 +27,17 @@
 			</p>
 		</div>
 	</div>
-	<div class="mark-read"></div>
+	<div
+		*ngIf="!activity.is_read; else readButton"
+		class="mark-read primary-dot"
+		toolTip
+		toolTipMessage="mark as read"
+		toolTipPosition="above-left"
+		[offsetX]="-21"
+		[offsetY]="-15"
+	></div>
+	<ng-template #readButton>
+		<div class="mark-read grey-dot"></div>
+	</ng-template>
 </div>
 <divider-app></divider-app>

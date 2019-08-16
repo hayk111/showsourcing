@@ -3,7 +3,7 @@
 		*ngFor="let activity of activites">
 		<notif-item-app (close)="close.emit()" [activity]="activity"></notif-item-app>
 	</div>
-	<notif-empty-app *ngIf="activites?.length === 0"></notif-empty-app>
+	<notif-empty-app (close)="close.emit()" *ngIf="activites?.length === 0"></notif-empty-app>
 </div>
 
 

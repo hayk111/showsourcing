@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
-import { BehaviorSubject, from, Observable, ReplaySubject, of } from 'rxjs';
-import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile, tap } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { first, map, mergeScan, scan, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { TokenService } from '~core/auth';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TeamService, UserService } from '~entity-services';
@@ -25,8 +25,8 @@ import {
 })
 export class ActivityService {
 	private readonly LIMIT = 100;
-	private client: any;
-	shouldRefetch$ = new BehaviorSubject(true);
+	private client: getstream.Client;
+	private shouldRefetch$ = new BehaviorSubject(true);
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
@@ -110,37 +110,56 @@ export class ActivityService {
 		);
 	}
 
-
 	/* Notifications */
 
-	getNotifications(): Observable<GetStreamNotification> {
+	private getNotificationToken(): Observable<string> {
+		const { userId } = this.userSrv;
+		const { id: teamId } = this.teamSrv.selectedTeamSync;
+		const tokenUrl = `${environment.apiUrl}/feed/token/user/${teamId}/${userId}`;
+		return this.getToken(tokenUrl);
+	}
+
+	private getNotificationUserId(): string {
+		const { userId } = this.userSrv;
+		const { id: teamId } = this.teamSrv.selectedTeamSync;
+		return `${teamId}-${userId}`;
+	}
+
+	public getNotifications(): Observable<GetStreamNotification> {
 		return this.shouldRefetch$.asObservable().pipe(
-			tap(_ => console.log('updating notifications...')),
+			tap(_ => console.log('fetching notifications...')),
 			switchMap(_ => this.getPastNotifications())
 		);
 	}
 
 	private getPastNotifications(): Observable<GetStreamNotification> {
-		const teamId = this.teamSrv.selectedTeamSync.id;
-		const userId = this.userSrv.userSync.id;
-		const tokenUrl = `${environment.apiUrl}/feed/token/user/${teamId}/${userId}`;
-		return this.getToken(tokenUrl).pipe(
-			tap(_ => { console.log(`notifications:${teamId}-${userId}`); }),
-			map(token => this.client.feed('notifications', `${teamId}-${userId}`, token)),
+		return this.getNotificationToken().pipe(
+			map(token => this.client.feed('notifications', this.getNotificationUserId(), token)),
 			switchMap(feed => feed.get({ limit: this.LIMIT })),
-			tap(data => console.log(data))
 		) as Observable<GetStreamNotification>;
 	}
 
 	private enableRealTimeNotifications(): void {
-		const teamId = this.teamSrv.selectedTeamSync.id;
-		const userId = this.userSrv.userSync.id;
-		const tokenUrl = `${environment.apiUrl}/feed/token/user/${teamId}/${userId}`;
-		this.getToken(tokenUrl).toPromise().then(token => {
-			const feed = this.client.feed('notifications', `${teamId}-${userId}`, token);
+		this.getNotificationToken().toPromise().then(token => {
+			const feed = this.client.feed('notifications', this.getNotificationUserId(), token);
 			feed.subscribe(_ => this.shouldRefetch$.next(true));
 		});
 	}
+
+	public markAsRead(notificationId: string): void {
+		this.getNotificationToken().toPromise().then(token => {
+			const feed: getstream.Feed = this.client.feed('notifications', this.getNotificationUserId(), token);
+			feed.get({ limit: 0, mark_read: notificationId }).then(_ => this.shouldRefetch$.next(true));
+		});
+	}
+
+	public markAllAsRead(): void {
+		this.getNotificationToken().toPromise().then(token => {
+			const feed: getstream.Feed = this.client.feed('notifications', this.getNotificationUserId(), token);
+			feed.get({ limit: 0, mark_read: true }).then(_ => this.shouldRefetch$.next(true));
+		});
+	}
+
 
 }
 

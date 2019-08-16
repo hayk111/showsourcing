@@ -1,15 +1,16 @@
 <div class="notif-header">
-	<!-- bold-s -->
 	<div class="left">
 		<icon-app
 			class="close-pane-button"
 			name="close-pane-left"
-			(click)="close.emit();"
+			(click)="close.emit()"
 		>
 		</icon-app>
 		<p class="title">
 			Notifications
 		</p>
 	</div>
-	<p class="mark-read-button">Mark all as read</p>
+	<p class="mark-read-button" (click)="activitySrv.markAllAsRead()">
+		Mark all as read
+	</p>
 </div>

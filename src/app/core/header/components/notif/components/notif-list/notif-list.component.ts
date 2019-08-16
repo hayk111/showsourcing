@@ -12,12 +12,11 @@ export class NotifListComponent implements OnInit {
 
 	@Input() activites: GetStreamActivity[] = [];
 	@Output() close = new EventEmitter<void>();
+
 	constructor() {
 	}
 
 	ngOnInit() {
-		setTimeout(() => console.log('list', this.activites), 9000 );
-
 	}
 
 }

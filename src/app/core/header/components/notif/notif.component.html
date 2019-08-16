@@ -5,7 +5,7 @@
 		class="bell-color-primary-contrast"
 		(click)="open()"
 	></icon-app>
-	<span class="notif-badge circle flexCenter" *ngIf="notifications?.unseen > 0">
+	<span class="notif-badge circle flexCenter" *ngIf="notifications?.unread > 0">
 		{{notifications?.unread}}
 	</span>
 </div>

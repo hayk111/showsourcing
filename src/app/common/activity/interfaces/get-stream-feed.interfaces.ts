@@ -12,17 +12,21 @@ export interface GetStreamGroup {
 	created_at: Date;
 	group: string;
 	id: string;
+	is_read?: boolean;
+	is_seen?: boolean;
 	updated_at: Date;
 	verb: string;
 }
 
 export interface GetStreamActivity {
 	actor: string;
+	actor_name: string;
 	foreign_id: string;
 	id: string;
 	object: string;
 	origin: string;
 	target: string;
+	target_id: string;
 	time: Date;
 	verb: string;
 }

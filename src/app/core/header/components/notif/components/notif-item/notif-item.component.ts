@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { ProductService, SupplierService, TaskService, SampleService } from '~core/entity-services';
 import { Router } from '@angular/router';
-import { Product } from '~models';
-import { Observable } from 'apollo-link';
+import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
+import { ActivityService } from '~common/activity/services/activity.service';
 
 @Component({
 	selector: 'notif-item-app',
@@ -12,12 +12,12 @@ import { Observable } from 'apollo-link';
 })
 export class NotifItemComponent implements OnInit {
 
-	@Input() activity: any = null;
+	@Input() activity: GetStreamGroup = null;
 	@Output() close = new EventEmitter<void>();
-
 	activityMessage: string;
 	navigateRout: string;
 	badgeType: string;
+	badgeColor: string;
 	targetId: string;
 	target$: any;
 	constructor(
@@ -26,6 +26,7 @@ export class NotifItemComponent implements OnInit {
 		private supplierSrv: SupplierService,
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService,
+		private activitySrv: ActivityService,
 	) {
 	}
 
@@ -64,16 +65,16 @@ export class NotifItemComponent implements OnInit {
 		return this.sampleSrv.queryOne(this.targetId);
 	}
 
-	detail() {
-		console.log('item', this.activity);
+	detail({target}) {
+		if (target.classList.contains('primary-dot')) {
+			this.activity.is_read = true;
+			return this.activitySrv.markAsRead(this.activity.id);
+		}
 		this.close.emit();
-		const { target_id } = this.activity.activities[0];
-
 		this.router.navigate([this.navigateRout]);
 	}
 
 	ngOnInit() {
-		const { verb } = this.activity;
 		this.initialSetup();
 	}
 
@@ -83,6 +84,7 @@ export class NotifItemComponent implements OnInit {
 		const { target } = firstActivity;
 		switch (verb) {
 			case 'create_comment':
+				this.badgeType = 'comment';
 				this.activityMessage = `has commented on the ${target}`;
 				this.targetId = firstActivity.target_id;
 				if (target.toLowerCase() === 'product') {
@@ -94,19 +96,23 @@ export class NotifItemComponent implements OnInit {
 				}
 				break;
 			case 'create_task':
+				this.badgeType = 'task';
+				this.badgeColor = 'secondary';
 				this.activityMessage = 'assign you a task';
 				this.targetId = firstActivity.object;
 				this.target$ = this.getTask();
 				this.navigateRout = `/workspace/my-tasks`;
 				break;
 			case 'task_complete':
+				this.badgeType = 'task';
 				this.activityMessage = 'has completed your task';
 				this.targetId = firstActivity.object;
 				this.target$ = this.getTask();
 				this.navigateRout = `/workspace/my-tasks`;
 				break;
 			case 'create_vote':
-				this.activityMessage = 'like / disliked you product';
+				this.badgeType = 'product';
+				this.activityMessage = 'rated your product';
 				this.targetId = firstActivity.target_id;
 				this.navigateRout = `/product/${this.targetId}/activity`;
 				this.target$ = this.getProduct();
@@ -115,22 +121,28 @@ export class NotifItemComponent implements OnInit {
 				this.activityMessage = `assigned you a ${target}`;
 				this.targetId = firstActivity.object;
 				if (target === 'sample') {
+					this.badgeType = 'sample';
+					this.badgeColor = 'vibrant';
 					this.target$ = this.getSample();
 					this.navigateRout = '/workspace/my-samples/list';
 				} else if (target === 'product') {
+					this.badgeType = 'product';
 					this.target$ = this.getProduct();
 					this.navigateRout = `/product/${this.targetId}/activity`;
 				} else {
+					this.badgeType = 'supplier';
 					this.target$ = this.getSupplier();
 					this.navigateRout = `/supplier/${this.targetId}/activity`;
 				}
 				break;
-			case 'new_task_assignee' :
-					this.activityMessage = 'assign you a task';
-					this.targetId = firstActivity.object;
-					this.target$ = this.getTask();
-					this.navigateRout = `/workspace/my-tasks`;
-					break;
+			case 'new_task_assignee':
+				this.badgeColor = 'secondary';
+				this.badgeType = 'task';
+				this.activityMessage = 'assign you a task';
+				this.targetId = firstActivity.object;
+				this.target$ = this.getTask();
+				this.navigateRout = `/workspace/my-tasks`;
+				break;
 		}
 	}
 
