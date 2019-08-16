@@ -3,24 +3,10 @@ import { RouterModule } from '@angular/router';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SharedModule } from '~shared/shared.module';
+import { NotifModule } from '~shared/notif';
 import { UserPictureModule } from '~shared/user-picture';
-import { ActivityCommonModule } from '~common/activity/activity-common.module';
-import { BadgeModule } from '~shared/badge';
-import { UtilsModule } from '~shared/utils';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-	HeaderComponent,
-	HeaderSearchComponent,
-	NotifComponent,
-	UserPanelComponent,
-	NotifHeaderComponent,
-	NotifListComponent,
-	NotifItemComponent,
-	NotifPanelComponent,
-	NotifLayoutComponent,
-	NotifEmptyComponent,
-	NameQueryComponent
-} from './components';
+
+import { HeaderComponent, HeaderSearchComponent, UserPanelComponent } from './components';
 
 @NgModule({
 	imports: [
@@ -29,24 +15,13 @@ import {
 		RouterModule.forChild([]),
 		UserPictureModule,
 		SearchAutocompleteModule,
-		ActivityCommonModule,
-		BadgeModule,
-		BrowserAnimationsModule,
-		UtilsModule
+		NotifModule
 	],
 	declarations: [
 		HeaderComponent,
-		NotifComponent,
 		UserPanelComponent,
-		HeaderSearchComponent,
-		NotifHeaderComponent,
-		NotifItemComponent,
-		NotifPanelComponent,
-		NotifLayoutComponent,
-		NotifListComponent,
-		NotifEmptyComponent,
-		NameQueryComponent
+		HeaderSearchComponent
 	],
-	exports: [HeaderComponent]
+	exports: [HeaderComponent],
 })
-export class HeaderModule {}
+export class HeaderModule { }
