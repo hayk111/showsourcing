@@ -7,19 +7,15 @@ import {
 	Output,
 	TemplateRef,
 	ViewChild,
-	AfterViewChecked,
-	AfterContentChecked,
 } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import ColumnType from './column-type.enum';
 import { ListViewComponent } from '~core/list-page/list-view.component';
+import { RequestElementService } from '~core/entity-services';
 import { ERM, Product } from '~models';
+import { translate } from '~utils';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { Sort } from '~shared/table/components/sort.interface';
-import { translate } from '~utils';
-import { RequestElementService, SupplierRequestService } from '~core/entity-services';
-import { ReplyStatus } from '~core/models';
-import { first } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'products-list-view-app',
@@ -76,31 +72,31 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	ngOnInit() {
 		if (this.isInProductSelectDlg) {
 			this.descriptor =  [
-				{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
-				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
-				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
-				{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', width: 50, minWidth: 50 },
-				{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
-				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', sortable: false, width: 120, minWidth: 120 }
+				{ title: translate('name'), type: ColumnType.MAIN, sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
+				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: ColumnType.CATEGORY, sortBy: 'category.name', width: 120, minWidth: 120 },
+				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: ColumnType.SUPPLIER, sortBy: 'supplier.name', width: 120, minWidth: 120 },
+				{ title: translate(ERM.PRICE.singular, 'erm'), type: ColumnType.PRICE, sortBy: 'price.value', width: 50, minWidth: 50 },
+				{ title: translate('Fav'), type: ColumnType.RATING, sortBy: 'favorite', width: 15, minWidth: 50 },
+				{ title: translate('created by'), type: ColumnType.CREATED_BY, sortBy: 'createdBy', sortable: false, width: 120, minWidth: 120 }
 			];
 		} else {
 			this.descriptor =  [
-				{ title: translate('reference'), type: 'main', sortable: true, sortBy: 'name', minWidth: 120 },
-				{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', minWidth: 50 },
-				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', minWidth: 120 },
-				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', minWidth: 120 },
-				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', sortable: false, minWidth: 120 },
-				{ title: translate('activity'), type: 'activities', sortable: false, minWidth: 120 },
-				{ title: translate('status'), type: 'status', sortBy: 'status.step', minWidth: 120 },
+				{ title: translate('reference'), type: ColumnType.MAIN, sortable: true, sortBy: 'name', minWidth: 120 },
+				{ title: translate(ERM.PRICE.singular, 'erm'), type: ColumnType.PRICE, sortBy: 'price.value', minWidth: 50 },
+				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: ColumnType.SUPPLIER, sortBy: 'supplier.name', minWidth: 120 },
+				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: ColumnType.CATEGORY, sortBy: 'category.name', minWidth: 120 },
+				{ title: translate('created by'), type: ColumnType.CREATED_BY, sortBy: 'createdBy', sortable: false, minWidth: 120 },
+				{ title: translate('activity'), type: ColumnType.ACTIVITIES, sortable: false, minWidth: 120 },
+				{ title: translate('status'), type: ColumnType.STATUS, sortBy: 'status.step', minWidth: 120 },
 			];
 		}
 
 		this.linkColumns();
 	}
 
-	// should be fixed. The function should return open requests count for every product
+	// should be fixed
 	getProductOpenRequests(product: Product): Observable<number> {
-		// return this.requestElementService.queryCount(`targetId == "${product.id}"`).pipe(first());
+		// TODO
 		return of(1); // just a value for testing
 	}
 

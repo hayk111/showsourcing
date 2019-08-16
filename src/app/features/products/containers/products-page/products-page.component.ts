@@ -21,6 +21,9 @@ import { SelectParamsConfig } from '~core/entity-services/_global/select-params'
 // servant asks : what pizza do you want sir ?
 // dailah lama: Make me one with everything.
 
+const SCREEN_MAX_WIDTH_OVERLAP = 1500;
+const FILTERS_PANE_WIDTH = 300;
+
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
@@ -144,31 +147,32 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	@HostListener('window:resize', ['$event'])
-	onResize(event) {
+	onResize() {
 		if (this.tableWidth) {
-			console.log('TCL: ProductsPageComponent -> onResize -> this.tableWidth', this.tableWidth);
 			this.tableWidth = null;
 		}
 	}
 
 	onShowFilters() {
-		const width = window.innerWidth || document.documentElement.clientWidth
-																		|| document.body.clientWidth;
+		const width = window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
 
 		// for browser window less than 1500px show filters tab over the table
-		if (width > 1000) {
-			this.tableWidth = (this.productListElem.nativeElement.offsetWidth - 300) + 'px';
+		if (width > SCREEN_MAX_WIDTH_OVERLAP) {
+			this.tableWidth = (this.productListElem.nativeElement.offsetWidth - FILTERS_PANE_WIDTH) + 'px';
 		}
 
 		this.listSrv.openFilterPanel();
 	}
 
 	onCloseFilter() {
-		const width = window.innerWidth || document.documentElement.clientWidth
-																		|| document.body.clientWidth;
+		const width = window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
 
 		// for browser window less than 1500px show filters tab over the table
-		if (width > 1000) {
+		if (width > SCREEN_MAX_WIDTH_OVERLAP) {
 			this.tableWidth = 'unset';
 		}
 		this.listSrv.closeFilterPanel();
