@@ -6,7 +6,6 @@ import { DividerModule } from '~shared/divider/divider.module';
 import {
 	NotifComponent,
 	NotifEmptyComponent,
-	NameQueryComponent,
 	NotifHeaderComponent,
 	NotifItemComponent,
 	NotifLayoutComponent,
@@ -21,7 +20,6 @@ import {
 	declarations: [
 		NotifComponent,
 		NotifEmptyComponent,
-		NameQueryComponent,
 		NotifHeaderComponent,
 		NotifLayoutComponent,
 		NotifItemComponent,

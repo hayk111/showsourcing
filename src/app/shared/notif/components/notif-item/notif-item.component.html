@@ -18,7 +18,9 @@
 				{{ multipleActorMessage }}
 				{{ activityMessage }}
 				<span class="bold-message">
-					<name-query-app [entity]="target$ | async"></name-query-app>
+					<ng-container *ngIf="target$ | async as target">
+						{{ target.name }}
+					</ng-container>
 				</span>
 			</p>
 			<p class="notif-datetime">
