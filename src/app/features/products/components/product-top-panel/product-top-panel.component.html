@@ -1,7 +1,7 @@
 <top-panel-details-app
 	[title]="product?.name || ('Unnamed Product' | const: 'messages')">
 
-	<img-app [image]="product?.images" type="product" size="s"></img-app>
+	<logo-app [logo]="product?.images[0]" type="product"></logo-app>
 
 	<div subinfo class="flex flexVAlign info-container dot-separator">
 		<span class="price" *ngIf="product.price && product.price.value !== null">
