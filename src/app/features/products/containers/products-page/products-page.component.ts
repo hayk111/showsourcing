@@ -16,13 +16,11 @@ import { ProductListComponent } from '~deprecated/product-list/product-list.comp
 import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SCREEN_MAX_WIDTH_OVERLAP, FILTERS_PANE_WIDTH } from '~features/const';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
 // dailah lama: Make me one with everything.
-
-const SCREEN_MAX_WIDTH_OVERLAP = 1500;
-const FILTERS_PANE_WIDTH = 300;
 
 @Component({
 	selector: 'products-page-app',
@@ -34,9 +32,6 @@ const FILTERS_PANE_WIDTH = 300;
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-	@ViewChildren('filters', { read: ElementRef })
-	public filtersElem: QueryList<ElementRef>;
-
 	@ViewChild('productList', { read: ElementRef, static: false })
 	public productListElem: ElementRef;
 
@@ -184,8 +179,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	isOverlap(): boolean {
 		const width = window.innerWidth
-			|| document.documentElement.clientWidth
-			|| document.body.clientWidth;
+		|| document.documentElement.clientWidth
+		|| document.body.clientWidth;
 
 		return width <= SCREEN_MAX_WIDTH_OVERLAP;
 	}
