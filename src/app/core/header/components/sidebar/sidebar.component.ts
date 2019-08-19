@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { DEFAULT_REPLIED_STATUS, Team, User } from '~core/models';
 import { SupplierRequestService, TeamService, UserService } from '~entity-services';
-import { sideNavItems } from '~utils';
+import { sideNavItems } from './side-nav-items.const';
 
 @Component({
 	selector: 'sidebar-app',

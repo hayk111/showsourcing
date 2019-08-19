@@ -20,4 +20,3 @@ export * from './supplier-types.map';
 // export * from './product-field.const'; // mantain this line commented, otherwise we will have a huge circular dependency
 export * from './units.const';
 export * from '~shared/image/img.const';
-export * from './side-nav-items.const';
