@@ -34,7 +34,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	// whether the screen can be switched from table to list view
 	@Input() hasSwitch = true;
 	// content of the switch
-	@Input() switchContent: ['list', 'kanban' | 'thumbs'] = ['list', 'thumbs'];
+	@Input() switchContent: ['list-menu', 'kanban' | 'thumbs'] = ['list-menu', 'thumbs'];
 	// whether the screen has a search input
 	@Input() hasSearch = true;
 

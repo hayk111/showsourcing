@@ -1,13 +1,13 @@
 <div class="action-container flexBetween">
 	<div class="flex icons-container no-select">
-		<icon-app name="heart" color="warn" *ngIf="favourite"></icon-app>
-		<icon-app name="sample" color="txt-third" *ngIf="hasSamples"></icon-app>
-		<icon-app name="task" color="txt-third" *ngIf="hasTasks"></icon-app>
-		<icon-app name="comment" color="txt-third" *ngIf="hasComments"></icon-app>
-		<icon-app name="envelope" color="txt-third" *ngIf="openRequestsCount"></icon-app>
+		<icon-app name="heart" size="sm" class="favourite" *ngIf="favourite"></icon-app>
+		<icon-app name="sample" size="sm" *ngIf="hasSamples"></icon-app>
+		<icon-app name="check-circle" size="sm" *ngIf="hasTasks"></icon-app>
+		<icon-app name="comments" size="sm" *ngIf="hasComments"></icon-app>
+		<icon-app name="envelope" size="sm" *ngIf="openRequestsCount"></icon-app>
 		<span class="vote-star-container" *ngIf="getAvgVotes(votes) > -1" 
 			[ngClass]="{'light-background': getAvgVotes(votes) > 80}">
-			<icon-app name="star" class="star" color="accent"></icon-app>
+			<icon-app name="star" size="sm" class="star"></icon-app>
 			<span class="vote-star-value">{{getAvgVotes(votes)}}</span>
 		</span>
 	</div>

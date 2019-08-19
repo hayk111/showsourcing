@@ -15,7 +15,7 @@ export class ViewSwitcherComponent implements OnInit {
 		else
 			this._view = view;
 	}
-	@Input() switchContent: ['list', 'kanban' | 'thumbs'] = ['list', 'thumbs'];
+	@Input() switchContent: ['list-menu', 'kanban' | 'thumbs'] = ['list-menu', 'thumbs'];
 	@Output() viewChange = new EventEmitter<string>();
 
 	get view() {

@@ -48,9 +48,9 @@
 			</label>
 		</div>
 
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize export-button" 
+		<button *ngIf="hasFilter && !filtersPanelOpened" class="flexCenter bold-s pointer capitalize export-button" 
 			(click)="export.emit()" i18n="text@@export">
-			<icon-app name="export"></icon-app>
+			<icon-app name="close-pane-bottom" size="m"></icon-app>
 			Export
 		</button>
 

@@ -11,6 +11,13 @@
 		font-weight: 600;
 		color: var(--color-bg-dark);
 	}
+
+	button {
+		width: 130px;
+		height: 40px;
+		border-radius: var(--border-radius);
+		background-color: var(--color-primary);
+	}
 }
 
 .ctnr {
