@@ -39,8 +39,4 @@ export class SidebarComponent implements OnInit {
 		this.authSrv.logout();
 	}
 
-	hoverItem(index) {
-		this.hoverIndex = index;
-	}
-
 }

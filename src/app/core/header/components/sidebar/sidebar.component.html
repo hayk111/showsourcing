@@ -4,7 +4,7 @@
 	</a>
 </div>
 
-<nav>
+<nav *ngIf="sideNavItems?.length">
 	<sidebar-item-app [icon]="'product'" [link]="['/product']" [subItems]="sideNavItems.get('product')"></sidebar-item-app>
 	<sidebar-item-app [icon]="'supplier'" [link]="['/supplier']"></sidebar-item-app>
 	<sidebar-item-app [icon]="'project'" [link]="['/project']"></sidebar-item-app>
