@@ -117,7 +117,7 @@
 		[hasTasks]="!!row?.tasksLinked.count"
 		[hasTasksOverdue]="hasTasksOverdue(row?.id)"
 		[hasComments]="!!row?.comments.length"
-		[hasOpenRequests]="hasOpenRequest(row?.id)"		
+		[hasOpenRequests]="hasOpenRequest(row?.id) | async"		
 		[votes]="row?.votes">
 	</activities-bar-app>
 </ng-template>

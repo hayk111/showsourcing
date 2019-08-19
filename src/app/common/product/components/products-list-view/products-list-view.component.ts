@@ -10,7 +10,7 @@ import {
 	OnChanges,
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, take } from 'rxjs/operators';
 import ColumnType from './column-type.enum';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { RequestElementService } from '~core/entity-services';
@@ -97,15 +97,14 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	}
 
 	ngOnChanges() {
-		console.log('rows::', this.rows);
+		// console.log('rows::', this.rows);
 	}
 
 	hasOpenRequest(id) {
-		this.requestElementService
-			.queryCount(`targetId == "${id}" AND targetedEntityType == "Product" && (reply.status == "replied")`)
-			.subscribe(d => {
-				console.log('TCL: ProductsPageComponent -> ngOnInit -> d', d);
-			});
+		return this.requestElementService
+			.queryCount(`targetId == "${id}" AND targetedEntityType == "Product" && (reply.status == "replied")`).pipe(
+				take(1)
+			);
 	}
 
 	hasTasksOverdue(id) {
