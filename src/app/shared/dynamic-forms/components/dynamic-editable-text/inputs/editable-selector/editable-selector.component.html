@@ -76,9 +76,8 @@
 		</div>
 
 		<!-- category -->
-		<!-- hidelogo is whether we want to display the info-badge or not -->
 		<ng-container *ngSwitchCase="erm.CATEGORY.singular">
-			<info-badge-app *ngIf="!customField?.metadata?.hideLogo; else noLogo" type="category"> {{ value?.name }}</info-badge-app>
+			<info-badge-app *ngIf="customField?.metadata?.hasBadge; else noLogo" type="category"> {{ value?.name }}</info-badge-app>
 			<ng-template #noLogo> {{ value?.name}} </ng-template>
 		</ng-container>
 
@@ -93,11 +92,10 @@
 		</ng-container>
 
 		<!-- others we display an icon and the value next to it -->
-		<!-- hidelogo is whether we want to display the default logos or not, by default we display them -->
 		<ng-container *ngSwitchDefault>
 			<!-- TODO change this to logo -->
 			<!-- <img class="defaultLabelIcon"
-				*ngIf="(value | logo:customField?.metadata?.target) && !inlineLabel && !customField?.metadata?.hideLogo"
+				*ngIf="(value | logo:customField?.metadata?.target) && !inlineLabel && !customField?.metadata?.hasBadge"
 				[src]="value | logo:customField?.metadata?.target" /> -->
 			<span class="ellipsis fullWidth">
 				{{ value ? value[labelName] : '-' }}
@@ -109,8 +107,7 @@
 
 <!-- multiple values, label template (we display badges) -->
 <ng-template #multipleValuesLabel>
-	<!-- hidelogo is whether we want to display the info-badge or not -->
-	<ng-container *ngIf="!customField?.metadata?.hideLogo; else noBadge">
+	<ng-container *ngIf="customField?.metadata?.hasBadge; else noBadge">
 		<info-badge-app
 			class="multiple-item"
 			*ngFor="let item of value; trackBy: trackByFn"

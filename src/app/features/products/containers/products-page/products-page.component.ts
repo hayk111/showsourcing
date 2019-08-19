@@ -1,12 +1,17 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Observable, interval } from 'rxjs';
+import { switchMap, takeUntil, timeout, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ProductService, UserService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { ProductFeatureService } from '~features/products/services';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogService } from '~shared/dialog/services';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -41,10 +46,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	constructor(
 		private productSrv: ProductService,
+		private dlgSrv: DialogService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
+		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
+		private notifSrv: NotificationService
 	) {
 		super();
 	}
@@ -92,4 +100,33 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		return filters.length;
 	}
 
+	onArchive(product: Product | Product[]) {
+		// TODO i18n
+		if (Array.isArray(product)) {
+			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Products archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		} else {
+			const { id } = product;
+			this.featureSrv.update({ id, archived: true })
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Product archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		}
+	}
+
+	onOpenCreateRequestDlg(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	}
 }

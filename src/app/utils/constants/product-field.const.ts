@@ -59,8 +59,6 @@ export const productFields: PickerField[] = [
 	{ name: 'extendedFields', label: 'extended fields', type: 'extendedField' },
 	{ name: 'innerCarton', label: translate('inner carton'), type: 'packaging' },
 	{ name: 'masterCarton', label: translate('master carton'), type: 'packaging' },
-	// { name: 'leadTime', label: 'lead time', type: 'number' },
-	// { name: 'leadTimeUnit', label: 'lead time unit', type: 'text' },
 	{ name: 'minimumOrderQuantity', label: translate('MOQ'), type: 'number' },
 	{ name: 'moqDescription', label: translate('MOQ description'), type: 'text' },
 	{ name: 'votes', type: 'votes' },

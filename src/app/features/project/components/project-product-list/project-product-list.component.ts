@@ -29,6 +29,7 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
 	@Output() openRequestQuotationDialog = new EventEmitter<Product>();
+	@Output() archiveProduct = new EventEmitter<Product>();
 	// templates
 	// load cells template for custom table
 	@ViewChild('main', { static: true }) mainTemplate: TemplateRef<any>;
