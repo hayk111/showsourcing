@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, AfterContentChecked } from '@angular/core';
 
 @Component({
 	selector: 'activities-bar-app',
@@ -6,19 +6,23 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 	styleUrls: ['./activities-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActivitiesBarComponent implements OnInit {
+export class ActivitiesBarComponent implements OnInit, AfterContentChecked {
 
 	@Input() favourite = false;
 	@Input() hasSamples = false;
 	@Input() hasTasks = false;
+	@Input() hasTasksOverdue = false;
 	@Input() hasComments = false;
-	@Input() openRequestsCount = 0;
+	@Input() hasOpenRequests = false;
 	@Input() votes: any[];
 
 	constructor() { }
 
 	ngOnInit() {
 
+	}
+
+	ngAfterContentChecked() {
 	}
 
 	getAvgVotes(votes: any[]): number {

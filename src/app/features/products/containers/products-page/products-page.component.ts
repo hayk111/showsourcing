@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, 
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { ProductService, UserService } from '~core/entity-services';
+import { ProductService, UserService, RequestElementService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType, Filter } from '~shared/filters';
@@ -41,6 +41,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	public productListElem: ElementRef;
 
 	public tableWidth: string;
+	public addProductMargin: string;
 
 	erm = ERM;
 	filterTypeEnum = FilterType;
@@ -59,6 +60,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	productsCount$: Observable<number>;
 	selectItemsConfig: SelectParamsConfig;
+	requestCount$: Observable<number>;
 
 	constructor(
 		private productSrv: ProductService,
@@ -158,9 +160,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			|| document.documentElement.clientWidth
 			|| document.body.clientWidth;
 
-		// for browser window less than 1500px show filters tab over the table
+		// for browser window less than SCREEN_MAX_WIDTH_OVERLAP show filters tab over the table
 		if (width > SCREEN_MAX_WIDTH_OVERLAP) {
 			this.tableWidth = (this.productListElem.nativeElement.offsetWidth - FILTERS_PANE_WIDTH) + 'px';
+			this.addProductMargin = FILTERS_PANE_WIDTH + 'px';
 		}
 
 		this.listSrv.openFilterPanel();
@@ -174,8 +177,17 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		// for browser window less than 1500px show filters tab over the table
 		if (width > SCREEN_MAX_WIDTH_OVERLAP) {
 			this.tableWidth = 'unset';
+			this.addProductMargin = 'unset';
 		}
 		this.listSrv.closeFilterPanel();
+	}
+
+	isOverlap(): boolean {
+		const width = window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
+
+		return width <= SCREEN_MAX_WIDTH_OVERLAP;
 	}
 
 	getSubPanelWidth() {

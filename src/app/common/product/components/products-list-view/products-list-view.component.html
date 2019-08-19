@@ -115,8 +115,9 @@
 		[favourite]="row?.favorite"
 		[hasSamples]="!!row?.samplesLinked.count"
 		[hasTasks]="!!row?.tasksLinked.count"
+		[hasTasksOverdue]="hasTasksOverdue(row?.id)"
 		[hasComments]="!!row?.comments.length"
-		[openRequestsCount]="getProductOpenRequests(row) | async"		
+		[hasOpenRequests]="hasOpenRequest(row?.id)"		
 		[votes]="row?.votes">
 	</activities-bar-app>
 </ng-template>

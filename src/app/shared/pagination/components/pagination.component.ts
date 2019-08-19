@@ -86,14 +86,14 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 		return Math.max(1, Math.ceil(count / itemsPerPage));
 	}
 
-	getProductsShown() {
+	getPerPageItemsCount() {
 		const perPageItems = Number(this.itemsPerPage);
-		const fromProductNumber = this.currentPage * perPageItems;
-		const toProductNumber = fromProductNumber + perPageItems < this.count
-			? fromProductNumber + perPageItems
+		const fromNumber = this.currentPage * perPageItems;
+		const toNumber = fromNumber + perPageItems < this.count
+			? fromNumber + perPageItems
 			: this.count;
 
-		return `Showing ${fromProductNumber} - ${toProductNumber} of ${this.count}`;
+		return `Showing ${fromNumber} - ${toNumber} of ${this.count}`;
 	}
 
 	private buildPaginatorRange() {
