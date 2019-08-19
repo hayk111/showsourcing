@@ -262,6 +262,13 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					__typename: this.value.__typename
 				};
 				break;
+			case ERM.SELECTOR_ELEMENT:
+				item = {
+					id: this.value.id,
+					value: this.value.value,
+					__typename: this.value.__typename
+				};
+				break;
 			// if its a const we don't need to emit an object {id, typename} (its not an entity update),
 			// we only need a string (e.g. supplier -> country -> string)
 			case ERM.COUNTRY:

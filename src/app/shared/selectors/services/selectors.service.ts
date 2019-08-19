@@ -163,6 +163,9 @@ export class SelectorsService {
 				case ERM.PICKER_FIELD:
 					this.search$.next(searchTxt);
 					break;
+				case ERM.SELECTOR_ELEMENT:
+					this.currentSearchQuery = `value CONTAINS[c] "${searchTxt}"`;
+					break;
 				default: throw Error(`Unsupported type for search ${type}`);
 			}
 		} else {

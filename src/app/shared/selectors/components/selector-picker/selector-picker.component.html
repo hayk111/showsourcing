@@ -78,7 +78,7 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.SELECTOR_ELEMENT">
-				<selector-value-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.value)"></selector-value-row-app>
+				<selector-value-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item)"></selector-value-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.SUPPLIER">
