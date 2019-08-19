@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TrackingComponent } from '~utils';
 
 @Component({
 	selector: 'sidebar-item-app',
@@ -6,13 +7,10 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./sidebar-item.component.scss'],
 })
 
-export class SidebarItemComponent implements OnInit {
+export class SidebarItemComponent extends TrackingComponent {
 	@Input() icon: string;
 	@Input() link: string;
 	@Input() badge: any;
 	@Input() subItems: any[];
-
-	constructor() { }
-
-	ngOnInit() { }
+	hovered = false;
 }

@@ -16,7 +16,6 @@ export class SidebarComponent implements OnInit {
 	team$: Observable<Team>;
 	requestCount$: Observable<number>;
 	isProd = environment.production;
-	hoverIndex: boolean;
 	sideNavItems = sideNavItems;
 
 	constructor(

@@ -1,4 +1,5 @@
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, Renderer2, OnInit } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { FontSet } from '~shared/icons/components/font-set.enum';
 
 
@@ -28,6 +29,7 @@ export class IconComponent implements OnInit {
 	constructor(
 		private elementRef: ElementRef,
 		private renderer: Renderer2,
+		private sanitizer: DomSanitizer,
 		@Attribute('aria-hidden') ariaHidden: string
 	) {
 		// If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is

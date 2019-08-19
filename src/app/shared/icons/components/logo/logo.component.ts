@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, ElementRef, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
 import { AppImage, EntityName } from '~models';
 import { Colors, Color, log } from '~utils';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 export const colorMap = {
@@ -73,7 +74,8 @@ export class LogoComponent implements OnInit {
 
 	constructor(
 		private elRef: ElementRef,
-		private renderer: Renderer2
+		private renderer: Renderer2,
+		private sanitizer: DomSanitizer
 	) {}
 
 	ngOnInit() {
