@@ -514,12 +514,13 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.onChange();
 	}
 
-	// we needed this in case we want to display multiple items active class, for some reason with ngClass didn't work
 	/**
-	 * returns the active class of the item
-	 * @param item
+	 * gets the active class when an item is selected
+	 * @param item item we want to check if is selected
+	 * @returns active class if the item is selected, otherwise empty class
 	 */
 	getActiveClass(item) {
+		// we only use it when its not multiple
 		if (!this.multiple)
 			return [];
 		return this.isSelected(item) ? ['active'] : [];
