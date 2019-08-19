@@ -26,7 +26,7 @@ import { FilterList } from '~shared/filters';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
-import { RegexpApp, ID } from '~utils';
+import { ID, RegexpApp } from '~utils';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -160,12 +160,16 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	resetInput() {
+	private resetInput() {
 		this.inp.control.reset();
 		this.inp.focus();
 		this.search('');
 	}
 
+	/**
+	 * search a text and set first item active on selector
+	 * @param text
+	 */
 	search(text) {
 		this.searchTxt = text.trim().toLowerCase();
 		this.movedArrow = false;
@@ -174,9 +178,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.keyManager.setFirstItemActive();
 	}
 
-	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
+	/** choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
 	// ARRAYS START AT 1 NOT 0!!!! now that I have your attention ADVICE: when adding a new choice, check the update single method
-	getChoices(type: EntityMetadata): Observable<any[]> {
+	private getChoices(type: EntityMetadata): Observable<any[]> {
 		switch (type) {
 			case ERM.CATEGORY: return this.selectorSrv.getCategories();
 			case ERM.EMAIL:
@@ -216,7 +220,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.updateMultiple();
 	}
 
-	updateMultiple() {
+	/**
+	 * Emits an array of new values so they can be updated and refetch the selector
+	 */
+	private updateMultiple() {
 		let trimValues;
 		switch (this.type) {
 			case ERM.EMAIL:
@@ -233,6 +240,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					}
 				));
 				break;
+			case ERM.SELECTOR_ELEMENT:
+				trimValues = this.value.map(v => (
+					{
+						id: v.id,
+						value: v.value,
+						__typename: v.__typename
+					}
+				));
+				break;
 			default:
 				trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
 				break;
@@ -241,7 +257,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.selectorSrv.refetch();
 	}
 
-	updateSingle() {
+	/**
+	 * Emits the new single value so it can be updated
+	 */
+	private updateSingle() {
 		let item;
 		// depending on the entity the way we update it can be different (we only care to update the value that we display)
 		switch (this.type) {
@@ -294,6 +313,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.close.emit();
 	}
 
+	/**
+	 * Upon selecting an item, we emit its new value and reset the input
+	 * @param item
+	 */
 	onSelect(item) {
 		if (this.multiple) {
 			if (!this.isSelected(item)) { // if its multiple and its not selected we add it
@@ -307,7 +330,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.resetInput();
 	}
 
-	checkExist(items: any[]) {
+	/**
+	 * checks if any of items match with the current searchText
+	 * @param items items to check if they match with current searchText
+	 * @returns list of items that match the current searchTxt
+	 */
+	private checkExist(items: any[]) {
 		switch (this.type) {
 			case ERM.EMAIL:
 				return items.filter(it => it.name === this.searchTxt || it.email === this.searchTxt);
@@ -316,7 +344,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	/** creates a new entity */
+	/**
+	 * Creates a new entity if its a supported type
+	 */
 	create() {
 		let createObs$: Observable<any>;
 		let added;
@@ -383,7 +413,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	getLabelName(label) {
+	private getLabelName(label) {
 		if (!label.name)
 			throw Error('This entity selector does not have a name property when using multiple, check onkeyDown else if (this.multiple)');
 		return label.name;
@@ -420,9 +450,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	/** this method should only be used when multiple true, since we acces the value as an array 	*/
-	/** checks if the item matches with any of the values stored */
-	isSelected(item: any) {
+
+	/**
+	 * checks if the item matches with any of the values stored
+	 * @param item
+	 * @returns true if the current item is selected, flase otherwise
+	 */
+	// this method should only be used when multiple true, since we acces the value as an array
+	private isSelected(item: any) {
 		let isSelected = false;
 		if (!this.multiple)
 			return isSelected;
@@ -439,9 +474,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		return isSelected;
 	}
 
-	/** this method should only be used when multiple true, since we acces the value as an array 	*/
-	/** checks if the name given matches with any of the values stored */
-	hasName(name: string) {
+	/**
+	 * checks if the name given matches with any of the values stored
+	 * @param name
+	 */
+	// this method should only be used when multiple true, since we acces the value as an array
+	private hasName(name: string) {
 		let hasName = false;
 		if (!this.multiple)
 			return hasName;
@@ -458,7 +496,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		return hasName;
 	}
 
-	/** this is only called when deleting from the current-values-container */
+	// this is only called when deleting from the current-values-container,
+	// should only be used when multiple true
+	/**
+	 * deletes the item from the array of current values
+	 * @param item item
+	 */
 	delete(item) {
 		switch (this.type) {
 			case ERM.EMAIL:
@@ -471,7 +514,11 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.onChange();
 	}
 
-	/** we needed this in case we want to display multiple items active class, for some reason with ngClass didn't work */
+	// we needed this in case we want to display multiple items active class, for some reason with ngClass didn't work
+	/**
+	 * returns the active class of the item
+	 * @param item
+	 */
 	getActiveClass(item) {
 		if (!this.multiple)
 			return [];
