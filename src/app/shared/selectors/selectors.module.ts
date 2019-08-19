@@ -35,6 +35,7 @@ import {
 	SelectorTagRowComponent,
 	SelectorTextRowComponent,
 	SelectorUserRowComponent,
+	SelectorValueRowComponent,
 } from './components';
 
 
@@ -59,6 +60,7 @@ const components = [
 	SelectorTagRowComponent,
 	SelectorTextRowComponent,
 	SelectorUserRowComponent,
+	SelectorValueRowComponent,
 ];
 
 @NgModule({

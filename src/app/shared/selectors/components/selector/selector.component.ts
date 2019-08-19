@@ -15,6 +15,7 @@ import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { TabFocusActionDirective } from '~shared/utils';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'selector-app',
@@ -45,6 +46,11 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() searchTxt = '';
 	// wheter the selector opens to the most right side or the most left side
 	@Input() leftSideOrientation = false;
+	/**
+	 * this is used when we have a selector that uses Selector Elements, so we can know which selectors elements
+	 * we need to query
+	 */
+	@Input() definitionReference: ID;
 
 	@Output() update = new EventEmitter<any>();
 

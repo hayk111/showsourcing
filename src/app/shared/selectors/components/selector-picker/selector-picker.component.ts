@@ -26,7 +26,7 @@ import { FilterList } from '~shared/filters';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
-import { RegexpApp } from '~utils';
+import { RegexpApp, ID } from '~utils';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -47,6 +47,11 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@Input() canCreate = false;
 	@Input() dynamicFields: DynamicField[];
 	@Input() filterList = new FilterList([]);
+	/**
+	 * this is used when we have a selector that uses Selector Elements, so we can know which selectors elements
+	 * we need to query
+	 */
+	@Input() definitionReference: ID;
 
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
@@ -186,6 +191,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.PRODUCT: return this.selectorSrv.getProducts();
 			case ERM.PROJECT: return this.selectorSrv.getProjects();
 			case ERM.REQUEST_TEMPLATE: return this.selectorSrv.getRequestTemplates();
+			case ERM.SELECTOR_ELEMENT:
+				if (!this.definitionReference)
+					throw Error('The selector `SelectorElement` needs a definitionReference to target');
+				return this.selectorSrv.getSelectorElements(this.definitionReference);
 			case ERM.SUPPLIER: return this.selectorSrv.getSuppliers();
 			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getSupplierTypes();
 			case ERM.TAG: return this.selectorSrv.getTags();

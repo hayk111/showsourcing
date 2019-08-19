@@ -115,6 +115,10 @@
 				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 			</ng-container>
 
+			<ng-container *ngSwitchCase="erm.SELECTOR_ELEMENT">
+				<selector-value-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.value)"></selector-value-row-app>
+			</ng-container>
+
 			<ng-container *ngSwitchDefault>
 				<selector-text-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [text]="item" (click)="onSelect(item)"></selector-text-row-app>
 			</ng-container>

@@ -16,6 +16,7 @@ import {
 	ProductService,
 	ProjectService,
 	RequestTemplateService,
+	SelectorElementService,
 	SupplierService,
 	TagService,
 	TeamUserService,
@@ -46,6 +47,7 @@ import {
 import { Supplier } from '~models/supplier.model';
 import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters';
+import { ID } from '~utils';
 import { countries, currencies, harbours, incoTerms } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
@@ -81,6 +83,7 @@ export class SelectorsService {
 		private productSrv: ProductService,
 		private projectSrv: ProjectService,
 		private requestTemplateSrv: RequestTemplateService,
+		private selectorElementSrv: SelectorElementService,
 		private supplierSrv: SupplierService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagSrv: TagService,
@@ -357,6 +360,13 @@ export class SelectorsService {
 			}
 			)),
 		);
+		return this.items$;
+	}
+
+	getSelectorElements(definitionReference: ID) {
+		this.selectParams = { ...this.selectParams, sortBy: 'value', query: `fieldDefinition.id == "${definitionReference}"` };
+		this.listResult = this.selectorElementSrv.getListQuery(this.selectParams, '', Client.TEAM);
+		this.setItems();
 		return this.items$;
 	}
 
