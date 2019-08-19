@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input, ElementRef, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { AppImage, EntityName } from '~models';
-import { Colors, Color, log } from '~utils';
+import { Color, Colors, log } from '~utils';
 
 
 export const colorMap = {

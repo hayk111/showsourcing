@@ -65,8 +65,8 @@
 <ng-template #main let-row="row">
 	<div class="mainCellWrapper ellipsis name-container contain-strict">
 		<div class="mainCell ellipsis">
-			<img class="mini imgCtnr"
-				[src]="row | image: 's' : 'product-list'" />
+			<logo-app class="mini imgCtnr"
+				[logo]="row.images[0]" size="l" type="product"></logo-app>
 			<span class="ellipsis">
 				<a class="name txt-btn" [routerLink]="['/product', row.id]">
 					{{ row.name || '-' }}

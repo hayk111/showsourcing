@@ -3,7 +3,7 @@ import { EntityName } from '~core/models';
 import { IconsModule } from '~shared/icons/icons.module';
 import { IconComponent } from './icon.component';
 
-describe('Icon component', () => {
+fdescribe('Icon component', () => {
 	let component: IconComponent;
 	let fixture: ComponentFixture<IconComponent>;
 	let el: HTMLElement;
@@ -27,29 +27,37 @@ describe('Icon component', () => {
 
 	it('should display the icon with font-size inherited when no value specifed', () => {
 		fixture.detectChanges();
-		expect(el.style.fontSize).toEqual('inherit');
+		const i = el.querySelector('i');
+		expect(i.style.fontSize).toEqual('inherit');
 	});
 
 	it('should display the icon with font-size x when x is a number', () => {
 		component.size = 24;
 		fixture.detectChanges();
-		expect(el.style.fontSize).toEqual('24px');
+		const i = el.querySelector('i');
+		expect(i.style.fontSize).toEqual('24px');
 	});
 
 
-	it('should display the icon with font-size the correct variable if a size string is specified', async () => {
+	it('should display the icon with font-size the correct variable if a size "s" is specified', async () => {
 		component.size = 's';
-		component.ngOnInit();
 		fixture.detectChanges();
-		expect(el.style.fontSize).toEqual('var(--font-size-icon-s)');
+		const i = el.querySelector('i');
+		expect(i.style.fontSize).toEqual('var(--font-size-icon-s)');
+	});
+
+	it('should display the icon with font-size the correct variable if a size "m" is specified', async () => {
 		component.size = 'm';
-		component.ngOnInit();
 		fixture.detectChanges();
-		expect(el.style.fontSize).toEqual('var(--font-size-icon-m)');
+		const i = el.querySelector('i');
+		expect(i.style.fontSize).toEqual('var(--font-size-icon-m)');
+	});
+
+	it('should display the icon with font-size the correct variable if a size "l" is specified', async () => {
 		component.size = 'l';
-		component.ngOnInit();
 		fixture.detectChanges();
-		expect(el.style.fontSize).toEqual('var(--font-size-icon-l)');
+		const i = el.querySelector('i');
+		expect(i.style.fontSize).toEqual('var(--font-size-icon-l)');
 	});
 });
 
