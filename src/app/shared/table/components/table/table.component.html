@@ -88,7 +88,7 @@
 							[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
 							[closeOnScroll]="true">
 							<context-menu-trigger-app>
-								<icon-app class="color-txt-secondary" name="dots-horizontal" size="18"></icon-app>
+								<icon-app class="color-txt-third" name="dots-horizontal" size="18"></icon-app>
 							</context-menu-trigger-app>
 							<ng-container
 								*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">

@@ -5,6 +5,7 @@
 
 :host ::ng-deep .export-button icon-app {
 	display: inline;
+	margin-right: 13px;
 }
 
 .flex {
@@ -60,7 +61,8 @@
   font-weight: 600;
   line-height: 1.43;
   text-align: center;
-  color: var(--color-secondary-contrast);
+	color: var(--color-secondary-contrast);
+	border-radius: var(--border-radius);
 }
 
 .export-button {
@@ -71,7 +73,8 @@
   font-weight: 600;
   line-height: 1.43;
   text-align: center;
-  color: var(--color-secondary-contrast);
+	color: var(--color-secondary-contrast);
+	border-radius: var(--border-radius);	
 }
 
 .clear-filter-button {
@@ -103,7 +106,7 @@
   font-size: var(--font-size-m);
   font-weight: 600;
 	text-align: center;
-	border-radius: var(--border-radius-s);
+	border-radius: var(--border-radius);
 }
 
 .show-archived, .assigned-to-me {

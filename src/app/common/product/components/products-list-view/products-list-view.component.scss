@@ -39,7 +39,7 @@
 }
 
 .hover-img {
-	background-color: rgba(var(--color-primary), 0.5);
+	background-color: var(--color-primary-with-opacity);
 }
 
 .preview-imgs:hover .hover-img {
@@ -97,26 +97,30 @@
 	width: 160px;
   height: 18px;
   font-size: var(--font-size-m);
-  color: var(--txt-primary);
+	color: var(--color-txt-primary);
+}
+
+.supplier {
+	color: var(--color-txt-primary);
 }
 
 .product-name-ref {
 	margin-left: 44px;
   height: 15px;
-  font-size: var(--font-size-s);
-  color: var(--color-txt-primary);
+	font-size: var(--font-size-s);
+  color: var(--txt-primary);	
 }
 
 .created-by {
   height: 18px;
   font-size: var(--font-size-m);
-  color: var(--color-txt-primary);
+  color: var(--txt-primary);
 }
 
 .created-by-date {
   height: 15px;
   font-size: var(--font-size-s);
-  color: var(--color-txt-primary);
+  color: var(--txt-primary);
 }
 
 .category {

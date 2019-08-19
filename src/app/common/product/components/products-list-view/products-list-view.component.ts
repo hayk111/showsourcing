@@ -7,12 +7,14 @@ import {
 	Output,
 	TemplateRef,
 	ViewChild,
+	OnChanges,
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import ColumnType from './column-type.enum';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { RequestElementService } from '~core/entity-services';
-import { ERM, Product } from '~models';
+import { ERM, Product, Task } from '~models';
 import { translate } from '~utils';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -25,7 +27,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
+export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit, OnChanges {
 
 	@Input() hasMenu = true;
 	@Input() productPreview = true;
@@ -92,6 +94,34 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 		}
 
 		this.linkColumns();
+	}
+
+	ngOnChanges() {
+		console.log('rows::', this.rows);
+	}
+
+	hasOpenRequest(id) {
+		this.requestElementService
+			.queryCount(`targetId == "${id}" AND targetedEntityType == "Product" && (reply.status == "replied")`)
+			.subscribe(d => {
+				console.log('TCL: ProductsPageComponent -> ngOnInit -> d', d);
+			});
+	}
+
+	hasTasksOverdue(id) {
+		const foundElem = (this.rows as any[]).find(o => o.id === id);
+
+		if (foundElem
+			&& foundElem.tasksLinked.count
+			&& (foundElem.tasksLinked.items.filter(t => this.isTaskOverdued(t)).length > 0)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	isTaskOverdued(task: Task): boolean {
+		return task && task.dueDate && new Date().getTime() >= Date.parse(task.dueDate.toString());
 	}
 
 	// should be fixed

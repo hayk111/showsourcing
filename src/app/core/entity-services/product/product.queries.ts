@@ -3,7 +3,7 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 export abstract class ProductQueries extends GlobalQueries {
 
 	// tslint:disable-next-line:max-line-length
-	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false") { ... on TaskCollection { count }}`;
+	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false") { ... on TaskCollection { count, items { dueDate } }}`;
 
 	// tslint:disable-next-line:max-line-length
 	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"product" query:"deleted == false") { ... on SampleCollection { count }}`;

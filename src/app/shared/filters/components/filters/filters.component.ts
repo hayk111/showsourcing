@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { Component,  HostBinding, Input, EventEmitter, Output } from '@angular/core';
 import { Filter, FilterType, FilterList } from '~shared/filters/models';
 
 @Component({
@@ -10,6 +10,7 @@ export class FiltersComponent {
 	view: 'BTNS' | 'SELECTION' = 'BTNS';
 	@Input() filterList: FilterList;
 	@Input() filterTypes = [];
+	@Input() overlap: boolean;
 	typeSelected: FilterType;
 
 	@Output() close = new EventEmitter<undefined>();

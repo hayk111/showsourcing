@@ -2,10 +2,13 @@
 	display: inline-block;
 }
 
+.shadow {
+	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
+}
+
 .filters-title-section {
 	display: flex;
 	justify-content: space-between;
-	margin-top: 16px;
 	height: 47px;
 }
 

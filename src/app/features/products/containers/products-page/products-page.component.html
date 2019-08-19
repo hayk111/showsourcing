@@ -4,6 +4,7 @@
 	[title]="'My products'"
 	buttonName="Create Product"
 	(buttonClick)="commonModalSrv.openCreationProductDlg()"
+	[buttonRightMargin]="addProductMargin"
 	i18n-title="@@my-products"
 	i18n-buttonName="@@add-products">
 </top-panel-app>
@@ -132,6 +133,7 @@
 		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
+		[overlap]="isOverlap()"
 		(clickOutside)="onCloseFilter()"
 		(close)="onCloseFilter()"
 		#filters>

@@ -94,7 +94,7 @@
 		[canCreate]="true"
 		[width]="370"
 		(update)="update.emit({ id: row.id, supplier: $event })">
-		<div class="ellipsis pointer txt-btn"> {{ row?.supplier?.name || '-' }}</div>
+		<div class="ellipsis pointer supplier txt-btn"> {{ row?.supplier?.name || '-' }}</div>
 	</selector-app>
 </ng-template>
 
@@ -115,8 +115,9 @@
 		[favourite]="row?.favorite"
 		[hasSamples]="!!row?.samplesLinked.count"
 		[hasTasks]="!!row?.tasksLinked.count"
+		[hasTasksOverdue]="hasTasksOverdue(row?.id)"
 		[hasComments]="!!row?.comments.length"
-		[openRequestsCount]="getProductOpenRequests(row) | async"		
+		[hasOpenRequests]="hasOpenRequest(row?.id)"		
 		[votes]="row?.votes">
 	</activities-bar-app>
 </ng-template>
