@@ -13,11 +13,6 @@ import {
 } from '~common/activity/interfaces/get-stream-feed.interfaces';
 
 
-/**
- * The activity service gets a feed from getStream as a GetStreamResponse and
- * transform it into a ActivityFeed or a GroupedActivityFeed.
- */
-
 @Injectable({
 	providedIn: 'root'
 })
