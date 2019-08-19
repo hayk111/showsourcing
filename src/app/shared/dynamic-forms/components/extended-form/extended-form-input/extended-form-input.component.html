@@ -235,7 +235,7 @@
 		<!-- selector -->
 		<form-field-app *ngSwitchCase="'selector'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
-			<!-- WIP source would change since now it can be a selector element -->
+			<!-- WIP check that the name of variable 'const' or 'custom' is correct -->
 			<selector-app
 				[disabled]="disabled"
 				[type]="getERM(metadata?.source)"
@@ -246,7 +246,7 @@
 					[canFocus]="autofocus"
 					[ngClass]="{ 'disabled': disabled }"
 					[placeholder]="definition?.label"
-					[name]="metadata?.type === 'const' ? accumulator : getLinkingObject()">
+					[name]="metadata?.type === 'const' ? accumulator : getLinkingObject(metadata?.source)">
 				</selector-placeholder-app>
 			</selector-app>
 			<input inputApp [hidden]="true" type="text"/>

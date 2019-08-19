@@ -6,8 +6,6 @@ export interface DynamicField {
 	metadata?: DynamicFieldMetadata;
 	label?: string;
 	required?: boolean;
-	// when multiple choices
-	choices?: Array<any>;
 }
 
 export interface DynamicFieldMetadata {

@@ -73,8 +73,20 @@ export class ExtendedFormInputComponent {
 		return ERM.getEntityMetadata(name) || null;
 	}
 
-	getLinkingObject() {
-		throw Error('linkingobject selector hasn\'t been implemented');
+	// WIP
+	getLinkingObject(name: string) {
+		const item = this.getObject();
+		const entityMetadata = ERM.getEntityMetadata(name);
+		if (item) {
+			switch (entityMetadata) {
+				case ERM.SELECTOR_ELEMENT:
+					return item.value;
+				default:
+					if (item.name === undefined || item.name === null)
+						throw Error(`the default name to display this entity: '${entityMetadata.singular} is not the attribute 'name'`);
+					return item.name;
+			}
+		}
 	}
 
 	/** saving the value */
