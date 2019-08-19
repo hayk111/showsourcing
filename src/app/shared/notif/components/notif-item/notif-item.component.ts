@@ -13,6 +13,7 @@ import { NotificationActivityService } from '~shared/notif/services/notification
 export class NotifItemComponent implements OnInit {
 
 	@Input() activity: GetStreamGroup = null;
+	@Input() isRead: boolean;
 	@Output() close = new EventEmitter<void>();
 	activityMessage: string;
 	navigateRout: string;

@@ -1,6 +1,6 @@
 <div
 	class="flex container notif-card"
-	[ngClass]="{ unread: !activity.is_read }"
+	[ngClass]="{ unread: !isRead}"
 	(click)="detail($event)"
 >
 	<div class="flex left">

@@ -2,9 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
 import { TokenService } from '~core/auth';
+import { TokenResponse } from '~common/activity/interfaces/token-response.interface';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TeamService, UserService } from '~entity-services';
 import {
@@ -20,10 +21,11 @@ import {
 @Injectable({
 	providedIn: 'root'
 })
- export class NotificationActivityService {
+export class NotificationActivityService {
 	private readonly LIMIT = 10;
 	private client: getstream.Client;
 	private shouldRefetch$ = new BehaviorSubject(true);
+	public shouldUpdateUnreadCount = new Subject<{ allMarkedAsRead: boolean, notificationId?: string }>();
 	public isPanelOpen = false;
 	constructor(
 		private http: HttpClient,
@@ -83,17 +85,23 @@ import {
 	}
 
 	public markAsRead(notificationId: string): void {
+		this.shouldUpdateUnreadCount.next({ allMarkedAsRead: false, notificationId });
 		this.getNotificationToken().toPromise().then(token => {
 			const feed: getstream.Feed = this.client.feed('notifications', this.getNotificationUserId(), token);
-			feed.get({ limit: 0, mark_read: notificationId }).then(_ => this.shouldRefetch$.next(true));
+			feed.get({ limit: 0, mark_read: notificationId });
 		});
 	}
 
 	public markAllAsRead(): void {
+		this.shouldUpdateUnreadCount.next({ allMarkedAsRead: true });
 		this.getNotificationToken().toPromise().then(token => {
 			const feed: getstream.Feed = this.client.feed('notifications', this.getNotificationUserId(), token);
-			feed.get({ limit: 0, mark_read: true }).then(_ => this.shouldRefetch$.next(true));
+			feed.get({ limit: 0, mark_read: true });
 		});
+	}
+
+	public getMarkAsReadNotifiactions(): Observable<{ allMarkedAsRead: boolean, notificationId?: string }> {
+		return this.shouldUpdateUnreadCount.asObservable();
 	}
 
 	public openNotificationPanel() {
