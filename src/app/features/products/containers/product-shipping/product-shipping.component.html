@@ -8,7 +8,7 @@
 
 		<dynamic-form-app
 			[inlineLabel]="true"
-			[fields]="customFields"
+			[fields]="productDescriptor?.descriptor"
 			[value]="product"
 			[colAmount]="2"
 			(update)="update($event)">

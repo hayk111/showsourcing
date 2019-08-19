@@ -12,7 +12,9 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, switchMap, takeUntil } from 'rxjs/operators';
+import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { ProductDescriptor } from '~core/descriptors';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
@@ -20,12 +22,10 @@ import {
 import { ProductService, UserService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product } from '~models';
-import { DynamicField } from '~shared/dynamic-forms';
+import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, PendingImage, translate } from '~utils';
-import { DialogService } from '~shared/dialog/services';
-import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
 
 @Component({
 	selector: 'product-preview-app',
@@ -57,99 +57,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
+	productDescriptor1: ProductDescriptor;
+	productDescriptor2: ProductDescriptor;
 	erm = ERM;
 
 	actions: PreviewActionButton[];
-
-	// those are the custom fields for the first form section
-	// ultimately "sections" should be added to the form descriptor
-	// so we only have one array of custom fields
-	// TODO i18n
-	customFields: DynamicField[] = [
-		{
-			name: 'supplier',
-			type: 'selector',
-			label: translate(ERM.SUPPLIER.singular, 'erm'),
-			metadata: {
-				target: ERM.SUPPLIER.singular,
-				type: 'entity',
-				labelName: 'name',
-				canCreate: true
-			}
-		},
-		{
-			name: 'category',
-			type: 'selector',
-			label: translate(ERM.CATEGORY.singular, 'erm'),
-			metadata: {
-				target: ERM.CATEGORY.singular,
-				type: 'entity',
-				labelName: 'name',
-				canCreate: true
-			}
-		},
-		{ name: 'name', type: 'text', required: true, label: translate('name') },
-		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
-		{
-			name: 'event', type: 'selector', label: translate(ERM.EVENT.singular, 'erm'),
-			metadata: { target: ERM.EVENT.singular, type: 'entity', labelName: 'name', canCreate: true, hideLogo: true }
-		},
-		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
-		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
-		{
-			name: 'assignee',
-			label: translate('assigned to'),
-			type: 'selector',
-			metadata: { target: ERM.USER.singular, type: 'entity' }
-		},
-		{
-			name: 'createdBy',
-			type: 'selector',
-			label: translate('created by'),
-			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
-		},
-		{
-			name: 'creationDate',
-			type: 'date',
-			label: translate('creation date'),
-			metadata: { disabled: true }
-		},
-		{
-			name: 'lastUpdatedBy',
-			type: 'selector',
-			label: translate('last updated by'),
-			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
-		},
-		{
-			name: 'lastUpdatedDate',
-			type: 'date',
-			label: translate('last updated date'),
-			metadata: { disabled: true }
-		}
-	];
-
-	// those are the custom field for the second form section
-	customFields2: DynamicField[] = [
-		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
-		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
-		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
-		{ name: translate(ERM.SAMPLE.singular, 'erm'), type: 'title' },
-		{ name: 'sample', type: 'boolean' },
-		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
-		{ name: 'shipping', type: 'title' },
-		{
-			name: 'incoTerm', type: 'selector', label: 'INCO Term',
-			metadata: { target: ERM.INCO_TERM.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
-		},
-		{
-			name: 'harbour', type: 'selector', label: 'loading port',
-			metadata: { target: ERM.HARBOUR.singular, canCreate: false, multiple: false, labelName: 'name', type: 'const' }
-		},
-		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
-		{ name: 'quantityPer20ft', type: 'number', label: `Quantity per 20'` },
-		{ name: 'quantityPer40ft', type: 'number', label: `Quantity per 40'` },
-		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
-	];
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
@@ -218,6 +130,23 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	ngOnInit() {
+		this.productDescriptor1 = new ProductDescriptor([
+			'supplier', 'category', 'name', 'price', 'event', 'minimumOrderQuantity', 'moqDescription',
+			'assignee', 'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
+		]);
+		this.productDescriptor1.modify([
+			{ name: 'supplier', metadata: { hasBadge: false } },
+			{ name: 'event', metadata: { hasBadge: false } },
+		]);
+
+		this.productDescriptor2 = new ProductDescriptor([
+			'innerCarton', 'masterCarton', 'priceMatrix', 'sample', 'samplePrice', 'incoTerm',
+			'harbour', 'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC'
+		]);
+		// TODO i18n
+		this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
+		this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
+
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
 	}
 
