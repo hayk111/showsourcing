@@ -1,10 +1,23 @@
-<div [ngClass]="{'list-container': !isDashboardBox, 'flexCenter': activites?.length === 0}">
-	<div [ngClass]="{'notif-feed': !isDashboardBox}"
-		*ngFor="let activity of activites">
-		<notif-item-app (close)="close.emit()" [activity]="activity" [isRead]="activity.is_read"></notif-item-app>
+<div
+	[ngClass]="{
+		'list-container': !isDashboardBox,
+		flexCenter: activites?.length === 0
+	}"
+>
+	<div
+		[ngClass]="{ 'notif-feed': !isDashboardBox }"
+		*ngFor="let activity of activites"
+	>
+		<notif-item-app
+			class="notifiaction-item"
+			(close)="close.emit()"
+			[activity]="activity"
+			[isRead]="activity.is_read"
+		></notif-item-app>
 	</div>
-	<notif-empty-app (close)="close.emit()" *ngIf="activites?.length === 0"></notif-empty-app>
+	<notif-empty-app
+		class="empty-notifiaction"
+		(close)="close.emit()"
+		*ngIf="activites?.length === 0"
+	></notif-empty-app>
 </div>
-
-
-

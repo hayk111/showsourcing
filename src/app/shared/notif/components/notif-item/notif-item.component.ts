@@ -31,50 +31,6 @@ export class NotifItemComponent implements OnInit {
 	) {
 	}
 
-	get actorName() {
-		return this.activity.activities[0].actor_name;
-	}
-
-	get multipleActorMessage(): string {
-		const { actor_count } = this.activity;
-		if (actor_count === 2) {
-			return 'and 1 other';
-		}
-		if (actor_count > 2) {
-			return `and ${this.activity.actor_count - 1} others`;
-		}
-		return '';
-	}
-
-	get target() {
-		return this.activity.activities[0].target;
-	}
-
-	getProduct() {
-		return this.productSrv.queryOne(this.targetId);
-	}
-
-	getSupplier() {
-		return this.supplierSrv.queryOne(this.targetId);
-	}
-
-	getTask() {
-		return this.taskSrv.queryOne(this.targetId);
-	}
-
-	getSample() {
-		return this.sampleSrv.queryOne(this.targetId);
-	}
-
-	detail({target}) {
-		if (target.classList.contains('primary-dot')) {
-			this.activity.is_read = true;
-			return this.notifActivitySrv.markAsRead(this.activity.id);
-		}
-		this.notifActivitySrv.closeNotifiactionPanel();
-		this.router.navigate([this.navigateRout]);
-	}
-
 	ngOnInit() {
 		this.initialSetup();
 	}
@@ -145,6 +101,56 @@ export class NotifItemComponent implements OnInit {
 				this.navigateRout = `/workspace/my-tasks`;
 				break;
 		}
+	}
+
+	detail({ target }) {
+		if (target.classList.contains('mark-read')) {
+			if (target.classList.contains('primary-dot')) {
+				this.notifActivitySrv.markAsRead(this.activity.id);
+			}
+			return;
+		}
+		this.redirect();
+	}
+
+	redirect() {
+		this.notifActivitySrv.closeNotifiactionPanel();
+		this.router.navigate([this.navigateRout]);
+	}
+
+	get actorName() {
+		return this.activity.activities[0].actor_name;
+	}
+
+	get multipleActorMessage(): string {
+		const { actor_count } = this.activity;
+		if (actor_count === 2) {
+			return 'and 1 other';
+		}
+		if (actor_count > 2) {
+			return `and ${this.activity.actor_count - 1} others`;
+		}
+		return '';
+	}
+
+	get target() {
+		return this.activity.activities[0].target;
+	}
+
+	getProduct() {
+		return this.productSrv.queryOne(this.targetId);
+	}
+
+	getSupplier() {
+		return this.supplierSrv.queryOne(this.targetId);
+	}
+
+	getTask() {
+		return this.taskSrv.queryOne(this.targetId);
+	}
+
+	getSample() {
+		return this.sampleSrv.queryOne(this.targetId);
 	}
 
 }
