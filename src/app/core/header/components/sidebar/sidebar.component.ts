@@ -17,8 +17,8 @@ export class SidebarComponent implements OnInit {
 	team$: Observable<Team>;
 	requestCount$: Observable<number>;
 	isProd = environment.production;
-	sideNavItems: any;
 	hoverIndex: boolean;
+	sideNavItems = sideNavItems;
 
 	constructor(
 		private authSrv: AuthenticationService,
@@ -32,7 +32,6 @@ export class SidebarComponent implements OnInit {
 		this.requestCount$ = this.requestSrv.selectCount(
 			`status == "${DEFAULT_REPLIED_STATUS}" AND senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
 		);
-		this.sideNavItems = sideNavItems;
 	}
 
 	logout() {
