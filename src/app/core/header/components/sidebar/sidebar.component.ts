@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { DEFAULT_REPLIED_STATUS, Team, User } from '~core/models';
 import { SupplierRequestService, TeamService, UserService } from '~entity-services';
-import { sideNavItems } from '~utils';
+import { sideNavItems } from './side-nav-items.const';
 
 @Component({
 	selector: 'sidebar-app',
@@ -17,8 +16,8 @@ export class SidebarComponent implements OnInit {
 	team$: Observable<Team>;
 	requestCount$: Observable<number>;
 	isProd = environment.production;
-	sideNavItems: any;
 	hoverIndex: boolean;
+	sideNavItems = sideNavItems;
 
 	constructor(
 		private authSrv: AuthenticationService,
@@ -32,7 +31,6 @@ export class SidebarComponent implements OnInit {
 		this.requestCount$ = this.requestSrv.selectCount(
 			`status == "${DEFAULT_REPLIED_STATUS}" AND senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
 		);
-		this.sideNavItems = sideNavItems;
 	}
 
 	logout() {

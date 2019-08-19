@@ -4,11 +4,11 @@
 	</a>
 </div>
 
-<nav *ngIf="sideNavItems?.length">
+<nav>
 	<sidebar-item-app [icon]="'product'" [link]="['/product']" [subItems]="sideNavItems.get('product')"></sidebar-item-app>
 	<sidebar-item-app [icon]="'supplier'" [link]="['/supplier']"></sidebar-item-app>
 	<sidebar-item-app [icon]="'project'" [link]="['/project']"></sidebar-item-app>
-	<sidebar-item-app [icon]="'check-round'" [link]="['/workspace']"></sidebar-item-app>
+	<sidebar-item-app [icon]="'check-circle'" [link]="['/workspace']"></sidebar-item-app>
 	<sidebar-item-app [icon]="'envelope'" [link]="['/request']" [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null"></sidebar-item-app>
 </nav>
 
