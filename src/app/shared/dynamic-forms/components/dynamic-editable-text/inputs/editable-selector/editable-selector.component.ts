@@ -52,7 +52,8 @@ export class EditableSelectorComponent extends AbstractInput {
 	}
 
 	getLabelTemplate() {
-		return this.customField.multiple ? this.manyLabel : this.oneLabel;
+		const meta = this.customField.metadata;
+		return meta && meta.multiple ? this.manyLabel : this.oneLabel;
 	}
 
 	/** check if a value is empty */
@@ -66,7 +67,7 @@ export class EditableSelectorComponent extends AbstractInput {
 	/** when the selector has changed, we don't use the accumulator */
 	onSelectorChange(item?) {
 		this.value = item;
-		if (!this.customField.multiple) {
+		if (!this.customField.metadata.multiple) {
 			this.editable.close();
 		}
 		this.onChange(item);
