@@ -91,7 +91,7 @@
 	<preview-section-app>
 		<dynamic-form-app
 			[inlineLabel]="true"
-			[fields]="dynamicFields"
+			[fields]="taskDescriptor?.descriptor"
 			[value]="task"
 			[colAmount]="1"
 			(update)="updateTask($event)">

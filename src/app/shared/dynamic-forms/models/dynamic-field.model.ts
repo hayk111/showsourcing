@@ -27,4 +27,4 @@ export interface DynamicField {
 
 export type DynamicFieldType =
 	'text' | 'tel' | 'number' | 'decimal' | 'days' | 'textarea' | 'selector' | 'boolean' | 'price'
-	| 'priceMatrix' | 'packaging' | 'title' | 'url' | 'email' | 'extendedField' | 'date';
+	| 'priceMatrix' | 'packaging' | 'title' | 'url' | 'email' | 'extendedField' | 'date' | 'status' | 'votes';
