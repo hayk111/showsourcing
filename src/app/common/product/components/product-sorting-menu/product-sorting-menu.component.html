@@ -83,10 +83,10 @@
   <ng-container>
 		<icon-app
 			*ngIf="currentSort?.descending; else upArrow;"
-			class="sortIcon" size="s" name="angle-down">
+      name="angle-down" size="6">
 		</icon-app>
     <ng-template #upArrow>
-      <icon-app class="sortIcon" size="s" name="angle-up"></icon-app>
+      <icon-app name="angle-up" size="6"></icon-app>
     </ng-template>
   </ng-container>
 </ng-template>

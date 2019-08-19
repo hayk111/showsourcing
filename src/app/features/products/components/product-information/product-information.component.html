@@ -7,7 +7,7 @@
 
 
 	<dynamic-form-app
-		[fields]="customFields"
+		[fields]="productDescriptor?.descriptor"
 		[value]="product"
 		[colAmount]="1"
 		(update)="update.emit($event)">
