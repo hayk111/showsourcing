@@ -240,6 +240,7 @@
 				[disabled]="disabled"
 				[type]="getERM(metadata?.source)"
 				[canCreate]="metadata?.canCreate"
+				[definitionReference]="definition?.id"
 				(update)="onInput($event, metadata?.type !== 'const')">
 				<selector-placeholder-app
 					tabFocusAction autoFocus

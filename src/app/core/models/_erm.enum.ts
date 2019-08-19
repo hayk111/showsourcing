@@ -102,7 +102,7 @@ export class ERM {
 	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
 	static readonly SAMPLE = new EntityMetadata('sample', 'samples', Sample);
 	static readonly SAMPLE_STATUS = new EntityMetadata('sample status', 'samples status', Sample, 'sample-status');
-	static readonly SELECTOR_ELEMENT = new EntityMetadata('selector elements', 'selector elements', SelectorElement, 'selector-element');
+	static readonly SELECTOR_ELEMENT = new EntityMetadata('selector element', 'selector elements', SelectorElement, 'selector-element');
 	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
 	static readonly SUPPLIER_REQUEST = new EntityMetadata('request', 'requests', SupplierRequest);
