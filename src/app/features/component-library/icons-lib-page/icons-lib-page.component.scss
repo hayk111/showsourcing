@@ -4,6 +4,11 @@ icon-app, logo-app {
 	margin: var(--spacing-xs);
 }
 
-.circle {
-	border-radius: 50%;
+p {
+	margin: var(--spacing-xs);
+	margin-top: var(--spacing-s);
+}
+
+small {
+	display: block;
 }

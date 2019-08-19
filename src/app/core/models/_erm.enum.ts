@@ -46,6 +46,7 @@ export enum EntityName {
 	HARBOUR = 'harbour',
 	IMAGE = 'image',
 	INVITATION = 'invitation',
+	LOCATION = 'location',
 	PRODUCT = 'product',
 	PROJECT = 'project',
 	REQUEST = 'request',
@@ -54,7 +55,7 @@ export enum EntityName {
 	TAG = 'tag',
 	TASK = 'task',
 	TEAM = 'team',
-	USER = 'user'
+	USER = 'user',
 }
 
 

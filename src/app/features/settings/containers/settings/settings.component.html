@@ -1,8 +1,8 @@
 <div class="flex settings">
-  <sidenav-app menuIcon="shape" menuTitle="settings" (expanded)="onMenuExpanded($event)" i18n-menuTitle="@@settings">
+  <sidenav-app menuIcon="settings" menuTitle="settings" (expanded)="onMenuExpanded($event)" i18n-menuTitle="@@settings">
 
 		<sidenav-item-app link="/settings/profile">
-			<icon-app name="user" fontSet="svg"></icon-app>
+			<icon-app name="user"></icon-app>
 			<span sidenavLabelApp i18n="profile">profile</span>
 		</sidenav-item-app>
 		<!-- TODO Uncomment when these tabs are needed -->
@@ -34,7 +34,7 @@
 
 		<!-- Data cleansing -->
 		<sidenav-item-app [hasChildren]="true">
-			<icon-app name="data-cleansing"></icon-app>
+			<icon-app name="cleansing"></icon-app>
 			<span sidenavLabelApp i18n="@@data-cleansing">Data Cleansing</span>
 
 			<sidenav-item-app link="/settings/data/category">

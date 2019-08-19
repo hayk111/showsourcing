@@ -1,13 +1,9 @@
 
 <card-app>
-	<div class="title flex">
-		<div class="space-icon flexAround">
-			<icon-app class="fs-m" fontSet="svg" name="folder-blue" ></icon-app>
-		</div>
-		<h3 i18n="header@@projects">
-			projects
-		</h3>
-	</div>
+	<card-title-app>
+		<icon-app name="project"></icon-app> 
+		<span i18n="header@@projects">projects</span>
+	</card-title-app>
 
 	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
 		<article class="flexBetween pointer" [class.last-item]="last">
@@ -28,8 +24,8 @@
 				</div>
 			</div>
 			<div class="flexCenter">
-				<icon-app  fontSet="fa" class="minus pointer fs-xl color-primary-light"
-					(click)="onRemove(project, $event)" name="minus">
+				<icon-app class="minus pointer fs-xl color-primary-light"
+					(click)="onRemove(project, $event)" name="trash">
 				</icon-app>
 			</div>
 		</article>

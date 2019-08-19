@@ -1,13 +1,10 @@
 <card-app>
 
-	<div class="title flex">
-		<div class="space-icon flexAround">
-			<icon-app name="product"></icon-app>
-		</div>
-		<h3 class="flex" i18n="header@@product-info">
-			product information
-		</h3>
-	</div>
+	<card-title-app>
+		<icon-app name="product"></icon-app> 
+		<span i18n="header@@product-info">product information</span>
+	</card-title-app>
+
 
 	<dynamic-form-app
 		[fields]="productDescriptor?.descriptor"

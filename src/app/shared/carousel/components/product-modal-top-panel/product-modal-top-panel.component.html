@@ -11,9 +11,8 @@
 				<div class="flex status-info">
 					<icon-app
 						class="circle color-{{ product?.status?.category || 'secondary' }}"
-						name="circle"
-						fontSet="fa"
-					></icon-app>
+						name="circle">
+					</icon-app>
 					{{
 						product?.status?.name
 							? (product?.status?.name | const: "status")

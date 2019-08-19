@@ -64,7 +64,7 @@
 			</div>
 		<div class="category ellipsis">{{ product?.category?.name }}</div>
 		<div class="flex status-info">
-			<icon-app class="circle color-{{product?.status?.category || 'secondary'}}" name="circle" fontSet="fa"></icon-app>
+			<icon-app class="circle color-{{product?.status?.category || 'secondary'}}" name="circle"></icon-app>
 			<!-- TODO i18n -->
 			{{ product?.status?.step || '0' }}.  {{ product?.status?.name ? (product?.status?.name | const:'status') : ('New Product' | const: 'messages') }}
 		</div>

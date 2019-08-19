@@ -8,10 +8,10 @@
 	margin-right: var(--spacing-ms);
 }
 
-.title {
-	margin-bottom: var(--spacing-ms);
-
-	icon-app[name="file"] {
+card-title-app {
+	icon-app {
+		margin-right: var(--spacing-ms);
+		color: var(--legacy-color-primary);
 		cursor: default;
 		font-size: var(--font-size-xxl);
 	}

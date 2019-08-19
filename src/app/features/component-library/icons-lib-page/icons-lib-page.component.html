@@ -1,11 +1,27 @@
 
 <card-app>
 	<h3 class="mg-l">Icons</h3>
-	name="product" (default to inherit font-size)
-	<icon-app name="product"></icon-app>
-	name="product" [size]="24"
-	<icon-app name="product" [size]="24"></icon-app>
-	name="product" [size]="'s'" || [size]="'m'" ||  [size]="'l'" 
+	<p>
+		By default icons inherit the font size
+		<small>name="product"</small>
+	</p>
+	<div class="flex">
+		<icon-app name="product"></icon-app>
+	</div>
+
+	<p>
+		You can give a number in the [size] input
+		<small>name="product" [size]="24"</small>
+	</p>
+	<div class="flex">
+		<icon-app name="product" [size]="24"></icon-app>
+	</div>
+
+	<p>
+		Or you can give one of our default size "s", "m" or "l"
+		<small>name="product" [size]="'s'" || [size]="'m'" ||  [size]="'l'" </small>
+	</p>
+	
 	<div class="flex">
 		<icon-app name="product" [size]="'s'"></icon-app>
 		<icon-app name="product" [size]="'m'"></icon-app>
@@ -18,13 +34,21 @@
 	<h3 class="mg-l">Logos</h3>
 	
 	<b>Color</b> <br>
-	type="product" || type="supplier" || type="sample" (use type color)
+
+	<p>
+		By default if a type is specified the color associated with the [type] will be used <br>
+		<small>type="product" | "supplier" | ... (use type color)</small>
+	</p>
+
 	<div class="flex">
-		<logo-app type="product"></logo-app>
-		<logo-app type="supplier"></logo-app>
-		<logo-app type="sample"></logo-app>
+		<logo-app *ngFor="let type of types" [type]="type"></logo-app>
 	</div>
-	type="product" color="primary" || color="secondary" || color="vibrant" 
+
+	<p>
+		You can however override the color by specifying the [color] attribute
+		<br>
+		<small>type="product" color="primary" || color="secondary" || color="vibrant" </small>
+	</p>
 	<div class="flex">
 		<logo-app type="product" color="primary"></logo-app>
 		<logo-app type="product" color="secondary"></logo-app>
@@ -33,13 +57,20 @@
 
 	<br><br> 
 	<b>Circle</b> <br>
-	type="product" [circle]="true" color="accent" (makes it round)
+	<p>
+		<small>type="product" [circle]="true" color="accent"</small>
+	</p>
 	<logo-app type="product" [circle]="true" color="accent"></logo-app>
 
 	<br><br>
 	<b>Circle</b> <br>
+
+	
+	<p>
+		You can use the [circle] input to make it a circle
+		<small>type="product" | "comment" | "task" [circle]="true" </small>
+	</p>
 	<div class="flex">
-		type="product" | "comment" | "task" [circle]="true"
 		<logo-app type="product" [circle]="true"></logo-app>
 		<logo-app type="comment" [circle]="true"></logo-app>
 		<logo-app type="task" [circle]="true"></logo-app>
@@ -47,21 +78,40 @@
 
 	<br><br>
 	<b>Size</b> <br>
+	<p>
+		You can specify one of the [size] "s", "m" or "l"
+		<small>type="product" size="s" | size="m" | size="l"</small>
+	</p>
 	<div class="flex">
-		type="product" size="s" | size="m" | size="l"
 		<logo-app type="product" size="s"></logo-app>
 		<logo-app type="product" size="m"></logo-app>
 		<logo-app type="product" size="l"></logo-app>
 	</div>
 
-
+	<p>
+		You can however select specific sizes for [backgroundSize] and [iconSize]
+		<small>type="product" [backgroundSize]="60" [iconSize]="35"</small>
+	</p>
 	<div class="flex">
-		type="product" [backgroundSize]="60" [iconSize]="35"
 		<logo-app type="product" [backgroundSize]="60" [iconSize]="35"></logo-app>
 	</div>
 
 	<br><br>
 	<b>Image</b> <br>
-	type="product" [logo]="imageMock"
+
+	<p>
+		If you specify a [logo] it will be used
+		<small>type="product" [logo]="imageMock"</small>
+	</p>
+	
 	<logo-app type="product" [logo]="imageMock"></logo-app>
+
+	<br><br>
+	<b>Icon</b> <br>
+
+	<p>
+		You can set a specific icon
+		<small>icon="star" color="accent"</small>
+	</p>
+	<logo-app icon="star" color="accent"></logo-app>
 </card-app>
