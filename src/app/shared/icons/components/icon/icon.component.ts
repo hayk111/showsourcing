@@ -12,10 +12,9 @@ export type Sizes = 's' | 'm' | 'l' | 'inherit';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.flexCenter]': 'true',
-		'[style.font-size]': 'getComputedSize()'
 	}
 })
-export class IconComponent implements OnInit {
+export class IconComponent {
 
 	@Input() name: string;
 	// symbols give perf gains but are less configurable
@@ -27,9 +26,7 @@ export class IconComponent implements OnInit {
 	size: number | Sizes = 'inherit';
 
 	constructor(
-		private elementRef: ElementRef,
-		private renderer: Renderer2,
-		private sanitizer: DomSanitizer,
+		elementRef: ElementRef,
 		@Attribute('aria-hidden') ariaHidden: string
 	) {
 		// If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
@@ -39,16 +36,7 @@ export class IconComponent implements OnInit {
 		}
 	}
 
-	ngOnInit() {
-		this.setSizeElem();
-	}
-
-	private setSizeElem() {
-		const el = this.elementRef.nativeElement;
-		this.renderer.setStyle(el, 'font-size', this.getComputedSize());
-	}
-
-	private getComputedSize() {
+	getComputedSize() {
 		switch (this.size) {
 			case 's':
 			case 'm':

@@ -10,11 +10,11 @@
 	</ng-container> -->
 
 	<ng-container *ngSwitchCase="'svg'">
-		<img src="assets/icons/{{ name }}.svg" [ngStyle]="{ 'height': computedSize, 'width': computedSize }"/>
+		<img src="assets/icons/{{ name }}.svg" [ngStyle]="{ 'height': getComputedSize(), 'width': getComputedSize() }"/>
 	</ng-container>
 
 	<ng-container *ngSwitchDefault>
-		<i class="icon-{{ name }}" [ngStyle]="{'font-size': computedSize }"></i>
+		<i class="icon-{{ name }}" [ngStyle]="{'font-size': getComputedSize() }"></i>
 	</ng-container>
 
 </ng-container>
