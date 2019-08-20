@@ -2,20 +2,14 @@
 	display: block;
 }
 
-user-picture-app {
-	margin-right: var(--spacing-m);
-}
-
 context-menu-app {
-	height: 50px;
 	display: flex;
 	align-items: center;
-	padding-left: var(--spacing-ms);
-	width: 212px;
+	width: 100%;
 }
 
 context-menu-item-app {
-	width: 217px;
+	width: 100%;
 }
 
 .name {

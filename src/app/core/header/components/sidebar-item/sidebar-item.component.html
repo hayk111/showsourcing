@@ -1,0 +1,21 @@
+<div class="sidebar-item-content" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
+	<a [routerLink]="link" routerLinkActive="selected">
+		<icon-app [size]="'l'" [name]="icon"></icon-app>
+
+		<ng-container *ngIf="badge && badge > 0">
+			<div class="first-uppercase" notifBadge [badge]="badge">
+			</div>
+		</ng-container>
+
+		<div class="selected-nav"></div>
+	</a>
+
+	<div *ngIf="hovered && subItems?.length" class="child-content">
+		<ng-container *ngFor="let subItem of subItems; trackBy: trackByFn">
+			<a class="first-uppercase" [routerLink]="subItem.link">
+				<icon-app [size]="'m'" [name]="subItem.icon"></icon-app>
+				{{ subItem.label }}
+			</a>
+		</ng-container>
+	</div>
+</div>
