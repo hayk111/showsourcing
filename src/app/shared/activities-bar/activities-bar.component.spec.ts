@@ -2,16 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconComponent } from '~shared/icons';
 import { ActivitiesBarComponent } from './activities-bar.component';
 import { Component, ViewChild } from '@angular/core';
-import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-params';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApolloTestingModule } from 'apollo-angular/testing';
 import { By } from '@angular/platform-browser';
 
-/* In the host component's template we will pass the inputs to the actual
- * component. Else ngOnChanges is not triggered.
- * see: https://stackoverflow.com/questions/37408801/testing-ngonchanges-lifecycle-hook-in-angular-2
- */
 @Component({
 	selector: `test-host-component`,
 	template:

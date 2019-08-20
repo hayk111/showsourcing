@@ -4,7 +4,6 @@ import { PaginationComponent } from './pagination.component';
 import { Component, ViewChild } from '@angular/core';
 import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-params';
 
-
 const ITEMS_PER_PAGE = DEFAULT_TAKE_PAGINATION;
 
 /* In the host component's template we will pass the inputs to the actual
@@ -17,6 +16,7 @@ const ITEMS_PER_PAGE = DEFAULT_TAKE_PAGINATION;
 		`<pagination-app
 		[width]="width"
 		[count]="count"
+		[hasPageItemsCount]="hasPageItemsCount"
 		[currentPage]="currentPage"><pagination-app>`
 })
 export class TestHostComponent {
@@ -25,10 +25,11 @@ export class TestHostComponent {
 	count = ITEMS_PER_PAGE * 20;
 	rows = new Array();
 	currentPage = 0;
+	hasPageItemsCount = true;
 }
 
 
-describe('Component: PaginationComponent', () => {
+fdescribe('Component: PaginationComponent', () => {
 	let testComp: TestHostComponent;
 	let paginationComp: PaginationComponent;
 	let fixture: ComponentFixture<TestHostComponent>;
@@ -155,5 +156,14 @@ describe('Component: PaginationComponent', () => {
 		expect(paginationComp.range).toEqual([0, 1]);
 	});
 
+	fit('should display per page items count in the right corner when `hasPageItemsCount` is true and not otherwise', () => {
+		let itemsPageCount = fixture.nativeElement.querySelector('.items-page-count');
+		expect(itemsPageCount).toBeTruthy();
+
+		testComp.hasPageItemsCount = false;
+		fixture.detectChanges();
+		itemsPageCount = fixture.nativeElement.querySelector('.items-page-count');
+		expect(itemsPageCount).toBeFalsy();
+	});
 
 });
