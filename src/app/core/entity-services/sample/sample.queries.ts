@@ -17,7 +17,12 @@ export class SampleQueries extends GlobalQueries {
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly status = `status { id, name, category, inWorkflow, step }`;
 	static readonly comments = `comments { id, text, ${SampleQueries.createdBy}, creationDate }`;
-	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order }}`;
+	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
+	static readonly extendedFields = `extendedFields {
+		id, value,
+		selectorValue { id, value, ${SampleQueries.definition('fieldDefinition')} },
+		${SampleQueries.definition('definition')}
+	}`;
 
 	static readonly one = `
 		name,

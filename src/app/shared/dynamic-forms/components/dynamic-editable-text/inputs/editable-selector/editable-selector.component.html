@@ -5,7 +5,7 @@
 	[disabled]="disabled"
 	[offsetY]="-30"
 	[width]="265"
-	[multiple]="customField?.multiple"
+	[multiple]="customField?.metadata?.multiple"
 	[value]="value"
 	(update)="onSelectorChange($event)"
 	(menuClosed)="editable.close()">
@@ -15,11 +15,11 @@
 		[openOnClick]="!disabled"
 		[inlineLabel]="inlineLabel"
 		[hasAction]="false"
-		[canGrow]="customField?.multiple">
+		[canGrow]="customField?.metadata?.multiple">
 		<label-app>{{ customField?.label || customField?.name }}</label-app>
 		<editable-label-app
 			class="flex"
-			[class.flexWrap]="customField?.multiple"
+			[class.flexWrap]="customField?.metadata?.multiple"
 			[disabled]="disabled">
 			{{ (value | const: customField?.metadata?.target) || '-'}}
 		</editable-label-app>
@@ -34,7 +34,7 @@
 		[width]="330"
 		[disabled]="disabled"
 		[type]="customField?.metadata?.target"
-		[multiple]="customField?.multiple"
+		[multiple]="customField?.metadata?.multiple"
 		[canCreate]="customField?.metadata?.canCreate"
 		(update)="onSelectorChange($event)"
 		(menuClosed)="editable.close()">
@@ -44,12 +44,12 @@
 			[inlineLabel]="inlineLabel"
 			[openOnClick]="!(disabled)"
 			[hasAction]="false"
-			[canGrow]="customField?.multiple">
+			[canGrow]="customField?.metadata?.multiple">
 			<label-app>{{ customField?.label || customField?.name }}</label-app>
 			<editable-label-app
 				class="flex"
 				[class.flexEnd]="inlineLabel"
-				[class.flexWrap]="customField?.multiple"
+				[class.flexWrap]="customField?.metadata?.multiple"
 				[disabled]="disabled">
 				<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 			</editable-label-app>
