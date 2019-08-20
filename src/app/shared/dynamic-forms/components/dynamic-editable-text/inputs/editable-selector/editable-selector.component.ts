@@ -9,7 +9,6 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { ERM } from '~core/models';
-import { DynamicField } from '~shared/dynamic-forms/models';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
@@ -26,10 +25,18 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 })
 export class EditableSelectorComponent extends AbstractInput {
 
+	@Input() type: string;
+	@Input() typeSelector: string;
+	@Input() disabled: boolean;
+	@Input() width: 330;
+	@Input() multiple: boolean;
+	@Input() canCreate: boolean;
+	@Input() label: string;
+	@Input() hasBadge: boolean;
+
 	@Input() isOpen: boolean;
 	@Input() isShowLabel: true;
 	@Input() inlineLabel: string;
-	@Input() customField: DynamicField;
 	@Input() closeOnOutsideClick: boolean;
 	@Output() opened = new EventEmitter();
 	@Output() closed = new EventEmitter();
@@ -46,14 +53,8 @@ export class EditableSelectorComponent extends AbstractInput {
 		super(cd);
 	}
 
-	get disabled() {
-		const meta = this.customField.metadata;
-		return meta && meta.disabled;
-	}
-
 	getLabelTemplate() {
-		const meta = this.customField.metadata;
-		return meta && meta.multiple ? this.manyLabel : this.oneLabel;
+		return this.multiple ? this.manyLabel : this.oneLabel;
 	}
 
 	/** check if a value is empty */
@@ -67,7 +68,7 @@ export class EditableSelectorComponent extends AbstractInput {
 	/** when the selector has changed, we don't use the accumulator */
 	onSelectorChange(item?) {
 		this.value = item;
-		if (!this.customField.metadata.multiple) {
+		if (!this.multiple) {
 			this.editable.close();
 		}
 		this.onChange(item);

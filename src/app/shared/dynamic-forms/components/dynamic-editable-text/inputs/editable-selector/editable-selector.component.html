@@ -1,11 +1,11 @@
-<!-- const selector -->
-<selector-app
-	*ngIf="customField?.metadata?.type === 'const'; else entitySelector"
-	[type]="customField?.metadata?.target"
+<!-- const selector WIP TODO delete or keep this -->
+<!-- <selector-app
+	*ngIf="selectorType === 'const'; else entitySelector"
+	[type]="type"
 	[disabled]="disabled"
 	[offsetY]="-30"
-	[width]="265"
-	[multiple]="customField?.metadata?.multiple"
+	[width]="customField?.metadata?.width || 265"
+	[multiple]="multiple"
 	[value]="value"
 	(update)="onSelectorChange($event)"
 	(menuClosed)="editable.close()">
@@ -15,54 +15,54 @@
 		[openOnClick]="!disabled"
 		[inlineLabel]="inlineLabel"
 		[hasAction]="false"
-		[canGrow]="customField?.metadata?.multiple">
-		<label-app>{{ customField?.label || customField?.name }}</label-app>
+		[canGrow]="multiple">
+		<label-app>{{ label }}</label-app>
 		<editable-label-app
 			class="flex"
-			[class.flexWrap]="customField?.metadata?.multiple"
+			[class.flexWrap]="multiple"
 			[disabled]="disabled">
-			{{ (value | const: customField?.metadata?.target) || '-'}}
+			{{ (value | const: type) || '-'}}
 		</editable-label-app>
 	</editable-field-app>
-</selector-app>
+</selector-app> -->
 
 <!-- entity selector -->
-<ng-template #entitySelector>
+<!-- <ng-template #entitySelector> -->
 	<selector-app
 		[value]="value"
 		[offsetY]="-30"
-		[width]="330"
+		[width]="width || 330"
 		[disabled]="disabled"
-		[type]="customField?.metadata?.target"
-		[multiple]="customField?.metadata?.multiple"
-		[canCreate]="customField?.metadata?.canCreate"
+		[type]="type"
+		[multiple]="multiple"
+		[canCreate]="canCreate"
 		(update)="onSelectorChange($event)"
 		(menuClosed)="editable.close()">
 		<editable-field-app
 			#editable
 			[class.no-hover]="disabled"
 			[inlineLabel]="inlineLabel"
-			[openOnClick]="!(disabled)"
+			[openOnClick]="!disabled"
 			[hasAction]="false"
-			[canGrow]="customField?.metadata?.multiple">
-			<label-app>{{ customField?.label || customField?.name }}</label-app>
+			[canGrow]="multiple">
+			<label-app>{{ label }}</label-app>
 			<editable-label-app
 				class="flex"
 				[class.flexEnd]="inlineLabel"
-				[class.flexWrap]="customField?.metadata?.multiple"
+				[class.flexWrap]="multiple"
 				[disabled]="disabled">
 				<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 			</editable-label-app>
 		</editable-field-app>
 	</selector-app>
-</ng-template>
+<!-- </ng-template> -->
 
 
 
 <!-- one value, label template -->
 <!-- hint: we don't display icons when using inlineLabel -->
 <ng-template #oneValueLabel>
-	<ng-container [ngSwitch]="customField?.metadata?.target">
+	<ng-container [ngSwitch]="type">
 		<!-- user -->
 		<div class="flexVAlign" *ngSwitchCase="erm.USER.singular">
 			<user-picture-app
@@ -77,7 +77,7 @@
 
 		<!-- category -->
 		<ng-container *ngSwitchCase="erm.CATEGORY.singular">
-			<info-badge-app *ngIf="customField?.metadata?.hasBadge; else noLogo" type="category"> {{ value?.name }}</info-badge-app>
+			<info-badge-app *ngIf="hasBadge; else noLogo" type="category"> {{ value?.name }}</info-badge-app>
 			<ng-template #noLogo> {{ value?.name }} </ng-template>
 		</ng-container>
 
@@ -94,8 +94,8 @@
 		<!-- others we display an icon and the value next to it -->
 		<ng-container *ngSwitchDefault>
 			<img class="defaultLabelIcon"
-				*ngIf="(value | logo:customField?.metadata?.target) && !inlineLabel && customField?.metadata?.hasBadge"
-				[src]="value | logo:customField?.metadata?.target" />
+				*ngIf="(value | logo:type) && !inlineLabel && hasBadge"
+				[src]="value | logo:type" />
 			<span class="ellipsis fullWidth">
 				{{ value ? value['name'] : '-' }}
 			</span>
@@ -106,11 +106,11 @@
 
 <!-- multiple values, label template (we display badges) -->
 <ng-template #multipleValuesLabel>
-	<ng-container *ngIf="customField?.metadata?.hasBadge; else noBadge">
+	<ng-container *ngIf="hasBadge; else noBadge">
 		<info-badge-app
 			class="multiple-item"
 			*ngFor="let item of value; trackBy: trackByFn"
-			[type]="customField?.metadata?.target">
+			[type]="type">
 			{{ item.name }}
 		</info-badge-app>
 	</ng-container>
