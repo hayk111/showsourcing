@@ -20,6 +20,6 @@ export const sideNavItems = new Map<string, any>([
 	['product', subNavItemsProducts],
 	['supplier', []],
 	['project', []],
-	['workspace', []],
+	['task', []],
 	['request', []],
 ]);
