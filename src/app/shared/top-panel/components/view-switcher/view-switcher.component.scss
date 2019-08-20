@@ -18,12 +18,14 @@
 .ctnr {
 	// to suppress the shadow from the btn
 	overflow: hidden;
+	width: 192px;
 }
 
 button {
+	width: calc(100% / 3);
+	min-width: unset;
 	height: 32px;
-	min-width: 70px;
-	border-radius: var(--border-radius-s);
+	border-radius: var(--border-radius);
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -62,10 +64,10 @@ icon-app {
 	transition: all 0.35s ease-out;
 	&.left {
 		left: 0;
-		width: calc(100% / 2);
+		width: calc(100% / 3);
 	}
 	&.right {
-		left: calc(100% / 2);
-		width: calc(100% / 2);
+		left: calc(100% / 3);
+		width: calc(100% / 3);
 	}
 }

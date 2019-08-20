@@ -4,8 +4,12 @@
 		<icon-app class="list" [name]="switchContent[0]"></icon-app>
 		<ng-container i18n="text@@list">List</ng-container>
 	</button>
+	<button class="flexCenter {{ view === 'board' ? 'selected' : ''}}" (mousedown)="switchView('board')">
+		<icon-app class="list" [name]="switchContent[1]"></icon-app>
+		<ng-container i18n="text@@list">Board</ng-container>
+	</button>
 	<button class="flexCenter {{ view === 'card' ? 'selected' : ''}}" (mousedown)="switchView('card')">
-			<icon-app class="board" [name]="switchContent[1]"></icon-app>
-			<ng-container i18n="text@@thumb">Thumb</ng-container>
+			<icon-app class="board" [name]="switchContent[2]"></icon-app>
+			<ng-container i18n="text@@thumb">Grid</ng-container>
 	</button>
 </div>

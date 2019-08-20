@@ -55,7 +55,7 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 		).subscribe(_ => this.router.navigate(['supplier']));
 	}
 
-	onViewChange(view: 'list' | 'card') {
+	onViewChange(view: 'list' | 'board' | 'card') {
 		// Update sorting according to the selected view
 		this.listSrv.sort({ sortBy: 'name', descending: false });
 		this.listSrv.changeView(view);
