@@ -3,6 +3,9 @@ import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { TeamUserQueries } from '~entity-services/team-user/team-user.queries';
 import { TeamUser } from '~models';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { TeamService } from '../team/team.service';
 
 
 @Injectable({
@@ -10,9 +13,11 @@ import { TeamUser } from '~models';
 })
 export class TeamUserService extends GlobalService<TeamUser> {
 
-	constructor(protected apolloState: ApolloStateService) {
+	constructor(protected apolloState: ApolloStateService, private http: HttpClient, private teamSrv: TeamService) {
 		super(apolloState, TeamUserQueries, 'teamUser', 'teamUsers');
 	}
 
-
+	update(teamUser: TeamUser) {
+		return this.http.patch<TeamUser>(`${environment.apiUrl}/team/${this.teamSrv.selectedTeamSync.id}/team-role`, teamUser);
+	}
 }

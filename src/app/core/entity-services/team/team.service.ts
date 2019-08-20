@@ -8,6 +8,8 @@ import { LocalStorageService } from '~core/local-storage';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { TeamQueries } from '~entity-services/team/team.queries';
 import { Team } from '~models';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -53,8 +55,8 @@ export class TeamService extends GlobalService<Team> {
 	constructor(
 		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
-		protected authSrv: AuthenticationService
-
+		protected authSrv: AuthenticationService,
+		private http: HttpClient
 	) { super(apolloState, TeamQueries, 'team', 'teams'); }
 
 	init() {
@@ -72,10 +74,11 @@ export class TeamService extends GlobalService<Team> {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return super.create(team).pipe(
-			switchMap(_ => this.waitForOne(`id == "${team.id}" AND status == "active"`)),
-			switchMap(_team => this.pickTeam(_team))
-		);
+		return this.http.post(`${environment.apiUrl}/team`, team);
+	}
+
+	update(team: Team) {
+		return this.http.patch<Team>(`${environment.apiUrl}/team/${team.id}`, team);
 	}
 
 	/** picks a team, puts the selection in local storage */

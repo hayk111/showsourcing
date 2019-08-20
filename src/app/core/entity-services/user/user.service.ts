@@ -7,6 +7,8 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { UserQueries } from '~entity-services/user/user.queries';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { User } from '~models';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
 @Injectable({
 	providedIn: 'root',
@@ -26,7 +28,8 @@ export class UserService extends GlobalService<User> {
 	constructor(
 		private authSrv: AuthenticationService,
 		protected apolloState: ApolloStateService,
-		protected analyticsSrv: AnalyticsService
+		protected analyticsSrv: AnalyticsService,
+		protected http: HttpClient
 	) {
 		super(apolloState, UserQueries, 'user', 'users');
 		this.user$.subscribe(user => {
@@ -38,6 +41,10 @@ export class UserService extends GlobalService<User> {
 
 	selectUser() {
 		return this.user$;
+	}
+
+	update(user: User) {
+		return this.http.patch<User>(`${environment.apiUrl}/user`, user);
 	}
 
 }

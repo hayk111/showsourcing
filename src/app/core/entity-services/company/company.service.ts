@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, ReplaySubject, Observable, of } from 'rxjs';
-import { map, shareReplay, tap, filter, switchMapTo, switchMap } from 'rxjs/operators';
-import { AuthStatus } from '~core/auth/interfaces';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
-import { CompanyQueries } from '~entity-services/company/company.queries';
-import { UserService } from '~entity-services/user/user.service';
-import { Company } from '~models';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { LocalStorageService } from '~core/local-storage';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { LocalStorageService } from '~core/local-storage';
+import { CompanyQueries } from '~entity-services/company/company.queries';
 import { GlobalService } from '~entity-services/_global/global.service';
+import { Company } from '~models';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
 
 const COMPANY = 'company';
@@ -35,7 +34,8 @@ export class CompanyService extends GlobalService<Company> {
 	constructor(
 		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
-		protected authSrv: AuthenticationService
+		protected authSrv: AuthenticationService,
+		private http: HttpClient
 	) {
 		super(apolloState, CompanyQueries, 'company', 'companies');
 	}
@@ -51,9 +51,7 @@ export class CompanyService extends GlobalService<Company> {
 
 	/** creates and picks it */
 	create(company: Company): Observable<any> {
-		return super.create(company).pipe(
-			switchMap(_ => this.saveCompany(company))
-		);
+		return this.http.post<Company>(`${environment.apiUrl}/company`, company);
 	}
 
 	/** picks a company, puts the selection in local storage */
