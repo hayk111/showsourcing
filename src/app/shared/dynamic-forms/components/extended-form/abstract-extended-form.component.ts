@@ -1,0 +1,111 @@
+import { EventEmitter, Input, Output } from '@angular/core';
+import {
+	EntityMetadata,
+	ERM,
+	ExtendedField,
+	ExtendedFieldDefinition,
+	ExtendedFieldDefinitionMetadata,
+	Packaging,
+	Price,
+} from '~core/models';
+
+/**
+ * Component that selects the correct input and display it as an editable text
+ *
+ * Most inputs wait for a blur event to update, therefor we use an accumulator,
+ * in case the user cancels.
+ */
+export abstract class AbstractExtendedFormComponent {
+	@Input() type: EntityMetadata;
+	@Input() set field(field: ExtendedField) {
+		if (!field)
+			field = new ExtendedField();
+		this._field = field;
+		this.accumulator = field.value;
+	}
+	get field() { return this._field; }
+	private _field: ExtendedField;
+
+	private _definition: ExtendedFieldDefinition;
+	@Input() set definition(definition: ExtendedFieldDefinition) {
+		this._definition = definition;
+		if (this._definition && this._definition.metadata)
+			this.metadata = JSON.parse(this._definition.metadata);
+	}
+	get definition() {
+		return this._definition;
+	}
+	@Input() disabled = false;
+	@Input() autofocus = false;
+
+	@Output() update = new EventEmitter<ExtendedField>();
+	/** accumulates what the user types in input and if he doesn't press cancel we save it */
+	accumulator: any;
+
+	metadata: ExtendedFieldDefinitionMetadata;
+
+	onClose(isCancel: boolean) {
+		if (!isCancel) {
+			this.onSave();
+		}
+	}
+
+	getERM(name) {
+		return ERM.getEntityMetadata(name) || null;
+	}
+
+	// WIP
+	getLinkingObject(name: string) {
+		const item = this.getObject();
+		const entityMetadata = ERM.getEntityMetadata(name);
+		if (item) {
+			switch (entityMetadata) {
+				case ERM.SELECTOR_ELEMENT:
+					return item.value;
+				default:
+					if (item.name === undefined || item.name === null)
+						throw Error(`the default name to display this entity: '${entityMetadata.singular} is not the attribute 'name'`);
+					return item.name;
+			}
+		}
+	}
+
+	/** saving the value */
+	onSave() {
+		this.field.value = this.accumulator;
+		let definition;
+		definition = new ExtendedFieldDefinition({ id: this.definition.id });
+		this.update.emit({ ...this.field, definition });
+	}
+
+	/** when the user cancels we put the previous value back in because onClose is gonna be called */
+	onCancel() {
+		this.accumulator = this.field.value;
+	}
+
+	onInput(value: any, isJson = false) {
+		isJson ? this.accumulateJSON(value) : this.accumulator = value;
+		this.onClose(false);
+	}
+
+	/** toggle input value from true to false and vice versa */
+	toggleBoolean(check) {
+		if (this.disabled)
+			return;
+		// we need this condition, cause when the accumulator is empty we need to take the value of the event
+		if (!this.accumulator)
+			this.accumulator = check ? 'true' : 'false';
+		else
+			this.accumulator = this.accumulator === 'true' ? 'false' : 'true';
+		this.onSave();
+	}
+
+	getObject() {
+		return this.accumulator ? JSON.parse(this.accumulator) : undefined;
+	}
+
+	accumulateJSON(json: Price | Packaging) {
+		// we need to stringify it since it's stored as a string
+		this.accumulator = JSON.stringify(json);
+	}
+}
