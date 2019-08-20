@@ -10,7 +10,7 @@ import {
 	OnChanges,
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, take } from 'rxjs/operators';
 import ColumnType from './column-type.enum';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { RequestElementService } from '~core/entity-services';

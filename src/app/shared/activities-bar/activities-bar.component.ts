@@ -39,6 +39,10 @@ export class ActivitiesBarComponent implements OnInit {
 	}
 
 	hasTasksOverdue(id) {
+		if (!id) {
+			return false;
+		}
+
 		const foundElem = (this.rows as any[]).find(o => o.id === id);
 
 		if (foundElem
