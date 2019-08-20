@@ -12,6 +12,4 @@ import { AbstractExtendedFormComponent } from '../abstract-extended-form.compone
 export class ExtendedFormInputComponent extends AbstractExtendedFormComponent {
 
 
-	constructor() { super(); }
-
 }

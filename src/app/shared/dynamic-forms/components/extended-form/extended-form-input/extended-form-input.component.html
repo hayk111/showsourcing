@@ -103,21 +103,17 @@
 		<!-- selector -->
 		<form-field-app *ngSwitchCase="'selector'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
-			<!-- WIP check that the name of variable 'const' or 'custom' is correct -->
-			<selector-app
-				[disabled]="disabled"
-				[type]="getERM(metadata?.source)"
-				[canCreate]="metadata?.canCreate"
+			<input-selector-app
+				[(ngModel)]="accumulator"
+				[type]="metadata?.source"
 				[definitionReference]="definition?.id"
-				(update)="onInput($event, metadata?.type !== 'const')">
-				<selector-placeholder-app
-					tabFocusAction autoFocus
-					[canFocus]="autofocus"
-					[ngClass]="{ 'disabled': disabled }"
-					[placeholder]="definition?.label"
-					[name]="metadata?.type === 'const' ? accumulator : getLinkingObject(metadata?.source)">
-				</selector-placeholder-app>
-			</selector-app>
+				[multiple]="metadata?.multiple"
+				[canCreate]="metadata?.canCreate"
+				[autofocus]="autofocus"
+				[width]="width"
+				[placeholder]="definition?.label"
+				(update)="onInput($event)">
+			</input-selector-app>
 			<input inputApp [hidden]="true" type="text"/>
 		</form-field-app>
 

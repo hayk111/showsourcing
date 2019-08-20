@@ -13,6 +13,7 @@ import {
 import { ERM } from '~core/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { TabFocusActionDirective } from '~shared/utils';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'input-selector-app',
@@ -33,6 +34,8 @@ export class InputSelectorComponent extends AbstractInput implements OnInit, Aft
 	@Input() placeholder: string;
 	// wether we display a info-badge-app or just plain tex
 	@Input() hasBadge = false;
+	@Input() disabled = false;
+	@Input() definitionReference: ID;
 	@Output() update = new EventEmitter<any>();
 
 	@ViewChild('oneValueLabel', { static: true }) oneLabel: TemplateRef<any>;

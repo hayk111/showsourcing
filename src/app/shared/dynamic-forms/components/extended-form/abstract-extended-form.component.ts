@@ -1,4 +1,4 @@
-import { EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import {
 	EntityMetadata,
 	ERM,
@@ -8,6 +8,7 @@ import {
 	Packaging,
 	Price,
 } from '~core/models';
+import { FormFieldComponent } from '~shared/inputs';
 
 /**
  * Component that selects the correct input and display it as an editable text
@@ -15,13 +16,12 @@ import {
  * Most inputs wait for a blur event to update, therefor we use an accumulator,
  * in case the user cancels.
  */
-export abstract class AbstractExtendedFormComponent {
+export abstract class AbstractExtendedFormComponent implements AfterViewInit, OnChanges {
 	@Input() type: EntityMetadata;
 	@Input() set field(field: ExtendedField) {
 		if (!field)
 			field = new ExtendedField();
 		this._field = field;
-		this.accumulator = field.value;
 	}
 	get field() { return this._field; }
 	private _field: ExtendedField;
@@ -39,10 +39,32 @@ export abstract class AbstractExtendedFormComponent {
 	@Input() autofocus = false;
 
 	@Output() update = new EventEmitter<ExtendedField>();
+
+	/** allows us to check the width of each form field */
+	@ViewChild(FormFieldComponent, { static: false, read: ElementRef }) formField: ElementRef;
+	/** width used for the selectors */
+	width: number;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 
 	metadata: ExtendedFieldDefinitionMetadata;
+
+	ngAfterViewInit() {
+		// this way the selector has the same width as the form itself
+		if (this.formField) {
+			this.width = this.formField.nativeElement.clientWidth || null;
+		}
+	}
+
+	ngOnChanges(change) {
+		// since we need the metadata from the definition we do this check on ngChanges, this way we ensure
+		// that we have the latest metadata
+		if (change.field) {
+			// WIP TODO add an interface or variable to this 'custom'
+			this.accumulator = this.metadata && this.metadata.type === 'custom' ?
+				this._field.selectorValue : this._field.value;
+		}
+	}
 
 	onClose(isCancel: boolean) {
 		if (!isCancel) {
@@ -54,27 +76,17 @@ export abstract class AbstractExtendedFormComponent {
 		return ERM.getEntityMetadata(name) || null;
 	}
 
-	// WIP
-	getLinkingObject(name: string) {
-		const item = this.getObject();
-		const entityMetadata = ERM.getEntityMetadata(name);
-		if (item) {
-			switch (entityMetadata) {
-				case ERM.SELECTOR_ELEMENT:
-					return item.value;
-				default:
-					if (item.name === undefined || item.name === null)
-						throw Error(`the default name to display this entity: '${entityMetadata.singular} is not the attribute 'name'`);
-					return item.name;
-			}
-		}
-	}
-
 	/** saving the value */
 	onSave() {
-		this.field.value = this.accumulator;
+		// WIP TODO add an interface or variable to this 'custom'
+		if (this.metadata && this.metadata.type === 'custom') {
+			// in the case the values are multiple, thhe selector will automatically send us back an array
+			// otherwise we have to trasnform it into one
+			this.field.selectorValue = this.metadata.multiple ? this.accumulator : [this.accumulator];
+		} else
+			this.field.value = this.accumulator;
 		let definition;
-		definition = new ExtendedFieldDefinition({ id: this.definition.id });
+		definition = { id: this.definition.id, __typename: this.definition.__typename };
 		this.update.emit({ ...this.field, definition });
 	}
 
@@ -104,8 +116,9 @@ export abstract class AbstractExtendedFormComponent {
 		return this.accumulator ? JSON.parse(this.accumulator) : undefined;
 	}
 
+	// we use this method when we have to send as a value a json (not applicable ofr selectors)
 	accumulateJSON(json: Price | Packaging) {
-		// we need to stringify it since it's stored as a string
+		// we need to stringify it since it's stored as a string+
 		this.accumulator = JSON.stringify(json);
 	}
 }
