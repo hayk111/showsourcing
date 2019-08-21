@@ -1,7 +1,22 @@
-<div class="notification-container">
-	<notif-header-app (close)="close.emit()"></notif-header-app>
-	<notif-list-app
-	(close) = "close.emit()"
-	[activites]="results"
-	></notif-list-app>
-</div>
+<card-app class="notification-container">
+
+	<card-title-app>
+		<icon-app
+			class="close-pane-button"
+			name="close-pane-left"
+			(click)="notifActivitySrv.closeNotifiactionPanel()"
+		>
+		</icon-app>
+		<p class="title">
+			Notifications
+		</p>
+	</card-title-app>
+
+	<card-action-app>
+		<p class="color-primary" (click)="notifActivitySrv.markAllAsRead()">
+			Mark all as read
+		</p></card-action-app
+	>
+
+	<notif-list-app (close)="close.emit()" [activites]="results"></notif-list-app>
+</card-app>

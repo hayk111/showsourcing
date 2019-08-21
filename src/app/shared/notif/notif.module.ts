@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { IconsModule } from '~shared/icons/icons.module';
 import { UtilsModule } from '~shared/utils';
 import { DividerModule } from '~shared/divider/divider.module';
+import { CardModule } from '~shared/card/card.module';
 import {
 	NotifComponent,
 	NotifEmptyComponent,
-	NotifHeaderComponent,
 	NotifItemComponent,
 	NotifLayoutComponent,
 	NotifListComponent,
@@ -15,12 +15,11 @@ import {
 } from '~shared/notif/components';
 
 @NgModule({
-	imports: [CommonModule, IconsModule, UtilsModule, DividerModule],
+	imports: [CommonModule, IconsModule, UtilsModule, DividerModule, CardModule],
 
 	declarations: [
 		NotifComponent,
 		NotifEmptyComponent,
-		NotifHeaderComponent,
 		NotifLayoutComponent,
 		NotifItemComponent,
 		NotifPanelComponent,

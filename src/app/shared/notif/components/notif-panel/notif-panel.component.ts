@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
+import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 
 @Component({
 	selector: 'notif-panel-app',
@@ -11,7 +12,7 @@ export class NotifPanelComponent implements OnInit {
 	@Output() close = new EventEmitter<void>();
 	@Input() results: GetStreamGroup[] = null;
 
-	constructor() {}
+	constructor(public notifActivitySrv: NotificationActivityService) {}
 
 	ngOnInit() {
 	}

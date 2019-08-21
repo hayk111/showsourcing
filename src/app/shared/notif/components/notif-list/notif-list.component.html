@@ -16,8 +16,8 @@
 		></notif-item-app>
 	</div>
 	<notif-empty-app
+		*ngIf="activites?.length === 0"
 		class="empty-notifiaction"
 		(close)="close.emit()"
-		*ngIf="activites?.length === 0"
 	></notif-empty-app>
 </div>

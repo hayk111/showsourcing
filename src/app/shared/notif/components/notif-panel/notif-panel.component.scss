@@ -1,10 +1,19 @@
-.notification-container {
-  position: absolute;
+card-app {
 	width: 604px;
-  height: 1100px;
-  box-shadow: 4px 0 12px 4px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+	height: 1100px;
+	position: absolute;
 	left: 0;
 	top: 0;
+	border-radius: 0;
+	margin: var(--spacing-none);
+	box-shadow: 4px 0 12px 4px rgba(0, 0, 0, 0.1);
+	background-color: #ffffff;
 	z-index: var(--z-dialog-container);
+	card-title-app {
+		.close-pane-button {
+			font-size: var(--font-size-xxxl);
+			color: var(--color-txt-third);
+			margin-right: var(--spacing-l);
+		}
+	}
 }

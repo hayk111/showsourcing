@@ -1,5 +1,5 @@
 .notif-feed {
-	padding: 0 31px 0 70px;
+	padding: 0 var(--spacing-s) 0 var(--spacing-xxl);
 }
 
 .list-container {
@@ -7,6 +7,7 @@
 	height: calc(100vh - 80px);
 	overflow-y: auto;
 	notif-empty-app {
-		transform: translateY(-50px);
+		transform: translateY(-80px)
 	}
 }
+
