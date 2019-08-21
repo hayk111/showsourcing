@@ -1,0 +1,41 @@
+<card-app>
+	<card-title-app>Table</card-title-app>
+
+	&lt;table-app
+	<div class="mg-horizontal">
+		<div class="mg-horizontal">
+			[rows]="rows"<br>
+			[pending]="pending"<br>
+			[selected]="selection"<br>
+			[contextualMenu]="contextualMenuTemplate"<br>
+			[count]="count"<br>
+			[currentPage]="currentPage"<br>
+			placeholder="this is placeholder"<br>
+			(goToPage)="goToPage.emit($event)"<br>
+			(selectOne)="select.emit($event)"<br>
+			(unselectOne)="unselect.emit($event)"<br>
+			(selectAll)="selectAll.emit($event)"<br>
+			(unselectAll)="unselectAll.emit($event)"<br>
+			(sort)="sort.emit($event)"<br>
+			(bottomReached)="bottomReached.emit()"&gt;
+		</div>
+		<br>
+		&lt;ng-template #contextualMenuTemplate let-row="row"&gt;<br>
+		<div class="mg-horizontal">Property name of row</div>
+		&lt;/ng-template&gt;<br>
+
+		&lt;ng-template
+		<div class="mg-horizontal">
+			[columnApp]="'Item name'"<br>
+			sortBy="name"<br>
+			let-row="row"<br>
+			width="300"&gt;<br>
+			{{ row?.name }}
+		</div>
+		&lt;/ng-template&gt;<br>
+	</div>
+	&lt;/table-app&gt;<br>
+
+	<!-- <table-/p> -->
+
+</card-app>

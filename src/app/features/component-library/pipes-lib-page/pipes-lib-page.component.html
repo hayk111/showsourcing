@@ -1,0 +1,90 @@
+<card-app>
+	<h2>Price</h2>
+	<p>Input will be an object like this:
+		<small> {{price | json}} | appPrice</small>
+	</p>
+	<b>{{{ value: 55680, currency: "USD"} | appPrice}}</b>
+	<p>Or a number:
+		<small>6000000 | appPrice</small>
+	</p>
+	<b>{{6000000 | appPrice}}</b>
+</card-app>
+
+<card-app>
+	<h2>Const</h2>
+	<p>Transform a const to it's given name or if any additional param is given the property named with that param</p>
+	<p>Input will be like this:
+		<b>'input' | const: 'additional param 1': 'additional param 2'</b>
+	</p>
+	<p>If the input does not have second param, default will be
+		<b>name</b>
+	</p>
+	<p><small>'USD' | const: 'currency'</small></p>
+	<b>{{'USD'| const: 'currency'}}</b>
+	<p><small>'USD' | const: 'currency': 'symbol'</small></p>
+	<b>{{'USD' | const: 'currency': 'symbol'}}</b>
+</card-app>
+
+<card-app>
+	<h2>Image</h2>
+	<p>Display image based on an input that can be an object an array or a string</p>
+	<p>
+		You can specify one of the [size] "xs", "s", "m", "l" or "xl"
+		If you not set the size, default size will be "xl"
+	</p>
+
+	<card-app>
+		<card-title-app>Object</card-title-app>
+		If the object is:
+		<p>- AppImage, the pipe will find the first url in object.urls</p>
+		<small> [src]="AppImage | image: 's'"</small>
+		<b>[src]="{{imageMock | image: 's'}}"</b>
+
+		<p>- PendingImage, the pipe will bypass security and trust the given value.data</p>
+		<small> [src]="PendingImage | image: 's'"</small>
+		<b>[src]="this is trusted url"</b>
+
+		<p>- Supplier, product, Entity object... the pipe will find the first url in object.images</p>
+		<small> [src]="Supplier | image: 's'"</small>
+		<b>[src]="{{supplierMock | image: 's'}}"</b>
+	</card-app>
+
+	<card-app>
+		<card-title-app>String</card-title-app>
+		<small>[src]="{{imageUrl}} | image"</small>
+		<b>[src]="{{imageUrl | image}}"</b>
+	</card-app>
+
+	<card-app>
+		<card-title-app>Array</card-title-app>
+		<p>The pipe will find the first url in object.urls of first item of the array</p>
+		<small>[src]=" "this is array of image object" | image"</small>
+		<b>[src]="{{images | image}}"</b>
+	</card-app>
+</card-app>
+
+<card-app>
+	<h2>Date to time ago</h2>
+	<small>Input: {{currentDate}}</small>
+	<b>{{currentDate | timeAgo}}</b>
+</card-app>
+
+<card-app>
+	<h2>File size</h2>
+	<p>Transform a number to file size with its given precision (default is 2)</p>
+	<small>{{size}} | fileSize</small>
+	<b>{{size | fileSize}}</b>
+	<small>{{size}} | fileSize: 3</small>
+	<b>{{size | fileSize: 3}}</b>
+</card-app>
+
+<card-app>
+	<h2>User name</h2>
+	<p>Transform an object which has firstName and lastName</p>
+	<p>args -> true/false, default: false. Determine if we show the full name or just abbreviation</p>
+
+	<small>{{userData | json}} | formatUserName</small>
+	<b>{{userData | formatUserName}}</b>
+	<small>{{userData | json}} | formatUserName: true</small>
+	<b>{{userData | formatUserName: true}}</b>
+</card-app>
