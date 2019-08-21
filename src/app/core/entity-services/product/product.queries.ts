@@ -31,7 +31,14 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { id, url } }}`;
-	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order, metadata }}`;
+	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
+	static readonly extendedFields = `extendedFields {
+		id, value,
+		${ProductQueries.definition('definition')}
+	}`;
+	// TODO BackEnd add this line to extended fields
+	// selectorValue { id, value, ${ProductQueries.definition('fieldDefinition')} },
+
 	// This is the default selection when using selectOne or queryOne
 	static readonly one = `
 			name,

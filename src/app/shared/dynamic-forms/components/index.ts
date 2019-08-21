@@ -7,5 +7,6 @@ export * from './dynamic-editable-text/inputs/editable-selector/editable-selecto
 export * from './dynamic-form/dynamic-form.component';
 export * from './dynamic-input/dynamic-input.component';
 export * from './dynamic-input/inputs/input-packaging/input-packaging.component';
+export * from './extended-form/extended-form-editable-text/extended-form-editable-text.component';
 export * from './extended-form/extended-form-input/extended-form-input.component';
 export * from './extended-form/extended-form.component';
