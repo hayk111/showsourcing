@@ -1,62 +1,32 @@
-<!-- const selector WIP TODO delete or keep this -->
-<!-- <selector-app
-	*ngIf="selectorType === 'const'; else entitySelector"
-	[type]="type"
-	[disabled]="disabled"
-	[offsetY]="-30"
-	[width]="customField?.metadata?.width || 265"
-	[multiple]="multiple"
+<!-- entity selector -->
+<selector-app
 	[value]="value"
+	[offsetY]="-30"
+	[width]="width || 330"
+	[disabled]="disabled"
+	[type]="type"
+	[multiple]="multiple"
+	[canCreate]="canCreate"
+	[definitionReference]="definitionReference"
 	(update)="onSelectorChange($event)"
 	(menuClosed)="editable.close()">
 	<editable-field-app
 		#editable
 		[class.no-hover]="disabled"
-		[openOnClick]="!disabled"
 		[inlineLabel]="inlineLabel"
+		[openOnClick]="!disabled"
 		[hasAction]="false"
 		[canGrow]="multiple">
 		<label-app>{{ label }}</label-app>
 		<editable-label-app
 			class="flex"
+			[class.flexEnd]="inlineLabel"
 			[class.flexWrap]="multiple"
 			[disabled]="disabled">
-			{{ (value | const: type) || '-'}}
+			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 		</editable-label-app>
 	</editable-field-app>
-</selector-app> -->
-
-<!-- entity selector -->
-<!-- <ng-template #entitySelector> -->
-	<selector-app
-		[value]="value"
-		[offsetY]="-30"
-		[width]="width || 330"
-		[disabled]="disabled"
-		[type]="type"
-		[multiple]="multiple"
-		[canCreate]="canCreate"
-		[definitionReference]="definitionReference"
-		(update)="onSelectorChange($event)"
-		(menuClosed)="editable.close()">
-		<editable-field-app
-			#editable
-			[class.no-hover]="disabled"
-			[inlineLabel]="inlineLabel"
-			[openOnClick]="!disabled"
-			[hasAction]="false"
-			[canGrow]="multiple">
-			<label-app>{{ label }}</label-app>
-			<editable-label-app
-				class="flex"
-				[class.flexEnd]="inlineLabel"
-				[class.flexWrap]="multiple"
-				[disabled]="disabled">
-				<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
-			</editable-label-app>
-		</editable-field-app>
-	</selector-app>
-<!-- </ng-template> -->
+</selector-app>
 
 
 <!-- one value, label template -->

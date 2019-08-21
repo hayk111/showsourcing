@@ -18,6 +18,7 @@
 		<ng-template #textStyle>
 			<extended-form-editable-text-app
 				*ngFor="let definition of col; trackBy: trackByFn"
+				[inlineLabel]="inlineLabel"
 				[disabled]="disabled"
 				[definition]="definition"
 				[field]="getFieldForDefinition(definition.id)"

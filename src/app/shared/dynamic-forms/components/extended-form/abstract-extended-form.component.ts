@@ -60,8 +60,9 @@ export abstract class AbstractExtendedFormComponent implements AfterViewInit, On
 		// since we need the metadata from the definition we do this check on ngChanges, this way we ensure
 		// that we have the latest metadata
 		if (change.field) {
-			// WIP TODO add an interface or variable to this 'custom'
-			this.accumulator = this.metadata && this.metadata.type === 'custom' ?
+			// here we could use metadata.type and check if its custom, but since the selectors atm work
+			// with erm only we won't use it until its required in the app
+			this.accumulator = this.metadata && this.getERM(this.metadata.source) === ERM.SELECTOR_ELEMENT ?
 				this._field.selectorValue : this._field.value;
 		}
 	}
@@ -78,8 +79,9 @@ export abstract class AbstractExtendedFormComponent implements AfterViewInit, On
 
 	/** saving the value */
 	onSave() {
-		// WIP TODO add an interface or variable to this 'custom'
-		if (this.metadata && this.metadata.type === 'custom') {
+		// here we could use metadata.type and check if its custom, but since the selectors atm work
+		// with erm only we won't use it until its required in the app
+		if (this.metadata && this.getERM(this.metadata.source) === ERM.SELECTOR_ELEMENT) {
 			// in the case the values are multiple, thhe selector will automatically send us back an array
 			// otherwise we have to trasnform it into one
 			this.field.selectorValue = this.metadata.multiple ? this.accumulator : [this.accumulator];
