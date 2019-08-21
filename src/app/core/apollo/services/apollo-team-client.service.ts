@@ -71,7 +71,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			ERM.REQUEST_TEMPLATE,
 			ERM.SAMPLE,
 			ERM.SAMPLE_STATUS,
-			ERM.SELECTOR_ELEMENT,
+			// ERM.SELECTOR_ELEMENT, // TODO BackEnd uncomment this line
 			ERM.SUPPLIER,
 			ERM.SUPPLIER_STATUS,
 			ERM.SUPPLIER_TYPE,

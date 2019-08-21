@@ -15,6 +15,7 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.definition('definition')}
 	}`;
 
+	// TODO BackEnd add extended fields
 	static one = `
 		${TaskQueries.type}
 		name

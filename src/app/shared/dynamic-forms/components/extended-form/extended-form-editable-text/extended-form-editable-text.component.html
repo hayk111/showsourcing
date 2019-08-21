@@ -109,9 +109,9 @@
 		<label-app>{{ definition?.label }}</label-app>
 
 		<editable-label-app [vAlign]="false">
-			<span *ngIf="getObject()" class="fs-s">{{ getObject().currency | const : 'currency' : 'symbol'}}</span>
-			<span *ngIf="getObject()" class="mg-xs spacer"></span>
-			<span>{{ getObject() !== undefined ? (getObject().value / 10000) : '-' }}</span>
+			<span *ngIf="stringToObject()" class="fs-s">{{ stringToObject()?.currency | const : 'currency' : 'symbol' }}</span>
+			<span *ngIf="stringToObject()" class="mg-xs spacer"></span>
+			<span>{{ stringToObject()?.value / 10000 ||  '-' }}</span>
 		</editable-label-app>
 
 		<form-field-app class="editable">
@@ -119,9 +119,9 @@
 				#inp
 				inputApp
 				[disabled]="disabled"
-				[price]="getObject()"
+				[price]="stringToObject()"
 				(keyup.enter)="editable.close()"
-				(change)="accumulateJSON(inp.price)">
+				(change)="accumulateObjectToString(inp.price)">
 			</input-price-app>
 		</form-field-app>
 

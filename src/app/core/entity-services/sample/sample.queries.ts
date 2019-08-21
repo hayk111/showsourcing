@@ -24,6 +24,7 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.definition('definition')}
 	}`;
 
+	// TODO BackEnd add extended fields
 	static readonly one = `
 		name,
 		reference,

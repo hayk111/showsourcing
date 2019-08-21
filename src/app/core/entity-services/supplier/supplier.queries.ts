@@ -20,6 +20,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.definition('definition')}
 	}`;
 
+	// TODO BackEnd add extended fields
 	static readonly one = `
 			name,
 			description,

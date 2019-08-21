@@ -34,9 +34,10 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
 	static readonly extendedFields = `extendedFields {
 		id, value,
-		selectorValue { id, value, ${ProductQueries.definition('fieldDefinition')} },
 		${ProductQueries.definition('definition')}
 	}`;
+	// TODO BackEnd add this line to extended fields
+	// selectorValue { id, value, ${ProductQueries.definition('fieldDefinition')} },
 
 	// This is the default selection when using selectOne or queryOne
 	static readonly one = `
