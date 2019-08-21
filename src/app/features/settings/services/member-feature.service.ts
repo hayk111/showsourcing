@@ -3,15 +3,18 @@ import { zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
 import { TeamService, TeamUserService, UserService } from '~entity-services';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class MemberFeatureService extends TeamUserService {
 
 	constructor(
 		protected apolloState: ApolloStateService,
-		private teamSrv: TeamService,
-		protected userSrv: UserService) {
-		super(apolloState);
+		protected teamSrv: TeamService,
+		protected userSrv: UserService,
+		protected http: HttpClient
+	) {
+		super(apolloState, http, teamSrv);
 	}
 
 	selectTeamOwner() {

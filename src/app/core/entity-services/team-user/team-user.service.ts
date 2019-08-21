@@ -13,7 +13,7 @@ import { TeamService } from '../team/team.service';
 })
 export class TeamUserService extends GlobalService<TeamUser> {
 
-	constructor(protected apolloState: ApolloStateService, private http: HttpClient, private teamSrv: TeamService) {
+	constructor(protected apolloState: ApolloStateService, protected http: HttpClient, protected teamSrv: TeamService) {
 		super(apolloState, TeamUserQueries, 'teamUser', 'teamUsers');
 	}
 
