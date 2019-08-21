@@ -39,6 +39,7 @@ import { UtilsModule } from '~shared/utils';
 		FileSelectDirective,
 		FilesCardComponent,
 		NoFilePlaceholderComponent,
+		FileSizePipe
 	],
 })
 export class FileModule {
