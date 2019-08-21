@@ -3,12 +3,20 @@ export interface DynamicField {
 	name?: string;
 	value?: any;
 	type?: DynamicFieldType;
-	metadata?: any;
+	metadata?: DynamicFieldMetadata;
 	label?: string;
 	required?: boolean;
+}
+
+export interface DynamicFieldMetadata {
 	multiple?: boolean;
-	// when multiple choices
-	choices?: Array<any>;
+	canCreate?: boolean;
+	target?: string;
+	hasBadge?: boolean;
+	width?: number;
+	placeholder?: string;
+	disabled?: boolean;
+	rows?: number;
 }
 
 /*
