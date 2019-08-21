@@ -11,6 +11,7 @@
 	[hasSwitch]="false"
 	[hasFilter]="true"
 	[filtersAmount]="listSrv.filterList.asFilters()?.length"
+	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
 	(showArchived)="onShowArchived()"
@@ -41,7 +42,7 @@
 		(previewClick)="listSrv.openPreview($event)"
 		(showItemsPerPage)="showItemsPerPage($event)"
 		(archive)="onArchive($event)"
-		(delete)="listSrv.deleteOne($event)">
+		(delete)="listSrv.deleteOne($event)" #supplierList>
 	</supplier-list-view-app>
 
 	<selection-bar-app
@@ -82,6 +83,7 @@
 	<filters-app
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
+		[overlap]="isOverlap()"
 		(clickOutside)="listSrv.closeFilterPanel()"
 		(close)="listSrv.closeFilterPanel()"
 		*ngIf="listSrv.filterPanelOpen">

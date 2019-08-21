@@ -26,6 +26,9 @@ class Item {
 			[filtersAmount]="filtersAmount"
 			[hasFilter]="true"
 			[hasSwitch]="true"
+			[hasArchived]="hasArchived"
+			[hasAssigned]="hasAssigned"
+			[hasExport]="hasExport"
 			[view]="view"
 			[count]="count"
 			entityType="products"
@@ -51,6 +54,9 @@ class TestComponent {
 	hasFilter: boolean;
 	hasSwitch: boolean;
 	currentSort: Sort;
+	hasArchived = true;
+	hasAssigned = true;
+	hasExport = true;
 
 	onShowArchived() {}
 }
@@ -139,5 +145,35 @@ fdescribe('SubPanelComponent', () => {
 		expect(subPanelComponent.hideAssigned.emit)
 				.withContext('Should call fnc `hideAssigned`')
 				.toHaveBeenCalledTimes(1);
+	});
+
+	it('should display "Show Archived" checkbox when `hasArchived` is true and not otherwise', () => {
+		let showArchive = fixtureTestComponent.nativeElement.querySelector('.show-archived-container');
+		expect(showArchive).toBeTruthy();
+
+		testComponent.hasArchived = false;
+		fixtureTestComponent.detectChanges();
+		showArchive = fixtureTestComponent.nativeElement.querySelector('.show-archived-container');
+		expect(showArchive).toBeFalsy();
+	});
+
+	it('should display "Assigned To Me" checkbox when `hasAssigned` is true and not otherwise', () => {
+		let showAssigned = fixtureTestComponent.nativeElement.querySelector('.assigned-to-me-container');
+		expect(showAssigned).toBeTruthy();
+
+		testComponent.hasAssigned = false;
+		fixtureTestComponent.detectChanges();
+		showAssigned = fixtureTestComponent.nativeElement.querySelector('.assigned-to-me-container');
+		expect(showAssigned).toBeFalsy();
+	});
+
+	it('should display "Export" button when `hasExport` is true and not otherwise', () => {
+		let exportBtn = fixtureTestComponent.nativeElement.querySelector('.export-button');
+		expect(exportBtn).toBeTruthy();
+
+		testComponent.hasExport = false;
+		fixtureTestComponent.detectChanges();
+		exportBtn = fixtureTestComponent.nativeElement.querySelector('.export-button');
+		expect(exportBtn).toBeFalsy();
 	});
 });

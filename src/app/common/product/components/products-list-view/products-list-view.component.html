@@ -69,10 +69,10 @@
 	<div class="ellipsis name-container contain-strict">
 		<div class="ellipsis">
 			<div class="preview-imgs" (click)="previewClick.emit(row)">
-				<img class="mini imgCtnr"
-					[src]="row | image: 's' : 'product-list'" />
+				<logo-app class="mini imgCtnr"
+					[logo]="row.images[0]" size="l" type="product"></logo-app>
 				<div class="hover-img">
-					<icon-app name="eye" class="preview-hover-img" color="bg"></icon-app>
+					<icon-app name="eye" class="preview-hover-img"></icon-app>
 				</div>
 			</div>
 			<span class="product-ref ellipsis">
@@ -112,12 +112,12 @@
 <!-- activities -->
 <ng-template #activities let-row="row">
 	<activities-bar-app
+		[rows]="rows"
+		[id]="row?.id"
 		[favourite]="row?.favorite"
 		[hasSamples]="!!row?.samplesLinked.count"
 		[hasTasks]="!!row?.tasksLinked.count"
-		[hasTasksOverdue]="hasTasksOverdue(row?.id)"
 		[hasComments]="!!row?.comments.length"
-		[hasOpenRequests]="hasOpenRequest(row?.id) | async"		
 		[votes]="row?.votes">
 	</activities-bar-app>
 </ng-template>

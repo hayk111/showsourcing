@@ -41,7 +41,7 @@ index: {{ currentPage }}  -->
 		<icon-app name="double-fat-angle-right" size="s" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
 	</button>
 
-	<div class="right">
+	<div class="right" *ngIf="hasPageItemsCount">
 		<select class="custom-select" (change)="onChangePerPageCount($event.target.value)">
 			<option *ngFor="let i of pageItemsCount">{{i}}</option>
 		</select>

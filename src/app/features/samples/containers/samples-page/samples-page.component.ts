@@ -22,7 +22,7 @@ import { SelectParams } from '~core/entity-services/_global/select-params';
 		CommonModalService
 	]
 })
-export class SamplesPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	public tableWidth: string;
 
 	erm = ERM;
@@ -68,15 +68,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit, AfterView
 		this.samplesCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.sampleSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
-	}
-
-	ngAfterViewInit() {
-		setTimeout(_ => {
-			this.samplesCount$.subscribe(data => {
-				console.log('TCL: SamplesPageComponent -> ngAfterViewInit -> data', data);
-			});
-			console.log('TCL: SamplesPageComponent -> ngAfterViewInit -> this.listSrv.count$', this.listSrv.count$);
-		}, 5000);
 	}
 
 	toggleMyProducts(show: boolean) {

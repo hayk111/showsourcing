@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="right-container flex">
-		<div class="show-archived-container">
+		<div class="show-archived-container" *ngIf="hasArchived">
 			<label class="pointer">
 				<input class="show-archived pointer" type="checkbox" id="show-archived" 
 					[(ngModel)]="isArchivedShown" (change)="archiveChange($event)" />Show Archived
@@ -40,7 +40,7 @@
 			</label>
 		</div>
 
-		<div class="assigned-to-me-container">
+		<div class="assigned-to-me-container" *ngIf="hasAssigned">
 			<label class="pointer">
 				<input class="assigned-to-me pointer" type="checkbox" id="assigned-to-me" 
 					[(ngModel)]="isAssigned" (change)="assignedChange($event)" />Assigned to me
@@ -48,7 +48,7 @@
 			</label>
 		</div>
 
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="flexCenter bold-s pointer capitalize export-button" 
+		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button" 
 			(click)="export.emit()" i18n="text@@export">
 			<icon-app name="close-pane-bottom" size="m"></icon-app>
 			Export

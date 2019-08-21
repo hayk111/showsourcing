@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SamplesListViewComponent extends ListViewComponent<Sample> implements OnChanges {
+export class SamplesListViewComponent extends ListViewComponent<Sample> {
 
 	erm = ERM;
 	supplierErm = ERM.SUPPLIER;
@@ -21,10 +21,6 @@ export class SamplesListViewComponent extends ListViewComponent<Sample> implemen
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
-
-	ngOnChanges() {
-		console.log('TCL: SamplesListViewComponent -> ngOnChanges -> this.rows', this.rows);
-	}
 
 	constructor() {
 		super();

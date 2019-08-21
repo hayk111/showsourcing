@@ -2,9 +2,9 @@
 	<div class="flex icons-container no-select">
 		<icon-app name="heart" size="sm" class="favourite" *ngIf="favourite"></icon-app>
 		<icon-app name="sample" size="sm" *ngIf="hasSamples"></icon-app>
-		<icon-app name="check-circle" [ngClass]="{'warn-circle': hasTasksOverdue}" size="sm" *ngIf="hasTasks"></icon-app>
+		<icon-app name="check-circle" [ngClass]="{'warn-circle': hasTaskOverdue}" size="sm" *ngIf="hasTasks"></icon-app>
 		<icon-app name="comments" size="sm" *ngIf="hasComments"></icon-app>
-		<icon-app name="envelope" size="sm" *ngIf="openRequestsCount"></icon-app>
+		<icon-app name="envelope" size="sm" *ngIf="openRequestsCount$ | async"></icon-app>
 		<span class="vote-star-container" *ngIf="getAvgVotes(votes) > -1" 
 			[ngClass]="{'light-background': getAvgVotes(votes) > 80}">
 			<icon-app name="star" size="sm" class="star"></icon-app>

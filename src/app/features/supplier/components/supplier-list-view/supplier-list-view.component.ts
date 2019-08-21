@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierListViewComponent extends ListViewComponent<Supplier> implements OnChanges {
+export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 
 	erm = ERM;
 	supplierErm = ERM.SUPPLIER;
@@ -21,16 +21,6 @@ export class SupplierListViewComponent extends ListViewComponent<Supplier> imple
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
-
-	ngOnChanges() {
-		console.log('TCL: SupplierListViewComponent -> ngOnChanges -> this.rows', this.rows);
-	}
-
-	// should be fixed. The function should return open requests count for every product
-	getProductOpenRequests(product: Product): Observable<number> {
-		// return this.requestElementService.queryCount(`targetId == "${product.id}"`).pipe(first());
-		return of(1); // just a value for testing
-	}
 
 	constructor() {
 		super();

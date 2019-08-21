@@ -87,7 +87,7 @@
 		let-row="row"
 		[sortable]="false"
 		width="160">
-		<div class="ellipsis pointer txt-btn" class="type"> sadsdsa</div>
+		<div class="ellipsis pointer txt-btn" class="type">{{ row?.supplierType?.name }}</div>
 	</ng-template>
 	
 	<!-- created by -->
@@ -112,7 +112,6 @@
 		width="250">
 		<activities-bar-app
 			[favourite]="row?.favorite"
-			[openRequestsCount]="getProductOpenRequests(row) | async"
 			[votes]="row?.votes">
 		</activities-bar-app>
 	</ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModalService } from '~common/modals';
 import { SupplierService } from '~core/entity-services';
@@ -10,6 +10,7 @@ import { SupplierFeatureService } from '~features/supplier/services/supplier-fea
 import { switchMap } from 'rxjs/operators';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SCREEN_MAX_WIDTH_OVERLAP, FILTERS_PANE_WIDTH } from '~features/const';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -20,6 +21,8 @@ import { SelectParamsConfig } from '~core/entity-services/_global/select-params'
 	]
 })
 export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+	@ViewChild('supplierList', { read: ElementRef, static: false })
+	public supplierListElem: ElementRef;
 
 	erm = ERM;
 
@@ -32,6 +35,9 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 	];
 
 	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND archived == false' };
+
+	public tableWidth: string;
+	public addSupplierMargin: string;
 
 	constructor(
 		private supplierSrv: SupplierService,
@@ -85,6 +91,47 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		this.listSrv.removeFilter(archivedFilter);
 	}
 
+	@HostListener('window:resize', ['$event'])
+	onResize() {
+		if (this.tableWidth) {
+			this.tableWidth = null;
+		}
+	}
+
+	onShowFilters() {
+		const width = window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
+
+		// for browser window less than SCREEN_MAX_WIDTH_OVERLAP show filters tab over the table
+		if (width > SCREEN_MAX_WIDTH_OVERLAP) {
+			this.tableWidth = (this.supplierListElem.nativeElement.offsetWidth - FILTERS_PANE_WIDTH) + 'px';
+			this.addSupplierMargin = FILTERS_PANE_WIDTH + 'px';
+		}
+
+		this.listSrv.openFilterPanel();
+	}
+
+	onCloseFilter() {
+		const width = window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
+
+		// for browser window less than 1500px show filters tab over the table
+		if (width > SCREEN_MAX_WIDTH_OVERLAP) {
+			this.tableWidth = 'unset';
+			this.addSupplierMargin = 'unset';
+		}
+		this.listSrv.closeFilterPanel();
+	}
+
+	isOverlap(): boolean {
+		const width = window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
+
+		return width <= SCREEN_MAX_WIDTH_OVERLAP;
+	}
 	// can be moved to ListPageService
 	onArchive(supplier: Supplier | Supplier[]) {
 		// TODO i18n

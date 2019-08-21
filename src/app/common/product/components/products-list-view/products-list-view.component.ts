@@ -27,8 +27,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit, OnChanges {
-
+export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
 	@Input() hasMenu = true;
 	@Input() productPreview = true;
 	@Input() isInProductSelectDlg = false;
@@ -94,39 +93,6 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 		}
 
 		this.linkColumns();
-	}
-
-	ngOnChanges() {
-		// console.log('rows::', this.rows);
-	}
-
-	hasOpenRequest(id) {
-		return this.requestElementService
-			.queryCount(`targetId == "${id}" AND targetedEntityType == "Product" && (reply.status == "replied")`).pipe(
-				take(1)
-			);
-	}
-
-	hasTasksOverdue(id) {
-		const foundElem = (this.rows as any[]).find(o => o.id === id);
-
-		if (foundElem
-			&& foundElem.tasksLinked.count
-			&& (foundElem.tasksLinked.items.filter(t => this.isTaskOverdued(t)).length > 0)) {
-			return true;
-		}
-
-		return false;
-	}
-
-	isTaskOverdued(task: Task): boolean {
-		return task && task.dueDate && new Date().getTime() >= Date.parse(task.dueDate.toString());
-	}
-
-	// should be fixed
-	getProductOpenRequests(product: Product): Observable<number> {
-		// TODO
-		return of(1); // just a value for testing
 	}
 
 	// links a column in the descriptor with one of the template defined in product-list-view.component.html

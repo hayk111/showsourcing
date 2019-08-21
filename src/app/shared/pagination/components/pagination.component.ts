@@ -14,6 +14,8 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	@Input() itemsPerPage = DEFAULT_TAKE_PAGINATION;
 	/** total number of items */
 	@Input() count = 0;
+	/** whether we should show per page items count */
+	@Input() hasPageItemsCount = true;
 	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20] if 3 we display [1, 2, 3 ] */
 	@Input() set width(value: number) {
 		if (value % 2 === 0)
