@@ -67,17 +67,28 @@ export abstract class AbstractExtendedFormComponent implements AfterViewInit, On
 		}
 	}
 
+	/**
+	 * if isCanel is false it will save, nothing otherwise
+	 * @param isCancel boolean that determines if we use cancel action or not
+	 */
 	onClose(isCancel: boolean) {
 		if (!isCancel) {
 			this.onSave();
 		}
 	}
 
+	/**
+	 * get erm based on a name
+	 * @param name name to fetch on the ERM class
+	 * @returns an ERM or null
+	 */
 	getERM(name) {
 		return ERM.getEntityMetadata(name) || null;
 	}
 
-	/** saving the value */
+	/**
+	 * emits a ExtendedField object with the latest values modified
+	*/
 	onSave() {
 		// here we could use metadata.type and check if its custom, but since the selectors atm work
 		// with erm only we won't use it until its required in the app
@@ -97,11 +108,17 @@ export abstract class AbstractExtendedFormComponent implements AfterViewInit, On
 		this.accumulator = this.field.value;
 	}
 
-	onInput(value: any, isJson = false) {
-		isJson ? this.accumulateJSON(value) : this.accumulator = value;
+	/**
+	 * adds the latest value to the accumulator and calls onClose(false)
+	 * @param value current value
+	 * @param transformToJson determine if the next value is an Object that needs to be transformed into a string
+	 */
+	onInput(value: any, transformToJson = false) {
+		transformToJson ? this.accumulateObjectToString(value) : this.accumulator = value;
 		this.onClose(false);
 	}
 
+	// since the value comes in a form of a string (extendedField.value), we have to translate it into a boolean
 	/** toggle input value from true to false and vice versa */
 	toggleBoolean(check) {
 		if (this.disabled)
@@ -114,12 +131,20 @@ export abstract class AbstractExtendedFormComponent implements AfterViewInit, On
 		this.onSave();
 	}
 
-	getObject() {
+	// we only use this kind of function with Price & Packaging since their value is a string that needs to be transformed to object
+	/**
+	 * converts the string on the accumulator on Object format
+	 */
+	stringToObject() {
 		return this.accumulator ? JSON.parse(this.accumulator) : undefined;
 	}
 
-	// we use this method when we have to send as a value a json (not applicable ofr selectors)
-	accumulateJSON(json: Price | Packaging) {
+	// we only use this kind of function with Price & Packaging since their value is a string that needs to be transformed to object
+	/**
+	 * transforms an object into a string
+	 * @param json object to be transformed into string
+	 */
+	accumulateObjectToString(json: Price | Packaging) {
 		// we need to stringify it since it's stored as a string+
 		this.accumulator = JSON.stringify(json);
 	}
