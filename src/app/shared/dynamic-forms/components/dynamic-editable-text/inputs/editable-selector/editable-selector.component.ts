@@ -11,6 +11,7 @@ import {
 import { ERM } from '~core/models';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'editable-selector-app',
@@ -33,6 +34,7 @@ export class EditableSelectorComponent extends AbstractInput {
 	@Input() canCreate: boolean;
 	@Input() label: string;
 	@Input() hasBadge: boolean;
+	@Input() definitionReference: ID;
 
 	@Input() isOpen: boolean;
 	@Input() isShowLabel: true;

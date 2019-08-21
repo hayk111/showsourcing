@@ -127,4 +127,19 @@
 
 	</editable-field-app>
 
+	<!-- selector -->
+	<editable-selector-app
+		*ngSwitchCase="'selector'"
+		[(ngModel)]="accumulator"
+		[label]="definition?.label"
+		[type]="metadata?.source"
+		[disabled]="disabled"
+		[definitionReference]="definition?.id"
+		[multiple]="metadata?.multiple"
+		[canCreate]="metadata?.canCreate"
+		[inlineLabel]="inlineLabel"
+		[width]="width"
+		(change)="onInput($event)">
+	</editable-selector-app>
+
 </ng-container>
