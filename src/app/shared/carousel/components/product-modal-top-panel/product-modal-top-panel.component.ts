@@ -11,8 +11,8 @@ import { ERM } from '~models/_erm.enum';
 export class PreviewTopPanelComponent implements OnInit {
 	@Input() product: Product;
 	@Input() selectedIndex: number;
-	@Output () delete = new EventEmitter<Product>();
-	@Output () close = new EventEmitter<any>();
+	@Output() delete = new EventEmitter<Product>();
+	@Output() close = new EventEmitter<any>();
 	@Output() openFileBrowser = new EventEmitter<void>();
 	menuOpen = false;
 	productEntity = ERM.PRODUCT;
@@ -30,4 +30,5 @@ export class PreviewTopPanelComponent implements OnInit {
 	getImg() {
 		return this.product.images ? this.product.images[this.selectedIndex] : null;
 	}
+
 }

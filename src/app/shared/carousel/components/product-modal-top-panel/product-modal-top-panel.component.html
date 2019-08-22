@@ -23,8 +23,7 @@
 				<div class="border-separator">
 					<span
 						class="price"
-						*ngIf="product.price && product.price.value !== null"
-					>
+						*ngIf="product.price && product.price.value !== null">
 						{{ product?.price | appPrice }}
 					</span>
 					<span *ngIf="product?.category">
