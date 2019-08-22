@@ -14,11 +14,17 @@ export class PreviewTopPanelComponent implements OnInit {
 	@Output () delete = new EventEmitter<Product>();
 	@Output () close = new EventEmitter<any>();
 	@Output() openFileBrowser = new EventEmitter<void>();
+	menuOpen = false;
 	productEntity = ERM.PRODUCT;
 
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	closePanel() {
+		this.menuOpen = false;
+		this.close.emit();
 	}
 
 	getImg() {

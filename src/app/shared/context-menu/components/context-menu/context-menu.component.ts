@@ -26,6 +26,7 @@ export class ContextMenuComponent implements OnInit {
 	@Input() offsetX = 0;
 	@Input() offsetY = 8;
 	@Output() menuClosed = new EventEmitter<any>();
+	@Output() menuOpened = new EventEmitter<void>();
 	scrollStrat: ScrollStrategy;
 
 	constructor(private sso: ScrollStrategyOptions) { }
@@ -42,6 +43,7 @@ export class ContextMenuComponent implements OnInit {
 	/** Opens the menu. */
 	openMenu(): void {
 		this.menuOpen = true;
+		this.menuOpened.emit();
 	}
 
 	/** Closes the menu. */

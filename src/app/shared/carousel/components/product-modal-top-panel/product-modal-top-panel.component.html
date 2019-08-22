@@ -41,7 +41,7 @@
 		<a [href]="getImg() | image: 'xl'" download i18n="button@@download">
 			<button>download</button>
 		</a>
-		<context-menu-app action>
+		<context-menu-app [menuOpen]="menuOpen" (menuOpened)="menuOpen = true" action>
 			<context-menu-trigger-app>
 				<button class="icon light dots pointer">
 					<icon-app [size]="20" name="dots-vertical"></icon-app>
@@ -55,7 +55,7 @@
 				</context-menu-item-app>
 		</context-menu-app>
 		<divider-app [vertical]="true"></divider-app>
-		<div class="close flexCenter pointer" (click)="close.emit()">
+		<div class="close flexCenter pointer" (click)="closePanel()">
 			<icon-app name="close"></icon-app>
 		</div>
 	</div>
