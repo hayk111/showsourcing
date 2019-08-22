@@ -4,7 +4,7 @@ import { SampleService } from '~core/entity-services';
 import { Product, Sample, Supplier } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { translate } from '~utils';
+import { translate, uuid } from '~utils';
 
 @Component({
 	selector: 'creation-sample-dlg-app',
@@ -18,10 +18,10 @@ export class CreationSampleDlgComponent implements OnInit {
 	@Input() sample: Sample;
 	@Input() product: Product;
 	@Input() supplier: Supplier;
+	@Input() createAnother = false;
 
 	sampleDescriptor: SampleDescriptor;
 
-	createAnother = false;
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -73,7 +73,8 @@ export class CreationSampleDlgComponent implements OnInit {
 			this.sampleSrv.create(this.sample).subscribe(
 				sample => {
 					if (this.createAnother) {
-						this.dlgSrv.open(CreationSampleDlgComponent, { sample: { ...this.sample, name: '', description: '' } });
+						sample = this.resetIds(sample);
+						this.dlgSrv.open(CreationSampleDlgComponent, { sample, createAnother: true });
 					} else {
 						this.close();
 					}
@@ -99,6 +100,11 @@ export class CreationSampleDlgComponent implements OnInit {
 
 	close() {
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample } });
+	}
+
+	private resetIds(sample) {
+		sample = { ...sample, id: uuid(), name: '', description: '' };
+		return sample;
 	}
 
 }
