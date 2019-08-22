@@ -1,17 +1,17 @@
-:host ::ng-deep icon-app {
+icon-app {
 	margin: 0 5px;
 }
 
-:host ::ng-deep icon-app.star {
+icon-app.star {
 	display: inline;
 	margin: 0 2px 0 0;
 }
 
-:host ::ng-deep .icons-container > icon-app:not(.favourite) {
+.icons-container > icon-app:not(.favourite) {
 	color: var(--color-txt-third);
 }
 
-:host ::ng-deep .icons-container > icon-app.favourite {
+.icons-container > icon-app.favourite {
 	color: var(--color-warn);
 }
 

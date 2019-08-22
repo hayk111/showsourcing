@@ -15,13 +15,20 @@
 			(keydown.enter)="triggerSmartSearch($event)">
 		</search-bar-app>
 
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize filter-button" (click)="showFilters.emit()" i18n="text@@show-filters">Filters</button>
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize clear-filter-button" (click)="clearFilters.emit()" i18n="text@@clear-filters">Clear Filters({{filtersAmount}})</button>
+		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize filter-button" 
+			(click)="showFilters.emit()" i18n="text@@show-filters">Filters</button>
+		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize clear-filter-button" 
+			(click)="clearFilters.emit()" i18n="text@@clear-filters">Clear Filters <span *ngIf="filtersAmount">({{filtersAmount}})</span>
+		</button>
 		<div class="divider"></div>
 
-		<span *ngIf="hasFilter && !filtersPanelOpened" class="bold-s capitalize products-count" i18n="text@@products">{{count}} {{entityType}}</span>
+		<span *ngIf="hasFilter && !filtersPanelOpened" class="bold-s capitalize products-count" i18n="text@@products">
+			{{count}} {{entityType}}
+		</span>
 				
-		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">Hide Filters</button>
+		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">
+			Hide Filters
+		</button>
 
 		<button
 			*ngIf="buttonName"
