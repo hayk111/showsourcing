@@ -1,5 +1,5 @@
 <div class="ctnr c-{{ view }} border-radius flex">
-  <div class="slider" [class.right]="view === 'card'" [class.left]="view === 'list'"></div>
+  <div class="slider" [class.right]="view === 'card'" [class.mid]="view === 'board'" [class.left]="view === 'list'"></div>
 	<button class="flexCenter {{ view === 'list' ? 'selected' : ''}}" (mousedown)="switchView('list')">
 		<icon-app class="list" [name]="switchContent[0]"></icon-app>
 		<ng-container i18n="text@@list">List</ng-container>

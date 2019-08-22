@@ -66,8 +66,12 @@ icon-app {
 		left: 0;
 		width: calc(100% / 3);
 	}
+	&.mid {
+		right: calc(100% / 3);
+		width: calc(100% / 3);
+	}
 	&.right {
-		left: calc(100% / 3);
+		right: 0;
 		width: calc(100% / 3);
 	}
 }
