@@ -86,7 +86,7 @@ export class AuthenticationService {
 			this.localStorage.setString(STORAGE_EMAIL, credentials.login);
 		}
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
-			tap(resp => this.tokenSrv.storeJwtTokens(resp.jwtTokenFeed)),
+			tap(resp => this.tokenSrv.storeJwtTokens(resp)),
 			map(resp => resp.jwtToken),
 			switchMap(jwt => this.jwtToRealmUser(jwt)),
 			tap(realmUser => this.realmUser = realmUser),

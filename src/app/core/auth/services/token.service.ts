@@ -7,13 +7,13 @@ import { log, LogColor } from '~utils';
 
 const REALM_USER = 'REALM_USER';
 const FEED_TOKEN = 'feed-token';
+const AUTH_TOKEN = 'jwt-token';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class TokenService {
-
-
+	authJwtToken: string;
 	private _jwtTokenFeed$ = new ReplaySubject<TokenState>();
 	jwtTokenFeed$ = this._jwtTokenFeed$.asObservable();
 
@@ -60,9 +60,11 @@ export class TokenService {
 		);
 	}
 
-	storeJwtTokens(token: TokenState) {
-		this.localStorageSrv.setItem(FEED_TOKEN, token);
-		this._jwtTokenFeed$.next(token);
+	storeJwtTokens(token: { jwtToken: string, jwtTokenFeed: TokenState }) {
+		this.authJwtToken = token.jwtToken;
+		this.localStorageSrv.setString(AUTH_TOKEN, this.authJwtToken);
+		this.localStorageSrv.setItem(FEED_TOKEN, token.jwtTokenFeed);
+		this._jwtTokenFeed$.next(token.jwtTokenFeed);
 	}
 
 	restoreFeedToken() {

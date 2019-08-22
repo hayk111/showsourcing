@@ -51,7 +51,7 @@ export class CompanyService extends GlobalService<Company> {
 
 	/** creates and picks it */
 	create(company: Company): Observable<any> {
-		return this.http.post<Company>(`${environment.apiUrl}/company`, company);
+		return this.http.post<Company>('/api/company', company);
 	}
 
 	/** picks a company, puts the selection in local storage */

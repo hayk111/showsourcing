@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +13,7 @@ import { AppApolloModule } from '~core/apollo/apollo.module';
 import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
+import { ApiInterceptor } from '~core/interceptors/api.interceptor';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -47,7 +48,13 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
-	providers: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: ApiInterceptor,
+			multi: true
+		}
+	],
 	entryComponents: [],
 })
 export class AppRootModule { }

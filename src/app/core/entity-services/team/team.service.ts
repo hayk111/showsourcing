@@ -74,11 +74,11 @@ export class TeamService extends GlobalService<Team> {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.http.post(`${environment.apiUrl}/team`, team);
+		return this.http.post('api/team', team);
 	}
 
 	update(team: Team) {
-		return this.http.patch<Team>(`${environment.apiUrl}/team/${team.id}`, team);
+		return this.http.patch<Team>(`api/team/${team.id}`, team);
 	}
 
 	/** picks a team, puts the selection in local storage */
