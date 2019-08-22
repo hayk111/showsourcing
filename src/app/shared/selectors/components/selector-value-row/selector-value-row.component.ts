@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Tag } from '~core/models';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
-	selector: 'selector-tag-row-app',
-	templateUrl: './selector-tag-row.component.html',
-	styleUrls: ['./selector-tag-row.component.scss'],
+	selector: 'selector-value-row-app',
+	templateUrl: './selector-value-row.component.html',
+	styleUrls: ['./selector-value-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorTagRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorValueRowComponent extends AbstractSelectorHighlightableComponent {
 
-	@Input() tag: Tag;
+	@Input() item: any;
 
 	constructor() { super(); }
 
 	getLabel() {
-		return this.tag;
+		return this.item.value;
 	}
+
 
 }

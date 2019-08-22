@@ -20,6 +20,8 @@ import { IconsLibPageComponent } from './icons-lib-page/icons-lib-page.component
 import { BadgeModule } from '~shared/badge';
 import { CardLibPageComponent } from './card-lib-page/card-lib-page.component';
 import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component';
+import { PipesLibPageComponent } from './pipes-lib-page/pipes-lib-page.component';
+import { TableLibPageComponent } from './table-lib-page/table-lib-page.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component
 		LoadersLibPageComponent,
 		IconsLibPageComponent,
 		CardLibPageComponent,
-		BadgeLibPageComponent
+		BadgeLibPageComponent,
+		PipesLibPageComponent,
+		TableLibPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []

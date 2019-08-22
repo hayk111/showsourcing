@@ -63,8 +63,9 @@
 	<!-- Content (Non Floating) -->
 	<div class="content">
 		<div class="title ellipsis">
-			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>
-			{{ product?.name || ('Unnamed product' | const: 'messages') }} </div>
+			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>{{ product?.name || 
+				('Unnamed product' | const: 'messages') }}
+		</div>
 		<div class="category ellipsis flexVAlign">
 			{{ product?.category?.name }}
 			<span class="small-badge-gray" *ngIf="product?.supplier"></span> 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, AfterContentChecked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product, ERM } from '~core/models';
 import { Status } from '~core/models/status.model';
 @Component({
@@ -7,7 +7,7 @@ import { Status } from '~core/models/status.model';
 	styleUrls: ['./product-grid-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductGridCardComponent implements OnInit, AfterContentChecked {
+export class ProductGridCardComponent implements OnInit {
 
 	prodERM = ERM.PRODUCT;
 	@Input() product: Product;
@@ -44,9 +44,4 @@ export class ProductGridCardComponent implements OnInit, AfterContentChecked {
 				return '--color-txt-secondary';
 		}
 	}
-
-	ngAfterContentChecked() {
-		console.log('TCL: ProductGridCardComponent -> ngAfterContentChecked -> this.product', this.product);
-	}
-
 }

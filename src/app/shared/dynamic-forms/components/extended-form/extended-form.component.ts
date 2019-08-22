@@ -64,7 +64,8 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 
 	onUpdate(field: ExtendedField) {
 		let updatedFields;
-		if (field.value !== undefined)
+		// if there is a selector value or a value, we push that field, into our fields
+		if (field.selectorValue !== undefined || field.value !== undefined)
 			updatedFields = this._fields.filter(f => f.id !== field.id).concat(field);
 		else
 			updatedFields = this._fields;
