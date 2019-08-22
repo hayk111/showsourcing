@@ -224,9 +224,15 @@
 		<!-- selector -->
 		<editable-selector-app
 			*ngSwitchCase="'selector'"
-			[customField]="customField"
-			[inlineLabel]="inlineLabel"
 			[(ngModel)]="value"
+			[type]="customField?.metadata?.target"
+			[disabled]="customField?.metadata?.disabled"
+			[width]="customField?.metadata?.width"
+			[multiple]="customField?.metadata?.multiple"
+			[canCreate]="customField?.metadata?.canCreate"
+			[label]="customField?.label || customField?.name"
+			[hasBadge]="customField?.metadata?.hasBadge"
+			[inlineLabel]="inlineLabel"
 			(change)="onSave(false)"
 			(blur)="onBlur()">
 		</editable-selector-app>

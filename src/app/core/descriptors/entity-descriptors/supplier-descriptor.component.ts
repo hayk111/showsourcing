@@ -58,7 +58,7 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 			name: 'createdBy',
 			type: 'selector',
 			label: translate('created by'),
-			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+			metadata: { target: ERM.USER.singular, disabled: true }
 		},
 		{
 			name: 'creationDate',
@@ -70,7 +70,7 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 			name: 'lastUpdatedBy',
 			type: 'selector',
 			label: translate('last updated by'),
-			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+			metadata: { target: ERM.USER.singular, disabled: true }
 		},
 		{
 			name: 'lastUpdatedDate',
