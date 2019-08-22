@@ -101,7 +101,7 @@ export class CreationTaskDlgComponent implements OnInit {
 	}
 
 	private resetIds(task) {
-		task = { ...task, id: uuid(), name: null, description: '' };
+		task = { ...task, id: uuid(), name: '', description: '' };
 		return task;
 	}
 
