@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Product } from '~models/product.model';
 import { ERM } from '~models/_erm.enum';
 
@@ -8,9 +8,10 @@ import { ERM } from '~models/_erm.enum';
 	styleUrls: ['./product-modal-top-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewTopPanelComponent implements OnInit {
+export class PreviewTopPanelComponent implements OnInit, OnChanges {
 	@Input() product: Product;
 	@Input() selectedIndex: number;
+	@Input() isOpen = false;
 	@Output() delete = new EventEmitter<Product>();
 	@Output() close = new EventEmitter<any>();
 	@Output() openFileBrowser = new EventEmitter<void>();
@@ -18,6 +19,12 @@ export class PreviewTopPanelComponent implements OnInit {
 	productEntity = ERM.PRODUCT;
 
 	constructor() { }
+
+	ngOnChanges( changes: SimpleChanges) {
+		if (changes.isOpen.previousValue && !changes.isOpen.currentValue) {
+			this.menuOpen = false;
+		}
+	}
 
 	ngOnInit() {
 	}

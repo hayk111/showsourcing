@@ -6,6 +6,7 @@
 			<ng-container [ngSwitch]="entity?.__typename">
 				<product-modal-top-panel
 					*ngSwitchCase="'Product'"
+					[isOpen]="isOpen"
 					[product]="entity"
 					[selectedIndex]="selectedIndex"
 					(delete)="onDelete()"
