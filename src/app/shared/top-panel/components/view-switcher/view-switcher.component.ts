@@ -7,15 +7,15 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewSwitcherComponent implements OnInit {
-	_view: 'list' | 'card' = 'card';
+	_view: 'list' | 'board' |'card' = 'card';
 	@Input()
-	set view(view: 'list' | 'card') {
-		if (view !== 'list' && view !== 'card')
+	set view(view: 'list' | 'board' | 'card') {
+		if (view !== 'list' && view !== 'board' && view !== 'card')
 			this._view = 'list';
 		else
 			this._view = view;
 	}
-	@Input() switchContent: ['list', 'kanban' | 'thumbs'] = ['list', 'thumbs'];
+	@Input() switchContent: ['list', 'board', 'kanban' | 'thumbs'] = ['list', 'board' ,'thumbs'];
 	@Output() viewChange = new EventEmitter<string>();
 
 	get view() {
@@ -26,7 +26,7 @@ export class ViewSwitcherComponent implements OnInit {
 
 	ngOnInit() { }
 
-	switchView(view: 'card' | 'list') {
+	switchView(view: 'card' | 'board' | 'list') {
 		this.view = view;
 		this.viewChange.emit(view);
 	}

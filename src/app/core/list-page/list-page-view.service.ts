@@ -7,7 +7,7 @@ import { EntityMetadata } from '~models';
 })
 export class ListPageViewService<T> {
 	/** current view */
-	view: 'list' | 'card' = 'list';
+	view: 'list' | 'board' | 'card' = 'list';
 	/** whether the filter panel is visible */
 	filterPanelOpen: boolean;
 
@@ -57,7 +57,8 @@ export class ListPageViewService<T> {
 	/** Whenever we switch from list to card view
 	 * @param view the view we want to change to either list or card view
 	*/
-	changeView(view: 'list' | 'card') {
+	changeView(view: 'list' | 'board' | 'card') {
+		console.log('TCL: ListPageViewService<T> -> changeView -> view', view);
 		this.view = view;
 	}
 }
