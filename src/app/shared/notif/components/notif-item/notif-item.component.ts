@@ -102,14 +102,13 @@ export class NotifItemComponent implements OnInit {
 		}
 	}
 
-	detail({ target }) {
-		if (target.classList.contains('mark-read')) {
-			if (target.classList.contains('primary-dot')) {
-				this.notifActivitySrv.markAsRead(this.activity.id);
-			}
-			return;
-		}
-		this.redirect();
+	markAsRead(event: MouseEvent) {
+		this.notifActivitySrv.markAsRead(this.activity.id);
+		this.stopPropagation(event);
+	}
+
+	stopPropagation(event: MouseEvent) {
+		event.stopPropagation();
 	}
 
 	redirect() {

@@ -85,14 +85,4 @@ fdescribe('notif item component', () => {
 		expect(primaryDot.length).toBe(1);
 	});
 
-	it(`should redirect to details page if events target doesn't contain class 'mark-read'`, () => {
-		const mockEvent = {
-			target: document.createElement('div')
-		};
-		mockEvent.target.classList.add('mark-read');
-		component.detail(mockEvent);
-		spyOn(component, 'redirect');
-		expect(component.redirect).not.toHaveBeenCalled();
-	});
-
 });

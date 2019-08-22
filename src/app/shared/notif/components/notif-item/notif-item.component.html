@@ -1,7 +1,7 @@
 <div
 	class="flex container notif-card"
-	[ngClass]="{ unread: !isRead}"
-	(click)="detail($event)"
+	[ngClass]="{ unread: !isRead }"
+	(click)="redirect()"
 >
 	<div class="flex left">
 		<logo-app
@@ -32,6 +32,7 @@
 	<div
 		*ngIf="!activity.is_read; else readButton"
 		class="mark-read primary-dot"
+		(click)="markAsRead($event)"
 		toolTip
 		toolTipMessage="mark as read"
 		toolTipPosition="above-left"
@@ -40,7 +41,7 @@
 		[offsetY]="-15"
 	></div>
 	<ng-template #readButton>
-		<div class="mark-read grey-dot"></div>
+		<div class="mark-read grey-dot" (click)="stopPropagation($event)"></div>
 	</ng-template>
 </div>
 <divider-app></divider-app>
