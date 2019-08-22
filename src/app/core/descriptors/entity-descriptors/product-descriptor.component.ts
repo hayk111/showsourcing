@@ -24,7 +24,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
 
-		{ name: 'description', type: 'text' },
+		{ name: 'description', type: 'textarea', metadata: { rows: 5 } },
 		{ name: 'name', type: 'text', required: true, label: translate('name') },
 		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
 
@@ -59,8 +59,6 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 			label: translate(ERM.EVENT.singular, 'erm'),
 			metadata: {
 				target: ERM.EVENT.singular,
-				type: 'entity',
-				labelName: 'name',
 				canCreate: true,
 				multiple: false,
 				hasBadge: true
@@ -123,7 +121,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 			name: 'createdBy',
 			type: 'selector',
 			label: translate('created by'),
-			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+			metadata: { target: ERM.USER.singular, disabled: true }
 		},
 		{
 			name: 'creationDate',
@@ -135,7 +133,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 			name: 'lastUpdatedBy',
 			type: 'selector',
 			label: translate('last updated by'),
-			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
+			metadata: { target: ERM.USER.singular, disabled: true }
 		},
 		{
 			name: 'lastUpdatedDate',

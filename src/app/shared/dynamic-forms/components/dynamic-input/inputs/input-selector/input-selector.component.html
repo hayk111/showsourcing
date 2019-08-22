@@ -1,13 +1,17 @@
 <selector-app
 	[(ngModel)]="value"
+	[disabled]="disabled"
 	[multiple]="multiple"
+	[definitionReference]="definitionReference"
 	[type]="type"
 	[canCreate]="canCreate"
 	[width]="width"
 	(update)="onValueChange($event)">
 	<selector-placeholder-app
-		tabFocusAction
+		tabFocusAction autoFocus
 		class="first-uppercase"
+		[ngClass]="{ 'disabled': disabled }"
+		[canFocus]="autofocus"
 		[name]="value"
 		[placeholder]="placeholder || type">
 		<div *ngIf="isEntity && value" #content class="flexWrap">
@@ -51,6 +55,12 @@
 		</ng-container>
 		<ng-container *ngSwitchCase="erm.EVENT.singular">
 			{{ item?.descriptor?.name }}
+		</ng-container>
+		<!-- we read these 2 values, since when we are updating it takes a bit to be converted to an array -->
+		<!-- this strange behaviour happens since we share same value on extended field -> selectorValue: SelectorElement[] -->
+		<!--  we share it as when the value is single and when its multiple -->
+		<ng-container *ngSwitchCase="erm.SELECTOR_ELEMENT.singular">
+			{{ item?.value || item[0]?.value }}
 		</ng-container>
 		<ng-container *ngSwitchDefault>
 			{{ item?.name || 'none' }}
