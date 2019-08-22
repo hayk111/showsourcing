@@ -14,13 +14,13 @@ import { Observable, Subject } from 'rxjs';
 class MockNotifService {
 	isPanelOpen = false;
 	public shouldUpdateUnreadCount = new Subject<{ allMarkedAsRead: boolean, notificationId?: string }>();
-	closeNotifiactionPanel() {
+	closeNotificationPanel() {
 		this.isPanelOpen = false;
 	}
 	openNotificationPanel() {
 		this.isPanelOpen = true;
 	}
-	getMarkAsReadNotifiactions() {
+	getMarkAsReadNotifications() {
 		return this.shouldUpdateUnreadCount.asObservable();
 	}
 
@@ -56,7 +56,7 @@ fdescribe('notif component', () => {
 		component.notifications = notificationsMock;
 	});
 
-	it(`should display norifications count badge if unread notifiactions exists`, () => {
+	it(`should display notifications count badge if unread notifications exists`, () => {
 		component.notifications.unread = 1;
 		const { unread: expectedUnreadCount } = component.notifications;
 		fixture.detectChanges();

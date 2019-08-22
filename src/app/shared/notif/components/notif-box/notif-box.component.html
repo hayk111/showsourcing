@@ -1,9 +1,9 @@
 <card-app>
-	<card-title-app>Latest Notifiactions</card-title-app>
+	<card-title-app>Latest Notifications</card-title-app>
 	<ng-container *ngIf="notifications$ | async as notifications">
 		<notif-list-app
 			[isDashboardBox]="true"
-			[activites]="notifications?.results.slice(0, 4)"
+			[activities]="notifications?.results.slice(0, 4)"
 		>
 		</notif-list-app>
 		<card-footer-app class="flexCenter" *ngIf="notifications?.results.length > 0">

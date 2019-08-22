@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 import { Subscription } from 'apollo-client/util/Observable';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'notif-app',
@@ -9,15 +10,17 @@ import { Subscription } from 'apollo-client/util/Observable';
 	styleUrls: ['./notif.component.scss'],
 
 })
-export class NotifComponent implements OnInit, OnDestroy {
+export class NotifComponent extends AutoUnsub implements OnInit {
 	@Input() notifications: GetStreamNotification = null;
 
-	notifiactionsMarkedAsReadSubscription: Subscription;
+	notificationsMarkedAsReadSubscription: Subscription;
 
-	constructor(public notifActivitySrv: NotificationActivityService) { }
+	constructor(public notifActivitySrv: NotificationActivityService) {
+		super();
+	 }
 
 	ngOnInit() {
-		this.notifiactionsMarkedAsReadSubscription = this.notifActivitySrv.getMarkAsReadNotifiactions()
+		this.notificationsMarkedAsReadSubscription = this.notifActivitySrv.getMarkAsReadNotifications()
 			.subscribe(({allMarkedAsRead}) => {
 				if (allMarkedAsRead) {
 					return this.notifications.unread = 0;
@@ -31,11 +34,7 @@ export class NotifComponent implements OnInit, OnDestroy {
 	}
 
 	closePanel() {
-		this.notifActivitySrv.closeNotifiactionPanel();
-	}
-
-	ngOnDestroy() {
-		this.notifiactionsMarkedAsReadSubscription.unsubscribe();
+		this.notifActivitySrv.closeNotificationPanel();
 	}
 
 }

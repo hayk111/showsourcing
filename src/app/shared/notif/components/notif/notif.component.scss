@@ -5,7 +5,8 @@ icon-app {
 	margin-top: var(--spacing-xs);
 }
 .bell-color-primary-contrast {
-	color: var(--color-primary-contrast)
+	color: var(--color-primary-contrast);
+	cursor: pointer;
 }
 
 .notif-badge {

@@ -14,15 +14,14 @@ export class NotifItemComponent implements OnInit {
 
 	@Input() activity: GetStreamGroup = null;
 	@Input() isRead: boolean;
-	@Output() close = new EventEmitter<void>();
+
 	activityMessage: string;
-	navigateRout: string;
+	navigateRoute: string;
 	badgeType: string;
 	badgeColor: string;
 	targetId: string;
 	target$: any;
 	constructor(
-		private router: Router,
 		private productSrv: ProductService,
 		private supplierSrv: SupplierService,
 		private taskSrv: TaskService,
@@ -46,10 +45,10 @@ export class NotifItemComponent implements OnInit {
 				this.targetId = firstActivity.target_id;
 				if (target.toLowerCase() === 'product') {
 					this.target$ = this.getProduct();
-					this.navigateRout = `/product/${this.targetId}/activity`;
+					this.navigateRoute = `/product/${this.targetId}/activity`;
 				} else {
 					this.target$ = this.getSupplier();
-					this.navigateRout = `/supplier/${this.targetId}/activity`;
+					this.navigateRoute = `/supplier/${this.targetId}/activity`;
 				}
 				break;
 			case 'create_task':
@@ -58,20 +57,20 @@ export class NotifItemComponent implements OnInit {
 				this.activityMessage = 'assign you a task';
 				this.targetId = firstActivity.object;
 				this.target$ = this.getTask();
-				this.navigateRout = `/workspace/my-tasks`;
+				this.navigateRoute = `/workspace/my-tasks`;
 				break;
 			case 'task_complete':
 				this.badgeType = 'task';
 				this.activityMessage = 'has completed your task';
 				this.targetId = firstActivity.object;
 				this.target$ = this.getTask();
-				this.navigateRout = `/workspace/my-tasks`;
+				this.navigateRoute = `/workspace/my-tasks`;
 				break;
 			case 'create_vote':
 				this.badgeType = 'product';
 				this.activityMessage = 'rated your product';
 				this.targetId = firstActivity.target_id;
-				this.navigateRout = `/product/${this.targetId}/activity`;
+				this.navigateRoute = `/product/${this.targetId}/activity`;
 				this.target$ = this.getProduct();
 				break;
 			case 'new_assignee':
@@ -81,15 +80,15 @@ export class NotifItemComponent implements OnInit {
 					this.badgeType = 'sample';
 					this.badgeColor = 'vibrant';
 					this.target$ = this.getSample();
-					this.navigateRout = '/workspace/my-samples/list';
+					this.navigateRoute = '/workspace/my-samples/list';
 				} else if (target === 'product') {
 					this.badgeType = 'product';
 					this.target$ = this.getProduct();
-					this.navigateRout = `/product/${this.targetId}/activity`;
+					this.navigateRoute = `/product/${this.targetId}/activity`;
 				} else {
 					this.badgeType = 'supplier';
 					this.target$ = this.getSupplier();
-					this.navigateRout = `/supplier/${this.targetId}/activity`;
+					this.navigateRoute = `/supplier/${this.targetId}/activity`;
 				}
 				break;
 			case 'new_task_assignee':
@@ -98,7 +97,7 @@ export class NotifItemComponent implements OnInit {
 				this.activityMessage = 'assign you a task';
 				this.targetId = firstActivity.object;
 				this.target$ = this.getTask();
-				this.navigateRout = `/workspace/my-tasks`;
+				this.navigateRoute = `/workspace/my-tasks`;
 				break;
 		}
 	}
@@ -114,8 +113,8 @@ export class NotifItemComponent implements OnInit {
 	}
 
 	redirect() {
-		this.notifActivitySrv.closeNotifiactionPanel();
-		this.router.navigate([this.navigateRout]);
+		this.notifActivitySrv.closeNotificationPanel();
+		this.notifActivitySrv.redirect(this.navigateRoute);
 	}
 
 	get actorName() {

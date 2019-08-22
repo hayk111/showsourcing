@@ -12,7 +12,7 @@ import { NotifItemComponent } from './notif-item.component';
 
 class MockNotifService {
 	isPanelOpen = false;
-	closeNotifiactionPanel() {
+	closeNotificationPanel() {
 		this.isPanelOpen = false;
 	}
 	openNotificationPanel() {
@@ -63,10 +63,10 @@ fdescribe('notif item component', () => {
 
 	it(`should not generate multiple actors suffix if activity.actor_count is 1 `, () => {
 		component.activity.actor_count = 0;
-		const unexpecedSiffix = `and ${component.activity.actor_count - 1} other`;
+		const unexpectedSuffix = `and ${component.activity.actor_count - 1} other`;
 		fixture.detectChanges();
 		const messageElement = element.getElementsByClassName('notif-message')[0];
-		expect(messageElement.textContent).not.toContain(unexpecedSiffix);
+		expect(messageElement.textContent).not.toContain(unexpectedSuffix);
 	});
 
 	it('should have a grey dot in the right top corner if notification is read', () => {
@@ -76,7 +76,7 @@ fdescribe('notif item component', () => {
 		expect(greyDot.length).toBe(1);
 	});
 
-	it('should have a primary dot in the right top corner if notifiaction is unread', () => {
+	it('should have a primary dot in the right top corner if notification is unread', () => {
 		component.activity.is_read = false;
 		fixture.detectChanges();
 		const greyDot = element.getElementsByClassName('grey-dot');

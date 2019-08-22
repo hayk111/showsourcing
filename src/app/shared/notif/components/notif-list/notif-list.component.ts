@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 import { Subscription } from 'rxjs';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'notif-list-app',
@@ -10,20 +11,18 @@ import { Subscription } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class NotifListComponent implements OnInit, OnDestroy {
+export class NotifListComponent extends AutoUnsub implements OnInit  {
 
-	@Input() activites: GetStreamGroup[] = [];
+	@Input() activities: GetStreamGroup[] = [];
 	@Input() isDashboardBox = false;
 
-	@Output() close = new EventEmitter<void>();
-
-	notifiactionsMarkedAsReadSubscription: Subscription;
 	constructor(private notifActivitySrv: NotificationActivityService, private changeDetRef: ChangeDetectorRef) {
+		super();
 	}
 
 
 	ngOnInit() {
-		this.notifiactionsMarkedAsReadSubscription = this.notifActivitySrv.getMarkAsReadNotifiactions()
+		this.notifActivitySrv.getMarkAsReadNotifications()
 			.subscribe(({ allMarkedAsRead, notificationId }) => {
 				if (allMarkedAsRead) {
 					return this.markAllAsRead();
@@ -33,17 +32,13 @@ export class NotifListComponent implements OnInit, OnDestroy {
 	}
 
 	markAllAsRead() {
-		this.activites = this.activites.map(activity => { activity.is_read = true; return activity; });
-		this.changeDetRef.detectChanges();
+		this.activities = this.activities.map(activity => { activity.is_read = true; return activity; });
+		this.changeDetRef.markForCheck();
 	}
 
-	markAsRead(notifiactionId: string) {
-		this.activites.find(activity => activity.id === notifiactionId).is_read = true;
-		this.changeDetRef.detectChanges();
-	}
-
-	ngOnDestroy() {
-		this.notifiactionsMarkedAsReadSubscription.unsubscribe();
+	markAsRead(notificationId: string) {
+		this.activities.find(activity => activity.id === notificationId).is_read = true;
+		this.changeDetRef.markForCheck();
 	}
 
 }

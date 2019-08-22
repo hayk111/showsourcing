@@ -11,6 +11,7 @@ import { TeamService, UserService } from '~entity-services';
 import {
 	GetStreamNotification
 } from '~common/activity/interfaces/get-stream-feed.interfaces';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -20,13 +21,14 @@ export class NotificationActivityService {
 	private readonly LIMIT = 10;
 	private client: getstream.Client;
 	private shouldRefetch$ = new BehaviorSubject(true);
-	public shouldUpdateUnreadCount = new Subject<{ allMarkedAsRead: boolean, notificationId?: string }>();
-	public isPanelOpen = false;
+	private shouldUpdateUnreadCount = new Subject<{ allMarkedAsRead: boolean, notificationId?: string }>();
+	isPanelOpen = false;
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
 		private tokenSrv: TokenService,
 		private userSrv: UserService,
+		private router: Router,
 
 	) {
 		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
@@ -60,7 +62,6 @@ export class NotificationActivityService {
 
 	public getNotifications(): Observable<GetStreamNotification> {
 		return this.shouldRefetch$.asObservable().pipe(
-			tap(_ => console.log('fetching notifications...')),
 			switchMap(_ => this.getPastNotifications())
 		);
 	}
@@ -95,15 +96,19 @@ export class NotificationActivityService {
 		});
 	}
 
-	public getMarkAsReadNotifiactions(): Observable<{ allMarkedAsRead: boolean, notificationId?: string }> {
+	public getMarkAsReadNotifications(): Observable<{ allMarkedAsRead: boolean, notificationId?: string }> {
 		return this.shouldUpdateUnreadCount.asObservable();
+	}
+
+	redirect( route: string ) {
+		this.router.navigate([route]);
 	}
 
 	public openNotificationPanel() {
 		this.isPanelOpen = true;
 	}
 
-	public closeNotifiactionPanel() {
+	public closeNotificationPanel() {
 		this.isPanelOpen = false;
 	}
 

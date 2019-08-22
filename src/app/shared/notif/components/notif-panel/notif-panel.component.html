@@ -4,7 +4,7 @@
 		<icon-app
 			class="close-pane-button"
 			name="close-pane-left"
-			(click)="notifActivitySrv.closeNotifiactionPanel()"
+			(click)="notifActivitySrv.closeNotificationPanel()"
 		>
 		</icon-app>
 		<p class="title">
@@ -18,5 +18,5 @@
 		</p></card-action-app
 	>
 
-	<notif-list-app (close)="close.emit()" [activites]="results"></notif-list-app>
+	<notif-list-app [activities]="results"></notif-list-app>
 </card-app>

@@ -13,18 +13,18 @@ import { Observable } from 'rxjs';
 
 class MockNotifService {
 	isPanelOpen = false;
-	closeNotifiactionPanel() {
+	closeNotificationPanel() {
 		this.isPanelOpen = false;
 	}
 	openNotificationPanel() {
 		this.isPanelOpen = true;
 	}
-	getMarkAsReadNotifiactions() {
+	getMarkAsReadNotifications() {
 		return Observable.create();
 	}
 }
 
-const {results: activites} = notificationsMock;
+const {results: activities} = notificationsMock;
 
 
 fdescribe('notif item component', () => {
@@ -54,21 +54,21 @@ fdescribe('notif item component', () => {
 		debugElement = fixture.debugElement;
 		element = fixture.nativeElement;
 		service = debugElement.injector.get(NotificationActivityService);
-		component.activites = activites;
+		component.activities = activities;
 	});
 
 	it('should display notif-empty component if the length of activities is 0 ', () => {
-		component.activites = [];
+		component.activities = [];
 		fixture.detectChanges();
-		const emptyNotifiaction = element.getElementsByClassName('empty-notifiaction');
-		expect(emptyNotifiaction.length).toBe(1);
+		const emptyNotification = element.getElementsByClassName('empty-notification');
+		expect(emptyNotification.length).toBe(1);
 	});
 
 	it('should display notif-items if the length of activities is grater than 0 ', () => {
-		component.activites = notificationsMock.results;
+		component.activities = notificationsMock.results;
 		fixture.detectChanges();
-		const emptyNotifiaction = element.getElementsByClassName('notifiaction-item');
-		expect(emptyNotifiaction.length).toBe(component.activites.length);
+		const emptyNotification = element.getElementsByClassName('notification-item');
+		expect(emptyNotification.length).toBe(component.activities.length);
 	});
 
 });

@@ -9,7 +9,6 @@ import { NotificationActivityService } from '~shared/notif/services/notification
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotifPanelComponent implements OnInit {
-	@Output() close = new EventEmitter<void>();
 	@Input() results: GetStreamGroup[] = null;
 
 	constructor(public notifActivitySrv: NotificationActivityService) {}

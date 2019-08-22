@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
 	user$: Observable<User>;
 	team$: Observable<Team>;
 	requestCount$: Observable<number>;
-	notifiactions$: Observable<GetStreamNotification>;
+	notifications$: Observable<GetStreamNotification>;
 	isProd = environment.production;
 	sideNavItems = sideNavItems;
 
@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit {
 		this.requestCount$ = this.requestSrv.selectCount(
 			`status == "${DEFAULT_REPLIED_STATUS}" AND senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
 		);
-		this.notifiactions$ = this.notifActivitySrv.getNotifications();
+		this.notifications$ = this.notifActivitySrv.getNotifications();
 	}
 
 	logout() {
