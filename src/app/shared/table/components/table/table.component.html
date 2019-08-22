@@ -39,7 +39,7 @@
 		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'" [style.minWidth]="column.minWidth + 'px'"
 			class="col {{ column.grows ? 'flexGrow' : '' }}">
 			<!-- header -->
-			<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize" (click)="onSort(column)"
+			<div *ngIf="hasHeader" class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize" (click)="onSort(column)"
 				[style.height]="rowHeight + 'px'" [class.sorted]="currentSortedColumn?.type === column?.type">
 				{{ column.title }}
 				<ng-container *ngIf="column.sortOrder !== 'NONE'">
