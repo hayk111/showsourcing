@@ -37,7 +37,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	];
 	erm = ERM;
 	statuses: SampleStatus[];
-	amountLoaded = this.amountLoaded;
+	amountLoaded = 15;
 
 	constructor(
 		private kanbanSrv: KanbanService,
