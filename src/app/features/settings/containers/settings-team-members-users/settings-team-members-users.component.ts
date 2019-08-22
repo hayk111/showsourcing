@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { MemberFeatureService } from '~features/settings/services/member-feature.service';
+import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { ERM, TeamUser, User } from '~models';
 import { AutoUnsub, translate } from '~utils';
 import { UserService } from '~core/entity-services';
@@ -21,8 +21,8 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	hasSelected = false;
 
 	constructor(
-		private featureSrv: MemberFeatureService,
-		public listSrv: ListPageService<TeamUser, MemberFeatureService>,
+		private featureSrv: SettingsMembersService,
+		public listSrv: ListPageService<TeamUser, SettingsMembersService>,
 		public commonModalSrv: CommonModalService,
 		private userSrv: UserService
 	) {

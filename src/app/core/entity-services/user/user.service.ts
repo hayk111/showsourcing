@@ -44,7 +44,7 @@ export class UserService extends GlobalService<User> {
 	}
 
 	update(user: User) {
-		return this.http.patch<User>(`${environment.apiUrl}/user`, user);
+		return this.http.patch<User>(`api/user`, user);
 	}
 
 }

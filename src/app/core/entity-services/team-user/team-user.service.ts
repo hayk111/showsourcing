@@ -18,6 +18,6 @@ export class TeamUserService extends GlobalService<TeamUser> {
 	}
 
 	update(teamUser: TeamUser) {
-		return this.http.patch<TeamUser>(`${environment.apiUrl}/team/${this.teamSrv.selectedTeamSync.id}/team-role`, teamUser);
+		return this.http.patch<TeamUser>(`api/team/${this.teamSrv.selectedTeamSync.id}/team-role`, teamUser);
 	}
 }

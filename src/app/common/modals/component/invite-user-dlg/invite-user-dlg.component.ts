@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
+import { SettingsInvitationService } from '~features/settings/services/settings-invitation.service';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, translate } from '~utils';
@@ -19,7 +19,7 @@ export class InviteUserDlgComponent extends AutoUnsub {
 	pending = false;
 
 	constructor(private dlgSrv: DialogService,
-		private invitationSrv: InvitationFeatureService,
+		private invitationSrv: SettingsInvitationService,
 		private fb: FormBuilder,
 		private notifSrv: NotificationService
 	) {

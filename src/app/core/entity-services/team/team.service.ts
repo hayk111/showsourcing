@@ -101,5 +101,9 @@ export class TeamService extends GlobalService<Team> {
 		this._teamSelectionEvent$.next(undefined);
 	}
 
+	get idSync() {
+		return this.selectedTeamSync.id;
+	}
+
 }
 

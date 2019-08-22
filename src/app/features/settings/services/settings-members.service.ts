@@ -6,7 +6,7 @@ import { TeamService, TeamUserService, UserService } from '~entity-services';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
-export class MemberFeatureService extends TeamUserService {
+export class SettingsMembersService extends TeamUserService {
 
 	constructor(
 		protected apolloState: ApolloStateService,
