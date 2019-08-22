@@ -1,7 +1,7 @@
 <top-panel-details-app
 	[title]="supplier?.name">
 
-	<img-app [image]="supplier?.logoImage" type="supplier"></img-app>
+	<logo-app [logo]="supplier?.logoImage" type="supplier"></logo-app>
 
 	<div subinfo class="flex flexVAlign">
 		<div class="type" *ngIf="supplier?.supplierType">

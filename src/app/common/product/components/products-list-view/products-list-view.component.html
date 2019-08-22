@@ -67,7 +67,8 @@
 <!-- product preview -->
 <ng-template #main let-row="row">
 	<div class="ellipsis name-container contain-strict">
-		<div class="ellipsis">
+		<div class="ellipsis flex">
+
 			<div class="preview-imgs" (click)="previewClick.emit(row)">
 				<logo-app class="mini imgCtnr"
 					[logo]="row.images[0]" size="m" type="product"></logo-app>
@@ -75,14 +76,19 @@
 					<icon-app name="eye" class="preview-hover-img"></icon-app>
 				</div>
 			</div>
-			<span class="product-ref ellipsis">
-				<a class="name txt-btn" [routerLink]="['/product', row.id]">
+
+			<div class="flexColumn ref-ctnr">
+				<span class="product-ref ellipsis">
+					<a class="name txt-btn" [routerLink]="['/product', row.id]">
+						{{ row.name || '-' }}
+					</a>
+				</span>
+	
+				<div class="product-name-ref">
 					{{ row.name || '-' }}
-				</a>
-			</span>
-			<div class="product-name-ref">
-				{{ row.name || '-' }}
+				</div>
 			</div>
+
 		</div>
 	</div>
 </ng-template>
@@ -112,8 +118,7 @@
 <!-- activities -->
 <ng-template #activities let-row="row">
 	<activities-bar-app
-		[rows]="rows"
-		[id]="row?.id"
+		[row]="row"
 		[favourite]="row?.favorite"
 		[hasSamples]="!!row?.samplesLinked.count"
 		[hasTasks]="!!row?.tasksLinked.count"
