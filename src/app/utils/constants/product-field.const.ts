@@ -1,8 +1,7 @@
 import { ERM } from '~core/models';
-import { PickerField } from '~shared/selectors';
 import { translate } from '~utils/translate.utils';
 
-export const productFields: PickerField[] = [
+export const productFields: any[] = [
 	{ name: 'name', type: 'text' },
 	{
 		name: 'assignee', type: 'selector',

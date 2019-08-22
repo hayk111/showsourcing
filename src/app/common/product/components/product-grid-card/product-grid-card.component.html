@@ -34,10 +34,11 @@
 			[multiple]="true"
 			[width]="330"
 			(update)="update.emit({id: product?.id, projects: $event})">
-			<icon-app class="folder overlay-icons pointer" name="folder-line"></icon-app>
+			<icon-app class="folder overlay-icons pointer" name="folder-light"></icon-app>
 		</selector-app>
 		<thumb-buttons-app
 			class="thumb-up overlay-icons"
+			size="m"
 			[lineStyle]="true"
 			[votes]="product?.votes"
 			(liked)="liked.emit()"
@@ -62,9 +63,7 @@
 	<!-- Content (Non Floating) -->
 	<div class="content">
 		<div class="title ellipsis">
-			<div class="badge" *ngIf="product?.status; else noStatus" 
-				[ngStyle]="{ 'background-color': 'var(' + getColor(product.status.category) + ')'}"></div>
-			<ng-template #noStatus><div class="badge"></div></ng-template> 
+			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>
 			{{ product?.name || ('Unnamed product' | const: 'messages') }} </div>
 		<div class="category ellipsis flexVAlign">
 			{{ product?.category?.name }}
