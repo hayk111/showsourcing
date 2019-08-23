@@ -97,10 +97,18 @@ export class DynamicEditableTextComponent extends AbstractInput {
 		this.blur.emit();
 	}
 
-	/** toggle input value from true to false and vice versa */
-	toggleValue() {
-		this.accumulator = !this.accumulator;
-		this.onSave();
+	/**
+	 * toggle input value from true to false and vice versa if the type of target of the event is not 'radio'
+	 * @param event mouse click event
+	 */
+	toggleValue(event) {
+		// since the radio-app already handles click, what this part handles
+		// is the click on the editable-text-app, since the radio is inside the editable, we have to check
+		// that the target type is not radio, that means that we are not clicking the radio component but outside
+		if (event && event.target.type !== 'radio') {
+			this.accumulator = !this.accumulator;
+			this.onSave();
+		}
 	}
 
 }

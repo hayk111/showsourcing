@@ -23,4 +23,14 @@ export class ExtendedFormEditableTextComponent extends AbstractExtendedFormCompo
 		return type === 'text' || type === 'decimal' || type === 'tel' || type === 'number';
 	}
 
+	/**
+	 * toggles boolean value if the click was performed outside the radio-app (child), but inside editable-field-app (parent)
+	 * @param event mouse event click
+	 */
+	booleanEditableField(event) {
+		if (event && event.target.type !== 'radio') {
+			this.field.value === 'true' ? this.toggleBoolean(true) : this.toggleBoolean(false);
+		}
+	}
+
 }
