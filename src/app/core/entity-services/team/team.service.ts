@@ -74,7 +74,7 @@ export class TeamService extends GlobalService<Team> {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.http.post('api/team', team);
+		return this.http.post('api/team', { name: team.name, companyId: team.company.id });
 	}
 
 	update(team: Team) {
