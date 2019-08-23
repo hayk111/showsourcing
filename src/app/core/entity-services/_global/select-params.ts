@@ -11,7 +11,7 @@ export class SelectParams {
 	/** query we use to find a specific item */
 	query = '';
 	/** sorting used */
-	sortBy: 'creationDate';
+	sortBy = 'creationDate';
 	/** whether it's ASC or DESC */
 	descending = true;
 	/** how much items we request */
