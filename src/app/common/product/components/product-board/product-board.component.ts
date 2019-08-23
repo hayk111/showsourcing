@@ -78,8 +78,6 @@ export class ProductBoardComponent extends AutoUnsub implements OnInit {
 				descending: false
 			}).pipe(
 				first(),
-				// adding new status
-				map(statuses => [{ id: NEW_STATUS_ID, name: 'New Product', category: 'new' }, ...statuses]),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
 

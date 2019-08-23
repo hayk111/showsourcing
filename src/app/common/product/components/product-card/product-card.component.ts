@@ -30,7 +30,7 @@ export class ProductCardComponent extends TrackingComponent {
 	private _checked: boolean;
 	@Input() set checked(checked: boolean) {
 		this._checked = checked;
-		this.setClassHighlightChecked(this._checked);
+		// this.setClassHighlightChecked(this._checked);
 	}
 	get checked() {
 		return this._checked;
@@ -38,6 +38,7 @@ export class ProductCardComponent extends TrackingComponent {
 	/** The associated product */
 	@Input() set product(product: Product) {
 		this._product = product;
+		console.log('TCL: ProductCardComponent -> @Input -> this._product', this._product);
 		this.computeLikes();
 		this.computeScore();
 		this.link = '/product/' + this._product.id + '/general';
@@ -113,7 +114,6 @@ export class ProductCardComponent extends TrackingComponent {
 	onClickOutsideCard() {
 		if (this.contextualMenuOpened) {
 			this.contextualMenuOpened = !this.contextualMenuOpened;
-
 		}
 	}
 
@@ -131,7 +131,7 @@ export class ProductCardComponent extends TrackingComponent {
 		this.checked = true;
 		this.checkboxAction = true;
 		this.select.emit(this.product);
-		this.setClassHighlightChecked(true);
+		// this.setClassHighlightChecked(true);
 	}
 
 	/** Handle checbkox uncheck event */
@@ -139,7 +139,17 @@ export class ProductCardComponent extends TrackingComponent {
 		this.checked = false;
 		this.checkboxAction = true;
 		this.unselect.emit(this.product);
-		this.setClassHighlightChecked(false);
+		// this.setClassHighlightChecked(false);
+	}
+
+	getPriceMoq(product: Product) {
+		if (product) {
+			return `
+				${product.price || ''} ${product.price && product.minimumOrderQuantity ? '-' : ''} ${product.minimumOrderQuantity || ''}
+			`;
+		}
+
+		return '';
 	}
 
 	/**

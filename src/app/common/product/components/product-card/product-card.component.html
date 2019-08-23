@@ -17,7 +17,6 @@
 		<div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
 			<checkbox-app
 				[checked]="checked"
-				size="12"
 				(check)="onChecked()"
 				(uncheck)="onUnchecked()">
 			</checkbox-app>
@@ -25,7 +24,7 @@
 	</div>
 
 	<!-- right side -->
-	<div class="right flexColumn">
+	<div class="right">
 		<!-- title -->
 		<div class="title-section flex" (click)="clickTitle()">
 			<h5 class="title ellipsis">{{ product?.name }}</h5>
@@ -39,8 +38,10 @@
 				<ng-container *ngIf="product?.minimumOrderQuantity" i18n="example: min (minimum) 150 pcs (pieces)@@min-pcs">Min {{ product?.minimumOrderQuantity }} pcs</ng-container>
 			</span>
 			<!-- description - supplier-->
-			<span class="description-text ellipsis"> {{ product?.description || '' }} </span>
-			<span class="description-text ellipsis">{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}</span>
+			<span class="description-text ellipsis">
+				{{ product?.price || product?.minimumOrderQuantity ? ' -' : ''}}
+				{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}
+			</span>
 		</div>
 		<!-- thumb -->
 		<div class="thumb-section flex">
