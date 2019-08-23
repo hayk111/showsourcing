@@ -1,21 +1,13 @@
 :host {
-	position: absolute;
-	bottom: 0;
+	display: block;
+	width: 100%;
 	background: white;
 	z-index: var(--z-card-container);
 	overflow-x: hidden;
 	overflow-y: auto;
-	width: 300px;
 	box-sizing: border-box;
 	padding: var(--spacing-l);
 	height: 100vh;
-	&.alignRight {
-		right: 0;
-	}
-	&.alignLeft {
-		left: 0;
-	}
-
 }
 
 divider-app {
