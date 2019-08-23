@@ -96,7 +96,7 @@
 	<!-- Extended Fields -->
 	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'extended fields'" i18n-title="@@extended-fields">
 		<extended-form-app
-			inlineLabel="true"
+			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="product?.extendedFields"
 			(update)="update($event, 'extendedFields')">

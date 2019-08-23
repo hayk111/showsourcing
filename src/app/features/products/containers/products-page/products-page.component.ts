@@ -115,15 +115,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.filterList.resetAll();
 	}
 
-	onShowArchived() {
-		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
-		this.listSrv.addFilter(archivedFilter);
-
-		this.listSrv.refetch({
-			query: 'deleted == false AND archived == true',
-		}).subscribe();
-	}
-
 	onHideArchived() {
 		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
 		this.listSrv.removeFilter(archivedFilter);
@@ -131,16 +122,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.refetch({
 			query: 'deleted == false AND archived == false',
 		}).subscribe();
-	}
-
-	onShowAssignee() {
-		const assigneeFilter = { type: FilterType.ASSIGNEE, value: true };
-		this.listSrv.addFilter(assigneeFilter);
-	}
-
-	onHideAssignee() {
-		const assigneeFilter = { type: FilterType.ASSIGNEE, value: true };
-		this.listSrv.removeFilter(assigneeFilter);
 	}
 
 	@HostListener('window:resize', ['$event'])
@@ -195,7 +176,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	showItemsPerPage(count: number) {
-		this.selectItemsConfig = {take: Number(count)};
+		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
@@ -213,7 +194,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	onArchive(product: Product | Product[]) {
 		// TODO i18n
 		if (Array.isArray(product)) {
-			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({

@@ -14,10 +14,10 @@
 	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
-	(showArchived)="onShowArchived()"
-	(hideArchived)="onHideArchived()"
-	(showAssigned)="onShowAssignee()"
-	(hideAssigned)="onHideAssignee()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(clearFilters)="listSrv.filterList.resetAll()"
 	(search)="listSrv.search($event)">
 </sub-panel-app>

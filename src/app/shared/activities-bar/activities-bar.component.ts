@@ -10,9 +10,7 @@ import { ReplyStatus, Task } from '~core/models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivitiesBarComponent implements OnInit {
-
-	@Input() rows: any[];
-	@Input() id?: string;
+	@Input() row: any;
 	@Input() favourite = false;
 	@Input() hasSamples = false;
 	@Input() hasTasks = false;
@@ -29,25 +27,25 @@ export class ActivitiesBarComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.openRequestsCount$ = this.requestElementService
-			.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product" AND (reply.status != "${ReplyStatus.CANCELED}")`);
+		if (this.row && this.row.id) {
+			this.openRequestsCount$ = this.requestElementService
+				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status != "${ReplyStatus.CANCELED}")`);
+			this.openReviewRequestsCount$ = this.requestElementService
+				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
 
-		this.openReviewRequestsCount$ = this.requestElementService
-			.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
-
-		this.hasTaskOverdue = this.hasTasksOverdue(this.id);
+			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
+		}
 	}
 
 	hasTasksOverdue(id) {
+		console.log('TCL: ActivitiesBarComponent -> hasTasksOverdue -> this.rows', this.row);
 		if (!id) {
 			return false;
 		}
 
-		const foundElem = (this.rows as any[]).find(o => o.id === id);
-
-		if (foundElem
-			&& foundElem.tasksLinked.count
-			&& (foundElem.tasksLinked.items.filter(t => this.isTaskOverdued(t)).length > 0)) {
+		if (this.row
+			&& this.row.tasksLinked.count
+			&& (this.row.tasksLinked.items.filter(task => this.isTaskOverdued(task)).length > 0)) {
 			return true;
 		}
 
@@ -63,8 +61,8 @@ export class ActivitiesBarComponent implements OnInit {
 			return -1;
 		}
 
-		const votesVals = votes.map(v => v.value);
-		const sum = votesVals.reduce((a, b) => a + b, 0);
+		const votesVals = votes.map(vote => vote.value);
+		const sum = votesVals.reduce((votePrev, voteNext) => votePrev + voteNext, 0);
 		return Math.round( sum / votes.length * 10 ) / 10;
 	}
 }

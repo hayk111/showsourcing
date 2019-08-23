@@ -1,4 +1,4 @@
-:host ::ng-deep .filters-title-section icon-app {
+.filters-title-section icon-app {
 	display: inline-block;
 }
 
@@ -6,10 +6,20 @@
 	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
 }
 
+side-panel-title-app {
+	margin-top: 2px;
+}
+
 .filters-title-section {
 	display: flex;
 	justify-content: space-between;
-	height: 47px;
+	height: 41px;
+}
+
+.title-divider {
+	position: absolute;
+	left: 0;
+	width: 100%;
 }
 
 .clear-filters-container {
@@ -20,7 +30,7 @@
 .clear-filters {
 	position: absolute;
 	right: 16px;
-	top: 1px;
+	top: 3px;
 	width: 106px;
   height: 20px;
   font-size: var(--font-size-m);

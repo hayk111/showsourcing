@@ -30,6 +30,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasSelection = true;
 	/** whether the table rows have a contextual menu */
 	@Input() hasMenu = true;
+	/** whether the table has header row */
+	@Input() hasHeader = true;
 	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
 	/** whether rows are selectable and pagination is visible */

@@ -60,35 +60,9 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		}, false);
 	}
 
-	onShowArchived() {
-		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
-		this.listSrv.addFilter(archivedFilter);
-
-		this.selectItemsConfig.query = 'deleted == false AND archived == true';
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
-	}
-
-	onHideArchived() {
-		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
-		this.listSrv.removeFilter(archivedFilter);
-
-		this.selectItemsConfig.query = 'deleted == false AND archived == false';
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
-	}
-
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig.take = Number(count);
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
-	}
-
-	onShowAssignee() {
-		const archivedFilter = { type: FilterType.ASSIGNEE, value: true };
-		this.listSrv.addFilter(archivedFilter);
-	}
-
-	onHideAssignee() {
-		const archivedFilter = { type: FilterType.ASSIGNEE, value: true };
-		this.listSrv.removeFilter(archivedFilter);
 	}
 
 	@HostListener('window:resize', ['$event'])
@@ -132,7 +106,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 
 		return width <= SCREEN_MAX_WIDTH_OVERLAP;
 	}
-	// can be moved to ListPageService
+
 	onArchive(supplier: Supplier | Supplier[]) {
 		// TODO i18n
 		if (Array.isArray(supplier)) {

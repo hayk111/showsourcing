@@ -16,6 +16,7 @@ import {
 	ProductService,
 	ProjectService,
 	RequestTemplateService,
+	SelectorElementService,
 	SupplierService,
 	TagService,
 	TeamUserService,
@@ -44,12 +45,13 @@ import {
 	WeightUnit,
 } from '~models';
 import { Supplier } from '~models/supplier.model';
+import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters';
+import { ID } from '~utils';
 import { countries, currencies, harbours, incoTerms } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
 
-import { PickerField } from '../components';
 
 @Injectable({
 	providedIn: 'root',
@@ -81,6 +83,7 @@ export class SelectorsService {
 		private productSrv: ProductService,
 		private projectSrv: ProjectService,
 		private requestTemplateSrv: RequestTemplateService,
+		private selectorElementSrv: SelectorElementService,
 		private supplierSrv: SupplierService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagSrv: TagService,
@@ -159,6 +162,9 @@ export class SelectorsService {
 					break;
 				case ERM.PICKER_FIELD:
 					this.search$.next(searchTxt);
+					break;
+				case ERM.SELECTOR_ELEMENT:
+					this.currentSearchQuery = `value CONTAINS[c] "${searchTxt}"`;
 					break;
 				default: throw Error(`Unsupported type for search ${type}`);
 			}
@@ -348,7 +354,7 @@ export class SelectorsService {
 		return this.items$;
 	}
 
-	getPickerFields(fields: PickerField[]): Observable<PickerField[]> {
+	getDynamicFields(fields: DynamicField[]): Observable<DynamicField[]> {
 		this.items$ = this.search$.pipe(
 			map(item => fields.filter(field => {
 				const isMatch = field.label ?
@@ -357,6 +363,13 @@ export class SelectorsService {
 			}
 			)),
 		);
+		return this.items$;
+	}
+
+	getSelectorElements(definitionReference: ID) {
+		this.selectParams = { ...this.selectParams, sortBy: 'value', query: `fieldDefinition.id == "${definitionReference}"` };
+		this.listResult = this.selectorElementSrv.getListQuery(this.selectParams, '', Client.TEAM);
+		this.setItems();
 		return this.items$;
 	}
 

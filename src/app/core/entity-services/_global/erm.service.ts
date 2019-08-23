@@ -40,6 +40,7 @@ import { RequestReplyService } from '../request-reply/request-reply.service';
 import { RequestTemplateService } from '../request-template/request-template.service';
 import { SupplierRequestService } from '../supplier-request/supplier-request.service';
 import { GlobalService } from './global.service';
+import { SelectorElementService } from '../selector-element/selector-element.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -72,6 +73,7 @@ export class ERMService {
 		private requestReplyService: RequestReplyService,
 		private requestTemplateService: RequestTemplateService,
 		private sampleSrv: SampleService,
+		private selectorElementSrv: SelectorElementService,
 		private sampleStatusSrv: SampleStatusService,
 		private supplierService: SupplierService,
 		private supplierRequestSrv: SupplierRequestService,
@@ -139,6 +141,8 @@ export class ERMService {
 				return this.sampleSrv;
 			case 'SampleStatus':
 				return this.sampleStatusSrv;
+			case 'SelectorElement':
+				return this.selectorElementSrv;
 			case 'Supplier':
 				return this.supplierService;
 			case 'SupplierStatus':
@@ -213,6 +217,8 @@ export class ERMService {
 				return this.sampleSrv;
 			case ERM.SAMPLE_STATUS:
 				return this.sampleStatusSrv;
+			case ERM.SELECTOR_ELEMENT:
+				return this.selectorElementSrv;
 			case ERM.SUPPLIER:
 				return this.supplierService;
 			case ERM.SUPPLIER_REQUEST:

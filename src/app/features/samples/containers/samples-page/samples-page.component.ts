@@ -93,38 +93,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.onItemFavorited(sample.id);
 	}
 
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-	}
-
-	onShowArchived() {
-		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
-		this.listSrv.addFilter(archivedFilter);
-
-		this.listSrv.refetch({
-			query: 'deleted == false AND archived == true',
-		}).subscribe();
-	}
-
-	onHideArchived() {
-		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
-		this.listSrv.removeFilter(archivedFilter);
-
-		this.listSrv.refetch({
-			query: 'deleted == false AND archived == false',
-		}).subscribe();
-	}
-
-	onShowAssignee() {
-		const assigneeFilter = { type: FilterType.ASSIGNEE, value: true };
-		this.listSrv.addFilter(assigneeFilter);
-	}
-
-	onHideAssignee() {
-		const assigneeFilter = { type: FilterType.ASSIGNEE, value: true };
-		this.listSrv.removeFilter(assigneeFilter);
-	}
-
 	@HostListener('window:resize', ['$event'])
 	onResize() {
 		if (this.tableWidth) {
