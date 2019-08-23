@@ -1,0 +1,13 @@
+<card-app>
+	<card-title-app>Latest Notifications</card-title-app>
+	<ng-container *ngIf="notifications$ | async as notifications">
+		<notif-list-app
+			[isDashboardBox]="true"
+			[activities]="notifications?.results.slice(0, 4)"
+		>
+		</notif-list-app>
+		<card-footer-app class="flexCenter" *ngIf="notifications?.results.length > 0">
+			<span (click)="openPanel()">View All</span>
+		</card-footer-app>
+	</ng-container>
+</card-app>
