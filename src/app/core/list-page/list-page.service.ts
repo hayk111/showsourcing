@@ -436,4 +436,32 @@ export class ListPageService
 		return this.selectionSrv.getSelectionValues();
 	}
 
+	filterByArchived(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.ARCHIVED, value: true };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			this.refetch({
+				query: 'deleted == false AND archived == true',
+			}).subscribe();
+
+			return;
+		}
+
+		this.removeFilter(filterParam);
+		this.refetch({
+			query: 'deleted == false AND archived == false',
+		}).subscribe();
+	}
+
+	filterByAssignee(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.ASSIGNEE, value: true };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
+	}
 }

@@ -27,13 +27,14 @@ export class ActivitiesBarComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.openRequestsCount$ = this.requestElementService
-			.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status != "${ReplyStatus.CANCELED}")`);
+		if (this.row && this.row.id) {
+			this.openRequestsCount$ = this.requestElementService
+				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status != "${ReplyStatus.CANCELED}")`);
+			this.openReviewRequestsCount$ = this.requestElementService
+				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
 
-		this.openReviewRequestsCount$ = this.requestElementService
-			.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
-
-		this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
+			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
+		}
 	}
 
 	hasTasksOverdue(id) {

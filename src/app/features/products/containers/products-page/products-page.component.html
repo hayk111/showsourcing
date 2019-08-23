@@ -21,10 +21,10 @@
 	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
 	(search)="listSrv.search($event)"
 	(clearFilters)="onClearFilters()"
-	(showArchived)="onShowArchived()"
-	(hideArchived)="onHideArchived()"
-	(showAssigned)="onShowAssignee()"
-	(hideAssigned)="onHideAssignee()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(export)="onExport()"
 	(showFilters)="onShowFilters()"
 	(viewChange)="onViewChange($event)">
@@ -129,18 +129,18 @@
 		(close)="listSrv.unselectAll()">
 	</product-selection-bar-app>
 
-	<filters-app
-		*ngIf="listSrv.filterPanelOpen"
-		[filterList]="listSrv.filterList"
-		[filterTypes]="filterTypes"
-		[overlap]="isOverlap()"
-		(clickOutside)="onCloseFilter()"
-		(close)="onCloseFilter()">
-	</filters-app>
-
 	<product-preview-app
 		*ngIf="listSrv.previewOpen"
 		[product]="listSrv.previewed"
 		(close)="listSrv.closePreview()">
 	</product-preview-app>
 </ng-container>
+
+<filters-app
+	*ngIf="listSrv.filterPanelOpen"
+	[filterList]="listSrv.filterList"
+	[filterTypes]="filterTypes"
+	[overlap]="isOverlap()"
+	(clickOutside)="onCloseFilter()"
+	(close)="onCloseFilter()">
+</filters-app>
