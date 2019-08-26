@@ -15,7 +15,6 @@ import { Observable, of } from 'rxjs';
 export class SamplesListViewComponent extends ListViewComponent<Sample> {
 
 	erm = ERM;
-	supplierErm = ERM.SUPPLIER;
 
 	@Output() archive = new EventEmitter<Sample>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
