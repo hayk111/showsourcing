@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
-import { TableDescriptor } from '~shared/table';
 import { Sort } from '~shared/table/components/sort.interface';
+
+
 
 @Component({
 	selector: 'products-list-view-app',
@@ -32,6 +33,4 @@ export class ProductsListViewComponent extends ListViewComponent<Product> {
 	constructor() {
 		super();
 	}
-
-
 }

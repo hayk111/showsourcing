@@ -69,7 +69,7 @@
 
   <!-- dynamic columns -->
   <ng-template 
-    *ngFor="let column of columnNames; trackBy: trackByFn" 
+    *ngFor="let column of columns; trackBy: trackByFn" 
     let-row="row" 
     [columnApp]="column">
     <ng-container [ngSwitch]="column">
