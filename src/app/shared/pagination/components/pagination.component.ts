@@ -14,6 +14,8 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	@Input() itemsPerPage = DEFAULT_TAKE_PAGINATION;
 	/** total number of items */
 	@Input() count = 0;
+	/** whether we should show per page items count */
+	@Input() hasPageItemsCount = true;
 	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20] if 3 we display [1, 2, 3 ] */
 	@Input() set width(value: number) {
 		if (value % 2 === 0)
@@ -26,13 +28,24 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	/** current index of the pagination (starts at 1) */
 	@Input() currentPage = 0;
 	@Output() goToPage = new EventEmitter<number>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	/** how many pages our pagination has */
 	totalPages;
 	/** the pages displayed */
 	range: Array<number> = [];
+	pageItemsCount = [25, 50, 100, 200];
 
 	ngOnChanges() {
+		this.totalPages = this.getTotalPages(this.count, this.itemsPerPage);
+		this.buildPaginatorRange();
+	}
+
+	onChangePerPageCount(count) {
+		this.goToIndexPage(0);
+		this.showItemsPerPage.emit(count);
+		this.itemsPerPage = count;
+
 		this.totalPages = this.getTotalPages(this.count, this.itemsPerPage);
 		this.buildPaginatorRange();
 	}
@@ -45,22 +58,44 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 		}
 	}
 
-	goToPreviousPage() {
+	goToPreviousPage(disabled = false) {
+		if (disabled)
+			return;
 		if (this.currentPage > 0)
 			this.goToIndexPage(this.currentPage - 1);
 	}
 
-	goToNextPage() {
+	goToNextPage(disabled = false) {
+		if (disabled)
+			return;
 		if (this.currentPage < this.totalPages - 1)
 			this.goToIndexPage(this.currentPage + 1);
 	}
 
-	goToFirstPage() {
-		this.currentPage = 1;
+	goToFirstPage(disabled = false) {
+		if (disabled)
+			return;
+		this.goToIndexPage(0);
+	}
+
+	goToLastPage(disabled = false) {
+		if (disabled)
+			return;
+		this.goToIndexPage(this.totalPages - 1);
 	}
 
 	getTotalPages(count: number, itemsPerPage: number) {
 		return Math.max(1, Math.ceil(count / itemsPerPage));
+	}
+
+	getPerPageItemsCount() {
+		const perPageItems = Number(this.itemsPerPage);
+		const fromNumber = this.currentPage * perPageItems;
+		const toNumber = fromNumber + perPageItems < this.count
+			? fromNumber + perPageItems
+			: this.count;
+
+		return `Showing ${fromNumber} - ${toNumber} of ${this.count}`;
 	}
 
 	private buildPaginatorRange() {

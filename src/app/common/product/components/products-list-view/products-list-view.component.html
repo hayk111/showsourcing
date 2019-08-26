@@ -1,189 +1,222 @@
 
 <custom-table-app
-	class="list"
-	[rows]="rows"
-	[descriptor]="descriptor"
-	[contextualMenu]="contextualMenuTemplate"
-	[hasMenu]="hasMenu"
-	[selected]="selection"
-	[currentSort]="currentSort"
-	placeholder="No product"
-	[pending]="pending"
-	[count]="count"
-	[currentPage]="currentPage"
-	(goToPage)="goToPage.emit($event)"
-	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)"
-	(selectOne)="select.emit($event)"
-	(unselectOne)="unselect.emit($event)"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()"
-	i18n-placeholder="@@no-product">
+  class="list"
+  [width]="tableWidth"
+  [rows]="rows"
+  [descriptor]="descriptor"
+  [contextualMenu]="contextualMenuTemplate"
+  [hasMenu]="hasMenu"
+  [selected]="selection"
+  [currentSort]="currentSort"
+  placeholder="No product"
+  [pending]="pending"
+  [count]="count"
+  [currentPage]="currentPage"
+  (goToPage)="goToPage.emit($event)"
+  (bottomReached)="bottomReached.emit()"
+  (sort)="sort.emit($event)"
+  (selectOne)="select.emit($event)"
+  (unselectOne)="unselect.emit($event)"
+  (selectAll)="selectAll.emit($event)"
+  (unselectAll)="unselectAll.emit()"
+  (showItemsPerPage)="showItemsPerPage.emit($event)"
+  i18n-placeholder="@@no-product">
 </custom-table-app>
 
 <!-- contextual menu -->
 <ng-template #contextualMenu let-row="row">
-	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="openAddToProjectDialog.emit(row)"
-		i18n="button@@add-to-project">
-		Add to project
-	</context-menu-item-app>
-	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="openCreateRequestDlg.emit(row)"
-		i18n="button@@send-request-supplier">
-		Send request to supplier
-	</context-menu-item-app>
-	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="openRequestFeedbackDialog.emit(row)"
-		i18n="button@@request-feedback">
-		Request feedback
-	</context-menu-item-app>
-	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="openExportDialog.emit(row)"
-		i18n="button@@export">
-		Export
-	</context-menu-item-app>
-	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="archiveProduct.emit(row)"
-		i18n="button@@archive">
-		Archive
-	</context-menu-item-app>
-	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="delete.emit(row)"
-		i18n="button@@delete">
-		Delete
-	</context-menu-item-app>
+  <context-menu-item-app
+    class="pointer"
+    (click)="setFavourite.emit(row)"
+    i18n="button@@set-as-favourite">
+    Set as Favourite
+  </context-menu-item-app>
+  <context-menu-item-app
+    class="pointer"
+    (click)="openAddToProjectDialog.emit(row)"
+    i18n="button@@add-to-project">
+    Add to Project
+  </context-menu-item-app>
+  <context-menu-item-app
+    class="pointer"
+    (click)="openAddTaskDialog.emit(row)"
+    i18n="button@@add-task">
+    Add Task
+  </context-menu-item-app>
+  <context-menu-item-app
+    class="pointer"
+    (click)="openAddSampleDialog.emit(row)"
+    i18n="button@@add-sample">
+    Add Sample
+  </context-menu-item-app>
+  <divider-app></divider-app>
+  <context-menu-item-app
+    class="pointer"
+    (click)="archive.emit(row)"
+    i18n="button@@archive">
+    Archive
+  </context-menu-item-app>
+  <context-menu-item-app
+    class="pointer"
+    (click)="delete.emit(row)"
+    i18n="button@@delete">
+    Delete
+  </context-menu-item-app>
 </ng-template>
 
 <!-- product preview -->
 <ng-template #main let-row="row">
-	<div class="mainCellWrapper ellipsis name-container contain-strict">
-		<div class="mainCell ellipsis">
-			<logo-app class="mini imgCtnr"
-				[logo]="row.images[0]" size="l" type="product"></logo-app>
-			<span class="ellipsis">
-				<a class="name txt-btn" [routerLink]="['/product', row.id]">
-					{{ row.name || '-' }}
-				</a>
-			</span>
-			<button class="small secondary-dark preview" *ngIf="productPreview" (click)="previewClick.emit(row)" i18n="@@preview">Preview</button>
-		</div>
-	</div>
+  <div class="ellipsis name-container contain-strict">
+    <div class="ellipsis flex">
+
+      <div class="preview-imgs" (click)="previewClick.emit(row)">
+        <logo-app class="mini imgCtnr"
+          [logo]="row.images[0]" size="m" type="product"></logo-app>
+        <div class="hover-img">
+          <icon-app name="eye" class="preview-hover-img"></icon-app>
+        </div>
+      </div>
+
+      <div class="flexColumn ref-ctnr">
+        <span class="product-ref ellipsis">
+          <a class="name txt-btn" [routerLink]="['/product', row.id]">
+            {{ row.name || '-' }}
+          </a>
+        </span>
+  
+        <div class="product-name-ref">
+          {{ row.name || '-' }}
+        </div>
+      </div>
+
+    </div>
+  </div>
 </ng-template>
 
 <!-- supplier -->
 <ng-template #supplier let-row="row">
-	<selector-app
-		type="supplier"
-		[canCreate]="true"
-		[width]="370"
-		(update)="update.emit({ id: row.id, supplier: $event })">
-		<div class="ellipsis pointer txt-btn"> {{ row?.supplier?.name || '-' }}</div>
-	</selector-app>
+  <selector-app
+    type="supplier"
+    [canCreate]="true"
+    [width]="370"
+    (update)="update.emit({ id: row.id, supplier: $event })">
+    <div class="ellipsis pointer supplier txt-btn"> {{ row?.supplier?.name || '-' }}</div>
+  </selector-app>
 </ng-template>
 
 <!-- category -->
 <ng-template #category let-row="row">
-	<selector-app
-		type="category"
-		[canCreate]="true"
-		[width]="370"
-		(update)="update.emit({ id: row.id, category: $event })">
-		<div class="ellipsis pointer txt-btn"> {{ row?.category?.name || '-' }}</div>
-	</selector-app>
+  <selector-app
+    type="category"
+    [canCreate]="true"
+    [width]="370"
+    (update)="update.emit({ id: row.id, category: $event })">
+    <div class="ellipsis pointer txt-btn" class="category"> {{ row?.category?.name || '-' }}</div>
+  </selector-app>
+</ng-template>
+
+<!-- activities -->
+<ng-template #activities let-row="row">
+  <activities-bar-app
+    [row]="row"
+    [favourite]="row?.favorite"
+    [hasSamples]="!!row?.samplesLinked.count"
+    [hasTasks]="!!row?.tasksLinked.count"
+    [hasComments]="!!row?.comments.length"
+    [votes]="row?.votes">
+  </activities-bar-app>
 </ng-template>
 
 <!-- price -->
 <ng-template #price let-row="row">
-	<editable-text-app
-		#editable
-		[hasAction]="false"
-		(opened)="inp.focus()"
-		(closed)="update.emit({ id: row.id, price: inp.price })">
-		<editable-label-app>
-			<price-app
-				[price]="row?.price">
-			</price-app>
-		</editable-label-app>
-		<input-price-app
-			#inp
-			(keyup.enter)="editable.close()"
-			[price]="row?.price">
-		</input-price-app>
-	</editable-text-app>
+  <editable-text-app
+    #editable
+    [hasAction]="false"
+    (opened)="inp.focus()"
+    (closed)="update.emit({ id: row.id, price: inp.price })">
+    <editable-label-app>
+      <price-app
+        [price]="row?.price"
+        [moq]="row?.minimumOrderQuantity"
+        [moqDesc]="row?.moqDescription">
+      </price-app>
+    </editable-label-app>
+    <input-price-app
+      #inp
+      (keyup.enter)="editable.close()"
+      [price]="row?.price">
+    </input-price-app>
+  </editable-text-app>
 </ng-template>
 
 <!-- moq -->
 <ng-template #moq let-row="row">
-	<editable-text-app
-		#editable
-		[hasAction]="false"
-		(opened)="inp.focus()"
-		(closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
-		<editable-label-app>
-			<moq-app
-				*ngIf="row?.minimumOrderQuantity; else noMoq"
-				[amount]="row?.minimumOrderQuantity">
-			</moq-app>
-			<ng-template #noMoq> <div>-</div> </ng-template>
-		</editable-label-app>
-		<input #inp inputApp type="number" [value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
-	</editable-text-app>
+  <editable-text-app
+    #editable
+    [hasAction]="false"
+    (opened)="inp.focus()"
+    (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
+    <editable-label-app>
+      <moq-app
+        *ngIf="row?.minimumOrderQuantity; else noMoq"
+        [amount]="row?.minimumOrderQuantity">
+      </moq-app>
+      <ng-template #noMoq> <div>-</div> </ng-template>
+    </editable-label-app>
+    <input #inp inputApp type="number" [value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
+  </editable-text-app>
 </ng-template>
 
 <!-- creation date -->
 <ng-template #creationDate let-row="row">
-	{{ row?.creationDate | date: 'dd MMMM y' }}
+  {{ row?.creationDate | date: 'dd MMMM y' }}
 </ng-template>
 
 <!-- created by -->
 <ng-template #createdBy let-row="row">
-	{{ row?.createdBy | formatUserName }}
+  <span class="created-by">{{ row?.createdBy | formatUserName }}</span>
+  <div class="created-by-date">
+    {{ row?.creationDate | date: 'dd MMMM y' }}
+  </div>
 </ng-template>
 
 <!-- favorite -->
 <ng-template #rating let-row="row">
-	<div>
-		<rating-heart-app
-			[favorite]="row?.favorite"
-			(favorited)="favorited.emit(row.id)"
-			(unfavorited)="unfavorited.emit(row.id)">
-		</rating-heart-app>
-	</div>
+  <div>
+    <rating-heart-app
+      [favorite]="row?.favorite"
+      (favorited)="favorited.emit(row.id)"
+      (unfavorited)="unfavorited.emit(row.id)">
+    </rating-heart-app>
+  </div>
 </ng-template>
 
 <!-- projects -->
 <ng-template #projects let-row="row">
-	<div class="flexCenter">
-		<span *ngFor="let project of row.projects; trackBy: trackByFn">
-			{{ project.name || '-' }}
-		</span>
-	</div>
+  <div class="flexCenter">
+    <span *ngFor="let project of row.projects; trackBy: trackByFn">
+      {{ project.name || '-' }}
+    </span>
+  </div>
 </ng-template>
 
 <!-- status -->
 <ng-template #status let-row="row">
-	<status-selector-app [entity]="row" [typeEntity]="prodErm" selectSize="s"></status-selector-app>
+  <status-selector-app [entity]="row" [typeEntity]="prodErm" selectSize="s"></status-selector-app>
 </ng-template>
 
 
 <!-- for some mindblowing reason if this is put last,
-	the viewchild for default template is undefined -->
+  the viewchild for default template is undefined -->
 <ng-template #default let-row="row" let-column="column">
-	{{ row[column.propName] }}
+  {{ row[column.propName] }}
 </ng-template>
 
 <!-- user -->
 <ng-template #user let-row="row">
-	<div class="flexCenter userP">{{ row?.createdBy | formatUserName }}</div>
-	<ng-template>
-		<!-- none -->
-		<ng-template #none></ng-template>
-	</ng-template>
+  <div class="flexCenter userP">{{ row?.createdBy | formatUserName }}</div>
+  <ng-template>
+    <!-- none -->
+    <ng-template #none></ng-template>
+  </ng-template>
 </ng-template>

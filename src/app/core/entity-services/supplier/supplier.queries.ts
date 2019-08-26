@@ -67,6 +67,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.user('lastUpdatedBy')}
 		${SupplierQueries.productsLinked}
 		${SupplierQueries.logoImage}
+		${SupplierQueries.supplierType}
 	`;
 
 	static readonly all = `

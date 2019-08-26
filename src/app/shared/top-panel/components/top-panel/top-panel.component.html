@@ -9,7 +9,8 @@
 
 <div class="right flexCenter">
 
-	<button *ngIf="hasAction" (click)="buttonClick.emit()" class="button auto">
+	<button *ngIf="hasAction" [ngStyle]= "{'margin-right': buttonRightMargin}"
+		(click)="buttonClick.emit()" class="button auto">
 		<span class="spacing"> {{ buttonName }} </span>
 	</button>
 

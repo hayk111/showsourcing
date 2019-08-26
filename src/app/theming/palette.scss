@@ -5,6 +5,7 @@
 	--color-bg-secondary: #e6ebf5;
 
 	--color-primary: #45ADFF;
+	--color-primary-with-opacity: rgba(69, 173, 255, 0.5);
 	--color-primary-light: #ecf6ff;
 	--color-primary-contrast: #fff;
 
@@ -117,6 +118,10 @@
 	color: var(--color-secondary-dark);
 }
 
+.color-txt-third {
+	color: var(--color-txt-third);
+}
+
 .color-txt-dark {
 	color: var(--color-txt-primary);
 }
@@ -128,7 +133,6 @@
 .color-txt-strong, .color-strong {
 	color: var(--color-txt-strong);
 }
-
 
 /* Background */
 

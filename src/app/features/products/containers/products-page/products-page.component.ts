@@ -1,17 +1,22 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, interval } from 'rxjs';
-import { switchMap, takeUntil, timeout, tap } from 'rxjs/operators';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges, ViewChild, HostListener } from '@angular/core';
+import { Observable } from 'rxjs';
+import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { ProductService, UserService } from '~core/entity-services';
+import { ProductService, UserService, RequestElementService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
-import { FilterType } from '~shared/filters';
+import { FilterType, Filter } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { ProductFeatureService } from '~features/products/services';
+import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
+import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
+import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/filters/components';
+import { ProductListComponent } from '~deprecated/product-list/product-list.component';
+import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
-import { DialogService } from '~shared/dialog/services';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SCREEN_MAX_WIDTH_OVERLAP, FILTERS_PANE_WIDTH } from '~features/const';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -27,6 +32,12 @@ import { DialogService } from '~shared/dialog/services';
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+	@ViewChild('productList', { read: ElementRef, static: false })
+	public productListElem: ElementRef;
+
+	public tableWidth: string;
+	public addProductMargin: string;
+
 	erm = ERM;
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
@@ -43,16 +54,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	];
 
 	productsCount$: Observable<number>;
+	selectItemsConfig: SelectParamsConfig;
+	requestCount$: Observable<number>;
 
 	constructor(
 		private productSrv: ProductService,
-		private dlgSrv: DialogService,
+		private notifSrv: NotificationService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
 		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
-		private notifSrv: NotificationService
+		protected dlgSrv: DialogService,
 	) {
 		super();
 	}
@@ -69,7 +82,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			key: ListPageKey.PRODUCTS,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
-			selectParams: { query: 'deleted == false' },
+			selectParams: { query: 'deleted == false AND archived == false' },
 			// we use the deleted filter there so we can send the query to export all to the export dlg
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
@@ -87,10 +100,53 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	ngAfterViewInit() {
 		this.listSrv.loadData(this._destroy$);
+		this.onClearFilters();
 	}
 
 	onViewChange(view: 'list' | 'card') {
 		this.listSrv.changeView(view);
+	}
+
+	onFavourite(product: Product) {
+		this.listSrv.onItemFavorited(product.id);
+	}
+
+	onClearFilters() {
+		this.listSrv.filterList.resetAll();
+	}
+
+	onHideArchived() {
+		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
+		this.listSrv.removeFilter(archivedFilter);
+
+		this.listSrv.refetch({
+			query: 'deleted == false AND archived == false',
+		}).subscribe();
+	}
+
+	onShowFilters() {
+		this.listSrv.openFilterPanel();
+	}
+
+	onCloseFilter() {
+		this.listSrv.closeFilterPanel();
+	}
+
+	isOverlap(): boolean {
+		const width = window.innerWidth
+		|| document.documentElement.clientWidth
+		|| document.body.clientWidth;
+
+		return width <= SCREEN_MAX_WIDTH_OVERLAP;
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+	}
+
+	onExport() {
+		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
 	}
 
 	getFilterAmount() {
@@ -103,12 +159,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	onArchive(product: Product | Product[]) {
 		// TODO i18n
 		if (Array.isArray(product)) {
-			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Products archived',
+						title: 'Product archived',
 						message: 'Products have been archived with success'
 					});
 				});

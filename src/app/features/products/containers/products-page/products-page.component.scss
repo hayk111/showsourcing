@@ -1,7 +1,22 @@
+$max-screen-overlap: 1500px;
+
 :host {
 	display: flex;
-	flex-direction: column;
 	height: 100%;
+}
+
+@media only screen and (min-width: $max-screen-overlap) {
+	.products-content {
+		width: 0;
+	}
+}
+
+products-list-view-app {
+	padding: 24px;
+}
+
+sub-panel-app {
+	overflow: hidden;
 }
 
 product-sorting-menu-app {
