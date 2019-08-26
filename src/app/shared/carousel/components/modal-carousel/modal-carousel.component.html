@@ -6,9 +6,10 @@
 			<ng-container [ngSwitch]="entity?.__typename">
 				<product-modal-top-panel
 					*ngSwitchCase="'Product'"
+					[isOpen]="isOpen"
 					[product]="entity"
-					(delete)="onDelete()"
 					[selectedIndex]="selectedIndex"
+					(delete)="onDelete()"
 					(openFileBrowser)="openFileBrowser.emit()"
 					(close)="close()"
 				></product-modal-top-panel>
@@ -30,16 +31,14 @@
 			<div toolTip 	*ngIf="images?.length > 1" class="tooltip back" toolTipMessage="Previous picture" toolTipShowDelay="100">
 				<div
 					class="move-btn back flexCenter pointer"
-					(mousedown)="back($event)"
-				>
+					(mousedown)="back($event)">
 					<icon-app fontSet="fa" name="angle-left"></icon-app>
 				</div>
 			</div>
 			<div toolTip 	*ngIf="images?.length > 1" class="tooltip next" toolTipMessage="Next picture" toolTipShowDelay="100">
 			<div
 				class="move-btn next flexCenter pointer"
-				(mousedown)="next($event)"
-			>
+				(mousedown)="next($event)">
 					<icon-app fontSet="fa" name="angle-right"></icon-app>
 				</div>
 			</div>
