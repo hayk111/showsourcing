@@ -65,37 +65,11 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
-	@HostListener('window:resize', ['$event'])
-	onResize() {
-		if (this.tableWidth) {
-			this.tableWidth = null;
-		}
-	}
-
 	onShowFilters() {
-		const width = window.innerWidth
-			|| document.documentElement.clientWidth
-			|| document.body.clientWidth;
-
-		// for browser window less than SCREEN_MAX_WIDTH_OVERLAP show filters tab over the table
-		if (width > SCREEN_MAX_WIDTH_OVERLAP) {
-			this.tableWidth = (this.supplierListElem.nativeElement.offsetWidth - FILTERS_PANE_WIDTH) + 'px';
-			this.addSupplierMargin = FILTERS_PANE_WIDTH + 'px';
-		}
-
 		this.listSrv.openFilterPanel();
 	}
 
 	onCloseFilter() {
-		const width = window.innerWidth
-			|| document.documentElement.clientWidth
-			|| document.body.clientWidth;
-
-		// for browser window less than 1500px show filters tab over the table
-		if (width > SCREEN_MAX_WIDTH_OVERLAP) {
-			this.tableWidth = 'unset';
-			this.addSupplierMargin = 'unset';
-		}
 		this.listSrv.closeFilterPanel();
 	}
 

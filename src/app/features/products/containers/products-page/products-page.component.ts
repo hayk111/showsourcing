@@ -124,37 +124,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		}).subscribe();
 	}
 
-	@HostListener('window:resize', ['$event'])
-	onResize() {
-		// if (this.tableWidth) {
-		// 	this.tableWidth = null;
-		// }
-	}
-
 	onShowFilters() {
-		// const width = window.innerWidth
-		// 	|| document.documentElement.clientWidth
-		// 	|| document.body.clientWidth;
-
-		// // for browser window less than SCREEN_MAX_WIDTH_OVERLAP show filters tab over the table
-		// if (width > SCREEN_MAX_WIDTH_OVERLAP) {
-		// 	this.tableWidth = (this.productListElem.nativeElement.offsetWidth - FILTERS_PANE_WIDTH) + 'px';
-		// 	this.addProductMargin = FILTERS_PANE_WIDTH + 'px';
-		// }
-
 		this.listSrv.openFilterPanel();
 	}
 
 	onCloseFilter() {
-		// const width = window.innerWidth
-		// 	|| document.documentElement.clientWidth
-		// 	|| document.body.clientWidth;
-
-		// // for browser window less than 1500px show filters tab over the table
-		// if (width > SCREEN_MAX_WIDTH_OVERLAP) {
-		// 	this.tableWidth = 'unset';
-		// 	this.addProductMargin = 'unset';
-		// }
 		this.listSrv.closeFilterPanel();
 	}
 
@@ -164,15 +138,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		|| document.body.clientWidth;
 
 		return width <= SCREEN_MAX_WIDTH_OVERLAP;
-	}
-
-	getSubPanelWidth() {
-		return this.tableWidth && this.tableWidth !== 'unset' ?
-			(this.getWidthNumerical(this.tableWidth) - 24) + 'px' : 'unset';
-	}
-
-	private getWidthNumerical(txt: string): number {
-		return txt.match(/\d+/g).map(Number)[0];
 	}
 
 	showItemsPerPage(count: number) {

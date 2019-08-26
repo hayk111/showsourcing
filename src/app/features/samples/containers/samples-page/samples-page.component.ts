@@ -93,22 +93,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.onItemFavorited(sample.id);
 	}
 
-	@HostListener('window:resize', ['$event'])
-	onResize() {
-		if (this.tableWidth) {
-			this.tableWidth = null;
-		}
-	}
-
-	getSubPanelWidth() {
-		return this.tableWidth && this.tableWidth !== 'unset' ?
-			(this.getWidthNumerical(this.tableWidth) - 24) + 'px' : 'unset';
-	}
-
-	private getWidthNumerical(txt: string): number {
-		return txt.match(/\d+/g).map(Number)[0];
-	}
-
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = {take: Number(count)};
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
