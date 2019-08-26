@@ -99,7 +99,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	ngAfterViewInit() {
 		this.listSrv.loadData(this._destroy$);
-		this.onClearFilters();
 	}
 
 	onViewChange(view: 'list' | 'card') {
@@ -112,15 +111,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
-	}
 
-	onHideArchived() {
-		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
-		this.listSrv.removeFilter(archivedFilter);
-
-		this.listSrv.refetch({
-			query: 'deleted == false AND archived == false',
-		}).subscribe();
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
 	}
 
 	onShowFilters() {
