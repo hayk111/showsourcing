@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, AfterCont
 import { RequestElementService } from '~core/entity-services';
 import { Observable } from 'rxjs';
 import { ReplyStatus, Task } from '~core/models';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'product-card-activities-app',
@@ -25,6 +26,7 @@ export class ProductCardActivitiesComponent implements OnInit {
 
 	constructor(
 		private requestElementService: RequestElementService,
+		public thumbService: ThumbService,
 	) { }
 
 	ngOnInit() {
@@ -55,16 +57,5 @@ export class ProductCardActivitiesComponent implements OnInit {
 
 	isTaskOverdued(task: Task): boolean {
 		return task && task.dueDate && new Date().getTime() >= Date.parse(task.dueDate.toString());
-	}
-
-	getAvgVotes(votes: any[]): number {
-		console.log('TCL: ProductCardActivitiesComponent -> votes', votes);
-		if (!votes || !votes.length) {
-			return -1;
-		}
-		const votesVals = votes.map(v => v.value);
-		const sum = votesVals.reduce((a, b) => a + b, 0);
-		console.log(Math.round( sum / votes.length * 10 ) / 10);
-		return Math.round( sum / votes.length * 10 ) / 10;
 	}
 }

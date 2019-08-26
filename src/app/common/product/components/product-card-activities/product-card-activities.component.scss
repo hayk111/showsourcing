@@ -8,21 +8,21 @@
 	bottom: var(--spacing-s);
 }
 
-:host ::ng-deep icon-app {
+:host icon-app {
 	display: inline-block;
 	margin-right: var(--spacing-s);
 }
 
-:host ::ng-deep icon-app.star {
+:host icon-app.star {
 	display: inline;
 	margin: 0 2px 0 0;
 }
 
-:host ::ng-deep .icons-container > icon-app:not(.favourite) {
+:host .icons-container > icon-app:not(.favourite) {
 	color: var(--color-txt-third);
 }
 
-:host ::ng-deep .icons-container > icon-app.favourite {
+:host .icons-container > icon-app.favourite {
 	color: var(--color-warn);
 }
 

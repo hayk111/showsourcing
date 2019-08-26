@@ -9,7 +9,7 @@ import { Status } from '~core/models/status.model';
 })
 export class ProductGridCardComponent implements OnInit {
 
-	prodERM = ERM.PRODUCT;
+	erm = ERM;
 	@Input() product: Product;
 	@Input() selected: boolean;
 	@Input() hasCheckbox = true;
