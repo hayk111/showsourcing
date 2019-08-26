@@ -1,5 +1,5 @@
 <!-- the trigger -->
-<div class="trigger" (click)="menuOpen = !menuOpen" (dragstart)="preventDrag($event)"
+<div class="trigger" (click)="toggleMenu()" (dragstart)="preventDrag($event)"
 	cdkOverlayOrigin
 	#trigger="cdkOverlayOrigin">
 	<ng-content select="context-menu-trigger-app"></ng-content>
