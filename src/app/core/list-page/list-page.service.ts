@@ -438,11 +438,12 @@ export class ListPageService
 
 	filterByArchived(shouldAdd: boolean) {
 		const filterParam = { type: FilterType.ARCHIVED, value: true };
+		const predicate = this.filterList.asPredicate();
 
 		if (shouldAdd) {
 			this.addFilter(filterParam);
 			this.refetch({
-				query: 'deleted == false AND archived == true',
+				query: predicate,
 			}).subscribe();
 
 			return;
@@ -450,7 +451,7 @@ export class ListPageService
 
 		this.removeFilter(filterParam);
 		this.refetch({
-			query: 'deleted == false AND archived == false',
+			query: predicate,
 		}).subscribe();
 	}
 
