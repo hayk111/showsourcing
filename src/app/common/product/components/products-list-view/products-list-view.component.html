@@ -25,9 +25,23 @@
 </custom-table-app> -->
 
 
-<table-app [rows]="rows">
+<table-app 
+  placeholder="No product"  
+  [rows]="rows"
+  [currentSort]="currentSort"
+  [pending]="pending"
+  [count]="count"
+  [currentPage]="currentPage"
+  (goToPage)="goToPage.emit($event)"
+  (bottomReached)="bottomReached.emit()"
+  (sort)="sort.emit($event)"
+  (selectOne)="select.emit($event)"
+  (unselectOne)="unselect.emit($event)"
+  (selectAll)="selectAll.emit($event)"
+  (unselectAll)="unselectAll.emit()"
+  (showItemsPerPage)="showItemsPerPage.emit($event)">
   <!-- contextual menu -->
-  <ng-template #contextualMenu let-row="row">
+  <ng-template let-row="row">
     <context-menu-item-app
       class="pointer"
       (click)="setFavourite.emit(row)"
