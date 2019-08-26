@@ -1,3 +1,17 @@
-<p>
-  rating-stars-score-view works!
-</p>
+<div class="left flexColumn">
+	<div class="number-score">
+		4.3
+	</div>
+	<div class="number-votes flexCenter">
+		{{ totalVotes }} votes
+	</div>
+</div>
+{{ votesMap | json }}
+
+{{ totalVotes }}
+<div class="right">
+	<div *ngFor="let item of votesMap | keyvalue" class="flexCenter number-cylinder">
+		<span class="number-star">{{ item.key }}</span>
+		<rating-cylinder-app class="cylinder" [score]="(item.value / totalVotes) * 100" likeColor="accent" [height]="8"></rating-cylinder-app>
+	</div>
+</div>
