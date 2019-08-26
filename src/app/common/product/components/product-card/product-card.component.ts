@@ -5,7 +5,6 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
-	OnChanges,
 	Output,
 	Renderer2,
 } from '@angular/core';
@@ -132,6 +131,16 @@ export class ProductCardComponent extends TrackingComponent {
 		this.checkboxAction = true;
 		this.select.emit(this.product);
 		// this.setClassHighlightChecked(true);
+	}
+
+	getAvgVotes(votes: any[]): number {
+		if (!votes || !votes.length) {
+			return -1;
+		}
+
+		const votesVals = votes.map(vote => vote.value);
+		const sum = votesVals.reduce((votePrev, voteNext) => votePrev + voteNext, 0);
+		return Math.round( sum / votes.length * 10 ) / 10;
 	}
 
 	/** Handle checbkox uncheck event */

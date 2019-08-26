@@ -68,6 +68,7 @@ $image-width: 99px;
 }
 
 .right {
+	position: relative;
 	justify-content: space-between;
 	width: calc(100% - #{$image-width} - #{var(--spacing-ms)});
 
@@ -131,6 +132,58 @@ $image-width: 99px;
 		badge-app {
 			max-width: 45%;
 		}
+	}
+
+	.card-footer {
+		position: absolute;
+    width: 100%;
+		bottom: 0;
+
+		.author-circle {
+			float: left;
+			width: 24px;
+			height: 23px;
+			line-height: 24px;
+			border-radius: 50%;
+			font-size: var(--font-size-s);
+			color: var(--color-primary);
+			font-weight: 600;
+			text-align: center;
+			background: var(--color-primary-light);
+		}
+
+		.product-reference {
+			display: inline-block;
+			margin-left: 4px;
+			line-height: 24px;
+			font-size: var(--font-size-s);
+			color: var(--color-txt-secondary);
+		}
+
+		.vote-star-container {
+			cursor: pointer;
+			border-radius: var(--border-radius);
+			color: var(--color-accent);
+			margin-right: var(--spacing-xs);
+			padding: var(--spacing-xs);
+
+			icon-app {
+				display: inline-block;
+				margin-right: var(--spacing-xs);
+			}
+		}
+		
+		.vote-star-value {
+			width: 19px;
+			height: 18px;
+			font-size: var(--font-size-m);
+			font-weight: 600;
+			color: var(--color-accent-contrast);
+		}
+	
+		.light-background {
+			background-color: var(--color-accent-light);
+		}	
 	}
 
 }

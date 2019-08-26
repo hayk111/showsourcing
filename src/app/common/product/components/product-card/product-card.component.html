@@ -28,7 +28,6 @@
 		<!-- title -->
 		<div class="title-section flex" (click)="clickTitle()">
 			<h5 class="title ellipsis">{{ product?.name }}</h5>
-			<icon-app *ngIf="product?.favorite" class="icon-heart" name="heart"></icon-app>
 		</div>
 		<div class="information-section flexWrap">
 			<!-- price - moq -->
@@ -43,19 +42,22 @@
 				{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}
 			</span>
 		</div>
-		<!-- thumb -->
-		<div class="thumb-section flex">
-			<icon-app
-				*ngIf="thumbsName"
-				[style.visibility]="thumbsName === 'thumbs-up' ? 'hidden' : 'visible'"
-				[name]="thumbsName"
-				[ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
-			</icon-app>
-			<span *ngIf="score !== null" class="score" [ngClass]="{ 'color-success': score >= 50, 'color-warn': score < 50 }">{{ score }}%</span>
-		</div>
-		<!-- tags -->
-		<div class="tags-section">
-			<badge-app *ngFor="let tag of product?.tags | slice:0:2; trackBy: trackByFn" class="ellipsis" size="xs" type="secondary-light" >{{ tag?.name }}</badge-app>
+		<!-- created by and votes -->
+		<div class="card-footer flexBetween">
+			<div class="created-by">
+				<div class="author-circle">
+					{{product?.createdBy?.firstName[0].toUpperCase()}}{{product?.createdBy?.lastName[0].toUpperCase()}}
+				</div>
+				<div class="product-reference">
+					{{product?.reference}}
+				</div>
+			</div>
+
+			<span class="vote-star-container" *ngIf="getAvgVotes(product?.votes) > -1" 
+				[ngClass]="{'light-background': getAvgVotes(product?.votes) > 80}">
+				<icon-app name="star" size="sm" class="star"></icon-app>
+				<span class="vote-star-value">{{getAvgVotes(product?.votes)}}</span>
+			</span>
 		</div>
 	</div>
 
