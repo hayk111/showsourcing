@@ -30,8 +30,16 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasSelection = true;
 	/** whether the table rows have a contextual menu */
 	@Input() hasMenu = true;
+	/** whether the table has header row */
+	@Input() hasHeader = true;
 	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
+	/** whether rows are selectable and pagination is visible */
+	@Input() hasSelectPagination = true;
+
+	@Input() width: number;
+	@Input() rowHeight: number;
+
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	so this is only useful when the table has selection enabled. */
 	@Input() idName = 'id';
@@ -44,6 +52,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() count = 0;
 
 	@Input() currentPage: number;
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	/** event when we select all rows */
 	@Output() selectAll = new EventEmitter<string[]>();
@@ -88,7 +97,10 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			if (this.columns) {
 				this.columns.forEach(c => c.resetSort());
 				const column = this.columns.find(c => c.sortBy === currentSort.sortBy);
-				column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
+
+				if (column) {
+					column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
+				}
 			}
 		}
 	}

@@ -11,6 +11,10 @@ import { PriceModule } from '~shared/price';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { PaginationComponent } from '~shared/pagination/components/pagination.component';
 import { UtilsModule } from '~shared/utils';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
+
+
 
 @NgModule({
 	imports: [
@@ -25,6 +29,8 @@ import { UtilsModule } from '~shared/utils';
 		ScrollingModule,
 		StatusSelectorModule,
 		UtilsModule,
+		SelectorsModule,
+		SelectionBarModule,
 	],
 	declarations: [PaginationComponent],
 	exports: [PaginationComponent],

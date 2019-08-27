@@ -1,0 +1,121 @@
+:host {
+	display: flex;
+	// if we put a margin here, the style will look wrong
+	// margin: 0 var(--spacing-l);
+	height: calc(100% - 120px);
+	box-sizing: border-box;
+	margin: 0 var(--spacing-l) var(--spacing-l) var(--spacing-l);
+	background: var(--color-bg);
+
+	&.no-padding {
+		padding: 0;
+		// we want to keep always the bottom one cause of the selection
+		padding-bottom: var(--spacing-l);
+	}
+}
+
+.preview-imgs {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--border-radius);
+}
+
+.preview-imgs .hover-img {
+	background-color: var(--color-primary-with-opacity);
+	position: absolute;
+	color: var(--color-bg);
+	position: absolute;
+	cursor: pointer;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	display: none;
+}
+
+.preview-imgs:hover .hover-img {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.preview-imgs .hover-img {
+	position: absolute;
+	cursor: pointer;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	display: none;
+}
+
+.ellipsis {
+	width: 100%;
+}
+
+.mainCellWrapper {
+	display: flex;
+	justify-content: space-between;
+
+	&:hover {
+		.preview {
+			opacity: 1;
+		}
+	}
+}
+
+.mainCell {
+	display: flex;
+	align-items: center;
+}
+
+.mainCell > * {
+	&:not(:first-child) {
+		margin-left: var(--spacing-s);
+	}
+}
+
+.preview {
+	opacity: 0;
+	transition: opacity 0.3s;
+	min-width: 70px;
+}
+
+.ref-ctnr {
+	margin-left: var(--spacing-ms);
+	.product-ref {
+		width: 160px;
+		height: 18px;
+		font-size: var(--font-size-m);
+		color: var(--color-txt-primary);
+	}
+	.product-name-ref {
+		height: 15px;
+		font-size: var(--font-size-s);
+		color: var(--txt-primary);
+	}
+}
+
+.supplier {
+	color: var(--color-txt-primary);
+}
+
+
+
+.created-by {
+  height: 18px;
+  font-size: var(--font-size-m);
+  color: var(--txt-primary);
+}
+
+.created-by-date {
+  height: 15px;
+  font-size: var(--font-size-s);
+  color: var(--txt-primary);
+}
+
+.category {
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  color: var(--color-accent-contrast);
+}

@@ -56,7 +56,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 			{ name: 'supplier', metadata: { hasBadge: false } }
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"', sortBy: 'order' });
 	}
 
 	ngOnChanges() {

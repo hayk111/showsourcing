@@ -52,7 +52,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 			'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"', sortBy: 'order' });
 	}
 
 	ngOnChanges() {

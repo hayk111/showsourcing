@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Filter, FilterType } from '~shared/filters/models/filter.class';
 import { FilterByType } from '~shared/filters';
-
 
 /**
  * displays a label with its active filters under it. If no active filters it displays a btn, ence the name
@@ -13,6 +12,9 @@ import { FilterByType } from '~shared/filters';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterBtnListComponent {
+
+	constructor() {}
+
 	/** btns displayed */
 	@Input() set filterTypes(types: FilterType[]) {
 		// favorite and archived aren't buttons but simple checkboxes

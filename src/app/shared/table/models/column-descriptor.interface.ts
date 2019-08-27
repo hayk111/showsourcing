@@ -9,5 +9,6 @@ export interface ColumnDescriptor {
 	sortable?: boolean;
 	sortBy?: string;
 	width?: number;
+	height?: number;
 	minWidth?: number;
 }

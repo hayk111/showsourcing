@@ -170,8 +170,8 @@ export class ListPageService
 		this.dataSrv.loadMore().subscribe();
 	}
 
-	loadPage(page: number) {
-		this.dataSrv.loadPage(page).subscribe(_ => this.selectionSrv.unselectAll());
+	loadPage(page: number, config?: SelectParamsConfig) {
+		this.dataSrv.loadPage(page, config).subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadNextPage() {
@@ -392,7 +392,7 @@ export class ListPageService
 		this.viewSrv.closeFilterPanel();
 	}
 
-	changeView(view: 'list' | 'card') {
+	changeView(view: 'list' | 'board' | 'card') {
 		this.viewSrv.changeView(view);
 	}
 
@@ -436,4 +436,27 @@ export class ListPageService
 		return this.selectionSrv.getSelectionValues();
 	}
 
+	filterByArchived(shouldAdd: boolean) {
+		const predicate = this.filterList.asPredicate();
+
+		if (shouldAdd) {
+			this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: false});
+			this.filterList.addFilter({ type: FilterType.ARCHIVED, value: true});
+			return;
+		}
+
+		this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: true});
+		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: false});
+	}
+
+	filterByAssignee(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.ASSIGNEE, value: true };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
+	}
 }
