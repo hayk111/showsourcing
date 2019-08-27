@@ -12,7 +12,7 @@ export class SampleQueries extends GlobalQueries {
 		images { id, urls { id, url }, imageType }
 	}`;
 	static readonly product = `product {
-		id, name, ${SampleQueries.images}, favorite, description,
+		id, name, reference, ${SampleQueries.images}, favorite, description,
 	}`;
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly status = `status { id, name, category, inWorkflow, step }`;

@@ -1,14 +1,9 @@
-import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, OnInit } from '@angular/core';
-import { ListViewComponent, ListPageService } from '~core/list-page';
+import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { ListPageKey, ListViewComponent, ListPageService } from '~core/list-page';
 import { Sort } from '~shared/table/components/sort.interface';
 import { SupplierService } from '~core/entity-services';
-import { Supplier, supplierMock as mock } from '~core/models';
-
-class Item {
-	id?: string;
-	name?: string;
-	price?: number;
-}
+import { ERM, Supplier } from '~core/models';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'table-lib-page-app',
@@ -19,24 +14,34 @@ class Item {
 		ListPageService
 	]
 })
-export class TableLibPageComponent extends ListViewComponent<Supplier> implements OnInit {
+export class TableLibPageComponent extends ListViewComponent<Supplier> implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	currentSort: Sort = {
 		sortBy: 'name',
 		descending: false
 	};
-	rows: any = [];
-	pending = false;
-	currentPage = 1;
-	count: number;
-	selection = new Map<string, boolean>();
-	constructor(public listSrv: ListPageService<Supplier, SupplierService>) { super(); }
-	ngOnInit() {
-		this.rows = [
-			{ ...mock, id: '1', name: 'sup 1' },
-			{ ...mock, id: '2', name: '2nd supp' },
-			{ ...mock, id: '3', name: 'Another Supplier' }
-		];
-		this.count = this.rows.length;
+	_destroy$ = new Subject<void>();
+
+	constructor(
+		private supplierSrv: SupplierService,
+		public listSrv: ListPageService<Supplier, SupplierService>
+	) {
+		super();
 	}
+
+	ngOnInit() {
+		this.listSrv.setup({
+			key: ListPageKey.SUPPLIER,
+			entitySrv: this.supplierSrv,
+			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
+			selectParams: { query: 'deleted == false' },
+			entityMetadata: ERM.SUPPLIER,
+			initialFilters: [],
+		}, false);
+	}
+
+	ngAfterViewInit() {
+		this.listSrv.loadData(this._destroy$);
+	}
+
 }

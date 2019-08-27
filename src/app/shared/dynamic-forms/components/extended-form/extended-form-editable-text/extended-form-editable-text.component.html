@@ -94,11 +94,21 @@
 	</editable-field-app>
 
 	<!-- boolean -->
-	<editable-field-app #editable *ngSwitchCase="'boolean'" [inlineLabel]="inlineLabel" [openOnClick]="false"
-		(click)="toggleBoolean()">
+	<editable-field-app
+		#editable
+		*ngSwitchCase="'boolean'"
+		[inlineLabel]="inlineLabel"
+		[openOnClick]="false"
+		(click)="booleanEditableField($event)">
 		<label-app>{{ definition?.label }}</label-app>
-		<editable-label-app>
-			{{ field?.value || '-' }}
+		<editable-label-app [disabled]="true">
+			<radio-app
+				inputApp
+				[disabled]="disabled"
+				[checked]="field?.value === 'true' ? true : field?.value === 'false' ? false : null"
+				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
+				(update)="toggleBoolean($event)">
+			</radio-app>
 		</editable-label-app>
 	</editable-field-app>
 

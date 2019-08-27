@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { FontSet } from '~shared/icons/components/font-set.enum';
 
 
-export type Sizes = 's' | 'm' | 'l' | 'inherit';
+export type Sizes = 's' | 'ms' | 'm' | 'l' | 'inherit';
 
 @Component({
 	selector: 'icon-app',
@@ -39,6 +39,7 @@ export class IconComponent {
 	getComputedSize() {
 		switch (this.size) {
 			case 's':
+			case 'ms':
 			case 'm':
 			case 'l':
 				return `var(--font-size-icon-${this.size})`;

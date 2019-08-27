@@ -46,6 +46,10 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		}, false);
 	}
 
+	onViewChange(view: 'list' | 'board' | 'card') {
+		this.listSrv.changeView(view);
+	}
+
 	ngAfterViewInit() {
 		this.listSrv.loadData(this._destroy$);
 	}

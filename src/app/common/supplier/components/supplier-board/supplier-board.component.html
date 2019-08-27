@@ -1,0 +1,31 @@
+<kanban-app
+  [cols]="columns$ | async"
+  [cardTemplate]="card"
+  [selection]="selection | async"
+  [amountLoaded]="amountLoaded"
+  (drop)="onUpdateSupplierStatus($event)"
+  (multipleDrop)="updateSupplierStatus($event)"
+  (selectColumn)="onColumnSelected($event)"
+  (unselectColumn)="onColumnUnselected($event)"
+  (loadMore)="loadMore($event)">
+</kanban-app>
+
+<ng-template #card
+  let-data="data"
+  let-column="column"
+  let-dragInProgress="dragInProgress"
+  let-checked="checked"
+  let-selectItem="selectItem"
+  let-unselectItem="unselectItem"
+  let-previewClick="previewClick"
+	let-dragDropEnable$="dragDropEnable$">
+	<supplier-card-app
+		[supplier]="data"
+		[enablePreviewLink]="true"
+		[highlightOnChecked]="true"
+		[checked]="(selection | async).has(data.id)"
+		(clickImage)="preview.emit(data)"
+		(select)="selectOne.emit($event)"
+		(unselect)="unselectOne.emit($event)">
+	</supplier-card-app>
+</ng-template>

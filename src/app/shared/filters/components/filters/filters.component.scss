@@ -1,3 +1,54 @@
+:host {
+	width: 300px;
+}
+
+.filters-title-section icon-app {
+	display: inline-block;
+}
+
+side-panel-title-app {
+	margin-top: 2px;
+}
+
+.filters-title-section {
+	display: flex;
+	justify-content: space-between;
+	height: 41px;
+}
+
+.title-divider {
+	position: absolute;
+	left: 0;
+	width: 100%;
+}
+
+.clear-filters-container {
+	height: 24px;
+	position: relative;
+}
+
+.clear-filters {
+	position: absolute;
+	right: 16px;
+	top: 3px;
+	width: 106px;
+  height: 20px;
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  line-height: 1.43;
+	text-align: center;
+	margin-right: 12px;
+  color: var(--color-warn);
+}
+
+.filters-title {
+	width: 49px;
+  height: 23px;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-bg-dark);
+}
+
 .clear {
 	cursor: pointer;
 	&:hover{

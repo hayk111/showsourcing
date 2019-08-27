@@ -1,16 +1,17 @@
 <div class="ctnr will-change-scroll" infiniScroll (bottomReached)="bottomReached.emit()" cdk-scrollable>
-	<div class="contentCtnr" [ngStyle]="{ width: getWidth() + 'px' }">
+	<div class="contentCtnr" [ngStyle]="{ width: width ? width + 'px' : getWidth() + 'px' }">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
-			<div class="header"></div>
+			<div *ngIf="hasHeader" class="header" [style.height]="rowHeight + 'px'"></div>
 			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
+				[style.height]="rowHeight + 'px'"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)"></div>
 		</div>
 
 		<!-- selection column -->
-		<div class="col selectionCol" *ngIf="hasSelection">
-			<div class="header">
+		<div *ngIf="hasSelection && hasSelectPagination" class="col selectionCol" [style.height]="rowHeight + 'px'">
+			<div *ngIf="hasHeader" class="header" [style.height]="rowHeight + 'px'">
 				<ng-container>
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
 				</ng-container>
@@ -19,6 +20,7 @@
 				<div class="cell"
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
+					[style.height]="rowHeight + 'px'"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 					<checkbox-app
 						*ngIf="isSelectable(row)"
@@ -30,40 +32,15 @@
 			</ng-container>
 		</div>
 
-		<!-- contextual menu -->
-		<div class="col" *ngIf="hasMenu">
-			<div class="header context-menu">
-			</div>
-			<ng-container *ngIf="!pending">
-				<div
-					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
-					class="menuCell cell context-menu flexCenter"
-					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-					(mouseenter)="hoverRow(i)"
-					(mouseleave)="hoverRow(-1)">
-					<context-menu-app
-						*ngIf="isSelectable(row)"
-						class="menu-context"
-						[ngClass]="{ hover: (i === hoverIndex) }"
-						[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
-						[closeOnScroll]="true">
-						<context-menu-trigger-app>
-							<icon-app class="color-txt-secondary" name="dots-vertical" size="18"></icon-app>
-						</context-menu-trigger-app>
-						<ng-container
-							*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
-						</ng-container>
-					</context-menu-app>
-				</div>
-			</ng-container>
-		</div>
+
 
 
 		<!-- content columns -->
 		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'" [style.minWidth]="column.minWidth + 'px'"
 			class="col {{ column.grows ? 'flexGrow' : '' }}">
 			<!-- header -->
-			<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize" (click)="onSort(column)">
+			<div *ngIf="hasHeader" class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize" (click)="onSort(column)"
+				[style.height]="rowHeight + 'px'" [class.sorted]="currentSortedColumn?.type === column?.type">
 				{{ column.title }}
 				<ng-container *ngIf="column.sortOrder !== 'NONE'">
 					<icon-app class="sortIcon fs-xs" name="angle-down"
@@ -77,6 +54,7 @@
 			<!-- cells -->
 			<ng-container *ngIf="!pending">
 				<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+					[style.height]="rowHeight + 'px'"
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 					<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
@@ -91,6 +69,35 @@
 
 		</div>
 
+		<!-- contextual menu -->
+		<div class="col" *ngIf="hasMenu">
+			<div *ngIf="hasHeader" class="header context-menu" [style.height]="rowHeight + 'px'" [style.minWidth]="'50px'">
+			</div>
+				<ng-container *ngIf="!pending">
+					<div
+						*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+						class="menuCell cell context-menu flexCenter"
+						[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
+						[style.height]="rowHeight + 'px'"
+						(mouseenter)="hoverRow(i)"
+						(mouseleave)="hoverRow(-1)">
+						<context-menu-app
+							*ngIf="isSelectable(row)"
+							class="menu-context"
+							[ngClass]="{ hover: (i === hoverIndex) }"
+							[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
+							[closeOnScroll]="true">
+							<context-menu-trigger-app>
+								<icon-app class="color-txt-third" name="dots-horizontal" size="18"></icon-app>
+							</context-menu-trigger-app>
+							<ng-container
+								*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
+							</ng-container>
+						</context-menu-app>
+					</div>
+				</ng-container>
+			</div>
+
 	</div>
 
 	<div *ngIf="rows?.length === 0" class="flexAround placeholderCtnr">
@@ -104,7 +111,9 @@
 </div>
 
 <pagination-app
+	*ngIf="hasSelectPagination"
 	[count]="count"
 	[currentPage]="currentPage"
-	(goToPage)="goToIndexPage($event)">
+	(goToPage)="goToIndexPage($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)">
 </pagination-app>

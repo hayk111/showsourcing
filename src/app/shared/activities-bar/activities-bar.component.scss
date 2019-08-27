@@ -1,0 +1,41 @@
+icon-app {
+	margin: 0 5px;
+}
+
+icon-app.star {
+	display: inline;
+	margin: 0 2px 0 0;
+}
+
+.icons-container > icon-app:not(.favourite) {
+	color: var(--color-txt-third);
+}
+
+.icons-container > icon-app.favourite {
+	color: var(--color-warn);
+}
+
+.vote-star-container {
+	cursor: pointer;
+	width: 45px;
+	border-radius: var(--border-radius);
+	color: var(--color-accent);
+	margin: 0 5px;
+}
+
+.vote-star-value {
+	width: 19px;
+  height: 18px;
+  font-size: 14px;
+  font-weight: 600;
+	color: var(--color-accent-contrast);
+	margin: 0 0 0 2px;	
+}
+
+.light-background {
+	background-color: var(--color-accent-light);
+}
+
+.warn-circle {
+	color: var(--color-warn) !important;
+}

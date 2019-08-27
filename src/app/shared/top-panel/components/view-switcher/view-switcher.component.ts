@@ -7,15 +7,19 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewSwitcherComponent implements OnInit {
-	_view: 'list' | 'board' |'card' = 'card';
+	_view: 'list' | 'board' | 'card' = 'card';
 	@Input()
 	set view(view: 'list' | 'board' | 'card') {
-		if (view !== 'list' && view !== 'board' && view !== 'card')
+		if (view !== 'list' && view !== 'board' && view !== 'card') {
 			this._view = 'list';
-		else
+		} else {
 			this._view = view;
+		}
 	}
-	@Input() switchContent: ['list', 'board', 'kanban' | 'thumbs'] = ['list', 'board' ,'thumbs'];
+	/** whether there's thumb switch */
+	@Input() hasThumb = true;
+
+	@Input() switchContent: ['list', 'board', 'kanban' | 'thumbs'] = ['list', 'board' , 'thumbs'];
 	@Output() viewChange = new EventEmitter<string>();
 
 	get view() {

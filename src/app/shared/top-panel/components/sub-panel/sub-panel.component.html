@@ -3,36 +3,32 @@
 <div class="flex">
 
 	<div class="search-container flex">
-
 		<ng-content select="search-autocomplete-app"></ng-content>
-
+		
 		<search-bar-app
 			*ngIf="hasSearch"
 			[formControl]="searchControl"
 			[inputFocus]="inputFocus"
+			searchType="short"
 			(focus)="onFocusSearch($event)"
 			(search)="search.emit($event)"
 			(keydown.enter)="triggerSmartSearch($event)">
 		</search-bar-app>
-	</div>
 
-	<div class="items-container flex">
+		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize filter-button" 
+			(click)="showFilters.emit()" i18n="text@@show-filters">Filters</button>
+		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize clear-filter-button" 
+			(click)="clearFilters.emit()" i18n="text@@clear-filters">Clear Filters <span *ngIf="filtersAmount">({{filtersAmount}})</span>
+		</button>
+		<div class="divider"></div>
 
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="showFilters.emit()" i18n="text@@show-filters">Show Filters</button>
-		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">Hide Filters</button>
-
-		<div *ngIf="hasFilter" class="notification" notifBadge [badge]="filtersAmount" badgePosition="no-content"></div>
-
-		<ng-content select="sub-panel-left-item-app"></ng-content>
-
-		<ng-content select="sub-panel-right-item-app"></ng-content>
-
-		<view-switcher-app
-			*ngIf="hasSwitch"
-			[switchContent]="switchContent"
-			[view]="view"
-			(viewChange)="viewChange.emit($event)">
-		</view-switcher-app>
+		<span *ngIf="hasFilter && !filtersPanelOpened" class="bold-s capitalize products-count" i18n="text@@products">
+			{{count}} {{entityType}}
+		</span>
+				
+		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">
+			Hide Filters
+		</button>
 
 		<button
 			*ngIf="buttonName"
@@ -40,6 +36,38 @@
 			(click)="buttonClick.emit()">
 			<span class="first-uppercase">{{ buttonName }}</span>
 		</button>
-
 	</div>
+
+	<div class="right-container flex">
+		<div class="show-archived-container" *ngIf="hasArchived">
+			<label class="pointer">
+				<input class="show-archived pointer" type="checkbox" id="show-archived" 
+					[(ngModel)]="isArchivedShown" (change)="archiveChange($event)" />Show Archived
+				<label for="show-archived"></label>
+			</label>
+		</div>
+
+		<div class="assigned-to-me-container" *ngIf="hasAssigned">
+			<label class="pointer">
+				<input class="assigned-to-me pointer" type="checkbox" id="assigned-to-me" 
+					[(ngModel)]="isAssigned" (change)="assignedChange($event)" />Assigned to me
+				<label for="assigned-to-me"></label>
+			</label>
+		</div>
+
+		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button" 
+			(click)="export.emit()" i18n="text@@export">
+			<icon-app name="close-pane-bottom" size="m"></icon-app>
+			Export
+		</button>
+
+		<view-switcher-app
+			*ngIf="hasSwitch"
+			[switchContent]="switchContent"
+			[hasThumb]="hasThumb"
+			[view]="view"
+			(viewChange)="viewChange.emit($event)">
+		</view-switcher-app>
+	</div>
+
 </div>

@@ -9,6 +9,7 @@ import {
 	ProductCardComponent,
 	ProductBoardComponent,
 	ProductGridCardComponent,
+	ProductCardActivitiesComponent,
 	ProductResumeComponent,
 	ProductsCardViewComponent,
 	ProductSelectionBarComponent,
@@ -17,8 +18,6 @@ import {
 	StatsIconsComponent,
 } from './components';
 import { ProductPreviewComponent } from './containers';
-
-
 
 @NgModule({
 	imports: [
@@ -38,6 +37,7 @@ import { ProductPreviewComponent } from './containers';
 		ProductSortingMenuComponent,
 		ProductsCardViewComponent,
 		ProductsListViewComponent,
+		ProductCardActivitiesComponent,
 		StatsIconsComponent,
 	],
 	exports: [
@@ -45,6 +45,7 @@ import { ProductPreviewComponent } from './containers';
 		ProductCardComponent,
 		ProductBoardComponent,
 		ProductGridCardComponent,
+		ProductCardActivitiesComponent,
 		ProductPreviewComponent,
 		ProductResumeComponent,
 		ProductSelectionBarComponent,

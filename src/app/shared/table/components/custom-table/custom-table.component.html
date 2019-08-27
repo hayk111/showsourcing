@@ -1,12 +1,14 @@
 
 <table-app
 	[rows]="rows"
+	[width]="width"
 	[selected]="selected"
 	[contextualMenu]="contextualMenu"
 	[hasMenu]="hasMenu"
 	[currentSort]="currentSort"
 	[placeholder]="placeholder"
 	[count]="count"
+	[rowHeight]="53"
 	[currentPage]="currentPage"
 	[pending]="pending"
 	(goToPage)="goToPage.emit($event)"
@@ -15,6 +17,7 @@
 	(unselectOne)="unselectOne.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(sort)="sort.emit($event)">
 		<ng-template
 			*ngFor="let column of descriptor;trackBy: trackByFn"
