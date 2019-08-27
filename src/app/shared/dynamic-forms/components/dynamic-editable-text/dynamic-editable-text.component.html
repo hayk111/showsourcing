@@ -187,10 +187,14 @@
 			*ngSwitchCase="'boolean'"
 			[inlineLabel]="inlineLabel"
 			[openOnClick]="false"
-			(click)="toggleValue()">
+			(click)="toggleValue($event)">
 			<label-app>{{ customField.label || customField.name }}</label-app>
-			<editable-label-app>
-				{{ value ? 'Yes' : 'No' }}
+			<editable-label-app [disabled]="true">
+				<radio-app
+					[(ngModel)]="accumulator"
+					[checked]="accumulator !== undefined ? accumulator : null"
+					[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]">
+				</radio-app>
 			</editable-label-app>
 		</editable-field-app>
 

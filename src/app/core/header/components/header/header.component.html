@@ -36,9 +36,9 @@
 </nav>
 
 <div class="flexCenter right">
-  <!-- Let's move this in a component, for the love of god Thierry... -->
-  <header-search-app></header-search-app>
-  <!-- <notif-app></notif-app> -->
+	<!-- Let's move this in a component, for the love of god Thierry... -->
+	<header-search-app></header-search-app>
+  <notif-app [notifications]="notification$ | async"></notif-app>
   <div class="divider"></div>
 	<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>
 </div>

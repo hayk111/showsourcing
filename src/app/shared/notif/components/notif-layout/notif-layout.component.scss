@@ -1,0 +1,9 @@
+.layout {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: rgba(24, 40, 68, 0.5)	;
+	z-index: var(--z-dialog-container);
+}

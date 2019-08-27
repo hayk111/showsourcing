@@ -8,7 +8,6 @@ import { UserPictureModule } from '~shared/user-picture';
 import {
 	HeaderComponent,
 	HeaderSearchComponent,
-	NotifComponent,
 	UserPanelComponent,
 	SidebarComponent,
 	SidebarItemComponent
@@ -20,11 +19,10 @@ import {
 		SearchBarModule,
 		RouterModule.forChild([]),
 		UserPictureModule,
-		SearchAutocompleteModule
+		SearchAutocompleteModule,
 	],
 	declarations: [
 		HeaderComponent,
-		NotifComponent,
 		UserPanelComponent,
 		HeaderSearchComponent,
 		SidebarComponent,

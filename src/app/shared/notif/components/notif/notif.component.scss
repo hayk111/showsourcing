@@ -1,0 +1,24 @@
+* {
+	cursor: auto
+}
+icon-app {
+	margin-top: var(--spacing-xs);
+}
+.bell-color-primary-contrast {
+	color: var(--color-primary-contrast);
+	cursor: pointer;
+}
+
+.notif-badge {
+	background-color: var(--color-warn);
+	width: 20px;
+	height: 18px;
+	padding-bottom: var(--spacing-xxs);
+	position: absolute;
+	right: -4px;
+	top: -6px;
+  font-size: var(--font-size-s);
+  text-align: center;
+  color: var(--color-primary-contrast);
+}
+
