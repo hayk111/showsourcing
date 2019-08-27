@@ -21,6 +21,7 @@ import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
 
 import { ActionBarModule } from './action-bar/action-bar.module';
+import { ActivitiesBarModule } from './activities-bar/activities-bar.module';
 import { AnimatedStackModule } from './animated-stack/animated-stack.module';
 import { CarouselModule } from './carousel/carousel.module';
 import { DialogModule } from './dialog/dialog.module';
@@ -63,6 +64,7 @@ const modules = [
 
 	// shared modules
 	ActionBarModule,
+	ActivitiesBarModule,
 	AnimatedStackModule,
 	BadgeModule,
 	BottomPanelModule,

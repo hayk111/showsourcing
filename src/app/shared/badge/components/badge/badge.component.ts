@@ -9,6 +9,7 @@ import { Colors } from '~utils';
 	host: {
 		'[class.primary]': 'color === "primary"',
 		'[class.secondary]': 'color === "secondary"',
+		'[class.third]': 'color === "third"',
 		'[class.warn]': 'color === "warn"',
 		'[class.success]': 'color === "success"',
 		'[class.accent]': 'color === "accent"',

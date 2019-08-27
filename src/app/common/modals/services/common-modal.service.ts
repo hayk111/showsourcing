@@ -6,6 +6,7 @@ import {
 	CreationDialogComponent,
 	CreationProductDlgComponent,
 	CreationTaskDlgComponent,
+	CreationSampleDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
@@ -18,7 +19,7 @@ import {
 	RefuseReplyDlgComponent,
 	VoteDetailsDialogComponent,
 } from '~common/modals/component';
-import { EntityMetadata, ERM, Product, ProductVote, Supplier } from '~models';
+import { EntityMetadata, ERM, Product, ProductVote, Supplier, Sample } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
@@ -125,8 +126,16 @@ export class CommonModalService {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
-	openCreationTaskDlg() {
-		this.dlgSrv.open(CreationTaskDlgComponent);
+	openCreationTaskDlg(product?: Product) {
+		return this.dlgSrv.open(CreationTaskDlgComponent, { product }).pipe(
+			filter((event: CloseEvent) => event.type === CloseEventType.OK),
+		);
+	}
+
+	openAddSampleDialog(product?: Product, sample?: Sample) {
+		return this.dlgSrv.open(CreationSampleDlgComponent, { product }).pipe(
+			filter((event: CloseEvent) => event.type === CloseEventType.OK),
+		);
 	}
 
 	close() {

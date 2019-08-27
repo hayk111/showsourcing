@@ -13,17 +13,22 @@
 
 	display: block;
 	height: 100%;
+	position: relative;
+
+	background: var(--legacy-color-bg);
+	overflow: hidden;
+	height: 100%;
 }
 
 .ctnr {
 	position: relative;
-	background: var(--legacy-color-bg);
 	box-sizing: border-box;
 	overflow: auto;
 	// pagination
-	height: calc(100% - 32px);
+	height: calc(100% - 80px);
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 48px;
 }
 
 .menu-context {
@@ -75,22 +80,13 @@
 }
 
 .cell {
-	color: var(--legacy-color-txt-strong);
-	&.selected {
-		background-color: var(--legacy-color-secondary-light);
-	}
-
-	&.hover {
-		&.main {
-			color: var(--legacy-color-primary);
-		}
-	}
+	color: var(--color-txt-strong);
 }
 
 .header {
-	background: var(--legacy-color-secondary-light);
 	text-transform: capitalize;
 	font-weight: 600;
+	font-size: 14px;
 }
 
 
@@ -98,6 +94,10 @@
 	.header, .cell {
 		padding: 0;
 	}
+}
+
+.sorted {
+	color: var(--color-primary);
 }
 
 .flexGrow {
