@@ -82,7 +82,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			key: ListPageKey.PRODUCTS,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
-			selectParams: { query: 'deleted == false AND archived == false' },
 			// we use the deleted filter there so we can send the query to export all to the export dlg
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
@@ -100,10 +99,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	ngAfterViewInit() {
 		this.listSrv.loadData(this._destroy$);
-		this.onClearFilters();
 	}
 
-	onViewChange(view: 'list' | 'card') {
+	onViewChange(view: 'list' | 'board' | 'card') {
 		this.listSrv.changeView(view);
 	}
 
@@ -113,15 +111,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
-	}
 
-	onHideArchived() {
-		const archivedFilter = { type: FilterType.ARCHIVED, value: true };
-		this.listSrv.removeFilter(archivedFilter);
-
-		this.listSrv.refetch({
-			query: 'deleted == false AND archived == false',
-		}).subscribe();
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
 	}
 
 	onShowFilters() {
@@ -130,14 +122,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	onCloseFilter() {
 		this.listSrv.closeFilterPanel();
-	}
-
-	isOverlap(): boolean {
-		const width = window.innerWidth
-		|| document.documentElement.clientWidth
-		|| document.body.clientWidth;
-
-		return width <= SCREEN_MAX_WIDTH_OVERLAP;
 	}
 
 	showItemsPerPage(count: number) {

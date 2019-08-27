@@ -8,6 +8,7 @@ import {
 	MoqComponent,
 	ProductCardComponent,
 	ProductGridCardComponent,
+	ProductCardActivitiesComponent,
 	ProductResumeComponent,
 	ProductsCardViewComponent,
 	ProductSelectionBarComponent,
@@ -16,8 +17,6 @@ import {
 	StatsIconsComponent,
 } from './components';
 import { ProductPreviewComponent } from './containers';
-
-
 
 @NgModule({
 	imports: [
@@ -36,12 +35,14 @@ import { ProductPreviewComponent } from './containers';
 		ProductSortingMenuComponent,
 		ProductsCardViewComponent,
 		ProductsListViewComponent,
+		ProductCardActivitiesComponent,
 		StatsIconsComponent,
 	],
 	exports: [
 		MoqComponent,
 		ProductCardComponent,
 		ProductGridCardComponent,
+		ProductCardActivitiesComponent,
 		ProductPreviewComponent,
 		ProductResumeComponent,
 		ProductSelectionBarComponent,

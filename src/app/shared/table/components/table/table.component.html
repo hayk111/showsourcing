@@ -2,7 +2,7 @@
 	<div class="contentCtnr" [ngStyle]="{ width: width ? width + 'px' : getWidth() + 'px' }">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
-			<div class="header" *ngIf="hasHeader" [style.height]="rowHeight + 'px'"></div>
+			<div *ngIf="hasHeader" class="header" [style.height]="rowHeight + 'px'"></div>
 			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				[style.height]="rowHeight + 'px'"
@@ -10,8 +10,8 @@
 		</div>
 
 		<!-- selection column -->
-		<div class="col selectionCol" *ngIf="hasSelection && hasSelectPagination" [style.height]="rowHeight + 'px'">
-			<div class="header" *ngIf="hasHeader" [style.height]="rowHeight + 'px'">
+		<div *ngIf="hasSelection && hasSelectPagination" class="col selectionCol" [style.height]="rowHeight + 'px'">
+			<div *ngIf="hasHeader" class="header" [style.height]="rowHeight + 'px'">
 				<ng-container>
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
 				</ng-container>
@@ -71,7 +71,7 @@
 
 		<!-- contextual menu -->
 		<div class="col" *ngIf="hasMenu">
-			<div class="header context-menu" *ngIf="hasHeader" [style.height]="rowHeight + 'px'" [style.minWidth]="'50px'">
+			<div *ngIf="hasHeader" class="header context-menu" [style.height]="rowHeight + 'px'" [style.minWidth]="'50px'">
 			</div>
 				<ng-container *ngIf="!pending">
 					<div

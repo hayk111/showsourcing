@@ -392,7 +392,7 @@ export class ListPageService
 		this.viewSrv.closeFilterPanel();
 	}
 
-	changeView(view: 'list' | 'card') {
+	changeView(view: 'list' | 'board' | 'card') {
 		this.viewSrv.changeView(view);
 	}
 
@@ -437,21 +437,16 @@ export class ListPageService
 	}
 
 	filterByArchived(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ARCHIVED, value: true };
+		const predicate = this.filterList.asPredicate();
 
 		if (shouldAdd) {
-			this.addFilter(filterParam);
-			this.refetch({
-				query: 'deleted == false AND archived == true',
-			}).subscribe();
-
+			this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: false});
+			this.filterList.addFilter({ type: FilterType.ARCHIVED, value: true});
 			return;
 		}
 
-		this.removeFilter(filterParam);
-		this.refetch({
-			query: 'deleted == false AND archived == false',
-		}).subscribe();
+		this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: true});
+		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: false});
 	}
 
 	filterByAssignee(shouldAdd: boolean) {

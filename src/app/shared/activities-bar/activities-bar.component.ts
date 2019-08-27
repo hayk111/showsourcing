@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, AfterContentChecked } from '@angular/core';
 import { RequestElementService } from '~core/entity-services';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Observable } from 'rxjs';
 import { ReplyStatus, Task } from '~core/models';
 
@@ -24,6 +25,7 @@ export class ActivitiesBarComponent implements OnInit {
 
 	constructor(
 		private requestElementService: RequestElementService,
+		public thumbService: ThumbService,
 	) { }
 
 	ngOnInit() {
@@ -38,7 +40,6 @@ export class ActivitiesBarComponent implements OnInit {
 	}
 
 	hasTasksOverdue(id) {
-		console.log('TCL: ActivitiesBarComponent -> hasTasksOverdue -> this.rows', this.row);
 		if (!id) {
 			return false;
 		}
@@ -54,15 +55,5 @@ export class ActivitiesBarComponent implements OnInit {
 
 	isTaskOverdued(task: Task): boolean {
 		return task && task.dueDate && new Date().getTime() >= Date.parse(task.dueDate.toString());
-	}
-
-	getAvgVotes(votes: any[]): number {
-		if (!votes || !votes.length) {
-			return -1;
-		}
-
-		const votesVals = votes.map(vote => vote.value);
-		const sum = votesVals.reduce((votePrev, voteNext) => votePrev + voteNext, 0);
-		return Math.round( sum / votes.length * 10 ) / 10;
 	}
 }
