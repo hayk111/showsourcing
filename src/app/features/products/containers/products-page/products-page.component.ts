@@ -124,14 +124,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.closeFilterPanel();
 	}
 
-	isOverlap(): boolean {
-		const width = window.innerWidth
-		|| document.documentElement.clientWidth
-		|| document.body.clientWidth;
-
-		return width <= SCREEN_MAX_WIDTH_OVERLAP;
-	}
-
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
