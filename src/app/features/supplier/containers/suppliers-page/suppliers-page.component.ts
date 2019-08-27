@@ -33,7 +33,9 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		FilterType.TAGS
 	];
 
-	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND archived == false' };
+	// TODO BackEnd
+	// private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND archived == false' };
+	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false' };
 
 	public tableWidth: string;
 	public addSupplierMargin: string;
@@ -75,7 +77,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 	onArchive(supplier: Supplier | Supplier[]) {
 		// TODO i18n
 		if (Array.isArray(supplier)) {
-			this.featureSrv.updateMany(supplier.map((p: Supplier) => ({id: p.id, archived: true})))
+			this.featureSrv.updateMany(supplier.map((p: Supplier) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({

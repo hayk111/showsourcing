@@ -48,7 +48,7 @@ export class DynamicInputComponent extends AbstractInput implements OnInit, Afte
 	ngOnInit() {
 		if (this.customField && this.customField.type === 'extendedField')
 			if (this.customField.metadata.target)
-				this.definitions$ = this.extendedFieldDefSrv.queryMany({ query: `target == "${this.customField.metadata.target}"` });
+				this.definitions$ = this.extendedFieldDefSrv.queryMany({ query: `target == "${this.customField.metadata.target}"`, sortBy: 'order' });
 			else
 				throw new Error('target not defined for extendedField on dynamic inputs');
 	}
