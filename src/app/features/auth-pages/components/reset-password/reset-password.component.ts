@@ -8,6 +8,7 @@ import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { translate } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'reset-password-app',
@@ -23,7 +24,8 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 
 	constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,
 		private authSrv: AuthenticationService, private router: Router,
-		private route: ActivatedRoute, private notificationSrv: NotificationService
+		private route: ActivatedRoute, private notificationSrv: NotificationService,
+		private translate: TranslateService
 	) {
 		super();
 		this.form = this.fb.group({
@@ -48,11 +50,11 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 					if (error.error && error.error.errors && error.error.errors.length > 0) {
 						this.error = error.error.errors[0];
 					} else {
-						this.error = translate('Error when resetting password');
+						this.error = this.translate.instant('error.reset-pwd');
 					}
 					this.notificationSrv.add({
 						type: NotificationType.ERROR,
-						title: translate('Password reset'),
+						title: this.translate.instant('header.password-reset'),
 						message: this.error,
 						timeout: 4500
 					});
@@ -63,8 +65,9 @@ export class ResetPasswordComponent extends AutoUnsub implements OnInit {
 				this.router.navigate(['auth', 'login']);
 				this.notificationSrv.add({
 					type: NotificationType.SUCCESS,
-					title: translate('Password reset'),
-					message: translate('Password successfully restored'),
+					title: this.translate.instant('header.password-reset'),
+					// message: translate('Password successfully restored'),
+					message: this.translate.instant('message.pwd-reset-successfully'),
 					timeout: 3500
 				});
 			}, err => {

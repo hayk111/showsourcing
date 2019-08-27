@@ -1,0 +1,62 @@
+{
+	"button": {
+		"account-already-existed": "",
+		"do-not-have-an-account": "",
+		"invite": "",
+		"login": "",
+		"pwResetted_login": "",
+		"send": "",
+		"sign-up": ""
+	},
+	"email": "",
+	"error": {
+		"account-already-existed-with-email": "",
+		"email-not-validated-please-check-your-inbox": "",
+		"incorrect-credentials": "",
+		"min-characters-required": "",
+		"pick-another-email": "",
+		"reset-pwd": "",
+		"submition-failed-please-try-again": "",
+		"when-requesting-password-reset": ""
+	},
+	"first-name": "",
+	"forgotten-pswd": "",
+	"full-name": "",
+	"header": {
+		"account-created": "",
+		"loading-info-please-wait": "",
+		"password-reset": ""
+	},
+	"hint": {
+		"company-tip": ""
+	},
+	"last-name": "",
+	"message": {
+		"pwd-reset-successfully": ""
+	},
+	"paragraph": {
+		"pwResetted_reset": ""
+	},
+	"password": "",
+	"placeholder": {
+		"confirm-new-pwd": "",
+		"intro-new-pwd": "",
+		"your-email": "",
+		"your-first-name": "",
+		"your-last-name": "",
+		"your-password": ""
+	},
+	"text": {
+		"check-inbox-email-validate": "",
+		"confirm-new-pw": "",
+		"invite-more-members": "",
+		"new-pw": "",
+		"now-invite-members": "",
+		"please-enter-pw": "",
+		"please-hold-modif-internet": "",
+		"please-login-to-your-account": "",
+		"pw-must-match": "",
+		"validating-email": "",
+		"we-will-send-you-instructions": ""
+	}
+}

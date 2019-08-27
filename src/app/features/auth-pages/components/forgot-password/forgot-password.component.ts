@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { translate } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'forgot-password-app',
@@ -30,6 +30,7 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 		private authSrv: AuthenticationService,
 		private router: Router,
 		private route: ActivatedRoute,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -38,19 +39,19 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 		this.queryParams = this.route.snapshot.queryParams || '/';
 
 		this.listForm = [{
-			label: translate('email'),
+			label: this.translate.instant('email'),
 			type: 'email',
 			name: 'email',
 			isRequired: true,
 			autoComplete: 'current-email',
-			placeHolder: translate('Your email'),
+			placeHolder: this.translate.instant('placeholder.your-email'),
 			validators: [Validators.required, Validators.email]
 		}];
 		this.buttons = [{
-			label: translate('send'),
+			label: this.translate.instant('button.send'),
 			type: 'button'
 		}, {
-			label: translate('login'),
+			label: this.translate.instant('button.login'),
 			type: 'link',
 			link: ['../login'],
 			queryParams: this.queryParams
@@ -66,7 +67,7 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 					if (error.error && error.error.errors && error.error.errors.length > 0) {
 						this.error = error.error.errors[0];
 					} else {
-						this.error = translate('Error when requesting password reset');
+						this.error = this.translate.instant('error.when-requesting-password-reset');
 					}
 					return throwError(error);
 				})

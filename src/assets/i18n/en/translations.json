@@ -1,0 +1,62 @@
+{
+	"button": {
+		"account-already-existed": "Already have an account?",
+		"do-not-have-an-account": "Don't have an account ?",
+		"invite": "Invite",
+		"login": "Login",
+		"pwResetted_login": "Login",
+		"send": "Send",
+		"sign-up": "Sign-up"
+	},
+	"email": "Email",
+	"error": {
+		"account-already-existed-with-email": "An account already exist with this email address.",
+		"email-not-validated-please-check-your-inbox": "Email not validated, please check your inbox",
+		"incorrect-credentials": "Incorrect credentials",
+		"min-characters-required": "Minimum 8 characters required",
+		"pick-another-email": "Please pick another email",
+		"reset-pwd": "Error when resetting password",
+		"submition-failed-please-try-again": "Submition failed, please try again in a short while",
+		"when-requesting-password-reset": "Error when requesting password reset"
+	},
+	"first-name": "First name",
+	"forgotten-pswd": "Forgotten password?",
+	"full-name": "Full name",
+	"header": {
+		"account-created": "Account created",
+		"loading-info-please-wait": "We are loading your information, please wait...",
+		"password-reset": "Password Reset"
+	},
+	"hint": {
+		"company-tip": "Tip: the app works better with a company email"
+	},
+	"last-name": "Last name",
+	"message": {
+		"pwd-reset-successfully": "Your password has been reset successfully!"
+	},
+	"paragraph": {
+		"pwResetted_reset": "We sent you instructions to recover your password."
+	},
+	"password": "Password",
+	"placeholder": {
+		"confirm-new-pwd": "Confirm the new password",
+		"intro-new-pwd": "Introduce the new password",
+		"your-email": "Your email",
+		"your-first-name": "Your first name",
+		"your-last-name": "Your last name",
+		"your-password": "Your password"
+	},
+	"text": {
+		"check-inbox-email-validate": "Please check your inbox to validate your email...",
+		"confirm-new-pw": "Confirm new password",
+		"invite-more-members": "Invite more team members",
+		"new-pw": "New password",
+		"now-invite-members": "Now invite your team members",
+		"please-enter-pw": "Please enter your new password",
+		"please-hold-modif-internet": "Please hold as we modify the internet for you!",
+		"please-login-to-your-account": "Please login to your account",
+		"pw-must-match": "New password must match",
+		"validating-email": "Validating email...",
+		"we-will-send-you-instructions": "We will send you instructions to recover your password."
+	}
+}
