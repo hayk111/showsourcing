@@ -7,6 +7,9 @@
   [count]="count"
   [currentPage]="currentPage"
   [selected]="selection"
+  [hasHeader]="hasHeader"
+  [hasPagination]="hasPagination"
+  [contextualMenu]="contextualMenuTemplate"
   (goToPage)="goToPage.emit($event)"
   (bottomReached)="bottomReached.emit()"
   (sort)="sort.emit($event)"
@@ -15,41 +18,36 @@
   (selectAll)="selectAll.emit($event)"
   (unselectAll)="unselectAll.emit()"
   (showItemsPerPage)="showItemsPerPage.emit($event)">
+
   <!-- contextual menu -->
-  <ng-template let-row="row">
+  <ng-template #contextualMenuTemplate let-row="row">
     <context-menu-item-app
-      class="pointer"
       (click)="setFavourite.emit(row)"
       i18n="button@@set-as-favourite">
       Set as Favourite
     </context-menu-item-app>
     <context-menu-item-app
-      class="pointer"
       (click)="openAddToProjectDialog.emit(row)"
       i18n="button@@add-to-project">
       Add to Project
     </context-menu-item-app>
     <context-menu-item-app
-      class="pointer"
       (click)="openAddTaskDialog.emit(row)"
       i18n="button@@add-task">
       Add Task
     </context-menu-item-app>
     <context-menu-item-app
-      class="pointer"
       (click)="openAddSampleDialog.emit(row)"
       i18n="button@@add-sample">
       Add Sample
     </context-menu-item-app>
     <divider-app></divider-app>
     <context-menu-item-app
-      class="pointer"
       (click)="archive.emit(row)"
       i18n="button@@archive">
       Archive
     </context-menu-item-app>
     <context-menu-item-app
-      class="pointer"
       (click)="delete.emit(row)"
       i18n="button@@delete">
       Delete

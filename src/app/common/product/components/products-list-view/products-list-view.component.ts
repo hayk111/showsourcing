@@ -39,8 +39,9 @@ const columnConfig: TableConfig = {
 export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
 	@Input() columns = [ 'reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status', 'assignee' ];
 	@Input() hasMenu = true;
+	@Input() hasHeader = true;
+	@Input() hasPagination = true;
 	@Input() productPreview = true;
-	@Input() isInProductSelectDlg = false;
 	@Input() currentSort: Sort;
 	@Input() tableWidth: number;
 	@Output() setFavourite = new EventEmitter<Product>();

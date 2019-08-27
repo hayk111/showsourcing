@@ -19,6 +19,7 @@ import { SampleCardTestComponent } from './sample-card-test/sample-card-test.com
 import { SelectorLibraryComponent } from './selector-library/selector-library.component';
 import { TableLibPageComponent } from './table-lib-page/table-lib-page.component';
 import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
+import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
 
 
 
@@ -44,7 +45,8 @@ import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/wor
 		CardLibPageComponent,
 		BadgeLibPageComponent,
 		PipesLibPageComponent,
-		TableLibPageComponent
+		TableLibPageComponent,
+		CommonListsLibPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []

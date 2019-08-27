@@ -7,6 +7,7 @@ import { LoadersLibPageComponent } from './loaders-lib-page/loaders-lib-page.com
 import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component';
 import { PipesLibPageComponent } from './pipes-lib-page/pipes-lib-page.component';
 import { TableLibPageComponent } from './table-lib-page/table-lib-page.component';
+import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
 
 
 export const routes: Array<Route> = [
@@ -22,6 +23,7 @@ export const routes: Array<Route> = [
 			{ path: 'badges', component: BadgeLibPageComponent },
 			{ path: 'pipes', component: PipesLibPageComponent },
 			{ path: 'table', component: TableLibPageComponent },
+			{ path: 'common-lists', component: CommonListsLibPageComponent },
 			// { path: 'sample-card', component: SampleCardTestComponent },
 			// { path: 'preview', component: PreviewPageComponent },
 			// { path: 'product-card', component: ProductCardLibraryPageComponent },

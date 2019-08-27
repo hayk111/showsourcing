@@ -32,7 +32,7 @@ class Item {
 			[hasSelection]="hasSelection"
 			[selected]="selection"
 			[contextualMenu]="contextualMenuTemplate"
-			[hasSelectPagination]="hasSelectPagination"
+			[hasPagination]="hasPagination"
 			[count]="count"
 			placeholder="'No items'"
 			(next)="next.emit()"
@@ -74,7 +74,7 @@ class TestComponent extends ListViewComponent<Item> {
 	@ViewChild('table', { static: false }) table;
 
 	hasSelection: boolean;
-	hasSelectPagination: boolean;
+	hasPagination: boolean;
 	currentSort: Sort;
 }
 
@@ -206,24 +206,24 @@ fdescribe('TableComponent', () => {
 		expect(tableComponent.onSelectOne).withContext('Should call fnc "onSelectOne"').toHaveBeenCalled();
 	});
 
-	it('should checked whether pagination and selection are displayed when `hasSelectPagination` is true and not otherwise', () => {
+	it('should checked whether pagination and selection are displayed when `hasPagination` is true and not otherwise', () => {
 		const rows = [{ id: '1', name: 'test1' }, { id: '2', name: 'test1' }];
 		testComponent.rows = rows;
-		testComponent.hasSelectPagination = false;
+		testComponent.hasPagination = false;
 
 		fixtureTestComponent.detectChanges();
 		let paginationApp = fixtureTestComponent.debugElement.query(By.css('.pagination-ctrl'));
 
 		expect(paginationApp)
-			.withContext('pagination and selection sections should not be displayed when `hasSelectPagination` is false')
+			.withContext('pagination and selection sections should not be displayed when `hasPagination` is false')
 			.toBeFalsy();
 
-		testComponent.hasSelectPagination = true;
+		testComponent.hasPagination = true;
 		fixtureTestComponent.detectChanges();
 		paginationApp = fixtureTestComponent.debugElement.query(By.css('.pagination-ctrl'));
 
 		expect(paginationApp)
-			.withContext('pagination and selection sections should be displayed when `hasSelectPagination` is true')
+			.withContext('pagination and selection sections should be displayed when `hasPagination` is true')
 			.toBeTruthy('should be displayed');
 	});
 
