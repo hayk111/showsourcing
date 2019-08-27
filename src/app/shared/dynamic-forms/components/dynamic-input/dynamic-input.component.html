@@ -43,7 +43,7 @@
       (input)="onChange()"/>
 	</form-field-app>
 
-		<!-- date -->
+	<!-- date -->
 	<form-field-app *ngSwitchCase="'date'"  class="modal">
 			<label-app>{{ customField?.label || customField?.name }}</label-app>
 			<input inputApp
@@ -115,9 +115,14 @@
   <ng-container *ngSwitchCase="'boolean'">
     <form-field-app class="modal">
       <label-app>{{ customField?.label || customField?.name }}</label-app>
-			<radio-app 	autoFocus inputApp
-			[checked]="accumulator !== undefined ? accumulator : null"
-			[canFocus]="autofocus" [(ngModel)]="accumulator" [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" (update)="onChange()"></radio-app>
+			<radio-app
+			 	autoFocus inputApp
+				[(ngModel)]="accumulator"
+				[checked]="accumulator !== undefined ? accumulator : null"
+				[canFocus]="autofocus"
+				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
+				(update)="onChange()">
+			</radio-app>
     </form-field-app>
   </ng-container>
 

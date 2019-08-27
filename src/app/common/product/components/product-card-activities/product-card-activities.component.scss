@@ -1,0 +1,53 @@
+.icons-container {
+	height: 22px;
+	width: calc(100% - var(--spacing-l));
+	display: flex;
+	position: absolute;
+	align-items: center;
+	margin-left: var(--spacing-l);
+	bottom: var(--spacing-s);
+}
+
+:host icon-app {
+	display: inline-block;
+	margin-right: var(--spacing-s);
+}
+
+:host icon-app.star {
+	display: inline;
+	margin: 0 2px 0 0;
+}
+
+:host .icons-container > icon-app:not(.favourite) {
+	color: var(--color-txt-third);
+}
+
+:host .icons-container > icon-app.favourite {
+	color: var(--color-warn);
+}
+
+.vote-star-container {
+	position: absolute;
+	cursor: pointer;
+	border-radius: var(--border-radius);
+	color: var(--color-accent);
+	right: var(--spacing-s);
+	padding: var(--spacing-xs);
+}
+
+.vote-star-value {
+	width: 19px;
+  height: 18px;
+  font-size: 14px;
+  font-weight: 600;
+	color: var(--color-accent-contrast);
+	margin: 0 0 0 2px;	
+}
+
+.light-background {
+	background-color: var(--color-accent-light);
+}
+
+.warn-circle {
+	color: var(--color-warn) !important;
+}

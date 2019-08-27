@@ -83,7 +83,6 @@
 	<filters-app
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
-		[overlap]="isOverlap()"
 		(clickOutside)="listSrv.closeFilterPanel()"
 		(close)="listSrv.closeFilterPanel()"
 		*ngIf="listSrv.filterPanelOpen">

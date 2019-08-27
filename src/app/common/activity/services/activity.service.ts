@@ -13,6 +13,7 @@ import {
 	GetStreamGroup,
 	GetStreamResponse,
 } from '~common/activity/interfaces/get-stream-feed.interfaces';
+import { TokenResponse } from '../interfaces/token-response.interface';
 
 
 /**

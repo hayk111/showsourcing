@@ -40,7 +40,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	// whether we should display export button
 	@Input() hasExport = true;
 	// content of the switch
-	@Input() switchContent: ['list-menu', 'kanban' | 'thumbs'] = ['list-menu', 'thumbs'];
+	@Input() switchContent: ['list-menu', 'board', 'kanban' | 'grid'] = ['list-menu', 'board', 'grid'];
 	// whether the screen has a search input
 	@Input() hasSearch = true;
 

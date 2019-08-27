@@ -10,7 +10,6 @@ export class FiltersComponent {
 	view: 'BTNS' | 'SELECTION' = 'BTNS';
 	@Input() filterList: FilterList;
 	@Input() filterTypes = [];
-	@Input() overlap: boolean;
 	typeSelected: FilterType;
 
 	@Output() close = new EventEmitter<undefined>();

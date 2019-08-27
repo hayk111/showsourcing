@@ -4,7 +4,7 @@ import { TaskService } from '~core/entity-services';
 import { Product, Supplier, Task } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { translate } from '~utils';
+import { translate, uuid } from '~utils';
 
 @Component({
 	selector: 'creation-task-dlg-app',
@@ -18,10 +18,10 @@ export class CreationTaskDlgComponent implements OnInit {
 	@Input() task: Task;
 	@Input() product: Product;
 	@Input() supplier: Supplier;
+	@Input() createAnother = false;
 
 	taskDescriptor: TaskDescriptor;
 
-	createAnother = false;
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -72,7 +72,8 @@ export class CreationTaskDlgComponent implements OnInit {
 		if (this.task && this.task.name) {
 			this.taskSrv.create(this.task).subscribe(task => {
 				if (this.createAnother) {
-					this.dlgSrv.open(CreationTaskDlgComponent, { task: { ...this.task, name: '', description: '' } });
+					task = this.resetIds(task);
+					this.dlgSrv.open(CreationTaskDlgComponent, { task, createAnother: true });
 				} else {
 					this.close();
 				}
@@ -97,6 +98,11 @@ export class CreationTaskDlgComponent implements OnInit {
 
 	close() {
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { task: this.task } });
+	}
+
+	private resetIds(task) {
+		task = { ...task, id: uuid(), name: '', description: '' };
+		return task;
 	}
 
 }

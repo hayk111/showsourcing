@@ -73,14 +73,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		this.listSrv.closeFilterPanel();
 	}
 
-	isOverlap(): boolean {
-		const width = window.innerWidth
-			|| document.documentElement.clientWidth
-			|| document.body.clientWidth;
-
-		return width <= SCREEN_MAX_WIDTH_OVERLAP;
-	}
-
 	onArchive(supplier: Supplier | Supplier[]) {
 		// TODO i18n
 		if (Array.isArray(supplier)) {
