@@ -12,7 +12,7 @@ import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { Location } from '@angular/common';
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'app-root',
@@ -33,7 +33,8 @@ export class AppComponent implements OnInit {
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
 		private userClient: UserClientInitializer,
-		private location: Location
+		private location: Location,
+		private translate: TranslateService
 	) { }
 
 	ngOnInit(): void {
@@ -72,6 +73,7 @@ export class AppComponent implements OnInit {
 			tap(_ => ListPageService.reset())
 		).subscribe(_ => this.isSpinnerShown$.next(false));
 
+		this.translate.setDefaultLang('en');
 	}
 
 	private startBaseClients(): Observable<Client[]> {
