@@ -94,11 +94,23 @@ export class ThumbService {
 		return votes;
 	}
 
+	/**
+	 * computes the current score of the votes given a product
+	 * @param product product with votes to be computed
+	 */
 	computeScore(product: Product) {
+		return this.computeScoreVotes(product.votes || []);
+	}
+
+	/**
+	 * computes the current score of the votes given votes
+	 * @param votes array of product votes to be computed
+	 */
+	computeScoreVotes(votes: ProductVote[]) {
 		let score = null;
-		if (product && product.votes && product.votes.length) {
-			product.votes.forEach(vote => score += vote.value);
-			score /= product.votes.length;
+		if (votes && votes.length) {
+			votes.forEach(vote => score += vote.value);
+			score /= votes.length;
 			// its done this way to cover all cases, this is called scaling number
 			score = Math.round((score + 0.00001) * 100) / 100;
 		}
