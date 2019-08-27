@@ -25,6 +25,8 @@ export class SampleQueries extends GlobalQueries {
 	}`;
 
 	// TODO BackEnd add extended fields
+	// TODO BackEnd add archived
+	// TODO BackEnd add type
 	static readonly one = `
 		name,
 		reference,

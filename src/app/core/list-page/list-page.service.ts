@@ -437,8 +437,6 @@ export class ListPageService
 	}
 
 	filterByArchived(shouldAdd: boolean) {
-		const predicate = this.filterList.asPredicate();
-
 		if (shouldAdd) {
 			this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: false});
 			this.filterList.addFilter({ type: FilterType.ARCHIVED, value: true});

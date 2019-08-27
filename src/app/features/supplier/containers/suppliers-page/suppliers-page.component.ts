@@ -53,4 +53,10 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 	ngAfterViewInit() {
 		this.listSrv.loadData(this._destroy$);
 	}
+
+	getFilterAmount() {
+		const filters = this.listSrv.filterList.asFilters()
+			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
+		return filters.length;
+	}
 }
