@@ -23,6 +23,10 @@ export class RatingStarsScoreViewComponent {
 	totalVotes = 1;
 	score = 0;
 
+	// by default keyvalue pipe orders in ascending
+	/** function that orders by descending key */
+	compareFn = (a, b) => b.key > a.key ? 1 : -1;
+
 	constructor(
 		private cdr: ChangeDetectorRef,
 		private thumbSrv: ThumbService
@@ -33,7 +37,7 @@ export class RatingStarsScoreViewComponent {
 	 */
 	private setValues() {
 		this.totalVotes = 0;
-		this.votesMap = new Map([[5, 0], [4, 0], [3, 0], [2, 0], [1, 0]]);
+		this.votesMap = new Map([[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]);
 		// we increate the total votes inside the switchase instead of doing totalVotes = votes.length
 		// because sometimes we have votes that have score 0 and we don't want those to be in the total
 		(this.votes || []).forEach(vote => {
