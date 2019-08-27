@@ -4,6 +4,20 @@ import { ERM, Product } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
 
 
+const columnConfig = {
+	'activities': { width: 190 },
+	'assignee': { width: 50 },
+	'category': { width: 190 },
+	'created by': { width: 140 },
+	'creation date': { width: 190 },
+	'favorite': { width: 50 },
+	'moq': { width: 120 },
+	'price': { width: 120 },
+	'projects': { width: 190 },
+	'reference': { width: 190 },
+	'status': { width: 190 },
+	'supplier': { width: 190 },
+};
 
 @Component({
 	selector: 'products-list-view-app',
@@ -32,5 +46,9 @@ export class ProductsListViewComponent extends ListViewComponent<Product> {
 
 	constructor() {
 		super();
+	}
+
+	getWidth(columnName: string) {
+		return columnConfig[columnName].width;
 	}
 }

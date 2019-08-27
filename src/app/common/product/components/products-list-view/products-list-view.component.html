@@ -1,30 +1,4 @@
 
-
-<!-- <custom-table-app
-  class="list"
-  [width]="tableWidth"
-  [rows]="rows"
-  [descriptor]="descriptor"
-  [contextualMenu]="contextualMenuTemplate"
-  [hasMenu]="hasMenu"
-  [selected]="selection"
-  [currentSort]="currentSort"
-  placeholder="No product"
-  [pending]="pending"
-  [count]="count"
-  [currentPage]="currentPage"
-  (goToPage)="goToPage.emit($event)"
-  (bottomReached)="bottomReached.emit()"
-  (sort)="sort.emit($event)"
-  (selectOne)="select.emit($event)"
-  (unselectOne)="unselect.emit($event)"
-  (selectAll)="selectAll.emit($event)"
-  (unselectAll)="unselectAll.emit()"
-  (showItemsPerPage)="showItemsPerPage.emit($event)"
-  i18n-placeholder="@@no-product">
-</custom-table-app> -->
-
-
 <table-app 
   placeholder="No product"  
   [rows]="rows"
@@ -85,10 +59,11 @@
   <ng-template 
     *ngFor="let column of columns; trackBy: trackByFn" 
     let-row="row" 
-    [columnApp]="column">
+    [columnApp]="column"
+    [width]="getWidth(column)">
     <ng-container [ngSwitch]="column">
   
-      <!-- product preview -->
+      <!-- product reference -->
       <ng-container *ngSwitchCase="'reference'">
         <div class="ellipsis name-container contain-strict">
           <div class="ellipsis flex">
@@ -195,7 +170,7 @@
       <ng-container *ngSwitchCase="'creationDate'">
         {{ row?.creationDate | date: 'dd MMMM y' }}
       </ng-container>
-      
+     
       <!-- created by -->
       <ng-container *ngSwitchCase="'created by'">
         <span class="created-by">{{ row?.createdBy | formatUserName }}</span>
@@ -228,14 +203,7 @@
       <ng-container *ngSwitchCase="'status'">
         <status-selector-app [entity]="row" [typeEntity]="prodErm" selectSize="s"></status-selector-app>
       </ng-container>
-      
-      
-      <!-- for some mindblowing reason if this is put last,
-        the viewchild for default template is undefined -->
-      <ng-container #default>
-        {{ row[column.propName] }}
-      </ng-container>
-      
+
       <!-- user -->
       <ng-container *ngSwitchCase="'assignee'">
         <div class="flexCenter userP">{{ row?.createdBy | formatUserName }}</div>
@@ -243,6 +211,11 @@
           <!-- none -->
           <ng-template #none></ng-template>
         </ng-template>
+      </ng-container>
+
+      <!-- default -->
+      <ng-container *ngSwitchDefault>
+        {{ row[column] }}
       </ng-container>
 
     </ng-container>
