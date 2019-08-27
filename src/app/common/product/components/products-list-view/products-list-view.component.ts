@@ -1,22 +1,31 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
 
+interface ColumnConfig {
+	title: string;
+	width: number;
+	sortProperty?: string;
+}
 
-const columnConfig = {
-	'activities': { width: 190 },
-	'assignee': { width: 50 },
-	'category': { width: 190 },
-	'created by': { width: 140 },
-	'creation date': { width: 190 },
-	'favorite': { width: 50 },
-	'moq': { width: 120 },
-	'price': { width: 120 },
-	'projects': { width: 190 },
-	'reference': { width: 190 },
-	'status': { width: 190 },
-	'supplier': { width: 190 },
+interface TableConfig {
+	[key: string]: ColumnConfig;
+}
+
+const columnConfig: TableConfig = {
+	activities: { title: 'activities', width: 190 },
+	assignee: { title: 'assignee', width: 50, sortProperty: 'assignee.firstName' },
+	category: { title: 'category', width: 190, sortProperty: 'category.name' },
+	createdBy: { title: 'created by', width: 140, sortProperty: 'createdBy.firstName' },
+	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate' },
+	favorite: { title: 'favorite', width: 50, sortProperty: 'favorite' },
+	moq: { title: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
+	price: { title: 'price', width: 120, sortProperty: 'price.value' },
+	projects: { title: 'projects', width: 190, sortProperty: 'creationDate' },
+	reference: { title: 'reference', width: 190, sortProperty: 'reference' },
+	status: { title: 'status', width: 190, sortProperty: 'status.step' },
+	supplier: { title: 'supplier', width: 190, sortProperty: 'supplier.id' },
 };
 
 @Component({
@@ -27,8 +36,8 @@ const columnConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsListViewComponent extends ListViewComponent<Product> {
-	@Input() columns = [ 'reference', 'price', 'supplier', 'category', 'created by', 'activities', 'status', 'assignee' ];
+export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
+	@Input() columns = [ 'reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status', 'assignee' ];
 	@Input() hasMenu = true;
 	@Input() productPreview = true;
 	@Input() isInProductSelectDlg = false;
@@ -43,12 +52,13 @@ export class ProductsListViewComponent extends ListViewComponent<Product> {
 	@Output() delete = new EventEmitter<Product>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 	prodErm = ERM.PRODUCT;
+	columnsConfig: ColumnConfig[] = [];
 
 	constructor() {
 		super();
 	}
 
-	getWidth(columnName: string) {
-		return columnConfig[columnName].width;
+	ngOnInit() {
+		this.columns.forEach(name => this.columnsConfig.push(columnConfig[name]));
 	}
 }

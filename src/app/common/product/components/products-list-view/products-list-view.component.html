@@ -6,6 +6,7 @@
   [pending]="pending"
   [count]="count"
   [currentPage]="currentPage"
+  [selected]="selection"
   (goToPage)="goToPage.emit($event)"
   (bottomReached)="bottomReached.emit()"
   (sort)="sort.emit($event)"
@@ -57,11 +58,12 @@
 
   <!-- dynamic columns -->
   <ng-template 
-    *ngFor="let column of columns; trackBy: trackByFn" 
+    *ngFor="let column of columnsConfig; trackBy: trackByFn" 
     let-row="row" 
-    [columnApp]="column"
-    [width]="getWidth(column)">
-    <ng-container [ngSwitch]="column">
+    [columnApp]="column.title"
+    [width]="column.width"
+    [sortBy]="column.sortProperty">
+    <ng-container [ngSwitch]="column.title">
   
       <!-- product reference -->
       <ng-container *ngSwitchCase="'reference'">
@@ -167,7 +169,7 @@
       </ng-container>
       
       <!-- creation date -->
-      <ng-container *ngSwitchCase="'creationDate'">
+      <ng-container *ngSwitchCase="'creation date'">
         {{ row?.creationDate | date: 'dd MMMM y' }}
       </ng-container>
      
@@ -215,10 +217,11 @@
 
       <!-- default -->
       <ng-container *ngSwitchDefault>
-        {{ row[column] }}
+        {{ row[column.title] }}
       </ng-container>
 
     </ng-container>
   </ng-template>
+
 </table-app>
 
