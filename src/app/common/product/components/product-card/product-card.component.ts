@@ -37,7 +37,6 @@ export class ProductCardComponent extends TrackingComponent {
 	/** The associated product */
 	@Input() set product(product: Product) {
 		this._product = product;
-		console.log('TCL: ProductCardComponent -> @Input -> this._product', this._product);
 		this.computeLikes();
 		this.computeScore();
 		this.link = '/product/' + this._product.id + '/general';

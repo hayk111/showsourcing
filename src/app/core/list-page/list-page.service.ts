@@ -392,7 +392,7 @@ export class ListPageService
 		this.viewSrv.closeFilterPanel();
 	}
 
-	changeView(view: 'list' | 'board' |'card') {
+	changeView(view: 'list' | 'board' | 'card') {
 		this.viewSrv.changeView(view);
 	}
 

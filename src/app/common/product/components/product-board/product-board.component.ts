@@ -64,9 +64,6 @@ export class ProductBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.columns$.subscribe(columns => {
-	    console.log('TCL: ProductBoardComponent -> ngOnInit -> columns', columns);
-		});
 		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
 			takeUntil(this._destroy$)
 		);

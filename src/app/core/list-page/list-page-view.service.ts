@@ -58,7 +58,6 @@ export class ListPageViewService<T> {
 	 * @param view the view we want to change to either list or card view
 	*/
 	changeView(view: 'list' | 'board' | 'card') {
-		console.log('TCL: ListPageViewService<T> -> changeView -> view', view);
 		this.view = view;
 	}
 }

@@ -90,7 +90,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	onViewChange(view: 'list' | 'board' | 'card') {
-		console.log('onViewChange called...');
 		this.listSrv.changeView(view);
 	}
 
