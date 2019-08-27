@@ -1,2 +1,0 @@
-export const SCREEN_MAX_WIDTH_OVERLAP = 1000;
-export const FILTERS_PANE_WIDTH = 300;

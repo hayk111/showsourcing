@@ -10,7 +10,6 @@ import { SupplierFeatureService } from '~features/supplier/services/supplier-fea
 import { switchMap } from 'rxjs/operators';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { SCREEN_MAX_WIDTH_OVERLAP, FILTERS_PANE_WIDTH } from '~features/const';
 
 @Component({
 	selector: 'supplier-page-app',

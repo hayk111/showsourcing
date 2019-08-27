@@ -16,7 +16,6 @@ import { ProductListComponent } from '~deprecated/product-list/product-list.comp
 import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { SCREEN_MAX_WIDTH_OVERLAP, FILTERS_PANE_WIDTH } from '~features/const';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
