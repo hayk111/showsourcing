@@ -38,9 +38,7 @@
             in progress
           </span>
           <span>
-            <a [routerLink]="['/workspace/my-workflow']" routerLinkActive="active" i18n="link@@to-my-workspace">
-              To my workspace
-            </a>
+            <a [routerLink]="['/workspace/my-workflow']" routerLinkActive="active" translate="link.to-my-workspace"></a>
           </span>
         </div>
       </div>
@@ -57,7 +55,7 @@
 
     <divider-app></divider-app>
 
-    <div class="taskTitle capitalize"> {{ counters?.tasksDone ? counters?.tasksDone + index : '0'}} / {{ counters?.totalTasks || '0' }} <ng-container i18n="@@tasks">tasks</ng-container></div>
+    <div class="taskTitle capitalize"> {{ counters?.tasksDone ? counters?.tasksDone + index : '0'}} / {{ counters?.totalTasks || '0' }} <ng-container translate="tasks"></ng-container></div>
 
     <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
   </ng-container>
@@ -73,9 +71,7 @@
   </ng-container>
 
   <card-footer-app paddingSide="l">
-    <button (click)="goToWorkspace()" i18n="button@open-workspace">
-      Open my workspace
-    </button>
+    <button (click)="goToWorkspace()" translate="button.open-workspace"></button>
   </card-footer-app>
 
 </card-app>

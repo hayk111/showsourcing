@@ -94,7 +94,57 @@
                         </translations>
                     </concept_node>
                     <concept_node>
+                        <name>invite-team-members</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>login</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>open-workspace</name>
                         <definition_loaded>false</definition_loaded>
                         <description></description>
                         <comment></comment>
@@ -554,7 +604,82 @@
                         </translations>
                     </concept_node>
                     <concept_node>
+                        <name>no-recent-activity</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>password-reset</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>unnamed-team</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>we-have-pb</name>
                         <definition_loaded>false</definition_loaded>
                         <description></description>
                         <comment></comment>
@@ -636,6 +761,36 @@
                 </translations>
             </concept_node>
             <folder_node>
+                <name>link</name>
+                <children>
+                    <concept_node>
+                        <name>to-my-workspace</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                </children>
+            </folder_node>
+            <folder_node>
                 <name>message</name>
                 <children>
                     <concept_node>
@@ -665,6 +820,31 @@
                     </concept_node>
                 </children>
             </folder_node>
+            <concept_node>
+                <name>no-team-members</name>
+                <definition_loaded>false</definition_loaded>
+                <description></description>
+                <comment></comment>
+                <default_text></default_text>
+                <translations>
+                    <translation>
+                        <language>en-US</language>
+                        <approved>false</approved>
+                    </translation>
+                    <translation>
+                        <language>es-ES</language>
+                        <approved>false</approved>
+                    </translation>
+                    <translation>
+                        <language>fr-FR</language>
+                        <approved>false</approved>
+                    </translation>
+                    <translation>
+                        <language>zh-CN</language>
+                        <approved>false</approved>
+                    </translation>
+                </translations>
+            </concept_node>
             <folder_node>
                 <name>paragraph</name>
                 <children>
@@ -672,7 +852,7 @@
                         <name>pwResetted_reset</name>
                         <definition_loaded>false</definition_loaded>
                         <description></description>
-                        <comment>Instruction to reset password</comment>
+                        <comment></comment>
                         <default_text></default_text>
                         <translations>
                             <translation>
@@ -875,6 +1055,56 @@
                     </concept_node>
                 </children>
             </folder_node>
+            <concept_node>
+                <name>tasks</name>
+                <definition_loaded>false</definition_loaded>
+                <description></description>
+                <comment></comment>
+                <default_text></default_text>
+                <translations>
+                    <translation>
+                        <language>en-US</language>
+                        <approved>false</approved>
+                    </translation>
+                    <translation>
+                        <language>es-ES</language>
+                        <approved>false</approved>
+                    </translation>
+                    <translation>
+                        <language>fr-FR</language>
+                        <approved>false</approved>
+                    </translation>
+                    <translation>
+                        <language>zh-CN</language>
+                        <approved>false</approved>
+                    </translation>
+                </translations>
+            </concept_node>
+            <concept_node>
+                <name>team-leader</name>
+                <definition_loaded>false</definition_loaded>
+                <description></description>
+                <comment></comment>
+                <default_text></default_text>
+                <translations>
+                    <translation>
+                        <language>en-US</language>
+                        <approved>false</approved>
+                    </translation>
+                    <translation>
+                        <language>es-ES</language>
+                        <approved>false</approved>
+                    </translation>
+                    <translation>
+                        <language>fr-FR</language>
+                        <approved>false</approved>
+                    </translation>
+                    <translation>
+                        <language>zh-CN</language>
+                        <approved>false</approved>
+                    </translation>
+                </translations>
+            </concept_node>
             <folder_node>
                 <name>text</name>
                 <children>
@@ -1105,6 +1335,31 @@
                     </concept_node>
                     <concept_node>
                         <name>validating-email</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>we-have-pb-with-srv</name>
                         <definition_loaded>false</definition_loaded>
                         <description></description>
                         <comment></comment>

@@ -3,7 +3,9 @@
 		"account-already-existed": "",
 		"do-not-have-an-account": "",
 		"invite": "Inviter",
+		"invite-team-members": "",
 		"login": "Connexion",
+		"open-workspace": "",
 		"pwResetted_login": "",
 		"send": "Envoyer",
 		"sign-up": ""
@@ -25,15 +27,22 @@
 	"header": {
 		"account-created": "",
 		"loading-info-please-wait": "",
-		"password-reset": ""
+		"no-recent-activity": "",
+		"password-reset": "",
+		"unnamed-team": "",
+		"we-have-pb": ""
 	},
 	"hint": {
 		"company-tip": ""
 	},
 	"last-name": "",
+	"link": {
+		"to-my-workspace": ""
+	},
 	"message": {
 		"pwd-reset-successfully": "Le mot de passe a été modifié avec succès"
 	},
+	"no-team-members": "",
 	"paragraph": {
 		"pwResetted_reset": ""
 	},
@@ -46,6 +55,8 @@
 		"your-last-name": "",
 		"your-password": ""
 	},
+	"tasks": "",
+	"team-leader": "",
 	"text": {
 		"check-inbox-email-validate": "",
 		"confirm-new-pw": "",
@@ -57,6 +68,7 @@
 		"please-login-to-your-account": "",
 		"pw-must-match": "",
 		"validating-email": "",
+		"we-have-pb-with-srv": "",
 		"we-will-send-you-instructions": ""
 	}
 }
