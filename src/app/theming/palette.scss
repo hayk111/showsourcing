@@ -26,7 +26,7 @@
 	--color-success: #49c76c;
 	--color-success-light: #f0fcf4;
 
-	--color-divider:  #e6ebf5; 
+	--color-divider:  #e6ebf5;
 
 	--color-txt-primary: #000000;
 	--color-txt-secondary: #5d6d8b;
@@ -106,6 +106,10 @@
 
 .color-supplier {
 	color: var(--color-supplier);
+}
+
+.color-accent {
+	color: var(--color-accent);
 }
 
 /** text */
