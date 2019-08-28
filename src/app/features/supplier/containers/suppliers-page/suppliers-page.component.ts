@@ -8,6 +8,7 @@ import { FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 import { SupplierFeatureService } from '~features/supplier/services';
+import { SelectParamsConfig } from '~entity-services/_global/select-params';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -28,6 +29,13 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		FilterType.SUPPLIER_STATUS,
 		FilterType.TAGS
 	];
+
+	// TODO BackEnd
+	// private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND archived == false' };
+	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false' };
+
+	public tableWidth: string;
+	public addSupplierMargin: string;
 
 	constructor(
 		private supplierSrv: SupplierService,
