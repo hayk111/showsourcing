@@ -20,6 +20,7 @@ import { SelectorLibraryComponent } from './selector-library/selector-library.co
 import { TableLibPageComponent } from './table-lib-page/table-lib-page.component';
 import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
 import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
+import { SupplierCommonModule } from '~common/supplier';
 
 
 
@@ -29,6 +30,7 @@ import { CommonListsLibPageComponent } from './common-lists-lib-page/common-list
 		SharedModule,
 		SampleCommonModule,
 		ProductCommonModule,
+		SupplierCommonModule,
 		WorkflowMngmtCommonModule,
 	],
 	declarations: [

@@ -14,7 +14,9 @@
 	[rows]="products" 
 	[selection]="productSelectionSrv.selection"
 	[currentPage]="0"
-	[count]="1556"></products-list-view-app>
+	[count]="1556"
+	(selectAll)="productSelectionSrv.selectAll(products)"
+	(unselectAll)="productSelectionSrv.unselectAll()"></products-list-view-app>
 </card-app>
 
 <card-app class="ex">
@@ -27,6 +29,20 @@
 		[selection]="productSelectionSrv.selection"
 		[columns]="[ 'reference', 'supplier']"
 		[currentPage]="0"
-		[count]="1556"></products-list-view-app>
+		[count]="1556"
+		(selectAll)="productSelectionSrv.selectAll(products)"
+		(unselectAll)="productSelectionSrv.unselectAll()"></products-list-view-app>
 </card-app>
 
+
+<card-app class="ex">
+	<card-title-app>Supplier example</card-title-app>
+	<supplier-list-view-app
+		[pending]="pending"
+		[rows]="suppliers" 
+		[selection]="supplierSelectionSrv.selection"
+		[currentPage]="0"
+		[count]="155"
+		(selectAll)="supplierSelectionSrv.selectAll(suppliers)"
+		(unselectAll)="supplierSelectionSrv.unselectAll()"></supplier-list-view-app>
+</card-app>
