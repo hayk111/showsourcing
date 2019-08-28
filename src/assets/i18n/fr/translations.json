@@ -16,6 +16,8 @@
 	},
 	"error": {
 		"account-already-existed-with-email": "",
+		"create-company": "",
+		"create-team": "",
 		"email-not-validated-please-check-your-inbox": "",
 		"incorrect-credentials": "",
 		"min-characters-required": "",
@@ -28,6 +30,8 @@
 	"header": {
 		"account-created": "",
 		"congratz": "",
+		"create-team": "",
+		"join-team": "",
 		"loading-info-please-wait": "",
 		"no-recent-activity": "",
 		"password-reset": "",
@@ -39,19 +43,26 @@
 	},
 	"invites-you-join": "",
 	"label": {
+		"company-name": "",
+		"create-a-team": "",
+		"create-new-team": "",
 		"email": "",
 		"first-name": "Prénom",
 		"full-name": "",
 		"last-name": "Nom",
-		"password": "Mot de passe"
+		"password": "Mot de passe",
+		"select-a-team-instead": "",
+		"team-name": ""
 	},
 	"link": {
+		"create-new-team": "",
 		"to-my-workspace": ""
 	},
 	"message": {
 		"invitation-accepted": "",
 		"invitation-refused": "",
-		"pwd-reset-successfully": "Le mot de passe a été réinitialisé avec succès"
+		"pwd-reset-successfully": "Le mot de passe a été réinitialisé avec succès!",
+		"we-are-creating-team": ""
 	},
 	"no-team-members": "",
 	"paragraph": {
@@ -70,6 +81,7 @@
 	"text": {
 		"check-inbox-email-validate": "",
 		"confirm-new-pw": "",
+		"create-team-and-source": "",
 		"do-you-have-acc": "",
 		"invite-more-members": "",
 		"new-pw": "",
@@ -78,6 +90,7 @@
 		"please-hold-modif-internet": "",
 		"please-login-to-your-account": "",
 		"pw-must-match": "",
+		"select-team-or-create": "",
 		"validating-email": "",
 		"we-have-pb-with-srv": "",
 		"we-will-send-you-instructions": "",

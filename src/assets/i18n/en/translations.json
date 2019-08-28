@@ -1,6 +1,6 @@
 {
 	"button": {
-		"account-already-existed": "Already have an account?",
+		"account-already-existed": "Already have an account ?",
 		"do-not-have-an-account": "Don't have an account ?",
 		"invite": "Invite",
 		"invite-team-members": "Invite team members",
@@ -16,42 +16,53 @@
 	},
 	"error": {
 		"account-already-existed-with-email": "An account already exist with this email address.",
-		"email-not-validated-please-check-your-inbox": "Email not validated, please check your inbox",
-		"incorrect-credentials": "Incorrect credentials",
-		"min-characters-required": "Minimum 8 characters required",
-		"pick-another-email": "Please pick another email",
-		"reset-pwd": "Error when resetting password",
-		"submition-failed-please-try-again": "Submition failed, please try again in a short while",
-		"when-requesting-password-reset": "Error when requesting password reset"
+		"create-company": "We had an error creating your company. Please try again.",
+		"create-team": "We had an error creating your team. Please try again.",
+		"email-not-validated-please-check-your-inbox": "Email not validated, please check your inbox.",
+		"incorrect-credentials": "Incorrect credentials.",
+		"min-characters-required": "Minimum 8 characters required.",
+		"pick-another-email": "Please pick another email.",
+		"reset-pwd": "Error when resetting password.",
+		"submition-failed-please-try-again": "Submition failed, please try again in a short while.",
+		"when-requesting-password-reset": "Error when requesting password reset."
 	},
-	"forgotten-pswd": "Forgotten password?",
+	"forgotten-pswd": "Forgotten password ?",
 	"header": {
-		"account-created": "Account created",
+		"account-created": "Account created.",
 		"congratz": "Congratulations!",
+		"create-team": "Create a team",
+		"join-team": "Join a team",
 		"loading-info-please-wait": "We are loading your information, please wait...",
 		"no-recent-activity": "There is no recent activity",
 		"password-reset": "Password Reset",
 		"unnamed-team": "Unnamed Team",
-		"we-have-pb": "We are having a problem"
+		"we-have-pb": "We are having a problem."
 	},
 	"hint": {
-		"company-tip": "Tip: the app works better with a company email"
+		"company-tip": "Tip: the app works better with a company email."
 	},
 	"invites-you-join": "invites you to join",
 	"label": {
+		"company-name": "Company name",
+		"create-a-team": "Create a new team",
+		"create-new-team": "Create a new team",
 		"email": "Email",
 		"first-name": "First name",
 		"full-name": "Full name",
 		"last-name": "Last name",
-		"password": "Password"
+		"password": "Password",
+		"select-a-team-instead": "Select a team instead",
+		"team-name": "Team name"
 	},
 	"link": {
+		"create-new-team": "Create a new team",
 		"to-my-workspace": "To my workspace"
 	},
 	"message": {
 		"invitation-accepted": "The invitation was accepted",
 		"invitation-refused": "The invitation was refused",
-		"pwd-reset-successfully": "Your password has been reset successfully!"
+		"pwd-reset-successfully": "Your password has been reset successfully!",
+		"we-are-creating-team": "We are creating your team, please wait!"
 	},
 	"no-team-members": "No Team Members",
 	"paragraph": {
@@ -70,6 +81,7 @@
 	"text": {
 		"check-inbox-email-validate": "Please check your inbox to validate your email...",
 		"confirm-new-pw": "Confirm new password",
+		"create-team-and-source": "Create your team and start sourcing",
 		"do-you-have-acc": "Do you have an account ?",
 		"invite-more-members": "Invite more team members",
 		"new-pw": "New password",
@@ -78,6 +90,7 @@
 		"please-hold-modif-internet": "Please hold as we modify the internet for you!",
 		"please-login-to-your-account": "Please login to your account",
 		"pw-must-match": "New password must match",
+		"select-team-or-create": "Select the team you wanna connect to or\ncreate a new one",
 		"validating-email": "Validating email...",
 		"we-have-pb-with-srv": "We are having a problem with our server. A team of highly trained monkeys are currently trying to fix that.\nPlease try again at a later time.",
 		"we-will-send-you-instructions": "We will send you instructions to recover your password.",

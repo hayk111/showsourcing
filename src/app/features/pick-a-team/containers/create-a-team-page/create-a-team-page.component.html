@@ -1,21 +1,18 @@
 <auth-form-header-app
 	[pending]="(pending || hideForm)">
-	<auth-header-title-app i18n="header@@create-team">
-		Create a team
+	<auth-header-title-app translate="header.create-team">
 	</auth-header-title-app>
-	<auth-header-subtitle-app i18n="text@@create-team-and-source">
-		Create your team and start sourcing
+	<auth-header-subtitle-app translate="text.create-team-and-source">
 	</auth-header-subtitle-app>
 </auth-form-header-app>
 
 <auth-form-app
 	[error]="error"
 	[defaultFocused]="'teamName'"
-	spinnerMessage="We are creating your team, please wait"
+	spinnerMessage="{{'message.we-are-creating-team' | translate}}"
 	[hideForm]="hideForm"
 	[pending]="pending"
 	[listForm]="listForm"
 	[buttons]="buttons"
-	(onSubmit)="onSubmit($event)"
-	i18n-spinnerMessage="@@we-are-creating-team">
+	(onSubmit)="onSubmit($event)">
 </auth-form-app>
