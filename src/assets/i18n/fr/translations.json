@@ -1,19 +1,231 @@
 {
+	"ERM": {
+		"ATTACHMENT": {
+			"plural": "",
+			"singular": ""
+		},
+		"ATTACHMENT_UPLOAD_REQUEST": {
+			"plural": "",
+			"singular": ""
+		},
+		"CATEGORY": {
+			"plural": "",
+			"singular": ""
+		},
+		"COMMENT": {
+			"plural": "",
+			"singular": ""
+		},
+		"CONTACT": {
+			"plural": "",
+			"singular": ""
+		},
+		"COUNTRY": {
+			"plural": "",
+			"singular": ""
+		},
+		"CREATE_REQUEST": {
+			"plural": "",
+			"singular": ""
+		},
+		"CURRENCY": {
+			"plural": "",
+			"singular": ""
+		},
+		"EMAIL": {
+			"plural": "",
+			"singular": ""
+		},
+		"EVENT": {
+			"plural": "",
+			"singular": ""
+		},
+		"EVENT_DESCRIPTION": {
+			"plural": "",
+			"singular": ""
+		},
+		"EXPORT_REQUEST": {
+			"plural": "",
+			"singular": ""
+		},
+		"EXTENDED_FIELD": {
+			"plural": "",
+			"singular": ""
+		},
+		"EXTENDED_FIELD_DEFINITION": {
+			"plural": "",
+			"singular": ""
+		},
+		"FILE": {
+			"plural": "",
+			"singular": ""
+		},
+		"HARBOUR": {
+			"plural": "",
+			"singular": ""
+		},
+		"IMAGE": {
+			"plural": "",
+			"singular": ""
+		},
+		"IMAGE_UPLOAD_REQUEST": {
+			"plural": "",
+			"singular": ""
+		},
+		"INCO_TERM": {
+			"plural": "",
+			"singular": ""
+		},
+		"INVITATION": {
+			"plural": "",
+			"singular": ""
+		},
+		"LENGTH_UNIT": {
+			"plural": "",
+			"singular": ""
+		},
+		"LOCATION": {
+			"plural": "",
+			"singular": ""
+		},
+		"MEMBER": {
+			"plural": "",
+			"singular": ""
+		},
+		"PICKER_FIELD": {
+			"plural": "",
+			"singular": ""
+		},
+		"PRICE": {
+			"plural": "",
+			"singular": ""
+		},
+		"PRODUCT": {
+			"plural": "",
+			"singular": ""
+		},
+		"PRODUCT_STATUS": {
+			"plural": "",
+			"singular": ""
+		},
+		"PRODUCT_VOTE": {
+			"plural": "",
+			"singular": ""
+		},
+		"PROFILE": {
+			"plural": "",
+			"singular": ""
+		},
+		"PROJECT": {
+			"plural": "",
+			"singular": ""
+		},
+		"QUOTE": {
+			"plural": "",
+			"singular": ""
+		},
+		"REQUEST_ELEMENT": {
+			"plural": "",
+			"singular": ""
+		},
+		"REQUEST_REPLY": {
+			"plural": "",
+			"singular": ""
+		},
+		"REQUEST_TEMPLATE": {
+			"plural": "",
+			"singular": ""
+		},
+		"REVIEW": {
+			"plural": "",
+			"singular": ""
+		},
+		"SAMPLE": {
+			"plural": "",
+			"singular": ""
+		},
+		"SAMPLE_STATUS": {
+			"plural": "",
+			"singular": ""
+		},
+		"SELECTOR_ELEMENT": {
+			"plural": "",
+			"singular": ""
+		},
+		"SHOW": {
+			"plural": "",
+			"singular": ""
+		},
+		"SUPPLIER": {
+			"plural": "",
+			"singular": ""
+		},
+		"SUPPLIER_REQUEST": {
+			"plural": "",
+			"singular": ""
+		},
+		"SUPPLIER_STATUS": {
+			"plural": "",
+			"singular": ""
+		},
+		"SUPPLIER_TAG": {
+			"plural": "",
+			"singular": ""
+		},
+		"SUPPLIER_TYPE": {
+			"plural": "",
+			"singular": ""
+		},
+		"TAG": {
+			"plural": "",
+			"singular": ""
+		},
+		"TASK": {
+			"plural": "",
+			"singular": ""
+		},
+		"TEAM": {
+			"plural": "",
+			"singular": ""
+		},
+		"TEAM_USER": {
+			"plural": "",
+			"singular": ""
+		},
+		"USER": {
+			"plural": "",
+			"singular": ""
+		},
+		"WEIGHT_UNIT": {
+			"plural": "",
+			"singular": ""
+		}
+	},
 	"button": {
 		"account-already-existed": "",
+		"add-to-project": "",
+		"archive": "",
+		"delete": "",
 		"do-not-have-an-account": "",
+		"export": "",
 		"invite": "Inviter",
 		"invite-team-members": "",
 		"login": "Connexion",
 		"no-create-account": "",
 		"no-no-join-team": "",
+		"open": "",
 		"open-workspace": "",
 		"pwResetted_login": "",
+		"request-team": "",
+		"request-team-feedback": "",
 		"send": "Envoyer",
 		"sign-up": "",
+		"supplier-request": "",
+		"view-vote-details": "",
 		"yes-join-team": "",
 		"yes-log-me-in": ""
 	},
+	"cancel-item": "",
 	"error": {
 		"account-already-existed-with-email": "",
 		"create-company": "",
@@ -24,6 +236,7 @@
 		"pick-another-email": "",
 		"reset-pwd": "",
 		"submition-failed-please-try-again": "",
+		"there-is-an-error": "",
 		"when-requesting-password-reset": ""
 	},
 	"forgotten-pswd": "",
@@ -33,8 +246,17 @@
 		"create-team": "",
 		"join-team": "",
 		"loading-info-please-wait": "",
+		"moq": "",
 		"no-recent-activity": "",
 		"password-reset": "",
+		"price": "",
+		"product-info": "",
+		"projects": "",
+		"request-items": "",
+		"shipping-and-trading": "",
+		"status": "",
+		"tasks": "",
+		"team-rating": "",
 		"unnamed-team": "",
 		"we-have-pb": ""
 	},
@@ -43,6 +265,7 @@
 	},
 	"invites-you-join": "",
 	"label": {
+		"activity": "",
 		"company-name": "",
 		"create-a-team": "",
 		"create-new-team": "",
@@ -52,6 +275,7 @@
 		"last-name": "Nom",
 		"password": "Mot de passe",
 		"select-a-team-instead": "",
+		"shipping": "",
 		"team-name": ""
 	},
 	"link": {
@@ -59,8 +283,12 @@
 		"to-my-workspace": ""
 	},
 	"message": {
+		"confirm-cancel-request-item": "",
+		"confirm-delete-product": "",
 		"invitation-accepted": "",
 		"invitation-refused": "",
+		"product-archived-successfully": "",
+		"products-archived-successfully": "",
 		"pwd-reset-successfully": "Le mot de passe a été réinitialisé avec succès!",
 		"we-are-creating-team": ""
 	},
@@ -76,7 +304,6 @@
 		"your-last-name": "",
 		"your-password": ""
 	},
-	"tasks": "",
 	"team-leader": "",
 	"text": {
 		"check-inbox-email-validate": "",
@@ -85,10 +312,13 @@
 		"do-you-have-acc": "",
 		"invite-more-members": "",
 		"new-pw": "",
+		"no-projects-added": "",
+		"no-vote": "",
 		"now-invite-members": "",
 		"please-enter-pw": "",
 		"please-hold-modif-internet": "",
 		"please-login-to-your-account": "",
+		"projectCard_description": "",
 		"pw-must-match": "",
 		"select-team-or-create": "",
 		"validating-email": "",
@@ -98,6 +328,9 @@
 	},
 	"title": {
 		"invitation-accepted": "",
-		"invitation-refused": ""
+		"invitation-refused": "",
+		"product-archived": "",
+		"product-not-exist": "",
+		"products-archived": ""
 	}
 }

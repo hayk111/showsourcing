@@ -5,9 +5,10 @@ import { CommonModalService } from '~common/modals';
 import { RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, RequestElement, ReplyStatus } from '~core/models';
-import { AutoUnsub, ID, translate } from '~utils';
+import { AutoUnsub, ID } from '~utils';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'product-requests-app',
@@ -25,7 +26,8 @@ export class ProductRequestsComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		public listSrv: ListPageService<RequestElement, RequestElementService>,
-		public commonModalSrv: CommonModalService
+		public commonModalSrv: CommonModalService,
+		private translate: TranslateService
 	) { super(); }
 
 	ngOnInit() {
@@ -47,8 +49,8 @@ export class ProductRequestsComponent extends AutoUnsub implements OnInit {
 	}
 
 	cancelReply(replyId: ID) {
-		const text = translate('Are you sure you want to cancel this request item?');
-		const action = translate('cancel item');
+		const text = this.translate.instant('message.confirm-cancel-request-item');
+		const action = this.translate.instant('cancel-item');
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
 			switchMap(_ => this.requestReplySrv.update({ id: replyId, status: ReplyStatus.CANCELED })),
 			switchMap(_ => this.listSrv.refetch())

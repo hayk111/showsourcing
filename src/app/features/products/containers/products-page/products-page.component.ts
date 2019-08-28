@@ -12,6 +12,7 @@ import { ProductFeatureService } from '~features/products/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogService } from '~shared/dialog/services';
+import { TranslateService } from '@ngx-translate/core';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -52,7 +53,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -103,13 +105,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	onArchive(product: Product | Product[]) {
 		// TODO i18n
 		if (Array.isArray(product)) {
-			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Products archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.products-archived'),
+						message: this.translate.instant('message.products-archived-successfully')
 					});
 				});
 		} else {
@@ -119,8 +121,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Product archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.product-archived'),
+						message: this.translate.instant('message.product-archived-successfully')
 					});
 				});
 		}

@@ -55,7 +55,7 @@
 
     <divider-app></divider-app>
 
-    <div class="taskTitle capitalize"> {{ counters?.tasksDone ? counters?.tasksDone + index : '0'}} / {{ counters?.totalTasks || '0' }} <ng-container translate="tasks"></ng-container></div>
+    <div class="taskTitle capitalize"> {{ counters?.tasksDone ? counters?.tasksDone + index : '0'}} / {{ counters?.totalTasks || '0' }} <ng-container translate="header.tasks"></ng-container></div>
 
     <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
   </ng-container>

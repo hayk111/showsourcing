@@ -5,6 +5,7 @@ import { ProductCommonModule } from '~common/product';
 import { routes } from '~features/project/routes';
 import { SharedModule } from '~shared/shared.module';
 
+
 import { ProjectNavComponent, ProjectProductListComponent, ProjectsListViewComponent } from './components';
 import {
 	ProjectDetailsComponent,

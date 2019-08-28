@@ -1,19 +1,231 @@
 {
+	"ERM": {
+		"ATTACHMENT": {
+			"plural": "attachments",
+			"singular": "attachment"
+		},
+		"ATTACHMENT_UPLOAD_REQUEST": {
+			"plural": "attachment upload requests",
+			"singular": "attachment upload request"
+		},
+		"CATEGORY": {
+			"plural": "categories",
+			"singular": "category"
+		},
+		"COMMENT": {
+			"plural": "comments",
+			"singular": "comment"
+		},
+		"CONTACT": {
+			"plural": "contacts",
+			"singular": "contact"
+		},
+		"COUNTRY": {
+			"plural": "countries",
+			"singular": "country"
+		},
+		"CREATE_REQUEST": {
+			"plural": "createRequests",
+			"singular": "createRequest"
+		},
+		"CURRENCY": {
+			"plural": "currencies",
+			"singular": "currency"
+		},
+		"EMAIL": {
+			"plural": "emails",
+			"singular": "email"
+		},
+		"EVENT": {
+			"plural": "events",
+			"singular": "event"
+		},
+		"EVENT_DESCRIPTION": {
+			"plural": "event descriptions",
+			"singular": "event description"
+		},
+		"EXPORT_REQUEST": {
+			"plural": "export requests",
+			"singular": "export request"
+		},
+		"EXTENDED_FIELD": {
+			"plural": "extended fields",
+			"singular": "extended field"
+		},
+		"EXTENDED_FIELD_DEFINITION": {
+			"plural": "extended field definitions",
+			"singular": "extended field definition"
+		},
+		"FILE": {
+			"plural": "files",
+			"singular": "file"
+		},
+		"HARBOUR": {
+			"plural": "harbours",
+			"singular": "harbour"
+		},
+		"IMAGE": {
+			"plural": "images",
+			"singular": "image"
+		},
+		"IMAGE_UPLOAD_REQUEST": {
+			"plural": "image upload requests",
+			"singular": "image upload request"
+		},
+		"INCO_TERM": {
+			"plural": "inco terms",
+			"singular": "inco term"
+		},
+		"INVITATION": {
+			"plural": "invitations",
+			"singular": "invitation"
+		},
+		"LENGTH_UNIT": {
+			"plural": "length units",
+			"singular": "length unit"
+		},
+		"LOCATION": {
+			"plural": "locations",
+			"singular": "location"
+		},
+		"MEMBER": {
+			"plural": "members",
+			"singular": "member"
+		},
+		"PICKER_FIELD": {
+			"plural": "picker fields",
+			"singular": "picker field"
+		},
+		"PRICE": {
+			"plural": "prices",
+			"singular": "price"
+		},
+		"PRODUCT": {
+			"plural": "products",
+			"singular": "product"
+		},
+		"PRODUCT_STATUS": {
+			"plural": "product status",
+			"singular": "product status"
+		},
+		"PRODUCT_VOTE": {
+			"plural": "product votes",
+			"singular": "product vote"
+		},
+		"PROFILE": {
+			"plural": "profiles",
+			"singular": "profile"
+		},
+		"PROJECT": {
+			"plural": "projects",
+			"singular": "project"
+		},
+		"QUOTE": {
+			"plural": "quotes",
+			"singular": "quote"
+		},
+		"REQUEST_ELEMENT": {
+			"plural": "request elements",
+			"singular": "request element"
+		},
+		"REQUEST_REPLY": {
+			"plural": "request replies",
+			"singular": "request reply"
+		},
+		"REQUEST_TEMPLATE": {
+			"plural": "request templates",
+			"singular": "request template"
+		},
+		"REVIEW": {
+			"plural": "reviews",
+			"singular": "review"
+		},
+		"SAMPLE": {
+			"plural": "samples",
+			"singular": "sample"
+		},
+		"SAMPLE_STATUS": {
+			"plural": "samples status",
+			"singular": "sample status"
+		},
+		"SELECTOR_ELEMENT": {
+			"plural": "selector elements",
+			"singular": "selector element"
+		},
+		"SHOW": {
+			"plural": "shows",
+			"singular": "show"
+		},
+		"SUPPLIER": {
+			"plural": "suppliers",
+			"singular": "supplier"
+		},
+		"SUPPLIER_REQUEST": {
+			"plural": "requests",
+			"singular": "request"
+		},
+		"SUPPLIER_STATUS": {
+			"plural": "supplier status",
+			"singular": "supplier status"
+		},
+		"SUPPLIER_TAG": {
+			"plural": "supplier tags",
+			"singular": "supplier tag"
+		},
+		"SUPPLIER_TYPE": {
+			"plural": "supplier types",
+			"singular": "supplier type"
+		},
+		"TAG": {
+			"plural": "tags",
+			"singular": "tag"
+		},
+		"TASK": {
+			"plural": "tasks",
+			"singular": "task"
+		},
+		"TEAM": {
+			"plural": "teams",
+			"singular": "team"
+		},
+		"TEAM_USER": {
+			"plural": "team users",
+			"singular": "team user"
+		},
+		"USER": {
+			"plural": "user",
+			"singular": "user"
+		},
+		"WEIGHT_UNIT": {
+			"plural": "weight units",
+			"singular": "weight unit"
+		}
+	},
 	"button": {
 		"account-already-existed": "Already have an account ?",
+		"add-to-project": "Add to project",
+		"archive": "Archive",
+		"delete": "Delete",
 		"do-not-have-an-account": "Don't have an account ?",
+		"export": "Export",
 		"invite": "Invite",
 		"invite-team-members": "Invite team members",
 		"login": "Login",
 		"no-create-account": "No - Create an account",
 		"no-no-join-team": "No - I don't wish to join this team",
+		"open": "Open",
 		"open-workspace": "Open my workspace",
 		"pwResetted_login": "Login",
+		"request-team": "Request Team",
+		"request-team-feedback": "Request team feedback",
 		"send": "Send",
 		"sign-up": "Sign-up",
+		"supplier-request": "Supplier Request",
+		"view-vote-details": "View Vote Details",
 		"yes-join-team": "Yes - Join the team",
 		"yes-log-me-in": "Yes - Let me log-in"
 	},
+	"cancel-item": "cancel item",
 	"error": {
 		"account-already-existed-with-email": "An account already exist with this email address.",
 		"create-company": "We had an error creating your company. Please try again.",
@@ -24,6 +236,7 @@
 		"pick-another-email": "Please pick another email.",
 		"reset-pwd": "Error when resetting password.",
 		"submition-failed-please-try-again": "Submition failed, please try again in a short while.",
+		"there-is-an-error": "There is an error, please try again later",
 		"when-requesting-password-reset": "Error when requesting password reset."
 	},
 	"forgotten-pswd": "Forgotten password ?",
@@ -33,8 +246,17 @@
 		"create-team": "Create a team",
 		"join-team": "Join a team",
 		"loading-info-please-wait": "We are loading your information, please wait...",
+		"moq": "moq",
 		"no-recent-activity": "There is no recent activity",
 		"password-reset": "Password Reset",
+		"price": "Price",
+		"product-info": "Product information",
+		"projects": "Projects",
+		"request-items": "Request Items",
+		"shipping-and-trading": "Shipping & Trading",
+		"status": "Status",
+		"tasks": "Tasks",
+		"team-rating": "team rating",
 		"unnamed-team": "Unnamed Team",
 		"we-have-pb": "We are having a problem."
 	},
@@ -43,6 +265,7 @@
 	},
 	"invites-you-join": "invites you to join",
 	"label": {
+		"activity": "",
 		"company-name": "Company name",
 		"create-a-team": "Create a new team",
 		"create-new-team": "Create a new team",
@@ -52,6 +275,7 @@
 		"last-name": "Last name",
 		"password": "Password",
 		"select-a-team-instead": "Select a team instead",
+		"shipping": "",
 		"team-name": "Team name"
 	},
 	"link": {
@@ -59,8 +283,12 @@
 		"to-my-workspace": "To my workspace"
 	},
 	"message": {
+		"confirm-cancel-request-item": "Are you sure you want to cancel this request item?",
+		"confirm-delete-product": "Are you sure you want to delete this product?",
 		"invitation-accepted": "The invitation was accepted",
 		"invitation-refused": "The invitation was refused",
+		"product-archived-successfully": "Product have been archived with success",
+		"products-archived-successfully": "Products have been archived with success",
 		"pwd-reset-successfully": "Your password has been reset successfully!",
 		"we-are-creating-team": "We are creating your team, please wait!"
 	},
@@ -76,7 +304,6 @@
 		"your-last-name": "Your last name",
 		"your-password": "Your password"
 	},
-	"tasks": "Tasks",
 	"team-leader": "Team Leader",
 	"text": {
 		"check-inbox-email-validate": "Please check your inbox to validate your email...",
@@ -85,10 +312,13 @@
 		"do-you-have-acc": "Do you have an account ?",
 		"invite-more-members": "Invite more team members",
 		"new-pw": "New password",
+		"no-projects-added": "No Projects Added",
+		"no-vote": "No Votes Yet",
 		"now-invite-members": "Now invite your team members",
 		"please-enter-pw": "Please enter your new password",
 		"please-hold-modif-internet": "Please hold as we modify the internet for you!",
 		"please-login-to-your-account": "Please login to your account",
+		"projectCard_description": "",
 		"pw-must-match": "New password must match",
 		"select-team-or-create": "Select the team you wanna connect to or\ncreate a new one",
 		"validating-email": "Validating email...",
@@ -98,6 +328,9 @@
 	},
 	"title": {
 		"invitation-accepted": "Invitation accepted",
-		"invitation-refused": "Invitation refused"
+		"invitation-refused": "Invitation refused",
+		"product-archived": "Product archived",
+		"product-not-exist": "The product doesn't exist",
+		"products-archived": "Products archived"
 	}
 }
