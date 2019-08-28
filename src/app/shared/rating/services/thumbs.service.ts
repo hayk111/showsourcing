@@ -163,6 +163,7 @@ export class ThumbService {
 	}
 
 	private deleteVote(votes: ProductVote[], vote: ProductVote) {
+		// we decide to delete it here, since we have issue when updating empty arrays (check README)
 		this.voteSrv.delete(vote.id).subscribe();
 		return votes.filter(v => v.id !== vote.id);
 	}
