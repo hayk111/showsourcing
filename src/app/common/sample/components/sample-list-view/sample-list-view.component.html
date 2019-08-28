@@ -50,7 +50,7 @@
 			<ng-container *ngSwitchCase="'assignee'">
 				<div class="flex assignee-container ellipsis">
 					<user-picture-app	[user]="row?.assignee" size="24" [border]="true"></user-picture-app>
-					{{ row?.assignee?.firstName }} {{ row.assignee?.lastName ? row?.assignee?.lastName[0] + '.' : ''}}
+					{{ row?.assignee | formatUserName }}
 				</div>
 			</ng-container>
 
