@@ -1,0 +1,89 @@
+
+
+
+<table-app
+	[rows]="rows"
+	[pending]="pending"
+	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[currentPage]="currentPage"
+	placeholder="No project"
+	(goToPage)="goToPage.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(bottomReached)="bottomReached.emit()"
+	(sort)="sort.emit($event)"
+	i18n-placeholder="@@no-project">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)"
+			i18n="button@@delete">
+			delete
+		</context-menu-item-app>
+	</ng-template>
+
+  <!-- dynamic columns -->
+  <ng-template 
+    *ngFor="let column of columnsConfig; trackBy: trackByFn" 
+    let-row="row" 
+    [columnApp]="column.title"
+    [width]="column.width"
+		[sortBy]="column.sortProperty">
+		
+    <ng-container [ngSwitch]="column.title">
+
+      <!-- name -->
+      <ng-container *ngSwitchCase="'name'">
+				<div class="project">
+					<a class="flexVAlign txt-btn capitalize ellipsis"
+						[routerLink]="['/project', row.id]">
+						<!-- TODO change this to logo -->
+						<!-- <img [src]="row.logoImage | logo:'project'" class="icon"/> -->
+						{{ row?.name }}
+					</a>
+				</div>
+			</ng-container>
+
+			<!-- owner -->
+			<ng-container *ngSwitchCase="'owner'">
+				{{ row?.createdBy?.firstName }} {{ row?.createdBy?.lastName }}
+			</ng-container>
+
+			<!-- last updated date -->
+			<ng-container *ngSwitchCase="'last updated'">
+				<span>
+					{{ row?.lastUpdatedDate | date: 'dd MMMM y' }}
+				</span>
+			</ng-container>
+
+			<!-- product count -->
+			<ng-container *ngSwitchCase="'product count'">
+				<span>
+					<b>{{ row?.productsLinked?.count }}</b>
+				</span>
+			</ng-container>
+
+			<!-- creation date -->
+			<ng-container *ngSwitchCase="'creation date'">
+				{{ row?.creationDate | date: 'dd MMMM y' }}
+			</ng-container>
+
+			<!-- description -->
+			<ng-container *ngSwitchCase="'description'">
+				<div class="description">
+					{{ row?.description }}
+				</div>
+			</ng-container>
+
+		</ng-container>
+		<!-- end of switch -->
+
+	</ng-template>
+</table-app>
+

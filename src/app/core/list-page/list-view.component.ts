@@ -25,11 +25,12 @@ export abstract class ListViewComponent<T> extends TrackingComponent implements 
 	/** how many items were skipped (useful to display pages) */
 	@Input() skipped: number;
 	@Input() currentPage: number;
+	@Input() currentSort: Sort;
 	@Input() hasMenu = true;
 	@Input() hasHeader = true;
 	@Input() hasPagination = true;
 	@Input() columns = [];
-	columnConfig = undefined;
+	tableConfig: TableConfig = undefined;
 	columnsConfig: ColumnConfig[] = [];
 	@Output() select = new EventEmitter<any>();
 	@Output() unselect = new EventEmitter<any>();
@@ -62,11 +63,11 @@ export abstract class ListViewComponent<T> extends TrackingComponent implements 
 	}
 
 	ngOnInit() {
-		if (!this.columnConfig) {
+		if (!this.tableConfig) {
 			throw Error('Please define a configuration for columnConfig');
 		}
 		this.columns.forEach(name => {
-			const config = this.columnConfig[name];
+			const config = this.tableConfig[name];
 			if (config) {
 				this.columnsConfig.push(config);
 			} else {

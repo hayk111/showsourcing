@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit
 import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
 import { ERM, Supplier } from '~models';
 
-const columnConfig: TableConfig = {
+const tableConfig: TableConfig = {
 	activities: { title: 'activities', width: 190 },
 	country: { title: 'country', width: 140, sortProperty: 'country' },
 	supplierType: { title: 'type', width: 190, sortProperty: 'supplierType.name' },
@@ -26,7 +26,7 @@ const columnConfig: TableConfig = {
 export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 
 	columns = [ 'reference', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status' ];
-	columnConfig = columnConfig;
+	tableConfig = tableConfig;
 	erm = ERM;
 	supplierErm = ERM.SUPPLIER;
 
