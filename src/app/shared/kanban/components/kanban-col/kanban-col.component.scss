@@ -39,7 +39,7 @@
 	kanban-item-app {
 		height: 115px;
 		width: 333px;
-		border-radius: 4px;
+		border-radius: var(--border-radius);
 		box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.02);
 		background-color: var(--color-bg);
 		margin-bottom: var(--spacing-s);

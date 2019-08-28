@@ -436,15 +436,15 @@ export class ListPageService
 		return this.selectionSrv.getSelectionValues();
 	}
 
-	filterByArchived(shouldAdd: boolean) {
-		if (shouldAdd) {
-			this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: false});
-			this.filterList.addFilter({ type: FilterType.ARCHIVED, value: true});
-			return;
-		}
+	getFilterAmount(): number {
+		const filters = this.filterList.asFilters()
+		.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
+		return filters.length;
+	}
 
-		this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: true});
-		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: false});
+	filterByArchived(shouldAdd: boolean) {
+		this.filterList.removeFilterType(FilterType.ARCHIVED);
+		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: shouldAdd });
 	}
 
 	filterByAssignee(shouldAdd: boolean) {

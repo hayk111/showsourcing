@@ -9,7 +9,7 @@
 </top-panel-app>
 
 <sub-panel-app
-	[filtersAmount]="getFilterAmount()"
+	[filtersAmount]="listSrv.getFilterAmount()"
 	[hasFilter]="true"
 	[hasSwitch]="true"
 	[hasThumb]="false"
@@ -18,7 +18,6 @@
 	entityType="samples"
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
-	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
 	(search)="listSrv.search($event)"
 	(clearFilters)="listSrv.filterList.resetAll();"
 	(showArchived)="listSrv.filterByArchived(true)"

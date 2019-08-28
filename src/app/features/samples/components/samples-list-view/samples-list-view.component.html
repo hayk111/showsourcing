@@ -33,7 +33,7 @@
 
 	<!-- title row -->
 	<ng-template
-		[columnApp]="'name' | const: 'erm'"
+		[columnApp]="'name'"
 		sortBy="name"
 		let-row="row"
 		width="280">
@@ -62,10 +62,10 @@
 		width="140">
 		<div class="ellipsis">
 			<span class="sample-ref ellipsis">
-				{{ row?.product?.reference | const: 'erm' }}
+				{{ row?.product?.reference }}
 			</span>
 			<div class="sample-name-ref">
-				{{ row?.product?.name | const: 'erm'  }}
+				{{ row?.product?.name }}
 			</div>
 		</div>
 	</ng-template>

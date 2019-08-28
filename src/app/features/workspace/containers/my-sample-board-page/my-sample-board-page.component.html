@@ -3,7 +3,7 @@
 		[hasSwitch]="true"
 		[switchContent]="['list', 'kanban']"
 		[hasFilter]="true"
-		[filtersAmount]="getFilterAmount()"
+		[filtersAmount]="listSrv.getFilterAmount()"
 		[view]="'card'"
 		(showFilters)="listSrv.openFilterPanel()"
 		(search)="listSrv.search($event, false)"

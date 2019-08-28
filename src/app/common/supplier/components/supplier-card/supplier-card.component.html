@@ -31,9 +31,12 @@
 		<!-- created by and votes -->
 		<div class="card-footer flexBetween">
 			<div class="created-by">
-				<div class="author-circle">
-					{{supplier?.createdBy?.firstName[0].toUpperCase()}}{{supplier?.createdBy?.lastName[0].toUpperCase()}}
-				</div>
+				<user-picture-app 
+					[user]="supplier?.createdBy" 
+					[size]="24"
+					fontSize="12"
+					[background]="false" 
+					[image]="supplier?.createdBy?.avatar"></user-picture-app>
 			</div>
 		</div>
 	</div>

@@ -72,6 +72,10 @@ $image-width: 99px;
 	justify-content: space-between;
 	width: calc(100% - #{$image-width} - #{var(--spacing-ms)});
 
+	user-picture-app {
+		display: inline-block;
+	}
+
 	// title
 	.title-section {
 		margin-top: var(--spacing-xs);
@@ -138,19 +142,6 @@ $image-width: 99px;
 		position: absolute;
     width: 100%;
 		bottom: 0;
-
-		.author-circle {
-			float: left;
-			width: 24px;
-			height: 23px;
-			line-height: 24px;
-			border-radius: 50%;
-			font-size: var(--font-size-s);
-			color: var(--color-primary);
-			font-weight: 600;
-			text-align: center;
-			background: var(--color-primary-light);
-		}
 
 		.vote-star-container {
 			cursor: pointer;

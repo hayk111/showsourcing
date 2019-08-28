@@ -13,7 +13,7 @@
 	entityType="samples"
 	searchType="short"
 	[count]="listSrv.count$ | async"
-	[filtersAmount]="getFilterAmount()"
+	[filtersAmount]="listSrv.getFilterAmount()"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
 	(clearFilters)="listSrv.filterList.resetAll();"

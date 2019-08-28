@@ -207,12 +207,4 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 			this.kanbanSrv.deleteItems(itemIds);
 		});
 	}
-
-	// this is used on sample list page too
-	getFilterAmount() {
-		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
-		const filters = this.listSrv.filterList.asFilters()
-			.filter(fil => !(fil.type === FilterType.DELETED && fil.value === false) && !(fil.type === FilterType.ASSIGNEE));
-		return filters.length;
-	}
 }

@@ -97,6 +97,10 @@ $image-width: 99px;
 		}
 	}
 
+	user-picture-app {
+		display: inline-block;
+	}
+
 	.information-section, .thumb-section {
 		font-size: var(--font-size-s);
 	}
@@ -130,32 +134,10 @@ $image-width: 99px;
 		}
 	}
 
-	.supplier {
-		max-width: 50%;
-
-			&::before {
-				content: "\00a0 \00a0 \2022 \00a0 \00a0";
-				font-weight: bolder;
-			}
-	}
-
 	.card-footer {
 		position: absolute;
     width: 100%;
 		bottom: 0;
-
-		.author-circle {
-			float: left;
-			width: 24px;
-			height: 23px;
-			line-height: 24px;
-			border-radius: 50%;
-			font-size: var(--font-size-s);
-			color: var(--color-primary);
-			font-weight: 600;
-			text-align: center;
-			background: var(--color-primary-light);
-		}
 
 		.sample-reference {
 			display: inline-block;

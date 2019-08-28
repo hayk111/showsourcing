@@ -127,17 +127,6 @@ export class SupplierCardComponent extends TrackingComponent {
 		this.checked = true;
 		this.checkboxAction = true;
 		this.select.emit(this.supplier);
-		// this.setClassHighlightChecked(true);
-	}
-
-	getAvgVotes(votes: any[]): number {
-		if (!votes || !votes.length) {
-			return -1;
-		}
-
-		const votesVals = votes.map(vote => vote.value);
-		const sum = votesVals.reduce((votePrev, voteNext) => votePrev + voteNext, 0);
-		return Math.round( sum / votes.length * 10 ) / 10;
 	}
 
 	/** Handle checbkox uncheck event */
@@ -145,17 +134,6 @@ export class SupplierCardComponent extends TrackingComponent {
 		this.checked = false;
 		this.checkboxAction = true;
 		this.unselect.emit(this.supplier);
-		// this.setClassHighlightChecked(false);
-	}
-
-	/**
-	 * add: boolean that determines if we add a class or remove a class
-	 */
-	private setClassHighlightChecked(add = false) {
-		if (add && this.checked && this.highlightOnChecked)
-			this.renderer.addClass(this.elementRef.nativeElement, 'highlight-checked');
-		else if (!add && !this.checked && this.highlightOnChecked)
-			this.renderer.removeClass(this.elementRef.nativeElement, 'highlight-checked');
 	}
 
 	openSupplier() {

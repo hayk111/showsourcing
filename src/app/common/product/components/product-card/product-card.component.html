@@ -45,18 +45,21 @@
 		<!-- created by and votes -->
 		<div class="card-footer flexBetween">
 			<div class="created-by">
-				<div class="author-circle">
-					{{product?.createdBy?.firstName[0].toUpperCase()}}{{product?.createdBy?.lastName[0].toUpperCase()}}
-				</div>
+				<user-picture-app 
+					[user]="product?.createdBy" 
+					[size]="24"
+					fontSize="12"
+					[background]="false" 
+					[image]="product?.createdBy?.avatar"></user-picture-app>
 				<div class="product-reference">
 					{{product?.reference}}
 				</div>
 			</div>
 
-			<span class="vote-star-container" *ngIf="getAvgVotes(product?.votes) > -1" 
-				[ngClass]="{'light-background': getAvgVotes(product?.votes) > 80}">
+			<span class="vote-star-container" *ngIf="thumbSrv.getAvgVotes(product?.votes) > -1" 
+				[ngClass]="{'light-background': thumbSrv.getAvgVotes(product?.votes) > 80}">
 				<icon-app name="star" size="sm" class="star"></icon-app>
-				<span class="vote-star-value">{{getAvgVotes(product?.votes)}}</span>
+				<span class="vote-star-value">{{thumbSrv.getAvgVotes(product?.votes)}}</span>
 			</span>
 		</div>
 	</div>

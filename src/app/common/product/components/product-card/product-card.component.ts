@@ -88,7 +88,7 @@ export class ProductCardComponent extends TrackingComponent {
 		private elementRef: ElementRef,
 		private renderer: Renderer2,
 		private router: Router,
-		private thumbSrv: ThumbService
+		public thumbSrv: ThumbService
 	) {
 		super();
 	}
@@ -130,16 +130,6 @@ export class ProductCardComponent extends TrackingComponent {
 		this.checkboxAction = true;
 		this.select.emit(this.product);
 		// this.setClassHighlightChecked(true);
-	}
-
-	getAvgVotes(votes: any[]): number {
-		if (!votes || !votes.length) {
-			return -1;
-		}
-
-		const votesVals = votes.map(vote => vote.value);
-		const sum = votesVals.reduce((votePrev, voteNext) => votePrev + voteNext, 0);
-		return Math.round( sum / votes.length * 10 ) / 10;
 	}
 
 	/** Handle checbkox uncheck event */
