@@ -1,13 +1,23 @@
-<sample-list-app
-	[samples]="listSrv.items$ | async"
+<sample-list-view-app
+	[hasHeader]="false"
+	[hasPagination]="false"
+	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
-	[filterList]="listSrv.filterList"
-	(toggleMySamples)="toggleMySamples($event)"
-	(bottomReached)="listSrv.loadMore()"
-	(openCreationSampleDlg)="openCreationSampleDlg(product)"
-	(previewClicked)="listSrv.openPreview($event)"
-	(updateSample)="listSrv.update($event)">
-</sample-list-app>
+	[pending]="listSrv.pending"
+	[count]="listSrv.count$ | async"
+	[currentPage]="listSrv.currentPage"
+	(goToPage)="listSrv.loadPage($event)"
+	(sort)="listSrv.sort($event)"
+	(select)="listSrv.selectOne($event, true)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(unselectAll)="listSrv.unselectAll()"
+	(open)="listSrv.goToDetails($event)"
+	(favorited)="listSrv.onItemFavorited($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(previewClick)="listSrv.openPreview($event)"
+	(delete)="listSrv.deleteOne($event)">
+</sample-list-view-app>
 
 <sample-preview-app
 	*ngIf="listSrv.previewOpen"

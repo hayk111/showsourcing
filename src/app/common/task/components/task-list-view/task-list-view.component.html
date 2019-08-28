@@ -1,0 +1,73 @@
+<table-app
+	[rows]="rows"
+	[pending]="pending"
+	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[currentPage]="currentPage"
+	placeholder="No Tasks"
+	(goToPage)="goToPage.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(sort)="sort.emit($event)"
+	(bottomReached)="bottomReached.emit()">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)"
+			i18n="@@delete">
+			delete
+		</context-menu-item-app>
+	</ng-template>
+	
+	  <!-- dynamic columns -->
+		<ng-template 
+    *ngFor="let column of columnsConfig; trackBy: trackByFn" 
+    let-row="row" 
+    [columnApp]="column.title"
+    [width]="column.width"
+		[sortBy]="column.sortProperty">
+		
+    <ng-container [ngSwitch]="column.title">
+			<!-- name -->
+			<ng-container *ngSwitchCase="'reference'">
+				<div class="mainCellWrapper name-container ellipsis">
+					<div class="mainCell">
+						<img-app [image]="row?.images ? row?.images[0] : null" type="sample" size="s"></img-app>
+						<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+					</div>
+					<div class="preview">
+						<button class="secondary-dark small" (click)="previewClick.emit(row)" i18n="@@preview">preview</button>
+					</div>
+				</div>
+			</ng-container>
+
+			<!-- assignee -->
+			<ng-container *ngSwitchCase="'assignee'">
+				<div class="flex assignee-container ellipsis">
+					<user-picture-app	[user]="row?.assignee" size="24" [border]="true"></user-picture-app>
+					{{ row?.assignee?.firstName }} {{ row.assignee?.lastName ? row?.assignee?.lastName[0] + '.' : ''}}
+				</div>
+			</ng-container>
+
+			<!-- status -->
+				<ng-container *ngSwitchCase="'status'">
+				<status-selector-app
+					[entity]="row"
+					[typeEntity]="erm.SAMPLE">
+				</status-selector-app>
+			</ng-container>
+
+			<!-- created on -->
+			<ng-container *ngSwitchCase="'created on'">
+				{{ row?.creationDate | date: 'dd MMMM y' }}
+			</ng-container>
+		</ng-container>
+		
+	</ng-template>
+
+</table-app>
