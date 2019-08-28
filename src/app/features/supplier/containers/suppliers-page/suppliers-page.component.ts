@@ -1,11 +1,13 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { SupplierService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
+import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { SupplierFeatureService } from '~features/supplier/services';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -29,6 +31,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 
 	constructor(
 		private supplierSrv: SupplierService,
+		private featureSrv: SupplierFeatureService,
+		private notifSrv: NotificationService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
 		public commonModalSrv: CommonModalService
 	) {
@@ -40,9 +44,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
-			selectParams: { query: 'deleted == false' },
+			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.SUPPLIER,
-			initialFilters: [],
 		}, false);
 	}
 
@@ -52,6 +55,32 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 
 	ngAfterViewInit() {
 		this.listSrv.loadData(this._destroy$);
+	}
+
+	onArchive(supplier: Supplier | Supplier[]) {
+		// TODO i18n
+		if (Array.isArray(supplier)) {
+			this.featureSrv.updateMany(supplier.map((p: Supplier) => ({ id: p.id, archived: true })))
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Supplier archived',
+						message: 'Suppliers have been archived with success'
+					});
+				});
+		} else {
+			const { id } = supplier;
+			this.featureSrv.update({ id, archived: true })
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Supplier archived',
+						message: 'Suppliers have been archived with success'
+					});
+				});
+		}
 	}
 
 	getFilterAmount() {

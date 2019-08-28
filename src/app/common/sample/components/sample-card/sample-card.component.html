@@ -1,36 +1,53 @@
-<div class="card-container flex" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
+<div class="card-container flex"
+	[ngClass]="{ 'pointer' : clickable, 'hover-content-enabled': enabledHoverContent }"
+	(clickOutside)="onClickOutsideCard()"
+	(click)="clickable && openSample()">
+
+	<!-- left side -->
 	<div class="left">
-
-		<div class="imgCntr" (click)="previewClick.emit(sample)">
-			<img-app
-				[image]="sample?.images?.length ? sample?.images[0] : null"
-				type="sample"
-				size="s">		</img-app>
-			<div class="preview first-uppercase" i18n="@@preview">preview</div>
+		<img-app
+			class="image"
+			[image]="sample?.images"
+			type="sample"
+			size="m"
+			(click)="clickImage.emit()">
+		</img-app>
+		<div *ngIf="enablePreviewLink" class="preview capitalize" (click)="clickImage.emit()" i18n="@@preview">preview</div>
+		<div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
+			<checkbox-app
+				[checked]="checked"
+				(check)="onChecked()"
+				(uncheck)="onUnchecked()">
+			</checkbox-app>
 		</div>
-
-		<checkbox-app
-			*ngIf="checked || hovered"
-			[checked]="checked"
-			(check)="onChecked()"
-			(uncheck)="onUnchecked()">
-		</checkbox-app>
 	</div>
+
+	<!-- right side -->
 	<div class="right">
-		<h3 class="ms ellipsis"> {{ sample?.name || '-' }} </h3>
-		<div class="center-section flex">
-			<div class="name ellipsis">{{ sample?.name }}</div>
-			<div *ngIf="sample?.supplier" class="supplier ellipsis">{{ sample?.supplier?.name }}</div>
+		<!-- title -->
+		<div class="title-section flex" (click)="clickTitle()">
+			<h5 class="title ellipsis">{{ sample?.name }}</h5>
 		</div>
-		<div class="bottom-section flexBetween">
-			<div class="info-user flexCenter">
-				<user-picture-app [user]="sample?.assignee" [border]="true" size="12"></user-picture-app>
-				<span> {{ sample?.assignee?.firstName }} {{ sample?.assignee?.lastName ? sample?.assignee?.lastName[0] + '.' : '' }}</span>
-			</div>
-			<div *ngIf="sample?.comments?.length" class="number-comments flexCenter">
-				<icon-app name="comments"></icon-app>
-				<span> {{ sample?.comments?.length }} </span>
+		<div class="information-section flexWrap">
+			<span class="ellipsis">
+				<ng-container *ngIf="sample?.supplier">{{ sample?.supplier?.name }}</ng-container>
+			</span>
+		</div>
+		<!-- created by and votes -->
+		<div class="card-footer flexBetween">
+			<div class="created-by">
+				<div class="author-circle">
+					{{sample?.createdBy?.firstName[0].toUpperCase()}}{{sample?.createdBy?.lastName[0].toUpperCase()}}
+				</div>
+				<div class="sample-reference">
+					{{sample?.reference}}
+				</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- hover effect -->
+	<div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
+		<ng-content></ng-content>
 	</div>
 </div>

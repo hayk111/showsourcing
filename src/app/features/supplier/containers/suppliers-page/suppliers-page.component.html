@@ -35,6 +35,7 @@
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
 		(goToPage)="listSrv.loadPage($event)"
+		(archive)="onArchive($event)"
 		(sort)="listSrv.sort($event)"
 		(select)="listSrv.selectOne($event, true)"
 		(unselect)="listSrv.unselectOne($event, true)"
