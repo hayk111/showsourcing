@@ -5,7 +5,7 @@ import { ProductCommonModule } from '~common/product';
 import { routes } from '~features/project/routes';
 import { SharedModule } from '~shared/shared.module';
 
-import { ProjectNavComponent, ProjectProductListComponent, ProjectsListViewComponent } from './components';
+import { ProjectNavComponent } from './components';
 import {
 	ProjectDetailsComponent,
 	ProjectProductsComponent,
@@ -13,22 +13,22 @@ import {
 	ProjectsPageComponent,
 	ProjectWorkflowComponent,
 } from './containers';
+import { ProjectCommonModule } from '~common/project/project-common.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(routes),
 		SharedModule,
-		ProductCommonModule
+		ProductCommonModule,
+		ProjectCommonModule
 	],
 	declarations: [
 		ProjectDetailsComponent,
 		ProjectNavComponent,
-		ProjectProductListComponent,
 		ProjectProductsComponent,
 		ProjectSettingsComponent,
 		ProjectWorkflowComponent,
-		ProjectsListViewComponent,
 		ProjectsPageComponent,
 	],
 	exports: [RouterModule, ProjectsPageComponent],

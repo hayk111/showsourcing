@@ -4,7 +4,10 @@ import { ProductCommonModule } from '~common/product/product-common.module';
 import { SampleCommonModule } from '~common/sample';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { SharedModule } from '~shared/shared.module';
+<<<<<<< HEAD
 
+=======
+>>>>>>> v3.0.0
 import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component';
 import { CardLibPageComponent } from './card-lib-page/card-lib-page.component';
 import { ComponentLibraryComponent } from './component-library-page/component-library-page.component';
@@ -21,6 +24,9 @@ import { SampleCardTestComponent } from './sample-card-test/sample-card-test.com
 import { SelectorLibraryComponent } from './selector-library/selector-library.component';
 import { TableLibPageComponent } from './table-lib-page/table-lib-page.component';
 import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
+import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
+import { SupplierCommonModule } from '~common/supplier';
+
 
 
 @NgModule({
@@ -29,7 +35,8 @@ import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/wor
 		SharedModule,
 		SampleCommonModule,
 		ProductCommonModule,
-		WorkflowMngmtCommonModule
+		SupplierCommonModule,
+		WorkflowMngmtCommonModule,
 	],
 	declarations: [
 		ComponentLibraryComponent,
@@ -46,7 +53,8 @@ import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/wor
 		BadgeLibPageComponent,
 		PipesLibPageComponent,
 		TableLibPageComponent,
-		RatingLibraryPageComponent
+		RatingLibraryPageComponent,
+		CommonListsLibPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []
