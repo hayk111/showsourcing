@@ -115,7 +115,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	onArchive(product: Product | Product[]) {
 		// TODO i18n
 		if (Array.isArray(product)) {
-			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
@@ -203,4 +203,5 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	openSupplierRequest(product: Product) {
 		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [product] });
 	}
+
 }

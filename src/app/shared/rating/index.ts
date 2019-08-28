@@ -1,2 +1,2 @@
-export * from '~shared/rating/components';
-export * from '~shared/rating/rating.module';
+export * from './components';
+export * from './rating.module';

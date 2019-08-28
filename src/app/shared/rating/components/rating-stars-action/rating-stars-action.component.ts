@@ -39,11 +39,12 @@ export class RatingStarsActionComponent implements AfterViewInit {
 		return this._votes;
 	}
 
-	@Output() numVoted = new EventEmitter<number>();
+	@Output() valueVoted = new EventEmitter<number>();
 
 	@ViewChildren(IconComponent, { read: ElementRef }) iconStars: QueryList<ElementRef>;
 
 	myVote: ProductVote;
+	// array containing each value of a star
 	stars = Array.from({ length: 5 }, (x, i) => ((i + 1) * 20));
 	// NOTE: this is not a normal index, is an slice index, Array.slice
 	/** indicates where we have to slice the array to fill with color the stars */

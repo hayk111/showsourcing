@@ -4,5 +4,6 @@
 	[ngClass]="{ 'pd-right-s': !last }"
 	name="star"
 	(mouseenter)="changeStarsColor(index + 1)"
-	(mouseleave)="changeStarsColor(sliceIndexStar)">
+	(mouseleave)="changeStarsColor(sliceIndexStar)"
+	(click)="valueVoted.emit(value)">
 </icon-app>
