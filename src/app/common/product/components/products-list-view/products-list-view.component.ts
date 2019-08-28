@@ -1,17 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
 
-interface ColumnConfig {
-	title: string;
-	width: number;
-	sortProperty?: string;
-}
-
-interface TableConfig {
-	[key: string]: ColumnConfig;
-}
 
 const columnConfig: TableConfig = {
 	activities: { title: 'activities', width: 190 },
@@ -36,11 +27,9 @@ const columnConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
-	@Input() columns = [ 'reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status', 'assignee' ];
-	@Input() hasMenu = true;
-	@Input() hasHeader = true;
-	@Input() hasPagination = true;
+export class ProductsListViewComponent extends ListViewComponent<Product> {
+	columns = [ 'reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status', 'assignee' ];
+	columnConfig = columnConfig;
 	@Input() productPreview = true;
 	@Input() currentSort: Sort;
 	@Input() tableWidth: number;
@@ -53,13 +42,9 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	@Output() delete = new EventEmitter<Product>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 	prodErm = ERM.PRODUCT;
-	columnsConfig: ColumnConfig[] = [];
 
 	constructor() {
 		super();
 	}
 
-	ngOnInit() {
-		this.columns.forEach(name => this.columnsConfig.push(columnConfig[name]));
-	}
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { productsJson } from './mock-data';
+import { productsJson, suppliersJSON } from './mock-data';
 import { SelectionService } from '~core/list-page';
 
 @Component({
@@ -12,6 +12,8 @@ export class CommonListsLibPageComponent implements OnInit {
 	pending = true;
 	products = JSON.parse(productsJson);
 	productSelectionSrv = new SelectionService();
+	suppliers = JSON.parse(suppliersJSON);
+	supplierSelectionSrv = new SelectionService();
 
 	constructor(private cd: ChangeDetectorRef) {}
 
