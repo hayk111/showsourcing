@@ -1,10 +1,8 @@
 
 <top-panel-app
-  title="My Projects"
-  buttonName="Add Project"
-	(buttonClick)="listSrv.create()"
-	i18n-title="@@my-projects"
-	i18n-buttonName="@@add-project">
+  title="{{'title.my-projects' | translate}}"
+  buttonName="{{'button.add-project' | translate}}"
+	(buttonClick)="listSrv.create()">
 </top-panel-app>
 
 <sub-panel-app

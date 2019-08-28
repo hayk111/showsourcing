@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product';
 import { routes } from '~features/project/routes';
 import { SharedModule } from '~shared/shared.module';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ProjectNavComponent, ProjectProductListComponent, ProjectsListViewComponent } from './components';
 import {
@@ -20,7 +20,8 @@ import {
 		CommonModule,
 		RouterModule.forChild(routes),
 		SharedModule,
-		ProductCommonModule
+		ProductCommonModule,
+		TranslateModule
 	],
 	declarations: [
 		ProjectDetailsComponent,

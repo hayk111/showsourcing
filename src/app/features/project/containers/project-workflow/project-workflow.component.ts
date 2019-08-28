@@ -14,8 +14,8 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'project-workflow-app',
@@ -44,7 +44,8 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<Product, ProjectFeatureService>,
 		public commonModalSrv: CommonModalService,
 		private kanbanSrv: KanbanService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -206,7 +207,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
-		const del = translate('delete');
+		const del = this.translate.instant('button.delete');
 		const text = `${del} ${itemIds.length} `
 			+ (itemIds.length <= 1 ? this.listSrv.entityMetadata.singular : this.listSrv.entityMetadata.plural);
 

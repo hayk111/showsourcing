@@ -7,30 +7,26 @@
 	[pending]="pending"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No product"
+	placeholder="{{'placeholder.no-product' | translate}}"
 	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit($event)"
 	(sort)="sort.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()"
-	i18n-placeholder="@@no-product">
+	(unselectAll)="unselectAll.emit()">
 </custom-table-app>
 
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">
 	<context-menu-item-app class="pointer flexCenter" (click)="archiveProduct.emit(row)"
-    i18n="button@@archive">
-    Archive
+    translate="button.archive">
   </context-menu-item-app>
   <context-menu-item-app class="pointer flexCenter" (click)="delete.emit(row)"
-    i18n="button@@delete">
-    Delete
+    translate="button.delete">
   </context-menu-item-app>
   <context-menu-item-app *ngIf="row?.status?.status" class="pointer flexCenter" (click)="openRequestQuotationDialog.emit(row)"
-    i18n="button@@request-information">
-    Request information
+    translate="button.request-information">
   </context-menu-item-app>
 </ng-template>
 
@@ -44,8 +40,7 @@
     </div>
     <div class="preview">
       <button (click)="previewClick.emit(row)" class="small secondary-dark preview"
-        i18n="button|to display a preview of an item@@preview">
-        Preview
+        translate="button.preview">
       </button>
     </div>
   </div>
@@ -126,7 +121,7 @@
 <!-- open btn -->
 <ng-template #action let-row="row">
   <div class="pointer capitalize" (click)="open.emit(row.id)"
-    i18n="button@@open"> open </div>
+    translate="button.open"></div>
 </ng-template>
 
 <!-- for some mindblowing reason if this is put last,

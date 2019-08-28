@@ -5,7 +5,7 @@
 	</top-panel-app>
 
 	<sub-panel-app
-		buttonName="Add Products"
+		buttonName="{{'button.add-products' | translate}}"
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.filterList.asFilters()?.length"
 		[hasFilter]="true"
@@ -14,8 +14,7 @@
 		(showFilters)="listSrv.openFilterPanel()"
 		(buttonClick)="openFindProductDlg()"
 		(search)="listSrv.search($event)"
-		(viewChange)="listSrv.changeView($event)"
-		i18n="@@add-products">
+		(viewChange)="listSrv.changeView($event)">
 
 		<sub-panel-right-item-app>
 			<product-sorting-menu-app

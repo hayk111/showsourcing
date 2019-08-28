@@ -4,8 +4,7 @@
 	<context-menu-item-app
 		class="pointer flexCenter"
 		(click)="delete.emit(row)"
-		i18n="button@@delete">
-		delete
+		translate="button.delete">
 	</context-menu-item-app>
 </ng-template>
 
@@ -16,15 +15,14 @@
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No project"
+	placeholder="{{'placeholder.no-project' | translate}}"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)"
-	i18n-placeholder="@@no-project">
+	(sort)="sort.emit($event)">
 
 
 

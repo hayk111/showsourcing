@@ -2,9 +2,8 @@
 
 	<top-panel-app
 		[title]="project.name"
-		buttonName="Add Products"
-		(buttonClick)="openFindProductDlg()"
-		i18n-buttonName="@@add-products">
+		buttonName="{{'button.add-products' | translate}}"
+		(buttonClick)="openFindProductDlg()">
 	</top-panel-app>
 
 	<kanban-app

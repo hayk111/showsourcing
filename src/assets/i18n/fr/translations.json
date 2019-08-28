@@ -201,8 +201,12 @@
 			"singular": ""
 		}
 	},
+	"Fav": "",
+	"MOQ": "",
 	"button": {
 		"account-already-existed": "",
+		"add-products": "",
+		"add-project": "",
 		"add-to-project": "",
 		"archive": "",
 		"delete": "",
@@ -215,9 +219,12 @@
 		"no-no-join-team": "",
 		"open": "",
 		"open-workspace": "",
+		"preview": "",
 		"pwResetted_login": "",
+		"request-information": "",
 		"request-team": "",
 		"request-team-feedback": "",
+		"select-img": "",
 		"send": "Envoyer",
 		"sign-up": "",
 		"supplier-request": "",
@@ -226,6 +233,7 @@
 		"yes-log-me-in": ""
 	},
 	"cancel-item": "",
+	"created-on": "",
 	"error": {
 		"account-already-existed-with-email": "",
 		"create-company": "",
@@ -251,6 +259,7 @@
 		"password-reset": "",
 		"price": "",
 		"product-info": "",
+		"project-settings": "",
 		"projects": "",
 		"request-items": "",
 		"shipping-and-trading": "",
@@ -299,18 +308,25 @@
 	"placeholder": {
 		"confirm-new-pwd": "",
 		"intro-new-pwd": "",
+		"no-product": "",
+		"no-project": "",
 		"your-email": "",
 		"your-first-name": "",
 		"your-last-name": "",
 		"your-password": ""
 	},
+	"status": "",
 	"team-leader": "",
 	"text": {
 		"check-inbox-email-validate": "",
 		"confirm-new-pw": "",
 		"create-team-and-source": "",
+		"created-by": "",
+		"created-on": "",
+		"description": "",
 		"do-you-have-acc": "",
 		"invite-more-members": "",
+		"last-updated-on": "",
 		"new-pw": "",
 		"no-projects-added": "",
 		"no-vote": "",
@@ -318,19 +334,27 @@
 		"please-enter-pw": "",
 		"please-hold-modif-internet": "",
 		"please-login-to-your-account": "",
+		"product-list": "",
+		"project-name": "",
+		"project-picture": "",
 		"projectCard_description": "",
 		"pw-must-match": "",
 		"select-team-or-create": "",
+		"settings": "",
 		"validating-email": "",
 		"we-have-pb-with-srv": "",
 		"we-will-send-you-instructions": "",
+		"workflow": "",
 		"you-r-invited": ""
 	},
 	"title": {
 		"invitation-accepted": "",
 		"invitation-refused": "",
+		"my-projects": "Mes projets",
+		"name": "Nom",
 		"product-archived": "",
 		"product-not-exist": "",
-		"products-archived": ""
+		"products-archived": "",
+		"project": ""
 	}
 }

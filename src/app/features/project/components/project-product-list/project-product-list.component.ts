@@ -12,7 +12,7 @@ import { ListViewComponent } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
-import { translate } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'project-product-list-app',
@@ -48,19 +48,20 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	prodErm = ERM.PRODUCT;
 
 	descriptor: TableDescriptor = [
-		{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 350 },
-		{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 200 },
-		{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 200 },
-		{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', width: 130 },
-		{ title: translate('MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 130 },
-		{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 100 },
-		{ title: translate('status'), type: 'status', sortBy: 'status.step', width: 170 },
-		{ title: translate('created on'), type: 'creationDate', sortBy: 'creationDate', width: 200 }
+		{ title: this.translate.instant('title.name'), type: 'main', sortable: true, sortBy: 'name', width: 350 },
+		{ title: this.translate.instant('ERM.CATEGORY.singular'), type: 'category', sortBy: 'category.name', width: 200 },
+		{ title: this.translate.instant('ERM.SUPPLIER.singular'), type: 'supplier', sortBy: 'supplier.name', width: 200 },
+		{ title: this.translate.instant('ERM.PRICE.singular'), type: 'price', sortBy: 'price.value', width: 130 },
+		{ title: this.translate.instant('MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 130 },
+		{ title: this.translate.instant('Fav'), type: 'rating', sortBy: 'favorite', width: 100 },
+		{ title: this.translate.instant('status'), type: 'status', sortBy: 'status.step', width: 170 },
+		{ title: this.translate.instant('created-on'), type: 'creationDate', sortBy: 'creationDate', width: 200 }
 	];
 
 	constructor(
 		private renderer: Renderer2,
-		private thumbSrv: ThumbService) {
+		private thumbSrv: ThumbService,
+		private translate: TranslateService) {
 		super();
 	}
 

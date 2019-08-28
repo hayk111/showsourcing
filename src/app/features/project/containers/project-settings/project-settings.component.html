@@ -1,25 +1,21 @@
 <div *ngIf="project$ | async as project">
 	<top-panel-app
 		[title]="project?.name"
-		[buttonName]="'Add Project'"
-		[hasAction]="false"
-		i18n-buttonName="@@add-project">
+		buttonName="{{'button.add-project' | translate}}"
+		[hasAction]="false">
 	</top-panel-app>
 
 	<card-app>
-		<h3 class="ms" i18n="header@@project-settings">
-			Project Settings
-		</h3>
+		<h3 class="ms" translate="header.project-settings"></h3>
 
-		<label i18n="text@@project-picture">Project Picture</label>
+		<label translate="text.project-picture"></label>
 
 		<div class="flex picCtnr">
 			<div class="circle pointer">
 				<img-app size="s" [image]="project?.logoImage" type="project" (click)="fileInp.click()"></img-app>
 			</div>
 			<div class="color-primary sel">
-				<b class="semi pointer" (click)="fileInp.click()" i18n="button@@select-img">
-					Select Image
+				<b class="semi pointer" (click)="fileInp.click()" translate="button.select-img">
 				</b>
 			</div>
 		</div>
@@ -28,27 +24,27 @@
 
 		<form [formGroup]="form">
 			<form-field-app class="borderless">
-				<label-app i18n="text@@project-name">Project Name</label-app>
+				<label-app translate="text.project-name"></label-app>
 				<input class="borderless" inputApp type="text" formControlName="name"/>
 			</form-field-app>
 
 			<form-field-app class="borderless">
-				<label-app i18n="text@@description">Description</label-app>
+				<label-app translate="text.description"></label-app>
 				<textarea inputApp autoGrows formControlName="description" class="borderless"></textarea>
 			</form-field-app>
 		</form>
 
 		<div class="bottom">
 			<div class="flex">
-				<b class="semi" i18n="text@@created-by">Created By:</b>
+				<b class="semi" translate="text.created-by"></b>
 				{{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
 			</div>
 			<div class="flex">
-				<b class="semi" i18n="text@@created-on">Created On:</b>
+				<b class="semi" translate="text.created-on"></b>
 				{{ project?.creationDate | date: 'd MMMM y' }}
 			</div>
 			<div class="flex">
-				<b class="semi" i18n="text@@last-updated-on">Last Update On:</b>
+				<b class="semi" translate="text.last-updated-on"></b>
 				{{ project?.lastUpdatedDate | date: 'd MMMM y' }}
 			</div>
 		</div>
