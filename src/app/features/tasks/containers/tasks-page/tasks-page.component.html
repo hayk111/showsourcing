@@ -13,7 +13,7 @@
 	[hasSwitch]="true"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
-	entityType="products"
+	entityType="tasks"
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
 	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
@@ -55,8 +55,9 @@
 
 <task-list-app
 	[filterList]="listSrv.filterList"
-	[hasFilters]="true"
 	[hasSupplier]="true"
+	[hasFilters]="false"
+	[hasCreate]="false"
 	[selection]="listSrv.selection$ | async"
 	[tasks]="listSrv.items$ | async"
 	(bottomReached)="listSrv.loadMore()"

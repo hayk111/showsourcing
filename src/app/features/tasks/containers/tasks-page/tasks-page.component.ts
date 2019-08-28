@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { FilterType } from '~shared/filters';
 import { CommonModalService } from '~common/modals';
-import { UserService, SampleService } from '~core/entity-services';
+import { UserService, TaskService } from '~core/entity-services';
 import { ListPageService, ListPageKey } from '~core/list-page';
-import { ERM, Sample } from '~models';
+import { ERM, Task } from '~models';
 import { CreationTaskDlgComponent } from '~common/modals';
 import { AutoUnsub } from '~utils';
 import { DialogService } from '~shared/dialog';
@@ -40,13 +40,13 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		FilterType.TAGS
 	];
 
-	samplesCount$: Observable<number>;
+	tasksCount$: Observable<number>;
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		public commonModalSrv: CommonModalService,
-		public listSrv: ListPageService<Sample, SampleService>,
-		private sampleSrv: SampleService,
+		public listSrv: ListPageService<Task, TaskService>,
+		private taskSrv: TaskService,
 		public elem: ElementRef,
 		protected dlgSrv: DialogService,
 		private userSrv: UserService,
@@ -57,17 +57,17 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const selectParams = new SelectParams({ sortBy: 'name' });
 		this.listSrv.setup({
-			key: ListPageKey.REQUEST,
-			entitySrv: this.sampleSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
-			entityMetadata: ERM.SAMPLE,
+			key: ListPageKey.TASK,
+			entitySrv: this.taskSrv,
+			searchedFields: ['name'],
+			entityMetadata: ERM.TASK,
 			initialFilters: [],
 			originComponentDestroy$: this._destroy$,
 			selectParams
 		});
 
-		this.samplesCount$ = this.listSrv.filterList.valueChanges$.pipe(
-			switchMap(_ => this.sampleSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
+		this.tasksCount$ = this.listSrv.filterList.valueChanges$.pipe(
+			switchMap(_ => this.taskSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
 	}
 
@@ -83,8 +83,8 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.changeView(view);
 	}
 
-	onFavourite(sample: Sample) {
-		this.listSrv.onItemFavorited(sample.id);
+	onFavourite(task: Task) {
+		this.listSrv.onItemFavorited(task.id);
 	}
 
 	showItemsPerPage(count: number) {
