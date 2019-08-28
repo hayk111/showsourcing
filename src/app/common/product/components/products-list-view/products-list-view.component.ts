@@ -4,7 +4,7 @@ import { ERM, Product } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
 
 
-const columnConfig: TableConfig = {
+const tableConfig: TableConfig = {
 	activities: { title: 'activities', width: 190 },
 	assignee: { title: 'assignee', width: 50, sortProperty: 'assignee.firstName' },
 	category: { title: 'category', width: 190, sortProperty: 'category.name' },
@@ -29,9 +29,7 @@ const columnConfig: TableConfig = {
 })
 export class ProductsListViewComponent extends ListViewComponent<Product> {
 	columns = [ 'reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status', 'assignee' ];
-	columnConfig = columnConfig;
-	@Input() productPreview = true;
-	@Input() currentSort: Sort;
+	tableConfig = tableConfig;
 	@Input() tableWidth: number;
 	@Output() setFavourite = new EventEmitter<Product>();
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
