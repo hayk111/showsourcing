@@ -5,12 +5,15 @@
 		"invite": "",
 		"invite-team-members": "",
 		"login": "",
+		"no-create-account": "",
+		"no-no-join-team": "",
 		"open-workspace": "",
 		"pwResetted_login": "",
 		"send": "",
-		"sign-up": ""
+		"sign-up": "",
+		"yes-join-team": "",
+		"yes-log-me-in": ""
 	},
-	"email": "",
 	"error": {
 		"account-already-existed-with-email": "",
 		"email-not-validated-please-check-your-inbox": "",
@@ -21,11 +24,10 @@
 		"submition-failed-please-try-again": "",
 		"when-requesting-password-reset": ""
 	},
-	"first-name": "",
 	"forgotten-pswd": "",
-	"full-name": "",
 	"header": {
 		"account-created": "",
+		"congratz": "",
 		"loading-info-please-wait": "",
 		"no-recent-activity": "",
 		"password-reset": "",
@@ -35,18 +37,26 @@
 	"hint": {
 		"company-tip": ""
 	},
-	"last-name": "",
+	"invites-you-join": "",
+	"label": {
+		"email": "",
+		"first-name": "",
+		"full-name": "",
+		"last-name": "",
+		"password": ""
+	},
 	"link": {
 		"to-my-workspace": ""
 	},
 	"message": {
+		"invitation-accepted": "",
+		"invitation-refused": "",
 		"pwd-reset-successfully": ""
 	},
 	"no-team-members": "",
 	"paragraph": {
 		"pwResetted_reset": ""
 	},
-	"password": "",
 	"placeholder": {
 		"confirm-new-pwd": "",
 		"intro-new-pwd": "",
@@ -60,6 +70,7 @@
 	"text": {
 		"check-inbox-email-validate": "",
 		"confirm-new-pw": "",
+		"do-you-have-acc": "",
 		"invite-more-members": "",
 		"new-pw": "",
 		"now-invite-members": "",
@@ -69,6 +80,11 @@
 		"pw-must-match": "",
 		"validating-email": "",
 		"we-have-pb-with-srv": "",
-		"we-will-send-you-instructions": ""
+		"we-will-send-you-instructions": "",
+		"you-r-invited": ""
+	},
+	"title": {
+		"invitation-accepted": "",
+		"invitation-refused": ""
 	}
 }

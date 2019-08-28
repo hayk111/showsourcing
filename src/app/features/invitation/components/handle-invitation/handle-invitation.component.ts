@@ -9,7 +9,8 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { InvitationUser } from '~models';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -35,7 +36,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		private authSrv: AuthenticationService,
 		private invitationSrv: InvitationFeatureService,
 		private notifSrv: NotificationService,
-		private teamClient: TeamClientInitializer
+		private teamClient: TeamClientInitializer,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -56,8 +58,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.SUCCESS,
-				title: translate('Invitation accepted'),
-				message: translate('The invitation was accepted'),
+				title: this.translate.instant('title.invitation-accepted'),
+				message: this.translate.instant('message.invitation-accepted'),
 				timeout: 3500
 			});
 		});
@@ -68,8 +70,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: translate('Invitation Refused'),
-				message: translate('The invitation was refused'),
+				title: this.translate.instant('title.invitation-refused'),
+				message: this.translate.instant('message.invitation-refused'),
 				timeout: 3500
 			});
 		});

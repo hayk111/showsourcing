@@ -5,12 +5,15 @@
 		"invite": "Invite",
 		"invite-team-members": "Invite team members",
 		"login": "Login",
+		"no-create-account": "No - Create an account",
+		"no-no-join-team": "No - I don't wish to join this team",
 		"open-workspace": "Open my workspace",
 		"pwResetted_login": "Login",
 		"send": "Send",
-		"sign-up": "Sign-up"
+		"sign-up": "Sign-up",
+		"yes-join-team": "Yes - Join the team",
+		"yes-log-me-in": "Yes - Let me log-in"
 	},
-	"email": "Email",
 	"error": {
 		"account-already-existed-with-email": "An account already exist with this email address.",
 		"email-not-validated-please-check-your-inbox": "Email not validated, please check your inbox",
@@ -21,11 +24,10 @@
 		"submition-failed-please-try-again": "Submition failed, please try again in a short while",
 		"when-requesting-password-reset": "Error when requesting password reset"
 	},
-	"first-name": "First name",
 	"forgotten-pswd": "Forgotten password?",
-	"full-name": "Full name",
 	"header": {
 		"account-created": "Account created",
+		"congratz": "Congratulations!",
 		"loading-info-please-wait": "We are loading your information, please wait...",
 		"no-recent-activity": "There is no recent activity",
 		"password-reset": "Password Reset",
@@ -35,18 +37,26 @@
 	"hint": {
 		"company-tip": "Tip: the app works better with a company email"
 	},
-	"last-name": "Last name",
+	"invites-you-join": "invites you to join",
+	"label": {
+		"email": "Email",
+		"first-name": "First name",
+		"full-name": "Full name",
+		"last-name": "Last name",
+		"password": "Password"
+	},
 	"link": {
 		"to-my-workspace": "To my workspace"
 	},
 	"message": {
+		"invitation-accepted": "The invitation was accepted",
+		"invitation-refused": "The invitation was refused",
 		"pwd-reset-successfully": "Your password has been reset successfully!"
 	},
 	"no-team-members": "No Team Members",
 	"paragraph": {
 		"pwResetted_reset": "We sent you instructions to recover your password."
 	},
-	"password": "Password",
 	"placeholder": {
 		"confirm-new-pwd": "Confirm the new password",
 		"intro-new-pwd": "Introduce the new password",
@@ -60,6 +70,7 @@
 	"text": {
 		"check-inbox-email-validate": "Please check your inbox to validate your email...",
 		"confirm-new-pw": "Confirm new password",
+		"do-you-have-acc": "Do you have an account ?",
 		"invite-more-members": "Invite more team members",
 		"new-pw": "New password",
 		"now-invite-members": "Now invite your team members",
@@ -69,6 +80,11 @@
 		"pw-must-match": "New password must match",
 		"validating-email": "Validating email...",
 		"we-have-pb-with-srv": "We are having a problem with our server. A team of highly trained monkeys are currently trying to fix that.\nPlease try again at a later time.",
-		"we-will-send-you-instructions": "We will send you instructions to recover your password."
+		"we-will-send-you-instructions": "We will send you instructions to recover your password.",
+		"you-r-invited": "You are invited to join ShowSourcing"
+	},
+	"title": {
+		"invitation-accepted": "Invitation accepted",
+		"invitation-refused": "Invitation refused"
 	}
 }

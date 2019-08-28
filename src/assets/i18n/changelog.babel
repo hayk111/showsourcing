@@ -144,6 +144,56 @@
                         </translations>
                     </concept_node>
                     <concept_node>
+                        <name>no-create-account</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>no-no-join-team</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>open-workspace</name>
                         <definition_loaded>false</definition_loaded>
                         <description></description>
@@ -243,33 +293,58 @@
                             </translation>
                         </translations>
                     </concept_node>
+                    <concept_node>
+                        <name>yes-join-team</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>yes-log-me-in</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
                 </children>
             </folder_node>
-            <concept_node>
-                <name>email</name>
-                <definition_loaded>false</definition_loaded>
-                <description></description>
-                <comment></comment>
-                <default_text></default_text>
-                <translations>
-                    <translation>
-                        <language>en-US</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>es-ES</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>fr-FR</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>zh-CN</language>
-                        <approved>false</approved>
-                    </translation>
-                </translations>
-            </concept_node>
             <folder_node>
                 <name>error</name>
                 <children>
@@ -476,57 +551,7 @@
                 </children>
             </folder_node>
             <concept_node>
-                <name>first-name</name>
-                <definition_loaded>false</definition_loaded>
-                <description></description>
-                <comment></comment>
-                <default_text></default_text>
-                <translations>
-                    <translation>
-                        <language>en-US</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>es-ES</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>fr-FR</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>zh-CN</language>
-                        <approved>false</approved>
-                    </translation>
-                </translations>
-            </concept_node>
-            <concept_node>
                 <name>forgotten-pswd</name>
-                <definition_loaded>false</definition_loaded>
-                <description></description>
-                <comment></comment>
-                <default_text></default_text>
-                <translations>
-                    <translation>
-                        <language>en-US</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>es-ES</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>fr-FR</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>zh-CN</language>
-                        <approved>false</approved>
-                    </translation>
-                </translations>
-            </concept_node>
-            <concept_node>
-                <name>full-name</name>
                 <definition_loaded>false</definition_loaded>
                 <description></description>
                 <comment></comment>
@@ -555,6 +580,31 @@
                 <children>
                     <concept_node>
                         <name>account-created</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>congratz</name>
                         <definition_loaded>false</definition_loaded>
                         <description></description>
                         <comment></comment>
@@ -736,7 +786,7 @@
                 </children>
             </folder_node>
             <concept_node>
-                <name>last-name</name>
+                <name>invites-you-join</name>
                 <definition_loaded>false</definition_loaded>
                 <description></description>
                 <comment></comment>
@@ -760,6 +810,136 @@
                     </translation>
                 </translations>
             </concept_node>
+            <folder_node>
+                <name>label</name>
+                <children>
+                    <concept_node>
+                        <name>email</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>first-name</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>full-name</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>last-name</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>password</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                </children>
+            </folder_node>
             <folder_node>
                 <name>link</name>
                 <children>
@@ -793,6 +973,56 @@
             <folder_node>
                 <name>message</name>
                 <children>
+                    <concept_node>
+                        <name>invitation-accepted</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>invitation-refused</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
                     <concept_node>
                         <name>pwd-reset-successfully</name>
                         <definition_loaded>false</definition_loaded>
@@ -875,31 +1105,6 @@
                     </concept_node>
                 </children>
             </folder_node>
-            <concept_node>
-                <name>password</name>
-                <definition_loaded>false</definition_loaded>
-                <description></description>
-                <comment></comment>
-                <default_text></default_text>
-                <translations>
-                    <translation>
-                        <language>en-US</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>es-ES</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>fr-FR</language>
-                        <approved>false</approved>
-                    </translation>
-                    <translation>
-                        <language>zh-CN</language>
-                        <approved>false</approved>
-                    </translation>
-                </translations>
-            </concept_node>
             <folder_node>
                 <name>placeholder</name>
                 <children>
@@ -1159,6 +1364,31 @@
                         </translations>
                     </concept_node>
                     <concept_node>
+                        <name>do-you-have-acc</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>invite-more-members</name>
                         <definition_loaded>false</definition_loaded>
                         <description></description>
@@ -1385,6 +1615,86 @@
                     </concept_node>
                     <concept_node>
                         <name>we-will-send-you-instructions</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>you-r-invited</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                </children>
+            </folder_node>
+            <folder_node>
+                <name>title</name>
+                <children>
+                    <concept_node>
+                        <name>invitation-accepted</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description></description>
+                        <comment></comment>
+                        <default_text></default_text>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>es-ES</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>zh-CN</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>invitation-refused</name>
                         <definition_loaded>false</definition_loaded>
                         <description></description>
                         <comment></comment>

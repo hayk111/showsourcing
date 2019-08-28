@@ -7,7 +7,6 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { translate } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
