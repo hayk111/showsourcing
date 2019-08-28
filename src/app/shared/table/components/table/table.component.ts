@@ -9,6 +9,7 @@ import {
 	Output,
 	QueryList,
 	TemplateRef,
+	ContentChild,
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -35,7 +36,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
 	/** whether rows are selectable and pagination is visible */
-	@Input() hasSelectPagination = true;
+	@Input() hasPagination = true;
 
 	@Input() width: number;
 	@Input() rowHeight: number;
@@ -45,6 +46,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() idName = 'id';
 	/** maps of the <id, true> so we can access the items that are selected */
 	@Input() selected: Map<string, boolean> = new Map();
+	// TODO this should be transcluded instead
 	@Input() contextualMenu: TemplateRef<any>;
 	/** current sort */
 	@Input() currentSort: Sort;

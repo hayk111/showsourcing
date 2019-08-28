@@ -81,7 +81,7 @@
 	</ng-template>
 
 	<!-- created by -->
-	<ng-template 
+	<ng-template
 		class="capitalize"
 		[columnApp]="'created by' | const: 'erm'"
 		[sortable]="false"
@@ -94,7 +94,7 @@
 	</ng-template>
 
 	<!-- activities -->
-	<ng-template 
+	<ng-template
 		class="capitalize"
 		[columnApp]="'activity' | const: 'erm'"
 		[sortable]="false"
@@ -108,7 +108,7 @@
 		[columnApp]="'status' | const: 'erm'"
 		[sortable]="false"
 		let-row="row">
-		<status-selector-app [entity]="row" [typeEntity]="supplierErm" selectSize="s"></status-selector-app>
+		<status-selector-app [entity]="row" [typeEntity]="erm.SUPPLIER" selectSize="s"></status-selector-app>
 	</ng-template>
 
 </table-app>

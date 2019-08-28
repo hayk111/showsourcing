@@ -10,7 +10,7 @@
 		</div>
 
 		<!-- selection column -->
-		<div *ngIf="hasSelection && hasSelectPagination" class="col selectionCol" [style.height]="rowHeight + 'px'">
+		<div *ngIf="hasSelection && hasPagination" class="col selectionCol" [style.height]="rowHeight + 'px'">
 			<div *ngIf="hasHeader" class="header" [style.height]="rowHeight + 'px'">
 				<ng-container>
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
@@ -71,7 +71,7 @@
 
 		<!-- contextual menu -->
 		<div class="col" *ngIf="hasMenu">
-			<div *ngIf="hasHeader" class="header context-menu" [style.height]="rowHeight + 'px'" [style.minWidth]="'50px'">
+			<div *ngIf="hasMenu" class="header context-menu" [style.height]="rowHeight + 'px'" [style.minWidth]="'50px'">
 			</div>
 				<ng-container *ngIf="!pending">
 					<div
@@ -111,7 +111,7 @@
 </div>
 
 <pagination-app
-	*ngIf="hasSelectPagination"
+	*ngIf="hasPagination"
 	[count]="count"
 	[currentPage]="currentPage"
 	(goToPage)="goToIndexPage($event)"
