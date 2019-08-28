@@ -38,8 +38,6 @@ export abstract class AbstractApolloClient {
 		// for debugging purpose
 		if (!showsourcing.clients)
 			showsourcing.clients = new Map<string, any>();
-		if (!showsourcing.gql)
-			showsourcing.gql = gql;
 	}
 
 	protected checkNotAlreadyInit() {
