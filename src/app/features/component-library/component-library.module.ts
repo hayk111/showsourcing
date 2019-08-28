@@ -4,10 +4,7 @@ import { ProductCommonModule } from '~common/product/product-common.module';
 import { SampleCommonModule } from '~common/sample';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { SharedModule } from '~shared/shared.module';
-<<<<<<< HEAD
 
-=======
->>>>>>> v3.0.0
 import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component';
 import { CardLibPageComponent } from './card-lib-page/card-lib-page.component';
 import { ComponentLibraryComponent } from './component-library-page/component-library-page.component';
