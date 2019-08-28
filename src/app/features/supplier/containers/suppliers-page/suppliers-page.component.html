@@ -25,6 +25,7 @@
 <ng-container *ngIf="listSrv.isListening">
 
 	<supplier-list-view-app
+		#supplierList
 		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
@@ -42,7 +43,7 @@
 		(previewClick)="listSrv.openPreview($event)"
 		(showItemsPerPage)="showItemsPerPage($event)"
 		(archive)="onArchive($event)"
-		(delete)="listSrv.deleteOne($event)" #supplierList>
+		(delete)="listSrv.deleteOne($event)">
 	</supplier-list-view-app>
 
 	<selection-bar-app
