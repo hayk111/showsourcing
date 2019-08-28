@@ -1,0 +1,32 @@
+
+<card-app>
+	<card-title-app>Common lists</card-title-app>
+
+	Wa have configurable lists for some entities which use the @input() columns to 
+	receive an array of the columns we wish to display.
+	You can also choose to hide the header, menu, selection and pagination.
+</card-app>
+
+<card-app class="ex">
+	<card-title-app>Product example #1</card-title-app>
+	<products-list-view-app
+	[pending]="pending"
+	[rows]="products" 
+	[selection]="productSelectionSrv.selection"
+	[currentPage]="0"
+	[count]="1556"></products-list-view-app>
+</card-app>
+
+<card-app class="ex">
+	<card-title-app>Product example #2</card-title-app>
+	<products-list-view-app
+		[hasHeader]="false"
+		[hasPagination]="false"
+		[pending]="pending"
+		[rows]="products" 
+		[selection]="productSelectionSrv.selection"
+		[columns]="[ 'reference', 'supplier']"
+		[currentPage]="0"
+		[count]="1556"></products-list-view-app>
+</card-app>
+

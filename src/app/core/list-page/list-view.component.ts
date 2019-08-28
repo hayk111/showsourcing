@@ -3,7 +3,12 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
-export class ListViewComponent<T> extends TrackingComponent {
+export interface ListViewConfig {
+	hasHeader: boolean;
+	hasPagination: boolean;
+}
+
+export abstract class ListViewComponent<T> extends TrackingComponent {
 	/** current selection */
 	@Input() selection: Map<string, boolean>;
 	/** entities displayed */

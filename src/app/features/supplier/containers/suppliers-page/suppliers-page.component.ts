@@ -82,7 +82,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Suplier archived',
+						title: 'Supplier archived',
 						message: 'Suppliers have been archived with success'
 					});
 				});
@@ -93,7 +93,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Suplier archived',
+						title: 'Supplier archived',
 						message: 'Suppliers have been archived with success'
 					});
 				});
