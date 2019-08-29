@@ -206,6 +206,7 @@
 		"add-product": "Add product",
 		"add-products": "Add products",
 		"add-project": "Add project",
+		"add-sample": "Add sample",
 		"add-supplier": "Add supplier",
 		"add-to-project": "Add to project",
 		"archive": "Archive",
@@ -235,6 +236,7 @@
 		"pwResetted_login": "Login",
 		"remove-invitation": "Remove Invitation",
 		"remove-user": "Remove User",
+		"request-feedback": "Request feedback",
 		"request-information": "Request information",
 		"request-team": "Request Team",
 		"request-team-feedback": "Request team feedback",
@@ -306,8 +308,10 @@
 		"last-name": "Last name",
 		"password": "Password",
 		"phone-number": "Phone number",
+		"product": "Product",
 		"products": "Products",
 		"profile-picture": "Profile Picture",
+		"sample": "Sample",
 		"samples": "Samples",
 		"select-a-team-instead": "Select a team instead",
 		"shipping": "shipping",
@@ -334,6 +338,11 @@
 		"we-are-creating-team": "We are creating your team, please wait!",
 		"your-export-is-being-processed": "Your export is being processed"
 	},
+	"nav": {
+		"my-samples": "My Samples",
+		"my-tasks": "My Tasks",
+		"my-workflow": "My Workflow"
+	},
 	"other": {
 		"Fav": "Fav",
 		"MOQ": "MOQ"
@@ -357,8 +366,10 @@
 		"your-password": "Your password"
 	},
 	"text": {
+		"assigned-to-me": "Assigned to me",
 		"category": "category",
 		"check-inbox-email-validate": "Please check your inbox to validate your email...",
+		"completed-tasks": "Completed tasks",
 		"confirm-new-pw": "Confirm new password",
 		"contributor": "contributor",
 		"create-team-and-source": "Create your team and start sourcing",
@@ -411,6 +422,7 @@
 		"invitations": "Invitations",
 		"my-projects": "My projects",
 		"my-suppliers": "My suppliers",
+		"my-workspace": "My workspace",
 		"name": "Name",
 		"product-archived": "Product archived",
 		"product-not-exist": "The product doesn't exist",

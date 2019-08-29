@@ -1,27 +1,23 @@
 
 <top-panel-app
-	[title]="'My Workspace'"
-	[hasAction]="false"
-	i18n-title="@@my-workspace">
+	title="{{'title.my-workspace' | translate}}"
+	[hasAction]="false">
 
 	<nav class="flex">
 		<span
 			routerLink="/workspace/my-workflow"
 			routerLinkActive="active"
-			i18n="nav@@my-workflow">
-			My Workflow
+			translate="nav.my-workflow">
 		</span>
 		<span
 			routerLink="/workspace/my-tasks"
 			routerLinkActive="active"
-			i18n="nav@@my-tasks">
-			My Tasks
+			translate="nav.my-tasks">
 		</span>
 		<span
 			routerLink="/workspace/my-samples"
 			routerLinkActive="active"
-			i18n="nav@@my-samples">
-			My Samples
+			translate="nav.my-samples">
 		</span>
 	</nav>
 </top-panel-app>

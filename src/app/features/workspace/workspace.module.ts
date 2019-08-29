@@ -3,6 +3,9 @@ import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SampleCommonModule } from '~common/sample';
 import { TaskCommonModule } from '~common/task';
+import { SharedModule } from '~shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SampleListViewComponent } from '~features/workspace/components';
 import {
 	MySampleBoardPageComponent,
@@ -13,7 +16,6 @@ import {
 	WorkspaceComponent,
 } from '~features/workspace/containers';
 import { routes } from '~features/workspace/routes';
-import { SharedModule } from '~shared/shared.module';
 
 
 
@@ -24,7 +26,8 @@ import { SharedModule } from '~shared/shared.module';
 		TaskCommonModule,
 		ProductCommonModule,
 		ProductCommonModule,
-		SampleCommonModule
+		SampleCommonModule,
+		TranslateModule
 	],
 	declarations: [
 		WorkspaceComponent,

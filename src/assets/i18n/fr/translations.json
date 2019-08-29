@@ -206,6 +206,7 @@
 		"add-product": "",
 		"add-products": "",
 		"add-project": "",
+		"add-sample": "",
 		"add-supplier": "",
 		"add-to-project": "",
 		"archive": "",
@@ -235,6 +236,7 @@
 		"pwResetted_login": "",
 		"remove-invitation": "",
 		"remove-user": "",
+		"request-feedback": "",
 		"request-information": "",
 		"request-team": "",
 		"request-team-feedback": "",
@@ -306,8 +308,10 @@
 		"last-name": "Nom",
 		"password": "Mot de passe",
 		"phone-number": "",
+		"product": "",
 		"products": "",
 		"profile-picture": "",
+		"sample": "",
 		"samples": "",
 		"select-a-team-instead": "",
 		"shipping": "",
@@ -334,6 +338,11 @@
 		"we-are-creating-team": "",
 		"your-export-is-being-processed": ""
 	},
+	"nav": {
+		"my-samples": "",
+		"my-tasks": "",
+		"my-workflow": ""
+	},
 	"other": {
 		"Fav": "",
 		"MOQ": ""
@@ -357,8 +366,10 @@
 		"your-password": ""
 	},
 	"text": {
+		"assigned-to-me": "",
 		"category": "",
 		"check-inbox-email-validate": "",
+		"completed-tasks": "",
 		"confirm-new-pw": "",
 		"contributor": "",
 		"create-team-and-source": "",
@@ -411,6 +422,7 @@
 		"invitations": "",
 		"my-projects": "Mes projets",
 		"my-suppliers": "",
+		"my-workspace": "",
 		"name": "Nom",
 		"product-archived": "",
 		"product-not-exist": "",

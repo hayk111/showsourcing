@@ -19,8 +19,7 @@
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="delete.emit(row)"
-			i18n="@@delete">
-			delete
+			translate="button.delete">
 		</context-menu-item-app>
 	</ng-template>
 
@@ -37,7 +36,7 @@
 				<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 			</div>
 			<div class="preview">
-				<button class="secondary-dark small" (click)="previewClick.emit(row)" i18n="@@preview">preview</button>
+				<button class="secondary-dark small" (click)="previewClick.emit(row)" translate="button.preview"></button>
 			</div>
 		</div>
 	</ng-template>

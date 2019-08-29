@@ -13,8 +13,8 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -47,7 +47,8 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private dlgSrv: DialogService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private translate: TranslateService
 	) { super(); }
 
 	ngOnInit() {
@@ -194,8 +195,8 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
-		const del = translate('delete');
-		const smpl = itemIds.length <= 1 ? translate('sample') : translate('samples');
+		const del = this.translate.instant('button.delete');
+		const smpl = itemIds.length <= 1 ? this.translate.instant('label.sample') : this.translate.instant('label.samples');
 		const text = `${del} ${itemIds.length} ${smpl}`;
 
 
