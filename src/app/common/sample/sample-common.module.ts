@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommentCommonModule } from '~common/comment';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
-import { SampleListComponent, SampleComponent, SamplePreviewComponent, SampleCardComponent } from './components';
+import { SampleComponent, SamplePreviewComponent, SampleCardComponent, SampleListViewComponent } from './components';
 
 @NgModule({
 	imports: [
@@ -14,15 +14,16 @@ import { SampleListComponent, SampleComponent, SamplePreviewComponent, SampleCar
 		CommentCommonModule
 	],
 	declarations: [
-		SampleListComponent,
 		SampleComponent,
 		SamplePreviewComponent,
-		SampleCardComponent],
+		SampleCardComponent,
+		SampleListViewComponent
+	],
 	exports: [
-		SampleListComponent,
 		SampleComponent,
 		SamplePreviewComponent,
-		SampleCardComponent
+		SampleCardComponent,
+		SampleListViewComponent
 	],
 	entryComponents: []
 })
