@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { RequestCommonModule } from '~common/request';
 import { routes } from '~features/requests/routes';
 import { SharedModule } from '~shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	RequestInformationComponent,
@@ -16,8 +15,7 @@ import { RequestDetailsComponent, RequestPageComponent } from './containers';
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		RequestCommonModule,
-		TranslateModule
+		RequestCommonModule
 	],
 	declarations: [
 		RequestDetailsComponent,

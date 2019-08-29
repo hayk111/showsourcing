@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthPagesCommonModule } from '~common/auth-pages/auth-pages.common.module';
 import { SharedModule } from '~shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	AccountCreatedComponent,
@@ -20,8 +19,7 @@ import { routes } from './routes';
 	imports: [
 		AuthPagesCommonModule,
 		SharedModule,
-		RouterModule.forChild(routes),
-		TranslateModule
+		RouterModule.forChild(routes)
 	],
 	declarations: [
 		AccountCreatedComponent,

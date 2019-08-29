@@ -9,7 +9,6 @@ import { routes } from '~features/supplier/routes';
 import { NavBarModule } from '~shared/navbar';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	SupplierContactCardComponent,
@@ -40,8 +39,7 @@ import { SupplierFeatureService } from './services';
 		SharedModule,
 		SupplierCommonModule,
 		TaskCommonModule,
-		ProductCommonModule,
-		TranslateModule
+		ProductCommonModule
 	],
 	declarations: [
 		SupplierActivityComponent,

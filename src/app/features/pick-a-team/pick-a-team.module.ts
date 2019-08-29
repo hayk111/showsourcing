@@ -7,7 +7,6 @@ import {
 import { CreateATeamPageComponent } from '~features/pick-a-team/containers/create-a-team-page/create-a-team-page.component';
 import { PickATeamPageComponent } from '~features/pick-a-team/containers/pick-a-team-page/pick-a-team-page.component';
 import { SharedModule } from '~shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { routes } from './routes';
 
@@ -16,8 +15,7 @@ import { routes } from './routes';
 	imports: [
 		AuthPagesCommonModule,
 		SharedModule,
-		RouterModule.forChild(routes),
-		TranslateModule
+		RouterModule.forChild(routes)
 	],
 	declarations: [
 		PickATeamPageComponent,

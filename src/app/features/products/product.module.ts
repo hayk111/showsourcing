@@ -11,7 +11,6 @@ import { TaskCommonModule } from '~common/task';
 import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	ProductActivityComponent,
@@ -49,8 +48,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		SampleCommonModule,
 		SharedModule,
 		SupplierCommonModule,
-		TaskCommonModule,
-		TranslateModule
+		TaskCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,

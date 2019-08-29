@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product';
 import { routes } from '~features/project/routes';
 import { SharedModule } from '~shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { ProjectNavComponent } from './components';
 import {
@@ -22,7 +21,6 @@ import { ProjectCommonModule } from '~common/project/project-common.module';
 		RouterModule.forChild(routes),
 		SharedModule,
 		ProductCommonModule,
-		TranslateModule,
 		ProjectCommonModule
 	],
 	declarations: [

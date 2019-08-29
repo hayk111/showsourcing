@@ -4,7 +4,6 @@ import { ProductCommonModule } from '~common/product/product-common.module';
 import { SampleCommonModule } from '~common/sample';
 import { TaskCommonModule } from '~common/task';
 import { SharedModule } from '~shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	MySampleBoardPageComponent,
@@ -25,8 +24,7 @@ import { routes } from '~features/workspace/routes';
 		TaskCommonModule,
 		ProductCommonModule,
 		ProductCommonModule,
-		SampleCommonModule,
-		TranslateModule
+		SampleCommonModule
 	],
 	declarations: [
 		WorkspaceComponent,
