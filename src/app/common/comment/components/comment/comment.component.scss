@@ -8,25 +8,37 @@ user-picture-app {
 }
 
 .comment-content {
+	flex-grow: 1;
 	background: var(--legacy-color-secondary-light);
-	margin-bottom: var(--spacing-xs);
 	margin-left: var(--spacing-s);
 	padding: var(--spacing-s);
 	border-radius: var(--border-radius-l);
 
-	.title {
-		.name {
-			font-weight: 600;
-			color: var(--legacy-color-txt-strong);
-			letter-spacing: -0.3px;
+	.comment-header {
+		padding-bottom: var(--spacing-s);
+
+		.title {
+			.name {
+				font-weight: 600;
+				font-size: var(--font-size-l);
+				color: var(--legacy-color-txt-strong);
+				letter-spacing: -0.3px;
+			}
+			.date {
+				font-size: var(--font-size-s);
+			}
 		}
-		.date {
-			margin-left: var(--spacing-xs);
-			font-size: var(--font-size-s);
+
+		.buttons {
+			> *:not(:last-child) {
+				margin-right: var(--spacing-ms);
+			}
 		}
 	}
 }
 
 .text {
 	white-space: pre-line;
+	font-size: var(--font-size-l);
+	color: var(--color-txt-primary);
 }

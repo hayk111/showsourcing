@@ -2,13 +2,22 @@
 	[user]="user"
 	[image]="user?.avatar"
 	[border]="true"
-	size="22">
+	size="44">
 </user-picture-app>
 
 <div class="comment-content flexColumn">
-	<div class="title flex">
-		<span class="name">{{user?.firstName }} {{user?.lastName }}</span>
-		<span class="date flexCenter">{{ comment?.creationDate | timeAgo }}</span>
+	<!-- comment header -->
+	<div class="comment-header flexBetween">
+		<!-- title -->
+		<div class="title flexColumn">
+			<span class="name flex">{{user?.firstName }} {{user?.lastName }}</span>
+			<span class="date">{{ comment?.creationDate | date: 'dd MMM y' }}</span>
+		</div>
+		<!-- buttons -->
+		<div *ngIf="isMine" class="buttons flex">
+			<button class="secondary-light">delete</button>
+			<button class="secondary-light">edit</button>
+		</div>
 	</div>
 	<!-- comment content -->
 	<div class="text" [innerHtml]="urlify(comment?.text)"></div>

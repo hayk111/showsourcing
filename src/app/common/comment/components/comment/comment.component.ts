@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { User, Comment } from '~models';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { UserService } from '~core/entity-services';
+import { Comment, User } from '~models';
 
 @Component({
 	selector: 'comment-app',
@@ -12,9 +13,12 @@ export class CommentComponent implements OnInit {
 	@Input() user: User;
 	@Input() comment: Comment;
 
-	constructor() { }
+	isMine = false;
+
+	constructor(private userSrv: UserService) { }
 
 	ngOnInit() {
+		this.isMine = this.userSrv.userSync.id === this.user.id;
 	}
 
 	urlify(text) {
