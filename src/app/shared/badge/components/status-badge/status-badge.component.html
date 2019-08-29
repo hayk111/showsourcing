@@ -1,10 +1,10 @@
-<badge-app #badge 
-	*ngIf="status; else noStatus" size="medium" [type]="getType()">
+<badge-app #badge
+	*ngIf="status?.category !== 'new'; else noStatus" size="medium" [type]="getType()">
 	{{ status?.step + 1 }}. {{ status?.name | const: 'status'  }}
 </badge-app>
 
 <ng-template #noStatus>
-	<badge-app #badge>
-		1. New {{ typeEntity?.singular }}
+	<badge-app #badge size="medium" color="third" [type]="getType()">
+		New {{ typeEntity?.singular }}
 	</badge-app>
 </ng-template>

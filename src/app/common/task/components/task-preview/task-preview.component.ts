@@ -49,7 +49,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 			'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"', sortBy: 'order' });
 	}
 
 	ngOnChanges() {

@@ -5,17 +5,26 @@
 </top-panel-app>
 
 <sub-panel-app
+	entityType="suppliers"
+	[count]="listSrv.count$ | async"
 	[hasSwitch]="false"
 	[hasFilter]="true"
 	[filtersAmount]="listSrv.filterList.asFilters()?.length"
+	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(clearFilters)="listSrv.filterList.resetAll()"
 	(search)="listSrv.search($event)">
 </sub-panel-app>
 
 <ng-container *ngIf="listSrv.isListening">
 
 	<supplier-list-view-app
+		#supplierList
 		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
@@ -31,6 +40,8 @@
 		(favorited)="listSrv.onItemFavorited($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(previewClick)="listSrv.openPreview($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
+		(archive)="onArchive($event)"
 		(delete)="listSrv.deleteOne($event)">
 	</supplier-list-view-app>
 
@@ -72,6 +83,7 @@
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
+		(close)="listSrv.closeFilterPanel()"
 		*ngIf="listSrv.filterPanelOpen">
 	</filters-app>
 

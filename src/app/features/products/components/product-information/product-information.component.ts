@@ -36,7 +36,7 @@ export class ProductInformationComponent implements OnInit {
 			{ name: 'supplier', metadata: { hasBadge: false } },
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 	}
 
 	updateProduct(product: Product) {

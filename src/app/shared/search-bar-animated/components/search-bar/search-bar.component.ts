@@ -23,6 +23,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	providers: [makeAccessorProvider(SearchBarComponent)],
 	host: {
 		'(click)': 'onClick()',
+		'[class.short]': 'searchType === "short"'
 	}
 })
 export class SearchBarComponent extends AbstractInput implements OnChanges, OnInit {
@@ -30,6 +31,7 @@ export class SearchBarComponent extends AbstractInput implements OnChanges, OnIn
 	@Input() inputFocus: boolean;
 	@Input() hasIcon = true;
 	@Input() placeHolder = 'Type to search';
+	@Input() searchType: 'short' | 'long' = 'long';
 	@Output() search = new EventEmitter<string>();
 	private _searchSubject$ = new Subject();
 

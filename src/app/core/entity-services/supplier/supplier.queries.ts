@@ -10,8 +10,11 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly tags = ` tags { id, name }`;
 	static readonly images = `images { id, urls { url }, orientation }`;
 	static readonly attachments = `attachments { id, fileName, url, size }`;
+	// TODO BackEnd add archived
 	// tslint:disable-next-line:max-line-length
-	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false AND archived == false") { ... on ProductCollection { count }}`;
+	// static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false AND archived == false") { ... on ProductCollection { count }}`;
+	// tslint:disable-next-line:max-line-length
+	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false") { ... on ProductCollection { count }}`;
 	static readonly comments = `comments { id, text, ${SupplierQueries.user('createdBy')}, creationDate }`;
 	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
 	static readonly extendedFields = `extendedFields {
@@ -67,6 +70,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.user('lastUpdatedBy')}
 		${SupplierQueries.productsLinked}
 		${SupplierQueries.logoImage}
+		${SupplierQueries.supplierType}
 	`;
 
 	static readonly all = `

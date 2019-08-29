@@ -27,7 +27,7 @@
 
 <ng-container>
 
-		<project-product-list-app
+		<products-list-view-app
 			*ngIf="listSrv.view === 'list'"
 			class="list-view"
 			[selection]="listSrv.selection$ | async"
@@ -47,7 +47,7 @@
 			(sort)="listSrv.sort($event)"
 			(delete)="deassociateProductById(($event)?.id)"
 			(archiveProduct)="onArchive($event)">
-		</project-product-list-app>
+		</products-list-view-app>
 
 		<products-card-view-app
 			infiniScroll

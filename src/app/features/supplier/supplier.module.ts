@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
 	SupplierContactCardComponent,
 	SupplierContactComponent,
-	SupplierListViewComponent,
 	SupplierProductsCardViewComponent,
 	SupplierTopCardComponent,
 } from './components';
@@ -49,7 +48,6 @@ import { SupplierFeatureService } from './services';
 		SupplierContactCardComponent,
 		SupplierContactComponent,
 		SupplierDetailsComponent,
-		SupplierListViewComponent,
 		SupplierProductsCardViewComponent,
 		SupplierProductsComponent,
 		SupplierProductsPageComponent,

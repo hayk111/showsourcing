@@ -6,7 +6,7 @@ import { routes } from '~features/project/routes';
 import { SharedModule } from '~shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ProjectNavComponent, ProjectProductListComponent, ProjectsListViewComponent } from './components';
+import { ProjectNavComponent } from './components';
 import {
 	ProjectDetailsComponent,
 	ProjectProductsComponent,
@@ -14,6 +14,7 @@ import {
 	ProjectsPageComponent,
 	ProjectWorkflowComponent,
 } from './containers';
+import { ProjectCommonModule } from '~common/project/project-common.module';
 
 @NgModule({
 	imports: [
@@ -21,16 +22,15 @@ import {
 		RouterModule.forChild(routes),
 		SharedModule,
 		ProductCommonModule,
-		TranslateModule
+		TranslateModule,
+		ProjectCommonModule
 	],
 	declarations: [
 		ProjectDetailsComponent,
 		ProjectNavComponent,
-		ProjectProductListComponent,
 		ProjectProductsComponent,
 		ProjectSettingsComponent,
 		ProjectWorkflowComponent,
-		ProjectsListViewComponent,
 		ProjectsPageComponent,
 	],
 	exports: [RouterModule, ProjectsPageComponent],

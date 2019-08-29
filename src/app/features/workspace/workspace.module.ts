@@ -6,7 +6,6 @@ import { TaskCommonModule } from '~common/task';
 import { SharedModule } from '~shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SampleListViewComponent } from '~features/workspace/components';
 import {
 	MySampleBoardPageComponent,
 	MySampleListPageComponent,
@@ -36,7 +35,6 @@ import { routes } from '~features/workspace/routes';
 		MySamplePageComponent,
 		MySampleBoardPageComponent,
 		MySampleListPageComponent,
-		SampleListViewComponent
 	],
 	exports: [RouterModule],
 	providers: []

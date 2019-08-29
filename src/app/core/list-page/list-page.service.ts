@@ -18,6 +18,8 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+import { log } from '~utils/log';
+import { showsourcing } from '~utils/debug-object.utils';
 
 
 // where we can save the services
@@ -55,7 +57,11 @@ export class ListPageService
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
 		private zone: NgZone
-	) { }
+	) {
+		if (!showsourcing.lists) {
+			showsourcing.lists = {};
+		}
+	}
 
 	static reset() {
 		selectionSrvMap.clear();
@@ -70,6 +76,8 @@ export class ListPageService
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
+			// storing the state for debugging purpose
+			showsourcing.lists[config.entityMetadata.singular + '-' + config.key] = this;
 		});
 		if (shouldInitDataLoading) {
 			this.loadData(config.originComponentDestroy$);
@@ -170,8 +178,8 @@ export class ListPageService
 		this.dataSrv.loadMore().subscribe();
 	}
 
-	loadPage(page: number) {
-		this.dataSrv.loadPage(page).subscribe(_ => this.selectionSrv.unselectAll());
+	loadPage(page: number, config?: SelectParamsConfig) {
+		this.dataSrv.loadPage(page, config).subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadNextPage() {
@@ -436,4 +444,27 @@ export class ListPageService
 		return this.selectionSrv.getSelectionValues();
 	}
 
+	filterByArchived(shouldAdd: boolean) {
+		const predicate = this.filterList.asPredicate();
+
+		if (shouldAdd) {
+			this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: false});
+			this.filterList.addFilter({ type: FilterType.ARCHIVED, value: true});
+			return;
+		}
+
+		this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: true});
+		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: false});
+	}
+
+	filterByAssignee(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.ASSIGNEE, value: true };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
+	}
 }
