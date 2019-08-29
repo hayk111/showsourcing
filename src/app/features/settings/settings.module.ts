@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { DataManagementModule } from '~features/data-management/data-management.module';
+import { TranslateModule } from '@ngx-translate/core';
+
 import {
 	CompanyProfileCardComponent,
 	ExportListViewComponent,
@@ -31,7 +33,8 @@ import { SharedModule } from '~shared/shared.module';
 		RouterModule.forChild(routes),
 		SharedModule,
 		DataManagementModule,
-		WorkflowMngmtCommonModule
+		WorkflowMngmtCommonModule,
+		TranslateModule
 	],
 	declarations: [
 		CompanyProfileCardComponent,

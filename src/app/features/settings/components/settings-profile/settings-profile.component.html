@@ -1,9 +1,8 @@
 
 <top-panel-app
 	*ngIf="user$ | async as user"
-	[title]="'profile'"
-	[hasAction]="false"
-	i18n-title="@@profile">
+	title="{{'title.profile' | translate}}"
+	[hasAction]="false">
 </top-panel-app>
 
 <ng-container *ngIf="user$ | async as user">

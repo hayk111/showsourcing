@@ -1,9 +1,9 @@
 <div class="flex settings">
-  <sidenav-app menuIcon="settings" menuTitle="settings" (expanded)="onMenuExpanded($event)" i18n-menuTitle="@@settings">
+  <sidenav-app menuIcon="settings" menuTitle="{{'text.settings' | translate}}" (expanded)="onMenuExpanded($event)">
 
 		<sidenav-item-app link="/settings/profile">
 			<icon-app name="user"></icon-app>
-			<span sidenavLabelApp i18n="profile">profile</span>
+			<span sidenavLabelApp translate="title.profile"></span>
 		</sidenav-item-app>
 		<!-- TODO Uncomment when these tabs are needed -->
 		<!-- <sidenav-item-app link="/settings/workflows">
@@ -14,7 +14,7 @@
 		</sidenav-item-app> -->
 		<sidenav-item-app link="/settings/team/members">
 			<icon-app name="team"></icon-app>
-			<span sidenavLabelApp i18n="@@team-members">Team Members</span>
+			<span sidenavLabelApp translate="text.team-members"></span>
 		</sidenav-item-app>
 <!--
 		<sidenav-item-app link="/settings/workflow" [hasChildren]="true">
@@ -35,22 +35,22 @@
 		<!-- Data cleansing -->
 		<sidenav-item-app [hasChildren]="true">
 			<icon-app name="cleansing"></icon-app>
-			<span sidenavLabelApp i18n="@@data-cleansing">Data Cleansing</span>
+			<span sidenavLabelApp translate="text.data-cleansing"></span>
 
 			<sidenav-item-app link="/settings/data/category">
-				<span sidenavLabelApp i18n="@@category">category</span>
+				<span sidenavLabelApp translate="text.category"></span>
 			</sidenav-item-app>
 			<sidenav-item-app link="/settings/data/tag">
-				<span sidenavLabelApp i18n="@@tag">tag</span>
+				<span sidenavLabelApp translate="text.tag"></span>
 			</sidenav-item-app>
 			<sidenav-item-app link="/settings/data/event">
-				<span sidenavLabelApp i18n="@@event">event</span>
+				<span sidenavLabelApp translate="text.event"></span>
 			</sidenav-item-app>
 		</sidenav-item-app>
 
 		<!-- Export -->
 		<sidenav-item-app link="/settings/exports">
-			<icon-app name="export"></icon-app> <span sidenavLabelApp i18n="@@exports">exports</span>
+			<icon-app name="export"></icon-app> <span sidenavLabelApp translate="button.exports"></span>
 		</sidenav-item-app>
 
 	</sidenav-app>

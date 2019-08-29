@@ -4,8 +4,9 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { ERM, TeamUser, User } from '~models';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
 import { UserService } from '~core/entity-services';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -24,7 +25,8 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 		private featureSrv: MemberFeatureService,
 		public listSrv: ListPageService<TeamUser, MemberFeatureService>,
 		public commonModalSrv: CommonModalService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -77,6 +79,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	}
 
 	getTooltipMsg() {
-		return !this.teamOwner ? translate('Only team owners can invite') : null;
+		return !this.teamOwner ? this.translate.instant('message.only-team-owners-can-invite') : null;
 	}
 }

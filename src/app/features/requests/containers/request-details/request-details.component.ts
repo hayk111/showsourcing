@@ -74,7 +74,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		if (!request) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				// title: translate('The request doesn\'t exist'),
 				title: this.translate.instant('title.request-not-exist'),
 				timeout: 3500
 			});
@@ -114,10 +113,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	cancelReply(replyId: ID) {
-		// const text = translate('Are you sure you want to cancel this request item?');
-		// const action = translate('cancel item');
 		const text = this.translate.instant('message.confirm-cancel-request-item');
-		const action = this.translate.instant('other.cancel-item');
+		const action = this.translate.instant('button.cancel-item');
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
 			switchMap(_ => this.requestReplySrv.update({ id: replyId, status: ReplyStatus.CANCELED })),
 			switchMap(_ => this.listSrv.refetch())
@@ -125,10 +122,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	cancelReplies() {
-		// const text = translate('Are you sure you want to cancel these request items?');
-		// const action = translate('cancel items');
 		const text = this.translate.instant('message.confirm-cancel-request-items');
-		const action = this.translate.instant('other.cancel-items');
+		const action = this.translate.instant('button.cancel-items');
 		const items = this.listSrv.selectionSrv.getSelectionValues().map(element => ({ id: element.reply.id, status: ReplyStatus.CANCELED }));
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
 			switchMap(_ => this.requestReplySrv.updateMany(items)),

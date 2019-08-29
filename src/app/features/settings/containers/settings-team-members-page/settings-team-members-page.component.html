@@ -1,16 +1,11 @@
-
-<top-panel-app
-	[title]="(team$ | async)?.name"
-	[isModifiable]="true"
-	(update)="updateTeamName($event)"
-	buttonName="Create new team"
-	[buttonIcon]="false"
-	(buttonClick)="redirectNewTeamScreen()"
-	i18n-buttonName="@@create-new-team">
+<top-panel-app [title]="(team$ | async)?.name" [isModifiable]="true" (update)="updateTeamName($event)"
+	buttonName="{{'button.create-new-team' | translate}}" [buttonIcon]="false" (buttonClick)="redirectNewTeamScreen()">
 
 	<nav class="flex">
-		<span class="capitalize" (click)="displayTab('team-members')" [ngClass]="{ active: (selectedTab === 'team-members') }" i18n="@@team-members">Team Members</span>
-		<span class="capitalize" (click)="displayTab('invitations')" [ngClass]="{ active: (selectedTab === 'invitations') }" i18n="@@invitations">invitations</span>
+		<span class="capitalize" (click)="displayTab('team-members')"
+			[ngClass]="{ active: (selectedTab === 'team-members') }" translate="text.team-members"></span>
+		<span class="capitalize" (click)="displayTab('invitations')" [ngClass]="{ active: (selectedTab === 'invitations') }"
+			translate="text.invitations"></span>
 	</nav>
 </top-panel-app>
 

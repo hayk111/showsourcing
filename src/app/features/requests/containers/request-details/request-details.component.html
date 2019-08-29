@@ -15,7 +15,7 @@
 	<!-- Right side-->
 	<div class="right">
 		<card-app>
-			<h3 class="l" translate="text.message">message</h3>
+			<h3 class="l" translate="text.message"></h3>
 			<div class="flex">
 				<img src="/assets/img/user-temp.png"/>
 				<div class="message-container">
@@ -26,7 +26,7 @@
 		</card-app>
 
 		<card-app>
-			<h3 class="l" i18n="header@@request-items">Request Items</h3>
+			<h3 class="l" translate="header.request-items"></h3>
 				<request-element-list-view-app
 					class="no-padding"
 					[rows]="listSrv.items$ | async"
@@ -50,5 +50,5 @@
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
 	(close)="listSrv.unselectAll()">
-	<button class="warn" (click)="cancelReplies()" translate="other.cancel-items">cancel items</button>
+	<button class="warn" (click)="cancelReplies()" translate="button.cancel-items"></button>
 </selection-bar-app>
