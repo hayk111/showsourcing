@@ -19,6 +19,7 @@ export class RatingStarsScoreViewComponent {
 		return this._votes;
 	}
 
+	/** map that contains the key and values of the stars -> [ rate-star, number-votes ] */
 	votesMap: Map<number, number>;
 	totalVotes = 1;
 	score = 0;
@@ -37,7 +38,8 @@ export class RatingStarsScoreViewComponent {
 	 */
 	private setValues() {
 		this.totalVotes = 0;
-		this.votesMap = new Map([[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]);
+		// creates a new map [ [1, 0] ... [5, 0] ]
+		this.votesMap = new Map(Array.from({ length: 5 }, (x, i) => ([i + 1, 0])));
 		// we increate the total votes inside the switchase instead of doing totalVotes = votes.length
 		// because sometimes we have votes that have score 0 and we don't want those to be in the total
 		(this.votes || []).forEach(vote => {
