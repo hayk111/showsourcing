@@ -1,6 +1,6 @@
 :host {
 	display: block;
-	padding: var(--spacing-ms) var(--spacing-l);
+	padding: 20px 114px 0 98px;
 }
 
 .export-button icon-app {
@@ -54,14 +54,14 @@
 }
 
 .filter-button {
-	width: 62px;
+	width: 65px;
   height: 32px;
 	background-color: var(--color-secondary);
   font-size: var(--font-size-m);
   font-weight: 600;
   line-height: 1.43;
   text-align: center;
-	color: var(--color-secondary-contrast);
+	color: var(--color-txt-secondary);
 	border-radius: var(--border-radius);
 }
 
@@ -88,7 +88,7 @@
   line-height: 1.43;
   letter-spacing: normal;
   text-align: center;
-  color: var(--color-secondary-contrast);
+  color: var(--color-bg-dark);
 }
 
 .products-count {

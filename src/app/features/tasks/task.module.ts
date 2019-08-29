@@ -10,7 +10,6 @@ import { TaskCommonModule } from '~common/task';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 import { TasksPageComponent } from './containers';
-import { TasksListViewComponent } from './components';
 import { routes } from '~features/tasks/routes';
 
 @NgModule({
@@ -28,7 +27,6 @@ import { routes } from '~features/tasks/routes';
 	],
 	declarations: [
 		TasksPageComponent,
-		TasksListViewComponent,
 	],
 	entryComponents: [],
 	exports: [],
