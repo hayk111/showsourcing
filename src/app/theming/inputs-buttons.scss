@@ -154,6 +154,7 @@ button, input[type="submit"], .button {
 	white-space: nowrap;
 	text-align: center;
 	transition: background 0.3s;
+
 	&::first-letter {
 		text-transform: capitalize;
 	}
@@ -166,7 +167,7 @@ button, input[type="submit"], .button {
     min-width: 120px;
 	}
 	&:hover, &.cdk-keyboard-focused {
-		background: var(--legacy-color-bg-dark);
+		background: var(--color-primary-secondary);
 	}
 	&.secondary {
 		background: var(--legacy-color-secondary);
