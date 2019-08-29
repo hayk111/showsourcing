@@ -3,7 +3,7 @@
 	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
-	placeholder="No requests"
+	placeholder="{{'placeholder.no-requests' | translate}}"
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
 	[currentPage]="currentPage"
@@ -13,15 +13,14 @@
 	(selectOne)="select.emit($event)"
 	(sort)="sort.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	(unselectOne)="unselect.emit($event)"
-	i18n-placeholder="@@no-requests">
+	(unselectOne)="unselect.emit($event)">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="cancelRequest.emit(row)"
-			i18n="@@cancel-request">
+			translate="button.cancel-request">
 			Cancel request
 		</context-menu-item-app>
 	</ng-template>

@@ -107,7 +107,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		log.error(error);
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
-			title: 'Error',
+			title: this.translate.instant('title.error'),
 			message: this.translate.instant('error.there-is-an-error'),
 			timeout: 3500
 		});

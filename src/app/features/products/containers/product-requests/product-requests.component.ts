@@ -50,7 +50,7 @@ export class ProductRequestsComponent extends AutoUnsub implements OnInit {
 
 	cancelReply(replyId: ID) {
 		const text = this.translate.instant('message.confirm-cancel-request-item');
-		const action = this.translate.instant('cancel-item');
+		const action = this.translate.instant('other.cancel-item');
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
 			switchMap(_ => this.requestReplySrv.update({ id: replyId, status: ReplyStatus.CANCELED })),
 			switchMap(_ => this.listSrv.refetch())

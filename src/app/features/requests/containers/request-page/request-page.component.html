@@ -1,8 +1,7 @@
 <top-panel-app
-	[title]="'requests'"
+	title="{{'title.requests' | translate}}"
 	buttonName="New Request"
-	(buttonClick)="commonModalSrv.openSupplierRequest([])"
-	i18n-title="@@requests">
+	(buttonClick)="commonModalSrv.openSupplierRequest([])">
 </top-panel-app>
 
 <sub-panel-app
@@ -38,5 +37,5 @@
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
 	(close)="listSrv.unselectAll()">
-	<button class="warn" (click)="cancelSelectedRequests()" i18n="@@cancel-requests">cancel requests</button>
+	<button class="warn" (click)="cancelSelectedRequests()" translate="button.cancel-requests">cancel requests</button>
 </selection-bar-app>

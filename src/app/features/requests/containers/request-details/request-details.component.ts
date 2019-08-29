@@ -11,7 +11,8 @@ import { ERM, ReplyStatus, RequestElement, SupplierRequest } from '~core/models'
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, ID, translate } from '~utils';
+import { AutoUnsub, ID } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'request-details-app',
@@ -36,7 +37,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private reqElementSrv: RequestElementService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private translate: TranslateService
 	) { super(); }
 
 	ngOnInit() {
@@ -72,7 +74,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		if (!request) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: translate('The request doesn\'t exist'),
+				// title: translate('The request doesn\'t exist'),
+				title: this.translate.instant('title.request-not-exist'),
 				timeout: 3500
 			});
 			this.router.navigate(['request']);
@@ -85,8 +88,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	private onError(error) {
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
-			title: translate('error'),
-			message: translate('There is an error, please try again later'),
+			title: this.translate.instant('title.error'),
+			message: this.translate.instant('error.there-is-an-error'),
 			timeout: 3500
 		});
 		this.router.navigate(['request']);
@@ -111,8 +114,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	cancelReply(replyId: ID) {
-		const text = translate('Are you sure you want to cancel this request item?');
-		const action = translate('cancel item');
+		// const text = translate('Are you sure you want to cancel this request item?');
+		// const action = translate('cancel item');
+		const text = this.translate.instant('message.confirm-cancel-request-item');
+		const action = this.translate.instant('other.cancel-item');
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
 			switchMap(_ => this.requestReplySrv.update({ id: replyId, status: ReplyStatus.CANCELED })),
 			switchMap(_ => this.listSrv.refetch())
@@ -120,8 +125,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	cancelReplies() {
-		const text = translate('Are you sure you want to cancel these request items?');
-		const action = translate('cancel items');
+		// const text = translate('Are you sure you want to cancel these request items?');
+		// const action = translate('cancel items');
+		const text = this.translate.instant('message.confirm-cancel-request-items');
+		const action = this.translate.instant('other.cancel-items');
 		const items = this.listSrv.selectionSrv.getSelectionValues().map(element => ({ id: element.reply.id, status: ReplyStatus.CANCELED }));
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
 			switchMap(_ => this.requestReplySrv.updateMany(items)),

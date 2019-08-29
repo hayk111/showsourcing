@@ -52,10 +52,10 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 		{ title: this.translate.instant('ERM.CATEGORY.singular'), type: 'category', sortBy: 'category.name', width: 200 },
 		{ title: this.translate.instant('ERM.SUPPLIER.singular'), type: 'supplier', sortBy: 'supplier.name', width: 200 },
 		{ title: this.translate.instant('ERM.PRICE.singular'), type: 'price', sortBy: 'price.value', width: 130 },
-		{ title: this.translate.instant('MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 130 },
-		{ title: this.translate.instant('Fav'), type: 'rating', sortBy: 'favorite', width: 100 },
-		{ title: this.translate.instant('status'), type: 'status', sortBy: 'status.step', width: 170 },
-		{ title: this.translate.instant('created-on'), type: 'creationDate', sortBy: 'creationDate', width: 200 }
+		{ title: this.translate.instant('other.MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 130 },
+		{ title: this.translate.instant('other.Fav'), type: 'rating', sortBy: 'favorite', width: 100 },
+		{ title: this.translate.instant('header.status'), type: 'status', sortBy: 'status.step', width: 170 },
+		{ title: this.translate.instant('text.created-on'), type: 'creationDate', sortBy: 'creationDate', width: 200 }
 	];
 
 	constructor(

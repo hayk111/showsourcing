@@ -201,17 +201,18 @@
 			"singular": ""
 		}
 	},
-	"Fav": "",
-	"MOQ": "",
 	"button": {
 		"account-already-existed": "",
 		"add-products": "",
 		"add-project": "",
 		"add-to-project": "",
 		"archive": "",
+		"cancel-request": "",
+		"cancel-requests": "",
 		"delete": "",
 		"do-not-have-an-account": "",
 		"export": "",
+		"forgotten-pswd": "",
 		"invite": "Inviter",
 		"invite-team-members": "",
 		"login": "Connexion",
@@ -232,8 +233,6 @@
 		"yes-join-team": "",
 		"yes-log-me-in": ""
 	},
-	"cancel-item": "",
-	"created-on": "",
 	"error": {
 		"account-already-existed-with-email": "",
 		"create-company": "",
@@ -247,7 +246,6 @@
 		"there-is-an-error": "",
 		"when-requesting-password-reset": ""
 	},
-	"forgotten-pswd": "",
 	"header": {
 		"account-created": "",
 		"congratz": "",
@@ -261,18 +259,23 @@
 		"product-info": "",
 		"project-settings": "",
 		"projects": "",
+		"request-information": "",
 		"request-items": "",
+		"sent-by": "",
+		"sent-on": "",
+		"sent-to": "",
 		"shipping-and-trading": "",
 		"status": "",
+		"supplier": "",
 		"tasks": "",
 		"team-rating": "",
+		"template": "",
 		"unnamed-team": "",
 		"we-have-pb": ""
 	},
 	"hint": {
 		"company-tip": ""
 	},
-	"invites-you-join": "",
 	"label": {
 		"activity": "",
 		"company-name": "",
@@ -293,6 +296,7 @@
 	},
 	"message": {
 		"confirm-cancel-request-item": "",
+		"confirm-cancel-request-items": "",
 		"confirm-delete-product": "",
 		"invitation-accepted": "",
 		"invitation-refused": "",
@@ -301,7 +305,12 @@
 		"pwd-reset-successfully": "Le mot de passe a été réinitialisé avec succès!",
 		"we-are-creating-team": ""
 	},
-	"no-team-members": "",
+	"other": {
+		"Fav": "",
+		"MOQ": "",
+		"cancel-item": "",
+		"cancel-items": ""
+	},
 	"paragraph": {
 		"pwResetted_reset": ""
 	},
@@ -310,13 +319,12 @@
 		"intro-new-pwd": "",
 		"no-product": "",
 		"no-project": "",
+		"no-requests": "",
 		"your-email": "",
 		"your-first-name": "",
 		"your-last-name": "",
 		"your-password": ""
 	},
-	"status": "",
-	"team-leader": "",
 	"text": {
 		"check-inbox-email-validate": "",
 		"confirm-new-pw": "",
@@ -326,9 +334,12 @@
 		"description": "",
 		"do-you-have-acc": "",
 		"invite-more-members": "",
+		"invites-you-join": "",
 		"last-updated-on": "",
+		"message": "",
 		"new-pw": "",
 		"no-projects-added": "",
+		"no-team-members": "",
 		"no-vote": "",
 		"now-invite-members": "",
 		"please-enter-pw": "",
@@ -341,6 +352,7 @@
 		"pw-must-match": "",
 		"select-team-or-create": "",
 		"settings": "",
+		"team-leader": "",
 		"validating-email": "",
 		"we-have-pb-with-srv": "",
 		"we-will-send-you-instructions": "",
@@ -348,6 +360,7 @@
 		"you-r-invited": ""
 	},
 	"title": {
+		"error": "Erreur",
 		"invitation-accepted": "",
 		"invitation-refused": "",
 		"my-projects": "Mes projets",
@@ -355,6 +368,8 @@
 		"product-archived": "",
 		"product-not-exist": "",
 		"products-archived": "",
-		"project": ""
+		"project": "",
+		"request-not-exist": "",
+		"requests": ""
 	}
 }
