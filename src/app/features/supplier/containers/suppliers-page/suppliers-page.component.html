@@ -28,6 +28,7 @@
 <ng-container *ngIf="listSrv.isListening">
 
 	<supplier-list-view-app
+		#supplierList
 		*ngIf="listSrv.view === 'list'"
 		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
@@ -45,6 +46,8 @@
 		(favorited)="listSrv.onItemFavorited($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(previewClick)="listSrv.openPreview($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
+		(archive)="onArchive($event)"
 		(delete)="listSrv.deleteOne($event)">
 	</supplier-list-view-app>
 

@@ -23,20 +23,26 @@
 	</sub-panel-right-item-app>
 </sub-panel-app>
 
-<task-list-app
-	class="card-no-padding"
-	[tasks]="listSrv.items$ | async"
+<task-list-view-app
+	[hasHeader]="false"
+	[hasPagination]="false"
+	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
-	[hasProduct]="true"
-	[hasSupplier]="true"
-	[hasFilters]="false"
-	(previewClicked)="listSrv.openPreview($event)"
-	(taskSelect)="listSrv.selectOne($event, false)"
-	(taskUnselect)="listSrv.unselectOne($event, false)"
-	(bottomReached)="listSrv.loadMore()"
-	(updateTask)="listSrv.update($event)"
-	(openCreationTaskDlg)="openCreationTaskDlg()">
-</task-list-app>
+	[pending]="listSrv.pending"
+	[count]="listSrv.count$ | async"
+	[currentPage]="listSrv.currentPage"
+	(goToPage)="listSrv.loadPage($event)"
+	(sort)="listSrv.sort($event)"
+	(select)="listSrv.selectOne($event, true)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(unselectAll)="listSrv.unselectAll()"
+	(open)="listSrv.goToDetails($event)"
+	(favorited)="listSrv.onItemFavorited($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(previewClick)="listSrv.openPreview($event)"
+	(delete)="listSrv.deleteOne($event)">
+</task-list-view-app>
 
 <task-preview-app
 	*ngIf="listSrv.previewOpen"

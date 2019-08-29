@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommentCommonModule } from '~common/comment';
 import { SharedModule } from '~shared/shared.module';
 
-import { SupplierPreviewComponent, SupplierBoardComponent, SupplierCardComponent } from './components';
+import { SupplierListViewComponent, SupplierPreviewComponent, SupplierBoardComponent, SupplierCardComponent } from './components';
 
 @NgModule({
 	imports: [
@@ -11,7 +11,7 @@ import { SupplierPreviewComponent, SupplierBoardComponent, SupplierCardComponent
 		CommentCommonModule,
 		RouterModule,
 	],
-	declarations: [SupplierPreviewComponent, SupplierBoardComponent, SupplierCardComponent],
-	exports: [SupplierPreviewComponent, SupplierBoardComponent, SupplierCardComponent]
+	declarations: [SupplierListViewComponent, SupplierPreviewComponent, SupplierBoardComponent, SupplierCardComponent],
+	exports: [SupplierListViewComponent, SupplierPreviewComponent, SupplierBoardComponent, SupplierCardComponent]
 })
 export class SupplierCommonModule { }
