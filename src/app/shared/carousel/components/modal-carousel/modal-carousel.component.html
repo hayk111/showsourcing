@@ -11,8 +11,8 @@
 				[selectedIndex]="selectedIndex"
 				(delete)="onDelete()"
 				(openFileBrowser)="openFileBrowser.emit()"
-				(close)="close()"
-			></product-modal-top-panel>
+				(close)="close()">
+			</product-modal-top-panel>
 		</ng-container>
 		<div class="carousel-body" (mousedown)="close()">
 			<div class="img-ctnr" [ngStyle]="{ transform: getRotation(getImg()) }">
@@ -22,8 +22,8 @@
 					[size]="'xl'"
 					[image]="getImg()"
 					[@slideAnimationTrigger]="slideAnimationState"
-					(@slideAnimationTrigger.done)="slideAnimationDone()"
-				></img-app>
+					(@slideAnimationTrigger.done)="slideAnimationDone()">
+				</img-app>
 			</div>
 			<div class="spinner-container">
 				<spinner-app *ngIf="getImg()?.pending" size="xxl"></spinner-app>
