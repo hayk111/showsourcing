@@ -9,7 +9,8 @@ import { Product } from '~models';
 import { Contact } from '~models/contact.model';
 import { Supplier } from '~models/supplier.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, log, translate } from '~utils';
+import { AutoUnsub, log } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -34,7 +35,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private notifSrv: NotificationService,
 		public commonModalSrv: CommonModalService,
 		private taskSrv: TaskService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -70,8 +72,12 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			switchMap(id => this.featureSrv.getContacts(id)),
 		);
 
-		this.tabs = [{ name: translate('activity') }, { name: translate('products') },  { name: translate('samples') },
-			{ name: translate('tasks'), number$: this.taskCount$ }];
+		this.tabs = [
+			{ name: this.translate.instant('label.activity') },
+			{ name: this.translate.instant('label.products') },
+			{ name: this.translate.instant('label.samples') },
+			{ name: this.translate.instant('header.tasks'), number$: this.taskCount$ }
+		];
 
 	}
 
@@ -80,7 +86,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	delete(supplier: Supplier) {
-		this.commonModalSrv.openConfirmDialog({ text: translate('Are you sure you want to delete this supplier?') }).pipe(
+			this.commonModalSrv.openConfirmDialog({ text: this.translate.instant('message.confirm-delete-supplier') }).pipe(
 
 			switchMap(_ => this.featureSrv.delete(supplier.id))
 		).subscribe(_ => this.router.navigate(['supplier']));
@@ -95,7 +101,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		if (!supplier) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: translate('The supplier doesn\'t exist'),
+				title: this.translate.instant('title.supplier-not-exist'),
 				timeout: 3500
 			});
 			this.router.navigate(['supplier']);
@@ -108,8 +114,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		log.error(error);
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
-			title: translate('error'),
-			message: translate('There is an error, please try again later'),
+			title: this.translate.instant('title.error'),
+			message: this.translate.instant('message.there-is-an-error'),
 			timeout: 3500
 		});
 		this.router.navigate(['supplier']);

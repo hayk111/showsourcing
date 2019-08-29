@@ -5,7 +5,7 @@
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No supplier"
+	placeholder="{{'placeholder.no-supplier' | translate}}"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -19,8 +19,7 @@
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="delete.emit(row)"
-			i18n="button@@delete">
-			delete
+			translate="button.delete">
 		</context-menu-item-app>
 	</ng-template>
 
@@ -35,7 +34,7 @@
 				<logo-app [logo]="row.logoImage" type="supplier" size="m"></logo-app>
 				<span class="ellipsis">{{ row.name }}</span>
 			</a>
-			<button class="preview small secondary-dark" (click)="previewClick.emit(row)">Preview</button>
+			<button class="preview small secondary-dark" (click)="previewClick.emit(row)" translate="button.preview"></button>
 		</div>
 	</ng-template>
 
