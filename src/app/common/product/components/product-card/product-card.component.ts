@@ -5,7 +5,6 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
-	OnChanges,
 	Output,
 	Renderer2,
 } from '@angular/core';
@@ -30,7 +29,7 @@ export class ProductCardComponent extends TrackingComponent {
 	private _checked: boolean;
 	@Input() set checked(checked: boolean) {
 		this._checked = checked;
-		this.setClassHighlightChecked(this._checked);
+		// this.setClassHighlightChecked(this._checked);
 	}
 	get checked() {
 		return this._checked;
@@ -89,7 +88,7 @@ export class ProductCardComponent extends TrackingComponent {
 		private elementRef: ElementRef,
 		private renderer: Renderer2,
 		private router: Router,
-		private thumbSrv: ThumbService
+		public thumbSrv: ThumbService
 	) {
 		super();
 	}
@@ -113,7 +112,6 @@ export class ProductCardComponent extends TrackingComponent {
 	onClickOutsideCard() {
 		if (this.contextualMenuOpened) {
 			this.contextualMenuOpened = !this.contextualMenuOpened;
-
 		}
 	}
 
@@ -131,7 +129,7 @@ export class ProductCardComponent extends TrackingComponent {
 		this.checked = true;
 		this.checkboxAction = true;
 		this.select.emit(this.product);
-		this.setClassHighlightChecked(true);
+		// this.setClassHighlightChecked(true);
 	}
 
 	/** Handle checbkox uncheck event */
@@ -139,7 +137,17 @@ export class ProductCardComponent extends TrackingComponent {
 		this.checked = false;
 		this.checkboxAction = true;
 		this.unselect.emit(this.product);
-		this.setClassHighlightChecked(false);
+		// this.setClassHighlightChecked(false);
+	}
+
+	getPriceMoq(product: Product) {
+		if (product) {
+			return `
+				${product.price || ''} ${product.price && product.minimumOrderQuantity ? '-' : ''} ${product.minimumOrderQuantity || ''}
+			`;
+		}
+
+		return '';
 	}
 
 	/**

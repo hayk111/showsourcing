@@ -10,7 +10,7 @@
 	</top-panel-app>
 	
 	<sub-panel-app
-		[filtersAmount]="getFilterAmount()"
+		[filtersAmount]="listSrv.getFilterAmount()"
 		[hasFilter]="true"
 		[hasSwitch]="true"
 		[view]="listSrv.view"
@@ -85,6 +85,14 @@
 			(unselect)="listSrv.unselectOne($event, true)"
 			(unselectAll)="listSrv.unselectAll()" #productList>
 		</products-list-view-app>
+
+		<product-board-app 
+			*ngIf="listSrv.view === 'board'"
+			[selection]="listSrv.selection$"
+			(selectOne)="listSrv.selectOne($event, true)"
+			(unselectOne)="listSrv.unselectOne($event, true)"
+			(preview) = "listSrv.openPreview($event)">
+		</product-board-app>
 	
 		<products-card-view-app
 			infiniScroll

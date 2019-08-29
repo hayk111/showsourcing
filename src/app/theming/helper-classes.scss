@@ -187,6 +187,15 @@
 	}
 }
 
+.supplier {
+	max-width: 50%;
+
+		&::before {
+			content: "\00a0 \00a0 \2022 \00a0 \00a0";
+			font-weight: bolder;
+		}
+}
+
 .border-separator {
 	& > * {
 		& {

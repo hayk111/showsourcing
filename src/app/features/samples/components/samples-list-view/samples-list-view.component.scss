@@ -13,3 +13,41 @@
 		padding-bottom: var(--spacing-l);
 	}
 }
+
+.sample-ref {
+	width: 160px;
+  height: 18px;
+  font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.sample-name-ref {
+  height: 15px;
+	font-size: var(--font-size-s);
+  color: var(--color-txt-secondary);	
+}
+
+.supplier-name {
+  height: 37px;
+  font-size: var(--font-size-m);
+  color: var(--color-bg-dark);
+}
+
+.type {
+	height: 37px;
+  font-size: var(--font-size-m);;
+  font-weight: 600;
+  color: var(--color-accent-contrast);
+}
+
+.created-by {
+  height: 18px;
+  font-size: var(--font-size-m);
+  color: var(--txt-primary);
+}
+
+.created-by-date {
+  height: 15px;
+  font-size: var(--font-size-s);
+  color: var(--txt-primary);
+}
