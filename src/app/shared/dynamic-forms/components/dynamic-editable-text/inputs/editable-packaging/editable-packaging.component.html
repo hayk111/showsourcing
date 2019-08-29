@@ -1,6 +1,5 @@
 <!-- when the value is undefined, null or 0 we display '-'.
 A package with 0cm makes no sens -->
-<!-- TODO i18n -->
 <ng-container *ngIf="!isFormStyle; else other">
 	<!-- length -->
 	<editable-field-app
@@ -8,7 +7,7 @@ A package with 0cm makes no sens -->
 		[inlineLabel]="true"
 		(closed)="onClose($event)"
 		(opened)="inp1.select();">
-		<label-app>length</label-app>
+		<label-app translate="label.length"></label-app>
 		<editable-label-app>
 			{{ value?.length ? (value?.length + ' ' + value?.unit) : '-' }}
 		</editable-label-app>
@@ -30,7 +29,7 @@ A package with 0cm makes no sens -->
 		[inlineLabel]="true"
 		(closed)="onClose($event)"
 		(opened)="inp2.select();">
-		<label-app>width</label-app>
+		<label-app translate="label.width"></label-app>
 		<editable-label-app>
 			{{ value?.width ? (value?.width + ' ' + value?.unit) : '-' }}
 		</editable-label-app>
@@ -52,7 +51,7 @@ A package with 0cm makes no sens -->
 		[inlineLabel]="true"
 		(closed)="onClose($event)"
 		(opened)="inp3.select();">
-		<label-app>Height</label-app>
+		<label-app translate="label.height"></label-app>
 			<editable-label-app>
 				{{ value?.height ? (value?.height + ' ' + value?.unit) : '-' }}
 			</editable-label-app>
@@ -81,7 +80,7 @@ A package with 0cm makes no sens -->
 			[hasAction]="false"
 			[inlineLabel]="true"
 			(closed)="onClose($event)">
-			<label-app>Dimension units</label-app>
+			<label-app translate="label.dimension-unit"></label-app>
 			<editable-label-app>
 				{{ value?.unit || '-' }}
 			</editable-label-app>
@@ -94,7 +93,7 @@ A package with 0cm makes no sens -->
 		[inlineLabel]="true"
 		(closed)="onClose($event)"
 		(opened)="inp5.select();">
-		<label-app>Quantity</label-app>
+		<label-app translate="label.quantity"></label-app>
 		<editable-label-app>
 			{{ value?.itemsQuantity ? value.itemsQuantity : '-' }}
 		</editable-label-app>
@@ -116,7 +115,7 @@ A package with 0cm makes no sens -->
 		[inlineLabel]="true"
 		(closed)="onClose($event)"
 		(opened)="inp6.select();">
-		<label-app>Weight</label-app>
+		<label-app translate="label.weight"></label-app>
 		<editable-label-app>
 			{{ value?.weight ? (value?.weight + ' ' + value?.weightUnit) : '-' }}
 		</editable-label-app>
@@ -145,7 +144,7 @@ A package with 0cm makes no sens -->
 			[inlineLabel]="true"
 			[hasAction]="false"
 			(closed)="onClose($event)">
-			<label-app>units</label-app>
+			<label-app translate="label.units"></label-app>
 			<editable-label-app>
 				{{ value?.weightUnit || '-' }}
 			</editable-label-app>
@@ -154,29 +153,28 @@ A package with 0cm makes no sens -->
 
 </ng-container>
 
-<!-- TODO i18n -->
 <ng-template #other>
 	<div class="flex form-section">
 		<form-field-app class="modal col-25">
-			<label-app>Length</label-app>
+			<label-app translate="label.length"></label-app>
 			<input inputApp autoFocus [canFocus]="autofocus" #inp1 [disabled]="disabled" [value]="value.length" type="number"
-			placeholder="Length" restrictInput="number" (input)="onChangePackaging('length', +inp1.value)"/>
+			placeholder="{{'placeholder.length' | translate}}" restrictInput="number" (input)="onChangePackaging('length', +inp1.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app>Width</label-app>
+			<label-app translate="label.width"></label-app>
 			<input inputApp #inp2 [disabled]="disabled" [value]="value.width" type="number"
-			placeholder="Width" restrictInput="number" (input)="onChangePackaging('width', +inp2.value)"/>
+			placeholder="{{'placeholder.width' | translate}}" restrictInput="number" (input)="onChangePackaging('width', +inp2.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app>Height</label-app>
+			<label-app translate="label.height"></label-app>
 			<input inputApp #inp3 [disabled]="disabled" [value]="value.height" type="number"
-			placeholder="Height" restrictInput="number" (input)="onChangePackaging('height', +inp3.value)"/>
+			placeholder="{{'placeholder.height' | translate}}" restrictInput="number" (input)="onChangePackaging('height', +inp3.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app>Units</label-app>
+			<label-app translate="label.units"></label-app>
 			<selector-app
 			 	[disabled]="disabled"
 				[type]="erm.LENGTH_UNIT"
@@ -186,8 +184,7 @@ A package with 0cm makes no sens -->
 					tabFocusAction
 					[ngClass]="{ 'disabled': disabled }"
 					[name]="value.unit"
-					placeholder="Unit"
-					i18n-placeholder="@@unit">
+					placeholder="{{'placeholder.unit' | translate}}">
 				</selector-placeholder-app>
 			</selector-app>
 			<input inputApp [disabled]="disabled" [hidden]="true" type="text">
@@ -196,19 +193,19 @@ A package with 0cm makes no sens -->
 
 	<div class="flex form-section">
 		<form-field-app class="modal col-50">
-			<label-app>Quantity</label-app>
+			<label-app translate="label.quantity"></label-app>
 			<input inputApp #inp4 [disabled]="disabled" [value]="value.itemsQuantity" type="number"
-			placeholder="Quantity" restrictInput="number" (input)="onChangePackaging('itemsQuantity', +inp4.value)"/>
+			placeholder="{{'placeholder.quantity' | translate}}" restrictInput="number" (input)="onChangePackaging('itemsQuantity', +inp4.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app>Weight</label-app>
+			<label-app translate="label.weight"></label-app>
 			<input inputApp #inp5 [disabled]="disabled" [value]="value.weight"
-			placeholder="Weight" type="number" restrictInput="number" (input)="onChangePackaging('weight', +inp5.value)"/>
+			placeholder="{{'placeholder.weight' | translate}}" type="number" restrictInput="number" (input)="onChangePackaging('weight', +inp5.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app>Unit</label-app>
+			<label-app translate="label.unit"></label-app>
 			<selector-app
 				[disabled]="disabled"
 				[type]="erm.WEIGHT_UNIT"
@@ -218,8 +215,7 @@ A package with 0cm makes no sens -->
 					tabFocusAction
 					[ngClass]="{ 'disabled': disabled }"
 					[name]="value.weightUnit"
-					placeholder="Unit"
-					i18n-placeholder="@@unit">
+					placeholder="{{'placeholder.unit' | translate}}">
 				</selector-placeholder-app>
 			</selector-app>
 			<input inputApp [disabled]="disabled" [hidden]="true" type="text">

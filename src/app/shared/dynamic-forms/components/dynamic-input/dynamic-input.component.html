@@ -1,4 +1,3 @@
-<!-- TODO i18n -->
 <ng-container [ngSwitch]="customField?.type">
 
   <form-field-app *ngSwitchDefault class="modal">
@@ -126,6 +125,7 @@
     </form-field-app>
   </ng-container>
 
+	<!-- TODO i18n -->
 	<!-- packaging -->
 	<ng-container *ngSwitchCase="'packaging'">
 		<h4 class="ms capitalize bold-s" i18n="@@extended-fields">{{ customField?.label || customField?.name }}</h4>
@@ -147,7 +147,7 @@
 	<!-- extended fields -->
 	<ng-container	*ngSwitchCase="'extendedField'">
 		<ng-container *ngIf="definitions$ | async as definitions">
-			<h3 *ngIf="definitions?.length" class="ms" i18n="@@extended-fields">extended fields</h3>
+			<h3 *ngIf="definitions?.length" class="ms" translate="text.extended-fields">extended fields</h3>
 			<extended-form-app
 				[fields]="accumulator || []"
 				[isFormStyle]="true"
