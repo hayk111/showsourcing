@@ -5,7 +5,7 @@
 		</div>
 		<div>
 			<p class="info-title">
-				{{ product?.name || ("Unnamed Product" | const: "messages") }}
+				{{ product?.name || ("label.unnamed-product" | translate) }}
 			</p>
 			<div subinfo class="flex flexVAlign info-container">
 				<div class="flex status-info">
@@ -16,7 +16,7 @@
 					{{
 						product?.status?.name
 							? (product?.status?.name | const: "status")
-							: ("New Product" | const: "messages")
+							: ("label.new-product" | translate)
 					}}
 				</div>
 				<div class="border-separator">
@@ -36,8 +36,8 @@
 		</div>
 	</div>
 	<div class="flex right container">
-		<a [href]="getImg() | image: 'xl'" download i18n="button@@download">
-			<button>download</button>
+		<a [href]="getImg() | image: 'xl'" download>
+			<button translate="button.download"></button>
 		</a>
 		<context-menu-app [menuOpen]="menuOpen" (menuOpened)="menuOpen = true" action>
 			<context-menu-trigger-app>
@@ -45,11 +45,11 @@
 					<icon-app [size]="20" name="dots-vertical"></icon-app>
 				</button>
 			</context-menu-trigger-app>
-				<context-menu-item-app (click)="delete.emit()" i18n="button@@delete">
-					<span class="warning-text">Delete this Picture</span>
+				<context-menu-item-app (click)="delete.emit()">
+					<span class="warning-text" translate="button.delete-picture"></span>
 				</context-menu-item-app>
-				<context-menu-item-app (click)="openFileBrowser.emit()" i18n="button@@upload-picture">
-					<span>Upload Picture</span>
+				<context-menu-item-app (click)="openFileBrowser.emit()">
+					<span translate="button.upload-picture"></span>
 				</context-menu-item-app>
 		</context-menu-app>
 		<divider-app [vertical]="true"></divider-app>

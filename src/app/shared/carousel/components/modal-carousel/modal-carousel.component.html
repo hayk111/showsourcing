@@ -28,14 +28,14 @@
 			<div class="spinner-container">
 					<spinner-app *ngIf="getImg()?.pending"  size="xxl"></spinner-app>
 			</div>
-			<div toolTip 	*ngIf="images?.length > 1" class="tooltip back" toolTipMessage="Previous picture" toolTipShowDelay="100">
+			<div toolTip 	*ngIf="images?.length > 1" class="tooltip back" toolTipMessage="{{'message.prev-picture' | translate}}" toolTipShowDelay="100">
 				<div
 					class="move-btn back flexCenter pointer"
 					(mousedown)="back($event)">
 					<icon-app name="angle-left"></icon-app>
 				</div>
 			</div>
-			<div toolTip 	*ngIf="images?.length > 1" class="tooltip next" toolTipMessage="Next picture" toolTipShowDelay="100">
+			<div toolTip 	*ngIf="images?.length > 1" class="tooltip next" toolTipMessage="{{'message.next-picture' | translate}}" toolTipShowDelay="100">
 			<div
 				class="move-btn next flexCenter pointer"
 				(mousedown)="next($event)">
