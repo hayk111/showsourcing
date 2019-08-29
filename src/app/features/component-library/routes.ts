@@ -8,6 +8,7 @@ import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component
 import { PipesLibPageComponent } from './pipes-lib-page/pipes-lib-page.component';
 import { TableLibPageComponent } from './table-lib-page/table-lib-page.component';
 import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
+import { ButtonLibPageComponent } from './button-lib-page/button-lib-page.component';
 
 
 export const routes: Array<Route> = [
@@ -17,6 +18,7 @@ export const routes: Array<Route> = [
 		children: [
 			{ path: '', redirectTo: 'guidelines', pathMatch: 'full' },
 			{ path: 'guidelines', component: GuidelinesComponent },
+			{ path: 'buttons', component: ButtonLibPageComponent },
 			{ path: 'loaders', component: LoadersLibPageComponent },
 			{ path: 'icons', component: IconsLibPageComponent },
 			{ path: 'cards', component: CardLibPageComponent },
