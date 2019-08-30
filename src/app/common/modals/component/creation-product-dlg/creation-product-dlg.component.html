@@ -1,12 +1,12 @@
 <dialog-app class="vertical-scroll-content">
 
-	<dialog-header-app i18n="@@new-product">new product</dialog-header-app>
+	<dialog-header-app translate="label.new-product"></dialog-header-app>
 
 	<div class="container flex">
 
 		<!-- left -->
 		<div class="left">
-			<h3 class="ms" i18n="@@product-picture">product picture</h3>
+			<h3 class="ms" translate="label.product-picture"></h3>
 			<carousel-app
 				[images]="product?.images"
 				[hasPreview]="true"
@@ -15,7 +15,7 @@
 				(deleted)="imageDeleted($event)">
 			</carousel-app>
 
-			<h3 class="ms" i18n="@@attachments">attachments</h3>
+			<h3 class="ms" translate="label.attachments"></h3>
 			<files-card-app
 				[files]="product?.attachments"
 				[secondaryStyle]="true"
@@ -27,7 +27,7 @@
 
 		<!-- right -->
 		<div class="right">
-			<h3 class="ms" i18n="@@product-details">product details</h3>
+			<h3 class="ms" translate="label.product-details"></h3>
 			<dynamic-form-app
 				[colAmount]="1"
 				[fields]="productDescriptor?.descriptor"
@@ -42,10 +42,10 @@
 		<checkbox-app
 			[checked]="createAnother"
 			(update)="createAnother = !createAnother">
-			create another
+			{{'label.create-another' | translate}}
 		</checkbox-app>
-		<button tabFocusAction class="secondary" (click)="cancel()" i18n="@@cancel">cancel</button>
-		<button tabFocusAction [disabled]="!(product?.name)" (click)="save()" i18n="@@save-product">save product</button>
+		<button tabFocusAction class="secondary" (click)="cancel()" translate="button.cancel"></button>
+		<button tabFocusAction [disabled]="!(product?.name)" (click)="save()" translate="button.save-product"></button>
 	</dialog-footer-app>
 
 </dialog-app>
