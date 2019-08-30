@@ -1,0 +1,33 @@
+main {
+	height: 240px;
+	position: absolute;
+	top: 0;
+	left: var(--spacing-xxxl);
+	right: 6px;
+	background-image: linear-gradient(to top, #a28dff, #68a1ff);
+
+	.title-ctnr {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		padding: var(--spacing-l) 0;
+		z-index: var(--z-card-container);
+		background-image: linear-gradient(to top, #8297ff, #68a1ff);
+	}
+
+	h1,
+	h2 {
+		color: var(--color-secondary-light);
+		text-align: center;
+		text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+	}
+
+	h1 {
+		font-size: 32px;
+	}
+
+	h2 {
+		font-size: var(--font-size-l);
+	}
+}
