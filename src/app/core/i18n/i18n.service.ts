@@ -106,3 +106,15 @@ _(`ERM.USER.singular`);
 _(`ERM.USER.plural`);
 _(`ERM.WEIGHT_UNIT.singular`);
 _(`ERM.WEIGHT_UNIT.plural`);
+
+// ONBOARDING
+_('screens.onboarding-1.title');
+_('screens.onboarding-1.text');
+_('screens.onboarding-2.title');
+_('screens.onboarding-2.text');
+_('screens.onboarding-3.title');
+_('screens.onboarding-3.text');
+_('screens.onboarding-4.title');
+_('screens.onboarding-4.text');
+_('screens.onboarding-5.title');
+_('screens.onboarding-5.text');

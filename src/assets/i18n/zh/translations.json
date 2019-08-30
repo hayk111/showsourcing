@@ -231,6 +231,7 @@
 		"export": "",
 		"exports": "",
 		"filter-by": "",
+		"finish": "",
 		"forgotten-pswd": "",
 		"invite": "",
 		"invite-collaborator": "",
@@ -239,11 +240,13 @@
 		"login": "",
 		"more": "",
 		"new-contact": "",
+		"next": "",
 		"no-create-account": "",
 		"no-no-join-team": "",
 		"only-show-favorites": "",
 		"open": "",
 		"open-workspace": "",
+		"prev": "",
 		"preview": "",
 		"pwResetted_login": "",
 		"remove-invitation": "",
@@ -407,6 +410,28 @@
 		"your-first-name": "",
 		"your-last-name": "",
 		"your-password": ""
+	},
+	"screens": {
+		"onboarding-1": {
+			"text": "",
+			"title": ""
+		},
+		"onboarding-2": {
+			"text": "",
+			"title": ""
+		},
+		"onboarding-3": {
+			"text": "",
+			"title": ""
+		},
+		"onboarding-4": {
+			"text": "",
+			"title": ""
+		},
+		"onboarding-5": {
+			"text": "",
+			"title": ""
+		}
 	},
 	"text": {
 		"add-description": "",

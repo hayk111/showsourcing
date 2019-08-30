@@ -231,6 +231,7 @@
 		"export": "Export",
 		"exports": "Exports",
 		"filter-by": "Filter by",
+		"finish": "Finish",
 		"forgotten-pswd": "Forgotten password ?",
 		"invite": "Invite",
 		"invite-collaborator": "Invite Collaborator",
@@ -239,11 +240,13 @@
 		"login": "Login",
 		"more": "More",
 		"new-contact": "New contact",
+		"next": "Next",
 		"no-create-account": "No - Create an account",
 		"no-no-join-team": "No - I don't wish to join this team",
 		"only-show-favorites": "Only Show Favorites",
 		"open": "Open",
 		"open-workspace": "Open my workspace",
+		"prev": "Previous",
 		"preview": "Preview",
 		"pwResetted_login": "Login",
 		"remove-invitation": "Remove Invitation",
@@ -407,6 +410,28 @@
 		"your-first-name": "Your first name",
 		"your-last-name": "Your last name",
 		"your-password": "Your password"
+	},
+	"screens": {
+		"onboarding-1": {
+			"text": "ShowSourcing is a powerful collaborative tool to boost your product development processes",
+			"title": "Welcome to ShowSourcing!"
+		},
+		"onboarding-2": {
+			"text": "Tired of taking notes manually and spending your evenings transcribing data into excel sheets? <br>\nShowSourcing's mobile app will help you take notes efficiently while attending a trade show or a factory visit.",
+			"title": "Work on the go"
+		},
+		"onboarding-3": {
+			"text": "Having trouble sharing data between colleagues, teams or offices?\n<br>\nInvite your entire team - purchasers, marketers, and more - and share all your findings instantenously.",
+			"title": "Centralize your data"
+		},
+		"onboarding-4": {
+			"text": "Integrate your supplier in your product development, ask them questions, request quote, information and much more!",
+			"title": "Communicate with your suppliers"
+		},
+		"onboarding-5": {
+			"text": "No more quick and dirty decision making. Easily benchmark products, visualize your entire process, and determine market fit all in one place.",
+			"title": "Make Better Decisions, Faster"
+		}
 	},
 	"text": {
 		"add-description": "Add description",
