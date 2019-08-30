@@ -124,7 +124,7 @@ export class ThumbService {
 			return -1;
 		}
 
-		const votesVals = votes.map(vote => vote.value);
+		const votesVals = votes.map(vote => (vote.value / 100) * 5);
 		const sum = votesVals.reduce((votePrev, voteNext) => votePrev + voteNext, 0);
 		return Math.round( sum / votes.length * 10 ) / 10;
 	}

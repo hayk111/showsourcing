@@ -66,20 +66,20 @@
       <!-- product reference -->
       <ng-container *ngSwitchCase="'reference'">
         <div class="ellipsis name-container contain-strict">
-          <div class="ellipsis flex">
+          <div class="ellipsis">
       
             <div class="preview-imgs" (click)="previewClick.emit(row)">
               <logo-app class="mini imgCtnr"
                 [logo]="row.images[0]" size="m" type="product"></logo-app>
               <div class="hover-img">
-                <icon-app name="eye" class="preview-hover-img"></icon-app>
+                <icon-app name="eye" size="s" class="preview-hover-img"></icon-app>
               </div>
             </div>
       
             <div class="flexColumn ref-ctnr">
               <span class="product-ref ellipsis">
                 <a class="name txt-btn" [routerLink]="['/product', row.id]">
-                  {{ row.name || '-' }}
+                  {{ row.reference || '-' }}
                 </a>
               </span>
         
@@ -99,7 +99,7 @@
           [canCreate]="true"
           [width]="370"
           (update)="update.emit({ id: row.id, supplier: $event })">
-          <div class="ellipsis pointer supplier txt-btn"> {{ row?.supplier?.name || '-' }}</div>
+          <div class="ellipsis supplier-col txt-btn"> {{ row?.supplier?.name || '-' }}</div>
         </selector-app>
       </ng-container>
       

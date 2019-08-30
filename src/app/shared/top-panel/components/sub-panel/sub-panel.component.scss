@@ -5,7 +5,7 @@
 
 .export-button icon-app {
 	display: inline;
-	margin-right: 13px;
+	margin-right: 14.5px;
 }
 
 .flex {
@@ -25,15 +25,18 @@
 
 	search-bar-app {
 		width: 100%;
-		background-color: var(--legacy-color-secondary-light);
 	}
 }
 
 .right-container {
 	align-items: center;
 
-	> * {
+	> *:not(view-switcher-app) {
 		margin-left: var(--spacing-ms);
+	}
+
+	view-switcher-app {
+		margin-left: 9px !important;
 	}
 
 	.notification {
@@ -67,20 +70,21 @@
 
 .export-button {
 	width: 97px;
-  height: 32px;
+	height: 32px;
+	margin-left:  var(--spacing-s) !important;
 	background-color: var(--color-secondary);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.43;
   text-align: center;
-	color: var(--color-secondary-contrast);
-	border-radius: var(--border-radius);	
+	color: var(--color-txt-secondary);
+	border-radius: var(--border-radius);
 }
 
 .clear-filter-button {
 	margin-left: 0px !important;
+	padding: 0 var(--font-size-s);
 	background: transparent;
-	width: 103px;
   font-size: var(--font-size-m);
   font-weight: 600;
   font-style: normal;
@@ -88,10 +92,10 @@
   line-height: 1.43;
   letter-spacing: normal;
   text-align: center;
-  color: var(--color-bg-dark);
+  color: var(--color-txt-secondary);
 }
 
-.products-count {
+.entities-count {
   font-size: var(--font-size-m);
   color: var(--color-bg-dark);
 }
@@ -102,10 +106,15 @@
 	height: 32px;
   line-height: 32px;
 	background-color: var(--color-secondary);
+  color: var(--color-txt-secondary);
   font-size: var(--font-size-m);
   font-weight: 600;
 	text-align: center;
 	border-radius: var(--border-radius);
+
+	checkbox-app {
+		display: inline-block;
+	}
 }
 
 .show-archived, .assigned-to-me {
@@ -170,6 +179,7 @@
 }
 
 .divider {
+	margin-left: 0 !important;
 	height: 21px;
 	border-top: 0;
 	border-right-width: 1px;

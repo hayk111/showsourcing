@@ -57,7 +57,6 @@
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<ng-container *ngIf="listSrv.isListening">
 		<products-list-view-app
-			class="list-view"
 			*ngIf="listSrv.view === 'list'"
 			[currentSort]="listSrv.currentSort"
 			[pending]="listSrv.pending"

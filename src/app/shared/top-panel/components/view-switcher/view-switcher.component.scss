@@ -1,10 +1,10 @@
 .selected {
 	// background: var(--legacy-color-txt-primary);
-	color: white;
+	color: var(--color-bg);
 	>[class^="icon-"],
 	[class*=" icon-"] {
 		&:before {
-			color: white;
+			color: var(--color-bg);
 		}
 	}
 }
@@ -26,6 +26,7 @@
 button {
 	min-width: unset;
 	height: 32px;
+	line-height: 0;
 	border-radius: var(--border-radius);
 	display: flex;
 	flex-direction: row;
@@ -36,7 +37,6 @@ button {
 	padding: var(--spacing-s) var(--spacing-ms);
 	z-index: var(--z-button);
 	text-transform: none;
-	align-items: baseline;
 }
 
 
@@ -49,6 +49,13 @@ icon-app {
 	&.list {
 		font-size: var(--font-size-xxs);
 	}
+	&.kanban-alt {
+		font-size: var(--font-size-xxs);
+	}
+	&.cards {
+		font-size: var(--font-size-xxs);
+	}
+
 	&:before {
 		color: var(--legacy-color-txt-primary);
 	}

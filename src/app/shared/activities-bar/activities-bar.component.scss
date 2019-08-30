@@ -1,5 +1,9 @@
 icon-app {
-	margin: 0 5px;
+	margin: 0 var(--spacing-s);
+
+	&:first-child {
+    margin-left: var(--spacing-xs);
+	}
 }
 
 icon-app.star {
