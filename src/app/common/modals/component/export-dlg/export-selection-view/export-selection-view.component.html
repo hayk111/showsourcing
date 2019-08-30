@@ -1,16 +1,15 @@
+<!-- TODO i18n -->
 <dialog-app>
 
-	<dialog-header-app i18n="header@@export-selection">Export Selection</dialog-header-app>
-	<dialog-subtitle-app i18n="header@@export-type">Export Type</dialog-subtitle-app>
+	<dialog-header-app translate="header.export-selection"></dialog-header-app>
+	<dialog-subtitle-app translate="header.export-type"></dialog-subtitle-app>
 
 	<main class="exportRow">
 		<div class="exportCell" (click)="select('xls', 'xls_product_list')"
 			[class.selected]="selectedType === 'xls_product_list'">
 			<icon-app name="excel"></icon-app>
-			<div class="title" i18n="@@excel">Excel</div>
-			<div class="subtitle" i18n="text@@perfect-for-editing">
-				Perfect for editing
-			</div>
+			<div class="title" translate="title.excel"></div>
+			<div class="subtitle" translate="text.perfect-for-editing"></div>
 		</div>
 		<div
 			toolTip
@@ -19,18 +18,14 @@
 			class="exportCell" (click)="select('pdf', 'pdf_product_page')"
 			[class.selected]="selectedType === 'pdf_product_page'">
 			<icon-app name="pdf"></icon-app>
-			<div class="title" i18n="@@pdf">PDF</div>
-			<div class="subtitle" i18n="text@@perfect-for-sharing">
-				Perfect for sharing
-			</div>
+			<div class="title" translate="text.pdf"></div>
+			<div class="subtitle" translate="text.perfect-for-sharing"></div>
 		</div>
 		<div class="exportCell image" (click)="select('pictures', 'product_image')"
 			[class.selected]="selectedType === 'product_image'">
 			<icon-app name="image"></icon-app>
-			<div class="title capitalize" i18n="@@pictures">Pictures</div>
-			<div class="subtitle" i18n="text@@all-product-pictures">
-				All product pictures
-			</div>
+			<div class="title capitalize" translate="text.pictures"></div>
+			<div class="subtitle" translate="text.all-product-pictures"></div>
 		</div>
 	</main>
 
@@ -39,8 +34,6 @@
 			{{ length }}
 			<ng-container i18n="text@@items-selected">{ length || 0, plural, =0 { item } =1 { item } other { items } } selected</ng-container>
 		</span>
-		<button tabFocusAction class="small capitalize" (click)="export.emit()" i18n="button@@export">
-			export
-		</button>
+		<button tabFocusAction class="small capitalize" (click)="export.emit()" translate="button.export"></button>
 	</dialog-footer-app>
 </dialog-app>

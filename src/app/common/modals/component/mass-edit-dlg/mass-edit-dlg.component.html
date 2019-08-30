@@ -1,3 +1,4 @@
+<!-- TODO i18n -->
 <dialog-app class="vertical-scroll-content">
 
 	<dialog-header-app>
@@ -6,7 +7,7 @@
 	</dialog-header-app>
 
 	<div class="container">
-		<h5 class="ms" i18n="@@property-update">Property to update</h5>
+		<h5 class="ms" translate="lable.property-update"></h5>
 		<selector-app
 			[type]="erm.PICKER_FIELD"
 			[width]="500"
@@ -17,8 +18,8 @@
 				autoFocus
 				class="first-uppercase"
 				[name]="(choice$ | async)?.label || (choice$ | async)?.name"
-				placeholder="choose a property"
-				i18n-placeholder="@@choose-property">
+				placeholder="{{'placeholder.choose-property' | translate}}"
+				i18n-placeholder="@@choose-a-property">
 			</selector-placeholder-app>
 		</selector-app>
 
@@ -43,9 +44,9 @@
 								tabFocusAction
 								class="status-selector first-uppercase"
 								[name]="value?.name"
-								placeholder="choose a status"
+								placeholder="{{'placeholder.choose-status' | translate}}"
 								(keyEnter)="statusSelector?.openMenu()"
-								i18n-placeholder="@@choose-status">
+								i18n-placeholder="@@choose a status">
 							</selector-placeholder-app>
 						</status-selector-app>
 					</ng-container>
@@ -90,8 +91,8 @@
 	</div>
 
 	<dialog-footer-app>
-		<button tabFocusAction class="capitalize secondary" (click)="close()" i18n="@@cancel">cancel</button>
-		<button tabFocusAction class="capitalize" (click)="update()" i18n="@@update">update</button>
+		<button tabFocusAction class="capitalize secondary" (click)="close()" translate="button.cancel"></button>
+		<button tabFocusAction class="capitalize" (click)="update()" translate="button.update"></button>
 	</dialog-footer-app>
 
 </dialog-app>

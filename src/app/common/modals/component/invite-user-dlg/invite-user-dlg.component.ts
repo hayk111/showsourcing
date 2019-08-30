@@ -3,10 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
 import { CloseEventType } from '~shared/dialog';
-
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'invite-user-dlgapp',
@@ -21,7 +20,8 @@ export class InviteUserDlgComponent extends AutoUnsub {
 	constructor(private dlgSrv: DialogService,
 		private invitationSrv: InvitationFeatureService,
 		private fb: FormBuilder,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
+		private translate: TranslateService
 	) {
 		super();
 		this.form = this.fb.group(
@@ -39,11 +39,11 @@ export class InviteUserDlgComponent extends AutoUnsub {
 			this.invitationSrv.createInvitation(email)
 				.subscribe(() => {
 					this.pending = false;
-					const invtSent = translate('Your invitation was sent to');
+					const invtSent = this.translate.instant('message.your-invitation-was-sent-to');
 					this.dlgSrv.close({ type: CloseEventType.OK });
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: translate('Invitation sent'),
+						title: this.translate.instant('title.invitation-sent'),
 						message: `${invtSent} ${email}`,
 						timeout: 3500
 					});

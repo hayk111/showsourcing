@@ -1,19 +1,19 @@
-
+	<!-- TODO i18n -->
 	<dialog-app>
 
 		<!-- when ready -->
 		<dialog-header-app *ngIf="!pending" class="first-uppercase">
-			<ng-container i18n="text@@merge">merge</ng-container> {{ type.plural | const: 'erm' }}
+			<ng-container translate="text.merge"></ng-container> {{ type.plural | const: 'erm' }}
 		</dialog-header-app>
 
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
-				<label-app>{{ type.singular | const: 'erm' }} <ng-container i18="we want to merge an item to@@to-merge-to">to merge to</ng-container></label-app>
+				<label-app>{{ type.singular | const: 'erm' }} <ng-container translate="text.to-merge-to">to merge to</ng-container></label-app>
 				<input inputApp type="text" formControlName="name" placeholder="New {{ type.singular | const: 'erm' }} name" (keyup.enter)="onSubmit()" i18n-placeholder="@@new-OBJ-name"/>
 			</form-field-app>
 			<label-app>
-				Please select the category that will remain after the merge.
-				<p class="color-warn">Warning: This action cannot be undone.</p>
+				{{'message.please-select-category' | translate}}
+				<p class="color-warn" translate="error.action-cannot-undone"></p>
 			</label-app>
 		</form>
 

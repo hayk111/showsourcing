@@ -1,14 +1,12 @@
-
+ 	<!-- TODO i18n -->
 	<dialog-app>
 
 		<!-- when ready -->
-		<dialog-header-app *ngIf="!pending" i18n="@@change-name">
-			Change Name
-		</dialog-header-app>
+		<dialog-header-app *ngIf="!pending" translate="label.change-name"></dialog-header-app>
 
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
-				<label-app class="capitalize"> {{ type.singular | const: 'erm' }} <ng-container i18n="@@name">name</ng-container></label-app>
+				<label-app class="capitalize"> {{ type.singular | const: 'erm' }} <ng-container translate="label.name"></ng-container></label-app>
 				<input inputApp autoFocus type="text" (input)="checkExists()" formControlName="name" placeholder="New {{ type.singular | const: 'erm' }} name" (keyup.enter)="onSubmit()" i18n-placeholder="@@new-OBJ-name"/>
 			</form-field-app>
 			<label-app i18n="@@provide-new-name">Please provide the new {{ type.singular | const: 'erm' }} name for {{ entity.name || '' }}</label-app>
