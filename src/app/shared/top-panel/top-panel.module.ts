@@ -21,6 +21,7 @@ import { TopPanelComponent } from '~shared/top-panel/components/top-panel/top-pa
 import { ViewSwitcherComponent } from '~shared/top-panel/components/view-switcher/view-switcher.component';
 import { UserPictureModule } from '~shared/user-picture/user-picture.module';
 import { UtilsModule } from '~shared/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
 import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
@@ -47,7 +48,8 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		SearchBarModule,
 		SelectorsModule,
 		UserPictureModule,
-		UtilsModule
+		UtilsModule,
+		TranslateModule
 	],
 	declarations: [
 		TopPanelComponent,

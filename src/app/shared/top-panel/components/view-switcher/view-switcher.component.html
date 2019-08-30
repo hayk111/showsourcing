@@ -2,14 +2,14 @@
   <div class="slider" [class.right]="view === 'card'" [class.mid]="view === 'board'" [class.left]="view === 'list'"></div>
 	<button class="flexCenter {{ view === 'list' ? 'selected' : ''}}" (mousedown)="switchView('list')">
 		<icon-app class="list" [name]="switchContent[0]"></icon-app>
-		<ng-container i18n="text@@list">List</ng-container>
+		<ng-container translate="text.list"></ng-container>
 	</button>
 	<button class="flexCenter {{ view === 'board' ? 'selected' : ''}}" (mousedown)="switchView('board')">
 		<icon-app class="list" [name]="switchContent[1]"></icon-app>
-		<ng-container i18n="text@@list">Board</ng-container>
+		<ng-container translate="text.board"></ng-container>
 	</button>
 	<button class="flexCenter {{ view === 'card' ? 'selected' : ''}}" (mousedown)="switchView('card')">
 			<icon-app class="board" [name]="switchContent[2]"></icon-app>
-			<ng-container i18n="text@@thumb">Grid</ng-container>
+			<ng-container translate="text.thumb"></ng-container>
 	</button>
 </div>

@@ -16,18 +16,18 @@
 		</search-bar-app>
 
 		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize filter-button" 
-			(click)="showFilters.emit()" i18n="text@@show-filters">Filters</button>
+			(click)="showFilters.emit()" translate="button.show-filters"></button>
 		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize clear-filter-button" 
-			(click)="clearFilters.emit()" i18n="text@@clear-filters">Clear Filters <span *ngIf="filtersAmount">({{filtersAmount}})</span>
+			(click)="clearFilters.emit()" translate="button.clear-filters"><span *ngIf="filtersAmount">({{filtersAmount}})</span>
 		</button>
 		<div class="divider"></div>
 
-		<span *ngIf="hasFilter && !filtersPanelOpened" class="bold-s capitalize products-count" i18n="text@@products">
+		<span *ngIf="hasFilter && !filtersPanelOpened" class="bold-s capitalize products-count" translate="label.products">
 			{{count}} {{entityType}}
 		</span>
-				
-		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">
-			Hide Filters
+		<!-- TODO check text of this btn is hide filter or show filter -->
+		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize"
+			(click)="hideFilters.emit()" translate="button.hide-filters">
 		</button>
 
 		<button
@@ -42,7 +42,7 @@
 		<div class="show-archived-container" *ngIf="hasArchived">
 			<label class="pointer">
 				<input class="show-archived pointer" type="checkbox" id="show-archived" 
-					[(ngModel)]="isArchivedShown" (change)="archiveChange($event)" />Show Archived
+					[(ngModel)]="isArchivedShown" (change)="archiveChange($event)" translate="label.show-archived" />
 				<label for="show-archived"></label>
 			</label>
 		</div>
@@ -50,15 +50,14 @@
 		<div class="assigned-to-me-container" *ngIf="hasAssigned">
 			<label class="pointer">
 				<input class="assigned-to-me pointer" type="checkbox" id="assigned-to-me" 
-					[(ngModel)]="isAssigned" (change)="assignedChange($event)" />Assigned to me
+					[(ngModel)]="isAssigned" (change)="assignedChange($event)" translate="label.assiged-to-me" />
 				<label for="assigned-to-me"></label>
 			</label>
 		</div>
 
 		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button" 
-			(click)="export.emit()" i18n="text@@export">
+			(click)="export.emit()" translate="button.export">
 			<icon-app name="close-pane-bottom" size="m"></icon-app>
-			Export
 		</button>
 
 		<view-switcher-app
