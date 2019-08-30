@@ -1,6 +1,7 @@
 
 <bottom-panel-app *ngIf="isShown" class="z-6 flexBetween" @selectionBarTrigger>
 
+  <!-- TODO i18n -->
   <div class="closeSection pointer">
 		{{ selection.size }} <ng-container i18n="text@@items-selected">{ selection?.size || 0, plural, =1 {item} other {items} } selected</ng-container>
   </div>

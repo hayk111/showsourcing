@@ -21,6 +21,7 @@
 		</ng-container>
 	</ng-container>
 	<ng-template #empty>
+		<!-- TODO i18n -->
 		<span class="empty-message" i18n="text@@no-item-add-one">There's no {{ type.singular | const: 'erm' }} yet, add one!</span>
 	</ng-template>
 </div>
@@ -124,5 +125,5 @@
 <divider-app class="bottom-divider"></divider-app>
 
 <div class="flexEnd">
-	<button tabFocusAction class="secondary capitalize" (click)="close.emit()" i18n="button@@done">done</button>
+	<button tabFocusAction class="secondary capitalize" (click)="close.emit()" translate="button.done">done</button>
 </div>
