@@ -1,18 +1,17 @@
 <div class="add-new-comment">
 
-	<div class="title" i18n="@@add-comment">Add Comment</div>
+	<div class="title" translate="button.add-comment"></div>
 
 	<div class="text-input-new-comment">
 		<textarea
 			[formControl]="commentCtrl"
 			rows="4"
-			placeholder="Write your comment here"
-			i18n-placeholder="@@write-comment-here">
+			placeholder="{{'placeholder.write-comment-here' | translate}}">
 		</textarea>
 	</div>
 
 	<div class="button-container">
-		<button class="capitalize" (click)="send()" i18n="@@send">send</button>
+		<button class="capitalize" (click)="send()" translate="button.send"></button>
 	</div>
 
 </div>
