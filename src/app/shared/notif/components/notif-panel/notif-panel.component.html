@@ -7,16 +7,12 @@
 			(click)="notifActivitySrv.closeNotificationPanel()"
 		>
 		</icon-app>
-		<p class="title">
-			Notifications
-		</p>
+		<p class="title" translate="title.notifications"></p>
 	</card-title-app>
 
 	<card-action-app>
-		<p class="color-primary" (click)="notifActivitySrv.markAllAsRead()">
-			Mark all as read
-		</p></card-action-app
-	>
+		<p class="color-primary" (click)="notifActivitySrv.markAllAsRead()" translate="text.mark-all-as-read"></p>
+	</card-action-app>
 
 	<notif-list-app [activities]="results"></notif-list-app>
 </card-app>

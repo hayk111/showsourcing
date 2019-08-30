@@ -3,6 +3,7 @@ import { ProductService, SupplierService, TaskService, SampleService } from '~co
 import { Router } from '@angular/router';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'notif-item-app',
@@ -27,13 +28,14 @@ export class NotifItemComponent implements OnInit {
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService,
 		private notifActivitySrv: NotificationActivityService,
+		private translate: TranslateService
 	) {
 	}
 
 	ngOnInit() {
 		this.initialSetup();
 	}
-
+	// TODO i18n
 	initialSetup() {
 		const { verb } = this.activity;
 		const [firstActivity] = this.activity.activities;
@@ -54,14 +56,14 @@ export class NotifItemComponent implements OnInit {
 			case 'create_task':
 				this.badgeType = 'task';
 				this.badgeColor = 'secondary';
-				this.activityMessage = 'assign you a task';
+				this.activityMessage = this.translate.instant('message.assign-you-a-task');
 				this.targetId = firstActivity.object;
 				this.target$ = this.getTask();
 				this.navigateRoute = `/workspace/my-tasks`;
 				break;
 			case 'task_complete':
 				this.badgeType = 'task';
-				this.activityMessage = 'has completed your task';
+				this.activityMessage = this.translate.instant('message.has-completed-your-task');
 				this.targetId = firstActivity.object;
 				this.target$ = this.getTask();
 				this.navigateRoute = `/workspace/my-tasks`;
@@ -69,6 +71,7 @@ export class NotifItemComponent implements OnInit {
 			case 'create_vote':
 				this.badgeType = 'product';
 				this.activityMessage = 'rated your product';
+				this.activityMessage = this.translate.instant('message.rated-your-product');
 				this.targetId = firstActivity.target_id;
 				this.navigateRoute = `/product/${this.targetId}/activity`;
 				this.target$ = this.getProduct();
@@ -94,7 +97,7 @@ export class NotifItemComponent implements OnInit {
 			case 'new_task_assignee':
 				this.badgeColor = 'secondary';
 				this.badgeType = 'task';
-				this.activityMessage = 'assign you a task';
+				this.activityMessage = this.translate.instant('message.assign-you-a-task');
 				this.targetId = firstActivity.object;
 				this.target$ = this.getTask();
 				this.navigateRoute = `/workspace/my-tasks`;
