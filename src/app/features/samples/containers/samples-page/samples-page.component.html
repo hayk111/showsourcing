@@ -9,7 +9,7 @@
 </top-panel-app>
 
 <sub-panel-app
-	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, vale: false }, { type: filterTypeEnum.DELETED, value: false }])"
+	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
 	[hasSwitch]="true"
 	[hasThumb]="false"

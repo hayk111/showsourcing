@@ -13,7 +13,7 @@
 	entityType="samples"
 	searchType="short"
 	[count]="listSrv.count$ | async"
-	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, vale: false }, { type: filterType.DELETED, value: false }])"
+	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
 	(clearFilters)="listSrv.filterList.resetAll();"
