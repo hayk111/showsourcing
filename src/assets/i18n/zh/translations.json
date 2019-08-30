@@ -204,6 +204,7 @@
 	"button": {
 		"account-already-existed": "",
 		"add": "",
+		"add-file": "",
 		"add-new-price-line": "",
 		"add-picture": "",
 		"add-product": "",
@@ -269,6 +270,7 @@
 	},
 	"header": {
 		"account-created": "",
+		"attached-files": "",
 		"congratz": "",
 		"contacts": "",
 		"create-team": "",
@@ -352,9 +354,12 @@
 		"product-archived-successfully": "",
 		"products-archived-successfully": "",
 		"pwd-reset-successfully": "",
+		"remove-1-file": "",
 		"there-is-an-error": "",
 		"we-are-creating-team": "",
-		"your-export-is-being-processed": ""
+		"your-export-is-being-processed": "",
+		"your-files-uploaded-with-success": "",
+		"your-imgs-uploaded-with-success": ""
 	},
 	"nav": {
 		"my-samples": "",
@@ -408,6 +413,7 @@
 		"more": "",
 		"new-pw": "",
 		"no-contact-for-supplier": "",
+		"no-documents-attached": "",
 		"no-picture": "",
 		"no-projects-added": "",
 		"no-team-members": "",

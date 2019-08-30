@@ -13,6 +13,7 @@ import { Team } from '~models';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 @Component({
 	selector: 'app-root',
@@ -34,7 +35,8 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private userClient: UserClientInitializer,
 		private location: Location,
-		private translate: TranslateService
+		private translate: TranslateService,
+		private notifSrv: NotificationService,
 	) { }
 
 	ngOnInit(): void {
@@ -74,6 +76,7 @@ export class AppComponent implements OnInit {
 		).subscribe(_ => this.isSpinnerShown$.next(false));
 
 		this.translate.setDefaultLang('en');
+		this.translate.use('en');
 	}
 
 	private startBaseClients(): Observable<Client[]> {

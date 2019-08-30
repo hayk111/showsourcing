@@ -204,6 +204,7 @@
 	"button": {
 		"account-already-existed": "Already have an account ?",
 		"add": "Add",
+		"add-file": "Add file",
 		"add-new-price-line": "Add new price line",
 		"add-picture": "Add picture",
 		"add-product": "Add product",
@@ -269,6 +270,7 @@
 	},
 	"header": {
 		"account-created": "Account created.",
+		"attached-files": "Attached Files",
 		"congratz": "Congratulations!",
 		"contacts": "Contacts",
 		"create-team": "Create a team",
@@ -352,9 +354,12 @@
 		"product-archived-successfully": "Product have been archived with success",
 		"products-archived-successfully": "Products have been archived with success",
 		"pwd-reset-successfully": "Your password has been reset successfully!",
+		"remove-1-file": "Remove 1 file?",
 		"there-is-an-error": "There is an error, please try again in a short while.",
 		"we-are-creating-team": "We are creating your team, please wait!",
-		"your-export-is-being-processed": "Your export is being processed"
+		"your-export-is-being-processed": "Your export is being processed",
+		"your-files-uploaded-with-success": "Your files were uploaded with success",
+		"your-imgs-uploaded-with-success": "Your images were uploaded with success"
 	},
 	"nav": {
 		"my-samples": "My Samples",
@@ -408,6 +413,7 @@
 		"more": "More",
 		"new-pw": "New password",
 		"no-contact-for-supplier": "No contact for this supplier",
+		"no-documents-attached": "No documents attached",
 		"no-picture": "No Picture",
 		"no-projects-added": "No Projects Added",
 		"no-team-members": "No Team Members",
