@@ -19,9 +19,12 @@
 		<header-search-app></header-search-app>
 	</div>
 
-	<div class="sidebar-item-content possition-static">
-		<notif-app [notifications]="notifications$ | async"
-		></notif-app>
+	<div
+		class="sidebar-item-content possition-static pointer"
+		(click)="openNotifPanel()">
+		<notif-app
+			[notifications]="notifications$ | async">
+		</notif-app>
 	</div>
 
 	<div class="sidebar-item-content">
