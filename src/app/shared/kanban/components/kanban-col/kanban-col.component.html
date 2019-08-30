@@ -37,9 +37,9 @@
 		*ngIf="col.data.length < col.totalData"
 		class="txt-btn flexCenter"
 		(click)="loadMore.emit(col)">
-		<ng-container i18n="button@@load">Load</ng-container>
+		<ng-container translate="button.load"></ng-container>
 		&nbsp;{{ amountLoaded }}
-		<ng-container i18n="button@@more">More</ng-container>
+		<ng-container translate="button.more"></ng-container>
 		 &nbsp;({{ col.totalData - col.data.length }})
 	</div>
 </main>

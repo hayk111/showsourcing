@@ -256,6 +256,7 @@
 		"supplier-request": "",
 		"upload-picture": "",
 		"view-all-products": "",
+		"view-more": "",
 		"view-vote-details": "",
 		"yes-join-team": "",
 		"yes-log-me-in": ""
@@ -265,6 +266,11 @@
 		"create-company": "",
 		"create-team": "",
 		"email-not-validated-please-check-your-inbox": "",
+		"field-is-required": "",
+		"field-should-be-a-number": "",
+		"field-should-be-a-valid-email": "",
+		"field-should-be-a-valid-tel": "",
+		"field-should-be-a-valid-url": "",
 		"incorrect-credentials": "",
 		"min-characters-required": "",
 		"pick-another-email": "",
@@ -395,6 +401,7 @@
 		"your-password": ""
 	},
 	"text": {
+		"add-description": "",
 		"archived": "",
 		"assigned-to-me": "",
 		"category": "",
