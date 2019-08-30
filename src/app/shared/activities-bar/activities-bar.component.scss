@@ -8,7 +8,7 @@ icon-app {
 
 icon-app.star {
 	display: inline;
-	margin: 0 2px 0 0;
+	margin: 0 var(--spacing-xs) 0 0;
 }
 
 .icons-container > icon-app:not(.favourite) {
@@ -21,10 +21,10 @@ icon-app.star {
 
 .vote-star-container {
 	cursor: pointer;
-	width: 45px;
 	border-radius: var(--border-radius);
 	color: var(--color-accent);
-	margin: 0 5px;
+	margin-left: var(--spacing-xs);
+	padding: var(--spacing-xs);
 }
 
 .vote-star-value {

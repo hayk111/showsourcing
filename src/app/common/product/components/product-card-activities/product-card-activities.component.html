@@ -5,7 +5,7 @@
 	<icon-app name="comments" size="sm" *ngIf="hasComments"></icon-app>
 	<icon-app name="envelope" size="sm" *ngIf="openRequestsCount$ | async"></icon-app>
 	<span class="vote-star-container" *ngIf="thumbService.getAvgVotes(votes) > -1" 
-		[ngClass]="{'light-background': thumbService.getAvgVotes(votes) > 80}">
+		[ngClass]="{'light-background': thumbService.getAvgVotes(votes) > 4}">
 		<icon-app name="star" size="sm" class="star"></icon-app>
 		<span class="vote-star-value">{{thumbService.getAvgVotes(votes)}}</span>
 	</span>

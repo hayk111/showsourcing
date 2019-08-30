@@ -92,7 +92,7 @@
 
 .selectionCol {
 	.header, .cell {
-		padding: 0;
+		padding: 0 var(--spacing-ms) 0 0;
 	}
 }
 
