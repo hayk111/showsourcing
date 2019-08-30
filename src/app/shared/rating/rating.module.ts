@@ -5,12 +5,14 @@ import { RatingCylinderComponent } from '~shared/rating/components/rating-cylind
 import { RatingHeartComponent } from '~shared/rating/components/rating-heart/rating-heart.component';
 import { ThumbButtonsComponent } from '~shared/rating/components/thumb-buttons/thumb-buttons.component';
 import { UtilsModule } from '~shared/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		IconsModule,
-		UtilsModule
+		UtilsModule,
+		TranslateModule
 	],
 	declarations: [
 		ThumbButtonsComponent,
