@@ -7,6 +7,7 @@ import { BadgeModule } from '~shared/badge';
 import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils';
 import { DividerModule } from '~shared/divider/divider.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	imports: [
@@ -15,7 +16,8 @@ import { DividerModule } from '~shared/divider/divider.module';
 		BadgeModule,
 		IconsModule,
 		UtilsModule,
-		DividerModule
+		DividerModule,
+		TranslateModule
 	],
 	declarations: [StatusSelectorComponent],
 	exports: [StatusSelectorComponent],
