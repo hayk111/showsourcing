@@ -1,12 +1,12 @@
 <dialog-app class="vertical-scroll-content">
 	<dialog-header-app class="flex">
-			<ng-container i18n="@@send-request-supplier">Send Request to Supplier</ng-container>
-			<badge-app class="beta" type="inProgress" size="m">Beta</badge-app>
+			<ng-container translate="label.send-request-supplier"></ng-container>
+			<badge-app class="beta" type="inProgress" size="m" translate="label.beta"></badge-app>
 	</dialog-header-app>
 
 	<div class="title-container flex">
-		<div class="left"><h2 class="l" i18n="@@request-settings">Request Settings</h2></div>
-		<div class="right"><h2 class="l" i18n="@@recipients">Recipients</h2></div>
+		<div class="left"><h2 class="l" translate="label.request-settings"></h2></div>
+		<div class="right"><h2 class="l" translate="label.recipients"></h2></div>
 	</div>
 
 	<div class="request-container flex" [ngStyle]="{ opacity: pending ? 0.5 : 1 }">
@@ -15,7 +15,7 @@
 			<form [formGroup]="form">
 
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container i18n="@@select-products">Select products</ng-container> *</label-app>
+					<label-app><ng-container translate="header.select-products"></ng-container> *</label-app>
 					<product-request-list-app
 						[products]="request?.products"
 						(update)="updateProducts($event)"
@@ -26,7 +26,7 @@
 				</form-field-app>
 
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container i18n="@@request-tempaltes">Request Templates</ng-container> *</label-app>
+					<label-app><ng-container translate="header.request-templates"></ng-container> *</label-app>
 					<selector-app
 						#selectorReqTemplate
 						type="request template"
@@ -36,24 +36,21 @@
 								tabFocusAction
 								autoFocus
 								[name]="selectorReqTemplate?.value?.name"
-								placeholder="Select a template"
-								i18n-placeholder="@@select-template">
+								placeholder="{{'placeholder.select-template' | translate}}">
 							</selector-placeholder-app>
 						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 
 					<ng-container *ngIf="selectedTemplate$ | async as tmpSlctd; else noTemplate">
 						<small class="browse flexEnd color-primary pointer"
-							(click)="openTemplateMngmtDialog($event, tmpSlctd)">
-							Browse templates
+							(click)="openTemplateMngmtDialog($event, tmpSlctd)" translate="button.browse-templates">
 						</small>
-						<div><b>Template Fields:</b> {{ getTemplateFields(tmpSlctd) }}</div>
+						<div><b>{{'label.template-fields' | translate}}:</b> {{ getTemplateFields(tmpSlctd) }}</div>
 					</ng-container>
 					<!-- we have to display the browse templates, when we have no templates on the DB -->
 					<ng-template #noTemplate>
 							<small class="browse flexEnd color-primary pointer"
-							(click)="openTemplateMngmtDialog($event, null)">
-							Browse templates
+							(click)="openTemplateMngmtDialog($event, null)" translate="button.browse-templates">
 						</small>
 					</ng-template>
 
@@ -61,15 +58,13 @@
 
 
 				<form-field-app class="modal">
-					<label-app i18n="@@share-product-info">Share my product information</label-app>
+					<label-app translate="label.share-product-info"></label-app>
 					<div class="flex share-info">
 						<checkbox-app
 							#checkShare
 							inputApp
 							formControlName="shareInformation">
-							<span class="checkbox-label" i18n="@@share-info-text">
-								Share product information you arleady have with the supplier such as price, moq, etc.
-							</span>
+							<span class="checkbox-label" translate="label.share-info-text"></span>
 						</checkbox-app>
 					</div>
 				</form-field-app>
@@ -82,7 +77,7 @@
 				<form [formGroup]="form">
 					<form-field-app
 						class="modal">
-						<label-app><ng-container i18n="@@send-to-supplier">Send to Supplier</ng-container> *</label-app>
+						<label-app><ng-container translate="label.send-to-supplier"></ng-container> *</label-app>
 						<selector-app
 							type="supplier"
 							[canCreate]="true"
@@ -90,15 +85,14 @@
 							<selector-placeholder-app
 								tabFocusAction
 								[name]="supplier?.name"
-								placeholder="Select a supplier"
-								i18n-placeholder="@@select-supplier">
+								placeholder="{{'placeholder.select-supplier' | translate}}">
 							</selector-placeholder-app>
 						</selector-app>
 						<input [hidden]="true" inputApp type="text"/>
 					</form-field-app>
 
 				<form-field-app class="modal">
-					<label-app><ng-container i18n="@@select-contact">Select Contact</ng-container> *</label-app>
+					<label-app><ng-container translate="label.select-contact"></ng-container> *</label-app>
 					<selector-app
 						#contactSelector
 						type="contact"
@@ -112,8 +106,7 @@
 							[ngClass]="{ disabled: !supplier }"
 							[hasArrow]="supplier"
 							[name]="!supplier ? ('Select a supplier first' | const: 'messages') : contactSelector?.value?.email"
-							[placeholder]="'Email or Contact'"
-							i18n-placeholder="@@email-or-contact">
+							placeholder="{{'placeholder.email-or-contact' | translate}}">
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
@@ -137,12 +130,12 @@
 				</form-field-app> -->
 
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container i18n="@@request-title">Request Title</ng-container> *</label-app>
-					<input inputApp type="text" formControlName="title" placeholder="Quote Request" i18n-placeholder="@@quote-request"/>
+					<label-app><ng-container translate="label.request-title"></ng-container> *</label-app>
+					<input inputApp type="text" formControlName="title" placeholder="{{'placeholder.quote-request' | translate}}"/>
 				</form-field-app>
 				<form-field-app class="modal">
-					<label-app i18n="@@message-for-supplier">Message for the supplier</label-app>
-					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" placeholder="Quick RFQ" i18n-placeholder="@@quick-rfq"></textarea>
+					<label-app translate="label.message-for-supplier"></label-app>
+					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" placeholder="{{'placeholder.quick-rfq' | translate}}"></textarea>
 				</form-field-app>
 
 				<!-- <form-field-app class="modal">
@@ -161,7 +154,7 @@
 
 	<dialog-footer-app>
 		<spinner-app *ngIf="pending" size="18"></spinner-app>
-		<button tabFocusAction class="capitalize" [disabled]="!form.valid || pending" (click)="createRequest()" i18n="@@send-request">send request</button>
+		<button tabFocusAction class="capitalize" [disabled]="!form.valid || pending" (click)="createRequest()" translate="button.send-request"></button>
 	</dialog-footer-app>
 
 </dialog-app>

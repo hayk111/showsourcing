@@ -1,3 +1,4 @@
+<!-- TODO i18n -->
 <div class="list-container">
 	<div *ngFor="let product of products; trackBy: trackByFn" class="list-item flexBetween">
 		<div class="product-info flex">
@@ -7,11 +8,11 @@
 			</img-app>
 			<div class="product-name ellipsis">{{ product?.name }}</div>
 		</div>
-		<div class="color-primary pointer fs-s capitalize" (click)="remove.emit(product?.id)" i18n="@@remove">remove</div>
+		<div class="color-primary pointer fs-s capitalize" (click)="remove.emit(product?.id)" translate="button.remove"></div>
 	</div>
 	<button class="selector small flex add-products" (click)="addProduct.emit()">
 		<icon-app name="add"></icon-app>
-		<span i18n="@@add-products">Add products</span>
+		<span translate="button.add-products"></span>
 	</button>
 </div>
 <div class="number-products flexEnd">

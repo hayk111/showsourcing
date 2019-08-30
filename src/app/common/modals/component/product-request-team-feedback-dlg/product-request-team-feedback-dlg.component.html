@@ -1,7 +1,8 @@
+<!-- TODO i18n -->
 <dialog-app>
-	<dialog-header-app i18n="header@@team-feedback">Team Feedback</dialog-header-app>
+	<dialog-header-app translate="header.team-feedback"></dialog-header-app>
 
-	<dialog-subtitle-app i18n="header@@team-members">Team members</dialog-subtitle-app>
+	<dialog-subtitle-app translate="text.team-members"></dialog-subtitle-app>
 
 	<main class="scrollable">
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
@@ -27,8 +28,7 @@
 			</ng-container>
 		</span>
 		<button [disabled]="numSelected < 1" (click)="submit()"
-			i18n="button@@request-feedback">
-			Request Feedback
+			translate="button.request-feedback">
 		</button>
 	</dialog-footer-app>
 </dialog-app>

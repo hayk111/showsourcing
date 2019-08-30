@@ -1,6 +1,7 @@
+<!-- TODO i18n -->
 <dialog-app>
 
-	<dialog-header-app i18n="@@reply-sent">Reply Sent</dialog-header-app>
+	<dialog-header-app translate="header.reply-sent"></dialog-header-app>
 
 	<div class="container" [ngStyle]="style">
 		<icon-app name="send-envelope"></icon-app>
@@ -8,7 +9,7 @@
 	</div>
 
 	<dialog-footer-app>
-			<button tabFocusAction autoFocus class="capitalize" (click)="close()" i18n="@@ok">ok</button>
+			<button tabFocusAction autoFocus class="capitalize" (click)="close()" translate="button.ok"></button>
 	</dialog-footer-app>
 
 </dialog-app>
