@@ -21,6 +21,7 @@ import { SelectParamsConfig } from '~entity-services/_global/select-params';
 export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	erm = ERM;
+	filterType = FilterType;
 
 	filterTypes = [
 		FilterType.CATEGORIES,
