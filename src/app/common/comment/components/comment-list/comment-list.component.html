@@ -4,9 +4,12 @@
 	</div>
 	<ng-container *ngFor="let comment of comments; index as i;trackBy: trackByFn">
 		<!-- with this condition we ensure to display only the last items first -->
-		<comment-app *ngIf="i >= amountShown"
+		<comment-app
+			*ngIf="i >= amountShown"
 			[comment]="comment"
-			[user]="comment?.createdBy">
+			[user]="comment?.createdBy"
+			(edited)="edited.emit($event)"
+			(deleted)="deleted.emit($event)">
 		</comment-app>
 	</ng-container>
 </div>

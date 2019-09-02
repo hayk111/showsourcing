@@ -21,6 +21,7 @@ export class CommentComponent implements OnInit {
 
 	@Input() user: User;
 	@Input() comment: Comment;
+	@Output() edited = new EventEmitter<Comment>();
 	@Output() deleted = new EventEmitter<Comment>();
 
 	// if we don't have this viewChild, we cannot send the height of the item, since the HTML doesn't know
@@ -55,6 +56,11 @@ export class CommentComponent implements OnInit {
 	enableEdit(height: number) {
 		this.isEditing = true;
 		this.currentHeight = height + 26; // +26 is for the padding inside the textarea
+	}
+
+	onSave(text: string) {
+		if (text)
+			this.edited.emit({ ...this.comment, text });
 	}
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Comment } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -14,6 +14,9 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 
 	@Input() hasViewMore = true;
 	@Input() comments: Comment[] = [];
+
+	@Output() edited = new EventEmitter<Comment>();
+	@Output() deleted = new EventEmitter<Comment>();
 	/** index to keep track of which comments we display */
 	amountShown = 0;
 
