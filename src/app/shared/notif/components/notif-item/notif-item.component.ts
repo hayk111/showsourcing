@@ -110,7 +110,8 @@ export class NotifItemComponent implements OnInit {
 		event.stopPropagation();
 	}
 
-	redirect() {
+	redirect(event: MouseEvent ) {
+		event.stopPropagation();
 		this.notifActivitySrv.closeNotificationPanel();
 		this.notifActivitySrv.redirect(this.navigateRoute);
 	}

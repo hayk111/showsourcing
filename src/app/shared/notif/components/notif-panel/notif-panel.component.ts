@@ -29,7 +29,13 @@ export class NotifPanelComponent implements OnInit {
 
 	constructor(public notifActivitySrv: NotificationActivityService) {}
 
+
 	ngOnInit() {
+	}
+
+	closePanel(event: MouseEvent) {
+			this.notifActivitySrv.closeNotificationPanel();
+			event.stopPropagation();
 	}
 
 }

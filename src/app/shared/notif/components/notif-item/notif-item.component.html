@@ -1,7 +1,7 @@
 <div
 	class="flex container notif-card"
 	[ngClass]="{ unread: !isRead }"
-	(click)="redirect()"
+	(click)="redirect($event)"
 >
 	<div class="flex left">
 		<logo-app
