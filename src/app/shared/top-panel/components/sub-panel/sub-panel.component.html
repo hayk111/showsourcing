@@ -64,6 +64,7 @@
 		<view-switcher-app
 			*ngIf="hasSwitch"
 			[switchContent]="switchContent"
+			[hasThumb]="hasThumb"
 			[view]="view"
 			(viewChange)="viewChange.emit($event)">
 		</view-switcher-app>

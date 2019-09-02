@@ -23,8 +23,6 @@ import { SelectParams } from '~core/entity-services/_global/select-params';
 	]
 })
 export class SamplesPageComponent extends AutoUnsub implements OnInit {
-	public tableWidth: string;
-
 	erm = ERM;
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel

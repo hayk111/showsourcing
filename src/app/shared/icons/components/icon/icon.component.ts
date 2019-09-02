@@ -1,5 +1,4 @@
-import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input } from '@angular/core';
 import { FontSet } from '~shared/icons/components/font-set.enum';
 
 

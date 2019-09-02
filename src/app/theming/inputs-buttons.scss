@@ -132,6 +132,16 @@ form-field-app.field-error {
 	}
 }
 
+$colors: (
+	'primary', 
+	'secondary', 
+	'warn', 
+	'success', 
+	'vibrant', 
+	'accent', 
+	'light', 
+);
+
 // buttons and submit
 button, input[type="submit"], .button {
 	@extend .ripple;
@@ -154,85 +164,50 @@ button, input[type="submit"], .button {
 	white-space: nowrap;
 	text-align: center;
 	transition: background 0.3s;
+
+	@each $var in $colors {
+		&.#{$var} {
+			background: var(--color-#{$var});
+			color: var(--color-#{$var}-contrast);
+			&:hover, &:active, &.cdk-keyboard-focused {
+				background: var(--color-#{$var}-dark);
+			}
+		}
+	}
+
+	&.light {
+		background: transparent;
+		color: var(--color-txt);
+		&:hover, &.cdk-keyboard-focused {
+			background: var(--color-bg-secondary);
+		}
+	}
+
+	&.primary-light {
+		background: transparent;
+		color: var(--color-primary);
+		&:hover, &.cdk-keyboard-focused {
+			background: var(--color-bg-secondary);
+		}
+	}
+
+
 	&::first-letter {
 		text-transform: capitalize;
 	}
+
 	&.small {
 		min-width: 60px;
 		height: 24px;
 	}
+
 	&.boarding, &.big {
 		height: 40px;
     min-width: 120px;
 	}
+
 	&:hover, &.cdk-keyboard-focused {
-		background: var(--legacy-color-bg-dark);
-	}
-	&.secondary {
-		background: var(--legacy-color-secondary);
-		color: var(--legacy-color-txt-primary);
-		&:hover, &.cdk-keyboard-focused {
-			background: var(--legacy-color-secondary-dark);
-			color: white;
-		}
-	}
-	&.secondary-light {
-		background: var(--legacy-color-secondary-light);
-		color: var(--legacy-color-txt-primary);
-		&:hover, &.cdk-keyboard-focused {
-			background: var(--legacy-color-secondary-dark);
-			color: white;
-		}
-	}
-	&.secondary-dark {
-		background: var(--legacy-color-txt-primary);
-		color: white;
-		&:hover, &.cdk-keyboard-focused {
-			background: var(--legacy-color-secondary-dark);
-			color: white;
-		}
-	}
-	&.light {
-		background: transparent;
-		color: var(--legacy-color-txt);
-		&:hover, &.cdk-keyboard-focused {
-			background: var(--legacy-color-secondary);
-		}
-	}
-
-	&.warn {
-		background: var(--legacy-color-warn);
-		&:hover, &.cdk-keyboard-focused {
-			background: var(--legacy-color-warn-light);
-		}
-		&:active {
-			background: var(--legacy-color-warn-dark);
-		}
-	}
-
-	&.success {
-		background: var(--legacy-color-success);
-		&:hover, &.cdk-keyboard-focused {
-			background: var(--legacy-color-success-dark);
-		}
-	}
-
-	&.transparent {
-		background: transparent;
-		&:hover, &.cdk-keyboard-focused {
-			background: var(--legacy-color-secondary);
-		}
-		color: inherit;
-	}
-	&.selector {
-		border-radius: var(--border-radius);
-		padding: 0 var(--spacing-s);
-		align-items: center;
-		background: var(--legacy-color-secondary);
-		color: var(--legacy-color-txt-primary);
-		&:hover, &.cdk-keyboard-focused {
-			background: white;
-		}
+		background: var(--color-primary-dark);
 	}
 
 	&.icon {
