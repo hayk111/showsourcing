@@ -23,12 +23,12 @@
 	<!-- comment content -->
 	<!-- editing -->
 	<ng-container *ngIf="isEditing; else notEditing">
-		{{ currentHeight }}
 		<!-- DON'T put the comment text on a new line, since it has property 'white-space: pre-line' it will modify the view -->
 		<textarea
 			inputApp
+			autoFocus
 			#textArea
-			[ngStyle]="{ 'height': currentHeight < 46 ? '46' : currentHeight + 'px' }">{{ comment?.text }}</textarea>
+			[ngStyle]="{ 'height': currentHeight < minHeight ? minHeight : currentHeight + 'px' }">{{ comment?.text }}</textarea>
 		<div class="buttons flexEnd">
 			<button class="light" (click)="isEditing = false">cancel</button>
 			<button (click)="onSave(textArea?.value)">save</button>

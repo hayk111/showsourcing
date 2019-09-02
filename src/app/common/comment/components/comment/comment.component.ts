@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { filter, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { CommentService, UserService } from '~core/entity-services';
@@ -34,6 +25,8 @@ export class CommentComponent implements OnInit {
 	/** if we are currently editing the comment */
 	isEditing = false;
 	currentHeight = 0;
+	/** minimum height to display */
+	minHeight = 46;
 
 	constructor(
 		private userSrv: UserService,
