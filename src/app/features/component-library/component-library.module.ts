@@ -21,6 +21,7 @@ import { TableLibPageComponent } from './table-lib-page/table-lib-page.component
 import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
 import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
 import { SupplierCommonModule } from '~common/supplier';
+import { ButtonLibPageComponent } from './button-lib-page/button-lib-page.component';
 
 
 
@@ -48,7 +49,8 @@ import { SupplierCommonModule } from '~common/supplier';
 		BadgeLibPageComponent,
 		PipesLibPageComponent,
 		TableLibPageComponent,
-		CommonListsLibPageComponent
+		CommonListsLibPageComponent,
+		ButtonLibPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []
