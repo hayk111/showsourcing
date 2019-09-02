@@ -13,6 +13,8 @@ import { AppImage, User } from '~models';
 export class UserPictureComponent {
 	@Input() size = 32;
 	@Input() border = false;
+	@Input() fontSize: number;
+	@Input() background = true;
 	/** user */
 	@Input() set user(user: User) {
 		this._user = user;
@@ -50,7 +52,7 @@ export class UserPictureComponent {
 		// 2 * => 2px of growth on the fontSize
 		// this means that case 0 circleSize = 0, font-size = 2
 		// for each4px of groth on the cercle the font-size will increase 2px
-		const fontSize = 2 + (2 * (Math.floor(this.size / 4)));
+		const fontSize = this.fontSize || 2 + (2 * (Math.floor(this.size / 4)));
 		return {
 			'font-size': fontSize + 'px',
 			height: this.size + 'px',

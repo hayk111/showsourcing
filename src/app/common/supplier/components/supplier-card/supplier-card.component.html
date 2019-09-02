@@ -1,0 +1,48 @@
+<div class="card-container flex"
+	[ngClass]="{ 'pointer' : clickable, 'hover-content-enabled': enabledHoverContent }"
+	(clickOutside)="onClickOutsideCard()"
+	(click)="clickable && openSupplier()">
+
+	<!-- left side -->
+	<div class="left">
+		<img-app
+			class="image"
+			[image]="supplier?.images"
+			type="supplier"
+			size="m"
+			(click)="clickImage.emit()">
+		</img-app>
+		<div *ngIf="enablePreviewLink" class="preview capitalize" (click)="clickImage.emit()" i18n="@@preview">preview</div>
+		<div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
+			<checkbox-app
+				[checked]="checked"
+				(check)="onChecked()"
+				(uncheck)="onUnchecked()">
+			</checkbox-app>
+		</div>
+	</div>
+
+	<!-- right side -->
+	<div class="right">
+		<!-- title -->
+		<div class="title-section flex" (click)="clickTitle()">
+			<h5 class="title ellipsis">{{ supplier?.name }}</h5>
+		</div>
+		<!-- created by and votes -->
+		<div class="card-footer flexBetween">
+			<div class="created-by">
+				<user-picture-app 
+					[user]="supplier?.createdBy" 
+					[size]="24"
+					fontSize="12"
+					[background]="false" 
+					[image]="supplier?.createdBy?.avatar"></user-picture-app>
+			</div>
+		</div>
+	</div>
+
+	<!-- hover effect -->
+	<div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
+		<ng-content></ng-content>
+	</div>
+</div>

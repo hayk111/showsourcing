@@ -45,6 +45,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	quantityPer20ft?: number;
 	quantityPer40ft?: number;
 	quantityPer40ftHC?: number;
+	reference?: string;
 	sample?: boolean;
 	samplePrice?: Price;
 	score?: number;

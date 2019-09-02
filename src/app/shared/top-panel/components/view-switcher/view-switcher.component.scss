@@ -24,7 +24,6 @@
 }
 
 button {
-	width: calc(100% / 3);
 	min-width: unset;
 	height: 32px;
 	border-radius: var(--border-radius);
@@ -66,14 +65,11 @@ icon-app {
 	transition: all 0.35s ease-out;
 	&.left {
 		left: 0;
-		width: calc(100% / 3);
 	}
 	&.mid {
 		right: calc(100% / 3);
-		width: calc(100% / 3);
 	}
 	&.right {
 		right: 0;
-		width: calc(100% / 3);
 	}
 }

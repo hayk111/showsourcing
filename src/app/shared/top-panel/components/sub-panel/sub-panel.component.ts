@@ -33,6 +33,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() hasFilter = true;
 	// whether the screen can be switched from table to list view
 	@Input() hasSwitch = true;
+	@Input() hasThumb = true;
 	// whether we should display show archived checkbox
 	@Input() hasArchived = true;
 	// whether we should display assigned to me checkbox
@@ -46,7 +47,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	@Input() title: string;
 	@Input() count = 0;
-	@Input() entityType: 'products' | 'suppliers'; // should be filled with all the entity types
+	@Input() entityType: 'products' | 'suppliers' | 'samples'; // should be filled with all the entity types
 
 	// view that can be switched into
 	@Input() view: 'list' | 'card';
