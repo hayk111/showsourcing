@@ -1,14 +1,19 @@
 <!-- header -->
-<header class="flexBetween" [ngStyle]="getStyle(col)">
-  <checkbox-app
-    [checked]="hasAllSelected()"
-    (check)="selectAll.emit(col.data)"
-    (uncheck)="unselectAll.emit(col.data)">
-  </checkbox-app>
-  <span>
-    {{ col.title }}
-  </span>
-  <span>{{ col.totalData }}</span>
+<header class="flexBetween">
+	<div class="left-section">
+		<checkbox-app
+			[checked]="hasAllSelected()"
+			(check)="selectAll.emit(col.data)"
+			(uncheck)="unselectAll.emit(col.data)">
+		</checkbox-app>
+		<span class="title">
+			{{ col.title }}
+		</span>
+	</div>
+	<div class="right-section">
+		<span class="product-count">{{ col.totalData }}</span>
+		<div class="status-badge" [ngStyle]="getStyle(col)"></div>
+	</div>
 </header>
 
 <!-- main list -->

@@ -132,13 +132,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
 	}
 
-	getFilterAmount() {
-		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
-		const filters = this.listSrv.filterList.asFilters()
-			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
-		return filters.length;
-	}
-
 	onArchive(product: Product | Product[]) {
 		// TODO i18n
 		if (Array.isArray(product)) {

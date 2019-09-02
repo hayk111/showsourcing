@@ -10,39 +10,41 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '~entity-services';
-import { Sample } from '~models';
+import { Supplier } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
-	selector: 'sample-card-app',
-	templateUrl: './sample-card.component.html',
-	styleUrls: ['./sample-card.component.scss'],
+	selector: 'supplier-card-app',
+	templateUrl: './supplier-card.component.html',
+	styleUrls: ['./supplier-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SampleCardComponent extends TrackingComponent {
+export class SupplierCardComponent extends TrackingComponent {
 
 	/** The link to display the element */
 	link: string;
-	/** The associated sample */
+	/** The associated supplier */
 	private _checked: boolean;
 	@Input() set checked(checked: boolean) {
 		this._checked = checked;
+		// this.setClassHighlightChecked(this._checked);
 	}
 	get checked() {
 		return this._checked;
 	}
-	/** The associated sample */
-	@Input() set sample(sample: Sample) {
-		this._sample = sample;
-		this.link = '/sample/' + this._sample.id + '/general';
+	/** The associated supplier */
+	@Input() set supplier(supplier: Supplier) {
+		this._supplier = supplier;
+		this.computeScore();
+		this.link = '/supplier/' + this._supplier.id + '/general';
 	}
 
 	score: number;
 
-	get sample() {
-		return this._sample;
+	get supplier() {
+		return this._supplier;
 	}
 
 	/** Highlight the card when checked */
@@ -51,7 +53,7 @@ export class SampleCardComponent extends TrackingComponent {
 	@Input() selectFromCard: boolean;
 	/** Whether a new content is displayed on hover */
 	@Input() enabledHoverContent: boolean;
-	/** Whether the sample preview is accessibe from the card */
+	/** Whether the supplier preview is accessibe from the card */
 	@Input() enablePreviewLink: boolean;
 	@Input() dragInProgress: boolean;
 
@@ -74,7 +76,7 @@ export class SampleCardComponent extends TrackingComponent {
 	/** An interaction (check or uncheck) occured on the checkbox */
 	checkboxAction = false;
 	/** The user vote if any */
-	private _sample: Sample;
+	private _supplier: Supplier;
 	like = false;
 	dislike = false;
 	thumbsName = 'thumbs-up-white';
@@ -124,19 +126,23 @@ export class SampleCardComponent extends TrackingComponent {
 	onChecked() {
 		this.checked = true;
 		this.checkboxAction = true;
-		this.select.emit(this.sample);
+		this.select.emit(this.supplier);
 	}
 
 	/** Handle checbkox uncheck event */
 	onUnchecked() {
 		this.checked = false;
 		this.checkboxAction = true;
-		this.unselect.emit(this.sample);
+		this.unselect.emit(this.supplier);
 	}
 
-	openSample() {
+	openSupplier() {
 		if (this.clickable && this.link) {
 			this.router.navigate([this.link]);
 		}
+	}
+
+	computeScore() {
+		this.score = this.thumbSrv.computeScore(this.supplier);
 	}
 }

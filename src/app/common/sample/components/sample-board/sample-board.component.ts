@@ -18,16 +18,16 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
 @Component({
-	selector: 'my-sample-board-page-app',
-	templateUrl: './my-sample-board-page.component.html',
-	styleUrls: ['./my-sample-board-page.component.scss'],
+	selector: 'sample-board-app',
+	templateUrl: './sample-board.component.html',
+	styleUrls: ['./sample-board.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		KanbanService,
 		ListPageService
 	]
 })
-export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
+export class SampleBoardPageComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
 	filterType = FilterType;
 	filterTypes = [

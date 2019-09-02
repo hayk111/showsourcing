@@ -16,7 +16,10 @@ export class ViewSwitcherComponent implements OnInit {
 			this._view = view;
 		}
 	}
-	@Input() switchContent: ['list-menu', 'board' , 'kanban' | 'grid'] = ['list-menu', 'board' , 'grid'];
+	/** whether there's thumb switch */
+	@Input() hasThumb = true;
+
+	@Input() switchContent: ['list', 'board', 'kanban' | 'thumbs'] = ['list', 'board' , 'thumbs'];
 	@Output() viewChange = new EventEmitter<string>();
 
 	get view() {
@@ -27,7 +30,7 @@ export class ViewSwitcherComponent implements OnInit {
 
 	ngOnInit() { }
 
-	switchView(view: 'list' | 'board' | 'card') {
+	switchView(view: 'card' | 'board' | 'list') {
 		this.view = view;
 		this.viewChange.emit(view);
 	}
