@@ -78,7 +78,6 @@ export class NotifItemComponent implements OnInit {
 				this.targetId = firstActivity.object;
 				if (target === 'sample') {
 					this.badgeType = 'sample';
-					this.badgeColor = 'vibrant';
 					this.target$ = this.getSample();
 					this.navigateRoute = '/workspace/my-samples/list';
 				} else if (target === 'product') {
@@ -111,7 +110,8 @@ export class NotifItemComponent implements OnInit {
 		event.stopPropagation();
 	}
 
-	redirect() {
+	redirect(event: MouseEvent ) {
+		event.stopPropagation();
 		this.notifActivitySrv.closeNotificationPanel();
 		this.notifActivitySrv.redirect(this.navigateRoute);
 	}
