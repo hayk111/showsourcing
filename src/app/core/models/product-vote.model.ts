@@ -23,7 +23,7 @@ export const mockVotes = [
 		id: 'fake-vote-id-1',
 		value: 100,
 		user: {
-			id: 'fake-user-id-',
+			id: 'fake-user-id-1',
 			firstName: 'Fake Name 1',
 			lastName: 'Fake Last 1',
 			__typename: 'User'
@@ -34,7 +34,7 @@ export const mockVotes = [
 		id: 'fake-vote-id-2',
 		value: 20,
 		user: {
-			id: 'fake-user-id2-',
+			id: 'fake-user-id-2',
 			firstName: 'Fake Name 2',
 			lastName: 'Fake Last 2',
 			__typename: 'User'

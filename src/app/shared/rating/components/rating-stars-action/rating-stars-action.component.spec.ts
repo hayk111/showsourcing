@@ -1,4 +1,5 @@
 
+// TODO Service not working
 describe('Rating stars action', () => {
 	it('should display the correct star when the value is none, 20, 40, 60, 80, 100', () => {
 

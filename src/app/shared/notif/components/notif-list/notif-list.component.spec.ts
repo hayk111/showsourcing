@@ -24,10 +24,10 @@ class MockNotifService {
 	}
 }
 
-const {results: activities} = notificationsMock;
+const { results: activities } = notificationsMock;
 
 
-fdescribe('notif item component', () => {
+describe('notif item component', () => {
 
 	let component: NotifListComponent;
 	let fixture: ComponentFixture<NotifListComponent>;
