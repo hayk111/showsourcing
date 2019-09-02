@@ -4,7 +4,6 @@ import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { BadgeModule } from '~shared/badge';
 import { DividerModule } from '~shared/divider/divider.module';
 import { IconsModule } from '~shared/icons';
@@ -54,7 +53,6 @@ const components = [
 @NgModule({
 	imports: [
 		CommonModule,
-		NgSelectModule,
 		ReactiveFormsModule,
 		FormsModule,
 		InputsModule,
