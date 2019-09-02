@@ -1,5 +1,9 @@
-<card-app class="notification-container">
-
+<card-app
+	*ngIf="notifActivitySrv.isPanelOpen"
+	class="notification-container"
+	[@paneAnimationTrigger]
+	(@paneAnimationTrigger.done)="endAnimation.emit()"
+	(@paneAnimationTrigger.start)="startAnimation.emit()">
 	<card-title-app>
 		<icon-app
 			class="close-pane-button"
