@@ -1,24 +1,27 @@
 <top-panel-app
 	[title]="'My suppliers'"
-	buttonName="Create Supplier"
+	buttonName="Add Supplier"
 	(buttonClick)="listSrv.create()"
 	i18-title="@@my-suppliers">
 </top-panel-app>
 
 <sub-panel-app
-	entityType="suppliers"
-	[count]="listSrv.count$ | async"
-	[hasSwitch]="false"
+	[hasSwitch]="true"
 	[hasFilter]="true"
-	[filtersAmount]="listSrv.filterList.asFilters()?.length"
-	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
+	[hasThumb]="false"
+	[view]="listSrv.view"
+	entityType="samples"
+	searchType="short"
+	[count]="listSrv.count$ | async"
+	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
+	(clearFilters)="listSrv.filterList.resetAll();"
 	(showArchived)="listSrv.filterByArchived(true)"
 	(hideArchived)="listSrv.filterByArchived(false)"
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(clearFilters)="listSrv.filterList.resetAll()"
+	(viewChange)="onViewChange($event)"
 	(search)="listSrv.search($event)">
 </sub-panel-app>
 
@@ -26,12 +29,14 @@
 
 	<supplier-list-view-app
 		#supplierList
+		*ngIf="listSrv.view === 'list'"
 		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
 		(goToPage)="listSrv.loadPage($event)"
+		(archive)="onArchive($event)"
 		(sort)="listSrv.sort($event)"
 		(select)="listSrv.selectOne($event, true)"
 		(unselect)="listSrv.unselectOne($event, true)"
@@ -75,6 +80,14 @@
 		</div>
 	</selection-bar-app>
 
+	<supplier-board-app
+		*ngIf="listSrv.view === 'board'"
+		[selection]="listSrv.selection$"
+		(selectOne)="listSrv.selectOne($event, true)"
+		(unselectOne)="listSrv.unselectOne($event, true)"
+		(preview) = "listSrv.openPreview($event)">
+	</supplier-board-app>
+
 	<supplier-preview-app
 		*ngIf="listSrv.previewOpen"
 		[supplier]="listSrv.previewed"
@@ -85,7 +98,6 @@
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
-		(close)="listSrv.closeFilterPanel()"
 		*ngIf="listSrv.filterPanelOpen">
 	</filters-app>
 
