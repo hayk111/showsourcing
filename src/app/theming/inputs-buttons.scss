@@ -133,13 +133,12 @@ form-field-app.field-error {
 }
 
 $colors: (
-	'primary', 
-	'secondary', 
-	'warn', 
-	'success', 
-	'vibrant', 
-	'accent', 
-	'light', 
+	'primary',
+	'secondary',
+	'warn',
+	'success',
+	'vibrant',
+	'accent',
 );
 
 // buttons and submit
@@ -179,7 +178,7 @@ button, input[type="submit"], .button {
 		background: transparent;
 		color: var(--color-txt);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-bg-secondary);
+			background: var(--color-secondary-light);
 		}
 	}
 
