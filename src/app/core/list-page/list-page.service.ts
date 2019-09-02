@@ -33,6 +33,12 @@ export interface ListPageConfig extends ListPageDataConfig {
 	originComponentDestroy$?: Observable<void>;
 }
 
+interface FilterEntity {
+	value: boolean;
+	type: FilterType;
+	entity?: string;
+}
+
 /**
  * Helper service for list pages.
  *
@@ -444,9 +450,9 @@ export class ListPageService
 		return this.selectionSrv.getSelectionValues();
 	}
 
-	getFilterAmount(): number {
+	getFilterAmount(filterArr: FilterEntity[]): number {
 		const filters = this.filterList.asFilters()
-		.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
+		.filter(fil => !filterArr.some(elem => elem.type === fil.type && elem.value === fil.value));
 		return filters.length;
 	}
 

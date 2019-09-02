@@ -1,8 +1,6 @@
-<div class="logo-content">
-	<a [routerLink]="['/dashboard']">
-		<img src="assets/img/favicon.svg" class="logo" />
-	</a>
-</div>
+<a [routerLink]="['/dashboard']" class="logo flexCenter">
+	<icon-app name="showsourcing"></icon-app>
+</a>
 
 <nav>
 	<sidebar-item-app [icon]="'product'" [link]="['/product']" [subItems]="sideNavItems.get('product')"></sidebar-item-app>
@@ -10,7 +8,7 @@
 	<sidebar-item-app [icon]="'project'" [link]="['/project']"></sidebar-item-app>
 	<sidebar-item-app [icon]="'check-circle'" [link]="['/tasks']"></sidebar-item-app>
 	<sidebar-item-app [icon]="'envelope'" [link]="['/request']" [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null"></sidebar-item-app>
-	<sidebar-item-app [icon]="'smile'" [link]="['/component-library']" *ngIf="!isProd"></sidebar-item-app>
+	<sidebar-item-app [icon]="'development'" [link]="['/component-library']" *ngIf="!isProd"></sidebar-item-app>
 </nav>
 
 <div class="flexCenter bottom">

@@ -22,14 +22,14 @@ import { SampleListViewComponent,
 		SampleListViewComponent,
 		SamplePreviewComponent,
 		SampleCardComponent,
-		SampleBoardPageComponent
+		SampleBoardPageComponent,
 	],
 	exports: [
 		SampleComponent,
 		SampleListViewComponent,
 		SamplePreviewComponent,
 		SampleCardComponent,
-		SampleBoardPageComponent
+		SampleBoardPageComponent,
 	],
 	entryComponents: []
 })

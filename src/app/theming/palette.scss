@@ -1,39 +1,48 @@
 
 :root{
 
-	--color-bg: #fff;
+	--color-bg: rgb(255, 255, 255);
+	--color-bg-secondary: rgb(230, 235, 245);
 
-	--color-primary: #45ADFF;
-	--color-primary-with-opacity: rgba(69, 173, 255, 0.5);
-	--color-primary-light: #ecf6ff;
-	--color-primary-contrast: #fff;
+	--color-primary: rgb(69, 173, 255);
+	--color-primary-dark: rgb(64, 161, 235);
+	--color-primary-light: rgb(236, 246, 255);
+	--color-primary-contrast: rgb(255, 255, 255);
 
-	--color-secondary-light: #f9fafc;
-	--color-secondary: #e9edf5;
-	--color-secondary-contrast: #5d6d8b;
+	--color-secondary-light: rgb(249, 250, 252);
+	--color-secondary: rgb(233, 237, 245);
+	--color-secondary-dark: rgb(220, 225, 235);
+	--color-secondary-contrast: rgb(93, 109, 139);
 
-	--color-vibrant: #d97bff;
-	--color-vibrant-light: #ffefff;
+	--color-vibrant: rgb(217, 123, 255);
+	--color-vibrant-light: rgb(255, 239, 255);
+	--color-vibrant-dark: rgb(188, 103, 221);
+	--color-vibrant-contrast: rgb(255, 255, 255);
 
-	--color-accent: #fcc810;
-	--color-accent-light: #fef6e9;
-	--color-accent-contrast: #f5a623;
+	--color-accent: rgb(252, 200, 16);
+	--color-accent-light: rgb(254, 246, 233);
+	--color-accent-dark: rgb(245, 166, 35);
+	--color-accent-contrast: rgb(255, 255, 255);
 
-	--color-warn: #f94259;
-	--color-warn-light: #feecee;
+	--color-warn: rgb(249, 66, 89);
+	--color-warn-light: rgb(254, 236, 238);
+	--color-warn-dark: rgb(221, 50, 73);
+	--color-warn-contrast: rgb(255, 255, 255);
 
-	--color-success: #49c76c;
-	--color-success-light: #f0fcf4;
+	--color-success: rgb(73, 199, 108);
+	--color-success-light: rgb(240, 252, 244);
+	--color-success-dark: rgb(58, 172, 90);
+	--color-success-contrast: rgb(255, 255, 255);
 
-	--color-divider:  #e6ebf5; 
+	--color-divider:  rgb(230, 235, 245); 
 
-	--color-txt-primary: #000000;
-	--color-txt-secondary: #5d6d8b;
-	--color-txt-third: #a3afc6;
+	--color-txt-primary: rgb(0, 0, 0);
+	--color-txt-secondary: rgb(93, 109, 139);
+	--color-txt-third: rgb(163, 175, 198);
 
-	--color-bg: #fff;
-	--color-bg-dark: #182844;
-	--color-bg-secondary: #f9fafc;
+	--color-bg: rgb(255, 255, 255);
+	--color-bg-dark: rgb(24, 40, 68);
+	--color-bg-secondary: rgb(249, 250, 252);
 
 	// entities
 	--color-product: var(--color-primary);
