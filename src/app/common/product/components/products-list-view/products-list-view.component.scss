@@ -14,7 +14,6 @@
 }
 
 .preview-imgs {
-	float: left;
 	position: relative;
 	overflow: hidden;
 	border-radius: var(--border-radius);
@@ -82,9 +81,9 @@
 }
 
 .ref-ctnr {
-	margin-left: 44px;
+	margin-left: var(--spacing-ms);
+	width: 160px;
 	.product-ref {
-		width: 160px;
 		height: 18px;
 		font-size: var(--font-size-m);
 		color: var(--color-txt-primary);

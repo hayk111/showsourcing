@@ -66,7 +66,7 @@
       <!-- product reference -->
       <ng-container *ngSwitchCase="'reference'">
         <div class="ellipsis name-container contain-strict">
-          <div class="ellipsis">
+          <div class="ellipsis flexVAlign">
       
             <div class="preview-imgs" (click)="previewClick.emit(row)">
               <logo-app class="mini imgCtnr"
@@ -83,7 +83,7 @@
                 </a>
               </span>
         
-              <div class="product-name-ref">
+              <div class="product-name-ref ellipsis">
                 {{ row.name || '-' }}
               </div>
             </div>
