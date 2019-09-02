@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { UserService } from '~core/entity-services';
 import { Comment, User } from '~models';
 
@@ -12,10 +21,21 @@ export class CommentComponent implements OnInit {
 
 	@Input() user: User;
 	@Input() comment: Comment;
+	@Output() deleted = new EventEmitter<Comment>();
 
+	// if we don't have this viewChild, we cannot send the height of the item, since the HTML doesn't know
+	// what does it have to read
+	@ViewChild('text', { static: false, read: ElementRef }) text: ElementRef;
+
+	/** if the comment belings to the current user or not */
 	isMine = false;
+	/** if we are currently editing the comment */
+	isEditing = false;
+	currentHeight = 0;
 
-	constructor(private userSrv: UserService) { }
+	constructor(
+		private userSrv: UserService
+	) { }
 
 	ngOnInit() {
 		this.isMine = this.userSrv.userSync.id === this.user.id;
@@ -32,5 +52,9 @@ export class CommentComponent implements OnInit {
 		});
 	}
 
+	enableEdit(height: number) {
+		this.isEditing = true;
+		this.currentHeight = height + 26; // +26 is for the padding inside the textarea
+	}
 
 }
