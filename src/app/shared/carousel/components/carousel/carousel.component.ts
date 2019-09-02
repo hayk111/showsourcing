@@ -81,7 +81,13 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		});
 		this.uploaderFeedback.uploaded$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(imgs => this.uploaded.emit(imgs as AppImage[]));
+			.subscribe(imgs => {
+				this.uploaded.emit(imgs as AppImage[]);
+				// we need this condition since when we add an image the selected index will be length - 1
+				// but when property is not an array we have to set manually the index to 0
+				if (!this.isImagePropertyArray)
+					this.selectedIndex = 0;
+			});
 	}
 
 	back(event) {
@@ -115,6 +121,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		await this.uploaderFeedback.addImages(files);
 		// index at the end for instant feedback
 		this.selectedIndex = this.images.length - 1;
+
 	}
 
 	/** deletes the image */

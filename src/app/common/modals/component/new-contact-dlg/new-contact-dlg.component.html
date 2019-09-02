@@ -68,7 +68,8 @@
 			</form-field-app>
 
 			<label i18n="@@business-card">Business card</label>
-			<carousel-app *ngIf="contact$ | async as contact"
+			<carousel-app
+				*ngIf="contact$ | async as contact"
 				[imageProperty]="'businessCardImage'"
 				[isImagePropertyArray]="false"
 				[entity]="contact"
