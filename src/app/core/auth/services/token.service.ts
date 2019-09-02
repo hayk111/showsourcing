@@ -67,11 +67,12 @@ export class TokenService {
 		this._jwtTokenFeed$.next(token.jwtTokenFeed);
 	}
 
-	restoreFeedToken() {
-		const token: TokenState = this.localStorageSrv.getItem(FEED_TOKEN);
+	restoreTokens() {
+		const feedToken: TokenState = this.localStorageSrv.getItem(FEED_TOKEN);
+		this.authJwtToken = this.localStorageSrv.getString(AUTH_TOKEN);
 		// check if token is still valid, minus 10 so we still have some leeway
-		if (token && token.token_data.expires > (Date.now() / 1000) - 10) {
-			this._jwtTokenFeed$.next(token);
+		if (feedToken && feedToken.token_data.expires > (Date.now() / 1000) - 10) {
+			this._jwtTokenFeed$.next(feedToken);
 		}
 	}
 

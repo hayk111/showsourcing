@@ -37,6 +37,6 @@ export class SettingsInvitationService extends InvitationService {
 
 	createInvitation(email: string) {
 		const payload = { email, accessType: 'TeamMember' };
-		return this.http.post(`team/${this.teamSrv.idSync}/invitation`, payload);
+		return this.http.post(`api/invitation/team/${this.teamSrv.idSync}`, payload);
 	}
 }

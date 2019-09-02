@@ -72,7 +72,7 @@ export class AuthenticationService {
 				this._authState$.next(authState);
 			}
 		}
-		this.tokenSrv.restoreFeedToken();
+		this.tokenSrv.restoreTokens();
 	}
 
 	/**

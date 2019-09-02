@@ -3,7 +3,6 @@
 	[contextualMenu]="contextualMenuTemplate"
 	[pending]="pending"
 	[selected]="selection"
-	[isSelectable]="isSelectableFn"
 	[count]="count"
 	[currentPage]="currentPage"
 	placeholder="No team member"
@@ -55,19 +54,19 @@
 		sortBy="accessType"
 		width="200">
 
-		<context-menu-app *ngIf="teamOwner && (row?.user?.id !== user?.id); else noSelector" [closeOnScroll]="true">
+		<context-menu-app [closeOnScroll]="true">
 			<context-menu-trigger-app class="flex pointer">
 				<div class="text capitalize" *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">Team Member</div>
 				<div class="text capitalize" *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">contributor</div>
 				<div class="selector"><icon-app name="angle-down"></icon-app></div>
 			</context-menu-trigger-app>
 			<context-menu-item-app
-				(click)="accessTypeUpdated.emit({ member: row, accessType: 'TeamMember' })"
+				(click)="accessTypeUpdated.emit({ userId: row.id, accessType: 'TeamMember' })"
 				i18n="button@@team-member">
 				Team Member
 			</context-menu-item-app>
 			<context-menu-item-app
-				(click)="accessTypeUpdated.emit({ member: row, accessType: 'Contributor' })"
+				(click)="accessTypeUpdated.emit({ userId: row.id, accessType: 'Contributor' })"
 				i18n="@@contributor">
 				contributor
 			</context-menu-item-app>
