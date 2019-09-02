@@ -8,8 +8,11 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { UserService } from '~core/entity-services';
+import { filter, switchMap } from 'rxjs/operators';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { CommentService, UserService } from '~core/entity-services';
 import { Comment, User } from '~models';
+import { CloseEventType } from '~shared/dialog';
 
 @Component({
 	selector: 'comment-app',
@@ -35,7 +38,9 @@ export class CommentComponent implements OnInit {
 	currentHeight = 0;
 
 	constructor(
-		private userSrv: UserService
+		private userSrv: UserService,
+		private commentSrv: CommentService,
+		private commonModalSrv: CommonModalService
 	) { }
 
 	ngOnInit() {
@@ -60,7 +65,17 @@ export class CommentComponent implements OnInit {
 
 	onSave(text: string) {
 		if (text)
-			this.edited.emit({ ...this.comment, text });
+			this.commentSrv.update({ id: this.comment.id, text }).subscribe();
+		this.isEditing = false;
+	}
+
+	onDelete() {
+		// TODO i18n
+		const text = `Are you sure you want to delete this comment ?`;
+		this.commonModalSrv.openConfirmDialog({ text }).pipe(
+			filter(data => data.type === CloseEventType.OK),
+			switchMap(_ => this.commentSrv.delete(this.comment.id))
+		).subscribe();
 	}
 
 }

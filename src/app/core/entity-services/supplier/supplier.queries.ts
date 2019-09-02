@@ -15,7 +15,11 @@ export abstract class SupplierQueries extends GlobalQueries {
 	// static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false AND archived == false") { ... on ProductCollection { count }}`;
 	// tslint:disable-next-line:max-line-length
 	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false") { ... on ProductCollection { count }}`;
-	static readonly comments = `comments { id, text, ${SupplierQueries.user('createdBy')}, creationDate }`;
+	static readonly comments = `comments {
+		id, text, creationDate, lastUpdatedDate, deleted,
+		${SupplierQueries.user('createdBy')},
+		${SupplierQueries.user('lastUpdatedBy')}
+	}`;
 	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
 	static readonly extendedFields = `extendedFields {
 		id, value,

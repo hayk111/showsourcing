@@ -13,7 +13,14 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 	@Input() order: 'asc' | 'desc' = 'asc';
 
 	@Input() hasViewMore = true;
-	@Input() comments: Comment[] = [];
+	private _comments: Comment[] = [];
+	@Input()
+	set comments(comments: Comment[]) {
+		this._comments = (comments || []).filter(comment => comment.deleted === false);
+	}
+	get comments() {
+		return this._comments;
+	}
 
 	@Output() edited = new EventEmitter<Comment>();
 	@Output() deleted = new EventEmitter<Comment>();
