@@ -24,7 +24,7 @@
 	<!-- editing -->
 	<ng-container *ngIf="isEditing; else notEditing">
 		{{ currentHeight }}
-		<!-- DON'T put the comment text on a new line, since it has property 'white-space: pre-line' -->
+		<!-- DON'T put the comment text on a new line, since it has property 'white-space: pre-line' it will modify the view -->
 		<textarea
 			inputApp
 			#textArea

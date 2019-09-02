@@ -24,8 +24,6 @@ export class CommentComponent implements OnInit {
 
 	@Input() user: User;
 	@Input() comment: Comment;
-	@Output() edited = new EventEmitter<Comment>();
-	@Output() deleted = new EventEmitter<Comment>();
 
 	// if we don't have this viewChild, we cannot send the height of the item, since the HTML doesn't know
 	// what does it have to read

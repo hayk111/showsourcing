@@ -7,9 +7,7 @@
 		<comment-app
 			*ngIf="i >= amountShown"
 			[comment]="comment"
-			[user]="comment?.createdBy"
-			(edited)="edited.emit($event)"
-			(deleted)="deleted.emit($event)">
+			[user]="comment?.createdBy">
 		</comment-app>
 	</ng-container>
 </div>

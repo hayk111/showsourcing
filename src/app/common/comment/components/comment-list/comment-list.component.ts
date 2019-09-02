@@ -22,8 +22,6 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 		return this._comments;
 	}
 
-	@Output() edited = new EventEmitter<Comment>();
-	@Output() deleted = new EventEmitter<Comment>();
 	/** index to keep track of which comments we display */
 	amountShown = 0;
 
