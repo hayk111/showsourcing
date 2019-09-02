@@ -15,8 +15,8 @@
 		</div>
 		<!-- buttons -->
 		<div *ngIf="isMine && !isEditing" class="buttons flex hover-buttons">
-			<button class="secondary-light" (click)="onDelete()">delete</button>
-			<button class="secondary-light" (click)="enableEdit(text?.nativeElement?.clientHeight)">edit</button>
+			<button class="light" (click)="onDelete()">delete</button>
+			<button class="light" (click)="enableEdit(text?.nativeElement?.clientHeight)">edit</button>
 		</div>
 	</div>
 
@@ -30,7 +30,7 @@
 			#textArea
 			[ngStyle]="{ 'height': currentHeight < 46 ? '46' : currentHeight + 'px' }">{{ comment?.text }}</textarea>
 		<div class="buttons flexEnd">
-			<button class="secondary-light" (click)="isEditing = false">cancel</button>
+			<button class="light" (click)="isEditing = false">cancel</button>
 			<button (click)="onSave(textArea?.value)">save</button>
 		</div>
 	</ng-container>
