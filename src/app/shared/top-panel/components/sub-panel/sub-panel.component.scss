@@ -13,7 +13,7 @@
 }
 
 .short {
-	width: 327px !important;
+	width: inherit !important; // should be 327px, replaced because switch app wasn't showing correct
 }
 
 .search-container {

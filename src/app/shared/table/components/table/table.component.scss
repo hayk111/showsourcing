@@ -25,10 +25,8 @@
 	box-sizing: border-box;
 	overflow: auto;
 	// pagination
-	height: calc(100% - 80px);
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 48px;
 }
 
 .menu-context {
@@ -70,9 +68,9 @@
 }
 
 .cell, .header {
-	color: black;
+	color: var(--color-txt-primary);
 	padding: 0 var(--spacing-ms);
-	border-bottom: 1px solid  var(--legacy-color-secondary);
+	border-bottom: 1px solid  var(--color-bg-secondary);
 	height: 47px;
 	display: flex;
 	align-items: center;
@@ -110,7 +108,7 @@
 
 .emptyBorder{
 	.cell {
-		border-bottom: 1px solid transparent;
+		border-bottom: 1px solid var(--color-bg-secondary);
 	}
 	.cell, .header {
 		padding: 0;

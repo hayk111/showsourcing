@@ -33,7 +33,7 @@ button {
 	align-items: center;
 	font-size: var(--font-size-s);
 	background: transparent;
-	color:  var(--legacy-color-txt-primary);
+	color:  var(--color-txt-secondary);
 	padding: var(--spacing-s) var(--spacing-ms);
 	z-index: var(--z-button);
 	text-transform: none;
@@ -47,13 +47,13 @@ icon-app {
 	font-size: var(--font-size-xs);
 
 	&.list {
-		font-size: var(--font-size-xxs);
+		font-size: var(--font-size-s);
 	}
-	&.kanban-alt {
-		font-size: var(--font-size-xxs);
+	&.board {
+		font-size: var(--font-size-xs);
 	}
 	&.cards {
-		font-size: var(--font-size-xxs);
+		font-size: var(--font-size-s);
 	}
 
 	&:before {

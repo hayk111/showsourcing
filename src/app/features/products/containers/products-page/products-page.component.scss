@@ -1,6 +1,8 @@
 $max-screen-overlap: 1500px;
 
 :host {
+	display: flex;
+	flex-direction: column;
 	height: 100%;
 }
 
@@ -8,15 +10,16 @@ $max-screen-overlap: 1500px;
 	height: 100% !important;
 }
 
-@media only screen and (min-width: $max-screen-overlap) {
-	.products-content {
-		width: 0;
-	}
-}
+// TODO should find workaround to display the table correctly for flex-direction: column
+// @media only screen and (min-width: $max-screen-overlap) {
+// 	.products-content {
+// 		width: 0;
+// 	}
+// }
 
 products-list-view-app {
 	margin: 13px 114px 32px 98px;
-	padding: var(--spacing-l) var(--spacing-l) 34px var(--spacing-l);
+	padding: var(--spacing-l);
 }
 
 product-sorting-menu-app {

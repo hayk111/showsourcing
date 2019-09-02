@@ -24,6 +24,15 @@ $filters-pane-width: 300px;
 	}
 }
 
+@media only screen and (min-width: $max-screen-overlap) {
+	:host {
+		position: absolute;
+		bottom: 0;
+		width: $filters-pane-width;
+		right: 0;
+	}
+}
+
 divider-app {
 	margin: var(--spacing-ms) 0;
 }
