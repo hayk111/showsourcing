@@ -15,11 +15,9 @@
 		</p>
 	</card-title-app>
 
-	<card-action-app>
-		<p class="color-primary" (click)="notifActivitySrv.markAllAsRead()">
+	<card-action-app class="mark-read-button" (click)="notifActivitySrv.markAllAsRead()" >
 			Mark all as read
-		</p></card-action-app
-	>
+	</card-action-app>
 
 	<notif-list-app [activities]="results"></notif-list-app>
 </card-app>
