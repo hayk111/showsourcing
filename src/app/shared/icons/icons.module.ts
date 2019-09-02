@@ -9,7 +9,7 @@ import { ImageModule } from '~shared/image/image.module';
 		CommonModule,
 		ImageModule
 	],
-	declarations: [IconComponent, LogoComponent],
-	exports: [IconComponent, LogoComponent]
+	declarations: [IconComponent],
+	exports: [IconComponent]
 })
 export class IconsModule { }
