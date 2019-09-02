@@ -16,6 +16,7 @@ import { ImageModule } from '~shared/image/image.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { IconsModule } from '~shared/icons';
 import { ImagePreviewerComponent } from './image-previewer/image-previewer.component';
+import { IconSymbolsComponent } from './icon-symbols/icon-symbols.component';
 
 // TODO: one of those components is imported in the real app...
 
@@ -39,7 +40,8 @@ import { ImagePreviewerComponent } from './image-previewer/image-previewer.compo
 		SelectorEntityComponent,
 		SelectorConstComponent,
 		SelectorDeprecatedComponent,
-		ImagePreviewerComponent
+		ImagePreviewerComponent,
+		IconSymbolsComponent
 	],
 	exports: [
 		ProductGridCardDeprecatedComponent,
