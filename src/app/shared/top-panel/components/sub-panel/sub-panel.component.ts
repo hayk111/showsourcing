@@ -28,6 +28,7 @@ import { AutoUnsub } from '~utils';
 })
 export class SubPanelComponent extends AutoUnsub implements OnInit {
 	isArchivedShown = false;
+	archiveChecked = false;
 	isAssigned = false;
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
@@ -137,7 +138,17 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	archiveChange() {
+	toggleArchived() {
+		this.isArchivedShown = !this.isArchivedShown;
+		this.archivedChange();
+	}
+
+	toggleAssigned() {
+		this.isAssigned = !this.isAssigned;
+		this.assignedChange();
+	}
+
+	private archivedChange() {
 		if (this.isArchivedShown) {
 			this.showArchived.emit();
 		} else {
@@ -145,7 +156,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	assignedChange() {
+	private assignedChange() {
 		if (this.isAssigned) {
 			this.showAssigned.emit();
 		} else {

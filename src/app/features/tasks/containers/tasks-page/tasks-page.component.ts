@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges, ViewChild, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { FilterType } from '~shared/filters';
 import { CommonModalService } from '~common/modals';
-import { UserService, SampleService } from '~core/entity-services';
+import { UserService, TaskService } from '~core/entity-services';
 import { ListPageService, ListPageKey } from '~core/list-page';
-import { ERM, Sample } from '~models';
+import { ERM, Task } from '~models';
+import { CreationTaskDlgComponent } from '~common/modals';
 import { AutoUnsub } from '~utils';
 import { DialogService } from '~shared/dialog';
 import { NotificationService } from '~shared/notifications';
@@ -14,15 +15,17 @@ import { SelectParamsConfig } from '~core/entity-services/_global/select-params'
 import { SelectParams } from '~core/entity-services/_global/select-params';
 
 @Component({
-	selector: 'samples-page-app',
-	templateUrl: './samples-page.component.html',
-	styleUrls: ['./samples-page.component.scss'],
+	selector: 'tasks-page-app',
+	templateUrl: './tasks-page.component.html',
+	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
 		ListPageService,
 		CommonModalService
 	]
 })
-export class SamplesPageComponent extends AutoUnsub implements OnInit {
+export class TasksPageComponent extends AutoUnsub implements OnInit {
+	public tableWidth: string;
+
 	erm = ERM;
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
@@ -37,13 +40,13 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		FilterType.TAGS
 	];
 
-	samplesCount$: Observable<number>;
+	tasksCount$: Observable<number>;
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		public commonModalSrv: CommonModalService,
-		public listSrv: ListPageService<Sample, SampleService>,
-		private sampleSrv: SampleService,
+		public listSrv: ListPageService<Task, TaskService>,
+		private taskSrv: TaskService,
 		public elem: ElementRef,
 		protected dlgSrv: DialogService,
 		private userSrv: UserService,
@@ -54,22 +57,18 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const selectParams = new SelectParams({ sortBy: 'name' });
 		this.listSrv.setup({
-			key: ListPageKey.REQUEST,
-			entitySrv: this.sampleSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
-			entityMetadata: ERM.SAMPLE,
+			key: ListPageKey.TASK,
+			entitySrv: this.taskSrv,
+			searchedFields: ['name'],
+			entityMetadata: ERM.TASK,
 			initialFilters: [],
 			originComponentDestroy$: this._destroy$,
 			selectParams
 		});
 
-		this.samplesCount$ = this.listSrv.filterList.valueChanges$.pipe(
-			switchMap(_ => this.sampleSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
+		this.tasksCount$ = this.listSrv.filterList.valueChanges$.pipe(
+			switchMap(_ => this.taskSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
-
-		this.sampleSrv.sampleListUpdate$.pipe(
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
 	}
 
 	toggleMyProducts(show: boolean) {
@@ -80,19 +79,12 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 			this.listSrv.removeFilter(filterAssignee);
 	}
 
-	getFilterAmount() {
-		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
-		const filters = this.listSrv.filterList.asFilters()
-			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
-		return filters.length;
-	}
-
 	onViewChange(view: 'list' | 'card') {
 		this.listSrv.changeView(view);
 	}
 
-	onFavourite(sample: Sample) {
-		this.listSrv.onItemFavorited(sample.id);
+	onFavourite(task: Task) {
+		this.listSrv.onItemFavorited(task.id);
 	}
 
 	showItemsPerPage(count: number) {

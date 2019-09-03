@@ -1,6 +1,7 @@
 .flex {
 	align-items: center;
-	color: var(--color-txt-primary);
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
 }
 
 .currency {
@@ -10,6 +11,6 @@
 }
 
 .price-desc {
-  font-size: 12px;
-  color: var(--txt-primary);
+  font-size: var(--font-size-s);
+	color: var(--color-txt-secondary)
 }

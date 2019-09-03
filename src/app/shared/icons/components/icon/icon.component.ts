@@ -2,7 +2,7 @@ import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input } from
 import { FontSet } from '~shared/icons/components/font-set.enum';
 
 
-export type Sizes = 's' | 'ms' | 'm' | 'l' | 'inherit';
+export type Sizes = 'xs' | 's' | 'ms' | 'm' | 'l' | 'inherit';
 
 @Component({
 	selector: 'icon-app',
@@ -37,6 +37,7 @@ export class IconComponent {
 
 	getComputedSize() {
 		switch (this.size) {
+			case 'xs':
 			case 's':
 			case 'ms':
 			case 'm':

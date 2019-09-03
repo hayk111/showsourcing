@@ -26,18 +26,18 @@
 	
 	  <!-- dynamic columns -->
 		<ng-template 
-    *ngFor="let column of columnsConfig; trackBy: trackByFn" 
-    let-row="row" 
-    [columnApp]="column.title"
-    [width]="column.width"
-		[sortBy]="column.sortProperty">
+			*ngFor="let column of columnsConfig; trackBy: trackByFn" 
+			let-row="row" 
+			[columnApp]="column.title"
+			[width]="column.width"
+			[sortBy]="column.sortProperty">
 		
     <ng-container [ngSwitch]="column.title">
 			<!-- name -->
 			<ng-container *ngSwitchCase="'reference'">
 				<div class="mainCellWrapper name-container ellipsis">
 					<div class="mainCell">
-						<img-app [image]="row?.images ? row?.images[0] : null" type="sample" size="s"></img-app>
+						<logo-app [logo]="row?.images ? row?.images[0] : null" type="task" size="s"></logo-app>
 						<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 					</div>
 					<div class="preview">
@@ -58,7 +58,7 @@
 				<ng-container *ngSwitchCase="'status'">
 				<status-selector-app
 					[entity]="row"
-					[typeEntity]="erm.SAMPLE">
+					[typeEntity]="erm.TASK">
 				</status-selector-app>
 			</ng-container>
 

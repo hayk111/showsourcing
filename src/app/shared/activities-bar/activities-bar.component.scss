@@ -1,10 +1,14 @@
 icon-app {
-	margin: 0 5px;
+	margin: 0 var(--spacing-s);
+
+	&:first-child {
+    margin-left: var(--spacing-xs);
+	}
 }
 
 icon-app.star {
 	display: inline;
-	margin: 0 2px 0 0;
+	margin: 0 var(--spacing-xs) 0 0;
 }
 
 .icons-container > icon-app:not(.favourite) {
@@ -17,10 +21,10 @@ icon-app.star {
 
 .vote-star-container {
 	cursor: pointer;
-	width: 45px;
 	border-radius: var(--border-radius);
 	color: var(--color-accent);
-	margin: 0 5px;
+	margin-left: var(--spacing-xs);
+	padding: var(--spacing-xs);
 }
 
 .vote-star-value {
@@ -28,7 +32,7 @@ icon-app.star {
   height: 18px;
   font-size: 14px;
   font-weight: 600;
-	color: var(--color-accent-contrast);
+	color: var(--color-accent-dark);
 	margin: 0 0 0 2px;	
 }
 

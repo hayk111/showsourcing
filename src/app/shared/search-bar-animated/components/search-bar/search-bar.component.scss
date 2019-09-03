@@ -1,7 +1,7 @@
 :host {
 	display: flex;
 	background: white;
-	height: 32px;
+	height: 34px;
 	border: 1px solid var(--legacy-color-secondary);
 	border-radius: var(--border-radius);
 	width: 378px;
@@ -10,6 +10,7 @@
 		border: 1px solid #45adff;
 	}
 	input {
+		height: 100%;
 		border: none;
 		outline: none;
 		background: transparent;

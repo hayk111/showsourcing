@@ -10,7 +10,7 @@
 	[hasFilter]="true"
 	[hasThumb]="false"
 	[view]="listSrv.view"
-	entityType="samples"
+	entityType="suppliers"
 	searchType="short"
 	[count]="listSrv.count$ | async"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
@@ -74,7 +74,7 @@
 				(onFavorite)="listSrv.onFavoriteAllSelected()"
 				(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
 				<button class="icon light" (click)="listSrv.deleteSelected()">
-					<icon-app name="trash-bin"></icon-app>
+					<icon-app name="trash"></icon-app>
 				</button>
 			</action-bar-app>
 		</div>
