@@ -14,15 +14,14 @@
 }
 
 .preview-imgs {
-	float: left;
 	position: relative;
-	overflow: hidden;
 	border-radius: var(--border-radius);
 }
 
 .preview-imgs .hover-img {
 	background-color: rgb(69, 173, 255, 0.5);
 	position: absolute;
+	border-radius: var(--border-radius);
 	color: var(--color-bg);
 	position: absolute;
 	cursor: pointer;
@@ -31,6 +30,10 @@
 	bottom: 0;
 	right: 0;
 	display: none;
+}
+
+.reference {
+	display: flex;
 }
 
 .preview-imgs:hover .hover-img {
@@ -82,7 +85,7 @@
 }
 
 .ref-ctnr {
-	margin-left: 44px;
+	margin-left: var(--spacing-ms);
 	.product-ref {
 		width: 160px;
 		height: 18px;

@@ -10,18 +10,20 @@
 	}
 }
 
+.reference {
+	display: flex;
+}
+
 .imgCtnr {
 	border-radius: var(--border-radius);
 	width: 32px;
 	height: 32px;
 	cursor: pointer;
-	float: left;
 	overflow: hidden;
 	flex-shrink: 0;
 }
 
 .preview-imgs {
-	float: left;
 	position: relative;
 	overflow: hidden;
 	border-radius: var(--border-radius);
@@ -52,6 +54,10 @@
   font-size: var(--font-size-m);
   font-weight: 600;
   color: var(--color-accent-contrast);
+}
+
+.ref-ctnr {
+	margin-left: var(--spacing-xs);
 }
 
 .supplier-ref {

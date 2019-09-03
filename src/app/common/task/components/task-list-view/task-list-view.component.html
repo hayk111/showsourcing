@@ -37,7 +37,7 @@
 			<ng-container *ngSwitchCase="'reference'">
 				<div class="mainCellWrapper name-container ellipsis">
 					<div class="mainCell">
-						<img-app [image]="row?.images ? row?.images[0] : null" type="task" size="s"></img-app>
+						<logo-app class="mini imgCtnr" [logo]="row?.images ? row?.images[0] : null" size="m" type="task"></logo-app>
 						<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 					</div>
 					<div class="preview">
