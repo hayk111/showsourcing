@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges, ViewChild, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { FilterType } from '~shared/filters';
 import { CommonModalService } from '~common/modals';
 import { UserService, SampleService } from '~core/entity-services';
@@ -66,6 +66,10 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.samplesCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.sampleSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
+
+		this.sampleSrv.sampleListUpdate$.pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 
 	toggleMyProducts(show: boolean) {

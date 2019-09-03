@@ -7,7 +7,11 @@ export abstract class TaskQueries extends GlobalQueries {
 	static readonly product = `product { id, name, images { id, fileName, urls { id, url} }}`;
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, fileName, urls { id, url} } }`;
 	static readonly user = (name) => `${name} { id, lastName, firstName, avatar { id, fileName, urls { id, url} } }`;
-	static readonly comments = `comments { id, text, ${TaskQueries.user('createdBy')}, creationDate }`;
+	static readonly comments = `comments {
+		id, text, creationDate, lastUpdatedDate, deleted,
+		${TaskQueries.user('createdBy')},
+		${TaskQueries.user('lastUpdatedBy')}
+	}`;
 	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
 	static readonly extendedFields = `extendedFields {
 		id, value,

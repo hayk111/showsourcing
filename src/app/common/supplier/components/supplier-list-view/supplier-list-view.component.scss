@@ -10,42 +10,54 @@
 	}
 }
 
+.reference {
+	display: flex;
+}
+
 .imgCtnr {
 	border-radius: var(--border-radius);
 	width: 32px;
 	height: 32px;
 	cursor: pointer;
-	float: left;
 	overflow: hidden;
 	flex-shrink: 0;
 }
 
-.hover-img {
-	background-color: var(--color-primary-with-opacity);
+.preview-imgs {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--border-radius);
 }
 
 .preview-imgs:hover .hover-img {
-  display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .preview-imgs .hover-img {
-	position: absolute;
-  left: 0px;
-	top: 0px;
-	border-radius: var(--border-radius);
 	width: 32px;
-	height: 32px;
-	display: none;
+	background-color: rgb(69, 173, 255, 0.5);
+	position: absolute;
+	color: var(--color-bg);
+	border-radius: var(--border-radius);
+	position: absolute;
 	cursor: pointer;
-	float: left;
-	overflow: hidden;
-	flex-shrink: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	display: none;
 }
 
 .type {
   font-size: var(--font-size-m);
   font-weight: 600;
   color: var(--color-accent-contrast);
+}
+
+.ref-ctnr {
+	margin-left: var(--spacing-xs);
 }
 
 .supplier-ref {

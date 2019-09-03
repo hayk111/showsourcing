@@ -33,7 +33,11 @@ export abstract class ProductQueries extends GlobalQueries {
 	// uncomment and replace when the Image.creationDate bug is fixed on votes, avatar { id, fileName, imageType, creationDate }
 	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
 	static readonly user = (name: string) => `${name} { id, firstName, lastName, avatar { id, urls { id, url } } }`;
-	static readonly comments = `comments { id, text, ${ProductQueries.user('createdBy')}, creationDate }`;
+	static readonly comments = `comments {
+		id, text, creationDate, lastUpdatedDate, deleted,
+		${ProductQueries.user('createdBy')},
+		${ProductQueries.user('lastUpdatedBy')}
+	}`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { id, url } }}`;
