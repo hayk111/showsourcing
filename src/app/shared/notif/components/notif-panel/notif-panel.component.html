@@ -1,22 +1,23 @@
-<card-app class="notification-container">
-
+<card-app
+	*ngIf="notifActivitySrv.isPanelOpen"
+	class="notification-container"
+	[@paneAnimationTrigger]
+	(@paneAnimationTrigger.done)="endAnimation.emit()"
+	(@paneAnimationTrigger.start)="startAnimation.emit()">
 	<card-title-app>
 		<icon-app
 			class="close-pane-button"
 			name="close-pane-left"
-			(click)="notifActivitySrv.closeNotificationPanel()"
-		>
+			(click)="closePanel($event)">
 		</icon-app>
 		<p class="title">
 			Notifications
 		</p>
 	</card-title-app>
 
-	<card-action-app>
-		<p class="color-primary" (click)="notifActivitySrv.markAllAsRead()">
+	<card-action-app class="mark-read-button" (click)="notifActivitySrv.markAllAsRead()" >
 			Mark all as read
-		</p></card-action-app
-	>
+	</card-action-app>
 
 	<notif-list-app [activities]="results"></notif-list-app>
 </card-app>

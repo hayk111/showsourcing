@@ -11,6 +11,7 @@ import { AutoUnsub } from '~utils';
 
 })
 export class NotifComponent extends AutoUnsub implements OnInit {
+	pendingForAnimation = false;
 	@Input() notifications: GetStreamNotification = null;
 
 	notificationsMarkedAsReadSubscription: Subscription;

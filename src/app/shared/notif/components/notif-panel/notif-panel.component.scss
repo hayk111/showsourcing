@@ -9,6 +9,10 @@ card-app {
 	box-shadow: 4px 0 12px 4px rgba(0, 0, 0, 0.1);
 	background-color: #ffffff;
 	z-index: var(--z-dialog-container);
+	card-action-app {
+		height: 32px !important;
+		color: var(--color-primary) !important;
+	}
 	card-title-app {
 		.close-pane-button {
 			font-size: var(--font-size-xxxl);
