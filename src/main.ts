@@ -11,7 +11,7 @@ log.info('%c 🐱‍🚀 App init ', LogColor.METADATA);
 console.log(`%c 🎱 App version: ${environment.version}`, 'color: salmon');
 
 const temp = console.log;
-console.log = (...args) => temp('IDIOT', ...args);
+console.log = (...args) => temp('IDIOT lol', ...args);
 
 if (environment.production) {
 	enableProdMode();
