@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
-import { Sort } from '~shared/table/components/sort.interface';
 
 
 const tableConfig: TableConfig = {
@@ -14,7 +13,7 @@ const tableConfig: TableConfig = {
 	moq: { title: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
 	price: { title: 'price', width: 120, sortProperty: 'price.value' },
 	projects: { title: 'projects', width: 190, sortProperty: 'creationDate' },
-	reference: { title: 'reference', width: 190, sortProperty: 'reference' },
+	reference: { title: 'reference', width: 247, sortProperty: 'reference' },
 	status: { title: 'status', width: 190, sortProperty: 'status.step' },
 	supplier: { title: 'supplier', width: 190, sortProperty: 'supplier.id' },
 };
