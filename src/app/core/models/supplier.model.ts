@@ -33,6 +33,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	status?: SupplierStatus;
 	comments?: Comment[];
 	lastUpdatedBy?: User;
+	archived?: boolean;
 	// extendedFields?: ExtendedField[];
 	__typename ?= 'Supplier';
 }
