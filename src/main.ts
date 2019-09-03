@@ -10,6 +10,10 @@ log.info('%c 🐱‍🚀 App init ', LogColor.METADATA);
 // using console log so it's not removed in production..
 console.log(`%c 🎱 App version: ${environment.version}`, 'color: salmon');
 
+const temp = console.log;
+console.log = (...args) => temp('IDIOT', ...args);
+console.log('lol');
+
 if (environment.production) {
 	enableProdMode();
 }
