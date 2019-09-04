@@ -12,7 +12,7 @@ sub-panel-app {
 
 kanban-app {
 	height: calc(100% - 50px);
-	padding: 0 20px 20px 20px;
+	padding: 0 20px 20px 98px;
 	box-sizing: border-box;
 }
 
@@ -21,7 +21,7 @@ icon-app {
 	font-size: var(--font-size-xl);
 }
 
-icon-app[name="trash-bin"] {
+icon-app[name="trash"] {
 	font-size: var(--font-size-xxl);
 }
 selection-bar-app {

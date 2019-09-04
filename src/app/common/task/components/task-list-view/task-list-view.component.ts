@@ -1,14 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page';
-import { Sample } from '~core/models';
+import { Task, ERM } from '~core/models';
 
-
-// TODO hayk config this
 const tableConfig: TableConfig = {
-	reference: { title: 'reference', width: 190, sortProperty: 'name' },
-	assignee: { title: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
-	status: { title: 'status', width: 190, sortProperty: 'status.step' },
-	creationDate: { title: 'created on', width: 190, sortProperty: 'creationDate' },
+	reference: { title: 'reference', width: 80, sortProperty: 'name' },
+	assignee: { title: 'assignee', width: 80, sortProperty: 'assignee.firstName' },
+	status: { title: 'status', width: 80, sortProperty: 'status.step', sortable: false },
+	creationDate: { title: 'created on', width: 80, sortProperty: 'creationDate' },
 };
 
 @Component({
@@ -20,9 +18,11 @@ const tableConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskListViewComponent extends ListViewComponent<Sample> {
-	columns = [ 'reference', 'assignee', 'status', 'creationDate' ]; // TODO hayk add default columns here
+export class TaskListViewComponent extends ListViewComponent<Task> {
+
+	columns = [ 'reference', 'assignee', 'status', 'creationDate' ];
 	tableConfig = tableConfig;
+	erm = ERM;
 
 	constructor() { super(); }
 

@@ -8,20 +8,20 @@
 	<button class="flexCenter {{ view === 'list' ? 'selected' : ''}}" 
 		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
 		(mousedown)="switchView('list')">
-		<icon-app class="list" [name]="switchContent[0]"></icon-app>
+		<icon-app class="list" name="list-menu"></icon-app>
 		<ng-container i18n="text@@list">List</ng-container>
 	</button>
 	<button class="flexCenter {{ view === 'board' ? 'selected' : ''}}"
 		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
 		(mousedown)="switchView('board')">
-		<icon-app class="board" [name]="switchContent[1]"></icon-app>
+		<icon-app class="board" name="kanban"></icon-app>
 		<ng-container i18n="text@@list">Board</ng-container>
 	</button>
 	<button *ngIf="hasThumb" 
 		class="flexCenter {{ view === 'card' ? 'selected' : ''}}" 
 		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
 		(mousedown)="switchView('card')">
-		<icon-app class="board" [name]="switchContent[2]"></icon-app>
-		<ng-container i18n="text@@thumb">Thumb</ng-container>
+		<icon-app class="cards" name="cards"></icon-app>
+		<ng-container i18n="text@@thumb">Grid</ng-container>
 	</button>
 </div>

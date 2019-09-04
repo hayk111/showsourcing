@@ -14,7 +14,7 @@
 			<label-app i18n="@@provide-name-create"> Please provide the {{ type.singular | const: 'erm' }} name to create </label-app>
 		</form>
 
-		<dialog-footer-app *ngIf="!pending ">
+		<dialog-footer-app *ngIf="!pending">
 			<div class="color-warn" *ngIf="exists$ | async" i18n="@@that-already-exists">That {{ type.singular | const: 'erm' }} name already exists. Please choose another one.</div>
 			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" class="secondary" value="Create & Stay" (click)="onSubmit(false)"/>
 			<span *ngIf="canRedirect" class="spacer mg-s"></span>

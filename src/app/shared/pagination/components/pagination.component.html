@@ -14,13 +14,13 @@ index: {{ currentPage }}  -->
 	<button
 		class="arrow-btn"
 		(click)="goToFirstPage(currentPage === 0)">
-		<icon-app name="double-fat-angle-left" size="s" [ngClass]="{ disabled: currentPage === 0 }"></icon-app>
+		<icon-app name="double-fat-angle-left" size="xs" [ngClass]="{ disabled: currentPage === 0 }"></icon-app>
 	</button>
 
 	<button
 		class="arrow-btn"
 		(click)="goToPreviousPage(currentPage === 0)">
-		<icon-app name="fat-angle-left" size="s" [ngClass]="{ disabled: currentPage === 0 }"></icon-app>
+		<icon-app name="fat-angle-left" size="xs" [ngClass]="{ disabled: currentPage === 0 }"></icon-app>
 	</button>
 
 	<button [ngClass]="{ selected: page === currentPage }" 
@@ -32,13 +32,13 @@ index: {{ currentPage }}  -->
 	<button
 		class="arrow-btn"
 		(click)="goToNextPage(currentPage === totalPages - 1)">
-		<icon-app name="fat-angle-right" size="s" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
+		<icon-app name="fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
 	</button>
 
 	<button
 		class="arrow-btn"
 		(click)="goToLastPage(currentPage === totalPages - 1)">
-		<icon-app name="double-fat-angle-right" size="s" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
+		<icon-app name="double-fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
 	</button>
 
 	<div class="right" *ngIf="hasPageItemsCount">
@@ -46,7 +46,7 @@ index: {{ currentPage }}  -->
 			<option *ngFor="let i of pageItemsCount">{{i}}</option>
 		</select>
 		<span class="items-page-count">
-			{{getPerPageItemsCount()}}
+			{{ getPerPageItemsCount() }}
 		</span>
 	</div>
 

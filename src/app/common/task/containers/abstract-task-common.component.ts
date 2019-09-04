@@ -76,7 +76,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 				filter((event: CloseEvent) => event.type === CloseEventType.OK),
 				switchMap(_ => this.listSrv.refetch())
 		).subscribe();
-}
+	}
 
 	openProduct(id: string) {
 		this.router.navigate([ERM.PRODUCT.singular, id]);

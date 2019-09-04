@@ -37,6 +37,10 @@ export class SidebarComponent implements OnInit {
 		this.notifications$ = this.notifActivitySrv.getNotifications();
 	}
 
+	openNotifPanel() {
+		this.notifActivitySrv.openNotificationPanel();
+	}
+
 	logout() {
 		this.authSrv.logout();
 	}

@@ -23,6 +23,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class ImagePipe implements PipeTransform {
 
+	private fileUrl = 'https://files.showsourcing.com';
+
 	constructor(private sanitizer: DomSanitizer) { }
 
 	sizeIndexMap = new Map([
@@ -82,6 +84,12 @@ export class ImagePipe implements PipeTransform {
 				if (Array.isArray(value.images)) {
 					return value.images[0].urls[sizeIndex].url;
 				}
+
+				// Preview uploaded image case
+				if (value.hasOwnProperty('fileName')) {
+					return `${this.fileUrl}/xl/${value.fileName}`; // default size is taken xl, can be changed later
+				}
+
 			}
 			// if it's a string we return the url made of with that string
 			return `${ImageUrls[size]}/${value}`;

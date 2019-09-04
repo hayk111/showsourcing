@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./notif-layout.component.scss'],
 })
 export class NotifLayoutComponent implements OnInit {
+	@Input() pendingForAnimation = false;
 	@Input() isOpen = false;
 
 	constructor() {

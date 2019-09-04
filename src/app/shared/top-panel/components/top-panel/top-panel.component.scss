@@ -1,11 +1,11 @@
 :host {
-	margin: 0 var(--spacing-l);
-	height: 65px;
+	margin: 24px 114px 0 98px;
+	padding-bottom: var(--spacing-ms);
 	flex-shrink: 0;
 	border-bottom: 1px solid var(--legacy-color-divider);
 
 	h2 {
-		width: 149px;
+		width: 155px;
 		height: 36px;
 		font-size: var(--font-size-xxxxl);
 		font-weight: 600;

@@ -1,20 +1,18 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
-import { Sort } from '~shared/table/components/sort.interface';
 
 
 const tableConfig: TableConfig = {
-	activities: { title: 'activities', width: 190 },
-	assignee: { title: 'assignee', width: 50, sortProperty: 'assignee.firstName' },
+	activities: { title: 'activities', width: 190, sortable: false },
 	category: { title: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { title: 'created by', width: 140, sortProperty: 'createdBy.firstName' },
+	createdBy: { title: 'created by', width: 140, sortProperty: 'creationDate' },
 	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate' },
 	favorite: { title: 'favorite', width: 50, sortProperty: 'favorite' },
 	moq: { title: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
 	price: { title: 'price', width: 120, sortProperty: 'price.value' },
 	projects: { title: 'projects', width: 190, sortProperty: 'creationDate' },
-	reference: { title: 'reference', width: 190, sortProperty: 'reference' },
+	reference: { title: 'reference', width: 247, sortProperty: 'reference' },
 	status: { title: 'status', width: 190, sortProperty: 'status.step' },
 	supplier: { title: 'supplier', width: 190, sortProperty: 'supplier.id' },
 };
@@ -28,7 +26,7 @@ const tableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsListViewComponent extends ListViewComponent<Product> {
-	columns = [ 'reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status', 'assignee' ];
+	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 	tableConfig = tableConfig;
 	@Input() tableWidth: number;
 	@Output() setFavourite = new EventEmitter<Product>();

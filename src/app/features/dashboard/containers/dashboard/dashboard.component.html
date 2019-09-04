@@ -1,4 +1,7 @@
+<dashboard-header-app></dashboard-header-app>
 <div class="ctnr">
+	<div class="scorllable-background">
+	</div>
 	<div class="left">
 		<notif-box-app></notif-box-app>
 		<ng-container *ngIf="feedResult?.feed$ | async as feed">
@@ -21,8 +24,8 @@
 			(updateTask)="updateTask($event)">
 		</dashboard-summary-app>
 		<team-card-app
-			(inviteTeam)="redirInviteTeam()">
-		</team-card-app>
+		(inviteTeam)="redirInviteTeam()">
+	 </team-card-app>
 		<!-- <events-card-app></events-card-app> -->
 	</div>
 </div>

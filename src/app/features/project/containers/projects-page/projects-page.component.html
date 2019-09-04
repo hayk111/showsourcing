@@ -23,6 +23,7 @@
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
+		[currentSort]="listSrv.currentSort"
 		[currentPage]="listSrv.currentPage"
 		(goToPage)="listSrv.loadPage($event)"
     (select)="listSrv.selectOne($event, true)"
@@ -39,7 +40,7 @@
     (close)="listSrv.unselectAll()">
     <action-bar-app [hasHeart]="false" [hasLikes]="false">
       <button class="icon light" (click)="listSrv.deleteSelected()">
-        <icon-app name="trash-bin" size="m"></icon-app>
+        <icon-app name="trash" size="m"></icon-app>
       </button>
     </action-bar-app>
   </selection-bar-app>

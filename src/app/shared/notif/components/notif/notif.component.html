@@ -3,7 +3,6 @@
 	<icon-app
 		name="bell"
 		class="bell-color-primary-contrast"
-		(click)="openPanel()"
 	></icon-app>
 	<span class="notif-badge circle flexCenter" *ngIf="notifications?.unread > 0">
 		{{notifications?.unread}}
@@ -11,10 +10,13 @@
 </div>
 <notif-layout-app
 	[isOpen]="notifActivitySrv.isPanelOpen"
+	[pendingForAnimation]="pendingForAnimation"
 >
 	<notif-panel-app
 	[results] = "notifications?.results"
 	(clickOutside)="closePanel()"
+	(endAnimation)="onAnimationEnd()"
+	(startAnimation)="onAnimationStart()"
 	></notif-panel-app>
 </notif-layout-app>
 

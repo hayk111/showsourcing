@@ -41,6 +41,7 @@
 		*ngFor="let column of columnsConfig; trackBy: trackByFn" 
 		let-row="row" 
 		[columnApp]="column.title"
+		[sortable]="column.sortable !== false"
 		[width]="column.width"
 		[sortBy]="column.sortProperty">
 
@@ -49,15 +50,25 @@
 			<!-- reference -->
 			<ng-container *ngSwitchCase="'reference'">
 				<div class="ellipsis name-container contain-strict">
-					<div class="ellipsis">
-						<logo-app [logo]="row.logoImage" [ngStyle]="{'float': 'left'}" type="supplier" size="m"></logo-app>
-						<span class="supplier-ref ellipsis">
-							<a class="name txt-btn" [routerLink]="['/supplier', row.id]">
+					<div class="ellipsis reference">
+						<div class="preview-imgs" (click)="previewClick.emit(row)">
+							<logo-app class="imgCtnr" (click)="previewClick.emit(row)" [logo]="row.logoImage" 
+							 type="supplier" size="m"></logo-app>
+							<div class="hover-img">
+								<icon-app name="eye" [size]="18" class="preview-hover-img"></icon-app>
+							</div>
+						</div>
+
+						<div class="flexColumn ref-ctnr">
+							<span class="supplier-ref ellipsis">
+								<a class="name txt-btn" [routerLink]="['/supplier', row.id]">
+									{{ row.reference || '-' }}
+								</a>
+							</span>
+				
+							<div class="supplier-name-ref">
 								{{ row.name || '-' }}
-							</a>
-						</span>
-						<div class="supplier-name-ref">
-							{{ row.name || '-' }}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -100,10 +111,18 @@
 					[votes]="row?.votes">
 				</activities-bar-app>
 			</ng-container>
-		
+
 			<!-- status -->
-			<ng-container *ngSwitchCase="'status'">
-				<status-selector-app [entity]="row" [typeEntity]="supplierErm" selectSize="s"></status-selector-app>
+      <ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<user-picture-app 
+						[user]="row?.createdBy" 
+						[image]="row.createdBy?.avatar" 
+						[background]="false" 
+						[fontSize]="16" 
+						size="32"></user-picture-app>
+					<status-selector-app [entity]="row" [typeEntity]="supplierErm" selectSize="s"></status-selector-app>
+				</div>
 			</ng-container>
 		</ng-container>
 	</ng-template>

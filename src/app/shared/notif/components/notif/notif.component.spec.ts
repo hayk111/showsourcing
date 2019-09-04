@@ -8,7 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ApolloTestingModule } from 'apollo-angular/testing';
 import { Angulartics2Module } from 'angulartics2';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 class MockNotifService {
@@ -41,7 +42,8 @@ describe('notif component', () => {
 				RouterTestingModule,
 				ApolloTestingModule,
 				HttpClientTestingModule,
-				Angulartics2Module.forRoot()
+				Angulartics2Module.forRoot(),
+				BrowserAnimationsModule
 			],
 			providers: [
 				{ provide: NotificationActivityService, useClass: MockNotifService }
@@ -72,8 +74,9 @@ describe('notif component', () => {
 		expect(badge).toBeFalsy();
 	});
 
-	it('should close panel on closePanel and open on openPanel', () => {
+	it('should close panel on closePanel and open on openPanel if pendingForAnimation is false', () => {
 		component.closePanel();
+		component.pendingForAnimation = false;
 		fixture.detectChanges();
 		let notificationPanel = element.querySelector('notif-panel-app');
 		expect(notificationPanel).toBeFalsy();

@@ -10,7 +10,7 @@ $filters-pane-width: 300px;
 	overflow-x: hidden;
 	overflow-y: auto;
 	box-sizing: border-box;
-	padding: var(--spacing-l);
+	padding: 30px var(--spacing-l);
 	height: 100vh;
 }
 
@@ -18,6 +18,15 @@ $filters-pane-width: 300px;
 	:host {
 		position: absolute;
 		box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
+		bottom: 0;
+		width: $filters-pane-width;
+		right: 0;
+	}
+}
+
+@media only screen and (min-width: $max-screen-overlap) {
+	:host {
+		position: absolute;
 		bottom: 0;
 		width: $filters-pane-width;
 		right: 0;

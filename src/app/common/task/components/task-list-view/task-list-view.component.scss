@@ -1,7 +1,3 @@
-:host {
-	height: 100% !important;
-}
-
 .assignee-container {
 	align-items: center;
 }
@@ -9,6 +5,16 @@
 .number {
 	color: var(--legacy-color-txt-strong);
 	font-weight: 600;
+}
+
+user-picture-app {
+	margin-right: 0 !important;
+}
+
+.status-col {
+	status-selector-app {
+		margin-left: var(--spacing-ms);
+	}
 }
 
 .name-container {

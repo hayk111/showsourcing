@@ -4,6 +4,7 @@ import { IconsModule } from '~shared/icons/icons.module';
 import { UtilsModule } from '~shared/utils';
 import { DividerModule } from '~shared/divider/divider.module';
 import { CardModule } from '~shared/card/card.module';
+import { LoadersModule } from '~shared/loaders';
 import {
 	NotifComponent,
 	NotifEmptyComponent,
@@ -15,7 +16,7 @@ import {
 } from '~shared/notif/components';
 
 @NgModule({
-	imports: [CommonModule, IconsModule, UtilsModule, DividerModule, CardModule],
+	imports: [CommonModule, IconsModule, UtilsModule, DividerModule, CardModule, LoadersModule],
 
 	declarations: [
 		NotifComponent,
