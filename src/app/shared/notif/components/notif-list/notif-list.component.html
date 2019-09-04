@@ -1,15 +1,15 @@
 <div
-	infiniScroll
 	[ngClass]="{
 		'list-container': !isDashboardBox,
 		flexCenter: activities?.length === 0
 	}"
-	(bottomReached)="loadMore()"
->
+	infiniScroll
+	(bottomReached)="loadMore()">
+
 	<div
 		*ngFor="let activity of activities; last as isLast"
-		[ngClass]="{ 'notif-feed': !isDashboardBox }"
-	>
+		[ngClass]="{ 'notif-feed': !isDashboardBox }">
+
 		<notif-item-app
 			class="notification-item"
 			[activity]="activity"
@@ -22,8 +22,10 @@
 			</div>
 		</ng-container>
 	</div>
+
 	<notif-empty-app
 		*ngIf="activities?.length === 0"
 		class="empty-notification">
 	</notif-empty-app>
+
 </div>
