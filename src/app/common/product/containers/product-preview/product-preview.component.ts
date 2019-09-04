@@ -90,43 +90,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	) {
 		super();
 
-		this.actions = [
-			{
-				icon: 'camera',
-				fontSet: '',
-				text: translate('add picture'),
-				action: this.openFileBrowser.bind(this)
-			},
-			{
-				icon: 'project',
-				fontSet: '',
-				text: translate('add'),
-				action: null,
-				subMenuItems: [{
-					icon: 'new_task',
-					fontSet: '',
-					text: translate('add a task'),
-					action: this.openNewTask.bind(this),
-				}, {
-					icon: 'sample',
-					fontSet: '',
-					text: translate('add a sample'),
-					action: this.openNewSample.bind(this),
-				}]
-			},
-			{
-				icon: 'comments',
-				fontSet: '',
-				text: translate(ERM.COMMENT.singular, 'erm'),
-				action: this.scrollToCommentButton.bind(this)
-			},
-			{
-				icon: 'export',
-				text: translate('share'),
-				fontSet: '',
-				action: this.openExportModal.bind(this)
-			}
-		];
+		this.actions = [];
+
 	}
 
 	ngOnInit() {
@@ -146,6 +111,36 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		// TODO i18n
 		this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
 		this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
+
+		this.actions = [
+			{
+				icon: 'sample',
+				fontSet: '',
+				text: translate('add sample'),
+				action: this.openNewSample.bind(this),
+				number: this.product.samplesLinked && this.product.samplesLinked.count
+			},
+			{
+				icon: 'check-circle',
+				fontSet: '',
+				text: translate('add task'),
+				action: this.openNewTask.bind(this),
+				number: this.product.tasksLinked && this.product.tasksLinked.count
+			},
+			{
+				icon: 'comments',
+				fontSet: '',
+				text: translate(ERM.COMMENT.singular, 'erm'),
+				action: this.scrollToCommentButton.bind(this),
+				number: this.product.comments && this.product.comments.length
+			},
+			{
+				icon: 'export',
+				text: translate('export'),
+				fontSet: '',
+				action: this.openExportModal.bind(this)
+			}
+		];
 
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 	}
