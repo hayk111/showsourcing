@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 import { Subscription } from 'apollo-client/util/Observable';
@@ -16,7 +16,10 @@ export class NotifComponent extends AutoUnsub implements OnInit {
 
 	notificationsMarkedAsReadSubscription: Subscription;
 
-	constructor(public notifActivitySrv: NotificationActivityService) {
+	constructor(
+		public notifActivitySrv: NotificationActivityService,
+		private changeDetectorRef: ChangeDetectorRef
+		) {
 		super();
 	 }
 
@@ -28,6 +31,16 @@ export class NotifComponent extends AutoUnsub implements OnInit {
 				}
 				this.notifications.unread--;
 			});
+	}
+
+	onAnimationStart() {
+		this.pendingForAnimation = true;
+		this.changeDetectorRef.detectChanges();
+	}
+
+	onAnimationEnd() {
+		this.pendingForAnimation = false;
+		this.changeDetectorRef.detectChanges();
 	}
 
 	openPanel() {
