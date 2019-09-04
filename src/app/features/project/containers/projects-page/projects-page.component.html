@@ -23,6 +23,7 @@
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
+		[currentSort]="listSrv.currentSort"
 		[currentPage]="listSrv.currentPage"
 		(goToPage)="listSrv.loadPage($event)"
     (select)="listSrv.selectOne($event, true)"

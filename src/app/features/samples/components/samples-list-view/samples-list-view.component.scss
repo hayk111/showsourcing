@@ -54,6 +54,16 @@
   color: var(--color-accent-contrast);
 }
 
+user-picture-app {
+	margin-right: 0 !important;
+}
+
+.status-col {
+	status-selector-app {
+		margin-left: var(--spacing-ms);
+	}
+}
+
 .created-by {
   height: 18px;
   font-size: var(--font-size-m);

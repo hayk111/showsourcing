@@ -31,6 +31,7 @@
 		#supplierList
 		*ngIf="listSrv.view === 'list'"
 		[rows]="listSrv.items$ | async"
+		[currentSort]="listSrv.currentSort"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
@@ -95,10 +96,11 @@
 	</supplier-preview-app>
 
 	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
-		*ngIf="listSrv.filterPanelOpen">
+		(close)="listSrv.closeFilterPanel()">
 	</filters-app>
 
 </ng-container>

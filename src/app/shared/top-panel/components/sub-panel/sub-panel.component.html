@@ -39,6 +39,7 @@
 	</div>
 
 	<div class="right-container flex">
+		<ng-content select="[right-sort-elem]" *ngIf="view === 'card'"></ng-content>
 		<div class="show-archived-container pointer" *ngIf="hasArchived" (click)="toggleArchived()">
 			<div class="flexCenter">
 				<checkbox-app

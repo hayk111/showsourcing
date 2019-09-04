@@ -49,7 +49,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	// TODO this should be transcluded instead
 	@Input() contextualMenu: TemplateRef<any>;
 	/** current sort */
-	@Input() currentSort: Sort;
+	@Input() currentSort: Sort = { sortBy: 'creationDate', descending: true };
 	/** total number of items for pagination */
 	@Input() count = 0;
 
@@ -71,8 +71,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Output() goToPage = new EventEmitter<number>();
 	/** all the columns */
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
-	/** currently sorted column */
-	currentSortedColumn: ColumnDirective;
 
 	/** Different rows displayed */
 	@Input() rows;
@@ -136,7 +134,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 
 	onSort(column: ColumnDirective) {
 		if (!column.sortable)
-			return;
+		return;
 		// remove sorting on all column and add the current sort to the correct one
 		const filtered = this.columns.filter(c => c !== column);
 		filtered.forEach(c => c.resetSort());
@@ -146,7 +144,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			sortBy: column.sortBy,
 			descending: column.sortOrder === 'DESC'
 		});
-		this.currentSortedColumn = column;
+		this.currentSort.sortBy = column.sortBy;
 	}
 
 	isAllSelected(): boolean {

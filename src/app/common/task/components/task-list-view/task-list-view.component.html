@@ -3,6 +3,7 @@
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
 	[count]="count"
 	[currentPage]="currentPage"
 	placeholder="No Tasks"
@@ -29,6 +30,7 @@
 			*ngFor="let column of columnsConfig; trackBy: trackByFn" 
 			let-row="row" 
 			[columnApp]="column.title"
+			[sortable]="column.sortable !== false"
 			[width]="column.width"
 			[sortBy]="column.sortProperty">
 		
@@ -37,7 +39,7 @@
 			<ng-container *ngSwitchCase="'reference'">
 				<div class="mainCellWrapper name-container ellipsis">
 					<div class="mainCell">
-						<logo-app [logo]="row?.images ? row?.images[0] : null" type="task" size="s"></logo-app>
+						<logo-app [logo]="row?.images ? row?.images[0] : null" type="task" size="m"></logo-app>
 						<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 					</div>
 					<div class="preview">
@@ -55,11 +57,16 @@
 			</ng-container>
 
 			<!-- status -->
-				<ng-container *ngSwitchCase="'status'">
-				<status-selector-app
-					[entity]="row"
-					[typeEntity]="erm.TASK">
-				</status-selector-app>
+			<ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<user-picture-app 
+						[user]="row?.createdBy" 
+						[image]="row.createdBy?.avatar" 
+						[background]="false" 
+						[fontSize]="16" 
+						size="32"></user-picture-app>
+					<status-selector-app [entity]="row" [typeEntity]="erm.TASK" selectSize="s"></status-selector-app>
+				</div>
 			</ng-container>
 
 			<!-- created on -->

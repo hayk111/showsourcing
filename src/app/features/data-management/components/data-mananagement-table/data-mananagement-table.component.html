@@ -71,7 +71,6 @@
 		*ngIf="ermEvent !== entityMetadata"
 		[columnApp]="'created by' | const: 'messages'"
 		let-row="row"
-		sortBy="createdBy.firstName"
 		width="140">
 		<span class="centered-text">
 			{{ row?.createdBy ? row?.createdBy?.firstName : '' }} {{ row?.createdBy ? row?.createdBy?.lastName : '' }}

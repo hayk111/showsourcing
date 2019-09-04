@@ -51,7 +51,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() entityType: 'products' | 'suppliers' | 'samples'; // should be filled with all the entity types
 
 	// view that can be switched into
-	@Input() view: 'list' | 'card';
+	@Input() view: 'list' | 'board' | 'card' = 'list';
 
 	// whether the filters tab is opened
 	@Input() filtersPanelOpened = false;

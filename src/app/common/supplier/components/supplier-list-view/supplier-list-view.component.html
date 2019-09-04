@@ -41,6 +41,7 @@
 		*ngFor="let column of columnsConfig; trackBy: trackByFn" 
 		let-row="row" 
 		[columnApp]="column.title"
+		[sortable]="column.sortable !== false"
 		[width]="column.width"
 		[sortBy]="column.sortProperty">
 
@@ -54,7 +55,7 @@
 							<logo-app class="imgCtnr" (click)="previewClick.emit(row)" [logo]="row.logoImage" 
 							 type="supplier" size="m"></logo-app>
 							<div class="hover-img">
-								<icon-app name="eye" size="s" class="preview-hover-img"></icon-app>
+								<icon-app name="eye" [size]="18" class="preview-hover-img"></icon-app>
 							</div>
 						</div>
 
@@ -110,10 +111,18 @@
 					[votes]="row?.votes">
 				</activities-bar-app>
 			</ng-container>
-		
+
 			<!-- status -->
-			<ng-container *ngSwitchCase="'status'">
-				<status-selector-app [entity]="row" [typeEntity]="supplierErm" selectSize="s"></status-selector-app>
+      <ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<user-picture-app 
+						[user]="row?.createdBy" 
+						[image]="row.createdBy?.avatar" 
+						[background]="false" 
+						[fontSize]="16" 
+						size="32"></user-picture-app>
+					<status-selector-app [entity]="row" [typeEntity]="supplierErm" selectSize="s"></status-selector-app>
+				</div>
 			</ng-container>
 		</ng-container>
 	</ng-template>
