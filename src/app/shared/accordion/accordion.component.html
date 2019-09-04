@@ -1,7 +1,7 @@
 
 <div class="topBar clickable flexBetween flexVAlign" (click)="toggle()">
 	<ng-content select="accordion-title-app"></ng-content>
-	<icon-app name="angle-down"></icon-app>
+	<icon-app [name]="isContentShown ? 'angle-down' : 'angle-up'"></icon-app>
 </div>
 
 <divider-app></divider-app>
