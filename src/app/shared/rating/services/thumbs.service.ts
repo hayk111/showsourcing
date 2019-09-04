@@ -22,26 +22,31 @@ export class ThumbService {
 	/**
 	 * computes the current score of the votes given votes
 	 * @param votes array of product votes to be computed
+	 * @result score of the votes per 5
 	 */
 	computeScoreVotes(votes: ProductVote[]) {
 		let score = null;
 		if (votes && votes.length) {
 			votes.forEach(vote => score += vote.value);
 			score /= votes.length;
-			// its done this way to cover all cases, this is called scaling number
-			score = Math.round((score + 0.00001) * 100) / 100;
+			score = Math.round(score) / 20;
 		}
 		return score;
 	}
 
-	getAvgVotes(votes: any[]): number {
+	/**
+	 * computes the current score of the votes given votes
+	 * @param votes array of product votes to be computed
+	 * @result score of the votes per 100
+	 */
+	getAvgVotes(votes: ProductVote[]): number {
 		if (!votes || !votes.length) {
 			return -1;
 		}
 
 		const votesVals = votes.map(vote => vote.value);
 		const sum = votesVals.reduce((votePrev, voteNext) => votePrev + voteNext, 0);
-		return Math.round(sum / votes.length * 10) / 10;
+		return Math.round(sum / votes.length) / 100;
 	}
 
 	// Rating Star section

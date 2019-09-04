@@ -4,7 +4,7 @@
 	<!-- since we know that our score will always have 3 characters what we do is round for 2 numbers and then slice -->
 	<!-- 3.9689 | number: '1.1-2' -> 3.97 | slice:0:3 -> 3.9 -->
 	<div class="number-score">
-		{{ (score / 20 | number: '1.1-2' | slice:0:3 ) || '-'}}
+		{{ (score | number: '1.1-2' | slice:0:3 ) || '-'}}
 	</div>
 	<div class="number-votes flexCenter">
 		{{ totalVotes }} <ng-container i18n="@@votes">votes</ng-container>

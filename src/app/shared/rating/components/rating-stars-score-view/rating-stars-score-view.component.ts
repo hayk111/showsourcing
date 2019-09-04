@@ -37,7 +37,7 @@ export class RatingStarsScoreViewComponent {
 	 * sets votesmap, total values and score
 	 */
 	private setValues() {
-		this.totalVotes = 0;
+		this.totalVotes = this.votes && this.votes.length;
 		// creates a new map [ [1, 0] ... [5, 0] ]
 		this.votesMap = new Map(Array.from({ length: 5 }, (x, i) => ([i + 1, 0])));
 		// we increate the total votes inside the switchase instead of doing totalVotes = votes.length
@@ -46,23 +46,18 @@ export class RatingStarsScoreViewComponent {
 			switch (vote.value) {
 				case 20:
 					this.votesMap.set(1, this.votesMap.get(1) + 1);
-					this.totalVotes += 1;
 					break;
 				case 40:
 					this.votesMap.set(2, this.votesMap.get(2) + 1);
-					this.totalVotes += 1;
 					break;
 				case 60:
 					this.votesMap.set(3, this.votesMap.get(3) + 1);
-					this.totalVotes += 1;
 					break;
 				case 80:
 					this.votesMap.set(4, this.votesMap.get(4) + 1);
-					this.totalVotes += 1;
 					break;
 				case 100:
 					this.votesMap.set(5, this.votesMap.get(5) + 1);
-					this.totalVotes += 1;
 					break;
 			}
 		});
