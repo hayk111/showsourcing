@@ -1,5 +1,9 @@
-<preview-app *ngIf="supplier$ | async" [ngClass]="isRelative ? 'relative' : ''" cdk-scrollable
-	[align]="isRelative ? 'left' : 'right'" [isFixed]="isFixed">
+<preview-app
+	cdk-scrollable
+	*ngIf="supplier$ | async"
+	[ngClass]="isPreview ? '' : 'relative'"
+	[hasBannerFix]="hasBannerFix"
+	[align]="isPreview ? 'right' : 'left'">
 
 		<!-- Banner -->
 		<preview-banner-app
@@ -21,7 +25,7 @@
 			[entityMD]="erm.SUPPLIER"
 			[supplier]="supplier"
 			[logoImage]="supplier?.logoImage"
-			[hasTop]="!isRelative"
+			[displayEntityInfo]="isPreview"
 			(update)="update($event, 'name')">
 
 		<!-- Supplier type badge -->
@@ -88,14 +92,14 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="!isRelative && supplier?.comments?.length" [title]="'Comments'">
+	<preview-section-app *ngIf="isPreview && supplier?.comments?.length" [title]="'Comments'">
 		<comment-list-app [comments]="supplier.comments"></comment-list-app>
 	</preview-section-app>
 
-	<preview-comment-app *ngIf="!isRelative" (added)="addComment($event)"></preview-comment-app>
+	<preview-comment-app *ngIf="isPreview" (added)="addComment($event)"></preview-comment-app>
 
 	<!-- Info -->
-	<preview-section-app *ngIf="isRelative && !isFixed" [title]="'Info'"  class="no-mg-bottom">
+	<preview-section-app *ngIf="!isPreview && !hasBannerFix" [title]="'Info'"  class="no-mg-bottom">
 		<div class="flexColumn">
 			<span class="color-txt-strong">Created by {{ supplier?.createdBy | formatUserName: true }} on {{ supplier?.creationDate | date: 'dd MMMM yyyy' }}</span>
 			<span class="color-txt-strong">Last updated by {{ supplier?.lastUpdatedBy | formatUserName: true }} on {{ (supplier?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy' }}</span>

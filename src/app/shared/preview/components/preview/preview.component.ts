@@ -15,7 +15,10 @@ export class PreviewComponent implements AfterViewInit {
 
 	@Input() align: 'left' | 'right' = 'right';
 	/** wether the top image is fixed or not for the scrolling effect*/
-	@Input() isFixed = true;
+	@Input() hasBannerFix = true;
+
+	@Input() isPreview = true;
+
 	@ViewChild('top', { static: true }) topSection: ElementRef<HTMLElement>;
 	@ViewChild('scrollSection', { static: true }) scrollSection: ElementRef<HTMLElement>;
 
@@ -24,7 +27,7 @@ export class PreviewComponent implements AfterViewInit {
 	ngAfterViewInit() {
 		// minus 6 so it goes a bit above the image
 		// minus fifthy if there is a logo where that we want to display above the img
-		if (this.isFixed) {
+		if (this.hasBannerFix) {
 			const topHeight = this.topSection.nativeElement.getBoundingClientRect().height - 6 - 50;
 			this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `${topHeight}px`);
 		} else {
