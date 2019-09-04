@@ -20,8 +20,8 @@ export class PreviewTopPanelComponent implements OnInit, OnChanges {
 
 	constructor() { }
 
-	ngOnChanges( changes: SimpleChanges) {
-		if ( changes.isOpen && changes.isOpen.previousValue && !changes.isOpen.currentValue) {
+	ngOnChanges(changes: SimpleChanges) {
+		if ((changes && changes.isOpen && changes.isOpen.previousValue) && !changes.isOpen.currentValue) {
 			this.menuOpen = false;
 		}
 	}

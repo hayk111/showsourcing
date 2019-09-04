@@ -25,14 +25,14 @@ class TestComponent {
 }
 
 
-fdescribe('card component', () => {
+describe('card component', () => {
 	let host: TestComponent;
 	let fixture: ComponentFixture<TestComponent>;
 
-	beforeEach( async() => {
+	beforeEach(async () => {
 		TestBed.configureTestingModule({
 			imports: [CardModule],
-			declarations: [ TestComponent ]
+			declarations: [TestComponent]
 		});
 		fixture = TestBed.createComponent(TestComponent);
 		host = fixture.componentInstance;
