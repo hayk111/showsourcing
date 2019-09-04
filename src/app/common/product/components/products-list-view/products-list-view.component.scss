@@ -104,6 +104,12 @@
 	color: var(--color-bg-dark);
 }
 
+.status-col {
+	status-selector-app {
+		margin-left: var(--spacing-ms);
+	}
+}
+
 .created-by {
   height: 18px;
   font-size: var(--font-size-m);

@@ -70,7 +70,7 @@
 		</div>
 		<div class="category">
 			<span class="category-name">{{ product?.category?.name }}</span>
-			<span class="small-badge-gray" *ngIf="product?.supplier"></span> 
+			<span class="small-badge-gray" *ngIf="product?.supplier && product?.category"></span> 
 			<span class="supplier-name">{{ product?.supplier?.name }}</span>
 		</div>
 

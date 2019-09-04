@@ -5,7 +5,6 @@ import { ERM, Product } from '~models';
 
 const tableConfig: TableConfig = {
 	activities: { title: 'activities', width: 190, sortable: false },
-	assignee: { title: 'assignee', width: 50, sortProperty: 'assignee.firstName' },
 	category: { title: 'category', width: 190, sortProperty: 'category.name' },
 	createdBy: { title: 'created by', width: 140, sortProperty: 'creationDate' },
 	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate' },
@@ -27,7 +26,7 @@ const tableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsListViewComponent extends ListViewComponent<Product> {
-	columns = [ 'reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status', 'assignee' ];
+	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 	tableConfig = tableConfig;
 	@Input() tableWidth: number;
 	@Output() setFavourite = new EventEmitter<Product>();
