@@ -6,7 +6,7 @@ describe('accordion component', () => {
 
 	});
 
-	it('should display angle-down icon on the right', () => {
+	it('should display icon angle-down when closed, angle up when open', () => {
 
 	});
 
