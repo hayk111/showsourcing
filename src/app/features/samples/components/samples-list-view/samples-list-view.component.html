@@ -3,6 +3,7 @@
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
 	[count]="count"
 	[currentPage]="currentPage"
 	placeholder="No sample"
@@ -85,7 +86,6 @@
 	<ng-template
 		[columnApp]="'type' | const: 'erm'"
 		let-row="row"
-		[sortable]="false"
 		width="140">
 		<div class="ellipsis flexCenter type">
 			{{ row?.type }}
@@ -96,7 +96,7 @@
 	<ng-template
 		class="capitalize"
 		[columnApp]="'created by' | const: 'erm'"
-		[sortable]="false"
+		sortBy="creationDate"
 		let-row="row"
 		width="250">
 		<span class="created-by">{{ row?.createdBy | formatUserName }}</span>

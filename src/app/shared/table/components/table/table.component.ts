@@ -49,7 +49,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	// TODO this should be transcluded instead
 	@Input() contextualMenu: TemplateRef<any>;
 	/** current sort */
-	@Input() currentSort: Sort;
+	@Input() currentSort: Sort = { sortBy: 'creationDate', descending: true };
 	/** total number of items for pagination */
 	@Input() count = 0;
 
@@ -71,8 +71,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Output() goToPage = new EventEmitter<number>();
 	/** all the columns */
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
-	/** currently sorted column */
-	currentSortBy = 'creationDate';
 
 	/** Different rows displayed */
 	@Input() rows;
@@ -94,7 +92,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	}
 
 	ngOnChanges(changes) {
-		console.log('TCL: TableComponent -> ngOnChanges -> this.columns', this.columns);
 		if (changes.currentSort && changes.currentSort.currentValue) {
 			const currentSort = changes.currentSort.currentValue;
 			if (this.columns) {
@@ -136,7 +133,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	}
 
 	onSort(column: ColumnDirective) {
-		console.log('TCL: TableComponent -> onSort -> column', column);
 		if (!column.sortable)
 		return;
 		// remove sorting on all column and add the current sort to the correct one
@@ -148,7 +144,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			sortBy: column.sortBy,
 			descending: column.sortOrder === 'DESC'
 		});
-		this.currentSortBy = column.sortBy;
+		this.currentSort.sortBy = column.sortBy;
 	}
 
 	isAllSelected(): boolean {

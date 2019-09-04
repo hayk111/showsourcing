@@ -6,7 +6,7 @@ import { Task, ERM } from '~core/models';
 const tableConfig: TableConfig = {
 	reference: { title: 'reference', width: 190, sortProperty: 'name' },
 	assignee: { title: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
-	status: { title: 'status', width: 190, sortProperty: 'status.step' },
+	status: { title: 'status', width: 190, sortProperty: 'status.step', sortable: false },
 	creationDate: { title: 'created on', width: 190, sortProperty: 'creationDate' },
 };
 

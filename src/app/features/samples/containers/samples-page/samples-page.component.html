@@ -60,6 +60,7 @@
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
+	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"

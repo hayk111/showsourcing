@@ -58,7 +58,8 @@
   <ng-template 
     *ngFor="let column of columnsConfig; trackBy: trackByFn" 
     let-row="row" 
-    [columnApp]="column.title"
+		[columnApp]="column.title"
+		[sortable]="column.sortable !== false"
     [width]="column.width"
     [sortBy]="column.sortProperty">
     <ng-container [ngSwitch]="column.title">
@@ -72,7 +73,7 @@
               <logo-app class="mini imgCtnr"
                 [logo]="row.images[0]" size="m" type="product"></logo-app>
               <div class="hover-img">
-                <icon-app name="eye" size="s" class="preview-hover-img"></icon-app>
+                <icon-app name="eye" [size]="18" class="preview-hover-img"></icon-app>
               </div>
             </div>
       

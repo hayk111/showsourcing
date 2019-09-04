@@ -41,7 +41,7 @@
 			</span>
 		</checkbox-app>
 		<button
-			*ngIf="samplesCount$ | async as count"
+			*ngIf="tasksCount$ | async as count"
 			class="capitalize"
 			(click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())">
 			<ng-container i18n="@@export">export</ng-container>
@@ -58,6 +58,7 @@
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
+	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
@@ -70,7 +71,6 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(archive)="onArchive($event)"
 	(delete)="listSrv.deleteOne($event)">
 </task-list-view-app>
 
@@ -84,7 +84,7 @@
 			toolTip toolTipMessage="Change status" toolTipPosition="above-right"
 			#workActionMenu
 			selectSize="s"
-			[typeEntity]="erm.SUPPLIER"
+			[typeEntity]="erm.TASK"
 			type="multiple-selection"
 			[internalUpdate]="false"
 			(statusUpdated)="this.listSrv.updateSelected({status: $event})"

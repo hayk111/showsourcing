@@ -4,11 +4,11 @@ import { Project } from '~models';
 
 
 const tableConfig: TableConfig = {
-	name: { title: 'name', width: 140, sortProperty: 'name'},
-	owner: { title: 'owner', width: 190, sortProperty: 'owner'},
-	lastUpdatedDate: { title: 'last updated', width: 190, sortProperty: 'lastUpdatedDate'},
-	productCount: { title: 'product count', width: 190, sortProperty: 'productCount'},
-	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate'},
+	name: { title: 'name', width: 140, sortProperty: 'name' },
+	owner: { title: 'owner', width: 190, sortProperty: 'owner' },
+	lastUpdatedDate: { title: 'last updated', width: 190, sortProperty: 'lastUpdatedDate' },
+	productCount: { title: 'product count', width: 190, sortProperty: 'productCount' },
+	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate' },
 	description: { title: 'description', width: 190 },
 };
 

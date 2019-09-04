@@ -4,7 +4,7 @@ import { ERM, Product } from '~models';
 
 
 const tableConfig: TableConfig = {
-	activities: { title: 'activities', width: 190 },
+	activities: { title: 'activities', width: 190, sortable: false },
 	assignee: { title: 'assignee', width: 50, sortProperty: 'assignee.firstName' },
 	category: { title: 'category', width: 190, sortProperty: 'category.name' },
 	createdBy: { title: 'created by', width: 140, sortProperty: 'creationDate' },

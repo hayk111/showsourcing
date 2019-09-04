@@ -31,6 +31,7 @@
 		#supplierList
 		*ngIf="listSrv.view === 'list'"
 		[rows]="listSrv.items$ | async"
+		[currentSort]="listSrv.currentSort"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"

@@ -7,6 +7,7 @@ export interface ColumnConfig {
 	title: string;
 	width: number;
 	sortProperty?: string;
+	sortable?: boolean;
 }
 
 export interface TableConfig {

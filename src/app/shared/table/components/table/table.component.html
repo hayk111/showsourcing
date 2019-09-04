@@ -40,7 +40,7 @@
 			class="col {{ column.grows ? 'flexGrow' : '' }}">
 			<!-- header -->
 			<div *ngIf="hasHeader" class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize" (click)="onSort(column)"
-				[style.height]="rowHeight + 'px'" [class.sorted]="currentSortBy === column?.sortBy">
+				[style.height]="rowHeight + 'px'" [class.sorted]="currentSort.sortBy === column?.sortBy">
 				{{ column.title }}
 				<ng-container *ngIf="column.sortOrder !== 'NONE'">
 					<icon-app class="sortIcon fs-xs" name="angle-down"
