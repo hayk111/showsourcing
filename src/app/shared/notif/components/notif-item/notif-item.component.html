@@ -18,8 +18,8 @@
 				{{ multipleActorMessage }}
 				{{ activityMessage }}
 				<span class="bold-message">
-					<ng-container *ngIf="target$ | async as target">
-						{{ target.name }}
+					<ng-container *ngIf="firstActivity.target_data">
+						{{ firstActivity.target_data?.target }}
 					</ng-container>
 				</span>
 			</p>
