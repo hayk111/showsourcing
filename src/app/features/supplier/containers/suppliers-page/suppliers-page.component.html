@@ -95,10 +95,11 @@
 	</supplier-preview-app>
 
 	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
-		*ngIf="listSrv.filterPanelOpen">
+		(close)="listSrv.closeFilterPanel()">
 	</filters-app>
 
 </ng-container>

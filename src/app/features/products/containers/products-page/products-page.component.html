@@ -25,7 +25,7 @@
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(export)="onExport()"
-		(showFilters)="onShowFilters()"
+		(showFilters)="listSrv.openFilterPanel()"
 		(viewChange)="onViewChange($event)">
 	
 		<sub-panel-right-item-app class="flex">
@@ -94,7 +94,6 @@
 		</product-board-app>
 	
 		<products-card-view-app
-			infiniScroll
 			cdk-scrollable
 			*ngIf="listSrv.view === 'card'"
 			class="card-view will-change-scroll"
@@ -102,7 +101,6 @@
 			[rows]="listSrv.items$ | async"
 			[selection]="listSrv.selection$ | async"
 			(addToProject)="commonModalSrv.openAddToProjectDialog([$event])"
-			(bottomReached)="listSrv.loadMore()"
 			(disliked)="listSrv.onThumbDown($event)"
 			(favorited)="listSrv.onItemFavorited($event)"
 			(liked)="listSrv.onThumbUp($event)"
@@ -144,6 +142,6 @@
 	*ngIf="listSrv.filterPanelOpen"
 	[filterList]="listSrv.filterList"
 	[filterTypes]="filterTypes"
-	(clickOutside)="onCloseFilter()"
-	(close)="onCloseFilter()">
+	(clickOutside)="listSrv.closeFilterPanel()"
+	(close)="listSrv.closeFilterPanel()">
 </filters-app>

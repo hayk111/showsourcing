@@ -7,7 +7,7 @@ const tableConfig: TableConfig = {
 	activities: { title: 'activities', width: 190 },
 	assignee: { title: 'assignee', width: 50, sortProperty: 'assignee.firstName' },
 	category: { title: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { title: 'created by', width: 140, sortProperty: 'createdBy.firstName' },
+	createdBy: { title: 'created by', width: 140, sortProperty: 'creationDate' },
 	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate' },
 	favorite: { title: 'favorite', width: 50, sortProperty: 'favorite' },
 	moq: { title: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },

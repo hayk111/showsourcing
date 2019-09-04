@@ -115,14 +115,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
 	}
 
-	onShowFilters() {
-		this.listSrv.openFilterPanel();
-	}
-
-	onCloseFilter() {
-		this.listSrv.closeFilterPanel();
-	}
-
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
