@@ -7,9 +7,18 @@
 	[leftSideOrientation]="leftSideOrientationSelector"
 	[value]="value"
 	(update)="onUpdate($event)">
+	<ng-container *ngTemplateOutlet="getTemplate()"></ng-container>
+	<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type">{{ item.name }}</info-badge-app>
+</selector-app>
+
+
+<ng-template #badgeStyle>
 	<info-badge-app *ngIf="!value?.length" class="pointer" [type]="type">
 		Add {{type}}s
 		<icon-app name="add"></icon-app>
 	</info-badge-app>
-	<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type">{{ item.name }}</info-badge-app>
-</selector-app>
+</ng-template>
+
+<ng-template #textStyle>
+	<div *ngIf="!value?.length" class="flexCenter pointer selected bold-s">Add {{ type }}s</div>
+</ng-template>
