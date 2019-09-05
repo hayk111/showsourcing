@@ -14,14 +14,14 @@
 		</div>
 	</div>
 
-	<top-panel-action-buttons-app
+	<header-list-action-buttons-app
 		action
 		[data]="supplier"
 		[hasAssignee]="false"
 		(export)="export.emit($event)"
 		(favorited)="changeFavorite(true)"
 		(unfavorited)="changeFavorite(false)">
-	</top-panel-action-buttons-app>
+	</header-list-action-buttons-app>
 
 	<status-selector-app
 		action

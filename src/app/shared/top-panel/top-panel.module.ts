@@ -24,7 +24,7 @@ import { UtilsModule } from '~shared/utils';
 import { InputsModule } from '~shared/inputs';
 import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
 import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
-import { TopPanelActionButtonsComponent } from './components/top-panel-action-buttons/top-panel-action-buttons.component';
+import { HeaderListActionButtonsComponent } from './components/header-list-action-buttons/header-list-action-buttons.component';
 import { HeaderDetailsComponent } from './components/header-details/header-details.component';
 
 @NgModule({
@@ -58,8 +58,7 @@ import { HeaderDetailsComponent } from './components/header-details/header-detai
 		HeaderDetailsComponent,
 		SubPanelLeftItemComponent,
 		SubPanelRightItemComponent,
-		TopPanelActionButtonsComponent,
-		TopPanelActionButtonsComponent,
+		HeaderListActionButtonsComponent
 	],
 	exports: [
 		HeaderListComponent,
@@ -68,7 +67,7 @@ import { HeaderDetailsComponent } from './components/header-details/header-detai
 		HeaderDetailsComponent,
 		SubPanelLeftItemComponent,
 		SubPanelRightItemComponent,
-		TopPanelActionButtonsComponent,
+		HeaderListActionButtonsComponent,
 	],
 })
 export class TopPanelModule { }

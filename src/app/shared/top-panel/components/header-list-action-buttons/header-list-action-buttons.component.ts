@@ -3,12 +3,12 @@ import { User } from 'realm-graphql-client';
 import { Supplier, Product } from '~core/models';
 
 @Component({
-	selector: 'top-panel-action-buttons-app',
-	templateUrl: './top-panel-action-buttons.component.html',
-	styleUrls: ['./top-panel-action-buttons.component.scss'],
+	selector: 'header-list-action-buttons-app',
+	templateUrl: './header-list-action-buttons.component.html',
+	styleUrls: ['./header-list-action-buttons.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopPanelActionButtonsComponent implements OnInit {
+export class HeaderListActionButtonsComponent implements OnInit {
 
 	@Input() hasAssignee = true;
 	@Input() user: User;

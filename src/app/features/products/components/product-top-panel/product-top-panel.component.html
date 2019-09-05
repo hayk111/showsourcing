@@ -15,7 +15,7 @@
 		</span>
 	</div>
 
-	<top-panel-action-buttons-app
+	<header-list-action-buttons-app
 		action
 		[data]="product"
 		[user]="product?.assignee"
@@ -24,7 +24,7 @@
 		(unfavorited)="onUnfavorited()"
 		(delete)="delete.emit(product)"
 		(changeUser)="onUserChanged($event)">
-	</top-panel-action-buttons-app>
+	</header-list-action-buttons-app>
 
 	<status-selector-app
 		action
