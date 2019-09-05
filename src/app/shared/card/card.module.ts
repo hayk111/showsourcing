@@ -8,6 +8,8 @@ import { CardTitleComponent } from './components/card-title/card-title.component
 import { CardTitleBadgeComponent } from './components/card-title-badge/card-title-badge.component';
 import { CardActionComponent } from './components/card-action/card-action.component';
 import { BadgeModule } from '~shared/badge';
+import { CardNavComponent } from './components/card-nav/card-nav.component';
+import { CardNavLogoItemComponent } from './components/card-nav-logo-item/card-nav-logo-item.component';
 
 
 const components = [
@@ -16,7 +18,9 @@ const components = [
 	CardFooterComponent,
 	CardTitleComponent,
 	CardTitleBadgeComponent,
-	CardActionComponent
+	CardActionComponent,
+	CardNavComponent,
+	CardNavLogoItemComponent
 ];
 
 @NgModule({

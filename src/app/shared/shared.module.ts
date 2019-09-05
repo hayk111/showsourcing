@@ -49,6 +49,7 @@ import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 import { OnBoardingModule } from './on-boarding/on-boarding.module';
 import { PackagingModule } from './packaging/packaging.module';
 import { NotifModule } from './notif/notif.module';
+import { LogoNavModule } from './logo-nav/logo-nav.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -70,6 +71,7 @@ const modules = [
 	BottomPanelModule,
 	CardModule,
 	CarouselModule,
+	ComparisonRowModule,
 	ContextMenuModule,
 	DialogModule,
 	DividerModule,
@@ -84,8 +86,12 @@ const modules = [
 	KanbanModule,
 	ListModule,
 	LoadersModule,
-	NotificationsModule,
+	LogoNavModule,
 	NotifModule,
+	NotificationsModule,
+	OnBoardingModule,
+	PackagingModule,
+	PaginationModule,
 	PanelModule,
 	PreviewModule,
 	PriceModule,
@@ -99,14 +105,10 @@ const modules = [
 	StageIndicatorModule,
 	StatusSelectorModule,
 	TableModule,
-	PaginationModule,
+	TemplateMngmtModule,
 	TopPanelModule,
 	UserPictureModule,
 	UtilsModule,
-	ComparisonRowModule,
-	TemplateMngmtModule,
-	OnBoardingModule,
-	PackagingModule
 ];
 
 @NgModule({
