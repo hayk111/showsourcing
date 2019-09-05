@@ -32,6 +32,8 @@ export class ViewSwitcherComponent implements OnInit {
 
 	switchView(view: 'card' | 'board' | 'list') {
 		this.view = view;
-		this.viewChange.emit(view);
+		setTimeout(_ => {
+			this.viewChange.emit(view);
+		}, 350);
 	}
 }
