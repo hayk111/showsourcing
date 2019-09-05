@@ -33,6 +33,22 @@ export const routes: Array<Route> = [
 		data: { showLogout: true }
 	},
 	{
+		path: 'dev',
+		component: TemplateComponent,
+		canLoad: [DevModeGuard],
+		canActivate: [DevModeGuard],
+		canActivateChild: [DevModeGuard],
+		children: [
+			{
+				path: 'component-library',
+				loadChildren: 'app/features/component-library/component-library.module#ComponentLibraryModule'
+			}, {
+				path: 'test',
+				loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
+			}
+		]
+	},
+	{
 		path: '',
 		component: TemplateComponent,
 		canActivateChild: [
@@ -79,16 +95,6 @@ export const routes: Array<Route> = [
 			{
 				path: 'workspace',
 				loadChildren: 'app/features/workspace/workspace.module#WorkspaceModule'
-			},
-			{
-				path: 'component-library',
-				canLoad: [DevModeGuard],
-				loadChildren: 'app/features/component-library/component-library.module#ComponentLibraryModule'
-			},
-			{
-				path: 'test',
-				canLoad: [DevModeGuard],
-				loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
 			}
 		]
 	},
