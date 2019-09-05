@@ -1,12 +1,12 @@
 
 <!-- top panel -->
-<top-panel-app
+<header-list-app
 	[title]="'My Tasks'"
 	buttonName="Create Task"
 	(buttonClick)="commonModalSrv.openCreationTaskDlg()"
 	i18n-title="@@my-tasks"
 	i18n-buttonName="@@add-tasks">
-</top-panel-app>
+</header-list-app>
 
 <sub-panel-app
 	[hasFilter]="true"

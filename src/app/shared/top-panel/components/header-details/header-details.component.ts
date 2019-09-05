@@ -3,12 +3,12 @@ import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
-	selector: 'top-panel-details-app',
-	templateUrl: './top-panel-details.component.html',
-	styleUrls: ['./top-panel-details.component.scss'],
+	selector: 'header-details-app',
+	templateUrl: './header-details.component.html',
+	styleUrls: ['./header-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TopPanelDetailsComponent extends TrackingComponent {
+export class HeaderDetailsComponent extends TrackingComponent {
 	/** title displayed */
 	@Input() title: string;
 	@Input() hasLogo = true;

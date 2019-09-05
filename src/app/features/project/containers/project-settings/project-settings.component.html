@@ -1,10 +1,10 @@
 <div *ngIf="project$ | async as project">
-	<top-panel-app
+	<header-list-app
 		[title]="project?.name"
 		[buttonName]="'Add Project'"
 		[hasAction]="false"
 		i18n-buttonName="@@add-project">
-	</top-panel-app>
+	</header-list-app>
 
 	<card-app>
 		<h3 class="ms" i18n="header@@project-settings">

@@ -17,7 +17,7 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { BreadCrumbComponent } from '~shared/top-panel/components/bread-crumb/bread-crumb.component';
 import { SubPanelComponent } from '~shared/top-panel/components/sub-panel/sub-panel.component';
-import { TopPanelComponent } from '~shared/top-panel/components/top-panel/top-panel.component';
+import { HeaderListComponent } from '~shared/top-panel/components/header-list/header-list.component';
 import { ViewSwitcherComponent } from '~shared/top-panel/components/view-switcher/view-switcher.component';
 import { UserPictureModule } from '~shared/user-picture/user-picture.module';
 import { UtilsModule } from '~shared/utils';
@@ -25,7 +25,7 @@ import { InputsModule } from '~shared/inputs';
 import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
 import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
 import { TopPanelActionButtonsComponent } from './components/top-panel-action-buttons/top-panel-action-buttons.component';
-import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
+import { HeaderDetailsComponent } from './components/header-details/header-details.component';
 
 @NgModule({
 	imports: [
@@ -51,21 +51,21 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		UtilsModule
 	],
 	declarations: [
-		TopPanelComponent,
+		HeaderListComponent,
 		SubPanelComponent,
 		ViewSwitcherComponent,
 		BreadCrumbComponent,
-		TopPanelDetailsComponent,
+		HeaderDetailsComponent,
 		SubPanelLeftItemComponent,
 		SubPanelRightItemComponent,
 		TopPanelActionButtonsComponent,
 		TopPanelActionButtonsComponent,
 	],
 	exports: [
-		TopPanelComponent,
+		HeaderListComponent,
 		SubPanelComponent,
 		BreadCrumbComponent,
-		TopPanelDetailsComponent,
+		HeaderDetailsComponent,
 		SubPanelLeftItemComponent,
 		SubPanelRightItemComponent,
 		TopPanelActionButtonsComponent,

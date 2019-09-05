@@ -1,8 +1,8 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
-	<top-panel-app
+	<header-list-app
 		[title]="project.name"
 		[hasAction]="false">
-	</top-panel-app>
+	</header-list-app>
 
 	<sub-panel-app
 		buttonName="Add Products"

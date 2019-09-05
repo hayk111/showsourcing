@@ -1,10 +1,10 @@
 
-<top-panel-app
+<header-list-app
 	*ngIf="user$ | async as user"
 	[title]="'profile'"
 	[hasAction]="false"
 	i18n-title="@@profile">
-</top-panel-app>
+</header-list-app>
 
 <ng-container *ngIf="user$ | async as user">
 

@@ -1,13 +1,13 @@
 <div class="flexGrow flexColumn products-content">
 	<!-- top panel -->
-	<top-panel-app
+	<header-list-app
 		[title]="'My products'"
 		buttonName="Create Product"
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
 		[buttonRightMargin]="addProductMargin"
 		i18n-title="@@my-products"
 		i18n-buttonName="@@add-products">
-	</top-panel-app>
+	</header-list-app>
 	
 	<sub-panel-app
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"

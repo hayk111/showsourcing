@@ -1,11 +1,11 @@
 <div class="workflowCtnr" *ngIf="project$ | async as project">
 
-	<top-panel-app
+	<header-list-app
 		[title]="project.name"
 		buttonName="Add Products"
 		(buttonClick)="openFindProductDlg()"
 		i18n-buttonName="@@add-products">
-	</top-panel-app>
+	</header-list-app>
 
 	<kanban-app
 		[cols]="columns$ | async"

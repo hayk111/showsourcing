@@ -1,12 +1,12 @@
 
 <!-- top panel -->
-<top-panel-app
+<header-list-app
 	[title]="'My samples'"
 	buttonName="Create Sample"
 	(buttonClick)="commonModalSrv.openAddSampleDialog()"
 	i18n-title="@@my-samples"
 	i18n-buttonName="@@add-samples">
-</top-panel-app>
+</header-list-app>
 
 <sub-panel-app
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"

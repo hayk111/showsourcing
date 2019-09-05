@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ElementRef, QueryList, ContentChildren } from '@angular/core';
 
 @Component({
-	selector: 'top-panel-app',
-	templateUrl: './top-panel.component.html',
-	styleUrls: ['./top-panel.component.scss'],
+	selector: 'header-list-app',
+	templateUrl: './header-list.component.html',
+	styleUrls: ['./header-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flexVAlign flexBetween'
 	}
 })
-export class TopPanelComponent {
+export class HeaderListComponent {
 	/** what appears in the button on the right for adding an entity */
 	@Input() buttonName: string;
 	@Input() buttonRightMargin: string;
