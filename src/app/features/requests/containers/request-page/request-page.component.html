@@ -5,18 +5,18 @@
 	i18n-title="@@requests">
 </header-list-app>
 
-<sub-panel-app
+<controller-list-app
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
-	<sub-panel-right-item-app>
+	<controller-list-right-item-app>
 		<request-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</request-sorting-menu-app>
-	</sub-panel-right-item-app>
-</sub-panel-app>
+	</controller-list-right-item-app>
+</controller-list-app>
 
 <request-list-view-app
 	class="borderless"

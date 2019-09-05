@@ -8,7 +8,7 @@
 	i18n-buttonName="@@add-tasks">
 </header-list-app>
 
-<sub-panel-app
+<controller-list-app
 	[hasFilter]="true"
 	[hasSwitch]="true"
 	[view]="listSrv.view"
@@ -27,7 +27,7 @@
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
-	<sub-panel-right-item-app class="flex">
+	<controller-list-right-item-app class="flex">
 		<product-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
@@ -49,9 +49,9 @@
 			<ng-container i18n="@@items">{ count || 0, plural, =1 { item } other { items } }</ng-container>
 		</button>
 
-	</sub-panel-right-item-app>
+	</controller-list-right-item-app>
 
-</sub-panel-app>
+</controller-list-app>
 
 <task-list-view-app
 	[rows]="listSrv.items$ | async"

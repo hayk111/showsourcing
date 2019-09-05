@@ -8,7 +8,7 @@ import {
 	ContentChildren,
 	DebugElement
 } from '@angular/core';
-import { SubPanelComponent } from './sub-panel.component';
+import { ControllerListComponent } from './controller-list.component';
 import { TopPanelModule } from '../../top-panel.module';
 import { By } from '@angular/platform-browser';
 import { ColumnDirective } from '~shared/table/components/column.directive';
@@ -61,8 +61,8 @@ class TestComponent {
 	onShowArchived() { }
 }
 
-describe('SubPanelComponent', () => {
-	let subPanelComponent: SubPanelComponent;
+describe('ControllerListComponent', () => {
+	let controllerListComponent: ControllerListComponent;
 	let testComponent: TestComponent;
 	let fixtureTestComponent: ComponentFixture<TestComponent>;
 	let dest: DebugElement;
@@ -72,15 +72,15 @@ describe('SubPanelComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [TopPanelModule],
 			declarations: [TestComponent],
-			providers: [SubPanelComponent]
+			providers: [ControllerListComponent]
 		}).compileComponents();
 	});
 
 	beforeEach(() => {
 		fixtureTestComponent = TestBed.createComponent(TestComponent);
 		testComponent = fixtureTestComponent.componentInstance;
-		dest = fixtureTestComponent.debugElement.query(By.directive(SubPanelComponent));
-		subPanelComponent = dest.componentInstance;
+		dest = fixtureTestComponent.debugElement.query(By.directive(ControllerListComponent));
+		controllerListComponent = dest.componentInstance;
 		fixtureTestComponent.detectChanges();
 	});
 
@@ -94,55 +94,55 @@ describe('SubPanelComponent', () => {
 		}
 	});
 
-	it('should create TestComponent and SubPanelComponent component', () => {
+	it('should create TestComponent and ControllerListComponent component', () => {
 		expect(testComponent).withContext('Can not create TestComponent').toBeDefined();
-		expect(subPanelComponent).withContext('Can not create SubPanelComponent').toBeDefined();
+		expect(controllerListComponent).withContext('Can not create ControllerListComponent').toBeDefined();
 	});
 
 	it('`showArchived` should be called when archive checkbox changed and `isArchivedShown` is true', () => {
-		subPanelComponent.isArchivedShown = true;
+		controllerListComponent.isArchivedShown = true;
 
-		spyOn(subPanelComponent.showArchived, 'emit');
-		subPanelComponent.archiveChange();
+		spyOn(controllerListComponent.showArchived, 'emit');
+		controllerListComponent.archiveChange();
 		fixtureTestComponent.detectChanges();
 
-		expect(subPanelComponent.showArchived.emit)
+		expect(controllerListComponent.showArchived.emit)
 			.withContext('Should call fnc `showArchived`')
 			.toHaveBeenCalledTimes(1);
 	});
 
 	it('`hideArchived` should be called when archive checkbox changed and `isArchivedShown` is false', () => {
-		subPanelComponent.isArchivedShown = false;
+		controllerListComponent.isArchivedShown = false;
 
-		spyOn(subPanelComponent.hideArchived, 'emit');
-		subPanelComponent.archiveChange();
+		spyOn(controllerListComponent.hideArchived, 'emit');
+		controllerListComponent.archiveChange();
 		fixtureTestComponent.detectChanges();
 
-		expect(subPanelComponent.hideArchived.emit)
+		expect(controllerListComponent.hideArchived.emit)
 			.withContext('Should call fnc `hideArchived`')
 			.toHaveBeenCalledTimes(1);
 	});
 
 	it('`showAssigned` should be called when `Assigned To Me` checkbox changed and `isAssigned` is true', () => {
-		subPanelComponent.isAssigned = true;
+		controllerListComponent.isAssigned = true;
 
-		spyOn(subPanelComponent.showAssigned, 'emit');
-		subPanelComponent.assignedChange();
+		spyOn(controllerListComponent.showAssigned, 'emit');
+		controllerListComponent.assignedChange();
 		fixtureTestComponent.detectChanges();
 
-		expect(subPanelComponent.showAssigned.emit)
+		expect(controllerListComponent.showAssigned.emit)
 			.withContext('Should call fnc `showAssigned`')
 			.toHaveBeenCalledTimes(1);
 	});
 
 	it('`hideAssigned` should be called when `Assigned To Me` checkbox changed and `isAssigned` is false', () => {
-		subPanelComponent.isAssigned = false;
+		controllerListComponent.isAssigned = false;
 
-		spyOn(subPanelComponent.hideAssigned, 'emit');
-		subPanelComponent.assignedChange();
+		spyOn(controllerListComponent.hideAssigned, 'emit');
+		controllerListComponent.assignedChange();
 		fixtureTestComponent.detectChanges();
 
-		expect(subPanelComponent.hideAssigned.emit)
+		expect(controllerListComponent.hideAssigned.emit)
 			.withContext('Should call fnc `hideAssigned`')
 			.toHaveBeenCalledTimes(1);
 	});

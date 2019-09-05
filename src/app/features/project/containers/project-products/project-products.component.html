@@ -4,7 +4,7 @@
 		[hasAction]="false">
 	</header-list-app>
 
-	<sub-panel-app
+	<controller-list-app
 		buttonName="Add Products"
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.filterList.asFilters()?.length"
@@ -17,14 +17,14 @@
 		(viewChange)="listSrv.changeView($event)"
 		i18n="@@add-products">
 
-		<sub-panel-right-item-app>
+		<controller-list-right-item-app>
 			<product-sorting-menu-app
 				[currentSort]="listSrv.currentSort"
 				(sortFromMenu)="listSrv.sortFromMenu($event)">
 			</product-sorting-menu-app>
-		</sub-panel-right-item-app>
+		</controller-list-right-item-app>
 
-	</sub-panel-app>
+	</controller-list-app>
 
 <ng-container>
 

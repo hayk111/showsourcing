@@ -1,5 +1,5 @@
 <ng-container *ngIf="columns$ | async as columns; else spinner">
-	<sub-panel-app
+	<controller-list-app
 		[hasSwitch]="true"
 		[switchContent]="['list', 'kanban']"
 		[hasFilter]="true"
@@ -8,7 +8,7 @@
 		(showFilters)="listSrv.openFilterPanel()"
 		(search)="listSrv.search($event, false)"
 		(viewChange)="goToList()">
-		<sub-panel-left-item-app>
+		<controller-list-left-item-app>
 			<div class="flex show-my-samples">
 				<checkbox-app
 					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
@@ -19,13 +19,13 @@
 					Assigned to me
 				</span>
 			</div>
-		</sub-panel-left-item-app>
-		<sub-panel-right-item-app>
+		</controller-list-left-item-app>
+		<controller-list-right-item-app>
 			<button (click)="openCreateDlg()" i18n="button@@add-sample">
 				Add Sample
 			</button>
-		</sub-panel-right-item-app>
-	</sub-panel-app>
+		</controller-list-right-item-app>
+	</controller-list-app>
 
 	<kanban-app
 		[cols]="columns"

@@ -5,7 +5,7 @@
 	i18-title="@@my-suppliers">
 </header-list-app>
 
-<sub-panel-app
+<controller-list-app
 	[hasSwitch]="true"
 	[hasFilter]="true"
 	[hasThumb]="false"
@@ -23,7 +23,7 @@
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(viewChange)="onViewChange($event)"
 	(search)="listSrv.search($event)">
-</sub-panel-app>
+</controller-list-app>
 
 <ng-container *ngIf="listSrv.isListening">
 

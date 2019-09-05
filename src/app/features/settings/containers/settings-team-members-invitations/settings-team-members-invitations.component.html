@@ -1,17 +1,17 @@
 
-<sub-panel-app
+<controller-list-app
 	[title]="'invitations'"
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	(search)="listSrv.search($event)"
 	i18n-title="@@invitations">
 
-	<sub-panel-right-item-app>
+	<controller-list-right-item-app>
 		<div toolTip [toolTipMessage]="getToolTipMsg()" toolTipPosition="above-right">
 			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
 		</div>
-	</sub-panel-right-item-app>
-</sub-panel-app>
+	</controller-list-right-item-app>
+</controller-list-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as invitations">
 	<invitations-list-view-app

@@ -4,7 +4,7 @@
 		select products
 	</dialog-header-app>
 
-	<sub-panel-app
+	<controller-list-app
 		[hasFilter]="true"
 		[hasSwitch]="false"
 		[filtersPanelOpened]="filtersPanelOpened"
@@ -15,13 +15,13 @@
 		(hideFilters)="hideFilters()"
 		(viewChange)="onViewChange($event)">
 
-		<sub-panel-left-item-app class="flex">
+		<controller-list-left-item-app class="flex">
 			<span class="select-products-count capitalize" *ngIf="productsCount$ | async as count"> 
 				<b> {{ count || 0 }} products </b>
 			</span>
-		</sub-panel-left-item-app>
+		</controller-list-left-item-app>
 
-		<sub-panel-left-item-app class="flex">
+		<controller-list-left-item-app class="flex">
 			<div class="flex show-my-samples">
 				<checkbox-app
 					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
@@ -32,9 +32,9 @@
 					Show my samples only
 				</span>
 			</div>
-		</sub-panel-left-item-app>
+		</controller-list-left-item-app>
 
-	</sub-panel-app>
+	</controller-list-app>
 
 	<products-list-view-app
 		class="list-view"
@@ -61,7 +61,7 @@
 	</products-list-view-app>
 	
 	<dialog-footer-app>
-		<sub-panel-left-item-app><b>{{ selectedProductsCount }} Products selected</b></sub-panel-left-item-app>
+		<controller-list-left-item-app><b>{{ selectedProductsCount }} Products selected</b></controller-list-left-item-app>
 		<button *ngIf="submitProducts" class="capitalize" (click)="submit()" i18n="button@@add-to-project">add to project</button>
 		<button *ngIf="!submitProducts" class="capitalize" (click)="done()" i18n="button@@done">done</button>
 	</dialog-footer-app>

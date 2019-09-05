@@ -21,12 +21,12 @@ import {
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'sub-panel-app',
-	templateUrl: './sub-panel.component.html',
-	styleUrls: ['./sub-panel.component.scss'],
+	selector: 'controller-list-app',
+	templateUrl: './controller-list.component.html',
+	styleUrls: ['./controller-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SubPanelComponent extends AutoUnsub implements OnInit {
+export class ControllerListComponent extends AutoUnsub implements OnInit {
 	isArchivedShown = false;
 	archiveChecked = false;
 	isAssigned = false;

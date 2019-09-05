@@ -1,9 +1,9 @@
-<sub-panel-app
+<controller-list-app
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
-	<sub-panel-right-item-app>
+	<controller-list-right-item-app>
 		<div class="flexCenter show-my-tasks">
 			<checkbox-app
 				[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
@@ -20,8 +20,8 @@
 			<ng-container i18n="text@@completed-tasks">Completed tasks</ng-container>
 
 		</div>
-	</sub-panel-right-item-app>
-</sub-panel-app>
+	</controller-list-right-item-app>
+</controller-list-app>
 
 <task-list-view-app
 	[hasHeader]="false"

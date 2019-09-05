@@ -16,14 +16,14 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { BreadCrumbComponent } from '~shared/top-panel/components/bread-crumb/bread-crumb.component';
-import { SubPanelComponent } from '~shared/top-panel/components/sub-panel/sub-panel.component';
+import { ControllerListComponent } from '~shared/top-panel/components/controller-list/controller-list.component';
 import { HeaderListComponent } from '~shared/top-panel/components/header-list/header-list.component';
 import { ViewSwitcherComponent } from '~shared/top-panel/components/view-switcher/view-switcher.component';
 import { UserPictureModule } from '~shared/user-picture/user-picture.module';
 import { UtilsModule } from '~shared/utils';
 import { InputsModule } from '~shared/inputs';
-import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
-import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
+import { ControllerListLeftItemComponent } from './components/controller-list-left-item/controller-list-left-item.component';
+import { ControllerListRightItemComponent } from './components/controller-list-right-item/controller-list-right-item.component';
 import { HeaderListActionButtonsComponent } from './components/header-list-action-buttons/header-list-action-buttons.component';
 import { HeaderDetailsComponent } from './components/header-details/header-details.component';
 
@@ -52,21 +52,21 @@ import { HeaderDetailsComponent } from './components/header-details/header-detai
 	],
 	declarations: [
 		HeaderListComponent,
-		SubPanelComponent,
+		ControllerListComponent,
 		ViewSwitcherComponent,
 		BreadCrumbComponent,
 		HeaderDetailsComponent,
-		SubPanelLeftItemComponent,
-		SubPanelRightItemComponent,
+		ControllerListLeftItemComponent,
+		ControllerListRightItemComponent,
 		HeaderListActionButtonsComponent
 	],
 	exports: [
 		HeaderListComponent,
-		SubPanelComponent,
+		ControllerListComponent,
 		BreadCrumbComponent,
 		HeaderDetailsComponent,
-		SubPanelLeftItemComponent,
-		SubPanelRightItemComponent,
+		ControllerListLeftItemComponent,
+		ControllerListRightItemComponent,
 		HeaderListActionButtonsComponent,
 	],
 })
