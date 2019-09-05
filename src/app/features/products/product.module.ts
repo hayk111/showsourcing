@@ -33,6 +33,8 @@ import {
 } from './containers';
 import { ProductRequestsComponent } from './containers/product-requests/product-requests.component';
 import { ProductFeatureService, QuoteFeatureService } from './services';
+import { ProductActivityNavComponent } from './components/product-activity/product-activity-nav/product-activity-nav.component';
+import { ProductActivityNavItemComponent } from './components/product-activity/product-activity-nav-item/product-activity-nav-item.component';
 
 
 
@@ -67,6 +69,8 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		SelectableImageComponent,
 		SelectionActionsComponent,
 		ProductRequestsComponent,
+		ProductActivityNavComponent,
+		ProductActivityNavItemComponent,
 	],
 	entryComponents: [],
 	exports: [],

@@ -1,11 +1,31 @@
-<ng-container *ngIf="product$ | async as product">
-
 	<card-app>
-		<activity-list-app
+		<card-header-app>
+			<product-activity-nav-app 
+				[tabSelected]="selectedTab"
+				(tabClicked)="selectedTab = $event"></product-activity-nav-app>
+		</card-header-app>
+
+		<card-title-app>{{ selectedTab }}</card-title-app>
+
+		<ng-container [ngSwitch]="selectedTab">
+
+			<ng-container *ngSwitchCase="'comments'">
+				show comments
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'tasks'">
+				show tasks
+			</ng-container>
+
+		</ng-container>
+
+	</card-app>
+
+
+		<!-- keeping it here so I remember the component name as it should be comments or smtg
+			
+			<activity-list-app
 			[entity]="product"
 			[activities]="product.comments"
 			[typeEntity]="typeEntity">
-		</activity-list-app>
-	</card-app>
-
-</ng-container>
+		</activity-list-app> -->

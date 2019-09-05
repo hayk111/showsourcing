@@ -1,12 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivityService } from '~common/activity/services/activity.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { takeUntil, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
+import { ActivityService } from '~common/activity/services/activity.service';
+import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { AutoUnsub } from '~utils';
-import { ProductFeatureService } from '~features/products/services';
+
+
+
 
 @Component({
 	selector: 'product-activity-app',
@@ -15,7 +18,7 @@ import { ProductFeatureService } from '~features/products/services';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductActivityComponent extends AutoUnsub implements OnInit {
-
+	selectedTab = 'comments';
 	product$: Observable<Product>;
 	product: Product;
 	feedResult: ActivityFeed;
