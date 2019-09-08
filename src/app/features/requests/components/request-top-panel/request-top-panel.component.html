@@ -1,13 +1,18 @@
 <header-details-app
 	[hasLogo]="false"
-	[title]="request?.title"
 	[elevated]="false">
+
+	<header-details-title-app [title]="request?.title"></header-details-title-app>
+
 	<badge-app titleExtra *ngIf="request?.templateName" type="inProgress" size="m">
 		{{ request?.templateName }}
 	</badge-app>
+
 	<div subinfo class="flex">
 		<div class="bold-s capitalize"><ng-container i18n="@@sent">sent</ng-container>:&nbsp;</div>
 		<span>{{ request?.creationDate | timeAgo }}</span>
 	</div>
+	
 	<!-- <button action (click)="reminder.emit(request)">Sent a Reminder</button> -->
+
 </header-details-app>

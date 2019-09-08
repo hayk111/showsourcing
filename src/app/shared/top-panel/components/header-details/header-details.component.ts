@@ -9,8 +9,6 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderDetailsComponent extends TrackingComponent {
-	/** title displayed */
-	@Input() title: string;
 	@Input() hasLogo = true;
 	@HostBinding('class.z-1') @Input() elevated = true;
 

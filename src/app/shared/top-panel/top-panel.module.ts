@@ -26,6 +26,7 @@ import { ControllerListLeftItemComponent } from './components/controller-list-le
 import { ControllerListRightItemComponent } from './components/controller-list-right-item/controller-list-right-item.component';
 import { HeaderListActionButtonsComponent } from './components/header-list-action-buttons/header-list-action-buttons.component';
 import { HeaderDetailsComponent } from './components/header-details/header-details.component';
+import { HeaderDetailsTitleComponent } from './components/header-details-title/header-details-title.component';
 
 @NgModule({
 	imports: [
@@ -56,6 +57,7 @@ import { HeaderDetailsComponent } from './components/header-details/header-detai
 		ViewSwitcherComponent,
 		BreadCrumbComponent,
 		HeaderDetailsComponent,
+		HeaderDetailsTitleComponent,
 		ControllerListLeftItemComponent,
 		ControllerListRightItemComponent,
 		HeaderListActionButtonsComponent
@@ -65,6 +67,7 @@ import { HeaderDetailsComponent } from './components/header-details/header-detai
 		ControllerListComponent,
 		BreadCrumbComponent,
 		HeaderDetailsComponent,
+		HeaderDetailsTitleComponent,
 		ControllerListLeftItemComponent,
 		ControllerListRightItemComponent,
 		HeaderListActionButtonsComponent,

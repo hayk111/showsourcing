@@ -1,27 +1,29 @@
-<header-details-app
-    [title]="show?.description?.name">
-    <img-app [image]="show?.description?.logoImage" type="show"></img-app>
+<header-details-app>
 
-    <div>
-      <div class="info">
-        {{ show?.description?.startDate | date: 'd' }}
-        -
-        {{ show?.description?.endDate | date: 'd' }}
-        {{ show?.description?.endDate | date: 'M'}}
-        -
-        {{ show?.description?.venue?.addressFull }},
-        {{ show?.description?.venue?.country | const: 'country'  }}
-      </div>
+  <header-details-title-app [title]="show?.description?.name"></header-details-title-app>
 
-      <div class="flex tags">
-        <badge-app size="mini" class="bg-secondary">
-          {{ show?.description?.supplierCount }} Suppliers
-        </badge-app>
-        <badge-app type="accent" *ngIf="show?.saved">
-          saved
-        </badge-app>
-      </div>
+  <img-app [image]="show?.description?.logoImage" type="show"></img-app>
 
+  <div>
+    <div class="info">
+      {{ show?.description?.startDate | date: 'd' }}
+      -
+      {{ show?.description?.endDate | date: 'd' }}
+      {{ show?.description?.endDate | date: 'M'}}
+      -
+      {{ show?.description?.venue?.addressFull }},
+      {{ show?.description?.venue?.country | const: 'country'  }}
     </div>
 
-  </header-details-app>
+    <div class="flex tags">
+      <badge-app size="mini" class="bg-secondary">
+        {{ show?.description?.supplierCount }} Suppliers
+      </badge-app>
+      <badge-app type="accent" *ngIf="show?.saved">
+        saved
+      </badge-app>
+    </div>
+
+  </div>
+
+</header-details-app>
