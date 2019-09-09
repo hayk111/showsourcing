@@ -20,8 +20,8 @@
 }
 .move-btn {
 	position: absolute;
-	background: rgba(0, 0, 0, 0.3);
-	color: white;
+	background: var(--color-txt-primary);
+	color: var(--color-accent-contrast);
 	border-radius: 50%;
 	top: 50%;
 	width: 20px;
