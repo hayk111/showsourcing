@@ -3169,7 +3169,7 @@
 			Cancel request
 		</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/requests/components/request-table/request-table.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
@@ -3177,7 +3177,7 @@
         <source>No requests</source>
         <target state="final">无请求</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/requests/components/request-table/request-table.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>

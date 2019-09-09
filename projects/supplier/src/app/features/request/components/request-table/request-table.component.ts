@@ -3,14 +3,14 @@ import { ERM, SupplierRequest } from '~core/models';
 import { EntityTableComponent } from '~core/list-page';
 
 @Component({
-	selector: 'request-list-view-sup',
-	templateUrl: './request-list-view.component.html',
+	selector: 'request-table-sup',
+	templateUrl: './request-table.component.html',
 	styleUrls: [
-		'./request-list-view.component.scss',
+		'./request-table.component.scss',
 		'../../../../../../../../src/app/theming/specific/list.scss'
 	]
 })
-export class RequestListViewComponent extends EntityTableComponent<SupplierRequest> implements OnInit {
+export class RequestTableComponent extends EntityTableComponent<SupplierRequest> implements OnInit {
 
 	erm = ERM;
 

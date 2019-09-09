@@ -7,7 +7,7 @@ import { SharedModule } from '~shared/shared.module';
 import {
 	RequestElementListViewComponent,
 	RequestInformationComponent,
-	RequestListViewComponent,
+	RequestTableComponent,
 	RequestSortingMenuComponent,
 	RequestTopPanelComponent,
 } from './components';
@@ -20,7 +20,7 @@ import { routes } from './routes';
 		RequestDetailsComponent,
 		RequestElementListViewComponent,
 		RequestInformationComponent,
-		RequestListViewComponent,
+		RequestTableComponent,
 		RequestSortingMenuComponent,
 		RequestTopPanelComponent,
 		RequestsPageComponent,
