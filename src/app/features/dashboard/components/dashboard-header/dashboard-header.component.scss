@@ -2,9 +2,10 @@
 	height: 240px;
 	position: absolute;
 	top: 0;
-	left: var(--spacing-xxxl);
-	right: 6px;
-	background-image: linear-gradient(to top, var(--color-vibrant) -60%, var(--color-primary) 130%);
+	left: 0;
+	right: 0;
+	z-index: var(--z-top-selection);
+	background-image: linear-gradient(to top, var(--color-vibrant) -60%, var(--color-primary) 200%);
 
 	.title-ctnr {
 		position: absolute;
@@ -12,8 +13,6 @@
 		left: 0;
 		right: 0;
 		padding: var(--spacing-l) 0;
-		z-index: var(--z-card-container);
-		background-image: linear-gradient(to top, var(--color-vibrant) -250%, var(--color-primary) 170%);
 	}
 	h1,
 	h2 {
