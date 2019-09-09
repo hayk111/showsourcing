@@ -11,10 +11,33 @@ user-picture-app {
 	margin-right: 0 !important;
 }
 
-.status-col {
-	status-selector-app {
-		margin-left: var(--spacing-ms);
-	}
+.reference-container {
+	font-size: var(--font-size-m);
+	color: var(--color-primary);
+}
+
+.name-container {
+	font-size: var(--font-size-m);
+	color: var(--color-txt-primary);
+}
+
+.product-container, .supplier-container, .due-date-container {
+	font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.assignee-name {
+	margin-left: var(--spacing-ms);
+	font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.task-is-done {
+	color: #71e591;
+}
+
+.task-not-done {
+	color: var(--color-txt-third);
 }
 
 .name-container {

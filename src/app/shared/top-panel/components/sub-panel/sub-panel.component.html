@@ -22,7 +22,7 @@
 		</button>
 		<div class="divider"></div>
 
-		<span *ngIf="hasFilter && !filtersPanelOpened" class="bold-s capitalize entities-count">
+		<span class="bold-s capitalize entities-count">
 			{{count}} {{entityType}}
 		</span>
 				
@@ -47,7 +47,20 @@
 					[size]="15"></checkbox-app>Show Archived
 			</div>
 		</div>
-
+		<div class="tasks-created-by-me-container pointer" *ngIf="hasTaskCreatedByMeOnly" (click)="toggleCreatedTaskOnly()">
+			<div class="flexCenter">
+				<checkbox-app
+					[checked]="isTaskCreatedByMeOnlyChecked"
+					[size]="15"></checkbox-app>Show tasks I created only
+			</div>
+		</div>
+		<div class="show-completed-container pointer" *ngIf="hasCompletedTask" (click)="toggleCompletedTask()">
+			<div class="flexCenter">
+				<checkbox-app
+					[checked]="isCompletedTaskChecked"
+					[size]="15"></checkbox-app>Show Completed
+			</div>
+		</div>
 		<div class="assigned-to-me-container pointer" *ngIf="hasAssigned" (click)="toggleAssigned()">
 			<div class="flexCenter">
 				<checkbox-app
