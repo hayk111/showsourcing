@@ -21,10 +21,6 @@ export class NotifItemComponent implements OnInit {
 	targetId: string;
 	targetName: string;
 	constructor(
-		private productSrv: ProductService,
-		private supplierSrv: SupplierService,
-		private taskSrv: TaskService,
-		private sampleSrv: SampleService,
 		private notifActivitySrv: NotificationActivityService,
 	) {
 	}
@@ -43,11 +39,7 @@ export class NotifItemComponent implements OnInit {
 				this.badgeType = 'comment';
 				this.activityMessage = `has commented on the ${target}`;
 				this.targetId = firstActivity.target_id;
-				if (target.toLowerCase() === 'product') {
-					this.navigateRoute = `/product/${this.targetId}/activity`;
-				} else {
-					this.navigateRoute = `/supplier/${this.targetId}/activity`;
-				}
+				this.navigateRoute = `/${target}/${this.targetId}/activity`;
 				break;
 			case 'create_task':
 				this.badgeType = 'task';
@@ -101,7 +93,7 @@ export class NotifItemComponent implements OnInit {
 		event.stopPropagation();
 	}
 
-	redirect(event: MouseEvent ) {
+	redirect(event: MouseEvent) {
 		event.stopPropagation();
 		this.notifActivitySrv.markAsRead(this.activity.id);
 		this.notifActivitySrv.closeNotificationPanel();
