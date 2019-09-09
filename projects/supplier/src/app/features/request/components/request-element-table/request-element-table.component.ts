@@ -4,14 +4,14 @@ import { RequestElement, ERM } from '~core/models';
 import { ID } from '~utils';
 
 @Component({
-	selector: 'request-element-list-view-sup',
-	templateUrl: './request-element-list-view.component.html',
+	selector: 'request-element-table-sup',
+	templateUrl: './request-element-table.component.html',
 	styleUrls: [
-		'./request-element-list-view.component.scss',
+		'./request-element-table.component.scss',
 		'../../../../../../../../src/app/theming/specific/list.scss'
 	]
 })
-export class RequestElementListViewComponent extends EntityTableComponent<RequestElement> implements OnInit {
+export class RequestElementTableComponent extends EntityTableComponent<RequestElement> implements OnInit {
 
 	@Input() creationDate: string;
 	private _rows: Array<RequestElement>;

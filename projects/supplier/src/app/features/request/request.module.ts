@@ -5,7 +5,7 @@ import { RequestCommonModule } from '~common/request';
 import { SharedModule } from '~shared/shared.module';
 
 import {
-	RequestElementListViewComponent,
+	RequestElementTableComponent,
 	RequestInformationComponent,
 	RequestTableComponent,
 	RequestSortingMenuComponent,
@@ -18,7 +18,7 @@ import { routes } from './routes';
 @NgModule({
 	declarations: [
 		RequestDetailsComponent,
-		RequestElementListViewComponent,
+		RequestElementTableComponent,
 		RequestInformationComponent,
 		RequestTableComponent,
 		RequestSortingMenuComponent,

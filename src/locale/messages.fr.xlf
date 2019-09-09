@@ -3007,7 +3007,7 @@
           <context context-type="linenumber">90</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/request/components/request-element-list-view/request-element-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/request/components/request-element-table/request-element-table.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">

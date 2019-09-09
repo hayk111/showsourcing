@@ -1,6 +1,6 @@
 <card-app>
 	<h2 class="l" i18n="header@@request-items">Request Items</h2>
-	<request-element-list-view-app
+	<request-element-table-app
 		class="no-padding"
 		[rows]="listSrv.items$ | async"
 		[hasSelection]="false"
@@ -8,5 +8,5 @@
 		(cancelReply)="cancelReply($event)"
 		(openReviewRequestReply)="openRequestDetails($event)"
 		(bottomReached)="listSrv.loadMore()">
-	</request-element-list-view-app>
+	</request-element-table-app>
 </card-app>

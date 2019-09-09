@@ -1797,7 +1797,7 @@
 			Cancel request item
 		</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/request/components/request-element-list-view/request-element-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/request/components/request-element-table/request-element-table.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
@@ -1805,7 +1805,7 @@
         <source>No request items</source>
         <target state="new">No request items</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/request/components/request-element-list-view/request-element-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/request/components/request-element-table/request-element-table.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <note priority="1" from="description">no-request-items</note>
