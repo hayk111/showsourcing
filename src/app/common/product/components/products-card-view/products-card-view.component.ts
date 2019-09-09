@@ -27,13 +27,35 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> implem
 	}
 
 	getGroupedProducts(sort: Sort) {
+		const fieldSortyBy = sort.sortBy;
+		const fieldSortByTokens = fieldSortyBy.split('.');
+		const field = fieldSortByTokens[0];
+
 		if (!this.rows) {
 			return this.rows;
 		}
 
-		const groupedObj = {};
-		groupedObj[sort.sortBy] = this.rows;
+		let groupedObj = {};
 
+		switch (sort.sortBy) {
+			case 'category.name':
+			case 'supplier.name':
+			case 'favorite':
+				groupedObj = this.rows.reduce((prev, cur) => {
+					const id = (cur[field] && cur[field].id) ? cur[field].id : cur[field];
+					if (!prev[id]) {
+						prev[id] = [cur];
+					} else {
+						prev[id].push(cur);
+					}
+					return prev;
+				}, {});
+				break;
+			default:
+				groupedObj = {};
+				groupedObj[sort.sortBy] = this.rows;
+				break;
+		}
 		return Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
 	}
 
