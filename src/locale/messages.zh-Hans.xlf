@@ -95,7 +95,7 @@
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/project/components/projects-list-view/projects-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/project/components/projects-table/projects-table.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
@@ -2877,7 +2877,7 @@
         <source>No project</source>
         <target state="final">无项目</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/project/components/projects-list-view/projects-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/project/components/projects-table/projects-table.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>

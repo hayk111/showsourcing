@@ -14,14 +14,14 @@ const tableConfig: TableConfig = {
 
 
 @Component({
-	selector: 'projects-list-view-app',
-	templateUrl: './projects-list-view.component.html',
+	selector: 'projects-table-app',
+	templateUrl: './projects-table.component.html',
 	styleUrls: [
-		'./projects-list-view.component.scss',
+		'./projects-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	]
 })
-export class ProjectsListViewComponent extends EntityTableComponent<Project> {
+export class ProjectsTableComponent extends EntityTableComponent<Project> {
 
 	columns = [
 		'name', 'owner', 'lastUpdatedDate', 'productCount', 'creationDate', 'description'
