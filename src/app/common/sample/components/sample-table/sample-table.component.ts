@@ -16,15 +16,15 @@ const tableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'sample-list-view-app',
-	templateUrl: './sample-list-view.component.html',
+	selector: 'sample-table-app',
+	templateUrl: './sample-table.component.html',
 	styleUrls: [
-		'./sample-list-view.component.scss',
+		'./sample-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleListViewComponent extends EntityTableComponent<Sample> {
+export class SampleTableComponent extends EntityTableComponent<Sample> {
 	columns = [ 'name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate' ];
 	tableConfig = tableConfig;
 	@Output() openSupplier = new EventEmitter<ID>();

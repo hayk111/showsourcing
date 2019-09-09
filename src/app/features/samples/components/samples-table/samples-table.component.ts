@@ -4,15 +4,15 @@ import { Sample, ERM } from '~models';
 import { Observable, of } from 'rxjs';
 
 @Component({
-	selector: 'samples-list-view-app',
-	templateUrl: './samples-list-view.component.html',
+	selector: 'samples-table-app',
+	templateUrl: './samples-table.component.html',
 	styleUrls: [
-		'./samples-list-view.component.scss',
+		'./samples-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SamplesListViewComponent extends EntityTableComponent<Sample> {
+export class SamplesTableComponent extends EntityTableComponent<Sample> {
 
 	erm = ERM;
 

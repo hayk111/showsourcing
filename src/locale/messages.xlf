@@ -117,7 +117,7 @@
           <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/workspace/components/sample-table/sample-table.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
@@ -940,7 +940,7 @@
           <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/workspace/components/sample-table/sample-table.component.html</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
@@ -1908,7 +1908,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/workspace/components/sample-table/sample-table.component.html</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
@@ -3491,7 +3491,7 @@
       <trans-unit id="b5813f46534b30ecd790487bbb5716d7a14d9df0" datatype="html">
         <source>{VAR_PLURAL, plural, =1 {comment } other {comments } }</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/workspace/components/sample-table/sample-table.component.html</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
