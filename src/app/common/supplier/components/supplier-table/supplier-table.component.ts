@@ -15,15 +15,15 @@ const tableConfig: TableConfig = {
 
 
 @Component({
-	selector: 'supplier-list-view-app',
-	templateUrl: './supplier-list-view.component.html',
+	selector: 'supplier-table-app',
+	templateUrl: './supplier-table.component.html',
 	styleUrls: [
-		'./supplier-list-view.component.scss',
+		'./supplier-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierListViewComponent extends EntityTableComponent<Supplier> {
+export class SupplierTableComponent extends EntityTableComponent<Supplier> {
 
 	columns = [ 'name', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status' ];
 	tableConfig = tableConfig;

@@ -37,12 +37,12 @@
 
 <card-app class="ex">
 	<card-title-app>Supplier example</card-title-app>
-	<supplier-list-view-app
+	<supplier-table-app
 		[pending]="pending"
 		[rows]="suppliers" 
 		[selection]="supplierSelectionSrv.selection"
 		[currentPage]="0"
 		[count]="155"
 		(selectAll)="supplierSelectionSrv.selectAll(suppliers)"
-		(unselectAll)="supplierSelectionSrv.unselectAll()"></supplier-list-view-app>
+		(unselectAll)="supplierSelectionSrv.unselectAll()"></supplier-table-app>
 </card-app>
