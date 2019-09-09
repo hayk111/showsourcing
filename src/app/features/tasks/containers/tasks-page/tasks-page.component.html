@@ -53,7 +53,7 @@
 
 </sub-panel-app>
 
-<task-list-view-app
+<task-table-app
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -72,7 +72,7 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listSrv.deleteOne($event)">
-</task-list-view-app>
+</task-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"

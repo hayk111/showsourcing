@@ -1,4 +1,4 @@
-<task-list-view-app
+<task-table-app
 	[hasHeader]="false"
 	[hasPagination]="false"
 	[rows]="listSrv.items$ | async"
@@ -17,7 +17,7 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(delete)="listSrv.deleteOne($event)">
-</task-list-view-app>
+</task-table-app>
 
 
 <task-preview-app

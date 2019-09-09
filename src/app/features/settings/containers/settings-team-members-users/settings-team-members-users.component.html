@@ -39,7 +39,7 @@
 	</sub-panel-app>
 
 <ng-container *ngIf="listSrv.items$ | async as members">
-	<team-members-list-view-app
+	<team-members-table-app
 		[rows]="members"
 		[teamOwner]="teamOwner"
 		[user]="user"
@@ -53,7 +53,7 @@
     (unselectAll)="listSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
 		(delete)="listSrv.deleteOne($event, true)">
-	</team-members-list-view-app>
+	</team-members-table-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app

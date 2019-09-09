@@ -4,15 +4,15 @@ import { ERM, ExportRequest } from '~core/models';
 import { translate } from '~utils';
 
 @Component({
-	selector: 'export-list-view-app',
-	templateUrl: './export-list-view.component.html',
+	selector: 'export-table-app',
+	templateUrl: './export-table.component.html',
 	styleUrls: [
-		'./export-list-view.component.scss',
+		'./export-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExportListViewComponent extends EntityTableComponent<ExportRequest> {
+export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
 
 	erm = ERM;
 	@Output() download = new EventEmitter<ExportRequest>();

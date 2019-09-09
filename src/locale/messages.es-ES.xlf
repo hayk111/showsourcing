@@ -36,7 +36,7 @@
           <context context-type="linenumber">57</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/export-list-view/export-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/export-table/export-table.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
         <note priority="1" from="description">button</note>
@@ -98,11 +98,11 @@
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
@@ -1962,7 +1962,7 @@
 				Team Member
 			</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">61</context>
         </context-group>
         <note priority="1" from="description">button</note>

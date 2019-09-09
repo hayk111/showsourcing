@@ -10,15 +10,15 @@ const tableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'task-list-view-app',
-	templateUrl: './task-list-view.component.html',
+	selector: 'task-table-app',
+	templateUrl: './task-table.component.html',
 	styleUrls: [
-		'./task-list-view.component.scss',
+		'./task-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskListViewComponent extends EntityTableComponent<Task> {
+export class TaskTableComponent extends EntityTableComponent<Task> {
 
 	columns = [ 'reference', 'assignee', 'status', 'creationDate' ];
 	tableConfig = tableConfig;
