@@ -1,6 +1,7 @@
 <div class="flexGrow flexColumn products-content">
 	<!-- top panel -->
 	<top-panel-app
+		[class.top-panel-margin-board]="listSrv.view === 'board'"
 		[title]="'My products'"
 		buttonName="Create Product"
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
@@ -10,6 +11,7 @@
 	</top-panel-app>
 	
 	<sub-panel-app
+		[class.sub-menu-padding-board]="listSrv.view === 'board'"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
 		[hasSwitch]="true"

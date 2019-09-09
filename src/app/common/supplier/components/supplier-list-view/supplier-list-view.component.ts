@@ -9,7 +9,7 @@ const tableConfig: TableConfig = {
 	productType: { title: 'product type', width: 190, sortable: false },
 	createdBy: { title: 'created by', width: 190, sortProperty: 'creationDate' },
 	favorite: { title: 'favorite', width: 50, sortProperty: 'favorite' },
-	reference: { title: 'reference', width: 190, sortProperty: 'reference' },
+	name: { title: 'name', width: 190, sortProperty: 'name' },
 	status: { title: 'status', width: 190, sortProperty: 'status.step' },
 };
 
@@ -25,7 +25,7 @@ const tableConfig: TableConfig = {
 })
 export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 
-	columns = [ 'reference', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status' ];
+	columns = [ 'name', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status' ];
 	tableConfig = tableConfig;
 	erm = ERM;
 	supplierErm = ERM.SUPPLIER;

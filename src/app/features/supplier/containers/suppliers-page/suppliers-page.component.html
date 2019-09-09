@@ -1,4 +1,5 @@
 <top-panel-app
+	[class.top-panel-margin-board]="listSrv.view === 'board'"
 	[title]="'My suppliers'"
 	buttonName="Add Supplier"
 	(buttonClick)="listSrv.create()"
@@ -6,6 +7,7 @@
 </top-panel-app>
 
 <sub-panel-app
+	[class.sub-menu-padding-board]="listSrv.view === 'board'"
 	[hasSwitch]="true"
 	[hasFilter]="true"
 	[hasThumb]="false"
