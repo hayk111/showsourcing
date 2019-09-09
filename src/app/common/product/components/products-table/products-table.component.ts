@@ -18,14 +18,14 @@ const tableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'products-list-view-app',
-	templateUrl: './products-list-view.component.html',
+	selector: 'products-table-app',
+	templateUrl: './products-table.component.html',
 	styleUrls: [
-		'./products-list-view.component.scss'
+		'./products-table.component.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsListViewComponent extends EntityTableComponent<Product> {
+export class ProductsTableComponent extends EntityTableComponent<Product> {
 	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 	tableConfig = tableConfig;
 	@Input() tableWidth: number;

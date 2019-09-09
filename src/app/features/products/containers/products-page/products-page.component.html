@@ -40,7 +40,7 @@
 	
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<ng-container *ngIf="listSrv.isListening">
-		<products-list-view-app
+		<products-table-app
 			*ngIf="listSrv.view === 'list'"
 			[currentSort]="listSrv.currentSort"
 			[pending]="listSrv.pending"
@@ -67,7 +67,7 @@
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(unselect)="listSrv.unselectOne($event, true)"
 			(unselectAll)="listSrv.unselectAll()" #productList>
-		</products-list-view-app>
+		</products-table-app>
 
 		<product-board-app 
 			*ngIf="listSrv.view === 'board'"
