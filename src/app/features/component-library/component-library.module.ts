@@ -22,6 +22,7 @@ import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/wor
 import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
 import { SupplierCommonModule } from '~common/supplier';
 import { ButtonLibPageComponent } from './button-lib-page/button-lib-page.component';
+import { AccordionLibPageComponent } from './accordion-lib-page/accordion-lib-page.component';
 
 
 
@@ -50,7 +51,8 @@ import { ButtonLibPageComponent } from './button-lib-page/button-lib-page.compon
 		PipesLibPageComponent,
 		TableLibPageComponent,
 		CommonListsLibPageComponent,
-		ButtonLibPageComponent
+		ButtonLibPageComponent,
+		AccordionLibPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []
