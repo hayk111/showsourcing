@@ -4,6 +4,7 @@
 	</div>
 	<div class="left">
 		<notif-box-app></notif-box-app>
+		<todo-box-app></todo-box-app>
 		<ng-container *ngIf="feedResult?.feed$ | async as feed">
 			<grouped-feed-list-app *ngIf="feed?.length > 0; else empty" [feedResult]="feedResult"></grouped-feed-list-app>
 			<ng-template #spinner>
@@ -29,4 +30,3 @@
 		<!-- <events-card-app></events-card-app> -->
 	</div>
 </div>
-

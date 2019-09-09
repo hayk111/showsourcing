@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { ProductService, SupplierService, TaskService, UserService } from '~entity-services';
-import { Task } from '~models';
+import { ProductService, SupplierService, TaskService, UserService, SampleService } from '~entity-services';
+import { Task, Product, Supplier, Sample } from '~models';
 import { ID } from '~utils/id.utils';
 import { toRealmDateFormat } from '~utils/realm-date-format.util';
+import { Router } from '@angular/router';
 
 export interface DashboardCounters {
 	productsNeedReview: number;
@@ -12,6 +13,20 @@ export interface DashboardCounters {
 	suppliersUnderAssessment: number;
 	totalTasks: number;
 	tasksDone: number;
+}
+
+export interface TodoCounts {
+	product: number;
+	task: number;
+	supplier: number;
+	sample: number;
+}
+
+export interface TodoEntities {
+	product: Product[];
+	task: Task[];
+	supplier: Supplier[];
+	sample: Sample[];
 }
 
 @Injectable({
@@ -25,10 +40,12 @@ export class DashboardService {
 	weeksAgo = toRealmDateFormat(new Date(+new Date - this.twoWeeks));
 
 	constructor(
+		private router: Router,
 		private userSrv: UserService,
 		private productSrv: ProductService,
 		private supplierSrv: SupplierService,
-		private taskSrv: TaskService
+		private taskSrv: TaskService,
+		private sampleSrv: SampleService,
 	) {
 		this.userSrv.selectUser().subscribe(user => this.userId = user.id);
 	}
@@ -51,9 +68,57 @@ export class DashboardService {
 		);
 	}
 
+
+	getFirstFewEntitiesAssignedToMe(): Observable<TodoEntities> {
+		return forkJoin([
+			this.getFirstFewProducts(),
+			this.getFirstFewTasks(),
+			this.getFirstFewSupplierTodo(),
+			this.getFirstFewSamplesTodo(),
+		]).pipe(
+			map(([a, b, c, d]) => ({
+				product: a,
+				task: b,
+				supplier: c,
+				sample: d,
+			}))
+		);
+
+	}
+
+	getTodoCounters(): Observable<TodoCounts> {
+		return forkJoin([
+			this.getCountProductsTodo(),
+			this.getCountTasksTodo(),
+			this.getCountSupplierTodo(),
+			this.getCountSamplesTodo()
+		]).pipe(
+			map(([a, b, c, d]) => ({
+				product: a,
+				task: b,
+				supplier: c,
+				sample: d
+			}))
+		);
+	}
+
 	getCountProductsNeedReview(): Observable<number> {
 		// products that have no status are the products that need review..
 		return this.productSrv.queryCount('status == null && archived == false').pipe(first());
+	}
+
+	getCountProductsTodo(): Observable<number> {
+		return this.productSrv.queryCount(
+			`assignee.id == "${this.userId}" && archived == false && deleted == false && status.final == false`
+		).pipe(first());
+	}
+
+	getFirstFewProducts(): Observable<Product[]> {
+		return this.productSrv.queryMany({
+			take: 4,
+			query: `assignee.id == "${this.userId}" && archived == false && deleted == false && status.final == false`,
+			descending: false
+		}).pipe(first());
 	}
 
 	getCountProductsInWorkflow(): Observable<number> {
@@ -61,6 +126,20 @@ export class DashboardService {
 			'status.id != null && status.inWorkflow == true ' +
 			'&& archived == false'
 		).pipe(first());
+	}
+
+	getCountSupplierTodo(): Observable<number> {
+		return this.supplierSrv.queryCount(
+			`assignee.id == "${this.userId}"`
+		).pipe(first());
+	}
+
+	getFirstFewSupplierTodo(): Observable<Supplier[]> {
+		return this.supplierSrv.queryMany({
+			take: 4,
+			query: `assignee.id == "${this.userId}"`,
+			descending: false,
+		}).pipe(first());
 	}
 
 	getCountSupplierUnderAssessment(): Observable<number> {
@@ -82,16 +161,39 @@ export class DashboardService {
 		).pipe(first());
 	}
 
+	getCountTasksTodo(): Observable<number> {
+		return this.taskSrv.queryCount(
+			`assignee.id == "${this.userSrv.userSync.id}" AND done == false`
+		).pipe(first());
+	}
+
 	getFirstFewTasks(): Observable<Task[]> {
 		return this.taskSrv.queryMany({
-			take: 5,
-			query: `(dueDate > ${this.weeksAgo} OR dueDate == null)	` +
-				`&& done == false && assignee.id == "${this.userId}"`,
+			take: 4,
+			query: `done == false && assignee.id == "${this.userId}"`,
 			descending: false
-		}).pipe();
+		}).pipe(first());
 	}
 
 	updateTask(task: Task) {
 		this.taskSrv.update(task).subscribe();
 	}
+
+	getCountSamplesTodo() {
+		return this.sampleSrv.queryCount(
+			`assignee.id == "${this.userId}"`
+		).pipe(first());
+	}
+
+	getFirstFewSamplesTodo(): Observable<Sample[]> {
+		return this.sampleSrv.queryMany({
+			take: 4,
+			query: `assignee.id == "${this.userId}"`
+		}).pipe(first());
+	}
+
+	redirect(route: string) {
+		this.router.navigate([route]);
+	}
+
 }

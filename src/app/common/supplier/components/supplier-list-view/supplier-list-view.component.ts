@@ -26,10 +26,10 @@ const tableConfig: TableConfig = {
 export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 
 	columns = [ 'reference', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status' ];
-	tableConfig = tableConfig;
 	erm = ERM;
 	supplierErm = ERM.SUPPLIER;
 
+	@Input() tableConfig = tableConfig;
 	@Output() archive = new EventEmitter<Supplier>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
