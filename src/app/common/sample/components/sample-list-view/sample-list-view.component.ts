@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ListViewComponent, TableConfig } from '~core/list-page';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
 import { ID } from '~utils/id.utils';
 
@@ -24,7 +24,7 @@ const tableConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleListViewComponent extends ListViewComponent<Sample> {
+export class SampleListViewComponent extends EntityTableComponent<Sample> {
 	columns = [ 'name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate' ];
 	tableConfig = tableConfig;
 	@Output() openSupplier = new EventEmitter<ID>();

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { Invitation, User } from '~models';
 
 
@@ -9,7 +9,7 @@ import { Invitation, User } from '~models';
 	styleUrls: ['./invitations-list-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvitationsListViewComponent extends ListViewComponent<Invitation> {
+export class InvitationsListViewComponent extends EntityTableComponent<Invitation> {
 
 	@Input() teamOwner: boolean;
 	@Input() user: User;

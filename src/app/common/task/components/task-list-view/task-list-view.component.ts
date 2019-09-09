@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ListViewComponent, TableConfig } from '~core/list-page';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { Task, ERM } from '~core/models';
 
 const tableConfig: TableConfig = {
@@ -18,7 +18,7 @@ const tableConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskListViewComponent extends ListViewComponent<Task> {
+export class TaskListViewComponent extends EntityTableComponent<Task> {
 
 	columns = [ 'reference', 'assignee', 'status', 'creationDate' ];
 	tableConfig = tableConfig;

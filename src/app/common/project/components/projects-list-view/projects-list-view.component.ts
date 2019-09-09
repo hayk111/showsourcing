@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
+import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
 import { Project } from '~models';
 
 
@@ -21,7 +21,7 @@ const tableConfig: TableConfig = {
 		'../../../../../app/theming/specific/list.scss'
 	]
 })
-export class ProjectsListViewComponent extends ListViewComponent<Project> {
+export class ProjectsListViewComponent extends EntityTableComponent<Project> {
 
 	columns = [
 		'name', 'owner', 'lastUpdatedDate', 'productCount', 'creationDate', 'description'

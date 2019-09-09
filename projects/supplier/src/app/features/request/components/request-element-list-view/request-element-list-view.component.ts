@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ListViewComponent } from '~core/list-page';
+import { EntityTableComponent } from '~core/list-page';
 import { RequestElement, ERM } from '~core/models';
 import { ID } from '~utils';
 
@@ -11,7 +11,7 @@ import { ID } from '~utils';
 		'../../../../../../../../src/app/theming/specific/list.scss'
 	]
 })
-export class RequestElementListViewComponent extends ListViewComponent<RequestElement> implements OnInit {
+export class RequestElementListViewComponent extends EntityTableComponent<RequestElement> implements OnInit {
 
 	@Input() creationDate: string;
 	private _rows: Array<RequestElement>;

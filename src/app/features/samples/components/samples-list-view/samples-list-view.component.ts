@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, OnChanges, Output, EventEmitter } from '@angular/core';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { Sample, ERM } from '~models';
 import { Observable, of } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SamplesListViewComponent extends ListViewComponent<Sample> {
+export class SamplesListViewComponent extends EntityTableComponent<Sample> {
 
 	erm = ERM;
 

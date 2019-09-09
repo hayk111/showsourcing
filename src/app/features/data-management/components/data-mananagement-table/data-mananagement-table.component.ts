@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { EntityMetadata, ERM } from '~models';
 
 @Component({
@@ -8,7 +8,7 @@ import { EntityMetadata, ERM } from '~models';
 	styleUrls: ['./data-mananagement-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataMananagementTableComponent extends ListViewComponent<any> {
+export class DataMananagementTableComponent extends EntityTableComponent<any> {
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
 	// if the id entity matches with an id of the array, we display add/remove button

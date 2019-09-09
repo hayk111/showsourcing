@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
+import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
 import { ERM, Product } from '~models';
 
 
@@ -25,7 +25,7 @@ const tableConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsListViewComponent extends ListViewComponent<Product> {
+export class ProductsListViewComponent extends EntityTableComponent<Product> {
 	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 	tableConfig = tableConfig;
 	@Input() tableWidth: number;

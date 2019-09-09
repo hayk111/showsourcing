@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ListViewComponent } from '~core/list-page';
+import { EntityTableComponent } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
 import { translate } from '~utils';
 
@@ -12,7 +12,7 @@ import { translate } from '~utils';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExportListViewComponent extends ListViewComponent<ExportRequest> {
+export class ExportListViewComponent extends EntityTableComponent<ExportRequest> {
 
 	erm = ERM;
 	@Output() download = new EventEmitter<ExportRequest>();

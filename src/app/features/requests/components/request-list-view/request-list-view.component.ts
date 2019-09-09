@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ListViewComponent } from '~core/list-page';
+import { EntityTableComponent } from '~core/list-page';
 import { ERM, SupplierRequest } from '~core/models';
 
 @Component({
@@ -11,7 +11,7 @@ import { ERM, SupplierRequest } from '~core/models';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestListViewComponent extends ListViewComponent<SupplierRequest> {
+export class RequestListViewComponent extends EntityTableComponent<SupplierRequest> {
 
 	@Output() cancelRequest = new EventEmitter<SupplierRequest>();
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;

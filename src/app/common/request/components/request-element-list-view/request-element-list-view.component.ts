@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ListViewComponent } from '~core/list-page';
+import { EntityTableComponent } from '~core/list-page';
 import { ExtendedField, RequestElement, ERM } from '~core/models';
 import { ID } from '~utils';
 
@@ -12,7 +12,7 @@ import { ID } from '~utils';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestElementListViewComponent extends ListViewComponent<RequestElement> {
+export class RequestElementListViewComponent extends EntityTableComponent<RequestElement> {
 
 	private _rows: Array<RequestElement>;
 	@Input() set rows(rows: Array<RequestElement>) {

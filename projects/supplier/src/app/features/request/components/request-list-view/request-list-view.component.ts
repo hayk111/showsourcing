@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ERM, SupplierRequest } from '~core/models';
-import { ListViewComponent } from '~core/list-page';
+import { EntityTableComponent } from '~core/list-page';
 
 @Component({
 	selector: 'request-list-view-sup',
@@ -10,7 +10,7 @@ import { ListViewComponent } from '~core/list-page';
 		'../../../../../../../../src/app/theming/specific/list.scss'
 	]
 })
-export class RequestListViewComponent extends ListViewComponent<SupplierRequest> implements OnInit {
+export class RequestListViewComponent extends EntityTableComponent<SupplierRequest> implements OnInit {
 
 	erm = ERM;
 
