@@ -17,7 +17,8 @@
 	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
-	i18n-placeholder="@@no-project">
+	i18n-placeholder="@@no-project"
+	(showItemsPerPage)="showItemsPerPage.emit($event)">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -41,38 +42,50 @@
 
       <!-- name -->
       <ng-container *ngSwitchCase="'name'">
-				<div class="project">
-					<a class="flexVAlign txt-btn capitalize ellipsis"
+				<div class="project flexVAlign">
+					<logo-app class="mini imgCtnr" [color]="color.PRIMARY" size="m" type="project"></logo-app>
+					<a class="project-name flexVAlign txt-btn capitalize ellipsis" 
 						[routerLink]="['/project', row.id]">
-						<!-- TODO change this to logo -->
-						<!-- <img [src]="row.logoImage | logo:'project'" class="icon"/> -->
 						{{ row?.name }}
 					</a>
 				</div>
 			</ng-container>
 
 			<!-- owner -->
-			<ng-container *ngSwitchCase="'owner'">
-				{{ row?.createdBy?.firstName }} {{ row?.createdBy?.lastName }}
+			<ng-container *ngSwitchCase="'project lead'">
+				<div class="project-owner flexVAlign">
+					<user-picture-app 
+						[user]="row?.createdBy" 
+						[image]="row?.createdBy?.avatar" 
+						[background]="false"
+						[fontSize]="16"
+						></user-picture-app>
+					<span class="project-lead">
+						{{ row?.createdBy?.firstName }} {{ row?.createdBy?.lastName }}
+					</span>
+				</div>
 			</ng-container>
 
-			<!-- last updated date -->
-			<ng-container *ngSwitchCase="'last updated'">
-				<span>
-					{{ row?.lastUpdatedDate | date: 'dd MMMM y' }}
-				</span>
+			<!-- due date -->
+      <ng-container *ngSwitchCase="'due date'">
+				<span class="due-date">{{ row?.dueDate | date: 'dd MMM y' }}</span>
 			</ng-container>
 
-			<!-- product count -->
-			<ng-container *ngSwitchCase="'product count'">
-				<span>
-					<b>{{ row?.productsLinked?.count }}</b>
-				</span>
+			<!-- status -->
+			<ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<status-selector-app [entity]="row" [typeEntity]="erm.PROJECT" selectSize="s"></status-selector-app>
+				</div>
+			</ng-container>
+
+			<!-- created by -->
+      <ng-container *ngSwitchCase="'created by'">
+				<span class="created-by">{{ row?.createdBy | formatUserName:true }}</span>
 			</ng-container>
 
 			<!-- creation date -->
-			<ng-container *ngSwitchCase="'creation date'">
-				{{ row?.creationDate | date: 'dd MMMM y' }}
+			<ng-container *ngSwitchCase="'created on'">
+				<span class="created-on">{{ row?.creationDate | date: 'dd MMM y' }}</span>
 			</ng-container>
 
 			<!-- description -->
