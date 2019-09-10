@@ -1,5 +1,5 @@
 <top-panel-app [title]="(team$ | async)?.name" [isModifiable]="true" (update)="updateTeamName($event)"
-	buttonName="{{'button.create-new-team' | translate}}" [buttonIcon]="false" (buttonClick)="redirectNewTeamScreen()">
+	[buttonName]="'button.create-new-team' | translate" [buttonIcon]="false" (buttonClick)="redirectNewTeamScreen()">
 
 	<nav class="flex">
 		<span class="capitalize" (click)="displayTab('team-members')"

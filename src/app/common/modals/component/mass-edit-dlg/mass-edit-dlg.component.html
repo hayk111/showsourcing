@@ -18,7 +18,7 @@
 				autoFocus
 				class="first-uppercase"
 				[name]="(choice$ | async)?.label || (choice$ | async)?.name"
-				placeholder="{{'placeholder.choose-property' | translate}}"
+				[placeholder]="'placeholder.choose-property' | translate"
 				i18n-placeholder="@@choose-a-property">
 			</selector-placeholder-app>
 		</selector-app>
@@ -44,7 +44,7 @@
 								tabFocusAction
 								class="status-selector first-uppercase"
 								[name]="value?.name"
-								placeholder="{{'placeholder.choose-status' | translate}}"
+								[placeholder]="'placeholder.choose-status' | translate"
 								(keyEnter)="statusSelector?.openMenu()"
 								i18n-placeholder="@@choose a status">
 							</selector-placeholder-app>

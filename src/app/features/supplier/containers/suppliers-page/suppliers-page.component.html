@@ -1,6 +1,6 @@
 <top-panel-app
-	title="{{'title.my-suppliers' | translate}}"
-	buttonName="{{'button.add-supplier' | translate}}"
+	[title]="'title.my-suppliers' | translate"
+	[buttonName]="'button.add-supplier' | translate"
 	(buttonClick)="listSrv.create()">
 </top-panel-app>
 
@@ -52,7 +52,7 @@
 
 		<div class="flex">
 			<status-selector-app
-				toolTip toolTipMessage="{{'message.change-status' | translate}}" toolTipPosition="above-right"
+				toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 				#workActionMenu
 				selectSize="s"
 				[typeEntity]="erm.SUPPLIER"

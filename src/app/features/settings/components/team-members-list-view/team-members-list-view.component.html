@@ -6,7 +6,7 @@
 	[isSelectable]="isSelectableFn"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="{{'placeholder.no-team-member' | translate}}"
+	[placeholder]="'placeholder.no-team-member' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"

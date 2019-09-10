@@ -60,7 +60,7 @@
           [formControl]="descriptionCtrl"
 					type="text"
 					(blur)="save()"
-          placeholder="{{'placeholder.reply-message-buyer' | translate}}">
+          [placeholder]="'placeholder.reply-message-buyer' | translate">
         </textarea>
 			</form-field-app>
 

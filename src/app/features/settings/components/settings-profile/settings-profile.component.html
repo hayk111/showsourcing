@@ -1,7 +1,7 @@
 
 <top-panel-app
 	*ngIf="user$ | async as user"
-	title="{{'title.profile' | translate}}"
+	[title]="'title.profile' | translate"
 	[hasAction]="false">
 </top-panel-app>
 

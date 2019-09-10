@@ -11,7 +11,7 @@
       <div class="info" translate="text.new-template"></div>
 
       <div class="input-box flexVAlign">
-        <input #inp inputApp [formControl]="createCtrl" type="text" placeholder="{{'placeholder.template-name' | translate}}" (keyup.enter)="btn.click()"/>
+        <input #inp inputApp [formControl]="createCtrl" type="text" [placeholder]="'placeholder.template-name' | translate" (keyup.enter)="btn.click()"/>
         <button #btn (click)="createTemplate()" translate="button.new"></button>
       </div>
 

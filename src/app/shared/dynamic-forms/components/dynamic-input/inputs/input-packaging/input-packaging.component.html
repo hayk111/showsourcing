@@ -2,19 +2,19 @@
 	<form-field-app>
 		<label-app translate="label.length"></label-app>
 		<input inputApp name="length" [(ngModel)]="value.length"
-			placeholder="{{'placeholder.length' | translate}}" type="number" restrictInput="number"/>
+			[placeholder]="'placeholder.length' | translate" type="number" restrictInput="number"/>
 	</form-field-app>
 	<div class="spacer mg-xs"></div>
 	<form-field-app>
 		<label-app translate="label.width"></label-app>
 		<input inputApp name="width" [(ngModel)]="value.width"
-		placeholder="{{'placeholder.width' | translate}}" type="number" restrictInput="number"/>
+		[placeholder]="'placeholder.width' | translate" type="number" restrictInput="number"/>
 	</form-field-app>
 	<div class="spacer mg-xs"></div>
 	<form-field-app>
 		<label-app translate="label.height"></label-app>
 		<input inputApp name="height" [(ngModel)]="value.height"
-		placeholder="{{'placeholder.height' | translate}}" type="number" restrictInput="number"/>
+		[placeholder]="'placeholder.height' | translate" type="number" restrictInput="number"/>
 	</form-field-app>
 	<div class="spacer mg-xs"></div>
 
@@ -26,7 +26,7 @@
 			<label-app translate="label.unit"></label-app>
 		</selector-app>
 		<input inputApp name="unit" [(ngModel)]="value.unit"
-		placeholder="{{'placeholder.unit' | translate}}" type="text"/>
+		[placeholder]="'placeholder.unit' | translate" type="text"/>
 	</form-field-app>
 </div>
 

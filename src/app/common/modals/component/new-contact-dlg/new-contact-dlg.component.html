@@ -14,7 +14,7 @@
 					formControlName="name"
 					type="text"
 					autocomplete="new-name"
-					placeholder="{{'placeholder.contact-name' | translate}}"/>
+					[placeholder]="'placeholder.contact-name' | translate"/>
 			</form-field-app>
 
 			<!-- if we ever need the supplier on the dialog -->
@@ -39,7 +39,7 @@
 					formControlName="jobTitle"
 					type="text"
 					autocomplete="new-job"
-					placeholder="{{'placeholder.contact-function' | translate}}"/>
+					[placeholder]="'placeholder.contact-function' | translate"/>
 			</form-field-app>
 
 			<form-field-app>
@@ -49,7 +49,7 @@
 					formControlName="email"
 					type="email"
 					autocomplete="new-email"
-					placeholder="{{'placeholder.contact-email-address' | translate}}"/>
+					[placeholder]="'placeholder.contact-email-address' | translate"/>
 			</form-field-app>
 
 			<form-field-app>
@@ -60,7 +60,7 @@
 					restrictInput="tel"
 					type="tel"
 					autocomplete="new-tel"
-					placeholder="{{'placeholder.contact-phone-number' | translate}}"/>
+					[placeholder]="'placeholder.contact-phone-number' | translate"/>
 			</form-field-app>
 
 			<label translate="label.business-card"></label>

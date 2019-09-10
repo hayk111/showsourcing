@@ -1,7 +1,7 @@
 
 <div class="left">
 
-	<sidenav-app menuIcon="folder" menuTitle="{{'title.project' | translate}}">
+	<sidenav-app menuIcon="folder" [menuTitle]="'title.project' | translate">
 		<sidenav-item-app link="./workflow">
 			<icon-app name="kanban-project-menu-light" fontSet="svg"></icon-app>
 			<span sidenavLabelApp translate="text.workflow"></span>

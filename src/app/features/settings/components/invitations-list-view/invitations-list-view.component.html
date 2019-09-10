@@ -7,7 +7,7 @@
 	[hasSelection]="false"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="{{'placeholder.no-invitation' | translate}}"
+	[placeholder]="'placeholder.no-invitation' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"

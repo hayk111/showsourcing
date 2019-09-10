@@ -1,6 +1,6 @@
 
 <sub-panel-app
-	title="{{'title.invitations' | translate}}"
+	[title]="'title.invitations' | translate"
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	(search)="listSrv.search($event)">

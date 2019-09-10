@@ -1,5 +1,5 @@
 <div class="flex settings">
-  <sidenav-app menuIcon="settings" menuTitle="{{'text.settings' | translate}}" (expanded)="onMenuExpanded($event)">
+  <sidenav-app menuIcon="settings" [menuTitle]="'text.settings' | translate" (expanded)="onMenuExpanded($event)">
 
 		<sidenav-item-app link="/settings/profile">
 			<icon-app name="user"></icon-app>

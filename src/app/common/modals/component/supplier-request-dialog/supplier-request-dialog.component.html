@@ -36,7 +36,7 @@
 								tabFocusAction
 								autoFocus
 								[name]="selectorReqTemplate?.value?.name"
-								placeholder="{{'placeholder.select-template' | translate}}">
+								[placeholder]="'placeholder.select-template' | translate">
 							</selector-placeholder-app>
 						</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
@@ -85,7 +85,7 @@
 							<selector-placeholder-app
 								tabFocusAction
 								[name]="supplier?.name"
-								placeholder="{{'placeholder.select-supplier' | translate}}">
+								[placeholder]="'placeholder.select-supplier' | translate">
 							</selector-placeholder-app>
 						</selector-app>
 						<input [hidden]="true" inputApp type="text"/>
@@ -106,7 +106,7 @@
 							[ngClass]="{ disabled: !supplier }"
 							[hasArrow]="supplier"
 							[name]="!supplier ? ('Select a supplier first' | const: 'messages') : contactSelector?.value?.email"
-							placeholder="{{'placeholder.email-or-contact' | translate}}">
+							[placeholder]="'placeholder.email-or-contact' | translate">
 						</selector-placeholder-app>
 					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
@@ -131,11 +131,11 @@
 
 				<form-field-app class="modal pdng-btm-l">
 					<label-app><ng-container translate="label.request-title"></ng-container> *</label-app>
-					<input inputApp type="text" formControlName="title" placeholder="{{'placeholder.quote-request' | translate}}"/>
+					<input inputApp type="text" formControlName="title" [placeholder]="'placeholder.quote-request' | translate"/>
 				</form-field-app>
 				<form-field-app class="modal">
 					<label-app translate="label.message-for-supplier"></label-app>
-					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" placeholder="{{'placeholder.quick-rfq' | translate}}"></textarea>
+					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" [placeholder]="'placeholder.quick-rfq' | translate"></textarea>
 				</form-field-app>
 
 				<!-- <form-field-app class="modal">

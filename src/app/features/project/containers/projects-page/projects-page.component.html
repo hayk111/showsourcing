@@ -1,7 +1,7 @@
 
 <top-panel-app
-  title="{{'title.my-projects' | translate}}"
-  buttonName="{{'button.add-project' | translate}}"
+  [title]="'title.my-projects' | translate"
+  [buttonName]="'button.add-project' | translate"
 	(buttonClick)="listSrv.create()">
 </top-panel-app>
 

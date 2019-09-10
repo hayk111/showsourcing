@@ -34,7 +34,7 @@
 		class="mark-read primary-dot"
 		(click)="markAsRead($event)"
 		toolTip
-		toolTipMessage="{{'message.mark-as-read' | translate}}"
+		[toolTipMessage]="'message.mark-as-read' | translate"
 		toolTipPosition="above-left"
 		[shouldDisplace]="false"
 		[offsetX]="-21"

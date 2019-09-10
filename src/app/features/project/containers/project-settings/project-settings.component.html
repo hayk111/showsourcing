@@ -1,7 +1,7 @@
 <div *ngIf="project$ | async as project">
 	<top-panel-app
 		[title]="project?.name"
-		buttonName="{{'button.add-project' | translate}}"
+		[buttonName]="'button.add-project' | translate"
 		[hasAction]="false">
 	</top-panel-app>
 

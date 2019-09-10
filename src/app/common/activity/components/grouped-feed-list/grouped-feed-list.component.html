@@ -8,7 +8,7 @@
 			<one-product-activity-card-app
 				*ngSwitchCase="'product_activity'"
 				[groupFeed]="feed"
-				title="{{'title.new-comment' | translate}}"
+				[title]="'title.new-comment' | translate"
 				(createComment)="createComment($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
@@ -19,7 +19,7 @@
 			<one-product-activity-card-app
 				*ngSwitchCase="'product_one_created'"
 				[groupFeed]="feed"
-				title="{{'title.created-new-product' | translate}}"
+				[title]="'title.created-new-product' | translate"
 				(createComment)="createComment($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
@@ -39,7 +39,7 @@
 			<one-supplier-activity-card-app
 				*ngSwitchCase="'supplier_one_created'"
 				[groupFeed]="feed"
-				title="{{'title.created-new-supplier' | translate}}"
+				[title]="'title.created-new-supplier' | translate"
 				(createComment)="createComment($event)"
 				(update)="updateSupplier($event)">
 			</one-supplier-activity-card-app>

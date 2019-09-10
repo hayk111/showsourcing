@@ -14,7 +14,7 @@
 		[ngClass]="(editing$ | async) ? 'show' : 'hide'"
 		[value]="description"
 		(input)="txtAreaDesc = txtArea.value"
-		placeholder="{{'placeholer.no-description-yet' | translate}}">
+		[placeholder]="'placeholer.no-description-yet' | translate">
 	</textarea>
 
 	<dialog-footer-app>
