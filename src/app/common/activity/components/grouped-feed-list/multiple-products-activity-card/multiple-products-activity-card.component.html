@@ -1,4 +1,3 @@
-<!-- TODO i18n -->
 <card-app padding="ms">
 
 	<ng-container *ngIf="products$ | async as products; else spinner">
@@ -6,8 +5,7 @@
 		<activity-user-app
 			[user]="products[0]?.createdBy"
 			[time]="time"
-			action="added {{ products?.length }} products"
-			i18n-action="@@added-OBJ-products">
+			[action]="'OBJ.added-n-products' | translate: {noProducts: products?.length}">
 		</activity-user-app>
 
 		<!-- previews -->

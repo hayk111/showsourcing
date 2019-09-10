@@ -201,6 +201,14 @@
 			"singular": "weight unit"
 		}
 	},
+	"OBJ": {
+		"added-n-products": "added {{ noProducts }} products",
+		"new-OBJ": "New {{ field }}",
+		"new-OBJ-name": "New {{ field }} name",
+		"provide-name-create": "Please provide the {{ field }} name to create",
+		"provide-new-name": "Please provide the new {{ field }} name for {{ entityName }}",
+		"that-already-exists": "That {{ field }} name already exists. Please choose another one."
+	},
 	"button": {
 		"accept-all": "Accept All",
 		"accept-request": "Accept Request",

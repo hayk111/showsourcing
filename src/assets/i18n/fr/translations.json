@@ -201,6 +201,14 @@
 			"singular": ""
 		}
 	},
+	"OBJ": {
+		"added-n-products": "",
+		"new-OBJ": "",
+		"new-OBJ-name": "",
+		"provide-name-create": "",
+		"provide-new-name": "",
+		"that-already-exists": ""
+	},
 	"button": {
 		"accept-all": "",
 		"accept-request": "",
