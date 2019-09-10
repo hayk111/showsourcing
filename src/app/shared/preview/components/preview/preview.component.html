@@ -1,14 +1,33 @@
 
-<div #top [ngClass]="{ 'banner-fixed': isPreview }">
-	<ng-content select="preview-banner-app"></ng-content>
-</div>
-<div #scrollSection class="scrollable">
-	<div class="logo-transparent">
-		<!-- so the logo can go above the banner -->
-	</div>
-	<div class="white-bg">
+
+<ng-container *ngIf="isPreview; else notPreview">
+	<div #top class="banner-fixed">
+		<ng-content select="preview-banner-app"></ng-content>
 		<ng-content select="preview-header-app"></ng-content>
-		<ng-content select="preview-section-app"></ng-content>
-		<ng-content select="preview-comment-app"></ng-content>
+		<ng-content select=".preview-tab-app"></ng-content>
 	</div>
-</div>
+	<div #scrollSection class="scrollable">
+		<div class="logo-transparent">
+		</div>
+		<div class="white-bg">
+			<ng-content select="preview-section-app"></ng-content>
+			<ng-content select="preview-comment-app"></ng-content>
+		</div>
+	</div>
+</ng-container>
+
+<ng-template #notPreview>
+	<div #top>
+		<ng-content select="preview-banner-app"></ng-content>
+	</div>
+	<div #scrollSection class="scrollable">
+		<div class="logo-transparent">
+			<!-- so the logo can go above the banner -->
+		</div>
+		<div class="white-bg">
+			<ng-content select="preview-header-app"></ng-content>
+			<ng-content select="preview-section-app"></ng-content>
+			<ng-content select="preview-comment-app"></ng-content>
+		</div>
+	</div>
+</ng-template>

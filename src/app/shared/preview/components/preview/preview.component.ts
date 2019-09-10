@@ -17,8 +17,8 @@ export class PreviewComponent implements AfterViewInit {
 	/** wether the top image is fixed or not for the scrolling effect*/
 	@Input() isPreview = true;
 
-	@ViewChild('top', { static: true }) topSection: ElementRef<HTMLElement>;
-	@ViewChild('scrollSection', { static: true }) scrollSection: ElementRef<HTMLElement>;
+	@ViewChild('top', { static: false }) topSection: ElementRef<HTMLElement>;
+	@ViewChild('scrollSection', { static: false }) scrollSection: ElementRef<HTMLElement>;
 
 	constructor(private renderer: Renderer2) { }
 
