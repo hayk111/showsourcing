@@ -1,18 +1,21 @@
 <card-app *ngIf="todoCounters$ | async as todoCount">
 	<card-header-app>
 		<div class="box-navbar" >
+
 			<div
 				*ngFor="let entity of entities"
 				class="navbar-item"
 				[ngClass]="{ 'active-tab': selectedEntity === entity }"
-				(click)="selectedEntity = entity"
-			>
+				(click)="selectedEntity = entity">
+
 				<logo-app class="navbar-badge" [type]="entity" size="l"></logo-app>
+
 				<div class="right">
 					<h1>{{ todoCount[entity] }} {{ entity }}s</h1>
 					<h4>Assigned to you</h4>
 					<a>View</a>
 				</div>
+
 			</div>
 		</div>
 	</card-header-app>
@@ -51,6 +54,7 @@
 </card-app>
 
 <ng-template #empty>
+
 	<div class="container">
 		<ng-container [ngSwitch]="selectedEntity">
 			<logo-app
@@ -64,8 +68,8 @@
 				*ngSwitchCase="'sample'"
 				type="sample"
 				[circle]="true"
-				size="xl"
-			>
+				size="xl">
+
 			</logo-app>
 			<logo-app *ngSwitchCase="'task'" type="task" [circle]="true" size="xl">
 			</logo-app>
@@ -73,15 +77,14 @@
 				*ngSwitchCase="'supplier'"
 				type="supplier"
 				[circle]="true"
-				size="xl"
-			>
+				size="xl">
+
 			</logo-app>
 		</ng-container>
 
 		<h1>No {{ selectedEntity }} assigned to you</h1>
-		<span
-			>Create a {{ selectedEntity }} or assign yourself an existing one</span
-		>
+		<span>Create a {{ selectedEntity }} or assign yourself an existing one</span>
+
 		<div class="button-group">
 			<button (click)="openCreationModal()">Create {{ selectedEntity }}</button>
 			<button (click)="dashboardSrv.redirect(route)">View {{ selectedEntity }}s</button>

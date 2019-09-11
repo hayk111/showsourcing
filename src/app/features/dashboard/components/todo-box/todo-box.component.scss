@@ -31,7 +31,7 @@ card-app {
 			margin-right: var(--spacing-s);
 			width: 146px;
 			height: 51px;
-			border-radius: 4px;
+			border-radius: var(--border-radius);
 			.right {
 				width: 85px;
 
@@ -89,4 +89,3 @@ card-app {
 		margin-bottom: var(--spacing-ml);
 	}
 }
-
