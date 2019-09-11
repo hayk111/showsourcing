@@ -2,8 +2,7 @@
 <dialog-app class="vertical-scroll-content">
 
 	<dialog-header-app>
-		<ng-container i18n="mass edit of X products@@mass-edit">Mass edit of</ng-container> {{ items?.length || 0}}
-		<ng-container i18n="@@nested_items">{	items?.length || 0, plural, =1 { item } other { items } }</ng-container>
+		{{ ((items?.length || 0) > 1 ? 'OBJ.mass-edit.plural' : 'OBJ.mass-edit.singular') | translate: {count: items?.length || 0} }}
 	</dialog-header-app>
 
 	<div class="container">
@@ -18,8 +17,7 @@
 				autoFocus
 				class="first-uppercase"
 				[name]="(choice$ | async)?.label || (choice$ | async)?.name"
-				[placeholder]="'placeholder.choose-property' | translate"
-				i18n-placeholder="@@choose-a-property">
+				[placeholder]="'placeholder.choose-property' | translate">
 			</selector-placeholder-app>
 		</selector-app>
 
@@ -45,8 +43,7 @@
 								class="status-selector first-uppercase"
 								[name]="value?.name"
 								[placeholder]="'placeholder.choose-status' | translate"
-								(keyEnter)="statusSelector?.openMenu()"
-								i18n-placeholder="@@choose a status">
+								(keyEnter)="statusSelector?.openMenu()">
 							</selector-placeholder-app>
 						</status-selector-app>
 					</ng-container>

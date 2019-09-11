@@ -1,12 +1,11 @@
+<!-- TODO i18n -->
 <div class="flexGrow flexColumn products-content">
 	<!-- top panel -->
 	<top-panel-app
-		[title]="'My products'"
-		buttonName="Create Product"
+		[title]="'title.my-products' | translate"
+		[buttonName]="'button.create-product' | translate"
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
-		[buttonRightMargin]="addProductMargin"
-		i18n-title="@@my-products"
-		i18n-buttonName="@@add-products">
+		[buttonRightMargin]="addProductMargin">
 	</top-panel-app>
 	
 	<sub-panel-app

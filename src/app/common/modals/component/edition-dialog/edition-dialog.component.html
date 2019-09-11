@@ -5,15 +5,15 @@
 
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
-				<label-app class="capitalize"> {{ type.singular | const: 'erm' }} <ng-container translate="label.name"></ng-container></label-app>
-				<input inputApp autoFocus type="text" (input)="checkExists()" formControlName="name" placeholder="{{ 'OBJ.new-OBJ-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}" (keyup.enter)="onSubmit()"/>
+				<label-app class="capitalize"> {{ 'OBJ.OBJ-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</label-app>
+				<input inputApp autoFocus type="text" (input)="checkExists()" formControlName="name" [placeholder]="'OBJ.new-OBJ-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate}" (keyup.enter)="onSubmit()"/>
 			</form-field-app>
 			<label-app>{{ 'OBJ.provide-new-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate, entityName: entity.name || ''} }}</label-app>
 		</form>
 
 		<dialog-footer-app *ngIf="!pending ">
 				<div class="color-warn" *ngIf="exists$ | async" > {{ 'OBJ.that-already-exists' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</div>
-				<input [disabled]="!group.valid || (exists$ | async)" type="submit" value="Rename" (click)="onSubmit()"/>
+				<input [disabled]="!group.valid || (exists$ | async)" type="submit" [value]="'text.rename' | translate" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
 		<!-- when pending -->

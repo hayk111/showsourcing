@@ -1,15 +1,14 @@
-	<!-- TODO i18n -->
 	<dialog-app>
 
 		<!-- when ready -->
 		<dialog-header-app *ngIf="!pending" class="first-uppercase">
-			<ng-container translate="text.merge"></ng-container> {{ type.plural | const: 'erm' }}
+			{{ 'OBJ.merge-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.plural' | translate} }}
 		</dialog-header-app>
 
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
-				<label-app>{{ type.singular | const: 'erm' }} <ng-container translate="text.to-merge-to">to merge to</ng-container></label-app>
-				<input inputApp type="text" formControlName="name" placeholder="New {{ type.singular | const: 'erm' }} name" (keyup.enter)="onSubmit()" i18n-placeholder="@@new-OBJ-name"/>
+				<label-app>{{ 'OBJ.OBJ-to-merge-to' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</label-app>
+				<input inputApp type="text" formControlName="name" [placeholder]="'OBJ.new-OBJ-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate}" (keyup.enter)="onSubmit()"/>
 			</form-field-app>
 			<label-app>
 				{{'message.please-select-category' | translate}}
@@ -17,8 +16,9 @@
 			</label-app>
 		</form>
 
-		<dialog-footer-app *ngIf="!pending ">
-			<input [disabled]="!group.valid" type="submit" value="Merge" (click)="onSubmit()"/>
+		<dialog-footer-app *ngIf="!pending">
+			<!-- TODO Check style is the same - Need first-uppercase -->
+			<input [disabled]="!group.valid" type="submit" [value]="'text.merge' | translate" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
 		<!-- when pending -->

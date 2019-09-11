@@ -1,7 +1,7 @@
-
+<!-- TODO i18n - list of items not translated yet -->
 <form [formGroup]="group">
 	<form-field-app class="search-input" [ngClass]="{'field-focused': inp.focussed || !!inp.control.value}">
-			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'Enter a ' + type.singular" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
+			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'OBJ.enter-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate}" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
 	</form-field-app>
 </form>
 
@@ -11,18 +11,17 @@
 		<ng-container [ngSwitch]="type">
 
 			<ng-container *ngSwitchCase="erm.EMAIL">
-				<info-badge-app *ngFor="let item of value" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item}}</info-badge-app>
+				<info-badge-app *ngFor="let item of value" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item + 'HAHA'}}</info-badge-app>
 			</ng-container>
 
 			<ng-container *ngSwitchDefault>
-				<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item.name}}</info-badge-app>
+				<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item.name + 'HAHA'}}</info-badge-app>
 			</ng-container>
 
 		</ng-container>
 	</ng-container>
 	<ng-template #empty>
-		<!-- TODO i18n -->
-		<span class="empty-message" i18n="text@@no-item-add-one">There's no {{ type.singular | const: 'erm' }} yet, add one!</span>
+		<span class="empty-message">{{'OBJ.no-item-add-one' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</span>
 	</ng-template>
 </div>
 
