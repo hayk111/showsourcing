@@ -33,7 +33,7 @@ user-picture-app {
 }
 
 .task-is-done {
-	color: #71e591;
+	color: var(--color-success);
 }
 
 .task-not-done {

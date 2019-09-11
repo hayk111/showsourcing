@@ -43,11 +43,10 @@
 				[style.height]="rowHeight + 'px'" [class.sorted]="currentSort.sortBy === column?.sortBy">
 				{{ column.title }}
 				<ng-container *ngIf="column.sortOrder !== 'NONE'">
-					<icon-app class="sortIcon fs-xs" name="angle-down"
-						*ngIf="column.sortOrder === 'DESC'; else upArrow;"></icon-app>
-					<ng-template #upArrow>
-						<icon-app  class="sortIcon fs-xs" name="angle-up"></icon-app>
-					</ng-template>
+					<icon-app
+						[name]="column.sortOrder === 'DESC' ? 'angle-down' : 'angle-up'"
+						class="sortIcon fs-xs"
+						name="angle-down"></icon-app>
 				</ng-container>
 			</div>
 

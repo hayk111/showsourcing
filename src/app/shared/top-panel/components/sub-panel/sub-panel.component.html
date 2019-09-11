@@ -40,21 +40,27 @@
 
 	<div class="right-container flex">
 		<ng-content select="[right-sort-elem]" *ngIf="view === 'card'"></ng-content>
-		<div class="show-archived-container pointer" *ngIf="hasArchived" (click)="toggleArchived()">
+		<div *ngIf="hasArchived" class="show-archived-container pointer" (click)="toggleArchived()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isArchivedShown"
 					[size]="15"></checkbox-app>Show Archived
 			</div>
 		</div>
-		<div class="tasks-created-by-me-container pointer" *ngIf="hasTaskCreatedByMeOnly" (click)="toggleCreatedTaskOnly()">
+		<div 
+			*ngIf="hasTaskCreatedByMeOnly"
+			class="tasks-created-by-me-container pointer"
+			(click)="toggleCreatedTaskOnly()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isTaskCreatedByMeOnlyChecked"
 					[size]="15"></checkbox-app>Show tasks I created only
 			</div>
 		</div>
-		<div class="show-completed-container pointer" *ngIf="hasCompletedTask" (click)="toggleCompletedTask()">
+		<div 
+			*ngIf="hasCompletedTask" 
+			class="show-completed-container pointer" 
+			(click)="toggleCompletedTask()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isCompletedTaskChecked"

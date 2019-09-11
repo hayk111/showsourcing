@@ -39,10 +39,11 @@
 
 			<!-- task done -->
 			<ng-container *ngSwitchCase="''">
-				<icon-app *ngIf="row?.done; else taskNotDone" name="check-circle" [size]="24" class="pointer task-is-done"></icon-app>
-				<ng-template #taskNotDone>
-					<icon-app name="check-circle-light" [size]="24" class="pointer task-not-done"></icon-app>
-				</ng-template>		
+				<icon-app 
+					class="pointer"
+					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
+					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
+				 [size]="24" ></icon-app>
 			</ng-container>
 
 			<!-- reference -->
