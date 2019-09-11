@@ -105,7 +105,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
 
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
+		// this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false}); TODO backend
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
 
 		this.subPanelSrv.onFiltersClear();
