@@ -112,6 +112,11 @@
 		[sortable]="false"
 		let-row="row"
 		width="250">
+			<activities-bar-app
+				[row]="row"
+				[favourite]="row?.favorite"
+				[hasComments]="!!row?.comments.length">
+			</activities-bar-app>
 	</ng-template>
 
 	<!-- status -->
