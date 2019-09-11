@@ -1,7 +1,7 @@
 <div flex class="product-modal-top-panel flex">
 	<div class="flex left container">
 		<div class="space-icon flexAround">
-			<icon-app name="product"></icon-app>
+			<logo-app type="product" color="secondary" ></logo-app>
 		</div>
 		<div>
 			<p class="info-title">
@@ -10,7 +10,7 @@
 			<div subinfo class="flex flexVAlign info-container">
 				<div class="flex status-info">
 					<icon-app
-						class="circle color-{{ product?.status?.category || 'secondary' }}"
+						class="circle color-{{ product?.status?.category || 'primary' }}"
 						name="circle">
 					</icon-app>
 					{{
@@ -38,7 +38,7 @@
 	<div class="flex right container">
 		<a [href]="getImg() | image: 'xl'" download i18n="button@@download">
 			<button class="download-button">
-				<span class="flexCenter"> <icon-app name="file" size="s"></icon-app> download </span>
+				<span class="flexCenter"> <icon-app name="close-pane-bottom" size="m"></icon-app> Download </span>
 			</button>
 		</a>
 		<context-menu-app [menuOpen]="menuOpen" (menuOpened)="menuOpen = true" action>
