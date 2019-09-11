@@ -1,21 +1,27 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 	<top-panel-app
+		[class.top-panel-margin-board]="listSrv.view === 'board'"
 		[title]="project.name"
 		[hasAction]="false">
 	</top-panel-app>
 
 	<sub-panel-app
-		buttonName="Add Products"
+		[class.sub-menu-padding-board]="listSrv.view === 'board'"
 		[hasSwitch]="true"
-		[filtersAmount]="listSrv.filterList.asFilters()?.length"
+		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
+		entityType="products"
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
 		(showFilters)="listSrv.openFilterPanel()"
-		(buttonClick)="openFindProductDlg()"
+		(clearFilters)="onClearFilters()"
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(search)="listSrv.search($event)"
-		(viewChange)="listSrv.changeView($event)"
-		i18n="@@add-products">
+		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+		(viewChange)="listSrv.changeView($event)">
 
 		<sub-panel-right-item-app>
 			<product-sorting-menu-app
@@ -35,6 +41,7 @@
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
 			[count]="listSrv.count$ | async"
+			[currentSort]="listSrv.currentSort"
 			[currentPage]="listSrv.currentPage"
 			(goToPage)="listSrv.loadPage($event)"
 			(previewClick)="listSrv.openPreview($event)"
@@ -42,10 +49,16 @@
 			(unselect)="listSrv.unselectOne($event, true)"
 			(selectAll)="listSrv.selectAll($event, true)"
 			(unselectAll)="listSrv.unselectAll()"
+			(archive)="onArchive($event)"
 			(open)="listSrv.goToDetails($event)"
-			(favorited)="listSrv.onItemFavorited($event)"
+			(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
+			(openAddSampleDialog)="commonModalSrv.openAddSampleDialog($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
+			(setFavourite)="listSrv.onItemFavorited($event?.id)"
+			(favorited)="listSrv.onItemFavorited($event)"
+			(openAddTaskDialog)="commonModalSrv.openCreationTaskDlg($event)"
 			(sort)="listSrv.sort($event)"
+			(showItemsPerPage)="showItemsPerPage($event)"
 			(delete)="deassociateProductById(($event)?.id)"
 			(archiveProduct)="onArchive($event)">
 		</products-list-view-app>
@@ -70,6 +83,14 @@
 			(unselect)="listSrv.unselectOne($event, true)"
 			(update)="listSrv.update($event)">
 		</products-card-view-app>
+
+		<product-board-app 
+			*ngIf="listSrv.view === 'board'"
+			[selection]="listSrv.selection$"
+			(selectOne)="listSrv.selectOne($event, true)"
+			(unselectOne)="listSrv.unselectOne($event, true)"
+			(preview) = "listSrv.openPreview($event)">
+		</product-board-app>
 
 		<product-selection-bar-app
 			[isShown]="(listSrv.selection$ | async).size > 0"

@@ -19,6 +19,7 @@ import {
 	SearchAutocompleteComponent,
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { AutoUnsub } from '~utils';
+import { SubPanelService } from '../../services/sub-panel.service';
 
 @Component({
 	selector: 'sub-panel-app',
@@ -28,7 +29,6 @@ import { AutoUnsub } from '~utils';
 })
 export class SubPanelComponent extends AutoUnsub implements OnInit {
 	isArchivedShown = false;
-	archiveChecked = false;
 	isAssigned = false;
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
@@ -101,7 +101,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	constructor(private element: ElementRef,
 							private renderer: Renderer2,
-							private cdr: ChangeDetectorRef) {
+							private cdr: ChangeDetectorRef,
+							private subPanelSrv: SubPanelService) {
 		super();
 	}
 
@@ -122,6 +123,12 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 				this.inputFocus = true;
 			});
 		}
+
+		this.subPanelSrv.filtersClear.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(() => {
+			this.isArchivedShown = this.isAssigned = false;
+		});
 	}
 
 	triggerSmartSearch(event) {

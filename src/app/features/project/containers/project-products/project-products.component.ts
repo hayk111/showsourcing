@@ -13,6 +13,8 @@ import { ProductFeatureService } from '~features/products/services';
 import { ProjectFeatureService } from '~features/project/services';
 import { DialogService } from '~shared/dialog/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
 
 @Component({
 	selector: 'project-products-app',
@@ -27,7 +29,10 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 
 	project$: Observable<Project>;
 	private project: Project;
+	filterTypeEnum = FilterType;
 	erm = ERM;
+
+	selectItemsConfig: SelectParamsConfig;
 
 	filterTypes = [
 		FilterType.ARCHIVED,
@@ -49,7 +54,8 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
+		private subPanelSrv: SubPanelService,
 	) {
 		super();
 	}
@@ -67,7 +73,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: {
-				query: `projects.id == "${id}" AND deleted == false`,
+				query: `deleted == false`,
 				sortBy: 'category.name',
 				descending: true
 			},
@@ -135,6 +141,20 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 					});
 				});
 		}
+	}
+
+	onClearFilters() {
+		this.listSrv.filterList.resetAll();
+
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+
+		this.subPanelSrv.onFiltersClear();
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 	onOpenCreateRequestDlg(products: Product[]) {
