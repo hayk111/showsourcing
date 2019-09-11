@@ -202,9 +202,22 @@
 		}
 	},
 	"OBJ": {
+		"OBJ-name": "",
+		"OBJ-to-merge-to": "",
 		"added-n-products": "",
+		"enter-OBJ": "",
+		"item-selected": {
+			"plural": "",
+			"singular": ""
+		},
+		"mass-edit": {
+			"plural": "",
+			"singular": ""
+		},
+		"merge-OBJ": "fusionar {{ field }}",
 		"new-OBJ": "",
 		"new-OBJ-name": "",
+		"no-item-add-one": "",
 		"provide-name-create": "",
 		"provide-new-name": "",
 		"that-already-exists": ""
@@ -242,6 +255,7 @@
 		"close": "",
 		"close-request": "",
 		"create-new-team": "",
+		"create-product": "",
 		"create-sample": "",
 		"delete": "",
 		"delete-picture": "",
@@ -479,6 +493,7 @@
 		"invitation-accepted": "",
 		"invitation-refused": "",
 		"invite-ur-team-to-start-receive-update": "",
+		"limit-50-pdf-per-export": "",
 		"mark-as-read": "",
 		"next-picture": "",
 		"only-team-owners-can-invite": "",
@@ -640,6 +655,7 @@
 		"project-picture": "",
 		"projectCard_description": "",
 		"pwd-must-match": "",
+		"rename": "",
 		"select-info-template-supplier": "",
 		"select-team-or-create": "",
 		"selection": "",
@@ -680,6 +696,7 @@
 		"invitations": "",
 		"lastest-noti": "",
 		"multiple-edition": "",
+		"my-products": "",
 		"my-projects": "",
 		"my-suppliers": "",
 		"my-workspace": "",

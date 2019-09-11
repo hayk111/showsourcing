@@ -202,9 +202,22 @@
 		}
 	},
 	"OBJ": {
+		"OBJ-name": "{{ field }} name",
+		"OBJ-to-merge-to": "{{ field }} to merge to",
 		"added-n-products": "added {{ noProducts }} products",
+		"enter-OBJ": "Enter {{ field }}",
+		"item-selected": {
+			"plural": "{{ count }} items selected",
+			"singular": "{{ count }} item selected"
+		},
+		"mass-edit": {
+			"plural": "Mass edit of {{ count }} items",
+			"singular": "Mass edit of {{ count }} item"
+		},
+		"merge-OBJ": "merge {{ field }}",
 		"new-OBJ": "New {{ field }}",
 		"new-OBJ-name": "New {{ field }} name",
+		"no-item-add-one": "There's no {{ field }} yet, add one!",
 		"provide-name-create": "Please provide the {{ field }} name to create",
 		"provide-new-name": "Please provide the new {{ field }} name for {{ entityName }}",
 		"that-already-exists": "That {{ field }} name already exists. Please choose another one."
@@ -242,6 +255,7 @@
 		"close": "Close",
 		"close-request": "Close Request",
 		"create-new-team": "Create new team",
+		"create-product": "Create Product",
 		"create-sample": "Create sample",
 		"delete": "Delete",
 		"delete-picture": "Delete this Picture",
@@ -479,6 +493,7 @@
 		"invitation-accepted": "The invitation was accepted",
 		"invitation-refused": "The invitation was refused",
 		"invite-ur-team-to-start-receive-update": "Invite your team members to start receiving updates",
+		"limit-50-pdf-per-export": "Limit of 50 PDF per export",
 		"mark-as-read": "mark as read",
 		"next-picture": "Next picture",
 		"only-team-owners-can-invite": "Only team owners can invite",
@@ -640,6 +655,7 @@
 		"project-picture": "Project Picture",
 		"projectCard_description": "",
 		"pwd-must-match": "New password must match",
+		"rename": "rename",
 		"select-info-template-supplier": "Select the information you want to request the supplier.",
 		"select-team-or-create": "Select the team you wanna connect to or\ncreate a new one",
 		"selection": "selection",
@@ -680,6 +696,7 @@
 		"invitations": "Invitations",
 		"lastest-noti": "Latest Notifications",
 		"multiple-edition": "Multiple edition",
+		"my-products": "My products",
 		"my-projects": "My projects",
 		"my-suppliers": "My suppliers",
 		"my-workspace": "My workspace",
