@@ -46,7 +46,7 @@ index: {{ currentPage }}  -->
 			<option *ngFor="let i of pageItemsCount">{{i}}</option>
 		</select>
 		<span class="items-page-count">
-			{{getPerPageItemsCount()}}
+			{{'OBJ.show-pagination' | translate: getPerPageItemsCount() }}
 		</span>
 	</div>
 

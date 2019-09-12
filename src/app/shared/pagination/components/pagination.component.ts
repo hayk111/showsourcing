@@ -95,7 +95,7 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 			? fromNumber + perPageItems
 			: this.count;
 
-		return `Showing ${fromNumber} - ${toNumber} of ${this.count}`;
+		return { fromNumber: fromNumber, toNumber: toNumber, count: this.count };
 	}
 
 	private buildPaginatorRange() {

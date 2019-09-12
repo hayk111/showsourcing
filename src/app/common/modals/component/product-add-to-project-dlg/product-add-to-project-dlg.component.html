@@ -1,9 +1,8 @@
-<!-- TODO i18n -->
 <dialog-app>
 
 	<dialog-header-app translate="button.add-to-project"></dialog-header-app>
 
-	<dialog-subtitle-app translate="header.select-project"></dialog-subtitle-app>
+	<dialog-subtitle-app>{{'header.select-project' | translate}}</dialog-subtitle-app>
 
 	<main *ngIf="projects$ | async as projects" class="scrollable">
 		<list-app>
@@ -26,9 +25,8 @@
 	</main>
 
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
-		<span class="txt-secondary" i18n="text@@products-selected">
-			{{ products?.length }}
-			<ng-container i18n="@@nested_product-selected">{ products?.length || 0, plural, =1 { Product } other { Products } } selected</ng-container>
+		<span class="txt-secondary">
+			{{ ((products?.length || 0) > 1 ? 'OBJ.product-selected.plural' : 'OBJ.product-selected.singular') | translate: {count: products?.length || 0} }}
 		</span>
 		<button tabFocusAction [disabled]="numSelected < 1" class="capitalize" (click)="submit()"
 			translate="button.add-now"></button>

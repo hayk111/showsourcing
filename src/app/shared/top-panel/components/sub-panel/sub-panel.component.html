@@ -10,6 +10,7 @@
 			[formControl]="searchControl"
 			[inputFocus]="inputFocus"
 			searchType="short"
+			[placeHolder]="'placeholder.type-to-search' | translate"
 			(focus)="onFocusSearch($event)"
 			(search)="search.emit($event)"
 			(keydown.enter)="triggerSmartSearch($event)">

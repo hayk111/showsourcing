@@ -1,4 +1,3 @@
-<!-- TODO i18n -->
 <div class="list-container">
 	<div *ngFor="let product of products; trackBy: trackByFn" class="list-item flexBetween">
 		<div class="product-info flex">
@@ -16,5 +15,5 @@
 	</button>
 </div>
 <div class="number-products flexEnd">
-	{{ products?.length }} <ng-container i18n="@@nested_product-selected">{ products.length, plural, =1 { Product selected } other { Products selected } }</ng-container>
+	{{ ((products?.length || 0) > 1 ? 'OBJ.product-selected.plural' : 'OBJ.product-selected.singular') | translate: {count: products?.length || 0} }}
 </div>
