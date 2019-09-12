@@ -47,6 +47,7 @@ export class ProductCardActivitiesComponent implements OnInit {
 		const foundElem = (this.rows as any[]).find(o => o.id === id);
 
 		if (foundElem
+			&& foundElem.tasksLinked
 			&& foundElem.tasksLinked.count
 			&& (foundElem.tasksLinked.items.filter(t => this.isTaskOverdued(t)).length > 0)) {
 			return true;
