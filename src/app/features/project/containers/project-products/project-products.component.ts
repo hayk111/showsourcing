@@ -1,5 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
@@ -27,6 +27,9 @@ import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
 })
 export class ProjectProductsComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
+	@Output() delete = new EventEmitter<Project>();
+	@Output() archive = new EventEmitter<Project>();
+
 	project$: Observable<Project>;
 	private project: Project;
 	filterTypeEnum = FilterType;
@@ -50,6 +53,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		private featureSrv: ProjectFeatureService,
 		private productFeatureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
+		private	router: Router,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
@@ -73,7 +77,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: {
-				query: `deleted == false`,
+				query: `projects.id == "${id}" AND deleted == false`,
 				sortBy: 'category.name',
 				descending: true
 			},
@@ -141,6 +145,10 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 					});
 				});
 		}
+	}
+
+	getTabPanelUrl(panel: 'products' | 'settings'): string {
+		return this.router.url.substring(0, this.router.url.lastIndexOf('/') + 1) + panel;
 	}
 
 	onClearFilters() {

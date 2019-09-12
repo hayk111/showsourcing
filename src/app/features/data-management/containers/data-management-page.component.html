@@ -1,9 +1,39 @@
 
-<top-panel-app
+<top-panel-details-app
 	[title]="'Data Cleansing'"
-	[hasAction]="false"
+	[hasBackArrow]="false"
+	[elevated]="false"
 	i18n-title="@@data-cleansing">
-</top-panel-app>
+	<logo-app color="primary" icon="smile" size="xl"></logo-app>
+	<ng-container subinfo>Manage your categories, tags, suppliers and more</ng-container>
+
+	<!-- navigation tabs of panel -->
+
+	<panel-tab-app
+		link="/settings/data/category"
+		icon="category"
+		name="Categories">
+	</panel-tab-app>
+
+	<panel-tab-app
+		link="/settings/data/tag"
+		icon="tag"
+		name="Tags">
+	</panel-tab-app>
+
+	<panel-tab-app
+		link="/settings/data/supplier"
+		icon="supplier"
+		name="Suppliers">
+	</panel-tab-app>
+
+	<panel-tab-app
+		link="/settings/data/event"
+		icon="event"
+		name="Event">
+	</panel-tab-app>
+
+</top-panel-details-app>
 
 <sub-panel-app
 	[title]="listSrv.entityMetadata.plural"

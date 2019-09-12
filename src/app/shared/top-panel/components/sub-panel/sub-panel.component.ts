@@ -28,7 +28,6 @@ import { SubPanelService } from '../../services/sub-panel.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubPanelComponent extends AutoUnsub implements OnInit {
-
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
 	// whether the screen can be switched from table to list view
