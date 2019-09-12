@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges, ViewChild, HostListener } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { FilterType } from '~shared/filters';
@@ -8,8 +8,6 @@ import { ListPageService, ListPageKey } from '~core/list-page';
 import { ERM, Sample } from '~models';
 import { AutoUnsub } from '~utils';
 import { DialogService } from '~shared/dialog';
-import { NotificationService } from '~shared/notifications';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';

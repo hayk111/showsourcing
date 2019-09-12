@@ -5,7 +5,7 @@
 		size="xl">
 	</img-app>
 
-	<div class="product-price" *ngIf="product?.price">
+	<div *ngIf="product?.price" class="product-price">
 		<div class="price-dislayed">{{ product?.price | appPrice }}</div>
 	</div>
 
@@ -65,12 +65,12 @@
 	<!-- Content (Non Floating) -->
 	<div class="content">
 		<div class="title ellipsis">
-			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>{{ product?.name || 
+			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>{{ product?.name ||
 				('Unnamed product' | const: 'messages') }}
 		</div>
 		<div class="category">
 			<span class="category-name">{{ product?.category?.name }}</span>
-			<span class="small-badge-gray" *ngIf="product?.supplier && product?.category"></span> 
+			<span *ngIf="product?.supplier && product?.category" class="small-badge-gray"></span>
 			<span class="supplier-name">{{ product?.supplier?.name }}</span>
 		</div>
 
@@ -79,8 +79,8 @@
 			[hasSamples]="!!product?.samplesLinked?.count"
 			[hasTasks]="!!product?.tasksLinked?.count"
 			[hasComments]="!!product?.comments.length"
-			[votes]="product?.votes"
-		></product-card-activities-app>
+			[votes]="product?.votes">
+		</product-card-activities-app>
 	</div>
 
 </div>
